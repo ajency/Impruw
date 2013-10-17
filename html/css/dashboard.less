@@ -1,0 +1,265 @@
+/*
+Theme Name:     Impruw Dashboard
+Theme URI:      http://ajency.in/
+Description:    Layout for Main Dashboard
+Author:         Jarryd for Ajency.in
+Author URI:     http://ajency.in/
+Template:       impruw
+Version:        0.1.0
+*/
+
+/****Colors****/
+@logo-blue: #182944;
+@dash-grey: #AAAAAA;
+@blue-grey: #849FB0;
+@orange: #FF7E00;
+@3-grey: #333333;
+@sky-blue: #71B8EC;
+
+/****Container and Menu Styles****/
+.aj-imp-container {
+	font-family: 'Lato', sans-serif;
+	background: url('../images/dash-nav-bg.png') repeat;
+	max-width: none;
+	.aj-imp-left {
+		padding: 0;
+		.aj-imp-dash-logo {
+			background: @logo-blue;
+			a {
+				img {
+					margin: auto;
+					height: 100%;
+					width: auto;
+				}
+				&:hover {
+					img {
+						transform: scale(0.8,0.8);
+						-ms-transform: scale(0.8,0.8); /* IE 9 */
+						-webkit-transform: scale(0.8,0.8); /* Safari and Chrome */
+						transition-duration: 1s;
+					}
+				}
+			}
+		}
+		.aj-imp-dash-nav {
+			#aj-imp-dash-menu {
+				list-style: none;
+				padding: 0;
+				li {
+					position: relative;
+					.icon {
+						width: 33px;
+						height: 33px;
+						display: block;
+						position: absolute;
+						background: url('../images/dash-nav-sprite.png') no-repeat;
+						top: 20px;
+						left: 30px;
+					}
+					.arrow {
+						width: 33px;
+						height: 33px;
+						position: absolute;
+						background: url('../images/hover-bg.png') no-repeat;
+						top: 20px;
+						left: 40px;
+						opacity: 0;
+					}
+					a {
+						padding: 20px 5px 20px 80px;
+						display: block;
+						color: @dash-grey;
+						font-size: 1.5em;
+					}
+					&.aj-imp-nav-create {
+						.icon {
+							background-position: 0 0;
+						}
+					}
+					&.aj-imp-nav-booking {
+						.icon {
+							background-position: 0 -65px;
+						}
+					}
+					&.aj-imp-nav-reports {
+						.icon {
+							background-position: 0 -130px;
+						}
+					}
+					&.aj-imp-nav-marketing {
+						.icon {
+							background-position: 0 -197px;
+						}
+					}
+					&.aj-imp-nav-inventory {
+						.icon {
+							background-position: 0 -263px;
+						}
+					}
+					&.aj-imp-nav-profile {
+						.icon {
+							background-position: 0 -328px;
+						}
+					}
+					&.aj-imp-nav-support {
+						.icon {
+							background-position: 0 -394px;
+						}
+					}
+					&.active {
+						background: #fff;
+						a {
+							text-decoration: none;
+							font-weight: 700;
+						}
+					}
+					&:hover {
+						text-indent: 10px;
+						transition-duration: 0.3s;
+						transition-timing-function: ease-in;
+						.icon {
+							opacity: 0;
+						}
+						.arrow {
+							opacity: 1;
+						}
+						a {
+							text-decoration: none;
+							color: @logo-blue;
+						}
+					}
+				}
+			}
+		}
+	}
+	.aj-imp-right {
+		background: #fff;
+		.aj-imp-dash-header {
+			margin-top: 40px;
+			margin-bottom: 40px;
+			.aj-imp-dash-title {
+				h2 {
+					
+				}
+			}
+			.aj-imp-dash-actions {
+				text-align: right;
+				padding-top: 10px;
+			}
+		}
+		.aj-imp-dash-content {
+			.aj-imp-dash-widget {
+				.aj-imp-widget-container {
+					border-radius: 0;
+					color: @dash-grey;
+					font-size: 0.96em;
+					padding: 0.5em 1em;
+					background: #ffffff; /* Old browsers */
+					background: -moz-linear-gradient(top, #ffffff 0%, #f6f6f6 47%, #f4f4f4 100%); /* FF3.6+ */
+					background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(47%,#f6f6f6), color-stop(100%,#f4f4f4)); /* Chrome,Safari4+ */
+					background: -webkit-linear-gradient(top, #ffffff 0%,#f6f6f6 47%,#f4f4f4 100%); /* Chrome10+,Safari5.1+ */
+					background: -o-linear-gradient(top, #ffffff 0%,#f6f6f6 47%,#f4f4f4 100%); /* Opera 11.10+ */
+					background: -ms-linear-gradient(top, #ffffff 0%,#f6f6f6 47%,#f4f4f4 100%); /* IE10+ */
+					background: linear-gradient(to bottom, #ffffff 0%,#f6f6f6 47%,#f4f4f4 100%); /* W3C */
+					filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f4f4f4',GradientType=0 ); /* IE6-9 */
+					.aj-imp-widget-head {
+						background: lighten(@dash-grey, 20%);
+						padding: 0.2em 0;
+						.aj-imp-sub-head {
+							color: @3-grey;
+							margin: 0.2em 0;
+							letter-spacing: 0.02em;
+							small {
+								text-transform: uppercase;
+								font-size: 0.8em;
+								color: lighten(@3-grey, 20%);
+							}
+						}
+						.left {
+							.aj-imp-sub-head {
+								.glyphicon-heart {
+									color: #FA2E8D;
+									text-shadow: 1px 1px 1px @3-grey;
+									margin-right: 0.5em;
+								}
+							}
+						}
+						.right {
+							text-align: right;
+						}
+					}
+					.aj-imp-widget-content {
+						.aj-imp-blue-accent {
+							text-align: center;
+							padding: 1em 0;
+							font-size: 2em;
+							text-transform: uppercase;
+							font-weight: 700;
+							color: lighten(@dash-grey, 10%);
+							span {
+								color: @sky-blue;
+								font-size: 1.2em;
+							}
+						}
+						.aj-imp-widget-title {
+							font-weight: 400;
+							color: lighten(@3-grey, 30%);
+							text-transform: uppercase;
+						}
+						p {
+							font-size: 1em;
+							color: lighten(@3-grey, 20%);
+							letter-spacing: 0.06em;
+							word-spacing: 0.1em;
+						}
+					}
+				}
+			}
+			.aj-imp-text-widget {
+				margin: 0 0 2em;
+				.aj-imp-text-widget-title {
+					font-weight: 700;
+					color: @3-grey;
+					font-size: 1.15em;
+					margin-bottom: 0.8em;
+				}
+				.aj-imp-text-widget-content {
+					color: darken(@blue-grey, 10%);
+					font-size: 1em;
+					line-height: 1.5em;
+					letter-spacing: 0.05em;
+					word-spacing: 0.1em;
+				}
+			}
+			&.sidebar {
+				padding-top: 0;
+			}
+		}
+	}
+}
+
+
+@media only screen 
+and (min-width : 1440px) {
+/* Styles */
+.aj-imp-container {
+	.aj-imp-left {
+		width: 16.6667%;
+		.aj-imp-dash-nav {
+			#aj-imp-dash-menu {
+				li {
+					.icon {
+						left: 20px;
+					}
+					a {
+						padding: 20px 5px 20px 70px;
+					}
+				}
+			}
+		}
+	}
+	.aj-imp-right {
+		width: 83.3333%;
+	}
+}	
+}

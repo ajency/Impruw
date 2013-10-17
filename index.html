@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Impruw Builder Layout</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="css/flat-ui.css" rel="stylesheet" media="screen">
+    <link href="css/main.min.css" rel="stylesheet" media="screen">
+	<link href="css/builder.css" rel="stylesheet" media="screen">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="aj-imp-builder container">
+		<div class="navbar navbar-default">
+		<nav class="aj-imp-builder-top-nav row" role="navigation">
+			<div class="aj-imp-builder-back col-sm-3">
+				<p class="navbar-text">
+					<a href="#"><span class="glyphicon glyphicon-arrow-left"></span> Back to Dashboard</a>
+				</p>
+			</div>
+			<div class="aj-imp-builder-top-title col-sm-5">
+				<p class="navbar-text">
+					You are editing: <span>Home Page</span>
+				</p>
+			</div>
+			<div class="aj-imp-builder-top-options col-sm-4">
+				<form class="navbar-search">
+					<select id="aj-imp-theme-sel">
+						<option value="0">Business Theme</option>
+						<option value="1">Travel Theme</option>
+						<option value="2">Holiday Theme</option>
+					</select>
+					<div id="aj-imp-color-sel" class="dropdown"> 
+						<a class="btn bt-default" data-toggle="dropdown" href="#"><span class="pull-left">Change Color</span><span class="caret"></span></a>
+						<ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu1">
+							<li role="presentation">
+								<div class="aj-imp-color-box">
+									<h6>Choose Color</h6>
+									<ul class="clearfix">
+										<li><a href="#" class="selected"><img src="images/color-blue.png" /></a></li>
+										<li><a href="#"><img src="images/color-red.png" /></a></li>
+										<li><a href="#"><img src="images/color-green.png" /></a></li>
+									</ul>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<div id="aj-imp-settings-sel" class="dropdown"> 
+						<a class="aj-imp-settings-toggle btn btn-default" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-cog"></span> <span class="caret"></span></a>
+						<ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu1">
+							<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
+							<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
+							<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
+						</ul>
+					</div>
+				</form>
+			</div>
+		</nav>
+		<div class="aj-imp-builder-sub-bar clearfix">
+			<div class="aj-imp-page-layout clearfix">
+				<div id="aj-imp-page-sel" class="dropdown">
+					<a class="aj-imp-page-toggle" data-toggle="dropdown" href="#">Home Page <span class="glyphicon glyphicon-chevron-down"></span></a>
+					<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+						<li role="presentation"><a role="menuitem" tabindex="-1" href="#">About Page</a></li>
+						<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Gallery Page</a></li>
+						<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Contact Us Page</a></li>
+						<li role="presentation" class="aj-imp-add-page"><a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-plus-sign"></span> Add Page</a></li>
+					</ul>
+				</div>
+				<div class="aj-imp-sub-bar-head">For Businesses that need to build their online presence</div>
+				<div class="aj-imp-choose-layout">
+					<a href="#"><span class="glyphicon glyphicon-th"></span> Choose Layout</a>
+				</div>
+			</div>
+			<div class="aj-imp-page-publish">
+				<a href="#">Preview</a><span class="divider">&nbsp;</span><a href="#">Publish</a>
+			</div>
+		</div>
+		</div>
+		<div class="aj-imp-builder-area">
+			<div class="aj-imp-mobile-select">
+				<a href="#"><span class="icon-uniF120"></span></a>
+				<a href="#" class="selected"><span class="icon-uniF121"></span></a>
+			</div>
+			<div class="aj-imp-browser-preview">
+				<div class="aj-imp-browser-header">
+					<div class="row">
+						<div class="col-sm-2">
+							<ul class="aj-imp-browser-dots">
+								<li class="red"><span>&nbsp;</span></li>
+								<li class="yellow"><span>&nbsp;</span></li>
+								<li class="green"><span>&nbsp;</span></li>
+							</ul>
+						</div>
+						<div class="col-sm-8">
+							<h3 class="aj-imp-browser-title">How does your site look in a browser?</h3>
+						</div>
+						<div class="col-sm-2">
+							&nbsp;
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-2">
+							<div class="row">
+								<div class="aj-imp-browser-blob col-sm-7"><span>&nbsp;</span></div>
+								<div class="aj-imp-browser-blob col-sm-5"><span>&nbsp;</span></div>
+							</div>
+						</div>
+						<div class="col-sm-8">
+							<div class="aj-imp-browser-address-bar">
+								http://www.impruw.com/sitename
+							</div>
+						</div>
+						<div class="col-sm-2">
+							<div class="row">
+								<div class="aj-imp-browser-blob col-sm-7"><span>&nbsp;</span></div>
+								<div class="aj-imp-browser-blob col-sm-5"><span>&nbsp;</span></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="aj-imp-browser-body">
+					<!-- CLIENT SITE START -->
+					<div class="container" id="client-site-container">
+						
+					</div>
+					<!-- CLIENT SITE END -->
+				</div>
+				<div class="aj-imp-browser-footer">
+					
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- DRAGGABLE CONTROL MARKUP -->
+	<div class="aj-imp-drag-menu" id="controls-drag" style="position:absolute;top:200px;right:-100px;">	
+		<ul class="nav nav-tabs" id="builder-box-tabs">
+			<li class="active"><a href="#content" data-toggle="tab">Content</a></li>
+			<li><a href="#structure" data-toggle="tab">Structure</a></li>
+			<li><a href="#social" data-toggle="tab">Social</a></li>
+		</ul>
+		<div class="tab-content">
+			<div class="tab-pane active" id="content">
+				<p class="desc" style="cursor:move">
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+				</p>
+				<ul class="aj-imp-builder-items clearfix">
+					<li class="builder-control">
+						<a href="#" class="drag">
+							<div class="aj-imp-builder-icon" data-icon="&#xf13c;"></div>
+							<div class="aj-imp-builder-title">Title</div>
+						</a>
+						<div class="view">
+							<div class="row">
+								<div class="col-sm-12"></div>
+							</div>	
+						</div>
+					</li>
+					<li>
+						<a href="#">
+						<div class="aj-imp-builder-icon" data-icon="&#xf111;"></div>
+						<div class="aj-imp-builder-title">Text</div>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+						<div class="aj-imp-builder-icon" data-icon="&#xf112;"></div>
+						<div class="aj-imp-builder-title">Image + Text</div>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+						<div class="aj-imp-builder-icon" data-icon="&#xf10e;"></div>
+						<div class="aj-imp-builder-title">Image</div>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+						<div class="aj-imp-builder-icon" data-icon="&#xf10c;"></div>
+						<div class="aj-imp-builder-title">Gallery</div>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+						<div class="aj-imp-builder-icon" data-icon="&#xf110;"></div>
+						<div class="aj-imp-builder-title">Map</div>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+						<div class="aj-imp-builder-icon" data-icon="&#xf119;"></div>
+						<div class="aj-imp-builder-title">Slideshow</div>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+						<div class="aj-imp-builder-icon" data-icon="&#xf103;"></div>
+						<div class="aj-imp-builder-title">Columns</div>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+						<div class="aj-imp-builder-icon" data-icon="&#xf10a;"></div>
+						<div class="aj-imp-builder-title">Contact Form</div>
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div class="tab-pane" id="structure">
+				Structure
+			</div>
+			<div class="tab-pane" id="social">
+				Social
+			</div>
+		</div>
+	</div>
+	<!-- DRAGGABLE CONTROL MARKUP -->
+    <!-- TRIGGER REQUIRE.JS -->
+    <script data-main="js/init" src="js/require.js"></script>
+  </body>
+</html>
