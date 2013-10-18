@@ -17,7 +17,7 @@ define(['underscore', 'jquery', 'backbone', 'moment', 'numerals', 'bootstrap', '
     		//attach numerals object
     		global.numerals = numerals;
 
-            global.getRandomId = function(){
+            global.generateRandomId = function(){
                 return global.randomFromInterval(1, 1e6)
             };
 

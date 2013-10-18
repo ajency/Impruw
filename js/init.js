@@ -44,6 +44,10 @@ require.config({
         },
         'bootstrapselect' : {
             deps : ['bootstrap']
+        },
+        'handlebars' : {
+            deps: ['underscore', 'jquery'],    
+            exports : 'Handlebars'
         }
     }
 });

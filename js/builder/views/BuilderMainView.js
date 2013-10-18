@@ -3,8 +3,10 @@
  * This is the main router for the builder
  */
  
-define(['underscore', 'jquery', 'backbone', 'global'],
-		function( _ , $, Backbone, global){
+define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Controls'],
+		function( _ , $, Backbone, global, Controls){
+
+			console.log(Controls);
 
 			var BuilderMainView = Backbone.View.extend({
 
@@ -45,23 +47,13 @@ define(['underscore', 'jquery', 'backbone', 'global'],
 														greedy : false,
 														drop: function( event, ui ) {
 
-															var row = ui.draggable.find('.view .row').clone();
+															var cClass = ui.draggable.attr('data-control');
 															
-															$(row).attr('id','row-'+global.getRandomId());
-															$(row).css({'background':'#ccc','margin-bottom' : 20});
+															if(_.isUndefined(Controls[cClass]))
+																return;
 
-															row.append('<div class="aj-imp-drag-handle">\
-																			<a href="#" title="Move">\
-																				<span class="glyphicon glyphicon-move"></span>\
-																			</a>\
-																		</div>\
-																		<div class="aj-imp-delete-btn">\
-																			<a href="#" title="Delete">\
-																				<span class="glyphicon glyphicon-trash"></span>\
-																			</a>\
-																		</div>');
-
-															$(event.target).append($(row));
+															var control = new Controls[cClass];
+															$(event.target).append(control.generateBuilderMarkup());
 														}
 													});
 					
