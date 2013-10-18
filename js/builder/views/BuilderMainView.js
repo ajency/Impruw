@@ -57,16 +57,7 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Controls'],
 														}
 													});
 					
-					//enable top level container  sorting
-					/*
-					this.$el.find( this.builderId).sortable({
-																			addClasses 	: false,
-																			revert 		: 'invalid',
-																			handle 		: '.aj-imp-drag-handle'
-																		});*/
-
 					
-
 					//border
 					this.$el.find( this.builderId + ' .column').css('border', '1px dashed #ccc' ).css('min-height',100);
 					this.$el.find( this.builderId + ' .row').css({'background':'#ccc','margin-bottom' : 20, 'min-height' : '10px'});
