@@ -75,7 +75,9 @@ define(['builder/views/controls/BuilderControl', 'text!builder/templates/control
                     if(!confirm("Are you sure?"))
                         return;
 
-                	this.$el.slideToggle(1000);
+                	this.$el.fadeOut(1000, function(){
+                        self.destroy();
+                    });
                 }
 
 			});
