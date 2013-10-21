@@ -18,7 +18,7 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Controls'],
 				},
 
 				events : {
-					'mouseover #aj-imp-builder-drag-drop' : 'handleRowDragging'
+					//'mouseover #aj-imp-builder-drag-drop' : 'handleRowDragging'
 				},
 
 				render : function(){
@@ -35,21 +35,19 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Controls'],
 					});
 					
 					/** Controls Draggable */
-					$('.builder-control').draggable({
+					$('*[data-control]').draggable({
 														addClasses			: false,
-														handle 				: '.drag',
-													 	helper				:  'clone',
+														helper				:  'clone',
 														revert 				: 'invalid',
-														connectToSortable	: '#aj-imp-builder-drag-drop',
 														drag  				: 	function (e, t) {
-																		      		t.helper.width(82);
+																		      		t.helper.width(286);
 																		      	}
 													});
 
 					this.$el.find(this.builderId).droppable({
-														accept : '.builder-control',
+														accept : '*[data-control]',
 														hoverClass: "ui-state-highlight",
-														greedy : false,
+														greedy : true,
 														drop: function( event, ui ) {
 
 															var cClass = ui.draggable.attr('data-control');
@@ -57,14 +55,14 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Controls'],
 															if(_.isUndefined(Controls[cClass]))
 																return;
 
-															self.showDropControlLoader();
-															setTimeout(function(){
-																var control = new Controls[cClass];
-																$(event.target).append(control.generateBuilderMarkup());
-															},1000);													
+															//self.showDropControlLoader();
+															var control = new Controls[cClass];
+															$(event.target).append(control.generateBuilderMarkup(self));
+																											
 														}
 													});
-					
+
+					this.$el.find(this.builderId).sortable();
 					
 					//border
 					this.$el.find( this.builderId + ' .column').css('border', '1px dashed #ccc' ).css('min-height',100);

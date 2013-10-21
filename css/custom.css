@@ -1,6 +1,8 @@
 /*custom.css*/
-div.empty-column{
-	text-align: center;
+.ui-state-highlight{
+	border: 1px dashed #ccc;
 }
 
-div.row{margin-bottom: 20px;}
+#aj-imp-builder-drag-drop > div.row{
+	margin-bottom: 10px;
+}

@@ -1,8 +1,6 @@
 define(['backbone','jquery','underscore','handlebars', 'global'], 
 		function(Backbone, $, _, Handlebars,  global){
 
-			console.log(Handlebars);
-
 			var BuilderControl = Backbone.View.extend({
 
 				/**
@@ -30,7 +28,7 @@ define(['backbone','jquery','underscore','handlebars', 'global'],
 				*/
 				destroy : function() {
 
-				    if (this.beforeClose) {
+				    if (_.isFunction(this.beforeClose)) {
 				        this.beforeClose();
 				    }
 
