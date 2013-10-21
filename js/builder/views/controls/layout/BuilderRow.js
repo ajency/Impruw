@@ -9,7 +9,43 @@ define(['builder/views/controls/BuilderControl', 'text!builder/templates/control
 				template 	: template,
 
 				//set name for row. Will be used to generate unique ID for each control
-				name 		: 'row'
+				name 		: 'row',
+
+				//register events
+				events : {
+					'mouseover'            	: 'controlMouseEnter',
+                    //'mouseover .column'     : 'controlMouseEnter',
+                    'mouseout  '            : 'controlMouseOut',
+                    'click .aj-imp-delete-btn' : 'removeControl'
+				},
+                
+                /**
+                 * Listen to mouse enter event
+                 * @param {type} evt
+                 * @returns void
+                 */
+                controlMouseEnter : function(evt){
+                    this.$el.css('border', '1px solid #ff7e00');
+                },
+                
+                /**
+                 * Listen to mouse out event
+                 * @param {type} evt
+                 * @returns void
+                 */        
+                controlMouseOut : function(evt){
+                    this.$el.css('border', '0px');
+                },
+
+                removeControl : function(evt){
+                	evt.preventDefault();
+
+                	var self = this;
+
+                	this.$el.slideToggle('slow',function(){
+	                	//self.destroy();
+	                });
+                }
 
 			});
 

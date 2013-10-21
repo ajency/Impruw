@@ -1,0 +1,59 @@
+@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
+/*
+Theme Name:     Impruw Common Styles
+Theme URI:      http://ajency.in/
+Description:    Common Style Classes
+Author:         Jarryd for Ajency.in
+Author URI:     http://ajency.in/
+Template:       impruw
+Version:        0.1.0
+*/
+/****Fonts****/
+/****Colors****/
+/****Common Style Elements****/
+.aj-imp-page-head {
+  font-weight: 700;
+  color: #849fb0;
+  margin: 2px 0 10px;
+}
+.aj-imp-page-head small {
+  font-weight: 300;
+  font-size: 0.6em;
+  color: #919191;
+}
+.aj-imp-sub-head {
+  font-weight: 700;
+  color: #aaaaaa;
+  text-transform: uppercase;
+  margin: 2px 0 10px;
+  letter-spacing: 0.04em;
+}
+.aj-imp-sub-head small {
+  font-weight: 300;
+  font-size: 0.6em;
+  color: #919191;
+  text-transform: none;
+}
+.aj-imp-sub-head-thin {
+  font-weight: 300;
+  color: #333333;
+  text-transform: uppercase;
+  margin: 2px 0 10px;
+}
+.aj-imp-sub-head-thin small {
+  font-weight: 300;
+  font-size: 0.6em;
+  color: #aaaaaa;
+  text-transform: none;
+}
+a.dark-link {
+  font-weight: 400;
+  color: #333333;
+}
+a.dark-link:hover {
+  color: #849fb0;
+}
+a.bold-link {
+  font-weight: 700;
+  font-size: 1.2em;
+}

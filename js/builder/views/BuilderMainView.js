@@ -15,7 +15,10 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Controls'],
 				initialize : function(){
 
 					this.builderId = '#aj-imp-builder-drag-drop';
-	
+				},
+
+				events : {
+					'mouseover #aj-imp-builder-drag-drop' : 'handleRowDragging'
 				},
 
 				render : function(){
@@ -61,6 +64,14 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Controls'],
 					//border
 					this.$el.find( this.builderId + ' .column').css('border', '1px dashed #ccc' ).css('min-height',100);
 					this.$el.find( this.builderId + ' .row').css({'background':'#ccc','margin-bottom' : 20, 'min-height' : '10px'});
+				},
+
+				handleRowDragging : function(evt){
+					log("dsds");
+					if(this.$el.hasClass('ui-state-highlight')){
+						this.$el.find(this.builderId).animate({'height': +120});
+					}
+
 				}
 
 			});	
