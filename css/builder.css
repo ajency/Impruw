@@ -49,10 +49,12 @@ Version:        0.1.0
 }
 .aj-imp-drag-menu .desc {
   font-size: 0.88em;
+  line-height: 1.3em;
   color: #aaaaaa;
+  padding: 0 3.5%;
 }
 .aj-imp-drag-menu .aj-imp-add-row {
-  padding: 0 3.5%;
+  padding: 5px 3.5%;
 }
 .aj-imp-drag-menu .aj-imp-add-row a {
   display: block;
@@ -64,13 +66,19 @@ Version:        0.1.0
   border-radius: 2px;
   cursor: move;
 }
+.aj-imp-drag-menu .aj-imp-add-row a .glyphicon-align-justify {
+  margin-right: 10px;
+}
+.aj-imp-drag-menu .aj-imp-add-row a .glyphicon-fullscreen {
+  color: #aaaaaa;
+}
 .aj-imp-drag-menu .aj-imp-add-row a:hover,
 .aj-imp-drag-menu .aj-imp-add-row a:focus {
   background: #ff7e00;
   transition-duration: 0.6s;
 }
-.aj-imp-drag-menu .aj-imp-add-row a:hover a,
-.aj-imp-drag-menu .aj-imp-add-row a:focus a {
+.aj-imp-drag-menu .aj-imp-add-row a:hover .glyphicon,
+.aj-imp-drag-menu .aj-imp-add-row a:focus .glyphicon {
   color: #fff;
 }
 .aj-imp-drag-menu .nav-tabs {
@@ -477,21 +485,45 @@ Version:        0.1.0
   line-height: 20px;
 }
 #aj-imp-builder-drag-drop .aj-imp-drag-elements-message {
-  position: absolute;
-  top: 1em;
-  bottom: 1em;
-  left: 1em;
-  right: 1em;
+  width: 100%;
   text-align: center;
   z-index: 0;
   color: #aaaaaa;
-  background: #fff;
   text-transform: uppercase;
 }
 #aj-imp-builder-drag-drop .aj-imp-drag-elements-message .glyphicon {
   font-size: 2em;
   display: block;
   margin: 0 0 0.5em;
+}
+#aj-imp-builder-drag-drop .aj-imp-col-divider {
+  position: absolute;
+  height: 120px;
+  width: 1px;
+  background: #aaaaaa;
+  top: 2em;
+}
+#aj-imp-builder-drag-drop .aj-imp-col-divider a {
+  cursor: move;
+  text-align: center;
+  display: block;
+  color: #aaaaaa;
+  font-size: 18px;
+  line-height: 20px;
+  width: 40px;
+  height: 20px;
+  background: #fff;
+  border: 1px solid #aaaaaa;
+  border-radius: 3px;
+  position: absolute;
+  top: 50px;
+  left: -20px;
+  -moz-transform: rotate(-90deg);
+}
+#aj-imp-builder-drag-drop .aj-imp-col-divider a:hover {
+  background: #ff7e00;
+  color: #fff;
+  border-color: #ff7e00;
 }
 #aj-imp-builder-drag-drop .row {
   min-height: 150px;
@@ -508,9 +540,12 @@ Version:        0.1.0
 }
 #aj-imp-builder-drag-drop .row div[class^='col-'] {
   min-height: 120px;
+  height: 100%;
   padding: 1em;
   position: relative;
 }
 #aj-imp-builder-drag-drop .row div[class^='col-'] > div {
   background: #fff;
+  height: 100%;
+  min-height: 120px;
 }
