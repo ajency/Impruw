@@ -17,11 +17,9 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Controls'],
 					this.builderId = '#aj-imp-builder-drag-drop';
 				},
 
-				events : {
-					'mouseover #aj-imp-builder-drag-drop' : 'handleRowDragging'
-				},
-
 				render : function(){
+
+					var self = this;
 
 					//setup select picker
 					this.$el.find('.aj-imp-builder-top-nav select').selectpicker({style: 'btn-mini btn-default', menuStyle: 'dropdown'});
@@ -33,21 +31,20 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Controls'],
 					});
 					
 					/** Controls Draggable */
-					$('.builder-control').draggable({
+					$('*[data-control]').draggable({
 														addClasses			: false,
-														handle 				: '.drag',
-													 	helper				:  'clone',
+														helper				:  'clone',
 														revert 				: 'invalid',
-														connectToSortable	: '#aj-imp-builder-drag-drop',
 														drag  				: 	function (e, t) {
-																		      		t.helper.width(82);
+																		      		t.helper.width(286);
 																		      	}
 													});
 
+					//accept droppable controls
 					this.$el.find(this.builderId).droppable({
-														accept : '.builder-control',
+														accept : '*[data-control]',
 														hoverClass: "ui-state-highlight",
-														greedy : false,
+														greedy : true,
 														drop: function( event, ui ) {
 
 															var cClass = ui.draggable.attr('data-control');
@@ -56,21 +53,13 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Controls'],
 																return;
 
 															var control = new Controls[cClass];
-															$(event.target).append(control.generateBuilderMarkup());
+															$(event.target).append(control.generateBuilderMarkup(self));
+																										
 														}
 													});
-					
-					
-					//border
-					this.$el.find( this.builderId + ' .column').css('border', '1px dashed #ccc' ).css('min-height',100);
-					this.$el.find( this.builderId + ' .row').css({'background':'#ccc','margin-bottom' : 20, 'min-height' : '10px'});
-				},
 
-				handleRowDragging : function(evt){
-					log("dsds");
-					if(this.$el.hasClass('ui-state-highlight')){
-						this.$el.find(this.builderId).animate({'height': +120});
-					}
+					// sort the rows internally
+					self.$el.find(self.builderId).sortable({revert	: 'invalid'});	
 
 				}
 
