@@ -57,6 +57,7 @@ Version:        0.1.0
 	width: 300px;
 	padding: 0.5em;
 	background: #29333F;
+	z-index: 10;
 	.desc {
 		font-size: 0.88em;
 		line-height: 1.3em;
@@ -478,7 +479,7 @@ Version:        0.1.0
 
 /****Builder Drag & Drop Containers & Columns****/
 #aj-imp-builder-drag-drop {
-	padding: 2em;
+	padding: 1em;
 	.aj-imp-drag-handle, .aj-imp-delete-btn {
 		position: absolute;
 		display: none;
@@ -486,9 +487,10 @@ Version:        0.1.0
 		z-index: 2;
 	}
 	.aj-imp-drag-handle {
-		left: 46.75%;
+		left: 45%;
 		height: 20px;
-		width: 60px;
+		min-width: 40px;
+		width: 10%;
 		text-align: center;
 		a {
 			cursor: move;
@@ -532,12 +534,13 @@ Version:        0.1.0
 	}
 	.aj-imp-col-divider {
 		position: absolute;
-		height: 120px;
 		width: 1px;
 		background: @dash-grey;
 		top: 2em;
+		bottom: 2em;
+		left: 50%;
 		a {
-			cursor: move;
+			cursor: ew-resize;
 			text-align: center;
 			display: block;
 			color: @dash-grey;
@@ -549,9 +552,12 @@ Version:        0.1.0
 			border: 1px solid @dash-grey;
 			border-radius: 3px;
 			position: absolute;
-			top: 50px;
+			top: 47%;
 			left: -20px;
+			-webkit-transform: rotate(-90deg);
 			-moz-transform: rotate(-90deg);
+			-ms-transform: rotate(-90deg);
+			-o-transform: rotate(-90deg);
 			&:hover {
 				background: @orange;
 				color: #fff;
@@ -562,25 +568,31 @@ Version:        0.1.0
 	.row {
 		min-height: 150px;
 		padding: 1em;
+		margin: 0 0 1em;
 		position: relative;
 		background: lighten(@dash-grey, 20%);
 		box-shadow: inset 0 0 2px lighten(@dash-grey, 10%);
 		border: 1px solid transparent;
 		.row {
 			margin: 0;
-			background: #fff;
 			z-index: 1;
+			background: lighten(@dash-grey, 20%);
+			box-shadow: inset 0 0 2px lighten(@dash-grey, 10%);
 		}
 		div[class^='col-'] {
 			min-height: 120px;
 			height: 100%;
 			padding: 1em;
 			position: relative;
-			> div {
+			> .clearfix {
 				background:#fff;
 				height: 100%;
 				min-height: 120px;
+				padding: 1em;
 			}
+		}
+		&:last-child {
+			margin: 0;
 		}
 	}
 }

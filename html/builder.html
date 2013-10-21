@@ -4,10 +4,10 @@
     <title>Impruw Builder Layout</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
-    <link href="css/flat-ui.css" rel="stylesheet" media="screen">
-    <link href="css/main.min.css" rel="stylesheet" media="screen">
-	<link href="css/builder.css" rel="stylesheet" media="screen">
+    <link href="../css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="../css/flat-ui.css" rel="stylesheet" media="screen">
+    <link href="../css/main.min.css" rel="stylesheet" media="screen">
+	<link href="../css/builder.css" rel="stylesheet" media="screen">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -18,50 +18,51 @@
   <body>
     <div class="aj-imp-builder container">
 		<div class="navbar navbar-default">
-		<nav class="aj-imp-builder-top-nav row" role="navigation">
-			<div class="aj-imp-builder-back col-sm-3">
-				<p class="navbar-text">
-					<a href="#"><span class="glyphicon glyphicon-arrow-left"></span> Back to Dashboard</a>
-				</p>
-			</div>
-			<div class="aj-imp-builder-top-title col-sm-5">
-				<p class="navbar-text">
-					You are editing: <span>Home Page</span>
-				</p>
-			</div>
-			<div class="aj-imp-builder-top-options col-sm-4">
-				<form class="navbar-search">
-					<select id="aj-imp-theme-sel">
-						<option value="0">Business Theme</option>
-						<option value="1">Travel Theme</option>
-						<option value="2">Holiday Theme</option>
-					</select>
-					<div id="aj-imp-color-sel" class="dropdown"> 
-						<a class="btn bt-default" data-toggle="dropdown" href="#"><span class="pull-left">Change Color</span><span class="caret"></span></a>
-						<ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu1">
-							<li role="presentation">
-								<div class="aj-imp-color-box">
-									<h6>Choose Color</h6>
-									<ul class="clearfix">
-										<li><a href="#" class="selected"><img src="images/color-blue.png" /></a></li>
-										<li><a href="#"><img src="images/color-red.png" /></a></li>
-										<li><a href="#"><img src="images/color-green.png" /></a></li>
-									</ul>
-								</div>
-							</li>
-						</ul>
-					</div>
-					<div id="aj-imp-settings-sel" class="dropdown"> 
-						<a class="aj-imp-settings-toggle btn btn-default" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-cog"></span> <span class="caret"></span></a>
-						<ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu1">
-							<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
-							<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
-							<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
-						</ul>
-					</div>
-				</form>
-			</div>
-		</nav>
+			<nav class="aj-imp-builder-top-nav row" role="navigation">
+				<div class="aj-imp-builder-back col-sm-3">
+					<p class="navbar-text">
+						<a href="#"><span class="glyphicon glyphicon-arrow-left"></span> Back to Dashboard</a>
+					</p>
+				</div>
+				<div class="aj-imp-builder-top-title col-sm-5">
+					<p class="navbar-text">
+						You are editing: <span>Home Page</span>
+					</p>
+				</div>
+				<div class="aj-imp-builder-top-options col-sm-4">
+					<form class="navbar-search">
+						<select id="aj-imp-theme-sel">
+							<option value="0">Business Theme</option>
+							<option value="1">Travel Theme</option>
+							<option value="2">Holiday Theme</option>
+						</select>
+						<div id="aj-imp-color-sel" class="dropdown"> 
+							<a class="btn bt-default" data-toggle="dropdown" href="#"><span class="pull-left">Change Color</span><span class="caret"></span></a>
+							<ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu1">
+								<li role="presentation">
+									<div class="aj-imp-color-box">
+										<h6>Choose Color</h6>
+										<ul class="clearfix">
+											<li><a href="#" class="selected"><img src="images/color-blue.png" /></a></li>
+											<li><a href="#"><img src="images/color-red.png" /></a></li>
+											<li><a href="#"><img src="images/color-green.png" /></a></li>
+										</ul>
+									</div>
+								</li>
+							</ul>
+						</div>
+						<div id="aj-imp-settings-sel" class="dropdown"> 
+							<a class="aj-imp-settings-toggle btn btn-default" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-cog"></span> <span class="caret"></span></a>
+							<ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu1">
+								<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
+								<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
+								<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
+							</ul>
+						</div>
+					</form>
+				</div>
+			</nav>
+		</div>
 		<div class="aj-imp-builder-sub-bar clearfix">
 			<div class="aj-imp-page-layout clearfix">
 				<div id="aj-imp-page-sel" class="dropdown">
@@ -79,15 +80,27 @@
 				</div>
 			</div>
 			<div class="aj-imp-page-publish">
-				<a href="#">Preview</a><span class="divider">&nbsp;</span><a href="#">Publish</a>
+				<div id="aj-imp-preview-sel" class="dropdown"> 
+					<a data-toggle="dropdown" href="#">Preview</a>
+					<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+						<li role="presentation">
+							<div class="aj-imp-preview-box">
+								<h6>Choose Device</h6>
+								<ul class="clearfix">
+									<li><a href="#" class="selected"><span class="icon-uniF121"></span></a></li>
+									<li><a href="#"><span class="icon-uniF120"></span></a></li>
+								</ul>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div class="divider">&nbsp;</div>
+				<div class="aj-imp-publish">
+					<a href="#">Publish</a>
+				</div>
 			</div>
-		</div>
 		</div>
 		<div class="aj-imp-builder-area">
-			<div class="aj-imp-mobile-select">
-				<a href="#"><span class="icon-uniF120"></span></a>
-				<a href="#" class="selected"><span class="icon-uniF121"></span></a>
-			</div>
 			<div class="aj-imp-browser-preview">
 				<div class="aj-imp-browser-header">
 					<div class="row">
@@ -127,9 +140,109 @@
 				</div>
 				<div class="aj-imp-browser-body">
 					<!-- CLIENT SITE START -->
-					<div class="container">
+					<div class="container" id="aj-imp-builder-drag-drop">
 						<div class="row">
-							
+							<div class="col-sm-12 column">
+								<div class="clearfix">
+									&nbsp;
+									<div class="aj-imp-drag-elements-message"><span class="glyphicon glyphicon-transfer"></span>Drag Elements Here</div>
+								</div>
+							</div>
+							<div class="aj-imp-drag-handle">
+								<a href="#" title="Move">
+									<span class="icon-uniF140"></span>
+								</a>
+							</div>
+							<div class="aj-imp-delete-btn">
+								<a href="#" title="Delete">
+									&times;
+								</a>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-6 column">
+								<div class="clearfix">
+									&nbsp;
+									<div class="aj-imp-drag-elements-message"><span class="glyphicon glyphicon-transfer"></span>Drag Elements Here</div>
+								</div>
+							</div>
+							<div class="col-sm-6 column">
+								<div class="clearfix">
+									&nbsp;
+									<div class="aj-imp-drag-elements-message"><span class="glyphicon glyphicon-transfer"></span>Drag Elements Here</div>
+								</div>
+							</div>
+							<div class="aj-imp-drag-handle">
+								<a href="#" title="Move">
+									<span class="icon-uniF140"></span>
+								</a>
+							</div>
+							<div class="aj-imp-delete-btn">
+								<a href="#" title="Delete">
+									&times;
+								</a>
+							</div>
+							<div class="aj-imp-col-divider">
+								<a href="#" title="Move">
+									<span class="icon-uniF140"></span>
+								</a>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-6 column">
+								<div class="clearfix">
+									<div class="row">
+										<div class="col-sm-6 column">
+											<div class="clearfix">
+												&nbsp;
+												<div class="aj-imp-drag-elements-message"><span class="glyphicon glyphicon-transfer"></span>Drag Elements Here</div>
+											</div>
+										</div>
+										<div class="col-sm-6 column">
+											<div class="clearfix">
+												&nbsp;
+												<div class="aj-imp-drag-elements-message"><span class="glyphicon glyphicon-transfer"></span>Drag Elements Here</div>
+											</div>
+										</div>
+										<div class="aj-imp-drag-handle">
+											<a href="#" title="Move">
+												<span class="icon-uniF140"></span>
+											</a>
+										</div>
+										<div class="aj-imp-delete-btn">
+											<a href="#" title="Delete">
+												&times;
+											</a>
+										</div>
+										<div class="aj-imp-col-divider">
+											<a href="#" title="Move">
+												<span class="icon-uniF140"></span>
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-6 column">
+								<div class="clearfix">
+									&nbsp;
+									<div class="aj-imp-drag-elements-message"><span class="glyphicon glyphicon-transfer"></span>Drag Elements Here</div>
+								</div>
+							</div>
+							<div class="aj-imp-drag-handle">
+								<a href="#" title="Move">
+									<span class="icon-uniF140"></span>
+								</a>
+							</div>
+							<div class="aj-imp-delete-btn">
+								<a href="#" title="Delete">
+									&times;
+								</a>
+							</div>
+							<div class="aj-imp-col-divider">
+								<a href="#" title="Move">
+									<span class="icon-uniF140"></span>
+								</a>
+							</div>
 						</div>
 					</div>
 					<!-- CLIENT SITE END -->
