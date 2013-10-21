@@ -59,10 +59,12 @@ Version:        0.1.0
 	background: #29333F;
 	.desc {
 		font-size: 0.88em;
+		line-height: 1.3em;
 		color: @dash-grey;
+		padding: 0 3.5%;
 	}
 	.aj-imp-add-row {
-		padding: 0 3.5%;
+		padding: 5px 3.5%;
 		a {
 			display: block;
 			color: #fff;
@@ -72,13 +74,20 @@ Version:        0.1.0
 			background: rgba(0, 0, 0, 0.5);
 			border-radius: 2px;
 			cursor: move;
+			.glyphicon-align-justify {
+				margin-right: 10px;
+			}
+			.glyphicon-fullscreen {
+				color: @dash-grey;
+			}
 			&:hover, &:focus {
 				background: @orange;
 				transition-duration: 0.6s;
-				a {
+				.glyphicon {
 					color: #fff;
 				}
 			}
+			
 		}
 	}
 	.nav-tabs {
@@ -510,15 +519,10 @@ Version:        0.1.0
 		}
 	}
 	.aj-imp-drag-elements-message {
-		position: absolute;
-		top: 1em;
-		bottom: 1em;
-		left: 1em;
-		right: 1em;
+		width: 100%;
 		text-align: center;
 		z-index: 0;
 		color: @dash-grey;
-		background: #fff;
 		text-transform: uppercase;
 		.glyphicon {
 			font-size: 2em;
@@ -540,10 +544,13 @@ Version:        0.1.0
 		}
 		div[class^='col-'] {
 			min-height: 120px;
+			height: 100%;
 			padding: 1em;
 			position: relative;
 			> div {
 				background:#fff;
+				height: 100%;
+				min-height: 120px;
 			}
 		}
 	}
