@@ -23,6 +23,8 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Controls'],
 
 				render : function(){
 
+					var self = this;
+
 					//setup select picker
 					this.$el.find('.aj-imp-builder-top-nav select').selectpicker({style: 'btn-mini btn-default', menuStyle: 'dropdown'});
 					
@@ -55,8 +57,11 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Controls'],
 															if(_.isUndefined(Controls[cClass]))
 																return;
 
-															var control = new Controls[cClass];
-															$(event.target).append(control.generateBuilderMarkup());
+															self.showDropControlLoader();
+															setTimeout(function(){
+																var control = new Controls[cClass];
+																$(event.target).append(control.generateBuilderMarkup());
+															},1000);													
 														}
 													});
 					

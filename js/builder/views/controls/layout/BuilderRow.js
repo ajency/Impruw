@@ -34,7 +34,7 @@ define(['builder/views/controls/BuilderControl', 'text!builder/templates/control
                  * @returns void
                  */        
                 controlMouseOut : function(evt){
-                    this.$el.css('border', '0px');
+                    this.$el.css('border', '1px solid transparent');
                 },
 
                 removeControl : function(evt){
