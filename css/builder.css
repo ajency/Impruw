@@ -496,6 +496,35 @@ Version:        0.1.0
   display: block;
   margin: 0 0 0.5em;
 }
+#aj-imp-builder-drag-drop .aj-imp-col-divider {
+  position: absolute;
+  height: 120px;
+  width: 1px;
+  background: #aaaaaa;
+  top: 2em;
+}
+#aj-imp-builder-drag-drop .aj-imp-col-divider a {
+  cursor: move;
+  text-align: center;
+  display: block;
+  color: #aaaaaa;
+  font-size: 18px;
+  line-height: 20px;
+  width: 40px;
+  height: 20px;
+  background: #fff;
+  border: 1px solid #aaaaaa;
+  border-radius: 3px;
+  position: absolute;
+  top: 50px;
+  left: -20px;
+  -moz-transform: rotate(-90deg);
+}
+#aj-imp-builder-drag-drop .aj-imp-col-divider a:hover {
+  background: #ff7e00;
+  color: #fff;
+  border-color: #ff7e00;
+}
 #aj-imp-builder-drag-drop .row {
   min-height: 150px;
   padding: 1em;

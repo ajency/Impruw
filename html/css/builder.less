@@ -530,6 +530,35 @@ Version:        0.1.0
 			margin: 0 0 0.5em;
 		}
 	}
+	.aj-imp-col-divider {
+		position: absolute;
+		height: 120px;
+		width: 1px;
+		background: @dash-grey;
+		top: 2em;
+		a {
+			cursor: move;
+			text-align: center;
+			display: block;
+			color: @dash-grey;
+			font-size: 18px;
+			line-height: 20px;
+			width: 40px;
+			height: 20px;
+			background: #fff;
+			border: 1px solid @dash-grey;
+			border-radius: 3px;
+			position: absolute;
+			top: 50px;
+			left: -20px;
+			-moz-transform: rotate(-90deg);
+			&:hover {
+				background: @orange;
+				color: #fff;
+				border-color: @orange;
+			}
+		}
+	}
 	.row {
 		min-height: 150px;
 		padding: 1em;
