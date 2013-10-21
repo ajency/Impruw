@@ -35,33 +35,11 @@ define(['builder/views/controls/BuilderControl', 'text!builder/templates/control
                     //set divder left
                     this.$el.find('.aj-imp-col-divider').css('left', (Math.ceil(100 / this.columns)) +'%');
 
-                    
-                    //make it draggable
-                    /*
-                    this.$el.draggable({
-                                            addClasses          : false,
-                                            
-                                            handle              : '.aj-imp-drag-handle',
-                                            
-                                            revert              : 'invalid',
-
-                                            drag                :   function (e, t) {
-                                                                        t.helper.css('z-index',1000);
-                                                                    },
-
-                                            stop                :   function(e,t){
-                                                                        t.helper.css('z-index', self.zIndex);
-                                                                        builder.$el.find(builder.builderId).find('.row').css({top:0,left:0});
-                                                                        //builder.$el.find(builder.builderId).sortable('destroy');
-                                                                        
-                                                                    },
-
-                                            start                :  function(e,t){
-                                                                        self.zIndex = 10;
-                                                                        //builder.$el.find(builder.builderId).droppable( 'destory' );
-                                                                        //builder.$el.find(builder.builderId).sortable();
-                                                                    }                                                
-                                        });*/
+                    this.$el.find('.aj-imp-col-divider').draggable({
+                                                                    axis: 'x',
+                                                                    containment : 'parent',
+                                                                    grid: [50,0],
+                                                                });
 
                     return this.$el;
                 },

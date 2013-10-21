@@ -6,3 +6,7 @@
 #aj-imp-builder-drag-drop > div.row{
 	margin-bottom: 10px;
 }
+
+#controls-drag{
+	z-index : 10000;
+}
