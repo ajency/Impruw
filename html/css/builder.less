@@ -185,17 +185,55 @@ Version:        0.1.0
 			}
 		}
 	}
+	.aj-imp-page-layout {
+		margin: 15px 0;
+		border-left: 1px solid lighten(@dash-grey, 10%);
+		#aj-imp-page-sel {
+			width: 38%;
+			float: left;
+			text-align: left;
+			.aj-imp-page-toggle {
+				color: @dash-grey;
+				text-transform: uppercase;
+				font-size: 1.3em;
+				.glyphicon {
+					color: @orange;
+					font-size: 0.88em;
+				}
+			}
+			.dropdown-menu {
+				li.aj-imp-add-page {
+					a {
+						background: @orange;
+						text-align: center;
+						color: lighten(@dash-grey, 20%);
+						&:hover {
+							color: #fff;
+						}
+					}
+				}
+			}
+		}
+		.aj-imp-sub-bar-head {
+			width: 60%;
+			float: left;
+			font-size: 1em;
+			margin: 0;
+			color: lighten(@dash-grey, 10%);
+			font-weight: 300;
+			text-align: right;
+			padding-right: 2%;
+		}
+	}
 	.aj-imp-builder-top-title {
 		p {
 			text-align: center;
 			float: none;
-			font-size: 1.1em;
+			font-size: 1em;
+			margin: 15px 0;
 			letter-spacing: 0.02em; 
 			font-weight: 300;
-			span {
-				font-weight: 400;
-				color: @blue-grey;
-			}
+			color: @blue-grey;
 		}
 	}
 	.aj-imp-builder-top-options {
