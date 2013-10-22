@@ -378,11 +378,16 @@ Version:        0.1.0
   max-width: 1366px;
 }
 .aj-imp-builder-area .aj-imp-browser-preview {
-  background: #d9e1e3;
+  background: #f3f3f3;
   border-radius: 6px;
+  border: 1px solid #dadada;
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header {
   padding: 1em;
+  background: #fff;
+  border-radius: 6px 6px 0 0;
+  margin: 0 0 1.5em;
+  box-shadow: 0 4px 4px -4px #aaaaaa;
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .aj-imp-browser-dots {
   list-style: none;
@@ -399,40 +404,113 @@ Version:        0.1.0
   width: 20px;
   height: 20px;
   border-radius: 100%;
+  box-shadow: inset 0 0 3px #c0c0c0;
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .aj-imp-browser-dots li.red span {
-  background: #E20001;
+  background: #FCACAD;
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .aj-imp-browser-dots li.yellow span {
-  background: #E3C800;
+  background: #FBECAB;
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .aj-imp-browser-dots li.green span {
-  background: #71B31E;
+  background: #DCF4A0;
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .aj-imp-browser-title {
-  font-size: 1.2em;
+  font-size: 1.1em;
   text-align: center;
-  margin: 0 0 0.5em;
-  color: #a3b7c4;
+  margin: 0 0 0.8em;
+  color: #808080;
 }
-.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .aj-imp-browser-blob {
-  padding-right: 0;
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .aj-imp-page-publish {
+  text-align: right;
 }
-.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .aj-imp-browser-blob span {
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .aj-imp-page-publish a {
+  font-size: 1em;
+  font-weight: 300;
+}
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .aj-imp-page-publish #aj-imp-preview-sel {
+  display: inline-block;
+}
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .aj-imp-page-publish #aj-imp-preview-sel a .caret {
+  border-top-color: #808080;
+  border-width: 6px 5px;
+}
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .aj-imp-page-publish #aj-imp-preview-sel a.selected {
+  color: #333333;
+}
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .aj-imp-page-publish #aj-imp-preview-sel a:hover {
+  color: #ff7e00;
+}
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .aj-imp-page-publish #aj-imp-preview-sel a:hover .caret {
+  border-top-color: #ff7e00;
+}
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .aj-imp-page-publish #aj-imp-preview-sel .aj-imp-preview-box {
+  text-align: left;
+}
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .aj-imp-page-publish #aj-imp-preview-sel .aj-imp-preview-box h6 {
+  color: #849fb0;
+  font-size: 1em;
+  margin: 0.5em;
+  border-bottom: 1px solid #dddddd;
+}
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .aj-imp-page-publish #aj-imp-preview-sel .aj-imp-preview-box ul {
+  list-style: none;
+  padding: 0 0.5em;
+  text-align: center;
+}
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .aj-imp-page-publish #aj-imp-preview-sel .aj-imp-preview-box ul li {
+  float: left;
+  width: 50%;
+}
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .aj-imp-page-publish #aj-imp-preview-sel .aj-imp-preview-box ul li a {
+  font-size: 2em;
+  padding: 0.5em 0;
   display: block;
-  background: #a3b7c4;
-  border-radius: 3px;
-  padding: 0.5em;
 }
-.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .aj-imp-browser-blob.right {
-  padding-right: 15px;
-  padding-left: 0;
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .aj-imp-page-publish #aj-imp-preview-sel .aj-imp-preview-box ul li a.selected,
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .aj-imp-page-publish #aj-imp-preview-sel .aj-imp-preview-box ul li a:hover {
+  color: #ff7e00;
+  background: transparent;
 }
-.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .aj-imp-browser-address-bar {
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .aj-imp-page-publish .aj-imp-publish {
+  display: inline-block;
+}
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .aj-imp-page-publish .divider {
+  display: inline-block;
+  margin: 0 10px;
+  border-left: 1px solid #dddddd;
+}
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .second {
+  border-top: 1px solid #dadada;
+  padding: 1em 0 0;
+}
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .second .aj-imp-browser-address-bar {
   background: #fff;
   border-radius: 3px;
   color: #aaaaaa;
   padding: 0.5em;
+  border: 1px solid #e6e6e6;
+}
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .second .aj-imp-choose-layout {
+  text-align: right;
+  padding-top: 0.4em;
+}
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .second .aj-imp-choose-layout .aj-imp-layout-btn {
+  font-size: 1.1em;
+}
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .second .aj-imp-choose-layout .aj-imp-layout-btn .caret {
+  border-width: 6px 5px;
+}
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .second .aj-imp-choose-layout .aj-imp-layout-btn:hover .caret {
+  border-top-color: #ff7e00;
+}
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .second .aj-imp-mode-switch {
+  text-align: right;
+  border-left: 1px solid #dddddd;
+}
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .second .aj-imp-mode-switch .switch .switch-left {
+  background: #ff7e00;
+  color: #fff;
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-body {
   margin: 0 15px;
@@ -499,7 +577,7 @@ Version:        0.1.0
   margin: 0 0 0.5em;
 }
 #aj-imp-builder-drag-drop .aj-imp-col-divider {
-  position: absolute;
+  position: absolute !important;
   width: 1px;
   background: #aaaaaa;
   top: 2em;
@@ -536,7 +614,7 @@ Version:        0.1.0
   padding: 1em;
   margin: 0 0 1em;
   position: relative;
-  background: #dddddd;
+  background: #dadada;
   box-shadow: inset 0 0 2px #c3c3c3;
   border: 1px solid transparent;
 }

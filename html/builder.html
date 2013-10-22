@@ -63,7 +63,7 @@
 				</div>
 			</nav>
 		</div>
-		<div class="aj-imp-builder-sub-bar clearfix">
+		<!--<div class="aj-imp-builder-sub-bar clearfix">
 			<div class="aj-imp-page-layout clearfix">
 				<div id="aj-imp-page-sel" class="dropdown">
 					<a class="aj-imp-page-toggle" data-toggle="dropdown" href="#">Home Page <span class="glyphicon glyphicon-chevron-down"></span></a>
@@ -99,7 +99,7 @@
 					<a href="#">Publish</a>
 				</div>
 			</div>
-		</div>
+		</div>-->
 		<div class="aj-imp-builder-area">
 			<div class="aj-imp-browser-preview">
 				<div class="aj-imp-browser-header">
@@ -111,29 +111,48 @@
 								<li class="green"><span>&nbsp;</span></li>
 							</ul>
 						</div>
-						<div class="col-sm-8">
+						<div class="col-sm-7">
 							<h3 class="aj-imp-browser-title">How does your site look in a browser?</h3>
 						</div>
-						<div class="col-sm-2">
-							&nbsp;
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-sm-2">
-							<div class="row">
-								<div class="aj-imp-browser-blob col-sm-7"><span>&nbsp;</span></div>
-								<div class="aj-imp-browser-blob col-sm-5"><span>&nbsp;</span></div>
+						<div class="col-sm-3">
+							<div class="aj-imp-page-publish">
+								<div id="aj-imp-preview-sel" class="dropdown"> 
+									<a data-toggle="dropdown" href="#">Preview <span class="caret"></span></a>
+									<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+										<li role="presentation">
+											<div class="aj-imp-preview-box">
+												<h6>Choose Device</h6>
+												<ul class="clearfix">
+													<li><a href="#" class="selected"><span class="icon-uniF121"></span></a></li>
+													<li><a href="#"><span class="icon-uniF120"></span></a></li>
+												</ul>
+											</div>
+										</li>
+									</ul>
+								</div>
+								<div class="divider">&nbsp;</div>
+								<div class="aj-imp-publish">
+									<a href="#">Publish</a>
+								</div>
 							</div>
 						</div>
-						<div class="col-sm-8">
+					</div>
+					<div class="row second">
+						<div class="col-sm-6">
 							<div class="aj-imp-browser-address-bar">
 								http://www.impruw.com/sitename
 							</div>
 						</div>
-						<div class="col-sm-2">
-							<div class="row">
-								<div class="aj-imp-browser-blob col-sm-7"><span>&nbsp;</span></div>
-								<div class="aj-imp-browser-blob col-sm-5"><span>&nbsp;</span></div>
+						<div class="col-sm-3">
+							<div class="aj-imp-choose-layout" class="dropdown">
+								<a data-toggle="dropdown" href="#" class="aj-imp-layout-btn"><span class="glyphicon glyphicon-th"></span> Page Layout <span class="caret"></span></a>
+							</div>
+						</div>
+						<div class="aj-imp-mode-switch col-sm-3">
+							<div class="switch switch-square"
+							  data-on-label="<i class='fui-check'></i>"
+							  data-off-label="<i class='fui-cross'></i>">
+							  <input type="checkbox" />
 							</div>
 						</div>
 					</div>
@@ -258,6 +277,7 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
     <script src="js/bootstrap-select.js"></script>
+    <script src="js/bootstrap-switch.js"></script>
 	<script>
 		jQuery('.aj-imp-builder-top-nav select').selectpicker({style: 'btn-mini btn-default', menuStyle: 'dropdown'});
 	</script>

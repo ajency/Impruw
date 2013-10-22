@@ -11,6 +11,7 @@ require.config({
         jqueryui    : 'lib/jquery.ui.min',
         bootstrap   : 'lib/bootstrap.min',
         bootstrapselect : 'lib/bootstrapselect',
+        bootstrapswitch : 'lib/bootstrap-switch',
         underscore  : 'lib/underscore.min',
         backbone    : 'lib/backbone.min',
         text        : 'lib/text',
@@ -43,6 +44,9 @@ require.config({
             deps : ['jquery']    
         },
         'bootstrapselect' : {
+            deps : ['bootstrap']
+        },
+		'bootstrapswitch' : {
             deps : ['bootstrap']
         },
         'handlebars' : {

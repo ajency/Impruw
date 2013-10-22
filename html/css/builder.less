@@ -17,7 +17,7 @@ Version:        0.1.0
 @blue-grey: #849FB0;
 @orange: #FF7E00;
 @3-grey: #333333;
-@preview-grey: #D9E1E3;
+@preview-grey: #F3F3F3;
 
 /****Builder Container & Container Structure****/
 .aj-imp-builder {
@@ -408,8 +408,13 @@ Version:        0.1.0
 	.aj-imp-browser-preview {
 		background: @preview-grey;
 		border-radius: 6px;
+		border: 1px solid darken(@preview-grey, 10%);
 		.aj-imp-browser-header {
 			padding: 1em;
+			background: #fff;
+			border-radius: 6px 6px 0 0;
+			margin: 0 0 1.5em;
+			box-shadow: 0 4px 4px -4px @dash-grey;
 			.aj-imp-browser-dots {
 				list-style: none;
 				margin: 0;
@@ -423,48 +428,126 @@ Version:        0.1.0
 						width: 20px;
 						height: 20px;
 						border-radius: 100%;
+						box-shadow: inset 0 0 3px darken(@preview-grey, 20%);
 					}
 					&.red {
 						span {
-							background: #E20001;
+							background: #FCACAD;
 						}
 					}
 					&.yellow {
 						span {
-							background: #E3C800;
+							background: #FBECAB;
 						}
 					}
 					&.green {
 						span {
-							background: #71B31E;
+							background: #DCF4A0;
 						}
 					}
 				}
 			}
 			.aj-imp-browser-title {
-				font-size: 1.2em;
+				font-size: 1.1em;
 				text-align: center;
-				margin: 0 0 0.5em;
-				color: lighten(@blue-grey, 10%);
+				margin: 0 0 0.8em;
+				color: lighten(@3-grey, 30%);
 			}
-			.aj-imp-browser-blob {
-				padding-right: 0;
-				span {
-					display: block;
-					background: lighten(@blue-grey, 10%);
+			.aj-imp-page-publish {
+				text-align: right;
+				a {
+					font-size: 1em;
+					font-weight: 300;
+				}
+				#aj-imp-preview-sel {
+					display: inline-block;
+					a {
+						.caret {
+							border-top-color: lighten(@3-grey, 30%);
+							border-width: 6px 5px;
+						}
+						&.selected {
+							color: @3-grey;
+						}
+						&:hover {
+							color: @orange;
+							.caret {
+								border-top-color: @orange;
+							}
+						}
+					}
+					.aj-imp-preview-box {
+						text-align: left;
+						h6 {
+							color: @blue-grey;
+							font-size: 1em;
+							margin: 0.5em;
+							border-bottom: 1px solid lighten(@dash-grey, 20%);
+						}
+						ul {
+							list-style: none;
+							padding: 0 0.5em;
+							text-align: center;
+							li {
+								float: left;
+								width: 50%;
+								a {
+									font-size: 2em;
+									padding: 0.5em 0;
+									display: block;
+									&.selected, &:hover {
+										color: @orange;
+										background: transparent;
+									}
+								}
+							}
+						}
+					}
+				}
+				.aj-imp-publish {
+					display: inline-block;
+				}
+				.divider {
+					display: inline-block;
+					margin: 0 10px;
+					border-left: 1px solid lighten(@dash-grey, 20%);
+				}
+			}
+			.second {
+				border-top: 1px solid darken(@preview-grey, 10%);
+				padding: 1em 0 0;
+				.aj-imp-browser-address-bar {
+					background: #fff;
 					border-radius: 3px;
+					color: @dash-grey;
 					padding: 0.5em;
+					border: 1px solid darken(@preview-grey, 5%);
 				}
-				&.right {
-					padding-right: 15px;
-					padding-left: 0;
+				.aj-imp-choose-layout {
+					text-align: right;
+					padding-top: 0.4em;
+					.aj-imp-layout-btn {
+						font-size: 1.1em;
+						.caret {
+							border-width: 6px 5px;
+						}
+						&:hover {
+							.caret {
+								border-top-color: @orange;
+							}
+						}
+					}
 				}
-			}
-			.aj-imp-browser-address-bar {
-				background: #fff;
-				border-radius: 3px;
-				color: @dash-grey;
-				padding: 0.5em;
+				.aj-imp-mode-switch {
+					text-align: right;
+					border-left: 1px solid lighten(@dash-grey, 20%);
+					.switch {
+						.switch-left {
+							background: @orange;
+							color: #fff;
+						}
+					}
+				}
 			}
 		}
 		.aj-imp-browser-body {
@@ -533,7 +616,7 @@ Version:        0.1.0
 		}
 	}
 	.aj-imp-col-divider {
-		position: absolute;
+		position: absolute !important;
 		width: 1px;
 		background: @dash-grey;
 		top: 2em;
@@ -570,7 +653,7 @@ Version:        0.1.0
 		padding: 1em;
 		margin: 0 0 1em;
 		position: relative;
-		background: lighten(@dash-grey, 20%);
+		background: darken(@preview-grey, 10%);
 		box-shadow: inset 0 0 2px lighten(@dash-grey, 10%);
 		border: 1px solid transparent;
 		.row {
