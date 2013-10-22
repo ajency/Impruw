@@ -3,8 +3,8 @@
  * This is the main router for the builder
  */
  
-define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/BuilderMainView'],
-		function( _ , $, Backbone, global, BuilderMainView){
+define(['underscore', 'jquery', 'backbone', 'builder/views/BuilderMainView'],
+		function( _ , $, Backbone, BuilderMainView){
 
 			var BuilderRouter = Backbone.Router.extend({
 
