@@ -3,6 +3,7 @@ define(['builder/views/controls/BuilderControl', 'text!builder/templates/control
 
 			var BuilderRow = BuilderControl.extend({
 
+                //create a div element with class "row"
 				className : 'row',
 
 				//define template for control
@@ -10,24 +11,30 @@ define(['builder/views/controls/BuilderControl', 'text!builder/templates/control
 
 				//set name for row. Will be used to generate unique ID for each control
 				name 		: 'row',
-
-                columns : 2,
+                
+                //number of columns
+                columns     : 2,
 
 				//register events
 				events : {
-					'mouseover'            	      : 'controlMouseEnter',
-                    'mouseout  '                      : 'controlMouseOut',
-                    'click .aj-imp-delete-btn'        : 'removeControl'
+					'mouseover'            	           : 'controlMouseEnter',
+                    'mouseout  '                       : 'controlMouseOut',
+                    'mousemove .column'                : 'columnMouseMove',
+                    'click .aj-imp-delete-btn'         : 'removeControl'
 				},
 
-                /**
-                * Generates the Control markup to drop
-                */
-                generateBuilderMarkup : function(builder){
+                //used to identify drag direction(right / left)
+                prevX : -1,
+
+               /**
+                 * Generates the Control markup to drop 
+                 * @returns {unresolved}
+                 */
+                generateBuilderMarkup : function(){
                     
                     var self = this;
 
-                    //set ID from control
+                    //set random ID for control
                     this.$el.attr('id' , this.name + '-' + global.generateRandomId());
 
                     this.$el.html(_.template(this.template));
@@ -35,10 +42,27 @@ define(['builder/views/controls/BuilderControl', 'text!builder/templates/control
                     //set divder left
                     this.$el.find('.aj-imp-col-divider').css('left', (Math.ceil(100 / this.columns)) +'%');
 
+                    //enable draggable
                     this.$el.find('.aj-imp-col-divider').draggable({
                                                                     axis: 'x',
                                                                     containment : 'parent',
-                                                                    grid: [50,0],
+                                                                    drag : function(e, ui){
+                                                                        //console.log(e.pageX);
+                                                                        if(self.prevX == -1) {
+                                                                            self.prevX = e.pageX;    
+                                                                            return false;
+                                                                        }
+                                                                        
+                                                                        if(self.prevX > e.pageX) {
+                                                                            //ui.helper.closest('.row').find('.column').last();
+                                                                        }
+                                                                        
+                                                                        else if(self.prevX < e.pageX) { // dragged right
+                                                                           
+                                                                        }
+                                                                        
+                                                                        self.prevX = e.pageX;
+                                                                    }
                                                                 });
 
                     return this.$el;
@@ -53,9 +77,21 @@ define(['builder/views/controls/BuilderControl', 'text!builder/templates/control
                     this.$el.css('border', '1px solid #ff7e00');
                     this.$el.find('.aj-imp-drag-handle,.aj-imp-delete-btn,.aj-imp-col-divider').show();
                 },
+                
+                /**
+                 * Listen to column mousemove event. 
+                 * 
+                 * If the current column has class "filled" do not do anything. the column child elements will handle the mouseover action
+                 * @param {type} evt
+                 * @returns {unresolved}
+                 */
+                columnMouseMove : function(evt){
 
-                columnMouseEnter : function(){
+                    if(!$(evt.target).hasClass('filled'))
+                        return;
 
+                    this.controlMouseOut();
+                    this.$el.find('.aj-imp-col-divider').show();
                 },
                 
                 /**
@@ -66,18 +102,6 @@ define(['builder/views/controls/BuilderControl', 'text!builder/templates/control
                 controlMouseOut : function(evt){
                     this.$el.css('border', '1px solid transparent');
                     this.$el.find('.aj-imp-drag-handle,.aj-imp-delete-btn,.aj-imp-col-divider').hide();
-                },
-
-                removeControl : function(evt){
-                	evt.preventDefault();
-
-                    var self = this;
-                    if(!confirm("Are you sure?"))
-                        return;
-
-                	this.$el.fadeOut(1000, function(){
-                        self.destroy();
-                    });
                 }
 
 			});
