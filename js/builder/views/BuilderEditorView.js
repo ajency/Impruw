@@ -45,7 +45,9 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Controls'],
 				 * Binds the droppable  / sortable
 				 */
 				enableDropSort : function(){
-
+                    
+                    var self = this;
+                    
 					// sort the rows internally
 					this.$el.sortable({'revert'	: 'invalid', 'handle' : '.aj-imp-drag-handle'});
 
@@ -65,6 +67,7 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Controls'],
 
 												var control = new Controls[cClass];
 												$(event.target).append(control.generateBuilderMarkup());
+                                                self.$el.sortable({'revert'	: 'invalid', 'handle' : '.aj-imp-drag-handle'});
 																							
 											}
 										});

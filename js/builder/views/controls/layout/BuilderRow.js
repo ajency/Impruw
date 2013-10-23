@@ -1,5 +1,5 @@
-define(['builder/views/controls/BuilderControl', 'text!builder/templates/controls/layout/BuilderRow.hbs', 'global'], 
-		function(BuilderControl, template, global){
+define(['builder/views/controls/BuilderControl', 'builder/views/controls/layout/BuilderRowColumn', 'text!builder/templates/controls/layout/BuilderRow.hbs','global'], 
+		function(BuilderControl, BuilderRowColumn, template, global){
 
 			var BuilderRow = BuilderControl.extend({
 
@@ -20,7 +20,8 @@ define(['builder/views/controls/BuilderControl', 'text!builder/templates/control
 					'mouseover'            	           : 'controlMouseEnter',
                     'mouseout  '                       : 'controlMouseOut',
                     'mousemove .column'                : 'columnMouseMove',
-                    'click .aj-imp-delete-btn'         : 'removeControl'
+                    'click .aj-imp-delete-btn'         : 'removeControl',
+                    'click .aj-imp-col-sel ul li a'    : 'addColumnsToRow' 
 				},
 
                 //used to identify drag direction(right / left)
@@ -34,38 +35,66 @@ define(['builder/views/controls/BuilderControl', 'text!builder/templates/control
                     
                     var self = this;
 
+                    //
+                    this.gridX = Math.floor(this.$el.width / this.column);
+
                     //set random ID for control
                     this.$el.attr('id' , this.name + '-' + global.generateRandomId());
-
-                    this.$el.html(_.template(this.template));
-
+                    
+                    var colClass = 12 / self.columns;
+                    
+                    //append columns
+                    _.each(_.range(this.columns), function(){
+                         
+                         var column = new BuilderRowColumn();  
+                         column.render(colClass);
+                         self.$el.append(column.$el);
+                     
+                    }); 
+                    
+                    //append column edit popover + drag handle + delete button
+                    this.$el.append(_.template(this.template));
+                    
+                     
                     //set divder left
                     this.$el.find('.aj-imp-col-divider').css('left', (Math.ceil(100 / this.columns)) +'%');
 
-                    //enable draggable
-                    this.$el.find('.aj-imp-col-divider').draggable({
-                                                                    axis: 'x',
-                                                                    containment : 'parent',
-                                                                    drag : function(e, ui){
-                                                                        //console.log(e.pageX);
-                                                                        if(self.prevX == -1) {
-                                                                            self.prevX = e.pageX;    
-                                                                            return false;
-                                                                        }
-                                                                        
-                                                                        if(self.prevX > e.pageX) {
-                                                                            //ui.helper.closest('.row').find('.column').last();
-                                                                        }
-                                                                        
-                                                                        else if(self.prevX < e.pageX) { // dragged right
-                                                                           
-                                                                        }
-                                                                        
-                                                                        self.prevX = e.pageX;
-                                                                    }
-                                                                });
-
                     return this.$el;
+                },
+                
+                /**
+                 * Devides the parent row into nmber of columns
+                 * @returns {undefined}
+                 */        
+                addColumnsToRow : function(evt){
+                    
+                    evt.preventDefault();
+                    
+                    //if same column count is clicked ignore
+                    if($(evt.target).parent().hasClass('active'))
+                        return;
+                    
+                    var self = this;
+                    
+                    this.$el.find('div[class^="col-"]').remove();
+                    
+                    //set active 
+                    $(evt.target).parent().addClass('active').siblings().removeClass('active');
+                    
+                    //add new columns
+                    this.columns = parseInt($(evt.target).text());
+                    
+                    _.each(_.range(this.columns), function(){
+                        
+                        var colClass = 12 / self.columns;
+                        
+                        self.$el.append('<div class="col-sm-'+colClass+' column">\
+                                            <div class="clearfix">\
+                                                &nbsp;\
+                                                <div class="aj-imp-drag-elements-message"><span class="glyphicon glyphicon-transfer"></span>Drag Elements Here</div>\
+                                            </div>\
+                                        </div>');
+                    });    
                 },
                 
                 /**
@@ -75,7 +104,7 @@ define(['builder/views/controls/BuilderControl', 'text!builder/templates/control
                  */
                 controlMouseEnter : function(evt){
                     this.$el.css('border', '1px solid #ff7e00');
-                    this.$el.find('.aj-imp-drag-handle,.aj-imp-delete-btn,.aj-imp-col-divider').show();
+                    this.$el.find('.aj-imp-drag-handle,.aj-imp-delete-btn,.aj-imp-col-divider,.aj-imp-col-sel').show();
                 },
                 
                 /**
@@ -101,7 +130,7 @@ define(['builder/views/controls/BuilderControl', 'text!builder/templates/control
                  */        
                 controlMouseOut : function(evt){
                     this.$el.css('border', '1px solid transparent');
-                    this.$el.find('.aj-imp-drag-handle,.aj-imp-delete-btn,.aj-imp-col-divider').hide();
+                    this.$el.find('.aj-imp-drag-handle,.aj-imp-delete-btn,.aj-imp-col-divider,.aj-imp-col-sel').hide();
                 }
 
 			});
