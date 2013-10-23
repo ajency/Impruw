@@ -651,6 +651,47 @@ Version:        0.1.0
 			line-height: 20px;
 		}
 	}
+	.aj-imp-col-sel {
+		top: -2.5em;
+		left: 0;
+		.tooltip-arrow {
+			border-top-color: #29333F;
+		}
+		.tooltip-inner {
+			width: auto;
+			max-width: 300px;
+			background: #29333F;
+			label {
+				display: inline-block;
+				margin: 0;
+				padding: 0 0.5em;
+				position: relative;
+				top: -3px;
+			}
+			ul {
+				display: inline-block;
+				list-style: none;
+				margin: 0;
+				padding: 0;
+				li {
+					float: left;
+					margin: 0 0.05em;
+					a {
+						display: blco;
+						padding: 0.3em 0.5em;
+						color: #fff;
+						border-radius: 3px;
+						font-weight: 700;
+					}
+					&:hover, &.active {
+						a {
+							background: @orange;
+						}
+					}
+				}
+			}
+		}
+	}
 	.aj-imp-drag-elements-message {
 		width: 100%;
 		text-align: center;

@@ -610,6 +610,46 @@ Version:        0.1.0
   font-weight: 700;
   line-height: 20px;
 }
+#aj-imp-builder-drag-drop .aj-imp-col-sel {
+  top: -2.5em;
+  left: 0;
+}
+#aj-imp-builder-drag-drop .aj-imp-col-sel .tooltip-arrow {
+  border-top-color: #29333F;
+}
+#aj-imp-builder-drag-drop .aj-imp-col-sel .tooltip-inner {
+  width: auto;
+  max-width: 300px;
+  background: #29333F;
+}
+#aj-imp-builder-drag-drop .aj-imp-col-sel .tooltip-inner label {
+  display: inline-block;
+  margin: 0;
+  padding: 0 0.5em;
+  position: relative;
+  top: -3px;
+}
+#aj-imp-builder-drag-drop .aj-imp-col-sel .tooltip-inner ul {
+  display: inline-block;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+#aj-imp-builder-drag-drop .aj-imp-col-sel .tooltip-inner ul li {
+  float: left;
+  margin: 0 0.05em;
+}
+#aj-imp-builder-drag-drop .aj-imp-col-sel .tooltip-inner ul li a {
+  display: blco;
+  padding: 0.3em 0.5em;
+  color: #fff;
+  border-radius: 3px;
+  font-weight: 700;
+}
+#aj-imp-builder-drag-drop .aj-imp-col-sel .tooltip-inner ul li:hover a,
+#aj-imp-builder-drag-drop .aj-imp-col-sel .tooltip-inner ul li.active a {
+  background: #ff7e00;
+}
 #aj-imp-builder-drag-drop .aj-imp-drag-elements-message {
   width: 100%;
   text-align: center;
