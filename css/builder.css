@@ -611,7 +611,7 @@ Version:        0.1.0
   line-height: 20px;
 }
 #aj-imp-builder-drag-drop .aj-imp-col-sel {
-  top: -2.5em;
+  top: -4.5em;
   left: 0;
 }
 #aj-imp-builder-drag-drop .aj-imp-col-sel .tooltip-arrow {
@@ -640,7 +640,6 @@ Version:        0.1.0
   margin: 0 0.05em;
 }
 #aj-imp-builder-drag-drop .aj-imp-col-sel .tooltip-inner ul li a {
-  display: blco;
   padding: 0.3em 0.5em;
   color: #fff;
   border-radius: 3px;
