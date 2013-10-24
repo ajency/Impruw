@@ -417,6 +417,7 @@ Version:        0.1.0
 .aj-imp-builder-area .aj-imp-browser-preview {
   border-radius: 6px;
   border: 1px solid #dadada;
+  margin-left: 45px;
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header {
   padding: 1em;

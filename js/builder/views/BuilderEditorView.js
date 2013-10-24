@@ -9,11 +9,13 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Controls'],
 
 			var BuilderEditorView = Backbone.View.extend({
 
-				el : '#aj-imp-builder-drag-drop',
+				el          : '#aj-imp-builder-drag-drop',
 
-				className : 'container',
+				className   : 'container',
+                
+                rows        : [],
 
-				initialize : function(){
+				initialize  : function(){
 
 
 				},
@@ -65,13 +67,24 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Controls'],
 												if(_.isUndefined(Controls[cClass]))
 													return;
 
-												var control = new Controls[cClass];
-												$(event.target).append(control.generateBuilderMarkup());
+												var control = new Controls[cClass]({parent: self});
+                                                self.rows.push(control);
                                                 self.$el.sortable({'revert'	: 'invalid', 'handle' : '.aj-imp-drag-handle'});
-																							
+												$(event.target).prepend(control.generateBuilderMarkup());									
 											}
 										});
-				}
+				},
+                
+                /**
+                 * Returns current rows for the Editor.Top Level rows
+                 * 
+                 * @returns {unresolved}
+                 */
+                getRows : function(){
+                    
+                    return this.rows;
+                    
+                }
 
 			});	
 
