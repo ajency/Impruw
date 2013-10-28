@@ -8,6 +8,7 @@
     <link href="../css/flat-ui.css" rel="stylesheet" media="screen">
     <link href="../css/main.min.css" rel="stylesheet" media="screen">
 	<link href="../css/builder.css" rel="stylesheet" media="screen">
+	<link href="css/site.css" rel="stylesheet" media="screen">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -125,10 +126,10 @@
 						</div>
 						<div class="aj-imp-mode-switch col-sm-3">
 							<div class="switch-toggle switch-2">
-								<input id="week-d1" name="view-d" type="radio" checked>
+								<input id="week-d1" name="view-d" type="radio">
 								<label for="week-d1" onclick="javascript:window.location.href='builder-template-1.html'">Layout Mode</label>
 
-								<input id="month-d2" name="view-d" type="radio">
+								<input id="month-d2" name="view-d" type="radio" checked>
 								<label for="month-d2" onclick="javascript:window.location.href='builder-template-content-1.html'">Content Mode</label>
 
 								<a class="btn btn-warning"></a>
@@ -136,196 +137,201 @@
 						</div>
 					</div>
 				</div>
-				<div class="aj-imp-browser-body">
+				<div class="aj-imp-browser-body aj-imp-preview">
 					<!-- CLIENT SITE START -->
-					<div class="container" id="aj-imp-builder-drag-drop">
+					<div class="container">
 						<div class="row">
 							<div class="col-sm-12 column">
-								<div class="clearfix">
-									<div class="aj-imp-drag-elements-message"><span class="glyphicon glyphicon-asterisk"></span>Logo</div>
+								<div class="clearfix align-center logo">
+									<h1><a href="#">Logo</a></h1>
 								</div>
-							</div>
-							<div class="aj-imp-drag-handle">
-								<a href="#" title="Move">
-									<span class="icon-uniF140"></span>
-								</a>
-							</div>
-							<div class="aj-imp-delete-btn">
-								<a href="#" title="Delete">
-									&times;
-								</a>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-sm-12 column">
 								<div class="clearfix">
-									<div class="aj-imp-drag-elements-message"><span class="glyphicon glyphicon-list"></span>Navbar</div>
+									<nav role="navigation">
+										<ul class="nav nav-justified">
+											<li class="active"><a href="#">Action</a></li>
+											<li><a href="#">Another action</a></li>
+											<li><a href="#">Something else here</a></li>
+											<li><a href="#">Separated link</a></li>
+											<li><a href="#">Separated link</a></li>
+										</ul>
+									</nav>
 								</div>
-							</div>
-							<div class="aj-imp-drag-handle">
-								<a href="#" title="Move">
-									<span class="icon-uniF140"></span>
-								</a>
-							</div>
-							<div class="aj-imp-delete-btn">
-								<a href="#" title="Delete">
-									&times;
-								</a>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-sm-12 column">
-								<div class="clearfix">
-									<div class="aj-imp-drag-elements-message"><span class="glyphicon glyphicon-picture"></span>Slider</div>
+								<div class="clearfix slider">
+									<div id="carousel-example-captions" class="carousel slide bs-docs-carousel-example">
+										<ol class="carousel-indicators">
+											<li data-target="#carousel-example-captions" data-slide-to="0" class=""></li>
+											<li data-target="#carousel-example-captions" data-slide-to="1" class=""></li>
+											<li data-target="#carousel-example-captions" data-slide-to="2" class="active"></li>
+										</ol>
+										<div class="carousel-inner">
+											<div class="item">
+												<img src="images/hotel-1.jpg" class="img-responsive">
+												<div class="carousel-caption">
+													<h3>First slide label</h3>
+													<p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+												</div>
+											</div>
+											<div class="item">
+												<img src="images/hotel-1.jpg" class="img-responsive">
+												<div class="carousel-caption">
+													<h3>Second slide label</h3>
+													<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+												</div>
+											</div>
+											<div class="item active">
+												<img src="images/hotel-1.jpg" class="img-responsive">
+												<div class="carousel-caption">
+													<h3>Third slide label</h3>
+													<p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+												</div>
+											</div>
+										</div>
+										<a class="carousel-control left" href="#carousel-example-captions" data-slide="prev">&lsaquo;</a>
+										<a class="carousel-control right" href="#carousel-example-captions" data-slide="next">&rsaquo;</a>
+									 </div>
 								</div>
-							</div>
-							<div class="aj-imp-drag-handle">
-								<a href="#" title="Move">
-									<span class="icon-uniF140"></span>
-								</a>
-							</div>
-							<div class="aj-imp-delete-btn">
-								<a href="#" title="Delete">
-									&times;
-								</a>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-sm-3 column">
-								<div class="clearfix">
-									<div class="aj-imp-drag-elements-message"><span class="glyphicon glyphicon-font"></span>Text</div>
+								<div class="clearfix emphasis-text">
+									<h3>Lorem ipsum dolor sit amet</h3>
+									<p>Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+									<a href="#" class="read-more">Read More</a>
 								</div>
 							</div>
 							<div class="col-sm-3 column">
-								<div class="clearfix">
-									<div class="aj-imp-drag-elements-message"><span class="glyphicon glyphicon-font"></span>Text</div>
+								<div class="clearfix emphasis-text">
+									<h3>Lorem ipsum dolor sit amet</h3>
+									<p>Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+									<a href="#" class="read-more">Read More</a>
 								</div>
 							</div>
 							<div class="col-sm-3 column">
-								<div class="clearfix">
-									<div class="aj-imp-drag-elements-message"><span class="glyphicon glyphicon-font"></span>Text</div>
+								<div class="clearfix emphasis-text">
+									<h3>Lorem ipsum dolor sit amet</h3>
+									<p>Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+									<a href="#" class="read-more">Read More</a>
 								</div>
 							</div>
 							<div class="col-sm-3 column">
-								<div class="clearfix">
-									<div class="aj-imp-drag-elements-message"><span class="glyphicon glyphicon-font"></span>Text</div>
+								<div class="clearfix emphasis-text">
+									<h3>Lorem ipsum dolor sit amet</h3>
+									<p>Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+									<a href="#" class="read-more">Read More</a>
 								</div>
-							</div>
-							<div class="aj-imp-drag-handle">
-								<a href="#" title="Move">
-									<span class="icon-uniF140"></span>
-								</a>
-							</div>
-							<div class="aj-imp-delete-btn">
-								<a href="#" title="Delete">
-									&times;
-								</a>
-							</div>
-							<div class="aj-imp-col-divider" style="left: 25.75%;">
-								<a href="#" title="Move">
-									<span class="icon-uniF140"></span>
-								</a>
-							</div>
-							<div class="aj-imp-col-divider">
-								<a href="#" title="Move">
-									<span class="icon-uniF140"></span>
-								</a>
-							</div>
-							<div class="aj-imp-col-divider" style="left: 74.25%;">
-								<a href="#" title="Move">
-									<span class="icon-uniF140"></span>
-								</a>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-sm-9 column">
 								<div class="clearfix">
+									<h4>Our Packages</h4>
 									<div class="row">
 										<div class="col-sm-3 column">
 											<div class="clearfix">
-												<div class="aj-imp-drag-elements-message"><span class="glyphicon glyphicon-font"></span>Text</div>
+												<a href="#" class="promo">
+													<img src="images/hotel-1.jpg" class="img-responsive">
+													<h5 class="promo-title">Some Title <span class="promo-price">$120</span></h5>
+													Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+												</a>
 											</div>
 										</div>
 										<div class="col-sm-3 column">
 											<div class="clearfix">
-												<div class="aj-imp-drag-elements-message"><span class="glyphicon glyphicon-font"></span>Text</div>
+												<a href="#" class="promo">
+													<img src="images/hotel-1.jpg" class="img-responsive">
+													<h5 class="promo-title">Some Title <span class="promo-price">$120</span></h5>
+													Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+												</a>
 											</div>
 										</div>
 										<div class="col-sm-3 column">
 											<div class="clearfix">
-												<div class="aj-imp-drag-elements-message"><span class="glyphicon glyphicon-font"></span>Text</div>
+												<a href="#" class="promo">
+													<img src="images/hotel-1.jpg" class="img-responsive">
+													<h5 class="promo-title">Some Title <span class="promo-price">$120</span></h5>
+													Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+												</a>
 											</div>
 										</div>
 										<div class="col-sm-3 column">
 											<div class="clearfix">
-												<div class="aj-imp-drag-elements-message"><span class="glyphicon glyphicon-font"></span>Text</div>
+												<ul class="links">
+													<li><a href="#">Lorem Ipsum Dolor</a></li>
+													<li><a href="#">Lorem Ipsum Dolor</a></li>
+													<li><a href="#">Lorem Ipsum Dolor</a></li>
+													<li><a href="#">Lorem Ipsum Dolor</a></li>
+													<li><a href="#">Lorem Ipsum Dolor</a></li>
+													<li><a href="#">Lorem Ipsum Dolor</a></li>
+												</ul>
 											</div>
-										</div>
-										<div class="aj-imp-drag-handle">
-											<a href="#" title="Move">
-												<span class="icon-uniF140"></span>
-											</a>
-										</div>
-										<div class="aj-imp-delete-btn">
-											<a href="#" title="Delete">
-												&times;
-											</a>
-										</div>
-										<div class="aj-imp-col-divider" style="left: 26.05%;">
-											<a href="#" title="Move">
-												<span class="icon-uniF140"></span>
-											</a>
-										</div>
-										<div class="aj-imp-col-divider">
-											<a href="#" title="Move">
-												<span class="icon-uniF140"></span>
-											</a>
-										</div>
-										<div class="aj-imp-col-divider" style="left: 73.85%;">
-											<a href="#" title="Move">
-												<span class="icon-uniF140"></span>
-											</a>
 										</div>
 									</div>
 								</div>
 							</div>
 							<div class="col-sm-3 column">
 								<div class="clearfix">
-									&nbsp;
-									<div class="aj-imp-drag-elements-message"><span class="glyphicon glyphicon-resize-horizontal"></span>Text Slider</div>
+									<h4>An Accordion</h4>
+									<div class="panel-group" id="accordion">
+										<div class="panel panel-default">
+										  <div class="panel-heading">
+											<h4 class="panel-title">
+											  <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+												Collapsible Group Item #1
+											  </a>
+											</h4>
+										  </div>
+										  <div id="collapseOne" class="panel-collapse in" style="height: auto;">
+											<div class="panel-body">
+											  Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+											</div>
+										  </div>
+										</div>
+										<div class="panel panel-default">
+										  <div class="panel-heading">
+											<h4 class="panel-title">
+											  <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+												Collapsible Group Item #2
+											  </a>
+											</h4>
+										  </div>
+										  <div id="collapseTwo" class="panel-collapse collapse" style="height: 0px;">
+											<div class="panel-body">
+											  Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. 
+											</div>
+										  </div>
+										</div>
+										<div class="panel panel-default">
+										  <div class="panel-heading">
+											<h4 class="panel-title">
+											  <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+												Collapsible Group Item #3
+											  </a>
+											</h4>
+										  </div>
+										  <div id="collapseThree" class="panel-collapse collapse" style="height: 0px;">
+											<div class="panel-body">
+											  Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. 
+											</div>
+										  </div>
+										</div>
+									</div>
 								</div>
-							</div>
-							<div class="aj-imp-drag-handle">
-								<a href="#" title="Move">
-									<span class="icon-uniF140"></span>
-								</a>
-							</div>
-							<div class="aj-imp-delete-btn">
-								<a href="#" title="Delete">
-									&times;
-								</a>
-							</div>
-							<div class="aj-imp-col-divider" style="left: 74.25%;">
-								<a href="#" title="Move">
-									<span class="icon-uniF140"></span>
-								</a>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-sm-12 column">
-								<div class="clearfix">
-									<div class="aj-imp-drag-elements-message"><span class="glyphicon glyphicon-picture"></span>Footer</div>
+								<div class="clearfix align-center footer">
+									&copy; 2013. <a href="#">Site Name</a>
 								</div>
-							</div>
-							<div class="aj-imp-drag-handle">
-								<a href="#" title="Move">
-									<span class="icon-uniF140"></span>
-								</a>
-							</div>
-							<div class="aj-imp-delete-btn">
-								<a href="#" title="Delete">
-									&times;
-								</a>
 							</div>
 						</div>
 					</div>
