@@ -74,7 +74,8 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Controls'],
 											}
 										});
                                         
-                     this.$el.sortable({'revert'	: 'invalid', 'handle' : '.aj-imp-drag-handle'});
+                     //this.$el.sortable({'revert'	: 'invalid', 'handle' : '.aj-imp-drag-handle'});
+                     //this.$el.sortable('serialize');
 				},
                 
                 /**

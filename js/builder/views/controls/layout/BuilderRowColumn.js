@@ -44,28 +44,28 @@ define(['builder/views/controls/BuilderControl', 'global'],
                     var self = this;
             
                     //accept droppable controls
-                    
+                    return;
 					this.$el.droppable({
-											accept : '*[data-control]',
-											hoverClass: 'ui-state-highlight',
-											greedy : true,
-											drop: function( event, ui ) {
+											accept      : '*[data-control]',
+											hoverClass  : 'ui-state-highlight',
+											greedy      : true,
+											drop        : function( event, ui ) {
                                                 
-                                                event.stopPropagation();
+                                                                event.stopPropagation();
 
-												var cClass = ui.draggable.attr('data-control');
-												
-                                                var Control = require('builder/views/controls/layout/' + cClass);
-                                                
-												if(_.isUndefined(Control))
-													return;
+                                                                var cClass = ui.draggable.attr('data-control');
 
-												var control = new Control({parent : self});
-                                                
-                                                self.controls.push(control);
-												
-                                                $(event.target).html(control.generateBuilderMarkup());									
-											}
+                                                                var Control = require('builder/views/controls/layout/' + cClass);
+
+                                                                if(_.isUndefined(Control))
+                                                                    return;
+
+                                                                var control = new Control({parent : self});
+
+                                                                self.controls.push(control);
+
+                                                                $(event.target).html(control.generateBuilderMarkup());									
+                                                          }
 										});
                 },
                 
