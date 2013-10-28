@@ -73,6 +73,8 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Controls'],
 												$(event.target).prepend(control.generateBuilderMarkup());									
 											}
 										});
+                                        
+                     this.$el.sortable({'revert'	: 'invalid', 'handle' : '.aj-imp-drag-handle'});
 				},
                 
                 /**

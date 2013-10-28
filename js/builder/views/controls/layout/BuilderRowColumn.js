@@ -44,11 +44,14 @@ define(['builder/views/controls/BuilderControl', 'global'],
                     var self = this;
             
                     //accept droppable controls
+                    
 					this.$el.droppable({
 											accept : '*[data-control]',
 											hoverClass: 'ui-state-highlight',
 											greedy : true,
 											drop: function( event, ui ) {
+                                                
+                                                event.stopPropagation();
 
 												var cClass = ui.draggable.attr('data-control');
 												

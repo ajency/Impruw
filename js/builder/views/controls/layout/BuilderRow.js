@@ -51,9 +51,6 @@ define(['builder/views/controls/BuilderControl', 'builder/views/controls/layout/
                     
                     var self = this;
 
-                    //
-                    //this.gridX = Math.floor(this.$el.width / this.column);
-
                     //set random ID for control
                     this.$el.attr('id' , this.name + '-' + global.generateRandomId());
                     
@@ -87,6 +84,8 @@ define(['builder/views/controls/BuilderControl', 'builder/views/controls/layout/
                     
                     evt.preventDefault();
                     
+                    evt.stopPropagation();
+                    
                     var requestedColumns = parseInt($(evt.target).text());
                     
                     //if same column count is clicked ignore
@@ -116,7 +115,7 @@ define(['builder/views/controls/BuilderControl', 'builder/views/controls/layout/
                         var emptyColumns = [];
                         
                         _.each(this.columns, function(column, index){
-                           
+                            
                             if(column.isEmpty())
                                 emptyColumns.push(column);
                             
@@ -129,15 +128,13 @@ define(['builder/views/controls/BuilderControl', 'builder/views/controls/layout/
                             return;
                         }
                         
-                        //check if current col - requested col > empty columns
+                        //check if current columns - requested columns > empty columns
                         if(this.columnCount() - requestedColumns > emptyColsLen){
                             alert("Unable to perform this action");
                             return;
                         }
                         
-                        var indexesToRemove = [];
-                        
-                        //check if current col - requested col <= empty columns
+                        //check if current columns - requested columns <= empty columns
                         if(this.columnCount() - requestedColumns <= emptyColsLen){
                             //
                             var colsToRemove = emptyColsLen -  requestedColumns;
