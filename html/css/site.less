@@ -1,0 +1,230 @@
+/*
+Theme Name:     Impruw Site Preview Styles
+Theme URI:      http://ajency.in/
+Description:    Style Classes for the Site Preview
+Author:         Jarryd for Ajency.in
+Author URI:     http://ajency.in/
+Template:       impruw
+Version:        0.1.0
+*/
+
+/****Colors****/
+@red: #F20000;
+
+/****Common Style Classes****/
+.align-center {
+	text-align: center;
+}
+
+.emphasis-text {
+	margin: 0 0 20px;
+	h3 {
+		color: @red;
+		font-size: 1.4em;
+		text-transform: uppercase;
+	}
+	p {
+		color: #000;
+		font-size: 1em;
+	}
+	.read-more {
+		text-transform: uppercase;
+		color: @red;
+		font-weight: 700;
+		font-size: 0.88em;
+		padding: 0 0 5px;
+		border-bottom: 2px solid @red;
+		&:hover {
+			color: #000;
+			border-color: #000;
+		}
+	}
+}
+
+.promo {
+	display: block;
+	color: #000 !important;
+	img {
+		padding: 1px;
+		border: 2px solid #ccc;
+	}
+	.promo-title {
+		color: #000;
+		font-size: 1.6em;
+		.promo-price {
+			display: block;
+			color: @red;
+			font-size: 0.8em;
+		}
+	}
+	&:hover {
+		img {
+			border-color: @red;
+		}
+		.promo-title {
+			color: @red;
+		}
+	}
+}
+
+.links {
+	margin: 0 0 10px;
+	padding: 0;
+	padding-left: 1em;
+	list-style: none;
+	li {
+		padding: 0 0 5px;
+		a {
+			color: @red;
+			&:hover {
+				color: #000;
+				text-decoration: underline;
+			}
+		}
+		&:before {
+			content: "";
+			border-color: transparent @red;
+			border-style: solid;
+			border-width: 0.35em 0 0.35em 0.45em;
+			display: block;
+			height: 0;
+			width: 0;
+			left: -1em;
+			top: 0.98em;
+			position: relative;
+		}
+	}
+}
+
+/****Preview Container & Styles****/
+.aj-imp-preview {
+	background: #fff;
+	.container {
+		max-width: 960px;
+		.row {
+			margin: 10px 0;
+			.logo {
+				h1 {
+					a {
+						display: block;
+						color: #ccc;
+						&:hover {
+							color: @red;
+						}
+					}
+				}
+			}
+			.nav {
+				li {
+					border-top: 1px solid #000;
+					border-bottom: 3px solid #000;
+					a {
+						background: none;
+						text-transform: uppercase;
+						font-weight: 700;
+						color: #000;
+						padding: 20px 0;
+						font-size: 1.1em;
+						&:hover {
+							color: #ccc;
+						}
+					}
+					&:hover, &.active {
+						border-color: #ccc;
+					}
+				}
+			}
+			.slider {
+				margin: 0 0 20px;
+				.carousel {
+					.carousel-inner {
+						.item {
+							img {
+								border-radius: 0;
+							}
+							.carousel-caption {
+								position: relative;
+								border-radius: 0;
+								background: 0;
+								text-align: center;
+								h3 {
+									color: #000;
+									text-transform: uppercase;
+								}
+								p {
+									color: #000;
+									display: inline;
+									border-bottom: 3px solid #000;
+									padding: 10px 10px 20px;
+								}
+							}
+						}
+					}
+					.carousel-control {
+						top: 78.25%;
+						border-radius: 0;
+						border: 0;
+						background: #1B1B1B;
+						opacity: 0.8;
+						color: #fff;
+						font-size: 2em;
+						&.left {
+							left: 45.5%;
+						}
+						&.right {
+							right: 45.5%;
+						}
+					}
+				}
+			}
+			.clearfix {
+				h4 {
+					color: #000;
+					font-size: 2em;
+					text-transform: lowercase;
+				}
+			}
+			.panel-group {
+				.panel {
+					border-radius: 0;
+					border: 0;
+					box-shadow: none;
+					.panel-heading {
+						background: none;
+						border: 0;
+						border-bottom: 2px solid #000;
+						padding: 6px 0;
+						.panel-title {
+							font-size: 1em;
+							a {
+								color: #000;
+								&:hover {
+									color: @red;
+								}
+							}
+						}
+					}
+					.panel-collapse {
+						font-size: 0.88em;
+						color: #333;
+						border: 0;
+						.panel-body {
+							padding: 10px 0;
+						}
+					}
+				}
+			}
+			.footer {
+				border-top: 2px solid #ccc;
+				margin: 10px 0;
+				padding: 10px 0;
+				a {
+					color: @red;
+					&:hover {
+						color: #000;
+					}
+				}
+			}
+		}
+	}
+}

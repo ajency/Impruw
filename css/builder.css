@@ -558,6 +558,9 @@ Version:        0.1.0
   cursor: pointer;
   color: #fff;
 }
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .second .aj-imp-mode-switch input {
+  display: none;
+}
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-body {
   background: #fff;
   margin: 0 1em;
