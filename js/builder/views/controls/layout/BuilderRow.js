@@ -52,11 +52,12 @@ define(['builder/views/controls/BuilderControl', 'builder/views/controls/layout/
                     var self = this;
 
                     //
-                    this.gridX = Math.floor(this.$el.width / this.column);
+                    //this.gridX = Math.floor(this.$el.width / this.column);
 
                     //set random ID for control
                     this.$el.attr('id' , this.name + '-' + global.generateRandomId());
                     
+                    //calculate the column class
                     var colClass = 12 / self.totalColumns;
                     
                     //append columns
@@ -66,14 +67,12 @@ define(['builder/views/controls/BuilderControl', 'builder/views/controls/layout/
                          column.render(colClass);
                          self.columns.push(column);
                          self.$el.append(column.$el);
+                         
                     }); 
-                    
-                    
                     
                     //append column edit popover + drag handle + delete button
                     this.$el.append(_.template(this.template));
                     
-                     
                     //set divder left
                     this.$el.find('.aj-imp-col-divider').css('left', (Math.ceil(100 / this.columns)) +'%');
 
@@ -116,39 +115,67 @@ define(['builder/views/controls/BuilderControl', 'builder/views/controls/layout/
                         
                         var emptyColumns = [];
                         
-                        //check of empty columns
                         _.each(this.columns, function(column, index){
                            
                             if(column.isEmpty())
                                 emptyColumns.push(column);
-                                                      
+                            
                         });
                         
-                        if(emptyColumns.length == 0 ){
+                        var emptyColsLen = emptyColumns.length;
+                        //first check
+                        if(emptyColsLen === 0 ){
                             alert("None of the columns are empty. Please delete controls inside columns to remove columns");
                             return;
                         }
                         
-                        //remove columns
-                        _.each(emptyColumns, function(column, index){
+                        //check if current col - requested col > empty columns
+                        if(this.columnCount() - requestedColumns > emptyColsLen){
+                            alert("Unable to perform this action");
+                            return;
+                        }
+                        
+                        var indexesToRemove = [];
+                        
+                        //check if current col - requested col <= empty columns
+                        if(this.columnCount() - requestedColumns <= emptyColsLen){
+                            //
+                            var colsToRemove = emptyColsLen -  requestedColumns;
+                            
+                            //get indexes to remove
+                            _.each(this.columns, function(column, index){
 
-                            if(requestedColumns == 0)
-                               return;
+                                if(colsToRemove === 0)
+                                        return;
 
-                            //remove from view
-                            column.destroy();
+                                if(!column.isEmpty())
+                                        return;
 
-                            //remove from array of columns
-                            self.columns.splice(index, 1);
+                                column.toRemove = true;
+                                colsToRemove--;
 
-                            requestedColumns--;
+                            });
+                            
+                        }
+                        
+                        var nCols = [];
+                        // remove the columns
+                        _.each(this.columns, function(column, index){
+                            
+                            if(column.toRemove === true)
+                               column.destroy();
+                            else
+                                nCols.push(column);
                         });
                         
+                        this.columns = nCols;
                         //this.trigger('columns_removed',emptyColumns);
 
                         //adjust class of existing columns
                         _.each(this.columns, function(column, index){
+                            
                             column.$el.removeAttr('class').attr('class','col-sm-'+colClass);
+                        
                         }); 
                     }
                     

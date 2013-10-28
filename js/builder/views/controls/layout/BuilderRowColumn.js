@@ -46,7 +46,7 @@ define(['builder/views/controls/BuilderControl', 'global'],
                     //accept droppable controls
 					this.$el.droppable({
 											accept : '*[data-control]',
-											hoverClass: "ui-state-highlight",
+											hoverClass: 'ui-state-highlight',
 											greedy : true,
 											drop: function( event, ui ) {
 
