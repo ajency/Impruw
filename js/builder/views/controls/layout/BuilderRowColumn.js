@@ -11,10 +11,14 @@ define(['builder/views/controls/BuilderControl', 'global'],
                 
                 className   : 'column',
                 
+                events : {
+                     'mouseover' : 'columnMouseOver'
+                     
+                },
                 
                 initialize  : function(opt){
                     
-                    _.bindAll(this, 'isEmpty','clear','handleControlDrop');
+                    _.bindAll(this, 'isEmpty','clear','handleControlDrop','columnMouseOver');
                     
                     this.parent = opt.parent;
                 },
@@ -56,6 +60,24 @@ define(['builder/views/controls/BuilderControl', 'global'],
                     var control = new C[controlName]({parent: this});
                     this.controls.push(control);
                     this.$el.append(control.generateBuilderMarkup());
+                },   
+                        
+                /**
+                 * Listen to column mousemove event. 
+                 * 
+                 * If the current column has class "filled" do not do anything. the column child elements will handle the mouseover action
+                 * @param {type} evt
+                 * @returns {unresolved}
+                 */
+                columnMouseOver : function(evt){
+                    
+                    evt.stopPropagation();
+                    
+                    if(this.isEmpty())
+                        return;
+
+                    this.parent.rowMouseLeave(evt);
+                    this.$el.find('.aj-imp-col-divider').show();
                 },        
                 
                 /**

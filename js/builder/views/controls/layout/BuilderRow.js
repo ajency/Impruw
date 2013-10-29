@@ -17,14 +17,15 @@ define(['builder/views/controls/BuilderControl', 'builder/views/controls/layout/
                 
                 //total columns
                 totalColumns : 2,
+                
+                mouseOnControl : false,
 
 				//register events
 				events : {
-					//'mousemove'           	           : 'controlMouseEnter',
-                    //'mouseout  '                       : 'controlMouseOut',
-                    //'mousemove .column'                : 'columnMouseMove',
-                    'click .aj-imp-delete-btn'         : 'removeControl',
-                    'click .aj-imp-col-sel ul li a'    : 'adjustColumnsInRow' 
+					'mouseover'                         : 'rowMouseOver',
+                    'mouseleave'                        : 'rowMouseLeave',
+                    'click .aj-imp-delete-btn'          : 'removeControl',
+                    'click .aj-imp-col-sel ul li a'     : 'adjustColumnsInRow' 
 				},
 
                 //used to identify drag direction(right / left)
@@ -285,30 +286,15 @@ define(['builder/views/controls/BuilderControl', 'builder/views/controls/layout/
                  * @param {type} evt
                  * @returns void
                  */
-                controlMouseEnter : function(evt){
+                rowMouseOver : function(evt){
                     
                     evt.stopPropagation();
                     
+                    if(this.mouseOnControl)
+                        return;
+                    
                     this.$el.css('border', '1px solid #ff7e00');
                     this.$el.find('.aj-imp-drag-handle,.aj-imp-delete-btn,.aj-imp-col-divider,.aj-imp-col-sel').show();
-                },
-                
-                /**
-                 * Listen to column mousemove event. 
-                 * 
-                 * If the current column has class "filled" do not do anything. the column child elements will handle the mouseover action
-                 * @param {type} evt
-                 * @returns {unresolved}
-                 */
-                columnMouseMove : function(evt){
-                    
-                     evt.stopPropagation();
-                
-                    if(!$(evt.target).hasClass('filled'))
-                        return;
-
-                    this.controlMouseOut();
-                    this.$el.find('.aj-imp-col-divider').show();
                 },
                 
                 /**
@@ -316,7 +302,7 @@ define(['builder/views/controls/BuilderControl', 'builder/views/controls/layout/
                  * @param {type} evt
                  * @returns void
                  */        
-                controlMouseOut : function(evt){
+                rowMouseLeave : function(evt){
                     
                     evt.stopPropagation();
                     
