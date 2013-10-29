@@ -728,3 +728,151 @@ Version:        0.1.0
 #aj-imp-builder-drag-drop .row:last-child {
   margin: 0;
 }
+/****Content Mode Edit Controls****/
+.aj-imp-preview .aj-imp-edit-content {
+  position: relative;
+  padding: 0.2em;
+  border: 1px solid transparent;
+}
+.aj-imp-preview .aj-imp-edit-content .aj-imp-edit-controls {
+  display: none;
+  position: absolute;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.8);
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 0.5em;
+  text-align: center;
+  border-bottom: 1px solid #f3f3f3;
+}
+.aj-imp-preview .aj-imp-edit-content .aj-imp-edit-controls .btn {
+  font-size: 0.88em;
+  background: #ff7e00;
+  padding: 4px 8px 5px;
+}
+.aj-imp-preview .aj-imp-edit-content:hover {
+  border: 1px dotted #ff7e00;
+}
+.aj-imp-preview .aj-imp-edit-content:hover .aj-imp-edit-controls {
+  display: block;
+}
+/****Modal Styles****/
+.modal-backdrop {
+  background: #333333;
+}
+.modal .modal-dialog .modal-content {
+  box-shadow: 0 0 4px #000;
+}
+.modal .modal-dialog .modal-content .modal-header {
+  background: #f3f3f3;
+  padding: 0.5em 1em;
+}
+.modal .modal-dialog .modal-content .modal-header .modal-title {
+  color: #aaaaaa;
+  text-align: center;
+  font-size: 1.5em;
+}
+.modal .modal-dialog .modal-content .modal-footer {
+  padding: 0.5em 1em;
+  background: #f3f3f3;
+  min-height: 2em;
+}
+.modal.media-modal {
+  padding: 2em;
+}
+.modal.media-modal .modal-dialog {
+  width: 100%;
+}
+.modal.media-modal .modal-dialog .modal-content {
+  width: 100%;
+}
+.modal.media-modal .modal-dialog .modal-content .modal-body {
+  padding: 0.5em 0;
+}
+.modal.media-modal .modal-dialog .modal-content .modal-body .nav-tabs {
+  border-width: 1px;
+}
+.modal.media-modal .modal-dialog .modal-content .modal-body .nav-tabs li a {
+  font-weight: normal;
+  border: 0;
+  background: transparent;
+  font-size: 1.1em;
+}
+.modal.media-modal .modal-dialog .modal-content .modal-body .nav-tabs li a:hover {
+  color: #333333;
+}
+.modal.media-modal .modal-dialog .modal-content .modal-body .nav-tabs li.active > a {
+  color: #ff7e00;
+  font-weight: 700;
+}
+.modal.media-modal .modal-dialog .modal-content .modal-body .tab-content {
+  border-radius: 0;
+  border: 0;
+}
+.modal.media-modal .modal-dialog .modal-content .modal-body .tab-content .aj-imp-upload-media {
+  text-align: center;
+}
+.modal.media-modal .modal-dialog .modal-content .modal-body .tab-content .aj-imp-upload-media > span {
+  display: block;
+}
+.modal.media-modal .modal-dialog .modal-content .modal-body .tab-content .aj-imp-upload-media > span[class^="icon-"] {
+  font-size: 10em;
+  color: #e6e6e6;
+}
+.modal.media-modal .modal-dialog .modal-content .modal-body .tab-content .aj-imp-upload-media .aj-imp-upload-message {
+  margin: 1em 0;
+  background: #919191;
+  color: #fff;
+  border-radius: 4px;
+  font-size: 1.1em;
+  display: inline-block;
+  padding: 0.5em 1em 0.6em;
+}
+.modal.media-modal .modal-dialog .modal-content .modal-body .tab-content .aj-imp-upload-media .small-text {
+  font-size: 0.9em;
+  color: #aaaaaa;
+}
+.modal.media-modal .modal-dialog .modal-content .modal-body .tab-content .aj-imp-image-header {
+  padding: 10px 15px;
+  margin: 0 0 1em;
+  background: #f3f3f3;
+  color: #333333;
+  font-size: 1.1em;
+  font-weight: 700;
+  border-bottom: 1px solid #aaaaaa;
+}
+.modal.media-modal .modal-dialog .modal-content .modal-body .tab-content #image-accordion .panel {
+  border-radius: 0;
+  border: 0;
+  border-bottom: 1px solid #c3c3c3;
+  background: none;
+  box-shadow: none;
+}
+.modal.media-modal .modal-dialog .modal-content .modal-body .tab-content #image-accordion .panel .panel-heading {
+  background: none;
+  border: 0;
+}
+.modal.media-modal .modal-dialog .modal-content .modal-body .tab-content #image-accordion .panel .panel-heading > a {
+  display: block;
+  outline: 0;
+  color: #ff7e00;
+}
+.modal.media-modal .modal-dialog .modal-content .modal-body .tab-content #image-accordion .panel .panel-heading > a .imgthumb img {
+  height: 100%;
+  width: auto;
+}
+.modal.media-modal .modal-dialog .modal-content .modal-body .tab-content #image-accordion .panel .panel-heading > a .imgname,
+.modal.media-modal .modal-dialog .modal-content .modal-body .tab-content #image-accordion .panel .panel-heading > a .imgdate {
+  font-weight: bold;
+  padding: 0.5em 0;
+}
+.modal.media-modal .modal-dialog .modal-content .modal-body .tab-content #image-accordion .panel .panel-heading > a .imgactions {
+  text-align: center;
+}
+.modal.media-modal .modal-dialog .modal-content .modal-body .tab-content #image-accordion .panel .panel-heading > a .imgactions .btn {
+  padding: 5px 8px 6px;
+}
+.modal.media-modal .modal-dialog .modal-content .modal-body .tab-content #image-accordion .panel .panel-heading > a.collapsed {
+  color: #aaaaaa;
+}
