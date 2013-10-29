@@ -417,7 +417,6 @@ Version:        0.1.0
 .aj-imp-builder-area .aj-imp-browser-preview {
   border-radius: 6px;
   border: 1px solid #dadada;
-  margin-left: 45px;
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header {
   padding: 1em;
@@ -714,13 +713,13 @@ Version:        0.1.0
   background: #dddddd;
   box-shadow: inset 0 0 2px #c3c3c3;
 }
-#aj-imp-builder-drag-drop .row div[class^='column'] {
+#aj-imp-builder-drag-drop .row .column {
   min-height: 120px;
   height: 100%;
   padding: 1em;
   position: relative;
 }
-#aj-imp-builder-drag-drop .row div[class^='column'] > .clearfix {
+#aj-imp-builder-drag-drop .row .column > .clearfix {
   background: #fff;
   height: 100%;
   min-height: 120px;
@@ -866,14 +865,66 @@ Version:        0.1.0
 .modal.media-modal .modal-dialog .modal-content .modal-body .tab-content #image-accordion .panel .panel-heading > a .imgname,
 .modal.media-modal .modal-dialog .modal-content .modal-body .tab-content #image-accordion .panel .panel-heading > a .imgdate {
   font-weight: bold;
-  padding: 0.5em 0;
+  padding: 0.5em 15px;
 }
 .modal.media-modal .modal-dialog .modal-content .modal-body .tab-content #image-accordion .panel .panel-heading > a .imgactions {
   text-align: center;
 }
 .modal.media-modal .modal-dialog .modal-content .modal-body .tab-content #image-accordion .panel .panel-heading > a .imgactions .btn {
   padding: 5px 8px 6px;
+  margin-right: 1em;
+}
+.modal.media-modal .modal-dialog .modal-content .modal-body .tab-content #image-accordion .panel .panel-heading > a .imgactions .btn:hover {
+  background: #ff7e00;
 }
 .modal.media-modal .modal-dialog .modal-content .modal-body .tab-content #image-accordion .panel .panel-heading > a.collapsed {
   color: #aaaaaa;
+}
+.modal.media-modal .modal-dialog .modal-content .modal-body .tab-content #image-accordion .panel .panel-heading:hover {
+  background: #f3f3f3;
+}
+.modal.media-modal .modal-dialog .modal-content .modal-body .tab-content #image-accordion .panel .panel-body {
+  border: 0;
+  padding: 1em 0;
+}
+.modal.media-modal .modal-dialog .modal-content .modal-body .tab-content #image-accordion .panel .panel-body .aj-imp-edit-image {
+  border-radius: 0;
+}
+.modal.media-modal .modal-dialog .modal-content .modal-body .tab-content #image-accordion .panel .panel-body .aj-imp-edit-image .aj-imp-crop-link {
+  position: relative;
+}
+.modal.media-modal .modal-dialog .modal-content .modal-body .tab-content #image-accordion .panel .panel-body .aj-imp-edit-image .aj-imp-crop-link img {
+  padding: 1px;
+  border: 1px solid #aaaaaa;
+}
+.modal.media-modal .modal-dialog .modal-content .modal-body .tab-content #image-accordion .panel .panel-body .aj-imp-edit-image .aj-imp-crop-link .aj-imp-crop-link-overlay {
+  position: absolute;
+  top: 1px;
+  bottom: 1px;
+  left: 15px;
+  right: 15px;
+  background: rgba(0, 0, 0, 0.4);
+}
+.modal.media-modal .modal-dialog .modal-content .modal-body .tab-content #image-accordion .panel .panel-body .aj-imp-edit-image .aj-imp-crop-link .aj-imp-crop-link-overlay a {
+  position: relative;
+  top: 50%;
+  color: #fff;
+  display: block;
+  text-align: center;
+}
+.modal.media-modal .modal-dialog .modal-content .modal-body .tab-content #image-accordion .panel .panel-body .aj-imp-edit-image .aj-imp-img-form .row {
+  margin: 0 0 1em;
+}
+.modal.media-modal .modal-dialog .modal-content .modal-body .tab-content #image-accordion .panel .panel-body .aj-imp-edit-image .aj-imp-img-form .row textarea {
+  min-height: 115px;
+}
+.modal.media-modal .modal-dialog .modal-content .modal-body .tab-content #image-accordion .panel .panel-body .aj-imp-edit-image .aj-imp-img-form .row input:focus,
+.modal.media-modal .modal-dialog .modal-content .modal-body .tab-content #image-accordion .panel .panel-body .aj-imp-edit-image .aj-imp-img-form .row textarea:focus {
+  border-color: #ff7e00;
+}
+.modal.media-modal .modal-dialog .modal-content .modal-body .tab-content #image-accordion .panel .panel-body .aj-imp-edit-image .aj-imp-img-save {
+  margin: 1em 0 0;
+  text-align: right;
+  padding: 0.5em 0 0;
+  border-top: 1px solid #dadada;
 }
