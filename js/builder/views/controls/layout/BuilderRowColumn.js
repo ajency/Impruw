@@ -4,13 +4,18 @@ define(['builder/views/controls/BuilderControl', 'global'],
             var BuilderRowColumn = BuilderControl.extend({
                 
                 // type of control
-                type       : 'column',
+                type        : 'column',
                 
                 //holds all controls for this column
                 controls    : [],
                 
+                className   : 'column',
                 
-                initialize : function(opt){
+                
+                initialize  : function(opt){
+                    
+                    _.bindAll(this, 'isEmpty','clear','handleControlDrop');
+                    
                     this.parent = opt.parent;
                 },
                 
@@ -27,47 +32,31 @@ define(['builder/views/controls/BuilderControl', 'global'],
                     
                     this.$el.addClass('col-sm-' + col);
                     
-                    this.enableDroppable();
+                    this.id = 'column-' + global.generateRandomId();
+                    
+                    this.$el.attr('id', this.id);
+                    
+                    this.controls = [];
                     
                     return this;
                 },
                 
                 /**
-                 * Makes the column as droppable
-                 * Column can accept any draggable element 
-                 * with attribute "data-control"
+                 * Identifies the control drop and handle accordingly
                  * 
-                 * @returns  void
+                 * @param {type} controlName
+                 * @returns {undefined}
                  */        
-                enableDroppable : function(){
+                handleControlDrop : function(controlName){
                     
-                    var self = this;
-            
-                    //accept droppable controls
-                    return;
-					this.$el.droppable({
-											accept      : '*[data-control]',
-											hoverClass  : 'ui-state-highlight',
-											greedy      : true,
-											drop        : function( event, ui ) {
-                                                
-                                                                event.stopPropagation();
-
-                                                                var cClass = ui.draggable.attr('data-control');
-
-                                                                var Control = require('builder/views/controls/layout/' + cClass);
-
-                                                                if(_.isUndefined(Control))
-                                                                    return;
-
-                                                                var control = new Control({parent : self});
-
-                                                                self.controls.push(control);
-
-                                                                $(event.target).html(control.generateBuilderMarkup());									
-                                                          }
-										});
-                },
+                    if(this.isEmpty())
+                        this.clear();
+                    
+                    var C = require('builder/views/Controls');
+                    var control = new C[controlName]({parent: this});
+                    this.controls.push(control);
+                    this.$el.append(control.generateBuilderMarkup());
+                },        
                 
                 /**
                  * Checks if the column is empty or not.
@@ -81,7 +70,15 @@ define(['builder/views/controls/BuilderControl', 'global'],
                     
                     return false;
                     
-                }
+                },
+                        
+                /**
+                 * clears the empty column
+                 * @returns {undefined}
+                 */        
+                clear : function(){
+                    this.$el.empty();
+                }        
                 
             });
             
