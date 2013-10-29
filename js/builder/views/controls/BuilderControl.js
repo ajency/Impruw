@@ -3,6 +3,8 @@ define(['backbone','jquery','underscore','handlebars', 'global'],
 
 			var BuilderControl = Backbone.View.extend({
 
+                parent : null,
+
 				/**
                  * All child controls will override this function;
                  * @returns {undefined}
@@ -10,6 +12,19 @@ define(['backbone','jquery','underscore','handlebars', 'global'],
 				render : function(){
                     
 				},
+                  
+                /**
+                 * Returns the parent of the selected view
+                 * 
+                 * @returns {undefined}
+                 */        
+                getParent : function(){
+                    
+                    if(_.isNull(this.parent) || !_.isObject(this.parent))
+                        return false;
+                    
+                    return this.parent;
+                },
 
 				/**
                  * Generates the Control markup to drop
@@ -35,7 +50,7 @@ define(['backbone','jquery','underscore','handlebars', 'global'],
                  */        
                 removeControl : function(evt){
                 	evt.preventDefault();
-
+                    evt.stopPropagation();
                     var self = this;
                     if(!confirm("Are you sure?"))
                         return;

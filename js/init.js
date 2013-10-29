@@ -63,7 +63,7 @@ require(['backbone',
         $(document).ready(function(){    
             
             $(window).ready(function(){
-                new Router();
+                builder = new Router();
                 Backbone.history.start();
             });
                 

@@ -1,6 +1,9 @@
 /*custom.css*/
-.ui-state-highlight{
-	border: 1px dashed #ff7e00;
+.ui-sortable-placeholder {
+    outline: 1px dashed #5E5555;
+    visibility: visible!Important;
+    border-radius: 4px;
+    background: transparent!Important;
 }
 
 #aj-imp-builder-drag-drop > div.row{

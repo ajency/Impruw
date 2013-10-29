@@ -9,17 +9,21 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Controls'],
 
 			var BuilderEditorView = Backbone.View.extend({
 
-				el : '#aj-imp-builder-drag-drop',
+				el          : '#aj-imp-builder-drag-drop',
 
-				className : 'container',
+				className   : 'container',
+                
+                rows        : [],
 
-				initialize : function(){
-
+				initialize  : function(){
+                        
+                    _.bindAll(this, 'enableDropSort','getRows');    
 
 				},
 
 				render : function(){
-
+                        
+                        var self = this;
 					
 						//enable controls drag
 						$( "#controls-drag" ).draggable({
@@ -27,16 +31,6 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Controls'],
 							 addClasses: false
 						});
 						
-
-						/** Controls Draggable */
-						$('*[data-control]').draggable({
-															addClasses			: false,
-															helper				:  'clone',
-															revert 				: 'invalid',
-															drag  				: 	function (e, t) {
-																			      		t.helper.width(286);
-																			      	}
-														});
 
 						return this;
 				},
@@ -48,30 +42,43 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Controls'],
                     
                     var self = this;
                     
-					// sort the rows internally
-					this.$el.sortable({'revert'	: 'invalid', 'handle' : '.aj-imp-drag-handle'});
-
-					this.$el.find('.columns').sortable({'revert'	: 'invalid'});
-
-					//accept droppable controls
-					this.$el.droppable({
-											accept : '*[data-control]',
-											hoverClass: "ui-state-highlight",
-											greedy : true,
-											drop: function( event, ui ) {
-
-												var cClass = ui.draggable.attr('data-control');
-												
-												if(_.isUndefined(Controls[cClass]))
-													return;
-
-												var control = new Controls[cClass];
-												$(event.target).append(control.generateBuilderMarkup());
-                                                self.$el.sortable({'revert'	: 'invalid', 'handle' : '.aj-imp-drag-handle'});
-																							
-											}
-										});
-				}
+                    /** Controls Draggable */
+                    $('*[data-control="BuilderRow"]').draggable({
+                                                        connectToSortable   : "#aj-imp-builder-drag-drop,.column",
+                                                        helper				: 'clone',
+                                                        revert 				: 'invalid',
+                                                        drag  				: function (e, t) {
+                                                                                    t.helper.width(286);
+                                                                              }                           
+                                                    });
+                    
+                    this.$el.sortable({
+                                        revert      : 'invalid',
+                                        items       : '> .row',        
+                                        connectWith : '.column',
+                                        opacity     : .65,
+                                        handle      : '.aj-imp-drag-handle',
+                                        receive     : function(event, ui) {
+                                                            var row = new Controls['BuilderRow']({parent: self});
+                                                            self.rows.push(row);
+                                                            $(event.target).find('*[data-control="BuilderRow"]').replaceWith(row.generateBuilderMarkup());
+                                                            row.sortableColumns();
+                                                    }
+                                    }).disableSelection(); 
+                                        
+                                         
+				},
+                
+                /**
+                 * Returns current rows for the Editor.Top Level rows
+                 * 
+                 * @returns {unresolved}
+                 */
+                getRows : function(){
+                    
+                    return this.rows;
+                    
+                }
 
 			});	
 
