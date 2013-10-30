@@ -34,7 +34,7 @@ define(['builder/views/elements/BuilderElement', 'global'],
                  */        
                 render : function(col){
                     
-                    this.$el.html('<div class="clearfix">&nbsp;<div class="aj-imp-drag-elements-message"><span class="glyphicon glyphicon-transfer"></span>Drag Elements Here</div></div>');
+                    //this.$el.html('<div class="clearfix">&nbsp;<div class="aj-imp-drag-elements-message"><span class="glyphicon glyphicon-transfer"></span>Drag Elements Here</div></div>');
                     
                     this.$el.addClass('col-sm-' + col);
                     
