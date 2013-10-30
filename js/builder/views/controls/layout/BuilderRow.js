@@ -22,7 +22,7 @@ define(['builder/views/controls/BuilderControl', 'builder/views/controls/layout/
 
 				//register events
 				events : {
-					'mouseover'                         : 'rowMouseOver',
+					'mouseenter'                        : 'rowMouseEnter',
                     'mouseleave'                        : 'rowMouseLeave',
                     'click .aj-imp-delete-btn'          : 'removeControl',
                     'click .aj-imp-col-sel ul li a'     : 'adjustColumnsInRow' 
@@ -41,12 +41,40 @@ define(['builder/views/controls/BuilderControl', 'builder/views/controls/layout/
                 initialize : function(opt){
                     
                     _.bindAll(this, 'adjustColumnsInRow','generateBuilderMarkup','sortableColumns','handleColumnDrop',
-                                    'addNewColumn','columnCount','getColumns','getColumn');
+                                    'addNewColumn','columnCount','getColumns','getColumn','rowMouseEnter','rowMouseLeave',
+                                    'adjustColumnDimension');
                     
                     this.parent = opt.parent;
                     
+                    this.on('adjust_column_dimension', this.adjustColumnDimension);
+                    
                     //this.listenTo('column_removed', this.handleColumnRemoval);
                 },
+                
+                /**
+                 * Triggered when new controls are dropped into columns
+                 * Once new controls are dropped in column the column heights can vary.
+                 * This function get the column with maximum height and assign the same
+                 * height to all of its siblings and trigger the height_changed event for
+                 * each column so the column can handle its condition of new height.
+                 * @returns {undefined}
+                 */        
+                adjustColumnDimension : function(){
+                    
+                    var height = [];
+                    _.each(this.columns, function(column, index){
+                        height.push(column.$el.height());
+                    });
+                    
+                    var newHeight = _.max(height);
+                    
+                    _.each(this.columns, function(column, index){
+                        var prevHeight = column.$el.height();
+                        column.$el.height(newHeight);
+                        column.trigger('height_changed', prevHeight, newHeight);
+                    });
+                   
+                },        
 
                /**
                  * Generates the Control markup to drop 
@@ -95,8 +123,6 @@ define(['builder/views/controls/BuilderControl', 'builder/views/controls/layout/
                     
                     evt.stopPropagation();
                     
-                    log("Clicked");
-                    
                     var requestedColumns = parseInt($(evt.target).text());
                     
                     //if same column count is clicked ignore
@@ -124,7 +150,7 @@ define(['builder/views/controls/BuilderControl', 'builder/views/controls/layout/
                     else if(requestedColumns < this.columnCount()){
                         
                         var emptyColumns = [];
-                        log(this.columns);
+                        
                         _.each(this.columns, function(column, index){
                             
                             if(column.isEmpty())
@@ -220,6 +246,10 @@ define(['builder/views/controls/BuilderControl', 'builder/views/controls/layout/
                  */        
                 handleColumnDrop : function(event, ui){
                     
+                    //bail if helper is null
+                    if(_.isNull(ui.helper))
+                        return;
+                    
                     //get the column object
                     var colID = $(event.target).attr('id');
                     var col = this.getColumn(colID);
@@ -267,7 +297,7 @@ define(['builder/views/controls/BuilderControl', 'builder/views/controls/layout/
                     column.render(colClass);
                     this.columns.push(column);
                     this.$el.append(column.$el);
-                    this.trigger('new_column_added',column);
+                    this.trigger('adjust_column_dimension');
                 },
                 
                 /**
@@ -286,25 +316,28 @@ define(['builder/views/controls/BuilderControl', 'builder/views/controls/layout/
                  * @param {type} evt
                  * @returns void
                  */
-                rowMouseOver : function(evt){
+                rowMouseEnter : function(evt){
                     
                     evt.stopPropagation();
                     
-                    if(this.mouseOnControl)
-                        return;
+                    //remove hover style if row is a child of column
+                    if(this.parent.type === 'column')
+                        this.parent.parent.rowMouseLeave(evt);
                     
                     this.$el.css('border', '1px solid #ff7e00');
-                    this.$el.find('.aj-imp-drag-handle,.aj-imp-delete-btn,.aj-imp-col-divider,.aj-imp-col-sel').show();
+                    this.$el.children('.aj-imp-drag-handle,.aj-imp-delete-btn,.aj-imp-col-divider,.aj-imp-col-sel').show();
                 },
                 
                 /**
-                 * Listen to mouse out event
+                 * Listen to mouse leave event
                  * @param {type} evt
                  * @returns void
                  */        
                 rowMouseLeave : function(evt){
                     
                     evt.stopPropagation();
+                    if(this.parent.type === 'column')
+                        this.parent.parent.rowMouseLeave(evt);
                     
                     this.$el.css('border', '1px solid transparent');
                     this.$el.find('.aj-imp-drag-handle,.aj-imp-delete-btn,.aj-imp-col-divider,.aj-imp-col-sel').hide();

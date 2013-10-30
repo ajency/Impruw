@@ -55,9 +55,10 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Controls'],
                     this.$el.sortable({
                                         revert      : 'invalid',
                                         items       : '> .row',        
-                                        connectWith : '.column',
+                                        connectWith : '.clearfix',
                                         opacity     : .65,
                                         handle      : '.aj-imp-drag-handle',
+                                        tolerance   : "pointer",
                                         receive     : function(event, ui) {
                                                             var row = new Controls['BuilderRow']({parent: self});
                                                             self.rows.push(row);

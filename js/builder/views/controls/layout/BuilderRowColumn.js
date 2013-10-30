@@ -11,16 +11,18 @@ define(['builder/views/controls/BuilderControl', 'global'],
                 
                 className   : 'column',
                 
-                events : {
-                     'mouseover' : 'columnMouseOver'
-                     
-                },
-                
                 initialize  : function(opt){
                     
-                    _.bindAll(this, 'isEmpty','clear','handleControlDrop','columnMouseOver');
+                    _.bindAll(this, 'isEmpty','clear','handleControlDrop','handleHeightChange','isEmpty','clear',
+                                    'handleWidthChange');
                     
                     this.parent = opt.parent;
+                    
+                    //listen to height change event
+                    this.on('height_changed',this.handleHeightChange);
+                    
+                    //listen to width change event
+                    this.on('width_changed',this.handleWidthChange);
                 },
                 
                 /**
@@ -46,6 +48,40 @@ define(['builder/views/controls/BuilderControl', 'global'],
                 },
                 
                 /**
+                 * Listen to height change of the column
+                 * 
+                 * @param {type} newHeight
+                 * @returns {undefined}
+                 */        
+                handleHeightChange : function(prevHeight, newHeight){
+                    
+                    if(newHeight > prevHeight){
+                        
+                    }
+                    else if(newHeight < prevHeight){
+                        
+                    }
+                    
+                },   
+                        
+                /**
+                 * Listen to width change of the column
+                 * 
+                 * @param {type} newHeight
+                 * @returns {undefined}
+                 */        
+                handleWidthChange : function(prevHeight, newHeight){
+                    
+                    if(newHeight > prevHeight){
+                        
+                    }
+                    else if(newHeight < prevHeight){
+                        
+                    }
+                    
+                },           
+                
+                /**
                  * Identifies the control drop and handle accordingly
                  * 
                  * @param {type} controlName
@@ -60,25 +96,14 @@ define(['builder/views/controls/BuilderControl', 'global'],
                     var control = new C[controlName]({parent: this});
                     this.controls.push(control);
                     this.$el.append(control.generateBuilderMarkup());
+                    
+                    //reset height to auto
+                    this.$el.height('auto');
+                    
+                    //added new control. Now trigger parent row adjust column dimension
+                    this.parent.trigger('adjust_column_dimension');
                 },   
                         
-                /**
-                 * Listen to column mousemove event. 
-                 * 
-                 * If the current column has class "filled" do not do anything. the column child elements will handle the mouseover action
-                 * @param {type} evt
-                 * @returns {unresolved}
-                 */
-                columnMouseOver : function(evt){
-                    
-                    evt.stopPropagation();
-                    
-                    if(this.isEmpty())
-                        return;
-
-                    this.parent.rowMouseLeave(evt);
-                    this.$el.find('.aj-imp-col-divider').show();
-                },        
                 
                 /**
                  * Checks if the column is empty or not.
