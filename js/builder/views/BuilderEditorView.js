@@ -43,7 +43,7 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Elements'],
                     var self = this;
                     
                     /** Controls Draggable */
-                    $('*[data-control="BuilderRow"]').draggable({
+                    $('*[data-element="BuilderRow"]').draggable({
                                                         connectToSortable   : "#aj-imp-builder-drag-drop,.column",
                                                         helper				: 'clone',
                                                         revert 				: 'invalid',
@@ -62,7 +62,7 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Elements'],
                                         receive     : function(event, ui) {
                                                             var row = new Controls['BuilderRow']({parent: self});
                                                             self.rows.push(row);
-                                                            $(event.target).find('*[data-control="BuilderRow"]').replaceWith(row.generateBuilderMarkup());
+                                                            $(event.target).find('*[data-element="BuilderRow"]').replaceWith(row.generateBuilderMarkup());
                                                             row.sortableColumns();
                                                     }
                                     }).disableSelection(); 

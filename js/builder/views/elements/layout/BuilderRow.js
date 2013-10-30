@@ -260,7 +260,7 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                     //get control to be dropped
                     var elementName = ui.helper.attr('data-element');
                     
-                    ui.helper.remove();
+                   // ui.helper.remove();
                     
                     //pass control to column view to handle
                     col.handleElementDrop(elementName);
