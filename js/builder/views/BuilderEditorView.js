@@ -4,7 +4,7 @@
  * Most imp file
  */
  
-define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Controls'],
+define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Elements'],
 		function( _ , $, Backbone, global, Controls){
 
 			var BuilderEditorView = Backbone.View.extend({

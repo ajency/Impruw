@@ -1,7 +1,7 @@
-define(['builder/views/controls/BuilderControl', 'builder/views/controls/layout/BuilderRowColumn', 'text!builder/templates/controls/layout/BuilderRow.hbs','global'], 
-		function(BuilderControl, BuilderRowColumn, template, global){
+define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/BuilderRowColumn', 'text!builder/templates/elements/layout/BuilderRow.hbs','global'], 
+		function(BuilderElement, BuilderRowColumn, template, global){
 
-			var BuilderRow = BuilderControl.extend({
+			var BuilderRow = BuilderElement.extend({
 
                 //create a div element with class "row"
 				className : 'row',
@@ -12,19 +12,18 @@ define(['builder/views/controls/BuilderControl', 'builder/views/controls/layout/
 				//set name for row. Will be used to generate unique ID for each control
 				type 		: 'row',
                 
-                //columns views
+                // views
                 columns     : [],
                 
                 //total columns
                 totalColumns : 2,
                 
-                mouseOnControl : false,
-
+                
 				//register events
 				events : {
 					'mouseenter'                        : 'rowMouseEnter',
                     'mouseleave'                        : 'rowMouseLeave',
-                    'click .aj-imp-delete-btn'          : 'removeControl',
+                    'click .aj-imp-delete-btn'          : 'removeElement',
                     'click .aj-imp-col-sel ul li a'     : 'adjustColumnsInRow' 
 				},
 
@@ -259,10 +258,12 @@ define(['builder/views/controls/BuilderControl', 'builder/views/controls/layout/
                         return;
                     
                     //get control to be dropped
-                    var controlName = ui.helper.attr('data-control');
+                    var elementName = ui.helper.attr('data-element');
+                    
+                    ui.helper.remove();
                     
                     //pass control to column view to handle
-                    col.handleControlDrop(controlName);
+                    col.handleElementDrop(elementName);
                     
                 },    
                 

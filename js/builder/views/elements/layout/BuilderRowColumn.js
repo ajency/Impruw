@@ -1,19 +1,19 @@
-define(['builder/views/controls/BuilderControl', 'global'], 
-		function( BuilderControl, global){
+define(['builder/views/elements/BuilderElement', 'global'], 
+		function( BuilderElement, global){
             
-            var BuilderRowColumn = BuilderControl.extend({
+            var BuilderRowColumn = BuilderElement.extend({
                 
-                // type of control
+                // type of element
                 type        : 'column',
                 
-                //holds all controls for this column
-                controls    : [],
+                //holds all elements for this column
+                elements    : [],
                 
                 className   : 'column',
                 
                 initialize  : function(opt){
                     
-                    _.bindAll(this, 'isEmpty','clear','handleControlDrop','handleHeightChange','isEmpty','clear',
+                    _.bindAll(this, 'isEmpty','clear','handleElementDrop','handleHeightChange','isEmpty','clear',
                                     'handleWidthChange');
                     
                     this.parent = opt.parent;
@@ -87,15 +87,15 @@ define(['builder/views/controls/BuilderControl', 'global'],
                  * @param {type} controlName
                  * @returns {undefined}
                  */        
-                handleControlDrop : function(controlName){
+                handleElementDrop : function(elementName){
                     
                     if(this.isEmpty())
                         this.clear();
                     
-                    var C = require('builder/views/Controls');
-                    var control = new C[controlName]({parent: this});
-                    this.controls.push(control);
-                    this.$el.append(control.generateBuilderMarkup());
+                    var C = require('builder/views/Elements');
+                    var element = new C[elementName]({parent: this});
+                    this.elements.push(element);
+                    this.$el.append(element.generateBuilderMarkup());
                     
                     //reset height to auto
                     this.$el.height('auto');
@@ -112,7 +112,7 @@ define(['builder/views/controls/BuilderControl', 'global'],
                  */
                 isEmpty : function(){
                     
-                    if(this.controls.length === 0)
+                    if(this.elements.length === 0)
                         return true;
                     
                     return false;
