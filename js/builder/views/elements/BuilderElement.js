@@ -1,7 +1,7 @@
 define(['backbone','jquery','underscore','handlebars', 'global'], 
 		function(Backbone, $, _, Handlebars,  global){
 
-			var BuilderControl = Backbone.View.extend({
+			var BuilderElement = Backbone.View.extend({
 
                 parent : null,
 
@@ -48,7 +48,7 @@ define(['backbone','jquery','underscore','handlebars', 'global'],
                  * @param {object} evt
                  * @returns void
                  */        
-                removeControl : function(evt){
+                removeElement : function(evt){
                 	evt.preventDefault();
                     evt.stopPropagation();
                     var self = this;
@@ -84,6 +84,6 @@ define(['backbone','jquery','underscore','handlebars', 'global'],
 
 			});
 
-			return BuilderControl;
+			return BuilderElement;
 
 		});
