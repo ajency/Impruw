@@ -721,6 +721,8 @@ Version:        0.1.0
   height: 100%;
   padding: 1em;
   position: relative;
+  background: #fff;
+  border: 1px dashed #aaaaaa;
 }
 #aj-imp-builder-drag-drop .row .column > .clearfix {
   background: #fff;
@@ -728,6 +730,7 @@ Version:        0.1.0
   min-height: 120px;
   padding: 1em;
   vertical-align: middle;
+  display: none;
 }
 #aj-imp-builder-drag-drop .row:last-child {
   margin: 0;
