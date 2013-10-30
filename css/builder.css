@@ -580,15 +580,16 @@ Version:        0.1.0
   z-index: 2;
 }
 #aj-imp-builder-drag-drop .aj-imp-drag-handle {
-  left: 45%;
+  left: 0;
   height: 20px;
-  min-width: 40px;
-  width: 10%;
+  width: 100%;
   text-align: center;
 }
 #aj-imp-builder-drag-drop .aj-imp-drag-handle a {
   cursor: move;
   display: block;
+  width: 10%;
+  margin: auto;
   color: #ff7e00;
   font-size: 20px;
   line-height: 20px;
@@ -659,6 +660,8 @@ Version:        0.1.0
   z-index: 0;
   color: #aaaaaa;
   text-transform: uppercase;
+  position: relative;
+  top: 20%;
 }
 #aj-imp-builder-drag-drop .aj-imp-drag-elements-message .glyphicon {
   font-size: 2em;
@@ -724,6 +727,7 @@ Version:        0.1.0
   height: 100%;
   min-height: 120px;
   padding: 1em;
+  vertical-align: middle;
 }
 #aj-imp-builder-drag-drop .row:last-child {
   margin: 0;
@@ -738,18 +742,37 @@ Version:        0.1.0
   display: none;
   position: absolute;
   z-index: 100;
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0);
   top: 0;
   left: 0;
   right: 0;
-  padding: 0.5em;
   text-align: center;
   border-bottom: 1px solid #f3f3f3;
+  cursor: text;
 }
-.aj-imp-preview .aj-imp-edit-content .aj-imp-edit-controls .btn {
-  font-size: 0.88em;
+.aj-imp-preview .aj-imp-edit-content .aj-imp-edit-controls .aj-imp-drag-handle {
+  position: absolute;
+  top: -10px;
+  left: 0;
+  height: 20px;
+  width: 100%;
+  text-align: center;
+}
+.aj-imp-preview .aj-imp-edit-content .aj-imp-edit-controls .aj-imp-drag-handle a {
+  cursor: move;
+  width: 60px;
+  margin: auto;
+  display: block;
+  color: #ff7e00 !important;
+  font-size: 20px;
+  line-height: 20px !important;
+  background: #fff;
+  border: 1px solid #ff7e00;
+  border-radius: 3px;
+}
+.aj-imp-preview .aj-imp-edit-content .aj-imp-edit-controls .aj-imp-drag-handle a:hover {
   background: #ff7e00;
-  padding: 4px 8px 5px;
+  color: #fff !important;
 }
 .aj-imp-preview .aj-imp-edit-content:hover {
   border: 1px dotted #ff7e00;

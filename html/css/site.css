@@ -53,6 +53,10 @@ Version:        0.1.0
   color: #f20000;
   font-size: 0.8em;
 }
+.promo p {
+  font-size: 1em;
+  margin: 0 0 0.5em;
+}
 .promo:hover img {
   border-color: #f20000;
 }
