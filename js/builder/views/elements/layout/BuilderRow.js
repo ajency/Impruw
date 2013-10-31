@@ -250,6 +250,7 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                 handleElementDropState : function(event , ui){
                 
                     this.$el.find('.column').height('auto');
+                    this.trigger('adjust_column_dimension');
                 },
                 
                 /**
