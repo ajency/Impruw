@@ -602,7 +602,7 @@ Version:        0.1.0
 			}
 		}
 		.aj-imp-browser-body {
-			background: #fff;
+			background: url(../images/empty-drag-bg.jpg) no-repeat center 1.5em #fff;
 			margin: 0 1em;
 		}
 		.aj-imp-browser-footer {
@@ -614,10 +614,16 @@ Version:        0.1.0
 /****Builder Drag & Drop Containers & Columns****/
 #aj-imp-builder-drag-drop {
 	padding: 1em 0;
+	min-height: 500px;
+	.aj-imp-add-row, .ui-sortable-placeholder {
+		height: 100%;
+		outline: 1px dashed @orange;
+		outline-offset: -0.2em;
+	}
 	.aj-imp-drag-handle, .aj-imp-delete-btn {
 		position: absolute;
 		display: none;
-		top: -10px;
+		top: -15px;
 		z-index: 2;
 	}
 	.aj-imp-drag-handle {
@@ -648,6 +654,7 @@ Version:        0.1.0
 		height: 20px;
 		background: @orange;
 		text-align: center;
+		cursor: pointer;
 		span {
 			color: #fff;
 			font-size: 18px;
@@ -753,10 +760,10 @@ Version:        0.1.0
 		border: 1px solid transparent;
 		.column {
 			min-height: 120px;
+			background: url(../images/empty-drag-bg.jpg) no-repeat center center #fff;
 			height: 100%;
 			padding: 1em;
 			position: relative;
-			background: #fff;
 			background-clip: content-box;
 			padding: 0.5em;
 			.row {
