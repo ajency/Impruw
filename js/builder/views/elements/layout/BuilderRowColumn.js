@@ -42,7 +42,7 @@ define(['builder/views/elements/BuilderElement', 'global'],
                     
                     this.$el.attr('id', this.id);
                     
-                    this.controls = [];
+                    this.elements = [];
                     
                     return this;
                 },
