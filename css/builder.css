@@ -584,7 +584,7 @@ Version:        0.1.0
   width: 100%;
   text-align: center;
 }
-#aj-imp-builder-drag-drop .aj-imp-drag-handle a {
+#aj-imp-builder-drag-drop .aj-imp-drag-handle span {
   cursor: move;
   display: block;
   width: 10%;
@@ -596,7 +596,7 @@ Version:        0.1.0
   border: 1px solid #ff7e00;
   border-radius: 3px;
 }
-#aj-imp-builder-drag-drop .aj-imp-drag-handle a:hover {
+#aj-imp-builder-drag-drop .aj-imp-drag-handle span:hover {
   background: #ff7e00;
   color: #fff;
 }
@@ -607,7 +607,7 @@ Version:        0.1.0
   background: #ff7e00;
   text-align: center;
 }
-#aj-imp-builder-drag-drop .aj-imp-delete-btn a {
+#aj-imp-builder-drag-drop .aj-imp-delete-btn span {
   color: #fff;
   font-size: 18px;
   font-weight: 700;

@@ -72,6 +72,8 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                         column.$el.height(newHeight);
                         column.trigger('height_changed', prevHeight, newHeight);
                     });
+                    
+                    this.sortableColumns();
                    
                 },        
 
@@ -228,7 +230,7 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                     var self = this;
                     
                     this.$el.find('.column').sortable({
-                                                        connectWith : '.column',
+                                                        connectWith : '#aj-imp-builder-drag-drop,.column',
                                                         opacity     : .65,
                                                         items       : '> .control, .row',
                                                         handle      : '.aj-imp-drag-handle',
@@ -245,13 +247,21 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                  */        
                 handleColumnDrop : function(event, ui){
                     
-                    //bail if helper is null
-                    if(_.isNull(ui.helper))
-                        return;
-                    
                     //get the column object
                     var colID = $(event.target).attr('id');
                     var col = this.getColumn(colID);
+                    
+                    //bail if helper is null
+                    if(_.isNull(ui.helper)){
+                        
+                        //reset height to auto
+                        this.$el.find('.column').height('auto');
+
+                        //added new control. Now trigger parent row adjust column dimension
+                        this.trigger('adjust_column_dimension');
+                        return;
+                    }
+                    
                     
                     //check if col exists
                     if(col === false)

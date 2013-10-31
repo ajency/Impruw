@@ -55,7 +55,7 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Elements'],
                     this.$el.sortable({
                                         revert      : 'invalid',
                                         items       : '> .row',        
-                                        connectWith : '.clearfix',
+                                        connectWith : '#aj-imp-builder-drag-drop,.column',
                                         opacity     : .65,
                                         handle      : '.aj-imp-drag-handle',
                                         receive     : function(event, ui) {
