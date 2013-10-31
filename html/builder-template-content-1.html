@@ -344,7 +344,7 @@
 		</div>
 	</div>
 	<!-- Image Modal -->
-	<div class="modal media-modal" id="imgModal">
+	<div class="modal wide-modal" id="imgModal">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -560,7 +560,7 @@
 		</div>  
 	</div>
 	<!-- Social Modal -->
-	<div class="modal media-modal" id="socialModal">
+	<div class="modal wide-modal" id="socialModal">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -571,23 +571,68 @@
 				<div class="modal-body">
 					<form class="form-horizontal" role="form">
 						<div class="form-group" id="social-drop">
-							<label class="col-md-2">Social Icons</label>
+							<label class="col-md-2">Social Icons:</label>
 							<div class="col-md-10">
 								<select>
 									<option value="0">Google</option>
 									<option value="1">Tripadvisor</option>
 								</select>
-								<button class="btn btn-default"><span class="glyphicon glyphicon-plus-sign"></span> Add Icon</button>
+								<button class="btn btn-default aj-imp-add-icon"><span class="glyphicon glyphicon-plus-sign"></span> Add Icon</button>
 							</div>
 						</div>
 						<div class="form-group">
-							
+							<div class="col-md-offset-2 col-md-4 input-group">
+								<span class="input-group-addon"><i class="fui-facebook"></i></span>
+								<input type="text" class="form-control" placeholder="Facebook" />
+								<span class="input-group-addon"><a href="#">&times;</a></span>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-md-offset-2 col-md-4 input-group">
+								<span class="input-group-addon"><i class="fui-twitter"></i></span>
+								<input type="text" class="form-control" placeholder="Twitter" />
+								<span class="input-group-addon"><a href="#">&times;</a></span>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-md-offset-2 col-md-4 input-group">
+								<span class="input-group-addon"><i class="fui-linkedin"></i></span>
+								<input type="text" class="form-control" placeholder="LinkedIn" />
+								<span class="input-group-addon"><a href="#">&times;</a></span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-2">Icons Alignment:</label>
+							<div class="col-md-10">
+								<div class="btn-group">
+									<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-align-left"></span></button>
+									<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-align-center"></span></button>
+									<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-align-right"></span></button>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-2">Spacing:</label>
+							<div class="col-md-10">
+								<select>
+									<option value="0">Spacing Above</option>
+									<option value="1">No Space</option>
+									<option value="2">Less Space</option>
+									<option value="3">More Space</option>
+								</select>
+								<select>
+									<option value="0">Spacing Below</option>
+									<option value="1">No Space</option>
+									<option value="2">Less Space</option>
+									<option value="3">More Space</option>
+								</select>
+							</div>
 						</div>
 					</form>
 				</div>
 
 				<div class="modal-footer">
-					
+					<button class="btn btn-deault btn-hg aj-imp-modal-save">Save</button>
 				</div>
 			</div>
 		</div>  
@@ -600,7 +645,7 @@
     <script src="js/bootstrap-switch.js"></script>
 	<script>
 		jQuery('.aj-imp-builder-top-nav select').selectpicker({style: 'btn-mini btn-default', menuStyle: 'dropdown'});
-		jQuery('#social-drop select').selectpicker({style: 'btn-mini btn-default', menuStyle: 'dropdown'});
+		jQuery('select').selectpicker({style: 'btn-mini btn-default', menuStyle: 'dropdown'});
 		jQuery('.aj-imp-preview .aj-imp-edit-content').append('<div class="aj-imp-edit-controls"><div class="aj-imp-drag-handle"><a title="Move" href="#"><span class="icon-uniF140"></span></a></div></div>');
 	</script>
 	<script>
