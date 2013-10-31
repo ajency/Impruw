@@ -58,7 +58,6 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Elements'],
                                         connectWith : '.clearfix',
                                         opacity     : .65,
                                         handle      : '.aj-imp-drag-handle',
-                                        tolerance   : "pointer",
                                         receive     : function(event, ui) {
                                                             var row = new Controls['BuilderRow']({parent: self});
                                                             self.rows.push(row);

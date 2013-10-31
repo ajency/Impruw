@@ -92,10 +92,15 @@ define(['builder/views/elements/BuilderElement', 'global'],
                     if(this.isEmpty())
                         this.clear();
                     
-                    var C = require('builder/views/Elements');
-                    var element = new C[elementName]({parent: this});
+                    var E = require('builder/views/Elements');
+                    var element = new E[elementName]({parent: this});
                     this.elements.push(element);
-                    this.$el.append(element.generateBuilderMarkup());
+                    
+                    //
+                    if(this.$el.find('*[data-element="'+elementName+'"]').length > 0)
+                        this.$el.find('*[data-element="'+elementName+'"]').replaceWith(element.generateBuilderMarkup());
+                    else
+                        this.$el.append(element.generateBuilderMarkup());
                     
                     //reset height to auto
                     this.$el.height('auto');
