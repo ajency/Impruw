@@ -28,8 +28,7 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Elements'],
 						//enable controls drag
 						$( "#controls-drag" ).draggable({
 							 handle: "p.desc",
-							 addClasses: false,
-                             containment : 'body'
+							 addClasses: false
 						});
 						
 
@@ -58,7 +57,6 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Elements'],
                                         items       : '> .row',        
                                         connectWith : '#aj-imp-builder-drag-drop,.column',
                                         opacity     : .65,
-                                        tolerance   : 'pointer',
                                         handle      : '.aj-imp-drag-handle',
                                         receive     : function(event, ui) {
                                                             var row = new Elements['BuilderRow']({parent: self});
