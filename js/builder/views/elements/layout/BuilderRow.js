@@ -41,7 +41,7 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                     
                     _.bindAll(this, 'adjustColumnsInRow','generateBuilderMarkup','sortableColumns','handleColumnDrop',
                                     'addNewColumn','columnCount','getColumns','getColumn','rowMouseEnter','rowMouseLeave',
-                                    'adjustColumnDimension');
+                                    'adjustColumnDimension','handleElementDropState');
                     
                     this.parent = opt.parent;
                     
@@ -232,12 +232,24 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                     this.$el.find('.column').sortable({
                                                         connectWith : '#aj-imp-builder-drag-drop,.column',
                                                         opacity     : .65,
-                                                        tolerance   : 'pointer',
                                                         items       : '> .control, .row',
                                                         handle      : '.aj-imp-drag-handle',
-                                                        receive     : self.handleColumnDrop
+                                                        receive     : self.handleColumnDrop,
+                                                        over        : self.handleElementDropState
                                                    }).disableSelection();
                     
+                },
+                
+                /**
+                 * Handle case when Element is over the droppable region
+                 * 
+                 * @param {type} event
+                 * @param {type} ui
+                 * @returns {undefined}
+                 */        
+                handleElementDropState : function(event , ui){
+                
+                    this.$el.find('.column').height('auto');
                 },
                 
                 /**
