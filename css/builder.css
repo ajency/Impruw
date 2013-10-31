@@ -739,7 +739,7 @@ Version:        0.1.0
   margin: 0;
 }
 /****Builder Element Layout Mode Styles****/
-.aj-imp-drag-drop [class^="aj-imp-elem-"] {
+#aj-imp-builder-drag-drop [class^="aj-imp-elem-"] {
   background: #fff;
   height: 100%;
   text-align: center;
@@ -748,19 +748,19 @@ Version:        0.1.0
   padding: 1em;
   position: relative;
 }
-.aj-imp-drag-drop [class^="aj-imp-elem-"] > [class^="icon-"] {
+#aj-imp-builder-drag-drop [class^="aj-imp-elem-"] > [class^="icon-"] {
   font-size: 3em;
 }
-.aj-imp-drag-drop [class^="aj-imp-elem-"] .aj-imp-descriptor {
+#aj-imp-builder-drag-drop [class^="aj-imp-elem-"] .aj-imp-descriptor {
   text-transform: uppercase;
   font-size: 1.5em;
 }
-.aj-imp-drag-drop [class^="aj-imp-elem-"]:hover {
+#aj-imp-builder-drag-drop [class^="aj-imp-elem-"]:hover {
   color: #ff7e00;
   border: 1px solid #ff7e00;
 }
-.aj-imp-drag-drop [class^="aj-imp-elem-"]:hover .aj-imp-drag-handle,
-.aj-imp-drag-drop [class^="aj-imp-elem-"]:hover .aj-imp-delete-btn {
+#aj-imp-builder-drag-drop [class^="aj-imp-elem-"]:hover .aj-imp-drag-handle,
+#aj-imp-builder-drag-drop [class^="aj-imp-elem-"]:hover .aj-imp-delete-btn {
   display: block !important;
 }
 /****Content Mode Edit Controls****/
