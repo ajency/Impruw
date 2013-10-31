@@ -30,6 +30,16 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Elements'],
 							 handle: "p.desc",
 							 addClasses: false
 						});
+                        
+                        /** Controls Draggable */
+                        $('*[data-element="BuilderRow"]').draggable({
+                                                        connectToSortable   : "#aj-imp-builder-drag-drop,.column",
+                                                        helper				: 'clone',
+                                                        revert 				: 'invalid',
+                                                        drag  				: function (e, t) {
+                                                                                    t.helper.width(286);
+                                                                              }                           
+                                                    });
 						
 
 						return this;
@@ -42,16 +52,6 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Elements'],
                     
                     var self = this;
                     
-                    /** Controls Draggable */
-                    $('*[data-element="BuilderRow"]').draggable({
-                                                        connectToSortable   : "#aj-imp-builder-drag-drop,.column",
-                                                        helper				: 'clone',
-                                                        revert 				: 'invalid',
-                                                        drag  				: function (e, t) {
-                                                                                    t.helper.width(286);
-                                                                              }                           
-                                                    });
-                    
                     this.$el.sortable({
                                         revert      : 'invalid',
                                         items       : '> .row',        
@@ -60,10 +60,16 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Elements'],
                                         handle      : '.aj-imp-drag-handle',
                                         receive     : function(event, ui) {
                                                             var row = new Elements['BuilderRow']({parent: self});
+                                                            
                                                             self.rows.push(row);
+                                                            
                                                             $(event.target).find('*[data-element="BuilderRow"]').replaceWith(row.generateBuilderMarkup());
                                                             row.sortableColumns();
-                                                    }
+                                                    },
+                                         sort       : function(event , ui){
+                                                            var pHeight = ui.helper.attr('data-placeholder-height');
+                                                            ui.placeholder.height(parseInt(pHeight) + 40);
+                                                        }
                                     }).disableSelection(); 
                                         
                                          

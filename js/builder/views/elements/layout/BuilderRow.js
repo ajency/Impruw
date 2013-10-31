@@ -4,19 +4,22 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
 			var BuilderRow = BuilderElement.extend({
 
                 //create a div element with class "row"
-				className : 'row',
+				className           : 'row',
 
 				//define template for control
-				template 	: template,
+				template            : template,
 
 				//set name for row. Will be used to generate unique ID for each control
-				type 		: 'row',
+				type                : 'row',
+                
+                //set height to be assigned to placeholder and helper
+                placeHolderHeight   : 120, 
                 
                 // views
-                columns     : [],
+                columns             : [],
                 
                 //total columns
-                totalColumns : 2,
+                totalColumns        : 2,
                 
                 
 				//register events
@@ -162,7 +165,7 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                         var emptyColsLen = emptyColumns.length;
                         //first check
                         if(emptyColsLen === 0 ){
-                            alert("None of the columns are empty. Please delete controls inside columns to remove columns");
+                            alert("None of the columns are empty. Please delete elements inside columns to remove columns");
                             return;
                         }
                         
@@ -235,7 +238,9 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                                                         items       : '> .control, .row',
                                                         handle      : '.aj-imp-drag-handle',
                                                         receive     : self.handleColumnDrop,
-                                                        over        : self.handleElementDropState
+                                                        sort        : self.handleElementDropState,
+                                                        forcePlaceholderSize : true,
+                                                        forceHelperSize : true                                        
                                                    }).disableSelection();
                     
                 },
@@ -248,7 +253,8 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                  * @returns {undefined}
                  */        
                 handleElementDropState : function(event , ui){
-                
+                    var pHeight = ui.helper.attr('data-placeholder-height');
+                    ui.placeholder.height(parseInt(pHeight) + 40);
                     this.$el.find('.column').height('auto');
                     this.trigger('adjust_column_dimension');
                 },
