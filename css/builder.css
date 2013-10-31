@@ -584,7 +584,7 @@ Version:        0.1.0
   width: 100%;
   text-align: center;
 }
-#aj-imp-builder-drag-drop .aj-imp-drag-handle span {
+#aj-imp-builder-drag-drop .aj-imp-drag-handle p {
   cursor: move;
   display: block;
   width: 10%;
@@ -596,7 +596,7 @@ Version:        0.1.0
   border: 1px solid #ff7e00;
   border-radius: 3px;
 }
-#aj-imp-builder-drag-drop .aj-imp-drag-handle span:hover {
+#aj-imp-builder-drag-drop .aj-imp-drag-handle p:hover {
   background: #ff7e00;
   color: #fff;
 }
@@ -701,7 +701,8 @@ Version:        0.1.0
   border-color: #ff7e00;
 }
 #aj-imp-builder-drag-drop .row {
-  min-height: 150px;
+  /*min-height: 150px;*/
+
   padding: 0.5em;
   margin: 0 0 1em;
   position: relative;

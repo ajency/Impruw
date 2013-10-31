@@ -232,10 +232,11 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                     this.$el.find('.column').sortable({
                                                         connectWith : '#aj-imp-builder-drag-drop,.column',
                                                         opacity     : .65,
+                                                        tolerance   : 'pointer',
                                                         items       : '> .control, .row',
                                                         handle      : '.aj-imp-drag-handle',
                                                         receive     : self.handleColumnDrop
-                                                   });
+                                                   }).disableSelection();
                     
                 },
                 

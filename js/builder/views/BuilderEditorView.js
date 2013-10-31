@@ -5,7 +5,7 @@
  */
  
 define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Elements'],
-		function( _ , $, Backbone, global, Controls){
+		function( _ , $, Backbone, global, Elements){
 
 			var BuilderEditorView = Backbone.View.extend({
 
@@ -28,7 +28,8 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Elements'],
 						//enable controls drag
 						$( "#controls-drag" ).draggable({
 							 handle: "p.desc",
-							 addClasses: false
+							 addClasses: false,
+                             containment : 'body'
 						});
 						
 
@@ -57,9 +58,10 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Elements'],
                                         items       : '> .row',        
                                         connectWith : '#aj-imp-builder-drag-drop,.column',
                                         opacity     : .65,
+                                        tolerance   : 'pointer',
                                         handle      : '.aj-imp-drag-handle',
                                         receive     : function(event, ui) {
-                                                            var row = new Controls['BuilderRow']({parent: self});
+                                                            var row = new Elements['BuilderRow']({parent: self});
                                                             self.rows.push(row);
                                                             $(event.target).find('*[data-element="BuilderRow"]').replaceWith(row.generateBuilderMarkup());
                                                             row.sortableColumns();
