@@ -561,7 +561,7 @@ Version:        0.1.0
   display: none;
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-body {
-  background: url(../images/empty-drag-bg.jpg) no-repeat center 1.5em #ffffff;
+  background: url(../images/empty-drag-bg.svg) no-repeat center -0.5em #ffffff;
   margin: 0 1em;
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-body.aj-imp-preview {
@@ -723,20 +723,18 @@ Version:        0.1.0
 }
 #aj-imp-builder-drag-drop .row .column {
   min-height: 120px;
-  background: url(../images/empty-drag-bg.jpg) no-repeat center center #ffffff;
+  background: url(../images/empty-drag-bg.svg) no-repeat center center #ffffff;
   height: 100%;
   padding: 1em;
   position: relative;
   background-clip: content-box;
   padding: 0.5em;
+  background-size: contain;
 }
 #aj-imp-builder-drag-drop .row .column .row {
   margin: 0.5em;
   box-shadow: inset 0 0 2px #c3c3c3;
   border: 1px solid transparent;
-}
-#aj-imp-builder-drag-drop .row .column .row .column {
-  background-size: contain;
 }
 #aj-imp-builder-drag-drop .row:last-child {
   margin: 0;
