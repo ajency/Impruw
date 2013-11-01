@@ -62,10 +62,10 @@ require(['backbone',
 
         $(document).ready(function(){    
             
-            $(window).ready(function(){
+           // $(window).ready(function(){
                 builder = new Router();
                 Backbone.history.start();
-            });
+            //});
                 
         });
 

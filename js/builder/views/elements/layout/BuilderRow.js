@@ -42,11 +42,13 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                  */
                 initialize : function(opt){
                     
-                    _.bindAll(this, 'adjustColumnsInRow','generateBuilderMarkup','sortableColumns','handleColumnDrop',
-                                    'addNewColumn','columnCount','getColumns','getColumn','rowMouseEnter','rowMouseLeave',
-                                    'adjustColumnDimension','handleElementDropState');
+                    _.bindAll(this, 'adjustColumnsInRow','generateBuilderMarkup','sortableColumns','addNewColumn',
+                                    'columnCount','getColumns','getColumn','rowMouseEnter','rowMouseLeave','adjustColumnDimension',
+                                    'allColumnsEmpty');
                     
                     this.parent = opt.parent;
+                    
+                    this.$el.attr('data-placeholder-height',this.placeHolderHeight);
                     
                     this.on('adjust_column_dimension', this.adjustColumnDimension);
                     
@@ -78,6 +80,26 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                     
                     this.sortableColumns();
                    
+                },
+                
+                /**
+                 * Checks if all the columns in a row are empty
+                 * 
+                 * @returns {Boolean}
+                 */
+                allColumnsEmpty : function(){
+                    
+                    var is = true;
+                    
+                    _.each(this.columns, function(column, index){
+                        
+                        if(!column.isEmpty())
+                            is = false;
+                    
+                    });
+                    
+                    return is;
+                    
                 },        
 
                /**
@@ -230,70 +252,15 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                  */        
                 sortableColumns : function(){
                     
-                    var self = this;
-                    
-                    this.$el.find('.column').sortable({
-                                                        connectWith : '#aj-imp-builder-drag-drop,.column',
-                                                        opacity     : .65,
-                                                        items       : '> .control, .row',
-                                                        handle      : '.aj-imp-drag-handle',
-                                                        receive     : self.handleColumnDrop,
-                                                        sort        : self.handleElementDropState,
-                                                        forcePlaceholderSize : true,
-                                                        forceHelperSize : true                                        
-                                                   }).disableSelection();
-                    
-                },
-                
-                /**
-                 * Handle case when Element is over the droppable region
-                 * 
-                 * @param {type} event
-                 * @param {type} ui
-                 * @returns {undefined}
-                 */        
-                handleElementDropState : function(event , ui){
-                    var pHeight = ui.helper.attr('data-placeholder-height');
-                    ui.placeholder.height(parseInt(pHeight) + 40);
-                    this.$el.find('.column').height('auto');
-                    this.trigger('adjust_column_dimension');
-                },
-                
-                /**
-                 * Check for column drop event
-                 * @param {type} event
-                 * @param {type} ui
-                 * @returns {undefined}
-                 */        
-                handleColumnDrop : function(event, ui){
-                    
-                    //get the column object
-                    var colID = $(event.target).attr('id');
-                    var col = this.getColumn(colID);
-                    
-                    //bail if helper is null
-                    if(_.isNull(ui.helper)){
+                    _.each(this.columns, function(column, index){
                         
-                        //reset height to auto
-                        this.$el.find('.column').height('auto');
+                        if(_.isFunction(column.makeColumnsSortable))
+                            column.makeColumnsSortable();
 
-                        //added new control. Now trigger parent row adjust column dimension
-                        this.trigger('adjust_column_dimension');
-                        return;
-                    }
+                    }); 
                     
-                    
-                    //check if col exists
-                    if(col === false)
-                        return;
-                    
-                    //get control to be dropped
-                    var elementName = ui.helper.attr('data-element');
-                    
-                    //pass control to column view to handle
-                    col.handleElementDrop(elementName);
-                    
-                },    
+                },
+                   
                 
                 /**
                  * Returns the column boject depending on col id

@@ -1,6 +1,6 @@
 define(['builder/views/elements/BuilderElement', 'global'], 
 		function( BuilderElement, global){
-            
+            "use strict";
             var BuilderRowColumn = BuilderElement.extend({
                 
                 // type of element
@@ -13,8 +13,9 @@ define(['builder/views/elements/BuilderElement', 'global'],
                 
                 initialize  : function(opt){
                     
-                    _.bindAll(this, 'isEmpty','clear','handleElementDrop','handleHeightChange','isEmpty','clear',
-                                    'handleWidthChange');
+                    _.bindAll(this, 'isEmpty', 'clear', 'handleElementDrop', 'handleHeightChange', 'isEmpty', 'clear',
+                                    'handleWidthChange', 'handleElementOverState', 'handleColumnDrop', 'makeColumnsSortable',
+                                    'handleElementRemove');
                     
                     this.parent = opt.parent;
                     
@@ -63,6 +64,97 @@ define(['builder/views/elements/BuilderElement', 'global'],
                     }
                     
                 },   
+                
+                /**
+                 * Make column sortable
+                 * 
+                 * @returns {undefined}
+                 */        
+                makeColumnsSortable : function(){
+                    
+                    var self = this;
+                    
+                    this.$el.sortable({
+                                        connectWith : '#aj-imp-builder-drag-drop,.column',
+                                        opacity     : .65,
+                                        items       : '> .element, .row',
+                                        handle      : '.aj-imp-drag-handle',
+                                        receive     : self.handleColumnDrop,
+                                        sort        : self.handleElementOverState,
+                                        remove      : self.handleElementRemove,
+                                        over        : self.handleElementRemove,
+                                        out         : self.handleElementRemove
+                                   }).disableSelection();
+                },
+                        
+                /**
+                 * 
+                 * Handle element removal state
+                 * 
+                 * @param {type} event
+                 * @param {type} ui
+                 * @returns {undefined}
+                 */        
+                handleElementRemove : function(event, ui){
+                    
+                    this.$el.height('auto');
+
+                },
+                
+                /**
+                 * Check for column drop event
+                 * @param {type} event
+                 * @param {type} ui
+                 * @returns {undefined}
+                 */        
+                handleColumnDrop : function(event, ui){
+                    
+                    //bail if helper is null
+                    if(_.isNull(ui.helper)){
+                        
+                        //reset height to auto
+                        this.$el.height('auto');
+
+                        //added new control. Now trigger parent row adjust column dimension
+                        this.parent.trigger('adjust_column_dimension');
+                        return;
+                    }
+                    
+                    //get control to be dropped
+                    var elementName = ui.helper.attr('data-element');
+                    
+                    //pass control to column view to handle
+                    this.handleElementDrop(elementName);
+                    
+                }, 
+                        
+                        
+                /**
+                 * Handle the out state for the dragged element
+                 * 
+                 * @returns {undefined}
+                 */        
+                handleElementOutState : function(event, ui){
+                    
+                },        
+                
+                /**
+                 * Handle case when Element is over the droppable region
+                 * 
+                 * @param {type} event
+                 * @param {type} ui
+                 * @returns {undefined}
+                 */        
+                handleElementOverState : function(event , ui){
+                     
+                    var pHeight = ui.helper.attr('data-placeholder-height');
+                    
+                    ui.placeholder.height(parseInt(pHeight));
+                    
+                    this.$el.height('auto');
+                    this.parent.trigger('adjust_column_dimension');
+                },
+                        
                         
                 /**
                  * Listen to width change of the column
@@ -107,6 +199,8 @@ define(['builder/views/elements/BuilderElement', 'global'],
                     
                     //added new control. Now trigger parent row adjust column dimension
                     this.parent.trigger('adjust_column_dimension');
+                    
+                    this.$el.sortable('refreshPositions');
                 },   
                         
                 
