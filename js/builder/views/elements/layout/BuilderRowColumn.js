@@ -15,7 +15,7 @@ define(['builder/views/elements/BuilderElement', 'global'],
                     
                     _.bindAll(this, 'isEmpty', 'clear', 'handleElementDrop', 'handleHeightChange', 'isEmpty', 'clear',
                                     'handleWidthChange', 'handleElementOverState', 'handleColumnDrop', 'makeColumnsSortable',
-                                    'handleElementRemove');
+                                    'handleElementRemove','resetHeightAuto', 'holdCurrentColRef');
                     
                     this.parent = opt.parent;
                     
@@ -43,6 +43,7 @@ define(['builder/views/elements/BuilderElement', 'global'],
                     
                     this.$el.attr('id', this.id);
                     
+                    //reset object caching
                     this.elements = [];
                     
                     return this;
@@ -73,7 +74,7 @@ define(['builder/views/elements/BuilderElement', 'global'],
                 makeColumnsSortable : function(){
                     
                     var self = this;
-                    
+                   
                     this.$el.sortable({
                                         connectWith : '#aj-imp-builder-drag-drop,.column',
                                         opacity     : .65,
@@ -82,10 +83,39 @@ define(['builder/views/elements/BuilderElement', 'global'],
                                         receive     : self.handleColumnDrop,
                                         sort        : self.handleElementOverState,
                                         remove      : self.handleElementRemove,
-                                        over        : self.handleElementRemove,
-                                        out         : self.handleElementRemove
+                                        over        : self.resetHeightAuto,
+                                        out         : self.resetHeightAuto,
+                                        activate    : self.holdCurrentColRef
                                    }).disableSelection();
                 },
+                        
+                /**
+                 * Holds current sender column reference
+                 * 
+                 * @param {type} event
+                 * @param {type} ui
+                 * @returns {undefined}
+                 */        
+                holdCurrentColRef : function(event, ui){
+                    
+                    event.stopPropagation();
+                    
+                    ui.helper.sender = this;
+                    log('activate' + ui.helper.attr('id'));
+                    //log(ui.helper.sender);
+                },        
+                        
+                /**
+                 * 
+                 * @param {type} event
+                 * @param {type} ui
+                 * @returns {undefined}
+                 */        
+                resetHeightAuto : function(event, ui){
+            
+                     this.$el.height('auto');
+                     log('over');
+                },        
                         
                 /**
                  * 
@@ -97,8 +127,21 @@ define(['builder/views/elements/BuilderElement', 'global'],
                  */        
                 handleElementRemove : function(event, ui){
                     
+                    //var senderColumn = ui.helper.sender;
+                    
+                    //log(senderColumn);
+                    log(ui.helper);
+                    //find element from column
+                    //var element = this.getElement();
+                    
+                    //remove element from
+                    if(this.isEmpty()){
+                        
+                        this.$el.css('background','url(images/empty-drag-bg.svg) no-repeat center center #ffffff');
+                        
+                    }
+                   
                     this.$el.height('auto');
-
                 },
                 
                 /**
@@ -109,6 +152,7 @@ define(['builder/views/elements/BuilderElement', 'global'],
                  */        
                 handleColumnDrop : function(event, ui){
                     
+                    log(ui.helper);
                     //bail if helper is null
                     if(_.isNull(ui.helper)){
                         
@@ -181,8 +225,7 @@ define(['builder/views/elements/BuilderElement', 'global'],
                  */        
                 handleElementDrop : function(elementName){
                     
-                    if(this.isEmpty())
-                        this.clear();
+                    this.$el.css('background','#fff');
                     
                     var E = require('builder/views/Elements');
                     var element = new E[elementName]({parent: this});
@@ -201,6 +244,8 @@ define(['builder/views/elements/BuilderElement', 'global'],
                     this.parent.trigger('adjust_column_dimension');
                     
                     this.$el.sortable('refreshPositions');
+                    
+                    log(this.elements);
                 },   
                         
                 

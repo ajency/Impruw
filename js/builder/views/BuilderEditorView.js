@@ -66,7 +66,6 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Elements'],
                                                         },
                                          sort       : function(event , ui){
                                                             var pHeight = ui.helper.attr('data-placeholder-height');
-                                                            log(pHeight);
                                                             ui.placeholder.height(parseInt(pHeight));
                                                         }                                         
                                     }).disableSelection(); 
