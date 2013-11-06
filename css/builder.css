@@ -751,9 +751,11 @@ Version:        0.1.0
   background: #fff;
   height: 100%;
   text-align: center;
-  color: #ffcb99;
-  border: 1px dotted #333333;
-  padding: 1em;
+  color: #849fb0;
+  border: 1px dotted #849fb0;
+  margin: 0.5em;
+  padding: 0.5em;
+  box-sizing: border-box;
   position: relative;
 }
 #aj-imp-builder-drag-drop [class^="aj-imp-elem-"] > [class^="icon-"] {
