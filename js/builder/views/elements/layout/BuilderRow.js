@@ -1,4 +1,6 @@
-define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/BuilderRowColumn', 'text!builder/templates/elements/layout/BuilderRow.hbs','global'], 
+define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/BuilderRowColumn', 
+        'text!builder/templates/elements/layout/BuilderRow.hbs', 'global'], 
+    
 		function(BuilderElement, BuilderRowColumn, template, global){
 
 			var BuilderRow = BuilderElement.extend({

@@ -1,15 +1,15 @@
-define(['builder/views/elements/BuilderElement','text!builder/templates/elements/TitleElement.hbs', 'global'], 
+define(['builder/views/elements/BuilderElement','text!builder/templates/elements/ImageElement.hbs', 'global'], 
 		function(BuilderElement, template, global){
 
-			var TitleElement = BuilderElement.extend({
+			var ImageElement = BuilderElement.extend({
 
-                className           : 'aj-imp-elem-title element',
+                className           : 'aj-imp-elem-image element',
                 
                 //define template for control
 				template            : template,
                 
                 //identify element type
-                type                : 'title',
+                type                : 'image',
                 
                 //set height to be assigned to placeholder and helper
                 placeHolderHeight   : 60,
@@ -26,12 +26,12 @@ define(['builder/views/elements/BuilderElement','text!builder/templates/elements
                  * @returns {undefined}
                  */
                 initialize : function(options){
-                    
+                 
                     _.bindAll(this, 'rowMouseEnter','rowMouseLeave');
                     
                     this.parent = options.parent;
                  
-                    this.id = 'title-' + global.generateRandomId();
+                    this.id = 'image-' + global.generateRandomId();
                     
                     this.$el.attr('id', this.id);
                     
@@ -82,7 +82,7 @@ define(['builder/views/elements/BuilderElement','text!builder/templates/elements
                 
             });
             
-            return TitleElement;
+            return ImageElement;
         });
   
     
