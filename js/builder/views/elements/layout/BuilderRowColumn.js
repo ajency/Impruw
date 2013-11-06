@@ -165,7 +165,7 @@ define(['builder/views/elements/BuilderElement', 'global'],
                     
                     //get control to be dropped
                     var elementName = ui.helper.attr('data-element');
-                    
+                    log(elementName);
                     //pass control to column view to handle
                     this.handleElementDrop(elementName);
                    
@@ -224,18 +224,26 @@ define(['builder/views/elements/BuilderElement', 'global'],
                  */        
                 handleElementDrop : function(elementName){
                     
+                    var self = this;
+                    
                     this.$el.css('background-image','url()');
-                    
-                    var E = require('builder/views/Elements');
-                    var element = new E[elementName]({parent: this});
-                    this.elements.push(element);
-                    
-                    if(this.$el.find('*[data-element="'+elementName+'"]').length > 0)
-                        this.$el.find('*[data-element="'+elementName+'"]').replaceWith(element.generateBuilderMarkup());
+                    var path = '';
+                    if(elementName === 'BuilderRow' || elementName === 'BuilderRowColumn')
+                        path = 'builder/views/elements/layout/' + elementName;
                     else
-                        this.$el.append(element.generateBuilderMarkup());
+                        path = 'builder/views/elements/' + elementName;
                     
-                    this.parent.trigger('adjust_column_dimension');
+                    require([path], function(Element){
+                        var element = new Element({parent: self});
+                        self.elements.push(element);
+
+                        if(self.$el.find('*[data-element="'+elementName+'"]').length > 0)
+                            self.$el.find('*[data-element="'+elementName+'"]').replaceWith(element.generateBuilderMarkup());
+                        else
+                            self.$el.append(element.generateBuilderMarkup());
+
+                        self.parent.trigger('adjust_column_dimension');
+                    });    
                    
                 },   
                         

@@ -32,7 +32,7 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Elements'],
 						});
                         
                         /** Controls Draggable */
-                        $('*[data-element="BuilderRow"]').draggable({
+                        $('*[data-element]').draggable({
                                                         connectToSortable   : "#aj-imp-builder-drag-drop,.column",
                                                         helper				: 'clone',
                                                         revert 				: 'invalid',
