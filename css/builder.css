@@ -40,6 +40,12 @@ Version:        0.1.0
   background: #849fb0;
   color: #fff;
 }
+.dropdown-menu li.selected a {
+  background: #ff7e00;
+}
+.dropdown-menu li.selected a:hover {
+  background: #849fb0;
+}
 .dropdown-menu li:last-child {
   border-bottom: 0;
 }
@@ -771,6 +777,14 @@ Version:        0.1.0
   padding: 0.2em;
   border: 1px solid transparent;
 }
+.aj-imp-preview .aj-imp-edit-content [contenteditable=true]:empty:before {
+  content: attr(placeholder);
+  color: #c3c3c3;
+}
+.aj-imp-preview .aj-imp-edit-content [contenteditable=true]:focus {
+  box-shadow: inset 0 0 4px #a3b7c4;
+  outline: 0;
+}
 .aj-imp-preview .aj-imp-edit-content .aj-imp-edit-controls {
   display: none;
   position: absolute;
@@ -993,6 +1007,9 @@ Version:        0.1.0
 .modal.wide-modal .modal-dialog .modal-content .modal-body .form-horizontal {
   margin: 1em;
 }
+.modal.wide-modal .modal-dialog .modal-content .modal-body .form-horizontal .form-group input[type="text"]:focus {
+  border-color: #ff7e00;
+}
 .modal.wide-modal .modal-dialog .modal-content .modal-body .form-horizontal .form-group label {
   font-size: 1.2em;
   color: #aaaaaa;
@@ -1001,10 +1018,16 @@ Version:        0.1.0
 }
 .modal.wide-modal .modal-dialog .modal-content .modal-body .form-horizontal .form-group .input-group .input-group-addon a {
   font-weight: 700;
+  font-size: 1.2em;
   color: #fff;
 }
 .modal.wide-modal .modal-dialog .modal-content .modal-body .form-horizontal .form-group .input-group .input-group-addon a:hover {
   color: #ff7e00;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .form-horizontal .form-group .btn-group button.active,
+.modal.wide-modal .modal-dialog .modal-content .modal-body .form-horizontal .form-group .btn-group button:active,
+.modal.wide-modal .modal-dialog .modal-content .modal-body .form-horizontal .form-group .btn-group button:focus {
+  background: #849fb0;
 }
 .modal.wide-modal .modal-dialog .modal-content .modal-body .form-horizontal .form-group#social-drop .aj-imp-add-icon {
   background: #ff7e00;
