@@ -82,9 +82,8 @@ define(['builder/views/elements/BuilderElement', 'global'],
                                         handle      : '.aj-imp-drag-handle',
                                         receive     : self.handleColumnDrop,
                                         sort        : self.handleElementOverState,
-                                        //remove      : self.handleElementRemove,
                                         activate    : self.holdCurrentColRef
-                                   }).disableSelection();
+                                   }).disableSelection(); 
                 },
                         
                 /**
@@ -110,7 +109,7 @@ define(['builder/views/elements/BuilderElement', 'global'],
                  */        
                 resetHeightAuto : function(event, ui){
             
-                     this.$el.height('auto');
+                     this.$el.css('min-height','auto');
                 },        
                         
                 /**
@@ -165,7 +164,7 @@ define(['builder/views/elements/BuilderElement', 'global'],
                     
                     //get control to be dropped
                     var elementName = ui.helper.attr('data-element');
-                    log(elementName);
+                    
                     //pass control to column view to handle
                     this.handleElementDrop(elementName);
                    
@@ -191,7 +190,7 @@ define(['builder/views/elements/BuilderElement', 'global'],
                  * @returns {undefined}
                  */        
                 handleElementOverState : function(event , ui){
-                     
+                   
                     var pHeight = ui.helper.attr('data-placeholder-height');
                     
                     ui.placeholder.height(parseInt(pHeight));
@@ -241,7 +240,10 @@ define(['builder/views/elements/BuilderElement', 'global'],
                             self.$el.find('*[data-element="'+elementName+'"]').replaceWith(element.generateBuilderMarkup());
                         else
                             self.$el.append(element.generateBuilderMarkup());
-
+                        
+                        if(elementName === 'BuilderRow')
+                            element.sortableColumns();
+                        
                         self.parent.trigger('adjust_column_dimension');
                     });    
                    

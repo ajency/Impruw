@@ -73,6 +73,9 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                 adjustColumnDimension : function(){
                     
                     var height = [];
+                    
+                    this.$el.find('.column').css('min-height','auto');
+                    
                     _.each(this.columns, function(column, index){
                         height.push(column.$el.height());
                     });
@@ -257,7 +260,7 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                     
                     _.each(this.columns, function(column, index){
                         
-                        if(_.isFunction(column.makeColumnsSortable))
+                        //if(_.isFunction(column.makeColumnsSortable))
                             column.makeColumnsSortable();
 
                     }); 

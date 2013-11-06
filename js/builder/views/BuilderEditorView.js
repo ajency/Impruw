@@ -36,8 +36,12 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Elements'],
                                                         connectToSortable   : "#aj-imp-builder-drag-drop,.column",
                                                         helper				: 'clone',
                                                         revert 				: 'invalid',
-                                                        drag  				: function (e, t) {
-                                                                                    t.helper.width(286);
+                                                        start  				: function (e, t) {
+                                                                                    var ele = t.helper.attr('data-element');
+                                                                                    if(ele === 'BuilderRow' || ele === 'BuilderRowColumn')
+                                                                                        t.helper.width(286);
+                                                                                    else
+                                                                                        t.helper.width(92).height(80);
                                                                               }                           
                                                     });
 						

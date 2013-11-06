@@ -135,7 +135,6 @@ Version:        0.1.0
   margin: 1.5%;
   border-radius: 2px;
   box-shadow: inset 0 0 1px #000;
-  background: rgba(0, 0, 0, 0.5);
 }
 .aj-imp-drag-menu .tab-content .aj-imp-builder-items li a {
   display: block;
@@ -144,6 +143,7 @@ Version:        0.1.0
   text-transform: uppercase;
   cursor: move;
   min-height: 50px;
+  background: #000000;
 }
 .aj-imp-drag-menu .tab-content .aj-imp-builder-items li a .aj-imp-builder-icon {
   font-size: 2em;
