@@ -74,7 +74,7 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                     
                     _.each(this.columns, function(column, index){
                         var prevHeight = column.$el.height();
-                        column.$el.height(newHeight);
+                        column.$el.css('min-height',newHeight + 14);
                         column.trigger('height_changed', prevHeight, newHeight);
                     });
                     

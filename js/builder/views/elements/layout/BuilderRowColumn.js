@@ -81,10 +81,10 @@ define(['builder/views/elements/BuilderElement', 'global'],
                                         items       : '> .element, .row',
                                         handle      : '.aj-imp-drag-handle',
                                         receive     : self.handleColumnDrop,
-                                        sort        : self.handleElementOverState,
+                                        //sort        : self.handleElementOverState,
                                         remove      : self.handleElementRemove,
-                                        over        : self.resetHeightAuto,
-                                        out         : self.resetHeightAuto,
+                                        //over        : self.resetHeightAuto,
+                                        //out         : self.resetHeightAuto,
                                         activate    : self.holdCurrentColRef
                                    }).disableSelection();
                 },
@@ -101,8 +101,7 @@ define(['builder/views/elements/BuilderElement', 'global'],
                     event.stopPropagation();
                     
                     ui.helper.sender = this;
-                    log('activate' + ui.helper.attr('id'));
-                    //log(ui.helper.sender);
+                   
                 },        
                         
                 /**
@@ -114,7 +113,6 @@ define(['builder/views/elements/BuilderElement', 'global'],
                 resetHeightAuto : function(event, ui){
             
                      this.$el.height('auto');
-                     log('over');
                 },        
                         
                 /**
@@ -127,21 +125,13 @@ define(['builder/views/elements/BuilderElement', 'global'],
                  */        
                 handleElementRemove : function(event, ui){
                     
-                    //var senderColumn = ui.helper.sender;
-                    
-                    //log(senderColumn);
-                    log(ui.helper);
-                    //find element from column
-                    //var element = this.getElement();
-                    
                     //remove element from
                     if(this.isEmpty()){
                         
-                        this.$el.css('background','url(images/empty-drag-bg.svg) no-repeat center center #ffffff');
+                        //this.$el.css('background','url(images/empty-drag-bg.svg) no-repeat center center #ffffff');
                         
                     }
                    
-                    this.$el.height('auto');
                 },
                 
                 /**
@@ -152,13 +142,9 @@ define(['builder/views/elements/BuilderElement', 'global'],
                  */        
                 handleColumnDrop : function(event, ui){
                     
-                    log(ui.helper);
                     //bail if helper is null
                     if(_.isNull(ui.helper)){
                         
-                        //reset height to auto
-                        this.$el.height('auto');
-
                         //added new control. Now trigger parent row adjust column dimension
                         this.parent.trigger('adjust_column_dimension');
                         return;
@@ -195,8 +181,6 @@ define(['builder/views/elements/BuilderElement', 'global'],
                     
                     ui.placeholder.height(parseInt(pHeight));
                     
-                    this.$el.height('auto');
-                    this.parent.trigger('adjust_column_dimension');
                 },
                         
                         
@@ -225,27 +209,19 @@ define(['builder/views/elements/BuilderElement', 'global'],
                  */        
                 handleElementDrop : function(elementName){
                     
-                    this.$el.css('background','#fff');
+                    this.$el.css('background-url','url(images/)');
                     
                     var E = require('builder/views/Elements');
                     var element = new E[elementName]({parent: this});
                     this.elements.push(element);
                     
-                    //
                     if(this.$el.find('*[data-element="'+elementName+'"]').length > 0)
                         this.$el.find('*[data-element="'+elementName+'"]').replaceWith(element.generateBuilderMarkup());
                     else
                         this.$el.append(element.generateBuilderMarkup());
                     
-                    //reset height to auto
-                    this.$el.height('auto');
-                    
-                    //added new control. Now trigger parent row adjust column dimension
                     this.parent.trigger('adjust_column_dimension');
-                    
-                    this.$el.sortable('refreshPositions');
-                    
-                    log(this.elements);
+                   
                 },   
                         
                 
