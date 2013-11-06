@@ -52,6 +52,11 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                     
                     this.on('adjust_column_dimension', this.adjustColumnDimension);
                     
+                    this.id = this.type + '-' + global.generateRandomId();
+                    
+                    //set random ID for control
+                    this.$el.attr('id' , this.id);
+                    
                     //this.listenTo('column_removed', this.handleColumnRemoval);
                 },
                 
@@ -109,10 +114,6 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                 generateBuilderMarkup : function(){
                     
                     var self = this;
-                    
-                    this.id = this.type + '-' + global.generateRandomId();
-                    //set random ID for control
-                    this.$el.attr('id' , this.id);
                     
                     //calculate the column class
                     var colClass = 12 / self.totalColumns;

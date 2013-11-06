@@ -32,9 +32,6 @@ define(['backbone','jquery','underscore','handlebars', 'global'],
                  */
 				generateBuilderMarkup : function(){
 					
-					//set ID from control
-					this.$el.attr('id' , this.name + '-' + global.generateRandomId())
-
 					this.$el.html(_.template(this.template));
 
 					return this.$el;

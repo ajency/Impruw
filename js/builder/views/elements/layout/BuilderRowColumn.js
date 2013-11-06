@@ -81,10 +81,8 @@ define(['builder/views/elements/BuilderElement', 'global'],
                                         items       : '> .element, .row',
                                         handle      : '.aj-imp-drag-handle',
                                         receive     : self.handleColumnDrop,
-                                        //sort        : self.handleElementOverState,
-                                        remove      : self.handleElementRemove,
-                                        //over        : self.resetHeightAuto,
-                                        //out         : self.resetHeightAuto,
+                                        sort        : self.handleElementOverState,
+                                        //remove      : self.handleElementRemove,
                                         activate    : self.holdCurrentColRef
                                    }).disableSelection();
                 },
@@ -101,7 +99,7 @@ define(['builder/views/elements/BuilderElement', 'global'],
                     event.stopPropagation();
                     
                     ui.helper.sender = this;
-                   
+                    
                 },        
                         
                 /**
@@ -123,12 +121,22 @@ define(['builder/views/elements/BuilderElement', 'global'],
                  * @param {type} ui
                  * @returns {undefined}
                  */        
-                handleElementRemove : function(event, ui){
+                handleElementRemove : function(receiver, sender, elementId){
                     
-                    //remove element from
-                    if(this.isEmpty()){
+                    _.each(sender.elements, function(element, index){
                         
-                        //this.$el.css('background','url(images/empty-drag-bg.svg) no-repeat center center #ffffff');
+                        if(element.id == elementId){
+                            
+                            receiver.elements.push(element);
+                            sender.elements.splice(index,1);
+
+                        }
+                        
+                    });
+                    
+                    if(sender.isEmpty()){
+                        
+                        sender.$el.css('background-image','url(images/empty-drag-bg.svg)');
                         
                     }
                    
@@ -142,20 +150,27 @@ define(['builder/views/elements/BuilderElement', 'global'],
                  */        
                 handleColumnDrop : function(event, ui){
                     
+                    var receiver = this;
+                    var elementId = ui.item.attr('id');
+                    
                     //bail if helper is null
                     if(_.isNull(ui.helper)){
-                        
+                        var sender = ui.item.sender;
+                        this.$el.css('background-image','url()');
                         //added new control. Now trigger parent row adjust column dimension
                         this.parent.trigger('adjust_column_dimension');
+                        this.handleElementRemove(receiver, sender, elementId);
                         return;
                     }
                     
                     //get control to be dropped
                     var elementName = ui.helper.attr('data-element');
-                    
+                    log(elementName);
                     //pass control to column view to handle
                     this.handleElementDrop(elementName);
-                    
+                   
+                    var sender = ui.helper.sender;
+                    this.handleElementRemove(receiver, sender, elementId);
                 }, 
                         
                         
@@ -209,18 +224,26 @@ define(['builder/views/elements/BuilderElement', 'global'],
                  */        
                 handleElementDrop : function(elementName){
                     
-                    this.$el.css('background-url','url(images/)');
+                    var self = this;
                     
-                    var E = require('builder/views/Elements');
-                    var element = new E[elementName]({parent: this});
-                    this.elements.push(element);
-                    
-                    if(this.$el.find('*[data-element="'+elementName+'"]').length > 0)
-                        this.$el.find('*[data-element="'+elementName+'"]').replaceWith(element.generateBuilderMarkup());
+                    this.$el.css('background-image','url()');
+                    var path = '';
+                    if(elementName === 'BuilderRow' || elementName === 'BuilderRowColumn')
+                        path = 'builder/views/elements/layout/' + elementName;
                     else
-                        this.$el.append(element.generateBuilderMarkup());
+                        path = 'builder/views/elements/' + elementName;
                     
-                    this.parent.trigger('adjust_column_dimension');
+                    require([path], function(Element){
+                        var element = new Element({parent: self});
+                        self.elements.push(element);
+
+                        if(self.$el.find('*[data-element="'+elementName+'"]').length > 0)
+                            self.$el.find('*[data-element="'+elementName+'"]').replaceWith(element.generateBuilderMarkup());
+                        else
+                            self.$el.append(element.generateBuilderMarkup());
+
+                        self.parent.trigger('adjust_column_dimension');
+                    });    
                    
                 },   
                         
