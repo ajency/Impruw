@@ -12,7 +12,9 @@ define(['underscore', 'jquery', 'backbone', 'builder/views/BuilderEditorView'],
 				el : '.aj-imp-builder',
 
 				initialize : function(){
-
+                    
+                    _.bindAll(this, 'handleInitialLoader');
+                    
 					this.builderId = '';
 				},
 
@@ -27,12 +29,26 @@ define(['underscore', 'jquery', 'backbone', 'builder/views/BuilderEditorView'],
 					this.builder.render();
 
 					this.$el.find('.aj-imp-browser-body').html(this.builder.$el);
-
+                    
+                    this.handleInitialLoader();
+                    
 					//enable dragsort
 					this.builder.enableDropSort();
 					
 					return this;
-				}
+				},
+                
+                /**
+                 * 
+                 * @returns {undefined}
+                 */
+                handleInitialLoader : function(){
+                    
+                    this.$el.find('.aj-imp-browser-body').css('background-image','url(images/empty-drag-bg.svg)')
+                    //remove the initial loader
+                    this.$el.find('#editor-initial-loader').remove();
+                    
+                }
 
 			});	
 
