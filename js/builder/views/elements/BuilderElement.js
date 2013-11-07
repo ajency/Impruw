@@ -37,6 +37,8 @@ define(['backbone','jquery','underscore','handlebars', 'global'],
                     
                     return this.parent;
                 },
+                        
+                        
                 
                 /**
                  * Set the parent element for the element
@@ -59,6 +61,34 @@ define(['backbone','jquery','underscore','handlebars', 'global'],
 
 					return this.$el;
 				},
+                        
+                /**
+                 * Listen to mouse enter event
+                 * @param {type} evt
+                 * @returns void
+                 */
+                elementMouseEnter : function(evt){
+                    
+                    evt.stopPropagation();
+                    
+                    //remove hover style if row is a child of column
+                    if(this.parent.type === 'column')
+                        this.parent.parent.rowMouseLeave(evt);
+                    
+                },
+                
+                /**
+                 * Listen to mouse leave event
+                 * @param {type} evt
+                 * @returns void
+                 */        
+                elementMouseLeave : function(evt){
+                    
+                    evt.stopPropagation();
+                    if(this.parent.type === 'column')
+                        this.parent.parent.rowMouseEnter(evt);
+                    
+                },        
                         
                 /**
                  * Removes the element from the column

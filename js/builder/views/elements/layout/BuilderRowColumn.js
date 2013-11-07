@@ -244,7 +244,12 @@ define(['builder/views/elements/BuilderElement', 'global'],
                     else
                         path = 'builder/views/elements/' + elementName;
                     
+                    //set loader
+                    if(self.$el.find('*[data-element="'+elementName+'"]').length > 0)
+                            self.$el.find('*[data-element="'+elementName+'"]').html('<div class="element-drop-loader"></div>');
+                       
                     require([path], function(Element){
+                        
                         var element = new Element({parent: self});
                         self.elements.push(element);
 
@@ -252,11 +257,12 @@ define(['builder/views/elements/BuilderElement', 'global'],
                             self.$el.find('*[data-element="'+elementName+'"]').replaceWith(element.generateBuilderMarkup());
                         else
                             self.$el.append(element.generateBuilderMarkup());
-                        
+
                         if(elementName === 'BuilderRow')
                             element.sortableColumns();
-                        
+
                         self.parent.trigger('adjust_column_dimension');
+                        
                     });    
                    
                 },   

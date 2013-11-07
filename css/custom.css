@@ -17,3 +17,8 @@
 a{
     outline: none;
 }
+
+div.element-drop-loader{
+    height      : 60px; 
+    background  : url(../images/loader.gif) no-repeat center center #fff;
+}

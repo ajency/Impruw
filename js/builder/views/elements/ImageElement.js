@@ -12,11 +12,11 @@ define(['builder/views/elements/BuilderElement','text!builder/templates/elements
                 type                : 'image',
                 
                 //set height to be assigned to placeholder and helper
-                placeHolderHeight   : 60,
+                placeHolderHeight   : 100,
                 
                 events : {
-                    'mouseenter'                        : 'rowMouseEnter',
-                    'mouseleave'                        : 'rowMouseLeave',
+                    'mouseenter'                        : 'elementMouseEnter',
+                    'mouseleave'                        : 'elementMouseLeave',
                     'click > .aj-imp-delete-btn'        : 'destroyElement'
                 },
                 
@@ -28,7 +28,7 @@ define(['builder/views/elements/BuilderElement','text!builder/templates/elements
                  */
                 initialize : function(options){
                  
-                    _.bindAll(this, 'rowMouseEnter','rowMouseLeave');
+                    _.bindAll(this, 'elementMouseEnter','elementMouseLeave');
                     
                     this.parent = options.parent;
                  
@@ -47,39 +47,8 @@ define(['builder/views/elements/BuilderElement','text!builder/templates/elements
                  */        
                 render : function(col){
                     
-                    
-                    
                     return this;
-                },
-                        
-                /**
-                 * Listen to mouse enter event
-                 * @param {type} evt
-                 * @returns void
-                 */
-                rowMouseEnter : function(evt){
-                    
-                    evt.stopPropagation();
-                    
-                    //remove hover style if row is a child of column
-                    if(this.parent.type === 'column')
-                        this.parent.parent.rowMouseLeave(evt);
-                    
-                },
-                
-                /**
-                 * Listen to mouse leave event
-                 * @param {type} evt
-                 * @returns void
-                 */        
-                rowMouseLeave : function(evt){
-                    
-                    evt.stopPropagation();
-                    if(this.parent.type === 'column')
-                        this.parent.parent.rowMouseEnter(evt);
-                    
-                }
-                        
+                }      
                 
             });
             
