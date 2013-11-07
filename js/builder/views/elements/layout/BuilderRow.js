@@ -198,7 +198,7 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                         var emptyColsLen = emptyColumns.length;
                         //first check
                         if(emptyColsLen === 0 ){
-                            alert("None of the columns are empty. Please delete elements inside columns to remove columns");
+                            alert("None of the columns are empty. Please delete elements inside columns to remove");
                             return;
                         }
                         
