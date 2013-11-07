@@ -74,7 +74,7 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                     
                     var height = [];
                     
-                    this.$el.find('.column').css('min-height','auto');
+                    this.$el.children('.column').css('min-height','10px');
                     
                     _.each(this.columns, function(column, index){
                         height.push(column.$el.height());
