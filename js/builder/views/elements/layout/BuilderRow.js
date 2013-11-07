@@ -342,11 +342,12 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                 rowMouseLeave : function(evt){
                     
                     evt.stopPropagation();
-                    if(this.parent.type === 'column')
+                   
+                    if(this.parent.type === 'column' && !evt.stop)
                         this.parent.parent.rowMouseEnter(evt);
                     
                     this.$el.css('border', '1px solid transparent');
-                    this.$el.find('.aj-imp-drag-handle,.aj-imp-delete-btn,.aj-imp-col-divider,.aj-imp-col-sel').hide();
+                    this.$el.children('.aj-imp-drag-handle,.aj-imp-delete-btn,.aj-imp-col-divider,.aj-imp-col-sel').hide();
                 },
                  
                 /**

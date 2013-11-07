@@ -2,11 +2,13 @@ define(['backbone','jquery','underscore','handlebars', 'global'],
 		function(Backbone, $, _, Handlebars,  global){
 
 			var BuilderElement = Backbone.View.extend({
-
+                
+                /**
+                 * 
+                 */
                 parent : null,
                 
-                
-				/**
+                /**
                  * All child controls will override this function;
                  * @returns {undefined}
                  */
@@ -72,9 +74,10 @@ define(['backbone','jquery','underscore','handlebars', 'global'],
                     evt.stopPropagation();
                     
                     //remove hover style if row is a child of column
-                    if(this.parent.type === 'column')
-                        this.parent.parent.rowMouseLeave(evt);
-                    
+                    if(this.parent.type === 'column'){
+                         evt.stop = true;
+                         this.parent.parent.rowMouseLeave(evt);
+                    }
                 },
                 
                 /**
@@ -85,8 +88,9 @@ define(['backbone','jquery','underscore','handlebars', 'global'],
                 elementMouseLeave : function(evt){
                     
                     evt.stopPropagation();
-                    if(this.parent.type === 'column')
-                        this.parent.parent.rowMouseEnter(evt);
+                    if(this.parent.type === 'column'){
+                       this.parent.parent.rowMouseEnter(evt);
+                    }
                     
                 },        
                         
