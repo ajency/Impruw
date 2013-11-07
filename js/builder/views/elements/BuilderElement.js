@@ -25,6 +25,17 @@ define(['backbone','jquery','underscore','handlebars', 'global'],
                     
                     return this.parent;
                 },
+                
+                /**
+                 * Set the parent element for the element
+                 * @param {type} parent
+                 * @returns {undefined}
+                 */        
+                setParent : function(parent){
+                    
+                    this.parent = parent;
+                    
+                },
 
 				/**
                  * Generates the Control markup to drop

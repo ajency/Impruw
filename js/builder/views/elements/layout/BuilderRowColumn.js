@@ -128,7 +128,9 @@ define(['builder/views/elements/BuilderElement', 'global'],
                             
                             receiver.elements.push(element);
                             sender.elements.splice(index,1);
-
+                            
+                            //change parent
+                            element.setParent(receiver);
                         }
                         
                     });
