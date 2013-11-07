@@ -16,7 +16,8 @@ define(['builder/views/elements/BuilderElement','text!builder/templates/elements
                 
                 events : {
                     'mouseenter'                        : 'rowMouseEnter',
-                    'mouseleave'                        : 'rowMouseLeave'
+                    'mouseleave'                        : 'rowMouseLeave',
+                    'click > .aj-imp-delete-btn'        : 'destroyElement'
                 },
                 
                 /**
@@ -75,7 +76,7 @@ define(['builder/views/elements/BuilderElement','text!builder/templates/elements
                     
                     evt.stopPropagation();
                     if(this.parent.type === 'column')
-                        this.parent.parent.rowMouseLeave(evt);
+                        this.parent.parent.rowMouseEnter(evt);
                     
                 }
                         

@@ -17,9 +17,19 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Elements'],
 
 				initialize  : function(){
                         
-                    _.bindAll(this, 'enableDropSort','getRows');    
+                    _.bindAll(this, 'enableDropSort','getRows','is');    
 
 				},
+                
+                /**
+                 * Check the view type
+                 * 
+                 * @param {type} type
+                 * @returns {Boolean}
+                 */        
+                is : function(type){
+                    return type === 'editor';
+                },        
 
 				render : function(){
                         

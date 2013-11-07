@@ -28,8 +28,8 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
 				events : {
 					'mouseenter'                        : 'rowMouseEnter',
                     'mouseleave'                        : 'rowMouseLeave',
-                    'click .aj-imp-delete-btn'          : 'removeElement',
-                    'click .aj-imp-col-sel ul li a'     : 'adjustColumnsInRow' 
+                    'click > .aj-imp-delete-btn'        : 'destroyElement',
+                    'click > .aj-imp-col-sel ul li a'   : 'adjustColumnsInRow' 
 				},
 
                 //used to identify drag direction(right / left)
@@ -46,7 +46,7 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                     
                     _.bindAll(this, 'adjustColumnsInRow','generateBuilderMarkup','sortableColumns','addNewColumn',
                                     'columnCount','getColumns','getColumn','rowMouseEnter','rowMouseLeave','adjustColumnDimension',
-                                    'allColumnsEmpty');
+                                    'allColumnsEmpty','emptyColumns');
                     
                     this.parent = opt.parent;
                     
@@ -81,6 +81,8 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                     });
                     
                     var newHeight = _.max(height);
+                    
+                    newHeight = (newHeight == 0) ? 120 : newHeight;
                     
                     _.each(this.columns, function(column, index){
                         var prevHeight = column.$el.height();
@@ -342,7 +344,7 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                     
                     evt.stopPropagation();
                     if(this.parent.type === 'column')
-                        this.parent.parent.rowMouseLeave(evt);
+                        this.parent.parent.rowMouseEnter(evt);
                     
                     this.$el.css('border', '1px solid transparent');
                     this.$el.find('.aj-imp-drag-handle,.aj-imp-delete-btn,.aj-imp-col-divider,.aj-imp-col-sel').hide();
@@ -367,7 +369,55 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                  */        
                 handleColumnRemoval : function(){
             
-                }
+                },
+                
+                /**
+                 * Loop through columns and empty it
+                 * @returns {undefined}
+                 */        
+                emptyColumns : function(){
+                    
+                    _.each(this.getColumns(), function(column, index){
+                        
+                        column.makeEmpty();
+                        
+                    });
+                    
+                },
+                        
+                 /**
+                 * Removes the element from the column
+                 * @returns {undefined}
+                 */        
+                destroyElement : function(evt){
+                    
+                    evt.stopPropagation();
+                    
+                    if(!confirm("Are you sure?"))
+                        return;
+
+                    var self = this;
+                    
+                    if(this.parent.is('column')){
+                       _.each(this.parent.elements, function(element, index){
+                    
+                            if(element.id === self.id){
+                                self.parent.elements.splice(index,1);
+                            }
+                        
+                        });
+                        
+                        //update the parent UI
+                        this.parent.updateEmptyView();
+                    }
+                    
+                    
+                    this.emptyColumns();
+                    
+                    //finally remove itself
+                    this.removeElement(evt);
+                    
+                }       
                 
 			});
 

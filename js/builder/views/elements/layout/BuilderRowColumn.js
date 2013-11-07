@@ -15,7 +15,7 @@ define(['builder/views/elements/BuilderElement', 'global'],
                     
                     _.bindAll(this, 'isEmpty', 'clear', 'handleElementDrop', 'handleHeightChange', 'isEmpty', 'clear',
                                     'handleWidthChange', 'handleElementOverState', 'handleColumnDrop', 'makeColumnsSortable',
-                                    'handleElementRemove','resetHeightAuto', 'holdCurrentColRef');
+                                    'handleElementRemove','resetHeightAuto', 'holdCurrentColRef','updateEmptyView','makeEmpty');
                     
                     this.parent = opt.parent;
                     
@@ -135,12 +135,22 @@ define(['builder/views/elements/BuilderElement', 'global'],
                         
                     });
                     
-                    if(sender.isEmpty()){
+                    sender.updateEmptyView();
+                   
+                },
+                
+                /**
+                 * Checks if the column is empty
+                 * If yes => Sets the background image
+                 * @returns {undefined}
+                 */        
+                updateEmptyView : function(){
+            
+                    if(this.isEmpty()){
                         
-                        sender.$el.css('background-image','url(images/empty-drag-bg.svg)');
+                        this.$el.css('background-image','url(images/empty-drag-bg.svg)');
                         
                     }
-                   
                 },
                 
                 /**
@@ -272,6 +282,24 @@ define(['builder/views/elements/BuilderElement', 'global'],
                  */        
                 clear : function(){
                     this.$el.empty();
+                },
+                
+                /**
+                 * Removes all child elements from column
+                 * and memory
+                 * @returns {undefined}
+                 */
+                makeEmpty : function(){
+                    
+                    _.each(this.elements, function(element, index){
+                       
+                        if(element.type === 'row')
+                            element.emptyColumns();
+                        else
+                            element.destroy();
+                        
+                    });
+                    
                 }        
                 
             });
