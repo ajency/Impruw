@@ -89,6 +89,9 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                     });
                     
                     this.sortableColumns();
+                    
+                    if(this.parent.type === 'column')
+                        this.parent.parent.adjustColumnDimension();
                    
                 },
                 
