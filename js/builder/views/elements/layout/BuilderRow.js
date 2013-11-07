@@ -44,9 +44,9 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                  */
                 initialize : function(opt){
                     
-                    _.bindAll(this, 'adjustColumnsInRow','generateBuilderMarkup','sortableColumns','addNewColumn',
-                                    'columnCount','getColumns','getColumn','rowMouseEnter','rowMouseLeave','adjustColumnDimension',
-                                    'allColumnsEmpty','emptyColumns');
+                    _.bindAll(this, 'adjustColumnsInRow', 'generateBuilderMarkup', 'sortableColumns', 'addNewColumn',
+                                    'columnCount', 'getColumns', 'getColumn', 'rowMouseEnter', 'rowMouseLeave', 'adjustColumnDimension',
+                                    'allColumnsEmpty', 'emptyColumns');
                     
                     this.parent = opt.parent;
                     
@@ -208,41 +208,40 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                             return;
                         }
                         
+                        var colsToRemove = 0;
+                        
                         //check if current columns - requested columns <= empty columns
                         if(this.columnCount() - requestedColumns <= emptyColsLen){
-                            //
-                            var colsToRemove = emptyColsLen -  requestedColumns;
+                           
+                            colsToRemove = this.columnCount() - requestedColumns;
+                          
+                        }
+                        else{
                             
-                            //get indexes to remove
-                            _.each(this.columns, function(column, index){
-
-                                if(colsToRemove === 0)
-                                        return;
-
-                                if(!column.isEmpty())
-                                        return;
-
-                                column.toRemove = true;
-                                colsToRemove--;
-
-                            });
+                            colsToRemove = emptyColsLen - requestedColumns;
                             
                         }
                         
                         var nCols = [];
-                        // remove the columns
+                        
+                        //get indexes to remove
                         _.each(this.columns, function(column, index){
-                            
-                            if(column.toRemove === true)
-                               column.destroy();
-                            else
+
+                            if(colsToRemove === 0 || !column.isEmpty()){
                                 nCols.push(column);
+                                return;
+                            }
+
+                            column.destroy();
+                            colsToRemove--;
+
                         });
                         
                         this.columns = [];
                         this.columns = nCols;
+                        //log(this.columnCount());
                         //this.trigger('columns_removed',emptyColumns);
-
+                        
                         //adjust class of existing columns
                         _.each(this.columns, function(column, index){
                             
