@@ -145,8 +145,8 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                     this.$el.append(_.template(this.template));
                     
                     //set divder left
-                    this.$el.find('.aj-imp-col-divider').css('left', (Math.ceil(100 / this.columns)) +'%');
-                    this.$el.find('.aj-imp-drag-handle,.aj-imp-delete-btn,.aj-imp-col-divider,.aj-imp-col-sel').show();
+                    this.$el.children('.aj-imp-col-divider').css('left', (Math.ceil(100 / this.columns)) +'%');
+                    this.$el.children('.aj-imp-drag-handle,.aj-imp-delete-btn,.aj-imp-col-divider,.aj-imp-col-sel').show();
                     return this.$el;
                 },
                 
