@@ -737,15 +737,15 @@ Version:        0.1.0
 		top: 2em;
 		bottom: 2em;
 		left: 50%;
-		a {
+		p {
 			cursor: ew-resize;
 			text-align: center;
 			display: block;
 			color: @dash-grey;
-			font-size: 18px;
-			line-height: 20px;
+			font-size: 8px;
+			line-height: 4px;
 			width: 40px;
-			height: 20px;
+			height: 10px;
 			background: #fff;
 			border: 1px solid @dash-grey;
 			border-radius: 3px;
@@ -976,7 +976,7 @@ Version:        0.1.0
 							font-weight: 700;
 							border-bottom: 1px solid @dash-grey;
 						}
-						#image-accordion {
+						.panel-group {
 							.panel {
 								border-radius: 0;
 								border: 0;
@@ -1065,6 +1065,32 @@ Version:        0.1.0
 									}
 								}
 							}
+							&#settings-accordion, &#map-settings-accordion {
+								.panel {
+									.panel-heading {
+										> a {
+											.imgthumb {
+												span[class^="icon"] {
+													font-size: 2em;
+												}
+											}
+											.imgactions {
+												text-align: right;
+											}
+										}
+									}
+								}
+							}
+						}
+						.aj-imp-block-button {
+							margin: 1em 0;
+							a {
+								text-transform: uppercase;
+							}
+						}
+						.aj-imp-map-view {
+							padding: 0.5em;
+							border: 2px dashed @dash-grey;
 						}
 					}
 					.form-horizontal {

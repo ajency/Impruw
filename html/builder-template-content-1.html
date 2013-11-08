@@ -205,28 +205,28 @@
 								<div class="clearfix emphasis-text">
 									<h3 class="aj-imp-edit-content">Lorem ipsum dolor sit amet</h3>
 									<p class="aj-imp-edit-content">Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-									<a href="#" class="read-more">Read More</a>
+									<a class="read-more" data-toggle="modal" href="#galleryModal">Gallery</a>
 								</div>
 							</div>
 							<div class="col-sm-3 column">
 								<div class="clearfix emphasis-text">
 									<h3 class="aj-imp-edit-content">Lorem ipsum dolor sit amet</h3>
 									<p class="aj-imp-edit-content">Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-									<a href="#" class="read-more">Read More</a>
+									<a class="read-more" data-toggle="modal" href="#mapModal">Map</a>
 								</div>
 							</div>
 							<div class="col-sm-3 column">
 								<div class="clearfix emphasis-text">
 									<h3 class="aj-imp-edit-content">Lorem ipsum dolor sit amet</h3>
 									<p class="aj-imp-edit-content">Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-									<a href="#" class="read-more">Read More</a>
+									<a class="read-more" data-toggle="modal" href="#videoModal">Video</a>
 								</div>
 							</div>
 							<div class="col-sm-3 column">
 								<div class="clearfix emphasis-text">
 									<h3 class="aj-imp-edit-content">Lorem ipsum dolor sit amet</h3>
 									<p class="aj-imp-edit-content">Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-									<a href="#" class="read-more">Read More</a>
+									<a class="read-more" data-toggle="modal" href="#buttonModal">Button</a>
 								</div>
 							</div>
 						</div>
@@ -559,6 +559,7 @@
 			</div>
 		</div>  
 	</div>
+	
 	<!-- Social Modal -->
 	<div class="modal wide-modal" id="socialModal">
 		<div class="modal-dialog">
@@ -632,12 +633,632 @@
 				</div>
 
 				<div class="modal-footer">
-					<button class="btn btn-deault btn-hg aj-imp-modal-save">Save</button>
+					<button class="btn btn-default aj-imp-modal-save">Save</button>
 				</div>
 			</div>
 		</div>  
 	</div>
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	
+	<!-- Gallery Modal -->
+	<div class="modal wide-modal" id="galleryModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close fui-cross" data-dismiss="modal" aria-hidden="true"></button>
+					<h4 class="modal-title">Gallery</h3>
+				</div>
+
+				<div class="modal-body">
+					<ul class="nav nav-tabs">
+						<li class="active"><a href="#gallery-images" data-toggle="tab">Gallery Images</a></li>
+						<li><a href="#settings" data-toggle="tab">Settings</a></li>
+					</ul>
+					<div class="tab-content">
+						<div class="tab-pane active" id="gallery-images">
+							<div class="aj-imp-image-header row">
+								<div class="col-sm-1">
+									&nbsp;
+								</div>
+								<div class="col-sm-7">
+									File Name
+								</div>
+								<div class="col-sm-2">
+									Upload Date
+								</div>
+								<div class="col-sm-2 align-center">
+									Actions
+								</div>
+							</div>
+							<div class="panel-group" id="image-accordion2">
+								<div class="panel panel-default">
+								  <div class="panel-heading">
+									  <a class="accordion-toggle" data-toggle="collapse" data-parent="#image-accordion2" href="#imageOne2">
+										<div class="aj-imp-image-item row">
+											<div class="imgthumb col-sm-1">
+												<img src="images/hotel-1.jpg" class="img-responsive">
+											</div>
+											<div class="imgname col-sm-7">
+												ImageName.jpg
+											</div>
+											<div class="imgdate col-sm-2">
+												9/26/2013 20:00
+											</div>
+											<div class="imgactions col-sm-2">
+												<button class="btn" title="Edit Image"><span class="glyphicon glyphicon-edit"></span> Edit Image</button>
+												<button class="btn" title="Delete Image"><span class="glyphicon glyphicon-remove-sign"></span></button>
+											</div>
+										</div>
+									  </a>
+								  </div>
+								  <div id="imageOne2" class="panel-collapse in" style="height: auto;">
+									<div class="panel-body">
+									  <div class="aj-imp-edit-image well">
+										<div class="row">
+											<div class="aj-imp-crop-link col-sm-4">
+												<img src="images/hotel-1.jpg" class="img-responsive">
+												<div class="aj-imp-crop-link-overlay">
+													<a href="#">
+														<span class="glyphicon glyphicon-edit"></span> Edit Image
+													</a>
+												</div>
+											</div>
+											<div class="aj-imp-img-form col-sm-8">
+												<div class="row">
+													<div class="col-sm-6">
+														<input type="text" class="form-control" placeholder="Title">
+													</div>
+													<div class="col-sm-6">
+														<input type="text" class="form-control" placeholder="Link">
+													</div>
+												</div>
+												<div class="row">
+													<div class="col-sm-12">
+														<textarea class="form-control" placeholder="Description"></textarea>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="aj-imp-img-save">
+											<button class="btn">Save</button>
+										</div>
+									  </div>
+									</div>
+								  </div>
+								</div>
+								<div class="panel panel-default">
+								  <div class="panel-heading">
+									  <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#image-accordion2" href="#imageTwo2">
+										<div class="aj-imp-image-item row">
+											<div class="imgthumb col-sm-1">
+												<img src="images/hotel-1.jpg" class="img-responsive">
+											</div>
+											<div class="imgname col-sm-7">
+												ImageName.jpg
+											</div>
+											<div class="imgdate col-sm-2">
+												9/26/2013 20:00
+											</div>
+											<div class="imgactions col-sm-2">
+												<button class="btn" title="Edit Image"><span class="glyphicon glyphicon-edit"></span> Edit Image</button>
+												<button class="btn" title="Delete Image"><span class="glyphicon glyphicon-remove-sign"></span></button>
+											</div>
+										</div>
+									  </a>
+								  </div>
+								  <div id="imageTwo2" class="panel-collapse collapse" style="height: 0px;">
+									<div class="panel-body">
+									  <div class="aj-imp-edit-image well">
+										<div class="row">
+											<div class="aj-imp-crop-link col-sm-4">
+												<img src="images/hotel-1.jpg" class="img-responsive">
+												<div class="aj-imp-crop-link-overlay">
+													<a href="#">
+														<span class="glyphicon glyphicon-edit"></span> Edit Image
+													</a>
+												</div>
+											</div>
+											<div class="aj-imp-img-form col-sm-8">
+												<div class="row">
+													<div class="col-sm-6">
+														<input type="text" class="form-control" placeholder="Title">
+													</div>
+													<div class="col-sm-6">
+														<input type="text" class="form-control" placeholder="Link">
+													</div>
+												</div>
+												<div class="row">
+													<div class="col-sm-12">
+														<textarea class="form-control" placeholder="Description"></textarea>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="aj-imp-img-save">
+											<button class="btn">Save</button>
+										</div>
+									  </div>
+									</div>
+								  </div>
+								</div>
+								<div class="panel panel-default">
+								  <div class="panel-heading">
+									  <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#image-accordion2" href="#imageThree2">
+										<div class="aj-imp-image-item row">
+											<div class="imgthumb col-sm-1">
+												<img src="images/hotel-1.jpg" class="img-responsive">
+											</div>
+											<div class="imgname col-sm-7">
+												ImageName.jpg
+											</div>
+											<div class="imgdate col-sm-2">
+												9/26/2013 20:00
+											</div>
+											<div class="imgactions col-sm-2">
+												<button class="btn" title="Edit Image"><span class="glyphicon glyphicon-edit"></span> Edit Image</button>
+												<button class="btn" title="Delete Image"><span class="glyphicon glyphicon-remove-sign"></span></button>
+											</div>
+										</div>
+									  </a>
+								  </div>
+								  <div id="imageThree2" class="panel-collapse collapse" style="height: 0px;">
+									<div class="panel-body">
+									 <div class="aj-imp-edit-image well">
+										<div class="row">
+											<div class="aj-imp-crop-link col-sm-4">
+												<img src="images/hotel-1.jpg" class="img-responsive">
+												<div class="aj-imp-crop-link-overlay">
+													<a href="#">
+														<span class="glyphicon glyphicon-edit"></span> Edit Image
+													</a>
+												</div>
+											</div>
+											<div class="aj-imp-img-form col-sm-8">
+												<div class="row">
+													<div class="col-sm-6">
+														<input type="text" class="form-control" placeholder="Title">
+													</div>
+													<div class="col-sm-6">
+														<input type="text" class="form-control" placeholder="Link">
+													</div>
+												</div>
+												<div class="row">
+													<div class="col-sm-12">
+														<textarea class="form-control" placeholder="Description"></textarea>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="aj-imp-img-save">
+											<button class="btn">Save</button>
+										</div>
+									  </div>
+									</div>
+								  </div>
+								</div>
+							</div>
+							<div class="aj-imp-block-button">
+								<a href="#" class="btn btn-default btn-hg btn-block"><span class="icon-uniF10C"></span>&nbsp;&nbsp;Add Slide</a>
+							</div>
+						</div>
+						<div class="tab-pane" id="settings">
+							<div class="panel-group" id="settings-accordion">
+								<div class="panel panel-default">
+								  <div class="panel-heading">
+									  <a class="accordion-toggle" data-toggle="collapse" data-parent="#settings-accordion" href="#settingsOne">
+										<div class="aj-imp-image-item row">
+											<div class="imgthumb col-sm-1">
+												<span class="icon-uniF103"></span>
+											</div>
+											<div class="imgname col-sm-9">
+												Columns
+											</div>
+											<div class="imgactions col-sm-2">
+												<button class="btn" title="Edit Image"><span class="glyphicon glyphicon-edit"></span> Edit</button>
+											</div>
+										</div>
+									  </a>
+								  </div>
+								  <div id="settingsOne" class="panel-collapse" style="height: 0px;">
+									<div class="panel-body">
+									  
+									</div>
+								  </div>
+								</div>
+								<div class="panel panel-default">
+								  <div class="panel-heading">
+									  <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#settings-accordion" href="#settingsTwo">
+										<div class="aj-imp-image-item row">
+											<div class="imgthumb col-sm-1">
+												<span class="icon-uniF122"></span>
+											</div>
+											<div class="imgname col-sm-9">
+												Spacing
+											</div>
+											<div class="imgactions col-sm-2">
+												<button class="btn" title="Edit Image"><span class="glyphicon glyphicon-edit"></span> Edit</button>
+											</div>
+										</div>
+									  </a>
+								  </div>
+								  <div id="settingsTwo" class="panel-collapse collapse" style="height: 0px;">
+									<div class="panel-body">
+									  
+									</div>
+								  </div>
+								</div>
+								<div class="panel panel-default">
+								  <div class="panel-heading">
+									  <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#settings-accordion" href="#settingsThree">
+										<div class="aj-imp-image-item row">
+											<div class="imgthumb col-sm-1">
+												<span class="icon-uniF11C"></span>
+											</div>
+											<div class="imgname col-sm-9">
+												Caption
+											</div>
+											<div class="imgactions col-sm-2">
+												<button class="btn" title="Edit Image"><span class="glyphicon glyphicon-edit"></span> Edit</button>
+											</div>
+										</div>
+									  </a>
+								  </div>
+								  <div id="settingsThree" class="panel-collapse collapse" style="height: 0px;">
+									<div class="panel-body">
+									 
+									</div>
+								  </div>
+								</div>
+								<div class="panel panel-default">
+								  <div class="panel-heading">
+									  <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#settings-accordion" href="#settingsFour">
+										<div class="aj-imp-image-item row">
+											<div class="imgthumb col-sm-1">
+												<span class="icon-uniF164"></span>
+											</div>
+											<div class="imgname col-sm-9">
+												Advanced
+											</div>
+											<div class="imgactions col-sm-2">
+												<button class="btn" title="Edit Image"><span class="glyphicon glyphicon-edit"></span> Edit</button>
+											</div>
+										</div>
+									  </a>
+								  </div>
+								  <div id="settingsFour" class="panel-collapse collapse" style="height: 0px;">
+									<div class="panel-body">
+									 
+									</div>
+								  </div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="modal-footer">
+					
+				</div>
+			</div>
+		</div>  
+	</div>
+	
+	<!-- Map Modal -->
+	<div class="modal wide-modal" id="mapModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close fui-cross" data-dismiss="modal" aria-hidden="true"></button>
+					<h4 class="modal-title">Google Map</h3>
+				</div>
+
+				<div class="modal-body">
+					<ul class="nav nav-tabs">
+						<li class="active"><a href="#map" data-toggle="tab">Map</a></li>
+						<li><a href="#map-settings" data-toggle="tab">Settings</a></li>
+					</ul>
+					<div class="tab-content">
+						<div class="tab-pane active" id="map">
+							<form class="form-horizontal" role="form">
+								<div class="form-group">
+									<label class="col-md-2">Address</label>
+									<div class="col-md-10">
+										<input type="text" class="form-control" placeholder="Address">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-2">Zoom</label>
+									<div class="col-md-10">
+										<select>
+											<option value="0">100</option>
+											<option value="1">200</option>
+										</select>
+									</div>
+								</div>
+							</form>
+							<div class="aj-imp-map-view">
+								<iframe width="100%" height="300" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.google.co.in/maps?t=m&amp;q=sweden&amp;ie=UTF8&amp;hq=&amp;hnear=Sweden&amp;z=4&amp;ll=60.128161,18.643501&amp;output=embed"></iframe><br />
+							</div>
+						</div>
+						<div class="tab-pane" id="map-settings">
+							<div class="panel-group" id="map-settings-accordion">
+								<div class="panel panel-default">
+								  <div class="panel-heading">
+									  <a class="accordion-toggle" data-toggle="collapse" data-parent="#map-settings-accordion" href="#settingsOne2">
+										<div class="aj-imp-image-item row">
+											<div class="imgthumb col-sm-1">
+												<span class="icon-uniF139"></span>
+											</div>
+											<div class="imgname col-sm-9">
+												Width &amp; Height
+											</div>
+											<div class="imgactions col-sm-2">
+												<button class="btn" title="Edit Image"><span class="glyphicon glyphicon-edit"></span> Edit</button>
+											</div>
+										</div>
+									  </a>
+								  </div>
+								  <div id="settingsOne2" class="panel-collapse" style="height: 0px;">
+									<div class="panel-body">
+									  
+									</div>
+								  </div>
+								</div>
+								<div class="panel panel-default">
+								  <div class="panel-heading">
+									  <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#map-settings-accordion" href="#settingsTwo2">
+										<div class="aj-imp-image-item row">
+											<div class="imgthumb col-sm-1">
+												<span class="icon-uniF105"></span>
+											</div>
+											<div class="imgname col-sm-9">
+												Position
+											</div>
+											<div class="imgactions col-sm-2">
+												<button class="btn" title="Edit Image"><span class="glyphicon glyphicon-edit"></span> Edit</button>
+											</div>
+										</div>
+									  </a>
+								  </div>
+								  <div id="settingsTwo2" class="panel-collapse collapse" style="height: 0px;">
+									<div class="panel-body">
+									  
+									</div>
+								  </div>
+								</div>
+								<div class="panel panel-default">
+								  <div class="panel-heading">
+									  <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#map-settings-accordion" href="#settingsThree2">
+										<div class="aj-imp-image-item row">
+											<div class="imgthumb col-sm-1">
+												<span class="icon-uniF122"></span>
+											</div>
+											<div class="imgname col-sm-9">
+												Spacing
+											</div>
+											<div class="imgactions col-sm-2">
+												<button class="btn" title="Edit Image"><span class="glyphicon glyphicon-edit"></span> Edit</button>
+											</div>
+										</div>
+									  </a>
+								  </div>
+								  <div id="settingsThree2" class="panel-collapse collapse" style="height: 0px;">
+									<div class="panel-body">
+									 
+									</div>
+								  </div>
+								</div>
+								<div class="panel panel-default">
+								  <div class="panel-heading">
+									  <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#map-settings-accordion" href="#settingsFour2">
+										<div class="aj-imp-image-item row">
+											<div class="imgthumb col-sm-1">
+												<span class="icon-uniF110"></span>
+											</div>
+											<div class="imgname col-sm-9">
+												Advanced Location
+											</div>
+											<div class="imgactions col-sm-2">
+												<button class="btn" title="Edit Image"><span class="glyphicon glyphicon-edit"></span> Edit</button>
+											</div>
+										</div>
+									  </a>
+								  </div>
+								  <div id="settingsFour2" class="panel-collapse collapse" style="height: 0px;">
+									<div class="panel-body">
+									 
+									</div>
+								  </div>
+								</div>
+								<div class="panel panel-default">
+								  <div class="panel-heading">
+									  <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#map-settings-accordion" href="#settingsFive2">
+										<div class="aj-imp-image-item row">
+											<div class="imgthumb col-sm-1">
+												<span class="icon-uniF192"></span>
+											</div>
+											<div class="imgname col-sm-9">
+												Advanced Display
+											</div>
+											<div class="imgactions col-sm-2">
+												<button class="btn" title="Edit Image"><span class="glyphicon glyphicon-edit"></span> Edit</button>
+											</div>
+										</div>
+									  </a>
+								  </div>
+								  <div id="settingsFive2" class="panel-collapse collapse" style="height: 0px;">
+									<div class="panel-body">
+									 
+									</div>
+								  </div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="modal-footer">
+					<button class="btn btn-default aj-imp-modal-save">Save</button>
+				</div>
+			</div>
+		</div>  
+	</div>
+    
+	<!-- Video Modal -->
+	<div class="modal wide-modal" id="videoModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close fui-cross" data-dismiss="modal" aria-hidden="true"></button>
+					<h4 class="modal-title">Youtube Video</h3>
+				</div>
+
+				<div class="modal-body">
+					<form class="form-horizontal" role="form">
+						<div class="form-group" id="social-drop">
+							<label class="col-md-2">Youtube Video URL:</label>
+							<div class="col-md-6">
+								<input class="form-control" type="text" placeholder="Youtube Video URL">
+							</div>
+						</div>
+						<div class="form-group" id="social-drop">
+							<label class="col-md-2">Video ID:</label>
+							<div class="col-md-6">
+								<input class="form-control" type="text" placeholder="Video ID">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-2">Video Alignment:</label>
+							<div class="col-md-10">
+								<div class="btn-group">
+									<button type="button" class="btn btn-default active"><span class="glyphicon glyphicon-align-left"></span></button>
+									<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-align-center"></span></button>
+									<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-align-right"></span></button>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-2">Size:</label>
+							<div class="col-md-10">
+								<select>
+									<option value="0">Medium</option>
+									<option value="1">Small</option>
+									<option value="2">Large</option>
+									<option value="3">Full Width</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-2">Spacing:</label>
+							<div class="col-md-10">
+								<select>
+									<option value="0">Spacing Above</option>
+									<option value="1">No Space</option>
+									<option value="2">Less Space</option>
+									<option value="3">More Space</option>
+								</select>
+								<select>
+									<option value="0">Spacing Below</option>
+									<option value="1">No Space</option>
+									<option value="2">Less Space</option>
+									<option value="3">More Space</option>
+								</select>
+							</div>
+						</div>
+					</form>
+				</div>
+
+				<div class="modal-footer">
+					<button class="btn btn-default aj-imp-modal-save">Save</button>
+				</div>
+			</div>
+		</div>  
+	</div>
+	
+	<!-- Button Modal -->
+	<div class="modal wide-modal" id="buttonModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close fui-cross" data-dismiss="modal" aria-hidden="true"></button>
+					<h4 class="modal-title">Button</h3>
+				</div>
+
+				<div class="modal-body">
+					<form class="form-horizontal" role="form">
+						<div class="form-group" id="social-drop">
+							<label class="col-md-2">Button Title:</label>
+							<div class="col-md-6">
+								<input class="form-control" type="text" placeholder="Youtube Video URL">
+							</div>
+						</div>
+						<div class="form-group" id="social-drop">
+							<label class="col-md-2">Link To:</label>
+							<div class="col-md-10">
+								<select>
+									<option value="0">Page</option>
+									<option value="1">Content</option>
+									<option value="2">Custom URL</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-md-offset-2 col-md-4 input-group">
+								<select>
+									<option value="0">About Us Page</option>
+									<option value="1">Contact Us Page</option>
+									<option value="2">Home Page</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-2">Button Alignment:</label>
+							<div class="col-md-10">
+								<div class="btn-group">
+									<button type="button" class="btn btn-default active"><span class="glyphicon glyphicon-align-left"></span></button>
+									<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-align-center"></span></button>
+									<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-align-right"></span></button>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-2">Button Style:</label>
+							<div class="col-md-10">
+								<select>
+									<option value="0">Medium</option>
+									<option value="1">Small</option>
+									<option value="2">Large</option>
+									<option value="3">Full Width</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-2">Spacing:</label>
+							<div class="col-md-10">
+								<select>
+									<option value="0">Spacing Above</option>
+									<option value="1">No Space</option>
+									<option value="2">Less Space</option>
+									<option value="3">More Space</option>
+								</select>
+								<select>
+									<option value="0">Spacing Below</option>
+									<option value="1">No Space</option>
+									<option value="2">Less Space</option>
+									<option value="3">More Space</option>
+								</select>
+							</div>
+						</div>
+					</form>
+				</div>
+
+				<div class="modal-footer">
+					<button class="btn btn-default aj-imp-modal-save">Save</button>
+				</div>
+			</div>
+		</div>  
+	</div>
+	
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="js/jquery-2.0.3.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
