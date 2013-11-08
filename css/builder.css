@@ -694,15 +694,15 @@ Version:        0.1.0
   bottom: 2em;
   left: 50%;
 }
-#aj-imp-builder-drag-drop .aj-imp-col-divider a {
+#aj-imp-builder-drag-drop .aj-imp-col-divider p {
   cursor: ew-resize;
   text-align: center;
   display: block;
   color: #aaaaaa;
-  font-size: 18px;
-  line-height: 20px;
+  font-size: 8px;
+  line-height: 4px;
   width: 40px;
-  height: 20px;
+  height: 10px;
   background: #fff;
   border: 1px solid #aaaaaa;
   border-radius: 3px;
@@ -714,7 +714,7 @@ Version:        0.1.0
   -ms-transform: rotate(-90deg);
   -o-transform: rotate(-90deg);
 }
-#aj-imp-builder-drag-drop .aj-imp-col-divider a:hover {
+#aj-imp-builder-drag-drop .aj-imp-col-divider p:hover {
   background: #ff7e00;
   color: #fff;
   border-color: #ff7e00;
