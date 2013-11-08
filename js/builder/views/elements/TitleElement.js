@@ -15,8 +15,9 @@ define(['builder/views/elements/BuilderElement','text!builder/templates/elements
                 placeHolderHeight   : 60,
                 
                 events : {
-                    'mouseenter'                        : 'rowMouseEnter',
-                    'mouseleave'                        : 'rowMouseLeave'
+                    'mouseenter'                 : 'elementMouseEnter',
+                    'mouseleave'                 : 'elementMouseLeave',
+                    'click > .aj-imp-delete-btn' : 'destroyElement'
                 },
                 
                 /**
@@ -27,7 +28,7 @@ define(['builder/views/elements/BuilderElement','text!builder/templates/elements
                  */
                 initialize : function(options){
                     
-                    _.bindAll(this, 'rowMouseEnter','rowMouseLeave');
+                    //_.bindAll(this, 'rowMouseEnter','rowMouseLeave');
                     
                     this.parent = options.parent;
                  
@@ -49,36 +50,7 @@ define(['builder/views/elements/BuilderElement','text!builder/templates/elements
                     
                     
                     return this;
-                },
-                        
-                /**
-                 * Listen to mouse enter event
-                 * @param {type} evt
-                 * @returns void
-                 */
-                rowMouseEnter : function(evt){
-                    
-                    evt.stopPropagation();
-                    
-                    //remove hover style if row is a child of column
-                    if(this.parent.type === 'column')
-                        this.parent.parent.rowMouseLeave(evt);
-                    
-                },
-                
-                /**
-                 * Listen to mouse leave event
-                 * @param {type} evt
-                 * @returns void
-                 */        
-                rowMouseLeave : function(evt){
-                    
-                    evt.stopPropagation();
-                    if(this.parent.type === 'column')
-                        this.parent.parent.rowMouseLeave(evt);
-                    
-                }
-                        
+                }   
                 
             });
             

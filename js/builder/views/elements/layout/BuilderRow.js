@@ -28,8 +28,8 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
 				events : {
 					'mouseenter'                        : 'rowMouseEnter',
                     'mouseleave'                        : 'rowMouseLeave',
-                    'click .aj-imp-delete-btn'          : 'removeElement',
-                    'click .aj-imp-col-sel ul li a'     : 'adjustColumnsInRow' 
+                    'click > .aj-imp-delete-btn'        : 'destroyElement',
+                    'click > .aj-imp-col-sel ul li a'   : 'adjustColumnsInRow' 
 				},
 
                 //used to identify drag direction(right / left)
@@ -44,9 +44,9 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                  */
                 initialize : function(opt){
                     
-                    _.bindAll(this, 'adjustColumnsInRow','generateBuilderMarkup','sortableColumns','addNewColumn',
-                                    'columnCount','getColumns','getColumn','rowMouseEnter','rowMouseLeave','adjustColumnDimension',
-                                    'allColumnsEmpty');
+                    _.bindAll(this, 'adjustColumnsInRow', 'generateBuilderMarkup', 'sortableColumns', 'addNewColumn',
+                                    'columnCount', 'getColumns', 'getColumn', 'rowMouseEnter', 'rowMouseLeave', 'adjustColumnDimension',
+                                    'allColumnsEmpty', 'emptyColumns');
                     
                     this.parent = opt.parent;
                     
@@ -74,13 +74,15 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                     
                     var height = [];
                     
-                    this.$el.find('.column').css('min-height','auto');
+                    this.$el.children('.column').css('min-height','10px');
                     
                     _.each(this.columns, function(column, index){
                         height.push(column.$el.height());
                     });
                     
                     var newHeight = _.max(height);
+                    
+                    newHeight = (newHeight == 0) ? 120 : newHeight;
                     
                     _.each(this.columns, function(column, index){
                         var prevHeight = column.$el.height();
@@ -89,6 +91,9 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                     });
                     
                     this.sortableColumns();
+                    
+                    if(this.parent.type === 'column')
+                        this.parent.parent.adjustColumnDimension();
                    
                 },
                 
@@ -193,7 +198,7 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                         var emptyColsLen = emptyColumns.length;
                         //first check
                         if(emptyColsLen === 0 ){
-                            alert("None of the columns are empty. Please delete elements inside columns to remove columns");
+                            alert("None of the columns are empty. Please delete elements inside columns to remove");
                             return;
                         }
                         
@@ -203,41 +208,40 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                             return;
                         }
                         
+                        var colsToRemove = 0;
+                        
                         //check if current columns - requested columns <= empty columns
                         if(this.columnCount() - requestedColumns <= emptyColsLen){
-                            //
-                            var colsToRemove = emptyColsLen -  requestedColumns;
+                           
+                            colsToRemove = this.columnCount() - requestedColumns;
+                          
+                        }
+                        else{
                             
-                            //get indexes to remove
-                            _.each(this.columns, function(column, index){
-
-                                if(colsToRemove === 0)
-                                        return;
-
-                                if(!column.isEmpty())
-                                        return;
-
-                                column.toRemove = true;
-                                colsToRemove--;
-
-                            });
+                            colsToRemove = emptyColsLen - requestedColumns;
                             
                         }
                         
                         var nCols = [];
-                        // remove the columns
+                        
+                        //get indexes to remove
                         _.each(this.columns, function(column, index){
-                            
-                            if(column.toRemove === true)
-                               column.destroy();
-                            else
+
+                            if(colsToRemove === 0 || !column.isEmpty()){
                                 nCols.push(column);
+                                return;
+                            }
+
+                            column.destroy();
+                            colsToRemove--;
+
                         });
                         
                         this.columns = [];
                         this.columns = nCols;
+                        //log(this.columnCount());
                         //this.trigger('columns_removed',emptyColumns);
-
+                        
                         //adjust class of existing columns
                         _.each(this.columns, function(column, index){
                             
@@ -338,11 +342,12 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                 rowMouseLeave : function(evt){
                     
                     evt.stopPropagation();
-                    if(this.parent.type === 'column')
-                        this.parent.parent.rowMouseLeave(evt);
+                   
+                    if(this.parent.type === 'column' && !evt.stop)
+                        this.parent.parent.rowMouseEnter(evt);
                     
                     this.$el.css('border', '1px solid transparent');
-                    this.$el.find('.aj-imp-drag-handle,.aj-imp-delete-btn,.aj-imp-col-divider,.aj-imp-col-sel').hide();
+                    this.$el.children('.aj-imp-drag-handle,.aj-imp-delete-btn,.aj-imp-col-divider,.aj-imp-col-sel').hide();
                 },
                  
                 /**
@@ -364,7 +369,55 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                  */        
                 handleColumnRemoval : function(){
             
-                }
+                },
+                
+                /**
+                 * Loop through columns and empty it
+                 * @returns {undefined}
+                 */        
+                emptyColumns : function(){
+                    
+                    _.each(this.getColumns(), function(column, index){
+                        
+                        column.makeEmpty();
+                        
+                    });
+                    
+                },
+                        
+                 /**
+                 * Removes the element from the column
+                 * @returns {undefined}
+                 */        
+                destroyElement : function(evt){
+                    
+                    evt.stopPropagation();
+                    
+                    if(!confirm("Are you sure?"))
+                        return;
+
+                    var self = this;
+                    
+                    if(this.parent.is('column')){
+                       _.each(this.parent.elements, function(element, index){
+                    
+                            if(element.id === self.id){
+                                self.parent.elements.splice(index,1);
+                            }
+                        
+                        });
+                        
+                        //update the parent UI
+                        this.parent.updateEmptyView();
+                    }
+                    
+                    
+                    this.emptyColumns();
+                    
+                    //finally remove itself
+                    this.removeElement(evt);
+                    
+                }       
                 
 			});
 

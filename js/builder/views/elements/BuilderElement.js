@@ -2,16 +2,30 @@ define(['backbone','jquery','underscore','handlebars', 'global'],
 		function(Backbone, $, _, Handlebars,  global){
 
 			var BuilderElement = Backbone.View.extend({
-
+                
+                /**
+                 * 
+                 */
                 parent : null,
-
-				/**
+                
+                /**
                  * All child controls will override this function;
                  * @returns {undefined}
                  */
 				render : function(){
                     
 				},
+                
+                /**
+                 * checks the type of element
+                 * @param {type} type : type to check
+                 * @returns {Boolean}
+                 */           
+                is : function(type){
+                    
+                    return type === this.type;
+                
+                },
                   
                 /**
                  * Returns the parent of the selected view
@@ -24,6 +38,19 @@ define(['backbone','jquery','underscore','handlebars', 'global'],
                         return false;
                     
                     return this.parent;
+                },
+                        
+                        
+                
+                /**
+                 * Set the parent element for the element
+                 * @param {type} parent
+                 * @returns {undefined}
+                 */        
+                setParent : function(parent){
+                    
+                    this.parent = parent;
+                    
                 },
 
 				/**
@@ -38,6 +65,79 @@ define(['backbone','jquery','underscore','handlebars', 'global'],
 				},
                         
                 /**
+                 * Listen to mouse enter event
+                 * @param {type} evt
+                 * @returns void
+                 */
+                elementMouseEnter : function(evt){
+                    
+                    evt.stopPropagation();
+                    
+                    //remove hover style if row is a child of column
+                    if(this.parent.type === 'column'){
+                         evt.stop = true;
+                         this.parent.parent.rowMouseLeave(evt);
+                    }
+                },
+                
+                /**
+                 * Listen to mouse leave event
+                 * @param {type} evt
+                 * @returns void
+                 */        
+                elementMouseLeave : function(evt){
+                    
+                    evt.stopPropagation();
+                    if(this.parent.type === 'column'){
+                       this.parent.parent.rowMouseEnter(evt);
+                    }
+                    
+                },        
+                        
+                /**
+                 * Removes the element from the column
+                 * @returns {undefined}
+                 */        
+                destroyElement : function(evt){
+                    
+                    evt.stopPropagation();
+                    
+                    if(!confirm("Are you sure?"))
+                        return;
+
+                    var self = this;
+                    
+                    //remove itself from list of elments
+                    _.each(this.parent.elements, function(element, index){
+                    
+                        if(element.id === self.id){
+                            
+                            self.parent.elements.splice(index,1);
+                        
+                        }
+                        
+                    });
+                    
+                    //update the parent UI
+                    this.parent.updateEmptyView();
+                    
+                    //remove element and clear memory
+                    this.removeElement(evt);
+                    
+                    //adjust the column height. Anonymous function call
+                    (function(self){
+                        
+                        setTimeout(function(){
+                            
+                            self.parent.parent.trigger('adjust_column_dimension');
+                        
+                        },1200);
+                        
+                    })(this); 
+                    
+                },
+                        
+                /**
                  * Removes the element form the builder UI
                  * 
                  * Call the destroy fucntion which unbinds/deletes all events attached
@@ -46,14 +146,17 @@ define(['backbone','jquery','underscore','handlebars', 'global'],
                  * @returns void
                  */        
                 removeElement : function(evt){
-                	evt.preventDefault();
+                	
+                    evt.preventDefault();
+                    
                     evt.stopPropagation();
+                    
                     var self = this;
-                    if(!confirm("Are you sure?"))
-                        return;
-
+                    
                 	this.$el.fadeOut(1000, function(){
+                    
                         self.destroy();
+                    
                     });
                 },
 
@@ -65,8 +168,10 @@ define(['backbone','jquery','underscore','handlebars', 'global'],
 				destroy : function() {
 
 				    if (_.isFunction(this.beforeClose)) {
-				        this.beforeClose();
-				    }
+				    
+                        this.beforeClose();
+				    
+                    }
 
 				    this.off(); //unbind all events of the view being closed
 

@@ -15,7 +15,7 @@ define(['builder/views/elements/BuilderElement', 'global'],
                     
                     _.bindAll(this, 'isEmpty', 'clear', 'handleElementDrop', 'handleHeightChange', 'isEmpty', 'clear',
                                     'handleWidthChange', 'handleElementOverState', 'handleColumnDrop', 'makeColumnsSortable',
-                                    'handleElementRemove','resetHeightAuto', 'holdCurrentColRef');
+                                    'handleElementRemove','resetHeightAuto', 'holdCurrentColRef','updateEmptyView','makeEmpty');
                     
                     this.parent = opt.parent;
                     
@@ -128,17 +128,29 @@ define(['builder/views/elements/BuilderElement', 'global'],
                             
                             receiver.elements.push(element);
                             sender.elements.splice(index,1);
-
+                            
+                            //change parent
+                            element.setParent(receiver);
                         }
                         
                     });
                     
-                    if(sender.isEmpty()){
+                    sender.updateEmptyView();
+                   
+                },
+                
+                /**
+                 * Checks if the column is empty
+                 * If yes => Sets the background image
+                 * @returns {undefined}
+                 */        
+                updateEmptyView : function(){
+            
+                    if(this.isEmpty()){
                         
-                        sender.$el.css('background-image','url(images/empty-drag-bg.svg)');
+                        this.$el.css('background-image','url(images/empty-drag-bg.svg)');
                         
                     }
-                   
                 },
                 
                 /**
@@ -155,7 +167,7 @@ define(['builder/views/elements/BuilderElement', 'global'],
                     //bail if helper is null
                     if(_.isNull(ui.helper)){
                         var sender = ui.item.sender;
-                        this.$el.css('background-image','url()');
+                        this.$el.css('background-image','url(images/clear-background.png)');
                         //added new control. Now trigger parent row adjust column dimension
                         this.parent.trigger('adjust_column_dimension');
                         this.handleElementRemove(receiver, sender, elementId);
@@ -225,27 +237,37 @@ define(['builder/views/elements/BuilderElement', 'global'],
                     
                     var self = this;
                     
-                    this.$el.css('background-image','url()');
+                    this.$el.css('background-image','url(images/clear-background.png)');
+                    
                     var path = '';
                     if(elementName === 'BuilderRow' || elementName === 'BuilderRowColumn')
                         path = 'builder/views/elements/layout/' + elementName;
                     else
                         path = 'builder/views/elements/' + elementName;
                     
-                    require([path], function(Element){
-                        var element = new Element({parent: self});
-                        self.elements.push(element);
+                    //set loader
+                    if(self.$el.find('*[data-element="'+elementName+'"]').length > 0)
+                            self.$el.find('*[data-element="'+elementName+'"]').html('<div class="element-drop-loader"></div>');
+                    
+                    //setTimeout(function(){
+                        require([path], function(Element){
 
-                        if(self.$el.find('*[data-element="'+elementName+'"]').length > 0)
-                            self.$el.find('*[data-element="'+elementName+'"]').replaceWith(element.generateBuilderMarkup());
-                        else
-                            self.$el.append(element.generateBuilderMarkup());
+                            var element = new Element({parent: self});
+                            self.elements.push(element);
+
+                            if(self.$el.find('*[data-element="'+elementName+'"]').length > 0)
+                                self.$el.find('*[data-element="'+elementName+'"]').replaceWith(element.generateBuilderMarkup());
+                            else
+                                self.$el.append(element.generateBuilderMarkup());
+
+                            if(elementName === 'BuilderRow')
+                                element.sortableColumns();
+
+                            self.parent.trigger('adjust_column_dimension');
+
+                        });
                         
-                        if(elementName === 'BuilderRow')
-                            element.sortableColumns();
-                        
-                        self.parent.trigger('adjust_column_dimension');
-                    });    
+                    //},1000);   
                    
                 },   
                         
@@ -270,6 +292,24 @@ define(['builder/views/elements/BuilderElement', 'global'],
                  */        
                 clear : function(){
                     this.$el.empty();
+                },
+                
+                /**
+                 * Removes all child elements from column
+                 * and memory
+                 * @returns {undefined}
+                 */
+                makeEmpty : function(){
+                    
+                    _.each(this.elements, function(element, index){
+                       
+                        if(element.type === 'row')
+                            element.emptyColumns();
+                        else
+                            element.destroy();
+                        
+                    });
+                    
                 }        
                 
             });
