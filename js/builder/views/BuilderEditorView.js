@@ -77,6 +77,7 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Elements'],
                                                            self.rows.push(row);
                                                            $(event.target).find('*[data-element="BuilderRow"]').replaceWith(row.generateBuilderMarkup());
                                                            row.sortableColumns();
+                                                           row.appendColumnResizer();
                                                         },
                                          sort       : function(event , ui){
                                                             var pHeight = ui.helper.attr('data-placeholder-height');

@@ -46,7 +46,7 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                     
                     _.bindAll(this, 'adjustColumnsInRow', 'generateBuilderMarkup', 'sortableColumns', 'addNewColumn',
                                     'columnCount', 'getColumns', 'getColumn', 'rowMouseEnter', 'rowMouseLeave', 'adjustColumnDimension',
-                                    'allColumnsEmpty', 'emptyColumns', 'appendColumnResizer' , 'clearResizers');
+                                    'allColumnsEmpty', 'emptyColumns', 'appendColumnResizer' , 'clearResizers', 'makeResizer');
                     
                     this.parent = opt.parent;
                     
@@ -141,7 +141,7 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                          
                     }); 
 
-                    this.appendColumnResizer();
+                    //this.appendColumnResizer();
                     
                     //append column edit popover + drag handle + delete button
                     this.$el.append(_.template(this.template));
@@ -165,8 +165,6 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
 
                     var self = this;
 
-                    
-
                     var template = '<div class="aj-imp-col-divider">\
                                         <p title="Move">\
                                             <span class="icon-uniF140"></span>\
@@ -180,11 +178,97 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                     _.each(_.range(numberOfResizers), function(ele,index){
 
                         var resizer = $(template);
+                        
+                        resizer.attr('data-position',(index + 1));
+
                         resizer.css('left', (left * (index + 1)) + '%');
                         
                         self.$el.append(resizer);
-
+                        
+                        self.makeResizer(resizer);
+                        
                     });           
+
+                },
+
+                /**
+                * Make resizer
+                */
+                makeResizer : function(resizer){
+
+                    var self = this;
+
+                    var row = resizer.parent();
+
+                    var snap = row.width();
+                    
+                    snap = snap / 12
+
+                    resizer.draggable({
+                        axis : 'x',
+                        containment : row,
+                        grid : [snap,0],
+                        start : function(event, ui){
+                            ui.helper.start = ui.originalPosition;
+                        },
+                        drag : function(event, ui) {
+                            if(ui.position.left > ui.helper.start.left){
+                                ui.helper.start = ui.position;
+                                var position = $(event.target).attr('data-position');
+                                self.resizeColumns('right',position);
+                            }
+                            else if(ui.position.left < ui.helper.start.left){
+                                ui.helper.start = ui.position;
+                                var position = $(event.target).attr('data-position');
+                                self.resizeColumns('left',position);
+                            }
+                        }
+                    });
+
+                },
+
+                /**
+                *   
+                */
+                resizeColumns : function(direction, position){
+
+                    var self = this;
+
+                    //get columns to adjust width depending on position value.
+                    //columns to adjust  = row.columns[postion - 1] and row.columns[position]
+                    var columns  = [];
+
+                    columns.push(this.columns[position - 1]);
+                    
+                    columns.push(this.columns[position]);
+                    
+                    var currentClassZero = columns[0].getCurrentClass();
+                    
+                    var currentClassOne  = columns[1].getCurrentClass();
+
+                    //return if one column class is set to zero
+                    if(currentClassZero - 1 === 0 || currentClassOne - 1 === 0)
+                        return;
+                    
+                    switch(direction){
+
+                        case 'right':
+                            currentClassZero++;
+                            currentClassOne--;
+                            break;
+                        
+                        case 'left':
+                            currentClassZero--;
+                            currentClassOne++;    
+                            break;    
+                        
+                        default:
+                            break;    
+                    }
+
+                    columns[0].setColumnClass(currentClassZero);
+                    
+                    columns[1].setColumnClass(currentClassOne);
 
                 },
 
@@ -223,11 +307,15 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                         
                         //adjust class of existing columns
                         _.each(this.columns, function(column, index){
-                            column.$el.removeAttr('class').attr('class','column col-sm-'+colClass);
+                            
+                            column.setColumnClass(colClass);
+
                         });
                         
                         _.each(_.range(extraColumns), function(){
+                            
                             self.addNewColumn(colClass);
+                        
                         });
                          
                     }
@@ -291,6 +379,7 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                         _.each(this.columns, function(column, index){
                             
                             column.$el.removeAttr('class').attr('class','column col-sm-'+colClass);
+                            column.setCurrentClass(colClass);
                         
                         }); 
                     }
@@ -348,6 +437,7 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                 
                     var column = new BuilderRowColumn({parent : this});  
                     column.render(colClass);
+                    column.setColumnClass(colClass);
                     this.columns.push(column);
                     this.$el.append(column.$el);
                     this.trigger('adjust_column_dimension');
