@@ -886,11 +886,40 @@ Version:        0.1.0
 	}
 }
 
+/****CKEditor Styles****/
 .cke_float {
 	border-radius: 5px;
-	.cke_top {
-		border-radius: 5px;
+	background: rgba(0, 0, 0, 0.8) !important;
+	border: 1px solid #000 !important;
+	.cke_inner {
+		background: none !important;
+		.cke_top {
+			border-radius: 5px;
+			background: none !important;
+		}
 	}
+}
+
+.cke_toolgroup {
+	background: rgba(0, 0, 0, 0.8) !important;
+	.cke_button {
+		border: 1px solid transparent;
+		&.cke_button_off {
+			&:hover, &:focus, &:active {
+				background: none !important;
+				border: 1px solid @orange;
+			}
+		}
+		&.cke_button_on {
+			background: transparent !important;
+			border: 1px solid @orange;
+		}
+	}
+}
+
+.cke_combo_button {
+	background: rgba(0, 0, 0, 0.8) !important;
+	color: @dash-grey;
 }
 
 /****Modal Styles****/

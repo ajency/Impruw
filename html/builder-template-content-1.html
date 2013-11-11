@@ -1266,9 +1266,6 @@
     <script src="js/bootstrap-select.js"></script>
     <script src="js/bootstrap-switch.js"></script>
 	<script src="../js/jquery-ui.min.js"></script>
-    <script src="../js/underscore.min.js"></script>
-    <script src="../js/backbone.min.js"></script>
-    <script src="js/vie/vie.js"></script>
     <script src="js/ckeditor/ckeditor.js"></script>
     <script src="js/create.js"></script>
 	<script>
@@ -1288,13 +1285,6 @@
         jQuery('body').midgardCreate('setEditorForProperty', 'dcterms:author', null);
 
       });
-      // Fake Backbone.sync since there is no server to communicate with
-      Backbone.sync = function(method, model, options) {
-        if (console && console.log) {
-          console.log('Model contents', model.toJSONLD());
-        }
-        options.success(model);
-      };
     </script>
 	<script>
 		jQuery('.aj-imp-builder-top-nav select').selectpicker({style: 'btn-mini btn-default', menuStyle: 'dropdown'});
