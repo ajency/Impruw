@@ -780,13 +780,19 @@ Version:        0.1.0
   padding: 0.2em;
   border: 1px solid transparent;
 }
+.aj-imp-preview .aj-imp-edit-content[contenteditable=true]:empty:before,
 .aj-imp-preview .aj-imp-edit-content [contenteditable=true]:empty:before {
   content: attr(placeholder);
   color: #c3c3c3;
 }
+.aj-imp-preview .aj-imp-edit-content[contenteditable=true]:focus,
 .aj-imp-preview .aj-imp-edit-content [contenteditable=true]:focus {
   box-shadow: inset 0 0 4px #a3b7c4;
+  background: #fafbfc;
+  border-radius: 5px;
+  padding: 5px;
   outline: 0;
+  transition-duration: 0.2s;
 }
 .aj-imp-preview .aj-imp-edit-content .aj-imp-edit-controls {
   display: none;
@@ -829,6 +835,12 @@ Version:        0.1.0
 }
 .aj-imp-preview .aj-imp-edit-content:hover .aj-imp-edit-controls {
   display: block;
+}
+.cke_float {
+  border-radius: 5px;
+}
+.cke_float .cke_top {
+  border-radius: 5px;
 }
 /****Modal Styles****/
 .modal-backdrop {
