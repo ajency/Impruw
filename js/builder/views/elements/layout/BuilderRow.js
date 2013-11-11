@@ -202,25 +202,47 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
 
                     var snap = row.width();
                     
-                    snap = snap / 12
+                    snap = snap / 12;
 
                     resizer.draggable({
                         axis : 'x',
                         containment : row,
                         grid : [snap,0],
                         start : function(event, ui){
+                        
                             ui.helper.start = ui.originalPosition;
+                            
+                            self.$el.css('border', '1px solid transparent');
+                            
+                            self.$el.children('.aj-imp-drag-handle,.aj-imp-delete-btn,.aj-imp-col-sel').hide();
+                        
+                        },
+                        stop : function(event,ui){
+                        
+                            self.$el.css('border', '1px solid #ff7e00');
+                            
+                            self.$el.children('.aj-imp-drag-handle,.aj-imp-delete-btn,.aj-imp-col-sel').show();
+                        
                         },
                         drag : function(event, ui) {
+                            
                             if(ui.position.left > ui.helper.start.left){
+                            
                                 ui.helper.start = ui.position;
+                                
                                 var position = $(event.target).attr('data-position');
+                                
                                 self.resizeColumns('right',position);
+                            
                             }
                             else if(ui.position.left < ui.helper.start.left){
+                                
                                 ui.helper.start = ui.position;
+                                
                                 var position = $(event.target).attr('data-position');
+                                
                                 self.resizeColumns('left',position);
+                            
                             }
                         }
                     });
