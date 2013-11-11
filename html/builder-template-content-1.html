@@ -9,6 +9,7 @@
     <link href="../css/main.min.css" rel="stylesheet" media="screen">
 	<link href="css/site.css" rel="stylesheet" media="screen">
 	<link href="../css/builder.css" rel="stylesheet" media="screen">
+	<link rel="stylesheet" href="../css/create-ui.css" />
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -139,7 +140,7 @@
 				</div>
 				<div class="aj-imp-browser-body aj-imp-preview">
 					<!-- CLIENT SITE START -->
-					<div class="container">
+					<div class="container" xmlns:sioc="http://rdfs.org/sioc/ns#" xmlns:dcterms="http://purl.org/dc/terms/" about="http://example.net/blog/" rel="dcterms:hasPart" rev="dcterms:partOf">
 						<div class="row">
 							<div class="col-sm-12 column">
 								<div class="clearfix aj-imp-edit-content align-center logo">
@@ -202,9 +203,9 @@
 						</div>
 						<div class="row">
 							<div class="col-sm-3 column">
-								<div class="clearfix emphasis-text">
-									<h3 class="aj-imp-edit-content" contenteditable="true">Lorem ipsum dolor sit amet</h3>
-									<p class="aj-imp-edit-content" contenteditable="true">Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+								<div class="clearfix emphasis-text" typeof="sioc:Post" about="http://example.net/blog/news_item">
+									<h3 class="aj-imp-edit-content" contenteditable="true" property="dcterms:title">Lorem ipsum dolor sit amet</h3>
+									<p class="aj-imp-edit-content" contenteditable="true" property="sioc:content">Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
 									<a class="read-more" data-toggle="modal" href="#galleryModal">Gallery</a>
 								</div>
 							</div>
@@ -1264,6 +1265,37 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/bootstrap-select.js"></script>
     <script src="js/bootstrap-switch.js"></script>
+	<script src="../js/jquery-ui.min.js"></script>
+    <script src="../js/underscore.min.js"></script>
+    <script src="../js/backbone.min.js"></script>
+    <script src="js/vie/vie.js"></script>
+    <script src="http://ckeditor.com/apps/ckeditor/4.2/ckeditor.js"></script>
+    <script src="js/create.js"></script>
+	<script>
+      jQuery(document).ready(function () {
+        jQuery('body').midgardCreate({
+          url: function () {
+            return 'javascript:false;';
+          },
+        });
+
+        // Set a simpler editor for title fields
+        jQuery('body').midgardCreate('configureEditor', 'ckeditor', 'ckeditorWidget', {
+        });
+        jQuery('body').midgardCreate('setEditorForProperty', 'default', 'ckeditor');
+
+        // Disable editing of author fields
+        jQuery('body').midgardCreate('setEditorForProperty', 'dcterms:author', null);
+
+      });
+      // Fake Backbone.sync since there is no server to communicate with
+      Backbone.sync = function(method, model, options) {
+        if (console && console.log) {
+          console.log('Model contents', model.toJSONLD());
+        }
+        options.success(model);
+      };
+    </script>
 	<script>
 		jQuery('.aj-imp-builder-top-nav select').selectpicker({style: 'btn-mini btn-default', menuStyle: 'dropdown'});
 		jQuery('select').selectpicker({style: 'btn-mini btn-default', menuStyle: 'dropdown'});

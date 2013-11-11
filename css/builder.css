@@ -836,6 +836,12 @@ Version:        0.1.0
 .aj-imp-preview .aj-imp-edit-content:hover .aj-imp-edit-controls {
   display: block;
 }
+.cke_float {
+  border-radius: 5px;
+}
+.cke_float .cke_top {
+  border-radius: 5px;
+}
 /****Modal Styles****/
 .modal-backdrop {
   background: #333333;
