@@ -8,6 +8,8 @@ define(['builder/views/elements/BuilderElement', 'global'],
                 
                 //holds all elements for this column
                 elements    : [],
+
+                currentClass : 6,
                 
                 className   : 'column',
                 
@@ -15,7 +17,8 @@ define(['builder/views/elements/BuilderElement', 'global'],
                     
                     _.bindAll(this, 'isEmpty', 'clear', 'handleElementDrop', 'handleHeightChange', 'isEmpty', 'clear',
                                     'handleWidthChange', 'handleElementOverState', 'handleColumnDrop', 'makeColumnsSortable',
-                                    'handleElementRemove','resetHeightAuto', 'holdCurrentColRef','updateEmptyView','makeEmpty');
+                                    'handleElementRemove','resetHeightAuto', 'holdCurrentColRef','updateEmptyView','makeEmpty',
+                                    'setCurrentClass', 'setColumnClass','getCurrentClass');
                     
                     this.parent = opt.parent;
                     
@@ -310,7 +313,32 @@ define(['builder/views/elements/BuilderElement', 'global'],
                         
                     });
                     
-                }        
+                },
+
+                /**
+                * Set current class for column
+                */
+                setCurrentClass : function(colClass){
+                    
+                    this.currentClass = colClass;
+
+                } ,
+
+                /**
+                * Set new class for the column
+                */
+                setColumnClass : function(colClass){
+
+                    this.$el.removeAttr('class').attr('class','column col-sm-'+colClass);
+                    this.setCurrentClass(colClass);
+
+                },
+
+                getCurrentClass : function(){
+
+                    return this.currentClass;
+
+                }    
                 
             });
             
