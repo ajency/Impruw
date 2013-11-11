@@ -245,6 +245,10 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                     var currentClassZero = columns[0].getCurrentClass();
                     
                     var currentClassOne  = columns[1].getCurrentClass();
+
+                    //return if one column class is set to zero
+                    if(currentClassZero - 1 === 0 || currentClassOne - 1 === 0)
+                        return;
                     
                     switch(direction){
 
