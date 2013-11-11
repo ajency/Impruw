@@ -827,14 +827,18 @@ Version:        0.1.0
 		position: relative;
 		padding: 0.2em;
 		border: 1px solid transparent;
-		[contenteditable=true] {
+		&[contenteditable=true], [contenteditable=true] {
 			&:empty:before {
 				content: attr(placeholder);
 				color: lighten(@dash-grey, 10%);
 			}
 			&:focus {
 				box-shadow: inset 0 0 4px lighten(@blue-grey, 10%);
+				background: lighten(@blue-grey, 38%);
+				border-radius: 5px;
+				padding: 5px;
 				outline: 0;
+				transition-duration: 0.2s;
 			}
 		}
 		.aj-imp-edit-controls {
