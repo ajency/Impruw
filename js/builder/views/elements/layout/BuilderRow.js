@@ -46,7 +46,7 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                     
                     _.bindAll(this, 'adjustColumnsInRow', 'generateBuilderMarkup', 'sortableColumns', 'addNewColumn',
                                     'columnCount', 'getColumns', 'getColumn', 'rowMouseEnter', 'rowMouseLeave', 'adjustColumnDimension',
-                                    'allColumnsEmpty', 'emptyColumns');
+                                    'allColumnsEmpty', 'emptyColumns', 'appendColumnResizer' , 'clearResizers');
                     
                     this.parent = opt.parent;
                     
@@ -140,14 +140,61 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                          self.$el.append(column.$el);
                          
                     }); 
+
+                    this.appendColumnResizer();
                     
                     //append column edit popover + drag handle + delete button
                     this.$el.append(_.template(this.template));
                     
                     //set divder left
-                    this.$el.find('.aj-imp-col-divider').css('left', (Math.ceil(100 / this.columns)) +'%');
-                    this.$el.find('.aj-imp-drag-handle,.aj-imp-delete-btn,.aj-imp-col-divider,.aj-imp-col-sel').show();
+                    this.$el.children('.aj-imp-col-divider').css('left', (Math.ceil(100 / this.columns)) +'%');
+                    this.$el.children('.aj-imp-drag-handle,.aj-imp-delete-btn,.aj-imp-col-divider,.aj-imp-col-sel').show();
                     return this.$el;
+                },
+
+                /**
+                * Add column rrsizers to row depending on number of columns
+                */
+                appendColumnResizer : function(){
+
+                    this.clearResizers();
+
+                    //bail if only one column is present
+                    if(this.columnCount() == 1)
+                        return;
+
+                    var self = this;
+
+                    
+
+                    var template = '<div class="aj-imp-col-divider">\
+                                        <p title="Move">\
+                                            <span class="icon-uniF140"></span>\
+                                        </p>\
+                                    </div>';
+
+                    var numberOfResizers = this.columnCount() - 1;   
+
+                    var left = 100 / this.columnCount();
+
+                    _.each(_.range(numberOfResizers), function(ele,index){
+
+                        var resizer = $(template);
+                        resizer.css('left', (left * (index + 1)) + '%');
+                        
+                        self.$el.append(resizer);
+
+                    });           
+
+                },
+
+                /**
+                * Removes column resizers
+                */
+                clearResizers : function(){
+
+                    this.$el.children('.aj-imp-col-divider').remove();
+
                 },
                 
                 /**
@@ -239,8 +286,6 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                         
                         this.columns = [];
                         this.columns = nCols;
-                        //log(this.columnCount());
-                        //this.trigger('columns_removed',emptyColumns);
                         
                         //adjust class of existing columns
                         _.each(this.columns, function(column, index){
@@ -254,6 +299,8 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                     $(evt.target).parent().addClass('active').siblings().removeClass('active');
                     
                     this.sortableColumns();
+
+                    this.appendColumnResizer();
                 },
                 
                 /**
