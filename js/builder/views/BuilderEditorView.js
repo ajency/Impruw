@@ -15,9 +15,13 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Elements'],
                 
                 rows        : [],
 
+                mode        : 'layout',
+
+
 				initialize  : function(){
                         
-                    _.bindAll(this, 'enableDropSort','getRows','is');    
+                    _.bindAll(this, 'enableDropSort','getRows','is','holdOnWhileSwitching', 'removeSwitchLoader','switchMode',
+                                    'switchToLayout', 'switchToContent');    
 
 				},
                 
@@ -31,6 +35,9 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Elements'],
                     return type === 'editor';
                 },        
 
+                /**
+                *  Render function for view 
+                */
 				render : function(){
                         
                         var self = this;
@@ -58,6 +65,72 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Elements'],
 
 						return this;
 				},
+
+                /**
+                *
+                **/
+                switchMode : function(){
+
+                    this.holdOnWhileSwitching();
+                   
+                    if(this.mode === 'layout'){
+
+                        this.switchToContent();
+                    
+                    }
+                    else if(this.mode === 'content'){
+                    
+                        this.switchToLayout();
+                    
+                    }
+
+                },
+
+                /**
+                *  Switch to layout mode
+                */
+                switchToLayout : function(){
+
+                    //
+
+                },
+
+                holdOnWhileSwitching : function(){
+
+                    var switcher = $('<div class="element-drop-loader" id="editor-initial-loader">\
+                                        <p>switching mode... Please wait... </p>\
+                                    </div>');
+
+                    switcher.height(this.$el.height()).css('top',0);
+
+                    this.$el.append(switcher);
+
+                },
+
+                /**
+                * removes the switch loader
+                */
+                removeSwitchLoader : function(){
+
+                    this.$el.find('#editor-initial-loader').fadeOut('slow', function(){
+                        
+                        $(this).remove();
+                    
+                    });
+
+                },
+
+                /**
+                *  Switch to content mode
+                */
+                switchToContent : function(){
+
+                    this.$el.find('.column').removeClass('column');
+                    this.removeSwitchLoader();
+
+                },
+
+
 
 				/**
 				 * Binds the droppable  / sortable

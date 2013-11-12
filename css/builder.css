@@ -580,6 +580,7 @@ Version:        0.1.0
 #aj-imp-builder-drag-drop {
   padding: 1em 0;
   min-height: 500px;
+  position: relative;
 }
 #aj-imp-builder-drag-drop .aj-imp-add-row,
 #aj-imp-builder-drag-drop .ui-sortable-placeholder {

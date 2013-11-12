@@ -11,9 +11,14 @@ define(['underscore', 'jquery', 'backbone', 'builder/views/BuilderEditorView'],
 
 				el : '.aj-imp-builder',
 
+				events      : {
+                    'click label.editormode' : 'switchMode'
+                },
+
+
 				initialize : function(){
                     
-                    _.bindAll(this, 'handleInitialLoader');
+                    _.bindAll(this, 'handleInitialLoader','switchMode');
                     
 					this.builderId = '';
 				},
@@ -36,6 +41,15 @@ define(['underscore', 'jquery', 'backbone', 'builder/views/BuilderEditorView'],
 					this.builder.enableDropSort();
 					
 					return this;
+				},
+
+				/**
+				* trigger the mode siwtcher for builder editor
+				*/
+				switchMode : function(){
+					
+					this.builder.switchMode();
+
 				},
                 
                 /**

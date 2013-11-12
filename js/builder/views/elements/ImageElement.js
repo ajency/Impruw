@@ -13,7 +13,8 @@ define(['builder/views/elements/BuilderElement','text!builder/templates/elements
                 
                 //set height to be assigned to placeholder and helper
                 placeHolderHeight   : 100,
-                
+
+                //
                 events : {
                     'mouseenter'                        : 'elementMouseEnter',
                     'mouseleave'                        : 'elementMouseLeave',

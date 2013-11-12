@@ -19,8 +19,12 @@ a{
 }
 
 div.element-drop-loader{
+    
     height      : 60px; 
     background  : url(../images/loader.gif) no-repeat center center #fff;
+    position    : absolute;
+    width: 100%;
+
 }
 
 div.element-drop-loader > p{
