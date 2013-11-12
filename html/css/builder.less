@@ -891,7 +891,8 @@ Version:        0.1.0
 	background: rgba(255, 255, 255, 0.9) !important;
 	border: 1px solid @dash-grey !important;
 	padding: 0 !important;
-	box-shadow: 0px 0px 2px @dash-grey;
+	box-shadow: 2px 2px 0px @dash-grey;
+	box-sizing: padding-box;
 	.cke_inner {
 		background: none !important;
 		.cke_top {
@@ -913,6 +914,9 @@ Version:        0.1.0
 		&:last-child {
 			border-radius: 0 5px 5px 0;
 		}
+		&.cke_button__about, &.cke_button__scayt {
+			border-radius: 5px;
+		}
 		&.cke_button_off {
 			&:hover, &:focus, &:active {
 				background: @blue-grey !important;
@@ -926,6 +930,9 @@ Version:        0.1.0
 
 .cke_combo_button {
 	background: lighten(@dash-grey, 25%) !important;
+	&:hover, &:focus, &:active {
+		background: @blue-grey !important;
+	}
 }
 
 /****Modal Styles****/
