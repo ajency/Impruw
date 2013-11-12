@@ -838,9 +838,10 @@ Version:        0.1.0
 }
 /****CKEditor Styles****/
 .cke_float {
-  border-radius: 5px;
-  background: rgba(0, 0, 0, 0.8) !important;
-  border: 1px solid #000 !important;
+  background: rgba(255, 255, 255, 0.9) !important;
+  border: 1px solid #aaaaaa !important;
+  padding: 0 !important;
+  box-shadow: 0px 0px 2px #aaaaaa;
 }
 .cke_float .cke_inner {
   background: none !important;
@@ -850,24 +851,29 @@ Version:        0.1.0
   background: none !important;
 }
 .cke_toolgroup {
-  background: rgba(0, 0, 0, 0.8) !important;
+  background: #eaeaea !important;
+  padding: 0 !important;
 }
 .cke_toolgroup .cke_button {
-  border: 1px solid transparent;
+  border-radius: 0;
+  padding: 4px;
+}
+.cke_toolgroup .cke_button:first-child {
+  border-radius: 5px 0 0 5px;
+}
+.cke_toolgroup .cke_button:last-child {
+  border-radius: 0 5px 5px 0;
 }
 .cke_toolgroup .cke_button.cke_button_off:hover,
 .cke_toolgroup .cke_button.cke_button_off:focus,
 .cke_toolgroup .cke_button.cke_button_off:active {
-  background: none !important;
-  border: 1px solid #ff7e00;
+  background: #849fb0 !important;
 }
 .cke_toolgroup .cke_button.cke_button_on {
-  background: transparent !important;
-  border: 1px solid #ff7e00;
+  background: #ff7e00 !important;
 }
 .cke_combo_button {
-  background: rgba(0, 0, 0, 0.8) !important;
-  color: #aaaaaa;
+  background: #eaeaea !important;
 }
 /****Modal Styles****/
 .modal-backdrop {
