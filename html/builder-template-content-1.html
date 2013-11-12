@@ -203,9 +203,9 @@
 						</div>
 						<div class="row">
 							<div class="col-sm-3 column">
-								<div class="clearfix emphasis-text" typeof="sioc:Post" about="http://example.net/blog/news_item">
-									<h3 class="aj-imp-edit-content" contenteditable="true" property="dcterms:title">Lorem ipsum dolor sit amet</h3>
-									<p class="aj-imp-edit-content" contenteditable="true" property="sioc:content">Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+								<div class="clearfix emphasis-text">
+									<h3 class="aj-imp-edit-content" contenteditable="true">Lorem ipsum dolor sit amet</h3>
+									<p class="aj-imp-edit-content" contenteditable="true">Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
 									<a class="read-more" data-toggle="modal" href="#galleryModal">Gallery</a>
 								</div>
 							</div>
@@ -1278,11 +1278,9 @@
 
         // Set a simpler editor for title fields
         jQuery('body').midgardCreate('configureEditor', 'ckeditor', 'ckeditorWidget', {
+			'removePlugins' : 'stylescombo'
         });
         jQuery('body').midgardCreate('setEditorForProperty', 'default', 'ckeditor');
-
-        // Disable editing of author fields
-        jQuery('body').midgardCreate('setEditorForProperty', 'dcterms:author', null);
 
       });
     </script>
