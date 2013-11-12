@@ -237,7 +237,6 @@ Version:        0.1.0
 		p {
 			text-align: center;
 			float: none;
-			font-size: 1em;
 			margin: 15px 0;
 			letter-spacing: 0.02em; 
 			font-weight: 300;
@@ -743,10 +742,10 @@ Version:        0.1.0
 			text-align: center;
 			display: block;
 			color: @dash-grey;
-			font-size: 8px;
-			line-height: 4px;
+			font-size: 12px;
+			line-height: 6px;
 			width: 40px;
-			height: 10px;
+			height: 15px;
 			background: #fff;
 			border: 1px solid @dash-grey;
 			border-radius: 3px;
@@ -889,9 +888,11 @@ Version:        0.1.0
 
 /****CKEditor Styles****/
 .cke_float {
-	border-radius: 5px;
-	background: rgba(0, 0, 0, 0.8) !important;
-	border: 1px solid #000 !important;
+	background: rgba(255, 255, 255, 0.9) !important;
+	border: 1px solid @dash-grey !important;
+	padding: 0 !important;
+	box-shadow: 2px 2px 0px @dash-grey;
+	box-sizing: padding-box;
 	.cke_inner {
 		background: none !important;
 		.cke_top {
@@ -902,25 +903,41 @@ Version:        0.1.0
 }
 
 .cke_toolgroup {
-	background: rgba(0, 0, 0, 0.8) !important;
+	background: lighten(@dash-grey, 25%) !important;
+	padding: 0 !important;
 	.cke_button {
-		border: 1px solid transparent;
+		border-radius: 0;
+		padding: 4px;
+		&:first-child {
+			border-radius: 5px 0 0 5px;
+		}
+		&:last-child {
+			border-radius: 0 5px 5px 0;
+		}
+		&.cke_button__about, &.cke_button__scayt {
+			border-radius: 5px;
+		}
 		&.cke_button_off {
 			&:hover, &:focus, &:active {
-				background: none !important;
-				border: 1px solid @orange;
+				background: @blue-grey !important;
 			}
 		}
 		&.cke_button_on {
-			background: transparent !important;
-			border: 1px solid @orange;
+			background: @orange !important;
 		}
 	}
 }
 
 .cke_combo_button {
-	background: rgba(0, 0, 0, 0.8) !important;
-	color: @dash-grey;
+	background: lighten(@dash-grey, 25%) !important;
+	&:hover, &:focus, &:active {
+		background: @blue-grey !important;
+	}
+}
+
+.cke_toolbar_separator {
+	border-left: 1px solid @dash-grey !important;
+	margin: 5px 2px 0 !important;
 }
 
 /****Modal Styles****/
