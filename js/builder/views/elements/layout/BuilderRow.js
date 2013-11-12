@@ -46,7 +46,7 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                     
                     _.bindAll(this, 'adjustColumnsInRow', 'generateBuilderMarkup', 'sortableColumns', 'addNewColumn',
                                     'columnCount', 'getColumns', 'getColumn', 'rowMouseEnter', 'rowMouseLeave', 'adjustColumnDimension',
-                                    'allColumnsEmpty', 'emptyColumns', 'appendColumnResizer' , 'clearResizers', 'makeResizer');
+                                    'allColumnsEmpty', 'emptyColumns', 'appendColumnResizer' , 'clearResizers', 'makeResizer','getColumnAt');
                     
                     this.parent = opt.parent;
                     
@@ -77,7 +77,9 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                     this.$el.children('.column').css('min-height','10px');
                     
                     _.each(this.columns, function(column, index){
+
                         height.push(column.$el.height());
+
                     });
                     
                     var newHeight = _.max(height);
@@ -85,9 +87,13 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                     newHeight = (newHeight == 0) ? 120 : newHeight;
                     
                     _.each(this.columns, function(column, index){
+
                         var prevHeight = column.$el.height();
+
                         column.$el.css('min-height',newHeight + 14);
+
                         column.trigger('height_changed', prevHeight, newHeight);
+
                     });
                     
                     this.sortableColumns();
@@ -173,15 +179,17 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
 
                     var numberOfResizers = this.columnCount() - 1;   
 
-                    var left = 100 / this.columnCount();
+                    _.each(_.range(numberOfResizers), function(ele, index){
 
-                    _.each(_.range(numberOfResizers), function(ele,index){
+                        var column = self.getColumnAt(index + 1);
+
+                        var left = column.$el.position().left;
 
                         var resizer = $(template);
                         
                         resizer.attr('data-position',(index + 1));
 
-                        resizer.css('left', (left * (index + 1)) + '%');
+                        resizer.css('left', left);
                         
                         self.$el.append(resizer);
                         
@@ -189,6 +197,18 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                         
                     });           
 
+                },
+
+                /**
+                *  Returns the column object at specific index
+                */
+                getColumnAt : function(index){
+
+                    if(index > this.columnCount())
+                        return false;
+
+                    return this.columns[index];
+                        
                 },
 
                 /**
@@ -210,7 +230,8 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                         grid : [snap,0],
                         start : function(event, ui){
                         
-                            ui.helper.start = ui.originalPosition;
+                            if(_.isUndefined(ui.helper.start))
+                                ui.helper.start = ui.originalPosition;
                             
                             self.$el.css('border', '1px solid transparent');
                             
@@ -219,24 +240,40 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                         },
                         stop : function(event,ui){
                         
+                            ui.helper.start = ui.position;
+
                             self.$el.css('border', '1px solid #ff7e00');
                             
                             self.$el.children('.aj-imp-drag-handle,.aj-imp-delete-btn,.aj-imp-col-sel').show();
+
+                            //reset  resizers for all sub rows
+                            _.each(self.getColumns(), function(column, index){
+
+                                var rows = column.getRowElements();
+
+                                _.each(rows, function(row, index){
+                                    row.appendColumnResizer();
+                                })
+
+                            });
                         
                         },
                         drag : function(event, ui) {
                             
-                            if(ui.position.left > ui.helper.start.left){
-                            
+                            var p = Math.round(ui.position.left);
+                            var s = Math.round(ui.helper.start.left);
+
+                            if(p > s){
+
                                 ui.helper.start = ui.position;
                                 
                                 var position = $(event.target).attr('data-position');
                                 
                                 self.resizeColumns('right',position);
-                            
+
                             }
-                            else if(ui.position.left < ui.helper.start.left){
-                                
+                            else if(p < s){
+
                                 ui.helper.start = ui.position;
                                 
                                 var position = $(event.target).attr('data-position');

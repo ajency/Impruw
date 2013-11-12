@@ -18,7 +18,7 @@ define(['builder/views/elements/BuilderElement', 'global'],
                     _.bindAll(this, 'isEmpty', 'clear', 'handleElementDrop', 'handleHeightChange', 'isEmpty', 'clear',
                                     'handleWidthChange', 'handleElementOverState', 'handleColumnDrop', 'makeColumnsSortable',
                                     'handleElementRemove','resetHeightAuto', 'holdCurrentColRef','updateEmptyView','makeEmpty',
-                                    'setCurrentClass', 'setColumnClass','getCurrentClass');
+                                    'setCurrentClass', 'setColumnClass','getCurrentClass', 'getRowElements');
                     
                     this.parent = opt.parent;
                     
@@ -263,8 +263,10 @@ define(['builder/views/elements/BuilderElement', 'global'],
                             else
                                 self.$el.append(element.generateBuilderMarkup());
 
-                            if(elementName === 'BuilderRow')
+                            if(elementName === 'BuilderRow'){
                                 element.sortableColumns();
+                                element.appendColumnResizer();
+                            }
 
                             self.parent.trigger('adjust_column_dimension');
 
@@ -273,6 +275,24 @@ define(['builder/views/elements/BuilderElement', 'global'],
                     //},1000);   
                    
                 },   
+
+                /**
+                *   Get all row elements of column
+                */
+                getRowElements : function(){
+
+                    var rows = [];
+
+                    _.each(this.elements, function(element, index){
+                        
+                        if(element.type === 'row')
+                            rows.push(element);
+                    
+                    });
+
+                    return rows;
+
+                },
                         
                 
                 /**
