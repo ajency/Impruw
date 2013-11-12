@@ -218,7 +218,6 @@ Version:        0.1.0
 .aj-imp-builder-top-nav .aj-imp-builder-top-title p {
   text-align: center;
   float: none;
-  font-size: 1em;
   margin: 15px 0;
   letter-spacing: 0.02em;
   font-weight: 300;
@@ -699,10 +698,10 @@ Version:        0.1.0
   text-align: center;
   display: block;
   color: #aaaaaa;
-  font-size: 8px;
-  line-height: 4px;
+  font-size: 12px;
+  line-height: 6px;
   width: 40px;
-  height: 10px;
+  height: 15px;
   background: #fff;
   border: 1px solid #aaaaaa;
   border-radius: 3px;
