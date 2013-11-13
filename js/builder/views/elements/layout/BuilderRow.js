@@ -259,7 +259,7 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                         
                         },
                         drag : function(event, ui) {
-                            
+
                             var p = Math.round(ui.position.left);
                             var s = Math.round(ui.helper.start.left);
 

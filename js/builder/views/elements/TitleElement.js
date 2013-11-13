@@ -47,8 +47,6 @@ define(['builder/views/elements/BuilderElement','text!builder/templates/elements
                  */        
                 render : function(col){
                     
-                    
-                    
                     return this;
                 }   
                 
