@@ -153,7 +153,7 @@
 								<div class="clearfix aj-imp-edit-content">
 									<nav role="navigation">
 										<ul class="nav nav-justified">
-											<li class="active"><a href="#">Action</a></li>
+											<li class="active"><a data-toggle="modal" href="#menuModal">Action</a></li>
 											<li><a href="#">Another action</a></li>
 											<li><a href="#">Something else here</a></li>
 											<li><a href="#">Separated link</a></li>
@@ -1259,6 +1259,262 @@
 		</div>  
 	</div>
 	
+	<!-- Menu Modal -->
+	<div class="modal wide-modal" id="menuModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close fui-cross" data-dismiss="modal" aria-hidden="true"></button>
+					<h4 class="modal-title">Add Menu</h3>
+				</div>
+
+				<div class="modal-body">
+					<ul class="nav nav-tabs">
+						<li class="active"><a href="#header-menu" data-toggle="tab">Header Menu</a></li>
+						<li><a href="#footer-menu" data-toggle="tab">Footer Menu</a></li>
+					</ul>
+					<div class="tab-content">
+						<div class="tab-pane active" id="header-menu">
+							<div class="row aj-imp-menu-edit">
+								<div class="col-md-6 aj-imp-add-menu-item">
+									<h4>Add Menu Item</h4>
+									<p class="desc">
+										Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. 
+									</p>
+									<a class="aj-imp-add-link" href="#add-menu" data-toggle="collapse">Add Menu Item</a>
+									<div id="add-menu" class="collapse add-menu-form">
+										<form class="form-horizontal well">
+											<div class="form-group">
+												<label class="col-sm-4 control-label">Menu Link Label</label>
+												<div class="col-sm-8">
+													<input type="text" class="form-control">
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-sm-4 control-label">Menu Link</label>
+												<div class="col-sm-8">
+													<input type="text" class="form-control">
+												</div>
+											</div>
+											<div class="form-group form-actions">
+												<div class="col-sm-offset-4 col-sm-8">
+													<button class="btn btn-embossed">Cancel</button>
+													<button class="btn btn-embossed save-btn">Save</button>
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
+								<div class="col-md-6 aj-imp-menu-item-list">
+									<div class="panel panel-default">
+										<div class="panel-heading">
+											<h3 class="panel-title">Header Menu</h3>
+										</div>
+										<div class="list-group">
+											<div class="list-group-item">
+												<div class="row menu-item">
+													<div class="col-sm-1 menu-dragger">
+														<span class="icon-uniF160"></span>
+													</div>
+													<div class="col-sm-8 menu-name">
+														Home
+													</div>
+													<div class="col-sm-3 menu-edit">
+														<a href="#menu-home" data-toggle="collapse">
+															<span class="glyphicon glyphicon-edit"></span> Edit
+														</a>
+													</div>
+												</div>
+												<div id="menu-home" class="collapse menu-item-edit">
+													<form class="form-horizontal">
+														<div class="form-group">
+															<label class="col-sm-4 control-label">Menu Link Label</label>
+															<div class="col-sm-8">
+																<input type="text" class="form-control">
+															</div>
+														</div>
+														<div class="form-group">
+															<label class="col-sm-4 control-label">Menu Link</label>
+															<div class="col-sm-8">
+																<input type="text" class="form-control">
+															</div>
+														</div>
+														<div class="form-group form-actions">
+															<div class="col-sm-offset-4 col-sm-8">
+																<button class="btn save-btn">Save</button>
+																<button class="btn"><span class="glyphicon glyphicon-trash"></span></button>
+															</div>
+														</div>
+													</form>
+												</div>
+											</div>
+											<div class="list-group-item">
+												<div class="row menu-item">
+													<div class="col-sm-1 menu-dragger">
+														<span class="icon-uniF160"></span>
+													</div>
+													<div class="col-sm-8 menu-name">
+														About Us
+													</div>
+													<div class="col-sm-3 menu-edit">
+														<a href="#menu-about-us" data-toggle="collapse">
+															<span class="glyphicon glyphicon-edit"></span> Edit
+														</a>
+													</div>
+												</div>
+												<div id="menu-about-us" class="collapse menu-item-edit">
+													<form class="form-horizontal">
+														<div class="form-group">
+															<label class="col-sm-4 control-label">Menu Link Label</label>
+															<div class="col-sm-8">
+																<input type="text" class="form-control">
+															</div>
+														</div>
+														<div class="form-group">
+															<label class="col-sm-4 control-label">Menu Link</label>
+															<div class="col-sm-8">
+																<input type="text" class="form-control">
+															</div>
+														</div>
+														<div class="form-group form-actions">
+															<div class="col-sm-offset-4 col-sm-8">
+																<button class="btn save-btn">Save</button>
+																<button class="btn"><span class="glyphicon glyphicon-trash"></span></button>
+															</div>
+														</div>
+													</form>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="tab-pane" id="footer-menu">
+							<div class="row aj-imp-menu-edit">
+								<div class="col-md-6 aj-imp-add-menu-item">
+									<h4>Add Menu Item</h4>
+									<p class="desc">
+										Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. 
+									</p>
+									<a class="aj-imp-add-link" href="#add-menu2" data-toggle="collapse">Add Menu Item</a>
+									<div id="add-menu2" class="collapse add-menu-form">
+										<form class="form-horizontal well">
+											<div class="form-group">
+												<label class="col-sm-4 control-label">Menu Link Label</label>
+												<div class="col-sm-8">
+													<input type="text" class="form-control">
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-sm-4 control-label">Menu Link</label>
+												<div class="col-sm-8">
+													<input type="text" class="form-control">
+												</div>
+											</div>
+											<div class="form-group form-actions">
+												<div class="col-sm-offset-4 col-sm-8">
+													<button class="btn btn-embossed">Cancel</button>
+													<button class="btn btn-embossed save-btn">Save</button>
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
+								<div class="col-md-6 aj-imp-menu-item-list">
+									<div class="panel panel-default">
+										<div class="panel-heading">
+											<h3 class="panel-title">Footer Menu</h3>
+										</div>
+										<div class="list-group">
+											<div class="list-group-item">
+												<div class="row menu-item">
+													<div class="col-sm-1 menu-dragger">
+														<span class="icon-uniF160"></span>
+													</div>
+													<div class="col-sm-8 menu-name">
+														Privacy Policy
+													</div>
+													<div class="col-sm-3 menu-edit">
+														<a href="#menu-privacy" data-toggle="collapse">
+															<span class="glyphicon glyphicon-edit"></span> Edit
+														</a>
+													</div>
+												</div>
+												<div id="menu-privacy" class="collapse menu-item-edit">
+													<form class="form-horizontal">
+														<div class="form-group">
+															<label class="col-sm-4 control-label">Menu Link Label</label>
+															<div class="col-sm-8">
+																<input type="text" class="form-control">
+															</div>
+														</div>
+														<div class="form-group">
+															<label class="col-sm-4 control-label">Menu Link</label>
+															<div class="col-sm-8">
+																<input type="text" class="form-control">
+															</div>
+														</div>
+														<div class="form-group form-actions">
+															<div class="col-sm-offset-4 col-sm-8">
+																<button class="btn save-btn">Save</button>
+																<button class="btn"><span class="glyphicon glyphicon-trash"></span></button>
+															</div>
+														</div>
+													</form>
+												</div>
+											</div>
+											<div class="list-group-item">
+												<div class="row menu-item">
+													<div class="col-sm-1 menu-dragger">
+														<span class="icon-uniF160"></span>
+													</div>
+													<div class="col-sm-8 menu-name">
+														Sitemap
+													</div>
+													<div class="col-sm-3 menu-edit">
+														<a href="#menu-sitemap" data-toggle="collapse">
+															<span class="glyphicon glyphicon-edit"></span> Edit
+														</a>
+													</div>
+												</div>
+												<div id="menu-sitemap" class="collapse menu-item-edit">
+													<form class="form-horizontal">
+														<div class="form-group">
+															<label class="col-sm-4 control-label">Menu Link Label</label>
+															<div class="col-sm-8">
+																<input type="text" class="form-control">
+															</div>
+														</div>
+														<div class="form-group">
+															<label class="col-sm-4 control-label">Menu Link</label>
+															<div class="col-sm-8">
+																<input type="text" class="form-control">
+															</div>
+														</div>
+														<div class="form-group form-actions">
+															<div class="col-sm-offset-4 col-sm-8">
+																<button class="btn save-btn">Save</button>
+																<button class="btn"><span class="glyphicon glyphicon-trash"></span></button>
+															</div>
+														</div>
+													</form>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="modal-footer">
+					<button class="btn btn-default aj-imp-modal-save">Save</button>
+				</div>
+			</div>
+		</div>  
+	</div>
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="js/jquery-2.0.3.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->

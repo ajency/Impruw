@@ -1209,6 +1209,94 @@ Version:        0.1.0
 							}
 						}
 					}
+					.aj-imp-add-menu-item {
+						h4 {
+							font-size: 2em;
+						}
+						.desc {
+							font-size: 0.9em;
+							color: @dash-grey;
+						}
+						.aj-imp-add-link {
+							font-size: 1.2em;
+							color: @orange;
+							&:hover {
+								text-decoration: underline;
+							}
+						}
+						.add-menu-form {
+							margin: 1em 0 0;
+							form {
+								margin: 0;
+								.form-actions {
+									text-align: right;
+									.btn {
+										padding: 5px 8px 6px;
+										&.save-btn {
+											background: @orange;
+											&:hover {
+												background: lighten(@orange, 20%);
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+					.aj-imp-menu-item-list {
+						.panel-title {
+							font-size: 1.2em;
+							font-weight: 700;
+							color: @blue-grey;
+						}
+						.list-group {
+							.list-group-item {
+								.menu-item {
+									.menu-dragger {
+										color: @dash-grey;
+										font-size: 1.2em;
+										text-align: center;
+										cursor: move;
+									}
+									.menu-edit {
+										text-align: right;
+										a {
+											color: @orange;
+										}
+									}
+								}
+								.menu-item-edit {
+									background: lighten(@dash-grey, 30%);
+									margin: 10px -15px -10px;
+									padding: 15px 0;
+									.form-actions {
+										.btn {
+											padding: 5px 8px 6px;
+											&.save-btn {
+												background: @orange;
+												&:hover {
+													background: lighten(@orange, 20%);
+												}
+											}
+										}
+									}
+								}
+								&:last-child {
+									.menu-item-edit {
+										border-radius: 0 0 4px 4px;
+									}
+								}
+								&:hover {
+									.menu-dragger {
+										color: @orange;
+									}
+									.menu-name {
+										color: @blue-grey;
+									}
+								}
+							}
+						}
+					}
 				}
 			}
 		}
