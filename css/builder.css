@@ -774,6 +774,13 @@ Version:        0.1.0
 #aj-imp-builder-layout-mode [class^="aj-imp-elem-"]:hover .aj-imp-delete-btn {
   display: block !important;
 }
+/****Builder Element Mode Display Element Styles****/
+#aj-imp-builder-layout-mode .content {
+  display: none;
+}
+#aj-imp-builder-content-mode .layout {
+  display: none;
+}
 /****Content Mode Edit Controls****/
 .aj-imp-preview .aj-imp-edit-content {
   position: relative;
