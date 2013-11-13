@@ -32,7 +32,9 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Elements'],
                  * @returns {Boolean}
                  */        
                 is : function(type){
+
                     return type === 'editor';
+
                 },        
 
                 /**
@@ -92,9 +94,14 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Elements'],
                 switchToLayout : function(){
 
                     //
-
+                    this.$el.attr('id','aj-imp-builder-drag-drop').parent().removeClass('aj-imp-preview');
+                    this.removeSwitchLoader();
+                    this.mode = 'layout';
                 },
 
+                /**
+                * Show the loader while switching modes
+                */
                 holdOnWhileSwitching : function(){
 
                     var switcher = $('<div class="element-drop-loader" id="editor-initial-loader">\
@@ -124,13 +131,13 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Elements'],
                 *  Switch to content mode
                 */
                 switchToContent : function(){
-
-                    this.$el.find('.column').removeClass('column');
+                    this.$el.find('.layout').hide();
+                    this.$el.find('.content').show(); 
+                    this.$el.removeAttr('id').parent().addClass('aj-imp-preview').css('background-image','url()');
                     this.removeSwitchLoader();
+                    this.mode = 'content';
 
                 },
-
-
 
 				/**
 				 * Binds the droppable  / sortable
@@ -157,8 +164,7 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Elements'],
                                                             ui.placeholder.height(parseInt(pHeight));
                                                         }                                         
                                     }).disableSelection(); 
-                                        
-                                         
+                                                                
 				},
                 
                 /**
