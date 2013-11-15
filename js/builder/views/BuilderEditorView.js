@@ -145,19 +145,9 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Elements'],
                 */
                 makeEditable : function(){
 
-                    require(['lib/vie', 'lib/ckeditor','lib/create'], function(){
+                    require(['lib/ckeditor'], function(){
                         
-                        //$('body').midgardCreate({
-                            
-                            //url: function () {
-                            
-                            //    return 'javascript:false;';
-                            //
-                           // }
-
-                        //});
-
-                       // $('body').midgardCreate('setEditorForProperty', 'default', 'ckeditor');
+                    
 
                     });
                 },
