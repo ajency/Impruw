@@ -151,9 +151,11 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Elements'],
                 */
                 makeEditable : function(){
 
-                    require(['lib/ckeditor'], function(){
+                    require(['lib/aloha'], function(Aloha){
                         
-                    
+                        Aloha.ready( function() {
+                            Aloha.jQuery('h1').aloha();
+                        });
 
                     });
                 },

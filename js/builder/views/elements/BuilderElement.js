@@ -75,8 +75,11 @@ define(['backbone','jquery','underscore','handlebars', 'global'],
                     
                     //remove hover style if row is a child of column
                     if(this.parent.type === 'column'){
+
                          evt.stop = true;
+
                          this.parent.parent.rowMouseLeave(evt);
+                         
                     }
                 },
                 
@@ -88,8 +91,11 @@ define(['backbone','jquery','underscore','handlebars', 'global'],
                 elementMouseLeave : function(evt){
                     
                     evt.stopPropagation();
+
                     if(this.parent.type === 'column'){
+
                        this.parent.parent.rowMouseEnter(evt);
+
                     }
                     
                 },        
