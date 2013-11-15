@@ -18,11 +18,15 @@ define(['underscore', 'jquery', 'backbone', 'moment', 'numerals', 'bootstrap', '
     		global.numerals = numerals;
 
             global.generateRandomId = function(){
-                return global.randomFromInterval(1, 1e6)
+
+                return global.randomFromInterval(1, 1e6);
+
             };
 
             global.randomFromInterval = function(e, t){
-                return Math.floor(Math.random() * (t - e + 1) + e)
+
+                return Math.floor(Math.random() * (t - e + 1) + e);
+                
             };
 
     		return global;
