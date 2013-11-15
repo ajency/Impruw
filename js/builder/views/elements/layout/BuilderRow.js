@@ -522,6 +522,9 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                     
                     evt.stopPropagation();
                     
+                    if(window.editorMode !== 'layout')
+                        return;
+
                     //remove hover style if row is a child of column
                     if(this.parent.type === 'column')
                         this.parent.parent.rowMouseLeave(evt);
@@ -539,6 +542,9 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                     
                     evt.stopPropagation();
                    
+                    if(window.editorMode !== 'layout')
+                        return;
+                    
                     if(this.parent.type === 'column' && !evt.stop)
                         this.parent.parent.rowMouseEnter(evt);
                     

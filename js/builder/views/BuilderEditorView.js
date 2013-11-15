@@ -75,12 +75,12 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Elements'],
 
                     this.holdOnWhileSwitching();
                    
-                    if(this.mode === 'layout'){
+                    if(window.editorMode === 'layout'){
 
                         this.switchToContent();
                     
                     }
-                    else if(this.mode === 'content'){
+                    else if(window.editorMode === 'content'){
                     
                         this.switchToLayout();
                     
@@ -94,9 +94,9 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Elements'],
                 switchToLayout : function(){
 
                     //
-                    this.$el.attr('id','aj-imp-builder-drag-drop').parent().removeClass('aj-imp-preview');
+                    this.$el.removeClass('aj-imp-builder-content-mode').addClass('aj-imp-builder-layout-mode');
                     this.removeSwitchLoader();
-                    this.mode = 'layout';
+                    window.editorMode = 'layout';
                 },
 
                 /**
@@ -131,12 +131,35 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Elements'],
                 *  Switch to content mode
                 */
                 switchToContent : function(){
-                    this.$el.find('.layout').hide();
-                    this.$el.find('.content').show(); 
-                    this.$el.removeAttr('id').parent().addClass('aj-imp-preview').css('background-image','url()');
+                    
+                    this.$el.removeClass('aj-imp-builder-layout-mode').addClass('aj-imp-builder-content-mode');
+                    this.$el.parent().addClass('aj-imp-preview');
                     this.removeSwitchLoader();
-                    this.mode = 'content';
+                    window.editorMode = 'content';
+                    this.makeEditable();
 
+                },
+
+                /**
+                *
+                */
+                makeEditable : function(){
+
+                    require(['lib/vie', 'lib/ckeditor','lib/create'], function(){
+                        
+                        //$('body').midgardCreate({
+                            
+                            //url: function () {
+                            
+                            //    return 'javascript:false;';
+                            //
+                           // }
+
+                        //});
+
+                       // $('body').midgardCreate('setEditorForProperty', 'default', 'ckeditor');
+
+                    });
                 },
 
 				/**
@@ -158,6 +181,7 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Elements'],
                                                            $(event.target).find('*[data-element="BuilderRow"]').replaceWith(row.generateBuilderMarkup());
                                                            row.sortableColumns();
                                                            row.appendColumnResizer();
+                                                           self.$el.parent().css('background-image','url("images/clear-background.png")');
                                                         },
                                          sort       : function(event , ui){
                                                             var pHeight = ui.helper.attr('data-placeholder-height');
