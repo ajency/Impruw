@@ -9,7 +9,6 @@
     <link href="../css/main.min.css" rel="stylesheet" media="screen">
 	<link href="css/site.css" rel="stylesheet" media="screen">
 	<link href="../css/builder.css" rel="stylesheet" media="screen">
-	<link rel="stylesheet" href="../css/create-ui.css" />
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -123,6 +122,21 @@
 						<div class="col-sm-3">
 							<div class="aj-imp-choose-layout" class="dropdown">
 								<a data-toggle="dropdown" href="#" class="aj-imp-layout-btn"><span class="glyphicon glyphicon-th"></span> Page Layout <span class="caret"></span></a>
+								<ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu1">
+									<li role="presentation">
+										<div class="aj-imp-page-layout-box">
+											<h6>Choose Layout</h6>
+											<ul class="clearfix">
+												<li><a href="#" class="selected"><img src="images/layout.png" /></a></li>
+												<li><a href="#"><img src="images/layout.png" /></a></li>
+												<li><a href="#"><img src="images/layout.png" /></a></li>
+											</ul>
+										</div>
+									</li>
+									<li class="more">
+										<a href="#layoutModal" class="btn btn-block" data-toggle="modal">View More</a>
+									</li>
+								</ul>
 							</div>
 						</div>
 						<div class="aj-imp-mode-switch col-sm-3">
@@ -140,7 +154,7 @@
 				</div>
 				<div class="aj-imp-browser-body aj-imp-preview">
 					<!-- CLIENT SITE START -->
-					<div class="container" id="aj-imp-builder-content-mode">
+					<div class="container aj-imp-builder-content-mode">
 						<div class="row">
 							<div class="col-sm-12 column">
 								<div class="clearfix aj-imp-edit-content align-center logo">
@@ -1385,6 +1399,80 @@
 													</form>
 												</div>
 											</div>
+											<div class="list-group-item">
+												<div class="row menu-item">
+													<div class="col-sm-1 menu-dragger">
+														<span class="icon-uniF160"></span>
+													</div>
+													<div class="col-sm-8 menu-name">
+														Services
+													</div>
+													<div class="col-sm-3 menu-edit">
+														<a href="#menu-services" data-toggle="collapse">
+															<span class="glyphicon glyphicon-edit"></span> Edit
+														</a>
+													</div>
+												</div>
+												<div id="menu-services" class="collapse menu-item-edit">
+													<form class="form-horizontal">
+														<div class="form-group">
+															<label class="col-sm-4 control-label">Menu Link Label</label>
+															<div class="col-sm-8">
+																<input type="text" class="form-control">
+															</div>
+														</div>
+														<div class="form-group">
+															<label class="col-sm-4 control-label">Menu Link</label>
+															<div class="col-sm-8">
+																<input type="text" class="form-control">
+															</div>
+														</div>
+														<div class="form-group form-actions">
+															<div class="col-sm-offset-4 col-sm-8">
+																<button class="btn save-btn">Save</button>
+																<button class="btn"><span class="glyphicon glyphicon-trash"></span></button>
+															</div>
+														</div>
+													</form>
+												</div>
+											</div>
+											<div class="list-group-item">
+												<div class="row menu-item">
+													<div class="col-sm-1 menu-dragger">
+														<span class="icon-uniF160"></span>
+													</div>
+													<div class="col-sm-8 menu-name">
+														Contact Us
+													</div>
+													<div class="col-sm-3 menu-edit">
+														<a href="#menu-contact-us" data-toggle="collapse">
+															<span class="glyphicon glyphicon-edit"></span> Edit
+														</a>
+													</div>
+												</div>
+												<div id="menu-contact-us" class="collapse menu-item-edit">
+													<form class="form-horizontal">
+														<div class="form-group">
+															<label class="col-sm-4 control-label">Menu Link Label</label>
+															<div class="col-sm-8">
+																<input type="text" class="form-control">
+															</div>
+														</div>
+														<div class="form-group">
+															<label class="col-sm-4 control-label">Menu Link</label>
+															<div class="col-sm-8">
+																<input type="text" class="form-control">
+															</div>
+														</div>
+														<div class="form-group form-actions">
+															<div class="col-sm-offset-4 col-sm-8">
+																<button class="btn save-btn">Save</button>
+																<button class="btn"><span class="glyphicon glyphicon-trash"></span></button>
+															</div>
+														</div>
+													</form>
+												</div>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -1515,6 +1603,61 @@
 			</div>
 		</div>  
 	</div>
+	
+	<!-- Layout Modal -->
+	<div class="modal wide-modal" id="layoutModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close fui-cross" data-dismiss="modal" aria-hidden="true"></button>
+					<h4 class="modal-title">Choose your Page Layout</h4>
+				</div>
+
+				<div class="modal-body">
+					<div class="aj-imp-block-list">
+						<ul>
+							<li class="block">
+								<img src="images/layout.png" />
+								<h6 class="desc">Layout 1</h6>
+								<div class="aj-imp-choose-btn">
+									<a href="#" class="btn"><span class="glyphicon glyphicon-ok"></span>&nbsp;Choose</a>
+								</div>
+							</li>
+							<li class="block">
+								<img src="images/layout.png" />
+								<h6 class="desc">Layout 2</h6>
+								<div class="aj-imp-choose-btn">
+									<a href="#" class="btn"><span class="glyphicon glyphicon-ok"></span>&nbsp;Choose</a>
+								</div>
+							</li>
+							<li class="block">
+								<img src="images/layout.png" />
+								<h6 class="desc">Layout 3</h6>
+								<div class="aj-imp-choose-btn">
+									<a href="#" class="btn"><span class="glyphicon glyphicon-ok"></span>&nbsp;Choose</a>
+								</div>
+							</li>
+							<li class="block">
+								<img src="images/layout.png" />
+								<h6 class="desc">Layout 4</h6>
+								<div class="aj-imp-choose-btn">
+									<a href="#" class="btn"><span class="glyphicon glyphicon-ok"></span>&nbsp;Choose</a>
+								</div>
+							</li>
+						</ul>
+						<div class="load-more">
+							<a href="#" class="btn">Load More</a>
+						</div>
+					</div>
+				</div>
+
+				<div class="modal-footer">
+					<button class="btn btn-default aj-imp-modal-save">Done</button>
+				</div>
+			</div>
+		</div>  
+	</div>
+	
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="js/jquery-2.0.3.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -1522,24 +1665,13 @@
     <script src="js/bootstrap-select.js"></script>
     <script src="js/bootstrap-switch.js"></script>
 	<script src="js/jquery.ui.min.js"></script>
-	<script src="js/vie.js"></script>
     <script src="js/ckeditor/ckeditor.js"></script>
-    <script src="js/create.js"></script>
 	<script>
-      /*jQuery(document).ready(function () {
-        jQuery('body').midgardCreate({
-          url: function () {
-            return 'javascript:false;';
-          },
-        });
-
-        // Set a simpler editor for title fields
-        jQuery('body').midgardCreate('configureEditor', 'ckeditor', 'ckeditorWidget', {
-			'removePlugins' : 'stylescombo'
-        });
-        jQuery('body').midgardCreate('setEditorForProperty', 'default', 'ckeditor');
-
-      });*/
+		jQuery(document).ready(function () {
+			jQuery('.aj-imp-menu-item-list .list-group').sortable({
+				placeholder: 'drop-highlight'
+			});
+		});
     </script>
 	<script>
 		jQuery('.aj-imp-builder-top-nav select').selectpicker({style: 'btn-mini btn-default', menuStyle: 'dropdown'});
