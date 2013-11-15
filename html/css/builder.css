@@ -1126,3 +1126,75 @@ Version:        0.1.0
 .modal.wide-modal .modal-dialog .modal-content .modal-body .form-horizontal .form-group#social-drop .aj-imp-add-icon:hover {
   background: #ffb266;
 }
+.modal.wide-modal .modal-dialog .modal-content .modal-body .aj-imp-add-menu-item h4 {
+  font-size: 2em;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .aj-imp-add-menu-item .desc {
+  font-size: 0.9em;
+  color: #aaaaaa;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .aj-imp-add-menu-item .aj-imp-add-link {
+  font-size: 1.2em;
+  color: #ff7e00;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .aj-imp-add-menu-item .aj-imp-add-link:hover {
+  text-decoration: underline;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .aj-imp-add-menu-item .add-menu-form {
+  margin: 1em 0 0;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .aj-imp-add-menu-item .add-menu-form form {
+  margin: 0;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .aj-imp-add-menu-item .add-menu-form form .form-actions {
+  text-align: right;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .aj-imp-add-menu-item .add-menu-form form .form-actions .btn {
+  padding: 5px 8px 6px;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .aj-imp-add-menu-item .add-menu-form form .form-actions .btn.save-btn {
+  background: #ff7e00;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .aj-imp-add-menu-item .add-menu-form form .form-actions .btn.save-btn:hover {
+  background: #ffb266;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .aj-imp-menu-item-list .panel-title {
+  font-size: 1.2em;
+  font-weight: 700;
+  color: #849fb0;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .aj-imp-menu-item-list .list-group .list-group-item .menu-item .menu-dragger {
+  color: #aaaaaa;
+  font-size: 1.2em;
+  text-align: center;
+  cursor: move;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .aj-imp-menu-item-list .list-group .list-group-item .menu-item .menu-edit {
+  text-align: right;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .aj-imp-menu-item-list .list-group .list-group-item .menu-item .menu-edit a {
+  color: #ff7e00;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .aj-imp-menu-item-list .list-group .list-group-item .menu-item-edit {
+  background: #f6f6f6;
+  margin: 10px -15px -10px;
+  padding: 15px 0;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .aj-imp-menu-item-list .list-group .list-group-item .menu-item-edit .form-actions .btn {
+  padding: 5px 8px 6px;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .aj-imp-menu-item-list .list-group .list-group-item .menu-item-edit .form-actions .btn.save-btn {
+  background: #ff7e00;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .aj-imp-menu-item-list .list-group .list-group-item .menu-item-edit .form-actions .btn.save-btn:hover {
+  background: #ffb266;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .aj-imp-menu-item-list .list-group .list-group-item:last-child .menu-item-edit {
+  border-radius: 0 0 4px 4px;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .aj-imp-menu-item-list .list-group .list-group-item:hover .menu-dragger {
+  color: #ff7e00;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .aj-imp-menu-item-list .list-group .list-group-item:hover .menu-name {
+  color: #849fb0;
+}
