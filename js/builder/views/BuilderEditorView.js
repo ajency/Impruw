@@ -17,7 +17,6 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Elements'],
 
                 mode        : 'layout',
 
-
 				initialize  : function(){
                         
                     _.bindAll(this, 'enableDropSort','getRows','is','holdOnWhileSwitching', 'removeSwitchLoader','switchMode',
@@ -95,8 +94,11 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Elements'],
 
                     //
                     this.$el.removeClass('aj-imp-builder-content-mode').addClass('aj-imp-builder-layout-mode');
+
                     this.removeSwitchLoader();
+                    
                     window.editorMode = 'layout';
+
                 },
 
                 /**
@@ -133,9 +135,13 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Elements'],
                 switchToContent : function(){
                     
                     this.$el.removeClass('aj-imp-builder-layout-mode').addClass('aj-imp-builder-content-mode');
+
                     this.$el.parent().addClass('aj-imp-preview');
+
                     this.removeSwitchLoader();
+
                     window.editorMode = 'content';
+
                     this.makeEditable();
 
                 },

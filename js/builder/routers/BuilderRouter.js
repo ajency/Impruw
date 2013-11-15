@@ -17,7 +17,9 @@ define(['underscore', 'jquery', 'backbone', 'builder/views/BuilderMainView'],
 				},
 
 				index : function(){
+					
 					this.mainView = new BuilderMainView();	
+
 					this.mainView.render();		
 				}
 
