@@ -56,6 +56,9 @@ function log(object){
     console.log(object);
 }
 
+//editor mode
+window.editorMode = 'layout';
+
 //init the app
 require(['backbone',
          'builder/routers/BuilderRouter'], function( Backbone, Router ) {
