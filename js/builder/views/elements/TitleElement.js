@@ -1,7 +1,7 @@
 define(['builder/views/elements/BuilderElement','text!builder/templates/elements/TitleElement.hbs', 'global'], 
 		function(BuilderElement, template, global){
 
-			var TitleElement = BuilderElement.extend({
+			var TitleElement =   BuilderElement.extend({
 
                 className           : 'aj-imp-elem-title element',
                 
@@ -14,6 +14,7 @@ define(['builder/views/elements/BuilderElement','text!builder/templates/elements
                 //set height to be assigned to placeholder and helper
                 placeHolderHeight   : 60,
                 
+                //
                 events : {
                     'mouseenter'                 : 'elementMouseEnter',
                     'mouseleave'                 : 'elementMouseLeave',

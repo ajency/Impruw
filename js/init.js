@@ -61,11 +61,11 @@ window.editorMode = 'layout';
 
 //init the app
 require(['backbone',
-         'builder/routers/BuilderRouter'], function( Backbone, Router ) {
+         'builder/routers/BuilderRouter'], function( Backbone, Router) {
 
-        $(document).ready(function(){    
-            
-           // $(window).ready(function(){
+        $(document).ready(function(){   
+
+            // $(window).ready(function(){
                 builder = new Router();
                 Backbone.history.start();
             //});

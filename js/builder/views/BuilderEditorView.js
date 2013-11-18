@@ -15,15 +15,117 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Elements'],
                 
                 rows        : [],
 
+                headerRows  : [],
+
+                footerRows  : [],
+
                 mode        : 'layout',
 
-				initialize  : function(){
+                themeConfig : {},
+
+				initialize  : function(option){
                         
                     _.bindAll(this, 'enableDropSort','getRows','is','holdOnWhileSwitching', 'removeSwitchLoader','switchMode',
-                                    'switchToLayout', 'switchToContent');    
+                                    'switchToLayout', 'switchToContent','generateActualMarkup', 'buildRowMarkup', 'buildColumnMarkup');    
+
+                    this.themeConfig = option.themeConfig;
 
 				},
+
+                /**
+                * Function to generate the markup of the actual site
+                */
+                generateActualMarkup : function(){
+
+                    var self = this;
+
+                    var markup  = '<html>';
+                    markup      += '<head>';
+                    markup      += this.getThemeCSS();
+                    markup      += '</head>';
+                    markup      += '<body>';
+
+                    _.each(this.rows, function(row, index){
+
+                        markup  += self.buildRowMarkup(row);
+
+                    });
+                    markup      += '</body>';
+                    markup      += '</html><!-- end html -->';
+
+                    //save markup to server
+                    $.post( 'savemarkup.php',
+                            {
+                                markup : markup
+                            },
+                            function(response){
+                                
+                                log('Done');
+
+                            });
+
+                },
+
+                /**
+                *   theme Css
+                */
+                getThemeCSS: function(){
+
+                    var markup = '';
+                    
+                    _.each(this.themeConfig.cssFiles, function(file, index){
+                     
+                        markup += '<link rel="stylesheet" href="css/'+ file +'"     type="text/css" />';
+                     
+                    });
+                     
+                    return markup;    
+                            
+                },
+
+                /**
+                * 
+                */
+                buildRowMarkup : function(row){
+                    
+                    var self = this;
+
+                    var markup = '<div class="row">';
+
+                    _.each(row.getColumns(), function(column, index){
+
+                        markup += self.buildColumnMarkup(column);
+
+                    });
+
+                    markup += '</div><!-- end row -->';
+
+                    return markup;
+
+                },
+
+                buildColumnMarkup : function(column){
+                    
+                    var colClass = 'column col-sm-' + column.getCurrentClass();
+
+                    var markup = '<div class="'+ colClass +'">';
+
+                    _.each(column.getElements(), function(element, index){
+
+                        if(element.is('row'))
+                            markup += self.buildRowMarkup(element);
+                        else          
+                            markup += element.getContentMarkup();
+
+                    });
+
+                    markup += '</div><!-- end '+colClass+' -->';
+
+                    return markup;
                 
+                },
+
+
                 /**
                  * Check the view type
                  * 
@@ -51,7 +153,7 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Elements'],
                         
                         /** Controls Draggable */
                         $('*[data-element]').draggable({
-                                                        connectToSortable   : "#aj-imp-builder-drag-drop,.column",
+                                                        connectToSortable   : '.layout-header,.layout-content,.layout-footer,.column',
                                                         helper				: 'clone',
                                                         revert 				: 'invalid',
                                                         start  				: function (e, t) {
@@ -63,7 +165,7 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Elements'],
                                                                               }                           
                                                     });
 						
-
+                        
 						return this;
 				},
 
@@ -151,13 +253,6 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Elements'],
                 */
                 makeEditable : function(){
 
-                    require(['lib/aloha'], function(Aloha){
-                        
-                        Aloha.ready( function() {
-                            Aloha.jQuery('h1').aloha();
-                        });
-
-                    });
                 },
 
 				/**
@@ -167,24 +262,46 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Elements'],
                     
                     var self = this;
                     
-                    this.$el.sortable({
+                    this.$el.children('.layout-header,.layout-content,.layout-footer').sortable({
                                         revert      : 'invalid',
                                         items       : '> .row',        
-                                        connectWith : '#aj-imp-builder-drag-drop,.column',
+                                        connectWith : '.layout-header,.layout-content,.layout-footer,.column',
                                         opacity     : .65,
                                         handle      : '.aj-imp-drag-handle',
                                         receive     : function(event, ui) {
-                                                           var row = new Elements['BuilderRow']({parent: self});
-                                                           self.rows.push(row);
-                                                           $(event.target).find('*[data-element="BuilderRow"]').replaceWith(row.generateBuilderMarkup());
-                                                           row.sortableColumns();
-                                                           row.appendColumnResizer();
-                                                           self.$el.parent().css('background-image','url("images/clear-background.png")');
+                                                           
+                                                            var target = $(event.target);
+
+                                                            var row = new Elements['BuilderRow']({parent: self});
+
+                                                            if($(target).hasClass('layout-header'))
+                                                                self.headerRows.push(row);
+                                                            else if($(target).hasClass('layout-content'))
+                                                                self.rows.push(row);
+                                                            else if($(target).hasClass('layout-footer'))
+                                                                self.footerRows.push(row);
+
+                                                            $(event.target).find('*[data-element="BuilderRow"]').replaceWith(row.generateBuilderMarkup());
+                                                            
+                                                            row.sortableColumns();
+                                                           
+                                                            row.appendColumnResizer();
+                                                           
+                                                            $(event.target).css('background-image','url("images/clear-background.png")');
+
+                                                            $(event.target).find('div.drag-here').remove();
+                                                            $(event.target).append('<div class="drag-here">Drag elements Here</div>');
+                                                        
                                                         },
+
                                          sort       : function(event , ui){
+                                                            
                                                             var pHeight = ui.helper.attr('data-placeholder-height');
+                                                            
                                                             ui.placeholder.height(parseInt(pHeight));
-                                                        }                                         
+                                                        
+                                                        }
+
                                     }).disableSelection(); 
                                                                 
 				},

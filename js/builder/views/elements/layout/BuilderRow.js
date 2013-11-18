@@ -90,7 +90,7 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
 
                         var prevHeight = column.$el.height();
 
-                        column.$el.css('min-height',newHeight + 14);
+                        column.$el.css('min-height',newHeight + 50);
 
                         column.trigger('height_changed', prevHeight, newHeight);
 
@@ -522,6 +522,8 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                     
                     evt.stopPropagation();
                     
+                    var self = this;
+
                     if(window.editorMode !== 'layout')
                         return;
 
@@ -530,7 +532,10 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                         this.parent.parent.rowMouseLeave(evt);
                     
                     this.$el.css('border', '1px solid #ff7e00');
-                    this.$el.children('.aj-imp-drag-handle,.aj-imp-delete-btn,.aj-imp-col-divider,.aj-imp-col-sel').show();
+                    
+                    //setTimeout(function(){
+                        self.$el.children('.aj-imp-drag-handle,.aj-imp-delete-btn,.aj-imp-col-divider,.aj-imp-col-sel').stop().fadeIn();
+                    //},600);   
                 },
                 
                 /**
@@ -541,7 +546,9 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                 rowMouseLeave : function(evt){
                     
                     evt.stopPropagation();
-                   
+                    
+                    var self = this;
+
                     if(window.editorMode !== 'layout')
                         return;
                     
@@ -549,7 +556,10 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                         this.parent.parent.rowMouseEnter(evt);
                     
                     this.$el.css('border', '1px solid transparent');
-                    this.$el.children('.aj-imp-drag-handle,.aj-imp-delete-btn,.aj-imp-col-divider,.aj-imp-col-sel').hide();
+                    
+                    //setTimeout(function(){
+                        self.$el.children('.aj-imp-drag-handle,.aj-imp-delete-btn,.aj-imp-col-divider,.aj-imp-col-sel').stop().hide();
+                    //},600);
                 },
                  
                 /**

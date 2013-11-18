@@ -9,16 +9,21 @@ define(['underscore', 'jquery', 'backbone', 'builder/views/BuilderEditorView'],
 			
 			var BuilderMainView = Backbone.View.extend({
 
-				el : '.aj-imp-builder',
+				el 			: '.aj-imp-builder',
+
+				theme       : 'theme1',
 
 				events      : {
-                    'click label.editormode' : 'switchMode'
+                
+                    'click label.editormode' : 'switchMode',
+                    'click #generate-markup' : 'generateMarkup'
+                
                 },
 
 
 				initialize : function(){
                     
-                    _.bindAll(this, 'handleInitialLoader','switchMode');
+                    _.bindAll(this, 'handleInitialLoader','switchMode','renderView');
                     
 					this.builderId = '';
 				},
@@ -30,18 +35,50 @@ define(['underscore', 'jquery', 'backbone', 'builder/views/BuilderEditorView'],
 					//setup select picker
 					this.$el.find('.aj-imp-builder-top-nav select').selectpicker({style: 'btn-mini btn-default', menuStyle: 'dropdown'});
 					
-					this.builder = new BuilderEditorView(); 
+					if(_.isUndefined(this.theme)){
+
+						require(['themes/default'], function(defaultConfig){
+
+							self.renderView(defaultConfig);
+
+						});
+
+					}
+					else{
+						 
+						require(['themes/default','themes/' + this.theme], function(defaultConfig, themeConfig){
+
+							var config = $.extend({}, defaultConfig, themeConfig);
+							self.renderView(config);
+						
+						});
+					}
+				},
+
+				renderView : function(config){
+
+					this.builder = new BuilderEditorView({ themeConfig : config }); 
 
 					this.builder.render();
 
 					this.$el.find('.aj-imp-browser-body').html(this.builder.$el);
-                    
-                    this.handleInitialLoader();
-                    
+                	
+                	//remove loader
+            	    this.handleInitialLoader();
+                
 					//enable dragsort
 					this.builder.enableDropSort();
+				
+					return self;
+
+				},
+
+				generateMarkup : function(event){
+
+					event.preventDefault();
 					
-					return this;
+					this.builder.generateActualMarkup();
+
 				},
 
 				/**
@@ -59,7 +96,7 @@ define(['underscore', 'jquery', 'backbone', 'builder/views/BuilderEditorView'],
                  */
                 handleInitialLoader : function(){
                     
-                    this.$el.find('.aj-imp-browser-body').css('background-image','url(images/empty-drag-bg.svg)')
+                    //this.$el.find('.aj-imp-browser-body').css('background-image','url(images/empty-drag-bg.svg)')
                     
                     //remove the initial loader
                     this.$el.find('#editor-initial-loader').remove();

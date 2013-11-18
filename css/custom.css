@@ -10,6 +10,30 @@
 	margin-bottom: 10px;
 }
 
+#aj-imp-builder-drag-drop > .layout-header, #aj-imp-builder-drag-drop > .layout-footer{
+    min-height: 150px;
+    background: url(../images/empty-drag-bg.svg) no-repeat center center #fff;
+}
+
+#aj-imp-builder-drag-drop .drag-here{
+    position: absolute;
+    height: 50px;    
+    width: 100%;
+    bottom:0px;
+    text-align: center;
+    /*background: url(../images/empty-drag-bg.svg) no-repeat center center #fff;*/
+}
+
+#aj-imp-builder-drag-drop > .layout-content {
+    min-height: 400px;
+    background: url(../images/empty-drag-bg.svg) no-repeat center center #fff;
+}
+
+/*#aj-imp-builder-drag-drop > hr{
+    margin-top: 0px;
+    margin-bottom: 0px;
+}*/
+
 #controls-drag{
 	z-index : 10000;
 }
@@ -19,7 +43,7 @@ a{
 }
 
 div.element-drop-loader{
-    
+
     height      : 60px; 
     background  : url(../images/loader.gif) no-repeat center center #fff;
     position    : absolute;

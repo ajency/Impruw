@@ -18,7 +18,7 @@ define(['builder/views/elements/BuilderElement', 'global'],
                     _.bindAll(this, 'isEmpty', 'clear', 'handleElementDrop', 'handleHeightChange', 'isEmpty', 'clear',
                                     'handleWidthChange', 'handleElementOverState', 'handleColumnDrop', 'makeColumnsSortable',
                                     'handleElementRemove','resetHeightAuto', 'holdCurrentColRef','updateEmptyView','makeEmpty',
-                                    'setCurrentClass', 'setColumnClass','getCurrentClass', 'getRowElements');
+                                    'setCurrentClass', 'setColumnClass','getCurrentClass', 'getRowElements','getElements');
                     
                     this.parent = opt.parent;
                     
@@ -270,6 +270,9 @@ define(['builder/views/elements/BuilderElement', 'global'],
 
                             self.parent.trigger('adjust_column_dimension');
 
+                            self.$el.find('div.drag-here').remove();
+                            self.$el.append('<div class="drag-here">Drag elements Here</div>');
+
                         });
                         
                     //},1000);   
@@ -336,6 +339,15 @@ define(['builder/views/elements/BuilderElement', 'global'],
                 },
 
                 /**
+                * returns all elements of column
+                */
+                getElements : function(){
+
+                    return this.elements;
+
+                },
+
+                /**
                 * Set current class for column
                 */
                 setCurrentClass : function(colClass){
@@ -354,6 +366,9 @@ define(['builder/views/elements/BuilderElement', 'global'],
 
                 },
 
+                /**
+                * Returns the current class of the element
+                */ 
                 getCurrentClass : function(){
 
                     return this.currentClass;

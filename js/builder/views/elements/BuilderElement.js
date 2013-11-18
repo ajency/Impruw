@@ -63,6 +63,17 @@ define(['backbone','jquery','underscore','handlebars', 'global'],
 
 					return this.$el;
 				},
+
+                /**
+                * returns the content mode markup
+                */
+                getContentMarkup : function(){
+
+                    var content = this.$el.children('.content');
+                    log($(content).find('*[contenteditable="true"]').removeAttr('contenteditable'));
+                    return $(content).html();
+
+                },
                         
                 /**
                  * Listen to mouse enter event
