@@ -1,16 +1,16 @@
-define(['builder/views/elements/BuilderElement','text!builder/templates/elements/MenuElement.hbs', 'global'], 
+define(['builder/views/elements/BuilderElement','text!builder/templates/elements/TextElement.hbs', 'global'], 
 		function(BuilderElement, template, global){
 
-			var MenuElement =   BuilderElement.extend({
+			var TextElement =   BuilderElement.extend({
 
                 //class name for view
-                className           : 'aj-imp-elem-title element',
+                className           : 'aj-imp-elem-text element',
                 
                 //define template for control
 				template            : template,
                 
                 //identify element type
-                type                : 'menu',
+                type                : 'text',
                 
                 //set height to be assigned to placeholder and helper
                 placeHolderHeight   : 60,
@@ -54,7 +54,7 @@ define(['builder/views/elements/BuilderElement','text!builder/templates/elements
                 
             });
             
-            return MenuElement;
+            return TextElement;
         });
   
     

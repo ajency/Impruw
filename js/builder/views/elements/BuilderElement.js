@@ -70,7 +70,7 @@ define(['backbone','jquery','underscore','handlebars', 'global'],
                 getContentMarkup : function(){
 
                     var content = this.$el.children('.content');
-                    log($(content).find('*[contenteditable="true"]').removeAttr('contenteditable'));
+                    $(content).find('*[contenteditable="true"]').removeAttr('contenteditable');
                     return $(content).html();
 
                 },

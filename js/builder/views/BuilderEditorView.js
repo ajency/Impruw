@@ -45,7 +45,19 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Elements'],
                     markup      += '</head>';
                     markup      += '<body>';
 
+                    _.each(this.headerRows, function(row, index){
+
+                        markup  += self.buildRowMarkup(row);
+
+                    });
+
                     _.each(this.rows, function(row, index){
+
+                        markup  += self.buildRowMarkup(row);
+
+                    });
+
+                    _.each(this.footerRows, function(row, index){
 
                         markup  += self.buildRowMarkup(row);
 
