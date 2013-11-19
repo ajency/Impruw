@@ -90,7 +90,7 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
 
                         var prevHeight = column.$el.height();
 
-                        column.$el.css('min-height',newHeight + 50);
+                        column.$el.css('min-height',newHeight + 10);
 
                         column.trigger('height_changed', prevHeight, newHeight);
 

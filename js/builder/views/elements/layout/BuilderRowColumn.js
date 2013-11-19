@@ -270,8 +270,8 @@ define(['builder/views/elements/BuilderElement', 'global'],
 
                             self.parent.trigger('adjust_column_dimension');
 
-                            self.$el.find('div.drag-here').remove();
-                            self.$el.append('<div class="drag-here">Drag elements Here</div>');
+                            //self.$el.find('div.drag-here').remove();
+                            //self.$el.append('<div class="drag-here">Drag elements Here</div>');
 
                         });
                         
