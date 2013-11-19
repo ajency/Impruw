@@ -48,6 +48,7 @@
 							<option value="0">Business Theme</option>
 							<option value="1">Travel Theme</option>
 							<option value="2">Holiday Theme</option>
+							<option value="3">View All</option>
 						</select>
 						<div id="aj-imp-color-sel" class="dropdown"> 
 							<a class="btn bt-default" data-toggle="dropdown" href="#"><span class="pull-left">Change Color</span><span class="caret"></span></a>
@@ -1646,7 +1647,7 @@
 							</li>
 						</ul>
 						<div class="load-more">
-							<a href="#" class="btn"><span class="glyphicon glyphicon-repeat"></span>&nbsp;Load More</a>
+							<a href="#" class="btn btn-wide"><span class="glyphicon glyphicon-repeat"></span>&nbsp;Load More</a>
 						</div>
 					</div>
 				</div>
@@ -1671,6 +1672,14 @@
 			jQuery('.aj-imp-menu-item-list .list-group').sortable({
 				placeholder: 'drop-highlight'
 			});
+			
+			//Go to Theme Page
+			jQuery('#aj-imp-theme-sel').on('change', function () {
+				var value = jQuery(this).val();
+				if (value == '3') {
+					window.location.pathname = 'impruw/html/builder-choose-theme.html';
+				}
+			})
 		});
     </script>
 	<script>
