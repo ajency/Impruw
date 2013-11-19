@@ -269,6 +269,19 @@ Version:        0.1.0
 							background: @orange;
 						}
 					}
+					[rel="3"] {
+						a {
+							background: lighten(@dash-grey, 20%);
+							text-align: center;
+							color: #fff;
+							.pull-left {
+								float: none !important;
+							}
+							&:hover {
+								color: @orange;
+							}
+						}
+					}
 				}
 			}
 			#aj-imp-color-sel {
@@ -1401,5 +1414,30 @@ Version:        0.1.0
 	}
 	.load-more {
 		text-align: center;
+	}
+}
+
+/****Builder Choose Theme Page Styles****/
+.aj-imp-theme-area {
+	margin: 0 0 3em;
+	.page-title {
+		font-size: 1.5em;
+		color: @3-grey;
+		text-align: center;
+	}
+	.desc {
+		font-size: 1em;
+		color: @dash-grey;
+		text-align: center;
+	}
+	.aj-imp-block-list {
+		.desc {
+			color: @blue-grey;
+			text-transform: uppercase;
+			font-weight: 700;
+		}
+		.btn {
+			color: #fff;
+		}
 	}
 }

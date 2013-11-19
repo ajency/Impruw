@@ -101,18 +101,18 @@ Version:        0.1.0
 .aj-imp-preview .container .row {
   margin: 10px 0;
 }
-.aj-imp-preview .container .row .logo h1 a {
+.site-header .logo h1 a {
   display: block;
   color: #ccc;
 }
-.aj-imp-preview .container .row .logo h1 a:hover {
+.site-header .logo h1 a:hover {
   color: #f20000;
 }
-.aj-imp-preview .container .row .nav li {
+.site-header .nav li {
   border-top: 1px solid #000;
   border-bottom: 3px solid #000;
 }
-.aj-imp-preview .container .row .nav li a {
+.site-header .nav li a {
   background: none;
   text-transform: uppercase;
   font-weight: 700;
@@ -120,36 +120,36 @@ Version:        0.1.0
   padding: 20px 0;
   font-size: 1.1em;
 }
-.aj-imp-preview .container .row .nav li a:hover {
+.site-header .nav li a:hover {
   color: #ccc;
 }
-.aj-imp-preview .container .row .nav li:hover,
-.aj-imp-preview .container .row .nav li.active {
+.site-header .nav li:hover,
+.site-header .nav li.active {
   border-color: #ccc;
 }
-.aj-imp-preview .container .row .slider {
+.site-body .slider {
   margin: 0 0 20px;
 }
-.aj-imp-preview .container .row .slider .carousel .carousel-inner .item img {
+.site-body .slider .carousel .carousel-inner .item img {
   border-radius: 0;
 }
-.aj-imp-preview .container .row .slider .carousel .carousel-inner .item .carousel-caption {
+.site-body .slider .carousel .carousel-inner .item .carousel-caption {
   position: relative;
   border-radius: 0;
   background: 0;
   text-align: center;
 }
-.aj-imp-preview .container .row .slider .carousel .carousel-inner .item .carousel-caption h3 {
+.site-body .slider .carousel .carousel-inner .item .carousel-caption h3 {
   color: #000;
   text-transform: uppercase;
 }
-.aj-imp-preview .container .row .slider .carousel .carousel-inner .item .carousel-caption p {
+.site-body .slider .carousel .carousel-inner .item .carousel-caption p {
   color: #000;
   display: inline;
   border-bottom: 3px solid #000;
   padding: 10px 10px 20px;
 }
-.aj-imp-preview .container .row .slider .carousel .carousel-control {
+.site-body .slider .carousel .carousel-control {
   top: 78.25%;
   border-radius: 0;
   border: 0;
@@ -158,53 +158,53 @@ Version:        0.1.0
   color: #fff;
   font-size: 2em;
 }
-.aj-imp-preview .container .row .slider .carousel .carousel-control.left {
+.site-body .slider .carousel .carousel-control.left {
   left: 45.5%;
 }
-.aj-imp-preview .container .row .slider .carousel .carousel-control.right {
+.site-body .slider .carousel .carousel-control.right {
   right: 45.5%;
 }
-.aj-imp-preview .container .row .clearfix h4 {
+.site-body .clearfix h4 {
   color: #000;
   font-size: 2em;
   text-transform: lowercase;
 }
-.aj-imp-preview .container .row .panel-group .panel {
+.site-body .panel-group .panel {
   border-radius: 0;
   border: 0;
   box-shadow: none;
 }
-.aj-imp-preview .container .row .panel-group .panel .panel-heading {
+.site-body .panel-group .panel .panel-heading {
   background: none;
   border: 0;
   border-bottom: 2px solid #000;
   padding: 6px 0;
 }
-.aj-imp-preview .container .row .panel-group .panel .panel-heading .panel-title {
+.site-body .panel-group .panel .panel-heading .panel-title {
   font-size: 1em;
 }
-.aj-imp-preview .container .row .panel-group .panel .panel-heading .panel-title a {
+.site-body .panel-group .panel .panel-heading .panel-title a {
   color: #000;
 }
-.aj-imp-preview .container .row .panel-group .panel .panel-heading .panel-title a:hover {
+.site-body .panel-group .panel .panel-heading .panel-title a:hover {
   color: #f20000;
 }
-.aj-imp-preview .container .row .panel-group .panel .panel-collapse {
+.site-body .panel-group .panel .panel-collapse {
   font-size: 0.88em;
   color: #333;
   border: 0;
 }
-.aj-imp-preview .container .row .panel-group .panel .panel-collapse .panel-body {
+.site-body .panel-group .panel .panel-collapse .panel-body {
   padding: 10px 0;
 }
-.aj-imp-preview .container .row .footer {
+.site-footer .footer {
   border-top: 2px solid #ccc;
   margin: 10px 0;
   padding: 10px 0;
 }
-.aj-imp-preview .container .row .footer a {
+.site-footer .footer a {
   color: #f20000;
 }
-.aj-imp-preview .container .row .footer a:hover {
+.site-footer .footer a:hover {
   color: #000;
 }

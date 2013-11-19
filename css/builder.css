@@ -249,6 +249,17 @@ Version:        0.1.0
 .aj-imp-builder-top-nav .aj-imp-builder-top-options .navbar-search .select .dropdown-menu .selected a {
   background: #ff7e00;
 }
+.aj-imp-builder-top-nav .aj-imp-builder-top-options .navbar-search .select .dropdown-menu [rel="3"] a {
+  background: #dddddd;
+  text-align: center;
+  color: #fff;
+}
+.aj-imp-builder-top-nav .aj-imp-builder-top-options .navbar-search .select .dropdown-menu [rel="3"] a .pull-left {
+  float: none !important;
+}
+.aj-imp-builder-top-nav .aj-imp-builder-top-options .navbar-search .select .dropdown-menu [rel="3"] a:hover {
+  color: #ff7e00;
+}
 .aj-imp-builder-top-nav .aj-imp-builder-top-options .navbar-search #aj-imp-color-sel {
   display: inline-block;
   margin: 0 5px;
@@ -1287,4 +1298,26 @@ Version:        0.1.0
 }
 .aj-imp-block-list .load-more {
   text-align: center;
+}
+/****Builder Choose Theme Page Styles****/
+.aj-imp-theme-area {
+  margin: 0 0 3em;
+}
+.aj-imp-theme-area .page-title {
+  font-size: 1.5em;
+  color: #333333;
+  text-align: center;
+}
+.aj-imp-theme-area .desc {
+  font-size: 1em;
+  color: #aaaaaa;
+  text-align: center;
+}
+.aj-imp-theme-area .aj-imp-block-list .desc {
+  color: #849fb0;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+.aj-imp-theme-area .aj-imp-block-list .btn {
+  color: #fff;
 }
