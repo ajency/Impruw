@@ -45,7 +45,19 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Elements'],
                     markup      += '</head>';
                     markup      += '<body>';
 
+                    _.each(this.headerRows, function(row, index){
+
+                        markup  += self.buildRowMarkup(row);
+
+                    });
+
                     _.each(this.rows, function(row, index){
+
+                        markup  += self.buildRowMarkup(row);
+
+                    });
+
+                    _.each(this.footerRows, function(row, index){
 
                         markup  += self.buildRowMarkup(row);
 
@@ -289,8 +301,8 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Elements'],
                                                            
                                                             $(event.target).css('background-image','url("images/clear-background.png")');
 
-                                                            $(event.target).find('div.drag-here').remove();
-                                                            $(event.target).append('<div class="drag-here">Drag elements Here</div>');
+                                                            //$(event.target).find('div.drag-here').remove();
+                                                            //$(event.target).append('<div class="drag-here">Drag elements Here</div>');
                                                         
                                                         },
 

@@ -1,7 +1,7 @@
-define(['builder/views/elements/BuilderElement','text!builder/templates/elements/TitleElement.hbs', 'global'], 
+define(['builder/views/elements/BuilderElement','text!builder/templates/elements/MenuElement.hbs', 'global'], 
 		function(BuilderElement, template, global){
 
-			var TitleElement =   BuilderElement.extend({
+			var MenuElement =   BuilderElement.extend({
 
                 //class name for view
                 className           : 'aj-imp-elem-title element',
@@ -10,7 +10,7 @@ define(['builder/views/elements/BuilderElement','text!builder/templates/elements
 				template            : template,
                 
                 //identify element type
-                type                : 'title',
+                type                : 'menu',
                 
                 //set height to be assigned to placeholder and helper
                 placeHolderHeight   : 60,
@@ -34,7 +34,7 @@ define(['builder/views/elements/BuilderElement','text!builder/templates/elements
                     
                     this.parent = options.parent;
                  
-                    this.id = 'title-' + global.generateRandomId();
+                    this.id = this.type + '-' + global.generateRandomId();
                     
                     this.$el.attr('id', this.id);
                     
@@ -54,7 +54,7 @@ define(['builder/views/elements/BuilderElement','text!builder/templates/elements
                 
             });
             
-            return TitleElement;
+            return MenuElement;
         });
   
     
