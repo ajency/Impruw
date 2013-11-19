@@ -92,13 +92,13 @@ Version:        0.1.0
   position: relative;
 }
 /****Preview Container & Styles****/
-.aj-imp-preview {
+.aj-imp-site-container {
   background: #fff;
 }
-.aj-imp-preview .container {
+.aj-imp-site-container .container {
   max-width: 960px;
 }
-.aj-imp-preview .container .row {
+.aj-imp-site-container .container .row {
   margin: 10px 0;
 }
 .site-header .logo h1 a {
