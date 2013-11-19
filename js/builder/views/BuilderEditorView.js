@@ -26,7 +26,8 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Elements'],
 				initialize  : function(option){
                         
                     _.bindAll(this, 'enableDropSort','getRows','is','holdOnWhileSwitching', 'removeSwitchLoader','switchMode',
-                                    'switchToLayout', 'switchToContent','generateActualMarkup', 'buildRowMarkup', 'buildColumnMarkup');    
+                                    'switchToLayout', 'switchToContent','generateActualMarkup', 'buildRowMarkup', 'buildColumnMarkup',
+                                    'getClasses');    
 
                     this.themeConfig = option.themeConfig;
 
@@ -45,11 +46,19 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Elements'],
                     markup      += '</head>';
                     markup      += '<body>';
 
+                    markup      += '<div class="'+ this.getClasses('containerClasses') + '">';
+
+                    markup      += '<header class="'+ this.getClasses('headerWrapperClasses') + '">';
+
                     _.each(this.headerRows, function(row, index){
 
                         markup  += self.buildRowMarkup(row);
 
                     });
+
+                    markup      += '</header><!-- End header -->';
+
+                    markup      += '<div class="'+ this.getClasses('contentWrapperClasses') + '">';
 
                     _.each(this.rows, function(row, index){
 
@@ -57,13 +66,24 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Elements'],
 
                     });
 
+                    markup      += '</div><!-- End Page Body -->';
+
+                    markup      += '<footer class="'+ this.getClasses('footerWrapperClasses') + '">';
+
                     _.each(this.footerRows, function(row, index){
 
                         markup  += self.buildRowMarkup(row);
 
                     });
+
+                    markup      += '</footer><!-- End Footer -->';
+
+                    markup      += '</div>';
+                    markup      += this.getThemeJS();
                     markup      += '</body>';
                     markup      += '</html><!-- end html -->';
+
+                    log(markup);
 
                     //save markup to server
                     $.post( 'savemarkup.php',
@@ -75,6 +95,44 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Elements'],
                                 log('Done');
 
                             });
+
+                },
+
+                /**
+                * Theme JS files
+                */
+                getThemeJS : function(){
+
+                    var markup = '';
+                    
+                    _.each(this.themeConfig.jsFiles, function(file, index){
+                     
+                        markup += '<script src="js/lib/'+ file +'"></script>';
+                     
+                    });
+                     
+                    return markup;  
+                },
+
+                /**
+                * Returns the classes for each container
+                */
+                getClasses : function(classFor){
+
+                    if(_.isUndefined(this.themeConfig[classFor]))
+                        return '';
+
+                    var classes = this.themeConfig[classFor];
+
+                    var c = '';
+
+                    _.each(classes, function(cls, index){
+
+                        c += cls + ' ';
+
+                    });
+
+                    return _.clean(c);
 
                 },
 
@@ -209,6 +267,8 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Elements'],
                     //
                     this.$el.removeClass('aj-imp-builder-content-mode').addClass('aj-imp-builder-layout-mode');
 
+                    $('#controls-drag').fadeIn();
+
                     this.removeSwitchLoader();
                     
                     window.editorMode = 'layout';
@@ -251,6 +311,12 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Elements'],
                     this.$el.removeClass('aj-imp-builder-layout-mode').addClass('aj-imp-builder-content-mode');
 
                     this.$el.parent().addClass('aj-imp-preview');
+
+                    this.$el.children('header').addClass(this.getClasses('headerWrapperClasses'));
+                    this.$el.children('div[data-page="true"]').addClass(this.getClasses('contentWrapperClasses'));
+                    this.$el.children('footer').addClass(this.getClasses('footerWrapperClasses'));
+
+                    $('#controls-drag').fadeOut();
 
                     this.removeSwitchLoader();
 
