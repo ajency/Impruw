@@ -41,9 +41,13 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Elements'],
                     var self = this;
 
                     var markup  = '<html>';
+                    
                     markup      += '<head>';
+
                     markup      += this.getThemeCSS();
+
                     markup      += '</head>';
+                    
                     markup      += '<body>';
 
                     markup      += '<div class="'+ this.getClasses('containerClasses') + '">';
@@ -79,11 +83,13 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Elements'],
                     markup      += '</footer><!-- End Footer -->';
 
                     markup      += '</div>';
+                    
                     markup      += this.getThemeJS();
+                    
                     markup      += '</body>';
+                    
                     markup      += '</html><!-- end html -->';
 
-                    log(markup);
 
                     //save markup to server
                     $.post( 'savemarkup.php',
@@ -330,6 +336,12 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Elements'],
                 *
                 */
                 makeEditable : function(){
+
+                    require(['ckeditor'], function(CKEDITOR){
+
+                        CKEDITOR.inlineAll();
+
+                    });
 
                 },
 

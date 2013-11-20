@@ -83,7 +83,10 @@ define(['backbone','jquery','underscore','handlebars', 'global'],
                 elementMouseEnter : function(evt){
                     
                     evt.stopPropagation();
-                    
+
+                    if(window.editorMode == 'content')
+                        this.$el.children('.aj-element-setting-tooltip,.aj-imp-drag-handle').show();
+
                     //remove hover style if row is a child of column
                     if(this.parent.type === 'column'){
 
@@ -102,6 +105,9 @@ define(['backbone','jquery','underscore','handlebars', 'global'],
                 elementMouseLeave : function(evt){
                     
                     evt.stopPropagation();
+
+                    if(window.editorMode == 'content')
+                       this.$el.children('.aj-element-setting-tooltip,.aj-imp-drag-handle').hide();
 
                     if(this.parent.type === 'column'){
 

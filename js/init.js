@@ -18,7 +18,8 @@ require.config({
         cookie      : 'lib/cookie.min',
         string      : 'lib/underscore.string.min',
         numerals    : 'lib/numerals.min',
-        handlebars  : 'lib/handlebars'
+        handlebars  : 'lib/handlebars',
+        ckeditor    : 'lib/ckeditor'
     },
     waitSeconds: 15,
     shim: {
@@ -48,6 +49,9 @@ require.config({
         'handlebars' : {
             deps: ['underscore', 'jquery'],    
             exports : 'Handlebars'
+        },
+        'ckeditor' : {
+            exports : 'CKEDITOR'
         }
     }
 });
