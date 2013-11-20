@@ -13,6 +13,7 @@ Version:        0.1.0
 @dash-grey: #AAAAAA;
 @blue-grey: #849FB0;
 @orange: #FF7E00;
+@logo-orange: #EE4423;
 @3-grey: #333333;
 @sky-blue: #71B8EC;
 
@@ -60,7 +61,7 @@ Version:        0.1.0
 						width: 33px;
 						height: 33px;
 						position: absolute;
-						background: url('../images/hover-bg.png') no-repeat;
+						background: url('../images/hover-bg-2.png') no-repeat;
 						top: 20px;
 						left: 40px;
 						opacity: 0;
@@ -125,7 +126,7 @@ Version:        0.1.0
 						}
 						a {
 							text-decoration: none;
-							color: @logo-blue;
+							color: @logo-orange;
 						}
 					}
 				}
@@ -219,7 +220,7 @@ Version:        0.1.0
 				margin: 0 0 2em;
 				.aj-imp-text-widget-title {
 					font-weight: 700;
-					color: @3-grey;
+					color: @logo-orange;
 					font-size: 1.15em;
 					margin-bottom: 0.8em;
 				}
@@ -237,7 +238,6 @@ Version:        0.1.0
 		}
 	}
 }
-
 
 @media only screen 
 and (min-width : 1440px) {
@@ -262,4 +262,147 @@ and (min-width : 1440px) {
 		width: 83.3333%;
 	}
 }	
+}
+
+/****Form Styles****/
+form {
+	margin: 0.5em 0;
+	padding: 1em 0;
+	border-top: 1px solid lighten(@dash-grey, 25%);
+	border-bottom: 1px solid lighten(@dash-grey, 25%);
+	label {
+		color: darken(@dash-grey, 20%);
+		&.checkbox, &.radio {
+			padding-top: 0 !important;
+			&.checked {
+				color: @orange;
+				.second-icon {
+					color: @orange;
+				}
+			}
+		}
+	}
+	.form-control {
+		border-width: 1px;
+		&:focus {
+			border-color: @orange;
+		}
+	}
+}
+
+/****Register Page Styles****/
+.aj-imp-register-form {
+	width: 80%;
+	background: #fff;
+	box-shadow: 0 0 5px 4px lighten(@dash-grey, 10%);
+	margin: 2em auto;
+	padding: 1em;
+	.aj-imp-register-header {
+		border-bottom: 1px solid lighten(@dash-grey, 25%);
+		text-align: center;
+		h1 {
+			font-size: 2.5em;
+			font-weight: 700;
+			span {
+				color: @orange;
+			}
+		}
+		.desc {
+			font-size: 1.1em;
+			color: lighten(@dash-grey, 10%);
+		}
+	}
+	.aj-imp-register-left {
+		padding: 2em 30px 0;
+		form {
+			border: 0;
+			padding: 0;
+			.row {
+				.form-group {
+					margin-bottom: 10px;
+					.help-block {
+						color: lighten(@dash-grey, 10%);
+						font-style: italic;
+						font-size: 0.92em;
+					}
+					.aj-imp-submit {
+						background: @orange;
+						font-weight: 700;
+						text-transform: uppercase;
+						&:hover {
+							background: lighten(@orange, 10%);
+						}
+					}
+				}
+				&.aj-imp-site-name {
+					background: lighten(@orange, 30%);
+					border-radius: 5px;
+					border: 1px solid lighten(@logo-orange, 20%);
+					padding: 1em 0;
+					margin-bottom: 1em;
+					.form-group {
+						margin-bottom: 0;
+						.form-control {
+							border-color: lighten(@logo-orange, 20%);
+						}
+						.help-block {
+							color: darken(@dash-grey, 20%);
+						}
+					}
+					.aj-imp-domain {
+						padding: 7px 7px 0;
+					}
+				}
+				&.margin-1 {
+					margin: 1em -15px 0.5em;
+				}
+				.aj-imp-captcha-image {
+					border: 1px solid lighten(@dash-grey, 20%);
+					margin: 1em -15px 0.5em;
+					text-align: center;
+				}
+			}
+		}
+	}
+	.aj-imp-register-right {
+		margin: 2em 0 0;
+		padding: 0 30px 0;
+		box-shadow: inset 3px 0 6px -6px @3-grey;
+		.aj-imp-register-steps {
+			color: @orange;
+			font-size: 1.6em;
+			font-weight: 300;
+			text-transform: lowercase;
+			margin: 0 0 1em;
+			.number {
+				display: block;
+				float: left;
+				text-align: center;
+				margin-right: 0.2em;
+				background: @orange;
+				color: #fff;
+				font-size: 1.6em;
+				font-weight: 700;
+				padding: 0.2em;
+				width: 1.6em;
+				height: 1.6em;
+				border-radius: 1.6em;
+			}
+		}
+		.aj-imp-reg-step {
+			margin: 2em 0 1em;
+			h4 {
+				color: @orange;
+				font-size: 1.5em;
+			}
+			h5 {
+				font-size: 1.3em;
+				color: @3-grey;
+			}
+			p {
+				color: @dash-grey;
+				font-size: 1.1em;
+			}
+		}
+	}
 }

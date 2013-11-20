@@ -7,7 +7,7 @@
     <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link href="css/flat-ui.css" rel="stylesheet" media="screen">
     <link href="css/main.min.css" rel="stylesheet" media="screen">
-	<link href="css/dashboard.css" rel="stylesheet" media="screen">
+	<link href="../css/dashboard.css" rel="stylesheet" media="screen">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -20,7 +20,7 @@
 		<div class="row">
 			<div class="aj-imp-left col-md-3 col-sm-4">
 				<div class="aj-imp-dash-logo">
-					<a href="#"><img src="images/dash-logo.png" title="Impruw" alt="Impruw" class="img-responsive" /></a>
+					<a href="#"><img src="images/impruw-logo.png" title="Impruw" alt="Impruw" class="img-responsive" /></a>
 				</div>
 				<nav class="aj-imp-dash-nav">
 					<ul id="aj-imp-dash-menu">
@@ -127,6 +127,90 @@
 								</div>
 							</div>
 						</div>
+						<h6 class="aj-imp-sub-head">Dashboard Form <small>Lorem ipsum dolor sit amet, consectetur adipiscing</small></h6>
+						<form class="form-horizontal clearfix">
+							
+							<label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+							<div class="col-sm-10">
+								<div class="form-group">
+									<input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+								</div>
+							</div>
+							
+							<label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+							<div class="col-sm-10">
+								<div class="form-group">
+									<input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+								</div>
+							</div>
+							
+							<label for="inputEmail3" class="col-sm-2 control-label">Text with Icon</label>
+							<div class="col-sm-10">
+								<div class="form-group">
+									<input type="email" class="form-control" id="inputEmail3" placeholder="With Icon">
+									<span class="input-icon fui-check-inverted"></span>
+								</div>
+							</div>
+							
+							<div class="col-sm-offset-2 col-sm-10">
+								<div class="form-group">
+									<label for="checkbox1" class="checkbox">
+										<span class="icons"><span class="first-icon fui-checkbox-unchecked"></span><span class="second-icon fui-checkbox-checked"></span></span><input type="checkbox" data-toggle="checkbox" id="checkbox1" value="">
+										Checkbox
+									</label>
+									<label for="checkbox2" class="checkbox checked">
+										<span class="icons"><span class="first-icon fui-checkbox-unchecked"></span><span class="second-icon fui-checkbox-checked"></span></span><input type="checkbox" data-toggle="checkbox" checked="checked" id="checkbox2" value="">
+										Checkbox Checked
+									</label>
+										<label for="checkbox3" class="checkbox disabled">
+										<span class="icons"><span class="first-icon fui-checkbox-unchecked"></span><span class="second-icon fui-checkbox-checked"></span></span><input type="checkbox" disabled="" data-toggle="checkbox" id="checkbox3" value="">
+										Checkbox Disabled
+									</label>
+									<label for="checkbox4" class="checkbox disabled checked">
+										<span class="icons"><span class="first-icon fui-checkbox-unchecked"></span><span class="second-icon fui-checkbox-checked"></span></span><input type="checkbox" disabled="" data-toggle="checkbox" checked="checked" id="checkbox4" value="">
+										Checkbox Disabled &amp; Checked
+									</label>
+								</div>
+							</div>
+							
+							<div class="col-sm-offset-2 col-sm-10">
+								<div class="form-group">
+									<label class="radio">
+										<span class="icons"><span class="first-icon fui-radio-unchecked"></span><span class="second-icon fui-radio-checked"></span></span><input type="radio" data-toggle="radio" value="1" name="group1">
+										Radio is off
+									</label>
+									<label class="radio checked">
+										<span class="icons"><span class="first-icon fui-radio-unchecked"></span><span class="second-icon fui-radio-checked"></span></span><input type="radio" checked="" data-toggle="radio" value="2" name="group1">
+										Radio is on
+									</label>
+									<label class="radio disabled">
+										<span class="icons"><span class="first-icon fui-radio-unchecked"></span><span class="second-icon fui-radio-checked"></span></span><input type="radio" disabled="" data-toggle="radio" value="1" name="group2">
+										Radio is disabled
+									</label>
+									<label class="radio disabled checked">
+										<span class="icons"><span class="first-icon fui-radio-unchecked"></span><span class="second-icon fui-radio-checked"></span></span><input type="radio" checked="" disabled="" data-toggle="radio" value="2" name="group2">
+										Radio is on &amp; disabled
+									</label>
+								</div>
+							</div>
+							
+							<label for="inputEmail3" class="col-sm-2 control-label">Select</label>
+							<div class="col-sm-10">
+								<div class="form-group">
+									<select>
+										<option value="0">Option 1</option>
+										<option value="1">option 2</option>
+										<option value="2">Option 3</option>
+									</select>
+								</div>
+							</div>
+							
+							<div class="col-sm-offset-2 col-sm-10">
+								<div class="form-group">
+									<button type="submit" class="btn btn-default btn-wide">Sign in</button>
+								</div>
+							</div>
+						</form>
 					</div>
 					<div class="aj-imp-dash-content sidebar col-md-3">
 						<div class="aj-imp-text-widget">
@@ -156,5 +240,11 @@
     <script src="js/jquery-2.0.3.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/flatui-checkbox.js"></script>
+    <script src="js/bootstrap-select.js"></script>
+    <script src="js/flatui-radio.js"></script>
+	<script>
+		jQuery("select").selectpicker();
+	</script>
   </body>
 </html>
