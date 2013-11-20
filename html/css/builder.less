@@ -885,11 +885,80 @@ Version:        0.1.0
 	.content {
 		display: none;
 	}
+	.aj-element-setting-tooltip{
+		display: none !important;
+	}
 }
 
 .aj-imp-builder-content-mode {
 	.layout, .aj-imp-delete-btn, .aj-imp-drag-handle {
 		display: none;
+	}
+	.aj-imp-drag-handle {
+		position: absolute;
+		top: -10px;
+		left: 0;
+		height: 20px;
+		width: 100%;
+		text-align: center;
+		a {
+			cursor: move;
+			width: 60px;
+			margin: auto;
+			display: block;
+			color: @orange !important;
+			font-size: 20px;
+			line-height: 20px !important;
+			background: #fff;
+			border: 1px solid @orange;
+			border-radius: 3px;
+			&:hover {
+				background: @orange;
+				color: #fff !important;
+			}
+		}
+	}
+	.aj-element-setting-tooltip {
+		top: -3.6em;
+        display: none;
+		.tooltip-arrow {
+			border-top-color: #29333F;
+			left: 2em;
+		}
+		.tooltip-inner {
+			width: auto;
+			/*min-width: 250px;*/
+			max-width: 300px;
+			background: #29333F;
+			label {
+				display: inline-block;
+				margin: 0;
+				padding: 0 0.5em;
+				position: relative;
+				top: -3px;
+			}
+			ul {
+				display: inline-block;
+				list-style: none;
+				margin: 0;
+				padding: 0;
+				li {
+					float: left;
+					margin: 0 0.05em;
+					a {
+						padding: 0.3em 0.5em;
+						color: #fff;
+						border-radius: 3px;
+						font-weight: 700;
+					}
+					&:hover, &.active {
+						a {
+							background: @orange;
+						}
+					}
+				}
+			}
+		}
 	}
 }
 

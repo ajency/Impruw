@@ -19,7 +19,9 @@ define(['builder/views/elements/BuilderElement','text!builder/templates/elements
                 events : {
                     'mouseenter'                 : 'elementMouseEnter',
                     'mouseleave'                 : 'elementMouseLeave',
-                    'click > .aj-imp-delete-btn' : 'destroyElement'
+                    'click > .aj-imp-delete-btn' : 'destroyElement',
+                    'click  a[data-action="increase"]' : 'increaseFont',
+                    'click  a[data-action="decrease"]' : 'decreaseFont',
                 },
                 
                 /**
@@ -30,7 +32,7 @@ define(['builder/views/elements/BuilderElement','text!builder/templates/elements
                  */
                 initialize : function(options){
                     
-                    //_.bindAll(this, 'rowMouseEnter','rowMouseLeave');
+                    _.bindAll(this,'decreaseFont','increaseFont');
                     
                     this.parent = options.parent;
                  
@@ -38,6 +40,40 @@ define(['builder/views/elements/BuilderElement','text!builder/templates/elements
                     
                     this.$el.attr('id', this.id);
                     
+                },
+
+                /**
+                * Decrease font of the title
+                */
+                decreaseFont : function(evt){
+
+                    evt.preventDefault();
+
+                    var currentSize = parseInt(this.$el.find('font').attr('size'));
+                    
+                    if(currentSize == 1)
+                        return;
+    
+                    var newSize = currentSize - 1;
+
+                    this.$el.find('font').attr('size', newSize);
+                },
+
+                /**
+                * Increase font of the title
+                */
+                increaseFont : function(evt){
+
+                    evt.preventDefault();
+
+                    var currentSize = parseInt(this.$el.find('font').attr('size'));
+                    
+                    if(currentSize == 7)
+                        return;
+
+                    var newSize = currentSize + 1;
+
+                    this.$el.find('font').attr('size', newSize);
                 },
                         
                 /**

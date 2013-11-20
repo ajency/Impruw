@@ -5,13 +5,15 @@ define([], function(){
 		//name of the theme
 		name 					: 'default',
 
-		bodyClass				: [],
+		bodyClass				: ['body-class'],
 
-		headerWrapperClasses  	: [],
+		containerClasses		: ['main-container-class','one', 'two'],
 
-		contentWrapperClasses	: [],
+		headerWrapperClasses  	: ['site-header'],
 
-		footerWrapperClasses	: [],
+		contentWrapperClasses	: ['site-body'],
+
+		footerWrapperClasses	: ['site-footer'],
 
 		//css files
 		cssFiles				: [ 'bootstrap.min.css',
@@ -27,22 +29,17 @@ define([], function(){
 
 									TitleElement 		: {
 
-										//content markup
-										contentMarkup 	: '<h3></h3>',
-
-										classes			: []
 
 									},
 
 									ImageElement		: {
 
-										contentMarkup	: '<img src="" />',
 
 									},
 
 									BuilderRowColumn 	: {
 
-										classes			: []
+										
 
 									}
 
