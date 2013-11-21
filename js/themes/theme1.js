@@ -3,7 +3,9 @@ define([], function(){
 	var config = {
 
 		//name of the theme
-		name 					: 'theme 1',
+		name 					: 'theme1',
+
+		template 				: 'template1',
 
 		containerClasses		: ['container','one'],
 

@@ -12,7 +12,7 @@
 
 #aj-imp-builder-drag-drop > .layout-header, #aj-imp-builder-drag-drop > .layout-footer{
     min-height: 150px;
-    background: url(../images/empty-drag-bg.svg) no-repeat center center #fff;
+    /*background: url(../images/empty-drag-bg.svg) no-repeat center center #fff;*/
 }
 
 #aj-imp-builder-drag-drop .drag-here{
@@ -26,7 +26,7 @@
 
 #aj-imp-builder-drag-drop > .layout-content {
     min-height: 400px;
-    background: url(../images/empty-drag-bg.svg) no-repeat center center #fff;
+    /*background: url(../images/empty-drag-bg.svg) no-repeat center center #fff;*/
 }
 
 /*#aj-imp-builder-drag-drop > hr{

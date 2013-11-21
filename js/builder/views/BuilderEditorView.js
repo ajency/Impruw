@@ -15,10 +15,6 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Elements'],
                 
                 rows        : [],
 
-                headerRows  : [],
-
-                footerRows  : [],
-
                 mode        : 'layout',
 
                 themeConfig : {},
@@ -180,6 +176,9 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Elements'],
 
                 },
 
+                /**
+                *
+                */
                 buildColumnMarkup : function(column){
                     
                     var colClass = 'column col-sm-' + column.getCurrentClass();
@@ -220,30 +219,101 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Elements'],
 				render : function(){
                         
                         var self = this;
-					
-						//enable controls drag
-						$( "#controls-drag" ).draggable({
-							 handle: "p.desc",
-							 addClasses: false
-						});
-                        
-                        /** Controls Draggable */
-                        $('*[data-element]').draggable({
-                                                        connectToSortable   : '.layout-header,.layout-content,.layout-footer,.column',
-                                                        helper				: 'clone',
-                                                        revert 				: 'invalid',
-                                                        start  				: function (e, t) {
-                                                                                    var ele = t.helper.attr('data-element');
-                                                                                    if(ele === 'BuilderRow' || ele === 'BuilderRowColumn')
-                                                                                        t.helper.width(286);
-                                                                                    else
-                                                                                        t.helper.width(92).height(80);
-                                                                              }                           
-                                                    });
+
+                        var templatePath = 'themes/' + this.themeConfig.name + '/' + this.themeConfig.template;
+
+					    require([templatePath], function(response){
+
+                                self.generateHeaderMarkup(response.header);
+                                //self.generatePageMarkup(response.page);
+                                //self.generateFooterMarkup(response.footer);
+                                self.enableDragDrop();
+
+                              });
+
+						
 						
                         
 						return this;
 				},
+
+                /**
+                * 
+                */
+                generateHeaderMarkup : function(header){
+
+                    var self = this;
+
+                    //this.$el.append('<header class="'+ this.getClasses('headerWrapperClasses') +'"></header>')
+                        
+                    self.addElement( header.elements, 0, this.$el.find('header'));
+
+                    
+                },
+
+                /**
+                * Adds and element to editor
+                */
+                addElement : function(elements, index, parent){
+
+                    if( _.isUndefined(elements) || index >= elements.length || elements.length === 0 )
+                        return;
+
+                    var self = this;
+
+                    //add element recall
+                    var element = elements[index];
+                    
+                    if(element.type !== 'BuilderRow')
+                        return;
+
+                    var mod = 'builder/views/elements/layout/' + element.type;
+                    
+                    require([mod], function(Element){
+                        
+                        var row = new Element({config : element, parent : self});
+                        
+                        row.render();
+
+                        $(parent).append(row.generateBuilderMarkup());
+
+                        self.rows.push(row);
+
+                        index++;
+
+                        self.addElement(elements, index, parent);
+
+                    });
+                    
+                },
+
+
+                /**
+                *
+                */
+                enableDragDrop : function(){
+
+                    //enable controls drag
+                    $( "#controls-drag" ).draggable({
+                         handle: "p.desc",
+                         addClasses: false
+                    });
+                    
+                    /** Controls Draggable */
+                    $('*[data-element]').draggable({
+                                            connectToSortable   : '.layout-header,.layout-content,.layout-footer,.column',
+                                            helper              : 'clone',
+                                            revert              : 'invalid',
+                                            start               : function (e, t) {
+                                                                        var ele = t.helper.attr('data-element');
+                                                                        if(ele === 'BuilderRow' || ele === 'BuilderRowColumn')
+                                                                            t.helper.width(286);
+                                                                        else
+                                                                            t.helper.width(92).height(80);
+                                                                  }                           
+                                        });
+
+                },
 
                 /**
                 *
@@ -364,27 +434,22 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Elements'],
 
                                                             var row = new Elements['BuilderRow']({parent: self});
 
-                                                            if($(target).hasClass('layout-header'))
-                                                                self.headerRows.push(row);
-                                                            else if($(target).hasClass('layout-content'))
-                                                                self.rows.push(row);
-                                                            else if($(target).hasClass('layout-footer'))
-                                                                self.footerRows.push(row);
-
+                                                            self.rows.push(row);
+                                                            
                                                             $(event.target).find('*[data-element="BuilderRow"]').replaceWith(row.generateBuilderMarkup());
                                                             
                                                             row.sortableColumns();
                                                            
                                                             row.appendColumnResizer();
                                                            
-                                                            $(event.target).css('background-image','url("images/clear-background.png")');
+                                                            //$(event.target).css('background-image','url("images/clear-background.png")');
 
                                                             //$(event.target).find('div.drag-here').remove();
                                                             //$(event.target).append('<div class="drag-here">Drag elements Here</div>');
                                                         
                                                         },
 
-                                         sort       : function(event , ui){
+                                        sort        : function(event , ui){
                                                             
                                                             var pHeight = ui.helper.attr('data-placeholder-height');
                                                             

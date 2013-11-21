@@ -15,17 +15,19 @@ define(['underscore', 'jquery', 'backbone', 'builder/views/BuilderEditorView'],
 
 				events      : {
                 
-                    'click label.editormode' : 'switchMode',
-                    'click #generate-markup' : 'generateMarkup'
+                    'click label.editormode' 		: 'switchMode',
+                    'click #generate-markup' 		: 'generateMarkup',
+                    'click #choose-template li a' 	: 'updateTemplate'
                 
                 },
 
 
 				initialize : function(){
                     
-                    _.bindAll(this, 'handleInitialLoader','switchMode','renderView');
+                    _.bindAll(this, 'handleInitialLoader','switchMode','renderView','updateTemplate');
                     
 					this.builderId = '';
+
 				},
 
 				render : function(){
@@ -53,6 +55,12 @@ define(['underscore', 'jquery', 'backbone', 'builder/views/BuilderEditorView'],
 						
 						});
 					}
+				},
+
+				updateTemplate : function(){
+
+					
+					
 				},
 
 				renderView : function(config){

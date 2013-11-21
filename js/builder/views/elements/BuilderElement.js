@@ -2,6 +2,12 @@ define(['backbone','jquery','underscore','handlebars', 'global'],
 		function(Backbone, $, _, Handlebars,  global){
 
 			var BuilderElement = Backbone.View.extend({
+
+                locked      : false,
+
+                sortable    : false,
+                
+                editable    : true,
                 
                 /**
                  * 
@@ -26,6 +32,19 @@ define(['backbone','jquery','underscore','handlebars', 'global'],
                     return type === this.type;
                 
                 },
+
+                setClasses : function(config){
+
+                    this.$el.addClass(config.className);
+
+                    if(_.isUndefined(config.movable))
+                        this.$el.addClass('movable');
+
+                    if(_.isUndefined(config.sortable))
+                        this.$el.addClass('sortable');
+
+                },
+
                   
                 /**
                  * Returns the parent of the selected view
@@ -58,7 +77,9 @@ define(['backbone','jquery','underscore','handlebars', 'global'],
                  * @returns {unresolved}
                  */
 				generateBuilderMarkup : function(){
-					
+					if(_.isUndefined(this.template))
+                        return '';
+
 					this.$el.html(_.template(this.template));
 
 					return this.$el;

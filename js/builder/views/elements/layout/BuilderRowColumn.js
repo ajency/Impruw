@@ -13,20 +13,70 @@ define(['builder/views/elements/BuilderElement', 'global'],
                 
                 className   : 'column',
                 
-                initialize  : function(opt){
+                initialize  : function(options){
                     
                     _.bindAll(this, 'isEmpty', 'clear', 'handleElementDrop', 'handleHeightChange', 'isEmpty', 'clear',
                                     'handleWidthChange', 'handleElementOverState', 'handleColumnDrop', 'makeColumnsSortable',
                                     'handleElementRemove','resetHeightAuto', 'holdCurrentColRef','updateEmptyView','makeEmpty',
                                     'setCurrentClass', 'setColumnClass','getCurrentClass', 'getRowElements','getElements');
                     
-                    this.parent = opt.parent;
+                    this.parent = options.parent;
                     
+                    this.currentClass = options.currentClass;
+
                     //listen to height change event
                     this.on('height_changed',this.handleHeightChange);
                     
                     //listen to width change event
                     this.on('width_changed',this.handleWidthChange);
+
+                    if(_.isUndefined(options.config))
+                        return;
+
+                    this.currentClass = options.config.currentClass;
+
+                    this.setClasses(options.config);
+
+                    if(_.isUndefined(options.config.elements))
+                        return;
+
+                    this.addElement(options.config.elements, 0);
+                },
+
+                addElement : function(elements, index){
+
+                    if( index >= elements.length)
+                        return;
+
+                    var self = this;
+
+                    //add element recall
+                    var element = elements[index];
+                    
+                    var mod = '';
+                    if(element.type == 'BuilderRow' || element.type == 'BuilderRowColumn'){
+                        mod = 'builder/views/elements/layout/' + element.type;
+                    }
+                    else{
+                        mod = 'builder/views/elements/' + element.type;
+                    }
+
+                    require([mod], function(Element){
+                        
+                        var ele = new Element({config : element, parent : self});
+                        
+                        ele.render();
+
+                        self.$el.append(ele.generateBuilderMarkup());
+
+                        self.elements.push(ele);
+
+                        index++;
+
+                        self.addElement(elements, index);
+
+                    });
+                    
                 },
                 
                 /**
@@ -36,7 +86,9 @@ define(['builder/views/elements/BuilderElement', 'global'],
                  * @param {type} col
                  * @returns {_L2.Anonym$0}
                  */        
-                render : function(col){
+                render : function(){
+
+                    var col = this.currentClass;
                     
                     //this.$el.html('<div class="clearfix">&nbsp;<div class="aj-imp-drag-elements-message"><span class="glyphicon glyphicon-transfer"></span>Drag Elements Here</div></div>');
                     

@@ -22,6 +22,9 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                 
                 //total columns
                 totalColumns        : 2,
+
+                //is sortable
+                sortable            : true,
                 
                 
 				//register events
@@ -42,13 +45,13 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                  * @param {type} opt
                  * @returns {undefined}
                  */
-                initialize : function(opt){
+                initialize : function(options){
                     
                     _.bindAll(this, 'adjustColumnsInRow', 'generateBuilderMarkup', 'sortableColumns', 'addNewColumn',
                                     'columnCount', 'getColumns', 'getColumn', 'rowMouseEnter', 'rowMouseLeave', 'adjustColumnDimension',
                                     'allColumnsEmpty', 'emptyColumns', 'appendColumnResizer' , 'clearResizers', 'makeResizer','getColumnAt');
                     
-                    this.parent = opt.parent;
+                    this.parent = options.parent;
                     
                     this.$el.attr('data-placeholder-height',this.placeHolderHeight);
                     
@@ -59,7 +62,48 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                     //set random ID for control
                     this.$el.attr('id' , this.id);
                     
-                    //this.listenTo('column_removed', this.handleColumnRemoval);
+                    if(_.isUndefined(options.config))
+                        return;
+
+                    this.setClasses(options.config);
+                    
+                    if(_.isUndefined(options.config.elements))
+                        return;
+
+                    this.addElement(options.config.elements, 0, this.$el);
+                },
+
+                /**
+                *  Add a column to row
+                */
+                addElement : function(elements, index, parent){
+
+                    var element = elements[index];
+
+                    if( index >= elements.length || element.type !== 'BuilderRowColumn')
+                        return;
+
+                    var self = this;
+
+                    var mod = '';
+                    mod = 'builder/views/elements/layout/' + element.type;
+                    
+                    require([mod], function(Element){
+                        
+                        var ele = new Element({config : element, parent : self});
+                        
+                        ele.render();
+
+                        $(parent).append(ele.$el);
+
+                        self.columns.push(ele);
+
+                        index++;
+
+                        self.addElement(elements, index, parent);
+
+                    });
+                    
                 },
                 
                 /**
@@ -140,8 +184,8 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                     //append columns
                     _.each(_.range(this.totalColumns), function(){
                          
-                         var column = new BuilderRowColumn({parent : self});  
-                         column.render(colClass);
+                         var column = new BuilderRowColumn({parent : self, currentClass : colClass});  
+                         column.render();
                          self.columns.push(column);
                          self.$el.append(column.$el);
                          
@@ -494,8 +538,8 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                  */        
                 addNewColumn : function(colClass){
                 
-                    var column = new BuilderRowColumn({parent : this});  
-                    column.render(colClass);
+                    var column = new BuilderRowColumn({parent : this, currentClass: colClass});  
+                    column.render();
                     column.setColumnClass(colClass);
                     this.columns.push(column);
                     this.$el.append(column.$el);
