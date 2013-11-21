@@ -307,6 +307,19 @@ form {
 	}
 }
 
+.select {
+	.dropdown-menu {
+		.selected {
+			a {
+				background: @orange;
+				&:hover {
+					background: lighten(@orange, 20%);
+				}
+			}
+		}
+	}
+}
+
 /****Register Page Styles****/
 .aj-imp-register-form {
 	width: 80%;
@@ -446,6 +459,65 @@ form {
 			padding: 0;
 			.aj-imp-log-forgot {
 				margin-left: 1em;
+			}
+		}
+	}
+}
+
+/****Inner Page Styles****/
+.aj-imp-inner-page-body {
+	padding-top: 60px;
+	.aj-imp-inner-page {
+		.aj-imp-inner-header {
+			.navbar {
+				background: #ECF0F1;
+				border-bottom: 1px solid #B2C0C3;
+				border-radius: 0;
+				margin: 0;
+				.aj-imp-logo {
+					text-align: right;
+					a {
+						float: right;
+						display: block;
+						img {
+							height: 60px;
+						}
+					}
+				}
+				.aj-imp-dash-back {
+					color: lighten(@3-grey, 20%);
+					font-weight: 700;
+					font-size: 0.8em;
+					&:hover {
+						color: @orange;
+					}
+				}
+				.aj-imp-inner-title {
+					font-size: 1.2em;
+					text-align: center;
+					padding-top: 0.8em;
+				}
+			}
+		}
+		.aj-imp-inner-body {
+			background: #fff;
+			padding: 1em;
+			margin: 1em 0;
+			box-shadow: 0 0 2px lighten(@dash-grey, 10%);
+			.aj-imp-tree-container {
+				.nav-tabs {
+					a {
+						color: @dash-grey;
+						&:hover {
+							color: @orange;
+						}
+					}
+					.active {
+						a {
+							color: @orange;
+						}
+					}
+				}
 			}
 		}
 	}

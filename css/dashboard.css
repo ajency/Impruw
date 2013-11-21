@@ -273,6 +273,12 @@ form .aj-imp-submit {
 form .aj-imp-submit:hover {
   background: #ff9833;
 }
+.select .dropdown-menu .selected a {
+  background: #ff7e00;
+}
+.select .dropdown-menu .selected a:hover {
+  background: #ffb266;
+}
 /****Register Page Styles****/
 .aj-imp-register-form {
   width: 80%;
@@ -412,4 +418,52 @@ form .aj-imp-submit:hover {
 }
 .aj-imp-login-form .aj-imp-login form .aj-imp-log-forgot {
   margin-left: 1em;
+}
+/****Inner Page Styles****/
+.aj-imp-inner-page-body {
+  padding-top: 60px;
+}
+.aj-imp-inner-page-body .aj-imp-inner-page .aj-imp-inner-header .navbar {
+  background: #ECF0F1;
+  border-bottom: 1px solid #B2C0C3;
+  border-radius: 0;
+  margin: 0;
+}
+.aj-imp-inner-page-body .aj-imp-inner-page .aj-imp-inner-header .navbar .aj-imp-logo {
+  text-align: right;
+}
+.aj-imp-inner-page-body .aj-imp-inner-page .aj-imp-inner-header .navbar .aj-imp-logo a {
+  float: right;
+  display: block;
+}
+.aj-imp-inner-page-body .aj-imp-inner-page .aj-imp-inner-header .navbar .aj-imp-logo a img {
+  height: 60px;
+}
+.aj-imp-inner-page-body .aj-imp-inner-page .aj-imp-inner-header .navbar .aj-imp-dash-back {
+  color: #666666;
+  font-weight: 700;
+  font-size: 0.8em;
+}
+.aj-imp-inner-page-body .aj-imp-inner-page .aj-imp-inner-header .navbar .aj-imp-dash-back:hover {
+  color: #ff7e00;
+}
+.aj-imp-inner-page-body .aj-imp-inner-page .aj-imp-inner-header .navbar .aj-imp-inner-title {
+  font-size: 1.2em;
+  text-align: center;
+  padding-top: 0.8em;
+}
+.aj-imp-inner-page-body .aj-imp-inner-page .aj-imp-inner-body {
+  background: #fff;
+  padding: 1em;
+  margin: 1em 0;
+  box-shadow: 0 0 2px #c3c3c3;
+}
+.aj-imp-inner-page-body .aj-imp-inner-page .aj-imp-inner-body .aj-imp-tree-container .nav-tabs a {
+  color: #aaaaaa;
+}
+.aj-imp-inner-page-body .aj-imp-inner-page .aj-imp-inner-body .aj-imp-tree-container .nav-tabs a:hover {
+  color: #ff7e00;
+}
+.aj-imp-inner-page-body .aj-imp-inner-page .aj-imp-inner-body .aj-imp-tree-container .nav-tabs .active a {
+  color: #ff7e00;
 }
