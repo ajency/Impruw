@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Impruw Dash Layout</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="css/flat-ui.css" rel="stylesheet" media="screen">
+    <link href="css/main.min.css" rel="stylesheet" media="screen">
+	<link href="../css/dashboard.css" rel="stylesheet" media="screen">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="../../assets/js/html5shiv.js"></script>
+      <script src="../../assets/js/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body class="aj-imp-inner-page-body">
+    <div class="aj-imp-container container">
+		<div class="aj-imp-inner-page">
+			<div class="aj-imp-inner-header">
+				<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+					<div class="col-md-3">
+						<p class="navbar-text">
+							<a class="aj-imp-dash-back" href="dash.html"><span class="glyphicon glyphicon-arrow-left"></span> Back to Dashboard</a>
+						</p>
+					</div>
+					<div class="col-md-6">
+						<h1 class="aj-imp-inner-title">
+							Create Email
+						</h1>
+					</div>
+					<div class="col-md-3 aj-imp-logo">
+						<a href="#"><img src="images/inner-logo.png" title="Impruw" alt="Impruw" class="img-responsive" /></a>
+					</div>
+				</nav>
+			</div>
+			<div class="aj-imp-inner-body">
+				<form name="" class="form-horizontal">
+					<div class="row form-container">
+						<div class="col-md-3 aj-imp-tree-container">
+							<ul class="nav nav-tabs nav-append-content"> 
+								<li class="active"><a href="#document-fields-area" data-toggle="tab">Document Fields</a></li> 
+								<li><a href="#snippet-area" data-toggle="tab">Snippets</a></li> 
+							</ul> 
+							<div class="tab-content">
+								<div id="document-fields-area" class="tab-pane active">	
+									<div>
+										<select name="field-options" id="field-options">
+										
+											<option value="Client">Client</option>
+								   
+											<option value="Partner">Partner</option>
+										
+											<option value="Company">Company</option>
+										
+										</select>	 
+									</div>	
+									<div id="tree-view-area">
+										
+									</div>
+								</div>
+								<div id="snippet-area" class="tab-pane">	
+									 
+								</div>
+							</div>
+						</div>
+						<div class="col-md-9" id="aj-imp-email-form-container"> 
+							<article class="post-article">
+								<div id="user-alerts"></div>
+								<section id="fact-find-add-policy" class="section">												   
+									<div class="form-group">
+										<label class="col-md-2 control-label">Title</label>
+										<div class="col-md-10">
+											<input type="text" value="" placeholder="Title" name="letter-title" id="document-template-title"  class="form-control" field-type="singlevalue"> 
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-md-2 control-label">Category</label>
+										<div class="col-md-10">
+											<input type="text" value="" placeholder="Category Name" name="letter-title" id="document-template-title"  class="form-control" field-type="singlevalue" disabled> 
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-md-2 control-label">Content</label>
+										<div class="col-md-10">
+											<div id="alerts"></div>
+											<div class="jumbotron"> 
+												<div class="btn-toolbar" data-role="editor-toolbar" data-target="#editor">
+													<div class="btn-group">
+														<a class="btn dropdown-toggle" data-toggle="dropdown" title="Font"><i class="glyphicon glyphicon-font"></i><b class="caret"></b></a>
+														<ul class="dropdown-menu">
+														</ul>
+													</div>
+													<div class="btn-group">
+														<a class="btn dropdown-toggle" data-toggle="dropdown" title="Font Size"><i class="glyphicon glyphicon-text-height"></i>&nbsp;<b class="caret"></b></a>
+														<ul class="dropdown-menu">
+															<li><a data-edit="fontSize 5"><font size="5">Huge</font></a></li>
+															<li><a data-edit="fontSize 3"><font size="3">Normal</font></a></li>
+															<li><a data-edit="fontSize 1"><font size="1">Small</font></a></li>
+														</ul>
+													</div>
+													<div class="btn-group">
+														<a class="btn" data-edit="bold" title="Bold (Ctrl/Cmd+B)"><i class="glyphicon glyphglyphicon glyphicon-bold"></i></a>
+														<a class="btn" data-edit="italic" title="Italic (Ctrl/Cmd+I)"><i class="glyphicon glyphicon-italic"></i></a>
+														<a class="btn" data-edit="strikethrough" title="Strikethrough"><i class="glyphicon glyphicon-strikethrough"></i></a>
+														<a class="btn" data-edit="underline" title="Underline (Ctrl/Cmd+U)"><i class="glyphicon glyphicon-underline"></i></a>
+													</div>
+													<div class="btn-group">
+														<a class="btn" data-edit="insertunorderedlist" title="Bullet list"><i class="glyphicon glyphicon-list-ul"></i></a>
+														<a class="btn" data-edit="insertorderedlist" title="Number list"><i class="glyphicon glyphicon-list-ol"></i></a>
+														<a class="btn" data-edit="outdent" title="Reduce indent (Shift+Tab)"><i class="glyphicon glyphicon-indent-left"></i></a>
+														<a class="btn" data-edit="indent" title="Indent (Tab)"><i class="glyphicon glyphicon-indent-right"></i></a>
+													</div>
+													<div class="btn-group">
+														<a class="btn" data-edit="justifyleft" title="Align Left (Ctrl/Cmd+L)"><i class="glyphicon glyphicon-align-left"></i></a>
+														<a class="btn" data-edit="justifycenter" title="Center (Ctrl/Cmd+E)"><i class="glyphicon glyphicon-align-center"></i></a>
+														<a class="btn" data-edit="justifyright" title="Align Right (Ctrl/Cmd+R)"><i class="glyphicon glyphicon-align-right"></i></a>
+														<a class="btn" data-edit="justifyfull" title="Justify (Ctrl/Cmd+J)"><i class="glyphicon glyphicon-align-justify"></i></a>
+													</div>
+													<div class="btn-group">
+														<a class="btn dropdown-toggle" data-toggle="dropdown" title="Hyperlink"><i class="glyphicon glyphicon-link"></i></a>
+														<div class="dropdown-menu input-append">
+															<input class="col-md-2" placeholder="URL" type="text" data-edit="createLink"/>
+															<button class="btn" type="button">Add</button>
+														</div>
+														<a class="btn" data-edit="unlink" title="Remove Hyperlink"><i class="glyphicon glyphicon-cut"></i></a>
+													</div>
+											  
+													<div class="btn-group">
+														<a class="btn" title="Insert picture (or just drag & drop)" id="pictureBtn"><i class="glyphicon glyphicon-picture"></i></a>
+														<input type="file" data-role="magic-overlay" data-target="#pictureBtn" data-edit="insertImage" />
+													</div>
+													<div class="btn-group">
+														<a class="btn" data-edit="undo" title="Undo (Ctrl/Cmd+Z)"><i class="glyphicon glyphicon-undo"></i></a>
+														<a class="btn" data-edit="redo" title="Redo (Ctrl/Cmd+Y)"><i class="glyphicon glyphicon-repeat"></i></a>
+													</div>
+													<div class="btn-group">
+														<a class="input-append colorpickerBG add-on btn"  id="fcolorid" data-edit="backColor #000" data-color="rgb(255, 146, 180)" data-color-format="rgb" title="Background Color"><i class="glyphicon glyphicon-font glyphicon glyphicon-bgcolor"></i></a>    
+														<a class="input-append colorpickerFR add-on btn" data-edit="foreColor #000" data-color="rgb(255, 146, 180)" data-color-format="rgb" title="Color"><i class="glyphicon glyphicon-font glyphicon glyphicon-fgcolor"></i></a>  
+													</div>					 
+												</div>
+										
+												<div id="editor"></div>
+											</div>
+											<button type="button" id="save-document-template" class="btn btn-info btn-wide">Save</button>
+										</div>
+									</div>	
+								</section>
+							</article>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="js/jquery-2.0.3.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/flatui-checkbox.js"></script>
+    <script src="js/bootstrap-select.js"></script>
+    <script src="js/flatui-radio.js"></script>
+	<script>
+		jQuery("select").selectpicker();
+	</script>
+  </body>
+</html>
