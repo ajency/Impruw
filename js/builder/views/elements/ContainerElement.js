@@ -10,6 +10,16 @@ define(['builder/views/elements/BuilderElement', 'global'],
 
                 //set height to be assigned to placeholder and helper
                 placeHolderHeight   : 100,
+                
+                /**
+                 * Editable property
+                 */
+                editable      : false,
+                
+                /**
+                 * 
+                 */  
+                draggable     : false,
 
                 //events for view
                 events : {

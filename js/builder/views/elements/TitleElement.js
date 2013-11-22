@@ -30,8 +30,6 @@ define(['builder/views/elements/BuilderElement','text!builder/templates/elements
                  */
                 initialize : function(options){
                     
-                    _.bindAll(this,'decreaseFont','increaseFont');
-                    
                     this.parent = options.parent;
                  
                     this.id = 'title-' + global.generateRandomId();
@@ -43,25 +41,13 @@ define(['builder/views/elements/BuilderElement','text!builder/templates/elements
                     }
                     else{
                         this.setProperties(options.config);
+                        if(!_.isUndefined(options.config.className))
+                           this.contentClasses = options.config.className;
                     }
 
                     this.setParent(options.parent);
                     
-                },
-
-                
-                /**
-                 * Generates the markup for column 
-                 * and triggers the column droppable function
-                 * 
-                 * @param {type} col
-                 * @returns {_L2.Anonym$0}
-                 */        
-                render : function(){
-                    
-                    return this;
-                }   
-                
+                }
             });
             
             return TitleElement;

@@ -23,8 +23,10 @@ define(['backbone','jquery','underscore','handlebars', 'global'],
                  * @returns {undefined}
                  */
 				render : function(){
-                    
-				},
+                   
+                    return this;
+				
+                },
                 
                 /**
                  * checks the type of element
@@ -59,8 +61,9 @@ define(['backbone','jquery','underscore','handlebars', 'global'],
                  * @returns {undefined}
                  */
                 setHandlers : function(){
-
+                     
                      if(this.isDraggable()){
+                           log(this.$el.html());
                            this.$el.append('<div class="aj-imp-drag-handle">\
                                                 <p title="Move">\
                                                     <span class="icon-uniF140"></span>\
@@ -72,12 +75,23 @@ define(['backbone','jquery','underscore','handlebars', 'global'],
                     
                  },
                  
-                 /**
+                /**
                   * Set a edit handler
                   */
-                 setEditHandlers : function(){
+                setEditHandlers : function(){
                     
-                 },
+                },
+                
+               /**
+                *  Sets the classes for content
+                * @returns {undefined}
+                */
+                setContentClass : function(){
+                    
+                   if(!_.isUndefined(this.contentClasses))
+                      this.$el.children('.content').children().first().addClass(this.contentClasses);
+                   
+                },
                  
                 /**
                  * Updated the default properties for the element
@@ -152,9 +166,13 @@ define(['backbone','jquery','underscore','handlebars', 'global'],
 
                     var html = _.template(this.template);
 
-					this.$el.html();
-
-					return this.$el;
+					this.$el.html(html);
+                    
+                    this.setContentClass();
+                    
+                    this.setHandlers();
+                    
+					return this;
 				},
 
                 /**

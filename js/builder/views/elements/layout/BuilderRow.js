@@ -112,6 +112,8 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
 
                         if( !_.isUndefined(element.elements) && element.elements.length > 0)
                             column.addElement(element.elements, 0);
+                         else
+                            column.addEmptyClass();
 
                         index++;
 

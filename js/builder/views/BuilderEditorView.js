@@ -226,7 +226,9 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Elements'],
 
                                 if( !_.isUndefined(response.header.elements) && response.header.elements.length > 0)
                                     self.addElement( response.header.elements, 0, self.$el.find('header'));
-
+                                 
+                                self.enableDragDrop(); 
+                                
                               });
                         
 						return this;
@@ -260,7 +262,9 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Elements'],
 
                         if( !_.isUndefined(element.elements) && element.elements.length > 0)
                             row.addElement(element.elements, 0);
-
+                         
+                        row.adjustColumnDimension(); 
+                         
                         index++;
 
                         self.addElement(elements, index, parent);
@@ -370,7 +374,7 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Elements'],
                     this.$el.removeClass('aj-imp-builder-layout-mode').addClass('aj-imp-builder-content-mode');
 
                     this.$el.parent().addClass('aj-imp-preview');
-
+                    this.$el.addClass(this.getClasses('containerClasses'));
                     this.$el.children('header').addClass(this.getClasses('headerWrapperClasses'));
                     this.$el.children('div[data-page="true"]').addClass(this.getClasses('contentWrapperClasses'));
                     this.$el.children('footer').addClass(this.getClasses('footerWrapperClasses'));

@@ -42,8 +42,6 @@ define(['builder/views/elements/BuilderElement', 'global'],
                                     'handleElementRemove','resetHeightAuto', 'holdCurrentColRef','updateEmptyView','makeEmpty',
                                     'setCurrentClass', 'setColumnClass','getCurrentClass', 'getRowElements','getElements');
                     
-                    this.parent = options.parent;
-                    
                     this.currentClass = options.currentClass;
 
                     //listen to height change event
@@ -67,7 +65,7 @@ define(['builder/views/elements/BuilderElement', 'global'],
                     this.setParent(options.parent);
                     this.setClasses();
                     this.setHandlers();
-                    this.setColumnClass(this.currentClass);
+                    //this.setColumnClass(this.currentClass);
 
                 },
                 
@@ -88,11 +86,11 @@ define(['builder/views/elements/BuilderElement', 'global'],
                     var element = elements[index];
                     
                     //cannot add column inside a column
-                    if(element.type == 'BuilderRowColumn')
+                    if(element.type === 'BuilderRowColumn')
                         return;
 
                     var mod = '';
-                    if(element.type == 'BuilderRow'){
+                    if(element.type === 'BuilderRow'){
                         mod = 'builder/views/elements/layout/' + element.type;
                     }
                     else{
@@ -103,13 +101,19 @@ define(['builder/views/elements/BuilderElement', 'global'],
                         
                         var ele = new Element({config : element, parent : self});
                         
-                        self.$el.append(ele.render().$el);
-
+                        if(element.type === 'BuilderRow' || element.type === 'ContainerElement' )
+                           self.$el.append(ele.render().$el);
+                        else
+                           self.$el.append(ele.generateMarkup().$el);
+                        
                         self.elements.push(ele);
-
-                        if( !_.isUndefined(element.elements) && element.elements.length > 0)
+                      
+                        if( !_.isUndefined(element.elements) && element.elements.length > 0){
+                            
                             ele.addElement(element.elements, 0);
-
+        
+                        }
+                        
                         index++;
 
                         self.addElement(elements, index);
@@ -117,16 +121,25 @@ define(['builder/views/elements/BuilderElement', 'global'],
                     });
                     
                 },
-
+                
                 /**
-                * Generate template markup
-                */
-                generateTemplateMarkup : function(){
-
-
-
-                    return this.$el;
-
+                 * Adds an empty-column class 
+                 * @returns {undefined}
+                 */
+                addEmptyClass : function(){
+                   
+                   this.$el.addClass('empty-column');
+                   
+                },
+                
+                /**
+                 * Removes the empty-column class
+                 * @returns {undefined}
+                 */
+                removeEmptyClass : function(){
+                   
+                   this.$el.removeClass('empty-column');
+                   
                 },
                 
                 /**
@@ -462,7 +475,7 @@ define(['builder/views/elements/BuilderElement', 'global'],
                 */
                 setColumnClass : function(colClass){
 
-                    this.$el.removeAttr('class').attr('class','column col-sm-'+colClass);
+                    //this.$el.removeAttr('class').attr('class','column col-sm-'+colClass);
                     this.setCurrentClass(colClass);
 
                 },

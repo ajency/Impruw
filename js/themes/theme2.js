@@ -3,13 +3,11 @@ define([], function(){
 	var config = {
 
 		//name of the theme
-		name 					: 'theme1',
+		name 					: 'theme2',
 
 		template 				: 'template1',
 
-		containerClasses		: ['mainContainer','mainContainer1','one'],
-        
-        headerWrapperClasses    : [], 
+		containerClasses		: ['container','one'],
 
 		cssFiles				: [ 'bootstrap.min.css',
 									'flat-ui.css',
