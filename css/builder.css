@@ -784,13 +784,19 @@ Version:        0.1.0
 }
 .aj-imp-builder-layout-mode .row .column {
   min-height: 120px;
-  background: url(../images/empty-drag-bg.svg) no-repeat center center #ffffff;
+  background: #fff;
   height: 100%;
-  padding: 1em;
   position: relative;
   background-clip: content-box;
   padding: 0.5em;
+}
+.aj-imp-builder-layout-mode .row .column.empty-column {
+  background: url(../images/empty-drag-bg.svg) no-repeat center center #ffffff;
+  background-clip: content-box;
   background-size: contain;
+}
+.aj-imp-builder-layout-mode .row .column .container {
+  padding: 0;
 }
 .aj-imp-builder-layout-mode .row .column .row {
   margin: 0.5em;
