@@ -16,19 +16,13 @@ define([], function(){
 									type  	  : 'BuilderRow',
 									className : 'row logobar',
 									draggable : false,
+									editable    : true,
 									elements  : [{
 										type      	 : 'BuilderRowColumn',
 										className 	 : 'logo col-xs-12',
 										currentClass : 6,
 										editable     : false,
-										elements  	 : [{
-													type 		: 'TitleElement',
-													className 	: 'img-responsive'
-												},{
-													type      : 'BuilderRowColumn',
-													className : 'cta col-xs-12',
-													currentClass : 6
-												}]
+										elements  	 : []
 									},{
 										type      	 : 'BuilderRowColumn',
 										className 	 : 'col-xs-12',

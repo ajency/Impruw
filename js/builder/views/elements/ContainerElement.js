@@ -11,7 +11,7 @@ define(['builder/views/elements/BuilderElement', 'global'],
                 //set height to be assigned to placeholder and helper
                 placeHolderHeight   : 100,
 
-                //
+                //events for view
                 events : {
                     //'mouseenter'                        : 'elementMouseEnter',
                     //'mouseleave'                        : 'elementMouseLeave',
@@ -34,22 +34,30 @@ define(['builder/views/elements/BuilderElement', 'global'],
                     
                     this.$el.attr('id', this.id);
 
-                    if(_.isUndefined(options.config))
-                        return;
+                    //drop mode
+                    if(_.isUndefined(options.config)){
+                        //
+                    }
+                    else{
+                        this.setProperties(options.config);
+                    }
 
-                    this.setProperties(options.config);
-
-                    this.setClasses(options.config);
-
-                    this.addElement(options.config.elements,0, this.$el);
+                    this.setParent(options.parent);
+                    this.setClasses();
                     
                 },
-
-                addElement : function(elements, index, parent){
-
+                
+                /**
+                 * Takes and element from from array and generates the markup and append it to itself
+                 * @param {array} elements - 
+                 * @param {int} index
+                 * @returns {void}
+                 */
+                addElement : function(elements, index){
+                    console.log(index);
                     if( index >= elements.length)
                         return;
-
+                     
                     var self = this;
 
                     //add element recall
@@ -67,11 +75,14 @@ define(['builder/views/elements/BuilderElement', 'global'],
                         
                         var ele = new Element({config : element, parent : self});
 
-                        $(parent).append(ele.generateTemplateMarkup());
+                        self.$el.append(ele.render().$el);
+
+                        if( !_.isUndefined(element.elements) && element.elements.length > 0)
+                            ele.addElement(element.elements, 0);
 
                         index++;
 
-                        self.addElement(elements, index, parent);
+                        self.addElement(elements, index);
 
                     });
                     

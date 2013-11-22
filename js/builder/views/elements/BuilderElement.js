@@ -2,13 +2,19 @@ define(['backbone','jquery','underscore','handlebars', 'global'],
 		function(Backbone, $, _, Handlebars,  global){
 
 			var BuilderElement = Backbone.View.extend({
-
-                draggable   : false,
-
+               
+                /**
+                 * Draggable property
+                 */  
+                draggable   : true,
+                
+                /**
+                 * Editable property
+                 */
                 editable    : true,
                 
                 /**
-                 * 
+                 * Parent property
                  */
                 parent : null,
                 
@@ -32,11 +38,12 @@ define(['backbone','jquery','underscore','handlebars', 'global'],
                 },
 
                 /**
-                *  set classes for parent
-                */
-                setClasses : function(config){
+                 * Sets the classes for element
+                 * @returns {undefined}
+                 */
+                setClasses : function(){
 
-                    this.$el.addClass(config.className);
+                    this.$el.addClass(this.className);
 
                     if(this.isDraggable())
                         this.$el.addClass('aj-draggable');
@@ -44,11 +51,39 @@ define(['backbone','jquery','underscore','handlebars', 'global'],
                     if(this.isEditable())
                         this.$el.addClass('aj-editable');
 
-                    //set properties
-
-
                 },
+                
+                /**
+                 * Set various handlers for element
+                 * Drag handler or edit handler
+                 * @returns {undefined}
+                 */
+                setHandlers : function(){
 
+                     if(this.isDraggable()){
+                           this.$el.append('<div class="aj-imp-drag-handle">\
+                                                <p title="Move">\
+                                                    <span class="icon-uniF140"></span>\
+                                                </p>\
+                                            </div>');
+                     }
+                    
+                     this.setEditHandlers();
+                    
+                 },
+                 
+                 /**
+                  * Set a edit handler
+                  */
+                 setEditHandlers : function(){
+                    
+                 },
+                 
+                /**
+                 * Updated the default properties for the element
+                 * @param {type} config
+                 * @returns {void}
+                 */
                 setProperties : function(config){
 
                     if(!_.isUndefined(config.draggable))
@@ -57,25 +92,30 @@ define(['backbone','jquery','underscore','handlebars', 'global'],
                     if(!_.isUndefined(config.editable))
                         this.editable  = config.editable;
 
-                    
+                    if(!_.isUndefined(config.className))
+                        this.className  = config.className;
 
                 },
 
                 /**
-                *  Checks is editable
-                */
+                 * Checks if element is editable
+                 * @returns {Boolean}
+                 */
                 isEditable : function(){
 
                     return this.editable;
 
                 },
-
+                
+                /**
+                 * check if element is draggable
+                 * @returns {Boolean}
+                 */
                 isDraggable : function(){
 
                     return this.draggable;
 
                 },
-
                   
                 /**
                  * Returns the parent of the selected view
@@ -89,9 +129,7 @@ define(['backbone','jquery','underscore','handlebars', 'global'],
                     
                     return this.parent;
                 },
-                        
-                        
-                
+                                        
                 /**
                  * Set the parent element for the element
                  * @param {type} parent
@@ -107,19 +145,17 @@ define(['backbone','jquery','underscore','handlebars', 'global'],
                  * Generates the Control markup to drop
                  * @returns {unresolved}
                  */
-				generateBuilderMarkup : function(){
-					if(_.isUndefined(this.template))
+				generateMarkup : function(){
+					
+                    if(_.isUndefined(this.template))
                         return '';
 
-					this.$el.html(_.template(this.template));
+                    var html = _.template(this.template);
+
+					this.$el.html();
 
 					return this.$el;
 				},
-
-                generateTemplateMarkup : function(){
-
-                    return this.$el;
-                },
 
                 /**
                 * returns the content mode markup

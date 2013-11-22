@@ -224,10 +224,8 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Elements'],
 
 					    require([templatePath], function(response){
 
-                                self.generateHeaderMarkup(response.header);
-                                //self.generatePageMarkup(response.page);
-                                //self.generateFooterMarkup(response.footer);
-                                self.enableDragDrop();
+                                if( !_.isUndefined(response.header.elements) && response.header.elements.length > 0)
+                                    self.addElement( response.header.elements, 0, self.$el.find('header'));
 
                               });
                         
@@ -235,25 +233,11 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Elements'],
 				},
 
                 /**
-                * 
-                */
-                generateHeaderMarkup : function(header){
-
-                    var self = this;
-
-                    //this.$el.append('<header class="'+ this.getClasses('headerWrapperClasses') +'"></header>')
-                        
-                    self.addElement( header.elements, 0, this.$el.find('header'));
-
-                    
-                },
-
-                /**
                 * Adds and element to editor
                 */
                 addElement : function(elements, index, parent){
 
-                    if( _.isUndefined(elements) || index >= elements.length || elements.length === 0 )
+                    if(index >= elements.length )
                         return;
 
                     var self = this;
@@ -264,15 +248,18 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Elements'],
                     if(element.type !== 'BuilderRow')
                         return;
 
-                    var mod = 'builder/views/elements/layout/' + element.type;
+                    var mod = 'builder/views/elements/layout/BuilderRow';
                     
-                    require([mod], function(Element){
+                    require([mod], function(Row){
                         
-                        var row = new Element({config : element, parent : self});
+                        var row = new Row({config : element, parent : self});
                        
-                        $(parent).append(row.generateTemplateMarkup());
+                        $(parent).append(row.render().$el);
 
                         self.rows.push(row);
+
+                        if( !_.isUndefined(element.elements) && element.elements.length > 0)
+                            row.addElement(element.elements, 0);
 
                         index++;
 
@@ -311,8 +298,9 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Elements'],
                 },
 
                 /**
-                *
-                **/
+                 * Switch modes
+                 * @returns {undefined}
+                 */
                 switchMode : function(){
 
                     this.holdOnWhileSwitching();
