@@ -7,34 +7,45 @@ define([], function(){
 						elements : [{
 							type 			: 'BuilderRowColumn',
 							currentClass 	: 12,
+                            className       : 'topStrip', 
 							elements  	: [{
 								type 		: 'ContainerElement',
 								className 	: 'head container',
-								draggable 	: false,
-								editable    : false,
 								elements    : [{
 									type  	  : 'BuilderRow',
 									className : 'row logobar',
 									draggable : false,
+									editable  : false,
 									elements  : [{
 										type      	 : 'BuilderRowColumn',
 										className 	 : 'logo col-xs-12',
-										currentClass : 6,
-										editable     : false,
+										currentClass : 4,
 										elements  	 : [{
-													type 		: 'TitleElement',
-													className 	: 'img-responsive'
-												},{
-													type      : 'BuilderRowColumn',
-													className : 'cta col-xs-12',
-													currentClass : 6
-												}]
+                                                type      	 : 'TitleElement',
+                                                className 	 : 'logo-title',
+                                                editable     : true,
+                                                draggable    : false
+                                            }]
 									},{
 										type      	 : 'BuilderRowColumn',
 										className 	 : 'col-xs-12',
-										currentClass : 6,
-										editable     : false,
+										currentClass : 8,
 										elements  	 : []
+									}]
+								},
+                                {
+									type  	  : 'BuilderRow',
+									draggable : false,
+									editable  : false,
+									elements  : [{
+										type      	 : 'BuilderRowColumn',
+										currentClass : 12,
+										elements  	 : [{
+                                                type      	 : 'MenuElement',
+                                                className 	 : 'slimmenu menubar',
+                                                editable     : false,
+                                                draggable    : false
+                                            }]
 									}]
 								}]
 							}]

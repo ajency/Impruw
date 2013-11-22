@@ -4,7 +4,7 @@ define(['builder/views/elements/BuilderElement','text!builder/templates/elements
 			var MenuElement =   BuilderElement.extend({
 
                 //class name for view
-                className           : 'aj-imp-elem-title element',
+                className           : 'aj-imp-elem-menu element',
                 
                 //define template for control
 				template            : template,
@@ -37,6 +37,15 @@ define(['builder/views/elements/BuilderElement','text!builder/templates/elements
                     this.id = this.type + '-' + global.generateRandomId();
                     
                     this.$el.attr('id', this.id);
+                    
+                    //drop mode
+                    if(_.isUndefined(options.config)){
+                    }
+                    else{
+                        this.setProperties(options.config);
+                        if(!_.isUndefined(options.config.className))
+                           this.contentClasses = options.config.className;
+                    }
                     
                 },
                         

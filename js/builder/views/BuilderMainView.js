@@ -75,7 +75,7 @@ define(['underscore', 'jquery', 'backbone', 'builder/views/BuilderEditorView'],
             	    this.handleInitialLoader();
                 
 					//enable dragsort
-					this.builder.enableDropSort();
+					//this.builder.enableDropSort();
 				
 					return self;
 

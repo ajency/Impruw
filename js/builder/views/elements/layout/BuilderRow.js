@@ -20,13 +20,9 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                 // views
                 columns             : [],
                 
-                //total columns
-                totalColumns        : 2,
+                //initial columns
+                initialColumns      : 2,
 
-                //is sortable
-                sortable            : true,
-                
-                
 				//register events
 				events : {
 					'mouseenter'                        : 'rowMouseEnter',
@@ -47,11 +43,11 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                  */
                 initialize : function(options){
                     
-                    _.bindAll(this, 'adjustColumnsInRow', 'generateBuilderMarkup', 'sortableColumns', 'addNewColumn',
+                    _.bindAll(this, 'adjustColumnsInRow', 'generateDropMarkup', 'sortableColumns', 'addNewColumn',
                                     'columnCount', 'getColumns', 'getColumn', 'rowMouseEnter', 'rowMouseLeave', 'adjustColumnDimension',
                                     'allColumnsEmpty', 'emptyColumns', 'appendColumnResizer' , 'clearResizers', 'makeResizer','getColumnAt');
                     
-                    this.parent = options.parent;
+                    
                     
                     this.$el.attr('data-placeholder-height',this.placeHolderHeight);
                     
@@ -62,24 +58,40 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                     //set random ID for control
                     this.$el.attr('id' , this.id);
                     
-                    if(_.isUndefined(options.config))
-                        return;
+                    //drop mode
+                    if(_.isUndefined(options.config)){
 
-                    this.setProperties(options.config);
+                        this.generateDropMarkup();
+                    }
+                    else{
+                       
+                        this.setProperties(options.config);
+                    
+                   }
 
-                    this.setClasses(options.config);
-
-                    if(_.isUndefined(options.config.elements))
-                        return;
-
-                    this.addElement(options.config.elements, 0, this.$el);
+                    this.setParent(options.parent);
+                    this.setClasses();
+                    this.setHandlers();
                 
+                },
+                
+                /**
+                 * 
+                 * @returns {_L4.Anonym$1}
+                 */
+                render : function(){
+                        
+                   return this;
+                     
                 },
 
                 /**
-                *  Add a column to row
-                */
-                addElement : function(elements, index, parent){
+                 * Takes and element from from array and generates the markup and append it to itself
+                 * @param {array} elements - 
+                 * @param {int} index
+                 * @returns {void}
+                 */
+                addElement : function(elements, index){
 
                     var element = elements[index];
 
@@ -88,20 +100,24 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
 
                     var self = this;
 
-                    var mod = '';
-                    mod = 'builder/views/elements/layout/' + element.type;
+                    var mod = 'builder/views/elements/layout/BuilderRowColumn';
                     
-                    require([mod], function(Element){
+                    require([mod], function(Column){
                         
-                        var ele = new Element({config : element, parent : self});
+                        var column = new Column({config : element, parent : self});
 
-                        $(parent).append(ele.generateTemplateMarkup());
+                        self.$el.append(column.render().$el);
 
-                        self.columns.push(ele);
+                        self.columns.push(column);
+
+                        if( !_.isUndefined(element.elements) && element.elements.length > 0)
+                            column.addElement(element.elements, 0);
+                         else
+                            column.addEmptyClass();
 
                         index++;
 
-                        self.addElement(elements, index, parent);
+                        self.addElement(elements, index);
 
                     });
                     
@@ -172,12 +188,12 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                  * Generates the Control markup to drop 
                  * @returns {unresolved}
                  */
-                generateBuilderMarkup : function(){
+                generateDropMarkup : function(){
                     
                     var self = this;
                     
                     //calculate the column class
-                    var colClass = 12 / self.totalColumns;
+                    var colClass = 12 / self.initialColumns;
                     
                     //avoid object caching
                     this.columns = [];
@@ -191,24 +207,38 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                          self.$el.append(column.$el);
                          
                     }); 
-
-                    //this.appendColumnResizer();
                     
-                    //append column edit popover + drag handle + delete button
-                    this.$el.append(_.template(this.template));
-                    
-                    //set divder left
-                    this.$el.children('.aj-imp-drag-handle,.aj-imp-delete-btn,.aj-imp-col-divider,.aj-imp-col-sel').show();
                     return this.$el;
                 },
+                
+                /**
+                 * Sets the edit handler for the element
+                 * Identified by the editable property of the element
+                 * @returns {undefined}
+                 */
+                setEditHandlers : function(){
 
-                generateTemplateMarkup : function(){
-
-                    var self = this;
-                    
-
-                    
-                    return this.$el;
+                    if(this.isEditable()){
+                        this.$el.append('<div class="aj-imp-delete-btn">\
+                                            <span title="Delete">\
+                                                &times;\
+                                            </span>\
+                                        </div>\
+                                        <div class="aj-imp-col-sel tooltip fade top in">\
+                                            <div class="tooltip-arrow"></div>\
+                                            <div class="tooltip-inner">\
+                                                <label>Columns: </label>\
+                                                <ul class="clearfix">\
+                                                    <li><a href="#">1</a></li>\
+                                                    <li  class="active"><a href="#">2</a></li>\
+                                                    <li><a href="#">3</a></li>\
+                                                    <li><a href="#">4</a></li>\
+                                                    <li><a href="#">6</a></li>\
+                                                    <li><a href="#">12</a></li>\
+                                                </ul>\
+                                            </div>\
+                                        </div>');
+                    }
 
                 },
 
@@ -519,8 +549,7 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                     }); 
                     
                 },
-                   
-                
+                                  
                 /**
                  * Returns the column boject depending on col id
                  * @param {type} id

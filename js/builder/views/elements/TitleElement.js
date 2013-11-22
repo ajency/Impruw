@@ -19,9 +19,7 @@ define(['builder/views/elements/BuilderElement','text!builder/templates/elements
                 events : {
                     'mouseenter'                 : 'elementMouseEnter',
                     'mouseleave'                 : 'elementMouseLeave',
-                    'click > .aj-imp-delete-btn' : 'destroyElement',
-                    'click  a[data-action="increase"]' : 'increaseFont',
-                    'click  a[data-action="decrease"]' : 'decreaseFont',
+                    'click > .aj-imp-delete-btn' : 'destroyElement'
                 },
                 
                 /**
@@ -32,62 +30,24 @@ define(['builder/views/elements/BuilderElement','text!builder/templates/elements
                  */
                 initialize : function(options){
                     
-                    _.bindAll(this,'decreaseFont','increaseFont');
-                    
                     this.parent = options.parent;
                  
                     this.id = 'title-' + global.generateRandomId();
                     
                     this.$el.attr('id', this.id);
+
+                    //drop mode
+                    if(_.isUndefined(options.config)){
+                    }
+                    else{
+                        this.setProperties(options.config);
+                        if(!_.isUndefined(options.config.className))
+                           this.contentClasses = options.config.className;
+                    }
+
+                    this.setParent(options.parent);
                     
-                },
-
-                /**
-                * Decrease font of the title
-                */
-                decreaseFont : function(evt){
-
-                    evt.preventDefault();
-
-                    var currentSize = parseInt(this.$el.find('font').attr('size'));
-                    
-                    if(currentSize == 1)
-                        return;
-    
-                    var newSize = currentSize - 1;
-
-                    this.$el.find('font').attr('size', newSize);
-                },
-
-                /**
-                * Increase font of the title
-                */
-                increaseFont : function(evt){
-
-                    evt.preventDefault();
-
-                    var currentSize = parseInt(this.$el.find('font').attr('size'));
-                    
-                    if(currentSize == 7)
-                        return;
-
-                    var newSize = currentSize + 1;
-
-                    this.$el.find('font').attr('size', newSize);
-                },
-                        
-                /**
-                 * Generates the markup for column 
-                 * and triggers the column droppable function
-                 * 
-                 * @param {type} col
-                 * @returns {_L2.Anonym$0}
-                 */        
-                render : function(col){
-                    
-                    return this;
-                }   
-                
+                }
             });
             
             return TitleElement;
