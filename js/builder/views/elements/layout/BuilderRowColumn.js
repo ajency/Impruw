@@ -2,6 +2,8 @@ define(['builder/views/elements/BuilderElement', 'global'],
 		function( BuilderElement, global){
             "use strict";
             var BuilderRowColumn = BuilderElement.extend({
+
+                editable   : false,
                 
                 // type of element
                 type        : 'column',
@@ -30,6 +32,8 @@ define(['builder/views/elements/BuilderElement', 'global'],
                     //listen to width change event
                     this.on('width_changed',this.handleWidthChange);
 
+                    ////////////////////////////////////////////////
+
                     if(_.isUndefined(options.config))
                         return;
 
@@ -37,8 +41,13 @@ define(['builder/views/elements/BuilderElement', 'global'],
 
                     this.setClasses(options.config);
 
+                    this.setColumnClass(this.currentClass)
+
                     if(_.isUndefined(options.config.elements))
                         return;
+
+                    if(options.config.elements.length == 0)
+                        this.$el.addClass('empty-column');
 
                     this.addElement(options.config.elements, 0);
                 },
@@ -65,9 +74,7 @@ define(['builder/views/elements/BuilderElement', 'global'],
                         
                         var ele = new Element({config : element, parent : self});
                         
-                        ele.render();
-
-                        self.$el.append(ele.generateBuilderMarkup());
+                        self.$el.append(ele.generateTemplateMarkup());
 
                         self.elements.push(ele);
 
@@ -77,6 +84,17 @@ define(['builder/views/elements/BuilderElement', 'global'],
 
                     });
                     
+                },
+
+                /**
+                * Generate template markup
+                */
+                generateTemplateMarkup : function(){
+
+
+
+                    return this.$el;
+
                 },
                 
                 /**
@@ -222,7 +240,7 @@ define(['builder/views/elements/BuilderElement', 'global'],
                     //bail if helper is null
                     if(_.isNull(ui.helper)){
                         var sender = ui.item.sender;
-                        this.$el.css('background-image','url(images/clear-background.png)');
+                        this.$el.removeClass('empty-column');
                         //added new control. Now trigger parent row adjust column dimension
                         this.parent.trigger('adjust_column_dimension');
                         this.handleElementRemove(receiver, sender, elementId);
@@ -387,6 +405,8 @@ define(['builder/views/elements/BuilderElement', 'global'],
                             element.destroy();
                         
                     });
+
+                    this.$el.addClass('empty-column');
                     
                 },
 

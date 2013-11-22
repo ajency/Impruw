@@ -37,16 +37,12 @@ define(['builder/views/elements/BuilderElement', 'global'],
                     if(_.isUndefined(options.config))
                         return;
 
+                    this.setProperties(options.config);
+
                     this.setClasses(options.config);
 
-                    this.appendElements(options.config);
+                    this.addElement(options.config.elements,0, this.$el);
                     
-                },
-
-                appendElements : function(config){
-
-                    this.addElement(config.elements,0, this.$el);
-
                 },
 
                 addElement : function(elements, index, parent){
@@ -70,10 +66,8 @@ define(['builder/views/elements/BuilderElement', 'global'],
                     require([mod], function(Element){
                         
                         var ele = new Element({config : element, parent : self});
-                        
-                        ele.render();
 
-                        $(parent).append(ele.$el);
+                        $(parent).append(ele.generateTemplateMarkup());
 
                         index++;
 
@@ -81,6 +75,15 @@ define(['builder/views/elements/BuilderElement', 'global'],
 
                     });
                     
+                },
+
+                /**
+                * 
+                */
+                generateTemplateMarkup : function(){
+
+                    return this.$el;
+
                 },
                         
                 /**

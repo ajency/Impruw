@@ -230,9 +230,6 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Elements'],
                                 self.enableDragDrop();
 
                               });
-
-						
-						
                         
 						return this;
 				},
@@ -272,10 +269,8 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Elements'],
                     require([mod], function(Element){
                         
                         var row = new Element({config : element, parent : self});
-                        
-                        row.render();
-
-                        $(parent).append(row.generateBuilderMarkup());
+                       
+                        $(parent).append(row.generateTemplateMarkup());
 
                         self.rows.push(row);
 

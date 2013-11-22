@@ -3,10 +3,8 @@ define(['backbone','jquery','underscore','handlebars', 'global'],
 
 			var BuilderElement = Backbone.View.extend({
 
-                locked      : false,
+                draggable   : false,
 
-                sortable    : false,
-                
                 editable    : true,
                 
                 /**
@@ -33,15 +31,48 @@ define(['backbone','jquery','underscore','handlebars', 'global'],
                 
                 },
 
+                /**
+                *  set classes for parent
+                */
                 setClasses : function(config){
 
                     this.$el.addClass(config.className);
 
-                    if(_.isUndefined(config.movable))
-                        this.$el.addClass('movable');
+                    if(this.isDraggable())
+                        this.$el.addClass('aj-draggable');
 
-                    if(_.isUndefined(config.sortable))
-                        this.$el.addClass('sortable');
+                    if(this.isEditable())
+                        this.$el.addClass('aj-editable');
+
+                    //set properties
+
+
+                },
+
+                setProperties : function(config){
+
+                    if(!_.isUndefined(config.draggable))
+                        this.draggable = config.draggable;
+                    
+                    if(!_.isUndefined(config.editable))
+                        this.editable  = config.editable;
+
+                    
+
+                },
+
+                /**
+                *  Checks is editable
+                */
+                isEditable : function(){
+
+                    return this.editable;
+
+                },
+
+                isDraggable : function(){
+
+                    return this.draggable;
 
                 },
 
@@ -84,6 +115,11 @@ define(['backbone','jquery','underscore','handlebars', 'global'],
 
 					return this.$el;
 				},
+
+                generateTemplateMarkup : function(){
+
+                    return this.$el;
+                },
 
                 /**
                 * returns the content mode markup

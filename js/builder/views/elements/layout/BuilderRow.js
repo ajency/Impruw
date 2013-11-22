@@ -65,12 +65,15 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                     if(_.isUndefined(options.config))
                         return;
 
+                    this.setProperties(options.config);
+
                     this.setClasses(options.config);
-                    
+
                     if(_.isUndefined(options.config.elements))
                         return;
 
                     this.addElement(options.config.elements, 0, this.$el);
+                
                 },
 
                 /**
@@ -91,10 +94,8 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                     require([mod], function(Element){
                         
                         var ele = new Element({config : element, parent : self});
-                        
-                        ele.render();
 
-                        $(parent).append(ele.$el);
+                        $(parent).append(ele.generateTemplateMarkup());
 
                         self.columns.push(ele);
 
@@ -197,9 +198,18 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                     this.$el.append(_.template(this.template));
                     
                     //set divder left
-                    this.$el.children('.aj-imp-col-divider').css('left', (Math.ceil(100 / this.columns)) +'%');
                     this.$el.children('.aj-imp-drag-handle,.aj-imp-delete-btn,.aj-imp-col-divider,.aj-imp-col-sel').show();
                     return this.$el;
+                },
+
+                generateTemplateMarkup : function(){
+
+                    var self = this;
+                    
+
+                    
+                    return this.$el;
+
                 },
 
                 /**
