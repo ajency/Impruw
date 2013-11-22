@@ -20,7 +20,7 @@ Version:        0.1.0
 /****Link Styles****/
 a {
 	color: @orange;
-	&:hover {
+	&:hover, &:active, &:focus {
 		text-shadow: 1px 1px 2px lighten(@orange, 30%);
 		color: @orange;
 	}
@@ -279,6 +279,11 @@ form {
 	padding: 1em 0;
 	border-top: 1px solid lighten(@dash-grey, 25%);
 	border-bottom: 1px solid lighten(@dash-grey, 25%);
+	legend {
+		font-size: 1.3em;
+		color: @dash-grey;
+		border-bottom: 1px dotted lighten(@dash-grey, 20%); 
+	}
 	label {
 		color: darken(@dash-grey, 20%);
 		&.checkbox, &.radio {
@@ -521,4 +526,172 @@ form {
 			}
 		}
 	}
+}
+
+/****File Upload Plugin Styles****/
+.btn-file {
+	overflow: hidden;
+	position: relative;
+	vertical-align: middle;
+	&> input {
+		position: absolute;
+		top: 0;
+		right: 0;
+		margin: 0;
+		opacity: 0;
+		filter: alpha(opacity=0);
+		transform: translate(-300px, 0) scale(4);
+		font-size: 23px;
+		direction: ltr;
+		cursor: pointer;
+	}
+}
+.fileinput {
+	margin-bottom: 9px;
+	display: inline-block;
+	.uneditable-input {
+		display: inline-block;
+		margin-bottom: 0px;
+		vertical-align: middle;
+		cursor: text;
+	}
+	.thumbnail {
+		overflow: hidden;
+		display: inline-block;
+		margin-bottom: 5px;
+		vertical-align: middle;
+		text-align: center;
+		> img {
+			max-height: 100%;
+		}
+	}
+	.btn {
+		vertical-align: middle;
+	}
+}
+.fileinput-exists .fileinput-new,
+.fileinput-new .fileinput-exists {
+  display: none;
+}
+.fileinput-inline .fileinput-controls {
+  display: inline;
+}
+.fileinput .uneditable-input {
+  white-space: normal;
+}
+.fileinput-new .input-group .btn-file {
+  border-radius: 0 4px 4px 0;
+}
+.fileinput-new .input-group .btn-file.btn-xs,
+.fileinput-new .input-group .btn-file.btn-sm {
+  border-radius: 0 3px 3px 0;
+}
+.fileinput-new .input-group .btn-file.btn-lg {
+  border-radius: 0 6px 6px 0;
+}
+.form-group.has-warning .fileinput .uneditable-input {
+  color: #c09853;
+  border-color: #faebcc;
+}
+.form-group.has-warning .fileinput .fileinput-preview {
+  color: #c09853;
+}
+.form-group.has-warning .fileinput .thumbnail {
+  border-color: #faebcc;
+}
+.form-group.has-error .fileinput .uneditable-input {
+  color: #b94a48;
+  border-color: #ebccd1;
+}
+.form-group.has-error .fileinput .fileinput-preview {
+  color: #b94a48;
+}
+.form-group.has-error .fileinput .thumbnail {
+  border-color: #ebccd1;
+}
+.form-group.has-success .fileinput .uneditable-input {
+  color: #468847;
+  border-color: #d6e9c6;
+}
+.form-group.has-success .fileinput .fileinput-preview {
+  color: #468847;
+}
+.form-group.has-success .fileinput .thumbnail {
+  border-color: #d6e9c6;
+}
+.input-group-addon:not(:first-child) {
+  border-left: 0;
+}
+
+/****Row Link Styles****/
+.table.rowlink td:not(.rowlink-skip),
+.table .rowlink td:not(.rowlink-skip) {
+  cursor: pointer;
+}
+.table.rowlink td:not(.rowlink-skip) a,
+.table .rowlink td:not(.rowlink-skip) a {
+  color: inherit;
+  font: inherit;
+  text-decoration: inherit;
+}
+.table-hover.rowlink tr:hover td,
+.table-hover .rowlink tr:hover td {
+  background-color: lighten(@dash-grey, 30%);
+}
+
+/****Scroll Indicator Styles****/
+.indicator {
+  display: inline-block;
+  right: 1em;
+  padding: 0.3em;
+  background: #806973;
+  border-radius: 50%;
+  opacity: 0.5;
+  transition: opacity 0.5s;
+}
+.indicator--passed, .indicator--upcoming {
+  position: fixed;
+}
+.indicator--passed { 
+  top: 0 !important;
+}
+.indicator--upcoming { 
+  bottom: 0 !important;
+}
+.indicator--active {
+  position: absolute;
+}
+.indicator--viewing, .indicator:hover {
+  opacity: 1;
+}
+
+.indicator-tooltip {
+  position: absolute;
+  right: 2em;
+  width: 0;
+  margin-top: -1em;
+  background-color: #806973;
+  color: #FFF;
+  white-space: nowrap;
+  border-radius: 3px;
+  overflow: hidden;
+  z-index: -1;
+}
+.indicator-tooltip:after {
+  display: block;
+  content: '';
+  position: absolute;
+  right: -0.9em;
+  top: 50%;
+  width: 0;
+  height: 0;
+  margin-top: -0.4em;
+  border: 0.4em solid transparent;
+  border-left: 0.5em solid #806973;
+}
+.indicator:hover .indicator-tooltip {
+  width: auto;
+  padding: 0.5em;
+  overflow: visible;
+  z-index: 1;
 }
