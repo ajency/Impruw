@@ -610,6 +610,7 @@ Version:        0.1.0
   background: #ff7e00;
   color: #fff;
   box-shadow: 0 0 2px #aaaaaa;
+  border-radius: 6px;
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .second .aj-imp-mode-switch label {
   cursor: pointer;
@@ -978,7 +979,7 @@ Version:        0.1.0
   background: rgba(255, 255, 255, 0.9) !important;
   border: 1px solid #aaaaaa !important;
   padding: 0 !important;
-  box-shadow: 2px 2px 0px #aaaaaa;
+  box-shadow: 2px 2px 0px #aaaaaa !important;
   box-sizing: padding-box;
 }
 .cke_float .cke_inner {

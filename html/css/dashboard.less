@@ -16,6 +16,7 @@ Version:        0.1.0
 @logo-orange: #EE4423;
 @3-grey: #333333;
 @sky-blue: #71B8EC;
+@preview-grey: #F3F3F3;
 
 /****Link Styles****/
 a {
@@ -522,6 +523,51 @@ form {
 							color: @orange;
 						}
 					}
+				}
+			}
+		}
+	}
+}
+
+/****Modal Styles****/
+.modal-backdrop {
+	background: @3-grey; 
+}
+
+.modal {
+	.modal-dialog {
+		.modal-content {
+			box-shadow: 10px 10px 0 0 rgba(0, 0, 0, 0.25);
+			.modal-header {
+				background: @preview-grey;
+				padding: 0.5em 1em;
+				.modal-title {
+					color: @dash-grey;
+					text-align: center;
+					font-size: 1.5em;
+				}
+			}
+			.modal-footer {
+				padding: 0.5em 1em;
+				background: @preview-grey;
+				min-height: 2em;
+				.aj-imp-modal-save {
+					background: @orange;
+					&:hover {
+						background: lighten(@orange, 20%);
+					}
+				}
+			}
+		}
+	}
+	&.wide-modal {
+		padding: 2em;
+		.modal-dialog {
+			width: 100%;
+			.modal-content {
+				width: 100%;
+				.modal-body {
+					padding: 0.5em 0;
 				}
 			}
 		}
