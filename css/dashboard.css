@@ -685,6 +685,7 @@ form .aj-imp-submit:hover {
   background: #ff7e00;
 }
 .indicator-tooltip {
+  display: none;
   position: absolute;
   right: 2em;
   width: 0;
