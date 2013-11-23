@@ -52,6 +52,16 @@ a:focus {
 .aj-imp-container .aj-imp-left .aj-imp-dash-nav #aj-imp-dash-menu li {
   position: relative;
 }
+.aj-imp-container .aj-imp-left .aj-imp-dash-nav #aj-imp-dash-menu li .sub-menu {
+  display: none;
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0.5em 1em;
+}
+.aj-imp-container .aj-imp-left .aj-imp-dash-nav #aj-imp-dash-menu li .sub-menu li a {
+  font-size: 1.2em;
+  padding: 10px 5px 10px 80px;
+}
 .aj-imp-container .aj-imp-left .aj-imp-dash-nav #aj-imp-dash-menu li .icon {
   width: 33px;
   height: 33px;
@@ -100,14 +110,12 @@ a:focus {
 .aj-imp-container .aj-imp-left .aj-imp-dash-nav #aj-imp-dash-menu li.active {
   background: #fff;
 }
-.aj-imp-container .aj-imp-left .aj-imp-dash-nav #aj-imp-dash-menu li.active a {
+.aj-imp-container .aj-imp-left .aj-imp-dash-nav #aj-imp-dash-menu li.active .sub-menu {
+  display: block;
+}
+.aj-imp-container .aj-imp-left .aj-imp-dash-nav #aj-imp-dash-menu li.active > a {
   text-decoration: none;
   font-weight: 700;
-}
-.aj-imp-container .aj-imp-left .aj-imp-dash-nav #aj-imp-dash-menu li:hover {
-  text-indent: 10px;
-  transition-duration: 0.3s;
-  transition-timing-function: ease-in;
 }
 .aj-imp-container .aj-imp-left .aj-imp-dash-nav #aj-imp-dash-menu li:hover .icon {
   opacity: 0;
@@ -115,9 +123,12 @@ a:focus {
 .aj-imp-container .aj-imp-left .aj-imp-dash-nav #aj-imp-dash-menu li:hover .arrow {
   opacity: 1;
 }
-.aj-imp-container .aj-imp-left .aj-imp-dash-nav #aj-imp-dash-menu li:hover a {
+.aj-imp-container .aj-imp-left .aj-imp-dash-nav #aj-imp-dash-menu li:hover > a {
   text-decoration: none;
   color: #ee4423;
+  text-indent: 10px;
+  transition-duration: 0.3s;
+  transition-timing-function: ease-in;
 }
 .aj-imp-container .aj-imp-right {
   background: #fff;
@@ -280,11 +291,27 @@ form .aj-imp-submit {
 form .aj-imp-submit:hover {
   background: #ff9833;
 }
+.select .dropdown-toggle {
+  background: #fff;
+  color: #aaaaaa;
+  border: 1px solid #c3c3c3;
+}
+.select .dropdown-toggle .caret {
+  border-top-color: #aaaaaa;
+}
 .select .dropdown-menu .selected a {
   background: #ff7e00;
 }
 .select .dropdown-menu .selected a:hover {
   background: #ffb266;
+}
+.select.open .dropdown-toggle {
+  background: #fff !important;
+  color: #ff7e00 !important;
+  border-color: #ff7e00;
+}
+.select.open .dropdown-toggle .caret {
+  border-top-color: #ff7e00;
 }
 /****Register Page Styles****/
 .aj-imp-register-form {
@@ -553,6 +580,13 @@ form .aj-imp-submit:hover {
 }
 .fileinput .btn {
   vertical-align: middle;
+  padding: 0;
+  background: none;
+  color: #ff7e00;
+}
+.fileinput .btn:hover {
+  background: none;
+  color: #cc6500;
 }
 .fileinput-exists .fileinput-new,
 .fileinput-new .fileinput-exists {
@@ -626,7 +660,7 @@ form .aj-imp-submit:hover {
 .indicator {
   display: inline-block;
   right: 1em;
-  padding: 0.3em;
+  padding: 0.4em;
   background: #333333;
   border-radius: 50%;
   opacity: 0.5;

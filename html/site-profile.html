@@ -53,6 +53,17 @@
 							<span class="icon"></span>
 							<span class="arrow"></span>
 							<a href="#">Profile &amp; Billing</a>
+							<ul class="sub-menu">
+								<li>
+									<a href="#">General</a>
+								</li>
+								<li>
+									<a href="#">SEO</a>
+								</li>
+								<li>
+									<a href="#">Editors</a>
+								</li>
+							</ul>
 						</li>
 						<li class="aj-imp-nav-support">
 							<span class="icon"></span>
@@ -158,30 +169,20 @@
 								</div>
 								
 								<label for="inputEmail1" class="col-sm-2 control-label">Email</label>
-								<div class="col-sm-6">
+								<div class="col-sm-4">
 									<div class="form-group">
 										<input type="email" class="form-control" id="inputEmail1" placeholder="Email">
+										<span class="help-block"><a href="#"><span class="glyphicon glyphicon-plus-sign"></span> Add Another</a></span>
 									</div>
 								</div>
-								
-								<div class="col-sm-4">
-									<a href="#" class="btn"><span class="glyphicon glyphicon-plus"></span> Add Another</a>
-								</div>
-								
-								<div class="clearfix"></div>
 								
 								<label for="inputPhone1" class="col-sm-2 control-label">Phone</label>
-								<div class="col-sm-6">
+								<div class="col-sm-4">
 									<div class="form-group">
 										<input type="text" class="form-control" id="inputEmail1" data-mask="99-999-999" placeholder="Phone">
+										<span class="help-block"><a href="#"><span class="glyphicon glyphicon-plus-sign"></span> Add Another</a></span>
 									</div>
 								</div>
-								
-								<div class="col-sm-4">
-									<a href="#" class="btn"><span class="glyphicon glyphicon-plus"></span> Add Another</a>
-								</div>
-								
-								<div class="clearfix"></div>
 								
 								<div class="col-sm-offset-2 col-sm-10">
 									<div class="form-group">
@@ -275,7 +276,7 @@
 								
 							</form>
 						</div>
-						<div class="scroll-indicator-container" id="scr5">
+						<div class="scroll-indicator-container" id="scr5" style="margin-bottom: 5em;">
 							<h4 class="aj-imp-sub-head scroll-ref">Editors <small>Editors are other people you've allowed to edit this site.</small></h4>
 							<table class="table table-striped table-bordered table-hover">
 								<thead>
@@ -331,6 +332,7 @@
 									</tr>
 								</tbody>
 							</table>
+							<a href="#addeditorModal" class="btn btn-wide" data-toggle="modal"><span class="glyphicon glyphicon-plus"></span> Add Editor</a>
 						</div>
 					</div>
 				</div>
@@ -338,7 +340,7 @@
 		</div>
 	</div>
 	<!-- Add Editor Modal -->
-	<div class="modal wide-modal" id="rowlinkModal">
+	<div class="modal wide-modal" id="addeditorModal">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
