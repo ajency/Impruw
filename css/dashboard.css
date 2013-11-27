@@ -141,6 +141,9 @@ a:focus {
   text-align: right;
   padding-top: 10px;
 }
+.aj-imp-container .aj-imp-right .aj-imp-dash-content {
+  position: relative;
+}
 .aj-imp-container .aj-imp-right .aj-imp-dash-content .aj-imp-dash-widget .aj-imp-widget-container {
   border-radius: 0;
   color: #aaaaaa;
@@ -234,6 +237,34 @@ a:focus {
 }
 .aj-imp-container .aj-imp-right .aj-imp-dash-content.sidebar {
   padding-top: 0;
+}
+.aj-imp-container .aj-imp-right .aj-imp-dash-content .aj-imp-long-form-actions {
+  z-index: 1;
+  left: 0;
+}
+.aj-imp-container .aj-imp-right .aj-imp-dash-content .aj-imp-long-form-actions form {
+  background: #fff;
+  border: 0;
+}
+.aj-imp-container .aj-imp-right .aj-imp-dash-content .aj-imp-long-form-actions form .affix-show {
+  display: none;
+}
+.aj-imp-container .aj-imp-right .aj-imp-dash-content .aj-imp-long-form-actions.affix {
+  top: 0;
+  margin-left: 25%;
+  width: 75%;
+  padding: 0 15px;
+}
+.aj-imp-container .aj-imp-right .aj-imp-dash-content .aj-imp-long-form-actions.affix form {
+  margin: 0;
+  margin-right: 1em;
+  border-bottom: 1px solid #aaaaaa;
+}
+.aj-imp-container .aj-imp-right .aj-imp-dash-content .aj-imp-long-form-actions.affix form .affix-show {
+  display: block;
+  margin: 0 0 0.5em;
+  color: #849fb0;
+  font-size: 1.1em;
 }
 @media only screen and (min-width: 1440px) {
   /* Styles */
@@ -594,7 +625,7 @@ form .aj-imp-submit:hover {
 }
 .fileinput .btn {
   vertical-align: middle;
-  padding: 0;
+  padding: 0 1em 0 0;
   background: none;
   color: #ff7e00;
 }
@@ -671,6 +702,9 @@ form .aj-imp-submit:hover {
   background-color: #f6f6f6;
 }
 /****Scroll Indicator Styles****/
+.scroll-indicator-container {
+  padding-right: 1.5em;
+}
 .indicator {
   display: inline-block;
   right: 1em;
