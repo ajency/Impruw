@@ -11,8 +11,8 @@ require_once( '../../../../wp-load.php');
 require_once 'user_shortcodes.php';
 require_once '../User/user_management.php';
 
-
-insert_into_email_action_table();
+create_custom_tables();
+//insert_into_email_action_table();
 //remove_default_capabilities();
 //create_impruv_manager_role();
 //create_new_site(1,'childsite1','Child Site 1',4);
@@ -20,9 +20,53 @@ insert_into_email_action_table();
 //$user_roles = fetch_user_roles_by_type(18);
 //$user_ids_array = fetch_user_ids_by_role($user_roles);
 //print_r($user_ids_array);exit;
-process_email_queue();
+//process_email_queue();
 //$user_data=array("email"=>"jeromie@ajency.in","password"=>"admin","name"=>"Jeromie Vaz",'role'=>'administrator');
 //wp_impruw_create_user($user_data);
+
+function create_custom_tables()
+{
+global $wpdb;
+//table which maps actions to email_types
+$query_email_actions=("CREATE TABLE IF NOT EXISTS {$wpdb->prefix}email_actions(
+				email_action_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                                email_action_name TEXT,
+                                email_types TEXT)");
+$wpdb->query($query_email_actions);
+//table which contains all processed emails with their status
+$query_email_log=("CREATE TABLE IF NOT EXISTS {$wpdb->prefix}email_log(
+				id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                                user_id INT,
+                                process_queue_id INT,
+                                email_status TEXT,
+                                reject_reason TEXT)");
+
+$wpdb->query($query_email_log);
+
+//table which contains all the emails which need to be processed.
+$query_email_processing_queue=("CREATE TABLE IF NOT EXISTS {$wpdb->prefix}email_processing_queue(
+				id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                                post_id INT,
+                                email_category TEXT,
+                                user_id TEXT,
+                                priority INT,
+                                status TEXT,
+                                initiator_id INT,
+                                data_info TEXT)");
+
+$wpdb->query($query_email_processing_queue);
+
+//table which contains the path to different page layouts
+$query_impruw_page_layout=("CREATE TABLE IF NOT EXISTS {$wpdb->prefix}page_layouts(
+				id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                                title TEXT,
+                                type TEXT,
+                                path TEXT)");
+
+$wpdb->query($query_impruw_page_layout);
+}
+
+
 
 
 /**
