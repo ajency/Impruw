@@ -15,7 +15,7 @@
 			
 		</footer><!-- .site-footer -->
 	</div><!-- .container -->
-
+        <?php getThemeJS() ;?>
 	<?php wp_footer(); ?>
 </body>
 </html>
