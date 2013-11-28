@@ -2,7 +2,7 @@
 /**
  * The Header for our theme.
  *
- * Displays all of the <head> section and everything up till <div class="container">
+ * Displays all of the <head> section and everything up till <div class="mainContainer1">
  *
  * @package WordPress
  * @subpackage Twenty_Thirteen
@@ -27,11 +27,12 @@
 	<!--[if lt IE 9]>
 	<script src="<?php echo get_template_directory_uri(); ?>/js/html5.js"></script>
 	<![endif]-->
+        <?php getThemeCSS(); ?>
 	<?php wp_head(); ?>
 </head>
 
 <body <?php body_class(); ?>>
-    <div class="container">
+    <div class=" mainContainer1">
         <header class="site-header">
-            
+            <?php echo generateMarkup('header'); ?>
         </header><!-- .site-header -->
