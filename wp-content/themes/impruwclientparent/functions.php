@@ -1,5 +1,9 @@
 <?php
 
+define('PARENTTHEMEPATH', ABSPATH . 'wp-content/themes/impruwclientparent/');
+require_once PARENTTHEMEPATH . 'elements/Element.php';
+
+
 /**
  * Generates the markup for a specific section
  * @param type $section
@@ -28,9 +32,6 @@ function addElementMarkup($element){
     
     $html = '';
     
-    if(!isset($element['type']))
-        var_dump($element);
-        
     switch($element['type']){
 
         case 'BuilderRow':
@@ -66,69 +67,54 @@ function addElementMarkup($element){
  */
 function getBuilderRowMarkup($element){
     
-    $defaults = array('className' => 'row');
+    require_once PARENTTHEMEPATH . 'elements/BuilderRow.php';
     
-    $classnames = $defaults['className'];
+    $row = new BuilderRow($element);
     
-    if(isset($element['className']))
-        $classnames .= ' ' . $element['className'];
+    $html = $row->getOpenTag();
     
-    $html = "<div class='$classnames'>";
-    
-    if(isset($element['elements']) && count($element['elements']) > 0){
+    if($row->hasChildElements()){
         
-        
-        foreach($element['elements'] as $ele){
-        
+        foreach($row->getElements() as $ele){
+            
             $html .= addElementmarkup($ele);
-        
+            
         }
-        
+
     }
     
-    $html .= "</div>";
+    $html .= $row->getCloseTag();
     
     return $html;
     
 }
 
 /**
- * Generates the row markup
+ * Generates the column markup
  * @param type $element
  */
 function getBuilderRowColumnMarkup($element){
     
+    require_once PARENTTHEMEPATH . 'elements/BuilderRowColumn.php';
     
-    $defaults = array('className' => 'column');
+    $column = new BuilderRowColumn($element);
     
-    $classnames = $defaults['className'];
+    $html = $column->getOpenTag();
     
-    if(isset($element['className']))
-        $classnames .= ' ' . $element['className'];
-    
-    if(isset($element['currentClass']))
-         $classnames .= ' col-md-' . $element['currentClass'];
-    
-    $html = "<div class='$classnames'>";
-    
-    if(isset($element['content']))
-        $html .= ' ' . $element['content'];
-    
-    if(isset($element['elements']) && count($element['elements']) > 0){
+    if($column->hasChildElements()){
         
-        
-        foreach($element['elements'] as $ele){
-        
+        foreach($column->getElements() as $ele){
+            
             $html .= addElementmarkup($ele);
-        
+            
         }
-        
+
     }
     
-    $html .= "</div>";
+    $html .= $column->getCloseTag();
     
     return $html;
-    
+   
 }
 
 /**
@@ -137,10 +123,13 @@ function getBuilderRowColumnMarkup($element){
  */
 function getImageElementMarkup($element){
         
-    if(isset($element['content']))
-        return $element['content'];
-        
-    return '<img src="http://placehold.it/350x50" width="100%" height="100%" />';
+    require_once PARENTTHEMEPATH . 'elements/ImageElement.php';
+    
+    $image = new ImageElement($element);
+
+    $html = $image->getMarkup();
+    
+    return $html;
     
 }
 
@@ -165,8 +154,8 @@ function getMenuElementMarkup($element){
     
     $classnames = '';
     
-    if(isset($element['className']))
-        $classnames .= ' ' . $element['className'];
+    if(isset($element['extraClasses']))
+        $classnames .= ' ' . $element['extraClasses'];
     
     $html = "<ul class='$classnames'>";
     
@@ -187,26 +176,23 @@ function getMenuElementMarkup($element){
  */
 function getContainerMarkup($element){
     
-    $defaults = array('className' => 'container');
+    require_once PARENTTHEMEPATH . 'elements/ContainerElement.php';
     
-    $classnames = $defaults['className'];
+    $row = new ContainerElement($element);
     
-    if(isset($element['className']))
-        $classnames .= ' ' . $element['className'];
+    $html = $row->getOpenTag();
     
-    $html = "<div class='$classnames'>";
-    
-    if(isset($element['elements']) && count($element['elements']) > 0){
+    if($row->hasChildElements()){
         
-        foreach($element['elements'] as $ele){
-        
+        foreach($row->getElements() as $ele){
+            
             $html .= addElementmarkup($ele);
-        
+            
         }
-        
+
     }
     
-    $html .= "</div>";
+     $html .= $row->getCloseTag();
     
     return $html;
     
@@ -267,27 +253,27 @@ function show_json(){
                     'elements'  => array(
                         array(
                             'type'          => 'BuilderRowColumn',
-                            'className'     => 'topStrip',
-                            'currentClass'  => 12,
+                            'extraClasses'     => 'topStrip',
+                            'colClass'       => 12,
                             'elements'      => array(
                                 array(
                                     'type'      => 'ContainerElement',
-                                    'className' => 'head container',
+                                    'extraClasses' => 'head container',
                                     'elements'  => array(
                                         array(
                                             'type'      => 'BuilderRow',
-                                            'className' => 'row logobar',
+                                            'extraClasses' => 'row logobar',
                                             'draggable' => false,
                                             'editable'  => false,
                                             'elements'  => array(
                                                 array(
                                                     'type'          => 'BuilderRowColumn',
-                                                    'className'     => 'logo col-xs-12',
-                                                    'currentClass'  => 4,
+                                                    'extraClasses'     => 'logo col-xs-12',
+                                                    'colClass'  => 4,
                                                     'elements'      => array(
                                                         array(
                                                             'type'      => 'ImageElement',
-                                                            'className' => 'logo-title',
+                                                            'extraClasses' => 'logo-title',
                                                             'editable'  => true,
                                                             'draggable' => false,
                                                             'content'   => '<img src="'.  get_template_directory_uri().'/impruwthemes/theme1/images/logo.jpg" height="100" class="img-responsive">',
@@ -297,8 +283,8 @@ function show_json(){
                                                 ),
                                                 array(
                                                     'type'          => 'BuilderRowColumn',
-                                                    'className'     => 'cta col-xs-12',
-                                                    'currentClass'  => 8,
+                                                    'extraClasses'     => 'cta col-xs-12',
+                                                    'colClass'      => 8,
                                                     'content'       => '<div class="contact"><span class="glyphicon glyphicon-earphone"></span>+34 954 227 116</div>
 									<div class="rates"><a href="#">Check Rates</a></div>',
                                                     'elements'      => array()
@@ -312,35 +298,8 @@ function show_json(){
                                             'elements'  => array(
                                                 array(
                                                     'type'          => 'BuilderRowColumn',
-                                                    'currentClass'  => 12,
-                                                    'elements'      => array(
-                                                        array(
-                                                            'type'      => 'MenuElement',
-                                                            'className' => 'slimmenu menubar',
-                                                            'content'   => '<li class="active"><a href="index.html"><span class="glyphicon glyphicon-home"></span></a></li>
-										<li class="sub-collapser">
-											<a href="#">About Us <span class="glyphicon glyphicon-chevron-down"></span></a>
-											<ul class="dropDrown">
-											  <li><a href="content.html">abc</a></li>
-											  <li><a href="#">123</a></li>
-											</ul>
-										</li>
-										<li><a href="rooms.html">Rooms</a></li>
-										<li class="sub-collapser">
-											<a href="#">Services <span class="glyphicon glyphicon-chevron-down"></span></a>
-											<ul class="dropDrown">
-											  <li><a href="#">Action</a></li>
-											  <li><a href="#">Another action</a></li>
-											  <li><a href="#">Something else here</a></li>
-											  <li><a href="#">Separated link</a></li>
-											  <li><a href="#">One more separated link</a></li>
-											</ul>
-										</li>
-										<li><a href="#">Our Blog</a></li>
-										<li><a href="contact.html">Contacts</a></li>'
-									
-                                                        )
-                                                    )
+                                                    'colClass'      => 12,
+                                                    'elements'      => array()
                                                 )
                                             )
                                         )
@@ -361,44 +320,9 @@ function show_json(){
                 'elements'  => array(
                     array(
                         'type'          => 'BuilderRowColumn',
-                        'currentClass'  => 12,
-                        'className'     => 'slideshow',
-                        'elements'      => array(
-                                array(
-                                    'type'       => 'SliderElement',
-                                    'sliderType' => 2,
-                                    'content'    => '<div id="carousel-example-generic" class="carousel slide">
-                                                        <!-- Indicators -->
-                                                        <ol class="carousel-indicators">
-                                                              <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                                                              <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                                                              <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-                                                        </ol>
-                                                        <div class="carousel-inner">
-                                                              <div class="item active">
-                                                                <img src="'.  get_template_directory_uri().'/impruwthemes/theme1/images/slide1.jpg" alt="...">
-                                                                <div class="carousel-caption">
-                                                                      Moonlight over
-                                                                      <div class="sub-caption">October, 24 - Moonlight over Thompson - The full moon\'s light</div>
-                                                                </div>
-                                                              </div>
-                                                              <div class="item">
-                                                                <img src="'.  get_template_directory_uri().'/impruwthemes/theme1/images/slide1.jpg" alt="...">
-                                                                <div class="carousel-caption">
-                                                                      Moonlight over 2
-                                                                      <div class="sub-caption"><h6>October, 24 - Moonlight over Thompson - The full moon\'s light</h6></div>
-                                                                </div>
-                                                              </div>
-                                                        </div>
-                                                        <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
-                                                              <span class="icon-prev"></span>
-                                                        </a>
-                                                        <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
-                                                              <span class="icon-next"></span>
-                                                        </a>
-                                                     </div>'
-                                )
-                         )
+                        'colClass'  => 12,
+                        'extraClasses'     => 'slideshow',
+                        'elements'      => array()
                     )
                  )
              )
