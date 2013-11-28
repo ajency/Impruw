@@ -1,5 +1,31 @@
 <?php
+/*
+File Name: functions.php
+Description: This file has a list of the following functions used in this theme
 
+1)  generateMarkup - Generates the markup for a specific section.
+2)  addElementMarkup - function to create taxonomies under post type emails and also creates immediate, batch and marketing terms under email_type
+3)  getBuilderRowMarkup - Generates the row markup.
+4)  getBuilderRowColumnMarkup - Generates the row markup.
+5)  getImageElementMarkup - Generates the row markup.
+6)  getSliderElementMarkup - Generates the row markup.
+7)  getMenuElementMarkup - Generates the row markup.
+7)  getMenuElementMarkup - Generates the row markup.
+7)  getMenuElementMarkup - Generates the row markup.
+7)  getMenuElementMarkup - Generates the row markup.
+7)  getMenuElementMarkup - Generates the row markup.
+7)  getMenuElementMarkup - Generates the row markup.
+7)  getMenuElementMarkup - Generates the row markup.
+7)  getMenuElementMarkup - Generates the row markup.
+7)  getMenuElementMarkup - Generates the row markup.
+7)  getMenuElementMarkup - Generates the row markup.
+7)  getMenuElementMarkup - Generates the row markup.
+7)  getMenuElementMarkup - Generates the row markup.
+7)  getMenuElementMarkup - Generates the row markup.
+7)  getMenuElementMarkup - Generates the row markup.
+7)  getMenuElementMarkup - Generates the row markup.
+ */
+getThemeJS();
 /**
  * Generates the markup for a specific section
  * @param type $section
@@ -230,7 +256,18 @@ function getThemeJS(){
     ?>
     <script src="<?php echo get_template_directory_uri(); ?>/impruwthemes/js/jquery.min.js"></script>
     <script src="<?php echo get_template_directory_uri(); ?>/impruwthemes/js/bootstrap.min.js"></script>
-    <?php
+       <?php 
+    $theme_path =  get_stylesheet_directory()."/js";
+    $js_files = scandir($theme_path, 1);
+    foreach ($js_files as $key => $value)
+   {
+      if (!in_array($value,array(".","..")))
+      {
+         ?>
+             <script src="<?php echo get_template_directory_uri(); ?>/js/<?php echo $value?>"></script>
+         <?php
+      }
+    } 
 }
 
 /**
@@ -242,15 +279,19 @@ function getThemeCSS(){
     <link href="<?php echo get_template_directory_uri(); ?>/impruwthemes/css/flat-ui.css" type="text/css" rel="stylesheet"/>
     <link href="<?php echo get_template_directory_uri(); ?>/impruwthemes/theme1/css/slimmenu.min.css" type="text/css" rel="stylesheet"/>
     <link href="<?php echo get_template_directory_uri(); ?>/impruwthemes/theme1/css/style.css" type="text/css" rel="stylesheet"/>
-    <?php
+    <?php 
+    $theme_path =  get_stylesheet_directory()."/css";
+    $css_files = scandir($theme_path, 1);
+    foreach ($css_files as $key => $value)
+   {
+      if (!in_array($value,array(".","..")))
+      {
+         ?>
+             <link href="<?php echo get_template_directory_uri(); ?>/css/<?php echo $value?>" type="text/css" rel="stylesheet"/>
+          <?php
+      }
+    } 
 }
-
-function site_template_directory_uri($template_dir_uri, $template, $theme_root_uri){
-    
-    return site_url('wp-content/themes/impruwsite');
-    
-}
-add_filter('template_directory_uri','site_template_directory_uri',10,3);
 
 /**
  * JSON to be stored
