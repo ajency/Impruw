@@ -79,6 +79,13 @@ class Element {
      */
     var $elements       = array();
     
+    /**
+     * The default data property for element.
+     * used to generate the actual markup
+     * @var String 
+     */
+    var $data  =  array();
+    
     
     /**
      * Checks the type of element

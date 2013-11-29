@@ -28,14 +28,16 @@ class ImageElement extends Element {
      * All elements are draggable by defaults
      * @var boolean 
      */
-    var $tagName        = 'img';
+    var $tagName        = 'div';
     
     /**
      * The default classname property for element.
      * Empty string by default
      * @var String 
      */
-    var $className  = 'img-responsive';
+    var $className  = '';
+    
+    
     
     /**
      * The config to create a row element
@@ -47,7 +49,78 @@ class ImageElement extends Element {
             $this->extraClasses = $config['extraClasses'];
         }
         
-        $this->markup = $this->generateMarkup();
+        if(isset($config['data'])){
+            $this->data         = $config['data'];
+        }
+        
+        $this->markup           = $this->generateMarkup();
+    }
+    
+    /**
+     * Create the basic markup for an element
+     * @uses className and tagName properties of element
+     * @return String basic markup
+     */
+    function generateMarkup(){
+        
+        $html       = $this->getOpenTag();
+        
+        $html       .= $this->getImage();
+        
+        $html       .= $this->getCloseTag();
+        
+        return $html;
+    }
+    
+    /**
+     * 
+     * @return int
+     */
+    function getImageId(){
+        
+        if(isset($this->data['attachmentId'])){
+            return (int)$this->data['attachmentId'];
+        }
+        
+        return 0;
+    }
+    
+    /**
+     * 
+     * @return string
+     */
+    function getImageSize(){
+        
+        if(isset($this->data['size'])){
+            return $this->data['size'];
+        }
+        
+        return 'large';
+    }
+    
+    /**
+     * 
+     * @return string
+     */
+    function getImage(){
+        
+        $aid = $this->getImageId();
+        
+        if($aid === 0){
+            return '';
+        }
+        
+        $size = $this->getImageSize();
+        
+        $path = wp_get_attachment_image_src($aid, $size);
+        
+        if($path !== false) {
+            return "<img src='{$path[0]}' class='img-responsive' />";
+        }
+        else{
+            return "<img src='http://placehold.it/{$size[0]}x{$size[1]}' class='img-responsive' width='{$size[0]}' height='{$size[1]}'/>";
+        }
+            
     }
     
 }

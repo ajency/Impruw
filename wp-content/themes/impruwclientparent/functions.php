@@ -8,6 +8,10 @@
 define('PARENTTHEMEPATH', ABSPATH . 'wp-content/themes/impruwclientparent/');
 require_once PARENTTHEMEPATH . 'elements/Element.php';
 
+
+//add theme support
+add_theme_support('menus');
+
 /**
  * Generates the markup for a specific section
  * @param type $section
@@ -218,47 +222,52 @@ function getPageMarkupJSON($page_id){
 }
 
 /**
- * 
+ * Returns the parent theme directory path
+ * @return string
  */
-function getThemeJS(){
-    ?>
-    <script src="<?php echo get_template_directory_uri(); ?>/impruwthemes/js/jquery.min.js"></script>
-    <script src="<?php echo get_template_directory_uri(); ?>/impruwthemes/js/bootstrap.min.js"></script>
-       <?php 
-        $theme_path =  get_stylesheet_directory()."/js";
-        $js_files   = scandir($theme_path, 1);
-        foreach ($js_files as $key => $value)
-        {
-            if (!in_array($value,array(".","..")))
-            {
-             ?>
-                 <script src="<?php echo get_template_directory_uri(); ?>/js/<?php echo $value?>"></script>
-             <?php
-            }
-        } 
+function get_parent_tempalte_directory_uri(){
+    
+    $theme_root_uri = get_theme_root_uri();
+    
+    return "$theme_root_uri/impruwclientparent";
+}
+
+/**
+ * echo's the JS files for site
+ */
+function getThemeJS() {
+?>
+    <script src="<?php echo get_parent_tempalte_directory_uri(); ?>/js/jquery.min.js"></script>
+    <script src="<?php echo get_parent_tempalte_directory_uri(); ?>/js/bootstrap.min.js"></script>
+    <?php
+    $theme_path = get_stylesheet_directory() . "/js";
+    $js_files = scandir($theme_path, 1);
+    foreach ($js_files as $key => $value) {
+        if (!in_array($value, array(".", ".."))) {
+        ?>
+              <script src="<?php echo get_template_directory_uri(); ?>/js/<?php echo $value ?>"></script>
+        <?php
+        }
+    }
 }
 
 /**
  * 
  */
-function getThemeCSS(){
-    ?>
-    <link href="<?php echo get_template_directory_uri(); ?>/impruwthemes/css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
-    <link href="<?php echo get_template_directory_uri(); ?>/impruwthemes/css/flat-ui.css" type="text/css" rel="stylesheet"/>
-    <link href="<?php echo get_template_directory_uri(); ?>/impruwthemes/theme1/css/slimmenu.min.css" type="text/css" rel="stylesheet"/>
-    <link href="<?php echo get_template_directory_uri(); ?>/impruwthemes/theme1/css/style.css" type="text/css" rel="stylesheet"/>
-    <?php 
-    $theme_path =  get_stylesheet_directory()."/css";
+function getThemeCSS() {
+?>
+    <link href="<?php echo get_parent_tempalte_directory_uri(); ?>/css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
+    <link href="<?php echo get_parent_tempalte_directory_uri(); ?>/css/flat-ui.css" type="text/css" rel="stylesheet"/>
+    <?php
+    $theme_path = get_stylesheet_directory() . "/css";
     $css_files = scandir($theme_path, 1);
-    foreach ($css_files as $key => $value)
-    {
-        if (!in_array($value,array(".","..")))
-        {
-         ?>
-             <link href="<?php echo get_template_directory_uri(); ?>/css/<?php echo $value?>" type="text/css" rel="stylesheet"/>
-          <?php
+    foreach ($css_files as $key => $value) {
+        if (!in_array($value, array(".", ".."))) {
+        ?>
+            <link href="<?php echo get_template_directory_uri(); ?>/css/<?php echo $value ?>" type="text/css" rel="stylesheet"/>
+        <?php
         }
-    } 
+    }
 }
 
 /**
@@ -299,8 +308,10 @@ function show_json(){
                                                             'extraClasses' => 'logo-title',
                                                             'editable'  => true,
                                                             'draggable' => false,
-                                                            'content'   => '<img src="'.  get_template_directory_uri().'/impruwthemes/theme1/images/logo.jpg" height="100" class="img-responsive">',
-                                                    
+                                                            'data'      => array(
+                                                                'attachmentId' => 14,
+                                                                'size'         => 'large'
+                                                            )
                                                         )
                                                     )
                                                 ),

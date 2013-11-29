@@ -20,4 +20,3 @@ function site_template_directory_uri($template_dir_uri, $template, $theme_root_u
     
 }
 add_filter('template_directory_uri','site_template_directory_uri',10,3);
-?>
