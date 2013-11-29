@@ -50,7 +50,6 @@ class BuilderRow extends Element {
             $this->extraClasses = $config['extraClasses'];
         }
         
-        $this->markup = $this->generateMarkup();
     }
     
 }

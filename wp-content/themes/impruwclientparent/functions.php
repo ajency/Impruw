@@ -12,6 +12,9 @@ require_once PARENTTHEMEPATH . 'elements/Element.php';
 //add theme support
 add_theme_support('menus');
 
+//remove wordpress admin bar
+show_admin_bar(false);
+
 /**
  * Generates the markup for a specific section
  * @param type $section
@@ -61,8 +64,11 @@ function addElementMarkup($element){
         case 'MenuElement':
             $html = getMenuElementMarkup($element);
             break;
-        case 'SliderElement':
-            $html = getSliderElementMarkup($element);
+        case 'TitleElement':
+            $html = getTitleElementMarkup($element);
+            break;
+        case 'TextElement':
+            $html = getTextElementMarkup($element);
             break;
         default:
             break;
@@ -113,6 +119,8 @@ function getBuilderRowColumnMarkup($element){
     
     $html = $column->getOpenTag();
     
+    $html .= (isset($element['content']) ? $element['content'] : '');//for testing
+    
     if($column->hasChildElements()){
         
         foreach($column->getElements() as $ele){
@@ -149,6 +157,37 @@ function getImageElementMarkup($element){
  * Generates the row markup
  * @param type $element
  */
+function getTitleElementMarkup($element){
+        
+    require_once PARENTTHEMEPATH . 'elements/TitleElement.php';
+    
+    $title = new TitleElement($element);
+
+    $html = $title->getMarkup();
+    
+    return $html;
+    
+}
+
+/**
+ * Generates the text markup
+ * @param type $element
+ */
+function getTextElementMarkup($element){
+        
+    require_once PARENTTHEMEPATH . 'elements/TextElement.php';
+    
+    $text = new TextElement($element);
+
+    $html = $text->getMarkup();
+    
+    return $html;
+}
+
+/**
+ * Generates the title markup
+ * @param type $element
+ */
 function getSliderElementMarkup($element){
         
     if(isset($element['content']))
@@ -164,20 +203,11 @@ function getSliderElementMarkup($element){
  */
 function getMenuElementMarkup($element){
     
-    $classnames = '';
+    require_once PARENTTHEMEPATH . 'elements/MenuElement.php';
     
-    if(isset($element['extraClasses']))
-        $classnames .= ' ' . $element['extraClasses'];
+    $menu = new MenuElement($element);
     
-    $html = "<ul class='$classnames'>";
-    
-    if(isset($element['content']))
-        $html .= $element['content'];
-    else    
-        $html .=  '<li><a href="#">Menu 1</a></li>
-                   <li><a href="#">Menu 2</a></li>';
-    
-    $html .= '</ul>';
+    $html = $menu->getMarkup();
     
     return $html;
 }
@@ -238,8 +268,8 @@ function get_parent_tempalte_directory_uri(){
  */
 function getThemeJS(){
     ?>
-    <script src="<?php echo site_url(); ?>/wp-content/themes/impruwclientparent/js/jquery.min.js"></script>
-    <script src="<?php echo site_url(); ?>/wp-content/themes/impruwclientparent/js/bootstrap.min.js"></script>
+    <script src="<?php echo get_parent_tempalte_directory_uri(); ?>/js/jquery.min.js"></script>
+    <script src="<?php echo get_parent_tempalte_directory_uri(); ?>/js/bootstrap.min.js"></script>
        <?php 
     $theme_path =  get_stylesheet_directory()."/js";
     if(file_exists($theme_path) && is_dir($theme_path))
@@ -253,7 +283,9 @@ function getThemeJS(){
                  <script src="<?php echo get_template_directory_uri(); ?>/js/<?php echo $value?>"></script>
              <?php
           }
-        } 
+        }
+    }
+}
 
 
 /**
@@ -263,10 +295,8 @@ function getThemeJS(){
 
 function getThemeCSS(){
     ?>
-    <link href="<?php echo site_url(); ?>/wp-content/themes/impruwclientparent/css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
-    <link href="<?php echo site_url(); ?>/wp-content/themes/impruwclientparent/css/flat-ui.css" type="text/css" rel="stylesheet"/>
-    <link href="<?php echo site_url(); ?>/wp-content/themes/impruwclientparent/css/slimmenu.min.css" type="text/css" rel="stylesheet"/>
-    <link href="<?php echo site_url(); ?>/wp-content/themes/impruwclientparent/css/style.css" type="text/css" rel="stylesheet"/>
+    <link href="<?php echo get_parent_tempalte_directory_uri(); ?>/css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
+    <link href="<?php echo get_parent_tempalte_directory_uri(); ?>/css/flat-ui.css" type="text/css" rel="stylesheet"/>
     <?php 
     $theme_path =  get_stylesheet_directory()."/css";
     $css_files = scandir($theme_path, 1);
@@ -281,7 +311,8 @@ function getThemeCSS(){
               <?php
           }
         } 
-
+    }   
+}
 
 /**
  * JSON to be stored
@@ -302,9 +333,9 @@ function show_json(){
                             'colClass'       => 12,
                             'elements'      => array(
                                 array(
-                                    'type'      => 'ContainerElement',
-                                    'extraClasses' => 'head container',
-                                    'elements'  => array(
+                                    'type'          => 'ContainerElement',
+                                    'extraClasses'  => 'head container',
+                                    'elements'      => array(
                                         array(
                                             'type'      => 'BuilderRow',
                                             'extraClasses' => 'row logobar',
@@ -313,8 +344,8 @@ function show_json(){
                                             'elements'  => array(
                                                 array(
                                                     'type'          => 'BuilderRowColumn',
-                                                    'extraClasses'     => 'logo col-xs-12',
-                                                    'colClass'  => 4,
+                                                    'extraClasses'  => 'logo col-xs-12',
+                                                    'colClass'      => 4,
                                                     'elements'      => array(
                                                         array(
                                                             'type'      => 'ImageElement',
@@ -330,7 +361,7 @@ function show_json(){
                                                 ),
                                                 array(
                                                     'type'          => 'BuilderRowColumn',
-                                                    'extraClasses'     => 'cta col-xs-12',
+                                                    'extraClasses'  => 'cta col-xs-12',
                                                     'colClass'      => 8,
                                                     'content'       => '<div class="contact"><span class="glyphicon glyphicon-earphone"></span>+34 954 227 116</div>
 									<div class="rates"><a href="#">Check Rates</a></div>',
@@ -346,7 +377,17 @@ function show_json(){
                                                 array(
                                                     'type'          => 'BuilderRowColumn',
                                                     'colClass'      => 12,
-                                                    'elements'      => array()
+                                                    'elements'      => array(
+                                                        array(
+                                                            'type'      => 'MenuElement',
+                                                            'extraClasses' => 'slimmenu menubar',
+                                                            'editable'  => true,
+                                                            'draggable' => false,
+                                                            'data'      => array(
+                                                                'menuName'      => 'Main menu'
+                                                            )
+                                                        )
+                                                    )
                                                 )
                                             )
                                         )
@@ -368,16 +409,121 @@ function show_json(){
                     array(
                         'type'          => 'BuilderRowColumn',
                         'colClass'  => 12,
-                        'extraClasses'     => 'slideshow',
-                        'elements'      => array()
+                        'extraClasses'     => 'shadeBox',
+                        'elements'      => array(
+                            array(
+                                'type'          => 'ContainerElement',
+                                'extraClasses'  => 'pageContent',
+                                'elements'      => array(
+                                     array(
+                                        'type'      => 'BuilderRow',
+                                        'draggable' => false,
+                                        'editable'  => false,
+                                        'elements'  => array(
+                                             array(
+                                                'type'      => 'BuilderRowColumn',
+                                                'colClass'  => 12,
+                                                'extraClasses' => 'boxHead',
+                                                'elements'      => array(
+                                                    array(
+                                                        'type'      => 'TitleElement',
+                                                        'draggable' => false,
+                                                        'editable'  => false,
+                                                        'extraClasses' => 'boxTitle',
+                                                        'content'   => '<h3>Rooms</h3>'
+                                                    ),
+                                                    array(
+                                                        'type'      => 'TextElement',
+                                                        'draggable' => false,
+                                                        'editable'  => false,
+                                                        'extraClasses' => 'titleLink',
+                                                        'content'   => '<a href="#">View All</a>'
+                                                    )   
+                                                 )
+                                            )
+                                        )
+                                    )
+                                )
+                            )
+                        )
                     )
                  )
-             )
+             ),
+             array(
+                'type'      => 'BuilderRow',
+                'draggable' => false,
+                'editable'  => false,
+                'elements'  => array(
+                    array(
+                        'type'          => 'BuilderRowColumn',
+                        'colClass'  => 12,
+                        'elements'      => array(
+                            array(
+                                'type'          => 'ContainerElement',
+                                'extraClasses'  => 'pageContent',
+                                'elements'      => array(
+                                     array(
+                                        'type'      => 'BuilderRow',
+                                        'draggable' => false,
+                                        'editable'  => false,
+                                        'elements'  => array(
+                                             array(
+                                                'type'      => 'BuilderRowColumn',
+                                                'colClass'  => 12,
+                                                'extraClasses' => 'boxHead',
+                                                'elements'      => array(
+                                                    array(
+                                                        'type'      => 'TitleElement',
+                                                        'draggable' => false,
+                                                        'editable'  => false,
+                                                        'extraClasses' => 'boxTitle',
+                                                        'content'   => '<h3>You CAN</h3>'
+                                                    ) 
+                                                 )
+                                            )
+                                        )
+                                     ),
+                                    array(
+                                        'type'      => 'BuilderRow',
+                                        'draggable' => false,
+                                        'editable'  => false,
+                                        'elements'  => array(
+                                             array(
+                                                'type'      => 'BuilderRowColumn',
+                                                'colClass'  => 6,
+                                                'extraClasses' => 'boxContent2 divider',
+                                                'elements'      => array(
+                                                    array(
+                                                        'type'      => 'TextElement',
+                                                        'draggable' => false,
+                                                        'editable'  => false,
+                                                        'content'   => '<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English.</p>'
+                                                    ) 
+                                                 )
+                                            ),
+                                            array(
+                                                'type'      => 'BuilderRowColumn',
+                                                'colClass'  => 6,
+                                                'extraClasses' => 'boxContent2',
+                                                'elements'      => array(
+                                                    array(
+                                                        'type'      => 'AddressElement',
+                                                        'draggable' => false,
+                                                        'editable'  => false,
+                                                    ) 
+                                                 )
+                                            )
+                                        ) 
+                                    )
+                                )
+                            )
+                        )
+                    )
+                 )
+             )   
           )
        )
     );
     
-    return $json;
-  
+    return $json; 
 }
-//add_action('init','show_json');

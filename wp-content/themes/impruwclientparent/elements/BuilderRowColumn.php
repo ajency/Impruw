@@ -60,8 +60,7 @@ class BuilderRowColumn extends Element {
         if(isset($config['colClass'])){
             $this->colClass     = $config['colClass'];
         }
-        
-        $this->markup = $this->generateMarkup();
+
     }
     
     /**
