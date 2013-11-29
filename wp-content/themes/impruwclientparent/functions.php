@@ -254,20 +254,23 @@ function getPageMarkupJSON($page_id){
  */
 function getThemeJS(){
     ?>
-    <script src="<?php echo get_template_directory_uri(); ?>/impruwthemes/js/jquery.min.js"></script>
-    <script src="<?php echo get_template_directory_uri(); ?>/impruwthemes/js/bootstrap.min.js"></script>
+    <script src="<?php echo site_url(); ?>/wp-content/themes/impruwclientparent/js/jquery.min.js"></script>
+    <script src="<?php echo site_url(); ?>/wp-content/themes/impruwclientparent/js/bootstrap.min.js"></script>
        <?php 
     $theme_path =  get_stylesheet_directory()."/js";
-    $js_files = scandir($theme_path, 1);
-    foreach ($js_files as $key => $value)
-   {
-      if (!in_array($value,array(".","..")))
-      {
-         ?>
-             <script src="<?php echo get_template_directory_uri(); ?>/js/<?php echo $value?>"></script>
-         <?php
-      }
-    } 
+    if(file_exists($theme_path) && is_dir($theme_path))
+    {
+        $js_files = scandir($theme_path, 1);
+        foreach ($js_files as $key => $value)
+       {
+          if (!in_array($value,array(".","..")))
+          {
+             ?>
+                 <script src="<?php echo get_template_directory_uri(); ?>/js/<?php echo $value?>"></script>
+             <?php
+          }
+        } 
+    }
 }
 
 /**
@@ -275,22 +278,25 @@ function getThemeJS(){
  */
 function getThemeCSS(){
     ?>
-    <link href="<?php echo get_template_directory_uri(); ?>/impruwthemes/css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
-    <link href="<?php echo get_template_directory_uri(); ?>/impruwthemes/css/flat-ui.css" type="text/css" rel="stylesheet"/>
-    <link href="<?php echo get_template_directory_uri(); ?>/impruwthemes/theme1/css/slimmenu.min.css" type="text/css" rel="stylesheet"/>
-    <link href="<?php echo get_template_directory_uri(); ?>/impruwthemes/theme1/css/style.css" type="text/css" rel="stylesheet"/>
+    <link href="<?php echo site_url(); ?>/wp-content/themes/impruwclientparent/css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
+    <link href="<?php echo site_url(); ?>/wp-content/themes/impruwclientparent/css/flat-ui.css" type="text/css" rel="stylesheet"/>
+    <link href="<?php echo site_url(); ?>/wp-content/themes/impruwclientparent/css/slimmenu.min.css" type="text/css" rel="stylesheet"/>
+    <link href="<?php echo site_url(); ?>/wp-content/themes/impruwclientparent/css/style.css" type="text/css" rel="stylesheet"/>
     <?php 
     $theme_path =  get_stylesheet_directory()."/css";
     $css_files = scandir($theme_path, 1);
-    foreach ($css_files as $key => $value)
-   {
-      if (!in_array($value,array(".","..")))
-      {
-         ?>
-             <link href="<?php echo get_template_directory_uri(); ?>/css/<?php echo $value?>" type="text/css" rel="stylesheet"/>
-          <?php
-      }
-    } 
+    if(file_exists($theme_path) && is_dir($theme_path))
+    {
+        foreach ($css_files as $key => $value)
+       {
+          if (!in_array($value,array(".","..")))
+          {
+             ?>
+                 <link href="<?php echo get_template_directory_uri(); ?>/css/<?php echo $value?>" type="text/css" rel="stylesheet"/>
+              <?php
+          }
+        } 
+    }
 }
 
 /**

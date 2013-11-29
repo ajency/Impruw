@@ -79,6 +79,14 @@ function create_new_site($blog_id,$blog_name,$blog_title,$user_id)
 		$path      = $current_site->path . $domain . '/';
 	}
         
-    echo $new_blog_id = wpmu_create_blog( $newdomain, $path, $title, $user_id , array( 'public' => 1 ), $current_site->blog_id );
+    $new_blog_id = wpmu_create_blog( $newdomain, $path, $title, $user_id , array( 'public' => 1 ), $current_site->blog_id );
+    switch_to_blog($new_blog_id);
+    //start of assigning the theme when site is created.
+    $theme = wp_get_theme('impruwclientchild1'); //Change the name here to change the theme
+    if ( $theme->exists() || $theme->is_allowed() )
+    switch_theme( $theme->get_template(), $theme->get_stylesheet() );
+    //end of assigning the theme when site is created.
+    restore_current_blog();
+    echo $new_blog_id;
     
 }
