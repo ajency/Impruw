@@ -316,12 +316,15 @@
 		jPM.on();
 	</script>
 	<script>
+		jQuery(window).resize(function() { 
+			var f = jQuery('.layout-footer').height();
+			var h = jQuery(document).height() - (f);
+			jQuery('.inner-left-bar').height(h);
+		});
 		jQuery(window).load(function() { 
-			jQuery(window).resize(function() { 
-				var f = jQuery('.layout-footer').height();
-				var h = jQuery(document).height() - (f);
-				jQuery('.inner-left-bar').height(h);
-			});
+			var f = jQuery('.layout-footer').height();
+			var h = jQuery(document).height() - (f);
+			jQuery('.inner-left-bar').height(h);
 		});
 	</script>
   </body>
