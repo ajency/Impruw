@@ -70,6 +70,12 @@ function addElementMarkup($element){
         case 'TextElement':
             $html = getTextElementMarkup($element);
             break;
+        case 'AddressElement':
+            $html = getAddressElementMarkup($element);
+            break;
+        case 'SocialElement':
+            $html = getSocialElementMarkup($element);
+            break;
         default:
             break;
 
@@ -77,6 +83,7 @@ function addElementMarkup($element){
     
     return $html;
 }
+
 
 
 /**
@@ -138,7 +145,7 @@ function getBuilderRowColumnMarkup($element){
 }
 
 /**
- * Generates the row markup
+ * Generates the image markup
  * @param type $element
  */
 function getImageElementMarkup($element){
@@ -154,7 +161,39 @@ function getImageElementMarkup($element){
 }
 
 /**
- * Generates the row markup
+ * Generates the address markup
+ * @param type $element
+ */
+function getAddressElementMarkup($element){
+        
+    require_once PARENTTHEMEPATH . 'elements/AddressElement.php';
+    
+    $address = new AddressElement($element);
+
+    $html = $address->getMarkup();
+    
+    return $html;
+    
+}
+
+/**
+ * Generates the Social markup
+ * @param type $element
+ */
+function getSocialElementMarkup($element){
+        
+    require_once PARENTTHEMEPATH . 'elements/SocialElement.php';
+    
+    $social = new SocialElement($element);
+
+    $html = $social->getMarkup();
+    
+    return $html;
+    
+}
+
+/**
+ * Generates the title markup
  * @param type $element
  */
 function getTitleElementMarkup($element){
@@ -520,7 +559,66 @@ function show_json(){
                         )
                     )
                  )
-             )   
+             ),
+             array(
+                'type'      => 'BuilderRow',
+                'draggable' => false,
+                'editable'  => false,
+                'elements'  => array(
+                    array(
+                        'type'          => 'BuilderRowColumn',
+                        'colClass'      => 12,
+                        'extraClasses'  => 'socialBox shadeBox',
+                        'elements'      => array(
+                            array(
+                                'type'          => 'ContainerElement',
+                                'extraClasses'  => 'pageContent',
+                                'elements'      => array(
+                                    array(
+                                        'type'      => 'BuilderRow',
+                                        'draggable' => false,
+                                        'editable'  => false,
+                                        'elements'  => array(
+                                             array(
+                                                'type'      => 'BuilderRowColumn',
+                                                'colClass'  => 12,
+                                                'extraClasses' => 'boxHead',
+                                                'elements'      => array(
+                                                    array(
+                                                        'type'      => 'TitleElement',
+                                                        'draggable' => false,
+                                                        'editable'  => false,
+                                                        'content'   => '<div class="infoPoint">Connect With Us</div>'
+                                                    ) 
+                                                 )
+                                            )
+                                        )
+                                     ),
+                                    array(
+                                        'type'      => 'BuilderRow',
+                                        'draggable' => false,
+                                        'editable'  => false,
+                                        'elements'  => array(
+                                             array(
+                                                'type'      => 'BuilderRowColumn',
+                                                'colClass'  => 12,
+                                                'elements'      => array(
+                                                        array(
+                                                            'type'      => 'SocialElement',
+                                                            'draggable' => false,
+                                                            'editable'  => false,
+                                                            'elements'  => array() 
+                                                        )
+                                                 )
+                                            )
+                                        ) 
+                                    )
+                                )
+                            )
+                        )
+                    )
+                 )
+             ) 
           )
        )
     );
