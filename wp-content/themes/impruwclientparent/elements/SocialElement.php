@@ -1,7 +1,7 @@
 <?php
 /**
  * This class is responsible for all actions/functions related to 
- * Address Element
+ * Social Element
  *
  * @category   layout
  * @package    Impruw
@@ -15,27 +15,27 @@
  * @deprecated NA
  */
 
-class AddressElement extends Element {
+class SocialElement extends Element {
     
     /**
      * The default type property for element
      * @var String 
      */
-    var $type       = 'address';
+    var $type       = 'social';
     
     /**
      * Set draggable property of element.
      * All elements are draggable by defaults
      * @var boolean 
      */
-    var $tagName        = 'div';
+    var $tagName        = 'ul';
     
     /**
      * The default classname property for element.
      * Empty string by default
      * @var String 
      */
-    var $className  = '';
+    var $className  = 'social';
     
     
     
@@ -62,7 +62,7 @@ class AddressElement extends Element {
         
         $html       = $this->getOpenTag();
         
-        $html       .= $this->getAddress();
+        $html       .= $this->getSocialLinks();
         
         $html       .= $this->getCloseTag();
         
@@ -70,41 +70,31 @@ class AddressElement extends Element {
     }
     
     /**
-     * returns the address markup
+     * returns the getSocialLinks markup
      * @return string
      */
-    function getAddress(){
+    function getSocialLinks(){
         
         
-        $contactAt = array( "address"   => "YOUCOU 12 Seville", 
-                            "phoneno"   => "34 954 227 116", 
-                            "email"     => "info@corraldelrey.com");//get_blog_option(get_current_blog_id(), 'contact-at');
+        $socials = array( "facebook"  => "http://someurl.com", 
+                            "twitter"   => "http://someurl.com", 
+                            "pinterest" => "http://someurl.com",
+                            "flickr"    => "http://someurl.com",
+                            "google-plus"  => "http://someurl.com",
+                            "youtube"   => "http://someurl.com");//get_blog_option(get_current_blog_id(), 'contact-at');
         
-        if(!is_array($contactAt)){
+        if(!is_array($socials)){
             return '';
         }
         
-        $html = '';
+        $html = "";
         
-        foreach($contactAt as $key => $val){
-            
-            $html .= "<div class='infoPoint'>";
-            
-            switch($key){
-                case 'address':
-                    $html .= "<span class='fui-home'></span>";
-                    break;
-                case 'phoneno':
-                    $html .= '<span class="glyphicon glyphicon-earphone"></span>';
-                    break;
-                case 'email':
-                    $html .= '<span class="fui-mail"></span>';
-                    break;
-            }
-            
-            $html .= " $val</div>";
+        foreach($socials as $key => $val){
+           
+            $html .= '<li><a target="_BLANK" href="'.$val.'" aria-hidden="true" class="icon-'.$key.'"></a></li>';
             
         }
+       
         
         return $html;
             
