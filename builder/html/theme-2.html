@@ -6,6 +6,7 @@
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link href="css/flat-ui.css" rel="stylesheet" media="screen">
+	<link rel="stylesheet" href="css/slimmenu.min.css" type="text/css">
 	<link rel="stylesheet" type="text/css" href="css/zabuto_calendar.min.css">
     <link href="css/theme-2.css" rel="stylesheet" media="screen">
 
@@ -46,37 +47,34 @@
 							</div>
 						</div>
 					</div>
+					
+					<div id="left-bar-open">
+						<a href="#fakelink" class="left-menu-trigger"><span class="glyphicon glyphicon-chevron-right"></span></a>
+						<a href="#fakelink" class="logo"><img class="img-responsive" src="images/t2-logo.png" /></a>
+					</div>
 				</div>
 				<div class="col-sm-9 main-menu">
-					<nav class="navbar top-menu">
-						<div class="navbar-inner">
-						  <div class="container">
-							<button data-target="#nav-collapse-01" data-toggle="collapse" class="btn btn-navbar" type="button">
-							</button>
-							<div id="nav-collapse-01" class="nav-collapse collapse in">
-							  <ul class="nav">
-								<li class="active"><a href="#fakelink">Destinations</a></li>
-								<li>
-								  <a href="#fakelink">Special Offers <i class="glyphicon glyphicon-chevron-down"></i></a>
-								  <ul>
-									<li><a href="#fakelink">Element One</a></li>
-									<li>
-									  <a href="#fakelink">Sub menu <i class="glyphicon glyphicon-chevron-right"></i></a>
-									  <ul>
-										<li><a href="#fakelink">Element One</a></li>
-										<li><a href="#fakelink">Element Two</a></li>
-										<li><a href="#fakelink">Element Three</a></li>
-									  </ul> <!-- /Sub menu -->
-									</li>
-									<li><a href="#fakelink">Element Three</a></li>
-								  </ul> <!-- /Sub menu -->
-								</li>
-								<li><a href="#fakelink">Meetings &amp; Events</a></li>
-								<li><a href="#fakelink">Experiences</a></li>
-							  </ul> <!-- /nav -->
-							</div><!--/.nav-collapse -->
-						  </div>
-						</div>
+					<nav class="top-menu">
+					  <ul id="slim-menu" class="slimmenu">
+						<li class="active"><a href="#fakelink">Destinations</a></li>
+						<li>
+						  <a href="#fakelink">Special Offers</a>
+						  <ul>
+							<li><a href="#fakelink">Element One</a></li>
+							<li>
+							  <a href="#fakelink">Sub menu</a>
+							  <ul>
+								<li><a href="#fakelink">Element One</a></li>
+								<li><a href="#fakelink">Element Two</a></li>
+								<li><a href="#fakelink">Element Three</a></li>
+							  </ul> <!-- /Sub menu -->
+							</li>
+							<li><a href="#fakelink">Element Three</a></li>
+						  </ul> <!-- /Sub menu -->
+						</li>
+						<li><a href="#fakelink">Meetings &amp; Events</a></li>
+						<li><a href="#fakelink">Experiences</a></li>
+					  </ul> <!-- /nav -->
 					</nav>
 				</div>
 			</div>
@@ -262,7 +260,9 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
 	<script src="js/jquery.carouFredSel-6.2.1-packed.js"></script>
+	<script src="js/jquery.slimmenu.min.js"></script>
 	<script src="js/zabuto_calendar.min.js"></script>
+	<script src="js/jquery.jpanelmenu.min.js"></script>
 	
 	<script>
 		jQuery(window).load(function() {    
@@ -283,6 +283,18 @@
 			});
 		});
 	</script>
+	<script>
+		jQuery('#slim-menu').slimmenu(
+			{
+				resizeWidth: '750',
+				collapserTitle: 'Main Menu',
+				animSpeed: 'medium',
+				easingEffect: 'easeInOutSine',
+				indentChildren: false,
+				childrenIndenter: '&nbsp;'
+			}
+		);
+	</script>
 	<script type="application/javascript">
 		jQuery(document).ready(function () {
 			jQuery("#mini-calendar").zabuto_calendar({
@@ -297,10 +309,19 @@
 		});
 	</script>
 	<script>
+		var jPM = jQuery.jPanelMenu({
+			menu: '#left-bar',
+			trigger: '.left-menu-trigger'
+		});
+		jPM.on();
+	</script>
+	<script>
 		jQuery(window).load(function() { 
-			var f = jQuery('.layout-footer').height();
-			var h = jQuery(document).height() - (f);
-			jQuery('.inner-left-bar').height(h);
+			jQuery(window).resize(function() { 
+				var f = jQuery('.layout-footer').height();
+				var h = jQuery(document).height() - (f);
+				jQuery('.inner-left-bar').height(h);
+			});
 		});
 	</script>
   </body>
