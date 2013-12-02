@@ -141,7 +141,8 @@ h1, h2, h3, h4, h5, h6{
 #jPanelMenu-menu {
 	background: @red;
 	box-shadow: inset -4px 0 6px -3px @blue;
-	height: 100% !important;
+	height: auto !important;
+	overflow: visible !important;
 	.logo, .left-bar-extra {
 		display: none;
 	}
@@ -261,6 +262,7 @@ h1, h2, h3, h4, h5, h6{
 					background: @blue;
 					margin: 0;
 					padding: 0;
+					box-shadow: 0 6px 4px -4px @blue;
 					li {
 						background: @blue;
 						display: block;
