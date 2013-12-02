@@ -74,9 +74,9 @@
                                         <div class="aj-imp-color-box">
                                             <h6>Choose Color</h6>
                                             <ul class="clearfix">
-                                                <li><a href="#" class="selected"><img src="images/color-blue.png" /></a></li>
-                                                <li><a href="#"><img src="images/color-red.png" /></a></li>
-                                                <li><a href="#"><img src="images/color-green.png" /></a></li>
+                                                <li><a href="#" class="selected"><img src="<?php echo get_parent_tempalte_directory_uri(); ?>/builder/images/color-blue.png" /></a></li>
+                                                <li><a href="#"><img src="<?php echo get_parent_tempalte_directory_uri(); ?>/builder/images/color-red.png" /></a></li>
+                                                <li><a href="#"><img src="<?php echo get_parent_tempalte_directory_uri(); ?>/builder/images/color-green.png" /></a></li>
                                             </ul>
                                         </div>
                                     </li>
