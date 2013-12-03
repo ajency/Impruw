@@ -464,10 +464,10 @@ blockquote p {
   display: table;
   margin: 40px auto 80px;
 }
-.mainContainer1 .foot .pageContent .footerLinks ul {
+.mainContainer1 .foot .pageContent .footerLinks {
   padding-left: 0;
 }
-.mainContainer1 .foot .pageContent .footerLinks ul li {
+.mainContainer1 .foot .pageContent .footerLinks li {
   list-style: none;
   display: inline-block;
   padding: 10px 45px;
@@ -476,12 +476,12 @@ blockquote p {
   background: #5ca9a1;
   cursor: pointer;
 }
-.mainContainer1 .foot .pageContent .footerLinks ul li a {
+.mainContainer1 .foot .pageContent .footerLinks li a {
   font-size: 1.333em;
   color: #fff;
   font-weight: 200;
 }
-.mainContainer1 .foot .pageContent .footerLinks ul li:hover {
+.mainContainer1 .foot .pageContent .footerLinks li:hover {
   background: #fff;
   text-shadow: none;
   -webkit-transition: background-color 0.25s, color 0.25s, border-bottom-color 0.25s;
@@ -490,14 +490,14 @@ blockquote p {
   transition: background-color 0.25s, color 0.25s, border-bottom-color 0.25s;
   -webkit-backface-visibility: hidden;
 }
-.mainContainer1 .foot .pageContent .footerLinks ul li:hover a {
+.mainContainer1 .foot .pageContent .footerLinks li:hover a {
   color: #5ca9a1;
 }
 @media (max-width: 767px) {
   .mainContainer1 .foot .pageContent .footerLinks {
     margin-bottom: 25px;
   }
-  .mainContainer1 .foot .pageContent .footerLinks ul li {
+  .mainContainer1 .foot .pageContent .footerLinks li {
     text-align: center;
     width: 100%;
     margin-bottom: 5px;

@@ -657,7 +657,54 @@ function show_json(){
                         )
                     )
                  )
-             ) 
+             )
+          )
+       ),
+       'footer' => array(
+           'elements' => array(
+               array(
+                'type'      => 'BuilderRow',
+                'draggable' => false,
+                'editable'  => false,
+                'extraClasses' => 'foot',
+                'elements'  => array(
+                    array(
+                        'type'          => 'BuilderRowColumn',
+                        'colClass'      => 12,
+                        'elements'      => array(
+                            array(
+                                'type'          => 'ContainerElement',
+                                'extraClasses'  => 'pageContent',
+                                'elements'      => array(
+                                    array(
+                                        'type'      => 'BuilderRow',
+                                        'draggable' => false,
+                                        'editable'  => false,
+                                        'elements'  => array(
+                                             array(
+                                                'type'      => 'BuilderRowColumn',
+                                                'colClass'  => 12,
+                                                'elements'      => array(
+                                                    array(
+                                                            'type'          => 'MenuElement',
+                                                            'extraClasses'  => 'footerLinks text-center',
+                                                            'markupStyle'   => 'type2',
+                                                            'editable'  => true,
+                                                            'draggable' => false,
+                                                            'data'      => array(
+                                                                'menuName'      => 'Footer menu'
+                                                            )
+                                                     )
+                                                 )
+                                            )
+                                        )
+                                     )
+                                )
+                            )
+                        )
+                    )
+                 )
+              )
           )
        )
     );

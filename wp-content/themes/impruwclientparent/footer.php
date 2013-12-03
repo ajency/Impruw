@@ -12,7 +12,7 @@
 
 		
 		<footer class="site-footer">
-			
+                    <?php echo generateMarkup('footer'); ?>
 		</footer><!-- .site-footer -->
 	</div><!-- .container -->
         <?php getThemeJS() ;?>

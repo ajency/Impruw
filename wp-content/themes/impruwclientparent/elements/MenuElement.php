@@ -51,6 +51,8 @@ class MenuElement extends Element {
             $this->data   = $config['data'];
         }
         
+        $this->markupStyle   = isset($config['markupStyle']) ? $config['markupStyle'] : '';
+        
         $this->markup = $this->generateMarkup();
     }
     
@@ -83,14 +85,24 @@ class MenuElement extends Element {
         }
         
         $this->id = $this->generateRandomId();
+        $walker = null;
+        switch($this->markupStyle){
+            case 'type1':
+                $walker = new Walker_Style1_Menu();
+                break;
+            case 'type2':
+                $walker = new Walker_Style2_Menu();
+                break;
+        }
         
         $args = array(
             'echo'              => false,
+            'menu'              => $mname,
             'container'         => 'ul',
             'container_class'   => $this->getClasses(),
             'container_id'      => $this->generateRandomId(),
             'items_wrap'        => '<ul id="' . $this->id . '" class="'.$this->getClasses().'">%3$s</ul>',
-            'walker'            => new Walker_Style1_Menu()
+            'walker'            => $walker
         );
         
         return wp_nav_menu($args) . "<!--{$this->tagName}#{$this->id}-->";
@@ -169,5 +181,56 @@ class Walker_Style1_Menu extends Walker {
     function end_lvl(&$output, $depth = 0, $args = array()) {
         $output .= '</ul>';
     }
+}
 
+class Walker_Style2_Menu extends Walker {
+
+    // Tell Walker where to inherit it's parent and id values
+    var $db_fields = array(
+        'parent' => 'menu_item_parent', 
+        'id'     => 'db_id' 
+    );
+
+    /**
+     * At the start of each element, output a <li> and <a> tag structure.
+     * 
+     * Note: Menu objects include url and title properties, so we will use those.
+     */
+    function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
+            
+            $li = "\n<li class='%s'><a href='%s'>%s</a>\n";
+            
+            $class = '';
+            
+            $output .= sprintf($li,
+                                $class,
+                                $item->url,
+                                $item->title
+                            );
+    }
+    
+    function end_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
+            
+            $output .= '</li>';
+    }
+    
+    /**
+     * 
+     * @param type $output
+     * @param type $depth
+     * @param type $args
+     */
+    function start_lvl(&$output, $depth = 0, $args = array()) {
+        $output .= '<ul class="dropDrown">';
+    }
+    
+    /**
+     * 
+     * @param type $output
+     * @param type $depth
+     * @param type $args
+     */
+    function end_lvl(&$output, $depth = 0, $args = array()) {
+        $output .= '</ul>';
+    }
 }
