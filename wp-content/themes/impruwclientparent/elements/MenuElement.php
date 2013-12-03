@@ -131,8 +131,7 @@ class Walker_Style1_Menu extends Walker {
             $li = "\n<li class='%s'><a href='%s'>%s</a>\n";
             
             $class = '';
-            
-            if($item->object_id === get_the_ID()) 
+            if((int)$item->object_id === get_the_ID()) 
                     $class = 'active';
             
             if(in_array('menu-item-has-children', $item->classes)){
