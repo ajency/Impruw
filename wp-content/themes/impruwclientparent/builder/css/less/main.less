@@ -1,0 +1,72 @@
+/*
+Theme Name:     Impruw Common Styles
+Theme URI:      http://ajency.in/
+Description:    Common Style Classes
+Author:         Jarryd for Ajency.in
+Author URI:     http://ajency.in/
+Template:       impruw
+Version:        0.1.0
+*/
+ 
+/****Fonts****/ 
+/*@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);*/
+
+/****Colors****/
+@logo-blue: #182944;
+@dash-grey: #AAAAAA;
+@blue-grey: #849FB0;
+@orange: #FF7E00;
+@3-grey: #333333;
+
+/****Common Style Elements****/
+.aj-imp-page-head {
+	font-weight: 700;
+	color: @blue-grey;
+	margin: 2px 0 10px;
+	small {
+		font-weight: 300;
+		font-size: 0.6em;
+		color: darken(@dash-grey, 10%);
+	}
+}
+ 
+.aj-imp-sub-head {
+	font-weight: 700;
+	color: @dash-grey;
+	text-transform: uppercase;
+	margin: 2px 0 10px;
+	letter-spacing: 0.04em;
+	small {
+		font-weight: 300;
+		font-size: 0.6em;
+		color: darken(@dash-grey, 10%);
+		text-transform: none;
+	}
+}
+
+.aj-imp-sub-head-thin {
+	font-weight: 300;
+	color: @3-grey;
+	text-transform: uppercase;
+	margin: 2px 0 10px;
+	small {
+		font-weight: 300;
+		font-size: 0.6em;
+		color: @dash-grey;
+		text-transform: none;
+	}
+}
+
+a {
+	&.dark-link {
+		font-weight: 400;
+		color: @3-grey;
+		&:hover {
+			color: @blue-grey;
+		}
+	}
+	&.bold-link {
+		font-weight: 700;
+		font-size: 1.2em;
+	}
+}
