@@ -88,10 +88,11 @@ function create_new_site($blog_id,$blog_name,$blog_title,$user_id,$file_name)
     toggle_plugin($new_blog_id);//activating the wpml plugin for the current site.
     assign_default_language($new_blog_id,'en');
     assign_active_languages($new_blog_id);
-    $post_id = add_new_post_to_blog($new_blog_id,$user_id);
+    $post_id = add_new_post_to_blog($new_blog_id,$user_id,'Home','Home Content','page','');
     $post_nb_id = mwm_wpml_translate_post( $new_blog_id,$post_id, 'page', 'nb',$user_id);
     add_layout_site($new_blog_id,$post_id,$file_name);
-    echo $post_nb_id;exit;
+    $post_site_builder_id = add_new_post_to_blog($new_blog_id,$user_id,'Site Builder','Site Builder Content.','page','site-builder.php');
+    echo $post_site_builder_id;exit;
     
     //exit;//create a new post
     
@@ -122,20 +123,20 @@ function assign_theme_to_site($blog_id,$theme_name)
  * @param int $user_id - id of user who will be assigned the author of the post.
  * @return type
  */
-function add_new_post_to_blog($blog_id,$user_id)
+function add_new_post_to_blog($blog_id,$user_id,$post_title,$post_content,$post_type,$post_template)
 {
      switch_to_blog($blog_id);
      $my_post = array(
-       'post_title'    => 'Home',
-       'post_content'  => 'home content.',
+       'post_title'    => $post_title,
+       'post_content'  => $post_content,
        'post_status'   => 'publish',
-       'post_uthor'   => $user_id,
        'post_author'   => $user_id,
-       'post_type'     => 'page'
+       'post_type'     => $post_type
      );
 
      // Insert the post into the database
     $post_id = wp_insert_post( $my_post );
+    update_post_meta($post_id, '_wp_page_template', $post_template);
     
     //$test=icl_sitepress_activate();var_dump($test);exit;
    // echo mwm_wpml_translate_post( $post_id, 'page', 'nb' );exit;
