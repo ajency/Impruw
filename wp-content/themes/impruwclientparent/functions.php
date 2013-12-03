@@ -236,10 +236,11 @@ function get_parent_tempalte_directory_uri(){
  * getThemeCSS
  * echo's the JS files for site
  */
-function getThemeJS(){
+function getThemeJS()
+{
     ?>
-    <script src="<?php echo site_url(); ?>/wp-content/themes/impruwclientparent/js/jquery.min.js"></script>
-    <script src="<?php echo site_url(); ?>/wp-content/themes/impruwclientparent/js/bootstrap.min.js"></script>
+    <script src="<?php echo get_parent_tempalte_directory_uri(); ?>/js/jquery.min.js"></script>
+    <script src="<?php echo get_parent_tempalte_directory_uri(); ?>/js/bootstrap.min.js"></script>
        <?php 
     $theme_path =  get_stylesheet_directory()."/js";
     if(file_exists($theme_path) && is_dir($theme_path))
@@ -254,6 +255,8 @@ function getThemeJS(){
              <?php
           }
         } 
+    }
+}
 
 
 /**
@@ -261,12 +264,13 @@ function getThemeJS(){
  * echo's the JS files for site
  */
 
-function getThemeCSS(){
+function getThemeCSS()
+{
     ?>
-    <link href="<?php echo site_url(); ?>/wp-content/themes/impruwclientparent/css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
-    <link href="<?php echo site_url(); ?>/wp-content/themes/impruwclientparent/css/flat-ui.css" type="text/css" rel="stylesheet"/>
-    <link href="<?php echo site_url(); ?>/wp-content/themes/impruwclientparent/css/slimmenu.min.css" type="text/css" rel="stylesheet"/>
-    <link href="<?php echo site_url(); ?>/wp-content/themes/impruwclientparent/css/style.css" type="text/css" rel="stylesheet"/>
+    <link href="<?php echo get_parent_tempalte_directory_uri(); ?>/css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
+    <link href="<?php echo get_parent_tempalte_directory_uri(); ?>/css/flat-ui.css" type="text/css" rel="stylesheet"/>
+    <link href="<?php echo get_parent_tempalte_directory_uri(); ?>/css/slimmenu.min.css" type="text/css" rel="stylesheet"/>
+    <link href="<?php echo get_parent_tempalte_directory_uri(); ?>/css/style.css" type="text/css" rel="stylesheet"/>
     <?php 
     $theme_path =  get_stylesheet_directory()."/css";
     $css_files = scandir($theme_path, 1);
@@ -281,6 +285,8 @@ function getThemeCSS(){
               <?php
           }
         } 
+    }
+}
 
 
 /**

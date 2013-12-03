@@ -5,9 +5,10 @@
  * Description : Contains a list of function to run at setup as follows:
  * 1) remove_default_capabilities - Function to remove default worpress roles from site.
  * 2) create_impruve_manager_role - Function to create a new user role called Impruw Manager having same capabilities as the super admin.
- * 
+ * 3) add_to_page_layouts - Function to add filenames in layout table.
  */
 require_once( '../../../../wp-load.php');
+require_once('../../../../wp-admin/includes/plugin.php');
 require_once 'user_shortcodes.php';
 require_once '../User/user_management.php';
 
@@ -15,10 +16,13 @@ create_custom_tables();
 remove_default_capabilities();
 create_impruv_manager_role();
 insert_into_email_action_table();
+add_to_page_layouts();
 //$user_data=array("email"=>"jeromie@ajency.in","password"=>"admin","name"=>"Jeromie Vaz",'role'=>'administrator');
 //wp_impruw_create_user($user_data);
-
-create_new_site(1,'childsite5','Child Site 5',3);
+//$_REQUEST['action'] = 'activate';
+//$_REQUEST['_wpnonce'] = wp_create_nonce();
+//var_dump(toggle_plugin(23));exit;
+create_new_site(1,'childsite1','Child Site 1',3,'home1_layout.php');
 //$user_data=array();
 //$user_roles = fetch_user_roles_by_type(18);
 //$user_ids_array = fetch_user_ids_by_role($user_roles);
@@ -131,5 +135,32 @@ function insert_into_email_action_table()
        $update_action_emails_query=("UPDATE {$wpdb->prefix}email_actions SET email_types="."'$registrayion_email_types_array'"." WHERE email_action_name="."'registration'");
        $wpdb->query($update_action_emails_query);  
     }
+}
+
+/**
+ * add_to_page_layouts
+ * Function to add filenames in layout table.
+ */
+function add_to_page_layouts()
+{
+    global $wpdb;
+    $title = "home1_layout";
+    $type = "home";
+    $path = "home1_layout.php";
+   
+    $layout_data_query = ("SELECT * from {$wpdb->prefix}page_layouts where path='".$path."'");
+    $layout_data = $wpdb->get_row($layout_data_query);
+    if(count($layout_data) == 0)
+    {
+    $wpdb->insert( 
+	$wpdb->prefix.'page_layouts', 
+	array( 
+		'title' => $title, 
+		'type' => $type,
+                'path' => $path
+             )
+        );
+    }
+   
 }
 
