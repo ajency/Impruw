@@ -76,6 +76,9 @@ function addElementMarkup($element){
         case 'SocialElement':
             $html = getSocialElementMarkup($element);
             break;
+        case 'SliderElement':
+            $html = getSliderElementMarkup($element);
+            break;
         default:
             break;
 
@@ -229,10 +232,13 @@ function getTextElementMarkup($element){
  */
 function getSliderElementMarkup($element){
         
-    if(isset($element['content']))
-        return $element['content'];
-        
-    return '<img src="http://placehold.it/350x50" width="100%" height="100%" />';
+    require_once PARENTTHEMEPATH . 'elements/SliderElement.php';
+    
+    $slider = new SliderElement($element);
+
+    $html = $slider->getMarkup();
+    
+    return $html;
     
 }
 
@@ -294,7 +300,7 @@ function getPageMarkupJSON($page_id){
  * Returns the parent theme directory path
  * @return string
  */
-function get_parent_tempalte_directory_uri(){
+function get_parent_template_directory_uri(){
     
     $theme_root_uri = get_theme_root_uri();
     
@@ -305,50 +311,62 @@ function get_parent_tempalte_directory_uri(){
  * getThemeCSS
  * echo's the JS files for site
  */
-function getThemeJS(){
+function getThemeJS()
+{
     ?>
-    <script src="<?php echo get_parent_tempalte_directory_uri(); ?>/js/jquery.min.js"></script>
-    <script src="<?php echo get_parent_tempalte_directory_uri(); ?>/js/bootstrap.min.js"></script>
+    <script src="<?php echo get_parent_template_directory_uri(); ?>/js/jquery.min.js"></script>
+    <script src="<?php echo get_parent_template_directory_uri(); ?>/js/bootstrap.min.js"></script>
        <?php 
-    $theme_path =  get_stylesheet_directory()."/js";
-    if(file_exists($theme_path) && is_dir($theme_path))
-    {
+        $theme_path =  get_stylesheet_directory()."/js";
+        if(file_exists($theme_path) && is_dir($theme_path)){
+    
         $js_files = scandir($theme_path, 1);
-        foreach ($js_files as $key => $value)
-       {
-          if (!in_array($value,array(".","..")))
-          {
-             ?>
-                 <script src="<?php echo get_template_directory_uri(); ?>/js/<?php echo $value?>"></script>
-             <?php
-          }
+        foreach ($js_files as $key => $value){
+            if (!in_array($value,array(".",".."))){
+                $files[] = $value;
+            }
         }
+        
+        asort($files);
+        
+        foreach ($files as $file){
+        ?>
+            <script src="<?php echo get_template_directory_uri(); ?>/js/<?php echo $file?>"></script>
+        <?php
+        } 
     }
 }
-
+?>
+                 <?php
 
 /**
  * getThemeCSS
  * echo's the JS files for site
  */
 
-function getThemeCSS(){
+function getThemeCSS()
+{
     ?>
-    <link href="<?php echo get_parent_tempalte_directory_uri(); ?>/css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
-    <link href="<?php echo get_parent_tempalte_directory_uri(); ?>/css/flat-ui.css" type="text/css" rel="stylesheet"/>
+    <link href="<?php echo get_parent_template_directory_uri(); ?>/css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
+    <link href="<?php echo get_parent_template_directory_uri(); ?>/css/flat-ui.css" type="text/css" rel="stylesheet"/>
     <?php 
     $theme_path =  get_stylesheet_directory()."/css";
     $css_files = scandir($theme_path, 1);
-    if(file_exists($theme_path) && is_dir($theme_path))
-    {
-        foreach ($css_files as $key => $value)
-       {
-          if (!in_array($value,array(".","..")))
-          {
-             ?>
-                 <link href="<?php echo get_template_directory_uri(); ?>/css/<?php echo $value?>" type="text/css" rel="stylesheet"/>
-              <?php
-          }
+    $files = array();
+    if(file_exists($theme_path) && is_dir($theme_path)){
+        
+        foreach ($css_files as $key => $value){
+            
+            if (!in_array($value,array(".",".."))){
+          
+                $files[]  = $value; 
+
+            }
+        } 
+        asort($files);
+        
+        foreach ($files as $file){
+            echo "<link rel='stylesheet' href='". get_template_directory_uri() ."/css/$file' type='text/css'/>";
         } 
     }   
 }
@@ -418,8 +436,9 @@ function show_json(){
                                                     'colClass'      => 12,
                                                     'elements'      => array(
                                                         array(
-                                                            'type'      => 'MenuElement',
-                                                            'extraClasses' => 'slimmenu menubar',
+                                                            'type'          => 'MenuElement',
+                                                            'extraClasses'  => 'slimmenu menubar',
+                                                            'markupStyle'   => 'type1',
                                                             'editable'  => true,
                                                             'draggable' => false,
                                                             'data'      => array(
@@ -440,6 +459,26 @@ function show_json(){
         ),
         'page' => array(
             'elements' => array(
+                array(
+                   'type'      => 'BuilderRow',
+                   'draggable' => false,
+                   'editable'  => false,
+                   'elements'  => array(
+                       array(
+                           'type'          => 'BuilderRowColumn',
+                           'colClass'  => 12,
+                           'extraClasses'     => 'slideshow',
+                           'elements'      => array(
+                                   array(
+                                      'type'      => 'SliderElement',
+                                      'draggable' => false,
+                                      'editable'  => false,
+                                      'extraClasses' => 'slide'
+                                  )
+                               )
+                           )
+                       )
+                ),
                 array(
                 'type'      => 'BuilderRow',
                 'draggable' => false,
@@ -618,7 +657,54 @@ function show_json(){
                         )
                     )
                  )
-             ) 
+             )
+          )
+       ),
+       'footer' => array(
+           'elements' => array(
+               array(
+                'type'      => 'BuilderRow',
+                'draggable' => false,
+                'editable'  => false,
+                'extraClasses' => 'foot',
+                'elements'  => array(
+                    array(
+                        'type'          => 'BuilderRowColumn',
+                        'colClass'      => 12,
+                        'elements'      => array(
+                            array(
+                                'type'          => 'ContainerElement',
+                                'extraClasses'  => 'pageContent',
+                                'elements'      => array(
+                                    array(
+                                        'type'      => 'BuilderRow',
+                                        'draggable' => false,
+                                        'editable'  => false,
+                                        'elements'  => array(
+                                             array(
+                                                'type'      => 'BuilderRowColumn',
+                                                'colClass'  => 12,
+                                                'elements'      => array(
+                                                    array(
+                                                            'type'          => 'MenuElement',
+                                                            'extraClasses'  => 'footerLinks text-center',
+                                                            'markupStyle'   => 'type2',
+                                                            'editable'  => true,
+                                                            'draggable' => false,
+                                                            'data'      => array(
+                                                                'menuName'      => 'Footer menu'
+                                                            )
+                                                     )
+                                                 )
+                                            )
+                                        )
+                                     )
+                                )
+                            )
+                        )
+                    )
+                 )
+              )
           )
        )
     );

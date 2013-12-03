@@ -51,6 +51,8 @@ class MenuElement extends Element {
             $this->data   = $config['data'];
         }
         
+        $this->markupStyle   = isset($config['markupStyle']) ? $config['markupStyle'] : '';
+        
         $this->markup = $this->generateMarkup();
     }
     
@@ -82,35 +84,28 @@ class MenuElement extends Element {
             return '';
         }
         
+        $this->id = $this->generateRandomId();
+        $walker = null;
+        switch($this->markupStyle){
+            case 'type1':
+                $walker = new Walker_Style1_Menu();
+                break;
+            case 'type2':
+                $walker = new Walker_Style2_Menu();
+                break;
+        }
+        
         $args = array(
             'echo'              => false,
+            'menu'              => $mname,
             'container'         => 'ul',
             'container_class'   => $this->getClasses(),
             'container_id'      => $this->generateRandomId(),
-            'items_wrap'        => '<ul id="'. $this->generateRandomId(). '" class="'.$this->getClasses().'">%3$s</ul>'
+            'items_wrap'        => '<ul id="' . $this->id . '" class="'.$this->getClasses().'">%3$s</ul>',
+            'walker'            => $walker
         );
         
-//        $menu_items = wp_get_nav_menu_items($mname);
-//        _wp_menu_item_classes_by_context($menu_items);
-//        $sorted_menu_items = $menu_items_with_children = array();
-//	foreach ((array) $menu_items as $menu_item) {
-//            $sorted_menu_items[$menu_item->menu_order] = $menu_item;
-//            if ($menu_item->menu_item_parent)
-//                $menu_items_with_children[$menu_item->menu_item_parent] = true;
-//        }
-//
-//        // Add the menu-item-has-children class where applicable
-//        if ($menu_items_with_children) {
-//            foreach ($sorted_menu_items as &$menu_item) {
-//                if (isset($menu_items_with_children[$menu_item->ID]))
-//                    $menu_item->classes[] = 'sub-collapser';
-//            }
-//        }
-//
-//        unset( $menu_items, $menu_item );
-//        print_r($sorted_menu_items);
-        
-        return wp_nav_menu($args);
+        return wp_nav_menu($args) . "<!--{$this->tagName}#{$this->id}-->";
        
     }
     
@@ -127,4 +122,115 @@ class MenuElement extends Element {
         return '';
     }
     
+}
+
+
+class Walker_Style1_Menu extends Walker {
+
+    // Tell Walker where to inherit it's parent and id values
+    var $db_fields = array(
+        'parent' => 'menu_item_parent', 
+        'id'     => 'db_id' 
+    );
+
+    /**
+     * At the start of each element, output a <li> and <a> tag structure.
+     * 
+     * Note: Menu objects include url and title properties, so we will use those.
+     */
+    function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
+            
+            $li = "\n<li class='%s'><a href='%s'>%s</a>\n";
+            
+            $class = '';
+            if((int)$item->object_id === get_the_ID()) 
+                    $class = 'active';
+            
+            if(in_array('menu-item-has-children', $item->classes)){
+                $class = 'sub-collapser';
+                $li = "\n<li class='%s'><a href='%s'>%s <span class='glyphicon glyphicon-chevron-down'></span></a>\n";
+            }
+            $output .= sprintf($li,
+                                $class,
+                                $item->url,
+                                (int)$item->menu_order === 1 ? '<span class="glyphicon glyphicon-home"></span>' : $item->title
+                            );
+    }
+    
+    function end_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
+            
+            $output .= '</li>';
+    }
+    
+    /**
+     * 
+     * @param type $output
+     * @param type $depth
+     * @param type $args
+     */
+    function start_lvl(&$output, $depth = 0, $args = array()) {
+        $output .= '<ul class="dropDrown">';
+    }
+    
+    /**
+     * 
+     * @param type $output
+     * @param type $depth
+     * @param type $args
+     */
+    function end_lvl(&$output, $depth = 0, $args = array()) {
+        $output .= '</ul>';
+    }
+}
+
+class Walker_Style2_Menu extends Walker {
+
+    // Tell Walker where to inherit it's parent and id values
+    var $db_fields = array(
+        'parent' => 'menu_item_parent', 
+        'id'     => 'db_id' 
+    );
+
+    /**
+     * At the start of each element, output a <li> and <a> tag structure.
+     * 
+     * Note: Menu objects include url and title properties, so we will use those.
+     */
+    function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
+            
+            $li = "\n<li class='%s'><a href='%s'>%s</a>\n";
+            
+            $class = '';
+            
+            $output .= sprintf($li,
+                                $class,
+                                $item->url,
+                                $item->title
+                            );
+    }
+    
+    function end_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
+            
+            $output .= '</li>';
+    }
+    
+    /**
+     * 
+     * @param type $output
+     * @param type $depth
+     * @param type $args
+     */
+    function start_lvl(&$output, $depth = 0, $args = array()) {
+        $output .= '<ul class="dropDrown">';
+    }
+    
+    /**
+     * 
+     * @param type $output
+     * @param type $depth
+     * @param type $args
+     */
+    function end_lvl(&$output, $depth = 0, $args = array()) {
+        $output .= '</ul>';
+    }
 }

@@ -97,8 +97,8 @@
     </div><!-- .container -->
     <!-- TRIGGER REQUIRE.JS -->
     <script>
-        var THEMEURL = '<?php echo get_parent_tempalte_directory_uri(); ?>';
+        var THEMEURL = '<?php echo get_parent_template_directory_uri(); ?>';
     </script> 
-    <script data-main="<?php echo get_parent_tempalte_directory_uri(); ?>/builder/js/init" src="<?php echo get_parent_tempalte_directory_uri(); ?>/builder/js/require.js"></script>
+    <script data-main="<?php echo get_parent_template_directory_uri(); ?>/builder/js/init" src="<?php echo get_parent_template_directory_uri(); ?>/builder/js/require.js"></script>
 </body>
 </html>
