@@ -305,7 +305,8 @@ function get_parent_template_directory_uri(){
  * getThemeCSS
  * echo's the JS files for site
  */
-function getThemeJS(){
+function getThemeJS()
+{
     ?>
     <script src="<?php echo get_parent_template_directory_uri(); ?>/js/jquery.min.js"></script>
     <script src="<?php echo get_parent_template_directory_uri(); ?>/js/bootstrap.min.js"></script>
@@ -337,7 +338,8 @@ function getThemeJS(){
  * echo's the JS files for site
  */
 
-function getThemeCSS(){
+function getThemeCSS()
+{
     ?>
     <link href="<?php echo get_parent_template_directory_uri(); ?>/css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
     <link href="<?php echo get_parent_template_directory_uri(); ?>/css/flat-ui.css" type="text/css" rel="stylesheet"/>
@@ -360,7 +362,6 @@ function getThemeCSS(){
         foreach ($files as $file){
             echo "<link rel='stylesheet' href='". get_template_directory_uri() ."/css/$file' type='text/css'/>";
         } 
-        
     }   
 }
 

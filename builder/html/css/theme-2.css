@@ -139,7 +139,8 @@ h6.sub-title {
 #jPanelMenu-menu {
   background: #ff5f5f;
   box-shadow: inset -4px 0 6px -3px #2a3b66;
-  height: 100% !important;
+  height: auto !important;
+  overflow: visible !important;
 }
 #jPanelMenu-menu .logo,
 #jPanelMenu-menu .left-bar-extra {
@@ -261,6 +262,7 @@ h6.sub-title {
   background: #2a3b66;
   margin: 0;
   padding: 0;
+  box-shadow: 0 6px 4px -4px #2a3b66;
 }
 .main-menu .top-menu .slimmenu > li ul li {
   background: #2a3b66;
