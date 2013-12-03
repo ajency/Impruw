@@ -27,11 +27,11 @@
 	<!--[if lt IE 9]>
 	<script src="<?php echo get_template_directory_uri(); ?>/js/html5.js"></script>
 	<![endif]-->
-        <link href="<?php echo get_parent_tempalte_directory_uri(); ?>/css/bootstrap.min.css"  rel="stylesheet" media="screen"/>
-        <link href="<?php echo get_parent_tempalte_directory_uri(); ?>/css/flat-ui.css"        rel="stylesheet" media="screen"/>
-        <link href="<?php echo get_parent_tempalte_directory_uri(); ?>/builder/css/main.css"           rel="stylesheet" media="screen"/>
-        <link href="<?php echo get_parent_tempalte_directory_uri(); ?>/builder/css/builder.css"        rel="stylesheet" media="screen"/>
-        <link href="<?php echo get_parent_tempalte_directory_uri(); ?>/builder/css/custom.css"         rel="stylesheet" media="screen"/>
+        <link href="<?php echo get_parent_template_directory_uri(); ?>/css/bootstrap.min.css"  rel="stylesheet" media="screen"/>
+        <link href="<?php echo get_parent_template_directory_uri(); ?>/css/flat-ui.css"        rel="stylesheet" media="screen"/>
+        <link href="<?php echo get_parent_template_directory_uri(); ?>/builder/css/main.css"           rel="stylesheet" media="screen"/>
+        <link href="<?php echo get_parent_template_directory_uri(); ?>/builder/css/builder.css"        rel="stylesheet" media="screen"/>
+        <link href="<?php echo get_parent_template_directory_uri(); ?>/builder/css/custom.css"         rel="stylesheet" media="screen"/>
 	<?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
@@ -74,9 +74,9 @@
                                         <div class="aj-imp-color-box">
                                             <h6>Choose Color</h6>
                                             <ul class="clearfix">
-                                                <li><a href="#" class="selected"><img src="<?php echo get_parent_tempalte_directory_uri(); ?>/builder/images/color-blue.png" /></a></li>
-                                                <li><a href="#"><img src="<?php echo get_parent_tempalte_directory_uri(); ?>/builder/images/color-red.png" /></a></li>
-                                                <li><a href="#"><img src="<?php echo get_parent_tempalte_directory_uri(); ?>/builder/images/color-green.png" /></a></li>
+                                                <li><a href="#" class="selected"><img src="<?php echo get_parent_template_directory_uri(); ?>/builder/images/color-blue.png" /></a></li>
+                                                <li><a href="#"><img src="<?php echo get_parent_template_directory_uri(); ?>/builder/images/color-red.png" /></a></li>
+                                                <li><a href="#"><img src="<?php echo get_parent_template_directory_uri(); ?>/builder/images/color-green.png" /></a></li>
                                             </ul>
                                         </div>
                                     </li>
