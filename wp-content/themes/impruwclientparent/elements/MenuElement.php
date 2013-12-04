@@ -198,12 +198,9 @@ class Walker_Style2_Menu extends Walker {
      */
     function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
             
-            $li = "\n<li class='%s'><a href='%s'>%s</a>\n";
-            
-            $class = '';
+            $li = "\n<li><a href='%s'>%s</a>\n";
             
             $output .= sprintf($li,
-                                $class,
                                 $item->url,
                                 $item->title
                             );
