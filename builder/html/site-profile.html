@@ -84,6 +84,10 @@
 				</header>
 				<div class="row">
 					<div class="aj-imp-dash-content col-md-12">
+						<div class="alert alert-success">
+							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+							Your details have been successfully saved.
+						</div>
 						<div class="scroll-indicator-container" id="scr1">
 							<h4 class="aj-imp-sub-head scroll-ref">General <small>Lorem ipsum dolor sit amet, consectetur adipiscing</small></h4>
 							<form class="form-horizontal clearfix">
@@ -92,7 +96,7 @@
 									<label for="inputEmail3" class="col-sm-2 control-label">Site Name</label>
 									<div class="col-sm-10 col-sm-offset-2">
 										<div class="input-group">
-											<input type="email" class="form-control" id="inputEmail3" placeholder="Site Name">
+											<input type="email" class="form-control" id="inputEmail3" placeholder="yoursitename">
 											<span class="input-group-addon">.impruw.com</span>
 										</div>
 									</div>
@@ -132,32 +136,31 @@
 								<legend>Mailing Address</legend>
 								
 								
-								<div class="form-group">
+								<div class="form-group has-error">
 									<label for="inputAddress1" class="col-sm-2 control-label">Street</label>
 									<div class="col-sm-10 col-sm-offset-2">
-										<input type="text" class="form-control" id="inputAddress1" placeholder="Street">
+										<input type="text" class="form-control" id="inputAddress1" placeholder="21 Jump Street">
+										<span class="input-icon fui-cross-inverted"></span>
+										<span class="help-block">This field is required</span>
 									</div>
 								</div>
 								
 								
 								<div class="form-group">
 									<label for="inputAddress2" class="col-sm-2 control-label">Postal Code</label>
-									<div class="col-sm-10 col-sm-offset-2">
-										<input type="text" class="form-control" id="inputAddress2" data-mask="999-999" placeholder="Postal Code">
+									<div class="col-sm-4 col-sm-offset-2">
+										<input type="text" class="form-control" id="inputAddress2" data-mask="999-999" placeholder="420-001">
+									</div>
+								
+									<label for="inputAddress3" class="col-sm-2 control-label label-2">City / Town</label>
+									<div class="col-sm-4 col-sm-offset-2">
+										<input type="text" class="form-control" id="inputAddress2" placeholder="Gotham City">
 									</div>
 								</div>
 								
 								
 								<div class="form-group">
-									<label for="inputAddress3" class="col-sm-2 control-label">City / Town</label>
-									<div class="col-sm-10 col-sm-offset-2">
-										<input type="text" class="form-control" id="inputAddress2" placeholder="City / Town">
-									</div>
-								</div>
-								
-								
-								<div class="form-group">
-									<label for="inputAddress4" class="col-sm-2 control-label">Country</label>
+									<label for="inputAddress4" class="col-sm-2 control-label dd-label">Country</label>
 									<div class="col-sm-10 col-sm-offset-2">
 										<select>
 											<option value="0">Norway</option>
@@ -170,19 +173,25 @@
 								
 								<div class="form-group">
 									<label for="inputEmail1" class="col-sm-2 control-label">Email</label>
-									<div class="col-sm-10 col-sm-offset-2">
-										<input type="email" class="form-control" id="inputEmail1" placeholder="Email">
-									</div>
-								</div>
-								<span class="help-block col-sm-10 col-sm-offset-2"><a href="#"><span class="glyphicon glyphicon-plus-sign"></span> Add Another</a></span>
+									<div class="col-sm-4 col-sm-offset-2">
+										<input type="email" class="form-control" id="inputEmail1" placeholder="youremail@site.com">
+									</div>								
 								
-								<div class="form-group">
-									<label for="inputPhone1" class="col-sm-2 control-label">Phone</label>
-									<div class="col-sm-10 col-sm-offset-2">
-										<input type="text" class="form-control" id="inputEmail1" data-mask="99-999-999" placeholder="Phone">
+									<label for="inputPhone1" class="col-sm-2 control-label label-2">Phone</label>
+									<div class="col-sm-4 col-sm-offset-2">
+										<input type="text" class="form-control" id="inputEmail1" data-mask="99-999-999" placeholder="99-888-777">
 									</div>
 								</div>
-								<span class="help-block col-sm-10 col-sm-offset-2"><a href="#"><span class="glyphicon glyphicon-plus-sign"></span> Add Another</a></span>
+
+								<div class="form-group">
+									
+									<span class="help-inline col-sm-4 col-sm-offset-2"><a href="#"><span class="glyphicon glyphicon-plus-sign"></span> Add Another</a></span>
+								
+								
+									
+									<span class="help-inline col-sm-4 col-sm-offset-2"><a href="#"><span class="glyphicon glyphicon-plus-sign"></span> Add Another</a></span>
+								</div>
+								
 							
 							</form>
 						</div>
@@ -191,12 +200,13 @@
 							<form class="form-horizontal clearfix">
 							
 								
-								<div class="form-group">
+								<div class="form-group has-success">
 									<label for="inputSocial1" class="col-sm-2 control-label">Facebook</label>
 									<div class="col-sm-10 col-sm-offset-2">
 										<div class="input-group">
 											<span class="input-group-addon">www.facebook.com/</span>
-											<input type="text" class="form-control" id="inputSocial1" placeholder="Facebook">
+											<input type="text" class="form-control" id="inputSocial1" placeholder="yourpageurl">
+											<span class="input-icon fui-check-inverted"></span>
 										</div>
 									</div>
 								</div>
@@ -208,6 +218,7 @@
 										<div class="input-group">
 											<span class="input-group-addon">www.twitter.com/</span>
 											<input type="text" class="form-control" id="inputSocial2" placeholder="Twitter">
+											<span class="input-icon"><img src="images/270(1).gif" /></span>
 										</div>
 									</div>
 								</div>
@@ -222,7 +233,7 @@
 								<div class="form-group">
 									<label for="inputSEO1" class="col-sm-2 control-label">Site Description</label>
 									<div class="col-sm-10 col-sm-offset-2">
-										<textarea class="form-control" rows="3" name="inputSEO1" placeholder="Site Description"></textarea>
+										<textarea class="form-control" rows="3" name="inputSEO1" placeholder="A brief description of your site for search engines."></textarea>
 									</div>
 								</div>
 								
@@ -230,26 +241,26 @@
 								<div class="form-group">
 									<label for="inputSEO2" class="col-sm-2 control-label">Meta Keywords</label>
 									<div class="col-sm-10 col-sm-offset-2">
-										<textarea class="form-control" rows="3" name="inputSEO2" placeholder="Meta Keywords"></textarea>
+										<textarea class="form-control" rows="3" name="inputSEO2" placeholder="Separate each keyword with a comma."></textarea>
 									</div>
 								</div>
-								<span class="help-block col-sm-10 col-sm-offset-2">Separate each keyword with a comma.</span>
+								<div class="form-group">
+									<span class="help-block col-sm-10 col-sm-offset-2"></span>
+								</div>
 								
 								<div class="form-group">
 									<label for="inputSEO3" class="col-sm-2 control-label">Footer Code</label>
 									<div class="col-sm-10 col-sm-offset-2">
-										<textarea class="form-control" rows="3" name="inputSEO3" placeholder="Footer Code"></textarea>
+										<textarea class="form-control" rows="3" name="inputSEO3" placeholder="ex. Google Analytics tracking code."></textarea>
 									</div>
 								</div>
-								<span class="help-block col-sm-10 col-sm-offset-2">ex. Google Analytics tracking code.</span>
 								
 								<div class="form-group">
 									<label for="inputSEO4" class="col-sm-2 control-label">Header Code</label>
 									<div class="col-sm-10 col-sm-offset-2">
-										<textarea class="form-control" rows="3" name="inputSEO4" placeholder="Header Code"></textarea>
+										<textarea class="form-control" rows="3" name="inputSEO4" placeholder="ex. Google Webmaster tools verification code."></textarea>
 									</div>
 								</div>
-								<span class="help-block col-sm-10 col-sm-offset-2">ex. Google Webmaster tools verification code.</span>
 								
 								<div class="form-group">
 									<div class="col-sm-offset-2 col-sm-10">
@@ -398,6 +409,14 @@
 		jQuery("select").selectpicker();
 	</script>
 	<script>
+		// JustText Function
+		jQuery.fn.justtext = function() {
+		    return jQuery(this).clone()
+		            .children()
+		            .remove()
+		            .end()
+		            .text();
+		};
 		
 		// Global var to cache info about indicators for easy access. 
 		var indicators = [];
@@ -415,7 +434,7 @@
 			var iInverse = $articles.length - i - 1;
 			// Top margin is a function of the nodes before it, bottom is proportional to those after. determines stacking at top / bottom static positions
 			var margins = 'margin: ' + (i+0.5) + 'em 0 ' + (iInverse+0.5) + 'em 0;'; 
-			rawIndicators +=  '<a class="indicator indicator--upcoming" style="' + margins + '" href="#' + this.id + '"><span class="indicator-tooltip">' + $(this).find("h1").text() + '</span></a>';
+			rawIndicators +=  '<a class="indicator indicator--upcoming" style="' + margins + '" href="#' + this.id + '"><span class="indicator-tooltip">' + jQuery(this).find(".scroll-ref").justtext() + '</span></a>';
 		  });
 		  jQuery("body").append(rawIndicators);
 
@@ -557,6 +576,29 @@
 			adjustIndicators();
 		  })
 
+		});
+	</script>
+	<script type="text/javascript">
+		jQuery(window).load(function() { 
+			var w = jQuery('.aj-imp-right').width();
+			jQuery('.aj-imp-long-form-actions.affix').width(w);
+
+			var m = jQuery('.aj-imp-left').width();
+			jQuery('.aj-imp-long-form-actions.affix').css('margin-left', (m));
+		});
+		jQuery(window).scroll(function() { 
+			var w = jQuery('.aj-imp-right').width();
+			jQuery('.aj-imp-long-form-actions.affix').width(w);
+
+			var m = jQuery('.aj-imp-left').width();
+			jQuery('.aj-imp-long-form-actions.affix').css('margin-left', (m));
+		});
+		jQuery(window).resize(function() { 
+			var w = jQuery('.aj-imp-right').width();
+			jQuery('.aj-imp-long-form-actions.affix').width(w);
+
+			var m = jQuery('.aj-imp-left').width();
+			jQuery('.aj-imp-long-form-actions.affix').css('margin-left', (m));
 		});
 	</script>
   </body>
