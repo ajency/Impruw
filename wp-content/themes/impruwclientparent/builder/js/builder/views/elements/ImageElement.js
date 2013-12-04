@@ -8,6 +8,9 @@ define(['builder/views/elements/BuilderElement','text!builder/templates/elements
                 //define template for control
 				template            : template,
                 
+                //element type
+                elementType          : 'ImageElement',
+                
                 //identify element type
                 type                : 'image',
                 

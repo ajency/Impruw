@@ -4,6 +4,8 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
 		function(BuilderElement, BuilderRowColumn, template, global){
 
 			var BuilderRow = BuilderElement.extend({
+               
+               elementType          : 'BuilderRow',
 
                 //create a div element with class "row"
 				className           : 'row',
@@ -18,7 +20,7 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                 placeHolderHeight   : 120, 
                 
                 // views
-                columns             : [],
+                elements            : [],
                 
                 //initial columns
                 initialColumns      : 2,
@@ -84,6 +86,35 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                    return this;
                      
                 },
+                
+                /**
+                 * 
+                 * @returns {undefined}
+                 */
+                generateJSON : function(){
+                   
+                   var self = this;
+                   
+                   var json = this.returnJSON();
+                   json.elements = [];
+                        
+                   if(self.getColumns().length > 0){
+                        
+                        var elements = [];
+                        
+                        _.each(self.getColumns(), function(column, index){
+                              
+                              elements.push(column.generateJSON());
+                              
+                        });
+                           
+                        json.elements = elements;
+                      
+                   }
+                   
+                   return json;
+                  
+                },
 
                 /**
                  * Takes and element from from array and generates the markup and append it to itself
@@ -96,7 +127,7 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                     var element = elements[index];
 
                     if( index >= elements.length || element.type !== 'BuilderRowColumn')
-                        return;
+                        return;  
 
                     var self = this;
 
@@ -108,7 +139,7 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
 
                         self.$el.append(column.render().$el);
 
-                        self.columns.push(column);
+                        self.elements.push(column);
 
                         if( !_.isUndefined(element.elements) && element.elements.length > 0)
                             column.addElement(element.elements, 0);
@@ -137,7 +168,7 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                     
                     this.$el.children('.column').css('min-height','10px');
                     
-                    _.each(this.columns, function(column, index){
+                    _.each(this.elements, function(column, index){
 
                         height.push(column.$el.height());
 
@@ -147,7 +178,7 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                     
                     newHeight = (newHeight == 0) ? 120 : newHeight;
                     
-                    _.each(this.columns, function(column, index){
+                    _.each(this.elements, function(column, index){
 
                         var prevHeight = column.$el.height();
 
@@ -173,7 +204,7 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                     
                     var is = true;
                     
-                    _.each(this.columns, function(column, index){
+                    _.each(this.elements, function(column, index){
                         
                         if(!column.isEmpty())
                             is = false;
@@ -196,14 +227,15 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                     var colClass = 12 / self.initialColumns;
                     
                     //avoid object caching
-                    this.columns = [];
+                    this.elements = [];
                     
                     //append columns
-                    _.each(_.range(this.totalColumns), function(){
+                    _.each(_.range(this.initialColumns), function(){
                          
                          var column = new BuilderRowColumn({parent : self, currentClass : colClass});  
                          column.render();
-                         self.columns.push(column);
+                         column.addEmptyClass();
+                         self.elements.push(column);
                          self.$el.append(column.$el);
                          
                     }); 
@@ -291,7 +323,7 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                     if(index > this.columnCount())
                         return false;
 
-                    return this.columns[index];
+                    return this.elements[index];
                         
                 },
 
@@ -337,7 +369,7 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
 
                                 _.each(rows, function(row, index){
                                     row.appendColumnResizer();
-                                })
+                                });
 
                             });
                         
@@ -362,7 +394,7 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                                 
                                 var position = $(event.target).attr('data-position');
                                 
-                                self.resizeColumns('left',position);
+                                self.resizeColumns('left',parseInt(position));
                             
                             }
                         }
@@ -378,12 +410,12 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                     var self = this;
 
                     //get columns to adjust width depending on position value.
-                    //columns to adjust  = row.columns[postion - 1] and row.columns[position]
+                    //columns to adjust  = row.elements[postion - 1] and row.elements[position]
                     var columns  = [];
 
-                    columns.push(this.columns[position - 1]);
+                    columns.push(this.elements[position - 1]);
                     
-                    columns.push(this.columns[position]);
+                    columns.push(this.elements[position]);
                     
                     var currentClassZero = columns[0].getCurrentClass();
                     
@@ -412,7 +444,7 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                     columns[0].setColumnClass(currentClassZero);
                     
                     columns[1].setColumnClass(currentClassOne);
-
+                   
                 },
 
                 /**
@@ -449,8 +481,8 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                         var extraColumns = requestedColumns - this.columnCount();
                         
                         //adjust class of existing columns
-                        _.each(this.columns, function(column, index){
-                            
+                        _.each(this.elements, function(column, index){
+                            //column.$el.removeAttr('class').attr('class','column col-sm-'+colClass);
                             column.setColumnClass(colClass);
 
                         });
@@ -466,7 +498,7 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                         
                         var emptyColumns = [];
                         
-                        _.each(this.columns, function(column, index){
+                        _.each(this.elements, function(column, index){
                             
                             if(column.isEmpty())
                                 emptyColumns.push(column);
@@ -503,7 +535,7 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                         var nCols = [];
                         
                         //get indexes to remove
-                        _.each(this.columns, function(column, index){
+                        _.each(this.elements, function(column, index){
 
                             if(colsToRemove === 0 || !column.isEmpty()){
                                 nCols.push(column);
@@ -515,14 +547,13 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
 
                         });
                         
-                        this.columns = [];
-                        this.columns = nCols;
+                        this.elements = [];
+                        this.elements = nCols;
                         
                         //adjust class of existing columns
-                        _.each(this.columns, function(column, index){
+                        _.each(this.elements, function(column, index){
                             
-                            column.$el.removeAttr('class').attr('class','column col-sm-'+colClass);
-                            column.setCurrentClass(colClass);
+                            column.setColumnClass(colClass);
                         
                         }); 
                     }
@@ -541,7 +572,7 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                  */        
                 sortableColumns : function(){
                     
-                    _.each(this.columns, function(column, index){
+                    _.each(this.elements, function(column, index){
                         
                         //if(_.isFunction(column.makeColumnsSortable))
                             column.makeColumnsSortable();
@@ -580,7 +611,8 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                     var column = new BuilderRowColumn({parent : this, currentClass: colClass});  
                     column.render();
                     column.setColumnClass(colClass);
-                    this.columns.push(column);
+                    column.addEmptyClass();
+                    this.elements.push(column);
                     this.$el.append(column.$el);
                     this.trigger('adjust_column_dimension');
                 },
@@ -592,7 +624,7 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                  */        
                 columnCount : function(){
                     
-                    return this.columns.length;
+                    return this.elements.length;
                     
                 },
                 
@@ -617,7 +649,7 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                     this.$el.css('border', '1px solid #ff7e00');
                     
                     //setTimeout(function(){
-                        self.$el.children('.aj-imp-drag-handle,.aj-imp-delete-btn,.aj-imp-col-divider,.aj-imp-col-sel').stop().fadeIn();
+                    self.$el.children('.aj-imp-drag-handle,.aj-imp-delete-btn,.aj-imp-col-divider,.aj-imp-col-sel').stop().fadeIn();
                     //},600);   
                 },
                 
@@ -641,7 +673,7 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                     this.$el.css('border', '1px solid transparent');
                     
                     //setTimeout(function(){
-                        self.$el.children('.aj-imp-drag-handle,.aj-imp-delete-btn,.aj-imp-col-divider,.aj-imp-col-sel').stop().hide();
+                    self.$el.children('.aj-imp-drag-handle,.aj-imp-delete-btn,.aj-imp-col-divider,.aj-imp-col-sel').stop().hide();
                     //},600);
                 },
                  
@@ -653,7 +685,7 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                  * @returns {undefined}
                  */        
                 getColumns : function(){
-                     return this.columns;  
+                     return this.elements;  
                 },
                         
                 /**
