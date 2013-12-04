@@ -64,7 +64,7 @@ define(['builder/views/elements/BuilderElement', 'global'],
                  * @returns {void}
                  */
                 addElement : function(elements, index){
-                    console.log(index);
+                    
                     if( index >= elements.length)
                         return;
                      

@@ -1,5 +1,5 @@
-define(['backbone','jquery','underscore','handlebars', 'global'], 
-		function(Backbone, $, _, Handlebars,  global){
+define(['backbone','jquery','underscore', 'global'], 
+		function(Backbone, $, _,  global){
 
 			var BuilderElement = Backbone.View.extend({
                
@@ -172,7 +172,7 @@ define(['backbone','jquery','underscore','handlebars', 'global'],
                     
                     this.setHandlers();
                     
-					return this;
+					return this.$el;
 				},
 
                 /**

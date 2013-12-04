@@ -55,7 +55,7 @@ define(['builder/views/elements/BuilderElement', 'global'],
                     //drop mode
                     if(_.isUndefined(options.config)){
 
-                        this.generateDropMarkup();
+                        //this.generateDropMarkup();
                     }
                     else{
                         this.setProperties(options.config);
@@ -266,7 +266,7 @@ define(['builder/views/elements/BuilderElement', 'global'],
             
                     if(this.isEmpty()){
                         
-                        this.$el.css('background-image','url(images/empty-drag-bg.svg)');
+                        this.addEmptyClass();
                         
                     }
                 },
@@ -353,7 +353,7 @@ define(['builder/views/elements/BuilderElement', 'global'],
                     
                     var self = this;
                     
-                    this.$el.css('background-image','url(images/clear-background.png)');
+                    //this.$el.css('background-image','url(images/clear-background.png)');
                     
                     var path = '';
                     if(elementName === 'BuilderRow' || elementName === 'BuilderRowColumn')
@@ -365,30 +365,26 @@ define(['builder/views/elements/BuilderElement', 'global'],
                     if(self.$el.find('*[data-element="'+elementName+'"]').length > 0)
                             self.$el.find('*[data-element="'+elementName+'"]').html('<div class="element-drop-loader"></div>');
                     
-                    //setTimeout(function(){
-                        require([path], function(Element){
+                    require([path], function(Element){
 
-                            var element = new Element({parent: self});
-                            self.elements.push(element);
+                        var element = new Element({parent: self});
+                        self.elements.push(element);
+                        self.removeEmptyClass();
+                        var el = element.is('row') ? element.$el : element.generateMarkup();
 
-                            if(self.$el.find('*[data-element="'+elementName+'"]').length > 0)
-                                self.$el.find('*[data-element="'+elementName+'"]').replaceWith(element.generateBuilderMarkup());
-                            else
-                                self.$el.append(element.generateBuilderMarkup());
+                        if(self.$el.find('*[data-element="'+elementName+'"]').length > 0)
+                            self.$el.find('*[data-element="'+elementName+'"]').replaceWith(el);
+                        else
+                            self.$el.append(el);
 
-                            if(elementName === 'BuilderRow'){
-                                element.sortableColumns();
-                                element.appendColumnResizer();
-                            }
+                        if(elementName === 'BuilderRow'){
+                            element.sortableColumns();
+                            element.appendColumnResizer();
+                        }
 
-                            self.parent.trigger('adjust_column_dimension');
+                        self.parent.trigger('adjust_column_dimension');
 
-                            //self.$el.find('div.drag-here').remove();
-                            //self.$el.append('<div class="drag-here">Drag elements Here</div>');
-
-                        });
-                        
-                    //},1000);   
+                    });
                    
                 },   
 
@@ -475,8 +471,9 @@ define(['builder/views/elements/BuilderElement', 'global'],
                 */
                 setColumnClass : function(colClass){
 
-                    //this.$el.removeAttr('class').attr('class','column col-sm-'+colClass);
+                    this.$el.removeClass().addClass('column col-sm-'+colClass);
                     this.setCurrentClass(colClass);
+                    this.updateEmptyView();
 
                 },
 
