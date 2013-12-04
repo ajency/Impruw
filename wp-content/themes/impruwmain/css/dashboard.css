@@ -32,6 +32,7 @@ a:focus {
 }
 .aj-imp-container .aj-imp-left .aj-imp-dash-logo a img {
   margin: auto;
+  height: 100%;
   width: auto;
 }
 .aj-imp-container .aj-imp-left .aj-imp-dash-logo a:hover img {
@@ -293,8 +294,7 @@ form legend {
   border-bottom: 1px dotted #dddddd;
 }
 form label {
-  color: #919191;
-  font-size: 1.1em;
+  color: #777777;
 }
 form label.checkbox,
 form label.radio {
@@ -308,35 +308,11 @@ form label.checkbox.checked .second-icon,
 form label.radio.checked .second-icon {
   color: #ff7e00;
 }
-form .form-group {
-  position: relative;
-}
-form .form-group .control-label {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-}
-form .form-group.pic-upload .control-label {
-  top: 0;
-}
-form .form-group .help-block {
-  clear: both;
-}
 form .form-control {
-  border-radius: 0;
-  border: 0;
-  border-bottom: 1px solid #c3c3c3;
+  border-width: 1px;
 }
 form .form-control:focus {
   border-color: #ff7e00;
-  background: #f6f6f6;
-}
-form .input-group .input-group-addon {
-  border-radius: 0;
-  background: #fff;
-  color: #c3c3c3;
-  border: 0;
-  border-bottom: 1px solid #c3c3c3;
 }
 form .aj-imp-submit {
   background: #ff7e00;
@@ -349,9 +325,7 @@ form .aj-imp-submit:hover {
 .select .dropdown-toggle {
   background: #fff;
   color: #aaaaaa;
-  border-radius: 0 !important;
-  border: 0;
-  border-bottom: 1px solid #c3c3c3;
+  border: 1px solid #c3c3c3;
 }
 .select .dropdown-toggle .caret {
   border-top-color: #aaaaaa;
