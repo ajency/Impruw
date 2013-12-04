@@ -39,7 +39,6 @@ a {
 			a {
 				img {
 					margin: auto;
-					height: 100%;
 					width: auto;
 				}
 				&:hover {
@@ -330,7 +329,8 @@ form {
 		border-bottom: 1px dotted lighten(@dash-grey, 20%); 
 	}
 	label {
-		color: darken(@dash-grey, 20%);
+		color: darken(@dash-grey, 10%);
+		font-size: 1.1em;
 		&.checkbox, &.radio {
 			padding-top: 0 !important;
 			&.checked {
@@ -341,10 +341,38 @@ form {
 			}
 		}
 	}
+	.form-group {
+		position: relative;
+		.control-label {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+		}
+		&.pic-upload {
+			.control-label {
+				top: 0;
+			}
+		}
+		.help-block {
+			clear: both;
+		}
+	}
 	.form-control {
-		border-width: 1px;
+		border-radius: 0;
+		border: 0;
+		border-bottom: 1px solid lighten(@dash-grey, 10%);
 		&:focus {
 			border-color: @orange;
+			background: lighten(@dash-grey, 30%);
+		}
+	}
+	.input-group {
+		.input-group-addon {
+			border-radius: 0;
+			background: #fff;
+			color: lighten(@dash-grey, 10%);
+			border: 0;
+			border-bottom: 1px solid lighten(@dash-grey, 10%);
 		}
 	}
 	.aj-imp-submit {
@@ -361,7 +389,9 @@ form {
 	.dropdown-toggle {
 		background: #fff;
 		color: @dash-grey;
-		border: 1px solid lighten(@dash-grey, 10%);
+		border-radius: 0 !important;
+		border: 0;
+		border-bottom: 1px solid lighten(@dash-grey, 10%);
 		.caret {
 			border-top-color: @dash-grey;
 		}
