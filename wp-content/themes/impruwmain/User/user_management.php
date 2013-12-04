@@ -8,10 +8,15 @@
  * 3) assign_theme_to_site - Function to assign a theme to the new site created.
  * 4) add_new_post_to_blog - Function to create a new post of type page. 
  * 5) assign_active_languages - Function to assign active languages toa  site.
+ * 6) check_email_exists	- Function to check if email id already registered(check done on registration page) 
+ * 7) check_sitename_exists - Function to check if sitename already exists(check done on registration page)
  * 
  * 
+ * 	
  */
-require_once '../Communication_module/communication_functions.php';
+ 
+//require_once '../Communication_module/communication_functions.php';
+require_once ABSPATH."/wp-content/themes/impruwmain/Communication_module/communication_functions.php";
 
 /**
  * wp_impruw_create_user
@@ -81,6 +86,8 @@ function create_new_site($blog_id,$blog_name,$blog_title,$user_id,$file_name)
 		$newdomain = $current_site->domain;
 		$path      = $current_site->path . $domain . '/';
 	}
+	
+	
         
     $new_blog_id = wpmu_create_blog( $newdomain, $path, $title, $user_id , array( 'public' => 1 ), $current_site->blog_id ); 
     
@@ -92,11 +99,12 @@ function create_new_site($blog_id,$blog_name,$blog_title,$user_id,$file_name)
     $post_nb_id = mwm_wpml_translate_post( $new_blog_id,$post_id, 'page', 'nb',$user_id);
     add_layout_site($new_blog_id,$post_id,$file_name);
     $post_site_builder_id = add_new_post_to_blog($new_blog_id,$user_id,'Site Builder','Site Builder Content.','page','site-builder.php');
-    echo $post_site_builder_id;exit;
+   // echo $post_site_builder_id;exit;
     
     //exit;//create a new post
     
     //echo $new_blog_id;
+    return $new_blog_id;
     
 }
 
@@ -285,3 +293,283 @@ function  add_layout_site($blog_id,$post_id,$file_name)
     restore_current_blog();
 }
 
+
+
+/**
+ * Function to check if email id already exist( Registration page)
+ * Returns
+ */
+function check_email_exists()
+{ 
+	 
+	$tbl_fieldvalue = $_POST['email'];
+
+	if(useremail_exists($tbl_fieldvalue))
+	{
+		header('Content-Type: application/json');
+		echo json_encode(array('code' =>'000', 'msg'=>"Email Id Already Exists."));
+		die();
+	}
+	else
+	{
+		header('Content-Type: application/json');
+		echo json_encode(array('code' => '001', 'msg'=>"Email Id Does Not Exists."));
+		die();
+	} 
+}
+add_action('wp_ajax_check_email_exists','check_email_exists');
+add_action('wp_ajax_nopriv_check_email_exists','check_email_exists');
+
+ 
+
+/**
+ * Function to check if email id is already registered
+ * @param string $email
+ * @return boolean
+ */
+function useremail_exists($email)
+{
+	global $wpdb;
+	$user_table = $wpdb->base_prefix . 'users';
+	$res_verify_user = $wpdb->get_results("SELECT count(*) as user_exist FROM $user_table WHERE user_email ='" . $email."'", 
+			OBJECT);
+	
+	
+	if ($res_verify_user)
+	{
+		foreach ($res_verify_user as $res_verify_usr) {
+			if ($res_verify_usr->user_exist>0)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+	}
+}
+
+
+/**
+ * Function to check if sitename already exists (used on registration page)
+ *  returns 000 & msg  on success
+ *  returns 001 & msg on fail
+ */ 
+function check_sitename_exists()
+{
+	$blog_name = $_POST['sitename'];
+	global $user_id;	
+	$blog_id = 1;
+	
+	if ( sitename_exists($blog_name,$blog_id) )
+	{
+		header('Content-Type: application/json');
+		echo json_encode(array('code' =>'000', 'msg'=>'Sorry, that site already exists!' ) );
+		die();
+	}
+	else
+	{
+		header('Content-Type: application/json');
+		echo json_encode(array('code' => '001', 'msg'=>'Site Name does not Exist' ) );
+		die();
+	}
+	
+
+}
+add_action('wp_ajax_check_sitename_exists','check_sitename_exists');
+add_action('wp_ajax_nopriv_check_sitename_exists','check_sitename_exists');
+
+
+
+/**
+ * Function to check if the sitename already exists
+ * @param string $blog_name 
+ * @param int $mainblog_id
+ * @return string|boolean 
+ */
+function sitename_exists($blog_name,$mainblog_id)
+{
+	
+	global $user_id;
+	//var_dump("test");
+	$blog = $blog_name;
+	$domain = '';
+	if ( preg_match( '|^([a-zA-Z0-9-])+$|', $blog_name ) )
+		$domain = strtolower( $blog_name );
+	
+	// If not a subdomain install, make sure the domain isn't a reserved word
+	if ( ! is_subdomain_install() )
+	{
+		$subdirectory_reserved_names = apply_filters( 'subdirectory_reserved_names', array( 'page', 'comments', 'blog', 'files', 'feed','impruw','admin','administrator', ) );
+		if ( in_array( $domain, $subdirectory_reserved_names ) )
+		{
+			header('Content-Type: application/json');
+			echo json_encode(array('code' => '000', 'msg'=> __('The following words are reserved for use by WordPress functions and cannot be used as blog names: '.implode(",",$subdirectory_reserved_names)) ) );
+			die();
+			
+		}
+	}
+	
+	$current_site=get_blog_details($mainblog_id);
+	$site_id = $current_site->blog_id;
+	 
+	if ( empty( $domain ) )
+		return(__('Missing or invalid site address.') );
+
+	if ( is_subdomain_install() )
+	{
+		$newdomain = $domain . '.' . preg_replace( '|^www\.|', '', $current_site->domain );
+		$path      = $current_site->path;
+	} else {
+		$newdomain = $current_site->domain;
+		$path      = $current_site->path . $domain . '/';
+	}
+	
+	
+	$domain = preg_replace( '/\s+/', '', sanitize_user( $newdomain, true ) );
+	
+	if ( is_subdomain_install() )
+		$domain = str_replace( '@', '', $domain );
+	
+	
+	$user_id = (int) $user_id;
+	
+	if ( empty($path) )
+		$path = '/';
+	
+	// Check if the domain has been used already.  
+	if ( domain_exists($domain, $path, $site_id) )
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+	
+}
+ 
+
+
+
+/**
+ * Function to add new user
+ * @param string $email
+ * @return boolean
+ */
+function save_new_user()
+{
+	global $wpdb;
+	$form_data = $_POST['frmdata'];
+	//var_dump($_POST['frmdata']);
+	
+	
+	foreach($_POST['frmdata'] as $frm_element_key => $frm_element_val)
+	{
+		//echo "key : ".$frm_element_key;
+		//echo "<br/>Value ".$frm_element_key;
+		switch($frm_element_val['name'])
+		{
+			case 'inputName'				:	$name = $frm_element_val['value'];
+												break;
+			case 'inputEmail'				:	$email = $frm_element_val['value'];
+												break;	
+			case 'inputSitename'			:	$sitename = $frm_element_val['value'];
+												break;	
+			case 'inputPass'				:	$pass = $frm_element_val['value'];
+												break;						
+			case 'recaptcha_challenge_field':	$recaptcha_challenge_field = $frm_element_val['value'];
+												break;		
+			case 'recaptcha_response_field' :	$recaptcha_response_field = $frm_element_val['value'];
+												break;
+			case 'inputCaptcha'				:	$inputCaptcha = $frm_element_val['value'];
+												break;
+			 					
+		}		
+		
+	}
+	
+ 
+	
+	
+	require_once('recaptchalib.php');
+	$privatekey = "6LdRNusSAAAAADn2sxpPbMH6U9G2-MnBmslyi_WH";
+	$resp = recaptcha_check_answer ($privatekey,
+			$_SERVER["REMOTE_ADDR"],
+			$recaptcha_challenge_field,
+			$recaptcha_response_field);
+	
+	if (!$resp->is_valid) 
+	{
+			
+		header('Content-Type: application/json');
+		echo json_encode(array('code' => '002', 'msg'=>"Invalid captcha.Please Renter the Captcha Code")  );
+		die();
+			
+			
+			// What happens when the CAPTCHA was entered incorrectly
+		 
+	} 
+	else
+	{
+		// Your code here to handle a successful verification
+		
+		$user_data_array['name'] = $name;
+		$user_data_array['email'] = $email;
+		$user_data_array['password'] =$pass;
+		$user_data_array['role'] = 'admin';
+		
+		$blog_id = 1;
+		$new_userid = wp_impruw_create_user($user_data_array);
+		
+		if(!empty($new_userid))
+			$new_blog_id = create_new_site($blog_id,$sitename,$sitename,$new_userid,'');
+			
+		if(!empty($new_blog_id))
+		{
+			header('Content-Type: application/json');
+			echo json_encode(array('code' => '000', 'msg'=>"The User registration successfull. And the site created successfully")  );
+			die();
+		}
+		
+		
+		
+		
+	/*	var_dump("captcha success");
+		header('Content-Type: application/json');
+		echo json_encode(array('success' => false, 'msg'=>'valid captcha' ) );
+		die();
+		
+		*/
+		
+		//register the user
+		
+	}
+	
+	
+	
+	/*
+	
+	
+	$user_table = $wpdb->base_prefix . 'users';
+	$res_verify_user = $wpdb->get_results("SELECT count(*) as user_exist FROM $user_table WHERE user_email ='" . $email."'", OBJECT);
+
+
+	if ($res_verify_user)
+	{
+		foreach ($res_verify_user as $res_verify_usr)
+		{
+			if ($res_verify_usr->user_exist>0)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+	}*/
+}
+add_action('wp_ajax_save_new_user','save_new_user');
+add_action('wp_ajax_nopriv_save_new_user','save_new_user');
