@@ -4,6 +4,8 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
 		function(BuilderElement, BuilderRowColumn, template, global){
 
 			var BuilderRow = BuilderElement.extend({
+               
+               elementType          : 'BuilderRow',
 
                 //create a div element with class "row"
 				className           : 'row',
@@ -83,6 +85,35 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                         
                    return this;
                      
+                },
+                
+                /**
+                 * 
+                 * @returns {undefined}
+                 */
+                generateJSON : function(){
+                   
+                   var self = this;
+                   
+                   var json = this.returnJSON();
+                   json.elements = [];
+                        
+                   if(self.getColumns().length > 0){
+                        
+                        var elements = [];
+                        
+                        _.each(self.getColumns(), function(column, index){
+                              
+                              elements.push(column.generateJSON());
+                              
+                        });
+                           
+                        json.elements = elements;
+                      
+                   }
+                   
+                   return json;
+                  
                 },
 
                 /**

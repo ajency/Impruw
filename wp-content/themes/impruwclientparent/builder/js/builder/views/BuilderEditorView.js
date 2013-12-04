@@ -35,6 +35,21 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                  */
                 generateJSON : function(){
                    
+                   var self = this;
+                   
+                   this.json = {
+                                 elements : []
+                              };
+                   
+                   _.each(this.rows, function(row, index){
+                        
+                        var json = row.generateJSON();
+                        
+                        self.json.elements.push(json);
+                      
+                   });
+                   
+                   
                 },
 
                 /**

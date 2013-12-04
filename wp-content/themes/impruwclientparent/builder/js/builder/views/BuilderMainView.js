@@ -58,9 +58,15 @@ define(['underscore', 'jquery', 'backbone', 'builder/views/BuilderEditorView'],
 					}
 				},
                 
-                generateJSON : function(){
+                /**
+                 * Generates the json
+                 * 
+                 * @returns void
+                 */
+                generateJSON : function(evt){
                   
-                   if(!_.isUndefined(this.builder))
+                   evt.preventDefault();
+                   if(_.isUndefined(this.builder))
                       return;
                    
                    this.builder.generateJSON();
