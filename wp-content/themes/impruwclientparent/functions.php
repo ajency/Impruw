@@ -15,6 +15,103 @@ add_theme_support('menus');
 //remove wordpress admin bar
 show_admin_bar(false);
 
+
+/*--------------------------------------------------------------------------------------
+*
+* impruv_register_room_init
+*function to create a new post type called rooms
+*
+*-------------------------------------------------------------------------------------*/
+/* * **Register Room Taxonomy & Post Type*** */
+
+function impruv_register_room_init() {
+    $url = get_template_directory_uri();
+    $labels = array(
+        'name' => 'Rooms',
+        'singular_name' => 'Room',
+        'add_new' => 'Add New',
+        'add_new_item' => 'Add New Room',
+        'edit_item' => 'Edit Room',
+        'new_item' => 'New Romm',
+        'all_items' => 'All Rooms',
+        'view_item' => 'View Romms',
+        'search_items' => 'Search Rooms',
+        'not_found' => 'No Rooms found',
+        'not_found_in_trash' => 'No Rooms found in Trash',
+        'parent_item_colon' => '',
+        'menu_name' => 'Rooms'
+    );
+
+    $args = array(
+        'labels' => $labels,
+        'label' => __('room'),
+        'public' => true,
+        'publicly_queryable' => true,
+        'show_ui' => true,
+        'show_in_menu' => true,
+        'query_var' => true,
+        'rewrite' => array('slug' => 'room'),
+        'capability_type' => 'post',
+        'has_archive' => true,
+        'hierarchical' => false,
+        'menu_position' => null,
+        'menu_icon' => '' . $url . '/images/room.png',
+        'supports' => array('title', 'editor', 'author', 'thumbnail', 'custom-fields')
+    );
+
+    register_post_type('impruv_room', $args);
+}
+
+add_action('init', 'impruv_register_room_init');
+
+
+
+
+/*--------------------------------------------------------------------------------------
+*
+* create_room_taxonomies_and_add_terms
+*function to create taxonomies under post type emails
+*also creates immediate, batvh and marketing terms under email_type
+*
+*-------------------------------------------------------------------------------------*/
+
+function create_room_taxonomies_and_add_terms() {
+    // Add new taxonomy, Types
+    $facilities_labels = array(
+        'name' => _x('Facilities', 'taxonomy general name'),
+        'singular_name' => _x('Facility', 'taxonomy singular name'),
+        'search_items' => __('Search Facilities'),
+        'all_items' => __('All Facilities'),
+        'parent_item' => __('Parent Facility'),
+        'parent_item_colon' => __('Parent Facility:'),
+        'edit_item' => __('Edit Facility'),
+        'update_item' => __('Update Facility'),
+        'add_new_item' => __('Add New Facility'),
+        'new_item_name' => __('New Facility'),
+        'menu_name' => __('Facility')
+    );
+
+    $tag_args = array(
+        'hierarchical' => true,
+        'labels' => $facilities_labels,
+        'show_ui' => true,
+        'show_admin_column' => true,
+        'query_var' => true,
+        'rewrite' => array('slug' => 'facility')
+    );
+
+    register_taxonomy('impruv_room_facility', 'impruv_room', $tag_args);
+
+
+    
+}
+
+add_action('init', 'create_room_taxonomies_and_add_terms', 0);
+
+
+
+
+
 /**
  * Generates the markup for a specific section
  * @param type $section
@@ -638,3 +735,67 @@ function show_json(){
     
     return $json; 
 }
+
+//insert_room();
+function insert_room()
+{
+    $terms = array(10);
+    $array=array('post_title' => 'Deluxe', 'post_content' => 'Thisis a deluxe room.', 'user_id' => 3, 'inventory' => 10,'terms'=>$terms);
+    $attribute_array = array('weekday_price'=>'10','weekend_price'=>'20','num_of_adults'=>'2','num_of_children'=>'2','extra_adult'=>'10','extra_child'=>'10','include_tax'=>'yes','tax_percent'=>'12','terms_and_conditions'=>'agree');
+    $addons_array = array('breakfast at bed'=>'10','lunch_buffet'=>'10');
+    $tariff_array = array(array('start_date'=>date("Y/m/d"),'end_date'=>date("Y/m/d"),'attributes'=>$attribute_array,'add_ons'=>$addons_array));
+    add_new_room(1,$array,$tariff_array);
+    echo "yes";exit;
+}
+function add_new_room($blog_id,$array,$tariff_array)
+{
+   switch_to_blog($blog_id);
+     $my_post = array(
+       'post_title'    => $array['post_title'],
+       'post_content'  => $array['post_content'],
+       'post_status'   => 'publish',
+       'post_author'   => $array['user_id'],
+       'post_type'     => 'impruv_room'
+     );
+     print_r($array['terms']);exit;
+     // Insert the post into the database
+    $post_id = wp_insert_post( $my_post ); 
+    update_post_meta($post_id, 'inventory', $array['inventory']);//adds thew inventory value to the room
+    var_dump( wp_set_object_terms($post_id, $array['terms'], 'impruv_room_facility'));exit;;
+    add_room_tariff($post_id,$tariff_array);
+    restore_current_blog();
+   
+}
+
+function add_room_tariff($post_id,$tariff_array)
+{
+     global $wpdb;
+    foreach($tariff_array as $tariff)
+    {   if(is_array($tarriff))
+        $start_date = $tariff['start_date'];
+        $end_date = $tariff['end_date'];
+        $attributes = maybe_serialize($tariff['attributes']);
+        $add_ons = maybe_serialize($tariff['add_ons']);
+        $wpdb->insert( 
+	$wpdb->prefix.'room_tariffs', 
+	array( 
+		'start_date' => $start_date, 
+		'end_date' => $end_date,
+                'post_id' => $post_id,
+                'attributes' => $attributes,
+                'add_ons' => $add_ons
+             )
+        );
+        
+    }
+}
+
+function agc_register_parent_site_menus()
+{
+    
+ register_nav_menus( array(
+        'header_menu' => 'Header Menu',
+            'footer_menu' => 'Footer Menu'
+) ); 
+}
+ add_action('init', 'agc_register_parent_site_menus');

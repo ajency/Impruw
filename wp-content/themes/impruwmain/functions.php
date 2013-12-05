@@ -197,6 +197,9 @@ function change_administrator_role_name()
 add_action('init', 'change_administrator_role_name');
 //wpmu_create_blog($domain, $path, $title, $user_id);
 
+load_theme_textdomain('impruwmain'); 
+
+
 /**
  * impruw_add_user_roles_post_box
  * Function to add the user roles meta box to post type imruv_email.
@@ -227,7 +230,7 @@ function impruw_set_email_user_role()
             {
                 ?>
                 <li>
-                    <input type="checkbox" name="impruw_set_user_role_post[]" value="<?php echo $key ?>" <?php echo (in_array($key, $email_user_roles)) ? 'checked="checked"' : ''; ?>>&nbsp;<?php echo $value; ?><br>
+                   <?php echo _e("testing",'impruwmain');?> <input type="checkbox" name="impruw_set_user_role_post[]" value="<?php echo $key?>" <?php echo (in_array($key, $email_user_roles)) ? 'checked="checked"' : ''; ?>>&nbsp;<?php echo $value?><br>
                 </li>      
                 <?php
                 wp_nonce_field('impruw_set_user_role_post_nounce', 'impruw_set_user_role_post_nounce');
@@ -236,7 +239,7 @@ function impruw_set_email_user_role()
             {
                 ?>
                 <li>
-                    <input type="checkbox" name="impruw_set_user_role_post[]" value="<?php echo $key ?>" >&nbsp;<?php echo $value; ?><br>
+                  <?php echo _e("testing",'impruwmain');?>  <input type="checkbox" name="impruw_set_user_role_post[]" value="<?php echo $key?>" >&nbsp;<?php echo $value?><br>
                 </li> 
                 <?php
                 wp_nonce_field('impruw_set_user_role_post_nounce', 'impruw_set_user_role_post_nounce');
