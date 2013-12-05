@@ -7,8 +7,8 @@
 ?>
 <html>
     <head>
-        <?php
-        wp_head();
+        <?php do_action('icl_language_selector'); 
+        wp_head(); echo _e("email",'impruwmain');
         ?>
     </head>
     <body>

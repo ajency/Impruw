@@ -19,9 +19,13 @@
     <div class="aj-imp-container container">
 		<div class="row">
 			<div class="aj-imp-left col-md-3 col-sm-4">
+				<div class="aj-imp-dash-mobile-header">
+					<a href="#" id="nav-trigger"><span class="fui-list"></span> Menu</a>
+				</div>
 				<div class="aj-imp-dash-logo">
 					<a href="#"><img src="images/impruw-logo.png" title="Impruw" alt="Impruw" class="img-responsive" /></a>
 				</div>
+
 				<nav class="aj-imp-dash-nav">
 					<ul id="aj-imp-dash-menu">
 						<li class="aj-imp-nav-create">
@@ -75,10 +79,10 @@
 			</div>
 			<div class="aj-imp-right col-md-9 col-sm-8">
 				<header class="aj-imp-dash-header row">
-					<div class="aj-imp-dash-title col-sm-8">
+					<div class="aj-imp-dash-title col-xs-8">
 						<h2 class="aj-imp-page-head">Site Profile</h2>
 					</div>
-					<div class="aj-imp-dash-actions col-sm-4">
+					<div class="aj-imp-dash-actions col-xs-4">
 						<a href="#" class="btn btn-embossed btn-wide"><span class="glyphicon glyphicon-cog"></span> Settings</a>
 					</div>
 				</header>
@@ -131,10 +135,8 @@
 							</form>
 						</div>
 						<div class="scroll-indicator-container" id="scr2">
-							<h6 class="aj-imp-sub-head-thin scroll-ref">Business Details <small>Lorem ipsum dolor sit amet, consectetur adipiscing</small></h6>
+							<h4 class="aj-imp-sub-head scroll-ref">Business Details <small>Lorem ipsum dolor sit amet, consectetur adipiscing</small></h4>
 							<form class="form-horizontal clearfix">
-								<legend>Mailing Address</legend>
-								
 								
 								<div class="form-group has-error">
 									<label for="inputAddress1" class="col-sm-2 control-label">Street</label>
@@ -171,32 +173,34 @@
 								</div>
 								
 								
-								<div class="form-group">
+								<div class="form-group add-another">
 									<label for="inputEmail1" class="col-sm-2 control-label">Email</label>
 									<div class="col-sm-4 col-sm-offset-2">
 										<input type="email" class="form-control" id="inputEmail1" placeholder="youremail@site.com">
+										<span class="help-block add-another-link"><a href="#"><span class="glyphicon glyphicon-plus-sign"></span> Add Another</a></span>
 									</div>								
 								
 									<label for="inputPhone1" class="col-sm-2 control-label label-2">Phone</label>
 									<div class="col-sm-4 col-sm-offset-2">
 										<input type="text" class="form-control" id="inputEmail1" data-mask="99-999-999" placeholder="99-888-777">
+										<span class="help-block add-another-link"><a href="#"><span class="glyphicon glyphicon-plus-sign"></span> Add Another</a></span>
 									</div>
 								</div>
 
 								<div class="form-group">
 									
-									<span class="help-inline col-sm-4 col-sm-offset-2"><a href="#"><span class="glyphicon glyphicon-plus-sign"></span> Add Another</a></span>
+									
 								
 								
 									
-									<span class="help-inline col-sm-4 col-sm-offset-2"><a href="#"><span class="glyphicon glyphicon-plus-sign"></span> Add Another</a></span>
+									
 								</div>
 								
 							
 							</form>
 						</div>
 						<div class="scroll-indicator-container" id="scr3">
-							<h6 class="aj-imp-sub-head-thin scroll-ref">Social Settings <small>Lorem ipsum dolor sit amet, consectetur adipiscing</small></h6>
+							<h4 class="aj-imp-sub-head scroll-ref">Social Settings <small>Lorem ipsum dolor sit amet, consectetur adipiscing</small></h4>
 							<form class="form-horizontal clearfix">
 							
 								
@@ -212,7 +216,7 @@
 								</div>
 								
 								
-								<div class="form-group">
+								<div class="form-group loading">
 									<label for="inputSocial2" class="col-sm-2 control-label">Twitter</label>
 									<div class="col-sm-10 col-sm-offset-2">
 										<div class="input-group">
@@ -399,6 +403,7 @@
     <script src="js/underscore.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.jpanelmenu.min.js"></script>
     <script src="js/flatui-checkbox.js"></script>
     <script src="js/bootstrap-select.js"></script>
     <script src="js/flatui-radio.js"></script>
@@ -600,6 +605,13 @@
 			var m = jQuery('.aj-imp-left').width();
 			jQuery('.aj-imp-long-form-actions.affix').css('margin-left', (m));
 		});
+	</script>
+	<script type="text/javascript">
+		var jPM = $.jPanelMenu({
+		    menu: '.aj-imp-dash-nav',
+		    trigger: '#nav-trigger'
+		});
+		jPM.on();
 	</script>
   </body>
 </html>
