@@ -352,7 +352,7 @@ function send_email_through_mandrill($email_content, $subject, $admin_email,$use
     return $result;
     } catch(Mandrill_Error $e) {
     // Mandrill errors are thrown as exceptions
-    echo 'A mandrill error occurred: ' . get_class($e) . ' - ' . $e->getMessage();
+    sprint_f( __('A mandrill error occurred:  %s - %d','impruwmain'),get_class($e),$e->getMessage());
     // A mandrill error occurred: Mandrill_Unknown_Subaccount - No subaccount exists with the id 'customer-123'
     throw $e;
 }

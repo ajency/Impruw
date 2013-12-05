@@ -18,7 +18,7 @@ Description: This file has a list of the following functions used in the theme
 require_once 'Communication_module/user_shortcodes.php';//file containing all shortcodes to fetch user information
 require_once 'Communication_module/site_shortcodes.php';//file containing all shortcodes to fetch site information
 require_once 'User/user_management.php';//file containing all shortcodes to fetch site information
-
+ 
 /*--------------------------------------------------------------------------------------
 *
 * impruv_register_email_init
@@ -198,6 +198,9 @@ function change_administrator_role_name()
 add_action('init', 'change_administrator_role_name');
 //wpmu_create_blog($domain, $path, $title, $user_id);
 
+load_theme_textdomain('impruwmain'); 
+
+
 /**
  * impruw_add_user_roles_post_box
  * Function to add the user roles meta box to post type imruv_email.
@@ -228,7 +231,7 @@ function impruw_set_email_user_role()
             {
                 ?>
                 <li>
-                    <input type="checkbox" name="impruw_set_user_role_post[]" value="<?php echo $key ?>" <?php echo (in_array($key, $email_user_roles)) ? 'checked="checked"' : ''; ?>>&nbsp;<?php echo $value; ?><br>
+                   <?php echo _e("testing",'impruwmain');?> <input type="checkbox" name="impruw_set_user_role_post[]" value="<?php echo $key?>" <?php echo (in_array($key, $email_user_roles)) ? 'checked="checked"' : ''; ?>>&nbsp;<?php echo $value?><br>
                 </li>      
                 <?php
                 wp_nonce_field('impruw_set_user_role_post_nounce', 'impruw_set_user_role_post_nounce');
@@ -237,7 +240,7 @@ function impruw_set_email_user_role()
             {
                 ?>
                 <li>
-                    <input type="checkbox" name="impruw_set_user_role_post[]" value="<?php echo $key ?>" >&nbsp;<?php echo $value; ?><br>
+                  <?php echo _e("testing",'impruwmain');?>  <input type="checkbox" name="impruw_set_user_role_post[]" value="<?php echo $key?>" >&nbsp;<?php echo $value?><br>
                 </li> 
                 <?php
                 wp_nonce_field('impruw_set_user_role_post_nounce', 'impruw_set_user_role_post_nounce');
@@ -248,10 +251,10 @@ function impruw_set_email_user_role()
         <div style="clear:both"></div></ul><?php
 }
 
-    /**
-     * impruw_add_user_role_to_email
-     * Function to add user role's to a an email.
-     */
+/**
+ * impruw_add_user_role_to_email
+ * Function to add user role's to a an email.
+ */
 function impruw_add_user_role_to_email($post_id) 
 {
       global $post;
@@ -293,47 +296,50 @@ function wp_impruw_get_user_roles()
 }
 
 
-
+/**
+ * Functino to add required stylecheet file
+ * 
+ */
 
 function add_csstopage() {
-	global $post;
-	$post_slug=$post->post_name;
-	
-	if($post_slug=="register")
-	{
+	 
 		wp_enqueue_style('bootstrap',  get_template_directory_uri() . '/css/bootstrap.min.css');
 		wp_enqueue_style('flat-ui',  get_template_directory_uri() . '/css/flat-ui.css');
 		wp_enqueue_style('main.min',  get_template_directory_uri() . '/css/main.min.css');
 		wp_enqueue_style('dashboard',  get_template_directory_uri() . '/css/dashboard.css');
-	}
+	 
 }
 add_action('wp_enqueue_scripts', 'add_csstopage');
 
 
 
-
+/**
+ * Function to add required js files
+ * 
+ */
 function register_required_scripts() {
-	//echo "<br/><br/><br/>";
-	global $post,$bp,$cur_group_status__;
-
-	$slug = get_post( $post )->post_name;
-	if($slug=="register")
-	{
-		wp_deregister_script( 'jquery' );
-		 
-		 
-		wp_register_script( 'jquery', get_template_directory_uri().'/js/jquery-2.0.3.min.js', array(), '2.0.3',true);
-		wp_enqueue_script( 'parsley', get_template_directory_uri().'/js/parsley.js', array('jquery'), '1.2.1',true);
-		wp_enqueue_script( "bootstrap",  get_template_directory_uri().'/js/bootstrap.min.js', array( 'jquery' ) ,false,true);
-		wp_enqueue_script( "flatui-checkbox",  get_template_directory_uri().'/js/flatui-checkbox.js', array( 'jquery' ) ,false,true);
-		wp_enqueue_script( "bootstrap-select",  get_template_directory_uri().'/js/bootstrap-select.js', array( 'jquery' ) ,false,true);
-		wp_enqueue_script( "flatui-radio",  get_template_directory_uri().'/js/flatui-radio.js', array( 'jquery' ) ,false,true);
+	   
+	wp_enqueue_script( 'jquery');
+	
+	
+	//define ajaxurl for user_management.js
+	//$translation_array = array( 'ajaxurl' =>admin_url( 'admin-ajax.php' )  );
+	wp_enqueue_script('pw-script', get_template_directory_uri() . '/js/user_management.js');
+	wp_localize_script('pw-script', 'ajaxurl', admin_url( 'admin-ajax.php' )	);
+	
+	
+	
+	wp_enqueue_script( "bootstrap",  get_template_directory_uri().'/js/bootstrap.min.js', array( 'jquery' ) ,false,true);
+	wp_enqueue_script( "flatui-checkbox",  get_template_directory_uri().'/js/flatui-checkbox.js', array( 'jquery' ) ,false,true);
+	wp_enqueue_script( "bootstrap-select",  get_template_directory_uri().'/js/bootstrap-select.js', array( 'jquery' ) ,false,true);
+	wp_enqueue_script( "flatui-radio",  get_template_directory_uri().'/js/flatui-radio.js', array( 'jquery' ) ,false,true);
+	
+	if(is_page('register')){
+		//wp_deregister_script( 'jquery' );
+		//wp_enqueue_script( 'parsley-lang', get_template_directory_uri().'/js/parsley/i18n/messages.no.js', array(), false,true);
+		wp_enqueue_script( 'parsley', get_template_directory_uri().'/js/parsley/parsley.js', array('jquery'), '1.2.1',true);
+		wp_enqueue_script( "user_management",  get_template_directory_uri().'/js/user_management.js', array( ) ,false,true);
 	}
 }
 add_action('wp_enqueue_scripts', 'register_required_scripts', 1);
  
-
-
-
-
-

@@ -6,10 +6,15 @@
  * 1) wp_impruw_create_user - Function to insert registered user's data into the database and return the user_id.
  * 2) create_new_site - Function to create a new blog and return the blog id.
  * 3) assign_theme_to_site - Function to assign a theme to the new site created.
- * 4) add_new_post_to_blog - Function to create a new post of type page. 
- * 5) assign_active_languages - Function to assign active languages toa  site.
- * 6) check_email_exists	- Function to check if email id already registered(check done on registration page) 
- * 7) check_sitename_exists - Function to check if sitename already exists(check done on registration page)
+ * 4) toggle_plugin - Function to activate the wpml and wpml string plugin
+ * 5) assign_default_language - Function to assign the default language of WPML forthe site created.
+ * 6) assign_active_languages - Function to assign active languages to a site.
+ * 7) add_new_post_to_blog - Function to create a new post of type page. 
+ * 8) mwm_wpml_translate_post - Creates a translation of a post (to be used with WPML.
+ * 9) add_layout_site - Function to assign the json layouyt to a page
+ * 10) create_tariff_table_for_blog - Function to create a table for room tariffs every time a site is created.
+ * 11) check_email_exists	- Function to check if email id already registered(check done on registration page) 
+ * 12) check_sitename_exists - Function to check if sitename already exists(check done on registration page)
  * 
  * 
  * 	
@@ -99,7 +104,12 @@ function create_new_site($blog_id,$blog_name,$blog_title,$user_id,$file_name)
     $post_nb_id = mwm_wpml_translate_post( $new_blog_id,$post_id, 'page', 'nb',$user_id);
     add_layout_site($new_blog_id,$post_id,$file_name);
     $post_site_builder_id = add_new_post_to_blog($new_blog_id,$user_id,'Site Builder','Site Builder Content.','page','site-builder.php');
-   // echo $post_site_builder_id;exit;
+
+    $post_register_id = add_new_post_to_blog($new_blog_id,$user_id,'Register','Register Content.','page','page-register.php');
+    create_tariff_table_for_blog($new_blog_id);  
+    add_menu_to_blog($new_blog_id,$post_id,$post_site_builder_id);
+    //echo $post_site_builder_id;exit;
+
     
     //exit;//create a new post
     
@@ -124,73 +134,9 @@ function assign_theme_to_site($blog_id,$theme_name)
 }
 
 /**
- *
- * add_new_post_to_blog
- * Function to create a new post of type page. 
- * @param int $blog_id - id of the blog in which the post has to be created.
- * @param int $user_id - id of user who will be assigned the author of the post.
- * @return type
+ * toggle_plugin
+ * function to activate the wpml and wpml string plugin
  */
-function add_new_post_to_blog($blog_id,$user_id,$post_title,$post_content,$post_type,$post_template)
-{
-     switch_to_blog($blog_id);
-     $my_post = array(
-       'post_title'    => $post_title,
-       'post_content'  => $post_content,
-       'post_status'   => 'publish',
-       'post_author'   => $user_id,
-       'post_type'     => $post_type
-     );
-
-     // Insert the post into the database
-    $post_id = wp_insert_post( $my_post );
-    update_post_meta($post_id, '_wp_page_template', $post_template);
-    
-    //$test=icl_sitepress_activate();var_dump($test);exit;
-   // echo mwm_wpml_translate_post( $post_id, 'page', 'nb' );exit;
-    restore_current_blog();
-    
-    return $post_id;
-}
-
-/**
- * Creates a translation of a post (to be used with WPML)
- *  
- * @param int $post_id The ID of the post to be translated.
- * @param string $post_type The post type of the post to be transaled (ie. 'post', 'page', 'custom type', etc.).
- * @param string $lang The language of the translated post (ie 'fr', 'de', etc.).
- * @param string $user_id - id of user who will be assigned the author of the post.
- *    
- * @return the translated post ID
- *  */
-function mwm_wpml_translate_post( $blog_id,$post_id, $post_type, $lang,$user_id ){
-    switch_to_blog($blog_id);
-    // Include WPML API
-    include_once( WP_PLUGIN_DIR . '/sitepress-multilingual-cms/inc/wpml-api.php' );
-
-    // Define title of translated post
-    $post_translated_title = get_post( $post_id )->post_title . ' (' . $lang . ')';
-
-    // Insert translated post
-    $post_translated_id = wp_insert_post( array( 'post_title' => $post_translated_title, 'post_type' => $post_type, 'post_status' => 'publish', 'post_author' => $user_id ) );
-
-    // Get trid of original post
-    $trid = wpml_get_content_trid( 'post_' . $post_type, $post_id );
-
-    // Get default language
-    $default_lang = wpml_get_default_language();
-
-    // Associate original post and translated post
-    global $wpdb;
-    $wpdb->update( $wpdb->prefix.'icl_translations', array( 'trid' => $trid, 'language_code' => $lang, 'source_language_code' => $default_lang ), array( 'element_id' => $post_translated_id ) );
-    restore_current_blog();
-    // Return translated post ID
-    return $post_translated_id;
-
-}
-
-
-
 function toggle_plugin($blog_id) {
     switch_to_blog($blog_id);
     $my_plugin = 'sitepress-multilingual-cms/sitepress.php';
@@ -205,7 +151,7 @@ function toggle_plugin($blog_id) {
                 //icl_sitepress_activate();
                
 	}
-    $my_plugin = 'wpml-string-translation/plugin.php';
+    /*$my_plugin = 'wpml-string-translation/plugin.php';
 
     // Check to see if plugin is already active
     if(!is_plugin_active($my_plugin)) {
@@ -216,12 +162,14 @@ function toggle_plugin($blog_id) {
                 activate_plugin($my_plugin);
                 //icl_sitepress_activate();
                
-	}
+	}*/
 	 restore_current_blog();
 }
 
+
 /**
- * 
+ * assign_default_language
+ * Function to assign the default language of WPML forthe site created.
  * @param int $blog_id - the id of the new blog
  * @param text $language_code - the code of the language which is assigned as default.
  */
@@ -268,6 +216,7 @@ function assign_default_language($blog_id,$language_code)
             
 }
 
+
 /**
  * assign_active_languages
  * Function to assign active languages toa  site.
@@ -284,6 +233,82 @@ function assign_active_languages($blog_id)
     restore_current_blog();
 }
 
+/**
+ *
+ * add_new_post_to_blog
+ * Function to create a new post of type page. 
+ * @param int $blog_id - id of the blog in which the post has to be created.
+ * @param int $user_id - id of user who will be assigned the author of the post.
+ * @return type
+ */
+function add_new_post_to_blog($blog_id,$user_id,$post_title,$post_content,$post_type,$post_template)
+{
+     switch_to_blog($blog_id);
+     $my_post = array(
+       'post_title'    => $post_title,
+       'post_content'  => $post_content,
+       'post_status'   => 'publish',
+       'post_author'   => $user_id,
+       'post_type'     => $post_type
+     );
+
+     // Insert the post into the database
+    $post_id = wp_insert_post( $my_post );
+    update_post_meta($post_id, '_wp_page_template', $post_template);
+    
+    //$test=icl_sitepress_activate();var_dump($test);exit;
+   // echo mwm_wpml_translate_post( $post_id, 'page', 'nb' );exit;
+    restore_current_blog();
+    
+    return $post_id;
+}
+
+/**
+ * mwm_wpml_translate_post
+ * Creates a translation of a post (to be used with WPML)  
+ * @param int $post_id The ID of the post to be translated.
+ * @param string $post_type The post type of the post to be transaled (ie. 'post', 'page', 'custom type', etc.).
+ * @param string $lang The language of the translated post (ie 'fr', 'de', etc.).
+ * @param string $user_id - id of user who will be assigned the author of the post.
+ *    
+ * @return the translated post ID
+ *  */
+function mwm_wpml_translate_post( $blog_id,$post_id, $post_type, $lang,$user_id ){
+    switch_to_blog($blog_id);
+    // Include WPML API
+    include_once( WP_PLUGIN_DIR . '/sitepress-multilingual-cms/inc/wpml-api.php' );
+
+    // Define title of translated post
+    $post_translated_title = get_post( $post_id )->post_title . ' (' . $lang . ')';
+
+    // Insert translated post
+    $post_translated_id = wp_insert_post( array( 'post_title' => $post_translated_title, 'post_type' => $post_type, 'post_status' => 'publish', 'post_author' => $user_id ) );
+
+    // Get trid of original post
+    $trid = wpml_get_content_trid( 'post_' . $post_type, $post_id );
+
+    // Get default language
+    $default_lang = wpml_get_default_language();
+
+    // Associate original post and translated post
+    global $wpdb;
+    $wpdb->update( $wpdb->prefix.'icl_translations', array( 'trid' => $trid, 'language_code' => $lang, 'source_language_code' => $default_lang ), array( 'element_id' => $post_translated_id ) );
+    restore_current_blog();
+    // Return translated post ID
+    return $post_translated_id;
+
+}
+
+
+
+
+/**
+ * add_layout_site
+ * Function to assign the json layouyt to a page
+ * @param type $blog_id
+ * @param type $post_id
+ * @param type $file_name
+ */
 function  add_layout_site($blog_id,$post_id,$file_name)
 {
     switch_to_blog($blog_id);
@@ -291,6 +316,95 @@ function  add_layout_site($blog_id,$post_id,$file_name)
     include($file_path);
     update_post_meta($post_id, 'layout_json', $json);
     restore_current_blog();
+}
+
+/**
+ * create_tariff_table_for_blog
+ * Function to create a table for room tariffs every time a site is created.
+ * @global type $wpdb
+ * @param int $blog_id - id of the blog in which changes need to be done
+ */
+function create_tariff_table_for_blog($blog_id)
+{
+    switch_to_blog($blog_id);
+    global $wpdb;
+    $query_email_actions=("CREATE TABLE IF NOT EXISTS {$wpdb->prefix}room_tariffs(
+				tariff_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                                post_id INT,
+                                start_data DATE,
+                                end_date DATE,
+                                attributes TEXT,
+                                add_ons TEXT)");
+    $wpdb->query($query_email_actions);
+    restore_current_blog();
+}
+
+/**
+ * add_menu_to_blog
+ * Function to create 2 menu's for the new blog created
+ * @param type $blog_id - the idof blog to add menu to.
+ */
+function add_menu_to_blog($blog_id,$home_id,$site_builder_id)
+{
+    switch_to_blog($blog_id);
+    
+    
+    $run_once = get_option('menu_check');
+if (!$run_once){
+    //give your menu a name
+    $name = 'site header menu';
+    //create the menu
+    $menu_id = wp_create_nav_menu($name);
+    //then get the menu object by its name
+    $menu = get_term_by( 'name', $name, 'nav_menu' );
+
+    //then add the actuall link/ menu item and you do this for each item you want to add
+    wp_update_nav_menu_item($menu->term_id, 0, array(
+        'menu-item-title' => get_the_title($home_id),
+        'menu-item-classes' => 'home',
+        'menu-item-url' => get_permalink($home_id), 
+        'menu-item-status' => 'publish'));
+     wp_update_nav_menu_item($menu->term_id, 0, array(
+        'menu-item-title' => get_the_title($site_builder_id),
+        'menu-item-classes' => 'site_builder',
+        'menu-item-url' => get_permalink($site_builder_id), 
+        'menu-item-status' => 'publish'));
+
+    //then you set the wanted theme  location
+    $locations = get_theme_mod('nav_menu_locations');
+    $locations['header_menu'] = $menu->term_id;
+    set_theme_mod( 'nav_menu_locations', $locations );
+    
+    
+    //give your menu a name
+    $name_footer = 'site footer menu';
+    //create the menu
+    $menu_id_footer = wp_create_nav_menu($name_footer);
+    //then get the menu object by its name
+    $menu_footer = get_term_by( 'name', $name_footer, 'nav_menu' );
+
+    //then add the actuall link/ menu item and you do this for each item you want to add
+    wp_update_nav_menu_item($menu_footer->term_id, 0, array(
+        'menu-item-title' => get_the_title($home_id),
+        'menu-item-classes' => 'home',
+        'menu-item-url' => get_permalink($home_id), 
+        'menu-item-status' => 'publish'));
+     wp_update_nav_menu_item($menu_footer->term_id, 0, array(
+        'menu-item-title' => get_the_title($site_builder_id),
+        'menu-item-classes' => 'site_builder',
+        'menu-item-url' => get_permalink($site_builder_id), 
+        'menu-item-status' => 'publish'));
+
+    //then you set the wanted theme  location
+    $locations_footer = get_theme_mod('nav_menu_locations');
+    $locations_footer['footer_menu'] = $menu_footer->term_id;
+    set_theme_mod( 'nav_menu_locations', $locations_footer );
+
+
+    // then update the menu_check option to make sure this code only runs once
+    update_option('menu_check', true);
+}
+restore_current_blog();
 }
 
 
@@ -301,54 +415,24 @@ function  add_layout_site($blog_id,$post_id,$file_name)
  */
 function check_email_exists()
 { 
-	 
-	$tbl_fieldvalue = $_POST['email'];
+	  
+	$email = $_GET['inputEmail'];
 
-	if(useremail_exists($tbl_fieldvalue))
-	{
+	if(email_exists($email)) {
 		header('Content-Type: application/json');
-		echo json_encode(array('code' =>'000', 'msg'=>"Email Id Already Exists."));
+		echo json_encode(array("error"=>"Email Id Already Exists."));
 		die();
 	}
-	else
-	{
+	else {
 		header('Content-Type: application/json');
-		echo json_encode(array('code' => '001', 'msg'=>"Email Id Does Not Exists."));
+		echo json_encode(true);
 		die();
 	} 
 }
 add_action('wp_ajax_check_email_exists','check_email_exists');
 add_action('wp_ajax_nopriv_check_email_exists','check_email_exists');
-
  
-
-/**
- * Function to check if email id is already registered
- * @param string $email
- * @return boolean
- */
-function useremail_exists($email)
-{
-	global $wpdb;
-	$user_table = $wpdb->base_prefix . 'users';
-	$res_verify_user = $wpdb->get_results("SELECT count(*) as user_exist FROM $user_table WHERE user_email ='" . $email."'", 
-			OBJECT);
-	
-	
-	if ($res_verify_user)
-	{
-		foreach ($res_verify_user as $res_verify_usr) {
-			if ($res_verify_usr->user_exist>0)
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
-		}
-	}
-}
+ 
 
 
 /**
@@ -358,20 +442,22 @@ function useremail_exists($email)
  */ 
 function check_sitename_exists()
 {
-	$blog_name = $_POST['sitename'];
+	$blog_name = $_GET['inputSitename'];
+	
+	 
 	global $user_id;	
 	$blog_id = 1;
 	
 	if ( sitename_exists($blog_name,$blog_id) )
 	{
-		header('Content-Type: application/json');
-		echo json_encode(array('code' =>'000', 'msg'=>'Sorry, that site already exists!' ) );
+		header('Content-Type: application/json');		
+		echo json_encode(array("error"=>"Sorry, that site already exists!"));
 		die();
 	}
 	else
 	{
 		header('Content-Type: application/json');
-		echo json_encode(array('code' => '001', 'msg'=>'Site Name does not Exist' ) );
+		echo json_encode(true);
 		die();
 	}
 	
@@ -399,11 +485,9 @@ function sitename_exists($blog_name,$mainblog_id)
 		$domain = strtolower( $blog_name );
 	
 	// If not a subdomain install, make sure the domain isn't a reserved word
-	if ( ! is_subdomain_install() )
-	{
+	if ( ! is_subdomain_install() )	{
 		$subdirectory_reserved_names = apply_filters( 'subdirectory_reserved_names', array( 'page', 'comments', 'blog', 'files', 'feed','impruw','admin','administrator', ) );
-		if ( in_array( $domain, $subdirectory_reserved_names ) )
-		{
+		if ( in_array( $domain, $subdirectory_reserved_names ) ) {
 			header('Content-Type: application/json');
 			echo json_encode(array('code' => '000', 'msg'=> __('The following words are reserved for use by WordPress functions and cannot be used as blog names: '.implode(",",$subdirectory_reserved_names)) ) );
 			die();
@@ -460,15 +544,11 @@ function sitename_exists($blog_name,$mainblog_id)
  */
 function save_new_user()
 {
-	global $wpdb;
+	
 	$form_data = $_POST['frmdata'];
-	//var_dump($_POST['frmdata']);
 	
-	
-	foreach($_POST['frmdata'] as $frm_element_key => $frm_element_val)
-	{
-		//echo "key : ".$frm_element_key;
-		//echo "<br/>Value ".$frm_element_key;
+	foreach($_POST['frmdata'] as $frm_element_key => $frm_element_val) 	{
+
 		switch($frm_element_val['name'])
 		{
 			case 'inputName'				:	$name = $frm_element_val['value'];
@@ -504,17 +584,16 @@ function save_new_user()
 	{
 			
 		header('Content-Type: application/json');
-		echo json_encode(array('code' => '002', 'msg'=>"Invalid captcha.Please Renter the Captcha Code")  );
+		echo json_encode(array('code' => '002', 'msg'=>_("Invalid captcha.Please Renter the Captcha Code"))  );
 		die();
 			
 			
-			// What happens when the CAPTCHA was entered incorrectly
+			
 		 
 	} 
 	else
 	{
-		// Your code here to handle a successful verification
-		
+		// Your code here to handle a successful verification		
 		$user_data_array['name'] = $name;
 		$user_data_array['email'] = $email;
 		$user_data_array['password'] =$pass;
@@ -529,47 +608,15 @@ function save_new_user()
 		if(!empty($new_blog_id))
 		{
 			header('Content-Type: application/json');
-			echo json_encode(array('code' => '000', 'msg'=>"The User registration successfull. And the site created successfully")  );
+			echo json_encode(array('code' => '000', 'msg'=>_("The User registration successfull. And the site created successfully"))  );
 			die();
 		}
-		
-		
-		
-		
-	/*	var_dump("captcha success");
-		header('Content-Type: application/json');
-		echo json_encode(array('success' => false, 'msg'=>'valid captcha' ) );
-		die();
-		
-		*/
-		
-		//register the user
 		
 	}
 	
 	
 	
-	/*
 	
-	
-	$user_table = $wpdb->base_prefix . 'users';
-	$res_verify_user = $wpdb->get_results("SELECT count(*) as user_exist FROM $user_table WHERE user_email ='" . $email."'", OBJECT);
-
-
-	if ($res_verify_user)
-	{
-		foreach ($res_verify_user as $res_verify_usr)
-		{
-			if ($res_verify_usr->user_exist>0)
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
-		}
-	}*/
 }
 add_action('wp_ajax_save_new_user','save_new_user');
 add_action('wp_ajax_nopriv_save_new_user','save_new_user');

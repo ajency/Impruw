@@ -6,6 +6,7 @@
  * 1) remove_default_capabilities - Function to remove default worpress roles from site.
  * 2) create_impruve_manager_role - Function to create a new user role called Impruw Manager having same capabilities as the super admin.
  * 3) add_to_page_layouts - Function to add filenames in layout table.
+ * 4) add_term_to_facility - Function to add default terms to facility taxonomy for post type room
  */
 require_once( '../../../../wp-load.php');
 require_once('../../../../wp-admin/includes/plugin.php');
@@ -17,12 +18,13 @@ remove_default_capabilities();
 create_impruv_manager_role();
 insert_into_email_action_table();
 add_to_page_layouts();
+add_term_to_facility();
 //$user_data=array("email"=>"jeromie@ajency.in","password"=>"admin","name"=>"Jeromie Vaz",'role'=>'administrator');
 //wp_impruw_create_user($user_data);
 //$_REQUEST['action'] = 'activate';
 //$_REQUEST['_wpnonce'] = wp_create_nonce();
 //var_dump(toggle_plugin(23));exit;
-create_new_site(1,'childsite1','Child Site 1',3,'home1_layout.php');
+create_new_site(1,'newchildsite22','Child Site new22',3,'home1_layout.php');
 //$user_data=array();
 //$user_roles = fetch_user_roles_by_type(18);
 //$user_ids_array = fetch_user_ids_by_role($user_roles);
@@ -164,3 +166,38 @@ function add_to_page_layouts()
    
 }
 
+/**
+ * add_term_to_facility
+ * Function to add default terms to facility taxonomy for post type room
+ * 
+ */
+function add_term_to_facility()
+{
+   global $wpdb;
+   $blogs_query=("SELECT blog_id from {$wpdb->prefix}blogs"); 
+   $blogs = $wpdb->get_results($blogs_query);
+   foreach ($blogs as $blog)
+   {
+       switch_to_blog($blog->blog_id);
+        //add term Wifi under taxonomy Facility
+       $slug = sanitize_title('wifi_Available');
+
+       $term_id = wp_insert_term('Wifi Available', 'impruv_room_facility', array(
+         'description' => 'Wifi Available',
+         'slug' => $slug,
+         'parent' => 0,
+             ));
+
+       //add term Swimming pool  taxonomy Facility
+       $slug = sanitize_title('swimming_pool');
+       $term_id = wp_insert_term('Swimming Pool', 'impruv_room_facility', array(
+         'description' => 'Swimming Pool',
+         'slug' => $slug,
+         'parent' => 0,
+             ));
+       restore_current_blog();
+   }
+ 
+
+    
+}
