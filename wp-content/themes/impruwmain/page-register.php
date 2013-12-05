@@ -67,7 +67,7 @@ if(isset($_REQUEST['lang']))
 			</div>
 			<div class="row">
 				<div class="col-md-7 aj-imp-register-left">
-					<form class="form-horizontal clearfix" method="post"  name="frm_registration" id="frm_registration"  parsley-validate>
+					<form class="form-horizontal clearfix" method="post"  name="frm_registration" id="frm_registration"  parsley-validate  data-persist="garlic" >
 						<div class="row">
 							<label for="inputName" class="col-sm-3 control-label"><?php echo __('Name','impruwmain'); ?></label>
 							<div class="col-sm-7">
@@ -224,7 +224,11 @@ if(isset($_REQUEST['lang']))
 		</div>
 	</div>
 	<?php //getThemeJS() ;?>
+	<!--[if lte IE 7]>
+    <script src="https://raw.github.com/mattpowell/localstorageshim/master/localstorageshim.min.js" type="text/javascript"></script>
+<![endif]-->
 	<?php wp_footer(); ?>
+	
 </body>
     
     
