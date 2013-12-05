@@ -36,6 +36,7 @@
 	<script src="<?php echo get_template_directory_uri(); ?>/js/html5.js"></script>
 	<![endif]-->
         <?php //getThemeCSS(); ?>
+        <script>var ajaxurl = '<?php echo admin_url( 'admin-ajax.php' ); ?>';</script>
 	<?php wp_head(); ?>
 </head>
 
@@ -44,9 +45,10 @@
 		<div class="aj-imp-register-form">
 			<div class="row">
 				<div class="col-sm-12 aj-imp-register-header">
-					<h1>Sign Up <span>Impruw</span></h1>
+					<h1><?php echo __('Sign Up','impruwmain');?> <span><?php echo __('Impruw','impruwmain'); ?></span></h1>
 					<p class="desc">
-						Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+						<?php echo __('Lorem Ipsum is simply dummy text of the printing and typesetting industry.','impruwmain');  do_action('icl_language_selector');
+						 ?> 
 					</p>
 				</div>
 			</div>
@@ -54,49 +56,77 @@
 				<div class="col-md-7 aj-imp-register-left">
 					<form class="form-horizontal clearfix" method="post"  name="frm_registration" id="frm_registration"  parsley-validate>
 						<div class="row">
-							<label for="inputName" class="col-sm-3 control-label">Name</label>
+							<label for="inputName" class="col-sm-3 control-label"><?php echo __('Name','impruwmain'); ?></label>
 							<div class="col-sm-7">
 								<div class="form-group">
-									<input type="text" class="form-control" id="inputName"  name="inputName" placeholder="Name" required   parsley-trigger="blur" parsley-validation-minlength="0" >
-									<span class="help-block">eg. Richard Parker</span>
+									<input type="text" class="form-control" id="inputName"  name="inputName" placeholder="<?php echo __('Name','impruwmain'); ?>" required   parsley-trigger="blur" parsley-validation-minlength="0" >
+									<span class="help-block"><?php echo __('eg. Richard Parker','impruwmain'); ?></span>
 								</div>
 							</div>
 						</div>
 						<div class="row">
-							<label for="inputEmail" class="col-sm-3 control-label">Email</label>
+							<label for="inputEmail" class="col-sm-3 control-label"><?php echo __('Email','impruwmain'); ?></label>
 							<div class="col-sm-7">
 								<div class="form-group">
-									<input type="email" class="form-control" id="inputEmail"  name="inputEmail" placeholder="Email"   required  parsley-type="email" parsley-trigger="blur" parsley-validation-minlength="0">
-									<span class="help-block">eg. richard@mail.com</span>
+									<input type="email" class="form-control" id="inputEmail"  name="inputEmail" placeholder="<?php echo __('Email','impruwmain');?>"   required  parsley-type="email" parsley-trigger="blur" parsley-validation-minlength="0" parsley-remote="<?php echo admin_url( 'admin-ajax.php' ).'?action=check_email_exists'; ?>">
+									<span class="help-block"><?php echo __('eg. richard@mail.com','impruwmain');?></span>
 								</div>
 							</div>
 						</div>
-						<div class="row aj-imp-site-name">
-							<label for="inputSitename" class="col-sm-3 control-label">Site Name</label>
+						
+						
+						
+						<?php /*
+						
+						<div class="row">
+							<label for="inputEmail" class="col-sm-3 control-label"><?php echo _('Language'); ?></label>
 							<div class="col-sm-7">
 								<div class="form-group">
-									<input type="text" class="form-control" id="inputSitename" name="inputSitename" placeholder="Site Name"  required  parsley-trigger="blur" parsley-validation-minlength="0" parsley-type="alphanum"  >
-									<span class="help-block">eg. florist.impruw.com</span>
+									<select name="inputlanguage"> 
+										<option value="">Select</option>
+									 	<option value="English">English</option>
+									  	<option value="Norwegian">Norwegian</option>
+									</select>
+									<span class="help-block"><?php echo _('eg. richard@mail.com');?></span>
+								</div>
+							</div>
+						</div>
+						
+						*/ ?>
+						
+						
+						
+						
+						
+						
+						
+						
+						<div class="row aj-imp-site-name">
+							<label for="inputSitename" class="col-sm-3 control-label"><?php echo __('Name','impruwmain');?></label>
+							<div class="col-sm-7">
+								<div class="form-group">
+									<input type="text" class="form-control" id="inputSitename" name="inputSitename" placeholder="<?php echo __('Site Name','impruwmain');?>"  required  parsley-trigger="blur" parsley-validation-minlength="0" parsley-type="alphanum"   parsley-validation-minlength="0" parsley-remote="<?php echo admin_url( 'admin-ajax.php' ).'?action=check_sitename_exists'; ?>"   >
+									<span class="help-block"><?php echo __('eg. florist.impruw.com','impruwmain');?></span>
 								</div>
 							</div>
 							<div class="col-sm-2 aj-imp-domain">
-								.impruw.com
+								<?php echo __('.impruw.com','impruwmain');?>
 							</div>
 						</div>
 						<div class="row">
-							<label for="inputPass" class="col-sm-3 control-label">Password</label>
+							<label for="inputPass" class="col-sm-3 control-label"><?php echo __('Password','impruwmain');?></label>
 							<div class="col-sm-7">
 								<div class="form-group">
-									<input type="password" class="form-control parsley-validated" id="inputPass" name="inputPass" placeholder="Password"  required  parsley-equalto="#inputPass"     parsley-trigger="blur" parsley-validation-minlength="0" >
-									<span class="help-block">at least 6 to 12 characters long</span>
+									<input type="password" class="form-control parsley-validated" id="inputPass" name="inputPass" placeholder="<?php echo __('Password','impruwmain'); ?>"  required  parsley-equalto="#inputPass"     parsley-trigger="blur" parsley-validation-minlength="0" >
+									<span class="help-block"><?php echo __('at least 6 to 12 characters long','impruwmain'); ?></span>
 								</div>
 							</div>
 						</div>
 						<div class="row">
-							<label for="inputRepass" class="col-sm-3 control-label">Retype Password</label>
+							<label for="inputRepass" class="col-sm-3 control-label"><?php echo __('Retype Password','impruwmain');?></label>
 							<div class="col-sm-7">
 								<div class="form-group">
-									<input type="password" class="form-control parsley-validated parsley-error"   id="inputRepass" name="inputRepass" placeholder="Retype Password"  required   parsley-equalto="#inputPass"   parsley-trigger="blur" parsley-validation-minlength="0"  >
+									<input type="password" class="form-control parsley-validated parsley-error"   id="inputRepass" name="inputRepass" placeholder="<?php echo __('Retype Password','impruwmain');?>"  required   parsley-equalto="#inputPass"   parsley-trigger="blur" parsley-validation-minlength="0"  >
 								</div>
 							</div>
 						</div>
@@ -146,7 +176,7 @@
 								<div class="form-group">
 									<label for="checkbox2" class="checkbox checked">
 										<input type="checkbox" data-toggle="checkbox" checked="checked" id="checkbox2" name="checkbox2"  value="1"   parsley-required="true"  class="parsley-validated parsley-error"   parsley-trigger="blur" parsley-validation-minlength="0">
-										I agree to the Terms &amp; Conditions
+										<?php echo __('I agree to the Terms &amp; Conditions','impruwmain') ;?>
 									</label>
 								</div>
 							</div>
@@ -166,7 +196,7 @@
 							<div class="col-sm-offset-3 col-sm-7">
 								<div class="form-group">
 									<!--  <button type="submit" class="btn btn-wide aj-imp-submit">Start Creating!</button> --> 
-									<button type="button" class="btn btn-wide aj-imp-submit" id="btn_create" name="btn_create"  >Start Creating!</button> <img id="registration_loader" src="<?php echo site_url()."/wp-content/themes/impruwmain/images/loader.gif"; ?>" width="38" height="30"  style="display:none;"/>
+									<button type="button" class="btn btn-wide aj-imp-submit" id="btn_create" name="btn_create"  ><?php echo __('Start Creating!','impruwmain'); ?></button> <img id="registration_loader" src="<?php echo site_url()."/wp-content/themes/impruwmain/images/loader.gif"; ?>" width="38" height="30"  style="display:none;"/>
 									
 								</div>
 							</div>
@@ -176,20 +206,20 @@
 				<div class="col-md-5 aj-imp-register-right">
 					<div class="aj-imp-register-steps">
 						<span class="number">2</span>
-						Easy steps to get your new website up and running
+						<?php echo __('Easy steps to get your new website up and running','impruwmain');?>
 					</div>
 					<div class="aj-imp-reg-step">
-						<h4>Step 1:</h4>
-						<h5>Create a site in less than 30 minutes.</h5>
+						<h4><?php echo __('Step 1:','impruwmain');?></h4>
+						<h5><?php echo __('Create a site in less than 30 minutes.','impruwmain');?></h5>
 						<p>
-							Our site builder makes it fast and easy to create a professional website in under 30 minutes. Customize your site with additional functionality like social media, contact forms and more.
+							<?php echo __('Our site builder makes it fast and easy to create a professional website in under 30 minutes. Customize your site with additional functionality like social media, contact forms and more.','impruwmain'); ?>
 						</p>
 					</div>
 					<div class="aj-imp-reg-step">
-						<h4>Step 2:</h4>
-						<h5>Publish and get found.</h5>
+						<h4><?php echo __('Step 2:','impruwmain');?></h4>
+						<h5><?php echo __('Publish and get found.','impruwmain');?></h5>
 						<p>
-							With just one click you can publish your website to the web and make it a mobile friendly version. We also have search engine optimisiation (SEO) tools so you can get found on Google, Yahoo! and Bing.
+							<?php echo __('With just one click you can publish your website to the web and make it a mobile friendly version. We also have search engine optimisiation (SEO) tools so you can get found on Google, Yahoo! and Bing.','impruwmain');?>
 						</p>
 					</div>
 				</div>
@@ -210,202 +240,9 @@
     <script src="js/flatui-radio.js"></script> -->
 	<script>
 		jQuery("select").selectpicker();
-		var ajaxurl = '<?php echo admin_url( 'admin-ajax.php' ); ?>';
+		
 	</script>  
     
     
     
-     <script> 
-    jQuery(document).ready(function(){
-
-    	$( '#frm_registration' ).parsley();
-
-    	
-
-		jQuery("#btn_create").on("click",function(){
-
-			jQuery("#registration_loader").show();
-			if(jQuery( '#frm_registration').parsley( 'validate' ))
-			{
-				console.log("valid form")
-				if(jQuery("#inputSitename").attr("site_exists") == 1 )
-				{
-					jQuery("#registration_loader").hide();
-					return false
-				}
-				if(jQuery("#inputEmail").attr("email_exists") == 1)
-				{
-					jQuery("#registration_loader").hide();
-						return false	;
-				}	
-
-					console.log(jQuery("#frm_registration").serializeArray());
-
-					 var data = {
-							action: 'save_new_user',													 
-							frmdata:jQuery("#frm_registration").serializeArray()
-						};
-					
-			        
-					 // since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
-						jQuery.post(ajaxurl, data, function(response) {
-										 	
-							if(response.code =='000')
-							{	
-								console.log(response.msg)
-								jQuery("#registration_loader").hide(); 
-								jQuery("#registration_status").html(response.msg)
-								return true
-							}
-							else if(response.code =='002')
-							{	
-								alert("invalid captcha")
-							
-								 jQuery("#recaptcha_reload").click();
-								 jQuery("#registration_loader").hide();
-								 jQuery("#registration_status_div").show()
-								jQuery("#registration_status").html(response.msg)
-								 
-								 console.log(response.msg)
-								 return false;
-							} 
-						});//end  jQuery.post(ajaxurl, data, function(response)	
-				
-			}
-			else
-			{
-				jQuery("#registration_status_div").show()
-				jQuery("#registration_status").html("Please fill the required details.")
-				jQuery("#registration_loader").hide();
-				console.log("invalid form")
-				return false
-				
-			}
-			
-		})
-        
-    })
     
-    
-     jQuery("#inputEmail").blur(function() { 
-        console.log("focusout"+jQuery.trim(jQuery("#inputEmail").val()));
-
-        var data = {
-				action: 'check_email_exists',
-			//	tbl_field: 'user_login',
-				email:jQuery.trim(jQuery("#inputEmail").val())
-			};
-		
-        
-		 // since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
-			jQuery.post(ajaxurl, data, function(response) {
-							 	
-				if(response.code =='000')
-				{	
-					console.log(response.msg)
-					jQuery("#emailexists_error").remove();
-					jQuery("#inputEmail").attr("email_exists",1);
-					jQuery("#inputEmail").after("<ul id='emailexists_error'> <li   class='required' >Email Id already exists</li></ul>");
-					jQuery("#inputEmail").focus();
-					return false
-				}
-				else
-				{	
-					jQuery("#inputEmail").attr("email_exists",0);
-					jQuery("#emailexists_error").remove(); 
-					console.log(response.msg)
-					 return true;
-				} 
-			});//end  jQuery.post(ajaxurl, data, function(response)
-        
-      })  
-      
-      
-      console.log(ajaxurl)
-      
-       jQuery("#inputSitename").blur(function() { 
-        console.log("site name on blur"+jQuery.trim(jQuery("#inputSitename").val())+"--");
-
-        var inputsitename = jQuery.trim(jQuery("#inputSitename").val())
-
-        var regx = /^[A-Za-z0-9]+$/;
-        
-
-
-        
-		if( (inputsitename!="") && (regx.test(inputsitename)) )
-		{
-        
-		        var data = {
-						action: 'check_sitename_exists',
-					//	tbl_field: 'user_login',
-						sitename:jQuery("#inputSitename").val()
-					};
-				console.log("response.....")
-		        
-				 // since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
-					jQuery.post(ajaxurl, data, function(response) {
-						console.log(response);				 	
-						if(response.code =='000')
-						{	
-							console.log(response.msg)
-							jQuery("#site_exists_error").focus();
-							jQuery("#site_exists_error").remove();
-							jQuery("#inputSitename").attr("site_exists","1")
-							jQuery("#inputSitename").after("<ul id='site_exists_error'><li class='required' >"+response.msg+"</li></ul>");
-							jQuery("#inputSitename").focus();
-							return false
-						}
-						else
-						{	
-							jQuery("#inputSitename").attr("site_exists","0") 
-							jQuery("#site_exists_error").remove();
-							console.log(response.msg);
-							 return true	
-						} 
-					});//end  jQuery.post(ajaxurl, data, function(response)
-		}//end if(jQuery("#inputSitename").val()!="")
-
-
-		jQuery( '#inputEmail' ).parsley( 'addListener', {
-			'onFieldSuccess': function ( elem ) { alert("listner test"); console.log(elem);
-
-
-
-			  } });
-		
-        
-      }) 
-      
-      
-    </script> 
-    
-    
-    
-   <script> 
-   /* jQuery(document).ready(function(){
-    
-   /* jQuery('input').keyup(function() {
-    var $th = $(this);
-    $th.val( $th.val().replace(/[^a-zA-Z0-9]/g, function(str) { alert('You typed " ' + str + ' ".\n\nPlease use only letters and numbers.'); return ''; } ) );
-
-});* / 
-
-
-
-
-    
-    
-    jQuery("#inputName").focusout(function() { 
-        console.log(jQuery("focusout"+"#inputName").val());
-      })
-     /* .blur(function() {
-        console.log(jQuery("blur"+jQuery("#inputName").val() );
-      });* /
-    
-
-
-    
-    })*/
-    
-    </script>

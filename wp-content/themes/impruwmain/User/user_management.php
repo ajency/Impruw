@@ -301,54 +301,24 @@ function  add_layout_site($blog_id,$post_id,$file_name)
  */
 function check_email_exists()
 { 
-	 
-	$tbl_fieldvalue = $_POST['email'];
+	  
+	$email = $_GET['inputEmail'];
 
-	if(useremail_exists($tbl_fieldvalue))
-	{
+	if(email_exists($email)) {
 		header('Content-Type: application/json');
-		echo json_encode(array('code' =>'000', 'msg'=>"Email Id Already Exists."));
+		echo json_encode(array("error"=>"Email Id Already Exists."));
 		die();
 	}
-	else
-	{
+	else {
 		header('Content-Type: application/json');
-		echo json_encode(array('code' => '001', 'msg'=>"Email Id Does Not Exists."));
+		echo json_encode(true);
 		die();
 	} 
 }
 add_action('wp_ajax_check_email_exists','check_email_exists');
 add_action('wp_ajax_nopriv_check_email_exists','check_email_exists');
-
  
-
-/**
- * Function to check if email id is already registered
- * @param string $email
- * @return boolean
- */
-function useremail_exists($email)
-{
-	global $wpdb;
-	$user_table = $wpdb->base_prefix . 'users';
-	$res_verify_user = $wpdb->get_results("SELECT count(*) as user_exist FROM $user_table WHERE user_email ='" . $email."'", 
-			OBJECT);
-	
-	
-	if ($res_verify_user)
-	{
-		foreach ($res_verify_user as $res_verify_usr) {
-			if ($res_verify_usr->user_exist>0)
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
-		}
-	}
-}
+ 
 
 
 /**
@@ -358,20 +328,22 @@ function useremail_exists($email)
  */ 
 function check_sitename_exists()
 {
-	$blog_name = $_POST['sitename'];
+	$blog_name = $_GET['inputSitename'];
+	
+	 
 	global $user_id;	
 	$blog_id = 1;
 	
 	if ( sitename_exists($blog_name,$blog_id) )
 	{
-		header('Content-Type: application/json');
-		echo json_encode(array('code' =>'000', 'msg'=>'Sorry, that site already exists!' ) );
+		header('Content-Type: application/json');		
+		echo json_encode(array("error"=>"Sorry, that site already exists!"));
 		die();
 	}
 	else
 	{
 		header('Content-Type: application/json');
-		echo json_encode(array('code' => '001', 'msg'=>'Site Name does not Exist' ) );
+		echo json_encode(true);
 		die();
 	}
 	
@@ -399,11 +371,9 @@ function sitename_exists($blog_name,$mainblog_id)
 		$domain = strtolower( $blog_name );
 	
 	// If not a subdomain install, make sure the domain isn't a reserved word
-	if ( ! is_subdomain_install() )
-	{
+	if ( ! is_subdomain_install() )	{
 		$subdirectory_reserved_names = apply_filters( 'subdirectory_reserved_names', array( 'page', 'comments', 'blog', 'files', 'feed','impruw','admin','administrator', ) );
-		if ( in_array( $domain, $subdirectory_reserved_names ) )
-		{
+		if ( in_array( $domain, $subdirectory_reserved_names ) ) {
 			header('Content-Type: application/json');
 			echo json_encode(array('code' => '000', 'msg'=> __('The following words are reserved for use by WordPress functions and cannot be used as blog names: '.implode(",",$subdirectory_reserved_names)) ) );
 			die();
@@ -460,15 +430,11 @@ function sitename_exists($blog_name,$mainblog_id)
  */
 function save_new_user()
 {
-	global $wpdb;
+	
 	$form_data = $_POST['frmdata'];
-	//var_dump($_POST['frmdata']);
 	
-	
-	foreach($_POST['frmdata'] as $frm_element_key => $frm_element_val)
-	{
-		//echo "key : ".$frm_element_key;
-		//echo "<br/>Value ".$frm_element_key;
+	foreach($_POST['frmdata'] as $frm_element_key => $frm_element_val) 	{
+
 		switch($frm_element_val['name'])
 		{
 			case 'inputName'				:	$name = $frm_element_val['value'];
@@ -504,17 +470,16 @@ function save_new_user()
 	{
 			
 		header('Content-Type: application/json');
-		echo json_encode(array('code' => '002', 'msg'=>"Invalid captcha.Please Renter the Captcha Code")  );
+		echo json_encode(array('code' => '002', 'msg'=>_("Invalid captcha.Please Renter the Captcha Code"))  );
 		die();
 			
 			
-			// What happens when the CAPTCHA was entered incorrectly
+			
 		 
 	} 
 	else
 	{
-		// Your code here to handle a successful verification
-		
+		// Your code here to handle a successful verification		
 		$user_data_array['name'] = $name;
 		$user_data_array['email'] = $email;
 		$user_data_array['password'] =$pass;
@@ -529,47 +494,15 @@ function save_new_user()
 		if(!empty($new_blog_id))
 		{
 			header('Content-Type: application/json');
-			echo json_encode(array('code' => '000', 'msg'=>"The User registration successfull. And the site created successfully")  );
+			echo json_encode(array('code' => '000', 'msg'=>_("The User registration successfull. And the site created successfully"))  );
 			die();
 		}
-		
-		
-		
-		
-	/*	var_dump("captcha success");
-		header('Content-Type: application/json');
-		echo json_encode(array('success' => false, 'msg'=>'valid captcha' ) );
-		die();
-		
-		*/
-		
-		//register the user
 		
 	}
 	
 	
 	
-	/*
 	
-	
-	$user_table = $wpdb->base_prefix . 'users';
-	$res_verify_user = $wpdb->get_results("SELECT count(*) as user_exist FROM $user_table WHERE user_email ='" . $email."'", OBJECT);
-
-
-	if ($res_verify_user)
-	{
-		foreach ($res_verify_user as $res_verify_usr)
-		{
-			if ($res_verify_usr->user_exist>0)
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
-		}
-	}*/
 }
 add_action('wp_ajax_save_new_user','save_new_user');
 add_action('wp_ajax_nopriv_save_new_user','save_new_user');
