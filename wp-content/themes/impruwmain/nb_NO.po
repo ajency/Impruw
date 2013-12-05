@@ -1,10 +1,10 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: impruwmain\n"
-"POT-Creation-Date: 2013-12-05 12:17+0530\n"
-"PO-Revision-Date: 2013-12-05 12:17+0530\n"
+"Project-Id-Version: im\n"
+"POT-Creation-Date: 2013-12-05 14:48+0530\n"
+"PO-Revision-Date: 2013-12-05 15:45+0530\n"
 "Last-Translator: \n"
-"Language-Team: araja <araja@ajency.in>\n"
+"Language-Team: a <parag@ajency.in>\n"
 "Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -16,102 +16,229 @@ msgstr ""
 "X-Poedit-KeywordsList: _e;__\n"
 "X-Poedit-SearchPath-0: ../../impruwmain\n"
 
-#: ../../impruwmain/functions.php:49
+#: ../../impruwmain/functions.php:50 ../../impruwmain/index.php:11
 msgid "email"
-msgstr "email_n"
-
-#: ../../impruwmain/functions.php:85
-msgid "Search Types"
 msgstr ""
 
 #: ../../impruwmain/functions.php:86
-msgid "All Types"
+msgid "Search Types"
 msgstr ""
 
 #: ../../impruwmain/functions.php:87
-msgid "Parent Type"
+msgid "All Types"
 msgstr ""
 
 #: ../../impruwmain/functions.php:88
-msgid "Parent Type:"
+msgid "Parent Type"
 msgstr ""
 
 #: ../../impruwmain/functions.php:89
-msgid "Edit Type"
+msgid "Parent Type:"
 msgstr ""
 
 #: ../../impruwmain/functions.php:90
-msgid "Update Type"
+msgid "Edit Type"
 msgstr ""
 
 #: ../../impruwmain/functions.php:91
-msgid "Add New Type"
+msgid "Update Type"
 msgstr ""
 
 #: ../../impruwmain/functions.php:92
-msgid "New Type"
+msgid "Add New Type"
 msgstr ""
 
 #: ../../impruwmain/functions.php:93
+msgid "New Type"
+msgstr ""
+
+#: ../../impruwmain/functions.php:94
 msgid "Type"
 msgstr ""
 
-#: ../../impruwmain/functions.php:111
+#: ../../impruwmain/functions.php:112
 msgid "Search Tags"
 msgstr ""
 
-#: ../../impruwmain/functions.php:112
+#: ../../impruwmain/functions.php:113
 msgid "All Tags"
 msgstr ""
 
-#: ../../impruwmain/functions.php:113
+#: ../../impruwmain/functions.php:114
 msgid "Parent Tag"
 msgstr ""
 
-#: ../../impruwmain/functions.php:114
+#: ../../impruwmain/functions.php:115
 msgid "Parent Tag:"
 msgstr ""
 
-#: ../../impruwmain/functions.php:115
+#: ../../impruwmain/functions.php:116
 msgid "Edit Tag"
 msgstr ""
 
-#: ../../impruwmain/functions.php:116
+#: ../../impruwmain/functions.php:117
 msgid "Update Tag"
 msgstr ""
 
-#: ../../impruwmain/functions.php:117
+#: ../../impruwmain/functions.php:118
 msgid "Add New Tag"
 msgstr ""
 
-#: ../../impruwmain/functions.php:118
+#: ../../impruwmain/functions.php:119
 msgid "New Tag"
 msgstr ""
 
-#: ../../impruwmain/functions.php:119
+#: ../../impruwmain/functions.php:120
 msgid "Tag"
 msgstr ""
 
-#: ../../impruwmain/functions.php:237 ../../impruwmain/functions.php:246
+#: ../../impruwmain/functions.php:234 ../../impruwmain/functions.php:243
 msgid "testing"
 msgstr ""
 
+#: ../../impruwmain/functions.php:346
+msgid "This value is required."
+msgstr "This value is required_n"
+
+#: ../../impruwmain/page-register.php:48
+msgid "Sign Up"
+msgstr "Sign Up_n"
+
+#: ../../impruwmain/page-register.php:48
+msgid "Impruw"
+msgstr "Impruw_n"
+
+#: ../../impruwmain/page-register.php:50
+msgid ""
+"Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+msgstr ""
+"Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+
+#: ../../impruwmain/page-register.php:59 ../../impruwmain/page-register.php:62
+#: ../../impruwmain/page-register.php:105
+msgid "Name"
+msgstr "Name_n"
+
+#: ../../impruwmain/page-register.php:63
+msgid "eg. Richard Parker"
+msgstr "eg. Richard Parker_n"
+
+#: ../../impruwmain/page-register.php:68 ../../impruwmain/page-register.php:71
+msgid "Email"
+msgstr "Email_n"
+
+#: ../../impruwmain/page-register.php:72
+msgid "eg. richard@mail.com"
+msgstr "eg. richard@mail.com_n"
+
+#: ../../impruwmain/page-register.php:108
+msgid "Site Name"
+msgstr "Site Name_n"
+
+#: ../../impruwmain/page-register.php:109
+msgid "eg. florist.impruw.com"
+msgstr "eg. florist.impruw.com_n"
+
+#: ../../impruwmain/page-register.php:113
+msgid ".impruw.com"
+msgstr ".impruw.com_n"
+
+#: ../../impruwmain/page-register.php:117
+#: ../../impruwmain/page-register.php:120
+msgid "Password"
+msgstr "Password_n"
+
+#: ../../impruwmain/page-register.php:121
+msgid "at least 6 to 12 characters long"
+msgstr "at least 6 to 12 characters long_n"
+
+#: ../../impruwmain/page-register.php:126
+#: ../../impruwmain/page-register.php:129
+msgid "Retype Password"
+msgstr "Retype Password_n"
+
+#: ../../impruwmain/page-register.php:179
+msgid "I agree to the Terms &amp; Conditions"
+msgstr "I agree to the Terms &amp; Conditions_n"
+
+#: ../../impruwmain/page-register.php:199
+msgid "Start Creating!"
+msgstr "Start Creating!_n"
+
+#: ../../impruwmain/page-register.php:209
+msgid "Easy steps to get your new website up and running"
+msgstr "Easy steps to get your new website up and running__n"
+
+#: ../../impruwmain/page-register.php:212
+msgid "Step 1:"
+msgstr "Step 1:_n"
+
+#: ../../impruwmain/page-register.php:213
+msgid "Create a site in less than 30 minutes."
+msgstr "Create a site in less than 30 minutes._n"
+
+#: ../../impruwmain/page-register.php:215
+msgid ""
+"Our site builder makes it fast and easy to create a professional website in "
+"under 30 minutes. Customize your site with additional functionality like "
+"social media, contact forms and more."
+msgstr ""
+"Our site builder makes it fast and easy to create a professional website in "
+"under 30 minutes. Customize your site with additional functionality like "
+"social media, contact forms and more._n"
+
+#: ../../impruwmain/page-register.php:219
+msgid "Step 2:"
+msgstr "Step 2:_n"
+
+#: ../../impruwmain/page-register.php:220
+msgid "Publish and get found."
+msgstr "Publish and get found._n"
+
+#: ../../impruwmain/page-register.php:222
+msgid ""
+"With just one click you can publish your website to the web and make it a "
+"mobile friendly version. We also have search engine optimisiation (SEO) "
+"tools so you can get found on Google, Yahoo! and Bing."
+msgstr ""
+"With just one click you can publish your website to the web and make it a "
+"mobile friendly version. We also have search engine optimisiation (SEO) "
+"tools so you can get found on Google, Yahoo! and Bing._n"
+
 #: ../../impruwmain/single-impruv_email.php:20
 msgid "Pages:"
-msgstr ""
+msgstr "Pages:_n"
 
 #: ../../impruwmain/single-impruv_email.php:24
 msgid "Edit"
-msgstr ""
+msgstr "Edit_n"
 
 #: ../../impruwmain/Communication_module/communication_functions.php:355
 #, php-format
 msgid "A mandrill error occurred:  %s - %d"
-msgstr ""
+msgstr "A mandrill error occurred:  %s - %d _n"
 
-#: ../../impruwmain/User/user_management.php:74
+#: ../../impruwmain/User/user_management.php:79
 #, php-format
 msgid ""
 "The following words are reserved for use by WordPress functions and cannot "
 "be used as blog names: <code>%s</code>"
+msgstr ""
+
+#: ../../impruwmain/User/user_management.php:492
+msgid ""
+"The following words are reserved for use by WordPress functions and cannot "
+"be used as blog names: "
+msgstr ""
+
+#: ../../impruwmain/User/user_management.php:502
+msgid "Missing or invalid site address."
+msgstr ""
+
+#: ../../impruwmain/User/user_management.php:587
+msgid "Invalid captcha.Please Renter the Captcha Code"
+msgstr ""
+
+#: ../../impruwmain/User/user_management.php:611
+msgid "The User registration successfull. And the site created successfully"
 msgstr ""

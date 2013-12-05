@@ -24,6 +24,22 @@
 require_once ABSPATH."/wp-content/themes/impruwmain/Communication_module/communication_functions.php";
 
 /**
+ * 
+ * @param type $user_data_array
+ * @param type $blog_id
+ * @param type $blog_name
+ * @param type $blog_title
+ * @param type $user_id
+ * @param type $file_name
+ */
+function user_signup($user_data_array,$blog_id,$blog_name,$blog_title,$user_id,$file_name)
+{
+    $user_id = wp_impruw_create_user($user_data_array);  
+    $site_id = create_new_site($blog_id,$blog_name,$blog_title,$user_id,$file_name);
+    return $site_id;
+}
+
+/**
  * wp_impruw_create_user
  * Function to insert registered user's data into the database and return the user_id.
  * @param array $user_data_array-Array containing user information(email, password, name)
@@ -36,10 +52,19 @@ function wp_impruw_create_user($user_data_array) {
         $users_name_array =  explode(' ',$user_data_array['name'] );
         $first_name = wp_slash( $users_name_array[0]    );
         $last_name = wp_slash( $users_name_array[1]    );
-        $role = $user_data_array['role'];             
-
+        $role = $user_data_array['role'];  
+        $activation_key = generate_user_activation_key($user_data_array['email']);
 	$userdata = compact('user_login', 'user_email', 'user_pass','user_nicename','first_name','last_name','role');
         $user_id = wp_insert_user($userdata);
+        global $wpdb;
+        $wpdb->insert( 
+	$wpdb->prefix.'users', 
+	array( 
+		'user_activation_key' => $activation_key, 
+                'user_status' => 2
+	), 
+	array( 'ID' => $user_id )
+        );
         //check if admin is registering the user or the user is signing up.
         if(is_user_logged_in())
             $initiator_id =  get_current_user_id ();
@@ -620,3 +645,14 @@ function save_new_user()
 }
 add_action('wp_ajax_save_new_user','save_new_user');
 add_action('wp_ajax_nopriv_save_new_user','save_new_user');
+
+/**
+ * 
+ * @param type $user_email
+ * @return type
+ */
+function generate_user_activation_key($user_email) {
+$salt = wp_generate_password(20); // 20 character "random" string
+$key = sha1($salt . $user_email . uniqid(time(), true));
+return($key);
+}
