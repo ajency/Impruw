@@ -15,10 +15,10 @@ get_header('builder');
                         <li class="green"><span>&nbsp;</span></li>
                     </ul>
                 </div>
-                <div class="col-sm-7">
+                <div class="col-sm-6">
                     <h3 class="aj-imp-browser-title">How does your site look in a browser?</h3>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-sm-4">
                     <div class="aj-imp-page-publish">
                         <div id="aj-imp-preview-sel" class="dropdown"> 
                             <a data-toggle="dropdown" href="#">Preview <span class="caret"></span></a>
@@ -37,6 +37,10 @@ get_header('builder');
                         <div class="divider">&nbsp;</div>
                         <div class="aj-imp-publish">
                             <a href="#" id="generate-markup">Generate Markup</a>
+                        </div>
+                        <div class="divider">&nbsp;</div>
+                        <div class="aj-imp-publish">
+                            <a href="#" id="generate-json">Generate JSON</a>
                         </div>
                     </div>
                 </div>

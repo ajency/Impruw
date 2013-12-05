@@ -217,6 +217,7 @@ h1, h2, h3, h4, h5, h6{
 	.top-menu {
 		background: @blue;
 		border-radius: 6px;
+		box-shadow: 0 3px 2px -2px @blue;
 		.slimmenu {
 			text-align: center;
 			width: 100%;
@@ -644,4 +645,220 @@ h1, h2, h3, h4, h5, h6{
 			border: 0;
 		}
 	}
+}
+
+/****Page Title Styles****/
+.page-title {
+	padding: 0.75em;
+	background: @red;
+	margin: 0 0 1em;
+	border-radius: 5px;
+	h1, h2, h3, h4, h5, h6 {
+		color: #fff;
+		margin: 0;
+		text-transform: uppercase;
+		font-weight: 700;
+	}
+}
+
+/****Room List View Styles****/
+.room-list {
+	padding: 2em 0;
+	border-top: 1px solid darken(@grey, 20%);
+	.room {
+		border-bottom: 1px solid @grey;
+		padding: 0 0 1em;
+		margin: 2em 0 0;
+		.room-details {
+			color: darken(@grey, 30%);
+			.room-title {
+				font-size: 1.6em;
+			}
+			.room-desc {
+				font-size: 1em;
+			}
+			.facilities {
+				list-style: none;
+				margin: 1em 0;
+				padding: 0;
+				li {
+					display: inline-block;
+					width: 30%;
+					margin: 0 1% 1em 0;
+					padding-left: 1.3em;
+					&:before {
+						font-family: 'Glyphicons Halflings';
+						content: "\e084";
+						font-size: 0.9em;
+						display: inline-block;
+						margin-left: -1.3em;
+						width: 1.3em;
+						position: relative;
+						top: 2px;
+						color: lighten(@blue, 30%);
+					}
+				}
+			}
+		}
+		.room-actions {
+			text-align: right;
+			.price {
+				font-weight: 300;
+				color: darken(@grey, 20%);
+				font-size: 2.2em;
+				span {
+					font-size: 0.6em;
+				}
+			}
+			.view-room {
+				background: @red;
+				font-weight: 300;
+				padding: 6px 16px 7px;
+				&:hover {
+					background: darken(@red, 10%);
+				}
+			}
+		}
+		&:last-child {
+			border: 0;
+		}
+	}
+	&.details {
+		border: 0;
+		padding: 0;
+		.room {
+			.room-details {
+				.facilities-title {
+					font-size: 1.5em;
+					color: darken(@grey, 40%);
+					font-weight: 400;
+				}
+				.facilities {
+					li {
+						width: 48%;
+					}
+				}
+				.room-actions {
+					text-align: left;
+					.price {
+						display: inline-block;
+						margin-right: 1em;
+					}
+					.view-room {
+						position: relative;
+						top: -0.6em;
+					}
+				}
+			}
+		}
+	}
+}
+
+@media (max-width: 767px) { 
+/*Responive*/
+.room-list {
+	padding: 0 0 0.5em;
+	border-top: 0;
+	.room {
+		.room-img {
+			margin-bottom: 0.6em;
+		}
+		.room-details {
+			.facilities {
+				li {
+					width: 48%;
+				}
+			}
+		}
+		.room-actions {
+			text-align: left;
+			.price {
+				display: inline-block;
+				margin-right: 1em;
+			}
+			.view-room {
+				position: relative;
+				top: -0.6em;
+			}
+		}
+	}
+}
+/*Responive*/
+}
+
+/****Featured Section Styles****/
+.featured {
+	border-top: 1px solid darken(@grey, 30%);
+	margin: 2em 0;
+	padding: 2em 0 0;
+	.feature-title {
+		text-align: center;
+		h1, h2, h3, h4, h5, h6 {
+			color: @red;
+		}
+		.sub-text {
+			color: darken(@grey, 20%);
+			font-size: 1.1em;
+			margin: 0 0 1em;
+		}
+	}
+	.room-list {
+		border: 0;
+		padding: 0;
+		.room {
+			.room-img {
+				padding: 3px;
+				box-shadow: 0 0 3px 2px @grey;
+				border-radius: 3px;
+				margin: 0 0 1em;
+				img {
+					border-radius: 3px;
+				}
+			}
+			.room-details {
+				.room-title {
+					font-size: 1.2em;
+					color: darken(@grey, 30%);
+					font-weight: 400;
+				}
+				.room-desc {
+					font-size: 0.88em;
+				}
+				.facilities {
+					li {
+						width: 100%;
+					}
+				}
+			}
+			.room-actions {
+				text-align: left;
+				.price {
+					display: inline-block;
+					margin-right: 1em;
+				}
+				.view-room {
+					position: relative;
+					top: -0.6em;
+				}
+			}
+		}
+	}
+}
+
+@media (max-width: 767px) { 
+/*Responive*/
+.featured {
+	.room-list {
+		.room {
+			.room-details {
+				.facilities {
+					li {
+						width: 48%;
+					}
+				}
+			}
+		}
+	}
+}
+/*Responive*/
 }

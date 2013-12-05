@@ -173,6 +173,9 @@ function addElementMarkup($element){
         case 'SocialElement':
             $html = getSocialElementMarkup($element);
             break;
+        case 'SliderElement':
+            $html = getSliderElementMarkup($element);
+            break;
         default:
             break;
 
@@ -326,10 +329,13 @@ function getTextElementMarkup($element){
  */
 function getSliderElementMarkup($element){
         
-    if(isset($element['content']))
-        return $element['content'];
-        
-    return '<img src="http://placehold.it/350x50" width="100%" height="100%" />';
+    require_once PARENTTHEMEPATH . 'elements/SliderElement.php';
+    
+    $slider = new SliderElement($element);
+
+    $html = $slider->getMarkup();
+    
+    return $html;
     
 }
 
@@ -551,6 +557,26 @@ function show_json(){
         'page' => array(
             'elements' => array(
                 array(
+                   'type'      => 'BuilderRow',
+                   'draggable' => false,
+                   'editable'  => false,
+                   'elements'  => array(
+                       array(
+                           'type'          => 'BuilderRowColumn',
+                           'colClass'  => 12,
+                           'extraClasses'     => 'slideshow',
+                           'elements'      => array(
+                                   array(
+                                      'type'      => 'SliderElement',
+                                      'draggable' => false,
+                                      'editable'  => false,
+                                      'extraClasses' => 'slide'
+                                  )
+                               )
+                           )
+                       )
+                ),
+                array(
                 'type'      => 'BuilderRow',
                 'draggable' => false,
                 'editable'  => false,
@@ -728,7 +754,54 @@ function show_json(){
                         )
                     )
                  )
-             ) 
+             )
+          )
+       ),
+       'footer' => array(
+           'elements' => array(
+               array(
+                'type'      => 'BuilderRow',
+                'draggable' => false,
+                'editable'  => false,
+                'extraClasses' => 'foot',
+                'elements'  => array(
+                    array(
+                        'type'          => 'BuilderRowColumn',
+                        'colClass'      => 12,
+                        'elements'      => array(
+                            array(
+                                'type'          => 'ContainerElement',
+                                'extraClasses'  => 'pageContent',
+                                'elements'      => array(
+                                    array(
+                                        'type'      => 'BuilderRow',
+                                        'draggable' => false,
+                                        'editable'  => false,
+                                        'elements'  => array(
+                                             array(
+                                                'type'      => 'BuilderRowColumn',
+                                                'colClass'  => 12,
+                                                'elements'      => array(
+                                                    array(
+                                                            'type'          => 'MenuElement',
+                                                            'extraClasses'  => 'footerLinks text-center',
+                                                            'markupStyle'   => 'type2',
+                                                            'editable'  => true,
+                                                            'draggable' => false,
+                                                            'data'      => array(
+                                                                'menuName'      => 'Footer menu'
+                                                            )
+                                                     )
+                                                 )
+                                            )
+                                        )
+                                     )
+                                )
+                            )
+                        )
+                    )
+                 )
+              )
           )
        )
     );
