@@ -433,8 +433,7 @@ function getThemeJS()
         } 
     }
 }
-?>
-                 <?php
+
 
 /**
  * getThemeCSS

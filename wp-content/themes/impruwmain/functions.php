@@ -342,4 +342,3 @@ function register_required_scripts() {
 	}
 }
 add_action('wp_enqueue_scripts', 'register_required_scripts', 1);
- 
