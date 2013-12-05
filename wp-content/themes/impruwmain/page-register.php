@@ -41,25 +41,38 @@
 </head>
 
 <body <?php //body_class(); ?>>
+
+<?php
+//var_dump($_REQUEST);
+
+$norwegian_sel = false; 
+if(isset($_REQUEST['lang']))
+{
+	if($_REQUEST['lang']=='nb')
+	{
+		$norwegian_sel = true;
+	}
+}
+?>
     <div class="aj-imp-container container">
 		<div class="aj-imp-register-form">
 			<div class="row">
 				<div class="col-sm-12 aj-imp-register-header">
 					<h1><?php echo __('Sign Up','impruwmain');?> <span><?php echo __('Impruw','impruwmain'); ?></span></h1>
 					<p class="desc">
-						<?php echo __('Lorem Ipsum is simply dummy text of the printing and typesetting industry.','impruwmain');  do_action('icl_language_selector');
-						 ?> 
+					 <?php echo __('Lorem Ipsum is simply dummy text of the printing and typesetting industry.','impruwmain');  do_action('icl_language_selector');
+						 ?>  
 					</p>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-7 aj-imp-register-left">
-					<form class="form-horizontal clearfix" method="post"  name="frm_registration" id="frm_registration"  parsley-validate>
+					<form class="form-horizontal clearfix" method="post"  name="frm_registration" id="frm_registration"  parsley-validate  data-persist="garlic" >
 						<div class="row">
 							<label for="inputName" class="col-sm-3 control-label"><?php echo __('Name','impruwmain'); ?></label>
 							<div class="col-sm-7">
 								<div class="form-group">
-									<input type="text" class="form-control" id="inputName"  name="inputName" placeholder="<?php echo __('Name','impruwmain'); ?>" required   parsley-trigger="blur" parsley-validation-minlength="0" >
+									<input type="text" class="form-control" id="inputName"  name="inputName" placeholder="<?php echo __('Name','impruwmain'); ?>" required   parsley-trigger="blur" parsley-validation-minlength="0" value="<?php if(isset($_REQUEST['inputName'])) echo $_REQUEST['inputName']; ?>"  parsley-required-message="Please Enter Firstname Lastname">
 									<span class="help-block"><?php echo __('eg. Richard Parker','impruwmain'); ?></span>
 								</div>
 							</div>
@@ -68,7 +81,7 @@
 							<label for="inputEmail" class="col-sm-3 control-label"><?php echo __('Email','impruwmain'); ?></label>
 							<div class="col-sm-7">
 								<div class="form-group">
-									<input type="email" class="form-control" id="inputEmail"  name="inputEmail" placeholder="<?php echo __('Email','impruwmain');?>"   required  parsley-type="email" parsley-trigger="blur" parsley-validation-minlength="0" parsley-remote="<?php echo admin_url( 'admin-ajax.php' ).'?action=check_email_exists'; ?>">
+									<input type="email" class="form-control" id="inputEmail"  name="inputEmail" placeholder="<?php echo __('Email','impruwmain');?>"   required  parsley-type="email" parsley-trigger="blur" parsley-validation-minlength="0" parsley-remote="<?php echo admin_url( 'admin-ajax.php' ).'?action=check_email_exists'; ?>"   value="<?php if(isset($_REQUEST['inputName'])) echo $_REQUEST['inputEmail']; ?>"  parsley-required-message="Please Enter Email Id" >
 									<span class="help-block"><?php echo __('eg. richard@mail.com','impruwmain');?></span>
 								</div>
 							</div>
@@ -76,36 +89,30 @@
 						
 						
 						
-						<?php /*
+						 
 						
 						<div class="row">
-							<label for="inputEmail" class="col-sm-3 control-label"><?php echo _('Language'); ?></label>
+							<label for="inputLmail" class="col-sm-3 control-label"><?php echo _('Language'); ?></label>
 							<div class="col-sm-7">
 								<div class="form-group">
-									<select name="inputlanguage"> 
+									<select name="inputLanguage" id="inputLanguage"  required  parsley-required-message="Please Select Language"> 
 										<option value="">Select</option>
-									 	<option value="English">English</option>
-									  	<option value="Norwegian">Norwegian</option>
+									 	<option value="English" <?php if($norwegian_sel==false)  echo " selected "; ?> >English</option>
+									  	<option value="Norwegian" <?php if($norwegian_sel==true)  echo " selected "; ?>>Norwegian</option>
 									</select>
 									<span class="help-block"><?php echo _('eg. richard@mail.com');?></span>
 								</div>
 							</div>
 						</div>
 						
-						*/ ?>
-						
-						
-						
-						
-						
-						
+						 
 						
 						
 						<div class="row aj-imp-site-name">
 							<label for="inputSitename" class="col-sm-3 control-label"><?php echo __('Name','impruwmain');?></label>
 							<div class="col-sm-7">
 								<div class="form-group">
-									<input type="text" class="form-control" id="inputSitename" name="inputSitename" placeholder="<?php echo __('Site Name','impruwmain');?>"  required  parsley-trigger="blur" parsley-validation-minlength="0" parsley-type="alphanum"   parsley-validation-minlength="0" parsley-remote="<?php echo admin_url( 'admin-ajax.php' ).'?action=check_sitename_exists'; ?>"   >
+									<input type="text" class="form-control" id="inputSitename" name="inputSitename" placeholder="<?php echo __('Site Name','impruwmain');?>"  required  parsley-trigger="blur" parsley-validation-minlength="0" parsley-type="alphanum"   parsley-validation-minlength="0" parsley-remote="<?php echo admin_url( 'admin-ajax.php' ).'?action=check_sitename_exists'; ?>"   value="<?php if(isset($_REQUEST['inputName'])) echo $_REQUEST['inputSitename']; ?>"   parsley-required-message="Please Enter Sitename"  >
 									<span class="help-block"><?php echo __('eg. florist.impruw.com','impruwmain');?></span>
 								</div>
 							</div>
@@ -117,7 +124,7 @@
 							<label for="inputPass" class="col-sm-3 control-label"><?php echo __('Password','impruwmain');?></label>
 							<div class="col-sm-7">
 								<div class="form-group">
-									<input type="password" class="form-control parsley-validated" id="inputPass" name="inputPass" placeholder="<?php echo __('Password','impruwmain'); ?>"  required  parsley-equalto="#inputPass"     parsley-trigger="blur" parsley-validation-minlength="0" >
+									<input type="password" class="form-control parsley-validated" id="inputPass" name="inputPass" placeholder="<?php echo __('Password','impruwmain'); ?>"  parsley-required="true"  parsley-equalto="#inputPass"     parsley-trigger="blur" parsley-minlength="6"  parsley-required-message="Please Enter Password" >
 									<span class="help-block"><?php echo __('at least 6 to 12 characters long','impruwmain'); ?></span>
 								</div>
 							</div>
@@ -126,7 +133,7 @@
 							<label for="inputRepass" class="col-sm-3 control-label"><?php echo __('Retype Password','impruwmain');?></label>
 							<div class="col-sm-7">
 								<div class="form-group">
-									<input type="password" class="form-control parsley-validated parsley-error"   id="inputRepass" name="inputRepass" placeholder="<?php echo __('Retype Password','impruwmain');?>"  required   parsley-equalto="#inputPass"   parsley-trigger="blur" parsley-validation-minlength="0"  >
+									<input type="password" class="form-control parsley-validated parsley-error"   id="inputRepass" name="inputRepass" placeholder="<?php echo __('Retype Password','impruwmain');?>"  required   parsley-equalto="#inputPass"   parsley-trigger="blur" parsley-validation-minlength="0"   parsley-required-message="Please Retype Password"  parsley-equalto-message="Password Entered Do Not Match">
 								</div>
 							</div>
 						</div>
@@ -147,17 +154,7 @@
           									$publickey = "6LdRNusSAAAAAGyPG3zLJrr-R2v0xJQcWrEJ0jky"; // you got this from the signup page
           									echo recaptcha_get_html($publickey);
         										?>
-											 
-									<!-- <script type="text/javascript" src="http://www.google.com/recaptcha/api/challenge?k=6LdRNusSAAAAAGyPG3zLJrr-R2v0xJQcWrEJ0jky "> </script>
-									  
-									  <noscript>
-									     <iframe src="http://www.google.com/recaptcha/api/noscript?k=6LdRNusSAAAAAGyPG3zLJrr-R2v0xJQcWrEJ0jky "
-									         height="300" width="500" frameborder="0"></iframe><br>
-									     <textarea name="recaptcha_challenge_field" rows="3" cols="40">
-									     </textarea>
-									     <input type="hidden" name="recaptcha_response_field" value="manual_challenge">
-									  </noscript>
-  -->
+										 
   
   
 								</div>
@@ -227,7 +224,11 @@
 		</div>
 	</div>
 	<?php //getThemeJS() ;?>
+	<!--[if lte IE 7]>
+    <script src="https://raw.github.com/mattpowell/localstorageshim/master/localstorageshim.min.js" type="text/javascript"></script>
+<![endif]-->
 	<?php wp_footer(); ?>
+	
 </body>
     
     

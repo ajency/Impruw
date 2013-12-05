@@ -30,7 +30,8 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
 					'mouseenter'                        : 'rowMouseEnter',
                     'mouseleave'                        : 'rowMouseLeave',
                     'click > .aj-imp-delete-btn'        : 'destroyElement',
-                    'click > .aj-imp-col-sel ul li a'   : 'adjustColumnsInRow' 
+                    'click > .aj-imp-col-sel ul li a'   : 'adjustColumnsInRow' ,
+                    'contextmenu'                       : 'showContextMenu'
 				},
 
                 //used to identify drag direction(right / left)
@@ -74,7 +75,8 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                     this.setParent(options.parent);
                     this.setClasses();
                     this.setHandlers();
-                
+                    this.loadTemplate();
+                    this.setContextMenu();
                 },
                 
                 /**
