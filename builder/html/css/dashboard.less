@@ -472,8 +472,13 @@ form {
 				color: @success-green;
 			}
 		}
-		.input-icon {
-			background: transparent;
+		&.has-success, &.has-error, &.loading {
+			.form-control {
+				padding-right: 41px;
+			}
+			.input-icon {
+				background: transparent;
+			}
 		}
 	}
 	.form-control {
@@ -572,6 +577,16 @@ form {
 			border: 0;
 			padding: 0;
 			.row {
+				position: relative;
+				.control-label {
+					position: absolute;
+					top: 1em;
+					left: 0;
+					@media (max-width: 767px) { 
+						position: static;
+						padding-left: 0;
+					}
+				}
 				.form-group {
 					margin-bottom: 10px;
 					.help-block {
@@ -590,6 +605,22 @@ form {
 						margin-bottom: 0;
 						.form-control {
 							border-color: lighten(@logo-orange, 20%);
+							background: lighten(@orange, 30%);
+							&::-webkit-input-placeholder{
+								color: @logo-orange !important;
+							}
+							&:-moz-placeholder {
+								color: @logo-orange !important;
+							}
+							&::-moz-placeholder {
+								color: @logo-orange !important;
+							}
+							&:-ms-input-placeholder {
+								color: @logo-orange !important;
+							}
+							&:focus {
+								background: lighten(@orange, 20%);
+							}
 						}
 						.help-block {
 							color: darken(@dash-grey, 20%);
@@ -597,6 +628,9 @@ form {
 					}
 					.aj-imp-domain {
 						padding: 7px 7px 0;
+					}
+					@media (max-width: 767px) { 
+						padding: 1em;
 					}
 				}
 				&.margin-1 {
@@ -614,6 +648,10 @@ form {
 		margin: 2em 0 0;
 		padding: 0 30px 0;
 		box-shadow: inset 3px 0 6px -6px @3-grey;
+		@media (max-width: 767px) { 
+			border-top: 1px solid @dash-grey;
+			padding-top: 1.5em;
+		}
 		.aj-imp-register-steps {
 			color: @orange;
 			font-size: 1.6em;
@@ -683,6 +721,17 @@ form {
 			padding: 0;
 			.aj-imp-log-forgot {
 				margin-left: 1em;
+			}
+			.row {
+				position: relative;
+				.control-label {
+					position: absolute;
+					left: 0;
+					top: 1em;
+					@media (max-width: 767px) { 
+						position: static;
+					}
+				}
 			}
 		}
 	}
