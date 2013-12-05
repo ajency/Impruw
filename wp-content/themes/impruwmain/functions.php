@@ -18,7 +18,7 @@ Description: This file has a list of the following functions used in the theme
 require_once 'Communication_module/user_shortcodes.php';//file containing all shortcodes to fetch user information
 require_once 'Communication_module/site_shortcodes.php';//file containing all shortcodes to fetch site information
 require_once 'User/user_management.php';//file containing all shortcodes to fetch site information
-
+ 
 /*--------------------------------------------------------------------------------------
 *
 * impruv_register_email_init
@@ -248,10 +248,10 @@ function impruw_set_email_user_role()
         <div style="clear:both"></div></ul><?php
 }
 
-    /**
-     * impruw_add_user_role_to_email
-     * Function to add user role's to a an email.
-     */
+/**
+ * impruw_add_user_role_to_email
+ * Function to add user role's to a an email.
+ */
 function impruw_add_user_role_to_email($post_id) 
 {
       global $post;
