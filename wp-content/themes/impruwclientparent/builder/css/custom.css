@@ -55,3 +55,7 @@ div.element-drop-loader > p{
     text-align: center;
     padding-top: 50px;
 }
+
+.settings{
+    display:none;
+}

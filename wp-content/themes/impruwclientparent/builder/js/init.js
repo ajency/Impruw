@@ -61,7 +61,8 @@ function log(object){
 }
 
 //editor mode
-window.editorMode = 'layout';
+window.editorMode    = 'layout';
+window.prevpopover   = null;
 
 //init the app
 require(['backbone',

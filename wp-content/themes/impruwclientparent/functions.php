@@ -711,3 +711,18 @@ function show_json(){
     
     return $json; 
 }
+
+/**
+ * Reads the json layout and save it
+ * 
+ */
+function save_json_structure(){
+    
+    $json = $_POST['json'];
+    
+    echo(json_encode($json));
+ 
+    die;
+}
+add_action('wp_ajax_save_json_structure','save_json_structure');
+add_action('wp_ajax_nopriv_save_json_structure','save_json_structure');
