@@ -4,8 +4,8 @@
  * Most imp file
  */
  
-define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Elements'],
-		function( _ , $, Backbone, global, Elements){
+define(['underscore', 'jquery', 'backbone', 'global'],
+		function( _ , $, Backbone, global){
 
 			var BuilderEditorView = Backbone.View.extend({
 
@@ -28,6 +28,29 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Elements'],
                     this.themeConfig = option.themeConfig;
 
 				},
+                
+                /**
+                 * 
+                 * @returns {undefined}
+                 */
+                generateJSON : function(){
+                   
+                   var self = this;
+                   
+                   this.json = {
+                                 elements : []
+                              };
+                   
+                   _.each(this.rows, function(row, index){
+                        
+                        var json = row.generateJSON();
+                        
+                        self.json.elements.push(json);
+                      
+                   });
+                   
+                   
+                },
 
                 /**
                 * Function to generate the markup of the actual site
@@ -220,17 +243,17 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Elements'],
                         
                         var self = this;
 
-                        var templatePath = 'themes/' + this.themeConfig.name + '/' + this.themeConfig.template;
-
-					    require([templatePath], function(response){
-
-                                if( !_.isUndefined(response.header.elements) && response.header.elements.length > 0)
-                                    self.addElement( response.header.elements, 0, self.$el.find('header'));
-                                 
-                                self.enableDragDrop(); 
-                                
-                              });
-                        
+//                        var templatePath = 'themes/' + this.themeConfig.name + '/' + this.themeConfig.template;
+//
+//					    require([templatePath], function(response){
+//
+//                                if( !_.isUndefined(response.header.elements) && response.header.elements.length > 0)
+//                                    self.addElement( response.header.elements, 0, self.$el.find('header'));
+//                                 
+//                                self.enableDragDrop(); 
+//                                
+//                              });
+                        self.enableDragDrop(); 
 						return this;
 				},
 
@@ -418,22 +441,21 @@ define(['underscore', 'jquery', 'backbone', 'global', 'builder/views/Elements'],
                                         receive     : function(event, ui) {
                                                            
                                                             var target = $(event.target);
-
-                                                            var row = new Elements['BuilderRow']({parent: self});
-
-                                                            self.rows.push(row);
                                                             
-                                                            $(event.target).find('*[data-element="BuilderRow"]').replaceWith(row.generateBuilderMarkup());
+                                                            var mod = 'builder/views/elements/layout/BuilderRow';
                                                             
-                                                            row.sortableColumns();
-                                                           
-                                                            row.appendColumnResizer();
-                                                           
-                                                            //$(event.target).css('background-image','url("images/clear-background.png")');
+                                                            require([mod], function(Element){
+                                                                 
+                                                                  var row = new Element({parent: self});
+                                                                 
+                                                                  self.rows.push(row);
 
-                                                            //$(event.target).find('div.drag-here').remove();
-                                                            //$(event.target).append('<div class="drag-here">Drag elements Here</div>');
-                                                        
+                                                                  $(event.target).find('*[data-element="BuilderRow"]').replaceWith(row.$el);
+
+                                                                  row.sortableColumns();
+
+                                                                  row.appendColumnResizer();
+                                                            });
                                                         },
 
                                         sort        : function(event , ui){

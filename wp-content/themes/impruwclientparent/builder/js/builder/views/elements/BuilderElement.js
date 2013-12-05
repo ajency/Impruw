@@ -1,5 +1,5 @@
-define(['backbone','jquery','underscore','handlebars', 'global'], 
-		function(Backbone, $, _, Handlebars,  global){
+define(['backbone','jquery','underscore', 'global'], 
+		function(Backbone, $, _,  global){
 
 			var BuilderElement = Backbone.View.extend({
                
@@ -12,6 +12,9 @@ define(['backbone','jquery','underscore','handlebars', 'global'],
                  * Editable property
                  */
                 editable    : true,
+                
+                //extra classes for an element
+                extraClasses : '',
                 
                 /**
                  * Parent property
@@ -26,6 +29,42 @@ define(['backbone','jquery','underscore','handlebars', 'global'],
                    
                     return this;
 				
+                },
+                
+                /**
+                 * Generate the json string for element
+                 * @returns {undefined}
+                 */
+                returnJSON : function(){
+                   
+                   var ele =  {
+                                 type           : this.getType(),
+                                 draggable      : this.isDraggable(),
+                                 editable       : this.isEditable(),
+                                 extraClasses   : this.getExtraClasses()
+                              };
+                   
+                   return ele;
+                },
+                
+                /**
+                 * Returns the element type
+                 * @returns String
+                 */
+                getType : function(){
+                  
+                  return this.elementType;
+                   
+                },
+                
+                /**
+                 * Returns extra classes assigned to the element
+                 * @returns string
+                 */
+                getExtraClasses : function(){
+                   
+                   return this.extraClasses;
+                   
                 },
                 
                 /**
@@ -172,7 +211,7 @@ define(['backbone','jquery','underscore','handlebars', 'global'],
                     
                     this.setHandlers();
                     
-					return this;
+					return this.$el;
 				},
 
                 /**

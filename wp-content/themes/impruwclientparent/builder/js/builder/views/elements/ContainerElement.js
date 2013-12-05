@@ -7,6 +7,9 @@ define(['builder/views/elements/BuilderElement', 'global'],
                 
                 //identify element type
                 type                : 'container',
+                
+                //element type
+                elementType          : 'ContainerElement',
 
                 //set height to be assigned to placeholder and helper
                 placeHolderHeight   : 100,
@@ -58,13 +61,45 @@ define(['builder/views/elements/BuilderElement', 'global'],
                 },
                 
                 /**
+                 * 
+                 * @returns {undefined}
+                 */
+                generateJSON : function(){
+                   
+                   var self = this;
+                   
+                   var json = self.returnJSON();
+                   json.colClass = this.getCurrentClass();
+                        
+                   if(self.getElements().length > 0){
+                        
+                        var elements = [];
+                        
+                        _.each(self.getElements(), function(element, index){
+                              
+                              if(element.is('row') || element.is('container'))
+                                 elements.push(element.generateJSON());
+                              else
+                                 elements.push(element.returnJSON());
+                             
+                        });
+                           
+                        json.elements = elements;
+                      
+                   }
+                   
+                   return json;
+                  
+                },
+                
+                /**
                  * Takes and element from from array and generates the markup and append it to itself
                  * @param {array} elements - 
                  * @param {int} index
                  * @returns {void}
                  */
                 addElement : function(elements, index){
-                    console.log(index);
+                    
                     if( index >= elements.length)
                         return;
                      

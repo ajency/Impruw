@@ -17,6 +17,7 @@ define(['underscore', 'jquery', 'backbone', 'builder/views/BuilderEditorView'],
                 
                     'click label.editormode' 		: 'switchMode',
                     'click #generate-markup' 		: 'generateMarkup',
+                    'click #generate-json'          : 'generateJSON',
                     'click #choose-template li a' 	: 'updateTemplate'
                 
                 },
@@ -56,6 +57,21 @@ define(['underscore', 'jquery', 'backbone', 'builder/views/BuilderEditorView'],
 						});
 					}
 				},
+                
+                /**
+                 * Generates the json
+                 * 
+                 * @returns void
+                 */
+                generateJSON : function(evt){
+                  
+                   evt.preventDefault();
+                   if(_.isUndefined(this.builder))
+                      return;
+                   
+                   this.builder.generateJSON();
+                   
+                },
 
 				updateTemplate : function(){
 
@@ -75,7 +91,7 @@ define(['underscore', 'jquery', 'backbone', 'builder/views/BuilderEditorView'],
             	    this.handleInitialLoader();
                 
 					//enable dragsort
-					//this.builder.enableDropSort();
+					this.builder.enableDropSort();
 				
 					return self;
 

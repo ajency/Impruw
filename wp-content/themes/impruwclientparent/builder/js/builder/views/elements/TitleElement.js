@@ -9,6 +9,9 @@ define(['builder/views/elements/BuilderElement','text!builder/templates/elements
                 //define template for control
 				template            : template,
                 
+                //element type
+                elementType          : 'TitleElement',
+                
                 //identify element type
                 type                : 'title',
                 
