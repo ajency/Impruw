@@ -48,6 +48,58 @@ define(['backbone','jquery','underscore', 'global'],
                 },
                 
                 /**
+                 * 
+                 * @returns {undefined}
+                 */
+                void : function(evt){
+                   evt.preventDefault();
+                   return false;
+                },
+                
+                /**
+                 * 
+                 */
+                showContextMenu : function(evt){
+                   
+                     evt.preventDefault();
+                     
+                     evt.stopPropagation(); //!important
+                     
+                     if(this.$el.next('.popover').hasClass('in')){
+                        
+                        this.$el.popover('hide');
+                        
+                        //reset to null if clicked again
+                        window.prevpopover = null;
+                        
+                     }
+                     else{
+                        //hide any previously opened popover
+                        if(!_.isNull(window.prevpopover))
+                              window.prevpopover.popover('hide');
+                           
+                         this.$el.popover('show');
+                         window.prevpopover = this.$el;
+                     }
+                },
+                
+                /**
+                 * Set context menu for element
+                 * @returns {undefined}
+                 */
+                setContextMenu : function(){
+                     
+                     this.$el.popover({
+                        html        : true,
+                        title       : this.getType() + ' settings',
+                        content     : this.getSettingsMarkup(),
+                        placement   : 'auto',
+                        trigger     : 'manual'
+                     });
+                     
+                },
+                
+                /**
                  * Returns the element type
                  * @returns String
                  */
@@ -64,6 +116,27 @@ define(['backbone','jquery','underscore', 'global'],
                 getExtraClasses : function(){
                    
                    return this.extraClasses;
+                   
+                },
+                
+                /**
+                 * Returns the setting markup
+                 * @returns {String}
+                 */
+                getSettingsMarkup : function(){
+                  
+                   var html = this.$el.find('.settings');
+                   return $(html).html();
+                   
+                },
+                
+                /**
+                 * 
+                 * @returns {undefined}
+                 */
+                loadTemplate : function(){
+                   
+                   this.$el.append(this.template);
                    
                 },
                 

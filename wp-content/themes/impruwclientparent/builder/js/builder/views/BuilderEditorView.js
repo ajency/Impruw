@@ -49,6 +49,26 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                       
                    });
                    
+                   this.sendJSONToServer();
+                   
+                },
+                
+                /**
+                 * Sends the json data to server
+                 * @returns Void
+                 */
+                sendJSONToServer : function(){
+                   
+                   $.post(AJAXURL,
+                         {
+                            action  : 'save_json_structure', 
+                            json    : this.json
+                         },
+                         function(response){
+                            
+                            
+                            
+                         },'json');
                    
                 },
 

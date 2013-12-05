@@ -328,6 +328,10 @@ function register_required_scripts() {
 	wp_localize_script('pw-script', 'ajaxurl', admin_url( 'admin-ajax.php' )	);
 	
 	
+	/*$translation_array = array( 'valuereqd' =>"other message for reqd"  );
+	wp_enqueue_script('pw-script2', get_template_directory_uri() . '/js/parsley/parsley.js');
+	wp_localize_script('pw-script2', 'myobject', $translation_array	);
+	*/
 	
 	wp_enqueue_script( "bootstrap",  get_template_directory_uri().'/js/bootstrap.min.js', array( 'jquery' ) ,false,true);
 	wp_enqueue_script( "flatui-checkbox",  get_template_directory_uri().'/js/flatui-checkbox.js', array( 'jquery' ) ,false,true);
@@ -342,6 +346,7 @@ function register_required_scripts() {
 		wp_enqueue_script( 'parsley-lang', get_template_directory_uri().'/js/parsley/i18n/messages.no.js', array(), false,true);
 		wp_enqueue_script( 'parsley', get_template_directory_uri().'/js/parsley/parsley.js', array('jquery'), '1.2.1',true);
 		wp_enqueue_script( "user_management",  get_template_directory_uri().'/js/user_management.js', array( ) ,false,true);
+		wp_enqueue_script( 'garlic', get_template_directory_uri().'/js/garlic.js', array('jquery'), '1.2.2',true);
 	}
 }
 add_action('wp_enqueue_scripts', 'register_required_scripts', 1);
