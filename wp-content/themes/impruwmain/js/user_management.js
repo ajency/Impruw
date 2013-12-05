@@ -33,14 +33,14 @@
 					 // since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
 						jQuery.post(ajaxurl, data, function(response) {
 										 	
-							if(response.code =='000')
+							if(response.code =='OK')
 							{	
 								console.log(response.msg)
 								jQuery("#registration_loader").hide(); 
 								jQuery("#registration_status").html(response.msg)
 								return true
 							}
-							else if(response.code =='002')
+							else if(response.code =='ERROR')
 							{	
 								alert("invalid captcha")
 							
@@ -58,7 +58,7 @@
 			else
 			{
 				jQuery("#registration_status_div").show()
-				jQuery("#registration_status").html("<?php echo _('Please fill the required details.');?>")
+				//jQuery("#registration_status").html("Please fill the required details.")
 				jQuery("#registration_loader").hide();
 				console.log("invalid form")
 				return false
@@ -158,6 +158,13 @@
 
 
 			  } });*/
+		
+		
+		jQuery("#div_languageselector").children("ul").on("change",function(){
+			
+			console.log(jQuery("#div_languageselector").children("ul").val());
+			
+		})
 		
         
       }) 

@@ -102,7 +102,8 @@ function create_new_site($blog_id,$blog_name,$blog_title,$user_id,$file_name)
     assign_active_languages($new_blog_id);
     $post_id = add_new_post_to_blog($new_blog_id,$user_id,'Home','Home Content','page','');
     $post_nb_id = mwm_wpml_translate_post( $new_blog_id,$post_id, 'page', 'nb',$user_id);
-    add_layout_site($new_blog_id,$post_id,$file_name);
+   //commented the template part 5dec2013 to bypass 
+    // add_layout_site($new_blog_id,$post_id,$file_name);
     $post_site_builder_id = add_new_post_to_blog($new_blog_id,$user_id,'Site Builder','Site Builder Content.','page','site-builder.php');
 
     $post_register_id = add_new_post_to_blog($new_blog_id,$user_id,'Register','Register Content.','page','page-register.php');
@@ -443,15 +444,17 @@ add_action('wp_ajax_nopriv_check_email_exists','check_email_exists');
 function check_sitename_exists()
 {
 	$blog_name = $_GET['inputSitename'];
-	
+	 
 	 
 	global $user_id;	
 	$blog_id = 1;
+	$site_exist = sitename_exists($blog_name,$blog_id);
 	
-	if ( sitename_exists($blog_name,$blog_id) )
+	 
+	if ( $site_exist['CODE']=="ERROR" )
 	{
 		header('Content-Type: application/json');		
-		echo json_encode(array("error"=>"Sorry, that site already exists!"));
+		echo json_encode(array("error"=>__($site_exist['message'])));
 		die();
 	}
 	else
@@ -460,7 +463,7 @@ function check_sitename_exists()
 		echo json_encode(true);
 		die();
 	}
-	
+	 
 
 }
 add_action('wp_ajax_check_sitename_exists','check_sitename_exists');
@@ -472,7 +475,7 @@ add_action('wp_ajax_nopriv_check_sitename_exists','check_sitename_exists');
  * Function to check if the sitename already exists
  * @param string $blog_name 
  * @param int $mainblog_id
- * @return string|boolean 
+ * @return array containing status, message
  */
 function sitename_exists($blog_name,$mainblog_id)
 {
@@ -488,9 +491,11 @@ function sitename_exists($blog_name,$mainblog_id)
 	if ( ! is_subdomain_install() )	{
 		$subdirectory_reserved_names = apply_filters( 'subdirectory_reserved_names', array( 'page', 'comments', 'blog', 'files', 'feed','impruw','admin','administrator', ) );
 		if ( in_array( $domain, $subdirectory_reserved_names ) ) {
-			header('Content-Type: application/json');
-			echo json_encode(array('code' => '000', 'msg'=> __('The following words are reserved for use by WordPress functions and cannot be used as blog names: '.implode(",",$subdirectory_reserved_names)) ) );
-			die();
+			
+			$site_exists['CODE'] = 'ERROR';
+			$site_exists['message'] =  __('The following words are reserved for use by WordPress functions and cannot be used as blog names: '.implode(",",$subdirectory_reserved_names)) ;
+			 
+			return $site_exists;
 			
 		}
 	}
@@ -499,7 +504,11 @@ function sitename_exists($blog_name,$mainblog_id)
 	$site_id = $current_site->blog_id;
 	 
 	if ( empty( $domain ) )
-		return(__('Missing or invalid site address.') );
+	{
+		$site_exists['CODE'] = 'ERROR';
+		$site_exists['message'] =  __('Missing or invalid site address.') ;
+		return $site_exists;
+	}
 
 	if ( is_subdomain_install() )
 	{
@@ -525,11 +534,15 @@ function sitename_exists($blog_name,$mainblog_id)
 	// Check if the domain has been used already.  
 	if ( domain_exists($domain, $path, $site_id) )
 	{
-		return true;
+		$site_exists['CODE'] = 'OK';
+		$site_exists['message'] =  __('SiteName already in use.') ;
+		return $site_exists;
 	}
 	else
 	{
-		return false;
+		$site_exists['CODE'] = 'FAILED';
+		$site_exists['message'] =  __('SiteName is available.') ;
+		return $site_exists;
 	}
 	
 }
@@ -538,7 +551,7 @@ function sitename_exists($blog_name,$mainblog_id)
 
 
 /**
- * Function to add new user
+ * Function to add new user and site on registration
  * @param string $email
  * @return boolean
  */
@@ -555,6 +568,8 @@ function save_new_user()
 												break;
 			case 'inputEmail'				:	$email = $frm_element_val['value'];
 												break;	
+			case 'inputLanguage'			:	$inputLanguage = $frm_element_val['value'];
+												break;
 			case 'inputSitename'			:	$sitename = $frm_element_val['value'];
 												break;	
 			case 'inputPass'				:	$pass = $frm_element_val['value'];
@@ -584,7 +599,7 @@ function save_new_user()
 	{
 			
 		header('Content-Type: application/json');
-		echo json_encode(array('code' => '002', 'msg'=>_("Invalid captcha.Please Renter the Captcha Code"))  );
+		echo json_encode(array('code' => 'ERROR', 'msg'=>_("Invalid captcha.Please Renter the Captcha Code"))  );
 		die();
 			
 			
@@ -603,14 +618,32 @@ function save_new_user()
 		$new_userid = wp_impruw_create_user($user_data_array);
 		
 		if(!empty($new_userid))
+		{
+			add_user_meta($new_userid, 'Site_language', $inputLanguage);
 			$new_blog_id = create_new_site($blog_id,$sitename,$sitename,$new_userid,'');
-			
-		if(!empty($new_blog_id))
+			if(isset($new_blog_id))
+			{
+				
+				header('Content-Type: application/json');
+				echo json_encode(array('code' => 'OK', 'msg'=>_("The User registration successfull. And the site created successfully"))  );
+				die();
+			}
+			else
+			{
+				header('Content-Type: application/json');
+				echo json_encode(array('code' => 'ERROR', 'msg'=>_("Error creating Site. "))  );
+				die();
+			}
+		}
+		
+		else
 		{
 			header('Content-Type: application/json');
-			echo json_encode(array('code' => '000', 'msg'=>_("The User registration successfull. And the site created successfully"))  );
+			echo json_encode(array('code' => 'ERROR', 'msg'=>_("Error creating user. "))  );
 			die();
 		}
+			
+		
 		
 	}
 	
