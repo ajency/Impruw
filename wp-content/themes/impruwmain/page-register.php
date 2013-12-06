@@ -71,8 +71,8 @@ if(isset($_REQUEST['lang']))
 						<div class="row">
 							<label for="inputName" class="col-sm-3 control-label"><?php echo __('Name','impruwmain'); ?></label>
 							<div class="col-sm-7">
-								<div class="form-group">
-									<input type="text" class="form-control" id="inputName"  name="inputName" placeholder="<?php echo __('Name','impruwmain'); ?>" required   parsley-trigger="blur" parsley-validation-minlength="0" value="<?php if(isset($_REQUEST['inputName'])) echo $_REQUEST['inputName']; ?>"  parsley-required-message="Please Enter Firstname Lastname">
+								<div class="form-group parsleyname_msg">
+									<input type="text" class="form-control" id="inputName"  name="inputName" placeholder="<?php echo __('Name','impruwmain'); ?>" required   parsley-trigger="blur" parsley-validation-minlength="0" value="<?php if(isset($_REQUEST['inputName'])) echo $_REQUEST['inputName']; ?>"  parsley-required-message="Please Enter Firstname Lastname"    parsley-error-container="div.parsleyname_msg span" >
 									<span class="help-block"><?php echo __('eg. Richard Parker','impruwmain'); ?></span>
 								</div>
 							</div>
@@ -80,8 +80,8 @@ if(isset($_REQUEST['lang']))
 						<div class="row">
 							<label for="inputEmail" class="col-sm-3 control-label"><?php echo __('Email','impruwmain'); ?></label>
 							<div class="col-sm-7">
-								<div class="form-group">
-									<input type="email" class="form-control" id="inputEmail"  name="inputEmail" placeholder="<?php echo __('Email','impruwmain');?>"   required  parsley-type="email" parsley-trigger="blur" parsley-validation-minlength="0" parsley-remote="<?php echo admin_url( 'admin-ajax.php' ).'?action=check_email_exists'; ?>"   value="<?php if(isset($_REQUEST['inputName'])) echo $_REQUEST['inputEmail']; ?>"  parsley-required-message="Please Enter Email Id" >
+								<div class="form-group parsleyemail_msg">
+									<input type="email" class="form-control" id="inputEmail"  name="inputEmail" placeholder="<?php echo __('Email','impruwmain');?>"   required  parsley-type="email" parsley-trigger="blur" parsley-validation-minlength="0" parsley-remote="<?php echo admin_url( 'admin-ajax.php' ).'?action=check_email_exists'; ?>"   value="<?php if(isset($_REQUEST['inputName'])) echo $_REQUEST['inputEmail']; ?>"  parsley-required-message="Please Enter Email Id"  parsley-error-container="div.parsleyemail_msg span" >
 									<span class="help-block"><?php echo __('eg. richard@mail.com','impruwmain');?></span>
 								</div>
 							</div>
@@ -94,8 +94,8 @@ if(isset($_REQUEST['lang']))
 						<div class="row">
 							<label for="inputLmail" class="col-sm-3 control-label"><?php echo _('Language'); ?></label>
 							<div class="col-sm-7">
-								<div class="form-group">
-									<select name="inputLanguage" id="inputLanguage"  required  parsley-required-message="Please Select Language"> 
+								<div class="form-group parsleylanguage_msg">
+									<select name="inputLanguage" id="inputLanguage"  required  parsley-required-message="Please Select Language"  parsley-error-container="div.parsleylanguage_msg span" > 
 										<option value="">Select</option>
 									 	<option value="English" <?php if($norwegian_sel==false)  echo " selected "; ?> >English</option>
 									  	<option value="Norwegian" <?php if($norwegian_sel==true)  echo " selected "; ?>>Norwegian</option>

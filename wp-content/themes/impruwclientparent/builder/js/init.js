@@ -18,6 +18,8 @@ require.config({
         cookie      : 'lib/cookie.min',
         string      : 'lib/underscore.string.min',
         numerals    : 'lib/numerals.min',
+        checkbox    : 'lib/flatui-checkbox',
+        radio       : 'lib/flatui-radio',
         handlebars  : 'lib/handlebars',
         ckeditor    : 'lib/ckeditor'
     },
