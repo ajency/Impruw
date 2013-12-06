@@ -63,8 +63,9 @@ function log(object){
 }
 
 //editor mode
-window.editorMode    = 'layout';
-window.prevpopover   = null;
+window.editorMode       = 'layout';
+window.prevpopover      = null;
+window.prevmouseover    = null;
 
 //init the app
 require(['backbone',
@@ -72,11 +73,9 @@ require(['backbone',
 
         $(document).ready(function(){   
 
-            // $(window).ready(function(){
-                builder = new Router();
-                Backbone.history.start();
-            //});
-                
+            builder = new Router();
+            Backbone.history.start();
+            
         });
 
 });
