@@ -3,7 +3,8 @@
  * All required jquery plugins + other libraries are looaded througth 
  * this file.
  */
-define(['underscore', 'jquery', 'backbone', 'moment', 'numerals', 'bootstrap', 'text', 'jqueryui', 'string', 'cookie', 'bootstrapselect'], 
+define(['underscore', 'jquery', 'backbone', 'moment', 'numerals', 'bootstrap', 'text', 'jqueryui', 
+        'string', 'cookie', 'bootstrapselect','checkbox','radio'], 
 		function(_ , $ , Backbone, moment, numerals){
 
 			var global = {};
