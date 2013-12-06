@@ -525,7 +525,12 @@ function sitename_exists($blog_name,$mainblog_id)
 	
 	// If not a subdomain install, make sure the domain isn't a reserved word
 	if ( ! is_subdomain_install() )	{
-		$subdirectory_reserved_names = apply_filters( 'subdirectory_reserved_names', array( 'page', 'comments', 'blog', 'files', 'feed','impruw','admin','administrator', ) );
+		//$subdirectory_reserved_names = apply_filters( 'subdirectory_reserved_names', array( 'page', 'comments', 'blog', 'files', 'feed','impruw','admin','administrator', ) );
+		
+		$subdirectory_reserved_names = apply_filters( 'subdirectory_reserved_names', array( 'about', 'account', 'activate', 'add', 'admin','administrator','android','api',  
+				'app', 'apps', 'archive', 'archives', 'auth','better','blog','cache',
+				'cache', 'cancel', 'careers', 'cart', 'change','changelog','checkout','codereview',
+				) );
 		if ( in_array( $domain, $subdirectory_reserved_names ) ) {
 			
 			$site_exists['CODE'] = 'ERROR';
