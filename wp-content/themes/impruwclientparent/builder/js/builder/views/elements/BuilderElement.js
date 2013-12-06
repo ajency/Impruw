@@ -98,8 +98,11 @@ define(['backbone','jquery','underscore', 'global'],
                         content     : this.getSettingsMarkup(disAllow),
                         placement   : 'auto',
                         trigger     : 'manual'
-                     });
-                     
+                   });
+                   
+                   this.$el.on('shown.bs.popover', function(evt){
+                        $(evt.target).next('.popover').find('input[type="checkbox"]').checkbox();
+                   });
                 },
                 
                 /**
