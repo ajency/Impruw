@@ -72,8 +72,7 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                       
                    });
                    
-                   //this.sendJSONToServer();
-                   log(this.json);
+                   this.sendJSONToServer();
                    
                 },
                 
@@ -345,17 +344,21 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                         
                         var self = this;
 
-//                        var templatePath = 'themes/' + this.themeConfig.name + '/' + this.themeConfig.template;
-//
-//					    require([templatePath], function(response){
-//
-//                                if( !_.isUndefined(response.header.elements) && response.header.elements.length > 0)
-//                                    self.addElement( response.header.elements, 0, self.$el.find('header'));
-//                                 
-//                                self.enableDragDrop(); 
-//                                
-//                              });
-                        self.enableDragDrop(); 
+                        var templatePath = '';
+
+					    $.get(AJAXURL,
+                              {
+                                 action : 'get_saved_layout',
+                                 id     : 2
+                              }, function(response){
+
+                                 if( !_.isUndefined(response.header.elements) && response.header.elements.length > 0)
+                                     self.addElement( response.header.elements, 0, self.$el.find('header'));
+
+                                 self.enableDragDrop(); 
+
+                              },'json');
+                        //self.enableDragDrop(); 
 						return this;
 				},
 

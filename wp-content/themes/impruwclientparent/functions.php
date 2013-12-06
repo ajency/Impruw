@@ -14,7 +14,7 @@ add_theme_support('menus');
 
 //remove wordpress admin bar
 show_admin_bar(false);
-
+load_theme_textdomain('impruwclientparent'); 
 
 /*--------------------------------------------------------------------------------------
 *
@@ -44,7 +44,7 @@ function impruv_register_room_init() {
 
     $args = array(
         'labels' => $labels,
-        'label' => __('room'),
+        'label' => __('room',"impruwclientparent"),
         'public' => true,
         'publicly_queryable' => true,
         'show_ui' => true,
@@ -80,15 +80,15 @@ function create_room_taxonomies_and_add_terms() {
     $facilities_labels = array(
         'name' => _x('Facilities', 'taxonomy general name'),
         'singular_name' => _x('Facility', 'taxonomy singular name'),
-        'search_items' => __('Search Facilities'),
-        'all_items' => __('All Facilities'),
-        'parent_item' => __('Parent Facility'),
-        'parent_item_colon' => __('Parent Facility:'),
-        'edit_item' => __('Edit Facility'),
-        'update_item' => __('Update Facility'),
-        'add_new_item' => __('Add New Facility'),
-        'new_item_name' => __('New Facility'),
-        'menu_name' => __('Facility')
+        'search_items' => __('Search Facilities','impruwclientparent'),
+        'all_items' => __('All Facilities','impruwclientparent'),
+        'parent_item' => __('Parent Facility','impruwclientparent'),
+        'parent_item_colon' => __('Parent Facility:','impruwclientparent'),
+        'edit_item' => __('Edit Facility','impruwclientparent'),
+        'update_item' => __('Update Facility','impruwclientparent'),
+        'add_new_item' => __('Add New Facility','impruwclientparent'),
+        'new_item_name' => __('New Facility','impruwclientparent'),
+        'menu_name' => __('Facility','impruwclientparent')
     );
 
     $tag_args = array(
@@ -122,6 +122,9 @@ function generateMarkup($section){
     
     $markupJSON = getPageMarkupJSON($post->ID);
     
+    if(!isset($markupJSON[$section]))
+        return;
+    var_dump($markupJSON);
     $json = $markupJSON[$section];
     
     $html = '';
@@ -388,7 +391,7 @@ function getContainerMarkup($element){
  */
 function getPageMarkupJSON($page_id){
     
-    $json = show_json();//get_post_meta($page_id,'page_markup_json',true);
+    $json = get_page_json(2);//get_post_meta($page_id,'page_markup_json',true);
     
     return $json;
 }
@@ -468,6 +471,23 @@ function getThemeCSS()
 }
 
 /**
+ * Fecthed the json for a page from DB
+ * @global type $wpdb
+ * @param type $id
+ */
+function get_page_json($id){
+    
+    global $wpdb;
+    $sql = $wpdb->prepare("SELECT json FROM {$wpdb->base_prefix}layouts
+                                            WHERE id = %d",$id);
+    $json = $wpdb->get_var($sql);
+    
+    $json = maybe_unserialize($json);
+    
+    return  $json;
+}
+
+/**
  * JSON to be stored
  */
 function show_json(){
@@ -516,8 +536,8 @@ function show_json(){
                                                     'type'          => 'BuilderRowColumn',
                                                     'extraClasses'  => 'cta col-xs-12',
                                                     'colClass'      => 8,
-                                                    'content'       => '<div class="contact"><span class="glyphicon glyphicon-earphone"></span>+34 954 227 116</div>
-									<div class="rates"><a href="#">Check Rates</a></div>',
+                                                    'content'       => '<div class="contact"><span class="glyphicon glyphicon-earphone"></span>'.__("+34 954 227 116").'</div>
+									<div class="rates"><a href="#">'.__("Check Rates",'impruwclientparent').'</a></div>',
                                                     'elements'      => array()
                                                 )
                                             )
@@ -604,14 +624,14 @@ function show_json(){
                                                         'draggable' => false,
                                                         'editable'  => false,
                                                         'extraClasses' => 'boxTitle',
-                                                        'content'   => '<h3>Rooms</h3>'
+                                                        'content'   => '<h3>'.__("Rooms",'impruwclientparent').'</h3>'
                                                     ),
                                                     array(
                                                         'type'      => 'TextElement',
                                                         'draggable' => false,
                                                         'editable'  => false,
                                                         'extraClasses' => 'titleLink',
-                                                        'content'   => '<a href="#">View All</a>'
+                                                        'content'   => '<a href="#">'.__("View All",'impruwclientparent').'</a>'
                                                     )   
                                                  )
                                             )
@@ -651,7 +671,7 @@ function show_json(){
                                                         'draggable' => false,
                                                         'editable'  => false,
                                                         'extraClasses' => 'boxTitle',
-                                                        'content'   => '<h3>You CAN</h3>'
+                                                        'content'   => '<h3>'.__("You CAN",'impruwclientparent').'</h3>'
                                                     ) 
                                                  )
                                             )
@@ -671,7 +691,7 @@ function show_json(){
                                                         'type'      => 'TextElement',
                                                         'draggable' => false,
                                                         'editable'  => false,
-                                                        'content'   => '<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English.</p>'
+                                                        'content'   => '<p>'.__("It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English.",'impruwclientparent').'</p>'
                                                     ) 
                                                  )
                                             ),
@@ -723,7 +743,7 @@ function show_json(){
                                                         'type'      => 'TitleElement',
                                                         'draggable' => false,
                                                         'editable'  => false,
-                                                        'content'   => '<div class="infoPoint">Connect With Us</div>'
+                                                        'content'   => '<div class="infoPoint">'.__("Connect With Us",'impruwclientparent').'</div>'
                                                     ) 
                                                  )
                                             )
@@ -819,16 +839,30 @@ function save_json_structure(){
     
     global $wpdb;
     
-    $wpdb->insert($wpdb->base_prefix.'layouts',
-                  array(
+    $wpdb->update($wpdb->base_prefix.'layouts',
+                    array(
                       'name'    => 'layout-' . rand(1000, 9999),
                       'json'    => maybe_serialize($json)
-                  ));
+                    ),
+                    array('id' => 2));
     
     die;
 }
 add_action('wp_ajax_save_json_structure','save_json_structure');
 add_action('wp_ajax_nopriv_save_json_structure','save_json_structure');
+
+/**
+ * 
+ */
+function get_saved_layout(){
+    
+    $json = get_page_json(2);
+    echo json_encode($json);
+    die;
+}
+add_action('wp_ajax_get_saved_layout','get_saved_layout');
+add_action('wp_ajax_nopriv_get_saved_layout','get_saved_layout');
+
 
 //insert_room();
 function insert_room()

@@ -14,25 +14,22 @@
  * 
  */
 function retrieve_site_information($atts) 
-{
-    if (is_user_logged_in()) //check to see if user is logged in
-        {
-            global $wpdb;
+{ 
+     global $wpdb;
             if (isset($atts['field'])) 
                 {
-                   
-                   
-                    if ($atts['field'] == "site_name")//retrieves the current blog's name
+                    $blog_id = $atts['blog_id'];
+                   $blog_id = maybe_unserialize($blog_id);
+                   $blog_id = $blog_id['blog_id'];
+                    $blog_info_array = get_blog_details($blog_id);  
+                    //print_r($blog_info_array);exit;
+                    if($atts['field'] == 'path')
                     {
-                         $site_name= get_bloginfo('blogname');                    
-                         return $site_name;
+                      return $site_url = $blog_info_array->domain.$blog_info_array->$atts['field'];  
                     }
-                }
-         }
-    else 
-         {
-            return("Please log in");
-         }
+                    else
+                    return $blog_info_array->$atts['field'];
+                }       
     return;
 }
 add_shortcode('site_info', 'retrieve_site_information');

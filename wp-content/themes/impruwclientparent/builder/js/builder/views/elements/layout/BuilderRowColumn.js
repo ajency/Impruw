@@ -10,32 +10,25 @@ define(['builder/views/elements/BuilderElement', 'global'],
                 
                 //holds all elements for this column
                 elements      : [],
-                
                
-                /**
-                 * Current class property
-                 */
-                currentClass  : 6,
+                //active class of column
+                colClass  : 6,
                 
-                /**
-                 * Classname property
-                 */
+                //className
                 className     : 'column',
                 
-                /**
-                 * Editable property
-                 */
+                //columns are non editable
                 editable      : false,
                 
-                /**
-                 * 
-                 */  
+                //columsn are non draggable
                 draggable     : false,
+                
+                //disAllow settings
+                disAllow      : {'isDraggable':1,'isEditable':1,'type':1},
                 
                 //register events
 				events : {
 					'contextmenu'                        : 'showContextMenu',
-                    //'click'                              : 'void',
                     'click > .popover .updateProperties' : 'updateProperties'
 				},
                 
@@ -52,7 +45,7 @@ define(['builder/views/elements/BuilderElement', 'global'],
                                     'handleElementRemove','resetHeightAuto', 'holdCurrentColRef','updateEmptyView','makeEmpty',
                                     'setCurrentClass', 'setColumnClass','getCurrentClass', 'getRowElements','getElements');
                     
-                    this.currentClass = options.currentClass;
+                    this.colClass = options.colClass;
 
                     //listen to height change event
                     this.on('height_changed',this.handleHeightChange);
@@ -69,14 +62,13 @@ define(['builder/views/elements/BuilderElement', 'global'],
                     }
                     else{
                         this.setProperties(options.config);
-                        this.currentClass = options.config.currentClass;
+                        this.colClass = options.config.colClass;
                     }
 
                     this.setParent(options.parent);
                     this.setClasses();
                     this.setHandlers();
-                    //this.loadTemplate();
-                    this.setContextMenu({'isDraggable':1,'isEditable':1,'type':1});
+                    this.setContextMenu();
                 },
                 
                 
@@ -140,16 +132,18 @@ define(['builder/views/elements/BuilderElement', 'global'],
                     else{
                         mod = 'builder/views/elements/' + element.type;
                     }
-
+                    
                     require([mod], function(Element){
                         
                         var ele = new Element({config : element, parent : self});
                         
-                        if(element.type === 'BuilderRow' || element.type === 'ContainerElement' )
+                        if(element.type === 'BuilderRow' || element.type === 'ContainerElement' ){
                            self.$el.append(ele.render().$el);
-                        else
-                           self.$el.append(ele.generateMarkup().$el);
-                        
+                        }
+                        else{
+                           self.$el.append(ele.generateMarkup());
+                          d = ele;;
+                        }
                         self.elements.push(ele);
                       
                         if( !_.isUndefined(element.elements) && element.elements.length > 0){
@@ -195,7 +189,7 @@ define(['builder/views/elements/BuilderElement', 'global'],
                  */        
                 render : function(){
 
-                    var col = this.currentClass;
+                    var col = this.colClass;
                     
                     //this.$el.html('<div class="clearfix">&nbsp;<div class="aj-imp-drag-elements-message"><span class="glyphicon glyphicon-transfer"></span>Drag Elements Here</div></div>');
                     
@@ -506,7 +500,7 @@ define(['builder/views/elements/BuilderElement', 'global'],
                 */
                 setCurrentClass : function(colClass){
                     
-                    this.currentClass = colClass;
+                    this.colClass = colClass;
 
                 } ,
 
@@ -526,7 +520,7 @@ define(['builder/views/elements/BuilderElement', 'global'],
                 */ 
                 getCurrentClass : function(){
 
-                    return this.currentClass;
+                    return this.colClass;
 
                 }    
                 
