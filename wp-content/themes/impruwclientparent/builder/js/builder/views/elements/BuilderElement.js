@@ -198,7 +198,7 @@ define(['backbone','jquery','underscore', 'global'],
                 getMarkupStyleSettingMarkup : function(){
                    
                    return '<div class="form-group">\
-                                 <select name="markupStyle" class="form-control"><option value="Style 1">Style 1</option><option value="Style 1">Style 1</option></select>\
+                                 <select name="markupStyle"><option value="Style 1">Style 1</option><option value="Style 1">Style 1</option></select>\
                            </div>';
                 },
                 
