@@ -11,6 +11,7 @@
 require_once( '../../../../wp-load.php');
 require_once('../../../../wp-admin/includes/plugin.php');
 require_once 'user_shortcodes.php';
+require_once 'site_shortcodes.php';
 require_once '../User/user_management.php';
 
 create_custom_tables();
@@ -30,6 +31,7 @@ add_to_page_layouts();
 //$user_ids_array = fetch_user_ids_by_role($user_roles);
 //print_r($user_ids_array);exit;
 process_email_queue();
+
 
 
 function create_custom_tables()
@@ -135,6 +137,20 @@ function insert_into_email_action_table()
     else
     {
        $update_action_emails_query=("UPDATE {$wpdb->prefix}email_actions SET email_types="."'$registrayion_email_types_array'"." WHERE email_action_name="."'registration'");
+       $wpdb->query($update_action_emails_query);  
+    }
+    $site_creation_email_types_array=array(75,77);
+    $site_creation_email_types_array=  serialize($site_creation_email_types_array);
+    $site_creation_action_query=("SELECT * from {$wpdb->prefix}email_actions where email_action_name="."'site_creation'");
+    $value_site_creation=$wpdb->get_row($site_creation_action_query);
+    if(count($value_site_creation)==0)
+    {
+       $insert_action_emails_query=("INSERT into {$wpdb->prefix}email_actions (email_action_name,email_types) VALUES ("."'site_creation'".","."'$site_creation_email_types_array'".")");
+       $wpdb->query($insert_action_emails_query);
+    }
+    else
+    {
+       $update_action_emails_query=("UPDATE {$wpdb->prefix}email_actions SET email_types="."'$site_creation_email_types_array'"." WHERE email_action_name="."'site_creation'");
        $wpdb->query($update_action_emails_query);  
     }
 }

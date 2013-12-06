@@ -35,7 +35,9 @@ require_once ABSPATH."/wp-content/themes/impruwmain/Communication_module/communi
 function user_signup($user_data_array,$blog_id,$blog_name,$blog_title,$file_name,$user_default_language)
 {
     $user_id = wp_impruw_create_user($user_data_array,$user_default_language);  
-    $site_id = create_new_site($blog_id,$blog_name,$blog_title,$user_id,$file_name,$user_default_language);
+    $data = array();
+    $data['user_id'] = $user_id;
+    $site_id = create_new_site($blog_id,$blog_name,$blog_title,$user_id,$file_name,$user_default_language,$data);
     return $site_id;
 }
 
@@ -87,7 +89,7 @@ function wp_impruw_create_user($user_data_array,$user_default_language) {
  * @param int $user_id - the user id/ owner of the new blog.
  * @return type
  */
-function create_new_site($blog_id,$blog_name,$blog_title,$user_id,$file_name,$user_default_language)
+function create_new_site($blog_id,$blog_name,$blog_title,$user_id,$file_name,$user_default_language,$data)
 { 
    // if ( ! current_user_can( 'manage_sites' ) )
 		//return( 'You do not have permission to access this page.' );
@@ -142,6 +144,12 @@ function create_new_site($blog_id,$blog_name,$blog_title,$user_id,$file_name,$us
     //exit;//create a new post
     
     //echo $new_blog_id;
+    $data['blog_id'] = $new_blog_id;
+     if(is_user_logged_in())
+            $initiator_id =  get_current_user_id ();
+     else
+            $initiator_id = $user_id;
+    send_email($initiator_id, 'site_creation', $data);
     return $new_blog_id;
     
 }
@@ -375,9 +383,6 @@ function create_tariff_table_for_blog($blog_id)
 function add_menu_to_blog($user_id,$blog_id,$home_id,$site_builder_id)
 {
     switch_to_blog($blog_id);
-    $user_default_language = get_user_meta($data['user_id'], 'user_default_language', true);
-    $home_id = icl_object_id($home_id, 'page', true,$user_default_language);
-    $site_builder_id = icl_object_id($site_builder_id, 'page', true,$user_default_language);
     
     $run_once = get_option('menu_check');
     if (!$run_once){

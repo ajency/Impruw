@@ -161,6 +161,27 @@ function check_for_email_type($initiator_id,$email_type_id,$data)
     $user_ids_array = fetch_user_ids_by_role($user_roles,$initiator_id);
     add_to_email_queue($email_type_id,$user_ids_array,$initiator_id,$data);
     break;
+     case "New Site created user":
+        $user_roles = fetch_user_roles_by_type($email_type_id);
+        foreach($user_roles as $user_role)
+        { 
+            if($user_role == "self")
+            { 
+                if($initiator_id == $data['user_id'])
+                {
+                    $user_ids_array[] = $initiator_id;
+                    $user_default_language = get_user_meta($data['user_id'], 'user_default_language', true);
+                    $email_id = icl_object_id($email_type_id, 'impruv_email', true,$user_default_language);
+                    add_to_email_queue($email_id,$user_ids_array,$initiator_id,$data);
+                }
+            }
+        }        
+    break;
+    case "New Site created admin":
+    $user_roles = fetch_user_roles_by_type($email_type_id);
+    $user_ids_array = fetch_user_ids_by_role($user_roles,$initiator_id);
+    add_to_email_queue($email_type_id,$user_ids_array,$initiator_id,$data);
+    break;
     //...
     default:
    // code to be executed if n is different from all labels;
@@ -256,7 +277,10 @@ function convert_post_content_to_email_content($email_type_id, $user_id,$initiat
     $search_data_array_info = "data_array_info";
     $replace_data_array_info = "data_array_info data='".$data."'";
     $post_content = str_replace($search_data_array_info, $replace_data_array_info, $post_content);
-    $email_content =  do_shortcode($post_content);
+    $search_site_info = "site_info";
+    $replace_site_info = "site_info blog_id='".$data."'";
+    $post_content = str_replace($search_site_info, $replace_site_info, $post_content);
+    $email_content =  do_shortcode($post_content);    
     return $email_content;
 }
 

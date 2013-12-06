@@ -1,0 +1,94 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: impruwparent\n"
+"POT-Creation-Date: 2013-12-06 15:43+0530\n"
+"PO-Revision-Date: 2013-12-06 15:44+0530\n"
+"Last-Translator: \n"
+"Language-Team: araja <araja@ajency.in>\n"
+"Language: nb\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.6\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: _e;__\n"
+"X-Poedit-SearchPath-0: ../../impruwclientparent\n"
+
+#: ../../impruwclientparent/functions.php:47
+msgid "room"
+msgstr ""
+
+#: ../../impruwclientparent/functions.php:83
+msgid "Search Facilities"
+msgstr ""
+
+#: ../../impruwclientparent/functions.php:84
+msgid "All Facilities"
+msgstr ""
+
+#: ../../impruwclientparent/functions.php:85
+msgid "Parent Facility"
+msgstr ""
+
+#: ../../impruwclientparent/functions.php:86
+msgid "Parent Facility:"
+msgstr ""
+
+#: ../../impruwclientparent/functions.php:87
+msgid "Edit Facility"
+msgstr ""
+
+#: ../../impruwclientparent/functions.php:88
+msgid "Update Facility"
+msgstr ""
+
+#: ../../impruwclientparent/functions.php:89
+msgid "Add New Facility"
+msgstr ""
+
+#: ../../impruwclientparent/functions.php:90
+msgid "New Facility"
+msgstr ""
+
+#: ../../impruwclientparent/functions.php:91
+msgid "Facility"
+msgstr ""
+
+#: ../../impruwclientparent/functions.php:519
+msgid "+34 954 227 116"
+msgstr ""
+
+#: ../../impruwclientparent/functions.php:520
+msgid "Check Rates"
+msgstr ""
+
+#: ../../impruwclientparent/functions.php:607
+msgid "Rooms"
+msgstr ""
+
+#: ../../impruwclientparent/functions.php:614
+msgid "View All"
+msgstr ""
+
+#: ../../impruwclientparent/functions.php:654
+msgid "You CAN"
+msgstr ""
+
+#: ../../impruwclientparent/functions.php:674
+msgid ""
+"It is a long established fact that a reader will be distracted by the "
+"readable content of a page when looking at its layout. The point of using "
+"Lorem Ipsum is that it has a more-or-less normal distribution of letters, as "
+"opposed to using \\'Content here, content here\\', making it look like "
+"readable English."
+msgstr ""
+
+#: ../../impruwclientparent/functions.php:726
+msgid "Connect With Us"
+msgstr "Connect With Us_n"
+
+#: ../../impruwclientparent/header.php:38
+msgid "test"
+msgstr ""

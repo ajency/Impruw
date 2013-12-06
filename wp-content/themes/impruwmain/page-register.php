@@ -61,7 +61,7 @@ if(isset($_REQUEST['lang']))
 				<div class="col-sm-12 aj-imp-register-header">
 					<h1><?php echo __('Sign Up','impruwmain');?> <span><?php echo __('Impruw','impruwmain'); ?></span></h1>
 					<p class="desc">
-					 <?php echo __('Lorem Ipsum is simply dummy text of the printing and typesetting industry.','impruwmain');  
+					 <?php echo __('Simplest way to create a website in minutes.','impruwmain');  
 						 ?>  
 					</p>
 				</div>
@@ -70,19 +70,19 @@ if(isset($_REQUEST['lang']))
 				<div class="col-md-7 aj-imp-register-left">
 					<form class="form-horizontal clearfix" method="post"  name="frm_registration" id="frm_registration"  parsley-validate  data-persist="garlic" >
 						<div class="row">
-							<label for="inputName" class="col-sm-3 control-label"><?php echo __('Name','impruwmain'); ?></label>
+							<label for="inputName" class="col-sm-3 control-label"><?php echo __('Your full name','impruwmain'); ?></label>
 							<div class="col-sm-7 col-sm-offset-3">
 								<div class="form-group">
-									<input type="text" class="form-control" id="inputName"  name="inputName" placeholder="<?php echo __('Richard Parker','impruwmain'); ?>" required   parsley-trigger="blur" parsley-validation-minlength="0" value="<?php if(isset($_REQUEST['inputName'])) echo $_REQUEST['inputName']; ?>"  parsley-required-message="Please Enter Firstname Lastname">
+									<input type="text" class="form-control" id="inputName"  name="inputName" placeholder="<?php echo __('First name  Last name','impruwmain'); ?>" required   parsley-trigger="blur" parsley-validation-minlength="0" value="<?php if(isset($_REQUEST['inputName'])) echo $_REQUEST['inputName']; ?>"  parsley-required-message="<?php echo __('Enter your first name and last name','impruwmain');?>">
 									
 								</div>
 							</div>
 						</div>
 						<div class="row">
-							<label for="inputEmail" class="col-sm-3 control-label"><?php echo __('Email','impruwmain'); ?></label>
+							<label for="inputEmail" class="col-sm-3 control-label"><?php echo __('Your Email','impruwmain'); ?></label>
 							<div class="col-sm-7 col-sm-offset-3">
 								<div class="form-group">
-									<input type="email" class="form-control" id="inputEmail"  name="inputEmail" placeholder="<?php echo __('richard@mail.com','impruwmain');?>"   required  parsley-type="email" parsley-trigger="blur" parsley-validation-minlength="0" parsley-remote="<?php echo admin_url( 'admin-ajax.php' ).'?action=check_email_exists'; ?>"   value="<?php if(isset($_REQUEST['inputName'])) echo $_REQUEST['inputEmail']; ?>"  parsley-required-message="Please Enter Email Id" >
+									<input type="email" class="form-control" id="inputEmail"  name="inputEmail" placeholder="<?php echo __('someone@mail.com','impruwmain');?>"   required  parsley-type="email" parsley-trigger="blur" parsley-validation-minlength="0" parsley-remote="<?php echo admin_url( 'admin-ajax.php' ).'?action=check_email_exists'; ?>"   value="<?php if(isset($_REQUEST['inputName'])) echo $_REQUEST['inputEmail']; ?>"  parsley-required-message="<?php echo __("Enter a valid email address as it will be your User Id as well",'impruwmain')?>" >
 									
 								</div>
 							</div>

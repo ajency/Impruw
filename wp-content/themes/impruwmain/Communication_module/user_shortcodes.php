@@ -23,6 +23,8 @@ function retrieve_user_information($atts)
             if (isset($atts['field'])) 
                 {
                     $user_id = $atts['user_id'];
+                    $user_id = maybe_serialize($user_id);
+                    $user_id = $user_id['user_id'];
                     $user_info_array = get_userdata($user_id);     
                     if($atts['field'] == 'user_activation_key')
                     {
@@ -50,6 +52,8 @@ function retrieve_initiator_information($atts)
             if (isset($atts['field'])) 
                 {
                     $user_id = $atts['user_id'];
+                    $user_id = maybe_serialize($user_id);
+                    $user_id = $user_id['user_id'];
                     $user_info_array = get_userdata($user_id);
                     return $user_info_array->$atts['field'];
                 }       
