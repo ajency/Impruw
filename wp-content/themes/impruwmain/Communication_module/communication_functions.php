@@ -242,7 +242,82 @@ function process_email_queue()
             $post_object = get_post( $email->post_id );
             $subject = $post_object->post_title;
             $admin_email= bloginfo('admin_email');
-            $send_email_array=send_email_through_mandrill($email_content, $subject, $admin_email,$user_id);
+            $email_template = '<html style="margin: 0; padding: 0;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	
+	<style type="text/css">
+	a:hover { color: #3f78c6 !important; }
+	.page h1 {font-weight: normal; padding-top: 2px; min-height: 64px; font: bold 30px/30px HelveticaNeue-Light, "Helvetica Neue Light", sans-serif; text-align: center; color: #616161;}
+	.page p {text-align: center; color: #616161;}
+	.page .big-link {font-size: 20px;}
+	.page .big-link a {color: #6FB5D7; text-decoration: underline;}
+	.page .button {font-size: 15px; color: white; text-decoration: none; display: block; padding: 10px 16px; background: #F76D3E; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; margin: 20px auto; max-width: 160px; text-align: center;}
+	.page .button:hover {color: white !important; background: #6FB5D7;}
+	@media only screen and (max-device-width: 480px) {
+		.page {
+			padding: 0px 10px 5px 10px !important;
+		}
+		body {
+			padding: 10px !important;
+		}
+		#airmail-line {
+			margin: 0 -10px !important;		
+		}
+		.header {
+			font-size: 16px !important;
+		}
+		.headline {
+			font-size: 20px !important;
+		}
+	}
+	</style>
+	<meta name="robots" content="noindex,nofollow">
+<meta property="og:title" content="[Panic] Changes to the Panic mailing list! (2010!)">
+</head>
+	
+	<body style="margin: 0; background: #F2F2F2; padding: 20px;">
+		<div style="max-width: 600px; margin: 0 auto;">
+		<h3 class="header" style=" text-align: center; text-shadow: white 0 1px 0px; font-weight: normal; margin: 20px 0px 50px; color: #b8b8b8; font: 24px HelveticaNeue-Light, "Helvetica Neue Light", sans-serif;"><img src="impruw-logo.png" alt="Impruw" /></h3>
+	
+		<!-- Summary Text. Shows up on iPhone / Gmail. -->
+	
+		<span style="display: none;">A quick update about the Impruw mailing list!</span>
+		<!-- The Page -->
+		<div class="page" style="border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; clear: both; margin: 0px; background: white; border: 0px; font: 14px/19px Helvetica, sans-serif; padding: 20px 40px 25px; border: 1px solid #ddd">
+			
+			'.$email_content.'
+			
+		</div> <!-- End The Page -->
+		
+		<!-- Unsubscribe -->
+		<div style="text-shadow: white 0 1px 0px; background-repeat: no-repeat; margin: 10px 0; margin-top: 25px; padding-top: 1px; color: #777777; font: 12px/18px Helvetica, sans-serif; text-align: center;">
+			You received this email because you\'re a registered Impruw user. We occasionally send system alerts with account information, planned outages, system improvements, and important customer-service updates. We\'ll keep them brief and useful. Promise.
+		</div>
+
+		<div style="text-shadow: white 0 1px 0px; background-repeat: no-repeat; margin: 10px 0; padding-top: 1px; color: #777777; font: bold 12px/18px Helvetica, sans-serif; text-align: center;">
+			&copy;2013 Impruw. All Rights Reserved.
+		</div>
+
+		<div style="text-shadow: white 0 1px 0px; background-repeat: no-repeat; margin: 10px 0; padding-top: 1px; color: #777777; font: 12px/18px Helvetica, sans-serif; text-align: center;">
+			512 Means St. &middot; Suite 404 &middot; Atlanta, GA 30318 USA
+		</div>
+
+		<div style="text-shadow: white 0 1px 0px; background-repeat: no-repeat; margin: 10px 0; padding-top: 1px; color: #777777; font: 12px/18px Helvetica, sans-serif; text-align: center;">
+			<a href="#" style="color: #777777; text-decoration: underline;">Terms of Use</a> &nbsp;&middot;&nbsp;
+			<a href="#" style="color: #777777; text-decoration: underline;">View in browser</a> &nbsp;&middot;&nbsp;
+			<a href="#" style="color: #777777; text-decoration: underline;">Log In to Impruw</a> &nbsp;&middot;&nbsp;
+			<a href="#" style="color: #777777; text-decoration: underline;">Unsubscribe</a>
+		</div>
+
+		<div style="text-shadow: white 0 1px 0px; background-repeat: no-repeat; margin: 30px 0 10px; padding-top: 1px; color: #777777; font: 12px/18px Helvetica, sans-serif; text-align: center;">
+			<img src="impruw-hand.png" alt="Impruw" />
+		</div>
+		
+		<!-- End -->
+		</div>
+	
+
+</body></html>';
+            $send_email_array=send_email_through_mandrill($email_template, $subject, $admin_email,$user_id);
             add_to_email_log($user_id,$email->id,$send_email_array[0]['status'],$send_email_array[0]['reject_reason']);
             print_r($send_email_array);
         }

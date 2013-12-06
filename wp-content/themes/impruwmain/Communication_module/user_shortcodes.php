@@ -28,7 +28,14 @@ function retrieve_user_information($atts)
                     $user_info_array = get_userdata($user_id);     
                     if($atts['field'] == 'user_activation_key')
                     {
-                      return $activation_link = get_template_directory_uri().'/activate';  
+                      $user_default_language = get_user_meta($user_id, 'user_default_language', true);
+                      global $wpdb;
+                      $slug = 'user-activation';
+                      $page_id = $wpdb->get_var("SELECT ID FROM $wpdb->posts WHERE post_name = '$slug'");
+                      $user_activation_id = icl_object_id($page_id, 'page', true,$user_default_language);
+                      $post_object = get_post( $user_activation_id );
+                      $activation_page_name = $post_object->post_name;
+                      return $activation_link = get_template_directory_uri().'/'.$activationpage_name.'/?lang='.$user_default_language.'&email='.$user_info_array->user_email.'&key='.$user_info_array->user_activation_key;  
                     }
                     else
                     return $user_info_array->$atts['field'];
