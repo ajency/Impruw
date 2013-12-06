@@ -23,8 +23,8 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
 
 				//register events
 				events : {
-					'mouseenter'                        : 'rowMouseEnter',
-                    'mouseleave'                        : 'rowMouseLeave',
+					'mouseenter'                        : 'elementMouseEnter',
+                    'mouseleave'                        : 'elementMouseLeave',
                     'click > .aj-imp-delete-btn'        : 'destroyElement',
                     'click > .aj-imp-col-sel ul li a'   : 'adjustColumnsInRow' ,
                     'contextmenu'                       : 'showContextMenu',
@@ -44,7 +44,7 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                 initialize : function(options){
                     
                     _.bindAll(this, 'adjustColumnsInRow', 'generateDropMarkup', 'sortableColumns', 'addNewColumn',
-                                    'columnCount', 'getColumns', 'getColumn', 'rowMouseEnter', 'rowMouseLeave', 'adjustColumnDimension',
+                                    'columnCount', 'getColumns', 'getColumn', 'elementMouseEnter', 'elementMouseLeave', 'adjustColumnDimension',
                                     'allColumnsEmpty', 'emptyColumns', 'appendColumnResizer' , 'clearResizers', 'makeResizer','getColumnAt');
                     
                     
@@ -607,7 +607,7 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                  */        
                 addNewColumn : function(colClass){
                 
-                    var column = new BuilderRowColumn({parent : this, currentClass: colClass});  
+                    var column = new BuilderRowColumn({parent : this, colClass: colClass});  
                     column.render();
                     column.setColumnClass(colClass);
                     column.addEmptyClass();
@@ -632,7 +632,7 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                  * @param {type} evt
                  * @returns void
                  */
-                rowMouseEnter : function(evt){
+                elementMouseEnter : function(evt){
                     
                     evt.stopPropagation();
                     
@@ -640,16 +640,16 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
 
                     if(window.editorMode !== 'layout')
                         return;
-
-                    //remove hover style if row is a child of column
-                    if(this.parent.type === 'column')
-                        this.parent.parent.rowMouseLeave(evt);
+                     
+                    if(!_.isNull(window.prevmouseover))  
+                       window.prevmouseover.elementMouseLeave(evt);
+                    
+                    window.prevmouseover = this;
                     
                     this.$el.css('border', '1px solid #ff7e00');
                     
-                    //setTimeout(function(){
                     self.$el.children('.aj-imp-drag-handle,.aj-imp-delete-btn,.aj-imp-col-divider,.aj-imp-col-sel').stop().fadeIn();
-                    //},600);   
+                   
                 },
                 
                 /**
@@ -657,7 +657,7 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                  * @param {type} evt
                  * @returns void
                  */        
-                rowMouseLeave : function(evt){
+                elementMouseLeave : function(evt){
                     
                     evt.stopPropagation();
                     
@@ -666,8 +666,7 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                     if(window.editorMode !== 'layout')
                         return;
                     
-                    if(this.parent.type === 'column' && !evt.stop)
-                        this.parent.parent.rowMouseEnter(evt);
+                     window.prevmouseover = null;
                     
                     this.$el.css('border', '1px solid transparent');
                     
