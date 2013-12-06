@@ -5,12 +5,12 @@
  
     	//console.log(ajaxurl)
 
-		jQuery("#btn_create").on("click",function(){
+		jQuery("#btn_create").click(function(){
 
 			jQuery("#registration_loader").show();
 			if(jQuery( '#frm_registration').parsley( 'validate' ))
 			{
-				//console.log("valid form")
+				/*/console.log("valid form")
 				if(jQuery("#inputSitename").attr("site_exists") == 1 )
 				{
 					jQuery("#registration_loader").hide();
@@ -20,13 +20,14 @@
 				{
 					jQuery("#registration_loader").hide();
 						return false	;
-				}	
+				}	*/
 
 					
 
 					 var data = {
 							action: 'save_new_user',													 
-							frmdata:jQuery("#frm_registration").serializeArray()
+							frmdata:jQuery("#frm_registration").serializeArray(),
+							ajax_nonce :ajax_nonce
 						};
 					
 			        
@@ -37,12 +38,16 @@
 							{	
 								console.log(response.msg)
 								jQuery("#registration_loader").hide(); 
-								jQuery("#registration_status").html(response.msg)
+								//jQuery("#registration_status").html(response.msg)
+								jQuery("#register_success").show();
+								jQuery("#register_success").html(response.msg)
+								jQuery("#scrolltosuccess").click();
+								
 								return true
 							}
 							else if(response.code =='ERROR')
 							{	
-								alert("invalid captcha")
+								//alert("invalid captcha")
 							
 								 jQuery("#recaptcha_reload").click();
 								 jQuery("#registration_loader").hide();
@@ -75,6 +80,29 @@
  	  } });*/
 		
 		
+		
+		
+		jQuery("#btn_login").on("click",function(){
+			jQuery.post(ajaxurl, {
+                action: 'user_login',
+                pdemail: jQuery("#inputEmail").val(),
+                pdpass: jQuery("#inputPass").val(),
+            },
+                    function(response) {
+                        console.log(response);
+                        if (response.success == true)
+                        {
+                           /* if (jQuery("#noaccess_redirect_url").length > 0)
+                                window.location.href = jQuery("#noaccess_redirect_url").val();
+                            else
+                                window.location.href = jQuery("#hdn_siteurl").val() + '/jobs/';*/
+                        }
+                        else
+                        {
+                            //jQuery("#div_loginmsg").html(response.msg);
+                        }
+                    })
+		})
 		 
         
       }) 

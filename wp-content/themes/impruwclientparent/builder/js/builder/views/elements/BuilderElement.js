@@ -156,7 +156,9 @@ define(['backbone','jquery','underscore', 'global'],
                 getDraggableSettingMarkup : function(){
                   
                    return '<div class="form-group">\
-                                 <input type="checkbox" name="isDraggable" placeholder="" '+ (this.isDraggable() ? 'checked="checked"' : '') +'> &nbsp;&nbsp;&nbsp;Is Draggable?\
+                                 <label class="checkbox" for="isDraggable">\
+                                   <input type="checkbox" '+ (this.isDraggable() ? 'checked="checked"' : '') +' name="isDraggable" data-toggle="checkbox">Draggable?\
+                                 </label>\
                            </div>';
                 },
                 
@@ -167,7 +169,9 @@ define(['backbone','jquery','underscore', 'global'],
                 getEditableSettingMarkup : function(){
                   
                    return '<div class="form-group">\
-                                 <input type="checkbox" name="isEditable"  placeholder="" '+ (this.isEditable() ? 'checked="checked"' : '') +'> &nbsp;&nbsp;&nbsp;Is Editable?\
+                                 <label class="checkbox" for="isEditable">\
+                                   <input type="checkbox" '+ (this.isEditable() ? 'checked="checked"' : '') +' name="isEditable" data-toggle="checkbox">Is Editable?\
+                                 </label>\
                            </div>';
                 },
                 
