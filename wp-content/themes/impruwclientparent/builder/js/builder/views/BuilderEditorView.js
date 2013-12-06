@@ -20,7 +20,7 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                 themeConfig : {},
                 
                 events      : {
-                     'click > .popover .updateProperties': 'updateProperties'
+                     'click header > .popover .updateProperties': 'updateProperties'
                 },
 
 				initialize  : function(option){
@@ -83,7 +83,7 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                  */
                 updateProperties : function(evt){
                    
-                   log("Enter12");
+                   alert("sdsfdfsd");
                    
                    var pcontent = $(evt.target).closest('.popover');
                    

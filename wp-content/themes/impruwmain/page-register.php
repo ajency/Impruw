@@ -69,21 +69,28 @@ if(isset($_REQUEST['lang']))
 			<div class="row">
 				<div class="col-md-7 aj-imp-register-left">
 					<form class="form-horizontal clearfix" method="post"  name="frm_registration" id="frm_registration"  parsley-validate  data-persist="garlic" >
+						<?php  $ajax_nonce = wp_create_nonce( "frm_registration" ); 
+						echo "<script> var ajax_nonce ='".$ajax_nonce."' </script>";
+						?>
+						<span id="register_success" name="register_success"  ></span>
+						<a href="#register_success" id="scrolltosuccess"  > &nbsp; </a>
 						<div class="row">
-							<label for="inputName" class="col-sm-3 control-label"><?php echo __('Your full name','impruwmain'); ?></label>
+							<label for="inputName" class="col-sm-3 control-label"><?php echo __('Name','impruwmain'); ?></label>
+ 
 							<div class="col-sm-7 col-sm-offset-3">
-								<div class="form-group">
-									<input type="text" class="form-control" id="inputName"  name="inputName" placeholder="<?php echo __('First name  Last name','impruwmain'); ?>" required   parsley-trigger="blur" parsley-validation-minlength="0" value="<?php if(isset($_REQUEST['inputName'])) echo $_REQUEST['inputName']; ?>"  parsley-required-message="<?php echo __('Enter your first name and last name','impruwmain');?>">
-									
+								<div class="form-group  parsleyname_msg">
+									<input type="text" class="form-control" id="inputName"  name="inputName" placeholder="<?php echo __('Richard Parker','impruwmain'); ?>" required   parsley-trigger="blur" parsley-validation-minlength="0" value="<?php if(isset($_REQUEST['inputName'])) echo $_REQUEST['inputName']; ?>"  parsley-required-message="Please Enter Firstname Lastname"  parsley-error-container="div.parsleyname_msg span" >
+									<span class="help-block"></span>
 								</div>
 							</div>
 						</div>
 						<div class="row">
-							<label for="inputEmail" class="col-sm-3 control-label"><?php echo __('Your Email','impruwmain'); ?></label>
+							<label for="inputEmail" class="col-sm-3 control-label"><?php echo __('Email','impruwmain'); ?></label>
+ 
 							<div class="col-sm-7 col-sm-offset-3">
-								<div class="form-group">
-									<input type="email" class="form-control" id="inputEmail"  name="inputEmail" placeholder="<?php echo __('someone@mail.com','impruwmain');?>"   required  parsley-type="email" parsley-trigger="blur" parsley-validation-minlength="0" parsley-remote="<?php echo admin_url( 'admin-ajax.php' ).'?action=check_email_exists'; ?>"   value="<?php if(isset($_REQUEST['inputName'])) echo $_REQUEST['inputEmail']; ?>"  parsley-required-message="<?php echo __("Enter a valid email address as it will be your User Id as well",'impruwmain')?>" >
-									
+								<div class="form-group parsleyemail_msg">
+									<input type="email" class="form-control" id="inputEmail"  name="inputEmail" placeholder="<?php echo __('richard@mail.com','impruwmain');?>"   required  parsley-type="email" parsley-trigger="blur" parsley-validation-minlength="0" parsley-remote="<?php echo admin_url( 'admin-ajax.php' ).'?action=check_email_exists'; ?>"   value="<?php if(isset($_REQUEST['inputName'])) echo $_REQUEST['inputEmail']; ?>"  parsley-required-message="Please Enter Email Id"   parsley-error-container="div.parsleyemail_msg span"  >
+										<span class="help-block"></span>
 								</div>
 							</div>
 						</div>
@@ -94,14 +101,16 @@ if(isset($_REQUEST['lang']))
 						
 						<div class="row">
 							<label for="inputLmail" class="col-sm-3 control-label"><?php echo _('Language'); ?></label>
+
 							<div class="col-sm-7 col-sm-offset-3">
-								<div class="form-group">
-									<select name="inputLanguage" id="inputLanguage"  required  parsley-required-message="Please Select Language"> 
+								<div class="form-group  parsleylanguage_msg">
+									<select name="inputLanguage" id="inputLanguage"  required  parsley-required-message="Please Select Language"  parsley-error-container="div.parsleylanguage_msg span" > 
 										<option value="">Select</option>
 									 	<option value="en" <?php if($norwegian_sel==false)  echo " selected "; ?> >English</option>
 									  	<option value="nb" <?php if($norwegian_sel==true)  echo " selected "; ?>>Norwegian</option>
+ 
 									</select>
-									<span class="help-block"><?php echo _('eg. richard@mail.com');?></span>
+									<span class="help-block"></span>
 								</div>
 							</div>
 						</div>
@@ -111,10 +120,12 @@ if(isset($_REQUEST['lang']))
 						
 						<div class="row aj-imp-site-name">
 							<label for="inputSitename" class="col-sm-3 control-label"><?php echo __('Name','impruwmain');?></label>
+ 
 							<div class="col-sm-7 col-sm-offset-3">
-								<div class="form-group">
-									<input type="text" class="form-control" id="inputSitename" name="inputSitename" placeholder="<?php echo __('richards-hotel','impruwmain');?>"  required  parsley-trigger="blur" parsley-validation-minlength="0" parsley-type="alphanum"   parsley-validation-minlength="0" parsley-remote="<?php echo admin_url( 'admin-ajax.php' ).'?action=check_sitename_exists'; ?>"   value="<?php if(isset($_REQUEST['inputName'])) echo $_REQUEST['inputSitename']; ?>"   parsley-required-message="Please Enter Sitename"  >
-									
+								<div class="form-group  parsleysite_msg">
+									<input type="text" class="form-control" id="inputSitename" name="inputSitename" placeholder="<?php echo __('richards-hotel','impruwmain');?>"  required  parsley-trigger="blur" parsley-validation-minlength="0" parsley-type="alphanum"   parsley-validation-minlength="0" parsley-remote="<?php echo admin_url( 'admin-ajax.php' ).'?action=check_sitename_exists'; ?>"   value="<?php if(isset($_REQUEST['inputName'])) echo $_REQUEST['inputSitename']; ?>"   parsley-required-message="Please Enter Sitename"  parsley-error-container="div.parsleysite_msg span"  >
+										<span class="help-block"></span>
+ 
 								</div>
 							</div>
 							<div class="col-sm-2 aj-imp-domain">
@@ -123,22 +134,27 @@ if(isset($_REQUEST['lang']))
 						</div>
 						<div class="row">
 							<label for="inputPass" class="col-sm-3 control-label"><?php echo __('Password','impruwmain');?></label>
+ 
 							<div class="col-sm-7 col-sm-offset-3">
-								<div class="form-group">
-									<input type="password" class="form-control parsley-validated" id="inputPass" name="inputPass" placeholder="<?php echo __('at least 6 to 12 characters long','impruwmain'); ?>"  parsley-required="true"  parsley-equalto="#inputPass"     parsley-trigger="blur" parsley-minlength="6"  parsley-required-message="Please Enter Password" >
+								<div class="form-group  parsleypass1_msg">
+									<input type="password" class="form-control parsley-validated" id="inputPass" name="inputPass" placeholder="<?php echo __('at least 6 to 12 characters long','impruwmain'); ?>"  parsley-required="true"  parsley-equalto="#inputPass"     parsley-trigger="blur" parsley-minlength="6"  parsley-required-message="Please Enter Password"   parsley-error-container="div.parsleypass1_msg span"   >
 									
+ 
 								</div>
 							</div>
 						</div>
 						<div class="row">
 							<label for="inputRepass" class="col-sm-3 control-label"><?php echo __('Retype Password','impruwmain');?></label>
+ 
 							<div class="col-sm-7 col-sm-offset-3">
-								<div class="form-group">
-									<input type="password" class="form-control parsley-validated parsley-error"   id="inputRepass" name="inputRepass" placeholder="<?php echo __('Passwords should match','impruwmain');?>"  required   parsley-equalto="#inputPass"   parsley-trigger="blur" parsley-validation-minlength="0"   parsley-required-message="Please Retype Password"  parsley-equalto-message="Password Entered Do Not Match">
+								<div class="form-group parsleypass2_msg">
+									<input type="password" class="form-control parsley-validated parsley-error"   id="inputRepass" name="inputRepass" placeholder="<?php echo __('Passwords should match','impruwmain');?>"  required   parsley-equalto="#inputPass"   parsley-trigger="blur" parsley-validation-minlength="0"   parsley-required-message="Please Retype Password"  parsley-equalto-message="Password Entered Do Not Match"  parsley-error-container="div.parsleypass2_msg span"  >
+									<span  class="help-block"></span>
+ 
 								</div>
 							</div>
 						</div>
-						<div class="row">
+					 	<div class="row">
 							<div class="col-sm-offset-3 col-sm-7">
 								<div class="aj-imp-captcha-image">
 									<!--  <img src="images/captcha-1.jpg" /> -->
@@ -152,7 +168,7 @@ if(isset($_REQUEST['lang']))
 											 
 											 <?php
          									 require_once('User/recaptchalib.php');
-          									$publickey = "6LdRNusSAAAAAGyPG3zLJrr-R2v0xJQcWrEJ0jky"; // you got this from the signup page
+          									$publickey = "6LciY-sSAAAAAPwDgD2HyP7OnStWWCHid8NGYXQO "; // you got this from the signup page
           									echo recaptcha_get_html($publickey);
         										?>
 										 
@@ -160,7 +176,7 @@ if(isset($_REQUEST['lang']))
   
 								</div>
 							</div>
-						</div>
+						</div> 
 					<!--   	<div class="row">
 							<label for="inputCaptcha" class="col-sm-3 control-label">Enter the Code</label>
 							<div class="col-sm-7">
