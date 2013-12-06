@@ -10,7 +10,7 @@
 			jQuery("#registration_loader").show();
 			if(jQuery( '#frm_registration').parsley( 'validate' ))
 			{
-				//console.log("valid form")
+				/*/console.log("valid form")
 				if(jQuery("#inputSitename").attr("site_exists") == 1 )
 				{
 					jQuery("#registration_loader").hide();
@@ -20,7 +20,7 @@
 				{
 					jQuery("#registration_loader").hide();
 						return false	;
-				}	
+				}	*/
 
 					
 

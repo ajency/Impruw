@@ -18,18 +18,18 @@ remove_default_capabilities();
 create_impruv_manager_role();
 insert_into_email_action_table();
 add_to_page_layouts();
-add_term_to_facility();
+//add_term_to_facility();
 //$user_data=array("email"=>"jeromie@ajency.in","password"=>"admin","name"=>"Jeromie Vaz",'role'=>'administrator');
 //wp_impruw_create_user($user_data);
 //$_REQUEST['action'] = 'activate';
 //$_REQUEST['_wpnonce'] = wp_create_nonce();
 //var_dump(toggle_plugin(23));exit;
-create_new_site(1,'newchildsite22','Child Site new22',3,'home1_layout.php');
+//create_new_site(1,'newchildsite22','Child Site new22',3,'home1_layout.php');
 //$user_data=array();
 //$user_roles = fetch_user_roles_by_type(18);
 //$user_ids_array = fetch_user_ids_by_role($user_roles);
 //print_r($user_ids_array);exit;
-//process_email_queue();
+process_email_queue();
 
 
 function create_custom_tables()
@@ -123,7 +123,7 @@ function create_impruv_manager_role()
 function insert_into_email_action_table()
 {    
     global $wpdb;
-    $registrayion_email_types_array=array(16,17,18);
+    $registrayion_email_types_array=array(68,69,71);
     $registrayion_email_types_array=  serialize($registrayion_email_types_array);
     $registration_action_query=("SELECT * from {$wpdb->prefix}email_actions where email_action_name="."'registration'");
     $value_registration=$wpdb->get_row($registration_action_query);

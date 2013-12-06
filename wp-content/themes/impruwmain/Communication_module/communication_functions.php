@@ -121,25 +121,28 @@ function fetch_user_ids_by_role($user_roles,$initiator_id='')
 function check_for_email_type($initiator_id,$email_type_id,$data)
 {
      $post_object = get_post( $email_type_id );
-     $email_type = $post_object->post_name;
+     $email_type = $post_object->post_title;
      $user_ids_array = array();
+     
      switch ($email_type)
     {
-    case "user-signup-welcome-email":
+    case "User signup welcome email":
         $user_roles = fetch_user_roles_by_type($email_type_id);
         foreach($user_roles as $user_role)
-        {
+        { 
             if($user_role == "self")
-            {
+            { 
                 if($initiator_id == $data['user_id'])
                 {
                     $user_ids_array[] = $initiator_id;
-                    add_to_email_queue($email_type_id,$user_ids_array,$initiator_id,$data);
+                    $user_default_language = get_user_meta($data['user_id'], 'user_default_language', true);
+                    $email_id = icl_object_id($email_type_id, 'impruv_email', true,$user_default_language);
+                    add_to_email_queue($email_id,$user_ids_array,$initiator_id,$data);
                 }
             }
         }        
     break;
-    case "user-registered-by-admin-welcome-email":
+    case "User Registered by Admin Welcome email":
     $user_roles = fetch_user_roles_by_type($email_type_id);
         foreach($user_roles as $user_role)
         {
@@ -153,7 +156,7 @@ function check_for_email_type($initiator_id,$email_type_id,$data)
             }
         }     
     break;
-    case "user-registered-notification-email":
+    case "User Registered Notification email":
     $user_roles = fetch_user_roles_by_type($email_type_id);
     $user_ids_array = fetch_user_ids_by_role($user_roles,$initiator_id);
     add_to_email_queue($email_type_id,$user_ids_array,$initiator_id,$data);
@@ -186,6 +189,7 @@ function add_to_email_queue($email_type_id,$user_ids_array,$initiator_id,$data)
        if($type->name== 'marketing')
             $email_type = 'marketing';    
     }
+   
     $user_ids_array=  maybe_serialize($user_ids_array);
     $data = maybe_serialize($data);
     $priority=  0;//get_post_meta($email_type_id,'priority',true);
@@ -226,13 +230,8 @@ function process_email_queue()
 	array( 
 		'status' => 'processed'	
 	), 
-	array( 'id' => $email->id ), 
-	array( 
-		'%s',	// value1
-		'%d'	// value2
-	), 
-	array( '%d' ) 
-);
+	array( 'id' => $email->id )
+        );
     }
     
 }
@@ -352,7 +351,7 @@ function send_email_through_mandrill($email_content, $subject, $admin_email,$use
     return $result;
     } catch(Mandrill_Error $e) {
     // Mandrill errors are thrown as exceptions
-    sprint_f( __('A mandrill error occurred:  %s - %d','impruwmain'),get_class($e),$e->getMessage());
+    echo 'A mandrill error occurred:'.  get_class($e).' - '. $e->getMessage();
     // A mandrill error occurred: Mandrill_Unknown_Subaccount - No subaccount exists with the id 'customer-123'
     throw $e;
 }

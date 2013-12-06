@@ -98,8 +98,8 @@ if(isset($_REQUEST['lang']))
 								<div class="form-group">
 									<select name="inputLanguage" id="inputLanguage"  required  parsley-required-message="Please Select Language"> 
 										<option value="">Select</option>
-									 	<option value="English" <?php if($norwegian_sel==false)  echo " selected "; ?> >English</option>
-									  	<option value="Norwegian" <?php if($norwegian_sel==true)  echo " selected "; ?>>Norwegian</option>
+									 	<option value="en" <?php if($norwegian_sel==false)  echo " selected "; ?> >English</option>
+									  	<option value="nb" <?php if($norwegian_sel==true)  echo " selected "; ?>>Norwegian</option>
 									</select>
 									<span class="help-block"><?php echo _('eg. richard@mail.com');?></span>
 								</div>

@@ -32,10 +32,10 @@ require_once ABSPATH."/wp-content/themes/impruwmain/Communication_module/communi
  * @param type $user_id
  * @param type $file_name
  */
-function user_signup($user_data_array,$blog_id,$blog_name,$blog_title,$user_id,$file_name)
+function user_signup($user_data_array,$blog_id,$blog_name,$blog_title,$file_name,$user_default_language)
 {
-    $user_id = wp_impruw_create_user($user_data_array);  
-    $site_id = create_new_site($blog_id,$blog_name,$blog_title,$user_id,$file_name);
+    $user_id = wp_impruw_create_user($user_data_array,$user_default_language);  
+    $site_id = create_new_site($blog_id,$blog_name,$blog_title,$user_id,$file_name,$user_default_language);
     return $site_id;
 }
 
@@ -44,9 +44,9 @@ function user_signup($user_data_array,$blog_id,$blog_name,$blog_title,$user_id,$
  * Function to insert registered user's data into the database and return the user_id.
  * @param array $user_data_array-Array containing user information(email, password, name)
  */
-function wp_impruw_create_user($user_data_array) {
+function wp_impruw_create_user($user_data_array,$user_default_language) {
 	$user_login = wp_slash( $user_data_array['email'] );
-	$user_email = wp_slash( $user_data_array['email']    );
+	$user_email = wp_slash( $user_data_array['email'] );
 	$user_pass = $user_data_array['password'];
         $user_nicename = wp_slash( $user_data_array['name']    );
         $users_name_array =  explode(' ',$user_data_array['name'] );
@@ -57,7 +57,7 @@ function wp_impruw_create_user($user_data_array) {
 	$userdata = compact('user_login', 'user_email', 'user_pass','user_nicename','first_name','last_name','role');
         $user_id = wp_insert_user($userdata);
         global $wpdb;
-        $wpdb->insert( 
+        $wpdb->update( 
 	$wpdb->prefix.'users', 
 	array( 
 		'user_activation_key' => $activation_key, 
@@ -65,6 +65,7 @@ function wp_impruw_create_user($user_data_array) {
 	), 
 	array( 'ID' => $user_id )
         );
+        update_user_meta($user_id, 'user_default_language', $user_default_language);
         //check if admin is registering the user or the user is signing up.
         if(is_user_logged_in())
             $initiator_id =  get_current_user_id ();
@@ -86,8 +87,8 @@ function wp_impruw_create_user($user_data_array) {
  * @param int $user_id - the user id/ owner of the new blog.
  * @return type
  */
-function create_new_site($blog_id,$blog_name,$blog_title,$user_id,$file_name)
-{
+function create_new_site($blog_id,$blog_name,$blog_title,$user_id,$file_name,$user_default_language)
+{ 
    // if ( ! current_user_can( 'manage_sites' ) )
 		//return( 'You do not have permission to access this page.' );
     
@@ -120,20 +121,21 @@ function create_new_site($blog_id,$blog_name,$blog_title,$user_id,$file_name)
 	
         
     $new_blog_id = wpmu_create_blog( $newdomain, $path, $title, $user_id , array( 'public' => 1 ), $current_site->blog_id ); 
-    
+    switch_to_blog($new_blog_id);
     assign_theme_to_site($new_blog_id,'impruwclientchild1');//assign a theme to the new site created
+    restore_current_blog();
     toggle_plugin($new_blog_id);//activating the wpml plugin for the current site.
-    assign_default_language($new_blog_id,'en');
+    assign_default_language($new_blog_id,$user_default_language);
     assign_active_languages($new_blog_id);
     $post_id = add_new_post_to_blog($new_blog_id,$user_id,'Home','Home Content','page','');
     $post_nb_id = mwm_wpml_translate_post( $new_blog_id,$post_id, 'page', 'nb',$user_id);
    //commented the template part 5dec2013 to bypass 
-    // add_layout_site($new_blog_id,$post_id,$file_name);
+    add_layout_site($new_blog_id,$post_id,$file_name);
     $post_site_builder_id = add_new_post_to_blog($new_blog_id,$user_id,'Site Builder','Site Builder Content.','page','site-builder.php');
 
     $post_register_id = add_new_post_to_blog($new_blog_id,$user_id,'Register','Register Content.','page','page-register.php');
     create_tariff_table_for_blog($new_blog_id);  
-    add_menu_to_blog($new_blog_id,$post_id,$post_site_builder_id);
+    add_menu_to_blog($user_id,$new_blog_id,$post_id,$post_site_builder_id);
     //echo $post_site_builder_id;exit;
 
     
@@ -152,7 +154,7 @@ function create_new_site($blog_id,$blog_name,$blog_title,$user_id,$file_name)
  */
 function assign_theme_to_site($blog_id,$theme_name)
 {   
-    switch_to_blog($blog_id);
+    switch_to_blog($blog_id); 
     $theme = wp_get_theme($theme_name); //Change the name here to change the theme
     if ( $theme->exists() || $theme->is_allowed() )
     switch_theme( $theme->get_template(), $theme->get_stylesheet() );
@@ -370,13 +372,15 @@ function create_tariff_table_for_blog($blog_id)
  * Function to create 2 menu's for the new blog created
  * @param type $blog_id - the idof blog to add menu to.
  */
-function add_menu_to_blog($blog_id,$home_id,$site_builder_id)
+function add_menu_to_blog($user_id,$blog_id,$home_id,$site_builder_id)
 {
     switch_to_blog($blog_id);
-    
+    $user_default_language = get_user_meta($data['user_id'], 'user_default_language', true);
+    $home_id = icl_object_id($home_id, 'page', true,$user_default_language);
+    $site_builder_id = icl_object_id($site_builder_id, 'page', true,$user_default_language);
     
     $run_once = get_option('menu_check');
-if (!$run_once){
+    if (!$run_once){
     //give your menu a name
     $name = 'site header menu';
     //create the menu
@@ -620,7 +624,7 @@ function save_new_user()
 			$recaptcha_challenge_field,
 			$recaptcha_response_field);
 	
-	if (!$resp->is_valid) 
+	/*if (!$resp->is_valid) 
 	{
 			
 		header('Content-Type: application/json');
@@ -632,7 +636,7 @@ function save_new_user()
 		 
 	} 
 	else
-	{
+	{*/
 		// Your code here to handle a successful verification		
 		$user_data_array['name'] = $name;
 		$user_data_array['email'] = $email;
@@ -640,12 +644,10 @@ function save_new_user()
 		$user_data_array['role'] = 'admin';
 		
 		$blog_id = 1;
-		$new_userid = wp_impruw_create_user($user_data_array);
+		$new_blog_id = user_signup($user_data_array,$blog_id,$sitename,$sitename,'home1_layout.php',$inputLanguage);
 		
-		if(!empty($new_userid))
-		{
-			add_user_meta($new_userid, 'Site_language', $inputLanguage);
-			$new_blog_id = create_new_site($blog_id,$sitename,$sitename,$new_userid,'');
+		
+		
 			if(isset($new_blog_id))
 			{
 				
@@ -659,18 +661,13 @@ function save_new_user()
 				echo json_encode(array('code' => 'ERROR', 'msg'=>_("Error creating Site. "))  );
 				die();
 			}
-		}
 		
-		else
-		{
-			header('Content-Type: application/json');
-			echo json_encode(array('code' => 'ERROR', 'msg'=>_("Error creating user. "))  );
-			die();
-		}
+		
+	
 			
 		
 		
-	}
+	/*}*/
 	
 	
 	
