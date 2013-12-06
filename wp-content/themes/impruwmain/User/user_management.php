@@ -15,7 +15,7 @@
  * 10) create_tariff_table_for_blog - Function to create a table for room tariffs every time a site is created.
  * 11) check_email_exists	- Function to check if email id already registered(check done on registration page) 
  * 12) check_sitename_exists - Function to check if sitename already exists(check done on registration page)
- * 
+ * 13)  user_activation - Function to activate new useres
  * 
  * 	
  */
@@ -734,3 +734,43 @@ function user_login() {
 
 add_action('wp_ajax_user_login', 'user_login');
 add_action('wp_ajax_nopriv_user_login', 'user_login');
+
+
+
+/*
+ * Function to activate new users
+ */
+function user_activation($email,$key)
+{
+	global $wpdb;
+	 
+	$user_table = $wpdb->base_prefix.'users';
+	$res_verify_user =    $wpdb->get_results($wpdb->prepare("SELECT ID  FROM $user_table WHERE user_email = %s AND user_status=%f and user_activation_key = '%s'", $email, 2,$key),OBJECT);
+	 
+	if(count($res_verify_user)>0)
+	{
+		 
+		foreach($res_verify_user as $res_verify_usr)
+		{
+			var_dump($res_verify_usr);
+			$wpdb->update($wpdb->users, array('user_activation_key' => ""), array('user_email' =>$email));
+			$wpdb->update($wpdb->users, array('user_status' => 0), array('user_email' => $email));
+			
+			
+			$blog = get_active_blog_for_user( $res_verify_usr->ID);
+			$blog_url = $blog->siteurl; /* or $blog->path, together with $blog->siteurl */
+			//var_dump($blog_url);
+			wp_redirect( $blog_url );
+			exit;
+			
+			
+		}
+		
+		
+	}
+	else
+	{
+		return false;	
+	}
+			 
+}

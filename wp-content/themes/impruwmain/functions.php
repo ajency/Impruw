@@ -326,7 +326,7 @@ function register_required_scripts() {
 	//$translation_array = array( 'ajaxurl' =>admin_url( 'admin-ajax.php' )  );
 	//wp_enqueue_script('pw-script', get_template_directory_uri() . '/js/user_management.js');
 	wp_localize_script('jquery', 'ajaxurl', admin_url( 'admin-ajax.php' )	);
-	
+	wp_localize_script('jquery', 'template_path', get_template_directory()	);
 	
 	/*$translation_array = array( 'valuereqd' =>"other message for reqd"  );
 	wp_enqueue_script('pw-script2', get_template_directory_uri() . '/js/parsley/parsley.js');
@@ -340,7 +340,7 @@ function register_required_scripts() {
 	
    global $post;
    $title=$post->post_title;
-   if($title == 'Register'){
+   if(($title == 'Register')|| ($title == 'login')){
 		//wp_deregister_script( 'jquery' );
                 if(isset($_GET['lang']) && $_GET['lang'] == 'nb')
 		wp_enqueue_script( 'parsley-lang', get_template_directory_uri().'/js/parsley/i18n/messages.no.js', array(), false,true);
