@@ -14,7 +14,7 @@ add_theme_support('menus');
 
 //remove wordpress admin bar
 show_admin_bar(false);
-
+load_theme_textdomain('impruwclientparent'); 
 
 /*--------------------------------------------------------------------------------------
 *
@@ -44,7 +44,7 @@ function impruv_register_room_init() {
 
     $args = array(
         'labels' => $labels,
-        'label' => __('room'),
+        'label' => __('room',"impruwclientparent"),
         'public' => true,
         'publicly_queryable' => true,
         'show_ui' => true,
@@ -80,15 +80,15 @@ function create_room_taxonomies_and_add_terms() {
     $facilities_labels = array(
         'name' => _x('Facilities', 'taxonomy general name'),
         'singular_name' => _x('Facility', 'taxonomy singular name'),
-        'search_items' => __('Search Facilities'),
-        'all_items' => __('All Facilities'),
-        'parent_item' => __('Parent Facility'),
-        'parent_item_colon' => __('Parent Facility:'),
-        'edit_item' => __('Edit Facility'),
-        'update_item' => __('Update Facility'),
-        'add_new_item' => __('Add New Facility'),
-        'new_item_name' => __('New Facility'),
-        'menu_name' => __('Facility')
+        'search_items' => __('Search Facilities','impruwclientparent'),
+        'all_items' => __('All Facilities','impruwclientparent'),
+        'parent_item' => __('Parent Facility','impruwclientparent'),
+        'parent_item_colon' => __('Parent Facility:','impruwclientparent'),
+        'edit_item' => __('Edit Facility','impruwclientparent'),
+        'update_item' => __('Update Facility','impruwclientparent'),
+        'add_new_item' => __('Add New Facility','impruwclientparent'),
+        'new_item_name' => __('New Facility','impruwclientparent'),
+        'menu_name' => __('Facility','impruwclientparent')
     );
 
     $tag_args = array(
@@ -536,8 +536,8 @@ function show_json(){
                                                     'type'          => 'BuilderRowColumn',
                                                     'extraClasses'  => 'cta col-xs-12',
                                                     'colClass'      => 8,
-                                                    'content'       => '<div class="contact"><span class="glyphicon glyphicon-earphone"></span>+34 954 227 116</div>
-									<div class="rates"><a href="#">Check Rates</a></div>',
+                                                    'content'       => '<div class="contact"><span class="glyphicon glyphicon-earphone"></span>'.__("+34 954 227 116").'</div>
+									<div class="rates"><a href="#">'.__("Check Rates",'impruwclientparent').'</a></div>',
                                                     'elements'      => array()
                                                 )
                                             )
@@ -624,14 +624,14 @@ function show_json(){
                                                         'draggable' => false,
                                                         'editable'  => false,
                                                         'extraClasses' => 'boxTitle',
-                                                        'content'   => '<h3>Rooms</h3>'
+                                                        'content'   => '<h3>'.__("Rooms",'impruwclientparent').'</h3>'
                                                     ),
                                                     array(
                                                         'type'      => 'TextElement',
                                                         'draggable' => false,
                                                         'editable'  => false,
                                                         'extraClasses' => 'titleLink',
-                                                        'content'   => '<a href="#">View All</a>'
+                                                        'content'   => '<a href="#">'.__("View All",'impruwclientparent').'</a>'
                                                     )   
                                                  )
                                             )
@@ -671,7 +671,7 @@ function show_json(){
                                                         'draggable' => false,
                                                         'editable'  => false,
                                                         'extraClasses' => 'boxTitle',
-                                                        'content'   => '<h3>You CAN</h3>'
+                                                        'content'   => '<h3>'.__("You CAN",'impruwclientparent').'</h3>'
                                                     ) 
                                                  )
                                             )
@@ -691,7 +691,7 @@ function show_json(){
                                                         'type'      => 'TextElement',
                                                         'draggable' => false,
                                                         'editable'  => false,
-                                                        'content'   => '<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English.</p>'
+                                                        'content'   => '<p>'.__("It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English.",'impruwclientparent').'</p>'
                                                     ) 
                                                  )
                                             ),
@@ -743,7 +743,7 @@ function show_json(){
                                                         'type'      => 'TitleElement',
                                                         'draggable' => false,
                                                         'editable'  => false,
-                                                        'content'   => '<div class="infoPoint">Connect With Us</div>'
+                                                        'content'   => '<div class="infoPoint">'.__("Connect With Us",'impruwclientparent').'</div>'
                                                     ) 
                                                  )
                                             )

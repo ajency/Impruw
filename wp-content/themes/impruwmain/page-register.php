@@ -61,7 +61,7 @@ if(isset($_REQUEST['lang']))
 				<div class="col-sm-12 aj-imp-register-header">
 					<h1><?php echo __('Sign Up','impruwmain');?> <span><?php echo __('Impruw','impruwmain'); ?></span></h1>
 					<p class="desc">
-					 <?php echo __('Lorem Ipsum is simply dummy text of the printing and typesetting industry.','impruwmain');  
+					 <?php echo __('Simplest way to create a website in minutes.','impruwmain');  
 						 ?>  
 					</p>
 				</div>
@@ -81,7 +81,6 @@ if(isset($_REQUEST['lang']))
 								<div class="form-group  parsleyname_msg">
 									<input type="text" class="form-control" id="inputName"  name="inputName" placeholder="<?php echo __('Richard Parker','impruwmain'); ?>" required   parsley-trigger="blur" parsley-validation-minlength="0" value="<?php if(isset($_REQUEST['inputName'])) echo $_REQUEST['inputName']; ?>"  parsley-required-message="Please Enter Firstname Lastname"  parsley-error-container="div.parsleyname_msg span" >
 									<span class="help-block"></span>
- 
 								</div>
 							</div>
 						</div>
@@ -92,7 +91,6 @@ if(isset($_REQUEST['lang']))
 								<div class="form-group parsleyemail_msg">
 									<input type="email" class="form-control" id="inputEmail"  name="inputEmail" placeholder="<?php echo __('richard@mail.com','impruwmain');?>"   required  parsley-type="email" parsley-trigger="blur" parsley-validation-minlength="0" parsley-remote="<?php echo admin_url( 'admin-ajax.php' ).'?action=check_email_exists'; ?>"   value="<?php if(isset($_REQUEST['inputName'])) echo $_REQUEST['inputEmail']; ?>"  parsley-required-message="Please Enter Email Id"   parsley-error-container="div.parsleyemail_msg span"  >
 										<span class="help-block"></span>
- 
 								</div>
 							</div>
 						</div>

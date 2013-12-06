@@ -34,5 +34,6 @@
 <body <?php body_class(); ?>>
     <div class=" mainContainer1">
         <header class="site-header">
-            <?php echo generateMarkup('header'); ?>
+            <?php do_action('icl_language_selector');?>
+            <?php echo generateMarkup('header'); echo __("test");?>
         </header><!-- .site-header -->
