@@ -68,6 +68,11 @@ if(isset($_REQUEST['lang']))
 			<div class="row">
 				<div class="col-md-7 aj-imp-register-left">
 					<form class="form-horizontal clearfix" method="post"  name="frm_registration" id="frm_registration"  parsley-validate  data-persist="garlic" >
+						<?php  $ajax_nonce = wp_create_nonce( "frm_registration" ); 
+						echo "<script> var ajax_nonce ='".$ajax_nonce."' </script>";
+						?>
+						<span id="register_success" name="register_success"  ></span>
+						<a href="#register_success" id="scrolltosuccess"  > &nbsp; </a>
 						<div class="row">
 							<label for="inputName" class="col-sm-3 control-label"><?php echo __('Name','impruwmain'); ?></label>
 							<div class="col-sm-7">
@@ -96,9 +101,9 @@ if(isset($_REQUEST['lang']))
 							<div class="col-sm-7">
 								<div class="form-group">
 									<select name="inputLanguage" id="inputLanguage"  required  parsley-required-message="Please Select Language"> 
-										<option value="">Select</option>
-									 	<option value="English" <?php if($norwegian_sel==false)  echo " selected "; ?> >English</option>
-									  	<option value="Norwegian" <?php if($norwegian_sel==true)  echo " selected "; ?>>Norwegian</option>
+										
+									 	<option value="en" <?php if($norwegian_sel==false)  echo " selected "; ?> >English</option>
+									  	<option value="nb" <?php if($norwegian_sel==true)  echo " selected "; ?>>Norwegian</option>
 									</select>
 									<span class="help-block"><?php echo _('eg. richard@mail.com');?></span>
 								</div>
@@ -137,7 +142,7 @@ if(isset($_REQUEST['lang']))
 								</div>
 							</div>
 						</div>
-						<div class="row">
+					 	<div class="row">
 							<div class="col-sm-offset-3 col-sm-7">
 								<div class="aj-imp-captcha-image">
 									<!--  <img src="images/captcha-1.jpg" /> -->
@@ -151,7 +156,7 @@ if(isset($_REQUEST['lang']))
 											 
 											 <?php
          									 require_once('User/recaptchalib.php');
-          									$publickey = "6LdRNusSAAAAAGyPG3zLJrr-R2v0xJQcWrEJ0jky"; // you got this from the signup page
+          									$publickey = "6LciY-sSAAAAAPwDgD2HyP7OnStWWCHid8NGYXQO "; // you got this from the signup page
           									echo recaptcha_get_html($publickey);
         										?>
 										 
@@ -159,7 +164,7 @@ if(isset($_REQUEST['lang']))
   
 								</div>
 							</div>
-						</div>
+						</div> 
 					<!--   	<div class="row">
 							<label for="inputCaptcha" class="col-sm-3 control-label">Enter the Code</label>
 							<div class="col-sm-7">

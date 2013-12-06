@@ -32,7 +32,7 @@ require_once ABSPATH."/wp-content/themes/impruwmain/Communication_module/communi
  * @param type $user_id
  * @param type $file_name
  */
-function user_signup($user_data_array,$blog_id,$blog_name,$blog_title,$user_id,$file_name)
+function user_signup($user_data_array,$blog_id,$blog_name,$blog_title,$file_name)
 {
     $user_id = wp_impruw_create_user($user_data_array);  
     $site_id = create_new_site($blog_id,$blog_name,$blog_title,$user_id,$file_name);
@@ -57,7 +57,7 @@ function wp_impruw_create_user($user_data_array) {
 	$userdata = compact('user_login', 'user_email', 'user_pass','user_nicename','first_name','last_name','role');
         $user_id = wp_insert_user($userdata);
         global $wpdb;
-        $wpdb->insert( 
+        $wpdb->update( 
 	$wpdb->prefix.'users', 
 	array( 
 		'user_activation_key' => $activation_key, 
@@ -585,6 +585,13 @@ function save_new_user()
 	
 	$form_data = $_POST['frmdata'];
 	
+	if(!check_ajax_referer( 'frm_registration', 'ajax_nonce' ))
+	{
+		header('Content-Type: application/json');
+		echo json_encode(array('code' => 'ERROR', 'msg'=>_("Invalid Form Data"))  );
+		die();
+	}
+	
 	foreach($_POST['frmdata'] as $frm_element_key => $frm_element_val) 	{
 
 		switch($frm_element_val['name'])
@@ -611,10 +618,10 @@ function save_new_user()
 	}
 	
  
-	
+	 
 	
 	require_once('recaptchalib.php');
-	$privatekey = "6LdRNusSAAAAADn2sxpPbMH6U9G2-MnBmslyi_WH";
+	$privatekey = "6LciY-sSAAAAAFSFuy0xsQEpuN3l_zREo9KnpwCj";
 	$resp = recaptcha_check_answer ($privatekey,
 			$_SERVER["REMOTE_ADDR"],
 			$recaptcha_challenge_field,
@@ -632,7 +639,7 @@ function save_new_user()
 		 
 	} 
 	else
-	{
+	{ 
 		// Your code here to handle a successful verification		
 		$user_data_array['name'] = $name;
 		$user_data_array['email'] = $email;
@@ -640,12 +647,21 @@ function save_new_user()
 		$user_data_array['role'] = 'admin';
 		
 		$blog_id = 1;
-		$new_userid = wp_impruw_create_user($user_data_array);
 		
-		if(!empty($new_userid))
-		{
-			add_user_meta($new_userid, 'Site_language', $inputLanguage);
-			$new_blog_id = create_new_site($blog_id,$sitename,$sitename,$new_userid,'');
+		
+		
+		
+		
+		
+		 
+		
+		
+		
+		
+		
+		 
+			 
+			$new_blog_id = user_signup($user_data_array,$blog_id,$sitename,$sitename,'home1_layout.php');
 			if(isset($new_blog_id))
 			{
 				
@@ -659,14 +675,7 @@ function save_new_user()
 				echo json_encode(array('code' => 'ERROR', 'msg'=>_("Error creating Site. "))  );
 				die();
 			}
-		}
-		
-		else
-		{
-			header('Content-Type: application/json');
-			echo json_encode(array('code' => 'ERROR', 'msg'=>_("Error creating user. "))  );
-			die();
-		}
+		 
 			
 		
 		
