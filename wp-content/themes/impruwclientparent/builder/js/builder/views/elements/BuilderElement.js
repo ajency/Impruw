@@ -199,8 +199,6 @@ define(['backbone','jquery','underscore', 'global'],
                  */
                 updateProperties : function(evt){
                    
-                   log("Enter");
-                   
                    var pcontent = $(evt.target).closest('.popover');
                    
                    var id = pcontent.closest('.popover').prev().attr('id');
