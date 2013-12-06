@@ -53,6 +53,7 @@ define(['backbone','jquery','underscore', 'global'],
                  */
                 void : function(evt){
                    evt.preventDefault();
+                   evt.stopPropagation();
                    return false;
                 },
                 

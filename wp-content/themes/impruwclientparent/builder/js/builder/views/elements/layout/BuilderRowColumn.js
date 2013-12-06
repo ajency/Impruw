@@ -35,7 +35,7 @@ define(['builder/views/elements/BuilderElement', 'global'],
                 //register events
 				events : {
 					'contextmenu'                        : 'showContextMenu',
-                    'click'                              : 'void',
+                    //'click'                              : 'void',
                     'click > .popover .updateProperties' : 'updateProperties'
 				},
                 
