@@ -593,7 +593,8 @@ form .aj-imp-submit:hover {
   color: #777777;
 }
 .aj-imp-register-form .aj-imp-register-left form .row.aj-imp-site-name .aj-imp-domain {
-  padding: 7px 7px 0;
+  padding: 8px 7px 0;
+  font-size: 1.025em;
 }
 @media (max-width: 767px) {
   .aj-imp-register-form .aj-imp-register-left form .row.aj-imp-site-name {
