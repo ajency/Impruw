@@ -38,18 +38,35 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                    var self = this;
                    
                    this.json = {
-                                 elements : []
+                                 header : {
+                                    elements : []
+                                 },
+                                 page : {
+                                    elements : []
+                                 },
+                                 footer : {
+                                    elements : []
+                                 }
                               };
                    
                    _.each(this.rows, function(row, index){
                         
                         var json = row.generateJSON();
                         
-                        self.json.elements.push(json);
+                        if(row.$el.closest('.layout-header').length === 1){
+                           self.json.header.elements.push(json);
+                        }
+                        if(row.$el.closest('.layout-content').length === 1){
+                           self.json.page.elements.push(json);
+                        }
+                        if(row.$el.closest('.layout-footer').length === 1){
+                           self.json.footer.elements.push(json);
+                        }
                       
                    });
                    
                    this.sendJSONToServer();
+                   log(this.json);
                    
                 },
                 

@@ -175,7 +175,7 @@ define(['backbone','jquery','underscore', 'global'],
                 setHandlers : function(){
                      
                      if(this.isDraggable()){
-                           log(this.$el.html());
+                          
                            this.$el.append('<div class="aj-imp-drag-handle">\
                                                 <p title="Move">\
                                                     <span class="icon-uniF140"></span>\
