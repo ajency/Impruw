@@ -156,7 +156,7 @@ define(['backbone','jquery','underscore', 'global'],
                 getDraggableSettingMarkup : function(){
                   
                    return '<div class="form-group">\
-                                 <input type="checkbox" name="isDraggable" placeholder=""> &nbsp;&nbsp;&nbsp;Is Draggable?\
+                                 <input type="checkbox" name="isDraggable" placeholder="" '+ (this.isDraggable() ? 'checked="checked"' : '') +'> &nbsp;&nbsp;&nbsp;Is Draggable?\
                            </div>';
                 },
                 
@@ -167,7 +167,7 @@ define(['backbone','jquery','underscore', 'global'],
                 getEditableSettingMarkup : function(){
                   
                    return '<div class="form-group">\
-                                 <input type="checkbox" name="isEditable"  placeholder=""> &nbsp;&nbsp;&nbsp;Is Editable?\
+                                 <input type="checkbox" name="isEditable"  placeholder="" '+ (this.isEditable() ? 'checked="checked"' : '') +'> &nbsp;&nbsp;&nbsp;Is Editable?\
                            </div>';
                 },
                 
@@ -178,7 +178,7 @@ define(['backbone','jquery','underscore', 'global'],
                 getClassnameSettingMarkup : function (){
                    
                    return '<div class="form-group">\
-                                 <input type="text" name="className" class="form-control" placeholder="Classname">\
+                                 <input type="text" name="className" class="form-control" placeholder="Classname" value="'+ this.extraClasses +'">\
                            </div>';
                 },
                 
@@ -208,12 +208,31 @@ define(['backbone','jquery','underscore', 'global'],
                    if(!_.isObject(element))
                       return;
                    
-                   if($(pcontent).find('input[name="className"]').length > 0)
-                        element.extraClasses += $(pcontent).find('input[name="className"]').val();
+                   //set extra classes
+                   if($(pcontent).find('input[name="className"]').length > 0){
                      
-                   if($(pcontent).find('input[name="isDraggable"]').length > 0)
-                        element.isDraggable = true;
+                      element.extraClasses += $(pcontent).find('input[name="className"]').val();
                    
+                   }
+                   
+                   //set is draggable
+                   if($(pcontent).find('input[name="isDraggable"]').length > 0){
+                     
+                        if($(pcontent).find('input[name="isDraggable"]').is(':checked'))
+                           element.draggable = true;
+                     
+                   }
+                   
+                   //set is draggable
+                   if($(pcontent).find('input[name="isEditable"]').length > 0){
+                     
+                        if($(pcontent).find('input[name="isEditable"]').is(':checked'))
+                           element.editable = true;
+                     
+                   }
+                   
+                   log(element.isDraggable());
+                   log(element.isEditable());
                    
                 },
                 
