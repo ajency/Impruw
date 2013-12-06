@@ -122,6 +122,9 @@ function generateMarkup($section){
     
     $markupJSON = getPageMarkupJSON($post->ID);
     
+    if(!isset($markupJSON[$section]))
+        return;
+    var_dump($markupJSON);
     $json = $markupJSON[$section];
     
     $html = '';
@@ -388,7 +391,7 @@ function getContainerMarkup($element){
  */
 function getPageMarkupJSON($page_id){
     
-    $json = show_json();//get_post_meta($page_id,'page_markup_json',true);
+    $json = get_page_json(2);//get_post_meta($page_id,'page_markup_json',true);
     
     return $json;
 }
@@ -465,6 +468,23 @@ function getThemeCSS()
             echo "<link rel='stylesheet' href='". get_template_directory_uri() ."/css/$file' type='text/css'/>";
         } 
     }   
+}
+
+/**
+ * Fecthed the json for a page from DB
+ * @global type $wpdb
+ * @param type $id
+ */
+function get_page_json($id){
+    
+    global $wpdb;
+    $sql = $wpdb->prepare("SELECT json FROM {$wpdb->base_prefix}layouts
+                                            WHERE id = %d",$id);
+    $json = $wpdb->get_var($sql);
+    
+    $json = maybe_unserialize($json);
+    
+    return  $json;
 }
 
 /**
@@ -819,16 +839,30 @@ function save_json_structure(){
     
     global $wpdb;
     
-    $wpdb->insert($wpdb->base_prefix.'layouts',
-                  array(
+    $wpdb->update($wpdb->base_prefix.'layouts',
+                    array(
                       'name'    => 'layout-' . rand(1000, 9999),
                       'json'    => maybe_serialize($json)
-                  ));
+                    ),
+                    array('id' => 2));
     
     die;
 }
 add_action('wp_ajax_save_json_structure','save_json_structure');
 add_action('wp_ajax_nopriv_save_json_structure','save_json_structure');
+
+/**
+ * 
+ */
+function get_saved_layout(){
+    
+    $json = get_page_json(2);
+    echo json_encode($json);
+    die;
+}
+add_action('wp_ajax_get_saved_layout','get_saved_layout');
+add_action('wp_ajax_nopriv_get_saved_layout','get_saved_layout');
+
 
 //insert_room();
 function insert_room()

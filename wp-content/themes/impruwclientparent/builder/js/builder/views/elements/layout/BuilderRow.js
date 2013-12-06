@@ -231,7 +231,7 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                     //append columns
                     _.each(_.range(this.initialColumns), function(){
                          
-                         var column = new BuilderRowColumn({parent : self, currentClass : colClass});  
+                         var column = new BuilderRowColumn({parent : self, colClass : colClass});  
                          column.render();
                          column.addEmptyClass();
                          self.elements.push(column);

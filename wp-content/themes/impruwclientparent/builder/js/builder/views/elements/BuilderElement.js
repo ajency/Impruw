@@ -3,22 +3,22 @@ define(['backbone','jquery','underscore', 'global'],
 
 			var BuilderElement = Backbone.View.extend({
                
-                /**
-                 * Draggable property
-                 */  
+                //is element draggable
                 draggable   : true,
                 
-                /**
-                 * Editable property
-                 */
+                //is element editable
                 editable    : true,
                 
                 //extra classes for an element
                 extraClasses : '',
                 
-                /**
-                 * Parent property
-                 */
+                //markup style
+                markupStyle  : '',
+                
+                //disallow settings
+                disAllow     : {},
+                
+                //parent of the element
                 parent : null,
                 
                 /**
@@ -78,9 +78,8 @@ define(['backbone','jquery','underscore', 'global'],
                         //hide any previously opened popover
                         if(!_.isNull(window.prevpopover))
                               window.prevpopover.popover('hide');
-                           
-                         this.$el.popover('show');
-                         window.prevpopover = this.$el;
+                        this.$el.popover('show');
+                        window.prevpopover = this.$el;
                      }
                 },
                 
@@ -88,24 +87,26 @@ define(['backbone','jquery','underscore', 'global'],
                  * Set context menu for element
                  * @returns {undefined}
                  */
-                setContextMenu : function(disAllow){
+                setContextMenu : function(){
                    
-                   if(_.isUndefined(disAllow))
-                      disAllow = {};
+                   var self = this;
                    
                    this.$el.popover({
                         html        : true,
                         title       : this.getType() + ' settings',
-                        content     : this.getSettingsMarkup(disAllow),
+                        content     : this.getSettingsMarkup(),
                         placement   : 'auto',
                         trigger     : 'manual'
+                   });
+                   
+                   this.$el.on('show.bs.popover', function(evt){
+                        $(evt.target).next('.popover').find('.popover-content').html(self.getSettingsMarkup());
                    });
                    
                    this.$el.on('shown.bs.popover', function(evt){
                         $(evt.target).next('.popover').find('input[type="checkbox"]').checkbox();
                         $(evt.target).next('.popover').find('select').selectpicker({style: 'btn-mini btn-default', menuStyle: 'dropdown'});
-					
-                   });
+					});
                 },
                 
                 /**
@@ -132,7 +133,9 @@ define(['backbone','jquery','underscore', 'global'],
                  * Returns the setting markup
                  * @returns {String}
                  */
-                getSettingsMarkup : function(disAllow){
+                getSettingsMarkup : function(){
+                   
+                   var disAllow = this.disAllow;
                    
                    var html = '';
                    
@@ -222,27 +225,34 @@ define(['backbone','jquery','underscore', 'global'],
                    if($(pcontent).find('input[name="className"]').length > 0){
                      
                       element.extraClasses += $(pcontent).find('input[name="className"]').val();
-                   
+                      
                    }
                    
                    //set is draggable
-                   if($(pcontent).find('input[name="isDraggable"]').length > 0){
-                     
-                        if($(pcontent).find('input[name="isDraggable"]').is(':checked'))
-                           element.draggable = true;
-                     
+                   var dEle = $(pcontent).find('input[name="isDraggable"]');
+                   if(dEle.length > 0){
+                     if(dEle.is(':checked')){
+                        element.draggable = true;
+                     }else{
+                        element.draggable = false;
+                     }  
                    }
                    
-                   //set is draggable
-                   if($(pcontent).find('input[name="isEditable"]').length > 0){
-                     
-                        if($(pcontent).find('input[name="isEditable"]').is(':checked'))
-                           element.editable = true;
-                     
+                   //set is editable
+                   var eEle = $(pcontent).find('input[name="isEditable"]');
+                   if(eEle.length > 0){
+                     if(eEle.is(':checked')){
+                        element.editable = true;
+                     }else{
+                        element.editable = false;
+                     }  
                    }
                    
-                   log(element.isDraggable());
-                   log(element.isEditable());
+                   //set is markup style
+                   var mEle = $(pcontent).find('select[name="markupStyle"]');
+                   if(mEle.length > 0){
+                        element.markupStyle = mEle.val();
+                   }
                    
                 },
                 
@@ -361,13 +371,13 @@ define(['backbone','jquery','underscore', 'global'],
                 setProperties : function(config){
 
                     if(!_.isUndefined(config.draggable))
-                        this.draggable = config.draggable;
+                        this.draggable = config.draggable === "true";
                     
                     if(!_.isUndefined(config.editable))
-                        this.editable  = config.editable;
+                        this.editable  = config.editable === "true";
 
-                    if(!_.isUndefined(config.className))
-                        this.className  = config.className;
+                    if(!_.isUndefined(config.extraClasses))
+                        this.extraClasses  = config.extraClasses;
 
                 },
 
