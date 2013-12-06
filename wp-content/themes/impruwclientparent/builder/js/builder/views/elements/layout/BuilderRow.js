@@ -28,7 +28,7 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                     'click > .aj-imp-delete-btn'        : 'destroyElement',
                     'click > .aj-imp-col-sel ul li a'   : 'adjustColumnsInRow' ,
                     'contextmenu'                       : 'showContextMenu',
-                    'click .updateProperties'           : 'updateProperties'
+                    'click > .popover .updateProperties': 'updateProperties'
 				},
 
                 //used to identify drag direction(right / left)

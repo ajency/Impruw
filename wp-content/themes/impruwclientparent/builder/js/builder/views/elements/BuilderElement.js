@@ -199,6 +199,8 @@ define(['backbone','jquery','underscore', 'global'],
                  */
                 updateProperties : function(evt){
                    
+                   log("Enter");
+                   
                    var pcontent = $(evt.target).closest('.popover');
                    
                    var id = pcontent.closest('.popover').prev().attr('id');
@@ -214,22 +216,24 @@ define(['backbone','jquery','underscore', 'global'],
                    if($(pcontent).find('input[name="isDraggable"]').length > 0)
                         element.isDraggable = true;
                    
-                   log(element);
                    
                 },
                 
                 /**
-                 * 
-                 * @returns {_L2.Anonym$1.getElementByID.Anonym$3}
+                 * Returns the elemnet object by ID
+                 * @returns View object or false
                  */
                 getElementByID : function(id){
                    
+                   //is id passed?
                    if(_.isUndefined(id))
                       return false;
                    
-                   if(_.isUndefined(this.elements) || _.isArray(this.elements))
+                   //does this element has child elemnts property
+                   if(_.isUndefined(this.elements) || !_.isArray(this.elements))
                       return false;
                    
+                   //does the element has any child elements
                    if(_.isArray(this.elements) && this.elements.length === 0)
                       return false;
                    
@@ -248,8 +252,8 @@ define(['backbone','jquery','underscore', 'global'],
                 },
                 
                 /**
-                 * 
-                 * @returns {undefined}
+                 * Loads the template reading the template file
+                 * @returns {void}
                  */
                 loadTemplate : function(){
                    

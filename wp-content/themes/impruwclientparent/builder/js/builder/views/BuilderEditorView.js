@@ -18,6 +18,10 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                 mode        : 'layout',
 
                 themeConfig : {},
+                
+                events      : {
+                     'click > .popover .updateProperties': 'updateProperties'
+                },
 
 				initialize  : function(option){
                         
@@ -40,17 +44,17 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                    if(this.rows.length === 0)
                       return false;
                    
-                   this.json = {
-                                 header : {
-                                    elements : []
-                                 },
-                                 page : {
-                                    elements : []
-                                 },
-                                 footer : {
-                                    elements : []
-                                 }
-                              };
+                   this.json =   {
+                                    header : {
+                                       elements : []
+                                    },
+                                    page : {
+                                       elements : []
+                                    },
+                                    footer : {
+                                       elements : []
+                                    }
+                                 };
                    
                    _.each(this.rows, function(row, index){
                         
@@ -71,6 +75,64 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                    //this.sendJSONToServer();
                    log(this.json);
                    
+                },
+                
+                /**
+                 * Updates the properties of the element
+                 * @returns void
+                 */
+                updateProperties : function(evt){
+                   
+                   log("Enter12");
+                   
+                   var pcontent = $(evt.target).closest('.popover');
+                   
+                   var id = pcontent.closest('.popover').prev().attr('id');
+                   
+                   var element = this.getElementByID(id);
+                   
+                   if(!_.isObject(element))
+                      return;
+                   
+                   if($(pcontent).find('input[name="className"]').length > 0)
+                        element.extraClasses += $(pcontent).find('input[name="className"]').val();
+                     
+                   if($(pcontent).find('input[name="isDraggable"]').length > 0)
+                        element.isDraggable = true;
+                   
+                   log(element);
+                },
+                
+                /**
+                 * Returns the elemnet object by ID
+                 * @returns View object or false
+                 */
+                getElementByID : function(id){
+                   
+                   //is id passed?
+                   if(_.isUndefined(id))
+                      return false;
+                   
+                   //does this element has child elemnts property
+                   if(_.isUndefined(this.rows) || !_.isArray(this.rows))
+                      return false;
+                   
+                   //does the element has any child elements
+                   if(_.isArray(this.rows) && this.rows.length === 0)
+                      return false;
+                   
+                   var element = false;
+                   
+                   for(var k = 0,len=this.rows.length; k < len; k++){
+                      
+                      if(this.rows[k].id === id){
+                         element = this.rows[k];
+                         break;
+                      } 
+                      
+                   }
+                   
+                   return element;
                 },
                 
                 /**
