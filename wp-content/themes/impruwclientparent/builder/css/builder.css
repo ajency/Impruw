@@ -1398,3 +1398,27 @@ Version:        0.1.0
   color: #fff;
 }
 /****Builder Settings Popover Styles****/
+#aj-imp-builder-drag-drop .popover .popover-title {
+  background: #29333F;
+}
+#aj-imp-builder-drag-drop .popover.bottom .arrow {
+  border-bottom-color: #29333F;
+}
+/****Builder Form Styles****/
+.form-group .form-control:focus {
+  border-color: #ff7e00;
+}
+.form-group .checkbox.checked,
+.form-group .radio.checked {
+  color: #ff7e00;
+}
+.form-group .checkbox.checked .second-icon,
+.form-group .radio.checked .second-icon {
+  color: #ff7e00;
+}
+.form-group .updateProperties {
+  background: #ff7e00;
+}
+.form-group .updateProperties:hover {
+  background: #ffb266;
+}
