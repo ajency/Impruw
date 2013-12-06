@@ -1,5 +1,5 @@
-define(['builder/views/elements/BuilderElement','text!builder/templates/elements/layout/RowColumn.hbs', 'global'], 
-		function( BuilderElement, template,  global){
+define(['builder/views/elements/BuilderElement', 'global'], 
+		function( BuilderElement,  global){
             
             var BuilderRowColumn = BuilderElement.extend({
 
@@ -11,9 +11,7 @@ define(['builder/views/elements/BuilderElement','text!builder/templates/elements
                 //holds all elements for this column
                 elements      : [],
                 
-                //define template for control
-				template      : template,
-                
+               
                 /**
                  * Current class property
                  */
@@ -36,8 +34,8 @@ define(['builder/views/elements/BuilderElement','text!builder/templates/elements
                 
                 //register events
 				events : {
-					'contextmenu'   : 'showContextMenu',
-                    'click'         : 'void'
+					'contextmenu'                  : 'showContextMenu',
+                    'click'                        : 'void'
 				},
                 
                 /**
@@ -76,8 +74,8 @@ define(['builder/views/elements/BuilderElement','text!builder/templates/elements
                     this.setParent(options.parent);
                     this.setClasses();
                     this.setHandlers();
-                    this.loadTemplate();
-                    this.setContextMenu();
+                    //this.loadTemplate();
+                    this.setContextMenu({'isDraggable':1,'isEditable':1,'type':1});
                 },
                 
                 

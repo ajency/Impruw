@@ -87,12 +87,15 @@ define(['backbone','jquery','underscore', 'global'],
                  * Set context menu for element
                  * @returns {undefined}
                  */
-                setContextMenu : function(){
-                     
-                     this.$el.popover({
+                setContextMenu : function(disAllow){
+                   
+                   if(_.isUndefined(disAllow))
+                      disAllow = {};
+                   
+                   this.$el.popover({
                         html        : true,
                         title       : this.getType() + ' settings',
-                        content     : this.getSettingsMarkup(),
+                        content     : this.getSettingsMarkup(disAllow),
                         placement   : 'auto',
                         trigger     : 'manual'
                      });
@@ -123,11 +126,125 @@ define(['backbone','jquery','underscore', 'global'],
                  * Returns the setting markup
                  * @returns {String}
                  */
-                getSettingsMarkup : function(){
-                  
-                   var html = this.$el.find('.settings');
-                   return $(html).html();
+                getSettingsMarkup : function(disAllow){
                    
+                   var html = '';
+                   
+                   if(_.isUndefined(disAllow['isDraggable']))
+                     html += this.getDraggableSettingMarkup();
+                   
+                   if(_.isUndefined(disAllow['isEditable']))
+                     html += this.getEditableSettingMarkup();
+                   
+                   if(_.isUndefined(disAllow['className']))
+                     html += this.getClassnameSettingMarkup();
+                   
+                   if(_.isUndefined(disAllow['type']))
+                     html += this.getMarkupStyleSettingMarkup();
+                   
+                   html += '<div class="form-group">\
+                                 <input value="Save" type="button" class="btn btn-primary updateProperties"/>\
+                           </div>';
+                     
+                   return html;
+                },
+                
+                /**
+                 * Return draggable setting markup
+                 * @returns {String}
+                 */
+                getDraggableSettingMarkup : function(){
+                  
+                   return '<div class="form-group">\
+                                 <input type="checkbox" name="isDraggable" placeholder=""> &nbsp;&nbsp;&nbsp;Is Draggable?\
+                           </div>';
+                },
+                
+                /**
+                 * Return editable setting markup
+                 * @returns {String}
+                 */
+                getEditableSettingMarkup : function(){
+                  
+                   return '<div class="form-group">\
+                                 <input type="checkbox" name="isEditable"  placeholder=""> &nbsp;&nbsp;&nbsp;Is Editable?\
+                           </div>';
+                },
+                
+                /**
+                 * Return classname setting markup
+                 * @returns {String}
+                 */
+                getClassnameSettingMarkup : function (){
+                   
+                   return '<div class="form-group">\
+                                 <input type="text" name="className" class="form-control" placeholder="Classname">\
+                           </div>';
+                },
+                
+                /**
+                 * Return matkup style setting markup
+                 * @returns {String}
+                 */
+                getMarkupStyleSettingMarkup : function(){
+                   
+                   return '<div class="form-group">\
+                                 <select name="markupStyle" class="form-control"><option value="Style 1">Style 1</option><option value="Style 1">Style 1</option></select>\
+                           </div>';
+                },
+                
+                /**
+                 * Updates the properties of the element
+                 * @returns void
+                 */
+                updateProperties : function(evt){
+                   
+                   var pcontent = $(evt.target).closest('.popover');
+                   
+                   var id = pcontent.closest('.popover').prev().attr('id');
+                   
+                   var element = this.getElementByID(id);
+                   
+                   if(!_.isObject(element))
+                      return;
+                   
+                   if($(pcontent).find('input[name="className"]').length > 0)
+                        element.extraClasses += $(pcontent).find('input[name="className"]').val();
+                     
+                   if($(pcontent).find('input[name="isDraggable"]').length > 0)
+                        element.isDraggable = true;
+                   
+                   log(element);
+                   
+                },
+                
+                /**
+                 * 
+                 * @returns {_L2.Anonym$1.getElementByID.Anonym$3}
+                 */
+                getElementByID : function(id){
+                   
+                   if(_.isUndefined(id))
+                      return false;
+                   
+                   if(_.isUndefined(this.elements) || _.isArray(this.elements))
+                      return false;
+                   
+                   if(_.isArray(this.elements) && this.elements.length === 0)
+                      return false;
+                   
+                   var element = false;
+                   
+                   for(var k = 0,len=this.elements.length; k < len; k++){
+                      
+                      if(this.elements[k].id === id){
+                         element = this.elements[k];
+                         break;
+                      } 
+                      
+                   }
+                   
+                   return element;
                 },
                 
                 /**

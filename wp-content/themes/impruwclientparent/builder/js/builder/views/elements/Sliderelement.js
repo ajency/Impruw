@@ -22,7 +22,8 @@ define(['builder/views/elements/BuilderElement','text!builder/templates/elements
                 events : {
                     'mouseenter'                 : 'elementMouseEnter',
                     'mouseleave'                 : 'elementMouseLeave',
-                    'click > .aj-imp-delete-btn' : 'destroyElement'
+                    'click > .aj-imp-delete-btn' : 'destroyElement',
+                    'contextmenu'                : 'showContextMenu'
                 },
                 
                 /**
@@ -41,6 +42,7 @@ define(['builder/views/elements/BuilderElement','text!builder/templates/elements
                     
                     this.$el.attr('id', this.id);
                     
+                    this.setContextMenu();
                 },
                         
                 /**
