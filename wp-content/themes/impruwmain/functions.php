@@ -231,7 +231,7 @@ function impruw_set_email_user_role()
             {
                 ?>
                 <li>
-                   <?php echo _e("testing",'impruwmain');?> <input type="checkbox" name="impruw_set_user_role_post[]" value="<?php echo $key?>" <?php echo (in_array($key, $email_user_roles)) ? 'checked="checked"' : ''; ?>>&nbsp;<?php echo $value?><br>
+                    <input type="checkbox" name="impruw_set_user_role_post[]" value="<?php echo $key?>" <?php echo (in_array($key, $email_user_roles)) ? 'checked="checked"' : ''; ?>>&nbsp;<?php echo $value?><br>
                 </li>      
                 <?php
                 wp_nonce_field('impruw_set_user_role_post_nounce', 'impruw_set_user_role_post_nounce');
@@ -240,7 +240,7 @@ function impruw_set_email_user_role()
             {
                 ?>
                 <li>
-                  <?php echo _e("testing",'impruwmain');?>  <input type="checkbox" name="impruw_set_user_role_post[]" value="<?php echo $key?>" >&nbsp;<?php echo $value?><br>
+                   <input type="checkbox" name="impruw_set_user_role_post[]" value="<?php echo $key?>" >&nbsp;<?php echo $value?><br>
                 </li> 
                 <?php
                 wp_nonce_field('impruw_set_user_role_post_nounce', 'impruw_set_user_role_post_nounce');
@@ -346,7 +346,9 @@ function register_required_scripts() {
 		wp_enqueue_script( 'parsley-lang', get_template_directory_uri().'/js/parsley/i18n/messages.no.js', array(), false,true);
 		wp_enqueue_script( 'parsley', get_template_directory_uri().'/js/parsley/parsley.js', array('jquery'), '1.2.1',true);
 		wp_enqueue_script( "user_management",  get_template_directory_uri().'/js/user_management.js', array( ) ,false,true);
-	//	wp_enqueue_script( 'garlic', get_template_directory_uri().'/js/garlic.js', array('jquery'), '1.2.2',true);
+ 
+		//wp_enqueue_script( 'garlic', get_template_directory_uri().'/js/garlic.js', array('jquery'), '1.2.2',true);
+ 
 	}
 }
 add_action('wp_enqueue_scripts', 'register_required_scripts', 1);

@@ -10,7 +10,7 @@
 			jQuery("#registration_loader").show();
 			if(jQuery( '#frm_registration').parsley( 'validate' ))
 			{
-				//console.log("valid form")
+				/*/console.log("valid form")
 				if(jQuery("#inputSitename").attr("site_exists") == 1 )
 				{
 					jQuery("#registration_loader").hide();
@@ -20,7 +20,7 @@
 				{
 					jQuery("#registration_loader").hide();
 						return false	;
-				}	
+				}	*/
 
 					
 
@@ -80,6 +80,29 @@
  	  } });*/
 		
 		
+		
+		
+		jQuery("#btn_login").on("click",function(){
+			jQuery.post(ajaxurl, {
+                action: 'user_login',
+                pdemail: jQuery("#inputEmail").val(),
+                pdpass: jQuery("#inputPass").val(),
+            },
+                    function(response) {
+                        console.log(response);
+                        if (response.success == true)
+                        {
+                           /* if (jQuery("#noaccess_redirect_url").length > 0)
+                                window.location.href = jQuery("#noaccess_redirect_url").val();
+                            else
+                                window.location.href = jQuery("#hdn_siteurl").val() + '/jobs/';*/
+                        }
+                        else
+                        {
+                            //jQuery("#div_loginmsg").html(response.msg);
+                        }
+                    })
+		})
 		 
         
       }) 
