@@ -87,12 +87,15 @@ define(['backbone','jquery','underscore', 'global'],
                  * Set context menu for element
                  * @returns {undefined}
                  */
-                setContextMenu : function(){
-                     
-                     this.$el.popover({
+                setContextMenu : function(disAllow){
+                   
+                   if(_.isUndefined(disAllow))
+                      disAllow = {};
+                   
+                   this.$el.popover({
                         html        : true,
                         title       : this.getType() + ' settings',
-                        content     : this.getSettingsMarkup(),
+                        content     : this.getSettingsMarkup(disAllow),
                         placement   : 'auto',
                         trigger     : 'manual'
                      });
@@ -123,16 +126,138 @@ define(['backbone','jquery','underscore', 'global'],
                  * Returns the setting markup
                  * @returns {String}
                  */
-                getSettingsMarkup : function(){
+                getSettingsMarkup : function(disAllow){
+                   
+                   var html = '';
+                   
+                   if(_.isUndefined(disAllow['isDraggable']))
+                     html += this.getDraggableSettingMarkup();
+                   
+                   if(_.isUndefined(disAllow['isEditable']))
+                     html += this.getEditableSettingMarkup();
+                   
+                   if(_.isUndefined(disAllow['className']))
+                     html += this.getClassnameSettingMarkup();
+                   
+                   if(_.isUndefined(disAllow['type']))
+                     html += this.getMarkupStyleSettingMarkup();
+                   
+                   html += '<div class="form-group">\
+                                 <input value="Save" type="button" class="btn btn-primary updateProperties"/>\
+                           </div>';
+                     
+                   return html;
+                },
+                
+                /**
+                 * Return draggable setting markup
+                 * @returns {String}
+                 */
+                getDraggableSettingMarkup : function(){
                   
-                   var html = this.$el.find('.settings');
-                   return $(html).html();
+                   return '<div class="form-group">\
+                                 <label class="checkbox" for="isDraggable">\
+                                   <input type="checkbox" name="isDraggable" data-toggle="checkbox">Draggable?\
+                                 </label>\
+                           </div>';
+                },
+                
+                /**
+                 * Return editable setting markup
+                 * @returns {String}
+                 */
+                getEditableSettingMarkup : function(){
+                  
+                   return '<div class="form-group">\
+                                 <label class="checkbox" for="isEditable">\
+                                   <input type="checkbox" name="isEditable" data-toggle="checkbox">Is Editable?\
+                                 </label>\
+                           </div>';
+                },
+                
+                /**
+                 * Return classname setting markup
+                 * @returns {String}
+                 */
+                getClassnameSettingMarkup : function (){
+                   
+                   return '<div class="form-group">\
+                                 <input type="text" name="className" class="form-control" placeholder="Classname">\
+                           </div>';
+                },
+                
+                /**
+                 * Return matkup style setting markup
+                 * @returns {String}
+                 */
+                getMarkupStyleSettingMarkup : function(){
+                   
+                   return '<div class="form-group">\
+                                 <select name="markupStyle" class="form-control"><option value="Style 1">Style 1</option><option value="Style 1">Style 1</option></select>\
+                           </div>';
+                },
+                
+                /**
+                 * Updates the properties of the element
+                 * @returns void
+                 */
+                updateProperties : function(evt){
+                   
+                   log("Enter");
+                   
+                   var pcontent = $(evt.target).closest('.popover');
+                   
+                   var id = pcontent.closest('.popover').prev().attr('id');
+                   
+                   var element = this.getElementByID(id);
+                   
+                   if(!_.isObject(element))
+                      return;
+                   
+                   if($(pcontent).find('input[name="className"]').length > 0)
+                        element.extraClasses += $(pcontent).find('input[name="className"]').val();
+                     
+                   if($(pcontent).find('input[name="isDraggable"]').length > 0)
+                        element.isDraggable = true;
+                   
                    
                 },
                 
                 /**
-                 * 
-                 * @returns {undefined}
+                 * Returns the elemnet object by ID
+                 * @returns View object or false
+                 */
+                getElementByID : function(id){
+                   
+                   //is id passed?
+                   if(_.isUndefined(id))
+                      return false;
+                   
+                   //does this element has child elemnts property
+                   if(_.isUndefined(this.elements) || !_.isArray(this.elements))
+                      return false;
+                   
+                   //does the element has any child elements
+                   if(_.isArray(this.elements) && this.elements.length === 0)
+                      return false;
+                   
+                   var element = false;
+                   
+                   for(var k = 0,len=this.elements.length; k < len; k++){
+                      
+                      if(this.elements[k].id === id){
+                         element = this.elements[k];
+                         break;
+                      } 
+                      
+                   }
+                   
+                   return element;
+                },
+                
+                /**
+                 * Loads the template reading the template file
+                 * @returns {void}
                  */
                 loadTemplate : function(){
                    
@@ -175,7 +300,7 @@ define(['backbone','jquery','underscore', 'global'],
                 setHandlers : function(){
                      
                      if(this.isDraggable()){
-                           log(this.$el.html());
+                          
                            this.$el.append('<div class="aj-imp-drag-handle">\
                                                 <p title="Move">\
                                                     <span class="icon-uniF140"></span>\

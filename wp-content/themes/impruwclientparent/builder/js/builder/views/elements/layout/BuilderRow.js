@@ -1,7 +1,6 @@
-define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/BuilderRowColumn', 
-        'text!builder/templates/elements/layout/BuilderRow.hbs', 'global'], 
+define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/BuilderRowColumn', 'global'], 
     
-		function(BuilderElement, BuilderRowColumn, template, global){
+		function(BuilderElement, BuilderRowColumn, global){
 
 			var BuilderRow = BuilderElement.extend({
                
@@ -9,9 +8,6 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
 
                 //create a div element with class "row"
 				className           : 'row',
-
-				//define template for control
-				template            : template,
 
 				//set name for row. Will be used to generate unique ID for each control
 				type                : 'row',
@@ -31,7 +27,8 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                     'mouseleave'                        : 'rowMouseLeave',
                     'click > .aj-imp-delete-btn'        : 'destroyElement',
                     'click > .aj-imp-col-sel ul li a'   : 'adjustColumnsInRow' ,
-                    'contextmenu'                       : 'showContextMenu'
+                    'contextmenu'                       : 'showContextMenu',
+                    'click > .popover .updateProperties': 'updateProperties'
 				},
 
                 //used to identify drag direction(right / left)
@@ -75,7 +72,7 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                     this.setParent(options.parent);
                     this.setClasses();
                     this.setHandlers();
-                    this.loadTemplate();
+                    //this.loadTemplate();
                     this.setContextMenu();
                 },
                 

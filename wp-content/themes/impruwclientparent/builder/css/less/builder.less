@@ -1517,3 +1517,40 @@ Version:        0.1.0
 		}
 	}
 }
+
+/****Builder Settings Popover Styles****/
+#aj-imp-builder-drag-drop {
+	.popover {
+		.popover-title {
+			background: #29333F;
+		}
+		&.bottom{
+			.arrow {
+			border-bottom-color: #29333F;
+			}
+		}
+	}
+}
+
+/****Builder Form Styles****/
+.form-group {
+	.form-control {
+		&:focus {
+			border-color: @orange;
+		}
+	}
+	.checkbox, .radio {
+		&.checked {
+			color: @orange;
+			.second-icon {
+				color: @orange;
+			}
+		}
+	}
+	.updateProperties {
+		background: @orange;
+		&:hover {
+			background: lighten(@orange, 20%);
+		}
+	}
+}
