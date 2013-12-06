@@ -817,8 +817,14 @@ function save_json_structure(){
     
     $json = $_POST['json'];
     
-    echo(json_encode($json));
- 
+    global $wpdb;
+    
+    $wpdb->insert($wpdb->base_prefix.'layouts',
+                  array(
+                      'name'    => 'layout-' . rand(1000, 9999),
+                      'json'    => maybe_serialize($json)
+                  ));
+    
     die;
 }
 add_action('wp_ajax_save_json_structure','save_json_structure');

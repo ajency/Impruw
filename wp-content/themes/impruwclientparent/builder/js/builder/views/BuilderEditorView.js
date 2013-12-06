@@ -37,6 +37,9 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                    
                    var self = this;
                    
+                   if(this.rows.length === 0)
+                      return false;
+                   
                    this.json = {
                                  header : {
                                     elements : []
@@ -65,7 +68,7 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                       
                    });
                    
-                   this.sendJSONToServer();
+                   //this.sendJSONToServer();
                    log(this.json);
                    
                 },
