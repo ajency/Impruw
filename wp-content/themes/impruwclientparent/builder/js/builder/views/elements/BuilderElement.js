@@ -98,8 +98,13 @@ define(['backbone','jquery','underscore', 'global'],
                         content     : this.getSettingsMarkup(disAllow),
                         placement   : 'auto',
                         trigger     : 'manual'
-                     });
-                     
+                   });
+                   
+                   this.$el.on('shown.bs.popover', function(evt){
+                        $(evt.target).next('.popover').find('input[type="checkbox"]').checkbox();
+                        $(evt.target).next('.popover').find('select').selectpicker({style: 'btn-mini btn-default', menuStyle: 'dropdown'});
+					
+                   });
                 },
                 
                 /**
@@ -157,7 +162,7 @@ define(['backbone','jquery','underscore', 'global'],
                   
                    return '<div class="form-group">\
                                  <label class="checkbox" for="isDraggable">\
-                                   <input type="checkbox" name="isDraggable" data-toggle="checkbox">Draggable?\
+                                   <input type="checkbox" '+ (this.isDraggable() ? 'checked="checked"' : '') +' name="isDraggable" data-toggle="checkbox">Draggable?\
                                  </label>\
                            </div>';
                 },
@@ -170,7 +175,7 @@ define(['backbone','jquery','underscore', 'global'],
                   
                    return '<div class="form-group">\
                                  <label class="checkbox" for="isEditable">\
-                                   <input type="checkbox" name="isEditable" data-toggle="checkbox">Is Editable?\
+                                   <input type="checkbox" '+ (this.isEditable() ? 'checked="checked"' : '') +' name="isEditable" data-toggle="checkbox">Is Editable?\
                                  </label>\
                            </div>';
                 },
@@ -182,7 +187,7 @@ define(['backbone','jquery','underscore', 'global'],
                 getClassnameSettingMarkup : function (){
                    
                    return '<div class="form-group">\
-                                 <input type="text" name="className" class="form-control" placeholder="Classname">\
+                                 <input type="text" name="className" class="form-control" placeholder="Classname" value="'+ this.extraClasses +'">\
                            </div>';
                 },
                 
@@ -203,8 +208,6 @@ define(['backbone','jquery','underscore', 'global'],
                  */
                 updateProperties : function(evt){
                    
-                   log("Enter");
-                   
                    var pcontent = $(evt.target).closest('.popover');
                    
                    var id = pcontent.closest('.popover').prev().attr('id');
@@ -214,12 +217,31 @@ define(['backbone','jquery','underscore', 'global'],
                    if(!_.isObject(element))
                       return;
                    
-                   if($(pcontent).find('input[name="className"]').length > 0)
-                        element.extraClasses += $(pcontent).find('input[name="className"]').val();
+                   //set extra classes
+                   if($(pcontent).find('input[name="className"]').length > 0){
                      
-                   if($(pcontent).find('input[name="isDraggable"]').length > 0)
-                        element.isDraggable = true;
+                      element.extraClasses += $(pcontent).find('input[name="className"]').val();
                    
+                   }
+                   
+                   //set is draggable
+                   if($(pcontent).find('input[name="isDraggable"]').length > 0){
+                     
+                        if($(pcontent).find('input[name="isDraggable"]').is(':checked'))
+                           element.draggable = true;
+                     
+                   }
+                   
+                   //set is draggable
+                   if($(pcontent).find('input[name="isEditable"]').length > 0){
+                     
+                        if($(pcontent).find('input[name="isEditable"]').is(':checked'))
+                           element.editable = true;
+                     
+                   }
+                   
+                   log(element.isDraggable());
+                   log(element.isEditable());
                    
                 },
                 

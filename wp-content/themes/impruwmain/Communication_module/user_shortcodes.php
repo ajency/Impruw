@@ -23,7 +23,12 @@ function retrieve_user_information($atts)
             if (isset($atts['field'])) 
                 {
                     $user_id = $atts['user_id'];
-                    $user_info_array = get_userdata($user_id);                    
+                    $user_info_array = get_userdata($user_id);     
+                    if($atts['field'] == 'user_activation_key')
+                    {
+                      return $activation_link = get_template_directory_uri().'/activate';  
+                    }
+                    else
                     return $user_info_array->$atts['field'];
                 }       
     
