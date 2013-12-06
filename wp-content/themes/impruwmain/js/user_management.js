@@ -1,7 +1,14 @@
    
     jQuery(document).ready(function(){
 
-    	jQuery( '#frm_registration' ).parsley();
+    	
+    	//alert(template_path)
+    	jQuery( '#frm_registration' ).parsley({
+    		
+    		errorsWrapper: '',
+    		errorElem: '<span></span>'
+    		
+    	});
  
     	//console.log(ajaxurl)
 
@@ -74,13 +81,39 @@
   //  })
     
      
-		/*jQuery( '#inputEmail' ).parsley( 'addListener', {
-			'onFieldSuccess': function ( elem ) { alert("listner test"); console.log(elem);
- 	  
- 	  } });*/
+		jQuery( '#inputName' ).parsley( 'addListener', {
+			'onFieldSuccess': function ( elem ) {   console.log(elem.context.name);	 console.log("success");jQuery( '#inputName' ).parent().removeClass("has-error")  },
+			'onFieldError': function ( elem ) {  console.log(elem.context.name); console.log("error"); jQuery( '#inputName' ).parent().addClass("has-error")	  },			
+			//'onFieldValidate': function ( elem ) {   console.log(elem.context.name); console.log("validate");jQuery( '#inputName' ).next("span").append("<span class='input-icon'><img src='"+template_path+"/images/270(1).gif' width='20' height='20' ></span>")	  }
+		});
 		
 		
+		jQuery( '#inputEmail' ).parsley( 'addListener', {
+			'onFieldSuccess': function ( elem ) {   console.log(elem.context.name);	 console.log("success");jQuery( '#inputEmail' ).parent().removeClass("has-error")  },
+			'onFieldError': function ( elem ) {  console.log(elem.context.name); console.log("error"); jQuery( '#inputEmail' ).parent().addClass("has-error")	  },			
+			//'onFieldValidate': function ( elem ) {   console.log(elem.context.name); console.log("validate");jQuery( '#inputEmail' ).next("span").append("<span class='input-icon'><img src='"+template_path+"/images/270(1).gif'  width='20' height='20' ></span>")	  }
+		});
 		
+		jQuery( '#inputSitename' ).parsley( 'addListener', {
+			'onFieldSuccess': function ( elem ) {   console.log(elem.context.name);	 console.log("success");jQuery( '#inputSitename' ).parent().removeClass("has-error")  },
+			'onFieldError': function ( elem ) {  console.log(elem.context.name); console.log("error"); jQuery( '#inputSitename' ).parent().addClass("has-error")	  },			
+			//'onFieldValidate': function ( elem ) {   console.log(elem.context.name); console.log("validate");jQuery( '#inputSitename' ).next("span").append("<span class='input-icon'><img src='"+template_path+"/images/270(1).gif'  width='20' height='20' ></span>")	  }
+		});
+		
+		
+		jQuery( '#inputPass' ).parsley( 'addListener', {
+			'onFieldSuccess': function ( elem ) {   console.log(elem.context.name);	 console.log("success");jQuery( '#inputPass' ).parent().removeClass("has-error")  },
+			'onFieldError': function ( elem ) {  console.log(elem.context.name); console.log("error"); jQuery( '#inputPass' ).parent().addClass("has-error")	  },			
+			//'onFieldValidate': function ( elem ) {   console.log(elem.context.name); console.log("validate");jQuery( '#inputPass' ).next("span").append("<span class='input-icon'><img src='"+template_path+"/images/270(1).gif'  width='20' height='20' ></span>")	  }
+		});
+		
+		jQuery( '#inputRepass' ).parsley( 'addListener', {
+			'onFieldSuccess': function ( elem ) {   console.log(elem.context.name);	 console.log("success");jQuery( '#inputRepass' ).parent().removeClass("has-error")  },
+			'onFieldError': function ( elem ) {  console.log(elem.context.name); console.log("error"); jQuery( '#inputRepass' ).parent().addClass("has-error")	  },			
+			//'onFieldValidate': function ( elem ) {   console.log(elem.context.name); console.log("validate");jQuery( '#inputRepass' ).next("span").append("<span class='input-icon'><img src='"+template_path+"/images/270(1).gif'  width='20' height='20' ></span>")	  }
+		});
+		
+		 
 		
 		jQuery("#btn_login").on("click",function(){
 			jQuery.post(ajaxurl, {
