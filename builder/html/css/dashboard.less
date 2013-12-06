@@ -1043,9 +1043,14 @@ form {
 
 /****Alert Styles****/
 .alert {
+	margin-top: 1em;
 	color: @3-grey;
 	&.alert-success {
 		background: @alert-green;
 		border-color: @alert-green;
+	}
+	&.alert-error {
+		background: lighten(@logo-orange, 30%);
+		border-color: lighten(@logo-orange, 30%);
 	}
 }
