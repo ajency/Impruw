@@ -2,45 +2,128 @@
     jQuery(document).ready(function(){
 
     	
+    	function assign_class(valid,elem )
+    	{
+    		if(valid==false)
+    		{
+    			$container = jQuery("<span></span>").insertAfter(elem);
+    			  elem.parent().find('.data-loader').remove();
+    			elem.parent().find('.fui-check-inverted').remove()
+	            elem.parent().find('.fui-cross-inverted').remove();
+    			elem.parent().removeClass("has-success")
+	            elem.after('<span class="input-icon fui-cross-inverted"></span>') 
+	            
+    			 
+    			elem.parent().addClass("has-error")	             
+	           
+	     
+	             return $container; 
+    		}
+    		if(valid==true)
+    		{
+    			 $container = jQuery("<span></span>").insertAfter(elem);
+    			elem.parent().find('.data-loader').remove();
+    			elem.parent().find('.fui-check-inverted').remove();
+    			elem.parent().find('.fui-cross-inverted').remove();
+    			
+    			elem.parent().removeClass("has-error");
+    			elem.after('<span class="input-icon fui-check-inverted"></span>') 
+    			elem.parent().addClass("has-success")
+    			// return $container; 
+    			 
+    			
+    		}
+    		
+    	}
+    	
+    	
     	//alert(template_path)
     	jQuery( '#frm_registration' ).parsley({
-    		
+    		priorityEnabled: true ,
+    		 validateIfUnchanged: false ,
     		errors: {
-    		    container: function (element) {
-    		       console.log("field error")
+    		    container: function (element,ParsleyField) {
+    		     
     		      // console.log(element.context['id'])
-    		            $container = jQuery("<span></span>").insertAfter(element);
-    		            jQuery( '#'+element.context['id']).parent().addClass("has-error")
-    		             jQuery( '#'+element.context['id']).parent().removeClass("has-success")
-    		             jQuery( '#'+element.context['id']).parent().find('.data-loader').remove();
-    		            jQuery( '#'+element.context['id']).parent().find('.fui-check-inverted').remove()
-    		            
-    		            jQuery( '#'+element.context['id']).after('<span class="input-icon fui-cross-inverted"></span>') 
-    		        
-    		        return $container;
-    		    }
-    		},
+    		       jQuery( '#'+element.context['id']).parent().find('.data-loader').remove();
+    		       
+    		       console.log("field error")
+    		       console.log(ParsleyField)
+    		       console.log(ParsleyField.valid)
+    		       console.log("------------")
+    		       
+    		       if(ParsleyField ==false){
+    		        	$container = assign_class(false,jQuery( '#'+element.context['id']));
+    		        	 return $container
+    		        }//end if(ParsleyField ==false)
+    		       
+    		    }//end container: function (element,ParsleyField)
+    		},//end errors:
     		 listeners: {
     		        onFieldValidate: function ( elem, ParsleyForm ) { 
-    		        	 console.log("loading...");
-    		        	// jQuery( '#'+elem.context['id']).parent().find('.data-loader').remove();
-    		        	 //jQuery( '#'+elem.context['id']).after('<span class="input-icon data-loader"><img src="http://localhost/impruw/wp-content/themes/impruwmain/images/270(1).gif"/></span>')    // Executed when a field passes validation
-    		        	return false; },
+    		        	 console.log("onFieldValidate..");
+    		        	 console.log(ParsleyForm)
+    		        	 console.log(ParsleyForm.valid)
+    		        	 console.log("...............")
+    		        	
+    		        	 
+    		        	jQuery( '#'+elem.context['id']).parent().find('.data-loader').remove();
+    		        	jQuery( '#'+elem.context['id']).after('<span class="input-icon data-loader"><img src="http://localhost/impruw/wp-content/themes/impruwmain/images/270(1).gif"/></span>')    // Executed when a field passes validation
+    		        	 
+    		        	 
+    		        	if( (ParsleyForm.valid ==true) && (ParsleyForm.validatedOnce ==true) ){
+    		        		  jQuery( '#'+elem.context['id']).parent().find('.data-loader').remove();	 
+    		        		  assign_class(true,jQuery( '#'+elem.context['id']));
+    		        		 		 
+    		        	}   // Executed when a field passes validation
+    		        
+    		       	 
+    		        	 
+    		        	if( (ParsleyForm.valid ==false)&& (ParsleyForm.validatedOnce ==true) ){
+    		        		 
+    		        		 jQuery( '#'+elem.context['id']).parent().find('.data-loader').remove();	 
+    	    		          $container = assign_class(false,jQuery( '#'+elem.context['id']));
+    	    		          return $container;
+    	    		          
+    	    		          
+    	    		     }//end if(ParsleyField ==false)
+    		        	 
+    		        	 
+    		        	 
+    		        	 
+    		        	},//end onFieldValidate: function ( elem, ParsleyForm )
     		        // Executed on validation. Return true to ignore field validation
     		      //, onFormValidate: function ( isFormValid, event, ParsleyForm ) {}     // Executed once on form validation. Return (bool) false to block submit, even if valid
     		      //, onFieldError: function ( elem, constraints, ParsleyField ) {}     // Executed when a field is detected as invalid
     		       onFieldSuccess: function ( elem, constraints, ParsleyField ) {  
     		    	   console.log("field succes")
-    		       jQuery( '#'+elem.context['id']).parent().removeClass("has-error");
-    		       jQuery( '#'+elem.context['id']).parent().addClass("has-success")
-    		       jQuery( '#'+elem.context['id']).parent().find('.data-loader').remove();
-    		       jQuery( '#'+elem.context['id']).parent().find('.fui-check-inverted').remove();
-    		       jQuery( '#'+elem.context['id']).parent().find('.fui-cross-inverted').remove();
-    		       jQuery( '#'+elem.context['id']).after('<span class="input-icon fui-check-inverted"></span>') }   // Executed when a field passes validation
-    		    }
+    		    	   console.log(ParsleyField)
+    		    	   console.log(ParsleyField.valid)
+    		    	   console.log("===========")
+    		    	   
+    		    	   jQuery( '#'+elem.context['id']).parent().find('.data-loader').remove();
+    		    
+    		    	   if( (ParsleyField.valid ==true) && (ParsleyField.validatedOnce ==true)  ){	
+    		    	
+    		    		   $container =  	assign_class(true, jQuery( '#'+elem.context['id'])); 
+    		    		//   return $container;
+    		     
+    		     }   // Executed when a field passes validation
+    		    }//end onFieldSuccess: function ( elem, constraints, ParsleyField ) {  
+    		  }//end listeners
     		
     	});
  
+    	
+    	
+    	
+    	
+    	
+    	jQuery( '#recaptcha_response_field' ).parsley( 'validate' );
+    	//$( '#recaptcha_response_field' ).parsley( 'addConstraint', { minlength: 2 } );
+    	
+    	
+    	
     	//console.log(ajaxurl)
 
 		jQuery("#btn_create").click(function(){
@@ -48,18 +131,7 @@
 			jQuery("#registration_loader").show();
 			if(jQuery( '#frm_registration').parsley( 'validate' ))
 			{
-				/*/console.log("valid form")
-				if(jQuery("#inputSitename").attr("site_exists") == 1 )
-				{
-					jQuery("#registration_loader").hide();
-					return false
-				}
-				if(jQuery("#inputEmail").attr("email_exists") == 1)
-				{
-					jQuery("#registration_loader").hide();
-						return false	;
-				}	*/
-
+				 
 					
 
 					 var data = {
@@ -127,10 +199,18 @@
 		
 		 
 		
-		 
+		jQuery('#inputEmail').off( 'keyup.ParsleyField' )
+		jQuery('#inputEmail').off( 'keyup' )
 		
 		
 		
+		
+	/*	jQuery("#inputName").on("blur",function(){
+			
+			var v = /^[a-zA-Z ]+$/.test( jQuery("#inputName").val());
+			console.log(v);
+			
+		})*/
 		
 		
 		
@@ -205,15 +285,31 @@ jQuery('#frm_login' ).parsley({
     		       
     		      // console.log(element.context['id'])
     		            $container = jQuery("<span></span>").insertAfter(element);
-    		            jQuery( '#'+element.context['id']).parent().addClass("has-error")
+    		           /* jQuery( '#'+element.context['id']).parent().addClass("has-error")
     		             jQuery( '#'+element.context['id']).parent().removeClass("has-success")
     		            jQuery( '#'+element.context['id']).parent().find('.fui-check-inverted').remove()
     		            
-    		            jQuery( '#'+element.context['id']).after('<span class="input-icon fui-cross-inverted"></span>') 
+    		            jQuery( '#'+element.context['id']).after('<span class="input-icon fui-cross-inverted"></span>') */
     		        
     		        return $container;
+    		    },
+    		    
+    		    classHandler: function ( elem  ) {
+    		    	
+    		    	
+    		    	console.log("handle errors")
+    		    	jQuery( '#'+element.context['id']).parent().addClass("has-error")
+		             jQuery( '#'+element.context['id']).parent().removeClass("has-success")
+		            jQuery( '#'+element.context['id']).parent().find('.fui-check-inverted').remove()
+		            
+		            jQuery( '#'+element.context['id']).after('<span class="input-icon fui-cross-inverted"></span>') 	
+    		    	
     		    }
+    		    
+    		    
     		},
+    		
+    		
     		 listeners: {
     		        onFieldValidate: function ( elem, ParsleyForm ) { 
     		        	 console.log("loading...");
