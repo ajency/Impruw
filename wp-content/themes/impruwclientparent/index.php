@@ -17,7 +17,7 @@
 get_header(); ?>
 
 	<div class="site-page">
-		<?php echo generateMarkup('page'); ?>
+		<?php echo generate_markup('page'); ?>
 	</div><!-- .site-page -->
 
 <?php get_footer();

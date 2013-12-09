@@ -28,7 +28,7 @@ class BuilderRow extends Element {
      * Empty string by default
      * @var String 
      */
-    var $className  = 'row';
+    var $class_name  = 'row';
     
     /**
      * Child elements for this row.(BuilderRowColumn)
@@ -47,7 +47,7 @@ class BuilderRow extends Element {
         }
         
         if(isset($config['extraClasses'])){
-            $this->extraClasses = $config['extraClasses'];
+            $this->extra_classes = $config['extraClasses'];
         }
         
     }

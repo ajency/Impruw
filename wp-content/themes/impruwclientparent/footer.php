@@ -12,10 +12,10 @@
 
 		
 		<footer class="site-footer">
-                    <?php echo generateMarkup('footer'); ?>
+                    <?php echo generate_markup('footer'); ?>
 		</footer><!-- .site-footer -->
 	</div><!-- .container -->
-        <?php getThemeJS() ;?>
+        <?php get_theme_JS() ;?>
 	<?php wp_footer(); ?>
 </body>
 </html>

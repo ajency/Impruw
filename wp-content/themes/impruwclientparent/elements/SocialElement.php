@@ -28,14 +28,14 @@ class SocialElement extends Element {
      * All elements are draggable by defaults
      * @var boolean 
      */
-    var $tagName        = 'ul';
+    var $tag_name        = 'ul';
     
     /**
      * The default classname property for element.
      * Empty string by default
      * @var String 
      */
-    var $className  = 'social';
+    var $class_name  = 'social';
     
     
     
@@ -46,11 +46,11 @@ class SocialElement extends Element {
     function __construct($config) {
         
         if(isset($config['extraClasses'])){
-            $this->extraClasses = $config['extraClasses'];
+            $this->extra_classes = $config['extraClasses'];
         }
         
         
-        $this->markup           = $this->generateMarkup();
+        $this->markup           = $this->generate_markup();
     }
     
     /**
@@ -58,13 +58,13 @@ class SocialElement extends Element {
      * @uses className and tagName properties of element
      * @return String basic markup
      */
-    function generateMarkup(){
+    function generate_markup(){
         
-        $html       = $this->getOpenTag();
+        $html       = $this->get_open_tag();
         
-        $html       .= $this->getSocialLinks();
+        $html       .= $this->get_social_links();
         
-        $html       .= $this->getCloseTag();
+        $html       .= $this->get_close_tag();
         
         return $html;
     }
@@ -73,7 +73,7 @@ class SocialElement extends Element {
      * returns the getSocialLinks markup
      * @return string
      */
-    function getSocialLinks(){
+    function get_social_links(){
         
         
         $socials = array( "facebook"  => "http://someurl.com", 

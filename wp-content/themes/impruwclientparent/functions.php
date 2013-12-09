@@ -116,11 +116,11 @@ add_action('init', 'create_room_taxonomies_and_add_terms', 0);
  * Generates the markup for a specific section
  * @param type $section
  */
-function generateMarkup($section){
+function generate_markup($section){
     
     global $post, $markupJSON;
     
-    $markupJSON = getPageMarkupJSON($post->ID);
+    $markupJSON = get_page_markup_JSON($post->ID);
     
     if(!isset($markupJSON[$section]))
         return;
@@ -131,7 +131,7 @@ function generateMarkup($section){
     
     foreach($json['elements'] as $element){
         
-        $html .= addElementmarkup($element);
+        $html .= add_element_markup($element);
         
     }
     
@@ -143,41 +143,41 @@ function generateMarkup($section){
  * @param type $element
  * @return type
  */
-function addElementMarkup($element){
+function add_element_markup($element){
     
     $html = '';
     
     switch($element['type']){
 
         case 'BuilderRow':
-            $html = getBuilderRowMarkup($element);
+            $html = get_builder_row_markup($element);
             break;
         case 'BuilderRowColumn':
-            $html = getBuilderRowColumnMarkup($element);
+            $html = get_builder_row_column_markup($element);
             break;
         case 'ContainerElement':
-            $html = getContainerMarkup($element);
+            $html = get_container_markup($element);
             break;
         case 'ImageElement':
-            $html = getImageElementMarkup($element);
+            $html = get_image_element_markup($element);
             break;
         case 'MenuElement':
-            $html = getMenuElementMarkup($element);
+            $html = get_menu_element_markup($element);
             break;
         case 'TitleElement':
-            $html = getTitleElementMarkup($element);
+            $html = get_title_element_markup($element);
             break;
         case 'TextElement':
-            $html = getTextElementMarkup($element);
+            $html = get_text_element_markup($element);
             break;
         case 'AddressElement':
-            $html = getAddressElementMarkup($element);
+            $html = get_address_element_markup($element);
             break;
         case 'SocialElement':
-            $html = getSocialElementMarkup($element);
+            $html = get_social_element_markup($element);
             break;
         case 'SliderElement':
-            $html = getSliderElementMarkup($element);
+            $html = get_slider_element_markup($element);
             break;
         default:
             break;
@@ -193,25 +193,25 @@ function addElementMarkup($element){
  * Generates the row markup
  * @param type $element
  */
-function getBuilderRowMarkup($element){
+function get_builder_row_markup($element){
     
     require_once PARENTTHEMEPATH . 'elements/BuilderRow.php';
     
     $row = new BuilderRow($element);
     
-    $html = $row->getOpenTag();
+    $html = $row->get_open_tag();
     
-    if($row->hasChildElements()){
+    if($row->has_child_elements()){
         
-        foreach($row->getElements() as $ele){
+        foreach($row->get_elements() as $ele){
             
-            $html .= addElementmarkup($ele);
+            $html .= add_element_markup($ele);
             
         }
 
     }
     
-    $html .= $row->getCloseTag();
+    $html .= $row->get_close_tag();
     
     return $html;
     
@@ -221,27 +221,27 @@ function getBuilderRowMarkup($element){
  * Generates the column markup
  * @param type $element
  */
-function getBuilderRowColumnMarkup($element){
+function get_builder_row_column_markup($element){
     
     require_once PARENTTHEMEPATH . 'elements/BuilderRowColumn.php';
     
     $column = new BuilderRowColumn($element);
     
-    $html = $column->getOpenTag();
+    $html = $column->get_open_tag();
     
     $html .= (isset($element['content']) ? $element['content'] : '');//for testing
     
-    if($column->hasChildElements()){
+    if($column->has_child_elements()){
         
-        foreach($column->getElements() as $ele){
+        foreach($column->get_elements() as $ele){
             
-            $html .= addElementmarkup($ele);
+            $html .= add_element_markup($ele);
             
         }
 
     }
     
-    $html .= $column->getCloseTag();
+    $html .= $column->get_close_tag();
     
     return $html;
    
@@ -251,13 +251,13 @@ function getBuilderRowColumnMarkup($element){
  * Generates the image markup
  * @param type $element
  */
-function getImageElementMarkup($element){
+function get_image_element_markup($element){
         
     require_once PARENTTHEMEPATH . 'elements/ImageElement.php';
     
     $image = new ImageElement($element);
 
-    $html = $image->getMarkup();
+    $html = $image->get_markup();
     
     return $html;
     
@@ -267,13 +267,13 @@ function getImageElementMarkup($element){
  * Generates the address markup
  * @param type $element
  */
-function getAddressElementMarkup($element){
+function get_address_element_markup($element){
         
     require_once PARENTTHEMEPATH . 'elements/AddressElement.php';
     
     $address = new AddressElement($element);
 
-    $html = $address->getMarkup();
+    $html = $address->get_markup();
     
     return $html;
     
@@ -283,13 +283,13 @@ function getAddressElementMarkup($element){
  * Generates the Social markup
  * @param type $element
  */
-function getSocialElementMarkup($element){
+function get_social_element_markup($element){
         
     require_once PARENTTHEMEPATH . 'elements/SocialElement.php';
     
     $social = new SocialElement($element);
 
-    $html = $social->getMarkup();
+    $html = $social->get_markup();
     
     return $html;
     
@@ -299,13 +299,13 @@ function getSocialElementMarkup($element){
  * Generates the title markup
  * @param type $element
  */
-function getTitleElementMarkup($element){
+function get_title_element_markup($element){
         
     require_once PARENTTHEMEPATH . 'elements/TitleElement.php';
     
     $title = new TitleElement($element);
 
-    $html = $title->getMarkup();
+    $html = $title->get_markup();
     
     return $html;
     
@@ -315,13 +315,13 @@ function getTitleElementMarkup($element){
  * Generates the text markup
  * @param type $element
  */
-function getTextElementMarkup($element){
+function get_text_element_markup($element){
         
     require_once PARENTTHEMEPATH . 'elements/TextElement.php';
     
     $text = new TextElement($element);
 
-    $html = $text->getMarkup();
+    $html = $text->get_markup();
     
     return $html;
 }
@@ -330,13 +330,13 @@ function getTextElementMarkup($element){
  * Generates the title markup
  * @param type $element
  */
-function getSliderElementMarkup($element){
+function get_slider_element_markup($element){
         
     require_once PARENTTHEMEPATH . 'elements/SliderElement.php';
     
     $slider = new SliderElement($element);
 
-    $html = $slider->getMarkup();
+    $html = $slider->get_markup();
     
     return $html;
     
@@ -346,13 +346,13 @@ function getSliderElementMarkup($element){
  * Generates the row markup
  * @param type $element
  */
-function getMenuElementMarkup($element){
+function get_menu_element_markup($element){
     
     require_once PARENTTHEMEPATH . 'elements/MenuElement.php';
     
     $menu = new MenuElement($element);
     
-    $html = $menu->getMarkup();
+    $html = $menu->get_markup();
     
     return $html;
 }
@@ -361,25 +361,25 @@ function getMenuElementMarkup($element){
  * Generates the row markup
  * @param type $element
  */
-function getContainerMarkup($element){
+function get_container_markup($element){
     
     require_once PARENTTHEMEPATH . 'elements/ContainerElement.php';
     
     $row = new ContainerElement($element);
     
-    $html = $row->getOpenTag();
+    $html = $row->get_open_tag();
     
-    if($row->hasChildElements()){
+    if($row->has_child_elements()){
         
-        foreach($row->getElements() as $ele){
+        foreach($row->get_elements() as $ele){
             
-            $html .= addElementmarkup($ele);
+            $html .= add_element_markup($ele);
             
         }
 
     }
     
-     $html .= $row->getCloseTag();
+     $html .= $row->get_close_tag();
     
     return $html;
     
@@ -389,7 +389,7 @@ function getContainerMarkup($element){
  * Gets the page markup json from DB
  * @param type $page_id
  */
-function getPageMarkupJSON($page_id){
+function get_page_markup_JSON($page_id){
     
     $json = get_page_json(2);//get_post_meta($page_id,'page_markup_json',true);
     
@@ -411,7 +411,7 @@ function get_parent_template_directory_uri(){
  * getThemeCSS
  * echo's the JS files for site
  */
-function getThemeJS()
+function get_theme_JS()
 {
     ?>
     <script src="<?php echo get_parent_template_directory_uri(); ?>/js/jquery.min.js"></script>
@@ -443,7 +443,7 @@ function getThemeJS()
  * echo's the JS files for site
  */
 
-function getThemeCSS()
+function get_theme_CSS()
 {
     ?>
     <link href="<?php echo get_parent_template_directory_uri(); ?>/css/bootstrap.min.css" type="text/css" rel="stylesheet"/>

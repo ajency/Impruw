@@ -44,7 +44,7 @@ class Element {
      * All elements are draggable by defaults
      * @var boolean 
      */
-    var $tagName        = 'div';
+    var $tag_name        = 'div';
     
     /**
      * Set editable property of element.
@@ -64,14 +64,14 @@ class Element {
      * Empty string by default
      * @var String 
      */
-    var $className      = '';
+    var $class_name      = '';
     
     /**
      * The extra classes to be set for element property for element.
      * Empty string by default
      * @var String 
      */
-    var $extraClasses   = '';
+    var $extra_classes   = '';
     
     /**
      * Default elements list
@@ -106,7 +106,7 @@ class Element {
      * create a unique ID for each element
      * @return string - random generated ID
      */
-    function generateRandomId(){
+    function generate_random_ID(){
         
         return $this->type . '-' . rand(100000, 999999);
         
@@ -116,7 +116,7 @@ class Element {
      * Returns the $markup property if the element
      * @return string The actual markup of the element
      */
-    function getMarkup(){
+    function get_markup(){
        
         return $this->markup;
         
@@ -127,7 +127,7 @@ class Element {
      * elements property
      * @return boolean
      */
-    function hasChildElements(){
+    function has_child_elements(){
         
         if(is_array($this->elements) && count($this->elements) > 0)
             return true;
@@ -140,7 +140,7 @@ class Element {
      * Checks if element has child elements and returns
      * @return array() Array of elements if present or empty array if no elements
      */
-    function getElements(){
+    function get_elements(){
         
        return $this->elements;
       
@@ -151,11 +151,11 @@ class Element {
      * @uses className and tagName properties of element
      * @return String basic markup
      */
-    function generateMarkup(){
+    function generate_markup(){
         
-        $html       = $this->getOpenTag();
+        $html       = $this->get_open_tag();
         
-        $html       .= $this->getCloseTag();
+        $html       .= $this->get_close_tag();
         
         return $html;
     }
@@ -163,11 +163,11 @@ class Element {
     /**
      * Creates the open tag for the element
      */
-    function getOpenTag(){
+    function get_open_tag(){
         
-        $this->id   = $this->generateRandomId();
+        $this->id   = $this->generate_random_ID();
         
-        $html       = "<{$this->tagName} id='{$this->id}' class='{$this->getClasses()}'>";
+        $html       = "<{$this->tag_name} id='{$this->id}' class='{$this->get_classes()}'>";
         
         return $html;
     }
@@ -175,9 +175,9 @@ class Element {
     /**
      * Creates the closing tag for the element
      */
-    function getCloseTag(){
+    function get_close_tag(){
         
-        $html  = "</{$this->tagName}><!--{$this->tagName}#{$this->id}-->";
+        $html  = "</{$this->tag_name}><!--{$this->tag_name}#{$this->id}-->";
         
         return $html;
     }
@@ -187,9 +187,9 @@ class Element {
      * to assign to element
      * @return string space separated classes
      */
-    function getClasses(){
+    function get_classes(){
         
-        return $this->className . ' ' . $this->extraClasses;
+        return $this->class_name . ' ' . $this->extra_classes;
         
     }
 }

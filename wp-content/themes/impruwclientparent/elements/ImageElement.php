@@ -28,14 +28,14 @@ class ImageElement extends Element {
      * All elements are draggable by defaults
      * @var boolean 
      */
-    var $tagName        = 'div';
+    var $tag_name        = 'div';
     
     /**
      * The default classname property for element.
      * Empty string by default
      * @var String 
      */
-    var $className  = '';
+    var $class_name  = '';
     
     
     
@@ -46,14 +46,14 @@ class ImageElement extends Element {
     function __construct($config) {
         
         if(isset($config['extraClasses'])){
-            $this->extraClasses = $config['extraClasses'];
+            $this->extra_classes = $config['extraClasses'];
         }
         
         if(isset($config['data'])){
             $this->data         = $config['data'];
         }
         
-        $this->markup           = $this->generateMarkup();
+        $this->markup           = $this->generate_markup();
     }
     
     /**
@@ -61,13 +61,13 @@ class ImageElement extends Element {
      * @uses className and tagName properties of element
      * @return String basic markup
      */
-    function generateMarkup(){
+    function generate_markup(){
         
-        $html       = $this->getOpenTag();
+        $html       = $this->get_open_tag();
         
-        $html       .= $this->getImage();
+        $html       .= $this->get_image();
         
-        $html       .= $this->getCloseTag();
+        $html       .= $this->get_close_tag();
         
         return $html;
     }
@@ -76,7 +76,7 @@ class ImageElement extends Element {
      * 
      * @return int
      */
-    function getImageId(){
+    function get_image_id(){
         
         if(isset($this->data['attachmentId'])){
             return (int)$this->data['attachmentId'];
@@ -89,7 +89,7 @@ class ImageElement extends Element {
      * 
      * @return string
      */
-    function getImageSize(){
+    function get_image_size(){
         
         if(isset($this->data['size'])){
             return $this->data['size'];
@@ -102,17 +102,17 @@ class ImageElement extends Element {
      * 
      * @return string
      */
-    function getImage(){
+    function get_image(){
         
-        $aid = $this->getImageId();
+        $a_id = $this->get_image_id();
         
-        if($aid === 0){
+        if($a_id === 0){
             return '';
         }
         
-        $size = $this->getImageSize();
+        $size = $this->get_image_size();
         
-        $path = wp_get_attachment_image_src($aid, $size);
+        $path = wp_get_attachment_image_src($a_id, $size);
         
         if($path !== false) {
             return "<img src='{$path[0]}' class='img-responsive' />";

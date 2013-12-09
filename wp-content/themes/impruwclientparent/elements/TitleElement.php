@@ -37,14 +37,14 @@ class TitleElement extends Element {
     function __construct($config) {
         
         if(isset($config['extraClasses'])){
-            $this->extraClasses     = $config['extraClasses'];
+            $this->extra_classes     = $config['extraClasses'];
         }
         
         if(isset($config['content'])){
             $this->content          = $config['content'];
         }
         
-        $this->markup               = $this->generateMarkup();
+        $this->markup               = $this->generate_markup();
         
     }
     
@@ -53,13 +53,13 @@ class TitleElement extends Element {
      * @uses className and tagName properties of element
      * @return String basic markup
      */
-    function generateMarkup(){
+    function generate_markup(){
         
-        $html       = $this->getOpenTag();
+        $html       = $this->get_open_tag();
         
         $html       .=  $this->content;
         
-        $html       .= $this->getCloseTag();
+        $html       .= $this->get_close_tag();
         
         return $html;
     }
