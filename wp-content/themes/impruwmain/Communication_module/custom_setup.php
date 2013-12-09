@@ -30,7 +30,7 @@ add_to_page_layouts();
 //$user_roles = fetch_user_roles_by_type(18);
 //$user_ids_array = fetch_user_ids_by_role($user_roles);
 //print_r($user_ids_array);exit;
-process_email_queue();
+//process_email_queue();
 
 
 
