@@ -228,7 +228,7 @@ function add_to_email_queue($email_type_id,$user_ids_array,$initiator_id,$data)
 function process_email_queue()
 {
     global $wpdb;
-    $retrieve_email_from_queue_query = ("SELECT * from {$wpdb->prefix}email_processing_queue WHERE status = '".pending."' ORDER BY priority ASC,id DESC");
+    $retrieve_email_from_queue_query = ("SELECT * from {$wpdb->prefix}email_processing_queue WHERE status = 'pending' ORDER BY priority ASC,id DESC");
     $email_array = $wpdb->get_results($retrieve_email_from_queue_query);
     foreach($email_array as $email)
     {
