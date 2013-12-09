@@ -118,14 +118,16 @@ add_action('init', 'create_room_taxonomies_and_add_terms', 0);
  */
 function generate_markup($section){
     
-    global $post, $markupJSON;
+    global $post, $markup_JSON;
     
-    $markupJSON = get_page_markup_JSON($post->ID);
+    $id = !is_null($post) ? $post->ID : 0;
     
-    if(!isset($markupJSON[$section]))
+    $markup_JSON = get_page_markup_JSON();
+    
+    if(!isset($markup_JSON[$section]))
         return;
     
-    $json = $markupJSON[$section];
+    $json = $markup_JSON[$section];
     
     $html = '';
     
@@ -389,7 +391,7 @@ function get_container_markup($element){
  * Gets the page markup json from DB
  * @param type $page_id
  */
-function get_page_markup_JSON($page_id){
+function get_page_markup_JSON($page_id  = 0){
     
     $json = get_page_json(2);//get_post_meta($page_id,'page_markup_json',true);
     
@@ -478,8 +480,10 @@ function get_theme_CSS()
 function get_page_json($id){
     
     global $wpdb;
-    $sql = $wpdb->prepare("SELECT json FROM {$wpdb->base_prefix}layouts
-                                            WHERE id = %d",$id);
+    
+    $sql = $wpdb->prepare("SELECT json FROM {$wpdb->base_prefix}page_layouts
+                           WHERE id = %d",$id);
+    
     $json = $wpdb->get_var($sql);
     
     $json = maybe_unserialize($json);
@@ -834,21 +838,23 @@ function show_json(){
  */
 function save_json_structure(){
     
-    $json = $_POST['json'];
+    $json = show_json();//$_POST['json'];
     
     global $wpdb;
     
-    $wpdb->update($wpdb->base_prefix.'layouts',
+    $wpdb->update($wpdb->base_prefix.'page_layouts',
                     array(
-                      'name'    => 'layout-' . rand(1000, 9999),
+                      'title'    => 'home-11',
                       'json'    => maybe_serialize($json)
                     ),
-                    array('id' => 3));
+                    array('id' => 2));
     
-    die;
+    die();
 }
 add_action('wp_ajax_save_json_structure','save_json_structure');
 add_action('wp_ajax_nopriv_save_json_structure','save_json_structure');
+
+//add_action('init','save_json_structure');
 
 /**
  * Retuns the jSON layout for the given ID
