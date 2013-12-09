@@ -28,7 +28,7 @@ class ContainerElement extends Element {
      * Empty string by default
      * @var String 
      */
-    var $className  = 'container';
+    var $class_name  = 'container';
     
     /**
      * Child elements for this row.(BuilderRowColumn)
@@ -47,7 +47,7 @@ class ContainerElement extends Element {
         }
         
         if(isset($config['extraClasses'])){
-            $this->extraClasses = $config['extraClasses'];
+            $this->extra_classes = $config['extraClasses'];
         }
         
     }

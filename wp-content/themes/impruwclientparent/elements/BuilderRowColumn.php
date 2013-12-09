@@ -14,7 +14,6 @@
  * @since      Class available since Release 0.1
  * @deprecated NA
  */
-
 class BuilderRowColumn extends Element {
     
     /**
@@ -28,14 +27,14 @@ class BuilderRowColumn extends Element {
      * Empty string by default
      * @var String 
      */
-    var $className  = 'column';
+    var $class_name  = 'column';
     
     /**
      * The default classname property for element.
      * Empty string by default
      * @var String 
      */
-    var $colClass   = 12;
+    var $col_class   = 12;
     
     /**
      * Child elements for this row.(BuilderRowColumn)
@@ -54,11 +53,11 @@ class BuilderRowColumn extends Element {
         }
         
         if(isset($config['extraClasses'])){
-            $this->extraClasses = $config['extraClasses'];
+            $this->extra_classes = $config['extraClasses'];
         }
         
         if(isset($config['colClass'])){
-            $this->colClass     = $config['colClass'];
+            $this->col_class     = $config['colClass'];
         }
 
     }
@@ -69,11 +68,11 @@ class BuilderRowColumn extends Element {
      * @return string space separated classes
      * @override
      */
-    function getClasses(){
+    function get_classes(){
         
-        $class = 'col-sm-' . $this->colClass;
+        $class = 'col-sm-' . $this->col_class;
         
-        return $class . ' ' . $this->className . ' ' . $this->extraClasses;
+        return $class . ' ' . $this->class_name . ' ' . $this->extra_classes;
         
     }
     

@@ -28,14 +28,14 @@ class SliderElement extends Element {
      * All elements are draggable by defaults
      * @var boolean 
      */
-    var $tagName    = 'div';
+    var $tag_name    = 'div';
     
     /**
      * The default classname property for element.
      * Empty string by default
      * @var String 
      */
-    var $className  = 'carousel';
+    var $class_name  = 'carousel';
     
     
     
@@ -46,11 +46,11 @@ class SliderElement extends Element {
     function __construct($config) {
         
         if(isset($config['extraClasses'])){
-            $this->extraClasses = $config['extraClasses'];
+            $this->extra_classes = $config['extraClasses'];
         }
         
         
-        $this->markup           = $this->generateMarkup();
+        $this->markup           = $this->generate_markup();
     }
     
     /**
@@ -58,13 +58,13 @@ class SliderElement extends Element {
      * @uses className and tagName properties of element
      * @return String basic markup
      */
-    function generateMarkup(){
+    function generate_markup(){
         
-        $html       = $this->getOpenTag();
+        $html       = $this->get_open_tag();
         
-        $html       .= $this->getSlider();
+        $html       .= $this->get_slider();
         
-        $html       .= $this->getCloseTag();
+        $html       .= $this->get_close_tag();
         
         return $html;
     }
@@ -73,7 +73,7 @@ class SliderElement extends Element {
      * returns the address markup
      * @return string
      */
-    function getSlider(){
+    function get_slider(){
         
         ob_start();?>
         <!-- Indicators -->

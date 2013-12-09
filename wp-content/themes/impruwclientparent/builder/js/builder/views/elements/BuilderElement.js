@@ -1,6 +1,10 @@
 define(['backbone','jquery','underscore', 'global'], 
 		function(Backbone, $, _,  global){
-
+           
+            /**
+             * Main Class definition
+             * @type @exp;Backbone@pro;View@call;extend
+             */
 			var BuilderElement = Backbone.View.extend({
                
                 //is element draggable

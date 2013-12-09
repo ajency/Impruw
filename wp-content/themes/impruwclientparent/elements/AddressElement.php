@@ -28,14 +28,14 @@ class AddressElement extends Element {
      * All elements are draggable by defaults
      * @var boolean 
      */
-    var $tagName        = 'div';
+    var $tag_name        = 'div';
     
     /**
      * The default classname property for element.
      * Empty string by default
      * @var String 
      */
-    var $className  = '';
+    var $class_name  = '';
     
     
     
@@ -46,11 +46,11 @@ class AddressElement extends Element {
     function __construct($config) {
         
         if(isset($config['extraClasses'])){
-            $this->extraClasses = $config['extraClasses'];
+            $this->extra_classes = $config['extraClasses'];
         }
         
         
-        $this->markup           = $this->generateMarkup();
+        $this->markup           = $this->generate_markup();
     }
     
     /**
@@ -58,13 +58,13 @@ class AddressElement extends Element {
      * @uses className and tagName properties of element
      * @return String basic markup
      */
-    function generateMarkup(){
+    function generate_markup(){
         
-        $html       = $this->getOpenTag();
+        $html       = $this->get_open_tag();
         
-        $html       .= $this->getAddress();
+        $html       .= $this->get_address();
         
-        $html       .= $this->getCloseTag();
+        $html       .= $this->get_close_tag();
         
         return $html;
     }
@@ -73,20 +73,20 @@ class AddressElement extends Element {
      * returns the address markup
      * @return string
      */
-    function getAddress(){
+    function get_address(){
         
         
-        $contactAt = array( "address"   => "YOUCOU 12 Seville", 
+        $contact_at = array( "address"   => "YOUCOU 12 Seville", 
                             "phoneno"   => "34 954 227 116", 
                             "email"     => "info@corraldelrey.com");//get_blog_option(get_current_blog_id(), 'contact-at');
         
-        if(!is_array($contactAt)){
+        if(!is_array($contact_at)){
             return '';
         }
         
         $html = '';
         
-        foreach($contactAt as $key => $val){
+        foreach($contact_at as $key => $val){
             
             $html .= "<div class='infoPoint'>";
             

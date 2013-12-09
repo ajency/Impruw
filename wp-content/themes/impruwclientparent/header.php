@@ -27,7 +27,7 @@
 	<!--[if lt IE 9]>
 	<script src="<?php echo get_template_directory_uri(); ?>/js/html5.js"></script>
 	<![endif]-->
-        <?php getThemeCSS(); ?>
+        <?php get_theme_CSS(); ?>
 	<?php wp_head(); ?>
 </head>
 
@@ -35,5 +35,5 @@
     <div class=" mainContainer1">
         <header class="site-header">
             <?php do_action('icl_language_selector');?>
-            <?php echo generateMarkup('header'); echo __("test");?>
+            <?php echo generate_markup('header');?>
         </header><!-- .site-header -->

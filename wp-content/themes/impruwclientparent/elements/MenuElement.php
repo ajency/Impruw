@@ -28,14 +28,14 @@ class MenuElement extends Element {
      * Empty string by default
      * @var String 
      */
-    var $className  = 'menu';
+    var $class_name  = 'menu';
     
     /**
      * Set draggable property of element.
      * All elements are draggable by defaults
      * @var boolean 
      */
-    var $tagName        = 'ul';
+    var $tag_name        = 'ul';
     
     /**
      * The config to create a row element
@@ -44,14 +44,14 @@ class MenuElement extends Element {
     function __construct($config) {
         
         if(isset($config['extraClasses'])){
-            $this->extraClasses = $config['extraClasses'];
+            $this->extra_classes = $config['extraClasses'];
         }
         
         if(isset($config['data'])){
             $this->data   = $config['data'];
         }
         
-        $this->markupStyle   = isset($config['markupStyle']) ? $config['markupStyle'] : '';
+        $this->markup_style   = isset($config['markupStyle']) ? $config['markupStyle'] : '';
         
         $this->markup = $this->generateMarkup();
     }
@@ -65,7 +65,7 @@ class MenuElement extends Element {
         
         //$html       = $this->getOpenTag();
         
-        $html       = $this->getMenu();
+        $html       = $this->get_menu();
         
         //$html       .= $this->getCloseTag();
         
@@ -76,17 +76,17 @@ class MenuElement extends Element {
      * 
      * @return string
      */
-    function getMenu(){
+    function get_menu(){
         
-        $mname = $this->getMenuName();
+        $mname = $this->get_menu_name();
         
         if($mname === ''){
             return '';
         }
         
-        $this->id = $this->generateRandomId();
+        $this->id = $this->generate_random_ID();
         $walker = null;
-        switch($this->markupStyle){
+        switch($this->markup_style){
             case 'type1':
                 $walker = new Walker_Style1_Menu();
                 break;
@@ -99,13 +99,13 @@ class MenuElement extends Element {
             'echo'              => false,
             'menu'              => $mname,
             'container'         => 'ul',
-            'container_class'   => $this->getClasses(),
-            'container_id'      => $this->generateRandomId(),
-            'items_wrap'        => '<ul id="' . $this->id . '" class="'.$this->getClasses().'">%3$s</ul>',
+            'container_class'   => $this->get_classes(),
+            'container_id'      => $this->id,
+            'items_wrap'        => '<ul id="' . $this->id . '" class="'.$this->get_classes().'">%3$s</ul>',
             'walker'            => $walker
         );
         
-        return wp_nav_menu($args) . "<!--{$this->tagName}#{$this->id}-->";
+        return wp_nav_menu($args) . "<!--{$this->tag_name}#{$this->id}-->";
        
     }
     
@@ -113,7 +113,7 @@ class MenuElement extends Element {
      * 
      * @return int
      */
-    function getMenuName(){
+    function get_menu_name(){
         
         if(isset($this->data['menuName'])){
             return $this->data['menuName'];
