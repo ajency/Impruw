@@ -16,6 +16,8 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                 rows        : [],
 
                 mode        : 'layout',
+                
+                type        : 'editor',
 
                 themeConfig : {},
                 

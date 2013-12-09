@@ -465,17 +465,16 @@ define(['backbone','jquery','underscore', 'global'],
                     
                     evt.stopPropagation();
 
-                    if(window.editorMode == 'content')
-                        this.$el.children('.aj-element-setting-tooltip,.aj-imp-drag-handle').show();
+                    if(window.editorMode !== 'layout')
+                       return;
 
-                    //remove hover style if row is a child of column
-                    if(this.parent.type === 'column'){
-
-                         evt.stop = true;
-
-                         this.parent.parent.rowMouseLeave(evt);
-                         
-                    }
+                    if(!_.isNull(window.prevmouseover))  
+                       window.prevmouseover.elementMouseLeave(evt);
+                    
+                    window.prevmouseover = this;
+                    
+                    this.$el.children('.aj-imp-delete-btn,.aj-imp-drag-handle').stop().fadeIn();
+                   
                 },
                 
                 /**
@@ -487,15 +486,12 @@ define(['backbone','jquery','underscore', 'global'],
                     
                     evt.stopPropagation();
 
-                    if(window.editorMode == 'content')
-                       this.$el.children('.aj-element-setting-tooltip,.aj-imp-drag-handle').hide();
+                     if(window.editorMode !== 'layout')
+                        return;
 
-                    if(this.parent.type === 'column'){
-
-                       this.parent.parent.rowMouseEnter(evt);
-
-                    }
-                    
+                     this.$el.children('.aj-imp-delete-btn,.aj-imp-drag-handle').stop().hide();
+                     window.prevmouseover = null;
+                     
                 },        
                         
                 /**

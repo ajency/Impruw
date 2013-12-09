@@ -67,129 +67,54 @@ if(isset($_REQUEST['lang']))
 
 
 
-if(!user_activation('kalpesh@mailinator.com','aaaaadfg45b4t54ynfhj78midbdfg','en'))
-		echo "Invalid user key .... ";
-//$user = user_activation($pd_email,$pd_key,$pd_language);
 
-/*
-if($pd_action=="ver")
-{
-	//echo"teset";
-	$user_table = $wpdb->base_prefix.'users';
-	//$res_verify_user =    $wpdb->get_results($wpdb->prepare("SELECT count(*) as user_count FROM $user_table WHERE user_email = %s AND user_status=%f and user_activation_key = '%s'", $pd_email, 2,$pd_key),OBJECT);
-	$res_verify_user =    $wpdb->get_results($wpdb->prepare("SELECT ID  FROM $user_table WHERE user_email = %s  ", 'parag@ajency.in'),OBJECT);
-	
-//	var_dump($res_verify_user);
-	
 
-	if(count($res_verify_user)>0)
-	{
-		//echo"test2";
-		foreach($res_verify_user as $res_verify_usr)
-		{	
-			//echo "test3";
-			if($res_verify_usr->ID>0)
-			{
-				//echo "test4";
-				//activate the user
-				$wpdb->update($wpdb->users, array('user_activation_key' => ""), array('user_email' =>$pd_email));
-				$wpdb->update($wpdb->users, array('user_status' => 0), array('user_email' => $pd_email));
-				
-				echo "
-				<div class='container'>
-					<div class='main-content '>
-					<div class='alert alert-info ' style='width:70%;margin:auto;border: 10px solid rgba(204, 204, 204, 0.57);margin-top:10%;margin-bottom:10%'>
-							<h4 style='text-align:center'>Your account is successfully verified.</h4>
-							<hr>
-							<img src='".get_template_directory_uri()."/images/big-minyawns.png'/ style='margin:auto;display:block;'><br>
-							<b style='text-align:center;' >your email is successfully verified please <a href='#mylogin' data-toggle='modal' id='btn__login'>login</a> here </b>
-							</div>
-					</div>
-				</div>
-				
-				";
-				
-				
-				$subject = "Your registration is approved on Impruw";
-				$message="Hi, <br/><br/>Your registration is approved on Impruw.<br/><br/> You can visit <a href='".site_url()."' >Impruw</a> to log in";
-				add_filter('wp_mail_content_type',create_function('', 'return "text/html";'));
-				$headers = 'From: Impruw <support@minyawns.com>' . "\r\n";
-				wp_mail($pd_email, $subject,email_header().$message.email_signature(),$headers);
-				
-			}
-			else
-			{
-				invalid_newuserverification_key();
-			}
-		}
-	}
-}
-*/
 ?>
 
-<?php /*
+
+<div class="aj-imp-container container">
+<div class="aj-imp-register-form">
+<div class="row">
+<div class="col-sm-12 aj-imp-register-header">
+<h1><?php echo __('Welcome to','impruwmain');?> <span><?php echo __('Impruw','impruwmain');?></span></h1>
+<p class="desc">
+<?php echo __('User Activation','impruwmain');?>
+</p>
+</div>
+</div>
+<div class="row">
+<div class="col-md-12">
+<!-- <div class="alert alert-success">
+<h2>Congratulations!</h2>
+<p>You have successfully registered on Impruw. You will be redirected to your site in a few seconds...</p>
+</div>
+-->
+<?php 
+if(!user_activation($pd_email,$pd_key))
+{
+	$Path=site_url().$_SERVER['REQUEST_URI'];
+//	echo $Path."url"; 
+	?>
 
 
-    <div class="aj-imp-container container">
-		<div class="aj-imp-login-form">
-			<div class="row">
-				<div class="col-sm-12 aj-imp-login-header">
-					<h1><?php echo __('Login','impruwmain'); ?> <span><?php echo __('Impruw','impruwmain');?></span></h1>
-					<p class="desc">
-						<?php echo __('Lorem Ipsum is simply dummy text of the printing and typesetting industry.','impruwmain'); ?>
-					</p>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-sm-12 aj-imp-login">
-					<form class="form-horizontal clearfix"  parsley-validate  >
-						<div class="row">
-							<label for="inputEmail" class="col-sm-3 control-label"><?php echo __('Email','impruwmain'); ?></label>
-							<div class="col-sm-7">
-								<div class="form-group">
-									<input type="email" class="form-control" id="inputEmail" placeholder="Email"  required   parsley-trigger="blur" parsley-validation-minlength="0"    parsley-required-message="Please Enter Email">
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<label for="inputPass" class="col-sm-3 control-label"><?php echo __('Password','impruwmain'); ?></label>
-							<div class="col-sm-7">
-								<div class="form-group">
-									<input type="password" class="form-control" id="inputPass" placeholder="Password"   required   parsley-trigger="blur" parsley-validation-minlength="0"    parsley-required-message="Please Enter Password">
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-sm-offset-3 col-sm-7">
-								<div class="form-group">
-									<button type="submit" class="btn btn-wide aj-imp-submit"><?php echo __('Login','impruwmain'); ?></button>
-									<a href="#" class="aj-imp-log-forgot"><?php echo __('Forgot your password?','impruwmain'); ?></a>
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-sm-offset-3 col-sm-7">
-								<div class="form-group">
-									<?php echo __('Dont have an account','impruwmain?'); ?> <a href="register.html"><?php echo __('Sign Up','impruwmain'); ?></a>
-								</div>
-							</div>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="js/jquery-2.0.3.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/flatui-checkbox.js"></script>
-    <script src="js/bootstrap-select.js"></script>
-    <script src="js/flatui-radio.js"></script>
-	<script>
-		jQuery("select").selectpicker();
-	</script>
-	
-	*/ ?>
+
+<div class="alert alert-error">
+<h2><?php echo __("Seems like your account hasn't been activated.",'impruwmain'); ?></h2>
+  						<p><?php echo __("Activate your account using the activation link sent to your email address.  If you don't see it in your inbox check your spam folder.",'impruwmain'); ?></p>
+  						<p><?php echo __("Still don't see it? <a href='".$Path."'>Click here to resend  activation mail</a>",'impruwmain');?></p>
+  						</div>
+  						
+  						
+ <?php 
+}
+ ?> 						
+  						</div>
+  						</div>
+  						</div>
+  						</div>
+		
+ 
+
+ 
   </body>
 </html>

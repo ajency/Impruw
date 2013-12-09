@@ -493,11 +493,19 @@ function check_sitename_exists()
 		echo json_encode(array("error"=>__($site_exist['message'])));
 		die();
 	}
-	else
+	else if ( $site_exist['CODE']=="OK" )
 	{
+		header('Content-Type: application/json');		
+		echo json_encode(array("error"=>__($site_exist['message'])));
+		die();
+		
+	}
+	else {
 		header('Content-Type: application/json');
 		echo json_encode(true);
 		die();
+		
+		
 	}
 	 
 
@@ -525,7 +533,12 @@ function sitename_exists($blog_name,$mainblog_id)
 	
 	// If not a subdomain install, make sure the domain isn't a reserved word
 	if ( ! is_subdomain_install() )	{
-		$subdirectory_reserved_names = apply_filters( 'subdirectory_reserved_names', array( 'page', 'comments', 'blog', 'files', 'feed','impruw','admin','administrator', ) );
+		//$subdirectory_reserved_names = apply_filters( 'subdirectory_reserved_names', array( 'page', 'comments', 'blog', 'files', 'feed','impruw','admin','administrator', ) );
+		
+		$subdirectory_reserved_names = apply_filters( 'subdirectory_reserved_names', array( 'about', 'account', 'activate', 'add', 'admin','administrator','android','api',  
+				'app', 'apps', 'archive', 'archives', 'auth','better','blog','cache',
+				'cache', 'cancel', 'careers', 'cart', 'change','changelog','checkout','codereview',
+				) );
 		if ( in_array( $domain, $subdirectory_reserved_names ) ) {
 			
 			$site_exists['CODE'] = 'ERROR';
@@ -708,28 +721,54 @@ return($key);
 function user_login() {
 	$pd_email = trim($_POST['pdemail']);
 	$pd_pass = trim($_POST['pdpass']);
-
 	
-	$user = wp_authenticate($pd_email, $pd_pass);
+	if(!check_ajax_referer( 'frm_login', 'ajax_nonce' ))
+	{
+		header('Content-Type: application/json');
+		echo json_encode(array('code' => 'ERROR', 'msg'=>_("Invalid Form Data"))  );
+		die();
+	}
+	
+	
+	global $wpdb;
+	$user_ = get_user_by('email',$pd_email);
+	if($user_)
+	{
+		$user = wp_authenticate($user_->user_login, $pd_pass);
 
-	if (is_wp_error($user)) {
-		$msg = "<div class='alert alert-error alert-box' style='padding: 10px 45px 10px 5px;font-size:12px'>  <button type='button' class='close' data-dismiss='alert'>&times;</button>Invalid email/password or verify your account with the verification link send to your email id. </div>";
-		$response = array('code' => "FAILED", 'user' => $user_->user_login . $pd_pass, 'msg' => $msg);
-		wp_send_json($response);
-	} else {
-		wp_set_auth_cookie($user->ID);
+		if (is_wp_error($user)) {
+			$msg = "Invalid email/password ";
+			$response = array('code' => "FAILED", 'user' => $user->user_login . $pd_pass, 'msg' => $msg);
+			wp_send_json($response);
+		} else {
+			wp_set_auth_cookie($user->ID);
 
-		$user_data = array(
+		/*	$user_data = array(
 				"user_id" => $user->ID,
 				"user_login" => $user->user_login,
 				"user_email" => $user->user_email,
 				"user_role" => $user->roles,
 				"logged_in" => true
-		);
+		);*/
 
-		$response = array("code" => "OK", 'user' => $user_->user_login, 'userdata' => $user_data);
-		wp_send_json($response);
+		
+		$blog = get_active_blog_for_user( $user->ID);
+		$blog_url = $blog->siteurl; /* or $blog->path, together with $blog->siteurl */
+		var_dump($blog_url);
+		wp_redirect( $blog_url );
+		exit; 
+		//$response = array("code" => "OK", 'user' => $user->user_login, 'userdata' => $user_data);
+		//wp_send_json($response);
+		}
 	}
+	else 
+	{
+			$msg = "Invalid email/password ";
+			$response = array('code' => "FAILED",  'msg' => $msg);
+			wp_send_json($response);
+	}
+	
+	
 }
 
 add_action('wp_ajax_user_login', 'user_login');

@@ -101,6 +101,6 @@
         var SITEURL     = '<?php echo site_url(); ?>';
         var AJAXURL     = '<?php echo admin_url('admin-ajax.php'); ?>';
     </script> 
-    <script data-main="<?php echo get_parent_template_directory_uri(); ?>/builder/js/init" src="<?php echo get_parent_template_directory_uri(); ?>/builder/js/require.js"></script>
+    <script data-main="<?php echo get_parent_template_directory_uri(); ?>/builder/js/init" src="<?php echo get_parent_template_directory_uri(); ?>/js/require.js"></script>
 </body>
 </html>

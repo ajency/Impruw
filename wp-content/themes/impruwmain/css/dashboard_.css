@@ -593,8 +593,7 @@ form .aj-imp-submit:hover {
   color: #777777;
 }
 .aj-imp-register-form .aj-imp-register-left form .row.aj-imp-site-name .aj-imp-domain {
-  padding: 8px 7px 0;
-  font-size: 1.025em;
+  padding: 7px 7px 0;
 }
 @media (max-width: 767px) {
   .aj-imp-register-form .aj-imp-register-left form .row.aj-imp-site-name {
@@ -986,14 +985,15 @@ form .aj-imp-submit:hover {
 }
 /****Alert Styles****/
 .alert {
-  margin-top: 1em;
   color: #333333;
 }
 .alert.alert-success {
   background: #c5e5de;
   border-color: #c5e5de;
 }
-.alert.alert-error {
-  background: #f9bdb1;
-  border-color: #f9bdb1;
+
+
+.data-loader
+{
+	 background-image: url("../imgages/270(1).gif");
 }
