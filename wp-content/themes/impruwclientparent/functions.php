@@ -124,7 +124,7 @@ function generateMarkup($section){
     
     if(!isset($markupJSON[$section]))
         return;
-    var_dump($markupJSON);
+    
     $json = $markupJSON[$section];
     
     $html = '';
@@ -828,7 +828,6 @@ function show_json(){
     return $json; 
 }
 
-
 /**
  * Reads the json layout and save it
  * 
@@ -844,7 +843,7 @@ function save_json_structure(){
                       'name'    => 'layout-' . rand(1000, 9999),
                       'json'    => maybe_serialize($json)
                     ),
-                    array('id' => 2));
+                    array('id' => 3));
     
     die;
 }
@@ -852,7 +851,7 @@ add_action('wp_ajax_save_json_structure','save_json_structure');
 add_action('wp_ajax_nopriv_save_json_structure','save_json_structure');
 
 /**
- * 
+ * Retuns the jSON layout for the given ID
  */
 function get_saved_layout(){
     
@@ -923,7 +922,7 @@ function agc_register_parent_site_menus()
     
  register_nav_menus( array(
         'header_menu' => 'Header Menu',
-            'footer_menu' => 'Footer Menu'
+         'footer_menu' => 'Footer Menu'
 ) ); 
 }
  add_action('init', 'agc_register_parent_site_menus');
