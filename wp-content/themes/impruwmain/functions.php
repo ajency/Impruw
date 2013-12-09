@@ -339,16 +339,19 @@ function register_required_scripts() {
 	wp_enqueue_script( "flatui-radio",  get_template_directory_uri().'/js/flatui-radio.js', array( 'jquery' ) ,false,true);
 	
    global $post;
-   $title=$post->post_title;
-   if(($title == 'Register')|| ($title == 'login')){
-		//wp_deregister_script( 'jquery' );
-                if(isset($_GET['lang']) && $_GET['lang'] == 'nb')
-		wp_enqueue_script( 'parsley-lang', get_template_directory_uri().'/js/parsley/i18n/messages.no.js', array(), false,true);
-		wp_enqueue_script( 'parsley', get_template_directory_uri().'/js/parsley/parsley.js', array('jquery'), '1.2.1',true);
-		wp_enqueue_script( "user_management",  get_template_directory_uri().'/js/user_management.js', array( ) ,false,true);
+   if(isset($post->post_title))
+   {
+   		$title=$post->post_title;
+  	 	if(($title == 'Register')|| ($title == 'login')){
+			//wp_deregister_script( 'jquery' );
+            if(isset($_GET['lang']) && $_GET['lang'] == 'nb')
+				wp_enqueue_script( 'parsley-lang', get_template_directory_uri().'/js/parsley/i18n/messages.no.js', array(), false,true);
+			wp_enqueue_script( 'parsley', get_template_directory_uri().'/js/parsley/parsley.js', array('jquery'), '1.2.1',true);
+			wp_enqueue_script( "user_management",  get_template_directory_uri().'/js/user_management.js', array( ) ,false,true);
  
 		//wp_enqueue_script( 'garlic', get_template_directory_uri().'/js/garlic.js', array('jquery'), '1.2.2',true);
  
-	}
+		}
+   }
 }
 add_action('wp_enqueue_scripts', 'register_required_scripts', 1);

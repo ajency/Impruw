@@ -542,7 +542,8 @@ function sitename_exists($blog_name,$mainblog_id)
 		if ( in_array( $domain, $subdirectory_reserved_names ) ) {
 			
 			$site_exists['CODE'] = 'ERROR';
-			$site_exists['message'] =  __('The following words are reserved for use by WordPress functions and cannot be used as blog names: '.implode(",",$subdirectory_reserved_names)) ;
+			//$site_exists['message'] =  __('The following words are reserved for use by WordPress functions and cannot be used as blog names: '.implode(",",$subdirectory_reserved_names)) ;
+			$site_exists['message'] =  __('It is a reserved word and cannot be used as blog names: ') ;
 			 
 			return $site_exists;
 			
@@ -754,11 +755,11 @@ function user_login() {
 		
 		$blog = get_active_blog_for_user( $user->ID);
 		$blog_url = $blog->siteurl; /* or $blog->path, together with $blog->siteurl */
-		var_dump($blog_url);
-		wp_redirect( $blog_url );
-		exit; 
-		//$response = array("code" => "OK", 'user' => $user->user_login, 'userdata' => $user_data);
-		//wp_send_json($response);
+		//var_dump($blog_url);
+		//wp_redirect( $blog_url );
+		//exit; 
+		$response = array("code" => "OK", 'blog_url' => $blog_url,'msg'=>'Successfull Login');
+		wp_send_json($response);
 		}
 	}
 	else 

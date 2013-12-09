@@ -23,8 +23,8 @@
     		 listeners: {
     		        onFieldValidate: function ( elem, ParsleyForm ) { 
     		        	 console.log("loading...");
-    		        	 jQuery( '#'+elem.context['id']).parent().find('.data-loader').remove();
-    		        	 jQuery( '#'+elem.context['id']).after('<span class="input-icon data-loader"><img src="http://localhost/impruw/wp-content/themes/impruwmain/images/270(1).gif"/></span>')    // Executed when a field passes validation
+    		        	// jQuery( '#'+elem.context['id']).parent().find('.data-loader').remove();
+    		        	 //jQuery( '#'+elem.context['id']).after('<span class="input-icon data-loader"><img src="http://localhost/impruw/wp-content/themes/impruwmain/images/270(1).gif"/></span>')    // Executed when a field passes validation
     		        	return false; },
     		        // Executed on validation. Return true to ignore field validation
     		      //, onFormValidate: function ( isFormValid, event, ParsleyForm ) {}     // Executed once on form validation. Return (bool) false to block submit, even if valid
@@ -154,14 +154,17 @@
 										 	
 							if(response.code =='OK')
 							{	
-								console.log(response.msg)
+								console.log(response)
 								jQuery("#login_loader").hide(); 
 								//jQuery("#registration_status").html(response.msg)
 								jQuery("#login_success").show();
 								jQuery("#login_status").html('<div class="alert alert-success">'+
 								'<button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>'+
 								response.msg+'</div>')
-								jQuery("#scrolltosuccess").click();
+								
+								//window.location(response.blog_url)
+								window.location.href=response.blog_url;
+								//jQuery("#scrolltosuccess").click();
 								
 								return true
 							}
