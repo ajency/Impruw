@@ -720,6 +720,18 @@ return($key);
 
 //function to log in user
 function user_login() {
+	
+	if(is_user_logged_in())
+	{
+		global $user;
+		 
+		$blog = get_active_blog_for_user( get_current_user_id());
+		$blogUrl = $blog->siteurl; /* or $blog->path, together with $blog->siteurl */	
+		$response = array("code" => "OK", 'blog_url' => $blogUrl,'msg'=>'User already logged in');
+		wp_send_json($response);
+	}
+	
+	
 	$pd_email = trim($_POST['pdemail']);
 	$pd_pass = trim($_POST['pdpass']);
 	
@@ -729,6 +741,8 @@ function user_login() {
 		echo json_encode(array('code' => 'ERROR', 'msg'=>_("Invalid Form Data"))  );
 		die();
 	}
+	
+	
 	
 	
 	global $wpdb;
