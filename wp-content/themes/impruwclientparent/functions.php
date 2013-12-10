@@ -844,10 +844,10 @@ function save_json_structure(){
     
     $wpdb->update($wpdb->base_prefix.'page_layouts',
                     array(
-                      'title'    => 'home-11',
+                      'title'    => 'home-2',
                       'json'    => maybe_serialize($json)
                     ),
-                    array('id' => 2));
+                    array('id' => 3));
     
     die();
 }

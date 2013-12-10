@@ -100,8 +100,7 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                      
                    if($(pcontent).find('input[name="isDraggable"]').length > 0)
                         element.isDraggable = true;
-                   
-                   log(element);
+                  
                 },
                 
                 /**
@@ -348,19 +347,19 @@ define(['underscore', 'jquery', 'backbone', 'global'],
 
                         var templatePath = '';
 
-					    $.get(AJAXURL,
-                              {
-                                 action : 'get_saved_layout',
-                                 id     : 2
-                              }, function(response){
-
-                                 if( !_.isUndefined(response.header.elements) && response.header.elements.length > 0)
-                                     self.addElement( response.header.elements, 0, self.$el.find('header'));
-
-                                 self.enableDragDrop(); 
-
-                              },'json');
-                        //self.enableDragDrop(); 
+//					    $.get(AJAXURL,
+//                              {
+//                                 action : 'get_saved_layout',
+//                                 id     : 2
+//                              }, function(response){
+//
+//                                 if( !_.isUndefined(response.header.elements) && response.header.elements.length > 0)
+//                                     self.addElement( response.header.elements, 0, self.$el.find('header'));
+//
+//                                 self.enableDragDrop(); 
+//
+//                              },'json');
+                        self.enableDragDrop(); 
 						return this;
 				},
 
