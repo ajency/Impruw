@@ -1,5 +1,4 @@
 <?php
-
 /**
- * Template Name: Site Dashbaord
+ * Template Name: Dashboard Page Template
  */
