@@ -298,11 +298,11 @@ jQuery('#frm_login' ).parsley({
     		    	
     		    	
     		    	console.log("handle errors")
-    		    	jQuery( '#'+element.context['id']).parent().addClass("has-error")
-		             jQuery( '#'+element.context['id']).parent().removeClass("has-success")
-		            jQuery( '#'+element.context['id']).parent().find('.fui-check-inverted').remove()
+    		    	jQuery( '#'+elem.context['id']).parent().addClass("has-error")
+		             jQuery( '#'+elem.context['id']).parent().removeClass("has-success")
+		            jQuery( '#'+elem.context['id']).parent().find('.fui-check-inverted').remove()
 		            
-		            jQuery( '#'+element.context['id']).after('<span class="input-icon fui-cross-inverted"></span>') 	
+		            jQuery( '#'+elem.context['id']).after('<span class="input-icon fui-cross-inverted"></span>') 	
     		    	
     		    }
     		    
