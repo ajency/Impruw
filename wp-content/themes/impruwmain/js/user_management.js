@@ -93,6 +93,8 @@ jQuery(document).ready(function($) {
                      elem.after('<span class="validation-icon input-icon fui-cross-inverted"></span>');
                      break;
                }
+
+               elem.closest('.form-group').removeClass('has-success').addClass('has-error');
               
             },
             onFieldSuccess: function ( elem, constraints, ParsleyField ) {
@@ -116,6 +118,8 @@ jQuery(document).ready(function($) {
                      elem.after('<span class="validation-icon input-icon fui-check-inverted"></span>');
                      break;
                }
+
+               elem.closest('.form-group').removeClass('has-error').addClass('has-success');
             }
        }
    });
