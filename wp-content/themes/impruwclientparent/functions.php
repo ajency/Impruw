@@ -415,8 +415,7 @@ function get_parent_template_directory_uri(){
  * getThemeCSS
  * echo's the JS files for site
  */
-function get_theme_JS()
-{
+function get_theme_JS(){
     ?>
     <script src="<?php echo get_parent_template_directory_uri(); ?>/js/jquery.min.js"></script>
     <script src="<?php echo get_parent_template_directory_uri(); ?>/js/bootstrap.min.js"></script>
@@ -447,8 +446,7 @@ function get_theme_JS()
  * echo's the JS files for site
  */
 
-function get_theme_CSS()
-{
+function get_theme_CSS(){
     ?>
     <link href="<?php echo get_parent_template_directory_uri(); ?>/css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
     <link href="<?php echo get_parent_template_directory_uri(); ?>/css/flat-ui.css" type="text/css" rel="stylesheet"/>
@@ -851,19 +849,18 @@ function save_json_structure(){
                     ),
                     array('id' => 3));
     
-    die();
+    wp_send_json(array('code' => 'OK','json' => $json));
 }
 add_action('wp_ajax_save_json_structure','save_json_structure');
 add_action('wp_ajax_nopriv_save_json_structure','save_json_structure');
 
-//add_action('init','save_json_structure');
 
 /**
  * Retuns the jSON layout for the given ID
  */
 function get_saved_layout(){
     
-    $json = get_page_json(2);
+    $json = show_json();//get_page_json(2);
     echo json_encode($json);
     die;
 }
@@ -872,8 +869,7 @@ add_action('wp_ajax_nopriv_get_saved_layout','get_saved_layout');
 
 
 //insert_room();
-function insert_room()
-{
+function insert_room(){
     $terms = array(10);
     $array=array('post_title' => 'Deluxe', 'post_content' => 'Thisis a deluxe room.', 'user_id' => 3, 'inventory' => 10,'terms'=>$terms);
     $attribute_array = array('weekday_price'=>'10','weekend_price'=>'20','num_of_adults'=>'2','num_of_children'=>'2','extra_adult'=>'10','extra_child'=>'10','include_tax'=>'yes','tax_percent'=>'12','terms_and_conditions'=>'agree');
@@ -882,8 +878,8 @@ function insert_room()
     add_new_room(1,$array,$tariff_array);
     echo "yes";exit;
 }
-function add_new_room($blog_id,$array,$tariff_array)
-{
+
+function add_new_room($blog_id,$array,$tariff_array){
    switch_to_blog($blog_id);
      $my_post = array(
        'post_title'    => $array['post_title'],
@@ -902,8 +898,8 @@ function add_new_room($blog_id,$array,$tariff_array)
    
 }
 
-function add_room_tariff($post_id,$tariff_array)
-{
+
+function add_room_tariff($post_id,$tariff_array){
      global $wpdb;
     foreach($tariff_array as $tariff)
     {   if(is_array($tarriff))
@@ -912,10 +908,10 @@ function add_room_tariff($post_id,$tariff_array)
         $attributes = maybe_serialize($tariff['attributes']);
         $add_ons = maybe_serialize($tariff['add_ons']);
         $wpdb->insert( 
-	$wpdb->prefix.'room_tariffs', 
-	array( 
-		'start_date' => $start_date, 
-		'end_date' => $end_date,
+    	$wpdb->prefix.'room_tariffs', 
+    	array( 
+    		      'start_date' => $start_date, 
+    		      'end_date' => $end_date,
                 'post_id' => $post_id,
                 'attributes' => $attributes,
                 'add_ons' => $add_ons
@@ -925,13 +921,13 @@ function add_room_tariff($post_id,$tariff_array)
     }
 }
 
-function agc_register_parent_site_menus()
-{
+
+function agc_register_parent_site_menus(){
     
-     register_nav_menus( array(
-            'header_menu' => 'Header Menu',
-             'footer_menu' => 'Footer Menu'
-    ) ); 
+    register_nav_menus( array(
+        'header_menu' => 'Header Menu',
+        'footer_menu' => 'Footer Menu'
+    )); 
 }
  add_action('init', 'agc_register_parent_site_menus');
 

@@ -13,6 +13,9 @@ define(['builder/views/elements/BuilderElement', 'global'],
 
                 //set height to be assigned to placeholder and helper
                 placeHolderHeight   : 100,
+
+                //holds all elements for this column
+                elements      : [],
                 
                 /**
                  * Editable property
@@ -69,7 +72,6 @@ define(['builder/views/elements/BuilderElement', 'global'],
                    var self = this;
                    
                    var json = self.returnJSON();
-                   json.colClass = this.getCurrentClass();
                         
                    if(self.getElements().length > 0){
                         
@@ -90,6 +92,15 @@ define(['builder/views/elements/BuilderElement', 'global'],
                    
                    return json;
                   
+                },
+
+                /**
+                * returns all elements of column
+                */
+                getElements : function(){
+
+                    return this.elements;
+
                 },
                 
                 /**

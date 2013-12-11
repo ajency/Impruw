@@ -29,7 +29,7 @@ define(['backbone','jquery','underscore', 'global'],
                  * All child controls will override this function;
                  * @returns {undefined}
                  */
-				render : function(){
+				        render : function(){
                    
                     return this;
 				
@@ -149,7 +149,7 @@ define(['backbone','jquery','underscore', 'global'],
                    if(_.isUndefined(disAllow['isEditable']))
                      html += this.getEditableSettingMarkup();
                    
-                   if(_.isUndefined(disAllow['className']))
+                   if(_.isUndefined(disAllow['extraClasses']))
                      html += this.getClassnameSettingMarkup();
                    
                    if(_.isUndefined(disAllow['type']))
