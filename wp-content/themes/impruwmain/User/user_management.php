@@ -538,6 +538,22 @@ function sitename_exists($blog_name,$mainblog_id)
 		$subdirectory_reserved_names = apply_filters( 'subdirectory_reserved_names', array( 'about', 'account', 'activate', 'add', 'admin','administrator','android','api',  
 				'app', 'apps', 'archive', 'archives', 'auth','better','blog','cache',
 				'cache', 'cancel', 'careers', 'cart', 'change','changelog','checkout','codereview',
+				'compare', 'config', 'configuration', 'connect', 'contact', 'create', 'css', 'delete', 
+				'direct_messages', 'documentation',	'download', 'downloads', 'edit', 'email', 'employment',
+				'enterprise','error', 'example', 'facebook', 'faq', 'favorites', 'feed', 'feedback', 'feeds',
+				'fleet','fleets', 'follow', 'followers', 'following', 'form', 'friend', 'friends', 'gist',
+				'group', 'groups', 'help', 'home', 'hosting', 'hostmaster', 'htc', 'idea', 'ideas','image(s)',
+				'index', 'info', 'invitations', 'invite', 'iphone', 'is', 'it', 'job', 'jobs', 'js',
+				'json', 'lists', 'log', 'login', 'logout', 'logs', 'mail', 'map', 'maps', 'mine', 'mis', 
+				'news', 'nokia', 'oauth', 'oauth_clients', 'offers', 'openid', 'order', 'orders', 'organizations', 
+				'page', 'plans', 'popular', 'post', 'postmaster', 'privacy', 'projects', 'put', 'recruitment',
+				'register', 'remove', 'replies', 'root', 'rss', 'sales', 'sample', 'samsung', 'save', 'search', 
+				'secure', 'security', 'service(s)', 'sessions', 'settings', 'shop', 'signup', 'sitemap', 'ssl',
+				'ssladmin', 'ssladministrator', 'sslwebmaster', 'status', 'stories', 'styleguide', 'subscribe', 
+				'subscriptions', 'support', 'sysadmin', 'sysadministrator', 'terms', 'test', 'tour', 'translations', 
+				'trends', 'twitter', 'twittr', 'unfollow', 'unsubscribe', 'update', 'url', 'user', 'video', 'weather', 
+				'webmaster', 'webpage', 'website', 'widget', 'widgets', 'wiki', 'ww', 'www', 'wwww', 'xfn', 'xml', 'xmpp', 
+				'yaml', 'yml'
 				) );
 		if ( in_array( $domain, $subdirectory_reserved_names ) ) {
 			
