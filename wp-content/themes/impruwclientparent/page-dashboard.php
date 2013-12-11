@@ -60,7 +60,7 @@
 						<li class="aj-imp-nav-profile active">
 							<span class="icon"></span>
 							<span class="arrow"></span>
-							<a href="#">Profile &amp; Billing</a>
+							<a href="#site-profile">Profile &amp; Billing</a>
 							<ul class="sub-menu">
 								<li>
 									<a href="#scr1">General</a>
@@ -90,6 +90,8 @@
         var THEMEURL    = '<?php echo get_parent_template_directory_uri(); ?>';
         var SITEURL     = '<?php echo site_url(); ?>';
         var AJAXURL     = '<?php echo admin_url('admin-ajax.php'); ?>';
+        var SITEDATA 	= <?php  $impruwSiteModel = new SiteModel(get_current_blog_id()); echo json_encode($impruwSiteModel->get_site_profile());  ?>;
+        var USERDATA 	= <?php  $impruwUserModel =  new ImpruwUser(get_current_user_id()); echo json_encode($impruwUserModel->get_user_basic_info());  ?>;
      </script>
 
 	<script

@@ -50,7 +50,7 @@ jQuery(document).ready(function($) {
          
       }
       
-   });
+   }); 
    
    $('#frm_registration').parsley({
       errors:{
@@ -123,6 +123,9 @@ jQuery(document).ready(function($) {
             }
        }
    });
+   
+   
+   $( '#frm_registration' ).parsley( 'addItem', '#recaptcha_response_field' );
    
    $("select").selectpicker();
    /************************* /signup.js *********************************/
