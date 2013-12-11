@@ -7,6 +7,8 @@
 
 define('PARENTTHEMEPATH', ABSPATH . 'wp-content/themes/impruwclientparent/');
 require_once PARENTTHEMEPATH . 'elements/Element.php';
+require_once PARENTTHEMEPATH . 'includes/SiteModel.php';
+require_once PARENTTHEMEPATH . 'includes/UserModel.php';
 
 
 //add theme support
@@ -926,10 +928,10 @@ function add_room_tariff($post_id,$tariff_array)
 function agc_register_parent_site_menus()
 {
     
- register_nav_menus( array(
-        'header_menu' => 'Header Menu',
-         'footer_menu' => 'Footer Menu'
-) ); 
+     register_nav_menus( array(
+            'header_menu' => 'Header Menu',
+             'footer_menu' => 'Footer Menu'
+    ) ); 
 }
  add_action('init', 'agc_register_parent_site_menus');
 
@@ -941,11 +943,20 @@ function agc_register_parent_site_menus()
   */
  function get_site_data(){
  
-$blogdetails = get_blog_details(get_current_blog_id());
-header('Content-Type: application/json');
-echo json_encode(array('code' => 'OK', 'sitetitle'=> $blogdetails->blogname) );
-die();
+    $blogdetails = get_blog_details(get_current_blog_id());
+    header('Content-Type: application/json');
+    echo json_encode(array('code' => 'OK', 'sitetitle'=> $blogdetails->blogname) );
+    die();
  	
  }
  add_action('wp_ajax_get_site_data','get_site_data');
  add_action('wp_ajax_nopriv_get_site_data','get_site_data');
+
+
+ // add_action('init', function(){
+
+ //    $user = new ImpruwUser(2);
+
+ //    wp_send_json($user->get_user_basic_info());
+
+ // });
