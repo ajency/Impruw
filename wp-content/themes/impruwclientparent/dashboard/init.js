@@ -74,7 +74,8 @@ require(['backbone',
          'routers/DashboardRouter'], function( Backbone, Router) {
 
         $(document).ready(function(){   
-
+			//window.impruwSite = new SiteModel()
+			//window.impruwUser = new UserModel()
             dashboard = new Router();
             Backbone.history.start();
             
