@@ -29,9 +29,11 @@ define(['underscore', 'jquery', 'backbone', 'mainview'],
 				
 				siteProfile : function(){
 					//this.adjustRightColumnHeight();
+					$(".aj-imp-right").addClass('aj-imp-loader');
 					var  self = this;
 					setTimeout(function(){
 						self.mainView.show('siteprofileview');
+						$(".aj-imp-right").removeClass('aj-imp-loader');
 					},1500);	
 				},
 				
