@@ -933,3 +933,19 @@ function agc_register_parent_site_menus()
 }
  add_action('init', 'agc_register_parent_site_menus');
 
+
+ 
+ 
+ /**
+  * Get site details
+  */
+ function get_site_data(){
+ 
+$blogdetails = get_blog_details(get_current_blog_id());
+header('Content-Type: application/json');
+echo json_encode(array('code' => 'OK', 'sitetitle'=> $blogdetails->blogname) );
+die();
+ 	
+ }
+ add_action('wp_ajax_get_site_data','get_site_data');
+ add_action('wp_ajax_nopriv_get_site_data','get_site_data');
