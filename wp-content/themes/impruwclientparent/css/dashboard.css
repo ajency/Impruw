@@ -20,7 +20,7 @@ a:focus {
 }
 /****Loading Styles****/
 .aj-imp-loader {
-  background: url('../images/loader.gif') no-repeat center center;
+  background: url('../images/loader.gif') no-repeat center center #ffffff !important;
 }
 /****Container and Menu Styles****/
 .aj-imp-container {
