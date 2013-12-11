@@ -1,3 +1,7 @@
+/**
+ * This is Site model 
+ * 
+ */
 define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 	
 	var SiteModel = Backbone.Model.extend({

@@ -90,7 +90,8 @@
         var THEMEURL    = '<?php echo get_parent_template_directory_uri(); ?>';
         var SITEURL     = '<?php echo site_url(); ?>';
         var AJAXURL     = '<?php echo admin_url('admin-ajax.php'); ?>';
-        var SITEDATA 	= <?php  ?>;
+        var SITEDATA 	= <?php  $impruwSiteModel = new SiteModel(get_current_blog_id()); echo json_encode($impruwSiteModel->get_site_profile());  ?>;
+        var USERDATA 	= <?php  $impruwUserModel =  new ImpruwUser(get_current_user_id()); echo json_encode($impruwUserModel->get_user_basic_info());  ?>;
      </script>
 
 	<script

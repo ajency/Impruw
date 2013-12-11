@@ -32,6 +32,7 @@ require.config({
         siteprofileview		: 'views/siteprofile/SiteProfileView',
         //Models
         sitemodel			: 'models/SiteModel',
+        usermodel			: 'models/UserModel',
         //templates
         siteprofileviewtpl 	: 'templates/siteprofile/SiteProfileViewTpl',
         
@@ -71,11 +72,19 @@ function log(object){
 
 //init the app
 require(['backbone',
-         'routers/DashboardRouter'], function( Backbone, Router) {
+         'routers/DashboardRouter','sitemodel','usermodel'], function( Backbone, Router, SiteModel, UserModel) {
 
         $(document).ready(function(){   
+        	 
 			//window.impruwSite = new SiteModel()
 			//window.impruwUser = new UserModel()
+        	window.impruwSite = new SiteModel(SITEDATA)
+			window.impruwUser = new UserModel(USERDATA)
+			console.log("Models initializing..")
+			console.log(window.impruwSite)
+			console.log(window.impruwUser)
+			
+			
             dashboard = new Router();
             Backbone.history.start();
             
