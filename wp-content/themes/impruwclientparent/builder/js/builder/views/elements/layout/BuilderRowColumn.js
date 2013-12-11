@@ -132,6 +132,7 @@ define(['builder/views/elements/BuilderElement', 'global'],
                     else{
                         mod = 'builder/views/elements/' + element.type;
                     }
+
                     
                     require([mod], function(Element){
                         
@@ -142,10 +143,11 @@ define(['builder/views/elements/BuilderElement', 'global'],
                         }
                         else{
                            self.$el.append(ele.generateMarkup());
-                          d = ele;;
                         }
-                        self.elements.push(ele);
-                      
+                        
+                        //self.elements.push(ele); !imporatnt: .push failed to maintain scope
+                        self.elements = self.elements.concat([ele]); //concat works!!!
+
                         if( !_.isUndefined(element.elements) && element.elements.length > 0){
                             
                             ele.addElement(element.elements, 0);

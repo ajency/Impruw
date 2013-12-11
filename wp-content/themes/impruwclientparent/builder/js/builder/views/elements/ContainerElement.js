@@ -133,6 +133,8 @@ define(['builder/views/elements/BuilderElement', 'global'],
 
                         self.$el.append(ele.render().$el);
 
+                        self.elements = self.elements.concat([ele]);
+
                         if( !_.isUndefined(element.elements) && element.elements.length > 0)
                             ele.addElement(element.elements, 0);
 
