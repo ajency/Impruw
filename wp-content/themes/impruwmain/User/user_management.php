@@ -454,17 +454,18 @@ function check_email_exists()
 { 
 	  
 	$email = $_GET['inputEmail'];
-
-	if(email_exists($email)) {
-		header('Content-Type: application/json');
-		echo json_encode(array("error"=>"Email Id Already Exists."));
-		die();
+        header('Content-Type: application/json');
+	
+        if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
+            echo json_encode(array("message"=>"Invalid email Id"));
+        }
+	else if(email_exists($email)) {
+            echo json_encode(array("message"=>"Email Id Already Exists."));	
 	}
 	else {
-		header('Content-Type: application/json');
-		echo json_encode(true);
-		die();
+            echo json_encode(true);	
 	} 
+        die();
 }
 add_action('wp_ajax_check_email_exists','check_email_exists');
 add_action('wp_ajax_nopriv_check_email_exists','check_email_exists');
