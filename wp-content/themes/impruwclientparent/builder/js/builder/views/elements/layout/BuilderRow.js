@@ -131,14 +131,14 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                     var self = this;
 
                     var mod = 'builder/views/elements/layout/BuilderRowColumn';
-                    
+
                     require([mod], function(Column){
                         
                         var column = new Column({config : element, parent : self});
 
                         self.$el.append(column.render().$el);
 
-                        self.elements.push(column);
+                        self.elements = self.elements.concat([column]);
 
                         if( !_.isUndefined(element.elements) && element.elements.length > 0)
                             column.addElement(element.elements, 0);
@@ -147,9 +147,14 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
 
                         index++;
 
+                        
                         self.addElement(elements, index);
+                      
+                        
 
                     });
+
+
                     
                 },
                 
