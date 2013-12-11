@@ -1,12 +1,12 @@
 /**
- * This is Site model 
- * 
+ * This is user model
  */
+
 define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 	
-	var SiteModel = Backbone.Model.extend({
+	var UserModel = Backbone.Model.extend({
 		
-		url : AJAXURL + '?action=get_site_data',
+		url : AJAXURL + '?action=get_user_data',
 
 		/*fetch : function(){
 			return true;	
@@ -14,5 +14,5 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 		}*/
 	});
 
-	return SiteModel;
+	return UserModel;
 })

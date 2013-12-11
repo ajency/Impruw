@@ -14,7 +14,7 @@ define(['underscore', 'jquery', 'backbone', 'mainview'],
 				initialize : function(){
 					
 					this.mainView = new DashboardMainView();	
-				
+					this.adjustRightColumnHeight();
 				},
 
 				routes : {
@@ -23,14 +23,22 @@ define(['underscore', 'jquery', 'backbone', 'mainview'],
 				},
 
 				index : function(){
+					
 						
 				},
 				
 				siteProfile : function(){
+					//this.adjustRightColumnHeight();
 					var  self = this;
 					setTimeout(function(){
 						self.mainView.show('siteprofileview');
 					},1500);	
+				},
+				
+				adjustRightColumnHeight: function(){
+					
+					$(".aj-imp-right").css('min-height',$('.aj-imp-left').height());
+					
 				}
 				
 			});	
