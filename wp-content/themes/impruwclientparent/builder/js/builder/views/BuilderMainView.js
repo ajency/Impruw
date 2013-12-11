@@ -69,7 +69,7 @@ define(['underscore', 'jquery', 'backbone', 'builder/views/BuilderEditorView'],
                    if(_.isUndefined(this.builder))
                       return;
                    
-                   this.builder.generateJSON();
+                   this.builder.generateJSON(evt);
                    
                 },
 
