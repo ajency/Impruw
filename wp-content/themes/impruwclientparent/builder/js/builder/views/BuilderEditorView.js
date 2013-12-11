@@ -365,11 +365,11 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                                         if( !_.isUndefined(response.header.elements) && response.header.elements.length > 0)
                                             self.addElement( response.header.elements, 0, self.$el.find('header'));
 
-                                        if( !_.isUndefined(response.page.elements) && response.page.elements.length > 0)
-                                            self.addElement( response.page.elements, 0, self.$el.find('div[data-page="true"]'));  
+                                       //  if( !_.isUndefined(response.page.elements) && response.page.elements.length > 0)
+                                       //      self.addElement( response.page.elements, 0, self.$el.find('div[data-page="true"]'));  
 
-                                       if( !_.isUndefined(response.footer.elements) && response.footer.elements.length > 0)
-                                            self.addElement( response.footer.elements, 0, self.$el.find('footer'));   
+                                       // if( !_.isUndefined(response.footer.elements) && response.footer.elements.length > 0)
+                                       //      self.addElement( response.footer.elements, 0, self.$el.find('footer'));   
         
                                         self.enableDragDrop(); 
         
