@@ -25,21 +25,21 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                      'click header > .popover .updateProperties': 'updateProperties'
                 },
 
-				initialize  : function(option){
-                        
-                    _.bindAll(this, 'enableDropSort','getRows','is','holdOnWhileSwitching', 'removeSwitchLoader','switchMode',
-                                    'switchToLayout', 'switchToContent','generateActualMarkup', 'buildRowMarkup', 'buildColumnMarkup',
-                                    'getClasses');    
+        				initialize  : function(option){
+                                
+                            _.bindAll(this, 'enableDropSort','getRows','is','holdOnWhileSwitching', 'removeSwitchLoader','switchMode',
+                                            'switchToLayout', 'switchToContent','generateActualMarkup', 'buildRowMarkup', 'buildColumnMarkup',
+                                            'getClasses');    
 
-                    this.themeConfig = option.themeConfig;
+                            this.themeConfig = option.themeConfig;
 
-				},
+        				},
                 
                 /**
                  * 
                  * @returns {undefined}
                  */
-                generateJSON : function(){
+                generateJSON : function(evt){
                    
                    var self = this;
                    
@@ -74,7 +74,7 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                       
                    });
                    
-                   this.sendJSONToServer();
+                   this.sendJSONToServer(evt);
                    
                 },
                 
@@ -139,17 +139,26 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                  * Sends the json data to server
                  * @returns Void
                  */
-                sendJSONToServer : function(){
+                sendJSONToServer : function(evt){
+
+                    $(evt.target).text('Saving....');
+
+                    log(this.json);
                    
-                   $.post(AJAXURL,
+                    $.post(AJAXURL,
                          {
                             action  : 'save_json_structure', 
                             json    : this.json
                          },
                          function(response){
                             
-                            
-                            
+                            $(evt.target).text('Saved');
+                            setTimeout(function(){
+
+                              $(evt.target).hide().text('Generate JSON').fadeIn('slow');
+
+                            },1000);
+
                          },'json');
                    
                 },
@@ -341,27 +350,33 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                 /**
                 *  Render function for view 
                 */
-				render : function(){
-                        
-                        var self = this;
+        				render : function(){
+                                
+                      var self = this;
 
-                        var templatePath = '';
+                      var templatePath = '';
 
-//					    $.get(AJAXURL,
-//                              {
-//                                 action : 'get_saved_layout',
-//                                 id     : 2
-//                              }, function(response){
-//
-//                                 if( !_.isUndefined(response.header.elements) && response.header.elements.length > 0)
-//                                     self.addElement( response.header.elements, 0, self.$el.find('header'));
-//
-//                                 self.enableDragDrop(); 
-//
-//                              },'json');
-                        self.enableDragDrop(); 
-						return this;
-				},
+        					    $.get(AJAXURL,
+                                     {
+                                        action : 'get_saved_layout',
+                                        id     : 2
+                                     }, function(response){
+        
+                                        if( !_.isUndefined(response.header.elements) && response.header.elements.length > 0)
+                                            self.addElement( response.header.elements, 0, self.$el.find('header'));
+
+                                        if( !_.isUndefined(response.page.elements) && response.page.elements.length > 0)
+                                            self.addElement( response.page.elements, 0, self.$el.find('div[data-page="true"]'));  
+
+                                       if( !_.isUndefined(response.footer.elements) && response.footer.elements.length > 0)
+                                            self.addElement( response.footer.elements, 0, self.$el.find('footer'));   
+        
+                                        self.enableDragDrop(); 
+        
+                                     },'json');
+                                self.enableDragDrop(); 
+        						return this;
+        				},
 
                 /**
                 * Adds and element to editor
