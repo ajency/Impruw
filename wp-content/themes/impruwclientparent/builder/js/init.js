@@ -21,7 +21,9 @@ require.config({
         checkbox        : 'lib/flatui-checkbox',
         radio           : 'lib/flatui-radio',
         handlebars      : 'lib/handlebars',
-        ckeditor        : 'lib/ckeditor'
+        ckeditor        : 'lib/ckeditor',
+        holder          : 'lib/holder',
+        cssFx           : 'lib/cssFx'
     },
     waitSeconds: 15,
     shim: {
@@ -38,6 +40,14 @@ require.config({
         'moment' : {
             deps : ['jquery'],
             exports : 'moment'
+        },
+        'holder' : {
+            deps : ['jquery'],
+            exports : 'Holder'
+        },
+        'cssFx' : {
+            deps : ['jquery'],
+            exports : 'cssFx'
         },
         'jqueryui' : {
             deps : ['jquery']    

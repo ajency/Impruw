@@ -85,21 +85,12 @@ class SliderElement extends Element {
             <!-- Wrapper for slides -->
             <div class="carousel-inner">
                   <div class="item active">
-                      <img src="<?php echo get_template_directory_uri(); ?>/images/slide1.jpg" alt="...">
-                    <div class="carousel-caption">
-                          Moonlight over
-                          <div class="sub-caption">October, 24 - Moonlight over Thompson - The full moon's light</div>
-                    </div>
+                      <img src="<?php echo get_template_directory_uri(); ?>/js/holder.js/100%x450" alt="...">
                   </div>
                   <div class="item">
-                    <img src="<?php echo get_template_directory_uri(); ?>/images/slide1.jpg" alt="...">
-                    <div class="carousel-caption">
-                          Moonlight over 2
-                          <div class="sub-caption"><h6>October, 24 - Moonlight over Thompson - The full moon's light</h6></div>
-                    </div>
+                    <img src="<?php echo get_template_directory_uri(); ?>/js/holder.js/100%x450" alt="...">
                   </div>
             </div>
-
             <!-- Controls -->
             <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
                   <span class="icon-prev"></span>

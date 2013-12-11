@@ -395,7 +395,7 @@ function get_container_markup($element){
  */
 function get_page_markup_JSON($page_id  = 0){
     
-    $json = get_page_json(2);//get_post_meta($page_id,'page_markup_json',true);
+    $json = get_page_json(4);//get_post_meta($page_id,'page_markup_json',true);
     
     return $json;
 }
@@ -419,6 +419,8 @@ function get_theme_JS(){
     ?>
     <script src="<?php echo get_parent_template_directory_uri(); ?>/js/jquery.min.js"></script>
     <script src="<?php echo get_parent_template_directory_uri(); ?>/js/bootstrap.min.js"></script>
+    <script src="<?php echo get_parent_template_directory_uri(); ?>/js/holder.js"></script>
+    <script src="<?php echo get_parent_template_directory_uri(); ?>/js/cssFx.js"></script>
        <?php 
         $theme_path =  get_stylesheet_directory()."/js";
         if(file_exists($theme_path) && is_dir($theme_path)){
@@ -485,6 +487,9 @@ function get_page_json($id){
                            WHERE id = %d",$id);
     
     $json = $wpdb->get_var($sql);
+
+    if($json == null)
+        return array();
     
     $json = maybe_unserialize($json);
     
@@ -838,7 +843,7 @@ function show_json(){
  */
 function save_json_structure(){
     
-    $json = show_json();//$_POST['json'];
+    $json = $_POST['json'];
     
     global $wpdb;
     
@@ -847,7 +852,7 @@ function save_json_structure(){
                       'title'    => 'home-2',
                       'json'    => maybe_serialize($json)
                     ),
-                    array('id' => 3));
+                    array('id' => 4));
     
     wp_send_json(array('code' => 'OK','json' => $json));
 }
@@ -860,7 +865,7 @@ add_action('wp_ajax_nopriv_save_json_structure','save_json_structure');
  */
 function get_saved_layout(){
     
-    $json = show_json();//get_page_json(2);
+    $json = get_page_json(4);
     echo json_encode($json);
     die;
 }

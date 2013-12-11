@@ -28,6 +28,11 @@ class TitleElement extends Element {
      * @var String 
      */
     var $content    = '';
+
+    /**
+    * Default tag name
+    */
+    var $tag_name   = 'h1';
     
     
     /**
@@ -57,7 +62,7 @@ class TitleElement extends Element {
         
         $html       = $this->get_open_tag();
         
-        $html       .=  $this->content;
+        $html       .=  empty($this->content) ? 'Enter your title her' : $this->content;
         
         $html       .= $this->get_close_tag();
         

@@ -5,7 +5,7 @@ define(['backbone','jquery','underscore', 'global'],
              * Main Class definition
              * @type @exp;Backbone@pro;View@call;extend
              */
-			var BuilderElement = Backbone.View.extend({
+			       var BuilderElement = Backbone.View.extend({
                
                 //is element draggable
                 draggable   : true,
@@ -228,7 +228,7 @@ define(['backbone','jquery','underscore', 'global'],
                    //set extra classes
                    if($(pcontent).find('input[name="className"]').length > 0){
                      
-                      element.extraClasses += $(pcontent).find('input[name="className"]').val();
+                      element.extraClasses = $(pcontent).find('input[name="className"]').val();
                       
                    }
                    

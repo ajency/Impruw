@@ -95,7 +95,7 @@ class ImageElement extends Element {
             return $this->data['size'];
         }
         
-        return 'large';
+        return array('700','200');
     }
     
     /**
@@ -105,20 +105,22 @@ class ImageElement extends Element {
     function get_image(){
         
         $a_id = $this->get_image_id();
-        
-        if($a_id === 0){
-            return '';
-        }
-        
+
         $size = $this->get_image_size();
         
+        $path = get_template_directory_uri() . '/js/holder.js/100%x220';
+
+        if($a_id === 0){
+            return  "<img src='$path' class='img-responsive' />";
+        }
+
         $path = wp_get_attachment_image_src($a_id, $size);
         
         if($path !== false) {
             return "<img src='{$path[0]}' class='img-responsive' />";
         }
         else{
-            return "<img src='http://placehold.it/{$size[0]}x{$size[1]}' class='img-responsive' width='{$size[0]}' height='{$size[1]}'/>";
+            return "<img src='". get_template_directory_uri(). "'/js/holder.js/100%x220' class='img-responsive'/>";
         }
             
     }

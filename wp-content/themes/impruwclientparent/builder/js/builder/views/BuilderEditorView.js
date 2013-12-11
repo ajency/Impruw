@@ -25,15 +25,15 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                      'click header > .popover .updateProperties': 'updateProperties'
                 },
 
-        				initialize  : function(option){
-                                
-                            _.bindAll(this, 'enableDropSort','getRows','is','holdOnWhileSwitching', 'removeSwitchLoader','switchMode',
-                                            'switchToLayout', 'switchToContent','generateActualMarkup', 'buildRowMarkup', 'buildColumnMarkup',
-                                            'getClasses');    
+				initialize  : function(option){
+                        
+                    _.bindAll(this, 'enableDropSort','getRows','is','holdOnWhileSwitching', 'removeSwitchLoader','switchMode',
+                                    'switchToLayout', 'switchToContent','generateActualMarkup', 'buildRowMarkup', 'buildColumnMarkup',
+                                    'getClasses');    
 
-                            this.themeConfig = option.themeConfig;
+                    this.themeConfig = option.themeConfig;
 
-        				},
+				},
                 
                 /**
                  * 
@@ -350,33 +350,35 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                 /**
                 *  Render function for view 
                 */
-        				render : function(){
-                                
-                      var self = this;
+    		    render : function(){
+                            
+                  var self = this;
 
-                      var templatePath = '';
+                  var templatePath = '';
 
-        					    $.get(AJAXURL,
-                                     {
-                                        action : 'get_saved_layout',
-                                        id     : 2
-                                     }, function(response){
-        
-                                        if( !_.isUndefined(response.header.elements) && response.header.elements.length > 0)
-                                            self.addElement( response.header.elements, 0, self.$el.find('header'));
+				    $.get(AJAXURL,
+                         {
+                            action : 'get_saved_layout',
+                            id     : 2
+                         }, function(response){
 
-                                       //  if( !_.isUndefined(response.page.elements) && response.page.elements.length > 0)
-                                       //      self.addElement( response.page.elements, 0, self.$el.find('div[data-page="true"]'));  
+                            if( !_.isUndefined(response.header) && response.header.elements.length > 0)
+                                self.addElement( response.header.elements, 0, self.$el.find('header'));
 
-                                       // if( !_.isUndefined(response.footer.elements) && response.footer.elements.length > 0)
-                                       //      self.addElement( response.footer.elements, 0, self.$el.find('footer'));   
-        
-                                        self.enableDragDrop(); 
-        
-                                     },'json');
-                                self.enableDragDrop(); 
-        						return this;
-        				},
+                            if( !_.isUndefined(response.page) && response.page.elements.length > 0)
+                                self.addElement( response.page.elements, 0, self.$el.find('div[data-page="true"]'));  
+                            
+                            if( !_.isUndefined(response.footer) && response.footer.elements.length > 0)
+                                self.addElement( response.footer.elements, 0, self.$el.find('footer'));   
+
+                            self.enableDragDrop(); 
+
+                         },'json');
+
+                    //self.enableDragDrop(); 
+
+					return this;
+    			},
 
                 /**
                 * Adds and element to editor

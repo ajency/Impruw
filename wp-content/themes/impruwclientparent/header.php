@@ -34,6 +34,6 @@
 <body <?php body_class(); ?>>
     <div class=" mainContainer1">
         <header class="site-header">
-            <?php do_action('icl_language_selector');?>
+            <?php //do_action('icl_language_selector');?>
             <?php echo generate_markup('header');?>
         </header><!-- .site-header -->
