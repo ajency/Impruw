@@ -338,10 +338,11 @@ function register_required_scripts() {
 	
  
         global $post;
-        $title=$post->post_title;
+        
         
         if(isset($post->post_title))
         {
+        	$title=$post->post_title;
         
 	        if(($title == 'Register')|| ($title == 'login')){
 	            //wp_deregister_script( 'jquery' );

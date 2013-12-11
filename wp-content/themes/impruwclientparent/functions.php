@@ -953,6 +953,31 @@ function agc_register_parent_site_menus(){
  add_action('wp_ajax_get_site_data','get_site_data');
  add_action('wp_ajax_nopriv_get_site_data','get_site_data');
 
+ 
+ /**
+  * Save site Details
+  */
+ function save_site_data(){
+
+	if(count($_REQUEST['site_form_details'])>0){
+
+		foreach($_REQUEST['site_form_details'] as $key_site_data=> $value_site_data){
+
+			$site_form_data[$value_site_data['name']]  = $value_site_data['value'];  
+			
+		}	
+	}
+	
+	$site = new SiteModel(get_current_blog_id());
+	$site->save_site_profile($site_form_data);
+ 
+ }
+ add_action('wp_ajax_save_site_data','save_site_data');
+ add_action('wp_ajax_nopriv_save_site_data','save_site_data');
+ 
+ 
+ 
+ 
 
  // add_action('init', function(){
 
