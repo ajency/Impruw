@@ -47,9 +47,6 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                    
                    var self = this;
                    
-                   if(this.rows.length === 0)
-                      return false;
-                   
                    this.json =   {
                                     header : {
                                        elements : []
@@ -62,20 +59,22 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                                     }
                                  };
                    
-                   _.each(this.rows, function(row, index){
+                   _.each(this.elements, function(section, index){
+
+                        _.each(section, function(row, index){
                         
-                        var json = row.generateJSON();
-                        
-                        if(row.$el.closest('.layout-header').length === 1){
-                           self.json.header.elements.push(json);
-                        }
-                        if(row.$el.closest('.layout-content').length === 1){
-                           self.json.page.elements.push(json);
-                        }
-                        if(row.$el.closest('.layout-footer').length === 1){
-                           self.json.footer.elements.push(json);
-                        }
-                      
+                            var json = row.generateJSON();
+                            
+                            if(row.$el.closest('.layout-header').length === 1){
+                               self.json.header.elements.push(json);
+                            }
+                            if(row.$el.closest('.layout-content').length === 1){
+                               self.json.page.elements.push(json);
+                            }
+                            if(row.$el.closest('.layout-footer').length === 1){
+                               self.json.footer.elements.push(json);
+                            }
+                        });
                    });
                    
                    this.sendJSONToServer(evt);
@@ -360,20 +359,20 @@ define(['underscore', 'jquery', 'backbone', 'global'],
 
                   var templatePath = '';
 
-				    $.get(AJAXURL,
+				          $.get(AJAXURL,
                          {
                             action : 'get_saved_layout',
                             id     : 2
                          }, function(response){
 
                             if( !_.isUndefined(response.header) && response.header.elements.length > 0)
-                                self.addElement( response.header.elements, 0, self.$el.find('header'));
+                                self.addElement( response.header.elements, 0, 'header');
 
                             if( !_.isUndefined(response.page) && response.page.elements.length > 0)
-                                self.addElement( response.page.elements, 0, self.$el.find('div[data-page="true"]'));  
+                                self.addElement( response.page.elements, 0, 'content');  
                             
                             if( !_.isUndefined(response.footer) && response.footer.elements.length > 0)
-                                self.addElement( response.footer.elements, 0, self.$el.find('footer'));   
+                                self.addElement( response.footer.elements, 0, 'footer');   
 
                             self.enableDragDrop(); 
 
@@ -381,13 +380,13 @@ define(['underscore', 'jquery', 'backbone', 'global'],
 
                     //self.enableDragDrop(); 
 
-					return this;
+					         return this;
     			},
 
                 /**
                 * Adds and element to editor
                 */
-                addElement : function(elements, index, parent){
+                addElement : function(elements, index, section){
 
                     if(index >= elements.length )
                         return;
@@ -406,15 +405,13 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                         
                         var row = new Row({config : element, parent : self});
                        
-                        $(parent).append(row.render().$el);
+                        self.$el.find('.layout-' + section).append(row.render().$el);
 
-                        self.rows.push(row);
+                        self.elements[section].push(row);
 
                         if( !_.isUndefined(element.elements) && element.elements.length > 0)
                             row.addElement(element.elements, 0);
 
-                        
-                         
                         index++;
 
                         self.addElement(elements, index, parent);
