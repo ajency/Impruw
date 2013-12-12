@@ -281,23 +281,47 @@ define(['builder/views/elements/BuilderElement', 'global'],
                  */        
                 handleElementRemove : function(receiver, sender, elementId){
                     
-                    _.each(sender.elements, function(element, index){
-                        
-                        if(element.id == elementId){
-                            
-                            sender.elements.splice(index,1);//remove element
+                    s = sender;
 
-                            receiver.elements.push(element); //add the same position
-                            //change parent
-                            element.setParent(receiver);
-                        }
-                        
-                    });
-                    
+                    if(sender.is('editor')){
+
+                        _.each(sender.elements, function(section, index){
+                            
+                            _.each(section, function(row, index){
+
+                                if(row.id == elementId){
+                                
+                                    section.splice(index,1);//remove element
+
+                                    receiver.elements.push(row); //add the same position
+                                    
+                                    //change parent
+                                    row.setParent(receiver);
+                                }
+                            });
+                            
+                        });
+
+                        log(receiver.elements);
+
+                    }
+                    else{
+                        _.each(sender.elements, function(element, index){
+                            
+                            if(element.id == elementId){
+                                
+                                sender.elements.splice(index,1);//remove element
+
+                                receiver.elements.push(element); //add the same position
+
+                                //change parent
+                                element.setParent(receiver);
+                            }
+                            
+                        });
+                    }
                     sender.updateEmptyView();
 
-                    receiver.rearrangeElementOrder();
-                   
                 },
                 
                 /**
@@ -323,16 +347,20 @@ define(['builder/views/elements/BuilderElement', 'global'],
                 handleColumnDrop : function(event, ui){
                     
                     var receiver = this;
-                    var elementId = ui.item.attr('id');
-                    log(ui);
+                    
                     //handle if helper is null
                     if(_.isNull(ui.helper)){
+                        
                         var sender = ui.item.sender;
+                        
                         this.$el.removeClass('empty-column');
-                        //added new control. Now trigger parent row adjust column dimension
+                        
                         this.parent.trigger('adjust_column_dimension');
                         
+                        var elementId = ui.item.attr('id');
+
                         this.handleElementRemove(receiver, sender, elementId);
+
                         return;
                     }
                     
@@ -395,8 +423,6 @@ define(['builder/views/elements/BuilderElement', 'global'],
                     
                     var self = this;
                     
-                    //this.$el.css('background-image','url(images/clear-background.png)');
-                    
                     var path = '';
                     if(elementName === 'BuilderRow' || elementName === 'BuilderRowColumn')
                         path = 'builder/views/elements/layout/' + elementName;
@@ -410,8 +436,11 @@ define(['builder/views/elements/BuilderElement', 'global'],
                     require([path], function(Element){
 
                         var element = new Element({parent: self});
+                        
                         self.elements.push(element);
+
                         self.removeEmptyClass();
+                        
                         var el = element.is('row') ? element.$el : element.generateMarkup();
 
                         if(self.$el.find('*[data-element="'+elementName+'"]').length > 0)
