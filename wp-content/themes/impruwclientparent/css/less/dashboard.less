@@ -17,6 +17,8 @@ Version:        0.1.0
 @3-grey: #333333;
 @sky-blue: #71B8EC;
 @preview-grey: #F3F3F3;
+@success-green: #2ECC71;
+@alert-green: #c5e5de;
 
 /****Link Styles****/
 a {
@@ -335,7 +337,8 @@ form {
 		border-bottom: 1px dotted lighten(@dash-grey, 20%); 
 	}
 	label {
-		color: darken(@dash-grey, 20%);
+		color: darken(@dash-grey, 10%);
+		font-size: 1.1em;
 		&.checkbox, &.radio {
 			padding-top: 0 !important;
 			&.checked {
@@ -346,10 +349,106 @@ form {
 			}
 		}
 	}
+	.form-group {
+		position: relative;
+		@media (max-width: 767px) { 
+			margin: 0 0 1em;
+		}
+		.control-label {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			&.label-2 {
+				left: 50%;
+			}
+			&.dd-label {
+				bottom: 10px;
+			}
+			@media (max-width: 767px) { 
+				position: static;
+			}
+		}
+		&.pic-upload {
+			.control-label {
+				top: 0;
+			}
+			.fileinput {
+				.thumbnail {
+					border-radius: 0;
+				}
+				.btn {
+					color: @blue-grey;
+					&:hover {
+						text-shadow: none;
+						color: darken(@blue-grey, 10%);
+					}
+				}
+			}
+		}
+		&.add-another {
+			.control-label {
+				bottom: 2em;
+			}
+		}
+		.help-block {
+			color: lighten(@dash-grey, 10%);
+			font-weight: 300;
+			a {
+				color: @blue-grey;
+				&:hover {
+					text-shadow: none;
+					color: darken(@blue-grey, 10%);
+				}
+			}
+			&.add-another-link {
+				margin: 0.5em 0;
+			}
+		}
+		&.has-error {
+			.control-label {
+				bottom: 33px;
+			}
+			.help-block {
+				color: @logo-orange;
+			}
+		}
+		&.has-success {
+			.help-block {
+				color: @success-green;
+			}
+		}
+		&.has-success, &.has-error, &.loading {
+			.form-control {
+				padding-right: 41px;
+			}
+			.input-icon {
+				background: transparent;
+			}
+		}
+	}
 	.form-control {
-		border-width: 1px;
+		border-radius: 0;
+		border: 0;
+		border-bottom: 1px solid lighten(@dash-grey, 10%);
 		&:focus {
 			border-color: @orange;
+			background: lighten(@dash-grey, 30%);
+		}
+		input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
+	        -webkit-box-shadow: 0 0 0px 1000px #F7F7F7 inset;
+	    }
+
+	    input:-webkit-autofill:focus {
+	        -webkit-box-shadow: 0 0 0px 1000px #F7F7F7 inset;
+	    }
+	}
+	.input-group {
+		.input-group-addon {
+			border-radius: 0;
+			background: #fff;
+			color: lighten(@dash-grey, 10%);
+			border: 0;
+			border-bottom: 1px solid lighten(@dash-grey, 10%);
 		}
 	}
 	.aj-imp-submit {
@@ -366,7 +465,9 @@ form {
 	.dropdown-toggle {
 		background: #fff;
 		color: @dash-grey;
-		border: 1px solid lighten(@dash-grey, 10%);
+		border-radius: 0 !important;
+		border: 0;
+		border-bottom: 1px solid lighten(@dash-grey, 10%);
 		.caret {
 			border-top-color: @dash-grey;
 		}
