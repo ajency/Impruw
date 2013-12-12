@@ -298,7 +298,8 @@ form legend {
   border-bottom: 1px dotted #dddddd;
 }
 form label {
-  color: #777777;
+  color: #919191;
+  font-size: 1.1em;
 }
 form label.checkbox,
 form label.radio {
@@ -312,11 +313,102 @@ form label.checkbox.checked .second-icon,
 form label.radio.checked .second-icon {
   color: #ff7e00;
 }
+form .form-group {
+  position: relative;
+}
+@media (max-width: 767px) {
+  form .form-group {
+    margin: 0 0 1em;
+  }
+}
+form .form-group .control-label {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+form .form-group .control-label.label-2 {
+  left: 50%;
+}
+form .form-group .control-label.dd-label {
+  bottom: 10px;
+}
+@media (max-width: 767px) {
+  form .form-group .control-label {
+    position: static;
+  }
+}
+form .form-group.pic-upload .control-label {
+  top: 0;
+}
+form .form-group.pic-upload .fileinput .thumbnail {
+  border-radius: 0;
+}
+form .form-group.pic-upload .fileinput .btn {
+  color: #849fb0;
+}
+form .form-group.pic-upload .fileinput .btn:hover {
+  text-shadow: none;
+  color: #65879c;
+}
+form .form-group.add-another .control-label {
+  bottom: 2em;
+}
+form .form-group .help-block {
+  color: #c3c3c3;
+  font-weight: 300;
+}
+form .form-group .help-block a {
+  color: #849fb0;
+}
+form .form-group .help-block a:hover {
+  text-shadow: none;
+  color: #65879c;
+}
+form .form-group .help-block.add-another-link {
+  margin: 0.5em 0;
+}
+form .form-group.has-error .control-label {
+  bottom: 33px;
+}
+form .form-group.has-error .help-block {
+  color: #ee4423;
+}
+form .form-group.has-success .help-block {
+  color: #2ecc71;
+}
+form .form-group.has-success .form-control,
+form .form-group.has-error .form-control,
+form .form-group.loading .form-control {
+  padding-right: 41px;
+}
+form .form-group.has-success .input-icon,
+form .form-group.has-error .input-icon,
+form .form-group.loading .input-icon {
+  background: transparent;
+}
 form .form-control {
-  border-width: 1px;
+  border-radius: 0;
+  border: 0;
+  border-bottom: 1px solid #c3c3c3;
 }
 form .form-control:focus {
   border-color: #ff7e00;
+  background: #f6f6f6;
+}
+form .form-control input:-webkit-autofill,
+form .form-control textarea:-webkit-autofill,
+form .form-control select:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px #F7F7F7 inset;
+}
+form .form-control input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px #F7F7F7 inset;
+}
+form .input-group .input-group-addon {
+  border-radius: 0;
+  background: #fff;
+  color: #c3c3c3;
+  border: 0;
+  border-bottom: 1px solid #c3c3c3;
 }
 form .aj-imp-submit {
   background: #ff7e00;
@@ -329,7 +421,9 @@ form .aj-imp-submit:hover {
 .select .dropdown-toggle {
   background: #fff;
   color: #aaaaaa;
-  border: 1px solid #c3c3c3;
+  border-radius: 0 !important;
+  border: 0;
+  border-bottom: 1px solid #c3c3c3;
 }
 .select .dropdown-toggle .caret {
   border-top-color: #aaaaaa;
