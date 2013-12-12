@@ -119,7 +119,7 @@ class MenuElement extends Element {
             return $this->data['menuName'];
         }
         
-        return '';
+        return 'Main Menu';
     }
     
 }

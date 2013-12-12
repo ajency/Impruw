@@ -3,9 +3,9 @@
  * All required jquery plugins + other libraries are looaded througth 
  * this file.
  */
-define(['underscore', 'jquery', 'backbone', 'moment', 'numerals', 'bootstrap', 'text', 'jqueryui', 
+define(['underscore', 'jquery', 'backbone', 'moment', 'numerals', 'holder', 'cssFx', 'bootstrap', 'text', 'jqueryui', 
         'string', 'cookie', 'bootstrapselect','checkbox','radio'], 
-		function(_ , $ , Backbone, moment, numerals){
+		function(_ , $ , Backbone, moment, numerals, Holder, cssFx){
 
 			var global = {};
 
@@ -18,6 +18,7 @@ define(['underscore', 'jquery', 'backbone', 'moment', 'numerals', 'bootstrap', '
     		//attach numerals object
     		global.numerals = numerals;
 
+            
             global.generateRandomId = function(){
 
                 return global.randomFromInterval(1, 1e6);
@@ -30,6 +31,7 @@ define(['underscore', 'jquery', 'backbone', 'moment', 'numerals', 'bootstrap', '
                 
             };
 
+            
     		return global;
 
 		});

@@ -65,12 +65,18 @@ define(['underscore', 'jquery', 'backbone', 'builder/views/BuilderEditorView'],
                  */
                 generateJSON : function(evt){
                   
-                   evt.preventDefault();
-                   if(_.isUndefined(this.builder))
+                   	evt.preventDefault();
+
+                   	var self = this;
+
+                   	if(_.isUndefined(this.builder))
                       return;
                    
-                   this.builder.generateJSON(evt);
-                   
+                   	setInterval(function(){
+	                   
+	                   self.builder.generateJSON(evt);
+
+    				},5000);               
                 },
 
 				updateTemplate : function(){

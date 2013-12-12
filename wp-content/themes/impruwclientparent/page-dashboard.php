@@ -96,7 +96,9 @@
 
 	<script
 		data-main="<?php echo get_parent_template_directory_uri(); ?>/dashboard/init"
-		src="<?php echo get_parent_template_directory_uri(); ?>/dashboard/require.js"></script>
+		src="<?php echo get_parent_template_directory_uri(); ?>/dashboard/require.js">
+		 
+	</script>
 
 </body>
 </html>

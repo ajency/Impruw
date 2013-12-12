@@ -72,7 +72,6 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                     this.setParent(options.parent);
                     this.setClasses();
                     this.setHandlers();
-                    //this.loadTemplate();
                     this.setContextMenu();
                 },
                 
@@ -147,11 +146,13 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
 
                         index++;
 
+                        self.sortableColumns();
+                         
+                        self.appendColumnResizer();
+
                         
                         self.addElement(elements, index);
                       
-                        
-
                     });
 
 
@@ -254,13 +255,14 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                  */
                 setEditHandlers : function(){
 
-                    if(this.isEditable()){
-                        this.$el.append('<div class="aj-imp-delete-btn">\
+                    this.$el.append('<div class="aj-imp-delete-btn">\
                                             <span title="Delete">\
                                                 &times;\
                                             </span>\
-                                        </div>\
-                                        <div class="aj-imp-col-sel tooltip fade top in">\
+                                        </div>');
+
+                    if(this.isEditable()){
+                        this.$el.append('<div class="aj-imp-col-sel tooltip fade top in">\
                                             <div class="tooltip-arrow"></div>\
                                             <div class="tooltip-inner">\
                                                 <label>Columns: </label>\
@@ -576,10 +578,9 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                  */        
                 sortableColumns : function(){
                     
-                    _.each(this.elements, function(column, index){
+                    _.each(this.getColumns(), function(column, index){
                         
-                        //if(_.isFunction(column.makeColumnsSortable))
-                            column.makeColumnsSortable();
+                        column.makeColumnsSortable();
 
                     }); 
                     
@@ -688,6 +689,7 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                  * @returns {undefined}
                  */        
                 getColumns : function(){
+                    
                      return this.elements;  
                 },
                         

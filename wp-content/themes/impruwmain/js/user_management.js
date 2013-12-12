@@ -138,18 +138,25 @@ jQuery(document).ready(function($) {
                      $container = $("<span></span>").insertAfter(element);
                      return $container;
     		    },
-    		    classHandler: function ( elem  ) {
+    		   /* classHandler: function ( elem  ) {
     		    	elem.parent().addClass("has-error").removeClass("has-success");
 		            elem.parent().find('.fui-check-inverted').remove()
 		            elem.after('<span class="input-icon fui-cross-inverted"></span>') 	
-    		    }
+    		    }*/
     		},
             listeners: {
                onFieldSuccess: function ( elem, constraints, ParsleyField ) {  
                   elem.parent().removeClass("has-error").addClass("has-success");
                   elem.parent().find('.fui-check-inverted,.fui-cross-inverted').remove();
-                  elem.parent().after('<span class="input-icon fui-check-inverted"></span>') 
-               }  
+                  elem.after('<span class="validation-icon input-icon fui-check-inverted"></span>') 
+               } ,
+               
+               onFieldError: function ( elem, constraints, ParsleyField ) {  
+                   elem.parent().removeClass("has-success").addClass("has-error");
+                   console.log(elem)
+                   elem.parent().find('.fui-check-inverted,.fui-cross-inverted').remove();
+                   elem.after('<span class="validation-icon input-icon fui-cross-inverted"></span>') 
+                }  
            }
    });
    

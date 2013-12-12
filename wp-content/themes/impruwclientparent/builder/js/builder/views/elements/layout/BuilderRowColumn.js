@@ -232,15 +232,16 @@ define(['builder/views/elements/BuilderElement', 'global'],
                 makeColumnsSortable : function(){
                     
                     var self = this;
-                   
+
                     this.$el.sortable({
-                                        connectWith : '#aj-imp-builder-drag-drop,.column',
+                                        connectWith : '.layout-header,.layout-content,.layout-footer,.column',
                                         opacity     : .65,
                                         items       : '> .element, .row',
-                                        handle      : '.aj-imp-drag-handle',
+                                        handle      : '> .aj-imp-drag-handle',
                                         receive     : self.handleColumnDrop,
                                         sort        : self.handleElementOverState,
-                                        activate    : self.holdCurrentColRef
+                                        activate    : self.holdCurrentColRef,
+                                        stop        : function(){self.rearrangeElementOrder();}    
                                    }).disableSelection(); 
                 },
                         
@@ -284,9 +285,9 @@ define(['builder/views/elements/BuilderElement', 'global'],
                         
                         if(element.id == elementId){
                             
-                            receiver.elements.push(element);
-                            sender.elements.splice(index,1);
-                            
+                            sender.elements.splice(index,1);//remove element
+
+                            receiver.elements.push(element); //add the same position
                             //change parent
                             element.setParent(receiver);
                         }
@@ -294,6 +295,8 @@ define(['builder/views/elements/BuilderElement', 'global'],
                     });
                     
                     sender.updateEmptyView();
+
+                    receiver.rearrangeElementOrder();
                    
                 },
                 
@@ -321,13 +324,14 @@ define(['builder/views/elements/BuilderElement', 'global'],
                     
                     var receiver = this;
                     var elementId = ui.item.attr('id');
-                    
-                    //bail if helper is null
+                    log(ui);
+                    //handle if helper is null
                     if(_.isNull(ui.helper)){
                         var sender = ui.item.sender;
                         this.$el.removeClass('empty-column');
                         //added new control. Now trigger parent row adjust column dimension
                         this.parent.trigger('adjust_column_dimension');
+                        
                         this.handleElementRemove(receiver, sender, elementId);
                         return;
                     }
@@ -338,8 +342,6 @@ define(['builder/views/elements/BuilderElement', 'global'],
                     //pass control to column view to handle
                     this.handleElementDrop(elementName);
                    
-                    var sender = ui.helper.sender;
-                    this.handleElementRemove(receiver, sender, elementId);
                 }, 
                                              
                 /**
@@ -423,6 +425,7 @@ define(['builder/views/elements/BuilderElement', 'global'],
                         }
 
                         self.parent.trigger('adjust_column_dimension');
+                        self.rearrangeElementOrder();
 
                     });
                    

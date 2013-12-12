@@ -20,7 +20,7 @@ define(['underscore', 'jquery', 'backbone','leftview','sitemodel'],
                     
 					//set left column view
                     this.leftColumn = new LeftColumnView();
-                    this.site		= new SiteModel();
+                    this.site		= window.impruwSite;
                     this.site.fetch();
                     console.log("-------");
                     // console.log(blogData['responseJSON'])

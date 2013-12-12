@@ -163,11 +163,19 @@ class Element {
     /**
      * Creates the open tag for the element
      */
-    function get_open_tag(){
+    function get_open_tag($args = array()){
         
         $this->id   = $this->generate_random_ID();
-        
-        $html       = "<{$this->tag_name} id='{$this->id}' class='{$this->get_classes()}'>";
+
+        $attr = '';    
+
+        if(!empty($args)){
+            foreach($args as $key => $val){
+                $attr .= " $key='$val'";
+            }
+        }
+
+        $html       = "<{$this->tag_name} id='{$this->id}' class='{$this->get_classes()}'$attr>";
         
         return $html;
     }

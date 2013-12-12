@@ -5,7 +5,7 @@ define(['backbone','jquery','underscore', 'global'],
              * Main Class definition
              * @type @exp;Backbone@pro;View@call;extend
              */
-			var BuilderElement = Backbone.View.extend({
+			       var BuilderElement = Backbone.View.extend({
                
                 //is element draggable
                 draggable   : true,
@@ -86,6 +86,56 @@ define(['backbone','jquery','underscore', 'global'],
                         window.prevpopover = this.$el;
                      }
                 },
+
+                /**
+                 * Rearrange elemenst according to current view order
+                 */
+                rearrangeElementOrder : function(){
+
+                    var elements = this.getElements();
+
+                    if(elements === false)
+                      return;
+
+                    var newArr = [];
+
+                    this.$el.children('.element').each(function(index,element){
+                        
+                        var el = _.find(elements ,  function(ele){ 
+                                                        return ele.id === $(element).attr('id');
+                                                    });
+                        if(_.isUndefined(el))
+                            return;
+                        else
+                            newArr.push(el);
+                    });
+
+                    this.setElements(newArr);
+
+                },
+
+                /**
+                * Get all elements
+                */
+                getElements : function(){
+
+                    //does this element has child elemnts property
+                   if(_.isUndefined(this.elements) || !_.isArray(this.elements))
+                      return false;
+
+                },
+
+                /**
+                * Sets and array of elements
+                */
+                setElements : function(elements){
+                    
+                    if(!_.isArray(elements))
+                        return;
+
+                    this.elements = elements;
+
+                },
                 
                 /**
                  * Set context menu for element
@@ -110,7 +160,7 @@ define(['backbone','jquery','underscore', 'global'],
                    this.$el.on('shown.bs.popover', function(evt){
                         $(evt.target).next('.popover').find('input[type="checkbox"]').checkbox();
                         $(evt.target).next('.popover').find('select').selectpicker({style: 'btn-mini btn-default', menuStyle: 'dropdown'});
-					});
+					         });
                 },
                 
                 /**
@@ -228,7 +278,7 @@ define(['backbone','jquery','underscore', 'global'],
                    //set extra classes
                    if($(pcontent).find('input[name="className"]').length > 0){
                      
-                      element.extraClasses += $(pcontent).find('input[name="className"]').val();
+                      element.extraClasses = $(pcontent).find('input[name="className"]').val();
                       
                    }
                    
@@ -353,6 +403,12 @@ define(['backbone','jquery','underscore', 'global'],
                   * Set a edit handler
                   */
                 setEditHandlers : function(){
+
+                  this.$el.append('<div class="aj-imp-delete-btn">\
+                                            <span title="Delete">\
+                                                &times;\
+                                            </span>\
+                                        </div>');
                     
                 },
                 

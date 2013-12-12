@@ -13,7 +13,11 @@ define(['underscore', 'jquery', 'backbone', 'global'],
 
 				className   : 'container',
                 
-                rows        : [],
+                elements    :   {
+                                    header : [],
+                                    content: [],
+                                    footer : []
+                                },
 
                 mode        : 'layout',
                 
@@ -25,15 +29,15 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                      'click header > .popover .updateProperties': 'updateProperties'
                 },
 
-        				initialize  : function(option){
-                                
-                            _.bindAll(this, 'enableDropSort','getRows','is','holdOnWhileSwitching', 'removeSwitchLoader','switchMode',
-                                            'switchToLayout', 'switchToContent','generateActualMarkup', 'buildRowMarkup', 'buildColumnMarkup',
-                                            'getClasses');    
+				initialize  : function(option){
+                        
+                    _.bindAll(this, 'enableDropSort','getRows','is','holdOnWhileSwitching', 'removeSwitchLoader','switchMode',
+                                    'switchToLayout', 'handleRowDrop', 'switchToContent','generateActualMarkup', 'buildRowMarkup', 'buildColumnMarkup',
+                                    'getClasses');    
 
-                            this.themeConfig = option.themeConfig;
+                    this.themeConfig = option.themeConfig;
 
-        				},
+				},
                 
                 /**
                  * 
@@ -350,33 +354,35 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                 /**
                 *  Render function for view 
                 */
-        				render : function(){
-                                
-                      var self = this;
+    		    render : function(){
+                            
+                  var self = this;
 
-                      var templatePath = '';
+                  var templatePath = '';
 
-        					    $.get(AJAXURL,
-                                     {
-                                        action : 'get_saved_layout',
-                                        id     : 2
-                                     }, function(response){
-        
-                                        if( !_.isUndefined(response.header.elements) && response.header.elements.length > 0)
-                                            self.addElement( response.header.elements, 0, self.$el.find('header'));
+				    $.get(AJAXURL,
+                         {
+                            action : 'get_saved_layout',
+                            id     : 2
+                         }, function(response){
 
-                                       //  if( !_.isUndefined(response.page.elements) && response.page.elements.length > 0)
-                                       //      self.addElement( response.page.elements, 0, self.$el.find('div[data-page="true"]'));  
+                            if( !_.isUndefined(response.header) && response.header.elements.length > 0)
+                                self.addElement( response.header.elements, 0, self.$el.find('header'));
 
-                                       // if( !_.isUndefined(response.footer.elements) && response.footer.elements.length > 0)
-                                       //      self.addElement( response.footer.elements, 0, self.$el.find('footer'));   
-        
-                                        self.enableDragDrop(); 
-        
-                                     },'json');
-                                self.enableDragDrop(); 
-        						return this;
-        				},
+                            if( !_.isUndefined(response.page) && response.page.elements.length > 0)
+                                self.addElement( response.page.elements, 0, self.$el.find('div[data-page="true"]'));  
+                            
+                            if( !_.isUndefined(response.footer) && response.footer.elements.length > 0)
+                                self.addElement( response.footer.elements, 0, self.$el.find('footer'));   
+
+                            self.enableDragDrop(); 
+
+                         },'json');
+
+                    //self.enableDragDrop(); 
+
+					return this;
+    			},
 
                 /**
                 * Adds and element to editor
@@ -406,8 +412,8 @@ define(['underscore', 'jquery', 'backbone', 'global'],
 
                         if( !_.isUndefined(element.elements) && element.elements.length > 0)
                             row.addElement(element.elements, 0);
-                         
-                        row.adjustColumnDimension(); 
+
+                        
                          
                         index++;
 
@@ -442,7 +448,7 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                                                                             t.helper.width(92).height(80);
                                                                   }                           
                                         });
-
+                    this.enableDropSort();
                 },
 
                 /**
@@ -558,47 +564,145 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                                         items       : '> .row',        
                                         connectWith : '.layout-header,.layout-content,.layout-footer,.column',
                                         opacity     : .65,
-                                        handle      : '.aj-imp-drag-handle',
-                                        receive     : function(event, ui) {
-                                                           
-                                                            var target = $(event.target);
-                                                            
-                                                            var mod = 'builder/views/elements/layout/BuilderRow';
-                                                            
-                                                            require([mod], function(Element){
-                                                                 
-                                                                  var row = new Element({parent: self});
-                                                                 
-                                                                  self.rows.push(row);
+                                        handle      : '> .aj-imp-drag-handle',
+                                        receive     : function(evt , ui){
+                                                        self.handleRowDrop(evt, ui);
+                                                    },
+                                        stop        : function(evt , ui){
 
-                                                                  $(event.target).find('*[data-element="BuilderRow"]').replaceWith(row.$el);
+                                                        self.rearrangeElementOrder('header');
+                                                        self.rearrangeElementOrder('content');
+                                                        self.rearrangeElementOrder('footer');
 
-                                                                  row.sortableColumns();
-
-                                                                  row.appendColumnResizer();
-                                                            });
-                                                        },
-
-                                        sort        : function(event , ui){
+                                                    },
+                                        sort        : function(evt , ui){
                                                             
-                                                            var pHeight = ui.helper.attr('data-placeholder-height');
-                                                            
-                                                            ui.placeholder.height(parseInt(pHeight));
+                                                        var pHeight = ui.helper.attr('data-placeholder-height');
                                                         
-                                                        }
+                                                        ui.placeholder.css('max-height',parseInt(pHeight));
+                                                        
+                                                    }
 
                                     }).disableSelection(); 
                                                                 
 				},
+
+                /**
+                 * Check for column drop event
+                 * @param {type} event
+                 * @param {type} ui
+                 * @returns {undefined}
+                 */        
+                handleRowDrop : function(event, ui){
+                    
+                    //get control to be dropped
+                    var elementName = ui.item.attr('data-element');
+                    
+                    //should allow only row and no othe element
+                    if(elementName !== 'BuilderRow')
+                        return;
+
+                    var receiver = this;
+                    
+                    // //handle if helper is null
+                    // if(_.isNull(ui.helper)){
+                    //     var sender = ui.item.sender;
+                    //     var elementId = ui.item.attr('id');
+                    //     //this.handleElementRemove(receiver, sender, elementId);
+                    //     return;
+                    // }
+                    var into = '';
+                    if($(event.target).hasClass('layout-header'))
+                        into = 'header';
+                    
+                    if($(event.target).hasClass('layout-content'))
+                        into = 'content';
+
+                    if($(event.target).hasClass('layout-footer'))
+                        into = 'footer';
+                    
+                    //pass control to column view to handle
+                    this.handleElementDrop('BuilderRow', into);
+                   
+                }, 
+
+                /**
+                 * Identifies the control drop and handle accordingly
+                 * 
+                 * @param {type} controlName
+                 * @returns {undefined}
+                 */        
+                handleElementDrop : function(elementName, into){
+                    
+                    var self = this;
+                    
+                    var path = '';
+                    path = 'builder/views/elements/layout/BuilderRow';
+                    
+                    //set loader
+                    if(self.$el.find('*[data-element="'+elementName+'"]').length > 0)
+                        self.$el.find('*[data-element="'+elementName+'"]').html('<div class="element-drop-loader"></div>');
+                    
+                    require([path], function(Row){
+
+                        var row = new Row({parent: self});
+                        
+                        if(into === 'header')
+                            self.elements.header.push(row);
+                        
+                        if(into === 'content')
+                            self.elements.content.push(row);
+
+                        if(into === 'footer')
+                            self.elements.footer.push(row);
+                        
+                        var el = row.$el;
+
+                        if(self.$el.find('*[data-element="'+elementName+'"]').length > 0)
+                            self.$el.find('*[data-element="'+elementName+'"]').replaceWith(el);
+                       
+                        row.sortableColumns();
+                        row.appendColumnResizer();
+
+                    });
+                   
+                }, 
+
+                /**
+                 * Rearrange elemenst according to current view order
+                 */
+                rearrangeElementOrder : function(wrapper){
+
+                    var elements = this.getRows(wrapper);
+
+                    if(elements.length === 0)
+                      return;
+
+                    var newArr = [];
+
+                    this.$el.find('.layout-' + wrapper).children('.row').each(function(index,element){
+                        
+                        var el = _.find(elements ,  function(ele){ 
+                                                        return ele.id === $(element).attr('id');
+                                                    });
+                        if(_.isUndefined(el))
+                            return;
+                        else
+                            newArr.push(el);
+                    });
+
+                    this.elements[wrapper] = newArr;
+
+                },
                 
                 /**
                  * Returns current rows for the Editor.Top Level rows
                  * 
                  * @returns {unresolved}
                  */
-                getRows : function(){
+                getRows : function(section){
                     
-                    return this.rows;
+                    return !_.isUndefined(this.elements[section]) ? this.elements[section] : [];
                     
                 }
 

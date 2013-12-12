@@ -76,17 +76,15 @@ require(['backbone',
 
         $(document).ready(function(){   
         	 
-			//window.impruwSite = new SiteModel()
-			//window.impruwUser = new UserModel()
-        	window.impruwSite = new SiteModel(SITEDATA)
-			window.impruwUser = new UserModel(USERDATA)
-			console.log("Models initializing..")
-			console.log(window.impruwSite)
-			console.log(window.impruwUser)
-			
-			
-            dashboard = new Router();
+			window.impruwSite = new SiteModel(SITEDATA)
+			window.impruwUser = new UserModel(USERDATA)				
+			dashboard = new Router();
             Backbone.history.start();
+            
+            $('#btn_savesitedetails').on("click",function(){
+            	alert("site update")
+            	
+            })
             
         });
 
