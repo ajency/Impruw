@@ -241,7 +241,7 @@ define(['builder/views/elements/BuilderElement', 'global'],
                                         receive     : self.handleColumnDrop,
                                         sort        : self.handleElementOverState,
                                         activate    : self.holdCurrentColRef,
-                                        stop        : function(){self.rearrangeElementOrder();}
+                                        stop        : function(){self.rearrangeElementOrder();}    
                                    }).disableSelection(); 
                 },
                         

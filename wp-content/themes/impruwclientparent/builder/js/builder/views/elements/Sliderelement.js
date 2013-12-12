@@ -16,7 +16,7 @@ define(['builder/views/elements/BuilderElement','text!builder/templates/elements
                 type                : 'slider',
                 
                 //set height to be assigned to placeholder and helper
-                placeHolderHeight   : 60,
+                placeHolderHeight   : 400,
                 
                 //
                 events : {
