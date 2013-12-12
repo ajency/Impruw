@@ -307,6 +307,8 @@ define(['backbone','jquery','underscore', 'global'],
                    if(mEle.length > 0){
                         element.markupStyle = mEle.val();
                    }
+
+                   $(evt.target).after('<span><small>Saved</small></span>');
                    
                 },
                 

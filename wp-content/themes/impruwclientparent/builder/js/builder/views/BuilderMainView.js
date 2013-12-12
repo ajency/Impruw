@@ -72,11 +72,11 @@ define(['underscore', 'jquery', 'backbone', 'builder/views/BuilderEditorView'],
                    	if(_.isUndefined(this.builder))
                       return;
                    
-                   	setInterval(function(){
+                   	//setInterval(function(){
 	                   
-	                   self.builder.generateJSON(evt);
+	                 self.builder.generateJSON(evt);
 
-    				},5000);               
+    				//},000);               
                 },
 
 				updateTemplate : function(){
