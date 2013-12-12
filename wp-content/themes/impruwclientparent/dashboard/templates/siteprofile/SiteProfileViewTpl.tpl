@@ -14,13 +14,13 @@
 						</div>
 						<div class="scroll-indicator-container" id="scr1">
 							<h4 class="aj-imp-sub-head scroll-ref">General <small>Lorem ipsum dolor sit amet, consectetur adipiscing</small></h4>
-							<form class="form-horizontal clearfix">
+							<form class="form-horizontal clearfix" name="form-siteprofile-general" id="form-siteprofile-general">
 								
 								<div class="form-group">
 									<label for="inputEmail3" class="col-sm-2 control-label">Site Name</label>
 									<div class="col-sm-10 col-sm-offset-2">
 										<div class="input-group">
-											<input type="email" class="form-control" id="sitename" disabled="disabled" name="sitename" placeholder="<%= site.get('siteName') %>">
+											<input type="email" class="form-control" id="sitename" disabled="disabled" name="sitename" placeholder="<%= site.get('site_name') %>" value="<%= site.get('site_name') %>" >
 											<span class="input-group-addon">.impruw.com</span>
 										</div>
 									</div>
@@ -56,12 +56,12 @@
 						</div>
 						<div class="scroll-indicator-container" id="scr2">
 							<h4 class="aj-imp-sub-head scroll-ref">Business Details <small>Lorem ipsum dolor sit amet, consectetur adipiscing</small></h4>
-							<form class="form-horizontal clearfix">
+							<form class="form-horizontal clearfix" name="form-siteprofile-business" id="form-siteprofile-business" >
 								
 								<div class="form-group has-error">
 									<label for="inputAddress1" class="col-sm-2 control-label">Street</label>
 									<div class="col-sm-10 col-sm-offset-2">
-										<input type="text" class="form-control" id="street" name="street" placeholder="21 Jump Street">
+										<input type="text" class="form-control" id="street" name="street" placeholder="21 Jump Street" value="<%= site.get('street') %>">
 										<span class="input-icon fui-cross-inverted"></span>
 										<span class="help-block">This field is required</span>
 									</div>
@@ -71,12 +71,12 @@
 								<div class="form-group">
 									<label for="inputAddress2" class="col-sm-2 control-label">Postal Code</label>
 									<div class="col-sm-4 col-sm-offset-2">
-										<input type="text" class="form-control" id="postalcode"  name="postalcode" data-mask="999-999" placeholder="420-001">
+										<input type="text" class="form-control" id="postalcode"  name="postalcode" data-mask="999-999" placeholder="420-001"  value="<%= site.get('postalcode') %>">
 									</div>
 								
 									<label for="inputAddress3" class="col-sm-2 control-label label-2">City / Town</label>
 									<div class="col-sm-4 col-sm-offset-2">
-										<input type="text" class="form-control" id="city" name="city" placeholder="Gotham City">
+										<input type="text" class="form-control" id="city" name="city" placeholder="Gotham City" value="<%= site.get('city') %>"> 
 									</div>
 								</div>
 								
@@ -85,9 +85,9 @@
 									<label for="inputAddress4" class="col-sm-2 control-label dd-label">Country</label>
 									<div class="col-sm-10 col-sm-offset-2">
 										<select name="country" id="country">
-											<option value="0">Norway</option>
-											<option value="1">Sweden</option>
-											<option value="2">Denmark</option>
+											<option value="0" <% if(site.get('country')=='0') { %> selected  <% } %>>Norway</option>
+											<option value="1" <% if(site.get('country')=='1') { %> selected  <% } %>>Sweden</option>
+											<option value="2" <% if(site.get('country')=='2') { %> selected  <% } %>>Denmark</option>
 										</select>
 									</div>
 								</div>
@@ -96,14 +96,45 @@
 								<div class="form-group add-another">
 									<label for="inputEmail1" class="col-sm-2 control-label">Email</label>
 									<div class="col-sm-4 col-sm-offset-2">
-										<input type="email" class="form-control" id="email" name="email"  placeholder="youremail@site.com">
-										<span class="help-block add-another-link"><a href="#"><span class="glyphicon glyphicon-plus-sign"></span> Add Another</a></span>
+									<% if(site.get('email')!=undefined){  console.log('a') 
+									
+											var email_ar = site.get('email').split(','); 
+											for(j=0;j<email_ar.length;j++) { %>
+											
+											
+											<span class="div_email" ><input type="email" class="form-control"   name="email[]"  placeholder="youremail@site.com"  value="<%= email_ar[j] %>">  <span class="del_email" style="display:<% if(j<=0) { %>none<%} else { %> inline-block <% } %>;">Delete</span> </span>
+											
+											
+											<% }
+									}
+									else
+									{
+									%>
+										<span class="div_email" ><input type="email" class="form-control"   name="email[]"  placeholder="youremail@site.com"  value="">  <span class="del_email" style="display: none ;">Delete</span> </span>
+									<%
+									}
+									
+									 %>
+									
+										
+										<span class="help-block add-another-link"><a href="#" id="add_another_email"><span class="glyphicon glyphicon-plus-sign"></span> Add Another</a></span>
 									</div>								
 								
 									<label for="inputPhone1" class="col-sm-2 control-label label-2">Phone</label>
 									<div class="col-sm-4 col-sm-offset-2">
-										<input type="text" class="form-control" id="phone" name="phone" data-mask="99-999-999" placeholder="99-888-777">
-										<span class="help-block add-another-link"><a href="#"><span class="glyphicon glyphicon-plus-sign"></span> Add Another</a></span>
+									<% if(site.get('phone')!=undefined){
+												
+										 var phone_ar = site.get('phone').split(',');   for(k=0;k<phone_ar.length;k++) { %> 
+										 		<span class="div_phone" ><input type="text" class="form-control"   name="phone[]" data-mask="99-999-999" placeholder="99-888-777"  value="<%= phone_ar[k] %>"> <span class="del_phone" style="display: <% if(k<=0) { %> none; <% } else { %> inline-block <% } %>;">Delete</span> </span>
+									<% 			}			
+										
+										}
+										else { %>
+												<span class="div_phone" ><input type="text" class="form-control"   name="phone[]" data-mask="99-999-999" placeholder="99-888-777"  value=""> <span class="del_phone" style="display:none;">Delete</span> </span>
+										<% }							 
+									
+									%>
+									<span class="help-block add-another-link"><a href="#" id="add_another_phone"><span class="glyphicon glyphicon-plus-sign"></span> Add Another</a></span>
 									</div>
 								</div>
 
@@ -121,7 +152,7 @@
 						</div>
 						<div class="scroll-indicator-container" id="scr3">
 							<h4 class="aj-imp-sub-head scroll-ref">Social Settings <small>Lorem ipsum dolor sit amet, consectetur adipiscing</small></h4>
-							<form class="form-horizontal clearfix">
+							<form class="form-horizontal clearfix" id="form-siteprofile-social" name ="form-siteprofile-social" >
 							
 								
 								<div class="form-group has-success">
@@ -129,7 +160,7 @@
 									<div class="col-sm-10 col-sm-offset-2">
 										<div class="input-group">
 											<span class="input-group-addon">www.facebook.com/</span>
-											<input type="text" class="form-control" id="facebook" name="facebook"  placeholder="yourpageurl">
+											<input type="text" class="form-control" id="facebook" name="facebook"  placeholder="yourpageurl"  value="<%= site.get('facebook') %>">
 											<span class="input-icon fui-check-inverted"></span>
 										</div>
 									</div>
@@ -141,7 +172,7 @@
 									<div class="col-sm-10 col-sm-offset-2">
 										<div class="input-group">
 											<span class="input-group-addon">www.twitter.com/</span>
-											<input type="text" class="form-control" id="twitter" name="twitter"  placeholder="Twitter">
+											<input type="text" class="form-control" id="twitter" name="twitter"  placeholder="Twitter"  value="<%= site.get('twitter') %>">
 											<span class="input-icon"><img src="images/270(1).gif" /></span>
 										</div>
 									</div>
@@ -151,7 +182,7 @@
 						</div>
 						<div class="scroll-indicator-container" id="scr4">
 							<h4 class="aj-imp-sub-head scroll-ref">SEO <small>Lorem ipsum dolor sit amet, consectetur adipiscing</small></h4>
-							<form class="form-horizontal clearfix">
+							<form class="form-horizontal clearfix" id="form-siteprofile-meta" name="form-siteprofile-meta">
 								
 								
 								<div class="form-group">
