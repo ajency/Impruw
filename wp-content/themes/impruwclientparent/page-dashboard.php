@@ -97,7 +97,10 @@
 	<script
 		data-main="<?php echo get_parent_template_directory_uri(); ?>/dashboard/init"
 		src="<?php echo get_parent_template_directory_uri(); ?>/dashboard/require.js">
-		 
+		 jQuery(document).ready(function(){
+
+			 alert("pagetests")   
+		 })
 	</script>
 
 </body>

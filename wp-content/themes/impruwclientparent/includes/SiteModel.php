@@ -16,8 +16,8 @@ class SiteModel {
 	/**
 	 *  The site name
 	 */
-	var $site_name;
-	var $site_description; 
+	//var $site_name;
+	//var $site_description; 
 
 	/**
 	 * Constructor for the class
@@ -27,8 +27,8 @@ class SiteModel {
 	function __construct($site_id){
 
 		$this->site_id 			= $site_id;
-		$this->site_name 		= get_blog_details($this->site_id)->blogname;
-		$this->site_description = get_blog_option($this->site_id,'blogdescription');
+		//$this->site_name 		= get_blog_details($this->site_id)->blogname;
+		//$this->site_description = get_blog_option($this->site_id,'blogdescription');
 
 	}
 
@@ -39,13 +39,68 @@ class SiteModel {
 	 */
 	function get_site_profile(){
 
-		return 	array(
+		/*return 	array(
 					'id'				=> $this->site_id,
 					'siteName' 			=> $this->site_name,
 					'siteDescription'	=> $this->site_description
 				);
+		*/
+		$site_address = array();
+		$site_social  = array();
+		$site_general = array();
+		
+		
+		$site_address = $this->get_site_address();
+		
+		$site_social = $this->get_site_social();
+		
+	 	$site_general = $this->get_site_general();
 
+	 	
+	 	 return(array_merge($site_general,$site_address,$site_social));
 	}
+	
+	
+	/**
+	 * 
+	 */
+	function get_site_general(){
+		
+		$site_general_data = array('site_name'=>get_blog_details($this->site_id)->blogname);
+		if($site_general_data)
+			return $site_general_data;
+		else
+			return (array());
+	}
+	
+	
+	/**
+	 * 
+	 * @return array containing site address details
+	 */
+	function get_site_address(){
+		
+		$site_address_data = get_blog_option($this->site_id, 'impruw_address');
+		if($site_address_data)
+			return $site_address_data;
+		else
+			return (array());
+	}
+	
+	/**
+	 * Function to get  site social details (ex. twitter, facebook)
+	 * @return arary containign site social details
+	 */
+	function get_site_social(){
+		
+		$site_social_data = get_blog_option($this->site_id,'impruw_social');
+		if($site_social_data)
+			return $site_social_data;
+		else
+			return (array());
+	}
+	
+	
 	
 	
 	/**
@@ -54,18 +109,10 @@ class SiteModel {
 	 * @param array  $siteData
 	 */
 	function save_site_profile($siteData){
-			
-		$address = array('street'		=> $siteData['street'],
-						 'city'			=> $siteData['city'],
-						 'postalcode'	=> $siteData['postalcode'],
-						 'country'		=> $siteData['country']);
 		
-		$social = array('facebook'		=> $siteData['facebook'],			 
-						'twitter'		=> $siteData['twitter']);
-		
-		
-		save_site_address($address);
-		save_social($social);
+	 
+		$this->save_site_address($siteData['business']);
+		$this->save_site_social($siteData['social']);
 		
 		return true;
 	}
@@ -77,10 +124,15 @@ class SiteModel {
 	 * @return boolean
 	 */
 	function save_site_address($address_data){
+		 
+		$defaults = array('street'  => '', 
+						  'city'    => '', 
+						  'country' => '');
 		
-		
-		//handle empty values
-		update_blog_option($this->id, 'impruw_address', $address_data);
+		$address_data = wp_parse_args($address_data, $defaults);
+		 
+		update_blog_option($this->site_id, 'impruw_address',$address_data);		 
+		 
 		return true;
 	}
 	
@@ -90,10 +142,14 @@ class SiteModel {
 	 * @param array containining social details -  $social_data
 	 * @return boolean
 	 */
-	function save_social($social_data){
+	function save_site_social($social_data){
+		 
+		$defaults = array('facebook'  => '',				 
+						  'twitter'   => '');
+		$social_data = wp_parse_args($social_data,$defaults);
 		
-		//handle empty values
-		update_blog_option($this->id, 'impruw_social', $social_data);
+		update_blog_option($this->site_id, 'impruw_social', $social_data);
+	
 		return true;
 	}
 	

@@ -81,10 +81,7 @@ require(['backbone',
 			dashboard = new Router();
             Backbone.history.start();
             
-            $('#btn_savesitedetails').on("click",function(){
-            	alert("site update")
-            	
-            })
+           
             
         });
 

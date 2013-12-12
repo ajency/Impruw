@@ -75,6 +75,7 @@ if(is_user_logged_in())
 							<div class="col-sm-7 col-sm-offset-3">
 								<div class="form-group">
 									<input type="email" class="form-control  parsley-validated parsley-error" id="inputEmail"  name="inputEmail" placeholder="Email"    parsley-required="true"    parsley-trigger="blur"    parsley-validation-minlength="0"   parsley-type="email"   parsley-required-message="<?php echo __('Please Enter Email','impruwmain'); ?>" />
+									<div class="p-messages"></div>
 								</div> 
 							</div>
 						</div>
@@ -83,6 +84,7 @@ if(is_user_logged_in())
 							<div class="col-sm-7 col-sm-offset-3">
 								<div class="form-group">
 									<input type="password" class="form-control  parsley-validated parsley-error" id="inputPass"  name="inputPass" placeholder="Password"    parsley-required="true"     parsley-trigger="blur" parsley-validation-minlength="0"    parsley-required-message="<?php echo __('Please Enter Password','impruwmain');?>" />
+									<div class="p-messages"></div>
 								</div>
 							</div>
 						</div>
