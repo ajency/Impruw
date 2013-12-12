@@ -86,6 +86,56 @@ define(['backbone','jquery','underscore', 'global'],
                         window.prevpopover = this.$el;
                      }
                 },
+
+                /**
+                 * Rearrange elemenst according to current view order
+                 */
+                rearrangeElementOrder : function(){
+
+                    var elements = this.getElements();
+
+                    if(elements === false)
+                      return;
+
+                    var newArr = [];
+
+                    this.$el.children('.element').each(function(index,element){
+                        
+                        var el = _.find(elements ,  function(ele){ 
+                                                        return ele.id === $(element).attr('id');
+                                                    });
+                        if(_.isUndefined(el))
+                            return;
+                        else
+                            newArr.push(el);
+                    });
+
+                    this.setElements(newArr);
+
+                },
+
+                /**
+                * Get all elements
+                */
+                getElements : function(){
+
+                    //does this element has child elemnts property
+                   if(_.isUndefined(this.elements) || !_.isArray(this.elements))
+                      return false;
+
+                },
+
+                /**
+                * Sets and array of elements
+                */
+                setElements : function(elements){
+                    
+                    if(!_.isArray(elements))
+                        return;
+
+                    this.elements = elements;
+
+                },
                 
                 /**
                  * Set context menu for element
