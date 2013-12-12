@@ -365,11 +365,11 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                             if( !_.isUndefined(response.header) && response.header.elements.length > 0)
                                 self.addElement( response.header.elements, 0, self.$el.find('header'));
 
-                            if( !_.isUndefined(response.page) && response.page.elements.length > 0)
-                                self.addElement( response.page.elements, 0, self.$el.find('div[data-page="true"]'));  
+                            // if( !_.isUndefined(response.page) && response.page.elements.length > 0)
+                            //     self.addElement( response.page.elements, 0, self.$el.find('div[data-page="true"]'));  
                             
-                            if( !_.isUndefined(response.footer) && response.footer.elements.length > 0)
-                                self.addElement( response.footer.elements, 0, self.$el.find('footer'));   
+                            // if( !_.isUndefined(response.footer) && response.footer.elements.length > 0)
+                            //     self.addElement( response.footer.elements, 0, self.$el.find('footer'));   
 
                             self.enableDragDrop(); 
 
@@ -408,8 +408,8 @@ define(['underscore', 'jquery', 'backbone', 'global'],
 
                         if( !_.isUndefined(element.elements) && element.elements.length > 0)
                             row.addElement(element.elements, 0);
-                         
-                        row.adjustColumnDimension(); 
+
+                        
                          
                         index++;
 
@@ -444,7 +444,7 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                                                                             t.helper.width(92).height(80);
                                                                   }                           
                                         });
-
+                    this.enableDropSort();
                 },
 
                 /**
@@ -560,7 +560,7 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                                         items       : '> .row',        
                                         connectWith : '.layout-header,.layout-content,.layout-footer,.column',
                                         opacity     : .65,
-                                        handle      : '.aj-imp-drag-handle',
+                                        handle      : '> .aj-imp-drag-handle',
                                         receive     : function(event, ui) {
                                                            
                                                             var target = $(event.target);
@@ -585,7 +585,7 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                                                             
                                                             var pHeight = ui.helper.attr('data-placeholder-height');
                                                             
-                                                            ui.placeholder.height(parseInt(pHeight));
+                                                            ui.placeholder.css('min-height',parseInt(pHeight));
                                                         
                                                         }
 

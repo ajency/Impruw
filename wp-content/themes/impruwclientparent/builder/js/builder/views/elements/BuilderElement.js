@@ -110,7 +110,7 @@ define(['backbone','jquery','underscore', 'global'],
                    this.$el.on('shown.bs.popover', function(evt){
                         $(evt.target).next('.popover').find('input[type="checkbox"]').checkbox();
                         $(evt.target).next('.popover').find('select').selectpicker({style: 'btn-mini btn-default', menuStyle: 'dropdown'});
-					});
+					         });
                 },
                 
                 /**
@@ -353,6 +353,12 @@ define(['backbone','jquery','underscore', 'global'],
                   * Set a edit handler
                   */
                 setEditHandlers : function(){
+
+                  this.$el.append('<div class="aj-imp-delete-btn">\
+                                            <span title="Delete">\
+                                                &times;\
+                                            </span>\
+                                        </div>');
                     
                 },
                 

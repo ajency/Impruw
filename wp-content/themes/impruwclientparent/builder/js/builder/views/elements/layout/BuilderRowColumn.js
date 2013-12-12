@@ -232,12 +232,12 @@ define(['builder/views/elements/BuilderElement', 'global'],
                 makeColumnsSortable : function(){
                     
                     var self = this;
-                   
+
                     this.$el.sortable({
-                                        connectWith : '#aj-imp-builder-drag-drop,.column',
+                                        connectWith : '.layout-header,.layout-content,.layout-footer,.column',
                                         opacity     : .65,
                                         items       : '> .element, .row',
-                                        handle      : '.aj-imp-drag-handle',
+                                        handle      : '> .aj-imp-drag-handle',
                                         receive     : self.handleColumnDrop,
                                         sort        : self.handleElementOverState,
                                         activate    : self.holdCurrentColRef
