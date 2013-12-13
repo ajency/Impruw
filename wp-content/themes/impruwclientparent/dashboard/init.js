@@ -76,8 +76,11 @@ require(['backbone',
 
         $(document).ready(function(){   
         	 
-			window.impruwSite = new SiteModel(SITEDATA)
-			window.impruwUser = new UserModel(USERDATA)				
+			window.impruwSite = new SiteModel(SITEID);
+			window.impruwUser = new UserModel(USERDATA);
+			window.impruwSite.getSiteProfile();
+			//console.log("site profile data init")
+			//console.log(window.impruwSite)
 			dashboard = new Router();
             Backbone.history.start();
             

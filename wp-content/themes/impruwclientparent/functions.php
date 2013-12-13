@@ -597,113 +597,6 @@ function agc_register_parent_site_menus(){
  add_action('init', 'agc_register_parent_site_menus');
 
 
- 
- 
- /**
-  * Get site details
-  */
- function get_site_data(){
- 
-    $blogdetails = get_blog_details(get_current_blog_id());
-    header('Content-Type: application/json');
-    echo json_encode(array('code' => 'OK', 'sitetitle'=> $blogdetails->blogname) );
-    die();
- 	
- }
- add_action('wp_ajax_get_site_data','get_site_data');
- add_action('wp_ajax_nopriv_get_site_data','get_site_data');
-
- 
- 
- 
- /**
-  * Function to save site profile (business details, social)
-  * Type: Ajax call
-  * 
-  */
- function save_site_data_ajx(){
- 	
-		$siteform_social = array();
-		$siteform_business = array();
-		
-		$site_form_data = array();
-		
-		$siteform_social =  serializedform_to_array($_POST['siteprofile_social']);
-		$siteform_business = serializedform_to_array($_POST['siteprofile_business']);
-		
-		$site_form_data = array('business'=>$siteform_business,'social'=>$siteform_social);
-		
-		if(save_site_data($site_form_data)){
-
-				header('Content-Type: application/json');
-				echo json_encode(array('code' => 'OK','site_data'=>array_merge($siteform_social,$siteform_business)) );
-				die();
-		}
-		else{
-			
-				header('Content-Type: application/json');
-				echo json_encode(array('code' => 'FAILED', 'msg'=> 'Could not save site profile') );
-				die();
-		}
-		
- } 
- add_action('wp_ajax_save_site_data_ajx','save_site_data_ajx');
- add_action('wp_ajax_nopriv_save_site_data_ajx','save_site_data_ajx'); 
- 
- 
- 
- 
- /**
-  * Function to Save site Details
-  * @param array containign business details & social details  
-  * Ex: $site_form_data sitedata( 'business'=>array('ph'=>99), 
-  * 							  'social'=>array('facebook'=>'myfbid') )
-  * @return boolean
-  */
- function save_site_data($site_form_data){
-
-	$site = new SiteModel(get_current_blog_id());
-	
-	if($site->save_site_profile($site_form_data)) 	
-		return true;
-	else
-		return false;
-	 
-	 
- }
-
- 
- 
- 
- /**
-  * Function accepts serialized form data and returns aray containing form field name-value 
-  * return array containing all form key,values
-  */
- function serializedform_to_array($serialized_form)
- {
- 	if(count($serialized_form)>0){
- 	
-		$ar_formdata = array();
- 		foreach($serialized_form as $key_form_data=> $value_form_data){
- 	
-	 		$value_form_data['name'] = str_replace('[','', $value_form_data['name']);
-			$value_form_data['name'] = str_replace(']','', $value_form_data['name']);
-
-			if(array_key_exists($value_form_data['name'], $ar_formdata)){
-				
-				$ar_formdata[$value_form_data['name']].=", ".$value_form_data['value'];
-			}
-			else{
-				
-				$ar_formdata[$value_form_data['name']]  =  $value_form_data['value'];
-			}
-			 
- 		}
- 	}
- 	return $ar_formdata;	
- }
-
-
 /**
  * Function to return the actual content markup
  */
@@ -758,6 +651,152 @@ function elements_markup($elements){
     return $e;
 
 }
+
+
+/**
+ * Get site details
+ */
+/* function get_site_data(){
+
+$blogdetails = get_blog_details(get_current_blog_id());
+header('Content-Type: application/json');
+echo json_encode(array('code' => 'OK', 'sitetitle'=> $blogdetails->blogname) );
+die();
+
+}
+add_action('wp_ajax_get_site_data','get_site_data');
+add_action('wp_ajax_nopriv_get_site_data','get_site_data');
+*/
+
+
+
+
+
+/**
+ * Get site details
+ *
+ */
+function get_site_data_ajx(){
+
+	$site_id = $_POST['siteprofile_id'];
+
+	$site_profile_details = get_site_data($site_id);
+
+	header('Content-Type: application/json');
+	echo json_encode(array('code' => 'OK', 'siteProfileData'=> $site_profile_details) );
+	die();
+
+}
+add_action('wp_ajax_get_site_data_ajx','get_site_data_ajx');
+add_action('wp_ajax_nopriv_get_site_data_ajx','get_site_data_ajx');
+
+
+
+/**
+ *  Function to get site details
+ * @param int site id $site_id
+ * @return array containing site profile data
+*/
+function get_site_data($site_id){
+
+	$site = new SiteModel($site_id);
+	$site_profile_data = $site->get_site_profile();
+
+	return $site_profile_data;
+	 
+}
+
+
+
+/**
+ * Function to save site profile (business details, social)
+ * Type: Ajax call
+ *
+ */
+function save_site_data_ajx(){
+
+	$siteform_social = array();
+	$siteform_business = array();
+
+	$site_form_data = array();
+
+	$siteform_social =  serializedform_to_array($_POST['siteprofile_social']);
+	$siteform_business = serializedform_to_array($_POST['siteprofile_business']);
+
+	$site_form_data = array('business'=>$siteform_business,'social'=>$siteform_social);
+
+	if(save_site_data($site_form_data)){
+
+		header('Content-Type: application/json');
+		echo json_encode(array('code' => 'OK','site_data'=>array_merge($siteform_social,$siteform_business)) );
+		die();
+	}
+	else{
+			
+		header('Content-Type: application/json');
+		echo json_encode(array('code' => 'FAILED', 'msg'=> 'Could not save site profile') );
+		die();
+	}
+
+}
+add_action('wp_ajax_save_site_data_ajx','save_site_data_ajx');
+add_action('wp_ajax_nopriv_save_site_data_ajx','save_site_data_ajx');
+
+
+
+
+/**
+ * Function to Save site Details
+ * @param array containign business details & social details
+ * Ex: $site_form_data sitedata( 'business'=>array('ph'=>99),
+ * 							  'social'=>array('facebook'=>'myfbid') )
+ * @return boolean
+*/
+function save_site_data($site_form_data){
+
+	$site = new SiteModel(get_current_blog_id());
+
+	if($site->save_site_profile($site_form_data))
+		return true;
+	else
+		return false;
+
+
+}
+
+
+
+
+/**
+ * Function accepts serialized form data and returns aray containing form field name-value
+ * return array containing all form key,values
+ */
+function serializedform_to_array($serialized_form)
+{
+	if(count($serialized_form)>0){
+
+		$ar_formdata = array();
+		foreach($serialized_form as $key_form_data=> $value_form_data){
+
+			$value_form_data['name'] = str_replace('[','', $value_form_data['name']);
+			$value_form_data['name'] = str_replace(']','', $value_form_data['name']);
+
+			if(array_key_exists($value_form_data['name'], $ar_formdata)){
+
+				$ar_formdata[$value_form_data['name']].=", ".$value_form_data['value'];
+			}
+			else{
+
+				$ar_formdata[$value_form_data['name']]  =  $value_form_data['value'];
+			}
+
+		}
+	}
+	return $ar_formdata;
+}
+
+
+
 
 
 /**
@@ -1099,4 +1138,8 @@ function show_json(){
     );
     
     return $json; 
+ 
+  
+ 
 }
+ 
