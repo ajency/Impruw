@@ -6,7 +6,7 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 	
 	var SiteModel = Backbone.Model.extend({
 		
-		url : AJAXURL + '?action=get_site_data',
+		url : AJAXURL + '?action=get_site_data_ajx',
 		
 		siteProfileUrl : AJAXURL + '?action=save_site_data_ajx',
 
@@ -29,8 +29,34 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 			
 		},
 		
-		saveSiteProfile :function(args){
+		getSiteProfile : function(){
 			
+			_self = this;
+			//console.log('getsiteprofile')
+			//console.log(this.get('id'))
+			 var data = {
+				//	action: 'save_admissiondetails',
+					
+					siteprofile_id :_self.get('id'),
+				 	 
+				};
+			
+			$.post(this.url,data,function(response){
+				console.log(response);
+				if(response.code=='OK'){
+					_self.set(response.siteProfileData)
+					 
+				}
+				else{
+					console.log("Error fetching site profile")
+				}
+			}) 
+			
+			
+		},
+		
+		saveSiteProfile :function(args){
+			var _self = this;
 			alert("model save sitepofile")
 			var data = {
 					//action: 'save_admissiondetails',
@@ -45,8 +71,11 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 			 
 			$.post(this.siteProfileUrl,data,function(response){
 					if(response.code=='OK'){
+						
 						console.log("status ok ")
-						window.impruwSite = response.site_data;
+						
+						_self.set(response.site_data)
+						
 						console.log(window.impruwSite);
 						  
 					}
@@ -58,6 +87,7 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 				
 				
 				}
+			
 			)
 			
 			

@@ -942,7 +942,7 @@ function agc_register_parent_site_menus(){
  /**
   * Get site details
   */
- function get_site_data(){
+/* function get_site_data(){
  
     $blogdetails = get_blog_details(get_current_blog_id());
     header('Content-Type: application/json');
@@ -952,7 +952,45 @@ function agc_register_parent_site_menus(){
  }
  add_action('wp_ajax_get_site_data','get_site_data');
  add_action('wp_ajax_nopriv_get_site_data','get_site_data');
-
+*/
+ 
+ 
+ 
+ 
+ 
+ /**
+  * Get site details
+  * 
+  */
+ function get_site_data_ajx(){
+ 
+	$site_id = $_POST['siteprofile_id'];
+ 	
+	$site_profile_details = get_site_data($site_id);
+	
+ 	header('Content-Type: application/json');
+ 	echo json_encode(array('code' => 'OK', 'siteProfileData'=> $site_profile_details) );
+ 	die();
+ 
+ }
+ add_action('wp_ajax_get_site_data_ajx','get_site_data_ajx');
+ add_action('wp_ajax_nopriv_get_site_data_ajx','get_site_data_ajx');
+ 
+ 
+ 
+/**
+ *  Function to get site details
+ * @param int site id $site_id
+ * @return array containing site profile data
+ */ 
+function get_site_data($site_id){
+	
+	$site = new SiteModel($site_id);
+	$site_profile_data = $site->get_site_profile(); 
+	
+	return $site_profile_data;
+	  
+}
  
  
  
