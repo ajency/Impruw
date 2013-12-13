@@ -60,6 +60,7 @@ define(['underscore', 'jquery', 'backbone','leftview','sitemodel'],
 					
 					this.$el.find('.aj-imp-right').html(this[view].$el);
 					
+					
 				}
 				
 

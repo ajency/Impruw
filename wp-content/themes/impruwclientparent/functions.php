@@ -597,26 +597,6 @@ function agc_register_parent_site_menus(){
  add_action('init', 'agc_register_parent_site_menus');
 
 
- 
- 
-
-
- 
- 
- 
-  
- 
- 
- 
- 
-  
-
- 
- 
- 
-  
-
-
 /**
  * Function to return the actual content markup
  */

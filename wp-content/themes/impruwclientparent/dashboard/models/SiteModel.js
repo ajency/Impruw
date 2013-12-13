@@ -14,10 +14,16 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 		getSiteProfileEmails : function(args){
 			var emails;
 			
-			emails = args.split(',');
+			if(_.isUndefined(this.get('email')))
+				return [];
 			
-			return emails;
 			
+			emails = this.get('email').split(',');
+			
+			if(_.isArray(emails))				
+				return emails;
+				
+			return [];
 		},
 		
 		getSiteProfilePhoneNos : function(args){
@@ -29,7 +35,7 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 			
 		},
 		
-		getSiteProfile : function(){
+		getSiteProfile : function(data , fn){
 			
 			_self = this;
 			//console.log('getsiteprofile')
@@ -41,21 +47,26 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 				 	 
 				};
 			
-			$.post(this.url,data,function(response){
+			$.get(this.url,data,function(response){
 				console.log(response);
-				if(response.code=='OK'){
-					_self.set(response.siteProfileData)
-					 
+				if(response.code === 'OK'){
+					if(_.isObject(response.siteProfileData))	
+						_self.set(response.siteProfileData);
+					
+					
+					
 				}
 				else{
-					console.log("Error fetching site profile")
+					console.log("Error fetching site profile");
+					
+					
 				}
-			}) 
+			}); 
 			
 			
 		},
 		
-		saveSiteProfile :function(args){
+		saveSiteProfile :function(args,  fn){
 			var _self = this;
 			alert("model save sitepofile")
 			var data = {
@@ -66,30 +77,30 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 				siteprofile_social :$('#form-siteprofile-social').serializeArray(),
 				siteprofile_meta :$('#form-siteprofile-meta').serializeArray(),
 				 	 
-				};
+			};
 			 
 			 
-			$.post(this.siteProfileUrl,data,function(response){
-					if(response.code=='OK'){
+			$.post(	this.siteProfileUrl,
+					data,
+					function(response){
+						if(response.code=='OK'){
 						
-						console.log("status ok ")
-						
-						_self.set(response.site_data)
-						
-						console.log(window.impruwSite);
-						  
-					}
-						
-					else{
-						console.log("status failed")
-						
-					}
+							console.log(fn);
+							
+							_self.set(response.site_data)
+							
+							console.log(window.impruwSite);
+							if(!_.isUndefined(fn.success) && _.isFunction(fn.success))
+								fn.success(response);  
+						}
+							
+						else{
+							console.log("status failed")
+							if(!_.isUndefined(fn.failure) && _.isFunction(fn.failure))
+								fn.failure(response);
+						}
 				
-				
-				}
-			
-			)
-			
+					});			
 			
 		}
 	

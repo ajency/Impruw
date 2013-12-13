@@ -8,7 +8,7 @@
 				</header>
 				<div class="row">
 					<div class="aj-imp-dash-content col-md-12">
-						<div class="alert alert-success">
+						<div class="alert alert-success" id="siteprofilesave_status"  style="display:none;">
 							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 							Your details have been successfully saved.
 						</div>
@@ -96,14 +96,13 @@
 								<div class="form-group add-another">
 									<label for="inputEmail1" class="col-sm-2 control-label">Email</label>
 									<div class="col-sm-4 col-sm-offset-2">
-									<%   if(!_.isUndefined(site.get('email'))) {  
+									<%   if(site.has('email')) {  
 									
-											var email_ar = site.getSiteProfileEmails(site.get('email')) ; 
-											for(j=0;j<email_ar.length;j++) { %>
+											_.each(site.getSiteProfileEmails(), function(email, index) { %>
 											
-											<span class="div_email" ><input type="email" class="form-control"   name="email[]"  placeholder="youremail@site.com"  value="<%= email_ar[j] %>">  <span class="del_email" style="display:<% if(j<=0) { %>none<%} else { %> inline-block <% } %>;">Delete</span> </span>
+											<span class="div_email" ><input type="email" class="form-control"   name="email[]"  placeholder="youremail@site.com"  value="<%= email %>">  <span class="del_email" style="display:<% if(j<=0) { %>none<%} else { %> inline-block <% } %>;">Delete</span> </span>
 											
-											<% }
+											<% });
 									}
 									else{
 									%>
@@ -142,14 +141,7 @@
 
 								<div class="form-group">
 									
-									
-								
-								
-									
-									
 								</div>
-								
-							
 							</form>
 						</div>
 						<div class="scroll-indicator-container" id="scr3">
@@ -292,6 +284,7 @@
 							<form class="form-horizontal clearfix">
 								<div class="affix-show">You have unsaved changes!</div>
 								<button type="button" id="btn_savesitedetails"  name="btn_savesitedetails" class="btn btn-wide aj-imp-submit">Save</button>
+								<img src ='<%=THEMEURL%>/images/loader.gif' width="38" height="30"  id="siteprofilesubmitm_loader" style="display:none"/>
 							</form>
 						</div>
 					</div>

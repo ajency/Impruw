@@ -12,15 +12,20 @@ define([ 'underscore', 'jquery', 'backbone',
 		id : 'site-profile',
 
 		events : {
-			'click #btn_savesitedetails' : 'saveProfile',
-			'click #add_another_email' : 'addAnotherEmailElement',
-			'click .del_email' : 'delEmailElement',
-			'click #add_another_phone' : 'addAnotherPhoneElement',
-			'click .del_phone' : 'delPhoneElement'
+			'click #btn_savesitedetails'	: 'saveProfile',
+			'click #add_another_email' 		: 'addAnotherEmailElement',
+			'click .del_email'				: 'delEmailElement',
+			'click #add_another_phone' 		: 'addAnotherPhoneElement',
+			'click .del_phone' 				: 'delPhoneElement'
 		},
 
 		initialize : function(args) {
-
+			
+			_.bindAll(this , 'saveProfileSuccess', 'saveProfileFailure');
+				
+			if(_.isUndefined(args.site))
+				this.showInvalidCallView();
+			
 			this.site = args.site;
 
 		},
@@ -44,9 +49,43 @@ define([ 'underscore', 'jquery', 'backbone',
 		/**
 		 * Function to save site profile
 		 */
-		saveProfile : function() {
+		saveProfile : function(evt) {
 
-			window.impruwSite.saveSiteProfile();
+			$(evt.target).next().show();
+			
+			var self = this;
+			
+			var formGeneral = this.$el.find('#cxfvxcvxc');
+			var data = {};
+			$siteProfileSaveStatus = window.impruwSite.saveSiteProfile(data, {
+																			success : self.saveProfileSuccess,
+																			failure : self.saveProfileFailure
+																		});
+			$('#siteprofilesubmitm_loader').hide()
+			if($siteProfileSaveStatus){
+				$("#siteprofilesave_status").removeClass('has-error').addClass('has-success')
+				$("#siteprofilesave_status").show();
+				$.scrollTo( '#siteprofilesave_status', 800, {easing:'elasout'} );
+			}
+			else{
+				
+				$("#siteprofilesave_status").removeClass('has-success').addClass('has-error')
+				$("#siteprofilesave_status").show();
+			  
+				$('html, body').animate({
+			        scrollTop: $("#siteprofilesave_status").offset().top
+			    }, 2000);
+			}
+			
+		},
+		
+		saveProfileSuccess : function(response){
+			//uipdate with message
+			console.log(response);
+		},
+		
+		saveProfileFailure : function(response){
+			console.log("Failed");
 		},
 
 		/**
