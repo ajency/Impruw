@@ -96,19 +96,16 @@
 								<div class="form-group add-another">
 									<label for="inputEmail1" class="col-sm-2 control-label">Email</label>
 									<div class="col-sm-4 col-sm-offset-2">
-									<% if(site.get('email')!=undefined){  console.log('a') 
+									<%   if(!_.isUndefined(site.get('email'))) {  
 									
-											var email_ar = site.get('email').split(','); 
+											var email_ar = site.getSiteProfileEmails(site.get('email')) ; 
 											for(j=0;j<email_ar.length;j++) { %>
-											
 											
 											<span class="div_email" ><input type="email" class="form-control"   name="email[]"  placeholder="youremail@site.com"  value="<%= email_ar[j] %>">  <span class="del_email" style="display:<% if(j<=0) { %>none<%} else { %> inline-block <% } %>;">Delete</span> </span>
 											
-											
 											<% }
 									}
-									else
-									{
+									else{
 									%>
 										<span class="div_email" ><input type="email" class="form-control"   name="email[]"  placeholder="youremail@site.com"  value="">  <span class="del_email" style="display: none ;">Delete</span> </span>
 									<%
@@ -122,14 +119,19 @@
 								
 									<label for="inputPhone1" class="col-sm-2 control-label label-2">Phone</label>
 									<div class="col-sm-4 col-sm-offset-2">
-									<% if(site.get('phone')!=undefined){
+									<%  if(!_.isUndefined(site.get('phone'))) {
 												
-										 var phone_ar = site.get('phone').split(',');   for(k=0;k<phone_ar.length;k++) { %> 
+										 var phone_ar = site.getSiteProfilePhoneNos(site.get('phone'));
+										 
+										 for(k=0;k<phone_ar.length;k++) { %> 
+										 
 										 		<span class="div_phone" ><input type="text" class="form-control"   name="phone[]" data-mask="99-999-999" placeholder="99-888-777"  value="<%= phone_ar[k] %>"> <span class="del_phone" style="display: <% if(k<=0) { %> none; <% } else { %> inline-block <% } %>;">Delete</span> </span>
+									
 									<% 			}			
 										
 										}
 										else { %>
+												
 												<span class="div_phone" ><input type="text" class="form-control"   name="phone[]" data-mask="99-999-999" placeholder="99-888-777"  value=""> <span class="del_phone" style="display:none;">Delete</span> </span>
 										<% }							 
 									
