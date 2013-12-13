@@ -51,6 +51,15 @@ define(['backbone','jquery','underscore', 'global'],
                    
                    return ele;
                 },
+
+                /**
+                 * retunrs the JSOn
+                 */
+                generateJSON : function(){
+
+                  return this.returnJSON();
+
+                },
                 
                 /**
                  * 
@@ -444,6 +453,13 @@ define(['backbone','jquery','underscore', 'global'],
 
                     if(!_.isUndefined(config.extraClasses))
                         this.extraClasses  = config.extraClasses;
+
+                    if(!_.isUndefined(config.id))
+                        this.id  = config.id;
+                    else
+                        this.id = this.type + '-' + global.generateRandomId();
+
+                    this.$el.attr('id' , this.id);  
 
                 },
 

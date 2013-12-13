@@ -76,6 +76,8 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                             }
                         });
                    });
+
+                  
                    
                 },
                 
@@ -645,7 +647,7 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                                                                 
                                                             }
 
-                                            }).disableSelection(); 
+                                            });//.disableSelection(); 
                                                                         
         				},
 
