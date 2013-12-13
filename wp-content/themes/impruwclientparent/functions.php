@@ -677,9 +677,11 @@ add_action('wp_ajax_nopriv_get_site_data','get_site_data');
  *
  */
 function get_site_data_ajx(){
-
-	$site_id = $_POST['siteprofile_id'];
-
+	 
+	 
+	
+	$site_id = $_GET['siteprofile_id'];
+	
 	$site_profile_details = get_site_data($site_id);
 
 	header('Content-Type: application/json');

@@ -55,13 +55,21 @@ define([ 'underscore', 'jquery', 'backbone',
 			
 			var self = this;
 			
-			var formGeneral = this.$el.find('#cxfvxcvxc');
-			var data = {};
+			var formBusiness = this.$el.find('#form-siteprofile-business').serializeArray();
+			
+			var formSocial = this.$el.find('#form-siteprofile-social').serializeArray();
+			
+			 
+			var data = { 'business'  : formBusiness,
+						 'social'	 :  formSocial
+							
+						}; 
 			$siteProfileSaveStatus = window.impruwSite.saveSiteProfile(data, {
 																			success : self.saveProfileSuccess,
 																			failure : self.saveProfileFailure
 																		});
-			$('#siteprofilesubmitm_loader').hide()
+			
+			$(event.target).next().hide();
 			if($siteProfileSaveStatus){
 				$("#siteprofilesave_status").removeClass('has-error').addClass('has-success')
 				$("#siteprofilesave_status").show();

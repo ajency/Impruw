@@ -100,7 +100,7 @@
 									
 											_.each(site.getSiteProfileEmails(), function(email, index) { %>
 											
-											<span class="div_email" ><input type="email" class="form-control"   name="email[]"  placeholder="youremail@site.com"  value="<%= email %>">  <span class="del_email" style="display:<% if(j<=0) { %>none<%} else { %> inline-block <% } %>;">Delete</span> </span>
+											<span class="div_email" ><input type="email" class="form-control"   name="email[]"  placeholder="youremail@site.com"  value="<%= email %>">  <span class="del_email" style="display:<% if(index<=0) { %>none<%} else { %> inline-block <% } %>;">Delete</span> </span>
 											
 											<% });
 									}
@@ -118,15 +118,12 @@
 								
 									<label for="inputPhone1" class="col-sm-2 control-label label-2">Phone</label>
 									<div class="col-sm-4 col-sm-offset-2">
-									<%  if(!_.isUndefined(site.get('phone'))) {
-												
-										 var phone_ar = site.getSiteProfilePhoneNos(site.get('phone'));
-										 
-										 for(k=0;k<phone_ar.length;k++) { %> 
-										 
-										 		<span class="div_phone" ><input type="text" class="form-control"   name="phone[]" data-mask="99-999-999" placeholder="99-888-777"  value="<%= phone_ar[k] %>"> <span class="del_phone" style="display: <% if(k<=0) { %> none; <% } else { %> inline-block <% } %>;">Delete</span> </span>
+									<% if(site.has('phone')){
 									
-									<% 			}			
+											_.each(site.getSiteProfilePhoneNos(),function(phone,index){
+									 %>  
+										 		<span class="div_phone" ><input type="text" class="form-control"   name="phone[]" data-mask="99-999-999" placeholder="99-888-777"  value="<%= phone %>"> <span class="del_phone" style="display: <% if(index<=0) { %> none; <% } else { %> inline-block <% } %>;">Delete</span> </span>									
+									<% 		}); 			
 										
 										}
 										else { %>
