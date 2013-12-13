@@ -43,9 +43,7 @@ class MenuElement extends Element {
      */
     function __construct($config) {
         
-        if(isset($config['extraClasses'])){
-            $this->extra_classes = $config['extraClasses'];
-        }
+        parent::__construct($config);
         
         if(isset($config['data'])){
             $this->data   = $config['data'];

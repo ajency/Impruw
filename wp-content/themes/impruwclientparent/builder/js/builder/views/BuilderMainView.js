@@ -74,7 +74,8 @@ define(['underscore', 'jquery', 'backbone', 'builder/views/BuilderEditorView'],
                    
                    	//setInterval(function(){
 	                   
-	                 self.builder.generateJSON(evt);
+	                 self.builder.generateJSON();
+	                 self.builder.sendJSONToServer(evt);
 
     				//},000);               
                 },
@@ -114,9 +115,9 @@ define(['underscore', 'jquery', 'backbone', 'builder/views/BuilderEditorView'],
 				/**
 				* trigger the mode siwtcher for builder editor
 				*/
-				switchMode : function(){
+				switchMode : function(evt){
 					
-					this.builder.switchMode();
+					this.builder.switchMode(evt);
 
 				},
                 
