@@ -46,11 +46,7 @@ define(['builder/views/elements/BuilderElement', 'global'],
                     
                     this.parent = options.parent;
                  
-                    this.id = 'container-' + global.generateRandomId();
-                    
-                    this.$el.attr('id', this.id);
-
-                    //drop mode
+                   //drop mode
                     if(_.isUndefined(options.config)){
                         //
                     }

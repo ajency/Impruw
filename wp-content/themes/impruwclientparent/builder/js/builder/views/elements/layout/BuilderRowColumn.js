@@ -90,10 +90,7 @@ define(['builder/views/elements/BuilderElement', 'global'],
                         
                         _.each(self.getElements(), function(element, index){
                               
-                              if(element.is('row') || element.is('container'))
-                                 elements.push(element.generateJSON());
-                              else
-                                 elements.push(element.returnJSON());
+                            elements.push(element.generateJSON());
                              
                         });
                            
