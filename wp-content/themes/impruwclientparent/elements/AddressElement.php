@@ -45,10 +45,7 @@ class AddressElement extends Element {
      */
     function __construct($config) {
         
-        if(isset($config['extraClasses'])){
-            $this->extra_classes = $config['extraClasses'];
-        }
-        
+        parent::__construct($config);
         
         $this->markup           = $this->generate_markup();
     }

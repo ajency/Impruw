@@ -47,18 +47,13 @@ class BuilderRowColumn extends Element {
      * @param array $config
      */
     function __construct($config) {
-        
-        if(isset($config['elements'])){
-            $this->elements     = $config['elements'];
-        }
-        
-        if(isset($config['extraClasses'])){
-            $this->extra_classes = $config['extraClasses'];
-        }
+
+        parent::__construct($config);    
         
         if(isset($config['colClass'])){
             $this->col_class     = $config['colClass'];
         }
+
 
     }
     

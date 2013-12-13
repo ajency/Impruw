@@ -85,6 +85,26 @@ class Element {
      * @var String 
      */
     var $data  =  array();
+
+    /**
+     * Parent class constructor
+     */
+    function __construct($config){
+
+        if(isset($config['elements'])){
+            $this->elements     = $config['elements'];
+        }
+        
+        if(isset($config['extraClasses'])){
+            $this->extra_classes = $config['extraClasses'];
+        }
+
+        if(isset($config['id'])){
+            $this->id = $config['id'];
+        }
+
+        
+    }
     
     
     /**
@@ -107,6 +127,9 @@ class Element {
      * @return string - random generated ID
      */
     function generate_random_ID(){
+
+        if(isset($this->id))
+            return 'content-'.$this->id;
         
         return $this->type . '-' . rand(100000, 999999);
         

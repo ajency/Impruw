@@ -41,9 +41,7 @@ class TitleElement extends Element {
      */
     function __construct($config) {
         
-        if(isset($config['extraClasses'])){
-            $this->extra_classes     = $config['extraClasses'];
-        }
+        parent::__construct($config);
         
         if(isset($config['content'])){
             $this->content          = $config['content'];
@@ -60,7 +58,7 @@ class TitleElement extends Element {
      */
     function generate_markup(){
         
-        $html       = $this->get_open_tag();
+        $html       = $this->get_open_tag(array('contenteditable' => 'true'));
         
         $html       .=  empty($this->content) ? 'Enter your title her' : $this->content;
         

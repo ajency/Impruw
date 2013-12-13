@@ -42,6 +42,7 @@ define(['backbone','jquery','underscore', 'global'],
                 returnJSON : function(){
                    
                    var ele =  {
+                                 id             : this.id,  
                                  type           : this.getType(),
                                  draggable      : this.isDraggable(),
                                  editable       : this.isEditable(),
@@ -69,6 +70,9 @@ define(['backbone','jquery','underscore', 'global'],
                      evt.preventDefault();
                      
                      evt.stopPropagation(); //!important
+
+                     if(window.editorMode === 'content')
+                        return;
                      
                      if(this.$el.next('.popover').hasClass('in')){
                         
