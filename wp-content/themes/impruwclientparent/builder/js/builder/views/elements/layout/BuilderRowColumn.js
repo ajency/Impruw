@@ -242,7 +242,7 @@ define(['builder/views/elements/BuilderElement', 'global'],
                                         sort        : self.handleElementOverState,
                                         activate    : self.holdCurrentColRef,
                                         stop        : function(){self.rearrangeElementOrder();}    
-                                   }).disableSelection(); 
+                                   });//.disableSelection(); 
                 },
                         
                 /**

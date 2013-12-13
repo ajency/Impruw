@@ -645,7 +645,7 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                                                                 
                                                             }
 
-                                            }).disableSelection(); 
+                                            });//.disableSelection(); 
                                                                         
         				},
 
