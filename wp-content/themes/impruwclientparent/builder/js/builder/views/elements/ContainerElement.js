@@ -48,6 +48,8 @@ define(['builder/views/elements/BuilderElement', 'global'],
                  
                    //drop mode
                     if(_.isUndefined(options.config)){
+                        this.id = this.type + '-' + global.generateRandomId();
+                        this.$el.attr('id' , this.id); 
                         //
                     }
                     else{

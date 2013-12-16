@@ -59,6 +59,8 @@ define(['builder/views/elements/BuilderElement', 'global'],
                     if(_.isUndefined(options.config)){
 
                         //this.generateDropMarkup();
+                        this.id = this.type + '-' + global.generateRandomId();
+                        this.$el.attr('id' , this.id); 
                     }
                     else{
                         this.setProperties(options.config);
@@ -141,7 +143,7 @@ define(['builder/views/elements/BuilderElement', 'global'],
                         else{
                            self.$el.append(ele.generateMarkup());
                         }
-                        
+
                         //self.elements.push(ele); !imporatnt: .push failed to maintain scope
                         self.elements = self.elements.concat([ele]); //concat works!!!
 

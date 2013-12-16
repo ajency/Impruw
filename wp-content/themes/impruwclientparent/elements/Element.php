@@ -185,6 +185,7 @@ class Element {
     
     /**
      * Creates the open tag for the element
+     * @param array extar attributes for the element
      */
     function get_open_tag($args = array()){
         

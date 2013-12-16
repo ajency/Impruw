@@ -27,7 +27,7 @@ class TextElement extends Element {
      * Default content for element
      * @var String 
      */
-    var $content    = 'dfsdfsdfsd';
+    var $content    = '';
     
    /**
      * The config to create a row element
@@ -38,7 +38,7 @@ class TextElement extends Element {
         parent::__construct($config);
         
         if(isset($config['content'])){
-            $this->content          = $config['content'];
+            $this->content          = trim($config['content']);
         }
         
         $this->markup               = $this->generate_markup();

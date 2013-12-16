@@ -419,7 +419,8 @@ define(['backbone','jquery','underscore', 'global'],
                   */
                 setEditHandlers : function(){
 
-                  this.$el.append('<div class="aj-imp-delete-btn">\
+                  if(!this.is('column'))
+                    this.$el.append('<div class="aj-imp-delete-btn">\
                                             <span title="Delete">\
                                                 &times;\
                                             </span>\
@@ -454,6 +455,7 @@ define(['backbone','jquery','underscore', 'global'],
                     if(!_.isUndefined(config.extraClasses))
                         this.extraClasses  = config.extraClasses;
 
+                    
                     if(!_.isUndefined(config.id))
                         this.id  = config.id;
                     else
@@ -507,25 +509,25 @@ define(['backbone','jquery','underscore', 'global'],
                     
                 },
 
-				/**
+				        /**
                  * Generates the Control markup to drop
                  * @returns {unresolved}
                  */
-				generateMarkup : function(){
+				        generateMarkup : function(){
 					
                     if(_.isUndefined(this.template))
                         return '';
 
                     var html = _.template(this.template);
 
-					this.$el.html(html);
+					           this.$el.html(html);
                     
                     this.setContentClass();
                     
                     this.setHandlers();
                     
-					return this.$el;
-				},
+          					return this.$el;
+          				},
 
                 /**
                 * returns the content mode markup

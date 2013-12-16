@@ -23,6 +23,8 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                 
                 type        : 'editor',
 
+                contentLoaded : false,
+
                 themeConfig : {},
                 
                 events      : {
@@ -144,21 +146,29 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                  */
                 sendJSONToServer : function(evt){
 
-                    $(evt.target).text('Saving....');
+                    var ozText = $(evt.target).text();
 
-                    $.post(AJAXURL,
-                         {
+                    $(evt.target).text('Please wait....');
+
+                    var _data = {
                             action  : 'save_json_structure', 
                             json    : this.json
-                         },
+                        };
+
+                    if($(evt.target).hasClass('publish')){
+                        _data = {
+                            action  : 'publish_page',
+                            pageId  : 2,
+                            json    : this.json
+                        };
+
+                    }
+
+                    $.post(AJAXURL,
+                         _data,
                          function(response){
                             
-                            $(evt.target).text('Saved');
-                            setTimeout(function(){
-
-                              $(evt.target).hide().text('Generate JSON').fadeIn('slow');
-
-                            },1000);
+                            $(evt.target).hide().text(ozText).fadeIn('slow');
 
                          },'json');
                    
@@ -355,23 +365,29 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                                 
                       var self = this;
 
+                      //return if content is alredy loaded once
+                      if(this.contentLoaded === true)
+                          return;
+
                       var templatePath = '';
 
     				          $.get(AJAXURL,
                               {
-                                action : 'get_saved_layout',
-                                id     : 2
+                                action      : 'get_saved_layout',
+                                pageId      : 2
                               }, 
                               function(response){
 
                                 if( !_.isUndefined(response.header) && response.header.elements.length > 0)
                                     self.addElement( response.header.elements, 0, 'header');
 
-                                // if( !_.isUndefined(response.page) && response.page.elements.length > 0)
-                                //     self.addElement( response.page.elements, 0, 'content');  
+                                if( !_.isUndefined(response.page) && response.page.elements.length > 0)
+                                    self.addElement( response.page.elements, 0, 'content');  
                                 
-                                // if( !_.isUndefined(response.footer) && response.footer.elements.length > 0)
-                                //     self.addElement( response.footer.elements, 0, 'footer');   
+                                if( !_.isUndefined(response.footer) && response.footer.elements.length > 0)
+                                    self.addElement( response.footer.elements, 0, 'footer');  
+
+                                this.contentLoaded = true;     
 
                                 self.enableDragDrop(); 
 
@@ -534,10 +550,11 @@ define(['underscore', 'jquery', 'backbone', 'global'],
 
                     var _json = this.json;
 
-                    $.get(AJAXURL,
+                    $.post(AJAXURL,
                           {
                               action : 'get_content_markup',
-                              json   : _json
+                              json   : _json,
+                              pageId : 2
                           },
                           function(response){
 
@@ -550,15 +567,13 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                                     
                                   });
 
-                                  self.removeSwitchLoader();
-
-                                  window.editorMode = 'content';
-
                                   self.makeEditable();
                               }
                               else{
-                                  $(evt.target).click();
+                                  //$(evt.target).click();
                               }
+                              window.editorMode = 'content';
+                              self.removeSwitchLoader();
 
                           },'json');
 

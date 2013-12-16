@@ -42,11 +42,13 @@ define(['builder/views/elements/BuilderElement','text!builder/templates/elements
 
                     //drop mode
                     if(_.isUndefined(options.config)){
+                        this.id = this.type + '-' + global.generateRandomId();
+                        this.$el.attr('id' , this.id); 
                     }
                     else{
+
                         this.setProperties(options.config);
-                        if(!_.isUndefined(options.config.className))
-                           this.contentClasses = options.config.className;
+                        
                     }
 
                     this.setParent(options.parent);

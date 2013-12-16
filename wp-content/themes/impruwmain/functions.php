@@ -354,11 +354,11 @@ function register_required_scripts() {
 	        }
         }
         wp_localize_script('jquery', 'ajaxurl', admin_url( 'admin-ajax.php' )	);
-	wp_localize_script('jquery', 'template_path', get_template_directory()	);
+	    wp_localize_script('jquery', 'template_path', get_template_directory()	);
         
         wp_localize_script('jquery', 'RESPONSE', array(
                                                     'CODE' => array(
-                                                        'OK' => 'OK',
+                                                        'OK'    => 'OK',
                                                         'ERROR' => 'ERROR'
                                                     )
                                                  ));
