@@ -76,9 +76,8 @@ define([ 'underscore', 'jquery', 'backbone',
 		
 		saveProfileSuccess : function(response){
 			//uipdate with message
-			console.log("save success")
-			
-			console.log(response);
+			//console.log("save success")			
+			//console.log(response);
 			 $(event.target).offsetParent().find('#siteprofilesave_status').removeClass('has-error').addClass('has-success')
 			 $(event.target).offsetParent().find('#siteprofilesave_status').show()
 			 $('html, body').animate({
@@ -87,7 +86,7 @@ define([ 'underscore', 'jquery', 'backbone',
 		},
 		
 		saveProfileFailure : function(response){
-			console.log("Failed");
+			//console.log("Failed");
 			$(event.target).offsetParent().find('#siteprofilesave_status').removeClass('has-success').addClass('has-error');
 			$(event.target).offsetParent().find('#siteprofilesave_status').show();
 			$('html, body').animate({
@@ -98,10 +97,12 @@ define([ 'underscore', 'jquery', 'backbone',
 		/**
 		 * Function to add additional email element to site profile form
 		 */
-		addAnotherEmailElement : function() {
+		addAnotherEmailElement : function(e) {
+			
+			console.log($(event.target).offsetParent())
 
-			$('.div_email:last').clone().find("input").val("").end().appendTo(
-					'.div_email:last');
+			 $('.div_email:last').clone().find("input").val("").end().appendTo(
+			 	'.div_email:last');
 			$('.div_email:last').find(".del_email").show();
 
 		},

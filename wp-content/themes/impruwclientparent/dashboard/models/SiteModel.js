@@ -72,14 +72,11 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 				
 				console.log(response);
 				if(response.code === 'OK'){
-				//	if(_.isObject(response.siteProfileData))	
+					if(_.isObject(response.siteProfileData))	
 						_self.set(response.siteProfileData);
-				//	if(!_.isUndefined(fn.success) && _.isFunction(fn.success))
+					if(!_.isUndefined(fn.success) && _.isFunction(fn.success))
 						fn.success(response);  
- 
- 
-					
-					
+ 					
 				}
 				else{
 					fn.error(response); 
@@ -96,7 +93,7 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 			console.log('save profile')
 			console.log(args)
 			var _self = this;
-			alert("model save sitepofile")
+			 
 			
 			var data = {	siteprofile_business :args.business,
  
