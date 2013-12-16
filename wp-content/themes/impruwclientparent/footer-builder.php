@@ -67,9 +67,9 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="#" class="drag builder-element" data-element="SocialElement">
                                 <div class="aj-imp-builder-icon" data-icon="&#xf119;"></div>
-                                <div class="aj-imp-builder-title">Slideshow</div>
+                                <div class="aj-imp-builder-title">Social</div>
                             </a>
                         </li>
                         <li>

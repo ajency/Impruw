@@ -36,12 +36,16 @@ define(['builder/views/elements/BuilderElement','text!builder/templates/elements
                     
                     //_.bindAll(this, 'rowMouseEnter','rowMouseLeave');
                     
-                    this.parent = options.parent;
-                 
-                    this.id = this.type + '-' + global.generateRandomId();
+                    //drop mode
+                    if(_.isUndefined(options.config)){
+                        this.id = this.type + '-' + global.generateRandomId();
+                        this.$el.attr('id' , this.id); 
+                    }
+                    else{
+                        this.setProperties(options.config);
+                    }
                     
-                    this.$el.attr('id', this.id);
-                    
+                    this.setParent(options.parent);
                     this.setContextMenu();
                     
                 },

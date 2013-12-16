@@ -34,7 +34,7 @@ require.config({
         sitemodel			: 'models/SiteModel',
         usermodel			: 'models/UserModel',
         //templates
-        siteprofileviewtpl 	: 'templates/siteprofile/SiteProfileViewTpl',
+        siteprofileviewtpl 	: 'templates/siteprofile/SiteProfileViewTpl'
         
     },
     waitSeconds: 15,
@@ -76,15 +76,19 @@ require(['backbone',
 
         $(document).ready(function(){   
         	 
-			window.impruwSite = new SiteModel(SITEDATA)
-			window.impruwUser = new UserModel(USERDATA)				
+			window.impruwSite = new SiteModel(SITEID);
+			window.impruwUser = new UserModel(USERDATA);
+			/*window.impruwSite.getSiteProfile({
+				success:function(){
+					dashboard = new Router();
+				}
+			});*/
+			/*console.log("site profile data init")
+			console.log(window.impruwSite)*/
 			dashboard = new Router();
             Backbone.history.start();
             
-            $('#btn_savesitedetails').on("click",function(){
-            	alert("site update")
-            	
-            })
+           
             
         });
 

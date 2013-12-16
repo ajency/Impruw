@@ -9,9 +9,9 @@ define(['underscore', 'jquery', 'backbone', 'global'],
 
 			var BuilderEditorView = Backbone.View.extend({
 
-				el          : '#aj-imp-builder-drag-drop',
+				        el          : '#aj-imp-builder-drag-drop',
 
-				className   : 'container',
+				        className   : 'container',
                 
                 elements    :   {
                                     header : [],
@@ -23,32 +23,31 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                 
                 type        : 'editor',
 
+                contentLoaded : false,
+
                 themeConfig : {},
                 
                 events      : {
                      'click header > .popover .updateProperties': 'updateProperties'
                 },
 
-				initialize  : function(option){
-                        
-                    _.bindAll(this, 'enableDropSort','getRows','is','holdOnWhileSwitching', 'removeSwitchLoader','switchMode',
-                                    'switchToLayout', 'handleRowDrop', 'switchToContent','generateActualMarkup', 'buildRowMarkup', 'buildColumnMarkup',
-                                    'getClasses');    
+        				initialize  : function(option){
+                                
+                            _.bindAll(this, 'enableDropSort','getRows','is','holdOnWhileSwitching', 'removeSwitchLoader','switchMode',
+                                            'switchToLayout', 'handleRowDrop', 'switchToContent','generateActualMarkup', 
+                                            'buildRowMarkup', 'buildColumnMarkup', 'holdCurrentColRef','getClasses');    
 
-                    this.themeConfig = option.themeConfig;
+                            this.themeConfig = option.themeConfig;
 
-				},
+        				},
                 
                 /**
                  * 
                  * @returns {undefined}
                  */
-                generateJSON : function(evt){
+                generateJSON : function(){
                    
                    var self = this;
-                   
-                   if(this.rows.length === 0)
-                      return false;
                    
                    this.json =   {
                                     header : {
@@ -62,23 +61,25 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                                     }
                                  };
                    
-                   _.each(this.rows, function(row, index){
+                   _.each(this.elements, function(section, index){
+
+                        _.each(section, function(row, index){
                         
-                        var json = row.generateJSON();
-                        
-                        if(row.$el.closest('.layout-header').length === 1){
-                           self.json.header.elements.push(json);
-                        }
-                        if(row.$el.closest('.layout-content').length === 1){
-                           self.json.page.elements.push(json);
-                        }
-                        if(row.$el.closest('.layout-footer').length === 1){
-                           self.json.footer.elements.push(json);
-                        }
-                      
+                            var json = row.generateJSON();
+                            
+                            if(row.$el.closest('.layout-header').length === 1){
+                               self.json.header.elements.push(json);
+                            }
+                            if(row.$el.closest('.layout-content').length === 1){
+                               self.json.page.elements.push(json);
+                            }
+                            if(row.$el.closest('.layout-footer').length === 1){
+                               self.json.footer.elements.push(json);
+                            }
+                        });
                    });
-                   
-                   this.sendJSONToServer(evt);
+
+                  
                    
                 },
                 
@@ -145,23 +146,29 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                  */
                 sendJSONToServer : function(evt){
 
-                    $(evt.target).text('Saving....');
+                    var ozText = $(evt.target).text();
 
-                    log(this.json);
-                   
-                    $.post(AJAXURL,
-                         {
+                    $(evt.target).text('Please wait....');
+
+                    var _data = {
                             action  : 'save_json_structure', 
                             json    : this.json
-                         },
+                        };
+
+                    if($(evt.target).hasClass('publish')){
+                        _data = {
+                            action  : 'publish_page',
+                            pageId  : 2,
+                            json    : this.json
+                        };
+
+                    }
+
+                    $.post(AJAXURL,
+                         _data,
                          function(response){
                             
-                            $(evt.target).text('Saved');
-                            setTimeout(function(){
-
-                              $(evt.target).hide().text('Generate JSON').fadeIn('slow');
-
-                            },1000);
+                            $(evt.target).hide().text(ozText).fadeIn('slow');
 
                          },'json');
                    
@@ -354,40 +361,47 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                 /**
                 *  Render function for view 
                 */
-    		    render : function(){
-                            
-                  var self = this;
+        		    render : function(){
+                                
+                      var self = this;
 
-                  var templatePath = '';
+                      //return if content is alredy loaded once
+                      if(this.contentLoaded === true)
+                          return;
 
-				    $.get(AJAXURL,
-                         {
-                            action : 'get_saved_layout',
-                            id     : 2
-                         }, function(response){
+                      var templatePath = '';
 
-                            if( !_.isUndefined(response.header) && response.header.elements.length > 0)
-                                self.addElement( response.header.elements, 0, self.$el.find('header'));
+    				          $.get(AJAXURL,
+                              {
+                                action      : 'get_saved_layout',
+                                pageId      : 2
+                              }, 
+                              function(response){
 
-                            if( !_.isUndefined(response.page) && response.page.elements.length > 0)
-                                self.addElement( response.page.elements, 0, self.$el.find('div[data-page="true"]'));  
-                            
-                            if( !_.isUndefined(response.footer) && response.footer.elements.length > 0)
-                                self.addElement( response.footer.elements, 0, self.$el.find('footer'));   
+                                if( !_.isUndefined(response.header) && response.header.elements.length > 0)
+                                    self.addElement( response.header.elements, 0, 'header');
 
-                            self.enableDragDrop(); 
+                                if( !_.isUndefined(response.page) && response.page.elements.length > 0)
+                                    self.addElement( response.page.elements, 0, 'content');  
+                                
+                                if( !_.isUndefined(response.footer) && response.footer.elements.length > 0)
+                                    self.addElement( response.footer.elements, 0, 'footer');  
 
-                         },'json');
+                                this.contentLoaded = true;     
 
-                    //self.enableDragDrop(); 
+                                self.enableDragDrop(); 
 
-					return this;
-    			},
+                             },'json');
+
+                        //self.enableDragDrop(); 
+
+    					         return this;
+          			},
 
                 /**
                 * Adds and element to editor
                 */
-                addElement : function(elements, index, parent){
+                addElement : function(elements, index, section){
 
                     if(index >= elements.length )
                         return;
@@ -406,18 +420,16 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                         
                         var row = new Row({config : element, parent : self});
                        
-                        $(parent).append(row.render().$el);
+                        self.$el.find('.layout-' + section).append(row.render().$el);
 
-                        self.rows.push(row);
+                        self.elements[section].push(row);
 
                         if( !_.isUndefined(element.elements) && element.elements.length > 0)
                             row.addElement(element.elements, 0);
 
-                        
-                         
                         index++;
 
-                        self.addElement(elements, index, parent);
+                        self.addElement(elements, index, section);
 
                     });
                     
@@ -455,18 +467,18 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                  * Switch modes
                  * @returns {undefined}
                  */
-                switchMode : function(){
+                switchMode : function(evt){
 
                     this.holdOnWhileSwitching();
                    
                     if(window.editorMode === 'layout'){
 
-                        this.switchToContent();
+                        this.switchToContent(evt);
                     
                     }
                     else if(window.editorMode === 'content'){
                     
-                        this.switchToLayout();
+                        this.switchToLayout(evt);
                     
                     }
 
@@ -519,7 +531,9 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                 /**
                 *  Switch to content mode
                 */
-                switchToContent : function(){
+                switchToContent : function(evt){
+
+                     var self = this;
                     
                     this.$el.removeClass('aj-imp-builder-layout-mode').addClass('aj-imp-builder-content-mode');
 
@@ -531,11 +545,39 @@ define(['underscore', 'jquery', 'backbone', 'global'],
 
                     $('#controls-drag').fadeOut();
 
-                    this.removeSwitchLoader();
+                    //get latest json
+                    this.generateJSON();
 
-                    window.editorMode = 'content';
+                    var _json = this.json;
 
-                    this.makeEditable();
+                    $.post(AJAXURL,
+                          {
+                              action : 'get_content_markup',
+                              json   : _json,
+                              pageId : 2
+                          },
+                          function(response){
+
+                              if(response.code === 'OK'){
+
+                                  //set HTML
+                                  _.each(response.data, function(val, key){
+
+                                    $('#'+key).children('.content').html(val);
+                                    
+                                  });
+
+                                  self.makeEditable();
+                              }
+                              else{
+                                  //$(evt.target).click();
+                              }
+                              window.editorMode = 'content';
+                              self.removeSwitchLoader();
+
+                          },'json');
+
+                    
 
                 },
 
@@ -544,7 +586,11 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                 */
                 makeEditable : function(){
 
+                    var self = this;
+
                     require(['ckeditor'], function(CKEDITOR){
+
+                        CKEDITOR.on( 'instanceCreated', self.configureEditor );
 
                         CKEDITOR.inlineAll();
 
@@ -552,40 +598,123 @@ define(['underscore', 'jquery', 'backbone', 'global'],
 
                 },
 
-				/**
-				 * Binds the droppable  / sortable
-				 */
-				enableDropSort : function(){
-                    
-                    var self = this;
-                    
-                    this.$el.children('.layout-header,.layout-content,.layout-footer').sortable({
-                                        revert      : 'invalid',
-                                        items       : '> .row',        
-                                        connectWith : '.layout-header,.layout-content,.layout-footer,.column',
-                                        opacity     : .65,
-                                        handle      : '> .aj-imp-drag-handle',
-                                        receive     : function(evt , ui){
-                                                        self.handleRowDrop(evt, ui);
-                                                    },
-                                        stop        : function(evt , ui){
+                /**
+                 * Configure the editor
+                 */
+                configureEditor : function(event){
 
-                                                        self.rearrangeElementOrder('header');
-                                                        self.rearrangeElementOrder('content');
-                                                        self.rearrangeElementOrder('footer');
+                    var editor = event.editor,
+                    element = editor.element;
 
-                                                    },
-                                        sort        : function(evt , ui){
-                                                            
-                                                        var pHeight = ui.helper.attr('data-placeholder-height');
-                                                        
-                                                        ui.placeholder.css('max-height',parseInt(pHeight));
-                                                        
-                                                    }
+                    // Customize editors for headers and tag list.
+                    // These editors don't need features like smileys, templates, iframes etc.
+                    if ( element.is( 'h1', 'h2', 'h3' ) || element.getAttribute( 'id' ) == 'taglist' ) {
+                      // Customize the editor configurations on "configLoaded" event,
+                      // which is fired after the configuration file loading and
+                      // execution. This makes it possible to change the
+                      // configurations before the editor initialization takes place.
+                      editor.on( 'configLoaded', function() {
 
-                                    }).disableSelection(); 
+                        // Remove unnecessary plugins to make the editor simpler.
+                        editor.config.removePlugins = 'colorbutton,find,flash,font,' +
+                          'forms,iframe,image,newpage,removeformat,scayt,' +
+                          'smiley,specialchar,stylescombo,templates,wsc';
+
+                        // Rearrange the layout of the toolbar.
+                        editor.config.toolbarGroups = [
+                          { name: 'editing',    groups: [ 'basicstyles', 'links' ] },
+                          { name: 'undo' },
+                          { name: 'clipboard',  groups: [ 'selection', 'clipboard' ] },
+                          { name: 'about' }
+                        ];
+                      });
+                    }
+
+                },
+
+        				/**
+        				 * Binds the droppable  / sortable
+        				 */
+        				enableDropSort : function(){
+                            
+                            var self = this;
+                            
+                            this.$el.children('.layout-header,.layout-content,.layout-footer').sortable({
+                                                revert      : 'invalid',
+                                                items       : '> .row',        
+                                                connectWith : '.layout-header,.layout-content,.layout-footer,.column',
+                                                opacity     : .65,
+                                                handle      : '> .aj-imp-drag-handle',
+                                                receive     : self.handleRowDrop,
+                                                stop        : function(evt , ui){
+
+                                                                self.rearrangeElementOrder('header');
+                                                                self.rearrangeElementOrder('content');
+                                                                self.rearrangeElementOrder('footer');
+
+                                                            },
+                                                activate    : self.holdCurrentColRef,
+                                                sort        : function(evt , ui){
+                                                                    
+                                                                var pHeight = ui.helper.attr('data-placeholder-height');
                                                                 
-				},
+                                                                ui.placeholder.css('max-height',parseInt(pHeight));
+                                                                
+                                                            }
+
+                                            });//.disableSelection(); 
+                                                                        
+        				},
+
+                /**
+                *
+                */
+                updateEmptyView : function(){
+
+                },
+
+                /**
+                 * 
+                 * Handle element removal state
+                 * 
+                 * @param {type} event
+                 * @param {type} ui
+                 * @returns {undefined}
+                 */        
+                handleElementRemove : function(receiver, sender, elementId){
+                    
+                    _.each(sender.elements, function(element, index){
+                        
+                        if(element.id == elementId){
+                            
+                            receiver.push(element); //add the same position
+
+                            sender.elements.splice(index,1);//remove element
+
+                            //change parent
+                            element.setParent(receiver);
+                        }
+                        
+                    });
+                    
+                    sender.updateEmptyView();
+
+                },
+
+                /**
+                 * Holds current sender column reference
+                 * 
+                 * @param {type} event
+                 * @param {type} ui
+                 * @returns {undefined}
+                 */        
+                holdCurrentColRef : function(event, ui){
+                    
+                    event.stopPropagation();
+                    
+                    ui.helper.sender = this;
+                    
+                },  
 
                 /**
                  * Check for column drop event
@@ -594,7 +723,36 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                  * @returns {undefined}
                  */        
                 handleRowDrop : function(event, ui){
+
                     
+                    //handle if helper is null
+                    if(!_.isUndefined(ui.item.sender)){
+
+                        var section = $(event.target);
+                        
+                        var receiver = '';
+
+                        if($(section).hasClass('layout-header'))
+                          receiver = this.elements.header;
+
+                        if($(section).hasClass('layout-content'))
+                          receiver = this.elements.content;
+                          
+                        if($(section).hasClass('layout-footer'))
+                          receiver = this.elements.footer;   
+
+                        if(receiver === '')
+                          return;  
+
+                        var sender = ui.item.sender;
+
+                        var elementId = ui.item.attr('id');
+                        
+                        this.handleElementRemove(receiver, sender, elementId);
+                        
+                        return;
+                    }
+
                     //get control to be dropped
                     var elementName = ui.item.attr('data-element');
                     
@@ -602,16 +760,8 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                     if(elementName !== 'BuilderRow')
                         return;
 
-                    var receiver = this;
-                    
-                    // //handle if helper is null
-                    // if(_.isNull(ui.helper)){
-                    //     var sender = ui.item.sender;
-                    //     var elementId = ui.item.attr('id');
-                    //     //this.handleElementRemove(receiver, sender, elementId);
-                    //     return;
-                    // }
                     var into = '';
+
                     if($(event.target).hasClass('layout-header'))
                         into = 'header';
                     

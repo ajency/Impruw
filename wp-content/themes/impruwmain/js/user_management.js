@@ -135,8 +135,11 @@ jQuery(document).ready(function($) {
    $('#frm_login' ).parsley({
     		errors: {
     		    container: function (element) {
-                     $container = $("<span></span>").insertAfter(element);
-                     return $container;
+	    		    		var $container = element.parent().find(".p-messages");
+	    		    		if ($container.length === 0) {
+	    	                   $container = $("<div class='p-messages'></div>").insertAfter(element);
+	    		    		}
+	    		    		return $container;
     		    },
     		   /* classHandler: function ( elem  ) {
     		    	elem.parent().addClass("has-error").removeClass("has-success");

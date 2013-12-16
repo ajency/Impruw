@@ -42,6 +42,7 @@ define(['backbone','jquery','underscore', 'global'],
                 returnJSON : function(){
                    
                    var ele =  {
+                                 id             : this.id,  
                                  type           : this.getType(),
                                  draggable      : this.isDraggable(),
                                  editable       : this.isEditable(),
@@ -49,6 +50,15 @@ define(['backbone','jquery','underscore', 'global'],
                               };
                    
                    return ele;
+                },
+
+                /**
+                 * retunrs the JSOn
+                 */
+                generateJSON : function(){
+
+                  return this.returnJSON();
+
                 },
                 
                 /**
@@ -69,6 +79,9 @@ define(['backbone','jquery','underscore', 'global'],
                      evt.preventDefault();
                      
                      evt.stopPropagation(); //!important
+
+                     if(window.editorMode === 'content')
+                        return;
                      
                      if(this.$el.next('.popover').hasClass('in')){
                         
@@ -307,6 +320,8 @@ define(['backbone','jquery','underscore', 'global'],
                    if(mEle.length > 0){
                         element.markupStyle = mEle.val();
                    }
+
+                   $(evt.target).after('<span><small>Saved</small></span>');
                    
                 },
                 
@@ -404,7 +419,8 @@ define(['backbone','jquery','underscore', 'global'],
                   */
                 setEditHandlers : function(){
 
-                  this.$el.append('<div class="aj-imp-delete-btn">\
+                  if(!this.is('column'))
+                    this.$el.append('<div class="aj-imp-delete-btn">\
                                             <span title="Delete">\
                                                 &times;\
                                             </span>\
@@ -438,6 +454,14 @@ define(['backbone','jquery','underscore', 'global'],
 
                     if(!_.isUndefined(config.extraClasses))
                         this.extraClasses  = config.extraClasses;
+
+                    
+                    if(!_.isUndefined(config.id))
+                        this.id  = config.id;
+                    else
+                        this.id = this.type + '-' + global.generateRandomId();
+
+                    this.$el.attr('id' , this.id);  
 
                 },
 
@@ -485,25 +509,25 @@ define(['backbone','jquery','underscore', 'global'],
                     
                 },
 
-				/**
+				        /**
                  * Generates the Control markup to drop
                  * @returns {unresolved}
                  */
-				generateMarkup : function(){
+				        generateMarkup : function(){
 					
                     if(_.isUndefined(this.template))
                         return '';
 
                     var html = _.template(this.template);
 
-					this.$el.html(html);
+					           this.$el.html(html);
                     
                     this.setContentClass();
                     
                     this.setHandlers();
                     
-					return this.$el;
-				},
+          					return this.$el;
+          				},
 
                 /**
                 * returns the content mode markup

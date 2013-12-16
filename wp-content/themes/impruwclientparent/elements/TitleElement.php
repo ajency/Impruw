@@ -32,7 +32,12 @@ class TitleElement extends Element {
     /**
     * Default tag name
     */
-    var $tag_name   = 'h1';
+    var $tag_name   = 'h3';
+
+    /**
+     * Class name
+     */
+    var $class_name  = 'title';
     
     
     /**
@@ -41,12 +46,10 @@ class TitleElement extends Element {
      */
     function __construct($config) {
         
-        if(isset($config['extraClasses'])){
-            $this->extra_classes     = $config['extraClasses'];
-        }
+        parent::__construct($config);
         
         if(isset($config['content'])){
-            $this->content          = $config['content'];
+            $this->content          = trim($config['content']);
         }
         
         $this->markup               = $this->generate_markup();
@@ -60,11 +63,14 @@ class TitleElement extends Element {
      */
     function generate_markup(){
         
-        $html       = $this->get_open_tag();
+        $html = '';
+        if(empty($this->content))
+            $html       = $this->get_open_tag(array('contenteditable' => 'true'));
+
+        $html       .=  ($this->content === '') ? 'Enter your title here' : $this->content;
         
-        $html       .=  empty($this->content) ? 'Enter your title her' : $this->content;
-        
-        $html       .= $this->get_close_tag();
+        if(empty($this->content))
+            $html       .= $this->get_close_tag();
         
         return $html;
     }

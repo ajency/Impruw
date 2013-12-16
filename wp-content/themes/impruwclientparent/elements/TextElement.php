@@ -35,16 +35,10 @@ class TextElement extends Element {
      */
     function __construct($config) {
         
-        if(isset($config['extraClasses'])){
-            $this->extra_classes = $config['extraClasses'];
-        }
+        parent::__construct($config);
         
         if(isset($config['content'])){
-            $this->markup         = $config['content'];
-        }
-        
-        if(isset($config['content'])){
-            $this->content          = $config['content'];
+            $this->content          = trim($config['content']);
         }
         
         $this->markup               = $this->generate_markup();

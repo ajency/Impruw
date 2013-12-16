@@ -18,7 +18,8 @@ define(['underscore', 'jquery', 'backbone', 'builder/views/BuilderEditorView'],
                     'click label.editormode' 		: 'switchMode',
                     'click #generate-markup' 		: 'generateMarkup',
                     'click #generate-json'          : 'generateJSON',
-                    'click #choose-template li a' 	: 'updateTemplate'
+                    'click #choose-template li a' 	: 'updateTemplate',
+                    'click #publish-page'			: 'generateJSON'
                 
                 },
 
@@ -72,11 +73,12 @@ define(['underscore', 'jquery', 'backbone', 'builder/views/BuilderEditorView'],
                    	if(_.isUndefined(this.builder))
                       return;
                    
-                   	setInterval(function(){
+                   	//setInterval(function(){
 	                   
-	                   self.builder.generateJSON(evt);
+	                 self.builder.generateJSON();
+	                 self.builder.sendJSONToServer(evt);
 
-    				},5000);               
+    				//},000);               
                 },
 
 				updateTemplate : function(){
@@ -114,9 +116,9 @@ define(['underscore', 'jquery', 'backbone', 'builder/views/BuilderEditorView'],
 				/**
 				* trigger the mode siwtcher for builder editor
 				*/
-				switchMode : function(){
+				switchMode : function(evt){
 					
-					this.builder.switchMode();
+					this.builder.switchMode(evt);
 
 				},
                 

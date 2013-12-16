@@ -36,11 +36,16 @@ define(['builder/views/elements/BuilderElement','text!builder/templates/elements
                     
                     //_.bindAll(this, 'rowMouseEnter','rowMouseLeave');
                     
-                    this.parent = options.parent;
-                 
-                    this.id = this.type + '-' + global.generateRandomId();
+                    //drop mode
+                    if(_.isUndefined(options.config)){
+                        this.id = this.type + '-' + global.generateRandomId();
+                        this.$el.attr('id' , this.id); 
+                    }
+                    else{
+                        this.setProperties(options.config);
+                    }
                     
-                    this.$el.attr('id', this.id);
+                    this.setParent(options.parent);
                     
                     this.setContextMenu();
                     
@@ -56,7 +61,23 @@ define(['builder/views/elements/BuilderElement','text!builder/templates/elements
                 render : function(col){
                     
                     return this;
-                }   
+                },
+
+                /**
+                 * 
+                 * @returns {undefined}
+                 */
+                generateJSON : function(){
+                   
+                   var self = this;
+                   
+                   var json = this.returnJSON();
+                   
+                   json.content =  this.$el.find('.content').html();
+                   
+                   return json;
+                  
+                },
                 
             });
             

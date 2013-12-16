@@ -28,13 +28,29 @@ define(['underscore', 'jquery', 'backbone', 'mainview'],
 				},
 				
 				siteProfile : function(){
+					console.log('show site profile....')
 					//this.adjustRightColumnHeight();
-					$(".aj-imp-right").addClass('aj-imp-loader');
+					
 					var  self = this;
-					setTimeout(function(){
+					
+					window.impruwSite.getSiteProfile({
+						success:function(){
+								
+							self.mainView.show('siteprofileview');
+							
+						},
+						error:function(){
+							console.log("Error fetching Site profile data")
+
+						}
+					});
+					
+					
+					
+					/*setTimeout(function(){
 						self.mainView.show('siteprofileview');
 						$(".aj-imp-right").removeClass('aj-imp-loader');
-					},1500);	
+					},1500);*/	
 				},
 				
 				adjustRightColumnHeight: function(){

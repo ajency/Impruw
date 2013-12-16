@@ -1,43 +1,145 @@
 /**
- * The SiteProfile View. 
+ * The SiteProfile View.
  * 
  */
- 
-define(['underscore', 'jquery', 'backbone', 'text!templates/siteprofile/SiteProfileViewTpl.tpl'],
-		function( _ , $, Backbone,  SiteProfileViewTpl ){
 
+define([ 'underscore', 'jquery', 'backbone',
+		'text!templates/siteprofile/SiteProfileViewTpl.tpl' ], function(_, $,
+		Backbone, SiteProfileViewTpl) {
+
+	var SiteProfileView = Backbone.View.extend({
+
+		id : 'site-profile',
+
+		events : {
+			'click #btn_savesitedetails'	: 'saveProfile',
+			'click #add_another_email' 		: 'addAnotherEmailElement',
+			'click .del_email'				: 'delEmailElement',
+			'click #add_another_phone' 		: 'addAnotherPhoneElement',
+			'click .del_phone' 				: 'delPhoneElement'
+		},
+
+		initialize : function(args) {
 			
-			var SiteProfileView = Backbone.View.extend({
+			_.bindAll(this , 'saveProfileSuccess', 'saveProfileFailure');
+				
+			if(_.isUndefined(args.site))
+				this.showInvalidCallView();
+			
+			this.site = args.site;
 
-				id 			: 'site-profile',
+		},
 
-				events      : { 
-                
-				},
+		render : function() {
 
-				initialize : function(args){
-                    
-					this.site = args.site;
-                  
-				},
+			var self = this;
 
-				render : function(){
+			g = this.site;
+			var template = _.template(SiteProfileViewTpl);
 
-					var self = this;
-					
-					g = this.site;
-					var template = _.template(SiteProfileViewTpl);
-					
-					var html = template( { site : this.site } );
-					
-					this.$el.html(html);
-					
-					return this;
-				}
-                
-			});	
+			var html = template({
+				site : this.site
+			});
 
+			this.$el.html(html);
 
-			return SiteProfileView;
+			return this;
+		},
 
-		});
+		/**
+		 * Function to save site profile
+		 */
+		saveProfile : function(evt) {
+
+			$(evt.target).next().show();
+			
+			var self = this;
+			
+			var formBusiness = this.$el.find('#form-siteprofile-business').serializeArray();
+			
+			var formSocial = this.$el.find('#form-siteprofile-social').serializeArray();
+			
+			 
+			var data = { 'business'  : formBusiness,
+						 'social'	 :  formSocial
+							
+						}; 
+			$siteProfileSaveStatus = window.impruwSite.saveSiteProfile(data, {
+																			success : self.saveProfileSuccess,
+																			failure : self.saveProfileFailure
+																		});
+			
+			$(event.target).next().hide();
+ 
+			
+		},
+		
+		saveProfileSuccess : function(response){
+			//uipdate with message
+			//console.log("save success")			
+			//console.log(response);
+			 $(event.target).offsetParent().find('#siteprofilesave_status').removeClass('has-error').addClass('has-success')
+			 $(event.target).offsetParent().find('#siteprofilesave_status').show()
+			 $('html, body').animate({
+			        scrollTop: $(event.target).offsetParent().find('#siteprofilesave_status').offset().top
+			    }, 2000);
+		},
+		
+		saveProfileFailure : function(response){
+			//console.log("Failed");
+			$(event.target).offsetParent().find('#siteprofilesave_status').removeClass('has-success').addClass('has-error');
+			$(event.target).offsetParent().find('#siteprofilesave_status').show();
+			$('html, body').animate({
+		        scrollTop: $(event.target).offsetParent().find('#siteprofilesave_status').offset().top
+		    }, 2000);
+		},
+
+		/**
+		 * Function to add additional email element to site profile form
+		 */
+		addAnotherEmailElement : function(e) {
+			
+			console.log($(event.target).offsetParent())
+
+			 $('.div_email:last').clone().find("input").val("").end().appendTo(
+			 	'.div_email:last');
+			$('.div_email:last').find(".del_email").show();
+
+		},
+
+		/**
+		 * Function to delete additional email element from site profile form
+		 */
+		delEmailElement : function(el) {
+
+			$(el.target).parent().remove();
+
+		},
+
+		/**
+		 * Function to add additional phone element to site profile form
+		 */
+		addAnotherPhoneElement : function() {
+
+			$('.div_phone:last').clone().find("input").val("").end().appendTo(
+					'.div_phone:last');
+			$('.div_phonel:last').find(".del_phone").show();
+
+		},
+
+		/**
+		 * Function to delete additional phone element from site profile form
+		 * 
+		 * @param el
+		 */
+		delPhoneElement : function(el) {
+
+			$(el.target).parent().remove();
+
+		}
+
+	});
+
+	return SiteProfileView;
+
+});
