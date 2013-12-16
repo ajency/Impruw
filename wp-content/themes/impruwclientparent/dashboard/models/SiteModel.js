@@ -11,7 +11,11 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 		siteProfileUrl : AJAXURL + '?action=save_site_data_ajx',
 
 		
-		getSiteProfileEmails : function(args){
+		/**
+		 * Function to get site emails
+		 * @returns array containing site email ids
+		 */
+		getSiteProfileEmails : function(){
 			var emails;
 			
 			if(_.isUndefined(this.get('email')))
@@ -26,37 +30,59 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 			return [];
 		},
 		
-		getSiteProfilePhoneNos : function(args){
+		
+		/**
+		 * Function to get site phone nos
+		 * @returns array containing phone nos
+		 */
+		getSiteProfilePhoneNos : function(){
 			var phoneNos;
 			
-			phoneNos = args.split(',');
+			if(_.isUndefined(this.get('phone')))
+				return [];
 			
-			return phoneNos;
+			phoneNos = this.get('phone').split(',');
+			
+			if(_.isArray(phoneNos))
+				return phoneNos;
+			
+			return[];
 			
 		},
 		
-		getSiteProfile : function(data , fn){
+		
+		/**
+		 * Function to get site profile (business, social)
+		 * @param data
+		 * @param fn
+		 */
+		getSiteProfile : function(fn){
 			
 			_self = this;
-			//console.log('getsiteprofile')
+			console.log('getsiteprofile')
 			//console.log(this.get('id'))
 			 var data = {
 				//	action: 'save_admissiondetails',
 					
-					siteprofile_id :_self.get('id'),
+					siteprofile_id :_self.get('id')
 				 	 
 				};
 			
 			$.get(this.url,data,function(response){
+				
 				console.log(response);
 				if(response.code === 'OK'){
-					if(_.isObject(response.siteProfileData))	
+				//	if(_.isObject(response.siteProfileData))	
 						_self.set(response.siteProfileData);
-					
+				//	if(!_.isUndefined(fn.success) && _.isFunction(fn.success))
+						fn.success(response);  
+						console.log("get success")
+						console.log(fn.success)
 					
 					
 				}
 				else{
+					fn.error(response); 
 					console.log("Error fetching site profile");
 					
 					
@@ -67,17 +93,14 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 		},
 		
 		saveSiteProfile :function(args,  fn){
+			console.log('save profile')
+			console.log(args)
 			var _self = this;
 			alert("model save sitepofile")
-			var data = {
-					//action: 'save_admissiondetails',
-				 
-				siteprofile_general :$('#form-siteprofile-general').serializeArray(),
-				siteprofile_business :$('#form-siteprofile-business').serializeArray(),
-				siteprofile_social :$('#form-siteprofile-social').serializeArray(),
-				siteprofile_meta :$('#form-siteprofile-meta').serializeArray(),
-				 	 
-			};
+			
+			var data = {	siteprofile_business :args.business,
+				 			siteprofile_social :args.social	 
+						};
 			 
 			 
 			$.post(	this.siteProfileUrl,

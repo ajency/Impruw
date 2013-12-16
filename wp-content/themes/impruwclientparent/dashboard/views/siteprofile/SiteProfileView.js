@@ -55,37 +55,43 @@ define([ 'underscore', 'jquery', 'backbone',
 			
 			var self = this;
 			
-			var formGeneral = this.$el.find('#cxfvxcvxc');
-			var data = {};
+			var formBusiness = this.$el.find('#form-siteprofile-business').serializeArray();
+			
+			var formSocial = this.$el.find('#form-siteprofile-social').serializeArray();
+			
+			 
+			var data = { 'business'  : formBusiness,
+						 'social'	 :  formSocial
+							
+						}; 
 			$siteProfileSaveStatus = window.impruwSite.saveSiteProfile(data, {
 																			success : self.saveProfileSuccess,
 																			failure : self.saveProfileFailure
 																		});
-			$('#siteprofilesubmitm_loader').hide()
-			if($siteProfileSaveStatus){
-				$("#siteprofilesave_status").removeClass('has-error').addClass('has-success')
-				$("#siteprofilesave_status").show();
-				$.scrollTo( '#siteprofilesave_status', 800, {easing:'elasout'} );
-			}
-			else{
-				
-				$("#siteprofilesave_status").removeClass('has-success').addClass('has-error')
-				$("#siteprofilesave_status").show();
-			  
-				$('html, body').animate({
-			        scrollTop: $("#siteprofilesave_status").offset().top
-			    }, 2000);
-			}
+			
+			$(event.target).next().hide();
 			
 		},
 		
 		saveProfileSuccess : function(response){
 			//uipdate with message
+			console.log("save success")
+			
 			console.log(response);
+			 $(event.target).offsetParent().find('#siteprofilesave_status').removeClass('has-error').addClass('has-success')
+			 $(event.target).offsetParent().find('#siteprofilesave_status').show()
+			 $('html, body').animate({
+			        scrollTop: $(event.target).offsetParent().find('#siteprofilesave_status').offset().top
+			    }, 2000);
 		},
 		
 		saveProfileFailure : function(response){
 			console.log("Failed");
+			$(event.target).offsetParent().find('#siteprofilesave_status').removeClass('has-success').addClass('has-error');
+			$(event.target).offsetParent().find('#siteprofilesave_status').show();
+			$('html, body').animate({
+		        scrollTop: $(event.target).offsetParent().find('#siteprofilesave_status').offset().top
+		    }, 2000);
 		},
 
 		/**
@@ -128,7 +134,7 @@ define([ 'underscore', 'jquery', 'backbone',
 
 			$(el.target).parent().remove();
 
-		},
+		}
 
 	});
 
