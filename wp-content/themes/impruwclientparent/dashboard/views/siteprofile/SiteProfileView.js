@@ -70,6 +70,7 @@ define([ 'underscore', 'jquery', 'backbone',
 																		});
 			
 			$(event.target).next().hide();
+ 
 			
 		},
 		

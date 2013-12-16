@@ -36,9 +36,9 @@ define(['builder/views/elements/BuilderElement','text!builder/templates/elements
                     
                     this.parent = options.parent;
                  
-                    this.id = 'title-' + global.generateRandomId();
+                    // this.id = 'title-' + global.generateRandomId();
                     
-                    this.$el.attr('id', this.id);
+                    // this.$el.attr('id', this.id);
 
                     //drop mode
                     if(_.isUndefined(options.config)){
@@ -51,6 +51,22 @@ define(['builder/views/elements/BuilderElement','text!builder/templates/elements
 
                     this.setParent(options.parent);
                     this.setContextMenu();
+                },
+
+                /**
+                 * 
+                 * @returns {undefined}
+                 */
+                generateJSON : function(){
+                   
+                   var self = this;
+                   
+                   var json = this.returnJSON();
+                   
+                   json.content =  this.$el.find('.content').html();
+
+                   return json;
+                  
                 }
             });
             

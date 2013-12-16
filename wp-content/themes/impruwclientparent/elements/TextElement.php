@@ -27,7 +27,7 @@ class TextElement extends Element {
      * Default content for element
      * @var String 
      */
-    var $content    = '';
+    var $content    = 'dfsdfsdfsd';
     
    /**
      * The config to create a row element

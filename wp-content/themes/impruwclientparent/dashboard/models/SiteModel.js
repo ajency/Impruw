@@ -76,8 +76,8 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 						_self.set(response.siteProfileData);
 				//	if(!_.isUndefined(fn.success) && _.isFunction(fn.success))
 						fn.success(response);  
-						console.log("get success")
-						console.log(fn.success)
+ 
+ 
 					
 					
 				}
@@ -99,7 +99,9 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 			alert("model save sitepofile")
 			
 			var data = {	siteprofile_business :args.business,
+ 
 				 			siteprofile_social :args.social	 
+ 
 						};
 			 
 			 

@@ -53,10 +53,10 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                     
                     this.on('adjust_column_dimension', this.adjustColumnDimension);
                     
-                    this.id = this.type + '-' + global.generateRandomId();
+                    //this.id = this.type + '-' + global.generateRandomId();
                     
                     //set random ID for control
-                    this.$el.attr('id' , this.id);
+                    //this.$el.attr('id' , this.id);
                     
                     //drop mode
                     if(_.isUndefined(options.config)){

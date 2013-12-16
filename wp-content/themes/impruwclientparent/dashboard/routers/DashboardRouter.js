@@ -35,11 +35,13 @@ define(['underscore', 'jquery', 'backbone', 'mainview'],
 					
 					window.impruwSite.getSiteProfile({
 						success:function(){
-							
+								
 							self.mainView.show('siteprofileview');
+							
 						},
 						error:function(){
 							console.log("Error fetching Site profile data")
+
 						}
 					});
 					
