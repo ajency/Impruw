@@ -8,6 +8,8 @@ $(document).ready(function(){
             indentChildren    : false,
             childrenIndenter  : '&nbsp;'
       });
+
+      $('*[contenteditable="true"]').removeAttr('contenteditable');
 		
    
 });
