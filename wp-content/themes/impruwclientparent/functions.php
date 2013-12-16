@@ -629,7 +629,7 @@ function get_content_markup(){
     $data = array();
 
     if(!isset($json))
-       $data[] =  "Nothing Fpund";
+       $data[] =  "Nothing Found";
     
     foreach($json as $section){
         
@@ -638,9 +638,9 @@ function get_content_markup(){
     }
 
     if($data)
-        echo json_encode(array('code' => 'OK', 'data' => $data));
+        echo json_encode(array('code' => 'OK'   , 'data' => $data));
     else
-        echo json_encode(array('code' => 'ERROR', 'message' => 'Failed','d' => $data));
+        echo json_encode(array('code' => 'ERROR', 'message' => 'Failed'));
     die;
 }
 add_action('wp_ajax_get_content_markup','get_content_markup'); 

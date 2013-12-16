@@ -49,7 +49,7 @@ class TitleElement extends Element {
         parent::__construct($config);
         
         if(isset($config['content'])){
-            $this->content          = trim($config['content']);
+            $this->content          = stripcslashes(trim($config['content']));
         }
         
         $this->markup               = $this->generate_markup();
@@ -67,7 +67,7 @@ class TitleElement extends Element {
         if(empty($this->content))
             $html       = $this->get_open_tag(array('contenteditable' => 'true'));
 
-        $html       .=  ($this->content === '') ? 'Enter your title here' : $this->content;
+        $html       .=  ($this->content === '') ? 'Enter your title here' : stripcslashes($this->content);
         
         if(empty($this->content))
             $html       .= $this->get_close_tag();

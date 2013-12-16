@@ -38,7 +38,7 @@ class TextElement extends Element {
         parent::__construct($config);
         
         if(isset($config['content'])){
-            $this->content          = trim($config['content']);
+            $this->content          = stripcslashes(trim($config['content']));
         }
         
         $this->markup               = $this->generate_markup();

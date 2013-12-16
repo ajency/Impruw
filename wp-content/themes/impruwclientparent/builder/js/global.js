@@ -18,6 +18,8 @@ define(['underscore', 'jquery', 'backbone', 'moment', 'numerals', 'holder', 'css
     		//attach numerals object
     		global.numerals = numerals;
 
+            global.Holder = Holder;
+
             
             global.generateRandomId = function(){
 
