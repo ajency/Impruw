@@ -21,6 +21,7 @@ define(['underscore', 'jquery', 'backbone','leftview','sitemodel'],
 					//set left column view
                     this.leftColumn = new LeftColumnView();
                     this.site		= window.impruwSite;
+                    this.user 		= window.impruwUser
                   //  this.site.fetch();
                     console.log("-------");
                     // console.log(blogData['responseJSON'])
@@ -38,6 +39,7 @@ define(['underscore', 'jquery', 'backbone','leftview','sitemodel'],
 					var self = this;
 					
 					try{
+						console.log("show-------view----")
 						self.makeVisible(view);
 					}
 					catch(e){
@@ -74,9 +76,34 @@ define(['underscore', 'jquery', 'backbone','leftview','sitemodel'],
 					
 				},
 				
+				
+				showUserProfile : function(view){
+					
+					var self = this;
+					
+					try{
+						console.log("show-------user view----")
+						self.makeVisible(view);
+					}
+					catch(e){
+						if(_.isUndefined(this[view])){
+							
+							require([view], function(RView){
+								
+								self[view] = new RView({user : self.user});
+								self[view].render();
+								self.makeVisible(view);
+								
+							});
+							
+						}
+					}
+				},
+				
+				
 				makeVisible : function(view){
-					//console.log("======")
-					//console.log(this[view])
+					 console.log("======+")
+					 console.log(this[view])
 					this.$el.find('.aj-imp-right').addClass('aj-imp-loader');
 					
 					this.$el.find('.aj-imp-right').html(this[view].$el);

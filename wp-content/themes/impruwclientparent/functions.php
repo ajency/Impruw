@@ -800,6 +800,15 @@ function serializedform_to_array($serialized_form)
 
 
 
+function get_user_profile_ajx()
+{
+	header('Content-Type: application/json');
+		echo json_encode(array('code' => 'OK','user_data'=>'userdata') );
+		die();
+}
+add_action('wp_ajax_get_user_profile_ajx','get_user_profile_ajx');
+add_action('wp_ajax_nopriv_get_user_profile_ajx','get_user_profile_ajx');
+
 
 /**
  * JSON to be stored

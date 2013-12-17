@@ -18,7 +18,7 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 		getSiteProfileEmails : function(){
 			var emails;
 			
-			if(_.isUndefined(this.get('email')))
+			if(!this.has('email'))
 				return [];
 			
 			
@@ -38,7 +38,7 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 		getSiteProfilePhoneNos : function(){
 			var phoneNos;
 			
-			if(_.isUndefined(this.get('phone')))
+			if(!this.has('phone'))
 				return [];
 			
 			phoneNos = this.get('phone').split(',');
