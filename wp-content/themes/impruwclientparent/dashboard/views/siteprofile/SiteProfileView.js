@@ -44,8 +44,8 @@ define([ 'underscore', 'jquery', 'backbone',
 			this.$el.html(html);
 
 			//set custom selectbox
-		//	this.$el.find('select').selectpicker();
-		//	this.$el.find('input[type="checkbox"]').checkbox();
+			this.$el.find('select').selectpicker();
+			this.$el.find('input[type="checkbox"]').checkbox();
 
 			return this;
 		},
