@@ -100,13 +100,19 @@
 					
 							_.each(site.getSiteProfileEmails(), function(email, index) { %>
 							
-							<span class="div_email" ><input type="email" class="form-control"   name="email[]"  placeholder="youremail@site.com"  value="<%= email %>">  <span class="del_email" style="display:<% if(index<=0) { %>none<%} else { %> inline-block <% } %>;">Delete</span> </span>
+							<span class="div_email" >
+								<input type="email" class="form-control"   name="email[]"    value="<%= email %>">  
+								<span class="del_email" style="display:<% if(index<=0) { %>none<%} else { %> inline-block <% } %>;"><span class="fui-cross"></span> Delete</span> 
+								</span>
 							
 							<% });
 					}
 					else{
 					%>
-						<span class="div_email" ><input type="email" class="form-control"   name="email[]"  placeholder="youremail@site.com"  value="">  <span class="del_email" style="display: none ;">Delete</span> </span>
+							<span class="div_email" >
+								<input type="email" class="form-control"   name="email[]"  value="">  
+								<span class="del_email" style="display:none"><span class="fui-cross"></span> Delete</span> 
+							</span>
 					<%
 					}
 					
@@ -122,17 +128,25 @@
 					
 							_.each(site.getSiteProfilePhoneNos(),function(phone,index){
 					 %>  
-						 		<span class="div_phone" ><input type="text" class="form-control"   name="phone[]" data-mask="99-999-999" placeholder="99-888-777"  value="<%= phone %>"> <span class="del_phone" style="display: <% if(index<=0) { %> none; <% } else { %> inline-block <% } %>;">Delete</span> </span>									
+						 		<span class="div_phone" >
+						 			<input type="text" class="form-control"   name="phone[]" data-mask="99-999-999"  value="<%= phone %>"> 
+						 			<span class="del_phone" style="display: <% if(index<=0) { %> none; <% } else { %> inline-block <% } %>;"><span class="fui-cross"></span> Delete</span> 
+						 		</span>									
 					<% 		}); 			
 						
 						}
 						else { %>
 								
-								<span class="div_phone" ><input type="text" class="form-control"   name="phone[]" data-mask="99-999-999" placeholder="99-888-777"  value=""> <span class="del_phone" style="display:none;">Delete</span> </span>
+								<span class="div_phone" >
+									<input type="text" class="form-control"   name="phone[]" data-mask="99-999-999"  value="">
+									<span class="del_phone" style="display:none;"><span class="fui-cross"></span> Delete</span> 
+								</span>
 						<% }							 
 					
 					%>
-					<span class="help-block add-another-link"><a href="#" id="add_another_phone"><span class="glyphicon glyphicon-plus-sign"></span> Add Another</a></span>
+							<span class="help-block add-another-link">
+								<a href="#" id="add_another_phone"><span class="glyphicon glyphicon-plus-sign"></span> Add Another</a>
+							</span>
 					</div>
 				</div>
 
