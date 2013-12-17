@@ -187,7 +187,7 @@ if(isset($_REQUEST['lang']))
 								<div class="form-group">
 									<label for="checkbox2" class="checkbox">
 										<input type="checkbox" data-toggle="checkbox"  id="checkbox2" name="checkbox2"  value="1"   required  class="parsley-validated parsley-error"   parsley-trigger="blur" parsley-validation-minlength="0">
-                                                                                <p><?php echo __('I agree to the Terms &amp; Conditions','impruwmain') ;?></p>
+                                                                                <?php echo __('I agree to the Terms &amp; Conditions','impruwmain') ;?>
                                                                                 <div class="p-messages"></div> 
 									</label>
 								</div>

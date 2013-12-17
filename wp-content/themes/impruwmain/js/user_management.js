@@ -55,9 +55,9 @@ jQuery(document).ready(function($) {
    $('#frm_registration').parsley({
       errors:{
     	  
-    	  errorsWrapper: '<div class="form-group"></div>',
+    	  errorsWrapper: '<span class="help-block" style="display:block"></span>',
     	  
-    	  errorElem: '<span class="help-block" style="display:block"></span>',
+    	  errorElem: '<span style="display:block"></span>',
 			  
          container: function (element, isRadioOrCheckbox) {
                var $container = element.parent().find(".p-messages");
@@ -140,9 +140,9 @@ jQuery(document).ready(function($) {
    $('#frm_login' ).parsley({
     		errors: {
     			
-    			 errorsWrapper: '<div class="form-group"></div>',
+    			errorsWrapper: '<span class="help-block" style="display:block"></span>',
     	    	  
-    	    	  errorElem: '<span class="help-block" style="display:block"></span>',
+    	    	errorElem: '<span style="display:block"></span>',
     	    	
     		    container: function (element) {
 	    		    		var $container = element.parent().find(".p-messages");

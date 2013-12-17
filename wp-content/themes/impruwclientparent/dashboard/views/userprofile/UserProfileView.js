@@ -87,7 +87,7 @@ define([ 'underscore', 'jquery', 'backbone',
 		    }, 1000);
 		}, 
 
-		updateUserPassword:function(){
+		updateUserPassword:function(evt){
 			
 			console.log('update password ')
 			

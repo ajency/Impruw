@@ -897,11 +897,13 @@ function save_user_profile($user_data, $user_id)
 
 function update_user_passwrd_ajx()
 {
-	$userform_password =  serializedform_to_array($_POST['userprofile_password']);
+	$userform_password =  serializedform_to_array($_POST['userprofile_passdata']);
 	
-	$user_form_data = array('general'=>$userform_password);
+	$user_form_data = array('passdata'=>$userform_password);
+	 
 	
-	if(save_user_profile($user_form_data,get_current_user_id())){
+	
+ 	if(update_user_passwrd($user_form_data,get_current_user_id())){
 	
 		header('Content-Type: application/json');
 		echo json_encode(array('code' => 'OK' ) );
@@ -910,13 +912,32 @@ function update_user_passwrd_ajx()
 	else{
 			
 		header('Content-Type: application/json');
-		echo json_encode(array('code' => 'FAILED', 'msg'=> 'Could not save site profile') );
+		echo json_encode(array('code' => 'FAILED', 'msg'=> 'Password could not be changed') );
 		die();
-	}
+	} 
 }
 add_action('wp_ajax_update_user_passwrd_ajx','update_user_passwrd_ajx');
 add_action('wp_ajax_nopriv_update_user_passwrd_ajx','update_user_passwrd_ajx');
 
+
+/**
+ * Function to  update user password
+ * @param unknown $user_data
+ * @param unknown $user_id
+ * @return boolean
+ */
+function update_user_passwrd($user_pass_data, $user_id)
+{
+	 
+	$user = new ImpruwUser($user_id);
+	//var_dump($user->get_user_basic_info());
+	//echo "============================================";
+	if($user->reset_user_password($user_pass_data))
+		return true;
+	else
+		return false;
+ 
+}
 
 
 /**
