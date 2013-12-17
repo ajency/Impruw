@@ -38,10 +38,16 @@ define(['builder/views/elements/BuilderElement','text!builder/templates/elements
                     
                     //drop mode
                     if(_.isUndefined(options.config)){
+                        this.id = this.type + '-' + global.generateRandomId();
+                        this.$el.attr('id' , this.id); 
+                        this.generateMarkup();
                     }
                     else{
                         this.setProperties(options.config);
+                        if(!_.isUndefined(options.config.content))
+                            this.generateMarkup(options.config.content);
                     }
+
                     
                     this.setParent(options.parent);
                     
@@ -71,7 +77,13 @@ define(['builder/views/elements/BuilderElement','text!builder/templates/elements
                    
                    var json = this.returnJSON();
                    
-                   json.content =  this.$el.find('.content').html();
+                   var content = this.$el.find('.content').html();
+                   
+                   json.content =  content.trim() === '' ? "Lorem Ipsum is simply dummy text of the printing and typesetting industry.\
+                                                             Lorem Ipsum has been the industrys standard dummy text ever since the 1500s,\
+                                                             when an unknown printer took a galley of type and scrambled it to make a \
+                                                             type specimen book. It has survived not only five centuries, but also the \
+                                                             leap into electronic typesetting" : content;
                    
                    return json;
                   

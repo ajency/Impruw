@@ -36,19 +36,18 @@ define(['builder/views/elements/BuilderElement','text!builder/templates/elements
                     
                     this.parent = options.parent;
                  
-                    // this.id = 'title-' + global.generateRandomId();
-                    
-                    // this.$el.attr('id', this.id);
-
                     //drop mode
                     if(_.isUndefined(options.config)){
+                        this.id = this.type + '-' + global.generateRandomId();
+                        this.$el.attr('id' , this.id); 
+                        this.generateMarkup();
                     }
                     else{
-                        this.setProperties(options.config);
-                        if(!_.isUndefined(options.config.className))
-                           this.contentClasses = options.config.className;
-                    }
 
+                        this.setProperties(options.config);
+                        if(!_.isUndefined(options.config.content))
+                            this.generateMarkup(options.config.content);
+                    }
                     this.setParent(options.parent);
                     this.setContextMenu();
                 },

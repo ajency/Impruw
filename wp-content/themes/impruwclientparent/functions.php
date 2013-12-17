@@ -124,7 +124,7 @@ function generate_markup($section){
     
     $id = !is_null($post) ? $post->ID : 0;
     
-    $markup_JSON = get_page_markup_JSON();
+    $markup_JSON = get_page_markup_JSON(2);
     
     if(!isset($markup_JSON[$section]))
         return;
@@ -395,9 +395,9 @@ function get_container_markup($element){
  */
 function get_page_markup_JSON($page_id  = 0){
     
-    $json = get_page_json(4);//get_post_meta($page_id,'page_markup_json',true);
+    $json = get_post_meta($page_id,'page_markup_json',true);
     
-    return $json;
+    return !empty($json) ? $json : array();
 }
 
 /**
@@ -421,10 +421,10 @@ function get_theme_JS(){
     <script src="<?php echo get_parent_template_directory_uri(); ?>/js/bootstrap.min.js"></script>
     <script src="<?php echo get_parent_template_directory_uri(); ?>/js/holder.js"></script>
     <script src="<?php echo get_parent_template_directory_uri(); ?>/js/cssFx.js"></script>
-       <?php 
-        $theme_path =  get_stylesheet_directory()."/js";
-        if(file_exists($theme_path) && is_dir($theme_path)){
-    
+   <?php 
+    $theme_path =  get_stylesheet_directory() . "/js";
+    if(file_exists($theme_path) && is_dir($theme_path)){
+
         $js_files = scandir($theme_path, 1);
         foreach ($js_files as $key => $value){
             if (!in_array($value,array(".",".."))){
@@ -436,7 +436,7 @@ function get_theme_JS(){
         
         foreach ($files as $file){
         ?>
-            <script src="<?php echo get_template_directory_uri(); ?>/js/<?php echo $file?>"></script>
+            <script src="<?php echo get_template_directory_uri(); ?>/js/<?php echo $file; ?>"></script>
         <?php
         } 
     }
@@ -480,7 +480,8 @@ function get_theme_CSS(){
  * @param type $id
  */
 function get_page_json($id){
-    
+
+
     global $wpdb;
     
     $sql = $wpdb->prepare("SELECT json FROM {$wpdb->base_prefix}page_layouts
@@ -521,12 +522,35 @@ add_action('wp_ajax_nopriv_save_json_structure','save_json_structure');
 
 
 /**
+ * Reads the json layout and save it
+ * 
+ */
+function publish_page(){
+    
+    $json       = $_POST['json'];
+    $page_id    = $_POST['pageId'];
+    
+    update_post_meta($page_id, 'page_markup_json',$json);
+    
+    wp_send_json(array('code' => 'OK','json' => $json));
+}
+add_action('wp_ajax_publish_page','publish_page');
+add_action('wp_ajax_nopriv_publish_page','publish_page');
+
+
+/**
  * Retuns the jSON layout for the given ID
  */
 function get_saved_layout(){
+
+    $page_id = $_GET['pageId'];
+
+    define('FOR_BUILDER', true);
     
-    $json = get_page_json(4);
+    $json = get_page_markup_JSON($page_id);
+
     echo json_encode($json);
+    
     die;
 }
 add_action('wp_ajax_get_saved_layout','get_saved_layout');
@@ -602,12 +626,12 @@ function agc_register_parent_site_menus(){
  */
 function get_content_markup(){
 
-    $json = $_GET['json'];
+    $json = $_POST['json'];
 
     $data = array();
 
     if(!isset($json))
-       $data[] =  "Nothing Fpund";
+       $data[] =  "Nothing Found";
     
     foreach($json as $section){
         
@@ -616,7 +640,7 @@ function get_content_markup(){
     }
 
     if($data)
-        echo json_encode(array('code' => 'OK', 'data' => $data));
+        echo json_encode(array('code' => 'OK'   , 'data' => $data));
     else
         echo json_encode(array('code' => 'ERROR', 'message' => 'Failed'));
     die;

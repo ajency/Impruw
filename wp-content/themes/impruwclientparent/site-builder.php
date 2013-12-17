@@ -40,7 +40,11 @@ get_header('builder');
                         </div>
                         <div class="divider">&nbsp;</div>
                         <div class="aj-imp-publish">
-                            <a href="#" id="generate-json">Generate JSON</a>
+                            <a href="#" id="generate-json">Generate Layout</a>
+                        </div>
+                        <div class="divider">&nbsp;</div>
+                        <div class="aj-imp-publish">
+                            <a href="#" id="publish-page" class="publish">Publish</a>
                         </div>
                     </div>
                 </div>

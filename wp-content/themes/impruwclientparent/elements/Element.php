@@ -128,7 +128,7 @@ class Element {
      */
     function generate_random_ID(){
 
-        if(isset($this->id))
+        if(isset($this->id) && ($this->type !== 'row' || $this->type !== 'column'))
             return 'content-'.$this->id;
         
         return $this->type . '-' . rand(100000, 999999);
@@ -185,6 +185,7 @@ class Element {
     
     /**
      * Creates the open tag for the element
+     * @param array extar attributes for the element
      */
     function get_open_tag($args = array()){
         

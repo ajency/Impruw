@@ -18,7 +18,8 @@ define(['underscore', 'jquery', 'backbone', 'builder/views/BuilderEditorView'],
                     'click label.editormode' 		: 'switchMode',
                     'click #generate-markup' 		: 'generateMarkup',
                     'click #generate-json'          : 'generateJSON',
-                    'click #choose-template li a' 	: 'updateTemplate'
+                    'click #choose-template li a' 	: 'updateTemplate',
+                    'click #publish-page'			: 'generateJSON'
                 
                 },
 
