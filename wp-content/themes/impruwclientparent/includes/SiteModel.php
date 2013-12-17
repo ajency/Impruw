@@ -66,7 +66,7 @@ class SiteModel {
 	 */
 	function get_site_general(){
 		
-		$site_general_data = array('site_name'=>get_blog_details($this->site_id)->blogname);
+		$site_general_data = array('siteName'=>get_blog_details($this->site_id)->blogname);
 		if($site_general_data)
 			return $site_general_data;
 		else

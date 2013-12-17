@@ -86,7 +86,7 @@ define([ 'underscore', 'jquery', 'backbone',
 			 
 			 $('html, body').animate({
 			        scrollTop: $(event.target).offsetParent().find('#siteprofilesave_status').offset().top
-			    }, 2000);
+			    }, 1000);
 			 
 		},
 		
@@ -98,7 +98,7 @@ define([ 'underscore', 'jquery', 'backbone',
 			
 			$('html, body').animate({
 		        scrollTop: $(event.target).offsetParent().find('#siteprofilesave_status').offset().top
-		    }, 2000);
+		    }, 1000);
 			
 		},
 
