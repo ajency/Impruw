@@ -102,7 +102,7 @@
 							
 							<span class="div_email" >
 								<input type="email" class="form-control"   name="email[]"    value="<%= email %>">  
-								<span class="del_email" style="display:<% if(index<=0) { %>none<%} else { %> inline-block <% } %>;"><span class="fui-cross"></span> Delete</span> 
+								<span class="del_email" style="display:<% if(index<=0) { %>none<%}   %>;"><span class="fui-cross"></span> Delete</span> 
 								</span>
 							
 							<% });
@@ -130,7 +130,7 @@
 					 %>  
 						 		<span class="div_phone" >
 						 			<input type="text" class="form-control"   name="phone[]" data-mask="99-999-999"  value="<%= phone %>"> 
-						 			<span class="del_phone" style="display: <% if(index<=0) { %> none; <% } else { %> inline-block <% } %>;"><span class="fui-cross"></span> Delete</span> 
+						 			<span class="del_phone" style="display: <% if(index<=0) { %> none; <% }   %>;"><span class="fui-cross"></span> Delete</span> 
 						 		</span>									
 					<% 		}); 			
 						
