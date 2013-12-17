@@ -12,13 +12,10 @@ define([ 'underscore', 'jquery', 'backbone',
 		id : 'user-profile',
 
 	/*	events : {
-			'click #btn_savesitedetails'	: 'saveProfile',
-			'click #add_another_email' 		: 'addAnotherEmailElement',
-			'click .del_email'				: 'delEmailElement',
-			'click #add_another_phone' 		: 'addAnotherPhoneElement',
-			'click .del_phone' 				: 'delPhoneElement'
-		},
-*/
+			'click #btn_saveprofile'	: 'saveProfile',
+			 
+		},*/
+
 		initialize : function(args) {
 			
 		//	_.bindAll(this , 'saveProfileSuccess', 'saveProfileFailure');
@@ -50,7 +47,7 @@ define([ 'underscore', 'jquery', 'backbone',
 		},
 
 		/**
-		 * Function to save site profile
+		 * Function to save user profile
 		 */
 		/*saveProfile : function(evt) {
 

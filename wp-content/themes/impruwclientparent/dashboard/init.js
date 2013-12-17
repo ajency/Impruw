@@ -84,8 +84,7 @@ require(['backbone',
 					dashboard = new Router();
 				}
 			});*/
-			/*console.log("site profile data init")
-			console.log(window.impruwSite)*/
+			
 			dashboard = new Router();
             Backbone.history.start();
             

@@ -29,12 +29,12 @@ define(['underscore', 'jquery', 'backbone', 'mainview'],
 				},
 				
 				userProfile : function(){
-					console.log('show user profile')
+				 
 					var self =this;
 					window.impruwUser.getUserProfile({
 						success : function() {
-							console.log("showing user profile...")
-							self.mainView.showUserProfile('userprofileview');
+						 
+							self.mainView.show('userprofileview');
 							
 						},
 						error : function (){
@@ -45,9 +45,8 @@ define(['underscore', 'jquery', 'backbone', 'mainview'],
 				},
 				
 				siteProfile : function(){
-					console.log('show site profile....')
-					//this.adjustRightColumnHeight();
-					
+					 
+					//this.adjustRightColumnHeight();					
 					var  self = this;
 					
 					window.impruwSite.getSiteProfile({

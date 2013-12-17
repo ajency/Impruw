@@ -34,7 +34,7 @@ define([ 'underscore', 'jquery', 'backbone',
 
 			var self = this;
 
-			g = this.site;
+			//g = this.site;
 			var template = _.template(SiteProfileViewTpl);
 
 			var html = template({
@@ -76,34 +76,37 @@ define([ 'underscore', 'jquery', 'backbone',
 		
 		saveProfileSuccess : function(response){
 			//uipdate with message
-			//console.log("save success")			
-			//console.log(response);
+			 
 			 $(event.target).offsetParent().find('#siteprofilesave_status').removeClass('has-error').addClass('has-success')
+			 
 			 $(event.target).offsetParent().find('#siteprofilesave_status').show()
+			 
 			 $('html, body').animate({
 			        scrollTop: $(event.target).offsetParent().find('#siteprofilesave_status').offset().top
 			    }, 2000);
+			 
 		},
 		
 		saveProfileFailure : function(response){
-			//console.log("Failed");
+			
 			$(event.target).offsetParent().find('#siteprofilesave_status').removeClass('has-success').addClass('has-error');
+			
 			$(event.target).offsetParent().find('#siteprofilesave_status').show();
+			
 			$('html, body').animate({
 		        scrollTop: $(event.target).offsetParent().find('#siteprofilesave_status').offset().top
 		    }, 2000);
+			
 		},
 
 		/**
 		 * Function to add additional email element to site profile form
 		 */
 		addAnotherEmailElement : function(e) {
-			
-			console.log($(event.target).offsetParent())
-
+		
 			 $('.div_email:last').clone().find("input").val("").end().appendTo(
 			 	'.div_email:last');
-			$('.div_email:last').find(".del_email").show();
+			 $('.div_email:last').find(".del_email").show();
 
 		},
 

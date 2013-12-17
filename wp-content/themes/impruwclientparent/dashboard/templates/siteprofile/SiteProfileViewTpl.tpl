@@ -58,12 +58,11 @@
 							<h4 class="aj-imp-sub-head scroll-ref">Business Details <small>Lorem ipsum dolor sit amet, consectetur adipiscing</small></h4>
 							<form class="form-horizontal clearfix" name="form-siteprofile-business" id="form-siteprofile-business" >
 								
-								<div class="form-group has-error">
+								<div class="form-group">
 									<label for="inputAddress1" class="col-sm-2 control-label">Street</label>
 									<div class="col-sm-10 col-sm-offset-2">
 										<input type="text" class="form-control" id="street" name="street" placeholder="21 Jump Street" value="<%= site.get('street') %>">
-										<span class="input-icon fui-cross-inverted"></span>
-										<span class="help-block">This field is required</span>
+										 
 									</div>
 								</div>
 								
@@ -146,25 +145,25 @@
 							<form class="form-horizontal clearfix" id="form-siteprofile-social" name ="form-siteprofile-social" >
 							
 								
-								<div class="form-group has-success">
+								<div class="form-group">
 									<label for="inputSocial1" class="col-sm-2 control-label">Facebook</label>
 									<div class="col-sm-10 col-sm-offset-2">
 										<div class="input-group">
 											<span class="input-group-addon">www.facebook.com/</span>
 											<input type="text" class="form-control" id="facebook" name="facebook"  placeholder="yourpageurl"  value="<%= site.get('facebook') %>">
-											<span class="input-icon fui-check-inverted"></span>
+											
 										</div>
 									</div>
 								</div>
 								
 								
-								<div class="form-group loading">
+								<div class="form-group">
 									<label for="inputSocial2" class="col-sm-2 control-label">Twitter</label>
 									<div class="col-sm-10 col-sm-offset-2">
 										<div class="input-group">
 											<span class="input-group-addon">www.twitter.com/</span>
 											<input type="text" class="form-control" id="twitter" name="twitter"  placeholder="Twitter"  value="<%= site.get('twitter') %>">
-											<span class="input-icon"><img src="images/270(1).gif" /></span>
+											
 										</div>
 									</div>
 								</div>
