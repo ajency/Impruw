@@ -34,5 +34,27 @@ class ImpruwUser extends WP_User{
 					'capabilities'	=> $this->allcaps
 				);
 	}
+	
+	
+	/**
+	 * 
+	 * @param array containing new user details to be updated $user_data
+	 * @return boolean
+	 */
+	function save_user_profile($user_data){
+		
+		 
+		$new_user_data = array ( 'ID' => $user_data['ID'] ,
+				'user_email' => $user_data['general']['user_email'],
+				'display_name'=>$user_data['general']['display_name'] ) ;
+		
+		if(wp_update_user($new_user_data))
+			return true;
+		else
+			return false;
+		
+	
+	}
+	
 
 }

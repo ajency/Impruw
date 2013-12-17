@@ -11,10 +11,10 @@ define([ 'underscore', 'jquery', 'backbone',
 
 		id : 'user-profile',
 
-	/*	events : {
-			'click #btn_saveprofile'	: 'saveProfile',
-			 
-		},*/
+	 events : {
+			 	'click #btn_saveusergeneral'	: 'saveUserProfileGeneral',
+			 	'click #btn_updatepassword'		: 'updateUserPassword',
+		}, 
 
 		initialize : function(args) {
 			
@@ -49,52 +49,63 @@ define([ 'underscore', 'jquery', 'backbone',
 		/**
 		 * Function to save user profile
 		 */
-		/*saveProfile : function(evt) {
-
-			$(evt.target).next().show();
+		saveUserProfileGeneral : function(evt) {
 			
-			var self = this;
+				console.log($(evt.target).next());
 			
-			var formBusiness = this.$el.find('#form-siteprofile-business').serializeArray();
+				$(evt.target).next().show();
 			
-			var formSocial = this.$el.find('#form-siteprofile-social').serializeArray();
+				var self = this;
 			
+				var formGeneral = this.$el.find('#form_usergeneral').serializeArray();
 			 
-			var data = { 'business'  : formBusiness,
-						 'social'	 :  formSocial
-							
-						}; 
-			$siteProfileSaveStatus = window.impruwSite.saveSiteProfile(data, {
+				var data = { 'general'  : formGeneral 	};
+				
+				$userProfileSaveStatus = window.impruwUser.saveUserProfile(data, {
 																			success : self.saveProfileSuccess,
 																			failure : self.saveProfileFailure
 																		});
-			
-			$(event.target).next().hide();
- 
-			
+			 			
 		},
-		
+		 
 		saveProfileSuccess : function(response){
-			//uipdate with message
-			//console.log("save success")			
-			//console.log(response);
-			 $(event.target).offsetParent().find('#siteprofilesave_status').removeClass('has-error').addClass('has-success')
-			 $(event.target).offsetParent().find('#siteprofilesave_status').show()
+			$(event.target).next().hide(); 
+			 $(event.target).offsetParent().find('#userprofilesave_status').removeClass('has-error').addClass('has-success')
+			 $(event.target).offsetParent().find('#userprofilesave_status').show()
 			 $('html, body').animate({
-			        scrollTop: $(event.target).offsetParent().find('#siteprofilesave_status').offset().top
-			    }, 2000);
+			        scrollTop: $(event.target).offsetParent().find('#userprofilesave_status').offset().top
+			    }, 1000);
 		},
 		
 		saveProfileFailure : function(response){
 			//console.log("Failed");
-			$(event.target).offsetParent().find('#siteprofilesave_status').removeClass('has-success').addClass('has-error');
-			$(event.target).offsetParent().find('#siteprofilesave_status').show();
+			$(event.target).next().hide();
+			$(event.target).offsetParent().find('#userprofilesave_status').removeClass('has-success').addClass('has-error');
+			$(event.target).offsetParent().find('#userprofilesave_status').show();
 			$('html, body').animate({
-		        scrollTop: $(event.target).offsetParent().find('#siteprofilesave_status').offset().top
-		    }, 2000);
-		},*/
+		        scrollTop: $(event.target).offsetParent().find('#userprofilesave_status').offset().top
+		    }, 1000);
+		}, 
 
+		updateUserPassword:function(){
+			
+			console.log('update password ')
+			
+			$(evt.target).next().show();
+		
+			var self = this;
+		
+			var formPassData = this.$el.find('#form_userpass').serializeArray();
 		 
+			var data = { 'passData'  : formPassData 	};
+			
+			window.impruwUser.updateUserPassword(data, {	success : self.updatePassSuccess,
+														failure : self.updatePassFailure
+													});
+			
+		}
+		
+		
 
 		 
 		 
