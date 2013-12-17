@@ -3,8 +3,10 @@
  *
  * @param {type} param
  */
+var _urlArg = "ver=" + (location.host === 'localhost' ? (new Date()).getTime() : '1.0'); //to avoid file caching
+
 require.config({
-    urlArgs : "ver=" + (new Date()).getTime(), //to avoid file caching
+    urlArgs : _urlArg,
     baseUrl: THEMEURL + '/builder/js/',
     paths: {
         jquery          : 'lib/jquery.min',

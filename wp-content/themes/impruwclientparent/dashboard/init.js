@@ -4,13 +4,15 @@
  * and open the template in the editor.
  */
 
+var _urlArg = "ver=" + (location.host === 'localhost' ? (new Date()).getTime() : '1.0'); //to avoid file caching
+
 /**
  * configure require
  *
  * @param {type} param
  */
 require.config({
-    urlArgs : "ver=" + (new Date()),//.getTime(), //to avoid file caching
+    urlArgs : _urlArg,
     baseUrl: THEMEURL + '/dashboard/',
     paths: {
         jquery      		: 'lib/jquery.min',
