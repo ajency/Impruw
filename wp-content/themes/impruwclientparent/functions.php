@@ -835,6 +835,38 @@ add_action('wp_ajax_nopriv_get_user_profile_ajx','get_user_profile_ajx');
 
 
 /**
+ * Reads all registered menus and returns as array
+ */
+function get_site_menus(){
+
+    $menus = get_terms( 'nav_menu', array( 'hide_empty' => true ) );
+
+    $wp_menus = array();
+
+    if(is_array($menus) && count($menus) > 0){
+
+        foreach($menus as $menu){
+
+            $wp_menus[] = array(
+                            'id'            => (int)$menu->term_id,
+                            'name'          => $menu->name,
+                            'slug'          => $menu->slug,
+                            'description'   => $menu->description,
+                            'items'         => wp_get_nav_menu_items( $menu->term_id )
+                        );
+        
+        }
+    }
+
+    wp_send_json($wp_menus);
+
+    die;
+}
+add_action('wp_ajax_get_site_menus','get_site_menus');
+add_action('wp_ajax_nopriv_get_site_menus','get_site_menus');
+
+
+/**
  * JSON to be stored
  */
 function show_json(){

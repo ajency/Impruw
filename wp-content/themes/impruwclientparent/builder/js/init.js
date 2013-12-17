@@ -25,7 +25,12 @@ require.config({
         handlebars      : 'lib/handlebars',
         ckeditor        : 'lib/ckeditor',
         holder          : 'lib/holder',
-        cssFx           : 'lib/cssFx'
+        cssFx           : 'lib/cssFx',
+
+        //menu
+        menumanager     : 'builder/views/modals/MenuManager',
+        menumodel       : 'builder/models/MenuModel',
+        menucollection  : 'builder/collections/MenuCollection'
     },
     waitSeconds: 15,
     shim: {
