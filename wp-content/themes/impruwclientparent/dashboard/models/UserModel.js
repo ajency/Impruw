@@ -7,7 +7,8 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 	var UserModel = Backbone.Model.extend({
 		
 		url : AJAXURL + '?action=get_user_profile_ajx',
-
+		userProfileUrl : AJAXURL + '?action=save_user_profile_ajx',
+		userPassUrl : AJAXURL + '?action=update_user_passwrd_ajx',
 		/*fetch : function(){
 			return true;	
 			
@@ -53,6 +54,73 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 			
 			
 		},
+		
+		
+		saveUserProfile :function(args,  fn){
+			//console.log("saveuser profile")
+			 
+			var _self = this;
+			
+			var data = {	userprofile_general :args.general 
+					
+						};
+			 
+			$.post(	this.userProfileUrl,
+					data,
+					function(response){
+				
+				console.log("save user profile status ")
+				console.log(response)
+						if(response.code=='OK'){
+						
+							_self.set(response.site_data)
+							
+							console.log(window.impruwSite);
+							if(!_.isUndefined(fn.success) && _.isFunction(fn.success))
+								fn.success(response);  
+						}
+						else{
+							 
+							if(!_.isUndefined(fn.failure) && _.isFunction(fn.failure))
+								fn.failure(response); 
+						}
+				
+					});			
+			
+			},
+		
+		  
+		updateUserPassword :function(args,  fn){
+			//console.log("saveuser profile")
+			 
+			var _self = this;
+			
+			var data = {	userprofile_passdata :args.passData	};
+			 
+			$.post(	this.userPassUrl,
+					data,
+					function(response){
+				
+				console.log("save user password ")
+				console.log(response)
+						if(response.code=='OK'){
+						
+							_self.set(response.site_data)
+							
+							console.log(window.impruwSite);
+							if(!_.isUndefined(fn.success) && _.isFunction(fn.success))
+								fn.success(response);  
+						}
+						else{
+							 
+							if(!_.isUndefined(fn.failure) && _.isFunction(fn.failure))
+								fn.failure(response); 
+						}
+				
+					});			
+			
+			}
+		
 		
 		
 		

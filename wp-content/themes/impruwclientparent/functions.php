@@ -823,15 +823,121 @@ function serializedform_to_array($serialized_form)
 
 
 
-
+/**
+ * Function to get user profile
+ */
 function get_user_profile_ajx()
 {
-	header('Content-Type: application/json');
+	
+		$user_profile_details = get_user_data(get_current_user_id());
+
+		header('Content-Type: application/json');
 		echo json_encode(array('code' => 'OK','user_data'=>'userdata') );
 		die();
 }
 add_action('wp_ajax_get_user_profile_ajx','get_user_profile_ajx');
 add_action('wp_ajax_nopriv_get_user_profile_ajx','get_user_profile_ajx');
+
+
+
+
+function get_user_data($user_id)
+{
+	$user = new ImpruwUser($user_id);
+	$user_data = $user->get_user_basic_info();
+	//var_dump($user_data);
+	//exit();
+	return $user_data;
+}
+
+
+/**
+ * Function to save user profile
+ */
+function save_user_profile_ajx()
+{
+	$userform_general =  serializedform_to_array($_POST['userprofile_general']);
+	
+	
+	$user_form_data = array('general'=>$userform_general);
+	
+	if(save_user_profile($user_form_data,get_current_user_id())){
+	
+		header('Content-Type: application/json');
+		echo json_encode(array('code' => 'OK' ) );
+		die();
+	}
+	else{
+			
+		header('Content-Type: application/json');
+		echo json_encode(array('code' => 'FAILED', 'msg'=> 'Could not save site profile') );
+		die();
+	}
+}
+add_action('wp_ajax_save_user_profile_ajx','save_user_profile_ajx');
+add_action('wp_ajax_nopriv_save_user_profile_ajx','save_user_profile_ajx');
+
+
+
+function save_user_profile($user_data, $user_id)
+{
+	
+	$user_data['ID'] =  $user_id;
+	
+	//var_dump($user_data);
+	
+	$user = new ImpruwUser(get_current_user_id());
+	
+	if($user->save_user_profile($user_data))
+		return true;
+	else
+		return false;
+ 
+}
+
+function update_user_passwrd_ajx()
+{
+	$userform_password =  serializedform_to_array($_POST['userprofile_passdata']);
+	
+	$user_form_data = array('passdata'=>$userform_password);
+	 
+	
+	
+ 	if(update_user_passwrd($user_form_data,get_current_user_id())){
+	
+		header('Content-Type: application/json');
+		echo json_encode(array('code' => 'OK' ) );
+		die();
+	}
+	else{
+			
+		header('Content-Type: application/json');
+		echo json_encode(array('code' => 'FAILED', 'msg'=> 'Password could not be changed') );
+		die();
+	} 
+}
+add_action('wp_ajax_update_user_passwrd_ajx','update_user_passwrd_ajx');
+add_action('wp_ajax_nopriv_update_user_passwrd_ajx','update_user_passwrd_ajx');
+
+
+/**
+ * Function to  update user password
+ * @param unknown $user_data
+ * @param unknown $user_id
+ * @return boolean
+ */
+function update_user_passwrd($user_pass_data, $user_id)
+{
+	 
+	$user = new ImpruwUser($user_id);
+	//var_dump($user->get_user_basic_info());
+	//echo "============================================";
+	if($user->reset_user_password($user_pass_data))
+		return true;
+	else
+		return false;
+ 
+}
 
 
 /**
