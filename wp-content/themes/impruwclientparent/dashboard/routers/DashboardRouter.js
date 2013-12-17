@@ -38,6 +38,8 @@ define(['underscore', 'jquery', 'backbone', 'mainview', 'bootstrapselect','check
 							
 						},
 						error : function (){
+
+							self.mainView.show('failed');
 							
 						}
 					})
@@ -55,8 +57,8 @@ define(['underscore', 'jquery', 'backbone', 'mainview', 'bootstrapselect','check
 							
 						},
 						error:function(){
-							console.log("Error fetching Site profile data")
-
+							console.log("Error fetching Site profile data");
+							self.mainView.show('failed');
 						}
 					});
 					
