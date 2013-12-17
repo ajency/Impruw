@@ -10,7 +10,7 @@
  * @param {type} param
  */
 require.config({
-    urlArgs : "ver=" + (new Date()).getTime(), //to avoid file caching
+    urlArgs : "ver=" + (new Date()),//.getTime(), //to avoid file caching
     baseUrl: THEMEURL + '/dashboard/',
     paths: {
         jquery      		: 'lib/jquery.min',
