@@ -430,6 +430,7 @@ form .form-group.add-another .div_phone {
   position: relative;
   margin: 0.3em 0;
   display: block;
+  transition: all 0.25s linear 0s;
 }
 form .form-group.add-another .div_email .del_email,
 form .form-group.add-another .div_phone .del_email,
