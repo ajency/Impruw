@@ -56,6 +56,39 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 		},
 		
 		
+		saveUserProfile :function(args,  fn){
+			//console.log("saveuser profile")
+			 
+			var _self = this;
+			
+			var data = {	userprofile_general :args.general 
+					
+						};
+			 
+			$.post(	this.userProfileUrl,
+					data,
+					function(response){
+				
+				console.log("save user profile status ")
+				console.log(response)
+						if(response.code=='OK'){
+						
+							_self.set(response.site_data)
+							
+							console.log(window.impruwSite);
+							if(!_.isUndefined(fn.success) && _.isFunction(fn.success))
+								fn.success(response);  
+						}
+						else{
+							 
+							if(!_.isUndefined(fn.failure) && _.isFunction(fn.failure))
+								fn.failure(response); 
+						}
+				
+					});			
+			
+			},
+		
 		  
 		updateUserPassword :function(args,  fn){
 			//console.log("saveuser profile")
@@ -64,7 +97,7 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 			
 			var data = {	userprofile_passdata :args.passData	};
 			 
-			$.post(	this.userProfileUrl,
+			$.post(	this.userPassUrl,
 					data,
 					function(response){
 				

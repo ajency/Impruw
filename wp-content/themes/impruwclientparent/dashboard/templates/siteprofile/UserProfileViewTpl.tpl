@@ -89,7 +89,7 @@
 								
 								<div class="col-sm-offset-2 col-sm-10">
 									<div class="form-group">
-										<button type="submit" id="btn_updatepassword" name="btn_updatepassword"  class="btn btn-wide aj-imp-submit">Change Password</button>
+										<button type="button" id="btn_updatepassword" name="btn_updatepassword"  class="btn btn-wide aj-imp-submit">Change Password</button>
 										<img src ='<%=THEMEURL%>/images/loader.gif' width="38" height="30"  id="changepassubmit_loader" style="display:none"/>
 									</div>
 								</div>

@@ -23,7 +23,8 @@ define(['builder/views/elements/BuilderElement','text!builder/templates/elements
                     'mouseenter'                 : 'elementMouseEnter',
                     'mouseleave'                 : 'elementMouseLeave',
                     'click > .aj-imp-delete-btn' : 'destroyElement',
-                    'contextmenu'                : 'showContextMenu'
+                    'contextmenu'                : 'showContextMenu',
+                    'click'                      : 'showModal'
                 },
                 
                 /**
@@ -64,7 +65,23 @@ define(['builder/views/elements/BuilderElement','text!builder/templates/elements
                 render : function(col){
                     
                     return this;
-                }   
+                },
+
+                showModal : function(){
+
+                   var self = this; 
+
+                   require(['underscore','menumanager'], function( _ , MenuManager){
+
+                        //ensure Menu manager is created just once
+                        if(_.isUndefined(self.menumanager))
+                            self.menumanager = new MenuManager();
+
+                        self.menumanager.open();
+
+                   });
+
+                }
                 
             });
             
