@@ -72,36 +72,36 @@ class AddressElement extends Element {
      */
     function get_address(){
         
+        $site = new SiteModel(get_current_blog_id());
+
+        $contact_at = $site->get_site_business();
+
         
-        $contact_at = array( "address"   => "YOUCOU 12 Seville", 
-                            "phoneno"   => "34 954 227 116", 
-                            "email"     => "info@corraldelrey.com");//get_blog_option(get_current_blog_id(), 'contact-at');
+        $defaults = array( "street"     => "Street Name", 
+                           "phoneno"    => "9999000008888", 
+                           "email"      => "info@email.com",
+                           "postalcode" => '444000',
+                           "country"    => 'Country',
+                           "city"       => 'City Name');
+
+        $contact_at  = wp_parse_args($contact_at , $defaults);
         
-        if(!is_array($contact_at)){
-            return '';
-        }
+        extract( $contact_at, EXTR_SKIP );
         
         $html = '';
         
-        foreach($contact_at as $key => $val){
-            
-            $html .= "<div class='infoPoint'>";
-            
-            switch($key){
-                case 'address':
-                    $html .= "<span class='fui-home'></span>";
-                    break;
-                case 'phoneno':
-                    $html .= '<span class="glyphicon glyphicon-earphone"></span>';
-                    break;
-                case 'email':
-                    $html .= '<span class="fui-mail"></span>';
-                    break;
-            }
-            
-            $html .= " $val</div>";
-            
-        }
+        $html .= "<div class='infoPoint'>";
+        $html .= "<span class='fui-home'></span>";
+        $html .= " $street</div>";
+
+        $html .= "<div class='infoPoint'>";
+        $html .= "<span class='glyphicon glyphicon-earphone'></span>";
+        $html .= " $phoneno</div>";
+
+        $html .= "<div class='infoPoint'>";
+        $html .= "<span class='fui-mail'></span>";
+        $html .= " $email</div>";
+
         
         return $html;
             

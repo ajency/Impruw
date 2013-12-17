@@ -529,7 +529,6 @@ define(['backbone','jquery','underscore', 'global'],
                     //add content if sent
                     if(!_.isUndefined(content)){
                       this.$el.children('.content').html(content);
-                      console.log(content);
                     }  
           					return this.$el;
           				},

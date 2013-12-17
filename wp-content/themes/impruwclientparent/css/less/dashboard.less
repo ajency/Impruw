@@ -29,11 +29,6 @@ a {
 	}
 }
 
-/****Loading Styles****/
-.aj-imp-loader {
-	background: url('../images/loader.gif') no-repeat center 200px #fff !important;
-}
-
 /****Container and Menu Styles****/
 .aj-imp-container {
 	font-family: 'Lato', sans-serif;
@@ -41,13 +36,25 @@ a {
 	max-width: none;
 	.aj-imp-left {
 		padding: 0;
+		.aj-imp-dash-mobile-header {
+			background: @logo-blue;
+			padding: 1em;
+			border-bottom: 1px solid lighten(@logo-blue, 20%);
+			font-size: 1.3em;
+			display: none;
+			@media (max-width: 767px) { 
+				display: block;
+			}
+		}
 		.aj-imp-dash-logo {
 			background: @logo-blue;
 			a {
 				img {
 					margin: auto;
-					height: 100%;
 					width: auto;
+					@media (max-width: 767px) { 
+						max-height: 200px;
+					}
 				}
 				&:hover {
 					img {
@@ -163,16 +170,22 @@ a {
 					}
 				}
 			}
+			@media (max-width: 767px) { 
+				display: none;
+			}
 		}
 	}
 	.aj-imp-right {
 		background: #fff;
 		.aj-imp-dash-header {
-			margin-top: 40px;
-			margin-bottom: 40px;
-			.aj-imp-dash-title {
-				h2 {
-					
+			margin: 40px 0;
+			@media (max-width: 767px) { 
+				margin: 0 0 20px;
+			}
+			.aj-imp-page-head {
+				@media (max-width: 767px) { 
+					font-size: 2.5em;
+					margin: 0.2em 0;
 				}
 			}
 			.aj-imp-dash-actions {
@@ -272,8 +285,9 @@ a {
 				z-index: 1;
 				left: 0;
 				form {
-					background: #fff;
+					background: rgba(0, 0, 0, 0.7);
 					border: 0;
+					padding: 1em;
 					.affix-show {
 						display: none;
 					}
@@ -286,14 +300,20 @@ a {
 					form {
 						margin: 0;
 						margin-right: 1em;
-						border-bottom: 1px solid @dash-grey;
+						border: 1px solid rgba(0, 0, 0, 0.8);
+						border-top: 0;
+						border-radius: 0 0 5px 5px;
 						.affix-show {
 							display: block;
 							margin: 0 0 0.5em;
-							color: @blue-grey;
+							color: #fff;
 							font-size: 1.1em;
 						}
 					}
+				}
+				&.affix-top {
+					width: 100% !important;
+					margin-left: 0 !important;
 				}
 			}
 		}
@@ -323,6 +343,41 @@ and (min-width : 1440px) {
 		width: 83.3333%;
 	}
 }	
+}
+
+#jPanelMenu-menu {
+	background: lighten(@dash-grey, 30%);
+	#aj-imp-dash-menu {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		li {
+			border-bottom: 1px solid lighten(@dash-grey, 40%);
+			a {
+				display: block;
+				padding: 1em 0.5em;
+				&:hover {
+					background: @orange;
+					color: #fff;
+				}
+			}
+			.sub-menu {
+				list-style: none;
+				margin: 0 0 0 0.5em;
+				padding: 0;
+				border-left: 2px solid @orange;
+				li {
+					a {
+						font-size: 0.88em;
+						padding: 1em 0.5em 1em 1em;
+					}
+					&:last-child {
+						border: 0;
+					}
+				}
+			}
+		}
+	}
 }
 
 /****Form Styles****/
@@ -361,6 +416,12 @@ form {
 			&.label-2 {
 				left: 50%;
 			}
+			&.label-25 {
+				left: 25%;
+			}
+			&.label-75 {
+				left: 75%;
+			}
 			&.dd-label {
 				bottom: 10px;
 			}
@@ -387,11 +448,36 @@ form {
 		}
 		&.add-another {
 			.control-label {
-				bottom: 2em;
+				top: 1em;
+			}
+			.div_email, .div_phone {
+				position: relative;
+				margin: 0.3em 0;
+				display: block;
+				transition: all 0.25s linear 0s;
+				.del_email, .del_phone {
+					position: absolute;
+					right: 0;
+					top: 0.5em;
+					padding: 0.5em 1em;
+					background: @dash-grey;
+					font-size: 0.8em;
+					color: #fff;
+					cursor: pointer;
+					display: none;
+					&:hover {
+						background: @logo-orange;
+					}
+				}
+				&:hover {
+					.del_email, .del_phone {
+						display: block;
+					}
+				}
 			}
 		}
 		.help-block {
-			color: lighten(@dash-grey, 10%);
+			color: lighten(@dash-grey, 5%);
 			font-weight: 300;
 			a {
 				color: @blue-grey;
@@ -522,6 +608,16 @@ form {
 			border: 0;
 			padding: 0;
 			.row {
+				position: relative;
+				.control-label {
+					position: absolute;
+					top: 1em;
+					left: 0;
+					@media (max-width: 767px) { 
+						position: static;
+						padding-left: 0;
+					}
+				}
 				.form-group {
 					margin-bottom: 10px;
 					.help-block {
@@ -540,13 +636,33 @@ form {
 						margin-bottom: 0;
 						.form-control {
 							border-color: lighten(@logo-orange, 20%);
+							background: lighten(@orange, 30%);
+							&::-webkit-input-placeholder{
+								color: @logo-orange !important;
+							}
+							&:-moz-placeholder {
+								color: @logo-orange !important;
+							}
+							&::-moz-placeholder {
+								color: @logo-orange !important;
+							}
+							&:-ms-input-placeholder {
+								color: @logo-orange !important;
+							}
+							&:focus {
+								background: lighten(@orange, 20%);
+							}
 						}
 						.help-block {
 							color: darken(@dash-grey, 20%);
 						}
 					}
 					.aj-imp-domain {
-						padding: 7px 7px 0;
+						padding: 8px 7px 0;
+						font-size: 1.025em;
+					}
+					@media (max-width: 767px) { 
+						padding: 1em;
 					}
 				}
 				&.margin-1 {
@@ -564,6 +680,10 @@ form {
 		margin: 2em 0 0;
 		padding: 0 30px 0;
 		box-shadow: inset 3px 0 6px -6px @3-grey;
+		@media (max-width: 767px) { 
+			border-top: 1px solid @dash-grey;
+			padding-top: 1.5em;
+		}
 		.aj-imp-register-steps {
 			color: @orange;
 			font-size: 1.6em;
@@ -633,6 +753,17 @@ form {
 			padding: 0;
 			.aj-imp-log-forgot {
 				margin-left: 1em;
+			}
+			.row {
+				position: relative;
+				.control-label {
+					position: absolute;
+					left: 0;
+					top: 1em;
+					@media (max-width: 767px) { 
+						position: static;
+					}
+				}
 			}
 		}
 	}
@@ -909,35 +1040,115 @@ form {
 }
 
 .indicator-tooltip {
-  
-  display: none;
-  
   position: absolute;
   right: 2em;
   width: 0;
   margin-top: -1em;
-  background-color: #806973;
+  background-color: rgba(0, 0, 0, 0.8);
   color: #FFF;
   white-space: nowrap;
   border-radius: 3px;
   overflow: hidden;
   z-index: -1;
+  text-shadow: none;
+  font-weight: 400;
 }
 .indicator-tooltip:after {
   display: block;
   content: '';
   position: absolute;
-  right: -0.9em;
+  right: -0.88em;
   top: 50%;
   width: 0;
   height: 0;
   margin-top: -0.4em;
   border: 0.4em solid transparent;
-  border-left: 0.5em solid #806973;
+  border-left: 0.5em solid rgba(0, 0, 0, 0.8);
 }
 .indicator:hover .indicator-tooltip {
   width: auto;
-  padding: 0.5em;
+  padding: 0.3em 0.5em 0.4em;
   overflow: visible;
   z-index: 1;
+}
+
+/****Alert Styles****/
+.alert {
+	margin-top: 1em;
+	color: @3-grey;
+	&.alert-success {
+		background: @alert-green;
+		border-color: @alert-green;
+	}
+	&.alert-error {
+		background: lighten(@logo-orange, 30%);
+		border-color: lighten(@logo-orange, 30%);
+	}
+}
+
+/****Add Room Form Styles****/
+.facilities-list {
+	.facility {
+		margin: 0.5em 0;
+		width: 50%;
+		float: left;
+		position: relative;
+		border-bottom: 1px solid transparent;
+		.action {
+			margin: 0.3em;
+			position: absolute;
+			top: 0;
+			right: 1em;
+			background: -moz-linear-gradient(left,  rgba(255,255,255,0) 0%, rgba(255,255,255,1) 25%, rgba(255,255,255,1) 100%); /* FF3.6+ */
+			background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(255,255,255,0)), color-stop(25%,rgba(255,255,255,1)), color-stop(100%,rgba(255,255,255,1))); /* Chrome,Safari4+ */
+			background: -webkit-linear-gradient(left,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 25%,rgba(255,255,255,1) 100%); /* Chrome10+,Safari5.1+ */
+			background: -o-linear-gradient(left,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 25%,rgba(255,255,255,1) 100%); /* Opera 11.10+ */
+			background: -ms-linear-gradient(left,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 25%,rgba(255,255,255,1) 100%); /* IE10+ */
+			background: linear-gradient(to right,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 25%,rgba(255,255,255,1) 100%); /* W3C */
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
+			font-size: 0.8em;
+			display: none;
+			.edit {
+				color: @blue-grey;
+			}
+			.delete {
+				color: #E74C3C;
+				margin-left: 5px;
+			}
+		}
+		&:hover {
+			border-bottom-color: lighten(@dash-grey, 20%);
+			.action {
+				display: block;
+			}
+		}
+	}
+}
+
+/****Date Picker Styles****/
+.ui-datepicker {
+	border-color: lighten(@dash-grey, 10%);
+	box-shadow: none;
+	.ui-datepicker-header {
+		background: lighten(@dash-grey, 10%);
+		.ui-datepicker-prev, .ui-datepicker-next {
+			border-color: lighten(@dash-grey, 5%);
+			&:hover {
+				background: @orange;
+			}
+		}
+	}
+	.ui-state-active {
+		background: @orange;
+	}
+	&:before {
+		border-bottom-color: lighten(@dash-grey, 10%);
+	}
+}
+
+.dates {
+	.input-icon {
+		background: transparent;
+		color: lighten(@dash-grey, 5%);
+	}
 }
