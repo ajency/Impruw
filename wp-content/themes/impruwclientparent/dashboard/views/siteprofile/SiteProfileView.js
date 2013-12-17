@@ -3,9 +3,9 @@
  * 
  */
 
-define([ 'underscore', 'jquery', 'backbone',
-		'text!templates/siteprofile/SiteProfileViewTpl.tpl' ], function(_, $,
-		Backbone, SiteProfileViewTpl) {
+define([ 'underscore', 'jquery', 'backbone', 
+		'text!templates/siteprofile/SiteProfileViewTpl.tpl' ], 
+		function(_, $, Backbone, SiteProfileViewTpl) {
 
 	var SiteProfileView = Backbone.View.extend({
 
@@ -34,7 +34,7 @@ define([ 'underscore', 'jquery', 'backbone',
 
 			var self = this;
 
-			g = this.site;
+			//g = this.site;
 			var template = _.template(SiteProfileViewTpl);
 
 			var html = template({
@@ -42,6 +42,10 @@ define([ 'underscore', 'jquery', 'backbone',
 			});
 
 			this.$el.html(html);
+
+			//set custom selectbox
+			this.$el.find('select').selectpicker();
+			this.$el.find('input[type="checkbox"]').checkbox();
 
 			return this;
 		},
@@ -59,11 +63,11 @@ define([ 'underscore', 'jquery', 'backbone',
 			
 			var formSocial = this.$el.find('#form-siteprofile-social').serializeArray();
 			
-			 
-			var data = { 'business'  : formBusiness,
-						 'social'	 :  formSocial
-							
-						}; 
+			var data = 	{ 
+							'business'  : formBusiness,
+						 	'social'	: formSocial
+						};
+
 			$siteProfileSaveStatus = window.impruwSite.saveSiteProfile(data, {
 																			success : self.saveProfileSuccess,
 																			failure : self.saveProfileFailure
@@ -75,35 +79,40 @@ define([ 'underscore', 'jquery', 'backbone',
 		},
 		
 		saveProfileSuccess : function(response){
-			//uipdate with message
-			//console.log("save success")			
-			//console.log(response);
+  
 			 $(event.target).offsetParent().find('#siteprofilesave_status').removeClass('has-error').addClass('has-success')
+			 
 			 $(event.target).offsetParent().find('#siteprofilesave_status').show()
+			 
 			 $('html, body').animate({
 			        scrollTop: $(event.target).offsetParent().find('#siteprofilesave_status').offset().top
-			    }, 2000);
+			    }, 1000);
+			 
 		},
 		
 		saveProfileFailure : function(response){
-			//console.log("Failed");
+			
 			$(event.target).offsetParent().find('#siteprofilesave_status').removeClass('has-success').addClass('has-error');
+			
 			$(event.target).offsetParent().find('#siteprofilesave_status').show();
+			
 			$('html, body').animate({
 		        scrollTop: $(event.target).offsetParent().find('#siteprofilesave_status').offset().top
-		    }, 2000);
+		    }, 1000);
+			
 		},
 
 		/**
 		 * Function to add additional email element to site profile form
 		 */
 		addAnotherEmailElement : function(e) {
-			
-			console.log($(event.target).offsetParent())
+ 
 
-			 $('.div_email:last').clone().find("input").val("").end().appendTo(
-			 	'.div_email:last');
-			$('.div_email:last').find(".del_email").show();
+			e.preventDefault();
+			
+			this.$el.find('.div_email:last').clone().find("input").val("").end().appendTo('.div_email:last');
+			this.$el.find('.div_email:last').find(".del_email").show();
+ 
 
 		},
 
@@ -112,6 +121,8 @@ define([ 'underscore', 'jquery', 'backbone',
 		 */
 		delEmailElement : function(el) {
 
+			el.preventDefault();
+
 			$(el.target).parent().remove();
 
 		},
@@ -119,11 +130,12 @@ define([ 'underscore', 'jquery', 'backbone',
 		/**
 		 * Function to add additional phone element to site profile form
 		 */
-		addAnotherPhoneElement : function() {
+		addAnotherPhoneElement : function(e) {
+			
+			e.preventDefault();
 
-			$('.div_phone:last').clone().find("input").val("").end().appendTo(
-					'.div_phone:last');
-			$('.div_phonel:last').find(".del_phone").show();
+			this.$el.find('.div_phone:last').clone().find("input").val("").end().appendTo('.div_phone:last');
+			this.$el.find('.div_phonel:last').find(".del_phone").show();
 
 		},
 
@@ -133,7 +145,7 @@ define([ 'underscore', 'jquery', 'backbone',
 		 * @param el
 		 */
 		delPhoneElement : function(el) {
-
+			el.preventDefault();
 			$(el.target).parent().remove();
 
 		}

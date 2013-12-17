@@ -49,7 +49,7 @@ class TitleElement extends Element {
         parent::__construct($config);
         
         if(isset($config['content'])){
-            $this->content          = trim($config['content']);
+            $this->content          = stripcslashes(trim($config['content']));
         }
         
         $this->markup               = $this->generate_markup();
@@ -63,11 +63,16 @@ class TitleElement extends Element {
      */
     function generate_markup(){
         
+        $attr = array();
+        
+        if(defined('FOR_BUILDER'))
+            $attr['contenteditable'] = 'true';
+        
         $html = '';
         if(empty($this->content))
-            $html       = $this->get_open_tag(array('contenteditable' => 'true'));
+            $html       .= $this->get_open_tag($attr);
 
-        $html       .=  ($this->content === '') ? 'Enter your title here' : $this->content;
+        $html           .=  ($this->content === '') ? 'Enter your title here' : $this->content;
         
         if(empty($this->content))
             $html       .= $this->get_close_tag();

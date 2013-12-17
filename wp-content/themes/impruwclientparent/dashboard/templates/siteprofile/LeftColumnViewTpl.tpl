@@ -53,5 +53,10 @@
 							<span class="arrow"></span>
 							<a href="#">Support</a>
 						</li>
+						<li class="aj-imp-nav-support">
+							<span class="icon"></span>
+							<span class="arrow"></span>
+							<a href="#user-profile">User Profile</a>
+						</li>
 					</ul>
 				</nav>

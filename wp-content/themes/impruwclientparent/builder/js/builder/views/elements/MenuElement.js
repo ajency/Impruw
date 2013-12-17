@@ -48,7 +48,7 @@ define(['builder/views/elements/BuilderElement','text!builder/templates/elements
                         if(!_.isUndefined(options.config.className))
                            this.contentClasses = options.config.className;
                     }
-                    
+                    this.generateMarkup();
                     this.setParent(options.parent);
                     this.setContextMenu();
                     

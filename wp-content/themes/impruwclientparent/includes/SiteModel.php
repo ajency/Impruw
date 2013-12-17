@@ -50,14 +50,14 @@ class SiteModel {
 		$site_general = array();
 		
 		
-		$site_address = $this->get_site_address();
+		$site_business = $this->get_site_business();
 		
 		$site_social = $this->get_site_social();
 		
 	 	$site_general = $this->get_site_general();
 
 	 	
-	 	 return(array_merge($site_general,$site_address,$site_social));
+	 	 return(array('businessDetails'=>$site_business,'socialDetails'=>$site_social,'generalDetails'=>$site_general));
 	}
 	
 	
@@ -66,7 +66,7 @@ class SiteModel {
 	 */
 	function get_site_general(){
 		
-		$site_general_data = array('site_name'=>get_blog_details($this->site_id)->blogname);
+		$site_general_data = array('siteName'=>get_blog_details($this->site_id)->blogname);
 		if($site_general_data)
 			return $site_general_data;
 		else
@@ -78,11 +78,11 @@ class SiteModel {
 	 * 
 	 * @return array containing site address details
 	 */
-	function get_site_address(){
+	function get_site_business(){
 		
-		$site_address_data = get_blog_option($this->site_id, 'impruw_address');
-		if($site_address_data)
-			return $site_address_data;
+		$site_business_data = get_blog_option($this->site_id, 'impruw_address');
+		if($site_business_data)
+			return $site_business_data;
 		else
 			return (array());
 	}

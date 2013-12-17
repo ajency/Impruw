@@ -421,10 +421,10 @@ function get_theme_JS(){
     <script src="<?php echo get_parent_template_directory_uri(); ?>/js/bootstrap.min.js"></script>
     <script src="<?php echo get_parent_template_directory_uri(); ?>/js/holder.js"></script>
     <script src="<?php echo get_parent_template_directory_uri(); ?>/js/cssFx.js"></script>
-       <?php 
-        $theme_path =  get_stylesheet_directory()."/js";
-        if(file_exists($theme_path) && is_dir($theme_path)){
-    
+   <?php 
+    $theme_path =  get_stylesheet_directory() . "/js";
+    if(file_exists($theme_path) && is_dir($theme_path)){
+
         $js_files = scandir($theme_path, 1);
         foreach ($js_files as $key => $value){
             if (!in_array($value,array(".",".."))){
@@ -436,7 +436,7 @@ function get_theme_JS(){
         
         foreach ($files as $file){
         ?>
-            <script src="<?php echo get_template_directory_uri(); ?>/js/<?php echo $file?>"></script>
+            <script src="<?php echo get_template_directory_uri(); ?>/js/<?php echo $file; ?>"></script>
         <?php
         } 
     }
@@ -544,6 +544,8 @@ add_action('wp_ajax_nopriv_publish_page','publish_page');
 function get_saved_layout(){
 
     $page_id = $_GET['pageId'];
+
+    define('FOR_BUILDER', true);
     
     $json = get_page_markup_JSON($page_id);
 
@@ -629,7 +631,7 @@ function get_content_markup(){
     $data = array();
 
     if(!isset($json))
-       $data[] =  "Nothing Fpund";
+       $data[] =  "Nothing Found";
     
     foreach($json as $section){
         
@@ -638,9 +640,9 @@ function get_content_markup(){
     }
 
     if($data)
-        echo json_encode(array('code' => 'OK', 'data' => $data));
+        echo json_encode(array('code' => 'OK'   , 'data' => $data));
     else
-        echo json_encode(array('code' => 'ERROR', 'message' => 'Failed','d' => $data));
+        echo json_encode(array('code' => 'ERROR', 'message' => 'Failed'));
     die;
 }
 add_action('wp_ajax_get_content_markup','get_content_markup'); 
@@ -821,6 +823,15 @@ function serializedform_to_array($serialized_form)
 
 
 
+
+function get_user_profile_ajx()
+{
+	header('Content-Type: application/json');
+		echo json_encode(array('code' => 'OK','user_data'=>'userdata') );
+		die();
+}
+add_action('wp_ajax_get_user_profile_ajx','get_user_profile_ajx');
+add_action('wp_ajax_nopriv_get_user_profile_ajx','get_user_profile_ajx');
 
 
 /**

@@ -43,7 +43,7 @@ define(['builder/views/elements/BuilderElement','text!builder/templates/elements
                     else{
                         this.setProperties(options.config);
                     }
-                    
+                    this.generateMarkup();
                     this.setParent(options.parent);
                     
                     this.setContextMenu();

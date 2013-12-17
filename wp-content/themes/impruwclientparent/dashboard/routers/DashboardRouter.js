@@ -3,7 +3,7 @@
  * This is the main router for the dashboard
  */
  
-define(['underscore', 'jquery', 'backbone', 'mainview'],
+define(['underscore', 'jquery', 'backbone', 'mainview', 'bootstrapselect','checkbox'],
 		function( _ , $, Backbone, DashboardMainView){
 			
 			/**
@@ -19,7 +19,8 @@ define(['underscore', 'jquery', 'backbone', 'mainview'],
 
 				routes : {
 					''	 			: 'index',
-					'site-profile' 	: 'siteProfile'
+					'site-profile' 	: 'siteProfile',
+					'user-profile'	: 'userProfile'
 				},
 
 				index : function(){
@@ -27,10 +28,26 @@ define(['underscore', 'jquery', 'backbone', 'mainview'],
 						
 				},
 				
-				siteProfile : function(){
-					console.log('show site profile....')
-					//this.adjustRightColumnHeight();
+				userProfile : function(){
+				 
+					var self =this;
+					window.impruwUser.getUserProfile({
+						success : function() {
+						 
+							self.mainView.show('userprofileview');
+							
+						},
+						error : function (){
+
+							self.mainView.show('failed');
+							
+						}
+					})
 					
+				},
+				
+				siteProfile : function(){
+  
 					var  self = this;
 					
 					window.impruwSite.getSiteProfile({
@@ -40,17 +57,11 @@ define(['underscore', 'jquery', 'backbone', 'mainview'],
 							
 						},
 						error:function(){
-							console.log("Error fetching Site profile data")
-
+							console.log("Error fetching Site profile data");
+							self.mainView.show('failed');
 						}
 					});
 					
-					
-					
-					/*setTimeout(function(){
-						self.mainView.show('siteprofileview');
-						$(".aj-imp-right").removeClass('aj-imp-loader');
-					},1500);*/	
 				},
 				
 				adjustRightColumnHeight: function(){

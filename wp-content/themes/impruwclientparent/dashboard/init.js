@@ -26,13 +26,17 @@ require.config({
         numerals    		: 'lib/numerals.min',
         checkbox    		: 'lib/flatui-checkbox',
         radio       		: 'lib/flatui-radio',
+        
         //Views
         mainview			: 'views/DashboardMainView',
         leftview			: 'views/LeftColumnView',
         siteprofileview		: 'views/siteprofile/SiteProfileView',
+        userprofileview		: 'views/userprofile/UserProfileView',
+
         //Models
         sitemodel			: 'models/SiteModel',
         usermodel			: 'models/UserModel',
+
         //templates
         siteprofileviewtpl 	: 'templates/siteprofile/SiteProfileViewTpl'
         
@@ -83,8 +87,7 @@ require(['backbone',
 					dashboard = new Router();
 				}
 			});*/
-			/*console.log("site profile data init")
-			console.log(window.impruwSite)*/
+			
 			dashboard = new Router();
             Backbone.history.start();
             

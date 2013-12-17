@@ -79,7 +79,6 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                         });
                    });
 
-                  
                    
                 },
                 
@@ -365,10 +364,6 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                                 
                       var self = this;
 
-                      //return if content is alredy loaded once
-                      if(this.contentLoaded === true)
-                          return;
-
                       var templatePath = '';
 
     				          $.get(AJAXURL,
@@ -387,14 +382,12 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                                 if( !_.isUndefined(response.footer) && response.footer.elements.length > 0)
                                     self.addElement( response.footer.elements, 0, 'footer');  
 
-                                this.contentLoaded = true;     
-
+                                
                                 self.enableDragDrop(); 
 
                              },'json');
 
-                        //self.enableDragDrop(); 
-
+                        
     					         return this;
           			},
 
@@ -545,6 +538,24 @@ define(['underscore', 'jquery', 'backbone', 'global'],
 
                     $('#controls-drag').fadeOut();
 
+                    this.fetchContentMarkup();
+
+                },
+
+                /**
+                * Fetches the content for each element in json and updates .content markup
+                */
+                fetchContentMarkup : function(){
+
+                    var self = this;
+                    //return if content is alredy loaded once
+                    if(this.contentLoaded === true){
+                          self.removeSwitchLoader();
+                          window.editorMode = 'content';
+                          self.makeEditable();
+                          return;
+                    }
+
                     //get latest json
                     this.generateJSON();
 
@@ -572,13 +583,14 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                               else{
                                   //$(evt.target).click();
                               }
+                              
                               window.editorMode = 'content';
+
+                              self.contentLoaded = true; 
+
                               self.removeSwitchLoader();
 
                           },'json');
-
-                    
-
                 },
 
                 /**
@@ -593,6 +605,8 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                         CKEDITOR.on( 'instanceCreated', self.configureEditor );
 
                         CKEDITOR.inlineAll();
+
+                        global.Holder.run();
 
                     });
 

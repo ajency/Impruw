@@ -18,11 +18,11 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 		getSiteProfileEmails : function(){
 			var emails;
 			
-			if(_.isUndefined(this.get('email')))
-				return [];
+			/*if(!this.has('email'))
+				return [];*/
 			
 			
-			emails = this.get('email').split(',');
+			emails = this.getBusinessDetails('email').split(',');
 			
 			if(_.isArray(emails))				
 				return emails;
@@ -38,10 +38,10 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 		getSiteProfilePhoneNos : function(){
 			var phoneNos;
 			
-			if(_.isUndefined(this.get('phone')))
-				return [];
+			/*if(!this.has('phone'))
+				return [];*/
 			
-			phoneNos = this.get('phone').split(',');
+			phoneNos = this.getBusinessDetails('phone').split(',');
 			
 			if(_.isArray(phoneNos))
 				return phoneNos;
@@ -59,18 +59,15 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 		getSiteProfile : function(fn){
 			
 			_self = this;
-			console.log('getsiteprofile')
-			//console.log(this.get('id'))
-			 var data = {
-				//	action: 'save_admissiondetails',
-					
-					siteprofile_id :_self.get('id')
-				 	 
-				};
+
+			
+			var data = {
+				siteprofile_id :_self.get('id')
+			};
 			
 			$.get(this.url,data,function(response){
 				
-				console.log(response);
+
 				if(response.code === 'OK'){
 					if(_.isObject(response.siteProfileData))	
 						_self.set(response.siteProfileData);
@@ -80,8 +77,7 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 				}
 				else{
 					fn.error(response); 
-					console.log("Error fetching site profile");
-					
+					throw "Error fetching site profile";
 					
 				}
 			}); 
@@ -89,9 +85,57 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 			
 		},
 		
+		
+		getBusinessDetails : function(field){
+
+			if(!this.has('businessDetails'))
+				return ''
+
+			var details = this.get('businessDetails');
+
+			if(_.isUndefined(details[field]))
+				return '';
+
+			return details[field];
+		},
+		
+		
+		getSocialDetails : function(field){
+			
+			if(!this.has('socialDetails'))
+				return ''
+
+			var details = this.get('socialDetails');
+
+			if(_.isUndefined(details[field]))
+				return '';
+
+			return details[field];
+		},
+		
+		
+		
+		getGeneralDetails : function(field){
+			
+			if(!this.has('generalDetails'))
+				return ''
+
+			var details = this.get('generalDetails');
+
+			if(_.isUndefined(details[field]))
+				return '';
+
+			return details[field];
+		},
+		
+		
+		
+		
+		
 		saveSiteProfile :function(args,  fn){
-			console.log('save profile')
-			console.log(args)
+ 
+
+ 
 			var _self = this;
 			 
 			
@@ -107,17 +151,14 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 					function(response){
 						if(response.code=='OK'){
 						
-							console.log(fn);
-							
 							_self.set(response.site_data)
 							
 							console.log(window.impruwSite);
 							if(!_.isUndefined(fn.success) && _.isFunction(fn.success))
 								fn.success(response);  
 						}
-							
 						else{
-							console.log("status failed")
+							 
 							if(!_.isUndefined(fn.failure) && _.isFunction(fn.failure))
 								fn.failure(response);
 						}

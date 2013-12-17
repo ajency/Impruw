@@ -141,7 +141,7 @@ define(['builder/views/elements/BuilderElement', 'global'],
                            self.$el.append(ele.render().$el);
                         }
                         else{
-                           self.$el.append(ele.generateMarkup());
+                           self.$el.append(ele.$el);
                         }
 
                         //self.elements.push(ele); !imporatnt: .push failed to maintain scope
@@ -440,7 +440,8 @@ define(['builder/views/elements/BuilderElement', 'global'],
 
                         self.removeEmptyClass();
                         
-                        var el = element.is('row') ? element.$el : element.generateMarkup();
+                        //var el = element.is('row') ? element.$el : element.generateMarkup();
+                        var el = element.$el;
 
                         if(self.$el.find('*[data-element="'+elementName+'"]').length > 0)
                             self.$el.find('*[data-element="'+elementName+'"]').replaceWith(el);
@@ -451,7 +452,7 @@ define(['builder/views/elements/BuilderElement', 'global'],
                             element.sortableColumns();
                             element.appendColumnResizer();
                         }
-
+                        
                         self.parent.trigger('adjust_column_dimension');
                         self.rearrangeElementOrder();
 
