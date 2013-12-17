@@ -10,7 +10,7 @@
  * @param {type} param
  */
 require.config({
-    urlArgs : "ver=" + (new Date()).getTime(), //to avoid file caching
+    urlArgs : "ver=" + (new Date()),//.getTime(), //to avoid file caching
     baseUrl: THEMEURL + '/dashboard/',
     paths: {
         jquery      		: 'lib/jquery.min',
@@ -53,6 +53,12 @@ require.config({
         'string' : {
             deps : ['underscore']
         },
+        'checkbox' :{
+            deps : ['jquery']
+        },
+        'radio' :{
+            deps : ['jquery']
+        },
         'moment' : {
             deps : ['jquery'],
             exports : 'moment'
@@ -64,7 +70,7 @@ require.config({
             deps : ['jquery']    
         },
         'bootstrapselect' : {
-            deps : ['bootstrap']
+            deps : ['jquery','bootstrap']
         }
     }
 });
@@ -76,7 +82,7 @@ function log(object){
 
 //init the app
 require(['backbone',
-         'routers/DashboardRouter','sitemodel','usermodel'], function( Backbone, Router, SiteModel, UserModel) {
+         'routers/DashboardRouter','sitemodel','usermodel','jquery'], function( Backbone, Router, SiteModel, UserModel) {
 
         $(document).ready(function(){   
         	 

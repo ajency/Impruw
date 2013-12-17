@@ -96,7 +96,7 @@ class AddressElement extends Element {
 
         $html .= "<div class='infoPoint'>";
         $html .= "<span class='glyphicon glyphicon-earphone'></span>";
-        $html .= " $phone</div>";
+        $html .= " $phoneno</div>";
 
         $html .= "<div class='infoPoint'>";
         $html .= "<span class='fui-mail'></span>";
