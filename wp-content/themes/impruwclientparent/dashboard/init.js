@@ -53,6 +53,12 @@ require.config({
         'string' : {
             deps : ['underscore']
         },
+        'checkbox' :{
+            deps : ['jquery']
+        },
+        'radio' :{
+            deps : ['jquery']
+        },
         'moment' : {
             deps : ['jquery'],
             exports : 'moment'
@@ -64,7 +70,7 @@ require.config({
             deps : ['jquery']    
         },
         'bootstrapselect' : {
-            deps : ['bootstrap']
+            deps : ['jquery','bootstrap']
         }
     }
 });
