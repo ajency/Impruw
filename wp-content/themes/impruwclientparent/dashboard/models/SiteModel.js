@@ -114,6 +114,24 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 		},
 		
 		
+		
+		getGeneralDetails : function(field){
+			
+			if(!this.has('generalDetails'))
+				return ''
+
+			var details = this.get('generalDetails');
+
+			if(_.isUndefined(details[field]))
+				return '';
+
+			return details[field];
+		},
+		
+		
+		
+		
+		
 		saveSiteProfile :function(args,  fn){
  
 
