@@ -3,7 +3,7 @@
  * This is the main router for the dashboard
  */
  
-define(['underscore', 'jquery', 'backbone', 'mainview'],
+define(['underscore', 'jquery', 'backbone', 'mainview', 'bootstrapselect','checkbox'],
 		function( _ , $, Backbone, DashboardMainView){
 			
 			/**
@@ -28,8 +28,6 @@ define(['underscore', 'jquery', 'backbone', 'mainview'],
 				},
 				
 				siteProfile : function(){
-					console.log('show site profile....')
-					//this.adjustRightColumnHeight();
 					
 					var  self = this;
 					
@@ -45,12 +43,6 @@ define(['underscore', 'jquery', 'backbone', 'mainview'],
 						}
 					});
 					
-					
-					
-					/*setTimeout(function(){
-						self.mainView.show('siteprofileview');
-						$(".aj-imp-right").removeClass('aj-imp-loader');
-					},1500);*/	
 				},
 				
 				adjustRightColumnHeight: function(){

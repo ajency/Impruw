@@ -21,10 +21,7 @@ define(['underscore', 'jquery', 'backbone','leftview','sitemodel'],
 					//set left column view
                     this.leftColumn = new LeftColumnView();
                     this.site		= window.impruwSite;
-                  //  this.site.fetch();
-                    console.log("-------");
-                    // console.log(blogData['responseJSON'])
-            
+                  
 				},
 
 				render : function(){
@@ -75,8 +72,7 @@ define(['underscore', 'jquery', 'backbone','leftview','sitemodel'],
 				},
 				
 				makeVisible : function(view){
-					//console.log("======")
-					//console.log(this[view])
+					 
 					this.$el.find('.aj-imp-right').addClass('aj-imp-loader');
 					
 					this.$el.find('.aj-imp-right').html(this[view].$el);
