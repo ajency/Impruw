@@ -21,9 +21,10 @@ define(['underscore', 'jquery', 'backbone','leftview','sitemodel'],
 					//set left column view
                     this.leftColumn = new LeftColumnView();
                     this.site		= window.impruwSite;
-                    this.user 		= window.impruwUser
-                   //  this.site.fetch();
-                    
+
+					this.user 		= window.impruwUser
+                  
+ 
 				},
 
 				render : function(){
@@ -75,11 +76,13 @@ define(['underscore', 'jquery', 'backbone','leftview','sitemodel'],
 				},
 				
 				
+ 
 				
 				
 				
 				makeVisible : function(view){
 					 
+ 
 					this.$el.find('.aj-imp-right').addClass('aj-imp-loader');
 					
 					this.$el.find('.aj-imp-right').html(this[view].$el);

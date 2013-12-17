@@ -59,16 +59,15 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 		getSiteProfile : function(fn){
 			
 			_self = this;
-			//console.log('getsiteprofile')
-		 
-			 var data = {
-				//	action: 'save_admissiondetails',					
-					siteprofile_id :_self.get('id')
-				 	 
-				};
+
+			
+			var data = {
+				siteprofile_id :_self.get('id')
+			};
 			
 			$.get(this.url,data,function(response){
-								 
+				
+
 				if(response.code === 'OK'){
 					if(_.isObject(response.siteProfileData))	
 						_self.set(response.siteProfileData);
@@ -78,8 +77,7 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 				}
 				else{
 					fn.error(response); 
-					console.log("Error fetching site profile");
-					
+					throw "Error fetching site profile";
 					
 				}
 			}); 
@@ -88,8 +86,9 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 		},
 		
 		saveSiteProfile :function(args,  fn){
-			//console.log('save profile')
-			 
+ 
+
+ 
 			var _self = this;
 			 
 			
@@ -111,7 +110,6 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 							if(!_.isUndefined(fn.success) && _.isFunction(fn.success))
 								fn.success(response);  
 						}
-							
 						else{
 							 
 							if(!_.isUndefined(fn.failure) && _.isFunction(fn.failure))

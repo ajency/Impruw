@@ -3,9 +3,9 @@
  * 
  */
 
-define([ 'underscore', 'jquery', 'backbone',
-		'text!templates/siteprofile/SiteProfileViewTpl.tpl' ], function(_, $,
-		Backbone, SiteProfileViewTpl) {
+define([ 'underscore', 'jquery', 'backbone', 
+		'text!templates/siteprofile/SiteProfileViewTpl.tpl' ], 
+		function(_, $, Backbone, SiteProfileViewTpl) {
 
 	var SiteProfileView = Backbone.View.extend({
 
@@ -43,6 +43,10 @@ define([ 'underscore', 'jquery', 'backbone',
 
 			this.$el.html(html);
 
+			//set custom selectbox
+			this.$el.find('select').selectpicker();
+			this.$el.find('input[type="checkbox"]').checkbox();
+
 			return this;
 		},
 
@@ -59,11 +63,11 @@ define([ 'underscore', 'jquery', 'backbone',
 			
 			var formSocial = this.$el.find('#form-siteprofile-social').serializeArray();
 			
-			 
-			var data = { 'business'  : formBusiness,
-						 'social'	 :  formSocial
-							
-						}; 
+			var data = 	{ 
+							'business'  : formBusiness,
+						 	'social'	: formSocial
+						};
+
 			$siteProfileSaveStatus = window.impruwSite.saveSiteProfile(data, {
 																			success : self.saveProfileSuccess,
 																			failure : self.saveProfileFailure
@@ -75,8 +79,7 @@ define([ 'underscore', 'jquery', 'backbone',
 		},
 		
 		saveProfileSuccess : function(response){
-			//uipdate with message
-			 
+  
 			 $(event.target).offsetParent().find('#siteprofilesave_status').removeClass('has-error').addClass('has-success')
 			 
 			 $(event.target).offsetParent().find('#siteprofilesave_status').show()
@@ -103,10 +106,13 @@ define([ 'underscore', 'jquery', 'backbone',
 		 * Function to add additional email element to site profile form
 		 */
 		addAnotherEmailElement : function(e) {
-		
-			 $('.div_email:last').clone().find("input").val("").end().appendTo(
-			 	'.div_email:last');
-			 $('.div_email:last').find(".del_email").show();
+ 
+
+			e.preventDefault();
+			
+			this.$el.find('.div_email:last').clone().find("input").val("").end().appendTo('.div_email:last');
+			this.$el.find('.div_email:last').find(".del_email").show();
+ 
 
 		},
 
@@ -115,6 +121,8 @@ define([ 'underscore', 'jquery', 'backbone',
 		 */
 		delEmailElement : function(el) {
 
+			el.preventDefault();
+
 			$(el.target).parent().remove();
 
 		},
@@ -122,11 +130,12 @@ define([ 'underscore', 'jquery', 'backbone',
 		/**
 		 * Function to add additional phone element to site profile form
 		 */
-		addAnotherPhoneElement : function() {
+		addAnotherPhoneElement : function(e) {
+			
+			e.preventDefault();
 
-			$('.div_phone:last').clone().find("input").val("").end().appendTo(
-					'.div_phone:last');
-			$('.div_phonel:last').find(".del_phone").show();
+			this.$el.find('.div_phone:last').clone().find("input").val("").end().appendTo('.div_phone:last');
+			this.$el.find('.div_phonel:last').find(".del_phone").show();
 
 		},
 
@@ -136,7 +145,7 @@ define([ 'underscore', 'jquery', 'backbone',
 		 * @param el
 		 */
 		delPhoneElement : function(el) {
-
+			el.preventDefault();
 			$(el.target).parent().remove();
 
 		}
