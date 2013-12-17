@@ -20,7 +20,7 @@
 					<label for="inputEmail3" class="col-sm-2 control-label">Site Name</label>
 					<div class="col-sm-10 col-sm-offset-2">
 						<div class="input-group">
-							<input type="text" class="form-control" id="sitename" disabled="disabled" name="sitename" placeholder="<%= site.getGeneralDetails('siteName') %>" value="<%= site.get('site_name') %>" >
+							<input type="text" class="form-control" id="sitename" disabled="disabled" name="sitename" placeholder="<%= site.getGeneralDetails('siteName') %>" value="<%= site.getGeneralDetails('siteName') %>" >
 							<span class="input-group-addon">.impruw.com</span>
 						</div>
 					</div>
