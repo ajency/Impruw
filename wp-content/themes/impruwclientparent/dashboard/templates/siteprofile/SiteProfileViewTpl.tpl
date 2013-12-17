@@ -61,7 +61,7 @@
 				<div class="form-group">
 					<label for="inputAddress1" class="col-sm-2 control-label">Street</label>
 					<div class="col-sm-10 col-sm-offset-2">
-						<input type="text" class="form-control" id="street" name="street" placeholder="21 Jump Street" value="<%= site.get('street') %>">
+						<input type="text" class="form-control" id="street" name="street" placeholder="21 Jump Street" value="<%= site.getBusinessDetails('street')   %>"> 
 						 
 					</div>
 				</div>
@@ -70,12 +70,12 @@
 				<div class="form-group">
 					<label for="inputAddress2" class="col-sm-2 control-label">Postal Code</label>
 					<div class="col-sm-4 col-sm-offset-2">
-						<input type="text" class="form-control" id="postalcode"  name="postalcode" data-mask="999-999" placeholder="420-001"  value="<%= site.get('postalcode') %>">
+						<input type="text" class="form-control" id="postalcode"  name="postalcode" data-mask="999-999" placeholder="420-001"  value="<%= site.getBusinessDetails('postalcode') %>">
 					</div>
 				
 					<label for="inputAddress3" class="col-sm-2 control-label label-2">City / Town</label>
 					<div class="col-sm-4 col-sm-offset-2">
-						<input type="text" class="form-control" id="city" name="city" placeholder="Gotham City" value="<%= site.get('city') %>"> 
+						<input type="text" class="form-control" id="city" name="city" placeholder="Gotham City" value="<%= site.getBusinessDetails('city') %>">  
 					</div>
 				</div>
 				
@@ -84,9 +84,9 @@
 					<label for="inputAddress4" class="col-sm-2 control-label dd-label">Country</label>
 					<div class="col-sm-10 col-sm-offset-2">
 						<select name="country" id="country">
-							<option value="0" <% if(site.get('country')=='0') { %> selected  <% } %>>Norway</option>
-							<option value="1" <% if(site.get('country')=='1') { %> selected  <% } %>>Sweden</option>
-							<option value="2" <% if(site.get('country')=='2') { %> selected  <% } %>>Denmark</option>
+							<option value="Norway" <% if(site.getBusinessDetails('country')=='Norway') { %> selected  <% } %>>Norway</option>
+							<option value="Sweden" <% if(site.getBusinessDetails('country')=='Sweden') { %> selected  <% } %>>Sweden</option>
+							<option value="Denmark" <% if(site.getBusinessDetails('country')=='Denmark') { %> selected  <% } %>>Denmark</option>
 						</select>
 					</div>
 				</div>
@@ -95,7 +95,8 @@
 				<div class="form-group add-another">
 					<label for="inputEmail1" class="col-sm-2 control-label">Email</label>
 					<div class="col-sm-4 col-sm-offset-2">
-					<%   if(site.has('email')) {  
+					 
+					<%   if(site.getSiteProfileEmails().length>0) {  
 					
 							_.each(site.getSiteProfileEmails(), function(email, index) { %>
 							
@@ -117,7 +118,7 @@
 				
 					<label for="inputPhone1" class="col-sm-2 control-label label-2">Phone</label>
 					<div class="col-sm-4 col-sm-offset-2">
-					<% if(site.has('phone')){
+					<% if(site.getSiteProfilePhoneNos().length>0){
 					
 							_.each(site.getSiteProfilePhoneNos(),function(phone,index){
 					 %>  
@@ -150,7 +151,7 @@
 					<div class="col-sm-10 col-sm-offset-2">
 						<div class="input-group">
 							<span class="input-group-addon">www.facebook.com/</span>
-							<input type="text" class="form-control" id="facebook" name="facebook"  placeholder="yourpageurl"  value="<%= site.get('facebook') %>">
+							<input type="text" class="form-control" id="facebook" name="facebook"  placeholder="yourpageurl"  value="<%= site.getSocialDetails('facebook') %>">
 							
 						</div>
 					</div>
@@ -162,7 +163,7 @@
 					<div class="col-sm-10 col-sm-offset-2">
 						<div class="input-group">
 							<span class="input-group-addon">www.twitter.com/</span>
-							<input type="text" class="form-control" id="twitter" name="twitter"  placeholder="Twitter"  value="<%= site.get('twitter') %>">
+							<input type="text" class="form-control" id="twitter" name="twitter"  placeholder="Twitter"  value="<%= site.getSocialDetails('twitter') %>">
 							
 						</div>
 					</div>

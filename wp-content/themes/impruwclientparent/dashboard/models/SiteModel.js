@@ -18,11 +18,11 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 		getSiteProfileEmails : function(){
 			var emails;
 			
-			if(!this.has('email'))
-				return [];
+			/*if(!this.has('email'))
+				return [];*/
 			
 			
-			emails = this.get('email').split(',');
+			emails = this.getBusinessDetails('email').split(',');
 			
 			if(_.isArray(emails))				
 				return emails;
@@ -38,10 +38,10 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 		getSiteProfilePhoneNos : function(){
 			var phoneNos;
 			
-			if(!this.has('phone'))
-				return [];
+			/*if(!this.has('phone'))
+				return [];*/
 			
-			phoneNos = this.get('phone').split(',');
+			phoneNos = this.getBusinessDetails('phone').split(',');
 			
 			if(_.isArray(phoneNos))
 				return phoneNos;
@@ -84,6 +84,35 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 			
 			
 		},
+		
+		
+		getBusinessDetails : function(field){
+
+			if(!this.has('businessDetails'))
+				return ''
+
+			var details = this.get('businessDetails');
+
+			if(_.isUndefined(details[field]))
+				return '';
+
+			return details[field];
+		},
+		
+		
+		getSocialDetails : function(field){
+			
+			if(!this.has('socialDetails'))
+				return ''
+
+			var details = this.get('socialDetails');
+
+			if(_.isUndefined(details[field]))
+				return '';
+
+			return details[field];
+		},
+		
 		
 		saveSiteProfile :function(args,  fn){
  
