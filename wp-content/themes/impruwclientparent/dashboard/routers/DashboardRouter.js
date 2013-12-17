@@ -19,12 +19,29 @@ define(['underscore', 'jquery', 'backbone', 'mainview', 'bootstrapselect','check
 
 				routes : {
 					''	 			: 'index',
-					'site-profile' 	: 'siteProfile'
+					'site-profile' 	: 'siteProfile',
+					'user-profile'	: 'userProfile'
 				},
 
 				index : function(){
 					
 						
+				},
+				
+				userProfile : function(){
+					console.log('show user profile')
+					var self =this;
+					window.impruwUser.getUserProfile({
+						success : function() {
+							console.log("showing user profile...")
+							self.mainView.showUserProfile('userprofileview');
+							
+						},
+						error : function (){
+							
+						}
+					})
+					
 				},
 				
 				siteProfile : function(){

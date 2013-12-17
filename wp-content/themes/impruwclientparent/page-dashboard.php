@@ -78,6 +78,11 @@
 							<span class="arrow"></span>
 							<a href="#">Support</a>
 						</li>
+						<li class="aj-imp-nav-support">
+							<span class="icon"></span>
+							<span class="arrow"></span>
+							<a href="#user-profile">User Profile</a>
+						</li>
 					</ul>
 				</nav>
 			</div>
@@ -98,11 +103,12 @@
 	<script
 		data-main="<?php echo get_parent_template_directory_uri(); ?>/dashboard/init"
 		src="<?php echo get_parent_template_directory_uri(); ?>/dashboard/require.js">
-		 jQuery(document).ready(function(){
-
-			 alert("pagetests")   
-		 })
+		 
 	</script>
+	
+	
+	
+	
 
 </body>
 </html>

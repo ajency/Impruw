@@ -31,7 +31,8 @@ require.config({
         mainview			: 'views/DashboardMainView',
         leftview			: 'views/LeftColumnView',
         siteprofileview		: 'views/siteprofile/SiteProfileView',
-        
+        userprofileview		: 'views/userprofile/UserProfileView',
+
         //Models
         sitemodel			: 'models/SiteModel',
         usermodel			: 'models/UserModel',
