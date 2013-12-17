@@ -76,7 +76,7 @@ function log(object){
 
 //init the app
 require(['backbone',
-         'routers/DashboardRouter','sitemodel','usermodel'], function( Backbone, Router, SiteModel, UserModel) {
+         'routers/DashboardRouter','sitemodel','usermodel','jquery'], function( Backbone, Router, SiteModel, UserModel) {
 
         $(document).ready(function(){   
         	 
