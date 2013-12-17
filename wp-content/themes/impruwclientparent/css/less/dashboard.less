@@ -448,7 +448,31 @@ form {
 		}
 		&.add-another {
 			.control-label {
-				bottom: 2em;
+				top: 1em;
+			}
+			.div_email, .div_phone {
+				position: relative;
+				margin: 0.3em 0;
+				display: block;
+				.del_email, .del_phone {
+					position: absolute;
+					right: 0;
+					top: 0.5em;
+					padding: 0.5em 1em;
+					background: @dash-grey;
+					font-size: 0.8em;
+					color: #fff;
+					cursor: pointer;
+					display: none;
+					&:hover {
+						background: @logo-orange;
+					}
+				}
+				&:hover {
+					.del_email, .del_phone {
+						display: block;
+					}
+				}
 			}
 		}
 		.help-block {

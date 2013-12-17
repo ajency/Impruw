@@ -423,7 +423,39 @@ form .form-group.pic-upload .fileinput .btn:hover {
   color: #65879c;
 }
 form .form-group.add-another .control-label {
-  bottom: 2em;
+  top: 1em;
+}
+form .form-group.add-another .div_email,
+form .form-group.add-another .div_phone {
+  position: relative;
+  margin: 0.3em 0;
+  display: block;
+}
+form .form-group.add-another .div_email .del_email,
+form .form-group.add-another .div_phone .del_email,
+form .form-group.add-another .div_email .del_phone,
+form .form-group.add-another .div_phone .del_phone {
+  position: absolute;
+  right: 0;
+  top: 0.5em;
+  padding: 0.5em 1em;
+  background: #aaaaaa;
+  font-size: 0.8em;
+  color: #fff;
+  cursor: pointer;
+  display: none;
+}
+form .form-group.add-another .div_email .del_email:hover,
+form .form-group.add-another .div_phone .del_email:hover,
+form .form-group.add-another .div_email .del_phone:hover,
+form .form-group.add-another .div_phone .del_phone:hover {
+  background: #ee4423;
+}
+form .form-group.add-another .div_email:hover .del_email,
+form .form-group.add-another .div_phone:hover .del_email,
+form .form-group.add-another .div_email:hover .del_phone,
+form .form-group.add-another .div_phone:hover .del_phone {
+  display: block;
 }
 form .form-group .help-block {
   color: #b7b7b7;
