@@ -15,14 +15,14 @@
 								<label for="inputEmail3" class="col-sm-2 control-label">Name</label>
 								<div class="col-sm-10">
 									<div class="form-group">
-										<input type="text" class="form-control" id="inputEmail3" placeholder="Name">
+										<input type="text" class="form-control" id="inputEmail3" placeholder="Name" value="<%= user.get('displayName') %>">
 									</div>
 								</div>
 								
 								<label for="inputEmail1" class="col-sm-2 control-label">Email</label>
 								<div class="col-sm-10">
 									<div class="form-group">
-										<input type="email" class="form-control" id="inputEmail1" placeholder="Email">
+										<input type="email" class="form-control" id="inputEmail1" placeholder="Email" value='<%= user.get('userEmail') %>'>
 									</div>
 								</div>
 								
