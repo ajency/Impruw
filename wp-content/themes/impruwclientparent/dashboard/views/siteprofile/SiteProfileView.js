@@ -4,8 +4,9 @@
  */
 
 define([ 'underscore', 'jquery', 'backbone', 
-		'text!templates/siteprofile/SiteProfileViewTpl.tpl' ], 
-		function(_, $, Backbone, SiteProfileViewTpl) {
+		'text!templates/siteprofile/SiteProfileViewTpl.tpl',
+		'lib/parsley/parsley' ], 
+		function(_, $, Backbone, SiteProfileViewTpl,parsley) {
 
 	var SiteProfileView = Backbone.View.extend({
 
@@ -21,7 +22,8 @@ define([ 'underscore', 'jquery', 'backbone',
 
 		initialize : function(args) {
 			
-			_.bindAll(this , 'saveProfileSuccess', 'saveProfileFailure');
+			_.bindAll(this , 'saveProfileSuccess', 'saveProfileFailure','parsleyInitialize');
+			
 				
 			if(_.isUndefined(args.site))
 				this.showInvalidCallView();
@@ -46,6 +48,10 @@ define([ 'underscore', 'jquery', 'backbone',
 			//set custom selectbox
 			this.$el.find('select').selectpicker();
 			this.$el.find('input[type="checkbox"]').checkbox();
+			
+			
+			this.parsleyInitialize(this.$el.find('#form-siteprofile-business'));
+			this.parsleyInitialize(this.$el.find('#form-siteprofile-social'));
 
 			return this;
 		},
@@ -54,27 +60,31 @@ define([ 'underscore', 'jquery', 'backbone',
 		 * Function to save site profile
 		 */
 		saveProfile : function(evt) {
+			
+			if (this.$el.find('#form-siteprofile-business').parsley('validate')){
 
-			$(evt.target).next().show();
-			
-			var self = this;
-			
-			var formBusiness = this.$el.find('#form-siteprofile-business').serializeArray();
-			
-			var formSocial = this.$el.find('#form-siteprofile-social').serializeArray();
-			
-			var data = 	{ 
-							'business'  : formBusiness,
-						 	'social'	: formSocial
-						};
-
-			$siteProfileSaveStatus = window.impruwSite.saveSiteProfile(data, {
-																			event : evt,
-																			success : self.saveProfileSuccess,
-																			failure : self.saveProfileFailure
-																		});
-			
-			$(event.target).next().hide();
+				if (this.$el.find('#form-siteprofile-social').parsley('validate')){
+					$(evt.target).next().show();
+					
+					var self = this;
+					
+					var formBusiness = this.$el.find('#form-siteprofile-business').serializeArray();
+					
+					var formSocial = this.$el.find('#form-siteprofile-social').serializeArray();
+					
+					var data = 	{ 
+									'business'  : formBusiness,
+								 	'social'	: formSocial
+								};
+		
+					$siteProfileSaveStatus = window.impruwSite.saveSiteProfile(data, {
+																					event : evt,
+																					success : self.saveProfileSuccess,
+																					failure : self.saveProfileFailure
+																				});					
+					$(event.target).next().hide();
+				}
+			}
  
 			
 		},
@@ -149,7 +159,52 @@ define([ 'underscore', 'jquery', 'backbone',
 			el.preventDefault();
 			$(el.target).parent().remove();
 
+		},
+		
+		
+		/**
+		 * Function to initialize parsley validation for a form
+		 * @param formelement
+		 */
+		
+		parsleyInitialize : function(formelement){
+			
+		 	
+			formelement.parsley({
+	    		errors: {
+	    			
+	    			errorsWrapper: '<span class="help-block" style="display:block"></span>',
+	    	    	  
+	    	    	errorElem: '<span style="display:block"></span>',
+	    	    	
+	    		    container: function (element) {
+		    		    		var $container = element.parent().parent().find(".p-messages");
+		    		    		if ($container.length === 0) {
+		    	                   $container = $("<div class='p-messages'></div>").insertAfter(element);
+		    		    		}
+		    		    		return $container;
+	    		    },
+	    		   
+	    		},
+	            listeners: {
+	               onFieldSuccess: function ( elem, constraints, ParsleyField ) {  
+	                  elem.parent().parent().removeClass("has-error").addClass("has-success");
+	                  elem.parent().parent().find('.fui-check-inverted,.fui-cross-inverted').remove();
+	                  elem.after('<span class="validation-icon input-icon fui-check-inverted"></span>') 
+	               } ,
+	               
+	               onFieldError: function ( elem, constraints, ParsleyField ) {  
+	                   elem.parent().parent().removeClass("has-success").addClass("has-error");
+	                   console.log(elem)
+	                   elem.parent().parent().find('.fui-check-inverted,.fui-cross-inverted').remove();
+	                   elem.after('<span class="validation-icon input-icon fui-cross-inverted"></span>') 
+	                }  
+	           }
+			});
+			
 		}
+		
+		
 
 	});
 

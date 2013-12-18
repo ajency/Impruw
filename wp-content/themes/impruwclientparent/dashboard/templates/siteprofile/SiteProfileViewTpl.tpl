@@ -61,33 +61,78 @@
 				<div class="form-group">
 					<label for="inputAddress1" class="col-sm-2 control-label">Street</label>
 					<div class="col-sm-10 col-sm-offset-2">
-						<input type="text" class="form-control" id="street" name="street" placeholder="21 Jump Street" value="<%= site.getBusinessDetails('street')   %>"> 
+						<input type="text" class="form-control" id="street" name="street" placeholder="21 Jump Street" 
+						value="<%= site.getBusinessDetails('street')   %>" required  parsley-trigger="blur" parsley-validation-minlength="0" /> 
+						<div class="p-messages"></div>
 						 
 					</div>
 				</div>
 				
 				
-				<div class="form-group">
-					<label for="inputAddress2" class="col-sm-2 control-label">Postal Code</label>
-					<div class="col-sm-4 col-sm-offset-2">
-						<input type="text" class="form-control" id="postalcode"  name="postalcode" data-mask="999-999" placeholder="420-001"  value="<%= site.getBusinessDetails('postalcode') %>">
-					</div>
+				 
 				
-					<label for="inputAddress3" class="col-sm-2 control-label label-2">City / Town</label>
-					<div class="col-sm-4 col-sm-offset-2">
-						<input type="text" class="form-control" id="city" name="city" placeholder="Gotham City" value="<%= site.getBusinessDetails('city') %>">  
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				<div class="form-group dual">
+					<div class="col-sm-5">
+						<div class="form-group">
+							<label for="inputAddress2" class="col-sm-5 control-label">Postal Code</label>
+							<div class="col-sm-7 col-sm-offset-5">
+								<input type="text" class="form-control" id="postalcode" name="postalcode"  
+								 data-mask="999-999" placeholder="420-001" value="<%= site.getBusinessDetails('postalcode') %>" 
+								 required parsley-trigger="blur" parsley-validation-minlength="0" >
+								 <div class="p-messages"></div>
+								 
+							</div>
+						</div>
+					</div>
+
+					<div class="col-sm-5">
+						<div class="form-group">
+							<label for="inputAddress3" class="col-sm-5 control-label">City / Town</label>
+							<div class="col-sm-7 col-sm-offset-5">
+								<input type="text" class="form-control"  id="city" name="city"  placeholder="Gotham City"
+								value="<%= site.getBusinessDetails('city') %>" required parsley-trigger="blur"  
+								parsley-validation-minlength="0" >
+								<div class="p-messages"></div>
+							</div>
+						</div>
 					</div>
 				</div>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
 				
 				
 				<div class="form-group">
 					<label for="inputAddress4" class="col-sm-2 control-label dd-label">Country</label>
 					<div class="col-sm-10 col-sm-offset-2">
-						<select name="country" id="country">
+						<select name="country" id="country" required parsley-trigger="blur" >
 							<option value="Norway" <% if(site.getBusinessDetails('country')=='Norway') { %> selected  <% } %>>Norway</option>
 							<option value="Sweden" <% if(site.getBusinessDetails('country')=='Sweden') { %> selected  <% } %>>Sweden</option>
 							<option value="Denmark" <% if(site.getBusinessDetails('country')=='Denmark') { %> selected  <% } %>>Denmark</option>
 						</select>
+						<div class="p-messages"></div>
 					</div>
 				</div>
 				
@@ -101,7 +146,10 @@
 							_.each(site.getSiteProfileEmails(), function(email, index) { %>
 							
 							<span class="div_email" >
-								<input type="email" class="form-control"   name="email[]"    value="<%= email %>">  
+								<input type="email" class="form-control"   name="email[]"    value="<%= email %>"  
+								parsley-required="true" parsley-trigger="blur" parsley-validation-minlength="0"  
+								parsley-type="email" parsley-required-message="Please enter email Id" parsley-group="myemails">  
+								<div class="p-messages"></div>
 								<span class="del_email" style="display:<% if(index<=0) { %>none<%}   %>;"><span class="fui-cross"></span> Delete</span> 
 								</span>
 							
@@ -110,7 +158,10 @@
 					else{
 					%>
 							<span class="div_email" >
-								<input type="email" class="form-control"   name="email[]"  value="">  
+								<input type="email" class="form-control"   name="email[]"  value=""
+								parsley-required="true" parsley-trigger="blur" parsley-validation-minlength="0"  
+								parsley-type="email" parsley-required-message="Please enter email Id"  parsley-group="myemails" />
+								<div class="p-messages"></div>  
 								<span class="del_email" style="display:none"><span class="fui-cross"></span> Delete</span> 
 							</span>
 					<%
@@ -129,7 +180,11 @@
 							_.each(site.getSiteProfilePhoneNos(),function(phone,index){
 					 %>  
 						 		<span class="div_phone" >
-						 			<input type="text" class="form-control"   name="phone[]" data-mask="99-999-999"  value="<%= phone %>"> 
+						 			<input type="text" class="form-control"   name="phone[]" data-mask="99-999-999"  
+						 			value="<%= phone %>" parsley-required="true" parsley-trigger="blur" 
+						 			parsley-validation-minlength="0" parsley-required-message="Please enter phone no"
+						 			parsley-group="myphones"/> 
+						 			<div class="p-messages"></div>  
 						 			<span class="del_phone" style="display: <% if(index<=0) { %> none; <% }   %>;"><span class="fui-cross"></span> Delete</span> 
 						 		</span>									
 					<% 		}); 			
@@ -138,7 +193,11 @@
 						else { %>
 								
 								<span class="div_phone" >
-									<input type="text" class="form-control"   name="phone[]" data-mask="99-999-999"  value="">
+									<input type="text" class="form-control"   name="phone[]" data-mask="99-999-999"  
+									value="" parsley-required="true" parsley-trigger="blur" 
+						 			parsley-validation-minlength="0" parsley-required-message="Please enter phone no"
+						 			parsley-group="myphones"/>
+						 			<div class="p-messages"></div>  
 									<span class="del_phone" style="display:none;"><span class="fui-cross"></span> Delete</span> 
 								</span>
 						<% }							 
@@ -165,8 +224,11 @@
 					<div class="col-sm-10 col-sm-offset-2">
 						<div class="input-group">
 							<span class="input-group-addon">www.facebook.com/</span>
-							<input type="text" class="form-control" id="facebook" name="facebook"  placeholder="yourpageurl"  value="<%= site.getSocialDetails('facebook') %>">
-							
+							<input type="text" class="form-control" id="facebook" name="facebook"  
+							placeholder="yourpageurl"  value="<%= site.getSocialDetails('facebook') %>" 
+							required parsley-trigger="blur" parsley-validation-minlength="0" />
+							<div class="p-messages"></div>
+														
 						</div>
 					</div>
 				</div>
@@ -177,7 +239,9 @@
 					<div class="col-sm-10 col-sm-offset-2">
 						<div class="input-group">
 							<span class="input-group-addon">www.twitter.com/</span>
-							<input type="text" class="form-control" id="twitter" name="twitter"  placeholder="Twitter"  value="<%= site.getSocialDetails('twitter') %>">
+							<input type="text" class="form-control" id="twitter" name="twitter"  placeholder="Twitter"
+ 								value="<%= site.getSocialDetails('twitter') %>" required parsley-trigger="blur" parsley-validation-minlength="0"  >
+ 								<div class="p-messages"></div>
 							
 						</div>
 					</div>
