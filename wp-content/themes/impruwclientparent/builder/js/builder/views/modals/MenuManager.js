@@ -24,10 +24,10 @@ define(['builder/views/modals/Modal','text!builder/templates/modal/menu.hbs',
                  */
                 initialize : function(args){
 
-                    var html = _.template(this.outerTemplate, {title : 'Menu Manager'});
+                    var html = _.template(this.outerTemplate,{title : 'Menu Manager'});
 
                     this.$el.html(html);
-
+                    
                     //append to body
                     $('body').append(this.$el);
 
@@ -44,9 +44,15 @@ define(['builder/views/modals/Modal','text!builder/templates/modal/menu.hbs',
                     this.menus = new MenuCollection();
 
                     this.fetchMenus();
+                    
 
                 },
-
+                
+                /**
+                 * Triggers the fetch of MenuCollection
+                 * Check if the collection is already fetched. If yes, ignores
+                 * @returns {undefined}
+                 */
                 fetchMenus : function(){
 
                     if(this.menus.isFetched())
@@ -59,21 +65,27 @@ define(['builder/views/modals/Modal','text!builder/templates/modal/menu.hbs',
 
                     this.menus.fetch({
                         success : function(collection, response){
-                            log(collection.models);
-                            var markup = 'No Menu found. Please contact administartor';
-                            if(collection.length > 0)
-                                markup = _.template(self.template, {menus : collection.models});
+                            
+                           var markup = 'No Menu found. Please contact administartor';
+                           if(collection.length === 0){
+                               self.$el.find('.modal-body').html(markup);
+                               return;
+                           }
+                           
+                           self.menus.setFetched(true);
+                           markup = _.template(self.template,{menus : collection.models});
+                           
+                           self.$el.find('.modal-body').html(markup);
+                           
+                           //make collapsable
+                           self.$el.find('*[data-toggle="collapse"]').collapse();
 
-                            self.$el.find('.modal-body').html(markup);
-                            //make collapsable
-                            self.$el.find('*[data-toggle="collapse"]').collapse();
-
-                            // activate Nestable for list 1
-                            self.$el.find('.sortable-menu').nestedSortable({
-                                                                        handle: 'div',
-                                                                        items: '.list-group-item',
+                           // activate Nestable for list 1
+                           self.$el.find('.sortable-menu').nestedSortable({
+                                                                        handle   : 'div',
+                                                                        items    : '.list-group-item',
                                                                         listType : 'div',
-                                                                        toleranceElement: '> div'
+                                                                        toleranceElement : '> div'
                                                                     });
 
                         },
