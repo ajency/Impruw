@@ -476,6 +476,20 @@ form {
 				}
 			}
 		}
+		&.dual {
+			> [class^="col-sm-"] {
+				margin: 0 -10px;
+				&:last-child {
+					margin-left: 20px;
+				}
+				@media (max-width: 767px) { 
+					margin: 0;
+					&:last-child {
+						margin: 0;
+					}
+				}
+			}
+		}
 		.help-block {
 			color: lighten(@dash-grey, 5%);
 			font-weight: 300;
