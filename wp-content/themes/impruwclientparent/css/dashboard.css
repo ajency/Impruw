@@ -1093,6 +1093,16 @@ form .aj-imp-submit:hover {
 .facilities-list .facility:hover .action {
   display: block;
 }
+.facilities-list .facility.add .input-group-btn .btn {
+  border: 0;
+  background: #ff7e00;
+  border-radius: 0;
+  color: #fff;
+  line-height: 15px;
+}
+.facilities-list .facility.add:hover {
+  border-color: transparent;
+}
 /****Date Picker Styles****/
 .ui-datepicker {
   border-color: #c3c3c3;
