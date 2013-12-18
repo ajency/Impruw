@@ -19,8 +19,8 @@ define([ 'underscore', 'jquery', 'backbone',
 		initialize : function(args) {
 			
 		//	_.bindAll(this , 'saveProfileSuccess', 'saveProfileFailure');
-				console.log("-+-+_+_+_+_+_")
-				console.log(args)
+				
+				
 			if(_.isUndefined(args.user))
 				this.showInvalidCallView();
 			
@@ -38,8 +38,8 @@ define([ 'underscore', 'jquery', 'backbone',
 			var html = template({
 				user : this.user
 			});
-			console.log('====')
-			console.log(this.user)
+			
+			
 
 			this.$el.html(html);
 			
@@ -54,7 +54,7 @@ define([ 'underscore', 'jquery', 'backbone',
 		 */
 		saveUserProfileGeneral : function(evt) {
 			
-				console.log($(evt.target).next());
+				
 			
 				$(evt.target).next().show();
 			
@@ -89,7 +89,7 @@ define([ 'underscore', 'jquery', 'backbone',
 			$(event.target).offsetParent().offsetParent().offsetParent().find('#userprofilesave_status').removeClass('alert-success').addClass('alert-error');
 			$(event.target).offsetParent().offsetParent().offsetParent().find('#userprofilesave_status').html(response.msg);
 			$(event.target).offsetParent().offsetParent().offsetParent().find('#userprofilesave_status').show();
-			//console.log($(event.target).parentElement().offsetParent().offsetParent().);
+			
 			$('html, body').animate({
 		        scrollTop: $(event.target).offsetParent().offsetParent().offsetParent().find('#userprofilesave_status').offset().top
 		    }, 1000);
@@ -97,7 +97,7 @@ define([ 'underscore', 'jquery', 'backbone',
 
 		updateUserPassword:function(evt){
 			
-			console.log('update password ')
+			
 			
 			$(evt.target).next().show();
 		
@@ -117,8 +117,7 @@ define([ 'underscore', 'jquery', 'backbone',
 		
 		
 		updatePassSuccess : function(response,event){
-			console.log('change password success')
-			console.log(event)
+			
 			$(event.target).next().hide(); 
 			 $(event.target).offsetParent().offsetParent().offsetParent().find('#userprofilesave_status').removeClass('alert-error').addClass('alert-success');
 			 $(event.target).offsetParent().offsetParent().offsetParent().find('#userprofilesave_status').html(response.msg);
@@ -129,25 +128,21 @@ define([ 'underscore', 'jquery', 'backbone',
 		},
 		
 		updatePassFailure : function(response,event){
-			console.log("Change password Failed");
+			
 			$(event.target).next().hide();
-			console.log(response)
+			
 			
 			
 			$(event.target).offsetParent().offsetParent().offsetParent().find('#userprofilesave_status').removeClass('alert-success').addClass('alert-error');
 			$(event.target).offsetParent().offsetParent().offsetParent().find('#userprofilesave_status').html(response.msg);
 			$(event.target).offsetParent().offsetParent().offsetParent().find('#userprofilesave_status').show();
-			//console.log($(event.target).parentElement().offsetParent().offsetParent().);
+			
 			$('html, body').animate({
 		        scrollTop: $(event.target).offsetParent().offsetParent().offsetParent().find('#userprofilesave_status').offset().top
 		    }, 1000);
 			
 			
-			//$(event.target).offsetParent().find('#userprofilesave_status').removeClass('has-success').addClass('has-error');
-			//$(event.target).offsetParent().find('#userprofilesave_status').show();
-			//$('html, body').animate({
-		   //     scrollTop: $(event.target).offsetParent().find('#userprofilesave_status').offset().top
-		  //  }, 1000);
+			
 		} 
 		
 		
