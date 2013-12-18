@@ -66,28 +66,30 @@ class ImpruwUser extends WP_User{
 	 */
 	function reset_user_password($user_pass_data) {
 		
-		var_dump($this);
-		echo"---------------------------";
-		var_dump($this->get_user_basic_info());
+		////var_dump($this);
+	//	echo"---------------------------";
+		//var_dump($this->get_user_basic_info());
 		
 		//do_action('password_reset', $user, $new_pass);
 		if ( wp_check_password( $user_pass_data['passdata']['currentpass'], $this->data->user_pass, $this->data->ID) ){
 			
-			echo "password match";
+			//echo "password match";
 			wp_set_password($user_pass_data['passdata']['newpass1'], $this->data->ID);
 			
 			wp_password_change_notification($this);
+			return true;
 			
 		}
 		else
 		{
-			echo "password do not match";
+			//echo "password do not match";
+			return false;
 		}
 			
 	
 		
 		
-		return true;
+		
 	}
 	
 

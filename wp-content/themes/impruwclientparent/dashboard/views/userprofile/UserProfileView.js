@@ -103,7 +103,27 @@ define([ 'underscore', 'jquery', 'backbone',
 														failure : self.updatePassFailure
 													});
 			
-		}
+		},
+		
+		
+		updatePassSuccess : function(response){
+			$(event.target).next().hide(); 
+			 $(event.target).offsetParent().find('#userprofilesave_status').removeClass('has-error').addClass('has-success')
+			 $(event.target).offsetParent().find('#userprofilesave_status').show()
+			 $('html, body').animate({
+			        scrollTop: $(event.target).offsetParent().find('#userprofilesave_status').offset().top
+			    }, 1000);
+		},
+		
+		updatePassFailure : function(response){
+			//console.log("Failed");
+			$(event.target).next().hide();
+			$(event.target).offsetParent().find('#userprofilesave_status').removeClass('has-success').addClass('has-error');
+			$(event.target).offsetParent().find('#userprofilesave_status').show();
+			$('html, body').animate({
+		        scrollTop: $(event.target).offsetParent().find('#userprofilesave_status').offset().top
+		    }, 1000);
+		} 
 		
 		
 
