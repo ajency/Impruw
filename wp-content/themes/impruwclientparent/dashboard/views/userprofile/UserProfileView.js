@@ -43,6 +43,7 @@ define([ 'underscore', 'jquery', 'backbone',
 
 			this.$el.html(html);
 			
+			this.$el.find('select').selectpicker();
 			this.$el.find('input[type="checkbox"]').checkbox();
 
 			return this;
