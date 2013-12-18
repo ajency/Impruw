@@ -42,6 +42,8 @@ define([ 'underscore', 'jquery', 'backbone',
 			console.log(this.user)
 
 			this.$el.html(html);
+			
+			this.$el.find('input[type="checkbox"]').checkbox();
 
 			return this;
 		},

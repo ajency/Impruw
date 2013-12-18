@@ -42,7 +42,7 @@ class ImpruwUser extends WP_User{
 	 * @return boolean
 	 */
 	function save_user_profile($user_data){
-		$user_info = get_userdata($this);
+		//$user_info = get_userdata($this);
 		 
 		$new_user_data = array ( 'ID' => $user_data['ID'] ,
 				'user_email' => $user_data['general']['user_email'],
@@ -60,9 +60,15 @@ class ImpruwUser extends WP_User{
 			}
 		}
 		else{
-			if(wp_update_user($new_user_data))
+			if(wp_update_user($new_user_data)){
+				
+				if(isset($user_data['general']['new_feature_alert']))
+					update_user_meta($user_data['ID'], 'impruw_featurealert' , $user_data['general']['new_feature_alert']);
+				else
+					update_user_meta($user_data['ID'], 'impruw_featurealert' , '');
 				
 				return true;
+			}
 			else
 				
 				return false;
@@ -87,11 +93,10 @@ class ImpruwUser extends WP_User{
 		 
 		//	if(wp_set_password($user_pass_data['passdata']['newpass1'], $this->data->ID)){
 			if(wp_update_user( array ( 'ID' => $this->data->ID, 'user_pass' => $user_pass_data['passdata']['newpass1'] ) ) ){
-				wp_password_change_notification($this);
+				wp_password_change_notification($this->data); 
 				
 				return true;
 			}
-			
 			else{
 				
 				$error ="Pasword could not be changed";
@@ -108,8 +113,6 @@ class ImpruwUser extends WP_User{
 		}
 			
 	
-		
-		
 		
 	}
 	
