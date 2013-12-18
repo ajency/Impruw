@@ -26,6 +26,7 @@ require.config({
         ckeditor        : 'lib/ckeditor',
         holder          : 'lib/holder',
         cssFx           : 'lib/cssFx',
+        nestable        : 'lib/nestable',
 
         //menu
         menumanager     : 'builder/views/modals/MenuManager',

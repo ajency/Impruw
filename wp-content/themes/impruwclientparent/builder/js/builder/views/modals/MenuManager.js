@@ -4,7 +4,7 @@
  *  Add/Editing/Deleting Menu
  */
 define(['builder/views/modals/Modal','text!builder/templates/modal/menu.hbs', 
-        'menumodel','menucollection', 'global'], 
+        'menumodel','menucollection', 'global','nestable'], 
 		
         function(Modal, template, MenuModel, MenuCollection, global){
 
@@ -66,7 +66,15 @@ define(['builder/views/modals/Modal','text!builder/templates/modal/menu.hbs',
 
                             self.$el.find('.modal-body').html(markup);
                             //make collapsable
-                            self.$el.find('*[data-toggle="collapse"]').collapse()
+                            self.$el.find('*[data-toggle="collapse"]').collapse();
+
+                            // activate Nestable for list 1
+                            self.$el.find('.sortable-menu').nestedSortable({
+                                                                        handle: 'div',
+                                                                        items: '.list-group-item',
+                                                                        listType : 'div',
+                                                                        toleranceElement: '> div'
+                                                                    });
 
                         },
                         error : function(){
