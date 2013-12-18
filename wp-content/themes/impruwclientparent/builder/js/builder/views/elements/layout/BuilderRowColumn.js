@@ -430,11 +430,13 @@ define(['builder/views/elements/BuilderElement', 'global'],
                     if(self.$el.find('*[data-element="'+elementName+'"]').length > 0)
                             self.$el.find('*[data-element="'+elementName+'"]').html('<div class="element-drop-loader"></div>');
                     
+
                     require([path], function(Element){
 
                         var element = new Element({parent: self});
                         
-                        self.elements.push(element);
+                        //self.elements.push(element);
+                        self.elements = self.elements.concat([element]); //concat works!!!
 
                         self.removeEmptyClass();
                         
@@ -453,6 +455,8 @@ define(['builder/views/elements/BuilderElement', 'global'],
                         
                         self.parent.trigger('adjust_column_dimension');
                         self.rearrangeElementOrder();
+                        log(self.elements);
+                        log(self.getElements());
 
                     });
                    

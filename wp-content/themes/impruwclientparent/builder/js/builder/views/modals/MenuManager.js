@@ -84,7 +84,7 @@ define(['builder/views/modals/Modal','text!builder/templates/modal/menu.hbs',
                            self.$el.find('.sortable-menu').nestedSortable({
                                                                         handle   : 'div',
                                                                         items    : '.list-group-item',
-                                                                        listType : 'div',
+                                                                        listType : 'div.list-group',
                                                                         toleranceElement : '> div'
                                                                     });
 
