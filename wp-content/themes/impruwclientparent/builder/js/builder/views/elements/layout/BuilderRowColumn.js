@@ -301,8 +301,6 @@ define(['builder/views/elements/BuilderElement', 'global'],
                             
                         });
 
-                        log(receiver.elements);
-
                     }
                     else{
                         _.each(sender.elements, function(element, index){
