@@ -62,28 +62,33 @@ define([ 'underscore', 'jquery', 'backbone',
 				var data = { 'general'  : formGeneral 	};
 				
 				$userProfileSaveStatus = window.impruwUser.saveUserProfile(data, {
+																			event : evt,
 																			success : self.saveProfileSuccess,
 																			failure : self.saveProfileFailure
 																		});
 			 			
 		},
 		 
-		saveProfileSuccess : function(response){
+		saveProfileSuccess : function(response,event){
 			$(event.target).next().hide(); 
-			 $(event.target).offsetParent().find('#userprofilesave_status').removeClass('has-error').addClass('has-success')
-			 $(event.target).offsetParent().find('#userprofilesave_status').show()
+			 
+			 $(event.target).offsetParent().offsetParent().offsetParent().find('#userprofilesave_status').removeClass('alert-error').addClass('alert-success');
+			 $(event.target).offsetParent().offsetParent().offsetParent().find('#userprofilesave_status').html(response.msg);
+			 $(event.target).offsetParent().offsetParent().offsetParent().find('#userprofilesave_status').show();
 			 $('html, body').animate({
-			        scrollTop: $(event.target).offsetParent().find('#userprofilesave_status').offset().top
+			        scrollTop: $(event.target).offsetParent().offsetParent().offsetParent().find('#userprofilesave_status').offset().top
 			    }, 1000);
 		},
 		
-		saveProfileFailure : function(response){
-			//console.log("Failed");
+		saveProfileFailure : function(response,event){
+			 
 			$(event.target).next().hide();
-			$(event.target).offsetParent().find('#userprofilesave_status').removeClass('has-success').addClass('has-error');
-			$(event.target).offsetParent().find('#userprofilesave_status').show();
+			$(event.target).offsetParent().offsetParent().offsetParent().find('#userprofilesave_status').removeClass('alert-success').addClass('alert-error');
+			$(event.target).offsetParent().offsetParent().offsetParent().find('#userprofilesave_status').html(response.msg);
+			$(event.target).offsetParent().offsetParent().offsetParent().find('#userprofilesave_status').show();
+			//console.log($(event.target).parentElement().offsetParent().offsetParent().);
 			$('html, body').animate({
-		        scrollTop: $(event.target).offsetParent().find('#userprofilesave_status').offset().top
+		        scrollTop: $(event.target).offsetParent().offsetParent().offsetParent().find('#userprofilesave_status').offset().top
 		    }, 1000);
 		}, 
 
@@ -99,30 +104,47 @@ define([ 'underscore', 'jquery', 'backbone',
 		 
 			var data = { 'passData'  : formPassData 	};
 			
-			window.impruwUser.updateUserPassword(data, {	success : self.updatePassSuccess,
+			window.impruwUser.updateUserPassword(data, {
+														event:evt,
+														success : self.updatePassSuccess,
 														failure : self.updatePassFailure
 													});
 			
 		},
 		
 		
-		updatePassSuccess : function(response){
+		updatePassSuccess : function(response,event){
+			console.log('change password success')
+			console.log(event)
 			$(event.target).next().hide(); 
-			 $(event.target).offsetParent().find('#userprofilesave_status').removeClass('has-error').addClass('has-success')
-			 $(event.target).offsetParent().find('#userprofilesave_status').show()
+			 $(event.target).offsetParent().offsetParent().offsetParent().find('#userprofilesave_status').removeClass('alert-error').addClass('alert-success');
+			 $(event.target).offsetParent().offsetParent().offsetParent().find('#userprofilesave_status').html(response.msg);
+			 $(event.target).offsetParent().offsetParent().offsetParent().find('#userprofilesave_status').show();
 			 $('html, body').animate({
-			        scrollTop: $(event.target).offsetParent().find('#userprofilesave_status').offset().top
+			        scrollTop: $(event.target).offsetParent().offsetParent().offsetParent().find('#userprofilesave_status').offset().top
 			    }, 1000);
 		},
 		
-		updatePassFailure : function(response){
-			//console.log("Failed");
+		updatePassFailure : function(response,event){
+			console.log("Change password Failed");
 			$(event.target).next().hide();
-			$(event.target).offsetParent().find('#userprofilesave_status').removeClass('has-success').addClass('has-error');
-			$(event.target).offsetParent().find('#userprofilesave_status').show();
+			console.log(response)
+			
+			
+			$(event.target).offsetParent().offsetParent().offsetParent().find('#userprofilesave_status').removeClass('alert-success').addClass('alert-error');
+			$(event.target).offsetParent().offsetParent().offsetParent().find('#userprofilesave_status').html(response.msg);
+			$(event.target).offsetParent().offsetParent().offsetParent().find('#userprofilesave_status').show();
+			//console.log($(event.target).parentElement().offsetParent().offsetParent().);
 			$('html, body').animate({
-		        scrollTop: $(event.target).offsetParent().find('#userprofilesave_status').offset().top
+		        scrollTop: $(event.target).offsetParent().offsetParent().offsetParent().find('#userprofilesave_status').offset().top
 		    }, 1000);
+			
+			
+			//$(event.target).offsetParent().find('#userprofilesave_status').removeClass('has-success').addClass('has-error');
+			//$(event.target).offsetParent().find('#userprofilesave_status').show();
+			//$('html, body').animate({
+		   //     scrollTop: $(event.target).offsetParent().find('#userprofilesave_status').offset().top
+		  //  }, 1000);
 		} 
 		
 		
