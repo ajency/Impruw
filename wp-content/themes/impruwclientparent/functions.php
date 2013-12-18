@@ -783,8 +783,10 @@ function save_site_data($site_form_data){
 	$site = new SiteModel(get_current_blog_id());
 
 	if($site->save_site_profile($site_form_data))
+		
 		return true;
 	else
+		
 		return false;
 
 
@@ -844,9 +846,9 @@ add_action('wp_ajax_nopriv_get_user_profile_ajx','get_user_profile_ajx');
 function get_user_data($user_id)
 {
 	$user = new ImpruwUser($user_id);
+	
 	$user_data = $user->get_user_basic_info();
-	//var_dump($user_data);
-	//exit();
+	
 	return $user_data;
 }
 
@@ -861,16 +863,19 @@ function save_user_profile_ajx()
 	
 	$user_form_data = array('general'=>$userform_general);
 	
-	if(save_user_profile($user_form_data,get_current_user_id())){
+	
+		
+	$profile_save_status = save_user_profile($user_form_data,get_current_user_id());
+	if(!is_string($profile_save_status)){
 	
 		header('Content-Type: application/json');
-		echo json_encode(array('code' => 'OK' ) );
+		echo json_encode(array('code' => 'OK','msg'=>'User profile updated successfully' ) );
 		die();
 	}
 	else{
 			
 		header('Content-Type: application/json');
-		echo json_encode(array('code' => 'FAILED', 'msg'=> 'Could not save site profile') );
+		echo json_encode(array('code' => 'FAILED', 'msg'=> $profile_save_status) );
 		die();
 	}
 }
@@ -883,38 +888,39 @@ function save_user_profile($user_data, $user_id)
 {
 	
 	$user_data['ID'] =  $user_id;
-	
-	//var_dump($user_data);
-	
+		
 	$user = new ImpruwUser(get_current_user_id());
+	$profile_save_status = $user->save_user_profile($user_data); 
 	
-	if($user->save_user_profile($user_data))
-		return true;
-	else
-		return false;
+	return $profile_save_status;
+	
  
 }
 
 function update_user_passwrd_ajx()
 {
+	 
+	
 	$userform_password =  serializedform_to_array($_POST['userprofile_passdata']);
 	
 	$user_form_data = array('passdata'=>$userform_password);
-	 
-	
-	
- 	if(update_user_passwrd($user_form_data,get_current_user_id())){
-	
+	$update_status = update_user_passwrd($user_form_data,get_current_user_id());
+		
+	if(is_string($update_status)){
+		
 		header('Content-Type: application/json');
-		echo json_encode(array('code' => 'OK' ) );
+		echo json_encode(array('code' => 'FAILED', 'msg'=> $update_status) );
 		die();
 	}
 	else{
-			
+		
 		header('Content-Type: application/json');
-		echo json_encode(array('code' => 'FAILED', 'msg'=> 'Password could not be changed') );
+		echo json_encode(array('code' => 'OK','msg'=>'Password changed successfully' ) );
 		die();
-	} 
+		
+	}
+		
+ 	
 }
 add_action('wp_ajax_update_user_passwrd_ajx','update_user_passwrd_ajx');
 add_action('wp_ajax_nopriv_update_user_passwrd_ajx','update_user_passwrd_ajx');
@@ -930,13 +936,10 @@ function update_user_passwrd($user_pass_data, $user_id)
 {
 	 
 	$user = new ImpruwUser($user_id);
-	//var_dump($user->get_user_basic_info());
-	//echo "============================================";
-	if($user->reset_user_password($user_pass_data))
-		return true;
-	else
-		return false;
- 
+	
+	$update_status = $user->reset_user_password($user_pass_data);
+	return $update_status;
+	
 }
 
 

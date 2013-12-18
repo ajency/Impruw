@@ -69,6 +69,7 @@ define([ 'underscore', 'jquery', 'backbone',
 						};
 
 			$siteProfileSaveStatus = window.impruwSite.saveSiteProfile(data, {
+																			event : evt,
 																			success : self.saveProfileSuccess,
 																			failure : self.saveProfileFailure
 																		});

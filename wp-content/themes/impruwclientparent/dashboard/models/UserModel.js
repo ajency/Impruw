@@ -77,12 +77,12 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 							
 							console.log(window.impruwSite);
 							if(!_.isUndefined(fn.success) && _.isFunction(fn.success))
-								fn.success(response);  
+								fn.success(response,fn.event);  
 						}
 						else{
 							 
 							if(!_.isUndefined(fn.failure) && _.isFunction(fn.failure))
-								fn.failure(response); 
+								fn.failure(response,fn.event); 
 						}
 				
 					});			
@@ -109,12 +109,12 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 							
 							console.log(window.impruwSite);
 							if(!_.isUndefined(fn.success) && _.isFunction(fn.success))
-								fn.success(response);  
+								fn.success(response,fn.event);  
 						}
 						else{
 							 
 							if(!_.isUndefined(fn.failure) && _.isFunction(fn.failure))
-								fn.failure(response); 
+								fn.failure(response,fn.event); 
 						}
 				
 					});			
