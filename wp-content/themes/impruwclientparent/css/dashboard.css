@@ -458,6 +458,20 @@ form .form-group.add-another .div_email:hover .del_phone,
 form .form-group.add-another .div_phone:hover .del_phone {
   display: block;
 }
+form .form-group.dual > [class^="col-sm-"] {
+  margin: 0 -10px;
+}
+form .form-group.dual > [class^="col-sm-"]:last-child {
+  margin-left: 20px;
+}
+@media (max-width: 767px) {
+  form .form-group.dual > [class^="col-sm-"] {
+    margin: 0;
+  }
+  form .form-group.dual > [class^="col-sm-"]:last-child {
+    margin: 0;
+  }
+}
 form .form-group .help-block {
   color: #b7b7b7;
   font-weight: 300;
