@@ -22,10 +22,11 @@ require.config({
         numerals        : 'lib/numerals.min',
         checkbox        : 'lib/flatui-checkbox',
         radio           : 'lib/flatui-radio',
-        handlebars      : 'lib/handlebars',
+        mustache        : 'lib/mustache',
         ckeditor        : 'lib/ckeditor',
         holder          : 'lib/holder',
         cssFx           : 'lib/cssFx',
+        nestable        : 'lib/nestable',
 
         //menu
         menumanager     : 'builder/views/modals/MenuManager',
@@ -65,9 +66,9 @@ require.config({
         'bootstrapselect' : {
             deps : ['bootstrap']
         },
-        'handlebars' : {
-            deps: ['underscore', 'jquery'],    
-            exports : 'Handlebars'
+        'mustache' : {
+            deps: ['jquery'],    
+            exports : 'Mustache'
         },
         'ckeditor' : {
             exports : 'CKEDITOR'

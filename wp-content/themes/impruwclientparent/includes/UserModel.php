@@ -42,16 +42,38 @@ class ImpruwUser extends WP_User{
 	 * @return boolean
 	 */
 	function save_user_profile($user_data){
-		$user_info = get_userdata($this);
+		//$user_info = get_userdata($this);
 		 
 		$new_user_data = array ( 'ID' => $user_data['ID'] ,
 				'user_email' => $user_data['general']['user_email'],
 				'display_name'=>$user_data['general']['display_name'] ) ;
 		
-		if(wp_update_user($new_user_data))
-			return true;
-		else
-			return false;
+		$email_user = email_exists($user_data['general']['user_email']);
+		
+		if($email_user){
+			
+			if($this->data->ID!=$email_user){
+				
+				$error = "User with this email id already exists.Please enter other email Id";
+				
+				return $error;
+			}
+		}
+		else{
+			if(wp_update_user($new_user_data)){
+				
+				if(isset($user_data['general']['new_feature_alert']))
+					update_user_meta($user_data['ID'], 'impruw_featurealert' , $user_data['general']['new_feature_alert']);
+				else
+					update_user_meta($user_data['ID'], 'impruw_featurealert' , '');
+				
+				return true;
+			}
+			else
+				
+				return false;
+			
+		}
 		
 	
 	}
@@ -66,28 +88,32 @@ class ImpruwUser extends WP_User{
 	 */
 	function reset_user_password($user_pass_data) {
 		
-		var_dump($this);
-		echo"---------------------------";
-		var_dump($this->get_user_basic_info());
 		
-		//do_action('password_reset', $user, $new_pass);
 		if ( wp_check_password( $user_pass_data['passdata']['currentpass'], $this->data->user_pass, $this->data->ID) ){
-			
-			echo "password match";
-			wp_set_password($user_pass_data['passdata']['newpass1'], $this->data->ID);
-			
-			wp_password_change_notification($this);
-			
+		 
+		//	if(wp_set_password($user_pass_data['passdata']['newpass1'], $this->data->ID)){
+			if(wp_update_user( array ( 'ID' => $this->data->ID, 'user_pass' => $user_pass_data['passdata']['newpass1'] ) ) ){
+				wp_password_change_notification($this->data); 
+				
+				return true;
+			}
+			else{
+				
+				$error ="Pasword could not be changed";
+				
+				return $error;
+			}
+				
 		}
-		else
-		{
-			echo "password do not match";
+		else{
+			
+			$error =  "Password incorrect";
+			
+			return $error;
 		}
 			
 	
 		
-		
-		return true;
 	}
 	
 

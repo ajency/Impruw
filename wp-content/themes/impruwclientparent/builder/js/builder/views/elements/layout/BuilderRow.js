@@ -739,6 +739,22 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                         //update the parent UI
                         this.parent.updateEmptyView();
                     }
+                    else if(this.parent.is('editor')){
+
+                        _.each(this.parent.elements, function(section, index){
+                            
+                            _.each(section, function(row, index){
+
+                                if(row.id == self.id){
+                                
+                                    section.splice(index,1);//remove element
+
+                                }
+                            });
+                            
+                        });
+
+                    }
                     
                     
                     this.emptyColumns();

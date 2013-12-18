@@ -770,7 +770,7 @@ function user_login() {
 
 		if (is_wp_error($user)) {
 			$msg = "Invalid email/password ";
-			$response = array('code' => "FAILED", 'user' => $user->user_login . $pd_pass, 'msg' => $msg);
+			$response = array('code' => "FAILED", 'user' => $user_->user_login . $pd_pass, 'msg' => $msg);
 			wp_send_json($response);
 		} else {
 			wp_set_auth_cookie($user->ID);

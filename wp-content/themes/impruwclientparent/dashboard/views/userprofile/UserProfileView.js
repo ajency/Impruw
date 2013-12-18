@@ -19,8 +19,8 @@ define([ 'underscore', 'jquery', 'backbone',
 		initialize : function(args) {
 			
 		//	_.bindAll(this , 'saveProfileSuccess', 'saveProfileFailure');
-				console.log("-+-+_+_+_+_+_")
-				console.log(args)
+				
+				
 			if(_.isUndefined(args.user))
 				this.showInvalidCallView();
 			
@@ -38,10 +38,13 @@ define([ 'underscore', 'jquery', 'backbone',
 			var html = template({
 				user : this.user
 			});
-			console.log('====')
-			console.log(this.user)
+			
+			
 
 			this.$el.html(html);
+			
+			this.$el.find('select').selectpicker();
+			this.$el.find('input[type="checkbox"]').checkbox();
 
 			return this;
 		},
@@ -51,7 +54,7 @@ define([ 'underscore', 'jquery', 'backbone',
 		 */
 		saveUserProfileGeneral : function(evt) {
 			
-				console.log($(evt.target).next());
+				
 			
 				$(evt.target).next().show();
 			
@@ -62,34 +65,39 @@ define([ 'underscore', 'jquery', 'backbone',
 				var data = { 'general'  : formGeneral 	};
 				
 				$userProfileSaveStatus = window.impruwUser.saveUserProfile(data, {
+																			event : evt,
 																			success : self.saveProfileSuccess,
 																			failure : self.saveProfileFailure
 																		});
 			 			
 		},
 		 
-		saveProfileSuccess : function(response){
+		saveProfileSuccess : function(response,event){
 			$(event.target).next().hide(); 
-			 $(event.target).offsetParent().find('#userprofilesave_status').removeClass('has-error').addClass('has-success')
-			 $(event.target).offsetParent().find('#userprofilesave_status').show()
+			 
+			 $(event.target).offsetParent().offsetParent().offsetParent().find('#userprofilesave_status').removeClass('alert-error').addClass('alert-success');
+			 $(event.target).offsetParent().offsetParent().offsetParent().find('#userprofilesave_status').html(response.msg);
+			 $(event.target).offsetParent().offsetParent().offsetParent().find('#userprofilesave_status').show();
 			 $('html, body').animate({
-			        scrollTop: $(event.target).offsetParent().find('#userprofilesave_status').offset().top
+			        scrollTop: $(event.target).offsetParent().offsetParent().offsetParent().find('#userprofilesave_status').offset().top
 			    }, 1000);
 		},
 		
-		saveProfileFailure : function(response){
-			//console.log("Failed");
+		saveProfileFailure : function(response,event){
+			 
 			$(event.target).next().hide();
-			$(event.target).offsetParent().find('#userprofilesave_status').removeClass('has-success').addClass('has-error');
-			$(event.target).offsetParent().find('#userprofilesave_status').show();
+			$(event.target).offsetParent().offsetParent().offsetParent().find('#userprofilesave_status').removeClass('alert-success').addClass('alert-error');
+			$(event.target).offsetParent().offsetParent().offsetParent().find('#userprofilesave_status').html(response.msg);
+			$(event.target).offsetParent().offsetParent().offsetParent().find('#userprofilesave_status').show();
+			
 			$('html, body').animate({
-		        scrollTop: $(event.target).offsetParent().find('#userprofilesave_status').offset().top
+		        scrollTop: $(event.target).offsetParent().offsetParent().offsetParent().find('#userprofilesave_status').offset().top
 		    }, 1000);
 		}, 
 
 		updateUserPassword:function(evt){
 			
-			console.log('update password ')
+			
 			
 			$(evt.target).next().show();
 		
@@ -99,11 +107,43 @@ define([ 'underscore', 'jquery', 'backbone',
 		 
 			var data = { 'passData'  : formPassData 	};
 			
-			window.impruwUser.updateUserPassword(data, {	success : self.updatePassSuccess,
+			window.impruwUser.updateUserPassword(data, {
+														event:evt,
+														success : self.updatePassSuccess,
 														failure : self.updatePassFailure
 													});
 			
-		}
+		},
+		
+		
+		updatePassSuccess : function(response,event){
+			
+			$(event.target).next().hide(); 
+			 $(event.target).offsetParent().offsetParent().offsetParent().find('#userprofilesave_status').removeClass('alert-error').addClass('alert-success');
+			 $(event.target).offsetParent().offsetParent().offsetParent().find('#userprofilesave_status').html(response.msg);
+			 $(event.target).offsetParent().offsetParent().offsetParent().find('#userprofilesave_status').show();
+			 $('html, body').animate({
+			        scrollTop: $(event.target).offsetParent().offsetParent().offsetParent().find('#userprofilesave_status').offset().top
+			    }, 1000);
+		},
+		
+		updatePassFailure : function(response,event){
+			
+			$(event.target).next().hide();
+			
+			
+			
+			$(event.target).offsetParent().offsetParent().offsetParent().find('#userprofilesave_status').removeClass('alert-success').addClass('alert-error');
+			$(event.target).offsetParent().offsetParent().offsetParent().find('#userprofilesave_status').html(response.msg);
+			$(event.target).offsetParent().offsetParent().offsetParent().find('#userprofilesave_status').show();
+			
+			$('html, body').animate({
+		        scrollTop: $(event.target).offsetParent().offsetParent().offsetParent().find('#userprofilesave_status').offset().top
+		    }, 1000);
+			
+			
+			
+		} 
 		
 		
 

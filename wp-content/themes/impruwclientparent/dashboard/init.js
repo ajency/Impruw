@@ -28,6 +28,7 @@ require.config({
         numerals    		: 'lib/numerals.min',
         checkbox    		: 'lib/flatui-checkbox',
         radio       		: 'lib/flatui-radio',
+        nestable            : 'lib/nestable',
         
         //Views
         mainview			: 'views/DashboardMainView',

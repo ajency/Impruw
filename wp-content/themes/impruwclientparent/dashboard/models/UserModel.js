@@ -9,10 +9,7 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 		url : AJAXURL + '?action=get_user_profile_ajx',
 		userProfileUrl : AJAXURL + '?action=save_user_profile_ajx',
 		userPassUrl : AJAXURL + '?action=update_user_passwrd_ajx',
-		/*fetch : function(){
-			return true;	
-			
-		}*/
+		 
 		
 		
 		
@@ -25,8 +22,7 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 		getUserProfile : function(fn){
 			
 			_self = this;
-			console.log('get user profile')
-			//console.log(this.get('id'))
+			
 			 var data = {
 				//	action: 'save_admissiondetails',
 					
@@ -36,16 +32,18 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 			
 			$.get(this.url,data,function(response){
 				
-				console.log(response);
+				 
 				if(response.code === 'OK'){
-				/*	if(_.isObject(response.siteProfileData))	
+					if(_.isObject(response.siteProfileData))	
 						_self.set(response.siteProfileData);
 					if(!_.isUndefined(fn.success) && _.isFunction(fn.success))
-						  */fn.success(response);
+						  fn.success(response);
  					
 				}
 				else{
-					fn.error(response); 
+					
+					if(!_.isUndefined(fn.error) && _.isFunction(fn.error))
+						fn.error(response); 
 					/*console.log("Error fetching site profile");*/
 					
 					
@@ -57,32 +55,26 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 		
 		
 		saveUserProfile :function(args,  fn){
-			//console.log("saveuser profile")
-			 
+						 
 			var _self = this;
 			
-			var data = {	userprofile_general :args.general 
-					
-						};
+			var data = {	userprofile_general :args.general  	};
 			 
 			$.post(	this.userProfileUrl,
 					data,
 					function(response){
 				
-				console.log("save user profile status ")
-				console.log(response)
 						if(response.code=='OK'){
 						
 							_self.set(response.site_data)
 							
-							console.log(window.impruwSite);
 							if(!_.isUndefined(fn.success) && _.isFunction(fn.success))
-								fn.success(response);  
+								fn.success(response,fn.event);  
 						}
 						else{
 							 
 							if(!_.isUndefined(fn.failure) && _.isFunction(fn.failure))
-								fn.failure(response); 
+								fn.failure(response,fn.event); 
 						}
 				
 					});			
@@ -91,7 +83,6 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 		
 		  
 		updateUserPassword :function(args,  fn){
-			//console.log("saveuser profile")
 			 
 			var _self = this;
 			
@@ -100,21 +91,18 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 			$.post(	this.userPassUrl,
 					data,
 					function(response){
-				
-				console.log("save user password ")
-				console.log(response)
+				 
 						if(response.code=='OK'){
 						
 							_self.set(response.site_data)
 							
-							console.log(window.impruwSite);
 							if(!_.isUndefined(fn.success) && _.isFunction(fn.success))
-								fn.success(response);  
+								fn.success(response,fn.event);  
 						}
 						else{
 							 
 							if(!_.isUndefined(fn.failure) && _.isFunction(fn.failure))
-								fn.failure(response); 
+								fn.failure(response,fn.event); 
 						}
 				
 					});			

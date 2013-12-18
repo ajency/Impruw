@@ -112,7 +112,7 @@ define(['backbone','jquery','underscore', 'global'],
 
                     var newArr = [];
 
-                    this.$el.children('.element').each(function(index,element){
+                    this.$el.children('.element,.row').each(function(index,element){
                         
                         var el = _.find(elements ,  function(ele){ 
                                                         return ele.id === $(element).attr('id');
