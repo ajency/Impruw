@@ -48,7 +48,7 @@
 								<div class="col-sm-offset-2 col-sm-10">
 									<div class="form-group">
 										<label for="checkbox2" class="checkbox checked">
-											<input type="checkbox" data-toggle="checkbox" checked="checked" id="new_feature_alert"  name="new_feature_alert" value="">
+											<input type="checkbox" data-toggle="checkbox" checked="checked" id="new_feature_alert"  name="new_feature_alert" value="1">
 											Let me know about new features and tips!
 										</label>
 									</div>
