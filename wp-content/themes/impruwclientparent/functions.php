@@ -949,10 +949,25 @@ function get_site_menu(){
 
     $menu_id = $_GET['menu-id'];
 
+    $wp_menu = get_menu_to_array($menu_id);
+     
+    wp_send_json($wp_menu);
+
+    die;
+}
+add_action('wp_ajax_get_site_menu','get_site_menu');
+
+
+/**
+ * Retuns the menu data
+ * @param $menu_id The menu Id
+ */
+function get_menu_to_array($menu_id){
+
     $menu = get_term_by('id', $menu_id,'nav_menu');
 
     if($menu === false)
-        wp_send_json(array('code' => 'ERROR', 'message' => 'Invalid menu id'));
+        return array('code' => 'ERROR', 'message' => 'Invalid menu id');
         
     $m = wp_get_nav_menu_items($menu_id);
             
@@ -970,7 +985,7 @@ function get_site_menu(){
         
         if((int)$menu_item->menu_item_parent === 0){
 
-            $sorted_menu_items[$menu_item->ID] = $mn;
+            $sorted_menu_items[$menu_item->menu_order] = $mn;
         }
        
     }
@@ -998,12 +1013,48 @@ function get_site_menu(){
                     'description'   => $menu->description,
                     'items'         => $sorted_menu_items
                 );
-     
-    wp_send_json($wp_menu);
+
+    return $wp_menu;
+}
+
+function update_menu_order(){
+
+    $hierarchy = $_POST['hierarchy'];
+
+    $menu_id   = $_POST['menuId'];
+
+    $order = 1;
+    foreach ($hierarchy as $key => $value) {
+        
+        $p_id = $value['id'];
+        
+        wp_update_post(array('ID' => $p_id, 'menu_order' => $order));
+
+        $order++;
+
+        if(isset($value['children'])){
+
+            $parent = $p_id;
+            
+            foreach ($value['children'] as $k => $v) {
+                
+                $p_id = $v['id'];
+        
+                wp_update_post(array('ID' => $p_id, 'menu_order' => $order));
+                update_post_meta($p_id,'_menu_item_menu_item_parent',$parent);
+
+                $order++;
+            }
+
+        }
+    
+    }
+
+    wp_send_json(array( 'code' => 'OK', 'items' => get_menu_to_array($menu_id)));
 
     die;
 }
-add_action('wp_ajax_get_site_menu','get_site_menu');
+add_action('wp_ajax_update_menu_order','update_menu_order');
 
 
 /**
@@ -1078,18 +1129,28 @@ function save_menu_item(){
 
     $item_url   = $_POST['item-url'];
 
-    $item = wp_update_nav_menu_item($menu_id, $item_id , array(
+    if((int)$item_id === 0){
+        
+        $item = wp_update_nav_menu_item($menu_id, 0 , array(
                                                 'menu-item-title'   => $item_title,
                                                 'menu-item-classes' => sanitize_title($item_title),
                                                 'menu-item-url'     =>  $item_url, 
                                                 'menu-item-type'    => 'custom',
                                                 'menu-item-status'  => 'publish'));
+        if ( is_wp_error($item) )
+            wp_send_json(array('code' => 'ERROR', 'message' => $item->get_error_message()));
+        else
+           wp_send_json(array('code' => 'OK', 'itemID' => $item));
+    }
+    else{
 
-    if ( is_wp_error($item) )
-        wp_send_json(array('code' => 'ERROR', 'message' => $item->get_error_message()));
-    else
-       wp_send_json(array('code' => 'OK', 'itemID' => $item));
+        wp_update_post(array('ID'           => $item_id, 
+                             'post_title'   => $item_title,
+                            ));
 
+        update_post_meta($item_id,'_menu_item_url', esc_url_raw($item_url) );
+        wp_send_json(array('code' => 'OK', 'itemID' => $item_id));
+    }
 }
 add_action('wp_ajax_save_menu_item','save_menu_item');
 

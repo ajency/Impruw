@@ -15,6 +15,10 @@ define(['underscore', 'backbone',  'global'],
 				url : function(){
 					return AJAXURL + '?action=get_site_menu' + (!this.isNew() ?'&menu-id=' + this.get('id') : '');
 				},
+
+                menuOrderUrl : function(){
+                    return AJAXURL + '?action=update_menu_order';
+                },
 				
 				/**
                  * Checks if the collection is fetched or not
@@ -53,6 +57,39 @@ define(['underscore', 'backbone',  'global'],
                     this.set('items',items);
 
                 },
+
+                /**
+                 * Updates menu order on server 
+                 */
+                updateMenuOrder : function(hierarchy, fn) {
+                    
+                    if(!_.isArray(hierarchy))
+                        throw "hierarchy must be an array";
+
+                    var self = this;
+
+                    $.post(this.menuOrderUrl(),
+                            {
+                                menuId      : this.get('id'),
+                                hierarchy   : hierarchy
+                            },
+                            function(response){
+
+                                if(response.code === 'OK'){
+
+                                    self.set('items',response.items);
+                                    
+                                    if(!_.isUndefined(fn) && _.isFunction(fn.success))
+                                        fn.success(response);
+
+                                }
+                                else if(response.code === 'ERROR'){
+                                    if(!_.isUndefined(fn) && _.isFunction(fn.error))
+                                        fn.error(response);
+                                }
+
+                            },'json')
+                }
 
 			});
 

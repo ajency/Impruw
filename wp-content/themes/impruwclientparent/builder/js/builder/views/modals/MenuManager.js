@@ -19,7 +19,8 @@ define(['builder/views/modals/Modal','text!builder/templates/modal/menu.hbs',
                     'click .refetch-menus'          : 'fetchMenus',
                     'click .add-new-menu-item'      : 'addNewMenuItem',
                     'click .update-new-menu-item'   : 'addNewMenuItem',
-                    'click .remove-menu-item'       : 'removeMenuItem'
+                    'click .remove-menu-item'       : 'removeMenuItem',
+                    'click #update-menu-order'      : 'updateMenuOrder'
                 },
 
                 /**
@@ -49,6 +50,37 @@ define(['builder/views/modals/Modal','text!builder/templates/modal/menu.hbs',
                     this.menu = new MenuModel({id : 2});
                     
                     this.fetchMenu();
+                },
+
+                /**
+                 * Update menu order 
+                 */
+                updateMenuOrder : function(evt){
+
+                    var hierarchy = this.$el.find('.sortable-menu').nestedSortable('toHierarchy', {startDepthCount: 0});
+
+                    this.menu.updateMenuOrder(hierarchy,{
+                        success : function(response){
+                            
+                            var span = $('<span> Menu order updated successfully</span>');
+
+                            $(evt.target).after($(span));
+
+                            setTimeout(function(){
+                                $(span).remove();
+                            },2000);
+                        },
+                        error: function(response){
+                            var span = $('<span>&nbsp;Failed to update order. Please try again</span>');
+
+                            $(evt.target).after($(span));
+
+                            setTimeout(function(){
+                                $(span).remove();
+                            },2000);
+                        }
+                    });
+
                 },
 
                 /**
