@@ -22,8 +22,7 @@ define([ 'underscore', 'jquery', 'backbone',
 
 		initialize : function(args) {
 			
-			_.bindAll(this , 'saveProfileSuccess', 'saveProfileFailure','parsleyInitialize');
-			
+			_.bindAll(this , 'saveProfileSuccess', 'saveProfileFailure','parsleyInitialize');			
 				
 			if(_.isUndefined(args.site))
 				this.showInvalidCallView();
@@ -47,8 +46,7 @@ define([ 'underscore', 'jquery', 'backbone',
 
 			//set custom selectbox
 			this.$el.find('select').selectpicker();
-			this.$el.find('input[type="checkbox"]').checkbox();
-			
+			this.$el.find('input[type="checkbox"]').checkbox();			
 			
 			this.parsleyInitialize(this.$el.find('#form-siteprofile-business'));
 			this.parsleyInitialize(this.$el.find('#form-siteprofile-social'));
@@ -56,8 +54,11 @@ define([ 'underscore', 'jquery', 'backbone',
 			return this;
 		},
 
+		 
+		
 		/**
 		 * Function to save site profile
+		 * @param evt
 		 */
 		saveProfile : function(evt) {
 			
@@ -89,6 +90,10 @@ define([ 'underscore', 'jquery', 'backbone',
 			
 		},
 		
+		/**
+		 * Function to show success message on save site profile success
+		 * @param response
+		 */
 		saveProfileSuccess : function(response){
   
 			 $(event.target).offsetParent().find('#siteprofilesave_status').removeClass('has-error').addClass('has-success')
@@ -101,6 +106,10 @@ define([ 'underscore', 'jquery', 'backbone',
 			 
 		},
 		
+		/**
+		 * Function to show error message on save site profile failure
+		 * @param response
+		 */
 		saveProfileFailure : function(response){
 			
 			$(event.target).offsetParent().find('#siteprofilesave_status').removeClass('has-success').addClass('has-error');
@@ -116,8 +125,7 @@ define([ 'underscore', 'jquery', 'backbone',
 		/**
 		 * Function to add additional email element to site profile form
 		 */
-		addAnotherEmailElement : function(e) {
- 
+		addAnotherEmailElement : function(e) { 
 
 			e.preventDefault();
 			
@@ -188,8 +196,7 @@ define([ 'underscore', 'jquery', 'backbone',
 	    		},
 	            listeners: {
 	               onFieldSuccess: function ( elem, constraints, ParsleyField ) { 
-	            	   console.log('check success')
-	            	   console.log(elem.parent().parent())
+	            	   
 	            	   if(elem.parent().hasClass('input-group'))
 	            		   elem.parent().parent().parent().removeClass("has-error").addClass("has-success");
 	            	   else
@@ -199,21 +206,19 @@ define([ 'underscore', 'jquery', 'backbone',
 	               } ,
 	               
 	               onFieldError: function ( elem, constraints, ParsleyField ) { 
-	            	   console.log('check error')
-	            	   console.log(elem.parent().parent())
+	            	    
 	            	   if(elem.parent().hasClass('input-group'))
 	            		   elem.parent().parent().parent().removeClass("has-success").addClass("has-error");
 	            	   else	
 	            		   elem.parent().parent().removeClass("has-success").addClass("has-error"); 
-	                   console.log(elem)
+	                   
 	                   elem.parent().parent().find('.fui-check-inverted,.fui-cross-inverted').remove();
 	                   elem.after('<span class="validation-icon input-icon fui-cross-inverted"></span>') 
 	                }  
 	           }
 			});
 			
-		}
-		
+		}		
 		
 
 	});

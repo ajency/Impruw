@@ -18,8 +18,8 @@ define([ 'underscore', 'jquery', 'backbone',
 
 		initialize : function(args) {
 			
-		//	_.bindAll(this , 'saveProfileSuccess', 'saveProfileFailure');
-				_.bindAll(this , 'showAlertMessage','parsleyInitialize' );
+			//	_.bindAll(this , 'saveProfileSuccess', 'saveProfileFailure');
+			_.bindAll(this , 'showAlertMessage','parsleyInitialize' );
 				
 			if(_.isUndefined(args.user))
 				this.showInvalidCallView();
@@ -30,32 +30,29 @@ define([ 'underscore', 'jquery', 'backbone',
 
 		render : function() {
 
-			var self = this;
-
-			 
+			var self = this; 
+			
 			var template = _.template(UserProfileViewTpl);
 
 			var html = template({
 				user : this.user
-			});
-			
-			
+			}); 
 
 			this.$el.html(html);
 			
 			this.$el.find('select').selectpicker();
 			this.$el.find('input[type="checkbox"]').checkbox();
-
 			
 			this.parsleyInitialize(this.$el.find('#form_usergeneral'));
-			this.parsleyInitialize(this.$el.find('#form_userpass'));
-			 
+			this.parsleyInitialize(this.$el.find('#form_userpass'));			 
 			
 			return this;
 		},
 
+		
 		/**
 		 * Function to save user profile
+		 * @param evt
 		 */
 		saveUserProfileGeneral : function(evt) {
 			
@@ -79,37 +76,43 @@ define([ 'underscore', 'jquery', 'backbone',
 			 			
 		},
 		 
+		
+		/**
+		 * Function to show message after success of save profile
+		 * @param response
+		 * @param event
+		 * @param _self
+		 */
 		saveProfileSuccess : function(response,event,_self){
 			$(event.target).next().hide(); 
 			 
 			 $(event.target).offsetParent().offsetParent().offsetParent()
 			 				.find('#userprofilesave_status').removeClass('alert-error').addClass('alert-success');
-			 console.log(_self);
-			 _self.showAlertMessage(event,response);
-			/* $(event.target).offsetParent().offsetParent().offsetParent().find('#userprofilesave_status').html(response.msg);
-			 $(event.target).offsetParent().offsetParent().offsetParent().find('#userprofilesave_status').show();
-			 $('html, body').animate({
-			        scrollTop: $(event.target).offsetParent().offsetParent().offsetParent().find('#userprofilesave_status').offset().top
-			    }, 1000);*/
+			 
+			 _self.showAlertMessage(event,response);			 
 			 
 		},
 		
+		/**
+		 * Function to show message after failure of saveprofile
+		 * @param response
+		 * @param event
+		 * @param _self
+		 */
 		saveProfileFailure : function(response,event,_self){
 			 
 			$(event.target).next().hide();
 			$(event.target).offsetParent().offsetParent().offsetParent()
 							.find('#userprofilesave_status').removeClass('alert-success').addClass('alert-error');
 			
-			_self.showAlertMessage(event,response);
-			/*$(event.target).offsetParent().offsetParent().offsetParent().find('#userprofilesave_status').html(response.msg);
-			$(event.target).offsetParent().offsetParent().offsetParent().find('#userprofilesave_status').show();
-			
-			$('html, body').animate({
-		        scrollTop: $(event.target).offsetParent().offsetParent().offsetParent().find('#userprofilesave_status').offset().top
-		    }, 1000);*/
+			_self.showAlertMessage(event,response);			 
 			
 		}, 
 
+		/**
+		 * Function to update user password
+		 * @param evt
+		 */
 		updateUserPassword:function(evt){
 			
 			 if (this.$el.find('#form_userpass').parsley('validate')){
@@ -134,9 +137,10 @@ define([ 'underscore', 'jquery', 'backbone',
 		
 		
 		/**
-		 * 
+		 * Function to show success message after password update success
 		 * @param response
 		 * @param event
+		 * @param _self
 		 */
 		updatePassSuccess : function(response,event,_self){
 			
@@ -146,6 +150,12 @@ define([ 'underscore', 'jquery', 'backbone',
 			_self.showAlertMessage(event,response);
 		},
 		
+		/**
+		 * Function to show failure message after password update failure
+		 * @param response
+		 * @param event
+		 * @param _self
+		 */
 		updatePassFailure : function(response,event,_self){
 			
 			$(event.target).next().hide();			
@@ -156,6 +166,12 @@ define([ 'underscore', 'jquery', 'backbone',
 		}, 
 		
 		
+		/**
+		 * Function to show status message on success/failure
+		 * 
+		 * @param event
+		 * @param response
+		 */		
 		showAlertMessage : function(event,response){
 			
 			$(event.target).offsetParent().offsetParent().offsetParent()
@@ -163,6 +179,7 @@ define([ 'underscore', 'jquery', 'backbone',
 			$(event.target).offsetParent().offsetParent().offsetParent()
 							.find('#userprofilesave_status').show();
 			
+			/* Move to top at status message after success/failure */
 			$('html, body').animate({
 		        scrollTop: $(event.target).offsetParent().offsetParent().offsetParent()
 		        						   .find('#userprofilesave_status').offset().top
@@ -170,9 +187,11 @@ define([ 'underscore', 'jquery', 'backbone',
 		},
 		
 		
-		
-		parsleyInitialize : function(formelement){
-			
+		/**
+		 *  Function to initialize parsley validation for form
+		 * @param formelement
+		 */
+		parsleyInitialize : function(formelement){			
 		 	
 			formelement.parsley({
 	    		errors: {
@@ -195,27 +214,23 @@ define([ 'underscore', 'jquery', 'backbone',
 	                  elem.parent().parent().removeClass("has-error").addClass("has-success");
 	                  elem.parent().find('.fui-check-inverted,.fui-cross-inverted').remove();
 	                  elem.after('<span class="validation-icon input-icon fui-check-inverted"></span>') 
-	                  //#patch in chrome as style was not getting applied to error label
+	                  //#patch in chrome as style change effect was not visible for error label
 	                  $('<style></style>').appendTo($(document.body)).remove();
 
 	               } ,
 	               
 	               onFieldError: function ( elem, constraints, ParsleyField ) {  
 	                   elem.parent().parent().removeClass("has-success").addClass("has-error");
-	                   console.log(elem)
+	                  
 	                   elem.parent().find('.fui-check-inverted,.fui-cross-inverted').remove();
 	                   elem.after('<span class="validation-icon input-icon fui-cross-inverted"></span>')
-	                   //#patch in chrome as style was not getting applied to error label
+	                   //#patch in chrome as style change effect was not visible for error label
 	                   $('<style></style>').appendTo($(document.body)).remove(); 
 	                }  
 	           }
 			});
 			
-		}
-		
-		
-
-		 
+		}	
 		 
 
 	});
