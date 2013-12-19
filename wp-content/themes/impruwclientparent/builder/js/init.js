@@ -28,11 +28,18 @@ require.config({
         cssFx           : 'lib/cssFx',
         nestable        : 'lib/nestable',
         parsley         : 'lib/parsley',
+        plupload        : 'lib/plupload.full.min',
 
         //menu
         menumanager     : 'builder/views/modals/MenuManager',
         menumodel       : 'builder/models/MenuModel',
-        menucollection  : 'builder/collections/MenuCollection'
+        menucollection  : 'builder/collections/MenuCollection',
+
+        //media 
+        mediamanager    : 'builder/views/modals/Mediamanager',
+        mediamodel      : 'builder/models/MediaModel',
+        mediacollection : 'builder/collections/MediaCollection'
+
     },
     waitSeconds: 15,
     shim: {
@@ -42,6 +49,10 @@ require.config({
         },
         'underscore': {
             exports: '_'
+        },
+        'plupload': {
+            deps : ['jqueryui'],
+            exports : 'plupload'
         },
         'string' : {
             deps : ['underscore']

@@ -1171,6 +1171,17 @@ function remove_menu_item(){
 }
 add_action('wp_ajax_remove_menu_item','remove_menu_item');
 
+/**
+ * Handle file upload
+ */
+function impruw_handle_media_upload(){
+    
+    
+
+    die;
+}
+add_action('wp_ajax_impruw_handle_media_upload','impruw_handle_media_upload');
+
 
 /**
  * JSON to be stored
