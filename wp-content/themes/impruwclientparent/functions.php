@@ -958,7 +958,9 @@ function get_site_menu(){
             
     $sorted_menu_items =  array();
     
+    //create all top level menu
     foreach ( (array) $m as $menu_item ) {
+        
         $mn = array(
             'ID'            => $menu_item->ID,
             'menuOrder'     => $menu_item->menu_order,
@@ -966,14 +968,29 @@ function get_site_menu(){
             'url'           => $menu_item->url
         );
         
-        if($menu_item->menu_item_parent != 0){
-            $sorted_menu_items[$menu_item->menu_item_parent]['subMenu'][] = $mn;
-        }
-        else{
+        if((int)$menu_item->menu_item_parent === 0){
+
             $sorted_menu_items[$menu_item->ID] = $mn;
         }
+       
     }
-   
+
+    //add submenus
+    foreach ( (array) $m as $menu_item ) {
+        
+        $mn = array(
+            'ID'            => $menu_item->ID,
+            'menuOrder'     => $menu_item->menu_order,
+            'title'         => $menu_item->title,
+            'url'           => $menu_item->url
+        );
+        
+        if((int)$menu_item->menu_item_parent !== 0){
+            $sorted_menu_items[$menu_item->menu_item_parent]['subMenu'][] = $mn;
+        }
+       
+    }
+
     $wp_menu = array(
                     'id'            => (int)$menu->term_id,
                     'name'          => $menu->name,
