@@ -13,7 +13,7 @@ define([ 'underscore', 'jquery', 'backbone',
 
 	 events : {
 			 	'click #btn_saveusergeneral'	: 'saveUserProfileGeneral',
-			 	'click #btn_updatepassword'		: 'updateUserPassword',
+			 	'click #btn_updatepassword'		: 'updateUserPassword'
 		}, 
 
 		initialize : function(args) {

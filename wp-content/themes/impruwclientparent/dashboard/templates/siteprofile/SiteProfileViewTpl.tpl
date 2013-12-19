@@ -137,77 +137,89 @@
 				</div>
 				
 				
-				<div class="form-group add-another">
-					<label for="inputEmail1" class="col-sm-2 control-label">Email</label>
-					<div class="col-sm-4 col-sm-offset-2">
-					 
-					<%   if(site.getSiteProfileEmails().length>0) {  
-					
-							_.each(site.getSiteProfileEmails(), function(email, index) { %>
+				<div class="form-group dual">
+					<div class="col-sm-5">
+						<div class="form-group  add-another">
+							<label for="inputEmail1" class="col-sm-5 control-label">Email</label>
+							<div class="col-sm-7 col-sm-offset-5">
+							 
+							<%   if(site.getSiteProfileEmails().length>0) {  
 							
-							<span class="div_email" >
-								<input type="email" class="form-control"   name="email[]"    value="<%= email %>"  
-								parsley-required="true" parsley-trigger="blur" parsley-validation-minlength="0"  
-								parsley-type="email" parsley-required-message="Please enter email Id" parsley-group="myemails">  
-								<div class="p-messages"></div>
-								<span class="del_email" style="display:<% if(index<=0) { %>none<%}   %>;"><span class="fui-cross"></span> Delete</span> 
-								</span>
+									_.each(site.getSiteProfileEmails(), function(email, index) { %>
+									
+									<span class="div_email" >
+									<div>
+										<input type="email" class="form-control"   name="email[]"    value="<%= email %>"  
+										parsley-required="true" parsley-trigger="blur" parsley-validation-minlength="0"  
+										parsley-type="email" parsley-required-message="Please enter email Id" parsley-group="myemails">  
+										<div class="p-messages"></div>
+										<span class="del_email" style="display:<% if(index<=0) { %>none<%}   %>;"><span class="fui-cross"></span> Delete</span> 
+										</div>
+										</span>
+									
+									<% });
+							}
+							else{
+							%>
+									<span class="div_email" >
+										<input type="email" class="form-control"   name="email[]"  value=""
+										parsley-required="true" parsley-trigger="blur" parsley-validation-minlength="0"  
+										parsley-type="email" parsley-required-message="Please enter email Id"  parsley-group="myemails" />
+										<div class="p-messages"></div>  
+										<span class="del_email" style="display:none"><span class="fui-cross"></span> Delete</span> 
+									</span>
+							<%
+							}
 							
-							<% });
-					}
-					else{
-					%>
-							<span class="div_email" >
-								<input type="email" class="form-control"   name="email[]"  value=""
-								parsley-required="true" parsley-trigger="blur" parsley-validation-minlength="0"  
-								parsley-type="email" parsley-required-message="Please enter email Id"  parsley-group="myemails" />
-								<div class="p-messages"></div>  
-								<span class="del_email" style="display:none"><span class="fui-cross"></span> Delete</span> 
-							</span>
-					<%
-					}
-					
-					 %>
-					
-						
-						<span class="help-block add-another-link"><a href="#" id="add_another_email"><span class="glyphicon glyphicon-plus-sign"></span> Add Another</a></span>
+							 %>
+							
+								
+								<span class="help-block add-another-link"><a href="#" id="add_another_email"><span class="glyphicon glyphicon-plus-sign"></span> Add Another</a></span>
+							</div>
+						</div>
 					</div>								
 				
-					<label for="inputPhone1" class="col-sm-2 control-label label-2">Phone</label>
-					<div class="col-sm-4 col-sm-offset-2">
-					<% if(site.getSiteProfilePhoneNos().length>0){
-					
-							_.each(site.getSiteProfilePhoneNos(),function(phone,index){
-					 %>  
-						 		<span class="div_phone" >
-						 			<input type="text" class="form-control"   name="phone[]" data-mask="99-999-999"  
-						 			value="<%= phone %>" parsley-required="true" parsley-trigger="blur" 
-						 			parsley-validation-minlength="0" parsley-required-message="Please enter phone no"
-						 			parsley-group="myphones"/> 
-						 			<div class="p-messages"></div>  
-						 			<span class="del_phone" style="display: <% if(index<=0) { %> none; <% }   %>;"><span class="fui-cross"></span> Delete</span> 
-						 		</span>									
-					<% 		}); 			
-						
-						}
-						else { %>
+					<div class="col-sm-5">
+						<div class="form-group  add-another">
+								<label for="inputPhone1" class="col-sm-5 control-label">Phone</label>
+								<div class="col-sm-7 col-sm-offset-5">
+								<% if(site.getSiteProfilePhoneNos().length>0){
 								
-								<span class="div_phone" >
-									<input type="text" class="form-control"   name="phone[]" data-mask="99-999-999"  
-									value="" parsley-required="true" parsley-trigger="blur" 
-						 			parsley-validation-minlength="0" parsley-required-message="Please enter phone no"
-						 			parsley-group="myphones"/>
-						 			<div class="p-messages"></div>  
-									<span class="del_phone" style="display:none;"><span class="fui-cross"></span> Delete</span> 
-								</span>
-						<% }							 
-					
-					%>
-							<span class="help-block add-another-link">
-								<a href="#" id="add_another_phone"><span class="glyphicon glyphicon-plus-sign"></span> Add Another</a>
-							</span>
+										_.each(site.getSiteProfilePhoneNos(),function(phone,index){
+								 %>  
+									 		<span class="div_phone" >
+									 			<div>
+										 			<input type="text" class="form-control"   name="phone[]" data-mask="99-999-999"  
+										 			value="<%= phone %>" parsley-required="true" parsley-trigger="blur" 
+										 			parsley-validation-minlength="0" parsley-required-message="Please enter phone no"
+										 			parsley-group="myphones"/> 
+										 			<div class="p-messages"></div>  
+										 			<span class="del_phone" style="display: <% if(index<=0) { %> none; <% }   %>;"><span class="fui-cross"></span> Delete</span>
+									 			</div> 
+									 		</span>									
+								<% 		}); 			
+									
+									}
+									else { %>
+											
+											<span class="div_phone" >
+												<input type="text" class="form-control"   name="phone[]" data-mask="99-999-999"  
+												value="" parsley-required="true" parsley-trigger="blur" 
+									 			parsley-validation-minlength="0" parsley-required-message="Please enter phone no"
+									 			parsley-group="myphones"/>
+									 			<div class="p-messages"></div>  
+												<span class="del_phone" style="display:none;"><span class="fui-cross"></span> Delete</span> 
+											</span>
+									<% }							 
+								
+								%>
+										<span class="help-block add-another-link">
+											<a href="#" id="add_another_phone"><span class="glyphicon glyphicon-plus-sign"></span> Add Another</a>
+										</span>
+								</div>
+							</div>
+						</div>
 					</div>
-				</div>
 
 				<div class="form-group">
 					

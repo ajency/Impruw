@@ -183,18 +183,28 @@ define([ 'underscore', 'jquery', 'backbone',
 		    	                   $container = $("<div class='p-messages'></div>").insertAfter(element);
 		    		    		}
 		    		    		return $container;
-	    		    },
+	    		    }
 	    		   
 	    		},
 	            listeners: {
-	               onFieldSuccess: function ( elem, constraints, ParsleyField ) {  
-	                  elem.parent().parent().removeClass("has-error").addClass("has-success");
+	               onFieldSuccess: function ( elem, constraints, ParsleyField ) { 
+	            	   console.log('check success')
+	            	   console.log(elem.parent().parent())
+	            	   if(elem.parent().hasClass('input-group'))
+	            		   elem.parent().parent().parent().removeClass("has-error").addClass("has-success");
+	            	   else
+	            		   elem.parent().parent().removeClass("has-error").addClass("has-success");
 	                  elem.parent().parent().find('.fui-check-inverted,.fui-cross-inverted').remove();
 	                  elem.after('<span class="validation-icon input-icon fui-check-inverted"></span>') 
 	               } ,
 	               
-	               onFieldError: function ( elem, constraints, ParsleyField ) {  
-	                   elem.parent().parent().removeClass("has-success").addClass("has-error");
+	               onFieldError: function ( elem, constraints, ParsleyField ) { 
+	            	   console.log('check error')
+	            	   console.log(elem.parent().parent())
+	            	   if(elem.parent().hasClass('input-group'))
+	            		   elem.parent().parent().parent().removeClass("has-success").addClass("has-error");
+	            	   else	
+	            		   elem.parent().parent().removeClass("has-success").addClass("has-error"); 
 	                   console.log(elem)
 	                   elem.parent().parent().find('.fui-check-inverted,.fui-cross-inverted').remove();
 	                   elem.after('<span class="validation-icon input-icon fui-cross-inverted"></span>') 
