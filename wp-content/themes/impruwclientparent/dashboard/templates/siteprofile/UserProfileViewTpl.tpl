@@ -26,7 +26,8 @@
 											required parsley-validation-minlength="0"  parsley-minlength="3" 
 											parsley-trigger="blur"  parsley-regexp="^[a-zA-Z ]+$" 
 											parsley-required-message="Please enter firstname lastname"  
-	                                        parsley-minlength-message="Name should be atleast 3 characters long" />
+	                                        parsley-minlength-message="Name should be atleast 3 characters long" 
+	                                        parsley-regexp-message ="Please enter valid name ex. John Parker" />
 											<div class="p-messages"></div>
 										 
 									</div>
@@ -75,7 +76,8 @@
 									<div class="col-sm-offset-2 col-sm-10">
 										 
 											<button type="button" class="btn btn-wide aj-imp-submit" name="btn_saveusergeneral" id="btn_saveusergeneral" >Update</button>
-											<img src ='<%=THEMEURL%>/images/loader.gif' width="38" height="30"  id="userprofilesubmitm_loader" style="display:none"/>
+											<img src ='<%=THEMEURL%>/images/loader.gif' width="38" height="30"  
+											id="userprofilesubmitm_loader" style="display:none"/>
 										 
 									</div>
 								</div>
@@ -131,7 +133,8 @@
 									<div class="col-sm-offset-2 col-sm-10">
 										 
 											<button type="button" id="btn_updatepassword" name="btn_updatepassword"  class="btn btn-wide aj-imp-submit">Change Password</button>
-											<img src ='<%=THEMEURL%>/images/loader.gif' width="38" height="30"  id="changepassubmit_loader" style="display:none"/>
+											<img src ='<%=THEMEURL%>/images/loader.gif' width="38" height="30"  
+											id="changepassubmit_loader" style="display:none"/>
 										 
 									</div>
 								</div>

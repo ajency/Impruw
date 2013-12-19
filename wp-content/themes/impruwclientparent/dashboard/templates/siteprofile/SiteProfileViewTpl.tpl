@@ -91,7 +91,7 @@
 							<div class="col-sm-7 col-sm-offset-5">
 								<input type="text" class="form-control" id="postalcode" name="postalcode"  
 								 data-mask="999-999" placeholder="420-001" value="<%= site.getBusinessDetails('postalcode') %>" 
-								 required parsley-trigger="blur" parsley-validation-minlength="0" >
+								 required parsley-trigger="blur" parsley-validation-minlength="0"  parsley-type="number" parsley-type-number-message="Please enter valid postal code" />
 								 <div class="p-messages"></div>
 								 
 							</div>
@@ -192,7 +192,8 @@
 										 			<input type="text" class="form-control"   name="phone[]" data-mask="99-999-999"  
 										 			value="<%= phone %>" parsley-required="true" parsley-trigger="blur" 
 										 			parsley-validation-minlength="0" parsley-required-message="Please enter phone no"
-										 			parsley-group="myphones"/> 
+										 			parsley-group="myphones" parsley-rangelength="[10,10]"
+										 			parsley-type="number" parsley-type-number-message="Please enter valid phone no" /> 
 										 			<div class="p-messages"></div>  
 										 			<span class="del_phone" style="display: <% if(index<=0) { %> none; <% }   %>;"><span class="fui-cross"></span> Delete</span>
 									 			</div> 
@@ -206,7 +207,8 @@
 												<input type="text" class="form-control"   name="phone[]" data-mask="99-999-999"  
 												value="" parsley-required="true" parsley-trigger="blur" 
 									 			parsley-validation-minlength="0" parsley-required-message="Please enter phone no"
-									 			parsley-group="myphones"/>
+									 			parsley-group="myphones"  parsley-rangelength="[10,10]"
+									 			parsley-type="number" parsley-type-number-message="Please enter valid phone no" />
 									 			<div class="p-messages"></div>  
 												<span class="del_phone" style="display:none;"><span class="fui-cross"></span> Delete</span> 
 											</span>
@@ -252,7 +254,8 @@
 						<div class="input-group">
 							<span class="input-group-addon">www.twitter.com/</span>
 							<input type="text" class="form-control" id="twitter" name="twitter"  placeholder="Twitter"
- 								value="<%= site.getSocialDetails('twitter') %>" required parsley-trigger="blur" parsley-validation-minlength="0"  >
+ 								value="<%= site.getSocialDetails('twitter') %>" required parsley-trigger="blur" 
+ 								parsley-validation-minlength="0"  >
  								<div class="p-messages"></div>
 							
 						</div>
@@ -269,7 +272,8 @@
 				<div class="form-group">
 					<label for="inputSEO1" class="col-sm-2 control-label">Site Description</label>
 					<div class="col-sm-10 col-sm-offset-2">
-						<textarea class="form-control" rows="3" name="sitedescription" id="sitedescription" placeholder="A brief description of your site for search engines."></textarea>
+						<textarea class="form-control" rows="3" name="sitedescription" id="sitedescription" 
+						placeholder="A brief description of your site for search engines."></textarea>
 					</div>
 				</div>
 				
@@ -277,7 +281,8 @@
 				<div class="form-group">
 					<label for="inputSEO2" class="col-sm-2 control-label">Meta Keywords</label>
 					<div class="col-sm-10 col-sm-offset-2">
-						<textarea class="form-control" rows="3" name="metakeywords" id="metakeywords" placeholder="Separate each keyword with a comma."></textarea>
+						<textarea class="form-control" rows="3" name="metakeywords" id="metakeywords" 
+						placeholder="Separate each keyword with a comma."></textarea>
 					</div>
 				</div>
 				<div class="form-group">
@@ -287,14 +292,16 @@
 				<div class="form-group">
 					<label for="inputSEO3" class="col-sm-2 control-label">Footer Code</label>
 					<div class="col-sm-10 col-sm-offset-2">
-						<textarea class="form-control" rows="3" name="footercode" id="footercode"  placeholder="ex. Google Analytics tracking code."></textarea>
+						<textarea class="form-control" rows="3" name="footercode" id="footercode"  
+						placeholder="ex. Google Analytics tracking code."></textarea>
 					</div>
 				</div>
 				
 				<div class="form-group">
 					<label for="inputSEO4" class="col-sm-2 control-label">Header Code</label>
 					<div class="col-sm-10 col-sm-offset-2">
-						<textarea class="form-control" rows="3" name="headercode" id="headercode" placeholder="ex. Google Webmaster tools verification code."></textarea>
+						<textarea class="form-control" rows="3" name="headercode" id="headercode" 
+						placeholder="ex. Google Webmaster tools verification code."></textarea>
 					</div>
 				</div>
 				
