@@ -27,6 +27,7 @@ require.config({
         holder          : 'lib/holder',
         cssFx           : 'lib/cssFx',
         nestable        : 'lib/nestable',
+        parsley         : 'lib/parsley',
 
         //menu
         menumanager     : 'builder/views/modals/MenuManager',

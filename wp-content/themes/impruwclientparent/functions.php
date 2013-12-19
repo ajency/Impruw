@@ -942,6 +942,52 @@ function update_user_passwrd($user_pass_data, $user_id)
 	
 }
 
+/**
+ * Reads all registered menus and returns as array
+ */
+function get_site_menu(){
+
+    $menu_id = $_GET['menu-id'];
+
+    $menu = get_term_by('id', $menu_id,'nav_menu');
+
+    if($menu === false)
+        wp_send_json(array('code' => 'ERROR', 'message' => 'Invalid menu id'));
+        
+    $m = wp_get_nav_menu_items($menu_id);
+            
+    $sorted_menu_items =  array();
+    
+    foreach ( (array) $m as $menu_item ) {
+        $mn = array(
+            'ID'            => $menu_item->ID,
+            'menuOrder'     => $menu_item->menu_order,
+            'title'         => $menu_item->title,
+            'url'           => $menu_item->url
+        );
+        
+        if($menu_item->menu_item_parent != 0){
+            $sorted_menu_items[$menu_item->menu_item_parent]['subMenu'][] = $mn;
+        }
+        else{
+            $sorted_menu_items[$menu_item->ID] = $mn;
+        }
+    }
+   
+    $wp_menu = array(
+                    'id'            => (int)$menu->term_id,
+                    'name'          => $menu->name,
+                    'slug'          => $menu->slug,
+                    'description'   => $menu->description,
+                    'items'         => $sorted_menu_items
+                );
+     
+    wp_send_json($wp_menu);
+
+    die;
+}
+add_action('wp_ajax_get_site_menu','get_site_menu');
+
 
 /**
  * Reads all registered menus and returns as array
@@ -962,6 +1008,7 @@ function get_site_menus(){
             
             foreach ( (array) $m as $menu_item ) {
                 $mn = array(
+                    'ID'            => $menu_item->ID,
                     'menuOrder'     => $menu_item->menu_order,
                     'title'         => $menu_item->title,
                     'url'           => $menu_item->url
@@ -986,7 +1033,7 @@ function get_site_menus(){
         }
     }
     
-    wp_send_json($wp_menus);
+    wp_send_json($wp_menus[0]);
 
     die;
 }
@@ -997,6 +1044,54 @@ add_action('wp_ajax_nopriv_get_site_menus','get_site_menus');
 //    
 //    get_site_menus();
 //});
+
+/**
+ * Ajax function to add / update a menu item
+ */
+function save_menu_item(){
+
+    if('POST' !== $_SERVER['REQUEST_METHOD'])
+        wp_send_json(array('code' => 'ERROR', 'message' => 'Invalid request'));
+
+    $menu_id    = $_POST['menu-id'];
+
+    $item_id    = $_POST['item-id'];
+
+    $item_title = $_POST['item-title'];
+
+    $item_url   = $_POST['item-url'];
+
+    $item = wp_update_nav_menu_item($menu_id, $item_id , array(
+                                                'menu-item-title'   => $item_title,
+                                                'menu-item-classes' => sanitize_title($item_title),
+                                                'menu-item-url'     =>  $item_url, 
+                                                'menu-item-type'    => 'custom',
+                                                'menu-item-status'  => 'publish'));
+
+    if ( is_wp_error($item) )
+        wp_send_json(array('code' => 'ERROR', 'message' => $item->get_error_message()));
+    else
+       wp_send_json(array('code' => 'OK', 'itemID' => $item));
+
+}
+add_action('wp_ajax_save_menu_item','save_menu_item');
+
+
+/**
+ * Removes a menu item
+ */
+function remove_menu_item(){
+
+    $item_id = $_POST['itemId'];
+
+    if ( is_nav_menu_item( $item_id ) && wp_delete_post( $item_id, true ) )
+        wp_send_json(array('code' => 'OK','itemID' => $item_id));
+    else
+        wp_send_json(array('code' => 'ERROR', 'message' => 'Failed to remove. Please try again'));
+
+    die;
+}
+add_action('wp_ajax_remove_menu_item','remove_menu_item');
 
 
 /**
