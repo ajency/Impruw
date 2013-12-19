@@ -44,10 +44,11 @@ define([ 'underscore', 'jquery', 'backbone',
 
 			this.$el.html(html);
 
-			//set custom selectbox
+			//set custom selectbox & checkbox
 			this.$el.find('select').selectpicker();
 			this.$el.find('input[type="checkbox"]').checkbox();			
 			
+			//initialize parsley validation for the forms
 			this.parsleyInitialize(this.$el.find('#form-siteprofile-business'));
 			this.parsleyInitialize(this.$el.find('#form-siteprofile-social'));
 
@@ -166,7 +167,6 @@ define([ 'underscore', 'jquery', 'backbone',
 		delPhoneElement : function(el) {
 			el.preventDefault();
 			$(el.target).parent().remove();
-
 		},
 		
 		

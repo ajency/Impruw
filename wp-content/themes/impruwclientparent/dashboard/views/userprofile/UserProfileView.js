@@ -40,9 +40,11 @@ define([ 'underscore', 'jquery', 'backbone',
 
 			this.$el.html(html);
 			
+			//set custom selectbox & checkbox
 			this.$el.find('select').selectpicker();
 			this.$el.find('input[type="checkbox"]').checkbox();
 			
+			//initialize parsley validation for the forms
 			this.parsleyInitialize(this.$el.find('#form_usergeneral'));
 			this.parsleyInitialize(this.$el.find('#form_userpass'));			 
 			
