@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Impruw Dash Layout</title>
+    <title>Impruw Add Room Form</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
@@ -103,7 +103,7 @@
 
 							<div class="form-group">
 								<label for="inputEmail3" class="col-sm-2 control-label">No. of Rooms</label>
-								<div class="col-sm-10 col-sm-offset-2">
+								<div class="col-sm-2 col-sm-offset-2">
 									<input type="numeric" class="form-control" id="inputEmail3" placeholder="eg. 10">
 								</div>
 							</div>
@@ -189,107 +189,90 @@
 							</form>
 						</div>
 						<div class="scroll-indicator-container" id="scr3">
-							<h4 class="aj-imp-sub-head scroll-ref">Add Tariff <small>Lorem ipsum dolor sit amet, consectetur adipiscing</small></h4>
+							<h4 class="aj-imp-sub-head scroll-ref">Add Date Range <small>Lorem ipsum dolor sit amet, consectetur adipiscing</small></h4>
 							<form class="form-horizontal clearfix">
+
+								<div class="form-table">
+									<table class="table table-bordered table-striped table-hover">
+										<thead>
+											<tr>
+												<th>Date Range</th>
+												<th>Tariff</th>
+												<th>Actions</th>
+											</tr>
+										</thead>
+										<tbody data-link="row" class="rowlink">
+											<tr>
+												<td>
+													<a href="#rowlink1" data-toggle="collapse"><span class="label label-info">From:</span> 21/12/2013 <span class="label label-info">To:</span> 30/4/2014</a>
+												</td>
+												<td>
+													<span class="label label-info">Weekday:</span> from<strong>$29</strong> <span class="label label-info">Weekend:</span> from<strong>$37</strong>
+												</td>
+												<td class="rowlink-skip">
+													<a href="#" class="btn btn-sm">Edit</a>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<div id="rowlink1" class="inner collapse">
+									<div class="form-table">
+										<table class="table table-bordered table-hover">
+											<thead>
+												<tr>
+													<th>Plan Name</th>
+													<th>Plan Description</th>
+													<th>Weekday Tariff</th>
+													<th>Weekend Tariff</th>
+												</tr>
+											</thead>
+											<tbody data-link="row" class="rowlink">
+												<tr>
+													<td>
+														<a href="#plan1" data-toggle="modal">American Plan</a>
+													</td>
+													<td>
+														Lorem ipsum dolor sit amet, consectetur adipiscing, lorem ipsum dolor sit amet, consectetur adipiscing.
+													</td>
+													<td>
+														$29
+													</td>
+													<td>
+														$37
+													</td>
+												</tr>
+												<tr>
+													<td>
+														<a href="#plan1" data-toggle="modal">British Plan</a>
+													</td>
+													<td>
+														Lorem ipsum dolor sit amet, consectetur adipiscing, lorem ipsum dolor sit amet, consectetur adipiscing.
+													</td>
+													<td>
+														$29
+													</td>
+													<td>
+														$37
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<button type="button" class="btn btn-inverse btn-sm" data-toggle="modal" data-target="#add-plantype"><i class="fui-plus"></i> Add Another Plan</button>
+									<hr>
+								</div>
+								
+								<button type="button" class="btn btn-inverse btn-sm" data-toggle="modal" data-target="#add-daterange"><i class="fui-plus"></i> Add Date Range</button>
+
+							</form>
+
+						</div>
 							
-								
-								<div class="form-group dates">
-									<label for="inputSocial1" class="col-sm-2 control-label">Start Date</label>
-									<div class="col-sm-4 col-sm-offset-2">
-										<div class="input-group">
-											<input type="text" class="form-control dated" value="14 March, 2013" id="datepicker-01" />
-											<span class="input-icon fui-calendar"></span>
-										</div>
-									</div>
 
-									<label for="inputAddress3" class="col-sm-2 control-label label-2">End Date</label>
-									<div class="col-sm-4 col-sm-offset-2">
-										<div class="input-group">
-											<input type="text" class="form-control dated" value="14 March, 2013" id="datepicker-02" />
-											<span class="input-icon fui-calendar"></span>
-										</div>
-									</div>
-								</div>
-								
-								<div class="form-group">
-									<label for="inputSocial2" class="col-sm-2 control-label">Plan Type</label>
-									<div class="col-sm-10 col-sm-offset-2">
-										<input type="text" class="form-control" id="inputSocial2" placeholder="eg. American Plan">
-									</div>
-								</div>
-
-								<div class="form-group">
-									<label for="inputSocial2" class="col-sm-2 control-label dd-label">Plan Type</label>
-									<div class="col-sm-10 col-sm-offset-2">
-										<select>
-											<option>American Plan</option>
-											<option>British Plan</option>
-											<option>Norwegian Plan</option>
-										</select>
-									</div>
-								</div>
-
-								<div class="form-group">
-									<label for="inputSEO1" class="col-sm-2 control-label">Plan Description</label>
-									<div class="col-sm-10 col-sm-offset-2">
-										<textarea class="form-control" rows="3" name="inputSEO1" placeholder="eg. This Plan is inclusive of 3 meals a day."></textarea>
-									</div>
-								</div>
-
-								<hr>
-								<div class="form-group">
-									<label for="inputAddress2" class="col-sm-2 control-label">Weekday Tariff</label>
-									<div class="col-sm-4 col-sm-offset-2">
-										<label for="checkbox2" class="checkbox checked">
-											<input type="checkbox" data-toggle="checkbox" checked="checked" id="checkbox2" >
-											Weekday
-										</label>
-										<span class="help-block">Monday to Friday</span>
-										<input type="text" class="form-control" id="inputAddress2" placeholder="420">
-									</div>
-								
-									<label for="inputAddress3" class="col-sm-2 control-label label-2">Weekend Tariff</label>
-									<div class="col-sm-4 col-sm-offset-2">
-										<label for="checkbox2" class="checkbox checked">
-											<input type="checkbox" data-toggle="checkbox" checked="checked" id="checkbox2" >
-											Weekend
-										</label>
-										<span class="help-block">Monday to Friday</span>
-										<input type="text" class="form-control" id="inputAddress2" placeholder="999">
-									</div>
-								</div>
-
-								<div class="form-group">
-									<div class="col-sm-10 col-sm-offset-2">
-										<span class="help-block">Enter your tariff plan for the chosen category.<br>Entered rate will be the same as the currency on your site profile. Customers can view your tariff in the currency chosen by them on your website.</span>
-									</div>
-								</div>
-
-								<div class="form-group">
-									<label for="inputAddress2" class="col-sm-2 control-label">Maximum Adults</label>
-									<div class="col-sm-1 col-sm-offset-2">
-										<input type="text" class="form-control" id="inputAddress2" placeholder="10">
-									</div>
-									<label for="inputAddress3" class="col-sm-2 control-label label-25">Maximum Children</label>
-									<div class="col-sm-1 col-sm-offset-2">
-										<input type="text" class="form-control" id="inputAddress2" placeholder="10">
-									</div>
-
-									<label for="inputAddress3" class="col-sm-2 control-label label-2">Maximum Adults</label>
-									<div class="col-sm-1 col-sm-offset-2">
-										<input type="text" class="form-control" id="inputAddress2" placeholder="10">
-									</div>
-									<label for="inputAddress3" class="col-sm-2 control-label label-75">Maximum Children</label>
-									<div class="col-sm-1 col-sm-offset-2">
-										<input type="text" class="form-control" id="inputAddress2" placeholder="10">
-									</div>
-								</div>
-
-								<div class="form-group">
-									<div class="col-sm-10 col-sm-offset-2">
-										<span class="help-block">The tariff is exclusive of additional charges.</span>
-									</div>
-								</div>
+						<div class="scroll-indicator-container" id="scr4">
+							<h4 class="aj-imp-sub-head scroll-ref">Additional Info <small>Lorem ipsum dolor sit amet, consectetur adipiscing</small></h4>
+							<form class="form-horizontal clearfix">
 
 								<div class="form-group">
 									<div class="col-sm-10 col-sm-offset-2">
@@ -311,15 +294,24 @@
 									</div>
 								</div>
 
-								<div class="form-group add-another">
-									<label for="inputAddress2" class="col-sm-2 control-label">Type</label>
-									<div class="col-sm-4 col-sm-offset-2">
-										<input type="text" class="form-control" id="inputEmail1" placeholder="Service Tax">
-										<span class="help-block add-another-link"><a href="#"><span class="glyphicon glyphicon-plus-sign"></span> Add Another</a></span>
+								<div class="form-group dual add-another">
+									<div class="col-sm-5">
+										<div class="form-group">
+											<label for="inputAddress2" class="col-sm-5 control-label">Type</label>
+											<div class="col-sm-7 col-sm-offset-5">
+												<input type="text" class="form-control" id="inputEmail1" placeholder="Service Tax">
+												<span class="help-block add-another-link"><a href="#"><span class="glyphicon glyphicon-plus-sign"></span> Add Another</a></span>
+											</div>
+										</div>
 									</div>
-									<label for="inputAddress2" class="col-sm-2 control-label label-2">Percentage</label>
-									<div class="col-sm-4 col-sm-offset-2">
-										<input type="text" class="form-control" id="inputEmail1" placeholder="12.5%">
+
+									<div class="col-sm-5">
+										<div class="form-group">
+											<label for="inputAddress2" class="col-sm-5 control-label">Percentage</label>
+											<div class="col-sm-7 col-sm-offset-5">
+												<input type="text" class="form-control" id="inputEmail1" placeholder="12.5%">
+											</div>
+										</div>
 									</div>
 								</div>
 
@@ -329,15 +321,24 @@
 									</div>
 								</div>
 
-								<div class="form-group add-another">
-									<label for="inputAddress2" class="col-sm-2 control-label">Type</label>
-									<div class="col-sm-4 col-sm-offset-2">
-										<input type="text" class="form-control" id="inputEmail1" placeholder="Scuba Diving">
-										<span class="help-block add-another-link"><a href="#"><span class="glyphicon glyphicon-plus-sign"></span> Add Another</a></span>
+								<div class="form-group dual add-another">
+									<div class="col-sm-5">
+										<div class="form-group">
+											<label for="inputAddress2" class="col-sm-5 control-label">Type</label>
+											<div class="col-sm-7 col-sm-offset-5">
+												<input type="text" class="form-control" id="inputEmail1" placeholder="Scuba Diving">
+												<span class="help-block add-another-link"><a href="#"><span class="glyphicon glyphicon-plus-sign"></span> Add Another</a></span>
+											</div>
+										</div>
 									</div>
-									<label for="inputAddress2" class="col-sm-2 control-label label-2">Price</label>
-									<div class="col-sm-4 col-sm-offset-2">
-										<input type="text" class="form-control" id="inputEmail1" placeholder="12.99">
+
+									<div class="col-sm-5">
+										<div class="form-group">
+											<label for="inputAddress2" class="col-sm-5 control-label">Price</label>
+											<div class="col-sm-7 col-sm-offset-5">
+												<input type="text" class="form-control" id="inputEmail1" placeholder="12.99">
+											</div>
+										</div>
 									</div>
 								</div>
 
@@ -347,22 +348,27 @@
 									</div>
 								</div>
 
-								<div class="form-group tariff-plans">
-									<div class="col-sm-6">
-										<div class="alert plan">
-											<h6>American Plan <small>The tariff is inclusive of 3 meals a day</small></h6>
-											<p>
-												<label>From</label> 25/12/2013 <label>To</label> 10/5/2014
-											</p>
-											<p>
-												<label>Weekday</label> $50 <label>Weekend</label> $60
-											</p>
-											<p>
-												Extra
-											</p>
-										</div>
+								<div class="form-group">
+									<div class="col-sm-10 col-sm-offset-2">
+										<h6 class="aj-imp-sub-head-thin">Check-in Time</h6>
 									</div>
+								</div>
 
+								<div class="form-group">
+									<div class="col-sm-2 col-sm-offset-2">
+										<label class="radio checked">
+										  <input type="radio" name="group2" value="1" data-toggle="radio" checked="checked">
+										  12-hour Format
+										</label>
+										<span class="help-block">eg. 12:01 AM</span>
+									</div>
+									<div class="col-sm-2">
+										<label class="radio">
+										  <input type="radio" name="group2" value="2" data-toggle="radio">
+										  24-hour Format
+										</label>
+										<span class="help-block">eg: 0:01</span>
+									</div>
 								</div>
 								
 							</form>
@@ -379,46 +385,41 @@
 			</div>
 		</div>
 	</div>
-	<!-- Add Editor Modal -->
-	<div class="modal wide-modal" id="addeditorModal">
+	<!-- Add Date Range Modal -->
+	<div class="modal" id="add-daterange">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close fui-cross" data-dismiss="modal" aria-hidden="true"></button>
-					<h4 class="modal-title">Add Editor</h4>
+					<h4 class="modal-title">Add Date Range</h4>
 				</div>
 
 				<div class="modal-body">
 					<form class="form-horizontal clearfix">
 						
-						<label for="inputAddEmail1" class="col-sm-2 control-label">Email</label>
-						<div class="col-sm-6">
-							<div class="form-group">
-								<input type="email" class="form-control" id="inputAddEmail1" placeholder="Email">
+						<div class="form-group dual dates">
+							<div class="col-sm-6">
+								<div class="form-group">
+									<label for="inputAddress2" class="col-sm-4 control-label">Start Date</label>
+									<div class="col-sm-8 col-sm-offset-4">
+										<div class="input-group">
+											<input type="text" class="form-control dated" value="14 March, 2013" id="datepicker-01" />
+											<span class="input-icon fui-calendar"></span>
+										</div>
+									</div>
+								</div>
 							</div>
-						</div>
-						
-						<div class="col-sm-4">
-							<a href="#" class="btn"><span class="glyphicon glyphicon-plus"></span> Add Another</a>
-						</div>
-						<div class="clearfix"></div>
-						
-						<label for="inputRole" class="col-sm-2 control-label">Role</label>
-						<div class="col-sm-10">
-							<div class="form-group">
-								<select>
-									<option value="0">Admin</option>
-									<option value="1">Author</option>
-									<option value="2">Editor</option>
-								</select>
-							</div>
-						</div>
-						
-						<label for="inputAdd" class="col-sm-2 control-label">Enter Message in Email Invitation</label>
-						<div class="col-sm-10">
-							<div class="form-group">
-								<textarea class="form-control" rows="3" name="inputAdd" placeholder="Header Code"></textarea>
-								<span class="help-block">ex. Google Webmaster tools verification code.</span>
+
+							<div class="col-sm-6">
+								<div class="form-group">
+									<label for="inputAddress2" class="col-sm-4 control-label">End Date</label>
+									<div class="col-sm-8 col-sm-offset-4">
+										<div class="input-group">
+											<input type="text" class="form-control dated" value="14 March, 2013" id="datepicker-02" />
+											<span class="input-icon fui-calendar"></span>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 						
@@ -426,7 +427,178 @@
 				</div>
 
 				<div class="modal-footer">
-					<button class="btn btn-default aj-imp-modal-save">Add Editor</button>
+					<button class="btn btn-default aj-imp-modal-save"><i class="fui-plus"></i> Add Date Range</button>
+				</div>
+			</div>
+		</div>  
+	</div>
+									
+	<!-- Add Plan Modal -->
+	<div class="modal" id="add-plantype">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close fui-cross" data-dismiss="modal" aria-hidden="true"></button>
+					<h4 class="modal-title">Add Plan</h4>
+				</div>
+
+				<div class="modal-body">
+					<form class="form-horizontal clearfix">
+						
+						<div class="form-group">
+							<label for="inputSocial2" class="col-sm-2 control-label">Plan Type</label>
+							<div class="col-sm-9 col-sm-offset-2">
+								<input type="text" class="form-control" id="inputSocial2" placeholder="eg. American Plan">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="inputSEO1" class="col-sm-2 control-label">Plan Description</label>
+							<div class="col-sm-9 col-sm-offset-2">
+								<textarea class="form-control" rows="3" name="inputSEO1" placeholder="eg. This Plan is inclusive of 3 meals a day."></textarea>
+							</div>
+						</div>
+						
+					</form>
+				</div>
+
+				<div class="modal-footer">
+					<button class="btn btn-default aj-imp-modal-save"><i class="fui-plus"></i> Add Plan</button>
+				</div>
+			</div>
+		</div>  
+	</div>
+	
+	<!-- Edit Plan Modal -->
+	<div class="modal wide-modal plan-modal" id="plan1">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close fui-cross" data-dismiss="modal" aria-hidden="true"></button>
+					<h4 class="modal-title">Edit Plan</h4>
+				</div>
+
+				<div class="modal-body">
+					<form class="form-horizontal clearfix">
+						
+						<div class="form-group dual">
+							<div class="col-sm-5">
+								<div class="form-group">
+									<label for="inputAddress2" class="col-sm-5 control-label">Tariff</label>
+									<div class="col-sm-7 col-sm-offset-5">
+										<label for="checkbox2" class="checkbox checked">
+											<input type="checkbox" data-toggle="checkbox" checked="checked" id="checkbox2" >
+											Weekday
+										</label>
+										<span class="help-block">Monday to Friday</span>
+										<input type="text" class="form-control" id="inputAddress2" placeholder="420">
+									</div>
+								</div>
+							</div>
+							
+							<div class="col-sm-5">
+								<div class="form-group">
+									<div class="col-sm-7">
+										<label for="checkbox2" class="checkbox checked">
+											<input type="checkbox" data-toggle="checkbox" checked="checked" id="checkbox2" >
+											Weekend
+										</label>
+										<span class="help-block">Monday to Friday</span>
+										<input type="text" class="form-control" id="inputAddress2" placeholder="999">
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<div class="col-sm-10 col-sm-offset-2">
+								<span class="help-block">Enter your tariff plan for the chosen category.<br>Entered rate will be the same as the currency on your site profile. Customers can view your tariff in the currency chosen by them on your website.</span>
+							</div>
+						</div>
+
+						<div class="form-group dual">
+							<div class="col-sm-5">
+								<div class="form-group">
+									<label for="inputAddress2" class="col-sm-5 control-label">Maximum Adults</label>
+									<div class="col-sm-7 col-sm-offset-5">
+										<input type="text" class="form-control" id="inputAddress2" placeholder="10">
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-5">
+								<div class="form-group">
+									<div class="col-sm-7">
+										<input type="text" class="form-control" id="inputAddress2" placeholder="10">
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group dual">
+							<div class="col-sm-5">
+								<div class="form-group">
+									<label for="inputAddress2" class="col-sm-5 control-label">Maximum Children</label>
+									<div class="col-sm-7 col-sm-offset-5">
+										<input type="text" class="form-control" id="inputAddress2" placeholder="10">
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-5">
+								<div class="form-group">
+									<div class="col-sm-7">
+										<input type="text" class="form-control" id="inputAddress2" placeholder="10">
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group dual">
+							<div class="col-sm-5">
+								<div class="form-group">
+									<label for="inputAddress2" class="col-sm-5 control-label">Additional Charge per extra Adult</label>
+									<div class="col-sm-7 col-sm-offset-5">
+										<input type="text" class="form-control" id="inputAddress2" placeholder="28">
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-5">
+								<div class="form-group">
+									<div class="col-sm-7">
+										<input type="text" class="form-control" id="inputAddress2" placeholder="32">
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group dual">
+							<div class="col-sm-5">
+								<div class="form-group">
+									<label for="inputAddress2" class="col-sm-5 control-label">Additional Charge per extra Child</label>
+									<div class="col-sm-7 col-sm-offset-5">
+										<input type="text" class="form-control" id="inputAddress2" placeholder="17">
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-5">
+								<div class="form-group">
+									<div class="col-sm-7">
+										<input type="text" class="form-control" id="inputAddress2" placeholder="19">
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<div class="col-sm-10 col-sm-offset-2">
+								<span class="help-block">The tariff is exclusive of additional charges.</span>
+							</div>
+						</div>
+						
+					</form>
+				</div>
+
+				<div class="modal-footer">
+					<button class="btn btn-default aj-imp-modal-save">Save Plan</button>
 				</div>
 			</div>
 		</div>  
