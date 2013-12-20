@@ -19,8 +19,19 @@ define(['underscore', 'backbone', 'global','mediamodel'],
                  * @returns {String}
                  */
 				url : function(){
-					return AJAXURL + '?action=get_site_media';
+					return AJAXURL + '?action=query_attachments';
 				},
+
+                /**
+                * Pasrse JSOn response to check if code is OK
+                */    
+                parse : function(response){
+                    
+                    if(response.code === "OK"){
+                        return response.data;
+                    }
+
+                },
                 
                 /**
                  * Checks if the collection is fetched or not

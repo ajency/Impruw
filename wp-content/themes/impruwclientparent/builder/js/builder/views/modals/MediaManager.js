@@ -45,14 +45,16 @@ define(['builder/views/modals/Modal','text!builder/templates/modal/media.hbs',
 
                     //initial filters
                     this.filters =  {
-                                        order       : 'ASC',
-                                        orderBy     : 'date',
-                                        offset      : 0,
-                                        maxCount    : 30
+                                        order           : 'DESC',
+                                        orderby         : 'date',
+                                        posts_per_page  : 30,
+                                        paged           : 1
                                     };
 
                     //set collection
                     this.mediaCollection = new MediaCollection();
+
+                    this.mediaCollection.on('add', function(model){console.log(model)});
                     
                     this.fetchMedia();
                 },
@@ -82,16 +84,16 @@ define(['builder/views/modals/Modal','text!builder/templates/modal/media.hbs',
                     this.$el.find('.modal-body').html('fetching media... please wait...');
 
                     this.mediaCollection.fetch({
-
                         data    : this.filters,
-
-                        success : function(model, response){
+                        success : function(collection, response){
                             
                             self.mediaCollection.setFetched(true);
                             
-                            markup = _.template(self.template);
+                            markup = _.template(self.template,{mediaCollection : collection});
                            
                             self.$el.find('.modal-body').html(markup);
+
+                            self.$el.find('.selectable-images').selectable({filter : 'img'});
 
                             //bind plupload script
                             require(['plupload'], function(plupload){
@@ -151,8 +153,12 @@ define(['builder/views/modals/Modal','text!builder/templates/modal/media.hbs',
                                     up.refresh(); // Reposition Flash/Silverlight
                                 });
 
-                                self.uploader.bind('FileUploaded', function(up, file) {
+                                self.uploader.bind('FileUploaded', function(up, file, response) {
                                     $('#' + file.id + " b").html("100%");
+                                    if(response.success){
+                                        var media = new Media(response.data);
+                                        self.mediaCollection.add(media);
+                                    }
                                 });
 
                             });

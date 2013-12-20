@@ -9,10 +9,15 @@
 		<button type="button" class="btn btn-primary" id="uploadfiles">Uplaod</button>
 		<div id="filelist"></div>
 		<br />
-
 	</div>
 	<div class="tab-pane " id="images">
-		show image grid here
+		<div class="row">
+			<div class="col-md-12 selectable-images" >
+				<% mediaCollection.each(function(media, index){ %>
+					<img src="<%= media.get('url') %>" width="150" height="150"/>
+				<% }) %>
+			</div>
+		</div>
 	</div>
 	<div class="tab-pane" id="videos">
 		show video grid here
