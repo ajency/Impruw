@@ -153,7 +153,7 @@
 										parsley-required="true" parsley-trigger="blur" parsley-validation-minlength="0"  
 										parsley-type="email" parsley-required-message="Please enter email Id" parsley-group="myemails">  
 										<div class="p-messages"></div>
-										<span class="del_email" style="display:<% if(index<=0) { %>none<%}   %>;"><span class="fui-cross"></span> Delete</span> 
+										<span class="del_email <%= (index <= 0 ) ? 'hidden' : '' %>" ><span class="fui-cross"></span> Delete</span> 
 										</div>
 										</span>
 									
@@ -166,7 +166,7 @@
 										parsley-required="true" parsley-trigger="blur" parsley-validation-minlength="0"  
 										parsley-type="email" parsley-required-message="Please enter email Id"  parsley-group="myemails" />
 										<div class="p-messages"></div>  
-										<span class="del_email" style="display:none"><span class="fui-cross"></span> Delete</span> 
+										<span class="del_email hidden"><span class="fui-cross"></span> Delete</span> 
 									</span>
 							<%
 							}
@@ -195,7 +195,7 @@
 										 			parsley-group="myphones" parsley-rangelength="[10,10]"
 										 			parsley-type="number" parsley-type-number-message="Please enter valid phone no" /> 
 										 			<div class="p-messages"></div>  
-										 			<span class="del_phone" style="display: <% if(index<=0) { %> none; <% }   %>;"><span class="fui-cross"></span> Delete</span>
+										 			<span class="del_phone <%= (index <= 0 ) ? 'hidden' : '' %>" ><span class="fui-cross"></span> Delete</span>
 									 			</div> 
 									 		</span>									
 								<% 		}); 			
@@ -210,7 +210,7 @@
 									 			parsley-group="myphones"  parsley-rangelength="[10,10]"
 									 			parsley-type="number" parsley-type-number-message="Please enter valid phone no" />
 									 			<div class="p-messages"></div>  
-												<span class="del_phone" style="display:none;"><span class="fui-cross"></span> Delete</span> 
+												<span class="del_phone hidden" ><span class="fui-cross"></span> Delete</span> 
 											</span>
 									<% }							 
 								
