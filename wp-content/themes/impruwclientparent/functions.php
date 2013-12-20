@@ -942,6 +942,120 @@ function update_user_passwrd($user_pass_data, $user_id)
 	
 }
 
+/**
+ * Reads all registered menus and returns as array
+ */
+function get_site_menu(){
+
+    $menu_id = $_GET['menu-id'];
+
+    $wp_menu = get_menu_to_array($menu_id);
+     
+    wp_send_json($wp_menu);
+
+    die;
+}
+add_action('wp_ajax_get_site_menu','get_site_menu');
+
+
+/**
+ * Retuns the menu data
+ * @param $menu_id The menu Id
+ */
+function get_menu_to_array($menu_id){
+
+    $menu = get_term_by('id', $menu_id,'nav_menu');
+
+    if($menu === false)
+        return array('code' => 'ERROR', 'message' => 'Invalid menu id');
+        
+    $m = wp_get_nav_menu_items($menu_id);
+            
+    $sorted_menu_items =  array();
+    
+    //create all top level menu
+    foreach ( (array) $m as $menu_item ) {
+        
+        $mn = array(
+            'ID'            => $menu_item->ID,
+            'menuOrder'     => $menu_item->menu_order,
+            'title'         => $menu_item->title,
+            'url'           => $menu_item->url
+        );
+        
+        if((int)$menu_item->menu_item_parent === 0){
+
+            $sorted_menu_items[$menu_item->menu_order] = $mn;
+        }
+       
+    }
+
+    //add submenus
+    foreach ( (array) $m as $menu_item ) {
+        
+        $mn = array(
+            'ID'            => $menu_item->ID,
+            'menuOrder'     => $menu_item->menu_order,
+            'title'         => $menu_item->title,
+            'url'           => $menu_item->url
+        );
+        
+        if((int)$menu_item->menu_item_parent !== 0){
+            $sorted_menu_items[$menu_item->menu_item_parent]['subMenu'][] = $mn;
+        }
+       
+    }
+
+    $wp_menu = array(
+                    'id'            => (int)$menu->term_id,
+                    'name'          => $menu->name,
+                    'slug'          => $menu->slug,
+                    'description'   => $menu->description,
+                    'items'         => $sorted_menu_items
+                );
+
+    return $wp_menu;
+}
+
+function update_menu_order(){
+
+    $hierarchy = $_POST['hierarchy'];
+
+    $menu_id   = $_POST['menuId'];
+
+    $order = 1;
+    foreach ($hierarchy as $key => $value) {
+        
+        $p_id = $value['id'];
+        
+        wp_update_post(array('ID' => $p_id, 'menu_order' => $order));
+
+        $order++;
+
+        if(isset($value['children'])){
+
+            $parent = $p_id;
+            
+            foreach ($value['children'] as $k => $v) {
+                
+                $p_id = $v['id'];
+        
+                wp_update_post(array('ID' => $p_id, 'menu_order' => $order));
+                update_post_meta($p_id,'_menu_item_menu_item_parent',$parent);
+
+                $order++;
+            }
+
+        }
+    
+    }
+
+    wp_send_json(array( 'code' => 'OK', 'items' => get_menu_to_array($menu_id)));
+
+    die;
+}
+add_action('wp_ajax_update_menu_order','update_menu_order');
+
 
 /**
  * Reads all registered menus and returns as array
@@ -962,6 +1076,7 @@ function get_site_menus(){
             
             foreach ( (array) $m as $menu_item ) {
                 $mn = array(
+                    'ID'            => $menu_item->ID,
                     'menuOrder'     => $menu_item->menu_order,
                     'title'         => $menu_item->title,
                     'url'           => $menu_item->url
@@ -986,7 +1101,7 @@ function get_site_menus(){
         }
     }
     
-    wp_send_json($wp_menus);
+    wp_send_json($wp_menus[0]);
 
     die;
 }
@@ -998,348 +1113,78 @@ add_action('wp_ajax_nopriv_get_site_menus','get_site_menus');
 //    get_site_menus();
 //});
 
+/**
+ * Ajax function to add / update a menu item
+ */
+function save_menu_item(){
+
+    if('POST' !== $_SERVER['REQUEST_METHOD'])
+        wp_send_json(array('code' => 'ERROR', 'message' => 'Invalid request'));
+
+    $menu_id    = $_POST['menu-id'];
+
+    $item_id    = $_POST['item-id'];
+
+    $item_title = $_POST['item-title'];
+
+    $item_url   = $_POST['item-url'];
+
+    if((int)$item_id === 0){
+        
+        $item = wp_update_nav_menu_item($menu_id, 0 , array(
+                                                'menu-item-title'   => $item_title,
+                                                'menu-item-classes' => sanitize_title($item_title),
+                                                'menu-item-url'     =>  $item_url, 
+                                                'menu-item-type'    => 'custom',
+                                                'menu-item-status'  => 'publish'));
+        if ( is_wp_error($item) )
+            wp_send_json(array('code' => 'ERROR', 'message' => $item->get_error_message()));
+        else
+           wp_send_json(array('code' => 'OK', 'itemID' => $item));
+    }
+    else{
+
+        wp_update_post(array('ID'           => $item_id, 
+                             'post_title'   => $item_title,
+                            ));
+
+        update_post_meta($item_id,'_menu_item_url', esc_url_raw($item_url) );
+        wp_send_json(array('code' => 'OK', 'itemID' => $item_id));
+    }
+}
+add_action('wp_ajax_save_menu_item','save_menu_item');
+
 
 /**
- * JSON to be stored
+ * Removes a menu item
  */
-function show_json(){
-    
-    $json = array(
-        'header' => array(
-            'elements' => array(
-                array(
-                    'type'      => 'BuilderRow',
-                    'draggable' => false,
-                    'editable'  => false,
-                    'elements'  => array(
-                        array(
-                            'type'          => 'BuilderRowColumn',
-                            'extraClasses'     => 'topStrip',
-                            'colClass'       => 12,
-                            'elements'      => array(
-                                array(
-                                    'type'          => 'ContainerElement',
-                                    'extraClasses'  => 'head container',
-                                    'elements'      => array(
-                                        array(
-                                            'type'      => 'BuilderRow',
-                                            'extraClasses' => 'row logobar',
-                                            'draggable' => false,
-                                            'editable'  => false,
-                                            'elements'  => array(
-                                                array(
-                                                    'type'          => 'BuilderRowColumn',
-                                                    'extraClasses'  => 'logo col-xs-12',
-                                                    'colClass'      => 4,
-                                                    'elements'      => array(
-                                                        array(
-                                                            'type'      => 'ImageElement',
-                                                            'extraClasses' => 'logo-title',
-                                                            'editable'  => true,
-                                                            'draggable' => false,
-                                                            'data'      => array(
-                                                                'attachmentId' => 14,
-                                                                'size'         => 'large'
-                                                            )
-                                                        )
-                                                    )
-                                                ),
-                                                array(
-                                                    'type'          => 'BuilderRowColumn',
-                                                    'extraClasses'  => 'cta col-xs-12',
-                                                    'colClass'      => 8,
-                                                    'content'       => '<div class="contact"><span class="glyphicon glyphicon-earphone"></span>'.__("+34 954 227 116").'</div>
-                                    <div class="rates"><a href="#">'.__("Check Rates",'impruwclientparent').'</a></div>',
-                                                    'elements'      => array()
-                                                )
-                                            )
-                                        ),
-                                        array(
-                                            'type'      => 'BuilderRow',
-                                            'draggable' => false,
-                                            'editable'  => false,
-                                            'elements'  => array(
-                                                array(
-                                                    'type'          => 'BuilderRowColumn',
-                                                    'colClass'      => 12,
-                                                    'elements'      => array(
-                                                        array(
-                                                            'type'          => 'MenuElement',
-                                                            'extraClasses'  => 'slimmenu menubar',
-                                                            'markupStyle'   => 'type1',
-                                                            'editable'  => true,
-                                                            'draggable' => false,
-                                                            'data'      => array(
-                                                                'menuName'      => 'Main menu'
-                                                            )
-                                                        )
-                                                    )
-                                                )
-                                            )
-                                        )
-                                    )
-                                )
-                            )
-                        )
-                    )
-                )
-            )
-        ),
-        'page' => array(
-            'elements' => array(
-                array(
-                   'type'      => 'BuilderRow',
-                   'draggable' => false,
-                   'editable'  => false,
-                   'elements'  => array(
-                       array(
-                           'type'          => 'BuilderRowColumn',
-                           'colClass'  => 12,
-                           'extraClasses'     => 'slideshow',
-                           'elements'      => array(
-                                   array(
-                                      'type'      => 'SliderElement',
-                                      'draggable' => false,
-                                      'editable'  => false,
-                                      'extraClasses' => 'slide'
-                                  )
-                               )
-                           )
-                       )
-                ),
-                array(
-                'type'      => 'BuilderRow',
-                'draggable' => false,
-                'editable'  => false,
-                'elements'  => array(
-                    array(
-                        'type'          => 'BuilderRowColumn',
-                        'colClass'  => 12,
-                        'extraClasses'     => 'shadeBox',
-                        'elements'      => array(
-                            array(
-                                'type'          => 'ContainerElement',
-                                'extraClasses'  => 'pageContent',
-                                'elements'      => array(
-                                     array(
-                                        'type'      => 'BuilderRow',
-                                        'draggable' => false,
-                                        'editable'  => false,
-                                        'elements'  => array(
-                                             array(
-                                                'type'      => 'BuilderRowColumn',
-                                                'colClass'  => 12,
-                                                'extraClasses' => 'boxHead',
-                                                'elements'      => array(
-                                                    array(
-                                                        'type'      => 'TitleElement',
-                                                        'draggable' => false,
-                                                        'editable'  => false,
-                                                        'extraClasses' => 'boxTitle',
-                                                        'content'   => '<h3>'.__("Rooms",'impruwclientparent').'</h3>'
-                                                    ),
-                                                    array(
-                                                        'type'      => 'TextElement',
-                                                        'draggable' => false,
-                                                        'editable'  => false,
-                                                        'extraClasses' => 'titleLink',
-                                                        'content'   => '<a href="#">'.__("View All",'impruwclientparent').'</a>'
-                                                    )   
-                                                 )
-                                            )
-                                        )
-                                    )
-                                )
-                            )
-                        )
-                    )
-                 )
-             ),
-             array(
-                'type'      => 'BuilderRow',
-                'draggable' => false,
-                'editable'  => false,
-                'elements'  => array(
-                    array(
-                        'type'          => 'BuilderRowColumn',
-                        'colClass'  => 12,
-                        'elements'      => array(
-                            array(
-                                'type'          => 'ContainerElement',
-                                'extraClasses'  => 'pageContent',
-                                'elements'      => array(
-                                     array(
-                                        'type'      => 'BuilderRow',
-                                        'draggable' => false,
-                                        'editable'  => false,
-                                        'elements'  => array(
-                                             array(
-                                                'type'      => 'BuilderRowColumn',
-                                                'colClass'  => 12,
-                                                'extraClasses' => 'boxHead',
-                                                'elements'      => array(
-                                                    array(
-                                                        'type'      => 'TitleElement',
-                                                        'draggable' => false,
-                                                        'editable'  => false,
-                                                        'extraClasses' => 'boxTitle',
-                                                        'content'   => '<h3>'.__("You CAN",'impruwclientparent').'</h3>'
-                                                    ) 
-                                                 )
-                                            )
-                                        )
-                                     ),
-                                    array(
-                                        'type'      => 'BuilderRow',
-                                        'draggable' => false,
-                                        'editable'  => false,
-                                        'elements'  => array(
-                                             array(
-                                                'type'      => 'BuilderRowColumn',
-                                                'colClass'  => 6,
-                                                'extraClasses' => 'boxContent2 divider',
-                                                'elements'      => array(
-                                                    array(
-                                                        'type'      => 'TextElement',
-                                                        'draggable' => false,
-                                                        'editable'  => false,
-                                                        'content'   => '<p>'.__("It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English.",'impruwclientparent').'</p>'
-                                                    ) 
-                                                 )
-                                            ),
-                                            array(
-                                                'type'      => 'BuilderRowColumn',
-                                                'colClass'  => 6,
-                                                'extraClasses' => 'boxContent2',
-                                                'elements'      => array(
-                                                    array(
-                                                        'type'      => 'AddressElement',
-                                                        'draggable' => false,
-                                                        'editable'  => false,
-                                                    ) 
-                                                 )
-                                            )
-                                        ) 
-                                    )
-                                )
-                            )
-                        )
-                    )
-                 )
-             ),
-             array(
-                'type'      => 'BuilderRow',
-                'draggable' => false,
-                'editable'  => false,
-                'elements'  => array(
-                    array(
-                        'type'          => 'BuilderRowColumn',
-                        'colClass'      => 12,
-                        'extraClasses'  => 'socialBox shadeBox',
-                        'elements'      => array(
-                            array(
-                                'type'          => 'ContainerElement',
-                                'extraClasses'  => 'pageContent',
-                                'elements'      => array(
-                                    array(
-                                        'type'      => 'BuilderRow',
-                                        'draggable' => false,
-                                        'editable'  => false,
-                                        'elements'  => array(
-                                             array(
-                                                'type'      => 'BuilderRowColumn',
-                                                'colClass'  => 12,
-                                                'extraClasses' => 'boxHead',
-                                                'elements'      => array(
-                                                    array(
-                                                        'type'      => 'TitleElement',
-                                                        'draggable' => false,
-                                                        'editable'  => false,
-                                                        'content'   => '<div class="infoPoint">'.__("Connect With Us",'impruwclientparent').'</div>'
-                                                    ) 
-                                                 )
-                                            )
-                                        )
-                                     ),
-                                    array(
-                                        'type'      => 'BuilderRow',
-                                        'draggable' => false,
-                                        'editable'  => false,
-                                        'elements'  => array(
-                                             array(
-                                                'type'      => 'BuilderRowColumn',
-                                                'colClass'  => 12,
-                                                'elements'      => array(
-                                                        array(
-                                                            'type'      => 'SocialElement',
-                                                            'draggable' => false,
-                                                            'editable'  => false,
-                                                            'elements'  => array() 
-                                                        )
-                                                 )
-                                            )
-                                        ) 
-                                    )
-                                )
-                            )
-                        )
-                    )
-                 )
-             )
-          )
-       ),
-       'footer' => array(
-           'elements' => array(
-               array(
-                'type'      => 'BuilderRow',
-                'draggable' => false,
-                'editable'  => false,
-                'extraClasses' => 'foot',
-                'elements'  => array(
-                    array(
-                        'type'          => 'BuilderRowColumn',
-                        'colClass'      => 12,
-                        'elements'      => array(
-                            array(
-                                'type'          => 'ContainerElement',
-                                'extraClasses'  => 'pageContent',
-                                'elements'      => array(
-                                    array(
-                                        'type'      => 'BuilderRow',
-                                        'draggable' => false,
-                                        'editable'  => false,
-                                        'elements'  => array(
-                                             array(
-                                                'type'      => 'BuilderRowColumn',
-                                                'colClass'  => 12,
-                                                'elements'      => array(
-                                                    array(
-                                                            'type'          => 'MenuElement',
-                                                            'extraClasses'  => 'footerLinks text-center',
-                                                            'markupStyle'   => 'type2',
-                                                            'editable'  => true,
-                                                            'draggable' => false,
-                                                            'data'      => array(
-                                                                'menuName'      => 'Footer menu'
-                                                            )
-                                                     )
-                                                 )
-                                            )
-                                        )
-                                     )
-                                )
-                            )
-                        )
-                    )
-                 )
-              )
-          )
-       )
-    );
-    
-    return $json; 
- 
-  
- 
+function remove_menu_item(){
+
+    $item_id = $_POST['itemId'];
+
+    if ( is_nav_menu_item( $item_id ) && wp_delete_post( $item_id, true ) )
+        wp_send_json(array('code' => 'OK','itemID' => $item_id));
+    else
+        wp_send_json(array('code' => 'ERROR', 'message' => 'Failed to remove. Please try again'));
+
+    die;
 }
- 
+add_action('wp_ajax_remove_menu_item','remove_menu_item');
+
+
+function query_attachments(){
+
+    require_once PARENTTHEMEPATH . 'includes/Media.php';
+
+    $query  = array();
+    $query['order']             = $_REQUEST['order'];  
+    $query['orderby']           = $_REQUEST['orderby'];  
+    $query['posts_per_page']    = $_REQUEST['posts_per_page'];  
+    $query['paged']             = $_REQUEST['paged'];  
+
+    $media = get_site_media($query);
+
+    wp_send_json(array('code' => 'OK' , 'data' => $media));
+
+}
+add_action('wp_ajax_query_attachments','query_attachments');
