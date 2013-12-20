@@ -52,10 +52,16 @@
 							<span class="arrow"></span>
 							<a href="#">Marketing</a>
 						</li>
-						<li class="aj-imp-nav-inventory">
+						<li class="aj-imp-nav-inventory active">
 							<span class="icon"></span>
 							<span class="arrow"></span>
 							<a href="#">Room Inventory</a>
+							<ul class="sub-menu">
+								<li>
+									<a href="#add-room">Add Room</a>
+								</li>
+								 
+							</ul>
 						</li>
 						<li class="aj-imp-nav-profile active">
 							<span class="icon"></span>
@@ -105,8 +111,6 @@
 		src="<?php echo get_parent_template_directory_uri(); ?>/dashboard/require.js">
 		 
 	</script>
-	
-	
 	
 	
 

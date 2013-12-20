@@ -5,8 +5,8 @@
 
 define([ 'underscore', 'jquery', 'backbone', 
 		'text!templates/siteprofile/SiteProfileViewTpl.tpl',
-		'lib/parsley/parsley' ], 
-		function(_, $, Backbone, SiteProfileViewTpl,parsley) {
+		'lib/parsley/parsley','bootstrap' ], 
+		function(_, $, Backbone, SiteProfileViewTpl,parsley,bootstrap) {
 
 	var SiteProfileView = Backbone.View.extend({
 
