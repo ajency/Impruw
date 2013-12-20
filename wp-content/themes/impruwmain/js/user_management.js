@@ -26,7 +26,7 @@ jQuery(document).ready(function($) {
             if(response.code =='OK'){
                
                 $("#register_message").html('<div class="alert alert-success">'+
-                                                   '<button aria-hidden="true" data-dismiss="alert" class="close" type="button">�</button>'+
+                                                   '<button aria-hidden="true" data-dismiss="alert" class="close" type="button">x</button>'+
                                                    response.msg+'</div>');
                 
                $("#scrolltosuccess").click();
@@ -40,7 +40,7 @@ jQuery(document).ready(function($) {
                  $("#recaptcha_reload").click();
                  $("#registration_status_div").show()
                  $("#register_message").html('<div class="alert alert-error">'+
-                                                   '<button aria-hidden="true" data-dismiss="alert" class="close" type="button">�</button>'+
+                                                   '<button aria-hidden="true" data-dismiss="alert" class="close" type="button">x</button>'+
                                                    response.msg+'</div>')
 
                  return false;
@@ -130,7 +130,7 @@ jQuery(document).ready(function($) {
    });
    
    
-   $( '#frm_registration' ).parsley( 'addItem', '#recaptcha_response_field' );
+//   $( '#frm_registration' ).parsley( 'addItem', '#recaptcha_response_field' );
    
    $("select").selectpicker();
    /************************* /signup.js *********************************/
@@ -159,13 +159,13 @@ jQuery(document).ready(function($) {
     		},
             listeners: {
                onFieldSuccess: function ( elem, constraints, ParsleyField ) {  
-                  elem.parent().removeClass("has-error").addClass("has-success");
+                  elem.parent().parent().removeClass("has-error").addClass("has-success");
                   elem.parent().find('.fui-check-inverted,.fui-cross-inverted').remove();
                   elem.after('<span class="validation-icon input-icon fui-check-inverted"></span>') 
                } ,
                
                onFieldError: function ( elem, constraints, ParsleyField ) {  
-                   elem.parent().removeClass("has-success").addClass("has-error");
+                   elem.parent().parent().removeClass("has-success").addClass("has-error");
                    console.log(elem)
                    elem.parent().find('.fui-check-inverted,.fui-cross-inverted').remove();
                    elem.after('<span class="validation-icon input-icon fui-cross-inverted"></span>') 

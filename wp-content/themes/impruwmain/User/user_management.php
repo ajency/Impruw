@@ -401,6 +401,7 @@ function add_menu_to_blog($user_id,$blog_id,$home_id,$site_builder_id)
         'menu-item-classes' => 'home',
         'menu-item-url' => get_permalink($home_id), 
         'menu-item-status' => 'publish'));
+    
      wp_update_nav_menu_item($menu->term_id, 0, array(
         'menu-item-title' => get_the_title($site_builder_id),
         'menu-item-classes' => 'site_builder',

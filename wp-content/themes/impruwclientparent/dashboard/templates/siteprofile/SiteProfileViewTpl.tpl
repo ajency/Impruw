@@ -61,94 +61,167 @@
 				<div class="form-group">
 					<label for="inputAddress1" class="col-sm-2 control-label">Street</label>
 					<div class="col-sm-10 col-sm-offset-2">
-						<input type="text" class="form-control" id="street" name="street" placeholder="21 Jump Street" value="<%= site.getBusinessDetails('street')   %>"> 
+						<input type="text" class="form-control" id="street" name="street" placeholder="21 Jump Street" 
+						value="<%= site.getBusinessDetails('street')   %>" required  parsley-trigger="blur" parsley-validation-minlength="0" /> 
+						<div class="p-messages"></div>
 						 
 					</div>
 				</div>
 				
 				
-				<div class="form-group">
-					<label for="inputAddress2" class="col-sm-2 control-label">Postal Code</label>
-					<div class="col-sm-4 col-sm-offset-2">
-						<input type="text" class="form-control" id="postalcode"  name="postalcode" data-mask="999-999" placeholder="420-001"  value="<%= site.getBusinessDetails('postalcode') %>">
-					</div>
+				 
 				
-					<label for="inputAddress3" class="col-sm-2 control-label label-2">City / Town</label>
-					<div class="col-sm-4 col-sm-offset-2">
-						<input type="text" class="form-control" id="city" name="city" placeholder="Gotham City" value="<%= site.getBusinessDetails('city') %>">  
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				<div class="form-group dual">
+					<div class="col-sm-5">
+						<div class="form-group">
+							<label for="inputAddress2" class="col-sm-5 control-label">Postal Code</label>
+							<div class="col-sm-7 col-sm-offset-5">
+								<input type="text" class="form-control" id="postalcode" name="postalcode"  
+								 data-mask="999-999" placeholder="420-001" value="<%= site.getBusinessDetails('postalcode') %>" 
+								 required parsley-trigger="blur" parsley-validation-minlength="0"  parsley-type="number" parsley-type-number-message="Please enter valid postal code" />
+								 <div class="p-messages"></div>
+								 
+							</div>
+						</div>
+					</div>
+
+					<div class="col-sm-5">
+						<div class="form-group">
+							<label for="inputAddress3" class="col-sm-5 control-label">City / Town</label>
+							<div class="col-sm-7 col-sm-offset-5">
+								<input type="text" class="form-control"  id="city" name="city"  placeholder="Gotham City"
+								value="<%= site.getBusinessDetails('city') %>" required parsley-trigger="blur"  
+								parsley-validation-minlength="0" >
+								<div class="p-messages"></div>
+							</div>
+						</div>
 					</div>
 				</div>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
 				
 				
 				<div class="form-group">
 					<label for="inputAddress4" class="col-sm-2 control-label dd-label">Country</label>
 					<div class="col-sm-10 col-sm-offset-2">
-						<select name="country" id="country">
+						<select name="country" id="country" required parsley-trigger="blur" >
 							<option value="Norway" <% if(site.getBusinessDetails('country')=='Norway') { %> selected  <% } %>>Norway</option>
 							<option value="Sweden" <% if(site.getBusinessDetails('country')=='Sweden') { %> selected  <% } %>>Sweden</option>
 							<option value="Denmark" <% if(site.getBusinessDetails('country')=='Denmark') { %> selected  <% } %>>Denmark</option>
 						</select>
+						<div class="p-messages"></div>
 					</div>
 				</div>
 				
 				
-				<div class="form-group add-another">
-					<label for="inputEmail1" class="col-sm-2 control-label">Email</label>
-					<div class="col-sm-4 col-sm-offset-2">
-					 
-					<%   if(site.getSiteProfileEmails().length>0) {  
-					
-							_.each(site.getSiteProfileEmails(), function(email, index) { %>
+				<div class="form-group dual">
+					<div class="col-sm-5">
+						<div class="form-group  add-another">
+							<label for="inputEmail1" class="col-sm-5 control-label">Email</label>
+							<div class="col-sm-7 col-sm-offset-5">
+							 
+							<%   if(site.getSiteProfileEmails().length>0) {  
 							
-							<span class="div_email" >
-								<input type="email" class="form-control"   name="email[]"    value="<%= email %>">  
-								<span class="del_email" style="display:<% if(index<=0) { %>none<%}   %>;"><span class="fui-cross"></span> Delete</span> 
-								</span>
+									_.each(site.getSiteProfileEmails(), function(email, index) { %>
+									
+									<span class="div_email" >
+									<div>
+										<input type="email" class="form-control"   name="email[]"    value="<%= email %>"  
+										parsley-required="true" parsley-trigger="blur" parsley-validation-minlength="0"  
+										parsley-type="email" parsley-required-message="Please enter email Id" parsley-group="myemails">  
+										<div class="p-messages"></div>
+										<span class="del_email <%= (index <= 0 ) ? 'hidden' : '' %>" ><span class="fui-cross"></span> Delete</span> 
+										</div>
+										</span>
+									
+									<% });
+							}
+							else{
+							%>
+									<span class="div_email" >
+										<input type="email" class="form-control"   name="email[]"  value=""
+										parsley-required="true" parsley-trigger="blur" parsley-validation-minlength="0"  
+										parsley-type="email" parsley-required-message="Please enter email Id"  parsley-group="myemails" />
+										<div class="p-messages"></div>  
+										<span class="del_email hidden"><span class="fui-cross"></span> Delete</span> 
+									</span>
+							<%
+							}
 							
-							<% });
-					}
-					else{
-					%>
-							<span class="div_email" >
-								<input type="email" class="form-control"   name="email[]"  value="">  
-								<span class="del_email" style="display:none"><span class="fui-cross"></span> Delete</span> 
-							</span>
-					<%
-					}
-					
-					 %>
-					
-						
-						<span class="help-block add-another-link"><a href="#" id="add_another_email"><span class="glyphicon glyphicon-plus-sign"></span> Add Another</a></span>
+							 %>
+							
+								
+								<span class="help-block add-another-link"><a href="#" id="add_another_email"><span class="glyphicon glyphicon-plus-sign"></span> Add Another</a></span>
+							</div>
+						</div>
 					</div>								
 				
-					<label for="inputPhone1" class="col-sm-2 control-label label-2">Phone</label>
-					<div class="col-sm-4 col-sm-offset-2">
-					<% if(site.getSiteProfilePhoneNos().length>0){
-					
-							_.each(site.getSiteProfilePhoneNos(),function(phone,index){
-					 %>  
-						 		<span class="div_phone" >
-						 			<input type="text" class="form-control"   name="phone[]" data-mask="99-999-999"  value="<%= phone %>"> 
-						 			<span class="del_phone" style="display: <% if(index<=0) { %> none; <% }   %>;"><span class="fui-cross"></span> Delete</span> 
-						 		</span>									
-					<% 		}); 			
-						
-						}
-						else { %>
+					<div class="col-sm-5">
+						<div class="form-group  add-another">
+								<label for="inputPhone1" class="col-sm-5 control-label">Phone</label>
+								<div class="col-sm-7 col-sm-offset-5">
+								<% if(site.getSiteProfilePhoneNos().length>0){
 								
-								<span class="div_phone" >
-									<input type="text" class="form-control"   name="phone[]" data-mask="99-999-999"  value="">
-									<span class="del_phone" style="display:none;"><span class="fui-cross"></span> Delete</span> 
-								</span>
-						<% }							 
-					
-					%>
-							<span class="help-block add-another-link">
-								<a href="#" id="add_another_phone"><span class="glyphicon glyphicon-plus-sign"></span> Add Another</a>
-							</span>
+										_.each(site.getSiteProfilePhoneNos(),function(phone,index){
+								 %>  
+									 		<span class="div_phone" >
+									 			<div>
+										 			<input type="text" class="form-control"   name="phone[]" data-mask="99-999-999"  
+										 			value="<%= phone %>" parsley-required="true" parsley-trigger="blur" 
+										 			parsley-validation-minlength="0" parsley-required-message="Please enter phone no"
+										 			parsley-group="myphones" parsley-rangelength="[10,10]"
+										 			parsley-type="number" parsley-type-number-message="Please enter valid phone no" /> 
+										 			<div class="p-messages"></div>  
+										 			<span class="del_phone <%= (index <= 0 ) ? 'hidden' : '' %>" ><span class="fui-cross"></span> Delete</span>
+									 			</div> 
+									 		</span>									
+								<% 		}); 			
+									
+									}
+									else { %>
+											
+											<span class="div_phone" >
+												<input type="text" class="form-control"   name="phone[]" data-mask="99-999-999"  
+												value="" parsley-required="true" parsley-trigger="blur" 
+									 			parsley-validation-minlength="0" parsley-required-message="Please enter phone no"
+									 			parsley-group="myphones"  parsley-rangelength="[10,10]"
+									 			parsley-type="number" parsley-type-number-message="Please enter valid phone no" />
+									 			<div class="p-messages"></div>  
+												<span class="del_phone hidden" ><span class="fui-cross"></span> Delete</span> 
+											</span>
+									<% }							 
+								
+								%>
+										<span class="help-block add-another-link">
+											<a href="#" id="add_another_phone"><span class="glyphicon glyphicon-plus-sign"></span> Add Another</a>
+										</span>
+								</div>
+							</div>
+						</div>
 					</div>
-				</div>
 
 				<div class="form-group">
 					
@@ -165,8 +238,11 @@
 					<div class="col-sm-10 col-sm-offset-2">
 						<div class="input-group">
 							<span class="input-group-addon">www.facebook.com/</span>
-							<input type="text" class="form-control" id="facebook" name="facebook"  placeholder="yourpageurl"  value="<%= site.getSocialDetails('facebook') %>">
-							
+							<input type="text" class="form-control" id="facebook" name="facebook"  
+							placeholder="yourpageurl"  value="<%= site.getSocialDetails('facebook') %>" 
+							required parsley-trigger="blur" parsley-validation-minlength="0" />
+							<div class="p-messages"></div>
+														
 						</div>
 					</div>
 				</div>
@@ -177,7 +253,10 @@
 					<div class="col-sm-10 col-sm-offset-2">
 						<div class="input-group">
 							<span class="input-group-addon">www.twitter.com/</span>
-							<input type="text" class="form-control" id="twitter" name="twitter"  placeholder="Twitter"  value="<%= site.getSocialDetails('twitter') %>">
+							<input type="text" class="form-control" id="twitter" name="twitter"  placeholder="Twitter"
+ 								value="<%= site.getSocialDetails('twitter') %>" required parsley-trigger="blur" 
+ 								parsley-validation-minlength="0"  >
+ 								<div class="p-messages"></div>
 							
 						</div>
 					</div>
@@ -193,7 +272,8 @@
 				<div class="form-group">
 					<label for="inputSEO1" class="col-sm-2 control-label">Site Description</label>
 					<div class="col-sm-10 col-sm-offset-2">
-						<textarea class="form-control" rows="3" name="sitedescription" id="sitedescription" placeholder="A brief description of your site for search engines."></textarea>
+						<textarea class="form-control" rows="3" name="sitedescription" id="sitedescription" 
+						placeholder="A brief description of your site for search engines."></textarea>
 					</div>
 				</div>
 				
@@ -201,7 +281,8 @@
 				<div class="form-group">
 					<label for="inputSEO2" class="col-sm-2 control-label">Meta Keywords</label>
 					<div class="col-sm-10 col-sm-offset-2">
-						<textarea class="form-control" rows="3" name="metakeywords" id="metakeywords" placeholder="Separate each keyword with a comma."></textarea>
+						<textarea class="form-control" rows="3" name="metakeywords" id="metakeywords" 
+						placeholder="Separate each keyword with a comma."></textarea>
 					</div>
 				</div>
 				<div class="form-group">
@@ -211,14 +292,16 @@
 				<div class="form-group">
 					<label for="inputSEO3" class="col-sm-2 control-label">Footer Code</label>
 					<div class="col-sm-10 col-sm-offset-2">
-						<textarea class="form-control" rows="3" name="footercode" id="footercode"  placeholder="ex. Google Analytics tracking code."></textarea>
+						<textarea class="form-control" rows="3" name="footercode" id="footercode"  
+						placeholder="ex. Google Analytics tracking code."></textarea>
 					</div>
 				</div>
 				
 				<div class="form-group">
 					<label for="inputSEO4" class="col-sm-2 control-label">Header Code</label>
 					<div class="col-sm-10 col-sm-offset-2">
-						<textarea class="form-control" rows="3" name="headercode" id="headercode" placeholder="ex. Google Webmaster tools verification code."></textarea>
+						<textarea class="form-control" rows="3" name="headercode" id="headercode" 
+						placeholder="ex. Google Webmaster tools verification code."></textarea>
 					</div>
 				</div>
 				

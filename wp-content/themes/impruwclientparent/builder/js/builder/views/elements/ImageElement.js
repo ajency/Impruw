@@ -22,7 +22,8 @@ define(['builder/views/elements/BuilderElement','text!builder/templates/elements
                     'mouseenter'                        : 'elementMouseEnter',
                     'mouseleave'                        : 'elementMouseLeave',
                     'click > .aj-imp-delete-btn'        : 'destroyElement',
-                    'contextmenu'                        : 'showContextMenu'
+                    'contextmenu'                       : 'showContextMenu',
+                    'click'                             : 'showMediaManager'
                 },
                 
                 /**
@@ -60,7 +61,26 @@ define(['builder/views/elements/BuilderElement','text!builder/templates/elements
                 render : function(col){
                     
                     return this;
-                }      
+                },
+
+                /**
+                 * Show the media manager modal 
+                 */
+                showMediaManager : function(){
+
+                   var self = this; 
+
+                   require(['underscore','mediamanager'], function( _ , MediaManager){
+
+                        //ensure Menu manager is created just once
+                        if(_.isUndefined(self.mediamanager))
+                            self.mediamanager = new MediaManager();
+
+                        self.mediamanager.open();
+
+                   });
+
+                }
                 
             });
             

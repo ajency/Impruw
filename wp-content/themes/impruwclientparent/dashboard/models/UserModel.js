@@ -69,12 +69,12 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 							_self.set(response.site_data)
 							
 							if(!_.isUndefined(fn.success) && _.isFunction(fn.success))
-								fn.success(response,fn.event);  
+								fn.success(response,fn.event,fn._self);  
 						}
 						else{
 							 
 							if(!_.isUndefined(fn.failure) && _.isFunction(fn.failure))
-								fn.failure(response,fn.event); 
+								fn.failure(response,fn.event,fn._self); 
 						}
 				
 					});			
@@ -97,12 +97,12 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 							_self.set(response.site_data)
 							
 							if(!_.isUndefined(fn.success) && _.isFunction(fn.success))
-								fn.success(response,fn.event);  
+								fn.success(response,fn.event,fn._self);  
 						}
 						else{
 							 
 							if(!_.isUndefined(fn.failure) && _.isFunction(fn.failure))
-								fn.failure(response,fn.event); 
+								fn.failure(response,fn.event,fn._self); 
 						}
 				
 					});			

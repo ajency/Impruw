@@ -599,6 +599,12 @@ form .aj-imp-submit:hover {
   font-style: italic;
   font-size: 0.92em;
 }
+.aj-imp-register-form .aj-imp-register-left form .row .form-group.has-error .help-block {
+  font-style: normal;
+  font-weight: 300;
+  color: #ee4423;
+  font-size: 14px;
+}
 .aj-imp-register-form .aj-imp-register-left form .row.aj-imp-site-name {
   background: #ffcb99;
   border-radius: 5px;
@@ -653,10 +659,11 @@ form .aj-imp-submit:hover {
   padding: 0 30px 0;
   box-shadow: inset 3px 0 6px -6px #333333;
 }
-@media (max-width: 767px) {
+@media (max-width: 969px) {
   .aj-imp-register-form .aj-imp-register-right {
     border-top: 1px solid #aaaaaa;
     padding-top: 1.5em;
+    display: none;
   }
 }
 .aj-imp-register-form .aj-imp-register-right .aj-imp-register-steps {
@@ -1085,6 +1092,16 @@ form .aj-imp-submit:hover {
 }
 .facilities-list .facility:hover .action {
   display: block;
+}
+.facilities-list .facility.add .input-group-btn .btn {
+  border: 0;
+  background: #ff7e00;
+  border-radius: 0;
+  color: #fff;
+  line-height: 15px;
+}
+.facilities-list .facility.add:hover {
+  border-color: transparent;
 }
 /****Date Picker Styles****/
 .ui-datepicker {
