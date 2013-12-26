@@ -17,6 +17,9 @@ define(['builder/views/elements/BuilderElement','text!builder/templates/elements
                 //set height to be assigned to placeholder and helper
                 placeHolderHeight   : 100,
 
+                //datasource
+                dataSource          : null,
+
                 //
                 events : {
                     'mouseenter'                        : 'elementMouseEnter',
@@ -76,7 +79,7 @@ define(['builder/views/elements/BuilderElement','text!builder/templates/elements
                         if(_.isUndefined(self.mediamanager))
                             self.mediamanager = new MediaManager();
 
-                        self.mediamanager.open();
+                        self.mediamanager.open(self);
 
                    });
 

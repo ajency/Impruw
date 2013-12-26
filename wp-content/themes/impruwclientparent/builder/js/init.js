@@ -29,6 +29,7 @@ require.config({
         nestable        : 'lib/nestable',
         parsley         : 'lib/parsley',
         plupload        : 'lib/plupload.full.min',
+        marionette      : 'lib/backbone.marionette.min',
 
         //menu
         menumanager     : 'builder/views/modals/MenuManager',
@@ -78,12 +79,12 @@ require.config({
         'bootstrapselect' : {
             deps : ['bootstrap']
         },
-        'mustache' : {
-            deps: ['jquery'],    
-            exports : 'Mustache'
-        },
         'ckeditor' : {
             exports : 'CKEDITOR'
+        },
+        'marionette' : {
+            deps : ['backbone'],
+            exports : 'Marionette'
         }
     }
 });
@@ -98,8 +99,8 @@ window.prevpopover      = null;
 window.prevmouseover    = null;
 
 //init the app
-require(['backbone',
-         'builder/routers/BuilderRouter'], function( Backbone, Router) {
+require(['backbone', 'marionette',
+         'builder/routers/BuilderRouter'], function( Backbone, Marionette, Router) {
 
         $(document).ready(function(){   
 

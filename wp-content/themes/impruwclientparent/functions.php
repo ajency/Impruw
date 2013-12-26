@@ -1188,3 +1188,4 @@ function query_attachments(){
 
 }
 add_action('wp_ajax_query_attachments','query_attachments');
+add_action('wp_ajax_nopriv_query_attachments','query_attachments');

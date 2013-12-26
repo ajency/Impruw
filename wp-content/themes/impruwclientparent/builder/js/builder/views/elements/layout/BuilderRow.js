@@ -4,7 +4,7 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
 
 			var BuilderRow = BuilderElement.extend({
                
-               elementType          : 'BuilderRow',
+                elementType          : 'BuilderRow',
 
                 //create a div element with class "row"
 				className           : 'row',

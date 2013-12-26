@@ -3,7 +3,7 @@
  *  Contains all logic to handle menu configurations
  *  Add/Editing/Deleting Menu
  */
-define(['builder/views/modals/Modal','text!builder/templates/modal/media.hbs', 
+define(['builder/views/modals/Modal','text!builder/templates/modal/mediamanager.hbs', 
         'mediamodel','mediacollection', 'global','parsley'], 
 		
         function(Modal, template, MediaModel, MediaCollection, global){
@@ -16,8 +16,7 @@ define(['builder/views/modals/Modal','text!builder/templates/modal/media.hbs',
                 template : template,
 
                 events   : {
-                    'click .refetch-media'          : 'fetchMedia',
-                    'click #uploadfiles'            : 'uploadFiles'
+                    'click .refetch-media'          : 'fetchMedia'
                 },
 
                 /**
@@ -26,7 +25,6 @@ define(['builder/views/modals/Modal','text!builder/templates/modal/media.hbs',
                 initialize : function(args){
 
                     //bind 
-                    
                     var html = _.template(this.outerTemplate,{title : 'Media Manager'});
 
                     this.$el.html(html);
@@ -43,32 +41,26 @@ define(['builder/views/modals/Modal','text!builder/templates/modal/media.hbs',
 
                     });
 
-                    //initial filters
-                    this.filters =  {
-                                        order           : 'DESC',
-                                        orderby         : 'date',
-                                        posts_per_page  : 30,
-                                        paged           : 1
-                                    };
+                    var markup = _.template(this.template,{});
+                           
+                    this.$el.find('.modal-body').html(markup);
 
-                    //set collection
-                    this.mediaCollection = new MediaCollection();
-
-                    this.mediaCollection.on('add', function(model){console.log(model)});
-                    
-                    this.fetchMedia();
+                    this.bindPlupload();
                 },
 
-                uploadFiles : function(){
-
-                    if(_.isUndefined(this.uploader))
-                          throw 'plupload not set for the view';
-
-                    this.uploader.start();  
-
-                },
-                
                 /**
+                 * Opens a new Media manager
+                 */
+                open : function(element){
+
+                    if(!_.isUndefined(element))
+                        this.element  = element;
+
+                    this.$el.modal('show');
+                    $('#controls-drag').hide();
+                },
+
+               /**
                  * Triggers the fetch of MenuCollection
                  * Check if the collection is already fetched. If yes, ignores
                  * @returns {undefined}
@@ -89,79 +81,7 @@ define(['builder/views/modals/Modal','text!builder/templates/modal/media.hbs',
                             
                             self.mediaCollection.setFetched(true);
                             
-                            markup = _.template(self.template,{mediaCollection : collection});
-                           
-                            self.$el.find('.modal-body').html(markup);
-
                             self.$el.find('.selectable-images').selectable({filter : 'img'});
-
-                            //bind plupload script
-                            require(['plupload'], function(plupload){
-
-                                if(!_.isUndefined(self.uploader))
-                                    return;
-
-                                self.uploader = new plupload.Uploader({
-                                    'runtimes'          : 'gears,html5,flash,silverlight,browserplus',
-                                    'file_data_name'    :'async-upload', // key passed to $_FILE.
-                                    'multiple_queues'   : true,
-                                    'browse_button'     : 'choosefiles',
-                                    'multipart'         : true,
-                                    'urlstream_upload'  : true,
-                                    'max_file_size'     : '10mb',
-                                    'url'               : 'http://localhost/impruw/site1/wp-admin/async-upload.php',
-                                    'flash_swf_url'         : '/plupload/js/plupload.flash.swf',
-                                    'silverlight_xap_url' : '/plupload/js/plupload.silverlight.xap',
-                                    'filters' : [
-                                        {'title' : "Image files", 'extensions' : "jpg,gif,png"}
-                                    ],
-                                    'multipart_params' : {
-                                        action      : 'upload-attachment',
-                                        _wpnonce    : _WPNONCE
-                                    }
-                                });
-                                log(_WPNONCE);
-
-                                self.uploader.bind('Init', function(up, params) {
-                                    $('#filelist').html("<div>Current runtime: " + params.runtime + "</div>");
-                                });
-
-                                self.uploader.init();
-
-                                self.uploader.bind('FilesAdded', function(up, files) {
-                                    $.each(files, function(i, file) {
-                                        $('#filelist').append(
-                                            '<div id="' + file.id + '">' +
-                                            file.name + ' (' + plupload.formatSize(file.size) + ') <b></b>' +
-                                        '</div>');
-                                    });
-
-                                    up.refresh(); // Reposition Flash/Silverlight
-                                });
-
-                                self.uploader.bind('UploadProgress', function(up, file) {
-                                    $('#' + file.id + " b").html(file.percent + "%");
-                                });
-
-                                self.uploader.bind('Error', function(up, err) {
-                                    $('#filelist').append("<div>Error: " + err.code +
-                                        ", Message: " + err.message +
-                                        (err.file ? ", File: " + err.file.name : "") +
-                                        "</div>"
-                                    );
-
-                                    up.refresh(); // Reposition Flash/Silverlight
-                                });
-
-                                self.uploader.bind('FileUploaded', function(up, file, response) {
-                                    $('#' + file.id + " b").html("100%");
-                                    if(response.success){
-                                        var media = new Media(response.data);
-                                        self.mediaCollection.add(media);
-                                    }
-                                });
-
-                            });
 
                         },
                         error : function(){
@@ -169,6 +89,63 @@ define(['builder/views/modals/Modal','text!builder/templates/modal/media.hbs',
                         }
                     })
 
+                },
+
+                bindPlupload : function(){
+
+                    var self  = this;
+
+                    //bind plupload script
+                    require(['plupload'], function(plupload){
+
+                        if(!_.isUndefined(self.uploader))
+                            return;
+
+                        self.uploader = new plupload.Uploader({
+                            'runtimes'          : 'gears,html5,flash,silverlight,browserplus',
+                            'file_data_name'    : 'async-upload', // key passed to $_FILE.
+                            'multiple_queues'   : true,
+                            'browse_button'     : 'choosefiles',
+                            'multipart'         : true,
+                            'urlstream_upload'  : true,
+                            'max_file_size'     : '10mb',
+                            'url'               : UPLOADURL,
+                            'flash_swf_url'     : SITEURL + '/wp-includes/js/plupload/plupload.flash.swf',
+                            'silverlight_xap_url' : SITEURL + '/wp-includes/js/plupload/plupload.silverlight.xap',
+                            'filters' : [
+                                {'title' : "Image files", 'extensions' : "jpg,gif,png"}
+                            ],
+                            'multipart_params' : {
+                                action      : 'upload-attachment',
+                                _wpnonce    : _WPNONCE
+                            }
+                        });
+                        
+                        self.uploader.init();
+
+                        self.uploader.bind('FilesAdded', function(up, files) {
+                            self.uploader.start();  
+                            self.$el.find('#progress').show();
+                        });
+
+                        self.uploader.bind('UploadProgress', function(up, file) {
+                            self.$el.find('#progress').find('.progress-bar').css('width',file.percent + "%");
+                        });
+
+                        self.uploader.bind('Error', function(up, err) {
+                            up.refresh(); // Reposition Flash/Silverlight
+                        });
+
+                        self.uploader.bind('FileUploaded', function(up, file, response) {
+                            self.$el.find('#progress').hide();
+                            if(response.success){
+                                // var media = new Media(response.data);
+                                // self.mediaCollection.add(media);
+                                self.hide();
+                            }
+                        });
+
+                    });
                 }                
 
             });
