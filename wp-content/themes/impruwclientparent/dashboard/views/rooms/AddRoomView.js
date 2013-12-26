@@ -18,7 +18,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 
 		initialize : function(args) {
 			
-			//	_.bindAll(this , 'saveProfileSuccess', 'saveProfileFailure');
+			//	_.bindAll(this , 'saveRoomSuccess', 'saveRoomFailure');
 			//_.bindAll(this , 'showAlertMessage','parsleyInitialize' ); 
 			/*if(_.isUndefined(args.user))
 				this.showInvalidCallView();
@@ -41,7 +41,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 		renderTemplate:function(){
 			var template = _.template(AddRoomViewTpl);			 
 			var html = template({
-				facilities : window.allFacilities
+				facilities : this.allFacilities
 			}); 
 
 			this.$el.html(html);
@@ -66,9 +66,9 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 		 */
 		fetchAllFacilities : function(){
 			
-			self_ = this;
+			var self_ = this;
 						
-			data = {action:'fetch_all_room_facilities'}
+			var data = {action:'fetch_all_room_facilities'}
 			var allFacilities = ''
 			$.post(	AJAXURL,
 					data,
@@ -76,9 +76,9 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 				
 						if(response.code=='OK'){
 						
-							//console.log(response)
-							window.allFacilities = response.data;
-							self_.renderTemplate(response.data)
+						 	self_.allFacilities  = response.data;
+							
+							self_.renderTemplate()
 							
 							if(!_.isUndefined(self_.success) && _.isFunction(self_.success))
 								self_.success(response,self_.event,self_);  
@@ -91,9 +91,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 						}
 				
 					});	
-			
-			
-			return allFacilities;
+			 
 			
 			},
 			
@@ -142,8 +140,8 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 					$addRoomStatus = window.impruwUser.saveUserProfile(data, {
 																				event : evt,
 																				_self:self,
-																				success : self.saveProfileSuccess,
-																				failure : self.saveProfileFailure
+																				success : self.saveRoomSuccess,
+																				failure : self.saveRoomFailure
 																			});*/
 			  }
 			 			
@@ -154,12 +152,13 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 		 * Add new facility
 		 */
 		addFacility :function(evt){
+			var self_ = this;
 		 
 			  if (this.$el.find('#form_addfacility').parsley('validate')){
 				  
 				  $(evt.target).next().show();
 				  
-				  data = {	  action		:'save_new_room_facility',
+				  var data = {	  action		:'save_new_room_facility',
 						  	  new_facility	:$('#new_facilityname').val()	
 						  };
 				  
@@ -167,17 +166,14 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 					$.post(	AJAXURL,
 							data,
 							function(response){
-						console.log(response)
+								console.log(response)
 						
 								if(response.code=='OK'){
-								 	
-									if(!_.isUndefined(self_.success) && _.isFunction(self_.success))
-										self_.success(response,self_.event,self_);  
+									 
+									self_.saveRoomSuccess(response,evt,self_);  
 								}
 								else{
-									  
-									 if(!_.isUndefined(self_.failure) && _.isFunction(self_.failure))
-										 self_.failure(response,self_.event,self_);  
+									 self_.saveRoomFailure(response,evt,self_);  
 								}
 						
 							});	
@@ -194,11 +190,11 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 		 * @param event
 		 * @param _self
 		 */
-		saveProfileSuccess : function(response,event,_self){
+		saveRoomSuccess : function(response,event,_self){
 			$(event.target).next().hide(); 
 			 
 			 $(event.target).offsetParent().offsetParent().offsetParent()
-			 				.find('#userprofilesave_status').removeClass('alert-error').addClass('alert-success');
+			 				.find('#roomsave_status').removeClass('alert-error').addClass('alert-success');
 			 
 			 _self.showAlertMessage(event,response);			 
 			 
@@ -210,15 +206,39 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 		 * @param event
 		 * @param _self
 		 */
-		saveProfileFailure : function(response,event,_self){
+		saveRoomFailure : function(response,event,_self){
 			 
 			$(event.target).next().hide();
 			$(event.target).offsetParent().offsetParent().offsetParent()
-							.find('#userprofilesave_status').removeClass('alert-success').addClass('alert-error');
+							.find('#roomsave_status').removeClass('alert-success').addClass('alert-error');
 			
 			_self.showAlertMessage(event,response);			 
 			
 		}, 
+		
+		
+		/**
+		 * Function to show status message on success/failure
+		 * 
+		 * @param event
+		 * @param response
+		 */		
+		showAlertMessage : function(event,response){
+			
+			console.log(event)
+			console.log($(event.target.form).offsetParent())
+			/*$(event.target).form().offsetParent()
+							.find('#roomsave_status').html(response.msg);
+			$(event.target).form().offsetParent()
+							.find('#roomsave_status').show();
+			
+			/* Move to top at status message after success/failure * /
+			$('html, body').animate({
+		        scrollTop: $(event.target).form().offsetParent()
+		        						   .find('#roomsave_status').offset().top
+		    }, 1000);*/
+		},
+		
 		
 		
 		/**

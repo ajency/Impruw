@@ -1214,7 +1214,7 @@ function save_new_room_facility(){
 	$new_term = $_POST['new_facility'];
 	 
 	if(wp_insert_term( $new_term, 'impruv_room_facility', $args = array( 'hide_empty' => 0 ) ) )
-		wp_send_json(array('code' => 'OK' ));
+		wp_send_json(array('code' => 'OK','msg'=>'New facility is successfully added'));
 	else
 		wp_send_json(array('code' => 'ERROR','msg' => 'Error adding new facility' ));
 }
@@ -1222,3 +1222,19 @@ add_action('wp_ajax_save_new_room_facility','save_new_room_facility');
 add_action('wp_ajax_nopriv_save_new_room_facility','save_new_room_facility');
 
 
+
+
+
+/**
+ * Function to save room category
+ 
+function add_room(){
+
+	$new_term = $_POST['new_facility'];
+
+	 
+}
+add_action('wp_ajax_save_new_room_facility','save_new_room_facility');
+add_action('wp_ajax_nopriv_save_new_room_facility','save_new_room_facility');
+
+*/

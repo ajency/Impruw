@@ -11,7 +11,7 @@
 				<div class="row">
 					<div class="aj-imp-dash-content col-md-12">
 					
-						<div class="alert alert-success">
+						<div class="alert alert-success" id="roomsave_status" name="roomsave_status" >
 							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 							Your details have been successfully saved.
 						</div>
@@ -32,7 +32,7 @@
 								<div class="col-sm-10 col-sm-offset-2">
 									<input type="numeric" class="form-control" name="roomnos" id="roomnos" placeholder="eg. 10" 
 									required parsley-trigger="blur" parsley-validation-minlength="0" parsley-type="number"
-									parsley-range="[6, 100]" parsel-required-message = "Please enter no of rooms" >
+									parsley-range="[1, 100]" parsel-required-message = "Please enter no of rooms" >
 									<div class="p-messages"></div>
 								</div>
 							</div>
