@@ -61,7 +61,7 @@ define(['builder/views/elements/BuilderElement','text!builder/templates/elements
                  * @param {type} col
                  * @returns {_L2.Anonym$0}
                  */        
-                render : function(col){
+                render : function(){
                     
                     return this;
                 },
@@ -83,6 +83,16 @@ define(['builder/views/elements/BuilderElement','text!builder/templates/elements
 
                    });
 
+                },
+                
+                /**
+                 * Update self
+                 * @returns {undefined}
+                 */
+                updateSelf : function(){
+                   
+                   this.$el.find('img').attr('src', this.dataSource.get('url'));  
+                   
                 }
                 
             });

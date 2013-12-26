@@ -16,7 +16,8 @@ define(['builder/views/modals/Modal','text!builder/templates/modal/mediamanager.
                 template : template,
 
                 events   : {
-                    'click .refetch-media'          : 'fetchMedia'
+                    'click .refetch-media'         : 'fetchMedia',
+                    'click .save_image_details'    : 'saveImageDetails'
                 },
 
                 /**
@@ -33,11 +34,14 @@ define(['builder/views/modals/Modal','text!builder/templates/modal/mediamanager.
                     $('body').append(this.$el);
 
                     this.$el.modal();
-
+                    var self = this;
                     this.$el.on('hidden.bs.modal', function(evt){
 
                         if(!$('#controls-drag').is(':visible'))
                             $('#controls-drag').show();
+                         
+                        //trigger the elements update self
+                        self.element.updateSelf();
 
                     });
 
@@ -59,7 +63,8 @@ define(['builder/views/modals/Modal','text!builder/templates/modal/mediamanager.
                     this.$el.modal('show');
                     $('#controls-drag').hide();
                 },
-
+                  
+                
                /**
                  * Triggers the fetch of MenuCollection
                  * Check if the collection is already fetched. If yes, ignores
@@ -87,7 +92,7 @@ define(['builder/views/modals/Modal','text!builder/templates/modal/mediamanager.
                         error : function(){
                             self.$el.find('.modal-body').html('Failed to fetch menus from server. <a href="#" class="refetch-menus">Click here</a>Please try again.');
                         }
-                    })
+                    });
 
                 },
 
@@ -138,15 +143,29 @@ define(['builder/views/modals/Modal','text!builder/templates/modal/mediamanager.
 
                         self.uploader.bind('FileUploaded', function(up, file, response) {
                             self.$el.find('#progress').hide();
+                            var response = JSON.parse(response.response);
                             if(response.success){
-                                // var media = new Media(response.data);
-                                // self.mediaCollection.add(media);
+                                var media = new MediaModel(response.data);
+                                $('#uplaod-details').find('img.thumbnail-img').attr('src',response.data.url);
+                                $('#uplaod-details').find('input[name="image-title"]').val(response.data.title);
+                                $('#uplaod-details').find('input[name="image-link"]').val("");
+                                $('#uplaod-details').find('textarea[name="image-description"]').val(response.data.caption);
+                                $('#uplaod-details').slideDown();
+                                self.element.dataSource = media;
                                 self.hide();
                             }
                         });
 
                     });
-                }                
+                },
+                
+                /**
+                 * SAves the image details on server
+                 * @returns {undefined}
+                 */
+                saveImageDetails : function(){
+                   
+                }
 
             });
 
