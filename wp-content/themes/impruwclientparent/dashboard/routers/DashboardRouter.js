@@ -20,12 +20,19 @@ define(['underscore', 'jquery', 'backbone', 'mainview', 'bootstrapselect','check
 				routes : {
 					''	 			: 'index',
 					'site-profile' 	: 'siteProfile',
-					'user-profile'	: 'userProfile'
+					'user-profile'	: 'userProfile',
+					'add-room'		: 'addRoom'
 				},
 
 				index : function(){
 					
 						
+				},
+				
+				addRoom :function(){
+					var self =this;
+					self.mainView.show('addroomview');
+					
 				},
 				
 				userProfile : function(){

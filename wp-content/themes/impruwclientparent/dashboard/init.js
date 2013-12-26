@@ -35,6 +35,7 @@ require.config({
         leftview			: 'views/LeftColumnView',
         siteprofileview		: 'views/siteprofile/SiteProfileView',
         userprofileview		: 'views/userprofile/UserProfileView',
+        addroomview			: 'views/rooms/AddRoomView',
 
         //Models
         sitemodel			: 'models/SiteModel',
@@ -85,7 +86,7 @@ function log(object){
 
 //init the app
 require(['backbone',
-         'routers/DashboardRouter','sitemodel','usermodel','jquery'], function( Backbone, Router, SiteModel, UserModel) {
+         'routers/DashboardRouter','sitemodel','usermodel','jquery'], function( Backbone, Router, SiteModel, UserModel,$) {
 
         $(document).ready(function(){   
         	 
