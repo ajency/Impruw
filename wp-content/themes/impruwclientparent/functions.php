@@ -1189,3 +1189,36 @@ function query_attachments(){
 }
 add_action('wp_ajax_query_attachments','query_attachments');
 add_action('wp_ajax_nopriv_query_attachments','query_attachments');
+
+
+
+/**
+ * Function to fetch all room facilities
+ */
+function fetch_all_room_facilities(){
+
+	$taxonomies= array( 'impruv_room_facility');
+	$room_facilities = 	get_terms($taxonomies, array( 'hide_empty' => 0 ));
+	 
+	wp_send_json(array('code' => 'OK' , 'data' =>$room_facilities ));
+}
+add_action('wp_ajax_fetch_all_room_facilities','fetch_all_room_facilities');
+add_action('wp_ajax_nopriv_fetch_all_room_facilities','fetch_all_room_facilities');
+
+
+/**
+ * Function to save new room facility
+ */
+function save_new_room_facility(){
+
+	$new_term = $_POST['new_facility'];
+	 
+	if(wp_insert_term( $new_term, 'impruv_room_facility', $args = array( 'hide_empty' => 0 ) ) )
+		wp_send_json(array('code' => 'OK' ));
+	else
+		wp_send_json(array('code' => 'ERROR','msg' => 'Error adding new facility' ));
+}
+add_action('wp_ajax_save_new_room_facility','save_new_room_facility');
+add_action('wp_ajax_nopriv_save_new_room_facility','save_new_room_facility');
+
+

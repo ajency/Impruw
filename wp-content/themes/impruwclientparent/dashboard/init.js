@@ -40,6 +40,7 @@ require.config({
         //Models
         sitemodel			: 'models/SiteModel',
         usermodel			: 'models/UserModel',
+        roommodel			: 'models/RoomModel',
 
         //templates
         siteprofileviewtpl 	: 'templates/siteprofile/SiteProfileViewTpl'
@@ -92,6 +93,7 @@ require(['backbone',
         	 
 			window.impruwSite = new SiteModel(SITEID);
 			window.impruwUser = new UserModel(USERDATA);
+			 
 			/*window.impruwSite.getSiteProfile({
 				success:function(){
 					dashboard = new Router();

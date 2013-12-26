@@ -3,9 +3,9 @@
  * 
  */
 
-define([ 'underscore', 'jquery', 'backbone',
+define([ 'underscore', 'jquery', 'backbone','roommodel',
 		'text!templates/siteprofile/AddRoomViewTpl.tpl','lib/parsley/parsley' ], function(_, $,
-		Backbone, AddRoomViewTpl,parsley) {
+		Backbone, RoomModel, AddRoomViewTpl,parsley) {
 
 	var UserProfileView = Backbone.View.extend({
 
@@ -13,7 +13,7 @@ define([ 'underscore', 'jquery', 'backbone',
 
 	 events : {
 			 	'click #btn_saveroom'	: 'saveRoom', 
-			 	
+			 	'click #btn_addfacility'	: 'addFacility', 
 		}, 
 
 		initialize : function(args) {
@@ -24,16 +24,25 @@ define([ 'underscore', 'jquery', 'backbone',
 				this.showInvalidCallView();
 			
 			this.user = args.user;*/
+			
 
 		},
 
-		render : function() {
+		render : function(allFacilities) {
 
 			var self = this; 
+		    self.fetchAllFacilities();
 			
-			var template = _.template(AddRoomViewTpl);
+		},
 
-			var html = template(); 
+		/*
+		 * 
+		 */
+		renderTemplate:function(){
+			var template = _.template(AddRoomViewTpl);			 
+			var html = template({
+				facilities : window.allFacilities
+			}); 
 
 			this.$el.html(html);
 			
@@ -42,12 +51,53 @@ define([ 'underscore', 'jquery', 'backbone',
 			this.$el.find('input[type="checkbox"]').checkbox();
 			
 			//initialize parsley validation for the forms
-			this.parsleyInitialize(this.$el.find('#form_usergeneral'));
-			this.parsleyInitialize(this.$el.find('#form_userpass'));			 
-			
+			this.parsleyInitialize(this.$el.find('#frm_addroom'));
+			this.parsleyInitialize(this.$el.find('#frm_roomdesc'));			 
+			this.parsleyInitialize(this.$el.find('#form_addfacility'));	
+			//this.parsleyInitialize(this.$el.find('#frm_newfacility'));	
 			return this;
+			
 		},
-
+		
+		
+		
+		/**
+		 * Function to fetch all room facilities
+		 */
+		fetchAllFacilities : function(){
+			
+			self_ = this;
+						
+			data = {action:'fetch_all_room_facilities'}
+			var allFacilities = ''
+			$.post(	AJAXURL,
+					data,
+					function(response){
+				
+						if(response.code=='OK'){
+						
+							//console.log(response)
+							window.allFacilities = response.data;
+							self_.renderTemplate(response.data)
+							
+							if(!_.isUndefined(self_.success) && _.isFunction(self_.success))
+								self_.success(response,self_.event,self_);  
+						}
+						else{
+							//console.log(response)
+							 
+							 if(!_.isUndefined(self_.failure) && _.isFunction(self_.failure))
+								 self_.failure(response,self_.event,self_);  
+						}
+				
+					});	
+			
+			
+			return allFacilities;
+			
+			},
+			
+		 
 		
 		/**
 		 * Function to save user profile
@@ -55,7 +105,31 @@ define([ 'underscore', 'jquery', 'backbone',
 		 */
 		saveRoom : function(evt) {
 			
-			  if (this.$el.find('#form_addroom').parsley('validate')){
+			  if (this.$el.find('#frm_addroom').parsley('validate')){
+				  
+				  if (this.$el.find('#frm_roomdesc').parsley('validate')){
+					  
+					  roomcategory 		= $("#roomcategory").val();
+					  roomnos 			= $("#roomnos").val();
+					  roomdescription 	= $("#roomdescription").val();
+					  
+					  var facilityValues = new Array();
+					  
+				       //Read checked facillities
+					   $.each($("input[name='facility[]']:checked"),
+				       function () {
+				    	   			facilityValues.push($(this).val());
+				       });
+				    
+				       facilityValues.join (", ");
+				
+					  
+					  var room = new RoomModel({ category		:roomcategory, 
+						  						 nos			:roomnos,
+						  						 description 	:roomdescription,
+						  						 facilities		:facilityValues  }  );
+					  room.saveRoom();
+				  }
 				  
 				  /*	$(evt.target).next().show();
 					
@@ -73,6 +147,44 @@ define([ 'underscore', 'jquery', 'backbone',
 																			});*/
 			  }
 			 			
+		},
+		
+		
+		/**
+		 * Add new facility
+		 */
+		addFacility :function(evt){
+		 
+			  if (this.$el.find('#form_addfacility').parsley('validate')){
+				  
+				  $(evt.target).next().show();
+				  
+				  data = {	  action		:'save_new_room_facility',
+						  	  new_facility	:$('#new_facilityname').val()	
+						  };
+				  
+					 
+					$.post(	AJAXURL,
+							data,
+							function(response){
+						console.log(response)
+						
+								if(response.code=='OK'){
+								 	
+									if(!_.isUndefined(self_.success) && _.isFunction(self_.success))
+										self_.success(response,self_.event,self_);  
+								}
+								else{
+									  
+									 if(!_.isUndefined(self_.failure) && _.isFunction(self_.failure))
+										 self_.failure(response,self_.event,self_);  
+								}
+						
+							});	
+				  
+				  
+			  }
+			
 		},
 		 
 		
