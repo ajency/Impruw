@@ -6,9 +6,9 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 	
 	var RoomModel = Backbone.Model.extend({
 		
-		url : AJAXURL + '?action=get_user_profile_ajx',
-		userProfileUrl : AJAXURL + '?action=save_user_profile_ajx',
-		userPassUrl : AJAXURL + '?action=update_user_passwrd_ajx',
+		//url : AJAXURL + '?action=get_user_profile_ajx',
+		addRoomUrl : AJAXURL + '?action=add_new_room_ajx',
+		
 		 
 	  
 		
@@ -17,26 +17,33 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 		 * @param fn
 		 */
 		saveRoom :function(args,  fn){
+			console.log("save room model")
 						 
 			var _self = this;
 			
-			var data = {	userprofile_general :args.general  	};
+			var data = {	category	:args.category, 
+					  	 	nos			:args.nos,
+					  	 	description :args.description,
+					  	 	facilities	:args.facilities   	};
 			 
-			$.post(	this.userProfileUrl,
+			$.post(	this.addRoomUrl,
 					data,
 					function(response){
 				
 						if(response.code=='OK'){
+							console.log(response)
 						
-							_self.set(response.site_data)
+							/*_self.set(response.site_data)
 							
 							if(!_.isUndefined(fn.success) && _.isFunction(fn.success))
-								fn.success(response,fn.event,fn._self);  
+								fn.success(response,fn.event,fn._self);  */
 						}
 						else{
+							console.log('error')
+							console.log(response)
 							 
-							if(!_.isUndefined(fn.failure) && _.isFunction(fn.failure))
-								fn.failure(response,fn.event,fn._self); 
+							/*if(!_.isUndefined(fn.failure) && _.isFunction(fn.failure))
+								fn.failure(response,fn.event,fn._self); */
 						}
 				
 					});			

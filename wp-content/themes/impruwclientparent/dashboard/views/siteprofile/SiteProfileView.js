@@ -28,9 +28,22 @@ define([ 'underscore', 'jquery', 'backbone',
 				this.showInvalidCallView();
 			
 			this.site = args.site;
+			
+			ImpruwDashboard.vent.on("user-profile-updated", this.updatedProfileView);
 
 		},
-
+		/**
+		 * 
+		 * @param data
+		 */
+		updatedProfileView : function(data){
+			
+			var name = data.fullname;
+			this.$el.find('inout[name="full-name"]').val(name);
+			
+			
+		},
+		
 		render : function() {
 
 			var self = this;

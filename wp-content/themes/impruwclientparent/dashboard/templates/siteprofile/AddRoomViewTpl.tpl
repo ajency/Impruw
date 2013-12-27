@@ -45,10 +45,12 @@
 								<div class="form-group">
 									<label for="inputSEO1" class="col-sm-2 control-label">Room Description</label>
 									<div class="col-sm-10 col-sm-offset-2">
-										<!-- <textarea class="form-control" rows="3" name="inputSEO1" placeholder="eg. Watch the shimmering spectacle of stars from your own private terrace or patio. The Executive Room features a Master King size bedroom, soft plump pillows, mattress and a light as air duvet. Separater living room designed for lounging, chic light fixtures, deep comfortable couch and beautifully crafted furnishings."></textarea> -->
-										<input type="text" class="form-control" id="roomdescription" name="roomdescription"
+										  <textarea class="form-control" rows="2" name="inputSEO1" id="roomdescription" name="roomdescription"
 										 placeholder="Room Description" required parsley-trigger="blur" 
-										 parsley-validation-minlength="0" parsley-required-message="please enter room description" >
+										 parsley-validation-minlength="0" parsley-required-message="please enter room description"  ></textarea>  
+										<!-- <input type="text" class="form-control" id="roomdescription" name="roomdescription"
+										 placeholder="Room Description" required parsley-trigger="blur" 
+										 parsley-validation-minlength="0" parsley-required-message="please enter room description" > -->
 										<div class="p-messages"></div>
 									</div>
 								</div>
@@ -66,13 +68,13 @@
 										
 												<%
 												_.each(facilities,function(facility,index){ %>
-												<div class="facility">
+												<div class="facility" id="facility-<%=facility.term_id %>">
 													<label for="checkbox2" class="checkbox checked">
-														<input type="checkbox" data-toggle="checkbox" checked="checked" name="facility[]"   value="<%=facility.term_id %>"   >
-														<%=facility.name %>
+														<input type="checkbox" data-toggle="checkbox" checked="checked" name="facility[]"   value="<%=facility.name %>"   >
+														<span id="facLabel-<%=facility.term_id %>" facililtyname="<%=facility.name %>"  ><%=facility.name %></span>
 													</label>
 													<div class="action">
-														<a href="#" class="edit">Edit</a>&nbsp;<a href="#" class="delete">Delete</a>
+														<a href="#" class="edit"  term-id="<%=facility.term_id %>">Edit</a>&nbsp;<a href="#" class="delete" term-id="<%=facility.term_id %>">Delete</a>
 													</div>
 												</div>
 												
@@ -140,7 +142,7 @@
 									              <span class="input-group-btn">
 										        	<button type="button" name="btn_addfacility" id="btn_addfacility" class="btn btn-default" >
 													<span class="fui-plus"></span></button>
-													<img src ='<%=THEMEURL%>/images/loader.gif' width="38" height="30"  
+													<img src ="<%=THEMEURL%>/images/loader.gif" width="38" height="30"  
 													id="newfacilitysave_loader" style="display:none"/>
 									              </span>
 									              
