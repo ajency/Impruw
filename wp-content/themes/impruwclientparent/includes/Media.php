@@ -27,3 +27,26 @@ function get_site_media($query){
 
 	return $posts;	
 }
+
+
+function impruw_media_update(){
+
+	if('POST' !== $_SERVER['REQUEST_METHOD'])
+		return;
+
+	$id = $_POST['media-id'];
+
+	$id = wp_update_post(array(	'ID' 			=> $id,
+						 		'post_title' 	=> $_POST['image-title'],
+						 		'post_content'	=> $_POST['image-description']));
+
+	if($id == 0)
+		wp_send_json(array('code' => 'ERROR', 'message' => 'Failed to update. Please try again'));	
+
+	update_post_meta($id, 'image-link', $_POST['image-link']);
+
+	wp_send_json(array('code' => 'OK'));	
+
+}
+add_action('wp_ajax_impruw_media_update','impruw_media_update');
+add_action('wp_ajax_nopriv_impruw_media_update','impruw_media_update');

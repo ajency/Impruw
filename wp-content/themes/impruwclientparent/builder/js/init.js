@@ -104,17 +104,17 @@ require(['backbone', 'marionette',
 
         $(document).ready(function(){   
 
-            Builder = new Backbone.Marionette.Application();
+            SiteBuilder = new Backbone.Marionette.Application();
 
             //set view manager for globally accessible views
-            Builder.ViewManager = new Backbone.ChildViewContainer();
+            SiteBuilder.ViewManager = new Backbone.ChildViewContainer();
 
-            Builder.addInitializer(function(options){
+            SiteBuilder.addInitializer(function(options){
                 new Router();
                 Backbone.history.start();
             });
 
-            Builder.start();
+            SiteBuilder.start();
         });
 
 });

@@ -4,9 +4,9 @@
  *  Add/Editing/Deleting Menu
  */
 define(['builder/views/modals/Modal','text!builder/templates/modal/mediamanager.hbs', 
-        'mediamodel','mediacollection', 'global','parsley'], 
+        'mediamodel','mediacollection', 'text!builder/templates/modal/media/singlemedia.hbs', 'global','parsley'], 
 		
-        function(Modal, template, MediaModel, MediaCollection, global){
+        function(Modal, template, MediaModel, MediaCollection, singlemedia, global){
 
 
             var MediaManager = Modal.extend({
@@ -19,7 +19,8 @@ define(['builder/views/modals/Modal','text!builder/templates/modal/mediamanager.
 
                 events   : {
                     'click .refetch-media'         : 'fetchMedia',
-                    'click .save_image_details'    : 'saveImageDetails'
+                    'click .save-image-details'    : 'saveImageDetails',
+                    'click .cancel-image-details'  : 'cancelImageDetails'
                 },
 
                 /**
@@ -52,6 +53,10 @@ define(['builder/views/modals/Modal','text!builder/templates/modal/mediamanager.
                            
                     this.$el.find('.modal-body').html(markup);
 
+                    this.mediaCollection  = new MediaCollection();
+
+                    this.fetchMedia();
+
                     this.bindPlupload();
                 },
 
@@ -81,7 +86,7 @@ define(['builder/views/modals/Modal','text!builder/templates/modal/mediamanager.
                     var self = this;
 
                     //show initial fetch loader
-                    this.$el.find('.modal-body').html('fetching media... please wait...');
+                    //this.$el.find('.modal-body').html('fetching media... please wait...');
 
                     this.mediaCollection.fetch({
                         data    : this.filters,
@@ -89,10 +94,13 @@ define(['builder/views/modals/Modal','text!builder/templates/modal/mediamanager.
                             
                             self.mediaCollection.setFetched(true);
                             
-                            self.$el.find('.selectable-images').selectable({filter : 'img'});
+                            collection.each(function(model, index){
+                                var html = _.template(singlemedia,{media : model});
+                                self.$el.find('.selectable-images').append(html);
+                            });
 
                         },
-                        error : function(){
+                        error : function(error){
                             self.$el.find('.modal-body').html('Failed to fetch menus from server. <a href="#" class="refetch-menus">Click here</a>Please try again.');
                         }
                     });
@@ -132,6 +140,7 @@ define(['builder/views/modals/Modal','text!builder/templates/modal/mediamanager.
                         self.uploader.init();
 
                         self.uploader.bind('FilesAdded', function(up, files) {
+                            self.totalFiles = up.files.length;
                             self.uploader.start();  
                             self.$el.find('#progress').show();
                         });
@@ -146,18 +155,21 @@ define(['builder/views/modals/Modal','text!builder/templates/modal/mediamanager.
 
                         self.uploader.bind('FileUploaded', function(up, file, response) {
                             self.$el.find('#progress').hide();
+
                             var response = JSON.parse(response.response);
                             if(response.success){
                                 self.shouldUpdate = true;
                                 var media = new MediaModel(response.data);
-                                $('#uplaod-details').find('img.thumbnail-img').attr('src',response.data.url);
-                                $('#uplaod-details').find('input[name="image-title"]').val(response.data.title);
-                                $('#uplaod-details').find('input[name="image-link"]').val("");
-                                $('#uplaod-details').find('textarea[name="image-description"]').val(response.data.caption);
-                                $('#uplaod-details').slideDown();
-                                self.element.dataSource = media;
-                                self.hide();
+                                var html = _.template(singlemedia,{media : media});
+                                html = $(html);
+                                self.$el.find('.selectable-images').prepend(html);
                             }
+                            self.totalFiles--;
+
+                            if(self.totalFiles == 0)
+                                self.$el.find('a[href="#images"]').click();
+
+                            
                         });
 
                     });
@@ -167,7 +179,31 @@ define(['builder/views/modals/Modal','text!builder/templates/modal/mediamanager.
                  * SAves the image details on server
                  * @returns {undefined}
                  */
-                saveImageDetails : function(){
+                saveImageDetails : function(evt){
+
+                    var form = $(evt.target).closest('form');
+                    var formData = global.getFormData(form);
+                    
+                    if(!_.isObject(formData))
+                        return; 
+
+                    formData['action'] = 'impruw_media_update'; 
+
+                    //remove error message  if any
+                    $(evt.target).parent().find('span.error-span').remove();      
+
+                    $.post( AJAXURL,
+                            formData,
+                            function(response){
+
+                                if(response.code === 'OK'){
+                                    $(evt.target).closest('.panel-collapse').prev().find('a').first().click();
+                                }
+                                else if(response.code === 'ERROR'){
+                                    $(evt.target).before('<span class="error-span">' + response.message + '</span>');
+                                }
+
+                            },'json');
                    
                 }
 

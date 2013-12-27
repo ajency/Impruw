@@ -75,11 +75,11 @@ define(['builder/views/elements/BuilderElement','text!builder/templates/elements
 
                    require(['underscore','mediamanager'], function( _ , MediaManager){
                         
-                        var mediamanager = Builder.ViewManager.findByCustom("media-manager");
+                        var mediamanager = SiteBuilder.ViewManager.findByCustom("media-manager");
 
                         if(_.isUndefined(mediamanager)){
                             mediamanager = new MediaManager();
-                            Builder.ViewManager.add(mediamanager, "media-manager");
+                            SiteBuilder.ViewManager.add(mediamanager, "media-manager");
                         }
 
                         mediamanager.open(self);

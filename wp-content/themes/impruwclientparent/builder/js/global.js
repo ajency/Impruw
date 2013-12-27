@@ -33,6 +33,23 @@ define(['underscore', 'jquery', 'backbone', 'moment', 'numerals', 'holder', 'css
                 
             };
 
+            global.getFormData = function(form){
+
+                if(_.isUndefined(form))
+                    return false;
+
+                var serializedData = $(form).serializeArray();
+
+                var data = {};
+
+                _.each(serializedData, function(ele,key){
+                    data[ele.name] = ele.value;
+                });
+
+                return data;
+
+            }
+
             
     		return global;
 

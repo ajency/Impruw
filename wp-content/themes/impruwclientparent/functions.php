@@ -9,6 +9,7 @@ define('PARENTTHEMEPATH', ABSPATH . 'wp-content/themes/impruwclientparent/');
 require_once PARENTTHEMEPATH . 'elements/Element.php';
 require_once PARENTTHEMEPATH . 'includes/SiteModel.php';
 require_once PARENTTHEMEPATH . 'includes/UserModel.php';
+require_once PARENTTHEMEPATH . 'includes/Media.php';
 
 
 //add theme support
@@ -1177,10 +1178,10 @@ function query_attachments(){
     require_once PARENTTHEMEPATH . 'includes/Media.php';
 
     $query  = array();
-    $query['order']             = $_REQUEST['order'];  
-    $query['orderby']           = $_REQUEST['orderby'];  
-    $query['posts_per_page']    = $_REQUEST['posts_per_page'];  
-    $query['paged']             = $_REQUEST['paged'];  
+    // $query['order']             = $_REQUEST['order'];  
+    // $query['orderby']           = $_REQUEST['orderby'];  
+    // $query['posts_per_page']    = $_REQUEST['posts_per_page'];  
+    // $query['paged']             = $_REQUEST['paged'];  
 
     $media = get_site_media($query);
 
