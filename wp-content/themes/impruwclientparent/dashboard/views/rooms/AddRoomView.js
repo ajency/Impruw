@@ -3,9 +3,9 @@
  * 
  */
 
-define([ 'underscore', 'jquery', 'backbone',
+define([ 'underscore', 'jquery', 'backbone','roommodel',
 		'text!templates/siteprofile/AddRoomViewTpl.tpl','lib/parsley/parsley' ], function(_, $,
-		Backbone, AddRoomViewTpl,parsley) {
+		Backbone, RoomModel, AddRoomViewTpl,parsley) {
 
 	var UserProfileView = Backbone.View.extend({
 
@@ -13,27 +13,36 @@ define([ 'underscore', 'jquery', 'backbone',
 
 	 events : {
 			 	'click #btn_saveroom'	: 'saveRoom', 
-			 	
+			 	'click #btn_addfacility'	: 'addFacility', 
 		}, 
 
 		initialize : function(args) {
 			
-			//	_.bindAll(this , 'saveProfileSuccess', 'saveProfileFailure');
+			//	_.bindAll(this , 'saveRoomSuccess', 'saveRoomFailure');
 			//_.bindAll(this , 'showAlertMessage','parsleyInitialize' ); 
 			/*if(_.isUndefined(args.user))
 				this.showInvalidCallView();
 			
 			this.user = args.user;*/
+			
 
 		},
 
-		render : function() {
+		render : function(allFacilities) {
 
 			var self = this; 
+		    self.fetchAllFacilities();
 			
-			var template = _.template(AddRoomViewTpl);
+		},
 
-			var html = template(); 
+		/*
+		 * 
+		 */
+		renderTemplate:function(){
+			var template = _.template(AddRoomViewTpl);			 
+			var html = template({
+				facilities : this.allFacilities
+			}); 
 
 			this.$el.html(html);
 			
@@ -42,12 +51,51 @@ define([ 'underscore', 'jquery', 'backbone',
 			this.$el.find('input[type="checkbox"]').checkbox();
 			
 			//initialize parsley validation for the forms
-			this.parsleyInitialize(this.$el.find('#form_usergeneral'));
-			this.parsleyInitialize(this.$el.find('#form_userpass'));			 
-			
+			this.parsleyInitialize(this.$el.find('#frm_addroom'));
+			this.parsleyInitialize(this.$el.find('#frm_roomdesc'));			 
+			this.parsleyInitialize(this.$el.find('#form_addfacility'));	
+			//this.parsleyInitialize(this.$el.find('#frm_newfacility'));	
 			return this;
+			
 		},
-
+		
+		
+		
+		/**
+		 * Function to fetch all room facilities
+		 */
+		fetchAllFacilities : function(){
+			
+			var self_ = this;
+						
+			var data = {action:'fetch_all_room_facilities'}
+			var allFacilities = ''
+			$.post(	AJAXURL,
+					data,
+					function(response){
+				
+						if(response.code=='OK'){
+						
+						 	self_.allFacilities  = response.data;
+							
+							self_.renderTemplate()
+							
+							if(!_.isUndefined(self_.success) && _.isFunction(self_.success))
+								self_.success(response,self_.event,self_);  
+						}
+						else{
+							//console.log(response)
+							 
+							 if(!_.isUndefined(self_.failure) && _.isFunction(self_.failure))
+								 self_.failure(response,self_.event,self_);  
+						}
+				
+					});	
+			 
+			
+			},
+			
+		 
 		
 		/**
 		 * Function to save user profile
@@ -55,7 +103,31 @@ define([ 'underscore', 'jquery', 'backbone',
 		 */
 		saveRoom : function(evt) {
 			
-			  if (this.$el.find('#form_addroom').parsley('validate')){
+			  if (this.$el.find('#frm_addroom').parsley('validate')){
+				  
+				  if (this.$el.find('#frm_roomdesc').parsley('validate')){
+					  
+					  roomcategory 		= $("#roomcategory").val();
+					  roomnos 			= $("#roomnos").val();
+					  roomdescription 	= $("#roomdescription").val();
+					  
+					  var facilityValues = new Array();
+					  
+				       //Read checked facillities
+					   $.each($("input[name='facility[]']:checked"),
+				       function () {
+				    	   			facilityValues.push($(this).val());
+				       });
+				    
+				       facilityValues.join (", ");
+				
+					  
+					  var room = new RoomModel({ category		:roomcategory, 
+						  						 nos			:roomnos,
+						  						 description 	:roomdescription,
+						  						 facilities		:facilityValues  }  );
+					  room.saveRoom();
+				  }
 				  
 				  /*	$(evt.target).next().show();
 					
@@ -68,11 +140,47 @@ define([ 'underscore', 'jquery', 'backbone',
 					$addRoomStatus = window.impruwUser.saveUserProfile(data, {
 																				event : evt,
 																				_self:self,
-																				success : self.saveProfileSuccess,
-																				failure : self.saveProfileFailure
+																				success : self.saveRoomSuccess,
+																				failure : self.saveRoomFailure
 																			});*/
 			  }
 			 			
+		},
+		
+		
+		/**
+		 * Add new facility
+		 */
+		addFacility :function(evt){
+			var self_ = this;
+		 
+			  if (this.$el.find('#form_addfacility').parsley('validate')){
+				  
+				  $(evt.target).next().show();
+				  
+				  var data = {	  action		:'save_new_room_facility',
+						  	  new_facility	:$('#new_facilityname').val()	
+						  };
+				  
+					 
+					$.post(	AJAXURL,
+							data,
+							function(response){
+								console.log(response)
+						
+								if(response.code=='OK'){
+									 
+									self_.saveRoomSuccess(response,evt,self_);  
+								}
+								else{
+									 self_.saveRoomFailure(response,evt,self_);  
+								}
+						
+							});	
+				  
+				  
+			  }
+			
 		},
 		 
 		
@@ -82,11 +190,11 @@ define([ 'underscore', 'jquery', 'backbone',
 		 * @param event
 		 * @param _self
 		 */
-		saveProfileSuccess : function(response,event,_self){
+		saveRoomSuccess : function(response,event,_self){
 			$(event.target).next().hide(); 
 			 
 			 $(event.target).offsetParent().offsetParent().offsetParent()
-			 				.find('#userprofilesave_status').removeClass('alert-error').addClass('alert-success');
+			 				.find('#roomsave_status').removeClass('alert-error').addClass('alert-success');
 			 
 			 _self.showAlertMessage(event,response);			 
 			 
@@ -98,15 +206,39 @@ define([ 'underscore', 'jquery', 'backbone',
 		 * @param event
 		 * @param _self
 		 */
-		saveProfileFailure : function(response,event,_self){
+		saveRoomFailure : function(response,event,_self){
 			 
 			$(event.target).next().hide();
 			$(event.target).offsetParent().offsetParent().offsetParent()
-							.find('#userprofilesave_status').removeClass('alert-success').addClass('alert-error');
+							.find('#roomsave_status').removeClass('alert-success').addClass('alert-error');
 			
 			_self.showAlertMessage(event,response);			 
 			
 		}, 
+		
+		
+		/**
+		 * Function to show status message on success/failure
+		 * 
+		 * @param event
+		 * @param response
+		 */		
+		showAlertMessage : function(event,response){
+			
+			console.log(event)
+			console.log($(event.target.form).offsetParent())
+			/*$(event.target).form().offsetParent()
+							.find('#roomsave_status').html(response.msg);
+			$(event.target).form().offsetParent()
+							.find('#roomsave_status').show();
+			
+			/* Move to top at status message after success/failure * /
+			$('html, body').animate({
+		        scrollTop: $(event.target).form().offsetParent()
+		        						   .find('#roomsave_status').offset().top
+		    }, 1000);*/
+		},
+		
 		
 		
 		/**
