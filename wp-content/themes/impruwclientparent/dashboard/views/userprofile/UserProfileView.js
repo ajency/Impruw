@@ -91,7 +91,8 @@ define([ 'underscore', 'jquery', 'backbone',
 			 $(event.target).offsetParent().offsetParent().offsetParent()
 			 				.find('#userprofilesave_status').removeClass('alert-error').addClass('alert-success');
 			 
-			 _self.showAlertMessage(event,response);			 
+			 _self.showAlertMessage(event,response);
+			 ImpruwDashboard.vent.trigger("user-profile-updated",response);;
 			 
 		},
 		

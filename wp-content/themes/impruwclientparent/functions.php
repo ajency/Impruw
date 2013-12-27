@@ -80,7 +80,7 @@ add_action('init', 'impruv_register_room_init');
 
 function create_room_taxonomies_and_add_terms() {
     // Add new taxonomy, Types
-    $facilities_labels = array(
+   /* $facilities_labels = array(
         'name' => _x('Facilities', 'taxonomy general name'),
         'singular_name' => _x('Facility', 'taxonomy singular name'),
         'search_items' => __('Search Facilities','impruwclientparent'),
@@ -104,7 +104,43 @@ function create_room_taxonomies_and_add_terms() {
     );
 
     register_taxonomy('impruv_room_facility', 'impruv_room', $tag_args);
+    */
+	
+	register_taxonomy('impruv_room_facility', array());
+	
+	
+	$labels = array(
+		'name'                       => _x( 'Facilities', 'taxonomy general name' ),
+		'singular_name'              => _x( 'Facility', 'taxonomy singular name' ),
+		'search_items'               => __( 'Search Facilities','impruwclientparent' ),
+		'popular_items'              => __( 'Popular Faclilities','impruwclientparent' ),
+		'all_items'                  => __( 'All Facilities','impruwclientparent' ),
+		'parent_item'                => null,
+		'parent_item_colon'          => null,
+		'edit_item'                  => __( 'Edit Facility','impruwclientparent' ),
+		'update_item'                => __( 'Update Facility','impruwclientparent' ),
+		'add_new_item'               => __( 'Add New Facility','impruwclientparent' ),
+		'new_item_name'              => __( 'New Facility Name','impruwclientparent' ),
+		'separate_items_with_commas' => __( 'Separate facilities with commas' ),
+		'add_or_remove_items'        => __( 'Add or remove facilities','impruwclientparent' ),
+		'choose_from_most_used'      => __( 'Choose from the most used facilities','impruwclientparent' ),
+		'not_found'                  => __( 'No facilities found.','impruwclientparent' ),
+		'menu_name'                  => __( 'Facilities','impruwclientparent' ),
+	);
 
+	$args = array(
+		'hierarchical'          => false,
+		'labels'                => $labels,
+		'show_ui'               => true,
+		'show_admin_column'     => true,
+		'update_count_callback' => '_update_post_term_count',
+		'query_var'             => true,
+		'rewrite'               => array( 'slug' => 'facility' ),
+	);
+
+	register_taxonomy( 'impruv_room_facility', 'impruv_room', $args );
+    
+     
 
     
 }
@@ -578,11 +614,11 @@ function add_new_room($blog_id,$array,$tariff_array){
        'post_author'   => $array['user_id'],
        'post_type'     => 'impruv_room'
      );
-     print_r($array['terms']);exit;
+     //print_r($array['terms']);exit;
      // Insert the post into the database
     $post_id = wp_insert_post( $my_post ); 
     update_post_meta($post_id, 'inventory', $array['inventory']);//adds thew inventory value to the room
-    var_dump( wp_set_object_terms($post_id, $array['terms'], 'impruv_room_facility'));exit;;
+   // var_dump( wp_set_object_terms($post_id, $array['terms'], 'impruv_room_facility'));exit;;
     add_room_tariff($post_id,$tariff_array);
     restore_current_blog();
    
@@ -1214,15 +1250,105 @@ function save_new_room_facility(){
 
 	$new_term = $_POST['new_facility'];
 	 
-	if(wp_insert_term( $new_term, 'impruv_room_facility', $args = array( 'hide_empty' => 0 ) ) )
-		wp_send_json(array('code' => 'OK','msg'=>'New facility is successfully added'));
-	else
-		wp_send_json(array('code' => 'ERROR','msg' => 'Error adding new facility' ));
+	$newfacililty_data = wp_insert_term( $new_term, 'impruv_room_facility', $args = array( 'hide_empty' => 0 ) ) ;
+	
+	 
+	
+	if(is_wp_error($newfacililty_data)) {
+		$error_msg = $newfacililty_data->get_error_message();
+		
+		wp_send_json(array('code' => 'ERROR','msg' => $error_msg ));
+	}
+	else{
+		
+		wp_send_json(array('code' => 'OK','msg'=>'New facility is successfully added','facililty'=>$newfacililty_data));
+	}
+	
+		
 }
 add_action('wp_ajax_save_new_room_facility','save_new_room_facility');
 add_action('wp_ajax_nopriv_save_new_room_facility','save_new_room_facility');
 
 
+/**
+ * 
+ * Function to delete room facility
+ */
+function delete_room_facility(){
+	$facility_id = $_POST['facility'];
+	 
+	
+	$del_facililty_data = wp_delete_term( $facility_id , 'impruv_room_facility',$args = array( 'hide_empty' => 0 ));
+	
+	//var_dump($del_facililty_data);
+	
+	if($del_facililty_data) {
+		wp_send_json(array('code' => 'OK','msg'=>'Facility is successfully Deleted'));
+		 
+	}
+	else{
+		wp_send_json(array('code' => 'ERROR','msg' => 'Error deleting facility' ));
+		
+	}
+	
+	 
+}
+add_action('wp_ajax_delete_room_facility','delete_room_facility');
+add_action('wp_ajax_nopriv_delete_room_facility','delete_room_facility');
+
+
+function update_room_facility(){
+	
+	$facility_id = $_POST['fac_id'];
+	$facility_name = $_POST['fac_name'];
+	
+	$facility_slug = str_replace(" ", "-", $facility_name);
+	
+	$facility_data = wp_update_term($facility_id, 'impruv_room_facility', array(
+  										'name' => $facility_name,
+  										'slug' => $facility_slug));	
+	
+	if(is_wp_error($facility_data)) {
+		$error_msg = $facility_data->get_error_message();
+		
+		wp_send_json(array('code' => 'ERROR','msg' => $error_msg ));
+	}
+	else{
+		
+		wp_send_json(array('code' => 'OK','msg'=>'Facility updated successfully','facililty'=>$facility_data));
+	}
+	
+}
+add_action('wp_ajax_update_room_facility','update_room_facility');
+add_action('wp_ajax_nopriv_update_room_facility','update_room_facility');
+
+
+
+
+
+function add_new_room_ajx(){
+	
+	var_dump($_POST);
+	$room_name = $_POST['category']; 
+	$room_nos = $_POST['nos'];
+	$room_desc = $_POST['description'];
+	$room_facilities = $_POST['facilities'];	
+	
+	$array=array('post_title' => $room_name, 'post_content' => $room_desc, 'user_id' => get_current_user_id(), 'inventory' => $room_nos,'terms'=>$room_facilities);
+	
+	$attribute_array = array('weekday_price'=>'10','weekend_price'=>'20','num_of_adults'=>'2','num_of_children'=>'2','extra_adult'=>'10','extra_child'=>'10','include_tax'=>'yes','tax_percent'=>'12','terms_and_conditions'=>'agree');
+    
+	$addons_array = array('breakfast at bed'=>'10','lunch_buffet'=>'10');
+    
+	$tariff_array = array(array('start_date'=>date("Y/m/d"),'end_date'=>date("Y/m/d"),'attributes'=>$attribute_array,'add_ons'=>$addons_array));
+    
+	add_new_room(get_current_blog_id(),$array,$tariff_array); //need to handle error ; no return type
+	
+	wp_send_json(array('code' => 'OK','msg'=>'New Room added successfully'));
+	
+}
+add_action('wp_ajax_add_new_room_ajx','add_new_room_ajx');
+add_action('wp_ajax_nopriv_add_new_room_ajx','add_new_room_ajx');
 
 
 
