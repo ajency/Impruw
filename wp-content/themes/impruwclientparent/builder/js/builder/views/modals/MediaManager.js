@@ -15,6 +15,8 @@ define(['builder/views/modals/Modal','text!builder/templates/modal/mediamanager.
 
                 template : template,
 
+                shouldUpdate : false,
+
                 events   : {
                     'click .refetch-media'         : 'fetchMedia',
                     'click .save_image_details'    : 'saveImageDetails'
@@ -41,7 +43,8 @@ define(['builder/views/modals/Modal','text!builder/templates/modal/mediamanager.
                             $('#controls-drag').show();
                          
                         //trigger the elements update self
-                        self.element.updateSelf();
+                        if(self.shouldUpdate)
+                            self.element.updateSelf();
 
                     });
 
@@ -145,6 +148,7 @@ define(['builder/views/modals/Modal','text!builder/templates/modal/mediamanager.
                             self.$el.find('#progress').hide();
                             var response = JSON.parse(response.response);
                             if(response.success){
+                                self.shouldUpdate = true;
                                 var media = new MediaModel(response.data);
                                 $('#uplaod-details').find('img.thumbnail-img').attr('src',response.data.url);
                                 $('#uplaod-details').find('input[name="image-title"]').val(response.data.title);

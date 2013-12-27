@@ -74,12 +74,15 @@ define(['builder/views/elements/BuilderElement','text!builder/templates/elements
                    var self = this; 
 
                    require(['underscore','mediamanager'], function( _ , MediaManager){
+                        
+                        var mediamanager = Builder.ViewManager.findByCustom("media-manager");
 
-                        //ensure Menu manager is created just once
-                        if(_.isUndefined(self.mediamanager))
-                            self.mediamanager = new MediaManager();
+                        if(_.isUndefined(mediamanager)){
+                            mediamanager = new MediaManager();
+                            Builder.ViewManager.add(mediamanager, "media-manager");
+                        }
 
-                        self.mediamanager.open(self);
+                        mediamanager.open(self);
 
                    });
 

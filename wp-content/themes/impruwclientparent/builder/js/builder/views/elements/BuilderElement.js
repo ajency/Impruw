@@ -322,6 +322,8 @@ define(['backbone','jquery','underscore', 'global'],
                    }
 
                    $(evt.target).after('<span><small>Saved</small></span>');
+
+                   this.trigger('settings_updated', 'new');
                    
                 },
                 
