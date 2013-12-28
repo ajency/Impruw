@@ -106,27 +106,36 @@
 							</form>
 						</div>
 						
+						
+						
+						
+						
+						
+						
+						
 						<div class="scroll-indicator-container" id="scr3">
 							<h4 class="aj-imp-sub-head scroll-ref">Add Date Range <small>Lorem ipsum dolor sit amet, consectetur adipiscing</small></h4>
 							<form class="form-horizontal clearfix">
 
-								<div class="form-table">
+								<div class="form-table table-responsive">
 									<table class="table table-striped">
 										<thead>
 											<tr>
-												<th width="35%">Date Range</th>
+												<th width="5%"></th>
+												<th width="30%">Date Range</th>
 												<th width="35%">Tariff</th>
 												<th width="30%">Actions</th>
 											</tr>
 										</thead>
 										<tbody>
 											<tr>
-												<td colspan="3" class="no-mar">
+												<td colspan="4" class="no-mar table-responsive">
 													<table class="table table-vc">
 														<tbody data-link="row" class="rowlink">
 															<tr>
-																<td width="35%">
-																	<a href="#rowlink1" data-toggle="collapse"></a><span class="label label-info">From:</span> 21/12/2013 <span class="label label-info">To:</span> 30/4/2014
+																<td width="5%"><a href="#rowlink1" data-toggle="collapse"><span class="glyphicon glyphicon-chevron-down"></span></a></td>
+																<td width="30%">
+																	<span class="label label-info">From:</span> 21/12/2013 <span class="label label-info">To:</span> 30/4/2014
 																</td>
 																<td width="35%">
 																	<span class="label label-info">Weekday:</span> from<strong>$29</strong> <span class="label label-info">Weekend:</span> from<strong>$37</strong>
@@ -140,7 +149,7 @@
 														</tbody>
 													</table>
 													<div id="rowlink1" class="inner collapse">
-														<div class="form-table">
+														<div class="form-table table-responsive">
 															<table class="table table-bordered table-hover">
 																<thead>
 																	<tr>
@@ -189,12 +198,13 @@
 												</td>
 											</tr>
 											<tr>
-												<td colspan="3" class="no-mar">
+												<td colspan="4" class="no-mar table-responsive">
 													<table class="table table-vc">
 														<tbody data-link="row" class="rowlink">
 															<tr>
-																<td width="35%">
-																	<a href="#rowlink2" data-toggle="collapse"></a><span class="label label-info">From:</span> 21/12/2013 <span class="label label-info">To:</span> 30/4/2014
+																<td width="5%"><a href="#rowlink2" data-toggle="collapse"><span class="glyphicon glyphicon-chevron-down"></span></a></td>
+																<td width="30%">
+																	<span class="label label-info">From:</span> 21/12/2013 <span class="label label-info">To:</span> 30/4/2014
 																</td>
 																<td width="35%">
 																	<span class="label label-info">Weekday:</span> from<strong>$29</strong> <span class="label label-info">Weekend:</span> from<strong>$37</strong>
@@ -208,7 +218,7 @@
 														</tbody>
 													</table>
 													<div id="rowlink2" class="inner collapse">
-														<div class="form-table">
+														<div class="form-table table-responsive">
 															<table class="table table-bordered table-hover">
 																<thead>
 																	<tr>
@@ -264,8 +274,15 @@
 								</div>
 							</form>
 
-						</div>
+						</div>		
 						
+						
+						
+						
+						
+						
+						
+										
 						
 						
 						
