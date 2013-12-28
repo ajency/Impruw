@@ -4,8 +4,8 @@
  */
 
 define([ 'underscore', 'jquery', 'backbone','roommodel',
-		'text!templates/siteprofile/AddRoomViewTpl.tpl','lib/parsley/parsley','radio' ], function(_, $,
-		Backbone, RoomModel, AddRoomViewTpl,parsley,radio) {
+		'text!templates/siteprofile/AddRoomViewTpl.tpl','lib/parsley/parsley','radio','jqueryui' ], function(_, $,
+		Backbone, RoomModel, AddRoomViewTpl,parsley,radio,jqueryui) {
 
 	var AddRoomView = Backbone.View.extend({
 
@@ -33,8 +33,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			 		
 			 	'click .edit-additional-policies'	: 'editAdditionalPolicies',
 			 	'click .save-additional-policies'	: 'saveAdditionalPolicies',
-			 	'click .delete-additional-policies'	: 'cancelAdditionalPoliciesUpdate',
-			 	
+			 	'click .delete-additional-policies'	: 'cancelAdditionalPoliciesUpdate',			 	
 			 	
 			 	'click .edit-checkintime'			: 'editCheckintime',
 			 	'click .save-checkintime'			: 'saveCheckintime',
@@ -42,12 +41,15 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			 	
 			 	'click .edit-taxoption'				: 'edittaxoption',
 			 	'click .save-taxoption'				: 'saveTaxOption',
-			 	'click .delete-taxoption'			: 'cancelTaxOptionUpdate',
+			 	'click .delete-taxoption'			: 'cancelTaxOptionUpdate',			 	
 			 	
+			 	'click .edit-checkinformat'			: 'editCheckinFormat',
+			 	'click .save-checkinformat'			: 'saveCheckinFormat',
+			 	'click .delete-checkinformat'		: 'cancelCheckinFormat',			 	
 			 	
-			 	'click .edit-checkinformat'				: 'editCheckinFormat',
-			 	'click .save-checkinformat'				: 'saveCheckinFormat',
-			 	'click .delete-checkinformat'			: 'cancelCheckinFormat' 
+			 	'click #btn_savedaterange'			: 'saveDateRange',
+			 	
+			 	'click #btn_addplan'				: 'addNewPlan'
 			 	 
 		}, 
 
@@ -95,6 +97,22 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			this.parsleyInitialize(this.$el.find('#form_add_addon'));		
 			
 			this.$el.find(".aj-imp-long-form-actions").affix()
+			
+			
+			
+			var datepickerSelector = '.dated';
+			$(datepickerSelector).datepicker({
+			  showOtherMonths: true,
+			  selectOtherMonths: true,
+			  dateFormat: "d MM, yy",
+			  yearRange: '-1:+1'
+			}).prev('.btn').on('click', function (e) {
+			  e && e.preventDefault();
+			  $(datepickerSelector).focus();
+			});
+
+		// Now let's align datepicker with the prepend button
+		$(datepickerSelector).datepicker('widget').css({'margin-left': -$(datepickerSelector).prev('.btn').outerWidth()});
 			 	
 			return this;
 			
@@ -1208,6 +1226,87 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			 
 			
 		},
+		
+		
+		
+		saveDateRange : function(evt){
+			
+			var fromDaterange 	=  $(evt.target).closest('.modal-content').find('#fromdaterange').val() 
+			var toDaterange		=  $(evt.target).closest('.modal-content').find('#todaterange').val() 
+			$(evt.target).next().show();
+			 
+			
+			var evt_ = evt;
+			var self_ = this;
+			
+			var data = {	action			: 'add_date_range',						 
+							fromdaterange 	: fromDaterange,
+							todaterange		: toDaterange
+						};
+			
+			
+			$.post(	AJAXURL,
+			data,
+			function(response){ 
+				 
+				 if(response.code=='OK'){ 		
+					 
+					 $(evt_.target).parent().parent().find('.close').click();					  
+					 self_.saveSuccess(response,evt_,self_);  	 
+					 
+				}
+				else{
+						$(evt.target).html('Save');
+						$(evt.target).prop('disabled',false);
+						self_.saveFailure(response,evt_,self_);  
+				} 
+			
+			});
+			
+		},
+		
+		
+		/**
+		 * Function to add new plan
+		 * @param evt
+		 */
+		addNewPlan : function(evt){
+			
+			var form_plan = $(evt.target).parent().parent().find('#form_addplan');  
+			form_data = $(form_plan).serializeArray() 
+			console.log(form_data)
+			 
+			 
+			 
+			var evt_ = evt;
+			var self_ = this;
+				
+			var data = {	action			: 'add_new_plan',						 
+								addplan_data 	: form_data 								 
+						};
+				
+				
+			$.post(	AJAXURL,
+					data,
+					function(response){ 
+					 
+						if(response.code=='OK'){		
+						 
+							$(evt_.target).parent().parent().find('.close').click();					  
+							self_.saveSuccess(response,evt_,self_);  	 
+						 
+						}
+						else{
+							$(evt.target).html('Save');
+							$(evt.target).prop('disabled',false);
+							self_.saveFailure(response,evt_,self_);  
+						} 
+				
+			 });
+			 
+			
+		},
+		
 		
 		/**
 		 * Function to show message after success of save 

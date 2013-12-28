@@ -1707,8 +1707,53 @@ add_action( 'wp_ajax_update_checkinformat', 'update_checkinformat' );
 add_action( 'wp_ajax_nopriv_update_checkinformat', 'update_checkinformat' );
 
 
+/**
+ * 
+ * Function to add date range 
+ */
+
+function add_date_range(){
+  	  switch_to_blog(1);
+	$from_daterange 			= date('Y-m-d H:i:s',strtotime($_POST['fromdaterange']));
+	$to_daterange 	= date('Y-m-d H:i:s',strtotime($_POST['todaterange'])); 
+ 	$label = "winter season45454";
+	
+	global $wpdb; 
+							
+	/*$qry_insert_daterange = $wpdb->prepare("INSERT INTO {$wpdb->prefix}daterange (  `from`, `to`, `label`) VALUES ( %s, %s, %s);",
+							$from_daterange,$to_daterange,$label); */
+	
+	$table_name =  $wpdb->prefix."daterange";
+	
+	$result = $wpdb->insert(	$table_name, 
+								array( 'from' 	=> $from_daterange, 
+										'to' 	=> $to_daterange,
+										'label'	=> $label
+									), 
+								array(  '%s', 
+										'%s',
+										'%s' 
+									) 
+				);
+
+ 	switch_to_blog(get_current_blog_id());
+  	
+	if ( $result==true ) 
+		wp_send_json( array( 'code' => 'OK', 'msg'=>'Date range is successfully added') );
+	else 	
+	 	wp_send_json( array( 'code' => 'ERROR', 'msg' =>'Error adding Date range' ) ); 
+	 	 
+}
+add_action( 'wp_ajax_add_date_range', 'add_date_range' );
+add_action( 'wp_ajax_nopriv_add_date_range', 'add_date_range' );
 
 
+
+
+/**
+ * 
+ * function to add new room
+ */
 function add_new_room_ajx() {
 
     //var_dump($_POST);
