@@ -11,7 +11,7 @@
 				<div class="row">
 					<div class="aj-imp-dash-content col-md-12">
 					
-						<div class="alert alert-success" id="roomsave_status" name="roomsave_status" >
+						<div class="alert alert-success hidden" id="roomsave_status" name="roomsave_status" >
 							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 							Your details have been successfully saved.
 						</div>
@@ -74,7 +74,7 @@
 														<span id="facLabel-<%=facility.term_id %>" facililtyname="<%=facility.name %>"  ><%=facility.name %></span>
 													</label>
 													<div class="action">
-														<a href="#" class="edit"  term-id="<%=facility.term_id %>">Edit</a>&nbsp;<a href="#" class="delete" term-id="<%=facility.term_id %>">Delete</a>
+														<a href="javascript:void(0)" class="edit"  term-id="<%=facility.term_id %>">Edit</a>&nbsp;<a href="javascript:void(0)" class="delete" term-id="<%=facility.term_id %>">Delete</a>
 													</div>
 												</div>
 												
@@ -110,6 +110,8 @@
 							<form class="form-horizontal clearfix">
 								<div class="affix-show">You have unsaved changes!</div>
 								<button type="button" class="btn btn-wide aj-imp-submit" id="btn_saveroom" name="btn_saveroom">Save Room</button>
+								<img src ="<%=THEMEURL%>/images/loader.gif" width="38" height="30"  
+													id="roomsave_loader" style="display:none"/>
 							</form>
 						</div>
 					

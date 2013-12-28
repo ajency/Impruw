@@ -8,7 +8,7 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 	 
 		addRoomUrl : AJAXURL + '?action=add_new_room_ajx',
 	 	
-		/**		 
+		/**	Function to add new room
 		 * @param args
 		 * @param fn
 		 */

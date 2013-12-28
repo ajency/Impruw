@@ -1,5 +1,5 @@
 /**
- * The UserProfile View.
+ * The AddRoom View.
  * 
  */
 
@@ -7,7 +7,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 		'text!templates/siteprofile/AddRoomViewTpl.tpl','lib/parsley/parsley' ], function(_, $,
 		Backbone, RoomModel, AddRoomViewTpl,parsley) {
 
-	var UserProfileView = Backbone.View.extend({
+	var AddRoomView = Backbone.View.extend({
 
 		id : 'add-room',
 
@@ -99,7 +99,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 		 
 		
 		/**
-		 * Function to save user profile
+		 * Function to save room
 		 * @param evt
 		 */
 		saveRoom : function(evt) {
@@ -111,6 +111,8 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 				  
 			  if (!this.$el.find('#frm_roomdesc').parsley('validate'))
 				  return
+			 $(evt.target).prop('disabled',true)
+			 $(evt.target).next().show();	  
 					  
 			  roomcategory 		= $("#roomcategory").val();
 			  roomnos 			= $("#roomnos").val();
@@ -178,19 +180,26 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 							 
 							
 							if(response.code=='OK'){
+								
+								//display newly added facility
 							 	$(evt_.target).closest(".facility") 
 							 				.before( '<div class="facility" id="facility-'
 							 				+response.facililty.term_id+'" >'
 										+'<label for="checkbox2" class="checkbox checked">'
-										+'<input type="checkbox" data-toggle="checkbox" checked="checked" name="facility[]"   value="'+$('#new_facilityname').val()+'"   >'
-										+'<span id="facLabel-'+response.facililty.term_id+'" facililtyname="'+$('#new_facilityname').val()+'"  >'
+										+'<input type="checkbox" data-toggle="checkbox" checked="checked" ' 
+										+'name="facility[]"   value="'+$('#new_facilityname').val()+'"   >'
+										+'<span id="facLabel-'+response.facililty.term_id+'" facililtyname="'+
+										$('#new_facilityname').val()+'"  >'
 										+$('#new_facilityname').val()
 										+'</span>'
 										+'</label>'
 										+'<div class="action">'
-										+'<a href="#" class="edit"  term-id="'+response.facililty.term_id+'">Edit</a>&nbsp;<a href="#" class="delete" term-id="'+response.facililty.term_id+'">Delete</a>'
+										+'<a href="javascript:void(0)" class="edit"  term-id="'+
+										response.facililty.term_id+'">Edit</a>&nbsp;<a href="javascript:void(0)"'
+										+'class="delete" term-id="'+response.facililty.term_id+'">Delete</a>'
 										+'</div>'
 										+'</div>' );
+							 	
 							 	
 							 	self_.$el.find('input[type="checkbox"]').checkbox();
 							 	self_.$el.find('#new_facilityname').val("");
@@ -250,7 +259,8 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			$("#facLabel-"+facilityId).addClass('input-group');
 			$("#facLabel-"+facilityId).html("<form name='frm_editfacility' id='frmeditfacility-"+facilityId+"'  >" +
 					"<input type='text' class='form-control input-sm' " +
-					"placeholder='Edit Facility' name='inputfacility-"+facilityId+"' id='inputfacility-"+facilityId+"'  parsley-validation-minlength='0' " +
+					"placeholder='Edit Facility' name='inputfacility-"+facilityId+"' id='inputfacility-"+facilityId+"'"+
+					"parsley-validation-minlength='0' " +
 					"value='"+$("#facLabel-"+facilityId).attr('facililtyname')+"'  > </form>");
 			this.parsleyInitialize($('#frmeditfacility-'+facilityId));
 			
@@ -276,16 +286,14 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			function(response){ 
 				 
 				 if(response.code=='OK'){
-					 
-					
-					 
+				 	 
 					 facilityId = $(evt_.target).attr("term-id"); 
 					 $(evt_.target).removeClass("savefacililty").addClass("edit")
-						$(evt_.target).html("Edit")
+					 $(evt_.target).html("Edit")
 						 
-						$("#facLabel-"+facilityId).removeClass('input-group');
-						$("#facLabel-"+facilityId).html( $("#inputfacility-"+facilityId).val());
-						self_.saveSuccess(response,evt_,self_);  	 
+					 $("#facLabel-"+facilityId).removeClass('input-group');
+					 $("#facLabel-"+facilityId).html( $("#inputfacility-"+facilityId).val());
+					 self_.saveSuccess(response,evt_,self_);  	 
 					 
 				}
 				else{
@@ -301,7 +309,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 		
 		
 		/**
-		 * Function to show message after success of save profile
+		 * Function to show message after success of save 
 		 * @param response
 		 * @param event
 		 * @param _self
@@ -310,15 +318,15 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			 
 			$(event.target).next().hide(); 
 		 	 
-			$(event.target).offsetParent().offsetParent().offsetParent() 
-			 				.find('#roomsave_status').removeClass('alert-error').addClass('alert-success');
+			 $(event.delegateTarget).find('#roomsave_status')  
+			 				.removeClass('alert-error').addClass('alert-success');
 			 
 			_self.showAlertMessage(event,response);			 
 			 
 		},
 		
 		/**
-		 * Function to show message after failure of saveprofile
+		 * Function to show message after failure of save 
 		 * @param response
 		 * @param event
 		 * @param _self
@@ -326,8 +334,8 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 		saveFailure : function(response,event,_self){
 			 
 			$(event.target).next().hide();
-			$(event.target).offsetParent().offsetParent().offsetParent()
-							.find('#roomsave_status').removeClass('alert-success').addClass('alert-error');
+			$(event.delegateTarget).find('#roomsave_status') 
+							.removeClass('alert-success').addClass('alert-error');
 			
 			_self.showAlertMessage(event,response);			 
 			
@@ -341,9 +349,9 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 		 * @param response
 		 */		
 		showAlertMessage : function(event,response){
-			 
+			 $(event.target).prop('disabled',false)
 			$(event.delegateTarget).find('#roomsave_status').html(response.msg);
-			$(event.delegateTarget).find('#roomsave_status').show();
+			$(event.delegateTarget).find('#roomsave_status').removeClass('hidden');
 			  
 			/* Move to top at status message after success/failure */
 			$('html, body').animate({
@@ -400,6 +408,6 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 
 	});
 
-	return UserProfileView;
+	return AddRoomView;
 
 });
