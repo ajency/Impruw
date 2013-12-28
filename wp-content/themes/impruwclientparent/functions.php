@@ -1658,7 +1658,7 @@ function add_new_room_ajx() {
     $checkin_format = $_POST['checkinformat'];
     $checkin_time = $_POST['checkintime'];
     $additional_policies = $_POST['additionalpolicies'];
-
+	$tax_option			=$_POST['tax_option'];
 
     $array=array( 'post_title' => $room_name, 'post_content' => $room_desc, 'user_id' => get_current_user_id(), 'inventory' => $room_nos, 'terms'=>$room_facilities );
 
@@ -1673,6 +1673,8 @@ function add_new_room_ajx() {
 	update_option('checkin-format', $checkin_format);
 	update_option('checkin-time', $checkin_time);
 	update_option('additional-policies', $additional_policies);
+	update_option('tax-option',$tax_option);
+	
     wp_send_json( array( 'code' => 'OK', 'msg'=>'New Room added successfully' ) );
 
 }
