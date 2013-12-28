@@ -4,7 +4,7 @@
  * this file.
  */
 define(['underscore', 'jquery', 'backbone', 'moment', 'numerals', 'holder', 'cssFx', 'bootstrap', 'text', 'jqueryui', 
-        'string', 'cookie', 'bootstrapselect','checkbox','radio'], 
+        'string', 'cookie', 'bootstrapselect','checkbox','radio','parsley'], 
 		function(_ , $ , Backbone, moment, numerals, Holder, cssFx){
 
 			var global = {};

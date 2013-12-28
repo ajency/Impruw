@@ -37,7 +37,7 @@ define(['builder/views/elements/BuilderElement','text!builder/templates/elements
                  */
                 initialize : function(options){
                  
-                    _.bindAll(this, 'elementMouseEnter','elementMouseLeave');
+                    _.bindAll(this, 'elementMouseEnter','elementMouseLeave','updateSelf');
                     
                     //drop mode
                     if(_.isUndefined(options.config)){
@@ -49,7 +49,6 @@ define(['builder/views/elements/BuilderElement','text!builder/templates/elements
                     }
                     this.generateMarkup();
                     this.setParent(options.parent);
-                    
                     this.setContextMenu();
                     
                 },
@@ -64,6 +63,22 @@ define(['builder/views/elements/BuilderElement','text!builder/templates/elements
                 render : function(){
                     
                     return this;
+                },
+
+                /**
+                 * retunrs the JSOn
+                 */
+                generateJSON : function(){
+
+                    var json = this.returnJSON();
+
+                    if(!_.isNull(this.dataSource)){
+                        json.data = {};
+                        json.data.attachmentID = this.dataSource.get('id');
+                        json.data.size         = 'medium';
+                    }
+
+                    return json;
                 },
 
                 /**
@@ -82,8 +97,11 @@ define(['builder/views/elements/BuilderElement','text!builder/templates/elements
                             SiteBuilder.ViewManager.add(mediamanager, "media-manager");
                         }
 
-                        mediamanager.open(self);
+                        //start listening to event
+                        SiteBuilder.vent.on('image-selected', self.updateSelf);
 
+                        mediamanager.open(self);
+                        
                    });
 
                 },
@@ -92,9 +110,16 @@ define(['builder/views/elements/BuilderElement','text!builder/templates/elements
                  * Update self
                  * @returns {undefined}
                  */
-                updateSelf : function(){
-                   
-                   this.$el.find('img').attr('src', this.dataSource.get('url'));  
+                updateSelf : function(image){
+                    
+                    SiteBuilder.vent.off('image-selected', self.updateSelf);
+
+                    if(!_.isObject(image))
+                        return;
+
+                    this.dataSource = image;
+
+                    this.$el.find('img').attr('src', this.dataSource.get('sizes').medium.url); 
                    
                 }
                 

@@ -6,6 +6,7 @@
 
 
 define('PARENTTHEMEPATH', ABSPATH . 'wp-content/themes/impruwclientparent/');
+require_once PARENTTHEMEPATH . 'includes/Underscore.php';
 require_once PARENTTHEMEPATH . 'elements/Element.php';
 require_once PARENTTHEMEPATH . 'includes/SiteModel.php';
 require_once PARENTTHEMEPATH . 'includes/UserModel.php';
@@ -166,7 +167,7 @@ function generate_markup($section){
     if(!isset($markup_JSON[$section]))
         return;
     
-    $json = $markup_JSON[$section];
+    $json = $markup_JSON[$section]; 
     
     $html = '';
     

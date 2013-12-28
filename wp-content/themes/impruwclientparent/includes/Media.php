@@ -38,10 +38,10 @@ function impruw_media_update(){
 
 	$id = wp_update_post(array(	'ID' 			=> $id,
 						 		'post_title' 	=> $_POST['image-title'],
-						 		'post_content'	=> $_POST['image-description']));
+						 		'post_content'	=> $_POST['image-description']), true);
 
 	if($id == 0)
-		wp_send_json(array('code' => 'ERROR', 'message' => 'Failed to update. Please try again'));	
+		wp_send_json(array('code' => 'ERROR','m' => $id, 'message' => 'Failed to update. Please try again'));	
 
 	update_post_meta($id, 'image-link', $_POST['image-link']);
 

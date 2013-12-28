@@ -3,10 +3,10 @@
  *  Contains all logic to handle menu configurations
  *  Add/Editing/Deleting Menu
  */
-define(['builder/views/modals/Modal','text!builder/templates/modal/mediamanager.hbs', 
-        'mediamodel','mediacollection', 'text!builder/templates/modal/media/singlemedia.hbs', 'global','parsley'], 
+define(['builder/views/modals/Modal','text!builder/templates/modal/media/mediamanager.hbs', 
+        'mediamodel','mediacollection','mediasingle', 'global','parsley'], 
 		
-        function(Modal, template, MediaModel, MediaCollection, singlemedia, global){
+        function(Modal, template, MediaModel, MediaCollection, SingleMedia, global){
 
 
             var MediaManager = Modal.extend({
@@ -18,10 +18,10 @@ define(['builder/views/modals/Modal','text!builder/templates/modal/mediamanager.
                 shouldUpdate : false,
 
                 events   : {
-                    'click .refetch-media'         : 'fetchMedia',
-                    'click .save-image-details'    : 'saveImageDetails',
-                    'click .cancel-image-details'  : 'cancelImageDetails'
+                    'click .refetch-media'         : 'fetchMedia'
                 },
+
+                selected : null,
 
                 /**
                  * Initialize the manager 
@@ -44,8 +44,7 @@ define(['builder/views/modals/Modal','text!builder/templates/modal/mediamanager.
                             $('#controls-drag').show();
                          
                         //trigger the elements update self
-                        if(self.shouldUpdate)
-                            self.element.updateSelf();
+                        
 
                     });
 
@@ -95,8 +94,8 @@ define(['builder/views/modals/Modal','text!builder/templates/modal/mediamanager.
                             self.mediaCollection.setFetched(true);
                             
                             collection.each(function(model, index){
-                                var html = _.template(singlemedia,{media : model});
-                                self.$el.find('.selectable-images').append(html);
+                                var mediaView = new SingleMedia({model : model, parent : self});
+                                self.$el.find('.selectable-images').append(mediaView.render().$el);
                             });
 
                         },
@@ -141,6 +140,7 @@ define(['builder/views/modals/Modal','text!builder/templates/modal/mediamanager.
 
                         self.uploader.bind('FilesAdded', function(up, files) {
                             self.totalFiles = up.files.length;
+                            
                             self.uploader.start();  
                             self.$el.find('#progress').show();
                         });
@@ -154,57 +154,27 @@ define(['builder/views/modals/Modal','text!builder/templates/modal/mediamanager.
                         });
 
                         self.uploader.bind('FileUploaded', function(up, file, response) {
-                            self.$el.find('#progress').hide();
+                            //self.$el.find('#progress').hide();
+                            self.$el.find('#progress').find('.progress-bar').css('width',"0%");
 
                             var response = JSON.parse(response.response);
                             if(response.success){
                                 self.shouldUpdate = true;
                                 var media = new MediaModel(response.data);
-                                var html = _.template(singlemedia,{media : media});
-                                html = $(html);
-                                self.$el.find('.selectable-images').prepend(html);
+                                var mediaView = new SingleMedia({model : media, parent : self});
+                                self.$el.find('.selectable-images').prepend(mediaView.render().$el);
                             }
-                            self.totalFiles--;
 
-                            if(self.totalFiles == 0)
+                            if(up.total.queued == 0){
                                 self.$el.find('a[href="#images"]').click();
-
+                                setTimeout(function(){
+                                    self.$el.find('.selectable-images .panel').first().hide().toggle('highlight');
+                                },500);
+                            }
                             
                         });
 
                     });
-                },
-                
-                /**
-                 * SAves the image details on server
-                 * @returns {undefined}
-                 */
-                saveImageDetails : function(evt){
-
-                    var form = $(evt.target).closest('form');
-                    var formData = global.getFormData(form);
-                    
-                    if(!_.isObject(formData))
-                        return; 
-
-                    formData['action'] = 'impruw_media_update'; 
-
-                    //remove error message  if any
-                    $(evt.target).parent().find('span.error-span').remove();      
-
-                    $.post( AJAXURL,
-                            formData,
-                            function(response){
-
-                                if(response.code === 'OK'){
-                                    $(evt.target).closest('.panel-collapse').prev().find('a').first().click();
-                                }
-                                else if(response.code === 'ERROR'){
-                                    $(evt.target).before('<span class="error-span">' + response.message + '</span>');
-                                }
-
-                            },'json');
-                   
                 }
 
             });
