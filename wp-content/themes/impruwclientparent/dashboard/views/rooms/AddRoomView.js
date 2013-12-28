@@ -12,24 +12,43 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 		id : 'add-room',
 
 	 events : {
-			 	'click #btn_saveroom'		: 'saveRoom', 
-			 	'click #btn_addfacility'	: 'addFacility',
-			 	'click .delete'				: 'deleteFacility',
-			 	'click .edit'				: 'editFacility',
-			 	'click .savefacililty' 		: 'savefacility', 
+			 	'click #btn_saveroom'				: 'saveRoom', 
+			 	'click #btn_addfacility'			: 'addFacility',
+			 	'click .delete'						: 'deleteFacility',
+			 	'click .edit'						: 'editFacility',
+			 	'click .savefacililty' 				: 'savefacility', 
 			 	
-			 	'click #btn_add_addon'		: 'add_addon',
-			 	'click #btn_savenewaddon'	: 'saveNewAddon',
-			 	'click .delete-addonlink'	: 'deleteAddonType',
-			 	'click .edit-addonlink'		: 'editAddonType',			 	
-			 	'click .saveaddontype'		: 'updateAddonType',
+			 	'click #btn_add_addon'				: 'add_addon',
+			 	'click #btn_savenewaddon'			: 'saveNewAddon',
+			 	'click .delete-addonlink'			: 'deleteAddonType',
+			 	'click .edit-addonlink'				: 'editAddonType',			 	
+			 	'click .saveaddontype'				: 'updateAddonType',
+			 		
+			 	'change .tax__option'				: 'tax_option',
 			 	
-			 	'change .tax__option'		: 'tax_option',
+			 	'click #btn_addtax'					: 'addNewTaxType',
+			 	'click .edit-taxlink'				: 'editTaxType',
+			 	'click .update-taxlink'				: 'updateTaxType',
+			 	'click .delete-taxlink'				: 'deleteTaxType',
+			 		
+			 	'click .edit-additional-policies'	: 'editAdditionalPolicies',
+			 	'click .save-additional-policies'	: 'saveAdditionalPolicies',
+			 	'click .delete-additional-policies'	: 'cancelAdditionalPoliciesUpdate',
 			 	
-			 	'click #btn_addtax'			: 'addNewTaxType',
-			 	'click .edit-taxlink'		: 'editTaxType',
-			 	'click .update-taxlink'		: 'updateTaxType',
-			 	'click .delete-taxlink'		: 'deleteTaxType'
+			 	
+			 	'click .edit-checkintime'			: 'editCheckintime',
+			 	'click .save-checkintime'			: 'saveCheckintime',
+			 	'click .delete-checkintime'			: 'cancelCheckintimeUpdate',
+			 	
+			 	'click .edit-taxoption'				: 'edittaxoption',
+			 	'click .save-taxoption'				: 'saveTaxOption',
+			 	'click .delete-taxoption'			: 'cancelTaxOptionUpdate',
+			 	
+			 	
+			 	'click .edit-checkinformat'				: 'editCheckinFormat',
+			 	'click .save-checkinformat'				: 'saveCheckinFormat',
+			 	'click .delete-checkinformat'			: 'cancelCheckinFormat' 
+			 	 
 		}, 
 
 		initialize : function(args) {
@@ -97,7 +116,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 					function(response){
 				
 						if(response.code=='OK'){
-						
+						 
 						 	self_.allFacilities  = response.data;
 							
 							self_.renderTemplate()
@@ -543,8 +562,31 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			var addonPrice = $('#block_editaddonprice-'+addonTypeID).html()
 			 
 			
-			$('#block_editaddontype-'+addonTypeID).html("<div class='add-text'> <input type='text' name='input_editaddontype-"+addonTypeID+"' id='input_editaddontype-"+addonTypeID+"' class='form-control input-sm parsley-validated parsley-error'  value='"+addonType+"' /> </div>")
-			$('#block_editaddonprice-'+addonTypeID).html("<div class='add-text'><input type='text' name='input_editaddonprice-"+addonTypeID+"'  id='input_editaddonprice-"+addonTypeID+"'   class='form-control input-sm parsley-validated parsley-error'  value='"+addonPrice+"' /> </div> ")
+			//$('#block_editaddontype-'+addonTypeID).html("<div class='add-text'> <input type='text' name='input_editaddontype-"+addonTypeID+"' id='input_editaddontype-"+addonTypeID+"' class='form-control input-sm parsley-validated parsley-error'  value='"+addonType+"' /> </div>")
+			//$('#block_editaddonprice-'+addonTypeID).html("<div class='add-text'><input type='text' name='input_editaddonprice-"+addonTypeID+"'  id='input_editaddonprice-"+addonTypeID+"'   class='form-control input-sm parsley-validated parsley-error'  value='"+addonPrice+"' /> </div> ")
+			
+			
+			
+			
+			$('#block_editaddontype-'+addonTypeID).html("<div class='form-group'>" 
+														+"<div class=''>"
+															+"<input type='text' class='form-control' name='input_editaddontype-"+addonTypeID+"' id='input_editaddontype-"+addonTypeID+"' "
+															+"placeholder='Scuba diving' required parsley-trigger='blur' parsley-validation-minlength='0'"
+															+" parsley-required-message = 'Please enter addon type'    value='"+addonType+"'  />"
+															+"<div class='p-messages'></div>"
+														+"</div>"
+													+"</div> ")
+			
+			$('#block_editaddonprice-'+addonTypeID).html("<div class='form-group'>" 
+															+"<div class=''>"
+																+"<input type='text' class='form-control'  name='input_editaddonprice-"+addonTypeID+"'  id='input_editaddonprice-"+addonTypeID+"'   "
+																+"placeholder='12.99' required parsley-trigger='blur' parsley-validation-minlength='0'"
+																+" parsley-required-message = 'Please enter price'   value='"+addonPrice+"'   />"
+																+"<div class='p-messages'></div>"
+															+"</div>"
+														+"</div> ")
+			
+			
 			
 			/*$("#addontype-"+addonTypeID).addClass('input-group');
 			$("#addontype-"+addonTypeID).html("<form name='frm_editfacility' id='frmeditfacility-"+facilityId+"'  >" +
@@ -574,19 +616,19 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			//$('#block_edittaxpercent-'+taxTypeID).html("<div class='add-text'><input type='text' name='input_edittaxprice-"+taxTypeID+"'  id='input_edittaxprice-"+taxTypeID+"'   class='form-control input-sm parsley-validated parsley-error'  value='"+taxPercent +"' /> </div> ")
 			
 			$('#block_edittaxtype-'+taxTypeID).html("<div class='form-group'>" 
-														+"<div class='col-sm-10 col-sm-offset-2'>"
+														+"<div class=''>"
 															+"<input type='text' class='form-control' name='input_edittaxtype-"+taxTypeID+"' id='input_edittaxtype-"+taxTypeID+"' "
 															+"placeholder='Service Tax' required parsley-trigger='blur' parsley-validation-minlength='0'"
-															+"parsely-required-message = 'Please enter tax type'   value='"+taxnType+"'  />"
+															+"parsley-required-message = 'Please enter tax type'   value='"+taxnType+"'  />"
 															+"<div class='p-messages'></div>"
 														+"</div>"
 													+"</div> ")
 			
 			$('#block_edittaxpercent-'+taxTypeID).html("<div class='form-group'>" 
-															+"<div class='col-sm-10 col-sm-offset-2'>"
+															+"<div class=''>"
 																+"<input type='text' class='form-control' name='input_edittaxprice-"+taxTypeID+"'  id='input_edittaxprice-"+taxTypeID+"'  "
 																+"placeholder='12.5%' required parsley-trigger='blur' parsley-validation-minlength='0'"
-																+"parsely-required-message = 'Please enter percentage'   value='"+taxPercent+"'  />"
+																+"parsley-required-message = 'Please enter percentage'   value='"+taxPercent+"'  />"
 																+"<div class='p-messages'></div>"
 															+"</div>"
 														+"</div> ")
@@ -612,6 +654,15 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			//console.log( $(evt.target).next().prop('tagName')) 
 			// $(evt.target).next().next().show()
 			 
+			this.parsleyInitialize(this.$el.find('#input_editaddontype-'+addonTypeId));	
+			this.parsleyInitialize(this.$el.find('#input_editaddonprice-'+addonTypeId));	
+			
+			if (!this.$el.find('#input_editaddontype-'+addonTypeId).parsley('validate'))
+				  return;
+			if (!this.$el.find(' #input_editaddonprice-'+addonTypeId).parsley('validate'))
+				return;
+			
+			
 			
 			 
 			  
@@ -788,6 +839,358 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			
 		},
 		
+		/**
+		 * 
+		 * @param evt
+		 */
+		editCheckinFormat : function(evt){
+			
+			$(evt.target).parent().find('.checkinformat_edit').removeClass('hidden')
+			$(evt.target).parent().find('.delete-checkinformat').removeClass('hidden')
+			$(evt.target).parent().find('.checkinformat_text').addClass('hidden')
+			$(evt.target).addClass('save-checkinformat').removeClass('edit-checkinformat');
+			
+			$(evt.target).html(function (i, old) {
+			     return old
+			         .replace('Edit', 'Save')
+			         
+			});	
+			
+		},
+		
+		
+		
+		
+		/**
+		 * Edit taxoption
+		 * @param evt
+		 */
+		 edittaxoption : function(evt){
+			
+			$(evt.target).parent().find('.taxoption_edit').removeClass('hidden')
+			$(evt.target).parent().find('.delete-taxoption').removeClass('hidden')
+			$(evt.target).parent().find('.taxoptiontext').addClass('hidden')
+			$(evt.target).addClass('save-taxoption').removeClass('edit-taxoption');
+			
+			$(evt.target).html(function (i, old) {
+			     return old
+			         .replace('Edit', 'Save')
+			         
+			});			
+			
+		},
+		
+		
+		saveCheckinFormat : function(evt){
+			
+			$(evt.target).prop('disabled',true);
+			
+			$(evt.target).html(function (i, old) {
+			     return old
+			         .replace('Save', 'Saving') 
+			});
+			
+			
+			var evt_ = evt;
+			var self_ = this;
+			
+			var data = {	action		: 'update_checkinformat',						 
+							checkinformat 	: $(evt.target).parent().find('input[type="radio"][name="checkin_format"]:checked').val()
+						};
+			//$('input[type="radio"][name="tax_option1"]:checked').val() 
+			
+			$.post(	AJAXURL,
+			data,
+			function(response){ 
+				 
+				 if(response.code=='OK'){
+				 	 
+					 
+					 $(evt_.target).parent().find('.checkinformat_edit').addClass('hidden')
+					 $(evt_.target).parent().find('.delete-checkinformat').addClass('hidden')
+					 $(evt_.target).parent().find('.checkinformat_text').removeClass('hidden')
+					 $(evt_.target).removeClass('save-checkinformat').addClass('edit-checkinformat');
+					 
+					 $(evt_.target).parent().find('.checkinformat_text').html(response.checkinformat)
+					  
+					 $(evt_.target).prop('disabled',false);
+					 $(evt_.target).html(function (i, old) {
+					     return old
+					         .replace('Saving', 'Edit')
+					         
+					});	 
+			 
+					 
+					 self_.saveSuccess(response,evt_,self_);  	 
+					 
+				}
+				else{
+						$(evt.target).html('Save');
+						$(evt.target).prop('disabled',false);
+						self_.saveFailure(response,evt_,self_);  
+				} 
+			
+			});	
+			
+		},
+		
+		
+		
+		/**
+		 * Function to save tax option 
+		 * @param evt
+		 */
+		saveTaxOption : function(evt){
+			
+			$(evt.target).prop('disabled',true);
+			
+			$(evt.target).html(function (i, old) {
+			     return old
+			         .replace('Save', 'Saving') 
+			});
+			
+			
+			var evt_ = evt;
+			var self_ = this;
+			
+			var data = {	action		: 'update_taxoption',						 
+							taxoption 	: $(evt.target).parent().find('input[type="radio"][name="tax_option1"]:checked').val()
+						};
+			//$('input[type="radio"][name="tax_option1"]:checked').val() 
+			
+			$.post(	AJAXURL,
+			data,
+			function(response){ 
+				 
+				 if(response.code=='OK'){
+				 	 
+					 
+					 $(evt_.target).parent().find('.taxoption_edit').addClass('hidden')
+					 $(evt_.target).parent().find('.delete-taxoption').addClass('hidden')
+					 $(evt_.target).parent().find('.taxoptiontext').removeClass('hidden')
+					 $(evt_.target).removeClass('save-taxoption').addClass('edit-taxoption');
+					 
+					 $(evt_.target).parent().find('.taxoptiontext').html(response.taxoption)
+					  
+					 $(evt_.target).prop('disabled',false);
+					 $(evt_.target).html(function (i, old) {
+					     return old
+					         .replace('Saving', 'Edit')
+					         
+					});	 
+			 
+					 
+					 self_.saveSuccess(response,evt_,self_);  	 
+					 
+				}
+				else{
+						$(evt.target).html('Save');
+						$(evt.target).prop('disabled',false);
+						self_.saveFailure(response,evt_,self_);  
+				} 
+			
+			});	
+			
+		},
+		
+		/**
+		 * cancel edit of tax option
+		 * @param evt_
+		 */
+		cancelTaxOptionUpdate: function(evt_){
+			
+			 $(evt_.target).addClass('hidden')
+			 $(evt_.target).parent().find('.taxoption_edit').addClass('hidden')
+			 $(evt_.target).parent().find('.taxoptiontext').removeClass('hidden')
+			 $(evt_.target).parent().find('.save-taxoption').html(function (i, old) {
+			     return old
+			         .replace('Save', 'Edit')
+			         
+			});
+			 $(evt_.target).parent().find('.save-taxoption').removeClass('save-taxoption').addClass('edit-taxoption');
+			 
+			 
+			
+		},
+		
+		
+		
+		/**
+		 * Edit check in time
+		 * @param evt
+		 */
+		editCheckintime : function(evt){
+			
+			$(evt.target).parent().find('.checkintime_edittext').removeClass('hidden')
+			$(evt.target).parent().find('.delete-checkintime').removeClass('hidden')
+			$(evt.target).parent().find('.checkintime_text').addClass('hidden')
+			$(evt.target).addClass('save-checkintime').removeClass('edit-checkintime');
+			
+			$(evt.target).html(function (i, old) {
+			     return old
+			         .replace('Edit', 'Save')
+			         
+			});			
+			
+		},
+		
+		
+		
+		
+		saveCheckintime : function(evt){
+			 
+			$(evt.target).prop('disabled',true);
+			
+			$(evt.target).html(function (i, old) {
+			     return old
+			         .replace('Save', 'Saving') 
+			});
+			
+			
+			var evt_ = evt;
+			var self_ = this;
+			
+			var data = {	action					: 'update_checkintime',						 
+							checkintime 	: $(evt.target).parent().find('#checkin_time').val()
+						};
+			
+			
+			$.post(	AJAXURL,
+			data,
+			function(response){ 
+				 
+				 if(response.code=='OK'){
+				 	 
+					 
+					 $(evt_.target).parent().find('.checkintime_edittext').addClass('hidden')
+					 $(evt_.target).parent().find('.delete-checkintime').addClass('hidden')
+					 $(evt_.target).parent().find('.checkintime_text').removeClass('hidden')
+					 $(evt_.target).removeClass('save-checkintime').addClass('edit-checkintime');
+					 
+					 $(evt_.target).parent().find('.checkintime_text').html(response.checkinTime)
+					  
+					 $(evt_.target).prop('disabled',false);
+					 $(evt_.target).html(function (i, old) {
+					     return old
+					         .replace('Saving', 'Edit')
+					         
+					});	 
+			 
+					 
+					 self_.saveSuccess(response,evt_,self_);  	 
+					 
+				}
+				else{
+						$(evt.target).html('Save');
+						$(evt.target).prop('disabled',false);
+						self_.saveFailure(response,evt_,self_);  
+				} 
+			
+			});	
+
+
+
+			
+		},
+		
+		
+		
+		
+		
+		
+		/**
+		 * edit additional policies
+		 */
+		editAdditionalPolicies : function(evt){
+			$(evt.target).parent().find('.addpoliciestext_edit').removeClass('hidden')
+			$(evt.target).parent().find('.delete-additional-policies').removeClass('hidden')
+			$(evt.target).parent().find('.addpoliciestext').addClass('hidden')
+			$(evt.target).addClass('save-additional-policies').removeClass('edit-additional-policies');
+			
+			$(evt.target).html(function (i, old) {
+			     return old
+			         .replace('Edit', 'Save')
+			         
+			});
+			 
+		},
+		
+		
+		saveAdditionalPolicies : function(evt){
+			 
+			$(evt.target).prop('disabled',true);
+			
+			$(evt.target).html(function (i, old) {
+			     return old
+			         .replace('Save', 'Saving') 
+			});
+			
+			
+			var evt_ = evt;
+			var self_ = this;
+			
+			var data = {	action					: 'update_additional_policies',						 
+							additional_policies 	: $(evt.target).parent().find('#additional_policies').val()
+						};
+			
+			
+			$.post(	AJAXURL,
+			data,
+			function(response){ 
+				 
+				 if(response.code=='OK'){
+				 	 
+					 
+					 $(evt_.target).parent().find('.addpoliciestext_edit').addClass('hidden')
+					 $(evt_.target).parent().find('.delete-additional-policies').addClass('hidden')
+					 $(evt_.target).parent().find('.addpoliciestext').removeClass('hidden')
+					 $(evt_.target).removeClass('save-additional-policies').addClass('edit-additional-policies');
+					 console.log(response.additional_policies)
+					 $(evt_.target).parent().find('.addpoliciestext').html(response.additionalPolicies)
+					  
+					 $(evt_.target).prop('disabled',false);
+					 $(evt_.target).html(function (i, old) {
+					     return old
+					         .replace('Saving', 'Edit')
+					         
+					});	 
+			 
+					 
+					 self_.saveSuccess(response,evt_,self_);  	 
+					 
+				}
+				else{
+						$(evt.target).html('Save');
+						$(evt.target).prop('disabled',false);
+						self_.saveFailure(response,evt_,self_);  
+				} 
+			
+			});	
+
+
+
+			
+		},
+		
+		/**
+		 * cancel edit of additional policies
+		 * @param evt_
+		 */
+		cancelAdditionalPoliciesUpdate: function(evt_){
+			
+			 $(evt_.target).addClass('hidden')
+			 $(evt_.target).parent().find('.addpoliciestext_edit').addClass('hidden')
+			 $(evt_.target).parent().find('.addpoliciestext').removeClass('hidden')
+			 $(evt_.target).parent().find('.save-additional-policies').html(function (i, old) {
+			     return old
+			         .replace('Save', 'Edit')
+			         
+			});
+			 $(evt_.target).parent().find('.save-additional-policies').removeClass('save-additional-policies').addClass('edit-additional-policies');
+			 
+			 
+			
+		},
 		
 		/**
 		 * Function to show message after success of save 
