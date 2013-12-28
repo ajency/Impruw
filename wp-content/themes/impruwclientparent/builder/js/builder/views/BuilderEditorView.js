@@ -14,9 +14,9 @@ define(['underscore', 'jquery', 'backbone', 'global'],
             className: 'container',
 
             elements: {
-                header: [],
-                content: [],
-                footer: []
+                header  : [],
+                content : [],
+                footer  : []
             },
 
             mode: 'layout',
@@ -38,8 +38,7 @@ define(['underscore', 'jquery', 'backbone', 'global'],
              */
             initialize: function(option) {
 
-                // _.bindAll(this, 'enableDropSort', 'getRows', 'is', 'holdOnWhileSwitching', 'removeSwitchLoader', 'switchMode',
-                //     'switchToLayout', 'handleRowDrop', 'switchToContent', 'holdCurrentColRef', 'getClasses');
+                 _.bindAll(this, 'handleRowDrop');
 
             },
 
@@ -72,16 +71,77 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                         if (row.$el.closest('.layout-header').length === 1) {
                             self.json.header.elements.push(json);
                         }
+                        
                         if (row.$el.closest('.layout-content').length === 1) {
                             self.json.page.elements.push(json);
                         }
+
                         if (row.$el.closest('.layout-footer').length === 1) {
                             self.json.footer.elements.push(json);
                         }
+
                     });
                 });
+            },
 
+            /**
+             * This function saves the initial layout for the page
+             * makes a call to  Editors SaveInitialLayout function
+             * @return {[type]} [description]
+             */
+            saveInitialLayout : function(evt){
+                
+                var text = $(evt.target).text();
 
+                //get the JSON
+                this.generateJSON();
+
+                $(evt.target).text('Saving...')
+
+                //save it
+                $.post(AJAXURL,
+                        {
+                            action      : 'save_initial_layout',
+                            forTheme    : this.getCurrentThemeID(),
+                            forPage     : this.getCurrentPage(),
+                            json        : this.json
+                        },
+                        function(response){        
+                            $(evt.target).text(text);    
+                            if(response.code === 'OK'){
+
+                            }else{
+
+                            }
+
+                        },'json');
+
+            },
+
+            /**
+             * Function get the current selected theme ID,
+             * Value of current selected theme is stored as cookie
+             * @return {[int]} Theme ID
+             */
+            getCurrentThemeID : function(){
+
+                var t = $.cookie('current_theme');
+
+                return _.isUndefined(t) ? 0 : parseInt(t);
+
+            },
+
+            /**
+             * Function get the current selected page,
+             * Value of current selected theme is stored as cookie
+             * @return {[int]} Theme ID
+             */
+            getCurrentPage : function(){
+
+                var p = $.cookie('current_page');
+
+                return _.isUndefined(p) ? 'home' : p;
+                
             },
 
             /**
@@ -197,8 +257,9 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                 var templatePath = '';
 
                 $.get(AJAXURL, {
-                        action: 'get_saved_layout',
-                        pageId: 2
+                        action  : 'get_saved_layout',
+                       forPage  : this.getCurrentPage(),
+                       forTheme : this.getCurrentThemeID()
                     },
                     function(response) {
 
