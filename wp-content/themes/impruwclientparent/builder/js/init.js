@@ -37,7 +37,7 @@ require.config({
         menucollection  : 'builder/collections/MenuCollection',
 
         //media 
-        mediamanager    : 'builder/views/modals/media/Mediamanager',
+        mediamanager    : 'builder/views/modals/media/MediaManager',
         mediamodel      : 'builder/models/MediaModel',
         mediacollection : 'builder/collections/MediaCollection',
         mediasingle     : 'builder/views/modals/media/SingleMedia'
