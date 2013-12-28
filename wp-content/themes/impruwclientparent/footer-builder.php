@@ -72,24 +72,6 @@
                                 <div class="aj-imp-builder-title">Image With Text</div>
                             </a>
                         </li>
-                        <li>
-                            <a href="#" class="drag builder-element" data-element="SocialElement">
-                                <div class="aj-imp-builder-icon" data-icon="&#xf119;"></div>
-                                <div class="aj-imp-builder-title">Social</div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <div class="aj-imp-builder-icon" data-icon="&#xf103;"></div>
-                                <div class="aj-imp-builder-title">Columns</div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <div class="aj-imp-builder-icon" data-icon="&#xf10a;"></div>
-                                <div class="aj-imp-builder-title">Contact Form</div>
-                            </a>
-                        </li>
                     </ul>
                 </div>
                 <div class="tab-pane" id="structure">

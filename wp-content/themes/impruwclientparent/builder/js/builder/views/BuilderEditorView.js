@@ -26,14 +26,6 @@ define(['underscore', 'jquery', 'backbone', 'global'],
             contentLoaded: false,
 
             /**
-             * Events 
-             * @type {Object}
-             */
-            events: {
-                'click .updateRowProperties' : 'updateRowProperties'
-            },
-
-            /**
              * [initialize description]
              * @param  {[object]} option
              * @return {[void]}
@@ -41,6 +33,8 @@ define(['underscore', 'jquery', 'backbone', 'global'],
             initialize: function(option) {
 
                  _.bindAll(this, 'handleRowDrop','updateRowProperties');
+            
+                 $(document).on('click', '.updateRowProperties', this.updateRowProperties);
                  
             },
 
@@ -152,17 +146,17 @@ define(['underscore', 'jquery', 'backbone', 'global'],
              */
             updateRowProperties: function(evt) {
 
-                log("fdfsd");
+                evt.stopPropagation();
 
                 var pcontent = $(evt.target).closest('.popover');
 
                 var id = pcontent.closest('.popover').prev().attr('id');
 
                 var element = this.getElementByID(id);
-
+                 log(id);
                 if (!_.isObject(element))
                     return;
-
+               
                 if ($(pcontent).find('input[name="className"]').length > 0)
                     element.extraClasses += $(pcontent).find('input[name="className"]').val();
 
@@ -181,24 +175,17 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                 if (_.isUndefined(id))
                     return false;
 
-                //does this element has child elemnts property
-                if (_.isUndefined(this.rows) || !_.isArray(this.rows))
-                    return false;
-
-                //does the element has any child elements
-                if (_.isArray(this.rows) && this.rows.length === 0)
-                    return false;
-
                 var element = false;
 
-                for (var k = 0, len = this.rows.length; k < len; k++) {
+                _.each(this.elements, function(section, name){
+                    
+                    _.each(section, function(row, index){
+                        if (row.id === id) {
+                            element = row;
+                        }
 
-                    if (this.rows[k].id === id) {
-                        element = this.rows[k];
-                        break;
-                    }
-
-                }
+                    });
+                });
 
                 return element;
             },

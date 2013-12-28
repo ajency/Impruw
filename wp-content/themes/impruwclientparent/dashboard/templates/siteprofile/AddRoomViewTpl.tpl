@@ -297,9 +297,9 @@
 									</div>
 								</div>
 								<div class="form-group">
-									<div class="col-sm-7"> 
+									<div class="col-sm-12"> 
 										<p class="taxoptiontext"> <% if(!_.isUndefined(roomdata.taxoption)) {%><%=roomdata.taxoption %> <%}%> </p>
-										<span class="taxoption_edit hidden"> 
+										<div class="taxoption_edit row hidden"> 
 											<div class="col-sm-2">
 												<label class="radio <%   if(!_.isUndefined(roomdata.taxoption)) { if(roomdata.taxoption==='With Tax'){ %>  checked  <% } }%>">
 												  <input type="radio" name="tax_option1" class='tax__option' value="With Tax" data-toggle="radio" <%   if(!_.isUndefined(roomdata.taxoption)) { if(roomdata.taxoption==='With Tax'){ %> checked="checked" <% } }%> >
@@ -312,7 +312,7 @@
 												  Without Tax
 												</label>
 											</div>
-										</span>
+										</div>
 										<a class="edit-link edit-taxoption" href="javascript:void(0)"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
 										<a class="delete-link delete-taxoption hidden" href="javascript:void(0)"><span class="glyphicon glyphicon-trash"></span> Delete</a>
 									</div>

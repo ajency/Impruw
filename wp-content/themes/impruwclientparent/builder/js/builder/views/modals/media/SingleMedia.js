@@ -45,6 +45,11 @@ define(['backbone', 'text!builder/templates/modal/media/singlemedia.hbs',
                     media: this.model
                 });
                 this.$el.html(html);
+
+                this.$el.find('select').selectpicker({
+                                                        style: 'btn-mini btn-default',
+                                                        menuStyle: 'dropdown'
+                                                    });
                 return this;
             },
 
