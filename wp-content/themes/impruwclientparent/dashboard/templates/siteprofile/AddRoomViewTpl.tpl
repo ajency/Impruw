@@ -79,57 +79,7 @@
 												</div>
 												
 												<% }) %>
-												
-											<!-- 	
-											<div class="facility">
-												<label for="checkbox2" class="checkbox checked">
-													<input type="checkbox" data-toggle="checkbox" checked="checked" name="facility[]" required parsley-mincheck="1"  parsley-validation-minlength="0"  >
-													Air Conditioning
-												</label>
-												<div class="action">
-													<a href="#" class="edit">Edit</a>&nbsp;<a href="#" class="delete">Delete</a>
-												</div>
-											</div>
-											<div class="facility">
-												<label for="checkbox2" class="checkbox checked">
-													<input type="checkbox" data-toggle="checkbox" checked="checked"  name="facility[]"   required  parsley-validation-minlength="0"       >
-													Room Service
-												</label>
-												<div class="action">
-													<a href="#" class="edit">Edit</a>&nbsp;<a href="#" class="delete">Delete</a>
-												</div>
-											</div>
-											<div class="facility">
-												<label for="checkbox2" class="checkbox checked">
-													<input type="checkbox" data-toggle="checkbox" checked="checked"  name="facility[]"  required   parsley-validation-minlength="0"      >
-													Mini Bar
-												</label>
-												<div class="action">
-													<a href="#" class="edit">Edit</a>&nbsp;<a href="#" class="delete">Delete</a>
-												</div>
-											</div>
-											<div class="facility">
-												<label for="checkbox2" class="checkbox checked">
-													<input type="checkbox" data-toggle="checkbox" checked="checked"  name="facility[]"  required   parsley-validation-minlength="0"     >
-													Free WIFI
-												</label>
-												<div class="action">
-													<a href="#" class="edit">Edit</a>&nbsp;<a href="#" class="delete">Delete</a>
-												</div>
-											</div>
-											<div class="facility">
-												<label for="checkbox2" class="checkbox checked">
-													<input type="checkbox" data-toggle="checkbox" checked="checked"  name="facility[]"   required   parsley-validation-minlength="0"  >
-													Television
-												</label>
-												<div class="action">
-													<a href="#" class="edit">Edit</a>&nbsp;<a href="#" class="delete">Delete</a>
-												</div>
-												<div class="p-messages"></div>
-											</div>
-											-->
 											 
-											
 											
 											
 											<div class="facility add">

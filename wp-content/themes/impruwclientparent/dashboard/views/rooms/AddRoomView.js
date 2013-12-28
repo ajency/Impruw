@@ -56,8 +56,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			//initialize parsley validation for the forms
 			this.parsleyInitialize(this.$el.find('#frm_addroom'));
 			this.parsleyInitialize(this.$el.find('#frm_roomdesc'));			 
-			this.parsleyInitialize(this.$el.find('#form_addfacility'));	
-			//this.parsleyInitialize(this.$el.find('#frm_newfacility'));	
+			this.parsleyInitialize(this.$el.find('#form_addfacility'));			 
 			return this;
 			
 		},
@@ -87,7 +86,6 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 								self_.success(response,self_.event,self_);  
 						}
 						else{
-							//console.log(response)
 							 
 							 if(!_.isUndefined(self_.failure) && _.isFunction(self_.failure))
 								 self_.failure(response,self_.event,self_);  
@@ -105,6 +103,8 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 		 * @param evt
 		 */
 		saveRoom : function(evt) {
+			
+			var self = this;
 			
 			  if (!this.$el.find('#frm_addroom').parsley('validate'))
 				  return
@@ -138,30 +138,18 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			  
 			  room.saveRoom(data, {
 					event : evt,
+					_self:self,
 					success : self.saveSuccess,
 					failure : self.saveFailure
 				});
 			  
-			  
-			  
-
-		 
-				  
+			     
 				  
 				  /*	$(evt.target).next().show();
 					
-					var self = this;
+					var self = this;*/
 				
-					var formGeneral = this.$el.find('#form_addroom').serializeArray();
-				 
-					var data = { 'general'  : formGeneral 	};
 					
-					$addRoomStatus = window.impruwUser.saveUserProfile(data, {
-																				event : evt,
-																				_self:self,
-																				success : self.saveSuccess,
-																				failure : self.saveFailure
-																			});*/
 			 			
 		},
 		
@@ -273,7 +261,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 		 */
 		savefacility : function(evt){
 			var evt_ = evt;
-			
+			var self_ = this;
 			 
 			facilityId = $(evt.target).attr("term-id");
 			
@@ -297,9 +285,8 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 						 
 						$("#facLabel-"+facilityId).removeClass('input-group');
 						$("#facLabel-"+facilityId).html( $("#inputfacility-"+facilityId).val());
-							 
-					/*self_.$el.find('#facility-'+facilityId).remove()  
-					self_.saveSuccess(response,evt_,self_);  */
+						self_.saveSuccess(response,evt_,self_);  	 
+					 
 				}
 				else{
 					 self_.saveFailure(response,evt_,self_);  
@@ -320,14 +307,13 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 		 * @param _self
 		 */
 		saveSuccess : function(response,event,_self){
-			console.log("save room success message")
-			$(event.target).next().hide(); 
 			 
-			//console.log(event)
-			 $(event.target).offsetParent().offsetParent().offsetParent() 
+			$(event.target).next().hide(); 
+		 	 
+			$(event.target).offsetParent().offsetParent().offsetParent() 
 			 				.find('#roomsave_status').removeClass('alert-error').addClass('alert-success');
 			 
-			 _self.showAlertMessage(event,response);			 
+			_self.showAlertMessage(event,response);			 
 			 
 		},
 		
@@ -355,18 +341,13 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 		 * @param response
 		 */		
 		showAlertMessage : function(event,response){
-			
-			//console.log(event);
-			//console.log($(event.target.form).offsetParent());
-			$(event.target).form().offsetParent()
-							.find('#roomsave_status').html(response.msg);
-			$(event.target).form().offsetParent()
-							.find('#roomsave_status').show();
-			
+			 
+			$(event.delegateTarget).find('#roomsave_status').html(response.msg);
+			$(event.delegateTarget).find('#roomsave_status').show();
+			  
 			/* Move to top at status message after success/failure */
 			$('html, body').animate({
-		        scrollTop: $(event.target).form().offsetParent()
-		        						   .find('#roomsave_status').offset().top
+		        scrollTop: $(event.delegateTarget).find('#roomsave_status').offset().top
 		    }, 1000); 
 		},
 		

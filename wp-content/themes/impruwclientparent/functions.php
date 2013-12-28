@@ -80,6 +80,7 @@ add_action('init', 'impruv_register_room_init');
 
 function create_room_taxonomies_and_add_terms() {
     // Add new taxonomy, Types
+    register_taxonomy('impruv_room_facility', array());
    /* $facilities_labels = array(
         'name' => _x('Facilities', 'taxonomy general name'),
         'singular_name' => _x('Facility', 'taxonomy singular name'),
@@ -104,9 +105,9 @@ function create_room_taxonomies_and_add_terms() {
     );
 
     register_taxonomy('impruv_room_facility', 'impruv_room', $tag_args);
-    */
+    
+	*/
 	
-	register_taxonomy('impruv_room_facility', array());
 	
 	
 	$labels = array(
@@ -619,6 +620,7 @@ function add_new_room($blog_id,$array,$tariff_array){
     $post_id = wp_insert_post( $my_post ); 
     update_post_meta($post_id, 'inventory', $array['inventory']);//adds thew inventory value to the room
    // var_dump( wp_set_object_terms($post_id, $array['terms'], 'impruv_room_facility'));exit;;
+   wp_set_object_terms($post_id, $array['terms'], 'impruv_room_facility');
     add_room_tariff($post_id,$tariff_array);
     restore_current_blog();
    
@@ -628,7 +630,7 @@ function add_new_room($blog_id,$array,$tariff_array){
 function add_room_tariff($post_id,$tariff_array){
      global $wpdb;
     foreach($tariff_array as $tariff)
-    {   if(is_array($tarriff))
+    {   if(is_array($tariff))
         $start_date = $tariff['start_date'];
         $end_date = $tariff['end_date'];
         $attributes = maybe_serialize($tariff['attributes']);
@@ -1328,11 +1330,12 @@ add_action('wp_ajax_nopriv_update_room_facility','update_room_facility');
 
 function add_new_room_ajx(){
 	
-	var_dump($_POST);
+	//var_dump($_POST);
 	$room_name = $_POST['category']; 
 	$room_nos = $_POST['nos'];
 	$room_desc = $_POST['description'];
 	$room_facilities = $_POST['facilities'];	
+	 
 	
 	$array=array('post_title' => $room_name, 'post_content' => $room_desc, 'user_id' => get_current_user_id(), 'inventory' => $room_nos,'terms'=>$room_facilities);
 	
