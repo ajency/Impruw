@@ -935,6 +935,23 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 		},
 		
 		
+		/**
+		 * Function to cancel edit of checkin format
+		 * @param evt
+		 */
+		cancelCheckinFormat : function(evt_){
+			$(evt_.target).addClass('hidden')
+			 $(evt_.target).parent().find('.checkinformat_edit').addClass('hidden')
+			 $(evt_.target).parent().find('.checkinformat_text').removeClass('hidden')
+			 $(evt_.target).parent().find('.save-checkinformat').html(function (i, old) {
+			     return old
+			         .replace('Save', 'Edit')
+			         
+			});
+			 $(evt_.target).parent().find('.save-checkinformat').removeClass('save-checkinformat').addClass('edit-checkinformat');
+			 
+		},
+		
 		
 		/**
 		 * Function to save tax option 
