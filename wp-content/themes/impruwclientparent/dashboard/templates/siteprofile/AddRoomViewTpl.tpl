@@ -11,7 +11,7 @@
 				<div class="row">
 					<div class="aj-imp-dash-content col-md-12">
 					
-						<div class="alert alert-success" id="roomsave_status" name="roomsave_status" >
+						<div class="alert alert-success hidden" id="roomsave_status" name="roomsave_status" >
 							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 							Your details have been successfully saved.
 						</div>
@@ -74,62 +74,12 @@
 														<span id="facLabel-<%=facility.term_id %>" facililtyname="<%=facility.name %>"  ><%=facility.name %></span>
 													</label>
 													<div class="action">
-														<a href="#" class="edit"  term-id="<%=facility.term_id %>">Edit</a>&nbsp;<a href="#" class="delete" term-id="<%=facility.term_id %>">Delete</a>
+														<a href="javascript:void(0)" class="edit"  term-id="<%=facility.term_id %>">Edit</a>&nbsp;<a href="javascript:void(0)" class="delete" term-id="<%=facility.term_id %>">Delete</a>
 													</div>
 												</div>
 												
 												<% }) %>
-												
-											<!-- 	
-											<div class="facility">
-												<label for="checkbox2" class="checkbox checked">
-													<input type="checkbox" data-toggle="checkbox" checked="checked" name="facility[]" required parsley-mincheck="1"  parsley-validation-minlength="0"  >
-													Air Conditioning
-												</label>
-												<div class="action">
-													<a href="#" class="edit">Edit</a>&nbsp;<a href="#" class="delete">Delete</a>
-												</div>
-											</div>
-											<div class="facility">
-												<label for="checkbox2" class="checkbox checked">
-													<input type="checkbox" data-toggle="checkbox" checked="checked"  name="facility[]"   required  parsley-validation-minlength="0"       >
-													Room Service
-												</label>
-												<div class="action">
-													<a href="#" class="edit">Edit</a>&nbsp;<a href="#" class="delete">Delete</a>
-												</div>
-											</div>
-											<div class="facility">
-												<label for="checkbox2" class="checkbox checked">
-													<input type="checkbox" data-toggle="checkbox" checked="checked"  name="facility[]"  required   parsley-validation-minlength="0"      >
-													Mini Bar
-												</label>
-												<div class="action">
-													<a href="#" class="edit">Edit</a>&nbsp;<a href="#" class="delete">Delete</a>
-												</div>
-											</div>
-											<div class="facility">
-												<label for="checkbox2" class="checkbox checked">
-													<input type="checkbox" data-toggle="checkbox" checked="checked"  name="facility[]"  required   parsley-validation-minlength="0"     >
-													Free WIFI
-												</label>
-												<div class="action">
-													<a href="#" class="edit">Edit</a>&nbsp;<a href="#" class="delete">Delete</a>
-												</div>
-											</div>
-											<div class="facility">
-												<label for="checkbox2" class="checkbox checked">
-													<input type="checkbox" data-toggle="checkbox" checked="checked"  name="facility[]"   required   parsley-validation-minlength="0"  >
-													Television
-												</label>
-												<div class="action">
-													<a href="#" class="edit">Edit</a>&nbsp;<a href="#" class="delete">Delete</a>
-												</div>
-												<div class="p-messages"></div>
-											</div>
-											-->
 											 
-											
 											
 											
 											<div class="facility add">
@@ -160,6 +110,8 @@
 							<form class="form-horizontal clearfix">
 								<div class="affix-show">You have unsaved changes!</div>
 								<button type="button" class="btn btn-wide aj-imp-submit" id="btn_saveroom" name="btn_saveroom">Save Room</button>
+								<img src ="<%=THEMEURL%>/images/loader.gif" width="38" height="30"  
+													id="roomsave_loader" style="display:none"/>
 							</form>
 						</div>
 					

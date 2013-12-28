@@ -29,7 +29,7 @@ define([ 'underscore', 'jquery', 'backbone',
 			
 			this.site = args.site;
 			
-			ImpruwDashboard.vent.on("user-profile-updated", this.updatedProfileView);
+			//ImpruwDashboard.vent.on("user-profile-updated", this.updatedProfileView);
 
 		},
 		/**
@@ -64,7 +64,7 @@ define([ 'underscore', 'jquery', 'backbone',
 			//initialize parsley validation for the forms
 			this.parsleyInitialize(this.$el.find('#form-siteprofile-business'));
 			this.parsleyInitialize(this.$el.find('#form-siteprofile-social'));
-
+			$(".aj-imp-long-form-actions").affix()
 			return this;
 		},
 

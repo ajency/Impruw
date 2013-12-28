@@ -1,5 +1,5 @@
 /**
- * The UserProfile View.
+ * The AddRoom View.
  * 
  */
 
@@ -7,7 +7,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 		'text!templates/siteprofile/AddRoomViewTpl.tpl','lib/parsley/parsley' ], function(_, $,
 		Backbone, RoomModel, AddRoomViewTpl,parsley) {
 
-	var UserProfileView = Backbone.View.extend({
+	var AddRoomView = Backbone.View.extend({
 
 		id : 'add-room',
 
@@ -27,6 +27,8 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 				this.showInvalidCallView();
 			
 			this.user = args.user;*/
+			
+			
 			
 
 		},
@@ -56,8 +58,11 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			//initialize parsley validation for the forms
 			this.parsleyInitialize(this.$el.find('#frm_addroom'));
 			this.parsleyInitialize(this.$el.find('#frm_roomdesc'));			 
-			this.parsleyInitialize(this.$el.find('#form_addfacility'));	
-			//this.parsleyInitialize(this.$el.find('#frm_newfacility'));	
+			this.parsleyInitialize(this.$el.find('#form_addfacility'));		
+			
+			
+			this.$el.find(".aj-imp-long-form-actions").affix()
+			 	
 			return this;
 			
 		},
@@ -87,7 +92,6 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 								self_.success(response,self_.event,self_);  
 						}
 						else{
-							//console.log(response)
 							 
 							 if(!_.isUndefined(self_.failure) && _.isFunction(self_.failure))
 								 self_.failure(response,self_.event,self_);  
@@ -101,16 +105,20 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 		 
 		
 		/**
-		 * Function to save user profile
+		 * Function to save room
 		 * @param evt
 		 */
 		saveRoom : function(evt) {
+			
+			var self = this;
 			
 			  if (!this.$el.find('#frm_addroom').parsley('validate'))
 				  return
 				  
 			  if (!this.$el.find('#frm_roomdesc').parsley('validate'))
 				  return
+			 $(evt.target).prop('disabled',true)
+			 $(evt.target).next().show();	  
 					  
 			  roomcategory 		= $("#roomcategory").val();
 			  roomnos 			= $("#roomnos").val();
@@ -138,30 +146,18 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			  
 			  room.saveRoom(data, {
 					event : evt,
+					_self:self,
 					success : self.saveSuccess,
 					failure : self.saveFailure
 				});
 			  
-			  
-			  
-
-		 
-				  
+			     
 				  
 				  /*	$(evt.target).next().show();
 					
-					var self = this;
+					var self = this;*/
 				
-					var formGeneral = this.$el.find('#form_addroom').serializeArray();
-				 
-					var data = { 'general'  : formGeneral 	};
 					
-					$addRoomStatus = window.impruwUser.saveUserProfile(data, {
-																				event : evt,
-																				_self:self,
-																				success : self.saveSuccess,
-																				failure : self.saveFailure
-																			});*/
 			 			
 		},
 		
@@ -190,19 +186,26 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 							 
 							
 							if(response.code=='OK'){
+								
+								//display newly added facility
 							 	$(evt_.target).closest(".facility") 
 							 				.before( '<div class="facility" id="facility-'
 							 				+response.facililty.term_id+'" >'
 										+'<label for="checkbox2" class="checkbox checked">'
-										+'<input type="checkbox" data-toggle="checkbox" checked="checked" name="facility[]"   value="'+$('#new_facilityname').val()+'"   >'
-										+'<span id="facLabel-'+response.facililty.term_id+'" facililtyname="'+$('#new_facilityname').val()+'"  >'
+										+'<input type="checkbox" data-toggle="checkbox" checked="checked" ' 
+										+'name="facility[]"   value="'+$('#new_facilityname').val()+'"   >'
+										+'<span id="facLabel-'+response.facililty.term_id+'" facililtyname="'+
+										$('#new_facilityname').val()+'"  >'
 										+$('#new_facilityname').val()
 										+'</span>'
 										+'</label>'
 										+'<div class="action">'
-										+'<a href="#" class="edit"  term-id="'+response.facililty.term_id+'">Edit</a>&nbsp;<a href="#" class="delete" term-id="'+response.facililty.term_id+'">Delete</a>'
+										+'<a href="javascript:void(0)" class="edit"  term-id="'+
+										response.facililty.term_id+'">Edit</a>&nbsp;<a href="javascript:void(0)"'
+										+'class="delete" term-id="'+response.facililty.term_id+'">Delete</a>'
 										+'</div>'
 										+'</div>' );
+							 	
 							 	
 							 	self_.$el.find('input[type="checkbox"]').checkbox();
 							 	self_.$el.find('#new_facilityname').val("");
@@ -221,6 +224,9 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 		 * Function to delete facililty 
 		 */
 		deleteFacility:function(evt){
+			
+			 $(evt.target).html('Deleting');
+			 $(evt.target).prop('disabled',true);
 		 
 			var self_ = this;
 			
@@ -237,11 +243,13 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 					data,
 					function(response){ 
 						if(response.code=='OK'){
-							 
+						  
 							self_.$el.find('#facility-'+facilityId).remove()  
 							self_.saveSuccess(response,evt_,self_);  
 						}
 						else{
+							$(evt_.target).prop('disabled',false);
+							$(evt.target).html('Delete');
 							 self_.saveFailure(response,evt_,self_);  
 						}
 				
@@ -262,7 +270,8 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			$("#facLabel-"+facilityId).addClass('input-group');
 			$("#facLabel-"+facilityId).html("<form name='frm_editfacility' id='frmeditfacility-"+facilityId+"'  >" +
 					"<input type='text' class='form-control input-sm' " +
-					"placeholder='Edit Facility' name='inputfacility-"+facilityId+"' id='inputfacility-"+facilityId+"'  parsley-validation-minlength='0' " +
+					"placeholder='Edit Facility' name='inputfacility-"+facilityId+"' id='inputfacility-"+facilityId+"'"+
+					"parsley-validation-minlength='0' " +
 					"value='"+$("#facLabel-"+facilityId).attr('facililtyname')+"'  > </form>");
 			this.parsleyInitialize($('#frmeditfacility-'+facilityId));
 			
@@ -272,8 +281,13 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 		 * Function to save updated facility 
 		 */
 		savefacility : function(evt){
-			var evt_ = evt;
 			
+			 
+			var evt_ = evt;
+			var self_ = this;
+			
+			 $(evt.target).html('Saving');
+			 $(evt.target).prop('disabled',true);
 			 
 			facilityId = $(evt.target).attr("term-id");
 			
@@ -288,21 +302,21 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			function(response){ 
 				 
 				 if(response.code=='OK'){
-					 
-					
-					 
+				 	 
 					 facilityId = $(evt_.target).attr("term-id"); 
 					 $(evt_.target).removeClass("savefacililty").addClass("edit")
-						$(evt_.target).html("Edit")
+					 $(evt_.target).html("Edit")
+					 $(evt.target).prop('disabled',false);
 						 
-						$("#facLabel-"+facilityId).removeClass('input-group');
-						$("#facLabel-"+facilityId).html( $("#inputfacility-"+facilityId).val());
-							 
-					/*self_.$el.find('#facility-'+facilityId).remove()  
-					self_.saveSuccess(response,evt_,self_);  */
+					 $("#facLabel-"+facilityId).removeClass('input-group');
+					 $("#facLabel-"+facilityId).html( $("#inputfacility-"+facilityId).val());
+					 self_.saveSuccess(response,evt_,self_);  	 
+					 
 				}
 				else{
-					 self_.saveFailure(response,evt_,self_);  
+						$(evt.target).html('Save');
+						$(evt.target).prop('disabled',false);
+						self_.saveFailure(response,evt_,self_);  
 				} 
 		
 			});	
@@ -314,34 +328,38 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 		
 		
 		/**
-		 * Function to show message after success of save profile
+		 * Function to show message after success of save 
 		 * @param response
 		 * @param event
 		 * @param _self
 		 */
 		saveSuccess : function(response,event,_self){
-			console.log("save room success message")
-			$(event.target).next().hide(); 
+			
+			if( $(event.target).next().get(0).tagName =="IMG") // hide next element only if its a loader image
+				$(event.target).next().hide(); 
 			 
-			//console.log(event)
-			 $(event.target).offsetParent().offsetParent().offsetParent() 
-			 				.find('#roomsave_status').removeClass('alert-error').addClass('alert-success');
+		 	 
+			 $(event.delegateTarget).find('#roomsave_status')  
+			 				.removeClass('alert-error').addClass('alert-success');
 			 
-			 _self.showAlertMessage(event,response);			 
+			_self.showAlertMessage(event,response);			 
 			 
 		},
 		
 		/**
-		 * Function to show message after failure of saveprofile
+		 * Function to show message after failure of save 
 		 * @param response
 		 * @param event
 		 * @param _self
 		 */
 		saveFailure : function(response,event,_self){
 			 
-			$(event.target).next().hide();
-			$(event.target).offsetParent().offsetParent().offsetParent()
-							.find('#roomsave_status').removeClass('alert-success').addClass('alert-error');
+			if( $(event.target).next().get(0).tagName =="IMG") // hide next element only if its a loader image
+				$(event.target).next().hide();
+			 
+			
+			$(event.delegateTarget).find('#roomsave_status') 
+							.removeClass('alert-success').addClass('alert-error');
 			
 			_self.showAlertMessage(event,response);			 
 			
@@ -355,19 +373,14 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 		 * @param response
 		 */		
 		showAlertMessage : function(event,response){
-			
-			//console.log(event);
-			//console.log($(event.target.form).offsetParent());
-			$(event.target).form().offsetParent()
-							.find('#roomsave_status').html(response.msg);
-			$(event.target).form().offsetParent()
-							.find('#roomsave_status').show();
-			
+			 $(event.target).prop('disabled',false)
+			$(event.delegateTarget).find('#roomsave_status').html(response.msg);
+			$(event.delegateTarget).find('#roomsave_status').removeClass('hidden');
+			  
 			/* Move to top at status message after success/failure */
-			$('html, body').animate({
-		        scrollTop: $(event.target).form().offsetParent()
-		        						   .find('#roomsave_status').offset().top
-		    }, 1000); 
+			/*$('html, body').animate({
+		        scrollTop: $(event.delegateTarget).find('#roomsave_status').offset().top
+		    }, 1000); */
 		},
 		
 		
@@ -419,6 +432,6 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 
 	});
 
-	return UserProfileView;
+	return AddRoomView;
 
 });
