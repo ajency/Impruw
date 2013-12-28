@@ -28,6 +28,8 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			
 			this.user = args.user;*/
 			
+			
+			
 
 		},
 
@@ -56,7 +58,11 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			//initialize parsley validation for the forms
 			this.parsleyInitialize(this.$el.find('#frm_addroom'));
 			this.parsleyInitialize(this.$el.find('#frm_roomdesc'));			 
-			this.parsleyInitialize(this.$el.find('#form_addfacility'));			 
+			this.parsleyInitialize(this.$el.find('#form_addfacility'));		
+			
+			
+			this.$el.find(".aj-imp-long-form-actions").affix()
+			 	
 			return this;
 			
 		},
@@ -218,6 +224,9 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 		 * Function to delete facililty 
 		 */
 		deleteFacility:function(evt){
+			
+			 $(evt.target).html('Deleting');
+			 $(evt.target).prop('disabled',true);
 		 
 			var self_ = this;
 			
@@ -234,11 +243,13 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 					data,
 					function(response){ 
 						if(response.code=='OK'){
-							 
+						  
 							self_.$el.find('#facility-'+facilityId).remove()  
 							self_.saveSuccess(response,evt_,self_);  
 						}
 						else{
+							$(evt_.target).prop('disabled',false);
+							$(evt.target).html('Delete');
 							 self_.saveFailure(response,evt_,self_);  
 						}
 				
@@ -270,8 +281,13 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 		 * Function to save updated facility 
 		 */
 		savefacility : function(evt){
+			
+			 
 			var evt_ = evt;
 			var self_ = this;
+			
+			 $(evt.target).html('Saving');
+			 $(evt.target).prop('disabled',true);
 			 
 			facilityId = $(evt.target).attr("term-id");
 			
@@ -290,6 +306,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 					 facilityId = $(evt_.target).attr("term-id"); 
 					 $(evt_.target).removeClass("savefacililty").addClass("edit")
 					 $(evt_.target).html("Edit")
+					 $(evt.target).prop('disabled',false);
 						 
 					 $("#facLabel-"+facilityId).removeClass('input-group');
 					 $("#facLabel-"+facilityId).html( $("#inputfacility-"+facilityId).val());
@@ -297,7 +314,9 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 					 
 				}
 				else{
-					 self_.saveFailure(response,evt_,self_);  
+						$(evt.target).html('Save');
+						$(evt.target).prop('disabled',false);
+						self_.saveFailure(response,evt_,self_);  
 				} 
 		
 			});	
@@ -315,8 +334,10 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 		 * @param _self
 		 */
 		saveSuccess : function(response,event,_self){
+			
+			if( $(event.target).next().get(0).tagName =="IMG") // hide next element only if its a loader image
+				$(event.target).next().hide(); 
 			 
-			$(event.target).next().hide(); 
 		 	 
 			 $(event.delegateTarget).find('#roomsave_status')  
 			 				.removeClass('alert-error').addClass('alert-success');
@@ -333,7 +354,10 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 		 */
 		saveFailure : function(response,event,_self){
 			 
-			$(event.target).next().hide();
+			if( $(event.target).next().get(0).tagName =="IMG") // hide next element only if its a loader image
+				$(event.target).next().hide();
+			 
+			
 			$(event.delegateTarget).find('#roomsave_status') 
 							.removeClass('alert-success').addClass('alert-error');
 			
@@ -354,9 +378,9 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			$(event.delegateTarget).find('#roomsave_status').removeClass('hidden');
 			  
 			/* Move to top at status message after success/failure */
-			$('html, body').animate({
+			/*$('html, body').animate({
 		        scrollTop: $(event.delegateTarget).find('#roomsave_status').offset().top
-		    }, 1000); 
+		    }, 1000); */
 		},
 		
 		
