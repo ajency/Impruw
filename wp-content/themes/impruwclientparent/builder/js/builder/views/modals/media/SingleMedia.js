@@ -56,7 +56,7 @@ define(['backbone','text!builder/templates/modal/media/singlemedia.hbs',
                 * Select the image
                 */
                 selectImage : function(evt){
-
+                    log(this.model);
                     SiteBuilder.vent.trigger('image-selected', this.model);
                     this.parent.hide();
 
