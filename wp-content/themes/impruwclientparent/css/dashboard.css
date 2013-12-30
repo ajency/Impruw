@@ -1174,6 +1174,7 @@ form .aj-imp-submit:hover {
 }
 .edit-link:hover {
   color: #65879c;
+  text-shadow: 0 0 2px #849fb0;
 }
 .delete-link {
   color: #ee4423;
@@ -1181,6 +1182,7 @@ form .aj-imp-submit:hover {
 }
 .delete-link:hover {
   color: #ce2f10;
+  text-shadow: 0 0 2px #ee4423;
 }
 /****Date Picker Styles****/
 .ui-datepicker {
