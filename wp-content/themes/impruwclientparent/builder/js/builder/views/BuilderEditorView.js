@@ -550,7 +550,7 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                     if(this.contentLoaded === true){
                           self.removeSwitchLoader();
                           window.editorMode = 'content';
-                          //self.makeEditable();
+                          CKEDITOR.inlineAll();
                           return;
                     }
 
