@@ -1142,6 +1142,7 @@ form .aj-imp-submit:hover {
   font-weight: 700;
   text-align: right;
   border-bottom: 1px solid #dddddd;
+  margin-bottom: 0.5em;
 }
 .add-text .add-btn {
   background: #ff7e00;
@@ -1157,8 +1158,15 @@ form .aj-imp-submit:hover {
 .add-text:hover .add-btn {
   margin-left: 0.5em;
 }
+.table-vc {
+  margin: 0 0 0.5em !important;
+  background: transparent !important;
+}
 .table-vc td {
   vertical-align: middle !important;
+}
+.no-mar {
+  padding: 0 !important;
 }
 .edit-link {
   color: #849fb0;
