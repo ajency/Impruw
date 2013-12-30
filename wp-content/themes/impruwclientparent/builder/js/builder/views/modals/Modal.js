@@ -3,38 +3,35 @@
  *  Contains all logic to handle menu configurations
  *  Add/Editing/Deleting Menu
  */
-define(['backbone','text!builder/templates/modal/modal.hbs', 'global'], 
-		
-		function(Backbone, outerTemplate, global){
+define(['backbone', 'text!builder/templates/modal/modal.hbs', 'global'],
+
+    function(Backbone, outerTemplate, global) {
 
 
-            var Modal = Backbone.View.extend({
+        var Modal = Backbone.View.extend({
 
-            	id		 	: 'id',
+            id: 'id',
 
-            	forElement  : null,
+            forElement: null,
 
-                outerTemplate    : outerTemplate, 
+            outerTemplate: outerTemplate,
 
-            	className 	: 'modal wide-modal',
+            className: 'modal wide-modal',
 
-                open : function(){
-                	this.$el.modal('show');
-                    $('#controls-drag').hide();
-                    SiteBuilder.vent.trigger(this.id + '-open');
-                },
+            open: function() {
+                this.$el.modal('show');
+                $('#controls-drag').hide();
+                SiteBuilder.vent.trigger(this.id + '-open');
+            },
 
-                hide : function(){
-                	this.$el.modal('hide');
-                    SiteBuilder.vent.trigger(this.id + '-hide');
-                }
+            hide: function() {
+                this.$el.modal('hide');
+                SiteBuilder.vent.trigger(this.id + '-hide');
+            }
 
-            });
-
-            return Modal;
-
-			
         });
-  
-    
 
+        return Modal;
+
+
+    });

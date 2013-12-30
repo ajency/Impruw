@@ -1,15 +1,15 @@
 define([
-		'builder/views/elements/BuilderElement',
-		'builder/views/elements/layout/BuilderRow'	
-		], 
-		function(BuilderElement, BuilderRow){
+        'builder/views/elements/BuilderElement',
+        'builder/views/elements/layout/BuilderRow'
+    ],
+    function(BuilderElement, BuilderRow) {
 
-			var Controls = {};
+        var Controls = {};
 
-			//attach controls
-			Controls.BuilderElement = BuilderElement;
-			Controls.BuilderRow		= BuilderRow;
+        //attach controls
+        Controls.BuilderElement = BuilderElement;
+        Controls.BuilderRow = BuilderRow;
 
-			return Controls;
+        return Controls;
 
-		});
+    });

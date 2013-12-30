@@ -2,9 +2,6 @@
 /**
  * Template Name: Register
  */
-//echo ABSPATH;
-//include(ABSPATH."wp-content\\themes\impruwmain\User\user_management.php");
-//include("/User/user_management.php");
 ?>
 <!DOCTYPE html>
 <!--[if IE 7]>

@@ -1,876 +1,887 @@
 /**
- * The Builder Editor View. 
+ * The Builder Editor View.
  * This is the editor view for the builder
  * Most imp file
  */
- 
+
 define(['underscore', 'jquery', 'backbone', 'global'],
-		function( _ , $, Backbone, global){
+    function(_, $, Backbone, global) {
 
-			var BuilderEditorView = Backbone.View.extend({
+        var BuilderEditorView = Backbone.View.extend({
 
-				        el          : '#aj-imp-builder-drag-drop',
+            el: '#aj-imp-builder-drag-drop',
 
-				        className   : 'container',
-                
-                elements    :   {
-                                    header : [],
-                                    content: [],
-                                    footer : []
-                                },
+            className: 'container',
 
-                mode        : 'layout',
-                
-                type        : 'editor',
+            elements: {
+                header: [],
+                content: [],
+                footer: []
+            },
 
-                contentLoaded : false,
+            mode: 'layout',
 
-                themeConfig : {},
-                
-                events      : {
-                     'click header > .popover .updateProperties': 'updateProperties'
-                },
+            type: 'editor',
 
-        				initialize  : function(option){
-                                
-                            _.bindAll(this, 'enableDropSort','getRows','is','holdOnWhileSwitching', 'removeSwitchLoader','switchMode',
-                                            'switchToLayout', 'handleRowDrop', 'switchToContent','generateActualMarkup', 
-                                            'buildRowMarkup', 'buildColumnMarkup', 'holdCurrentColRef','getClasses');    
+            contentLoaded: false,
 
-                            this.themeConfig = option.themeConfig;
+            themeConfig: {},
 
-        				},
-                
-                /**
-                 * 
-                 * @returns {undefined}
-                 */
-                generateJSON : function(){
-                   
-                   var self = this;
-                   
-                   this.json =   {
-                                    header : {
-                                       elements : []
-                                    },
-                                    page : {
-                                       elements : []
-                                    },
-                                    footer : {
-                                       elements : []
-                                    }
-                                 };
-                   
-                   _.each(this.elements, function(section, index){
+            events: {
+                'click header > .popover .updateProperties': 'updateProperties'
+            },
 
-                        _.each(section, function(row, index){
-                        
-                            var json = row.generateJSON();
-                            
-                            if(row.$el.closest('.layout-header').length === 1){
-                               self.json.header.elements.push(json);
-                            }
-                            if(row.$el.closest('.layout-content').length === 1){
-                               self.json.page.elements.push(json);
-                            }
-                            if(row.$el.closest('.layout-footer').length === 1){
-                               self.json.footer.elements.push(json);
-                            }
-                        });
-                   });
+            /**
+             * [initialize description]
+             * @param  {[object]} option
+             * @return {[void]}
+             */
+            initialize: function(option) {
 
-                   
-                },
-                
-                /**
-                 * Updates the properties of the element
-                 * @returns void
-                 */
-                updateProperties : function(evt){
-                   
-                   var pcontent = $(evt.target).closest('.popover');
-                   
-                   var id = pcontent.closest('.popover').prev().attr('id');
-                   
-                   var element = this.getElementByID(id);
-                   
-                   if(!_.isObject(element))
-                      return;
-                   
-                   if($(pcontent).find('input[name="className"]').length > 0)
-                        element.extraClasses += $(pcontent).find('input[name="className"]').val();
-                     
-                   if($(pcontent).find('input[name="isDraggable"]').length > 0)
-                        element.isDraggable = true;
-                  
-                },
-                
-                /**
-                 * Returns the elemnet object by ID
-                 * @returns View object or false
-                 */
-                getElementByID : function(id){
-                   
-                   //is id passed?
-                   if(_.isUndefined(id))
-                      return false;
-                   
-                   //does this element has child elemnts property
-                   if(_.isUndefined(this.rows) || !_.isArray(this.rows))
-                      return false;
-                   
-                   //does the element has any child elements
-                   if(_.isArray(this.rows) && this.rows.length === 0)
-                      return false;
-                   
-                   var element = false;
-                   
-                   for(var k = 0,len=this.rows.length; k < len; k++){
-                      
-                      if(this.rows[k].id === id){
-                         element = this.rows[k];
-                         break;
-                      } 
-                      
-                   }
-                   
-                   return element;
-                },
-                
-                /**
-                 * Sends the json data to server
-                 * @returns Void
-                 */
-                sendJSONToServer : function(evt){
+                _.bindAll(this, 'enableDropSort', 'getRows', 'is', 'holdOnWhileSwitching', 'removeSwitchLoader', 'switchMode',
+                    'switchToLayout', 'handleRowDrop', 'switchToContent', 'generateActualMarkup',
+                    'buildRowMarkup', 'buildColumnMarkup', 'holdCurrentColRef', 'getClasses');
 
-                    var ozText = $(evt.target).text();
+                this.themeConfig = option.themeConfig;
 
-                    $(evt.target).text('Please wait....');
+            },
 
-                    var _data = {
-                            action  : 'save_json_structure', 
-                            json    : this.json
-                        };
+            /**
+             * [generateJSON description]
+             * @return {[type]}
+             */
+            generateJSON: function() {
 
-                    if($(evt.target).hasClass('publish')){
-                        _data = {
-                            action  : 'publish_page',
-                            pageId  : 2,
-                            json    : this.json
-                        };
+                var self = this;
 
+                this.json = {
+                    header: {
+                        elements: []
+                    },
+                    page: {
+                        elements: []
+                    },
+                    footer: {
+                        elements: []
+                    }
+                };
+
+                _.each(this.elements, function(section, index) {
+
+                    _.each(section, function(row, index) {
+
+                        var json = row.generateJSON();
+
+                        if (row.$el.closest('.layout-header').length === 1) {
+                            self.json.header.elements.push(json);
+                        }
+                        if (row.$el.closest('.layout-content').length === 1) {
+                            self.json.page.elements.push(json);
+                        }
+                        if (row.$el.closest('.layout-footer').length === 1) {
+                            self.json.footer.elements.push(json);
+                        }
+                    });
+                });
+
+
+            },
+
+            /**
+             * Updates the properties of the element
+             * @returns void
+             */
+            updateProperties: function(evt) {
+
+                var pcontent = $(evt.target).closest('.popover');
+
+                var id = pcontent.closest('.popover').prev().attr('id');
+
+                var element = this.getElementByID(id);
+
+                if (!_.isObject(element))
+                    return;
+
+                if ($(pcontent).find('input[name="className"]').length > 0)
+                    element.extraClasses += $(pcontent).find('input[name="className"]').val();
+
+                if ($(pcontent).find('input[name="isDraggable"]').length > 0)
+                    element.isDraggable = true;
+
+            },
+
+            /**
+             * Returns the elemnet object by ID
+             * @returns View object or false
+             */
+            getElementByID: function(id) {
+
+                //is id passed?
+                if (_.isUndefined(id))
+                    return false;
+
+                //does this element has child elemnts property
+                if (_.isUndefined(this.rows) || !_.isArray(this.rows))
+                    return false;
+
+                //does the element has any child elements
+                if (_.isArray(this.rows) && this.rows.length === 0)
+                    return false;
+
+                var element = false;
+
+                for (var k = 0, len = this.rows.length; k < len; k++) {
+
+                    if (this.rows[k].id === id) {
+                        element = this.rows[k];
+                        break;
                     }
 
-                    $.post(AJAXURL,
-                         _data,
-                         function(response){
-                            
-                            $(evt.target).hide().text(ozText).fadeIn('slow');
+                }
 
-                         },'json');
-                   
-                },
+                return element;
+            },
 
-                /**
-                * Function to generate the markup of the actual site
-                */
-                generateActualMarkup : function(){
+            /**
+             * Sends the json data to server
+             * @returns Void
+             */
+            sendJSONToServer: function(evt) {
 
-                    var self = this;
+                var ozText = $(evt.target).text();
 
-                    var markup  = '<html>';
-                    
-                    markup      += '<head>';
+                $(evt.target).text('Please wait....');
 
-                    markup      += this.getThemeCSS();
+                var _data = {
+                    action: 'save_json_structure',
+                    json: this.json
+                };
 
-                    markup      += '</head>';
-                    
-                    markup      += '<body>';
+                if ($(evt.target).hasClass('publish')) {
+                    _data = {
+                        action: 'publish_page',
+                        pageId: 2,
+                        json: this.json
+                    };
 
-                    markup      += '<div class="'+ this.getClasses('containerClasses') + '">';
+                }
 
-                    markup      += '<header class="'+ this.getClasses('headerWrapperClasses') + '">';
+                $.post(AJAXURL,
+                    _data,
+                    function(response) {
 
-                    _.each(this.headerRows, function(row, index){
+                        $(evt.target).hide().text(ozText).fadeIn('slow');
 
-                        markup  += self.buildRowMarkup(row);
+                    }, 'json');
 
-                    });
+            },
 
-                    markup      += '</header><!-- End header -->';
+            /**
+             * Function to generate the markup of the actual site
+             * @return {[void]}
+             */
+            generateActualMarkup: function() {
 
-                    markup      += '<div class="'+ this.getClasses('contentWrapperClasses') + '">';
+                var self = this;
 
-                    _.each(this.rows, function(row, index){
+                var markup = '<html>';
 
-                        markup  += self.buildRowMarkup(row);
+                markup += '<head>';
 
-                    });
+                markup += this.getThemeCSS();
 
-                    markup      += '</div><!-- End Page Body -->';
+                markup += '</head>';
 
-                    markup      += '<footer class="'+ this.getClasses('footerWrapperClasses') + '">';
+                markup += '<body>';
 
-                    _.each(this.footerRows, function(row, index){
+                markup += '<div class="' + this.getClasses('containerClasses') + '">';
 
-                        markup  += self.buildRowMarkup(row);
+                markup += '<header class="' + this.getClasses('headerWrapperClasses') + '">';
 
-                    });
+                _.each(this.headerRows, function(row, index) {
 
-                    markup      += '</footer><!-- End Footer -->';
+                    markup += self.buildRowMarkup(row);
 
-                    markup      += '</div>';
-                    
-                    markup      += this.getThemeJS();
-                    
-                    markup      += '</body>';
-                    
-                    markup      += '</html><!-- end html -->';
+                });
+
+                markup += '</header><!-- End header -->';
+
+                markup += '<div class="' + this.getClasses('contentWrapperClasses') + '">';
+
+                _.each(this.rows, function(row, index) {
+
+                    markup += self.buildRowMarkup(row);
+
+                });
+
+                markup += '</div><!-- End Page Body -->';
+
+                markup += '<footer class="' + this.getClasses('footerWrapperClasses') + '">';
+
+                _.each(this.footerRows, function(row, index) {
+
+                    markup += self.buildRowMarkup(row);
+
+                });
+
+                markup += '</footer><!-- End Footer -->';
+
+                markup += '</div>';
+
+                markup += this.getThemeJS();
+
+                markup += '</body>';
+
+                markup += '</html><!-- end html -->';
 
 
-                    //save markup to server
-                    $.post( 'savemarkup.php',
-                            {
-                                markup : markup
-                            },
-                            function(response){
-                                
-                                log('Done');
+                //save markup to server
+                $.post('savemarkup.php', {
+                        markup: markup
+                    },
+                    function(response) {
 
-                            });
-
-                },
-
-                /**
-                * Theme JS files
-                */
-                getThemeJS : function(){
-
-                    var markup = '';
-                    
-                    _.each(this.themeConfig.jsFiles, function(file, index){
-                     
-                        markup += '<script src="js/lib/'+ file +'"></script>';
-                     
-                    });
-                     
-                    return markup;  
-                },
-
-                /**
-                * Returns the classes for each container
-                */
-                getClasses : function(classFor){
-
-                    if(_.isUndefined(this.themeConfig[classFor]))
-                        return '';
-
-                    var classes = this.themeConfig[classFor];
-
-                    var c = '';
-
-                    _.each(classes, function(cls, index){
-
-                        c += cls + ' ';
+                        log('Done');
 
                     });
 
-                    return _.clean(c);
+            },
 
-                },
+            /**
+             * Theme JS files
+             */
+            getThemeJS: function() {
 
-                /**
-                *   theme Css
-                */
-                getThemeCSS: function(){
+                var markup = '';
 
-                    var markup = '';
-                    
-                    _.each(this.themeConfig.cssFiles, function(file, index){
-                     
-                        markup += '<link rel="stylesheet" href="css/'+ file +'"     type="text/css" />';
-                     
+                _.each(this.themeConfig.jsFiles, function(file, index) {
+
+                    markup += '<script src="js/lib/' + file + '"></script>';
+
+                });
+
+                return markup;
+            },
+
+            /**
+             * Returns the classes for each container
+             */
+            getClasses: function(classFor) {
+
+                if (_.isUndefined(this.themeConfig[classFor]))
+                    return '';
+
+                var classes = this.themeConfig[classFor];
+
+                var c = '';
+
+                _.each(classes, function(cls, index) {
+
+                    c += cls + ' ';
+
+                });
+
+                return _.clean(c);
+
+            },
+
+            /**
+             *   theme Css
+             */
+            getThemeCSS: function() {
+
+                var markup = '';
+
+                _.each(this.themeConfig.cssFiles, function(file, index) {
+
+                    markup += '<link rel="stylesheet" href="css/' + file + '"     type="text/css" />';
+
+                });
+
+                return markup;
+
+            },
+
+            /**
+             *
+             */
+            buildRowMarkup: function(row) {
+
+                var self = this;
+
+                var markup = '<div class="row">';
+
+                _.each(row.getColumns(), function(column, index) {
+
+                    markup += self.buildColumnMarkup(column);
+
+                });
+
+                markup += '</div><!-- end row -->';
+
+                return markup;
+
+            },
+
+            /**
+             *
+             */
+            buildColumnMarkup: function(column) {
+
+                var colClass = 'column col-sm-' + column.getCurrentClass();
+
+                var markup = '<div class="' + colClass + '">';
+
+                _.each(column.getElements(), function(element, index) {
+
+                    if (element.is('row'))
+                        markup += self.buildRowMarkup(element);
+                    else
+                        markup += element.getContentMarkup();
+
+                });
+
+                markup += '</div><!-- end ' + colClass + ' -->';
+
+                return markup;
+
+            },
+
+
+            /**
+             * Check the view type
+             *
+             * @param {type} type
+             * @returns {Boolean}
+             */
+            is: function(type) {
+
+                return type === 'editor';
+
+            },
+
+            /**
+             *  Render function for view
+             */
+            render: function() {
+
+                var self = this;
+
+                var templatePath = '';
+
+                $.get(AJAXURL, {
+                        action: 'get_saved_layout',
+                        pageId: 2
+                    },
+                    function(response) {
+
+                        if (!_.isUndefined(response.header) && response.header.elements.length > 0)
+                            self.addElement(response.header.elements, 0, 'header');
+
+                        if (!_.isUndefined(response.page) && response.page.elements.length > 0)
+                            self.addElement(response.page.elements, 0, 'content');
+
+                        if (!_.isUndefined(response.footer) && response.footer.elements.length > 0)
+                            self.addElement(response.footer.elements, 0, 'footer');
+
+
+                        self.enableDragDrop();
+
+                    }, 'json');
+
+
+                return this;
+            },
+
+            /**
+             * Adds and element to editor
+             */
+            addElement: function(elements, index, section) {
+
+                if (index >= elements.length)
+                    return;
+
+                var self = this;
+
+                //add element recall
+                var element = elements[index];
+
+                if (element.type !== 'BuilderRow')
+                    return;
+
+                var mod = 'builder/views/elements/layout/BuilderRow';
+
+                require([mod], function(Row) {
+
+                    var row = new Row({
+                        config: element,
+                        parent: self
                     });
-                     
-                    return markup;    
-                            
-                },
 
-                /**
-                * 
-                */
-                buildRowMarkup : function(row){
-                    
-                    var self = this;
+                    self.$el.find('.layout-' + section).append(row.render().$el);
 
-                    var markup = '<div class="row">';
+                    self.elements[section].push(row);
 
-                    _.each(row.getColumns(), function(column, index){
+                    if (!_.isUndefined(element.elements) && element.elements.length > 0)
+                        row.addElement(element.elements, 0);
 
-                        markup += self.buildColumnMarkup(column);
+                    index++;
 
-                    });
+                    self.addElement(elements, index, section);
 
-                    markup += '</div><!-- end row -->';
+                });
 
-                    return markup;
-
-                },
-
-                /**
-                *
-                */
-                buildColumnMarkup : function(column){
-                    
-                    var colClass = 'column col-sm-' + column.getCurrentClass();
-
-                    var markup = '<div class="'+ colClass +'">';
-
-                    _.each(column.getElements(), function(element, index){
-
-                        if(element.is('row'))
-                            markup += self.buildRowMarkup(element);
-                        else          
-                            markup += element.getContentMarkup();
-
-                    });
-
-                    markup += '</div><!-- end '+colClass+' -->';
-
-                    return markup;
-                
-                },
+            },
 
 
-                /**
-                 * Check the view type
-                 * 
-                 * @param {type} type
-                 * @returns {Boolean}
-                 */        
-                is : function(type){
+            /**
+             *
+             */
+            enableDragDrop: function() {
 
-                    return type === 'editor';
+                //enable controls drag
+                $("#controls-drag").draggable({
+                    handle: "p.desc",
+                    addClasses: false
+                });
 
-                },        
-
-                /**
-                *  Render function for view 
-                */
-        		    render : function(){
-                                
-                      var self = this;
-
-                      var templatePath = '';
-
-    				          $.get(AJAXURL,
-                              {
-                                action      : 'get_saved_layout',
-                                pageId      : 2
-                              }, 
-                              function(response){
-
-                                if( !_.isUndefined(response.header) && response.header.elements.length > 0)
-                                    self.addElement( response.header.elements, 0, 'header');
-
-                                if( !_.isUndefined(response.page) && response.page.elements.length > 0)
-                                    self.addElement( response.page.elements, 0, 'content');  
-                                
-                                if( !_.isUndefined(response.footer) && response.footer.elements.length > 0)
-                                    self.addElement( response.footer.elements, 0, 'footer');  
-
-                                
-                                self.enableDragDrop(); 
-
-                             },'json');
-
-                        
-    					         return this;
-          			},
-
-                /**
-                * Adds and element to editor
-                */
-                addElement : function(elements, index, section){
-
-                    if(index >= elements.length )
-                        return;
-
-                    var self = this;
-
-                    //add element recall
-                    var element = elements[index];
-                    
-                    if(element.type !== 'BuilderRow')
-                        return;
-
-                    var mod = 'builder/views/elements/layout/BuilderRow';
-                    
-                    require([mod], function(Row){
-                        
-                        var row = new Row({config : element, parent : self});
-                       
-                        self.$el.find('.layout-' + section).append(row.render().$el);
-
-                        self.elements[section].push(row);
-
-                        if( !_.isUndefined(element.elements) && element.elements.length > 0)
-                            row.addElement(element.elements, 0);
-
-                        index++;
-
-                        self.addElement(elements, index, section);
-
-                    });
-                    
-                },
-
-
-                /**
-                *
-                */
-                enableDragDrop : function(){
-
-                    //enable controls drag
-                    $( "#controls-drag" ).draggable({
-                         handle: "p.desc",
-                         addClasses: false
-                    });
-                    
-                    /** Controls Draggable */
-                    $('*[data-element]').draggable({
-                                            connectToSortable   : '.layout-header,.layout-content,.layout-footer,.column',
-                                            helper              : 'clone',
-                                            revert              : 'invalid',
-                                            start               : function (e, t) {
-                                                                        var ele = t.helper.attr('data-element');
-                                                                        if(ele === 'BuilderRow' || ele === 'BuilderRowColumn')
-                                                                            t.helper.width(286);
-                                                                        else
-                                                                            t.helper.width(92).height(80);
-                                                                  }                           
-                                        });
-                    this.enableDropSort();
-                },
-
-                /**
-                 * Switch modes
-                 * @returns {undefined}
-                 */
-                switchMode : function(evt){
-
-                    this.holdOnWhileSwitching();
-                   
-                    if(window.editorMode === 'layout'){
-
-                        this.switchToContent(evt);
-                    
+                /** Controls Draggable */
+                $('*[data-element]').draggable({
+                    connectToSortable: '.layout-header,.layout-content,.layout-footer,.column',
+                    helper: 'clone',
+                    revert: 'invalid',
+                    start: function(e, t) {
+                        var ele = t.helper.attr('data-element');
+                        if (ele === 'BuilderRow' || ele === 'BuilderRowColumn')
+                            t.helper.width(286);
+                        else
+                            t.helper.width(92).height(80);
                     }
-                    else if(window.editorMode === 'content'){
-                    
-                        this.switchToLayout(evt);
-                    
-                    }
+                });
+                this.enableDropSort();
+            },
 
-                },
+            /**
+             * Switch modes
+             * @returns {undefined}
+             */
+            switchMode: function(evt) {
 
-                /**
-                *  Switch to layout mode
-                */
-                switchToLayout : function(){
+                this.holdOnWhileSwitching();
 
-                    //
-                    this.$el.removeClass('aj-imp-builder-content-mode').addClass('aj-imp-builder-layout-mode');
+                if (window.editorMode === 'layout') {
 
-                    $('#controls-drag').fadeIn();
+                    this.switchToContent(evt);
 
-                    this.removeSwitchLoader();
-                    
-                    window.editorMode = 'layout';
+                } else if (window.editorMode === 'content') {
 
-                },
+                    this.switchToLayout(evt);
 
-                /**
-                * Show the loader while switching modes
-                */
-                holdOnWhileSwitching : function(){
+                }
 
-                    var switcher = $('<div class="element-drop-loader" id="editor-initial-loader">\
+            },
+
+            /**
+             *  Switch to layout mode
+             */
+            switchToLayout: function() {
+
+                //
+                this.$el.removeClass('aj-imp-builder-content-mode').addClass('aj-imp-builder-layout-mode');
+
+                $('#controls-drag').fadeIn();
+
+                this.removeSwitchLoader();
+
+                window.editorMode = 'layout';
+
+            },
+
+            /**
+             * Show the loader while switching modes
+             */
+            holdOnWhileSwitching: function() {
+
+                var switcher = $('<div class="element-drop-loader" id="editor-initial-loader">\
                                         <p>switching mode... Please wait... </p>\
                                     </div>');
 
-                    switcher.height(this.$el.height()).css('top',0);
+                switcher.height(this.$el.height()).css('top', 0);
 
-                    this.$el.append(switcher);
+                this.$el.append(switcher);
 
-                },
+            },
 
-                /**
-                * removes the switch loader
-                */
-                removeSwitchLoader : function(){
+            /**
+             * removes the switch loader
+             */
+            removeSwitchLoader: function() {
 
-                    this.$el.find('#editor-initial-loader').fadeOut('slow', function(){
-                        
-                        $(this).remove();
-                    
-                    });
+                this.$el.find('#editor-initial-loader').fadeOut('slow', function() {
 
-                },
+                    $(this).remove();
 
-                /**
-                *  Switch to content mode
-                */
-                switchToContent : function(evt){
+                });
 
-                     var self = this;
-                    
-                    this.$el.removeClass('aj-imp-builder-layout-mode').addClass('aj-imp-builder-content-mode');
+            },
 
-                    this.$el.parent().addClass('aj-imp-preview');
-                    this.$el.addClass(this.getClasses('containerClasses'));
-                    this.$el.children('header').addClass(this.getClasses('headerWrapperClasses'));
-                    this.$el.children('div[data-page="true"]').addClass(this.getClasses('contentWrapperClasses'));
-                    this.$el.children('footer').addClass(this.getClasses('footerWrapperClasses'));
+            /**
+             *  Switch to content mode
+             */
+            switchToContent: function(evt) {
 
-                    $('#controls-drag').fadeOut();
+                var self = this;
 
-                    this.fetchContentMarkup();
+                this.$el.removeClass('aj-imp-builder-layout-mode').addClass('aj-imp-builder-content-mode');
 
-                },
+                this.$el.parent().addClass('aj-imp-preview');
+                this.$el.addClass(this.getClasses('containerClasses'));
+                this.$el.children('header').addClass(this.getClasses('headerWrapperClasses'));
+                this.$el.children('div[data-page="true"]').addClass(this.getClasses('contentWrapperClasses'));
+                this.$el.children('footer').addClass(this.getClasses('footerWrapperClasses'));
 
-                /**
-                * Fetches the content for each element in json and updates .content markup
-                */
-                fetchContentMarkup : function(){
+                $('#controls-drag').fadeOut();
 
-                    var self = this;
-                    //return if content is alredy loaded once
-                    if(this.contentLoaded === true){
-                          self.removeSwitchLoader();
-                          window.editorMode = 'content';
-                          CKEDITOR.inlineAll();
-                          return;
-                    }
+                this.fetchContentMarkup();
 
-                    //get latest json
-                    this.generateJSON();
+            },
 
-                    var _json = this.json;
+            /**
+             * Fetches the content for each element in json and updates .content markup
+             */
+            fetchContentMarkup: function() {
 
-                    $.post(AJAXURL,
-                          {
-                              action : 'get_content_markup',
-                              json   : _json,
-                              pageId : 2
-                          },
-                          function(response){
+                var self = this;
+                //return if content is alredy loaded once
+                if (this.contentLoaded === true) {
+                    self.removeSwitchLoader();
+                    window.editorMode = 'content';
+                    CKEDITOR.inlineAll();
+                    return;
+                }
 
-                              if(response.code === 'OK'){
+                //get latest json
+                this.generateJSON();
 
-                                  //set HTML
-                                  _.each(response.data, function(val, key){
+                var _json = this.json;
 
-                                    $('#'+key).children('.content').html(val);
-                                    
-                                  });
+                $.post(AJAXURL, {
+                        action: 'get_content_markup',
+                        json: _json,
+                        pageId: 2
+                    },
+                    function(response) {
 
-                                  self.makeEditable();
-                              }
-                              else{
-                                  //$(evt.target).click();
-                              }
-                              
-                              window.editorMode = 'content';
+                        if (response.code === 'OK') {
 
-                              self.contentLoaded = true; 
+                            //set HTML
+                            _.each(response.data, function(val, key) {
 
-                              self.removeSwitchLoader();
+                                $('#' + key).children('.content').html(val);
 
-                          },'json');
-                },
+                            });
 
-                /**
-                *
-                */
-                makeEditable : function(){
+                            self.makeEditable();
+                        } else {
+                            //$(evt.target).click();
+                        }
 
-                    var self = this;
+                        window.editorMode = 'content';
 
-                    require(['ckeditor'], function(CKEDITOR){
+                        self.contentLoaded = true;
 
-                        CKEDITOR.on( 'instanceCreated', self.configureEditor );
+                        self.removeSwitchLoader();
 
-                        CKEDITOR.inlineAll();
+                    }, 'json');
+            },
 
-                        global.Holder.run();
+            /**
+             *
+             */
+            makeEditable: function() {
 
-                    });
+                var self = this;
 
-                },
+                require(['ckeditor'], function(CKEDITOR) {
 
-                /**
-                 * Configure the editor
-                 */
-                configureEditor : function(event){
+                    CKEDITOR.on('instanceCreated', self.configureEditor);
 
-                    var editor = event.editor,
+                    CKEDITOR.inlineAll();
+
+                    global.Holder.run();
+
+                });
+
+            },
+
+            /**
+             * Configure the editor
+             */
+            configureEditor: function(event) {
+
+                var editor = event.editor,
                     element = editor.element;
 
-                    // Customize editors for headers and tag list.
-                    // These editors don't need features like smileys, templates, iframes etc.
-                    if ( element.is( 'h1', 'h2', 'h3' ) || element.getAttribute( 'id' ) == 'taglist' ) {
-                      // Customize the editor configurations on "configLoaded" event,
-                      // which is fired after the configuration file loading and
-                      // execution. This makes it possible to change the
-                      // configurations before the editor initialization takes place.
-                      editor.on( 'configLoaded', function() {
+                // Customize editors for headers and tag list.
+                // These editors don't need features like smileys, templates, iframes etc.
+                if (element.is('h1', 'h2', 'h3') || element.getAttribute('id') == 'taglist') {
+                    // Customize the editor configurations on "configLoaded" event,
+                    // which is fired after the configuration file loading and
+                    // execution. This makes it possible to change the
+                    // configurations before the editor initialization takes place.
+                    editor.on('configLoaded', function() {
 
                         // Remove unnecessary plugins to make the editor simpler.
                         editor.config.removePlugins = 'colorbutton,find,flash,font,' +
-                          'forms,iframe,image,newpage,removeformat,scayt,' +
-                          'smiley,specialchar,stylescombo,templates,wsc';
+                            'forms,iframe,image,newpage,removeformat,scayt,' +
+                            'smiley,specialchar,stylescombo,templates,wsc';
 
                         // Rearrange the layout of the toolbar.
-                        editor.config.toolbarGroups = [
-                          { name: 'editing',    groups: [ 'basicstyles', 'links' ] },
-                          { name: 'undo' },
-                          { name: 'clipboard',  groups: [ 'selection', 'clipboard' ] },
-                          { name: 'about' }
-                        ];
-                      });
-                    }
-
-                },
-
-        				/**
-        				 * Binds the droppable  / sortable
-        				 */
-        				enableDropSort : function(){
-                            
-                            var self = this;
-                            
-                            this.$el.children('.layout-header,.layout-content,.layout-footer').sortable({
-                                                revert      : 'invalid',
-                                                items       : '> .row',        
-                                                connectWith : '.layout-header,.layout-content,.layout-footer,.column',
-                                                opacity     : .65,
-                                                handle      : '> .aj-imp-drag-handle',
-                                                receive     : self.handleRowDrop,
-                                                stop        : function(evt , ui){
-
-                                                                self.rearrangeElementOrder('header');
-                                                                self.rearrangeElementOrder('content');
-                                                                self.rearrangeElementOrder('footer');
-
-                                                            },
-                                                activate    : self.holdCurrentColRef,
-                                                sort        : function(evt , ui){
-                                                                    
-                                                                var pHeight = ui.helper.attr('data-placeholder-height');
-                                                                
-                                                                ui.placeholder.css('max-height',parseInt(pHeight));
-                                                                
-                                                            }
-
-                                            });//.disableSelection(); 
-                                                                        
-        				},
-
-                /**
-                *
-                */
-                updateEmptyView : function(){
-
-                },
-
-                /**
-                 * 
-                 * Handle element removal state
-                 * 
-                 * @param {type} event
-                 * @param {type} ui
-                 * @returns {undefined}
-                 */        
-                handleElementRemove : function(receiver, sender, elementId){
-                    
-                    _.each(sender.elements, function(element, index){
-                        
-                        if(element.id == elementId){
-                            
-                            receiver.push(element); //add the same position
-
-                            sender.elements.splice(index,1);//remove element
-
-                            //change parent
-                            element.setParent(receiver);
-                        }
-                        
+                        editor.config.toolbarGroups = [{
+                            name: 'editing',
+                            groups: ['basicstyles', 'links']
+                        }, {
+                            name: 'undo'
+                        }, {
+                            name: 'clipboard',
+                            groups: ['selection', 'clipboard']
+                        }, {
+                            name: 'about'
+                        }];
                     });
-                    
-                    sender.updateEmptyView();
-
-                },
-
-                /**
-                 * Holds current sender column reference
-                 * 
-                 * @param {type} event
-                 * @param {type} ui
-                 * @returns {undefined}
-                 */        
-                holdCurrentColRef : function(event, ui){
-                    
-                    event.stopPropagation();
-                    
-                    ui.helper.sender = this;
-                    
-                },  
-
-                /**
-                 * Check for column drop event
-                 * @param {type} event
-                 * @param {type} ui
-                 * @returns {undefined}
-                 */        
-                handleRowDrop : function(event, ui){
-
-                    
-                    //handle if helper is null
-                    if(!_.isUndefined(ui.item.sender)){
-
-                        var section = $(event.target);
-                        
-                        var receiver = '';
-
-                        if($(section).hasClass('layout-header'))
-                          receiver = this.elements.header;
-
-                        if($(section).hasClass('layout-content'))
-                          receiver = this.elements.content;
-                          
-                        if($(section).hasClass('layout-footer'))
-                          receiver = this.elements.footer;   
-
-                        if(receiver === '')
-                          return;  
-
-                        var sender = ui.item.sender;
-
-                        var elementId = ui.item.attr('id');
-                        
-                        this.handleElementRemove(receiver, sender, elementId);
-                        
-                        return;
-                    }
-
-                    //get control to be dropped
-                    var elementName = ui.item.attr('data-element');
-                    
-                    //should allow only row and no othe element
-                    if(elementName !== 'BuilderRow')
-                        return;
-
-                    var into = '';
-
-                    if($(event.target).hasClass('layout-header'))
-                        into = 'header';
-                    
-                    if($(event.target).hasClass('layout-content'))
-                        into = 'content';
-
-                    if($(event.target).hasClass('layout-footer'))
-                        into = 'footer';
-                    
-                    //pass control to column view to handle
-                    this.handleElementDrop('BuilderRow', into);
-                   
-                }, 
-
-                /**
-                 * Identifies the control drop and handle accordingly
-                 * 
-                 * @param {type} controlName
-                 * @returns {undefined}
-                 */        
-                handleElementDrop : function(elementName, into){
-                    
-                    var self = this;
-                    
-                    var path = '';
-                    path = 'builder/views/elements/layout/BuilderRow';
-                    
-                    //set loader
-                    if(self.$el.find('*[data-element="'+elementName+'"]').length > 0)
-                        self.$el.find('*[data-element="'+elementName+'"]').html('<div class="element-drop-loader"></div>');
-                    
-                    require([path], function(Row){
-
-                        var row = new Row({parent: self});
-                        
-                        if(into === 'header')
-                            self.elements.header.push(row);
-                        
-                        if(into === 'content')
-                            self.elements.content.push(row);
-
-                        if(into === 'footer')
-                            self.elements.footer.push(row);
-                        
-                        var el = row.$el;
-
-                        if(self.$el.find('*[data-element="'+elementName+'"]').length > 0)
-                            self.$el.find('*[data-element="'+elementName+'"]').replaceWith(el);
-                       
-                        row.sortableColumns();
-                        row.appendColumnResizer();
-
-                    });
-                   
-                }, 
-
-                /**
-                 * Rearrange elemenst according to current view order
-                 */
-                rearrangeElementOrder : function(wrapper){
-
-                    var elements = this.getRows(wrapper);
-
-                    if(elements.length === 0)
-                      return;
-
-                    var newArr = [];
-
-                    this.$el.find('.layout-' + wrapper).children('.row').each(function(index,element){
-                        
-                        var el = _.find(elements ,  function(ele){ 
-                                                        return ele.id === $(element).attr('id');
-                                                    });
-                        if(_.isUndefined(el))
-                            return;
-                        else
-                            newArr.push(el);
-                    });
-
-                    this.elements[wrapper] = newArr;
-
-                },
-                
-                /**
-                 * Returns current rows for the Editor.Top Level rows
-                 * 
-                 * @returns {unresolved}
-                 */
-                getRows : function(section){
-                    
-                    return !_.isUndefined(this.elements[section]) ? this.elements[section] : [];
-                    
                 }
 
-			});	
+            },
+
+            /**
+             * Binds the droppable  / sortable
+             */
+            enableDropSort: function() {
+
+                var self = this;
+
+                this.$el.children('.layout-header,.layout-content,.layout-footer').sortable({
+                    revert: 'invalid',
+                    items: '> .row',
+                    connectWith: '.layout-header,.layout-content,.layout-footer,.column',
+                    opacity: .65,
+                    handle: '> .aj-imp-drag-handle',
+                    receive: self.handleRowDrop,
+                    stop: function(evt, ui) {
+
+                        self.rearrangeElementOrder('header');
+                        self.rearrangeElementOrder('content');
+                        self.rearrangeElementOrder('footer');
+
+                    },
+                    activate: self.holdCurrentColRef,
+                    sort: function(evt, ui) {
+
+                        var pHeight = ui.helper.attr('data-placeholder-height');
+
+                        ui.placeholder.css('max-height', parseInt(pHeight));
+
+                    }
+
+                }); //.disableSelection(); 
+
+            },
+
+            /**
+             *
+             */
+            updateEmptyView: function() {
+
+            },
+
+            /**
+             *
+             * Handle element removal state
+             *
+             * @param {type} event
+             * @param {type} ui
+             * @returns {undefined}
+             */
+            handleElementRemove: function(receiver, sender, elementId) {
+
+                _.each(sender.elements, function(element, index) {
+
+                    if (element.id == elementId) {
+
+                        receiver.push(element); //add the same position
+
+                        sender.elements.splice(index, 1); //remove element
+
+                        //change parent
+                        element.setParent(receiver);
+                    }
+
+                });
+
+                sender.updateEmptyView();
+
+            },
+
+            /**
+             * Holds current sender column reference
+             *
+             * @param {type} event
+             * @param {type} ui
+             * @returns {undefined}
+             */
+            holdCurrentColRef: function(event, ui) {
+
+                event.stopPropagation();
+
+                ui.helper.sender = this;
+
+            },
+
+            /**
+             * Check for column drop event
+             * @param {type} event
+             * @param {type} ui
+             * @returns {undefined}
+             */
+            handleRowDrop: function(event, ui) {
 
 
-			return BuilderEditorView;
+                //handle if helper is null
+                if (!_.isUndefined(ui.item.sender)) {
 
-		});
+                    var section = $(event.target);
+
+                    var receiver = '';
+
+                    if ($(section).hasClass('layout-header'))
+                        receiver = this.elements.header;
+
+                    if ($(section).hasClass('layout-content'))
+                        receiver = this.elements.content;
+
+                    if ($(section).hasClass('layout-footer'))
+                        receiver = this.elements.footer;
+
+                    if (receiver === '')
+                        return;
+
+                    var sender = ui.item.sender;
+
+                    var elementId = ui.item.attr('id');
+
+                    this.handleElementRemove(receiver, sender, elementId);
+
+                    return;
+                }
+
+                //get control to be dropped
+                var elementName = ui.item.attr('data-element');
+
+                //should allow only row and no othe element
+                if (elementName !== 'BuilderRow')
+                    return;
+
+                var into = '';
+
+                if ($(event.target).hasClass('layout-header'))
+                    into = 'header';
+
+                if ($(event.target).hasClass('layout-content'))
+                    into = 'content';
+
+                if ($(event.target).hasClass('layout-footer'))
+                    into = 'footer';
+
+                //pass control to column view to handle
+                this.handleElementDrop('BuilderRow', into);
+
+            },
+
+            /**
+             * Identifies the control drop and handle accordingly
+             *
+             * @param {type} controlName
+             * @returns {undefined}
+             */
+            handleElementDrop: function(elementName, into) {
+
+                var self = this;
+
+                var path = '';
+                path = 'builder/views/elements/layout/BuilderRow';
+
+                //set loader
+                if (self.$el.find('*[data-element="' + elementName + '"]').length > 0)
+                    self.$el.find('*[data-element="' + elementName + '"]').html('<div class="element-drop-loader"></div>');
+
+                require([path], function(Row) {
+
+                    var row = new Row({
+                        parent: self
+                    });
+
+                    if (into === 'header')
+                        self.elements.header.push(row);
+
+                    if (into === 'content')
+                        self.elements.content.push(row);
+
+                    if (into === 'footer')
+                        self.elements.footer.push(row);
+
+                    var el = row.$el;
+
+                    if (self.$el.find('*[data-element="' + elementName + '"]').length > 0)
+                        self.$el.find('*[data-element="' + elementName + '"]').replaceWith(el);
+
+                    row.sortableColumns();
+                    row.appendColumnResizer();
+
+                });
+
+            },
+
+            /**
+             * Rearrange elemenst according to current view order
+             */
+            rearrangeElementOrder: function(wrapper) {
+
+                var elements = this.getRows(wrapper);
+
+                if (elements.length === 0)
+                    return;
+
+                var newArr = [];
+
+                this.$el.find('.layout-' + wrapper).children('.row').each(function(index, element) {
+
+                    var el = _.find(elements, function(ele) {
+                        return ele.id === $(element).attr('id');
+                    });
+                    if (_.isUndefined(el))
+                        return;
+                    else
+                        newArr.push(el);
+                });
+
+                this.elements[wrapper] = newArr;
+
+            },
+
+            /**
+             * Returns current rows for the Editor.Top Level rows
+             *
+             * @returns {unresolved}
+             */
+            getRows: function(section) {
+
+                return !_.isUndefined(this.elements[section]) ? this.elements[section] : [];
+
+            }
+
+        });
+
+
+        return BuilderEditorView;
+
+    });

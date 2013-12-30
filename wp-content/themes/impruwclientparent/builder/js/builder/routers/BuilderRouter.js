@@ -1,31 +1,31 @@
 /**
- * The Main Builder Router. 
+ * The Main Builder Router.
  * This is the main router for the builder
  */
- 
+
 define(['underscore', 'jquery', 'backbone', 'builder/views/BuilderMainView'],
-		function( _ , $, Backbone, BuilderMainView){
+    function(_, $, Backbone, BuilderMainView) {
 
-			var BuilderRouter = Backbone.Router.extend({
+        var BuilderRouter = Backbone.Router.extend({
 
-				initialize : function(){
+            initialize: function() {
 
-				},
+            },
 
-				routes : {
-					'' : 'index'
-				},
+            routes: {
+                '': 'index'
+            },
 
-				index : function(){
-					
-					this.mainView = new BuilderMainView();	
+            index: function() {
 
-					this.mainView.render();		
-				}
+                this.mainView = new BuilderMainView();
 
-			});	
+                this.mainView.render();
+            }
+
+        });
 
 
-			return BuilderRouter;
+        return BuilderRouter;
 
-		});
+    });

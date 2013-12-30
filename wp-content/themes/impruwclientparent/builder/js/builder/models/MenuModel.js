@@ -1,98 +1,96 @@
 /**
- * The Builder Editor View. 
+ * The Builder Editor View.
  * This is the editor view for the builder
  * Most imp file
  */
- 
-define(['underscore', 'backbone',  'global'],
-		function( _ , Backbone, global){
 
-			var MenuModel = Backbone.Model.extend({
+define(['underscore', 'backbone', 'global'],
+    function(_, Backbone, global) {
 
-				//property to cross check if menu collecion is fetched before or not
-				fetched : false,
+        var MenuModel = Backbone.Model.extend({
 
-				url : function(){
-					return AJAXURL + '?action=get_site_menu' + (!this.isNew() ?'&menu-id=' + this.get('id') : '');
-				},
+            //property to cross check if menu collecion is fetched before or not
+            fetched: false,
 
-                menuOrderUrl : function(){
-                    return AJAXURL + '?action=update_menu_order';
-                },
-				
-				/**
-                 * Checks if the collection is fetched or not
-                 * @returns {Boolean}
-                 */
-				isFetched : function(){
-					
-					return this.fetched;
-				},
-                
-                /**
-                 * Set the fetched property for collection
-                 * Used to decide whether to triger the fetch or not
-                 * @param {boolean} set
-                 * @returns void
-                 */
-                setFetched : function(set){
+            url: function() {
+                return AJAXURL + '?action=get_site_menu' + (!this.isNew() ? '&menu-id=' + this.get('id') : '');
+            },
 
-                   if(_.isBoolean(set))
-                      this.fetched = set;
+            menuOrderUrl: function() {
+                return AJAXURL + '?action=update_menu_order';
+            },
 
-                },
+            /**
+             * Checks if the collection is fetched or not
+             * @returns {Boolean}
+             */
+            isFetched: function() {
 
-                /**
-                 * Update menu Item model
-                 */
-                updateMenuItem : function(data){
+                return this.fetched;
+            },
 
-                    if(!_.isObject(data))
-                        throw 'data argument must be a object';
+            /**
+             * Set the fetched property for collection
+             * Used to decide whether to triger the fetch or not
+             * @param {boolean} set
+             * @returns void
+             */
+            setFetched: function(set) {
 
-                    var items = this.get('items');
+                if (_.isBoolean(set))
+                    this.fetched = set;
 
-                    items[data.ID] = data;
-                    
-                    this.set('items',items);
+            },
 
-                },
+            /**
+             * Update menu Item model
+             */
+            updateMenuItem: function(data) {
 
-                /**
-                 * Updates menu order on server 
-                 */
-                updateMenuOrder : function(hierarchy, fn) {
-                    
-                    if(!_.isArray(hierarchy))
-                        throw "hierarchy must be an array";
+                if (!_.isObject(data))
+                    throw 'data argument must be a object';
 
-                    var self = this;
+                var items = this.get('items');
 
-                    $.post(this.menuOrderUrl(),
-                            {
-                                menuId      : this.get('id'),
-                                hierarchy   : hierarchy
-                            },
-                            function(response){
+                items[data.ID] = data;
 
-                                if(response.code === 'OK'){
+                this.set('items', items);
 
-                                    self.set('items',response.items);
-                                    
-                                    if(!_.isUndefined(fn) && _.isFunction(fn.success))
-                                        fn.success(response);
+            },
 
-                                }
-                                else if(response.code === 'ERROR'){
-                                    if(!_.isUndefined(fn) && _.isFunction(fn.error))
-                                        fn.error(response);
-                                }
+            /**
+             * Updates menu order on server
+             */
+            updateMenuOrder: function(hierarchy, fn) {
 
-                            },'json')
-                }
+                if (!_.isArray(hierarchy))
+                    throw "hierarchy must be an array";
 
-			});
+                var self = this;
 
-			return MenuModel;
+                $.post(this.menuOrderUrl(), {
+                        menuId: this.get('id'),
+                        hierarchy: hierarchy
+                    },
+                    function(response) {
 
-		});
+                        if (response.code === 'OK') {
+
+                            self.set('items', response.items);
+
+                            if (!_.isUndefined(fn) && _.isFunction(fn.success))
+                                fn.success(response);
+
+                        } else if (response.code === 'ERROR') {
+                            if (!_.isUndefined(fn) && _.isFunction(fn.error))
+                                fn.error(response);
+                        }
+
+                    }, 'json')
+            }
+
+        });
+
+        return MenuModel;
+
+    });
