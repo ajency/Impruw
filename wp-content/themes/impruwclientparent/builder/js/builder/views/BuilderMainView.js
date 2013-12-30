@@ -11,8 +11,6 @@ define(['underscore', 'jquery', 'backbone', 'builder/views/BuilderEditorView'],
 
             el: '.aj-imp-builder',
 
-            theme: 'theme1',
-
             events: {
 
                 'click label.editormode': 'switchMode',
@@ -41,23 +39,6 @@ define(['underscore', 'jquery', 'backbone', 'builder/views/BuilderEditorView'],
                     menuStyle: 'dropdown'
                 });
 
-                if (_.isUndefined(this.theme)) {
-
-                    require(['themes/default'], function(defaultConfig) {
-
-                        self.renderView(defaultConfig);
-
-                    });
-
-                } else {
-
-                    require(['themes/default', 'themes/' + this.theme], function(defaultConfig, themeConfig) {
-
-                        var config = $.extend({}, defaultConfig, themeConfig);
-                        self.renderView(config);
-
-                    });
-                }
             },
 
             /**
@@ -74,25 +55,20 @@ define(['underscore', 'jquery', 'backbone', 'builder/views/BuilderEditorView'],
                 if (_.isUndefined(this.builder))
                     return;
 
-                //setInterval(function(){
-
                 self.builder.generateJSON();
                 self.builder.sendJSONToServer(evt);
-
-                //},000);               
+        
             },
 
             updateTemplate: function() {
 
-
+                //void definition
 
             },
 
             renderView: function(config) {
 
-                this.builder = new BuilderEditorView({
-                    themeConfig: config
-                });
+                this.builder = new BuilderEditorView();
 
                 this.builder.render();
 
