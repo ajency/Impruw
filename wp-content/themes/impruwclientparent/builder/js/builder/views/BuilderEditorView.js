@@ -31,6 +31,11 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                      'click header > .popover .updateProperties': 'updateProperties'
                 },
 
+                /**
+                 * [initialize description]
+                 * @param  {[object]} option
+                 * @return {[void]}
+                 */
         				initialize  : function(option){
                                 
                             _.bindAll(this, 'enableDropSort','getRows','is','holdOnWhileSwitching', 'removeSwitchLoader','switchMode',
@@ -42,8 +47,8 @@ define(['underscore', 'jquery', 'backbone', 'global'],
         				},
                 
                 /**
-                 * 
-                 * @returns {undefined}
+                 * [generateJSON description]
+                 * @return {[type]}
                  */
                 generateJSON : function(){
                    
@@ -172,8 +177,9 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                 },
 
                 /**
-                * Function to generate the markup of the actual site
-                */
+                 * Function to generate the markup of the actual site
+                 * @return {[void]}
+                 */
                 generateActualMarkup : function(){
 
                     var self = this;
