@@ -373,7 +373,7 @@ form label.radio {
 }
 form label.checkbox.checked,
 form label.radio.checked {
-  color: #ff7e00;
+  color: #aaaaaa;
 }
 form label.checkbox.checked .second-icon,
 form label.radio.checked .second-icon {
