@@ -1112,7 +1112,7 @@ form .aj-imp-submit:hover {
   background: #ff7e00;
   border-radius: 0;
   color: #fff;
-  line-height: 15px;
+  line-height: 10px;
 }
 .facilities-list .facility.add:hover {
   border-color: transparent;
@@ -1136,6 +1136,43 @@ form .aj-imp-submit:hover {
 }
 .plan-modal .form-horizontal .form-group {
   margin: 0 0 20px;
+}
+.add-text {
+  color: #aaaaaa;
+  font-weight: 700;
+  text-align: right;
+  border-bottom: 1px solid #dddddd;
+}
+.add-text .add-btn {
+  background: #ff7e00;
+  border-radius: 0;
+  margin-left: 1em;
+  position: relative;
+  top: 1px;
+}
+.add-text:hover {
+  color: #919191;
+  border-bottom-color: #ff7e00;
+}
+.add-text:hover .add-btn {
+  margin-left: 0.5em;
+}
+.table-vc td {
+  vertical-align: middle !important;
+}
+.edit-link {
+  color: #849fb0;
+  margin-right: 1em;
+}
+.edit-link:hover {
+  color: #65879c;
+}
+.delete-link {
+  color: #ee4423;
+  margin-right: 1em;
+}
+.delete-link:hover {
+  color: #ce2f10;
 }
 /****Date Picker Styles****/
 .ui-datepicker {
