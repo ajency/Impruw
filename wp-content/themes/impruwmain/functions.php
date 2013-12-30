@@ -21,7 +21,7 @@ require_once 'User/user_management.php';//file containing all shortcodes to fetc
 
 //add theme support
 add_theme_support( 'post-thumbnails' );
-
+show_admin_bar(false);
 /*--------------------------------------------------------------------------------------
 *
 * impruv_register_email_init
@@ -404,3 +404,11 @@ function register_themes_post_type() {
 
 }
 add_action( 'init', 'register_themes_post_type' );
+
+/**
+ * [get_parent_template_directory_uri description]
+ * @return [type]
+ */
+function get_parent_template_directory_uri(){
+    return site_url('wp-content/themes/impruwclientparent');
+}

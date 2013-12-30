@@ -3,106 +3,104 @@
  *  Contains all logic to handle menu configurations
  *  Add/Editing/Deleting Menu
  */
-define(['backbone','text!builder/templates/modal/media/singlemedia.hbs', 
-        'mediamodel','global'], 
-		
-        function(Backbone, template, MediaModel,global){
+define(['backbone', 'text!builder/templates/modal/media/singlemedia.hbs',
+        'mediamodel', 'global'
+    ],
+
+    function(Backbone, template, MediaModel, global) {
 
 
-            var SingleMedia = Backbone.View.extend({
+        var SingleMedia = Backbone.View.extend({
 
-                className : 'panel panel-default',
+            className: 'panel panel-default',
 
-                template : _.template(template),
+            template: _.template(template),
 
-                events   : {
-                    'click .save-image-details'    : 'saveImageDetails',
-                    'click .cancel-image-details'  : 'cancelImageDetails',
-                    'click .select-image'          : 'selectImage'
-                },
+            events: {
+                'click .save-image-details': 'saveImageDetails',
+                'click .cancel-image-details': 'cancelImageDetails',
+                'click .select-image': 'selectImage'
+            },
 
-                /**
-                 * Initialize the manager 
-                 */
-                initialize : function(args){
+            /**
+             * Initialize the manager
+             */
+            initialize: function(args) {
 
-                    if(_.isUndefined(args.model))
-                        return;
+                if (_.isUndefined(args.model))
+                    return;
 
-                    _.bindAll(this, 'saveImageDetails','selectImage');
+                _.bindAll(this, 'saveImageDetails', 'selectImage');
 
-                    this.model = args.model;
+                this.model = args.model;
 
-                    this.parent = args.parent;
+                this.parent = args.parent;
 
-                    
-                },
 
-                render : function(){
+            },
 
-                    var html = this.template({media: this.model});
-                    this.$el.html(html);
-                    return this;
-                },
+            render: function() {
 
-                /** 
-                * Close the details box
-                */
-                cancelImageDetails : function(evt){
-                    $(evt.target).closest('.panel-collapse').prev().find('a[data-toggle="collapse"]').click();
-                },
+                var html = this.template({
+                    media: this.model
+                });
+                this.$el.html(html);
+                return this;
+            },
 
-                /**
-                * Select the image
-                */
-                selectImage : function(evt){
-                    log(this.model);
-                    SiteBuilder.vent.trigger('image-selected', this.model);
-                    this.parent.hide();
+            /** 
+             * Close the details box
+             */
+            cancelImageDetails: function(evt) {
+                $(evt.target).closest('.panel-collapse').prev().find('a[data-toggle="collapse"]').click();
+            },
 
-                },
+            /**
+             * Select the image
+             */
+            selectImage: function(evt) {
+                log(this.model);
+                SiteBuilder.vent.trigger('image-selected', this.model);
+                this.parent.hide();
 
-                /**
-                 * SAves the image details on server
-                 * @returns {undefined}
-                 */
-                saveImageDetails : function(evt){
+            },
 
-                    var form = $(evt.target).closest('form');
-                    var formData = global.getFormData(form);
-                    
-                    var self = this;
+            /**
+             * SAves the image details on server
+             * @returns {undefined}
+             */
+            saveImageDetails: function(evt) {
 
-                    if(!_.isObject(formData))
-                        return; 
+                var form = $(evt.target).closest('form');
+                var formData = global.getFormData(form);
 
-                    formData['action'] = 'impruw_media_update'; 
+                var self = this;
 
-                    //remove error message  if any
-                    $(evt.target).parent().find('span.error-span').remove();      
+                if (!_.isObject(formData))
+                    return;
 
-                    $.post( AJAXURL,
-                            formData,
-                            function(response){
+                formData['action'] = 'impruw_media_update';
 
-                                if(response.code === 'OK'){
-                                    self.cancelImageDetails(evt);
-                                    self.$el.find('.aj-imp-image-item .imgname').text(formData['image-title']);
-                                }
-                                else if(response.code === 'ERROR'){
-                                    $(evt.target).before('<span class="error-span">' + response.message + '</span>');
-                                }
+                //remove error message  if any
+                $(evt.target).parent().find('span.error-span').remove();
 
-                            },'json');
-                   
-                }
+                $.post(AJAXURL,
+                    formData,
+                    function(response) {
 
-            });
+                        if (response.code === 'OK') {
+                            self.cancelImageDetails(evt);
+                            self.$el.find('.aj-imp-image-item .imgname').text(formData['image-title']);
+                        } else if (response.code === 'ERROR') {
+                            $(evt.target).before('<span class="error-span">' + response.message + '</span>');
+                        }
 
-            return SingleMedia;
-			
+                    }, 'json');
+
+            }
+
         });
-  
-    
 
+        return SingleMedia;
 
+    });

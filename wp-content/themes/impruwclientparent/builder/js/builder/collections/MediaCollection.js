@@ -2,61 +2,61 @@
  * The MediaCollection.
  * This class contains all necessary functions for handling media related tasks
  */
- 
-define(['underscore', 'backbone', 'global','mediamodel'],
-		function( _ , Backbone, global, MediaModel){
 
-			var MediaCollection = Backbone.Collection.extend({
+define(['underscore', 'backbone', 'global', 'mediamodel'],
+    function(_, Backbone, global, MediaModel) {
 
-                //model property
-                model : MediaModel,
+        var MediaCollection = Backbone.Collection.extend({
 
-				//property to cross check if menu collecion is fetched before or not
-				fetched : false,
+            //model property
+            model: MediaModel,
 
-                /**
-                 * Url to fetch all menus for the Site
-                 * @returns {String}
-                 */
-				url : function(){
-					return AJAXURL + '?action=query_attachments';
-				},
+            //property to cross check if menu collecion is fetched before or not
+            fetched: false,
 
-                /**
-                * Pasrse JSOn response to check if code is OK
-                */    
-                parse : function(response){
-                    
-                    if(response.code === "OK"){
-                        return response.data;
-                    }
+            /**
+             * Url to fetch all menus for the Site
+             * @returns {String}
+             */
+            url: function() {
+                return AJAXURL + '?action=query_attachments';
+            },
 
-                },
-                
-                /**
-                 * Checks if the collection is fetched or not
-                 * @returns {Boolean}
-                 */
-				isFetched : function(){
-					
-					return this.fetched;
-				},
-                
-                /**
-                 * Set the fetched property for collection
-                 * Used to decide whether to triger the fetch or not
-                 * @param {boolean} set
-                 * @returns void
-                 */
-                setFetched : function(set){
+            /**
+             * Pasrse JSOn response to check if code is OK
+             */
+            parse: function(response) {
 
-                   if(_.isBoolean(set))
-                      this.fetched = set;
-
+                if (response.code === "OK") {
+                    return response.data;
                 }
 
-			});
+            },
 
-			return MediaCollection;
+            /**
+             * Checks if the collection is fetched or not
+             * @returns {Boolean}
+             */
+            isFetched: function() {
 
-		});
+                return this.fetched;
+            },
+
+            /**
+             * Set the fetched property for collection
+             * Used to decide whether to triger the fetch or not
+             * @param {boolean} set
+             * @returns void
+             */
+            setFetched: function(set) {
+
+                if (_.isBoolean(set))
+                    this.fetched = set;
+
+            }
+
+        });
+
+        return MediaCollection;
+
+    });
