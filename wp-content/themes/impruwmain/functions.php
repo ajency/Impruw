@@ -18,6 +18,9 @@ Description: This file has a list of the following functions used in the theme
 require_once 'Communication_module/user_shortcodes.php';//file containing all shortcodes to fetch user information
 require_once 'Communication_module/site_shortcodes.php';//file containing all shortcodes to fetch site information
 require_once 'User/user_management.php';//file containing all shortcodes to fetch site information
+
+//add theme support
+add_theme_support('post-thumbnails');
  
 /*--------------------------------------------------------------------------------------
 *
@@ -366,3 +369,49 @@ function register_required_scripts() {
  
 }
 add_action('wp_enqueue_scripts', 'register_required_scripts', 1);
+
+
+/**
+ * Register theme post type
+ * Each theme will be a custom post type. 
+ *This would make it wasy to search, filter, tag, categorise etc.
+ */
+function register_themes_post_type(){
+
+    $labels = array(
+    'name'               => 'Themes',
+    'singular_name'      => 'Theme',
+    'add_new'            => 'Add New',
+    'add_new_item'       => 'Add New Theme',
+    'edit_item'          => 'Edit Theme',
+    'new_item'           => 'New Theme',
+    'all_items'          => 'All Themes',
+    'view_item'          => 'View Theme',
+    'search_items'       => 'Search Themes',
+    'not_found'          => 'No themes found',
+    'not_found_in_trash' => 'No themes found in Trash',
+    'parent_item_colon'  => '',
+    'menu_name'          => 'Themes'
+  );
+
+  $args = array(
+    'labels'             => $labels,
+    'public'             => true,
+    'publicly_queryable' => true,
+    'show_ui'            => true,
+    'show_in_menu'       => true,
+    'query_var'          => true,
+    'rewrite'            => array( 'slug' => 'themes' ),
+    'capability_type'    => 'post',
+    'has_archive'        => true,
+    'hierarchical'       => false,
+    'menu_position'      => null,
+    'supports'           => array( 'title', 'editor', 'thumbnail', 'excerpt' )
+  );
+
+  register_post_type( 'theme', $args );
+
+}
+add_action('init','register_themes_post_type');
+
+
