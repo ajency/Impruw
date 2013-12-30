@@ -49,6 +49,7 @@ class ImageElement extends Element {
         
         if(isset($config['data'])){
             $this->data         = $config['data'];
+
         }
         
         $this->markup           = $this->generate_markup();
@@ -75,9 +76,9 @@ class ImageElement extends Element {
      * @return int
      */
     function get_image_id(){
-        
-        if(isset($this->data['attachmentId'])){
-            return (int)$this->data['attachmentId'];
+         
+        if(isset($this->data['attachmentID'])){
+            return (int)$this->data['attachmentID'];
         }
         
         return 0;
@@ -88,7 +89,7 @@ class ImageElement extends Element {
      * @return string
      */
     function get_image_size(){
-        
+            
         if(isset($this->data['size'])){
             return $this->data['size'];
         }

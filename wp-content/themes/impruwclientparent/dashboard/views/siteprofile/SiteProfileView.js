@@ -28,9 +28,22 @@ define([ 'underscore', 'jquery', 'backbone',
 				this.showInvalidCallView();
 			
 			this.site = args.site;
+			
+			//ImpruwDashboard.vent.on("user-profile-updated", this.updatedProfileView);
 
 		},
-
+		/**
+		 * 
+		 * @param data
+		 */
+		updatedProfileView : function(data){
+			
+			var name = data.fullname;
+			this.$el.find('inout[name="full-name"]').val(name);
+			
+			
+		},
+		
 		render : function() {
 
 			var self = this;
@@ -51,7 +64,7 @@ define([ 'underscore', 'jquery', 'backbone',
 			//initialize parsley validation for the forms
 			this.parsleyInitialize(this.$el.find('#form-siteprofile-business'));
 			this.parsleyInitialize(this.$el.find('#form-siteprofile-social'));
-
+			$(".aj-imp-long-form-actions").affix()
 			return this;
 		},
 

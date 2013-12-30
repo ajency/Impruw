@@ -699,25 +699,14 @@ function save_new_user()
 			if(isset($new_blog_id))
 			{
 				
-				header('Content-Type: application/json');
-				echo json_encode(array('code' => 'OK', 'msg'=>_("The User registration successfull. And the site created successfully"))  );
-				die();
+				wp_send_json(array('code' => 'OK', 'msg'=>_("The User registration successfull. And the site created successfully")));
 			}
 			else
 			{
-				header('Content-Type: application/json');
-				echo json_encode(array('code' => 'ERROR', 'msg'=>_("Error creating Site. "))  );
-				die();
+				wp_send_json(array('code' => 'ERROR', 'msg'=>_("Error creating Site. "))  );
+				
 			}
- 
-			
-		
-		
 	 } 
-	
-	
-	
-	
 }
 add_action('wp_ajax_save_new_user','save_new_user');
 add_action('wp_ajax_nopriv_save_new_user','save_new_user');
@@ -728,9 +717,9 @@ add_action('wp_ajax_nopriv_save_new_user','save_new_user');
  * @return type
  */
 function generate_user_activation_key($user_email) {
-$salt = wp_generate_password(20); // 20 character "random" string
-$key = sha1($salt . $user_email . uniqid(time(), true));
-return($key);
+    $salt = wp_generate_password(20); // 20 character "random" string
+    $key = sha1($salt . $user_email . uniqid(time(), true));
+    return($key);
 }
 
 

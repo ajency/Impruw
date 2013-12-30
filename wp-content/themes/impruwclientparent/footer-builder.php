@@ -67,6 +67,12 @@
                             </a>
                         </li>
                         <li>
+                            <a href="#" class="drag builder-element" data-element="ImageWithTextElement" data-placeholder-height="100">
+                                <div class="aj-imp-builder-icon"  data-icon="&#xf110;"></div>
+                                <div class="aj-imp-builder-title">Image With Text</div>
+                            </a>
+                        </li>
+                        <li>
                             <a href="#" class="drag builder-element" data-element="SocialElement">
                                 <div class="aj-imp-builder-icon" data-icon="&#xf119;"></div>
                                 <div class="aj-imp-builder-title">Social</div>
@@ -100,7 +106,8 @@
         var THEMEURL    = '<?php echo get_parent_template_directory_uri(); ?>';
         var SITEURL     = '<?php echo site_url(); ?>';
         var AJAXURL     = '<?php echo admin_url('admin-ajax.php'); ?>';
-        var _WPNONCE    = '<?php echo wp_create_nonce("media-form");?>';
+        var UPLOADURL     = '<?php echo admin_url('async-upload.php'); ?>';
+        var _WPNONCE    = '<?php echo wp_create_nonce('media-form');?>';
     </script> 
     <script data-main="<?php echo get_parent_template_directory_uri(); ?>/builder/js/init" src="<?php echo get_parent_template_directory_uri(); ?>/js/require.js"></script>
 </body>

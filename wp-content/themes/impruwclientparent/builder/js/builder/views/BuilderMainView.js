@@ -20,7 +20,6 @@ define(['underscore', 'jquery', 'backbone', 'builder/views/BuilderEditorView'],
                     'click #generate-json'          : 'generateJSON',
                     'click #choose-template li a' 	: 'updateTemplate',
                     'click #publish-page'			: 'generateJSON'
-                
                 },
 
 

@@ -1,25 +1,19 @@
-define(['builder/views/elements/BuilderElement','text!builder/templates/elements/ImageElement.hbs', 'global'], 
-		function(BuilderElement, template, global){
+define(['builder/views/elements/ImageElement','text!builder/templates/elements/ImageWithTextElement.hbs', 'global'], 
+		function(ImageElement, template, global){
 
-			var ImageElement = BuilderElement.extend({
+			var ImageWithTextElement = ImageElement.extend({
 
-                className           : 'aj-imp-elem-image element',
+                className           : 'aj-imp-elem-image-with-text element',
                 
                 //define template for control
 				template            : template,
                 
                 //element type
-                elementType          : 'ImageElement',
+                elementType          : 'ImageWithTextElement',
                 
                 //identify element type
-                type                : 'image',
+                type                : 'imagewithtext',
                 
-                //set height to be assigned to placeholder and helper
-                placeHolderHeight   : 100,
-
-                //datasource
-                dataSource          : null,
-
                 //
                 events : {
                     'mouseenter'                        : 'elementMouseEnter',
@@ -79,53 +73,11 @@ define(['builder/views/elements/BuilderElement','text!builder/templates/elements
                     }
 
                     return json;
-                },
-
-                /**
-                 * Show the media manager modal 
-                 */
-                showMediaManager : function(){
-
-                   var self = this; 
-
-                   require(['underscore','mediamanager'], function( _ , MediaManager){
-                        
-                        var mediamanager = SiteBuilder.ViewManager.findByCustom("media-manager");
-
-                        if(_.isUndefined(mediamanager)){
-                            mediamanager = new MediaManager();
-                            SiteBuilder.ViewManager.add(mediamanager, "media-manager");
-                        }
-
-                        //start listening to event
-                        SiteBuilder.vent.on('image-selected', self.updateSelf);
-
-                        mediamanager.open(self);
-                        
-                   });
-
-                },
-                
-                /**
-                 * Update self
-                 * @returns {undefined}
-                 */
-                updateSelf : function(image){
-                    
-                    SiteBuilder.vent.off('image-selected', self.updateSelf);
-
-                    if(!_.isObject(image))
-                        return;
-
-                    this.dataSource = image;
-
-                    this.$el.find('img').attr('src', this.dataSource.get('sizes').medium.url); 
-                   
                 }
                 
             });
             
-            return ImageElement;
+            return ImageWithTextElement;
         });
   
     

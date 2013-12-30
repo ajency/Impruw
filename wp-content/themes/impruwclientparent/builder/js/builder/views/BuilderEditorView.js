@@ -88,8 +88,6 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                  */
                 updateProperties : function(evt){
                    
-                   alert("sdsfdfsd");
-                   
                    var pcontent = $(evt.target).closest('.popover');
                    
                    var id = pcontent.closest('.popover').prev().attr('id');
@@ -552,7 +550,7 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                     if(this.contentLoaded === true){
                           self.removeSwitchLoader();
                           window.editorMode = 'content';
-                          self.makeEditable();
+                          CKEDITOR.inlineAll();
                           return;
                     }
 

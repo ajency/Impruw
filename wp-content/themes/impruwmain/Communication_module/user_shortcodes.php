@@ -79,15 +79,17 @@ add_shortcode('initiator_info', 'retrieve_initiator_information');
 function retrieve_data_array_information($atts) 
 {
    
-            global $wpdb;
-            if (isset($atts['field'])) 
-                {
-                    $data_array = $atts['data'];
-                    $data_array = maybe_unserialize($data_array);
-                    if($atts['field'] == "user_nicename")
-                    $user_info_array = get_userdata($data_array['user_id']);
-                    return $user_info_array->$atts['field'];
-                }       
+    global $wpdb;
+    if (isset($atts['field'])) {
+      
+        $data_array       = $atts['data'];
+        $data_array       = maybe_unserialize($data_array);
+        
+        if($atts['field'] == "user_nicename")
+          $user_info_array = get_userdata($data_array['user_id']);
+        
+        return $user_info_array->$atts['field'];
+    }       
     
 }
 

@@ -14,7 +14,7 @@ define(['underscore', 'backbone',  'global'],
 
 
 				url : function(){
-					return AJAXURL + '?action=get_media' + (!this.isNew() ?'&menu-id=' + this.get('id') : '');
+					return AJAXURL + '?action=impruw_media' + (!this.isNew() ?'&media-id=' + this.get('id') : '');
 				},
 
                /**

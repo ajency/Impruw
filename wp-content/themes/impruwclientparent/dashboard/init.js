@@ -40,6 +40,7 @@ require.config({
         //Models
         sitemodel			: 'models/SiteModel',
         usermodel			: 'models/UserModel',
+        roommodel			: 'models/RoomModel',
 
         //templates
         siteprofileviewtpl 	: 'templates/siteprofile/SiteProfileViewTpl'
@@ -92,6 +93,7 @@ require(['backbone',
         	 
 			window.impruwSite = new SiteModel(SITEID);
 			window.impruwUser = new UserModel(USERDATA);
+			 
 			/*window.impruwSite.getSiteProfile({
 				success:function(){
 					dashboard = new Router();
@@ -106,5 +108,35 @@ require(['backbone',
         });
 
 });
+
+
+/*
+ * require(['backbone','lib/backbone.marionette.min.js',
+         'routers/DashboardRouter','sitemodel','usermodel','jquery'], function( Backbone, Marionette, Router, SiteModel, UserModel,$) {
+
+        $(document).ready(function(){   
+        	 
+			window.impruwSite = new SiteModel(SITEID);
+			window.impruwUser = new UserModel(USERDATA);
+			 
+			/*window.impruwSite.getSiteProfile({
+				success:function(){
+					dashboard = new Router();
+				}
+			});* /
+			
+			ImpruwDashboard = new Backbone.Marionette.Application();
+			ImpruwDashboard.addInitializer(function(){
+				new Router();
+				Backbone.history.start();
+			});
+			
+			ImpruwDashboard.start();
+           
+            
+        });
+
+});*/ 
+  
 
 

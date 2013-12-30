@@ -3,7 +3,7 @@
  *  Contains all logic to handle menu configurations
  *  Add/Editing/Deleting Menu
  */
-define(['builder/views/modals/Modal','text!builder/templates/modal/menu.hbs', 
+define(['builder/views/modals/Modal','text!builder/templates/modal/menumanager.hbs', 
         'menumodel','menucollection', 'global','nestable','parsley'], 
 		
         function(Modal, template, MenuModel, MenuCollection, global){

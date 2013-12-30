@@ -47,11 +47,17 @@ define(['builder/views/elements/BuilderElement', 'global'],
                     
                     this.colClass = options.colClass;
 
+                    var self = this;
+
                     //listen to height change event
                     this.on('height_changed',this.handleHeightChange);
                     
                     //listen to width change event
                     this.on('width_changed',this.handleWidthChange);
+
+                    this.on('settings_updated', function(arg){
+                                                    
+                                                });
 
                     ////////////////////////////////////////////////
 

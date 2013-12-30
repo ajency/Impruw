@@ -4,7 +4,7 @@
  * this file.
  */
 define(['underscore', 'jquery', 'backbone', 'moment', 'numerals', 'holder', 'cssFx', 'bootstrap', 'text', 'jqueryui', 
-        'string', 'cookie', 'bootstrapselect','checkbox','radio'], 
+        'string', 'cookie', 'bootstrapselect','checkbox','radio','parsley'], 
 		function(_ , $ , Backbone, moment, numerals, Holder, cssFx){
 
 			var global = {};
@@ -32,6 +32,23 @@ define(['underscore', 'jquery', 'backbone', 'moment', 'numerals', 'holder', 'css
                 return Math.floor(Math.random() * (t - e + 1) + e);
                 
             };
+
+            global.getFormData = function(form){
+
+                if(_.isUndefined(form))
+                    return false;
+
+                var serializedData = $(form).serializeArray();
+
+                var data = {};
+
+                _.each(serializedData, function(ele,key){
+                    data[ele.name] = ele.value;
+                });
+
+                return data;
+
+            }
 
             
     		return global;
