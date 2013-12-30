@@ -38,11 +38,8 @@ define(['underscore', 'jquery', 'backbone', 'global'],
              */
             initialize: function(option) {
 
-                _.bindAll(this, 'enableDropSort', 'getRows', 'is', 'holdOnWhileSwitching', 'removeSwitchLoader', 'switchMode',
-                    'switchToLayout', 'handleRowDrop', 'switchToContent', 'generateActualMarkup',
-                    'buildRowMarkup', 'buildColumnMarkup', 'holdCurrentColRef', 'getClasses');
-
-                this.themeConfig = option.themeConfig;
+                // _.bindAll(this, 'enableDropSort', 'getRows', 'is', 'holdOnWhileSwitching', 'removeSwitchLoader', 'switchMode',
+                //     'switchToLayout', 'handleRowDrop', 'switchToContent', 'holdCurrentColRef', 'getClasses');
 
             },
 
