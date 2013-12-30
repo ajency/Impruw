@@ -2,3 +2,5 @@ html/nbproject
 nbproject
 .htaccess
 wp-config.php
+robots.txt
+wp-content/uploads
