@@ -54,7 +54,7 @@ define(['builder/views/modals/Modal','text!builder/templates/modal/media/mediama
 
                     this.mediaCollection  = new MediaCollection();
 
-                    this.fetchMedia();
+                    //this.fetchMedia();
 
                     this.bindPlupload();
                 },
