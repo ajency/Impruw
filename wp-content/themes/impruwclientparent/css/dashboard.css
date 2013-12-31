@@ -561,12 +561,85 @@ form .aj-imp-submit:hover {
 .select.open .dropdown-toggle .caret {
   border-top-color: #ff7e00;
 }
+/****Logged Out Header, Footer & Coming Soon Styles****/
+.aj-imp-lo-header {
+  background: #fff;
+  max-height: 110px;
+  padding: 10px 0 20px;
+}
+.aj-imp-lo-header > .row {
+  margin: 0;
+}
+.aj-imp-lo-header > .row .logo img {
+  max-height: 80px;
+}
+.aj-imp-lo-header > .row .lang-actions {
+  text-align: right;
+  padding: 20px 15px 5px;
+}
+.aj-imp-lo-header > .row .lang-actions #lang-pop {
+  display: inline-block;
+  margin-right: 20px;
+  color: #919191;
+  padding: 6px 5px;
+}
+.aj-imp-lo-header > .row .lang-actions #lang-pop .caret {
+  margin-left: 10px;
+  border-width: 6px 5px;
+  border-top-color: #c3c3c3;
+}
+.aj-imp-lo-header > .row .lang-actions #lang-pop:hover {
+  text-shadow: 0 0 1px #849fb0;
+}
+.aj-imp-lo-header > .row .lang-actions .popover {
+  top: 80px !important;
+  background: #fff;
+}
+.aj-imp-lo-header > .row .lang-actions .popover.bottom .arrow {
+  border-bottom-color: #fff;
+}
+.aj-imp-lo-header > .row .lang-actions .popover.bottom .popover-content ul {
+  margin: 0 0 1em;
+  padding: 0;
+  list-style: none;
+}
+.aj-imp-lo-header > .row .lang-actions .popover.bottom .popover-content ul li a {
+  display: block;
+  padding: 0.2em 1em 0.3em 0;
+  color: #aaaaaa;
+}
+.aj-imp-lo-header > .row .lang-actions .popover.bottom .popover-content ul li.active a {
+  color: #848484;
+  font-weight: bold;
+}
+.aj-imp-lo-header > .row .lang-actions .login-btn {
+  border-radius: 3px;
+  background: #ff7e00;
+  text-transform: uppercase;
+}
+.aj-imp-lo-header > .row .lang-actions .login-btn:hover {
+  background: #ff9833;
+}
+.aj-imp-lo-footer {
+  padding: 1em 0;
+  text-align: center;
+  background: #fff;
+}
+.aj-imp-lo-footer .copyright {
+  font-size: 0.88em;
+  color: #aaaaaa;
+  margin-top: 10px;
+}
+.aj-imp-comingsoon {
+  width: 70%;
+  margin: 2em auto;
+}
 /****Register Page Styles****/
 .aj-imp-register-form {
   width: 80%;
   background: #fff;
   box-shadow: 0 0 5px 4px #c3c3c3;
-  margin: 2em auto;
+  margin: 3em auto;
   padding: 1em;
 }
 .aj-imp-register-form .aj-imp-register-header {
@@ -721,7 +794,7 @@ form .aj-imp-submit:hover {
   width: 50%;
   background: #fff;
   box-shadow: 0 0 5px 4px #c3c3c3;
-  margin: 2em auto;
+  margin: 6em auto;
   padding: 1em;
 }
 .aj-imp-login-form .aj-imp-login-header {

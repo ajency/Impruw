@@ -594,12 +594,98 @@ form {
 	}
 }
 
+/****Logged Out Header, Footer & Coming Soon Styles****/
+.aj-imp-lo-header {
+	background: #fff;
+	max-height: 110px;
+	padding: 10px 0 20px;
+	> .row {
+		margin: 0;
+		.logo {
+			img {
+				max-height: 80px;
+			}
+		}
+		.lang-actions {
+			text-align: right;
+			padding: 20px 15px 5px;
+			#lang-pop {
+				display: inline-block;
+				margin-right: 20px;
+				color: darken(@dash-grey, 10%);
+				padding: 6px 5px;
+				.caret {
+					margin-left: 10px;
+					border-width: 6px 5px;
+					border-top-color: lighten(@dash-grey, 10%);
+				}
+				&:hover {
+					text-shadow: 0 0 1px @blue-grey;
+				}
+			}
+			.popover {
+				top: 80px !important;
+				background: #fff;
+				&.bottom {
+					.arrow {
+						border-bottom-color: #fff;
+					}
+					.popover-content {
+						ul {
+							margin: 0 0 1em;
+							padding: 0;
+							list-style: none;
+							li {
+								a {
+									display: block;
+									padding: 0.2em 1em 0.3em 0;
+									color: @dash-grey;
+								}
+								&.active {
+									a {
+										color: darken(@dash-grey, 15%);
+										font-weight: bold;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			.login-btn {
+				border-radius: 3px;
+				background: @orange;
+				text-transform: uppercase;
+				&:hover {
+					background: lighten(@orange, 10%);
+				}
+			}
+		}
+	}
+}
+
+.aj-imp-lo-footer {
+	padding: 1em 0;
+	text-align: center;
+	background: #fff;
+	.copyright {
+		font-size: 0.88em;
+		color: @dash-grey;
+		margin-top: 10px;
+	}
+}
+
+.aj-imp-comingsoon {
+	width: 70%;
+	margin: 2em auto;
+}
+
 /****Register Page Styles****/
 .aj-imp-register-form {
 	width: 80%;
 	background: #fff;
 	box-shadow: 0 0 5px 4px lighten(@dash-grey, 10%);
-	margin: 2em auto;
+	margin: 3em auto;
 	padding: 1em;
 	.aj-imp-register-header {
 		border-bottom: 1px solid lighten(@dash-grey, 25%);
@@ -751,7 +837,7 @@ form {
 	width: 50%;
 	background: #fff;
 	box-shadow: 0 0 5px 4px lighten(@dash-grey, 10%);
-	margin: 2em auto;
+	margin: 6em auto;
 	padding: 1em;
 	.aj-imp-login-header {
 		border-bottom: 1px solid lighten(@dash-grey, 25%);
