@@ -341,8 +341,8 @@ function convert_post_content_to_email_content( $email_type_id, $user_id, $initi
 function send_email_through_mandrill( $email_content, $subject, $admin_email, $user_id ) {
     //echo $admin_email;exit;
     $mandrill = new Mandrill( 'AA_CwcF5NKqJnphK9ehgRg' );
-    $template==$email_content;
-    $subject==$subject;
+    $template=$email_content;
+    $subject=$subject;
 
 
     $user_data=get_userdata( $user_id );
