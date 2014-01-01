@@ -594,12 +594,98 @@ form {
 	}
 }
 
+/****Logged Out Header, Footer & Coming Soon Styles****/
+.aj-imp-lo-header {
+	background: #fff;
+	max-height: 110px;
+	padding: 10px 0 20px;
+	> .row {
+		margin: 0;
+		.logo {
+			img {
+				max-height: 80px;
+			}
+		}
+		.lang-actions {
+			text-align: right;
+			padding: 20px 15px 5px;
+			#lang-pop {
+				display: inline-block;
+				margin-right: 20px;
+				color: darken(@dash-grey, 10%);
+				padding: 6px 5px;
+				.caret {
+					margin-left: 10px;
+					border-width: 6px 5px;
+					border-top-color: lighten(@dash-grey, 10%);
+				}
+				&:hover {
+					text-shadow: 0 0 1px @blue-grey;
+				}
+			}
+			.popover {
+				top: 80px !important;
+				background: #fff;
+				&.bottom {
+					.arrow {
+						border-bottom-color: #fff;
+					}
+					.popover-content {
+						ul {
+							margin: 0 0 1em;
+							padding: 0;
+							list-style: none;
+							li {
+								a {
+									display: block;
+									padding: 0.2em 1em 0.3em 0;
+									color: @dash-grey;
+								}
+								&.active {
+									a {
+										color: darken(@dash-grey, 15%);
+										font-weight: bold;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			.login-btn {
+				border-radius: 3px;
+				background: @orange;
+				text-transform: uppercase;
+				&:hover {
+					background: lighten(@orange, 10%);
+				}
+			}
+		}
+	}
+}
+
+.aj-imp-lo-footer {
+	padding: 1em 0;
+	text-align: center;
+	background: #fff;
+	.copyright {
+		font-size: 0.88em;
+		color: @dash-grey;
+		margin-top: 10px;
+	}
+}
+
+.aj-imp-comingsoon {
+	width: 70%;
+	margin: 2em auto;
+}
+
 /****Register Page Styles****/
 .aj-imp-register-form {
 	width: 80%;
 	background: #fff;
 	box-shadow: 0 0 5px 4px lighten(@dash-grey, 10%);
-	margin: 2em auto;
+	margin: 3em auto;
 	padding: 1em;
 	.aj-imp-register-header {
 		border-bottom: 1px solid lighten(@dash-grey, 25%);
@@ -751,7 +837,7 @@ form {
 	width: 50%;
 	background: #fff;
 	box-shadow: 0 0 5px 4px lighten(@dash-grey, 10%);
-	margin: 2em auto;
+	margin: 6em auto;
 	padding: 1em;
 	.aj-imp-login-header {
 		border-bottom: 1px solid lighten(@dash-grey, 25%);
@@ -1152,7 +1238,7 @@ form {
 					background: @orange;
 					border-radius: 0;
 					color: #fff;
-					line-height: 15px;
+					line-height: 10px;
 				}
 			}
 			&:hover {
@@ -1192,6 +1278,58 @@ form {
 	}
 }
 
+.add-text {
+	color: @dash-grey;
+	font-weight: 700;
+	text-align: right;
+	border-bottom: 1px solid lighten(@dash-grey, 20%);
+	margin-bottom: 0.5em;
+	.add-btn {
+		background: @orange;
+		border-radius: 0;
+		margin-left: 1em;
+		position: relative;
+		top: 1px;
+	}
+	&:hover {
+		color: darken(@dash-grey, 10%);
+		border-bottom-color: @orange;
+		.add-btn {
+			margin-left: 0.5em;
+		}
+	}
+}
+
+.table-vc {
+	margin: 0 0 0.5em !important;
+	background: transparent !important;
+	td {
+		vertical-align: middle !important;
+	}
+}
+
+.no-mar {
+	padding: 0 !important;
+}
+
+.edit-link {
+	color: @blue-grey;
+	margin-right: 1em;
+	&:hover {
+		color: darken(@blue-grey, 10%);
+		text-shadow: 0 0 2px @blue-grey;
+	}
+}
+
+.delete-link {
+	color: @logo-orange;
+	margin-right: 1em;
+	&:hover {
+		color: darken(@logo-orange, 10%);
+		text-shadow: 0 0 2px @logo-orange;
+	}
+}
+
 /****Date Picker Styles****/
 .ui-datepicker {
 	border-color: lighten(@dash-grey, 10%);
@@ -1217,5 +1355,89 @@ form {
 	.input-icon {
 		background: transparent;
 		color: lighten(@dash-grey, 5%);
+	}
+}
+
+/****Room List View Styles****/
+.room-list {
+	thead {
+		th {
+			text-align: center;
+			background: #EEF0F0;
+			font-size: 1.3em;
+		}
+	}
+	tbody {
+		td {
+			.room-details {
+				h4 {
+					font-size: 1.1em;
+					color: @blue-grey;
+					text-transform: uppercase;
+				}
+				.desc {
+					font-size: 0.88em;
+					color: lighten(@dash-grey, 5%);
+				}
+				.info-strip {
+					margin-top: 1em;
+					.strip {
+						padding-top: 0.3em;
+						padding-bottom: 0.4em;
+						border-right: 1px solid @dash-grey;
+						color: @dash-grey;
+						font-weight: bold;
+						font-size: 0.8em;
+						span {
+							font-size: 1.6em;
+							color: @orange;
+						}
+						&:last-child {
+							border-right: 0;
+						}
+					}
+				}
+			}
+			.tariff {
+				.tariff-plan {
+					border-bottom: 1px solid lighten(@dash-grey, 25%);
+					margin-bottom: 0.5em;
+					padding-bottom: 0.5em;
+					.plan {
+						color: @dash-grey;
+						h6 {
+							color: @blue-grey;
+							font-size: 1.2em;
+						}
+					}
+					.weekday, .weekend {
+						color: @dash-grey;
+						text-align: center;
+						text-transform: uppercase;
+						.price {
+							font-size: 2em;
+							color: @blue-grey;
+						}
+					}
+				}
+				.view-all {
+					margin-top: 1em;
+					font-size: 0.88em;
+					a {
+						color: @blue-grey;
+						&:hover {
+							color: darken(@blue-grey, 10%);
+						}
+					}
+				}
+			}
+			&.actions {
+				vertical-align: middle;
+				text-align: center;
+				.btn {
+					margin: 0 0.5em;
+				}
+			}
+		}
 	}
 }

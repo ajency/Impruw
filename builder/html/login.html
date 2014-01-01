@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Impruw Dash Layout</title>
+    <title>Impruw Login Page</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link href="css/flat-ui.css" rel="stylesheet" media="screen">
     <link href="css/main.min.css" rel="stylesheet" media="screen">
-	<link href="../css/dashboard.css" rel="stylesheet" media="screen">
+	<link href="../../wp-content/themes/impruwclientparent/css/dashboard.css" rel="stylesheet" media="screen">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -16,6 +16,17 @@
     <![endif]-->
   </head>
   <body>
+  	<header class="aj-imp-lo-header">
+		<div class="row">
+			<div class="col-md-6 logo">
+				<a href="#"><img src="images/impruw-logo-blue.png" title="Impruw" alt="Impruw" /></a>
+			</div>
+			<div class="col-md-6 lang-actions">
+				<a href="#" id="lang-pop"><img src="images/flags/United-Kingdom.png" title="English UK" alt="English UK" /> English <span class="caret"></span></a>
+				<a href="#" class="btn btn-sm login-btn"><span class="glyphicon glyphicon-lock"></span> Sign In</a>
+			</div>
+		</div>
+	</header>
     <div class="aj-imp-container container">
 		<div class="aj-imp-login-form">
 			<div class="row">
@@ -65,6 +76,12 @@
 			</div>
 		</div>
 	</div>
+	<footer class="aj-imp-lo-footer">
+		<img src="images/impruw-hand.png" title="Impruw" alt="Impruw" />
+		<div class="copyright">
+			&copy;2013 All Rights Reserved. Impruw<sup>&reg;</sup> is a Registered Trademark. Terms &amp; Privacy
+		</div>
+	</footer>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="js/jquery-2.0.3.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -74,6 +91,13 @@
     <script src="js/flatui-radio.js"></script>
 	<script>
 		jQuery("select").selectpicker();
+	</script>
+	<script type="text/javascript">
+		jQuery("#lang-pop").popover({
+			html: true,
+			placement: 'bottom',
+			content: '<ul><li><a href="#"><img src="images/flags/Spain.png" title="Spanish" alt="Spanish" /> Spanish</a></li><li class="active"><a href="#"><img src="images/flags/United-Kingdom.png" title="English UK" alt="English UK" /> English UK</a></li><li><a href="#"><img src="images/flags/France.png" title="French" alt="French" /> French</a></li><li><a href="#"><img src="images/flags/Norway.png" title="Norwegian" alt="Norwegian" /> Norwegian</a></li><li><a href="#"><img src="images/flags/Germany.png" title="German" alt="German" /> German</a></li></ul>'
+		})
 	</script>
   </body>
 </html>
