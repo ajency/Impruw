@@ -660,7 +660,14 @@ form {
 					background: lighten(@orange, 10%);
 				}
 			}
+			@media (max-width: 979px) { 
+				text-align: center;
+			}
 		}
+	}
+	@media (max-width: 979px) { 
+		max-height: none;
+		text-align: center;
 	}
 }
 
@@ -1365,6 +1372,15 @@ form {
 			text-align: center;
 			background: #EEF0F0;
 			font-size: 1.3em;
+			&.one {
+				width: 35%;
+			}
+			&.two {
+				width: 40%;
+			}
+			&.three {
+				width: 20%;
+			}
 		}
 	}
 	tbody {

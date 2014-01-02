@@ -620,6 +620,17 @@ form .aj-imp-submit:hover {
 .aj-imp-lo-header > .row .lang-actions .login-btn:hover {
   background: #ff9833;
 }
+@media (max-width: 979px) {
+  .aj-imp-lo-header > .row .lang-actions {
+    text-align: center;
+  }
+}
+@media (max-width: 979px) {
+  .aj-imp-lo-header {
+    max-height: none;
+    text-align: center;
+  }
+}
 .aj-imp-lo-footer {
   padding: 1em 0;
   text-align: center;
@@ -1288,6 +1299,15 @@ form .aj-imp-submit:hover {
   text-align: center;
   background: #EEF0F0;
   font-size: 1.3em;
+}
+.room-list thead th.one {
+  width: 35%;
+}
+.room-list thead th.two {
+  width: 40%;
+}
+.room-list thead th.three {
+  width: 20%;
 }
 .room-list tbody td .room-details h4 {
   font-size: 1.1em;
