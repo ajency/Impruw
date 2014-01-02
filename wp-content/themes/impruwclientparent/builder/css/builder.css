@@ -184,6 +184,7 @@ Version:        0.1.0
   border-left: 1px solid #c3c3c3;
 }
 .aj-imp-builder-top-nav .aj-imp-page-layout #aj-imp-page-sel {
+  width: 38%;
   float: left;
   text-align: left;
 }
@@ -973,59 +974,59 @@ Version:        0.1.0
 .aj-imp-preview .aj-imp-edit-content:hover .aj-imp-edit-controls {
   display: block;
 }
-/****CKEditor Styles****
+/****CKEditor Styles****/
 .cke_float {
-	background: rgba(255, 255, 255, 0.9) !important;
-	border: 1px solid @dash-grey !important;
-	padding: 0 !important;
-	box-shadow: 2px 2px 0px @dash-grey !important;
-	box-sizing: padding-box;
-	.cke_inner {
-		background: none !important;
-		.cke_top {
-			border-radius: 5px;
-			background: none !important;
-		}
-	}
+  background: rgba(255, 255, 255, 0.9) !important;
+  border: 1px solid #aaaaaa !important;
+  padding: 0 !important;
+  box-shadow: 2px 2px 0px #aaaaaa !important;
+  box-sizing: padding-box;
 }
-
+.cke_float .cke_inner {
+  background: none !important;
+}
+.cke_float .cke_inner .cke_top {
+  border-radius: 5px;
+  background: none !important;
+}
 .cke_toolgroup {
-	background: lighten(@dash-grey, 25%) !important;
-	padding: 0 !important;
-	.cke_button {
-		border-radius: 0;
-		padding: 4px;
-		&:first-child {
-			border-radius: 5px 0 0 5px;
-		}
-		&:last-child {
-			border-radius: 0 5px 5px 0;
-		}
-		&.cke_button__about, &.cke_button__scayt {
-			border-radius: 5px;
-		}
-		&.cke_button_off {
-			&:hover, &:focus, &:active {
-				background: @blue-grey !important;
-			}
-		}
-		&.cke_button_on {
-			background: @orange !important;
-		}
-	}
+  background: #eaeaea !important;
+  padding: 0 !important;
 }
-
+.cke_toolgroup .cke_button {
+  border-radius: 0;
+  padding: 4px;
+}
+.cke_toolgroup .cke_button:first-child {
+  border-radius: 5px 0 0 5px;
+}
+.cke_toolgroup .cke_button:last-child {
+  border-radius: 0 5px 5px 0;
+}
+.cke_toolgroup .cke_button.cke_button__about,
+.cke_toolgroup .cke_button.cke_button__scayt {
+  border-radius: 5px;
+}
+.cke_toolgroup .cke_button.cke_button_off:hover,
+.cke_toolgroup .cke_button.cke_button_off:focus,
+.cke_toolgroup .cke_button.cke_button_off:active {
+  background: #849fb0 !important;
+}
+.cke_toolgroup .cke_button.cke_button_on {
+  background: #ff7e00 !important;
+}
 .cke_combo_button {
-	background: lighten(@dash-grey, 25%) !important;
-	&:hover, &:focus, &:active {
-		background: @blue-grey !important;
-	}
+  background: #eaeaea !important;
 }
-
+.cke_combo_button:hover,
+.cke_combo_button:focus,
+.cke_combo_button:active {
+  background: #849fb0 !important;
+}
 .cke_toolbar_separator {
-	border-left: 1px solid @dash-grey !important;
-	margin: 5px 2px 0 !important;
-}*/
+  border-left: 1px solid #aaaaaa !important;
+  margin: 5px 2px 0 !important;
+}
 /****Modal Styles****/
 .modal-backdrop {
   background: #333333;
@@ -1167,6 +1168,7 @@ Version:        0.1.0
 }
 .modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-body .aj-imp-edit-image .aj-imp-crop-link {
   position: relative;
+  margin: 0 0 1em;
 }
 .modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-body .aj-imp-edit-image .aj-imp-crop-link img {
   padding: 1px;
@@ -1176,8 +1178,8 @@ Version:        0.1.0
   position: absolute;
   top: 1px;
   bottom: 1px;
-  left: 15px;
-  right: 15px;
+  left: 1px;
+  right: 1px;
   background: rgba(0, 0, 0, 0.4);
 }
 .modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-body .aj-imp-edit-image .aj-imp-crop-link .aj-imp-crop-link-overlay a {
@@ -1395,29 +1397,4 @@ Version:        0.1.0
 }
 .aj-imp-theme-area .aj-imp-block-list .btn {
   color: #fff;
-}
-/****Builder Settings Popover Styles****/
-#aj-imp-builder-drag-drop .popover .popover-title {
-  background: #29333F;
-}
-#aj-imp-builder-drag-drop .popover.bottom .arrow {
-  border-bottom-color: #29333F;
-}
-/****Builder Form Styles****/
-.form-group .form-control:focus {
-  border-color: #ff7e00;
-}
-.form-group .checkbox.checked,
-.form-group .radio.checked {
-  color: #ff7e00;
-}
-.form-group .checkbox.checked .second-icon,
-.form-group .radio.checked .second-icon {
-  color: #ff7e00;
-}
-.form-group .updateProperties {
-  background: #ff7e00;
-}
-.form-group .updateProperties:hover {
-  background: #ffb266;
 }

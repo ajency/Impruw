@@ -23,12 +23,32 @@
 	    <div class="aj-imp-edit-image well">
             <form>
                 <div class="row">
-                    <div class="aj-imp-crop-link col-sm-4">
-                        <img src="<%= media.get('sizes').thumbnail.url %>" class="thumbnail-img img-responsive">
-                        <div class="aj-imp-crop-link-overlay">
-                            <a href="#">
-                                    <span class="glyphicon glyphicon-edit"></span> Edit Image
-                            </a>
+                    <div class="col-sm-4">
+                        <div class="aj-imp-crop-link">
+                            <img src="<%= media.get('sizes').thumbnail.url %>" class="thumbnail-img img-responsive">
+                            <div class="aj-imp-crop-link-overlay">
+                                <a href="#">
+                                        <span class="glyphicon glyphicon-edit"></span> Edit Image
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label>Alignment: </label>
+                                <select>
+                                    <option>None</option>
+                                    <option>Left</option>
+                                    <option>Right</option>
+                                    <option>Center</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-6">
+                                <label>Size: </label>
+                                <select>
+                                    <option>Full Size</option>
+                                    <option>Thumbnail</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                     <div class="aj-imp-img-form col-sm-8">
@@ -38,6 +58,16 @@
                             </div>
                             <div class="col-sm-6">
                                     <input type="text" value="<%= media.get('link') %>" name="image-link" class="form-control" placeholder="Link">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <input type="text" value="<%= media.get('alt') %>" class="form-control" name="image-alt" placeholder="Alt Text">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                    <textarea class="form-control"= name="image-caption" placeholder="Caption"><%= media.get('caption') %></textarea>
                             </div>
                         </div>
                         <div class="row">

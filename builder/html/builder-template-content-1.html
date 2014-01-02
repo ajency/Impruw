@@ -8,7 +8,7 @@
     <link href="../css/flat-ui.css" rel="stylesheet" media="screen">
     <link href="../css/main.min.css" rel="stylesheet" media="screen">
 	<link href="css/site.css" rel="stylesheet" media="screen">
-	<link href="../css/builder.css" rel="stylesheet" media="screen">
+	<link href="../../wp-content/themes/impruwclientparent/builder/css/builder.css" rel="stylesheet" media="screen">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -716,12 +716,32 @@
 									<div class="panel-body">
 									  <div class="aj-imp-edit-image well">
 										<div class="row">
-											<div class="aj-imp-crop-link col-sm-4">
-												<img src="images/hotel-1.jpg" class="img-responsive">
-												<div class="aj-imp-crop-link-overlay">
-													<a href="#">
-														<span class="glyphicon glyphicon-edit"></span> Edit Image
-													</a>
+											<div class="col-sm-4">
+												<div class="aj-imp-crop-link">
+													<img src="images/hotel-1.jpg" class="img-responsive">
+													<div class="aj-imp-crop-link-overlay">
+														<a href="#">
+															<span class="glyphicon glyphicon-edit"></span> Edit Image
+														</a>
+													</div>
+												</div>
+												<div class="row">
+													<div class="col-sm-6">
+														<label>Alignment: </label>
+														<select>
+															<option>None</option>
+															<option>Left</option>
+															<option>Right</option>
+															<option>Center</option>
+														</select>
+													</div>
+													<div class="col-sm-6">
+														<label>Size: </label>
+														<select>
+															<option>Full Size</option>
+															<option>Thumbnail</option>
+														</select>
+													</div>
 												</div>
 											</div>
 											<div class="aj-imp-img-form col-sm-8">
@@ -731,6 +751,16 @@
 													</div>
 													<div class="col-sm-6">
 														<input type="text" class="form-control" placeholder="Link">
+													</div>
+												</div>
+												<div class="row">
+													<div class="col-sm-12">
+														<input type="text" class="form-control" placeholder="Alt Text">
+													</div>
+												</div>
+												<div class="row">
+													<div class="col-sm-12">
+														<textarea class="form-control" placeholder="Caption"></textarea>
 													</div>
 												</div>
 												<div class="row">
