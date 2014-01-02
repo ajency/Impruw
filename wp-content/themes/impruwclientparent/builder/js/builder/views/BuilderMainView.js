@@ -39,6 +39,8 @@ define(['underscore', 'jquery', 'backbone', 'builder/views/BuilderEditorView'],
                     menuStyle: 'dropdown'
                 });
 
+                this.renderView();
+
             },
 
             /**
@@ -71,6 +73,7 @@ define(['underscore', 'jquery', 'backbone', 'builder/views/BuilderEditorView'],
                 this.builder = new BuilderEditorView();
 
                 this.builder.render();
+
 
                 this.$el.find('.aj-imp-browser-body').html(this.builder.$el);
 

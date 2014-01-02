@@ -1250,11 +1250,31 @@ function fetch_all_room_facilities() {
 
     $taxonomies= array( 'impruv_room_facility' );
     $room_facilities =  get_terms( $taxonomies, array( 'hide_empty' => 0 ) );
-
-    wp_send_json( array( 'code' => 'OK' , 'data' =>$room_facilities ) );
+	$addons_types = fetch_all_addons();
+	
+	$checkin_format = get_option('checkin-format');
+	$checkin_time = get_option('checkin-time');
+	$additional_policies = get_option('additional-policies');
+	
+	$room_data = array('facilities'=>$room_facilities,
+						'addontypes'=>$addons_types,
+						'checkinformat'=>($checkin_format==false?'':$checkin_format),
+						'checkintime'=>($checkin_time==false?'':$checkin_time),
+						'additionalpolicies'=>($additional_policies==false?'':$additional_policies));
+    wp_send_json( array( 'code' => 'OK' , 'data' =>$room_data ) );
 }
 add_action( 'wp_ajax_fetch_all_room_facilities', 'fetch_all_room_facilities' );
 add_action( 'wp_ajax_nopriv_fetch_all_room_facilities', 'fetch_all_room_facilities' );
+
+/**
+ * Function to fetch all addons
+ */
+function fetch_all_addons() {
+	
+	$addon_types = maybe_unserialize(get_option('addon-type'));
+	 
+    return $addon_types;
+}
 
 
 /**
@@ -1285,6 +1305,109 @@ add_action( 'wp_ajax_nopriv_save_new_room_facility', 'save_new_room_facility' );
 
 
 /**
+ * Function to save new addon type
+ */
+function save_new_addon_type() {
+
+    $new_addon_type = $_POST['new_addon_type'];
+    $new_addon_price = $_POST['new_addon_price'];
+	$max_addonid = 0; 
+	
+    $addon_types=array();
+    
+    $addon_types = maybe_unserialize(get_option('addon-type'));
+    //var_dump($addon_types);
+
+    $addon_exists = false;
+    //check if the addon type already exists
+    if($addon_types){   
+    	if(count($addon_types)>0){
+    	
+	    	$max_addonid = max(array_col($addon_types, 'id')); 	 
+		    foreach ($addon_types as $addontype_key=>$addontype_val){
+		    	if($addontype_val['label'] == $new_addon_type )
+		    		$addon_exists = true;
+		    }
+    	}
+    }
+     if($addon_exists)
+    	wp_send_json( array( 'code' => 'ERROR', 'msg' => 'The addon type already exists' ) );	
+ 
+    $newaddon_id = $max_addonid + 1;
+    
+    $addon_types[]= array('id'=>$newaddon_id, 'label'=>$new_addon_type,'price'=>$new_addon_price);
+    $update_result = update_option('addon-type', maybe_serialize($addon_types));
+     
+    if ( $update_result ) {
+		$new_addon_type_data = array('id'=>$newaddon_id,'label'=>$new_addon_type,'price'=>$new_addon_price);
+        wp_send_json( array( 'code' => 'OK', 'msg'=>'New addon type added successfully', 'addontype'=>$new_addon_type_data ) );        
+    }
+    else {
+		wp_send_json( array( 'code' => 'ERROR', 'msg' => 'Error adding the addon type' ) );	
+    }
+    
+
+
+}
+add_action( 'wp_ajax_save_new_addon_type', 'save_new_addon_type' );
+add_action( 'wp_ajax_nopriv_save_new_addon_type', 'save_new_addon_type' );
+
+
+
+/**
+ * 
+ * Function to get max value from multidimensional array
+ * @param multidimensional array $a
+ * @param 'key' $x
+ */
+function array_col(array $a, $x){
+  return array_map(function($a) use ($x) { return $a[$x]; }, $a);
+}
+
+
+
+function update_addon_type(){
+	
+	$addon_type = $_POST['addon_type'];
+    $addon_price = $_POST['addon_price'];
+	$addontype_edit = $_POST['addon_edit'];
+    $addon_types=array();
+    
+    
+    
+    $addon_types = maybe_unserialize(get_option('addon-type'));
+    $updated_addon_types = array();
+    //var_dump($addon_types);
+    if($addon_types){
+	    foreach ($addon_types as $addontype_key=>$addontype_val){
+	    	 
+	    	if($addontype_val['id']!=$addontype_edit)  
+	    		$updated_addon_types [] = array('id'=>$addontype_val['id'],'label'=>$addontype_val['label'],'price'=>$addontype_val['price']);
+	    	 else 
+	    	 	$updated_addon_types [] = array('id'=>$addontype_val['id'],'label'=>$addon_type,'price'=>$addon_price);
+	    	
+	    }
+    } 
+    
+    $update_result = update_option('addon-type', maybe_serialize($updated_addon_types));
+    
+   
+
+
+    if ( $update_result ) {
+		$addon_type_data = array('id'=>$addontype_edit, 'label'=>$addon_type,'price'=>$addon_price);
+		 
+        wp_send_json( array( 'code' => 'OK', 'msg'=>'Addon type updated successfully', 'updatedaddontype'=>$addon_type_data, 'editaddontype'=>$addontype_edit ) );
+        
+    }
+    else {
+	wp_send_json( array( 'code' => 'ERROR', 'msg' => 'Error updating the addon type' ) );	
+    }
+    
+}
+add_action( 'wp_ajax_update_addon_type', 'update_addon_type' );
+add_action( 'wp_ajax_nopriv_update_addon_type', 'update_addon_type' );
+/**
  * Function to delete room facility
  */
 function delete_room_facility() {
@@ -1309,6 +1432,44 @@ function delete_room_facility() {
 add_action( 'wp_ajax_delete_room_facility', 'delete_room_facility' );
 add_action( 'wp_ajax_nopriv_delete_room_facility', 'delete_room_facility' );
 
+
+
+
+
+
+/**
+ * Function to delete room addon type
+ */
+function delete_room_addon_type() {
+    $addontype_id  = $_POST['addonTypeId'];
+
+ 
+    
+    $addon_types = maybe_unserialize(get_option('addon-type'));
+   // var_dump($addon_types);
+   $updated_addon_types = array();
+     if($addon_types){
+	    foreach ($addon_types as $addontype_key=>$addontype_val){ 
+	    	if($addontype_val['id']!=$addontype_id)  
+	    		$updated_addon_types [] = array('id'=>$addontype_val['id'],'label'=>$addontype_val['label'],'price'=>$addontype_val['price']);
+	    	 
+	    }
+	    $delete_result = update_option('addon-type', maybe_serialize($updated_addon_types));
+    }
+    
+    if (  $delete_result ) {
+        wp_send_json( array( 'code' => 'OK', 'msg'=>'Addon type is successfully Deleted' ) );
+
+    }
+    else {
+        wp_send_json( array( 'code' => 'ERROR', 'msg' => 'Error deleting addon type' ) );
+
+    }
+
+
+}
+add_action( 'wp_ajax_delete_room_addon_type', 'delete_room_addon_type' );
+add_action( 'wp_ajax_nopriv_delete_room_addon_type', 'delete_room_addon_type' );
 
 function update_room_facility() {
 
@@ -1346,6 +1507,9 @@ function add_new_room_ajx() {
     $room_nos = $_POST['nos'];
     $room_desc = $_POST['description'];
     $room_facilities = $_POST['facilities'];
+    $checkin_format = $_POST['checkinformat'];
+    $checkin_time = $_POST['checkintime'];
+    $additional_policies = $_POST['additionalpolicies'];
 
 
     $array=array( 'post_title' => $room_name, 'post_content' => $room_desc, 'user_id' => get_current_user_id(), 'inventory' => $room_nos, 'terms'=>$room_facilities );
@@ -1358,6 +1522,9 @@ function add_new_room_ajx() {
 
     add_new_room( get_current_blog_id(), $array, $tariff_array ); //need to handle error ; no return type
 
+	update_option('checkin-format', $checkin_format);
+	update_option('checkin-time', $checkin_time);
+	update_option('additional-policies', $additional_policies);
     wp_send_json( array( 'code' => 'OK', 'msg'=>'New Room added successfully' ) );
 
 }
