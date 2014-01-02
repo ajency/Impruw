@@ -41,9 +41,7 @@ define(['underscore', 'jquery', 'backbone', 'global'],
             initialize: function(option) {
 
                  _.bindAll(this, 'handleRowDrop','updateRowProperties');
-                 $('#updateRowProperties').delegate('click',function(){
-                    alert("fdfd");
-                 });
+                 
             },
 
             /**
@@ -263,7 +261,7 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                 var templatePath = '';
 
                 $.get(AJAXURL, {
-                        action  : 'get_saved_layout',
+                        action  : 'get_initial_saved_layout',
                         forPage  : this.getCurrentPage(),
                         forTheme : this.getCurrentThemeID()
                     },

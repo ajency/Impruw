@@ -1,8 +1,8 @@
 <?php
 /**
- * Template Name: Site Builder
+ * Template Name: Site Builder Initial
  */
-get_header('builder');
+get_header('build');
 ?>
 <div class="aj-imp-builder-area">
     <div class="aj-imp-browser-preview">
@@ -103,4 +103,4 @@ get_header('builder');
     </div>
 </div>
 <?php
-get_footer('builder');
+get_footer('build');

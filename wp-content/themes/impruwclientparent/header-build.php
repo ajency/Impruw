@@ -32,6 +32,8 @@
     <link href="<?php echo get_parent_template_directory_uri(); ?>/builder/css/main.css"            rel="stylesheet" media="screen"/>
     <link href="<?php echo get_parent_template_directory_uri(); ?>/builder/css/builder.css"         rel="stylesheet" media="screen"/>
     <link href="<?php echo get_parent_template_directory_uri(); ?>/builder/css/custom.css"          rel="stylesheet" media="screen"/>
+    <link href="<?php echo get_template_directory_uri(); ?> rel="stylesheet" media="screen"/>
+    
 </head>
 <body <?php body_class(); ?>>
     <div class="aj-imp-builder container">
@@ -43,13 +45,6 @@
                     </p>
                 </div>
                 <div class="aj-imp-page-layout col-sm-8 clearfix navbar-text">
-                    Theme: <select id="aj-imp-theme-sel" name="current_theme">
-                        <?php foreach(get_all_themes() as $theme): ?>
-                            <?php $selected = (isset($_COOKIE["current_theme"]) && $_COOKIE["current_theme"] == $theme->ID) ? 'selected'  :''; ?>
-                            <option value="<?php echo $theme->ID; ?>" <?php echo $selected; ?>><?php echo $theme->post_title; ?></option>
-                        <?php endforeach; ?>
-                    </select>&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;
                     Page: <select id="aj-imp-page-sel" name="current_page">
                         <?php foreach(get_all_menu_pages() as $key => $value): ?>
                             <?php $selected = (isset($_COOKIE["current_page"]) && $_COOKIE["current_page"] === $key) ? 'selected'  :''; ?>
@@ -74,14 +69,14 @@
                                     </div>
                                 </li>
                             </ul>
-                        </div> -->
+                        </div> 
                         <div id="aj-imp-settings-sel" class="dropdown"> 
                             <a class="aj-imp-settings-toggle btn btn-default" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-cog"></span> <span class="caret"></span></a>
                             <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu1">
                                 <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Settings</a></li>
                                 <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Logout</a></li>
                             </ul>
-                        </div>
+                        </div>-->
                     </form>
                 </div>
             </nav>

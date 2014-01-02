@@ -1684,10 +1684,108 @@ add_action( 'wp_ajax_nopriv_add_new_room_ajx', 'add_new_room_ajx' );
 
 
 /**
- * Function to save room category
- * function add_room(){
- * $new_term = $_POST['new_facility'];
- * }
- * add_action('wp_ajax_save_new_room_facility','save_new_room_facility');
- * add_action('wp_ajax_nopriv_save_new_room_facility','save_new_room_facility');
+ * Get all menu pages for the site
+ * @return [type] [description]
  */
+function get_all_menu_pages(){
+        
+   return array(
+            'home'          => 'Home',
+            'about-us'      => 'About Us',
+            'contact-us'    => 'Contact Us'
+          );     
+    
+}
+
+/**
+ * Get all themes data
+ * @return [type] [description]
+ */
+function get_all_themes(){
+
+    $args = array('post_type' => 'theme','posts_per_page' => -1);
+    $themes  = new WP_query($args);
+
+    if($themes->have_posts())
+        return $themes->posts;
+    else
+        return array();
+
+}
+
+
+
+/**
+ * Saves the initial layout to DB
+ * @return [array] [description]
+ */
+function save_initial_layout(){
+
+    $theme_id = $_POST['forTheme'];
+    $page     = $_POST['forPage'];  
+    $json     = $_POST['json'];
+
+    //get header section json
+    $header = isset($json['header']) && is_array($json['header']) ? $json['header'] : false;
+
+    //get header section json
+    $pagejson   = isset($json['page']) && is_array($json['page']) ? $json['page'] : false;
+
+    //get header section json
+    $footer = isset($json['footer']) && is_array($json['footer']) ? $json['footer'] : false;
+
+    switch_to_blog(1);
+
+    if(is_array($header))
+        update_post_meta($theme_id, 'theme-header',$header);
+    else
+        delete_post_meta($theme_id, 'theme-header');
+
+    if(is_array($pagejson))
+        update_post_meta($theme_id, 'page-' . $page, $pagejson);
+    else
+        delete_post_meta($theme_id, 'page-' . $page);
+
+    if(is_array($footer))
+        update_post_meta($theme_id,'theme-footer',$footer);
+    else
+        delete_post_meta($theme_id, 'theme-footer');
+
+    restore_current_blog();
+
+    wp_send_json(array('code' => 'OK'));
+
+    die;
+}
+add_action('wp_ajax_save_initial_layout','save_initial_layout');
+
+
+/**
+ * Returns the save layout json
+ * @return [type] [description]
+ */
+function get_initial_saved_layout() {
+
+    $theme_id = $_GET['forTheme'];
+    $page     = $_GET['forPage'];  
+    $json     = array();
+
+    switch_to_blog(1);
+
+    $header = get_post_meta($theme_id,'theme-header',true);
+    if(is_array($header))
+        $json['header'] = $header;
+
+    $page = get_post_meta($theme_id,'page-' . $page,true);
+    if(is_array($page))
+        $json['page']   = $page;
+
+    $footer = get_post_meta($theme_id,'theme-footer',true);
+    if(is_array($footer))
+        $json['footer'] = $footer;
+
+    restore_current_blog();
+    
+    wp_send_json($json);
+}
+add_action( 'wp_ajax_get_initial_saved_layout', 'get_initial_saved_layout' );

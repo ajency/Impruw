@@ -16,7 +16,7 @@ Description: This file has a list of the following functions used in this theme
  */
 function site_template_directory_uri($template_dir_uri, $template, $theme_root_uri){
     
-    return site_url('wp-content/themes/impruwclientchild2');
+    return site_url('wp-content/themes/impruwdefault');
     
 }
 add_filter('template_directory_uri','site_template_directory_uri',10,3);
