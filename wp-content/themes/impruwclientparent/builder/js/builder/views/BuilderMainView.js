@@ -12,12 +12,13 @@ define(['underscore', 'jquery', 'backbone', 'builder/views/BuilderEditorView'],
             el: '.aj-imp-builder',
 
             events: {
-
-                'click label.editormode': 'switchMode',
-                'click #generate-markup': 'generateMarkup',
-                'click #generate-json': 'generateJSON',
-                'click #choose-template li a': 'updateTemplate',
-                'click #publish-page': 'generateJSON'
+                'click label.editormode'        : 'switchMode',
+                'click #generate-markup'        : 'generateMarkup',
+                'click #generate-json'          : 'generateJSON',
+                'click #choose-template li a'   : 'updateTemplate',
+                'click #publish-page'           : 'generateJSON',
+                'click #save-initial-layout'    : 'saveInitialLayout',
+                'click #load-theme-page'        : 'setThemePage'
             },
 
 
@@ -29,17 +30,39 @@ define(['underscore', 'jquery', 'backbone', 'builder/views/BuilderEditorView'],
 
             },
 
+            /**
+             * Show the builder
+             * @return {[type]} [description]
+             */
             render: function() {
 
                 var self = this;
 
                 //setup select picker
                 this.$el.find('.aj-imp-builder-top-nav select').selectpicker({
-                    style: 'btn-mini btn-default',
-                    menuStyle: 'dropdown'
-                });
+                                                                    style: 'btn-mini btn-default',
+                                                                    menuStyle: 'dropdown'
+                                                                });
 
                 this.renderView();
+
+            },
+
+            /**
+             * Sets the cookie for the selected theme and page
+             */
+            setThemePage : function(evt){
+
+                evt.preventDefault();
+
+                var button = $(evt.target);
+
+                var themeID = button.parent().find('select[name="current_theme"]').val();
+                var page    = button.parent().find('select[name="current_page"]').val();
+
+                $.cookie('current_theme', themeID, { expires: 7 });
+                $.cookie('current_page', page, { expires: 7 });
+
 
             },
 
@@ -62,6 +85,20 @@ define(['underscore', 'jquery', 'backbone', 'builder/views/BuilderEditorView'],
         
             },
 
+            /**
+             * This function saves the initial layout for the page
+             * makes a call to  Editors SaveInitialLayout function
+             * @return {[type]} [description]
+             */
+            saveInitialLayout : function(evt){
+                evt.preventDefault();
+                this.builder.saveInitialLayout(evt);
+            },
+
+            /**
+             * Update the template
+             * @return {[type]} [description]
+             */
             updateTemplate: function() {
 
                 //void definition

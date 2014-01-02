@@ -20,7 +20,7 @@ get_header('builder');
                 </div>
                 <div class="col-sm-6">
                     <div class="aj-imp-page-publish">
-                        <div id="aj-imp-preview-sel" class="dropdown"> 
+                        <!-- <div id="aj-imp-preview-sel" class="dropdown"> 
                             <a data-toggle="dropdown" href="#">Preview <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
                                 <li role="presentation">
@@ -33,7 +33,7 @@ get_header('builder');
                                     </div>
                                 </li>
                             </ul>
-                        </div>
+                        </div> 
                         <div class="divider">&nbsp;</div>
                         <div class="aj-imp-publish">
                             <a href="#" id="generate-markup">Generate Markup</a>
@@ -42,9 +42,9 @@ get_header('builder');
                         <div class="aj-imp-publish">
                             <a href="#" id="generate-json">Generate Layout</a>
                         </div>
-                        <div class="divider">&nbsp;</div>
+                        <div class="divider">&nbsp;</div>-->
                         <div class="aj-imp-publish">
-                            <a href="#" id="publish-page" class="publish">Publish</a>
+                            <a href="#" id="save-initial-layout" class="publish">Save Layout</a>
                         </div>
                     </div>
                 </div>
@@ -52,17 +52,17 @@ get_header('builder');
             <div class="row second">
                 <div class="col-sm-6">
                     <div class="aj-imp-browser-address-bar">
-                        http://www.impruw.com/sitename
+                       <?php echo site_url(); ?>
                     </div>
                 </div>
                 <div class="col-sm-3">
-                    <div class="aj-imp-choose-layout" class="dropdown">
+                    <!-- <div class="aj-imp-choose-layout" class="dropdown">
                         <a data-toggle="dropdown" href="#" class="aj-imp-layout-btn"><span class="glyphicon glyphicon-th"></span> Page Layout <span class="caret"></span></a>
                         <ul id="choose-template" class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu1">
                             <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Template 1</a></li>
                             <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Template 2</a></li>
                         </ul>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="aj-imp-mode-switch col-sm-3">
                     <div class="switch-toggle switch-2">
