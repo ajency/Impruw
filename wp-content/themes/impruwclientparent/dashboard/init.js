@@ -111,7 +111,7 @@ require(['backbone',
 
 
 /*
- * require(['backbone','lib/backbone.marionette.min.js',
+ * require(['backbone','lib/backbone.marionette.min',
          'routers/DashboardRouter','sitemodel','usermodel','jquery'], function( Backbone, Marionette, Router, SiteModel, UserModel,$) {
 
         $(document).ready(function(){   

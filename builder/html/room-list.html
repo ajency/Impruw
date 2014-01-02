@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Impruw Room List View</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="css/flat-ui.css" rel="stylesheet" media="screen">
+    <link href="css/main.min.css" rel="stylesheet" media="screen">
+	<link href="../../wp-content/themes/impruwclientparent/css/dashboard.css" rel="stylesheet" media="screen">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="../../assets/js/html5shiv.js"></script>
+      <script src="../../assets/js/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="aj-imp-container container">
+		<div class="row">
+			<div class="aj-imp-left col-md-3 col-sm-4">
+				<div class="aj-imp-dash-mobile-header">
+					<a href="#" id="nav-trigger"><span class="fui-list"></span> Menu</a>
+				</div>
+				<div class="aj-imp-dash-logo">
+					<a href="#"><img src="images/impruw-logo.png" title="Impruw" alt="Impruw" class="img-responsive" /></a>
+				</div>
+
+				<nav class="aj-imp-dash-nav">
+					<ul id="aj-imp-dash-menu">
+						<li class="aj-imp-nav-create">
+							<span class="icon"></span>
+							<span class="arrow"></span>
+							<a href="#">Create Site</a>
+						</li>
+						<li class="aj-imp-nav-booking">
+							<span class="icon"></span>
+							<span class="arrow"></span>
+							<a href="#">Booking</a>
+						</li>
+						<li class="aj-imp-nav-reports">
+							<span class="icon"></span>
+							<span class="arrow"></span>
+							<a href="#">Reports</a>
+						</li>
+						<li class="aj-imp-nav-marketing">
+							<span class="icon"></span>
+							<span class="arrow"></span>
+							<a href="#">Marketing</a>
+						</li>
+						<li class="aj-imp-nav-inventory active">
+							<span class="icon"></span>
+							<span class="arrow"></span>
+							<a href="#">Room Inventory</a>
+						</li>
+						<li class="aj-imp-nav-profile">
+							<span class="icon"></span>
+							<span class="arrow"></span>
+							<a href="#">Profile &amp; Billing</a>
+							<ul class="sub-menu">
+								<li>
+									<a href="#scr1">General</a>
+								</li>
+								<li>
+									<a href="#scr4">SEO</a>
+								</li>
+								<li>
+									<a href="#scr5">Editors</a>
+								</li>
+							</ul>
+						</li>
+						<li class="aj-imp-nav-support">
+							<span class="icon"></span>
+							<span class="arrow"></span>
+							<a href="#">Support</a>
+						</li>
+					</ul>
+				</nav>
+			</div>
+			<div class="aj-imp-right col-md-9 col-sm-8">
+				<header class="aj-imp-dash-header row">
+					<div class="aj-imp-dash-title col-xs-8">
+						<h2 class="aj-imp-page-head">Room List View</h2>
+					</div>
+					<div class="aj-imp-dash-actions col-xs-4">
+						<a href="#" class="btn btn-embossed btn-wide"><span class="glyphicon glyphicon-cog"></span> Settings</a>
+					</div>
+				</header>
+				<div class="row">
+					<div class="aj-imp-dash-content col-md-12">
+						<table class="table table-bordered table-striped room-list">
+							<thead>
+								<th width="35%">Room Details</th>
+								<th width="45%">Tariff</th>
+								<th width="20%">Actions</th>
+							</thead>
+							<tbody>
+								<tr>
+									<td>
+										<div class="room-details">
+											<h4>Executive Room</h4>
+											<p class="desc">
+												Watch the shimmering spectacle of stars from your own private terrace or patio. The Executive Room features a Master King size bedroom, soft plump pillows, mattress and a light as air duvet. Separater living room designed for lounging, chic light fixtures, deep comfortable couch and beautifully crafted furnishings.
+											</p>
+											<div class="row info-strip">
+												<div class="col-md-4 strip">
+													<span>5</span> Rooms
+												</div>
+												<div class="col-md-4 strip">
+													<span>12</span> Hour Format
+												</div>
+												<div class="col-md-4 strip">
+													<span>10:45pm</span> Time
+												</div>
+											</div>
+										</div>
+									</td>
+									<td>
+										<div class="tariff">
+											<div class="row tariff-plan">
+												<div class="col-sm-6 plan">
+													<h6>American Plan</h6>
+													10/12/2013 to 30/03/2014
+												</div>
+												<div class="col-sm-3 weekday">
+													Weekday
+													<div class="price">
+														$120
+													</div>
+												</div>
+												<div class="col-sm-3 weekend">
+													Weekend
+													<div class="price">
+														$150
+													</div>
+												</div>
+											</div>
+											<div class="row tariff-plan">
+												<div class="col-sm-6 plan">
+													<h6>American Plan</h6>
+													10/12/2013 to 30/03/2014
+												</div>
+												<div class="col-sm-3 weekday">
+													Weekday
+													<div class="price">
+														$120
+													</div>
+												</div>
+												<div class="col-sm-3 weekend">
+													Weekend
+													<div class="price">
+														$150
+													</div>
+												</div>
+											</div>
+											<div class="view-all">
+												<a href="#">View All</a>
+											</div>
+										</div>
+									</td>
+									<td class="actions">
+										<a href="#" class="btn btn-xs"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
+										<a href="#" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash"></span> Delete</a>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<div class="room-details">
+											<h4>Executive Room</h4>
+											<p class="desc">
+												Watch the shimmering spectacle of stars from your own private terrace or patio. The Executive Room features a Master King size bedroom, soft plump pillows, mattress and a light as air duvet. Separater living room designed for lounging, chic light fixtures, deep comfortable couch and beautifully crafted furnishings.
+											</p>
+											<div class="row info-strip">
+												<div class="col-md-4 strip">
+													<span>5</span> Rooms
+												</div>
+												<div class="col-md-4 strip">
+													<span>12</span> Hour Format
+												</div>
+												<div class="col-md-4 strip">
+													<span>10:45pm</span> Time
+												</div>
+											</div>
+										</div>
+									</td>
+									<td>
+										<div class="tariff">
+											<div class="row tariff-plan">
+												<div class="col-sm-6 plan">
+													<h6>American Plan</h6>
+													10/12/2013 to 30/03/2014
+												</div>
+												<div class="col-sm-3 weekday">
+													Weekday
+													<div class="price">
+														$120
+													</div>
+												</div>
+												<div class="col-sm-3 weekend">
+													Weekend
+													<div class="price">
+														$150
+													</div>
+												</div>
+											</div>
+											<div class="row tariff-plan">
+												<div class="col-sm-6 plan">
+													<h6>American Plan</h6>
+													10/12/2013 to 30/03/2014
+												</div>
+												<div class="col-sm-3 weekday">
+													Weekday
+													<div class="price">
+														$120
+													</div>
+												</div>
+												<div class="col-sm-3 weekend">
+													Weekend
+													<div class="price">
+														$150
+													</div>
+												</div>
+											</div>
+											<div class="view-all">
+												<a href="#">View All</a>
+											</div>
+										</div>
+									</td>
+									<td class="actions">
+										<a href="#" class="btn btn-xs"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
+										<a href="#" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash"></span> Delete</a>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<div class="room-details">
+											<h4>Executive Room</h4>
+											<p class="desc">
+												Watch the shimmering spectacle of stars from your own private terrace or patio. The Executive Room features a Master King size bedroom, soft plump pillows, mattress and a light as air duvet. Separater living room designed for lounging, chic light fixtures, deep comfortable couch and beautifully crafted furnishings.
+											</p>
+											<div class="row info-strip">
+												<div class="col-md-4 strip">
+													<span>5</span> Rooms
+												</div>
+												<div class="col-md-4 strip">
+													<span>12</span> Hour Format
+												</div>
+												<div class="col-md-4 strip">
+													<span>10:45pm</span> Time
+												</div>
+											</div>
+										</div>
+									</td>
+									<td>
+										<div class="tariff">
+											<div class="row tariff-plan">
+												<div class="col-sm-6 plan">
+													<h6>American Plan</h6>
+													10/12/2013 to 30/03/2014
+												</div>
+												<div class="col-sm-3 weekday">
+													Weekday
+													<div class="price">
+														$120
+													</div>
+												</div>
+												<div class="col-sm-3 weekend">
+													Weekend
+													<div class="price">
+														$150
+													</div>
+												</div>
+											</div>
+											<div class="row tariff-plan">
+												<div class="col-sm-6 plan">
+													<h6>American Plan</h6>
+													10/12/2013 to 30/03/2014
+												</div>
+												<div class="col-sm-3 weekday">
+													Weekday
+													<div class="price">
+														$120
+													</div>
+												</div>
+												<div class="col-sm-3 weekend">
+													Weekend
+													<div class="price">
+														$150
+													</div>
+												</div>
+											</div>
+											<div class="view-all">
+												<a href="#">View All</a>
+											</div>
+										</div>
+									</td>
+									<td class="actions">
+										<a href="#" class="btn btn-xs"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
+										<a href="#" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash"></span> Delete</a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="js/jquery-2.0.3.min.js"></script>
+    <script src="js/underscore.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/jquery-ui-1.10.3.custom.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.jpanelmenu.min.js"></script>
+    <script src="js/flatui-checkbox.js"></script>
+    <script src="js/bootstrap-select.js"></script>
+    <script src="js/flatui-radio.js"></script>
+    <script src="js/bootstrap-file-upload.min.js"></script>
+    <script src="js/bootstrap-input-mask.min.js"></script>
+    <script src="js/bootstrap-row-link.min.js"></script>
+	<script>
+		jQuery("select").selectpicker();
+	</script>
+	<script>
+		// JustText Function
+		jQuery.fn.justtext = function() {
+		    return jQuery(this).clone()
+		            .children()
+		            .remove()
+		            .end()
+		            .text();
+		};
+		
+		// Global var to cache info about indicators for easy access. 
+		var indicators = [];
+
+		jQuery(window).load(function(){
+
+		  //
+		  //	CREATE THE INDICATORS AND ADD TO PAGE
+		  //
+
+		  var rawIndicators = "";
+		  var $articles = jQuery(".scroll-indicator-container");
+		  // Create a bubble for each article
+		  $articles.each(function(i) {
+			var iInverse = $articles.length - i - 1;
+			// Top margin is a function of the nodes before it, bottom is proportional to those after. determines stacking at top / bottom static positions
+			var margins = 'margin: ' + (i+0.5) + 'em 0 ' + (iInverse+0.5) + 'em 0;'; 
+			rawIndicators +=  '<a class="indicator indicator--upcoming" style="' + margins + '" href="#' + this.id + '"><span class="indicator-tooltip">' + jQuery(this).find(".scroll-ref").justtext() + '</span></a>';
+		  });
+		  jQuery("body").append(rawIndicators);
+
+		  // Utility function to calculate the proper top coordinate for a bubble when it's on the move (position: absolute)
+		  var getNodeTopPos = function(indicator, target) {
+			var indMargTop = parseInt(indicator.css("margin-top").replace("px", ""));
+			var targCenter =  target.outerHeight(false)/2;
+			var indCenter = indicator.outerHeight(false)/2;
+			return target.offset().top - indMargTop + targCenter - indCenter;
+		  }
+
+
+		  // 
+		  // INITIAL SET UP OF INDICATOR OBJECT
+		  //
+
+		  var calcIndicatorInfo = function(){
+
+			indicators = []
+			jQuery(".indicator").each(function(){
+			  
+			  var o = {
+				$indicator: jQuery(this),
+				$target: jQuery( jQuery(this).attr("href") ),
+				$targetTitle: jQuery( jQuery(this).attr("href") + " .scroll-ref" )
+			  };
+
+			  // When it's abs positioned (on the move), this is the top pos
+			  o.absPos = getNodeTopPos(o.$indicator, o.$targetTitle); 
+
+			  // When it's abs positioned, at this scroll pos we should make the indicator fixed to the bottom
+			  o.absBottomStop = window.innerHeight - (o.absPos + o.$indicator.outerHeight(true));
+
+			  // Top / bottom stops for being 'viewable'
+			  o.viewableTopStop = o.$target.offset().top - window.innerHeight;
+			  o.viewableBottomStop = o.$target.offset().top + o.$target.outerHeight();
+			  indicators[indicators.length] = o;
+			  
+			});
+		  };
+
+		  //
+		  // ON RESIZE FUNCTION - UPDATE THE CACHED POSITON VALUES
+		  //
+
+		  var initIndicators = function() {
+			calcIndicatorInfo();
+			// Bug fix - without timeout scroll top reports 0, even when it scrolls down the page to last page loaded position
+			// http://stackoverflow.com/questions/16239520/chrome-remembers-scroll-position
+			setTimeout(function(){
+			  var st = $(document).scrollTop();
+			  jQuery(indicators).each(function(){
+				if(st<=this.absPos && st>=(-1*this.absBottomStop))
+				  this.$indicator.removeClass("indicator--upcoming").removeClass("indicator--passed").addClass("indicator--active")
+					  .css({ "top" : this.absPos });
+				else if(st>=(-1*this.absBottomStop)) 
+				  this.$indicator.removeClass("indicator--active").removeClass("indicator--upcoming").addClass("indicator--passed").css({ "top" : "" });
+				else
+				  this.$indicator.removeClass("indicator--active").removeClass("indicator--passed").addClass("indicator--upcoming").css({ "top" : "" });
+				
+				if(st>=this.viewableTopStop && st<=(this.viewableBottomStop))
+				  this.$indicator.addClass("indicator--viewing");
+				else
+				  this.$indicator.removeClass("indicator--viewing");
+			  });
+			}, 0);
+		  }
+
+		  //
+		  // SCROLL FUNCTION - UPDATE ALL OF THE INDICATORS
+		  //
+
+		  var adjustIndicators = function() {
+			var st = jQuery(document).scrollTop();
+
+			// The indicators that SHOULD be scrolling
+			var anticipated = _.filter(indicators, function(o) { return (st<=o.absPos && st>=(-1*o.absBottomStop)) });
+
+			// The $ elements that are indeed scrolling
+			var active$ = jQuery(".indicator--active");
+
+			// Anything in anticipated that isn't in active should be activated ...
+			var needsActivation = _.filter(anticipated, function(o) { return !_.contains(active$, o.$indicator[0]); })
+
+			// ... And anything thats in active that isn't in anticipated needs to be stopped. 
+			var anticipatedEls = _.pluck(anticipated, "$indicator");
+			var needsDeactivation = _.filter(active$, function(o) { 
+			  return !_.find(anticipatedEls, function(e){ return e[0] == o }); 
+			});
+
+			// Do the Activation
+			_.each(needsActivation, function(o) {
+			  o.$indicator
+				.removeClass("indicator--upcoming").removeClass("indicator--passed")
+				.addClass("indicator--active")
+				.css({ "top" : o.absPos })
+			});
+
+			_.each(needsDeactivation, function(i$){
+			  var indicator = _.find(indicators, function(i) {
+				return i.$indicator[0] == i$;
+			  });
+			  if(st>=indicator.absPos) {
+				// Went off top. now passed. 
+				indicator.$indicator.removeClass("indicator--active").addClass("indicator--passed").css({ "top" : "" });
+			  }
+			  else {
+				// Went off bottom. now upcoming. 
+				indicator.$indicator.removeClass("indicator--active").addClass("indicator--upcoming").css({ "top" : "" });
+			  }
+			});
+
+			jQuery(indicators).each(function(){
+			  if(st>=this.viewableTopStop && st<=(this.viewableBottomStop))
+				this.$indicator.addClass("indicator--viewing");
+			  else
+				this.$indicator.removeClass("indicator--viewing");
+			});
+
+		  }
+
+		  //
+		  // BIND EVENTS
+		  //
+
+		  jQuery(document).scroll(function() {
+			adjustIndicators();
+		  });
+		  jQuery(window).resize(function() {
+			initIndicators();
+			adjustIndicators();
+		  });
+		  
+		  initIndicators();
+		  adjustIndicators();
+		  
+		  jQuery(".indicator").click(function(){
+			initIndicators();
+			adjustIndicators();
+		  })
+
+		});
+	</script>
+	<script type="text/javascript">
+		jQuery(window).load(function() { 
+			var w = jQuery('.aj-imp-right').width();
+			jQuery('.aj-imp-long-form-actions.affix').width(w);
+
+			var m = jQuery('.aj-imp-left').width();
+			jQuery('.aj-imp-long-form-actions.affix').css('margin-left', (m));
+		});
+		jQuery(window).scroll(function() { 
+			var w = jQuery('.aj-imp-right').width();
+			jQuery('.aj-imp-long-form-actions.affix').width(w);
+
+			var m = jQuery('.aj-imp-left').width();
+			jQuery('.aj-imp-long-form-actions.affix').css('margin-left', (m));
+		});
+		jQuery(window).resize(function() { 
+			var w = jQuery('.aj-imp-right').width();
+			jQuery('.aj-imp-long-form-actions.affix').width(w);
+
+			var m = jQuery('.aj-imp-left').width();
+			jQuery('.aj-imp-long-form-actions.affix').css('margin-left', (m));
+		});
+	</script>
+	<script type="text/javascript">
+		var jPM = $.jPanelMenu({
+		    menu: '.aj-imp-dash-nav',
+		    trigger: '#nav-trigger'
+		});
+		jPM.on();
+	</script>
+	<script type="text/javascript">
+		// jQuery UI Datepicker JS init
+		var datepickerSelector = '.dated';
+		jQuery(datepickerSelector).datepicker({
+		  showOtherMonths: true,
+		  selectOtherMonths: true,
+		  dateFormat: "d MM, yy",
+		  yearRange: '-1:+1'
+		}).prev('.btn').on('click', function (e) {
+		  e && e.preventDefault();
+		  jQuery(datepickerSelector).focus();
+		});
+
+		// Now let's align datepicker with the prepend button
+		jQuery(datepickerSelector).datepicker('widget').css({'margin-left': -jQuery(datepickerSelector).prev('.btn').outerWidth()});
+	</script>
+  </body>
+</html>

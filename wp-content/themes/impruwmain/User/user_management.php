@@ -49,13 +49,15 @@ function user_signup($user_data_array,$blog_id,$blog_name,$blog_title,$file_name
  * @param array $user_data_array-Array containing user information(email, password, name)
  */
 function wp_impruw_create_user($user_data_array,$user_default_language) {
+	$last_name = '';
 	$user_login = wp_slash( $user_data_array['email'] );
 	$user_email = wp_slash( $user_data_array['email'] );
 	$user_pass = $user_data_array['password'];
         $user_nicename = wp_slash( $user_data_array['name']    );
         $users_name_array =  explode(' ',$user_data_array['name'] );
         $first_name = wp_slash( $users_name_array[0]    );
-        $last_name = wp_slash( $users_name_array[1]    );
+        if(count($users_name_array)>1)
+        	$last_name = wp_slash( $users_name_array[1]    );
         $role = $user_data_array['role'];  
         $activation_key = generate_user_activation_key($user_data_array['email']);
 	$userdata = compact('user_login', 'user_email', 'user_pass','user_nicename','first_name','last_name','role');
@@ -813,7 +815,7 @@ function user_activation($email,$key)
 		 
 		foreach($res_verify_user as $res_verify_usr)
 		{
-			var_dump($res_verify_usr);
+			//var_dump($res_verify_usr);
 			$wpdb->update($wpdb->users, array('user_activation_key' => ""), array('user_email' =>$email));
 			$wpdb->update($wpdb->users, array('user_status' => 0), array('user_email' => $email));
 			
