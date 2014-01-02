@@ -63,7 +63,7 @@ define(['underscore', 'jquery', 'backbone', 'builder/views/BuilderEditorView'],
                 $.cookie('current_theme', themeID, { expires: 7 });
                 $.cookie('current_page', page, { expires: 7 });
 
-
+                window.location.reload();
             },
 
             /**

@@ -94,6 +94,7 @@ define(['backbone', 'jquery', 'underscore', 'global'],
                     //hide any previously opened popover
                     if (!_.isNull(window.prevpopover))
                         window.prevpopover.popover('hide');
+                    
                     this.$el.popover('show');
                     window.prevpopover = this.$el;
                 }
@@ -158,11 +159,11 @@ define(['backbone', 'jquery', 'underscore', 'global'],
                 var self = this;
 
                 this.$el.popover({
-                    html: true,
-                    title: this.getType() + ' settings',
-                    content: this.getSettingsMarkup(),
-                    placement: 'auto',
-                    trigger: 'manual'
+                    html        : true,
+                    title       : _.str.capitalize(this.type) + ' Settings',
+                    content     : this.getSettingsMarkup(),
+                    placement   : 'auto',
+                    trigger     : 'manual'
                 });
 
                 this.$el.on('show.bs.popover', function(evt) {
@@ -208,20 +209,22 @@ define(['backbone', 'jquery', 'underscore', 'global'],
 
                 var html = '';
 
-                if (_.isUndefined(disAllow['isDraggable']))
-                    html += this.getDraggableSettingMarkup();
+                // if (_.isUndefined(disAllow['isDraggable']))
+                //     html += this.getDraggableSettingMarkup();
 
-                if (_.isUndefined(disAllow['isEditable']))
-                    html += this.getEditableSettingMarkup();
+                // if (_.isUndefined(disAllow['isEditable']))
+                //     html += this.getEditableSettingMarkup();
 
                 if (_.isUndefined(disAllow['extraClasses']))
                     html += this.getClassnameSettingMarkup();
 
-                if (_.isUndefined(disAllow['type']))
-                    html += this.getMarkupStyleSettingMarkup();
+                // if (_.isUndefined(disAllow['type']))
+                //     html += this.getMarkupStyleSettingMarkup();
+
+                var className = this.type === 'row' ? 'updateRowProperties' : 'updateProperties';
 
                 html += '<div class="form-group">\
-                                 <input value="Save" type="button" class="btn btn-primary updateProperties"/>\
+                                 <input value="Save" type="button" class="btn btn-primary '+className+'"/>&nbsp;\
                            </div>';
 
                 return html;

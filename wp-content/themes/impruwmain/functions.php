@@ -457,17 +457,26 @@ function save_initial_layout(){
     $header = isset($json['header']) && is_array($json['header']) ? $json['header'] : false;
 
     //get header section json
-    $page   = isset($json['page']) && is_array($json['page']) ? $json['page'] : false;
+    $pagejson   = isset($json['page']) && is_array($json['page']) ? $json['page'] : false;
 
     //get header section json
     $footer = isset($json['footer']) && is_array($json['footer']) ? $json['footer'] : false;
 
     if(is_array($header))
-        update_post_meta($theme_id,'theme-header',$header);
+        update_post_meta($theme_id, 'theme-header',$header);
+    else
+        delete_post_meta($theme_id, 'theme-header');
+
+    if(is_array($pagejson))
+        update_post_meta($theme_id, 'page-' . $page, $pagejson);
+    else
+        delete_post_meta($theme_id, 'page-' . $page);
 
     if(is_array($footer))
         update_post_meta($theme_id,'theme-footer',$footer);
-
+    else
+        delete_post_meta($theme_id, 'theme-footer');
+    
     wp_send_json(array('code' => 'OK'));
 
     die;

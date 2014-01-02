@@ -25,10 +25,8 @@ define(['underscore', 'jquery', 'backbone', 'global'],
 
             contentLoaded: false,
 
-            themeConfig: {},
-
             events: {
-                'click header > .popover .updateProperties': 'updateProperties'
+                'click #updateRowProperties': 'updateRowProperties'
             },
 
             /**
@@ -38,8 +36,10 @@ define(['underscore', 'jquery', 'backbone', 'global'],
              */
             initialize: function(option) {
 
-                 _.bindAll(this, 'handleRowDrop');
-
+                 _.bindAll(this, 'handleRowDrop','updateRowProperties');
+                 $('#updateRowProperties').delegate('click',function(){
+                    alert("fdfd");
+                 });
             },
 
             /**
@@ -148,7 +148,9 @@ define(['underscore', 'jquery', 'backbone', 'global'],
              * Updates the properties of the element
              * @returns void
              */
-            updateProperties: function(evt) {
+            updateRowProperties: function(evt) {
+
+                log("fdfsd");
 
                 var pcontent = $(evt.target).closest('.popover');
 
@@ -258,8 +260,8 @@ define(['underscore', 'jquery', 'backbone', 'global'],
 
                 $.get(AJAXURL, {
                         action  : 'get_saved_layout',
-                       forPage  : this.getCurrentPage(),
-                       forTheme : this.getCurrentThemeID()
+                        forPage  : this.getCurrentPage(),
+                        forTheme : this.getCurrentThemeID()
                     },
                     function(response) {
 
