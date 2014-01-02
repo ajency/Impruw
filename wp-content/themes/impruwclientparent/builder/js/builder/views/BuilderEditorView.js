@@ -427,10 +427,9 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                 this.$el.removeClass('aj-imp-builder-layout-mode').addClass('aj-imp-builder-content-mode');
 
                 this.$el.parent().addClass('aj-imp-preview');
-                this.$el.addClass(this.getClasses('containerClasses'));
-                this.$el.children('header').addClass(this.getClasses('headerWrapperClasses'));
-                this.$el.children('div[data-page="true"]').addClass(this.getClasses('contentWrapperClasses'));
-                this.$el.children('footer').addClass(this.getClasses('footerWrapperClasses'));
+                // this.$el.children('header').addClass(this.getClasses('headerWrapperClasses'));
+                // this.$el.children('div[data-page="true"]').addClass(this.getClasses('contentWrapperClasses'));
+                // this.$el.children('footer').addClass(this.getClasses('footerWrapperClasses'));
 
                 $('#controls-drag').fadeOut();
 

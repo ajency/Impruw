@@ -146,8 +146,6 @@ define(['underscore', 'jquery', 'backbone', 'builder/views/BuilderEditorView'],
              */
             handleInitialLoader: function() {
 
-                //this.$el.find('.aj-imp-browser-body').css('background-image','url(images/empty-drag-bg.svg)')
-
                 //remove the initial loader
                 this.$el.find('#editor-initial-loader').remove();
 
