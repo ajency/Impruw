@@ -13,13 +13,17 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 		 * @param fn
 		 */
 		saveRoom :function(args,  fn){
-		 
+		 console.log(args)
 			var _self = this;
 			
 			var data = {	category	:args.category, 
 					  	 	nos			:args.nos,
 					  	 	description :args.description,
-					  	 	facilities	:args.facilities   	};
+					  	 	facilities	:args.facilities,
+					  	 	checkinformat	:args.checkinformat,
+					  	 	checkintime	:args.checkintime,
+					  	 	additionalpolicies:args.additionalpolicies
+					  	 };
 			 
 			$.post(	this.addRoomUrl,
 					data,
