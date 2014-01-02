@@ -25,8 +25,12 @@ define(['underscore', 'jquery', 'backbone', 'global'],
 
             contentLoaded: false,
 
+            /**
+             * Events 
+             * @type {Object}
+             */
             events: {
-                'click #updateRowProperties': 'updateRowProperties'
+                'click .updateRowProperties' : 'updateRowProperties'
             },
 
             /**
