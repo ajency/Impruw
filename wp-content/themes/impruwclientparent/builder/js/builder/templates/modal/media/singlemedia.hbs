@@ -42,7 +42,35 @@
                         </div>
                         <div class="row">
                             <div class="col-sm-12">
+                                <input type="text" value="<%= media.get('alt') %>" class="form-control" name="image-alt" placeholder="Alt Text">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                    <textarea class="form-control"= name="image-caption" placeholder="Caption"><%= media.get('caption') %></textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
                                     <textarea class="form-control"= name="image-description" placeholder="Description"><%= media.get('description') %></textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label>Alignment: </label>
+                                <select>
+                                    <option>None</option>
+                                    <option>Left</option>
+                                    <option>Right</option>
+                                    <option>Center</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-6">
+                                <label>Size: </label>
+                                <select>
+                                    <option>Full Size</option>
+                                    <option>Thumbnail</option>
+                                </select>
                             </div>
                         </div>
                     </div>
