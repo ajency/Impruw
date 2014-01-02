@@ -282,13 +282,13 @@
 								<div class="form-group">
 									<div class="col-sm-2">
 										<label class="radio checked">
-										  <input type="radio" name="group1" value="1" data-toggle="radio" checked="checked">
+										  <input type="radio" name="tax_option1" class='tax__option' value="1" data-toggle="radio" checked="checked">
 										  With Tax
 										</label>
 									</div>
 									<div class="col-sm-2">
 										<label class="radio">
-										  <input type="radio" name="group1" value="2" data-toggle="radio">
+										  <input type="radio" name="tax_option1" class='tax__option'  value="2" data-toggle="radio">
 										  Without Tax
 										</label>
 									</div>
@@ -296,21 +296,54 @@
 
 								<div class="form-group">
 									<div class="col-sm-12">
-										<table class="table table-bordered table-striped">
-											<thead>
-												<th>Tax Name</th>
-												<th>Tax Percentage</th>
-												<th>Actions</th>
-											</thead>
-											<tbody>
-												<td>VAT</td>
-												<td>12.5%</td>
-												<td>
-													<a href="#" class="edit-link"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
-													<a href="#" class="delete-link"><span class="glyphicon glyphicon-trash"></span> Delete</a>
-												</td>
-											</tbody>	
-										</table>
+									
+									
+									 
+											<table class="table table-bordered table-striped 
+											<%   if (  (roomdata.taxtypes.length<=0) || (_.isUndefined(roomdata.taxtypes.length))  ) { %>hidden<% } %>" id="tax_list">
+													<thead>
+														<th>Tax Name</th>
+														<th>Tax Percentage</th>
+														<th>Actions</th>
+													</thead>
+									
+											<%  
+											 if(roomdata.taxtypes.length>0){
+											
+											 		_.each(roomdata.taxtypes,function(taxtype,index){ 
+													 
+											%>
+											
+											
+													<tbody id="blocktaxtype-<%=taxtype.id %>">
+														<td  id="block_edittaxtype-<%= taxtype.id %>"><%= taxtype.name %></td>
+														<td id="block_edittaxpercent-<%= taxtype.id %>" ><%= taxtype.percent %>%</td>
+														<td>
+															<a href="javascript:void(0)" class="edit-link edit-taxlink" taxtype-id="<%=taxtype.id %>" >
+															<span class="glyphicon glyphicon-pencil"></span> Edit</a>
+															<a href="javascript:void(0)" class="delete-link delete-taxlink"  taxtype-id="<%=taxtype.id %>" >
+															<span class="glyphicon glyphicon-trash"></span> Delete</a>
+														</td>
+													</tbody>
+														 	
+														 
+													
+											<% 		}) 
+											 	
+												
+											}%>
+											</table>
+									
+									
+									
+									
+									
+									
+									
+									
+										
+												
+										
 									</div>
 								</div>
 
@@ -337,15 +370,15 @@
 											 if(roomdata.addontypes.length>0){
 											
 											 		_.each(roomdata.addontypes,function(addontype,index){ 
-													console.log(addontype)
+													 
 											%>
 											
 														<tbody id="blockaddontype-<%=addontype.id %>">
 															<td id="block_editaddontype-<%= addontype.id %>"><%= addontype.label %></td>
 															<td id="block_editaddonprice-<%= addontype.id %>" ><%= addontype.price %></td>
 															<td>
-																<a href="javascript:void(0)" class="edit-link" addontype-id="<%=addontype.id %>"  data-toggle="modal" data-target="#add-addon"> <span class="glyphicon glyphicon-pencil"></span> Edit</a>
-																<a href="javascript:void(0)" class="delete-link" addontype-id="<%=addontype.id %>"><span class="glyphicon glyphicon-trash"></span> Delete</a>
+																<a href="javascript:void(0)" class="edit-link edit-addonlink" addontype-id="<%=addontype.id %>"   > <span class="glyphicon glyphicon-pencil"></span> Edit</a>
+																<a href="javascript:void(0)" class="delete-link delete-addonlink" addontype-id="<%=addontype.id %>"><span class="glyphicon glyphicon-trash"></span> Delete</a>
 															</td>
 														</tbody>	
 														 
@@ -479,14 +512,17 @@
 				</div>
 
 				<div class="modal-body">
-					<form class="form-horizontal clearfix">
+					<form class="form-horizontal clearfix" name="form_add_tax"  id="form_add_tax">
 						
 						<div class="form-group dual">
 							<div class="col-sm-6">
 								<div class="form-group">
 									<label for="inputAddress2" class="col-sm-5 control-label">Tax Name</label>
 									<div class="col-sm-8 col-sm-offset-5">
-										<input type="text" class="form-control" id="taxname" name="taxname"  placeholder="Service Tax">
+										<input type="text" class="form-control" id="taxname" name="taxname"  
+										placeholder="Service Tax"  required parsley-trigger="blur" 
+										parsley-validation-minlength="0">
+										<div class="p-messages"></div>
 									</div>
 								</div>
 							</div>
@@ -495,7 +531,10 @@
 								<div class="form-group">
 									<label for="inputAddress2" class="col-sm-5 control-label">Tax Percentage</label>
 									<div class="col-sm-7 col-sm-offset-5">
-										<input type="text" class="form-control" id="taxpercent" name="taxpercent"  placeholder="12.5%">
+										<input type="text" class="form-control" id="taxpercent" name="taxpercent"  
+										placeholder="12.5%" required parsley-trigger="blur" parsley-validation-minlength="0"  
+										parsley-type="number" parsley-type-number-message="Please enter tax percentage">
+										<div class="p-messages"></div>
 									</div>
 								</div>
 							</div>
@@ -505,7 +544,9 @@
 				</div>
 
 				<div class="modal-footer">
-					<button class="btn btn-default aj-imp-modal-save"><i class="fui-plus"></i> Add Tax</button>
+					<button class="btn btn-default aj-imp-modal-save" id="btn_addtax"><i class="fui-plus"></i> Add Tax</button>
+					<img src ="<%=THEMEURL%>/images/loader.gif" width="38" height="30"  
+													id="newaddonsave_loader" style="display:none"/>
 				</div>
 			</div>
 		</div>  
@@ -553,7 +594,7 @@
 
 				<div class="modal-footer">
 					
-					<button class="btn btn-default aj-imp-modal-save"  id="btn_updateaddon"  name="btn_updateaddon"  ><i class="fui-plus"></i> Update Addon</button>
+				<!-- 	<button class="btn btn-default aj-imp-modal-save"  id="btn_updateaddon"  name="btn_updateaddon"  ><i class="fui-plus"></i> Update Addon</button> -->
 					<button class="btn btn-default aj-imp-modal-save"  id="btn_savenewaddon"  name="btn_savenewaddon"  ><i class="fui-plus"></i> Add Add-On</button>
 					<img src ="<%=THEMEURL%>/images/loader.gif" width="38" height="30"  
 													id="newaddonsave_loader" style="display:none"/>

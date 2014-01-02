@@ -4,8 +4,8 @@
  */
 
 define([ 'underscore', 'jquery', 'backbone','roommodel',
-		'text!templates/siteprofile/AddRoomViewTpl.tpl','lib/parsley/parsley' ], function(_, $,
-		Backbone, RoomModel, AddRoomViewTpl,parsley) {
+		'text!templates/siteprofile/AddRoomViewTpl.tpl','lib/parsley/parsley','radio' ], function(_, $,
+		Backbone, RoomModel, AddRoomViewTpl,parsley,radio) {
 
 	var AddRoomView = Backbone.View.extend({
 
@@ -17,11 +17,19 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			 	'click .delete'				: 'deleteFacility',
 			 	'click .edit'				: 'editFacility',
 			 	'click .savefacililty' 		: 'savefacility', 
+			 	
 			 	'click #btn_add_addon'		: 'add_addon',
 			 	'click #btn_savenewaddon'	: 'saveNewAddon',
-			 	'click .delete-link'		: 'deleteAddonType',
-			 	'click .edit-link'			: 'editAddonType',			 	
-			 	'click .saveaddontype'		: 'updateAddonType'
+			 	'click .delete-addonlink'	: 'deleteAddonType',
+			 	'click .edit-addonlink'		: 'editAddonType',			 	
+			 	'click .saveaddontype'		: 'updateAddonType',
+			 	
+			 	'change .tax__option'		: 'tax_option',
+			 	
+			 	'click #btn_addtax'			: 'addNewTaxType',
+			 	'click .edit-taxlink'		: 'editTaxType',
+			 	'click .update-taxlink'		: 'updateTaxType',
+			 	'click .delete-taxlink'		: 'deleteTaxType'
 		}, 
 
 		initialize : function(args) {
@@ -59,7 +67,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			//set custom selectbox & checkbox
 			this.$el.find('select').selectpicker();
 			this.$el.find('input[type="checkbox"]').checkbox();
-			//this.$el.find('input[type="radio"]').radio();
+			this.$el.find('input[type="radio"]').radio();
 			
 			//initialize parsley validation for the forms
 			this.parsleyInitialize(this.$el.find('#frm_addroom'));
@@ -233,11 +241,85 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			
 		},
 		
-		add_addon:function(evt){
+		/*add_addon:function(evt){
 			$('#btn_updateaddon').hide();
 			$('#btn_savenewaddon').show();
 			$("#add-addon").find(".modal-header h4").text("Add Add-Ons")
 			
+		},*/
+		
+		
+		tax_option : function(evt){
+			//alert($(evt.target).val())
+			console.log(evt)
+			if( $(evt.target).is(":checked") ){ // check if the radio is checked
+				var val = $(evt.target).val(); // retrieve the value
+				//alert(val)
+			}
+			
+			tax_option  	= $('input[name=tax_option1]:checked').val()
+			  // tax_option  	=  $('input[type="radio"][name="tax_option1"]:checked').val()
+			   console.log( tax_option )
+			
+		},
+		
+		/**
+		 * Add new tax type
+		 */
+		
+		addNewTaxType :function(evt){
+				var self_ = this;
+			
+				var evt_ = evt;
+			 
+				if (!this.$el.find('#form_add_tax').parsley('validate'))
+					return;
+				$(evt.target).next().show();
+				
+				
+				var data = {	  action				:'save_new_tax',
+						  		  new_tax_name			:$('#taxname').val(),
+						  		  new_tax_percent		:$('#taxpercent').val()	
+						  };
+				  
+					 
+					$.post(	AJAXURL,
+							data,
+							function(response){
+								 
+								
+								if(response.code=='OK'){
+									
+									
+								 	 console.log(response)
+								 	 
+								 	if($('#tax_list').hasClass('hidden'))
+								 		$('#tax_list').removeClass('hidden')
+								 		
+								 	 $("#tax_list").append(''+
+								 	'<tbody id="blocktaxtype-'+response.taxData.id+'">'+
+									'<td id="block_edittaxtype-'+response.taxData.id+'">'+response.taxData.name+'</td>'+
+									'<td id="block_edittaxprice-'+response.taxData.id+'" >'+response.taxData.percent+'</td>'+
+									'<td>'+
+										'<a href="javascript:void(0)" class="edit-link edit-taxlink" taxtype-id="'+response.taxData.id+'"  > <span class="glyphicon glyphicon-pencil"></span> Edit</a>'+
+										'<a href="javascript:void(0)" class="delete-link delete-taxlink" taxtype-id="'+response.taxData.id+'"><span class="glyphicon glyphicon-trash"></span> Delete</a>'+
+									'</td>'+
+								'</tbody>'); 
+								
+								 	$(evt_.target).parent().parent().find('.close').click();
+								 	$(evt_.target).parent().parent().find('#taxtype_name').val("")
+								 	$(evt_.target).parent().parent().find('#taxtype_price').val("")
+								 	/*self_.$el.find('input[type="checkbox"]').checkbox();*/
+								 	/*self_.$el.find('#new_facilityname').val("");*/
+									 self_.saveSuccess(response,evt_,self_);  
+								}
+								else{
+									
+									//console.log("error new tax")
+									  self_.saveFailure(response,evt_,self_);  
+								}
+						
+							});	
 		},
 		
 		/**
@@ -278,8 +360,8 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 								'<td id="block_editaddontype-'+response.addontype.id+'">'+response.addontype.label+'</td>'+
 								'<td id="block_editaddonprice-'+response.addontype.id+'" >'+response.addontype.price+'</td>'+
 								'<td>'+
-									'<a href="javascript:void(0)" class="edit-link" addontype-id="'+response.addontype.id+'"  > <span class="glyphicon glyphicon-pencil"></span> Edit</a>'+
-									'<a href="javascript:void(0)" class="delete-link" addontype-id="'+response.addontype.id+'"><span class="glyphicon glyphicon-trash"></span> Delete</a>'+
+									'<a href="javascript:void(0)" class="edit-link edit-addonlink" addontype-id="'+response.addontype.id+'"  > <span class="glyphicon glyphicon-pencil"></span> Edit</a>'+
+									'<a href="javascript:void(0)" class="delete-link delete-addonlink" addontype-id="'+response.addontype.id+'"><span class="glyphicon glyphicon-trash"></span> Delete</a>'+
 								'</td>'+
 							'</tbody>'); 
 							
@@ -379,6 +461,40 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 		},
 		
 		
+		deleteTaxType : function(evt){
+			
+			$(evt.target).html('Deleting');
+			$(evt.target).prop('disabled',true);
+		 
+			var self_ = this;
+			
+			var evt_ = evt;
+			
+			taxTypeId = $(event.target).attr("taxtype-id");
+			
+			 var data = {		action		:'delete_room_tax_type',
+					 			taxTypeId	:taxTypeId
+				  		};
+			 
+			 
+			$.post(	AJAXURL,
+					data,
+					function(response){ 
+						if(response.code=='OK'){
+						  
+							self_.$el.find('#blocktaxtype-'+taxTypeId).remove()  
+							self_.saveSuccess(response,evt_,self_);  
+						}
+						else{
+							$(evt_.target).prop('disabled',false);
+							$(evt.target).html('Delete');
+							 self_.saveFailure(response,evt_,self_);  
+						}
+				
+					});	
+		},
+		
+		
 		/**
 		 * Function to edit facililty 
 		 */
@@ -417,7 +533,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			 */
 			
 			addonTypeID = $(event.target).attr("addontype-id");
-			$(event.target).addClass("saveaddontype").removeClass("edit-link")
+			$(event.target).addClass("saveaddontype").removeClass("edit-addonlink")
 			$(event.target).html("Save")
 			var addonType = $('#block_editaddontype-'+addonTypeID).html()
 			var addonPrice = $('#block_editaddonprice-'+addonTypeID).html()
@@ -437,7 +553,28 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 		},
 		
 		
+		/**
+		 * Function to edit tax type
+		 * @param evt
+		 */
+		editTaxType : function(evt){
+			
+			taxTypeID = $(event.target).attr("taxtype-id");
+			$(event.target).addClass("update-taxlink").removeClass("edit-taxlink")
+			$(event.target).html("Save")
+			var taxnType = $('#block_edittaxtype-'+taxTypeID).html()
+			var taxPercent = $('#block_edittaxpercent-'+taxTypeID).html()
+			 
+			
+			$('#block_edittaxtype-'+taxTypeID).html("<div class='add-text'> <input type='text' name='input_edittaxtype-"+taxTypeID+"' id='input_edittaxtype-"+taxTypeID+"' class='form-control input-sm parsley-validated parsley-error'  value='"+taxnType+"' /> </div>")
+			$('#block_edittaxpercent-'+taxTypeID).html("<div class='add-text'><input type='text' name='input_edittaxprice-"+taxTypeID+"'  id='input_edittaxprice-"+taxTypeID+"'   class='form-control input-sm parsley-validated parsley-error'  value='"+taxPercent +"' /> </div> ")
 		
+		},		
+		
+		/**
+		 * Save edited addon changs
+		 * @param evt
+		 */
 		updateAddonType : function(evt){
 			 
 			var self_ = this;
@@ -486,8 +623,8 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 							 	$("#blockaddontype-"+response.updatedaddontype.id).html('<tr><td id="block_editaddontype-"'+response.updatedaddontype.id+'>'+response.updatedaddontype.label+'</td>'+
 															'<td id="block_editaddonprice-"'+response.updatedaddontype.id+'>'+response.updatedaddontype.price+'</td>'+
 															'<td>'+
-																'<a href="javascript:void(0)" class="edit-link" addontype-id="'+response.updatedaddontype.id+'" > <span class="glyphicon glyphicon-pencil"></span> Edit</a>'+
-																'<a href="javascript:void(0)" class="delete-link" addontype-id="'+response.updatedaddontype.id+'"><span class="glyphicon glyphicon-trash"></span> Delete</a>'+
+																'<a href="javascript:void(0)" class="edit-link edit-addonlink" addontype-id="'+response.updatedaddontype.id+'" > <span class="glyphicon glyphicon-pencil"></span> Edit</a>'+
+																'<a href="javascript:void(0)" class="delete-link delete-addonlink" addontype-id="'+response.updatedaddontype.id+'"><span class="glyphicon glyphicon-trash"></span> Delete</a>'+
 															'</td>'+
 														'</tr></tbody>')
 														
@@ -506,6 +643,73 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 							}
 					
 						});	
+		},
+		
+		
+		/**
+		 * Function to save updated tax changes
+		 */
+		updateTaxType : function(evt){
+			console.log('save changes to tax')
+			
+			var self_ = this;
+			
+			var evt_ = evt;
+			var taxTypeId =  $(evt.target).attr('taxtype-id')			
+			var taxTypeName = $('#input_edittaxtype-'+taxTypeId).val()
+			var taxTypePercent = $('#input_edittaxprice-'+taxTypeId).val() 
+ 
+	 		/*if (!this.$el.find('#form_add_addon').parsley('validate'))
+				  return;
+				 */
+			//console.log( $(evt.target).next().prop('tagName')) 
+			// $(evt.target).next().next().show()
+			 
+			
+			 
+			  
+			  var data = {	  action		:'update_tax_type',
+					  tax_editid 	:taxTypeId,
+					  tax_typename	:taxTypeName,
+					  tax_percent	:taxTypePercent	
+					  };
+			  
+				 
+				$.post(	AJAXURL,
+						data,
+						function(response){
+							 
+							
+							if(response.code=='OK'){
+								
+								console.log('update success')
+							 	console.log(response)
+							 	 
+							 	
+							 	$("#blocktaxtype-"+response.updatedtaxtype.id).html('<tr><td id="block_edittaxtype-"'+response.updatedtaxtype.id+'>'+response.updatedtaxtype.name+'</td>'+
+															'<td id="block_edittaxprice-"'+response.updatedtaxtype.id+'>'+response.updatedtaxtype.percent+'</td>'+
+															'<td>'+
+																'<a href="javascript:void(0)" class="edit-link edit-taxlink" taxtype-id="'+response.updatedtaxtype.id+'" > <span class="glyphicon glyphicon-pencil"></span> Edit</a>'+
+																'<a href="javascript:void(0)" class="delete-link delete-taxlink" taxtype-id="'+response.updatedtaxtype.id+'"><span class="glyphicon glyphicon-trash"></span> Delete</a>'+
+															'</td>'+
+														'</tr></tbody>')
+														
+								 
+							
+							 	$(evt_.target).parent().parent().find('.close').click();
+							 	/*$(evt_.target).parent().parent().find(".modal-body").find('#taxtype_name').val("")
+							 	$(evt_.target).parent().parent().find('#addontype_price').val("")*/
+							 	$(evt_.target).next().next().hide();
+							 	/*self_.$el.find('input[type="checkbox"]').checkbox();
+							 	self_.$el.find('#new_facilityname').val("");*/
+								self_.saveSuccess(response,evt_,self_);  
+							}
+							else{
+								 self_.saveFailure(response,evt_,self_);  
+							}
+					
+						});	
+			
 		},
 		
 		/**

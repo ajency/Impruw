@@ -1251,16 +1251,19 @@ function fetch_all_room_facilities() {
     $taxonomies= array( 'impruv_room_facility' );
     $room_facilities =  get_terms( $taxonomies, array( 'hide_empty' => 0 ) );
 	$addons_types = fetch_all_addons();
+	$tax_types = fetch_all_tax_types();
 	
 	$checkin_format = get_option('checkin-format');
 	$checkin_time = get_option('checkin-time');
 	$additional_policies = get_option('additional-policies');
 	
-	$room_data = array('facilities'=>$room_facilities,
-						'addontypes'=>$addons_types,
-						'checkinformat'=>($checkin_format==false?'':$checkin_format),
-						'checkintime'=>($checkin_time==false?'':$checkin_time),
-						'additionalpolicies'=>($additional_policies==false?'':$additional_policies));
+	$room_data = array('facilities'			=> $room_facilities,
+						'addontypes'		=> $addons_types,
+						'taxtypes'			=> $tax_types,
+						'checkinformat'		=> ($checkin_format==false?'':$checkin_format),
+						'checkintime'		=> ($checkin_time==false?'':$checkin_time),
+						'additionalpolicies'=> ($additional_policies==false?'':$additional_policies));
+	
     wp_send_json( array( 'code' => 'OK' , 'data' =>$room_data ) );
 }
 add_action( 'wp_ajax_fetch_all_room_facilities', 'fetch_all_room_facilities' );
@@ -1275,6 +1278,16 @@ function fetch_all_addons() {
 	 
     return $addon_types;
 }
+
+/**
+ * Function to get all tax types
+ * returns array of all taxes,percent,id
+ */
+function fetch_all_tax_types(){
+	$tax_types = maybe_unserialize(get_option('tax-type'));
+	return $tax_types;
+}
+
 
 
 /**
@@ -1300,8 +1313,57 @@ function save_new_room_facility() {
 
 
 }
-add_action( 'wp_ajax_save_new_room_facility', 'save_new_room_facility' );
-add_action( 'wp_ajax_nopriv_save_new_room_facility', 'save_new_room_facility' );
+add_action( 'wp_ajax_save_new_room_facility', 'save_new_tax' );
+add_action( 'wp_ajax_nopriv_save_new_room_facility', 'save_new_tax' );
+
+
+/**
+ * 
+ * Function to add tax names
+ */
+function save_new_tax(){
+	$new_tax_name = $_POST['new_tax_name'];
+    $new_tax_percent = $_POST['new_tax_percent'];
+    $max_tax_id = 0;
+     
+    
+    $tax_array = array();
+    $tax_array = maybe_unserialize(get_option('tax-type'));
+    
+    $tax_exists = false;
+    
+	if($tax_array){   
+    	if(count($tax_array)>0){
+    	
+	    	$max_tax_id = max(array_col($tax_array, 'id')); 	 
+		    foreach ($tax_array as $tax_key=>$tax_val){
+		    	if($tax_val['name'] == $new_tax_name )
+		    		$tax_exists = true;
+		    }
+    	}
+    }
+    
+    if($tax_exists)
+    	wp_send_json( array( 'code' => 'ERROR', 'msg' => 'The tax name already exists' ) );	
+    
+    $newtax_id = $max_tax_id + 1;
+    
+    
+    $tax_array[]= array('id'=>$newtax_id, 'name'=>$new_tax_name,'percent'=>$new_tax_percent);
+    $update_result = update_option('tax-type', maybe_serialize($tax_array));
+     
+    if ( $update_result ) {
+		$new_addon_type_data = array('id'=>$newtax_id,'name'=>$new_tax_name,'percent'=>$new_tax_percent);
+        wp_send_json( array( 'code' => 'OK', 'msg'=>'New tax added successfully', 'taxData'=>$new_addon_type_data ) );        
+    }
+    else {
+		wp_send_json( array( 'code' => 'ERROR', 'msg' => 'Error adding the tax' ) );	
+    }
+    
+    
+}
+add_action( 'wp_ajax_save_new_tax', 'save_new_tax' );
+add_action( 'wp_ajax_nopriv_save_new_tax', 'save_new_tax' );
 
 
 /**
@@ -1365,7 +1427,10 @@ function array_col(array $a, $x){
 }
 
 
-
+/**
+ * 
+ * Function to save changes to addon type
+ */
 function update_addon_type(){
 	
 	$addon_type = $_POST['addon_type'];
@@ -1407,6 +1472,57 @@ function update_addon_type(){
 }
 add_action( 'wp_ajax_update_addon_type', 'update_addon_type' );
 add_action( 'wp_ajax_nopriv_update_addon_type', 'update_addon_type' );
+
+
+
+
+/**
+ * 
+ * Function to save changes to tax type
+ */
+function update_tax_type(){
+	
+	$tax_type = $_POST['tax_typename'];
+    $tax_percent = $_POST['tax_percent'];
+	$taxtype_edit = $_POST['tax_editid'];
+    $tax_types=array();
+    
+     
+    $tax_types = maybe_unserialize(get_option('tax-type'));
+    $updated_tax_types = array();
+    //var_dump($tax_types);
+    if($tax_types){
+	    foreach ($tax_types as $taxtype_key=>$taxtype_val){
+	    	 
+	    	if($taxtype_val['id']!=$taxtype_edit)  
+	    		$updated_tax_types [] = array('id'=>$taxtype_val['id'],'name'=>$taxtype_val['name'],'percent'=>$taxtype_val['percent']);
+	    	 else 
+	    	 	$updated_tax_types [] = array('id'=>$taxtype_val['id'],'name'=>$tax_type,'percent'=>$tax_percent);
+	    	
+	    }
+    } 
+    
+    $update_result = update_option('tax-type', maybe_serialize($updated_tax_types));
+    
+   
+
+
+    if ( $update_result ) {
+		$tax_type_data = array('id'=>$taxtype_edit, 'name'=>$tax_type,'percent'=>$tax_percent);
+		 
+        wp_send_json( array( 'code' => 'OK', 'msg'=>'tax type updated successfully', 'updatedtaxtype'=>$tax_type_data, 'edittaxtype'=>$taxtype_edit ) );
+        
+    }
+    else {
+	wp_send_json( array( 'code' => 'ERROR', 'msg' => 'Error updating the tax type' ) );	
+    }
+    
+}
+add_action( 'wp_ajax_update_tax_type', 'update_tax_type' );
+add_action( 'wp_ajax_nopriv_update_tax_type', 'update_tax_type' );
+
+
+
 /**
  * Function to delete room facility
  */
@@ -1442,9 +1558,6 @@ add_action( 'wp_ajax_nopriv_delete_room_facility', 'delete_room_facility' );
  */
 function delete_room_addon_type() {
     $addontype_id  = $_POST['addonTypeId'];
-
- 
-    
     $addon_types = maybe_unserialize(get_option('addon-type'));
    // var_dump($addon_types);
    $updated_addon_types = array();
@@ -1471,6 +1584,41 @@ function delete_room_addon_type() {
 add_action( 'wp_ajax_delete_room_addon_type', 'delete_room_addon_type' );
 add_action( 'wp_ajax_nopriv_delete_room_addon_type', 'delete_room_addon_type' );
 
+
+
+function delete_room_tax_type(){
+	
+	$taxtype_id  = $_POST['taxTypeId'];
+    $tax_types = maybe_unserialize(get_option('tax-type'));
+    
+   $updated_tax_types = array();
+     if($tax_types){
+	    foreach ($tax_types as $taxtype_key=>$taxtype_val){ 
+	    	if($taxtype_val['id']!=$taxtype_id)  
+	    		$updated_tax_types [] = array('id'=>$taxtype_val['id'],'name'=>$taxtype_val['name'],'percent'=>$taxtype_val['percent']);
+	    	 
+	    }
+	    $delete_result = update_option('tax-type', maybe_serialize($updated_tax_types));
+    }
+    
+    if (  $delete_result ) {
+        wp_send_json( array( 'code' => 'OK', 'msg'=>'tax type is successfully Deleted' ) );
+
+    }
+    else {
+        wp_send_json( array( 'code' => 'ERROR', 'msg' => 'Error deleting tax type' ) );
+
+    }
+	
+}
+add_action( 'wp_ajax_delete_room_tax_type', 'delete_room_tax_type' );
+add_action( 'wp_ajax_nopriv_delete_room_tax_type', 'delete_room_tax_type' );
+
+
+/**
+ * 
+ * Function to save changes to facility
+ */
 function update_room_facility() {
 
     $facility_id = $_POST['fac_id'];
