@@ -1374,12 +1374,21 @@ form {
 			font-size: 1.3em;
 			&.one {
 				width: 35%;
+				@media (max-width: 767px) { 
+					width: auto;
+				}
 			}
 			&.two {
 				width: 40%;
+				@media (max-width: 767px) { 
+					width: auto;
+				}
 			}
 			&.three {
 				width: 20%;
+				@media (max-width: 767px) { 
+					width: auto;
+				}
 			}
 		}
 	}
@@ -1394,6 +1403,9 @@ form {
 				.desc {
 					font-size: 0.88em;
 					color: lighten(@dash-grey, 5%);
+					@media (max-width: 767px) { 
+						white-space: normal;
+					}
 				}
 				.info-strip {
 					margin-top: 1em;
@@ -1411,6 +1423,9 @@ form {
 						&:last-child {
 							border-right: 0;
 						}
+						@media (max-width: 767px) { 
+							border-right: 0;
+						}
 					}
 				}
 			}
@@ -1424,6 +1439,9 @@ form {
 						h6 {
 							color: @blue-grey;
 							font-size: 1.2em;
+						}
+						@media (max-width: 767px) { 
+							border-bottom: 1px dotted lighten(@dash-grey, 20%);
 						}
 					}
 					.weekday, .weekend {
@@ -1446,12 +1464,18 @@ form {
 						}
 					}
 				}
+				@media (max-width: 979px) { 
+					text-align: center;
+				}
 			}
 			&.actions {
 				vertical-align: middle;
 				text-align: center;
 				.btn {
-					margin: 0 0.5em;
+					margin: 0.5em;
+					@media (max-width: 979px) { 
+						display: block;
+					}
 				}
 			}
 		}
