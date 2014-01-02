@@ -22,7 +22,8 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 					  	 	facilities	:args.facilities,
 					  	 	checkinformat	:args.checkinformat,
 					  	 	checkintime	:args.checkintime,
-					  	 	additionalpolicies:args.additionalpolicies
+					  	 	additionalpolicies:args.additionalpolicies,
+					  	 	tax_option  :args.tax_option 
 					  	 };
 			 
 			$.post(	this.addRoomUrl,

@@ -140,6 +140,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			  checkinformat 	=  $('input[type="radio"][name="checkin_format"]:checked').val()
 			  checkintime 	= $("#checkin_time").val();
 			  additionalpolicies 	= $("#additional_policies").val();
+			  tax_option 			= $('input[type="radio"][name="tax_option1"]:checked').val() 
 					  
 			  var facilityValues = new Array();
 					  
@@ -161,7 +162,8 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 					  	 	'facilities'	:facilityValues,
 					  	 	'checkinformat'	:checkinformat,
 					  	 	'checkintime'	:checkintime,
-					  	 	'additionalpolicies':additionalpolicies
+					  	 	'additionalpolicies':additionalpolicies,
+					  	 	'tax_option'		: tax_option  
 					  	 	
 					};
 			  
@@ -257,9 +259,11 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 				//alert(val)
 			}
 			
-			tax_option  	= $('input[name=tax_option1]:checked').val()
+			//tax_option  	= $('input[name=tax_option1]:checked').val()
 			  // tax_option  	=  $('input[type="radio"][name="tax_option1"]:checked').val()
-			   console.log( tax_option )
+			//   console.log( tax_option )
+			   
+			   console.log( $( 'input[name=tax_option1]:checked' ).val())
 			
 		},
 		
@@ -566,8 +570,26 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			var taxPercent = $('#block_edittaxpercent-'+taxTypeID).html()
 			 
 			
-			$('#block_edittaxtype-'+taxTypeID).html("<div class='add-text'> <input type='text' name='input_edittaxtype-"+taxTypeID+"' id='input_edittaxtype-"+taxTypeID+"' class='form-control input-sm parsley-validated parsley-error'  value='"+taxnType+"' /> </div>")
-			$('#block_edittaxpercent-'+taxTypeID).html("<div class='add-text'><input type='text' name='input_edittaxprice-"+taxTypeID+"'  id='input_edittaxprice-"+taxTypeID+"'   class='form-control input-sm parsley-validated parsley-error'  value='"+taxPercent +"' /> </div> ")
+			//$('#block_edittaxtype-'+taxTypeID).html("<div class='add-text'> <input type='text' name='input_edittaxtype-"+taxTypeID+"' id='input_edittaxtype-"+taxTypeID+"' class='form-control input-sm parsley-validated parsley-error'  value='"+taxnType+"' /> </div>")
+			//$('#block_edittaxpercent-'+taxTypeID).html("<div class='add-text'><input type='text' name='input_edittaxprice-"+taxTypeID+"'  id='input_edittaxprice-"+taxTypeID+"'   class='form-control input-sm parsley-validated parsley-error'  value='"+taxPercent +"' /> </div> ")
+			
+			$('#block_edittaxtype-'+taxTypeID).html("<div class='form-group'>" 
+														+"<div class='col-sm-10 col-sm-offset-2'>"
+															+"<input type='text' class='form-control' name='input_edittaxtype-"+taxTypeID+"' id='input_edittaxtype-"+taxTypeID+"' "
+															+"placeholder='Service Tax' required parsley-trigger='blur' parsley-validation-minlength='0'"
+															+"parsely-required-message = 'Please enter tax type'   value='"+taxnType+"'  />"
+															+"<div class='p-messages'></div>"
+														+"</div>"
+													+"</div> ")
+			
+			$('#block_edittaxpercent-'+taxTypeID).html("<div class='form-group'>" 
+															+"<div class='col-sm-10 col-sm-offset-2'>"
+																+"<input type='text' class='form-control' name='input_edittaxprice-"+taxTypeID+"'  id='input_edittaxprice-"+taxTypeID+"'  "
+																+"placeholder='12.5%' required parsley-trigger='blur' parsley-validation-minlength='0'"
+																+"parsely-required-message = 'Please enter percentage'   value='"+taxPercent+"'  />"
+																+"<div class='p-messages'></div>"
+															+"</div>"
+														+"</div> ")
 		
 		},		
 		
@@ -665,8 +687,13 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			//console.log( $(evt.target).next().prop('tagName')) 
 			// $(evt.target).next().next().show()
 			 
+			this.parsleyInitialize(this.$el.find('#input_edittaxtype-'+taxTypeId));	
+			this.parsleyInitialize(this.$el.find('#input_edittaxprice-'+taxTypeId));	
 			
-			 
+			if (!this.$el.find('#input_edittaxtype-'+taxTypeId).parsley('validate'))
+				  return;
+			if (!this.$el.find(' #input_edittaxprice-'+taxTypeId).parsley('validate'))
+				return;
 			  
 			  var data = {	  action		:'update_tax_type',
 					  tax_editid 	:taxTypeId,
@@ -686,8 +713,8 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 							 	console.log(response)
 							 	 
 							 	
-							 	$("#blocktaxtype-"+response.updatedtaxtype.id).html('<tr><td id="block_edittaxtype-"'+response.updatedtaxtype.id+'>'+response.updatedtaxtype.name+'</td>'+
-															'<td id="block_edittaxprice-"'+response.updatedtaxtype.id+'>'+response.updatedtaxtype.percent+'</td>'+
+							 	$("#blocktaxtype-"+response.updatedtaxtype.id).html('<tr><td id="block_edittaxtype-'+response.updatedtaxtype.id+'">'+response.updatedtaxtype.name+'</td>'+
+															'<td id="block_edittaxpercent-'+response.updatedtaxtype.id+'">'+response.updatedtaxtype.percent+'</td>'+
 															'<td>'+
 																'<a href="javascript:void(0)" class="edit-link edit-taxlink" taxtype-id="'+response.updatedtaxtype.id+'" > <span class="glyphicon glyphicon-pencil"></span> Edit</a>'+
 																'<a href="javascript:void(0)" class="delete-link delete-taxlink" taxtype-id="'+response.updatedtaxtype.id+'"><span class="glyphicon glyphicon-trash"></span> Delete</a>'+
