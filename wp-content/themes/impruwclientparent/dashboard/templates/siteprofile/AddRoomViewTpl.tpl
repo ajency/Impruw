@@ -327,34 +327,37 @@
 								<div class="form-group">
 									<div class="col-sm-12">
 									
-											<% if(roomdata.addontypes.length){
-											
-											%>
-											<table class="table table-bordered table-striped" id="addons_list">
+											<table class="table table-bordered table-striped  <%   if (  (roomdata.addontypes.length<=0) || (_.isUndefined(roomdata.addontypes.length))  ) { %>hidden<% } %>" id="addons_list">
 														<thead>
 															<th>Add-On</th>
 															<th>Price</th>
 															<th>Actions</th>
 														</thead>
-											<%		_.each(roomdata.addontypes,function(addontype,index){ %>
+											<%  
+											 if(roomdata.addontypes.length>0){
 											
-														<tbody id="blockaddontype-<%=addontype.label %>">
-															<td id="block_editaddontype-<%= addontype.label %>"><%= addontype.label %></td>
-															<td id="block_editaddonprice-<%= addontype.label %>" ><%= addontype.price %></td>
+											 		_.each(roomdata.addontypes,function(addontype,index){ 
+													console.log(addontype)
+											%>
+											
+														<tbody id="blockaddontype-<%=addontype.id %>">
+															<td id="block_editaddontype-<%= addontype.id %>"><%= addontype.label %></td>
+															<td id="block_editaddonprice-<%= addontype.id %>" ><%= addontype.price %></td>
 															<td>
-																<a href="#add-addon" class="edit-link" addontype-label="<%=addontype.label %>"  data-toggle="modal" data-target="#add-addon"> <span class="glyphicon glyphicon-pencil"></span> Edit</a>
-																<a href="javascript:void(0)" class="delete-link" addontype-label="<%=addontype.label %>"><span class="glyphicon glyphicon-trash"></span> Delete</a>
+																<a href="javascript:void(0)" class="edit-link" addontype-id="<%=addontype.id %>"  data-toggle="modal" data-target="#add-addon"> <span class="glyphicon glyphicon-pencil"></span> Edit</a>
+																<a href="javascript:void(0)" class="delete-link" addontype-id="<%=addontype.id %>"><span class="glyphicon glyphicon-trash"></span> Delete</a>
 															</td>
 														</tbody>	
 														 
 													
 											<% 		}) 
-											%>
-											</table>
-											<%		
+											 
+											
+											 	
 												
 												
 											}%>
+											</table>
 									
 									<!-- 
 										<table class="table table-bordered table-striped">
@@ -483,7 +486,7 @@
 								<div class="form-group">
 									<label for="inputAddress2" class="col-sm-5 control-label">Tax Name</label>
 									<div class="col-sm-8 col-sm-offset-5">
-										<input type="text" class="form-control" id="inputEmail1" placeholder="Service Tax">
+										<input type="text" class="form-control" id="taxname" name="taxname"  placeholder="Service Tax">
 									</div>
 								</div>
 							</div>
@@ -492,7 +495,7 @@
 								<div class="form-group">
 									<label for="inputAddress2" class="col-sm-5 control-label">Tax Percentage</label>
 									<div class="col-sm-7 col-sm-offset-5">
-										<input type="text" class="form-control" id="inputEmail1" placeholder="12.5%">
+										<input type="text" class="form-control" id="taxpercent" name="taxpercent"  placeholder="12.5%">
 									</div>
 								</div>
 							</div>

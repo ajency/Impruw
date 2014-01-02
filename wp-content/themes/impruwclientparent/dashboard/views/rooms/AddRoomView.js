@@ -21,7 +21,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			 	'click #btn_savenewaddon'	: 'saveNewAddon',
 			 	'click .delete-link'		: 'deleteAddonType',
 			 	'click .edit-link'			: 'editAddonType',			 	
-			 	'click #btn_updateaddon'	: 'updateAddonType'
+			 	'click .saveaddontype'		: 'updateAddonType'
 		}, 
 
 		initialize : function(args) {
@@ -236,6 +236,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 		add_addon:function(evt){
 			$('#btn_updateaddon').hide();
 			$('#btn_savenewaddon').show();
+			$("#add-addon").find(".modal-header h4").text("Add Add-Ons")
 			
 		},
 		
@@ -247,7 +248,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			var self_ = this;
 			
 			var evt_ = evt;
-			
+			 
 			if (!this.$el.find('#form_add_addon').parsley('validate'))
 				  return;
 			
@@ -267,27 +268,32 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 							if(response.code=='OK'){
 								
 								
-							 	console.log($(evt_.target))
-							 	
-							 	$("#addons_list").append(''+
-							 	'<tbody id="blockaddontype-'+response.addontype.label+'">'+
-								'<td id="block_editaddontype-'+response.addontype.label+'">'+response.addontype.label+'</td>'+
-								'<td id="block_editaddonprice-'+response.addontype.label+'" >'+response.addontype.price+'</td>'+
+							 	 
+							 	 
+							 	if($('#addons_list').hasClass('hidden'))
+							 		$('#addons_list').removeClass('hidden')
+							 		
+							 	 $("#addons_list").append(''+
+							 	'<tbody id="blockaddontype-'+response.addontype.id+'">'+
+								'<td id="block_editaddontype-'+response.addontype.id+'">'+response.addontype.label+'</td>'+
+								'<td id="block_editaddonprice-'+response.addontype.id+'" >'+response.addontype.price+'</td>'+
 								'<td>'+
-									'<a href="javascript:void(0)" class="edit-link" addontype-label="'+response.addontype.label+'"  data-toggle="modal" data-target="#add-addon"> <span class="glyphicon glyphicon-pencil"></span> Edit</a>'+
-									'<a href="javascript:void(0)" class="delete-link" addontype-label="'+response.addontype.label+'"><span class="glyphicon glyphicon-trash"></span> Delete</a>'+
+									'<a href="javascript:void(0)" class="edit-link" addontype-id="'+response.addontype.id+'"  > <span class="glyphicon glyphicon-pencil"></span> Edit</a>'+
+									'<a href="javascript:void(0)" class="delete-link" addontype-id="'+response.addontype.id+'"><span class="glyphicon glyphicon-trash"></span> Delete</a>'+
 								'</td>'+
-							'</tbody>');
+							'</tbody>'); 
 							
 							 	$(evt_.target).parent().parent().find('.close').click();
 							 	$(evt_.target).parent().parent().find('#addontype_name').val("")
 							 	$(evt_.target).parent().parent().find('#addontype_price').val("")
-							 	/*self_.$el.find('input[type="checkbox"]').checkbox();
-							 	self_.$el.find('#new_facilityname').val("");*/
-								self_.saveSuccess(response,evt_,self_);  
+							 	/*self_.$el.find('input[type="checkbox"]').checkbox();*/
+							 	/*self_.$el.find('#new_facilityname').val("");*/
+								 self_.saveSuccess(response,evt_,self_);  
 							}
 							else{
-								 self_.saveFailure(response,evt_,self_);  
+								
+								console.log("erro new addon")
+								 //self_.saveFailure(response,evt_,self_);  
 							}
 					
 						});	
@@ -346,10 +352,10 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			
 			var evt_ = evt;
 			
-			addonTypeLabel = $(event.target).attr("addontype-label");
+			addonTypeId = $(event.target).attr("addontype-id");
 			
 			 var data = {		action		:'delete_room_addon_type',
-					 			addonTypeLabel	:addonTypeLabel
+					 			addonTypeId	:addonTypeId
 				  		};
 			 
 			 
@@ -358,7 +364,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 					function(response){ 
 						if(response.code=='OK'){
 						  
-							self_.$el.find('#blockaddontype-'+addonTypeLabel).remove()  
+							self_.$el.find('#blockaddontype-'+addonTypeId).remove()  
 							self_.saveSuccess(response,evt_,self_);  
 						}
 						else{
@@ -395,8 +401,8 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 		/**
 		 * Function to edit addon type
 		 */
-		editAddonType:function(evt){
-			var label = $(evt.target).attr('addontype-label')
+		editAddonType:function(event){
+			/*var label = $(evt.target).attr('addontype-label')
 			var price = $('#block_editaddonprice-'+label).html()
 			console.log(label)
 			console.log(price)
@@ -406,40 +412,54 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			
 			$('#btn_updateaddon').show();
 			$('#btn_savenewaddon').hide();
-			/****
-			 * **TO DO
 			
-			addonTypeLabel = $(event.target).attr("addontype-label");
+			$("#add-addon").find(".modal-header h4").text("Update Addon")
+			 */
+			
+			addonTypeID = $(event.target).attr("addontype-id");
 			$(event.target).addClass("saveaddontype").removeClass("edit-link")
 			$(event.target).html("Save")
+			var addonType = $('#block_editaddontype-'+addonTypeID).html()
+			var addonPrice = $('#block_editaddonprice-'+addonTypeID).html()
 			 
-			$("#addontype-"+addonTypeLabel).addClass('input-group');
-			$("#addontype-"+addonTypeLabel).html("<form name='frm_editfacility' id='frmeditfacility-"+facilityId+"'  >" +
+			
+			$('#block_editaddontype-'+addonTypeID).html("<div class='add-text'> <input type='text' name='input_editaddontype-"+addonTypeID+"' id='input_editaddontype-"+addonTypeID+"' class='form-control input-sm parsley-validated parsley-error'  value='"+addonType+"' /> </div>")
+			$('#block_editaddonprice-'+addonTypeID).html("<div class='add-text'><input type='text' name='input_editaddonprice-"+addonTypeID+"'  id='input_editaddonprice-"+addonTypeID+"'   class='form-control input-sm parsley-validated parsley-error'  value='"+addonPrice+"' /> </div> ")
+			
+			/*$("#addontype-"+addonTypeID).addClass('input-group');
+			$("#addontype-"+addonTypeID).html("<form name='frm_editfacility' id='frmeditfacility-"+facilityId+"'  >" +
 					"<input type='text' class='form-control input-sm' " +
 					"placeholder='Edit Facility' name='inputfacility-"+facilityId+"' id='inputfacility-"+facilityId+"'"+
 					"parsley-validation-minlength='0' " +
 					"value='"+$("#facLabel-"+facilityId).attr('facililtyname')+"'  > </form>");
-			this.parsleyInitialize($('#frmeditfacility-'+facilityId)); */
+			this.parsleyInitialize($('#frmeditfacility-'+facilityId));  */
 			
 		},
 		
 		
 		
 		updateAddonType : function(evt){
-			
+			 
 			var self_ = this;
 			
 			var evt_ = evt;
-			
-			if (!this.$el.find('#form_add_addon').parsley('validate'))
+			var addonTypeId =  $(evt.target).attr('addontype-id')			
+			var addonTypeLabel = $('#input_editaddontype-'+addonTypeId).val()
+			var addonTypePrice = $('#input_editaddonprice-'+addonTypeId).val() 
+ 
+	 		/*if (!this.$el.find('#form_add_addon').parsley('validate'))
 				  return;
+				 */
+			//console.log( $(evt.target).next().prop('tagName')) 
+			// $(evt.target).next().next().show()
+			 
 			
-			 $(evt.target).next().show();
+			 
 			  
 			  var data = {	  action		:'update_addon_type',
-					  addon_edit 	:$("#hdn_addonlabel").val(),
-					  addon_type	:$('#addontype_name').val(),
-					  addon_price	:$('#addontype_price').val()	
+					  addon_edit 	:addonTypeId,
+					  addon_type	:addonTypeLabel,
+					  addon_price	:addonTypePrice	
 					  };
 			  
 				 
@@ -450,10 +470,10 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 							
 							if(response.code=='OK'){
 								
-								
-							 	console.log($(evt_.target))
+								console.log('update success')
+							 	console.log(response)
 							 	
-							 	$("#addons_list").append(''+
+							 	/*$("#addons_list").append(''+
 							 	'<tbody id="blockaddontype-'+response.addontype.label+'">'+
 								'<td id="block_editaddontype-'+response.addontype.label+'">'+response.addontype.label+'</td>'+
 								'<td id="block_editaddonprice-'+response.addontype.label+'" >'+response.addontype.price+'</td>'+
@@ -461,11 +481,22 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 									'<a href="javascript:void(0)" class="edit-link" addontype-label="'+response.addontype.label+'"  data-toggle="modal" data-target="#add-addon"> <span class="glyphicon glyphicon-pencil"></span> Edit</a>'+
 									'<a href="javascript:void(0)" class="delete-link" addontype-label="'+response.addontype.label+'"><span class="glyphicon glyphicon-trash"></span> Delete</a>'+
 								'</td>'+
-							'</tbody>');
+							'</tbody>');*/
+							 	
+							 	$("#blockaddontype-"+response.updatedaddontype.id).html('<tr><td id="block_editaddontype-"'+response.updatedaddontype.id+'>'+response.updatedaddontype.label+'</td>'+
+															'<td id="block_editaddonprice-"'+response.updatedaddontype.id+'>'+response.updatedaddontype.price+'</td>'+
+															'<td>'+
+																'<a href="javascript:void(0)" class="edit-link" addontype-id="'+response.updatedaddontype.id+'" > <span class="glyphicon glyphicon-pencil"></span> Edit</a>'+
+																'<a href="javascript:void(0)" class="delete-link" addontype-id="'+response.updatedaddontype.id+'"><span class="glyphicon glyphicon-trash"></span> Delete</a>'+
+															'</td>'+
+														'</tr></tbody>')
+														
+								 
 							
 							 	$(evt_.target).parent().parent().find('.close').click();
-							 	$(evt_.target).parent().parent().find('#addontype_name').val("")
-							 	$(evt_.target).parent().parent().find('#addontype_price').val("")
+							 	/*$(evt_.target).parent().parent().find(".modal-body").find('#addontype_name').val("")
+							 	$(evt_.target).parent().parent().find('#addontype_price').val("")*/
+							 	$(evt_.target).next().next().hide();
 							 	/*self_.$el.find('input[type="checkbox"]').checkbox();
 							 	self_.$el.find('#new_facilityname').val("");*/
 								self_.saveSuccess(response,evt_,self_);  
