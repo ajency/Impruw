@@ -437,31 +437,31 @@
 								<div class="form-group">
 									<div class="col-sm-12">
 										<p class="checkinformat_text"> <% if(!_.isUndefined(roomdata.checkinformat)) {%> <%=roomdata.checkinformat %> <% } %></p>
-									</div>
-									<div class="checkinformat_edit row hidden">
-										<div class="col-sm-2">
-											<label class="radio <% if(!_.isUndefined(roomdata.checkinformat)) { 
-											  if(roomdata.checkinformat=="12-hour Format") { %>  checked " <% } }%>">
-											  <input type="radio" name="checkin_format" value="12-hour Format" data-toggle="radio" 
-											  <% if(!_.isUndefined(roomdata.checkinformat)) { 
-											  if(roomdata.checkinformat=="12-hour Format") { %>  checked="checked" <% } }%>>
-											  12-hour Format
-											</label>
-											<span class="help-block">eg. 12:01 AM</span>
+										<div class="checkinformat_edit row hidden">
+											<div class="col-sm-2">
+												<label class="radio <% if(!_.isUndefined(roomdata.checkinformat)) { 
+												  if(roomdata.checkinformat=="12-hour Format") { %>  checked " <% } }%>">
+												  <input type="radio" name="checkin_format" value="12-hour Format" data-toggle="radio" 
+												  <% if(!_.isUndefined(roomdata.checkinformat)) { 
+												  if(roomdata.checkinformat=="12-hour Format") { %>  checked="checked" <% } }%>>
+												  12-hour Format
+												</label>
+												<span class="help-block">eg. 12:01 AM</span>
+											</div>
+											<div class="col-sm-2">
+												<label class="radio <% if(!_.isUndefined(roomdata.checkinformat)) { 
+												  if(roomdata.checkinformat=="24-hour Format") { %>  checked " <% } }%>">
+												  <input type="radio" name="checkin_format" value="24-hour Format" data-toggle="radio" 
+												  <% if(!_.isUndefined(roomdata.checkinformat)) { 
+												  if(roomdata.checkinformat=="24-hour Format") { %>  checked="checked" <% } }%>>
+												  24-hour Format
+												</label>
+												<span class="help-block">eg: 0:01</span>
+											</div>
 										</div>
-										<div class="col-sm-2">
-											<label class="radio <% if(!_.isUndefined(roomdata.checkinformat)) { 
-											  if(roomdata.checkinformat=="24-hour Format") { %>  checked " <% } }%>">
-											  <input type="radio" name="checkin_format" value="24-hour Format" data-toggle="radio" 
-											  <% if(!_.isUndefined(roomdata.checkinformat)) { 
-											  if(roomdata.checkinformat=="24-hour Format") { %>  checked="checked" <% } }%>>
-											  24-hour Format
-											</label>
-											<span class="help-block">eg: 0:01</span>
-										</div>
+										<a class="edit-link edit-checkinformat" href="javascript:void(0)"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
+										<a class="delete-link delete-checkinformat hidden" href="javascript:void(0)"><span class="glyphicon glyphicon-trash"></span> Delete</a>
 									</div>
-									<a class="edit-link edit-checkinformat" href="javascript:void(0)"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
-									<a class="delete-link delete-checkinformat hidden" href="javascript:void(0)"><span class="glyphicon glyphicon-trash"></span> Delete</a>
 								</div>
 								
 								
