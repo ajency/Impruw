@@ -1268,6 +1268,10 @@ form .aj-imp-submit:hover {
   color: #ce2f10;
   text-shadow: 0 0 2px #ee4423;
 }
+.taxoption_edit,
+.checkinformat_edit {
+  margin-bottom: 0.5em;
+}
 /****Date Picker Styles****/
 .ui-datepicker {
   border-color: #c3c3c3;
