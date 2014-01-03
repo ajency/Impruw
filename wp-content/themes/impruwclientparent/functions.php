@@ -1256,13 +1256,15 @@ function fetch_all_room_facilities() {
 	$checkin_format = get_option('checkin-format');
 	$checkin_time = get_option('checkin-time');
 	$additional_policies = get_option('additional-policies');
+	$tax_option = get_option('tax-option');
 	
 	$room_data = array('facilities'			=> $room_facilities,
 						'addontypes'		=> $addons_types,
 						'taxtypes'			=> $tax_types,
 						'checkinformat'		=> ($checkin_format==false?'':$checkin_format),
 						'checkintime'		=> ($checkin_time==false?'':$checkin_time),
-						'additionalpolicies'=> ($additional_policies==false?'':$additional_policies));
+						'additionalpolicies'=> ($additional_policies==false?'':$additional_policies),
+						'taxoption'			=> ($tax_option==false?'':$tax_option));
 	
     wp_send_json( array( 'code' => 'OK' , 'data' =>$room_data ) );
 }
@@ -1287,6 +1289,8 @@ function fetch_all_tax_types(){
 	$tax_types = maybe_unserialize(get_option('tax-type'));
 	return $tax_types;
 }
+
+ 
 
 
 
@@ -1510,7 +1514,7 @@ function update_tax_type(){
     if ( $update_result ) {
 		$tax_type_data = array('id'=>$taxtype_edit, 'name'=>$tax_type,'percent'=>$tax_percent);
 		 
-        wp_send_json( array( 'code' => 'OK', 'msg'=>'tax type updated successfully', 'updatedtaxtype'=>$tax_type_data, 'edittaxtype'=>$taxtype_edit ) );
+        wp_send_json( array( 'code' => 'OK', 'msg'=>'Tax type updated successfully', 'updatedtaxtype'=>$tax_type_data, 'edittaxtype'=>$taxtype_edit ) );
         
     }
     else {
@@ -1644,6 +1648,63 @@ function update_room_facility() {
 add_action( 'wp_ajax_update_room_facility', 'update_room_facility' );
 add_action( 'wp_ajax_nopriv_update_room_facility', 'update_room_facility' );
 
+
+function update_checkintime(){
+	$checkintime = $_POST['checkintime'];
+	
+	$result = update_option('checkin-time', $checkintime);
+	if($result)
+		wp_send_json( array( 'code' => 'OK', 'msg'=>'Check-in time updated successfully', 'checkinTime'=>$checkintime ) );
+	else 	
+	 	wp_send_json( array( 'code' => 'ERROR', 'msg' => 'Error updating check-in time' ) );
+}
+add_action( 'wp_ajax_update_checkintime', 'update_checkintime' );
+add_action( 'wp_ajax_nopriv_update_checkintime', 'update_checkintime' );
+
+/**
+ * 
+ * Function to update additional policies
+ */
+function update_additional_policies(){
+	$additional_policies = $_POST['additional_policies'];
+	
+	$result = update_option('additional-policies', $additional_policies);
+	if($result)
+		wp_send_json( array( 'code' => 'OK', 'msg'=>'Additional policies updated successfully', 'additionalPolicies'=>$additional_policies ) );
+	else 	
+	 	wp_send_json( array( 'code' => 'ERROR', 'msg' => 'Error updating additional policies' ) );
+	
+}
+add_action( 'wp_ajax_update_additional_policies', 'update_additional_policies' );
+add_action( 'wp_ajax_nopriv_update_additional_policies', 'update_additional_policies' );
+
+
+
+function update_taxoption(){
+	
+	$tax_option = $_POST['taxoption'];
+	
+	$result = update_option('tax-option', $tax_option);
+	if($result)
+		wp_send_json( array( 'code' => 'OK', 'msg'=>'Tax option updated successfully', 'taxoption'=>$tax_option ) );
+	else 	
+	 	wp_send_json( array( 'code' => 'ERROR', 'msg' => 'Error updating tax option' ) );
+}
+add_action( 'wp_ajax_update_taxoption', 'update_taxoption' );
+add_action( 'wp_ajax_nopriv_update_taxoption', 'update_taxoption' );
+
+
+function update_checkinformat(){
+	$checkin_format = $_POST['checkinformat'];
+	
+	$result = update_option('checkin-format', $checkin_format);
+	if($result)
+		wp_send_json( array( 'code' => 'OK', 'msg'=>'Check-in format updated successfully', 'checkinformat'=>$checkin_format) );
+	else 	
+	 	wp_send_json( array( 'code' => 'ERROR', 'msg' => 'Error updating Check-in format' ) );
+}
+add_action( 'wp_ajax_update_checkinformat', 'update_checkinformat' );
+add_action( 'wp_ajax_nopriv_update_checkinformat', 'update_checkinformat' );
 
 
 

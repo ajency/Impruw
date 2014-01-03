@@ -280,17 +280,24 @@
 									</div>
 								</div>
 								<div class="form-group">
-									<div class="col-sm-2">
-										<label class="radio checked">
-										  <input type="radio" name="tax_option1" class='tax__option' value="1" data-toggle="radio" checked="checked">
-										  With Tax
-										</label>
-									</div>
-									<div class="col-sm-2">
-										<label class="radio">
-										  <input type="radio" name="tax_option1" class='tax__option'  value="2" data-toggle="radio">
-										  Without Tax
-										</label>
+									<div class="col-sm-7"> 
+										<p class="taxoptiontext"> <% if(!_.isUndefined(roomdata.taxoption)) {%><%=roomdata.taxoption %> <%}%> </p>
+										<span class="taxoption_edit hidden"> 
+											<div class="col-sm-2">
+												<label class="radio <%   if(!_.isUndefined(roomdata.taxoption)) { if(roomdata.taxoption==='With Tax'){ %>  checked  <% } }%>">
+												  <input type="radio" name="tax_option1" class='tax__option' value="With Tax" data-toggle="radio" <%   if(!_.isUndefined(roomdata.taxoption)) { if(roomdata.taxoption==='With Tax'){ %> checked="checked" <% } }%> >
+												  With Tax
+												</label>
+											</div>
+											<div class="col-sm-2">
+												<label class="radio <% if(!_.isUndefined(roomdata.taxoption)) { if(roomdata.taxoption==='Without Tax'){ %>  checked  <% } }%>">
+												  <input type="radio" name="tax_option1" class='tax__option'  value="Without Tax" data-toggle="radio" <% if(!_.isUndefined(roomdata.taxoption)) { if(roomdata.taxoption==='Without Tax'){ %> checked="checked" <% } }%>>
+												  Without Tax
+												</label>
+											</div>
+										</span>
+										<a class="edit-link edit-taxoption" href="javascript:void(0)"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
+										<a class="delete-link delete-taxoption hidden" href="javascript:void(0)"><span class="glyphicon glyphicon-trash"></span> Delete</a>
 									</div>
 								</div>
 
@@ -317,7 +324,7 @@
 											
 													<tbody id="blocktaxtype-<%=taxtype.id %>">
 														<td  id="block_edittaxtype-<%= taxtype.id %>"><%= taxtype.name %></td>
-														<td id="block_edittaxpercent-<%= taxtype.id %>" ><%= taxtype.percent %>%</td>
+														<td id="block_edittaxpercent-<%= taxtype.id %>" ><%= taxtype.percent %></td>
 														<td>
 															<a href="javascript:void(0)" class="edit-link edit-taxlink" taxtype-id="<%=taxtype.id %>" >
 															<span class="glyphicon glyphicon-pencil"></span> Edit</a>
@@ -428,38 +435,64 @@
 								</div>
 
 								<div class="form-group">
-									<div class="col-sm-2">
-										<label class="radio checked">
-										  <input type="radio" name="checkin_format" value="12-hour Format" data-toggle="radio" 
-										  <% if(!_.isUndefined(roomdata.checkinformat)) { 
-										  if(roomdata.checkinformat=="12-hour Format") { %>  checked="checked" <% } }%>>
-										  12-hour Format
-										</label>
-										<span class="help-block">eg. 12:01 AM</span>
+									<div class="col-sm-3">
+										<p class="checkinformat_text"> <% if(!_.isUndefined(roomdata.checkinformat)) {%> <%=roomdata.checkinformat %> <% } %></p>
 									</div>
-									<div class="col-sm-2">
-										<label class="radio">
-										  <input type="radio" name="checkin_format" value="24-hour Format" data-toggle="radio" 
-										  <% if(!_.isUndefined(roomdata.checkinformat)) { 
-										  if(roomdata.checkinformat=="24-hour Format") { %>  checked="checked" <% } }%>>
-										  24-hour Format
-										</label>
-										<span class="help-block">eg: 0:01</span>
+									<span class="checkinformat_edit hidden">
+										<div class="col-sm-2">
+											<label class="radio <% if(!_.isUndefined(roomdata.checkinformat)) { 
+											  if(roomdata.checkinformat=="12-hour Format") { %>  checked " <% } }%>">
+											  <input type="radio" name="checkin_format" value="12-hour Format" data-toggle="radio" 
+											  <% if(!_.isUndefined(roomdata.checkinformat)) { 
+											  if(roomdata.checkinformat=="12-hour Format") { %>  checked="checked" <% } }%>>
+											  12-hour Format
+											</label>
+											<span class="help-block">eg. 12:01 AM</span>
+										</div>
+										<div class="col-sm-2">
+											<label class="radio <% if(!_.isUndefined(roomdata.checkinformat)) { 
+											  if(roomdata.checkinformat=="24-hour Format") { %>  checked " <% } }%>">
+											  <input type="radio" name="checkin_format" value="24-hour Format" data-toggle="radio" 
+											  <% if(!_.isUndefined(roomdata.checkinformat)) { 
+											  if(roomdata.checkinformat=="24-hour Format") { %>  checked="checked" <% } }%>>
+											  24-hour Format
+											</label>
+											<span class="help-block">eg: 0:01</span>
+										</div>
+									</span>
+									<a class="edit-link edit-checkinformat" href="javascript:void(0)"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
+									<a class="delete-link delete-checkinformat hidden" href="javascript:void(0)"><span class="glyphicon glyphicon-trash"></span> Delete</a>
+								</div>
+								
+								
+								<div class="form-group">
+									<div class="col-sm-7">
+										<p class="checkintime_text"><% if(!_.isUndefined(roomdata.checkintime)) {%><%=roomdata.checkintime %> <%}%></p>
+										<div class="checkintime_edittext hidden">
+											<input type='text' class="form-control" data-mask="99:99" name="checkin_time" id="checkin_time" value="<% if(!_.isUndefined(roomdata.checkintime)) {%><%=roomdata.checkintime %> <%}%>" >
+										</div>
+										<a class="edit-link edit-checkintime" href="javascript:void(0)"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
+										<a class="delete-link delete-checkintime hidden" href="javascript:void(0)"><span class="glyphicon glyphicon-trash"></span> Delete</a>
 									</div>
 								</div>
+								<hr>
+								
 
-								<div class="form-group">
+<!-- 							<div class="form-group">
 									<label for="inputEmail3" class="col-sm-2 control-label">Time</label>
 									<div class="col-sm-2 col-sm-offset-2">
 										<input type='text' class="form-control" data-mask="99:99" name="checkin_time" id="checkin_time" value="<% if(!_.isUndefined(roomdata.checkintime)) {%><%=roomdata.checkintime %> <%}%>" >
 									</div>
 								</div>
+ -->
 
+<!-- 								
 								<div class="form-group">
 									<div class="col-sm-12">
 										<h6 class="aj-imp-sub-head-thin">Add Policies</h6>
 									</div>
 								</div>
+
 
 								<div class="form-group">
 									<label for="inputSEO1" class="col-sm-2 control-label">Additional Policies</label>
@@ -467,6 +500,35 @@
 										<textarea class="form-control" rows="3" name="additional_policies"  id="additional_policies" placeholder="eg. All rates are per night rates."><% if(!_.isUndefined(roomdata.additionalpolicies)) {%><%=roomdata.additionalpolicies%> <%}%></textarea>
 									</div>
 								</div>
+-->							
+								
+								
+								
+								
+								<div class="form-group">
+									<div class="col-sm-12">
+										<h6 class="aj-imp-sub-head-thin">Additional Policies</h6>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<div class="col-sm-12">
+										<p class='addpoliciestext'><% if(!_.isUndefined(roomdata.additionalpolicies)) {%><%=roomdata.additionalpolicies%> <%}%></p>
+										<div class="addpoliciestext_edit hidden">
+											<textarea class="form-control" rows="3" name="additional_policies"  id="additional_policies" placeholder="eg. All rates are per night rates."><% if(!_.isUndefined(roomdata.additionalpolicies)) {%><%=roomdata.additionalpolicies%> <%}%></textarea>
+										</div>
+										<a class="edit-link edit-additional-policies" href="javascript:void(0)"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
+										<a class="delete-link delete-additional-policies hidden" href="javascript:void(0)"><span class="glyphicon glyphicon-trash"></span> Delete</a>
+									</div>
+								</div>
+								
+								
+								
+								
+								
+								
+								
+								
 								
 							</form>
 						</div>
