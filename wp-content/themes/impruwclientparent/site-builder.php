@@ -84,11 +84,11 @@ get_header('builder');
                 <header class="layout-header">
 
                 </header>
-                <hr />	
+                <hr class="virtual-divider"/>	
                 <div class="layout-content" data-page="true">
 
                 </div>
-                <hr />
+                <hr class="virtual-divider"/>
                 <footer class="layout-footer">
 
                 </footer>

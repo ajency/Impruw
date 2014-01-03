@@ -372,6 +372,10 @@ define(['underscore', 'jquery', 'backbone', 'global'],
 
                 this.removeSwitchLoader();
 
+                this.$el.find('hr.virtual-divider').show();
+                this.$el.find('header, footer').css('min-height','150px');
+                this.$el.find('div[data-page="true"]').css('min-height','400px');
+
                 window.editorMode = 'layout';
 
             },
@@ -414,6 +418,8 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                 this.$el.removeClass('aj-imp-builder-layout-mode').addClass('aj-imp-builder-content-mode');
 
                 this.$el.parent().addClass('aj-imp-preview');
+                this.$el.find('hr.virtual-divider').hide();
+                this.$el.find('header, div[data-page="true"], footer').css('min-height','10px');
                 // this.$el.children('header').addClass(this.getClasses('headerWrapperClasses'));
                 // this.$el.children('div[data-page="true"]').addClass(this.getClasses('contentWrapperClasses'));
                 // this.$el.children('footer').addClass(this.getClasses('footerWrapperClasses'));

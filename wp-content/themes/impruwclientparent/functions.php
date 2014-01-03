@@ -164,7 +164,7 @@ function generate_markup( $section ) {
 
     $id = !is_null( $post ) ? $post->ID : 0;
 
-    $markup_JSON = get_page_markup_JSON( 2 );
+    $markup_JSON = get_page_markup_JSON( );
 
     if ( !isset( $markup_JSON[$section] ) )
         return;
@@ -447,7 +447,28 @@ function get_container_markup( $element ) {
  */
 function get_page_markup_JSON( $page_id  = 0 ) {
 
-    $json = get_post_meta( $page_id, 'page_markup_json', true );
+    //get page slug
+    $page = get_post(get_the_ID());
+
+    $theme_id = get_option('current_theme_id');
+    $page     = $page->post_name;  
+    $json     = array();
+
+    switch_to_blog(1);
+
+    $header = get_post_meta($theme_id,'theme-header',true);
+    if(is_array($header))
+        $json['header'] = $header;
+
+    $page = get_post_meta($theme_id,'page-' . $page,true);
+    if(is_array($page))
+        $json['page']   = $page;
+
+    $footer = get_post_meta($theme_id,'theme-footer',true);
+    if(is_array($footer))
+        $json['footer'] = $footer;
+
+    restore_current_blog();
 
     return !empty( $json ) ? $json : array();
 }
@@ -1551,10 +1572,6 @@ function delete_room_facility() {
 }
 add_action( 'wp_ajax_delete_room_facility', 'delete_room_facility' );
 add_action( 'wp_ajax_nopriv_delete_room_facility', 'delete_room_facility' );
-
-
-
-
 
 
 /**
