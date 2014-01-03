@@ -435,10 +435,10 @@
 								</div>
 
 								<div class="form-group">
-									<div class="col-sm-3">
+									<div class="col-sm-12">
 										<p class="checkinformat_text"> <% if(!_.isUndefined(roomdata.checkinformat)) {%> <%=roomdata.checkinformat %> <% } %></p>
 									</div>
-									<span class="checkinformat_edit hidden">
+									<div class="checkinformat_edit row hidden">
 										<div class="col-sm-2">
 											<label class="radio <% if(!_.isUndefined(roomdata.checkinformat)) { 
 											  if(roomdata.checkinformat=="12-hour Format") { %>  checked " <% } }%>">
@@ -459,7 +459,7 @@
 											</label>
 											<span class="help-block">eg: 0:01</span>
 										</div>
-									</span>
+									</div>
 									<a class="edit-link edit-checkinformat" href="javascript:void(0)"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
 									<a class="delete-link delete-checkinformat hidden" href="javascript:void(0)"><span class="glyphicon glyphicon-trash"></span> Delete</a>
 								</div>
