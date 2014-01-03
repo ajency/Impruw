@@ -11,8 +11,7 @@
                 <%= media.get('dateFormatted') %>
             </div>
 			<div class="imgactions col-sm-3">
-                <button class="btn select-image" title="Select" type="button"><span class="glyphicon"></span> Select</button>
-				<button class="btn" title="Edit Image"><span class="glyphicon glyphicon-edit"></span><a data-toggle="collapse" data-parent="#image-accordion" href="#image-edit-<%= media.get('id') %>">Edit Image</a></button>
+               <button class="btn" title="Edit Image"><span class="glyphicon glyphicon-edit"></span><a data-toggle="collapse" data-parent="#image-accordion" href="#image-edit-<%= media.get('id') %>">Edit Image</a></button>
 				<button class="btn" title="Delete Image"><span class="glyphicon glyphicon-remove-sign"></span></button>
 			</div>
 		</div>
@@ -33,7 +32,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-6">
+                            <div class="col-sm-12">
                                 <label>Alignment: </label>
                                 <select>
                                     <option>None</option>
@@ -42,11 +41,12 @@
                                     <option>Center</option>
                                 </select>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-12">
                                 <label>Size: </label>
                                 <select>
-                                    <option>Full Size</option>
-                                    <option>Thumbnail</option>
+                                    <% _.each(media.get('sizes'), function(ele, key){ %>
+                                    <option value="<%= key %>"><%= key + '( ' +(ele.width + ' x ' + ele.height) + ' )' %></option>
+                                    <% }) %>
                                 </select>
                             </div>
                         </div>
@@ -79,7 +79,9 @@
                 </div>
                 <div class="aj-imp-img-save">
                 	<input type="hidden" id="media-id" name="media-id" value="<%= media.get('id') %>"/>
-                    <button type="button" class="btn btn-primary save-image-details">Save</button>
+                     <button class="btn select-image" title="Select" type="button"><span class="glyphicon"></span> Select</button>
+                
+                    <button type="button" class="btn btn-primary save-image-details">Save Details</button>
                     <button type="button" class="btn btn-primary cancel-image-details">Cancel</button>
                 </div>
             </form>    
