@@ -59,7 +59,7 @@ define(['underscore', 'jquery', 'backbone', 'builder/views/BuilderEditorView'],
 
                 var page    = button.parent().find('select[name="current_page"]').val();
 
-                $.cookie('current_theme', 17, { expires: 7 });
+                $.cookie('current_theme', 36, { expires: 7 });
                 $.cookie('current_page', page, { expires: 7 });
 
                 window.location.reload();
