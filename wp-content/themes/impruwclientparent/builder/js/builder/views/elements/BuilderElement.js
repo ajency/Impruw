@@ -76,7 +76,7 @@ define(['backbone', 'jquery', 'underscore', 'global'],
                 
                 return this.dataSource;
 
-            }
+            },
 
             /**
              *
