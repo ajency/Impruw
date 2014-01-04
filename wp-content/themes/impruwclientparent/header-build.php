@@ -46,9 +46,9 @@
                 </div>
                 <div class="aj-imp-page-layout col-sm-8 clearfix navbar-text">
                     Page: <select id="aj-imp-page-sel" name="current_page">
-                        <?php foreach(get_all_menu_pages() as $key => $value): ?>
-                            <?php $selected = (isset($_COOKIE["current_page"]) && $_COOKIE["current_page"] === $key) ? 'selected'  :''; ?>
-                            <option value="<?php echo $key; ?>" <?php echo $selected; ?>><?php echo $value; ?></option>
+                        <?php foreach(get_all_menu_pages() as $page): ?>
+                            <?php $selected = (isset($_COOKIE["current_page"]) && $_COOKIE["current_page"] === $page->post_name) ? 'selected'  :''; ?>
+                            <option value="<?php echo $page->post_name; ?>" <?php echo $selected; ?>><?php echo $page->post_title; ?></option>
                         <?php endforeach; ?>
                     </select>&nbsp;&nbsp;&nbsp;&nbsp;
                     <button class="btn btn-primary" id="load-theme-page" style="margin-bottom: 10px;">Load</button>

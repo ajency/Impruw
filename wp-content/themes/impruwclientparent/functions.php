@@ -450,7 +450,7 @@ function get_page_markup_JSON( $page_id  = 0 ) {
     //get page slug
     $page = get_post(get_the_ID());
 
-    $theme_id = get_option('current_theme_id');
+    $theme_id = 36;//get_option('current_theme_id');
     $page     = $page->post_name;  
     $json     = array();
 
@@ -1857,11 +1857,13 @@ add_action( 'wp_ajax_nopriv_add_new_room_ajx', 'add_new_room_ajx' );
  */
 function get_all_menu_pages(){
         
-   return array(
-            'home'          => 'Home',
-            'about-us'      => 'About Us',
-            'contact-us'    => 'Contact Us'
-          );     
+    $args = array('post_type' => 'page','posts_per_page' => -1);
+    $pages  = new WP_query($args);
+
+    if($pages->have_posts())
+        return $pages->posts;
+    else
+        return array();
     
 }
 
