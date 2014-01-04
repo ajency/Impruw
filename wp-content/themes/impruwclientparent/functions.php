@@ -15,7 +15,7 @@ require_once PARENTTHEMEPATH . 'includes/Media.php';
 
 //add theme support
 add_theme_support( 'menus' );
-
+add_theme_support('post-thumbnails');
 //remove wordpress admin bar
 show_admin_bar( false );
 load_theme_textdomain( 'impruwclientparent' );
@@ -1765,6 +1765,51 @@ add_action( 'wp_ajax_add_date_range', 'add_date_range' );
 add_action( 'wp_ajax_nopriv_add_date_range', 'add_date_range' );
 
 
+function add_new_plan(){
+	
+	$plan_data = serializedform_to_array($_POST['addplan_data']);
+	
+	$plantype = $plan_data['plantype'];
+	$plandescription = $plan_data['plandescription'];
+	
+	$rad_weekday = $plan_data['rad_weekday'];
+	$weekday_tariff = $plan_data['weekday_tariff'];
+	$weekday_maxadults = $plan_data['weekday_maxadults'];
+	$weekday_maxchildren = $plan_data['weekday_maxchildren'];
+	$weekday_charges_extra_adult = $plan_data['weekday_charges_extra_adult'];
+	$weekday_charges_extra_child = $plan_data['weekday_charges_extra_child'];
+	
+	
+	$rad_weekend = $plan_data['rad_weekend'];
+	$weekend_tariff = $plan_data['weekend_tariff'];
+	$weekend_maxadults = $plan_data['weekend_maxadults'];
+	$weekend_maxchildren = $plan_data['weekend_maxchildren'];
+	$weekend_charges_extra_adult = $plan_data['weekend_charges_extra_adult'];	
+	$weekend_charges_extra_child = $plan_data['weekend_charges_extra_child'];
+	
+	
+	
+	
+	
+	$weekend_tariff = array( 'tariff' 				=> $weekend_tariff,
+							 'maxadults'			=> $weekend_maxadults,
+							 'maxchildren'			=> $weekend_maxchildren,
+							 'extra_adult_charges' 	=> $weekend_charges_extra_adult,
+							 'extra_child_charges'	=> $weekend_charges_extra_child
+							);
+	
+	/*$weekday_tariff = array( 'tariff' 				=> $weekend_tariff,
+							 'maxadults'			=> $weekend_maxadults,
+							 'maxchildren'			=> $weekend_maxchildren,
+							 'extra_adult_charges' 	=> $weekend_charges_extra_adult,
+							 'extra_child_charges'	=> $weekend_charges_extra_child
+							);
+							
+	*/
+  
+}
+add_action( 'wp_ajax_add_new_plan', 'add_new_plan' );
+add_action( 'wp_ajax_nopriv_add_new_plan', 'add_new_plan' );
 
 
 /**
