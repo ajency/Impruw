@@ -77,7 +77,7 @@ define(['builder/views/elements/BuilderElement', 'text!builder/templates/element
 
                 var json = this.returnJSON();
 
-                
+                json.dataSource = this.dataSource;
 
                 return json;
             },
@@ -119,6 +119,8 @@ define(['builder/views/elements/BuilderElement', 'text!builder/templates/element
 
                 if (!_.isObject(image))
                     throw 'Invalid <image> datatype. Must be an Object';
+
+                this.dataSource = {};
 
                 this.dataSource.attachmentID    = image.get('id');
                 this.dataSource.size            = size;

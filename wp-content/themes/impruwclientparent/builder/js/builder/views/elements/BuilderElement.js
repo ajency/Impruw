@@ -32,7 +32,8 @@ define(['backbone', 'jquery', 'underscore', 'global'],
              * Data source property
              * @type {Object}
              */
-            dataSource : {},
+            dataSource : null,
+            
 
             //parent of the element
             parent: null,
@@ -331,6 +332,8 @@ define(['backbone', 'jquery', 'underscore', 'global'],
 
                     element.extraClasses = $(pcontent).find('input[name="className"]').val();
 
+                    element.assignClasses();
+
                 }
 
                 //set is draggable
@@ -495,8 +498,10 @@ define(['backbone', 'jquery', 'underscore', 'global'],
                 if (!_.isUndefined(config.extraClasses))
                     this.extraClasses = config.extraClasses;
 
-                if (!_.isUndefined(config.extraClasses))
-                    this.extraClasses = config.extraClasses;
+                this.assignClasses();  
+
+                if (!_.isUndefined(config.dataSource))
+                    this.dataSource = config.dataSource;
 
 
                 if (!_.isUndefined(config.id))
@@ -505,6 +510,23 @@ define(['backbone', 'jquery', 'underscore', 'global'],
                     this.id = this.type + '-' + global.generateRandomId();
 
                 this.$el.attr('id', this.id);
+
+            },
+
+            /**
+             * Assign class
+             * @return {[type]} [description]
+             */
+            assignClasses : function(){
+
+                //get all classes
+                var classes = this.$el.find('.content').first().attr('class');
+
+                //classes = classes.split(' ');
+
+               d = this.$el.find('.content');;
+
+                this.$el.find('.content').first().addClass(this.extraClasses);
 
             },
 

@@ -165,7 +165,8 @@ function generate_markup( $section ) {
     $id = !is_null( $post ) ? $post->ID : 0;
 
     $markup_JSON = get_page_markup_JSON( );
-
+    
+    
     if ( !isset( $markup_JSON[$section] ) )
         return;
 

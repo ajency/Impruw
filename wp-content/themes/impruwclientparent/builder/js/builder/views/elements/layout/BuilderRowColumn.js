@@ -82,6 +82,13 @@ define(['builder/views/elements/BuilderElement', 'global'],
                 this.setContextMenu();
             },
 
+            /**
+             * Assign classes
+             * @return {[type]} [description]
+             */
+            assignClasses : function(){
+                this.$el.addClass(this.extraClasses);
+            },
 
 
             /**

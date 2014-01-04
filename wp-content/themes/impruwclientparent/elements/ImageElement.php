@@ -47,12 +47,11 @@ class ImageElement extends Element {
         
         parent::__construct($config);
         
-        if(isset($config['data'])){
-            $this->data         = $config['data'];
-
+        if(isset($config['dataSource'])){
+            $this->data  = $config['dataSource'];
         }
         
-        $this->markup           = $this->generate_markup();
+        $this->markup    = $this->generate_markup();
     }
     
     /**
@@ -62,11 +61,11 @@ class ImageElement extends Element {
      */
     function generate_markup(){
         
-        $html       = $this->get_open_tag();
+        //$html       = $this->get_open_tag();
         
-        $html       .= $this->get_image();
+        $html       = $this->get_image();
         
-        $html       .= $this->get_close_tag();
+        //$html       .= $this->get_close_tag();
         
         return $html;
     }
@@ -114,6 +113,8 @@ class ImageElement extends Element {
         }
 
         $path = wp_get_attachment_image_src($a_id, $size);
+
+
         
         if($path !== false) {
             return "<img src='{$path[0]}' class='img-responsive' />";
