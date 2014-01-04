@@ -418,7 +418,7 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                 this.$el.removeClass('aj-imp-builder-layout-mode').addClass('aj-imp-builder-content-mode');
 
                 this.$el.parent().addClass('aj-imp-preview');
-                this.$el.find('hr.virtual-divider').hide();
+                this.$el.find('hr.virtual-divider,.aj-imp-drag-handle,.aj-imp-delete-btn,.aj-imp-col-divider,.aj-imp-col-sel').hide();
                 this.$el.find('header, div[data-page="true"], footer').css('min-height','10px');
                 // this.$el.children('header').addClass(this.getClasses('headerWrapperClasses'));
                 // this.$el.children('div[data-page="true"]').addClass(this.getClasses('contentWrapperClasses'));

@@ -49,6 +49,8 @@ define(['builder/views/elements/BuilderElement', 'text!builder/templates/element
                 }
                 this.setParent(options.parent);
                 this.setContextMenu();
+
+                this.$el.find('.content').attr('contenteditable',true);
             },
 
             /**

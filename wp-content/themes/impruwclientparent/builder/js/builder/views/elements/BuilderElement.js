@@ -22,6 +22,12 @@ define(['backbone', 'jquery', 'underscore', 'global'],
             //disallow settings
             disAllow: {},
 
+            /**
+             * Data source property
+             * @type {Object}
+             */
+            dataSource : {},
+
             //parent of the element
             parent: null,
 
@@ -42,11 +48,12 @@ define(['backbone', 'jquery', 'underscore', 'global'],
             returnJSON: function() {
 
                 var ele = {
-                    id: this.id,
-                    type: this.getType(),
-                    draggable: this.isDraggable(),
-                    editable: this.isEditable(),
-                    extraClasses: this.getExtraClasses()
+                    id              : this.id,
+                    type            : this.getType(),
+                    draggable       : this.isDraggable(),
+                    editable        : this.isEditable(),
+                    extraClasses    : this.getExtraClasses(),
+                    dataSource      : this.getdataSource()
                 };
 
                 return ele;
@@ -60,6 +67,16 @@ define(['backbone', 'jquery', 'underscore', 'global'],
                 return this.returnJSON();
 
             },
+
+            /**
+             * Returns the data source property
+             * @return {[object]} [description]
+             */
+            getdataSource : function(){
+                
+                return this.dataSource;
+
+            }
 
             /**
              *
@@ -458,6 +475,9 @@ define(['backbone', 'jquery', 'underscore', 'global'],
 
                 if (!_.isUndefined(config.editable))
                     this.editable = config.editable === "true";
+
+                if (!_.isUndefined(config.extraClasses))
+                    this.extraClasses = config.extraClasses;
 
                 if (!_.isUndefined(config.extraClasses))
                     this.extraClasses = config.extraClasses;

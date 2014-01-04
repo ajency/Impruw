@@ -42,6 +42,8 @@ class TextElement extends Element {
         }
         
         $this->markup               = $this->generate_markup();
+
+        
         
     }
     
@@ -58,16 +60,16 @@ class TextElement extends Element {
             $attr['contenteditable'] = 'true';
 
         $html = '';
-        if(empty($this->content))
-            $html       .= $this->get_open_tag($attr);
+        // if(empty($this->content))
+        //     $html       .= $this->get_open_tag($attr);
         
         $html           .=  empty($this->content) ? "Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
                                                  Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
                                                  when an unknown printer took a galley of type and scrambled it to make a 
                                                  type specimen book. It has survived not only five centuries, but also the 
                                                  leap into electronic typesetting" : $this->content;
-        if(empty($this->content))
-            $html       .= $this->get_close_tag();
+        // if(empty($this->content))
+        //     $html       .= $this->get_close_tag();
         
         return $html;
     }

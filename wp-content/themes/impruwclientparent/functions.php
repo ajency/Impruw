@@ -703,6 +703,8 @@ function get_content_markup() {
 
     $json = $_POST['json'];
 
+    define('FOR_BUILDER',true);
+
     $data = array();
 
     if ( !isset( $json ) )
