@@ -54,8 +54,8 @@
                     <button class="btn btn-primary" id="load-theme-page" style="margin-bottom: 10px;">Load</button>
                 </div>
                <div class="aj-imp-builder-top-options col-sm-1">
-                    <form class="navbar-search">
-                        <!-- <div id="aj-imp-color-sel" class="dropdown"> 
+                     <!-- <form class="navbar-search">
+                       <div id="aj-imp-color-sel" class="dropdown"> 
                             <a class="btn bt-default" data-toggle="dropdown" href="#"><span class="pull-left">Change Color</span><span class="caret"></span></a>
                             <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu1">
                                 <li role="presentation">
@@ -76,8 +76,8 @@
                                 <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Settings</a></li>
                                 <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Logout</a></li>
                             </ul>
-                        </div>-->
-                    </form>
+                        </div>
+                    </form>-->
                 </div>
             </nav>
         </div>

@@ -1,10 +1,17 @@
 <div class="panel-heading">
 	  <a class="accordion-toggle collapsed" href="#">
 		<div class="aj-imp-image-item row">
+            <% if(type === 'slider'){ %>
+                <div class="imgthumb col-sm-1">
+                    <label for="checkbox2" class="checkbox checked">                        
+                        <input data-toggle="checkbox" type="checkbox" name="selected-image" value="<%= media.get('id') %>"/>
+                    </label>
+                </div>
+            <% } %>
 			<div class="imgthumb col-sm-1">
 				<img src="<%= media.get('sizes').thumbnail.url %>" class="img-responsive" style="height:auto;">
 			</div>
-			<div class="imgname col-sm-6">
+			<div class="imgname col-sm-5">
 				<%= media.get('title') %>
 			</div>
             <div class="imgdate col-sm-2">
@@ -79,8 +86,9 @@
                 </div>
                 <div class="aj-imp-img-save">
                 	<input type="hidden" id="media-id" name="media-id" value="<%= media.get('id') %>"/>
+                    <% if(type !== 'slider'){ %>
                      <button class="btn select-image" title="Select" type="button"><span class="glyphicon"></span> Select</button>
-                
+                    <% } %>
                     <button type="button" class="btn btn-primary save-image-details">Save Details</button>
                     <button type="button" class="btn btn-primary cancel-image-details">Cancel</button>
                 </div>

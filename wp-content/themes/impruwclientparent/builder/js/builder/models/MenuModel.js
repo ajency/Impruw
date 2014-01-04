@@ -9,11 +9,13 @@ define(['underscore', 'backbone', 'global'],
 
         var MenuModel = Backbone.Model.extend({
 
+            idAttribute : 'menuName',
+
             //property to cross check if menu collecion is fetched before or not
             fetched: false,
 
             url: function() {
-                return AJAXURL + '?action=get_site_menu' + (!this.isNew() ? '&menu-id=' + this.get('id') : '');
+                return AJAXURL + '?action=get_site_menu' + (!this.isNew() ? '&menu-name=' + this.get('menuName') : '');
             },
 
             menuOrderUrl: function() {
