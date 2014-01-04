@@ -1279,7 +1279,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			var evt_ = evt;
 			var self_ = this;
 				
-			var data = {	action			: 'add_new_plan',						 
+			var data = {	action			: 'add_new_plan_tariff',						 
 								addplan_data 	: form_data 								 
 						};
 				

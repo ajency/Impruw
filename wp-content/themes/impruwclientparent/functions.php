@@ -1272,9 +1272,10 @@ add_action( 'wp_ajax_nopriv_query_attachments', 'query_attachments' );
 function fetch_all_room_facilities() {
 
     $taxonomies= array( 'impruv_room_facility' );
-    $room_facilities =  get_terms( $taxonomies, array( 'hide_empty' => 0 ) );
-	$addons_types = fetch_all_addons();
-	$tax_types = fetch_all_tax_types();
+    $room_facilities 	= get_terms( $taxonomies, array( 'hide_empty' => 0 ) );
+	$addons_types 		= fetch_all_addons();
+	$tax_types 			= fetch_all_tax_types();
+	$date_range 		= fetch_all_daterange();
 	
 	$checkin_format = get_option('checkin-format');
 	$checkin_time = get_option('checkin-time');
@@ -1287,7 +1288,9 @@ function fetch_all_room_facilities() {
 						'checkinformat'		=> ($checkin_format==false?'':$checkin_format),
 						'checkintime'		=> ($checkin_time==false?'':$checkin_time),
 						'additionalpolicies'=> ($additional_policies==false?'':$additional_policies),
-						'taxoption'			=> ($tax_option==false?'':$tax_option));
+						'taxoption'			=> ($tax_option==false?'':$tax_option),
+						'dateranges'			=> 	$date_range
+						);
 	
     wp_send_json( array( 'code' => 'OK' , 'data' =>$room_data ) );
 }
@@ -1314,7 +1317,91 @@ function fetch_all_tax_types(){
 }
 
  
+/**
+ * 
+ * Function to get all date ranges
+ */
+function fetch_all_daterange(){
+	global $wpdb; 
+	
+	switch_to_blog(BLOG_ID_CURRENT_SITE);
+	
+	$table_name =  $wpdb->prefix."daterange";
+ 
+	$result = $wpdb->get_results("SELECT * FROM $table_name"); 
+	 			
+ 	switch_to_blog(get_current_blog_id());
+ 	
+ 	$daterangeplans = array();
+ 	
+ 	$plans = array();
+ 	//get plans under date range
+  	if(count($result)>0){
+ 		foreach($result as $daterange_val ){
+ 			//echo $daterange_val->from;
+ 			 
+ 			$daterange_from = date('d/m/y',strtotime($daterange_val->from)) ;
+ 			 
+ 			$daterange_to = date('d/m/y',strtotime($daterange_val->to));
+ 			$daterange_label = $daterange_val->label;
+ 			
+ 			
+ 			
+ 			$plans = fetch_daterange_plans($daterange_val->id);
+ 			
+ 			$daterangeplans[] = array(  'id'	=> $daterange_val->id,
+									   'from'	=> $daterange_from,
+ 									   'to'		=> $daterange_to,
+ 									   'label'	=> $daterange_label,
+ 									   'plans'  => $plans
+ 									); 
+ 		}
+ 			//var_dump($daterangeplans);
+ 	return $daterangeplans;
+ 		
+ 	} 
+ 
+}
 
+/**
+ * 
+ * Function to get all plans for a date range 
+ * @param int $daterange_id
+ * returns array containing  plan name, plan description &  tariff array-containing weekday & weekend tariff
+ * returns empty array on no results 
+ */
+function fetch_daterange_plans($daterange_id){
+	global $wpdb;
+	switch_to_blog(BLOG_ID_CURRENT_SITE);
+	$qry_daterangeplans = $wpdb->prepare("SELECT a.tarriff as plan_tariff,   b.label as plan_name, b.description as plan_description  from  {$wpdb->prefix}datetarriff a LEFT JOIN {$wpdb->prefix}plan b  	on a.plan_id = b.id where a.daterange_id =  %d	", $daterange_id);
+	 //var_dump($qry_daterangeplans);
+	$result_daterangeplans = $wpdb->get_results($qry_daterangeplans);
+	
+	$plans = array();
+	if(count($result_daterangeplans)>0){
+		
+		foreach($result_daterangeplans as $plan ){
+			
+			$tariff = maybe_unserialize($plan->plan_tariff);
+			$weekday_tariff = $tariff['weekday']['tariff'] ;
+			$weekend_tariff = $tariff['weekend']['tariff'];
+			
+			$plans[] = array('plan_name' 		=> $plan->plan_name,
+							 'plan_description'	=> $plan->plan_description,
+							 'weekend_tariff'	=> $weekend_tariff,
+							 'weekday_tariff'	=> $weekday_tariff 		
+							);
+			
+		}
+		
+	}
+	
+	switch_to_blog(get_current_blog_id());
+	
+	return($plans);
+	  	
+	
+}
 
 
 /**
@@ -1732,7 +1819,9 @@ add_action( 'wp_ajax_nopriv_update_checkinformat', 'update_checkinformat' );
  */
 
 function add_date_range(){
-  	  switch_to_blog(1);
+	
+  	switch_to_blog(BLOG_ID_CURRENT_SITE);
+  	
 	$from_daterange 			= date('Y-m-d H:i:s',strtotime($_POST['fromdaterange']));
 	$to_daterange 	= date('Y-m-d H:i:s',strtotime($_POST['todaterange'])); 
  	$label = "winter season45454";
@@ -1767,10 +1856,18 @@ add_action( 'wp_ajax_add_date_range', 'add_date_range' );
 add_action( 'wp_ajax_nopriv_add_date_range', 'add_date_range' );
 
 
-function add_new_plan(){
+
+/**
+ * Function to add new plan
+ * 
+ */
+function add_new_plan_tariff(){
 	
 	$plan_data = serializedform_to_array($_POST['addplan_data']);
+	//var_dump($plan_data);
 	
+	//$daterange_id = $plan_data['hdn_daterange'];
+	$daterange_id = 1;
 	$plantype = $plan_data['plantype'];
 	$plandescription = $plan_data['plandescription'];
 	
@@ -1788,31 +1885,115 @@ function add_new_plan(){
 	$weekend_maxchildren = $plan_data['weekend_maxchildren'];
 	$weekend_charges_extra_adult = $plan_data['weekend_charges_extra_adult'];	
 	$weekend_charges_extra_child = $plan_data['weekend_charges_extra_child'];
+	 
+	//var_dump($plan_data);	 
 	
-	
-	
-	
-	
-	$weekend_tariff = array( 'tariff' 				=> $weekend_tariff,
+	$weekendtariff = array();
+	$weekdaytariff = array();
+		
+	$weekendtariff = array( 'tariff' 				=> $weekend_tariff,
 							 'maxadults'			=> $weekend_maxadults,
 							 'maxchildren'			=> $weekend_maxchildren,
 							 'extra_adult_charges' 	=> $weekend_charges_extra_adult,
 							 'extra_child_charges'	=> $weekend_charges_extra_child
 							);
 	
-	/*$weekday_tariff = array( 'tariff' 				=> $weekend_tariff,
-							 'maxadults'			=> $weekend_maxadults,
-							 'maxchildren'			=> $weekend_maxchildren,
-							 'extra_adult_charges' 	=> $weekend_charges_extra_adult,
-							 'extra_child_charges'	=> $weekend_charges_extra_child
+	 $weekdaytariff = array( 'tariff' 				=> $weekday_tariff,
+							 'maxadults'			=> $weekday_maxadults,
+							 'maxchildren'			=> $weekday_maxchildren,
+							 'extra_adult_charges' 	=> $weekday_charges_extra_adult,
+							 'extra_child_charges'	=> $weekday_charges_extra_child
 							);
+	 
+	// echo $plantype.'-----'.$plandescription;
+ 	$plan_result = 	add_new_plan($plantype,$plandescription);					
 							
-	*/
+	if($plan_result!==false){
+		//add tariff 		
+		$tariff_result =  add_daterangeplan_tariff($weekendtariff, $weekdaytariff,$plan_result,$daterange_id);
+		
+		if($tariff_result===false){
+			wp_send_json( array( 'code' => 'ERROR', 'msg' =>'Error adding Tariff plan' ) ); 
+		}
+		else {
+			wp_send_json( array( 'code' => 'OK', 'msg'=>'Tariff plan is successfully added') );
+		}
+	}
+	else{
+			wp_send_json( array( 'code' => 'ERROR', 'msg' =>'Error adding plan' ) );
+	}
+		 
   
 }
-add_action( 'wp_ajax_add_new_plan', 'add_new_plan' );
-add_action( 'wp_ajax_nopriv_add_new_plan', 'add_new_plan' );
+add_action( 'wp_ajax_add_new_plan_tariff', 'add_new_plan_tariff' );
+add_action( 'wp_ajax_nopriv_add_new_plan_tariff', 'add_new_plan_tariff' );
 
+
+/**
+ * 
+ * Function to add new plan
+ * @param string $plantype
+ * @param string $plandescription
+ * returns plan id on success
+ * returns false on fail
+ */
+function add_new_plan($plantype,$plandescription){
+	global $wpdb;
+	
+	switch_to_blog(BLOG_ID_CURRENT_SITE);
+	
+	$table_name =  $wpdb->prefix."plan";
+	
+	$result = $wpdb->insert(	$table_name, 
+								array( 'label' 			=> $plantype, 
+										'description' 	=> $plandescription										
+									), 
+								array(  '%s', 
+										'%s' 
+									) 
+				); 
+    				
+ 	switch_to_blog(get_current_blog_id());
+  	
+ 	if($result==true)
+ 		return $wpdb->insert_id; 
+ 		
+ 	return $result;
+	
+}
+
+
+
+function add_daterangeplan_tariff($weekend_tariff, $weekday_tariff,$plan_id,$daterange_id){
+	
+	global $wpdb;
+	
+	switch_to_blog(BLOG_ID_CURRENT_SITE);
+	
+	$table_name =  $wpdb->prefix."datetarriff";  
+	
+	$result = $wpdb->insert(	$table_name, 
+								array( 'daterange_id' 	=> $daterange_id, 
+										'plan_id' 		=> $plan_id,
+										'tarriff'		=>	maybe_serialize( array( 'weekend' => $weekend_tariff,
+																   					'weekday' => $weekday_tariff	
+																 					)
+																			),									
+									), 
+								array(  '%s', 
+										'%s',
+										'%s'	 
+									) 
+							); 
+    				
+ 	switch_to_blog(get_current_blog_id());
+  	
+ 	if($result==true)
+ 		return $wpdb->insert_id; 
+ 		
+ 	return $result;
+	
+}
 
 /**
  * 
