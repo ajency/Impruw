@@ -121,12 +121,105 @@
 											</tr>
 										</thead>
 										<tbody>
-											<tr>
+										
+										
+										 <% console.log(roomdata.dateranges) %>
+										
+										<% _.each(roomdata.dateranges,function(daterange,index){
+										%>
+										
+										
+										<tr>
 												<td colspan="4" class="no-mar table-responsive">
-													<table class="table table-vc">
+												
+													<table class="table table-vc" data-toggle="collapse" data-target="#rowlink<%=daterange.id%>">
 														<tbody data-link="row" class="rowlink">
 															<tr>
-																<td width="5%"><a href="#rowlink1" data-toggle="collapse"><span class="glyphicon glyphicon-chevron-down"></span></a></td>
+																<td width="5%"><a href="#rowlink<%=daterange.id%>" data-toggle="collapse"><span class="glyphicon glyphicon-chevron-down"></span></a></td>
+																<td width="30%">
+																	<span class="label label-info">From:</span><%=daterange.from%>    <span class="label label-info">To:</span> <%=daterange.to%>
+																</td>
+																<td width="35%">
+																	<span class="label label-info">Weekday:</span> from<strong>$29</strong> <span class="label label-info">Weekend:</span> from<strong>$37</strong>
+																</td>
+																<td width="30%" class="rowlink-skip">
+																	<a href="#" class="edit-link"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
+																	<a href="#" class="delete-link"><span class="glyphicon glyphicon-trash"></span> Delete</a>
+																</td>
+															</tr>
+															
+														</tbody>
+													</table>
+													<div id="rowlink<%=daterange.id%>" class="inner collapse">
+														<div class="form-table table-responsive">
+															<table class="table table-bordered table-hover">
+																<thead>
+																	<tr>
+																		<th>Plan Name</th>
+																		<th>Plan Description</th>
+																		<th>Weekday Tariff</th>
+																		<th>Weekend Tariff</th>
+																	</tr>
+																</thead>
+																
+																<tbody data-link="row" class="rowlink">
+																
+																<% _.each(daterange.plans,function(plan,plan_index){
+																%>
+																	<tr>
+																		<td>
+																			<a href="#plan1" data-toggle="modal"><%=plan.plan_name %></a>
+																		</td>
+																		<td>
+																			<%=plan.plan_description %> 
+																		</td>
+																		<td>
+																			$<%=plan.weekday_tariff %> 
+																		</td>
+																		<td>
+																			$<%=plan.weekend_tariff %> 
+																		</td>
+																	</tr>
+																
+																<%
+																})%>
+																
+																<% if(daterange.plans.length<=0){
+																%>
+																<tr>
+																		<td colspan="4">
+																			 No plans added yet
+																		</td>
+																	</tr>
+																<%
+																}
+																%>
+																	 
+																	 
+																</tbody>
+															</table>
+														</div>
+														<div class="add-text">
+															Add Another Plan <button type="button" daterange-id = '<%=daterange.id %>'  class="btn add-btn btn-sm btn_add_plan" data-toggle="modal" data-target="#add-plantype"><i class="glyphicon glyphicon-plus"></i></button>
+														</div>
+													</div>
+												</td>
+											</tr>
+										<% }) %>
+										
+										
+										
+										
+										
+										
+										
+											<tr>
+												<td colspan="4" class="no-mar table-responsive">
+												
+													<table class="table table-vc" data-toggle="collapse" data-target="#rowlink01">
+														<tbody data-link="row" class="rowlink">
+															<tr>
+																<td width="5%"><a href="#rowlink01" data-toggle="collapse"><span class="glyphicon glyphicon-chevron-down"></span></a></td>
 																<td width="30%">
 																	<span class="label label-info">From:</span> 21/12/2013 <span class="label label-info">To:</span> 30/4/2014
 																</td>
@@ -141,7 +234,7 @@
 															
 														</tbody>
 													</table>
-													<div id="rowlink1" class="inner collapse">
+													<div id="rowlink01" class="inner collapse">
 														<div class="form-table table-responsive">
 															<table class="table table-bordered table-hover">
 																<thead>
@@ -190,12 +283,16 @@
 													</div>
 												</td>
 											</tr>
+											
+											
+											
+											
 											<tr>
 												<td colspan="4" class="no-mar table-responsive">
-													<table class="table table-vc">
+													<table class="table table-vc" data-toggle="collapse" data-target="#rowlink02">
 														<tbody data-link="row" class="rowlink">
 															<tr>
-																<td width="5%"><a href="#rowlink2" data-toggle="collapse"><span class="glyphicon glyphicon-chevron-down"></span></a></td>
+																<td width="5%"><a href="#rowlink02" data-toggle="collapse"><span class="glyphicon glyphicon-chevron-down"></span></a></td>
 																<td width="30%">
 																	<span class="label label-info">From:</span> 21/12/2013 <span class="label label-info">To:</span> 30/4/2014
 																</td>
@@ -210,7 +307,7 @@
 															
 														</tbody>
 													</table>
-													<div id="rowlink2" class="inner collapse">
+													<div id="rowlink02" class="inner collapse">
 														<div class="form-table table-responsive">
 															<table class="table table-bordered table-hover">
 																<thead>

@@ -49,6 +49,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			 	
 			 	'click #btn_savedaterange'			: 'saveDateRange',
 			 	
+			 	'click .btn_add_plan'				: 'addplan',
 			 	'click #btn_addplan'				: 'addNewPlan'
 			 	 
 		}, 
@@ -1266,6 +1267,12 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 		},
 		
 		
+		addplan : function(evt){
+			 
+			 
+			 $('#hdn_daterange').val($(evt.target).attr('daterange-id'));	
+		},
+		
 		/**
 		 * Function to add new plan
 		 * @param evt
@@ -1279,7 +1286,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			var evt_ = evt;
 			var self_ = this;
 				
-			var data = {	action			: 'add_new_plan',						 
+			var data = {	action			: 'add_new_plan_tariff',						 
 								addplan_data 	: form_data 								 
 						};
 				
