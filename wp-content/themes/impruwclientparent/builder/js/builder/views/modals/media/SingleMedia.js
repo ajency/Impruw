@@ -42,8 +42,11 @@ define(['backbone', 'text!builder/templates/modal/media/singlemedia.hbs',
             render: function() {
 
                 var html = this.template({
+                
                     media: this.model
+                
                 });
+
                 this.$el.html(html);
 
                 this.$el.find('select').selectpicker({
@@ -57,15 +60,21 @@ define(['backbone', 'text!builder/templates/modal/media/singlemedia.hbs',
              * Close the details box
              */
             cancelImageDetails: function(evt) {
+            
                 $(evt.target).closest('.panel-collapse').prev().find('a[data-toggle="collapse"]').click();
+            
             },
 
             /**
              * Select the image
              */
             selectImage: function(evt) {
-                log(this.model);
-                SiteBuilder.vent.trigger('image-selected', this.model);
+                
+                var size  = this.$el.find('select.image-size').val()
+
+                size = size === '' ? 'thumbnail' : size;
+
+                SiteBuilder.vent.trigger('image-selected', this.model, size);
                 this.parent.hide();
 
             },

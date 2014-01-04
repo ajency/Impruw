@@ -109,7 +109,7 @@ define(['builder/views/elements/BuilderElement', 'text!builder/templates/element
              * Update self
              * @returns {undefined}
              */
-            updateSelf: function(image) {
+            updateSelf: function(image, size) {
 
                 SiteBuilder.vent.off('image-selected', self.updateSelf);
 
@@ -118,7 +118,7 @@ define(['builder/views/elements/BuilderElement', 'text!builder/templates/element
 
                 this.dataSource = image;
 
-                this.$el.find('img').attr('src', this.dataSource.get('sizes').medium.url);
+                this.$el.find('img').attr('src', this.dataSource.get('sizes')[size].url);
 
             }
 

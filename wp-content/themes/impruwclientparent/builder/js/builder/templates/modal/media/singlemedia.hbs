@@ -43,7 +43,7 @@
                             </div>
                             <div class="col-sm-12">
                                 <label>Size: </label>
-                                <select>
+                                <select class="image-size">
                                     <% _.each(media.get('sizes'), function(ele, key){ %>
                                     <option value="<%= key %>"><%= key + '( ' +(ele.width + ' x ' + ele.height) + ' )' %></option>
                                     <% }) %>
