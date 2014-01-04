@@ -200,7 +200,7 @@
 															</table>
 														</div>
 														<div class="add-text">
-															Add Another Plan <button type="button" class="btn add-btn btn-sm" data-toggle="modal" data-target="#add-plantype"><i class="glyphicon glyphicon-plus"></i></button>
+															Add Another Plan <button type="button" daterange-id = '<%=daterange.id %>'  class="btn add-btn btn-sm btn_add_plan" data-toggle="modal" data-target="#add-plantype"><i class="glyphicon glyphicon-plus"></i></button>
 														</div>
 													</div>
 												</td>

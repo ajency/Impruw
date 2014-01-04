@@ -1871,8 +1871,8 @@ function add_new_plan_tariff(){
 	$plan_data = serializedform_to_array($_POST['addplan_data']);
 	//var_dump($plan_data);
 	
-	//$daterange_id = $plan_data['hdn_daterange'];
-	$daterange_id = 1;
+	$daterange_id = $plan_data['hdn_daterange'];
+	//$daterange_id = 1;
 	$plantype = $plan_data['plantype'];
 	$plandescription = $plan_data['plandescription'];
 	
