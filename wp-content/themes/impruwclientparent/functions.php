@@ -15,7 +15,7 @@ require_once PARENTTHEMEPATH . 'includes/Media.php';
 
 //add theme support
 add_theme_support( 'menus' );
-
+add_theme_support('post-thumbnails');
 //remove wordpress admin bar
 show_admin_bar( false );
 load_theme_textdomain( 'impruwclientparent' );
