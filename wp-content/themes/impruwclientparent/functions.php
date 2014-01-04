@@ -713,13 +713,13 @@ function get_content_markup() {
     foreach ( $json as $section ) {
 
         $d      = elements_markup( $section['elements'] );
-        $data   = array_merge( $data, $d );
+        $data   = array_merge($data, $d);
     }
 
     if ( $data )
         echo json_encode( array( 'code' => 'OK'   , 'data' => $data ) );
     else
-        echo json_encode( array( 'code' => 'ERROR', 'message' => 'Failed' ) );
+        echo json_encode( array( 'code' => 'ERROR', 'message' =>  'Nothing to return' ) );
     die;
 }
 add_action( 'wp_ajax_get_content_markup', 'get_content_markup' );
@@ -728,13 +728,19 @@ add_action( 'wp_ajax_nopriv_get_content_markup', 'get_content_markup' );
 
 
 /**
- * recursive function definition
+ * [elements_markup description]
+ * @param  [type] $elements [description]
+ * @return [type]           [description]
  */
 function elements_markup( $elements ) {
 
     $e = array();
 
     foreach ( $elements as $element ) {
+
+        //skip if already sent
+        if($element['contentFetched'] == 'true')
+            continue;
 
         if ( $element['type'] === 'BuilderRow' || $element['type'] === 'BuilderRowColumn' ) {
 
@@ -748,7 +754,6 @@ function elements_markup( $elements ) {
         }
 
     }
-
     return $e;
 
 }
