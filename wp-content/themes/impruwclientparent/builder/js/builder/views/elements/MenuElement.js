@@ -24,7 +24,8 @@ define(['builder/views/elements/BuilderElement', 'text!builder/templates/element
                 'mouseleave': 'elementMouseLeave',
                 'click > .aj-imp-delete-btn': 'destroyElement',
                 'contextmenu': 'showContextMenu',
-                'click': 'showModal'
+                'click': 'showModal',
+                'click .content a' : 'avoidClick'
             },
 
             /**
@@ -35,9 +36,7 @@ define(['builder/views/elements/BuilderElement', 'text!builder/templates/element
              */
             initialize: function(options) {
 
-                //_.bindAll(this, 'rowMouseEnter','rowMouseLeave');
-
-
+                _.bindAll(this, 'refetchHtml','stopListeningEvents');
 
                 //drop mode
                 if (_.isUndefined(options.config)) {
@@ -55,15 +54,17 @@ define(['builder/views/elements/BuilderElement', 'text!builder/templates/element
             },
 
             /**
-             * Generates the markup for column
-             * and triggers the column droppable function
-             *
-             * @param {type} col
-             * @returns {_L2.Anonym$0}
+             * Avoid click of menu in builder 
+             * @return {[type]} [description]
              */
-            render: function(col) {
+            avoidClick : function(event){
 
-                return this;
+                event.preventDefault();
+
+                this.$el.click();
+
+                return false;
+
             },
 
             showModal: function() {
@@ -72,13 +73,74 @@ define(['builder/views/elements/BuilderElement', 'text!builder/templates/element
 
                 require(['underscore', 'menumanager'], function(_, MenuManager) {
 
-                    //ensure Menu manager is created just once
-                    if (_.isUndefined(self.menumanager))
-                        self.menumanager = new MenuManager();
+                    var menumanager = SiteBuilder.ViewManager.findByCustom("menu-manager");
 
-                    self.menumanager.open();
+                    //ensure Menu manager is created just once
+                    if (_.isUndefined(menumanager)){
+                        menumanager = new MenuManager();
+                        SiteBuilder.ViewManager.add(menumanager, "menu-manager");
+                    }
+
+                    //start listening to menu modal events
+                    
+                    //new menu added event
+                    self.listenTo(SiteBuilder.vent, 'new-menu-added', self.refetchHtml);
+
+                    //new menu order change
+                    self.listenTo(SiteBuilder.vent, 'menu-order-changed', self.refetchHtml);
+
+                    //menu remove event
+                    self.listenTo(SiteBuilder.vent, 'menu-removed', self.refetchHtml);
+
+                    //modal hide event
+                    self.listenTo(SiteBuilder.vent, 'modal-closed', self.stopListeningEvents);
+
+                    menumanager.open();
 
                 });
+
+            },
+
+            /**
+             * Refetch for menu
+             * @return {[type]} [description]
+             */
+            refetchHtml : function(){
+
+                var self = this;
+
+                var json = this.generateJSON();
+
+                json.dataSource = {
+                                    menuName : 'Main Menu'
+                                };
+
+                $.get(AJAXURL,{
+                        action : 'get_element_markup',
+                        json   : json
+                      },
+                      function(response){
+
+                        if(response.code === 'OK'){
+                            self.$el.find('.content').html(response.html);
+                        }
+
+                      },'json');
+
+
+            },
+
+            /**
+             * Stop listening to modal events
+             * @return {[type]} [description]
+             */
+            stopListeningEvents : function(modal){
+
+                //can perform some actions to modal object if required
+                this.stopListening(SiteBuilder.vent, 'new-menu-added', this.refetchHtml);
+                this.stopListening(SiteBuilder.vent, 'menu-order-changed', this.refetchHtml);
+                this.stopListening(SiteBuilder.vent, 'menu-removed', this.refetchHtml);
+                this.stopListening(SiteBuilder.vent, 'modal-closed', this.stopListeningEvents);
 
             }
 

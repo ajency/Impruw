@@ -1,25 +1,28 @@
 /**
- *  Menu Manager .js
+ *  Slider Manager .js
  *  Contains all logic to handle menu configurations
  *  Add/Editing/Deleting Menu
  */
-define(['builder/views/modals/Modal', 'text!builder/templates/modal/media/mediamanager.hbs',
+define(['builder/views/modals/Modal', 'text!builder/templates/modal/slidermanager.hbs',
         'mediamodel', 'mediacollection', 'mediasingle', 'global', 'parsley'
     ],
 
     function(Modal, template, MediaModel, MediaCollection, SingleMedia, global) {
 
 
-        var MediaManager = Modal.extend({
+        var SliderManager = Modal.extend({
 
-            id: 'media-manager',
+            id: 'slider-manager',
 
             template: template,
+
+            type : 'slider',
 
             shouldUpdate: false,
 
             events: {
-                'click .refetch-media': 'fetchMedia'
+                'click .refetch-media' : 'fetchMedia',
+                'click #create-slider' : 'createSlider'
             },
 
             selected: null,
@@ -31,7 +34,7 @@ define(['builder/views/modals/Modal', 'text!builder/templates/modal/media/mediam
 
                 //bind 
                 var html = _.template(this.outerTemplate, {
-                    title: 'Media Manager'
+                    title: 'Slider Manager'
                 });
 
                 this.$el.html(html);
@@ -76,6 +79,33 @@ define(['builder/views/modals/Modal', 'text!builder/templates/modal/media/mediam
 
 
             /**
+             * Create the slider
+             * @return {[type]} [description]
+             */
+            createSlider: function(evt){
+
+                var checkboxes = $(evt.target).closest('form').find('input[type="checkbox"]');
+
+                var ids = [];
+                _.each(checkboxes, function(checkbox, index){
+
+                    ids.push(parseInt($(checkbox).val()));
+
+                });
+
+                var medias = _.filter(this.mediaCollection.models, 
+                                    function(media){ 
+                                        return _.indexOf(ids, media.get('id')) !== -1;
+                                    });
+
+                SiteBuilder.vent.trigger('create-slider', medias, ids);
+
+                this.hide();
+
+            },
+
+
+            /**
              * Triggers the fetch of MenuCollection
              * Check if the collection is already fetched. If yes, ignores
              * @returns {undefined}
@@ -92,19 +122,20 @@ define(['builder/views/modals/Modal', 'text!builder/templates/modal/media/mediam
 
                 this.mediaCollection.fetch({
                     data: this.filters,
-                    success: function(collection, response) {
+                    success: _.bind(function(collection, response) {
 
-                        self.mediaCollection.setFetched(true);
+                        this.mediaCollection.setFetched(true);
 
                         collection.each(function(model, index) {
                             var mediaView = new SingleMedia({
                                 model: model,
-                                parent: self
+                                parent: this
                             });
-                            self.$el.find('.selectable-images').append(mediaView.render().$el);
+                            this.$el.find('.selectable-images').append(mediaView.render().$el);
                         });
 
-                    },
+                    },this),
+
                     error: function(error) {
                         self.$el.find('.modal-body').html('Failed to fetch menus from server. <a href="#" class="refetch-menus">Click here</a>Please try again.');
                     }
@@ -168,6 +199,9 @@ define(['builder/views/modals/Modal', 'text!builder/templates/modal/media/mediam
                         if (response.success) {
                             self.shouldUpdate = true;
                             var media = new MediaModel(response.data);
+                            
+                            self.mediaCollection.add(media);
+
                             var mediaView = new SingleMedia({
                                 model: media,
                                 parent: self
@@ -189,6 +223,6 @@ define(['builder/views/modals/Modal', 'text!builder/templates/modal/media/mediam
 
         });
 
-        return MediaManager;
+        return SliderManager;
 
     });

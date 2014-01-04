@@ -4,8 +4,8 @@
  */
 
 define([ 'underscore', 'jquery', 'backbone','roommodel',
-		'text!templates/siteprofile/AddRoomViewTpl.tpl','lib/parsley/parsley','radio' ], function(_, $,
-		Backbone, RoomModel, AddRoomViewTpl,parsley,radio) {
+		'text!templates/siteprofile/AddRoomViewTpl.tpl','lib/parsley/parsley','radio','jqueryui' ], function(_, $,
+		Backbone, RoomModel, AddRoomViewTpl,parsley,radio,jqueryui) {
 
 	var AddRoomView = Backbone.View.extend({
 
@@ -33,8 +33,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			 		
 			 	'click .edit-additional-policies'	: 'editAdditionalPolicies',
 			 	'click .save-additional-policies'	: 'saveAdditionalPolicies',
-			 	'click .delete-additional-policies'	: 'cancelAdditionalPoliciesUpdate',
-			 	
+			 	'click .delete-additional-policies'	: 'cancelAdditionalPoliciesUpdate',			 	
 			 	
 			 	'click .edit-checkintime'			: 'editCheckintime',
 			 	'click .save-checkintime'			: 'saveCheckintime',
@@ -42,12 +41,18 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			 	
 			 	'click .edit-taxoption'				: 'edittaxoption',
 			 	'click .save-taxoption'				: 'saveTaxOption',
-			 	'click .delete-taxoption'			: 'cancelTaxOptionUpdate',
+			 	'click .delete-taxoption'			: 'cancelTaxOptionUpdate',			 	
 			 	
+			 	'click .edit-checkinformat'			: 'editCheckinFormat',
+			 	'click .save-checkinformat'			: 'saveCheckinFormat',
+			 	'click .delete-checkinformat'		: 'cancelCheckinFormat',			 	
 			 	
-			 	'click .edit-checkinformat'				: 'editCheckinFormat',
-			 	'click .save-checkinformat'				: 'saveCheckinFormat',
-			 	'click .delete-checkinformat'			: 'cancelCheckinFormat' 
+			 	'click #btn_savedaterange'			: 'saveDateRange',
+			 	
+			 	'click .btn_addplanmodal'			: 'addplanmodal',
+			 	'click #btn_addplan'				: 'addNewPlan',
+			 	'change .chk_tariffdays'			: 'showhide_tariffform'
+			 		
 			 	 
 		}, 
 
@@ -95,6 +100,22 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			this.parsleyInitialize(this.$el.find('#form_add_addon'));		
 			
 			this.$el.find(".aj-imp-long-form-actions").affix()
+			
+			
+			
+			var datepickerSelector = '.dated';
+			$(datepickerSelector).datepicker({
+			  showOtherMonths: true,
+			  selectOtherMonths: true,
+			  dateFormat: "d MM, yy",
+			  yearRange: '-1:+1'
+			}).prev('.btn').on('click', function (e) {
+			  e && e.preventDefault();
+			  $(datepickerSelector).focus();
+			});
+
+		// Now let's align datepicker with the prepend button
+		$(datepickerSelector).datepicker('widget').css({'margin-left': -$(datepickerSelector).prev('.btn').outerWidth()});
 			 	
 			return this;
 			
@@ -935,6 +956,23 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 		},
 		
 		
+		/**
+		 * Function to cancel edit of checkin format
+		 * @param evt
+		 */
+		cancelCheckinFormat : function(evt_){
+			$(evt_.target).addClass('hidden')
+			 $(evt_.target).parent().find('.checkinformat_edit').addClass('hidden')
+			 $(evt_.target).parent().find('.checkinformat_text').removeClass('hidden')
+			 $(evt_.target).parent().find('.save-checkinformat').html(function (i, old) {
+			     return old
+			         .replace('Save', 'Edit')
+			         
+			});
+			 $(evt_.target).parent().find('.save-checkinformat').removeClass('save-checkinformat').addClass('edit-checkinformat');
+			 
+		},
+		
 		
 		/**
 		 * Function to save tax option 
@@ -1191,6 +1229,125 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			 
 			
 		},
+		
+		
+		
+		saveDateRange : function(evt){
+			
+			var fromDaterange 	=  $(evt.target).closest('.modal-content').find('#fromdaterange').val() 
+			var toDaterange		=  $(evt.target).closest('.modal-content').find('#todaterange').val() 
+			$(evt.target).next().show();
+			 
+			
+			var evt_ = evt;
+			var self_ = this;
+			
+			var data = {	action			: 'add_date_range',						 
+							fromdaterange 	: fromDaterange,
+							todaterange		: toDaterange
+						};
+			
+			
+			$.post(	AJAXURL,
+			data,
+			function(response){ 
+				 
+				 if(response.code=='OK'){ 		
+					 
+					 $(evt_.target).parent().parent().find('.close').click();					  
+					 self_.saveSuccess(response,evt_,self_);  	 
+					 
+				}
+				else{
+						$(evt.target).html('Save');
+						$(evt.target).prop('disabled',false);
+						self_.saveFailure(response,evt_,self_);  
+				} 
+			
+			});
+			
+		},
+		
+		
+		showhide_tariffform: function(evt){
+			 
+			tariffType = $(evt.target).attr('tariff-type');
+			
+			if($(evt.target).is(':checked') == true){
+				if(tariffType=='weekend'){
+					console.log('weekend enable');
+					$('.formel_weekendtariff').attr('disabled',false);
+				}
+				if(tariffType=='weekday'){
+					console.log('weekday enable');
+					$('.formel_weedaytariff').attr('disabled',false);
+				}
+			}				
+			else{
+				//console.log('unchecked')
+				if(tariffType=='weekend'){ 
+					console.log('weekend disable');
+					$('.formel_weekendtariff').attr('disabled',true);
+					$('.formel_weekendtariff').val('');
+				}
+				if(tariffType=='weekday'){
+					console.log('weekday disable');
+					$('.formel_weedaytariff').attr('disabled',true);
+					$('.formel_weedaytariff').val('');
+					
+				}
+				 
+			}
+		},
+		
+		addplanmodal : function(evt){
+			
+			var daterange_id = $(evt.target).attr('daterange-id')
+			$('#hdn_daterange').val(daterange_id)
+			
+			 
+		},
+		
+		/**
+		 * Function to add new plan
+		 * @param evt
+		 */
+		addNewPlan : function(evt){
+			
+			var form_plan = $(evt.target).parent().parent().find('#form_addplan');  
+			form_data = $(form_plan).serializeArray() 
+			  
+			 
+			var evt_ = evt;
+			var self_ = this;
+				
+			var data = {		action			: 'add_new_plan_tariff',						 
+								addplan_data 	: form_data 								 
+						};
+				
+				
+			$.post(	AJAXURL,
+					data,
+					function(response){ 
+					 
+						if(response.code=='OK'){		
+						 
+							$(evt_.target).parent().parent().find('.close').click();
+							 
+							self_.saveSuccess(response,evt_,self_);  	 
+						 
+						}
+						else{
+							$(evt.target).html('Save');
+							$(evt.target).prop('disabled',false);
+							self_.saveFailure(response,evt_,self_);  
+						} 
+				
+			 });
+			 
+			
+		},
+		
 		
 		/**
 		 * Function to show message after success of save 

@@ -29,6 +29,12 @@
                 <div class="tab-pane active" id="content">
 
                     <ul class="aj-imp-builder-items clearfix">
+                        <li>
+                            <a href="#" class="drag builder-element" data-element="LogoElement" data-placeholder-height="100">
+                                <div class="aj-imp-builder-icon"  data-icon="&#xf110;"></div>
+                                <div class="aj-imp-builder-title">Logo</div>
+                            </a>
+                        </li>
                         <li >
                             <a href="#" class="drag builder-element" data-element="TitleElement" data-placeholder-height="60">
                                 <div class="aj-imp-builder-icon" data-icon="&#xf13c;"></div>
@@ -70,24 +76,6 @@
                             <a href="#" class="drag builder-element" data-element="ImageWithTextElement" data-placeholder-height="100">
                                 <div class="aj-imp-builder-icon"  data-icon="&#xf110;"></div>
                                 <div class="aj-imp-builder-title">Image With Text</div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="drag builder-element" data-element="SocialElement">
-                                <div class="aj-imp-builder-icon" data-icon="&#xf119;"></div>
-                                <div class="aj-imp-builder-title">Social</div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <div class="aj-imp-builder-icon" data-icon="&#xf103;"></div>
-                                <div class="aj-imp-builder-title">Columns</div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <div class="aj-imp-builder-icon" data-icon="&#xf10a;"></div>
-                                <div class="aj-imp-builder-title">Contact Form</div>
                             </a>
                         </li>
                     </ul>

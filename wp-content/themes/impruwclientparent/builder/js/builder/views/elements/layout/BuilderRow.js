@@ -72,6 +72,14 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
             },
 
             /**
+             * Assign classes
+             * @return {[type]} [description]
+             */
+            assignClasses : function(){
+                this.$el.addClass(this.extraClasses);
+            },
+
+            /**
              *
              * @returns {_L4.Anonym$1}
              */

@@ -40,7 +40,10 @@ require.config({
         mediamanager    : 'builder/views/modals/media/MediaManager',
         mediamodel      : 'builder/models/MediaModel',
         mediacollection : 'builder/collections/MediaCollection',
-        mediasingle     : 'builder/views/modals/media/SingleMedia'
+        mediasingle     : 'builder/views/modals/media/SingleMedia',
+
+        //slider
+        slidermanager   : 'builder/views/modals/SliderManager'
 
     },
     waitSeconds: 15,

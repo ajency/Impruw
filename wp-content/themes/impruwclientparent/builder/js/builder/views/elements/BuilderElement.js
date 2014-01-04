@@ -22,6 +22,19 @@ define(['backbone', 'jquery', 'underscore', 'global'],
             //disallow settings
             disAllow: {},
 
+            /**
+             * Checks if element content is already fetched
+             * @type {Boolean}
+             */
+            contentFetched : false,
+
+            /**
+             * Data source property
+             * @type {Object}
+             */
+            dataSource : null,
+            
+
             //parent of the element
             parent: null,
 
@@ -42,14 +55,25 @@ define(['backbone', 'jquery', 'underscore', 'global'],
             returnJSON: function() {
 
                 var ele = {
-                    id: this.id,
-                    type: this.getType(),
-                    draggable: this.isDraggable(),
-                    editable: this.isEditable(),
-                    extraClasses: this.getExtraClasses()
+                    id              : this.id,
+                    type            : this.getType(),
+                    draggable       : this.isDraggable(),
+                    editable        : this.isEditable(),
+                    extraClasses    : this.getExtraClasses(),
+                    dataSource      : this.getdataSource(),
+                    contentFetched  : this.contentFetched 
                 };
 
                 return ele;
+            },
+
+            /**
+             * Set the content fetched status of the element
+             */
+            setFetchedStatus : function(status){
+
+                this.contentFetched = status;
+
             },
 
             /**
@@ -58,6 +82,16 @@ define(['backbone', 'jquery', 'underscore', 'global'],
             generateJSON: function() {
 
                 return this.returnJSON();
+
+            },
+
+            /**
+             * Returns the data source property
+             * @return {[object]} [description]
+             */
+            getdataSource : function(){
+                
+                return this.dataSource;
 
             },
 
@@ -298,6 +332,8 @@ define(['backbone', 'jquery', 'underscore', 'global'],
 
                     element.extraClasses = $(pcontent).find('input[name="className"]').val();
 
+                    element.assignClasses();
+
                 }
 
                 //set is draggable
@@ -462,6 +498,11 @@ define(['backbone', 'jquery', 'underscore', 'global'],
                 if (!_.isUndefined(config.extraClasses))
                     this.extraClasses = config.extraClasses;
 
+                this.assignClasses();  
+
+                if (!_.isUndefined(config.dataSource))
+                    this.dataSource = config.dataSource;
+
 
                 if (!_.isUndefined(config.id))
                     this.id = config.id;
@@ -469,6 +510,23 @@ define(['backbone', 'jquery', 'underscore', 'global'],
                     this.id = this.type + '-' + global.generateRandomId();
 
                 this.$el.attr('id', this.id);
+
+            },
+
+            /**
+             * Assign class
+             * @return {[type]} [description]
+             */
+            assignClasses : function(){
+
+                //get all classes
+                var classes = this.$el.find('.content').first().attr('class');
+
+                //classes = classes.split(' ');
+
+               d = this.$el.find('.content');;
+
+                this.$el.find('.content').first().addClass(this.extraClasses);
 
             },
 

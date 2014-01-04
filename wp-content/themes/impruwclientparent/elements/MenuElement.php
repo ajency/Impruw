@@ -45,8 +45,12 @@ class MenuElement extends Element {
         
         parent::__construct($config);
         
-        if(isset($config['data'])){
-            $this->data   = $config['data'];
+        if(isset($config['dataSource'])){
+            $this->data   = $config['dataSource'];
+        }
+
+        if(isset($config['extraClasses'])){
+            $this->extra_classes = $config['extraClasses'];
         }
         
         $this->markup_style   = isset($config['markupStyle']) ? $config['markupStyle'] : '';

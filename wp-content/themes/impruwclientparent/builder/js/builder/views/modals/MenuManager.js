@@ -47,11 +47,14 @@ define(['builder/views/modals/Modal', 'text!builder/templates/modal/menumanager.
                     if (!$('#controls-drag').is(':visible'))
                         $('#controls-drag').show();
 
+                    //trigger the elements update self
+                    SiteBuilder.vent.trigger('modal-closed', self);
+
                 });
 
                 //set collection
                 this.menu = new MenuModel({
-                    id: 2
+                     menuName : 'Main Menu'
                 });
 
                 this.fetchMenu();
@@ -76,6 +79,10 @@ define(['builder/views/modals/Modal', 'text!builder/templates/modal/menumanager.
                         setTimeout(function() {
                             $(span).remove();
                         }, 2000);
+
+                        //trigger the menu order changed event
+                        SiteBuilder.vent.trigger('menu-order-changed');
+
                     },
                     error: function(response) {
                         var span = $('<span>&nbsp;Failed to update order. Please try again</span>');
@@ -119,6 +126,8 @@ define(['builder/views/modals/Modal', 'text!builder/templates/modal/menumanager.
                     }, 400);
                 }
 
+                SiteBuilder.vent.trigger('new-menu-added');
+
             },
 
             /**
@@ -128,11 +137,10 @@ define(['builder/views/modals/Modal', 'text!builder/templates/modal/menumanager.
 
                 if (!confirm("Are you sure you want to remove this menu?"))
                     return;
-                t = evt;
+
                 var _itemId = $(evt.target).closest('.action-div').children('input[name="item-id"]').val();
                 var _menuId = $(evt.target).closest('.action-div').children('input[name="menu-id"]').val();
-                log(_itemId);
-                log(_menuId);
+                 
                 $(evt.target).closest('.action-div').find('span.error').remove();
 
                 $.post(AJAXURL, {
@@ -152,8 +160,11 @@ define(['builder/views/modals/Modal', 'text!builder/templates/modal/menumanager.
                                 $(parent).slideUp('fast', function() {
                                     $(parent).remove();
                                 });
+                                
+                                SiteBuilder.vent.trigger('menu-removed');
 
                             }, 400);
+
                         } else {
 
                             $(evt.target).parent().after('&nbsp;&nbsp;&nbsp;<span class="error">' + response.message + '</span>');

@@ -127,9 +127,9 @@ class Element {
      * @return string - random generated ID
      */
     function generate_random_ID(){
-
+        return;
         if(isset($this->id) && ($this->type !== 'row' || $this->type !== 'column'))
-            return 'content-'.$this->id;
+            return $this->id;
         
         return $this->type . '-' . rand(100000, 999999);
         
@@ -199,7 +199,7 @@ class Element {
             }
         }
 
-        $html       = "<{$this->tag_name} id='{$this->id}' class='{$this->get_classes()}'$attr>";
+        $html       = "<{$this->tag_name}  class='{$this->get_classes()}'$attr>";
         
         return $html;
     }

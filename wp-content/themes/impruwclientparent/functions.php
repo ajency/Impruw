@@ -15,10 +15,32 @@ require_once PARENTTHEMEPATH . 'includes/Media.php';
 
 //add theme support
 add_theme_support( 'menus' );
-
+add_theme_support('post-thumbnails');
 //remove wordpress admin bar
 show_admin_bar( false );
 load_theme_textdomain( 'impruwclientparent' );
+
+//add image sizes
+add_image_size('thumbnail',150,150);
+add_image_size('medium',300,300);
+
+/**
+ * [custom_image_size_names description]
+ * @param  [type] $sizes [description]
+ * @return [type]        [description]
+ */
+function custom_image_size_names($sizes){
+    // Give them a name, and presto!
+
+    $sizes['thumbnail']= 'Thumbnail Image';
+
+    $sizes['medium']= 'Medium Image';
+
+    // Don't forget to return the array of sizes.
+    return $sizes;
+}
+add_filter('image_size_names_choose','custom_image_size_names',10,1);
+
 
 /*--------------------------------------------------------------------------------------
 *
@@ -164,8 +186,9 @@ function generate_markup( $section ) {
 
     $id = !is_null( $post ) ? $post->ID : 0;
 
-    $markup_JSON = get_page_markup_JSON( 2 );
-
+    $markup_JSON = get_page_markup_JSON( );
+    
+    
     if ( !isset( $markup_JSON[$section] ) )
         return;
 
@@ -224,6 +247,9 @@ function add_element_markup( $element ) {
     case 'SliderElement':
         $html = get_slider_element_markup( $element );
         break;
+    case 'LogoElement':
+        $html = get_logo_element_markup( $element );
+        break;    
     default:
         break;
 
@@ -306,6 +332,23 @@ function get_image_element_markup( $element ) {
     $image = new ImageElement( $element );
 
     $html = $image->get_markup();
+
+    return $html;
+
+}
+
+/**
+ * Generates the image markup
+ *
+ * @param type    $element
+ */
+function get_logo_element_markup( $element ) {
+
+    require_once PARENTTHEMEPATH . 'elements/LogoElement.php';
+
+    $logo = new LogoElement( $element );
+
+    $html = $logo->get_markup();
 
     return $html;
 
@@ -447,7 +490,28 @@ function get_container_markup( $element ) {
  */
 function get_page_markup_JSON( $page_id  = 0 ) {
 
-    $json = get_post_meta( $page_id, 'page_markup_json', true );
+    //get page slug
+    $page = get_post(get_the_ID());
+
+    $theme_id = 36;//get_option('current_theme_id');
+    $page     = $page->post_name;  
+    $json     = array();
+
+    switch_to_blog(1);
+
+    $header = get_post_meta($theme_id,'theme-header',true);
+    if(is_array($header))
+        $json['header'] = $header;
+
+    $page = get_post_meta($theme_id,'page-' . $page,true);
+    if(is_array($page))
+        $json['page']   = $page;
+
+    $footer = get_post_meta($theme_id,'theme-footer',true);
+    if(is_array($footer))
+        $json['footer'] = $footer;
+
+    restore_current_blog();
 
     return !empty( $json ) ? $json : array();
 }
@@ -682,6 +746,8 @@ function get_content_markup() {
 
     $json = $_POST['json'];
 
+    define('FOR_BUILDER',true);
+
     $data = array();
 
     if ( !isset( $json ) )
@@ -690,13 +756,13 @@ function get_content_markup() {
     foreach ( $json as $section ) {
 
         $d      = elements_markup( $section['elements'] );
-        $data   = array_merge( $data, $d );
+        $data   = array_merge($data, $d);
     }
 
     if ( $data )
         echo json_encode( array( 'code' => 'OK'   , 'data' => $data ) );
     else
-        echo json_encode( array( 'code' => 'ERROR', 'message' => 'Failed' ) );
+        echo json_encode( array( 'code' => 'ERROR', 'message' =>  'Nothing to return' ) );
     die;
 }
 add_action( 'wp_ajax_get_content_markup', 'get_content_markup' );
@@ -705,13 +771,19 @@ add_action( 'wp_ajax_nopriv_get_content_markup', 'get_content_markup' );
 
 
 /**
- * recursive function definition
+ * [elements_markup description]
+ * @param  [type] $elements [description]
+ * @return [type]           [description]
  */
 function elements_markup( $elements ) {
 
     $e = array();
 
     foreach ( $elements as $element ) {
+
+        //skip if already sent
+        if($element['contentFetched'] == 'true')
+            continue;
 
         if ( $element['type'] === 'BuilderRow' || $element['type'] === 'BuilderRowColumn' ) {
 
@@ -725,7 +797,6 @@ function elements_markup( $elements ) {
         }
 
     }
-
     return $e;
 
 }
@@ -997,9 +1068,9 @@ function update_user_passwrd( $user_pass_data, $user_id ) {
  */
 function get_site_menu() {
 
-    $menu_id = $_GET['menu-id'];
+    $menu_name = $_GET['menu-name'];
 
-    $wp_menu = get_menu_to_array( $menu_id );
+    $wp_menu = get_menu_to_array( $menu_name );
 
     wp_send_json( $wp_menu );
 
@@ -1013,14 +1084,14 @@ add_action( 'wp_ajax_get_site_menu', 'get_site_menu' );
  *
  * @param unknown $menu_id The menu Id
  */
-function get_menu_to_array( $menu_id ) {
+function get_menu_to_array( $menu_name ) {
 
-    $menu = get_term_by( 'id', $menu_id, 'nav_menu' );
+    $menu = get_term_by( 'name', $menu_name, 'nav_menu' );
 
     if ( $menu === false )
         return array( 'code' => 'ERROR', 'message' => 'Invalid menu id' );
 
-    $m = wp_get_nav_menu_items( $menu_id );
+    $m = wp_get_nav_menu_items( $menu->term_id );
 
     $sorted_menu_items =  array();
 
@@ -1249,9 +1320,10 @@ add_action( 'wp_ajax_nopriv_query_attachments', 'query_attachments' );
 function fetch_all_room_facilities() {
 
     $taxonomies= array( 'impruv_room_facility' );
-    $room_facilities =  get_terms( $taxonomies, array( 'hide_empty' => 0 ) );
-	$addons_types = fetch_all_addons();
-	$tax_types = fetch_all_tax_types();
+    $room_facilities 	= get_terms( $taxonomies, array( 'hide_empty' => 0 ) );
+	$addons_types 		= fetch_all_addons();
+	$tax_types 			= fetch_all_tax_types();
+	$date_range 		= fetch_all_daterange();
 	
 	$checkin_format = get_option('checkin-format');
 	$checkin_time = get_option('checkin-time');
@@ -1264,7 +1336,9 @@ function fetch_all_room_facilities() {
 						'checkinformat'		=> ($checkin_format==false?'':$checkin_format),
 						'checkintime'		=> ($checkin_time==false?'':$checkin_time),
 						'additionalpolicies'=> ($additional_policies==false?'':$additional_policies),
-						'taxoption'			=> ($tax_option==false?'':$tax_option));
+						'taxoption'			=> ($tax_option==false?'':$tax_option),
+						'dateranges'			=> 	$date_range
+						);
 	
     wp_send_json( array( 'code' => 'OK' , 'data' =>$room_data ) );
 }
@@ -1291,7 +1365,107 @@ function fetch_all_tax_types(){
 }
 
  
+/**
+ * 
+ * Function to get all date ranges
+ */
+function fetch_all_daterange(){
+	global $wpdb; 
+	
 
+	 
+	$table_name =  $wpdb->prefix."daterange";
+ 
+	$result = $wpdb->get_results("SELECT * FROM $table_name"); 
+  	
+ 	$daterangeplans = array();
+ 	
+ 	$plans = array();
+ 	 
+ 	//get plans under date range
+  	if(count($result)>0){
+ 		foreach($result as $daterange_val ){
+ 			//echo $daterange_val->from;
+ 			 
+ 			$daterange_from = date('d/m/y',strtotime($daterange_val->from)) ;
+ 			 
+ 			$daterange_to = date('d/m/y',strtotime($daterange_val->to));
+ 			$daterange_label = $daterange_val->label;
+ 			
+ 			
+ 			
+ 			$plans = fetch_daterange_plans($daterange_val->id);
+ 			
+ 			$daterangeplans[] = array(  'id'	=> $daterange_val->id,
+									   'from'	=> $daterange_from,
+ 									   'to'		=> $daterange_to,
+ 									   'label'	=> $daterange_label,
+ 									   'plans'  => $plans
+ 									); 
+ 		}
+ 			//var_dump($daterangeplans);
+ 	return $daterangeplans;
+ 		
+ 	} 
+ 
+}
+
+/**
+ * 
+ * Function to get all plans for a date range 
+ * @param int $daterange_id
+ * returns array containing  plan name, plan description &  tariff array-containing weekday & weekend tariff
+ * returns empty array on no results 
+ */
+function fetch_daterange_plans($daterange_id){
+	global $wpdb;
+	 
+	
+	 
+	 $plandata_result =array();
+	$qry_daterangeplans = $wpdb->prepare("SELECT a.tarriff as plan_tariff , a.plan_id as plan_id from  {$wpdb->prefix}datetarriff a    where a.daterange_id =  %d	", $daterange_id);
+	 //var_dump($qry_daterangeplans);
+	$result_daterangeplans = $wpdb->get_results($qry_daterangeplans);
+	
+	$plans_data = maybe_unserialize(get_option('plans'));
+	 
+	
+	$plans = array();
+	if(count($result_daterangeplans)>0){
+		
+		foreach($result_daterangeplans as $plan ){
+			
+			$tariff = maybe_unserialize($plan->plan_tariff);
+			$weekday_tariff = $tariff['weekday']['tariff'] ;
+			$weekend_tariff = $tariff['weekend']['tariff'];
+			
+			  foreach ($plans_data as $plan_data){
+			   if($plan_data['id']==$plan->plan_id ){
+			   	$plan_name = $plan_data['label'];
+			   	$plan_description = $plan_data['description'];
+			   	
+			   	
+			   }
+			   
+			  }
+           			 
+			
+			$plans[] = array('plan_name' 		=>   $plan_name,
+							 'plan_description'	=> 	$plan_description,
+							 'weekend_tariff'	=> $weekend_tariff,
+							 'weekday_tariff'	=> $weekday_tariff 		
+							);
+			
+		}
+		
+	}
+	
+	switch_to_blog(get_current_blog_id());
+	
+	return($plans);
+	  	
+	
+}
 
 
 /**
@@ -1553,10 +1727,6 @@ add_action( 'wp_ajax_delete_room_facility', 'delete_room_facility' );
 add_action( 'wp_ajax_nopriv_delete_room_facility', 'delete_room_facility' );
 
 
-
-
-
-
 /**
  * Function to delete room addon type
  */
@@ -1707,8 +1877,222 @@ add_action( 'wp_ajax_update_checkinformat', 'update_checkinformat' );
 add_action( 'wp_ajax_nopriv_update_checkinformat', 'update_checkinformat' );
 
 
+/**
+ * 
+ * Function to add date range 
+ */
+
+function add_date_range(){
+	
+  	 
+  	
+	$from_daterange 			= date('Y-m-d H:i:s',strtotime($_POST['fromdaterange']));
+	$to_daterange 	= date('Y-m-d H:i:s',strtotime($_POST['todaterange'])); 
+ 	$label = "winter season45454";
+	
+	global $wpdb; 
+							
+	/*$qry_insert_daterange = $wpdb->prepare("INSERT INTO {$wpdb->prefix}daterange (  `from`, `to`, `label`) VALUES ( %s, %s, %s);",
+							$from_daterange,$to_daterange,$label); */
+	
+	$table_name =  $wpdb->prefix."daterange";
+	
+	$result = $wpdb->insert(	$table_name, 
+								array( 'from' 	=> $from_daterange, 
+										'to' 	=> $to_daterange,
+										'label'	=> $label
+									), 
+								array(  '%s', 
+										'%s',
+										'%s' 
+									) 
+				);
+
+ 	switch_to_blog(get_current_blog_id());
+  	
+	if ( $result==true ) 
+		wp_send_json( array( 'code' => 'OK', 'msg'=>'Date range is successfully added') );
+	else 	
+	 	wp_send_json( array( 'code' => 'ERROR', 'msg' =>'Error adding Date range' ) ); 
+	 	 
+}
+add_action( 'wp_ajax_add_date_range', 'add_date_range' );
+add_action( 'wp_ajax_nopriv_add_date_range', 'add_date_range' );
 
 
+
+/**
+ * Function to add new plan
+ * 
+ */
+function add_new_plan_tariff(){
+	
+	$plan_data = serializedform_to_array($_POST['addplan_data']);
+	//var_dump($plan_data);
+	
+	$daterange_id = $plan_data['hdn_daterange'];
+	// $daterange_id = 1;
+	$plantype = $plan_data['plantype'];
+	$plandescription = $plan_data['plandescription'];
+	
+	$rad_weekday = $plan_data['rad_weekday'];
+	$weekday_tariff = $plan_data['weekday_tariff'];
+	$weekday_maxadults = $plan_data['weekday_maxadults'];
+	$weekday_maxchildren = $plan_data['weekday_maxchildren'];
+	$weekday_charges_extra_adult = $plan_data['weekday_charges_extra_adult'];
+	$weekday_charges_extra_child = $plan_data['weekday_charges_extra_child'];
+	
+	
+	$rad_weekend = $plan_data['rad_weekend'];
+	$weekend_tariff = $plan_data['weekend_tariff'];
+	$weekend_maxadults = $plan_data['weekend_maxadults'];
+	$weekend_maxchildren = $plan_data['weekend_maxchildren'];
+	$weekend_charges_extra_adult = $plan_data['weekend_charges_extra_adult'];	
+	$weekend_charges_extra_child = $plan_data['weekend_charges_extra_child'];
+	 
+	//var_dump($plan_data);	 
+	
+	$weekendtariff = array();
+	$weekdaytariff = array();
+		
+	$weekendtariff = array( 'tariff' 				=> $weekend_tariff,
+							 'maxadults'			=> $weekend_maxadults,
+							 'maxchildren'			=> $weekend_maxchildren,
+							 'extra_adult_charges' 	=> $weekend_charges_extra_adult,
+							 'extra_child_charges'	=> $weekend_charges_extra_child
+							);
+	
+	 $weekdaytariff = array( 'tariff' 				=> $weekday_tariff,
+							 'maxadults'			=> $weekday_maxadults,
+							 'maxchildren'			=> $weekday_maxchildren,
+							 'extra_adult_charges' 	=> $weekday_charges_extra_adult,
+							 'extra_child_charges'	=> $weekday_charges_extra_child
+							);
+	 
+	// echo $plantype.'-----'.$plandescription;
+ 	$plan_result = 	add_new_plan($plantype,$plandescription);					
+							
+	if($plan_result!==false){
+		//add tariff 		
+		$tariff_result =  add_daterangeplan_tariff($weekendtariff, $weekdaytariff,$plan_result,$daterange_id);
+		
+		if($tariff_result===false){
+			wp_send_json( array( 'code' => 'ERROR', 'msg' =>'Error adding Tariff plan' ) ); 
+		}
+		else {
+			wp_send_json( array( 'code' => 'OK', 'msg'=>'Tariff plan is successfully added') );
+		}
+	}
+	else{
+			wp_send_json( array( 'code' => 'ERROR', 'msg' =>'Error adding plan' ) );
+	}
+		 
+  
+}
+add_action( 'wp_ajax_add_new_plan_tariff', 'add_new_plan_tariff' );
+add_action( 'wp_ajax_nopriv_add_new_plan_tariff', 'add_new_plan_tariff' );
+
+
+/**
+ * 
+ * Function to add new plan
+ * @param string $plantype
+ * @param string $plandescription
+ * returns plan id on success
+ * returns false on fail
+ */
+function add_new_plan($plantype,$plandescription){
+	global $wpdb;
+	 
+	$max_planid = 0; 
+	
+    $plans=array();
+    
+    $plans = maybe_unserialize(get_option('plans'));
+    //var_dump($addon_types);
+
+    $plan_exists = false;
+    //check if the addon type already exists
+    if($plans){   
+    	if(count($plans)>0){
+    	
+	    	$max_planid = max(array_col($plans, 'id')); 	 
+		    foreach ($plans as $plan_key=>$plan_val){
+		    	if($plan_val['label'] == $plantype )
+		    		$plan_exists = true;
+		    }
+    	}
+    }
+     if($plan_exists)
+    	return false;	
+ 
+    $newplan_id = $max_planid + 1;
+    
+    $plans[]= array('id'=>$newplan_id , 'label'=>$plantype,'description'=>$plandescription);
+    $update_result = update_option('plans', maybe_serialize($plans));
+	return  $newplan_id;
+	
+	
+	
+	
+	/*
+	$table_name =  $wpdb->prefix."plan";
+	
+	$result = $wpdb->insert(	$table_name, 
+								array( 'label' 			=> $plantype, 
+										'description' 	=> $plandescription										
+									), 
+								array(  '%s', 
+										'%s' 
+									) 
+				); 
+    				
+ 	switch_to_blog(get_current_blog_id());
+  	
+ 	if($result==true)
+ 		return $wpdb->insert_id; 
+ 		
+ 	return $result;*/
+	
+}
+
+
+
+function add_daterangeplan_tariff($weekend_tariff, $weekday_tariff,$plan_id,$daterange_id){
+	
+	global $wpdb;
+	
+	//switch_to_blog(BLOG_ID_CURRENT_SITE);
+	
+	$table_name =  $wpdb->prefix."datetarriff";  
+	
+	$result = $wpdb->insert(	$table_name, 
+								array( 'daterange_id' 	=> $daterange_id, 
+										'plan_id' 		=> $plan_id,
+										'tarriff'		=>	maybe_serialize( array( 'weekend' => $weekend_tariff,
+																   					'weekday' => $weekday_tariff	
+																 					)
+																			),									
+									), 
+								array(  '%s', 
+										'%s',
+										'%s'	 
+									) 
+							); 
+    				
+ 	//switch_to_blog(get_current_blog_id());
+  	
+ 	if($result==true)
+ 		return $wpdb->insert_id; 
+ 		
+ 	return $result;
+	
+}
+
+/**
+ * 
+ * function to add new room
+ */
 function add_new_room_ajx() {
 
     //var_dump($_POST);
@@ -1750,11 +2134,13 @@ add_action( 'wp_ajax_nopriv_add_new_room_ajx', 'add_new_room_ajx' );
  */
 function get_all_menu_pages(){
         
-   return array(
-            'home'          => 'Home',
-            'about-us'      => 'About Us',
-            'contact-us'    => 'Contact Us'
-          );     
+    $args = array('post_type' => 'page','posts_per_page' => -1);
+    $pages  = new WP_query($args);
+
+    if($pages->have_posts())
+        return $pages->posts;
+    else
+        return array();
     
 }
 
@@ -1850,3 +2236,23 @@ function get_initial_saved_layout() {
     wp_send_json($json);
 }
 add_action( 'wp_ajax_get_initial_saved_layout', 'get_initial_saved_layout' );
+
+/**
+ * Get markup of an indiviual element
+ * @return [type] [description]
+ */
+function get_element_markup(){
+
+    $json = $_GET['json'];
+
+    $html = add_element_markup($json);
+
+    wp_send_json(array(
+                    'code' => 'OK',
+                    'html' => $html
+                ));
+
+    die;
+
+}
+add_action('wp_ajax_get_element_markup','get_element_markup');

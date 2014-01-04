@@ -17,8 +17,14 @@ define(['builder/views/elements/BuilderElement', 'text!builder/templates/element
             //set height to be assigned to placeholder and helper
             placeHolderHeight: 100,
 
-            //datasource
-            dataSource: null,
+            // /**
+            //  * Default datasource for an image
+            //  * @type {Object}
+            //  */
+            // dataSource: {
+            //     attachmentID : <int>,
+            //     size         : <string>
+            // },
 
             //
             events: {
@@ -71,11 +77,7 @@ define(['builder/views/elements/BuilderElement', 'text!builder/templates/element
 
                 var json = this.returnJSON();
 
-                if (!_.isNull(this.dataSource)) {
-                    json.data = {};
-                    json.data.attachmentID = this.dataSource.get('id');
-                    json.data.size = 'medium';
-                }
+                json.dataSource = this.dataSource;
 
                 return json;
             },
@@ -91,6 +93,7 @@ define(['builder/views/elements/BuilderElement', 'text!builder/templates/element
 
                     var mediamanager = SiteBuilder.ViewManager.findByCustom("media-manager");
 
+                    //if not present create new
                     if (_.isUndefined(mediamanager)) {
                         mediamanager = new MediaManager();
                         SiteBuilder.ViewManager.add(mediamanager, "media-manager");
@@ -99,7 +102,7 @@ define(['builder/views/elements/BuilderElement', 'text!builder/templates/element
                     //start listening to event
                     SiteBuilder.vent.on('image-selected', self.updateSelf);
 
-                    mediamanager.open(self);
+                    mediamanager.open();
 
                 });
 
@@ -109,16 +112,20 @@ define(['builder/views/elements/BuilderElement', 'text!builder/templates/element
              * Update self
              * @returns {undefined}
              */
-            updateSelf: function(image) {
+            updateSelf: function(image, size) {
 
+                //stop listening to image-selected event
                 SiteBuilder.vent.off('image-selected', self.updateSelf);
 
                 if (!_.isObject(image))
-                    return;
+                    throw 'Invalid <image> datatype. Must be an Object';
 
-                this.dataSource = image;
+                this.dataSource = {};
 
-                this.$el.find('img').attr('src', this.dataSource.get('sizes').medium.url);
+                this.dataSource.attachmentID    = image.get('id');
+                this.dataSource.size            = size;
+
+                this.$el.find('img').attr('src', image.get('sizes')[size].url);
 
             }
 
