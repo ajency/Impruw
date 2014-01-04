@@ -32,7 +32,7 @@ define(['underscore', 'jquery', 'backbone', 'global'],
              */
             initialize: function(option) {
 
-                 _.bindAll(this, 'handleRowDrop','updateRowProperties');
+                 _.bindAll(this, 'handleRowDrop','updateRowProperties','searchElementIn');
             
                  $(document).on('click', '.updateRowProperties', this.updateRowProperties);
                  
@@ -152,8 +152,8 @@ define(['underscore', 'jquery', 'backbone', 'global'],
 
                 var id = pcontent.closest('.popover').prev().attr('id');
 
-                var element = this.getElementByID(id);
-                 log(id);
+                var element = this.getRowElementByID(id);
+                 
                 if (!_.isObject(element))
                     return;
                
@@ -169,7 +169,7 @@ define(['underscore', 'jquery', 'backbone', 'global'],
              * Returns the elemnet object by ID
              * @returns View object or false
              */
-            getElementByID: function(id) {
+            getRowElementByID: function(id) {
 
                 //is id passed?
                 if (_.isUndefined(id))
@@ -188,6 +188,69 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                 });
 
                 return element;
+            },
+
+            /**
+             * Returns the elemnet object by ID
+             * @returns View object or false
+             */
+            getElementByID: function(id) {
+
+                //is id passed?
+                if (_.isUndefined(id))
+                    return false;
+
+                var element = false;
+
+                var self = this;
+
+                _.each(this.elements, function(section, name){
+                    
+                    if(element !== false)
+                        return;
+
+                    _.each(section, function(row, index){
+
+                        if(element !== false)
+                            return;
+
+                        element = self.searchElementIn(row, id);
+
+                    });
+
+                });
+
+
+
+                return element;
+            },
+
+            /** 
+             * Search element in given element
+             * @return {[type]} [description]
+             */
+            searchElementIn : function(ele, id){
+
+                var element = false;
+
+                var self = this;
+
+                _.each(ele.elements, function(e, index){
+
+                    if(element !== false)
+                        return;
+
+                    if (e.id === id) {
+                        element = e;
+                    }
+                    else if(!_.isUndefined(e.elements) && _.isArray(e.elements)){
+                        element = self.searchElementIn(e, id);
+                    }
+
+                });
+
+                return element;
+
             },
 
             /**
@@ -372,6 +435,8 @@ define(['underscore', 'jquery', 'backbone', 'global'],
 
                 this.removeSwitchLoader();
 
+                this.$el.parent().removeClass('site-style-container');
+
                 this.$el.find('hr.virtual-divider').show();
                 this.$el.find('header, footer').css('min-height','150px');
                 this.$el.find('div[data-page="true"]').css('min-height','400px');
@@ -417,13 +482,10 @@ define(['underscore', 'jquery', 'backbone', 'global'],
 
                 this.$el.removeClass('aj-imp-builder-layout-mode').addClass('aj-imp-builder-content-mode');
 
-                this.$el.parent().addClass('aj-imp-preview');
+                this.$el.parent().addClass('aj-imp-preview').addClass('site-style-container');;
                 this.$el.find('hr.virtual-divider,.aj-imp-drag-handle,.aj-imp-delete-btn,.aj-imp-col-divider,.aj-imp-col-sel').hide();
                 this.$el.find('header, div[data-page="true"], footer').css('min-height','10px');
-                // this.$el.children('header').addClass(this.getClasses('headerWrapperClasses'));
-                // this.$el.children('div[data-page="true"]').addClass(this.getClasses('contentWrapperClasses'));
-                // this.$el.children('footer').addClass(this.getClasses('footerWrapperClasses'));
-
+                
                 $('#controls-drag').fadeOut();
 
                 this.fetchContentMarkup();
@@ -436,13 +498,6 @@ define(['underscore', 'jquery', 'backbone', 'global'],
             fetchContentMarkup: function() {
 
                 var self = this;
-                //return if content is alredy loaded once
-                if (this.contentLoaded === true) {
-                    self.removeSwitchLoader();
-                    window.editorMode = 'content';
-                    CKEDITOR.inlineAll();
-                    return;
-                }
 
                 //get latest json
                 this.generateJSON();
@@ -463,11 +518,16 @@ define(['underscore', 'jquery', 'backbone', 'global'],
 
                                 $('#' + key).children('.content').html(val);
 
+                                var ele = self.getElementByID(key);
+
+                                ele.setFetchedStatus(true);
+
+                                log(ele);
                             });
 
                             self.makeEditable();
                         } else {
-                            //$(evt.target).click();
+                            
                         }
 
                         window.editorMode = 'content';
@@ -485,6 +545,9 @@ define(['underscore', 'jquery', 'backbone', 'global'],
             makeEditable: function() {
 
                 var self = this;
+
+                if(self.contentLoaded)
+                    return;
 
                 require(['ckeditor'], function(CKEDITOR) {
 

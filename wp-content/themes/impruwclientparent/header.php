@@ -32,7 +32,7 @@
 </head>
 
 <body <?php body_class(); ?>>
-    <div class=" mainContainer1">
+    <div class="site-style-container">
         <header class="site-header">
             <?php //do_action('icl_language_selector');?>
             <?php echo generate_markup('header');?>

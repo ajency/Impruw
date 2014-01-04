@@ -23,6 +23,12 @@ define(['backbone', 'jquery', 'underscore', 'global'],
             disAllow: {},
 
             /**
+             * Checks if element content is already fetched
+             * @type {Boolean}
+             */
+            contentFetched : false,
+
+            /**
              * Data source property
              * @type {Object}
              */
@@ -53,10 +59,20 @@ define(['backbone', 'jquery', 'underscore', 'global'],
                     draggable       : this.isDraggable(),
                     editable        : this.isEditable(),
                     extraClasses    : this.getExtraClasses(),
-                    dataSource      : this.getdataSource()
+                    dataSource      : this.getdataSource(),
+                    contentFetched  : this.contentFetched 
                 };
 
                 return ele;
+            },
+
+            /**
+             * Set the content fetched status of the element
+             */
+            setFetchedStatus : function(status){
+
+                this.contentFetched = status;
+
             },
 
             /**
