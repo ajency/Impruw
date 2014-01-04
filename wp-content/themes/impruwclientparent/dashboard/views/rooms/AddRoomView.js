@@ -1274,9 +1274,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			
 			var form_plan = $(evt.target).parent().parent().find('#form_addplan');  
 			form_data = $(form_plan).serializeArray() 
-			console.log(form_data)
-			 
-			 
+			  
 			 
 			var evt_ = evt;
 			var self_ = this;
