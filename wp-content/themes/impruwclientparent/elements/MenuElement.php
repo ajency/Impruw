@@ -48,6 +48,10 @@ class MenuElement extends Element {
         if(isset($config['dataSource'])){
             $this->data   = $config['dataSource'];
         }
+
+        if(isset($config['extraClasses'])){
+            $this->extra_classes = $config['extraClasses'];
+        }
         
         $this->markup_style   = isset($config['markupStyle']) ? $config['markupStyle'] : '';
         
