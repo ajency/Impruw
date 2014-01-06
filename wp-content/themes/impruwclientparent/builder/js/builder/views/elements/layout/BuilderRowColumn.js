@@ -249,17 +249,17 @@ define(['builder/views/elements/BuilderElement', 'global'],
                 var self = this;
 
                 this.$el.sortable({
-                    connectWith: '.layout-header,.layout-content,.layout-footer,.column',
-                    opacity: .65,
-                    items: '> .element, .row',
-                    handle: '> .aj-imp-drag-handle',
-                    receive: self.handleColumnDrop,
-                    sort: self.handleElementOverState,
-                    activate: self.holdCurrentColRef,
-                    stop: function() {
-                        self.rearrangeElementOrder();
-                    }
-                }); //.disableSelection(); 
+                    connectWith         : '.layout-header,.layout-content,.layout-footer,.column',
+                    opacity             : .65,
+                    items               : '> .element, .row',
+                    handle              : '> .aj-imp-drag-handle',
+                    receive             : self.handleColumnDrop,
+                    sort                : _.throttle(self.handleElementOverState, 300),
+                    activate            : self.holdCurrentColRef,
+                    stop                : function() {
+                                             self.rearrangeElementOrder();
+                                        }   
+                }); 
             },
 
             /**
@@ -404,6 +404,8 @@ define(['builder/views/elements/BuilderElement', 'global'],
              */
             handleElementOverState: function(event, ui) {
 
+                log('put');
+
                 var pHeight = ui.helper.attr('data-placeholder-height');
 
                 ui.placeholder.height(parseInt(pHeight));
@@ -473,8 +475,6 @@ define(['builder/views/elements/BuilderElement', 'global'],
 
                     self.parent.trigger('adjust_column_dimension');
                     self.rearrangeElementOrder();
-                    log(self.elements);
-                    log(self.getElements());
 
                 });
 

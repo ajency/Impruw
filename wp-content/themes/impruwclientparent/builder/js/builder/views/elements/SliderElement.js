@@ -20,10 +20,12 @@ define(['builder/views/elements/BuilderElement', 'text!builder/templates/element
 
             //
             events: {
-                'mouseenter': 'elementMouseEnter',
-                'mouseleave': 'elementMouseLeave',
+                'mouseenter'                : 'elementMouseEnter',
+                'mouseleave'                : 'elementMouseLeave',
                 'click > .aj-imp-delete-btn': 'destroyElement',
-                'contextmenu': 'showContextMenu'
+                'click'                     : 'showModal',
+                'contextmenu'               : 'showContextMenu',
+                'click a.carousel-control'  : 'stopModalPopup'
             },
 
             /**
@@ -33,8 +35,6 @@ define(['builder/views/elements/BuilderElement', 'text!builder/templates/element
              * @returns {undefined}
              */
             initialize: function(options) {
-
-                //_.bindAll(this, 'rowMouseEnter','rowMouseLeave');
 
                 //drop mode
                 if (_.isUndefined(options.config)) {
@@ -50,16 +50,94 @@ define(['builder/views/elements/BuilderElement', 'text!builder/templates/element
             },
 
             /**
-             * Generates the markup for column
-             * and triggers the column droppable function
-             *
-             * @param {type} col
-             * @returns {_L2.Anonym$0}
+             * Prevents the modal from opening
+             * @return {[type]} [description]
              */
-            render: function(col) {
+            stopModalPopup : function(evt){
 
-                return this;
+                //evt.preventDefault();
+                evt.stopPropagation();
+
+            },
+
+            /**
+             * Refetch for menu
+             * @return {[type]} [description]
+             */
+            createSlider : function(images,ids){
+
+                var len = images.length;
+
+                if(len == 0)
+                    return;
+
+                this.dataSource = {
+                    'image-ids' : ids
+                }
+
+                var item = this.$el.find('.content').find('.carousel-inner .item');
+
+                //first change image of current
+                item.find('img').attr('src',images[0].get('sizes').full.url);
+                
+                //remove first
+                images = _.rest(images);
+
+                //now create and add more
+                _.each(images, function(image, index){
+
+                    var newItem = item.clone();
+                    newItem.removeClass('active').find('img').attr('src',image.get('sizes').full.url);
+                    item.parent().append(newItem);
+                });
+
+                //start carousel
+                item.closest('.carousel').carousel();
+
+            },
+
+            /**
+             * SHow the modal and start listening to events
+             * @return {[type]} [description]
+             */
+            showModal: function() {
+
+                var sliderModal = _.bind(function(_, SliderManager) {
+
+                    var slidermanager = SiteBuilder.ViewManager.findByCustom("slider-manager");
+
+                    //ensure Menu manager is created just once
+                    if (_.isUndefined(slidermanager)){
+                        slidermanager = new SliderManager();
+                        SiteBuilder.ViewManager.add(slidermanager, "slider-manager");
+                    }
+
+                    //start listening event
+                    this.listenTo(SiteBuilder.vent, 'create-slider', this.createSlider);
+
+                    //modal hide event
+                    this.listenTo(SiteBuilder.vent, 'modal-closed', this.stopListeningEvents);
+
+                    slidermanager.open();
+
+                }, this); 
+
+                require(['underscore', 'slidermanager'], sliderModal);
+
+            },
+
+            /**
+             * Stop listening to modal events
+             * @return {[type]} [description]
+             */
+            stopListeningEvents : function(modal){
+
+                //can perform some actions to modal object if required
+                this.stopListening(SiteBuilder.vent, 'create-slider', this.createSlider);
+                this.stopListening(SiteBuilder.vent, 'modal-closed', this.stopListeningEvents);
+
             }
+
 
         });
 

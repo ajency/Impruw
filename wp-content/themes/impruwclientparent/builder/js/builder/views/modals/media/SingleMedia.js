@@ -43,7 +43,9 @@ define(['backbone', 'text!builder/templates/modal/media/singlemedia.hbs',
 
                 var html = this.template({
                 
-                    media: this.model
+                    media: this.model,
+
+                    type : _.isUndefined(this.parent.type) ? 'modal' : this.parent.type
                 
                 });
 
@@ -53,6 +55,9 @@ define(['backbone', 'text!builder/templates/modal/media/singlemedia.hbs',
                                                         style: 'btn-mini btn-default',
                                                         menuStyle: 'dropdown'
                                                     });
+
+                this.$el.find('input[type="checkbox"]').checkbox();
+
                 return this;
             },
 

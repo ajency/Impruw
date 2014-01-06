@@ -46,6 +46,10 @@ class SliderElement extends Element {
     function __construct($config) {
         
         parent::__construct($config);
+
+        if(isset($config['dataSource'])){
+            $this->data_source = $config['dataSource'];
+        }
         
         
         $this->markup           = $this->generate_markup();
@@ -58,7 +62,7 @@ class SliderElement extends Element {
      */
     function generate_markup(){
         
-        $html       = $this->get_open_tag();
+        $html       = $this->get_open_tag(array('data-ride'=> "carousel",'id' => 'impruw-carousel'));
         
         $html       .= $this->get_slider();
         
@@ -66,34 +70,55 @@ class SliderElement extends Element {
         
         return $html;
     }
+
+    /**
+     * [get_images description]
+     * @return [type] [description]
+     */
+    function get_images(){
+        if(!is_array($this->data_source['image-ids']))
+            return array();
+
+        return $this->data_source['image-ids'];
+    }
+
+    /**
+     * Get image src
+     * @param  [type] $id [description]
+     * @return [type]     [description]
+     */
+    function get_image_src($id){
+
+        $path = wp_get_attachment_image_src($id,'full');
+
+        return $path[0];
+    }
     
     /**
      * returns the address markup
      * @return string
      */
     function get_slider(){
+
         
         ob_start();?>
-        <!-- Indicators -->
+        <!-- Indicators
             <ol class="carousel-indicators">
-                  <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                  <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                  <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
             </ol>
-            <!-- Wrapper for slides -->
+            Wrapper for slides -->
             <div class="carousel-inner">
-                  <div class="item active">
-                      <img src="<?php echo get_template_directory_uri(); ?>/js/holder.js/100%x450" alt="...">
-                  </div>
-                  <div class="item">
-                    <img src="<?php echo get_template_directory_uri(); ?>/js/holder.js/100%x450" alt="...">
-                  </div>
+                <?php foreach($this->get_images() as $index => $image){ ?>
+                    <div class="item <?php echo ($index === 0 ) ? 'active' : '' ?>">
+                        <img src="<?php echo $this->get_image_src($image); ?>" alt="...">
+                    </div>
+                <?php } ?>
             </div>
             <!-- Controls -->
-            <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+            <a class="left carousel-control" href="#impruw-carousel" data-slide="prev">
                   <span class="icon-prev"></span>
             </a>
-            <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+            <a class="right carousel-control" href="#impruw-carousel" data-slide="next">
                   <span class="icon-next"></span>
             </a>
         <?php

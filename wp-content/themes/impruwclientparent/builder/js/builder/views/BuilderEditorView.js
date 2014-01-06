@@ -622,13 +622,13 @@ define(['underscore', 'jquery', 'backbone', 'global'],
 
                     },
                     activate: self.holdCurrentColRef,
-                    sort: function(evt, ui) {
+                    sort: _.throttle(function(evt, ui) {
 
                         var pHeight = ui.helper.attr('data-placeholder-height');
 
                         ui.placeholder.css('max-height', parseInt(pHeight));
 
-                    }
+                    },300)
 
                 }); //.disableSelection(); 
 
