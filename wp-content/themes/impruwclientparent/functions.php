@@ -225,6 +225,9 @@ function add_element_markup( $element ) {
     case 'SliderElement':
         $html = get_slider_element_markup( $element );
         break;
+    case 'LogoElement':
+        $html = get_logo_element_markup( $element );
+        break;    
     default:
         break;
 
@@ -307,6 +310,23 @@ function get_image_element_markup( $element ) {
     $image = new ImageElement( $element );
 
     $html = $image->get_markup();
+
+    return $html;
+
+}
+
+/**
+ * Generates the image markup
+ *
+ * @param type    $element
+ */
+function get_logo_element_markup( $element ) {
+
+    require_once PARENTTHEMEPATH . 'elements/LogoElement.php';
+
+    $logo = new LogoElement( $element );
+
+    $html = $logo->get_markup();
 
     return $html;
 
