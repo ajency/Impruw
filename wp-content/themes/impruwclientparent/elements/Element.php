@@ -129,7 +129,7 @@ class Element {
     function generate_random_ID(){
 
         if(isset($this->id) && ($this->type !== 'row' || $this->type !== 'column'))
-            return 'content-'.$this->id;
+            return $this->id;
         
         return $this->type . '-' . rand(100000, 999999);
         

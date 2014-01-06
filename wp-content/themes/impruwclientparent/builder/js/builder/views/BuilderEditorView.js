@@ -315,21 +315,21 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                         forPage  : this.getCurrentPage(),
                         forTheme : this.getCurrentThemeID()
                     },
-                    function(response) {
+                    _.bind(function(response) {
 
                         if (!_.isUndefined(response.header) && response.header.elements.length > 0)
-                            self.addElement(response.header.elements, 0, 'header');
+                            this.addElement(response.header.elements, 0, 'header');
 
                         if (!_.isUndefined(response.page) && response.page.elements.length > 0)
-                            self.addElement(response.page.elements, 0, 'content');
+                            this.addElement(response.page.elements, 0, 'content');
 
                         if (!_.isUndefined(response.footer) && response.footer.elements.length > 0)
-                            self.addElement(response.footer.elements, 0, 'footer');
+                            this.addElement(response.footer.elements, 0, 'footer');
 
 
-                        self.enableDragDrop();
+                        this.enableDragDrop();
 
-                    }, 'json');
+                    },this), 'json');
 
 
                 return this;
@@ -353,25 +353,25 @@ define(['underscore', 'jquery', 'backbone', 'global'],
 
                 var mod = 'builder/views/elements/layout/BuilderRow';
 
-                require([mod], function(Row) {
+                require([mod], _.bind(function(Row) {
 
                     var row = new Row({
                         config: element,
                         parent: self
                     });
 
-                    self.$el.find('.layout-' + section).append(row.render().$el);
+                    this.$el.find('.layout-' + section).append(row.render().$el);
 
-                    self.elements[section].push(row);
+                    this.elements[section].push(row);
 
                     if (!_.isUndefined(element.elements) && element.elements.length > 0)
                         row.addElement(element.elements, 0);
 
                     index++;
 
-                    self.addElement(elements, index, section);
+                    this.addElement(elements, index, section);
 
-                });
+                },this));
 
             },
 

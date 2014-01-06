@@ -13,6 +13,7 @@
     </head>
     <body>
         <?php 
+        the_content();
         wp_footer();
         ?>
     </body>
