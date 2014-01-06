@@ -53,7 +53,7 @@ class MenuElement extends Element {
             $this->extra_classes = $config['extraClasses'];
         }
         
-        $this->markup_style   = isset($config['markupStyle']) ? $config['markupStyle'] : '';
+        $this->markup_style   = isset($config['markupStyle']) ? $config['markupStyle'] : 'type1';
         
         $this->markup = $this->generateMarkup();
     }
