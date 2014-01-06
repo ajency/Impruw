@@ -1046,9 +1046,9 @@ function update_user_passwrd( $user_pass_data, $user_id ) {
  */
 function get_site_menu() {
 
-    $menu_id = $_GET['menu-id'];
+    $menu_name = $_GET['menu-name'];
 
-    $wp_menu = get_menu_to_array( $menu_id );
+    $wp_menu = get_menu_to_array( $menu_name );
 
     wp_send_json( $wp_menu );
 
@@ -1062,14 +1062,14 @@ add_action( 'wp_ajax_get_site_menu', 'get_site_menu' );
  *
  * @param unknown $menu_id The menu Id
  */
-function get_menu_to_array( $menu_id ) {
+function get_menu_to_array( $menu_name ) {
 
-    $menu = get_term_by( 'id', $menu_id, 'nav_menu' );
+    $menu = get_term_by( 'name', $menu_name, 'nav_menu' );
 
     if ( $menu === false )
         return array( 'code' => 'ERROR', 'message' => 'Invalid menu id' );
 
-    $m = wp_get_nav_menu_items( $menu_id );
+    $m = wp_get_nav_menu_items( $menu->term_id );
 
     $sorted_menu_items =  array();
 
@@ -2168,3 +2168,23 @@ function get_initial_saved_layout() {
     wp_send_json($json);
 }
 add_action( 'wp_ajax_get_initial_saved_layout', 'get_initial_saved_layout' );
+
+/**
+ * Get markup of an indiviual element
+ * @return [type] [description]
+ */
+function get_element_markup(){
+
+    $json = $_GET['json'];
+
+    $html = add_element_markup($json);
+
+    wp_send_json(array(
+                    'code' => 'OK',
+                    'html' => $html
+                ));
+
+    die;
+
+}
+add_action('wp_ajax_get_element_markup','get_element_markup');

@@ -47,7 +47,7 @@ define(['builder/views/modals/Modal', 'text!builder/templates/modal/media/mediam
                         $('#controls-drag').show();
 
                     //trigger the elements update self
-
+                    SiteBuilder.vent.trigger('modal-closed', self);
 
                 });
 
