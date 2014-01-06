@@ -24,7 +24,8 @@ define(['builder/views/elements/BuilderElement', 'text!builder/templates/element
                 'mouseleave': 'elementMouseLeave',
                 'click > .aj-imp-delete-btn': 'destroyElement',
                 'contextmenu': 'showContextMenu',
-                'click': 'showModal'
+                'click': 'showModal',
+                'click .content a' : 'avoidClick'
             },
 
             /**
@@ -53,15 +54,17 @@ define(['builder/views/elements/BuilderElement', 'text!builder/templates/element
             },
 
             /**
-             * Generates the markup for column
-             * and triggers the column droppable function
-             *
-             * @param {type} col
-             * @returns {_L2.Anonym$0}
+             * Avoid click of menu in builder 
+             * @return {[type]} [description]
              */
-            render: function(col) {
+            avoidClick : function(event){
 
-                return this;
+                event.preventDefault();
+
+                this.$el.click();
+
+                return false;
+
             },
 
             showModal: function() {

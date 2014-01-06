@@ -20,7 +20,8 @@ define(['builder/views/elements/ImageElement', 'text!builder/templates/elements/
                 'mouseenter'                    : 'elementMouseEnter',
                 'mouseleave'                    : 'elementMouseLeave',
                 'click > .aj-imp-delete-btn'    : 'destroyElement',
-                'contextmenu'                   : 'showContextMenu'
+                'contextmenu'                   : 'showContextMenu',
+                'click .content a'              : 'avoidClick'
             },
 
             /**
@@ -43,6 +44,20 @@ define(['builder/views/elements/ImageElement', 'text!builder/templates/elements/
                 this.generateMarkup();
                 this.setParent(options.parent);
                 this.setContextMenu();
+
+            },
+
+            /**
+             * Avoid click of menu in builder 
+             * @return {[type]} [description]
+             */
+            avoidClick : function(event){
+
+                event.preventDefault();
+
+                this.$el.click();
+
+                return false;
 
             }
 
