@@ -20,6 +20,28 @@ add_theme_support('post-thumbnails');
 show_admin_bar( false );
 load_theme_textdomain( 'impruwclientparent' );
 
+//add image sizes
+add_image_size('thumbnail',150,150);
+add_image_size('medium',300,300);
+
+/**
+ * [custom_image_size_names description]
+ * @param  [type] $sizes [description]
+ * @return [type]        [description]
+ */
+function custom_image_size_names($sizes){
+    // Give them a name, and presto!
+
+    $sizes['thumbnail']= 'Thumbnail Image';
+
+    $sizes['medium']= 'Medium Image';
+
+    // Don't forget to return the array of sizes.
+    return $sizes;
+}
+add_filter('image_size_names_choose','custom_image_size_names',10,1);
+
+
 /*--------------------------------------------------------------------------------------
 *
 * impruv_register_room_init
