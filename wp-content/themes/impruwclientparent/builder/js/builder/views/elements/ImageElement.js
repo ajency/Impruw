@@ -89,7 +89,7 @@ define(['builder/views/elements/BuilderElement', 'text!builder/templates/element
 
                 var self = this;
 
-                require(['underscore', 'mediamanager'], function(_, MediaManager) {
+                require(['underscore', 'mediamanager'], _.bind(function(_, MediaManager) {
 
                     var mediamanager = SiteBuilder.ViewManager.findByCustom("media-manager");
 
@@ -106,7 +106,7 @@ define(['builder/views/elements/BuilderElement', 'text!builder/templates/element
 
                     mediamanager.open();
 
-                });
+                }, this));
 
             },
 
