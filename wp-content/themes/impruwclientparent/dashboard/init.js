@@ -37,8 +37,9 @@ require.config({
         siteprofileview		: 'views/siteprofile/SiteProfileView',
         userprofileview		: 'views/userprofile/UserProfileView',
         addroomview			: 'views/rooms/AddRoomView',
-        addtaxview			: 'views/modals/Addtax',
-
+        addtaxmodal			: 'views/modals/AddTax',
+        addplanmodal		: 'views/modals/AddPlan',
+        addaddonmodal		: 'views/modals/AddAddOn',
 
         //Models
         sitemodel			: 'models/SiteModel',
@@ -46,7 +47,8 @@ require.config({
         roommodel			: 'models/RoomModel',
 
         //templates
-        siteprofileviewtpl 	: 'templates/siteprofile/SiteProfileViewTpl'
+        siteprofileviewtpl 	: 'templates/siteprofile/SiteProfileViewTpl',
+        addtaxviewtpl       : 'templates/modal/AddTax'
         
     },
     waitSeconds: 15,
@@ -119,29 +121,29 @@ function log(object){
 });*/
 
   require(['backbone','marionette',
-         'routers/DashboardRouter','sitemodel','usermodel','jquery'], function( Backbone, Marionette, Router, SiteModel, UserModel,$) {
+         'routers/DashboardRouter','sitemodel','usermodel','jquery'], 
+         function( Backbone, Marionette, Router, SiteModel, UserModel,$) {
 
-        $(document).ready(function(){   
-        	 
-			window.impruwSite = new SiteModel(SITEID);
-			window.impruwUser = new UserModel(USERDATA);
-			 
-			/*window.impruwSite.getSiteProfile({
-				success:function(){
-					dashboard = new Router();
-				}
-			});*/
-			
-			ImpruwDashboard = new Backbone.Marionette.Application();
-			ImpruwDashboard.addInitializer(function(){
-				new Router();
-				Backbone.history.start();
-			});
-			
-			ImpruwDashboard.start();
-           
-            
-        });
+         $(document).ready(function(){   
+
+             window.impruwSite = new SiteModel(SITEID);
+             window.impruwUser = new UserModel(USERDATA);
+
+             /*window.impruwSite.getSiteProfile({
+                 success:function(){
+                     dashboard = new Router();
+                 }
+             });*/
+
+             ImpruwDashboard = new Backbone.Marionette.Application();
+             ImpruwDashboard.addInitializer(function(){
+                 new Router();
+                 Backbone.history.start();
+             });
+
+             ImpruwDashboard.start();
+
+         });
 
 }); 
   
