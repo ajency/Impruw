@@ -167,6 +167,7 @@
 																		<th>Plan Description</th>
 																		<th>Weekday Tariff</th>
 																		<th>Weekend Tariff</th>
+																		<th>Actions</th>
 																	</tr>
 																</thead>
 																
@@ -186,6 +187,10 @@
 																		</td>
 																		<td>
 																			$<%=plan.weekend_tariff %> 
+																		</td>
+																		<td>
+																			<a href="#plan1" data-toggle="modal" class="edit-link editplan_link" planid='<%=plan.plan_id %>' ><span class="glyphicon glyphicon-pencil"></span> Edit</a>
+																			<a href="#" class="delete-link" planid='<%=plan.plan_id %>'><span class="glyphicon glyphicon-trash"></span> Delete</a>	
 																		</td>
 																	</tr>
 																
@@ -215,162 +220,8 @@
 											</tr>
 										<% }) %>
 										
-										
-										
-										
-										
-										
-										
-											<tr>
-												<td colspan="4" class="no-mar table-responsive">
-												
-													<table class="table table-vc" data-toggle="collapse" data-target="#rowlink01">
-														<tbody data-link="row" class="rowlink">
-															<tr>
-																<td width="5%"><a href="#rowlink01" data-toggle="collapse"><span class="glyphicon glyphicon-chevron-down"></span></a></td>
- 
-																<td width="30%">
-																	<span class="label label-info">From:</span> 21/12/2013 <span class="label label-info">To:</span> 30/4/2014
-																</td>
-																<td width="35%">
-																	<span class="label label-info">Weekday:</span> from<strong>$29</strong> <span class="label label-info">Weekend:</span> from<strong>$37</strong>
-																</td>
-																<td width="30%" class="rowlink-skip">
-																	<a href="#" class="edit-link"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
-																	<a href="#" class="delete-link"><span class="glyphicon glyphicon-trash"></span> Delete</a>
-																</td>
-															</tr>
-															
-														</tbody>
-													</table>
- 
-													<div id="rowlink01" class="inner collapse">
- 
-														<div class="form-table table-responsive">
-															<table class="table table-bordered table-hover">
-																<thead>
-																	<tr>
-																		<th>Plan Name</th>
-																		<th>Plan Description</th>
-																		<th>Weekday Tariff</th>
-																		<th>Weekend Tariff</th>
-																	</tr>
-																</thead>
-																<tbody data-link="row" class="rowlink">
-																	<tr>
-																		<td>
-																			<a href="#plan1" data-toggle="modal">American Plan</a>
-																		</td>
-																		<td>
-																			Lorem ipsum dolor sit amet, consectetur adipiscing, lorem ipsum dolor sit amet, consectetur adipiscing.
-																		</td>
-																		<td>
-																			$29
-																		</td>
-																		<td>
-																			$37
-																		</td>
-																	</tr>
-																	<tr>
-																		<td>
-																			<a href="#plan1" data-toggle="modal">British Plan</a>
-																		</td>
-																		<td>
-																			Lorem ipsum dolor sit amet, consectetur adipiscing, lorem ipsum dolor sit amet, consectetur adipiscing.
-																		</td>
-																		<td>
-																			$29
-																		</td>
-																		<td>
-																			$37
-																		</td>
-																	</tr>
-																</tbody>
-															</table>
-														</div>
-														<div class="add-text">
-															Add Another Plan <button type="button" class="btn add-btn btn-sm" data-toggle="modal" data-target="#add-plantype"><i class="glyphicon glyphicon-plus"></i></button>
-														</div>
-													</div>
-												</td>
-											</tr>
-											
-											
-											
-											
-											<tr>
-												<td colspan="4" class="no-mar table-responsive">
- 
-													<table class="table table-vc" data-toggle="collapse" data-target="#rowlink02">
-														<tbody data-link="row" class="rowlink">
-															<tr>
-																<td width="5%"><a href="#rowlink02" data-toggle="collapse"><span class="glyphicon glyphicon-chevron-down"></span></a></td>
- 
-																<td width="30%">
-																	<span class="label label-info">From:</span> 21/12/2013 <span class="label label-info">To:</span> 30/4/2014
-																</td>
-																<td width="35%">
-																	<span class="label label-info">Weekday:</span> from<strong>$29</strong> <span class="label label-info">Weekend:</span> from<strong>$37</strong>
-																</td>
-																<td width="30%" class="rowlink-skip">
-																	<a href="#" class="edit-link"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
-																	<a href="#" class="delete-link"><span class="glyphicon glyphicon-trash"></span> Delete</a>
-																</td>
-															</tr>
-															
-														</tbody>
-													</table>
- 
-													<div id="rowlink02" class="inner collapse">
- 
-														<div class="form-table table-responsive">
-															<table class="table table-bordered table-hover">
-																<thead>
-																	<tr>
-																		<th>Plan Name</th>
-																		<th>Plan Description</th>
-																		<th>Weekday Tariff</th>
-																		<th>Weekend Tariff</th>
-																	</tr>
-																</thead>
-																<tbody data-link="row" class="rowlink">
-																	<tr>
-																		<td>
-																			<a href="#plan1" data-toggle="modal">American Plan</a>
-																		</td>
-																		<td>
-																			Lorem ipsum dolor sit amet, consectetur adipiscing, lorem ipsum dolor sit amet, consectetur adipiscing.
-																		</td>
-																		<td>
-																			$29
-																		</td>
-																		<td>
-																			$37
-																		</td>
-																	</tr>
-																	<tr>
-																		<td>
-																			<a href="#plan1" data-toggle="modal">British Plan</a>
-																		</td>
-																		<td>
-																			Lorem ipsum dolor sit amet, consectetur adipiscing, lorem ipsum dolor sit amet, consectetur adipiscing.
-																		</td>
-																		<td>
-																			$29
-																		</td>
-																		<td>
-																			$37
-																		</td>
-																	</tr>
-																</tbody>
-															</table>
-														</div>
-														<div class="add-text">
-															Add Another Plan <button type="button" class="btn add-btn btn-sm" data-toggle="modal" data-target="#add-plantype"><i class="glyphicon glyphicon-plus"></i></button>
-														</div>
-													</div>
-												</td>
-											</tr>
+										 
+											 
 										</tbody>
 									</table>
 								</div>

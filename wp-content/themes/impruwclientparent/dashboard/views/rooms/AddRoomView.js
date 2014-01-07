@@ -52,7 +52,9 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			 	'click .btn_addplanmodal'			: 'addplanmodal',
 			 	'click #btn_addplan'				: 'addNewPlan',
 			 	'change .chk_tariffdays'			: 'showhideTariffform',
-			 		
+
+			 	'click .editplan_link'				: 'editplanModelData',
+			 	
 			    'click .add_tax_btn'				: 'showAddtaxModal'
  
 		}, 
@@ -1385,6 +1387,44 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			 
 			
 		},
+		
+		
+		
+		
+		editplanModelData	: function(evt){
+			
+			var evt_ = evt;
+			var self_ = this;
+				
+			var data = {		action			: 'fetch_plan_details',						 
+								plan_id 	:  $(evt.target).attr('planid') 								 
+						};
+			
+			$.post(	AJAXURL,
+					data,
+					function(response){ 
+					 
+						if(response.code=='OK'){		
+							/*console.log(response)
+							console.log(response.plandata)
+							console.log(response.plandata.planid)
+							$('#planlist_'+response.plandata.daterangeid).append('<tr>')
+
+							$(evt_.target).parent().parent().find('.close').click();
+							 
+							self_.saveSuccess(response,evt_,self_);  	*/ 
+						 
+						}
+						else{
+							/*$(evt.target).html('Save');
+							$(evt.target).prop('disabled',false);
+							self_.saveFailure(response,evt_,self_);  */
+						} 
+				
+			 });
+			
+		},
+		
 		
 		
 		/**

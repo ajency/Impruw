@@ -1419,7 +1419,7 @@ function fetch_all_daterange(){
  */
 function fetch_daterange_plans($daterange_id){
 	global $wpdb;
-	 
+fetch_plan_details(2);	 
 	
 	 
 	 $plandata_result =array();
@@ -1443,6 +1443,7 @@ function fetch_daterange_plans($daterange_id){
 			   if($plan_data['id']==$plan->plan_id ){
 			   	$plan_name = $plan_data['label'];
 			   	$plan_description = $plan_data['description'];
+			   	$plan_id = $plan_data['id'];
 			   	
 			   	
 			   }
@@ -1450,8 +1451,9 @@ function fetch_daterange_plans($daterange_id){
 			  }
            			 
 			
-			$plans[] = array('plan_name' 		=>   $plan_name,
-							 'plan_description'	=> 	$plan_description,
+			$plans[] = array('plan_id'			=> $plan_id,
+							 'plan_name' 		=> $plan_name,
+							 'plan_description'	=> $plan_description,
 							 'weekend_tariff'	=> $weekend_tariff,
 							 'weekday_tariff'	=> $weekday_tariff 		
 							);
@@ -1466,6 +1468,37 @@ function fetch_daterange_plans($daterange_id){
 	  	
 	
 }
+
+/**
+ * 
+ * function to fetch plan details
+ */
+function fetch_plan_details(){
+	
+	$planid = $_POST['plan_id'];
+	
+	global $wpdb; 
+	$plans_data = maybe_unserialize(get_option('plans'));
+	foreach($plans_data as $plan_data){
+		if($plan_data['id']==$planid){
+			$plan_name 		  = $plan_data['label'];
+			$plan_description = $plan_data['description'];
+		}
+	}
+	//get tariff details for a plan
+	$qry_tariff_details = $wpdb->prepare("select tarriff as plan_tariff  from {$wpdb->prefix}datetarriff where plan_id = %d ",$planid);
+ 
+	$result_tariff_details = $wpdb->get_results($qry_tariff_details);
+	if(count($result_tariff_details)>0){
+		foreach($result_tariff_details as $tariff_detail){
+			$plan_tariff = maybe_unserialize($tariff_detail->plan_tariff);		  
+		}
+	}
+	 
+}
+add_action( 'wp_ajax_fetch_plan_details', 'fetch_plan_details' );
+add_action( 'wp_ajax_nopriv_fetch_plan_details', 'fetch_plan_details' );
+
 
 
 /**
