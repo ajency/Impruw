@@ -1475,7 +1475,8 @@ fetch_plan_details(2);
  */
 function fetch_plan_details(){
 	
-	$planid = $_POST['plan_id'];
+	//$planid = $_POST['plan_id'];
+	$planid = 2;
 	
 	global $wpdb; 
 	$plans_data = maybe_unserialize(get_option('plans'));

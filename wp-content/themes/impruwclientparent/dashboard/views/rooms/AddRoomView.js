@@ -19,14 +19,14 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			 	'click .savefacililty' 				: 'savefacility', 
 			 	
 			 	'click #btn_add_addon'				: 'add_addon',
-			 	'click #btn_savenewaddon'			: 'saveNewAddon',
+			 	
 			 	'click .delete-addonlink'			: 'deleteAddonType',
 			 	'click .edit-addonlink'				: 'editAddonType',			 	
 			 	'click .saveaddontype'				: 'updateAddonType',
 			 		
 			 	'change .tax__option'				: 'tax_option',
 			 	
-			 	'click #btn_addtax'					: 'addNewTaxType',
+			 
 			 	'click .edit-taxlink'				: 'editTaxType',
 			 	'click .update-taxlink'				: 'updateTaxType',
 			 	'click .delete-taxlink'				: 'deleteTaxType',
@@ -332,10 +332,49 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 
                 require(['underscore', 'addtaxmodal'], addTaxModal);
 		},
+		
+		
+		/*functino triggered when new tax is saved */
+		newTaxAdded:function(response,evt_){
+			 
+			self_ = this ;
+			response.model = true
+			 
+		 	 
+			if(response.code=='OK'){
+				
+			
+				if($('#tax_list').hasClass('hidden'))
+					$('#tax_list').removeClass('hidden')
+		 		
+					$("#tax_list").append(''+
+							'<tbody id="blocktaxtype-'+response.taxData.id+'">'+
+							'<td id="block_edittaxtype-'+response.taxData.id+'">'+response.taxData.name+'</td>'+
+							'<td id="block_edittaxprice-'+response.taxData.id+'" >'+response.taxData.percent+'</td>'+
+							'<td>'+
+							'<a href="javascript:void(0)" class="edit-link edit-taxlink" taxtype-id="'+response.taxData.id+'"  > <span class="glyphicon glyphicon-pencil"></span> Edit</a>'+
+							'<a href="javascript:void(0)" class="delete-link delete-taxlink" taxtype-id="'+response.taxData.id+'"><span class="glyphicon glyphicon-trash"></span> Delete</a>'+
+							'</td>'+
+					'</tbody>');
+				
+				/*self_.$el.find('input[type="checkbox"]').checkbox();*/
+			 	/*self_.$el.find('#new_facilityname').val("");*/
+				 self_.saveSuccess(response,evt_,self_); 
+			}
+			else{
+				 self_.saveFailure(response,evt_,self_);  
+				
+			}
+				
+		 	
+			
+		},
         
+		
+		 
         
         /**
-		 * Function to show add tax model
+		 * Function to show add plan model
 		 * @param evt
 		 */
 		showAddPlanModal : function(evt){
@@ -398,124 +437,45 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			
 		},
 		
-		/**
-		 * Add new tax type
-		 */
-		
-		addNewTaxType :function(evt){
-				var self_ = this;
-			
-				var evt_ = evt;
+		/* function lilstner view */ 
+		newAddOnAdded : function(response,evt_){
+			 console.log(evt_)
 			 
-				if (!this.$el.find('#form_add_tax').parsley('validate'))
-					return;
-				$(evt.target).next().show();
+			response.model = true
+			 
+			if(response.code=='OK'){
+				if($('#addons_list').hasClass('hidden'))
+			 		$('#addons_list').removeClass('hidden')
+			 		
+			 	$("#addons_list").append(''+
+				 	'<tbody id="blockaddontype-'+response.addontype.id+'">'+
+					'<td id="block_editaddontype-'+response.addontype.id+'">'+response.addontype.label+'</td>'+
+					'<td id="block_editaddonprice-'+response.addontype.id+'" >'+response.addontype.price+'</td>'+
+					'<td>'+
+						'<a href="javascript:void(0)" class="edit-link edit-addonlink" addontype-id="'+response.addontype.id+'"  > <span class="glyphicon glyphicon-pencil"></span> Edit</a>'+
+						'<a href="javascript:void(0)" class="delete-link delete-addonlink" addontype-id="'+response.addontype.id+'"><span class="glyphicon glyphicon-trash"></span> Delete</a>'+
+					'</td>'+
+			 	'</tbody>');
 				
-				
-				var data = {	  action				:'save_new_tax',
-						  		  new_tax_name			:$('#taxname').val(),
-						  		  new_tax_percent		:$('#taxpercent').val()	
-						  };
-				  
-					 
-					$.post(	AJAXURL,
-							data,
-							function(response){
-								 
-								
-								if(response.code=='OK'){
-									
-									
-								 	 console.log(response)
-								 	 
-								 	if($('#tax_list').hasClass('hidden'))
-								 		$('#tax_list').removeClass('hidden')
-								 		
-								 	 $("#tax_list").append(''+
-								 	'<tbody id="blocktaxtype-'+response.taxData.id+'">'+
-									'<td id="block_edittaxtype-'+response.taxData.id+'">'+response.taxData.name+'</td>'+
-									'<td id="block_edittaxprice-'+response.taxData.id+'" >'+response.taxData.percent+'</td>'+
-									'<td>'+
-										'<a href="javascript:void(0)" class="edit-link edit-taxlink" taxtype-id="'+response.taxData.id+'"  > <span class="glyphicon glyphicon-pencil"></span> Edit</a>'+
-										'<a href="javascript:void(0)" class="delete-link delete-taxlink" taxtype-id="'+response.taxData.id+'"><span class="glyphicon glyphicon-trash"></span> Delete</a>'+
-									'</td>'+
-								'</tbody>'); 
-								
-								 	$(evt_.target).parent().parent().find('.close').click();
-								 	$(evt_.target).parent().parent().find('#taxtype_name').val("")
-								 	$(evt_.target).parent().parent().find('#taxtype_price').val("")
-								 	/*self_.$el.find('input[type="checkbox"]').checkbox();*/
-								 	/*self_.$el.find('#new_facilityname').val("");*/
-									 self_.saveSuccess(response,evt_,self_);  
-								}
-								else{
-									
-									//console.log("error new tax")
-									  self_.saveFailure(response,evt_,self_);  
-								}
-						
-							});	
+				 this.saveSuccess(response,evt_,this);  
+			}
+			else{ 
+				//console.log("erro new addon")
+				 this.saveFailure(response,evt_,self_);  				
+			}
+			
 		},
 		
-		/**
-		 * 
-		 * @param evt
-		 */
-		saveNewAddon:function(evt){
-			var self_ = this;
-			
-			var evt_ = evt;
-			 
-			if (!this.$el.find('#form_add_addon').parsley('validate'))
-				  return;
-			
-			 $(evt.target).next().show();
-			  
-			  var data = {	  action		:'save_new_addon_type',
-					  new_addon_type	:$('#addontype_name').val(),
-					  new_addon_price	:$('#addontype_price').val()	
-					  };
-			  
-				 
-				$.post(	AJAXURL,
-						data,
-						function(response){
-							 
-							
-							if(response.code=='OK'){
-								
-								
-							 	 
-							 	 
-							 	if($('#addons_list').hasClass('hidden'))
-							 		$('#addons_list').removeClass('hidden')
-							 		
-							 	 $("#addons_list").append(''+
-							 	'<tbody id="blockaddontype-'+response.addontype.id+'">'+
-								'<td id="block_editaddontype-'+response.addontype.id+'">'+response.addontype.label+'</td>'+
-								'<td id="block_editaddonprice-'+response.addontype.id+'" >'+response.addontype.price+'</td>'+
-								'<td>'+
-									'<a href="javascript:void(0)" class="edit-link edit-addonlink" addontype-id="'+response.addontype.id+'"  > <span class="glyphicon glyphicon-pencil"></span> Edit</a>'+
-									'<a href="javascript:void(0)" class="delete-link delete-addonlink" addontype-id="'+response.addontype.id+'"><span class="glyphicon glyphicon-trash"></span> Delete</a>'+
-								'</td>'+
-							'</tbody>'); 
-							
-							 	$(evt_.target).parent().parent().find('.close').click();
-							 	$(evt_.target).parent().parent().find('#addontype_name').val("")
-							 	$(evt_.target).parent().parent().find('#addontype_price').val("")
-							 	/*self_.$el.find('input[type="checkbox"]').checkbox();*/
-							 	/*self_.$el.find('#new_facilityname').val("");*/
-								 self_.saveSuccess(response,evt_,self_);  
-							}
-							else{
-								
-								console.log("erro new addon")
-								 //self_.saveFailure(response,evt_,self_);  
-							}
-					
-						});	
+		
+		stopListeningEvents : function(){
+			//this.stopListening(SiteBuilder.vent, 'new-add-on-added', this.refetchHtml);
+			this.stopListening(ImpruwDashboard.vent, 'new-add-on-added');
+			this.stopListening(ImpruwDashboard.vent, 'new-tax-added');
 			
 		},
+		
+		
+		
 		
 		 
 		/**
@@ -1506,11 +1466,16 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			if( $(event.target).next().get(0).tagName =="IMG") // hide next element only if its a loader image
 				$(event.target).next().hide(); 
 			 
-		 	 
-			 $(event.delegateTarget).find('#roomsave_status')  
+			if(!_.isUndefined(response.popupmodel)){
+				$(event.delegateTarget).find('#roomsave_status')  
 			 				.removeClass('alert-error').addClass('alert-success');
+			}
+			else{
+				_self.$el.find('#roomsave_status')
+							.removeClass('alert-error').addClass('alert-success');
+			}
 			 
-			_self.showAlertMessage(event,response);			 
+			_self.showAlertMessage(event,response,_self);			 
 			 
 		},
 		
@@ -1525,11 +1490,16 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			if( $(event.target).next().get(0).tagName =="IMG") // hide next element only if its a loader image
 				$(event.target).next().hide();
 			 
+			if(!_.isUndefined(response.popupmodel)){
+				$(event.delegateTarget).find('#roomsave_status') 
+								.removeClass('alert-success').addClass('alert-error');
+			}
+			else{
+				_self.$el.find('#roomsave_status')
+								.removeClass('alert-success').addClass('alert-error');
+			}
 			
-			$(event.delegateTarget).find('#roomsave_status') 
-							.removeClass('alert-success').addClass('alert-error');
-			
-			_self.showAlertMessage(event,response);			 
+			_self.showAlertMessage(event,response,_self);			 
 			
 		}, 
 		
@@ -1540,15 +1510,27 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 		 * @param event
 		 * @param response
 		 */		
-		showAlertMessage : function(event,response){
-			 $(event.target).prop('disabled',false)
-			$(event.delegateTarget).find('#roomsave_status').html(response.msg);
-			$(event.delegateTarget).find('#roomsave_status').removeClass('hidden');
-			  
-			/* Move to top at status message after success/failure */
-			 $('html, body').animate({
-		        scrollTop: $(event.delegateTarget).find('#roomsave_status').offset().top
-		    }, 1000); 
+		showAlertMessage : function(event,response,_self){
+			
+			$(event.target).prop('disabled',false)
+			if(!_.isUndefined(response.popupmodel)){
+			 	$(event.delegateTarget).find('#roomsave_status').html(response.msg);
+				$(event.delegateTarget).find('#roomsave_status').removeClass('hidden');
+				  
+				/* Move to top at status message after success/failure */
+				 $('html, body').animate({
+			        scrollTop: $(event.delegateTarget).find('#roomsave_status').offset().top
+			    }, 1000);
+			}
+			else{
+				_self.$el.find('#roomsave_status').html(response.msg)
+				_self.$el.find('#roomsave_status').removeClass('hidden');
+				/* Move to top at status message after success/failure */
+				 $('html, body').animate({
+			        scrollTop: _self.$el.find('#roomsave_status').offset().top
+			    }, 1000);
+				
+			}
 		},
 		
 		
