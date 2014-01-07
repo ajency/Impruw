@@ -140,7 +140,11 @@ function create_new_site($blog_id,$blog_name,$blog_title,$user_id,$file_name,$us
     $post_site_builder_id = add_new_post_to_blog($new_blog_id,$user_id,'Site Builder','Site Builder Content.','page','site-builder.php');
 
     $post_register_id = add_new_post_to_blog($new_blog_id,$user_id,'Register','Register Content.','page','page-register.php');
-    create_tariff_table_for_blog($new_blog_id);  
+    
+    create_tariff_table_for_blog($new_blog_id);
+    create_daterange_table_for_blog($new_blog_id);
+	create_datetariff_table_for_blog($new_blog_id);
+
     add_menu_to_blog($user_id,$new_blog_id,$post_id,$post_site_builder_id);
     //echo $post_site_builder_id;exit;
 
@@ -378,6 +382,58 @@ function create_tariff_table_for_blog($blog_id)
     $wpdb->query($query_email_actions);
     restore_current_blog();
 }
+
+
+/**
+ * create_daterange_table_for_blog
+ * Function to create a table for daterange for room tariff plans every time a site is created.
+ * @global type $wpdb
+ * @param int $blog_id - id of the blog in which changes need to be done
+ */
+function create_daterange_table_for_blog($blog_id)
+{
+    switch_to_blog($blog_id);
+    global $wpdb;
+        
+    $query_daterange = ("CREATE TABLE IF NOT EXISTS {$wpdb->prefix}daterange (
+  							id int(11) NOT NULL AUTO_INCREMENT,
+  							from_date datetime NOT NULL,
+  							to_date datetime NOT NULL,
+  							label varchar(250) CHARACTER SET utf8 NOT NULL,
+  								PRIMARY KEY (id)
+							)");
+    
+    $wpdb->query($query_daterange);
+    restore_current_blog(); 
+}
+
+
+
+
+/**
+ * create_datetariff_table_for_blog
+ * Function to create a table for date tariff for room tariff plans every time a site is created.
+ * @global type $wpdb
+ * @param int $blog_id - id of the blog in which changes need to be done
+ */
+function create_datetariff_table_for_blog($blog_id)
+{
+    switch_to_blog($blog_id);
+    global $wpdb;
+        
+    $query_datetariff = ("CREATE TABLE IF NOT EXISTS {$wpdb->prefix}datetarriff (
+						  id int(11) NOT NULL AUTO_INCREMENT,
+						  daterange_id int(11) NOT NULL,
+						  plan_id int(11) NOT NULL,
+						  tarriff longtext CHARACTER SET utf8 NOT NULL,
+						  PRIMARY KEY (id)
+						)");
+    
+    $wpdb->query($query_datetariff);
+    restore_current_blog(); 
+}
+
+
 
 /**
  * add_menu_to_blog
