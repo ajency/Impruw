@@ -51,9 +51,10 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			 	
 			 	'click .btn_addplanmodal'			: 'addplanmodal',
 			 	'click #btn_addplan'				: 'addNewPlan',
-			 	'change .chk_tariffdays'			: 'showhide_tariffform'
+			 	'change .chk_tariffdays'			: 'showhideTariffform',
 			 		
-			 	 
+			    'click .add_tax_btn'				: 'showAddtaxModal'
+ 
 		}, 
 
 		initialize : function(args) {
@@ -65,7 +66,8 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			
 			this.user = args.user;*/
 			
-			
+			this.popupViewManager = new Backbone.ChildViewContainer();	
+
 			
 
 		},
@@ -306,6 +308,25 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			   console.log( $( 'input[name=tax_option1]:checked' ).val())
 			
 		},
+		
+		
+		
+		
+		/**
+		 * Function to show add tax model
+		 * @param evt
+		 */
+		showAddtaxModal : function(evt){
+			 
+			
+			 
+			
+			
+		},
+		
+		
+		
+
 		
 		/**
 		 * Add new tax type
@@ -1269,7 +1290,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 		},
 		
 		
-		showhide_tariffform: function(evt){
+		showhideTariffform: function(evt){
 			 
 			tariffType = $(evt.target).attr('tariff-type');
 			
@@ -1331,7 +1352,24 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 					function(response){ 
 					 
 						if(response.code=='OK'){		
-						 
+							console.log(response)
+							console.log(response.plandata)
+							console.log(response.plandata.planid)
+							$('#planlist_'+response.plandata.daterangeid).append('<tr>'+
+									 '<td>'+
+										'<a href="#plan1" data-toggle="modal">'+response.plandata.plan+'</a>'+
+									'</td>'+
+									'<td>'+
+										+response.plandata.plandescription+  
+									'</td>'+
+									'<td>'+
+									 	response.plandata.weekdaytariff+
+									'</td>'+
+									'<td>'+
+										response.plandata.weekendtariff+
+									'</td>'+
+								'</tr>')
+
 							$(evt_.target).parent().parent().find('.close').click();
 							 
 							self_.saveSuccess(response,evt_,self_);  	 

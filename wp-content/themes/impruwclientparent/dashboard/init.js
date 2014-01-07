@@ -29,13 +29,16 @@ require.config({
         checkbox    		: 'lib/flatui-checkbox',
         radio       		: 'lib/flatui-radio',
         nestable            : 'lib/nestable',
-        
+        marionette      	: 'lib/backbone.marionette.min',
+
         //Views
         mainview			: 'views/DashboardMainView',
         leftview			: 'views/LeftColumnView',
         siteprofileview		: 'views/siteprofile/SiteProfileView',
         userprofileview		: 'views/userprofile/UserProfileView',
         addroomview			: 'views/rooms/AddRoomView',
+        addtaxview			: 'views/modals/Addtax',
+
 
         //Models
         sitemodel			: 'models/SiteModel',
@@ -76,7 +79,13 @@ require.config({
         },
         'bootstrapselect' : {
             deps : ['jquery','bootstrap']
+     
+        },
+        'marionette' : {
+        	deps : ['backbone'],
+        	exports : 'Marionette'
         }
+        
     }
 });
 
@@ -86,33 +95,8 @@ function log(object){
 
 
 //init the app
-require(['backbone',
+/*require(['backbone',
          'routers/DashboardRouter','sitemodel','usermodel','jquery'], function( Backbone, Router, SiteModel, UserModel,$) {
-
-        $(document).ready(function(){   
-        	 
-			window.impruwSite = new SiteModel(SITEID);
-			window.impruwUser = new UserModel(USERDATA);
-			 
-			/*window.impruwSite.getSiteProfile({
-				success:function(){
-					dashboard = new Router();
-				}
-			});*/
-			
-			dashboard = new Router();
-            Backbone.history.start();
-            
-           
-            
-        });
-
-});
-
-
-/*
- * require(['backbone','lib/backbone.marionette.min',
-         'routers/DashboardRouter','sitemodel','usermodel','jquery'], function( Backbone, Marionette, Router, SiteModel, UserModel,$) {
 
         $(document).ready(function(){   
         	 
@@ -125,6 +109,29 @@ require(['backbone',
 				}
 			});* /
 			
+			dashboard = new Router();
+            Backbone.history.start();
+            
+           
+            
+        });
+
+});*/
+
+  require(['backbone','marionette',
+         'routers/DashboardRouter','sitemodel','usermodel','jquery'], function( Backbone, Marionette, Router, SiteModel, UserModel,$) {
+
+        $(document).ready(function(){   
+        	 
+			window.impruwSite = new SiteModel(SITEID);
+			window.impruwUser = new UserModel(USERDATA);
+			 
+			/*window.impruwSite.getSiteProfile({
+				success:function(){
+					dashboard = new Router();
+				}
+			});*/
+			
 			ImpruwDashboard = new Backbone.Marionette.Application();
 			ImpruwDashboard.addInitializer(function(){
 				new Router();
@@ -136,7 +143,7 @@ require(['backbone',
             
         });
 
-});*/ 
+}); 
   
 
 
