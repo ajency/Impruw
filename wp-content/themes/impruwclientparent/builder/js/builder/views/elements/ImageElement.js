@@ -100,7 +100,9 @@ define(['builder/views/elements/BuilderElement', 'text!builder/templates/element
                     }
 
                     //start listening to event
-                    SiteBuilder.vent.on('image-selected', self.updateSelf);
+ 
+                    this.listenTo(SiteBuilder.vent,'image-selected', this.updateSelf);
+ 
 
                     mediamanager.open();
 
@@ -115,7 +117,7 @@ define(['builder/views/elements/BuilderElement', 'text!builder/templates/element
             updateSelf: function(image, size) {
 
                 //stop listening to image-selected event
-                SiteBuilder.vent.off('image-selected', self.updateSelf);
+                this.stopListening(SiteBuilder.vent, 'image-selected', this.updateSelf);
 
                 if (!_.isObject(image))
                     throw 'Invalid <image> datatype. Must be an Object';
