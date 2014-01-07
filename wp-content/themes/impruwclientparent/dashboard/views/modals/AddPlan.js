@@ -1,11 +1,11 @@
 /**
  *  Add Tax .js *  
  */
-define(['views/modals/Modal', 'text!templates/modal/AddTax.tpl'], 
+define(['views/modals/Modal', 'text!templates/modal/AddPlan.tpl'], 
       function(Modal, template) {
 
 
-        var AddTaxModal = Modal.extend({
+        var AddPlanModal = Modal.extend({
 
             id: 'add-tax',
 
@@ -29,7 +29,7 @@ define(['views/modals/Modal', 'text!templates/modal/AddTax.tpl'],
                 //add markup
                 var h = _.template(this.template,{});
                 
-                this.$el.find('.modal-content').append(h);
+               this.$el.find('.modal-content').append(h);
                 
                 //append to body
                 $('body').append(this.$el);
@@ -39,6 +39,6 @@ define(['views/modals/Modal', 'text!templates/modal/AddTax.tpl'],
             
         });
 
-        return AddTaxModal;
+        return AddPlanModal;
 
     });

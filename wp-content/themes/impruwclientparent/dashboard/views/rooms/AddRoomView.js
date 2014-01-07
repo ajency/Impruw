@@ -4,14 +4,14 @@
  */
 
 define([ 'underscore', 'jquery', 'backbone','roommodel',
-		'text!templates/siteprofile/AddRoomViewTpl.tpl','lib/parsley/parsley','radio','jqueryui' ], function(_, $,
-		Backbone, RoomModel, AddRoomViewTpl,parsley,radio,jqueryui) {
+		'text!templates/siteprofile/AddRoomViewTpl.tpl','lib/parsley/parsley','radio','jqueryui' ], 
+      function(_, $, Backbone, RoomModel, AddRoomViewTpl,parsley,radio,jqueryui) {
 
 	var AddRoomView = Backbone.View.extend({
 
-		id : 'add-room',
+         id : 'add-room',
 
-	 events : {
+         events : {
 			 	'click #btn_saveroom'				: 'saveRoom', 
 			 	'click #btn_addfacility'			: 'addFacility',
 			 	'click .delete'						: 'deleteFacility',
@@ -53,31 +53,25 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			 	'click #btn_addplan'				: 'addNewPlan',
 			 	'change .chk_tariffdays'			: 'showhideTariffform',
 
-			 	'click .editplan_link'				: 'editplanModelData',
-			 	
-			    'click .add_tax_btn'				: 'showAddtaxModal'
+			 	'click .editplan_link'				: 'editplanModelData', 
+		
+			 		
+			    'click .add_tax_btn'				: 'showAddTaxModal',
+                'click .add_plan_btn'				: 'showAddPlanModal',
+                'click #btn_add_addon'				: 'showAddAddOnModal'
+
  
 		}, 
 
 		initialize : function(args) {
 			
-			//	_.bindAll(this , 'saveSuccess', 'saveFailure');
-			//_.bindAll(this , 'showAlertMessage','parsleyInitialize' ); 
-			/*if(_.isUndefined(args.user))
-				this.showInvalidCallView();
-			
-			this.user = args.user;*/
-			
 			this.popupViewManager = new Backbone.ChildViewContainer();	
-
-			
 
 		},
 
 		render : function(allFacilities) {
 
-			var self = this; 
-		    self.fetchAllFacilities();
+			this.fetchAllFacilities();
 			
 		},
 
@@ -144,7 +138,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 						 
 						 	self_.allFacilities  = response.data;
 							
-							self_.renderTemplate()
+							self_.renderTemplate();
 							
 							if(!_.isUndefined(self_.success) && _.isFunction(self_.success))
 								self_.success(response,self_.event,self_);  
@@ -168,38 +162,39 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 		 */
 		saveRoom : function(evt) {
 			
-			var self = this;
+               var self = this;
 			
-			  if (!this.$el.find('#frm_addroom').parsley('validate'))
-				  return
+               if (!this.$el.find('#frm_addroom').parsley('validate'))
+				  return;
 				  
-			  if (!this.$el.find('#frm_roomdesc').parsley('validate'))
-				  return
-			 $(evt.target).prop('disabled',true)
-			 $(evt.target).next().show();	  
+               if (!this.$el.find('#frm_roomdesc').parsley('validate'))
+				  return;
+               
+               $(evt.target).prop('disabled',true)
+               $(evt.target).next().show();	  
 					  
-			  roomcategory 		= $("#roomcategory").val();
-			  roomnos 			= $("#roomnos").val();
-			  roomdescription 	= $("#roomdescription").val();
-			  checkinformat 	=  $('input[type="radio"][name="checkin_format"]:checked').val()
-			  checkintime 	= $("#checkin_time").val();
-			  additionalpolicies 	= $("#additional_policies").val();
-			  tax_option 			= $('input[type="radio"][name="tax_option1"]:checked').val() 
+               var roomcategory 		= $("#roomcategory").val();
+               var roomnos 			= $("#roomnos").val();
+               var roomdescription 	= $("#roomdescription").val();
+               var checkinformat 	=  $('input[type="radio"][name="checkin_format"]:checked').val()
+               var checkintime        = $("#checkin_time").val();
+               var additionalpolicies 	= $("#additional_policies").val();
+               var tax_option 			= $('input[type="radio"][name="tax_option1"]:checked').val() 
 					  
-			  var facilityValues = new Array();
+               var facilityValues = new Array();
 					  
-			  //Read checked facillities
-			  $.each($("input[name='facility[]']:checked"),
-			  function () {
-				    	   			facilityValues.push($(this).val());
-			  });
+               //Read checked facillities
+               $.each($("input[name='facility[]']:checked"),
+               function () {
+				  facilityValues.push($(this).val());
+               });
 				    
-			  facilityValues.join (", ");
+               facilityValues.join (", ");
 					  
-			  var room = new RoomModel();
+               var room = new RoomModel();
 			  
 			  
-			  var data = { 
+               var data = { 
 					  	 	'category'		:roomcategory, 
 					  	 	'nos'			:roomnos,
 					  	 	'description' 	:roomdescription,
@@ -301,13 +296,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			if( $(evt.target).is(":checked") ){ // check if the radio is checked
 				var val = $(evt.target).val(); // retrieve the value
 				//alert(val)
-			}
-			
-			//tax_option  	= $('input[name=tax_option1]:checked').val()
-			  // tax_option  	=  $('input[type="radio"][name="tax_option1"]:checked').val()
-			//   console.log( tax_option )
-			   
-			   console.log( $( 'input[name=tax_option1]:checked' ).val())
+            }
 			
 		},
 		
@@ -318,17 +307,96 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 		 * Function to show add tax model
 		 * @param evt
 		 */
-		showAddtaxModal : function(evt){
+		showAddTaxModal : function(evt){
 			 
 			
+			 var addTaxModal = _.bind(function(_, AddTaxModal) {
+
+                    var addTax = this.popupViewManager.findByCustom("add-tax-popup");
+
+                    //ensure Menu manager is created just once
+                    if (_.isUndefined(addTax)){
+                        addTax = new AddTaxModal();
+                        this.popupViewManager.add(addTax, "add-tax-popup");
+                    }
+
+                    //start listening event
+                    this.listenTo(ImpruwDashboard.vent, 'new-tax-added', this.newTaxAdded);
+
+                    //modal hide event
+                    this.listenTo(ImpruwDashboard.vent, 'modal-closed', this.stopListeningEvents);
+
+                    addTax.open();
+
+                }, this); 
+
+                require(['underscore', 'addtaxmodal'], addTaxModal);
+		},
+        
+        
+        /**
+		 * Function to show add tax model
+		 * @param evt
+		 */
+		showAddPlanModal : function(evt){
 			 
+			
+			 var addPlanModal = _.bind(function(_, AddPlanModal) {
+
+                    var addPlan = this.popupViewManager.findByCustom("add-plan-popup");
+
+                    //ensure Menu manager is created just once
+                    if (_.isUndefined(addPlan)){
+                        addPlan = new AddPlanModal();
+                        this.popupViewManager.add(addPlan, "add-plan-popup");
+                    }
+
+                    //start listening event
+                    this.listenTo(ImpruwDashboard.vent, 'new-plan-added', this.newPlanAdded);
+
+                    //modal hide event
+                    this.listenTo(ImpruwDashboard.vent, 'modal-closed', this.stopListeningEvents);
+
+                    addPlan.open();
+
+                }, this); 
+
+                require(['underscore', 'addplanmodal'], addPlanModal);
 			
 			
 		},
-		
-		
-		
+        
+        /**
+		 * Function to show add tax model
+		 * @param evt
+		 */
+		showAddAddOnModal : function(evt){
+			 
+			
+			 var addAddOnModal = _.bind(function(_, AddAddOnModal) {
 
+                    var addOn = this.popupViewManager.findByCustom("add-addon-popup");
+
+                    //ensure Menu manager is created just once
+                    if (_.isUndefined(addOn)){
+                        addOn = new AddAddOnModal();
+                        this.popupViewManager.add(addOn, "add-addon-popup");
+                    }
+
+                    //start listening event
+                    this.listenTo(ImpruwDashboard.vent, 'new-add-on-added', this.newAddOnAdded);
+
+                    //modal hide event
+                    this.listenTo(ImpruwDashboard.vent, 'modal-closed', this.stopListeningEvents);
+
+                    addOn.open();
+
+                }, this); 
+
+                require(['underscore', 'addaddonmodal'], addAddOnModal);
+			
+			
+		},
 		
 		/**
 		 * Add new tax type

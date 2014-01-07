@@ -395,7 +395,7 @@
 								</div>
 
 								<div class="add-text">
-									Add Add-On <button type="button" class="btn add-btn btn-sm" data-toggle="modal" data-target="#add-addon" id="btn_add_addon"><i class="glyphicon glyphicon-plus"></i></button> 
+									Add Add-On <button type="button" class="btn add-btn btn-sm"  id="btn_add_addon"><i class="glyphicon glyphicon-plus"></i></button> 
 								</div>
 
 								<div class="form-group">
@@ -536,110 +536,6 @@
 
 
 
-
-
-
-
-<!-- Add Tax Modal -->
-	<div class="modal" id="add-tax">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close fui-cross" data-dismiss="modal" aria-hidden="true"></button>
-					<h4 class="modal-title">Add Tax</h4>
-				</div>
-
-				<div class="modal-body">
-					<form class="form-horizontal clearfix" name="form_add_tax"  id="form_add_tax">
-						
-						<div class="form-group dual">
-							<div class="col-sm-6">
-								<div class="form-group">
-									<label for="inputAddress2" class="col-sm-5 control-label">Tax Name</label>
-									<div class="col-sm-8 col-sm-offset-5">
-										<input type="text" class="form-control" id="taxname" name="taxname"  
-										placeholder="Service Tax"  required parsley-trigger="blur" 
-										parsley-validation-minlength="0">
-										<div class="p-messages"></div>
-									</div>
-								</div>
-							</div>
-
-							<div class="col-sm-6">
-								<div class="form-group">
-									<label for="inputAddress2" class="col-sm-5 control-label">Tax Percentage</label>
-									<div class="col-sm-7 col-sm-offset-5">
-										<input type="text" class="form-control" id="taxpercent" name="taxpercent"  
-										placeholder="12.5%" required parsley-trigger="blur" parsley-validation-minlength="0"  
-										parsley-type="number" parsley-type-number-message="Please enter tax percentage">
-										<div class="p-messages"></div>
-									</div>
-								</div>
-							</div>
-						</div>
-						
-					</form>
-				</div>
-
-				<div class="modal-footer">
-					<button class="btn btn-default aj-imp-modal-save" id="btn_addtax"><i class="fui-plus"></i> Add Tax</button>
-					<img src ="<%=THEMEURL%>/images/loader.gif" width="38" height="30"  
-													id="newaddonsave_loader" style="display:none"/>
-				</div>
-			</div>
-		</div>  
-	</div>
-
-	<!-- Add Add-on Modal -->
-	<div class="modal" id="add-addon">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close fui-cross" data-dismiss="modal" aria-hidden="true"></button>
-					<h4 class="modal-title">Add Add-Ons</h4>
-				</div>
-
-				<div class="modal-body">
-					<form class="form-horizontal clearfix" name="form_add_addon"  id="form_add_addon" >
-						
-						<div class="form-group dual">
-							<div class="col-sm-6">
-								<div class="form-group">
-									<label for="inputAddress2" class="col-sm-5 control-label">Add-On</label>
-									<div class="col-sm-8 col-sm-offset-5">
-										<input type="text" class="form-control" id="addontype_name"  name='addontype_name'
-										placeholder="Scuba Diving" required parsley-trigger="blur" parsley-validation-minlength="0">
-										<div class="p-messages"></div>
-									</div>
-								</div>
-							</div>
-
-							<div class="col-sm-6">
-								<div class="form-group">
-									<label for="inputAddress2" class="col-sm-5 control-label">Price</label>
-									<div class="col-sm-7 col-sm-offset-5">
-										<input type="text" class="form-control" id="addontype_price"  name="addontype_price" placeholder="12.99"
-										required parsley-trigger="blur" parsley-validation-minlength="0"  
-										parsley-type="number" parsley-type-number-message="Please enter price" >
-										<div class="p-messages"></div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<input type="hidden" name="hdn_addonlabel" id="hdn_addonlabel"  value=""/>
-					</form>
-				</div>
-
-				<div class="modal-footer">
-					
-				<!-- 	<button class="btn btn-default aj-imp-modal-save"  id="btn_updateaddon"  name="btn_updateaddon"  ><i class="fui-plus"></i> Update Addon</button> -->
-					<button class="btn btn-default aj-imp-modal-save"  id="btn_savenewaddon"  name="btn_savenewaddon"  ><i class="fui-plus"></i> Add Add-On</button>
-					<img src ="<%=THEMEURL%>/images/loader.gif" width="38" height="30"  
-													id="newaddonsave_loader" style="display:none"/>
-				</div>
-			</div>
-		</div>  
-	</div>
 									
 	<!-- Add Plan Modal -->
 	<div class="modal wide-modal plan-modal" id="add-plantype">

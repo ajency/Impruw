@@ -1,9 +1,9 @@
 /**
  * 
  */
-define(['backbone', 'text!templates/modal/ModelTpl.tpl', 'global'],
+define(['backbone', 'text!templates/modal/Model.tpl'],
 
-    function(Backbone, outerTemplate, global) {
+    function(Backbone, outerTemplate) {
 
 
         var Modal = Backbone.View.extend({
@@ -18,13 +18,12 @@ define(['backbone', 'text!templates/modal/ModelTpl.tpl', 'global'],
 
             open: function() {
                 this.$el.modal('show');
-                $('#controls-drag').hide();
-                SiteBuilder.vent.trigger(this.id + '-open');
+                ImpruwDashboard.vent.trigger(this.id + '-opened');
             },
 
             hide: function() {
                 this.$el.modal('hide');
-                SiteBuilder.vent.trigger(this.id + '-hide');
+                ImpruwDashboard.vent.trigger(this.id + '-closed');
             }
 
         });

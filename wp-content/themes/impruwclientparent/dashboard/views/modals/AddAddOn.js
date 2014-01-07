@@ -1,11 +1,11 @@
 /**
  *  Add Tax .js *  
  */
-define(['views/modals/Modal', 'text!templates/modal/AddTax.tpl'], 
+define(['views/modals/Modal', 'text!templates/modal/AddOn.tpl'], 
       function(Modal, template) {
 
 
-        var AddTaxModal = Modal.extend({
+        var AddAddOnModal = Modal.extend({
 
             id: 'add-tax',
 
@@ -21,7 +21,7 @@ define(['views/modals/Modal', 'text!templates/modal/AddTax.tpl'],
             initialize: function(args) {
 
                 var html = _.template(this.outerTemplate, {
-                    title: 'Add Tax'
+                    title: 'New Add On'
                 });
                 
                 this.$el.html(html);
@@ -39,6 +39,6 @@ define(['views/modals/Modal', 'text!templates/modal/AddTax.tpl'],
             
         });
 
-        return AddTaxModal;
+        return AddAddOnModal;
 
     });
