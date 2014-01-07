@@ -1980,7 +1980,16 @@ function add_new_plan_tariff(){
 			wp_send_json( array( 'code' => 'ERROR', 'msg' =>'Error adding Tariff plan' ) ); 
 		}
 		else {
-			wp_send_json( array( 'code' => 'OK', 'msg'=>'Tariff plan is successfully added') );
+			
+			$plan_details = array('plan'			=> $plantype,
+								  'plandescription' => $plandescription,
+								  'planid'			=> $plan_result,
+								  'daterangeid'		=> $daterange_id,
+								  'weekdaytariff'	=> $weekday_tariff,
+								  'weekendtariff'	=> $weekend_tariff	
+								);
+								 
+			wp_send_json( array( 'code' => 'OK', 'msg'=>'Tariff plan is successfully added','plandata' => $plan_details ) );
 		}
 	}
 	else{
