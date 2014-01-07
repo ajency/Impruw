@@ -106,6 +106,13 @@
 							</form>
 						</div>
 						
+						
+						
+						
+						
+						
+						
+						
 						<div class="scroll-indicator-container" id="scr3">
 							<h4 class="aj-imp-sub-head scroll-ref">Add Date Range <small>Lorem ipsum dolor sit amet, consectetur adipiscing</small></h4>
 							<form class="form-horizontal clearfix">
@@ -121,9 +128,10 @@
 											</tr>
 										</thead>
 										<tbody>
+ 
 										
 										
-										 <% console.log(roomdata.dateranges) %>
+										 
 										
 										<% _.each(roomdata.dateranges,function(daterange,index){
 										%>
@@ -152,7 +160,7 @@
 													</table>
 													<div id="rowlink<%=daterange.id%>" class="inner collapse">
 														<div class="form-table table-responsive">
-															<table class="table table-bordered table-hover">
+															<table class="table table-bordered table-hover" id="planlist_<%=daterange.id%>">
 																<thead>
 																	<tr>
 																		<th>Plan Name</th>
@@ -200,7 +208,7 @@
 															</table>
 														</div>
 														<div class="add-text">
-															Add Another Plan <button type="button" daterange-id = '<%=daterange.id %>'  class="btn add-btn btn-sm btn_add_plan" data-toggle="modal" data-target="#add-plantype"><i class="glyphicon glyphicon-plus"></i></button>
+															Add Another Plan <button type="button" daterange-id = '<%=daterange.id %>'  class="btn add-btn btn-sm btn_addplanmodal" data-toggle="modal" data-target="#add-plantype"><i class="glyphicon glyphicon-plus btn_addplanmodal"  daterange-id = '<%=daterange.id %>'></i></button>
 														</div>
 													</div>
 												</td>
@@ -220,6 +228,7 @@
 														<tbody data-link="row" class="rowlink">
 															<tr>
 																<td width="5%"><a href="#rowlink01" data-toggle="collapse"><span class="glyphicon glyphicon-chevron-down"></span></a></td>
+ 
 																<td width="30%">
 																	<span class="label label-info">From:</span> 21/12/2013 <span class="label label-info">To:</span> 30/4/2014
 																</td>
@@ -234,7 +243,9 @@
 															
 														</tbody>
 													</table>
+ 
 													<div id="rowlink01" class="inner collapse">
+ 
 														<div class="form-table table-responsive">
 															<table class="table table-bordered table-hover">
 																<thead>
@@ -289,10 +300,12 @@
 											
 											<tr>
 												<td colspan="4" class="no-mar table-responsive">
+ 
 													<table class="table table-vc" data-toggle="collapse" data-target="#rowlink02">
 														<tbody data-link="row" class="rowlink">
 															<tr>
 																<td width="5%"><a href="#rowlink02" data-toggle="collapse"><span class="glyphicon glyphicon-chevron-down"></span></a></td>
+ 
 																<td width="30%">
 																	<span class="label label-info">From:</span> 21/12/2013 <span class="label label-info">To:</span> 30/4/2014
 																</td>
@@ -307,7 +320,9 @@
 															
 														</tbody>
 													</table>
+ 
 													<div id="rowlink02" class="inner collapse">
+ 
 														<div class="form-table table-responsive">
 															<table class="table table-bordered table-hover">
 																<thead>
@@ -364,8 +379,15 @@
 								</div>
 							</form>
 
-						</div>
+						</div>		
 						
+						
+						
+						
+						
+						
+						
+										
 						
 						
 						
@@ -797,11 +819,11 @@
 									<label for="inputAddress2" class="col-sm-5 control-label">Tariff</label>
 									<div class="col-sm-7 col-sm-offset-5">
 										<label for="checkbox2" class="checkbox checked">
-											<input type="checkbox" data-toggle="checkbox" checked="checked" id="rad_weekday" name="rad_weekday"  >
+											<input type="checkbox" data-toggle="checkbox" class="chk_tariffdays" tariff-type='weekday' checked="checked" id="rad_weekday" name="rad_weekday"  >
 											Weekday
 										</label>
 										<span class="help-block">Monday to Friday</span>
-										<input type="text" class="form-control" id="weekday_tariff" name="weekday_tariff" placeholder="420">
+										<input type="text" class="form-control formel_weedaytariff" id="weekday_tariff" name="weekday_tariff" placeholder="420">
 									</div>
 								</div>
 							</div>
@@ -810,11 +832,11 @@
 								<div class="form-group">
 									<div class="col-sm-7">
 										<label for="checkbox2" class="checkbox checked">
-											<input type="checkbox" data-toggle="checkbox" checked="checked" id="rad_weekend"  name="rad_weekend">
+											<input type="checkbox" data-toggle="checkbox" class="chk_tariffdays" tariff-type='weekend'  checked="checked" id="rad_weekend"  name="rad_weekend">
 											Weekend
 										</label>
-										<span class="help-block">Monday to Friday</span>
-										<input type="text" class="form-control" id="weekend_tariff" name="weekend_tariff"  placeholder="999">
+										<span class="help-block">Saturday to Sunday</span>
+										<input type="text" class="form-control formel_weekendtariff" id="weekend_tariff" name="weekend_tariff"  placeholder="999">
 									</div>
 								</div>
 							</div>
@@ -831,14 +853,14 @@
 								<div class="form-group">
 									<label for="inputAddress2" class="col-sm-5 control-label">Maximum Adults</label>
 									<div class="col-sm-7 col-sm-offset-5">
-										<input type="text" class="form-control" id="weekday_maxadults" name="weekday_maxadults" placeholder="10">
+										<input type="text" class="form-control formel_weedaytariff" id="weekday_maxadults" name="weekday_maxadults" placeholder="10">
 									</div>
 								</div>
 							</div>
 							<div class="col-sm-5">
 								<div class="form-group">
 									<div class="col-sm-7">
-										<input type="text" class="form-control" id="weekend_maxadults" name="weekend_maxadults"  placeholder="10">
+										<input type="text" class="form-control formel_weekendtariff" id="weekend_maxadults" name="weekend_maxadults"  placeholder="10">
 									</div>
 								</div>
 							</div>
@@ -849,14 +871,14 @@
 								<div class="form-group">
 									<label for="inputAddress2" class="col-sm-5 control-label">Maximum Children</label>
 									<div class="col-sm-7 col-sm-offset-5">
-										<input type="text" class="form-control" id="weekday_maxchildren" name="weekday_maxchildren"  placeholder="10">
+										<input type="text" class="form-control formel_weedaytariff" id="weekday_maxchildren" name="weekday_maxchildren"  placeholder="10">
 									</div>
 								</div>
 							</div>
 							<div class="col-sm-5">
 								<div class="form-group">
 									<div class="col-sm-7">
-										<input type="text" class="form-control" id="weekend_maxchildren" name="weekend_maxchildren"  placeholder="10">
+										<input type="text" class="form-control formel_weekendtariff" id="weekend_maxchildren" name="weekend_maxchildren"  placeholder="10">
 									</div>
 								</div>
 							</div>
@@ -867,14 +889,14 @@
 								<div class="form-group">
 									<label for="inputAddress2" class="col-sm-5 control-label">Additional Charge per extra Adult</label>
 									<div class="col-sm-7 col-sm-offset-5">
-										<input type="text" class="form-control" id="weekday_charges_extra_adult" name="weekday_charges_extra_adult"  placeholder="28">
+										<input type="text" class="form-control formel_weedaytariff" id="weekday_charges_extra_adult" name="weekday_charges_extra_adult"  placeholder="28">
 									</div>
 								</div>
 							</div>
 							<div class="col-sm-5">
 								<div class="form-group">
 									<div class="col-sm-7">
-										<input type="text" class="form-control" id="weekend_charges_extra_adult" name="weekend_charges_extra_adult"  placeholder="32">
+										<input type="text" class="form-control formel_weekendtariff" id="weekend_charges_extra_adult" name="weekend_charges_extra_adult"  placeholder="32">
 									</div>
 								</div>
 							</div>
@@ -885,14 +907,14 @@
 								<div class="form-group">
 									<label for="inputAddress2" class="col-sm-5 control-label">Additional Charge per extra Child</label>
 									<div class="col-sm-7 col-sm-offset-5">
-										<input type="text" class="form-control" id="weekday_charges_extra_child" name="weekday_charges_extra_child"  placeholder="17">
+										<input type="text" class="form-control formel_weedaytariff" id="weekday_charges_extra_child" name="weekday_charges_extra_child"  placeholder="17">
 									</div>
 								</div>
 							</div>
 							<div class="col-sm-5">
 								<div class="form-group">
 									<div class="col-sm-7">
-										<input type="text" class="form-control" id="weekend_charges_extra_child" name="weekend_charges_extra_child"  placeholder="19">
+										<input type="text" class="form-control formel_weekendtariff" id="weekend_charges_extra_child" name="weekend_charges_extra_child"  placeholder="19">
 									</div>
 								</div>
 							</div>

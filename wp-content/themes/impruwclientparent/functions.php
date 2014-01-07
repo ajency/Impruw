@@ -1372,17 +1372,16 @@ function fetch_all_tax_types(){
 function fetch_all_daterange(){
 	global $wpdb; 
 	
-	switch_to_blog(BLOG_ID_CURRENT_SITE);
-	
+
+	 
 	$table_name =  $wpdb->prefix."daterange";
  
 	$result = $wpdb->get_results("SELECT * FROM $table_name"); 
-	 			
- 	switch_to_blog(get_current_blog_id());
- 	
+  	
  	$daterangeplans = array();
  	
  	$plans = array();
+ 	 
  	//get plans under date range
   	if(count($result)>0){
  		foreach($result as $daterange_val ){
@@ -1420,10 +1419,16 @@ function fetch_all_daterange(){
  */
 function fetch_daterange_plans($daterange_id){
 	global $wpdb;
-	switch_to_blog(BLOG_ID_CURRENT_SITE);
-	$qry_daterangeplans = $wpdb->prepare("SELECT a.tarriff as plan_tariff,   b.label as plan_name, b.description as plan_description  from  {$wpdb->prefix}datetarriff a LEFT JOIN {$wpdb->prefix}plan b  	on a.plan_id = b.id where a.daterange_id =  %d	", $daterange_id);
+	 
+	
+	 
+	 $plandata_result =array();
+	$qry_daterangeplans = $wpdb->prepare("SELECT a.tarriff as plan_tariff , a.plan_id as plan_id from  {$wpdb->prefix}datetarriff a    where a.daterange_id =  %d	", $daterange_id);
 	 //var_dump($qry_daterangeplans);
 	$result_daterangeplans = $wpdb->get_results($qry_daterangeplans);
+	
+	$plans_data = maybe_unserialize(get_option('plans'));
+	 
 	
 	$plans = array();
 	if(count($result_daterangeplans)>0){
@@ -1434,8 +1439,19 @@ function fetch_daterange_plans($daterange_id){
 			$weekday_tariff = $tariff['weekday']['tariff'] ;
 			$weekend_tariff = $tariff['weekend']['tariff'];
 			
-			$plans[] = array('plan_name' 		=> $plan->plan_name,
-							 'plan_description'	=> $plan->plan_description,
+			  foreach ($plans_data as $plan_data){
+			   if($plan_data['id']==$plan->plan_id ){
+			   	$plan_name = $plan_data['label'];
+			   	$plan_description = $plan_data['description'];
+			   	
+			   	
+			   }
+			   
+			  }
+           			 
+			
+			$plans[] = array('plan_name' 		=>   $plan_name,
+							 'plan_description'	=> 	$plan_description,
 							 'weekend_tariff'	=> $weekend_tariff,
 							 'weekday_tariff'	=> $weekday_tariff 		
 							);
@@ -1868,7 +1884,7 @@ add_action( 'wp_ajax_nopriv_update_checkinformat', 'update_checkinformat' );
 
 function add_date_range(){
 	
-  	switch_to_blog(BLOG_ID_CURRENT_SITE);
+  	 
   	
 	$from_daterange 			= date('Y-m-d H:i:s',strtotime($_POST['fromdaterange']));
 	$to_daterange 	= date('Y-m-d H:i:s',strtotime($_POST['todaterange'])); 
@@ -1915,7 +1931,7 @@ function add_new_plan_tariff(){
 	//var_dump($plan_data);
 	
 	$daterange_id = $plan_data['hdn_daterange'];
-	//$daterange_id = 1;
+	// $daterange_id = 1;
 	$plantype = $plan_data['plantype'];
 	$plandescription = $plan_data['plandescription'];
 	
@@ -1987,9 +2003,39 @@ add_action( 'wp_ajax_nopriv_add_new_plan_tariff', 'add_new_plan_tariff' );
  */
 function add_new_plan($plantype,$plandescription){
 	global $wpdb;
+	 
+	$max_planid = 0; 
 	
-	switch_to_blog(BLOG_ID_CURRENT_SITE);
+    $plans=array();
+    
+    $plans = maybe_unserialize(get_option('plans'));
+    //var_dump($addon_types);
+
+    $plan_exists = false;
+    //check if the addon type already exists
+    if($plans){   
+    	if(count($plans)>0){
+    	
+	    	$max_planid = max(array_col($plans, 'id')); 	 
+		    foreach ($plans as $plan_key=>$plan_val){
+		    	if($plan_val['label'] == $plantype )
+		    		$plan_exists = true;
+		    }
+    	}
+    }
+     if($plan_exists)
+    	return false;	
+ 
+    $newplan_id = $max_planid + 1;
+    
+    $plans[]= array('id'=>$newplan_id , 'label'=>$plantype,'description'=>$plandescription);
+    $update_result = update_option('plans', maybe_serialize($plans));
+	return  $newplan_id;
 	
+	
+	
+	
+	/*
 	$table_name =  $wpdb->prefix."plan";
 	
 	$result = $wpdb->insert(	$table_name, 
@@ -2006,7 +2052,7 @@ function add_new_plan($plantype,$plandescription){
  	if($result==true)
  		return $wpdb->insert_id; 
  		
- 	return $result;
+ 	return $result;*/
 	
 }
 
@@ -2016,7 +2062,7 @@ function add_daterangeplan_tariff($weekend_tariff, $weekday_tariff,$plan_id,$dat
 	
 	global $wpdb;
 	
-	switch_to_blog(BLOG_ID_CURRENT_SITE);
+	//switch_to_blog(BLOG_ID_CURRENT_SITE);
 	
 	$table_name =  $wpdb->prefix."datetarriff";  
 	
@@ -2034,7 +2080,7 @@ function add_daterangeplan_tariff($weekend_tariff, $weekday_tariff,$plan_id,$dat
 									) 
 							); 
     				
- 	switch_to_blog(get_current_blog_id());
+ 	//switch_to_blog(get_current_blog_id());
   	
  	if($result==true)
  		return $wpdb->insert_id; 

@@ -49,8 +49,10 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			 	
 			 	'click #btn_savedaterange'			: 'saveDateRange',
 			 	
-			 	'click .btn_add_plan'				: 'addplan',
-			 	'click #btn_addplan'				: 'addNewPlan'
+			 	'click .btn_addplanmodal'			: 'addplanmodal',
+			 	'click #btn_addplan'				: 'addNewPlan',
+			 	'change .chk_tariffdays'			: 'showhide_tariffform'
+			 		
 			 	 
 		}, 
 
@@ -1267,10 +1269,43 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 		},
 		
 		
-		addplan : function(evt){
+		showhide_tariffform: function(evt){
 			 
+			tariffType = $(evt.target).attr('tariff-type');
+			
+			if($(evt.target).is(':checked') == true){
+				if(tariffType=='weekend'){
+					console.log('weekend enable');
+					$('.formel_weekendtariff').attr('disabled',false);
+				}
+				if(tariffType=='weekday'){
+					console.log('weekday enable');
+					$('.formel_weedaytariff').attr('disabled',false);
+				}
+			}				
+			else{
+				//console.log('unchecked')
+				if(tariffType=='weekend'){ 
+					console.log('weekend disable');
+					$('.formel_weekendtariff').attr('disabled',true);
+					$('.formel_weekendtariff').val('');
+				}
+				if(tariffType=='weekday'){
+					console.log('weekday disable');
+					$('.formel_weedaytariff').attr('disabled',true);
+					$('.formel_weedaytariff').val('');
+					
+				}
+				 
+			}
+		},
+		
+		addplanmodal : function(evt){
+			
+			var daterange_id = $(evt.target).attr('daterange-id')
+			$('#hdn_daterange').val(daterange_id)
+			
 			 
-			 $('#hdn_daterange').val($(evt.target).attr('daterange-id'));	
 		},
 		
 		/**
@@ -1286,7 +1321,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			var evt_ = evt;
 			var self_ = this;
 				
-			var data = {	action			: 'add_new_plan_tariff',						 
+			var data = {		action			: 'add_new_plan_tariff',						 
 								addplan_data 	: form_data 								 
 						};
 				
@@ -1297,7 +1332,8 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 					 
 						if(response.code=='OK'){		
 						 
-							$(evt_.target).parent().parent().find('.close').click();					  
+							$(evt_.target).parent().parent().find('.close').click();
+							 
 							self_.saveSuccess(response,evt_,self_);  	 
 						 
 						}
