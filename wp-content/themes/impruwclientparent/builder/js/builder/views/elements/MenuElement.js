@@ -69,9 +69,7 @@ define(['builder/views/elements/BuilderElement', 'text!builder/templates/element
 
             showModal: function() {
 
-                var self = this;
-
-                require(['underscore', 'menumanager'], function(_, MenuManager) {
+                var menuManagerFn = _.bind(function(_, MenuManager) {
 
                     var menumanager = SiteBuilder.ViewManager.findByCustom("menu-manager");
 
@@ -80,24 +78,26 @@ define(['builder/views/elements/BuilderElement', 'text!builder/templates/element
                         menumanager = new MenuManager();
                         SiteBuilder.ViewManager.add(menumanager, "menu-manager");
                     }
-
+                    
                     //start listening to menu modal events
                     
                     //new menu added event
-                    self.listenTo(SiteBuilder.vent, 'new-menu-added', self.refetchHtml);
+                    this.listenTo(SiteBuilder.vent, 'new-menu-added', this.refetchHtml);
 
                     //new menu order change
-                    self.listenTo(SiteBuilder.vent, 'menu-order-changed', self.refetchHtml);
+                    this.listenTo(SiteBuilder.vent, 'menu-order-changed', this.refetchHtml);
 
                     //menu remove event
-                    self.listenTo(SiteBuilder.vent, 'menu-removed', self.refetchHtml);
+                    this.listenTo(SiteBuilder.vent, 'menu-removed', this.refetchHtml);
 
                     //modal hide event
-                    self.listenTo(SiteBuilder.vent, 'modal-closed', self.stopListeningEvents);
+                    this.listenTo(SiteBuilder.vent, 'menu-manager-closed', this.stopListeningEvents);
 
                     menumanager.open();
 
-                });
+                },this);
+
+                require(['underscore', 'menumanager'], menuManagerFn);
 
             },
 
@@ -140,7 +140,7 @@ define(['builder/views/elements/BuilderElement', 'text!builder/templates/element
                 this.stopListening(SiteBuilder.vent, 'new-menu-added', this.refetchHtml);
                 this.stopListening(SiteBuilder.vent, 'menu-order-changed', this.refetchHtml);
                 this.stopListening(SiteBuilder.vent, 'menu-removed', this.refetchHtml);
-                this.stopListening(SiteBuilder.vent, 'modal-closed', this.stopListeningEvents);
+                this.stopListening(SiteBuilder.vent, 'menu-manager-closed', this.stopListeningEvents);
 
             }
 
