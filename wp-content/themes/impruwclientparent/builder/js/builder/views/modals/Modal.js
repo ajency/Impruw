@@ -21,12 +21,12 @@ define(['backbone', 'text!builder/templates/modal/modal.hbs', 'global'],
             open: function() {
                 this.$el.modal('show');
                 $('#controls-drag').hide();
-                SiteBuilder.vent.trigger(this.id + '-open');
+                SiteBuilder.vent.trigger(this.id + '-opened');
             },
 
             hide: function() {
                 this.$el.modal('hide');
-                SiteBuilder.vent.trigger(this.id + '-hide');
+                SiteBuilder.vent.trigger(this.id + '-closed');
             }
 
         });
