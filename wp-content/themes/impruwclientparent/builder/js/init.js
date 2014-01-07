@@ -114,7 +114,7 @@ require(['backbone', 'marionette',
             SiteBuilder.ViewManager = new Backbone.ChildViewContainer();
 
             SiteBuilder.addInitializer(function(options){
-                SiteBuilder.router = new Router();
+                new Router();
                 Backbone.history.start();
             });
 

@@ -46,6 +46,10 @@ define(['builder/views/modals/Modal', 'text!builder/templates/modal/menumanager.
 
                     if (!$('#controls-drag').is(':visible'))
                         $('#controls-drag').show();
+
+                    //trigger the elements update self
+                    SiteBuilder.vent.trigger('modal-closed', self);
+
                 });
 
                 //set collection

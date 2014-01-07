@@ -87,7 +87,9 @@ define(['builder/views/elements/BuilderElement', 'text!builder/templates/element
              */
             showMediaManager: function() {
 
-                var mediaFn = _.bind(function(_, MediaManager) {
+                var self = this;
+
+                require(['underscore', 'mediamanager'], function(_, MediaManager) {
 
                     var mediamanager = SiteBuilder.ViewManager.findByCustom("media-manager");
 
@@ -98,14 +100,11 @@ define(['builder/views/elements/BuilderElement', 'text!builder/templates/element
                     }
 
                     //start listening to event
-                    SiteBuilder.vent.on('image-selected', this.updateSelf);
+                    SiteBuilder.vent.on('image-selected', self.updateSelf);
 
                     mediamanager.open();
 
-                }, this);
-
-                
-                require(['underscore', 'mediamanager'], mediaFn);
+                });
 
             },
 
@@ -126,7 +125,7 @@ define(['builder/views/elements/BuilderElement', 'text!builder/templates/element
                 this.dataSource.attachmentID    = image.get('id');
                 this.dataSource.size            = size;
 
-                this.$el.find('.content img').attr('src', image.get('sizes')[size].url);
+                this.$el.find('img').attr('src', image.get('sizes')[size].url);
 
             }
 

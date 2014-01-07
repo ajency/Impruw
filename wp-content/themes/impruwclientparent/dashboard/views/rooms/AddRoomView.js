@@ -4,8 +4,8 @@
  */
 
 define([ 'underscore', 'jquery', 'backbone','roommodel',
-		'text!templates/siteprofile/AddRoomViewTpl.tpl','lib/parsley/parsley','radio','jqueryui','addtaxview' ], function(_, $,
-		Backbone, RoomModel, AddRoomViewTpl,parsley,radio,jqueryui, addtaxview ) {
+		'text!templates/siteprofile/AddRoomViewTpl.tpl','lib/parsley/parsley','radio','jqueryui' ], function(_, $,
+		Backbone, RoomModel, AddRoomViewTpl,parsley,radio,jqueryui) {
 
 	var AddRoomView = Backbone.View.extend({
 
@@ -51,8 +51,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			 	
 			 	'click .btn_addplanmodal'			: 'addplanmodal',
 			 	'click #btn_addplan'				: 'addNewPlan',
-			 	'change .chk_tariffdays'			: 'showhideTariffform',
-			 	'click .add_tax_btn'				: 'showAddtaxModal'
+			 	'change .chk_tariffdays'			: 'showhide_tariffform'
 			 		
 			 	 
 		}, 
@@ -63,10 +62,10 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			//_.bindAll(this , 'showAlertMessage','parsleyInitialize' ); 
 			/*if(_.isUndefined(args.user))
 				this.showInvalidCallView();
-							
+			
 			this.user = args.user;*/
 			
-			this.popupViewManager = new Backbone.ChildViewContainer();	
+			
 			
 
 		},
@@ -307,22 +306,6 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			   console.log( $( 'input[name=tax_option1]:checked' ).val())
 			
 		},
-		
-		
-		
-		/**
-		 * Function to show add tax model
-		 * @param evt
-		 */
-		showAddtaxModal : function(evt){
-			 
-			
-			 
-			
-			
-		},
-		
-		
 		
 		/**
 		 * Add new tax type
@@ -1286,7 +1269,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 		},
 		
 		
-		showhideTariffform: function(evt){
+		showhide_tariffform: function(evt){
 			 
 			tariffType = $(evt.target).attr('tariff-type');
 			
@@ -1347,24 +1330,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 					data,
 					function(response){ 
 					 
-						if(response.code=='OK'){	
-							console.log(response)
-							console.log(response.plandata)
-							console.log(response.plandata.planid)
-							$('#planlist_'+response.plandata.daterangeid).append('<tr>'+
-									 '<td>'+
-										'<a href="#plan1" data-toggle="modal">'+response.plandata.plan+'</a>'+
-									'</td>'+
-									'<td>'+
-										+response.plandata.plandescription+  
-									'</td>'+
-									'<td>'+
-									 	response.plandata.weekdaytariff+
-									'</td>'+
-									'<td>'+
-										response.plandata.weekendtariff+
-									'</td>'+
-								'</tr>')
+						if(response.code=='OK'){		
 						 
 							$(evt_.target).parent().parent().find('.close').click();
 							 
