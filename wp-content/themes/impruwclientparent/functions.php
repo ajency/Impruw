@@ -1387,9 +1387,9 @@ function fetch_all_daterange(){
  		foreach($result as $daterange_val ){
  			//echo $daterange_val->from;
  			 
- 			$daterange_from = date('d/m/y',strtotime($daterange_val->from)) ;
+ 			$daterange_from = date('d/m/y',strtotime($daterange_val->from_date)) ;
  			 
- 			$daterange_to = date('d/m/y',strtotime($daterange_val->to));
+ 			$daterange_to = date('d/m/y',strtotime($daterange_val->to_date));
  			$daterange_label = $daterange_val->label;
  			
  			
@@ -1888,7 +1888,7 @@ function add_date_range(){
   	
 	$from_daterange 			= date('Y-m-d H:i:s',strtotime($_POST['fromdaterange']));
 	$to_daterange 	= date('Y-m-d H:i:s',strtotime($_POST['todaterange'])); 
- 	$label = "winter season45454";
+ 	$label = "winter season test";
 	
 	global $wpdb; 
 							
@@ -1898,8 +1898,8 @@ function add_date_range(){
 	$table_name =  $wpdb->prefix."daterange";
 	
 	$result = $wpdb->insert(	$table_name, 
-								array( 'from' 	=> $from_daterange, 
-										'to' 	=> $to_daterange,
+								array( 'from_date' 	=> $from_daterange, 
+										'to_date' 	=> $to_daterange,
 										'label'	=> $label
 									), 
 								array(  '%s', 
