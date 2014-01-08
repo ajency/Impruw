@@ -40,6 +40,7 @@ require.config({
         addtaxmodal			: 'views/modals/AddTax',
         addplanmodal		: 'views/modals/AddPlan',
         addaddonmodal		: 'views/modals/AddAddOn',
+        adddaterangemodal	: 'views/modals/AddDaterange',
 
         //Models
         sitemodel			: 'models/SiteModel',

@@ -118,7 +118,7 @@
 							<form class="form-horizontal clearfix">
 
 								<div class="form-table table-responsive">
-									<table class="table table-striped">
+									<table class="table table-striped" id="tbl_daterangelist">
 										<thead>
 											<tr>
 												<th width="5%"></th>
@@ -145,14 +145,31 @@
 															<tr>
 																<td width="5%"><a href="#rowlink<%=daterange.id%>" data-toggle="collapse"><span class="glyphicon glyphicon-chevron-down"></span></a></td>
 																<td width="30%">
-																	<span class="label label-info">From:</span><%=daterange.from%>    <span class="label label-info">To:</span> <%=daterange.to%>
+																	<span class="label label-info daterange_fromlabel">From:</span>
+																	<span class="daterange_fromtxt" ><%=daterange.from%></span>
+																	<span class="daterange_frominput hidden" >
+																		<div class="form-group"> <span class="input-group-addon">From</span> 
+																			<input type="text" class="form-control dated fromdaterange_input"
+																				value="<%=daterange.from_calendar%>"  /> 
+																				
+																			</div>
+																	</span>    
+																	<span class="label label-info daterange_tolabel">To:</span> 
+																	<span class="daterange_totxt" ><%=daterange.to%></span>
+																	<span class="daterange_toinput hidden" >	
+																		<div class="form-group"> <span class="input-group-addon">From</span> 
+																			<input type="text" class="form-control dated todaterange_input"
+																				value="<%=daterange.to_calendar%>" id="todaterange" /> 
+																			 
+																		</div>
+																	</span>
 																</td>
 																<td width="35%">
 																	<span class="label label-info">Weekday:</span> from<strong>$29</strong> <span class="label label-info">Weekend:</span> from<strong>$37</strong>
 																</td>
 																<td width="30%" class="rowlink-skip">
-																	<a href="#" class="edit-link"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
-																	<a href="#" class="delete-link"><span class="glyphicon glyphicon-trash"></span> Delete</a>
+																	<a href="javascript:void()" class="edit-link editdaterange_lnk"  daterange-id = "<%=daterange.id%>"  ><span class="glyphicon glyphicon-pencil"></span> Edit</a>
+																	<a href="javascript:void(0)" class="delete-link deletedaterange_lnk"  daterange-id = "<%=daterange.id%>"  ><span class="glyphicon glyphicon-trash" daterange-id="<%=daterange.id%>" ></span> Delete</a>
 																</td>
 															</tr>
 															
@@ -189,8 +206,8 @@
 																			$<%=plan.weekend_tariff %> 
 																		</td>
 																		<td>
-																			<a href="#plan1" data-toggle="modal" class="edit-link editplan_link" planid='<%=plan.plan_id %>' ><span class="glyphicon glyphicon-pencil"></span> Edit</a>
-																			<a href="#" class="delete-link" planid='<%=plan.plan_id %>'><span class="glyphicon glyphicon-trash"></span> Delete</a>	
+																			<a href="#plan1" data-toggle="modal" class="edit-link editplan_link" planid="<%=plan.plan_id %>" ><span class="glyphicon glyphicon-pencil"></span> Edit</a>
+																			<a href="javascript:void(0)" class="delete-link deleteplan_link" planid="<%=plan.plan_id %>"><span class="glyphicon glyphicon-trash"></span> Delete</a>	
 																		</td>
 																	</tr>
 																
@@ -200,7 +217,7 @@
 																<% if(daterange.plans.length<=0){
 																%>
 																<tr>
-																		<td colspan="4">
+																		<td colspan="5">
 																			 No plans added yet
 																		</td>
 																	</tr>
@@ -213,7 +230,8 @@
 															</table>
 														</div>
 														<div class="add-text">
-															Add Another Plan <button type="button" daterange-id = '<%=daterange.id %>'  class="btn add-btn btn-sm btn_addplanmodal" data-toggle="modal" data-target="#add-plantype"><i class="glyphicon glyphicon-plus btn_addplanmodal"  daterange-id = '<%=daterange.id %>'></i></button>
+														<!--  Add Another Plan <button type="button" daterange-id = '<%=daterange.id %>'  class="btn add-btn btn-sm btn_addplanmodal" data-toggle="modal" data-target="#add-plantype"><i class="glyphicon glyphicon-plus btn_addplanmodal"  daterange-id = '<%=daterange.id %>'></i></button> -->
+														Add Another Plan <button type="button" daterange-id = '<%=daterange.id %>'  class="btn add-btn btn-sm btn_addplanmodal"><i class="glyphicon glyphicon-plus btn_addplanmodal"  daterange-id = '<%=daterange.id %>'></i></button>
 														</div>
 													</div>
 												</td>
@@ -226,7 +244,7 @@
 									</table>
 								</div>
 								<div class="add-text">
-									Add Date Range <button type="button" class="btn add-btn btn-sm" data-toggle="modal" data-target="#add-daterange"><i class="glyphicon glyphicon-plus"></i></button> 
+									Add Date Range <button type="button" class="btn add-btn btn-sm" id="btn_add_daterange"  ><i class="glyphicon glyphicon-plus"></i></button> 
 								</div>
 							</form>
 
@@ -538,7 +556,7 @@
 
 									
 	<!-- Add Plan Modal -->
-	<div class="modal wide-modal plan-modal" id="add-plantype">
+<!-- 	<div class="modal wide-modal plan-modal" id="add-plantype">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -687,9 +705,10 @@
 			</div>
 		</div>  
 	</div>
+	-->
 	
 	<!-- Edit Plan Modal -->
-	<div class="modal wide-modal plan-modal" id="plan1">
+<!-- 	<div class="modal wide-modal plan-modal" id="plan1">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -836,11 +855,11 @@
 			</div>
 		</div>  
 	</div>
+	-->
 	
 	
 	
-	
-	<!-- Add Date Range Modal -->
+	<!-- Add Date Range Modal
 	<div class="modal" id="add-daterange">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -888,4 +907,4 @@
 				</div>
 			</div>
 		</div>  
-	</div>
+	</div> -->

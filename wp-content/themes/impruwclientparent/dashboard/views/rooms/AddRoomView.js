@@ -46,20 +46,17 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			 	'click .edit-checkinformat'			: 'editCheckinFormat',
 			 	'click .save-checkinformat'			: 'saveCheckinFormat',
 			 	'click .delete-checkinformat'		: 'cancelCheckinFormat',			 	
-			 	
-			 	'click #btn_savedaterange'			: 'saveDateRange',
-			 	
-			 	'click .btn_addplanmodal'			: 'addplanmodal',
-			 	'click #btn_addplan'				: 'addNewPlan',
-			 	'change .chk_tariffdays'			: 'showhideTariffform',
-
+			 
 			 	'click .editplan_link'				: 'editplanModelData', 
-		
+			 	'click .deleteplan_link'			: 'deleteplan',	
 			 		
 			    'click .add_tax_btn'				: 'showAddTaxModal',
-                'click .add_plan_btn'				: 'showAddPlanModal',
-                'click #btn_add_addon'				: 'showAddAddOnModal'
-
+                'click .btn_addplanmodal'			: 'showAddPlanModal',
+                'click #btn_add_addon'				: 'showAddAddOnModal',
+                'click #btn_add_daterange'			: 'showAddDateRangeModal',
+                
+                'click .deletedaterange_lnk'		: 'deleteDateRange',
+                'click .editdaterange_lnk'			: 'enableEditDateRange'
  
 		}, 
 
@@ -97,24 +94,26 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			this.parsleyInitialize(this.$el.find('#form_addfacility'));		
 			this.parsleyInitialize(this.$el.find('#form_add_addon'));		
 			
-			this.$el.find(".aj-imp-long-form-actions").affix()
+			this.$el.find(".aj-imp-long-form-actions").affix();
+			
 			
 			
 			
 			var datepickerSelector = '.dated';
-			$(datepickerSelector).datepicker({
-			  showOtherMonths: true,
-			  selectOtherMonths: true,
-			  dateFormat: "d MM, yy",
-			  yearRange: '-1:+1'
-			}).prev('.btn').on('click', function (e) {
-			  e && e.preventDefault();
-			  $(datepickerSelector).focus();
-			});
+ 			$(datepickerSelector).datepicker({
+ 			  showOtherMonths: true,
+ 			  selectOtherMonths: true,
+ 			  dateFormat: "d MM, yy",
+ 			  yearRange: '-1:+1'
+ 			}).prev('.btn').on('click', function (e) {
+ 			  e && e.preventDefault();
+ 			  $(datepickerSelector).focus();
+ 			});
 
-		// Now let's align datepicker with the prepend button
-		$(datepickerSelector).datepicker('widget').css({'margin-left': -$(datepickerSelector).prev('.btn').outerWidth()});
-			 	
+ 			// Now let's align datepicker with the prepend button
+ 			$(datepickerSelector).datepicker('widget').css({'margin-left': -$(datepickerSelector).prev('.btn').outerWidth()});
+ 		
+				 	
 			return this;
 			
 		},
@@ -378,7 +377,8 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 		 * @param evt
 		 */
 		showAddPlanModal : function(evt){
-			 
+			
+			
 			
 			 var addPlanModal = _.bind(function(_, AddPlanModal) {
 
@@ -394,14 +394,88 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
                     this.listenTo(ImpruwDashboard.vent, 'new-plan-added', this.newPlanAdded);
 
                     //modal hide event
-                    this.listenTo(ImpruwDashboard.vent, 'modal-closed', this.stopListeningEvents);
+                    this.listenTo(ImpruwDashboard.vent, 'add-plan-closed', this.stopListeningEvents);
 
                     addPlan.open();
+                    
+                    var daterange_id = $(evt.target).attr('daterange-id')
+        			$('#hdn_daterange').val(daterange_id)
 
                 }, this); 
 
                 require(['underscore', 'addplanmodal'], addPlanModal);
 			
+			
+		},
+		
+		/**
+		 *	 Function triggered when new plan is added 
+		 */
+		newPlanAdded : function(response,evt_){
+			
+			 
+			response.model = true
+			
+			if(response.code=="OK"){
+				console.log(response)
+				console.log(response.plandata)
+				console.log(response.plandata.planid)
+				$('#planlist_'+response.plandata.daterangeid).append('<tr>'+
+						 '<td>'+
+							'<a href="#plan1" data-toggle="modal">'+response.plandata.plan+'</a>'+
+						'</td>'+
+						'<td>'+
+							 response.plandata.plandescription+  
+						'</td>'+
+						'<td>'+
+						 	response.plandata.weekdaytariff+
+						'</td>'+
+						'<td>'+
+							response.plandata.weekendtariff+
+						'</td>'+
+						'<td>'+
+						'<a href="#" class="edit-link"><span class="glyphicon glyphicon-pencil"></span> Edit</a>'+
+						'<a href="#" class="delete-link"><span class="glyphicon glyphicon-trash"></span> Delete</a>'+
+					'</td>'+
+					'</tr>');
+				this.saveSuccess(response,evt_,this);  
+				ImpruwDashboard.vent.trigger('modal-closed'); 
+			}
+			else{
+				this.saveFailure(response,evt_,this);  
+			}
+				
+			
+		},
+		
+		
+		/**
+		 * Function to delete plan
+		 */
+		deleteplan : function(evt){
+			
+			var evt_ = evt;
+			console.log($(evt.target).children('span').next())
+			
+			var planid = $(evt.target).attr('planid');
+			
+			 var data = {	  action		: 'delete_plan_ajx',
+				  	  		  planid  : planid	
+				  };
+		  
+			 
+			$.post(	AJAXURL,
+					data,
+					function(response){
+						 
+						if(response.code=='OK'){
+							$(evt_.target).parent().parent().remove();
+							
+						}
+						else{
+							
+							}						
+					});
 			
 		},
         
@@ -461,16 +535,164 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			}
 			else{ 
 				//console.log("erro new addon")
-				 this.saveFailure(response,evt_,self_);  				
+				 this.saveFailure(response,evt_,this);  				
 			}
 			
 		},
 		
 		
+		
+		
+		 /**
+		 * Function to show add daterange modal
+		 * @param evt
+		 */
+		showAddDateRangeModal : function(evt){
+			 console.log('show date range modal')
+			 
+			 var addDaterangeModal = _.bind(function(_, AddDateRangeModal) {
+
+                    var dateRange = this.popupViewManager.findByCustom("add-daterange-popup");
+
+                    //ensure Menu manager is created just once
+                    if (_.isUndefined(dateRange)){
+                        dateRange = new AddDateRangeModal();
+                        this.popupViewManager.add(dateRange, "add-daterange-popup");
+                    }
+
+                    //start listening event
+                    this.listenTo(ImpruwDashboard.vent, 'new-date-range-added', this.newDateRangeAdded);
+
+                    //modal hide event
+                    this.listenTo(ImpruwDashboard.vent, 'modal-closed', this.stopListeningEvents);
+                    dateRange.open();
+                    
+
+                }, this); 
+
+                require(['underscore', 'adddaterangemodal'], addDaterangeModal); 
+			
+			
+		},
+		
+		
+		newDateRangeAdded : function(response,evt_){
+			response.model = true;
+			
+			if(response.code=='OK'){
+				 this.saveSuccess(response,evt_,this);  
+			 			 
+						 
+				 $('#tbl_daterangelist').append(''+
+				 '<tr>'+
+					'<td colspan="4" class="no-mar table-responsive">'+
+					
+						'<table class="table table-vc" data-toggle="collapse" data-target="#rowlink_'+response.daterange.id+'">'+
+							'<tbody data-link="row" class="rowlink">'+
+								'<tr>'+
+									'<td width="5%"><a href="#rowlink_'+response.daterange.id+'>" data-toggle="collapse"><span class="glyphicon glyphicon-chevron-down"></span></a></td>'+
+									'<td width="30%">'+
+										'<span class="label label-info">From:</span>'+response.daterange.from_date+'    <span class="label label-info">To:</span> '+ response.daterange.to_date+
+									'</td>'+
+									'<td width="35%">'+
+										'<span class="label label-info">Weekday:</span> from<strong> - </strong> <span class="label label-info">Weekend:</span> from<strong> - </strong>'+
+									'</td>'+
+									'<td width="30%" class="rowlink-skip">'+
+										'<a href="#" class="edit-link editdaterange_lnk" daterange-id = "'+response.daterange.id+'"><span class="glyphicon glyphicon-pencil " ></span> Edit</a>'+
+										'<a href="#" class="delete-link deletedaterange_lnk" daterange-id = "'+response.daterange.id+'"><span class="glyphicon glyphicon-trash " ></span> Delete</a>'+
+									'</td>'+
+								'</tr>'+
+								
+							'</tbody>'+
+						'</table>'+
+						'<div id="rowlink_'+response.daterange.id+'" class="inner collapse">'+
+							'<div class="form-table table-responsive">'+
+								'<table class="table table-bordered table-hover" id="planlist_'+response.daterange.id+'">'+
+									'<thead>'+
+										'<tr>'+
+											'<th>Plan Name</th>'+
+											'<th>Plan Description</th>'+
+											'<th>Weekday Tariff</th>'+
+											'<th>Weekend Tariff</th>'+
+											'<th>Actions</th>'+
+										'</tr>'+
+									'</thead>'+
+									
+									'<tbody data-link="row" class="rowlink">'+
+									 	'<tr>'+
+												'<td colspan="5">'+
+													 'No plans added yet'+
+												'</td>'+
+										'</tr>'+
+								  
+									'</tbody>'+
+								'</table>'+
+							'</div>'+
+							'<div class="add-text">'+
+								'Add Another Plan <button type="button" daterange-id = "'+response.daterange.id+'"  class="btn add-btn btn-sm btn_addplanmodal" data-toggle="modal" data-target="#add-plantype"><i class="glyphicon glyphicon-plus btn_addplanmodal"  daterange-id = "'+response.daterange.id+'"></i></button>'+
+							'</div>'+
+						'</div>'+
+					'</td>'+
+				'</tr>')
+				
+				
+			}
+			else{
+				 this.saveFailure(response,evt_,this); 
+			}
+				
+			
+		},
+		
+		
+		deleteDateRange : function(evt){
+			console.log('delete date range');
+			var evt_ = evt;
+			console.log($(evt.target).children('span').next())
+			
+			var daterange_id = $(evt.target).attr('daterange-id');
+			
+			 var data = {	action			: 'delete_daterange_ajx',
+					 		daterange_id  	: daterange_id	
+				  };
+		  
+			 
+			$.post(	AJAXURL,
+					data,
+					function(response){
+						 
+						if(response.code=='OK'){
+							$(evt_.target).parent().parent().remove();
+							
+						}
+						else{
+							
+							}						
+					});
+			
+		},
+		
+		enableEditDateRange : function(evt){
+			
+			$(evt.target).parent().parent().find('.daterange_frominput').removeClass('hidden')
+			$(evt.target).parent().parent().find('.daterange_toinput').removeClass('hidden')
+			$(evt.target).parent().parent().find('.daterange_fromtxt').addClass('hidden')
+			$(evt.target).parent().parent().find('.daterange_totxt').addClass('hidden')
+			
+			$(evt.target).parent().parent().find('.daterange_fromlabel').addClass('hidden')
+			$(evt.target).parent().parent().find('.daterange_tolabel').addClass('hidden')
+			
+		},
+		
+		/**
+		 * Function to stop listening to events
+		 */
 		stopListeningEvents : function(){
 			//this.stopListening(SiteBuilder.vent, 'new-add-on-added', this.refetchHtml);
 			this.stopListening(ImpruwDashboard.vent, 'new-add-on-added');
 			this.stopListening(ImpruwDashboard.vent, 'new-tax-added');
+			this.stopListening(ImpruwDashboard.vent, 'new-date-range-added');
+			this.stopListening(ImpruwDashboard.vent, 'new-plan-added');
 			
 		},
 		
@@ -1283,142 +1505,13 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 		
 		
 		
-		saveDateRange : function(evt){
-			
-			var fromDaterange 	=  $(evt.target).closest('.modal-content').find('#fromdaterange').val() 
-			var toDaterange		=  $(evt.target).closest('.modal-content').find('#todaterange').val() 
-			$(evt.target).next().show();
-			 
-			
-			var evt_ = evt;
-			var self_ = this;
-			
-			var data = {	action			: 'add_date_range',						 
-							fromdaterange 	: fromDaterange,
-							todaterange		: toDaterange
-						};
-			
-			
-			$.post(	AJAXURL,
-			data,
-			function(response){ 
-				 
-				 if(response.code=='OK'){ 		
-					 
-					 $(evt_.target).parent().parent().find('.close').click();					  
-					 self_.saveSuccess(response,evt_,self_);  	 
-					 
-				}
-				else{
-						$(evt.target).html('Save');
-						$(evt.target).prop('disabled',false);
-						self_.saveFailure(response,evt_,self_);  
-				} 
-			
-			});
-			
-		},
-		
-		
-		showhideTariffform: function(evt){
-			 
-			tariffType = $(evt.target).attr('tariff-type');
-			
-			if($(evt.target).is(':checked') == true){
-				if(tariffType=='weekend'){
-					console.log('weekend enable');
-					$('.formel_weekendtariff').attr('disabled',false);
-				}
-				if(tariffType=='weekday'){
-					console.log('weekday enable');
-					$('.formel_weedaytariff').attr('disabled',false);
-				}
-			}				
-			else{
-				//console.log('unchecked')
-				if(tariffType=='weekend'){ 
-					console.log('weekend disable');
-					$('.formel_weekendtariff').attr('disabled',true);
-					$('.formel_weekendtariff').val('');
-				}
-				if(tariffType=='weekday'){
-					console.log('weekday disable');
-					$('.formel_weedaytariff').attr('disabled',true);
-					$('.formel_weedaytariff').val('');
-					
-				}
-				 
-			}
-		},
-		
-		addplanmodal : function(evt){
-			
-			var daterange_id = $(evt.target).attr('daterange-id')
-			$('#hdn_daterange').val(daterange_id)
-			
-			 
-		},
+		 
+		 
 		
 		/**
-		 * Function to add new plan
+		 * 
 		 * @param evt
 		 */
-		addNewPlan : function(evt){
-			
-			var form_plan = $(evt.target).parent().parent().find('#form_addplan');  
-			form_data = $(form_plan).serializeArray() 
-			  
-			 
-			var evt_ = evt;
-			var self_ = this;
-				
-			var data = {		action			: 'add_new_plan_tariff',						 
-								addplan_data 	: form_data 								 
-						};
-				
-				
-			$.post(	AJAXURL,
-					data,
-					function(response){ 
-					 
-						if(response.code=='OK'){		
-							console.log(response)
-							console.log(response.plandata)
-							console.log(response.plandata.planid)
-							$('#planlist_'+response.plandata.daterangeid).append('<tr>'+
-									 '<td>'+
-										'<a href="#plan1" data-toggle="modal">'+response.plandata.plan+'</a>'+
-									'</td>'+
-									'<td>'+
-										+response.plandata.plandescription+  
-									'</td>'+
-									'<td>'+
-									 	response.plandata.weekdaytariff+
-									'</td>'+
-									'<td>'+
-										response.plandata.weekendtariff+
-									'</td>'+
-								'</tr>')
-
-							$(evt_.target).parent().parent().find('.close').click();
-							 
-							self_.saveSuccess(response,evt_,self_);  	 
-						 
-						}
-						else{
-							$(evt.target).html('Save');
-							$(evt.target).prop('disabled',false);
-							self_.saveFailure(response,evt_,self_);  
-						} 
-				
-			 });
-			 
-			
-		},
-		
-		
-		
-		
 		editplanModelData	: function(evt){
 			
 			var evt_ = evt;

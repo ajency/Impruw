@@ -1396,11 +1396,13 @@ function fetch_all_daterange(){
  			
  			$plans = fetch_daterange_plans($daterange_val->id);
  			
- 			$daterangeplans[] = array(  'id'	=> $daterange_val->id,
-									   'from'	=> $daterange_from,
- 									   'to'		=> $daterange_to,
- 									   'label'	=> $daterange_label,
- 									   'plans'  => $plans
+ 			$daterangeplans[] = array(	'id'			=> $daterange_val->id,
+									   	'from'			=> $daterange_from,
+ 									   	'to'			=> $daterange_to,
+ 									  	'from_calendar' => date('d F, Y',strtotime($daterange_val->from_date)),
+ 										'to_calendar' 	=> date('d F, Y',strtotime($daterange_val->to_date)),
+ 									   	'label'			=> $daterange_label,
+ 									   	'plans' 		=> $plans
  									); 
  		}
  			//var_dump($daterangeplans);
@@ -1419,16 +1421,18 @@ function fetch_all_daterange(){
  */
 function fetch_daterange_plans($daterange_id){
 	global $wpdb;
-fetch_plan_details(2);	 
+	//fetch_plan_details(2);	 
 	
 	 
-	 $plandata_result =array();
+	$plandata_result =array();
 	$qry_daterangeplans = $wpdb->prepare("SELECT a.tarriff as plan_tariff , a.plan_id as plan_id from  {$wpdb->prefix}datetarriff a    where a.daterange_id =  %d	", $daterange_id);
 	 //var_dump($qry_daterangeplans);
 	$result_daterangeplans = $wpdb->get_results($qry_daterangeplans);
 	
 	$plans_data = maybe_unserialize(get_option('plans'));
 	 
+	
+ 
 	
 	$plans = array();
 	if(count($result_daterangeplans)>0){
@@ -1462,7 +1466,7 @@ fetch_plan_details(2);
 		
 	}
 	
-	switch_to_blog(get_current_blog_id());
+	 
 	
 	return($plans);
 	  	
@@ -1941,11 +1945,16 @@ function add_date_range(){
 										'%s' 
 									) 
 				);
-
+			 
+ 	$datarange_data = array( 	'id'		 => $wpdb->insert_id,			
+ 								'from_date'  => date('d/m/y',strtotime($_POST['fromdaterange'])), 
+								'to_date' 	 => date('d/m/y',strtotime($_POST['todaterange'])),
+								'label'		 => $label
+						   );				
  	switch_to_blog(get_current_blog_id());
   	
 	if ( $result==true ) 
-		wp_send_json( array( 'code' => 'OK', 'msg'=>'Date range is successfully added') );
+		wp_send_json( array( 'code' => 'OK', 'msg'=>'Date range is successfully added', 'daterange'=>$datarange_data ) );
 	else 	
 	 	wp_send_json( array( 'code' => 'ERROR', 'msg' =>'Error adding Date range' ) ); 
 	 	 
@@ -2053,9 +2062,10 @@ function add_new_plan($plantype,$plandescription){
 	
     $plans=array();
     
+    
+    //check if the plan already exists 
     $plans = maybe_unserialize(get_option('plans'));
-    //var_dump($addon_types);
-
+     
     $plan_exists = false;
     //check if the addon type already exists
     if($plans){   
@@ -2071,6 +2081,7 @@ function add_new_plan($plantype,$plandescription){
      if($plan_exists)
     	return false;	
  
+    
     $newplan_id = $max_planid + 1;
     
     $plans[]= array('id'=>$newplan_id , 'label'=>$plantype,'description'=>$plandescription);
@@ -2132,6 +2143,97 @@ function add_daterangeplan_tariff($weekend_tariff, $weekday_tariff,$plan_id,$dat
  		
  	return $result;
 	
+}
+
+ 
+
+
+
+/**
+ * 
+ * Function to delete plan
+ * type : ajax
+ */
+function delete_plan_ajx(){
+	
+	$plan_id = $_POST['planid'];
+	
+	$result = delete_plan($plan_id);
+	if(!$result){
+		wp_send_json( array( 'code' => 'ERROR', 'msg' =>'Error deleting plan' ) );
+	}
+	else{
+		wp_send_json( array( 'code' => 'OK', 'msg'=>'Tariff plan successfully deleted' ) );
+	}
+	
+}
+add_action( 'wp_ajax_delete_plan_ajx', 'delete_plan_ajx' );
+add_action( 'wp_ajax_nopriv_delete_plan_ajx', 'delete_plan_ajx' );
+
+
+/**
+ * 
+ * Function to delete plan 
+ * @param int $plan_id
+ * 
+ */
+function delete_plan($plan_id){
+	
+	//delete plan from options table 
+	$new_plan_data1 = array();
+	$plan_details1 = maybe_unserialize(get_option('plans'));
+	
+	if(count($plan_details1)){
+		foreach($plan_details1 as $plan_data1){
+			
+			if($plan_data1['id']!=$plan_id){
+				$new_plan_data1[] = array(  'id'			=> $plan_data1['id'] ,
+											'label'			=> $plan_data1['label'], 
+											'description'	=> $plan_data1['description']
+									);
+			}  
+		}		
+	}
+	update_option('plans', maybe_serialize($new_plan_data1));
+		
+	//delete tariff details for the plan
+	global $wpdb;
+	$table_name = $wpdb->prefix."datetarriff";
+	$result = $wpdb->delete($table_name, array('plan_id'=>$plan_id));	
+
+	return $result;
+	
+}
+
+
+function delete_daterange_ajx(){
+	
+	$daterange_id = $_POST['daterange_id'];
+	
+	$result = delete_daterange($daterange_id);
+	
+	if($result!==false){
+		wp_send_json( array( 'code' => 'OK', 'msg' =>'Date range successfully deleted' ) );
+	}
+	else{
+		wp_send_json( array( 'code' => 'ERROR', 'msg'=>'Error deleting date range' ) );
+	}
+	
+	
+}
+add_action( 'wp_ajax_delete_daterange_ajx', 'delete_daterange_ajx' );
+add_action( 'wp_ajax_nopriv_delete_daterange_ajx', 'delete_daterange_ajx' );
+
+
+function delete_daterange($daterange_id){
+	 
+	global $wpdb;
+	$datetariff_name = $wpdb->prefix."datetarriff";
+	//get all plans under date range
+	$result_delete_plans = $wpdb->delete($datetariff_name,array('daterange_id'=>$daterange_id));
+	$daterange_table = $wpdb->prefix."daterange";
+	$result_delete_plans = $wpdb->delete($daterange_table,array('id'=>$daterange_id));
+	return true;	 
 }
 
 /**
