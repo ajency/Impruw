@@ -16,30 +16,11 @@ require_once PARENTTHEMEPATH . 'includes/Media.php';
 //add theme support
 add_theme_support( 'menus' );
 add_theme_support('post-thumbnails');
+
 //remove wordpress admin bar
 show_admin_bar( false );
 load_theme_textdomain( 'impruwclientparent' );
 
-//add image sizes
-add_image_size('thumbnail',150,150);
-add_image_size('medium',300,300);
-
-/**
- * [custom_image_size_names description]
- * @param  [type] $sizes [description]
- * @return [type]        [description]
- */
-function custom_image_size_names($sizes){
-    // Give them a name, and presto!
-
-    $sizes['thumbnail']= 'Thumbnail Image';
-
-    $sizes['medium']= 'Medium Image';
-
-    // Don't forget to return the array of sizes.
-    return $sizes;
-}
-add_filter('image_size_names_choose','custom_image_size_names',10,1);
 
 
 /*--------------------------------------------------------------------------------------
@@ -2388,7 +2369,7 @@ function save_initial_layout(){
         delete_post_meta($page_id, 'page-json');
 
     if(is_array($footer))
-        update_option($theme_id,'theme-footer',$footer);
+        update_option('theme-footer',$footer);
     
     
     wp_send_json(array('code' => 'OK'));

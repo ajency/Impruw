@@ -149,20 +149,12 @@
 																	<span class="label label-info daterange_fromlabel">From:</span>
 																	<span class="daterange_fromtxt" ><%=daterange.from%></span>
 																	<span class="daterange_frominput hidden" >
-																		<div class="form-group"> <span class="input-group-addon">From</span> 
-																			<input type="text" class="form-control dated fromdaterange_input"
-																				value="<%=daterange.from_calendar%>"  /> 
-																				
-																			</div>
+																		<input type="text" class="form-control dated fromdaterange_input" value="<%=daterange.from_calendar%>"  /> 	
 																	</span>    
 																	<span class="label label-info daterange_tolabel">To:</span> 
 																	<span class="daterange_totxt" ><%=daterange.to%></span>
 																	<span class="daterange_toinput hidden" >	
-																		<div class="form-group"> <span class="input-group-addon">From</span> 
-																			<input type="text" class="form-control dated todaterange_input"
-																				value="<%=daterange.to_calendar%>" id="todaterange" /> 
-																			 
-																		</div>
+																		<input type="text" class="form-control dated todaterange_input" value="<%=daterange.to_calendar%>" id="todaterange" /> 
 																	</span>
 																</td>
 																<td width="35%">

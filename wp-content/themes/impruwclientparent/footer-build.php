@@ -59,7 +59,12 @@
                                 <div class="aj-imp-builder-title">Menu</div>
                             </a>
                         </li>
-
+                        <li>
+                            <a href="#" class="drag builder-element" data-element="SocialElement" data-placeholder-height="50">
+                                <div class="aj-imp-builder-icon" data-icon="&#xf10c;"></div>
+                                <div class="aj-imp-builder-title">Social</div>
+                            </a>
+                        </li>
                         <li>
                             <a href="#" class="drag builder-element" data-element="SliderElement" data-placeholder-height="400">
                                 <div class="aj-imp-builder-icon" data-icon="&#xf10c;"></div>
