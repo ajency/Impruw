@@ -1272,6 +1272,13 @@ form .aj-imp-submit:hover {
 .checkinformat_edit {
   margin-bottom: 0.5em;
 }
+.daterange_frominput,
+.daterange_toinput {
+  display: inline-block;
+}
+.daterange_tolabel {
+  margin-right: 15px;
+}
 /****Date Picker Styles****/
 .ui-datepicker {
   border-color: #c3c3c3;

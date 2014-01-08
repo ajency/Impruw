@@ -678,9 +678,11 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			$(evt.target).parent().parent().find('.daterange_toinput').removeClass('hidden')
 			$(evt.target).parent().parent().find('.daterange_fromtxt').addClass('hidden')
 			$(evt.target).parent().parent().find('.daterange_totxt').addClass('hidden')
+
+			$(evt.target).parent().parent().find('br').removeClass('hidden')
 			
-			$(evt.target).parent().parent().find('.daterange_fromlabel').addClass('hidden')
-			$(evt.target).parent().parent().find('.daterange_tolabel').addClass('hidden')
+			/*$(evt.target).parent().parent().find('.daterange_fromlabel').addClass('hidden')
+			$(evt.target).parent().parent().find('.daterange_tolabel').addClass('hidden')*/
 			
 		},
 		
