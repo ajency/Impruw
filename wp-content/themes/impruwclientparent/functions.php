@@ -2242,7 +2242,7 @@ function save_initial_layout(){
         delete_post_meta($page_id, 'page-json');
 
     if(is_array($footer))
-        update_option($theme_id,'theme-footer',$footer);
+        update_option('theme-footer',$footer);
     
     
     wp_send_json(array('code' => 'OK'));
