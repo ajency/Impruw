@@ -1865,6 +1865,7 @@ add_action( 'wp_ajax_nopriv_update_checkintime', 'update_checkintime' );
  * Function to update additional policies
  */
 function update_additional_policies(){
+
 	$additional_policies = $_POST['additional_policies'];
 	
 	$result = update_option('additional-policies', $additional_policies);
@@ -2177,8 +2178,19 @@ function get_all_menu_pages(){
     $args = array('post_type' => 'page','posts_per_page' => -1);
     $pages  = new WP_query($args);
 
-    if($pages->have_posts())
-        return $pages->posts;
+    if($pages->have_posts()){
+        
+        $p = array();
+        $skip = array('Site Builder','Dashboard');
+
+        foreach($pages->posts as $page){
+
+            if(!in_array($page->post_title, $skip))
+                $p[] = $page;
+        }
+
+        return $p;
+    }
     else
         return array();
     

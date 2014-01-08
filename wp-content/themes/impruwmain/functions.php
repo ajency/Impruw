@@ -31,7 +31,9 @@ show_admin_bar(false);
 /* * **Register Email Taxonomy & Post Type*** */
 
 function impruv_register_email_init() {
+    
     $url = get_template_directory_uri();
+
     $labels = array(
         'name' => 'Emails',
         'singular_name' => 'Email',
