@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Impruw | Theme 3</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="css/flat-ui.css" rel="stylesheet" media="screen">
+	<link rel="stylesheet" href="css/slimmenu.min.css" type="text/css">
+    <link href="css/theme-3.css" rel="stylesheet" media="screen">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="../../assets/js/html5shiv.js"></script>
+      <script src="../../assets/js/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <!-- CLIENT SITE START -->
+	<div class="container main-container">
+		<header class="layout-header">
+			
+			<div class="blue-line"></div>
+			<div class="row">
+				<div class="col-md-6 logo">
+					<img src="images/theme-3-logo.jpg" alt="Logo">
+				</div>
+				<div class="col-md-6 social-links">
+
+				</div>
+			</div>
+			
+		</header>
+		
+		<div class="layout-body">
+			
+			
+			
+		</div>
+		
+		<footer class="layout-footer">
+			
+
+
+		</footer>
+	</div>
+	<!-- CLIENT SITE END -->
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="js/jquery-2.0.3.min.js"></script>
+	<script src="js/jquery-ui-1.10.3.custom.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+	<script src="js/jquery.carouFredSel-6.2.1-packed.js"></script>
+	<script src="js/jquery.slimmenu.min.js"></script>
+	<script src="js/jquery.jpanelmenu.min.js"></script>
+	
+	<script>
+		jQuery(window).load(function() {    
+			jQuery("ul.roomType").carouFredSel({
+				items: 3,
+				auto: false,
+				pagination: "#roomTypeIndicator",
+				swipe: true,
+				mousewheel: true,
+				responsive: true,
+				width: "auto",
+				height: 280,
+				scroll: {
+					items: 1,
+					easing: "easeOutCubic",
+					duration: 1000
+				}
+			});
+		});
+	</script>
+	<script>
+		jQuery('#slim-menu').slimmenu(
+			{
+				resizeWidth: '750',
+				collapserTitle: 'Main Menu',
+				animSpeed: 'medium',
+				easingEffect: 'easeInOutSine',
+				indentChildren: false,
+				childrenIndenter: '&nbsp;'
+			}
+		);
+	</script>
+	<script>
+		var jPM = jQuery.jPanelMenu({
+			menu: '#left-bar',
+			trigger: '.left-menu-trigger'
+		});
+		jPM.on();
+	</script>
+  </body>
+</html>
