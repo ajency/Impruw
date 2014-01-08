@@ -134,9 +134,9 @@ define(['underscore', 'jquery', 'backbone', 'global'],
              */
             getCurrentPage : function(){
 
-                var p = $.cookie('current_page');
+                var p = $.cookie('current_page_id');
 
-                return _.isUndefined(p) ? 'home' : p;
+                return _.isUndefined(p) ? 0 : p;
                 
             },
 

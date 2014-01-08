@@ -491,27 +491,22 @@ function get_container_markup( $element ) {
 function get_page_markup_JSON( $page_id  = 0 ) {
 
     //get page slug
-    $page = get_post(get_the_ID());
+    $page_id = get_the_ID();
 
-    $theme_id = 36;//get_option('current_theme_id');
-    $page     = $page->post_name;  
     $json     = array();
 
-    switch_to_blog(1);
+    $header = get_option('theme-header');
 
-    $header = get_post_meta($theme_id,'theme-header',true);
     if(is_array($header))
         $json['header'] = $header;
 
-    $page = get_post_meta($theme_id,'page-' . $page,true);
+    $page = get_post_meta($page_id,'page-json',true);
     if(is_array($page))
         $json['page']   = $page;
 
-    $footer = get_post_meta($theme_id,'theme-footer',true);
+    $footer = get_option('theme-footer');
     if(is_array($footer))
         $json['footer'] = $footer;
-
-    restore_current_blog();
 
     return !empty( $json ) ? $json : array();
 }
@@ -2214,7 +2209,7 @@ function get_all_themes(){
 function save_initial_layout(){
 
     $theme_id = $_POST['forTheme'];
-    $page     = $_POST['forPage'];  
+    $page_id     = $_POST['forPage'];  
     $json     = $_POST['json'];
 
     //get header section json
@@ -2226,25 +2221,18 @@ function save_initial_layout(){
     //get header section json
     $footer = isset($json['footer']) && is_array($json['footer']) ? $json['footer'] : false;
 
-    switch_to_blog(1);
-
     if(is_array($header))
-        update_post_meta($theme_id, 'theme-header',$header);
-    else
-        delete_post_meta($theme_id, 'theme-header');
-
+        update_option('theme-header',$header);
+    
     if(is_array($pagejson))
-        update_post_meta($theme_id, 'page-' . $page, $pagejson);
+        update_post_meta($page_id, 'page-json', $pagejson);
     else
-        delete_post_meta($theme_id, 'page-' . $page);
+        delete_post_meta($page_id, 'page-json');
 
     if(is_array($footer))
-        update_post_meta($theme_id,'theme-footer',$footer);
-    else
-        delete_post_meta($theme_id, 'theme-footer');
-
-    restore_current_blog();
-
+        update_option($theme_id,'theme-footer',$footer);
+    
+    
     wp_send_json(array('code' => 'OK'));
 
     die;
@@ -2259,25 +2247,25 @@ add_action('wp_ajax_save_initial_layout','save_initial_layout');
 function get_initial_saved_layout() {
 
     $theme_id = $_GET['forTheme'];
-    $page     = $_GET['forPage'];  
+    $page_id     = $_GET['forPage'];  
     $json     = array();
 
-    switch_to_blog(1);
+    //switch_to_blog(1);
 
-    $header = get_post_meta($theme_id,'theme-header',true);
+    $header = get_option('theme-header');
+
     if(is_array($header))
         $json['header'] = $header;
 
-    $page = get_post_meta($theme_id,'page-' . $page,true);
+    $page = get_post_meta($page_id,'page-json',true);
     if(is_array($page))
         $json['page']   = $page;
 
-    $footer = get_post_meta($theme_id,'theme-footer',true);
+    $footer = get_option('theme-footer');
     if(is_array($footer))
         $json['footer'] = $footer;
 
-    restore_current_blog();
-    
+   
     wp_send_json($json);
 }
 add_action( 'wp_ajax_get_initial_saved_layout', 'get_initial_saved_layout' );
