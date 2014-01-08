@@ -161,7 +161,7 @@ function create_new_site( $blog_id, $blog_name, $blog_title, $user_id, $file_nam
     
     switch_to_blog( $new_blog_id );
     
-    assign_theme_to_site( $new_blog_id, 'impruwclientchild1' );//assign a theme to the new site created
+    assign_theme_to_site( $new_blog_id, 'impruw-default' );//assign a theme to the new site created
     
     restore_current_blog();
     
@@ -170,18 +170,49 @@ function create_new_site( $blog_id, $blog_name, $blog_title, $user_id, $file_nam
     assign_default_language( $new_blog_id, $user_default_language );
     
     assign_active_languages( $new_blog_id );
-    
-    $post_id = add_new_post_to_blog( $new_blog_id, $user_id, 'Home', 'Home Content', 'page', '' );
-    
-    $post_nb_id = mwm_wpml_translate_post( $new_blog_id, $post_id, 'page', 'nb', $user_id );
-    
-    //commented the template part 5dec2013 to bypass
-    add_layout_site( $new_blog_id, $post_id, $file_name );
-    
-    $post_site_builder_id = add_new_post_to_blog( $new_blog_id, $user_id, 'Site Builder', 'Site Builder Content.', 'page', 'site-builder.php' );
 
-    $post_register_id = add_new_post_to_blog( $new_blog_id, $user_id, 'Register', 'Register Content.', 'page', 'page-register.php' );
 
+    $pages =    array(  
+                        'Dashboard'     => array('content' => 'Dashboard Content', 'template' => 'page-dashboard.php'),
+                        'Home'          => array('content' => 'Home Content', 'template' => ''),
+                        'About Us'      => array('content' => 'About Content', 'template' => ''),
+                        'Contact Us'    => array('content' => 'Contact Content', 'template' => ''),
+                        'Site Builder'  => array('content' => 'Site Builder Content', 'template' => 'site-builder.php')
+                    );
+    
+    //start creating initial pages
+    foreach ($pages as $key => $value) {
+
+        $post_id = add_new_post_to_blog( $new_blog_id, 
+                                         $user_id, $key, 
+                                         $value['content'],
+                                         'page', 
+                                         $value['template']);
+    
+        $post_nb_id = mwm_wpml_translate_post( $new_blog_id, $post_id, 'page', 'nb', $user_id );
+    
+        //commented the template part 5dec2013 to bypass
+        if($value['template'] === '')
+            add_layout_site( $new_blog_id, $post_id, $key);
+    }
+
+    //set header and footer
+    $clone_blog = 5;
+
+    switch_to_blog($clone_blog);
+
+    $theme_header = get_option('theme-header');
+    $theme_footer = get_option('theme-footer');
+
+    restore_current_blog();
+
+    switch_to_blog($new_blog_id);
+
+    update_option('theme-header', $theme_header);
+    update_option('theme-footer', $theme_footer);
+
+    restore_current_blog();
+    
     create_tariff_table_for_blog( $new_blog_id );
     
     create_daterange_table_for_blog( $new_blog_id );
@@ -214,10 +245,14 @@ function create_new_site( $blog_id, $blog_name, $blog_title, $user_id, $file_nam
  * @param text    $theme_name - name of theme to assign to the new blog created.
  */
 function assign_theme_to_site( $blog_id, $theme_name ) {
+    
     switch_to_blog( $blog_id );
+
     $theme = wp_get_theme( $theme_name ); //Change the name here to change the theme
+    
     if ( $theme->exists() || $theme->is_allowed() )
         switch_theme( $theme->get_template(), $theme->get_stylesheet() );
+    
     restore_current_blog();
 }
 
@@ -398,12 +433,28 @@ function mwm_wpml_translate_post( $blog_id, $post_id, $post_type, $lang, $user_i
  * @param type    $post_id
  * @param type    $file_name
  */
-function add_layout_site( $blog_id, $post_id, $file_name ) {
-    switch_to_blog( $blog_id );
-    $file_path = ABSPATH."/wp-content/themes/impruwclientparent/page_layouts/".$file_name;
-    include $file_path;
-    update_post_meta( $post_id, 'layout_json', $json );
+function add_layout_site( $blog_id, $post_id, $name ) {
+    
+    //site to clone from
+    $clone_blog = 5;
+
+    switch_to_blog($clone_blog);
+
+    $page = get_page_by_title($name);
+
+    $page_json = get_post_meta($page->ID ,'page-json', true);
+
+    if($page_json == null)
+        return;
+
+    restore_current_blog();        
+   
+    switch_to_blog($blog_id);
+
+    update_post_meta($post_id, 'page-json', $page_json);
+
     restore_current_blog();
+
 }
 
 /**

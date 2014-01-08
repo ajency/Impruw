@@ -326,7 +326,7 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                         if (!_.isUndefined(response.footer) && response.footer.elements.length > 0)
                             this.addElement(response.footer.elements, 0, 'footer');
 
-
+                        
                         this.enableDragDrop();
 
                     },this), 'json');
