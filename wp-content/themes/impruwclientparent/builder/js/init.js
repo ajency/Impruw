@@ -30,6 +30,7 @@ require.config({
         parsley         : 'lib/parsley',
         plupload        : 'lib/plupload.full.min',
         marionette      : 'lib/backbone.marionette.min',
+        async           : 'lib/async',
 
         //menu
         menumanager     : 'builder/views/modals/MenuManager',
