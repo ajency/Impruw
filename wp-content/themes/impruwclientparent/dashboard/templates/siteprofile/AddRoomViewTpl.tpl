@@ -149,7 +149,8 @@
 																	<span class="daterange_fromtxt" ><%=daterange.from%></span>
 																	<span class="daterange_frominput hidden" >
 																		<input type="text" class="form-control dated fromdaterange_input" value="<%=daterange.from_calendar%>"  /> 	
-																	</span>    
+																	</span>   
+																	<br class="hidden"> 
 																	<span class="label label-info daterange_tolabel">To:</span> 
 																	<span class="daterange_totxt" ><%=daterange.to%></span>
 																	<span class="daterange_toinput hidden" >	
