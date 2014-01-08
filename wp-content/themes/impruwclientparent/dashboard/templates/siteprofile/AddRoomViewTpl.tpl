@@ -106,166 +106,157 @@
 							</form>
 						</div>
 						
+						
+						
+						
+						
+						
+						
+						
 						<div class="scroll-indicator-container" id="scr3">
 							<h4 class="aj-imp-sub-head scroll-ref">Add Date Range <small>Lorem ipsum dolor sit amet, consectetur adipiscing</small></h4>
 							<form class="form-horizontal clearfix">
 
-								<div class="form-table">
-									<table class="table table-striped">
+								<div class="form-table table-responsive">
+									<table class="table table-striped" id="tbl_daterangelist">
 										<thead>
 											<tr>
-												<th width="35%">Date Range</th>
+												<th width="5%"></th>
+												<th width="30%">Date Range</th>
 												<th width="35%">Tariff</th>
 												<th width="30%">Actions</th>
 											</tr>
 										</thead>
 										<tbody>
-											<tr>
-												<td colspan="3" class="no-mar">
-													<table class="table table-vc">
+ 
+										
+										
+										 
+										
+										<% _.each(roomdata.dateranges,function(daterange,index){
+										%>
+										
+										
+										<tr>
+												<td colspan="4" class="no-mar table-responsive">
+												
+													<table class="table table-vc" data-toggle="collapse" data-target="#rowlink<%=daterange.id%>">
 														<tbody data-link="row" class="rowlink">
 															<tr>
-																<td width="35%">
-																	<a href="#rowlink1" data-toggle="collapse"></a><span class="label label-info">From:</span> 21/12/2013 <span class="label label-info">To:</span> 30/4/2014
+																<td width="5%"><a href="#rowlink<%=daterange.id%>" data-toggle="collapse"><span class="glyphicon glyphicon-chevron-down"></span></a></td>
+																<td width="30%">
+																	<span class="label label-info daterange_fromlabel">From:</span>
+																	<span class="daterange_fromtxt" ><%=daterange.from%></span>
+																	<span class="daterange_frominput hidden" >
+																		<div class="form-group"> <span class="input-group-addon">From</span> 
+																			<input type="text" class="form-control dated fromdaterange_input"
+																				value="<%=daterange.from_calendar%>"  /> 
+																				
+																			</div>
+																	</span>    
+																	<span class="label label-info daterange_tolabel">To:</span> 
+																	<span class="daterange_totxt" ><%=daterange.to%></span>
+																	<span class="daterange_toinput hidden" >	
+																		<div class="form-group"> <span class="input-group-addon">From</span> 
+																			<input type="text" class="form-control dated todaterange_input"
+																				value="<%=daterange.to_calendar%>" id="todaterange" /> 
+																			 
+																		</div>
+																	</span>
 																</td>
 																<td width="35%">
 																	<span class="label label-info">Weekday:</span> from<strong>$29</strong> <span class="label label-info">Weekend:</span> from<strong>$37</strong>
 																</td>
 																<td width="30%" class="rowlink-skip">
-																	<a href="#" class="edit-link"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
-																	<a href="#" class="delete-link"><span class="glyphicon glyphicon-trash"></span> Delete</a>
+																	<a href="javascript:void()" class="edit-link editdaterange_lnk"  daterange-id = "<%=daterange.id%>"  ><span class="glyphicon glyphicon-pencil"></span> Edit</a>
+																	<a href="javascript:void(0)" class="delete-link deletedaterange_lnk"  daterange-id = "<%=daterange.id%>"  ><span class="glyphicon glyphicon-trash" daterange-id="<%=daterange.id%>" ></span> Delete</a>
 																</td>
 															</tr>
 															
 														</tbody>
 													</table>
-													<div id="rowlink1" class="inner collapse">
-														<div class="form-table">
-															<table class="table table-bordered table-hover">
+													<div id="rowlink<%=daterange.id%>" class="inner collapse">
+														<div class="form-table table-responsive">
+															<table class="table table-bordered table-hover" id="planlist_<%=daterange.id%>">
 																<thead>
 																	<tr>
 																		<th>Plan Name</th>
 																		<th>Plan Description</th>
 																		<th>Weekday Tariff</th>
 																		<th>Weekend Tariff</th>
+																		<th>Actions</th>
 																	</tr>
 																</thead>
+																
 																<tbody data-link="row" class="rowlink">
+																
+																<% _.each(daterange.plans,function(plan,plan_index){
+																%>
 																	<tr>
 																		<td>
-																			<a href="#plan1" data-toggle="modal">American Plan</a>
+																			<a href="#plan1" data-toggle="modal"><%=plan.plan_name %></a>
 																		</td>
 																		<td>
-																			Lorem ipsum dolor sit amet, consectetur adipiscing, lorem ipsum dolor sit amet, consectetur adipiscing.
+																			<%=plan.plan_description %> 
 																		</td>
 																		<td>
-																			$29
+																			$<%=plan.weekday_tariff %> 
 																		</td>
 																		<td>
-																			$37
+																			$<%=plan.weekend_tariff %> 
+																		</td>
+																		<td>
+																			<a href="#plan1" data-toggle="modal" class="edit-link editplan_link" planid="<%=plan.plan_id %>" ><span class="glyphicon glyphicon-pencil"></span> Edit</a>
+																			<a href="javascript:void(0)" class="delete-link deleteplan_link" planid="<%=plan.plan_id %>"><span class="glyphicon glyphicon-trash"></span> Delete</a>	
 																		</td>
 																	</tr>
-																	<tr>
-																		<td>
-																			<a href="#plan1" data-toggle="modal">British Plan</a>
-																		</td>
-																		<td>
-																			Lorem ipsum dolor sit amet, consectetur adipiscing, lorem ipsum dolor sit amet, consectetur adipiscing.
-																		</td>
-																		<td>
-																			$29
-																		</td>
-																		<td>
-																			$37
+																
+																<%
+																})%>
+																
+																<% if(daterange.plans.length<=0){
+																%>
+																<tr>
+																		<td colspan="5">
+																			 No plans added yet
 																		</td>
 																	</tr>
+																<%
+																}
+																%>
+																	 
+																	 
 																</tbody>
 															</table>
 														</div>
 														<div class="add-text">
-															Add Another Plan <button type="button" class="btn add-btn btn-sm" data-toggle="modal" data-target="#add-plantype"><i class="glyphicon glyphicon-plus"></i></button>
+														<!--  Add Another Plan <button type="button" daterange-id = '<%=daterange.id %>'  class="btn add-btn btn-sm btn_addplanmodal" data-toggle="modal" data-target="#add-plantype"><i class="glyphicon glyphicon-plus btn_addplanmodal"  daterange-id = '<%=daterange.id %>'></i></button> -->
+														Add Another Plan <button type="button" daterange-id = '<%=daterange.id %>'  class="btn add-btn btn-sm btn_addplanmodal"><i class="glyphicon glyphicon-plus btn_addplanmodal"  daterange-id = '<%=daterange.id %>'></i></button>
 														</div>
 													</div>
 												</td>
 											</tr>
-											<tr>
-												<td colspan="3" class="no-mar">
-													<table class="table table-vc">
-														<tbody data-link="row" class="rowlink">
-															<tr>
-																<td width="35%">
-																	<a href="#rowlink2" data-toggle="collapse"></a><span class="label label-info">From:</span> 21/12/2013 <span class="label label-info">To:</span> 30/4/2014
-																</td>
-																<td width="35%">
-																	<span class="label label-info">Weekday:</span> from<strong>$29</strong> <span class="label label-info">Weekend:</span> from<strong>$37</strong>
-																</td>
-																<td width="30%" class="rowlink-skip">
-																	<a href="#" class="edit-link"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
-																	<a href="#" class="delete-link"><span class="glyphicon glyphicon-trash"></span> Delete</a>
-																</td>
-															</tr>
-															
-														</tbody>
-													</table>
-													<div id="rowlink2" class="inner collapse">
-														<div class="form-table">
-															<table class="table table-bordered table-hover">
-																<thead>
-																	<tr>
-																		<th>Plan Name</th>
-																		<th>Plan Description</th>
-																		<th>Weekday Tariff</th>
-																		<th>Weekend Tariff</th>
-																	</tr>
-																</thead>
-																<tbody data-link="row" class="rowlink">
-																	<tr>
-																		<td>
-																			<a href="#plan1" data-toggle="modal">American Plan</a>
-																		</td>
-																		<td>
-																			Lorem ipsum dolor sit amet, consectetur adipiscing, lorem ipsum dolor sit amet, consectetur adipiscing.
-																		</td>
-																		<td>
-																			$29
-																		</td>
-																		<td>
-																			$37
-																		</td>
-																	</tr>
-																	<tr>
-																		<td>
-																			<a href="#plan1" data-toggle="modal">British Plan</a>
-																		</td>
-																		<td>
-																			Lorem ipsum dolor sit amet, consectetur adipiscing, lorem ipsum dolor sit amet, consectetur adipiscing.
-																		</td>
-																		<td>
-																			$29
-																		</td>
-																		<td>
-																			$37
-																		</td>
-																	</tr>
-																</tbody>
-															</table>
-														</div>
-														<div class="add-text">
-															Add Another Plan <button type="button" class="btn add-btn btn-sm" data-toggle="modal" data-target="#add-plantype"><i class="glyphicon glyphicon-plus"></i></button>
-														</div>
-													</div>
-												</td>
-											</tr>
+										<% }) %>
+										
+										 
+											 
 										</tbody>
 									</table>
 								</div>
 								<div class="add-text">
-									Add Date Range <button type="button" class="btn add-btn btn-sm" data-toggle="modal" data-target="#add-daterange"><i class="glyphicon glyphicon-plus"></i></button> 
+									Add Date Range <button type="button" class="btn add-btn btn-sm" id="btn_add_daterange"  ><i class="glyphicon glyphicon-plus"></i></button> 
 								</div>
 							</form>
 
-						</div>
+						</div>		
 						
+						
+						
+						
+						
+						
+						
+										
 						
 						
 						
@@ -355,7 +346,10 @@
 								</div>
 
 								<div class="add-text">
-									Add Tax <button type="button" class="btn add-btn btn-sm" data-toggle="modal" data-target="#add-tax"><i class="glyphicon glyphicon-plus"></i></button> 
+									
+									<!--  Add Tax <button type="button" class="btn add-btn btn-sm" data-toggle="modal" data-target="#add-tax"><i class="glyphicon glyphicon-plus"></i></button> -->
+									 <button type="button" class="btn add-btn btn-sm add_tax_btn"><i class="glyphicon glyphicon-plus add_tax_btn"></i></button>
+									 
 								</div>
 
 								<div class="form-group">
@@ -419,7 +413,7 @@
 								</div>
 
 								<div class="add-text">
-									Add Add-On <button type="button" class="btn add-btn btn-sm" data-toggle="modal" data-target="#add-addon" id="btn_add_addon"><i class="glyphicon glyphicon-plus"></i></button> 
+									Add Add-On <button type="button" class="btn add-btn btn-sm"  id="btn_add_addon"><i class="glyphicon glyphicon-plus"></i></button> 
 								</div>
 
 								<div class="form-group">
@@ -560,113 +554,9 @@
 
 
 
-
-
-
-
-<!-- Add Tax Modal -->
-	<div class="modal" id="add-tax">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close fui-cross" data-dismiss="modal" aria-hidden="true"></button>
-					<h4 class="modal-title">Add Tax</h4>
-				</div>
-
-				<div class="modal-body">
-					<form class="form-horizontal clearfix" name="form_add_tax"  id="form_add_tax">
-						
-						<div class="form-group dual">
-							<div class="col-sm-6">
-								<div class="form-group">
-									<label for="inputAddress2" class="col-sm-5 control-label">Tax Name</label>
-									<div class="col-sm-8 col-sm-offset-5">
-										<input type="text" class="form-control" id="taxname" name="taxname"  
-										placeholder="Service Tax"  required parsley-trigger="blur" 
-										parsley-validation-minlength="0">
-										<div class="p-messages"></div>
-									</div>
-								</div>
-							</div>
-
-							<div class="col-sm-6">
-								<div class="form-group">
-									<label for="inputAddress2" class="col-sm-5 control-label">Tax Percentage</label>
-									<div class="col-sm-7 col-sm-offset-5">
-										<input type="text" class="form-control" id="taxpercent" name="taxpercent"  
-										placeholder="12.5%" required parsley-trigger="blur" parsley-validation-minlength="0"  
-										parsley-type="number" parsley-type-number-message="Please enter tax percentage">
-										<div class="p-messages"></div>
-									</div>
-								</div>
-							</div>
-						</div>
-						
-					</form>
-				</div>
-
-				<div class="modal-footer">
-					<button class="btn btn-default aj-imp-modal-save" id="btn_addtax"><i class="fui-plus"></i> Add Tax</button>
-					<img src ="<%=THEMEURL%>/images/loader.gif" width="38" height="30"  
-													id="newaddonsave_loader" style="display:none"/>
-				</div>
-			</div>
-		</div>  
-	</div>
-
-	<!-- Add Add-on Modal -->
-	<div class="modal" id="add-addon">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close fui-cross" data-dismiss="modal" aria-hidden="true"></button>
-					<h4 class="modal-title">Add Add-Ons</h4>
-				</div>
-
-				<div class="modal-body">
-					<form class="form-horizontal clearfix" name="form_add_addon"  id="form_add_addon" >
-						
-						<div class="form-group dual">
-							<div class="col-sm-6">
-								<div class="form-group">
-									<label for="inputAddress2" class="col-sm-5 control-label">Add-On</label>
-									<div class="col-sm-8 col-sm-offset-5">
-										<input type="text" class="form-control" id="addontype_name"  name='addontype_name'
-										placeholder="Scuba Diving" required parsley-trigger="blur" parsley-validation-minlength="0">
-										<div class="p-messages"></div>
-									</div>
-								</div>
-							</div>
-
-							<div class="col-sm-6">
-								<div class="form-group">
-									<label for="inputAddress2" class="col-sm-5 control-label">Price</label>
-									<div class="col-sm-7 col-sm-offset-5">
-										<input type="text" class="form-control" id="addontype_price"  name="addontype_price" placeholder="12.99"
-										required parsley-trigger="blur" parsley-validation-minlength="0"  
-										parsley-type="number" parsley-type-number-message="Please enter price" >
-										<div class="p-messages"></div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<input type="hidden" name="hdn_addonlabel" id="hdn_addonlabel"  value=""/>
-					</form>
-				</div>
-
-				<div class="modal-footer">
-					
-				<!-- 	<button class="btn btn-default aj-imp-modal-save"  id="btn_updateaddon"  name="btn_updateaddon"  ><i class="fui-plus"></i> Update Addon</button> -->
-					<button class="btn btn-default aj-imp-modal-save"  id="btn_savenewaddon"  name="btn_savenewaddon"  ><i class="fui-plus"></i> Add Add-On</button>
-					<img src ="<%=THEMEURL%>/images/loader.gif" width="38" height="30"  
-													id="newaddonsave_loader" style="display:none"/>
-				</div>
-			</div>
-		</div>  
-	</div>
 									
 	<!-- Add Plan Modal -->
-	<div class="modal wide-modal plan-modal" id="add-plantype">
+<!-- 	<div class="modal wide-modal plan-modal" id="add-plantype">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -675,19 +565,19 @@
 				</div>
 
 				<div class="modal-body">
-					<form class="form-horizontal clearfix">
-						
+					<form class="form-horizontal clearfix" name="form_addplan" id="form_addplan"  >
+						<input type='hidden' name='hdn_daterange'  id='hdn_daterange' value=''  />  
 						<div class="form-group">
 							<label for="inputSocial2" class="col-sm-2 control-label">Plan Type</label>
 							<div class="col-sm-9 col-sm-offset-2">
-								<input type="text" class="form-control" id="inputSocial2" placeholder="eg. American Plan">
+								<input type="text" class="form-control" id="plantype"  name="plantype"  placeholder="eg. American Plan">
 							</div>
 						</div>
 
 						<div class="form-group">
 							<label for="inputSEO1" class="col-sm-2 control-label">Plan Description</label>
 							<div class="col-sm-9 col-sm-offset-2">
-								<textarea class="form-control" rows="3" name="inputSEO1" placeholder="eg. This Plan is inclusive of 3 meals a day."></textarea>
+								<textarea class="form-control" rows="3" id="plandescription" name="plandescription" placeholder="eg. This Plan is inclusive of 3 meals a day."></textarea>
 							</div>
 						</div>
 
@@ -697,11 +587,11 @@
 									<label for="inputAddress2" class="col-sm-5 control-label">Tariff</label>
 									<div class="col-sm-7 col-sm-offset-5">
 										<label for="checkbox2" class="checkbox checked">
-											<input type="checkbox" data-toggle="checkbox" checked="checked" id="checkbox2" >
+											<input type="checkbox" data-toggle="checkbox" class="chk_tariffdays" tariff-type='weekday' checked="checked" id="rad_weekday" name="rad_weekday"  >
 											Weekday
 										</label>
 										<span class="help-block">Monday to Friday</span>
-										<input type="text" class="form-control" id="inputAddress2" placeholder="420">
+										<input type="text" class="form-control formel_weedaytariff" id="weekday_tariff" name="weekday_tariff" placeholder="420">
 									</div>
 								</div>
 							</div>
@@ -710,11 +600,11 @@
 								<div class="form-group">
 									<div class="col-sm-7">
 										<label for="checkbox2" class="checkbox checked">
-											<input type="checkbox" data-toggle="checkbox" checked="checked" id="checkbox2" >
+											<input type="checkbox" data-toggle="checkbox" class="chk_tariffdays" tariff-type='weekend'  checked="checked" id="rad_weekend"  name="rad_weekend">
 											Weekend
 										</label>
-										<span class="help-block">Monday to Friday</span>
-										<input type="text" class="form-control" id="inputAddress2" placeholder="999">
+										<span class="help-block">Saturday to Sunday</span>
+										<input type="text" class="form-control formel_weekendtariff" id="weekend_tariff" name="weekend_tariff"  placeholder="999">
 									</div>
 								</div>
 							</div>
@@ -731,14 +621,14 @@
 								<div class="form-group">
 									<label for="inputAddress2" class="col-sm-5 control-label">Maximum Adults</label>
 									<div class="col-sm-7 col-sm-offset-5">
-										<input type="text" class="form-control" id="inputAddress2" placeholder="10">
+										<input type="text" class="form-control formel_weedaytariff" id="weekday_maxadults" name="weekday_maxadults" placeholder="10">
 									</div>
 								</div>
 							</div>
 							<div class="col-sm-5">
 								<div class="form-group">
 									<div class="col-sm-7">
-										<input type="text" class="form-control" id="inputAddress2" placeholder="10">
+										<input type="text" class="form-control formel_weekendtariff" id="weekend_maxadults" name="weekend_maxadults"  placeholder="10">
 									</div>
 								</div>
 							</div>
@@ -749,14 +639,14 @@
 								<div class="form-group">
 									<label for="inputAddress2" class="col-sm-5 control-label">Maximum Children</label>
 									<div class="col-sm-7 col-sm-offset-5">
-										<input type="text" class="form-control" id="inputAddress2" placeholder="10">
+										<input type="text" class="form-control formel_weedaytariff" id="weekday_maxchildren" name="weekday_maxchildren"  placeholder="10">
 									</div>
 								</div>
 							</div>
 							<div class="col-sm-5">
 								<div class="form-group">
 									<div class="col-sm-7">
-										<input type="text" class="form-control" id="inputAddress2" placeholder="10">
+										<input type="text" class="form-control formel_weekendtariff" id="weekend_maxchildren" name="weekend_maxchildren"  placeholder="10">
 									</div>
 								</div>
 							</div>
@@ -767,14 +657,14 @@
 								<div class="form-group">
 									<label for="inputAddress2" class="col-sm-5 control-label">Additional Charge per extra Adult</label>
 									<div class="col-sm-7 col-sm-offset-5">
-										<input type="text" class="form-control" id="inputAddress2" placeholder="28">
+										<input type="text" class="form-control formel_weedaytariff" id="weekday_charges_extra_adult" name="weekday_charges_extra_adult"  placeholder="28">
 									</div>
 								</div>
 							</div>
 							<div class="col-sm-5">
 								<div class="form-group">
 									<div class="col-sm-7">
-										<input type="text" class="form-control" id="inputAddress2" placeholder="32">
+										<input type="text" class="form-control formel_weekendtariff" id="weekend_charges_extra_adult" name="weekend_charges_extra_adult"  placeholder="32">
 									</div>
 								</div>
 							</div>
@@ -785,14 +675,14 @@
 								<div class="form-group">
 									<label for="inputAddress2" class="col-sm-5 control-label">Additional Charge per extra Child</label>
 									<div class="col-sm-7 col-sm-offset-5">
-										<input type="text" class="form-control" id="inputAddress2" placeholder="17">
+										<input type="text" class="form-control formel_weedaytariff" id="weekday_charges_extra_child" name="weekday_charges_extra_child"  placeholder="17">
 									</div>
 								</div>
 							</div>
 							<div class="col-sm-5">
 								<div class="form-group">
 									<div class="col-sm-7">
-										<input type="text" class="form-control" id="inputAddress2" placeholder="19">
+										<input type="text" class="form-control formel_weekendtariff" id="weekend_charges_extra_child" name="weekend_charges_extra_child"  placeholder="19">
 									</div>
 								</div>
 							</div>
@@ -808,14 +698,17 @@
 				</div>
 
 				<div class="modal-footer">
-					<button class="btn btn-default aj-imp-modal-save"><i class="fui-plus"></i> Add Plan</button>
+					<button class="btn btn-default aj-imp-modal-save" id="btn_addplan" ><i class="fui-plus"></i> Add Plan</button>
+					<img src ="<%=THEMEURL%>/images/loader.gif" width="38" height="30"  
+													id="newaddonsave_loader" style="display:none"/>
 				</div>
 			</div>
 		</div>  
 	</div>
+	-->
 	
 	<!-- Edit Plan Modal -->
-	<div class="modal wide-modal plan-modal" id="plan1">
+<!-- 	<div class="modal wide-modal plan-modal" id="plan1">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -962,3 +855,56 @@
 			</div>
 		</div>  
 	</div>
+	-->
+	
+	
+	
+	<!-- Add Date Range Modal
+	<div class="modal" id="add-daterange">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close fui-cross" data-dismiss="modal" aria-hidden="true"></button>
+					<h4 class="modal-title">Add Date Range</h4>
+				</div>
+
+				<div class="modal-body">
+					<form class="form-horizontal clearfix">
+						
+						<div class="form-group dual dates">
+							<div class="col-sm-6">
+								<div class="form-group">
+									<label for="inputAddress2" class="col-sm-4 control-label">Start Date</label>
+									<div class="col-sm-8 col-sm-offset-4">
+										<div class="input-group">
+											<input type="text" class="form-control dated" value="14 March, 2013" id="fromdaterange" />
+											<span class="input-icon fui-calendar"></span>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-sm-6">
+								<div class="form-group">
+									<label for="inputAddress2" class="col-sm-4 control-label">End Date</label>
+									<div class="col-sm-8 col-sm-offset-4">
+										<div class="input-group">
+											<input type="text" class="form-control dated" value="14 March, 2013" id="todaterange" />
+											<span class="input-icon fui-calendar"></span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+					</form>
+				</div>
+
+				<div class="modal-footer">
+					<button class="btn btn-default aj-imp-modal-save" id="btn_savedaterange" ><i class="fui-plus"></i> Add Date Range</button>
+					<img src ="<%=THEMEURL%>/images/loader.gif" width="38" height="30"  
+													id="newaddonsave_loader" style="display:none"/>
+				</div>
+			</div>
+		</div>  
+	</div> -->

@@ -14,8 +14,7 @@
  * @since      Class available since Release 0.1
  * @deprecated NA
  */
-
-class ImageElement extends Element {
+class LogoElement extends Element {
     
     /**
      * The default type property for element
@@ -106,21 +105,19 @@ class ImageElement extends Element {
 
         $size = $this->get_image_size();
         
-        $path = get_parent_template_directory_uri() . '/js/holder.js/100%x220';
+        $path = get_parent_template_directory_uri() . '/js/holder.js/100%x220/text:Logo';
 
         if($a_id === 0){
-            return  "<img data-src='$path' class='img-responsive' />";
+            return  sprintf("<a href='%s'><img data-src='%s' class='img-responsive' /></a>", site_url(), $path);
         }
 
-        $path = wp_get_attachment_image_src($a_id, $size);
-
-
+        $image = wp_get_attachment_image_src($a_id, $size);
         
-        if($path !== false) {
-            return "<img src='{$path[0]}' class='img-responsive' />";
+        if($image !== false) {
+            return sprintf("<a href='%s'><img src='%s' class='img-responsive' /></a>", site_url(), $image[0]);
         }
         else{
-            return "<img data-src='". get_parent_template_directory_uri(). "'/js/holder.js/100%x220' class='img-responsive'/>";
+            return sprintf("<a href='%s'><img data-src='%s' class='img-responsive' /></a>", site_url(), $path);
         }
             
     }

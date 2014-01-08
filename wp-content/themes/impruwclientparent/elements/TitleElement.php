@@ -29,10 +29,6 @@ class TitleElement extends Element {
      */
     var $content    = '';
 
-    /**
-    * Default tag name
-    */
-    var $tag_name   = 'h3';
 
     /**
      * Class name
@@ -65,17 +61,14 @@ class TitleElement extends Element {
         
         $attr = array();
         
-        if(defined('FOR_BUILDER'))
-            $attr['contenteditable'] = 'true';
-        
         $html = '';
-        if(empty($this->content))
-            $html       .= $this->get_open_tag($attr);
+        // if(empty($this->content))
+        //     $html       .= $this->get_open_tag($attr);
 
         $html           .=  ($this->content === '') ? 'Enter your title here' : $this->content;
         
-        if(empty($this->content))
-            $html       .= $this->get_close_tag();
+        // if(empty($this->content))
+        //     $html       .= $this->get_close_tag();
         
         return $html;
     }

@@ -17,5 +17,8 @@
 	</div><!-- .container -->
         <?php get_theme_JS() ;?>
 	<?php wp_footer(); ?>
+	<script>
+		$('.carousel').carousel();
+	</script>
 </body>
 </html>
