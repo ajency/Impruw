@@ -140,7 +140,8 @@
 										<tr>
 												<td colspan="4" class="no-mar table-responsive">
 												
-													<table class="table table-vc" data-toggle="collapse" data-target="#rowlink<%=daterange.id%>">
+												<!-- 	<table class="table table-vc" data-toggle="collapse" data-target="#rowlink<%=daterange.id%>"> -->
+													<table class="table table-vc"  >
 														<tbody data-link="row" class="rowlink">
 															<tr>
 																<td width="5%"><a href="#rowlink<%=daterange.id%>" data-toggle="collapse"><span class="glyphicon glyphicon-chevron-down"></span></a></td>
@@ -168,7 +169,8 @@
 																	<span class="label label-info">Weekday:</span> from<strong>$29</strong> <span class="label label-info">Weekend:</span> from<strong>$37</strong>
 																</td>
 																<td width="30%" class="rowlink-skip">
-																	<a href="javascript:void()" class="edit-link editdaterange_lnk"  daterange-id = "<%=daterange.id%>"  ><span class="glyphicon glyphicon-pencil"></span> Edit</a>
+																	<a href="javascript:void(0)" class="edit-link editdaterange_lnk"  daterange-id = "<%=daterange.id%>"  ><span class="glyphicon glyphicon-pencil"></span>Edit</a>
+																	<a href="javascript:void(0)" class="edit-link canceleditdaterange_lnk hidden"  daterange-id = "<%=daterange.id%>"  ><span class="glyphicon glyphicon-pencil"></span>Cancel</a>
 																	<a href="javascript:void(0)" class="delete-link deletedaterange_lnk"  daterange-id = "<%=daterange.id%>"  ><span class="glyphicon glyphicon-trash" daterange-id="<%=daterange.id%>" ></span> Delete</a>
 																</td>
 															</tr>

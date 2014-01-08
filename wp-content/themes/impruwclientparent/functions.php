@@ -1960,6 +1960,50 @@ add_action( 'wp_ajax_nopriv_add_date_range', 'add_date_range' );
 
 
 
+function update_daterange(){
+	
+	global $wpdb;
+	$from_daterange = date('Y-m-d H:i:s',strtotime($_POST['from_daterange'])) ;
+	$to_daterange 	= date('Y-m-d H:i:s', strtotime($_POST['to_daterange'])) ;
+	$daterange_id 	= $_POST['daterange_id'];
+	
+	$table_name = $wpdb->prefix."daterange";
+	
+ 
+	
+	/*$result = $wpdb->update(	$table_name,
+								array(	'from_date'	=> $from_daterange,
+									  	'to_date'	=> $to_daterange
+								), 
+								array('daterange_id'=>$daterange_id));*/
+	
+	$qry_update_daterange = $wpdb->prepare("UPDATE  ".$table_name.
+								" SET from_date = %s, to_date = %s WHERE id = %d ",
+								$from_daterange, $to_daterange, $daterange_id
+							);
+							
+							 
+	$result = $wpdb->query($qry_update_daterange); 
+	
+	$daterange_data = array('from_date' => date('d/m/y',strtotime($_POST['from_daterange'])),
+							 'to_date'	=> date('d/m/y',strtotime($_POST['to_daterange']))
+	  ); 
+	
+	
+	if ( $result==true ) 
+		wp_send_json( array( 'code' => 'OK', 'msg'=>'Date range updated successfully', 'daterange_data'=>$daterange_data ) );
+	else 	
+	 	wp_send_json( array( 'code' => 'ERROR', 'msg' =>'Error updating Date range' ) ); 
+								
+	
+	
+}
+add_action( 'wp_ajax_update_daterange', 'update_daterange' );
+add_action( 'wp_ajax_nopriv_update_daterange', 'update_daterange' );
+
+
+
+
 /**
  * Function to add new plan
  * 
