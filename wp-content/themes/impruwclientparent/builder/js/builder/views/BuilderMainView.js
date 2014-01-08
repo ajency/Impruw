@@ -57,10 +57,10 @@ define(['underscore', 'jquery', 'backbone', 'builder/views/BuilderEditorView'],
 
                 var button = $(evt.target);
 
-                var page    = button.parent().find('select[name="current_page"]').val();
-
+                var page    = button.parent().find('select[name="current_page_id"]').val();
+                
                 $.cookie('current_theme', 36, { expires: 7 });
-                $.cookie('current_page', page, { expires: 7 });
+                $.cookie('current_page_id', page, { expires: 7 });
 
                 window.location.reload();
             },

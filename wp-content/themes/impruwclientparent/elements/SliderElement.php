@@ -76,8 +76,9 @@ class SliderElement extends Element {
      * @return [type] [description]
      */
     function get_images(){
-        if(!is_array($this->data_source['image-ids']))
-            return array();
+        
+        if(!isset($this->data_source['image-ids']) || !is_array($this->data_source['image-ids']))
+            return array(0);
 
         return $this->data_source['image-ids'];
     }
@@ -88,6 +89,10 @@ class SliderElement extends Element {
      * @return [type]     [description]
      */
     function get_image_src($id){
+
+        if($id == 0)
+            return get_parent_template_directory_uri() . '/js/holder.js/100%x400';
+
 
         $path = wp_get_attachment_image_src($id,'full');
 

@@ -45,10 +45,10 @@
                     </p>
                 </div>
                 <div class="aj-imp-page-layout col-sm-8 clearfix navbar-text">
-                    Page: <select id="aj-imp-page-sel" name="current_page">
+                    Page: <select id="aj-imp-page-sel" name="current_page_id">
                         <?php foreach(get_all_menu_pages() as $page): ?>
-                            <?php $selected = (isset($_COOKIE["current_page"]) && $_COOKIE["current_page"] === $page->post_name) ? 'selected'  :''; ?>
-                            <option value="<?php echo $page->post_name; ?>" <?php echo $selected; ?>><?php echo $page->post_title; ?></option>
+                            <?php $selected = (isset($_COOKIE["current_page_id"]) && $_COOKIE["current_page_id"] == $page->ID) ? 'selected'  :''; ?>
+                            <option value="<?php echo $page->ID; ?>" <?php echo $selected; ?>><?php echo $page->post_title; ?></option>
                         <?php endforeach; ?>
                     </select>&nbsp;&nbsp;&nbsp;&nbsp;
                     <button class="btn btn-primary" id="load-theme-page" style="margin-bottom: 10px;">Load</button>
