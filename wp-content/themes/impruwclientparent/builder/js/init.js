@@ -44,7 +44,7 @@ require.config({
         textelement     : 'builder/views/elements/TextElement',
         socialelement   : 'builder/views/elements/SocialElement',
         sliderelement   : 'builder/views/elements/SliderElement',
-        imagetextelement: 'builder/views/elements/ImageWithTextElement',
+        imagewithtextelement: 'builder/views/elements/ImageWithTextElement',
         addresselement  : 'builder/views/elements/AddressElement',
 
         roomtitle       : 'builder/views/elements/rooms/RoomTitle',

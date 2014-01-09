@@ -1,4 +1,4 @@
-define(['builderelement', 'text!builder/templates/elements/ImageElement.hbs', 'global'],
+define(['builderelement', 'tpl!builder/templates/elements/BasicElement.tpl', 'global'],
     function(BuilderElement, template, global) {
 
         var ImageElement = BuilderElement.extend({
@@ -10,9 +10,6 @@ define(['builderelement', 'text!builder/templates/elements/ImageElement.hbs', 'g
 
             //element type
             elementType: 'ImageElement',
-
-            //set height to be assigned to placeholder and helper
-            placeHolderHeight: 100,
 
             // /**
             //  * Default datasource for an image

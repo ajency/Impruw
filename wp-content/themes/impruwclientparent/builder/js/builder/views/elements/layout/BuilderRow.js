@@ -1,4 +1,4 @@
-define(['builderelement', 'builder/views/elements/layout/BuilderRowColumn', 'global'],
+define(['builderelement', 'buildercolumn', 'global'],
 
     function(BuilderElement, BuilderRowColumn, global) {
 
@@ -8,9 +8,6 @@ define(['builderelement', 'builder/views/elements/layout/BuilderRowColumn', 'glo
 
             //create a div element with class "row"
             className: 'row',
-
-            //set name for row. Will be used to generate unique ID for each control
-            type: 'row',
 
             //set height to be assigned to placeholder and helper
             placeHolderHeight: 120,
@@ -23,16 +20,12 @@ define(['builderelement', 'builder/views/elements/layout/BuilderRowColumn', 'glo
 
             //register events
             events: {
-                'mouseenter': 'elementMouseEnter',
-                'mouseleave': 'elementMouseLeave',
-                'click > .aj-imp-delete-btn': 'destroyElement',
-                'click > .aj-imp-col-sel ul li a': 'adjustColumnsInRow',
-                'contextmenu': 'showContextMenu',
-                'click > .popover .updateProperties': 'updateProperties'
+                'mouseenter'                        : 'elementMouseEnter',
+                'mouseleave'                        : 'elementMouseLeave',
+                'click > .aj-imp-delete-btn'        : 'destroyElement',
+                'click > .aj-imp-col-sel ul li a'   : 'adjustColumnsInRow',
+                'contextmenu'                       : 'showContextMenu'
             },
-
-            //used to identify drag direction(right / left)
-            prevX: -1,
 
             /**
              * Intialize the view.
@@ -43,17 +36,6 @@ define(['builderelement', 'builder/views/elements/layout/BuilderRowColumn', 'glo
              */
             initialize: function(options) {
 
-                _.bindAll(this, 'adjustColumnsInRow', 'generateDropMarkup', 'sortableColumns', 'addNewColumn',
-                    'columnCount', 'getColumns', 'getColumn', 'elementMouseEnter', 'elementMouseLeave', 'adjustColumnDimension',
-                    'allColumnsEmpty', 'emptyColumns', 'appendColumnResizer', 'clearResizers', 'makeResizer', 'getColumnAt');
-
-
-
-                this.$el.attr('data-placeholder-height', this.placeHolderHeight);
-
-                this.on('adjust_column_dimension', this.adjustColumnDimension);
-
-                //drop mode
                 if (_.isUndefined(options.config)) {
                     this.generateDropMarkup();
                     this.id = this.type + '-' + global.generateRandomId();
@@ -63,31 +45,10 @@ define(['builderelement', 'builder/views/elements/layout/BuilderRowColumn', 'glo
                     this.setProperties(options.config);
 
                 }
-
-                this.setParent(options.parent);
-                this.setClasses();
-                this.setHandlers();
                 this.setContextMenu();
             },
 
-            /**
-             * Assign classes
-             * @return {[type]} [description]
-             */
-            assignClasses : function(){
-                this.$el.addClass(this.extraClasses);
-            },
-
-            /**
-             *
-             * @returns {_L4.Anonym$1}
-             */
-            render: function() {
-
-                return this;
-
-            },
-
+            
             /**
              *
              * @returns {undefined}
@@ -156,7 +117,6 @@ define(['builderelement', 'builder/views/elements/layout/BuilderRowColumn', 'glo
 
                     self.appendColumnResizer();
 
-
                     self.addElement(elements, index);
 
                 });
@@ -200,10 +160,6 @@ define(['builderelement', 'builder/views/elements/layout/BuilderRowColumn', 'glo
                 });
 
                 this.sortableColumns();
-
-                if (this.parent.type === 'column')
-                    this.parent.parent.adjustColumnDimension();
-
             },
 
             /**
@@ -389,7 +345,7 @@ define(['builderelement', 'builder/views/elements/layout/BuilderRowColumn', 'glo
                         });
 
                     },
-                    drag: function(event, ui) {
+                    drag: _.throttle(function(event, ui) {
 
                         var p = Math.round(ui.position.left);
                         var s = Math.round(ui.helper.start.left);
@@ -400,7 +356,7 @@ define(['builderelement', 'builder/views/elements/layout/BuilderRowColumn', 'glo
 
                             var position = $(event.target).attr('data-position');
 
-                            self.resizeColumns('right', position);
+                            self.resizeColumns('right', parseInt(position));
 
                         } else if (p < s) {
 
@@ -411,13 +367,16 @@ define(['builderelement', 'builder/views/elements/layout/BuilderRowColumn', 'glo
                             self.resizeColumns('left', parseInt(position));
 
                         }
-                    }
+                    }, 500)
                 });
 
             },
 
             /**
-             *
+             * Resizes the column depending on drag direction
+             * @param  {[type]} direction [description]
+             * @param  {[type]} position  [description]
+             * @return {[type]}           [description]
              */
             resizeColumns: function(direction, position) {
 
@@ -628,7 +587,6 @@ define(['builderelement', 'builder/views/elements/layout/BuilderRowColumn', 'glo
                 column.addEmptyClass();
                 this.elements.push(column);
                 this.$el.append(column.$el);
-                this.trigger('adjust_column_dimension');
             },
 
             /**

@@ -12,9 +12,6 @@ define(['builderelement', 'tpl!builder/templates/elements/BasicElement.tpl', 'gl
             //element type
             elementType: 'AddressElement',
 
-            //identify element type
-            type: 'address',
-
             //set height to be assigned to placeholder and helper
             placeHolderHeight: 100,
 

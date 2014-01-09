@@ -44,30 +44,9 @@ define(['builderelement', 'global'],
              */
             initialize: function(options) {
 
-                _.bindAll(this, 'isEmpty', 'clear', 'handleElementDrop', 'handleHeightChange', 'isEmpty', 'clear',
-                    'handleWidthChange', 'handleElementOverState', 'handleColumnDrop', 'makeColumnsSortable',
-                    'handleElementRemove', 'resetHeightAuto', 'holdCurrentColRef', 'updateEmptyView', 'makeEmpty',
-                    'setCurrentClass', 'setColumnClass', 'getCurrentClass', 'getRowElements', 'getElements');
-
                 this.colClass = options.colClass;
 
-                var self = this;
-
-                //listen to height change event
-                this.on('height_changed', this.handleHeightChange);
-
-                //listen to width change event
-                this.on('width_changed', this.handleWidthChange);
-
-                this.on('settings_updated', function(arg) {
-
-                });
-
-                ////////////////////////////////////////////////
-
-                //drop mode
                 if (_.isUndefined(options.config)) {
-
                     //this.generateDropMarkup();
                     this.id = this.type + '-' + global.generateRandomId();
                     this.$el.attr('id', this.id);
@@ -76,9 +55,6 @@ define(['builderelement', 'global'],
                     this.colClass = options.config.colClass;
                 }
 
-                this.setParent(options.parent);
-                this.setClasses();
-                this.setHandlers();
                 this.setContextMenu();
             },
 
@@ -140,7 +116,7 @@ define(['builderelement', 'global'],
                 if (element.type === 'BuilderRowColumn')
                     return;
 
-                var mod = element.type;
+                var mod = _.str.slugify(element.type);
                 
                 require([mod], function(Element) {
 

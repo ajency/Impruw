@@ -38,16 +38,7 @@ define(['backbone', 'jquery', 'underscore', 'global'],
             //parent of the element
             parent: null,
 
-            /**
-             * All child controls will override this function;
-             * @returns {undefined}
-             */
-            render: function() {
-
-                return this;
-
-            },
-
+            
             /**
              * Generate the json string for element
              * @returns {undefined}
@@ -230,16 +221,6 @@ define(['backbone', 'jquery', 'underscore', 'global'],
             },
 
             /**
-             * Returns extra classes assigned to the element
-             * @returns string
-             */
-            getExtraClasses: function() {
-
-                return this.extraClasses;
-
-            },
-
-            /**
              * Returns the setting markup
              * @returns {String}
              */
@@ -249,17 +230,8 @@ define(['backbone', 'jquery', 'underscore', 'global'],
 
                 var html = '';
 
-                // if (_.isUndefined(disAllow['isDraggable']))
-                //     html += this.getDraggableSettingMarkup();
-
-                // if (_.isUndefined(disAllow['isEditable']))
-                //     html += this.getEditableSettingMarkup();
-
                 if (_.isUndefined(disAllow['extraClasses']))
                     html += this.getClassnameSettingMarkup();
-
-                // if (_.isUndefined(disAllow['type']))
-                //     html += this.getMarkupStyleSettingMarkup();
 
                 var className = this.type === 'row' ? 'updateRowProperties' : 'updateProperties';
 
@@ -453,10 +425,10 @@ define(['backbone', 'jquery', 'underscore', 'global'],
                 if (this.isDraggable()) {
 
                     this.$el.append('<div class="aj-imp-drag-handle">\
-                                                <p title="Move">\
-                                                    <span class="icon-uniF140"></span>\
-                                                </p>\
-                                            </div>');
+                                        <p title="Move">\
+                                            <span class="icon-uniF140"></span>\
+                                        </p>\
+                                    </div>');
                 }
 
                 this.setEditHandlers();
@@ -528,10 +500,6 @@ define(['backbone', 'jquery', 'underscore', 'global'],
                 //get all classes
                 var classes = this.$el.find('.content').first().attr('class');
 
-                //classes = classes.split(' ');
-
-               d = this.$el.find('.content');;
-
                 this.$el.find('.content').first().addClass(this.extraClasses);
 
             },
@@ -553,30 +521,6 @@ define(['backbone', 'jquery', 'underscore', 'global'],
             isDraggable: function() {
 
                 return this.draggable;
-
-            },
-
-            /**
-             * Returns the parent of the selected view
-             *
-             * @returns {undefined}
-             */
-            getParent: function() {
-
-                if (_.isNull(this.parent) || !_.isObject(this.parent))
-                    return false;
-
-                return this.parent;
-            },
-
-            /**
-             * Set the parent element for the element
-             * @param {type} parent
-             * @returns {undefined}
-             */
-            setParent: function(parent) {
-
-                this.parent = parent;
 
             },
 

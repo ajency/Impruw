@@ -1,4 +1,4 @@
-define(['builderelement', 'text!builder/templates/elements/RoomsElement.hbs', 'global'],
+define(['builderelement', 'tpl!builder/templates/elements/BasicElement.tpl', 'global'],
     function(BuilderElement, template, global) {
 
         var RoomsElement = BuilderElement.extend({
@@ -11,9 +11,6 @@ define(['builderelement', 'text!builder/templates/elements/RoomsElement.hbs', 'g
 
             //element type
             elementType: 'RoomsElement',
-
-            //identify element type
-            type: 'rooms',
 
             //set height to be assigned to placeholder and helper
             placeHolderHeight: 400,

@@ -1,4 +1,4 @@
-define(['imagelement', 'text!builder/templates/elements/ImageWithTextElement.hbs', 'global'],
+define(['imagelement', 'tpl!builder/templates/elements/BasicElement.tpl', 'global'],
     function(ImageElement, template, global) {
 
         var ImageWithTextElement = ImageElement.extend({
@@ -10,9 +10,6 @@ define(['imagelement', 'text!builder/templates/elements/ImageWithTextElement.hbs
 
             //element type
             elementType: 'ImageWithTextElement',
-
-            //identify element type
-            type: 'imagewithtext',
 
             //
             events: {

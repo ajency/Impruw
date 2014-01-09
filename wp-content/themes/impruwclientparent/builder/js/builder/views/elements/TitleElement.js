@@ -1,4 +1,4 @@
-define(['builderelement', 'text!builder/templates/elements/TitleElement.hbs', 'global'],
+define(['builderelement', 'tpl!builder/templates/elements/BasicElement.tpl', 'global'],
     function(BuilderElement, template, global) {
 
         var TitleElement = BuilderElement.extend({
@@ -11,9 +11,6 @@ define(['builderelement', 'text!builder/templates/elements/TitleElement.hbs', 'g
 
             //element type
             elementType: 'TitleElement',
-
-            //identify element type
-            type: 'title',
 
             //set height to be assigned to placeholder and helper
             placeHolderHeight: 60,

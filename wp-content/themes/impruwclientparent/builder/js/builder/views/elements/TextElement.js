@@ -1,4 +1,4 @@
-define(['builderelement', 'text!builder/templates/elements/TextElement.hbs', 'global'],
+define(['builderelement', 'tpl!builder/templates/elements/BasicElement.tpl', 'global'],
     function(BuilderElement, template, global) {
 
         var TextElement = BuilderElement.extend({
@@ -11,9 +11,6 @@ define(['builderelement', 'text!builder/templates/elements/TextElement.hbs', 'gl
 
             //element type
             elementType: 'TextElement',
-
-            //identify element type
-            type: 'text',
 
             //set height to be assigned to placeholder and helper
             placeHolderHeight: 60,

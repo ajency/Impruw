@@ -1,4 +1,4 @@
-define(['imageelement', 'text!builder/templates/elements/BasicElement.hbs', 'global'],
+define(['imageelement', 'tpl!builder/templates/elements/BasicElement.tpl', 'global'],
     function(ImageElement, template, global) {
 
         var LogoElement = ImageElement.extend({
@@ -11,9 +11,6 @@ define(['imageelement', 'text!builder/templates/elements/BasicElement.hbs', 'glo
 
             //element type
             elementType: 'LogoElement',
-
-            //identify element type
-            type: 'logo',
 
             //view events
             events: {
