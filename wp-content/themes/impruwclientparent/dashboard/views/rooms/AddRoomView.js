@@ -56,8 +56,9 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
                 'click #btn_add_daterange'			: 'showAddDateRangeModal',
                 
                 'click .deletedaterange_lnk'		: 'deleteDateRange',
-                'click .editdaterange_lnk'			: 'enableEditDateRange'
- 
+                'click .editdaterange_lnk'			: 'enableEditDateRange',
+                'click .savedaterange_lnk'			: 'saveDateRange',
+                'click .canceleditdaterange_lnk'	: 'cancelEditRange'
 		}, 
 
 		initialize : function(args) {
@@ -673,16 +674,84 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 		},
 		
 		enableEditDateRange : function(evt){
+			// console.log($(evt.target).children().find('.editdaterange_lnktext').html())
+			 
+			$(evt.target).removeClass('editdaterange_lnk').addClass('savedaterange_lnk');
+			$(evt.target).parent().parent().find('.canceleditdaterange_lnk').removeClass('hidden');
+			$(evt.target).parent().parent().find('.daterange_frominput').removeClass('hidden');
+			$(evt.target).parent().parent().find('.daterange_toinput').removeClass('hidden');
+			$(evt.target).parent().parent().find('.daterange_fromtxt').addClass('hidden');
+			$(evt.target).parent().parent().find('.daterange_totxt').addClass('hidden');
 			
-			$(evt.target).parent().parent().find('.daterange_frominput').removeClass('hidden')
-			$(evt.target).parent().parent().find('.daterange_toinput').removeClass('hidden')
-			$(evt.target).parent().parent().find('.daterange_fromtxt').addClass('hidden')
-			$(evt.target).parent().parent().find('.daterange_totxt').addClass('hidden')
-
-			$(evt.target).parent().parent().find('br').removeClass('hidden')
+			/*$(evt.target).parent().parent().find('.daterange_fromlabel').addClass('hidden');
+			$(evt.target).parent().parent().find('.daterange_tolabel').addClass('hidden');*/
 			
-			/*$(evt.target).parent().parent().find('.daterange_fromlabel').addClass('hidden')
-			$(evt.target).parent().parent().find('.daterange_tolabel').addClass('hidden')*/
+		},
+		saveDateRange : function(evt){
+			
+			
+			console.log('Save date range');
+			var evt_ = evt;
+			 
+			var from_date = $(evt.target).parent().parent().find('.fromdaterange_input').val();
+			var to_date = $(evt.target).parent().parent().find('.todaterange_input').val();
+		 	
+			var daterange_id = $(evt.target).attr('daterange-id');
+			
+			 var data = {	action			: 'update_daterange',
+					 		daterange_id  	: daterange_id,
+					 		from_daterange 	: from_date,
+					 		to_daterange 	: to_date
+				  };
+			 
+			 console.log(data);
+		  
+			 
+			$.post(	AJAXURL,
+					data,
+					function(response){
+						 
+				
+				console.log(response);
+				
+				
+						if(response.code=='OK'){
+							$(evt.target).addClass('editdaterange_lnk').removeClass('savedaterange_lnk');
+							$(evt.target).parent().parent().find('.canceleditdaterange_lnk').addClass('hidden');
+							$(evt.target).parent().parent().find('.daterange_frominput').addClass('hidden');
+							$(evt.target).parent().parent().find('.daterange_toinput').addClass('hidden');
+							$(evt.target).parent().parent().find('.daterange_fromtxt').removeClass('hidden');
+							$(evt.target).parent().parent().find('.daterange_totxt').removeClass('hidden');
+							
+							$(evt.target).parent().parent().find('.daterange_fromlabel').removeClass('hidden');
+							$(evt.target).parent().parent().find('.daterange_tolabel').removeClass('hidden');
+							
+							$(evt.target).parent().parent().find('.daterange_fromtxt').html(response.daterange_data.from_date);
+							$(evt.target).parent().parent().find('.daterange_totxt').html(response.daterange_data.to_date);
+							
+						}
+						else{
+							
+							}						
+					});
+			
+		},
+		
+		cancelEditRange : function(evt){
+			
+			console.log('cancel')
+			
+ 
+			$(evt.target).parent().find('savedaterange_lnk').addClass('editdaterange_lnk').removeClass('savedaterange_lnk');
+			$(evt.target).parent().parent().find('.canceleditdaterange_lnk').addClass('hidden');
+			$(evt.target).parent().parent().find('.daterange_frominput').addClass('hidden');
+			$(evt.target).parent().parent().find('.daterange_toinput').addClass('hidden');
+			$(evt.target).parent().parent().find('.daterange_fromtxt').removeClass('hidden');
+			$(evt.target).parent().parent().find('.daterange_totxt').removeClass('hidden');
+			
+			$(evt.target).parent().parent().find('.daterange_fromlabel').removeClass('hidden');
+			$(evt.target).parent().parent().find('.daterange_tolabel').removeClass('hidden');
+ 
 			
 		},
 		
