@@ -2,51 +2,10 @@
 /**
  * Template Name: Login
  */
-//echo ABSPATH;
-//include(ABSPATH."wp-content\\themes\impruwmain\User\user_management.php");
-//include("/User/user_management.php");
+
+get_header();
 ?>
-<!DOCTYPE html>
-<!--[if IE 7]>
-<html class="ie ie7" <?php language_attributes(); ?>>
-<![endif]-->
-<!--[if IE 8]>
-<html class="ie ie8" <?php language_attributes(); ?>>
-<![endif]-->
-<!--[if !(IE 7) | !(IE 8)  ]><!-->
-<html <?php language_attributes(); ?>>
-<!--<![endif]-->
-<head>
-	<meta charset="<?php bloginfo( 'charset' ); ?>">
-	<meta name="viewport" content="width=device-width">
-	<title><?php wp_title( '|', true, 'right' ); ?></title>
-	<link rel="profile" href="http://gmpg.org/xfn/11">
-	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
-	
-	
-	<!-- Bootstrap -->
-  <!--   <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
-    <link href="css/flat-ui.css" rel="stylesheet" media="screen">
-    <link href="css/main.min.css" rel="stylesheet" media="screen">
-	<link href="../css/dashboard.css" rel="stylesheet" media="screen">
-	-->
-	
-	
-	<!--[if lt IE 9]>
-	<script src="<?php echo get_template_directory_uri(); ?>/js/html5.js"></script>
-	<![endif]-->
-        <?php //getThemeCSS(); ?>
-	<?php wp_head(); ?>
-</head>
 
-<body <?php //body_class(); ?>>
-
-
-
-
-
-
-<div class="aj-imp-container container">
 		<div class="aj-imp-login-form">
 			<div class="row">
 				<div class="col-sm-12 aj-imp-login-header">
@@ -93,7 +52,7 @@
 						<div class="row">
 							<div class="col-sm-offset-3 col-sm-7">
 								<div class="form-group">
-									<?php echo __('Dont have an account?','impruwmain');?> <a href="<?php  echo site_url('?page_id=9'); ?>"><?php echo __('Sign Up','impruwmain');?></a>
+									<?php echo __('Dont have an account?','impruwmain');?> <a href="<?php  echo site_url('register/'); ?>"><?php echo __('Sign Up','impruwmain');?></a>
 								</div>
 							</div>
 						</div>
@@ -101,26 +60,4 @@
 				</div>
 			</div>
 		</div>
-	</div>
-
-
-
-
-
-
-
-
-    
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-  <!--     <script src="js/jquery-2.0.3.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -- >
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/flatui-checkbox.js"></script>
-    <script src="js/bootstrap-select.js"></script>
-    <script src="js/flatui-radio.js"></script>
-	<script>
-		jQuery("select").selectpicker();
-	</script> -->
-	<?php wp_footer(); ?>
-  </body>
-</html>
+<?php get_footer(); ?>  
