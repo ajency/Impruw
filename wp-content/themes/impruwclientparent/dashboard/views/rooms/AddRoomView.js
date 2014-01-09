@@ -741,6 +741,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			
 			console.log('cancel')
 			
+ 
 			$(evt.target).parent().find('savedaterange_lnk').addClass('editdaterange_lnk').removeClass('savedaterange_lnk');
 			$(evt.target).parent().parent().find('.canceleditdaterange_lnk').addClass('hidden');
 			$(evt.target).parent().parent().find('.daterange_frominput').addClass('hidden');
@@ -750,6 +751,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			
 			$(evt.target).parent().parent().find('.daterange_fromlabel').removeClass('hidden');
 			$(evt.target).parent().parent().find('.daterange_tolabel').removeClass('hidden');
+ 
 			
 		},
 		
