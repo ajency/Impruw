@@ -30,7 +30,8 @@ require.config({
         radio       		: 'lib/flatui-radio',
         nestable            : 'lib/nestable',
         marionette      	: 'lib/backbone.marionette.min',
-
+        plupload        	: 'lib/plupload.full.min',
+        
         //Views
         mainview			: 'views/DashboardMainView',
         leftview			: 'views/LeftColumnView',
@@ -41,12 +42,18 @@ require.config({
         addplanmodal		: 'views/modals/AddPlan',
         addaddonmodal		: 'views/modals/AddAddOn',
         adddaterangemodal	: 'views/modals/AddDaterange',
+       
+        mediamanager    	: 'views/modals/media/MediaManager',
+        mediasingle     	: 'views/modals/media/SingleMedia',
 
         //Models
         sitemodel			: 'models/SiteModel',
         usermodel			: 'models/UserModel',
         roommodel			: 'models/RoomModel',
+        mediamodel			: 'models/MediaModel',
 
+        //Collections
+        mediacollection		: 'collections/MediaCollection',
         //templates
         siteprofileviewtpl 	: 'templates/siteprofile/SiteProfileViewTpl',
         addtaxviewtpl       : 'templates/modal/AddTax'
@@ -63,6 +70,10 @@ require.config({
         },
         'string' : {
             deps : ['underscore']
+        },
+        'plupload': {
+            deps : ['jqueryui'],
+            exports : 'plupload'
         },
         'checkbox' :{
             deps : ['jquery']
@@ -137,6 +148,7 @@ function log(object){
              });*/
 
              ImpruwDashboard = new Backbone.Marionette.Application();
+             ImpruwDashboard.ViewManager = new Backbone.ChildViewContainer();
              ImpruwDashboard.addInitializer(function(){
                  new Router();
                  Backbone.history.start();

@@ -163,7 +163,7 @@
 																</td>
 																<td width="30%" class="rowlink-skip">
 																	<a href="javascript:void(0)" class="edit-link editdaterange_lnk"  daterange-id = "<%=daterange.id%>"  ><span class="glyphicon glyphicon-pencil"></span>Edit</a>
-																	<a href="javascript:void(0)" class="edit-link canceleditdaterange_lnk hidden"  daterange-id = "<%=daterange.id%>"  ><span class="glyphicon glyphicon-pencil"></span>Cancel</a>
+																	<a href="javascript:void(0)" class="edit-link canceleditdaterange_lnk hidden"  daterange-id = "<%=daterange.id%>"  ><span class="glyphicon glyphicon-ban-circle"></span>Cancel</a>
 																	<a href="javascript:void(0)" class="delete-link deletedaterange_lnk"  daterange-id = "<%=daterange.id%>"  ><span class="glyphicon glyphicon-trash" daterange-id="<%=daterange.id%>" ></span> Delete</a>
 																</td>
 															</tr>
