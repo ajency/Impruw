@@ -28,10 +28,10 @@
                     <label for="inputFile3" class="col-sm-2 control-label">Business Logo</label>
                     <div class="col-sm-10 col-sm-offset-2">
                         <div class="fileinput fileinput-new" data-provides="fileinput">
-                            <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 300px; height: 100px;"><img name="business_logo"  id="businesslogo_img"   class="hidden" src="" /><input type="hidden" name="hdn_businesslogoid" id="hdn_businesslogoid" /></div>
+                            <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 300px; height: 100px;"><img name="business_logo"  id="businesslogo_img"   class="<% if(site.getGeneralDetails('businessLogoUrl')=='') { %>hidden<% } %>" src="<%= site.getGeneralDetails('businessLogoUrl') %>" /><input type="hidden" name="hdn_businesslogo_id" id="hdn_businesslogo_id" value="<%= site.getGeneralDetails('businessLogoId') %>" /></div>
                             <div>
-                                <span class="btn btn-default btn-file"><span class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span><input type="file" name="inputFile3"></span><a href="javascript:void(0)" id="filepopup">Select</a>
-                                <a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput">Remove</a>
+                                <span class="btn btn-default btn-file"><span class="fileinput-new filepopup<% if(site.getGeneralDetails('businessLogoUrl')!='') { %> fileinput-exists<% } %>" id="select_businesslogo">Select image</span><span class="<% if(site.getGeneralDetails('businessLogoUrl')=='') { %>fileinput-exists<% } %> filepopup" id="change_businesslogo">Change</span><!-- <input type="file" name="inputFile3">--> </span>
+                                <a href="#" class="btn btn-danger <% if(site.getGeneralDetails('businessLogoUrl')=='') { %>fileinput-exists<% } %>" data-dismiss="fileinput" id="remove_businesslogo" >Remove</a>
                             </div>
                         </div>
                     </div>
