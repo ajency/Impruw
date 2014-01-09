@@ -683,6 +683,9 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			$(evt.target).parent().parent().find('.daterange_fromtxt').addClass('hidden');
 			$(evt.target).parent().parent().find('.daterange_totxt').addClass('hidden');
 			
+			$(evt.target).parent().parent().find('br').removeClass('hidden')
+
+			
 			/*$(evt.target).parent().parent().find('.daterange_fromlabel').addClass('hidden');
 			$(evt.target).parent().parent().find('.daterange_tolabel').addClass('hidden');*/
 			
@@ -752,7 +755,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			$(evt.target).parent().parent().find('.daterange_fromlabel').removeClass('hidden');
 			$(evt.target).parent().parent().find('.daterange_tolabel').removeClass('hidden');
  
-			
+			$(evt.target).parent().parent().find('br').addClass('hidden')
 		},
 		
 		/**
