@@ -3,7 +3,7 @@
  *
  * @param {type} param
  */
-var _urlArg = "ver=" + (location.host === 'localhost' ? (new Date()).getTime() : '1.0'); //to avoid file caching
+var _urlArg = "ver=" + (location.host === 'localhost' ? (new Date()).getTime() : JSVERSION); //to avoid file caching
 
 require.config({
     urlArgs : _urlArg,
@@ -30,6 +30,7 @@ require.config({
         parsley         : 'lib/parsley',
         plupload        : 'lib/plupload.full.min',
         marionette      : 'lib/backbone.marionette.min',
+        async           : 'lib/async',
 
         //menu
         menumanager     : 'builder/views/modals/MenuManager',

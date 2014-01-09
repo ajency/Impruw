@@ -45,23 +45,20 @@
                         </p>
                     </div>
                     <div class="aj-imp-page-layout col-sm-4 clearfix navbar-text">
-                        <div id="aj-imp-page-sel" class="dropdown">
-                            <a class="aj-imp-page-toggle" data-toggle="dropdown" href="#">Home Page <span class="glyphicon glyphicon-chevron-down"></span></a>
-                            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">About Page</a></li>
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Gallery Page</a></li>
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Contact Us Page</a></li>
-                                <li role="presentation" class="aj-imp-add-page"><a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-plus-sign"></span> Add Page</a></li>
-                            </ul>
-                        </div>
-                        <div class="aj-imp-sub-bar-head">For Businesses that need to build their online presence</div>
+                        <select id="aj-imp-page-sel" name="current_page_id">
+                                <?php foreach(get_all_menu_pages() as $page): ?>
+                                    <?php $selected = (isset($_COOKIE["current_page_id"]) && $_COOKIE["current_page_id"] == $page->ID) ? 'selected'  :''; ?>
+                                    <option value="<?php echo $page->ID; ?>" <?php echo $selected; ?>><?php echo $page->post_title; ?></option>
+                                <?php endforeach; ?>
+                        </select>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <!-- <div class="aj-imp-sub-bar-head">For Businesses that need to build their online presence</div> -->
                     </div>
-                    <div class="aj-imp-builder-top-title col-sm-2">
+                    <!-- <div class="aj-imp-builder-top-title col-sm-2">
                         <p class="navbar-text">
                             Editing the Home Page...
                         </p>
-                    </div>
-                    <div class="aj-imp-builder-top-options col-sm-4">
+                    </div> -->
+                    <!-- <div class="aj-imp-builder-top-options col-sm-4">
                         <form class="navbar-search">
                             <select id="aj-imp-theme-sel">
                                 <option value="0">Business Theme</option>
@@ -92,6 +89,6 @@
                                 </ul>
                             </div>
                         </form>
-                    </div>
+                    </div> -->
                 </nav>
             </div>
