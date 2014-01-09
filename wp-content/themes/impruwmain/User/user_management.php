@@ -177,7 +177,7 @@ function create_new_site( $blog_id, $blog_name, $blog_title, $user_id, $file_nam
                         'Home'          => array('content' => 'Home Content', 'template' => ''),
                         'About Us'      => array('content' => 'About Content', 'template' => ''),
                         'Contact Us'    => array('content' => 'Contact Content', 'template' => ''),
-                        'Site Builder'  => array('content' => 'Site Builder Content', 'template' => 'site-builder.php')
+                        'Site Builder'  => array('content' => 'Site Builder Content', 'template' => 'site-build.php')
                     );
     
     //start creating initial pages

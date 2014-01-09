@@ -18,7 +18,8 @@ define(['underscore', 'jquery', 'backbone', 'builder/views/BuilderEditorView'],
                 'click #choose-template li a'   : 'updateTemplate',
                 'click #publish-page'           : 'generateJSON',
                 'click #save-initial-layout'    : 'saveInitialLayout',
-                'click #load-theme-page'        : 'setThemePage'
+                'click #load-theme-page'        : 'setThemePage',
+                'change select[name="current_page_id"]' : 'setThemePage'
             },
 
 

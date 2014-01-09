@@ -51,7 +51,6 @@
                             <option value="<?php echo $page->ID; ?>" <?php echo $selected; ?>><?php echo $page->post_title; ?></option>
                         <?php endforeach; ?>
                     </select>&nbsp;&nbsp;&nbsp;&nbsp;
-                    <button class="btn btn-primary" id="load-theme-page" style="margin-bottom: 10px;">Load</button>
                 </div>
                <div class="aj-imp-builder-top-options col-sm-1">
                      <!-- <form class="navbar-search">
