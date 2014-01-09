@@ -1275,6 +1275,7 @@ form .aj-imp-submit:hover {
 .daterange_frominput,
 .daterange_toinput {
   display: inline-block;
+  max-width: 75%;
 }
 .daterange_tolabel {
   margin-right: 15px;
