@@ -1,12 +1,4 @@
 <?php 
-if(is_user_logged_in())
-{ 	
-	global $user;
-  	$blog = get_active_blog_for_user( get_current_user_id());
-	$blogUrl = $blog->siteurl; /* or $blog->path, together with $blog->siteurl */	 
-	wp_redirect( $blogUrl );
-	die;
-}
 /**
  * Template Name: Login
  */
@@ -101,7 +93,7 @@ if(is_user_logged_in())
 						<div class="row">
 							<div class="col-sm-offset-3 col-sm-7">
 								<div class="form-group">
-									<?php echo __('Dont have an account?','impruwmain');?> <a href="<?php  echo site_url()."/register"; ?>"><?php echo __('Sign Up','impruwmain');?></a>
+									<?php echo __('Dont have an account?','impruwmain');?> <a href="<?php  echo site_url('?page_id=9'); ?>"><?php echo __('Sign Up','impruwmain');?></a>
 								</div>
 							</div>
 						</div>
