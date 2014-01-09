@@ -219,7 +219,7 @@ function create_new_site( $blog_id, $blog_name, $blog_title, $user_id, $file_nam
     
     create_datetariff_table_for_blog( $new_blog_id );
 
-    add_menu_to_blog( $user_id, $new_blog_id, $post_id, $post_site_builder_id );
+   //add_menu_to_blog( $user_id, $new_blog_id, $post_id, $post_site_builder_id );
     
     //exit;//create a new post
 

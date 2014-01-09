@@ -130,9 +130,11 @@ class SiteModel {
 						  'country' => '');
 		
 		$address_data = wp_parse_args($address_data, $defaults);
-		 
-		update_blog_option($this->site_id, 'impruw_address',$address_data);		 
-		 
+		
+		switch_to_blog( $this->site_id );
+	    update_option( 'impruw_address', $address_data );
+		restore_current_blog();
+	 
 		return true;
 	}
 	
@@ -147,9 +149,11 @@ class SiteModel {
 		$defaults = array('facebook'  => '',				 
 						  'twitter'   => '');
 		$social_data = wp_parse_args($social_data,$defaults);
-		
-		update_blog_option($this->site_id, 'impruw_social', $social_data);
-	
+		 
+		switch_to_blog( $this->site_id );
+	    update_option( 'impruw_social', $social_data );
+		restore_current_blog();
+		 
 		return true;
 	}
 	
