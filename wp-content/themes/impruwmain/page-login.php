@@ -93,7 +93,7 @@
 						<div class="row">
 							<div class="col-sm-offset-3 col-sm-7">
 								<div class="form-group">
-									<?php echo __('Dont have an account?','impruwmain');?> <a href="<?php  echo site_url()."/register"; ?>"><?php echo __('Sign Up','impruwmain');?></a>
+									<?php echo __('Dont have an account?','impruwmain');?> <a href="<?php  echo site_url('?page_id=9'); ?>"><?php echo __('Sign Up','impruwmain');?></a>
 								</div>
 							</div>
 						</div>
