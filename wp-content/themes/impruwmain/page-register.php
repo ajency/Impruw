@@ -33,7 +33,9 @@
 	<script src="<?php echo get_template_directory_uri(); ?>/js/html5.js"></script>
 	<![endif]-->
         <?php //getThemeCSS(); ?>
-        <script>var ajaxurl = '<?php echo admin_url( 'admin-ajax.php' ); ?>';</script>
+        <script>var ajaxurl = '<?php echo admin_url( 'admin-ajax.php' ); ?>';
+        var siteurl = '<?php echo site_url(); ?>'; 
+        </script>
 	<?php wp_head(); ?>
 </head>
 
