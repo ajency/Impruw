@@ -675,13 +675,17 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 		
 		enableEditDateRange : function(evt){
 			// console.log($(evt.target).children().find('.editdaterange_lnktext').html())
-			 
+		
+			$(evt.target).html('<span class="glyphicon glyphicon-floppy-disk"></span>Save')
 			$(evt.target).removeClass('editdaterange_lnk').addClass('savedaterange_lnk');
 			$(evt.target).parent().parent().find('.canceleditdaterange_lnk').removeClass('hidden');
 			$(evt.target).parent().parent().find('.daterange_frominput').removeClass('hidden');
 			$(evt.target).parent().parent().find('.daterange_toinput').removeClass('hidden');
 			$(evt.target).parent().parent().find('.daterange_fromtxt').addClass('hidden');
 			$(evt.target).parent().parent().find('.daterange_totxt').addClass('hidden');
+			
+			$(evt.target).parent().parent().find('br').removeClass('hidden')
+
 			
 			/*$(evt.target).parent().parent().find('.daterange_fromlabel').addClass('hidden');
 			$(evt.target).parent().parent().find('.daterange_tolabel').addClass('hidden');*/
@@ -716,6 +720,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 				
 				
 						if(response.code=='OK'){
+							$(evt.target).html('<span class="glyphicon glyphicon-pencil"></span>Edit')
 							$(evt.target).addClass('editdaterange_lnk').removeClass('savedaterange_lnk');
 							$(evt.target).parent().parent().find('.canceleditdaterange_lnk').addClass('hidden');
 							$(evt.target).parent().parent().find('.daterange_frominput').addClass('hidden');
@@ -741,8 +746,12 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			
 			console.log('cancel')
 			
- console.log($(evt.target).parent());
+ 
+			$(evt.target).parent().find('.savedaterange_lnk').html('<span class="glyphicon glyphicon-pencil"></span>Edit')
+			
 			$(evt.target).parent().find('.savedaterange_lnk').addClass('editdaterange_lnk').removeClass('savedaterange_lnk');
+			
+			
 			$(evt.target).parent().parent().find('.canceleditdaterange_lnk').addClass('hidden');
 			$(evt.target).parent().parent().find('.daterange_frominput').addClass('hidden');
 			$(evt.target).parent().parent().find('.daterange_toinput').addClass('hidden');
@@ -752,7 +761,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			$(evt.target).parent().parent().find('.daterange_fromlabel').removeClass('hidden');
 			$(evt.target).parent().parent().find('.daterange_tolabel').removeClass('hidden');
  
-			
+			$(evt.target).parent().parent().find('br').addClass('hidden')
 		},
 		
 		/**

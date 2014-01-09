@@ -8,7 +8,8 @@
  * @subpackage Impruw Site
  * @since Impruw Site 1.0
  */
-?>      <div id="setting-popover" style="display:none"></div>
+?>      
+    <div id="setting-popover" style="display:none"></div>
         <div class="aj-imp-drag-menu" id="controls-drag" style="position:absolute;top:69px;left:-1px;">	
             <p class="desc" style="cursor:move">
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.

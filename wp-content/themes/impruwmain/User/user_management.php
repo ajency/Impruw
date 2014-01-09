@@ -303,39 +303,60 @@ function toggle_plugin( $blog_id ) {
 function assign_default_language( $blog_id, $language_code ) {
     global $wpdb;
     switch_to_blog( $blog_id );
+
     $sitepress= new SitePress;
+
     $sitepress->initialize_cache();
+    
     $settings = get_option( 'icl_sitepress_settings' );
+    
     $sitepress->prepopulate_translations( $language_code );
+    
     $wpdb->update( $wpdb->prefix . 'icl_languages', array( 'active'=>'1' ), array( 'code'=>$language_code ) );
+    
     $blog_default_cat = get_option( 'default_category' );
+    
     $blog_default_cat_tax_id = $wpdb->get_var( "SELECT term_taxonomy_id FROM {$wpdb->term_taxonomy} WHERE term_id='{$blog_default_cat}' AND taxonomy='category'" );
 
     if ( isset( $_POST['save_one_language'] ) ) {
+    
         $settings['setup_wizard_step'] = 0;
+    
         $settings['setup_complete'] = 1;
+    
     }else {
+    
         $settings['setup_wizard_step'] = 2;
+    
     }
 
     $settings['default_categories'] = array( $language_code => $blog_default_cat_tax_id );
+    
     $settings['existing_content_language_verified'] = 1;
+    
     $settings['default_language'] = $language_code;
+    
     $settings['admin_default_language'] =  $language_code;
 
     // set the locale in the icl_locale_map (if it's not set)
     if ( !$wpdb->get_var( "SELECT code FROM {$wpdb->prefix}icl_locale_map WHERE code='{$language_code}'" ) ) {
         $default_locale = $wpdb->get_var( "SELECT default_locale FROM {$wpdb->prefix}icl_languages WHERE code='{$language_code}'" );
+        
         if ( $default_locale ) {
+        
             $wpdb->insert( $wpdb->prefix.'icl_locale_map', array( 'code'=>$language_code, 'locale'=>$default_locale ) );
 
         }
     }
 
     $sitepress->save_settings( $settings );
+    
     $sitepress->set_admin_language();
+    
     global $sitepress_settings;
+    
     $sitepress_settings = $settings;
+    
     //$sitepress->get_active_languages(true); //refresh active languages list
     //do_action('icl_initial_language_set');
     restore_current_blog();
@@ -350,13 +371,21 @@ function assign_default_language( $blog_id, $language_code ) {
  * @param int     $blog_id - the id of the blog in which the active languages need to be assigned.
  */
 function assign_active_languages( $blog_id ) {
+    
     $languages_array = array( "en", "nb" );
+    
     switch_to_blog( $blog_id );
+    
     $sitepress= new SitePress();
+    
     $sitepress->initialize_cache();
+    
     $sitepress->set_active_languages( $languages_array );
+    
     $sitepress->verify_settings();
+    
     restore_current_blog();
+
 }
 
 /**
@@ -368,7 +397,9 @@ function assign_active_languages( $blog_id ) {
  * @return type
  */
 function add_new_post_to_blog( $blog_id, $user_id, $post_title, $post_content, $post_type, $post_template ) {
+
     switch_to_blog( $blog_id );
+
     $my_post = array(
         'post_title'    => $post_title,
         'post_content'  => $post_content,
@@ -379,6 +410,7 @@ function add_new_post_to_blog( $blog_id, $user_id, $post_title, $post_content, $
 
     // Insert the post into the database
     $post_id = wp_insert_post( $my_post );
+
     update_post_meta( $post_id, '_wp_page_template', $post_template );
 
     //$test=icl_sitepress_activate();var_dump($test);exit;
@@ -400,7 +432,9 @@ function add_new_post_to_blog( $blog_id, $user_id, $post_title, $post_content, $
  * @return the translated post ID
  *  */
 function mwm_wpml_translate_post( $blog_id, $post_id, $post_type, $lang, $user_id ) {
+
     switch_to_blog( $blog_id );
+
     // Include WPML API
     include_once WP_PLUGIN_DIR . '/sitepress-multilingual-cms/inc/wpml-api.php';
 
@@ -418,7 +452,9 @@ function mwm_wpml_translate_post( $blog_id, $post_id, $post_type, $lang, $user_i
 
     // Associate original post and translated post
     global $wpdb;
+
     $wpdb->update( $wpdb->prefix.'icl_translations', array( 'trid' => $trid, 'language_code' => $lang, 'source_language_code' => $default_lang ), array( 'element_id' => $post_translated_id ) );
+
     restore_current_blog();
     // Return translated post ID
     return $post_translated_id;
@@ -714,7 +750,7 @@ function sitename_exists( $blog_name, $mainblog_id ) {
 
             $site_exists['CODE'] = 'ERROR';
             //$site_exists['message'] =  __('The following words are reserved for use by WordPress functions and cannot be used as blog names: '.implode(",",$subdirectory_reserved_names)) ;
-            $site_exists['message'] =  __( 'It is a reserved word and cannot be used as blog names: ' ) ;
+            $site_exists['message'] =  __( 'It is a reserved word and cannot be used as site names: ' ) ;
 
             return $site_exists;
 
