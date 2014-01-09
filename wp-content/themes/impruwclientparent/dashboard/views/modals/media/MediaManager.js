@@ -3,11 +3,11 @@
  *  Contains all logic to handle menu configurations
  *  Add/Editing/Deleting Menu
  */
-define(['builder/views/modals/Modal', 'text!builder/templates/modal/media/mediamanager.hbs',
-        'mediamodel', 'mediacollection', 'mediasingle', 'global', 'parsley'
+define(['views/modals/Modal', 'text!templates/modal/media/mediamanager.tpl',
+        'mediamodel', 'mediacollection', 'mediasingle'  
     ],
 
-    function(Modal, template, MediaModel, MediaCollection, SingleMedia, global) {
+    function(Modal, template, MediaModel, MediaCollection, SingleMedia ) {
 
 
         var MediaManager = Modal.extend({
@@ -47,13 +47,13 @@ define(['builder/views/modals/Modal', 'text!builder/templates/modal/media/mediam
                         $('#controls-drag').show();
 
                     //trigger the elements update self
-                    SiteBuilder.vent.trigger('modal-closed', self);
+                    ImpruwDashboard.vent.trigger('modal-closed', self);
 
                 });
 
                 var markup = _.template(this.template, {});
 
-                this.$el.find('.modal-body').html(markup);
+                this.$el.find('.modal-content').append(markup);
 
                 this.mediaCollection = new MediaCollection();
 

@@ -1505,8 +1505,8 @@ function save_new_room_facility() {
 
 
 }
-add_action( 'wp_ajax_save_new_room_facility', 'save_new_tax' );
-add_action( 'wp_ajax_nopriv_save_new_room_facility', 'save_new_tax' );
+add_action( 'wp_ajax_save_new_room_facility', 'save_new_room_facility' );
+add_action( 'wp_ajax_nopriv_save_new_room_facility', 'save_new_room_facility' );
 
 
 /**

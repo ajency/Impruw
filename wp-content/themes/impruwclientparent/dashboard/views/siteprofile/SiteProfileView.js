@@ -17,7 +17,8 @@ define([ 'underscore', 'jquery', 'backbone',
 			'click #add_another_email' 		: 'addAnotherEmailElement',
 			'click .del_email'				: 'delEmailElement',
 			'click #add_another_phone' 		: 'addAnotherPhoneElement',
-			'click .del_phone' 				: 'delPhoneElement'
+			'click .del_phone' 				: 'delPhoneElement',
+			'click #filepopup'				: 'showFilePopup'
 		},
 
 		initialize : function(args) {
@@ -31,6 +32,52 @@ define([ 'underscore', 'jquery', 'backbone',
 			
 			//ImpruwDashboard.vent.on("user-profile-updated", this.updatedProfileView);
 
+		},
+		showFilePopup : function(){
+			 var self = this;
+
+             require(['underscore', 'mediamanager'], _.bind(function(_, MediaManager) {
+
+                 var mediamanager = ImpruwDashboard.ViewManager.findByCustom("media-manager");
+
+                 //if not present create new
+                 if (_.isUndefined(mediamanager)) {
+                     mediamanager = new MediaManager();
+                     ImpruwDashboard.ViewManager.add(mediamanager, "media-manager");
+                 }
+
+                 //start listening to event
+
+                 this.listenTo(ImpruwDashboard.vent,'image-selected', this.businessLogoSelected);
+
+
+                 mediamanager.open();
+
+             }, this));
+			
+		},
+		
+		businessLogoSelected : function(image, size){
+			
+			
+			console.log(size);
+			console.log(image);
+			
+			//stop listening to image-selected event
+            this.stopListening(ImpruwDashboard.vent, 'image-selected', this.updateSelf);
+
+            if (!_.isObject(image))
+                throw 'Invalid <image> datatype. Must be an Object';
+
+            this.dataSource = {};
+
+            this.dataSource.attachmentID    = image.get('id');
+            this.dataSource.size            = size;
+
+            this.$el.find('.fileinput-preview').find('#businesslogo_img').removeClass('hidden');
+            this.$el.find('.fileinput-preview').find('#businesslogo_img').attr('src', image.get('sizes')[size].url);
+            this.$el.find('.fileinput-preview').attr('src', image.get('sizes')[size].url);
+			
 		},
 		/**
 		 * 

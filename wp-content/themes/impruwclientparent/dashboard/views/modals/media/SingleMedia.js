@@ -3,11 +3,11 @@
  *  Contains all logic to handle menu configurations
  *  Add/Editing/Deleting Menu
  */
-define(['backbone', 'text!builder/templates/modal/media/singlemedia.hbs',
-        'mediamodel', 'global'
+define(['backbone', 'text!templates/modal/media/singlemedia.tpl',
+        'mediamodel',  
     ],
 
-    function(Backbone, template, MediaModel, global) {
+    function(Backbone, template, MediaModel) {
 
 
         var SingleMedia = Backbone.View.extend({
@@ -79,7 +79,7 @@ define(['backbone', 'text!builder/templates/modal/media/singlemedia.hbs',
 
                 size = size === '' ? 'thumbnail' : size;
 
-                SiteBuilder.vent.trigger('image-selected', this.model, size);
+                ImpruwDashboard.vent.trigger('image-selected', this.model, size);
                 this.parent.hide();
 
             },
@@ -91,7 +91,7 @@ define(['backbone', 'text!builder/templates/modal/media/singlemedia.hbs',
             saveImageDetails: function(evt) {
 
                 var form = $(evt.target).closest('form');
-                var formData = global.getFormData(form);
+               // var formData = global.getFormData(form);
 
                 var self = this;
 
