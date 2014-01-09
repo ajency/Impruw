@@ -834,6 +834,26 @@ function get_site_data( $site_id ) {
 
 }
 
+/**
+ * 
+ * Function to remove business logo
+ */
+function remove_business_logo(){
+	
+	var_dump('remove business  logo');
+	$result = update_option('sitebusiness-logo','' );
+	if(!result){
+		wp_send_json( array( 'code' => 'ERROR', 'msg'=>'Error removing business logo' ) );
+		
+	}
+	else{
+		wp_send_json( array( 'code' => 'OK', 'msg'=>'Business logo removed successfully' ) );
+	} 
+	
+}
+add_action( 'wp_ajax_remove_business_logo', 'remove_business_logo' );
+add_action( 'wp_ajax_nopriv_remove_business_logo', 'remove_business_logo' );
+
 
 
 /**
@@ -843,15 +863,17 @@ function get_site_data( $site_id ) {
  */
 function save_site_data_ajx() {
 
-    $siteform_social = array();
+    $siteform_social   = array();
     $siteform_business = array();
+    $siteform_businesslogo  = '' ;
 
     $site_form_data = array();
 
     $siteform_social =  serializedform_to_array( $_POST['siteprofile_social'] );
     $siteform_business = serializedform_to_array( $_POST['siteprofile_business'] );
-
-    $site_form_data = array( 'business'=>$siteform_business, 'social'=>$siteform_social );
+	$siteform_businesslogo  = $_POST['siteprofile_businesslogo'] ;
+	
+    $site_form_data = array( 'business'=>$siteform_business, 'social'=>$siteform_social, 'businesslogo'=>$siteform_businesslogo );
 
     if ( save_site_data( $site_form_data ) ) {
 
@@ -2267,6 +2289,9 @@ function delete_daterange($daterange_id){
 	$result_delete_plans = $wpdb->delete($daterange_table,array('id'=>$daterange_id));
 	return true;	 
 }
+
+
+
 
 /**
  * 

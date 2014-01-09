@@ -9,7 +9,7 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 		url : AJAXURL + '?action=get_site_data_ajx',
 		
 		siteProfileUrl : AJAXURL + '?action=save_site_data_ajx',
-
+		removebusLogoUrl : AJAXURL + '?action=remove_business_logo',
 		
 		/**
 		 * Function to get site emails
@@ -128,10 +128,45 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 			return details[field];
 		},
 		
+		/**
+		 * Function to remove business logo
+		 * @param args
+		 * @param fn
+		 */
+		removeSiteBusinessLogo : function(args, fn){
+			console.log('remove business logo 2')
+			var _self = this;
+			 
+			
+			var data = { };
+			 
+			 
+			$.post(	this.removebusLogoUrl,
+					data,
+					function(response){
+						if(response.code=='OK'){
+						
+							_self.set(response.site_data)
+							
+							console.log(window.impruwSite);
+							if(!_.isUndefined(fn.success) && _.isFunction(fn.success))
+								fn.success(response);  
+						}
+						else{
+							 
+							if(!_.isUndefined(fn.failure) && _.isFunction(fn.failure))
+								fn.failure(response);
+						}
+				
+					});	
+			
+		},
 		
-		
-		
-		
+		/**
+		 * Function to save site Profile
+		 * @param args
+		 * @param fn
+		 */
 		saveSiteProfile :function(args,  fn){
  
 
@@ -139,10 +174,10 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 			var _self = this;
 			 
 			
-			var data = {	siteprofile_business :args.business,
- 
-				 			siteprofile_social :args.social	 
- 
+			var data = {	siteprofile_business 	 : args.business, 
+				 			siteprofile_social 	 	 : args.social,
+				 			 
+				 			siteprofile_businesslogo : args.siteprofile_businesslogo
 						};
 			 
 			 

@@ -73,9 +73,9 @@ h1, h2, h3, h4, h5, h6{
 	.layout-header, .layout-body, .layout-footer {
 		> .row {
 			padding: 0 2em;
-			&.grey-bg {
-				background: @grey;
-				padding: 2em 0 1em;
+			&.centered {
+				margin: auto;
+				padding: 0 15px;
 			}
 		}
 	}
@@ -100,6 +100,7 @@ h1, h2, h3, h4, h5, h6{
 		}
 	}
 	.social-links {
+		padding: 1.3em 0 1em;
 		.icon-dribbble:before, .icon-twitter:before, .icon-facebook:before, .icon-pinterest:before,
 		.icon-flickr:before, .icon-google-plus:before, .icon-tumblr:before, .icon-youtube:before,
 		.icon-dribbble:after, .icon-twitter:after, .icon-facebook:after, .icon-pinterest:after,
@@ -130,8 +131,8 @@ h1, h2, h3, h4, h5, h6{
 		.icon-youtube:before, .icon-youtube:after {
 			content: "\e606"; }
 		.social {
-			text-align: center;
-			padding-left:0;
+			text-align: right;
+			padding-left: 0;
 			li {
 				font-size:1.2em;
 				display: inline-block;
@@ -146,6 +147,7 @@ h1, h2, h3, h4, h5, h6{
 				-moz-transition-duration: 0.7s;
 				-o-transition-duration: 0.7s;
 				transition-duration: 0.7s; 
+				text-align: center;
 				a {
 					display: block;
 					width: 100%;
@@ -167,6 +169,9 @@ h1, h2, h3, h4, h5, h6{
 						line-height: 60px;
 						color: @dark-grey; 
 					}
+					&:hover {
+						text-decoration: none;
+					}
 				}
 				&:hover {
 					background: @grey;
@@ -177,5 +182,108 @@ h1, h2, h3, h4, h5, h6{
 				}
 			}
 		}
+	}
+}
+
+.main-menu {
+	padding: 0;
+	margin: 0 auto 1em;
+	border-bottom: 3px solid @blue;
+	background: #fff;
+	.slimmenu {
+		padding: 0;
+		border: 1px solid darken(@grey, 10%);
+		border-bottom: 0;
+		border-left: 0;
+		> li {
+			background: transparent;
+			padding: 0.3em 0;
+			border: 0;
+			margin-right: -3px;
+			a {
+				font-size: 1em;
+				font-weight: bold;
+				color: @blue;
+				padding: 0.5em 44px 0.5em 1.5em;
+				border-right: 1px solid darken(@grey, 10%);
+				span {
+					display: block;
+					font-size: 0.75em;
+					font-weight: normal;
+					color: lighten(@dark-grey, 20%);
+				}
+				&:hover {
+					background: transparent;
+					color: @dark-grey;
+					span {
+						color: lighten(@blue, 20%);
+					}
+				}
+			}
+			.sub-collapser {
+				background: transparent;
+				width: 40px;
+				> i {
+					font-size: 0.6em;
+					color: darken(@grey, 20%);
+				}
+			}
+			> ul.dropDrown {
+				padding: 0;
+				width: auto;
+				li {
+					width: 100%;
+					background: #fff;
+					border-bottom: 1px solid darken(@grey, 10%);
+					a {
+						border: 0;
+						font-size: 1em;
+						font-weight: normal;
+						padding: 0.5em 1.5em;
+						color: @dark-grey;
+						&:hover {
+							background: darken(@grey, 10%);
+							color: @blue;
+						}
+					}
+				}
+			}
+			&.active {
+				background: @blue;
+				a {
+					color: lighten(@blue, 65%);
+					border-color: @blue;
+					span {
+						color: lighten(@blue, 50%);
+					}
+				}
+			}
+			&:last-child {
+				a {
+					border-right: 0;
+				}
+			}
+		}
+	}
+}
+
+/****Content Styles****/
+.title-meta {
+	color: @blue;
+	font-size: 1.2em;
+	font-weight: bold;
+}
+
+.main-title {
+	color: @dark-grey;
+	font-style: italic;
+	font-family: 'Arial Black', Arial, Helvetica, sans-serif;
+	margin: 0 0 0.5em;
+}
+
+.layout-body {
+	p {
+		font-size: 1em;
+		color: @dark-grey;
 	}
 }
