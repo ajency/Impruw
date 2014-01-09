@@ -55,24 +55,50 @@ define(['backbone', 'jquery', 'underscore', 'global'],
             returnJSON: function() {
 
                 var ele = {
-                    id              : this.id,
-                    type            : this.getType(),
-                    draggable       : this.isDraggable(),
-                    editable        : this.isEditable(),
-                    extraClasses    : this.getExtraClasses(),
-                    dataSource      : this.getdataSource(),
-                    contentFetched  : this.contentFetched 
+                    id              : this.get('id'),
+                    type            : this.get('elementType'),
+                    draggable       : this.get('draggable'),
+                    editable        : this.get('editable'),
+                    extraClasses    : this.get('extraClasses'),
+                    dataSource      : this.get('dataSource'),
+                    contentFetched  : this.get('contentFetched') 
                 };
 
                 return ele;
             },
 
             /**
-             * Set the content fetched status of the element
+             * returns the type porperty for view
+             * @return {[type]} [description]
              */
-            setFetchedStatus : function(status){
+            type : function(){
 
-                this.contentFetched = status;
+                return _.str.slugify(this.elementType);
+
+            },
+
+            /**
+             * Gets the property of the view
+             * @param  {[string]} property [description]
+             * @return {[mixed]}          [description]
+             */
+            get : function(property){
+
+                if(!_.isUndefined(property))
+                    return this[property];
+
+                return false;
+
+            },
+
+            /**
+             * Set the property for the view
+             * @param {[type]} key [description]
+             * @param {[type]} val [description]
+             */
+            set: function(key, val) {
+                    
+                this[key] = val;
 
             },
 
@@ -82,16 +108,6 @@ define(['backbone', 'jquery', 'underscore', 'global'],
             generateJSON: function() {
 
                 return this.returnJSON();
-
-            },
-
-            /**
-             * Returns the data source property
-             * @return {[object]} [description]
-             */
-            getdataSource : function(){
-                
-                return this.dataSource;
 
             },
 
@@ -211,16 +227,6 @@ define(['backbone', 'jquery', 'underscore', 'global'],
                         menuStyle: 'dropdown'
                     });
                 });
-            },
-
-            /**
-             * Returns the element type
-             * @returns String
-             */
-            getType: function() {
-
-                return this.elementType;
-
             },
 
             /**
@@ -583,8 +589,13 @@ define(['backbone', 'jquery', 'underscore', 'global'],
                 if (_.isUndefined(this.template))
                     return '';
 
-                var html = _.template(this.template);
+                var html = '';
 
+                if(_.isObject(content))
+                    html = this.template(content);
+                else
+                    html = this.template();
+                
                 this.$el.html(html);
 
                 this.setContentClass();
@@ -592,7 +603,7 @@ define(['backbone', 'jquery', 'underscore', 'global'],
                 this.setHandlers();
 
                 //add content if sent
-                if (!_.isUndefined(content)) {
+                if (!_.isUndefined(content) && _.isString(content)) {
                     this.$el.children('.content').html(content);
                 }
                 return this.$el;

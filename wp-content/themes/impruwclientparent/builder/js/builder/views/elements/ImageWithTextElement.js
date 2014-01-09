@@ -1,4 +1,4 @@
-define(['builder/views/elements/ImageElement', 'text!builder/templates/elements/ImageWithTextElement.hbs', 'global'],
+define(['imagelement', 'text!builder/templates/elements/ImageWithTextElement.hbs', 'global'],
     function(ImageElement, template, global) {
 
         var ImageWithTextElement = ImageElement.extend({

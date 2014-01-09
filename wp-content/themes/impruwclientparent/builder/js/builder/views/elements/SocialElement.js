@@ -1,4 +1,4 @@
-define(['builder/views/elements/BuilderElement', 'text!builder/templates/elements/SocialElement.hbs', 'global'],
+define(['builderelement', 'text!builder/templates/elements/SocialElement.hbs', 'global'],
     function(BuilderElement, template, global) {
 
         var SocialElement = BuilderElement.extend({

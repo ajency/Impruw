@@ -1,4 +1,4 @@
-define(['builder/views/elements/ImageElement', 'text!builder/templates/elements/LogoElement.hbs', 'global'],
+define(['imageelement', 'text!builder/templates/elements/BasicElement.hbs', 'global'],
     function(ImageElement, template, global) {
 
         var LogoElement = ImageElement.extend({
@@ -41,7 +41,7 @@ define(['builder/views/elements/ImageElement', 'text!builder/templates/elements/
                 } else {
                     this.setProperties(options.config);
                 }
-                this.generateMarkup();
+                this.generateMarkup({icon : '' , name : 'Logo Element'});
                 this.setParent(options.parent);
                 this.setContextMenu();
 

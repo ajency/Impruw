@@ -1,4 +1,4 @@
-define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/BuilderRowColumn', 'global'],
+define(['builderelement', 'builder/views/elements/layout/BuilderRowColumn', 'global'],
 
     function(BuilderElement, BuilderRowColumn, global) {
 
@@ -55,7 +55,6 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
 
                 //drop mode
                 if (_.isUndefined(options.config)) {
-
                     this.generateDropMarkup();
                     this.id = this.type + '-' + global.generateRandomId();
                     this.$el.attr('id', this.id);
@@ -133,7 +132,7 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
 
                 var self = this;
 
-                var mod = 'builder/views/elements/layout/BuilderRowColumn';
+                var mod = 'buildercolumn';
 
                 require([mod], function(Column) {
 

@@ -3,10 +3,10 @@
  * All required jquery plugins + other libraries are looaded througth
  * this file.
  */
-define(['underscore', 'jquery', 'backbone', 'moment', 'numerals', 'holder', 'cssFx', 'bootstrap', 'text', 'jqueryui',
+define(['underscore', 'jquery', 'backbone', 'holder', 'cssFx', 'bootstrap', 'tpl', 'jqueryui',
         'string', 'cookie', 'bootstrapselect', 'checkbox', 'radio', 'parsley'
     ],
-    function(_, $, Backbone, moment, numerals, Holder, cssFx) {
+    function(_, $, Backbone, numerals, Holder, cssFx) {
 
         var global = {};
 
@@ -14,10 +14,10 @@ define(['underscore', 'jquery', 'backbone', 'moment', 'numerals', 'holder', 'css
         _.mixin(_.str.exports());
 
         //attach moment object
-        global.moment = moment;
+        //global.moment = moment;
 
         //attach numerals object
-        global.numerals = numerals;
+        //global.numerals = numerals;
 
         global.Holder = Holder;
 

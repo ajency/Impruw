@@ -1,4 +1,4 @@
-define(['builder/views/elements/BuilderElement', 'text!builder/templates/elements/TextElement.hbs', 'global'],
+define(['builderelement', 'text!builder/templates/elements/TextElement.hbs', 'global'],
     function(BuilderElement, template, global) {
 
         var TextElement = BuilderElement.extend({

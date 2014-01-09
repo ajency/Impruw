@@ -1,4 +1,4 @@
-define(['builder/views/elements/BuilderElement', 'text!builder/templates/elements/RoomsElement.hbs', 'global'],
+define(['builderelement', 'text!builder/templates/elements/RoomsElement.hbs', 'global'],
     function(BuilderElement, template, global) {
 
         var RoomsElement = BuilderElement.extend({
@@ -104,5 +104,5 @@ define(['builder/views/elements/BuilderElement', 'text!builder/templates/element
 
         });
 
-        return SliderElement;
+        return RoomsElement;
     });

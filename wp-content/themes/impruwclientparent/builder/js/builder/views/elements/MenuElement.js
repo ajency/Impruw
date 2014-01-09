@@ -1,4 +1,4 @@
-define(['builder/views/elements/BuilderElement', 'text!builder/templates/elements/MenuElement.hbs', 'global'],
+define(['builderelement', 'text!builder/templates/elements/MenuElement.hbs', 'global'],
     function(BuilderElement, template, global) {
 
         var MenuElement = BuilderElement.extend({

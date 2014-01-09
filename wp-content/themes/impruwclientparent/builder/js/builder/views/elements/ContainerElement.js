@@ -1,4 +1,4 @@
-define(['builder/views/elements/BuilderElement', 'global'],
+define(['builderelement', 'global'],
     function(BuilderElement, global) {
 
         var ContainerElement = BuilderElement.extend({

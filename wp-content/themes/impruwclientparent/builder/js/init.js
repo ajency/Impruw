@@ -15,7 +15,7 @@ require.config({
         bootstrapselect : 'lib/bootstrapselect',
         underscore      : 'lib/underscore.min',
         backbone        : 'lib/backbone.min',
-        text            : 'lib/text',
+        tpl             : 'lib/tpl',
         moment          : 'lib/moment.min',
         cookie          : 'lib/cookie.min',
         string          : 'lib/underscore.string.min',
@@ -31,6 +31,27 @@ require.config({
         plupload        : 'lib/plupload.full.min',
         marionette      : 'lib/backbone.marionette.min',
         async           : 'lib/async',
+
+        //elements
+        builderelement  : 'builder/views/elements/BuilderElement',
+        builderrow      : 'builder/views/elements/layout/BuilderRowElement',
+        buildercolumn   : 'builder/views/elements/layout/BuilderRowColumn',
+        
+        imageelement    : 'builder/views/elements/ImageElement',
+        logoelement     : 'builder/views/elements/LogoElement',
+        menuelement     : 'builder/views/elements/MenuElement',
+        titleelement    : 'builder/views/elements/TitleElement',
+        textelement     : 'builder/views/elements/TextElement',
+        socialelement   : 'builder/views/elements/SocialElement',
+        sliderelement   : 'builder/views/elements/SliderElement',
+        imagetextelement: 'builder/views/elements/ImageWithTextElement',
+        addresselement  : 'builder/views/elements/AddressElement',
+
+        roomtitle       : 'builder/views/elements/rooms/RoomTitle',
+        roomdescription : 'builder/views/elements/rooms/RoomDescription',
+
+        //templates
+        basicelement    : 'builder/templates/elements',
 
         //menu
         menumanager     : 'builder/views/modals/MenuManager',

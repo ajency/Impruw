@@ -1,29 +1,29 @@
-define(['builderelement', 'tpl!builder/templates/elements/BasicElement.tpl', 'global'],
-    function(BuilderElement, template, global) {
+define(['textelement', 'text!builder/templates/elements/BasicElement.hbs', 'global'],
+    function(TextElement, template, global) {
 
-        var AddressElement = BuilderElement.extend({
+        var RoomDescription = TextElement.extend({
 
             //class name for view
-            className: 'aj-imp-elem-address element',
+            className: 'aj-imp-elem-room-description element',
 
             //define template for control
             template: template,
 
             //element type
-            elementType: 'AddressElement',
+            elementType: 'RoomDescription',
 
             //identify element type
-            type: 'address',
+            type: 'roomtitle',
 
             //set height to be assigned to placeholder and helper
             placeHolderHeight: 100,
 
             //
             events: {
-                'mouseenter': 'elementMouseEnter',
-                'mouseleave': 'elementMouseLeave',
+                'mouseenter'                : 'elementMouseEnter',
+                'mouseleave'                : 'elementMouseLeave',
                 'click > .aj-imp-delete-btn': 'destroyElement',
-                'contextmenu': 'showContextMenu'
+                'contextmenu'               : 'showContextMenu'
             },
 
             /**
@@ -41,13 +41,13 @@ define(['builderelement', 'tpl!builder/templates/elements/BasicElement.tpl', 'gl
                 } else {
                     this.setProperties(options.config);
                 }
-                this.generateMarkup({icon : '', name : 'Address Element'});
+                this.generateMarkup({icon : 'icon', name : 'Room Description'});
                 this.setParent(options.parent);
-                this.setContextMenu();
 
+                this.setContextMenu();
             }
 
         });
 
-        return AddressElement;
+        return RoomDescription;
     });

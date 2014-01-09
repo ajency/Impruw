@@ -1,4 +1,4 @@
-define(['builder/views/elements/BuilderElement', 'global'],
+define(['builderelement', 'global'],
     function(BuilderElement, global) {
 
         var BuilderRowColumn = BuilderElement.extend({
@@ -140,14 +140,8 @@ define(['builder/views/elements/BuilderElement', 'global'],
                 if (element.type === 'BuilderRowColumn')
                     return;
 
-                var mod = '';
-                if (element.type === 'BuilderRow') {
-                    mod = 'builder/views/elements/layout/' + element.type;
-                } else {
-                    mod = 'builder/views/elements/' + element.type;
-                }
-
-
+                var mod = element.type;
+                
                 require([mod], function(Element) {
 
                     var ele = new Element({
@@ -438,18 +432,12 @@ define(['builder/views/elements/BuilderElement', 'global'],
 
                 var self = this;
 
-                var path = '';
-                if (elementName === 'BuilderRow' || elementName === 'BuilderRowColumn')
-                    path = 'builder/views/elements/layout/' + elementName;
-                else
-                    path = 'builder/views/elements/' + elementName;
-
                 //set loader
                 if (self.$el.find('*[data-element="' + elementName + '"]').length > 0)
                     self.$el.find('*[data-element="' + elementName + '"]').html('<div class="element-drop-loader"></div>');
 
 
-                require([path], function(Element) {
+                require([elementName], function(Element) {
 
                     var element = new Element({
                         parent: self

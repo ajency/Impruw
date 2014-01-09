@@ -1,4 +1,4 @@
-define(['builder/views/elements/BuilderElement', 'text!builder/templates/elements/TitleElement.hbs', 'global'],
+define(['builderelement', 'text!builder/templates/elements/TitleElement.hbs', 'global'],
     function(BuilderElement, template, global) {
 
         var TitleElement = BuilderElement.extend({
