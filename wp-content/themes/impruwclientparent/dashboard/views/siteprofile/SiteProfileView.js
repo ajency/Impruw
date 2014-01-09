@@ -18,7 +18,8 @@ define([ 'underscore', 'jquery', 'backbone',
 			'click .del_email'				: 'delEmailElement',
 			'click #add_another_phone' 		: 'addAnotherPhoneElement',
 			'click .del_phone' 				: 'delPhoneElement',
-			'click #filepopup'				: 'showFilePopup'
+			'click .filepopup'				: 'showFilePopup',
+			'click #remove_businesslogo'	: 'removeBusinessLogo'
 		},
 
 		initialize : function(args) {
@@ -33,9 +34,10 @@ define([ 'underscore', 'jquery', 'backbone',
 			//ImpruwDashboard.vent.on("user-profile-updated", this.updatedProfileView);
 
 		},
-		showFilePopup : function(){
+		showFilePopup : function(evt){
 			 var self = this;
 
+			 
              require(['underscore', 'mediamanager'], _.bind(function(_, MediaManager) {
 
                  var mediamanager = ImpruwDashboard.ViewManager.findByCustom("media-manager");
@@ -75,10 +77,43 @@ define([ 'underscore', 'jquery', 'backbone',
             this.dataSource.size            = size;
 
             this.$el.find('.fileinput-preview').find('#businesslogo_img').removeClass('hidden');
+            this.$el.find('.fileinput-preview').find('#hdn_businesslogo_id').val(image.get('id'));
             this.$el.find('.fileinput-preview').find('#businesslogo_img').attr('src', image.get('sizes')[size].url);
             this.$el.find('.fileinput-preview').attr('src', image.get('sizes')[size].url);
+            
+            this.$el.find('#select_businesslogo').addClass('fileinput-exists');
+            this.$el.find('#change_businesslogo').removeClass('fileinput-exists');
+            this.$el.find('#remove_businesslogo').removeClass('fileinput-exists');
 			
 		},
+		
+		
+		
+		
+		/**
+		 * 
+		 */
+		removeBusinessLogo : function(evt){
+			console.log('remove business logo')
+			var evt_ =  evt;
+			
+			$('#hdn_businesslogo_id').val('');
+			console.log( $(this.target).parent().parent().find('.fileinput-preview'))
+			 //$(this.target).parent().parent().find('.fileinput-preview').find('#businesslogo_img').attr('src','');
+			$('#businesslogo_img').attr('src','');
+			var data = 	{ 
+					'action'  : 'remove_business_logo'				 	
+				};
+
+			removeBusinessLogo = window.impruwSite.removeSiteBusinessLogo(data, {
+																	event : evt_,
+																	success : self.saveProfileSuccess,
+																	failure : self.saveProfileFailure
+																});		
+			
+		},
+		
+		
 		/**
 		 * 
 		 * @param data
@@ -132,11 +167,13 @@ define([ 'underscore', 'jquery', 'backbone',
 					
 					var formBusiness = this.$el.find('#form-siteprofile-business').serializeArray();
 					
-					var formSocial = this.$el.find('#form-siteprofile-social').serializeArray();
+					var formSocial 	 = this.$el.find('#form-siteprofile-social').serializeArray();
+					var businesslogo = this.$el.find('#form-siteprofile-general').find('#hdn_businesslogo_id').val();
 					
 					var data = 	{ 
 									'business'  : formBusiness,
-								 	'social'	: formSocial
+								 	'social'	: formSocial,
+								 	'siteprofile_businesslogo'	: businesslogo
 								};
 		
 					$siteProfileSaveStatus = window.impruwSite.saveSiteProfile(data, {

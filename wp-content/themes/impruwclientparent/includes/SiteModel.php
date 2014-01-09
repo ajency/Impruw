@@ -66,11 +66,21 @@ class SiteModel {
 	 */
 	function get_site_general(){
 		
-		$site_general_data = array('siteName'=>get_blog_details($this->site_id)->blogname);
-		if($site_general_data)
-			return $site_general_data;
-		else
-			return (array());
+		$businesslogo_id = get_option('sitebusiness-logo');
+		if($businesslogo_id !== false) 
+			 		$businesslogo_url = wp_get_attachment_thumb_url( $businesslogo_id );
+		else{
+			$businesslogo_id 	= '';
+			$businesslogo_url	= '';
+		}	
+		 
+		$site_general_data = array('siteName'			=> get_blog_details($this->site_id)->blogname,
+									'businessLogoId'	=> $businesslogo_id,
+									'businessLogoUrl'	=> $businesslogo_url 
+								  );
+		 
+		 return $site_general_data;
+		 
 	}
 	
 	
@@ -100,7 +110,7 @@ class SiteModel {
 			return (array());
 	}
 	
-	
+	 
 	
 	
 	/**
@@ -113,9 +123,29 @@ class SiteModel {
 	 
 		$this->save_site_address($siteData['business']);
 		$this->save_site_social($siteData['social']);
+		$this->save_business_logo($siteData['businesslogo']);
 		
 		return true;
 	}
+	
+	
+	
+	/**
+	 * 
+	 * @param int business Id 
+	 * @return boolean
+	 */
+	function save_business_logo($business_logo){
+		 
+		switch_to_blog( $this->site_id );
+	    $result = update_option( 'sitebusiness-logo', $business_logo );
+		restore_current_blog();
+	 	if(!$result)
+	 		return $result;
+	 		
+		return true;
+	}
+	
 	
 	
 	/**
