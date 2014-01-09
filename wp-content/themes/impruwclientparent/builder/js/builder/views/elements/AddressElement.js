@@ -39,7 +39,6 @@ define(['builderelement', 'tpl!builder/templates/elements/BasicElement.tpl', 'gl
                     this.setProperties(options.config);
                 }
                 this.generateMarkup({icon : '', name : 'Address Element'});
-                this.setParent(options.parent);
                 this.setContextMenu();
 
             }

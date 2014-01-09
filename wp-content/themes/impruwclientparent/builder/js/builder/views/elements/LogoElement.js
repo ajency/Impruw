@@ -39,7 +39,6 @@ define(['imageelement', 'tpl!builder/templates/elements/BasicElement.tpl', 'glob
                     this.setProperties(options.config);
                 }
                 this.generateMarkup({icon : '' , name : 'Logo Element'});
-                this.setParent(options.parent);
                 this.setContextMenu();
 
             },

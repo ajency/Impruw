@@ -281,9 +281,6 @@ define(['builderelement', 'global'],
                                 section.splice(index, 1); //remove element
 
                                 receiver.elements.push(row); //add the same position
-
-                                //change parent
-                                row.setParent(receiver);
                             }
                         });
 
@@ -297,9 +294,6 @@ define(['builderelement', 'global'],
                             sender.elements.splice(index, 1); //remove element
 
                             receiver.elements.push(element); //add the same position
-
-                            //change parent
-                            element.setParent(receiver);
                         }
 
                     });

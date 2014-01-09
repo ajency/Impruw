@@ -6,7 +6,7 @@
 define(['underscore', 'jquery', 'backbone', 'holder', 'cssFx', 'bootstrap', 'tpl', 'jqueryui',
         'string', 'cookie', 'bootstrapselect', 'checkbox', 'radio', 'parsley'
     ],
-    function(_, $, Backbone, numerals, Holder, cssFx) {
+    function(_, $, Backbone, Holder, cssFx) {
 
         var global = {};
 

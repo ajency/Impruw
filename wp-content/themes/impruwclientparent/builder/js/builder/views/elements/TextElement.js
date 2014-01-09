@@ -41,15 +41,11 @@ define(['builderelement', 'tpl!builder/templates/elements/BasicElement.tpl', 'gl
                 } else {
                     this.setProperties(options.config);
                     if (!_.isUndefined(options.config.content))
-                        this.generateMarkup(options.config.content);
+                        this.generateMarkup({icon : '', name : 'Text Element'},options.config.content);
                 }
-
-
-                this.setParent(options.parent);
-
                 this.setContextMenu();
 
-                 this.$el.find('.content').attr('contenteditable',true);
+                this.$el.find('.content').attr('contenteditable',true);
 
             },
 

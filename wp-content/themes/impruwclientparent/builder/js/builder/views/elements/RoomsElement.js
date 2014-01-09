@@ -40,8 +40,6 @@ define(['builderelement', 'tpl!builder/templates/elements/BasicElement.tpl', 'gl
                     this.setProperties(options.config);
                 }
                 this.generateMarkup();
-                this.setParent(options.parent);
-
                 this.setContextMenu();
             },
 

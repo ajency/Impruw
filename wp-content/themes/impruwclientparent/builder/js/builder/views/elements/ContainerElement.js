@@ -55,7 +55,6 @@ define(['builderelement', 'global'],
                     this.setProperties(options.config);
                 }
                 this.generateMarkup();
-                this.setParent(options.parent);
                 this.setClasses();
 
             },

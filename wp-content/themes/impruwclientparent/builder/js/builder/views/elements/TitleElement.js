@@ -42,7 +42,7 @@ define(['builderelement', 'tpl!builder/templates/elements/BasicElement.tpl', 'gl
 
                     this.setProperties(options.config);
                     if (!_.isUndefined(options.config.content))
-                        this.generateMarkup(options.config.content);
+                        this.generateMarkup({icon : '', name : 'Title Element'}, options.config.content);
                 }
                 this.setContextMenu();
 

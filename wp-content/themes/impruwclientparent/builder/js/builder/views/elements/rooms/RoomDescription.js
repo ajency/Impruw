@@ -42,8 +42,6 @@ define(['textelement', 'text!builder/templates/elements/BasicElement.hbs', 'glob
                     this.setProperties(options.config);
                 }
                 this.generateMarkup({icon : 'icon', name : 'Room Description'});
-                this.setParent(options.parent);
-
                 this.setContextMenu();
             }
 

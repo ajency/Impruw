@@ -520,9 +520,8 @@ define(['underscore', 'jquery', 'backbone', 'global'],
 
                                 var ele = self.getElementByID(key);
 
-                                ele.setFetchedStatus(true);
+                                ele.set('contentFetched', true);
 
-                                log(ele);
                             });
 
                             self.makeEditable();
@@ -658,9 +657,6 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                         receiver.push(element); //add the same position
 
                         sender.elements.splice(index, 1); //remove element
-
-                        //change parent
-                        element.setParent(receiver);
                     }
 
                 });
