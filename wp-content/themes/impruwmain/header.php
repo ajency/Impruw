@@ -14,21 +14,17 @@
 	<title><?php wp_title( '|', true, 'right' ); ?></title>
 	<link rel="profile" href="http://gmpg.org/xfn/11">
 	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
-	
-	
-	<!-- Bootstrap -->
-        <!--   <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
-        <link href="css/flat-ui.css" rel="stylesheet" media="screen">
-        <link href="css/main.min.css" rel="stylesheet" media="screen">
-	<link href="../css/dashboard.css" rel="stylesheet" media="screen">
-	-->
-	
-	
+		
 	<!--[if lt IE 9]>
 	<script src="<?php echo get_template_directory_uri(); ?>/js/html5.js"></script>
 	<![endif]-->
-        <?php //getThemeCSS(); ?>
-        <script>var ajaxurl = '<?php echo admin_url( 'admin-ajax.php' ); ?>';</script>
+    
+    <?php //getThemeCSS(); ?>
+    <script>
+    	var ajaxurl = '<?php echo admin_url( 'admin-ajax.php' ); ?>';
+        var siteurl = '<?php echo site_url(); ?>'; 
+	</script>
+
 	<?php wp_head(); ?>
 </head>
 

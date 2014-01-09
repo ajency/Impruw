@@ -27,8 +27,26 @@ jQuery(document).ready(function($) {
                     $("#register_message").html('<div class="alert alert-success">' +
                         '<button aria-hidden="true" data-dismiss="alert" class="close" type="button">x</button>' +
                         response.msg + '</div>');
-
-                    $("#scrolltosuccess").click();
+                    
+                    $("#inputName").val('');
+                    $("#inputEmail").val('');
+                     $("#inputSitename").val('');
+                     $("#inputPass").val('');
+                     $("#inputRepass").val('');
+                     	$("#recaptcha_response_field").val('');
+                    //$("#scrolltosuccess").click();
+                    $('html, body').animate({
+    			        scrollTop: $('#register_message').offset().top 
+                    	
+    			    }, 1000);
+                    
+                    
+                    
+                    setTimeout(function () {
+                        window.location.href = siteurl+'/login'; //will redirect to your blog page (an ex: blog.html)
+                     }, 2000); //will call the function after 2 secs.
+                    
+                    
 
                     return true;
                 } else if (response.code == 'ERROR') {
@@ -40,6 +58,10 @@ jQuery(document).ready(function($) {
                         '<button aria-hidden="true" data-dismiss="alert" class="close" type="button">x</button>' +
                         response.msg + '</div>')
 
+                    $('html, body').animate({
+    			        scrollTop: $('#register_message').offset().top
+    			    }, 1000);
+                    
                     return false;
                 }
             }); //end  $.post(ajaxurl, data, function(response) 

@@ -122,8 +122,8 @@ function create_impruv_manager_role() {
  */
 function insert_into_email_action_table() {
     global $wpdb;
-    //local $registrayion_email_types_array=array( 68, 69, 71 );
-    $registrayion_email_types_array=array( 42, 43, 44 );
+   // $registrayion_email_types_array=array( 68, 69, 71 );	// local
+     $registrayion_email_types_array=array( 42, 43, 44 );   // live server
     
     
     $registrayion_email_types_array=  serialize( $registrayion_email_types_array );
@@ -137,7 +137,8 @@ function insert_into_email_action_table() {
         $update_action_emails_query=( "UPDATE {$wpdb->prefix}email_actions SET email_types="."'$registrayion_email_types_array'"." WHERE email_action_name="."'registration'" );
         $wpdb->query( $update_action_emails_query );
     }
-    $site_creation_email_types_array=array( 45, 46 );
+    // $site_creation_email_types_array=array( 75, 77 ); //local
+    $site_creation_email_types_array=array( 45, 46 );  //live server
     $site_creation_email_types_array=  serialize( $site_creation_email_types_array );
     $site_creation_action_query=( "SELECT * from {$wpdb->prefix}email_actions where email_action_name="."'site_creation'" );
     $value_site_creation=$wpdb->get_row( $site_creation_action_query );

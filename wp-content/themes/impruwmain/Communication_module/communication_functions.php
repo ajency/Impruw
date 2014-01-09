@@ -48,9 +48,12 @@ function send_email( $initiator_id, $action, $data ) { //echo $initiator_id;prin
  */
 function fetch_email_types( $action ) {
     global $wpdb;
+    $email_types_array = array();
     $fetch_email_types_query = ( "SELECT email_types from {$wpdb->prefix}email_actions where email_action_name='".$action."'" );
+     
     $email_types = $wpdb->get_row( $fetch_email_types_query );
-    $email_types_array = unserialize( $email_types->email_types );
+    if(!is_null($email_types))
+      $email_types_array = maybe_unserialize( $email_types->email_types );
     return $email_types_array;
 }
 
