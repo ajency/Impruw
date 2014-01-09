@@ -37,8 +37,7 @@ define(['imagelement', 'tpl!builder/templates/elements/BasicElement.tpl', 'globa
                 } else {
                     this.setProperties(options.config);
                 }
-                this.generateMarkup();
-                this.setParent(options.parent);
+                this.generateMarkup({icon : '', name : 'Image With Text Element'});
                 this.setContextMenu();
 
             },

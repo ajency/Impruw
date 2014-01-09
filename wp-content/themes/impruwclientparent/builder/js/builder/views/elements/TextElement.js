@@ -37,7 +37,7 @@ define(['builderelement', 'tpl!builder/templates/elements/BasicElement.tpl', 'gl
                 if (_.isUndefined(options.config)) {
                     this.id = this.type + '-' + global.generateRandomId();
                     this.$el.attr('id', this.id);
-                    this.generateMarkup();
+                    this.generateMarkup({icon : '', name : 'Text Element'});
                 } else {
                     this.setProperties(options.config);
                     if (!_.isUndefined(options.config.content))
