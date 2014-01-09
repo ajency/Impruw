@@ -48,10 +48,12 @@ if(isset($_REQUEST['lang']))
 				<a href="<?php echo get_bloginfo('url'); ?>/"><img src="<?php echo get_template_directory_uri(); ?>/images/impruw-logo-blue.png" title="Impruw" alt="Impruw" /></a>
 			</div>
 			<div class="col-md-6 lang-actions">
-				<a href="#" id="lang-pop"><img src="<?php echo get_template_directory_uri(); ?>/images/flags/United-Kingdom.png" title="English UK" alt="English UK" /> English <span class="caret"></span></a>
 				<a href="<?php echo get_bloginfo('url'); ?>/login/" class="btn btn-sm login-btn"><span class="glyphicon glyphicon-lock"></span> Sign In</a>
+				<div class="lang-sel">
+					<?php do_action('icl_language_selector');?>
+				</div>
+				
 			</div>
 		</div>
 	</header>
     <div class="aj-imp-container container">
-        <div class="pull-right"><?php do_action('icl_language_selector');?></div>

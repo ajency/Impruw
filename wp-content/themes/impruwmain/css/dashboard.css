@@ -612,10 +612,29 @@ form .aj-imp-submit:hover {
   color: #848484;
   font-weight: bold;
 }
+.aj-imp-lo-header > .row .lang-actions .lang-sel {
+  float: right;
+  margin: 0.3em 0.5em;
+  text-align: left;
+}
+.aj-imp-lo-header > .row .lang-actions .lang-sel #lang_sel {
+  height: auto;
+}
+.aj-imp-lo-header > .row .lang-actions .lang-sel #lang_sel ul li a {
+  border: 0;
+}
+.aj-imp-lo-header > .row .lang-actions .lang-sel #lang_sel ul li ul {
+  clear: both;
+  border: 0;
+}
+.aj-imp-lo-header > .row .lang-actions .lang-sel #lang_sel ul li ul li a {
+  border: 1px solid #aaaaaa;
+}
 .aj-imp-lo-header > .row .lang-actions .login-btn {
   border-radius: 3px;
   background: #ff7e00;
   text-transform: uppercase;
+  float: right;
 }
 .aj-imp-lo-header > .row .lang-actions .login-btn:hover {
   background: #ff9833;
@@ -1275,6 +1294,7 @@ form .aj-imp-submit:hover {
 .daterange_frominput,
 .daterange_toinput {
   display: inline-block;
+  max-width: 75%;
 }
 .daterange_tolabel {
   margin-right: 15px;

@@ -652,10 +652,35 @@ form {
 					}
 				}
 			}
+			.lang-sel {
+				float: right;
+				margin: 0.3em 0.5em;
+				text-align: left;
+				#lang_sel {
+					height: auto;
+					ul {
+						li {
+							a {
+								border: 0;
+							}
+							ul {
+								clear: both;
+								border: 0;
+								li {
+									a {
+										border: 1px solid @dash-grey;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
 			.login-btn {
 				border-radius: 3px;
 				background: @orange;
 				text-transform: uppercase;
+				float: right;
 				&:hover {
 					background: lighten(@orange, 10%);
 				}
