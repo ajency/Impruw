@@ -1,12 +1,4 @@
 <?php 
-if(is_user_logged_in())
-{ 	
-	global $user;
-  	$blog = get_active_blog_for_user( get_current_user_id());
-	$blogUrl = $blog->siteurl; /* or $blog->path, together with $blog->siteurl */	 
-	wp_redirect( $blogUrl );
-	die;
-}
 /**
  * Template Name: Login
  */
