@@ -46,7 +46,7 @@
 									</div>
 								</div>
 								
-								<div class="form-group">
+								<div class="form-group pic-upload">
 									<label for="inputFile4" class="col-sm-2 control-label">Profile Picture</label>
 									<div class="col-sm-10 col-sm-offset-2">
 										 

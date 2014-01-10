@@ -67,6 +67,14 @@
 			<div class="aj-imp-right col-md-9 col-sm-8"></div>
 			<!-- /aj-imp-right -->
 		</div>
+		<div class="row">
+			<div class="aj-imp-foot-left col-md-3 col-sm-4">
+				&nbsp;
+			</div>
+			<div class="aj-imp-foot-right aj-imp-dash-footer col-md-9 col-sm-8">
+				&copy;2014 <a href="#">Impruw.com</a>
+			</div>
+		</div>
 	</div>
 	<script>
         var THEMEURL    = '<?php echo get_parent_template_directory_uri(); ?>';
