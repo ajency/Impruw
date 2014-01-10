@@ -1,6 +1,6 @@
 <header class="aj-imp-dash-header row">
     <div class="aj-imp-dash-title col-xs-8">
-        <h2 class="aj-imp-page-head">Site Profile</h2>
+        <h2 class="aj-imp-page-head">My Site Profile</h2>
     </div>
     <div class="aj-imp-dash-actions col-xs-4">
         <a href="#" class="btn btn-embossed btn-wide"><span class="glyphicon glyphicon-cog"></span> Settings</a>
