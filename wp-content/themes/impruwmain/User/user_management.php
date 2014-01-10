@@ -815,6 +815,8 @@ function save_new_user() {
         echo json_encode( array( 'code' => 'ERROR', 'msg'=>_( "Looks like some of fields have been filled incorrectly. Please check again and submit." ) )  );
         die();
     }
+    
+    
 
     foreach ( $_POST['frmdata'] as $frm_element_key => $frm_element_val ) {
 
@@ -844,7 +846,7 @@ function save_new_user() {
             $inputCaptcha = $frm_element_val['value'];
             break;*/
         case 'inputHoney'    : 
-            $inputCaptcha = $frm_element_val['value'];
+            $inputHoney = $frm_element_val['value'];
             break;
         }
 
