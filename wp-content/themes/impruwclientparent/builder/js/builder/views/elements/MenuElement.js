@@ -1,4 +1,4 @@
-define(['builder/views/elements/BuilderElement', 'text!builder/templates/elements/MenuElement.hbs', 'global'],
+define(['builderelement', 'tpl!builder/templates/elements/BasicElement.tpl', 'global'],
     function(BuilderElement, template, global) {
 
         var MenuElement = BuilderElement.extend({
@@ -11,9 +11,6 @@ define(['builder/views/elements/BuilderElement', 'text!builder/templates/element
 
             //element type
             elementType: 'MenuElement',
-
-            //identify element type
-            type: 'menu',
 
             //set height to be assigned to placeholder and helper
             placeHolderHeight: 60,
@@ -40,15 +37,14 @@ define(['builder/views/elements/BuilderElement', 'text!builder/templates/element
 
                 //drop mode
                 if (_.isUndefined(options.config)) {
-                    this.id = this.type + '-' + global.generateRandomId();
+                    this.id = this.type() + '-' + global.generateRandomId();
                     this.$el.attr('id', this.id);
                 } else {
                     this.setProperties(options.config);
                     if (!_.isUndefined(options.config.className))
                         this.contentClasses = options.config.className;
                 }
-                this.generateMarkup();
-                this.setParent(options.parent);
+                this.generateMarkup({icon : '', name : 'Menu'});
                 this.setContextMenu();
 
             },

@@ -1,4 +1,4 @@
-define(['builder/views/elements/ImageElement', 'text!builder/templates/elements/ImageWithTextElement.hbs', 'global'],
+define(['imagelement', 'tpl!builder/templates/elements/BasicElement.tpl', 'global'],
     function(ImageElement, template, global) {
 
         var ImageWithTextElement = ImageElement.extend({
@@ -10,9 +10,6 @@ define(['builder/views/elements/ImageElement', 'text!builder/templates/elements/
 
             //element type
             elementType: 'ImageWithTextElement',
-
-            //identify element type
-            type: 'imagewithtext',
 
             //
             events: {
@@ -35,13 +32,12 @@ define(['builder/views/elements/ImageElement', 'text!builder/templates/elements/
 
                 //drop mode
                 if (_.isUndefined(options.config)) {
-                    this.id = this.type + '-' + global.generateRandomId();
+                    this.id = this.type() + '-' + global.generateRandomId();
                     this.$el.attr('id', this.id);
                 } else {
                     this.setProperties(options.config);
                 }
-                this.generateMarkup();
-                this.setParent(options.parent);
+                this.generateMarkup({icon : '', name : 'Image With Text Element'});
                 this.setContextMenu();
 
             },

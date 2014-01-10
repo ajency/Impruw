@@ -34,45 +34,57 @@ define(['backbone', 'jquery', 'underscore', 'global'],
              */
             dataSource : null,
             
-
-            //parent of the element
-            parent: null,
-
-            /**
-             * All child controls will override this function;
-             * @returns {undefined}
-             */
-            render: function() {
-
-                return this;
-
-            },
-
-            /**
+              /**
              * Generate the json string for element
              * @returns {undefined}
              */
             returnJSON: function() {
 
                 var ele = {
-                    id              : this.id,
-                    type            : this.getType(),
-                    draggable       : this.isDraggable(),
-                    editable        : this.isEditable(),
-                    extraClasses    : this.getExtraClasses(),
-                    dataSource      : this.getdataSource(),
-                    contentFetched  : this.contentFetched 
+                    id              : this.get('id'),
+                    elementType     : this.get('elementType'),
+                    draggable       : this.get('draggable'),
+                    editable        : this.get('editable'),
+                    extraClasses    : this.get('extraClasses'),
+                    dataSource      : this.get('dataSource'),
+                    contentFetched  : this.get('contentFetched') 
                 };
 
                 return ele;
             },
 
             /**
-             * Set the content fetched status of the element
+             * returns the type porperty for view
+             * @return {[type]} [description]
              */
-            setFetchedStatus : function(status){
+            type : function(){
 
-                this.contentFetched = status;
+                return _.str.slugify(this.elementType);
+
+            },
+
+            /**
+             * Gets the property of the view
+             * @param  {[string]} property [description]
+             * @return {[mixed]}          [description]
+             */
+            get : function(property){
+
+                if(!_.isUndefined(property))
+                    return this[property];
+
+                return false;
+
+            },
+
+            /**
+             * Set the property for the view
+             * @param {[type]} key [description]
+             * @param {[type]} val [description]
+             */
+            set: function(key, val) {
+                    
+                this[key] = val;
 
             },
 
@@ -82,16 +94,6 @@ define(['backbone', 'jquery', 'underscore', 'global'],
             generateJSON: function() {
 
                 return this.returnJSON();
-
-            },
-
-            /**
-             * Returns the data source property
-             * @return {[object]} [description]
-             */
-            getdataSource : function(){
-                
-                return this.dataSource;
 
             },
 
@@ -194,43 +196,29 @@ define(['backbone', 'jquery', 'underscore', 'global'],
 
                 this.$el.popover({
                     html        : true,
-                    title       : _.str.capitalize(this.type) + ' Settings',
+                    title       : _.str.capitalize(this.get('elementType')) + ' Settings',
                     content     : this.getSettingsMarkup(),
                     placement   : 'auto',
                     trigger     : 'manual'
                 });
 
-                this.$el.on('show.bs.popover', function(evt) {
-                    $(evt.target).next('.popover').find('.popover-content').html(self.getSettingsMarkup());
-                });
+                var popOverShowFn = _.bind(function(evt) {
+                    $(evt.target).next('.popover').find('.popover-content').html(this.getSettingsMarkup());
+                }, this);
 
-                this.$el.on('shown.bs.popover', function(evt) {
+                this.$el.on('show.bs.popover', popOverShowFn);
+
+                var popOverShownFn = _.bind(function(evt) {
+                
                     $(evt.target).next('.popover').find('input[type="checkbox"]').checkbox();
                     $(evt.target).next('.popover').find('select').selectpicker({
                         style: 'btn-mini btn-default',
                         menuStyle: 'dropdown'
                     });
-                });
-            },
+                
+                }, this);
 
-            /**
-             * Returns the element type
-             * @returns String
-             */
-            getType: function() {
-
-                return this.elementType;
-
-            },
-
-            /**
-             * Returns extra classes assigned to the element
-             * @returns string
-             */
-            getExtraClasses: function() {
-
-                return this.extraClasses;
-
+                this.$el.on('shown.bs.popover', popOverShownFn);
             },
 
             /**
@@ -243,19 +231,10 @@ define(['backbone', 'jquery', 'underscore', 'global'],
 
                 var html = '';
 
-                // if (_.isUndefined(disAllow['isDraggable']))
-                //     html += this.getDraggableSettingMarkup();
-
-                // if (_.isUndefined(disAllow['isEditable']))
-                //     html += this.getEditableSettingMarkup();
-
                 if (_.isUndefined(disAllow['extraClasses']))
                     html += this.getClassnameSettingMarkup();
 
-                // if (_.isUndefined(disAllow['type']))
-                //     html += this.getMarkupStyleSettingMarkup();
-
-                var className = this.type === 'row' ? 'updateRowProperties' : 'updateProperties';
+                var className = this.type() === 'buiderrow' ? 'updateRowProperties' : 'updateProperties';
 
                 html += '<div class="form-group">\
                                  <input value="Save" type="button" class="btn btn-primary '+className+'"/>&nbsp;\
@@ -417,7 +396,7 @@ define(['backbone', 'jquery', 'underscore', 'global'],
              */
             is: function(type) {
 
-                return type === this.type;
+                return type === this.type();
 
             },
 
@@ -447,10 +426,10 @@ define(['backbone', 'jquery', 'underscore', 'global'],
                 if (this.isDraggable()) {
 
                     this.$el.append('<div class="aj-imp-drag-handle">\
-                                                <p title="Move">\
-                                                    <span class="icon-uniF140"></span>\
-                                                </p>\
-                                            </div>');
+                                        <p title="Move">\
+                                            <span class="icon-uniF140"></span>\
+                                        </p>\
+                                    </div>');
                 }
 
                 this.setEditHandlers();
@@ -507,7 +486,7 @@ define(['backbone', 'jquery', 'underscore', 'global'],
                 if (!_.isUndefined(config.id))
                     this.id = config.id;
                 else
-                    this.id = this.type + '-' + global.generateRandomId();
+                    this.id = this.type() + '-' + global.generateRandomId();
 
                 this.$el.attr('id', this.id);
 
@@ -521,10 +500,6 @@ define(['backbone', 'jquery', 'underscore', 'global'],
 
                 //get all classes
                 var classes = this.$el.find('.content').first().attr('class');
-
-                //classes = classes.split(' ');
-
-               d = this.$el.find('.content');;
 
                 this.$el.find('.content').first().addClass(this.extraClasses);
 
@@ -551,30 +526,6 @@ define(['backbone', 'jquery', 'underscore', 'global'],
             },
 
             /**
-             * Returns the parent of the selected view
-             *
-             * @returns {undefined}
-             */
-            getParent: function() {
-
-                if (_.isNull(this.parent) || !_.isObject(this.parent))
-                    return false;
-
-                return this.parent;
-            },
-
-            /**
-             * Set the parent element for the element
-             * @param {type} parent
-             * @returns {undefined}
-             */
-            setParent: function(parent) {
-
-                this.parent = parent;
-
-            },
-
-            /**
              * Generates the Control markup to drop
              * @returns {unresolved}
              */
@@ -583,8 +534,13 @@ define(['backbone', 'jquery', 'underscore', 'global'],
                 if (_.isUndefined(this.template))
                     return '';
 
-                var html = _.template(this.template);
+                var html = '';
 
+                if(_.isObject(content))
+                    html = this.template(content);
+                else
+                    html = this.template();
+                
                 this.$el.html(html);
 
                 this.setContentClass();
@@ -592,7 +548,7 @@ define(['backbone', 'jquery', 'underscore', 'global'],
                 this.setHandlers();
 
                 //add content if sent
-                if (!_.isUndefined(content)) {
+                if (!_.isUndefined(content) && _.isString(content)) {
                     this.$el.children('.content').html(content);
                 }
                 return this.$el;
@@ -653,40 +609,18 @@ define(['backbone', 'jquery', 'underscore', 'global'],
              */
             destroyElement: function(evt) {
 
+                evt.preventDefault();
+
                 evt.stopPropagation();
 
                 if (!confirm("Are you sure?"))
                     return;
 
-                var self = this;
+                var parentId = this.$el.parent().attr('id');
 
-                //remove itself from list of elments
-                _.each(this.parent.elements, function(element, index) {
+                getAppInstance().vent.trigger('element-removed', this, parentId);
 
-                    if (element.id === self.id) {
-
-                        self.parent.elements.splice(index, 1);
-
-                    }
-
-                });
-
-                //update the parent UI
-                this.parent.updateEmptyView();
-
-                //remove element and clear memory
                 this.removeElement(evt);
-
-                //adjust the column height. Anonymous function call
-                (function(self) {
-
-                    setTimeout(function() {
-
-                        self.parent.parent.trigger('adjust_column_dimension');
-
-                    }, 1200);
-
-                })(this);
 
             },
 
@@ -700,17 +634,7 @@ define(['backbone', 'jquery', 'underscore', 'global'],
              */
             removeElement: function(evt) {
 
-                evt.preventDefault();
-
-                evt.stopPropagation();
-
-                var self = this;
-
-                this.$el.fadeOut(1000, function() {
-
-                    self.destroy();
-
-                });
+                this.$el.fadeOut(400, _.bind(this.destroy, this));
             },
 
             /**

@@ -58,25 +58,28 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                     }
                 };
 
+                var checkInSection = _.bind(function(row, index) {
+
+                    var json = row.generateJSON();
+
+                    if (row.$el.closest('.layout-header').length === 1) {
+                        this.json.header.elements.push(json);
+                    }
+                    
+                    if (row.$el.closest('.layout-content').length === 1) {
+                        this.json.page.elements.push(json);
+                    }
+
+                    if (row.$el.closest('.layout-footer').length === 1) {
+                        this.json.footer.elements.push(json);
+                    }
+
+                }, this);
+
                 _.each(this.elements, function(section, index) {
 
-                    _.each(section, function(row, index) {
-
-                        var json = row.generateJSON();
-
-                        if (row.$el.closest('.layout-header').length === 1) {
-                            self.json.header.elements.push(json);
-                        }
-                        
-                        if (row.$el.closest('.layout-content').length === 1) {
-                            self.json.page.elements.push(json);
-                        }
-
-                        if (row.$el.closest('.layout-footer').length === 1) {
-                            self.json.footer.elements.push(json);
-                        }
-
-                    });
+                    _.each(section, checkInSection);
+                    
                 });
             },
 
@@ -348,7 +351,7 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                 //add element recall
                 var element = elements[index];
 
-                if (element.type !== 'BuilderRow')
+                if (element.elementType !== 'BuilderRow')
                     return;
 
                 var mod = 'builder/views/elements/layout/BuilderRow';
@@ -520,9 +523,8 @@ define(['underscore', 'jquery', 'backbone', 'global'],
 
                                 var ele = self.getElementByID(key);
 
-                                ele.setFetchedStatus(true);
+                                ele.set('contentFetched', true);
 
-                                log(ele);
                             });
 
                             self.makeEditable();
@@ -658,9 +660,6 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                         receiver.push(element); //add the same position
 
                         sender.elements.splice(index, 1); //remove element
-
-                        //change parent
-                        element.setParent(receiver);
                     }
 
                 });

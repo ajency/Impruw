@@ -3,7 +3,7 @@
  *  Contains all logic to handle menu configurations
  *  Add/Editing/Deleting Menu
  */
-define(['backbone', 'text!builder/templates/modal/media/singlemedia.hbs',
+define(['backbone', 'tpl!builder/templates/modal/media/singlemedia.tpl',
         'mediamodel', 'global'
     ],
 
@@ -14,7 +14,7 @@ define(['backbone', 'text!builder/templates/modal/media/singlemedia.hbs',
 
             className: 'panel panel-default',
 
-            template: _.template(template),
+            template: template,
 
             events: {
                 'click .save-image-details': 'saveImageDetails',
@@ -79,9 +79,8 @@ define(['backbone', 'text!builder/templates/modal/media/singlemedia.hbs',
 
                 size = size === '' ? 'thumbnail' : size;
 
-                SiteBuilder.vent.trigger('image-selected', this.model, size);
-                this.parent.hide();
-
+                getAppInstance().vent.trigger('image-choosed', this.model, size);
+                
             },
 
             /**

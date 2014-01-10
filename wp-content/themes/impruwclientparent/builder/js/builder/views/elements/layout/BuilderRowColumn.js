@@ -1,10 +1,7 @@
-define(['builder/views/elements/BuilderElement', 'global'],
+define(['builderelement', 'global'],
     function(BuilderElement, global) {
 
         var BuilderRowColumn = BuilderElement.extend({
-
-            // type of element
-            type: 'column',
 
             elementType: 'BuilderRowColumn',
 
@@ -44,42 +41,24 @@ define(['builder/views/elements/BuilderElement', 'global'],
              */
             initialize: function(options) {
 
-                _.bindAll(this, 'isEmpty', 'clear', 'handleElementDrop', 'handleHeightChange', 'isEmpty', 'clear',
-                    'handleWidthChange', 'handleElementOverState', 'handleColumnDrop', 'makeColumnsSortable',
-                    'handleElementRemove', 'resetHeightAuto', 'holdCurrentColRef', 'updateEmptyView', 'makeEmpty',
-                    'setCurrentClass', 'setColumnClass', 'getCurrentClass', 'getRowElements', 'getElements');
+                _.bindAll(this , 'elementRemoved', 'elementAdded','handleColumnDrop');
 
                 this.colClass = options.colClass;
 
-                var self = this;
-
-                //listen to height change event
-                this.on('height_changed', this.handleHeightChange);
-
-                //listen to width change event
-                this.on('width_changed', this.handleWidthChange);
-
-                this.on('settings_updated', function(arg) {
-
-                });
-
-                ////////////////////////////////////////////////
-
-                //drop mode
                 if (_.isUndefined(options.config)) {
-
                     //this.generateDropMarkup();
-                    this.id = this.type + '-' + global.generateRandomId();
+                    this.id = this.type() + '-' + global.generateRandomId();
                     this.$el.attr('id', this.id);
                 } else {
                     this.setProperties(options.config);
                     this.colClass = options.config.colClass;
                 }
 
-                this.setParent(options.parent);
-                this.setClasses();
-                this.setHandlers();
                 this.setContextMenu();
+
+                //start listening events
+                this.listenTo(getAppInstance().vent, 'element-removed', this.elementRemoved);
+                this.listenTo(getAppInstance().vent, 'element-added', this.elementAdded);
             },
 
             /**
@@ -87,9 +66,53 @@ define(['builder/views/elements/BuilderElement', 'global'],
              * @return {[type]} [description]
              */
             assignClasses : function(){
+            
                 this.$el.addClass(this.extraClasses);
+            
             },
 
+            /**
+             * Element removed
+             * @return {[type]} [description]
+             */
+            elementRemoved : function(deletedElement , parentId){
+
+                //if this column was parent of the element
+                if(parentId !== this.get('id'))
+                    return;
+
+                //if column has any elements
+                if(this.get('elements').length === 0)
+                    return;
+
+                //remove the element
+                _.each(this.get('elements'), _.bind(function(element, index) {
+
+                    if (element.get('id') === deletedElement.get('id')) {
+
+                        this.get('elements').splice(index, 1);
+
+                    }
+
+                }, this));
+
+                this.updateEmptyView();
+
+                getAppInstance().vent.trigger('column-element-removed', this);
+            },
+
+            /**
+             * Element added
+             * @return {[type]} [description]
+             */
+            elementAdded : function(element , parentId){
+
+                //if this column was parent of the element
+                if(parentId !== this.get('id'))
+                    return;
+
+                getAppInstance().vent.trigger('column-element-added', this);
+            },
 
             /**
              *
@@ -137,17 +160,11 @@ define(['builder/views/elements/BuilderElement', 'global'],
                 var element = elements[index];
 
                 //cannot add column inside a column
-                if (element.type === 'BuilderRowColumn')
+                if (element.elementType === 'BuilderRowColumn')
                     return;
 
-                var mod = '';
-                if (element.type === 'BuilderRow') {
-                    mod = 'builder/views/elements/layout/' + element.type;
-                } else {
-                    mod = 'builder/views/elements/' + element.type;
-                }
-
-
+                var mod = _.str.slugify(element.elementType);
+                
                 require([mod], function(Element) {
 
                     var ele = new Element({
@@ -253,8 +270,8 @@ define(['builder/views/elements/BuilderElement', 'global'],
                     opacity             : .65,
                     items               : '> .element, .row',
                     handle              : '> .aj-imp-drag-handle',
-                    receive             : self.handleColumnDrop,
-                    sort                : _.throttle(self.handleElementOverState, 300),
+                    receive             : this.handleColumnDrop,
+                    sort                : _.throttle(this.handleElementOverState, 300),
                     activate            : self.holdCurrentColRef,
                     stop                : function() {
                                              self.rearrangeElementOrder();
@@ -311,9 +328,6 @@ define(['builder/views/elements/BuilderElement', 'global'],
                                 section.splice(index, 1); //remove element
 
                                 receiver.elements.push(row); //add the same position
-
-                                //change parent
-                                row.setParent(receiver);
                             }
                         });
 
@@ -327,9 +341,6 @@ define(['builder/views/elements/BuilderElement', 'global'],
                             sender.elements.splice(index, 1); //remove element
 
                             receiver.elements.push(element); //add the same position
-
-                            //change parent
-                            element.setParent(receiver);
                         }
 
                     });
@@ -368,8 +379,6 @@ define(['builder/views/elements/BuilderElement', 'global'],
                     var sender = ui.item.sender;
 
                     this.$el.removeClass('empty-column');
-
-                    this.parent.trigger('adjust_column_dimension');
 
                     var elementId = ui.item.attr('id');
 
@@ -438,18 +447,12 @@ define(['builder/views/elements/BuilderElement', 'global'],
 
                 var self = this;
 
-                var path = '';
-                if (elementName === 'BuilderRow' || elementName === 'BuilderRowColumn')
-                    path = 'builder/views/elements/layout/' + elementName;
-                else
-                    path = 'builder/views/elements/' + elementName;
-
                 //set loader
                 if (self.$el.find('*[data-element="' + elementName + '"]').length > 0)
                     self.$el.find('*[data-element="' + elementName + '"]').html('<div class="element-drop-loader"></div>');
 
 
-                require([path], function(Element) {
+                require([elementName], function(Element) {
 
                     var element = new Element({
                         parent: self
@@ -473,7 +476,6 @@ define(['builder/views/elements/BuilderElement', 'global'],
                         element.appendColumnResizer();
                     }
 
-                    self.parent.trigger('adjust_column_dimension');
                     self.rearrangeElementOrder();
 
                 });

@@ -783,7 +783,6 @@ Version:        0.1.0
   border: 1px solid transparent;
 }
 .aj-imp-builder-layout-mode .row .column {
-  min-height: 120px;
   background: #fff;
   height: 100%;
   position: relative;

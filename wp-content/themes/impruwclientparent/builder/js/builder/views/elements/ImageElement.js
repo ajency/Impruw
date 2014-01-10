@@ -1,4 +1,4 @@
-define(['builder/views/elements/BuilderElement', 'text!builder/templates/elements/ImageElement.hbs', 'global'],
+define(['builderelement', 'tpl!builder/templates/elements/BasicElement.tpl', 'global'],
     function(BuilderElement, template, global) {
 
         var ImageElement = BuilderElement.extend({
@@ -10,12 +10,6 @@ define(['builder/views/elements/BuilderElement', 'text!builder/templates/element
 
             //element type
             elementType: 'ImageElement',
-
-            //identify element type
-            type: 'image',
-
-            //set height to be assigned to placeholder and helper
-            placeHolderHeight: 100,
 
             // /**
             //  * Default datasource for an image
@@ -47,27 +41,15 @@ define(['builder/views/elements/BuilderElement', 'text!builder/templates/element
 
                 //drop mode
                 if (_.isUndefined(options.config)) {
-                    this.id = this.type + '-' + global.generateRandomId();
+                    this.id = this.type() + '-' + global.generateRandomId();
                     this.$el.attr('id', this.id);
                 } else {
                     this.setProperties(options.config);
                 }
-                this.generateMarkup();
-                this.setParent(options.parent);
+                this.generateMarkup({icon : '', name : 'Image Element'});
+             
                 this.setContextMenu();
 
-            },
-
-            /**
-             * Generates the markup for column
-             * and triggers the column droppable function
-             *
-             * @param {type} col
-             * @returns {_L2.Anonym$0}
-             */
-            render: function() {
-
-                return this;
             },
 
             /**
@@ -87,23 +69,19 @@ define(['builder/views/elements/BuilderElement', 'text!builder/templates/element
              */
             showMediaManager: function() {
 
-                var self = this;
-
                 require(['underscore', 'mediamanager'], _.bind(function(_, MediaManager) {
 
-                    var mediamanager = SiteBuilder.ViewManager.findByCustom("media-manager");
+                    var mediamanager = getAppInstance().ViewManager.findByCustom("media-manager");
 
                     //if not present create new
                     if (_.isUndefined(mediamanager)) {
                         mediamanager = new MediaManager();
-                        SiteBuilder.ViewManager.add(mediamanager, "media-manager");
+                        getAppInstance().ViewManager.add(mediamanager, "media-manager");
                     }
 
                     //start listening to event
+                    this.listenTo(getAppInstance().vent,'image-selected', this.updateSelf);
  
-                    this.listenTo(SiteBuilder.vent,'image-selected', this.updateSelf);
- 
-
                     mediamanager.open();
 
                 }, this));
@@ -117,7 +95,7 @@ define(['builder/views/elements/BuilderElement', 'text!builder/templates/element
             updateSelf: function(image, size) {
 
                 //stop listening to image-selected event
-                this.stopListening(SiteBuilder.vent, 'image-selected', this.updateSelf);
+                this.stopListening(getAppInstance().vent, 'image-selected', this.updateSelf);
 
                 if (!_.isObject(image))
                     throw 'Invalid <image> datatype. Must be an Object';

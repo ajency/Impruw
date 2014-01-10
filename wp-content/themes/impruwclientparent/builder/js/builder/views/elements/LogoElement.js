@@ -1,4 +1,4 @@
-define(['builder/views/elements/ImageElement', 'text!builder/templates/elements/LogoElement.hbs', 'global'],
+define(['imageelement', 'tpl!builder/templates/elements/BasicElement.tpl', 'global'],
     function(ImageElement, template, global) {
 
         var LogoElement = ImageElement.extend({
@@ -11,9 +11,6 @@ define(['builder/views/elements/ImageElement', 'text!builder/templates/elements/
 
             //element type
             elementType: 'LogoElement',
-
-            //identify element type
-            type: 'logo',
 
             //view events
             events: {
@@ -36,13 +33,12 @@ define(['builder/views/elements/ImageElement', 'text!builder/templates/elements/
 
                 //drop mode
                 if (_.isUndefined(options.config)) {
-                    this.id = this.type + '-' + global.generateRandomId();
+                    this.id = this.type() + '-' + global.generateRandomId();
                     this.$el.attr('id', this.id);
                 } else {
                     this.setProperties(options.config);
                 }
-                this.generateMarkup();
-                this.setParent(options.parent);
+                this.generateMarkup({icon : '' , name : 'Logo Element'});
                 this.setContextMenu();
 
             },

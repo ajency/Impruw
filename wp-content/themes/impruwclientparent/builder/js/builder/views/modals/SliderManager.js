@@ -3,7 +3,7 @@
  *  Contains all logic to handle menu configurations
  *  Add/Editing/Deleting Menu
  */
-define(['builder/views/modals/Modal', 'text!builder/templates/modal/slidermanager.hbs',
+define(['builder/views/modals/Modal', 'tpl!builder/templates/modal/slidermanager.tpl',
         'mediamodel', 'mediacollection', 'mediasingle', 'global', 'parsley'
     ],
 
@@ -33,7 +33,7 @@ define(['builder/views/modals/Modal', 'text!builder/templates/modal/slidermanage
             initialize: function(args) {
 
                 //bind 
-                var html = _.template(this.outerTemplate, {
+                var html = this.outerTemplate({
                     title: 'Slider Manager'
                 });
 
@@ -54,13 +54,11 @@ define(['builder/views/modals/Modal', 'text!builder/templates/modal/slidermanage
 
                 });
 
-                var markup = _.template(this.template, {});
+                var markup = this.template();
 
                 this.$el.find('.modal-body').html(markup);
 
                 this.mediaCollection = new MediaCollection();
-
-                //this.fetchMedia();
 
                 this.bindPlupload();
             },

@@ -1,4 +1,4 @@
-define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/BuilderRowColumn', 'global'],
+define(['builderelement', 'buildercolumn', 'global'],
 
     function(BuilderElement, BuilderRowColumn, global) {
 
@@ -9,11 +9,8 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
             //create a div element with class "row"
             className: 'row',
 
-            //set name for row. Will be used to generate unique ID for each control
-            type: 'row',
-
             //set height to be assigned to placeholder and helper
-            placeHolderHeight: 120,
+            placeHolderHeight: 0,
 
             // views
             elements: [],
@@ -23,16 +20,12 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
 
             //register events
             events: {
-                'mouseenter': 'elementMouseEnter',
-                'mouseleave': 'elementMouseLeave',
-                'click > .aj-imp-delete-btn': 'destroyElement',
-                'click > .aj-imp-col-sel ul li a': 'adjustColumnsInRow',
-                'contextmenu': 'showContextMenu',
-                'click > .popover .updateProperties': 'updateProperties'
+                'mouseenter'                        : 'elementMouseEnter',
+                'mouseleave'                        : 'elementMouseLeave',
+                'click > .aj-imp-delete-btn'        : 'destroyElement',
+                'click > .aj-imp-col-sel ul li a'   : 'adjustColumnsInRow',
+                'contextmenu'                       : 'showContextMenu'
             },
-
-            //used to identify drag direction(right / left)
-            prevX: -1,
 
             /**
              * Intialize the view.
@@ -43,52 +36,19 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
              */
             initialize: function(options) {
 
-                _.bindAll(this, 'adjustColumnsInRow', 'generateDropMarkup', 'sortableColumns', 'addNewColumn',
-                    'columnCount', 'getColumns', 'getColumn', 'elementMouseEnter', 'elementMouseLeave', 'adjustColumnDimension',
-                    'allColumnsEmpty', 'emptyColumns', 'appendColumnResizer', 'clearResizers', 'makeResizer', 'getColumnAt');
-
-
-
-                this.$el.attr('data-placeholder-height', this.placeHolderHeight);
-
-                this.on('adjust_column_dimension', this.adjustColumnDimension);
-
-                //drop mode
                 if (_.isUndefined(options.config)) {
-
                     this.generateDropMarkup();
-                    this.id = this.type + '-' + global.generateRandomId();
+                    this.id = this.type() + '-' + global.generateRandomId();
                     this.$el.attr('id', this.id);
                 } else {
 
                     this.setProperties(options.config);
 
                 }
-
-                this.setParent(options.parent);
-                this.setClasses();
-                this.setHandlers();
                 this.setContextMenu();
             },
 
-            /**
-             * Assign classes
-             * @return {[type]} [description]
-             */
-            assignClasses : function(){
-                this.$el.addClass(this.extraClasses);
-            },
-
-            /**
-             *
-             * @returns {_L4.Anonym$1}
-             */
-            render: function() {
-
-                return this;
-
-            },
-
+            
             /**
              *
              * @returns {undefined}
@@ -128,12 +88,12 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
 
                 var element = elements[index];
 
-                if (index >= elements.length || element.type !== 'BuilderRowColumn')
+                if (index >= elements.length || element.elementType !== 'BuilderRowColumn')
                     return;
 
                 var self = this;
 
-                var mod = 'builder/views/elements/layout/BuilderRowColumn';
+                var mod = 'buildercolumn';
 
                 require([mod], function(Column) {
 
@@ -156,7 +116,6 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                     self.sortableColumns();
 
                     self.appendColumnResizer();
-
 
                     self.addElement(elements, index);
 
@@ -201,10 +160,6 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                 });
 
                 this.sortableColumns();
-
-                if (this.parent.type === 'column')
-                    this.parent.parent.adjustColumnDimension();
-
             },
 
             /**
@@ -390,7 +345,7 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                         });
 
                     },
-                    drag: function(event, ui) {
+                    drag: _.throttle(function(event, ui) {
 
                         var p = Math.round(ui.position.left);
                         var s = Math.round(ui.helper.start.left);
@@ -401,7 +356,7 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
 
                             var position = $(event.target).attr('data-position');
 
-                            self.resizeColumns('right', position);
+                            self.resizeColumns('right', parseInt(position));
 
                         } else if (p < s) {
 
@@ -412,13 +367,16 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                             self.resizeColumns('left', parseInt(position));
 
                         }
-                    }
+                    }, 500)
                 });
 
             },
 
             /**
-             *
+             * Resizes the column depending on drag direction
+             * @param  {[type]} direction [description]
+             * @param  {[type]} position  [description]
+             * @return {[type]}           [description]
              */
             resizeColumns: function(direction, position) {
 
@@ -629,7 +587,6 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                 column.addEmptyClass();
                 this.elements.push(column);
                 this.$el.append(column.$el);
-                this.trigger('adjust_column_dimension');
             },
 
             /**
@@ -741,6 +698,7 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
                 var self = this;
 
                 if (this.parent.is('column')) {
+
                     _.each(this.parent.elements, function(element, index) {
 
                         if (element.id === self.id) {
@@ -751,6 +709,7 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
 
                     //update the parent UI
                     this.parent.updateEmptyView();
+
                 } else if (this.parent.is('editor')) {
 
                     _.each(this.parent.elements, function(section, index) {
@@ -768,11 +727,10 @@ define(['builder/views/elements/BuilderElement', 'builder/views/elements/layout/
 
                 }
 
-
                 this.emptyColumns();
 
                 //finally remove itself
-                this.removeElement(evt);
+                this.removeElement();
 
             }
 

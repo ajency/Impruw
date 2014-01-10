@@ -4,11 +4,5 @@
 			<button type="button" class="close fui-cross" data-dismiss="modal" aria-hidden="true"></button>
 			<h4 class="modal-title"><%= title %></h4>
 		</div>
-		<div class="modal-body">
-			
-		</div>
-		<div class="modal-footer">
-			
-		</div>
 	</div>
 </div>  

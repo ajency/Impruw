@@ -1,4 +1,4 @@
-define(['builder/views/elements/BuilderElement', 'text!builder/templates/elements/SocialElement.hbs', 'global'],
+define(['builderelement', 'tpl!builder/templates/elements/BasicElement.tpl', 'global'],
     function(BuilderElement, template, global) {
 
         var SocialElement = BuilderElement.extend({
@@ -11,9 +11,6 @@ define(['builder/views/elements/BuilderElement', 'text!builder/templates/element
 
             //element type
             elementType: 'SocialElement',
-
-            //identify element type
-            type: 'social',
 
             //set height to be assigned to placeholder and helper
             placeHolderHeight: 60,
@@ -44,7 +41,6 @@ define(['builder/views/elements/BuilderElement', 'text!builder/templates/element
                     this.setProperties(options.config);
                 }
                 this.generateMarkup();
-                this.setParent(options.parent);
                 this.setContextMenu();
 
             },

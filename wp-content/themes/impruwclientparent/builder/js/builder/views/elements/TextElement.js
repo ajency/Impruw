@@ -1,4 +1,4 @@
-define(['builder/views/elements/BuilderElement', 'text!builder/templates/elements/TextElement.hbs', 'global'],
+define(['builderelement', 'tpl!builder/templates/elements/BasicElement.tpl', 'global'],
     function(BuilderElement, template, global) {
 
         var TextElement = BuilderElement.extend({
@@ -11,9 +11,6 @@ define(['builder/views/elements/BuilderElement', 'text!builder/templates/element
 
             //element type
             elementType: 'TextElement',
-
-            //identify element type
-            type: 'text',
 
             //set height to be assigned to placeholder and helper
             placeHolderHeight: 60,
@@ -34,25 +31,19 @@ define(['builder/views/elements/BuilderElement', 'text!builder/templates/element
              */
             initialize: function(options) {
 
-                //_.bindAll(this, 'rowMouseEnter','rowMouseLeave');
-
                 //drop mode
                 if (_.isUndefined(options.config)) {
-                    this.id = this.type + '-' + global.generateRandomId();
+                    this.id = this.type() + '-' + global.generateRandomId();
                     this.$el.attr('id', this.id);
-                    this.generateMarkup();
+                    this.generateMarkup({icon : 'uniF13C', name : 'Text Element'});
                 } else {
                     this.setProperties(options.config);
                     if (!_.isUndefined(options.config.content))
-                        this.generateMarkup(options.config.content);
+                        this.generateMarkup({icon : '', name : 'Text Element'}, options.config.content);
                 }
-
-
-                this.setParent(options.parent);
-
                 this.setContextMenu();
 
-                 this.$el.find('.content').attr('contenteditable',true);
+                this.$el.find('.content').attr('contenteditable',true);
 
             },
 

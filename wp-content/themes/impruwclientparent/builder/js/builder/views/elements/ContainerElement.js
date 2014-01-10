@@ -1,4 +1,4 @@
-define(['builder/views/elements/BuilderElement', 'global'],
+define(['builderelement', 'global'],
     function(BuilderElement, global) {
 
         var ContainerElement = BuilderElement.extend({
@@ -48,14 +48,13 @@ define(['builder/views/elements/BuilderElement', 'global'],
 
                 //drop mode
                 if (_.isUndefined(options.config)) {
-                    this.id = this.type + '-' + global.generateRandomId();
+                    this.id = this.type() + '-' + global.generateRandomId();
                     this.$el.attr('id', this.id);
                     //
                 } else {
                     this.setProperties(options.config);
                 }
                 this.generateMarkup();
-                this.setParent(options.parent);
                 this.setClasses();
 
             },

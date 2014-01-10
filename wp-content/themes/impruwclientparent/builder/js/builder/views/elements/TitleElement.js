@@ -1,4 +1,4 @@
-define(['builder/views/elements/BuilderElement', 'text!builder/templates/elements/TitleElement.hbs', 'global'],
+define(['builderelement', 'tpl!builder/templates/elements/BasicElement.tpl', 'global'],
     function(BuilderElement, template, global) {
 
         var TitleElement = BuilderElement.extend({
@@ -11,9 +11,6 @@ define(['builder/views/elements/BuilderElement', 'text!builder/templates/element
 
             //element type
             elementType: 'TitleElement',
-
-            //identify element type
-            type: 'title',
 
             //set height to be assigned to placeholder and helper
             placeHolderHeight: 60,
@@ -38,16 +35,15 @@ define(['builder/views/elements/BuilderElement', 'text!builder/templates/element
 
                 //drop mode
                 if (_.isUndefined(options.config)) {
-                    this.id = this.type + '-' + global.generateRandomId();
+                    this.id = this.type() + '-' + global.generateRandomId();
                     this.$el.attr('id', this.id);
-                    this.generateMarkup();
+                    this.generateMarkup({icon : '', name : 'Title Element'});
                 } else {
 
                     this.setProperties(options.config);
                     if (!_.isUndefined(options.config.content))
-                        this.generateMarkup(options.config.content);
+                        this.generateMarkup({icon : '', name : 'Title Element'}, options.config.content);
                 }
-                this.setParent(options.parent);
                 this.setContextMenu();
 
                 this.$el.find('.content').attr('contenteditable',true);

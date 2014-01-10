@@ -3,7 +3,7 @@
  *  Contains all logic to handle menu configurations
  *  Add/Editing/Deleting Menu
  */
-define(['backbone', 'text!builder/templates/modal/modal.hbs', 'global'],
+define(['backbone', 'tpl!builder/templates/modal/modal.tpl', 'global'],
 
     function(Backbone, outerTemplate, global) {
 

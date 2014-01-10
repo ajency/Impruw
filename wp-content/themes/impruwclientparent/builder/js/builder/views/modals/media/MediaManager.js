@@ -3,7 +3,7 @@
  *  Contains all logic to handle menu configurations
  *  Add/Editing/Deleting Menu
  */
-define(['builder/views/modals/Modal', 'text!builder/templates/modal/media/mediamanager.hbs',
+define(['builder/views/modals/Modal', 'tpl!builder/templates/modal/media/mediamanager.tpl',
         'mediamodel', 'mediacollection', 'mediasingle', 'global', 'parsley'
     ],
 
@@ -30,7 +30,7 @@ define(['builder/views/modals/Modal', 'text!builder/templates/modal/media/mediam
             initialize: function(args) {
 
                 //bind 
-                var html = _.template(this.outerTemplate, {
+                var html = this.outerTemplate({
                     title: 'Media Manager'
                 });
 
@@ -47,19 +47,27 @@ define(['builder/views/modals/Modal', 'text!builder/templates/modal/media/mediam
                         $('#controls-drag').show();
 
                     //trigger the elements update self
-                    SiteBuilder.vent.trigger('modal-closed', self);
+                    getAppInstance().vent.trigger('modal-closed', self);
 
                 });
 
-                var markup = _.template(this.template, {});
+                var markup = this.template({});
 
-                this.$el.find('.modal-body').html(markup);
+                this.$el.find('.modal-content').append(markup);
 
                 this.mediaCollection = new MediaCollection();
 
                 //this.fetchMedia();
 
                 this.bindPlupload();
+
+                //listen to image selected event
+                var imageChoosedFn = _.bind(function(model, size){
+                                        getAppInstance().vent.trigger('image-selected', model, size);
+                                        this.hide();
+                                    }, this);
+
+                this.listenTo(getAppInstance().vent, 'image-choosed', imageChoosedFn);
             },
 
             /**

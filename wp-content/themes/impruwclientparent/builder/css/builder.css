@@ -783,7 +783,6 @@ Version:        0.1.0
   border: 1px solid transparent;
 }
 .aj-imp-builder-layout-mode .row .column {
-  min-height: 120px;
   background: #fff;
   height: 100%;
   position: relative;
@@ -794,6 +793,7 @@ Version:        0.1.0
   background: url(../images/empty-drag-bg.svg) no-repeat center center #ffffff;
   background-clip: content-box;
   background-size: contain;
+  min-height: 100px;
 }
 .aj-imp-builder-layout-mode .row .column .container {
   padding: 0;

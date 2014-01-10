@@ -196,7 +196,7 @@ function add_element_markup( $element ) {
 
     $html = '';
 
-    switch ( $element['type'] ) {
+    switch ( $element['elementType'] ) {
 
     case 'BuilderRow':
         $html = get_builder_row_markup( $element );
@@ -761,7 +761,7 @@ function elements_markup( $elements ) {
         if($element['contentFetched'] == 'true')
             continue;
 
-        if ( $element['type'] === 'BuilderRow' || $element['type'] === 'BuilderRowColumn' ) {
+        if ( $element['elementType'] === 'BuilderRow' || $element['elementType'] === 'BuilderRowColumn' ) {
 
             if ( isset( $element['elements'] ) && count( $element['elements'] ) > 0 ) {
                 $eles   = elements_markup( $element['elements'] );
@@ -1921,11 +1921,9 @@ add_action( 'wp_ajax_nopriv_update_checkinformat', 'update_checkinformat' );
 
 function add_date_range(){
 	
-  	 
-  	
-	$from_daterange 			= date('Y-m-d H:i:s',strtotime($_POST['fromdaterange']));
-	$to_daterange 	= date('Y-m-d H:i:s',strtotime($_POST['todaterange'])); 
- 	$label = "winter season test";
+	$from_daterange 	= date('Y-m-d H:i:s',strtotime($_POST['fromdaterange']));
+	$to_daterange 	    = date('Y-m-d H:i:s',strtotime($_POST['todaterange'])); 
+ 	$label              = "winter season test";
 	
 	global $wpdb; 
 							
@@ -2017,29 +2015,42 @@ function add_new_plan_tariff(){
 	//var_dump($plan_data);
 	
 	$daterange_id = $plan_data['hdn_daterange'];
-	// $daterange_id = 1;
+	
+    // $daterange_id = 1;
 	$plantype = $plan_data['plantype'];
-	$plandescription = $plan_data['plandescription'];
+	
+    $plandescription = $plan_data['plandescription'];
 	
 	$rad_weekday = $plan_data['rad_weekday'];
-	$weekday_tariff = $plan_data['weekday_tariff'];
-	$weekday_maxadults = $plan_data['weekday_maxadults'];
-	$weekday_maxchildren = $plan_data['weekday_maxchildren'];
-	$weekday_charges_extra_adult = $plan_data['weekday_charges_extra_adult'];
-	$weekday_charges_extra_child = $plan_data['weekday_charges_extra_child'];
+	
+    $weekday_tariff = $plan_data['weekday_tariff'];
+	
+    $weekday_maxadults = $plan_data['weekday_maxadults'];
+	
+    $weekday_maxchildren = $plan_data['weekday_maxchildren'];
+	
+    $weekday_charges_extra_adult = $plan_data['weekday_charges_extra_adult'];
+	
+    $weekday_charges_extra_child = $plan_data['weekday_charges_extra_child'];
 	
 	
 	$rad_weekend = $plan_data['rad_weekend'];
-	$weekend_tariff = $plan_data['weekend_tariff'];
-	$weekend_maxadults = $plan_data['weekend_maxadults'];
-	$weekend_maxchildren = $plan_data['weekend_maxchildren'];
-	$weekend_charges_extra_adult = $plan_data['weekend_charges_extra_adult'];	
-	$weekend_charges_extra_child = $plan_data['weekend_charges_extra_child'];
+	
+    $weekend_tariff = $plan_data['weekend_tariff'];
+	
+    $weekend_maxadults = $plan_data['weekend_maxadults'];
+	
+    $weekend_maxchildren = $plan_data['weekend_maxchildren'];
+	
+    $weekend_charges_extra_adult = $plan_data['weekend_charges_extra_adult'];	
+	
+    $weekend_charges_extra_child = $plan_data['weekend_charges_extra_child'];
 	 
 	//var_dump($plan_data);	 
 	
 	$weekendtariff = array();
-	$weekdaytariff = array();
+	
+    $weekdaytariff = array();
 		
 	$weekendtariff = array( 'tariff' 				=> $weekend_tariff,
 							 'maxadults'			=> $weekend_maxadults,
@@ -2329,10 +2340,11 @@ function get_all_menu_pages(){
         
     $args = array('post_type' => 'page','posts_per_page' => -1);
     $pages  = new WP_query($args);
+     
+    $p = array();
 
     if($pages->have_posts()){
         
-        $p = array();
         $skip = array('Site Builder','Dashboard');
 
         foreach($pages->posts as $page){
@@ -2340,12 +2352,21 @@ function get_all_menu_pages(){
             if(!in_array($page->post_title, $skip))
                 $p[] = $page;
         }
-
-        return $p;
     }
-    else
-        return array();
-    
+
+    $args = array('post_type' => 'impruv_room','posts_per_page' => -1);
+    $rooms  = new WP_query($args);
+
+    if($rooms->have_posts()){
+        
+        foreach($rooms->posts as $room){
+
+            $p[] = $room;
+        }
+    }
+
+    return $p;
+
 }
 
 /**
@@ -2453,3 +2474,22 @@ function get_element_markup(){
 
 }
 add_action('wp_ajax_get_element_markup','get_element_markup');
+
+/**
+ * Check if single rooms edit view is loaded
+ * @return boolean [description]
+ */
+function is_single_room_edit(){
+
+    $single_room_edit = false;
+
+    if(!isset($_COOKIE["current_page_id"]))
+        return false;
+
+    $post_id = $_COOKIE["current_page_id"];
+
+    $post = get_post($post_id);
+
+    return $post->post_type === 'impruv_room';
+
+}

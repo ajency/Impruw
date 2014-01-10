@@ -1,4 +1,4 @@
-define(['builder/views/elements/BuilderElement', 'text!builder/templates/elements/RoomsElement.hbs', 'global'],
+define(['builderelement', 'tpl!builder/templates/elements/BasicElement.tpl', 'global'],
     function(BuilderElement, template, global) {
 
         var RoomsElement = BuilderElement.extend({
@@ -11,9 +11,6 @@ define(['builder/views/elements/BuilderElement', 'text!builder/templates/element
 
             //element type
             elementType: 'RoomsElement',
-
-            //identify element type
-            type: 'rooms',
 
             //set height to be assigned to placeholder and helper
             placeHolderHeight: 400,
@@ -37,14 +34,12 @@ define(['builder/views/elements/BuilderElement', 'text!builder/templates/element
 
                 //drop mode
                 if (_.isUndefined(options.config)) {
-                    this.id = this.type + '-' + global.generateRandomId();
+                    this.id = this.type() + '-' + global.generateRandomId();
                     this.$el.attr('id', this.id);
                 } else {
                     this.setProperties(options.config);
                 }
                 this.generateMarkup();
-                this.setParent(options.parent);
-
                 this.setContextMenu();
             },
 
@@ -104,5 +99,5 @@ define(['builder/views/elements/BuilderElement', 'text!builder/templates/element
 
         });
 
-        return SliderElement;
+        return RoomsElement;
     });

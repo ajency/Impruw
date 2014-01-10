@@ -15,7 +15,7 @@ require.config({
         bootstrapselect : 'lib/bootstrapselect',
         underscore      : 'lib/underscore.min',
         backbone        : 'lib/backbone.min',
-        text            : 'lib/text',
+        tpl             : 'lib/tpl',
         moment          : 'lib/moment.min',
         cookie          : 'lib/cookie.min',
         string          : 'lib/underscore.string.min',
@@ -31,6 +31,27 @@ require.config({
         plupload        : 'lib/plupload.full.min',
         marionette      : 'lib/backbone.marionette.min',
         async           : 'lib/async',
+
+        //routers
+        builderrouter   : 'builder/routers/BuilderRouter',
+
+        //elements
+        builderelement  : 'builder/views/elements/BuilderElement',
+        builderrow      : 'builder/views/elements/layout/BuilderRowElement',
+        buildercolumn   : 'builder/views/elements/layout/BuilderRowColumn',
+        
+        imageelement    : 'builder/views/elements/ImageElement',
+        logoelement     : 'builder/views/elements/LogoElement',
+        menuelement     : 'builder/views/elements/MenuElement',
+        titleelement    : 'builder/views/elements/TitleElement',
+        textelement     : 'builder/views/elements/TextElement',
+        socialelement   : 'builder/views/elements/SocialElement',
+        sliderelement   : 'builder/views/elements/SliderElement',
+        imagewithtextelement: 'builder/views/elements/ImageWithTextElement',
+        addresselement  : 'builder/views/elements/AddressElement',
+
+        roomtitle       : 'builder/views/elements/rooms/RoomTitle',
+        roomdescription : 'builder/views/elements/rooms/RoomDescription',
 
         //menu
         menumanager     : 'builder/views/modals/MenuManager',
@@ -98,6 +119,24 @@ function log(object){
     console.log(object);
 }
 
+/**
+ * Returns the main application object instance
+ * @return {[type]} [description]
+ */
+function getAppInstance(){
+
+    return SiteBuilder;
+
+}
+
+/**
+ * [templatesUri description]
+ * @return {[type]} [description]
+ */
+function templatesUri(){
+    return requirejs.s.contexts._.config.baseURL + ''
+}
+
 //editor mode
 window.editorMode       = 'layout';
 window.prevpopover      = null;
@@ -105,7 +144,7 @@ window.prevmouseover    = null;
 
 //init the app
 require(['backbone', 'marionette',
-         'builder/routers/BuilderRouter'], function( Backbone, Marionette, Router) {
+         'builderrouter'], function( Backbone, Marionette, Router) {
 
         $(document).ready(function(){   
 

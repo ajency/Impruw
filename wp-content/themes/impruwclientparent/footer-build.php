@@ -23,75 +23,94 @@
             </div>
             <ul class="nav nav-tabs" id="builder-box-tabs">
                 <li class="active"><a href="#content" data-toggle="tab">Content</a></li>
-                <li><a href="#structure" data-toggle="tab">Structure</a></li>
-                <li><a href="#social" data-toggle="tab">Social</a></li>
+                <?php if(is_single_room_edit()): ?>
+                   <li><a href="#room-elements" data-toggle="tab">Room Elements</a></li>
+                <?php endif; ?>
+                
             </ul>
             <div class="tab-content">
                 <div class="tab-pane active" id="content">
-
                     <ul class="aj-imp-builder-items clearfix">
                         <li>
-                            <a href="#" class="drag builder-element" data-element="LogoElement" data-placeholder-height="100">
+                            <a href="#" class="drag builder-element" data-element="logoelement" data-placeholder-height="100">
                                 <div class="aj-imp-builder-icon"  data-icon="&#xf110;"></div>
                                 <div class="aj-imp-builder-title">Logo</div>
                             </a>
                         </li>
                         <li >
-                            <a href="#" class="drag builder-element" data-element="TitleElement" data-placeholder-height="60">
+                            <a href="#" class="drag builder-element" data-element="titleelement" data-placeholder-height="60">
                                 <div class="aj-imp-builder-icon" data-icon="&#xf13c;"></div>
                                 <div class="aj-imp-builder-title">Title</div>
                             </a>
                         </li>
                         <li>
-                            <a href="#" class="drag builder-element" data-element="ImageElement" data-placeholder-height="120">
+                            <a href="#" class="drag builder-element" data-element="imageelement" data-placeholder-height="120">
                                 <div class="aj-imp-builder-icon" data-icon="&#xf10e;"></div>
                                 <div class="aj-imp-builder-title">Image</div>
                             </a>
                         </li>
                         <li>
-                            <a href="#" class="drag builder-element" data-element="TextElement" data-placeholder-height="50">
+                            <a href="#" class="drag builder-element" data-element="textelement" data-placeholder-height="50">
                                 <div class="aj-imp-builder-icon" data-icon="&#xf111;"></div>
                                 <div class="aj-imp-builder-title">Text</div>
                             </a>
                         </li>
                         <li>
-                            <a href="#" class="drag builder-element" data-element="MenuElement" data-placeholder-height="50">
+                            <a href="#" class="drag builder-element" data-element="menuelement" data-placeholder-height="50">
                                 <div class="aj-imp-builder-icon" data-icon="&#xf112;"></div>
                                 <div class="aj-imp-builder-title">Menu</div>
                             </a>
                         </li>
                         <li>
-                            <a href="#" class="drag builder-element" data-element="SocialElement" data-placeholder-height="50">
+                            <a href="#" class="drag builder-element" data-element="socialelement" data-placeholder-height="50">
                                 <div class="aj-imp-builder-icon" data-icon="&#xf10c;"></div>
                                 <div class="aj-imp-builder-title">Social</div>
                             </a>
                         </li>
                         <li>
-                            <a href="#" class="drag builder-element" data-element="SliderElement" data-placeholder-height="400">
+                            <a href="#" class="drag builder-element" data-element="sliderelement" data-placeholder-height="400">
                                 <div class="aj-imp-builder-icon" data-icon="&#xf10c;"></div>
                                 <div class="aj-imp-builder-title">Slider</div>
                             </a>
                         </li>
                         <li>
-                            <a href="#" class="drag builder-element" data-element="AddressElement" data-placeholder-height="100">
+                            <a href="#" class="drag builder-element" data-element="addresselement" data-placeholder-height="100">
                                 <div class="aj-imp-builder-icon"  data-icon="&#xf110;"></div>
                                 <div class="aj-imp-builder-title">Address</div>
                             </a>
                         </li>
                         <li>
-                            <a href="#" class="drag builder-element" data-element="ImageWithTextElement" data-placeholder-height="100">
+                            <a href="#" class="drag builder-element" data-element="imagetextelement" data-placeholder-height="100">
                                 <div class="aj-imp-builder-icon"  data-icon="&#xf110;"></div>
                                 <div class="aj-imp-builder-title">Image With Text</div>
                             </a>
                         </li>
                     </ul>
                 </div>
-                <div class="tab-pane" id="structure">
+                <?php if(is_single_room_edit()): ?>
+                    <div class="tab-pane" id="room-elements">
+                        <ul class="aj-imp-builder-items clearfix">
+                            <li>
+                                <a href="#" class="drag builder-element" data-element="roomtitle" data-placeholder-height="100">
+                                    <div class="aj-imp-builder-icon"  data-icon="&#xf110;"></div>
+                                    <div class="aj-imp-builder-title">Room Title</div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="drag builder-element" data-element="roomdescription" data-placeholder-height="100">
+                                    <div class="aj-imp-builder-icon"  data-icon="&#xf110;"></div>
+                                    <div class="aj-imp-builder-title">Room Description</div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                <?php endif; ?>
+                <!-- <div class="tab-pane" id="structure">
                     Structure
                 </div>
                 <div class="tab-pane" id="social">
                     Social
-                </div>
+                </div> -->
             </div>
         </div>
     </div><!-- .container -->
