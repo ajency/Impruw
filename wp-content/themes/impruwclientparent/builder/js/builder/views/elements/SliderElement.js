@@ -1,4 +1,4 @@
-define(['builderelement','tpl!builder/templates/elements/SliderElement.tpl', 'global'], 
+define(['builderelement','tpl!builder/templates/elements/BasicElement.tpl', 'global'], 
 function(BuilderElement, template, global){
 
   var SliderElement =   BuilderElement.extend({
@@ -8,9 +8,6 @@ function(BuilderElement, template, global){
                
                //define template for control
                template            : template,
-               
-               //identify element type
-               type                : 'slider',
                
                //set height to be assigned to placeholder and helper
                placeHolderHeight   : 60,
@@ -30,27 +27,18 @@ function(BuilderElement, template, global){
                 */
                initialize : function(options){
                    
-                   //_.bindAll(this, 'rowMouseEnter','rowMouseLeave');
+                   //drop mode
+                  if (_.isUndefined(options.config)) {
+                      this.id = this.type() + '-' + global.generateRandomId();
+                      this.$el.attr('id', this.id);
+                  } else {
+                      this.setProperties(options.config);
+                  }
+                  this.generateMarkup({icon : '', name : 'Slider Element'});
+               
+                  this.setContextMenu();
                    
-                   this.parent = options.parent;
-                
-                   this.id = this.type() + '-' + global.generateRandomId();
-                   
-                   this.$el.attr('id', this.id);
-                   
-               },
-                       
-               /**
-                * Generates the markup for column 
-                * and triggers the column droppable function
-                * 
-                * @param {type} col
-                * @returns {_L2.Anonym$0}
-                */        
-               render : function(col){
-                   
-                   return this;
-               }   
+               }
                
            });
            
