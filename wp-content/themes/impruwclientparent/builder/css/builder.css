@@ -636,7 +636,6 @@ Version:        0.1.0
 }
 .aj-imp-builder-layout-mode .aj-imp-add-row,
 .aj-imp-builder-layout-mode .ui-sortable-placeholder {
-  height: 100%;
   outline: 1px dashed #ff7e00;
   outline-offset: -0.2em;
 }

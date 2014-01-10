@@ -445,8 +445,6 @@ define(['builderelement', 'global'],
 
                     self.removeEmptyClass();
                     
-
-                    //var el = element.is('row') ? element.$el : element.generateMarkup();
                     var el = element.$el;
 
                     if (self.$el.find('*[data-element="' + elementName + '"]').length > 0)
