@@ -843,11 +843,11 @@ function remove_business_logo(){
 	var_dump('remove business  logo');
 	$result = update_option('sitebusiness-logo','' );
 	if(!result){
-		wp_send_json( array( 'code' => 'ERROR', 'msg'=>'Error removing business logo' ) );
+		wp_send_json( array( 'code' => 'ERROR', 'msg'=>_('Error removing business logo') ) );
 		
 	}
 	else{
-		wp_send_json( array( 'code' => 'OK', 'msg'=>'Business logo removed successfully' ) );
+		wp_send_json( array( 'code' => 'OK', 'msg'=>_('Business logo removed successfully') ) );
 	} 
 	
 }
@@ -884,7 +884,7 @@ function save_site_data_ajx() {
     else {
 
         header( 'Content-Type: application/json' );
-        echo json_encode( array( 'code' => 'FAILED', 'msg'=> 'Could not save site profile' ) );
+        echo json_encode( array( 'code' => 'FAILED', 'msg'=> _('Could not save site profile') ) );
         die();
     }
 
@@ -990,13 +990,13 @@ function save_user_profile_ajx() {
     if ( !is_string( $profile_save_status ) ) {
 
         header( 'Content-Type: application/json' );
-        echo json_encode( array( 'code' => 'OK', 'msg'=>'User profile updated successfully' ) );
+        echo json_encode( array( 'code' => 'OK', 'msg'=>_('User profile updated successfully') ) );
         die();
     }
     else {
 
         header( 'Content-Type: application/json' );
-        echo json_encode( array( 'code' => 'FAILED', 'msg'=> $profile_save_status ) );
+        echo json_encode( array( 'code' => 'FAILED', 'msg'=>_($profile_save_status) ) );
         die();
     }
 }
@@ -1034,7 +1034,7 @@ function update_user_passwrd_ajx() {
     else {
 
         header( 'Content-Type: application/json' );
-        echo json_encode( array( 'code' => 'OK', 'msg'=>'Password changed successfully' ) );
+        echo json_encode( array( 'code' => 'OK', 'msg'=>_('Password changed successfully') ) );
         die();
 
     }
@@ -1522,7 +1522,7 @@ function save_new_room_facility() {
     }
     else {
 
-        wp_send_json( array( 'code' => 'OK', 'msg'=>'New facility is successfully added', 'facililty'=>$newfacililty_data ) );
+        wp_send_json( array( 'code' => 'OK', 'msg'=>_('New facility is successfully added'), 'facililty'=>$newfacililty_data ) );
     }
 
 
@@ -1558,7 +1558,7 @@ function save_new_tax(){
     }
     
     if($tax_exists)
-    	wp_send_json( array( 'code' => 'ERROR', 'msg' => 'The tax name already exists' ) );	
+    	wp_send_json( array( 'code' => 'ERROR', 'msg' => _('The tax name already exists') ) );	
     
     $newtax_id = $max_tax_id + 1;
     
@@ -1568,10 +1568,10 @@ function save_new_tax(){
      
     if ( $update_result ) {
 		$new_addon_type_data = array('id'=>$newtax_id,'name'=>$new_tax_name,'percent'=>$new_tax_percent);
-        wp_send_json( array( 'code' => 'OK', 'msg'=>'New tax added successfully', 'taxData'=>$new_addon_type_data ) );        
+        wp_send_json( array( 'code' => 'OK', 'msg'=>_('New tax added successfully'), 'taxData'=>$new_addon_type_data ) );        
     }
     else {
-		wp_send_json( array( 'code' => 'ERROR', 'msg' => 'Error adding the tax' ) );	
+		wp_send_json( array( 'code' => 'ERROR', 'msg' => _('Error adding the tax') ) );	
     }
     
     
@@ -1607,7 +1607,7 @@ function save_new_addon_type() {
     	}
     }
      if($addon_exists)
-    	wp_send_json( array( 'code' => 'ERROR', 'msg' => 'The addon type already exists' ) );	
+    	wp_send_json( array( 'code' => 'ERROR', 'msg' => _('The addon type already exists') ) );	
  
     $newaddon_id = $max_addonid + 1;
     
@@ -1616,10 +1616,10 @@ function save_new_addon_type() {
      
     if ( $update_result ) {
 		$new_addon_type_data = array('id'=>$newaddon_id,'label'=>$new_addon_type,'price'=>$new_addon_price);
-        wp_send_json( array( 'code' => 'OK', 'msg'=>'New addon type added successfully', 'addontype'=>$new_addon_type_data ) );        
+        wp_send_json( array( 'code' => 'OK', 'msg'=>_('New addon type added successfully'), 'addontype'=>$new_addon_type_data ) );        
     }
     else {
-		wp_send_json( array( 'code' => 'ERROR', 'msg' => 'Error adding the addon type' ) );	
+		wp_send_json( array( 'code' => 'ERROR', 'msg' => _('Error adding the addon type') ) );	
     }
     
 
@@ -1676,11 +1676,11 @@ function update_addon_type(){
     if ( $update_result ) {
 		$addon_type_data = array('id'=>$addontype_edit, 'label'=>$addon_type,'price'=>$addon_price);
 		 
-        wp_send_json( array( 'code' => 'OK', 'msg'=>'Addon type updated successfully', 'updatedaddontype'=>$addon_type_data, 'editaddontype'=>$addontype_edit ) );
+        wp_send_json( array( 'code' => 'OK', 'msg'=>_('Addon type updated successfully'), 'updatedaddontype'=>$addon_type_data, 'editaddontype'=>$addontype_edit ) );
         
     }
     else {
-	wp_send_json( array( 'code' => 'ERROR', 'msg' => 'Error updating the addon type' ) );	
+	wp_send_json( array( 'code' => 'ERROR', 'msg' => _('Error updating the addon type') ) );	
     }
     
 }
@@ -1724,11 +1724,11 @@ function update_tax_type(){
     if ( $update_result ) {
 		$tax_type_data = array('id'=>$taxtype_edit, 'name'=>$tax_type,'percent'=>$tax_percent);
 		 
-        wp_send_json( array( 'code' => 'OK', 'msg'=>'Tax type updated successfully', 'updatedtaxtype'=>$tax_type_data, 'edittaxtype'=>$taxtype_edit ) );
+        wp_send_json( array( 'code' => 'OK', 'msg'=>_('Tax type updated successfully'), 'updatedtaxtype'=>$tax_type_data, 'edittaxtype'=>$taxtype_edit ) );
         
     }
     else {
-	wp_send_json( array( 'code' => 'ERROR', 'msg' => 'Error updating the tax type' ) );	
+	wp_send_json( array( 'code' => 'ERROR', 'msg' => _('Error updating the tax type') ) );	
     }
     
 }
@@ -1749,11 +1749,11 @@ function delete_room_facility() {
     //var_dump($del_facililty_data);
 
     if ( $del_facililty_data ) {
-        wp_send_json( array( 'code' => 'OK', 'msg'=>'Facility is successfully Deleted' ) );
+        wp_send_json( array( 'code' => 'OK', 'msg'=>_('Facility is successfully Deleted') ) );
 
     }
     else {
-        wp_send_json( array( 'code' => 'ERROR', 'msg' => 'Error deleting facility' ) );
+        wp_send_json( array( 'code' => 'ERROR', 'msg' => _('Error deleting facility') ) );
 
     }
 
@@ -1781,11 +1781,11 @@ function delete_room_addon_type() {
     }
     
     if (  $delete_result ) {
-        wp_send_json( array( 'code' => 'OK', 'msg'=>'Addon type is successfully Deleted' ) );
+        wp_send_json( array( 'code' => 'OK', 'msg'=>_('Addon type is successfully Deleted') ) );
 
     }
     else {
-        wp_send_json( array( 'code' => 'ERROR', 'msg' => 'Error deleting addon type' ) );
+        wp_send_json( array( 'code' => 'ERROR', 'msg' => _('Error deleting addon type') ) );
 
     }
 
@@ -1812,11 +1812,11 @@ function delete_room_tax_type(){
     }
     
     if (  $delete_result ) {
-        wp_send_json( array( 'code' => 'OK', 'msg'=>'tax type is successfully Deleted' ) );
+        wp_send_json( array( 'code' => 'OK', 'msg'=>('tax type is successfully Deleted') ) );
 
     }
     else {
-        wp_send_json( array( 'code' => 'ERROR', 'msg' => 'Error deleting tax type' ) );
+        wp_send_json( array( 'code' => 'ERROR', 'msg' => _('Error deleting tax type') ) );
 
     }
 	
@@ -1843,11 +1843,11 @@ function update_room_facility() {
     if ( is_wp_error( $facility_data ) ) {
         $error_msg = $facility_data->get_error_message();
 
-        wp_send_json( array( 'code' => 'ERROR', 'msg' => $error_msg ) );
+        wp_send_json( array( 'code' => 'ERROR', 'msg' => _($error_msg) ) );
     }
     else {
 
-        wp_send_json( array( 'code' => 'OK', 'msg'=>'Facility updated successfully', 'facililty'=>$facility_data ) );
+        wp_send_json( array( 'code' => 'OK', 'msg'=>_('Facility updated successfully'), 'facililty'=>$facility_data ) );
     }
 
 }
@@ -1860,9 +1860,9 @@ function update_checkintime(){
 	
 	$result = update_option('checkin-time', $checkintime);
 	if($result)
-		wp_send_json( array( 'code' => 'OK', 'msg'=>'Check-in time updated successfully', 'checkinTime'=>$checkintime ) );
+		wp_send_json( array( 'code' => 'OK', 'msg'=>_('Check-in time updated successfully'), 'checkinTime'=>$checkintime ) );
 	else 	
-	 	wp_send_json( array( 'code' => 'ERROR', 'msg' => 'Error updating check-in time' ) );
+	 	wp_send_json( array( 'code' => 'ERROR', 'msg' => _('Error updating check-in time') ) );
 }
 add_action( 'wp_ajax_update_checkintime', 'update_checkintime' );
 add_action( 'wp_ajax_nopriv_update_checkintime', 'update_checkintime' );
@@ -1877,9 +1877,9 @@ function update_additional_policies(){
 	
 	$result = update_option('additional-policies', $additional_policies);
 	if($result)
-		wp_send_json( array( 'code' => 'OK', 'msg'=>'Additional policies updated successfully', 'additionalPolicies'=>$additional_policies ) );
+		wp_send_json( array( 'code' => 'OK', 'msg'=>_('Additional policies updated successfully'), 'additionalPolicies'=>$additional_policies ) );
 	else 	
-	 	wp_send_json( array( 'code' => 'ERROR', 'msg' => 'Error updating additional policies' ) );
+	 	wp_send_json( array( 'code' => 'ERROR', 'msg' => _('Error updating additional policies') ) );
 	
 }
 add_action( 'wp_ajax_update_additional_policies', 'update_additional_policies' );
@@ -1893,9 +1893,9 @@ function update_taxoption(){
 	
 	$result = update_option('tax-option', $tax_option);
 	if($result)
-		wp_send_json( array( 'code' => 'OK', 'msg'=>'Tax option updated successfully', 'taxoption'=>$tax_option ) );
+		wp_send_json( array( 'code' => 'OK', 'msg'=>_('Tax option updated successfully'), 'taxoption'=>$tax_option ) );
 	else 	
-	 	wp_send_json( array( 'code' => 'ERROR', 'msg' => 'Error updating tax option' ) );
+	 	wp_send_json( array( 'code' => 'ERROR', 'msg' => _('Error updating tax option') ) );
 }
 add_action( 'wp_ajax_update_taxoption', 'update_taxoption' );
 add_action( 'wp_ajax_nopriv_update_taxoption', 'update_taxoption' );
@@ -1906,9 +1906,9 @@ function update_checkinformat(){
 	
 	$result = update_option('checkin-format', $checkin_format);
 	if($result)
-		wp_send_json( array( 'code' => 'OK', 'msg'=>'Check-in format updated successfully', 'checkinformat'=>$checkin_format) );
+		wp_send_json( array( 'code' => 'OK', 'msg'=>_('Check-in format updated successfully'), 'checkinformat'=>$checkin_format) );
 	else 	
-	 	wp_send_json( array( 'code' => 'ERROR', 'msg' => 'Error updating Check-in format' ) );
+	 	wp_send_json( array( 'code' => 'ERROR', 'msg' => _('Error updating Check-in format') ) );
 }
 add_action( 'wp_ajax_update_checkinformat', 'update_checkinformat' );
 add_action( 'wp_ajax_nopriv_update_checkinformat', 'update_checkinformat' );
@@ -1951,9 +1951,9 @@ function add_date_range(){
  	switch_to_blog(get_current_blog_id());
   	
 	if ( $result==true ) 
-		wp_send_json( array( 'code' => 'OK', 'msg'=>'Date range is successfully added', 'daterange'=>$datarange_data ) );
+		wp_send_json( array( 'code' => 'OK', 'msg'=>_('Date range is successfully added'), 'daterange'=>$datarange_data ) );
 	else 	
-	 	wp_send_json( array( 'code' => 'ERROR', 'msg' =>'Error adding Date range' ) ); 
+	 	wp_send_json( array( 'code' => 'ERROR', 'msg' =>_('Error adding Date range') ) ); 
 	 	 
 }
 add_action( 'wp_ajax_add_date_range', 'add_date_range' );
@@ -1992,9 +1992,9 @@ function update_daterange(){
 	
 	
 	if ( $result==true ) 
-		wp_send_json( array( 'code' => 'OK', 'msg'=>'Date range updated successfully', 'daterange_data'=>$daterange_data ) );
+		wp_send_json( array( 'code' => 'OK', 'msg'=>_('Date range updated successfully'), 'daterange_data'=>$daterange_data ) );
 	else 	
-	 	wp_send_json( array( 'code' => 'ERROR', 'msg' =>'Error updating Date range' ) ); 
+	 	wp_send_json( array( 'code' => 'ERROR', 'msg' =>_('Error updating Date range') ) ); 
 								
 	
 	
@@ -2074,7 +2074,7 @@ function add_new_plan_tariff(){
 		$tariff_result =  add_daterangeplan_tariff($weekendtariff, $weekdaytariff,$plan_result,$daterange_id);
 		
 		if($tariff_result===false){
-			wp_send_json( array( 'code' => 'ERROR', 'msg' =>'Error adding Tariff plan' ) ); 
+			wp_send_json( array( 'code' => 'ERROR', 'msg' =>_('Error adding Tariff plan') ) ); 
 		}
 		else {
 						
@@ -2086,13 +2086,13 @@ function add_new_plan_tariff(){
 								  'weekendtariff'	=> $weekend_tariff	
 								);
 								 
-			wp_send_json( array( 'code' => 'OK', 'msg'=>'Tariff plan is successfully added','plandata' => $plan_details ) );
+			wp_send_json( array( 'code' => 'OK', 'msg'=>_('Tariff plan is successfully added'),'plandata' => $plan_details ) );
 			
 			 
 		}
 	}
 	else{
-			wp_send_json( array( 'code' => 'ERROR', 'msg' =>'Error adding plan' ) );
+			wp_send_json( array( 'code' => 'ERROR', 'msg' =>_('Error adding plan') ) );
 	}
 		 
   
@@ -2267,10 +2267,10 @@ function delete_daterange_ajx(){
 	$result = delete_daterange($daterange_id);
 	
 	if($result!==false){
-		wp_send_json( array( 'code' => 'OK', 'msg' =>'Date range successfully deleted' ) );
+		wp_send_json( array( 'code' => 'OK', 'msg' =>_('Date range successfully deleted') ) );
 	}
 	else{
-		wp_send_json( array( 'code' => 'ERROR', 'msg'=>'Error deleting date range' ) );
+		wp_send_json( array( 'code' => 'ERROR', 'msg'=>_('Error deleting date range') ) );
 	}
 	
 	
@@ -2324,7 +2324,7 @@ function add_new_room_ajx() {
 	update_option('additional-policies', $additional_policies);
 	update_option('tax-option',$tax_option);
 	
-    wp_send_json( array( 'code' => 'OK', 'msg'=>'New Room added successfully' ) );
+    wp_send_json( array( 'code' => 'OK', 'msg'=>_('New Room added successfully') ) );
 
 }
 add_action( 'wp_ajax_add_new_room_ajx', 'add_new_room_ajx' );

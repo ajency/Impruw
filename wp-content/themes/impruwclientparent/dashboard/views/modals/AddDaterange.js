@@ -99,7 +99,7 @@ define(['views/modals/Modal', 'text!templates/modal/AddDateRange.tpl'],
     				 if(response.code=='OK'){ 		
     					 
     				 	 	ImpruwDashboard.vent.trigger('new-date-range-added',response,evt_);
-						 	
+    				 	 	ImpruwDashboard.vent.trigger('modal-closed');
 						 	$(evt_.target).parent().parent().find('.close').click();
     					 
     				}

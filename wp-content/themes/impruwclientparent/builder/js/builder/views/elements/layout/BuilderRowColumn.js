@@ -165,21 +165,21 @@ define(['builderelement', 'global'],
 
                 var mod = _.str.slugify(element.elementType);
                 
-                require([mod], function(Element) {
+                var addElementFn = _.bind(function(Element) {
 
                     var ele = new Element({
                         config: element,
-                        parent: self
+                        parent: this
                     });
 
-                    if (element.type === 'BuilderRow' || element.type === 'ContainerElement') {
-                        self.$el.append(ele.render().$el);
+                    if (element.elementType === 'BuilderRow' || element.elementType === 'ContainerElement') {
+                        this.$el.append(ele.render().$el);
                     } else {
-                        self.$el.append(ele.$el);
+                        this.$el.append(ele.$el);
                     }
 
                     //self.elements.push(ele); !imporatnt: .push failed to maintain scope
-                    self.elements = self.elements.concat([ele]); //concat works!!!
+                    this.elements = this.elements.concat([ele]); //concat works!!!
 
                     if (!_.isUndefined(element.elements) && element.elements.length > 0) {
 
@@ -189,9 +189,11 @@ define(['builderelement', 'global'],
 
                     index++;
 
-                    self.addElement(elements, index);
+                    this.addElement(elements, index);
 
-                });
+                }, this);
+
+                require([mod], addElementFn);
 
             },
 
@@ -271,11 +273,9 @@ define(['builderelement', 'global'],
                     items               : '> .element, .row',
                     handle              : '> .aj-imp-drag-handle',
                     receive             : this.handleColumnDrop,
-                    sort                : _.throttle(this.handleElementOverState, 300),
-                    activate            : self.holdCurrentColRef,
-                    stop                : function() {
-                                             self.rearrangeElementOrder();
-                                        }   
+                    sort                : _.throttle(this.handleElementOverState, 100),
+                    activate            : this.holdCurrentColRef,
+                    stop                : _.bind(this.rearrangeElementOrder, this)
                 }); 
             },
 
@@ -413,8 +413,6 @@ define(['builderelement', 'global'],
              */
             handleElementOverState: function(event, ui) {
 
-                log('put');
-
                 var pHeight = ui.helper.attr('data-placeholder-height');
 
                 ui.placeholder.height(parseInt(pHeight));
@@ -450,10 +448,9 @@ define(['builderelement', 'global'],
                 //set loader
                 if (self.$el.find('*[data-element="' + elementName + '"]').length > 0)
                     self.$el.find('*[data-element="' + elementName + '"]').html('<div class="element-drop-loader"></div>');
-
-
+                
                 require([elementName], function(Element) {
-
+                    
                     var element = new Element({
                         parent: self
                     });
@@ -462,6 +459,7 @@ define(['builderelement', 'global'],
                     self.elements = self.elements.concat([element]); //concat works!!!
 
                     self.removeEmptyClass();
+                    
 
                     //var el = element.is('row') ? element.$el : element.generateMarkup();
                     var el = element.$el;
@@ -471,7 +469,7 @@ define(['builderelement', 'global'],
                     else
                         self.$el.append(el);
 
-                    if (elementName === 'BuilderRow') {
+                    if (elementName === 'builderrow') {
                         element.sortableColumns();
                         element.appendColumnResizer();
                     }

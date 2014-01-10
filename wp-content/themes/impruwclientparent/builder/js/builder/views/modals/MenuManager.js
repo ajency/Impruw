@@ -31,7 +31,7 @@ define(['builder/views/modals/Modal', 'tpl!builder/templates/modal/menumanager.t
 
                 //bind 
 
-                var html = _.template(this.outerTemplate, {
+                var html = this.outerTemplate({
                     title: 'Menu Manager'
                 });
 
@@ -48,7 +48,7 @@ define(['builder/views/modals/Modal', 'tpl!builder/templates/modal/menumanager.t
                         $('#controls-drag').show();
 
                     //trigger the elements update self
-                    SiteBuilder.vent.trigger('modal-closed', self);
+                    getAppInstance().vent.trigger('modal-closed', self);
 
                 });
 
@@ -126,7 +126,7 @@ define(['builder/views/modals/Modal', 'tpl!builder/templates/modal/menumanager.t
                     }, 400);
                 }
 
-                SiteBuilder.vent.trigger('new-menu-added');
+                getAppInstance().vent.trigger('new-menu-added');
 
             },
 
@@ -161,7 +161,7 @@ define(['builder/views/modals/Modal', 'tpl!builder/templates/modal/menumanager.t
                                     $(parent).remove();
                                 });
                                 
-                                SiteBuilder.vent.trigger('menu-removed');
+                                getAppInstance().vent.trigger('menu-removed');
 
                             }, 400);
 
@@ -247,28 +247,30 @@ define(['builder/views/modals/Modal', 'tpl!builder/templates/modal/menumanager.t
                 //show initial fetch loader
                 this.$el.find('.modal-body').html('fetching menus... please wait...');
 
+                var _fetchSuccessFn = _.bind(function(model, response) {
+
+                    this.menu.setFetched(true);
+                    markup = this.template({
+                        menu: model
+                    });
+
+                    this.$el.find('.modal-content').append(markup);
+
+                    //make collapsable
+                    this.$el.find('*[data-toggle="collapse"]').collapse();
+
+                    // activate Nestable for list 1
+                    this.$el.find('.sortable-menu').nestedSortable({
+                        handle              : 'div',
+                        items               : 'li',
+                        toleranceElement    : '> div',
+                        maxLevels           : 2
+                    });
+
+                }, this);
+
                 this.menu.fetch({
-                    success: function(model, response) {
-
-                        self.menu.setFetched(true);
-                        markup = _.template(self.template, {
-                            menu: model
-                        });
-
-                        self.$el.find('.modal-body').html(markup);
-
-                        //make collapsable
-                        self.$el.find('*[data-toggle="collapse"]').collapse();
-
-                        // activate Nestable for list 1
-                        self.$el.find('.sortable-menu').nestedSortable({
-                            handle: 'div',
-                            items: 'li',
-                            toleranceElement: '> div',
-                            maxLevels: 2
-                        });
-
-                    },
+                    success: _fetchSuccessFn,
                     error: function() {
                         self.$el.find('.modal-body').html('Failed to fetch menus from server. <a href="#" class="refetch-menus">Click here</a>Please try again.');
                     }

@@ -187,6 +187,16 @@ define(['backbone', 'jquery', 'underscore', 'global'],
             },
 
             /**
+             * Returns elements proper name with spaces
+             * @return {[type]} [description]
+             */
+            elementProperName : function(){
+                var capName = _.str.capitalize(this.get('elementType'));
+
+                return capName.replace(/([a-z])([A-Z])/g, '$1 $2');
+            },
+
+            /**
              * Set context menu for element
              * @returns {undefined}
              */
@@ -196,7 +206,7 @@ define(['backbone', 'jquery', 'underscore', 'global'],
 
                 this.$el.popover({
                     html        : true,
-                    title       : _.str.capitalize(this.get('elementType')) + ' Settings',
+                    title       : this.elementProperName() + ' Settings',
                     content     : this.getSettingsMarkup(),
                     placement   : 'auto',
                     trigger     : 'manual'

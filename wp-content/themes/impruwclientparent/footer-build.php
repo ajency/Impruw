@@ -14,7 +14,7 @@
             <p class="desc" style="cursor:move">
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
             </p>
-            <div class="aj-imp-add-row builder-element" data-element="BuilderRow" data-placeholder-height="120">
+            <div class="aj-imp-add-row builder-element" data-element="builderrow" data-placeholder-height="120">
                 <a href="#">
                     <span class="glyphicon glyphicon-align-justify"></span>
                     Add New Row

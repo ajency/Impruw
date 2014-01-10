@@ -17,10 +17,10 @@ define(['builderelement', 'tpl!builder/templates/elements/BasicElement.tpl', 'gl
 
             //
             events: {
-                'mouseenter': 'elementMouseEnter',
-                'mouseleave': 'elementMouseLeave',
+                'mouseenter'                : 'elementMouseEnter',
+                'mouseleave'                : 'elementMouseLeave',
                 'click > .aj-imp-delete-btn': 'destroyElement',
-                'contextmenu': 'showContextMenu'
+                'contextmenu'               : 'showContextMenu'
             },
 
             /**

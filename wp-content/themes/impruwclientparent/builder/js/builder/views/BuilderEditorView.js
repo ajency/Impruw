@@ -354,7 +354,7 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                 if (element.elementType !== 'BuilderRow')
                     return;
 
-                var mod = 'builder/views/elements/layout/BuilderRow';
+                var mod = _.str.slugify(element.elementType);
 
                 require([mod], _.bind(function(Row) {
 
@@ -397,7 +397,7 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                     revert: 'invalid',
                     start: function(e, t) {
                         var ele = t.helper.attr('data-element');
-                        if (ele === 'BuilderRow' || ele === 'BuilderRowColumn')
+                        if (ele === 'builderrow' || ele === 'builderrowcolumn')
                             t.helper.width(286);
                         else
                             t.helper.width(92).height(80);
@@ -490,6 +490,9 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                 this.$el.find('header, div[data-page="true"], footer').css('min-height','10px');
                 
                 $('#controls-drag').fadeOut();
+
+                if (!_.isNull(window.prevpopover))
+                        window.prevpopover.popover('hide');
 
                 this.fetchContentMarkup();
 
@@ -630,7 +633,7 @@ define(['underscore', 'jquery', 'backbone', 'global'],
 
                         ui.placeholder.css('max-height', parseInt(pHeight));
 
-                    },300)
+                    },100)
 
                 }); //.disableSelection(); 
 
@@ -724,7 +727,7 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                 var elementName = ui.item.attr('data-element');
 
                 //should allow only row and no othe element
-                if (elementName !== 'BuilderRow')
+                if (elementName !== 'builderrow')
                     return;
 
                 var into = '';
@@ -739,7 +742,7 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                     into = 'footer';
 
                 //pass control to column view to handle
-                this.handleElementDrop('BuilderRow', into);
+                this.handleElementDrop(elementName, into);
 
             },
 
@@ -751,39 +754,36 @@ define(['underscore', 'jquery', 'backbone', 'global'],
              */
             handleElementDrop: function(elementName, into) {
 
-                var self = this;
-
-                var path = '';
-                path = 'builder/views/elements/layout/BuilderRow';
-
                 //set loader
-                if (self.$el.find('*[data-element="' + elementName + '"]').length > 0)
-                    self.$el.find('*[data-element="' + elementName + '"]').html('<div class="element-drop-loader"></div>');
+                if (this.$el.find('*[data-element="' + elementName + '"]').length > 0)
+                    this.$el.find('*[data-element="' + elementName + '"]').html('<div class="element-drop-loader"></div>');
 
-                require([path], function(Row) {
+                var addRowFn = _.bind(function(Row) {
 
                     var row = new Row({
-                        parent: self
+                        parent: this
                     });
 
                     if (into === 'header')
-                        self.elements.header.push(row);
+                        this.elements.header.push(row);
 
                     if (into === 'content')
-                        self.elements.content.push(row);
+                        this.elements.content.push(row);
 
                     if (into === 'footer')
-                        self.elements.footer.push(row);
+                        this.elements.footer.push(row);
 
                     var el = row.$el;
 
-                    if (self.$el.find('*[data-element="' + elementName + '"]').length > 0)
-                        self.$el.find('*[data-element="' + elementName + '"]').replaceWith(el);
+                    if (this.$el.find('*[data-element="' + elementName + '"]').length > 0)
+                        this.$el.find('*[data-element="' + elementName + '"]').replaceWith(el);
 
                     row.sortableColumns();
                     row.appendColumnResizer();
 
-                });
+                }, this);
+
+                require([elementName], addRowFn);
 
             },
 
