@@ -792,6 +792,9 @@ form .aj-imp-submit:hover {
   padding: 1em 0;
   margin-bottom: 1em;
 }
+.aj-imp-register-form .aj-imp-register-left form .aj-imp-site-name .control-label {
+  top: 0.3em;
+}
 .aj-imp-register-form .aj-imp-register-left form .aj-imp-site-name .form-group {
   margin-bottom: 0;
 }
@@ -818,7 +821,7 @@ form .aj-imp-submit:hover {
   color: #777777;
 }
 .aj-imp-register-form .aj-imp-register-left form .aj-imp-site-name .aj-imp-domain {
-  padding: 8px 7px 0;
+  padding: 12px 7px 0;
   font-size: 1.025em;
 }
 @media (max-width: 767px) {
@@ -1270,7 +1273,7 @@ form .aj-imp-submit:hover {
   background: #ff7e00;
   border-radius: 0;
   color: #fff;
-  line-height: 10px;
+  line-height: 15px;
 }
 .facilities-list .facility.add:hover {
   border-color: transparent;

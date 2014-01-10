@@ -32,10 +32,14 @@ define(['underscore', 'jquery', 'backbone', 'global'],
              */
             initialize: function(option) {
 
-                 _.bindAll(this, 'handleRowDrop','updateRowProperties','searchElementIn');
+                 _.bindAll(this, 'elementRemoved', 'handleRowDrop','updateRowProperties','searchElementIn');
             
                  $(document).on('click', '.updateRowProperties', this.updateRowProperties);
-                 
+
+                 //listen to element remove event
+                 this.listenTo(getAppInstance().vent, 'element-removed', this.elementRemoved);
+
+                 this.id = this.$el.attr('id');
             },
 
             /**
@@ -81,6 +85,38 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                     _.each(section, checkInSection);
                     
                 });
+            },
+
+            /**
+             * Element deletion handled here
+             * @return {[type]} [description]
+             */
+            elementRemoved : function(deletedElement, parentId){
+
+                
+                //if this column was parent of the element
+                if(parentId !== this.id)
+                    return;
+
+                log(this.elements);
+
+                _.each(this.elements, _.bind(function(section, index) {
+
+                    _.each(section, _.bind(function(row, index) {
+
+                        if (row.get('id') == deletedElement.get('id')) {
+
+                            section.splice(index, 1); //remove element
+
+                        }
+                    }, this));
+
+                }, this));
+
+                log(this.elements);
+
+                getAppInstance().vent.trigger('row-element-removed', this);
+
             },
 
             /**

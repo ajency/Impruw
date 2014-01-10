@@ -48,6 +48,7 @@ define(['builderelement', 'builderrowcolumn', 'global'],
 
                 }
                 this.setContextMenu();
+                this.setEditHandlers();
             },
 
             
@@ -696,42 +697,24 @@ define(['builderelement', 'builderrowcolumn', 'global'],
 
                 evt.stopPropagation();
 
+                evt.preventDefault();
+
                 if (!confirm("Are you sure?"))
                     return;
 
-                var self = this;
+                var parent = this.$el.parent();
 
-                if (this.parent.is('column')) {
-
-                    _.each(this.parent.elements, function(element, index) {
-
-                        if (element.id === self.id) {
-                            self.parent.elements.splice(index, 1);
-                        }
-
-                    });
-
-                    //update the parent UI
-                    this.parent.updateEmptyView();
-
-                } else if (this.parent.is('editor')) {
-
-                    _.each(this.parent.elements, function(section, index) {
-
-                        _.each(section, function(row, index) {
-
-                            if (row.id == self.id) {
-
-                                section.splice(index, 1); //remove element
-
-                            }
-                        });
-
-                    });
+                if(parent.hasClass('column')){
+                    var parentId = $(parent).attr('id');
+                    getAppInstance().vent.trigger('element-removed', this, parentId);
+                }
+                else{
+                    var parentId = 'aj-imp-builder-drag-drop';
+                    getAppInstance().vent.trigger('element-removed', this, parentId);
 
                 }
 
-                this.emptyColumns();
+                this.elementMouseLeave(evt);
 
                 //finally remove itself
                 this.removeElement();
