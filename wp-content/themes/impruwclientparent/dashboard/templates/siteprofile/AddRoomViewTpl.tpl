@@ -115,6 +115,7 @@
 						<div class="scroll-indicator-container" id="scr3">
 							<h4 class="aj-imp-sub-head scroll-ref">Add Date Range <small>Lorem ipsum dolor sit amet, consectetur adipiscing</small></h4>
 							<form class="form-horizontal clearfix">
+								<div class="alert alert-success hidden status_message"></div>
 
 								<div class="form-table table-responsive">
 									<table class="table table-striped" id="tbl_daterangelist">

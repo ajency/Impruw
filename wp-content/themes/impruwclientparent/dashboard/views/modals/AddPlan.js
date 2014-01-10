@@ -12,8 +12,8 @@ define(['views/modals/Modal', 'text!templates/modal/AddPlan.tpl'],
             template: template,
 
             events: {
-            	'click #btn_addplan'				: 'addNewPlan',
-            		'change .chk_tariffdays'			: 'showhideTariffform' 
+            	'click #btn_addplan'		: 'addNewPlan',
+            	'change .chk_tariffdays'	: 'showhideTariffform' 
             },
 
             /**
@@ -61,12 +61,19 @@ define(['views/modals/Modal', 'text!templates/modal/AddPlan.tpl'],
     			$.post(	AJAXURL,
     					data,
     					function(response){ 
-    					 
-    						if(response.code=='OK'){		
+    				      response.popupmodel = true ; //to show alert message in popup window
+    						if(response.code=='OK'){	
+    							
+    							response.model = true; 
+    							
     							$(evt.target).prop('disabled',false);
     							ImpruwDashboard.vent.trigger('new-plan-added',response,evt_);
     							ImpruwDashboard.vent.trigger('modal-closed');
-    						 	self.hide();
+    						 	
+    						 	
+    						 	setTimeout(function(){
+    						 		self_.hide();
+    							   }, 2100);
     							 	 
     						 
     						}
