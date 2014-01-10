@@ -1,6 +1,6 @@
 <div class="modal-body">
 	<form class="form-horizontal clearfix">
-
+	<span class="alert alert-message status_message hidden"></span>
 		<div class="form-group dual dates">
 			<div class="col-sm-6">
 				<div class="form-group">
