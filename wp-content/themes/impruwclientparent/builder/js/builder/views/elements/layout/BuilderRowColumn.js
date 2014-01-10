@@ -41,7 +41,7 @@ define(['builderelement', 'global'],
              */
             initialize: function(options) {
 
-                _.bindAll(this , 'elementRemoved', 'elementAdded','handleColumnDrop');
+                _.bindAll(this , 'elementRemoved', 'handleColumnDrop');
 
                 this.colClass = options.colClass;
 
@@ -99,19 +99,6 @@ define(['builderelement', 'global'],
                 this.updateEmptyView();
 
                 getAppInstance().vent.trigger('column-element-removed', this);
-            },
-
-            /**
-             * Element added
-             * @return {[type]} [description]
-             */
-            elementAdded : function(element , parentId){
-
-                //if this column was parent of the element
-                if(parentId !== this.get('id'))
-                    return;
-
-                getAppInstance().vent.trigger('column-element-added', this);
             },
 
             /**
@@ -227,8 +214,6 @@ define(['builderelement', 'global'],
             render: function() {
 
                 var col = this.colClass;
-
-                //this.$el.html('<div class="clearfix">&nbsp;<div class="aj-imp-drag-elements-message"><span class="glyphicon glyphicon-transfer"></span>Drag Elements Here</div></div>');
 
                 this.$el.addClass('col-sm-' + col);
 
@@ -475,6 +460,8 @@ define(['builderelement', 'global'],
                     }
 
                     self.rearrangeElementOrder();
+
+                    getAppInstance().vent.trigger('column-element-added', element, this);
 
                 });
 
