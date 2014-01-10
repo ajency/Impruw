@@ -1076,6 +1076,178 @@ form {
 				width: 100%;
 				.modal-body {
 					padding: 0.5em 0;
+					.nav-tabs {
+						border-width: 1px;
+						li {
+							a {
+								font-weight: normal;
+								border: 0;
+								background: transparent;
+								font-size: 1.1em;
+								&:hover {
+									color: @3-grey;
+								}
+							}
+							&.active {
+								> a {
+									color: @orange;
+									font-weight: 700;
+								}
+							}
+						}
+					}
+					.tab-content {
+						border-radius: 0;
+						border: 0;
+						.aj-imp-upload-media {
+							text-align: center;
+							> span {
+								display: block;
+								&[class^="icon-"] {
+									font-size: 10em;
+									color: darken(@preview-grey, 5%);
+								}
+							}
+							.aj-imp-upload-message {
+								margin: 1em 0;
+								background: darken(@dash-grey, 10%);
+								color: #fff;
+								border-radius: 4px;
+								font-size: 1.1em;
+								display: inline-block;
+								padding: 0.5em 1em 0.6em;
+							}
+							.small-text {
+								font-size: 0.9em;
+								color: @dash-grey;
+							}
+						}
+						.aj-imp-image-header {
+							padding: 10px 15px;
+							margin: 0 0 1em;
+							background: @preview-grey;
+							color: @3-grey;
+							font-size: 1.1em;
+							font-weight: 700;
+							border-bottom: 1px solid @dash-grey;
+						}
+						.panel-group {
+							.panel {
+								border-radius: 0;
+								border: 0;
+								border-bottom: 1px solid lighten(@dash-grey, 10%);
+								background: none;
+								box-shadow: none;
+								.panel-heading {
+									background: none;
+									border: 0;
+									> a {
+										display: block;
+										outline: 0;
+										color: @orange;
+										.imgthumb {
+											img {
+												height: 100%;
+												width: auto;
+											}
+										}
+										.imgname, .imgdate {
+											font-weight: bold;
+											padding: 0.5em 15px;
+										}
+										.imgactions {
+											text-align: center;
+											.btn {
+												padding: 5px 8px 6px;
+												margin-right: 1em;
+												&:hover {
+													background: @orange;
+												}
+											}
+										}
+										&.collapsed {
+											color: @dash-grey;
+										}
+									}
+									&:hover {
+										background: @preview-grey;
+									}
+								}
+								.panel-body {
+									border: 0;
+									padding: 1em 0;
+									.aj-imp-edit-image {
+										border-radius: 0;
+										.aj-imp-crop-link {
+											position: relative;
+											img {
+												padding: 1px;
+												border: 1px solid @dash-grey;
+											}
+											.aj-imp-crop-link-overlay {
+												position: absolute;
+												top: 1px;
+												bottom: 1px;
+												left: 15px;
+												right: 15px;
+												background: rgba(0, 0, 0, 0.4);
+												a {
+													position: relative;
+													top: 50%;
+													color: #fff;
+													display: block;
+													text-align: center;
+												}
+											}
+										}
+										.aj-imp-img-form {
+											.row {
+												margin: 0 0 1em;
+												textarea {
+													min-height: 115px;
+												}
+												input:focus, textarea:focus {
+													border-color: @orange;
+												}
+											}
+										}
+										.aj-imp-img-save {
+											margin: 1em 0 0;
+											text-align: right;
+											padding: 0.5em 0 0;
+											border-top: 1px solid darken(@preview-grey, 10%);
+										}
+									}
+								}
+							}
+							&#settings-accordion, &#map-settings-accordion {
+								.panel {
+									.panel-heading {
+										> a {
+											.imgthumb {
+												span[class^="icon"] {
+													font-size: 2em;
+												}
+											}
+											.imgactions {
+												text-align: right;
+											}
+										}
+									}
+								}
+							}
+						}
+						.aj-imp-block-button {
+							margin: 1em 0;
+							a {
+								text-transform: uppercase;
+							}
+						}
+						.aj-imp-map-view {
+							padding: 0.5em;
+							border: 2px dashed @dash-grey;
+						}
+					}
 				}
 			}
 		}

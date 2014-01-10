@@ -13,7 +13,7 @@
             Your details have been successfully saved.
         </div>
         <div class="scroll-indicator-container" id="scr1">
-            <h4 class="aj-imp-sub-head scroll-ref">General <small>Lorem ipsum dolor sit amet, consectetur adipiscing</small></h4>
+            <h4 class="aj-imp-sub-head scroll-ref">General Settings</h4>
             <form class="form-horizontal clearfix" name="form-siteprofile-general" id="form-siteprofile-general">
                 <div class="form-group">
                     <label for="inputEmail3" class="col-sm-2 control-label">Site Name</label>
@@ -25,7 +25,7 @@
                     </div>
                 </div>
                 <div class="form-group pic-upload">
-                    <label for="inputFile3" class="col-sm-2 control-label">Business Logo</label>
+                    <label for="inputFile3" class="col-sm-2 control-label">Upload your Logo</label>
                     <div class="col-sm-10 col-sm-offset-2">
                         <div class="fileinput fileinput-new" data-provides="fileinput">
                             <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 300px; height: 100px;"><img name="business_logo"  id="businesslogo_img"   class="<% if(site.getGeneralDetails('businessLogoUrl')=='') { %>hidden<% } %>" src="<%= site.getGeneralDetails('businessLogoUrl') %>" /><input type="hidden" name="hdn_businesslogo_id" id="hdn_businesslogo_id" value="<%= site.getGeneralDetails('businessLogoId') %>" /></div>
@@ -37,7 +37,7 @@
                     </div>
                 </div>
                 <div class="form-group pic-upload">
-                    <label for="inputFile4" class="col-sm-2 control-label">Fav Icon</label>
+                    <label for="inputFile4" class="col-sm-2 control-label">Upload Favicon <br><small>of size 16 X 16 pixels</small></label>
                     <div class="col-sm-10 col-sm-offset-2">
                         <div class="fileinput fileinput-new" data-provides="fileinput">
                             <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 300px; height: 100px;"></div>
