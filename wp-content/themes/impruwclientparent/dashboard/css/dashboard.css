@@ -785,6 +785,47 @@ form .aj-imp-submit:hover {
   margin: 1em -15px 0.5em;
   text-align: center;
 }
+.aj-imp-register-form .aj-imp-register-left form .aj-imp-site-name {
+  background: #ffcb99;
+  border-radius: 5px;
+  border: 1px solid #f59482;
+  padding: 1em 0;
+  margin-bottom: 1em;
+}
+.aj-imp-register-form .aj-imp-register-left form .aj-imp-site-name .form-group {
+  margin-bottom: 0;
+}
+.aj-imp-register-form .aj-imp-register-left form .aj-imp-site-name .form-group .form-control {
+  border-color: #f59482;
+  background: #ffcb99;
+}
+.aj-imp-register-form .aj-imp-register-left form .aj-imp-site-name .form-group .form-control::-webkit-input-placeholder {
+  color: #ee4423 !important;
+}
+.aj-imp-register-form .aj-imp-register-left form .aj-imp-site-name .form-group .form-control:-moz-placeholder {
+  color: #ee4423 !important;
+}
+.aj-imp-register-form .aj-imp-register-left form .aj-imp-site-name .form-group .form-control::-moz-placeholder {
+  color: #ee4423 !important;
+}
+.aj-imp-register-form .aj-imp-register-left form .aj-imp-site-name .form-group .form-control:-ms-input-placeholder {
+  color: #ee4423 !important;
+}
+.aj-imp-register-form .aj-imp-register-left form .aj-imp-site-name .form-group .form-control:focus {
+  background: #ffb266;
+}
+.aj-imp-register-form .aj-imp-register-left form .aj-imp-site-name .form-group .help-block {
+  color: #777777;
+}
+.aj-imp-register-form .aj-imp-register-left form .aj-imp-site-name .aj-imp-domain {
+  padding: 8px 7px 0;
+  font-size: 1.025em;
+}
+@media (max-width: 767px) {
+  .aj-imp-register-form .aj-imp-register-left form .aj-imp-site-name {
+    padding: 1em;
+  }
+}
 .aj-imp-register-form .aj-imp-register-right {
   margin: 2em 0 0;
   padding: 0 30px 0;

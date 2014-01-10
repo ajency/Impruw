@@ -837,7 +837,7 @@ function save_new_user() {
         case 'inputPass'    : 
             $pass = $frm_element_val['value'];
             break;
-        case 'recaptcha_challenge_field': 
+        /*case 'recaptcha_challenge_field': 
             $recaptcha_challenge_field = $frm_element_val['value'];
             break;
         case 'recaptcha_response_field' : 
@@ -845,23 +845,25 @@ function save_new_user() {
             break;
         case 'inputCaptcha'    : 
             $inputCaptcha = $frm_element_val['value'];
+            break;*/
+        case 'inputHoney'    : 
+            $inputCaptcha = $frm_element_val['value'];
             break;
-
         }
 
     }
 
-    require_once 'recaptchalib.php';
+    /*require_once 'recaptchalib.php';
     $privatekey = "6LciY-sSAAAAAFSFuy0xsQEpuN3l_zREo9KnpwCj";
     $resp = recaptcha_check_answer ( $privatekey,
         $_SERVER["REMOTE_ADDR"],
         $recaptcha_challenge_field,
-        $recaptcha_response_field );
+        $recaptcha_response_field );*/
 
-    if ( !$resp->is_valid ) {
+    if ( $inputHoney != '' ) {
 
         header( 'Content-Type: application/json' );
-        echo json_encode( array( 'code' => 'ERROR', 'msg'=>_( "Invalid Captcha. Please retype the Captcha Code." ) )  );
+        echo json_encode( array( 'code' => 'ERROR', 'msg'=>_( "Oops! Please contact a human." ) )  );
         die();
 
     }

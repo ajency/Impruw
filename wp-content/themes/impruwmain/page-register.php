@@ -109,10 +109,10 @@ get_header();
 								 
 							</div>
 						</div>
-					 	<div class="form-group">
+					 	<!--<div class="form-group">
 					 		<label for="" class="col-sm-3 control-label"><?php echo __('Prove you are not spam','impruwmain');?></label>
 							<div class="col-sm-offset-3 col-sm-7">
-								<!-- <div class="aj-imp-captcha-image"> -->
+								<div class="aj-imp-captcha-image"> 
 									<script type="text/javascript">
 											 var RecaptchaOptions = {
 											    theme : 'white'
@@ -129,9 +129,22 @@ get_header();
   
                                           <div class="p-messages"></div>                                                                                          
             
-							<!-- 	</div> -->
+								</div> 
 							</div>
-						</div> 
+						</div> -->
+						<!-- HneyPt -->
+						<div class="form-group hidden">
+							<label for="inputHoney" class="col-sm-3 control-label"><?php echo __('Please leave this field blank if you see it.','impruwmain');?></label>
+ 
+							<div class="col-sm-7 col-sm-offset-3">
+								 
+									<input type="text" class="form-control parsley-validated parsley-error"   id="inputHoney" name="inputHoney" placeholder="<?php echo __('Honeypot','impruwmain');?>"  >
+									<!-- <span  class="help-block"></span> -->
+                                                                        <div class="p-messages"></div>
+								 
+							</div>
+						</div>
+						<!-- HneyPt -->
                           <div class="form-group margin-1">
 							<div class="col-sm-offset-3 col-sm-7">
 								<div class="form-group">
