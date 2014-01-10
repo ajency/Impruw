@@ -37,8 +37,8 @@ require.config({
 
         //elements
         builderelement  : 'builder/views/elements/BuilderElement',
-        builderrow      : 'builder/views/elements/layout/BuilderRowElement',
-        buildercolumn   : 'builder/views/elements/layout/BuilderRowColumn',
+        builderrow      : 'builder/views/elements/layout/BuilderRow',
+        builderrowcolumn: 'builder/views/elements/layout/BuilderRowColumn',
         
         imageelement    : 'builder/views/elements/ImageElement',
         logoelement     : 'builder/views/elements/LogoElement',

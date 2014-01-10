@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: im\n"
-"POT-Creation-Date: 2014-01-10 14:38+0530\n"
-"PO-Revision-Date: 2014-01-10 14:58+0530\n"
+"POT-Creation-Date: 2014-01-10 15:16+0530\n"
+"PO-Revision-Date: 2014-01-10 15:16+0530\n"
 "Last-Translator: Vanessa <vanessa.pinto2609@gmail.com>\n"
 "Language-Team: a <parag@ajency.in>\n"
 "Language: nb\n"
@@ -70,31 +70,31 @@ msgstr "Parent Tag_n"
 
 #: ../../impruwmain/functions.php:120
 msgid "Parent Tag:"
-msgstr ""
+msgstr "Parent Tag:_n"
 
 #: ../../impruwmain/functions.php:121
 msgid "Edit Tag"
-msgstr ""
+msgstr "Edit Tag_n"
 
 #: ../../impruwmain/functions.php:122
 msgid "Update Tag"
-msgstr ""
+msgstr "Update Tag_n"
 
 #: ../../impruwmain/functions.php:123
 msgid "Add New Tag"
-msgstr ""
+msgstr "Add New Tag_n"
 
 #: ../../impruwmain/functions.php:124
 msgid "New Tag"
-msgstr ""
+msgstr "New Tag_n"
 
 #: ../../impruwmain/functions.php:125
 msgid "Tag"
-msgstr ""
+msgstr "Tag_n"
 
 #: ../../impruwmain/page-login.php:12 ../../impruwmain/page-login.php:46
 msgid "Login"
-msgstr ""
+msgstr "Login_n"
 
 #: ../../impruwmain/page-login.php:12 ../../impruwmain/page-register.php:12
 #: ../../impruwmain/page-user-activation.php:76
@@ -113,7 +113,7 @@ msgstr "Email_n"
 
 #: ../../impruwmain/page-login.php:29
 msgid "Please Enter Email"
-msgstr ""
+msgstr "Please Enter Email_n"
 
 #: ../../impruwmain/page-login.php:35 ../../impruwmain/page-register.php:92
 msgid "Password"
@@ -125,11 +125,11 @@ msgstr "Enter Password_n"
 
 #: ../../impruwmain/page-login.php:48
 msgid "Forgot your password?"
-msgstr ""
+msgstr "Forgot your password?_n"
 
 #: ../../impruwmain/page-login.php:55
 msgid "Dont have an account?"
-msgstr ""
+msgstr "Dont have an account?_n"
 
 #: ../../impruwmain/page-login.php:55 ../../impruwmain/page-register.php:12
 msgid "Sign Up"
@@ -137,15 +137,15 @@ msgstr "Sign Up_n"
 
 #: ../../impruwmain/page-register.php:14
 msgid "Simplest way to create a website in minutes."
-msgstr ""
+msgstr "Simplest way to create a website in minutes._n"
 
 #: ../../impruwmain/page-register.php:28
 msgid "Your Full Name"
-msgstr ""
+msgstr "Your Full Name_n"
 
 #: ../../impruwmain/page-register.php:32
 msgid "First Name Last Name"
-msgstr ""
+msgstr "First Name Last Name_n"
 
 #: ../../impruwmain/page-register.php:35
 #, fuzzy
@@ -164,23 +164,23 @@ msgstr "Email_n"
 
 #: ../../impruwmain/page-register.php:47
 msgid "someone@mail.com"
-msgstr ""
+msgstr "someone@mail.com_n"
 
 #: ../../impruwmain/page-register.php:51
 msgid "Enter a valid email address as it will be your User ID as well."
-msgstr ""
+msgstr "Enter a valid email address as it will be your User ID as well._n"
 
 #: ../../impruwmain/page-register.php:58
 msgid "Choose your preferred language"
-msgstr ""
+msgstr "Choose your preferred language_n"
 
 #: ../../impruwmain/page-register.php:62
 msgid "Please select any one of the languages available."
-msgstr ""
+msgstr "Please select any one of the languages available._n"
 
 #: ../../impruwmain/page-register.php:78
 msgid "Choose your new website name"
-msgstr ""
+msgstr "Choose your new website name_n"
 
 #: ../../impruwmain/page-register.php:82
 #, fuzzy
@@ -189,7 +189,7 @@ msgstr "Site Name_n"
 
 #: ../../impruwmain/page-register.php:82
 msgid "We need a site name to begin."
-msgstr ""
+msgstr "We need a site name to begin._n"
 
 #: ../../impruwmain/page-register.php:88
 msgid ".impruw.com"
@@ -197,7 +197,7 @@ msgstr ".impruw.com_n"
 
 #: ../../impruwmain/page-register.php:96
 msgid "Easy to remember, hard to guess"
-msgstr ""
+msgstr "Easy to remember, hard to guess_n"
 
 #: ../../impruwmain/page-register.php:96
 #, fuzzy
@@ -210,7 +210,7 @@ msgstr "Retype Password_n"
 
 #: ../../impruwmain/page-register.php:106
 msgid "Confirm your password"
-msgstr ""
+msgstr "Confirm your password_n"
 
 #: ../../impruwmain/page-register.php:106
 #, fuzzy
@@ -219,19 +219,19 @@ msgstr "Retype Password_n"
 
 #: ../../impruwmain/page-register.php:106
 msgid "Your passwords don't match. Try again."
-msgstr ""
+msgstr "Your passwords don't match. Try again._n"
 
 #: ../../impruwmain/page-register.php:113
 msgid "Prove you are not spam"
-msgstr ""
+msgstr "Prove you are not spam_n"
 
 #: ../../impruwmain/page-register.php:140
 msgid "By signing up you agree to our terms of use."
-msgstr ""
+msgstr "By signing up you agree to our terms of use._n"
 
 #: ../../impruwmain/page-register.php:161
 msgid "Get started!"
-msgstr ""
+msgstr "Get started!_n"
 
 #: ../../impruwmain/page-register.php:172
 msgid ""
@@ -239,22 +239,25 @@ msgid ""
 "be created. Take the next step and activate your account using the "
 "activation link sent to your email address."
 msgstr ""
+"Once you sign up along with your new Impruw account your website will also "
+"be created. Take the next step and activate your account using the "
+"activation link sent to your email address._n"
 
 #: ../../impruwmain/page-register.php:175
 msgid "If you don't see it in your inbox check your spam folder. "
-msgstr ""
+msgstr "If you don't see it in your inbox check your spam folder. _n"
 
 #: ../../impruwmain/page-register.php:178
 msgid "Still don't see it?"
-msgstr ""
+msgstr "Still don't see it?_n"
 
 #: ../../impruwmain/page-register.php:180
 msgid "Click here to resend activation mail"
-msgstr ""
+msgstr "Click here to resend activation mail_n"
 
 #: ../../impruwmain/page-register.php:184
 msgid "What happens next?"
-msgstr ""
+msgstr "What happens next?_n"
 
 #: ../../impruwmain/page-register.php:186
 #, fuzzy
@@ -270,33 +273,35 @@ msgstr ""
 
 #: ../../impruwmain/page-register.php:188
 msgid "Still facing problems?"
-msgstr ""
+msgstr "Still facing problems?_n"
 
 #: ../../impruwmain/page-register.php:190
 msgid "Send us a mail on support@impruw.com"
-msgstr ""
+msgstr "Send us a mail on support@impruw.com_n"
 
 #: ../../impruwmain/page-user-activation.php:76
 msgid "Welcome to"
-msgstr ""
+msgstr "Welcome to_n"
 
 #: ../../impruwmain/page-user-activation.php:78
 msgid "User Activation"
-msgstr ""
+msgstr "User Activation_n"
 
 #: ../../impruwmain/page-user-activation.php:98
 msgid "Seems like your account hasn't been activated."
-msgstr ""
+msgstr "Seems like your account hasn't been activated._n"
 
 #: ../../impruwmain/page-user-activation.php:99
 msgid ""
 "Activate your account using the activation link sent to your email address.  "
 "If you don't see it in your inbox check your spam folder."
 msgstr ""
+"Activate your account using the activation link sent to your email address.  "
+"If you don't see it in your inbox check your spam folder._n"
 
 #: ../../impruwmain/page-user-activation.php:100
 msgid "Still don't see it? <a href='"
-msgstr ""
+msgstr "Still don't see it?_n"
 
 #: ../../impruwmain/single-impruv_email.php:20
 msgid "Pages:"
@@ -315,24 +320,24 @@ msgstr ""
 "The following words are reserved for use by WordPress functions and cannot "
 "be used as blog names: <code>%s</code>_n"
 
-#: ../../impruwmain/User/user_management.php:753
+#: ../../impruwmain/User/user_management.php:750
 msgid "It is a reserved word and cannot be used as site names: "
 msgstr "It is a reserved word and cannot be used as site names: _n"
 
-#: ../../impruwmain/User/user_management.php:765
+#: ../../impruwmain/User/user_management.php:762
 msgid "Missing or invalid site address."
 msgstr "Missing or invalid site address._n"
 
-#: ../../impruwmain/User/user_management.php:792
+#: ../../impruwmain/User/user_management.php:789
 msgid "Oops you cannot use this name. It's already taken."
 msgstr "Oops you cannot use this name. It's already taken._n"
 
-#: ../../impruwmain/User/user_management.php:797
+#: ../../impruwmain/User/user_management.php:794
 msgid "Site Name is available."
 msgstr "Site Name is available._n"
 
-#: ../../impruwmain/User/user_management.php:818
-#: ../../impruwmain/User/user_management.php:886
+#: ../../impruwmain/User/user_management.php:815
+#: ../../impruwmain/User/user_management.php:883
 msgid ""
 "Looks like some of fields have been filled incorrectly. Please check again "
 "and submit."
@@ -340,11 +345,11 @@ msgstr ""
 "Looks like some of fields have been filled incorrectly. Please check again "
 "and submit._n"
 
-#: ../../impruwmain/User/user_management.php:864
+#: ../../impruwmain/User/user_management.php:861
 msgid "Invalid Captcha. Please retype the Captcha Code."
 msgstr "Invalid Captcha. Please retype the Captcha Code._n"
 
-#: ../../impruwmain/User/user_management.php:883
+#: ../../impruwmain/User/user_management.php:880
 msgid ""
 "Great!  Now activate your account by clicking on the link sent you by email "
 "in next  5 minutes. If you don't see it there check your spam folder."
@@ -352,7 +357,7 @@ msgstr ""
 "Great!  Now activate your account by clicking on the link sent you by email "
 "in next  5 minutes. If you don't see it there check your spam folder._n"
 
-#: ../../impruwmain/User/user_management.php:927
+#: ../../impruwmain/User/user_management.php:924
 msgid "Invalid Form Data"
 msgstr "Invalid Form Data_n"
 
