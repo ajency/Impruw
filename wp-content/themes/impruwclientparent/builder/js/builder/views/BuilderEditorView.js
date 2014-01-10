@@ -430,13 +430,19 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                 $('*[data-element]').draggable({
                     connectToSortable: '.layout-header,.layout-content,.layout-footer,.column',
                     helper: 'clone',
+                    delay: 5,
+                    addClasses: false,
+                    distance : 5,
                     revert: 'invalid',
                     start: function(e, t) {
+                        
                         var ele = t.helper.attr('data-element');
+                        
                         if (ele === 'builderrow' || ele === 'builderrowcolumn')
                             t.helper.width(286);
                         else
                             t.helper.width(92).height(80);
+
                     }
                 });
                 this.enableDropSort();

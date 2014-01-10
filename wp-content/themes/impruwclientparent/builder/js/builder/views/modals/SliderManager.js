@@ -56,7 +56,7 @@ define(['builder/views/modals/Modal', 'tpl!builder/templates/modal/slidermanager
 
                 var markup = this.template();
 
-                this.$el.find('.modal-body').html(markup);
+                this.$el.find('.modal-content').append(markup);
 
                 this.mediaCollection = new MediaCollection();
 

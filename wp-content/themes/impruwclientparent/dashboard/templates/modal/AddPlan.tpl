@@ -1,6 +1,7 @@
 <div class="modal-body">
 	<form class="form-horizontal clearfix" name="form_addplan"
 		id="form_addplan">
+		<div class="alert alert-success hidden status_message"></div>
 		<input type='hidden' name='hdn_daterange' id='hdn_daterange' value='' />
 		<div class="form-group">
 			<label for="inputSocial2" class="col-sm-2 control-label">Plan Type</label>

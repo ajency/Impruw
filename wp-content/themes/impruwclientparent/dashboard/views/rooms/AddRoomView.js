@@ -418,12 +418,12 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 		newPlanAdded : function(response,evt_){
 			
 			 
-			response.model = true
+			 
 			
 			if(response.code=="OK"){
-				console.log(response)
-				console.log(response.plandata)
-				console.log(response.plandata.planid)
+				 
+				this.saveSuccess(response,evt_,this);  
+				
 				$('#planlist_'+response.plandata.daterangeid).append('<tr>'+
 						 '<td>'+
 							'<a href="#plan1" data-toggle="modal">'+response.plandata.plan+'</a>'+
@@ -442,8 +442,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 						'<a href="#" class="delete-link"><span class="glyphicon glyphicon-trash"></span> Delete</a>'+
 					'</td>'+
 					'</tr>');
-				this.saveSuccess(response,evt_,this);  
-				ImpruwDashboard.vent.trigger('modal-closed'); 
+				 
 			}
 			else{
 				this.saveFailure(response,evt_,this);  
@@ -459,6 +458,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 		deleteplan : function(evt){
 			
 			var evt_ = evt;
+			var self_ = this;
 			console.log($(evt.target).children('span').next())
 			
 			var planid = $(evt.target).attr('planid');
@@ -473,10 +473,19 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 					function(response){
 						 
 						if(response.code=='OK'){
+							
+							
+							response.inlineresultmsg = true;
+						 	response.daterangemsgspan = true;
+							self_.saveSuccess(response,evt_,self_); 
+							
 							$(evt_.target).parent().parent().remove();
 							
 						}
 						else{
+							esponse.inlineresultmsg = true;
+						 	response.daterangemsgspan = true;
+							self_.saveFailure(response,evt_,self_); 
 							
 							}						
 					});
@@ -663,6 +672,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 		deleteDateRange : function(evt){
 			console.log('delete date range');
 			var evt_ = evt;
+			var self_ = this;
 			console.log($(evt.target).children('span').next())
 			
 			var daterange_id = $(evt.target).attr('daterange-id');
@@ -677,11 +687,17 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 					function(response){
 						 
 						if(response.code=='OK'){
+							response.inlineresultmsg = true;
+						 	response.daterangemsgspan = true;
+							self_.saveSuccess(response,evt_,self_); 
+							
 							$(evt_.target).parent().parent().remove();
 							
 						}
 						else{
-							
+							response.inlineresultmsg = true;
+						 	response.daterangemsgspan = true;
+							self_.saveFailure(response,evt_,self_); 
 							}						
 					});
 			
@@ -710,7 +726,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			
 			console.log('Save date range');
 			var evt_ = evt;
-			 
+			 var self_ = this; 
 			var from_date = $(evt.target).parent().parent().find('.fromdaterange_input').val();
 			var to_date = $(evt.target).parent().parent().find('.todaterange_input').val();
 		 	
@@ -730,7 +746,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 					function(response){
 						 
 				
-				console.log(response);
+				 
 				
 				
 						if(response.code=='OK'){
@@ -748,8 +764,15 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 							$(evt.target).parent().parent().find('.daterange_fromtxt').html(response.daterange_data.from_date);
 							$(evt.target).parent().parent().find('.daterange_totxt').html(response.daterange_data.to_date);
 							
+							response.inlineresultmsg = true;
+						 	response.daterangemsgspan = true;
+							self_.saveSuccess(response,evt_,self_); 
 						}
 						else{
+							
+							response.inlineresultmsg = true;
+						 	response.daterangemsgspan = true;
+							self_.saveFailure(response,evt_,self_);
 							
 							}						
 					});
@@ -1685,7 +1708,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			 
 			
 			if(!_.isUndefined(response.inlineresultmsg)){
-				if(_.isUndefined(response.facilitymsgspan)){ 
+				if( (_.isUndefined(response.facilitymsgspan))  && (_.isUndefined(response.daterangemsgspan)) ){
 					console.log('.form group msg')
 					message_span = $(event.target).closest('.form-group').find('.status_message');
 				}	
@@ -1733,7 +1756,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			
 			if(!_.isUndefined(response.inlineresultmsg)){
 				 
-				if(_.isUndefined(response.facilitymsgspan)){ 
+				if( (_.isUndefined(response.facilitymsgspan))  && (_.isUndefined(response.daterangemsgspan)) ){ 
 					console.log('.form group msg')
 						message_span = $(event.target).closest('.form-group').find('.status_message');
 					}	

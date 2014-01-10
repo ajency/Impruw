@@ -112,6 +112,7 @@
 						<div class="scroll-indicator-container" id="scr3">
 							<h4 class="aj-imp-sub-head scroll-ref">Add Date Range <small>Add your peak season, off-season or create your own seasonal tariffs here.</small></h4>
 							<form class="form-horizontal clearfix">
+								<div class="alert alert-success hidden status_message"></div>
 
 								<div class="form-table table-responsive">
 									<table class="table table-striped" id="tbl_daterangelist">
