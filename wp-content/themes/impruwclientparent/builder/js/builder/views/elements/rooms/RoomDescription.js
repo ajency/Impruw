@@ -1,4 +1,4 @@
-define(['textelement', 'text!builder/templates/elements/BasicElement.hbs', 'global'],
+define(['textelement', 'tpl!builder/templates/elements/BasicElement.tpl', 'global'],
     function(TextElement, template, global) {
 
         var RoomDescription = TextElement.extend({
@@ -11,9 +11,6 @@ define(['textelement', 'text!builder/templates/elements/BasicElement.hbs', 'glob
 
             //element type
             elementType: 'RoomDescription',
-
-            //identify element type
-            type: 'roomtitle',
 
             //set height to be assigned to placeholder and helper
             placeHolderHeight: 100,

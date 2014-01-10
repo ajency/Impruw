@@ -372,7 +372,7 @@ define(['builderelement', 'builderrowcolumn', 'global'],
                             self.resizeColumns('left', parseInt(position));
 
                         }
-                    }, 500)
+                    }, 10)
                 });
 
             },
@@ -635,11 +635,9 @@ define(['builderelement', 'builderrowcolumn', 'global'],
              * @param {type} evt
              * @returns void
              */
-            elementMouseLeave: function(evt) {
+            elementMouseLeave: _.debounce(function(evt) {
 
                 evt.stopPropagation();
-
-                var self = this;
 
                 if (window.editorMode !== 'layout')
                     return;
@@ -648,10 +646,9 @@ define(['builderelement', 'builderrowcolumn', 'global'],
 
                 this.$el.css('border', '1px solid transparent');
 
-                //setTimeout(function(){
-                self.$el.children('.aj-imp-drag-handle,.aj-imp-delete-btn,.aj-imp-col-divider,.aj-imp-col-sel').stop().hide();
-                //},600);
-            },
+                this.$el.children('.aj-imp-drag-handle,.aj-imp-delete-btn,.aj-imp-col-divider,.aj-imp-col-sel').stop().hide();
+                
+            }, 200),
 
             /**
              *

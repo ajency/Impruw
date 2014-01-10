@@ -53,7 +53,7 @@ define(['views/modals/Modal', 'text!templates/modal/media/mediamanager.tpl',
 
                 var markup = _.template(this.template, {});
 
-                this.$el.find('.modal-content').append(markup);
+                this.$el.find('.modal-body').append(markup);
 
                 this.mediaCollection = new MediaCollection();
 
