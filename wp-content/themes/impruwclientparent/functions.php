@@ -196,7 +196,7 @@ function add_element_markup( $element ) {
 
     $html = '';
 
-    switch ( $element['type'] ) {
+    switch ( $element['elementType'] ) {
 
     case 'BuilderRow':
         $html = get_builder_row_markup( $element );
@@ -761,7 +761,7 @@ function elements_markup( $elements ) {
         if($element['contentFetched'] == 'true')
             continue;
 
-        if ( $element['type'] === 'BuilderRow' || $element['type'] === 'BuilderRowColumn' ) {
+        if ( $element['elementType'] === 'BuilderRow' || $element['elementType'] === 'BuilderRowColumn' ) {
 
             if ( isset( $element['elements'] ) && count( $element['elements'] ) > 0 ) {
                 $eles   = elements_markup( $element['elements'] );

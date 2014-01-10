@@ -36,7 +36,7 @@ define(['titleelement', 'text!builder/templates/elements/BasicElement.hbs', 'glo
 
                 //drop mode
                 if (_.isUndefined(options.config)) {
-                    this.id = this.type + '-' + global.generateRandomId();
+                    this.id = this.type() + '-' + global.generateRandomId();
                     this.$el.attr('id', this.id);
                 } else {
                     this.setProperties(options.config);

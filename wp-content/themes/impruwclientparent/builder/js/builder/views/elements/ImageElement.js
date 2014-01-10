@@ -41,7 +41,7 @@ define(['builderelement', 'tpl!builder/templates/elements/BasicElement.tpl', 'gl
 
                 //drop mode
                 if (_.isUndefined(options.config)) {
-                    this.id = this.type + '-' + global.generateRandomId();
+                    this.id = this.type() + '-' + global.generateRandomId();
                     this.$el.attr('id', this.id);
                 } else {
                     this.setProperties(options.config);
@@ -50,18 +50,6 @@ define(['builderelement', 'tpl!builder/templates/elements/BasicElement.tpl', 'gl
              
                 this.setContextMenu();
 
-            },
-
-            /**
-             * Generates the markup for column
-             * and triggers the column droppable function
-             *
-             * @param {type} col
-             * @returns {_L2.Anonym$0}
-             */
-            render: function() {
-
-                return this;
             },
 
             /**
@@ -81,23 +69,19 @@ define(['builderelement', 'tpl!builder/templates/elements/BasicElement.tpl', 'gl
              */
             showMediaManager: function() {
 
-                var self = this;
-
                 require(['underscore', 'mediamanager'], _.bind(function(_, MediaManager) {
 
-                    var mediamanager = SiteBuilder.ViewManager.findByCustom("media-manager");
+                    var mediamanager = getAppInstance().ViewManager.findByCustom("media-manager");
 
                     //if not present create new
                     if (_.isUndefined(mediamanager)) {
                         mediamanager = new MediaManager();
-                        SiteBuilder.ViewManager.add(mediamanager, "media-manager");
+                        getAppInstance().ViewManager.add(mediamanager, "media-manager");
                     }
 
                     //start listening to event
+                    this.listenTo(getAppInstance().vent,'image-selected', this.updateSelf);
  
-                    this.listenTo(SiteBuilder.vent,'image-selected', this.updateSelf);
- 
-
                     mediamanager.open();
 
                 }, this));
@@ -111,7 +95,7 @@ define(['builderelement', 'tpl!builder/templates/elements/BasicElement.tpl', 'gl
             updateSelf: function(image, size) {
 
                 //stop listening to image-selected event
-                this.stopListening(SiteBuilder.vent, 'image-selected', this.updateSelf);
+                this.stopListening(getAppInstance().vent, 'image-selected', this.updateSelf);
 
                 if (!_.isObject(image))
                     throw 'Invalid <image> datatype. Must be an Object';

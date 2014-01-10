@@ -37,7 +37,7 @@ define(['builderelement', 'tpl!builder/templates/elements/BasicElement.tpl', 'gl
 
                 //drop mode
                 if (_.isUndefined(options.config)) {
-                    this.id = this.type + '-' + global.generateRandomId();
+                    this.id = this.type() + '-' + global.generateRandomId();
                     this.$el.attr('id', this.id);
                 } else {
                     this.setProperties(options.config);

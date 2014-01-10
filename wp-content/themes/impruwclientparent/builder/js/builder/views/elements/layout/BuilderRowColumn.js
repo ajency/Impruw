@@ -3,9 +3,6 @@ define(['builderelement', 'global'],
 
         var BuilderRowColumn = BuilderElement.extend({
 
-            // type of element
-            type: 'column',
-
             elementType: 'BuilderRowColumn',
 
             //holds all elements for this column
@@ -44,11 +41,13 @@ define(['builderelement', 'global'],
              */
             initialize: function(options) {
 
+                _.bindAll(this , 'elementRemoved', 'elementAdded','handleColumnDrop');
+
                 this.colClass = options.colClass;
 
                 if (_.isUndefined(options.config)) {
                     //this.generateDropMarkup();
-                    this.id = this.type + '-' + global.generateRandomId();
+                    this.id = this.type() + '-' + global.generateRandomId();
                     this.$el.attr('id', this.id);
                 } else {
                     this.setProperties(options.config);
@@ -56,6 +55,10 @@ define(['builderelement', 'global'],
                 }
 
                 this.setContextMenu();
+
+                //start listening events
+                this.listenTo(getAppInstance().vent, 'element-removed', this.elementRemoved);
+                this.listenTo(getAppInstance().vent, 'element-added', this.elementAdded);
             },
 
             /**
@@ -63,9 +66,53 @@ define(['builderelement', 'global'],
              * @return {[type]} [description]
              */
             assignClasses : function(){
+            
                 this.$el.addClass(this.extraClasses);
+            
             },
 
+            /**
+             * Element removed
+             * @return {[type]} [description]
+             */
+            elementRemoved : function(deletedElement , parentId){
+
+                //if this column was parent of the element
+                if(parentId !== this.get('id'))
+                    return;
+
+                //if column has any elements
+                if(this.get('elements').length === 0)
+                    return;
+
+                //remove the element
+                _.each(this.get('elements'), _.bind(function(element, index) {
+
+                    if (element.get('id') === deletedElement.get('id')) {
+
+                        this.get('elements').splice(index, 1);
+
+                    }
+
+                }, this));
+
+                this.updateEmptyView();
+
+                getAppInstance().vent.trigger('column-element-removed', this);
+            },
+
+            /**
+             * Element added
+             * @return {[type]} [description]
+             */
+            elementAdded : function(element , parentId){
+
+                //if this column was parent of the element
+                if(parentId !== this.get('id'))
+                    return;
+
+                getAppInstance().vent.trigger('column-element-added', this);
+            },
 
             /**
              *
@@ -113,10 +160,10 @@ define(['builderelement', 'global'],
                 var element = elements[index];
 
                 //cannot add column inside a column
-                if (element.type === 'BuilderRowColumn')
+                if (element.elementType === 'BuilderRowColumn')
                     return;
 
-                var mod = _.str.slugify(element.type);
+                var mod = _.str.slugify(element.elementType);
                 
                 require([mod], function(Element) {
 
@@ -223,8 +270,8 @@ define(['builderelement', 'global'],
                     opacity             : .65,
                     items               : '> .element, .row',
                     handle              : '> .aj-imp-drag-handle',
-                    receive             : self.handleColumnDrop,
-                    sort                : _.throttle(self.handleElementOverState, 300),
+                    receive             : this.handleColumnDrop,
+                    sort                : _.throttle(this.handleElementOverState, 300),
                     activate            : self.holdCurrentColRef,
                     stop                : function() {
                                              self.rearrangeElementOrder();
@@ -333,8 +380,6 @@ define(['builderelement', 'global'],
 
                     this.$el.removeClass('empty-column');
 
-                    this.parent.trigger('adjust_column_dimension');
-
                     var elementId = ui.item.attr('id');
 
                     this.handleElementRemove(receiver, sender, elementId);
@@ -431,7 +476,6 @@ define(['builderelement', 'global'],
                         element.appendColumnResizer();
                     }
 
-                    self.parent.trigger('adjust_column_dimension');
                     self.rearrangeElementOrder();
 
                 });

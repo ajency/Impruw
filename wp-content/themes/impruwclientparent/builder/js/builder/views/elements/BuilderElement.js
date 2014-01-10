@@ -34,12 +34,7 @@ define(['backbone', 'jquery', 'underscore', 'global'],
              */
             dataSource : null,
             
-
-            //parent of the element
-            parent: null,
-
-            
-            /**
+              /**
              * Generate the json string for element
              * @returns {undefined}
              */
@@ -47,7 +42,7 @@ define(['backbone', 'jquery', 'underscore', 'global'],
 
                 var ele = {
                     id              : this.get('id'),
-                    type            : this.get('elementType'),
+                    elementType     : this.get('elementType'),
                     draggable       : this.get('draggable'),
                     editable        : this.get('editable'),
                     extraClasses    : this.get('extraClasses'),
@@ -201,23 +196,29 @@ define(['backbone', 'jquery', 'underscore', 'global'],
 
                 this.$el.popover({
                     html        : true,
-                    title       : _.str.capitalize(this.type) + ' Settings',
+                    title       : _.str.capitalize(this.get('elementType')) + ' Settings',
                     content     : this.getSettingsMarkup(),
                     placement   : 'auto',
                     trigger     : 'manual'
                 });
 
-                this.$el.on('show.bs.popover', function(evt) {
-                    $(evt.target).next('.popover').find('.popover-content').html(self.getSettingsMarkup());
-                });
+                var popOverShowFn = _.bind(function(evt) {
+                    $(evt.target).next('.popover').find('.popover-content').html(this.getSettingsMarkup());
+                }, this);
 
-                this.$el.on('shown.bs.popover', function(evt) {
+                this.$el.on('show.bs.popover', popOverShowFn);
+
+                var popOverShownFn = _.bind(function(evt) {
+                
                     $(evt.target).next('.popover').find('input[type="checkbox"]').checkbox();
                     $(evt.target).next('.popover').find('select').selectpicker({
                         style: 'btn-mini btn-default',
                         menuStyle: 'dropdown'
                     });
-                });
+                
+                }, this);
+
+                this.$el.on('shown.bs.popover', popOverShownFn);
             },
 
             /**
@@ -233,7 +234,7 @@ define(['backbone', 'jquery', 'underscore', 'global'],
                 if (_.isUndefined(disAllow['extraClasses']))
                     html += this.getClassnameSettingMarkup();
 
-                var className = this.type === 'row' ? 'updateRowProperties' : 'updateProperties';
+                var className = this.type() === 'buiderrow' ? 'updateRowProperties' : 'updateProperties';
 
                 html += '<div class="form-group">\
                                  <input value="Save" type="button" class="btn btn-primary '+className+'"/>&nbsp;\
@@ -395,7 +396,7 @@ define(['backbone', 'jquery', 'underscore', 'global'],
              */
             is: function(type) {
 
-                return type === this.type;
+                return type === this.type();
 
             },
 
@@ -485,7 +486,7 @@ define(['backbone', 'jquery', 'underscore', 'global'],
                 if (!_.isUndefined(config.id))
                     this.id = config.id;
                 else
-                    this.id = this.type + '-' + global.generateRandomId();
+                    this.id = this.type() + '-' + global.generateRandomId();
 
                 this.$el.attr('id', this.id);
 
@@ -608,40 +609,18 @@ define(['backbone', 'jquery', 'underscore', 'global'],
              */
             destroyElement: function(evt) {
 
+                evt.preventDefault();
+
                 evt.stopPropagation();
 
                 if (!confirm("Are you sure?"))
                     return;
 
-                var self = this;
+                var parentId = this.$el.parent().attr('id');
 
-                //remove itself from list of elments
-                _.each(this.parent.elements, function(element, index) {
+                getAppInstance().vent.trigger('element-removed', this, parentId);
 
-                    if (element.id === self.id) {
-
-                        self.parent.elements.splice(index, 1);
-
-                    }
-
-                });
-
-                //update the parent UI
-                this.parent.updateEmptyView();
-
-                //remove element and clear memory
                 this.removeElement(evt);
-
-                //adjust the column height. Anonymous function call
-                (function(self) {
-
-                    setTimeout(function() {
-
-                        self.parent.parent.trigger('adjust_column_dimension');
-
-                    }, 1200);
-
-                })(this);
 
             },
 
@@ -655,17 +634,7 @@ define(['backbone', 'jquery', 'underscore', 'global'],
              */
             removeElement: function(evt) {
 
-                evt.preventDefault();
-
-                evt.stopPropagation();
-
-                var self = this;
-
-                this.$el.fadeOut(1000, function() {
-
-                    self.destroy();
-
-                });
+                this.$el.fadeOut(400, _.bind(this.destroy, this));
             },
 
             /**

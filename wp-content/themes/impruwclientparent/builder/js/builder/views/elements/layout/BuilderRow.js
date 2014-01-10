@@ -10,7 +10,7 @@ define(['builderelement', 'buildercolumn', 'global'],
             className: 'row',
 
             //set height to be assigned to placeholder and helper
-            placeHolderHeight: 120,
+            placeHolderHeight: 0,
 
             // views
             elements: [],
@@ -38,7 +38,7 @@ define(['builderelement', 'buildercolumn', 'global'],
 
                 if (_.isUndefined(options.config)) {
                     this.generateDropMarkup();
-                    this.id = this.type + '-' + global.generateRandomId();
+                    this.id = this.type() + '-' + global.generateRandomId();
                     this.$el.attr('id', this.id);
                 } else {
 
@@ -88,7 +88,7 @@ define(['builderelement', 'buildercolumn', 'global'],
 
                 var element = elements[index];
 
-                if (index >= elements.length || element.type !== 'BuilderRowColumn')
+                if (index >= elements.length || element.elementType !== 'BuilderRowColumn')
                     return;
 
                 var self = this;
@@ -698,6 +698,7 @@ define(['builderelement', 'buildercolumn', 'global'],
                 var self = this;
 
                 if (this.parent.is('column')) {
+
                     _.each(this.parent.elements, function(element, index) {
 
                         if (element.id === self.id) {
@@ -708,6 +709,7 @@ define(['builderelement', 'buildercolumn', 'global'],
 
                     //update the parent UI
                     this.parent.updateEmptyView();
+
                 } else if (this.parent.is('editor')) {
 
                     _.each(this.parent.elements, function(section, index) {
@@ -725,11 +727,10 @@ define(['builderelement', 'buildercolumn', 'global'],
 
                 }
 
-
                 this.emptyColumns();
 
                 //finally remove itself
-                this.removeElement(evt);
+                this.removeElement();
 
             }
 
