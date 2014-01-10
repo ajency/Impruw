@@ -32,7 +32,7 @@
 
 <?php
 //var_dump($_REQUEST);
-
+global $norwegian_sel;
 $norwegian_sel = false; 
 if(isset($_REQUEST['lang']))
 {

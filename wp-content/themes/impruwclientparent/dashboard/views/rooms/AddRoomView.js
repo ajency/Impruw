@@ -589,7 +589,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			response.model = true;
 			
 			if(response.code=='OK'){
-				 this.saveSuccess(response,evt_,this);  
+				
 			 			 
 						 
 				 $('#tbl_daterangelist').append(''+
@@ -644,9 +644,15 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 					'</td>'+
 				'</tr>')
 				
-				
+				 response.popupmodel = true;
+				 this.saveSuccess(response,evt_,this);  
+				 var dateRange = this.popupViewManager.findByCustom("add-daterange-popup");
+				 setTimeout(function(){
+					 dateRange.hide();
+				   }, 2100);
 			}
 			else{
+				  response.popupmodel = true;
 				 this.saveFailure(response,evt_,this); 
 			}
 				
