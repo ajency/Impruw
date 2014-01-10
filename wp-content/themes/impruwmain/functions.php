@@ -420,3 +420,30 @@ function get_theme_stylesheet(){
     $theme_id = isset($_COOKIE["current_theme"]) ? $_COOKIE['current_theme'] : 1;
 }
 
+
+/**
+ * Get all menu pages for the site
+ * @return [type] [description]
+ */
+function get_all_menu_pages(){
+        
+    $args = array('post_type' => 'page','posts_per_page' => -1);
+    $pages  = new WP_query($args);
+     
+    $p = array();
+
+    if($pages->have_posts()){
+        
+        $skip = array('Site Builder','Dashboard');
+
+        foreach($pages->posts as $page){
+
+            if(!in_array($page->post_title, $skip))
+                $p[] = $page;
+        }
+    }
+    
+    return $p;
+
+}
+

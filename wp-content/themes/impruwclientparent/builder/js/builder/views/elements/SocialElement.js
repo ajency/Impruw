@@ -40,7 +40,7 @@ define(['builderelement', 'tpl!builder/templates/elements/BasicElement.tpl', 'gl
                 } else {
                     this.setProperties(options.config);
                 }
-                this.generateMarkup();
+                this.generateMarkup({icon : 'icon', name : 'Social Element'});
                 this.setContextMenu();
 
             },

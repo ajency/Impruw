@@ -220,7 +220,7 @@ function create_new_site( $blog_id, $blog_name, $blog_title, $user_id, $file_nam
     
     create_datetariff_table_for_blog( $new_blog_id );
 
-   //add_menu_to_blog( $user_id, $new_blog_id, $post_id, $post_site_builder_id );
+    add_menu_to_blog( $user_id, $new_blog_id );
     
     //exit;//create a new post
 
@@ -576,30 +576,28 @@ function create_datetariff_table_for_blog( $blog_id ) {
  *
  * @param type    $blog_id - the idof blog to add menu to.
  */
-function add_menu_to_blog( $user_id, $blog_id, $home_id, $site_builder_id ) {
+function add_menu_to_blog( $user_id, $blog_id ) {
     switch_to_blog( $blog_id );
 
     $run_once = get_option( 'menu_check' );
     if ( !$run_once ) {
         //give your menu a name
-        $name = 'site header menu';
+        $name = 'Main Menu';
         //create the menu
         $menu_id = wp_create_nav_menu( $name );
         //then get the menu object by its name
         $menu = get_term_by( 'name', $name, 'nav_menu' );
 
-        //then add the actuall link/ menu item and you do this for each item you want to add
-        wp_update_nav_menu_item( $menu->term_id, 0, array(
-                'menu-item-title' => get_the_title( $home_id ),
-                'menu-item-classes' => 'home',
-                'menu-item-url' => get_permalink( $home_id ),
-                'menu-item-status' => 'publish' ) );
+        foreach(get_all_menu_pages() as $page):
 
-        wp_update_nav_menu_item( $menu->term_id, 0, array(
-                'menu-item-title' => get_the_title( $site_builder_id ),
-                'menu-item-classes' => 'site_builder',
-                'menu-item-url' => get_permalink( $site_builder_id ),
-                'menu-item-status' => 'publish' ) );
+            //then add the actuall link/ menu item and you do this for each item you want to add
+            wp_update_nav_menu_item( $menu->term_id, 0, array(
+                'menu-item-title'   => $page->post_title,
+                'menu-item-classes' => $page->post_name ,
+                'menu-item-url'     => get_permalink( $page->ID),
+                'menu-item-status'  => 'publish' ) );
+
+        endforeach;
 
         //then you set the wanted theme  location
         $locations = get_theme_mod( 'nav_menu_locations' );
@@ -608,23 +606,22 @@ function add_menu_to_blog( $user_id, $blog_id, $home_id, $site_builder_id ) {
 
 
         //give your menu a name
-        $name_footer = 'site footer menu';
+        $name_footer = 'Footet Menu';
         //create the menu
         $menu_id_footer = wp_create_nav_menu( $name_footer );
         //then get the menu object by its name
         $menu_footer = get_term_by( 'name', $name_footer, 'nav_menu' );
 
-        //then add the actuall link/ menu item and you do this for each item you want to add
-        wp_update_nav_menu_item( $menu_footer->term_id, 0, array(
-                'menu-item-title' => get_the_title( $home_id ),
-                'menu-item-classes' => 'home',
-                'menu-item-url' => get_permalink( $home_id ),
-                'menu-item-status' => 'publish' ) );
-        wp_update_nav_menu_item( $menu_footer->term_id, 0, array(
-                'menu-item-title' => get_the_title( $site_builder_id ),
-                'menu-item-classes' => 'site_builder',
-                'menu-item-url' => get_permalink( $site_builder_id ),
-                'menu-item-status' => 'publish' ) );
+        foreach(get_all_menu_pages() as $page):
+
+            //then add the actuall link/ menu item and you do this for each item you want to add
+            wp_update_nav_menu_item( $name_footer->term_id, 0, array(
+                'menu-item-title'   => $page->post_title,
+                'menu-item-classes' => $page->post_name ,
+                'menu-item-url'     => get_permalink( $page->ID),
+                'menu-item-status'  => 'publish' ) );
+
+        endforeach;
 
         //then you set the wanted theme  location
         $locations_footer = get_theme_mod( 'nav_menu_locations' );
