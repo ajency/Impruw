@@ -745,7 +745,7 @@ function sitename_exists( $blog_name, $mainblog_id ) {
             ) );
         if ( in_array( $domain, $subdirectory_reserved_names ) ) {
 
-            $site_exists['CODE'] = 'ERROR';
+            $site_exists['CODE'] = 'Oops you cannot use this name. It\'s already taken.';
             //$site_exists['message'] =  __('The following words are reserved for use by WordPress functions and cannot be used as blog names: '.implode(",",$subdirectory_reserved_names)) ;
             $site_exists['message'] =  __( 'It is a reserved word and cannot be used as site names: ' ) ;
 
@@ -786,12 +786,12 @@ function sitename_exists( $blog_name, $mainblog_id ) {
     // Check if the domain has been used already.
     if ( domain_exists( $domain, $path, $site_id ) ) {
         $site_exists['CODE'] = 'OK';
-        $site_exists['message'] =  __( 'SiteName already in use.' ) ;
+        $site_exists['message'] =  __( 'Oops you cannot use this name. It\'s already taken.' ) ;
         return $site_exists;
     }
     else {
         $site_exists['CODE'] = 'FAILED';
-        $site_exists['message'] =  __( 'SiteName is available.' ) ;
+        $site_exists['message'] =  __( 'Site Name is available.' ) ;
         return $site_exists;
     }
 
@@ -812,7 +812,7 @@ function save_new_user() {
 
     if ( !check_ajax_referer( 'frm_registration', 'ajax_nonce' ) ) {
         header( 'Content-Type: application/json' );
-        echo json_encode( array( 'code' => 'ERROR', 'msg'=>_( "Invalid Form Data" ) )  );
+        echo json_encode( array( 'code' => 'ERROR', 'msg'=>_( "Looks like some of fields have been filled incorrectly. Please check again and submit." ) )  );
         die();
     }
 
@@ -858,7 +858,7 @@ function save_new_user() {
     if ( !$resp->is_valid ) {
 
         header( 'Content-Type: application/json' );
-        echo json_encode( array( 'code' => 'ERROR', 'msg'=>_( "Invalid captcha.Please Renter the Captcha Code" ) )  );
+        echo json_encode( array( 'code' => 'ERROR', 'msg'=>_( "Invalid Captcha. Please retype the Captcha Code." ) )  );
         die();
 
     }
@@ -877,10 +877,10 @@ function save_new_user() {
 
         if ( isset( $new_blog_id ) ) {
 
-            wp_send_json( array( 'code' => 'OK', 'msg'=>_( "The User registration successfull. And the site created successfully" ) ) );
+            wp_send_json( array( 'code' => 'OK', 'msg'=>_( "Great!  Now activate your account by clicking on the link sent you by email in next  5 minutes. If you don't see it there check your spam folder." ) ) );
         }
         else {
-            wp_send_json( array( 'code' => 'ERROR', 'msg'=>_( "Error creating Site. " ) )  );
+            wp_send_json( array( 'code' => 'ERROR', 'msg'=>_( "Looks like some of fields have been filled incorrectly. Please check again and submit." ) )  );
 
         }
     }
@@ -954,7 +954,7 @@ function user_login() {
             //var_dump($blog_url);
             //wp_redirect( $blog_url );
             //exit;
-            $response = array( "code" => "OK", 'blog_url' => $blog_url, 'msg'=>'Successfull Login' );
+            $response = array( "code" => "OK", 'blog_url' => $blog_url, 'msg'=>'Successful Login' );
             wp_send_json( $response );
         }
     }
