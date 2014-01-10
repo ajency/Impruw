@@ -823,6 +823,48 @@ form {
 					text-align: center;
 				}
 			}
+			.aj-imp-site-name {
+				background: lighten(@orange, 30%);
+				border-radius: 5px;
+				border: 1px solid lighten(@logo-orange, 20%);
+				padding: 1em 0;
+				margin-bottom: 1em;
+				.control-label {
+					top: 0.3em;
+				}
+				.form-group {
+					margin-bottom: 0;
+					.form-control {
+						border-color: lighten(@logo-orange, 20%);
+						background: lighten(@orange, 30%);
+						&::-webkit-input-placeholder{
+							color: @logo-orange !important;
+						}
+						&:-moz-placeholder {
+							color: @logo-orange !important;
+						}
+						&::-moz-placeholder {
+							color: @logo-orange !important;
+						}
+						&:-ms-input-placeholder {
+							color: @logo-orange !important;
+						}
+						&:focus {
+							background: lighten(@orange, 20%);
+						}
+					}
+					.help-block {
+						color: darken(@dash-grey, 20%);
+					}
+				}
+				.aj-imp-domain {
+					padding: 12px 7px 0;
+					font-size: 1.025em;
+				}
+				@media (max-width: 767px) { 
+					padding: 1em;
+				}
+			}
 		}
 	}
 	.aj-imp-register-right {
