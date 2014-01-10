@@ -271,9 +271,12 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 							 	
 							 	self_.$el.find('input[type="checkbox"]').checkbox();
 							 	self_.$el.find('#new_facilityname').val("");
+							 	response.inlineresultmsg = true;
+							 	response.facilitymsgspan = true;
 								self_.saveSuccess(response,evt_,self_);  
 							}
 							else{
+								 response.inlineresultmsg = true;
 								 self_.saveFailure(response,evt_,self_);  
 							}
 					
@@ -533,6 +536,11 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			 	'</tbody>');
 				
 				 this.saveSuccess(response,evt_,this);  
+				 var addOn = this.popupViewManager.findByCustom("add-addon-popup");
+				 setTimeout(function(){
+					 addOn.hide();
+				   }, 2100);
+				 
 			}
 			else{ 
 				//console.log("erro new addon")
@@ -794,26 +802,30 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			
 			facilityId = $(event.target).attr("term-id");
 			
-			 var data = {		action		:'delete_room_facility',
+			var data = {		action		:'delete_room_facility',
 				  	  			facility	:facilityId	
 				  		};
 			 
-			 
+			
+			var deleteFacilityFn = _.bind(function(response){ 
+				if(response.code=='OK'){
+					response.inlineresultmsg = true;
+					response.facilitymsgspan = true;
+					this.saveSuccess(response,evt_,this);  
+					this.$el.find('#facility-'+facilityId).remove()   
+				}
+				else{
+					response.inlineresultmsg = true;
+					response.facilitymsgspan = true;
+					this.saveFailure(response,evt_,this);  
+					$(evt_.target).prop('disabled',false).html('Delete'); 
+				}
+		
+			}, this);
+			
 			$.post(	AJAXURL,
 					data,
-					function(response){ 
-						if(response.code=='OK'){
-						  
-							self_.$el.find('#facility-'+facilityId).remove()  
-							self_.saveSuccess(response,evt_,self_);  
-						}
-						else{
-							$(evt_.target).prop('disabled',false);
-							$(evt.target).html('Delete');
-							 self_.saveFailure(response,evt_,self_);  
-						}
-				
-					});	
+					deleteFacilityFn);	
 		  
 			
 		},
@@ -843,12 +855,15 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 					function(response){ 
 						if(response.code=='OK'){
 						  
-							self_.$el.find('#blockaddontype-'+addonTypeId).remove()  
+							 
+							response.inlineresultmsg = true;
 							self_.saveSuccess(response,evt_,self_);  
+							self_.$el.find('#blockaddontype-'+addonTypeId).remove() 
 						}
 						else{
 							$(evt_.target).prop('disabled',false);
 							$(evt.target).html('Delete');
+							response.inlineresultmsg = true;
 							 self_.saveFailure(response,evt_,self_);  
 						}
 				
@@ -878,13 +893,15 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 					data,
 					function(response){ 
 						if(response.code=='OK'){
-						  
+							response.inlineresultmsg = true;
+							self_.saveSuccess(response,evt_,self_);
 							self_.$el.find('#blocktaxtype-'+taxTypeId).remove()  
-							self_.saveSuccess(response,evt_,self_);  
+							  
 						}
 						else{
 							$(evt_.target).prop('disabled',false);
 							$(evt.target).html('Delete');
+							response.inlineresultmsg = true;
 							 self_.saveFailure(response,evt_,self_);  
 						}
 				
@@ -1066,9 +1083,10 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 									'<a href="javascript:void(0)" class="delete-link" addontype-label="'+response.addontype.label+'"><span class="glyphicon glyphicon-trash"></span> Delete</a>'+
 								'</td>'+
 							'</tbody>');*/
-							 	
-							 	$("#blockaddontype-"+response.updatedaddontype.id).html('<tr><td id="block_editaddontype-"'+response.updatedaddontype.id+'>'+response.updatedaddontype.label+'</td>'+
-															'<td id="block_editaddonprice-"'+response.updatedaddontype.id+'>'+response.updatedaddontype.price+'</td>'+
+							 	response.inlineresultmsg = true;
+								self_.saveSuccess(response,evt_,self_); 
+							 	$("#blockaddontype-"+response.updatedaddontype.id).html('<tr><td id="block_editaddontype-'+response.updatedaddontype.id+'">'+response.updatedaddontype.label+'</td>'+
+															'<td id="block_editaddonprice-'+response.updatedaddontype.id+'">'+response.updatedaddontype.price+'</td>'+
 															'<td>'+
 																'<a href="javascript:void(0)" class="edit-link edit-addonlink" addontype-id="'+response.updatedaddontype.id+'" > <span class="glyphicon glyphicon-pencil"></span> Edit</a>'+
 																'<a href="javascript:void(0)" class="delete-link delete-addonlink" addontype-id="'+response.updatedaddontype.id+'"><span class="glyphicon glyphicon-trash"></span> Delete</a>'+
@@ -1077,15 +1095,16 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 														
 								 
 							
-							 	$(evt_.target).parent().parent().find('.close').click();
+							 	//$(evt_.target).parent().parent().find('.close').click();
 							 	/*$(evt_.target).parent().parent().find(".modal-body").find('#addontype_name').val("")
 							 	$(evt_.target).parent().parent().find('#addontype_price').val("")*/
-							 	$(evt_.target).next().next().hide();
+							 	//$(evt_.target).next().next().hide();
 							 	/*self_.$el.find('input[type="checkbox"]').checkbox();
 							 	self_.$el.find('#new_facilityname').val("");*/
-								self_.saveSuccess(response,evt_,self_);  
+							 	 
 							}
 							else{
+								 response.inlineresultmsg = true;
 								 self_.saveFailure(response,evt_,self_);  
 							}
 					
@@ -1137,7 +1156,9 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 								console.log('update success')
 							 	console.log(response)
 							 	 
-							 	
+							 	response.inlineresultmsg = true;
+								self_.saveSuccess(response,evt_,self_); 
+								
 							 	$("#blocktaxtype-"+response.updatedtaxtype.id).html('<tr><td id="block_edittaxtype-'+response.updatedtaxtype.id+'">'+response.updatedtaxtype.name+'</td>'+
 															'<td id="block_edittaxpercent-'+response.updatedtaxtype.id+'">'+response.updatedtaxtype.percent+'</td>'+
 															'<td>'+
@@ -1148,15 +1169,16 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 														
 								 
 							
-							 	$(evt_.target).parent().parent().find('.close').click();
+							 	//$(evt_.target).parent().parent().find('.close').click();
 							 	/*$(evt_.target).parent().parent().find(".modal-body").find('#taxtype_name').val("")
 							 	$(evt_.target).parent().parent().find('#addontype_price').val("")*/
-							 	$(evt_.target).next().next().hide();
+							 	//$(evt_.target).next().next().hide();
 							 	/*self_.$el.find('input[type="checkbox"]').checkbox();
 							 	self_.$el.find('#new_facilityname').val("");*/
-								self_.saveSuccess(response,evt_,self_);  
+							  
 							}
 							else{
+								 response.inlineresultmsg = true;
 								 self_.saveFailure(response,evt_,self_);  
 							}
 					
@@ -1197,12 +1219,16 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 						 
 					 $("#facLabel-"+facilityId).removeClass('input-group');
 					 $("#facLabel-"+facilityId).html( $("#inputfacility-"+facilityId).val());
+					 response.inlineresultmsg = true;
+					 response.facilitymsgspan = true;
 					 self_.saveSuccess(response,evt_,self_);  	 
 					 
 				}
 				else{
 						$(evt.target).html('Save');
 						$(evt.target).prop('disabled',false);
+						response.inlineresultmsg = true;
+						response.facilitymsgspan = true;
 						self_.saveFailure(response,evt_,self_);  
 				} 
 		
@@ -1294,13 +1320,14 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 					         
 					});	 
 			 
-					 
+					 response.inlineresultmsg = true;
 					 self_.saveSuccess(response,evt_,self_);  	 
 					 
 				}
 				else{
 						$(evt.target).html('Save');
 						$(evt.target).prop('disabled',false);
+						response.inlineresultmsg = true;
 						self_.saveFailure(response,evt_,self_);  
 				} 
 			
@@ -1467,13 +1494,14 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 					         
 					});	 
 			 
-					 
+					 response.inlineresultmsg = true;
 					 self_.saveSuccess(response,evt_,self_);  	 
 					 
 				}
 				else{
 						$(evt.target).html('Save');
 						$(evt.target).prop('disabled',false);
+						response.inlineresultmsg = true;
 						self_.saveFailure(response,evt_,self_);  
 				} 
 			
@@ -1546,13 +1574,14 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 					         
 					});	 
 			 
-					 
+					 response.inlineresultmsg = true;
 					 self_.saveSuccess(response,evt_,self_);  	 
 					 
 				}
 				else{
 						$(evt.target).html('Save');
 						$(evt.target).prop('disabled',false);
+						response.inlineresultmsg = true;
 						self_.saveFailure(response,evt_,self_);  
 				} 
 			
@@ -1635,20 +1664,46 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 		 * @param _self
 		 */
 		saveSuccess : function(response,event,_self){
+			 
+			 
+			if(!_.isUndefined($(event.target).next().get(0))) 
+				var next_element = $(event.target).next().get(0);
+			else
+				var next_element = $(event.target).next();
 			
-			if( $(event.target).next().get(0).tagName =="IMG") // hide next element only if its a loader image
+			//if( $(event.target).next().get(0).tagName =="IMG") // hide next element only if its a loader image
+			if( next_element.tagName =="IMG")
 				$(event.target).next().hide(); 
+			
+			var message_span = '';
 			 
-			if(!_.isUndefined(response.popupmodel)){
-				$(event.delegateTarget).find('#roomsave_status')  
-			 				.removeClass('alert-error').addClass('alert-success');
+			
+			if(!_.isUndefined(response.inlineresultmsg)){
+				if(_.isUndefined(response.facilitymsgspan)){ 
+					console.log('.form group msg')
+					message_span = $(event.target).closest('.form-group').find('.status_message');
+				}	
+				else{
+					console.log('form message')
+					message_span = $(event.target).closest('form').find('.status_message')
+				}
+				 
 			}
+			else if(!_.isUndefined(response.popupmodel)){
+				console.log('popup message1')
+				message_span = $(event.target).closest('.modal-content').find('.status_message');
+				 
+			}
+			
 			else{
-				_self.$el.find('#roomsave_status')
-							.removeClass('alert-error').addClass('alert-success');
+				console.log('default message1')
+				message_span = _self.$el.find('#roomsave_status')
+				 
+				 
 			}
-			 
-			_self.showAlertMessage(event,response,_self);			 
+			console.log(message_span)
+			 message_span.removeClass('alert-error').addClass('alert-success');
+			_self.showAlertMessage(event,response,_self,message_span);			 
 			 
 		},
 		
@@ -1660,19 +1715,40 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 		 */
 		saveFailure : function(response,event,_self){
 			 
-			if( $(event.target).next().get(0).tagName =="IMG") // hide next element only if its a loader image
-				$(event.target).next().hide();
-			 
-			if(!_.isUndefined(response.popupmodel)){
-				$(event.delegateTarget).find('#roomsave_status') 
-								.removeClass('alert-success').addClass('alert-error');
+			if(!_.isUndefined($(event.target).next().get(0))) 
+				var next_element = $(event.target).next().get(0);
+			else
+				var next_element = $(event.target).next();
+			
+			//if( $(event.target).next().get(0).tagName =="IMG") // hide next element only if its a loader image
+			if( next_element.tagName =="IMG")
+				$(event.target).next().hide();  
+			
+			
+			if(!_.isUndefined(response.inlineresultmsg)){
+				 
+				if(_.isUndefined(response.facilitymsgspan)){ 
+					console.log('.form group msg')
+						message_span = $(event.target).closest('.form-group').find('.status_message');
+					}	
+				else{
+					console.log('form message')
+					message_span = $(event.target).closest('form').find('.status_message')
+				}
+				
+			}
+			else if(!_.isUndefined(response.popupmodel)){
+				console.log('popup message1')
+				message_span = $(event.target).closest('.modal-content').find('.status_message') 
+				 
 			}
 			else{
-				_self.$el.find('#roomsave_status')
-								.removeClass('alert-success').addClass('alert-error');
+				console.log('default message')
+				message_span = _self.$el.find('#roomsave_status');
+				 
 			}
-			
-			_self.showAlertMessage(event,response,_self);			 
+			message_span.removeClass('alert-success').addClass('alert-error');
+			_self.showAlertMessage(event,response,_self,message_span);			 
 			
 		}, 
 		
@@ -1683,27 +1759,69 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 		 * @param event
 		 * @param response
 		 */		
-		showAlertMessage : function(event,response,_self){
+		showAlertMessage : function(event,response,_self,message_span){
 			
 			$(event.target).prop('disabled',false)
-			if(!_.isUndefined(response.popupmodel)){
-			 	$(event.delegateTarget).find('#roomsave_status').html(response.msg);
-				$(event.delegateTarget).find('#roomsave_status').removeClass('hidden');
+			
+			if(!_.isUndefined(response.inlineresultmsg)){
+				
+				console.log('show inline msg')
+				
+				var $div2 = message_span;
+				$div2.html(response.msg)
+				$div2.removeClass('hidden');
+				
+				
+				 setTimeout(function(){	
+							$div2.addClass('hidden');
+							 
+				   }, 2000);
+				 
+				
+				
+				
+				//$div2.delay(1800).addClass('hidden');
+				//$(event.target).closest('form').find('.status_message').html(response.msg);
+				//$(event.target).closest('form').find('.status_message').removeClass('hidden');
 				  
 				/* Move to top at status message after success/failure */
-				 $('html, body').animate({
+				/* $('html, body').animate({
 			        scrollTop: $(event.delegateTarget).find('#roomsave_status').offset().top
-			    }, 1000);
+			    }, 1000);*/
+				 
+				
+			}
+			else if(!_.isUndefined(response.popupmodel)){
+				var $div2  = message_span;
+				$div2.html(response.msg)
+				$div2.removeClass('hidden');
+				
+				 setTimeout(function(){		 
+							 $div2.addClass('hidden');							  
+				   }, 2000);
+				//$(event.target).parent().find('.status_message').html(response.msg);
+				//$(event.target).parent().find('.status_message').removeClass('hidden');
+				  
+				/* Move to top at status message after success/failure */
+				/* $('html, body').animate({
+			        scrollTop: $(event.delegateTarget).find('#roomsave_status').offset().top
+			    }, 1000);*/
 			}
 			else{
-				_self.$el.find('#roomsave_status').html(response.msg)
-				_self.$el.find('#roomsave_status').removeClass('hidden');
+				var $div2  = message_span;
+				$div2.html(response.msg)
+				$div2.removeClass('hidden');
+				
+				
+				//_self.$el.find('#roomsave_status').html(response.msg)
+				//_self.$el.find('#roomsave_status').removeClass('hidden');
 				/* Move to top at status message after success/failure */
 				 $('html, body').animate({
 			        scrollTop: _self.$el.find('#roomsave_status').offset().top
 			    }, 1000);
 				
 			}
+			
 		},
 		
 		

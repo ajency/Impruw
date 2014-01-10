@@ -65,7 +65,7 @@ define(['views/modals/Modal', 'text!templates/modal/AddPlan.tpl'],
     						if(response.code=='OK'){		
     							$(evt.target).prop('disabled',false);
     							ImpruwDashboard.vent.trigger('new-plan-added',response,evt_);
-    						 
+    							ImpruwDashboard.vent.trigger('modal-closed');
     						 	self.hide();
     							 	 
     						 

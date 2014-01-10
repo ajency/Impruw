@@ -60,7 +60,7 @@
 						<div class="scroll-indicator-container" id="scr2">
 							<h4 class="aj-imp-sub-head scroll-ref">Facilities <small>List the facilities available in this room.</small></h4>
 							<form class="form-horizontal clearfix" name="form_addfacility" id="form_addfacility">
-								
+								<div class="alert alert-success hidden status_message"></div>
 								<div class="form-group">
 									<div class="col-sm-12">
 										<div class="facilities-list clearfix">
@@ -101,8 +101,7 @@
 										   
 										</div>
 									</div>
-								</div>
-								
+								</div>								
 							</form>
 						</div>
 						
@@ -288,6 +287,8 @@
 								</div>
 
 								<div class="form-group">
+								
+									<div class="alert alert-success hidden status_message"></div>
 									<div class="col-sm-12">
 									
 									
@@ -354,6 +355,7 @@
 								</div>
 
 								<div class="form-group">
+									<div class="alert alert-success hidden status_message"></div>
 									<div class="col-sm-12">
 									
 											<table class="table table-bordered table-striped  <%   if (  (roomdata.addontypes.length<=0) || (_.isUndefined(roomdata.addontypes.length))  ) { %>hidden<% } %>" id="addons_list">
@@ -424,6 +426,7 @@
 								</div>
 
 								<div class="form-group">
+									<div class="alert alert-success hidden status_message"></div>
 									<div class="col-sm-12">
 										<p class="checkinformat_text"> <% if(!_.isUndefined(roomdata.checkinformat)) {%> <%=roomdata.checkinformat %> <% } %></p>
 										<div class="checkinformat_edit row hidden">
@@ -455,6 +458,7 @@
 								
 								
 								<div class="form-group">
+									<div class="alert alert-success hidden status_message"></div>
 									<div class="col-sm-7">
 										<p class="checkintime_text"><% if(!_.isUndefined(roomdata.checkintime)) {%><%=roomdata.checkintime %> <%}%></p>
 										<div class="checkintime_edittext hidden">
@@ -501,6 +505,7 @@
 								</div>
 
 								<div class="form-group">
+									<div class="alert alert-success hidden status_message"></div>
 									<div class="col-sm-12">
 										<p class='addpoliciestext'><% if(!_.isUndefined(roomdata.additionalpolicies)) {%><%=roomdata.additionalpolicies%> <%}%></p>
 										<div class="addpoliciestext_edit hidden">

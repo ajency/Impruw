@@ -1,5 +1,6 @@
 <div class="modal-body">
     <form class="form-horizontal clearfix" name="form_add_addon"  id="form_add_addon" >
+    <div class="alert alert-success hidden status_message"></div>
 	<div class="form-group dual">
                 <div class="col-sm-6">
                         <div class="form-group">

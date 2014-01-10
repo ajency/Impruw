@@ -72,10 +72,13 @@ define(['views/modals/Modal', 'text!templates/modal/AddOn.tpl'],
     								
     								$(evt_.target).parent().parent().find('#addontype_name').val("");
     							 	$(evt_.target).parent().parent().find('#addontype_price').val("");
+    							 	
+    							 	response.popupmodel = true ; //to show alert message in popup window
+    							 	
     							 	ImpruwDashboard.vent.trigger('new-add-on-added',response,evt_);
     							 	ImpruwDashboard.vent.trigger('modal-closed');
     							 	
-    							 	 $(evt_.target).parent().parent().find('.close').click();
+    							 	// $(evt_.target).parent().parent().find('.close').click();
     							 	
     							 	/*self_.$el.find('input[type="checkbox"]').checkbox();*/
     							 	/*self_.$el.find('#new_facilityname').val("");*/

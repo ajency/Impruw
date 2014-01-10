@@ -68,6 +68,8 @@ define(['views/modals/Modal', 'text!templates/modal/AddTax.tpl'],
     									$(evt_.target).parent().parent().find('#taxtype_name').val("")
     								 	$(evt_.target).parent().parent().find('#taxtype_price').val("")
     								 	
+    								 	
+    								 	response.popupmodel = true;    								 	
     								 	ImpruwDashboard.vent.trigger('new-tax-added',response,evt_);
     									ImpruwDashboard.vent.trigger('modal-closed');
     							 	
