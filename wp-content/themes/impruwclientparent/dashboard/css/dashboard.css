@@ -306,18 +306,29 @@ a:focus {
 }
 @media only screen and (min-width: 1440px) {
   /* Styles */
-  .aj-imp-container .aj-imp-left {
+  .aj-imp-container .aj-imp-left,
+  .aj-imp-container .aj-imp-foot-left {
     width: 16.6667%;
   }
-  .aj-imp-container .aj-imp-left .aj-imp-dash-nav #aj-imp-dash-menu li .icon {
+  .aj-imp-container .aj-imp-left .aj-imp-dash-nav #aj-imp-dash-menu li .icon,
+  .aj-imp-container .aj-imp-foot-left .aj-imp-dash-nav #aj-imp-dash-menu li .icon {
     left: 20px;
   }
-  .aj-imp-container .aj-imp-left .aj-imp-dash-nav #aj-imp-dash-menu li a {
+  .aj-imp-container .aj-imp-left .aj-imp-dash-nav #aj-imp-dash-menu li a,
+  .aj-imp-container .aj-imp-foot-left .aj-imp-dash-nav #aj-imp-dash-menu li a {
     padding: 20px 5px 20px 70px;
   }
-  .aj-imp-container .aj-imp-right {
+  .aj-imp-container .aj-imp-right,
+  .aj-imp-container .aj-imp-foot-right {
     width: 83.3333%;
   }
+}
+.aj-imp-dash-footer {
+  padding: 1em 15px;
+  background: #fff;
+  text-align: right;
+  font-size: 0.88em;
+  border-top: 1px solid #dddddd;
 }
 #jPanelMenu-menu {
   background: #f6f6f6;
@@ -537,6 +548,9 @@ form .aj-imp-submit {
 form .aj-imp-submit:hover {
   background: #ff9833;
 }
+.select {
+  margin-bottom: 0;
+}
 .select .dropdown-toggle {
   background: #fff;
   color: #aaaaaa;
@@ -612,10 +626,29 @@ form .aj-imp-submit:hover {
   color: #848484;
   font-weight: bold;
 }
+.aj-imp-lo-header > .row .lang-actions .lang-sel {
+  float: right;
+  margin: 0.3em 0.5em;
+  text-align: left;
+}
+.aj-imp-lo-header > .row .lang-actions .lang-sel #lang_sel {
+  height: auto;
+}
+.aj-imp-lo-header > .row .lang-actions .lang-sel #lang_sel ul li a {
+  border: 0;
+}
+.aj-imp-lo-header > .row .lang-actions .lang-sel #lang_sel ul li ul {
+  clear: both;
+  border: 0;
+}
+.aj-imp-lo-header > .row .lang-actions .lang-sel #lang_sel ul li ul li a {
+  border: 1px solid #aaaaaa;
+}
 .aj-imp-lo-header > .row .lang-actions .login-btn {
   border-radius: 3px;
   background: #ff7e00;
   text-transform: uppercase;
+  float: right;
 }
 .aj-imp-lo-header > .row .lang-actions .login-btn:hover {
   background: #ff9833;

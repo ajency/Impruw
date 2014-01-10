@@ -1,6 +1,6 @@
 <header class="aj-imp-dash-header row">
 					<div class="aj-imp-dash-title col-sm-8">
-						<h2 class="aj-imp-page-head">Profile</h2>
+						<h2 class="aj-imp-page-head">My Profile</h2>
 					</div>
 					<div class="aj-imp-dash-actions col-sm-4">
 						<a href="#" class="btn btn-embossed btn-wide"><span class="glyphicon glyphicon-cog"></span> Settings</a>
@@ -46,7 +46,7 @@
 									</div>
 								</div>
 								
-								<div class="form-group">
+								<div class="form-group pic-upload">
 									<label for="inputFile4" class="col-sm-2 control-label">Profile Picture</label>
 									<div class="col-sm-10 col-sm-offset-2">
 										 

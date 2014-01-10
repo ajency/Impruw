@@ -1,4 +1,4 @@
-define(['builderelement', 'buildercolumn', 'global'],
+define(['builderelement', 'builderrowcolumn', 'global'],
 
     function(BuilderElement, BuilderRowColumn, global) {
 
@@ -37,9 +37,11 @@ define(['builderelement', 'buildercolumn', 'global'],
             initialize: function(options) {
 
                 if (_.isUndefined(options.config)) {
+
                     this.generateDropMarkup();
                     this.id = this.type() + '-' + global.generateRandomId();
                     this.$el.attr('id', this.id);
+
                 } else {
 
                     this.setProperties(options.config);
@@ -93,7 +95,7 @@ define(['builderelement', 'buildercolumn', 'global'],
 
                 var self = this;
 
-                var mod = 'buildercolumn';
+                var mod = 'builderrowcolumn';
 
                 require([mod], function(Column) {
 
@@ -197,18 +199,20 @@ define(['builderelement', 'buildercolumn', 'global'],
                 this.elements = [];
 
                 //append columns
-                _.each(_.range(this.initialColumns), function() {
+                _.each(_.range(this.initialColumns), _.bind(function() {
 
                     var column = new BuilderRowColumn({
                         parent: self,
                         colClass: colClass
                     });
+
                     column.render();
                     column.addEmptyClass();
-                    self.elements.push(column);
-                    self.$el.append(column.$el);
+                    
+                    this.elements.push(column);
+                    this.$el.append(column.$el);
 
-                });
+                }, this));
 
                 return this.$el;
             },
@@ -562,7 +566,7 @@ define(['builderelement', 'buildercolumn', 'global'],
 
                 _.each(this.getColumns(), function(col, index) {
 
-                    if (col.id === id)
+                    if (col.get('id') === id)
                         column = col;
 
                 });

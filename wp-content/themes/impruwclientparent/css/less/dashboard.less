@@ -324,7 +324,7 @@ a {
 and (min-width : 1440px) {
 /* Styles */
 .aj-imp-container {
-	.aj-imp-left {
+	.aj-imp-left, .aj-imp-foot-left {
 		width: 16.6667%;
 		.aj-imp-dash-nav {
 			#aj-imp-dash-menu {
@@ -339,10 +339,18 @@ and (min-width : 1440px) {
 			}
 		}
 	}
-	.aj-imp-right {
+	.aj-imp-right, .aj-imp-foot-right {
 		width: 83.3333%;
 	}
 }	
+}
+
+.aj-imp-dash-footer {
+	padding: 1em 15px;
+	background: #fff;
+	text-align: right;
+	font-size: 0.88em;
+	border-top: 1px solid lighten(@dash-grey, 20%);
 }
 
 #jPanelMenu-menu {
@@ -562,6 +570,7 @@ form {
 }
 
 .select {
+	margin-bottom: 0;
 	.dropdown-toggle {
 		background: #fff;
 		color: @dash-grey;

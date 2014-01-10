@@ -35,59 +35,30 @@
 						<li class="aj-imp-nav-create">
 							<span class="icon"></span>
 							<span class="arrow"></span>
-							<a href="#">Create Site</a>
+							<a href="#">Site Builder</a>
 						</li>
-						<li class="aj-imp-nav-booking">
+						<li class="aj-imp-nav-booking active">
 							<span class="icon"></span>
 							<span class="arrow"></span>
-							<a href="#">Booking</a>
+							<a href="#">Rooms</a>
+							<ul class="sub-menu">
+								<li>
+									<a href="#">View All</a>
+								</li>
+								<li>
+									<a href="#add-room">Add Rooms</a>
+								</li>
+							</ul>
 						</li>
-						<li class="aj-imp-nav-reports">
+						<li class="aj-imp-nav-profile">
 							<span class="icon"></span>
 							<span class="arrow"></span>
-							<a href="#">Reports</a>
+							<a href="#site-profile">My Site Profile</a>
 						</li>
 						<li class="aj-imp-nav-marketing">
 							<span class="icon"></span>
 							<span class="arrow"></span>
-							<a href="#">Marketing</a>
-						</li>
-						<li class="aj-imp-nav-inventory active">
-							<span class="icon"></span>
-							<span class="arrow"></span>
-							<a href="#">Room Inventory</a>
-							<ul class="sub-menu">
-								<li>
-									<a href="#add-room">Add Room</a>
-								</li>
-								 
-							</ul>
-						</li>
-						<li class="aj-imp-nav-profile active">
-							<span class="icon"></span>
-							<span class="arrow"></span>
-							<a href="#site-profile">Profile &amp; Billing</a>
-							<ul class="sub-menu">
-								<li>
-									<a href="#scr1">General</a>
-								</li>
-								<li>
-									<a href="#scr4">SEO</a>
-								</li>
-								<li>
-									<a href="#scr5">Editors</a>
-								</li>
-							</ul>
-						</li>
-						<li class="aj-imp-nav-support">
-							<span class="icon"></span>
-							<span class="arrow"></span>
-							<a href="#">Support</a>
-						</li>
-						<li class="aj-imp-nav-support">
-							<span class="icon"></span>
-							<span class="arrow"></span>
-							<a href="#user-profile">User Profile</a>
+							<a href="#user-profile">My Profile</a>
 						</li>
 					</ul>
 				</nav>
@@ -95,6 +66,14 @@
 			<!-- /aj-imp-left -->
 			<div class="aj-imp-right col-md-9 col-sm-8"></div>
 			<!-- /aj-imp-right -->
+		</div>
+		<div class="row">
+			<div class="aj-imp-foot-left col-md-3 col-sm-4">
+				&nbsp;
+			</div>
+			<div class="aj-imp-foot-right aj-imp-dash-footer col-md-9 col-sm-8">
+				&copy;2014 <a href="#">Impruw.com</a>
+			</div>
 		</div>
 	</div>
 	<script>
