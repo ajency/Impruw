@@ -2021,30 +2021,30 @@ function add_new_plan_tariff(){
 	
     $plandescription = $plan_data['plandescription'];
 	
-	$rad_weekday = $plan_data['rad_weekday'];
+	$rad_weekday = (!isset($plan_data['rad_weekday'])?'':$plan_data['rad_weekday']);
 	
-    $weekday_tariff = $plan_data['weekday_tariff'];
+    $weekday_tariff = (!isset($plan_data['weekday_tariff'])?'':$plan_data['weekday_tariff']);
 	
-    $weekday_maxadults = $plan_data['weekday_maxadults'];
+    $weekday_maxadults = (!isset($plan_data['weekday_maxadults'])?'':$plan_data['weekday_maxadults']);
 	
-    $weekday_maxchildren = $plan_data['weekday_maxchildren'];
+    $weekday_maxchildren = (!isset($plan_data['weekday_maxchildren'])?'':$plan_data['weekday_maxchildren']);
 	
-    $weekday_charges_extra_adult = $plan_data['weekday_charges_extra_adult'];
+    $weekday_charges_extra_adult = (!isset($plan_data['weekday_charges_extra_adult'])?'':$plan_data['weekday_charges_extra_adult']);
 	
-    $weekday_charges_extra_child = $plan_data['weekday_charges_extra_child'];
+    $weekday_charges_extra_child = (!isset($plan_data['weekday_charges_extra_child'])?'':$plan_data['weekday_charges_extra_child']);
 	
 	
-	$rad_weekend = $plan_data['rad_weekend'];
+	$rad_weekend = (!isset($plan_data['rad_weekend'])?'':$plan_data['rad_weekend']) ;
 	
-    $weekend_tariff = $plan_data['weekend_tariff'];
+    $weekend_tariff = (!isset($plan_data['weekend_tariff'])?'':$plan_data['weekend_tariff']);
 	
-    $weekend_maxadults = $plan_data['weekend_maxadults'];
+    $weekend_maxadults = (!isset($plan_data['weekend_maxadults'])?'':$plan_data['weekend_maxadults']);
 	
-    $weekend_maxchildren = $plan_data['weekend_maxchildren'];
+    $weekend_maxchildren = (!isset($plan_data['weekend_maxchildren'])?'':$plan_data['weekend_maxchildren']);
 	
-    $weekend_charges_extra_adult = $plan_data['weekend_charges_extra_adult'];	
+    $weekend_charges_extra_adult = (!isset($plan_data['weekend_charges_extra_adult'])?'':$plan_data['weekend_charges_extra_adult']);	
 	
-    $weekend_charges_extra_child = $plan_data['weekend_charges_extra_child'];
+    $weekend_charges_extra_child = (!isset($plan_data['weekend_charges_extra_child'])?'':$plan_data['weekend_charges_extra_child']);
 	 
 	//var_dump($plan_data);	 
 	
