@@ -1,5 +1,6 @@
 <div class="modal-body">
     <form class="form-horizontal clearfix" name="form_add_tax"  id="form_add_tax">
+    <span class="alert alert-message status_message hidden"></span>
         <div class="form-group dual">
             <div class="col-sm-6">
                 <div class="form-group">

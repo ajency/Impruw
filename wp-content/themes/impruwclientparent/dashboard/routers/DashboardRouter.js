@@ -25,7 +25,11 @@ define(['underscore', 'jquery', 'backbone', 'mainview', 'bootstrapselect','check
 				},
 
 				index : function(){
-					this.navigate('site-profile',{trigger : true});						
+					//this.navigate('site-profile',{trigger : true});
+					var  self = this;
+					self.mainView.show('dashboarddefaultview');
+					 	
+					
 				},
 				
 				addRoom :function(){
