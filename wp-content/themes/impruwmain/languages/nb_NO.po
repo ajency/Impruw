@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: im\n"
-"POT-Creation-Date: 2014-01-13 11:12+0530\n"
-"PO-Revision-Date: 2014-01-13 11:12+0530\n"
+"POT-Creation-Date: 2014-01-13 11:22+0530\n"
+"PO-Revision-Date: 2014-01-13 11:23+0530\n"
 "Last-Translator: Vanessa <vanessa.pinto2609@gmail.com>\n"
 "Language-Team: a <parag@ajency.in>\n"
 "Language: nb\n"
@@ -93,8 +93,9 @@ msgid "Tag"
 msgstr "Tag_n"
 
 #: ../../impruwmain/page-login.php:12 ../../impruwmain/page-login.php:46
-msgid "Login"
-msgstr "Login_n"
+#, fuzzy
+msgid "Sign in"
+msgstr "Sign Up_n"
 
 #: ../../impruwmain/page-login.php:12 ../../impruwmain/page-register.php:12
 #: ../../impruwmain/page-user-activation.php:76
@@ -102,10 +103,8 @@ msgid "Impruw"
 msgstr "Impruw_n"
 
 #: ../../impruwmain/page-login.php:14
-msgid ""
-"Lorem Ipsum is simply dummy text of the printing and typesetting industry."
-msgstr ""
-"Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+msgid "Creating professional websites is really simple"
+msgstr "Creating professional websites is really simple_n"
 
 #: ../../impruwmain/page-login.php:26
 msgid "Email"
@@ -178,6 +177,14 @@ msgstr "Choose your preferred language_n"
 msgid "Please select any one of the languages available."
 msgstr "Please select any one of the languages available._n"
 
+#: ../../impruwmain/page-register.php:64
+msgid "English"
+msgstr "English_n"
+
+#: ../../impruwmain/page-register.php:65
+msgid "Norwegian"
+msgstr "Norwegian_n"
+
 #: ../../impruwmain/page-register.php:78
 msgid "Choose your new website name"
 msgstr "Choose your new website name_n"
@@ -227,11 +234,11 @@ msgstr "Prove you are not spam_n"
 
 #: ../../impruwmain/page-register.php:137
 msgid "Please leave this field blank if you see it."
-msgstr ""
+msgstr "Please leave this field blank if you see it._n"
 
 #: ../../impruwmain/page-register.php:141
 msgid "Honeypot"
-msgstr ""
+msgstr "Honeypot_hn"
 
 #: ../../impruwmain/page-register.php:153
 msgid "By signing up you agree to our terms of use."
@@ -355,7 +362,7 @@ msgstr ""
 
 #: ../../impruwmain/User/user_management.php:865
 msgid "Oops! Please contact a human."
-msgstr ""
+msgstr "Oops! Please contact a human._n"
 
 #: ../../impruwmain/User/user_management.php:884
 msgid ""
@@ -368,6 +375,14 @@ msgstr ""
 #: ../../impruwmain/User/user_management.php:928
 msgid "Invalid Form Data"
 msgstr "Invalid Form Data_n"
+
+#~ msgid "Login"
+#~ msgstr "Login_n"
+
+#~ msgid ""
+#~ "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+#~ msgstr ""
+#~ "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
 
 #~ msgid "Invalid Captcha. Please retype the Captcha Code."
 #~ msgstr "Invalid Captcha. Please retype the Captcha Code._n"
