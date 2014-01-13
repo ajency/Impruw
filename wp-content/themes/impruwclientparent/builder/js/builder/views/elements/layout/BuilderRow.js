@@ -37,7 +37,6 @@ define(['builderelement', 'builderrowcolumn', 'global'],
             initialize: function(options) {
 
                 if (_.isUndefined(options.config)) {
-
                     this.generateDropMarkup();
                     this.id = this.type() + '-' + global.generateRandomId();
                     this.$el.attr('id', this.id);
@@ -48,7 +47,7 @@ define(['builderelement', 'builderrowcolumn', 'global'],
 
                 }
                 this.setContextMenu();
-                this.setEditHandlers();
+                this.setHandlers();
             },
 
             
@@ -231,7 +230,7 @@ define(['builderelement', 'builderrowcolumn', 'global'],
                                             </span>\
                                         </div>');
 
-                if (this.isEditable()) {
+                if (this.get('editable')) {
                     this.$el.append('<div class="aj-imp-col-sel tooltip fade top in">\
                                             <div class="tooltip-arrow"></div>\
                                             <div class="tooltip-inner">\

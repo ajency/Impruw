@@ -4,8 +4,8 @@
  * this file.
  */
 define(['underscore', 'jquery', 'backbone', 'holder', 'cssFx', 'bootstrap', 'tpl', 'jqueryui',
-        'string', 'cookie', 'bootstrapselect', 'checkbox', 'radio', 'parsley'
-    ],
+        'string', 'cookie', 'bootstrapselect', 'checkbox', 'radio', 'parsley'],
+    
     function(_, $, Backbone, Holder, cssFx) {
 
         var global = {};

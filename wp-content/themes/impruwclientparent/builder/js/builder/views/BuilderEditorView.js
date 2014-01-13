@@ -98,8 +98,6 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                 if(parentId !== this.id)
                     return;
 
-                log(this.elements);
-
                 _.each(this.elements, _.bind(function(section, index) {
 
                     _.each(section, _.bind(function(row, index) {
@@ -112,8 +110,6 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                     }, this));
 
                 }, this));
-
-                log(this.elements);
 
                 getAppInstance().vent.trigger('row-element-removed', this);
 
