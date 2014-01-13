@@ -1,4 +1,4 @@
-<?php
+    <?php
 /**
  * This class is responsible for all actions/functions related to 
  * Room Facilities Element
@@ -61,7 +61,22 @@ class RoomFacilities extends Element {
         if($this->post_id === 0)
             return '';
 
-        return "<h4>Room facilities here</h4>";
+        $facilities = wp_get_post_terms($this->post_id, 'impruv_room_facility');
+
+        $html = sprintf('<ul class="%s">', $this->get_classes());
+
+        if(is_array($facilities)){
+
+            foreach ($facilities as $facility) {
+                $html .= sprintf('<li><a href="%s">%s</a></li>', $facility->slug, $facility->name);
+            }
+            
+        }
+
+        $html .= '</ul>';
+
+        return $html;
+
     }
 
 }
