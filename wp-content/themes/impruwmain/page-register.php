@@ -55,14 +55,14 @@ get_header();
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="inputLmail" class="col-sm-3 control-label"><?php echo _('Choose your preferred language'); ?></label>
+							<label for="inputLmail" class="col-sm-3 control-label"><?php echo __('Choose your preferred language','impruwmain'); ?></label>
 
 							<div class="col-sm-7 col-sm-offset-3">
 								 
 									<select name="inputLanguage" id="inputLanguage"  required  parsley-required-message="<?php echo __('Please select any one of the languages available.','impruwmain'); ?>"   > 
 										
-									 	<option value="en" <?php if($norwegian_sel==false)  echo " selected "; ?> >English</option>
-									  	<option value="nb" <?php if($norwegian_sel==true)  echo " selected "; ?>>Norwegian</option>
+									 	<option value="en" <?php if($norwegian_sel==false)  echo " selected "; ?> ><?php echo __('English','impruwmain'); ?></option>
+									  	<option value="nb" <?php if($norwegian_sel==true)  echo " selected "; ?>><?php echo __('Norwegian','impruwmain'); ?></option>
  
 									</select>
                                                                         <div class="p-messages"></div>

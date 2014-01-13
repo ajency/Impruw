@@ -9,9 +9,9 @@ get_header();
 		<div class="aj-imp-login-form">
 			<div class="row">
 				<div class="col-sm-12 aj-imp-login-header">
-					<h1><?php echo __('Login','impruwmain'); ?>  <span><?php echo __('Impruw','impruwmain');?></span></h1>
+					<h1><?php echo __('Sign in','impruwmain'); ?>  <span><?php echo __('Impruw','impruwmain');?></span></h1>
 					<p class="desc">
-						<?php echo __('Lorem Ipsum is simply dummy text of the printing and typesetting industry.','impruwmain'); ?>
+						<?php echo __('Creating professional websites is really simple','impruwmain'); ?>
 					</p>
 				</div>
 			</div>
@@ -43,7 +43,7 @@ get_header();
 						<div class="row">
 							<div class="col-sm-offset-3 col-sm-7">
 								<div class="form-group">
-									<button type="button" id="btn_login" name="btn_login" class="btn btn-wide aj-imp-submit"><?php echo __('Login','impruwmain'); ?></button>
+									<button type="button" id="btn_login" name="btn_login" class="btn btn-wide aj-imp-submit"><?php echo __('Sign in','impruwmain'); ?></button>
 									<img id="login_loader" src="<?php echo site_url()."/wp-content/themes/impruwmain/images/loader.gif"; ?>" width="38" height="30"  style="display:none;"/>
 									<a href="#" class="aj-imp-log-forgot"><?php echo __('Forgot your password?','impruwmain');?></a>
 								</div>
