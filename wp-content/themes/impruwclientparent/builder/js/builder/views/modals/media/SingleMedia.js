@@ -34,9 +34,6 @@ define(['backbone', 'tpl!builder/templates/modal/media/singlemedia.tpl',
 
                 this.model = args.model;
 
-                this.parent = args.parent;
-
-
             },
 
             render: function() {
@@ -45,7 +42,7 @@ define(['backbone', 'tpl!builder/templates/modal/media/singlemedia.tpl',
                 
                     media: this.model,
 
-                    type : _.isUndefined(this.parent.type) ? 'modal' : this.parent.type
+                    type : 'modal'
                 
                 });
 

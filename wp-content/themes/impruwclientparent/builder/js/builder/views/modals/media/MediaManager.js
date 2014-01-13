@@ -29,6 +29,8 @@ define(['builder/views/modals/Modal', 'tpl!builder/templates/modal/media/mediama
              */
             initialize: function(args) {
 
+                _.bindAll(this, 'addMediaView');
+
                 //bind 
                 var html = this.outerTemplate({
                     title: 'Media Manager'
@@ -55,10 +57,11 @@ define(['builder/views/modals/Modal', 'tpl!builder/templates/modal/media/mediama
 
                 this.$el.find('.modal-content').append(markup);
 
-                this.mediaCollection = new MediaCollection();
+                //check if app media collection property is set
+                if(!global.appHasProperty('mediaCollection'))
+                    getAppInstance().mediaCollection = new MediaCollection();
 
-                //this.fetchMedia();
-
+                
                 this.bindPlupload();
 
                 //listen to image selected event
@@ -67,16 +70,30 @@ define(['builder/views/modals/Modal', 'tpl!builder/templates/modal/media/mediama
                                         this.hide();
                                     }, this);
 
+                //bind listeners
                 this.listenTo(getAppInstance().vent, 'image-choosed', imageChoosedFn);
+                this.listenTo(getAppInstance().vent, 'media-fetch-failed', _.bind(function(){}));
+                this.listenTo(getAppInstance().mediaCollection, 'add', this.addMediaView));
+
+            },
+
+            /**
+             * Add single media view
+             * @param {[object]} media [backbone model]
+             */
+            addMediaView : function(media){
+
+                var mediaView = new SingleMedia({
+                    model: media
+                });
+                this.$el.find('.selectable-images').prepend(mediaView.render().$el);
+            
             },
 
             /**
              * Opens a new Media manager
              */
-            open: function(element) {
-
-                if (!_.isUndefined(element))
-                    this.element = element;
+            open: function() {
 
                 this.$el.modal('show');
                 $('#controls-drag').hide();
@@ -90,32 +107,32 @@ define(['builder/views/modals/Modal', 'tpl!builder/templates/modal/media/mediama
              */
             fetchMedia: function() {
 
-                if (this.mediaCollection.isFetched())
+                if (getAppInstance().mediaCollection.isFetched())
                     return;
 
-                var self = this;
-
-                //show initial fetch loader
-                //this.$el.find('.modal-body').html('fetching media... please wait...');
-
-                this.mediaCollection.fetch({
+                getAppInstance().mediaCollection.fetch({
                     data: this.filters,
-                    success: function(collection, response) {
+                    success: _bind(function(collection, response) {
 
-                        self.mediaCollection.setFetched(true);
+                        if(response.code !== 'OK')
+                            return;
+
+                        getAppInstance().mediaCollection.setFetched(true);
 
                         collection.each(function(model, index) {
                             var mediaView = new SingleMedia({
                                 model: model,
-                                parent: self
+                                parent: this
                             });
-                            self.$el.find('.selectable-images').append(mediaView.render().$el);
+                            this.$el.find('.selectable-images').append(mediaView.render().$el);
                         });
 
-                    },
-                    error: function(error) {
-                        self.$el.find('.modal-body').html('Failed to fetch menus from server. <a href="#" class="refetch-menus">Click here</a>Please try again.');
-                    }
+                    }, this),
+                    error: _.bind(function(error) {
+                    
+                        this.$el.find('.modal-body').html('Failed to fetch menus from server. <a href="#" class="refetch-menus">Click here</a>Please try again.');
+                    
+                    }, this)
                 });
 
             },
@@ -174,13 +191,11 @@ define(['builder/views/modals/Modal', 'tpl!builder/templates/modal/media/mediama
 
                         var response = JSON.parse(response.response);
                         if (response.success) {
-                            self.shouldUpdate = true;
+
                             var media = new MediaModel(response.data);
-                            var mediaView = new SingleMedia({
-                                model: media,
-                                parent: self
-                            });
-                            self.$el.find('.selectable-images').prepend(mediaView.render().$el);
+                            
+                            getAppInstance().mediaCollection.add(media);
+
                         }
 
                         if (up.total.queued == 0) {
