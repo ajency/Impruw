@@ -239,7 +239,10 @@ function add_element_markup( $element ) {
         break; 
     case 'RoomFacilities':
         $html = get_room_facilities_markup( $element );
-        break;   
+        break;  
+    case 'RoomGallery':
+        $html = get_room_gallery_markup( $element );
+        break;  
     default:
         break;
 
@@ -354,6 +357,24 @@ function get_room_title_markup( $element ) {
     require_once PARENTTHEMEPATH . 'elements/room/RoomTitle.php';
 
     $room = new RoomTitle( $element );
+
+    $html = $room->get_markup();
+
+    return $html;
+
+}
+
+
+/**
+ * Generates the room title markup
+ *
+ * @param type    $element
+ */
+function get_room_gallery_markup( $element ) {
+
+    require_once PARENTTHEMEPATH . 'elements/room/RoomGallery.php';
+
+    $room = new RoomGallery( $element );
 
     $html = $room->get_markup();
 
