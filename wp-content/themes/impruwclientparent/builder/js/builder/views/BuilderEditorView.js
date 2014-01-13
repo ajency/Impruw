@@ -163,6 +163,19 @@ define(['underscore', 'jquery', 'backbone', 'global'],
             },
 
             /**
+             * Function get the current selected theme ID,
+             * Value of current selected theme is stored as cookie
+             * @return {[int]} Theme ID
+             */
+            getCurrentPageID : function(){
+
+                var t = $.cookie('current_page_id');
+
+                return _.isUndefined(t) ? 0 : parseInt(t);
+
+            },
+
+            /**
              * Function get the current selected page,
              * Value of current selected theme is stored as cookie
              * @return {[int]} Theme ID
@@ -551,7 +564,7 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                 $.post(AJAXURL, {
                         action: 'get_content_markup',
                         json: _json,
-                        pageId: 2
+                        pageId: this.getCurrentPage()
                     },
                     function(response) {
 

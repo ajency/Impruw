@@ -140,7 +140,7 @@ class Element {
      * @return string The actual markup of the element
      */
     function get_markup(){
-       
+
         return $this->markup;
         
     }
