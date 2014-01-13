@@ -109,53 +109,53 @@ function log(object){
 }
 
 
-//init the app
-/*require(['backbone',
-         'routers/DashboardRouter','sitemodel','usermodel','jquery'], function( Backbone, Router, SiteModel, UserModel,$) {
+/**
+ * Returns the main application object instance
+ * @return {[type]} [description]
+ */
+function getAppInstance(){
 
-        $(document).ready(function(){   
-        	 
-			window.impruwSite = new SiteModel(SITEID);
-			window.impruwUser = new UserModel(USERDATA);
-			 
-			/*window.impruwSite.getSiteProfile({
-				success:function(){
-					dashboard = new Router();
-				}
-			});* /
-			
-			dashboard = new Router();
-            Backbone.history.start();
-            
-           
-            
-        });
+    return SiteBuilder;
 
-});*/
+}
 
-  require(['backbone','marionette',
-         'routers/DashboardRouter','sitemodel','usermodel','jquery'], 
-         function( Backbone, Marionette, Router, SiteModel, UserModel,$) {
+require(['backbone','marionette',
+         'routers/DashboardRouter','sitemodel','usermodel'], 
+         function( Backbone, Marionette, Router, SiteModel, UserModel) {
 
          $(document).ready(function(){   
 
              window.impruwSite = new SiteModel(SITEID);
              window.impruwUser = new UserModel(USERDATA);
 
-             /*window.impruwSite.getSiteProfile({
-                 success:function(){
-                     dashboard = new Router();
-                 }
-             });*/
-
              ImpruwDashboard = new Backbone.Marionette.Application();
-             ImpruwDashboard.ViewManager = new Backbone.ChildViewContainer();
-             ImpruwDashboard.addInitializer(function(){
+             
+             getAppInstance().ViewManager = new Backbone.ChildViewContainer();
+             
+             /**
+              * Bootstrap all required models and collections
+              * @return {[type]} [description]
+              */
+             getAppInstance().addInitializer(function(){
+ 
+                //models
+                getAppInstance().impruwSite             = new SiteModel(SITEID);
+                getAppInstance().impruwUser             = new UserModel(USERDATA);                
+
+                 //collections
+                 getAppInstance().roomCollection        = new RoomCollection();
+                 getAppInstance().dateRangeCollection   = new DateRangeCollection();
+                 getAppInstance().facilityCollection    = new FacilityCollection();
+                 getAppInstance().mediaCollection       = new MediaCollection();
+
+             });
+
+             getAppInstance().addInitializer(function(){
                  new Router();
                  Backbone.history.start();
              });
 
-             ImpruwDashboard.start();
+             getAppInstance().start();
 
          });
 

@@ -2481,7 +2481,7 @@ function save_initial_layout(){
 
     $theme_id = $_POST['forTheme'];
     $page_id     = $_POST['forPage'];  
-    $json     = $_POST['json'];
+    $json     = isset($_POST['json']) ? $_POST['json'] : array();
 
     //get header section json
     $header = isset($json['header']) && is_array($json['header']) ? $json['header'] : false;
@@ -2494,6 +2494,8 @@ function save_initial_layout(){
 
     if(is_array($header))
         update_option('theme-header',$header);
+    else
+        delete_option('theme-header');
     
     if(is_array($pagejson))
         update_post_meta($page_id, 'page-json', $pagejson);
@@ -2502,7 +2504,8 @@ function save_initial_layout(){
 
     if(is_array($footer))
         update_option('theme-footer',$footer);
-    
+    else
+        delete_option('theme-footer');
     
     wp_send_json(array('code' => 'OK'));
 
