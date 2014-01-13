@@ -52,6 +52,8 @@ require.config({
 
         roomtitle       : 'builder/views/elements/rooms/RoomTitle',
         roomdescription : 'builder/views/elements/rooms/RoomDescription',
+        roomfacilities  : 'builder/views/elements/rooms/RoomFacilities',
+        roomgallery     : 'builder/views/elements/rooms/RoomGallery',
 
         //menu
         menumanager     : 'builder/views/modals/MenuManager',

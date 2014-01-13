@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: im\n"
-"POT-Creation-Date: 2014-01-10 15:16+0530\n"
-"PO-Revision-Date: 2014-01-10 15:16+0530\n"
+"POT-Creation-Date: 2014-01-13 11:22+0530\n"
+"PO-Revision-Date: 2014-01-13 11:23+0530\n"
 "Last-Translator: Vanessa <vanessa.pinto2609@gmail.com>\n"
 "Language-Team: a <parag@ajency.in>\n"
 "Language: nb\n"
@@ -93,8 +93,9 @@ msgid "Tag"
 msgstr "Tag_n"
 
 #: ../../impruwmain/page-login.php:12 ../../impruwmain/page-login.php:46
-msgid "Login"
-msgstr "Login_n"
+#, fuzzy
+msgid "Sign in"
+msgstr "Sign Up_n"
 
 #: ../../impruwmain/page-login.php:12 ../../impruwmain/page-register.php:12
 #: ../../impruwmain/page-user-activation.php:76
@@ -102,10 +103,8 @@ msgid "Impruw"
 msgstr "Impruw_n"
 
 #: ../../impruwmain/page-login.php:14
-msgid ""
-"Lorem Ipsum is simply dummy text of the printing and typesetting industry."
-msgstr ""
-"Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+msgid "Creating professional websites is really simple"
+msgstr "Creating professional websites is really simple_n"
 
 #: ../../impruwmain/page-login.php:26
 msgid "Email"
@@ -178,6 +177,14 @@ msgstr "Choose your preferred language_n"
 msgid "Please select any one of the languages available."
 msgstr "Please select any one of the languages available._n"
 
+#: ../../impruwmain/page-register.php:64
+msgid "English"
+msgstr "English_n"
+
+#: ../../impruwmain/page-register.php:65
+msgid "Norwegian"
+msgstr "Norwegian_n"
+
 #: ../../impruwmain/page-register.php:78
 msgid "Choose your new website name"
 msgstr "Choose your new website name_n"
@@ -225,15 +232,23 @@ msgstr "Your passwords don't match. Try again._n"
 msgid "Prove you are not spam"
 msgstr "Prove you are not spam_n"
 
-#: ../../impruwmain/page-register.php:140
+#: ../../impruwmain/page-register.php:137
+msgid "Please leave this field blank if you see it."
+msgstr "Please leave this field blank if you see it._n"
+
+#: ../../impruwmain/page-register.php:141
+msgid "Honeypot"
+msgstr "Honeypot_hn"
+
+#: ../../impruwmain/page-register.php:153
 msgid "By signing up you agree to our terms of use."
 msgstr "By signing up you agree to our terms of use._n"
 
-#: ../../impruwmain/page-register.php:161
+#: ../../impruwmain/page-register.php:174
 msgid "Get started!"
 msgstr "Get started!_n"
 
-#: ../../impruwmain/page-register.php:172
+#: ../../impruwmain/page-register.php:185
 msgid ""
 "Once you sign up along with your new Impruw account your website will also "
 "be created. Take the next step and activate your account using the "
@@ -243,23 +258,23 @@ msgstr ""
 "be created. Take the next step and activate your account using the "
 "activation link sent to your email address._n"
 
-#: ../../impruwmain/page-register.php:175
+#: ../../impruwmain/page-register.php:188
 msgid "If you don't see it in your inbox check your spam folder. "
 msgstr "If you don't see it in your inbox check your spam folder. _n"
 
-#: ../../impruwmain/page-register.php:178
+#: ../../impruwmain/page-register.php:191
 msgid "Still don't see it?"
 msgstr "Still don't see it?_n"
 
-#: ../../impruwmain/page-register.php:180
+#: ../../impruwmain/page-register.php:193
 msgid "Click here to resend activation mail"
 msgstr "Click here to resend activation mail_n"
 
-#: ../../impruwmain/page-register.php:184
+#: ../../impruwmain/page-register.php:197
 msgid "What happens next?"
 msgstr "What happens next?_n"
 
-#: ../../impruwmain/page-register.php:186
+#: ../../impruwmain/page-register.php:199
 #, fuzzy
 msgid ""
 "Once your account is activated you can use our site builder  to create a "
@@ -271,11 +286,11 @@ msgstr ""
 "under 30 minutes. Customize your site with additional functionality like "
 "social media, contact forms and more._n"
 
-#: ../../impruwmain/page-register.php:188
+#: ../../impruwmain/page-register.php:201
 msgid "Still facing problems?"
 msgstr "Still facing problems?_n"
 
-#: ../../impruwmain/page-register.php:190
+#: ../../impruwmain/page-register.php:203
 msgid "Send us a mail on support@impruw.com"
 msgstr "Send us a mail on support@impruw.com_n"
 
@@ -337,7 +352,7 @@ msgid "Site Name is available."
 msgstr "Site Name is available._n"
 
 #: ../../impruwmain/User/user_management.php:815
-#: ../../impruwmain/User/user_management.php:883
+#: ../../impruwmain/User/user_management.php:887
 msgid ""
 "Looks like some of fields have been filled incorrectly. Please check again "
 "and submit."
@@ -345,11 +360,11 @@ msgstr ""
 "Looks like some of fields have been filled incorrectly. Please check again "
 "and submit._n"
 
-#: ../../impruwmain/User/user_management.php:861
-msgid "Invalid Captcha. Please retype the Captcha Code."
-msgstr "Invalid Captcha. Please retype the Captcha Code._n"
+#: ../../impruwmain/User/user_management.php:865
+msgid "Oops! Please contact a human."
+msgstr "Oops! Please contact a human._n"
 
-#: ../../impruwmain/User/user_management.php:880
+#: ../../impruwmain/User/user_management.php:884
 msgid ""
 "Great!  Now activate your account by clicking on the link sent you by email "
 "in next  5 minutes. If you don't see it there check your spam folder."
@@ -357,9 +372,20 @@ msgstr ""
 "Great!  Now activate your account by clicking on the link sent you by email "
 "in next  5 minutes. If you don't see it there check your spam folder._n"
 
-#: ../../impruwmain/User/user_management.php:924
+#: ../../impruwmain/User/user_management.php:928
 msgid "Invalid Form Data"
 msgstr "Invalid Form Data_n"
+
+#~ msgid "Login"
+#~ msgstr "Login_n"
+
+#~ msgid ""
+#~ "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+#~ msgstr ""
+#~ "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+
+#~ msgid "Invalid Captcha. Please retype the Captcha Code."
+#~ msgstr "Invalid Captcha. Please retype the Captcha Code._n"
 
 #, fuzzy
 #~ msgid "richard@mail.com"
