@@ -209,11 +209,11 @@ msgstr ""
 "mobile friendly version. We also have search engine optimisiation (SEO) "
 "tools so you can get found on Google, Yahoo! and Bing._n"
 
-#: ../../impruwmain/single-impruv_email.php:20
+#: ../../impruwmain/single-impruw_email.php:20
 msgid "Pages:"
 msgstr "Pages:_n"
 
-#: ../../impruwmain/single-impruv_email.php:24
+#: ../../impruwmain/single-impruw_email.php:24
 msgid "Edit"
 msgstr "Edit_n"
 

@@ -5,7 +5,7 @@
 define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 	
 	var RoomModel = Backbone.Model.extend({
-	 
+		
 		addRoomUrl : AJAXURL + '?action=add_new_room_ajx',
 	 	
 		/**	Function to add new room

@@ -26,13 +26,13 @@ load_theme_textdomain( 'impruwclientparent' );
 
 /*--------------------------------------------------------------------------------------
 *
-* impruv_register_room_init
+* impruw_register_room_init
 *function to create a new post type called rooms
 *
 *-------------------------------------------------------------------------------------*/
 /* * **Register Room Taxonomy & Post Type*** */
 
-function impruv_register_room_init() {
+function impruw_register_room_init() {
     $url = get_template_directory_uri();
     $labels = array(
         'name' => 'Rooms',
@@ -63,14 +63,14 @@ function impruv_register_room_init() {
         'has_archive' => true,
         'hierarchical' => false,
         'menu_position' => null,
-        'menu_icon' => '' . $url . '/images/room.png',
+        //'menu_icon' => '' . $url . '/images/room.png',
         'supports' => array( 'title', 'editor', 'author', 'thumbnail', 'custom-fields' )
     );
 
-    register_post_type( 'impruv_room', $args );
+    register_post_type( 'impruw_room', $args );
 }
 
-add_action( 'init', 'impruv_register_room_init' );
+add_action( 'init', 'impruw_register_room_init' );
 
 
 
@@ -85,7 +85,7 @@ add_action( 'init', 'impruv_register_room_init' );
 
 function create_room_taxonomies_and_add_terms() {
     // Add new taxonomy, Types
-    register_taxonomy( 'impruv_room_facility', array() );
+    register_taxonomy( 'impruw_room_facility', array() );
     /* $facilities_labels = array(
         'name' => _x('Facilities', 'taxonomy general name'),
         'singular_name' => _x('Facility', 'taxonomy singular name'),
@@ -109,7 +109,7 @@ function create_room_taxonomies_and_add_terms() {
         'rewrite' => array('slug' => 'facility')
     );
 
-    register_taxonomy('impruv_room_facility', 'impruv_room', $tag_args);
+    register_taxonomy('impruw_room_facility', 'impruw_room', $tag_args);
 
     */
 
@@ -144,7 +144,7 @@ function create_room_taxonomies_and_add_terms() {
         'rewrite'               => array( 'slug' => 'facility' ),
     );
 
-    register_taxonomy( 'impruv_room_facility', 'impruv_room', $args );
+    register_taxonomy( 'impruw_room_facility', 'impruw_room', $args );
 
 
 
@@ -670,14 +670,14 @@ function add_new_room( $blog_id, $array, $tariff_array ) {
         'post_content'  => $array['post_content'],
         'post_status'   => 'publish',
         'post_author'   => $array['user_id'],
-        'post_type'     => 'impruv_room'
+        'post_type'     => 'impruw_room'
     );
     //print_r($array['terms']);exit;
     // Insert the post into the database
     $post_id = wp_insert_post( $my_post );
     update_post_meta( $post_id, 'inventory', $array['inventory'] );//adds thew inventory value to the room
-    // var_dump( wp_set_object_terms($post_id, $array['terms'], 'impruv_room_facility'));exit;;
-    wp_set_object_terms( $post_id, $array['terms'], 'impruv_room_facility' );
+    // var_dump( wp_set_object_terms($post_id, $array['terms'], 'impruw_room_facility'));exit;;
+    wp_set_object_terms( $post_id, $array['terms'], 'impruw_room_facility' );
     add_room_tariff( $post_id, $tariff_array );
     restore_current_blog();
 
@@ -1318,7 +1318,7 @@ add_action( 'wp_ajax_nopriv_query_attachments', 'query_attachments' );
  */
 function fetch_all_room_facilities() {
 
-    $taxonomies= array( 'impruv_room_facility' );
+    $taxonomies= array( 'impruw_room_facility' );
     $room_facilities 	= get_terms( $taxonomies, array( 'hide_empty' => 0 ) );
 	$addons_types 		= fetch_all_addons();
 	$tax_types 			= fetch_all_tax_types();
@@ -1512,7 +1512,7 @@ function save_new_room_facility() {
 
     $new_term = $_POST['new_facility'];
 
-    $newfacililty_data = wp_insert_term( $new_term, 'impruv_room_facility', $args = array( 'hide_empty' => 0 ) ) ;
+    $newfacililty_data = wp_insert_term( $new_term, 'impruw_room_facility', $args = array( 'hide_empty' => 0 ) ) ;
 
 
 
@@ -1745,7 +1745,7 @@ function delete_room_facility() {
     $facility_id = $_POST['facility'];
 
 
-    $del_facililty_data = wp_delete_term( $facility_id , 'impruv_room_facility', $args = array( 'hide_empty' => 0 ) );
+    $del_facililty_data = wp_delete_term( $facility_id , 'impruw_room_facility', $args = array( 'hide_empty' => 0 ) );
 
     //var_dump($del_facililty_data);
 
@@ -1837,7 +1837,7 @@ function update_room_facility() {
 
     $facility_slug = str_replace( " ", "-", $facility_name );
 
-    $facility_data = wp_update_term( $facility_id, 'impruv_room_facility', array(
+    $facility_data = wp_update_term( $facility_id, 'impruw_room_facility', array(
             'name' => $facility_name,
             'slug' => $facility_slug ) );
 
@@ -2337,6 +2337,7 @@ add_action( 'wp_ajax_nopriv_add_new_room_ajx', 'add_new_room_ajx' );
 /* Function to get room list
  */
 function get_room_list_ajx(){
+	
 	global $wpdb;
 	$rooms_list = get_posts( array( 'post_type' => 'impruv_room', 'post_status' => 'publish','posts_per_page'   => -1 ) );
 	 
@@ -2375,7 +2376,7 @@ function get_all_menu_pages(){
         }
     }
 
-    $args = array('post_type' => 'impruv_room','posts_per_page' => -1);
+    $args = array('post_type' => 'impruw_room','posts_per_page' => -1);
     $rooms  = new WP_query($args);
 
     if($rooms->have_posts()){
@@ -2416,7 +2417,7 @@ function save_initial_layout(){
 
     $theme_id = $_POST['forTheme'];
     $page_id     = $_POST['forPage'];  
-    $json     = $_POST['json'];
+    $json     = isset($_POST['json']) ? $_POST['json'] : array();
 
     //get header section json
     $header = isset($json['header']) && is_array($json['header']) ? $json['header'] : false;
@@ -2429,6 +2430,8 @@ function save_initial_layout(){
 
     if(is_array($header))
         update_option('theme-header',$header);
+    else
+        delete_option('theme-header');
     
     if(is_array($pagejson))
         update_post_meta($page_id, 'page-json', $pagejson);
@@ -2437,7 +2440,8 @@ function save_initial_layout(){
 
     if(is_array($footer))
         update_option('theme-footer',$footer);
-    
+    else
+        delete_option('theme-footer');
     
     wp_send_json(array('code' => 'OK'));
 
@@ -2511,6 +2515,6 @@ function is_single_room_edit(){
 
     $post = get_post($post_id);
 
-    return $post->post_type === 'impruv_room';
+    return $post->post_type === 'impruw_room';
 
 }

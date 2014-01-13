@@ -153,14 +153,14 @@ require(['backbone', 'marionette',
             SiteBuilder = new Backbone.Marionette.Application();
 
             //set view manager for globally accessible views
-            SiteBuilder.ViewManager = new Backbone.ChildViewContainer();
+            getAppInstance().ViewManager = new Backbone.ChildViewContainer();
 
-            SiteBuilder.addInitializer(function(options){
+            getAppInstance().addInitializer(function(options){
                 new Router();
                 Backbone.history.start();
             });
 
-            SiteBuilder.start();
+            getAppInstance().start();
         });
 
 });

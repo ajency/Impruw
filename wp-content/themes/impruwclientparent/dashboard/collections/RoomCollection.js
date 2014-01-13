@@ -1,6 +1,5 @@
 /* The RooomCollection 
  */
-
 define(['underscore', 'backbone',  'roommodel'],
     function(_, Backbone,  RoomModel) {
 
@@ -23,11 +22,14 @@ define(['underscore', 'backbone',  'roommodel'],
 	            if (response.code === "OK") {
 	                return response.data;
 	            }
-
-        } 
+	            else if (response.code === "ERROR") {
+		            getAppInstance().vent.trigger('room-collection-fetch-failed', response);
+	            }
+	
+	        } 
             
         }) ;
         
         return RoomCollection;         
        
-	}) 
+}); 

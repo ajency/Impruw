@@ -311,11 +311,11 @@ msgstr ""
 msgid "Still don't see it? <a href='"
 msgstr "Still don't see it?_n"
 
-#: ../../impruwmain/single-impruv_email.php:20
+#: ../../impruwmain/single-impruw_email.php:20
 msgid "Pages:"
 msgstr "Pages:_n"
 
-#: ../../impruwmain/single-impruv_email.php:24
+#: ../../impruwmain/single-impruw_email.php:24
 msgid "Edit"
 msgstr "Edit_n"
 

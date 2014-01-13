@@ -52,7 +52,7 @@ class RoomModel {
 							'roomShortDesc'	=> $this->get('post_excerpt'),
 							'roomDesc'		=> $this->get('post_content'),
 							'inventory'		=> get_post_meta($this->get('ID'),'inventory',true),
-							'roomId'		=> $this->get('ID') 
+							'id'			=> (int) $this->get('ID') 
 						);
 						
 						
