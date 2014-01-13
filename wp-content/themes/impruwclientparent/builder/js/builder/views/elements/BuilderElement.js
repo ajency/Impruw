@@ -435,7 +435,7 @@ define(['backbone', 'jquery', 'underscore', 'global'],
 
                 if (this.get('draggable')) {
 
-                    this.$el.append('<div class="aj-imp-drag-handle">\
+                     this.$el.append('<div class="aj-imp-drag-handle">\
                                         <p title="Move">\
                                             <span class="icon-uniF140"></span>\
                                         </p>\
@@ -515,25 +515,6 @@ define(['backbone', 'jquery', 'underscore', 'global'],
 
             },
 
-            /**
-             * Checks if element is editable
-             * @returns {Boolean}
-             */
-            isEditable: function() {
-
-                return this.editable;
-
-            },
-
-            /**
-             * check if element is draggable
-             * @returns {Boolean}
-             */
-            isDraggable: function() {
-
-                return this.draggable;
-
-            },
 
             /**
              * Generates the Control markup to drop
