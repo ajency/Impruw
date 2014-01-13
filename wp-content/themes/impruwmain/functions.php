@@ -3,7 +3,7 @@
 File Name: functions.php
 Description: This file has a list of the following functions used in the theme
 
-1)  impruv_register_email_init - function to create a new post type called emails
+1)  impruw_register_email_init - function to create a new post type called emails
 2)  create_email_taxonomies_and_add_terms - function to create taxonomies under post type emails and also creates immediate, batch and marketing terms under email_type
 3)  change_administrator_role_name - Function to rename the Administrator role to Site Owner.
 4) impruw_add_user_roles_post_box - Function to add the user roles meta box to post type imruv_email.
@@ -24,13 +24,13 @@ add_theme_support( 'post-thumbnails' );
 show_admin_bar(false);
 /*--------------------------------------------------------------------------------------
 *
-* impruv_register_email_init
+* impruw_register_email_init
 *function to create a new post type called emails
 *
 *-------------------------------------------------------------------------------------*/
 /* * **Register Email Taxonomy & Post Type*** */
 
-function impruv_register_email_init() {
+function impruw_register_email_init() {
     
     $url = get_template_directory_uri();
 
@@ -67,10 +67,10 @@ function impruv_register_email_init() {
         'supports' => array( 'title', 'editor', 'author', 'thumbnail', 'custom-fields' )
     );
 
-    register_post_type( 'impruv_email', $args );
+    register_post_type( 'impruw_email', $args );
 }
 
-add_action( 'init', 'impruv_register_email_init' );
+add_action( 'init', 'impruw_register_email_init' );
 
 
 
@@ -108,7 +108,7 @@ function create_email_taxonomies_and_add_terms() {
         'rewrite' => array( 'slug' => 'type' )
     );
 
-    register_taxonomy( 'impruv_email_type', array( 'impruv_email' ), $tag_args );
+    register_taxonomy( 'impruw_email_type', array( 'impruw_email' ), $tag_args );
 
     // Add new taxonomy, Tags
     $tag_labels = array(
@@ -134,12 +134,12 @@ function create_email_taxonomies_and_add_terms() {
         'rewrite' => array( 'slug' => 'tag' )
     );
 
-    register_taxonomy( 'impruv_email_tag', array( 'impruv_email' ), $tag_args );
+    register_taxonomy( 'impruw_email_tag', array( 'impruw_email' ), $tag_args );
 
     //add term Snippet under taxonomy Type
     $slug = sanitize_title( 'snippet' );
 
-    $term_id = wp_insert_term( 'snippet', 'impruv_email_type', array(
+    $term_id = wp_insert_term( 'snippet', 'impruw_email_type', array(
             'description' => 'Snippet Type',
             'slug' => $slug,
             'parent' => 0,
@@ -147,19 +147,19 @@ function create_email_taxonomies_and_add_terms() {
 
     //add term Email Type under taxonomy Type
     $slug = sanitize_title( 'email_type' );
-    $term_id = wp_insert_term( 'email_type', 'impruv_email_type', array(
+    $term_id = wp_insert_term( 'email_type', 'impruw_email_type', array(
             'description' => 'Email Type',
             'slug' => $slug,
             'parent' => 0,
         ) );
 
 
-    $email_type_term = get_term_by( 'slug', 'email_type', 'impruv_email_type' );
+    $email_type_term = get_term_by( 'slug', 'email_type', 'impruw_email_type' );
     $email_type_term_id = $email_type_term->term_id;//getting the id of term email_type
 
     //add term Immediate under term  Email type
     $slug = sanitize_title( 'immediate' );
-    $term_id = wp_insert_term( 'immediate', 'impruv_email_type', array(
+    $term_id = wp_insert_term( 'immediate', 'impruw_email_type', array(
             'description' => 'Immediate',
             'slug' => $slug,
             'parent' => $email_type_term_id,
@@ -167,7 +167,7 @@ function create_email_taxonomies_and_add_terms() {
 
     //add term Batch under term  Email type
     $slug = sanitize_title( 'batch' );
-    $term_id = wp_insert_term( 'batch', 'impruv_email_type', array(
+    $term_id = wp_insert_term( 'batch', 'impruw_email_type', array(
             'description' => 'Batch',
             'slug' => $slug,
             'parent' => $email_type_term_id,
@@ -175,7 +175,7 @@ function create_email_taxonomies_and_add_terms() {
 
     //add term Marketing under term  Email type
     $slug = sanitize_title( 'marketing' );
-    $term_id = wp_insert_term( 'marketing', 'impruv_email_type', array(
+    $term_id = wp_insert_term( 'marketing', 'impruw_email_type', array(
             'description' => 'Marketing',
             'slug' => $slug,
             'parent' => $email_type_term_id,
@@ -211,7 +211,7 @@ load_theme_textdomain( 'impruwmain' );
  */
 function impruw_add_user_roles_post_box() {
 
-    add_meta_box( 'impruw-set-email-user-role', "User Roles", 'impruw_set_email_user_role', 'impruv_email', 'normal', 'low' );
+    add_meta_box( 'impruw-set-email-user-role', "User Roles", 'impruw_set_email_user_role', 'impruw_email', 'normal', 'low' );
 }
 add_action( 'add_meta_boxes', 'impruw_add_user_roles_post_box' );
 
@@ -266,7 +266,7 @@ function impruw_add_user_role_to_email( $post_id ) {
     if ( !isset( $_POST['impruw_set_user_role_post_nounce'] ) || !wp_verify_nonce( $_POST['impruw_set_user_role_post_nounce'], 'impruw_set_user_role_post_nounce' ) )
         return;
 
-    if ( $_POST['post_type'] == "impruv_email" ) {
+    if ( $_POST['post_type'] == "impruw_email" ) {
         $user_roles_array = array();
         foreach ( $_POST['impruw_set_user_role_post'] as $checkbox ) {
             $user_roles_array[] = $checkbox;

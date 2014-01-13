@@ -126,7 +126,7 @@ function check_for_email_type( $initiator_id, $email_type_id, $data ) {
                 if ( $initiator_id == $data['user_id'] ) {
                     $user_ids_array[] = $initiator_id;
                     $user_default_language = get_user_meta( $data['user_id'], 'user_default_language', true );
-                    $email_id = icl_object_id( $email_type_id, 'impruv_email', true, $user_default_language );
+                    $email_id = icl_object_id( $email_type_id, 'impruw_email', true, $user_default_language );
                     add_to_email_queue( $email_id, $user_ids_array, $initiator_id, $data );
                 }
             }
@@ -155,7 +155,7 @@ function check_for_email_type( $initiator_id, $email_type_id, $data ) {
                 if ( $initiator_id == $data['user_id'] ) {
                     $user_ids_array[] = $initiator_id;
                     $user_default_language = get_user_meta( $data['user_id'], 'user_default_language', true );
-                    $email_id = icl_object_id( $email_type_id, 'impruv_email', true, $user_default_language );
+                    $email_id = icl_object_id( $email_type_id, 'impruw_email', true, $user_default_language );
                     add_to_email_queue( $email_id, $user_ids_array, $initiator_id, $data );
                 }
             }
@@ -183,7 +183,7 @@ function check_for_email_type( $initiator_id, $email_type_id, $data ) {
  */
 function add_to_email_queue( $email_type_id, $user_ids_array, $initiator_id, $data ) {
     global $wpdb;
-    $types_array = wp_get_post_terms( $email_type_id, 'impruv_email_type' );
+    $types_array = wp_get_post_terms( $email_type_id, 'impruw_email_type' );
     foreach ( $types_array as $type ) {
         if ( $type->name== 'immediate' )
             $email_type = 'immediate';

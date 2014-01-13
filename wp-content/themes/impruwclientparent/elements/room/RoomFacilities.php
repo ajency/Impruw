@@ -61,14 +61,14 @@ class RoomFacilities extends Element {
         if($this->post_id === 0)
             return '';
 
-        $facilities = wp_get_post_terms($this->post_id, 'impruv_room_facility');
+        $facilities = wp_get_post_terms($this->post_id, 'impruw_room_facility');
 
         $html = sprintf('<ul class="%s">', $this->get_classes());
 
         if(is_array($facilities)){
 
             foreach ($facilities as $facility) {
-                $html .= sprintf('<li><a href="%s">%s</a></li>', '#', $facility->name);
+                $html .= sprintf('<li><a href="%s">%s</a></li>', 'javascript:void(0)', $facility->name);
             }
             
         }

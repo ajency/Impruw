@@ -4,7 +4,7 @@
  * File name : custom-setup.php
  * Description : Contains a list of function to run at setup as follows:
  * 1) remove_default_capabilities - Function to remove default worpress roles from site.
- * 2) create_impruve_manager_role - Function to create a new user role called Impruw Manager having same capabilities as the super admin.
+ * 2) create_impruw_manager_role - Function to create a new user role called Impruw Manager having same capabilities as the super admin.
  * 3) add_to_page_layouts - Function to add filenames in layout table.
  * 4) add_term_to_facility - Function to add default terms to facility taxonomy for post type room
  */
@@ -16,7 +16,7 @@ require_once '../User/user_management.php';
 
 create_custom_tables();
 remove_default_capabilities();
-create_impruv_manager_role();
+create_impruw_manager_role();
 insert_into_email_action_table();
 add_to_page_layouts();
 //add_term_to_facility();
@@ -92,10 +92,10 @@ function remove_default_capabilities() {
 
 
 /**
- * create_impruve_manager_role
+ * create_impruw_manager_role
  * Function to create a new user role called Impruw Manager having same capabilities as the super admin
  */
-function create_impruv_manager_role() {
+function create_impruw_manager_role() {
     global $wp_roles;
     if ( get_role( 'impruw_manager' )==NULL ) {
         $role_clone='administrator';
@@ -191,7 +191,7 @@ function add_term_to_facility() {
         //add term Wifi under taxonomy Facility
         $slug = sanitize_title( 'wifi_Available' );
 
-        $term_id = wp_insert_term( 'Wifi Available', 'impruv_room_facility', array(
+        $term_id = wp_insert_term( 'Wifi Available', 'impruw_room_facility', array(
                 'description' => 'Wifi Available',
                 'slug' => $slug,
                 'parent' => 0,
@@ -199,7 +199,7 @@ function add_term_to_facility() {
 
         //add term Swimming pool  taxonomy Facility
         $slug = sanitize_title( 'swimming_pool' );
-        $term_id = wp_insert_term( 'Swimming Pool', 'impruv_room_facility', array(
+        $term_id = wp_insert_term( 'Swimming Pool', 'impruw_room_facility', array(
                 'description' => 'Swimming Pool',
                 'slug' => $slug,
                 'parent' => 0,
