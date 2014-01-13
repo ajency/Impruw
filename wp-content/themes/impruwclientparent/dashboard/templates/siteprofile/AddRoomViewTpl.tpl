@@ -1,10 +1,7 @@
 
 				<header class="aj-imp-dash-header row">
-					<div class="aj-imp-dash-title col-xs-8">
+					<div class="aj-imp-dash-title col-xs-12">
 						<h2 class="aj-imp-page-head">Add Room</h2>
-					</div>
-					<div class="aj-imp-dash-actions col-xs-4">
-						<a href="#" class="btn btn-embossed btn-wide"><span class="glyphicon glyphicon-cog"></span> Settings</a>
 					</div>
 				</header>
 	
@@ -113,7 +110,7 @@
 						
 						
 						<div class="scroll-indicator-container" id="scr3">
-							<h4 class="aj-imp-sub-head scroll-ref">Add Date Range <small>Lorem ipsum dolor sit amet, consectetur adipiscing</small></h4>
+							<h4 class="aj-imp-sub-head scroll-ref">Add Date Range <small>Add your peak season, off-season or create your own seasonal tariffs here.</small></h4>
 							<form class="form-horizontal clearfix">
 								<div class="alert alert-success hidden status_message"></div>
 
@@ -257,7 +254,7 @@
 						
 						
 						<div class="scroll-indicator-container" id="scr4">
-							<h4 class="aj-imp-sub-head scroll-ref">Additional Info <small>Lorem ipsum dolor sit amet, consectetur adipiscing</small></h4>
+							<h4 class="aj-imp-sub-head scroll-ref">Additional Info <small>These details shall apply to all room categories, unless you want to edit them separately.</small></h4>
 							<form class="form-horizontal clearfix">
 
 								<div class="form-group">

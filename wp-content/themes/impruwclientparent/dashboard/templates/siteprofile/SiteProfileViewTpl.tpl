@@ -1,9 +1,6 @@
 <header class="aj-imp-dash-header row">
-    <div class="aj-imp-dash-title col-xs-8">
+    <div class="aj-imp-dash-title col-xs-12">
         <h2 class="aj-imp-page-head">My Site Profile</h2>
-    </div>
-    <div class="aj-imp-dash-actions col-xs-4">
-        <a href="#" class="btn btn-embossed btn-wide"><span class="glyphicon glyphicon-cog"></span> Settings</a>
     </div>
 </header>
 <div class="row">
@@ -49,16 +46,26 @@
                     </div>
                 </div>
 
+                <div class="form-group">
+                    <div class="col-sm-10 col-sm-offset-2">
+                        <span class="help-block">
+                            <p>Favicon stands for "Favorites Icon". It's the little icon beside your site's name in the favorites list, before the URL in the address bar and bookmarks folder and as a bookmarked website on the desktop in some operating systems.</p>
+                            <h6>Why should you use a favicon?</h6>
+                            <p>Most people have a very cluttered bookmarks / favorites list. Having yours stand out with a nice graphical reminder of your site beside it, is a good way to get their attention again.</p>
+                        </span>
+                    </div>
+                </div>
+
             </form>
         </div>
         <div class="scroll-indicator-container" id="scr2">
-            <h4 class="aj-imp-sub-head scroll-ref">Business Details <small>Lorem ipsum dolor sit amet, consectetur adipiscing</small></h4>
+            <h4 class="aj-imp-sub-head scroll-ref">Business Details <small>These details will be used in your contact us page.</small></h4>
             <form class="form-horizontal clearfix" name="form-siteprofile-business" id="form-siteprofile-business" >
 
                 <div class="form-group">
                     <label for="inputAddress1" class="col-sm-2 control-label">Street</label>
                     <div class="col-sm-10 col-sm-offset-2">
-                        <input type="text" class="form-control" id="street" name="street" placeholder="21 Jump Street" 
+                        <input type="text" class="form-control" id="street" name="street" placeholder="Leilighet 425" 
                                value="<%= site.getBusinessDetails('street')   %>" required  parsley-trigger="blur" parsley-validation-minlength="0" /> 
                         <div class="p-messages"></div>
 
@@ -87,7 +94,7 @@
                             <label for="inputAddress2" class="col-sm-5 control-label">Postal Code</label>
                             <div class="col-sm-7 col-sm-offset-5">
                                 <input type="text" class="form-control" id="postalcode" name="postalcode"  
-                                       data-mask="999-999" placeholder="420-001" value="<%= site.getBusinessDetails('postalcode') %>" 
+                                       data-mask="aa-9999" placeholder="NO-7321" value="<%= site.getBusinessDetails('postalcode') %>" 
                                        required parsley-trigger="blur" parsley-validation-minlength="0"  parsley-type="number" parsley-type-number-message="Please enter valid postal code" />
                                 <div class="p-messages"></div>
 
@@ -99,7 +106,7 @@
                         <div class="form-group">
                             <label for="inputAddress3" class="col-sm-5 control-label">City / Town</label>
                             <div class="col-sm-7 col-sm-offset-5">
-                                <input type="text" class="form-control"  id="city" name="city"  placeholder="Gotham City"
+                                <input type="text" class="form-control"  id="city" name="city"  placeholder="Trondheim"
                                        value="<%= site.getBusinessDetails('city') %>" required parsley-trigger="blur"  
                                        parsley-validation-minlength="0" >
                                 <div class="p-messages"></div>
@@ -146,9 +153,9 @@
 
                                 <span class="div_email" >
                                     <div>
-                                        <input type="email" class="form-control"   name="email[]"    value="<%= email %>"  
+                                        <input type="email" class="form-control"   name="email[]"    value="<%= email %>"  placeholder="someone@example.com"
                                                parsley-required="true" parsley-trigger="blur" parsley-validation-minlength="0"  
-                                               parsley-type="email" parsley-required-message="Please enter email Id" parsley-group="myemails">  
+                                               parsley-type="email" parsley-required-message="Please enter email ID" parsley-group="myemails">  
                                         <div class="p-messages"></div>
                                         <span class="del_email <%= (index <= 0 ) ? 'hidden' : '' %>" ><span class="fui-cross"></span> Delete</span> 
                                     </div>
@@ -159,7 +166,7 @@
                                 else{
                                 %>
                                 <span class="div_email" >
-                                    <input type="email" class="form-control"   name="email[]"  value=""
+                                    <input type="email" class="form-control"   name="email[]"  value="" placeholder="someone@example.com"
                                            parsley-required="true" parsley-trigger="blur" parsley-validation-minlength="0"  
                                            parsley-type="email" parsley-required-message="Please enter email Id"  parsley-group="myemails" />
                                     <div class="p-messages"></div>  
@@ -186,7 +193,7 @@
                                 %>  
                                 <span class="div_phone" >
                                     <div>
-                                        <input type="text" class="form-control"   name="phone[]" data-mask="99-999-999"  
+                                        <input type="text" class="form-control" name="phone[]" data-mask="99-999-999"  placeholder="+47 - 12 34 56 78"
                                                value="<%= phone %>" parsley-required="true" parsley-trigger="blur" 
                                                parsley-validation-minlength="0" parsley-required-message="Please enter phone no"
                                                parsley-group="myphones" parsley-rangelength="[10,10]"
@@ -201,7 +208,7 @@
                                 else { %>
 
                                 <span class="div_phone" >
-                                    <input type="text" class="form-control"   name="phone[]" data-mask="99-999-999"  
+                                    <input type="text" class="form-control"   name="phone[]" data-mask="99-999-999"  placeholder="+47 - 12 34 56 78"
                                            value="" parsley-required="true" parsley-trigger="blur" 
                                            parsley-validation-minlength="0" parsley-required-message="Please enter phone no"
                                            parsley-group="myphones"  parsley-rangelength="[10,10]"
@@ -221,12 +228,16 @@
                 </div>
 
                 <div class="form-group">
-
+                    <div class="col-sm-10 col-sm-offset-2">
+                        <span class="help-block">
+                            <p>Email accounts and phone numbers are easy to setup and there is really no limit to how many you can have. Use this to better organize and manage your communication.</p>
+                        </span>
+                    </div>
                 </div>
             </form>
         </div>
         <div class="scroll-indicator-container" id="scr3">
-            <h4 class="aj-imp-sub-head scroll-ref">Social Settings <small>Lorem ipsum dolor sit amet, consectetur adipiscing</small></h4>
+            <h4 class="aj-imp-sub-head scroll-ref">Social Settings <small>Update the social tags on your website.</small></h4>
             <form class="form-horizontal clearfix" id="form-siteprofile-social" name ="form-siteprofile-social" >
 
 
@@ -259,10 +270,22 @@
                     </div>
                 </div>
 
+                <div class="form-group">
+                    <div class="col-sm-10 col-sm-offset-2">
+                        <span class="help-block">
+                            <p>It's always a good idea to have social links on your website. The reasons are</p>
+                            <h6>It’s the future</h6>
+                            <p>No business wants to get left behind right? Every single day that passes the more your competition promote across social media. This wave of social media marketing is here to stay... and if you don’t jump on board now you are severely hampering your chances of longevity online – which is where more business is going.</p>
+                            <h6>It's the best way to come up in search results</h6>
+                            <p>Every time you create content on a social media site that links back to your website, the search engines see that link. Every time the search engines “see” a link to your site, it makes them think, “Wow, that site must be pretty important, seeing as there are so many other places linking to it.” When the search engines think your site is important, they will make your listing appear higher in the results.</p>
+                        </span>
+                    </div>
+                </div>
+
             </form>
         </div>
         <div class="scroll-indicator-container" id="scr4">
-            <h4 class="aj-imp-sub-head scroll-ref">SEO <small>Lorem ipsum dolor sit amet, consectetur adipiscing</small></h4>
+            <h4 class="aj-imp-sub-head scroll-ref">SEO <small>Make your website rank higher</small></h4>
             <form class="form-horizontal clearfix" id="form-siteprofile-meta" name="form-siteprofile-meta">
 
 
@@ -270,7 +293,16 @@
                     <label for="inputSEO1" class="col-sm-2 control-label">Site Description</label>
                     <div class="col-sm-10 col-sm-offset-2">
                         <textarea class="form-control" rows="3" name="sitedescription" id="sitedescription" 
-                                  placeholder="A brief description of your site for search engines."></textarea>
+                                  placeholder="Keep site descriptions between 150 and 160 characters as search engines generally truncate snippets longer than 160 characters."></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-10 col-sm-offset-2">
+                        <span class="help-block">
+                            <h6>What is a site description?</h6>
+                            <p>The site description serves the function of advertising copy. It draws readers to a website from the search engines and thus, is an extremely important part of search marketing. Crafting a readable, compelling description using important keywords can improve the click-through rate for a given webpage. To maximize click-through rates on search engine result pages, it's important to note that Google and other search engines bold keywords in the description when they match search queries.</p>
+                        </span>
                     </div>
                 </div>
 
@@ -279,7 +311,7 @@
                     <label for="inputSEO2" class="col-sm-2 control-label">Meta Keywords</label>
                     <div class="col-sm-10 col-sm-offset-2">
                         <textarea class="form-control" rows="3" name="metakeywords" id="metakeywords" 
-                                  placeholder="Separate each keyword with a comma."></textarea>
+                                  placeholder="A meta keywords tag is supposed to be a brief and concise list of the most important terms on your page."></textarea>
                     </div>
                 </div>
                 <div class="form-group">
@@ -290,7 +322,7 @@
                     <label for="inputSEO3" class="col-sm-2 control-label">Footer Code</label>
                     <div class="col-sm-10 col-sm-offset-2">
                         <textarea class="form-control" rows="3" name="footercode" id="footercode"  
-                                  placeholder="ex. Google Analytics tracking code."></textarea>
+                                  placeholder="example: Google Analytics tracking code."></textarea>
                     </div>
                 </div>
 
@@ -298,7 +330,16 @@
                     <label for="inputSEO4" class="col-sm-2 control-label">Header Code</label>
                     <div class="col-sm-10 col-sm-offset-2">
                         <textarea class="form-control" rows="3" name="headercode" id="headercode" 
-                                  placeholder="ex. Google Webmaster tools verification code."></textarea>
+                                  placeholder="example: Google Webmaster tools verification code."></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-10 col-sm-offset-2">
+                        <span class="help-block">
+                            <h6>Why is it important to gauge my website metrics?</h6>
+                            <p>Knowing precisely what your website visitors -- who are often current and potential customers -- like and dislike about your site can help you reach your overall business goals.</p>
+                        </span>
                     </div>
                 </div>
 
@@ -311,10 +352,18 @@
                     </div>
                 </div>
 
+                <div class="form-group">
+                    <div class="col-sm-10 col-sm-offset-2">
+                        <span class="help-block">
+                            <p>If you choose this your website will no longer be available on the search results.</p>
+                        </span>
+                    </div>
+                </div>
+
             </form>
         </div>
         <div class="scroll-indicator-container" id="scr5" style="margin-bottom: 5em;">
-            <h4 class="aj-imp-sub-head scroll-ref">Editors <small>Editors are other people you've allowed to edit this site.</small></h4>
+            <h4 class="aj-imp-sub-head scroll-ref">Editors <small>Select people that are allowed to edit your website</small></h4>
             <table class="table table-striped table-bordered table-hover">
                 <thead>
                     <tr>
@@ -370,6 +419,19 @@
                 </tbody>
             </table>
             <a href="#addeditorModal" data-toggle="modal"><span class="glyphicon glyphicon-plus-sign"></span> Add Editor</a>
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <span class="help-block">
+                            <h6>Roles and their Capabilities</h6>
+                            <p><b>A user can have one of the below given roles.</b></p>
+                            <p><b>Administrator</b> – somebody who has access to all the administration features in the website<br>
+                            <b>Editor</b> – somebody who can publish and manage posts including the posts of other users.<br>
+                            <b>Author</b> – somebody who can publish and manage their own posts.</p>
+                        </span>
+                    </div>
+                </div>
+            </form>
         </div>
         <div class="aj-imp-long-form-actions" data-spy="affix" data-offset-top="200">
             <form class="form-horizontal clearfix">
