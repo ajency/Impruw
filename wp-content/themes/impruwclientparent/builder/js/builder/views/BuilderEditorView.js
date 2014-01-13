@@ -32,10 +32,14 @@ define(['underscore', 'jquery', 'backbone', 'global'],
              */
             initialize: function(option) {
 
-                 _.bindAll(this, 'handleRowDrop','updateRowProperties','searchElementIn');
+                 _.bindAll(this, 'elementRemoved', 'handleRowDrop','updateRowProperties','searchElementIn');
             
                  $(document).on('click', '.updateRowProperties', this.updateRowProperties);
-                 
+
+                 //listen to element remove event
+                 this.listenTo(getAppInstance().vent, 'element-removed', this.elementRemoved);
+
+                 this.id = this.$el.attr('id');
             },
 
             /**
@@ -81,6 +85,34 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                     _.each(section, checkInSection);
                     
                 });
+            },
+
+            /**
+             * Element deletion handled here
+             * @return {[type]} [description]
+             */
+            elementRemoved : function(deletedElement, parentId){
+
+                
+                //if this column was parent of the element
+                if(parentId !== this.id)
+                    return;
+
+                _.each(this.elements, _.bind(function(section, index) {
+
+                    _.each(section, _.bind(function(row, index) {
+
+                        if (row.get('id') == deletedElement.get('id')) {
+
+                            section.splice(index, 1); //remove element
+
+                        }
+                    }, this));
+
+                }, this));
+
+                getAppInstance().vent.trigger('row-element-removed', this);
+
             },
 
             /**
@@ -394,13 +426,19 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                 $('*[data-element]').draggable({
                     connectToSortable: '.layout-header,.layout-content,.layout-footer,.column',
                     helper: 'clone',
+                    delay: 5,
+                    addClasses: false,
+                    distance : 5,
                     revert: 'invalid',
                     start: function(e, t) {
+                        
                         var ele = t.helper.attr('data-element');
+                        
                         if (ele === 'builderrow' || ele === 'builderrowcolumn')
                             t.helper.width(286);
                         else
                             t.helper.width(92).height(80);
+
                     }
                 });
                 this.enableDropSort();

@@ -4,7 +4,7 @@ jQuery(document).ready(function($) {
     $('#btn_create_site').click(function(e) {
 
         e.preventDefault();
-
+        $('#btn_create_site').attr('disabled',true);
         var _this = this;
 
         if ($('#frm_registration').parsley('validate')) {
@@ -47,7 +47,7 @@ jQuery(document).ready(function($) {
                      }, 2000); //will call the function after 2 secs.
                     
                     
-
+                    $('#btn_create_site').attr('disabled',false);
                     return true;
                 } else if (response.code == 'ERROR') {
                     //alert("invalid captcha")
@@ -61,7 +61,7 @@ jQuery(document).ready(function($) {
                     $('html, body').animate({
     			        scrollTop: $('#register_message').offset().top
     			    }, 1000);
-                    
+                    $('#btn_create_site').attr('disabled',false);
                     return false;
                 }
             }); //end  $.post(ajaxurl, data, function(response) 

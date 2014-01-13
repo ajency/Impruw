@@ -29,6 +29,11 @@
     /*background: url(../images/empty-drag-bg.svg) no-repeat center center #fff;*/
 }
 
+li.ui-sortable-placeholder{
+    height : 80px;
+    list-style: none;
+}
+
 /*#aj-imp-builder-drag-drop > hr{
     margin-top: 0px;
     margin-bottom: 0px;

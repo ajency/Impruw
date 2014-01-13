@@ -1,10 +1,7 @@
 
 				<header class="aj-imp-dash-header row">
-					<div class="aj-imp-dash-title col-xs-8">
+					<div class="aj-imp-dash-title col-xs-12">
 						<h2 class="aj-imp-page-head">Add Room</h2>
-					</div>
-					<div class="aj-imp-dash-actions col-xs-4">
-						<a href="#" class="btn btn-embossed btn-wide"><span class="glyphicon glyphicon-cog"></span> Settings</a>
 					</div>
 				</header>
 	
@@ -60,7 +57,7 @@
 						<div class="scroll-indicator-container" id="scr2">
 							<h4 class="aj-imp-sub-head scroll-ref">Facilities <small>List the facilities available in this room.</small></h4>
 							<form class="form-horizontal clearfix" name="form_addfacility" id="form_addfacility">
-								
+								<div class="alert alert-success hidden status_message"></div>
 								<div class="form-group">
 									<div class="col-sm-12">
 										<div class="facilities-list clearfix">
@@ -101,8 +98,7 @@
 										   
 										</div>
 									</div>
-								</div>
-								
+								</div>								
 							</form>
 						</div>
 						
@@ -114,8 +110,9 @@
 						
 						
 						<div class="scroll-indicator-container" id="scr3">
-							<h4 class="aj-imp-sub-head scroll-ref">Add Date Range <small>Lorem ipsum dolor sit amet, consectetur adipiscing</small></h4>
+							<h4 class="aj-imp-sub-head scroll-ref">Add Date Range <small>Add your peak season, off-season or create your own seasonal tariffs here.</small></h4>
 							<form class="form-horizontal clearfix">
+								<div class="alert alert-success hidden status_message"></div>
 
 								<div class="form-table table-responsive">
 									<table class="table table-striped" id="tbl_daterangelist">
@@ -257,7 +254,7 @@
 						
 						
 						<div class="scroll-indicator-container" id="scr4">
-							<h4 class="aj-imp-sub-head scroll-ref">Additional Info <small>Lorem ipsum dolor sit amet, consectetur adipiscing</small></h4>
+							<h4 class="aj-imp-sub-head scroll-ref">Additional Info <small>These details shall apply to all room categories, unless you want to edit them separately.</small></h4>
 							<form class="form-horizontal clearfix">
 
 								<div class="form-group">
@@ -288,6 +285,8 @@
 								</div>
 
 								<div class="form-group">
+								
+									<div class="alert alert-success hidden status_message"></div>
 									<div class="col-sm-12">
 									
 									
@@ -354,6 +353,7 @@
 								</div>
 
 								<div class="form-group">
+									<div class="alert alert-success hidden status_message"></div>
 									<div class="col-sm-12">
 									
 											<table class="table table-bordered table-striped  <%   if (  (roomdata.addontypes.length<=0) || (_.isUndefined(roomdata.addontypes.length))  ) { %>hidden<% } %>" id="addons_list">
@@ -424,6 +424,7 @@
 								</div>
 
 								<div class="form-group">
+									<div class="alert alert-success hidden status_message"></div>
 									<div class="col-sm-12">
 										<p class="checkinformat_text"> <% if(!_.isUndefined(roomdata.checkinformat)) {%> <%=roomdata.checkinformat %> <% } %></p>
 										<div class="checkinformat_edit row hidden">
@@ -455,6 +456,7 @@
 								
 								
 								<div class="form-group">
+									<div class="alert alert-success hidden status_message"></div>
 									<div class="col-sm-7">
 										<p class="checkintime_text"><% if(!_.isUndefined(roomdata.checkintime)) {%><%=roomdata.checkintime %> <%}%></p>
 										<div class="checkintime_edittext hidden">
@@ -501,6 +503,7 @@
 								</div>
 
 								<div class="form-group">
+									<div class="alert alert-success hidden status_message"></div>
 									<div class="col-sm-12">
 										<p class='addpoliciestext'><% if(!_.isUndefined(roomdata.additionalpolicies)) {%><%=roomdata.additionalpolicies%> <%}%></p>
 										<div class="addpoliciestext_edit hidden">

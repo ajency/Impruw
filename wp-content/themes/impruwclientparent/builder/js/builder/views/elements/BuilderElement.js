@@ -261,7 +261,7 @@ define(['backbone', 'jquery', 'underscore', 'global'],
 
                 return '<div class="form-group">\
                                  <label class="checkbox" for="isDraggable">\
-                                   <input type="checkbox" ' + (this.isDraggable() ? 'checked="checked"' : '') + ' name="isDraggable" data-toggle="checkbox">Draggable?\
+                                   <input type="checkbox" ' + (this.get('draggable') ? 'checked="checked"' : '') + ' name="isDraggable" data-toggle="checkbox">Draggable?\
                                  </label>\
                            </div>';
             },
@@ -274,7 +274,7 @@ define(['backbone', 'jquery', 'underscore', 'global'],
 
                 return '<div class="form-group">\
                                  <label class="checkbox" for="isEditable">\
-                                   <input type="checkbox" ' + (this.isEditable() ? 'checked="checked"' : '') + ' name="isEditable" data-toggle="checkbox">Is Editable?\
+                                   <input type="checkbox" ' + (this.get('editable') ? 'checked="checked"' : '') + ' name="isEditable" data-toggle="checkbox">Is Editable?\
                                  </label>\
                            </div>';
             },
@@ -418,10 +418,10 @@ define(['backbone', 'jquery', 'underscore', 'global'],
 
                 this.$el.addClass(this.className);
 
-                if (this.isDraggable())
+                if (this.get('draggable'))
                     this.$el.addClass('aj-draggable');
 
-                if (this.isEditable())
+                if (this.get('editable'))
                     this.$el.addClass('aj-editable');
 
             },
@@ -433,9 +433,9 @@ define(['backbone', 'jquery', 'underscore', 'global'],
              */
             setHandlers: function() {
 
-                if (this.isDraggable()) {
+                if (this.get('draggable')) {
 
-                    this.$el.append('<div class="aj-imp-drag-handle">\
+                     this.$el.append('<div class="aj-imp-drag-handle">\
                                         <p title="Move">\
                                             <span class="icon-uniF140"></span>\
                                         </p>\
@@ -515,25 +515,6 @@ define(['backbone', 'jquery', 'underscore', 'global'],
 
             },
 
-            /**
-             * Checks if element is editable
-             * @returns {Boolean}
-             */
-            isEditable: function() {
-
-                return this.editable;
-
-            },
-
-            /**
-             * check if element is draggable
-             * @returns {Boolean}
-             */
-            isDraggable: function() {
-
-                return this.draggable;
-
-            },
 
             /**
              * Generates the Control markup to drop

@@ -1,4 +1,4 @@
-define(['titleelement', 'text!builder/templates/elements/BasicElement.hbs', 'global'],
+define(['titleelement', 'tpl!builder/templates/elements/BasicElement.tpl', 'global'],
     function(TitleElement, template, global) {
 
         var RoomTitle = TitleElement.extend({
@@ -11,9 +11,6 @@ define(['titleelement', 'text!builder/templates/elements/BasicElement.hbs', 'glo
 
             //element type
             elementType: 'RoomTitle',
-
-            //identify element type
-            type: 'roomtitle',
 
             //set height to be assigned to placeholder and helper
             placeHolderHeight: 100,
@@ -42,8 +39,6 @@ define(['titleelement', 'text!builder/templates/elements/BasicElement.hbs', 'glo
                     this.setProperties(options.config);
                 }
                 this.generateMarkup({icon : 'icon', name : 'Room Title'});
-                this.setParent(options.parent);
-
                 this.setContextMenu();
             }
 
