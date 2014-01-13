@@ -147,6 +147,42 @@ define([ 'underscore', 'jquery', 'backbone',
 			this.parsleyInitialize(this.$el.find('#form-siteprofile-business'));
 			this.parsleyInitialize(this.$el.find('#form-siteprofile-social'));
 			$(".aj-imp-long-form-actions").affix()
+			
+			
+			
+			
+			
+			/* js for dashboard --scroll indicators */
+			$.fn.justtext = function() {
+				   return $(this).clone()
+				           .children()
+				           .remove()
+				           .end()
+				           .text();
+				};
+			// Global var to cache info about indicators for easy access. 
+			var indicators = [];
+			 //
+			 //	CREATE THE INDICATORS AND ADD TO PAGE
+			 //
+
+			 var rawIndicators = "";
+			 var $articles = $(".scroll-indicator-container");
+			 // Create a bubble for each article
+			 $articles.each(function(i) {
+			var iInverse = $articles.length - i - 1;
+			// Top margin is a function of the nodes before it, bottom is proportional to those after. determines stacking at top / bottom static positions
+			var margins = 'margin: ' + (i+0.5) + 'em 0 ' + (iInverse+0.5) + 'em 0;'; 
+			rawIndicators +=  '<a class="indicator indicator--upcoming" style="' + margins + '" href="#' + this.id + '"><span class="indicator-tooltip">' + this.$el.find(".scroll-ref").justtext() + '</span></a>';
+			 });
+			 this.$el.append(rawIndicators);
+			 console.log('test')
+			 console.log(rawIndicators);
+			 console.log($articles.length)
+			
+			
+			
+			
 			return this;
 		},
 
