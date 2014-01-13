@@ -68,7 +68,7 @@ class RoomFacilities extends Element {
         if(is_array($facilities)){
 
             foreach ($facilities as $facility) {
-                $html .= sprintf('<li><a href="%s">%s</a></li>', $facility->slug, $facility->name);
+                $html .= sprintf('<li><a href="%s">%s</a></li>', '#', $facility->name);
             }
             
         }
