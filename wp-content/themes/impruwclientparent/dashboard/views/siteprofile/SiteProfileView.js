@@ -192,14 +192,14 @@ define([ 'underscore', 'jquery', 'backbone',
 		 * Function to show success message on save site profile success
 		 * @param response
 		 */
-		saveProfileSuccess : function(response){
-  
-			 $(event.target).offsetParent().find('#siteprofilesave_status').removeClass('has-error').addClass('has-success')
+		saveProfileSuccess : function(response,evnt){
+			  
+			 $(evnt.target).offsetParent().find('#siteprofilesave_status').removeClass('has-error').addClass('has-success')
 			 
-			 $(event.target).offsetParent().find('#siteprofilesave_status').show()
+			 $(evnt.target).offsetParent().find('#siteprofilesave_status').show()
 			 
 			 $('html, body').animate({
-			        scrollTop: $(event.target).offsetParent().find('#siteprofilesave_status').offset().top
+			        scrollTop: $(evnt.target).offsetParent().find('#siteprofilesave_status').offset().top
 			    }, 1000);
 			 
 		},
@@ -210,12 +210,12 @@ define([ 'underscore', 'jquery', 'backbone',
 		 */
 		saveProfileFailure : function(response){
 			
-			$(event.target).offsetParent().find('#siteprofilesave_status').removeClass('has-success').addClass('has-error');
+			$(evnt.target).offsetParent().find('#siteprofilesave_status').removeClass('has-success').addClass('has-error');
 			
-			$(event.target).offsetParent().find('#siteprofilesave_status').show();
+			$(evnt.target).offsetParent().find('#siteprofilesave_status').show();
 			
 			$('html, body').animate({
-		        scrollTop: $(event.target).offsetParent().find('#siteprofilesave_status').offset().top
+		        scrollTop: $(evnt.target).offsetParent().find('#siteprofilesave_status').offset().top
 		    }, 1000);
 			
 		},

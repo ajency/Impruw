@@ -8,7 +8,7 @@
                                 <div class="col-sm-8 col-sm-offset-5">
                                         <input type="text" class="form-control" id="addontype_name"  name='addontype_name'
                                         placeholder="Scuba Diving" required parsley-trigger="blur" parsley-validation-minlength="0">
-                                        <div class="p-messages"></div>
+          	                              <div class="p-messages"></div>
                                 </div>
                         </div>
                 </div>

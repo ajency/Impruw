@@ -980,7 +980,7 @@ function serializedform_to_array( $serialized_form ) {
 
             if ( array_key_exists( $value_form_data['name'], $ar_formdata ) ) {
 
-                $ar_formdata[$value_form_data['name']].=", ".$value_form_data['value'];
+                $ar_formdata[$value_form_data['name']].=",".$value_form_data['value'];
             }
             else {
 
