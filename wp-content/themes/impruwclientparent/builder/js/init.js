@@ -131,6 +131,8 @@ function getAppInstance(){
 
 }
 
+
+
 /**
  * [templatesUri description]
  * @return {[type]} [description]
@@ -154,6 +156,17 @@ require(['backbone', 'marionette',
 
             //set view manager for globally accessible views
             getAppInstance().ViewManager = new Backbone.ChildViewContainer();
+
+            // getAppInstance().addInitializer(function(options){
+
+            //     getAppInstance().userModel          = new UserModel(USERDATA);
+            //     getAppInstance().siteModel          = new SiteModel(SITEDATA);
+                
+            //     getAppInstance().themeCollection    = new ThemeCollection();
+            //     getAppInstance().mediaCollection    = new MediaCollection();
+            //     getAppInstance().menuCollection     = new MenuCollection();
+
+            // });
 
             getAppInstance().addInitializer(function(options){
                 new Router();
