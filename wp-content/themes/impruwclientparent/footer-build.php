@@ -26,7 +26,6 @@
                 <?php if(is_single_room_edit()): ?>
                    <li><a href="#room-elements" data-toggle="tab">Room Elements</a></li>
                 <?php endif; ?>
-                
             </ul>
             <div class="tab-content">
                 <div class="tab-pane active" id="content">
@@ -100,6 +99,12 @@
                                 <a href="#" class="drag builder-element" data-placeholder-height="100">
                                     <div class="aj-imp-builder-icon"  data-icon="&#xf110;"></div>
                                     <div class="aj-imp-builder-title">Room Description</div>
+                                </a>
+                            </li>
+                            <li data-element="roomfacilities">
+                                <a href="#" class="drag builder-element" data-placeholder-height="100">
+                                    <div class="aj-imp-builder-icon"  data-icon="&#xf110;"></div>
+                                    <div class="aj-imp-builder-title">Facilities</div>
                                 </a>
                             </li>
                         </ul>
