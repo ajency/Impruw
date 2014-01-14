@@ -10,6 +10,7 @@ require_once PARENTTHEMEPATH . 'includes/Underscore.php';
 require_once PARENTTHEMEPATH . 'elements/Element.php';
 require_once PARENTTHEMEPATH . 'includes/SiteModel.php';
 require_once PARENTTHEMEPATH . 'includes/UserModel.php';
+require_once PARENTTHEMEPATH . 'includes/RoomModel.php';
 require_once PARENTTHEMEPATH . 'includes/Media.php';
 
 
@@ -230,24 +231,12 @@ function add_element_markup( $element ) {
         break;
     case 'LogoElement':
         $html = get_logo_element_markup( $element );
-        break; 
-    case 'RoomDescription':
-        $html = get_room_description_markup( $element );
-        break; 
-    case 'RoomTitle':
-        $html = get_room_title_markup( $element );
-        break; 
-    case 'RoomFacilities':
-        $html = get_room_facilities_markup( $element );
-        break;  
-    case 'RoomGallery':
-        $html = get_room_gallery_markup( $element );
-        break;  
+        break;    
     default:
         break;
 
     }
-    
+
     return $html;
 }
 
@@ -325,75 +314,6 @@ function get_image_element_markup( $element ) {
     $image = new ImageElement( $element );
 
     $html = $image->get_markup();
-
-    return $html;
-
-}
-
-/**
- * Generates the image markup
- *
- * @param type    $element
- */
-function get_room_description_markup( $element ) {
-
-    require_once PARENTTHEMEPATH . 'elements/room/RoomDescription.php';
-
-    $room = new RoomDescription( $element );
-
-    $html = $room->get_markup();
-
-    return $html;
-
-}
-
-/**
- * Generates the room title markup
- *
- * @param type    $element
- */
-function get_room_title_markup( $element ) {
-
-    require_once PARENTTHEMEPATH . 'elements/room/RoomTitle.php';
-
-    $room = new RoomTitle( $element );
-
-    $html = $room->get_markup();
-
-    return $html;
-
-}
-
-
-/**
- * Generates the room title markup
- *
- * @param type    $element
- */
-function get_room_gallery_markup( $element ) {
-
-    require_once PARENTTHEMEPATH . 'elements/room/RoomGallery.php';
-
-    $room = new RoomGallery( $element );
-
-    $html = $room->get_markup();
-
-    return $html;
-
-}
-
-/**
- * Generates the room facilities
- *
- * @param type    $element
- */
-function get_room_facilities_markup( $element ) {
-
-    require_once PARENTTHEMEPATH . 'elements/room/RoomFacilities.php';
-
-    $room = new RoomFacilities( $element );
-
-    $html = $room->get_markup();
 
     return $html;
 
@@ -760,6 +680,9 @@ function add_new_room( $blog_id, $array, $tariff_array ) {
     wp_set_object_terms( $post_id, $array['terms'], 'impruw_room_facility' );
     add_room_tariff( $post_id, $tariff_array );
     restore_current_blog();
+    
+    
+    return $post_id;//added on 14jan2014
 
 }
 
@@ -806,11 +729,6 @@ function get_content_markup() {
     define('FOR_BUILDER',true);
 
     $data = array();
-
-    globaL $post;
-
-    $post = get_post($_POST['pageId']);
-    setup_postdata($post);
 
     if ( !isset( $json ) )
         $data[] =  "Nothing Found";
@@ -1399,7 +1317,7 @@ add_action( 'wp_ajax_nopriv_query_attachments', 'query_attachments' );
 
 
 /**
- * Function to fetch all room facilities
+ * Function to fetch all site facilities, addon types, date ranges & plans 
  */
 function fetch_all_room_facilities() {
 
@@ -2403,19 +2321,43 @@ function add_new_room_ajx() {
 
     $tariff_array = array( array( 'start_date'=>date( "Y/m/d" ), 'end_date'=>date( "Y/m/d" ), 'attributes'=>$attribute_array, 'add_ons'=>$addons_array ) );
 
-    add_new_room( get_current_blog_id(), $array, $tariff_array ); //need to handle error ; no return type
+    $newroom_id = add_new_room( get_current_blog_id(), $array, $tariff_array ); //need to handle error ; no return type
 
 	update_option('checkin-format', $checkin_format);
 	update_option('checkin-time', $checkin_time);
 	update_option('additional-policies', $additional_policies);
 	update_option('tax-option',$tax_option);
 	
-    wp_send_json( array( 'code' => 'OK', 'msg'=>_('New Room added successfully') ) );
+	$newroom = new RoomModel($newroom_id); 
+	$newroomdata = $newroom->get_all_roomdata();
+	
+    wp_send_json( array( 'code' => 'OK', 'msg'=>_('New Room added successfully'),'roomdata'=> $newroomdata ) );
 
 }
 add_action( 'wp_ajax_add_new_room_ajx', 'add_new_room_ajx' );
 add_action( 'wp_ajax_nopriv_add_new_room_ajx', 'add_new_room_ajx' );
 
+
+
+
+/* Function to get room list
+ */
+function get_room_list_ajx(){
+	 
+	global $wpdb;
+	$rooms_list = get_posts( array( 'post_type' => 'impruw_room', 'post_status' => 'publish','posts_per_page'   => -1 ) );
+	 
+	foreach($rooms_list as $room){
+		
+		$room = new RoomModel($room);
+				 				 
+		$room_data[] = $room->get_all_roomdata(); 					  
+	}	 
+	 wp_send_json( array( 'code' => 'OK' , 'data' =>$room_data ) );
+	
+}
+add_action( 'wp_ajax_get_room_list_ajx', 'get_room_list_ajx' );
+add_action( 'wp_ajax_nopriv_get_room_list_ajx', 'get_room_list_ajx' );
 
 
 /**

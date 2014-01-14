@@ -43,7 +43,7 @@
 							<a href="#">Rooms</a>
 							<ul class="sub-menu">
 								<li>
-									<a href="#">View All</a>
+									<a href="#room-list">View All</a>
 								</li>
 								<li>
 									<a href="#add-room">Add Rooms</a>

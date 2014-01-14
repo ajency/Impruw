@@ -43,6 +43,7 @@ require.config({
         addplanmodal			: 'views/modals/AddPlan',
         addaddonmodal			: 'views/modals/AddAddOn',
         adddaterangemodal		: 'views/modals/AddDaterange',
+        roomlistview			: 'views/rooms/RoomListView',
        
         mediamanager    		: 'views/modals/media/MediaManager',
         mediasingle     		: 'views/modals/media/SingleMedia',
@@ -55,6 +56,8 @@ require.config({
 
         //Collections
         mediacollection			: 'collections/MediaCollection',
+        roomcollection			: 'collections/RoomCollection',	
+        
         //templates
         siteprofileviewtpl 		: 'templates/siteprofile/SiteProfileViewTpl',
         addtaxviewtpl       	: 'templates/modal/AddTax'
@@ -115,8 +118,20 @@ function log(object){
  */
 function getAppInstance(){
 
-    return SiteBuilder;
+    return ImpruwDashboard;
 
+}
+
+/**
+ * 
+ * @param property
+ */
+function appHasProperty(property){
+	
+	var app = getAppInstance();
+	
+	return _.isUndefined(app[property]) !== true;
+	
 }
 
 require(['backbone','marionette',
@@ -130,25 +145,27 @@ require(['backbone','marionette',
 
              ImpruwDashboard = new Backbone.Marionette.Application();
              
-             getAppInstance().ViewManager = new Backbone.ChildViewContainer();
-             
-             /**
-              * Bootstrap all required models and collections
-              * @return {[type]} [description]
-              */
              getAppInstance().addInitializer(function(){
- 
-                //models
-                getAppInstance().impruwSite             = new SiteModel(SITEID);
-                getAppInstance().impruwUser             = new UserModel(USERDATA);                
-
-                 //collections
-                 getAppInstance().roomCollection        = new RoomCollection();
-                 getAppInstance().dateRangeCollection   = new DateRangeCollection();
-                 getAppInstance().facilityCollection    = new FacilityCollection();
-                 getAppInstance().mediaCollection       = new MediaCollection();
-
+            	 getAppInstance().ViewManager = new Backbone.ChildViewContainer();
              });
+             
+//             /**
+//              * Bootstrap all required models and collections
+//              * @return {[type]} [description]
+//              */
+//             getAppInstance().addInitializer(function(){
+// 
+//                //models
+//                getAppInstance().impruwSite             = new SiteModel(SITEID);
+//                getAppInstance().impruwUser             = new UserModel(USERDATA);                
+//
+//                 //collections
+//                 getAppInstance().roomCollection        = new RoomCollection();
+//                 getAppInstance().dateRangeCollection   = new DateRangeCollection();
+//                 getAppInstance().facilityCollection    = new FacilityCollection();
+//                 getAppInstance().mediaCollection       = new MediaCollection();
+//
+//             });
 
              getAppInstance().addInitializer(function(){
                  new Router();

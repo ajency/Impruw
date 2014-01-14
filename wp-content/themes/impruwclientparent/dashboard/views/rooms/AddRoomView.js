@@ -3,9 +3,9 @@
  * 
  */
 
-define([ 'underscore', 'jquery', 'backbone','roommodel',
+define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 		'text!templates/siteprofile/AddRoomViewTpl.tpl','lib/parsley/parsley','radio','jqueryui' ], 
-      function(_, $, Backbone, RoomModel, AddRoomViewTpl,parsley,radio,jqueryui) {
+      function(_, $, Backbone, RoomModel, RoomCollection, AddRoomViewTpl,parsley,radio,jqueryui) {
 
 	var AddRoomView = Backbone.View.extend({
 
@@ -174,10 +174,10 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
                $(evt.target).next().show();	  
 					  
                var roomcategory 		= $("#roomcategory").val();
-               var roomnos 			= $("#roomnos").val();
-               var roomdescription 	= $("#roomdescription").val();
-               var checkinformat 	=  $('input[type="radio"][name="checkin_format"]:checked').val()
-               var checkintime        = $("#checkin_time").val();
+               var roomnos 				= $("#roomnos").val();
+               var roomdescription 		= $("#roomdescription").val();
+               var checkinformat 		= $('input[type="radio"][name="checkin_format"]:checked').val()
+               var checkintime        	= $("#checkin_time").val();
                var additionalpolicies 	= $("#additional_policies").val();
                var tax_option 			= $('input[type="radio"][name="tax_option1"]:checked').val() 
 					  
@@ -206,11 +206,13 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 					  	 	
 					};
 			  
-			  room.saveRoom(data, {
+			  room.saveRoomData(data, {
 					event : evt,
 					_self:self,
-					success : self.saveSuccess,
-					failure : self.saveFailure
+					success :self.saveSuccess,
+					failure :self.saveFailure,
+					addroomtoCollection : self.addRoomModeltoCollection
+					
 				});
 			  
 			     
@@ -221,6 +223,16 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 				
 					
 			 			
+		},
+		
+		addRoomModeltoCollection : function(room,self,evnt) {
+			$(evnt.target).prop('disabled',false)
+		 	self.$el.find('#frm_addroom')[0].reset();
+			self.$el.find('#frm_roomdesc')[0].reset();
+			 
+			if(appHasProperty('roomCollection')){							 
+				getAppInstance().roomCollection.add(room);
+			}
 		},
 		
 		
@@ -295,7 +307,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 		
 		tax_option : function(evt){
 			//alert($(evt.target).val())
-			console.log(evt)
+			 
 			if( $(evt.target).is(":checked") ){ // check if the radio is checked
 				var val = $(evt.target).val(); // retrieve the value
 				//alert(val)
@@ -459,7 +471,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			
 			var evt_ = evt;
 			var self_ = this;
-			console.log($(evt.target).children('span').next())
+			 
 			
 			var planid = $(evt.target).attr('planid');
 			
@@ -526,8 +538,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 		
 		/* function lilstner view */ 
 		newAddOnAdded : function(response,evt_){
-			 console.log(evt_)
-			 
+			 			 
 			response.model = true
 			 
 			if(response.code=='OK'){
@@ -566,7 +577,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 		 * @param evt
 		 */
 		showAddDateRangeModal : function(evt){
-			 console.log('show date range modal')
+			 
 			 
 			 var addDaterangeModal = _.bind(function(_, AddDateRangeModal) {
 
@@ -670,10 +681,10 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 		
 		
 		deleteDateRange : function(evt){
-			console.log('delete date range');
+			 
 			var evt_ = evt;
 			var self_ = this;
-			console.log($(evt.target).children('span').next())
+			 
 			
 			var daterange_id = $(evt.target).attr('daterange-id');
 			
@@ -722,10 +733,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			
 		},
 		saveDateRange : function(evt){
-			
-			
-			console.log('Save date range');
-			var evt_ = evt;
+			 var evt_ = evt;
 			 var self_ = this; 
 			var from_date = $(evt.target).parent().parent().find('.fromdaterange_input').val();
 			var to_date = $(evt.target).parent().parent().find('.todaterange_input').val();
@@ -738,7 +746,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 					 		to_daterange 	: to_date
 				  };
 			 
-			 console.log(data);
+			 
 		  
 			 
 			$.post(	AJAXURL,
@@ -781,7 +789,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 		
 		cancelEditRange : function(evt){
 			
-			console.log('cancel')
+			 
 			
  
 			$(evt.target).parent().find('.savedaterange_lnk').html('<span class="glyphicon glyphicon-pencil"></span>Edit')
@@ -1099,9 +1107,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 							 
 							
 							if(response.code=='OK'){
-								
-								console.log('update success')
-							 	console.log(response)
+								  
 							 	
 							 	/*$("#addons_list").append(''+
 							 	'<tbody id="blockaddontype-'+response.addontype.label+'">'+
@@ -1145,7 +1151,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 		 * Function to save updated tax changes
 		 */
 		updateTaxType : function(evt){
-			console.log('save changes to tax')
+		 
 			
 			var self_ = this;
 			
@@ -1182,7 +1188,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 							
 							if(response.code=='OK'){
 								
-								console.log('update success')
+								 
 							 	console.log(response)
 							 	 
 							 	response.inlineresultmsg = true;
@@ -1340,7 +1346,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 					 $(evt_.target).parent().find('.checkinformat_text').removeClass('hidden')
 					 $(evt_.target).removeClass('save-checkinformat').addClass('edit-checkinformat');
 					 
-					 $(evt_.target).parent().find('.checkinformat_text').html(response.checkinformat)
+					 $(evt_.target).parent().find('.checkinformat_text').html(response.checkinformat+"-hour Format")
 					  
 					 $(evt_.target).prop('disabled',false);
 					 $(evt_.target).html(function (i, old) {
@@ -1593,7 +1599,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 					 $(evt_.target).parent().find('.delete-additional-policies').addClass('hidden')
 					 $(evt_.target).parent().find('.addpoliciestext').removeClass('hidden')
 					 $(evt_.target).removeClass('save-additional-policies').addClass('edit-additional-policies');
-					 console.log(response.additional_policies)
+					 
 					 $(evt_.target).parent().find('.addpoliciestext').html(response.additionalPolicies)
 					  
 					 $(evt_.target).prop('disabled',false);
@@ -1694,7 +1700,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 		 */
 		saveSuccess : function(response,event,_self){
 			 
-			 
+			// console.log('save success message....  ')
 			if(!_.isUndefined($(event.target).next().get(0))) 
 				var next_element = $(event.target).next().get(0);
 			else
@@ -1708,29 +1714,30 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			 
 			
 			if(!_.isUndefined(response.inlineresultmsg)){
+			//	console.log('.form-group // form message ')
 				if( (_.isUndefined(response.facilitymsgspan))  && (_.isUndefined(response.daterangemsgspan)) ){
-					console.log('.form group msg')
+					//console.log('.form group msg')
 					message_span = $(event.target).closest('.form-group').find('.status_message');
 				}	
 				else{
-					console.log('form message')
+					//console.log('form message')
 					message_span = $(event.target).closest('form').find('.status_message')
 				}
 				 
 			}
 			else if(!_.isUndefined(response.popupmodel)){
-				console.log('popup message1')
+				//console.log('popup message1')
 				message_span = $(event.target).closest('.modal-content').find('.status_message');
 				 
 			}
 			
 			else{
-				console.log('default message1')
+				//console.log('default message1')
 				message_span = _self.$el.find('#roomsave_status')
 				 
 				 
 			}
-			console.log(message_span)
+			//console.log(message_span)
 			 message_span.removeClass('alert-error').addClass('alert-success');
 			_self.showAlertMessage(event,response,_self,message_span);			 
 			 
@@ -1757,22 +1764,22 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			if(!_.isUndefined(response.inlineresultmsg)){
 				 
 				if( (_.isUndefined(response.facilitymsgspan))  && (_.isUndefined(response.daterangemsgspan)) ){ 
-					console.log('.form group msg')
+					//console.log('.form group msg')
 						message_span = $(event.target).closest('.form-group').find('.status_message');
 					}	
 				else{
-					console.log('form message')
+					//console.log('form message')
 					message_span = $(event.target).closest('form').find('.status_message')
 				}
 				
 			}
 			else if(!_.isUndefined(response.popupmodel)){
-				console.log('popup message1')
+				//console.log('popup message1')
 				message_span = $(event.target).closest('.modal-content').find('.status_message') 
 				 
 			}
 			else{
-				console.log('default message')
+				//console.log('default message')
 				message_span = _self.$el.find('#roomsave_status');
 				 
 			}
@@ -1794,12 +1801,12 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 			
 			if(!_.isUndefined(response.inlineresultmsg)){
 				
-				console.log('show inline msg')
+				//console.log('show inline msg')
 				
 				var $div2 = message_span;
 				$div2.html(response.msg)
 				$div2.removeClass('hidden');
-				
+				 
 				
 				 setTimeout(function(){	
 							$div2.addClass('hidden');
@@ -1842,12 +1849,18 @@ define([ 'underscore', 'jquery', 'backbone','roommodel',
 				$div2.removeClass('hidden');
 				
 				
+				 
+				
 				//_self.$el.find('#roomsave_status').html(response.msg)
 				//_self.$el.find('#roomsave_status').removeClass('hidden');
 				/* Move to top at status message after success/failure */
 				 $('html, body').animate({
 			        scrollTop: _self.$el.find('#roomsave_status').offset().top
 			    }, 1000);
+				 
+				 setTimeout(function(){		 
+					 $div2.addClass('hidden');							  
+		   }, 5000);
 				
 			}
 			

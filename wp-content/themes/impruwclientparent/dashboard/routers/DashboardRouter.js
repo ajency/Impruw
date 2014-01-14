@@ -21,7 +21,9 @@ define(['underscore', 'jquery', 'backbone', 'mainview', 'bootstrapselect','check
 					''	 			: 'index',
 					'site-profile' 	: 'siteProfile',
 					'user-profile'	: 'userProfile',
-					'add-room'		: 'addRoom'
+					'add-room'		: 'addRoom',
+					'room-list'		: 'roomList',
+					'edit-room'		: 'editRoom'
 				},
 
 				index : function(){
@@ -36,6 +38,17 @@ define(['underscore', 'jquery', 'backbone', 'mainview', 'bootstrapselect','check
 					var self =this;
 					self.mainView.show('addroomview');
 					
+				},
+				
+				editRoom :function(){
+					var self =this;
+					self.mainView.show('addroomview');
+				},
+				
+				roomList :function(){
+					
+					var self =this;
+					self.mainView.show('roomlistview');	
 				},
 				
 				userProfile : function(){
