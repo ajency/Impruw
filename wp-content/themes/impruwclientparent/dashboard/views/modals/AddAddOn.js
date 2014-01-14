@@ -55,10 +55,10 @@ define(['views/modals/Modal', 'text!templates/modal/AddOn.tpl'],
     			
     			 $(evt.target).next().show();
     			  
-    			  var data = {	  action		:'save_new_addon_type',
-    					  new_addon_type	:$('#addontype_name').val(),
-    					  new_addon_price	:$('#addontype_price').val()	
-    					  };
+    			  var data = { 	action		:'save_new_addon_type',
+    					  		new_addon_type	:$('#addontype_name').val(),
+    					  		new_addon_price	:$('#addontype_price').val()	
+    					  	 };
     			  
     				 
     				$.post(	AJAXURL,
@@ -68,13 +68,9 @@ define(['views/modals/Modal', 'text!templates/modal/AddOn.tpl'],
     							response.popupmodel = true ; //to show alert message in popup window
     							if(response.code=='OK'){
     									 
-    								    								
-    								
-    								$(evt_.target).parent().parent().find('#addontype_name').val("");
+    							 	$(evt_.target).parent().parent().find('#addontype_name').val("");
     							 	$(evt_.target).parent().parent().find('#addontype_price').val("");
-    							 	
-    							 	
-    							 	
+    							  
     							 	ImpruwDashboard.vent.trigger('new-add-on-added',response,evt_);
     							 	ImpruwDashboard.vent.trigger('modal-closed');
     							 	
@@ -86,7 +82,7 @@ define(['views/modals/Modal', 'text!templates/modal/AddOn.tpl'],
     							}
     							else{
     								
-    								console.log("error : new addon")
+    								 
     								ImpruwDashboard.vent.trigger('new-add-on-added',response,evt_);
     								 
     							}

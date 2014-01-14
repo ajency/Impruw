@@ -30,6 +30,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 			 	'click .edit-taxlink'				: 'editTaxType',
 			 	'click .update-taxlink'				: 'updateTaxType',
 			 	'click .delete-taxlink'				: 'deleteTaxType',
+			 	'click .cancel-taxlink'				: 'cancelEditTaxType',
 			 		
 			 	'click .edit-additional-policies'	: 'editAdditionalPolicies',
 			 	'click .save-additional-policies'	: 'saveAdditionalPolicies',
@@ -39,14 +40,12 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 			 	'click .save-checkintime'			: 'saveCheckintime',
 			 	'click .delete-checkintime'			: 'cancelCheckintimeUpdate',
 			 	
+			 	 
+			 	
 			 	'click .edit-taxoption'				: 'edittaxoption',
 			 	'click .save-taxoption'				: 'saveTaxOption',
 			 	'click .delete-taxoption'			: 'cancelTaxOptionUpdate',			 	
-			 	
-			 	'click .edit-checkinformat'			: 'editCheckinFormat',
-			 	'click .save-checkinformat'			: 'saveCheckinFormat',
-			 	'click .delete-checkinformat'		: 'cancelCheckinFormat',			 	
-			 
+			 	 
 			 	'click .editplan_link'				: 'editplanModelData', 
 			 	'click .deleteplan_link'			: 'deleteplan',	
 			 		
@@ -214,18 +213,20 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 					addroomtoCollection : self.addRoomModeltoCollection
 					
 				});
-			  
-			     
+			   
 				  
 				  /*	$(evt.target).next().show();
 					
 					var self = this;*/
-				
-					
+				 
 			 			
 		},
 		
 		addRoomModeltoCollection : function(room,self,evnt) {
+			 	
+			self.$el.find('.has-error').removeClass('has-error')
+			self.$el.find('.has-success').removeClass('has-success')
+			
 			$(evnt.target).prop('disabled',false)
 		 	self.$el.find('#frm_addroom')[0].reset();
 			self.$el.find('#frm_roomdesc')[0].reset();
@@ -681,36 +682,43 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 		
 		
 		deleteDateRange : function(evt){
-			 
-			var evt_ = evt;
-			var self_ = this;
-			 
 			
-			var daterange_id = $(evt.target).attr('daterange-id');
-			
-			 var data = {	action			: 'delete_daterange_ajx',
-					 		daterange_id  	: daterange_id	
-				  };
-		  
-			 
-			$.post(	AJAXURL,
-					data,
-					function(response){
+			var x;
+			var r=confirm("Deleting selected date range will, delete all plans under the date range. Are you sure you want to delete the daterange??!");
+			if (r==true)
+			{
+					var evt_ = evt;
+					var self_ = this;
+					 
+					
+					var daterange_id = $(evt.target).attr('daterange-id');
+					
+					 var data = {	action			: 'delete_daterange_ajx',
+							 		daterange_id  	: daterange_id	
+						  };
+				  
+					 var deleteDateRangeFn = _.bind(function(response){
 						 
-						if(response.code=='OK'){
-							response.inlineresultmsg = true;
-						 	response.daterangemsgspan = true;
-							self_.saveSuccess(response,evt_,self_); 
-							
-							$(evt_.target).parent().parent().remove();
-							
-						}
-						else{
-							response.inlineresultmsg = true;
-						 	response.daterangemsgspan = true;
-							self_.saveFailure(response,evt_,self_); 
-							}						
-					});
+							if(response.code=='OK'){
+								response.inlineresultmsg = true;
+							 	response.daterangemsgspan = true;
+								this.saveSuccess(response,evt_,this); 
+								
+								$(evt_.target).parent().parent().remove();
+								
+							}
+							else{
+								response.inlineresultmsg = true;
+							 	response.daterangemsgspan = true;
+							 	this.saveFailure(response,evt_,this); 
+								}						
+						},this)
+						
+					$.post(	AJAXURL,
+							data,
+							deleteDateRangeFn
+							);
+			}
 			
 		},
 		
@@ -1035,32 +1043,23 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 			
 			taxTypeID = $(event.target).attr("taxtype-id");
 			$(event.target).addClass("update-taxlink").removeClass("edit-taxlink")
-			$(event.target).html("Save")
-			var taxnType = $('#block_edittaxtype-'+taxTypeID).html()
-			var taxPercent = $('#block_edittaxpercent-'+taxTypeID).html()
 			 
 			
-			//$('#block_edittaxtype-'+taxTypeID).html("<div class='add-text'> <input type='text' name='input_edittaxtype-"+taxTypeID+"' id='input_edittaxtype-"+taxTypeID+"' class='form-control input-sm parsley-validated parsley-error'  value='"+taxnType+"' /> </div>")
-			//$('#block_edittaxpercent-'+taxTypeID).html("<div class='add-text'><input type='text' name='input_edittaxprice-"+taxTypeID+"'  id='input_edittaxprice-"+taxTypeID+"'   class='form-control input-sm parsley-validated parsley-error'  value='"+taxPercent +"' /> </div> ")
+			$(evt.target).html(function (i, old) {
+								     return old
+								         .replace('Edit', 'Save')
+								         
+								});	
+			$(evt.target).find('.glyphicon').removeClass('glyphicon-pencil').addClass('glyphicon-floppy-disk')
 			
-			$('#block_edittaxtype-'+taxTypeID).html("<div class='form-group'>" 
-														+"<div class=''>"
-															+"<input type='text' class='form-control' name='input_edittaxtype-"+taxTypeID+"' id='input_edittaxtype-"+taxTypeID+"' "
-															+"placeholder='Service Tax' required parsley-trigger='blur' parsley-validation-minlength='0'"
-															+"parsley-required-message = 'Please enter tax type'   value='"+taxnType+"'  />"
-															+"<div class='p-messages'></div>"
-														+"</div>"
-													+"</div> ")
 			
-			$('#block_edittaxpercent-'+taxTypeID).html("<div class='form-group'>" 
-															+"<div class=''>"
-																+"<input type='text' class='form-control' name='input_edittaxprice-"+taxTypeID+"'  id='input_edittaxprice-"+taxTypeID+"'  "
-																+"placeholder='12.5%' required parsley-trigger='blur' parsley-validation-minlength='0'"
-																+"parsley-required-message = 'Please enter percentage'   value='"+taxPercent+"'  />"
-																+"<div class='p-messages'></div>"
-															+"</div>"
-														+"</div> ")
-		
+			var taxnType = $('#block_edittaxtype-'+taxTypeID).html()
+			var taxPercent = $('#block_edittaxpercent-'+taxTypeID).html()
+		 
+			$('#blocktaxtype-'+taxTypeID).find('.form-group').removeClass('hidden')
+			$('#blocktaxtype-'+taxTypeID).find('.lbl_tax').addClass('hidden')
+			$(event.target).parent().find('.cancel-taxlink').removeClass('hidden')
+			 
 		},		
 		
 		/**
@@ -1089,9 +1088,6 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 				  return;
 			if (!this.$el.find(' #input_editaddonprice-'+addonTypeId).parsley('validate'))
 				return;
-			
-			
-			
 			 
 			  
 			  var data = {	  action		:'update_addon_type',
@@ -1107,17 +1103,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 							 
 							
 							if(response.code=='OK'){
-								  
-							 	
-							 	/*$("#addons_list").append(''+
-							 	'<tbody id="blockaddontype-'+response.addontype.label+'">'+
-								'<td id="block_editaddontype-'+response.addontype.label+'">'+response.addontype.label+'</td>'+
-								'<td id="block_editaddonprice-'+response.addontype.label+'" >'+response.addontype.price+'</td>'+
-								'<td>'+
-									'<a href="javascript:void(0)" class="edit-link" addontype-label="'+response.addontype.label+'"  data-toggle="modal" data-target="#add-addon"> <span class="glyphicon glyphicon-pencil"></span> Edit</a>'+
-									'<a href="javascript:void(0)" class="delete-link" addontype-label="'+response.addontype.label+'"><span class="glyphicon glyphicon-trash"></span> Delete</a>'+
-								'</td>'+
-							'</tbody>');*/
+							   
 							 	response.inlineresultmsg = true;
 								self_.saveSuccess(response,evt_,self_); 
 							 	$("#blockaddontype-"+response.updatedaddontype.id).html('<tr><td id="block_editaddontype-'+response.updatedaddontype.id+'">'+response.updatedaddontype.label+'</td>'+
@@ -1146,6 +1132,32 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 						});	
 		},
 		
+		
+		/**
+		 * Function to cancel edit of tax type 
+		 * @param evt
+		 */
+		cancelEditTaxType : function(evt){
+			
+			$('#blocktaxtype-'+taxTypeID).find('.form-group').addClass('hidden')
+
+			var taxtype_lbl_span = $('#block_edittaxtype-'+taxTypeID).find('.lbl_tax') ;
+			var taxpercent_lbl_span = $('#block_edittaxpercent-'+taxTypeID).find('.lbl_tax') ;
+											
+			taxtype_lbl_span.removeClass('hidden')
+			taxpercent_lbl_span.removeClass('hidden')
+			$(evt.target).parent().find('.cancel-taxlink').addClass('hidden')
+											
+			$(evt.target).parent().find('.update-taxlink').html(function (i, old) {
+			     return old
+			    .replace('Save', 'Edit')
+											         
+			});	
+											
+			$(evt.target).parent().find('.update-taxlink').find('.glyphicon').addClass('glyphicon-pencil').removeClass('glyphicon-floppy-disk')
+			$(evt.target).parent().find('.update-taxlink').addClass('edit-taxlink').removeClass('update-taxlink')
+			
+		},
 		
 		/**
 		 * Function to save updated tax changes
@@ -1188,28 +1200,33 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 							
 							if(response.code=='OK'){
 								
-								 
-							 	console.log(response)
-							 	 
-							 	response.inlineresultmsg = true;
+							  	response.inlineresultmsg = true;
 								self_.saveSuccess(response,evt_,self_); 
 								
-							 	$("#blocktaxtype-"+response.updatedtaxtype.id).html('<tr><td id="block_edittaxtype-'+response.updatedtaxtype.id+'">'+response.updatedtaxtype.name+'</td>'+
-															'<td id="block_edittaxpercent-'+response.updatedtaxtype.id+'">'+response.updatedtaxtype.percent+'</td>'+
-															'<td>'+
-																'<a href="javascript:void(0)" class="edit-link edit-taxlink" taxtype-id="'+response.updatedtaxtype.id+'" > <span class="glyphicon glyphicon-pencil"></span> Edit</a>'+
-																'<a href="javascript:void(0)" class="delete-link delete-taxlink" taxtype-id="'+response.updatedtaxtype.id+'"><span class="glyphicon glyphicon-trash"></span> Delete</a>'+
-															'</td>'+
-														'</tr></tbody>')
-														
+								
+								$('#blocktaxtype-'+taxTypeID).find('.form-group').addClass('hidden')
 								 
-							
-							 	//$(evt_.target).parent().parent().find('.close').click();
-							 	/*$(evt_.target).parent().parent().find(".modal-body").find('#taxtype_name').val("")
-							 	$(evt_.target).parent().parent().find('#addontype_price').val("")*/
-							 	//$(evt_.target).next().next().hide();
-							 	/*self_.$el.find('input[type="checkbox"]').checkbox();
-							 	self_.$el.find('#new_facilityname').val("");*/
+								
+								var taxtype_lbl_span = $('#block_edittaxtype-'+taxTypeID).find('.lbl_tax') ;
+								var taxpercent_lbl_span = $('#block_edittaxpercent-'+taxTypeID).find('.lbl_tax') ;
+								
+								taxtype_lbl_span.removeClass('hidden')
+								taxpercent_lbl_span.removeClass('hidden')
+								
+								taxtype_lbl_span.html(response.updatedtaxtype.name)
+								taxpercent_lbl_span.html(response.updatedtaxtype.percent)
+								
+								$(evt_.target).parent().find('.cancel-taxlink').addClass('hidden')
+								
+								$(evt_.target).html(function (i, old) {
+								     return old
+								         .replace('Save', 'Edit')
+								         
+								});	
+								
+								$(evt_.target).find('.glyphicon').addClass('glyphicon-pencil').removeClass('glyphicon-floppy-disk')
+								$(evt.target).addClass('edit-taxlink').removeClass('update-taxlink')
+							 	 
 							  
 							}
 							else{
@@ -1274,24 +1291,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 			
 		},
 		
-		/**
-		 * 
-		 * @param evt
-		 */
-		editCheckinFormat : function(evt){
-			
-			$(evt.target).parent().find('.checkinformat_edit').removeClass('hidden')
-			$(evt.target).parent().find('.delete-checkinformat').removeClass('hidden')
-			$(evt.target).parent().find('.checkinformat_text').addClass('hidden')
-			$(evt.target).addClass('save-checkinformat').removeClass('edit-checkinformat');
-			
-			$(evt.target).html(function (i, old) {
-			     return old
-			         .replace('Edit', 'Save')
-			         
-			});	
-			
-		},
+		 
 		
 		
 		
@@ -1316,77 +1316,10 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 		},
 		
 		
-		saveCheckinFormat : function(evt){
-			
-			$(evt.target).prop('disabled',true);
-			
-			$(evt.target).html(function (i, old) {
-			     return old
-			         .replace('Save', 'Saving') 
-			});
-			
-			
-			var evt_ = evt;
-			var self_ = this;
-			
-			var data = {	action		: 'update_checkinformat',						 
-							checkinformat 	: $(evt.target).parent().find('input[type="radio"][name="checkin_format"]:checked').val()
-						};
-			//$('input[type="radio"][name="tax_option1"]:checked').val() 
-			
-			$.post(	AJAXURL,
-			data,
-			function(response){ 
-				 
-				 if(response.code=='OK'){
-				 	 
-					 
-					 $(evt_.target).parent().find('.checkinformat_edit').addClass('hidden')
-					 $(evt_.target).parent().find('.delete-checkinformat').addClass('hidden')
-					 $(evt_.target).parent().find('.checkinformat_text').removeClass('hidden')
-					 $(evt_.target).removeClass('save-checkinformat').addClass('edit-checkinformat');
-					 
-					 $(evt_.target).parent().find('.checkinformat_text').html(response.checkinformat+"-hour Format")
-					  
-					 $(evt_.target).prop('disabled',false);
-					 $(evt_.target).html(function (i, old) {
-					     return old
-					         .replace('Saving', 'Edit')
-					         
-					});	 
-			 
-					 response.inlineresultmsg = true;
-					 self_.saveSuccess(response,evt_,self_);  	 
-					 
-				}
-				else{
-						$(evt.target).html('Save');
-						$(evt.target).prop('disabled',false);
-						response.inlineresultmsg = true;
-						self_.saveFailure(response,evt_,self_);  
-				} 
-			
-			});	
-			
-		},
+		 
 		
 		
-		/**
-		 * Function to cancel edit of checkin format
-		 * @param evt
-		 */
-		cancelCheckinFormat : function(evt_){
-			$(evt_.target).addClass('hidden')
-			 $(evt_.target).parent().find('.checkinformat_edit').addClass('hidden')
-			 $(evt_.target).parent().find('.checkinformat_text').removeClass('hidden')
-			 $(evt_.target).parent().find('.save-checkinformat').html(function (i, old) {
-			     return old
-			         .replace('Save', 'Edit')
-			         
-			});
-			 $(evt_.target).parent().find('.save-checkinformat').removeClass('save-checkinformat').addClass('edit-checkinformat');
-			 
-		},
+		 
 		
 		
 		/**
@@ -1479,6 +1412,9 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 			$(evt.target).parent().find('.checkintime_text').addClass('hidden')
 			$(evt.target).addClass('save-checkintime').removeClass('edit-checkintime');
 			
+			$(evt.target).parent().parent().parent().find('.checkinformat_edit').removeClass('hidden')
+			$(evt.target).parent().parent().parent().find('.checkinformat_text').addClass('hidden')
+			
 			$(evt.target).html(function (i, old) {
 			     return old
 			         .replace('Edit', 'Save')
@@ -1488,6 +1424,31 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 		},
 		
 		
+		
+		/**
+		 * Function to cancel edit of checkin time
+		 * @param evt
+		 */
+		cancelCheckintimeUpdate : function(evt_){
+			$(evt_.target).addClass('hidden')
+			 $(evt_.target).parent().parent().parent().find('.checkinformat_edit').addClass('hidden')
+			 $(evt_.target).parent().parent().parent().find('.checkinformat_text').removeClass('hidden')
+			 
+			  $(evt_.target).parent().find('.checkintime_edittext').addClass('hidden')
+					 $(evt_.target).parent().find('.delete-checkintime').addClass('hidden')
+					 $(evt_.target).parent().find('.checkintime_text').removeClass('hidden')
+					// $(evt_.target).removeClass('save-checkintime').addClass('edit-checkintime');
+			
+			
+			 
+			 $(evt_.target).parent().find('.save-checkintime').html(function (i, old) {
+			     return old
+			         .replace('Save', 'Edit')
+			         
+			});
+			 $(evt_.target).parent().find('.save-checkintime').removeClass('save-checkintime').addClass('edit-checkintime');
+			 
+		},
 		
 		
 		saveCheckintime : function(evt){
@@ -1499,12 +1460,19 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 			         .replace('Save', 'Saving') 
 			});
 			
-			
 			var evt_ = evt;
 			var self_ = this;
 			
-			var data = {	action					: 'update_checkintime',						 
-							checkintime 	: $(evt.target).parent().find('#checkin_time').val()
+			//var selCheckinFormat = $(evt.target).parent().parent().parent().find('input[type="radio"][name="checkin_format"]:checked').val();
+			
+			//var selCheckinFormat = $(evt.target).parent().parent().parent().find('input[name=checkin_format]:checked').val();
+			
+			var selCheckinFormat = $('input[type="radio"][name="checkin_format"]:checked').val();
+			
+			 
+			var data = {	action			: 'update_checkintime',						 
+							checkintime 	: $(evt.target).parent().find('#checkin_time').val(),
+							checkinformat	: selCheckinFormat
 						};
 			
 			
@@ -1514,6 +1482,8 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 				 
 				 if(response.code=='OK'){
 				 	 
+					 $(evt_.target).parent().parent().parent().find('.checkinformat_edit').addClass('hidden')						
+					 $(evt_.target).parent().parent().parent().find('.checkinformat_text').removeClass('hidden')					 
 					 
 					 $(evt_.target).parent().find('.checkintime_edittext').addClass('hidden')
 					 $(evt_.target).parent().find('.delete-checkintime').addClass('hidden')
@@ -1521,6 +1491,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 					 $(evt_.target).removeClass('save-checkintime').addClass('edit-checkintime');
 					 
 					 $(evt_.target).parent().find('.checkintime_text').html(response.checkinTime)
+					 $(evt_.target).parent().parent().parent().find('.checkinformat_text').html(response.checkinformat+"-hour Format")
 					  
 					 $(evt_.target).prop('disabled',false);
 					 $(evt_.target).html(function (i, old) {
@@ -1528,7 +1499,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 					         .replace('Saving', 'Edit')
 					         
 					});	 
-			 
+					 response.checkintime = true;
 					 response.inlineresultmsg = true;
 					 self_.saveSuccess(response,evt_,self_);  	 
 					 
@@ -1717,7 +1688,13 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 			//	console.log('.form-group // form message ')
 				if( (_.isUndefined(response.facilitymsgspan))  && (_.isUndefined(response.daterangemsgspan)) ){
 					//console.log('.form group msg')
-					message_span = $(event.target).closest('.form-group').find('.status_message');
+					if(_.isUndefined(response.checkintime )){ 
+						message_span = $(event.target).closest('.form-group').find('.status_message');
+					}
+					else{
+						message_span = $(event.target).closest('.form-group').parent().find('.checkin_span_block').find('.status_message');
+					}
+					
 				}	
 				else{
 					//console.log('form message')
