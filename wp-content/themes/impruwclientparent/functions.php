@@ -680,6 +680,9 @@ function add_new_room( $blog_id, $array, $tariff_array ) {
     wp_set_object_terms( $post_id, $array['terms'], 'impruw_room_facility' );
     add_room_tariff( $post_id, $tariff_array );
     restore_current_blog();
+    
+    
+    return $post_id;//added on 14jan2014
 
 }
 
@@ -2318,14 +2321,17 @@ function add_new_room_ajx() {
 
     $tariff_array = array( array( 'start_date'=>date( "Y/m/d" ), 'end_date'=>date( "Y/m/d" ), 'attributes'=>$attribute_array, 'add_ons'=>$addons_array ) );
 
-    add_new_room( get_current_blog_id(), $array, $tariff_array ); //need to handle error ; no return type
+    $newroom_id = add_new_room( get_current_blog_id(), $array, $tariff_array ); //need to handle error ; no return type
 
 	update_option('checkin-format', $checkin_format);
 	update_option('checkin-time', $checkin_time);
 	update_option('additional-policies', $additional_policies);
 	update_option('tax-option',$tax_option);
 	
-    wp_send_json( array( 'code' => 'OK', 'msg'=>_('New Room added successfully') ) );
+	$newroom = new RoomModel($newroom_id); 
+	$newroomdata = $newroom->get_all_roomdata();
+	
+    wp_send_json( array( 'code' => 'OK', 'msg'=>_('New Room added successfully'),'roomdata'=> $newroomdata ) );
 
 }
 add_action( 'wp_ajax_add_new_room_ajx', 'add_new_room_ajx' );
@@ -2337,9 +2343,9 @@ add_action( 'wp_ajax_nopriv_add_new_room_ajx', 'add_new_room_ajx' );
 /* Function to get room list
  */
 function get_room_list_ajx(){
-	
+	 
 	global $wpdb;
-	$rooms_list = get_posts( array( 'post_type' => 'impruv_room', 'post_status' => 'publish','posts_per_page'   => -1 ) );
+	$rooms_list = get_posts( array( 'post_type' => 'impruw_room', 'post_status' => 'publish','posts_per_page'   => -1 ) );
 	 
 	foreach($rooms_list as $room){
 		

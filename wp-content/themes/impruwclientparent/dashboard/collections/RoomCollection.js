@@ -7,6 +7,9 @@ define(['underscore', 'backbone',  'roommodel'],
 
             //model property
             model: RoomModel,
+            
+            fetched : false,
+            
             /**
              * Url to fetch all menus for the Site
              * @returns {String}

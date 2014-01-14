@@ -52,14 +52,17 @@ class RoomModel {
 							'roomShortDesc'	=> $this->get('post_excerpt'),
 							'roomDesc'		=> $this->get('post_content'),
 							'inventory'		=> get_post_meta($this->get('ID'),'inventory',true),
-							'id'			=> (int) $this->get('ID') 
+							'id'			=> (int) $this->get('ID'),
+							'checkintime'	=> get_option('checkin-time'),
+							'checkinformat'	=> get_option('checkin-format') 	
 						);
-						
-						
+												
 		return $rooom_data; 				
 	
 	}
 	
+	
+	 
 	
 	/*function array_keynames_to_json($data_array){
 		if(is_array($data_array)){

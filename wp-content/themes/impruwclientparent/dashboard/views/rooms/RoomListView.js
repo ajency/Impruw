@@ -19,6 +19,9 @@ define([ 'underscore', 'jquery', 'backbone','roomcollection',
 			
 			_.bindAll(this, 'showFetchError','addNewRoom');
 			
+			
+			console.log('initalize room list view....')
+			console.log(getAppInstance().roomCollection);
 			//check if app property is set
 			if(!appHasProperty('roomCollection'))
 				getAppInstance().roomCollection = new RoomCollection();	
@@ -31,7 +34,7 @@ define([ 'underscore', 'jquery', 'backbone','roomcollection',
 		
 		reTry : function(e){
 			e.preventDefault();
-			getAppInstance().roomCollection.fetch();
+			getAppInstance().roomCollection.fetch({remove:false, add:true});
 		},
 		
 		/**
@@ -52,7 +55,7 @@ define([ 'underscore', 'jquery', 'backbone','roomcollection',
 			//getAppInstance().vent.trigger('view-switched-started')
 			//show loader
 			//this.$el.html('Fetching Rooms..... Please Wait....');
-			getAppInstance().roomCollection.fetch();
+			getAppInstance().roomCollection.fetch({ add:true});
 			
 			return this;
 		},

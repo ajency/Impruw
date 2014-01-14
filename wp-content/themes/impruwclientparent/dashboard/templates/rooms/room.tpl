@@ -5,13 +5,13 @@
 			<p class="desc"><%=room.get('roomDesc')    %> </p>
 			<div class="row info-strip">
 				<div class="col-md-4 strip">
-					<span>5</span> Rooms
+					<span><%=room.get('inventory')    %></span> Rooms
 				</div>
 				<div class="col-md-4 strip">
-					<span>12</span> Hour Format
+					<span><%=room.get('checkinformat')    %></span> Hour Format
 				</div>
 				<div class="col-md-4 strip">
-					<span>10:45pm</span> Time
+					<span><%=room.get('checkintime')    %></span> Time
 				</div>
 			</div>
 		</div>
