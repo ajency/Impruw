@@ -75,11 +75,9 @@ class LogoElement extends Element {
      */
     function get_image_id(){
          
-        if(isset($this->data['attachmentID'])){
-            return (int)$this->data['attachmentID'];
-        }
-        
-        return 0;
+        $id = get_option('sitebusiness-logo');
+
+        return (int)$id;
     }
     
     /**
@@ -112,7 +110,6 @@ class LogoElement extends Element {
         }
 
         $image = wp_get_attachment_image_src($a_id, $size);
-        
         if($image !== false) {
             return sprintf("<a href='%s'><img src='%s' class='img-responsive' /></a>", site_url(), $image[0]);
         }
