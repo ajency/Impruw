@@ -19,17 +19,19 @@ define(['builder/views/modals/Modal', 'tpl!builder/templates/modal/media/mediama
             shouldUpdate: false,
 
             events: {
-                'click .refetch-media': 'fetchMedia'
+                'click .retry-fetch': 'fetchMedia'
             },
 
             selected: null,
+
+            progressBar : null,
 
             /**
              * Initialize the manager
              */
             initialize: function(args) {
 
-                _.bindAll(this, 'addMediaView');
+                _.bindAll(this, 'addMediaView','handleFetchFailed','removeMediaView');
 
                 //bind 
                 var html = this.outerTemplate({
@@ -57,6 +59,9 @@ define(['builder/views/modals/Modal', 'tpl!builder/templates/modal/media/mediama
 
                 this.$el.find('.modal-content').append(markup);
 
+                //set progressbar
+                this.$progressBar = this.$el.find('#progress');
+
                 //check if app media collection property is set
                 if(!global.appHasProperty('mediaCollection'))
                     getAppInstance().mediaCollection = new MediaCollection();
@@ -72,8 +77,12 @@ define(['builder/views/modals/Modal', 'tpl!builder/templates/modal/media/mediama
 
                 //bind listeners
                 this.listenTo(getAppInstance().vent, 'image-choosed', imageChoosedFn);
-                this.listenTo(getAppInstance().vent, 'media-fetch-failed', _.bind(function(){}));
-                this.listenTo(getAppInstance().mediaCollection, 'add', this.addMediaView));
+                this.listenTo(getAppInstance().vent, 'media-fetch-failed', this.handleFetchFailed);
+                this.listenTo(getAppInstance().mediaCollection, 'add', this.addMediaView);
+                this.listenTo(getAppInstance().mediaCollection, 'remove', this.removeMediaView);
+
+                //trigger fetch
+                this.fetchMedia();
 
             },
 
@@ -91,63 +100,59 @@ define(['builder/views/modals/Modal', 'tpl!builder/templates/modal/media/mediama
             },
 
             /**
-             * Opens a new Media manager
+             * Add single media view
+             * @param {[object]} media [backbone model]
              */
-            open: function() {
+            removeMediaView : function(media){
 
-                this.$el.modal('show');
-                $('#controls-drag').hide();
+                var id = '#media-' + media.get('id');
+                this.$el.find('.selectable-images').find(id).remove();
+            
             },
 
+            /**
+             * Handle media fetch failed
+             * @return {[type]} [description]
+             */
+            handleFetchFailed : function(){
+
+                var html = '<div class="alert alert-danger">Failed to fetch media. <a href="#" class="retry-fetch">try again</a></div>';
+
+                this.$el.find('#images').find('.selectable-images').prepend(html);
+
+            },
 
             /**
              * Triggers the fetch of MenuCollection
              * Check if the collection is already fetched. If yes, ignores
              * @returns {undefined}
              */
-            fetchMedia: function() {
+            fetchMedia: function(evt) {
+
+                if(_.isObject(evt))
+                    evt.preventDefault();
 
                 if (getAppInstance().mediaCollection.isFetched())
                     return;
 
+                //clear any messages
+                this.$el.find('#images').find('.alert').remove();
+
                 getAppInstance().mediaCollection.fetch({
-                    data: this.filters,
-                    success: _bind(function(collection, response) {
-
-                        if(response.code !== 'OK')
-                            return;
-
-                        getAppInstance().mediaCollection.setFetched(true);
-
-                        collection.each(function(model, index) {
-                            var mediaView = new SingleMedia({
-                                model: model,
-                                parent: this
-                            });
-                            this.$el.find('.selectable-images').append(mediaView.render().$el);
-                        });
-
-                    }, this),
-                    error: _.bind(function(error) {
-                    
-                        this.$el.find('.modal-body').html('Failed to fetch menus from server. <a href="#" class="refetch-menus">Click here</a>Please try again.');
-                    
-                    }, this)
+                    data: {}
                 });
 
             },
 
             bindPlupload: function() {
 
-                var self = this;
-
                 //bind plupload script
-                require(['plupload'], function(plupload) {
+                var pluploadFn = _.bind(function(plupload) {
 
-                    if (!_.isUndefined(self.uploader))
+                    if (!_.isUndefined(this.uploader))
                         return;
 
-                    self.uploader = new plupload.Uploader({
+                    this.uploader = new plupload.Uploader({
                         'runtimes': 'gears,html5,flash,silverlight,browserplus',
                         'file_data_name': 'async-upload', // key passed to $_FILE.
                         'multiple_queues': true,
@@ -168,26 +173,28 @@ define(['builder/views/modals/Modal', 'tpl!builder/templates/modal/media/mediama
                         }
                     });
 
-                    self.uploader.init();
+                    this.uploader.init();
 
-                    self.uploader.bind('FilesAdded', function(up, files) {
-                        self.totalFiles = up.files.length;
+                    this.uploader.bind('FilesAdded', _.bind(function(up, files) {
+                        
+                        this.uploader.start();
+                        this.$el.find('#progress').show();
 
-                        self.uploader.start();
-                        self.$el.find('#progress').show();
-                    });
+                    }, this));
 
-                    self.uploader.bind('UploadProgress', function(up, file) {
-                        self.$el.find('#progress').find('.progress-bar').css('width', file.percent + "%");
-                    });
+                    this.uploader.bind('UploadProgress', _.bind(function(up, file) {
+                    
+                        this.$progressBar.find('.progress-bar').css('width', file.percent + "%");
+                    
+                    }, this));
 
-                    self.uploader.bind('Error', function(up, err) {
+                    this.uploader.bind('Error', function(up, err) {
                         up.refresh(); // Reposition Flash/Silverlight
                     });
 
-                    self.uploader.bind('FileUploaded', function(up, file, response) {
+                    this.uploader.bind('FileUploaded', _.bind(function(up, file, response) {
                         //self.$el.find('#progress').hide();
-                        self.$el.find('#progress').find('.progress-bar').css('width', "0%");
+                        this.$progressBar.find('.progress-bar').css('width', "0%");
 
                         var response = JSON.parse(response.response);
                         if (response.success) {
@@ -199,17 +206,19 @@ define(['builder/views/modals/Modal', 'tpl!builder/templates/modal/media/mediama
                         }
 
                         if (up.total.queued == 0) {
-                            self.$el.find('a[href="#images"]').click();
-                            setTimeout(function() {
-                                self.$el.find('.selectable-images .panel').first().hide().toggle('highlight');
-                            }, 500);
+                            this.$el.find('a[href="#images"]').click();
+                            setTimeout(_.bind(function() {
+                                this.$el.find('.selectable-images .panel').first().hide().toggle('highlight');
+                            }, this), 500);
                         }
 
-                    });
+                    }, this));
 
-                });
+                }, this);
+
+                require(['plupload'], pluploadFn);
+           
             }
-
         });
 
         return MediaManager;

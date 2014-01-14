@@ -150,6 +150,8 @@ window.prevmouseover    = null;
 require(['backbone', 'marionette',
          'builderrouter'], function( Backbone, Marionette, Router) {
 
+        Backbone.emulateHTTP = true;
+
         $(document).ready(function(){   
 
             SiteBuilder = new Backbone.Marionette.Application();

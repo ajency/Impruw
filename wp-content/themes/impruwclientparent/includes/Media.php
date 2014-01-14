@@ -29,16 +29,18 @@ function get_site_media($query){
 }
 
 
-function impruw_media_update(){
+function impruw_media(){
 
-	if('POST' !== $_SERVER['REQUEST_METHOD'])
-		return;
+	// if('POST' !== $_SERVER['REQUEST_METHOD'])
+	// 	return;
+
+	wp_send_json($_REQUEST);
 
 	$id = $_POST['media-id'];
 
 	$id = wp_update_post(array(	'ID' 			=> $id,
-						 		'post_title' 	=> $_POST['image-title'],
-						 		'post_content'	=> $_POST['image-description']), true);
+						 		'post_title' 	=> $_POST['title'],
+						 		'post_content'	=> $_POST['description']), true);
 
 	if($id == 0)
 		wp_send_json(array('code' => 'ERROR','m' => $id, 'message' => 'Failed to update. Please try again'));	
@@ -48,5 +50,5 @@ function impruw_media_update(){
 	wp_send_json(array('code' => 'OK'));	
 
 }
-add_action('wp_ajax_impruw_media_update','impruw_media_update');
-add_action('wp_ajax_nopriv_impruw_media_update','impruw_media_update');
+add_action('wp_ajax_impruw_media','impruw_media');
+add_action('wp_ajax_nopriv_impruw_media','impruw_media');

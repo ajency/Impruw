@@ -30,7 +30,7 @@ define(['underscore', 'backbone', 'global', 'mediamodel'],
                 if (response.code === "OK") {
                     return response.data;
                 }
-                else{
+                else if (response.code === "ERROR"){
                     getAppInstance().vent.trigger('media-fetch-failed', response);
                 }
 
