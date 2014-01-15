@@ -16,12 +16,14 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 			 	'click #btn_addfacility'			: 'addFacility',
 			 	'click .delete'						: 'deleteFacility',
 			 	'click .edit'						: 'editFacility',
+			 	'click .cancel_editfacility'		: 'cancelEditFacility',
 			 	'click .savefacililty' 				: 'savefacility', 
 			 	
 			 	'click #btn_add_addon'				: 'add_addon',
 			 	
 			 	'click .delete-addonlink'			: 'deleteAddonType',
-			 	'click .edit-addonlink'				: 'editAddonType',			 	
+			 	'click .edit-addonlink'				: 'editAddonType',	
+			 	'click .cancel-addonlink'			: 'cancelEditAddon',
 			 	'click .saveaddontype'				: 'updateAddonType',
 			 		
 			 	'change .tax__option'				: 'tax_option',
@@ -957,80 +959,110 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 		/**
 		 * Function to edit facililty 
 		 */
-		editFacility:function(evt){
+		editFacility:function(event){
+			
 			facilityId = $(event.target).attr("term-id");
+			console.log($(event.target).closest('.facility').find('.inputEditFacility'))
+			$(event.target).closest('.facility').find('.inputEditFacility').removeClass('hidden')
+			$(event.target).closest('.facility').find('.inputEditFacility input').show();
+			$(event.target).closest('.facility').find('#facLabel-'+facilityId).addClass('hidden')
+			
+			
 			$(event.target).addClass("savefacililty").removeClass("edit")
 			$(event.target).html("Save")
-			 
+			 $(event.target).parent().find('.cancel_editfacility').removeClass('hidden')
 			$("#facLabel-"+facilityId).addClass('input-group');
-			$("#facLabel-"+facilityId).html("<form name='frm_editfacility' id='frmeditfacility-"+facilityId+"'  >" +
+			/*$("#facLabel-"+facilityId).html("<form name='frm_editfacility' id='frmeditfacility-"+facilityId+"'  >" +
 					"<input type='text' class='form-control input-sm' " +
 					"placeholder='Edit Facility' name='inputfacility-"+facilityId+"' id='inputfacility-"+facilityId+"'"+
 					"parsley-validation-minlength='0' " +
-					"value='"+$("#facLabel-"+facilityId).attr('facililtyname')+"'  > </form>");
+					"value='"+$("#facLabel-"+facilityId).attr('facililtyname')+"'  > </form>");*/
+			//$('#frmeditfacility-'+facilityId).removeClass('hidden')
+			
+			
 			this.parsleyInitialize($('#frmeditfacility-'+facilityId));
 			
 		},
 		
 		
 		/**
-		 * Function to edit addon type
+		 * Function to cancel edit facility
+		 * @param evt
 		 */
-		editAddonType:function(event){
-			/*var label = $(evt.target).attr('addontype-label')
-			var price = $('#block_editaddonprice-'+label).html()
-			console.log(label)
-			console.log(price)
-			$("#addontype_name").val(label)
-			$("#addontype_price").val(price)
-			$("#hdn_addonlabel").val(label)
-			
-			$('#btn_updateaddon').show();
-			$('#btn_savenewaddon').hide();
-			
-			$("#add-addon").find(".modal-header h4").text("Update Addon")
-			 */
-			
-			addonTypeID = $(event.target).attr("addontype-id");
-			$(event.target).addClass("saveaddontype").removeClass("edit-addonlink")
-			$(event.target).html("Save")
-			var addonType = $('#block_editaddontype-'+addonTypeID).html()
-			var addonPrice = $('#block_editaddonprice-'+addonTypeID).html()
+		cancelEditFacility : function(evt){
+			 
+			facilityId = $(evt.target).attr("term-id"); 
+		 	 
+			$(evt.target).closest('.facility').find('.inputEditFacility').addClass('hidden')
+			$(evt.target).closest('.facility').find('.inputEditFacility input').hide();			
+			$(evt.target).closest('.facility').find('#facLabel-'+facilityId).removeClass('hidden')
 			 
 			
-			//$('#block_editaddontype-'+addonTypeID).html("<div class='add-text'> <input type='text' name='input_editaddontype-"+addonTypeID+"' id='input_editaddontype-"+addonTypeID+"' class='form-control input-sm parsley-validated parsley-error'  value='"+addonType+"' /> </div>")
-			//$('#block_editaddonprice-'+addonTypeID).html("<div class='add-text'><input type='text' name='input_editaddonprice-"+addonTypeID+"'  id='input_editaddonprice-"+addonTypeID+"'   class='form-control input-sm parsley-validated parsley-error'  value='"+addonPrice+"' /> </div> ")
+			// $(evt.target).closest('.action').find('.savefacililty').html("Edit")
+			 
+			  $(evt.target).closest('.action').find('.savefacililty').html(function (i, old) {
+								     return old
+								         .replace('Save', 'Edit')
+								         
+								});	
+			 $(evt.target).closest('.action').find('.savefacililty').removeClass("savefacililty").addClass("edit")
+			 $(evt.target).closest('.action').find('.savefacililty').prop('disabled',false);
+			$(evt.target).addClass('hidden')	 
+			 
+		},
+		
+		/**
+		 * Function to edit addon type
+		 */
+		editAddonType:function(evt){
+			
+			addonTypeID = $(evt.target).attr("addontype-id");
+			$(evt.target).addClass("saveaddontype").removeClass("edit-addonlink")
+			$(evt.target).find('.glyphicon').removeClass('glyphicon-pencil').addClass('glyphicon-floppy-disk')
+			
+			$(evt.target).html(function (i, old) {
+								     return old
+								         .replace('Edit', 'Save')
+								         
+								});	
+			var addonType = $('#block_editaddontype-'+addonTypeID).html()
+			var addonPrice = $('#block_editaddonprice-'+addonTypeID).html()
+		 
+			$('#blockaddontype-'+addonTypeID).find('.form-group').removeClass('hidden')
+			$('#blockaddontype-'+addonTypeID).find('.lbl_addon').addClass('hidden')
+			$(evt.target).parent().find('.cancel-addonlink').removeClass('hidden')
+			 
+		},
+		
+		
+		/**
+		 * Function to cancel edit of addon 
+		 */
+		cancelEditAddon : function(evt){
+			var addonTypeId =  $(evt.target).attr('addontype-id')
+			$('#blockaddontype-'+addonTypeId).find('.form-group').addClass('hidden')
+		 	
+			var addonNameLblSpan = $('#block_editaddontype-'+addonTypeId).find('.lbl_addon') ;
+			var addonPriceLblSpan = $('#block_editaddonprice-'+addonTypeId).find('.lbl_addon') ;
+			
+			addonNameLblSpan.removeClass('hidden')
+			addonPriceLblSpan.removeClass('hidden')
+			$(evt.target).addClass('hidden')
+		 	
+			
+			var editSaveLink = $(evt.target).parent().find('.saveaddontype');
+			editSaveLink.addClass('edit-addonlink').removeClass('saveaddontype');
 			
 			
 			
+			editSaveLink.html(function (i, old) {
+			     return old
+			         .replace('Save', 'Edit')
+			         
+			});	
 			
-			$('#block_editaddontype-'+addonTypeID).html("<div class='form-group'>" 
-														+"<div class=''>"
-															+"<input type='text' class='form-control' name='input_editaddontype-"+addonTypeID+"' id='input_editaddontype-"+addonTypeID+"' "
-															+"placeholder='Scuba diving' required parsley-trigger='blur' parsley-validation-minlength='0'"
-															+" parsley-required-message = 'Please enter addon type'    value='"+addonType+"'  />"
-															+"<div class='p-messages'></div>"
-														+"</div>"
-													+"</div> ")
-			
-			$('#block_editaddonprice-'+addonTypeID).html("<div class='form-group'>" 
-															+"<div class=''>"
-																+"<input type='text' class='form-control'  name='input_editaddonprice-"+addonTypeID+"'  id='input_editaddonprice-"+addonTypeID+"'   "
-																+"placeholder='12.99' required parsley-trigger='blur' parsley-validation-minlength='0'"
-																+" parsley-required-message = 'Please enter price'   value='"+addonPrice+"'   />"
-																+"<div class='p-messages'></div>"
-															+"</div>"
-														+"</div> ")
-			
-			
-			
-			/*$("#addontype-"+addonTypeID).addClass('input-group');
-			$("#addontype-"+addonTypeID).html("<form name='frm_editfacility' id='frmeditfacility-"+facilityId+"'  >" +
-					"<input type='text' class='form-control input-sm' " +
-					"placeholder='Edit Facility' name='inputfacility-"+facilityId+"' id='inputfacility-"+facilityId+"'"+
-					"parsley-validation-minlength='0' " +
-					"value='"+$("#facLabel-"+facilityId).attr('facililtyname')+"'  > </form>");
-			this.parsleyInitialize($('#frmeditfacility-'+facilityId));  */
+			editSaveLink.find('.glyphicon').addClass('glyphicon-pencil').removeClass('glyphicon-floppy-disk')
+			//$(evt.target).addClass('edit-addonlink').removeClass('saveaddontype')	
 			
 		},
 		
@@ -1042,16 +1074,14 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 		editTaxType : function(evt){
 			
 			taxTypeID = $(event.target).attr("taxtype-id");
-			$(event.target).addClass("update-taxlink").removeClass("edit-taxlink")
-			 
+			$(event.target).addClass("update-taxlink").removeClass("edit-taxlink")			 
 			
 			$(evt.target).html(function (i, old) {
 								     return old
 								         .replace('Edit', 'Save')
 								         
 								});	
-			$(evt.target).find('.glyphicon').removeClass('glyphicon-pencil').addClass('glyphicon-floppy-disk')
-			
+			$(evt.target).find('.glyphicon').removeClass('glyphicon-pencil').addClass('glyphicon-floppy-disk')			
 			
 			var taxnType = $('#block_edittaxtype-'+taxTypeID).html()
 			var taxPercent = $('#block_edittaxpercent-'+taxTypeID).html()
@@ -1106,22 +1136,28 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 							   
 							 	response.inlineresultmsg = true;
 								self_.saveSuccess(response,evt_,self_); 
-							 	$("#blockaddontype-"+response.updatedaddontype.id).html('<tr><td id="block_editaddontype-'+response.updatedaddontype.id+'">'+response.updatedaddontype.label+'</td>'+
-															'<td id="block_editaddonprice-'+response.updatedaddontype.id+'">'+response.updatedaddontype.price+'</td>'+
-															'<td>'+
-																'<a href="javascript:void(0)" class="edit-link edit-addonlink" addontype-id="'+response.updatedaddontype.id+'" > <span class="glyphicon glyphicon-pencil"></span> Edit</a>'+
-																'<a href="javascript:void(0)" class="delete-link delete-addonlink" addontype-id="'+response.updatedaddontype.id+'"><span class="glyphicon glyphicon-trash"></span> Delete</a>'+
-															'</td>'+
-														'</tr></tbody>')
-														
-								 
-							
-							 	//$(evt_.target).parent().parent().find('.close').click();
-							 	/*$(evt_.target).parent().parent().find(".modal-body").find('#addontype_name').val("")
-							 	$(evt_.target).parent().parent().find('#addontype_price').val("")*/
-							 	//$(evt_.target).next().next().hide();
-							 	/*self_.$el.find('input[type="checkbox"]').checkbox();
-							 	self_.$el.find('#new_facilityname').val("");*/
+							  							
+								$('#blockaddontype-'+addonTypeId).find('.form-group').addClass('hidden')
+							 	
+								var addonNameLblSpan = $('#block_editaddontype-'+addonTypeId).find('.lbl_addon') ;
+								var addonPriceLblSpan = $('#block_editaddonprice-'+addonTypeId).find('.lbl_addon') ;
+								
+								addonNameLblSpan.removeClass('hidden')
+								addonPriceLblSpan.removeClass('hidden')
+								
+								addonNameLblSpan.html(response.updatedaddontype.label)
+								addonPriceLblSpan.html(response.updatedaddontype.price)
+								
+								$(evt_.target).parent().find('.cancel-addonlink').addClass('hidden')
+								
+								$(evt_.target).html(function (i, old) {
+								     return old
+								         .replace('Save', 'Edit')
+								         
+								});	
+								
+								$(evt_.target).find('.glyphicon').addClass('glyphicon-pencil').removeClass('glyphicon-floppy-disk')
+								$(evt.target).addClass('edit-addonlink').removeClass('saveaddontype')						
 							 	 
 							}
 							else{
@@ -1264,16 +1300,30 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 				 
 				 if(response.code=='OK'){
 				 	 
-					 facilityId = $(evt_.target).attr("term-id"); 
+					facilityId = $(evt_.target).attr("term-id"); 
+				 	 
+					$(evt_.target).closest('.facility').find('.inputEditFacility').addClass('hidden')
+					$(evt_.target).closest('.facility').find('.inputEditFacility input').hide();
+					$(evt_.target).closest('.facility').find('#facLabel-'+facilityId).html( $("#inputfacility-"+facilityId).val());
+					$(evt_.target).closest('.facility').find('#facLabel-'+facilityId).removeClass('hidden')
+					 $(evt_.target).closest('.action').find('.cancel_editfacility').addClass('hidden')
 					 $(evt_.target).removeClass("savefacililty").addClass("edit")
 					 $(evt_.target).html("Edit")
 					 $(evt.target).prop('disabled',false);
 						 
-					 $("#facLabel-"+facilityId).removeClass('input-group');
-					 $("#facLabel-"+facilityId).html( $("#inputfacility-"+facilityId).val());
+					// $("#facLabel-"+facilityId).removeClass('input-group');
+					// $("#facLabel-"+facilityId).html( $("#inputfacility-"+facilityId).val());
 					 response.inlineresultmsg = true;
 					 response.facilitymsgspan = true;
 					 self_.saveSuccess(response,evt_,self_);  	 
+					 
+					 
+					 
+					 
+					 
+						
+					 
+					 
 					 
 				}
 				else{

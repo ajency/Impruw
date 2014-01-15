@@ -68,10 +68,22 @@
 												<div class="facility" id="facility-<%=facility.term_id %>">
 													<label for="checkbox2" class="checkbox checked">
 														<input type="checkbox" data-toggle="checkbox" checked="checked" name="facility[]"   value="<%=facility.name %>"   >
-														<span id="facLabel-<%=facility.term_id %>" facililtyname="<%=facility.name %>"  ><%=facility.name %></span>
+														<span id="facLabel-<%=facility.term_id %>" facililtyname="<%=facility.name %>"  ><%=facility.name %>
+														 
+														</span>
+														<span class='hidden inputEditFacility' > 
+															<form name='frm_editfacility' id='frmeditfacility-<%=facility.term_id %>'   > 
+																<input type='text' class='form-control input-sm'  
+																placeholder='Edit Facility' name='inputfacility-<%=facility.term_id %>' id='inputfacility-<%=facility.term_id %>' 
+																parsley-validation-minlength='0'  
+																value='<%=facility.name %>'   > 
+															</form>
+														</span>
+														 
+														
 													</label>
 													<div class="action">
-														<a href="javascript:void(0)" class="edit"  term-id="<%=facility.term_id %>">Edit</a>&nbsp;<a href="javascript:void(0)" class="delete" term-id="<%=facility.term_id %>">Delete</a>
+														<a href="javascript:void(0)" class="edit"  term-id="<%=facility.term_id %>">Edit</a>&nbsp;<a href="javascript:void(0)" class="cancel_editfacility hidden"  term-id="<%=facility.term_id %>">Cancel</a>&nbsp;<a href="javascript:void(0)" class="delete" term-id="<%=facility.term_id %>">Delete</a>
 													</div>
 												</div>
 												
@@ -395,11 +407,42 @@
 											%>
 											
 														<tbody id="blockaddontype-<%=addontype.id %>">
-															<td id="block_editaddontype-<%= addontype.id %>"><%= addontype.label %></td>
-															<td id="block_editaddonprice-<%= addontype.id %>" ><%= addontype.price %></td>
+															<td id="block_editaddontype-<%= addontype.id %>">
+													
+																<span class="lbl_addon"><%= addontype.label %></span>
+																<div class='form-group hidden'>  
+														 			<div class=''>
+																		<input type='text' class='form-control' name='input_editaddontype-<%=addontype.id %>' id='input_editaddontype-<%=addontype.id %>' 
+																			placeholder='Scuba diving' required parsley-trigger='blur' parsley-validation-minlength='0'
+																			parsley-required-message = 'Please enter addon type'    value='<%= addontype.label %>'  />
+																			<div class='p-messages'></div>
+																	</div>
+																</div>
+															
+															
+															</td>
+															<td id="block_editaddonprice-<%= addontype.id %>" >
+																	<span class="lbl_addon"><%= addontype.price %></span>
+																	<div class='form-group hidden'> 
+																		<div class=''>
+																			<input type='text' class='form-control'  name='input_editaddonprice-<%=addontype.id %>'  id='input_editaddonprice-<%=addontype.id %>'
+																			placeholder='12.99' required parsley-trigger='blur' parsley-validation-minlength='0' 
+																			parsley-required-message = 'Please enter price'   value='<%= addontype.price %>'   /> 
+																			<div class='p-messages'></div>
+																		</div>
+																	</div> 
+																	
+															
+															
+															
+															</td>
 															<td>
-																<a href="javascript:void(0)" class="edit-link edit-addonlink" addontype-id="<%=addontype.id %>"   > <span class="glyphicon glyphicon-pencil"></span> Edit</a>
-																<a href="javascript:void(0)" class="delete-link delete-addonlink" addontype-id="<%=addontype.id %>"><span class="glyphicon glyphicon-trash"></span> Delete</a>
+																<a href="javascript:void(0)" class="edit-link edit-addonlink" addontype-id="<%=addontype.id %>"   > 
+																	<span class="glyphicon glyphicon-pencil"></span> Edit</a>
+																<a href="javascript:void(0)" class="edit-link cancel-addonlink hidden" addontype-id="<%=addontype.id %>">
+																	<span class="glyphicon glyphicon-ban-circle"></span> Cancel</a>
+																<a href="javascript:void(0)" class="delete-link delete-addonlink" addontype-id="<%=addontype.id %>">
+																	<span class="glyphicon glyphicon-trash"></span> Delete</a>
 															</td>
 														</tbody>	
 														 
