@@ -4,9 +4,8 @@
  */
 
 define([ 'underscore', 'jquery', 'backbone', 
-		'text!templates/siteprofile/SiteProfileViewTpl.tpl',
-		'lib/parsley/parsley','bootstrap' ], 
-		function(_, $, Backbone, SiteProfileViewTpl,parsley,bootstrap) {
+		'text!templates/siteprofile/SiteProfileViewTpl.tpl', 'sitemodel','parsley'], 
+		function(_, $, Backbone, SiteProfileViewTpl, SiteModel) {
 
 	var SiteProfileView = Backbone.View.extend({
 
@@ -19,28 +18,112 @@ define([ 'underscore', 'jquery', 'backbone',
 			'click #add_another_phone' 		: 'addAnotherPhoneElement',
 			'click .del_phone' 				: 'delPhoneElement',
 			'click .filepopup'				: 'showFilePopup',
-			'click #remove_businesslogo'	: 'removeBusinessLogo'
+			'click #remove_businesslogo'	: 'removeBusinessLogo',
+			'click a.re-try'				: 'render'
 		},
 
 		initialize : function(args) {
-			
-			_.bindAll(this , 'saveProfileSuccess', 'saveProfileFailure','parsleyInitialize');			
-				
-			if(_.isUndefined(args.site))
-				this.showInvalidCallView();
-			
-			this.site = args.site;
-			
-			//ImpruwDashboard.vent.on("user-profile-updated", this.updatedProfileView);
+			_.bindAll(this ,'renderForm','renderError', 'saveProfileSuccess', 'saveProfileFailure','parsleyInitialize');
+
+			//ensure site model property is set
+			if(!getAppInstance().siteModel)
+				getAppInstance().siteModel = new SiteModel();
+
+			//set ID
+			getAppInstance().siteModel.set(SITEID);
+
+			this.listenTo(getAppInstance().siteModel, 'model-fetch-failed', this.renderError);
 
 		},
-		showFilePopup : function(evt){
-			 var self = this;
 
+		/**
+		 * Render the view
+		 * @param  {[type]} evt [description]
+		 * @return {[type]}     [description]
+		 */
+		render : function(evt) {
+
+			if(!_.isUndefined(evt))
+				evt.preventDefault();
+
+			//trigger fetch
+			getAppInstance().siteModel.fetch({
+				success : this.renderForm
+			});
 			 
-             require(['underscore', 'mediamanager'], _.bind(function(_, MediaManager) {
+			return this;
+		},
 
-                 var mediamanager = ImpruwDashboard.ViewManager.findByCustom("media-manager");
+		/**
+		 * Render the form for the User
+		 * @return {[type]} [description]
+		 */
+		renderForm : function(model, resp, options){
+
+			if(resp.code !== 'OK')
+				return;
+
+			var template = _.template(SiteProfileViewTpl);
+
+			var html = template({
+				site : model
+			});
+
+			this.$el.html(html);
+
+			//set custom selectbox & checkbox
+			this.$el.find('select').selectpicker();
+			this.$el.find('input[type="checkbox"]').checkbox();	
+
+			//initialize parsley validation for the forms
+			this.parsleyInitialize(this.$el.find('#form-siteprofile'));
+
+			$(".aj-imp-long-form-actions").affix();
+
+			/* js for dashboard --scroll indicators */
+			$.fn.justtext = function() {
+				   return $(this).clone()
+				           .children()
+				           .remove()
+				           .end()
+				           .text();
+			};
+			
+			// Global var to cache info about indicators for easy access. 
+			var indicators = [];
+			var rawIndicators = "";
+			var $articles = $(".scroll-indicator-container");
+			// Create a bubble for each article
+			$articles.each(_.bind(function(i) {
+				var iInverse = $articles.length - i - 1;
+				var margins = 'margin: ' + (i+0.5) + 'em 0 ' + (iInverse+0.5) + 'em 0;'; 
+				rawIndicators +=  '<a class="indicator indicator--upcoming" style="' + margins + '" href="#' + this.id + '"><span class="indicator-tooltip">' + this.$el.find(".scroll-ref").justtext() + '</span></a>';
+			}, this));
+
+			this.$el.append(rawIndicators);
+
+		},
+
+		/**
+		 * Render the form error for the User
+		 * @return {[type]} [description]
+		 */
+		renderError : function(response){
+			
+			this.$el.html(response.message + '. <a href="#" class="re-try">Try again</a>');
+
+		},
+
+		/**
+		 * Open media manager
+		 * @param  {[type]} evt [description]
+		 * @return {[type]}     [description]
+		 */
+		showFilePopup : function(evt){
+
+			var popupFn = _.bind(function(_, MediaManager) {
+
+                 var mediamanager = getAppInstance().ViewManager.findByCustom("media-manager");
 
                  //if not present create new
                  if (_.isUndefined(mediamanager)) {
@@ -49,21 +132,18 @@ define([ 'underscore', 'jquery', 'backbone',
                  }
 
                  //start listening to event
-
-                 this.listenTo(ImpruwDashboard.vent,'image-selected', this.businessLogoSelected);
+                 this.listenTo(getAppInstance().vent,'image-selected', this.businessLogoSelected);
 
 
                  mediamanager.open();
 
-             }, this));
+             }, this);
+
+            require(['underscore', 'mediamanager'], popupFn);
 			
 		},
 		
 		businessLogoSelected : function(image, size){
-			
-			
-			console.log(size);
-			console.log(image);
 			
 			//stop listening to image-selected event
             this.stopListening(ImpruwDashboard.vent, 'image-selected', this.updateSelf);
@@ -94,16 +174,19 @@ define([ 'underscore', 'jquery', 'backbone',
 		 * 
 		 */
 		removeBusinessLogo : function(evt){
-			console.log('remove business logo')
+			
+			evt.preventDefault();
+
 			var evt_ =  evt;
 			
 			$('#hdn_businesslogo_id').val('');
-			console.log( $(this.target).parent().parent().find('.fileinput-preview'))
-			 //$(this.target).parent().parent().find('.fileinput-preview').find('#businesslogo_img').attr('src','');
+			//$(this.target).parent().parent().find('.fileinput-preview').find('#businesslogo_img').attr('src','');
+			
 			$('#businesslogo_img').attr('src','');
+			
 			var data = 	{ 
-					'action'  : 'remove_business_logo'				 	
-				};
+				'action'  : 'remove_business_logo'				 	
+			};
 
 			removeBusinessLogo = window.impruwSite.removeSiteBusinessLogo(data, {
 																	event : evt_,
@@ -126,65 +209,7 @@ define([ 'underscore', 'jquery', 'backbone',
 			
 		},
 		
-		render : function() {
 
-			var self = this;
-
-			//g = this.site;
-			var template = _.template(SiteProfileViewTpl);
-
-			var html = template({
-				site : this.site
-			});
-
-			this.$el.html(html);
-
-			//set custom selectbox & checkbox
-			this.$el.find('select').selectpicker();
-			this.$el.find('input[type="checkbox"]').checkbox();			
-			
-			//initialize parsley validation for the forms
-			this.parsleyInitialize(this.$el.find('#form-siteprofile-business'));
-			this.parsleyInitialize(this.$el.find('#form-siteprofile-social'));
-			$(".aj-imp-long-form-actions").affix()
-			
-			
-			
-			
-			
-			/* js for dashboard --scroll indicators */
-			$.fn.justtext = function() {
-				   return $(this).clone()
-				           .children()
-				           .remove()
-				           .end()
-				           .text();
-				};
-			// Global var to cache info about indicators for easy access. 
-			var indicators = [];
-			 //
-			 //	CREATE THE INDICATORS AND ADD TO PAGE
-			 //
-
-			 var rawIndicators = "";
-			 var $articles = $(".scroll-indicator-container");
-			 // Create a bubble for each article
-			 $articles.each(function(i) {
-			var iInverse = $articles.length - i - 1;
-			// Top margin is a function of the nodes before it, bottom is proportional to those after. determines stacking at top / bottom static positions
-			var margins = 'margin: ' + (i+0.5) + 'em 0 ' + (iInverse+0.5) + 'em 0;'; 
-			rawIndicators +=  '<a class="indicator indicator--upcoming" style="' + margins + '" href="#' + this.id + '"><span class="indicator-tooltip">' + this.$el.find(".scroll-ref").justtext() + '</span></a>';
-			 });
-			 this.$el.append(rawIndicators);
-			 console.log('test')
-			 console.log(rawIndicators);
-			 console.log($articles.length)
-			
-			
-			
-			
-			return this;
-		},
 
 		 
 		
@@ -194,34 +219,13 @@ define([ 'underscore', 'jquery', 'backbone',
 		 */
 		saveProfile : function(evt) {
 			
-			if (this.$el.find('#form-siteprofile-business').parsley('validate')){
+			if (this.$el.find('#form-siteprofile').parsley('validate')){
 
-				if (this.$el.find('#form-siteprofile-social').parsley('validate')){
-					$(evt.target).next().show();
-					
-					var self = this;
-					
-					var formBusiness = this.$el.find('#form-siteprofile-business').serializeArray();
-					
-					var formSocial 	 = this.$el.find('#form-siteprofile-social').serializeArray();
-					var businesslogo = this.$el.find('#form-siteprofile-general').find('#hdn_businesslogo_id').val();
-					
-					var data = 	{ 
-									'business'  : formBusiness,
-								 	'social'	: formSocial,
-								 	'siteprofile_businesslogo'	: businesslogo
-								};
-		
-					$siteProfileSaveStatus = window.impruwSite.saveSiteProfile(data, {
-																					event : evt,
-																					success : self.saveProfileSuccess,
-																					failure : self.saveProfileFailure
-																				});					
-					$(event.target).next().hide();
-				}
+				var formData = getFormData(this.$el.find('#form-siteprofile'));
+				log(formData);
+				getAppInstance().siteModel.save(formData);
 			}
- 
-			
+				
 		},
 		
 		/**

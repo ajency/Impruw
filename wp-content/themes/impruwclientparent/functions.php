@@ -807,14 +807,12 @@ add_action('wp_ajax_nopriv_get_site_data','get_site_data');
  */
 function get_site_data_ajx() {
 
-
-
-    $site_id = $_GET['siteprofile_id'];
+    $site_id = $_GET['id'];
 
     $site_profile_details = get_site_data( $site_id );
 
     header( 'Content-Type: application/json' );
-    echo json_encode( array( 'code' => 'OK', 'siteProfileData'=> $site_profile_details ) );
+    echo json_encode( array( 'code' => 'OK', 'data'=> $site_profile_details ) );
     die();
 
 }
@@ -867,6 +865,10 @@ add_action( 'wp_ajax_nopriv_remove_business_logo', 'remove_business_logo' );
  */
 function save_site_data_ajx() {
 
+    wp_send_json($_REQUEST);
+
+    return;
+
     $siteform_social   = array();
     $siteform_business = array();
     $siteform_businesslogo  = '' ;
@@ -893,8 +895,8 @@ function save_site_data_ajx() {
     }
 
 }
-add_action( 'wp_ajax_save_site_data_ajx', 'save_site_data_ajx' );
-add_action( 'wp_ajax_nopriv_save_site_data_ajx', 'save_site_data_ajx' );
+add_action( 'wp_ajax_update_site_data', 'update_site_data' );
+add_action( 'wp_ajax_nopriv_update_site_data', 'update_site_data' );
 
 
 

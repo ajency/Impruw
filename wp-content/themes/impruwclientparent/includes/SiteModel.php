@@ -56,8 +56,9 @@ class SiteModel {
 		
 	 	$site_general = $this->get_site_general();
 
-	 	
-	 	 return(array('businessDetails'=>$site_business,'socialDetails'=>$site_social,'generalDetails'=>$site_general));
+	 	return array_merge($site_business, $site_social, $site_general);
+	 		
+	 	return(array('businessDetails'=>$site_business,'socialDetails'=>$site_social,'generalDetails'=>$site_general));
 	}
 	
 	
@@ -67,19 +68,20 @@ class SiteModel {
 	function get_site_general(){
 		
 		$businesslogo_id = get_option('sitebusiness-logo');
+
 		if($businesslogo_id !== false) 
-			 		$businesslogo_url = wp_get_attachment_thumb_url( $businesslogo_id );
+			$businesslogo_url = wp_get_attachment_thumb_url( $businesslogo_id );
 		else{
 			$businesslogo_id 	= '';
 			$businesslogo_url	= '';
 		}	
 		 
-		$site_general_data = array('siteName'			=> get_blog_details($this->site_id)->blogname,
+		$site_general_data = array(	'siteName'			=> get_blog_details($this->site_id)->blogname,
 									'businessLogoId'	=> $businesslogo_id,
 									'businessLogoUrl'	=> $businesslogo_url 
 								  );
 		 
-		 return $site_general_data;
+		return $site_general_data;
 		 
 	}
 	
@@ -90,11 +92,11 @@ class SiteModel {
 	 */
 	function get_site_business(){
 		
-		$site_business_data = get_blog_option($this->site_id, 'impruw_address');
+		$site_business_data = get_option('impruw_address');
 		if($site_business_data)
 			return $site_business_data;
 		else
-			return (array());
+			return array();
 	}
 	
 	/**
@@ -103,7 +105,7 @@ class SiteModel {
 	 */
 	function get_site_social(){
 		
-		$site_social_data = get_blog_option($this->site_id,'impruw_social');
+		$site_social_data = get_option('impruw_social');
 		if($site_social_data)
 			return $site_social_data;
 		else

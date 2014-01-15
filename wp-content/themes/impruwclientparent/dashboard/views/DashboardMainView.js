@@ -11,28 +11,11 @@ define(['underscore', 'jquery', 'backbone','leftview','sitemodel'],
 
 				el 			: 'body',
 
-				events      : { 
-                
-				},
-
-
 				initialize : function(){
-                    
 					//set left column view
                     this.leftColumn = new LeftColumnView();
-                    this.site		= window.impruwSite;
-
-					this.user 		= window.impruwUser
-                  
- 
 				},
 
-				render : function(){
-
-					var self = this;
-					
-				},
-                
 				show : function(view){
 					
 					var self = this;
@@ -41,43 +24,30 @@ define(['underscore', 'jquery', 'backbone','leftview','sitemodel'],
 						this.showErrorView();
 						return;
 					}
-					
-					try{
-						 
-						self.makeVisible(view);
-					}
-					catch(e){
-						if(_.isUndefined(this[view])){
-							
-							require([view], function(RView){
+
+					var calledView = getAppInstance().ViewManager.findByCustom(view);
+
+                    //if not present create new
+                    if (_.isUndefined(calledView)) {
+                    	
+                    	var newViewFn = _.bind(function(RView){
 								
-								self[view] = new RView({site : self.site, user:self.user});
-								self[view].render();
-								self.makeVisible(view);
-								
-							});
+							calledView = new RView();
+							calledView.render();
+
+							getAppInstance().ViewManager.add(calledView, view);
 							
-						}
-					}
-					
-					
-					
-					
-					/*if(_.isUndefined(this[view])){
+							this.makeVisible(calledView);
 						
-						require([view], function(RView){
-							
-							self[view] = new RView({site : self.site});
-							self[view].render();
-							self.makeVisible(view);
-							
-						});
-						
-					}
-					else{
-						self.makeVisible(view);
-					}*/
-					
+						}, this)
+
+                    	require([view], newViewFn );
+                        
+                    }
+                    else{
+                    	this.makeVisible(calledView);
+                    }
+
 				},
 
 				/**
@@ -99,7 +69,7 @@ define(['underscore', 'jquery', 'backbone','leftview','sitemodel'],
 					 
  					this.$el.find('.aj-imp-right').addClass('aj-imp-loader');
 					
-					this.$el.find('.aj-imp-right').html(this[view].$el);
+					this.$el.find('.aj-imp-right').html(view.$el);
 					
 					this.$el.find('.aj-imp-right').removeClass('aj-imp-loader')
 					
