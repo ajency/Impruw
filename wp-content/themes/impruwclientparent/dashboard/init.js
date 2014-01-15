@@ -184,6 +184,7 @@ require(['backbone','marionette',
             getAppInstance().reqres.setHandler('get-image-url', function(attachmentId, size, callback){
 
                 var responseFn =    _.bind(function(response){
+                                        
                                         if(response.code === 'OK')
                                             this.fn(response.url);
 
