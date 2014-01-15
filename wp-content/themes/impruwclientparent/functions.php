@@ -231,12 +231,24 @@ function add_element_markup( $element ) {
         break;
     case 'LogoElement':
         $html = get_logo_element_markup( $element );
-        break;    
+        break; 
+    case 'RoomDescription':
+        $html = get_room_description_markup( $element );
+        break; 
+    case 'RoomTitle':
+        $html = get_room_title_markup( $element );
+        break; 
+    case 'RoomFacilities':
+        $html = get_room_facilities_markup( $element );
+        break;  
+    case 'RoomGallery':
+        $html = get_room_gallery_markup( $element );
+        break;  
     default:
         break;
 
     }
-
+    
     return $html;
 }
 
@@ -297,6 +309,75 @@ function get_builder_row_column_markup( $element ) {
     }
 
     $html .= $column->get_close_tag();
+
+    return $html;
+
+}
+
+/**
+ * Generates the image markup
+ *
+ * @param type    $element
+ */
+function get_room_description_markup( $element ) {
+
+    require_once PARENTTHEMEPATH . 'elements/room/RoomDescription.php';
+
+    $room = new RoomDescription( $element );
+
+    $html = $room->get_markup();
+
+    return $html;
+
+}
+
+/**
+ * Generates the room title markup
+ *
+ * @param type    $element
+ */
+function get_room_title_markup( $element ) {
+
+    require_once PARENTTHEMEPATH . 'elements/room/RoomTitle.php';
+
+    $room = new RoomTitle( $element );
+
+    $html = $room->get_markup();
+
+    return $html;
+
+}
+
+
+/**
+ * Generates the room title markup
+ *
+ * @param type    $element
+ */
+function get_room_gallery_markup( $element ) {
+
+    require_once PARENTTHEMEPATH . 'elements/room/RoomGallery.php';
+
+    $room = new RoomGallery( $element );
+
+    $html = $room->get_markup();
+
+    return $html;
+
+}
+
+/**
+ * Generates the room facilities
+ *
+ * @param type    $element
+ */
+function get_room_facilities_markup( $element ) {
+
+    require_once PARENTTHEMEPATH . 'elements/room/RoomFacilities.php';
+
+    $room = new RoomFacilities( $element );
+
+    $html = $room->get_markup();
 
     return $html;
 
@@ -439,7 +520,7 @@ function get_menu_element_markup( $element ) {
 /**
  * Generates the row markup
  *
- * @param type    $element
+ * @param type    $element 
  */
 function get_container_markup( $element ) {
 
