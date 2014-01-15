@@ -5,25 +5,25 @@
 define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 	
 	var RoomModel = Backbone.Model.extend({
-	 
+		
 		addRoomUrl : AJAXURL + '?action=add_new_room_ajx',
 	 	
 		/**	Function to add new room
 		 * @param args
 		 * @param fn
 		 */
-		saveRoom :function(args,  fn){
-		 console.log(args)
+		saveRoomData :function(args,  fn){
+		 
 			var _self = this;
 			
-			var data = {	category	:args.category, 
-					  	 	nos			:args.nos,
-					  	 	description :args.description,
-					  	 	facilities	:args.facilities,
-					  	 	checkinformat	:args.checkinformat,
-					  	 	checkintime	:args.checkintime,
-					  	 	additionalpolicies:args.additionalpolicies,
-					  	 	tax_option  :args.tax_option 
+			var data = {	category			: args.category, 
+					  	 	nos					: args.nos,
+					  	 	description 		: args.description,
+					  	 	facilities			: args.facilities,
+					  	 	checkinformat		: args.checkinformat,
+					  	 	checkintime			: args.checkintime,
+					  	 	additionalpolicies	: args.additionalpolicies,
+					  	 	tax_option  		: args.tax_option 
 					  	 };
 			 
 			$.post(	this.addRoomUrl,
@@ -33,9 +33,12 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 						if(response.code=='OK'){
 						 
 							/*_self.set(response.site_data)*/
-							
+							_self.set(response.roomdata);
 							if(!_.isUndefined(fn.success) && _.isFunction(fn.success))
-								fn.success(response,fn.event,fn._self);   
+								fn.success(response,fn.event,fn._self);  
+						 
+							fn.addroomtoCollection(_self,fn._self,fn.event)
+							
 						}
 						else{
 							 

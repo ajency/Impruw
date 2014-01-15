@@ -28,6 +28,22 @@ define(['underscore', 'jquery', 'backbone', 'holder', 'cssFx', 'bootstrap', 'tpl
 
         };
 
+        /**
+         * Checks if passed property is set for the application
+         * @param  {[type]} property [description]
+         * @return {[type]}          [description]
+         */
+        global.appHasProperty = function(property){
+
+            var app = getAppInstance();
+
+            if(_.isUndefined(app[property]))
+                return false;
+
+            return true;
+
+        },
+
         global.randomFromInterval = function(e, t) {
 
             return Math.floor(Math.random() * (t - e + 1) + e);

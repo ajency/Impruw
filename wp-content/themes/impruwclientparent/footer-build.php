@@ -26,7 +26,6 @@
                 <?php if(is_single_room_edit()): ?>
                    <li><a href="#room-elements" data-toggle="tab">Room Elements</a></li>
                 <?php endif; ?>
-                
             </ul>
             <div class="tab-content">
                 <div class="tab-pane active" id="content">
@@ -102,6 +101,18 @@
                                     <div class="aj-imp-builder-title">Room Description</div>
                                 </a>
                             </li>
+                            <li data-element="roomfacilities">
+                                <a href="#" class="drag builder-element" data-placeholder-height="100">
+                                    <div class="aj-imp-builder-icon"  data-icon="&#xf110;"></div>
+                                    <div class="aj-imp-builder-title">Facilities</div>
+                                </a>
+                            </li>
+                            <li data-element="roomgallery">
+                                <a href="#" class="drag builder-element" data-placeholder-height="100">
+                                    <div class="aj-imp-builder-icon"  data-icon="&#xf110;"></div>
+                                    <div class="aj-imp-builder-title">Gallery</div>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 <?php endif; ?>
@@ -122,6 +133,9 @@
         var UPLOADURL   = '<?php echo admin_url('async-upload.php'); ?>';
         var _WPNONCE    = '<?php echo wp_create_nonce('media-form');?>';
         var JSVERSION   = '<?php echo JSVERSION; ?>';
+        <?php if(is_single_room_edit()): ?>
+        var ISSINGLEROOM = true;   
+        <?php endif; ?>
     </script> 
     <script data-main="<?php echo get_parent_template_directory_uri(); ?>/builder/js/init" src="<?php echo get_parent_template_directory_uri(); ?>/js/require.js"></script>
 </body>

@@ -31,11 +31,13 @@ require.config({
         nestable            	: 'lib/nestable',
         marionette      		: 'lib/backbone.marionette.min',
         plupload        		: 'lib/plupload.full.min',
+        tpl                     : 'lib/tpl',
+        parsley                 : 'lib/parsley/parsley',
         
         //Views
         mainview				: 'views/DashboardMainView',
         leftview				: 'views/LeftColumnView',
-        dashboarddefaultview	: 'views/dashboard/DashboardDefaultView',
+        dashboardview	        : 'views/dashboard/DashboardView',
         siteprofileview			: 'views/siteprofile/SiteProfileView',
         userprofileview			: 'views/userprofile/UserProfileView',
         addroomview				: 'views/rooms/AddRoomView',
@@ -43,7 +45,9 @@ require.config({
         addplanmodal			: 'views/modals/AddPlan',
         addaddonmodal			: 'views/modals/AddAddOn',
         adddaterangemodal		: 'views/modals/AddDaterange',
+        roomlistview			: 'views/rooms/RoomListView',
        
+        modal                   : 'views/modals/Modal',
         mediamanager    		: 'views/modals/media/MediaManager',
         mediasingle     		: 'views/modals/media/SingleMedia',
 
@@ -55,6 +59,8 @@ require.config({
 
         //Collections
         mediacollection			: 'collections/MediaCollection',
+        roomcollection			: 'collections/RoomCollection',	
+        
         //templates
         siteprofileviewtpl 		: 'templates/siteprofile/SiteProfileViewTpl',
         addtaxviewtpl       	: 'templates/modal/AddTax'
@@ -109,53 +115,108 @@ function log(object){
 }
 
 
-//init the app
-/*require(['backbone',
-         'routers/DashboardRouter','sitemodel','usermodel','jquery'], function( Backbone, Router, SiteModel, UserModel,$) {
+/**
+ * Returns the main application object instance
+ * @return {[type]} [description]
+ */
+function getAppInstance(){
 
-        $(document).ready(function(){   
-        	 
-			window.impruwSite = new SiteModel(SITEID);
-			window.impruwUser = new UserModel(USERDATA);
-			 
-			/*window.impruwSite.getSiteProfile({
-				success:function(){
-					dashboard = new Router();
-				}
-			});* /
-			
-			dashboard = new Router();
-            Backbone.history.start();
-            
-           
-            
-        });
+    return ImpruwDashboard;
 
-});*/
+}
 
-  require(['backbone','marionette',
-         'routers/DashboardRouter','sitemodel','usermodel','jquery'], 
-         function( Backbone, Marionette, Router, SiteModel, UserModel,$) {
+/**
+ * 
+ * @param property
+ */
+function appHasProperty(property){
+	
+	var app = getAppInstance();
+	
+	return _.isUndefined(app[property]) !== true;
+	
+}
+
+/**
+ * Form Data
+ * @param  {[type]} form [description]
+ * @return {[type]}      [description]
+ */
+function getFormData(form) {
+
+    if (_.isUndefined(form))
+        return false;
+
+    var serializedData = $(form).serializeArray();
+
+    var data = {};
+
+    _.each(serializedData, function(ele, key) {
+
+        if(_.endsWith(ele.name,'[]')){
+
+            var name = ele.name.replace('[]','');
+
+            if(!_.isArray(data[name]))
+                data[name] = [];
+
+            data[name].push(ele.value); 
+        }
+        else{
+            data[ele.name] = ele.value;
+        }
+    });
+
+    return data;
+
+}
+
+require(['backbone','marionette',
+         'routers/DashboardRouter','sitemodel','usermodel'], 
+         function( Backbone, Marionette, Router, SiteModel, UserModel) {
 
          $(document).ready(function(){   
 
-             window.impruwSite = new SiteModel(SITEID);
-             window.impruwUser = new UserModel(USERDATA);
+            Backbone.emulateHTTP = true;
+            
+            ImpruwDashboard = new Backbone.Marionette.Application();
+            
+            getAppInstance().reqres.setHandler('get-image-url', function(attachmentId, size, callback){
 
-             /*window.impruwSite.getSiteProfile({
-                 success:function(){
-                     dashboard = new Router();
-                 }
-             });*/
+                var responseFn =    _.bind(function(response){
+                                        
+                                        if(response.code === 'OK')
+                                            this.fn(response.url);
 
-             ImpruwDashboard = new Backbone.Marionette.Application();
-             ImpruwDashboard.ViewManager = new Backbone.ChildViewContainer();
-             ImpruwDashboard.addInitializer(function(){
-                 new Router();
-                 Backbone.history.start();
-             });
+                                    }, {fn : callback});
 
-             ImpruwDashboard.start();
+                $.get(  AJAXURL,
+                        {
+                            action : 'get_image_url',
+                            attId  : attachmentId,
+                            size   : size
+                        },
+                        responseFn,
+                        'json');
+            });
+
+
+            getAppInstance().addInitializer(function(){
+            	
+                getAppInstance().ViewManager = new Backbone.ChildViewContainer();
+                getAppInstance().impruwUser    = new UserModel(USERDATA);   
+
+            });
+             
+            
+            getAppInstance().addInitializer(function(){
+                
+                new Router();
+                Backbone.history.start();
+
+            });
+
+            getAppInstance().start();
 
          });
 

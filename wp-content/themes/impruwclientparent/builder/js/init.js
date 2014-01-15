@@ -52,6 +52,8 @@ require.config({
 
         roomtitle       : 'builder/views/elements/rooms/RoomTitle',
         roomdescription : 'builder/views/elements/rooms/RoomDescription',
+        roomfacilities  : 'builder/views/elements/rooms/RoomFacilities',
+        roomgallery     : 'builder/views/elements/rooms/RoomGallery',
 
         //menu
         menumanager     : 'builder/views/modals/MenuManager',
@@ -129,6 +131,8 @@ function getAppInstance(){
 
 }
 
+
+
 /**
  * [templatesUri description]
  * @return {[type]} [description]
@@ -146,19 +150,32 @@ window.prevmouseover    = null;
 require(['backbone', 'marionette',
          'builderrouter'], function( Backbone, Marionette, Router) {
 
+        Backbone.emulateHTTP = true;
+
         $(document).ready(function(){   
 
             SiteBuilder = new Backbone.Marionette.Application();
 
             //set view manager for globally accessible views
-            SiteBuilder.ViewManager = new Backbone.ChildViewContainer();
+            getAppInstance().ViewManager = new Backbone.ChildViewContainer();
 
-            SiteBuilder.addInitializer(function(options){
+            // getAppInstance().addInitializer(function(options){
+
+            //     getAppInstance().userModel          = new UserModel(USERDATA);
+            //     getAppInstance().siteModel          = new SiteModel(SITEDATA);
+                
+            //     getAppInstance().themeCollection    = new ThemeCollection();
+            //     getAppInstance().mediaCollection    = new MediaCollection();
+            //     getAppInstance().menuCollection     = new MenuCollection();
+
+            // });
+
+            getAppInstance().addInitializer(function(options){
                 new Router();
                 Backbone.history.start();
             });
 
-            SiteBuilder.start();
+            getAppInstance().start();
         });
 
 });

@@ -494,6 +494,13 @@ form .form-group .help-block a:hover {
   text-shadow: none;
   color: #65879c;
 }
+form .form-group .help-block h6 {
+  font-size: 1.1em;
+  color: #aaaaaa;
+}
+form .form-group .help-block p {
+  font-size: 0.92em;
+}
 form .form-group .help-block.add-another-link {
   margin: 0.5em 0;
 }
@@ -855,15 +862,14 @@ form .aj-imp-submit:hover {
   margin-right: 0.2em;
   background: #ff7e00;
   color: #fff;
-  font-size: 1.6em;
-  font-weight: 700;
+  font-size: 1em;
   padding: 0.2em;
   width: 1.6em;
   height: 1.6em;
   border-radius: 1.6em;
 }
 .aj-imp-register-form .aj-imp-register-right .aj-imp-reg-step {
-  margin: 2em 0 1em;
+  margin: 1em 0 2em;
 }
 .aj-imp-register-form .aj-imp-register-right .aj-imp-reg-step h4 {
   color: #ff7e00;
@@ -1024,6 +1030,162 @@ form .aj-imp-submit:hover {
 }
 .modal.wide-modal .modal-dialog .modal-content .modal-body {
   padding: 0.5em 0;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .nav-tabs {
+  border-width: 1px;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .nav-tabs li a {
+  font-weight: normal;
+  border: 0;
+  background: transparent;
+  font-size: 1.1em;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .nav-tabs li a:hover {
+  color: #333333;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .nav-tabs li.active > a {
+  color: #ff7e00;
+  font-weight: 700;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content {
+  border-radius: 0;
+  border: 0;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .aj-imp-upload-media {
+  text-align: center;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .aj-imp-upload-media > span {
+  display: block;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .aj-imp-upload-media > span[class^="icon-"] {
+  font-size: 10em;
+  color: #e6e6e6;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .aj-imp-upload-media .aj-imp-upload-message {
+  margin: 1em 0;
+  background: #919191;
+  color: #fff;
+  border-radius: 4px;
+  font-size: 1.1em;
+  display: inline-block;
+  padding: 0.5em 1em 0.6em;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .aj-imp-upload-media .small-text {
+  font-size: 0.9em;
+  color: #aaaaaa;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .aj-imp-image-header {
+  padding: 10px 15px;
+  margin: 0 0 1em;
+  background: #f3f3f3;
+  color: #333333;
+  font-size: 1.1em;
+  font-weight: 700;
+  border-bottom: 1px solid #aaaaaa;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel {
+  border-radius: 0;
+  border: 0;
+  border-bottom: 1px solid #c3c3c3;
+  background: none;
+  box-shadow: none;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-heading {
+  background: none;
+  border: 0;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-heading > a {
+  display: block;
+  outline: 0;
+  color: #ff7e00;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-heading > a .imgthumb img {
+  height: 100%;
+  width: auto;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-heading > a .imgname,
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-heading > a .imgdate {
+  font-weight: bold;
+  padding: 0.5em 15px;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-heading > a .imgactions {
+  text-align: center;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-heading > a .imgactions .btn {
+  padding: 5px 8px 6px;
+  margin-right: 1em;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-heading > a .imgactions .btn:hover {
+  background: #ff7e00;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-heading > a.collapsed {
+  color: #aaaaaa;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-heading:hover {
+  background: #f3f3f3;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-body {
+  border: 0;
+  padding: 1em 0;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-body .aj-imp-edit-image {
+  border-radius: 0;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-body .aj-imp-edit-image .aj-imp-crop-link {
+  position: relative;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-body .aj-imp-edit-image .aj-imp-crop-link img {
+  padding: 1px;
+  border: 1px solid #aaaaaa;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-body .aj-imp-edit-image .aj-imp-crop-link .aj-imp-crop-link-overlay {
+  position: absolute;
+  top: 1px;
+  bottom: 1px;
+  left: 15px;
+  right: 15px;
+  background: rgba(0, 0, 0, 0.4);
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-body .aj-imp-edit-image .aj-imp-crop-link .aj-imp-crop-link-overlay a {
+  position: relative;
+  top: 50%;
+  color: #fff;
+  display: block;
+  text-align: center;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-body .aj-imp-edit-image .aj-imp-img-form .row {
+  margin: 0 0 1em;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-body .aj-imp-edit-image .aj-imp-img-form .row textarea {
+  min-height: 115px;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-body .aj-imp-edit-image .aj-imp-img-form .row input:focus,
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-body .aj-imp-edit-image .aj-imp-img-form .row textarea:focus {
+  border-color: #ff7e00;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-body .aj-imp-edit-image .aj-imp-img-save {
+  margin: 1em 0 0;
+  text-align: right;
+  padding: 0.5em 0 0;
+  border-top: 1px solid #dadada;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group#settings-accordion .panel .panel-heading > a .imgthumb span[class^="icon"],
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group#map-settings-accordion .panel .panel-heading > a .imgthumb span[class^="icon"] {
+  font-size: 2em;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group#settings-accordion .panel .panel-heading > a .imgactions,
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group#map-settings-accordion .panel .panel-heading > a .imgactions {
+  text-align: right;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .aj-imp-block-button {
+  margin: 1em 0;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .aj-imp-block-button a {
+  text-transform: uppercase;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .aj-imp-map-view {
+  padding: 0.5em;
+  border: 2px dashed #aaaaaa;
 }
 /****File Upload Plugin Styles****/
 .btn-file {
@@ -1273,7 +1435,7 @@ form .aj-imp-submit:hover {
   background: #ff7e00;
   border-radius: 0;
   color: #fff;
-  line-height: 10px;
+  line-height: 15px;
 }
 .facilities-list .facility.add:hover {
   border-color: transparent;

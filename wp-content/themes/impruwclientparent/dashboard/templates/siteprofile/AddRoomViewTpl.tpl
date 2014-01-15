@@ -68,10 +68,22 @@
 												<div class="facility" id="facility-<%=facility.term_id %>">
 													<label for="checkbox2" class="checkbox checked">
 														<input type="checkbox" data-toggle="checkbox" checked="checked" name="facility[]"   value="<%=facility.name %>"   >
-														<span id="facLabel-<%=facility.term_id %>" facililtyname="<%=facility.name %>"  ><%=facility.name %></span>
+														<span id="facLabel-<%=facility.term_id %>" facililtyname="<%=facility.name %>"  ><%=facility.name %>
+														 
+														</span>
+														<span class='hidden inputEditFacility' > 
+															<form name='frm_editfacility' id='frmeditfacility-<%=facility.term_id %>'   > 
+																<input type='text' class='form-control input-sm'  
+																placeholder='Edit Facility' name='inputfacility-<%=facility.term_id %>' id='inputfacility-<%=facility.term_id %>' 
+																parsley-validation-minlength='0'  
+																value='<%=facility.name %>'   > 
+															</form>
+														</span>
+														 
+														
 													</label>
 													<div class="action">
-														<a href="javascript:void(0)" class="edit"  term-id="<%=facility.term_id %>">Edit</a>&nbsp;<a href="javascript:void(0)" class="delete" term-id="<%=facility.term_id %>">Delete</a>
+														<a href="javascript:void(0)" class="edit"  term-id="<%=facility.term_id %>">Edit</a>&nbsp;<a href="javascript:void(0)" class="cancel_editfacility hidden"  term-id="<%=facility.term_id %>">Cancel</a>&nbsp;<a href="javascript:void(0)" class="delete" term-id="<%=facility.term_id %>">Delete</a>
 													</div>
 												</div>
 												
@@ -308,11 +320,36 @@
 											
 											
 													<tbody id="blocktaxtype-<%=taxtype.id %>">
-														<td  id="block_edittaxtype-<%= taxtype.id %>"><%= taxtype.name %></td>
-														<td id="block_edittaxpercent-<%= taxtype.id %>" ><%= taxtype.percent %></td>
+														<td  id="block_edittaxtype-<%= taxtype.id %>">
+															<span class='lbl_tax'><%= taxtype.name %></span>
+															<div class='form-group hidden'> 
+																<div class=''>
+																	<input type='text' class='form-control' name='input_edittaxtype-<%=taxtype.id %>' id='input_edittaxtype-<%=taxtype.id %>' 
+																			placeholder='Service Tax' required parsley-trigger='blur' parsley-validation-minlength='0'
+																			parsley-required-message = 'Please enter tax type'   value='<%= taxtype.name %>'  />
+																	<div class='p-messages'></div>
+																</div>
+															 </div>	 				
+															
+														
+														</td>
+														<td id="block_edittaxpercent-<%= taxtype.id %>" >
+															<span class='lbl_tax'><%= taxtype.percent %></span>
+															<div class='form-group hidden'>  
+																<div class=''>
+																	<input type='text' class='form-control' name='input_edittaxprice- <%=taxtype.id %>'  id='input_edittaxprice-<%=taxtype.id %>'   
+																		placeholder='12.5%' required parsley-trigger='blur' parsley-validation-minlength='0' 
+																		parsley-required-message = 'Please enter percentage'   value='<%= taxtype.percent %>'  /> 
+																		<div class='p-messages'></div> 																
+																</div>
+															</div>
+															 
+														</td>
 														<td>
 															<a href="javascript:void(0)" class="edit-link edit-taxlink" taxtype-id="<%=taxtype.id %>" >
 															<span class="glyphicon glyphicon-pencil"></span> Edit</a>
+															<a href="javascript:void(0)" class="edit-link cancel-taxlink hidden" taxtype-id="<%=taxtype.id %>" >
+															<span class="glyphicon glyphicon-ban-circle"></span> Cancel</a>
 															<a href="javascript:void(0)" class="delete-link delete-taxlink"  taxtype-id="<%=taxtype.id %>" >
 															<span class="glyphicon glyphicon-trash"></span> Delete</a>
 														</td>
@@ -370,11 +407,42 @@
 											%>
 											
 														<tbody id="blockaddontype-<%=addontype.id %>">
-															<td id="block_editaddontype-<%= addontype.id %>"><%= addontype.label %></td>
-															<td id="block_editaddonprice-<%= addontype.id %>" ><%= addontype.price %></td>
+															<td id="block_editaddontype-<%= addontype.id %>">
+													
+																<span class="lbl_addon"><%= addontype.label %></span>
+																<div class='form-group hidden'>  
+														 			<div class=''>
+																		<input type='text' class='form-control' name='input_editaddontype-<%=addontype.id %>' id='input_editaddontype-<%=addontype.id %>' 
+																			placeholder='Scuba diving' required parsley-trigger='blur' parsley-validation-minlength='0'
+																			parsley-required-message = 'Please enter addon type'    value='<%= addontype.label %>'  />
+																			<div class='p-messages'></div>
+																	</div>
+																</div>
+															
+															
+															</td>
+															<td id="block_editaddonprice-<%= addontype.id %>" >
+																	<span class="lbl_addon"><%= addontype.price %></span>
+																	<div class='form-group hidden'> 
+																		<div class=''>
+																			<input type='text' class='form-control'  name='input_editaddonprice-<%=addontype.id %>'  id='input_editaddonprice-<%=addontype.id %>'
+																			placeholder='12.99' required parsley-trigger='blur' parsley-validation-minlength='0' 
+																			parsley-required-message = 'Please enter price'   value='<%= addontype.price %>'   /> 
+																			<div class='p-messages'></div>
+																		</div>
+																	</div> 
+																	
+															
+															
+															
+															</td>
 															<td>
-																<a href="javascript:void(0)" class="edit-link edit-addonlink" addontype-id="<%=addontype.id %>"   > <span class="glyphicon glyphicon-pencil"></span> Edit</a>
-																<a href="javascript:void(0)" class="delete-link delete-addonlink" addontype-id="<%=addontype.id %>"><span class="glyphicon glyphicon-trash"></span> Delete</a>
+																<a href="javascript:void(0)" class="edit-link edit-addonlink" addontype-id="<%=addontype.id %>"   > 
+																	<span class="glyphicon glyphicon-pencil"></span> Edit</a>
+																<a href="javascript:void(0)" class="edit-link cancel-addonlink hidden" addontype-id="<%=addontype.id %>">
+																	<span class="glyphicon glyphicon-ban-circle"></span> Cancel</a>
+																<a href="javascript:void(0)" class="delete-link delete-addonlink" addontype-id="<%=addontype.id %>">
+																	<span class="glyphicon glyphicon-trash"></span> Delete</a>
 															</td>
 														</tbody>	
 														 
@@ -423,34 +491,35 @@
 									</div>
 								</div>
 
-								<div class="form-group">
+								<div class="form-group checkin_span_block">
 									<div class="alert alert-success hidden status_message"></div>
 									<div class="col-sm-12">
-										<p class="checkinformat_text"> <% if(!_.isUndefined(roomdata.checkinformat)) {%> <%=roomdata.checkinformat %> <% } %></p>
+										<p class="checkinformat_text"> <% if(!_.isUndefined(roomdata.checkinformat)) {%> <%=roomdata.checkinformat %>-hour Format <% } %></p>
 										<div class="checkinformat_edit row hidden">
 											<div class="col-sm-2">
 												<label class="radio <% if(!_.isUndefined(roomdata.checkinformat)) { 
-												  if(roomdata.checkinformat=="12-hour Format") { %>  checked " <% } }%>">
-												  <input type="radio" name="checkin_format" value="12-hour Format" data-toggle="radio" 
+												  if(roomdata.checkinformat=="12") { %>  checked " <% } }%>">
+												  <input type="radio" name="checkin_format" value="12" data-toggle="radio" 
 												  <% if(!_.isUndefined(roomdata.checkinformat)) { 
-												  if(roomdata.checkinformat=="12-hour Format") { %>  checked="checked" <% } }%>>
+												  if(roomdata.checkinformat=="12") { %>  checked="checked" <% } }%>>
 												  12-hour Format
 												</label>
 												<span class="help-block">eg. 12:01 AM</span>
 											</div>
 											<div class="col-sm-2">
 												<label class="radio <% if(!_.isUndefined(roomdata.checkinformat)) { 
-												  if(roomdata.checkinformat=="24-hour Format") { %>  checked " <% } }%>">
-												  <input type="radio" name="checkin_format" value="24-hour Format" data-toggle="radio" 
+												  if(roomdata.checkinformat=="24") { %>  checked " <% } }%>">
+												  <input type="radio" name="checkin_format" value="24" data-toggle="radio" 
 												  <% if(!_.isUndefined(roomdata.checkinformat)) { 
-												  if(roomdata.checkinformat=="24-hour Format") { %>  checked="checked" <% } }%>>
+												  if(roomdata.checkinformat=="24") { %>  checked="checked" <% } }%>>
 												  24-hour Format
 												</label>
 												<span class="help-block">eg: 0:01</span>
 											</div>
 										</div>
-										<a class="edit-link edit-checkinformat" href="javascript:void(0)"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
+									<!-- 	<a class="edit-link edit-checkinformat" href="javascript:void(0)"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
 										<a class="delete-link delete-checkinformat hidden" href="javascript:void(0)"><span class="glyphicon glyphicon-trash"></span> Delete</a>
+								    -->
 									</div>
 								</div>
 								

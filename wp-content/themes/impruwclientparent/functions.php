@@ -10,6 +10,7 @@ require_once PARENTTHEMEPATH . 'includes/Underscore.php';
 require_once PARENTTHEMEPATH . 'elements/Element.php';
 require_once PARENTTHEMEPATH . 'includes/SiteModel.php';
 require_once PARENTTHEMEPATH . 'includes/UserModel.php';
+require_once PARENTTHEMEPATH . 'includes/RoomModel.php';
 require_once PARENTTHEMEPATH . 'includes/Media.php';
 
 
@@ -25,13 +26,13 @@ load_theme_textdomain( 'impruwclientparent' );
 
 /*--------------------------------------------------------------------------------------
 *
-* impruv_register_room_init
+* impruw_register_room_init
 *function to create a new post type called rooms
 *
 *-------------------------------------------------------------------------------------*/
 /* * **Register Room Taxonomy & Post Type*** */
 
-function impruv_register_room_init() {
+function impruw_register_room_init() {
     $url = get_template_directory_uri();
     $labels = array(
         'name' => 'Rooms',
@@ -62,14 +63,14 @@ function impruv_register_room_init() {
         'has_archive' => true,
         'hierarchical' => false,
         'menu_position' => null,
-        'menu_icon' => '' . $url . '/images/room.png',
+        //'menu_icon' => '' . $url . '/images/room.png',
         'supports' => array( 'title', 'editor', 'author', 'thumbnail', 'custom-fields' )
     );
 
-    register_post_type( 'impruv_room', $args );
+    register_post_type( 'impruw_room', $args );
 }
 
-add_action( 'init', 'impruv_register_room_init' );
+add_action( 'init', 'impruw_register_room_init' );
 
 
 
@@ -84,7 +85,7 @@ add_action( 'init', 'impruv_register_room_init' );
 
 function create_room_taxonomies_and_add_terms() {
     // Add new taxonomy, Types
-    register_taxonomy( 'impruv_room_facility', array() );
+    register_taxonomy( 'impruw_room_facility', array() );
     /* $facilities_labels = array(
         'name' => _x('Facilities', 'taxonomy general name'),
         'singular_name' => _x('Facility', 'taxonomy singular name'),
@@ -108,7 +109,7 @@ function create_room_taxonomies_and_add_terms() {
         'rewrite' => array('slug' => 'facility')
     );
 
-    register_taxonomy('impruv_room_facility', 'impruv_room', $tag_args);
+    register_taxonomy('impruw_room_facility', 'impruw_room', $tag_args);
 
     */
 
@@ -143,7 +144,7 @@ function create_room_taxonomies_and_add_terms() {
         'rewrite'               => array( 'slug' => 'facility' ),
     );
 
-    register_taxonomy( 'impruv_room_facility', 'impruv_room', $args );
+    register_taxonomy( 'impruw_room_facility', 'impruw_room', $args );
 
 
 
@@ -669,16 +670,19 @@ function add_new_room( $blog_id, $array, $tariff_array ) {
         'post_content'  => $array['post_content'],
         'post_status'   => 'publish',
         'post_author'   => $array['user_id'],
-        'post_type'     => 'impruv_room'
+        'post_type'     => 'impruw_room'
     );
     //print_r($array['terms']);exit;
     // Insert the post into the database
     $post_id = wp_insert_post( $my_post );
     update_post_meta( $post_id, 'inventory', $array['inventory'] );//adds thew inventory value to the room
-    // var_dump( wp_set_object_terms($post_id, $array['terms'], 'impruv_room_facility'));exit;;
-    wp_set_object_terms( $post_id, $array['terms'], 'impruv_room_facility' );
+    // var_dump( wp_set_object_terms($post_id, $array['terms'], 'impruw_room_facility'));exit;;
+    wp_set_object_terms( $post_id, $array['terms'], 'impruw_room_facility' );
     add_room_tariff( $post_id, $tariff_array );
     restore_current_blog();
+    
+    
+    return $post_id;//added on 14jan2014
 
 }
 
@@ -803,14 +807,12 @@ add_action('wp_ajax_nopriv_get_site_data','get_site_data');
  */
 function get_site_data_ajx() {
 
-
-
-    $site_id = $_GET['siteprofile_id'];
+    $site_id = $_GET['id'];
 
     $site_profile_details = get_site_data( $site_id );
 
     header( 'Content-Type: application/json' );
-    echo json_encode( array( 'code' => 'OK', 'siteProfileData'=> $site_profile_details ) );
+    echo json_encode( array( 'code' => 'OK', 'data'=> $site_profile_details ) );
     die();
 
 }
@@ -861,24 +863,17 @@ add_action( 'wp_ajax_nopriv_remove_business_logo', 'remove_business_logo' );
  * Type: Ajax call
  *
  */
-function save_site_data_ajx() {
+function update_site_data() {
 
-    $siteform_social   = array();
-    $siteform_business = array();
-    $siteform_businesslogo  = '' ;
+    if('POST' !== $_SERVER['REQUEST_METHOD'])
+        wp_send_json('Invalid request method');
 
-    $site_form_data = array();
+    $changes = $_POST['changes'];
 
-    $siteform_social =  serializedform_to_array( $_POST['siteprofile_social'] );
-    $siteform_business = serializedform_to_array( $_POST['siteprofile_business'] );
-	$siteform_businesslogo  = $_POST['siteprofile_businesslogo'] ;
-	
-    $site_form_data = array( 'business'=>$siteform_business, 'social'=>$siteform_social, 'businesslogo'=>$siteform_businesslogo );
-
-    if ( save_site_data( $site_form_data ) ) {
+    if ( save_site_data( $changes) ) {
 
         header( 'Content-Type: application/json' );
-        echo json_encode( array( 'code' => 'OK', 'site_data'=>array_merge( $siteform_social, $siteform_business ) ) );
+        echo json_encode( array( 'code' => 'OK') );
         die();
     }
     else {
@@ -889,8 +884,8 @@ function save_site_data_ajx() {
     }
 
 }
-add_action( 'wp_ajax_save_site_data_ajx', 'save_site_data_ajx' );
-add_action( 'wp_ajax_nopriv_save_site_data_ajx', 'save_site_data_ajx' );
+add_action( 'wp_ajax_update_site_data', 'update_site_data' );
+add_action( 'wp_ajax_nopriv_update_site_data', 'update_site_data' );
 
 
 
@@ -1313,11 +1308,11 @@ add_action( 'wp_ajax_nopriv_query_attachments', 'query_attachments' );
 
 
 /**
- * Function to fetch all room facilities
+ * Function to fetch all site facilities, addon types, date ranges & plans 
  */
 function fetch_all_room_facilities() {
 
-    $taxonomies= array( 'impruv_room_facility' );
+    $taxonomies= array( 'impruw_room_facility' );
     $room_facilities 	= get_terms( $taxonomies, array( 'hide_empty' => 0 ) );
 	$addons_types 		= fetch_all_addons();
 	$tax_types 			= fetch_all_tax_types();
@@ -1511,7 +1506,7 @@ function save_new_room_facility() {
 
     $new_term = $_POST['new_facility'];
 
-    $newfacililty_data = wp_insert_term( $new_term, 'impruv_room_facility', $args = array( 'hide_empty' => 0 ) ) ;
+    $newfacililty_data = wp_insert_term( $new_term, 'impruw_room_facility', $args = array( 'hide_empty' => 0 ) ) ;
 
 
 
@@ -1744,7 +1739,7 @@ function delete_room_facility() {
     $facility_id = $_POST['facility'];
 
 
-    $del_facililty_data = wp_delete_term( $facility_id , 'impruv_room_facility', $args = array( 'hide_empty' => 0 ) );
+    $del_facililty_data = wp_delete_term( $facility_id , 'impruw_room_facility', $args = array( 'hide_empty' => 0 ) );
 
     //var_dump($del_facililty_data);
 
@@ -1836,7 +1831,7 @@ function update_room_facility() {
 
     $facility_slug = str_replace( " ", "-", $facility_name );
 
-    $facility_data = wp_update_term( $facility_id, 'impruv_room_facility', array(
+    $facility_data = wp_update_term( $facility_id, 'impruw_room_facility', array(
             'name' => $facility_name,
             'slug' => $facility_slug ) );
 
@@ -1857,10 +1852,14 @@ add_action( 'wp_ajax_nopriv_update_room_facility', 'update_room_facility' );
 
 function update_checkintime(){
 	$checkintime = $_POST['checkintime'];
+	$checkin_format = $_POST['checkinformat'];
 	
-	$result = update_option('checkin-time', $checkintime);
-	if($result)
-		wp_send_json( array( 'code' => 'OK', 'msg'=>_('Check-in time updated successfully'), 'checkinTime'=>$checkintime ) );
+	$result_checkintime 	 = update_option('checkin-time', $checkintime);
+	
+	$result_checkinformat	 = update_option('checkin-format', $checkin_format);
+	
+	if($result_checkinformat == true || $result_checkintime == true)
+		wp_send_json( array( 'code' => 'OK', 'msg'=>_('Check-in time updated successfully'), 'checkinTime'=>$checkintime, 'checkinformat'=>$checkin_format  ) );
 	else 	
 	 	wp_send_json( array( 'code' => 'ERROR', 'msg' => _('Error updating check-in time') ) );
 }
@@ -2317,19 +2316,43 @@ function add_new_room_ajx() {
 
     $tariff_array = array( array( 'start_date'=>date( "Y/m/d" ), 'end_date'=>date( "Y/m/d" ), 'attributes'=>$attribute_array, 'add_ons'=>$addons_array ) );
 
-    add_new_room( get_current_blog_id(), $array, $tariff_array ); //need to handle error ; no return type
+    $newroom_id = add_new_room( get_current_blog_id(), $array, $tariff_array ); //need to handle error ; no return type
 
 	update_option('checkin-format', $checkin_format);
 	update_option('checkin-time', $checkin_time);
 	update_option('additional-policies', $additional_policies);
 	update_option('tax-option',$tax_option);
 	
-    wp_send_json( array( 'code' => 'OK', 'msg'=>_('New Room added successfully') ) );
+	$newroom = new RoomModel($newroom_id); 
+	$newroomdata = $newroom->get_all_roomdata();
+	
+    wp_send_json( array( 'code' => 'OK', 'msg'=>_('New Room added successfully'),'roomdata'=> $newroomdata ) );
 
 }
 add_action( 'wp_ajax_add_new_room_ajx', 'add_new_room_ajx' );
 add_action( 'wp_ajax_nopriv_add_new_room_ajx', 'add_new_room_ajx' );
 
+
+
+
+/* Function to get room list
+ */
+function get_room_list_ajx(){
+	 
+	global $wpdb;
+	$rooms_list = get_posts( array( 'post_type' => 'impruw_room', 'post_status' => 'publish','posts_per_page'   => -1 ) );
+	 
+	foreach($rooms_list as $room){
+		
+		$room = new RoomModel($room);
+				 				 
+		$room_data[] = $room->get_all_roomdata(); 					  
+	}	 
+	 wp_send_json( array( 'code' => 'OK' , 'data' =>$room_data ) );
+	
+}
+add_action( 'wp_ajax_get_room_list_ajx', 'get_room_list_ajx' );
+add_action( 'wp_ajax_nopriv_get_room_list_ajx', 'get_room_list_ajx' );
 
 
 /**
@@ -2354,7 +2377,7 @@ function get_all_menu_pages(){
         }
     }
 
-    $args = array('post_type' => 'impruv_room','posts_per_page' => -1);
+    $args = array('post_type' => 'impruw_room','posts_per_page' => -1);
     $rooms  = new WP_query($args);
 
     if($rooms->have_posts()){
@@ -2395,7 +2418,7 @@ function save_initial_layout(){
 
     $theme_id = $_POST['forTheme'];
     $page_id     = $_POST['forPage'];  
-    $json     = $_POST['json'];
+    $json     = isset($_POST['json']) ? $_POST['json'] : array();
 
     //get header section json
     $header = isset($json['header']) && is_array($json['header']) ? $json['header'] : false;
@@ -2408,6 +2431,8 @@ function save_initial_layout(){
 
     if(is_array($header))
         update_option('theme-header',$header);
+    else
+        delete_option('theme-header');
     
     if(is_array($pagejson))
         update_post_meta($page_id, 'page-json', $pagejson);
@@ -2416,7 +2441,8 @@ function save_initial_layout(){
 
     if(is_array($footer))
         update_option('theme-footer',$footer);
-    
+    else
+        delete_option('theme-footer');
     
     wp_send_json(array('code' => 'OK'));
 
@@ -2490,6 +2516,26 @@ function is_single_room_edit(){
 
     $post = get_post($post_id);
 
-    return $post->post_type === 'impruv_room';
+    return $post->post_type === 'impruw_room';
 
 }
+
+/**
+ * Returns the image URL
+ * @return [type] [description]
+ */
+function get_image_url(){
+
+    $attId = $_GET['attId'];
+    $size  = $_GET['size'];
+
+    $path = wp_get_attachment_image_src($attId, $size);
+
+    if($path === false)
+        wp_send_json(array('code' => 'ERROR'));
+    else
+        wp_send_json(array('code' => 'OK', 'url' => $path[0]));
+
+}
+add_action('wp_ajax_get_image_url', 'get_image_url');
+add_action('wp_ajax_nopriv_get_image_url', 'get_image_url');

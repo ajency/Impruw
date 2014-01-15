@@ -17,9 +17,10 @@ define(['backbone', 'tpl!builder/templates/modal/media/singlemedia.tpl',
             template: template,
 
             events: {
-                'click .save-image-details': 'saveImageDetails',
-                'click .cancel-image-details': 'cancelImageDetails',
-                'click .select-image': 'selectImage'
+                'click .save-image-details'     : 'saveImageDetails',
+                'click .delete-image'           : 'deleteImageDetails',
+                'click .cancel-image-details'   : 'cancelImageDetails',
+                'click .select-image'           : 'selectImage'
             },
 
             /**
@@ -34,8 +35,7 @@ define(['backbone', 'tpl!builder/templates/modal/media/singlemedia.tpl',
 
                 this.model = args.model;
 
-                this.parent = args.parent;
-
+                this.$el.attr('id', 'media-'+this.model.get('id'));
 
             },
 
@@ -45,7 +45,7 @@ define(['backbone', 'tpl!builder/templates/modal/media/singlemedia.tpl',
                 
                     media: this.model,
 
-                    type : _.isUndefined(this.parent.type) ? 'modal' : this.parent.type
+                    type : 'modal'
                 
                 });
 
@@ -68,6 +68,22 @@ define(['backbone', 'tpl!builder/templates/modal/media/singlemedia.tpl',
             
                 $(evt.target).closest('.panel-collapse').prev().find('a[data-toggle="collapse"]').click();
             
+            },
+
+            /**
+             * Delete the image
+             * @return {[type]} [description]
+             */
+            deleteImageDetails : function(){
+
+                if(!confirm('Are you sure?'))
+                    return;
+
+                 this.model.destroy({
+                    success: _.bind(function(model, response){
+                        getAppInstance().mediaCollection.remove(model);
+                    }, this)
+                });
             },
 
             /**
@@ -97,23 +113,31 @@ define(['backbone', 'tpl!builder/templates/modal/media/singlemedia.tpl',
                 if (!_.isObject(formData))
                     return;
 
-                formData['action'] = 'impruw_media_update';
-
                 //remove error message  if any
                 $(evt.target).parent().find('span.error-span').remove();
 
-                $.post(AJAXURL,
-                    formData,
-                    function(response) {
+                var saveSuccessFn = _.bind(function(){
+                    this.cancelImageDetails(evt);
+                    this.$el.find('.aj-imp-image-item .imgname').text(formData['title']);
+                }, this);
 
-                        if (response.code === 'OK') {
-                            self.cancelImageDetails(evt);
-                            self.$el.find('.aj-imp-image-item .imgname').text(formData['image-title']);
-                        } else if (response.code === 'ERROR') {
-                            $(evt.target).before('<span class="error-span">' + response.message + '</span>');
-                        }
 
-                    }, 'json');
+                this.model.save(formData,{
+                    success : saveSuccessFn
+                });
+
+                // $.post(AJAXURL,
+                //     formData,
+                //     function(response) {
+
+                //         if (response.code === 'OK') {
+                //             self.cancelImageDetails(evt);
+                //             self.$el.find('.aj-imp-image-item .imgname').text(formData['image-title']);
+                //         } else if (response.code === 'ERROR') {
+                //             $(evt.target).before('<span class="error-span">' + response.message + '</span>');
+                //         }
+
+                //     }, 'json');
 
             }
 

@@ -19,11 +19,11 @@
             </div>
 			<div class="imgactions col-sm-3">
                <button class="btn" title="Edit Image"><span class="glyphicon glyphicon-edit"></span><a data-toggle="collapse" data-parent="#image-accordion" href="#image-edit-<%= media.get('id') %>">Edit Image</a></button>
-				<button class="btn" title="Delete Image"><span class="glyphicon glyphicon-remove-sign"></span></button>
+				<button class="btn delete-image" title="Delete Image"><span class="glyphicon glyphicon-remove-sign"></span></button>
 			</div>
 		</div>
 	  </a>
-  </div>
+</div>
 <div id="image-edit-<%= media.get('id') %>" class="panel-collapse collapse" style="height: auto;">
 	<div class="panel-body">
 	    <div class="aj-imp-edit-image well">
@@ -34,7 +34,7 @@
                             <img src="<%= media.get('sizes').thumbnail.url %>" class="thumbnail-img img-responsive">
                             <div class="aj-imp-crop-link-overlay">
                                 <a href="#">
-                                        <span class="glyphicon glyphicon-edit"></span> Edit Image
+                                    <span class="glyphicon glyphicon-edit"></span> Edit Image
                                 </a>
                             </div>
                         </div>
@@ -61,32 +61,31 @@
                     <div class="aj-imp-img-form col-sm-8">
                         <div class="row">
                             <div class="col-sm-6">
-                                    <input type="text" value="<%= media.get('title') %>" name="image-title" class="form-control" placeholder="Title">
+                                    <input type="text" value="<%= media.get('title') %>" name="title" class="form-control" placeholder="Title">
                             </div>
                             <div class="col-sm-6">
-                                    <input type="text" value="<%= media.get('link') %>" name="image-link" class="form-control" placeholder="Link">
+                                    <input type="text" value="<%= media.get('link') %>" name="link" class="form-control" placeholder="Link">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-12">
-                                <input type="text" value="<%= media.get('alt') %>" class="form-control" name="image-alt" placeholder="Alt Text">
+                                <input type="text" value="<%= media.get('alt') %>" class="form-control" name="alt" placeholder="Alt Text">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-12">
-                                    <textarea class="form-control"= name="image-caption" placeholder="Caption"><%= media.get('caption') %></textarea>
+                                    <input class="form-control" name="caption" placeholder="Caption" value="<%= media.get('caption') %>" />
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-12">
-                                    <textarea class="form-control"= name="image-description" placeholder="Description"><%= media.get('description') %></textarea>
+                                    <textarea class="form-control" name="description" placeholder="Description"><%= media.get('description') %></textarea>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="aj-imp-img-save">
-                	<input type="hidden" id="media-id" name="media-id" value="<%= media.get('id') %>"/>
-                    <% if(type !== 'slider'){ %>
+                	<% if(type !== 'slider'){ %>
                      <button class="btn select-image" title="Select" type="button"><span class="glyphicon"></span> Select</button>
                     <% } %>
                     <button type="button" class="btn btn-primary save-image-details">Save Details</button>

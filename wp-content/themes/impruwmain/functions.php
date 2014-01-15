@@ -3,7 +3,7 @@
 File Name: functions.php
 Description: This file has a list of the following functions used in the theme
 
-1)  impruv_register_email_init - function to create a new post type called emails
+1)  impruw_register_email_init - function to create a new post type called emails
 2)  create_email_taxonomies_and_add_terms - function to create taxonomies under post type emails and also creates immediate, batch and marketing terms under email_type
 3)  change_administrator_role_name - Function to rename the Administrator role to Site Owner.
 4) impruw_add_user_roles_post_box - Function to add the user roles meta box to post type imruv_email.
@@ -24,13 +24,13 @@ add_theme_support( 'post-thumbnails' );
 show_admin_bar(false);
 /*--------------------------------------------------------------------------------------
 *
-* impruv_register_email_init
+* impruw_register_email_init
 *function to create a new post type called emails
 *
 *-------------------------------------------------------------------------------------*/
 /* * **Register Email Taxonomy & Post Type*** */
 
-function impruv_register_email_init() {
+function impruw_register_email_init() {
     
     $url = get_template_directory_uri();
 
@@ -67,10 +67,10 @@ function impruv_register_email_init() {
         'supports' => array( 'title', 'editor', 'author', 'thumbnail', 'custom-fields' )
     );
 
-    register_post_type( 'impruv_email', $args );
+    register_post_type( 'impruw_email', $args );
 }
 
-add_action( 'init', 'impruv_register_email_init' );
+add_action( 'init', 'impruw_register_email_init' );
 
 
 
@@ -108,7 +108,7 @@ function create_email_taxonomies_and_add_terms() {
         'rewrite' => array( 'slug' => 'type' )
     );
 
-    register_taxonomy( 'impruv_email_type', array( 'impruv_email' ), $tag_args );
+    register_taxonomy( 'impruw_email_type', array( 'impruw_email' ), $tag_args );
 
     // Add new taxonomy, Tags
     $tag_labels = array(
@@ -134,12 +134,12 @@ function create_email_taxonomies_and_add_terms() {
         'rewrite' => array( 'slug' => 'tag' )
     );
 
-    register_taxonomy( 'impruv_email_tag', array( 'impruv_email' ), $tag_args );
+    register_taxonomy( 'impruw_email_tag', array( 'impruw_email' ), $tag_args );
 
     //add term Snippet under taxonomy Type
     $slug = sanitize_title( 'snippet' );
 
-    $term_id = wp_insert_term( 'snippet', 'impruv_email_type', array(
+    $term_id = wp_insert_term( 'snippet', 'impruw_email_type', array(
             'description' => 'Snippet Type',
             'slug' => $slug,
             'parent' => 0,
@@ -147,19 +147,19 @@ function create_email_taxonomies_and_add_terms() {
 
     //add term Email Type under taxonomy Type
     $slug = sanitize_title( 'email_type' );
-    $term_id = wp_insert_term( 'email_type', 'impruv_email_type', array(
+    $term_id = wp_insert_term( 'email_type', 'impruw_email_type', array(
             'description' => 'Email Type',
             'slug' => $slug,
             'parent' => 0,
         ) );
 
 
-    $email_type_term = get_term_by( 'slug', 'email_type', 'impruv_email_type' );
+    $email_type_term = get_term_by( 'slug', 'email_type', 'impruw_email_type' );
     $email_type_term_id = $email_type_term->term_id;//getting the id of term email_type
 
     //add term Immediate under term  Email type
     $slug = sanitize_title( 'immediate' );
-    $term_id = wp_insert_term( 'immediate', 'impruv_email_type', array(
+    $term_id = wp_insert_term( 'immediate', 'impruw_email_type', array(
             'description' => 'Immediate',
             'slug' => $slug,
             'parent' => $email_type_term_id,
@@ -167,7 +167,7 @@ function create_email_taxonomies_and_add_terms() {
 
     //add term Batch under term  Email type
     $slug = sanitize_title( 'batch' );
-    $term_id = wp_insert_term( 'batch', 'impruv_email_type', array(
+    $term_id = wp_insert_term( 'batch', 'impruw_email_type', array(
             'description' => 'Batch',
             'slug' => $slug,
             'parent' => $email_type_term_id,
@@ -175,7 +175,7 @@ function create_email_taxonomies_and_add_terms() {
 
     //add term Marketing under term  Email type
     $slug = sanitize_title( 'marketing' );
-    $term_id = wp_insert_term( 'marketing', 'impruv_email_type', array(
+    $term_id = wp_insert_term( 'marketing', 'impruw_email_type', array(
             'description' => 'Marketing',
             'slug' => $slug,
             'parent' => $email_type_term_id,
@@ -211,7 +211,7 @@ load_theme_textdomain( 'impruwmain' );
  */
 function impruw_add_user_roles_post_box() {
 
-    add_meta_box( 'impruw-set-email-user-role', "User Roles", 'impruw_set_email_user_role', 'impruv_email', 'normal', 'low' );
+    add_meta_box( 'impruw-set-email-user-role', "User Roles", 'impruw_set_email_user_role', 'impruw_email', 'normal', 'low' );
 }
 add_action( 'add_meta_boxes', 'impruw_add_user_roles_post_box' );
 
@@ -266,7 +266,7 @@ function impruw_add_user_role_to_email( $post_id ) {
     if ( !isset( $_POST['impruw_set_user_role_post_nounce'] ) || !wp_verify_nonce( $_POST['impruw_set_user_role_post_nounce'], 'impruw_set_user_role_post_nounce' ) )
         return;
 
-    if ( $_POST['post_type'] == "impruv_email" ) {
+    if ( $_POST['post_type'] == "impruw_email" ) {
         $user_roles_array = array();
         foreach ( $_POST['impruw_set_user_role_post'] as $checkbox ) {
             $user_roles_array[] = $checkbox;
@@ -441,3 +441,134 @@ function get_all_menu_pages(){
 
 }
 
+/****SHORTCODE for CONTACT PAGE****/
+function impruwcontact_get_the_ip() {
+    if (isset($_SERVER["HTTP_X_FORWARDED_FOR"])) {
+        return $_SERVER["HTTP_X_FORWARDED_FOR"];
+    }
+    elseif (isset($_SERVER["HTTP_CLIENT_IP"])) {
+        return $_SERVER["HTTP_CLIENT_IP"];
+    }
+    else {
+        return $_SERVER["REMOTE_ADDR"];
+    }
+}
+
+function impruw_contact_form_sc( $atts ) {
+ 
+    extract( shortcode_atts( array(
+        // if you don't provide an e-mail address, the shortcode will pick the e-mail address of the admin:
+        "email" => get_bloginfo( 'admin_email' ),
+        "subject" => "",
+        "label_name" => "Your Name",
+        "label_email" => "Your E-mail Address",
+        "label_subject" => "Subject",
+        "label_message" => "Your Message",
+        "label_submit" => "Submit",
+        // the error message when at least one of the required fields are empty:
+        "error_empty" => "<div class='alert alert-error'>Please fill in all the required fields.</div>",
+        // the error message when the e-mail address is not valid:
+        "error_noemail" => "<div class='alert alert-error'>Please enter a valid e-mail address.</div>",
+        // and the success message when the e-mail is sent:
+        "success" => "<div class='alert alert-success'>Thanks for your e-mail! We'll get back to you as soon as we can.</div>"
+    ), $atts ) );
+
+    // if the <form> element is POSTed, run the following code
+    if ( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
+        $error = false;
+        // set the "required fields" to check
+        $required_fields = array( "your_name", "email", "message", "subject" );
+     
+        // this part fetches everything that has been POSTed, sanitizes them and lets us use them as $form_data['subject']
+        foreach ( $_POST as $field => $value ) {
+            if ( get_magic_quotes_gpc() ) {
+                $value = stripslashes( $value );
+            }
+            $form_data[$field] = strip_tags( $value );
+        }
+     
+        // if the required fields are empty, switch $error to TRUE and set the result text to the shortcode attribute named 'error_empty'
+        foreach ( $required_fields as $required_field ) {
+            $value = trim( $form_data[$required_field] );
+            if ( empty( $value ) ) {
+                $error = true;
+                $result = $error_empty;
+            }
+        }
+     
+        // and if the e-mail is not valid, switch $error to TRUE and set the result text to the shortcode attribute named 'error_noemail'
+        if ( ! is_email( $form_data['email'] ) ) {
+            $error = true;
+            $result = $error_noemail;
+        }
+     
+        if ( $error == false ) {
+            $email_subject = "[" . get_bloginfo( 'name' ) . "] " . $form_data['subject'];
+            $email_message = $form_data['message'] . "\n\nIP: " . impruwcontact_get_the_ip();
+            $headers  = "From: " . $form_data['name'] . " <" . $form_data['email'] . ">\n";
+            $headers .= "Content-Type: text/plain; charset=UTF-8\n";
+            $headers .= "Content-Transfer-Encoding: 8bit\n";
+            wp_mail( $email, $email_subject, $email_message, $headers );
+            $result = $success;
+            $sent = true;
+        }
+        // but if $error is still FALSE, put together the POSTed variables and send the e-mail!
+        if ( $error == false ) {
+            // get the website's name and puts it in front of the subject
+            $email_subject = "[" . get_bloginfo( 'name' ) . "] " . $form_data['subject'];
+            // get the message from the form and add the IP address of the user below it
+            $email_message = $form_data['message'] . "\n\nIP: " . impruwcontact_get_the_ip();
+            // set the e-mail headers with the user's name, e-mail address and character encoding
+            $headers  = "From: " . $form_data['your_name'] . " <" . $form_data['email'] . ">\n";
+            $headers .= "Content-Type: text/plain; charset=UTF-8\n";
+            $headers .= "Content-Transfer-Encoding: 8bit\n";
+            // send the e-mail with the shortcode attribute named 'email' and the POSTed data
+            wp_mail( $email, $email_subject, $email_message, $headers );
+            // and set the result text to the shortcode attribute named 'success'
+            $result = $success;
+            // ...and switch the $sent variable to TRUE
+            $sent = true;
+        }
+    }
+
+    // if there's no $result text (meaning there's no error or success, meaning the user just opened the page and did nothing) there's no need to show the $info variable
+    if ( $result != "" ) {
+        $info = '<div class="info">' . $result . '</div>';
+    }
+    // anyways, let's build the form! (remember that we're using shortcode attributes as variables with their names)
+    $email_form = '<form class="contact-form form-horizontal clearfix" method="post" action="' . get_permalink() . '">
+        <div class="form-group">
+            <label for="cf_name" class="col-sm-3 control-label">' . $label_name . '</label>
+            <div class="col-sm-7 col-sm-offset-3">
+                <input type="text" name="your_name" id="cf_name" class="form-control" placeholder="Your Full Name" value="' . $form_data['your_name'] . '" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="cf_email" class="col-sm-3 control-label">' . $label_email . '</label>
+            <div class="col-sm-7 col-sm-offset-3">
+                <input type="text" name="email" id="cf_email" class="form-control" placeholder="Your Email Address" value="' . $form_data['email'] . '" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="cf_subject" class="col-sm-3 control-label">' . $label_subject . '</label>
+            <div class="col-sm-7 col-sm-offset-3">
+                <input type="text" name="subject" id="cf_subject" class="form-control" placeholder="The Subject of your enquiry" value="' . $subject . $form_data['subject'] . '" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="cf_message" class="col-sm-3 control-label">' . $label_message . '</label>
+            <div class="col-sm-7 col-sm-offset-3">
+                <textarea name="message" id="cf_message" class="form-control" placeholder="Your Message" rows="3">' . $form_data['message'] . '</textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-7 col-sm-offset-3">
+                <button type="submit" name="send" id="cf_send" class="btn aj-imp-submit">' . $label_submit . '</button>
+            </div>
+        </div>
+    </form>';
+
+    return $info . $email_form;
+ 
+}
+add_shortcode( 'contact', 'impruw_contact_form_sc' );

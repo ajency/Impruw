@@ -3,8 +3,12 @@
  * This is the main router for the dashboard
  */
  
-define(['underscore', 'jquery', 'backbone', 'mainview', 'bootstrapselect','checkbox'],
+define(['underscore', 'jquery', 'backbone', 'mainview', 'bootstrapselect','checkbox','string'],
 		function( _ , $, Backbone, DashboardMainView){
+
+
+			//attach underscore string
+        	_.mixin(_.str.exports());
 			
 			/**
 			 * 
@@ -21,59 +25,35 @@ define(['underscore', 'jquery', 'backbone', 'mainview', 'bootstrapselect','check
 					''	 			: 'index',
 					'site-profile' 	: 'siteProfile',
 					'user-profile'	: 'userProfile',
-					'add-room'		: 'addRoom'
+					'add-room'		: 'addRoom',
+					'room-list'		: 'roomList',
+					'edit-room'		: 'editRoom'
 				},
 
 				index : function(){
-					//this.navigate('site-profile',{trigger : true});
-					var  self = this;
-					self.mainView.show('dashboarddefaultview');
-					 	
-					
+					this.mainView.show('dashboardview');
 				},
 				
 				addRoom :function(){
-					var self =this;
-					self.mainView.show('addroomview');
-					
+					this.mainView.show('addroomview');
+				},
+				
+				roomList :function(){	
+					this.mainView.show('roomlistview');	
 				},
 				
 				userProfile : function(){
-				 
-					var self =this;
-					window.impruwUser.getUserProfile({
-						success : function() {
-						 
-							self.mainView.show('userprofileview');
-							
-						},
-						error : function (){
-
-							self.mainView.show('failed');
-							
-						}
-					})
-					
+				 	this.mainView.show('userprofileview');					
 				},
 				
 				siteProfile : function(){
-  
-					var  self = this;
-					
-					window.impruwSite.getSiteProfile({
-						success:function(){
-								
-							self.mainView.show('siteprofileview');
-							
-						},
-						error:function(){
-							console.log("Error fetching Site profile data");
-							self.mainView.show('failed');
-						}
-					});
-					
+  					this.mainView.show('siteprofileview');
 				},
 				
+				/**
+				 * Adjust the right section height
+				 * @return {[type]} [description]
+				 */
 				adjustRightColumnHeight: function(){
 					
 					$(".aj-imp-right").css('min-height',$('.aj-imp-left').height());
