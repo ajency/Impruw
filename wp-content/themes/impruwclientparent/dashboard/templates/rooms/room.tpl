@@ -2,7 +2,7 @@
 	<td>
 		<div class="room-details">
 			<h4><%=room.get('roomType')%></h4>
-			<p class="desc"><%=room.get('roomDesc')    %> </p>
+			<p class="desc"><%= _(room.get('roomDesc')).prune(150) %> </p>
 			<div class="row info-strip">
 				<div class="col-md-4 strip">
 					<span><%=room.get('inventory')    %></span> Rooms
