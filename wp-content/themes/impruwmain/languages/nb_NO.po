@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: im\n"
-"POT-Creation-Date: 2014-01-15 15:13+0530\n"
-"PO-Revision-Date: 2014-01-15 15:14+0530\n"
+"POT-Creation-Date: 2014-01-15 15:18+0530\n"
+"PO-Revision-Date: 2014-01-15 15:18+0530\n"
 "Last-Translator: Vanessa <vanessa.pinto2609@gmail.com>\n"
 "Language-Team: a <parag@ajency.in>\n"
 "Language: nb\n"
@@ -92,15 +92,57 @@ msgstr "New Tag_n"
 msgid "Tag"
 msgstr "Tag_n"
 
+#: ../../impruwmain/page-contact.php:12
+msgid "Contact Us"
+msgstr "Contact Us_n"
+
+#: ../../impruwmain/page-contact.php:12 ../../impruwmain/page-login.php:12
+#: ../../impruwmain/page-register.php:12
+#: ../../impruwmain/page-user-activation.php:76
+msgid "Impruw"
+msgstr "Impruw_n"
+
+#: ../../impruwmain/page-contact.php:14
+msgid "Got a query? Get in touch!"
+msgstr "Got a query? Get in touch!_n"
+
+#: ../../impruwmain/page-contact.php:34
+msgid "Registered Address"
+msgstr "Registered Address_n"
+
+#: ../../impruwmain/page-contact.php:38
+msgid "Impruw Pvt. Ltd."
+msgstr "Impruw Pvt. Ltd._n"
+
+#: ../../impruwmain/page-contact.php:40
+msgid "Leilighet 425"
+msgstr ""
+
+#: ../../impruwmain/page-contact.php:41
+msgid "Trondheim"
+msgstr ""
+
+#: ../../impruwmain/page-contact.php:42
+#, fuzzy
+msgid "Norway"
+msgstr "Norwegian_n"
+
+#: ../../impruwmain/page-contact.php:43
+msgid "NO-7321"
+msgstr ""
+
+#: ../../impruwmain/page-contact.php:48
+msgid "Phone"
+msgstr ""
+
+#: ../../impruwmain/page-contact.php:52
+msgid "+47 - 12 34 56 78"
+msgstr ""
+
 #: ../../impruwmain/page-login.php:12 ../../impruwmain/page-login.php:46
 #, fuzzy
 msgid "Sign in"
 msgstr "Sign Up_n"
-
-#: ../../impruwmain/page-login.php:12 ../../impruwmain/page-register.php:12
-#: ../../impruwmain/page-user-activation.php:76
-msgid "Impruw"
-msgstr "Impruw_n"
 
 #: ../../impruwmain/page-login.php:14
 msgid "Creating professional websites is really simple"
@@ -148,7 +190,7 @@ msgstr "First Name Last Name_n"
 
 #: ../../impruwmain/page-register.php:35
 msgid "Enter your first name and last name."
-msgstr ""
+msgstr "Enter your first name and last name._n"
 
 #: ../../impruwmain/page-register.php:36
 #, fuzzy
@@ -317,11 +359,11 @@ msgstr ""
 msgid "Still don't see it? <a href='"
 msgstr "Still don't see it?_n"
 
-#: ../../impruwmain/single-impruw_email.php:20
+#: ../../impruwmain/single-impruv_email.php:20
 msgid "Pages:"
 msgstr "Pages:_n"
 
-#: ../../impruwmain/single-impruw_email.php:24
+#: ../../impruwmain/single-impruv_email.php:24
 msgid "Edit"
 msgstr "Edit_n"
 
