@@ -211,6 +211,7 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                 if ($(pcontent).find('input[name="isDraggable"]').length > 0)
                     element.isDraggable = true;
 
+                $(evt.target).after('<span><small>Saved</small></span>');
             },
 
             /**

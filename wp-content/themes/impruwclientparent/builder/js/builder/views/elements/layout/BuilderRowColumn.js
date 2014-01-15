@@ -29,7 +29,7 @@ define(['builderelement', 'global'],
 
             //register events
             events: {
-                'contextmenu': 'showContextMenu',
+                'contextmenu'                       : 'showContextMenu',
                 'click > .popover .updateProperties': 'updateProperties'
             },
 
