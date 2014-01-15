@@ -63,7 +63,7 @@ define(['modal', 'tpl!templates/modal/media/mediamanager.tpl',
                 this.$progressBar = this.$el.find('#progress');
 
                 //check if app media collection property is set
-                if(appHasProperty('mediaCollection'))
+                if(!appHasProperty('mediaCollection'))
                     getAppInstance().mediaCollection = new MediaCollection();
 
                 
