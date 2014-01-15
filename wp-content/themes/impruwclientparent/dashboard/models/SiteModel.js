@@ -36,7 +36,7 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 					// options.attrs is for update action
                     options.attrs = _.extend( options.attrs || {}, {
                         action 	:  'update_site_data',
-                        id 		:  this.get('id'),
+                        id 		:  this.get('id')
                     });
 
                     // Record the values of the changed attributes.
@@ -79,11 +79,11 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
                 			this.trigger(method + '-success', response);
                 		}, this);
 
-			var doneFn = _.bind(function(error) {
+			var failFn = _.bind(function(error) {
                 			this.trigger(method + '-error', error);
                 		}, this);
 
-            var doneFn = _.bind(function() {
+            var alwaysFn = _.bind(function() {
                 			this.trigger(method + '-always');
                 		}, this);
 
@@ -91,7 +91,7 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
                 	url: this.url(),
                 	type: 'POST',
                 	dataType: 'json',
-                	data: options.attrs,
+                	data: options.attrs
                 })
                 .done(doneFn)
                 .fail(failFn)
