@@ -1,7 +1,7 @@
 /**
  *  Add Tax .js *  
  */
-define(['views/modals/Modal', 'text!templates/modal/AddPlan.tpl'], 
+define(['modal', 'tpl!templates/modal/AddPlan.tpl'], 
       function(Modal, template) {
 
 
@@ -21,14 +21,14 @@ define(['views/modals/Modal', 'text!templates/modal/AddPlan.tpl'],
              */
             initialize: function(args) {
 
-                var html = _.template(this.outerTemplate, {
+                var html = this.outerTemplate({
                     title: 'Add Plan'
                 });
                 
                 this.$el.html(html);
                 
                 //add markup
-                var h = _.template(this.template,{});
+                var h =  this.template({});
                 
                this.$el.find('.modal-content').append(h);
                 

@@ -1,7 +1,7 @@
 /**
  *  Add Tax .js *  
  */
-define(['views/modals/Modal', 'text!templates/modal/AddTax.tpl'], 
+define(['modal', 'tpl!templates/modal/AddTax.tpl'], 
       function(Modal, template) {
 
 
@@ -21,14 +21,14 @@ define(['views/modals/Modal', 'text!templates/modal/AddTax.tpl'],
              */
             initialize: function(args) {
 
-                var html = _.template(this.outerTemplate, {
+                var html = this.outerTemplate({
                     title: 'Add Tax'
                 });
                 
                 this.$el.html(html);
                 
                 //add markup
-                var h = _.template(this.template,{});
+                var h =  this.template({});
                 
                 this.$el.find('.modal-content').append(h);
                 
@@ -85,7 +85,7 @@ define(['views/modals/Modal', 'text!templates/modal/AddTax.tpl'],
     								}
     						
     							});	
-    		},
+    		} 
             
         });
 

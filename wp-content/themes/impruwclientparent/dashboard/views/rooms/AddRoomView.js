@@ -4,8 +4,8 @@
  */
 
 define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
-		'text!templates/siteprofile/AddRoomViewTpl.tpl','lib/parsley/parsley','radio','jqueryui' ], 
-      function(_, $, Backbone, RoomModel, RoomCollection, AddRoomViewTpl,parsley,radio,jqueryui) {
+		'text!templates/siteprofile/AddRoomViewTpl.tpl','jqueryui','parsley','radio' ], 
+      function(_, $, Backbone, RoomModel, RoomCollection, AddRoomViewTpl,jqueryui) {
 
 	var AddRoomView = Backbone.View.extend({
 
@@ -271,10 +271,20 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 										$('#new_facilityname').val()+'"  >'
 										+$('#new_facilityname').val()
 										+'</span>'
+										+'<span class="hidden inputEditFacility" > '
+										+'	<form name="frm_editfacility" id="frmeditfacility-'+response.facililty.term_id+'"   > '
+							 			+'		<input type="text" class="form-control input-sm"  '
+							 			+'				placeholder="Edit Facility" name="inputfacility-'+response.facililty.term_id+'" id="inputfacility-'+response.facililty.term_id+'"' 
+							 			+'				parsley-validation-minlength="0" '
+							 			+'				value="'+$('#new_facilityname').val()+'"   >'
+							 			+'	</form>'
+							 			+'</span>'
+										
 										+'</label>'
 										+'<div class="action">'
 										+'<a href="javascript:void(0)" class="edit"  term-id="'+
-										response.facililty.term_id+'">Edit</a>&nbsp;<a href="javascript:void(0)"'
+										response.facililty.term_id+'">Edit</a>&nbsp;<a href="javascript:void(0)" class="cancel_editfacility hidden"  term-id="'+
+										response.facililty.term_id+'">Cancel</a>&nbsp;<a href="javascript:void(0)"'
 										+'class="delete" term-id="'+response.facililty.term_id+'">Delete</a>'
 										+'</div>'
 										+'</div>' );
@@ -363,11 +373,39 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 		 		
 					$("#tax_list").append(''+
 							'<tbody id="blocktaxtype-'+response.taxData.id+'">'+
-							'<td id="block_edittaxtype-'+response.taxData.id+'">'+response.taxData.name+'</td>'+
-							'<td id="block_edittaxprice-'+response.taxData.id+'" >'+response.taxData.percent+'</td>'+
+							'<td id="block_edittaxtype-'+response.taxData.id+'">'+
+							
+							
+							'	<span class="lbl_tax">'+response.taxData.name+'</span>'+
+							'	<div class="form-group hidden">'+ 
+							'		<div class="">'+
+							'			<input type="text" class="form-control" name="input_edittaxtype-'+response.taxData.id+'" id="input_edittaxtype-'+response.taxData.id+'"'+ 
+							'					placeholder="Service Tax" required parsley-trigger="blur" parsley-validation-minlength="0"'+
+							'					parsley-required-message = "Please enter tax type"   value="'+response.taxData.name+'"  />'+
+							'			<div class="p-messages"></div>'+
+							'		</div>'+
+							'	</div>	'+  
+							
+							'</td>'+
+							'<td id="block_edittaxpercent-'+response.taxData.id+'" >'+
+							
+							
+							'	<span class="lbl_tax">'+response.taxData.percent+'</span>'+
+							'	<div class="form-group hidden">'+  
+							'		<div class="">'+
+							'			<input type="text" class="form-control" name="input_edittaxprice-'+response.taxData.id+'"  id="input_edittaxprice-'+response.taxData.id+'" '+ 
+							'				placeholder="12.5%"" required parsley-trigger="blur" parsley-validation-minlength="0"  '+
+							'				parsley-required-message = "Please enter percentage"   value="'+response.taxData.percent+'"  />  '+
+							'				<div class="p-messages"></div> '+	 															
+							'		</div> '+
+							'	</div> '+
+							
+							'</td>'+
 							'<td>'+
-							'<a href="javascript:void(0)" class="edit-link edit-taxlink" taxtype-id="'+response.taxData.id+'"  > <span class="glyphicon glyphicon-pencil"></span> Edit</a>'+
-							'<a href="javascript:void(0)" class="delete-link delete-taxlink" taxtype-id="'+response.taxData.id+'"><span class="glyphicon glyphicon-trash"></span> Delete</a>'+
+							'	<a href="javascript:void(0)" class="edit-link edit-taxlink" taxtype-id="'+response.taxData.id+'"  > <span class="glyphicon glyphicon-pencil"></span> Edit</a>'+
+							'	<a href="javascript:void(0)" class="edit-link cancel-taxlink hidden" taxtype-id="'+response.taxData.id+'" >'+
+							'		<span class="glyphicon glyphicon-ban-circle"></span> Cancel</a>'+
+							'	<a href="javascript:void(0)" class="delete-link delete-taxlink" taxtype-id="'+response.taxData.id+'"><span class="glyphicon glyphicon-trash"></span> Delete</a>'+
 							'</td>'+
 					'</tbody>');
 				
@@ -610,7 +648,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 				 '<tr>'+
 					'<td colspan="4" class="no-mar table-responsive">'+
 					
-						'<table class="table table-vc" data-toggle="collapse" data-target="#rowlink_'+response.daterange.id+'">'+
+						'<table class="table table-vc" >'+
 							'<tbody data-link="row" class="rowlink">'+
 								'<tr>'+
 									'<td width="5%"><a href="#rowlink_'+response.daterange.id+'>" data-toggle="collapse"><span class="glyphicon glyphicon-chevron-down"></span></a></td>'+
@@ -621,8 +659,9 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 										'<span class="label label-info">Weekday:</span> from<strong> - </strong> <span class="label label-info">Weekend:</span> from<strong> - </strong>'+
 									'</td>'+
 									'<td width="30%" class="rowlink-skip">'+
-										'<a href="#" class="edit-link editdaterange_lnk" daterange-id = "'+response.daterange.id+'"><span class="glyphicon glyphicon-pencil " ></span> Edit</a>'+
-										'<a href="#" class="delete-link deletedaterange_lnk" daterange-id = "'+response.daterange.id+'"><span class="glyphicon glyphicon-trash " ></span> Delete</a>'+
+										'<a href="javascript:void(0)" class="edit-link editdaterange_lnk" daterange-id = "'+response.daterange.id+'"><span class="glyphicon glyphicon-pencil " ></span> Edit</a>'+
+										'<a href="javascript:void(0)" class="edit-link canceleditdaterange_lnk hidden"  daterange-id = "'+response.daterange.id+'"  ><span class="glyphicon glyphicon-ban-circle"></span>Cancel</a>'+
+										'<a href="javascript:void(0)" class="delete-link deletedaterange_lnk" daterange-id = "'+response.daterange.id+'"><span class="glyphicon glyphicon-trash " ></span> Delete</a>'+
 									'</td>'+
 								'</tr>'+
 								
@@ -697,8 +736,8 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 							 	response.daterangemsgspan = true;
 								this.saveSuccess(response,evt_,this); 
 								
-								$(evt_.target).parent().parent().remove();
-								
+								//$(evt_.target).parent().parent().remove();
+								$(evt_.target).closest('.table-vc').closest('tr').remove();
 							}
 							else{
 								response.inlineresultmsg = true;
@@ -1161,6 +1200,9 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 		 */
 		cancelEditTaxType : function(evt){
 			
+			 
+			var taxTypeID =  $(evt.target).attr('taxtype-id');	
+			
 			$('#blocktaxtype-'+taxTypeID).find('.form-group').addClass('hidden')
 
 			var taxtype_lbl_span = $('#block_edittaxtype-'+taxTypeID).find('.lbl_tax') ;
@@ -1226,19 +1268,19 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 								self_.saveSuccess(response,evt_,self_); 
 								
 								
-								$('#blocktaxtype-'+taxTypeID).find('.form-group').addClass('hidden')
+								$('#blocktaxtype-'+taxTypeId).find('.form-group').addClass('hidden')
 								 
 								
-								var taxtype_lbl_span = $('#block_edittaxtype-'+taxTypeID).find('.lbl_tax') ;
-								var taxpercent_lbl_span = $('#block_edittaxpercent-'+taxTypeID).find('.lbl_tax') ;
+								var taxtype_lbl_span = $('#block_edittaxtype-'+taxTypeId).find('.lbl_tax') ;
+								var taxpercent_lbl_span = $('#block_edittaxpercent-'+taxTypeId).find('.lbl_tax') ;
 								
 								taxtype_lbl_span.removeClass('hidden')
 								taxpercent_lbl_span.removeClass('hidden')
 								
 								taxtype_lbl_span.html(response.updatedtaxtype.name)
 								taxpercent_lbl_span.html(response.updatedtaxtype.percent)
-								
-								$(evt_.target).parent().find('.cancel-taxlink').addClass('hidden')
+								 
+								 $(evt_.target).parent().find('.cancel-taxlink').addClass('hidden')
 								
 								$(evt_.target).html(function (i, old) {
 								     return old
@@ -1249,7 +1291,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 								$(evt_.target).find('.glyphicon').addClass('glyphicon-pencil').removeClass('glyphicon-floppy-disk')
 								$(evt.target).addClass('edit-taxlink').removeClass('update-taxlink')
 							 	 
-							  
+							   
 							}
 							else{
 								 response.inlineresultmsg = true;

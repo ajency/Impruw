@@ -1,7 +1,7 @@
 /**
  *  Add Tax .js *  
  */
-define(['views/modals/Modal', 'text!templates/modal/AddOn.tpl'], 
+define(['modal', 'tpl!templates/modal/AddOn.tpl'], 
       function(Modal, template) {
 
 
@@ -20,15 +20,15 @@ define(['views/modals/Modal', 'text!templates/modal/AddOn.tpl'],
              * Initialize the manager
              */
             initialize: function(args) {
-
-                var html = _.template(this.outerTemplate, {
+            	
+                var html=this.outerTemplate({
                     title: 'New Add On'
                 });
                 
                 this.$el.html(html);
                 
                 //add markup
-                var h = _.template(this.template,{});
+                var h = this.template({});
                 
                 this.$el.find('.modal-content').append(h);
                 

@@ -1,7 +1,7 @@
 /**
  *  Adddaterange .js *  
  */
-define(['views/modals/Modal', 'text!templates/modal/AddDateRange.tpl'], 
+define(['modal', 'tpl!templates/modal/AddDateRange.tpl'], 
       function(Modal, template) {
 
 
@@ -21,14 +21,14 @@ define(['views/modals/Modal', 'text!templates/modal/AddDateRange.tpl'],
              */
             initialize: function(args) {
 
-                var html = _.template(this.outerTemplate, {
+                var html = this.outerTemplate({
                     title: 'Add Date Range'
                 });
                 
                 this.$el.html(html);
                 
                 //add markup
-                var h = _.template(this.template,{});
+                var h = this.template({});
                 
                 this.$el.find('.modal-content').append(h);
                 

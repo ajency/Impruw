@@ -68,9 +68,7 @@
 												<div class="facility" id="facility-<%=facility.term_id %>">
 													<label for="checkbox2" class="checkbox checked">
 														<input type="checkbox" data-toggle="checkbox" checked="checked" name="facility[]"   value="<%=facility.name %>"   >
-														<span id="facLabel-<%=facility.term_id %>" facililtyname="<%=facility.name %>"  ><%=facility.name %>
-														 
-														</span>
+														<span id="facLabel-<%=facility.term_id %>" facililtyname="<%=facility.name %>"  ><%=facility.name %></span>
 														<span class='hidden inputEditFacility' > 
 															<form name='frm_editfacility' id='frmeditfacility-<%=facility.term_id %>'   > 
 																<input type='text' class='form-control input-sm'  

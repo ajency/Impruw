@@ -4,7 +4,7 @@
  */
 
 define([ 'underscore', 'jquery', 'backbone',
-		'text!templates/siteprofile/UserProfileViewTpl.tpl','lib/parsley/parsley' ], function(_, $,
+		'text!templates/siteprofile/UserProfileViewTpl.tpl','parsley' ], function(_, $,
 		Backbone, UserProfileViewTpl,parsley) {
 
 	var UserProfileView = Backbone.View.extend({
@@ -17,14 +17,14 @@ define([ 'underscore', 'jquery', 'backbone',
 		}, 
 
 		initialize : function(args) {
-			
+			//console.log(args)
 			//	_.bindAll(this , 'saveProfileSuccess', 'saveProfileFailure');
 			_.bindAll(this , 'showAlertMessage','parsleyInitialize' );
 				
-			if(_.isUndefined(args.user))
+			if(_.isUndefined(getAppInstance().impruwUser))
 				this.showInvalidCallView();
 			
-			this.user = args.user;
+			this.user = getAppInstance().impruwUser;
 
 		},
 
@@ -68,7 +68,7 @@ define([ 'underscore', 'jquery', 'backbone',
 				 
 					var data = { 'general'  : formGeneral 	};
 					
-					$userProfileSaveStatus = window.impruwUser.saveUserProfile(data, {
+					$userProfileSaveStatus = getAppInstance().impruwUser.saveUserProfile(data, {
 																				event : evt,
 																				_self:self,
 																				success : self.saveProfileSuccess,
@@ -128,7 +128,7 @@ define([ 'underscore', 'jquery', 'backbone',
 				 
 					var data = { 'passData'  : formPassData 	};
 					
-					window.impruwUser.updateUserPassword(data, {
+					getAppInstance().impruwUser.updateUserPassword(data, {
 																event:evt,
 																_self:self,
 																success : self.updatePassSuccess,
