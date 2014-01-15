@@ -60,6 +60,11 @@
 							<span class="arrow"></span>
 							<a href="#user-profile">My Profile</a>
 						</li>
+						<li class="aj-imp-nav-support">
+							<span class="icon"></span>
+							<span class="arrow"></span>
+							<a href="#">Support</a>
+						</li>
 					</ul>
 				</nav>
 			</div>

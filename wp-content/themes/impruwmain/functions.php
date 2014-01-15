@@ -466,11 +466,11 @@ function impruw_contact_form_sc( $atts ) {
         "label_message" => "Your Message",
         "label_submit" => "Submit",
         // the error message when at least one of the required fields are empty:
-        "error_empty" => "Please fill in all the required fields.",
+        "error_empty" => "<div class='alert alert-error'>Please fill in all the required fields.</div>",
         // the error message when the e-mail address is not valid:
-        "error_noemail" => "Please enter a valid e-mail address.",
+        "error_noemail" => "<div class='alert alert-error'>Please enter a valid e-mail address.</div>",
         // and the success message when the e-mail is sent:
-        "success" => "Thanks for your e-mail! We'll get back to you as soon as we can."
+        "success" => "<div class='alert alert-success'>Thanks for your e-mail! We'll get back to you as soon as we can.</div>"
     ), $atts ) );
 
     // if the <form> element is POSTed, run the following code
