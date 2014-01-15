@@ -243,8 +243,10 @@ define(['backbone', 'jquery', 'underscore', 'global'],
 
                 if (_.isUndefined(disAllow['extraClasses']))
                     html += this.getClassnameSettingMarkup();
+                
+                log(this.type());
 
-                var className = this.type() === 'buiderrow' ? 'updateRowProperties' : 'updateProperties';
+                var className = this.type() === 'builderrow' ? 'updateRowProperties' : 'updateProperties';
 
                 html += '<div class="form-group">\
                                  <input value="Save" type="button" class="btn btn-primary '+className+'"/>&nbsp;\
@@ -307,6 +309,7 @@ define(['backbone', 'jquery', 'underscore', 'global'],
              */
             updateProperties: function(evt) {
 
+                alert("fdsfsd");
                 var pcontent = $(evt.target).closest('.popover');
 
                 var id = pcontent.closest('.popover').prev().attr('id');

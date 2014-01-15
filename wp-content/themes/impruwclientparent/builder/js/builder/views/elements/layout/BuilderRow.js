@@ -24,7 +24,8 @@ define(['builderelement', 'builderrowcolumn', 'global'],
                 'mouseleave'                        : 'elementMouseLeave',
                 'click > .aj-imp-delete-btn'        : 'destroyElement',
                 'click > .aj-imp-col-sel ul li a'   : 'adjustColumnsInRow',
-                'contextmenu'                       : 'showContextMenu'
+                'contextmenu'                       : 'showContextMenu',
+                'click > .popover .updateProperties': 'updateProperties'
             },
 
             /**
