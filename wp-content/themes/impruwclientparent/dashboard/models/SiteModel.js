@@ -19,9 +19,6 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 		 */
 		sync : function(method, model, options){
 
-			
-
-
 			options = options || {};
                   
 			switch(method){
@@ -51,6 +48,8 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
                         }, this );
                     }
 
+                    this.ajax(method, model, options);
+
 					break;
 				case 'delete':
 
@@ -62,6 +61,50 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 
 		},
 
+		/**
+		 * Ajax method
+		 * @param  {[type]} method  [description]
+		 * @param  {[type]} model   [description]
+		 * @param  {[type]} options [description]
+		 * @return {[type]}         [description]
+		 */
+		ajax : function(method, model, options){
+
+			options.attrs = options.attrs || {};
+
+			if(!options.attrs.action)
+				throw 'action parameter missing';
+
+			var doneFn = _.bind(function(response) {
+                			this.trigger(method + '-success', response);
+                		}, this);
+
+			var doneFn = _.bind(function(error) {
+                			this.trigger(method + '-error', error);
+                		}, this);
+
+            var doneFn = _.bind(function() {
+                			this.trigger(method + '-always');
+                		}, this);
+
+			$.ajax({
+                	url: this.url(),
+                	type: 'POST',
+                	dataType: 'json',
+                	data: options.attrs,
+                })
+                .done(doneFn)
+                .fail(failFn)
+                .always(alwaysFn);
+                    
+
+		},
+
+		/**
+		 * Parse method impelmentation
+		 * @param  {[type]} response [description]
+		 * @return {[type]}          [description]
+		 */
 		parse : function(response){
 
 			if(response.code === 'OK')
@@ -75,14 +118,9 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 		 * @returns array containing site email ids
 		 */
 		getSiteProfileEmails : function(){
-			var emails;
-
-			emails = this.get('email').split(',');
-			
-			if(_.isArray(emails))				
-				return emails;
-				
-			return [];
+		
+			return this.get('email') === false ? [] : this.get('email');
+		
 		},
 		
 		
@@ -91,14 +129,8 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 		 * @returns array containing phone nos
 		 */
 		getSiteProfilePhoneNos : function(){
-			var phoneNos;
 			
-			phoneNos = this.get('phone').split(',');
-			
-			if(_.isArray(phoneNos))
-				return phoneNos;
-			
-			return[];
+			return this.get('phone') === false ? [] : this.get('phone');
 			
 		},
 		

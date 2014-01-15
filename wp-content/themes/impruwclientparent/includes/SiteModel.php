@@ -45,20 +45,20 @@ class SiteModel {
 					'siteDescription'	=> $this->site_description
 				);
 		*/
-		$site_address = array();
-		$site_social  = array();
-		$site_general = array();
+	
 		
-		
-		$site_business = $this->get_site_business();
-		
-		$site_social = $this->get_site_social();
-		
-	 	$site_general = $this->get_site_general();
 
-	 	return array_merge($site_business, $site_social, $site_general);
-	 		
-	 	return(array('businessDetails'=>$site_business,'socialDetails'=>$site_social,'generalDetails'=>$site_general));
+		$data = array();
+
+		$data['siteName'] = get_option('blogname');
+
+		$fields = array('businessLogoId', 'postalcode','street','phone','email', 'city', 'country');
+
+		foreach ($fields as $key) {
+			$data[$key] = get_option($key);
+		}
+
+		return $data;
 	}
 	
 	
@@ -122,10 +122,17 @@ class SiteModel {
 	 */
 	function save_site_profile($siteData){
 		
+		if(is_array($siteData)){
+
+			foreach ($siteData as $key => $value) {
+				update_option($key, $value);
+			}
+
+		}	
 	 
-		$this->save_site_address($siteData['business']);
-		$this->save_site_social($siteData['social']);
-		$this->save_business_logo($siteData['businesslogo']);
+		// $this->save_site_address($siteData['business']);
+		// $this->save_site_social($siteData['social']);
+		// $this->save_business_logo($siteData['businesslogo']);
 		
 		return true;
 	}

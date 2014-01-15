@@ -155,10 +155,12 @@ function getFormData(form) {
 
         if(_.endsWith(ele.name,'[]')){
 
-            if(!_.isArray(data[ele.name]))
-                data[ele.name] = [];
+            var name = ele.name.replace('[]','');
 
-            data[ele.name].push(ele.value); 
+            if(!_.isArray(data[name]))
+                data[name] = [];
+
+            data[name].push(ele.value); 
         }
         else{
             data[ele.name] = ele.value;
@@ -176,7 +178,7 @@ require(['backbone','marionette',
          $(document).ready(function(){   
 
             Backbone.emulateHTTP = true;
-
+            
             ImpruwDashboard = new Backbone.Marionette.Application();
             
 
@@ -189,8 +191,10 @@ require(['backbone','marionette',
              
             
             getAppInstance().addInitializer(function(){
+                
                 new Router();
                 Backbone.history.start();
+
             });
 
             getAppInstance().start();

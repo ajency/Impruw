@@ -863,28 +863,17 @@ add_action( 'wp_ajax_nopriv_remove_business_logo', 'remove_business_logo' );
  * Type: Ajax call
  *
  */
-function save_site_data_ajx() {
+function update_site_data() {
 
-    wp_send_json($_REQUEST);
+    if('POST' !== $_SERVER['REQUEST_METHOD'])
+        wp_send_json('Invalid request method');
 
-    return;
+    $changes = $_POST['changes'];
 
-    $siteform_social   = array();
-    $siteform_business = array();
-    $siteform_businesslogo  = '' ;
-
-    $site_form_data = array();
-
-    $siteform_social =  serializedform_to_array( $_POST['siteprofile_social'] );
-    $siteform_business = serializedform_to_array( $_POST['siteprofile_business'] );
-	$siteform_businesslogo  = $_POST['siteprofile_businesslogo'] ;
-	
-    $site_form_data = array( 'business'=>$siteform_business, 'social'=>$siteform_social, 'businesslogo'=>$siteform_businesslogo );
-
-    if ( save_site_data( $site_form_data ) ) {
+    if ( save_site_data( $changes) ) {
 
         header( 'Content-Type: application/json' );
-        echo json_encode( array( 'code' => 'OK', 'site_data'=>array_merge( $siteform_social, $siteform_business ) ) );
+        echo json_encode( array( 'code' => 'OK') );
         die();
     }
     else {
