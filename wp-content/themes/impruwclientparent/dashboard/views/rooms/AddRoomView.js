@@ -13,22 +13,19 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 
          events : {
 			 	'click #btn_saveroom'				: 'saveRoom', 
+			 	
 			 	'click #btn_addfacility'			: 'addFacility',
 			 	'click .delete'						: 'deleteFacility',
 			 	'click .edit'						: 'editFacility',
 			 	'click .cancel_editfacility'		: 'cancelEditFacility',
 			 	'click .savefacililty' 				: 'savefacility', 
 			 	
-			 	'click #btn_add_addon'				: 'add_addon',
-			 	
+			 	'click #btn_add_addon'				: 'add_addon',			 	
 			 	'click .delete-addonlink'			: 'deleteAddonType',
 			 	'click .edit-addonlink'				: 'editAddonType',	
 			 	'click .cancel-addonlink'			: 'cancelEditAddon',
-			 	'click .saveaddontype'				: 'updateAddonType',
-			 		
-			 	'change .tax__option'				: 'tax_option',
+			 	'click .saveaddontype'				: 'updateAddonType', 
 			 	
-			 
 			 	'click .edit-taxlink'				: 'editTaxType',
 			 	'click .update-taxlink'				: 'updateTaxType',
 			 	'click .delete-taxlink'				: 'deleteTaxType',
@@ -40,10 +37,9 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 			 	
 			 	'click .edit-checkintime'			: 'editCheckintime',
 			 	'click .save-checkintime'			: 'saveCheckintime',
-			 	'click .delete-checkintime'			: 'cancelCheckintimeUpdate',
-			 	
+			 	'click .delete-checkintime'			: 'cancelCheckintimeUpdate',			 	
 			 	 
-			 	
+			 	'change .tax__option'				: 'tax_option',
 			 	'click .edit-taxoption'				: 'edittaxoption',
 			 	'click .save-taxoption'				: 'saveTaxOption',
 			 	'click .delete-taxoption'			: 'cancelTaxOptionUpdate',			 	
@@ -431,10 +427,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 		 *	 Function triggered when new plan is added 
 		 */
 		newPlanAdded : function(response,evt_){
-			
-			 
-			 
-			
+		 
 			if(response.code=="OK"){
 				 
 				this.saveSuccess(response,evt_,this);  
@@ -612,9 +605,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 			response.model = true;
 			
 			if(response.code=='OK'){
-				
 			 			 
-						 
 				 $('#tbl_daterangelist').append(''+
 				 '<tr>'+
 					'<td colspan="4" class="no-mar table-responsive">'+
@@ -962,24 +953,18 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 		editFacility:function(event){
 			
 			facilityId = $(event.target).attr("term-id");
-			console.log($(event.target).closest('.facility').find('.inputEditFacility'))
-			$(event.target).closest('.facility').find('.inputEditFacility').removeClass('hidden')
-			$(event.target).closest('.facility').find('.inputEditFacility input').show();
-			$(event.target).closest('.facility').find('#facLabel-'+facilityId).addClass('hidden')
+			var facilityBlock = $(event.target).closest('.facility');
+			
+			facilityBlock.find('.inputEditFacility').removeClass('hidden')
+			facilityBlock.find('.inputEditFacility input').show();
+			facilityBlock.find('#facLabel-'+facilityId).addClass('hidden')
 			
 			
 			$(event.target).addClass("savefacililty").removeClass("edit")
 			$(event.target).html("Save")
 			 $(event.target).parent().find('.cancel_editfacility').removeClass('hidden')
 			$("#facLabel-"+facilityId).addClass('input-group');
-			/*$("#facLabel-"+facilityId).html("<form name='frm_editfacility' id='frmeditfacility-"+facilityId+"'  >" +
-					"<input type='text' class='form-control input-sm' " +
-					"placeholder='Edit Facility' name='inputfacility-"+facilityId+"' id='inputfacility-"+facilityId+"'"+
-					"parsley-validation-minlength='0' " +
-					"value='"+$("#facLabel-"+facilityId).attr('facililtyname')+"'  > </form>");*/
-			//$('#frmeditfacility-'+facilityId).removeClass('hidden')
-			
-			
+			 
 			this.parsleyInitialize($('#frmeditfacility-'+facilityId));
 			
 		},
@@ -991,22 +976,23 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 		 */
 		cancelEditFacility : function(evt){
 			 
-			facilityId = $(evt.target).attr("term-id"); 
-		 	 
-			$(evt.target).closest('.facility').find('.inputEditFacility').addClass('hidden')
-			$(evt.target).closest('.facility').find('.inputEditFacility input').hide();			
-			$(evt.target).closest('.facility').find('#facLabel-'+facilityId).removeClass('hidden')
-			 
+			var facilityId = $(evt.target).attr("term-id"); 
 			
-			// $(evt.target).closest('.action').find('.savefacililty').html("Edit")
-			 
-			  $(evt.target).closest('.action').find('.savefacililty').html(function (i, old) {
+			var facilityBlock = $(evt.target).closest('.facility');			
+			facilityBlock.find('.inputEditFacility').addClass('hidden')
+			facilityBlock.find('.inputEditFacility input').hide();			
+			facilityBlock.find('#facLabel-'+facilityId).removeClass('hidden')
+			
+			
+			var actionBlock = $(evt.target).closest('.action'); 		
+			
+			actionBlock.find('.savefacililty').html(function (i, old) {
 								     return old
-								         .replace('Save', 'Edit')
-								         
+								         .replace('Save', 'Edit')								         
 								});	
-			 $(evt.target).closest('.action').find('.savefacililty').removeClass("savefacililty").addClass("edit")
-			 $(evt.target).closest('.action').find('.savefacililty').prop('disabled',false);
+			actionBlock.find('.savefacililty').removeClass("savefacililty").addClass("edit")
+			actionBlock.find('.savefacililty').prop('disabled',false);
+			
 			$(evt.target).addClass('hidden')	 
 			 
 		},
@@ -1016,7 +1002,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 		 */
 		editAddonType:function(evt){
 			
-			addonTypeID = $(evt.target).attr("addontype-id");
+			var addonTypeID = $(evt.target).attr("addontype-id");
 			$(evt.target).addClass("saveaddontype").removeClass("edit-addonlink")
 			$(evt.target).find('.glyphicon').removeClass('glyphicon-pencil').addClass('glyphicon-floppy-disk')
 			
@@ -1073,7 +1059,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 		 */
 		editTaxType : function(evt){
 			
-			taxTypeID = $(event.target).attr("taxtype-id");
+			var taxTypeID = $(event.target).attr("taxtype-id");
 			$(event.target).addClass("update-taxlink").removeClass("edit-taxlink")			 
 			
 			$(evt.target).html(function (i, old) {
