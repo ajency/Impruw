@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: im\n"
-"POT-Creation-Date: 2014-01-13 11:22+0530\n"
-"PO-Revision-Date: 2014-01-13 11:23+0530\n"
+"POT-Creation-Date: 2014-01-15 15:13+0530\n"
+"PO-Revision-Date: 2014-01-15 15:14+0530\n"
 "Last-Translator: Vanessa <vanessa.pinto2609@gmail.com>\n"
 "Language-Team: a <parag@ajency.in>\n"
 "Language: nb\n"
@@ -147,9 +147,8 @@ msgid "First Name Last Name"
 msgstr "First Name Last Name_n"
 
 #: ../../impruwmain/page-register.php:35
-#, fuzzy
 msgid "Enter your first name and last name."
-msgstr "Enter your first name and last name_n"
+msgstr ""
 
 #: ../../impruwmain/page-register.php:36
 #, fuzzy
