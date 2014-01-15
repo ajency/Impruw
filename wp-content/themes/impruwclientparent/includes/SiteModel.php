@@ -45,19 +45,20 @@ class SiteModel {
 					'siteDescription'	=> $this->site_description
 				);
 		*/
-		$site_address = array();
-		$site_social  = array();
-		$site_general = array();
+	
 		
-		
-		$site_business = $this->get_site_business();
-		
-		$site_social = $this->get_site_social();
-		
-	 	$site_general = $this->get_site_general();
 
-	 	
-	 	 return(array('businessDetails'=>$site_business,'socialDetails'=>$site_social,'generalDetails'=>$site_general));
+		$data = array();
+
+		$data['siteName'] = get_option('blogname');
+
+		$fields = array('businessLogoId', 'postalcode','street','phone','email', 'city', 'country');
+
+		foreach ($fields as $key) {
+			$data[$key] = get_option($key);
+		}
+
+		return $data;
 	}
 	
 	
@@ -67,19 +68,20 @@ class SiteModel {
 	function get_site_general(){
 		
 		$businesslogo_id = get_option('sitebusiness-logo');
+
 		if($businesslogo_id !== false) 
-			 		$businesslogo_url = wp_get_attachment_thumb_url( $businesslogo_id );
+			$businesslogo_url = wp_get_attachment_thumb_url( $businesslogo_id );
 		else{
 			$businesslogo_id 	= '';
 			$businesslogo_url	= '';
 		}	
 		 
-		$site_general_data = array('siteName'			=> get_blog_details($this->site_id)->blogname,
+		$site_general_data = array(	'siteName'			=> get_blog_details($this->site_id)->blogname,
 									'businessLogoId'	=> $businesslogo_id,
 									'businessLogoUrl'	=> $businesslogo_url 
 								  );
 		 
-		 return $site_general_data;
+		return $site_general_data;
 		 
 	}
 	
@@ -90,11 +92,11 @@ class SiteModel {
 	 */
 	function get_site_business(){
 		
-		$site_business_data = get_blog_option($this->site_id, 'impruw_address');
+		$site_business_data = get_option('impruw_address');
 		if($site_business_data)
 			return $site_business_data;
 		else
-			return (array());
+			return array();
 	}
 	
 	/**
@@ -103,7 +105,7 @@ class SiteModel {
 	 */
 	function get_site_social(){
 		
-		$site_social_data = get_blog_option($this->site_id,'impruw_social');
+		$site_social_data = get_option('impruw_social');
 		if($site_social_data)
 			return $site_social_data;
 		else
@@ -120,10 +122,17 @@ class SiteModel {
 	 */
 	function save_site_profile($siteData){
 		
+		if(is_array($siteData)){
+
+			foreach ($siteData as $key => $value) {
+				update_option($key, $value);
+			}
+
+		}	
 	 
-		$this->save_site_address($siteData['business']);
-		$this->save_site_social($siteData['social']);
-		$this->save_business_logo($siteData['businesslogo']);
+		// $this->save_site_address($siteData['business']);
+		// $this->save_site_social($siteData['social']);
+		// $this->save_business_logo($siteData['businesslogo']);
 		
 		return true;
 	}

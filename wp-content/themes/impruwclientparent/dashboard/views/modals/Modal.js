@@ -1,7 +1,7 @@
 /**
  * 
  */
-define(['backbone', 'text!templates/modal/Model.tpl'],
+define(['backbone', 'tpl!templates/modal/Model.tpl'],
 
     function(Backbone, outerTemplate) {
 

@@ -807,14 +807,12 @@ add_action('wp_ajax_nopriv_get_site_data','get_site_data');
  */
 function get_site_data_ajx() {
 
-
-
-    $site_id = $_GET['siteprofile_id'];
+    $site_id = $_GET['id'];
 
     $site_profile_details = get_site_data( $site_id );
 
     header( 'Content-Type: application/json' );
-    echo json_encode( array( 'code' => 'OK', 'siteProfileData'=> $site_profile_details ) );
+    echo json_encode( array( 'code' => 'OK', 'data'=> $site_profile_details ) );
     die();
 
 }
@@ -865,24 +863,17 @@ add_action( 'wp_ajax_nopriv_remove_business_logo', 'remove_business_logo' );
  * Type: Ajax call
  *
  */
-function save_site_data_ajx() {
+function update_site_data() {
 
-    $siteform_social   = array();
-    $siteform_business = array();
-    $siteform_businesslogo  = '' ;
+    if('POST' !== $_SERVER['REQUEST_METHOD'])
+        wp_send_json('Invalid request method');
 
-    $site_form_data = array();
+    $changes = $_POST['changes'];
 
-    $siteform_social =  serializedform_to_array( $_POST['siteprofile_social'] );
-    $siteform_business = serializedform_to_array( $_POST['siteprofile_business'] );
-	$siteform_businesslogo  = $_POST['siteprofile_businesslogo'] ;
-	
-    $site_form_data = array( 'business'=>$siteform_business, 'social'=>$siteform_social, 'businesslogo'=>$siteform_businesslogo );
-
-    if ( save_site_data( $site_form_data ) ) {
+    if ( save_site_data( $changes) ) {
 
         header( 'Content-Type: application/json' );
-        echo json_encode( array( 'code' => 'OK', 'site_data'=>array_merge( $siteform_social, $siteform_business ) ) );
+        echo json_encode( array( 'code' => 'OK') );
         die();
     }
     else {
@@ -893,8 +884,8 @@ function save_site_data_ajx() {
     }
 
 }
-add_action( 'wp_ajax_save_site_data_ajx', 'save_site_data_ajx' );
-add_action( 'wp_ajax_nopriv_save_site_data_ajx', 'save_site_data_ajx' );
+add_action( 'wp_ajax_update_site_data', 'update_site_data' );
+add_action( 'wp_ajax_nopriv_update_site_data', 'update_site_data' );
 
 
 
@@ -2528,3 +2519,23 @@ function is_single_room_edit(){
     return $post->post_type === 'impruw_room';
 
 }
+
+/**
+ * Returns the image URL
+ * @return [type] [description]
+ */
+function get_image_url(){
+
+    $attId = $_GET['attId'];
+    $size  = $_GET['size'];
+
+    $path = wp_get_attachment_image_src($attId, $size);
+
+    if($path === false)
+        wp_send_json(array('code' => 'ERROR'));
+    else
+        wp_send_json(array('code' => 'OK', 'url' => $path[0]));
+
+}
+add_action('wp_ajax_get_image_url', 'get_image_url');
+add_action('wp_ajax_nopriv_get_image_url', 'get_image_url');

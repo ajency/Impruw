@@ -31,11 +31,13 @@ require.config({
         nestable            	: 'lib/nestable',
         marionette      		: 'lib/backbone.marionette.min',
         plupload        		: 'lib/plupload.full.min',
+        tpl                     : 'lib/tpl',
+        parsley                 : 'lib/parsley/parsley',
         
         //Views
         mainview				: 'views/DashboardMainView',
         leftview				: 'views/LeftColumnView',
-        dashboarddefaultview	: 'views/dashboard/DashboardDefaultView',
+        dashboardview	        : 'views/dashboard/DashboardView',
         siteprofileview			: 'views/siteprofile/SiteProfileView',
         userprofileview			: 'views/userprofile/UserProfileView',
         addroomview				: 'views/rooms/AddRoomView',
@@ -45,6 +47,7 @@ require.config({
         adddaterangemodal		: 'views/modals/AddDaterange',
         roomlistview			: 'views/rooms/RoomListView',
        
+        modal                   : 'views/modals/Modal',
         mediamanager    		: 'views/modals/media/MediaManager',
         mediasingle     		: 'views/modals/media/SingleMedia',
 
@@ -134,45 +137,85 @@ function appHasProperty(property){
 	
 }
 
+/**
+ * Form Data
+ * @param  {[type]} form [description]
+ * @return {[type]}      [description]
+ */
+function getFormData(form) {
+
+    if (_.isUndefined(form))
+        return false;
+
+    var serializedData = $(form).serializeArray();
+
+    var data = {};
+
+    _.each(serializedData, function(ele, key) {
+
+        if(_.endsWith(ele.name,'[]')){
+
+            var name = ele.name.replace('[]','');
+
+            if(!_.isArray(data[name]))
+                data[name] = [];
+
+            data[name].push(ele.value); 
+        }
+        else{
+            data[ele.name] = ele.value;
+        }
+    });
+
+    return data;
+
+}
+
 require(['backbone','marionette',
          'routers/DashboardRouter','sitemodel','usermodel'], 
          function( Backbone, Marionette, Router, SiteModel, UserModel) {
 
          $(document).ready(function(){   
 
-             window.impruwSite = new SiteModel(SITEID);
-             window.impruwUser = new UserModel(USERDATA);
+            Backbone.emulateHTTP = true;
+            
+            ImpruwDashboard = new Backbone.Marionette.Application();
+            
+            getAppInstance().reqres.setHandler('get-image-url', function(attachmentId, size, callback){
 
-             ImpruwDashboard = new Backbone.Marionette.Application();
+                var responseFn =    _.bind(function(response){
+                                        if(response.code === 'OK')
+                                            this.fn(response.url);
+
+                                    }, {fn : callback});
+
+                $.get(  AJAXURL,
+                        {
+                            action : 'get_image_url',
+                            attId  : attachmentId,
+                            size   : size
+                        },
+                        responseFn,
+                        'json');
+            });
+
+
+            getAppInstance().addInitializer(function(){
+            	
+                getAppInstance().ViewManager = new Backbone.ChildViewContainer();
+                getAppInstance().impruwUser    = new UserModel(USERDATA);   
+
+            });
              
-             getAppInstance().addInitializer(function(){
-            	 getAppInstance().ViewManager = new Backbone.ChildViewContainer();
-             });
-             
-//             /**
-//              * Bootstrap all required models and collections
-//              * @return {[type]} [description]
-//              */
-//             getAppInstance().addInitializer(function(){
-// 
-//                //models
-//                getAppInstance().impruwSite             = new SiteModel(SITEID);
-//                getAppInstance().impruwUser             = new UserModel(USERDATA);                
-//
-//                 //collections
-//                 getAppInstance().roomCollection        = new RoomCollection();
-//                 getAppInstance().dateRangeCollection   = new DateRangeCollection();
-//                 getAppInstance().facilityCollection    = new FacilityCollection();
-//                 getAppInstance().mediaCollection       = new MediaCollection();
-//
-//             });
+            
+            getAppInstance().addInitializer(function(){
+                
+                new Router();
+                Backbone.history.start();
 
-             getAppInstance().addInitializer(function(){
-                 new Router();
-                 Backbone.history.start();
-             });
+            });
 
-             getAppInstance().start();
+            getAppInstance().start();
 
          });
 

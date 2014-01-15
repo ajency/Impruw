@@ -6,28 +6,121 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 	
 	var SiteModel = Backbone.Model.extend({
 		
-		url : AJAXURL + '?action=get_site_data_ajx',
-		
-		siteProfileUrl : AJAXURL + '?action=save_site_data_ajx',
-		removebusLogoUrl : AJAXURL + '?action=remove_business_logo',
+		url : function(){
+			return AJAXURL;// + '?action=get_site_data_ajx',
+		},
+
+		// siteProfileUrl : AJAXURL + '?action=save_site_data_ajx',
+		// removebusLogoUrl : AJAXURL + '?action=remove_business_logo',
+
+		/**
+		 * Override sync function for the model
+		 * @return {[type]} [description]
+		 */
+		sync : function(method, model, options){
+
+			options = options || {};
+                  
+			switch(method){
+
+				case 'read':
+					// Set the action and ID.
+                    options.data = _.extend( options.data || {}, {
+                        action 	:  'get_site_data_ajx',
+                        id 		:  this.get('id'),
+                    });
+                    break;
+				case 'update':
+					
+					// Set the action and ID.
+					// options.attrs is for update action
+                    options.attrs = _.extend( options.attrs || {}, {
+                        action 	:  'update_site_data',
+                        id 		:  this.get('id'),
+                    });
+
+                    // Record the values of the changed attributes.
+                    if ( model.hasChanged() ) {
+                        options.attrs.changes = {};
+
+                        _.each( model.changed, function( value, key ) {
+                            options.attrs.changes[ key ] = this.get( key );
+                        }, this );
+                    }
+
+                    this.ajax(method, model, options);
+
+					break;
+				case 'delete':
+
+					break;
+
+			}
+
+			return Backbone.Model.prototype.sync.apply( this, arguments );
+
+		},
+
+		/**
+		 * Ajax method
+		 * @param  {[type]} method  [description]
+		 * @param  {[type]} model   [description]
+		 * @param  {[type]} options [description]
+		 * @return {[type]}         [description]
+		 */
+		ajax : function(method, model, options){
+
+			options.attrs = options.attrs || {};
+
+			if(!options.attrs.action)
+				throw 'action parameter missing';
+
+			var doneFn = _.bind(function(response) {
+                			this.trigger(method + '-success', response);
+                		}, this);
+
+			var doneFn = _.bind(function(error) {
+                			this.trigger(method + '-error', error);
+                		}, this);
+
+            var doneFn = _.bind(function() {
+                			this.trigger(method + '-always');
+                		}, this);
+
+			$.ajax({
+                	url: this.url(),
+                	type: 'POST',
+                	dataType: 'json',
+                	data: options.attrs,
+                })
+                .done(doneFn)
+                .fail(failFn)
+                .always(alwaysFn);
+                    
+
+		},
+
+		/**
+		 * Parse method impelmentation
+		 * @param  {[type]} response [description]
+		 * @return {[type]}          [description]
+		 */
+		parse : function(response){
+
+			if(response.code === 'OK')
+				return response.data;
+			else if(response.code === 'ERROR')
+				this.trigger('model-fetch-failed', response);
+		},
 		
 		/**
 		 * Function to get site emails
 		 * @returns array containing site email ids
 		 */
 		getSiteProfileEmails : function(){
-			var emails;
-			
-			/*if(!this.has('email'))
-				return [];*/
-			
-			
-			emails = this.getBusinessDetails('email').split(',');
-			
-			if(_.isArray(emails))				
-				return emails;
-				
-			return [];
+		
+			return this.get('email') === false ? [] : this.get('email');
+		
 		},
 		
 		
@@ -36,97 +129,12 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 		 * @returns array containing phone nos
 		 */
 		getSiteProfilePhoneNos : function(){
-			var phoneNos;
 			
-			/*if(!this.has('phone'))
-				return [];*/
-			
-			phoneNos = this.getBusinessDetails('phone').split(',');
-			
-			if(_.isArray(phoneNos))
-				return phoneNos;
-			
-			return[];
+			return this.get('phone') === false ? [] : this.get('phone');
 			
 		},
 		
 		
-		/**
-		 * Function to get site profile (business, social)
-		 * @param data
-		 * @param fn
-		 */
-		getSiteProfile : function(fn){
-			
-			_self = this;
-
-			
-			var data = {
-				siteprofile_id :_self.get('id')
-			};
-			
-			$.get(this.url,data,function(response){
-				
-
-				if(response.code === 'OK'){
-					if(_.isObject(response.siteProfileData))	
-						_self.set(response.siteProfileData);
-					if(!_.isUndefined(fn.success) && _.isFunction(fn.success))
-						fn.success(response);  
- 					
-				}
-				else{
-					fn.error(response); 
-					throw "Error fetching site profile";
-					
-				}
-			}); 
-			
-			
-		},
-		
-		
-		getBusinessDetails : function(field){
-
-			if(!this.has('businessDetails'))
-				return ''
-
-			var details = this.get('businessDetails');
-
-			if(_.isUndefined(details[field]))
-				return '';
-
-			return details[field];
-		},
-		
-		
-		getSocialDetails : function(field){
-			
-			if(!this.has('socialDetails'))
-				return ''
-
-			var details = this.get('socialDetails');
-
-			if(_.isUndefined(details[field]))
-				return '';
-
-			return details[field];
-		},
-		
-		
-		
-		getGeneralDetails : function(field){
-			
-			if(!this.has('generalDetails'))
-				return ''
-
-			var details = this.get('generalDetails');
-
-			if(_.isUndefined(details[field]))
-				return '';
-
-			return details[field];
-		},
 		
 		/**
 		 * Function to remove business logo
@@ -134,7 +142,6 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 		 * @param fn
 		 */
 		removeSiteBusinessLogo : function(args, fn){
-			console.log('remove business logo 2')
 			var _self = this;
 			 
 			
@@ -186,7 +193,6 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 						
 							_self.set(response.site_data)
 							
-							console.log(window.impruwSite);
 							if(!_.isUndefined(fn.success) && _.isFunction(fn.success))
 								fn.success(response,evt_);  
 						}

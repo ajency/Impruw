@@ -3,11 +3,11 @@
  *  Contains all logic to handle menu configurations
  *  Add/Editing/Deleting Menu
  */
-define(['views/modals/Modal', 'text!templates/modal/media/mediamanager.tpl',
-        'mediamodel', 'mediacollection', 'mediasingle'  
+define(['modal', 'tpl!templates/modal/media/mediamanager.tpl',
+        'mediamodel', 'mediacollection', 'mediasingle'
     ],
 
-    function(Modal, template, MediaModel, MediaCollection, SingleMedia ) {
+    function(Modal, template, MediaModel, MediaCollection, SingleMedia){
 
 
         var MediaManager = Modal.extend({
@@ -19,18 +19,22 @@ define(['views/modals/Modal', 'text!templates/modal/media/mediamanager.tpl',
             shouldUpdate: false,
 
             events: {
-                'click .refetch-media': 'fetchMedia'
+                'click .retry-fetch': 'fetchMedia'
             },
 
             selected: null,
+
+            progressBar : null,
 
             /**
              * Initialize the manager
              */
             initialize: function(args) {
 
+                _.bindAll(this, 'addMediaView','handleFetchFailed','removeMediaView');
+
                 //bind 
-                var html = _.template(this.outerTemplate, {
+                var html = this.outerTemplate({
                     title: 'Media Manager'
                 });
 
@@ -47,82 +51,108 @@ define(['views/modals/Modal', 'text!templates/modal/media/mediamanager.tpl',
                         $('#controls-drag').show();
 
                     //trigger the elements update self
-                    ImpruwDashboard.vent.trigger('modal-closed', self);
+                    getAppInstance().vent.trigger('modal-closed', self);
 
                 });
 
-                var markup = _.template(this.template, {});
+                var markup = this.template({});
 
-                this.$el.find('.modal-body').append(markup);
+                this.$el.find('.modal-content').append(markup);
 
-                this.mediaCollection = new MediaCollection();
+                //set progressbar
+                this.$progressBar = this.$el.find('#progress');
 
-                //this.fetchMedia();
+                //check if app media collection property is set
+                if(!appHasProperty('mediaCollection'))
+                    getAppInstance().mediaCollection = new MediaCollection();
 
+                
                 this.bindPlupload();
+
+                //listen to image selected event
+                var imageChoosedFn = _.bind(function(model, size){
+                                        getAppInstance().vent.trigger('image-selected', model, size);
+                                        this.hide();
+                                    }, this);
+
+                //bind listeners
+                this.listenTo(getAppInstance().vent, 'image-choosed', imageChoosedFn);
+                this.listenTo(getAppInstance().vent, 'media-fetch-failed', this.handleFetchFailed);
+                this.listenTo(getAppInstance().mediaCollection, 'add', this.addMediaView);
+                this.listenTo(getAppInstance().mediaCollection, 'remove', this.removeMediaView);
+
+                //trigger fetch
+                this.fetchMedia();
+
             },
 
             /**
-             * Opens a new Media manager
+             * Add single media view
+             * @param {[object]} media [backbone model]
              */
-            open: function(element) {
+            addMediaView : function(media){
 
-                if (!_.isUndefined(element))
-                    this.element = element;
-
-                this.$el.modal('show');
-                $('#controls-drag').hide();
+                var mediaView = new SingleMedia({
+                    model: media
+                });
+                this.$el.find('.selectable-images').prepend(mediaView.render().$el);
+            
             },
 
+            /**
+             * Add single media view
+             * @param {[object]} media [backbone model]
+             */
+            removeMediaView : function(media){
+
+                var id = '#media-' + media.get('id');
+                this.$el.find('.selectable-images').find(id).remove();
+            
+            },
+
+            /**
+             * Handle media fetch failed
+             * @return {[type]} [description]
+             */
+            handleFetchFailed : function(){
+
+                var html = '<div class="alert alert-danger">Failed to fetch media. <a href="#" class="retry-fetch">try again</a></div>';
+
+                this.$el.find('#images').find('.selectable-images').prepend(html);
+
+            },
 
             /**
              * Triggers the fetch of MenuCollection
              * Check if the collection is already fetched. If yes, ignores
              * @returns {undefined}
              */
-            fetchMedia: function() {
+            fetchMedia: function(evt) {
 
-                if (this.mediaCollection.isFetched())
+                if(_.isObject(evt))
+                    evt.preventDefault();
+
+                if (getAppInstance().mediaCollection.isFetched())
                     return;
 
-                var self = this;
+                //clear any messages
+                this.$el.find('#images').find('.alert').remove();
 
-                //show initial fetch loader
-                //this.$el.find('.modal-body').html('fetching media... please wait...');
-
-                this.mediaCollection.fetch({
-                    data: this.filters,
-                    success: function(collection, response) {
-
-                        self.mediaCollection.setFetched(true);
-
-                        collection.each(function(model, index) {
-                            var mediaView = new SingleMedia({
-                                model: model,
-                                parent: self
-                            });
-                            self.$el.find('.selectable-images').append(mediaView.render().$el);
-                        });
-
-                    },
-                    error: function(error) {
-                        self.$el.find('.modal-body').html('Failed to fetch menus from server. <a href="#" class="refetch-menus">Click here</a>Please try again.');
-                    }
+                getAppInstance().mediaCollection.fetch({
+                    data: {}
                 });
 
             },
 
             bindPlupload: function() {
 
-                var self = this;
-
                 //bind plupload script
-                require(['plupload'], function(plupload) {
+                var pluploadFn = _.bind(function(plupload) {
 
-                    if (!_.isUndefined(self.uploader))
+                    if (!_.isUndefined(this.uploader))
                         return;
 
-                    self.uploader = new plupload.Uploader({
+                    this.uploader = new plupload.Uploader({
                         'runtimes': 'gears,html5,flash,silverlight,browserplus',
                         'file_data_name': 'async-upload', // key passed to $_FILE.
                         'multiple_queues': true,
@@ -143,50 +173,52 @@ define(['views/modals/Modal', 'text!templates/modal/media/mediamanager.tpl',
                         }
                     });
 
-                    self.uploader.init();
+                    this.uploader.init();
 
-                    self.uploader.bind('FilesAdded', function(up, files) {
-                        self.totalFiles = up.files.length;
+                    this.uploader.bind('FilesAdded', _.bind(function(up, files) {
+                        
+                        this.uploader.start();
+                        this.$el.find('#progress').show();
 
-                        self.uploader.start();
-                        self.$el.find('#progress').show();
-                    });
+                    }, this));
 
-                    self.uploader.bind('UploadProgress', function(up, file) {
-                        self.$el.find('#progress').find('.progress-bar').css('width', file.percent + "%");
-                    });
+                    this.uploader.bind('UploadProgress', _.bind(function(up, file) {
+                    
+                        this.$progressBar.find('.progress-bar').css('width', file.percent + "%");
+                    
+                    }, this));
 
-                    self.uploader.bind('Error', function(up, err) {
+                    this.uploader.bind('Error', function(up, err) {
                         up.refresh(); // Reposition Flash/Silverlight
                     });
 
-                    self.uploader.bind('FileUploaded', function(up, file, response) {
+                    this.uploader.bind('FileUploaded', _.bind(function(up, file, response) {
                         //self.$el.find('#progress').hide();
-                        self.$el.find('#progress').find('.progress-bar').css('width', "0%");
+                        this.$progressBar.find('.progress-bar').css('width', "0%");
 
                         var response = JSON.parse(response.response);
                         if (response.success) {
-                            self.shouldUpdate = true;
+
                             var media = new MediaModel(response.data);
-                            var mediaView = new SingleMedia({
-                                model: media,
-                                parent: self
-                            });
-                            self.$el.find('.selectable-images').prepend(mediaView.render().$el);
+                            
+                            getAppInstance().mediaCollection.add(media);
+
                         }
 
                         if (up.total.queued == 0) {
-                            self.$el.find('a[href="#images"]').click();
-                            setTimeout(function() {
-                                self.$el.find('.selectable-images .panel').first().hide().toggle('highlight');
-                            }, 500);
+                            this.$el.find('a[href="#images"]').click();
+                            setTimeout(_.bind(function() {
+                                this.$el.find('.selectable-images .panel').first().hide().toggle('highlight');
+                            }, this), 500);
                         }
 
-                    });
+                    }, this));
 
-                });
+                }, this);
+
+                require(['plupload'], pluploadFn);
+           
             }
-
         });
 
         return MediaManager;
