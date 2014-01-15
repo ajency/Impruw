@@ -1,10 +1,6 @@
 <header class="aj-imp-dash-header row">
-	<div class="aj-imp-dash-title col-xs-8">
+	<div class="aj-imp-dash-title col-xs-12">
 		<h2 class="aj-imp-page-head">Room List View</h2>
-	</div>
-	<div class="aj-imp-dash-actions col-xs-4">
-		<a href="#" class="btn btn-embossed btn-wide"><span
-			class="glyphicon glyphicon-cog"></span> Settings</a>
 	</div>
 	</header>
 	<div class="row">
