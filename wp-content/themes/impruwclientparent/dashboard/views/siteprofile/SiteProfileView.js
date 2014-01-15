@@ -71,6 +71,18 @@ define([ 'underscore', 'jquery', 'backbone',
 
 			this.$el.html(html);
 
+			//trigger app level request
+			if(model.get('businessLogoId') !== false){
+
+				var cbFn = _.bind(function(url){
+					if(url !== false)
+						this.$el.find('#businesslogo_img').attr('src', url);
+				}, this);
+
+				getAppInstance().request('get-image-url', model.get('businessLogoId'), 'full', cbFn);
+
+			}
+
 			//set custom selectbox & checkbox
 			this.$el.find('select').selectpicker();
 			this.$el.find('input[type="checkbox"]').checkbox();	

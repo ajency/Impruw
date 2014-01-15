@@ -181,6 +181,24 @@ require(['backbone','marionette',
             
             ImpruwDashboard = new Backbone.Marionette.Application();
             
+            getAppInstance().reqres.setHandler('get-image-url', function(attachmentId, size, callback){
+
+                var responseFn =    _.bind(function(response){
+                                        if(response.code === 'OK')
+                                            this.fn(response.url);
+
+                                    }, {fn : callback});
+
+                $.get(  AJAXURL,
+                        {
+                            action : 'get_image_url',
+                            attId  : attachmentId,
+                            size   : size
+                        },
+                        responseFn,
+                        'json');
+            });
+
 
             getAppInstance().addInitializer(function(){
             	

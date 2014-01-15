@@ -2519,3 +2519,23 @@ function is_single_room_edit(){
     return $post->post_type === 'impruw_room';
 
 }
+
+/**
+ * Returns the image URL
+ * @return [type] [description]
+ */
+function get_image_url(){
+
+    $attId = $_GET['attId'];
+    $size  = $_GET['size'];
+
+    $path = wp_get_attachment_image_src($attId, $size);
+
+    if($path === false)
+        wp_send_json(array('code' => 'ERROR'));
+    else
+        wp_send_json(array('code' => 'OK', 'url' => $path[0]));
+
+}
+add_action('wp_ajax_get_image_url', 'get_image_url');
+add_action('wp_ajax_nopriv_get_image_url', 'get_image_url');
