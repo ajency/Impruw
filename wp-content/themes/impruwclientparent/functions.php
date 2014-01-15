@@ -1863,10 +1863,14 @@ add_action( 'wp_ajax_nopriv_update_room_facility', 'update_room_facility' );
 
 function update_checkintime(){
 	$checkintime = $_POST['checkintime'];
+	$checkin_format = $_POST['checkinformat'];
 	
-	$result = update_option('checkin-time', $checkintime);
-	if($result)
-		wp_send_json( array( 'code' => 'OK', 'msg'=>_('Check-in time updated successfully'), 'checkinTime'=>$checkintime ) );
+	$result_checkintime 	 = update_option('checkin-time', $checkintime);
+	
+	$result_checkinformat	 = update_option('checkin-format', $checkin_format);
+	
+	if($result_checkinformat == true || $result_checkintime == true)
+		wp_send_json( array( 'code' => 'OK', 'msg'=>_('Check-in time updated successfully'), 'checkinTime'=>$checkintime, 'checkinformat'=>$checkin_format  ) );
 	else 	
 	 	wp_send_json( array( 'code' => 'ERROR', 'msg' => _('Error updating check-in time') ) );
 }

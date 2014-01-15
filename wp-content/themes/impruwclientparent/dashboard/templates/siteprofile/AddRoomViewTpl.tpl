@@ -308,12 +308,35 @@
 											
 											
 													<tbody id="blocktaxtype-<%=taxtype.id %>">
-														<td  id="block_edittaxtype-<%= taxtype.id %>"><%= taxtype.name %></td>
-														<td id="block_edittaxpercent-<%= taxtype.id %>" ><%= taxtype.percent %></td>
+														<td  id="block_edittaxtype-<%= taxtype.id %>">
+															<span class='lbl_tax'><%= taxtype.name %></span>
+															<div class='form-group hidden'> 
+																<div class=''>
+																	<input type='text' class='form-control' name='input_edittaxtype-<%=taxtype.id %>' id='input_edittaxtype-<%=taxtype.id %>' 
+																			placeholder='Service Tax' required parsley-trigger='blur' parsley-validation-minlength='0'
+																			parsley-required-message = 'Please enter tax type'   value='<%= taxtype.name %>'  />
+																	<div class='p-messages'></div>
+																</div>
+															 </div>	 				
+															
+														
+														</td>
+														<td id="block_edittaxpercent-<%= taxtype.id %>" >
+															<span class='lbl_tax'><%= taxtype.percent %></span>
+															<div class='form-group hidden'>  
+																<div class=''>
+																	<input type='text' class='form-control' name='input_edittaxprice- <%=taxtype.id %>'  id='input_edittaxprice-<%=taxtype.id %>'   
+																		placeholder='12.5%' required parsley-trigger='blur' parsley-validation-minlength='0' 
+																		parsley-required-message = 'Please enter percentage'   value='<%= taxtype.percent %>'  /> 
+																		<div class='p-messages'></div> 																
+																</div>
+															</div>
+															 
+														</td>
 														<td>
 															<a href="javascript:void(0)" class="edit-link edit-taxlink" taxtype-id="<%=taxtype.id %>" >
 															<span class="glyphicon glyphicon-pencil"></span> Edit</a>
-															<a href="javascript:void(0)" class="cancel-link cancel-taxlink hidden" taxtype-id="<%=taxtype.id %>" >
+															<a href="javascript:void(0)" class="edit-link cancel-taxlink hidden" taxtype-id="<%=taxtype.id %>" >
 															<span class="glyphicon glyphicon-ban-circle"></span> Cancel</a>
 															<a href="javascript:void(0)" class="delete-link delete-taxlink"  taxtype-id="<%=taxtype.id %>" >
 															<span class="glyphicon glyphicon-trash"></span> Delete</a>
@@ -425,7 +448,7 @@
 									</div>
 								</div>
 
-								<div class="form-group">
+								<div class="form-group checkin_span_block">
 									<div class="alert alert-success hidden status_message"></div>
 									<div class="col-sm-12">
 										<p class="checkinformat_text"> <% if(!_.isUndefined(roomdata.checkinformat)) {%> <%=roomdata.checkinformat %>-hour Format <% } %></p>
@@ -451,8 +474,9 @@
 												<span class="help-block">eg: 0:01</span>
 											</div>
 										</div>
-										<a class="edit-link edit-checkinformat" href="javascript:void(0)"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
+									<!-- 	<a class="edit-link edit-checkinformat" href="javascript:void(0)"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
 										<a class="delete-link delete-checkinformat hidden" href="javascript:void(0)"><span class="glyphicon glyphicon-trash"></span> Delete</a>
+								    -->
 									</div>
 								</div>
 								
