@@ -32,7 +32,7 @@ if ( function_exists('is_multisite') && is_multisite() ) {
     $wpmu_sitewide_plugins = (array) maybe_unserialize( get_site_option( 'active_sitewide_plugins' ) );
     if(false === get_option('icl_sitepress_version', false) && isset($wpmu_sitewide_plugins[ICL_PLUGIN_FOLDER.'/'.basename(__FILE__)])){
         require_once ICL_PLUGIN_PATH . '/inc/sitepress-schema.php';        
-       echo "hello1233";exit; icl_sitepress_activate();
+        icl_sitepress_activate();
     }
     include_once ICL_PLUGIN_PATH . '/inc/functions-network.php';
     if(get_option('_wpml_inactive', false) && isset($wpmu_sitewide_plugins[ICL_PLUGIN_FOLDER.'/sitepress.php'])){
