@@ -197,7 +197,7 @@ function create_new_site( $blog_id, $blog_name, $blog_title, $user_id, $file_nam
     }
 
     //set header and footer
-     $clone_blog = 5; //server
+     $clone_blog = CLONEBLOG; //server
 	//$clone_blog = 81; //local
 	
     switch_to_blog($clone_blog);
@@ -475,7 +475,7 @@ function mwm_wpml_translate_post( $blog_id, $post_id, $post_type, $lang, $user_i
 function add_layout_site( $blog_id, $post_id, $name ) {
     
     //site to clone from
-     $clone_blog = 5;  //server
+     $clone_blog = CLONEBLOG;  //server
 	//$clone_blog = 81;  //local
 	
     switch_to_blog($clone_blog);
