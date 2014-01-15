@@ -75,7 +75,7 @@ class LogoElement extends Element {
      */
     function get_image_id(){
          
-        $id = get_option('sitebusiness-logo');
+        $id = get_option('businessLogoId');
 
         return (int)$id;
     }
