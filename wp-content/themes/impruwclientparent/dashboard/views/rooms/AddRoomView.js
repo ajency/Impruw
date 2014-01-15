@@ -55,7 +55,10 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
                 'click .deletedaterange_lnk'		: 'deleteDateRange',
                 'click .editdaterange_lnk'			: 'enableEditDateRange',
                 'click .savedaterange_lnk'			: 'saveDateRange',
-                'click .canceleditdaterange_lnk'	: 'cancelEditRange'
+                'click .canceleditdaterange_lnk'	: 'cancelEditRange',
+                
+                'click .filepopup'					: 'showFilePopup',
+                'click .btn_deleteAttachment'		: 'deleteRoomAttachment'
 		}, 
 
 		initialize : function(args) {
@@ -177,7 +180,8 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
                var checkintime        	= $("#checkin_time").val();
                var additionalpolicies 	= $("#additional_policies").val();
                var tax_option 			= $('input[type="radio"][name="tax_option1"]:checked').val() 
-					  
+               var room_attachments 	= $('#hdn_roomattachments').val();
+               
                var facilityValues = new Array();
 					  
                //Read checked facillities
@@ -192,14 +196,16 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 			  
 			  
                var data = { 
-					  	 	'category'		:roomcategory, 
-					  	 	'nos'			:roomnos,
-					  	 	'description' 	:roomdescription,
-					  	 	'facilities'	:facilityValues,
-					  	 	'checkinformat'	:checkinformat,
-					  	 	'checkintime'	:checkintime,
-					  	 	'additionalpolicies':additionalpolicies,
-					  	 	'tax_option'		: tax_option  
+					  	 	'category'			: roomcategory, 
+					  	 	'nos'				: roomnos,
+					  	 	'description' 		: roomdescription,
+					  	 	'facilities'		: facilityValues,
+					  	 	'checkinformat'		: checkinformat,
+					  	 	'checkintime'		: checkintime,
+					  	 	'additionalpolicies': additionalpolicies,
+					  	 	'tax_option'		: tax_option,
+					  	 	'room_attachments'	: room_attachments
+					  	 	
 					  	 	
 					};
 			  
@@ -1739,6 +1745,82 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 			
 		},
 		
+		
+		
+		
+		
+		/**
+		 * Open media manager
+		 * @param  {[type]} evt [description]
+		 * @return {[type]}     [description]
+		 */
+		showFilePopup : function(evt){
+
+			var popupFn = _.bind(function(_, MediaManager) {
+
+                 var mediamanager = getAppInstance().ViewManager.findByCustom("media-manager");
+
+                 //if not present create new
+                 if (_.isUndefined(mediamanager)) {
+                     mediamanager = new MediaManager();
+                     ImpruwDashboard.ViewManager.add(mediamanager, "media-manager");
+                 }
+
+                 //start listening to event
+                 this.listenTo(getAppInstance().vent,'image-selected', this.roomAttachmentSelected);
+
+
+                 mediamanager.open();
+
+             }, this);
+
+            require(['underscore', 'mediamanager'], popupFn);
+			
+		},
+		 
+		
+		roomAttachmentSelected : function(image, size){
+		 	
+			//stop listening to image-selected event
+            this.stopListening(ImpruwDashboard.vent, 'image-selected', this.updateSelf);
+
+            if (!_.isObject(image))
+                throw 'Invalid <image> datatype. Must be an Object';
+
+            this.dataSource = {};
+
+            this.dataSource.attachmentID    = image.get('id');
+            this.dataSource.size            = size;
+            
+           // $("#cloneme").clone().prop({ id: "im-a-clone", name: "im-a-clone" }).appendTo(document.body);
+
+            var attachments =  $('#hdn_roomattachments').val()
+            
+            if(attachments.search(this.dataSource.attachmentID)<0){
+            	 
+            	 var attimgBlockId = 'attimgBlock_'+this.dataSource.attachmentID ;
+            	 $(".room-attachment-img").clone().prop({ id: attimgBlockId, name: "im-a-clone" }).insertAfter($('div.room-attachment-img:last')).removeClass('room-attachment-img').removeClass('hidden');
+            	
+            	 $('#'+attimgBlockId).find('img').attr('src',image.get('sizes')[size].url) ;
+            	  
+            	 $('#'+attimgBlockId).find('.btn_deleteAttachment').attr('attachment-id',image.get('id')) ;
+             
+            	 if($('#hdn_roomattachments').val()!=""){
+            		 $('#hdn_roomattachments').val($('#hdn_roomattachments').val()+','+this.dataSource.attachmentID)            	 
+            	 }
+            	 else{
+            		 $('#hdn_roomattachments').val(this.dataSource.attachmentID)
+            	 }
+             } 
+			
+		},
+		 
+		/**
+		 * Delete attachment from hidden field
+		 */
+		deleteRoomAttachment : function(){
+		 	
+		},
 		
 		
 		/**
