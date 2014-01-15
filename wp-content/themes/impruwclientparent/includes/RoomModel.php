@@ -89,7 +89,11 @@ class RoomModel {
 	 	return($room_data);
 	}
 	
-	
+	/**
+	 * 
+	 * 
+	 * @param unknown_type $roomdata
+	 */
 	function get_additional_data($roomdata){
 		
 	 $room_data ['inventory'] = get_post_meta($roomdata,'inventory',true);	
@@ -97,6 +101,20 @@ class RoomModel {
 
 	 
 	}
+	
+	
+	/**
+	 * 
+	 *  
+	 * @param unknown_type $room_id
+	 */
+	function delete_room($room_id){
+		
+		
+	}
+	
+	
+	
 	 
 	
 	
