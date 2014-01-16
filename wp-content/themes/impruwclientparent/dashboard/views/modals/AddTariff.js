@@ -1,18 +1,18 @@
 /**
  *  Add Tariff .js *  
  */
-define(['modal', 'tpl!templates/modal/AddPlan.tpl'], 
+define(['modal', 'tpl!templates/modal/AddTariff.tpl'], 
       function(Modal, template) {
 
 
-        var AddPlanModal = Modal.extend({
+        var AddTariffModal = Modal.extend({
 
-            id: 'add-plan',
+            id: 'add-tariff',
 
             template: template,
 
             events: {
-            	'click #btn_addplan'		: 'addNewPlan',
+            	'click #btn_addtariff'		: 'addNewTariff',
             	'change .chk_tariffdays'	: 'showhideTariffform' 
             },
 
@@ -22,7 +22,7 @@ define(['modal', 'tpl!templates/modal/AddPlan.tpl'],
             initialize: function(args) {
 
                 var html = this.outerTemplate({
-                    title: 'Add Plan'
+                    title: 'Add Tariff'
                 });
                 
                 this.$el.html(html);
@@ -36,25 +36,27 @@ define(['modal', 'tpl!templates/modal/AddPlan.tpl'],
                 $('body').append(this.$el);
 
                 this.$el.modal();
-               
-            },
+                this.$el.find('input[type="checkbox"]').checkbox();
+                
+                
+            }, 
             
             /**
-    		 * Function to add new plan
+    		 * Function to add new tariff
     		 * @param evt
     		 */
-    		addNewPlan : function(evt){
+    		 addNewTariff : function(evt){
     			$(evt.target).prop('disabled',true);
     			
-    			var form_plan = $(evt.target).parent().parent().find('#form_addplan');  
-    			form_data = $(form_plan).serializeArray() 
+    			var form_tariff = $(evt.target).parent().parent().find('#form_addtariff');  
+    			form_data = $(form_tariff).serializeArray() 
     			 $(evt.target).next().show(); 
     			 
     			var evt_ = evt;
     			var self_ = this;
     				
-    			var data = {		action			: 'add_new_plan_ajx',						 
-    								addplan_data 	: form_data 								 
+    			var data = {		action			: 'add_new_plan_tariff',						 
+    								addtariff_data 	: form_data 								 
     						};
     				
     				
@@ -67,7 +69,7 @@ define(['modal', 'tpl!templates/modal/AddPlan.tpl'],
     							response.model = true; 
     							
     							$(evt.target).prop('disabled',false);
-    							ImpruwDashboard.vent.trigger('new-plan-added',response,evt_);
+    							ImpruwDashboard.vent.trigger('new-tariff-added',response,evt_);
     								
     						 	setTimeout(function(){
     						 		self_.hide();
@@ -84,14 +86,14 @@ define(['modal', 'tpl!templates/modal/AddPlan.tpl'],
     			 });
     			 
     			
-    		},
+    		}, 
     		
     		
     		/**
     		 * 
     		 * @param evt
     		 */
-    		showhideTariffform: function(evt){
+    		 showhideTariffform: function(evt){
     			 
     			tariffType = $(evt.target).attr('tariff-type');
     			
@@ -120,12 +122,12 @@ define(['modal', 'tpl!templates/modal/AddPlan.tpl'],
     				}
     				 
     			}
-    		}
+    		}  
             
             
             
         });
 
-        return AddPlanModal;
+        return AddTariffModal;
 
     });

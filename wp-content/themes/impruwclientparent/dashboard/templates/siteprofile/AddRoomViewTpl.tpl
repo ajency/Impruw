@@ -207,7 +207,7 @@
 													</table>
 													<div id="rowlink<%=daterange.id%>" class="inner collapse">
 														<div class="form-table table-responsive">
-															<table class="table table-bordered table-hover" id="planlist_<%=daterange.id%>">
+															<table class="table table-bordered table-hover daterangeplan-table" id="planlist_<%=daterange.id%>" daterange-id = "<%=daterange.id%>">
 																<thead>
 																	<tr>
 																		<th>Plan Name</th>
@@ -222,22 +222,23 @@
 																
 																<% _.each(daterange.plans,function(plan,plan_index){
 																%>
-																	<tr>
-																		<td>
+																	<tr id="plan-row-<%=plan.plan_id %>" >
+																		<td class="block-plan-name" >
 																			<a href="#plan1" data-toggle="modal"><%=plan.plan_name %></a>
 																		</td>
-																		<td>
+																		<td class="block-plan-description">
 																			<%=plan.plan_description %> 
 																		</td>
-																		<td>
-																			$<%=plan.weekday_tariff %> 
+																		<td class = "block-plan-weekday-tariff" >
+																			<% if(plan.weekday_tariff!=' - ') { %>$<% }%> <%=plan.weekday_tariff %> 
+																		</td>
+																		<td class="block-plan-weekend-tariff" >
+																			<% if(plan.weekend_tariff!=' - ') { %>$<% }%> <%=plan.weekend_tariff %> 
 																		</td>
 																		<td>
-																			$<%=plan.weekend_tariff %> 
-																		</td>
-																		<td>
-																			<a href="#plan1" data-toggle="modal" class="edit-link editplan_link" planid="<%=plan.plan_id %>" ><span class="glyphicon glyphicon-pencil"></span> Edit</a>
-																			<a href="javascript:void(0)" class="delete-link deleteplan_link" planid="<%=plan.plan_id %>"><span class="glyphicon glyphicon-trash"></span> Delete</a>	
+																			<a href="javascript:void(0)" class="addtariff_link" planid="<%=plan.plan_id %>"    ><span class="glyphicon glyphicon-plus"></span> Add Tariff</a>
+																			<a href="javascript:void(0)" class="edit-link edittariff-link"  planid="<%=plan.plan_id %>"><span class="glyphicon glyphicon-pencil"></span> Edit Tariff</a>	
+																			 
 																		</td>
 																	</tr>
 																

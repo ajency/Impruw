@@ -41,10 +41,13 @@ require.config({
         siteprofileview			: 'views/siteprofile/SiteProfileView',
         userprofileview			: 'views/userprofile/UserProfileView',
         addroomview				: 'views/rooms/AddRoomView',
+        
         addtaxmodal				: 'views/modals/AddTax',
         addplanmodal			: 'views/modals/AddPlan',
+        addtariffmodal			: 'views/modals/AddTariff',
         addaddonmodal			: 'views/modals/AddAddOn',
         adddaterangemodal		: 'views/modals/AddDaterange',
+        
         roomlistview			: 'views/rooms/RoomListView',
        
         modal                   : 'views/modals/Modal',
