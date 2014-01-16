@@ -147,8 +147,8 @@ window.prevpopover      = null;
 window.prevmouseover    = null;
 
 //init the app
-require(['backbone', 'marionette',
-         'builderrouter'], function( Backbone, Marionette, Router) {
+require(['global','backbone', 'marionette',
+         'builderrouter'], function(global, Backbone, Marionette, Router) {
 
         Backbone.emulateHTTP = true;
 
