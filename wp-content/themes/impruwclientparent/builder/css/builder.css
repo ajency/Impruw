@@ -1066,6 +1066,7 @@ Version:        0.1.0
 }
 .modal.wide-modal .modal-dialog .modal-content .modal-body .nav-tabs {
   border-width: 1px;
+  margin: 0 0 0.5em;
 }
 .modal.wide-modal .modal-dialog .modal-content .modal-body .nav-tabs li a {
   font-weight: normal;
@@ -1209,6 +1210,78 @@ Version:        0.1.0
 .modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group#settings-accordion .panel .panel-heading > a .imgactions,
 .modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group#map-settings-accordion .panel .panel-heading > a .imgactions {
   text-align: right;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .thumbnails .single-img {
+  position: relative;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .thumbnails .single-img .thumbnail {
+  margin-bottom: 7px;
+  border: 2px solid #aaaaaa;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .thumbnails .single-img .thumbnail:hover {
+  border-color: #849fb0;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .thumbnails .single-img .ticker {
+  position: absolute;
+  top: -7px;
+  right: -7px;
+  color: #fff;
+  padding: 3px 4px;
+  border-radius: 2px;
+  text-shadow: 0 0 1px #f3f3f3;
+  background: #849fb0;
+  display: none;
+  box-shadow: 0 0 2px #333;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .thumbnails .single-img .ticker .glyphicon-minus {
+  display: none;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .thumbnails .single-img .ticker:hover {
+  cursor: pointer;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .thumbnails .single-img .ticker:hover .glyphicon-ok {
+  display: none;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .thumbnails .single-img .ticker:hover .glyphicon-minus {
+  display: inline-block;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .thumbnails .single-img.selected .thumbnail {
+  border-color: #849fb0;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .thumbnails .single-img.selected .ticker {
+  display: block;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .img-details {
+  border: 2px solid #aaaaaa;
+  border-radius: 2px;
+  background: #ffffff;
+  padding: 5px;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .img-details h5 {
+  color: #777777;
+  font-size: 1em;
+  text-transform: uppercase;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .img-details .imgthumb {
+  padding-right: 5px;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .img-details .imginfo {
+  color: #aaaaaa;
+  font-size: 0.88em;
+  padding-left: 5px;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .img-details .imginfo h6 {
+  font-size: 1.2em;
+  color: #182944;
+  margin: 0 0 0.2em;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .img-details .imginfo .editlink {
+  margin: 0.5em 0.5em 0.5em 0;
+  color: #849fb0;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .img-details .imginfo .deletelink {
+  color: #cc6500;
+  margin: 0.5em 0.5em 0.5em 0;
 }
 .modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .aj-imp-block-button {
   margin: 1em 0;
