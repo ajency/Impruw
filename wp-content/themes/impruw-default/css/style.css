@@ -161,6 +161,10 @@ blockquote p {
 
   /*--Single Room--*/
 
+  /*--About Page Style--*/
+
+  /*--Fix Horizontal Scroll Header--*/
+
 }
 .site-style-container .topStrip {
   background: #5ca9a1;
@@ -807,4 +811,9 @@ blockquote p {
 }
 .site-style-container .about {
   margin: 1em auto;
+}
+.site-style-container .site-header > .row,
+.site-style-container .site-page > .row,
+.site-style-container .site-footer > .row {
+  margin: 0;
 }
