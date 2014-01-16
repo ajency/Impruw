@@ -1816,10 +1816,18 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 		},
 		 
 		/**
-		 * Delete attachment from hidden field
+		 * Delete attachment from hidden field and remove thumbnail preview
 		 */
-		deleteRoomAttachment : function(){
-		 	
+		deleteRoomAttachment : function(evt){
+			var attachment 			 = $(evt.target).attr('attachment-id');
+			
+			var hdn_room_attachments = $('#hdn_roomattachments').val(); 
+			var room_attachments 	 = hdn_room_attachments.split(',');
+			
+		 	var newAttachment = _.without(room_attachments,attachment);
+		 	$('#hdn_roomattachments').val(newAttachment.join());
+			
+			$(evt.target).closest('.fileinput-preview').remove();
 		},
 		
 		
