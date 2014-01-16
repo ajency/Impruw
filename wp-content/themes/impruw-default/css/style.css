@@ -805,3 +805,6 @@ blockquote p {
   -ms-transition: all 0.25s ease;
   transition: all 0.25s ease;
 }
+.site-style-container .about {
+  margin: 1em auto;
+}
