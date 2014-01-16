@@ -541,7 +541,8 @@ blockquote p {
   list-style: none;
   display: block;
 }
-.site-style-container .list_carousel .caroufredsel_wrapper .roomType li {
+.site-style-container .list_carousel .caroufredsel_wrapper .roomType li,
+.site-style-container .list_carousel .caroufredsel_wrapper .roomType .room {
   text-align: center;
   width: auto;
   height: auto;
@@ -550,7 +551,8 @@ blockquote p {
   float: left;
   margin: 10px;
 }
-.site-style-container .list_carousel .caroufredsel_wrapper .roomType li p {
+.site-style-container .list_carousel .caroufredsel_wrapper .roomType li p,
+.site-style-container .list_carousel .caroufredsel_wrapper .roomType .room p {
   display: block;
 }
 .site-style-container #roomTypeIndicator {
