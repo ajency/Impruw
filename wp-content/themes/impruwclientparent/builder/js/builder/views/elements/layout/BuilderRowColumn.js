@@ -29,8 +29,9 @@ define(['builderelement', 'global'],
 
             //register events
             events: {
-                'contextmenu'                       : 'showContextMenu',
-                'click > .popover .updateProperties': 'updateProperties'
+                'contextmenu'                           : 'showContextMenu',
+                'click > .popover .updateProperties'    : 'updateProperties',
+                'click > .popover .updateRowProperties' : 'updateProperties'
             },
 
             /**
