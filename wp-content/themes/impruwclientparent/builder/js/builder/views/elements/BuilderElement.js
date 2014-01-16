@@ -309,7 +309,6 @@ define(['backbone', 'jquery', 'underscore', 'global'],
              */
             updateProperties: function(evt) {
 
-                alert("fdsfsd");
                 var pcontent = $(evt.target).closest('.popover');
 
                 var id = pcontent.closest('.popover').prev().attr('id');

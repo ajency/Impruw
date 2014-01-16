@@ -4,6 +4,8 @@
     Description: This file has a list of the following functions used in this theme
  */
 
+global $page_id;
+$page_id = 0;
 
 define( 'PARENTTHEMEPATH', ABSPATH . 'wp-content/themes/impruwclientparent/' );
 require_once PARENTTHEMEPATH . 'includes/Underscore.php';
@@ -323,7 +325,9 @@ function get_room_description_markup( $element ) {
 
     require_once PARENTTHEMEPATH . 'elements/room/RoomDescription.php';
 
-    $room = new RoomDescription( $element );
+    global $page_id;
+
+    $room = new RoomDescription( $element, $page_id );
 
     $html = $room->get_markup();
 
@@ -807,6 +811,10 @@ add_action( 'init', 'agc_register_parent_site_menus' );
 function get_content_markup() {
 
     $json = $_POST['json'];
+    
+    global $page_id;
+
+    $page_id = (int)$_POST['pageId'];
 
     define('FOR_BUILDER',true);
 

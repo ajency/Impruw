@@ -565,7 +565,7 @@ blockquote {
 				list-style: none;
 				display: block;
 			
-				li {
+				li, .room {
 					text-align: center;
 					width: auto;
 					height: auto;
@@ -841,8 +841,16 @@ blockquote {
 		}
 	}
 
+	/*--About Page Style--*/
 	.about {
 		margin: 1em auto;
+	}
+
+	/*--Fix Horizontal Scroll Header--*/
+	.site-header, .site-page, .site-footer {
+		> .row {
+			margin: 0;
+		}
 	}
 
 

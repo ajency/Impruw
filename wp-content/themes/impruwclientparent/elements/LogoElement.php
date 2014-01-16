@@ -109,7 +109,7 @@ class LogoElement extends Element {
             return  sprintf("<a href='%s'><img data-src='%s' class='img-responsive' /></a>", site_url(), $path);
         }
 
-        $image = wp_get_attachment_image_src($a_id, $size);
+        $image = wp_get_attachment_image_src($a_id, 'full');
         if($image !== false) {
             return sprintf("<a href='%s'><img src='%s' class='img-responsive' /></a>", site_url(), $image[0]);
         }

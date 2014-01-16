@@ -62,7 +62,9 @@ class RoomDescription extends Element {
         if($this->post_id === 0)
             return '';
 
-        $content = get_the_content($this->post_id);
+        $post = get_post($this->post_id);
+
+        $content = $post->post_content;
 
         return $content;
     }
