@@ -772,3 +772,36 @@ blockquote p {
   margin-right: 0.5em;
   text-shadow: 1px 1px 2px #cbcbcb;
 }
+.site-style-container .room .gallery .carousel {
+  margin-bottom: 1em;
+}
+.site-style-container .room .price p {
+  font-size: 1.2em;
+  line-height: 1;
+}
+.site-style-container .room .price p strong {
+  font-size: 1.5em;
+  color: #5ca9a1;
+}
+.site-style-container .room .book {
+  text-align: right;
+}
+.site-style-container .room .book a {
+  background: #989898;
+  padding: 5px 10px;
+  color: #fff;
+  font-size: 1em;
+  -webkit-transition: all 0.25s ease;
+  -moz-transition: all 0.25s ease;
+  -o-transition: all 0.25s ease;
+  -ms-transition: all 0.25s ease;
+  transition: all 0.25s ease;
+}
+.site-style-container .room .book a:hover {
+  background: #5ca9a1;
+  -webkit-transition: all 0.25s ease;
+  -moz-transition: all 0.25s ease;
+  -o-transition: all 0.25s ease;
+  -ms-transition: all 0.25s ease;
+  transition: all 0.25s ease;
+}
