@@ -1,21 +1,25 @@
 ({
-  baseUrl : 'wp-content/themes/impruwclientparent/builder/js',
-  dir     : 'wp-content/themes/impruwclientparent/builder/dist',
-  modules : [{
-       	      name: 'site-builder', 
-       	      include: ['builder/routers/BuilderRouter'], 
-          }],
-          fileExclusionRegExp: /^(r|build)\.js$/,
-          optimizeCss: 'standard',
-          removeCombined: true,
-          paths: {
+    appDir  : '../',
+    baseUrl : 'js',
+    dir     : '../dist',
+    modules : [{
+       	        name: 'global'
+            },
+            {
+                name: 'init',
+                exclude : ['global'] 
+            }],
+    fileExclusionRegExp: /^(r|build)\.js$/,
+    optimizeCss: 'standard',
+    removeCombined: true,
+    paths: {
         jquery          : 'lib/jquery.min',
         jqueryui        : 'lib/jquery.ui.min',
         bootstrap       : 'lib/bootstrap.min',
         bootstrapselect : 'lib/bootstrapselect',
         underscore      : 'lib/underscore.min',
         backbone        : 'lib/backbone.min',
-        text            : 'lib/text',
+        tpl             : 'lib/tpl',
         moment          : 'lib/moment.min',
         cookie          : 'lib/cookie.min',
         string          : 'lib/underscore.string.min',
@@ -32,6 +36,29 @@
         marionette      : 'lib/backbone.marionette.min',
         async           : 'lib/async',
 
+        //routers
+        builderrouter   : 'builder/routers/BuilderRouter',
+
+        //elements
+        builderelement  : 'builder/views/elements/BuilderElement',
+        builderrow      : 'builder/views/elements/layout/BuilderRow',
+        builderrowcolumn: 'builder/views/elements/layout/BuilderRowColumn',
+        
+        imageelement    : 'builder/views/elements/ImageElement',
+        logoelement     : 'builder/views/elements/LogoElement',
+        menuelement     : 'builder/views/elements/MenuElement',
+        titleelement    : 'builder/views/elements/TitleElement',
+        textelement     : 'builder/views/elements/TextElement',
+        socialelement   : 'builder/views/elements/SocialElement',
+        sliderelement   : 'builder/views/elements/SliderElement',
+        imagewithtextelement: 'builder/views/elements/ImageWithTextElement',
+        addresselement  : 'builder/views/elements/AddressElement',
+
+        roomtitle       : 'builder/views/elements/rooms/RoomTitle',
+        roomdescription : 'builder/views/elements/rooms/RoomDescription',
+        roomfacilities  : 'builder/views/elements/rooms/RoomFacilities',
+        roomgallery     : 'builder/views/elements/rooms/RoomGallery',
+
         //menu
         menumanager     : 'builder/views/modals/MenuManager',
         menumodel       : 'builder/models/MenuModel',
@@ -47,6 +74,7 @@
         slidermanager   : 'builder/views/modals/SliderManager'
 
     },
+    waitSeconds: 15,
     shim: {
         'backbone': {
             deps: ['underscore', 'jquery'],
@@ -91,5 +119,4 @@
             exports : 'Marionette'
         }
     }
-
 })

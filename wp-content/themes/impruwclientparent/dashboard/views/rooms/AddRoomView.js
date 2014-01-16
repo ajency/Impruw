@@ -51,6 +51,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
                 'click .btn_addplanmodal'			: 'showAddPlanModal',
                 'click #btn_add_addon'				: 'showAddAddOnModal',
                 'click #btn_add_daterange'			: 'showAddDateRangeModal',
+                'click .addtariff_link'				: 'showTariffModal',
                 
                 'click .deletedaterange_lnk'		: 'deleteDateRange',
                 'click .editdaterange_lnk'			: 'enableEditDateRange',
@@ -471,27 +472,26 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 		 *	 Function triggered when new plan is added 
 		 */
 		newPlanAdded : function(response,evt_){
-		 
+			ImpruwDashboard.vent.trigger('add-plan-closed');
+			
 			if(response.code=="OK"){
 				 
 				this.saveSuccess(response,evt_,this);  
 				
-				$('#planlist_'+response.plandata.daterangeid).append('<tr>'+
+				$('.daterangeplan-table').append('<tr>'+
 						 '<td>'+
 							'<a href="#plan1" data-toggle="modal">'+response.plandata.plan+'</a>'+
-						'</td>'+
-						'<td>'+
+						'</td>   ' +
+						'<td>    ' +
 							 response.plandata.plandescription+  
-						'</td>'+
-						'<td>'+
-						 	response.plandata.weekdaytariff+
-						'</td>'+
-						'<td>'+
-							response.plandata.weekendtariff+
-						'</td>'+
-						'<td>'+
-						'<a href="#" class="edit-link"><span class="glyphicon glyphicon-pencil"></span> Edit</a>'+
-						'<a href="#" class="delete-link"><span class="glyphicon glyphicon-trash"></span> Delete</a>'+
+						'</td>   ' +
+						'<td> -  ' +
+						'</td>   ' +
+						'<td> -  ' +							
+						'</td>   ' +
+						'<td>    ' +						 
+						'<a href="javascript:void(0)" class="addtariff_link" planid="'+response.plandata.planid+'" ><span class="glyphicon glyphicon-plus"></span> Add tariff</a>'+
+						'<a href="javascript:void(0)" class="edit-link edittariff-link"  planid='+response.plandata.planid+'><span class="glyphicon glyphicon-pencil"></span> Edit Tariff</a>'+
 					'</td>'+
 					'</tr>');
 				 
@@ -544,6 +544,90 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 			
 		},
         
+		
+		
+		 /**
+		 * Function to show add tariff modal
+		 * @param evt
+		 */
+		showTariffModal : function(evt){
+		 	
+			 var addTariffModal = _.bind(function(_, AddTariffModal) {
+
+                    var addTariff = this.popupViewManager.findByCustom("add-tariff-popup");
+
+                    //ensure Menu manager is created just once
+                    if (_.isUndefined(addTariff)){
+                        addTariff = new AddTariffModal();
+                        this.popupViewManager.add(addTariff, "add-tariff-popup");
+                    }
+
+                    //start listening event
+                    this.listenTo(ImpruwDashboard.vent, 'new-tariff-added', this.newTariffAdded);
+
+                    //modal hide event
+                    this.listenTo(ImpruwDashboard.vent, 'add-tariff-closed', this.stopListeningEvents);
+
+                    addTariff.open();
+                    
+                    var daterangeId = $(evt.target).closest('.daterangeplan-table').attr('daterange-id')
+        			var planId 		= $(evt.target).attr('planid')
+                    $('#hdn_daterangeId').val(daterangeId)
+                    $('#hdn_planId').val(planId) 
+
+                }, this); 
+
+                require(['underscore', 'addtariffmodal'], addTariffModal);
+			
+			
+		},
+		
+		/**
+		 *	 Function triggered when new plan is added 
+		 */
+		newTariffAdded : function(response,evt_){
+			ImpruwDashboard.vent.trigger('add-tariff-closed');
+			
+			if(response.code=="OK"){
+				
+				
+				var planRow = $('#planlist_'+response.tariffdata.daterangeid).find('#plan-row-'+response.tariffdata.planid)
+				 
+				
+				planRow.find('.block-plan-weekday-tariff').html(response.tariffdata.weekdaytariff)
+				planRow.find('.block-plan-weekend-tariff').html(response.tariffdata.weekendtariff)
+				
+			 	
+				this.saveSuccess(response,evt_,this);  
+				 
+				/*$('.daterangeplan-table').append('<tr>'+
+						 '<td>'+
+							'<a href="#plan1" data-toggle="modal">'+response.plandata.plan+'</a>'+
+						'</td>   ' +
+						'<td>    ' +
+							 response.plandata.plandescription+  
+						'</td>   ' +
+						'<td> -  ' +
+						'</td>   ' +
+						'<td> -  ' +							
+						'</td>   ' +
+						'<td>    ' +						 
+						'<a href="javascript:void(0)" class="addtariff_link" planid="'+response.plandata.planid+'" ><span class="glyphicon glyphicon-plus"></span> Add tariff</a>'+
+						'<a href="javascript:void(0)" class="edit-link edittariff-link"  planid='+response.plandata.planid+'><span class="glyphicon glyphicon-pencil"></span> Edit Tariff</a>'+
+					'</td>'+
+					'</tr>');*/
+				
+				 
+			}
+			else{
+				this.saveFailure(response,evt_,this);  
+			}
+				
+			
+		},
+		
+		
+		
         /**
 		 * Function to show add tax model
 		 * @param evt
