@@ -1127,6 +1127,7 @@ Version:        0.1.0
 					padding: 0.5em 0;
 					.nav-tabs {
 						border-width: 1px;
+						margin: 0 0 0.5em;
 						li {
 							a {
 								font-weight: normal;
@@ -1283,6 +1284,82 @@ Version:        0.1.0
 											}
 										}
 									}
+								}
+							}
+						}
+						.thumbnails {
+							.single-img {
+								position: relative;
+								.thumbnail {
+									margin-bottom: 7px;
+									border: 2px solid @dash-grey;
+									&:hover {
+										border-color: @blue-grey;
+									}
+								}
+								.ticker {
+									position: absolute;
+									top: -7px;
+									right: -7px;
+									color: #fff;
+									padding: 3px 4px;
+									border-radius: 2px;
+									text-shadow: 0 0 1px @preview-grey;
+									background: @blue-grey;
+									display: none;
+									box-shadow: 0 0 2px #333;
+									.glyphicon-minus {
+										display: none;
+									}
+									&:hover {
+										cursor: pointer;
+										.glyphicon-ok {
+											display: none;
+										}
+										.glyphicon-minus {
+											display: inline-block;
+										}
+									}
+								}
+								&.selected {
+									.thumbnail {
+										border-color: @blue-grey;
+									}
+									.ticker {
+										display: block;
+									}
+								}
+							}
+						}
+						.img-details {
+							border: 2px solid @dash-grey;
+							border-radius: 2px;
+							background: lighten(@preview-grey, 10%);
+							padding: 5px;
+							h5 {
+								color: darken(@dash-grey, 20%);
+								font-size: 1em;
+								text-transform: uppercase;
+							}
+							.imgthumb {
+								padding-right: 5px;
+							}
+							.imginfo {
+								color: @dash-grey;
+								font-size: 0.88em;
+								padding-left: 5px;
+								h6 {
+									font-size: 1.2em;
+									color: @logo-blue;
+									margin: 0 0 0.2em;
+								}
+								.editlink {
+									margin: 0.5em 0.5em 0.5em 0;
+									color: @blue-grey;
+								}
+								.deletelink {
+									color: darken(@orange, 10%);
+									margin: 0.5em 0.5em 0.5em 0;
 								}
 							}
 						}

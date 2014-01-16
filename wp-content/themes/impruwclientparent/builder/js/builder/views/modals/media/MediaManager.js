@@ -95,7 +95,7 @@ define(['builder/views/modals/Modal', 'tpl!builder/templates/modal/media/mediama
                 var mediaView = new SingleMedia({
                     model: media
                 });
-                this.$el.find('.selectable-images').prepend(mediaView.render().$el);
+                this.$el.find('.selectable-images .thumbnails').prepend(mediaView.render().$el);
             
             },
 

@@ -12,7 +12,7 @@ define(['backbone', 'tpl!builder/templates/modal/media/singlemedia.tpl',
 
         var SingleMedia = Backbone.View.extend({
 
-            className: 'panel panel-default',
+            className: 'col-sm-2',
 
             template: template,
 

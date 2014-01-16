@@ -198,7 +198,7 @@ function add_to_email_queue( $email_type_id, $user_ids_array, $initiator_id, $da
     $priority=  0;//get_post_meta($email_type_id,'priority',true);
      
     
-    echo "<br/>-----email type id";   
+   /* echo "<br/>-----email type id";   
     var_dump($email_type_id);
     
     echo "<br/>-----user_ids_array";
@@ -209,7 +209,7 @@ function add_to_email_queue( $email_type_id, $user_ids_array, $initiator_id, $da
     
     echo "-----data";
     var_dump($data);
-     
+     */
 	 $insert_into_queue_query = ( "INSERT into {$wpdb->prefix}email_processing_queue (post_id,email_category,user_id,priority,status,initiator_id,data_info)
                                VALUES (".$email_type_id.",'".$email_type."','".$user_ids_array."','".$priority."','pending',".$initiator_id.",'".$data."')" );
                                
@@ -217,7 +217,7 @@ function add_to_email_queue( $email_type_id, $user_ids_array, $initiator_id, $da
                                VALUES ( %d ,%s,%s,%d,%s,%d,%s)",$email_type_id,$email_type,$user_ids_array,$priority,'pending',$initiator_id,$data );
                                */
     
-    echo '===='.$insert_into_queue_query;
+   // echo '===='.$insert_into_queue_query;
     $wpdb->query( $insert_into_queue_query );
 
 }
