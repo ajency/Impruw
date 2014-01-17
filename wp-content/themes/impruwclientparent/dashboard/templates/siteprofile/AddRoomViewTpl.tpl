@@ -98,12 +98,12 @@
 														<input type="checkbox" data-toggle="checkbox" checked="checked" name="facility[]"   value="<%=facility.name %>"   >
 														<span id="facLabel-<%=facility.term_id %>" facililtyname="<%=facility.name %>"  ><%=facility.name %></span>
 														<span class='hidden inputEditFacility' > 
-															<form name='frm_editfacility' id='frmeditfacility-<%=facility.term_id %>'   > 
+															<!--  <form name='frm_editfacility' id='frmeditfacility-<%=facility.term_id %>'   > --> 
 																<input type='text' class='form-control input-sm'  
 																placeholder='Edit Facility' name='inputfacility-<%=facility.term_id %>' id='inputfacility-<%=facility.term_id %>' 
 																parsley-validation-minlength='0'  
 																value='<%=facility.name %>'   > 
-															</form>
+														<!--  </form> -->
 														</span>
 														 
 														
@@ -153,6 +153,10 @@
 								<div class="alert alert-success hidden status_message"></div>
 
 								<div class="form-table table-responsive">
+								
+								<input type="hidden" name="hdn_plantariffids"  id="hdn_plantariffids" class = "chk_plantariff"  value=""   >
+								
+								
 									<table class="table table-striped" id="tbl_daterangelist">
 										<thead>
 											<tr>
@@ -207,6 +211,7 @@
 													</table>
 													<div id="rowlink<%=daterange.id%>" class="inner collapse">
 														<div class="form-table table-responsive">
+														
 															<table class="table table-bordered table-hover daterangeplan-table" id="planlist_<%=daterange.id%>" daterange-id = "<%=daterange.id%>">
 																<thead>
 																	<tr>
@@ -221,19 +226,22 @@
 																<tbody data-link="row" class="rowlink">
 																
 																<% _.each(daterange.plans,function(plan,plan_index){
+																  
 																%>
+																 
 																	<tr id="plan-row-<%=plan.plan_id %>" >
 																		<td class="block-plan-name" >
+																			
 																			<a href="#plan1" data-toggle="modal"><%=plan.plan_name %></a>
 																		</td>
 																		<td class="block-plan-description">
 																			<%=plan.plan_description %> 
 																		</td>
 																		<td class = "block-plan-weekday-tariff" >
-																			<% if(plan.weekday_tariff!=' - ') { %>$<% }%> <%=plan.weekday_tariff %> 
+																			 - 
 																		</td>
 																		<td class="block-plan-weekend-tariff" >
-																			<% if(plan.weekend_tariff!=' - ') { %>$<% }%> <%=plan.weekend_tariff %> 
+																			 - 
 																		</td>
 																		<td>
 																			<a href="javascript:void(0)" class="addtariff_link" planid="<%=plan.plan_id %>"    ><span class="glyphicon glyphicon-plus"></span> Add Tariff</a>

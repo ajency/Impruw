@@ -70,11 +70,12 @@ define(['modal', 'tpl!templates/modal/AddTariff.tpl'],
     							
     							$(evt.target).prop('disabled',false);
     							ImpruwDashboard.vent.trigger('new-tariff-added',response,evt_);
-    								
+    							self_.$el.find('#form_addtariff')[0].reset();	
     						 	setTimeout(function(){
     						 		self_.hide();
     							   }, 2100);
-    							 	 
+    						
+    						 	
     						 
     						}
     						else{

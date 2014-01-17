@@ -192,7 +192,9 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
                });
 				    
                facilityValues.join (", ");
-					  
+			  
+               var plantariffids = $('#hdn_plantariffids').val();
+               
                var room = new RoomModel();
 			  
 			  
@@ -205,7 +207,8 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 					  	 	'checkintime'		: checkintime,
 					  	 	'additionalpolicies': additionalpolicies,
 					  	 	'tax_option'		: tax_option,
-					  	 	'room_attachments'	: room_attachments
+					  	 	'room_attachments'	: room_attachments,
+					  	 	'plantariffids'		: plantariffids
 					  	 	
 					  	 	
 					};
@@ -591,13 +594,20 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 			if(response.code=="OK"){
 				
 				
-				var planRow = $('#planlist_'+response.tariffdata.daterangeid).find('#plan-row-'+response.tariffdata.planid)
+				var planRow = $('#planlist_'+response.tariffdata.daterangeid).find('#plan-row-'+response.tariffdata.planid);
 				 
 				
-				planRow.find('.block-plan-weekday-tariff').html(response.tariffdata.weekdaytariff)
-				planRow.find('.block-plan-weekend-tariff').html(response.tariffdata.weekendtariff)
+				planRow.find('.block-plan-weekday-tariff').html('$ '+response.tariffdata.weekdaytariff);
+				planRow.find('.block-plan-weekend-tariff').html('$ '+response.tariffdata.weekendtariff);
 				
-			 	
+				
+				var inputPlanTariffIds =  $('#hdn_plantariffids').val();
+				console.log('new tariff added')
+				if($('#hdn_plantariffids').val()=="")
+					$('#hdn_plantariffids').val(response.tariffdata.plantariffid);
+				else
+					$('#hdn_plantariffids').val(inputPlanTariffIds+','+response.tariffdata.plantariffid);
+				  
 				this.saveSuccess(response,evt_,this);  
 				 
 				/*$('.daterangeplan-table').append('<tr>'+
@@ -948,7 +958,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 			this.stopListening(ImpruwDashboard.vent, 'new-tax-added');
 			this.stopListening(ImpruwDashboard.vent, 'new-date-range-added');
 			this.stopListening(ImpruwDashboard.vent, 'new-plan-added');
-			
+			this.stopListening(ImpruwDashboard.vent, 'new-tariff-added');
 		},
 		
 		

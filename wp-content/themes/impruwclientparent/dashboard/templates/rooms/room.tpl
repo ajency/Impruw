@@ -16,36 +16,30 @@
 			</div>
 		</div>
 	</td>
-	<td>
+	<td><% console.log(room.get('daterangetariff'))    %>
 		<div class="tariff">
-			<div class="row tariff-plan">
+		
+		<% _.each(room.get('daterangetariff'),function(dateRangeTariff,index){  
+		 console.log(dateRangeTariff.planId) 
+		 %>
+		 <div class="row tariff-plan">
 				<div class="col-sm-6 plan">
-					<h6>American Plan</h6>
-					10/12/2013 to 30/03/2014
+					<h6><%=dateRangeTariff.planName%></h6>
+					<%=dateRangeTariff.fromDate%> to <%=dateRangeTariff.toDate%>
 				</div>
 				<div class="col-sm-3 weekday">
 					Weekday
-					<div class="price">$120</div>
+					<div class="price">$<%=dateRangeTariff.weekdayTariff%></div>
 				</div>
 				<div class="col-sm-3 weekend">
 					Weekend
-					<div class="price">$150</div>
+					<div class="price">$<%=dateRangeTariff.weekEndTariff%></div>
 				</div>
 			</div>
-			<div class="row tariff-plan">
-				<div class="col-sm-6 plan">
-					<h6>American Plan</h6>
-					10/12/2013 to 30/03/2014
-				</div>
-				<div class="col-sm-3 weekday">
-					Weekday
-					<div class="price">$120</div>
-				</div>
-				<div class="col-sm-3 weekend">
-					Weekend
-					<div class="price">$150</div>
-				</div>
-			</div>
+		 <% 
+		  }) %>
+			
+			 
 			<div class="view-all">
 				<a href="#">View All</a>
 			</div>

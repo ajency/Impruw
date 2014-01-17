@@ -763,6 +763,12 @@ function add_new_room( $blog_id, $array, $tariff_array ) {
     update_post_meta( $post_id, 'inventory', $array['inventory'] );//adds thew inventory value to the room
     // var_dump( wp_set_object_terms($post_id, $array['terms'], 'impruw_room_facility'));exit;;
     update_post_meta($post_id,'room-attachments',$array['room_attachments'] );
+    
+    $plan_tariff_array = explode(',',$array['plantariff']);
+    $plan_tariff_serialized = maybe_serialize($plan_tariff_array);
+    
+    update_post_meta($post_id,'room-plantariff',$plan_tariff_serialized );
+    
     wp_set_object_terms( $post_id, $array['terms'], 'impruw_room_facility' );
     add_room_tariff( $post_id, $tariff_array );
     restore_current_blog();
@@ -2426,8 +2432,9 @@ function add_new_room_ajx() {
     $additional_policies 	= $_POST['additionalpolicies'];
 	$tax_option				= $_POST['tax_option'];
 	$room_attachments 		= $_POST['room_attachments'];
-
-    $array=array( 'post_title' => $room_name, 'post_content' => $room_desc, 'user_id' => get_current_user_id(), 'inventory' => $room_nos, 'terms'=>$room_facilities, 'room_attachments'=>$room_attachments );
+	$room_plantariff 		= $_POST['plantariffids'];
+	
+    $array=array( 'post_title' => $room_name, 'post_content' => $room_desc, 'user_id' => get_current_user_id(), 'inventory' => $room_nos, 'terms'=>$room_facilities, 'room_attachments'=>$room_attachments, 'plantariff'=>$room_plantariff );
 
     $attribute_array = array( 'weekday_price'=>'10', 'weekend_price'=>'20', 'num_of_adults'=>'2', 'num_of_children'=>'2', 'extra_adult'=>'10', 'extra_child'=>'10', 'include_tax'=>'yes', 'tax_percent'=>'12', 'terms_and_conditions'=>'agree' );
 

@@ -3,7 +3,7 @@
  * This is the main router for the dashboard
  */
  
-define(['underscore', 'jquery', 'backbone', 'mainview', 'bootstrapselect','checkbox','string'],
+define(['underscore', 'jquery', 'backbone', 'mainview', 'bootstrapselect','checkbox','string', 'tpl'],
 		function( _ , $, Backbone, DashboardMainView){
 
 

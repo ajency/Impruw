@@ -1,6 +1,7 @@
 <div class="modal-body">
 	<form class="form-horizontal clearfix" name="form_addtariff"
 		id="form_addtariff">
+		<div class="alert alert-success hidden status_message"></div>
 		<input type='hidden' name='hdn_daterangeId' id='hdn_daterangeId' value='' />
 		<input type='hidden' name='hdn_planId' id='hdn_planId' value='' />
 		<div class="form-group dual">
