@@ -1,7 +1,7 @@
 /**
- *  Add Tariff .js *  
+ *  Add Plan .js *  
  */
-define(['modal', 'tpl!templates/modal/AddPlan.tpl'], 
+define(['modal', 'tpl!templates/modal/AddPlan.tpl','parsley'], 
       function(Modal, template) {
 
 
@@ -36,6 +36,7 @@ define(['modal', 'tpl!templates/modal/AddPlan.tpl'],
                 $('body').append(this.$el);
 
                 this.$el.modal();
+                parsleyInitialize($('#form_addplan'));
                
             },
             
@@ -44,6 +45,10 @@ define(['modal', 'tpl!templates/modal/AddPlan.tpl'],
     		 * @param evt
     		 */
     		addNewPlan : function(evt){
+    			
+    			if (!this.$el.find('#form_addplan').parsley('validate'))
+  				  return;
+    			
     			$(evt.target).prop('disabled',true);
     			
     			var form_plan = $(evt.target).parent().parent().find('#form_addplan');  

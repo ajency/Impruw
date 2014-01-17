@@ -176,6 +176,58 @@ function getFormData(form) {
 
 }
 
+
+
+/**
+ * Function to initialize parsley validation for a form
+ * @param formelement
+ */
+
+ function parsleyInitialize(formelement){
+	
+ 	
+	formelement.parsley({
+		errors: {
+			
+			errorsWrapper: '<span class="help-block" style="display:block"></span>',
+	    	  
+	    	errorElem: '<span style="display:block"></span>',
+	    	
+		    container: function (element) {
+    		    		var $container = element.parent().parent().find(".p-messages");
+    		    		if ($container.length === 0) {
+    	                   $container = $("<div class='p-messages'></div>").insertAfter(element);
+    		    		}
+    		    		return $container;
+		    }
+		   
+		},
+        listeners: {
+           onFieldSuccess: function ( elem, constraints, ParsleyField ) { 
+        	   
+        	   if(elem.parent().hasClass('input-group'))
+        		   elem.parent().parent().parent().removeClass("has-error").addClass("has-success");
+        	   else
+        		   elem.parent().parent().removeClass("has-error").addClass("has-success");
+              elem.parent().parent().find('.fui-check-inverted,.fui-cross-inverted').remove();
+              elem.after('<span class="validation-icon input-icon fui-check-inverted"></span>') 
+           } ,
+           
+           onFieldError: function ( elem, constraints, ParsleyField ) { 
+        	    
+        	   if(elem.parent().hasClass('input-group'))
+        		   elem.parent().parent().parent().removeClass("has-success").addClass("has-error");
+        	   else	
+        		   elem.parent().parent().removeClass("has-success").addClass("has-error"); 
+               
+               elem.parent().parent().find('.fui-check-inverted,.fui-cross-inverted').remove();
+               elem.after('<span class="validation-icon input-icon fui-cross-inverted"></span>') 
+            }  
+       }
+	});
+	
+}
+
 require(['backbone','marionette',
          'routers/DashboardRouter','sitemodel','usermodel'], 
          function( Backbone, Marionette, Router, SiteModel, UserModel) {

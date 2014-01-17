@@ -3,7 +3,7 @@
  * This class contains all necessary functions for handling media related tasks
  */
 
-define(['underscore', 'backbone',  'mediamodel'],
+define(['underscore', 'backbone', 'mediamodel'],
     function(_, Backbone,  MediaModel) {
 
         var MediaCollection = Backbone.Collection.extend({
@@ -29,6 +29,9 @@ define(['underscore', 'backbone',  'mediamodel'],
 
                 if (response.code === "OK") {
                     return response.data;
+                }
+                else if (response.code === "ERROR"){
+                    getAppInstance().vent.trigger('media-fetch-failed', response);
                 }
 
             },
