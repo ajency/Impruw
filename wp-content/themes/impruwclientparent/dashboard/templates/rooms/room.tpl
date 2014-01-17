@@ -45,9 +45,10 @@
 			</div>
 		</div>
 	</td>
-	<td class="actions"><a href="#edit-room/id=<%=room.get('id') %>" class="btn btn-xs"><span
-			class="glyphicon glyphicon-pencil"></span> Edit</a> <a href="#"
-		class="btn btn-danger btn-xs"><span
-			class="glyphicon glyphicon-trash"></span> Delete</a>
+	<td class="actions">
+		<a href="#edit-room/id=<%=room.get('id') %>" class="btn btn-xs">
+		<span class="glyphicon glyphicon-pencil"></span> Edit</a> 
+		<a href="javascript:void(0)" class="btn btn-danger btn-xs deleteroom_link" room-id='<%=room.get('id') %>' >
+		<span class="glyphicon glyphicon-trash"></span> Delete</a>
 	</td>
 </tr>

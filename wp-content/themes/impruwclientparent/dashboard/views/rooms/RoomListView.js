@@ -4,15 +4,16 @@
  */
 
 define([ 'underscore', 'jquery', 'backbone','roomcollection',
-		'text!templates/siteprofile/RoomListViewTpl.tpl','radio'], 
-      function(_, $, Backbone, RoomCollection, ListRoomViewTpl) {
+		'text!templates/siteprofile/RoomListViewTpl.tpl','roommodel','radio'], 
+      function(_, $, Backbone, RoomCollection, ListRoomViewTpl, RoomModel) {
 
 	var RoomListView = Backbone.View.extend({
 
          id : 'list-room',
 
          events : {
-        	'click a.retry' : 'reTry'    
+        	'click a.retry' 		  : 'reTry',
+        	'click a.deleteroom_link' : 'deleteRoom'
 		}, 
 
 		initialize : function(args) {
@@ -81,7 +82,43 @@ define([ 'underscore', 'jquery', 'backbone','roomcollection',
 			this.$el.html(response.message);
 			this.$el.html('<a href="#" class="retry">try Now</a>');
 			
-		}
+		},
+		
+		
+		deleteRoom : function(evt){
+			var r=confirm("Are you sure you want to delete this room?");
+			if (r==true){
+			
+			var room_id = $(evt.target).attr('room-id');
+			var room = new RoomModel();
+			room.deleteRoom(room_id,evt);
+			this.listenTo(getAppInstance().vent, 'room-deleted', this.roomDeleted);
+			}
+			
+		},
+		
+		roomDeleted : function(response,evt){
+			console.log('room  deleted ')
+			
+			this.stopListening(ImpruwDashboard.vent, 'room-deleted');
+			
+			$(evt.target).closest('tr').remove()
+			
+		} 
+		
+		
+		/**
+		 * Function to stop listening to events
+		 
+		stopListeningEvents : function(){
+			//this.stopListening(SiteBuilder.vent, 'new-add-on-added', this.refetchHtml);
+			this.stopListening(ImpruwDashboard.vent, 'room-deleted');
+		
+		},*/
+		
+		
+		
+		
 	});
 
 	return RoomListView;

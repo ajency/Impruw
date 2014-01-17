@@ -213,6 +213,7 @@ function getFormData(form) {
            } ,
            
            onFieldError: function ( elem, constraints, ParsleyField ) { 
+        	   console.log('fielderror')
         	    
         	   if(elem.parent().hasClass('input-group'))
         		   elem.parent().parent().parent().removeClass("has-success").addClass("has-error");

@@ -1,7 +1,7 @@
 /**
  *  Adddaterange .js *  
  */
-define(['modal', 'tpl!templates/modal/AddDateRange.tpl'], 
+define(['modal', 'tpl!templates/modal/AddDateRange.tpl','parsley'], 
       function(Modal, template) {
 
 
@@ -50,7 +50,8 @@ define(['modal', 'tpl!templates/modal/AddDateRange.tpl'],
 
      			// Now let's align datepicker with the prepend button
      			$(datepickerSelector).datepicker('widget').css({'margin-left': -$(datepickerSelector).prev('.btn').outerWidth()});
-     		
+     			parsleyInitialize($('#form_daterange'));
+     			
                
                
             },
@@ -76,6 +77,10 @@ define(['modal', 'tpl!templates/modal/AddDateRange.tpl'],
              * Function to save date range
              */
             saveDateRange : function(evt){
+            	
+            	if (!this.$el.find('#form_daterange').parsley('validate'))
+  				  return;
+            	
             	$(evt.target).prop('disabled',true);
             	
     			var fromDaterange 	=  $(evt.target).closest('.modal-content').find('#fromdaterange').val() 

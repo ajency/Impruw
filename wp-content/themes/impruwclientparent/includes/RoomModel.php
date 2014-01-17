@@ -165,12 +165,34 @@ function get_room_tariffs($LIMIT=1){
 	
 	
 	/**
-	 * 
+	 * Function to delete room
 	 *  
 	 * @param unknown_type $room_id
 	 */
-	function delete_room($room_id){
+	function delete_room(){
+		global $wpdb;
 		
+		$room_id = $this->room->ID;
+		//get daterange-plan-tariff id 
+		$room_tariff_arr = maybe_unserialize(get_post_meta($room_id,'room-plantariff',true));
+		$room_tariff = implode(',',$room_tariff_arr);
+		
+		$qry_del_room_tariff = "DELETE FROM {$wpdb->prefix}datetarriff where id in (".$room_tariff.")";
+		
+		$result_del_tariff = $wpdb->query($qry_del_room_tariff);
+		
+		if($qry_del_room_tariff){
+			
+			$result_del = wp_delete_post($room_id);
+
+			return $result_del;
+			
+		}
+		else 
+			return false;
+		
+		//delete tariff  for the room 
+ 		
 		
 	}
 	

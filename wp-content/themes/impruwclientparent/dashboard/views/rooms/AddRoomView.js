@@ -818,8 +818,8 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 			
 			var x;
 			var r=confirm("Deleting selected date range will, delete all plans under the date range. Are you sure you want to delete the daterange??!");
-			if (r==true)
-			{
+			if (r==true){
+				
 					var evt_ = evt;
 					var self_ = this;
 					 

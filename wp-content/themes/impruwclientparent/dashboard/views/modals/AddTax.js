@@ -1,7 +1,7 @@
 /**
  *  Add Tax .js *  
  */
-define(['modal', 'tpl!templates/modal/AddTax.tpl'], 
+define(['modal', 'tpl!templates/modal/AddTax.tpl','parsley'], 
       function(Modal, template) {
 
 
@@ -36,6 +36,7 @@ define(['modal', 'tpl!templates/modal/AddTax.tpl'],
                 $('body').append(this.$el);
 
                 this.$el.modal();
+                parsleyInitialize($('#form_add_tax'));
             },
             
             
@@ -44,6 +45,10 @@ define(['modal', 'tpl!templates/modal/AddTax.tpl'],
     		 */
     		
     		addNewTaxType :function(evt){
+    			
+    			if (!this.$el.find('#form_add_tax').parsley('validate'))
+    				  return;
+    			
     				var self_ = this;
     			
     				var evt_ = evt;

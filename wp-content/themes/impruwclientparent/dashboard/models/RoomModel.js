@@ -50,7 +50,41 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 				
 					});			
 			
-			} 
+			},
+			
+			deleteRoom : function(roomid,evt){
+				console.log('room id ....')
+				console.log(roomid);
+				var data = {	room_id : roomid,
+								action  : 'delete_room_ajx'
+			 			 
+							};
+				var evt_del = evt
+		 
+				$.post(	AJAXURL,
+						data,
+						function(response){
+							if(response.code=='OK'){
+					
+								
+								ImpruwDashboard.vent.trigger('room-deleted',response,evt_del);
+							 	ImpruwDashboard.vent.trigger('modal-closed');
+								
+							/*	_self.set(response.site_data)
+						
+								if(!_.isUndefined(fn.success) && _.isFunction(fn.success))
+									fn.success(response,evt_);*/  
+							}
+							else{
+						 
+								/*(if(!_.isUndefined(fn.failure) && _.isFunction(fn.failure))
+									fn.failure(response,evt_); */
+							}
+			
+				});
+				
+				
+			}
 		
 		
 		

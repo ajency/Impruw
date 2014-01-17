@@ -1,7 +1,7 @@
 /**
  *  Add Tax .js *  
  */
-define(['modal', 'tpl!templates/modal/AddOn.tpl'], 
+define(['modal', 'tpl!templates/modal/AddOn.tpl','parsley'], 
       function(Modal, template) {
 
 
@@ -36,6 +36,7 @@ define(['modal', 'tpl!templates/modal/AddOn.tpl'],
                 $('body').append(this.$el);
 
                 this.$el.modal();
+                parsleyInitialize($('#form_add_addon'));
             },
 
 

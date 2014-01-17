@@ -2474,11 +2474,34 @@ function get_room_list_ajx(){
 				 				 
 		$room_data[] = $room->get_all_roomdata(); 					  
 	}	 
-	 wp_send_json( array( 'code' => 'OK' , 'data' =>$room_data ) );
+	wp_send_json( array( 'code' => 'OK' , 'data' =>$room_data ) );
 	
 }
 add_action( 'wp_ajax_get_room_list_ajx', 'get_room_list_ajx' );
 add_action( 'wp_ajax_nopriv_get_room_list_ajx', 'get_room_list_ajx' );
+
+
+
+
+
+function delete_room_ajx(){
+	
+	$room_id  = $_POST['room_id'];
+	
+	$room = new RoomModel($room_id);
+	
+	$result = $room->delete_room();
+	
+	if(!$result)
+		wp_send_json( array( 'code' => 'ERROR' , 'data' =>'Error deleting room' ) );
+	else
+		wp_send_json( array( 'code' => 'OK' , 'room_id' =>$room_id) );
+	
+}
+add_action( 'wp_ajax_delete_room_ajx', 'delete_room_ajx' );
+add_action( 'wp_ajax_nopriv_delete_room_ajx', 'delete_room_ajx' );
+
+
 
 
 /**
