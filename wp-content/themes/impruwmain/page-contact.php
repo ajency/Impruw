@@ -28,7 +28,7 @@ get_header();
 						endwhile;
 					?>
 				</div>
-				<div class="col-md-5 aj-imp-register-right">
+				<div class="col-md-5 aj-imp-register-right contact-details">
 					<div class="aj-imp-register-steps">
 						<span class="number"><span class="glyphicon glyphicon-home"></span></span>
 						<?php echo __('Registered Address','impruwmain'); ?>
@@ -49,7 +49,7 @@ get_header();
 					</div>
 					<div class="clearfix"></div>
 					<div class="aj-imp-reg-step">
-						<h5><?php echo __('+47 - 12 34 56 78','impruwmain');?></h5>
+						<h5><a href="tel:+4712345678"><?php echo __('+47 - 12 34 56 78','impruwmain');?></a></h5>
 					</div>
 				</div>
 			</div>

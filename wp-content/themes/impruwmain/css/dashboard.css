@@ -856,8 +856,7 @@ form .aj-imp-submit:hover {
   margin: 0 0 1em;
 }
 .aj-imp-register-form .aj-imp-register-right .aj-imp-register-steps .number {
-  display: block;
-  float: left;
+  display: inline-block;
   text-align: center;
   margin-right: 0.2em;
   background: #ff7e00;
@@ -867,6 +866,11 @@ form .aj-imp-submit:hover {
   width: 1.6em;
   height: 1.6em;
   border-radius: 1.6em;
+}
+@media (max-width: 969px) {
+  .aj-imp-register-form .aj-imp-register-right .aj-imp-register-steps {
+    text-align: center;
+  }
 }
 .aj-imp-register-form .aj-imp-register-right .aj-imp-reg-step {
   margin: 1em 0 2em;
@@ -882,6 +886,18 @@ form .aj-imp-submit:hover {
 .aj-imp-register-form .aj-imp-register-right .aj-imp-reg-step p {
   color: #aaaaaa;
   font-size: 1.1em;
+}
+@media (max-width: 969px) {
+  .aj-imp-register-form .aj-imp-register-right .aj-imp-reg-step {
+    text-align: center;
+  }
+}
+@media (max-width: 969px) {
+  .aj-imp-register-form .aj-imp-register-right.contact-details {
+    border-top: 1px solid #aaaaaa;
+    padding-top: 1.5em;
+    display: block;
+  }
 }
 /****Login Page Styles****/
 .aj-imp-login-form {
@@ -1666,4 +1682,12 @@ form .aj-imp-submit:hover {
   .room-list tbody td.actions .btn {
     display: block;
   }
+}
+/****Dashboard Panel Styles****/
+.panel .panel-body h5 {
+  color: #aaaaaa;
+  font-size: 1.3em;
+}
+.panel .panel-body p {
+  color: #aaaaaa;
 }

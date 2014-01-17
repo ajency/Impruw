@@ -33,6 +33,7 @@ require.config({
         plupload        		: 'lib/plupload.full.min',
         tpl                     : 'lib/tpl',
         parsley                 : 'lib/parsley/parsley',
+        jpanelmenu              : 'lib/jquery.jpanelmenu.min',
         
         //Views
         mainview				: 'views/DashboardMainView',
