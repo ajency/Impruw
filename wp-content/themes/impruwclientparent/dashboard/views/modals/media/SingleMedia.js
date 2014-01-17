@@ -4,14 +4,15 @@
  *  Add/Editing/Deleting Menu
  */
 define(['backbone', 'tpl!templates/modal/media/singlemedia.tpl',
-        'mediamodel'],
+        'mediamodel'
+    ],
 
     function(Backbone, template, MediaModel) {
 
 
         var SingleMedia = Backbone.View.extend({
 
-            className: 'panel panel-default',
+            className: 'col-sm-2 single-img',
 
             template: template,
 
@@ -38,6 +39,10 @@ define(['backbone', 'tpl!templates/modal/media/singlemedia.tpl',
 
             },
 
+            /**
+             * [render description]
+             * @return {[type]} [description]
+             */
             render: function() {
 
                 var html = this.template({
@@ -48,16 +53,28 @@ define(['backbone', 'tpl!templates/modal/media/singlemedia.tpl',
                 
                 });
 
+                this.$el.attr('media-id', this.model.get('id'));
+
                 this.$el.html(html);
 
-                this.$el.find('select').selectpicker({
-                                                        style: 'btn-mini btn-default',
-                                                        menuStyle: 'dropdown'
-                                                    });
+                // this.$el.find('select').selectpicker({
+                //                                         style: 'btn-mini btn-default',
+                //                                         menuStyle: 'dropdown'
+                //                                     });
 
-                this.$el.find('input[type="checkbox"]').checkbox();
+                // this.$el.find('input[type="checkbox"]').checkbox();
 
                 return this;
+            },
+
+            /**
+             * [unselectImage description]
+             * @return {[type]} [description]
+             */
+            unselectImage : function(){
+
+                this.$el.removeClass('ui-selected');
+
             },
 
             /** 
@@ -124,8 +141,6 @@ define(['backbone', 'tpl!templates/modal/media/singlemedia.tpl',
                 this.model.save(formData,{
                     success : saveSuccessFn
                 });
-
-               
             }
 
         });

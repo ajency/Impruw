@@ -676,6 +676,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 			response.model = true
 			 
 			if(response.code=='OK'){
+				
 				if($('#addons_list').hasClass('hidden'))
 			 		$('#addons_list').removeClass('hidden')
 			 		

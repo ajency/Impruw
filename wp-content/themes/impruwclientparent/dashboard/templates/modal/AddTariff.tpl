@@ -9,7 +9,7 @@
 				<div class="form-group">
 					<label for="inputAddress2" class="col-sm-5 control-label">Tariff</label>
 					<div class="col-sm-7 col-sm-offset-5">
-						<label for="checkbox2" class="checkbox checked"> <input
+						<label for="checkbox2" class="checkbox checked"> <input 
 							type="checkbox" data-toggle="checkbox" class="chk_tariffdays"
 							tariff-type='weekday' checked="checked" id="rad_weekday"
 							name="rad_weekday"> Weekday </label> <span class="help-block">Monday
@@ -23,7 +23,7 @@
 			<div class="col-sm-5">
 				<div class="form-group">
 					<div class="col-sm-7">
-						<label for="checkbox2" class="checkbox checked"> <input
+						<label for="checkbox2" class="checkbox checked"> <input 
 							type="checkbox" data-toggle="checkbox" class="chk_tariffdays"
 							tariff-type='weekend' checked="checked" id="rad_weekend"
 							name="rad_weekend"> Weekend </label> <span class="help-block">Saturday

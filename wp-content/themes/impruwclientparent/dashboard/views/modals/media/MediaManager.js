@@ -3,11 +3,11 @@
  *  Contains all logic to handle menu configurations
  *  Add/Editing/Deleting Menu
  */
-define(['modal', 'tpl!templates/modal/media/mediamanager.tpl',
-        'mediamodel', 'mediacollection', 'mediasingle'
+define(['views/modals/Modal', 'tpl!templates/modal/media/mediamanager.tpl',
+        'mediamodel', 'mediacollection', 'mediasingle', 'parsley'
     ],
 
-    function(Modal, template, MediaModel, MediaCollection, SingleMedia){
+    function(Modal, template, MediaModel, MediaCollection, SingleMedia) {
 
 
         var MediaManager = Modal.extend({
@@ -19,10 +19,14 @@ define(['modal', 'tpl!templates/modal/media/mediamanager.tpl',
             shouldUpdate: false,
 
             events: {
-                'click .retry-fetch': 'fetchMedia'
+                'click .retry-fetch'                    : 'fetchMedia',
+                'selectableselected #selectable-images' : 'selectedImage',
+                'click .save-image-details'     : 'saveImageDetails',
+                'click .delete-image'           : 'deleteImageDetails',
+                'click #done-button'            : 'done'
             },
 
-            selected: null,
+            selected: [],
 
             progressBar : null,
 
@@ -69,14 +73,8 @@ define(['modal', 'tpl!templates/modal/media/mediamanager.tpl',
                 
                 this.bindPlupload();
 
-                //listen to image selected event
-                var imageChoosedFn = _.bind(function(model, size){
-                                        getAppInstance().vent.trigger('image-selected', model, size);
-                                        this.hide();
-                                    }, this);
-
                 //bind listeners
-                this.listenTo(getAppInstance().vent, 'image-choosed', imageChoosedFn);
+                //this.listenTo(getAppInstance().vent, 'image-choosed', imageChoosedFn);
                 this.listenTo(getAppInstance().vent, 'media-fetch-failed', this.handleFetchFailed);
                 this.listenTo(getAppInstance().mediaCollection, 'add', this.addMediaView);
                 this.listenTo(getAppInstance().mediaCollection, 'remove', this.removeMediaView);
@@ -84,6 +82,21 @@ define(['modal', 'tpl!templates/modal/media/mediamanager.tpl',
                 //trigger fetch
                 this.fetchMedia();
 
+                this.$el.find('#selectable-images').selectable();
+
+            },
+
+            /**
+             * [done description]
+             * @return {Function} [description]
+             */
+            done : function(){
+
+                var size = this.$el.find('.img-details').find('select.image-size').val();
+                
+                getAppInstance().vent.trigger('image-selected', this.selected, size);
+
+                this.hide();
             },
 
             /**
@@ -95,8 +108,125 @@ define(['modal', 'tpl!templates/modal/media/mediamanager.tpl',
                 var mediaView = new SingleMedia({
                     model: media
                 });
-                this.$el.find('.selectable-images').prepend(mediaView.render().$el);
+
+                this.$el.find('#selectable-images').prepend(mediaView.render().$el);
             
+            },
+
+            /**
+             * [selectedImage description]
+             * @return {[type]} [description]
+             */
+            selectedImage : function(evt){
+                
+                this.selected = null;
+
+                this.$el.find('#selectable-images').find('.ui-selected').each(_.bind(function(index, ele){
+
+                    var id= parseInt($(ele).attr('media-id'));
+
+                    var media = getAppInstance().mediaCollection.get(id);
+
+                    this.selected =media;
+                
+                }, this));
+
+                this.showEditForm();
+
+                this.enableDoneButton();
+            },
+
+            /**
+             * [showEditForm description]
+             * @return {[type]} [description]
+             */
+            showEditForm : function(){
+                
+                if(this.selected === null)
+                    return;
+
+                var view = this.$el.find('#selectable-images').find('#image-edit-' + this.selected.get('id'))
+                
+                view = _.clone(view);
+
+                this.$el.find('.img-details').html(view.html());
+
+                this.$el.find('.img-details').find('select').selectpicker({
+                                                        style: 'btn-mini btn-default',
+                                                        menuStyle: 'dropdown'
+                                                    });
+
+                this.$el.find('.img-details').find('input[type="checkbox"]').checkbox();
+            },
+
+            /**
+             * [enableDoneButton description]
+             * @return {[type]} [description]
+             */
+            enableDoneButton : function(){
+
+                if(_.isObject(this.selected))
+                    this.$el.find('#done-button').removeAttr('disabled');
+                else
+                    this.$el.find('#done-button').attr('disabled','disabled');
+            },
+
+            /**
+             * [selectedImage description]
+             * @return {[type]} [description]
+             */
+            unselectImage : function(evt){
+                
+                var id= parseInt($(evt.target).attr('media-id'));
+
+                var media = getAppInstance().mediaCollection.get(id);
+
+                this.selected.push(media);
+
+            },
+
+            /**
+             * SAves the image details on server
+             * @returns {undefined}
+             */
+            saveImageDetails: function(evt) {
+
+                var form = $(evt.target).closest('form');
+                var formData = getFormData(form);
+
+                var self = this;
+
+                if (!_.isObject(formData))
+                    return;
+
+                //remove error message  if any
+                $(evt.target).parent().find('span.error-span').remove();
+                $(evt.target).text('Saving...');
+                var saveSuccessFn = _.bind(function(){
+                    $(evt.target).text('Save');
+                    form.parent().find('.imginfo h6').text(formData['title']);
+                }, this);
+
+
+                this.selected.save(formData,{
+                    success : saveSuccessFn
+                });
+            },
+
+            /**
+             * Delete the image
+             * @return {[type]} [description]
+             */
+            deleteImageDetails : function(){
+
+                if(!confirm('Are you sure?'))
+                    return;
+
+                 this.selected.destroy({
+                    success: _.bind(function(model, response){
+                        getAppInstance().mediaCollection.remove(model);
+                    }, this)
+                });
             },
 
             /**
@@ -106,8 +236,8 @@ define(['modal', 'tpl!templates/modal/media/mediamanager.tpl',
             removeMediaView : function(media){
 
                 var id = '#media-' + media.get('id');
-                this.$el.find('.selectable-images').find(id).remove();
-            
+                this.$el.find('#selectable-images').find(id).remove();
+                this.$el.find('.img-details').empty();
             },
 
             /**
@@ -118,7 +248,7 @@ define(['modal', 'tpl!templates/modal/media/mediamanager.tpl',
 
                 var html = '<div class="alert alert-danger">Failed to fetch media. <a href="#" class="retry-fetch">try again</a></div>';
 
-                this.$el.find('#images').find('.selectable-images').prepend(html);
+                this.$el.find('#images').find('#selectable-images').prepend(html);
 
             },
 
@@ -208,7 +338,7 @@ define(['modal', 'tpl!templates/modal/media/mediamanager.tpl',
                         if (up.total.queued == 0) {
                             this.$el.find('a[href="#images"]').click();
                             setTimeout(_.bind(function() {
-                                this.$el.find('.selectable-images .panel').first().hide().toggle('highlight');
+                                this.$el.find('#selectable-images .panel').first().hide().toggle('highlight');
                             }, this), 500);
                         }
 

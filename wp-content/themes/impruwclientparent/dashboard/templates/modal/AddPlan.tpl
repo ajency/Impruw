@@ -9,6 +9,7 @@
 				<input type="text" class="form-control" id="plantype"
 					name="plantype" placeholder="eg. American Plan" required parsley-trigger="blur" parsley-validation-minlength="0"
 					parsely-required-message = "Please enter plan type">
+					<div class="p-messages"></div>
 			</div>
 		</div>
 
@@ -21,6 +22,7 @@
 					placeholder="eg. This Plan is inclusive of 3 meals a day."
 					required parsley-trigger="blur" parsley-validation-minlength="0"
 					parsely-required-message = "Please enter plan description" ></textarea>
+					<div class="p-messages"></div>
 			</div>
 		</div>
   
