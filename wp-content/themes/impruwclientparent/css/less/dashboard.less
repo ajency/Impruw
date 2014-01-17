@@ -890,8 +890,7 @@ form {
 			text-transform: lowercase;
 			margin: 0 0 1em;
 			.number {
-				display: block;
-				float: left;
+				display: inline-block;
 				text-align: center;
 				margin-right: 0.2em;
 				background: @orange;
@@ -901,6 +900,9 @@ form {
 				width: 1.6em;
 				height: 1.6em;
 				border-radius: 1.6em;
+			}
+			@media (max-width: 969px) {
+				text-align: center;
 			}
 		}
 		.aj-imp-reg-step {
@@ -916,6 +918,16 @@ form {
 			p {
 				color: @dash-grey;
 				font-size: 1.1em;
+			}
+			@media (max-width: 969px) {
+				text-align: center;
+			}
+		}
+		&.contact-details {
+			@media (max-width: 969px) { 
+				border-top: 1px solid @dash-grey;
+				padding-top: 1.5em;
+				display: block;
 			}
 		}
 	}
@@ -1528,6 +1540,12 @@ form {
 .modal-open {
 	.jPanelMenu-panel {
 		position: static !important;
+	}
+}
+
+.jPanelMenu {
+	body {
+		overflow: hidden;
 	}
 }
 
