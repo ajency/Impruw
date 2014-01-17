@@ -862,15 +862,14 @@ form .aj-imp-submit:hover {
   margin-right: 0.2em;
   background: #ff7e00;
   color: #fff;
-  font-size: 1.6em;
-  font-weight: 700;
+  font-size: 1em;
   padding: 0.2em;
   width: 1.6em;
   height: 1.6em;
   border-radius: 1.6em;
 }
 .aj-imp-register-form .aj-imp-register-right .aj-imp-reg-step {
-  margin: 2em 0 1em;
+  margin: 1em 0 2em;
 }
 .aj-imp-register-form .aj-imp-register-right .aj-imp-reg-step h4 {
   color: #ff7e00;
@@ -1667,4 +1666,12 @@ form .aj-imp-submit:hover {
   .room-list tbody td.actions .btn {
     display: block;
   }
+}
+/****Dashboard Panel Styles****/
+.panel .panel-body h5 {
+  color: #aaaaaa;
+  font-size: 1.3em;
+}
+.panel .panel-body p {
+  color: #aaaaaa;
 }
