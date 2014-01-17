@@ -27,7 +27,8 @@ define(['underscore', 'jquery', 'backbone', 'mainview', 'bootstrapselect','check
 					'user-profile'	: 'userProfile',
 					'add-room'		: 'addRoom',
 					'room-list'		: 'roomList',
-					'edit-room'		: 'editRoom'
+					'edit-room'		: 'editRoom',
+					'support'		: 'support'
 				},
 
 				index : function(){
@@ -48,6 +49,10 @@ define(['underscore', 'jquery', 'backbone', 'mainview', 'bootstrapselect','check
 				
 				siteProfile : function(){
   					this.mainView.show('siteprofileview');
+				},
+
+				support : function(){
+					this.mainView.show('supportview');
 				},
 				
 				/**

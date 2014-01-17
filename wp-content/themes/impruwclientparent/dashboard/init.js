@@ -41,6 +41,7 @@ require.config({
         siteprofileview			: 'views/siteprofile/SiteProfileView',
         userprofileview			: 'views/userprofile/UserProfileView',
         addroomview				: 'views/rooms/AddRoomView',
+        supportview             : 'views/SupportView',
         
         addtaxmodal				: 'views/modals/AddTax',
         addplanmodal			: 'views/modals/AddPlan',

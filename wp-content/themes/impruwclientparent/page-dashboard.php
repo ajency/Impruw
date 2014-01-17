@@ -63,7 +63,7 @@
 						<li class="aj-imp-nav-support">
 							<span class="icon"></span>
 							<span class="arrow"></span>
-							<a href="#">Support</a>
+							<a href="#support">Support</a>
 						</li>
 					</ul>
 				</nav>

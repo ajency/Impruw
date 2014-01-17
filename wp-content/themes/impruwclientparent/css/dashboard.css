@@ -1667,3 +1667,11 @@ form .aj-imp-submit:hover {
     display: block;
   }
 }
+/****Dashboard Panel Styles****/
+.panel .panel-body h5 {
+  color: #aaaaaa;
+  font-size: 1.3em;
+}
+.panel .panel-body p {
+  color: #aaaaaa;
+}
