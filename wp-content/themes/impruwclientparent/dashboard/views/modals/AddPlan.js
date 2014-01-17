@@ -76,7 +76,7 @@ define(['modal', 'tpl!templates/modal/AddPlan.tpl'],
     						 
     						}
     						else{
-    							  
+    							ImpruwDashboard.vent.trigger('new-plan-added',response,evt_); 
     							$(evt.target).prop('disabled',false);
     							
     						} 
@@ -121,7 +121,8 @@ define(['modal', 'tpl!templates/modal/AddPlan.tpl'],
     				 
     			}
     		}
-            
+    		
+    		 	        
             
             
         });

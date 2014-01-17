@@ -24,7 +24,8 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 					  	 	checkintime			: args.checkintime,
 					  	 	additionalpolicies	: args.additionalpolicies,
 					  	 	tax_option  		: args.tax_option,
-					  	 	room_attachments 	: args.room_attachments
+					  	 	room_attachments 	: args.room_attachments,
+					  	 	plantariffids		: args.plantariffids
 					  	 };
 			 
 			$.post(	this.addRoomUrl,
