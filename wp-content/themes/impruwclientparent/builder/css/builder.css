@@ -1224,7 +1224,7 @@ Version:        0.1.0
 .modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .thumbnails .single-img .ticker {
   position: absolute;
   top: -7px;
-  right: -7px;
+  right: 5px;
   color: #fff;
   padding: 3px 4px;
   border-radius: 2px;
@@ -1245,10 +1245,10 @@ Version:        0.1.0
 .modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .thumbnails .single-img .ticker:hover .glyphicon-minus {
   display: inline-block;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .thumbnails .single-img.selected .thumbnail {
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .thumbnails .single-img.ui-selected .thumbnail {
   border-color: #849fb0;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .thumbnails .single-img.selected .ticker {
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .thumbnails .single-img.ui-selected .ticker {
   display: block;
 }
 .modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .img-details {
