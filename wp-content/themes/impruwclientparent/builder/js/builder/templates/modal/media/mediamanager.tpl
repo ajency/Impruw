@@ -33,7 +33,10 @@
 					</div>
 				</div>
 				<div class="col-md-3 img-details">
-					 
+					 <div class="pick-image">
+					 	<span class="glyphicon glyphicon-hand-left"></span>
+					 	<h4>Select an Image from the library</h4>
+					 </div>
 				</div>
 			</div>
 		</div>
