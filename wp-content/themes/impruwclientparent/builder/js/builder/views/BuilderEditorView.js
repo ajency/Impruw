@@ -614,6 +614,26 @@ define(['underscore', 'jquery', 'backbone', 'global'],
 
                     global.Holder.run();
 
+                    //run maps
+                    if($('#map_canvas').length === 0)
+                        return;
+                    
+                    var map_canvas = document.getElementById('map_canvas');
+                    var youcou = new google.maps.LatLng(37.390345, -6.022595);
+                    var marker;
+                    var map_options = {
+                      center: new google.maps.LatLng(37.385299, -5.989634),
+                      zoom: 14,
+                      scrollwheel: false,
+                      mapTypeId: google.maps.MapTypeId.TERRAIN 
+                    }
+                    var map = new google.maps.Map(map_canvas, map_options)
+                    marker = new google.maps.Marker({
+                                    map:map,
+                                    draggable:true,
+                                    animation: google.maps.Animation.DROP,
+                                    position: map.getCenter()
+                              });
                 });
 
             },

@@ -1,16 +1,16 @@
 define(['builderelement', 'tpl!builder/templates/elements/BasicElement.tpl', 'global'],
     function(BuilderElement, template, global) {
 
-        var MapElement = BuilderElement.extend({
+        var ContactFormElement = BuilderElement.extend({
 
             //class name for view
-            className: 'aj-imp-elem-map element',
+            className: 'aj-imp-elem-address element',
 
             //define template for control
             template: template,
 
             //element type
-            elementType: 'MapElement',
+            elementType: 'ContactFormElement',
 
             //set height to be assigned to placeholder and helper
             placeHolderHeight: 100,
@@ -38,12 +38,12 @@ define(['builderelement', 'tpl!builder/templates/elements/BasicElement.tpl', 'gl
                 } else {
                     this.setProperties(options.config);
                 }
-                this.generateMarkup({icon : '', name : 'Map Element'});
+                this.generateMarkup({icon : '', name : 'Contact Form Element'});
                 this.setContextMenu();
 
             }
 
         });
 
-        return MapElement;
+        return ContactFormElement;
     });

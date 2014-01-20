@@ -73,9 +73,9 @@ class MapElement extends Element {
     function get_map(){
 
         ob_start();
-        ?>  
-
-        
+        ?> 
+        <!-- Google maps API -->
+        <div id="map_canvas"></div>
         <?php
         $html = ob_get_clean();
 

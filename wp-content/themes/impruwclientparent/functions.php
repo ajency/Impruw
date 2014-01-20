@@ -419,11 +419,9 @@ function get_contact_form_element_markup( $element ) {
 
     require_once PARENTTHEMEPATH . 'elements/ContactFormElement.php';
 
-    global $page_id;
+    $contact = new ContactFormElement( $element);
 
-    $room = new ContactFormElement( $element);
-
-    $html = $room->get_markup();
+    $html = $contact->get_markup();
 
     return $html;
 
@@ -438,11 +436,9 @@ function get_map_element_markup( $element ) {
 
     require_once PARENTTHEMEPATH . 'elements/MapElement.php';
 
-    global $page_id;
+    $map = new MapElement( $element);
 
-    $room = new MapElement( $element);
-
-    $html = $room->get_markup();
+    $html = $map->get_markup();
 
     return $html;
 

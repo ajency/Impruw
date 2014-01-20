@@ -59,7 +59,27 @@ class ContactFormElement extends Element {
         
         $html       = $this->get_open_tag();
         
-        $html       .= $this->get_address();
+        ob_start(); ?>
+
+        <div class="infoPoint text-center">Send us a Message</div>
+        <form id="contactForm" method="" action="">
+            <fieldset>
+                <div class="row">
+                    <div class="col-md-6">
+                        <input type="text" class="form-control flat" name="name" id="name" title="Enter your name" placeholder="Name"><br>
+                        <input type="email" class="form-control flat" name="email" id="email" title="Enter your email" placeholder="Email Address"><br>
+                        <input type="text" class="form-control flat" name="phonenumber" id="phonenumber" title="Enter your phone number" placeholder="Phone Number" value=""><br>
+                    </div>
+                    <div class="col-md-6">
+                        <textarea name="message" class="form-control flat" id="message" title="Enter your message" placeholder="Your Message"></textarea><br>
+                        <button class="submit btn btn-default" name="submit" type="submit" id="contact_submit">Send Message</button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+        <?php
+
+        $html .= ob_get_clean();
         
         $html       .= $this->get_close_tag();
         
