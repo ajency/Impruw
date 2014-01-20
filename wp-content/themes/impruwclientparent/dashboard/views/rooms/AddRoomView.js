@@ -53,6 +53,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
                 'click #btn_add_daterange'			: 'showAddDateRangeModal',
                 'click .addtariff_link'				: 'showTariffModal',
                 
+                'click .edittariff-link'			: 'editTariffModelData', 
                 'click .deletedaterange_lnk'		: 'deleteDateRange',
                 'click .editdaterange_lnk'			: 'enableEditDateRange',
                 'click .savedaterange_lnk'			: 'saveDateRange',
@@ -439,31 +440,40 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 		 * Function to show add plan model
 		 * @param evt
 		 */
-		showAddPlanModal : function(evt){
-			
+		showAddPlanModal : function(evt,plandetails){
+			console.log('viewmanager')
+			console.log(this.popupViewManager)
 			
 			
 			 var addPlanModal = _.bind(function(_, AddPlanModal) {
 
                     var addPlan = this.popupViewManager.findByCustom("add-plan-popup");
 
-                    //ensure Menu manager is created just once
+                  //ensure plan-popup is created just once
                     if (_.isUndefined(addPlan)){
                         addPlan = new AddPlanModal();
                         this.popupViewManager.add(addPlan, "add-plan-popup");
                     }
 
-                    //start listening event
-                    this.listenTo(ImpruwDashboard.vent, 'new-plan-added', this.newPlanAdded);
-
-                    //modal hide event
-                    this.listenTo(ImpruwDashboard.vent, 'add-plan-closed', this.stopListeningEvents);
-
-                    addPlan.open();
-                    
+                    if(_.isUndefined(plandetails)){
+                    	
+                     	 //start listening event
+                        this.listenTo(ImpruwDashboard.vent, 'new-plan-added', this.newPlanAdded);
+                        //modal hide event
+                        this.listenTo(ImpruwDashboard.vent, 'add-plan-closed', this.stopListeningEvents);
+                        addPlan.open();
+                        
+                        
+                    }
+                    else{
+                    	this.listenTo(ImpruwDashboard.vent, 'plan-updatesaved', this.planUpdateSaved);
+                    	//modal hide event
+                        this.listenTo(ImpruwDashboard.vent, 'edit-plan-closed', this.stopListeningEvents);
+                        addPlan.open({plandata:plandetails});
+                    }
                     var daterange_id = $(evt.target).attr('daterange-id')
         			$('#hdn_daterange').val(daterange_id)
-
+                       
                 }, this); 
 
                 require(['underscore', 'addplanmodal'], addPlanModal);
@@ -508,6 +518,33 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 		
 		
 		/**
+		 *	 Function triggered when plan is updated
+		 */
+		planUpdateSaved : function(response,evt_){
+			ImpruwDashboard.vent.trigger('edit-plan-closed');
+			
+			if(response.code=="OK"){
+				 
+				this.saveSuccess(response,evt_,this);  
+				 
+			 	
+				this.$el.find('.plan-row-'+response.plandata.plan_id)
+					.find('.block-plan-description').html(response.plandata.plan_description)
+					
+				this.$el.find('.plan-row-'+response.plandata.plan_id)
+						.find('.block-plan-name a').html(response.plandata.plan_label);
+				  
+				$(evt_.target).closest('tr .block-plan-description').html(response.plandata.plan_description)
+			   
+			}
+			else{
+				this.saveFailure(response,evt_,this);  
+			}
+				
+			
+		},
+		
+		/**
 		 * Function to delete plan
 		 */
 		deleteplan : function(evt){
@@ -549,11 +586,62 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
         
 		
 		
+		
+		
+		
+		
+		
+		/**
+		 * Function to show edit tariff popup modal
+		 * Fetch tariff data and show popup modal
+		 * @param evt
+		 */
+		editTariffModelData	: function(evt){
+			
+			var evt_ = evt;
+			var self_ = this;
+			
+			var daterange_plan_tariff_id = $(evt.target).attr('date-range-plan-tariffid')
+				
+			var data = {		action					: 'fetch_daterange_plan_tariff_data_ajx',						 
+								daterange_plan_tariff_i :  daterange_plan_tariff_id 								 
+						};
+			 
+			
+			$.post(	AJAXURL,
+					data,
+					function(response){ 
+					 console.log(response)
+						if(response.code=='OK'){		
+							 self_.showTariffModal(evt_,response.dateTariff)
+						 
+						}
+						else{
+							/*$(evt.target).html('Save');
+							$(evt.target).prop('disabled',false);
+							self_.saveFailure(response,evt_,self_);  */
+						} 
+				
+			 });
+			
+		},
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		 /**
 		 * Function to show add tariff modal
 		 * @param evt
 		 */
-		showTariffModal : function(evt){
+		showTariffModal : function(evt,dateplanTariff){
 		 	
 			 var addTariffModal = _.bind(function(_, AddTariffModal) {
 
@@ -565,14 +653,31 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
                         this.popupViewManager.add(addTariff, "add-tariff-popup");
                     }
 
-                    //start listening event
-                    this.listenTo(ImpruwDashboard.vent, 'new-tariff-added', this.newTariffAdded);
-
-                    //modal hide event
-                    this.listenTo(ImpruwDashboard.vent, 'add-tariff-closed', this.stopListeningEvents);
-
-                    addTariff.open();
                     
+                    if(_.isUndefined(dateplanTariff)){
+                    	//start listening event
+                        this.listenTo(ImpruwDashboard.vent, 'new-tariff-added', this.newTariffAdded);
+
+                        //modal hide event
+                        this.listenTo(ImpruwDashboard.vent, 'add-tariff-closed', this.stopListeningEvents);
+
+                        addTariff.open();                    	
+                    }
+                    else{
+                    	//start listening event
+                        this.listenTo(ImpruwDashboard.vent, 'tariff-updated', this.tariffupdated);
+
+                        //modal hide event
+                        this.listenTo(ImpruwDashboard.vent, 'edit-tariff-closed', this.stopListeningEvents);
+
+                        addTariff.open({daterangePlanTariff: dateplanTariff});
+                        var daterangePlanTariffId = $(evt.target).attr('date-range-plan-tariffid')
+                        $('#hdn_dateplantariff').val(daterangePlanTariffId);
+                    	
+                    }
+                    	
+                    
+                   
                     var daterangeId = $(evt.target).closest('.daterangeplan-table').attr('daterange-id')
         			var planId 		= $(evt.target).attr('planid')
                     $('#hdn_daterangeId').val(daterangeId)
@@ -594,12 +699,14 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 			if(response.code=="OK"){
 				
 				
-				var planRow = $('#planlist_'+response.tariffdata.daterangeid).find('#plan-row-'+response.tariffdata.planid);
+				var planRow = $('#planlist_'+response.tariffdata.daterangeid).find('.plan-row-'+response.tariffdata.planid);
 				 
 				
 				planRow.find('.block-plan-weekday-tariff').html('$ '+response.tariffdata.weekdaytariff);
 				planRow.find('.block-plan-weekend-tariff').html('$ '+response.tariffdata.weekendtariff);
-				
+				planRow.find('.block-plan-tariff-action').find('.edittariff-link')
+						.attr('date-range-plan-tariffid',response.tariffdata.daterangePlanTariffId).removeClass('hidden')
+						
 				
 				var inputPlanTariffIds =  $('#hdn_plantariffids').val();
 				console.log('new tariff added')
@@ -1811,23 +1918,17 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 			var evt_ = evt;
 			var self_ = this;
 				
-			var data = {		action			: 'fetch_plan_details',						 
-								plan_id 	:  $(evt.target).attr('planid') 								 
+			var data = {		action			: 'fetch_plan_details_ajx',						 
+								plan_id 		:  $(evt.target).attr('planid') 								 
 						};
+			console.log(data)
 			
 			$.post(	AJAXURL,
 					data,
 					function(response){ 
-					 
+					 console.log(response)
 						if(response.code=='OK'){		
-							/*console.log(response)
-							console.log(response.plandata)
-							console.log(response.plandata.planid)
-							$('#planlist_'+response.plandata.daterangeid).append('<tr>')
-
-							$(evt_.target).parent().parent().find('.close').click();
-							 
-							self_.saveSuccess(response,evt_,self_);  	*/ 
+							 self_.showAddPlanModal(evt_,response.data)
 						 
 						}
 						else{

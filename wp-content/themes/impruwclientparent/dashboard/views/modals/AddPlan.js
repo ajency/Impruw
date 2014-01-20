@@ -1,8 +1,8 @@
 /**
  *  Add Plan .js *  
  */
-define(['modal', 'tpl!templates/modal/AddPlan.tpl','parsley'], 
-      function(Modal, template) {
+define(['underscore','modal', 'tpl!templates/modal/AddPlan.tpl','tpl!templates/modal/EditPlan.tpl', 'parsley'], 
+      function(_,Modal, template,EditPlanTpl) {
 
 
         var AddPlanModal = Modal.extend({
@@ -10,25 +10,48 @@ define(['modal', 'tpl!templates/modal/AddPlan.tpl','parsley'],
             id: 'add-plan',
 
             template: template,
+            editTemplate : EditPlanTpl,
 
             events: {
             	'click #btn_addplan'		: 'addNewPlan',
-            	'change .chk_tariffdays'	: 'showhideTariffform' 
+            	'change .chk_tariffdays'	: 'showhideTariffform',
+            	'click #btn_saveeditplan'	: 'saveEditedPlan'
             },
 
             /**
              * Initialize the manager
              */
             initialize: function(args) {
-
+            	 
+            },
+            
+            open: function(args) {
+            	
+             	
+            	if(_.isUndefined(args)){  
+					console.log('addd plan......')
+					var modalTitle ='Add Plan';
+				}
+				else{
+					console.log('edit plan......')
+					var modalTitle = 'Edit Plan';
+				}
                 var html = this.outerTemplate({
-                    title: 'Add Plan'
+                    title: modalTitle
                 });
                 
                 this.$el.html(html);
                 
                 //add markup
-                var h =  this.template({});
+                if(_.isUndefined(args))  {
+                	console.log('addd plan2......')
+                	var h =  this.template();
+                }
+                else{
+                	
+                	console.log('edit plan2......')
+                	var h =  this.editTemplate({'plandata':args.plandata});
+                }		
                 
                this.$el.find('.modal-content').append(h);
                 
@@ -37,9 +60,12 @@ define(['modal', 'tpl!templates/modal/AddPlan.tpl','parsley'],
 
                 this.$el.modal();
                 parsleyInitialize($('#form_addplan'));
-               
+            	
+            	
+                this.$el.modal('show');
+                ImpruwDashboard.vent.trigger(this.id + '-opened');
             },
-            
+             
             /**
     		 * Function to add new plan
     		 * @param evt
@@ -91,6 +117,57 @@ define(['modal', 'tpl!templates/modal/AddPlan.tpl','parsley'],
     			
     		},
     		
+    		
+    		saveEditedPlan : function(evt){
+    		 
+    			if (!this.$el.find('#form_editplan').parsley('validate'))
+    				  return;
+      			
+      			$(evt.target).prop('disabled',true);
+      			
+      			$(evt.target).next().show(); 
+      			
+      			
+      			
+    			var evt_ = evt;
+    			var self_ = this;
+    			var form_plan = $(evt.target).parent().parent().find('#form_editplan');  
+    			form_data = $(form_plan).serializeArray() 
+    			
+    			var data = {	action			: 'update_plan_ajx',						 
+								editplan_data 	: form_data 								 
+							};
+    		
+    			$.post(	AJAXURL,
+    					data,
+    					function(response){ 
+    				      response.popupmodel = true ; //to show alert message in popup window
+    						if(response.code=='OK'){	
+    							
+    							response.model = true; 
+    							
+    							$(evt.target).prop('disabled',false);
+    							ImpruwDashboard.vent.trigger('plan-updatesaved',response,evt_);
+    								
+    						 	setTimeout(function(){
+    						 		self_.hide();
+    							   }, 2100);
+    							 	 
+    						 
+    						}
+    						else{
+    							ImpruwDashboard.vent.trigger('plan-updatesaved',response,evt_); 
+    							$(evt.target).prop('disabled',false);
+    							
+    						} 
+    				
+    			 });
+    			
+    			
+    			
+    			
+    			
+    		},
     		
     		/**
     		 * 
