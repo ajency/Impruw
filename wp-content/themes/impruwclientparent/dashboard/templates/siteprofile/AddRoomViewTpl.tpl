@@ -34,7 +34,7 @@
 								</div>
 							</div>
 
-						</form>
+						</form><!-- End frm_addroom -->
 						<div class="scroll-indicator-container" id="scr1">
 							<h4 class="aj-imp-sub-head scroll-ref">Room Description <small>Give a brief description of your room category.</small></h4>
 							<form class="form-horizontal clearfix" id="frm_roomdesc" name="frm_roomdesc" >
@@ -52,7 +52,7 @@
 									</div>
 								</div>
 								
-							</form>
+							</form><!--  frm_roomdesc -->
 						</div>
 						
 						<div class="scroll-indicator-container" id="scr1">
@@ -229,7 +229,7 @@
 																  
 																%>
 																 
-																	<tr id="plan-row-<%=plan.plan_id %>" >
+																	<tr class="plan-row-<%=plan.plan_id %>" >
 																		<td class="block-plan-name" >
 																			
 																			<a href="#plan1" data-toggle="modal"><%=plan.plan_name %></a>
@@ -243,9 +243,10 @@
 																		<td class="block-plan-weekend-tariff" >
 																			 - 
 																		</td>
-																		<td>
+																		<td class="block-plan-tariff-action">
+																			<a href="javascript:void(0)" class="editplan_link" planid="<%=plan.plan_id %>"    ><span class="glyphicon glyphicon-pencil"></span> Edit Plan</a>
 																			<a href="javascript:void(0)" class="addtariff_link" planid="<%=plan.plan_id %>"    ><span class="glyphicon glyphicon-plus"></span> Add Tariff</a>
-																			<a href="javascript:void(0)" class="edit-link edittariff-link"  planid="<%=plan.plan_id %>"><span class="glyphicon glyphicon-pencil"></span> Edit Tariff</a>	
+																			<a href="javascript:void(0)" class="edit-link edittariff-link hidden"  planid="<%=plan.plan_id %>"><span class="glyphicon glyphicon-pencil"></span> Edit Tariff</a>	
 																			 
 																		</td>
 																	</tr>
