@@ -15,7 +15,7 @@ if ( have_posts() ) : while ( have_posts() ) : the_post();
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-md-12">
+		<div class="col-md-12 aj-imp-page-content">
 			<?php 
 				// Get Post Content
 				the_content();
