@@ -301,8 +301,6 @@ define(['builderelement', 'global'],
              */
             handleElementRemove: function(receiver, sender, elementId) {
 
-                s = sender;
-
                 if (sender.is('editor')) {
 
                     _.each(sender.elements, function(section, index) {
