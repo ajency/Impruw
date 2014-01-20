@@ -401,7 +401,7 @@
             </form>
         </div>
         -->
-        <div class="aj-imp-long-form-actions" data-spy="affix" data-offset-top="200">
+        <div class="aj-imp-long-form-actions" data-spy="affix">
             <form class="form-horizontal">
                 <div class="affix-show">You have unsaved changes!</div>
                 <button type="button" id="btn_savesitedetails"  name="btn_savesitedetails" class="btn btn-wide aj-imp-submit">Save</button>
