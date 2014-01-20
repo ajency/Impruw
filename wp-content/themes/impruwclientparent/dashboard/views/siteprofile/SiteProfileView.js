@@ -90,7 +90,20 @@ define([ 'underscore', 'jquery', 'backbone',
 			//initialize parsley validation for the forms
 			this.parsleyInitialize(this.$el.find('#form-siteprofile'));
 
-			$(".aj-imp-long-form-actions").affix();
+
+			// Long Form Actions
+			$(".aj-imp-long-form-actions").affix({
+				offset: { top: 200 }
+			});
+
+			if( $(window).width()< 768){
+				$(".aj-imp-long-form-actions").affix({
+					offset: { top: function () {
+				        return (this.top = $('.aj-imp-left').outerHeight(true))
+				      } 
+				  	}					
+				});
+			}
 
 			// Long form dyanamic width
 			$(window).load(function() { 
@@ -99,6 +112,13 @@ define([ 'underscore', 'jquery', 'backbone',
 
 				var m = $('.aj-imp-left').width();
 				$('.aj-imp-long-form-actions.affix').css('margin-left', (m));
+
+				if( $(window).width()< 768){
+					var w = $('window').width();
+					$('.aj-imp-long-form-actions.affix').width(w);
+
+					$('.aj-imp-long-form-actions.affix').css('margin-left', (0));
+				}
 			});
 			$(window).scroll(function() { 
 				var w = $('.aj-imp-right').width();
@@ -106,6 +126,13 @@ define([ 'underscore', 'jquery', 'backbone',
 
 				var m = $('.aj-imp-left').width();
 				$('.aj-imp-long-form-actions.affix').css('margin-left', (m));
+
+				if( $(window).width()< 768){
+					var w = $('window').width();
+					$('.aj-imp-long-form-actions.affix').width(w);
+
+					$('.aj-imp-long-form-actions.affix').css('margin-left', (0));
+				}
 			});
 			$(window).resize(function() { 
 				var w = $('.aj-imp-right').width();
@@ -113,6 +140,13 @@ define([ 'underscore', 'jquery', 'backbone',
 
 				var m = $('.aj-imp-left').width();
 				$('.aj-imp-long-form-actions.affix').css('margin-left', (m));
+
+				if( $(window).width()< 768){
+					var w = $('window').width();
+					$('.aj-imp-long-form-actions.affix').width(w);
+
+					$('.aj-imp-long-form-actions.affix').css('margin-left', (0));
+				}
 			});
 
 			/* js for dashboard --scroll indicators */
