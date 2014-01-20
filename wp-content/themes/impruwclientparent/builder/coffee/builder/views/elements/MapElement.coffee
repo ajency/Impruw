@@ -4,13 +4,13 @@
 
 define ['builderelement','tpl!builder/templates/elements/BasicElement.tpl','global'], (BuilderElement, template, global)->
 
-	class ContactFormElement extends BuilderElement
+	class MapElement extends BuilderElement
 
-		className : 'element contact-form'
+		className : 'aj-imp-elem-map element '
 
 		template : template
 
-		elementType : 'ContactFormElement'
+		elementType : 'MapElement'
 
 		events : 
 			'mouseenter'  					: 'elementMouseEnter'
@@ -28,7 +28,7 @@ define ['builderelement','tpl!builder/templates/elements/BasicElement.tpl','glob
 
 			@generateMarkup 
 				icon : ''
-				name : 'Contact Form Element'
+				name : 'Map Element'
 
 			@setContextMenu()
 

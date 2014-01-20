@@ -244,8 +244,6 @@ define(['backbone', 'jquery', 'underscore', 'global'],
                 if (_.isUndefined(disAllow['extraClasses']))
                     html += this.getClassnameSettingMarkup();
                 
-                log(this.type());
-
                 var className = this.type() === 'builderrow' ? 'updateRowProperties' : 'updateProperties';
 
                 html += '<div class="form-group">\
