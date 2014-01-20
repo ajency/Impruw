@@ -231,6 +231,12 @@ function add_element_markup( $element ) {
     case 'SliderElement':
         $html = get_slider_element_markup( $element );
         break;
+    case 'ContactFormElement':
+        $html = get_contact_form_element_markup( $element );
+        break;
+    case 'MapElement':
+        $html = get_map_element_markup( $element );
+        break;
     case 'LogoElement':
         $html = get_logo_element_markup( $element );
         break; 
@@ -399,6 +405,44 @@ function get_image_element_markup( $element ) {
     $image = new ImageElement( $element );
 
     $html = $image->get_markup();
+
+    return $html;
+
+}
+
+/**
+ * Generates the image markup
+ *
+ * @param type    $element
+ */
+function get_contact_form_element_markup( $element ) {
+
+    require_once PARENTTHEMEPATH . 'elements/ContactFormElement.php';
+
+    global $page_id;
+
+    $room = new ContactFormElement( $element);
+
+    $html = $room->get_markup();
+
+    return $html;
+
+}
+
+/**
+ * Generates the image markup
+ *
+ * @param type    $element
+ */
+function get_map_element_markup( $element ) {
+
+    require_once PARENTTHEMEPATH . 'elements/MapElement.php';
+
+    global $page_id;
+
+    $room = new MapElement( $element);
+
+    $html = $room->get_markup();
 
     return $html;
 

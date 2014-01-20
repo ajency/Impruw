@@ -49,6 +49,8 @@ require.config({
         sliderelement   : 'builder/views/elements/SliderElement',
         imagewithtextelement: 'builder/views/elements/ImageWithTextElement',
         addresselement  : 'builder/views/elements/AddressElement',
+        contactformelement : 'builder/views/elements/ContactFormElement',
+        mapelement      : 'builder/views/elements/MapElement',
 
         roomtitle       : 'builder/views/elements/rooms/RoomTitle',
         roomdescription : 'builder/views/elements/rooms/RoomDescription',
