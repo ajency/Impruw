@@ -1720,6 +1720,8 @@ form .aj-imp-submit:hover {
 }
 .aj-imp-default-page .aj-imp-page-content {
   margin: 1em 0;
+}
+.aj-imp-default-page .aj-imp-page-content p {
   font-size: 1.1em;
   color: #aaaaaa;
 }
