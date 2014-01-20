@@ -92,6 +92,12 @@ require.config({
             deps : ['jquery'],
             exports : 'moment'
         },
+        'checkbox':{
+            deps : ['bootstrap']
+        },
+        'radio':{
+            deps : ['bootstrap']
+        },
         'holder' : {
             deps : ['jquery'],
             exports : 'Holder'
