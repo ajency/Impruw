@@ -84,6 +84,18 @@
                                 <div class="aj-imp-builder-title">Image With Text</div>
                             </a>
                         </li>
+                        <li data-element="contactformelement">
+                            <a href="#" class="drag builder-element" data-placeholder-height="100">
+                                <div class="aj-imp-builder-icon"  data-icon="&#xf110;"></div>
+                                <div class="aj-imp-builder-title">Contact Form</div>
+                            </a>
+                        </li>
+                        <li data-element="mapelement">
+                            <a href="#" class="drag builder-element" data-placeholder-height="100">
+                                <div class="aj-imp-builder-icon"  data-icon="&#xf110;"></div>
+                                <div class="aj-imp-builder-title">Map</div>
+                            </a>
+                        </li>
                     </ul>
                 </div>
                 <?php if(is_single_room_edit()): ?>

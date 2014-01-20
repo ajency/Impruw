@@ -155,6 +155,7 @@ define(['builderelement', 'global'],
                 
                 var addElementFn = _.bind(function(Element) {
 
+
                     var ele = new Element({
                         config: element,
                         parent: this
@@ -301,8 +302,6 @@ define(['builderelement', 'global'],
              */
             handleElementRemove: function(receiver, sender, elementId) {
 
-                s = sender;
-
                 if (sender.is('editor')) {
 
                     _.each(sender.elements, function(section, index) {
@@ -440,6 +439,10 @@ define(['builderelement', 'global'],
                     var element = new Element({
                         parent: self
                     });
+
+                    ss = element;
+
+                    log(element);
 
                     //self.elements.push(element);
                     self.elements = self.elements.concat([element]); //concat works!!!
