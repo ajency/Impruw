@@ -743,6 +743,42 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 			
 		},
 		
+		/**
+		 * Function triggered when tariff is updated
+		 */
+		tariffupdated : function(response,evt_){
+			
+			
+			ImpruwDashboard.vent.trigger('edit-tariff-closed');
+			 
+			if(response.code=="OK"){
+				
+				
+				var planRow = $('#planlist_'+response.tariffdata.daterangeid).find('.plan-row-'+response.tariffdata.planid);
+				 
+				
+				planRow.find('.block-plan-weekday-tariff').html('$ '+response.tariffdata.weekdaytariff);
+				planRow.find('.block-plan-weekend-tariff').html('$ '+response.tariffdata.weekendtariff);
+				planRow.find('.block-plan-tariff-action').find('.edittariff-link')
+						.attr('date-range-plan-tariffid',response.tariffdata.daterangePlanTariffId).removeClass('hidden')
+						
+				
+				var inputPlanTariffIds =  $('#hdn_plantariffids').val();
+				console.log('tariff updated')
+				if($('#hdn_plantariffids').val()=="")
+					$('#hdn_plantariffids').val(response.tariffdata.plantariffid);
+				else
+					$('#hdn_plantariffids').val(inputPlanTariffIds+','+response.tariffdata.plantariffid);
+				  
+				this.saveSuccess(response,evt_,this);  
+				  
+			}
+			else{
+				this.saveFailure(response,evt_,this);  
+			}
+			
+		},
+		
 		
 		
         /**
