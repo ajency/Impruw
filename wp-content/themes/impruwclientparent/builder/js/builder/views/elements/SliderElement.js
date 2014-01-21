@@ -70,9 +70,6 @@ define(['builderelement', 'tpl!builder/templates/elements/BasicElement.tpl', 'gl
                     return image.get('id');
                 });
 
-                log(ids);
-                log(images);
-
                 this.dataSource = {
                     'image-ids' : ids
                 }
