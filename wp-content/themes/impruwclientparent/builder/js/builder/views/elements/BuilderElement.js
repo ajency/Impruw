@@ -520,7 +520,7 @@ define(['backbone', 'jquery', 'underscore', 'global'],
              * Generates the Control markup to drop
              * @returns {unresolved}
              */
-            generateMarkup: function(content) {
+            generateMarkup: function(content,c) {
 
                 if (_.isUndefined(this.template))
                     return '';
@@ -539,9 +539,10 @@ define(['backbone', 'jquery', 'underscore', 'global'],
                 this.setHandlers();
 
                 //add content if sent
-                if (!_.isUndefined(content) && _.isString(content)) {
-                    this.$el.children('.content').html(content);
+                if (!_.isUndefined(c) && _.isString(c)) {
+                    this.$el.children('.content').html(c);
                 }
+
                 return this.$el;
             },
 
