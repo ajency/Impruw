@@ -208,7 +208,7 @@ define(['underscore', 'jquery', 'backbone', 'global'],
                 log(element);
                
                 if ($(pcontent).find('input[name="className"]').length > 0){
-                    element.extraClasses += $(pcontent).find('input[name="className"]').val();
+                    element.extraClasses = $(pcontent).find('input[name="className"]').val();
                     element.assignClasses();
                 }
                 if ($(pcontent).find('input[name="isDraggable"]').length > 0)
