@@ -274,7 +274,7 @@ function toggle_plugin( $blog_id ) {
         $_REQUEST['action'] = 'activate';
         $_REQUEST['_wpnonce'] = wp_create_nonce();
         activate_plugin( $my_plugin );
-        activate_plugin( $my_plugin );
+        //activate_plugin( $my_plugin );
         //icl_sitepress_activate();
     }
     /*$my_plugin = 'wpml-string-translation/plugin.php';
