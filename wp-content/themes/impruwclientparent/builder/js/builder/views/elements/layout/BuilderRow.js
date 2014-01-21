@@ -129,6 +129,16 @@ define(['builderelement', 'builderrowcolumn', 'global'],
             },
 
             /**
+             * Assign classes
+             * @return {[type]} [description]
+             */
+            assignClasses : function(){
+            
+                this.$el.addClass(this.extraClasses);
+            
+            },
+
+            /**
              * Triggered when new controls are dropped into columns
              * Once new controls are dropped in column the column heights can vary.
              * This function get the column with maximum height and assign the same
@@ -626,7 +636,7 @@ define(['builderelement', 'builderrowcolumn', 'global'],
 
                 this.$el.css('border', '1px solid #ff7e00');
 
-                self.$el.children('.aj-imp-drag-handle,.aj-imp-delete-btn,.aj-imp-col-divider,.aj-imp-col-sel').stop().fadeIn();
+                self.$el.children('.aj-imp-drag-handle,.aj-imp-delete-btn,.aj-imp-col-divider,.aj-imp-col-sel').stop().show();
 
             },
 
@@ -635,7 +645,7 @@ define(['builderelement', 'builderrowcolumn', 'global'],
              * @param {type} evt
              * @returns void
              */
-            elementMouseLeave: _.debounce(function(evt) {
+            elementMouseLeave: function(evt) {
 
                 evt.stopPropagation();
 
@@ -648,7 +658,7 @@ define(['builderelement', 'builderrowcolumn', 'global'],
 
                 this.$el.children('.aj-imp-drag-handle,.aj-imp-delete-btn,.aj-imp-col-divider,.aj-imp-col-sel').stop().hide();
                 
-            }, 200),
+            },
 
             /**
              *

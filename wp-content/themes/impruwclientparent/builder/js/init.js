@@ -122,6 +122,9 @@ require.config({
         'marionette' : {
             deps : ['backbone'],
             exports : 'Marionette'
+        },
+        'parsley' : {
+            deps : ['jquery']
         }
     }
 });
