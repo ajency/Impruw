@@ -82,21 +82,21 @@ define(['builder/views/modals/Modal', 'tpl!builder/templates/modal/slidermanager
              */
             createSlider: function(evt){
 
-                var checkboxes = $(evt.target).closest('form').find('input[type="checkbox"]');
+                // var checkboxes = $(evt.target).closest('form').find('input[type="checkbox"]');
 
-                var ids = [];
-                _.each(checkboxes, function(checkbox, index){
+                // var ids = [];
+                // _.each(checkboxes, function(checkbox, index){
 
-                    ids.push(parseInt($(checkbox).val()));
+                //     ids.push(parseInt($(checkbox).val()));
 
-                });
+                // });
 
-                var medias = _.filter(this.mediaCollection.models, 
-                                    function(media){ 
-                                        return _.indexOf(ids, media.get('id')) !== -1;
-                                    });
+                // var medias = _.filter(this.mediaCollection.models, 
+                //                     function(media){ 
+                //                         return _.indexOf(ids, media.get('id')) !== -1;
+                //                     });
 
-                SiteBuilder.vent.trigger('create-slider', medias, ids);
+                getAppInstance().vent.trigger('create-slider', this.mediaCollection.models);
 
                 this.hide();
 
