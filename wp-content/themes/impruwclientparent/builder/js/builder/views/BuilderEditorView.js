@@ -520,7 +520,7 @@ define(['underscore', 'jquery', 'backbone', 'global',
 
                 switcher.height(this.$el.height()).css('top', 0);
 
-                this.$el.append(switcher);
+                //this.$el.append(switcher);
 
             },
 
