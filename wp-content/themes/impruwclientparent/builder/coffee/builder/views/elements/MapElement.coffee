@@ -1,5 +1,5 @@
 ##
-## Contact Form Element
+## Map Element
 ##
 
 define ['builderelement','tpl!builder/templates/elements/BasicElement.tpl','global'], (BuilderElement, template, global)->
@@ -18,6 +18,8 @@ define ['builderelement','tpl!builder/templates/elements/BasicElement.tpl','glob
 			'click > .aj-imp-delete-btn' 	: 'destroyElement'
 			'contextmenu'					: 'showContextMenu'
 
+		##
+		##
 		initialize:(options = {})->
 
 			if _.isUndefined options.config
