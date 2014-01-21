@@ -67,7 +67,7 @@ class RoomList extends Element {
 
         ?>
         <div class="roomBox">
-            <?php echo the_post_thumbnail() ?>
+            <?php echo the_post_thumbnail('full', array('class' => 'img-responsive img-center')) ?>
             <div class="row">
                 <div class="subTitle roomName"><a href="<?php echo get_permalink(); ?>"><?php the_title(); ?></a></div>
             </div>
@@ -88,8 +88,8 @@ class RoomList extends Element {
             </div>
             <div class="line-separator"></div>
             <div class="row">
-                <!-- <div class="col-xs-6 roomRate"><span class="currency">kr</span> <span class="amount">210</span> / night</div>
-                 --><div class="col-xs-6 roomDetail"><a href="<?php echo get_permalink(); ?>" class="detailBtn">View Details</a></div>
+                <div class="col-xs-6 roomRate"><!-- <span class="currency">kr</span> <span class="amount">210</span> / night--></div>
+                <div class="col-xs-6 roomDetail"><a href="<?php echo get_permalink(); ?>" class="detailBtn">View Details</a></div>
             </div>
         </div>
         <?php
