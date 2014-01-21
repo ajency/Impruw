@@ -37,7 +37,7 @@ class RoomGallery extends SliderElement {
      * Empty string by default
      * @var String 
      */
-    var $class_name  = 'carousel';
+    var $class_name  = 'room-gallery';
     
     
     
