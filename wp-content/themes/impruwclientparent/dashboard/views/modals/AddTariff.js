@@ -22,12 +22,10 @@ define(['underscore','modal', 'tpl!templates/modal/AddTariff.tpl','tpl!templates
              * Initialize the manager
              */
             initialize: function(args) {
- 
                 
             }, 
             
             open: function(args) {
-            	console.log(args)
             	
             	if(_.isUndefined(args)){
             		var modalTitle = 'Add Tariff';
@@ -50,7 +48,6 @@ define(['underscore','modal', 'tpl!templates/modal/AddTariff.tpl','tpl!templates
                  else{
                 	 var h =  this.editTariffTpl({datePlanTariff : args.daterangePlanTariff}) ;
                  }
-                 
                  
                 this.$el.find('.modal-content').append(h);
                  
@@ -171,23 +168,23 @@ define(['underscore','modal', 'tpl!templates/modal/AddTariff.tpl','tpl!templates
     			
     			if($(evt.target).is(':checked') == true){
     				if(tariffType=='weekend'){
-    					console.log('weekend enable');
+    					 
     					$('.formel_weekendtariff').attr('disabled',false);
     				}
     				if(tariffType=='weekday'){
-    					console.log('weekday enable');
+    					 
     					$('.formel_weedaytariff').attr('disabled',false);
     				}
     			}				
     			else{
     				//console.log('unchecked')
     				if(tariffType=='weekend'){ 
-    					console.log('weekend disable');
+    					 
     					$('.formel_weekendtariff').attr('disabled',true);
     					$('.formel_weekendtariff').val('');
     				}
     				if(tariffType=='weekday'){
-    					console.log('weekday disable');
+    					 
     					$('.formel_weedaytariff').attr('disabled',true);
     					$('.formel_weedaytariff').val('');
     					

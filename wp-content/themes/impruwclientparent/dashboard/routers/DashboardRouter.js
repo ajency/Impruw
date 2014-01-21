@@ -27,7 +27,7 @@ define(['underscore', 'jquery', 'backbone', 'mainview', 'bootstrapselect','check
 					'user-profile'	: 'userProfile',
 					'add-room'		: 'addRoom',
 					'room-list'		: 'roomList',
-					'edit-room'		: 'editRoom',
+					'edit-room/:id'	: 'editRoom',
 					'support'		: 'support'
 				},
 
@@ -41,6 +41,12 @@ define(['underscore', 'jquery', 'backbone', 'mainview', 'bootstrapselect','check
 				
 				roomList :function(){	
 					this.mainView.show('roomlistview');	
+				},
+				
+				editRoom :function(id){
+					data_id  = {'roomId':id};
+					 
+					this.mainView.show('addroomview',data_id);
 				},
 				
 				userProfile : function(){

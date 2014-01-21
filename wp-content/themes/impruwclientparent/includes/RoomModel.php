@@ -56,14 +56,29 @@ class RoomModel {
 							'id'				=> (int) $this->get('ID'),
 							'checkintime'		=> get_option('checkin-time'),
 							'checkinformat'		=> get_option('checkin-format'),
-							'daterangetariff' 	=> $daterange_tariff
+							'daterangetariff' 	=> $daterange_tariff,
+							'facilities'		=> $this->get_room_facilities()
 						);
 												
 		return $rooom_data; 				
 	
 	}
 	
-	
+/**
+ * Function to get the facilities selected for a room
+ * 
+ */
+function get_room_facilities(){
+	$selected_room_facilities = wp_get_post_terms($this->room->ID, 'impruw_room_facility', array("fields" => "names"));
+	 return $selected_room_facilities;
+}	
+
+
+/**
+ * 
+ * Enter description here ...
+ * @param unknown_type $LIMIT
+ */
 function get_room_tariffs($LIMIT=1){
 	
 	global $wpdb ; 
@@ -74,7 +89,7 @@ function get_room_tariffs($LIMIT=1){
 	
 	$plan_tariff = implode(',',$plan_tariff_array);
 		 
-	  $qry_tariff = "SELECT b.from_date as from_date, b.to_date as to_date, a.plan_id as plan_id, a.tarriff as tariff 
+	  $qry_tariff = "SELECT a.daterange_id as daterange_id, a.id as dateplan_tariffid, b.from_date as from_date, b.to_date as to_date, a.plan_id as plan_id, a.tarriff as tariff 
 							FROM {$wpdb->prefix}datetarriff a 
 							LEFT JOIN 	{$wpdb->prefix}daterange  b 
 							on a.daterange_id = b.id  
@@ -107,13 +122,14 @@ function get_room_tariffs($LIMIT=1){
 	 						$plan_name = $plan['label'];
 	 				}
 	 		
-			 		$daterange_tariff[] = array(
-			 									'fromDate'		=> date('d/m/Y',strtotime($plan__tariff->from_date)),
-			 									'toDate'		=> date('d/m/Y',strtotime($plan__tariff->to_date)),
-			 									'planId'		=> $plan__tariff->plan_id,
-			 									'weekdayTariff' => $weekday_tariff,
-			 									'weekEndTariff' => $weekend_tariff,
-			 									'planName'		=> ucwords($plan_name)
+			 		$daterange_tariff[] = array('daterangePlanTariffId' => $plan__tariff->dateplan_tariffid,
+			 									'daterange_id'			=> $plan__tariff->daterange_id,
+			 									'planId'				=> $plan__tariff->plan_id,
+			 									'fromDate'				=> date('d/m/Y',strtotime($plan__tariff->from_date)),
+			 									'toDate'				=> date('d/m/Y',strtotime($plan__tariff->to_date)),
+			 									'weekdayTariff' 		=> $weekday_tariff,
+			 									'weekEndTariff' 		=> $weekend_tariff,
+			 									'planName'				=> ucwords($plan_name)
 			 							);
 	 		
 	 	}

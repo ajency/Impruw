@@ -13,7 +13,8 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 
          events : {
 			 	'click #btn_saveroom'				: 'saveRoom', 
-			 	
+			 	'click #btn_updateroom'				: 'updateRoom',	
+
 			 	'click #btn_addfacility'			: 'addFacility',
 			 	'click .delete'						: 'deleteFacility',
 			 	'click .edit'						: 'editFacility',
@@ -64,24 +65,39 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 		}, 
 
 		initialize : function(args) {
+			//console.log('args')
+			//console.log(args)
 			
+			/* if(!_.isUndefined(args)){
+				this.model = args;
+			} */
+			if(!_.isUndefined(args)){
+				this.fetchAllFacilities(args);	
+			}
+			else{
+				this.fetchAllFacilities();	
+			}
+			
+				
 			this.popupViewManager = new Backbone.ChildViewContainer();	
 
 		},
 
-		render : function(allFacilities) {
-
-			this.fetchAllFacilities();
+		render : function() {
+			
 			
 		},
 
 		/*
 		 * 
 		 */
-		renderTemplate:function(){
+		renderTemplate:function(editRoomModel2){
+			console.log('render template')
+			console.log(editRoomModel2)
 			var template = _.template(AddRoomViewTpl);			 
 			var html = template({
-				roomdata : this.allFacilities
+				roomdata : this.allFacilities,
+				editroomdata : editRoomModel2
 			}); 
 
 			this.$el.html(html);
@@ -124,9 +140,9 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 		
 		
 		/**
-		 * Function to fetch all room facilities
+		 * Function to fetch all room facilities, addon types, date ranges & plans 
 		 */
-		fetchAllFacilities : function(){
+		fetchAllFacilities : function(editRoomModel1){
 			
 			var self_ = this;
 						
@@ -139,8 +155,13 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 						if(response.code=='OK'){
 						 
 						 	self_.allFacilities  = response.data;
-							
-							self_.renderTemplate();
+							if(!_.isUndefined(editRoomModel1))
+							{   console.log('self_.renderTemplate')
+								console.log(editRoomModel1)
+								self_.renderTemplate(editRoomModel1);
+							}
+							else
+								self_.renderTemplate();
 							
 							if(!_.isUndefined(self_.success) && _.isFunction(self_.success))
 								self_.success(response,self_.event,self_);  
@@ -244,6 +265,95 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 				getAppInstance().roomCollection.add(room);
 			}
 		},
+		
+		
+		
+		
+		
+		/**
+		 * Function to update room
+		 * @param evt
+		 */
+		updateRoom : function(evt) {
+			
+               var self = this;
+			
+               if (!this.$el.find('#frm_addroom').parsley('validate'))
+				  return;
+				  
+               if (!this.$el.find('#frm_roomdesc').parsley('validate'))
+				  return;
+               
+               $(evt.target).prop('disabled',true)
+               $(evt.target).next().show();	  
+					  
+               var roomcategory 		= $("#roomcategory").val();
+               var roomnos 				= $("#roomnos").val();
+               var roomdescription 		= $("#roomdescription").val();
+               var checkinformat 		= $('input[type="radio"][name="checkin_format"]:checked').val()
+               var checkintime        	= $("#checkin_time").val();
+               var additionalpolicies 	= $("#additional_policies").val();
+               var tax_option 			= $('input[type="radio"][name="tax_option1"]:checked').val() 
+               var room_attachments 	= $('#hdn_roomattachments').val();
+               var roomId 				= $('#hdn_roomId').val();
+               var facilityValues = new Array();
+					  
+               //Read checked facillities
+               $.each($("input[name='facility[]']:checked"),
+               function () {
+				  facilityValues.push($(this).val());
+               });
+				    
+               facilityValues.join (", ");
+			  
+               var plantariffids = $('#hdn_plantariffids').val();
+               
+               var data = { 
+				  	 	'category'			: roomcategory, 
+				  	 	'nos'				: roomnos,
+				  	 	'description' 		: roomdescription,
+				  	 	'facilities'		: facilityValues,
+				  	 	'checkinformat'		: checkinformat,
+				  	 	'checkintime'		: checkintime,
+				  	 	'additionalpolicies': additionalpolicies,
+				  	 	'tax_option'		: tax_option,
+				  	 	'room_attachments'	: room_attachments,
+				  	 	'plantariffids'		: plantariffids,
+				  	 	'roomid'			: roomId
+				  	 	
+				  	 	
+				};
+               
+               
+               
+               room = getAppInstance().roomCollection.get(roomId)
+               
+               
+              // var room = new RoomModel(data);
+			  
+			  
+              
+			  
+			  room.updateRoomData(data, {
+					event : evt,
+					_self:self,
+					success :self.saveSuccess,
+					failure :self.saveFailure
+					//addroomtoCollection : self.addRoomModeltoCollection
+					
+				});
+			   
+				  
+				  /*	$(evt.target).next().show();
+					
+					var self = this;*/
+				 
+			 			
+		},
+		
+	 
+		
+		
 		
 		
 		/**
@@ -441,10 +551,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 		 * @param evt
 		 */
 		showAddPlanModal : function(evt,plandetails){
-			console.log('viewmanager')
-			console.log(this.popupViewManager)
-			
-			
+			 
 			 var addPlanModal = _.bind(function(_, AddPlanModal) {
 
                     var addPlan = this.popupViewManager.findByCustom("add-plan-popup");
@@ -611,7 +718,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 			$.post(	AJAXURL,
 					data,
 					function(response){ 
-					 console.log(response)
+					 
 						if(response.code=='OK'){		
 							 self_.showTariffModal(evt_,response.dateTariff)
 						 
@@ -698,9 +805,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 			
 			if(response.code=="OK"){
 				
-				
 				var planRow = $('#planlist_'+response.tariffdata.daterangeid).find('.plan-row-'+response.tariffdata.planid);
-				 
 				
 				planRow.find('.block-plan-weekday-tariff').html('$ '+response.tariffdata.weekdaytariff);
 				planRow.find('.block-plan-weekend-tariff').html('$ '+response.tariffdata.weekendtariff);
@@ -709,32 +814,14 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 						
 				
 				var inputPlanTariffIds =  $('#hdn_plantariffids').val();
-				console.log('new tariff added')
+				 
 				if($('#hdn_plantariffids').val()=="")
 					$('#hdn_plantariffids').val(response.tariffdata.plantariffid);
 				else
 					$('#hdn_plantariffids').val(inputPlanTariffIds+','+response.tariffdata.plantariffid);
 				  
 				this.saveSuccess(response,evt_,this);  
-				 
-				/*$('.daterangeplan-table').append('<tr>'+
-						 '<td>'+
-							'<a href="#plan1" data-toggle="modal">'+response.plandata.plan+'</a>'+
-						'</td>   ' +
-						'<td>    ' +
-							 response.plandata.plandescription+  
-						'</td>   ' +
-						'<td> -  ' +
-						'</td>   ' +
-						'<td> -  ' +							
-						'</td>   ' +
-						'<td>    ' +						 
-						'<a href="javascript:void(0)" class="addtariff_link" planid="'+response.plandata.planid+'" ><span class="glyphicon glyphicon-plus"></span> Add tariff</a>'+
-						'<a href="javascript:void(0)" class="edit-link edittariff-link"  planid='+response.plandata.planid+'><span class="glyphicon glyphicon-pencil"></span> Edit Tariff</a>'+
-					'</td>'+
-					'</tr>');*/
-				
-				 
+				  
 			}
 			else{
 				this.saveFailure(response,evt_,this);  
@@ -764,7 +851,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 						
 				
 				var inputPlanTariffIds =  $('#hdn_plantariffids').val();
-				console.log('tariff updated')
+			 
 				if($('#hdn_plantariffids').val()=="")
 					$('#hdn_plantariffids').val(response.tariffdata.plantariffid);
 				else
@@ -787,14 +874,13 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 		 */
 		showAddAddOnModal : function(evt){
 			 
-			
 			 var addAddOnModal = _.bind(function(_, AddAddOnModal) {
 
                     var addOn = this.popupViewManager.findByCustom("add-addon-popup");
 
                     //ensure Menu manager is created just once
                     if (_.isUndefined(addOn)){
-                        addOn = new AddAddOnModal();
+                        a.ddOn = new AddAddOnModal();
                         this.popupViewManager.add(addOn, "add-addon-popup");
                     }
 
@@ -1072,10 +1158,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 		},
 		
 		cancelEditRange : function(evt){
-			
-			 
-			
- 
+		
 			$(evt.target).parent().find('.savedaterange_lnk').html('<span class="glyphicon glyphicon-pencil"></span>Edit')
 			
 			$(evt.target).parent().find('.savedaterange_lnk').addClass('editdaterange_lnk').removeClass('savedaterange_lnk');
@@ -1957,12 +2040,11 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 			var data = {		action			: 'fetch_plan_details_ajx',						 
 								plan_id 		:  $(evt.target).attr('planid') 								 
 						};
-			console.log(data)
-			
+		 
 			$.post(	AJAXURL,
 					data,
 					function(response){ 
-					 console.log(response)
+					  
 						if(response.code=='OK'){		
 							 self_.showAddPlanModal(evt_,response.data)
 						 

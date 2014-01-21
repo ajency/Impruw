@@ -824,6 +824,11 @@ function add_new_room( $blog_id, $array, $tariff_array ) {
     // var_dump( wp_set_object_terms($post_id, $array['terms'], 'impruw_room_facility'));exit;;
     update_post_meta($post_id,'room-attachments',$array['room_attachments'] );
     
+    //insert featured image 
+   /* if(count($array['room_attachments'])>0){
+    	update_post_meta($post_id,'thumbnail-id',$array['room_attachments'][0] );    	
+    }*/
+    
     $plan_tariff_array = explode(',',$array['plantariff']);
     $plan_tariff_serialized = maybe_serialize($plan_tariff_array);
     
@@ -2784,6 +2789,93 @@ function add_new_room_ajx() {
 }
 add_action( 'wp_ajax_add_new_room_ajx', 'add_new_room_ajx' );
 add_action( 'wp_ajax_nopriv_add_new_room_ajx', 'add_new_room_ajx' );
+
+
+/***
+ * Ajax function to update room  details
+ */
+function update_room_ajx(){
+	//var_dump($_POST);
+	$room_id				= $_POST['room_id'];
+    $room_name 				= $_POST['category'];
+    $room_nos 				= $_POST['nos'];
+    $room_desc 				= $_POST['description'];
+    $room_facilities 		= $_POST['facilities'];
+    $checkin_format 		= $_POST['checkinformat'];
+    $checkin_time 			= $_POST['checkintime'];
+    $additional_policies 	= $_POST['additionalpolicies'];
+	$tax_option				= $_POST['tax_option'];
+	$room_attachments 		= $_POST['room_attachments'];
+	$room_plantariff 		= $_POST['plantariffids'];
+	
+    $array=array( 'ID'=> $room_id,'post_title' => $room_name, 'post_content' => $room_desc, 'user_id' => get_current_user_id(), 'inventory' => $room_nos, 'terms'=>$room_facilities, 'room_attachments'=>$room_attachments, 'plantariff'=>$room_plantariff );
+
+    $attribute_array = array( 'weekday_price'=>'10', 'weekend_price'=>'20', 'num_of_adults'=>'2', 'num_of_children'=>'2', 'extra_adult'=>'10', 'extra_child'=>'10', 'include_tax'=>'yes', 'tax_percent'=>'12', 'terms_and_conditions'=>'agree' );
+
+    $addons_array = array( 'breakfast at bed'=>'10', 'lunch_buffet'=>'10' );
+
+    $tariff_array = array( array( 'start_date'=>date( "Y/m/d" ), 'end_date'=>date( "Y/m/d" ), 'attributes'=>$attribute_array, 'add_ons'=>$addons_array ) );
+
+    $newroom_id = update_room( get_current_blog_id(), $array, $tariff_array ); //need to handle error ; no return type
+
+	update_option('checkin-format', $checkin_format);
+	update_option('checkin-time', $checkin_time);
+	update_option('additional-policies', $additional_policies);
+	update_option('tax-option',$tax_option);
+	
+	$newroom = new RoomModel($newroom_id); 
+	$newroomdata = $newroom->get_all_roomdata();
+	
+    wp_send_json( array( 'code' => 'OK', 'msg'=>_('Room Details updated successfully'),'roomdata'=> $newroomdata ) );
+}
+
+add_action( 'wp_ajax_update_room_ajx', 'update_room_ajx' );
+add_action( 'wp_ajax_nopriv_update_room_ajx', 'update_room_ajx' );
+
+
+/**
+ * Function to update room details
+ * Enter description here ...
+ * @param unknown_type $blog_id
+ * @param unknown_type $array
+ * @param unknown_type $tariff_array
+ */
+function update_room( $blog_id, $array, $tariff_array ) {
+    switch_to_blog( $blog_id );
+    $my_post = array(
+    	'ID'			=> $array['ID'],
+        'post_title'    => $array['post_title'],
+        'post_content'  => $array['post_content'],
+        'post_status'   => 'publish',
+        'post_author'   => $array['user_id'],
+        'post_type'     => 'impruw_room'
+    );
+    //print_r($array['terms']);exit;
+    // Insert the post into the database
+    
+    wp_update_post($my_post);
+     
+    update_post_meta( $array['ID'], 'inventory', $array['inventory'] );//adds thew inventory value to the room
+    // var_dump( wp_set_object_terms($post_id, $array['terms'], 'impruw_room_facility'));exit;;
+    update_post_meta($array['ID'],'room-attachments',$array['room_attachments'] );
+    
+    //insert featured image 
+    /*if(count($array['room_attachments'])>0){
+    	update_post_meta($array['ID'],'thumbnail-id',$array['room_attachments'][0] );    	
+    }*/
+    
+    $plan_tariff_array = explode(',',$array['plantariff']);
+    $plan_tariff_serialized = maybe_serialize($plan_tariff_array);
+    
+    update_post_meta($array['ID'],'room-plantariff',$plan_tariff_serialized );
+    
+    wp_set_object_terms( $array['ID'], $array['terms'], 'impruw_room_facility' );
+    
+    restore_current_blog();
+      
+    return $array['ID'];//added on 14jan2014
+
+}
 
 
 

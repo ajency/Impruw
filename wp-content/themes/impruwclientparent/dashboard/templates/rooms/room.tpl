@@ -16,11 +16,11 @@
 			</div>
 		</div>
 	</td>
-	<td><% console.log(room.get('daterangetariff'))    %>
+	<td><% //console.log(room.get('daterangetariff'))    %>
 		<div class="tariff">
 		
 		<% _.each(room.get('daterangetariff'),function(dateRangeTariff,index){  
-		 console.log(dateRangeTariff.planId) 
+		 //console.log(dateRangeTariff.planId) 
 		 %>
 		 <div class="row tariff-plan">
 				<div class="col-sm-6 plan">
@@ -46,7 +46,7 @@
 		</div>
 	</td>
 	<td class="actions">
-		<a href="#edit-room/id=<%=room.get('id') %>" class="btn btn-xs">
+		<a href="#edit-room/<%=room.get('id') %>" class="btn btn-xs editroom_link">
 		<span class="glyphicon glyphicon-pencil"></span> Edit</a> 
 		<a href="javascript:void(0)" class="btn btn-danger btn-xs deleteroom_link" room-id='<%=room.get('id') %>' >
 		<span class="glyphicon glyphicon-trash"></span> Delete</a>

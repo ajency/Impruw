@@ -29,11 +29,11 @@ define(['underscore','modal', 'tpl!templates/modal/AddPlan.tpl','tpl!templates/m
             	
              	
             	if(_.isUndefined(args)){  
-					console.log('addd plan......')
+            		
 					var modalTitle ='Add Plan';
 				}
 				else{
-					console.log('edit plan......')
+					
 					var modalTitle = 'Edit Plan';
 				}
                 var html = this.outerTemplate({
@@ -44,12 +44,11 @@ define(['underscore','modal', 'tpl!templates/modal/AddPlan.tpl','tpl!templates/m
                 
                 //add markup
                 if(_.isUndefined(args))  {
-                	console.log('addd plan2......')
+                	
                 	var h =  this.template();
                 }
                 else{
                 	
-                	console.log('edit plan2......')
                 	var h =  this.editTemplate({'plandata':args.plandata});
                 }		
                 
@@ -179,7 +178,7 @@ define(['underscore','modal', 'tpl!templates/modal/AddPlan.tpl','tpl!templates/m
     			
     			if($(evt.target).is(':checked') == true){
     				if(tariffType=='weekend'){
-    					console.log('weekend enable');
+    					
     					$('.formel_weekendtariff').attr('disabled',false);
     				}
     				if(tariffType=='weekday'){
@@ -190,12 +189,11 @@ define(['underscore','modal', 'tpl!templates/modal/AddPlan.tpl','tpl!templates/m
     			else{
     				//console.log('unchecked')
     				if(tariffType=='weekend'){ 
-    					console.log('weekend disable');
+    					
     					$('.formel_weekendtariff').attr('disabled',true);
     					$('.formel_weekendtariff').val('');
     				}
-    				if(tariffType=='weekday'){
-    					console.log('weekday disable');
+    				if(tariffType=='weekday'){    					
     					$('.formel_weedaytariff').attr('disabled',true);
     					$('.formel_weedaytariff').val('');
     					
