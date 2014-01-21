@@ -627,9 +627,22 @@ function get_page_markup_JSON( $page_id  = 0 ) {
     if(is_array($header))
         $json['header'] = $header;
 
-    $page = get_post_meta($page_id,'page-json',true);
-    if(is_array($page))
+    if(is_singular('impruw_room')){
+
+        $page = get_post_meta($page_id,'page-json',true);
+        
+        if($page === ''){
+            $p = get_page_by_title( 'Single Room');
+            $page = get_post_meta($p->ID,'page-json',true);
+        }
+
         $json['page']   = $page;
+    }
+    else{
+        $page = get_post_meta($page_id,'page-json',true);
+        if(is_array($page))
+            $json['page']   = $page;
+    }
 
     $footer = get_option('theme-footer');
     if(is_array($footer))

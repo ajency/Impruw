@@ -49,6 +49,25 @@ class RoomGallery extends SliderElement {
         
         parent::__construct($config);
 
+        $this->post_id = $post_id;
+
+        if($this->post_id === 0 && get_the_ID() > 0)
+            $this->post_id = get_the_ID();
+
+        $this->data_source = array();
+        $this->data_source['image-ids'] = $this->get_room_images();
+        
+    }
+
+    /**
+     * [get_room_images description]
+     * @return [type] [description]
+     */
+    function get_room_images(){
+
+        $ids = get_post_meta($this->post_id, 'room-attachments', true);
+
+        return $ids;
     }
     
 }

@@ -65,7 +65,8 @@
           evt = {};
         }
         pcontent = $(evt.target).closest('.popover');
-        return this.dataSource = parseInt($(pcontent).find('select[name="for-room"]').val());
+        this.dataSource = parseInt($(pcontent).find('select[name="for-room"]').val());
+        return "dsdsds			dsadas			dsadassdasdasd			sadsa			commandsad			sadas";
       };
 
       return RoomElement;

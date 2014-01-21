@@ -59,6 +59,13 @@ define ['builderelement','tpl!builder/templates/elements/BasicElement.tpl','glob
 
 			@dataSource = parseInt $(pcontent).find('select[name="for-room"]').val()
 
+			"dsdsds
+			dsadas
+			dsadassdasdasd
+			sadsa
+			commandsad
+			sadas"
+
 
 
 
