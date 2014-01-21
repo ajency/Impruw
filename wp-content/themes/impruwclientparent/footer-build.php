@@ -155,6 +155,11 @@
         var ISSINGLEROOM = true;   
         <?php endif; ?>
     </script> 
+    <?php if(ENV === 'dist'): ?>
+    <script src="<?php echo get_parent_template_directory_uri(); ?>/js/require.js"></script>
+    <script src="<?php echo get_parent_template_directory_uri(); ?>/builder/dist/js/production.js" ></script>
+    <?php else: ?>
     <script data-main="<?php echo get_parent_template_directory_uri(); ?>/builder/js/init" src="<?php echo get_parent_template_directory_uri(); ?>/js/require.js"></script>
+    <?php endif; ?>
 </body>
 </html>

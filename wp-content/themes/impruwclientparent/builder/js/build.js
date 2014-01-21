@@ -3,12 +3,8 @@
     baseUrl : 'js',
     dir     : '../dist',
     modules : [{
-       	        name: 'global'
-            },
-            {
-                name: 'init',
-                exclude : ['global'] 
-            }],
+       	            name: 'production'
+                }],
     fileExclusionRegExp: /^(r|build)\.js$/,
     optimizeCss: 'standard',
     removeCombined: true,
@@ -53,11 +49,14 @@
         sliderelement   : 'builder/views/elements/SliderElement',
         imagewithtextelement: 'builder/views/elements/ImageWithTextElement',
         addresselement  : 'builder/views/elements/AddressElement',
+        contactformelement : 'builder/views/elements/ContactFormElement',
+        mapelement      : 'builder/views/elements/MapElement',
 
         roomtitle       : 'builder/views/elements/rooms/RoomTitle',
         roomdescription : 'builder/views/elements/rooms/RoomDescription',
         roomfacilities  : 'builder/views/elements/rooms/RoomFacilities',
         roomgallery     : 'builder/views/elements/rooms/RoomGallery',
+        roomlistelement : 'builder/views/elements/rooms/RoomListElement',
 
         //menu
         menumanager     : 'builder/views/modals/MenuManager',
