@@ -1,0 +1,1 @@
+define(["underscore","jquery","backbone","global"],function(e,t,n,r){var i=n.Model.extend({defaults:function(){return{}},validate:function(){}});return i});

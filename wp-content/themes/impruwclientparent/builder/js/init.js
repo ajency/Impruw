@@ -56,6 +56,7 @@ require.config({
         roomdescription : 'builder/views/elements/rooms/RoomDescription',
         roomfacilities  : 'builder/views/elements/rooms/RoomFacilities',
         roomgallery     : 'builder/views/elements/rooms/RoomGallery',
+        roomlistelement : 'builder/views/elements/rooms/RoomListElement',
 
         //menu
         menumanager     : 'builder/views/modals/MenuManager',
@@ -121,6 +122,9 @@ require.config({
         'marionette' : {
             deps : ['backbone'],
             exports : 'Marionette'
+        },
+        'parsley' : {
+            deps : ['jquery']
         }
     }
 });

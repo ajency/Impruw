@@ -1,7 +1,7 @@
-define(['builderelement', 'tpl!builder/templates/elements/BasicElement.tpl', 'global'],
-    function(BuilderElement, template, global) {
+define(['sliderelement', 'tpl!builder/templates/elements/BasicElement.tpl', 'global'],
+    function(SliderElement, template, global) {
 
-        var RoomGallery = BuilderElement.extend({
+        var RoomGallery = SliderElement.extend({
 
             //class name for view
             className: 'aj-imp-elem-room-gallery element',
@@ -17,7 +17,9 @@ define(['builderelement', 'tpl!builder/templates/elements/BasicElement.tpl', 'gl
                 'mouseenter'                : 'elementMouseEnter',
                 'mouseleave'                : 'elementMouseLeave',
                 'click > .aj-imp-delete-btn': 'destroyElement',
-                'contextmenu'               : 'showContextMenu'
+                'click'                     : 'showModal',
+                'contextmenu'               : 'showContextMenu',
+                'click a.carousel-control'  : 'stopModalPopup'
             },
 
             /**

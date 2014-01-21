@@ -59,12 +59,16 @@ define(['builderelement', 'tpl!builder/templates/elements/BasicElement.tpl', 'gl
              * Refetch for menu
              * @return {[type]} [description]
              */
-            createSlider : function(images,ids){
+            createSlider : function(images){
 
                 var len = images.length;
 
                 if(len == 0)
                     return;
+
+                var ids = _.map(images, function(image, index){
+                    return image.get('id');
+                });
 
                 this.dataSource = {
                     'image-ids' : ids

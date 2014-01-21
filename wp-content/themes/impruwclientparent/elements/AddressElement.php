@@ -77,12 +77,12 @@ class AddressElement extends Element {
         $contact_at = $site->get_site_business();
 
         
-        $defaults = array( "street"     => "Street Name", 
-                           "phoneno"    => "9999000008888", 
-                           "email"      => "info@email.com",
-                           "postalcode" => '444000',
-                           "country"    => 'Country',
-                           "city"       => 'City Name');
+        $defaults = array( "street"     => "", 
+                           "phone"    => "", 
+                           "email"      => "",
+                           "postalcode" => '',
+                           "country"    => '',
+                           "city"       => '');
 
         $contact_at  = wp_parse_args($contact_at , $defaults);
         
@@ -96,7 +96,7 @@ class AddressElement extends Element {
 
         $html .= "<div class='infoPoint'>";
         $html .= "<span class='glyphicon glyphicon-earphone'></span>";
-        $html .= " $phoneno</div>";
+        $html .= " $phone</div>";
 
         $html .= "<div class='infoPoint'>";
         $html .= "<span class='fui-mail'></span>";

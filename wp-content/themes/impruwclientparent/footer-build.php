@@ -96,6 +96,12 @@
                                 <div class="aj-imp-builder-title">Map</div>
                             </a>
                         </li>
+                        <li data-element="roomlistelement">
+                            <a href="#" class="drag builder-element" data-placeholder-height="100">
+                                <div class="aj-imp-builder-icon"  data-icon="&#xf110;"></div>
+                                <div class="aj-imp-builder-title">Room List</div>
+                            </a>
+                        </li>
                     </ul>
                 </div>
                 <?php if(is_single_room_edit()): ?>
@@ -149,6 +155,11 @@
         var ISSINGLEROOM = true;   
         <?php endif; ?>
     </script> 
+    <?php if(ENV === 'dist'): ?>
+    <script src="<?php echo get_parent_template_directory_uri(); ?>/js/require.js"></script>
+    <script src="<?php echo get_parent_template_directory_uri(); ?>/builder/dist/js/production.js" ></script>
+    <?php else: ?>
     <script data-main="<?php echo get_parent_template_directory_uri(); ?>/builder/js/init" src="<?php echo get_parent_template_directory_uri(); ?>/js/require.js"></script>
+    <?php endif; ?>
 </body>
 </html>

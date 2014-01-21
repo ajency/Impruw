@@ -1,3 +1,5 @@
+@import url('slimmenu.min.css');
+
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,600);
 /*
 Theme Name:     Theme Green
@@ -276,6 +278,12 @@ blockquote p {
 .site-style-container .slideshow .carousel-caption .sub-caption {
   font-size: 0.35em;
   line-height: 32px;
+}
+.site-style-container .carousel-inner > .item > img {
+  width: 100%;
+}
+.site-style-container .carousel-inner > .item > a > img {
+  width: 100%;
 }
 .site-style-container .shadeBox {
   margin-bottom: 50px;
@@ -785,7 +793,8 @@ blockquote p {
   margin-right: 0.5em;
   text-shadow: 1px 1px 2px #cbcbcb;
 }
-.site-style-container .room .gallery .carousel {
+.site-style-container .room .gallery .carousel,
+.site-style-container .room .gallery .room-gallery {
   margin-bottom: 1em;
 }
 .site-style-container .room .price p {

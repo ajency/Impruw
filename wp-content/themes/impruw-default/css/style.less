@@ -10,6 +10,8 @@ Version:        0.1.0
 
 @import "elements.less";
 
+@import url('slimmenu.min.css');
+
 /****Font Import****/
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,600); /*Open Sans*/
 
@@ -281,6 +283,19 @@ blockquote {
 				line-height:32px;
 			}
 
+		}
+	}
+
+	.carousel-inner {
+		> .item {
+			> img {
+				width: 100%;
+			}
+			> a {
+				> img {
+					width: 100%;
+				}
+			}
 		}
 	}
 	
@@ -811,7 +826,7 @@ blockquote {
 			}
 		}
 		.gallery {
-			.carousel {
+			.carousel, .room-gallery {
 				margin-bottom: 1em;
 			}
 		}
