@@ -16,8 +16,22 @@ define(['underscore', 'jquery', 'backbone','leftview','sitemodel'],
                     this.leftColumn = new LeftColumnView();
 				},
 
-				show : function(view){
+				show : function(view,data_id){
 					
+					var editRoomModel;
+					//console.log('collection check ... ')
+					//console.log(getAppInstance())
+					
+					if(!_.isUndefined(data_id)){
+						if(!_.isUndefined(data_id.roomId))
+						if(!_.isUndefined(getAppInstance().roomCollection)){
+							editRoomModel = getAppInstance().roomCollection.get(data_id.roomId)	
+							
+						}
+						
+					}
+					
+				 
 					var self = this;
 
 					if(view === 'failed'){
@@ -31,11 +45,18 @@ define(['underscore', 'jquery', 'backbone','leftview','sitemodel'],
                     if (_.isUndefined(calledView)) {
                     	
                     	var newViewFn = _.bind(function(RView){
-								
-							calledView = new RView();
-							calledView.render();
-
-							getAppInstance().ViewManager.add(calledView, view);
+						 	
+							 if(!_.isUndefined(editRoomModel)){
+								 calledView = new RView(editRoomModel);
+								//calledView.render(editRoomModel);
+								 calledView.render(); 
+							}
+							 else {
+								 calledView = new RView();
+								 //	else
+								 calledView.render(); 
+								getAppInstance().ViewManager.add(calledView, view);
+							 }
 							
 							this.makeVisible(calledView);
 						
@@ -45,7 +66,23 @@ define(['underscore', 'jquery', 'backbone','leftview','sitemodel'],
                         
                     }
                     else{
-                    	this.makeVisible(calledView);
+                    	 
+                    	 
+                    	 if(!_.isUndefined(editRoomModel)){
+	                    	var newViewFn2 = _.bind(function(RView2){
+						 		 	calledView = new RView2(editRoomModel);
+							 
+									 calledView.render(); 
+									 this.makeVisible(calledView);								  
+								 
+							}, this)
+	
+							require([view], newViewFn2 );
+                    	 }
+                    	 else{
+                    		 this.makeVisible(calledView);
+                    	 }
+                    	 
                     }
 
 				},

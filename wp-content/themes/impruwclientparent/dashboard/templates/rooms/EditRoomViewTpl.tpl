@@ -1,46 +1,4 @@
-<%
-var roomModel; 
-//roomModel = getAppInstance().roomCollection.get(215)
-  
- 
- 
- if(!_.isUndefined(editroomdata)){
- 
-	//console.log('edit room template')
-	//console.log(editroomdata.get('checkinformat'))
-		var roomId 				= editroomdata.get('id')
-	
-	var roomCategory 		= editroomdata.get('roomType');
-	var noOfRooms	 		= editroomdata.get('inventory');
-	var roomDesc	 		= editroomdata.get('roomDesc');
-	var selectedFacilities 	= editroomdata.get('facilities');
-	var datePlanTariff 		= editroomdata.get('daterangetariff')}
-	
-	var datePlantariffIds;
-	var cntPlanTariff = 0; 
-	_.each(datePlanTariff,function(datePlanTariff, index){
-	
-	
- 		if(cntPlanTariff>0){
- 			datePlantariffIds+= ',' + datePlanTariff.daterangePlanTariffId;
- 		}
- 		else{
- 			datePlantariffIds = datePlanTariff.daterangePlanTariffId;
- 		}
- 	  	
- 		cntPlanTariff++
 
-	})
-	
-	 
-	
-	
- //var facilities_selected_exists  = _.where(selectedFacilities, {id: "1"});
- 
-var datePlanTariffExists; 
-var facilities_selected_exists;
- // facilities_selected_exists = _.find(selectedFacilities, function(num){ return num == 0; }); = _.find(selectedFacilities, function(num){ return num == 0; });
-%>
 				<header class="aj-imp-dash-header row">
 					<div class="aj-imp-dash-title col-xs-12">
 						<h2 class="aj-imp-page-head">Add Room</h2>
@@ -55,15 +13,13 @@ var facilities_selected_exists;
 							Your details have been successfully saved.
 						</div>
 						<form class="form-horizontal clearfix" name="frm_addroom" id="frm_addroom" >
-							 <input type='hidden' name='hdn_roomId'  id='hdn_roomId' value='<% if(!_.isUndefined(roomId)) { %><%=roomId%><% } %>' /> 	
 								
 							<div class="form-group">
 								<label for="inputEmail3" class="col-sm-2 control-label">Add Room Category</label>
 								<div class="col-sm-10 col-sm-offset-2">
 									<input type="text" class="form-control" id="roomcategory" name="roomcategory" 
 									placeholder="eg. Executive Room" required parsley-trigger="blur" parsley-validation-minlength="0"
-									parsely-required-message = "Please enter room category" 
-									value="<%if(!_.isUndefined(roomCategory)) {%><%=roomCategory%><%}%>" />
+									parsely-required-message = "Please enter room category" />
 									<div class="p-messages"></div>
 								</div>
 							</div>
@@ -73,8 +29,7 @@ var facilities_selected_exists;
 								<div class="col-sm-10 col-sm-offset-2">
 									<input type="numeric" class="form-control" name="roomnos" id="roomnos" placeholder="eg. 10" 
 									required parsley-trigger="blur" parsley-validation-minlength="0" parsley-type="number"
-									parsley-range="[1, 100]" parsel-required-message = "Please enter no of rooms"
-									value="<%if(!_.isUndefined(noOfRooms)) {%><%=noOfRooms%><%}%>"  >
+									parsley-range="[1, 100]" parsel-required-message = "Please enter no of rooms" >
 									<div class="p-messages"></div>
 								</div>
 							</div>
@@ -89,8 +44,7 @@ var facilities_selected_exists;
 									<div class="col-sm-10 col-sm-offset-2">
 										  <textarea class="form-control" rows="2" name="inputSEO1" id="roomdescription" name="roomdescription"
 										 placeholder="Room Description" required parsley-trigger="blur" 
-										 parsley-validation-minlength="0" parsley-required-message="please enter room description"  ><%if(!_.isUndefined(noOfRooms)) {
-										 %><%=roomDesc%><%}%></textarea>  
+										 parsley-validation-minlength="0" parsley-required-message="please enter room description"  ></textarea>  
 										<!-- <input type="text" class="form-control" id="roomdescription" name="roomdescription"
 										 placeholder="Room Description" required parsley-trigger="blur" 
 										 parsley-validation-minlength="0" parsley-required-message="please enter room description" > -->
@@ -138,15 +92,10 @@ var facilities_selected_exists;
 										
 										
 												<%
-												_.each(roomdata.facilities,function(facility,index){ 
-												
-												//check if facility is selected
-												facilities_selected_exists  = _.find(selectedFacilities, function(fac){ return fac == facility.name; });
-												  
-												%>
+												_.each(roomdata.facilities,function(facility,index){ %>
 												<div class="facility" id="facility-<%=facility.term_id %>">
-													<label for="checkbox2" class="checkbox <% if(!_.isUndefined(facilities_selected_exists)){%>checked<% } %>">
-														<input type="checkbox" data-toggle="checkbox" <% if(!_.isUndefined(facilities_selected_exists)){%>checked="checked"<% } %> name="facility[]"   value="<%=facility.name %>"   >
+													<label for="checkbox2" class="checkbox checked">
+														<input type="checkbox" data-toggle="checkbox" checked="checked" name="facility[]"   value="<%=facility.name %>"   >
 														<span id="facLabel-<%=facility.term_id %>" facililtyname="<%=facility.name %>"  ><%=facility.name %></span>
 														<span class='hidden inputEditFacility' > 
 															<!--  <form name='frm_editfacility' id='frmeditfacility-<%=facility.term_id %>'   > --> 
@@ -205,7 +154,7 @@ var facilities_selected_exists;
 
 								<div class="form-table table-responsive">
 								
-								<input type="hidden" name="hdn_plantariffids"  id="hdn_plantariffids" class = "chk_plantariff"  value="<% if(!_.isUndefined(datePlantariffIds)){%><%=datePlantariffIds%><% } %>"   >
+								<input type="hidden" name="hdn_plantariffids"  id="hdn_plantariffids" class = "chk_plantariff"  value=""   >
 								
 								
 									<table class="table table-striped" id="tbl_daterangelist">
@@ -276,23 +225,8 @@ var facilities_selected_exists;
 																
 																<tbody data-link="row" class="rowlink">
 																
-																<% 
-																datePlanTariffExists = '';
-																
-																_.each(daterange.plans,function(plan,plan_index){
+																<% _.each(daterange.plans,function(plan,plan_index){
 																  
-																  
-																  //console.log(datePlanTariff)
-																   datePlanTariffExists =  _.where(datePlanTariff, {planId: plan.plan_id, daterange_id: daterange.id});
-																  
-																  //console.log('checking datePlantariff exists')
-																  
-																  //console.log(datePlanTariffExists)
-																  
-																   if(!_.isEmpty(datePlanTariffExists)){
-																   //console.log(datePlanTariffExists)
-																  	//console.log('not empty'); 
-																  	}
 																%>
 																 
 																	<tr class="plan-row-<%=plan.plan_id %>" >
@@ -304,15 +238,15 @@ var facilities_selected_exists;
 																			<%=plan.plan_description %> 
 																		</td>
 																		<td class = "block-plan-weekday-tariff" >
-																			 <%  if(!_.isEmpty(datePlanTariffExists)) {%>$<%=datePlanTariffExists[0].weekdayTariff%> <% }else { %> - <%} %>
+																			 - 
 																		</td>
 																		<td class="block-plan-weekend-tariff" >
-																			 <%  if(!_.isEmpty(datePlanTariffExists)) {%>$<%=datePlanTariffExists[0].weekEndTariff%> <% }else { %> - <%} %>
+																			 - 
 																		</td>
 																		<td class="block-plan-tariff-action">
 																			<a href="javascript:void(0)" class="editplan_link" planid="<%=plan.plan_id %>"    ><span class="glyphicon glyphicon-pencil"></span> Edit Plan</a>
-																			<a href="javascript:void(0)" class="addtariff_link <%  if(!_.isEmpty(datePlanTariffExists)) {%>hidden<%} %>" planid="<%=plan.plan_id %>"    ><span class="glyphicon glyphicon-plus"></span> Add Tariff</a>
-																			<a href="javascript:void(0)" class="edit-link edittariff-link <%  if(_.isEmpty(datePlanTariffExists)) {%>hidden<%} %>"  planid="<%=plan.plan_id %>"  <%  if(!_.isEmpty(datePlanTariffExists)) {%>date-range-plan-tariffid='<%=datePlanTariffExists[0].daterangePlanTariffId%>'<% } %>  ><span class="glyphicon glyphicon-pencil"></span> Edit Tariff</a>	
+																			<a href="javascript:void(0)" class="addtariff_link" planid="<%=plan.plan_id %>"    ><span class="glyphicon glyphicon-plus"></span> Add Tariff</a>
+																			<a href="javascript:void(0)" class="edit-link edittariff-link hidden"  planid="<%=plan.plan_id %>"><span class="glyphicon glyphicon-pencil"></span> Edit Tariff</a>	
 																			 
 																		</td>
 																	</tr>
@@ -700,14 +634,7 @@ var facilities_selected_exists;
 						<div class="aj-imp-long-form-actions" data-spy="affix" data-offset-top="200">
 							<form class="form-horizontal clearfix">
 								<div class="affix-show">You have unsaved changes!</div>
-								 <% if(!_.isUndefined(editroomdata)) {%>
-									<button type="button" class="btn btn-wide aj-imp-submit" id="btn_updateroom" name="btn_updateroom">Update Room</button>
-								<% }
-								   else{								   
-								%>	<button type="button" class="btn btn-wide aj-imp-submit" id="btn_saveroom" name="btn_saveroom">Save Room</button>
-								<%	
-								   }
-								%>
+								<button type="button" class="btn btn-wide aj-imp-submit" id="btn_saveroom" name="btn_saveroom">Save Room</button>
 								<img src ="<%=THEMEURL%>/images/loader.gif" width="38" height="30"  
 													id="roomsave_loader" style="display:none"/>
 							</form>

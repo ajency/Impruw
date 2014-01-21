@@ -13,7 +13,8 @@ define([ 'underscore', 'jquery', 'backbone','roomcollection',
 
          events : {
         	'click a.retry' 		  : 'reTry',
-        	'click a.deleteroom_link' : 'deleteRoom'
+        	'click a.deleteroom_link' : 'deleteRoom',
+        	'click a.editroom_link'	  : 'editRoom'
 		}, 
 
 		initialize : function(args) {
@@ -21,8 +22,8 @@ define([ 'underscore', 'jquery', 'backbone','roomcollection',
 			_.bindAll(this, 'showFetchError','addNewRoom');
 			
 			
-			console.log('initalize room list view....')
-			console.log(getAppInstance().roomCollection);
+			//console.log('initalize room list view....')
+			//console.log(getAppInstance().roomCollection);
 			//check if app property is set
 			if(!appHasProperty('roomCollection'))
 				getAppInstance().roomCollection = new RoomCollection();	
@@ -65,7 +66,7 @@ define([ 'underscore', 'jquery', 'backbone','roomcollection',
 		 * 
 		 */
 		addNewRoom : function(room){
-			
+			this.listenTo(room,'change',this.roomdataUpdated)
 			var roomFn = _.bind(function(RoomTpl){
 				
 				var html = _.template(RoomTpl, {room : room});
@@ -73,6 +74,17 @@ define([ 'underscore', 'jquery', 'backbone','roomcollection',
 			}, this);
 			
 			require(['text!templates/rooms/room.tpl'],roomFn );
+		},
+		
+		
+		roomdataUpdated : function(room){
+			console.log('roomdataUpdated')
+			console.log(room)
+			
+			
+			///UPDATE ROOM LIST TABLE
+			
+			
 		},
 		
 		/**
@@ -98,13 +110,21 @@ define([ 'underscore', 'jquery', 'backbone','roomcollection',
 		},
 		
 		roomDeleted : function(response,evt){
-			console.log('room  deleted ')
+			//console.log('room  deleted ')
 			
 			this.stopListening(ImpruwDashboard.vent, 'room-deleted');
 			
 			$(evt.target).closest('tr').remove()
 			
-		} 
+		},
+		
+		editRoom : function(evt){
+			
+		 
+			
+		}
+		
+		
 		
 		
 		/**
