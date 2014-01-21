@@ -1,4 +1,4 @@
-define(['imagelement', 'tpl!builder/templates/elements/BasicElement.tpl', 'global'],
+define(['imageelement', 'tpl!builder/templates/elements/BasicElement.tpl', 'global'],
     function(ImageElement, template, global) {
 
         var ImageWithTextElement = ImageElement.extend({

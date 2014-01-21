@@ -4,7 +4,13 @@
  * Most imp file
  */
 
-define(['underscore', 'jquery', 'backbone', 'global'],
+define(['underscore', 'jquery', 'backbone', 'global',
+        'builderelement','builderrow','builderrowcolumn','imageelement','logoelement','menuelement',
+        'titleelement','textelement','socialelement','sliderelement','imagewithtextelement','addresselement',
+        'contactformelement','mapelement','roomtitle','roomdescription','roomfacilities','roomgallery',
+        'roomlistelement','menumanager','menumodel','menucollection','mediamanager','mediamodel','mediacollection',
+        'mediasingle','slidermanager'
+    ],
     function(_, $, Backbone, global) {
 
         var BuilderEditorView = Backbone.View.extend({
