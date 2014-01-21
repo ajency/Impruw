@@ -79,7 +79,7 @@ define(['underscore','modal', 'tpl!templates/modal/AddTariff.tpl','tpl!templates
     			var evt_ = evt;
     			var self_ = this;
     				
-    			var data = {		action			: 'save_updated_plan_tariff_ajx',						 
+    			var data = {		action				: 'save_updated_plan_tariff_ajx',						 
     								updatetariff_data 	: form_data 								 
     						};
     				

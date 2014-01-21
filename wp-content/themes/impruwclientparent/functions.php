@@ -1699,9 +1699,9 @@ function save_updated_plan_tariff_ajx(){
 	$tariff_data = serializedform_to_array($_POST['updatetariff_data']);
 	//var_dump($tariff_data);
 	
-	/*$daterange_id = $tariff_data['hdn_daterangeId'];
+	$daterange_id = $tariff_data['hdn_daterangeId'];
 	$plan_id = $tariff_data['hdn_planId'];
-	 */
+	 
 	$daterange_plan_tariff_id =  $tariff_data['hdn_dateplantariff'];
 	
 	$rad_weekday 				 = (!isset($tariff_data['rad_weekday'])?'':$tariff_data['rad_weekday']);	
@@ -1748,13 +1748,11 @@ function save_updated_plan_tariff_ajx(){
 		}
 		else {
 						
-			$tariff_details = array( 
-								  'planid'				 => $plan_id,
-								  'daterangeid'			 => $daterange_id,
-								  'plantariffid'		 => $tariff_result,
-								  'weekdaytariff'		 => $weekday_tariff,
-								  'weekendtariff'		 => $weekend_tariff,
-								  'daterangePlanTariffId'=> $tariff_result	
+			$tariff_details = array(    'weekdaytariff'		 	=> $weekday_tariff,
+								  		'weekendtariff'		 	=> $weekend_tariff,
+								  		'daterangePlanTariffId'	=> $daterange_plan_tariff_id,
+										'daterangeid'			=> $daterange_id,
+										'planid'				=> $plan_id
 								);
 								 
 			wp_send_json( array( 'code' => 'OK', 'msg'=>_('Tariff plan is successfully updated'),'tariffdata' => $tariff_details ) );
