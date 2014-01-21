@@ -4,22 +4,24 @@
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
   define(['builderelement', 'tpl!builder/templates/elements/BasicElement.tpl', 'global'], function(BuilderElement, template, global) {
-    var RoomListElement, _ref;
-    return RoomListElement = (function(_super) {
-      __extends(RoomListElement, _super);
+    var RoomElement, _ref;
+    return RoomElement = (function(_super) {
+      __extends(RoomElement, _super);
 
-      function RoomListElement() {
-        _ref = RoomListElement.__super__.constructor.apply(this, arguments);
+      function RoomElement() {
+        _ref = RoomElement.__super__.constructor.apply(this, arguments);
         return _ref;
       }
 
-      RoomListElement.prototype.className = 'aj-imp-elem-room-list element ';
+      RoomElement.prototype.className = 'aj-imp-elem-room element ';
 
-      RoomListElement.prototype.template = template;
+      RoomElement.prototype.template = template;
 
-      RoomListElement.prototype.elementType = 'RoomListElement';
+      RoomElement.prototype.elementType = 'RoomListElement';
 
-      RoomListElement.prototype.events = {
+      RoomElement.prototype.dataSource = 0;
+
+      RoomElement.prototype.events = {
         'mouseenter': 'elementMouseEnter',
         'mouseleave': 'elementMouseLeave',
         'click > .aj-imp-delete-btn': 'destroyElement',
@@ -27,7 +29,7 @@
         'click a': 'void'
       };
 
-      RoomListElement.prototype.initialize = function(options) {
+      RoomElement.prototype.initialize = function(options) {
         if (options == null) {
           options = {};
         }
@@ -39,12 +41,34 @@
         }
         this.generateMarkup({
           icon: '',
-          name: 'Room List Element'
+          name: 'Room Element'
         });
         this.setContextMenu();
       };
 
-      return RoomListElement;
+      RoomElement.prototype.hasExtraSettings = function() {
+        var html;
+        if (_.isEmpty(ROOMS)) {
+          return '';
+        }
+        html = "<div class='form-group'><select name='for-room'>";
+        html += "<option value='0'>Select</option>";
+        _.each(ROOMS, function(room, index) {
+          html += "<option value=" + room.id + ">" + room.name + "</option>";
+        });
+        return html += '</select></div>';
+      };
+
+      RoomElement.prototype.updateExtraProperties = function(evt) {
+        var pcontent;
+        if (evt == null) {
+          evt = {};
+        }
+        pcontent = $(evt.target).closest('.popover');
+        return this.dataSource = parseInt($(pcontent).find('select[name="for-room"]').val());
+      };
+
+      return RoomElement;
 
     })(BuilderElement);
   });

@@ -99,7 +99,7 @@
                         <li data-element="roomlistelement">
                             <a href="#" class="drag builder-element" data-placeholder-height="100">
                                 <div class="aj-imp-builder-icon"  data-icon="&#xf110;"></div>
-                                <div class="aj-imp-builder-title">Room List</div>
+                                <div class="aj-imp-builder-title">Room</div>
                             </a>
                         </li>
                     </ul>
@@ -151,6 +151,7 @@
         var UPLOADURL   = '<?php echo admin_url('async-upload.php'); ?>';
         var _WPNONCE    = '<?php echo wp_create_nonce('media-form');?>';
         var JSVERSION   = '<?php echo JSVERSION; ?>';
+        var ROOMS       = <?php echo json_encode(get_rooms()); ?>;
         <?php if(is_single_room_edit()): ?>
         var ISSINGLEROOM = true;   
         <?php endif; ?>

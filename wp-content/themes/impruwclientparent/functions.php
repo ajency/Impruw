@@ -3107,3 +3107,25 @@ function get_image_url(){
 }
 add_action('wp_ajax_get_image_url', 'get_image_url');
 add_action('wp_ajax_nopriv_get_image_url', 'get_image_url');
+
+/**
+ * [get_rooms description]
+ * @return [type] [description]
+ */
+function get_rooms(){
+
+    $rooms = new WP_Query(array('post_type'=>'impruw_room','posts_per_page' => -1));
+
+    $r = array();
+
+    while($rooms->have_posts()): $rooms->the_post();
+
+        $r[] =  array(
+                    'id'    => get_the_ID(),
+                    'name'  => get_the_title()
+                );
+
+    endwhile;
+
+    return $r;
+}

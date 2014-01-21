@@ -4,13 +4,15 @@
 
 define ['builderelement','tpl!builder/templates/elements/BasicElement.tpl','global'], (BuilderElement, template, global)->
 
-	class RoomListElement extends BuilderElement
+	class RoomElement extends BuilderElement
 
-		className : 'aj-imp-elem-room-list element '
+		className : 'aj-imp-elem-room element '
 
 		template : template
 
 		elementType : 'RoomListElement'
+
+		dataSource : 0
 
 		events : 
 			'mouseenter'  					: 'elementMouseEnter'
@@ -31,8 +33,33 @@ define ['builderelement','tpl!builder/templates/elements/BasicElement.tpl','glob
 
 			@generateMarkup 
 				icon : ''
-				name : 'Room List Element'
+				name : 'Room Element'
 
 			@setContextMenu()
 
 			return
+
+		hasExtraSettings :()->
+
+			if _.isEmpty ROOMS then return ''
+
+			html = "<div class='form-group'><select name='for-room'>"
+			html += "<option value='0'>Select</option>"
+
+			_.each ROOMS, (room, index)->
+				html += "<option value=#{room.id}>#{room.name}</option>"
+				return
+
+			html += '</select></div>'
+
+
+		updateExtraProperties:( evt = {})->
+
+			pcontent = $(evt.target).closest '.popover'
+
+			@dataSource = parseInt $(pcontent).find('select[name="for-room"]').val()
+
+
+
+
+

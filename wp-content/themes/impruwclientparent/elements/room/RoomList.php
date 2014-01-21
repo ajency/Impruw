@@ -47,6 +47,10 @@ class RoomList extends Element {
         
         parent::__construct($config);
 
+        if(isset($config['dataSource'])){
+            $this->data  = (int) $config['dataSource'];
+        }
+
         $this->markup  = $this->generate_markup();
 
     }
@@ -59,11 +63,15 @@ class RoomList extends Element {
         
         $html = '';
 
-        $rooms = new WP_Query(array('post_type'=>'impruw_room','posts_per_page' => -1));
+        if($this->data === 0)
+            return $html;
+
+        global $post;
+        $post = get_post($this->data);
+
+        setup_postdata($post);
 
         ob_start(); 
-
-        while($rooms->have_posts()) : $rooms->the_post();
 
         ?>
         <div class="roomBox">
@@ -94,8 +102,6 @@ class RoomList extends Element {
         </div>
         <?php
         
-        endwhile;
-
         $html .= ob_get_clean();
 
         return $html;

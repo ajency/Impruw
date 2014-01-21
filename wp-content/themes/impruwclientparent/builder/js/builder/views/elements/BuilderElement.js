@@ -246,9 +246,16 @@ define(['backbone', 'jquery', 'underscore', 'global'],
                 
                 var className = this.type() === 'builderrow' ? 'updateRowProperties' : 'updateProperties';
 
-                html += '<div class="form-group">\
+               if(this.hasExtraSettings && _.isFunction(this.hasExtraSettings)){
+                    html += this.hasExtraSettings();
+
+                }
+
+                 html += '<div class="form-group">\
                                  <input value="Save" type="button" class="btn btn-primary '+className+'"/>&nbsp;\
                            </div>';
+
+                
 
                 return html;
             },
@@ -351,7 +358,13 @@ define(['backbone', 'jquery', 'underscore', 'global'],
                     element.markupStyle = mEle.val();
                 }
 
+                if(element.updateExtraProperties && _.isFunction(element.updateExtraProperties)){
+                    element.updateExtraProperties(evt);
+                }
+
                 $(evt.target).after('<span><small>Saved</small></span>');
+
+                
 
                 this.trigger('settings_updated', 'new');
 
