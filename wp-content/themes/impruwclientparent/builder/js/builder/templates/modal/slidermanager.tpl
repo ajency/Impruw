@@ -27,11 +27,13 @@
 		</div>
 		<div class="tab-pane " id="images">
 			<form>
+				<div class="row thumbnails selectable-images">
+					
+				</div>
 				<div class="row">
-					<div class="col-md-12 panel-group selectable-images" >
-
+					<div class="col-sm-12 aj-imp-block-button">
+						<div class="btn btn-primary" id="create-slider">Done</div>
 					</div>
-					<div class="btn btn-primary" id="create-slider">Done</div>
 				</div>
 			</form>
 		</div>

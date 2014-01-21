@@ -277,6 +277,12 @@ blockquote p {
   font-size: 0.35em;
   line-height: 32px;
 }
+.site-style-container .carousel-inner > .item > img {
+  width: 100%;
+}
+.site-style-container .carousel-inner > .item > a > img {
+  width: 100%;
+}
 .site-style-container .shadeBox {
   margin-bottom: 50px;
   background: url('../images/stripe_bg.png');
