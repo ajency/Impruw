@@ -129,6 +129,16 @@ define(['builderelement', 'builderrowcolumn', 'global'],
             },
 
             /**
+             * Assign classes
+             * @return {[type]} [description]
+             */
+            assignClasses : function(){
+            
+                this.$el.addClass(this.extraClasses);
+            
+            },
+
+            /**
              * Triggered when new controls are dropped into columns
              * Once new controls are dropped in column the column heights can vary.
              * This function get the column with maximum height and assign the same
