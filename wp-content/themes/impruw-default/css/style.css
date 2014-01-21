@@ -165,6 +165,8 @@ blockquote p {
 
   /*--Fix Horizontal Scroll Header--*/
 
+  /*--Fix Row Padding--*/
+
 }
 .site-style-container .topStrip {
   background: #5ca9a1;
@@ -611,22 +613,27 @@ blockquote p {
     color: #656565;
   }
 }
-.site-style-container #sendMessage {
+.site-style-container #sendMessage,
+.site-style-container .sendMessage {
   margin-top: 40px;
   margin-bottom: 30px;
 }
-.site-style-container #sendMessage .infoPoint {
+.site-style-container #sendMessage .infoPoint,
+.site-style-container .sendMessage .infoPoint {
   color: #656565;
   font-weight: 400;
   margin-bottom: 15px;
 }
-.site-style-container #sendMessage .form-control.flat {
+.site-style-container #sendMessage .form-control.flat,
+.site-style-container .sendMessage .form-control.flat {
   border-radius: 0;
 }
-.site-style-container #sendMessage textarea.form-control {
+.site-style-container #sendMessage textarea.form-control,
+.site-style-container .sendMessage textarea.form-control {
   height: 112px;
 }
-.site-style-container #sendMessage .btn.btn-default:hover {
+.site-style-container #sendMessage .btn.btn-default:hover,
+.site-style-container .sendMessage .btn.btn-default:hover {
   background: #5ca9a1;
 }
 .site-style-container .roomList {
@@ -818,4 +825,7 @@ blockquote p {
 .site-style-container .site-page > .row,
 .site-style-container .site-footer > .row {
   margin: 0;
+}
+.site-style-container .no-pad {
+  padding: 0;
 }

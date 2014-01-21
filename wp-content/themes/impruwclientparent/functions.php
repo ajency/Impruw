@@ -1598,23 +1598,20 @@ function fetch_daterange_plans($daterange_id){
 }
 
 /**
- * 
- * function to fetch plan details
+ * plan id
+ * ajax function to fetch plan details
+ * returns array containing plan_label, plan_description, plan_id
  */
-function fetch_plan_details(){
+function fetch_plan_details_ajx(){
 	
-	//$planid = $_POST['plan_id'];
-	$planid = 2;
+	$planid = $_POST['plan_id'];
+	//$planid = 2;
 	
 	global $wpdb; 
-	$plans_data = maybe_unserialize(get_option('plans'));
-	foreach($plans_data as $plan_data){
-		if($plan_data['id']==$planid){
-			$plan_name 		  = $plan_data['label'];
-			$plan_description = $plan_data['description'];
-		}
-	}
-	//get tariff details for a plan
+	$plan_details = fetch_plan_details($planid); 
+	
+	
+	/*//get tariff details for a plan
 	$qry_tariff_details = $wpdb->prepare("select tarriff as plan_tariff  from {$wpdb->prefix}datetarriff where plan_id = %d ",$planid);
  
 	$result_tariff_details = $wpdb->get_results($qry_tariff_details);
@@ -1623,12 +1620,166 @@ function fetch_plan_details(){
 			$plan_tariff = maybe_unserialize($tariff_detail->plan_tariff);		  
 		}
 	}
+	*/
+	
+	wp_send_json(array('code'=>'OK', 'data'=>$plan_details));
 	 
 }
-add_action( 'wp_ajax_fetch_plan_details', 'fetch_plan_details' );
-add_action( 'wp_ajax_nopriv_fetch_plan_details', 'fetch_plan_details' );
+add_action( 'wp_ajax_fetch_plan_details_ajx', 'fetch_plan_details_ajx' );
+add_action( 'wp_ajax_nopriv_fetch_plan_details_ajx', 'fetch_plan_details_ajx' );
 
 
+
+
+/**
+ * 
+ * Fetch plan detailss
+ * @param int $planid
+ * returns array containing plan name and description , plan_id
+ */
+function fetch_plan_details($planid){
+	 
+	$plan_details = array();
+	global $wpdb; 
+	$plans_data = maybe_unserialize(get_option('plans'));
+	foreach($plans_data as $plan_data){
+		if($plan_data['id']==$planid){
+			$plan_details['plan_id']	  		= trim($planid);
+			$plan_details['plan_name']	  		= trim($plan_data['label']);
+			$plan_details['plan_description']  	= trim($plan_data['description']);
+		}
+	}
+	
+	return $plan_details;
+}
+
+
+/**
+ *Function to fetch tariff details for a  plan belonging to a daterange
+ * returns array containing weekend and weekday tariff details
+ */
+function fetch_daterange_plan_tariff_data_ajx(){
+	
+	$daterange_plan_tariff_id = $_POST['daterange_plan_tariff_i'];
+	$result = fetch_tariff_data($daterange_plan_tariff_id);
+	if($result) 
+		wp_send_json( array( 'code' => 'OK', 'dateTariff'=>$result) );
+	else
+	  wp_send_json( array( 'code' => 'ERROR', 'msg' =>'Error fetching data' ) );  
+}
+add_action( 'wp_ajax_fetch_daterange_plan_tariff_data_ajx', 'fetch_daterange_plan_tariff_data_ajx' );
+add_action( 'wp_ajax_nopriv_fetch_daterange_plan_tariff_data_ajx', 'fetch_daterange_plan_tariff_data_ajx' );
+
+function fetch_tariff_data($daterange_plan_tariff_id){
+	global $wpdb;
+	//get tariff details for a plan
+	$qry_tariff_details = $wpdb->prepare("select tarriff as plan_tariff  from {$wpdb->prefix}datetarriff where id = %d ",$daterange_plan_tariff_id);
+ 
+	$result_tariff_details = $wpdb->get_results($qry_tariff_details);
+	if(count($result_tariff_details)>0){
+		foreach($result_tariff_details as $tariff_detail){
+			$plan_tariff = maybe_unserialize($tariff_detail->plan_tariff);		  
+		}
+	}
+	return($plan_tariff);
+	
+}
+
+
+
+
+/**
+ * Function to update and save tariff charges 
+ * int daterange_plan_tariff id 
+ * Enter description here ...
+ */
+function save_updated_plan_tariff_ajx(){
+	
+	
+	$tariff_data = serializedform_to_array($_POST['updatetariff_data']);
+	//var_dump($tariff_data);
+	
+	/*$daterange_id = $tariff_data['hdn_daterangeId'];
+	$plan_id = $tariff_data['hdn_planId'];
+	 */
+	$daterange_plan_tariff_id =  $tariff_data['hdn_dateplantariff'];
+	
+	$rad_weekday 				 = (!isset($tariff_data['rad_weekday'])?'':$tariff_data['rad_weekday']);	
+    $weekday_tariff 			 = (!isset($tariff_data['weekday_tariff'])?'':$tariff_data['weekday_tariff']);	
+    $weekday_maxadults 			 = (!isset($tariff_data['weekday_maxadults'])?'':$tariff_data['weekday_maxadults']);	
+    $weekday_maxchildren 		 = (!isset($tariff_data['weekday_maxchildren'])?'':$tariff_data['weekday_maxchildren']);	
+    $weekday_charges_extra_adult = (!isset($tariff_data['weekday_charges_extra_adult'])?'':$tariff_data['weekday_charges_extra_adult']);	
+    $weekday_charges_extra_child = (!isset($tariff_data['weekday_charges_extra_child'])?'':$tariff_data['weekday_charges_extra_child']);
+		
+	$rad_weekend 				 = (!isset($tariff_data['rad_weekend'])?'':$tariff_data['rad_weekend']) ;	
+    $weekend_tariff 			 = (!isset($tariff_data['weekend_tariff'])?'':$tariff_data['weekend_tariff']);	
+    $weekend_maxadults 			 = (!isset($tariff_data['weekend_maxadults'])?'':$tariff_data['weekend_maxadults']);	
+    $weekend_maxchildren 		 = (!isset($tariff_data['weekend_maxchildren'])?'':$tariff_data['weekend_maxchildren']);	
+    $weekend_charges_extra_adult = (!isset($tariff_data['weekend_charges_extra_adult'])?'':$tariff_data['weekend_charges_extra_adult']);	
+    $weekend_charges_extra_child = (!isset($tariff_data['weekend_charges_extra_child'])?'':$tariff_data['weekend_charges_extra_child']);
+	 
+	//var_dump($tariff_data);	 
+	
+	$weekendtariff = array();
+	
+    $weekdaytariff = array();
+		
+	$weekendtariff = array( 'tariff' 				=> $weekend_tariff,
+							 'maxadults'			=> $weekend_maxadults,
+							 'maxchildren'			=> $weekend_maxchildren,
+							 'extra_adult_charges' 	=> $weekend_charges_extra_adult,
+							 'extra_child_charges'	=> $weekend_charges_extra_child
+							);
+	
+	 $weekdaytariff = array( 'tariff' 				=> $weekday_tariff,
+							 'maxadults'			=> $weekday_maxadults,
+							 'maxchildren'			=> $weekday_maxchildren,
+							 'extra_adult_charges' 	=> $weekday_charges_extra_adult,
+							 'extra_child_charges'	=> $weekday_charges_extra_child
+							);
+	 
+	 						
+	if(!empty($daterange_plan_tariff_id)){
+		//add tariff 		
+		$tariff_result =  update_daterangeplan_tariff($weekendtariff, $weekdaytariff,$daterange_plan_tariff_id);
+		
+		if($tariff_result===false){
+			wp_send_json( array( 'code' => 'ERROR', 'msg' =>_('Error updating Tariff plan') ) ); 
+		}
+		else {
+						
+			$tariff_details = array( 
+								  'planid'				 => $plan_id,
+								  'daterangeid'			 => $daterange_id,
+								  'plantariffid'		 => $tariff_result,
+								  'weekdaytariff'		 => $weekday_tariff,
+								  'weekendtariff'		 => $weekend_tariff,
+								  'daterangePlanTariffId'=> $tariff_result	
+								);
+								 
+			wp_send_json( array( 'code' => 'OK', 'msg'=>_('Tariff plan is successfully updated'),'tariffdata' => $tariff_details ) );
+			
+			 
+		}
+	}
+	else{
+			wp_send_json( array( 'code' => 'ERROR', 'msg' =>_('Error updating tariff plan') ) );
+	}
+		 
+	
+}
+add_action( 'wp_ajax_save_updated_plan_tariff_ajx', 'save_updated_plan_tariff_ajx' );
+add_action( 'wp_ajax_nopriv_save_updated_plan_tariff_ajx', 'save_updated_plan_tariff_ajx' );
+
+
+
+/**
+ * Functino to updatge and save tariff charges 
+ * Enter description here ...
+ */
+function save_updated_plan_tariff(){
+	
+}
 
 /**
  * Function to save new room facility
@@ -1707,11 +1858,12 @@ add_action( 'wp_ajax_nopriv_save_new_tax', 'save_new_tax' );
 
 
 /**
+ * 
  * Function to save new addon type
  */
 function save_new_addon_type() {
-
-    $new_addon_type = $_POST['new_addon_type'];
+		
+	$new_addon_type = $_POST['new_addon_type'];
     $new_addon_price = $_POST['new_addon_price'];
 	$max_addonid = 0; 
 	
@@ -2146,33 +2298,20 @@ function add_new_plan_tariff(){
 	
 	$daterange_id = $tariff_data['hdn_daterangeId'];
 	$plan_id = $tariff_data['hdn_planId'];
+	  
 	
-    // $daterange_id = 1;
-	
-	
-	$rad_weekday = (!isset($tariff_data['rad_weekday'])?'':$tariff_data['rad_weekday']);
-	
-    $weekday_tariff = (!isset($tariff_data['weekday_tariff'])?'':$tariff_data['weekday_tariff']);
-	
-    $weekday_maxadults = (!isset($tariff_data['weekday_maxadults'])?'':$tariff_data['weekday_maxadults']);
-	
-    $weekday_maxchildren = (!isset($tariff_data['weekday_maxchildren'])?'':$tariff_data['weekday_maxchildren']);
-	
-    $weekday_charges_extra_adult = (!isset($tariff_data['weekday_charges_extra_adult'])?'':$tariff_data['weekday_charges_extra_adult']);
-	
+	$rad_weekday 				 = (!isset($tariff_data['rad_weekday'])?'':$tariff_data['rad_weekday']);	
+    $weekday_tariff 			 = (!isset($tariff_data['weekday_tariff'])?'':$tariff_data['weekday_tariff']);	
+    $weekday_maxadults 			 = (!isset($tariff_data['weekday_maxadults'])?'':$tariff_data['weekday_maxadults']);	
+    $weekday_maxchildren 		 = (!isset($tariff_data['weekday_maxchildren'])?'':$tariff_data['weekday_maxchildren']);	
+    $weekday_charges_extra_adult = (!isset($tariff_data['weekday_charges_extra_adult'])?'':$tariff_data['weekday_charges_extra_adult']);	
     $weekday_charges_extra_child = (!isset($tariff_data['weekday_charges_extra_child'])?'':$tariff_data['weekday_charges_extra_child']);
-	
-	
-	$rad_weekend = (!isset($tariff_data['rad_weekend'])?'':$tariff_data['rad_weekend']) ;
-	
-    $weekend_tariff = (!isset($tariff_data['weekend_tariff'])?'':$tariff_data['weekend_tariff']);
-	
-    $weekend_maxadults = (!isset($tariff_data['weekend_maxadults'])?'':$tariff_data['weekend_maxadults']);
-	
-    $weekend_maxchildren = (!isset($tariff_data['weekend_maxchildren'])?'':$tariff_data['weekend_maxchildren']);
-	
+		
+	$rad_weekend 				 = (!isset($tariff_data['rad_weekend'])?'':$tariff_data['rad_weekend']) ;	
+    $weekend_tariff 			 = (!isset($tariff_data['weekend_tariff'])?'':$tariff_data['weekend_tariff']);	
+    $weekend_maxadults 			 = (!isset($tariff_data['weekend_maxadults'])?'':$tariff_data['weekend_maxadults']);	
+    $weekend_maxchildren 		 = (!isset($tariff_data['weekend_maxchildren'])?'':$tariff_data['weekend_maxchildren']);	
     $weekend_charges_extra_adult = (!isset($tariff_data['weekend_charges_extra_adult'])?'':$tariff_data['weekend_charges_extra_adult']);	
-	
     $weekend_charges_extra_child = (!isset($tariff_data['weekend_charges_extra_child'])?'':$tariff_data['weekend_charges_extra_child']);
 	 
 	//var_dump($tariff_data);	 
@@ -2195,9 +2334,7 @@ function add_new_plan_tariff(){
 							 'extra_child_charges'	=> $weekday_charges_extra_child
 							);
 	 
-	// 
- 				
-							
+	 						
 	if(!empty($plan_id)){
 		//add tariff 		
 		$tariff_result =  add_daterangeplan_tariff($weekendtariff, $weekdaytariff,$plan_id,$daterange_id);
@@ -2208,11 +2345,12 @@ function add_new_plan_tariff(){
 		else {
 						
 			$tariff_details = array( 
-								  'planid'			=> $plan_id,
-								  'daterangeid'		=> $daterange_id,
-								  'plantariffid'	=> $tariff_result,
-								  'weekdaytariff'	=> $weekday_tariff,
-								  'weekendtariff'	=> $weekend_tariff	
+								  'planid'				 => $plan_id,
+								  'daterangeid'			 => $daterange_id,
+								  'plantariffid'		 => $tariff_result,
+								  'weekdaytariff'		 => $weekday_tariff,
+								  'weekendtariff'		 => $weekend_tariff,
+								  'daterangePlanTariffId'=> $tariff_result	
 								);
 								 
 			wp_send_json( array( 'code' => 'OK', 'msg'=>_('Tariff plan is successfully added'),'tariffdata' => $tariff_details ) );
@@ -2262,7 +2400,7 @@ function add_new_plan_ajx(){
 }
 add_action( 'wp_ajax_add_new_plan_ajx', 'add_new_plan_ajx' );
 add_action( 'wp_ajax_nopriv_add_new_plan_ajx', 'add_new_plan_ajx' );
-
+ 
 
 /**
  * 
@@ -2330,6 +2468,137 @@ function add_new_plan($plantype,$plandescription){
 }
 
 
+/**
+ * 
+ * Ajax function to update plan details
+ * 
+ */
+function update_plan_ajx(){
+	
+	$plan_data 		 = serializedform_to_array($_POST['editplan_data']);
+
+	$updated_plan = array('plan_id'			=> $plan_data['hdn_planid'],
+						  'plan_label'		=> $plan_data['plantype'],
+						  'plan_description'=> $plan_data['plandescription'],
+						  'daterange_id'	=> $plan_data['hdn_daterange'],
+						);
+	
+	$result = update_plan($plan_data);
+	if(strlen($result)>5)
+		wp_send_json( array( 'code' => 'ERROR', 'msg' =>_($result),'plandata'=>$updated_plan ) );
+	
+	if(!$result)
+		wp_send_json( array( 'code' => 'ERROR', 'msg' =>_('Error updating plan'),'plandata'=>$updated_plan ) );
+	  else 
+		wp_send_json( array( 'code' => 'OK', 'msg' =>_('The plan updated successfully'),'plandata'=>$updated_plan ) ); 
+ 
+}
+add_action( 'wp_ajax_update_plan_ajx', 'update_plan_ajx' );
+add_action( 'wp_ajax_nopriv_update_plan_ajx', 'update_plan_ajx' );
+
+
+/**
+ * 
+ * function to update plan details(label, description)
+ * @param unknown_type $plan_data
+ * returns true on succes
+ * return msg plan exists if plan already exists
+ * returns false on update failure
+ */
+
+function update_plan($plan_data){
+	
+	$plan_id 		 = $plan_data['hdn_planid'];	
+	$plantype 		 = $plan_data['plantype'];	
+    $plandescription = $plan_data['plandescription'];
+	  
+	//check if the plan already exists 
+    $plans = maybe_unserialize(get_option('plans'),true);
+    $plan_exists = false;
+     //update plan
+    if($plans){   
+    	if(count($plans)>0){
+    	   foreach ($plans as $plan_key=>$plan_val){
+		    	if(($plan_val['label'] == $plantype ) && ($plan_val['id'] != $plan_id ) )
+		    		$plan_exists = true;
+		    }
+		    
+		    if($plan_exists)
+    			return 'The Plan name already exists.';
+
+    			
+    		foreach ($plans as $plan_key=>$plan_val){
+		    	 
+    			if( $plan_val['id'] == $plan_id  ){
+    				$updated_plan_data[] = array('id'			=> trim($plan_id),
+    										 	 'label'		=> trim($plantype),
+    										     'description'	=> trim($plandescription) ) ;
+    				
+    			}
+    			else{
+    				$updated_plan_data[] = array('id'			=> trim($plan_val['id']),
+    										 	 'label'		=> trim($plan_val['label']),
+    										  	 'description'	=> trim($plan_val['description']) 
+    										);
+    			}
+    				
+		    		
+		    }
+		    $result = update_option('plans', maybe_serialize($updated_plan_data));
+    	
+    		return $result;
+    	}
+    }
+     
+	
+}
+
+/**
+ * 
+ * Enter description here ...
+ * @param unknown_type $weekend_tariff
+ * @param unknown_type $weekday_tariff
+ * @param unknown_type $daterangeplan_id
+ */
+function update_daterangeplan_tariff($weekend_tariff, $weekday_tariff,$daterangeplan_id){
+	
+	global $wpdb;
+	
+	//switch_to_blog(BLOG_ID_CURRENT_SITE);
+	
+	$table_name =  $wpdb->prefix."datetarriff";  
+	
+	$result = $wpdb->update(	$table_name, 
+								array(  'tarriff' => maybe_serialize( array( 'weekend' => $weekend_tariff,
+													 	   					 'weekday' => $weekday_tariff	
+																 			)
+																	)									
+									), 
+								array('id'=>$daterangeplan_id),	
+								array(  '%s' ),
+								array(  '%d' ) 
+							); 
+    				
+ 	//switch_to_blog(get_current_blog_id());
+  	 	
+ 	return $result;
+	
+}
+
+
+
+
+
+
+
+/*
+ * 
+ * Function to add new tariff for the date range plan 
+ * @param unknown_type $weekend_tariff
+ * @param unknown_type $weekday_tariff
+ * @param unknown_type $plan_id
+ * @param unknown_type $daterange_id
+ */ 
 
 function add_daterangeplan_tariff($weekend_tariff, $weekday_tariff,$plan_id,$daterange_id){
 	
