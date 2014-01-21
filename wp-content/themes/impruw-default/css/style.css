@@ -791,7 +791,8 @@ blockquote p {
   margin-right: 0.5em;
   text-shadow: 1px 1px 2px #cbcbcb;
 }
-.site-style-container .room .gallery .carousel {
+.site-style-container .room .gallery .carousel,
+.site-style-container .room .gallery .room-gallery {
   margin-bottom: 1em;
 }
 .site-style-container .room .price p {
