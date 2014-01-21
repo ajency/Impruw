@@ -23,7 +23,8 @@
         'mouseenter': 'elementMouseEnter',
         'mouseleave': 'elementMouseLeave',
         'click > .aj-imp-delete-btn': 'destroyElement',
-        'contextmenu': 'showContextMenu'
+        'contextmenu': 'showContextMenu',
+        'click a': 'void'
       };
 
       RoomListElement.prototype.initialize = function(options) {

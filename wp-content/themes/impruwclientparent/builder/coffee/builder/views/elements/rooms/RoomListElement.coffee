@@ -17,6 +17,7 @@ define ['builderelement','tpl!builder/templates/elements/BasicElement.tpl','glob
 			'mouseleave'  					: 'elementMouseLeave'
 			'click > .aj-imp-delete-btn' 	: 'destroyElement'
 			'contextmenu'					: 'showContextMenu'
+			'click a'						: 'void'
 
 		##
 		##
