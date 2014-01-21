@@ -81,19 +81,28 @@ class RoomList extends Element {
             </div>
             <p><?php echo get_the_excerpt(); ?></p>
             <div class="line-separator"></div>
-            <div class="row">
                 <?php
                 $facilities = wp_get_post_terms(get_the_ID(), 'impruw_room_facility');
 
                 if(is_array($facilities)){
+                    //Set the counter to 1
+                    $i = 1;
 
-                    foreach ($facilities as $facility) {
-                        echo sprintf('<div class="col-sm-4 roomAmenity"><span class="glyphicon glyphicon-ok"></span> %s</div>', $facility->name);
-                    }
+                    //Open the row div
+                    echo '<div class="row">';
+
+                        foreach ($facilities as $facility) {
+                            echo sprintf('<div class="col-sm-4 roomAmenity"><span class="glyphicon glyphicon-ok"></span> %s</div>', $facility->name);
+
+                            // After 3 close the row div and open a new one
+                            if($i % 3 == 0) {echo '</div><div class="row">';}
+                            $i++;
+                        }
                     
-                }
-                ?>
-            </div>
+                    //Close the row div
+                    echo '</div>';
+                    
+                } ?>
             <div class="line-separator"></div>
             <div class="row">
                 <div class="col-xs-6 roomRate"><!-- <span class="currency">kr</span> <span class="amount">210</span> / night--></div>
