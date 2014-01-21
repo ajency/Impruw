@@ -693,7 +693,7 @@ blockquote p {
   color: #b2b2b2;
   text-align: center;
   line-height: 18px;
-  margin-bottom: 0px;
+  margin-bottom: 0.5em;
   text-shadow: 1px 1px 2px #cbcbcb;
 }
 .site-style-container .roomList .roomBox .roomRate .amount {
