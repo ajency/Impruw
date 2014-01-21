@@ -92,11 +92,22 @@ class SiteModel {
 	 */
 	function get_site_business(){
 		
-		$site_business_data = get_option('impruw_address');
-		if($site_business_data)
-			return $site_business_data;
-		else
-			return array();
+		$address = array();
+
+		$address['street'] 		= get_option('street');
+		$address['postalcode'] 	= get_option('postalcode');
+		$address['city'] 		= get_option('city');
+		$address['country'] 	= get_option('country');
+
+		$emails = get_option('email');
+
+		$address['email'] = is_array($emails) && !empty($emails) ? $emails[0] : get_option('admin_email'); 	
+
+		$phoneno = get_option('phone');
+
+		$address['phone'] = is_array($phoneno) && !empty($phoneno) ? $phoneno[0] : ''; 	
+		
+		return $address;
 	}
 	
 	/**
