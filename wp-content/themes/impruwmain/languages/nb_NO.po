@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: im\n"
-"POT-Creation-Date: 2014-01-22 09:55+0530\n"
-"PO-Revision-Date: 2014-01-22 09:55+0530\n"
+"POT-Creation-Date: 2014-01-22 12:17+0530\n"
+"PO-Revision-Date: 2014-01-22 12:17+0530\n"
 "Last-Translator: Vanessa <vanessa.pinto2609@gmail.com>\n"
 "Language-Team: a <parag@ajency.in>\n"
 "Language: nb\n"
@@ -91,6 +91,41 @@ msgstr "New Tag_n"
 #: ../../impruwmain/functions.php:125
 msgid "Tag"
 msgstr "Tag_n"
+
+#: ../../impruwmain/functions.php:466
+#, fuzzy
+msgid "Your Name"
+msgstr "Your Full Name_n"
+
+#: ../../impruwmain/functions.php:467
+#, fuzzy
+msgid "Your E-mail Address"
+msgstr "Email_n"
+
+#: ../../impruwmain/functions.php:468
+msgid "Subject"
+msgstr ""
+
+#: ../../impruwmain/functions.php:469
+msgid "Your Message"
+msgstr ""
+
+#: ../../impruwmain/functions.php:470
+msgid "Submit"
+msgstr ""
+
+#: ../../impruwmain/functions.php:472
+msgid "Please fill in all the required fields."
+msgstr ""
+
+#: ../../impruwmain/functions.php:474
+msgid "Please enter a valid e-mail address."
+msgstr ""
+
+#: ../../impruwmain/functions.php:476
+msgid ""
+"Thanks for your e-mail! We'll get back to you as soon as we can.impruwmain"
+msgstr ""
 
 #: ../../impruwmain/page-contact.php:12
 msgid "Contact Us"
