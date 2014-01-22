@@ -1,16 +1,16 @@
 ##
-## Map Element
+## Room Tariff Element
 ##
 
 define ['builderelement','tpl!builder/templates/elements/BasicElement.tpl','global'], (BuilderElement, template, global)->
 
-	class RoomElement extends BuilderElement
+	class RoomTariff extends BuilderElement
 
-		className : 'aj-imp-elem-room element '
+		className : 'aj-imp-elem-room-tariff element '
 
 		template : template
 
-		elementType : 'RoomListElement'
+		elementType : 'RoomTariff'
 
 		dataSource : 0
 
@@ -33,7 +33,7 @@ define ['builderelement','tpl!builder/templates/elements/BasicElement.tpl','glob
 
 			@generateMarkup 
 				icon : ''
-				name : 'Room Element'
+				name : 'Room Tariff'
 
 			@setContextMenu()
 
@@ -41,23 +41,33 @@ define ['builderelement','tpl!builder/templates/elements/BasicElement.tpl','glob
 
 		hasExtraSettings :()->
 
-			if _.isEmpty ROOMS then return ''
+			options = ''
+			
+			log @.dataSource
 
-			html = "<div class='form-group'><select name='for-room'>"
-			html += "<option value='0'>Select</option>"
+			_.each ['all', 'min'], _.bind (ele, index)->
+				
+				if @.dataSource is ele 
+					selected = 'selected="selected"'
+				else
+					selected = ''
 
-			_.each ROOMS, (room, index)->
-				html += "<option value=#{room.id}>#{room.name}</option>"
-				return
+				options += "<option value='#{ele}' #{selected}>#{_.capitalize(ele)}</option>"
+				return 
 
-			html += '</select></div>'
+			, this
+
+			html = "<div class='form-group'><select name='show'>
+					#{options}
+					</select></div>"
 
 
 		updateExtraProperties:( evt = {})->
 
 			pcontent = $(evt.target).closest '.popover'
+			
+			@dataSource = $(pcontent).find('select[name="show"]').val()
 
-			@dataSource = parseInt $(pcontent).find('select[name="for-room"]').val()
 
 
 

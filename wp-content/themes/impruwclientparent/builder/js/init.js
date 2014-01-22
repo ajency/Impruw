@@ -57,6 +57,7 @@ require.config({
         roomfacilities  : 'builder/views/elements/rooms/RoomFacilities',
         roomgallery     : 'builder/views/elements/rooms/RoomGallery',
         roomlistelement : 'builder/views/elements/rooms/RoomListElement',
+        roomtariff      : 'builder/views/elements/rooms/RoomTariff',
 
         //menu
         menumanager     : 'builder/views/modals/MenuManager',
