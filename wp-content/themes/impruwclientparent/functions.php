@@ -2939,7 +2939,8 @@ function get_room_list_ajx(){
 		
 		$room = new RoomModel($room);
 				 				 
-		$room_data[] = $room->get_all_roomdata(); 					  
+		//$room_data[] = $room->get_all_roomdata(array('noOFplansreqd'=>2)); 					  
+		$room_data[] = $room->get_all_roomdata();
 	}	 
 	wp_send_json( array( 'code' => 'OK' , 'data' =>$room_data ) );
 	
