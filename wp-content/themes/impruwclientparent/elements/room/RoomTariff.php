@@ -77,11 +77,11 @@ class RoomTariff extends Element {
         <div class="tariff">
             <dl>
                 <dt>Economy Plan</dt>
-                <dd>kr <strong>210</strong> /night</dd>
+                <dd>from kr <strong>210</strong> /night</dd>
                 <dt>Regular Plan</dt>
-                <dd>kr <strong>280</strong> /night</dd>
+                <dd>from kr <strong>280</strong> /night</dd>
                 <dt>Deluxe Plan</dt>
-                <dd>kr <strong>350</strong> /night</dd>
+                <dd>from kr <strong>350</strong> /night</dd>
             </dl>
         </div>
         <?php
