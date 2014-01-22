@@ -3240,7 +3240,7 @@ function send_contact_form_message(){
     $mailbody       = "Message from $name($email)<br /><br /><p>$message</p>";
 
     add_filter( 'wp_mail_content_type', 'rw_change_email_content_type' );
-    if(wp_mail($admin_email = 'suraj@ajency.in', $mailsubject, $mailbody))
+    if(wp_mail($admin_email, $mailsubject, $mailbody))
         wp_send_json(array('code' =>'OK'));
     else
         wp_send_json(array('code' =>'ERROR', 'message' => 'Failed to send you message. Please try again.'));
