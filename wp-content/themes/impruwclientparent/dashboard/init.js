@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-var _urlArg = "ver=" + (location.host === 'localhost' ? (new Date()).getTime() : '1.0'); //to avoid file caching
+var _urlArg = "ver=" + (location.host === 'localhost' ? (new Date()).getTime() : JSVERSION); //to avoid file caching
 
 /**
  * configure require

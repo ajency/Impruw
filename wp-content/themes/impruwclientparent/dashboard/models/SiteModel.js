@@ -49,7 +49,7 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
                     }
 
                     this.ajax(method, model, options);
-
+                    return;
 					break;
 				case 'delete':
 
