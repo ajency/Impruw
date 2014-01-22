@@ -3122,6 +3122,9 @@ function is_single_room_edit(){
 
     $post = get_post($post_id);
 
+    if($post->post_title === 'Single Room')
+        return true;
+
     return $post->post_type === 'impruw_room';
 
 }
