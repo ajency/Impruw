@@ -78,11 +78,22 @@ define([ 'underscore', 'jquery', 'backbone','roomcollection',
 		
 		
 		roomdataUpdated : function(room){
-			console.log('roomdataUpdated')
+			console.log('roomdataUpdated...')
 			console.log(room)
+			console.log('#row_room_'+room.id)
+		//	console.log(this.$el.find('#row_room_'+room.id).html())
 			
+			var roomRow = this.$el.find('#row_room_'+room.id)
+			
+			roomRow.find('.room-details').find('h4').html(room.roomType)
+			roomRow.find('.room-details').find('.desc').html(room.roomDesc)
+			roomRow.find('.info-strip').find('.strip').find('span').html(room.inventory)
+			
+			//this.$el.find('#row_room_'+room.id).find('.room-details').find('h4').html(room.roomType);
 			
 			///UPDATE ROOM LIST TABLE
+			
+			//console.log('#room_row_'+room.id)
 			
 			
 		},

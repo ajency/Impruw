@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: im\n"
-"POT-Creation-Date: 2014-01-15 15:18+0530\n"
-"PO-Revision-Date: 2014-01-15 15:18+0530\n"
+"POT-Creation-Date: 2014-01-22 09:55+0530\n"
+"PO-Revision-Date: 2014-01-22 09:55+0530\n"
 "Last-Translator: Vanessa <vanessa.pinto2609@gmail.com>\n"
 "Language-Team: a <parag@ajency.in>\n"
 "Language: nb\n"
@@ -116,11 +116,11 @@ msgstr "Impruw Pvt. Ltd._n"
 
 #: ../../impruwmain/page-contact.php:40
 msgid "Leilighet 425"
-msgstr ""
+msgstr "Leilighet 425_n"
 
 #: ../../impruwmain/page-contact.php:41
 msgid "Trondheim"
-msgstr ""
+msgstr "Trondheim_n"
 
 #: ../../impruwmain/page-contact.php:42
 #, fuzzy
@@ -129,15 +129,15 @@ msgstr "Norwegian_n"
 
 #: ../../impruwmain/page-contact.php:43
 msgid "NO-7321"
-msgstr ""
+msgstr "NO-7321_n"
 
 #: ../../impruwmain/page-contact.php:48
 msgid "Phone"
-msgstr ""
+msgstr "Phone_n"
 
 #: ../../impruwmain/page-contact.php:52
 msgid "+47 - 12 34 56 78"
-msgstr ""
+msgstr "+47 - 12 34 56 78_n"
 
 #: ../../impruwmain/page-login.php:12 ../../impruwmain/page-login.php:46
 #, fuzzy
@@ -376,24 +376,24 @@ msgstr ""
 "The following words are reserved for use by WordPress functions and cannot "
 "be used as blog names: <code>%s</code>_n"
 
-#: ../../impruwmain/User/user_management.php:750
+#: ../../impruwmain/User/user_management.php:752
 msgid "It is a reserved word and cannot be used as site names: "
 msgstr "It is a reserved word and cannot be used as site names: _n"
 
-#: ../../impruwmain/User/user_management.php:762
+#: ../../impruwmain/User/user_management.php:764
 msgid "Missing or invalid site address."
 msgstr "Missing or invalid site address._n"
 
-#: ../../impruwmain/User/user_management.php:789
+#: ../../impruwmain/User/user_management.php:791
 msgid "Oops you cannot use this name. It's already taken."
 msgstr "Oops you cannot use this name. It's already taken._n"
 
-#: ../../impruwmain/User/user_management.php:794
+#: ../../impruwmain/User/user_management.php:796
 msgid "Site Name is available."
 msgstr "Site Name is available._n"
 
-#: ../../impruwmain/User/user_management.php:815
-#: ../../impruwmain/User/user_management.php:887
+#: ../../impruwmain/User/user_management.php:817
+#: ../../impruwmain/User/user_management.php:889
 msgid ""
 "Looks like some of fields have been filled incorrectly. Please check again "
 "and submit."
@@ -401,11 +401,11 @@ msgstr ""
 "Looks like some of fields have been filled incorrectly. Please check again "
 "and submit._n"
 
-#: ../../impruwmain/User/user_management.php:865
+#: ../../impruwmain/User/user_management.php:867
 msgid "Oops! Please contact a human."
 msgstr "Oops! Please contact a human._n"
 
-#: ../../impruwmain/User/user_management.php:884
+#: ../../impruwmain/User/user_management.php:886
 msgid ""
 "Great!  Now activate your account by clicking on the link sent you by email "
 "in next  5 minutes. If you don't see it there check your spam folder."
@@ -413,7 +413,7 @@ msgstr ""
 "Great!  Now activate your account by clicking on the link sent you by email "
 "in next  5 minutes. If you don't see it there check your spam folder._n"
 
-#: ../../impruwmain/User/user_management.php:928
+#: ../../impruwmain/User/user_management.php:930
 msgid "Invalid Form Data"
 msgstr "Invalid Form Data_n"
 

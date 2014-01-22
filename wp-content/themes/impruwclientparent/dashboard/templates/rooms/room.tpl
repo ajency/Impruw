@@ -1,16 +1,16 @@
-<tr>
+<tr id="row_room_<%=room.get('id')    %>">
 	<td>
 		<div class="room-details">
 			<h4><%=room.get('roomType')%></h4>
 			<p class="desc"><%= _(room.get('roomDesc')).prune(150) %> </p>
 			<div class="row info-strip">
-				<div class="col-md-4 strip">
+				<div class="col-md-4 strip divNoRooms">
 					<span><%=room.get('inventory')    %></span> Rooms
 				</div>
-				<div class="col-md-4 strip">
+				<div class="col-md-4 strip divHourFormat">
 					<span><%=room.get('checkinformat')    %></span> Hour Format
 				</div>
-				<div class="col-md-4 strip">
+				<div class="col-md-4 strip divCheckinTime">
 					<span><%=room.get('checkintime')    %></span> Time
 				</div>
 			</div>
