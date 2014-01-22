@@ -43,8 +43,6 @@ define ['builderelement','tpl!builder/templates/elements/BasicElement.tpl','glob
 
 			options = ''
 			
-			log @.dataSource
-
 			_.each ['all', 'min'], _.bind (ele, index)->
 				
 				if @.dataSource is ele 

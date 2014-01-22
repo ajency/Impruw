@@ -74,7 +74,16 @@ class RoomTariff extends Element {
         
         ob_start(); ?>
 
-        <h4>All Tariff html goes here</h4>
+        <div class="tariff">
+            <dl>
+                <dt>Economy Plan</dt>
+                <dd>from kr <strong>210</strong> /night</dd>
+                <dt>Regular Plan</dt>
+                <dd>from kr <strong>280</strong> /night</dd>
+                <dt>Deluxe Plan</dt>
+                <dd>from kr <strong>350</strong> /night</dd>
+            </dl>
+        </div>
         <?php
 
         $html = ob_get_clean();
@@ -90,7 +99,9 @@ class RoomTariff extends Element {
         
         ob_start(); ?>
 
-        <h4>Minimum Tariff html goes here</h4>
+        <div class="tariff">
+            Starts from kr <strong>210</strong> /night
+        </div>
         <?php
 
         $html = ob_get_clean();

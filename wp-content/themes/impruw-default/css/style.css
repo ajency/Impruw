@@ -768,7 +768,7 @@ blockquote p {
   text-align: center;
   text-shadow: 1px 1px 2px #cbcbcb;
 }
-.site-style-container .room h3 {
+.site-style-container .room .description h3 {
   font-size: 1.2em;
   font-weight: 600;
   margin-top: 1em;
@@ -793,33 +793,71 @@ blockquote p {
   margin-right: 0.5em;
   text-shadow: 1px 1px 2px #cbcbcb;
 }
-.site-style-container .room .gallery .carousel,
-.site-style-container .room .gallery .room-gallery {
-  margin-bottom: 1em;
+.site-style-container .room .gallery {
+  margin: 0 0 1em;
 }
-.site-style-container .room .price p {
-  font-size: 1.2em;
+.site-style-container .room .gallery .gallery-item {
+  margin: 0 0 0.5em !important;
+}
+.site-style-container .room .gallery .gallery-item .gallery-icon {
+  padding: 0.2em;
+}
+.site-style-container .room .gallery .gallery-item .gallery-icon a {
+  display: block;
+}
+.site-style-container .room .gallery .gallery-item .gallery-icon a img {
+  max-width: 100%;
+  height: auto;
+  padding: 0.2em;
+  border: 1px solid #cbcbcb !important;
+}
+.site-style-container .room .gallery .gallery-item .gallery-icon a:hover {
+  transform: scale(1.05);
+  -webkit-transform: scale(1.05);
+  -moz-transform: scale(1.05);
+  -o-transform: scale(1.05);
+  -ms-transform: scale(1.05);
+  box-shadow: 0 0 2px #cbcbcb;
+}
+.site-style-container .room .gallery .gallery-item .gallery-icon a:hover img {
+  border: 1px solid #5ca9a1 !important;
+}
+.site-style-container .room .book-info {
+  box-shadow: 0 0 3px #cbcbcb;
+  padding: 1em 0 0.5em;
+}
+.site-style-container .room .book-info .price .tariff {
+  font-size: 1.1em;
   line-height: 1;
 }
-.site-style-container .room .price p strong {
+.site-style-container .room .book-info .price .tariff strong {
   font-size: 1.5em;
   color: #5ca9a1;
 }
-.site-style-container .room .book {
+.site-style-container .room .book-info .price .tariff dl {
+  margin: 0;
+  font-size: 0.8em;
+}
+.site-style-container .room .book-info .price .tariff dl dd {
+  margin-left: 10%;
+}
+.site-style-container .room .book-info .book {
   text-align: right;
 }
-.site-style-container .room .book a {
+.site-style-container .room .book-info .book a {
   background: #989898;
   padding: 5px 10px;
   color: #fff;
   font-size: 1em;
+  display: inline-block;
+  text-align: center;
   -webkit-transition: all 0.25s ease;
   -moz-transition: all 0.25s ease;
   -o-transition: all 0.25s ease;
   -ms-transition: all 0.25s ease;
   transition: all 0.25s ease;
 }
-.site-style-container .room .book a:hover {
+.site-style-container .room .book-info .book a:hover {
   background: #5ca9a1;
   -webkit-transition: all 0.25s ease;
   -moz-transition: all 0.25s ease;
