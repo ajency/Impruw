@@ -166,6 +166,7 @@ a:focus {
   .aj-imp-container .aj-imp-right .aj-imp-dash-header .aj-imp-page-head {
     font-size: 2.5em;
     margin: 0.2em 0;
+    text-align: center;
   }
 }
 .aj-imp-container .aj-imp-right .aj-imp-dash-header .aj-imp-dash-actions {
