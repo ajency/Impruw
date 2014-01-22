@@ -85,9 +85,8 @@ class RoomGallery extends SliderElement {
 
         $ids = implode(',', $this->data_source['image-ids']);
 
-        //$html = do_shortcode("[gallery ids='95,93,92,91,94']");
-
-        $html = do_shortcode('[gallery ids="96,92,93"]');
+        $html = do_shortcode("[gallery ids='$ids']");
+        //$html = do_shortcode('[gallery ids="96,92,93"]');
 
         remove_filter('wp_get_attachment_link', 'add_rel_attribute', 100, 6);
 
