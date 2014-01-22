@@ -80,6 +80,8 @@ class RoomGallery extends SliderElement {
 
         $ids = implode(',', $this->data_source['image-ids']);
 
+        //$html = do_shortcode("[gallery ids='95,93,92,91,94']");
+
         $html = do_shortcode("[gallery ids='$ids']");
 
         return $html;
