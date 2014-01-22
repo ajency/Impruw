@@ -251,7 +251,10 @@ function add_element_markup( $element ) {
         break;  
     case 'RoomGallery':
         $html = get_room_gallery_markup( $element );
-        break; 
+        break;
+    case 'RoomTariff':
+        $html = get_room_tariff_markup( $element );
+        break;  
     case 'RoomListElement':
         $html = get_room_list_markup( $element );
         break; 
@@ -356,6 +359,23 @@ function get_room_title_markup( $element ) {
     $room = new RoomTitle( $element );
 
     $html = $room->get_markup();
+
+    return $html;
+
+}
+
+/**
+ * Generates the room tariff markup
+ *
+ * @param type    $element
+ */
+function get_room_tariff_markup( $element ) {
+
+    require_once PARENTTHEMEPATH . 'elements/room/RoomTariff.php';
+
+    $tariff = new RoomTariff( $element );
+
+    $html = $tariff->get_markup();
 
     return $html;
 

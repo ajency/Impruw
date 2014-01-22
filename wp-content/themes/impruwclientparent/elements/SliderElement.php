@@ -50,9 +50,8 @@ class SliderElement extends Element {
         if(isset($config['dataSource'])){
             $this->data_source = $config['dataSource'];
         }
-        
-        
-        $this->markup           = $this->generate_markup();
+
+        $this->markup  = $this->generate_markup();
     }
     
     /**

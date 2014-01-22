@@ -56,6 +56,8 @@ class RoomGallery extends SliderElement {
 
         $this->data_source = array();
         $this->data_source['image-ids'] = $this->get_room_images();
+
+        $this->markup           = $this->get_gallery();
         
     }
 
@@ -67,7 +69,20 @@ class RoomGallery extends SliderElement {
 
         $ids = get_post_meta($this->post_id, 'room-attachments', true);
 
-        return $ids;
+        return is_array($ids) ? $ids : array();
+    }
+
+    /**
+     * [get_gallery description]
+     * @return [type] [description]
+     */
+    function get_gallery(){
+
+        $ids = implode(',', $this->data_source['image-ids']);
+
+        $html = do_shortcode("[gallery ids='$ids']");
+
+        return $html;
     }
     
 }

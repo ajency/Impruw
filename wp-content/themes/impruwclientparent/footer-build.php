@@ -125,6 +125,12 @@
                                     <div class="aj-imp-builder-title">Facilities</div>
                                 </a>
                             </li>
+                            <li data-element="roomtariff">
+                                <a href="#" class="drag builder-element" data-placeholder-height="100">
+                                    <div class="aj-imp-builder-icon"  data-icon="&#xf110;"></div>
+                                    <div class="aj-imp-builder-title">Tariff</div>
+                                </a>
+                            </li>
                             <li data-element="roomgallery">
                                 <a href="#" class="drag builder-element" data-placeholder-height="100">
                                     <div class="aj-imp-builder-icon"  data-icon="&#xf110;"></div>
