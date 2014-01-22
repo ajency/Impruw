@@ -456,6 +456,9 @@ function impruwcontact_get_the_ip() {
 
 function impruw_contact_form_sc( $atts ) {
  
+	$result='';
+	$info='';
+	$form_data =array();
     extract( shortcode_atts( array(
         // if you don't provide an e-mail address, the shortcode will pick the e-mail address of the admin:
         "email" => get_bloginfo( 'admin_email' ),
@@ -540,25 +543,25 @@ function impruw_contact_form_sc( $atts ) {
         <div class="form-group">
             <label for="cf_name" class="col-sm-3 control-label">' . $label_name . '</label>
             <div class="col-sm-7 col-sm-offset-3">
-                <input type="text" name="your_name" id="cf_name" class="form-control" placeholder="Your Full Name" value="' . $form_data['your_name'] . '" />
+                <input type="text" name="your_name" id="cf_name" class="form-control" placeholder="Your Full Name" value="' . (isset($form_data['your_name'])?$form_data['your_name']:'') . '" />
             </div>
         </div>
         <div class="form-group">
             <label for="cf_email" class="col-sm-3 control-label">' . $label_email . '</label>
             <div class="col-sm-7 col-sm-offset-3">
-                <input type="text" name="email" id="cf_email" class="form-control" placeholder="Your Email Address" value="' . $form_data['email'] . '" />
+                <input type="text" name="email" id="cf_email" class="form-control" placeholder="Your Email Address" value="' . (isset($form_data['email'])?$form_data['email']:'') . '" />
             </div>
         </div>
         <div class="form-group">
             <label for="cf_subject" class="col-sm-3 control-label">' . $label_subject . '</label>
             <div class="col-sm-7 col-sm-offset-3">
-                <input type="text" name="subject" id="cf_subject" class="form-control" placeholder="The Subject of your enquiry" value="' . $subject . $form_data['subject'] . '" />
+                <input type="text" name="subject" id="cf_subject" class="form-control" placeholder="The Subject of your enquiry" value="' . (isset($subject)?$subject:'') . (isset($form_data['subject'])?$form_data['subject']:'') . '" />
             </div>
         </div>
         <div class="form-group">
             <label for="cf_message" class="col-sm-3 control-label">' . $label_message . '</label>
             <div class="col-sm-7 col-sm-offset-3">
-                <textarea name="message" id="cf_message" class="form-control" placeholder="Your Message" rows="3">' . $form_data['message'] . '</textarea>
+                <textarea name="message" id="cf_message" class="form-control" placeholder="Your Message" rows="3">' . (isset($form_data['message'])?$form_data['message']:'') . '</textarea>
             </div>
         </div>
         <div class="form-group">
@@ -568,7 +571,7 @@ function impruw_contact_form_sc( $atts ) {
         </div>
     </form>';
 
-    return $info . $email_form;
+    return __($info . $email_form,'impruwmain');
  
 }
 add_shortcode( 'contact', 'impruw_contact_form_sc' );
