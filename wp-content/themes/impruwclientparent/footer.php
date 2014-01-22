@@ -22,6 +22,10 @@
 		$('.carousel').carousel();
 		function initialize() {
             var map_canvas = document.getElementById('map_canvas');
+            
+            if(map_canvas === null)
+              return;
+
             var youcou = new google.maps.LatLng(37.390345, -6.022595);
             var marker;
             var map_options = {
