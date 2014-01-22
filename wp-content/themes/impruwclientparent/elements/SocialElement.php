@@ -73,12 +73,12 @@ class SocialElement extends Element {
     function get_social_links(){
         
         
-        $socials = array( "facebook"  => "http://someurl.com", 
-                            "twitter"   => "http://someurl.com", 
-                            "pinterest" => "http://someurl.com",
-                            "flickr"    => "http://someurl.com",
-                            "google-plus"  => "http://someurl.com",
-                            "youtube"   => "http://someurl.com");//get_blog_option(get_current_blog_id(), 'contact-at');
+        $socials = array(   "facebook"  => 'http://www.facebook.com/' . get_option('facebook'), 
+                            "twitter"   => 'http://www.twitter.com/' . get_option('twitter'), 
+                            "pinterest" => "",
+                            "flickr"    => "",
+                            "google-plus"  => "",
+                            "youtube"   => "");//get_blog_option(get_current_blog_id(), 'contact-at');
         
         if(!is_array($socials)){
             return '';
@@ -87,7 +87,10 @@ class SocialElement extends Element {
         $html = "";
         
         foreach($socials as $key => $val){
-           
+            
+            if(empty($val))
+                continue;
+
             $html .= '<li><a target="_BLANK" href="'.$val.'" aria-hidden="true" class="icon-'.$key.'"></a></li>';
             
         }

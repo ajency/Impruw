@@ -880,7 +880,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 
                     //ensure Menu manager is created just once
                     if (_.isUndefined(addOn)){
-                        a.ddOn = new AddAddOnModal();
+                        addOn = new AddAddOnModal();
                         this.popupViewManager.add(addOn, "add-addon-popup");
                     }
 
@@ -971,17 +971,33 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 		
 		newDateRangeAdded : function(response,evt_){
 			response.model = true;
-			
+			console.log(response)
 			if(response.code=='OK'){
-			 			 
-				 $('#tbl_daterangelist').append(''+
+			 		
+				
+				var dateRangePlanFn = _.bind(function(DaterangePlanTpl){
+					
+					var html = _.template(DaterangePlanTpl, {daterange : response.daterange});
+					
+					$('#tbl_daterangelist').append(html)
+					
+					//this.$el.find('tbody').append(html);
+				}, this);
+				
+				require(['text!templates/siteprofile/DaterangePlansTpl.tpl'],dateRangePlanFn );
+				
+				
+				
+				
+				
+				/* $('#tbl_daterangelist').append(''+
 				 '<tr>'+
 					'<td colspan="4" class="no-mar table-responsive">'+
 					
 						'<table class="table table-vc" >'+
 							'<tbody data-link="row" class="rowlink">'+
 								'<tr>'+
-									'<td width="5%"><a href="#rowlink_'+response.daterange.id+'>" data-toggle="collapse"><span class="glyphicon glyphicon-chevron-down"></span></a></td>'+
+									'<td width="5%"><a href="#rowlink'+response.daterange.id+'>" data-toggle="collapse"><span class="glyphicon glyphicon-chevron-down"></span></a></td>'+
 									'<td width="30%">'+
 										'<span class="label label-info">From:</span>'+response.daterange.from_date+'    <span class="label label-info">To:</span> '+ response.daterange.to_date+
 									'</td>'+
@@ -997,7 +1013,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 								
 							'</tbody>'+
 						'</table>'+
-						'<div id="rowlink_'+response.daterange.id+'" class="inner collapse">'+
+						'<div id="rowlink'+response.daterange.id+'" class="inner collapse">'+
 							'<div class="form-table table-responsive">'+
 								'<table class="table table-bordered table-hover" id="planlist_'+response.daterange.id+'">'+
 									'<thead>'+
@@ -1025,8 +1041,10 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 							'</div>'+
 						'</div>'+
 					'</td>'+
-				'</tr>')
-				
+				'</tr>')*/
+				$('#rowlink'+response.daterange.id).collapse({
+	                toggle : true 
+	            });
 				 response.popupmodel = true;
 				 this.saveSuccess(response,evt_,this);  
 				 var dateRange = this.popupViewManager.findByCustom("add-daterange-popup");

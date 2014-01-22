@@ -240,6 +240,9 @@ function add_element_markup( $element ) {
     case 'LogoElement':
         $html = get_logo_element_markup( $element );
         break; 
+    case 'GalleryElement':
+        $html = get_gallery_markup( $element );
+        break;
     case 'RoomDescription':
         $html = get_room_description_markup( $element );
         break; 
@@ -394,6 +397,23 @@ function get_room_gallery_markup( $element ) {
     $room = new RoomGallery( $element );
 
     $html = $room->get_markup();
+
+    return $html;
+
+}
+
+/**
+ * Generates the room title markup
+ *
+ * @param type    $element
+ */
+function get_gallery_markup( $element ) {
+
+    require_once PARENTTHEMEPATH . 'elements/GalleryElement.php';
+
+    $gallery = new GalleryElement( $element );
+
+    $html = $gallery->get_markup();
 
     return $html;
 
@@ -1558,13 +1578,11 @@ function fetch_all_tax_types(){
  
 /**
  * 
- * Function to get all date ranges
+ * Function to get all date ranges and the plans
  */
 function fetch_all_daterange(){
 	global $wpdb; 
-	
-
-	 
+ 	 
 	$table_name =  $wpdb->prefix."daterange";
  
 	$result = $wpdb->get_results("SELECT * FROM $table_name"); 
@@ -2288,8 +2306,10 @@ function add_date_range(){
  	$datarange_data = array( 	'id'		 => $wpdb->insert_id,			
  								'from_date'  => date('d/m/y',strtotime($_POST['fromdaterange'])), 
 								'to_date' 	 => date('d/m/y',strtotime($_POST['todaterange'])),
-								'label'		 => $label
-						   );				
+								'label'		 => $label,
+ 								'plans'		 => fetch_all_plans() 
+						   );	
+						   			
  	switch_to_blog(get_current_blog_id());
   	
 	if ( $result==true ) 
@@ -2302,7 +2322,15 @@ add_action( 'wp_ajax_add_date_range', 'add_date_range' );
 add_action( 'wp_ajax_nopriv_add_date_range', 'add_date_range' );
 
 
+ function fetch_all_plans(){
+ 	$plans = maybe_unserialize(get_option('plans'));
+ 	return $plans;
+ }
 
+/**
+ * Function to update daterange
+ * Enter description here ...
+ */
 function update_daterange(){
 	
 	global $wpdb;

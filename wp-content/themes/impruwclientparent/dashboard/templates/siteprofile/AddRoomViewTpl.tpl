@@ -14,6 +14,7 @@ var roomModel;
 	var noOfRooms	 		= editroomdata.get('inventory');
 	var roomDesc	 		= editroomdata.get('roomDesc');
 	var selectedFacilities 	= editroomdata.get('facilities');
+	var roomAttachments 	= editroomdata.get('roomAttachments')
 	var datePlanTariff 		= editroomdata.get('daterangetariff')}
 	
 	var datePlantariffIds;
@@ -113,7 +114,26 @@ var facilities_selected_exists;
 		                                	<a href="javascript:void(0)" class="btn btn-danger btn_deleteAttachment" attachment-id="" data-dismiss="fileinput" >X</a>
 		                                	<img name="business_logo"  id="businesslogo_img"   class="" src="" />		                                	
 		                                </div>
-		                                <input type="hidden" name="hdn_roomattachments"  id="hdn_roomattachments" value=""  />
+		                                
+		                                <% var rmAttachIds =  '';
+		                                	var cnt_roomattachments = 0 ;
+		                                 	_.each(roomAttachments,function(rmAttachment,index){
+		                                     
+		                                     if(cnt_roomattachments>0)
+		                                     	rmAttachIds+= ',';
+		                                     rmAttachIds+=rmAttachment.attach_id;
+		                                
+			                                %>
+			                                <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 120px; height: 140px;">
+			                                	<a href="javascript:void(0)" class="btn btn-danger btn_deleteAttachment" attachment-id="<%=rmAttachment.attach_id%>" data-dismiss="fileinput" >X</a>
+			                                	<img name="business_logo"  id="businesslogo_img"   class="" src="<%=rmAttachment.attach_url%>" />		                                	
+			                                </div>
+			                                <%
+			                                
+			                                cnt_roomattachments++;
+			                                	})
+		                                %>
+		                                <input type="hidden" name="hdn_roomattachments"  id="hdn_roomattachments" value="<%=rmAttachIds%>"  />
 		                                <div>
 		                                    <span class="btn btn-default btn-file"><span class="fileinput-new filepopup" id="select_businesslogo">Select image</span> <!-- <input type="file" name="inputFile3">--> </span>
 		                                    
@@ -631,7 +651,7 @@ var facilities_selected_exists;
 									<div class="col-sm-7">
 										<p class="checkintime_text"><% if(!_.isUndefined(roomdata.checkintime)) {%><%=roomdata.checkintime %> <%}%></p>
 										<div class="checkintime_edittext hidden">
-											<input type='text' class="form-control" data-mask="99:99" name="checkin_time" id="checkin_time" value="<% if(!_.isUndefined(roomdata.checkintime)) {%><%=roomdata.checkintime %> <%}%>" >
+											<input type='text' class="form-control" data-mask="99:99" placeholder="9:00" name="checkin_time" id="checkin_time" value="<% if(!_.isUndefined(roomdata.checkintime)) {%><%=roomdata.checkintime %> <%}%>" >
 										</div>
 										<a class="edit-link edit-checkintime" href="javascript:void(0)"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
 										<a class="delete-link delete-checkintime hidden" href="javascript:void(0)"><span class="glyphicon glyphicon-trash"></span> Delete</a>

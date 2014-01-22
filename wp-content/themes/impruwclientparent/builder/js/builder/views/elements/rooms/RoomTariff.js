@@ -49,7 +49,6 @@
       RoomTariff.prototype.hasExtraSettings = function() {
         var html, options;
         options = '';
-        log(this.dataSource);
         _.each(['all', 'min'], _.bind(function(ele, index) {
           var selected;
           if (this.dataSource === ele) {
