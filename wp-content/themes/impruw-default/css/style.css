@@ -829,10 +829,10 @@ blockquote p {
 .site-style-container .room .book-info .price .tariff {
   font-size: 1.1em;
   line-height: 1;
+  padding: 3px 0 0;
 }
 .site-style-container .room .book-info .price .tariff strong {
   font-size: 1.5em;
-  color: #5ca9a1;
 }
 .site-style-container .room .book-info .price .tariff dl {
   margin: 0;
@@ -846,7 +846,7 @@ blockquote p {
 }
 .site-style-container .room .book-info .book a {
   background: #989898;
-  padding: 5px 10px;
+  padding: 3px 10px 5px;
   color: #fff;
   font-size: 1em;
   display: inline-block;
@@ -864,6 +864,12 @@ blockquote p {
   -o-transition: all 0.25s ease;
   -ms-transition: all 0.25s ease;
   transition: all 0.25s ease;
+}
+.site-style-container .room .book-info:hover {
+  background: #f9f9f9;
+}
+.site-style-container .room .book-info:hover .price .tariff strong {
+  color: #5ca9a1;
 }
 .site-style-container .about {
   margin: 1em auto;

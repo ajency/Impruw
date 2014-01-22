@@ -15,6 +15,7 @@ var roomModel;
 	var roomDesc	 		= editroomdata.get('roomDesc');
 	var selectedFacilities 	= editroomdata.get('facilities');
 	var roomAttachments 	= editroomdata.get('roomAttachments')
+	var minMaxTariff		= editroomdata.get('minmaxTariff');
 	var datePlanTariff 		= editroomdata.get('daterangetariff')}
 	
 	var datePlantariffIds;
@@ -269,7 +270,7 @@ var facilities_selected_exists;
 																	</span>
 																</td>
 																<td width="35%">
-																	<span class="label label-info">Weekday:</span> from<strong>$29</strong> <span class="label label-info">Weekend:</span> from<strong>$37</strong>
+																	<span class="label label-info">Weekday:</span> from<strong><%if(!_.isUndefined(minMaxTariff)){ %>$<%=minMaxTariff.min_weekday%><% } else {%> - <% } %></strong> <span class="label label-info">Weekend:</span> from<strong><%if(!_.isUndefined(minMaxTariff)){ %>$<%=minMaxTariff.min_weekend%><% } else {%> - <% } %></strong>
 																</td>
 																<td width="30%" class="rowlink-skip">
 																	<a href="javascript:void(0)" class="edit-link editdaterange_lnk"  daterange-id = "<%=daterange.id%>"  ><span class="glyphicon glyphicon-pencil"></span>Edit</a>
