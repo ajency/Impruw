@@ -461,19 +461,19 @@ function impruw_contact_form_sc( $atts ) {
 	$form_data =array();
     extract( shortcode_atts( array(
         // if you don't provide an e-mail address, the shortcode will pick the e-mail address of the admin:
-        "email" => get_bloginfo( 'admin_email' ),
+        "email" => __(get_bloginfo( 'admin_email' ),'impruwmain'),
         "subject" => "",
-        "label_name" => "Your Name",
-        "label_email" => "Your E-mail Address",
-        "label_subject" => "Subject",
-        "label_message" => "Your Message",
-        "label_submit" => "Submit",
+        "label_name" => __("Your Name",'impruwmain'),
+        "label_email" => __("Your E-mail Address",'impruwmain'),
+        "label_subject" => __("Subject",'impruwmain'),
+        "label_message" => __("Your Message",'impruwmain'),
+        "label_submit" => __("Submit",'impruwmain'),
         // the error message when at least one of the required fields are empty:
-        "error_empty" => "<div class='alert alert-error'>Please fill in all the required fields.</div>",
+        "error_empty" => "<div class='alert alert-error'>".__("Please fill in all the required fields.",'impruwmain')."</div>",
         // the error message when the e-mail address is not valid:
-        "error_noemail" => "<div class='alert alert-error'>Please enter a valid e-mail address.</div>",
+        "error_noemail" => "<div class='alert alert-error'>".__("Please enter a valid e-mail address.",'impruwmain')."</div>",
         // and the success message when the e-mail is sent:
-        "success" => "<div class='alert alert-success'>Thanks for your e-mail! We'll get back to you as soon as we can.</div>"
+        "success" => "<div class='alert alert-success'>".__("Thanks for your e-mail! We'll get back to you as soon as we can.".'impruwmain')."</div>"
     ), $atts ) );
 
     // if the <form> element is POSTed, run the following code
@@ -536,7 +536,7 @@ function impruw_contact_form_sc( $atts ) {
 
     // if there's no $result text (meaning there's no error or success, meaning the user just opened the page and did nothing) there's no need to show the $info variable
     if ( $result != "" ) {
-        $info = '<div class="info">' . $result . '</div>';
+        $info = '<div class="info">' . __($result,'impruwmain') . '</div>';
     }
     // anyways, let's build the form! (remember that we're using shortcode attributes as variables with their names)
     $email_form = '<form class="contact-form form-horizontal clearfix" method="post" action="' . get_permalink() . '">
@@ -571,7 +571,7 @@ function impruw_contact_form_sc( $atts ) {
         </div>
     </form>';
 
-    return __($info . $email_form,'impruwmain');
+    return $info . $email_form;
  
 }
 add_shortcode( 'contact', 'impruw_contact_form_sc' );
