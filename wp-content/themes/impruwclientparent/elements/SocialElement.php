@@ -73,8 +73,8 @@ class SocialElement extends Element {
     function get_social_links(){
         
         
-        $socials = array( "facebook"  => get_option('facebook'), 
-                            "twitter"   => get_option('twitter'), 
+        $socials = array(   "facebook"  => 'http://www.facebook.com/' . get_option('facebook'), 
+                            "twitter"   => 'http://www.twitter.com/' . get_option('twitter'), 
                             "pinterest" => "",
                             "flickr"    => "",
                             "google-plus"  => "",
