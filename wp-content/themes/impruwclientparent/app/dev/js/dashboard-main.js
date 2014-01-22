@@ -24,8 +24,8 @@
     }
   });
 
-  require(['plugins/plugin-loader', 'configs/config-loader', 'dashboard-app', 'apps/apps-loader'], function(plugins, configs, app) {
-    return app.start();
+  require(['plugins/plugin-loader', 'configs/config-loader', 'dashboard-app', 'apps/apps-loader'], function(plugins, configs, App) {
+    return App.start();
   });
 
 }).call(this);

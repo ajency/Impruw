@@ -1,35 +1,38 @@
 ##
-## The main dashboard app
+## The main dashboard App
 ##
 
 define ['marionette'], (Marionette)->
 
-	app = new Marionette.Application
+	App = new Marionette.Application
 
-	app.addRegions
+	App.addRegions
 		leftRegion 		: '#aj-imp-left'
 		rightRegion 	: '#aj-imp-right'
 		footerRegion 	: '#footer-section'
 
-	app.rootRoute = "dashboard"
+	App.rootRoute = "dashboard"
 
-	app.addInitializer ()->
-		app.module('LeftNav').start()
+	App.addInitializer ()->
+		App.module('LeftNav').start()
 
-	app.on 'start',()->
+	App.on 'start',()->
 		_.logAppMsg "Application Started...."
 
-	app.reqres.setHandler "default:region", ->
-		app.rightSection
+	App.addInitializer (options)->
+		App.LeftNav.start()
 
-	app.commands.setHandler "register:instance", (instance, id) ->
-		app.register instance, id
+	App.reqres.setHandler "default:region", ->
+		App.rightRegion
+
+	App.commands.setHandler "register:instance", (instance, id) ->
+		App.register instance, id
 	
-	app.commands.setHandler "unregister:instance", (instance, id) ->
-		app.unregister instance, id
+	App.commands.setHandler "unregister:instance", (instance, id) ->
+		App.unregister instance, id
 
-	app.on "initialize:after", (options) ->
-		app.startHistory()
-		app.navigate(@rootRoute, trigger: true) unless @getCurrentRoute()
+	App.on "initialize:after", (options) ->
+		App.startHistory()
+		App.navigate(@rootRoute, trigger: true) unless @getCurrentRoute()
 
-	app
+	App

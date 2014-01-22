@@ -22,6 +22,6 @@ require.config
 ##
 ## Start with application
 ##
-require ['plugins/plugin-loader','configs/config-loader','dashboard-app','apps/apps-loader'], (plugins, configs, app)->
+require ['plugins/plugin-loader','configs/config-loader','dashboard-app','apps/apps-loader'], (plugins, configs, App)->
 
-	app.start()
+	App.start()
