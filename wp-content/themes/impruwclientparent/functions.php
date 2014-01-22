@@ -693,6 +693,7 @@ function get_theme_JS() {
     <script src="<?php echo get_parent_template_directory_uri(); ?>/js/bootstrap.min.js"></script>
     <script src="<?php echo get_parent_template_directory_uri(); ?>/js/holder.js"></script>
     <script src="<?php echo get_parent_template_directory_uri(); ?>/js/cssFx.js"></script>
+    <script src="<?php echo get_parent_template_directory_uri(); ?>/js/lightbox.js"></script>
    <?php
     $theme_path =  get_stylesheet_directory() . "/js";
     if ( file_exists( $theme_path ) && is_dir( $theme_path ) ) {
@@ -724,6 +725,7 @@ function get_theme_CSS() {
 ?>
     <link href="<?php echo get_parent_template_directory_uri(); ?>/css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
     <link href="<?php echo get_parent_template_directory_uri(); ?>/css/flat-ui.css" type="text/css" rel="stylesheet"/>
+    <link href="<?php echo get_parent_template_directory_uri(); ?>/css/lightbox.css" type="text/css" rel="stylesheet"/>
     <?php
     $theme_path =  get_stylesheet_directory()."/css";
     $css_files = scandir( $theme_path, 1 );
@@ -3169,4 +3171,22 @@ function get_rooms(){
     endwhile;
 
     return $r;
+}
+
+/**
+ * [add_rel_attribute description]
+ * @param [type] $link      [description]
+ * @param [type] $id        [description]
+ * @param [type] $size      [description]
+ * @param [type] $permalink [description]
+ * @param [type] $icon      [description]
+ * @param [type] $text      [description]
+ */
+function add_rel_attribute($link, $id, $size, $permalink, $icon, $text ) {
+        
+    $url = wp_get_attachment_url( $id );
+
+    $link_text = wp_get_attachment_image( $id, $size, $icon );
+
+    return "<a data-lightbox='room-lightbox' href='$url'>$link_text</a>";
 }
