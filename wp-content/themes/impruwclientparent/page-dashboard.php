@@ -90,6 +90,7 @@
         var SITEID 		= {'id':<?php echo get_current_blog_id(); ?>}
         var UPLOADURL = '<?php echo admin_url('async-upload.php'); ?>';
         var _WPNONCE = '<?php echo wp_create_nonce('media-form');?>'; 
+        var JSVERSION   = '<?php echo JSVERSION; ?>';
      </script>
 
 	<script

@@ -45,9 +45,46 @@ class RoomModel {
 	}
 	
 	
-	function get_all_roomdata(){
+	/**
+	 * 
+	 * Function to get min,max of weekday & weekend tariff for a room
+	 * @param array $daterange_tariff   containing daterange-tariff data 
+	 */
+	function min_max_weekday_weekend_tariff($daterange_tariff=array()){
+		if(empty($daterange_tariff)){
+			$daterange_tariff = $this->get_room_tariffs();
+		}
+		 
+		$tariff['max_weekend'] = max(array_col($daterange_tariff, 'weekEndTariff'));
+		$tariff['min_weekend'] = min(array_col($daterange_tariff, 'weekEndTariff'));
+		$tariff['max_weekday'] = max(array_col($daterange_tariff, 'weekdayTariff'));
+		$tariff['min_weekday'] = min(array_col($daterange_tariff, 'weekdayTariff'));
+		 	
+		return $tariff;  
 		  
-		$daterange_tariff = $this->get_room_tariffs(2);
+	}
+
+	/**
+	 * function to get all room data 
+	 * 
+	 * @param array $room_retrival_data   $room_retrival_data['noOFplansreqd'] = 2 
+	 * 		  to get  limited no of daterange tariff for ex. on room list page
+	 * returns array of room details
+	 */
+	function get_all_roomdata($room_retrival_data=array()){
+
+	 	
+		if(isset($room_retrival_data['noOFplansreqd'])){
+			 //to get  limited no of daterange tariff for ex. on room list
+			$daterange_tariff = $this->get_room_tariffs($room_retrival_data['noOFplansreqd']);
+			
+		}
+		else{
+			//returns all daterange tariff plans for a room
+			$daterange_tariff = $this->get_room_tariffs();
+		}
+		
+		$min_max_tariff = $this->min_max_weekday_weekend_tariff($daterange_tariff);
 		
 		
 		//Get room attachment id, url
@@ -55,10 +92,11 @@ class RoomModel {
 		$room_attachments =  explode(',',$this->get_room_meta('room-attachments'));
 		if(is_array($room_attachments)){
 			foreach($room_attachments as $attachment){
-				
-				$attachment_data[] = array('attach_id'	=> $attachment,
+				if($attachment!=''){
+					$attachment_data[] = array('attach_id'	=> $attachment,
 										  'attach_url'	=>  wp_get_attachment_thumb_url( $attachment )		
 										);
+				}
 				
 			}
 			
@@ -75,7 +113,8 @@ class RoomModel {
 							'checkinformat'		=> get_option('checkin-format'),
 							'daterangetariff' 	=> $daterange_tariff,
 							'facilities'		=> $this->get_room_facilities(),
-							'roomAttachments'	=> $attachment_data
+							'roomAttachments'	=> $attachment_data,
+							'minmaxTariff'		=> $min_max_tariff
 						);
 												
 		return $rooom_data; 				
@@ -93,11 +132,11 @@ function get_room_facilities(){
 
 
 /**
- * 
+ * Function to get all daterange for room,  the tariff and the plan
  * Enter description here ...
  * @param unknown_type $LIMIT
  */
-function get_room_tariffs($LIMIT=1){
+function get_room_tariffs($LIMIT=''){
 	
 	global $wpdb ; 
 	
@@ -111,9 +150,10 @@ function get_room_tariffs($LIMIT=1){
 							FROM {$wpdb->prefix}datetarriff a 
 							LEFT JOIN 	{$wpdb->prefix}daterange  b 
 							on a.daterange_id = b.id  
-							WHERE a.id in(".$plan_tariff.") 
-							LIMIT 0,".$LIMIT."
-						";
+							WHERE a.id in(".$plan_tariff.")";
+	  if($LIMIT!='') 
+	  	$qry_tariff.= "		LIMIT 0,".$LIMIT;
+						
 	 
 	  /* $qry_tariff =  $wpdb->prepare("SELECT b.from_date as from_date, b.to_date as to_date, a.plan_id as plan_id, a.tarriff as tariff 
 							FROM {$wpdb->prefix}datetarriff a 
@@ -169,7 +209,7 @@ function get_room_tariffs($LIMIT=1){
 function get_room_meta($room_metakey){
 		
 	$room_meta_value = maybe_unserialize(get_post_meta($this->room->ID,$room_metakey,true));
-	if($room_meta_value==false)
+	if($room_meta_value===false)
 		return '';
 	else 
 		return $room_meta_value;

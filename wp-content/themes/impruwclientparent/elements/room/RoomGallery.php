@@ -71,7 +71,7 @@ class RoomGallery extends SliderElement {
 
         $ids = get_post_meta($this->post_id, 'room-attachments', true);
 
-        return is_array($ids) ? $ids : array();
+        return $ids;
     }
 
     /**
@@ -83,7 +83,7 @@ class RoomGallery extends SliderElement {
         //set filter
         add_filter('wp_get_attachment_link', 'add_rel_attribute', 100, 6);
 
-        $ids = implode(',', $this->data_source['image-ids']);
+        $ids = $this->data_source['image-ids'];
 
         $html = do_shortcode("[gallery ids='$ids']");
         //$html = do_shortcode('[gallery ids="96,92,93"]');
