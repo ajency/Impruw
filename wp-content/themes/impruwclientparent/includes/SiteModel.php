@@ -55,7 +55,7 @@ class SiteModel {
 		$fields = array('businessLogoId', 'postalcode','street','phone','email', 'city', 'country');
 
 		foreach ($fields as $key) {
-			$data[$key] = get_option($key);
+			$data[$key] = (get_option($key)!=false?get_option($key):'');
 		}
 
 		return $data;
@@ -94,10 +94,10 @@ class SiteModel {
 		
 		$address = array();
 
-		$address['street'] 		= get_option('street');
-		$address['postalcode'] 	= get_option('postalcode');
-		$address['city'] 		= get_option('city');
-		$address['country'] 	= get_option('country');
+		$address['street'] 		= (get_option('street')!=false?get_option('street'):'');
+		$address['postalcode'] 	= (get_option('postalcode')!=false?get_option('postalcode'):'');
+		$address['city'] 		= (get_option('city')!=false?get_option('city'):'');
+		$address['country'] 	= (get_option('country')!=false?get_option('country'):'');
 
 		$emails = get_option('email');
 

@@ -49,6 +49,23 @@ class RoomModel {
 		  
 		$daterange_tariff = $this->get_room_tariffs(2);
 		
+		
+		//Get room attachment id, url
+		$attachment_data = array();
+		$room_attachments =  explode(',',$this->get_room_meta('room-attachments'));
+		if(is_array($room_attachments)){
+			foreach($room_attachments as $attachment){
+				
+				$attachment_data[] = array('attach_id'	=> $attachment,
+										  'attach_url'	=>  wp_get_attachment_thumb_url( $attachment )		
+										);
+				
+			}
+			
+		}
+	
+	
+		
 		$rooom_data = array('roomType'			=> $this->get('post_title'),
 							'roomShortDesc'		=> $this->get('post_excerpt'),
 							'roomDesc'			=> $this->get('post_content'),
@@ -57,7 +74,8 @@ class RoomModel {
 							'checkintime'		=> get_option('checkin-time'),
 							'checkinformat'		=> get_option('checkin-format'),
 							'daterangetariff' 	=> $daterange_tariff,
-							'facilities'		=> $this->get_room_facilities()
+							'facilities'		=> $this->get_room_facilities(),
+							'roomAttachments'	=> $attachment_data
 						);
 												
 		return $rooom_data; 				
@@ -109,7 +127,7 @@ function get_room_tariffs($LIMIT=1){
 	$daterange_tariff = array();
 		
 	$qry_result = $wpdb->get_results($qry_tariff);
-	
+	 	
 	if($qry_result){
 	 	foreach($qry_result as  $plan__tariff ){
 
@@ -129,7 +147,8 @@ function get_room_tariffs($LIMIT=1){
 			 									'toDate'				=> date('d/m/Y',strtotime($plan__tariff->to_date)),
 			 									'weekdayTariff' 		=> $weekday_tariff,
 			 									'weekEndTariff' 		=> $weekend_tariff,
-			 									'planName'				=> ucwords($plan_name)
+			 									'planName'				=> ucwords($plan_name) 
+			 									
 			 							);
 	 		
 	 	}
@@ -140,6 +159,22 @@ function get_room_tariffs($LIMIT=1){
 	  	
 	 
 }	 
+
+
+/**
+ * 'room-attachments'
+ * Enter description here ...
+ * @param unknown_type $room_metakey
+ */
+function get_room_meta($room_metakey){
+		
+	$room_meta_value = maybe_unserialize(get_post_meta($this->room->ID,$room_metakey,true));
+	if($room_meta_value==false)
+		return '';
+	else 
+		return $room_meta_value;
+	
+}
 	
 	/*function array_keynames_to_json($data_array){
 		if(is_array($data_array)){
