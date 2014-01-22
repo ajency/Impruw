@@ -837,10 +837,12 @@ function add_new_room( $blog_id, $array, $tariff_array ) {
     // var_dump( wp_set_object_terms($post_id, $array['terms'], 'impruw_room_facility'));exit;;
     update_post_meta($post_id,'room-attachments',$array['room_attachments'] );
     
-    //insert featured image 
-   /* if(count($array['room_attachments'])>0){
-    	update_post_meta($post_id,'thumbnail-id',$array['room_attachments'][0] );    	
-    }*/
+   //insert featured image  
+   $room_attachments_ar = explode(',',$array['room_attachments']);
+   if(count($room_attachments_ar)>0){
+   		set_post_thumbnail( $post_id, $room_attachments_ar[0] );
+    	//update_post_meta($post_id,'thumbnail-id',$array['room_attachments'][0] );    	
+    }
     
     $plan_tariff_array = explode(',',$array['plantariff']);
     $plan_tariff_serialized = maybe_serialize($plan_tariff_array);
@@ -2872,10 +2874,13 @@ function update_room( $blog_id, $array, $tariff_array ) {
     // var_dump( wp_set_object_terms($post_id, $array['terms'], 'impruw_room_facility'));exit;;
     update_post_meta($array['ID'],'room-attachments',$array['room_attachments'] );
     
-    //insert featured image 
-    /*if(count($array['room_attachments'])>0){
-    	update_post_meta($array['ID'],'thumbnail-id',$array['room_attachments'][0] );    	
-    }*/
+     
+	//update featured image  
+   $room_attachments_ar = explode(',',$array['room_attachments']);
+   if(count($room_attachments_ar)>0){
+   		set_post_thumbnail( $array['ID'], $room_attachments_ar[0] );
+    	//update_post_meta($array['ID'],'thumbnail-id',$array['room_attachments'][0] );    	
+    }
     
     $plan_tariff_array = explode(',',$array['plantariff']);
     $plan_tariff_serialized = maybe_serialize($plan_tariff_array);
