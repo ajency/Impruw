@@ -834,6 +834,13 @@ blockquote p {
   font-size: 1.5em;
   color: #5ca9a1;
 }
+.site-style-container .room .book-info .price .tariff dl {
+  margin: 0;
+  font-size: 0.8em;
+}
+.site-style-container .room .book-info .price .tariff dl dd {
+  margin-left: 10%;
+}
 .site-style-container .room .book-info .book {
   text-align: right;
 }
@@ -842,6 +849,8 @@ blockquote p {
   padding: 5px 10px;
   color: #fff;
   font-size: 1em;
+  display: inline-block;
+  text-align: center;
   -webkit-transition: all 0.25s ease;
   -moz-transition: all 0.25s ease;
   -o-transition: all 0.25s ease;

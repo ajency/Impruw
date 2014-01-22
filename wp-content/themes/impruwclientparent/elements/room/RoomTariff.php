@@ -75,7 +75,14 @@ class RoomTariff extends Element {
         ob_start(); ?>
 
         <div class="tariff">
-            from kr <strong>210</strong> to <strong>280</strong> /night
+            <dl>
+                <dt>Economy Plan</dt>
+                <dd>from kr <strong>210</strong> /night</dd>
+                <dt>Regular Plan</dt>
+                <dd>from kr <strong>280</strong> /night</dd>
+                <dt>Deluxe Plan</dt>
+                <dd>from kr <strong>350</strong> /night</dd>
+            </dl>
         </div>
         <?php
 
