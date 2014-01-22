@@ -96,6 +96,12 @@
                                 <div class="aj-imp-builder-title">Map</div>
                             </a>
                         </li>
+                        <li data-element="galleryelement">
+                            <a href="#" class="drag builder-element" data-placeholder-height="100">
+                                <div class="aj-imp-builder-icon"  data-icon="&#xf110;"></div>
+                                <div class="aj-imp-builder-title">Gallery</div>
+                            </a>
+                        </li>
                         <li data-element="roomlistelement">
                             <a href="#" class="drag builder-element" data-placeholder-height="100">
                                 <div class="aj-imp-builder-icon"  data-icon="&#xf110;"></div>

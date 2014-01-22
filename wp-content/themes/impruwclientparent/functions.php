@@ -240,6 +240,9 @@ function add_element_markup( $element ) {
     case 'LogoElement':
         $html = get_logo_element_markup( $element );
         break; 
+    case 'GalleryElement':
+        $html = get_gallery_markup( $element );
+        break;
     case 'RoomDescription':
         $html = get_room_description_markup( $element );
         break; 
@@ -394,6 +397,23 @@ function get_room_gallery_markup( $element ) {
     $room = new RoomGallery( $element );
 
     $html = $room->get_markup();
+
+    return $html;
+
+}
+
+/**
+ * Generates the room title markup
+ *
+ * @param type    $element
+ */
+function get_gallery_markup( $element ) {
+
+    require_once PARENTTHEMEPATH . 'elements/GalleryElement.php';
+
+    $gallery = new GalleryElement( $element );
+
+    $html = $gallery->get_markup();
 
     return $html;
 
