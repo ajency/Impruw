@@ -863,9 +863,9 @@ blockquote {
 				.tariff {
 					font-size: 1.1em;
 					line-height: 1;
+					padding: 3px 0 0;
 					strong {
 						font-size: 1.5em;
-						color: @primary1;
 					}
 					dl {
 						margin: 0;
@@ -880,7 +880,7 @@ blockquote {
 				text-align: right;
 				a {
 					background:@secondary2;
-					padding:5px 10px;
+					padding:3px 10px 5px;
 					color:#fff;
 					font-size:1em;
 					display: inline-block;
@@ -889,6 +889,16 @@ blockquote {
 					&:hover{
 						background:@primary1;
 						.backTrans
+					}
+				}
+			}
+			&:hover {
+				background: lighten(@secondary2, 38%);
+				.price {
+					.tariff {
+						strong {
+							color: @primary1;
+						}
 					}
 				}
 			}
