@@ -199,58 +199,52 @@
                             </span>
                         </div>
                     </div>
-                </form>
             </div>
+            <div class="scroll-indicator-container" id="scr3">
+                <h4 class="aj-imp-sub-head scroll-ref">Social Settings <small>Update the social tags on your website.</small></h4>
+                    <div class="form-group">
+                        <label for="inputSocial1" class="col-sm-2 control-label">Facebook</label>
+                        <div class="col-sm-10 col-sm-offset-2">
+                            <div class="input-group">
+                                <span class="input-group-addon">www.facebook.com/</span>
+                                <input type="text" class="form-control" id="facebook" name="facebook"  
+                                       placeholder="yourpageurl"  value="<%= site.get('facebook') %>" 
+                                       required parsley-trigger="blur" parsley-validation-minlength="0" />
+                                <div class="p-messages"></div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="inputSocial2" class="col-sm-2 control-label">Twitter</label>
+                        <div class="col-sm-10 col-sm-offset-2">
+                            <div class="input-group">
+                                <span class="input-group-addon">www.twitter.com/</span>
+                                <input type="text" class="form-control" id="twitter" name="twitter"  placeholder="Twitter"
+                                       value="<%= site.get('twitter') %>" required parsley-trigger="blur" 
+                                       parsley-validation-minlength="0"  >
+                                <div class="p-messages"></div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-10 col-sm-offset-2">
+                            <span class="help-block">
+                                <p>It's always a good idea to have social links on your website. The reasons are</p>
+                                <h6>It’s the future</h6>
+                                <p>No business wants to get left behind right? Every single day that passes the more your competition promote across social media. This wave of social media marketing is here to stay... and if you don’t jump on board now you are severely hampering your chances of longevity online – which is where more business is going.</p>
+                                <h6>It's the best way to come up in search results</h6>
+                                <p>Every time you create content on a social media site that links back to your website, the search engines see that link. Every time the search engines “see” a link to your site, it makes them think, “Wow, that site must be pretty important, seeing as there are so many other places linking to it.” When the search engines think your site is important, they will make your listing appear higher in the results.</p>
+                            </span>
+                        </div>
+                    </div>
+              </div>
         </form>
         <!--
-        <div class="scroll-indicator-container" id="scr3">
-            <h4 class="aj-imp-sub-head scroll-ref">Social Settings <small>Update the social tags on your website.</small></h4>
-            <form class="form-horizontal clearfix" id="form-siteprofile-social" name ="form-siteprofile-social" >
-
-
-                <div class="form-group">
-                    <label for="inputSocial1" class="col-sm-2 control-label">Facebook</label>
-                    <div class="col-sm-10 col-sm-offset-2">
-                        <div class="input-group">
-                            <span class="input-group-addon">www.facebook.com/</span>
-                            <input type="text" class="form-control" id="facebook" name="facebook"  
-                                   placeholder="yourpageurl"  value="<%= site.get('facebook') %>" 
-                                   required parsley-trigger="blur" parsley-validation-minlength="0" />
-                            <div class="p-messages"></div>
-
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="form-group">
-                    <label for="inputSocial2" class="col-sm-2 control-label">Twitter</label>
-                    <div class="col-sm-10 col-sm-offset-2">
-                        <div class="input-group">
-                            <span class="input-group-addon">www.twitter.com/</span>
-                            <input type="text" class="form-control" id="twitter" name="twitter"  placeholder="Twitter"
-                                   value="<%= site.get('twitter') %>" required parsley-trigger="blur" 
-                                   parsley-validation-minlength="0"  >
-                            <div class="p-messages"></div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-sm-10 col-sm-offset-2">
-                        <span class="help-block">
-                            <p>It's always a good idea to have social links on your website. The reasons are</p>
-                            <h6>It’s the future</h6>
-                            <p>No business wants to get left behind right? Every single day that passes the more your competition promote across social media. This wave of social media marketing is here to stay... and if you don’t jump on board now you are severely hampering your chances of longevity online – which is where more business is going.</p>
-                            <h6>It's the best way to come up in search results</h6>
-                            <p>Every time you create content on a social media site that links back to your website, the search engines see that link. Every time the search engines “see” a link to your site, it makes them think, “Wow, that site must be pretty important, seeing as there are so many other places linking to it.” When the search engines think your site is important, they will make your listing appear higher in the results.</p>
-                        </span>
-                    </div>
-                </div>
-
-            </form>
-        </div>
         <div class="scroll-indicator-container" id="scr4">
             <h4 class="aj-imp-sub-head scroll-ref">SEO <small>Make your website rank higher</small></h4>
             <form class="form-horizontal clearfix" id="form-siteprofile-meta" name="form-siteprofile-meta">

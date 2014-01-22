@@ -52,7 +52,7 @@ class SiteModel {
 
 		$data['siteName'] = get_option('blogname');
 
-		$fields = array('businessLogoId', 'postalcode','street','phone','email', 'city', 'country');
+		$fields = array('businessLogoId', 'postalcode','street','phone','email', 'city', 'country','facebook', 'twitter');
 
 		foreach ($fields as $key) {
 			$data[$key] = (get_option($key)!=false?get_option($key):'');
