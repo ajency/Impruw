@@ -83,20 +83,26 @@ class RoomModel {
 	 * returns array of room details
 	 */
 	function get_all_roomdata($room_retrival_data=array()){
-
+	//$daterange_tariff = $this->fetch_current_daterange_plans();
 	 	
-		if(isset($room_retrival_data['noOFplansreqd'])){
-			 //to get  limited no of daterange tariff for ex. on room list
-			$daterange_tariff = $this->get_room_tariffs($room_retrival_data['noOFplansreqd']);
+		
+	 	if(isset($room_retrival_data['noOFplansreqd'])){
+			 //to get  limited no of daterange tariff for ex. on room list			  
+			$daterangeplan_options = array('noofplans' => $room_retrival_data['noOFplansreqd'], //total no of daterange plans required
+	 										'current'	   => false   //set true if daterange plans for current date is required
+	 									   );
+			 $daterange_tariff = $this->get_room_tariffs($daterangeplan_options);
 			
 		}
 		else{
-			//returns all daterange tariff plans for a room
-			$daterange_tariff = $this->get_room_tariffs();
+			//get  all daterange tariff plans for a room		
+			$daterangeplan_options = array(	'current'	   => false   //set true if daterange plans for current date is required
+	 									   );	 
+			$daterange_tariff = $this->get_room_tariffs($daterangeplan_options);
 		}
-		
-		$min_max_tariff = $this->min_max_weekday_weekend_tariff($daterange_tariff);
-		
+		 
+		//$min_max_tariff = $this->min_max_weekday_weekend_tariff($daterange_tariff);
+		 $min_max_tariff = array();
 		
 		//Get room attachment id, url
 		$attachment_data = array();
@@ -128,7 +134,10 @@ class RoomModel {
 							'roomFeaturedImg'	=> $this->get_featured_img(),
 							'minmaxTariff'		=> $min_max_tariff
 						);
-												
+
+						
+						
+						
 		return $rooom_data; 				
 	
 	}
@@ -162,13 +171,33 @@ function get_featured_img(){
 	
 }
 
-/**
- * Function to get all daterange for room,  the tariff and the plan
- * Enter description here ...
- * @param unknown_type $LIMIT
- */
-function get_room_tariffs($LIMIT=''){
+
+
+
+function fetch_current_daterange_plans(){
+	$daterangeplan_options = array(	'current'	   => true,   //set true if daterange plans for current date is required
+		 							'noofplans'	   => 10	  
+								  );
+	$current_date_plans_tariff =  $this->get_room_tariffs($daterangeplan_options);
+	return $current_date_plans_tariff;
 	
+}
+
+
+
+/**
+ * Function to get all daterange tariff  for room,  the tariff and the plan
+ * @param array $tariffplan_options = array(	'current'	   => true,   //set true if plan tariff for current date is required
+ * @param	 										'noofplans'	   => 10  //no of plans to select from each daterange	  
+ * @param						  				);
+ *  
+ */
+function get_room_tariffs($tariffplan_options=array()){
+	 
+	extract($tariffplan_options);
+	//echo ' noofplans : '.$noofplans;
+	//echo ' current : '.$current;
+	 
 	global $wpdb ; 
 	
 	$plans = maybe_unserialize(get_option('plans'));
@@ -177,13 +206,17 @@ function get_room_tariffs($LIMIT=''){
 	
 	$plan_tariff = implode(',',$plan_tariff_array);
 		 
-	  $qry_tariff = "SELECT a.daterange_id as daterange_id, a.id as dateplan_tariffid, b.from_date as from_date, b.to_date as to_date, a.plan_id as plan_id, a.tarriff as tariff 
+	$qry_tariff = "SELECT a.daterange_id as daterange_id, a.id as dateplan_tariffid, b.from_date as from_date, b.to_date as to_date, a.plan_id as plan_id, a.tarriff as tariff 
 							FROM {$wpdb->prefix}datetarriff a 
 							LEFT JOIN 	{$wpdb->prefix}daterange  b 
 							on a.daterange_id = b.id  
 							WHERE a.id in(".$plan_tariff.")";
-	  if($LIMIT!='') 
-	  	$qry_tariff.= "		LIMIT 0,".$LIMIT;
+	if(isset($current))
+		if($current==true)
+			$qry_tariff.= "AND  NOW() BETWEEN b.from_date AND b.to_date";
+	
+	if(isset($noofplans)) 
+	  	$qry_tariff.= "		LIMIT 0,".$noofplans;
 						
 	 
 	  /* $qry_tariff =  $wpdb->prepare("SELECT b.from_date as from_date, b.to_date as to_date, a.plan_id as plan_id, a.tarriff as tariff 
@@ -218,9 +251,12 @@ function get_room_tariffs($LIMIT=''){
 			 									'toDate'				=> date('d/m/Y',strtotime($plan__tariff->to_date)),
 			 									'weekdayTariff' 		=> $weekday_tariff,
 			 									'weekEndTariff' 		=> $weekend_tariff,
-			 									'planName'				=> ucwords($plan_name) 
+			 									'planName'				=> ucwords($plan_name),
+			 									'qry'					=> $qry_tariff 
 			 									
 			 							);
+			 							
+			 							
 	 		
 	 	}
 	 	

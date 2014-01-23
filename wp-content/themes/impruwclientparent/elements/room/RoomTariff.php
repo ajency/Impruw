@@ -71,17 +71,34 @@ class RoomTariff extends Element {
      * @return [type] [description]
      */
     function get_room_tariff(){
+    	//require_once PARENTTHEMEPATH . 'includes/RoomModel.php';
+    	 
+    	
+    	$room_obj = new RoomModel(get_the_ID()); 
+    	
+    	$daterangeplan_options = array(	'current'	   => true   //set true if daterange plans for current date is required
+    									);
+	 	$daterange_tariffs = $room_obj->get_room_tariffs($daterangeplan_options);
         
-        ob_start(); ?>
+        ob_start();
+         ?>
 
         <div class="tariff">
             <dl>
-                <dt>Economy Plan</dt>
+            	<?php
+					foreach($daterange_tariffs as $daterange_tariffs){
+						?><dt><?php echo $daterange_tariffs['planName']; ?></dt>
+						<dd>from kr <strong><?php echo min($daterange_tariffs['weekdayTariff'],$daterange_tariffs['weekEndTariff']); ?></strong> /night</dd>
+						
+				<?php 	}
+            	
+            	?>
+                <!-- <dt>Economy Plan</dt>
                 <dd>from kr <strong>210</strong> /night</dd>
                 <dt>Regular Plan</dt>
                 <dd>from kr <strong>280</strong> /night</dd>
                 <dt>Deluxe Plan</dt>
-                <dd>from kr <strong>350</strong> /night</dd>
+                <dd>from kr <strong>350</strong> /night</dd> -->
             </dl>
         </div>
         <?php
