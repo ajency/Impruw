@@ -3245,12 +3245,18 @@ function send_contact_form_message(){
     $name       = $_POST['c-name'];
     $email      = $_POST['c-email'];
     $phoneno    = $_POST['c-phoneno'];
+    
+    $phoneno    = (!empty($phoneno) ? $phoneno : '-');
+    $mailsubject    = "Impruw Notification: Someone has tried to contact you";
+    $mailbody       = " You have been contacted by<br /><br />
+                        Name    : $name<br />
+                        Email   : $email<br />
+                        Phone no: $phoneno<br /><br />
+                        The details of the message are as follows:<br />
+                        <p>$message</p>";
 
-    $mailsubject    = "You can one message from $name";
-    $mailbody       = "Message from $name($email)<br /><br /><p>$message</p>";
-
-    add_filter( 'wp_mail_content_type', 'rw_change_email_content_type' );
-    if(wp_mail($admin_email, $mailsubject, $mailbody))
+    add_filter( 'wp_mail_content_type', 'change_email_content_type' );
+    if(wp_mail($admin_email = 'suraj@ajency.in', $mailsubject, $mailbody))
         wp_send_json(array('code' =>'OK'));
     else
         wp_send_json(array('code' =>'ERROR', 'message' => 'Failed to send you message. Please try again.'));
@@ -3259,8 +3265,35 @@ function send_contact_form_message(){
 add_action('wp_ajax_send-contact-form-message','send_contact_form_message');
 add_action('wp_ajax_nopriv_send-contact-form-message','send_contact_form_message');
 
-
-function rw_change_email_content_type( $content_type )
+/**
+ * [change_email_content_type description]
+ * @param  [type] $content_type [description]
+ * @return [type]               [description]
+ */
+function change_email_content_type( $content_type )
 {
     return 'text/html';
 }
+
+/**
+ * [impruw_wp_mail_from description]
+ * @param  [type] $original_email_address [description]
+ * @return [type]                         [description]
+ */
+function impruw_wp_mail_from( $original_email_address ){
+    //Make sure the email is from the same domain 
+    //as your website to avoid being marked as spam.
+    return 'support@unpruwen.com';
+}
+add_filter( 'wp_mail_from', 'impruw_wp_mail_from' );
+
+/**
+ * [impruw_wp_mail_from_name description]
+ * @param  [type] $original_email_from [description]
+ * @return [type]                      [description]
+ */
+function impruw_wp_mail_from_name( $original_email_from )
+{
+    return 'Impruw Support';
+}
+add_filter( 'wp_mail_from_name', 'impruw_wp_mail_from_name' );
