@@ -714,7 +714,10 @@ function get_theme_JS() {
     <script src="<?php echo get_parent_template_directory_uri(); ?>/js/holder.js"></script>
     <script src="<?php echo get_parent_template_directory_uri(); ?>/js/cssFx.js"></script>
     <script src="<?php echo get_parent_template_directory_uri(); ?>/js/lightbox.js"></script>
-   <?php
+    <script src="<?php echo get_parent_template_directory_uri(); ?>/js/parsley.js"></script>
+    <script src="<?php echo get_parent_template_directory_uri(); ?>/js/contact.js"></script>
+   
+    <?php
     $theme_path =  get_stylesheet_directory() . "/js";
     if ( file_exists( $theme_path ) && is_dir( $theme_path ) ) {
 
@@ -3218,4 +3221,36 @@ function add_rel_attribute($link, $id, $size, $permalink, $icon, $text ) {
     $link_text = wp_get_attachment_image( $id, $size, $icon );
 
     return "<a data-lightbox='room-lightbox' href='$url'>$link_text</a>";
+}
+
+/**
+ * [send_contact_form_message description]
+ * @return [type] [description]
+ */
+function send_contact_form_message(){
+
+    $admin_email = get_option('admin_email');
+
+    $message    = $_POST['c-message'];
+    $name       = $_POST['c-name'];
+    $email      = $_POST['c-email'];
+    $phoneno    = $_POST['c-phoneno'];
+
+    $mailsubject    = "You can one message from $name";
+    $mailbody       = "Message from $name($email)<br /><br /><p>$message</p>";
+
+    add_filter( 'wp_mail_content_type', 'rw_change_email_content_type' );
+    if(wp_mail($admin_email, $mailsubject, $mailbody))
+        wp_send_json(array('code' =>'OK'));
+    else
+        wp_send_json(array('code' =>'ERROR', 'message' => 'Failed to send you message. Please try again.'));
+               
+}
+add_action('wp_ajax_send-contact-form-message','send_contact_form_message');
+add_action('wp_ajax_nopriv_send-contact-form-message','send_contact_form_message');
+
+
+function rw_change_email_content_type( $content_type )
+{
+    return 'text/html';
 }
