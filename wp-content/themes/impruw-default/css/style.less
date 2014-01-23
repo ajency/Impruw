@@ -691,9 +691,21 @@ blockquote {
 			list-style: none;
 			padding: 0;
 			margin: 0.5em 0;
-			.required {
-				font-size: 0.8em;
+			li {
+				font-size: 0.7em;
 				color: #ff3333;
+			}
+		}
+		.alert {
+			border-radius: 0;
+			color: @secondary2;
+			&.alert-success {
+				border-color: @primary1;
+				background: lighten(@primary1, 40%);
+			}
+			&.alert-error {
+				border-color: #ff3333;
+				background: lighten(#ff3333, 30%);
 			}
 		}
 	}

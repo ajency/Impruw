@@ -69,7 +69,7 @@ class GalleryElement extends Element {
     function get_gallery(){
 
         if(empty($this->data_source['image-ids']))
-            return '<p>Nothing found</p>';
+            return '<div class="boxTitle"><h3>Gallery</h3></div><p class="text-center">There are no images in your Gallery.</p>';
 
         //set filter
         add_filter('wp_get_attachment_link', 'add_rel_attribute', 100, 6);

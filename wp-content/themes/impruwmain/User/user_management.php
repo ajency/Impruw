@@ -165,7 +165,7 @@ function create_new_site( $blog_id, $blog_name, $blog_title, $user_id, $file_nam
     
     restore_current_blog();
     
-    toggle_plugin( $new_blog_id );//activating the wpml plugin for the current site.
+    //toggle_plugin( $new_blog_id );//activating the wpml plugin for the current site.
     
     assign_default_language( $new_blog_id, $user_default_language );
     

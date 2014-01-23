@@ -1,7 +1,7 @@
 
 <header class="aj-imp-dash-header row">
 <div class="aj-imp-dash-title col-sm-12">
-	<h2 class="aj-imp-page-head">My Dashboard</h2>
+	<h2 class="aj-imp-page-head"><%= __.t('My Dashboard') %></h2>
 </div>
 </header>
 <div class="row">
