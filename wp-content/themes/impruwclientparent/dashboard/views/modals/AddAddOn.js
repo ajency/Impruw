@@ -72,6 +72,7 @@ define(['modal', 'tpl!templates/modal/AddOn.tpl','parsley'],
     							 	//$(evt_.target).parent().parent().find('#addontype_name').val("");
     							 	//$(evt_.target).parent().parent().find('#addontype_price').val("");
     								self_.$el.find('#form_add_addon')[0].reset();
+    								
     							 	ImpruwDashboard.vent.trigger('new-add-on-added',response,evt_);
     							 	
     							 	
