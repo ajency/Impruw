@@ -163,6 +163,7 @@
         var UPLOADURL   = '<?php echo admin_url('async-upload.php'); ?>';
         var _WPNONCE    = '<?php echo wp_create_nonce('media-form');?>';
         var JSVERSION   = '<?php echo JSVERSION; ?>';
+        var CURRENTLANG = '<?php echo get_locale();?>';
         var ROOMS       = <?php echo json_encode(get_rooms()); ?>;
         <?php if(is_single_room_edit()): ?>
         var ISSINGLEROOM = true;   

@@ -236,7 +236,7 @@ function getFormData(form) {
 
 
 require(['backbone','marionette',
-         'routers/DashboardRouter','sitemodel','usermodel', 'polyglot', 'text!../languages/NO.json'], 
+         'routers/DashboardRouter','sitemodel','usermodel', 'polyglot', 'json!../languages/'+CURRENTLANG+'.json'], 
          function( Backbone, Marionette, Router, SiteModel, UserModel, Polyglot, phrases) {
 
         $(document).ready(function(){   
