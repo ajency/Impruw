@@ -74,7 +74,7 @@
 								the row.</p>
 							<p>Customize your site with additional functionality like social
 								media, contact forms and more.</p>
-							<a href="<%= SITEURL%>/site-builder">Click here to edit your website</a>
+							<a href="<%= SITEURL%>/site-builder" target = "_blank">Click here to edit your website</a>
 						</div>
 					</div>
 				</div>

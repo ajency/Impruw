@@ -916,7 +916,7 @@ function user_login() {
         global $user;
 
         $blog = get_active_blog_for_user( get_current_user_id() );
-        $blogUrl = $blog->siteurl; /* or $blog->path, together with $blog->siteurl */
+        $blogUrl = $blog->siteurl.'/dashboard/'; /* or $blog->path, together with $blog->siteurl */
         $response = array( "code" => "OK", 'blog_url' => $blogUrl, 'msg'=>'User already logged in' );
         wp_send_json( $response );
     }
