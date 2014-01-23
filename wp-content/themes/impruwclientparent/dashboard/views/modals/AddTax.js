@@ -70,16 +70,16 @@ define(['modal', 'tpl!templates/modal/AddTax.tpl','parsley'],
     								 
     								
     								if(response.code=='OK'){
-    									$(evt_.target).parent().parent().find('#taxtype_name').val("")
-    								 	$(evt_.target).parent().parent().find('#taxtype_price').val("")
-    								 	
+    									//$(evt_.target).parent().parent().find('#taxtype_name').val("")
+    								 //	$(evt_.target).parent().parent().find('#taxtype_price').val("")
+    									self_.$el.find('#form_add_tax')[0].reset();
     								 	
     								 	response.popupmodel = true;    								 	
     								 	ImpruwDashboard.vent.trigger('new-tax-added',response,evt_);
-    									ImpruwDashboard.vent.trigger('modal-closed');
+    									
     							 	
     							 	
-    								 	$(evt_.target).parent().parent().find('.close').click();
+    								 	//$(evt_.target).parent().parent().find('.close').click();
     									
     								 	 
     								}

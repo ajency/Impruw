@@ -499,11 +499,11 @@ var facilities_selected_exists;
 														</td>
 														<td>
 															<a href="javascript:void(0)" class="edit-link edit-taxlink" taxtype-id="<%=taxtype.id %>" >
-															<span class="glyphicon glyphicon-pencil"></span> Edit</a>
+															<span class="glyphicon glyphicon-pencil"  taxtype-id="<%=taxtype.id %>" ></span> Edit</a>
 															<a href="javascript:void(0)" class="edit-link cancel-taxlink hidden" taxtype-id="<%=taxtype.id %>" >
-															<span class="glyphicon glyphicon-ban-circle"></span> Cancel</a>
+															<span class="glyphicon glyphicon-ban-circle"  taxtype-id="<%=taxtype.id %>" ></span> Cancel</a>
 															<a href="javascript:void(0)" class="delete-link delete-taxlink"  taxtype-id="<%=taxtype.id %>" >
-															<span class="glyphicon glyphicon-trash"></span> Delete</a>
+															<span class="glyphicon glyphicon-trash"  taxtype-id="<%=taxtype.id %>" ></span> Delete</a>
 														</td>
 													</tbody>
 														 	
@@ -590,11 +590,11 @@ var facilities_selected_exists;
 															</td>
 															<td>
 																<a href="javascript:void(0)" class="edit-link edit-addonlink" addontype-id="<%=addontype.id %>"   > 
-																	<span class="glyphicon glyphicon-pencil"></span> Edit</a>
+																	<span class="glyphicon glyphicon-pencil"  addontype-id="<%=addontype.id %>"></span> Edit</a>
 																<a href="javascript:void(0)" class="edit-link cancel-addonlink hidden" addontype-id="<%=addontype.id %>">
-																	<span class="glyphicon glyphicon-ban-circle"></span> Cancel</a>
+																	<span class="glyphicon glyphicon-ban-circle"  addontype-id="<%=addontype.id %>"></span> Cancel</a>
 																<a href="javascript:void(0)" class="delete-link delete-addonlink" addontype-id="<%=addontype.id %>">
-																	<span class="glyphicon glyphicon-trash"></span> Delete</a>
+																	<span class="glyphicon glyphicon-trash"  addontype-id="<%=addontype.id %>"></span> Delete</a>
 															</td>
 														</tbody>	
 														 
