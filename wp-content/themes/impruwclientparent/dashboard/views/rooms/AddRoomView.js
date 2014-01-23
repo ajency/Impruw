@@ -61,7 +61,11 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
                 'click .canceleditdaterange_lnk'	: 'cancelEditRange',
                 
                 'click .filepopup'					: 'showFilePopup',
-                'click .btn_deleteAttachment'		: 'deleteRoomAttachment'
+                'click .btn_deleteAttachment'		: 'deleteRoomAttachment',
+                	
+                'click #select_featuredimg'			: 'showFeaturedImgFilePopup',
+                'click .btn_del_featuredimg'		: 'deleteFeaturedImage' 
+                
 		}, 
 
 		initialize : function(args) {
@@ -419,12 +423,12 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
                var roomcategory 		= $("#roomcategory").val();
                var roomnos 				= $("#roomnos").val();
                var roomdescription 		= $("#roomdescription").val();
-               var checkinformat 		= $('input[type="radio"][name="checkin_format"]:checked').val()
+               var checkinformat 		= $('input[type="radio"][name="checkin_format"]:checked').val();
                var checkintime        	= $("#checkin_time").val();
                var additionalpolicies 	= $("#additional_policies").val();
-               var tax_option 			= $('input[type="radio"][name="tax_option1"]:checked').val() 
+               var tax_option 			= $('input[type="radio"][name="tax_option1"]:checked').val() ;
                var room_attachments 	= $('#hdn_roomattachments').val();
-               
+               var roomFeaturedImg 		= $('#hdn_roomfeaturedimg').val();
                var facilityValues = new Array();
 					  
                //Read checked facillities
@@ -450,6 +454,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 					  	 	'additionalpolicies': additionalpolicies,
 					  	 	'tax_option'		: tax_option,
 					  	 	'room_attachments'	: room_attachments,
+					  	 	'roomfeaturedimg'	: roomFeaturedImg,
 					  	 	'plantariffids'		: plantariffids
 					  	 	
 					  	 	
@@ -515,6 +520,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
                var additionalpolicies 	= $("#additional_policies").val();
                var tax_option 			= $('input[type="radio"][name="tax_option1"]:checked').val() 
                var room_attachments 	= $('#hdn_roomattachments').val();
+               var roomFeaturedImg 		= $('#hdn_roomfeaturedimg').val();
                var roomId 				= $('#hdn_roomId').val();
                var facilityValues = new Array();
 					  
@@ -538,6 +544,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 				  	 	'additionalpolicies': additionalpolicies,
 				  	 	'tax_option'		: tax_option,
 				  	 	'room_attachments'	: room_attachments,
+				  	 	'roomfeaturedimg'	: roomFeaturedImg,
 				  	 	'plantariffids'		: plantariffids,
 				  	 	'roomid'			: roomId
 				  	 	
@@ -2298,6 +2305,75 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 		},
 		
 		
+		 /** Open media manager
+		 * @param  {[type]} evt [description]
+		 * @return {[type]}     [description]
+		 */
+		showFeaturedImgFilePopup : function(evt){
+
+			var popupFn = _.bind(function(_, MediaManager) {
+
+                 var mediamanager = getAppInstance().ViewManager.findByCustom("media-manager");
+
+                 //if not present create new
+                 if (_.isUndefined(mediamanager)) {
+                     mediamanager = new MediaManager();
+                     ImpruwDashboard.ViewManager.add(mediamanager, "media-manager");
+                 }
+
+                 //start listening to event
+                 this.listenTo(getAppInstance().vent,'image-selected', this.roomFeaturedImgSelected);
+
+
+                 mediamanager.open();
+
+             }, this);
+
+            require(['underscore', 'mediamanager'], popupFn);
+			
+		},
+		
+		
+		/**
+		 * Function triggered when room attachment is selected
+		 * @param image
+		 * @param size
+		 */
+		roomFeaturedImgSelected : function(image, size){
+		 	
+			console.log('featured image selected')
+			console.log(image)
+			console.log(size)
+			//stop listening to image-selected event
+          //   this.stopListening(ImpruwDashboard.vent, 'image-selected', this.updateSelf);
+
+            if (!_.isObject(image))
+                throw 'Invalid <image> datatype. Must be an Object';
+
+            this.dataSource = {};
+
+            this.dataSource.attachmentID    = image.get('id');
+            this.dataSource.size            = size;
+            
+           // $("#cloneme").clone().prop({ id: "im-a-clone", name: "im-a-clone" }).appendTo(document.body);
+
+            var attachments =  $('#hdn_roomfeaturedimg').val()
+            
+            if(attachments.search(this.dataSource.attachmentID)<0){
+            	$('.room-featured-img').removeClass('hidden')
+            	 $('.room-featured-img').find('img').attr('src',image.get('sizes')[size].url) ;
+            	  
+            	 $('.room-featured-img').find('.btn_del_featuredimg').attr('attachment-id',image.get('id')) ;
+             
+            	  
+            	 $('#hdn_roomfeaturedimg').val(this.dataSource.attachmentID)
+            	  
+             } 
+			 
+		},
+		
+		
+		
 		
 		
 		
@@ -2330,9 +2406,13 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 			
 		},
 		 
-		
+		/**
+		 * Function triggered when room attachment is selected
+		 * @param image
+		 * @param size
+		 */
 		roomAttachmentSelected : function(image, size){
-		 	
+		 	console.log('roomAttachmentSelected')
 			//stop listening to image-selected event
             this.stopListening(ImpruwDashboard.vent, 'image-selected', this.updateSelf);
 
@@ -2380,6 +2460,15 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 		 	$('#hdn_roomattachments').val(newAttachment.join());
 			
 			$(evt.target).closest('.fileinput-preview').remove();
+		},
+		
+		
+		deleteFeaturedImage : function(evt){
+			
+			$('.room-featured-img').find('img').attr('src','');
+			$('.room-featured-img').addClass('hidden');
+			$('#hdn_roomfeaturedimg').val('');
+			
 		},
 		
 		
