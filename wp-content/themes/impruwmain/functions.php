@@ -415,32 +415,6 @@ function get_theme_stylesheet(){
 }
 
 
-/**
- * Get all menu pages for the site
- * @return [type] [description]
- */
-function get_all_menu_pages(){
-        
-    $args = array('post_type' => 'page','posts_per_page' => -1);
-    $pages  = new WP_query($args);
-     
-    $p = array();
-
-    if($pages->have_posts()){
-        
-        $skip = array('Site Builder','Dashboard');
-
-        foreach($pages->posts as $page){
-
-            if(!in_array($page->post_title, $skip))
-                $p[] = $page;
-        }
-    }
-    
-    return $p;
-
-}
-
 /****SHORTCODE for CONTACT PAGE****/
 function impruwcontact_get_the_ip() {
     if (isset($_SERVER["HTTP_X_FORWARDED_FOR"])) {
