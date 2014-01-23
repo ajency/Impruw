@@ -32,6 +32,7 @@ require.config({
         marionette      		: 'lib/backbone.marionette.min',
         plupload        		: 'lib/plupload.full.min',
         tpl                     : 'lib/tpl',
+        json                    : 'lib/json',
         parsley                 : 'lib/parsley/parsley',
         jpanelmenu              : 'lib/jquery.jpanelmenu.min',
         polyglot                : 'lib/polyglot',
@@ -235,16 +236,12 @@ function getFormData(form) {
 
 
 require(['backbone','marionette',
-         'routers/DashboardRouter','sitemodel','usermodel', 'polyglot'], 
-         function( Backbone, Marionette, Router, SiteModel, UserModel, Polyglot) {
+         'routers/DashboardRouter','sitemodel','usermodel', 'polyglot', 'text!../languages/NO.json'], 
+         function( Backbone, Marionette, Router, SiteModel, UserModel, Polyglot, phrases) {
 
-        var nr = {
-                    'My Dashboard': 'My Dashboard_n'
-                };
+        $(document).ready(function(){   
 
-         $(document).ready(function(){   
-
-            window.__ = new Polyglot({phrases : nr});
+            window.__ = new Polyglot({phrases : phrases});
 
             Backbone.emulateHTTP = true;
             
