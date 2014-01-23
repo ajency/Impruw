@@ -27,7 +27,7 @@ $(document).ready(function($){
 									  <strong>Success!</strong> Message sent successfully\
 									</div>';
 
-						$('#contact-form-save').closest('form').parent().prepend(html);
+						$('#contact-form-save').closest('form').before(html);
 					}
 					else if(response.code === 'ERROR'){
 
@@ -36,7 +36,7 @@ $(document).ready(function($){
 									  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>\
 									  <strong>Error!</strong>'+response.message+'\
 									</div>';
-						$('#contact-form-save').closest('form').parent().prepend(html);
+						$('#contact-form-save').closest('form').before(html);
 					}
 
 				},'json');
