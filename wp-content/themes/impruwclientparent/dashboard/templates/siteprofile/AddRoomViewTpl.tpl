@@ -111,12 +111,12 @@ var facilities_selected_exists;
 							<h4 class="aj-imp-sub-head scroll-ref">Images <small>Add attachment images to your room.</small></h4>
 							<form class="form-horizontal clearfix">
 								
-								<div class="form-group">
+								<div class="form-group pic-upload">
 									<label for="inputSEO1" class="col-sm-2 control-label">Attachments</label>
 									<div class="col-sm-10 col-sm-offset-2">
 		                            <div class="fileinput fileinput-new" data-provides="fileinput">
-		                                <div class="fileinput-preview thumbnail room-attachment-img hidden" data-trigger="fileinput" style="width: 120px; height: 140px;">
-		                                	<a href="javascript:void(0)" class="btn btn-danger btn_deleteAttachment" attachment-id="" data-dismiss="fileinput" >X</a>
+		                                <div class="fileinput-preview thumbnail room-attachment-img hidden" data-trigger="fileinput" style="width: 120px; height: 120px;">
+		                                	<a href="javascript:void(0)" class="btn btn-danger btn_deleteAttachment" attachment-id="" data-dismiss="fileinput" >&times;</a>
 		                                	<img name="business_logo"  id="businesslogo_img"   class="" src="" />		                                	
 		                                </div>
 		                                
@@ -129,8 +129,8 @@ var facilities_selected_exists;
 		                                     rmAttachIds+=rmAttachment.attach_id;
 		                                
 			                                %>
-			                                <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 120px; height: 140px;">
-			                                	<a href="javascript:void(0)" class="btn btn-danger btn_deleteAttachment" attachment-id="<%=rmAttachment.attach_id%>" data-dismiss="fileinput" >X</a>
+			                                <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 120px; height: 120px;">
+			                                	<a href="javascript:void(0)" class="btn btn-danger btn_deleteAttachment" attachment-id="<%=rmAttachment.attach_id%>" data-dismiss="fileinput" >&times;</a>
 			                                	<img name="business_logo"  id="businesslogo_img"   class="" src="<%=rmAttachment.attach_url%>" />		                                	
 			                                </div>
 			                                <%
@@ -152,12 +152,12 @@ var facilities_selected_exists;
 								
 								
 								
-								<div class="form-group">
+								<div class="form-group pic-upload">
 									<label for="inputSEO1" class="col-sm-2 control-label">Featured image</label>
 									<div class="col-sm-10 col-sm-offset-2">
 		                            <div class="fileinput fileinput-new" data-provides="fileinput">
-		                                <div class="fileinput-preview thumbnail room-featured-img <% if(_.isUndefined(roomFeaturedImg)){  %>hidden<% } else if(_.isNull(roomFeaturedImg.url)) {%> hidden<%} %>" data-trigger="fileinput" style="width: 120px; height: 140px;">
-		                                	<a href="javascript:void(0)" class="btn btn-danger btn_del_featuredimg" attachment-id="" data-dismiss="fileinput" >X</a>
+		                                <div class="fileinput-preview thumbnail room-featured-img <% if(_.isUndefined(roomFeaturedImg)){  %>hidden<% } else if(_.isNull(roomFeaturedImg.url)) {%> hidden<%} %>" data-trigger="fileinput" style="width: 120px; height: 120px;">
+		                                	<a href="javascript:void(0)" class="btn btn-danger btn_del_featuredimg" attachment-id="" data-dismiss="fileinput" >&times;</a>
 		                                	<img name="featured_image"  id="featured_image"   class="" src="<% if(!_.isUndefined(roomFeaturedImg)){ %><%=roomFeaturedImg.url%><% } %>" />		                                	
 		                                </div>
 		                                
@@ -531,7 +531,7 @@ var facilities_selected_exists;
 								<div class="add-text">
 									
 									<!--  Add Tax <button type="button" class="btn add-btn btn-sm" data-toggle="modal" data-target="#add-tax"><i class="glyphicon glyphicon-plus"></i></button> -->
-									 <button type="button" class="btn add-btn btn-sm add_tax_btn"><i class="glyphicon glyphicon-plus add_tax_btn"></i></button>
+									Add Tax <button type="button" class="btn add-btn btn-sm add_tax_btn"><i class="glyphicon glyphicon-plus add_tax_btn"></i></button>
 									 
 								</div>
 
