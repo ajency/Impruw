@@ -644,6 +644,17 @@ blockquote p {
 .site-style-container .sendMessage .btn.btn-default:hover {
   background: #5ca9a1;
 }
+.site-style-container #sendMessage .parsley-error-list,
+.site-style-container .sendMessage .parsley-error-list {
+  list-style: none;
+  padding: 0;
+  margin: 0.5em 0;
+}
+.site-style-container #sendMessage .parsley-error-list .required,
+.site-style-container .sendMessage .parsley-error-list .required {
+  font-size: 0.8em;
+  color: #ff3333;
+}
 .site-style-container .roomList {
   margin: 40px 0;
 }
