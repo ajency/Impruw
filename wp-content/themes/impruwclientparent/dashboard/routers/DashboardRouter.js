@@ -33,32 +33,49 @@ define(['underscore', 'jquery', 'backbone', 'mainview', 'bootstrapselect','check
 
 				index : function(){
 					this.mainView.show('dashboardview');
+					
+					console.log(this.mainView.$el.find('#aj-imp-dash-menu').html())
+					this.mainView.$el.find('#aj-imp-dash-menu').find('li').removeClass('active');
+					this.mainView.$el.find('#aj-imp-dash-menu').find('.aj-imp-nav-dashboard').addClass('active');
+					
 				},
 				
 				addRoom :function(){
 					this.mainView.show('addroomview');
+					this.mainView.$el.find('#aj-imp-dash-menu').find('li').removeClass('active');
+					this.mainView.$el.find('#aj-imp-dash-menu').find('.aj-imp-nav-booking').addClass('active');
 				},
 				
 				roomList :function(){	
 					this.mainView.show('roomlistview');	
+					this.mainView.$el.find('#aj-imp-dash-menu').find('li').removeClass('active');
+					this.mainView.$el.find('#aj-imp-dash-menu').find('.aj-imp-nav-booking').addClass('active');
 				},
 				
 				editRoom :function(id){
 					data_id  = {'roomId':id};
 					 
 					this.mainView.show('addroomview',data_id);
+					this.mainView.$el.find('#aj-imp-dash-menu').find('li').removeClass('active');
+					this.mainView.$el.find('#aj-imp-dash-menu').find('.aj-imp-nav-booking').addClass('active');
 				},
 				
 				userProfile : function(){
-				 	this.mainView.show('userprofileview');					
+				 	this.mainView.show('userprofileview');	
+				 	this.mainView.$el.find('#aj-imp-dash-menu').find('li').removeClass('active');
+					this.mainView.$el.find('#aj-imp-dash-menu').find('.aj-imp-nav-marketing').addClass('active');
 				},
 				
 				siteProfile : function(){
   					this.mainView.show('siteprofileview');
+  					this.mainView.$el.find('#aj-imp-dash-menu').find('li').removeClass('active');
+					this.mainView.$el.find('#aj-imp-dash-menu').find('.aj-imp-nav-profile').addClass('active');
 				},
 
 				support : function(){
 					this.mainView.show('supportview');
+					this.mainView.$el.find('#aj-imp-dash-menu').find('li').removeClass('active');
+					this.mainView.$el.find('#aj-imp-dash-menu').find('.aj-imp-nav-support').addClass('active');
 				},
 				
 				/**
