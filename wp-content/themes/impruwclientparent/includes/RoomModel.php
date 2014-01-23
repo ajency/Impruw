@@ -51,14 +51,25 @@ class RoomModel {
 	 * @param array $daterange_tariff   containing daterange-tariff data 
 	 */
 	function min_max_weekday_weekend_tariff($daterange_tariff=array()){
+		
+		$tariff = array('max_weekend'	=> '' ,
+						'min_weekend'	=> '',
+						'max_weekday'	=> '',
+						'min_weekday'	=> ''
+						);
+						
 		if(empty($daterange_tariff)){
 			$daterange_tariff = $this->get_room_tariffs();
 		}
-		 
-		$tariff['max_weekend'] = max(array_col($daterange_tariff, 'weekEndTariff'));
-		$tariff['min_weekend'] = min(array_col($daterange_tariff, 'weekEndTariff'));
-		$tariff['max_weekday'] = max(array_col($daterange_tariff, 'weekdayTariff'));
-		$tariff['min_weekday'] = min(array_col($daterange_tariff, 'weekdayTariff'));
+
+		if(!empty($daterange_tariff)){
+			$tariff['max_weekend'] = max(array_col($daterange_tariff, 'weekEndTariff'));
+			$tariff['min_weekend'] = min(array_col($daterange_tariff, 'weekEndTariff'));
+			$tariff['max_weekday'] = max(array_col($daterange_tariff, 'weekdayTariff'));
+			$tariff['min_weekday'] = min(array_col($daterange_tariff, 'weekdayTariff'));
+			
+		}
+			
 		 	
 		return $tariff;  
 		  
@@ -114,6 +125,7 @@ class RoomModel {
 							'daterangetariff' 	=> $daterange_tariff,
 							'facilities'		=> $this->get_room_facilities(),
 							'roomAttachments'	=> $attachment_data,
+							'roomFeaturedImg'	=> $this->get_featured_img(),
 							'minmaxTariff'		=> $min_max_tariff
 						);
 												
@@ -130,6 +142,25 @@ function get_room_facilities(){
 	 return $selected_room_facilities;
 }	
 
+
+
+/**
+ * Function to get featured image id and thumbnail url
+ *  returns array containing featured image thumbnail id and url
+ */
+ 
+function get_featured_img(){
+	 
+	$featured_img_id = get_post_thumbnail_id($this->room->ID, 'thumbnail');
+	$image_url = wp_get_attachment_image_src( $featured_img_id, 'thumbnail');
+	 
+	$featured_image = array('id' 	=> $featured_img_id,
+							'url'	=> $image_url[0]
+					 );
+	 
+	 return $featured_image;
+	
+}
 
 /**
  * Function to get all daterange for room,  the tariff and the plan

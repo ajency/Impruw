@@ -32,15 +32,20 @@
 				</div>
 				<nav class="aj-imp-dash-nav">
 					<ul id="aj-imp-dash-menu">
+					   <li class="aj-imp-nav-dashboard">
+							<span class="icon"></span>
+							<span class="arrow"></span>
+							<a href="<?php echo site_url()?>/dashboard">Dashboard</a>
+						</li>
 						<li class="aj-imp-nav-create">
 							<span class="icon"></span>
 							<span class="arrow"></span>
-							<a href="#">Site Builder</a>
+							<a href="<?php echo site_url()?>/site-builder">Site Builder</a>
 						</li>
 						<li class="aj-imp-nav-booking active">
 							<span class="icon"></span>
 							<span class="arrow"></span>
-							<a href="#">Rooms</a>
+							<a href="#room-list">Rooms</a>
 							<ul class="sub-menu">
 								<li>
 									<a href="#room-list">View All</a>
