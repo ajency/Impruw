@@ -32,50 +32,53 @@ define(['underscore', 'jquery', 'backbone', 'mainview', 'bootstrapselect','check
 				},
 
 				index : function(){
-					this.mainView.show('dashboardview');
-					
-					console.log(this.mainView.$el.find('#aj-imp-dash-menu').html())
 					this.mainView.$el.find('#aj-imp-dash-menu').find('li').removeClass('active');
 					this.mainView.$el.find('#aj-imp-dash-menu').find('.aj-imp-nav-dashboard').addClass('active');
+					this.mainView.show('dashboardview');				
 					
 				},
 				
 				addRoom :function(){
-					this.mainView.show('addroomview');
 					this.mainView.$el.find('#aj-imp-dash-menu').find('li').removeClass('active');
 					this.mainView.$el.find('#aj-imp-dash-menu').find('.aj-imp-nav-booking').addClass('active');
+					this.mainView.show('addroomview');
+					
 				},
 				
-				roomList :function(){	
-					this.mainView.show('roomlistview');	
+				roomList :function(){
 					this.mainView.$el.find('#aj-imp-dash-menu').find('li').removeClass('active');
 					this.mainView.$el.find('#aj-imp-dash-menu').find('.aj-imp-nav-booking').addClass('active');
+					this.mainView.show('roomlistview');	
+					
 				},
 				
 				editRoom :function(id){
-					data_id  = {'roomId':id};
-					 
-					this.mainView.show('addroomview',data_id);
 					this.mainView.$el.find('#aj-imp-dash-menu').find('li').removeClass('active');
 					this.mainView.$el.find('#aj-imp-dash-menu').find('.aj-imp-nav-booking').addClass('active');
+					data_id  = {'roomId':id};					 
+					this.mainView.show('addroomview',data_id);
+					
 				},
 				
 				userProfile : function(){
-				 	this.mainView.show('userprofileview');	
-				 	this.mainView.$el.find('#aj-imp-dash-menu').find('li').removeClass('active');
+					this.mainView.$el.find('#aj-imp-dash-menu').find('li').removeClass('active');
 					this.mainView.$el.find('#aj-imp-dash-menu').find('.aj-imp-nav-marketing').addClass('active');
+				 	this.mainView.show('userprofileview');	
+				 	
 				},
 				
 				siteProfile : function(){
-  					this.mainView.show('siteprofileview');
-  					this.mainView.$el.find('#aj-imp-dash-menu').find('li').removeClass('active');
+					this.mainView.$el.find('#aj-imp-dash-menu').find('li').removeClass('active');
 					this.mainView.$el.find('#aj-imp-dash-menu').find('.aj-imp-nav-profile').addClass('active');
+  					this.mainView.show('siteprofileview');
+  					
 				},
 
 				support : function(){
-					this.mainView.show('supportview');
 					this.mainView.$el.find('#aj-imp-dash-menu').find('li').removeClass('active');
 					this.mainView.$el.find('#aj-imp-dash-menu').find('.aj-imp-nav-support').addClass('active');
+					this.mainView.show('supportview');
+					
 				},
 				
 				/**
