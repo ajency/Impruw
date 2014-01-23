@@ -883,12 +883,14 @@ function add_new_room( $blog_id, $array, $tariff_array ) {
     update_post_meta($post_id,'room-attachments',$array['room_attachments'] );
     
    //insert featured image  
-   $room_attachments_ar = explode(',',$array['room_attachments']);
+   /*$room_attachments_ar = explode(',',$array['room_attachments']);
    if(count($room_attachments_ar)>0){
    		set_post_thumbnail( $post_id, $room_attachments_ar[0] );
     	//update_post_meta($post_id,'thumbnail-id',$array['room_attachments'][0] );    	
-    }
+    }*/ 
+    set_post_thumbnail( $post_id, $array['room_featuredimg'] );
     
+     
     $plan_tariff_array = explode(',',$array['plantariff']);
     $plan_tariff_serialized = maybe_serialize($plan_tariff_array);
     
@@ -2832,9 +2834,10 @@ function add_new_room_ajx() {
     $additional_policies 	= $_POST['additionalpolicies'];
 	$tax_option				= $_POST['tax_option'];
 	$room_attachments 		= $_POST['room_attachments'];
+	$room_featuredimg 		= $_POST['room_featuredimg'];
 	$room_plantariff 		= $_POST['plantariffids'];
 	
-    $array=array( 'post_title' => $room_name, 'post_content' => $room_desc, 'user_id' => get_current_user_id(), 'inventory' => $room_nos, 'terms'=>$room_facilities, 'room_attachments'=>$room_attachments, 'plantariff'=>$room_plantariff );
+    $array=array( 'post_title' => $room_name, 'post_content' => $room_desc, 'user_id' => get_current_user_id(), 'inventory' => $room_nos, 'terms'=>$room_facilities, 'room_attachments'=>$room_attachments,'room_featuredimg'=>$room_featuredimg, 'plantariff'=>$room_plantariff );
 
     $attribute_array = array( 'weekday_price'=>'10', 'weekend_price'=>'20', 'num_of_adults'=>'2', 'num_of_children'=>'2', 'extra_adult'=>'10', 'extra_child'=>'10', 'include_tax'=>'yes', 'tax_percent'=>'12', 'terms_and_conditions'=>'agree' );
 
@@ -2873,10 +2876,11 @@ function update_room_ajx(){
     $checkin_time 			= $_POST['checkintime'];
     $additional_policies 	= $_POST['additionalpolicies'];
 	$tax_option				= $_POST['tax_option'];
-	$room_attachments 		= $_POST['room_attachments'];
+	$room_attachments 		= $_POST['room_attachments'];	
+	$room_featuredimg 		= $_POST['room_featuredimg'];
 	$room_plantariff 		= $_POST['plantariffids'];
 	
-    $array=array( 'ID'=> $room_id,'post_title' => $room_name, 'post_content' => $room_desc, 'user_id' => get_current_user_id(), 'inventory' => $room_nos, 'terms'=>$room_facilities, 'room_attachments'=>$room_attachments, 'plantariff'=>$room_plantariff );
+    $array=array( 'ID'=> $room_id,'post_title' => $room_name, 'post_content' => $room_desc, 'user_id' => get_current_user_id(), 'inventory' => $room_nos, 'terms'=>$room_facilities, 'room_attachments'=>$room_attachments, 'room_featuredimg'=>$room_featuredimg, 'plantariff'=>$room_plantariff );
 
     $attribute_array = array( 'weekday_price'=>'10', 'weekend_price'=>'20', 'num_of_adults'=>'2', 'num_of_children'=>'2', 'extra_adult'=>'10', 'extra_child'=>'10', 'include_tax'=>'yes', 'tax_percent'=>'12', 'terms_and_conditions'=>'agree' );
 
@@ -2929,11 +2933,17 @@ function update_room( $blog_id, $array, $tariff_array ) {
     
      
 	//update featured image  
-   $room_attachments_ar = explode(',',$array['room_attachments']);
+  /* $room_attachments_ar = explode(',',$array['room_attachments']);
    if(count($room_attachments_ar)>0){
    		set_post_thumbnail( $array['ID'], $room_attachments_ar[0] );
     	//update_post_meta($array['ID'],'thumbnail-id',$array['room_attachments'][0] );    	
-    }
+    }*/
+    
+    set_post_thumbnail( $array['ID'], $array['room_featuredimg'] );
+    
+    if(empty($array['room_featuredimg']))
+   		delete_post_thumbnail($array['ID']);
+   		
     
     $plan_tariff_array = explode(',',$array['plantariff']);
     $plan_tariff_serialized = maybe_serialize($plan_tariff_array);

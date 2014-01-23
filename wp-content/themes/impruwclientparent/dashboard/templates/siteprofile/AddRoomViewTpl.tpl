@@ -16,7 +16,11 @@ var roomModel;
 	var selectedFacilities 	= editroomdata.get('facilities');
 	var roomAttachments 	= editroomdata.get('roomAttachments')
 	var minMaxTariff		= editroomdata.get('minmaxTariff');
-	var datePlanTariff 		= editroomdata.get('daterangetariff')}
+	var datePlanTariff 		= editroomdata.get('daterangetariff');
+	var roomFeaturedImg		= editroomdata.get('roomFeaturedImg');
+	}
+	
+	 
 	
 	var datePlantariffIds;
 	var cntPlanTariff = 0; 
@@ -142,6 +146,31 @@ var facilities_selected_exists;
 		                            </div>
 		                        </div>
 								</div>
+								
+								
+								
+								
+								
+								
+								<div class="form-group">
+									<label for="inputSEO1" class="col-sm-2 control-label">Featured image</label>
+									<div class="col-sm-10 col-sm-offset-2">
+		                            <div class="fileinput fileinput-new" data-provides="fileinput">
+		                                <div class="fileinput-preview thumbnail room-featured-img <% if(_.isUndefined(roomFeaturedImg)){  %>hidden<% } else if(_.isNull(roomFeaturedImg.url)) {%> hidden<%} %>" data-trigger="fileinput" style="width: 120px; height: 140px;">
+		                                	<a href="javascript:void(0)" class="btn btn-danger btn_del_featuredimg" attachment-id="" data-dismiss="fileinput" >X</a>
+		                                	<img name="featured_image"  id="featured_image"   class="" src="<% if(!_.isUndefined(roomFeaturedImg)){ %><%=roomFeaturedImg.url%><% } %>" />		                                	
+		                                </div>
+		                                
+		                                <input type="hidden" name="hdn_roomfeaturedimg"  id="hdn_roomfeaturedimg"  value='<% if(!_.isUndefined(roomFeaturedImg)){ %><%=roomFeaturedImg.id%><% } %>'   />
+		                                <div>
+		                                    <span class="btn btn-default btn-file"><span class="fileinput-new " id="select_featuredimg">Select image</span> <!-- <input type="file" name="inputFile3">--> </span>
+		                                    
+		                                </div>
+		                            </div>
+		                        </div>
+								</div>
+								
+								
 								
 							</form>
 						</div>

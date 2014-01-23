@@ -34,6 +34,7 @@ require.config({
         tpl                     : 'lib/tpl',
         parsley                 : 'lib/parsley/parsley',
         jpanelmenu              : 'lib/jquery.jpanelmenu.min',
+        polyglot                : 'lib/polyglot',
         
         //Views
         mainview				: 'views/DashboardMainView',
@@ -110,6 +111,9 @@ require.config({
         'marionette' : {
         	deps : ['backbone'],
         	exports : 'Marionette'
+        },
+        'polyglot': {
+          exports: 'Polyglot'
         }
         
     }
@@ -229,11 +233,18 @@ function getFormData(form) {
 	
 }
 
+
 require(['backbone','marionette',
-         'routers/DashboardRouter','sitemodel','usermodel'], 
-         function( Backbone, Marionette, Router, SiteModel, UserModel) {
+         'routers/DashboardRouter','sitemodel','usermodel', 'polyglot'], 
+         function( Backbone, Marionette, Router, SiteModel, UserModel, Polyglot) {
+
+        var nr = {
+                    'My Dashboard': 'My Dashboard_n'
+                };
 
          $(document).ready(function(){   
+
+            window.__ = new Polyglot({phrases : nr});
 
             Backbone.emulateHTTP = true;
             
