@@ -708,10 +708,10 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 		
 		/*functino triggered when new tax is saved */
 		newTaxAdded:function(response,evt_){
-			 
+			
 			self_ = this ;
 			response.model = true
-			 
+			ImpruwDashboard.vent.trigger('modal-closed');
 		 	 
 			if(response.code=='OK'){
 				
@@ -750,16 +750,23 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 							
 							'</td>'+
 							'<td>'+
-							'	<a href="javascript:void(0)" class="edit-link edit-taxlink" taxtype-id="'+response.taxData.id+'"  > <span class="glyphicon glyphicon-pencil"></span> Edit</a>'+
+							'	<a href="javascript:void(0)" class="edit-link edit-taxlink" taxtype-id="'+response.taxData.id+'"  > '+
+							'		<span class="glyphicon glyphicon-pencil"  taxtype-id="'+response.taxData.id+'" ></span> Edit</a>'+
 							'	<a href="javascript:void(0)" class="edit-link cancel-taxlink hidden" taxtype-id="'+response.taxData.id+'" >'+
-							'		<span class="glyphicon glyphicon-ban-circle"></span> Cancel</a>'+
-							'	<a href="javascript:void(0)" class="delete-link delete-taxlink" taxtype-id="'+response.taxData.id+'"><span class="glyphicon glyphicon-trash"></span> Delete</a>'+
+							'		<span class="glyphicon glyphicon-ban-circle"  taxtype-id="'+response.taxData.id+'" ></span> Cancel</a>'+
+							'	<a href="javascript:void(0)" class="delete-link delete-taxlink" taxtype-id="'+response.taxData.id+'">'+
+							'		<span class="glyphicon glyphicon-trash"  taxtype-id="'+response.taxData.id+'" ></span> Delete</a>'+
 							'</td>'+
 					'</tbody>');
 				
 				/*self_.$el.find('input[type="checkbox"]').checkbox();*/
 			 	/*self_.$el.find('#new_facilityname').val("");*/
 				 self_.saveSuccess(response,evt_,self_); 
+				 
+				 var addTax = this.popupViewManager.findByCustom("add-tax-popup");
+				 setTimeout(function(){
+					 addTax.hide();
+				   }, 2100);
 			}
 			else{
 				 self_.saveFailure(response,evt_,self_);  
@@ -1113,7 +1120,6 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 
                     //start listening event
                     this.listenTo(ImpruwDashboard.vent, 'new-add-on-added', this.newAddOnAdded);
-
                     //modal hide event
                     this.listenTo(ImpruwDashboard.vent, 'modal-closed', this.stopListeningEvents);
 
@@ -1128,7 +1134,9 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 		
 		/* function lilstner view */ 
 		newAddOnAdded : function(response,evt_){
-			 			 
+			
+			ImpruwDashboard.vent.trigger('modal-closed');
+			
 			response.model = true
 			 
 			if(response.code=='OK'){
@@ -1138,11 +1146,38 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 			 		
 			 	$("#addons_list").append(''+
 				 	'<tbody id="blockaddontype-'+response.addontype.id+'">'+
-					'<td id="block_editaddontype-'+response.addontype.id+'">'+response.addontype.label+'</td>'+
-					'<td id="block_editaddonprice-'+response.addontype.id+'" >'+response.addontype.price+'</td>'+
+					'<td id="block_editaddontype-'+response.addontype.id+'">'+
+			 		
+						'<span class="lbl_addon">'+response.addontype.label+'</span>'+
+						'<div class="form-group hidden"> '+ 
+				 			'<div class="">'+
+								'<input type="text" class="form-control" name="input_editaddontype-'+response.addontype.id+'" id="input_editaddontype-'+response.addontype.id+'"  '+
+									'placeholder="Scuba diving" required parsley-trigger="blur" parsley-validation-minlength="0" '+
+									'parsley-required-message = "Please enter addon type"    value="'+response.addontype.label+'"  /> '+
+									'<div class="p-messages"></div> '+
+							'</div> '+
+						'</div> '+
+				 	
+					
+					'</td>'+
+					'<td id="block_editaddonprice-'+response.addontype.id+'" >'+ 
+						'<span class="lbl_addon">'+response.addontype.price+'</span>'+
+						'<div class="form-group hidden"> '+
+							'<div class="">'+
+								'<input type="text" class="form-control"  name="input_editaddonprice-'+response.addontype.id+'"  id="input_editaddonprice-'+response.addontype.id+'" '+
+								'placeholder="12.99" required parsley-trigger="blur" parsley-validation-minlength="0"  '+
+								'parsley-required-message = "Please enter price"   value="'+response.addontype.price+'"   />  '+
+								'<div class="p-messages"></div> '+
+							'</div> '+
+						'</div>  '+
+					'</td>'+
 					'<td>'+
-						'<a href="javascript:void(0)" class="edit-link edit-addonlink" addontype-id="'+response.addontype.id+'"  > <span class="glyphicon glyphicon-pencil"></span> Edit</a>'+
-						'<a href="javascript:void(0)" class="delete-link delete-addonlink" addontype-id="'+response.addontype.id+'"><span class="glyphicon glyphicon-trash"></span> Delete</a>'+
+						'<a href="javascript:void(0)" class="edit-link edit-addonlink" addontype-id="'+response.addontype.id+'"  > '+
+							'<span class="glyphicon glyphicon-pencil"  addontype-id="'+response.addontype.id+'"></span> Edit</a>'+
+						'<a href="javascript:void(0)" class="edit-link cancel-addonlink hidden" addontype-id="'+response.addontype.id+'">'+
+						'	<span class="glyphicon glyphicon-ban-circle"  addontype-id="'+response.addontype.id+'"></span> Cancel</a>'+
+						'<a href="javascript:void(0)" class="delete-link delete-addonlink" addontype-id="'+response.addontype.id+'">'+
+							'<span class="glyphicon glyphicon-trash"  addontype-id="'+response.addontype.id+'"></span> Delete</a>'+
 					'</td>'+
 			 	'</tbody>');
 				
@@ -1485,8 +1520,17 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 		 */
 		deleteAddonType:function(evt){
 			
-			 $(evt.target).html('Deleting');
+			console.log($(evt.target));
+			
+			  $(evt.target).parent().html(function (i, old) {
+			     return old
+			         .replace('Delete', 'Deleting')								         
+			});	
 			 $(evt.target).prop('disabled',true);
+			  
+			
+			/* $(evt.target).html('Deleting');
+			 $(evt.target).prop('disabled',true);*/
 		 
 			var self_ = this;
 			
@@ -1524,7 +1568,12 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 		
 		deleteTaxType : function(evt){
 			
-			$(evt.target).html('Deleting');
+			$(evt.target).parent().html(function (i, old) {
+			     return old
+			         .replace('Delete', 'Deleting')								         
+			});	
+			
+			//$(evt.target).html('Deleting');
 			$(evt.target).prop('disabled',true);
 		 
 			var self_ = this;
