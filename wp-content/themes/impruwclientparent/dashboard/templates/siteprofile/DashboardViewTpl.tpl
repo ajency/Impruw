@@ -28,15 +28,13 @@
 					<div class="aj-imp-widget-head row">
 						<div class="col-sm-12">
 							<h6 class="aj-imp-sub-head">
-								<small>Filling your Website profile is an essential step. Let us
-									explain why?</small>
+								<small><%= __.t('Filling your Website profile is an essential step. Let us explain why?') %></small>
 							</h6>
 						</div>
 					</div>
 					<div class="aj-imp-widget-content row">
 						<div class="col-sm-12">
-							<p>It lets you add your
-							
+							<p><%= __.t('It lets you add your') %></p>		
 							
 							<ul>
 								<li>Business details such as your logo, address etc</li>
