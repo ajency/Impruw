@@ -78,6 +78,7 @@ h1, h2, h3, h4, h5, h6{
 .site-style-container {
 	font-family: 'Lato', sans-serif;
 	font-weight: 400;
+	background: @grey;
 
 	/*-- Site Builder Container --*/
 
@@ -293,22 +294,101 @@ h1, h2, h3, h4, h5, h6{
 
 	/****Content Styles****/
 	.title-meta {
-		color: @blue;
-		font-size: 1.2em;
-		font-weight: bold;
+		p {
+			color: @blue !important;
+			font-size: 1.2em !important;
+			font-weight: bold;
+			margin: 0;
+		}
 	}
 
 	.main-title {
-		color: @dark-grey;
-		font-style: italic;
-		font-family: 'Arial Black', Arial, Helvetica, sans-serif;
-		margin: 0 0 0.5em;
+		h1 {
+			color: @dark-grey;
+			font-style: italic;
+			font-family: 'Arial Black', Arial, Helvetica, sans-serif;
+			margin: 0 0 0.5em;
+		}
 	}
 
-	.main-body {
+	.site-page {
 		p {
 			font-size: 1em;
 			color: @dark-grey;
+		}
+	}
+
+	.pic-box {
+		margin: 1em 0;
+		.img-holder {
+			height: 80px;
+			overflow: hidden;
+			margin: 0 0 0.5em;
+		}
+		h3 {
+			font-size: 1.5em;
+			font-weight: 400;
+		}
+	}
+
+	.white-bg {
+		margin: 1em 0;
+		padding: 1em 15px;
+		background: #fff;
+		box-shadow: 0 0 2px lighten(@dark-grey, 50%);
+		> .container {
+			margin: auto;
+		}
+	}
+
+	.highlight-box {
+		.title {
+			h2 {
+				color: @dark-grey;
+				font-size: 1.7em;
+				text-transform: uppercase;
+				font-weight: 400;
+			}
+		}
+		.img-holder {
+			height: 200px;
+			overflow: hidden;
+		}
+		.info {
+			h3 {
+				font-size: 1.6em;
+				padding: 0.5em 0 0.3em;
+				font-weight: 100;
+				color: @dark-grey;
+				border-top: 3px solid @blue;
+			}
+		}
+	}
+
+	.home-bot {
+		margin: 0 0 1em;
+		> h3 {
+			color: @dark-grey;
+			font-style: italic;
+			font-family: 'Arial Black', Arial, Helvetica, sans-serif;
+			margin: 0 0 0.2em;
+		}
+	}
+
+	.text-box {
+		margin: 0.5em 0;
+		.meta {
+			p {
+				color: lighten(@dark-grey, 30%);
+				text-transform: uppercase;
+				font-size: 0.8em;
+				border-bottom: 1px solid lighten(@dark-grey, 30%);
+			}
+		}
+		h3 {
+			color: @dark-grey;
+			font-size: 1.5em;
+			font-weight: 400;
 		}
 	}
 
@@ -371,6 +451,13 @@ h1, h2, h3, h4, h5, h6{
 					padding: 0.3em 0.5em 0.2em;
 					margin: 1em 0;
 					font-size: 1.2em;
+					font-weight: 400;
+					&:hover {
+						text-decoration: none;
+						background: @blue;
+						color: #fff;
+						.backTrans;
+					}
 				}
 			}
 		}

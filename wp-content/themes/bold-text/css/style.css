@@ -79,6 +79,7 @@ h6.sub-title {
 .site-style-container {
   font-family: 'Lato', sans-serif;
   font-weight: 400;
+  background: #f2f2f2;
   /****Container Styles****/
 
   /****Header Styles****/
@@ -308,20 +309,82 @@ h6.sub-title {
 .site-style-container .main-menu .slimmenu > li:last-child a {
   border-right: 0;
 }
-.site-style-container .title-meta {
-  color: #07669e;
-  font-size: 1.2em;
+.site-style-container .title-meta p {
+  color: #07669e !important;
+  font-size: 1.2em !important;
   font-weight: bold;
+  margin: 0;
 }
-.site-style-container .main-title {
+.site-style-container .main-title h1 {
   color: #555555;
   font-style: italic;
   font-family: 'Arial Black', Arial, Helvetica, sans-serif;
   margin: 0 0 0.5em;
 }
-.site-style-container .main-body p {
+.site-style-container .site-page p {
   font-size: 1em;
   color: #555555;
+}
+.site-style-container .pic-box {
+  margin: 1em 0;
+}
+.site-style-container .pic-box .img-holder {
+  height: 80px;
+  overflow: hidden;
+  margin: 0 0 0.5em;
+}
+.site-style-container .pic-box h3 {
+  font-size: 1.5em;
+  font-weight: 400;
+}
+.site-style-container .white-bg {
+  margin: 1em 0;
+  padding: 1em 15px;
+  background: #fff;
+  box-shadow: 0 0 2px #d4d4d4;
+}
+.site-style-container .white-bg > .container {
+  margin: auto;
+}
+.site-style-container .highlight-box .title h2 {
+  color: #555555;
+  font-size: 1.7em;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+.site-style-container .highlight-box .img-holder {
+  height: 200px;
+  overflow: hidden;
+}
+.site-style-container .highlight-box .info h3 {
+  font-size: 1.6em;
+  padding: 0.5em 0 0.3em;
+  font-weight: 100;
+  color: #555555;
+  border-top: 3px solid #07669e;
+}
+.site-style-container .home-bot {
+  margin: 0 0 1em;
+}
+.site-style-container .home-bot > h3 {
+  color: #555555;
+  font-style: italic;
+  font-family: 'Arial Black', Arial, Helvetica, sans-serif;
+  margin: 0 0 0.2em;
+}
+.site-style-container .text-box {
+  margin: 0.5em 0;
+}
+.site-style-container .text-box .meta p {
+  color: #a2a2a2;
+  text-transform: uppercase;
+  font-size: 0.8em;
+  border-bottom: 1px solid #a2a2a2;
+}
+.site-style-container .text-box h3 {
+  color: #555555;
+  font-size: 1.5em;
+  font-weight: 400;
 }
 .site-style-container .footerbar {
   background: #555555;
@@ -384,6 +447,17 @@ h6.sub-title {
   padding: 0.3em 0.5em 0.2em;
   margin: 1em 0;
   font-size: 1.2em;
+  font-weight: 400;
+}
+.site-style-container .footerbar .middle p a:hover {
+  text-decoration: none;
+  background: #07669e;
+  color: #fff;
+  -webkit-transition: all 0.25s ease;
+  -moz-transition: all 0.25s ease;
+  -o-transition: all 0.25s ease;
+  -ms-transition: all 0.25s ease;
+  transition: all 0.25s ease;
 }
 .site-style-container .footerbar .right ul {
   list-style: none;
