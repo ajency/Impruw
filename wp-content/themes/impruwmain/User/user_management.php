@@ -1088,31 +1088,34 @@ function  remove_custom_blog_tables($blog_id) {
 	$tables_to_drop[] = $wpdb->get_blog_prefix($blog_id)."room_tariffs";
 	$tables_to_drop[] = $wpdb->get_blog_prefix($blog_id)."datetarriff";
 	$tables_to_drop[] = $wpdb->get_blog_prefix($blog_id)."daterange";
+  
+	/*$tables_to_drop_str = implode(',', $tables_to_drop);
 	
-	$table__to_drop = '';
-	
+	$wpdb->query( "DROP TABLE  if EXISTS  $tables_to_drop_str" );
+	*/
+  
 	foreach (   $tables_to_drop as $drop_table ) {
-			$wpdb->query( "DROP TABLE IF EXISTS `$drop_table`" );
-			//$table__to_drop = $table__to_drop. " name : ".$drop_table;
-		}
-		
-		
-	//wp_mail('parag@ajency.in', 'test delete tables', 'deleting blog'.$blog_id.'--'.$table__to_drop);
+			$wpdb->query( "DROP TABLE IF EXISTS $drop_table " );		 
+	 }
+	 
 
 }
-add_filter('delete_blog', 'remove_custom_blog_tables');
+add_action('delete_blog', 'remove_custom_blog_tables');
 
-//Function to delete custom blog tables on site deletion
-/*function remove_custom_blog_tables1() {
+ 
+ /* //Function to delete custom blog tables on site deletion
+ function remove_custom_plugin_tables($tables) {
    global $wpdb;
    
-  $message =  '<br/> request id '. $_REQUEST['id']; 
-   $message.= $wpdb->get_blog_prefix($id);
+   $id = isset( $_REQUEST['id'] ) ? intval( $_REQUEST['id'] ) : 0;
    
-   wp_mail('parag@ajency.in', 'test delete tables', $message);
-   
-   /*$id = isset( $_REQUEST['id'] ) ? intval( $_REQUEST['id'] ) : 0;
-   $tables[] = $wpdb->get_blog_prefix($id).'table_xyz';
-   return $tables;* /
+   //WPML translation tables
+	$tables[] = $wpdb->get_blog_prefix($id)."icl_content_status";
+	$tables[] = $wpdb->get_blog_prefix($id)."icl_core_status";
+	
+   return $tables;
 }
-add_filter('wpmu_drop_tables', 'remove_custom_blog_tables1');*/
+add_filter('wpmu_drop_tables', 'remove_custom_plugin_tables'); 
+
+ */
+ 
