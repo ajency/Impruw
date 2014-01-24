@@ -679,8 +679,16 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 			 
 			
 			 var addTaxModal = _.bind(function(_, AddTaxModal) {
-
-                    var addTax = this.popupViewManager.findByCustom("add-tax-popup");
+				    
+				 
+				 if(this.isEventListenedTo('modal-closed')){
+					// console.log('listening to model closed')
+					ImpruwDashboard.vent.trigger('modal-closed'); //stop listening to any previous  add tax events
+				 }
+					 
+				 	
+                    
+				 	var addTax = this.popupViewManager.findByCustom("add-tax-popup");
 
                     //ensure Menu manager is created just once
                     if (_.isUndefined(addTax)){
@@ -689,7 +697,8 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
                     }
 
                     //start listening event
-                    this.listenTo(ImpruwDashboard.vent, 'new-tax-added', this.newTaxAdded);
+                    this.listenToOnce(ImpruwDashboard.vent, 'new-tax-added', this.newTaxAdded);
+                    console.log('strted listening to event new tax added ')
 
                     //modal hide event
                     this.listenTo(ImpruwDashboard.vent, 'modal-closed', this.stopListeningEvents);
@@ -706,7 +715,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 		newTaxAdded:function(response,evt_){
 			ImpruwDashboard.vent.trigger('modal-closed');
 			//this.stopListening(ImpruwDashboard.vent, 'new-tax-added');
-			//console.log('newTaxAdded triggered')
+			console.log('newTaxAdded triggered')
 			self_ = this ;
 			response.model = true
 			
@@ -786,6 +795,10 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 			 
 			 var addPlanModal = _.bind(function(_, AddPlanModal) {
 
+				 	ImpruwDashboard.vent.trigger('add-plan-closed'); //stop listening to any previous  add tax events
+				 	ImpruwDashboard.vent.trigger('edit-plan-closed'); //stop listening to any previous  add addon events
+				 	
+				 	
                     var addPlan = this.popupViewManager.findByCustom("add-plan-popup");
 
                   //ensure plan-popup is created just once
@@ -797,7 +810,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
                     if(_.isUndefined(plandetails)){
                     	
                      	 //start listening event
-                        this.listenTo(ImpruwDashboard.vent, 'new-plan-added', this.newPlanAdded);
+                        this.listenToOnce(ImpruwDashboard.vent, 'new-plan-added', this.newPlanAdded);
                         //modal hide event
                         this.listenTo(ImpruwDashboard.vent, 'add-plan-closed', this.stopListeningEvents);
                         addPlan.open();
@@ -805,7 +818,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
                         
                     }
                     else{
-                    	this.listenTo(ImpruwDashboard.vent, 'plan-updatesaved', this.planUpdateSaved);
+                    	this.listenToOnce(ImpruwDashboard.vent, 'plan-updatesaved', this.planUpdateSaved);
                     	//modal hide event
                         this.listenTo(ImpruwDashboard.vent, 'edit-plan-closed', this.stopListeningEvents);
                         addPlan.open({plandata:plandetails});
@@ -988,6 +1001,9 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 		 	
 			 var addTariffModal = _.bind(function(_, AddTariffModal) {
 
+				 	ImpruwDashboard.vent.trigger('add-tariff-closed'); //stop listening to any previous  add tax events
+				 	ImpruwDashboard.vent.trigger('edit-tariff-closed'); //stop listening to any previous  add tax events
+				 
                     var addTariff = this.popupViewManager.findByCustom("add-tariff-popup");
 
                     //ensure Menu manager is created just once
@@ -999,7 +1015,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
                     
                     if(_.isUndefined(dateplanTariff)){
                     	//start listening event
-                        this.listenTo(ImpruwDashboard.vent, 'new-tariff-added', this.newTariffAdded);
+                        this.listenToOnce(ImpruwDashboard.vent, 'new-tariff-added', this.newTariffAdded);
 
                         //modal hide event
                         this.listenTo(ImpruwDashboard.vent, 'add-tariff-closed', this.stopListeningEvents);
@@ -1008,7 +1024,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
                     }
                     else{
                     	//start listening event
-                        this.listenTo(ImpruwDashboard.vent, 'tariff-updated', this.tariffupdated);
+                        this.listenToOnce(ImpruwDashboard.vent, 'tariff-updated', this.tariffupdated);
 
                         //modal hide event
                         this.listenTo(ImpruwDashboard.vent, 'edit-tariff-closed', this.stopListeningEvents);
@@ -1047,7 +1063,8 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 				planRow.find('.block-plan-weekend-tariff').html('$ '+response.tariffdata.weekendtariff);
 				planRow.find('.block-plan-tariff-action').find('.edittariff-link')
 						.attr('date-range-plan-tariffid',response.tariffdata.daterangePlanTariffId).removeClass('hidden')
-						
+				
+				planRow.find('.block-plan-tariff-action').find('.addtariff_link').addClass('hidden')		
 				
 				var inputPlanTariffIds =  $('#hdn_plantariffids').val();
 				 
@@ -1111,7 +1128,10 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 		showAddAddOnModal : function(evt){
 			 
 			 var addAddOnModal = _.bind(function(_, AddAddOnModal) {
-
+				 	console.log(ImpruwDashboard.vent)
+				 
+					ImpruwDashboard.vent.trigger('modal-closed'); //stop listening to any previous  add addon events
+				 
                     var addOn = this.popupViewManager.findByCustom("add-addon-popup");
 
                     //ensure Menu manager is created just once
@@ -1121,7 +1141,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
                     }
 
                     //start listening event
-                    this.listenTo(ImpruwDashboard.vent, 'new-add-on-added', this.newAddOnAdded);
+                    this.listenToOnce(ImpruwDashboard.vent, 'new-add-on-added', this.newAddOnAdded);
                     //modal hide event
                     this.listenTo(ImpruwDashboard.vent, 'modal-closed', this.stopListeningEvents);
 
@@ -1206,7 +1226,8 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 		 */
 		showAddDateRangeModal : function(evt){
 			 
-			 
+			ImpruwDashboard.vent.trigger('modal-closed'); //stop listening to any previous  add addon events
+			
 			 var addDaterangeModal = _.bind(function(_, AddDateRangeModal) {
 
                     var dateRange = this.popupViewManager.findByCustom("add-daterange-popup");
@@ -1218,7 +1239,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
                     }
 
                     //start listening event
-                    this.listenTo(ImpruwDashboard.vent, 'new-date-range-added', this.newDateRangeAdded);
+                    this.listenToOnce(ImpruwDashboard.vent, 'new-date-range-added', this.newDateRangeAdded);
 
                     //modal hide event
                     this.listenTo(ImpruwDashboard.vent, 'modal-closed', this.stopListeningEvents);
@@ -1431,6 +1452,14 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 			this.stopListening(ImpruwDashboard.vent, 'new-tariff-added');
 		},
 		
+		/**
+		 * Function to check if listening to event
+		 * @param eventName
+		 * @returns
+		 */
+		isEventListenedTo: function(eventName) {
+			  return !!ImpruwDashboard.vent._events[eventName];
+			},
 		
 		
 		

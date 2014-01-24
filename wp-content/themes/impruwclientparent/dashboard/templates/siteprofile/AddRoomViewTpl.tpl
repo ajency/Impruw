@@ -529,7 +529,7 @@ var facilities_selected_exists;
 								<div class="add-text">
 									
 									<!--  Add Tax <button type="button" class="btn add-btn btn-sm" data-toggle="modal" data-target="#add-tax"><i class="glyphicon glyphicon-plus"></i></button> -->
-									Add Tax <button type="button" class="btn add-btn btn-sm add_tax_btn"><i class="glyphicon glyphicon-plus add_tax_btn"></i></button>
+									Add Tax <button type="button" class="btn add-btn btn-sm add_tax_btn"><i class="glyphicon glyphicon-plus"></i></button>
 									 
 								</div>
 
