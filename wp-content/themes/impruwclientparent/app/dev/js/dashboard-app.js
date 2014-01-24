@@ -24,7 +24,6 @@
     App.commands.setHandler("when:fetched", function(entities, callback) {
       var xhrs;
       xhrs = _.chain([entities]).flatten().pluck("_fetch").value();
-      console.log(entities);
       return $.when.apply($, xhrs).done(function() {
         return callback();
       });

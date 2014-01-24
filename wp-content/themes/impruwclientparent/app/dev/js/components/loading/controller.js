@@ -37,8 +37,9 @@
       };
 
       LoadingController.prototype.showRealView = function(realView, loadingView, config) {
-        var _this = this;
-        return App.commands.execute("when:fetched", config.entities, function() {
+        var callbackFn,
+          _this = this;
+        callbackFn = _.debounce(function() {
           switch (config.loadingType) {
             case "opacity":
               _this.region.currentView.$el.removeAttr("style");
@@ -51,7 +52,8 @@
           if (!config.debug) {
             return _this.show(realView);
           }
-        });
+        }, 1000);
+        return App.commands.execute("when:fetched", config.entities, callbackFn);
       };
 
       LoadingController.prototype.getEntities = function(view) {

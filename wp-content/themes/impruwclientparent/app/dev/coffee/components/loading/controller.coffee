@@ -30,7 +30,7 @@ define [
 		
 			showRealView: (realView, loadingView, config) ->
 
-				App.commands.execute "when:fetched", config.entities, =>
+				callbackFn = _.debounce ()=>
 					
 					switch config.loadingType
 						when "opacity"
@@ -39,6 +39,10 @@ define [
 							return realView.close() if @region.currentView isnt loadingView
 
 					@show realView unless config.debug
+
+				, 1000
+
+				App.commands.execute "when:fetched", config.entities, callbackFn
 					
 			
 			getEntities: (view) ->

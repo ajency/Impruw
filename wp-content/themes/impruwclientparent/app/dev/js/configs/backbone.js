@@ -8,10 +8,10 @@
       if (options == null) {
         options = {};
       }
+      console.log("fetch sync");
       sync = _sync(method, entity, options);
       if (!entity._fetch && method === "read") {
         entity._fetch = sync;
-        console.log("fetch sync");
       }
       return sync;
     };

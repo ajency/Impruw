@@ -24,12 +24,10 @@
         }
         menuItems = new LeftNavItems;
         menuItems.url = AJAXURL + '?action=get-menu-items';
-        _.delay(function() {
-          return menuItems.fetch({
-            reset: true,
-            data: param
-          });
-        }, 20000);
+        menuItems.fetch({
+          reset: true,
+          data: param
+        });
         return menuItems;
       }
     };

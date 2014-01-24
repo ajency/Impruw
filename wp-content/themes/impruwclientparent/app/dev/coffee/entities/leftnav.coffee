@@ -13,12 +13,10 @@ define ["dashboard-app", 'backbone'], (App, Backbone) ->
             
             menuItems.url = AJAXURL + '?action=get-menu-items'
             
-            _.delay ()->
-                menuItems.fetch
+            menuItems.fetch
                         reset : true
                         data  : param
-            , 20000
-
+                        
             menuItems
 
 
