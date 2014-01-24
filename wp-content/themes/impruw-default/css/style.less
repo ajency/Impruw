@@ -721,11 +721,15 @@ blockquote {
 			padding:10px;
 			margin-bottom:20px;
 			.backTrans;
-			
-			img{
+			.imgHolder {
 				-moz-box-shadow: 2px 2px 5px @secondary2;
 				-webkit-box-shadow: 2px 2px 5px @secondary2;
 				box-shadow: 2px 2px 5px @secondary2;
+				height: 260px;
+				overflow: hidden;
+				img {
+					width: 100%;
+				}
 			}
 			
 			.roomName{
@@ -745,7 +749,12 @@ blockquote {
 						.backTrans;
 					}
 				}
-			}		
+			}	
+
+			.facilities {
+				height: 50px;
+				overflow: hidden;
+			}	
 	
 			.roomAmenity{
 				font-size:0.722em;
