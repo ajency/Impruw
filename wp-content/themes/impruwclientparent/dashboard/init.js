@@ -99,6 +99,9 @@ require.config({
             deps : ['jquery'],
             exports : 'moment'
         },
+        'jpanelmenu' : {
+        	deps : ['jquery']
+        },
         'jqueryui' : {
             deps : ['jquery']    
         },

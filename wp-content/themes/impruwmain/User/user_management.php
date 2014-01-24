@@ -949,7 +949,23 @@ function user_login() {
         global $user;
 
         $blog = get_active_blog_for_user( get_current_user_id() );
-        $blogUrl = $blog->siteurl.'/dashboard/'; /* or $blog->path, together with $blog->siteurl */
+         
+        
+        //get the default language for the logged in blog 
+        switch_to_blog($blog->blog_id );
+        
+        $wpml_options = get_option( 'icl_sitepress_settings' );
+	 	$default_lang = $wpml_options['default_language'];
+
+	 	
+	 	//get the redirect url based on language
+	 	if($default_lang=='en')
+	 		$blogUrl = $blog->siteurl.'/dashboard/'; /* or $blog->path, together with $blog->siteurl */
+	 	else
+	 		$blogUrl = $blog->siteurl.'/dashboard-2/'; /* or $blog->path, together with $blog->siteurl */
+	 	   		
+	 	restore_current_blog();
+	 	   		
         $response = array( "code" => "OK", 'blog_url' => $blogUrl, 'msg'=>'User already logged in' );
         wp_send_json( $response );
     }
@@ -988,9 +1004,23 @@ function user_login() {
         );*/
 
 
-            $blog = get_active_blog_for_user( $user->ID );
-            $blog_url = $blog->siteurl.'/dashboard/'; /* or $blog->path, together with $blog->siteurl */
             
+            $blog = get_active_blog_for_user( $user->ID );
+              
+           //get the default language for the logged in blog 
+           switch_to_blog($blog->blog_id );
+           $wpml_options = get_option( 'icl_sitepress_settings' );
+	 	   $default_lang = $wpml_options['default_language'];
+	 	  
+	 	   
+	 	   //get the redirect url on logged in 
+	 	   if($default_lang=='en')
+	 	   		$blog_url = $blog->siteurl.'/dashboard/'; /* or $blog->path, together with $blog->siteurl */
+	 	   	else
+	 	   		$blog_url = $blog->siteurl.'/dashboard-2/'; /* or $blog->path, together with $blog->siteurl */
+	 	   
+	 	   	restore_current_blog();
+	 	   		
             //var_dump($blog_url);
             //wp_redirect( $blog_url );
             //exit;
