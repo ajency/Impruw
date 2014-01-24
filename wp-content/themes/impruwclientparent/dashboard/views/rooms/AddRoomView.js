@@ -457,7 +457,6 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 					  	 	'roomfeaturedimg'	: roomFeaturedImg,
 					  	 	'plantariffids'		: plantariffids
 					  	 	
-					  	 	
 					};
 			  
 			  room.saveRoomData(data, {
@@ -477,6 +476,13 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 			 			
 		},
 		
+		
+		/**
+		 * Function to add room modal to collection
+		 * @param room
+		 * @param self
+		 * @param evnt
+		 */
 		addRoomModeltoCollection : function(room,self,evnt) {
 			 	
 			self.$el.find('.has-error').removeClass('has-error')
@@ -491,11 +497,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 			}
 		},
 		
-		
-		
-		
-		
-		/**
+		 /**
 		 * Function to update room
 		 * @param evt
 		 */
@@ -550,17 +552,13 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 				  	 	
 				  	 	
 				};
-               
-               
-               
+                
                room = getAppInstance().roomCollection.get(roomId)
                
                
               // var room = new RoomModel(data);
 			  
-			  
-              
-			  
+			 	  
 			  room.updateRoomData(data, {
 					event : evt,
 					_self:self,
@@ -578,9 +576,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 			 			
 		},
 		
-	 
-		
-		
+	  	
 		
 		
 		/**
@@ -708,10 +704,12 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 		
 		/*functino triggered when new tax is saved */
 		newTaxAdded:function(response,evt_){
-			
+			//ImpruwDashboard.vent.trigger('modal-closed');
+			this.stopListening(ImpruwDashboard.vent, 'new-tax-added');
+			console.log('newTaxAdded triggered')
 			self_ = this ;
 			response.model = true
-			ImpruwDashboard.vent.trigger('modal-closed');
+			
 		 	 
 			if(response.code=='OK'){
 				
