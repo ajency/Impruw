@@ -21,6 +21,14 @@
     App.reqres.setHandler("default:region", function() {
       return App.rightRegion;
     });
+    App.commands.setHandler("when:fetched", function(entities, callback) {
+      var xhrs;
+      xhrs = _.chain([entities]).flatten().pluck("_fetch").value();
+      console.log(entities);
+      return $.when.apply($, xhrs).done(function() {
+        return callback();
+      });
+    });
     App.commands.setHandler("register:instance", function(instance, id) {
       return App.register(instance, id);
     });

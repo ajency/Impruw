@@ -3,11 +3,13 @@
     File Name: functions.php
     Description: This file has a list of the following functions used in this theme
  */
+define( 'PARENTTHEMEPATH', ABSPATH . 'wp-content/themes/impruwclientparent/' );
+require_once PARENTTHEMEPATH . 'api/entities/leftnav.php';
 
 global $page_id;
 $page_id = 0;
 
-define( 'PARENTTHEMEPATH', ABSPATH . 'wp-content/themes/impruwclientparent/' );
+
 require_once PARENTTHEMEPATH . 'includes/Underscore.php';
 require_once PARENTTHEMEPATH . 'elements/Element.php';
 require_once PARENTTHEMEPATH . 'includes/SiteModel.php';

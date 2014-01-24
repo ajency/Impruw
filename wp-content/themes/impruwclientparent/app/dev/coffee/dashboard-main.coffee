@@ -10,6 +10,8 @@ require.config
 		backbone    : 'plugins/backbone'
 		marionette  : 'plugins/backbone.marionette'
 		tpl 		: 'plugins/tpl'
+		spin 		: 'plugins/spin'
+		jqueryspin  : 'plugins/jquery.spin'
 	shim:
 		underscore : 
 			exports : '_'
@@ -19,6 +21,7 @@ require.config
 		marionette : 
 			deps : ['backbone']
 			exports : 'Marionette'
+		jqueryspin : ['spin']
 
 ##
 ## Start with application
@@ -27,6 +30,7 @@ require [	'plugins/plugin-loader'
 			'configs/config-loader'
 			'dashboard-app'
 			'controllers/base-controller'
+			'components/component-loader'
 			'apps/apps-loader'], (plugins, configs, App)->
 
 	App.start()

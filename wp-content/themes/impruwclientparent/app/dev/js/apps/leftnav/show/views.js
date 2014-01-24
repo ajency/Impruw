@@ -6,27 +6,12 @@
   define(['dashboard-app', 'tpl!apps/leftnav/show/templates/leftNav.tpl', 'tpl!apps/leftnav/show/templates/menuitem.tpl'], function(App, leftNavTpl, menuitemTpl) {
     App.module('LeftNav.Show.View', function(View, App, Backbone, Marionette, $, _) {
       var _ref, _ref1;
-      View.LeftNav = (function(_super) {
-        __extends(LeftNav, _super);
-
-        function LeftNav() {
-          _ref = LeftNav.__super__.constructor.apply(this, arguments);
-          return _ref;
-        }
-
-        LeftNav.prototype.template = leftNavTpl;
-
-        LeftNav.prototype.itemViewContainer = '#aj-imp-dash-menu';
-
-        return LeftNav;
-
-      })(Marionette.CompositeView);
-      return View.MenuItem = (function(_super) {
+      View.MenuItem = (function(_super) {
         __extends(MenuItem, _super);
 
         function MenuItem() {
-          _ref1 = MenuItem.__super__.constructor.apply(this, arguments);
-          return _ref1;
+          _ref = MenuItem.__super__.constructor.apply(this, arguments);
+          return _ref;
         }
 
         MenuItem.prototype.template = menuitemTpl;
@@ -34,6 +19,23 @@
         return MenuItem;
 
       })(Marionette.ItemView);
+      return View.LeftNav = (function(_super) {
+        __extends(LeftNav, _super);
+
+        function LeftNav() {
+          _ref1 = LeftNav.__super__.constructor.apply(this, arguments);
+          return _ref1;
+        }
+
+        LeftNav.prototype.template = leftNavTpl;
+
+        LeftNav.prototype.itemViewContainer = '#aj-imp-dash-menu';
+
+        LeftNav.prototype.itemView = View.MenuItem;
+
+        return LeftNav;
+
+      })(Marionette.CompositeView);
     });
     return App.LeftNav.Show.View;
   });

@@ -7,4 +7,5 @@ define [
 		'backbone'
 		'marionette'
 		'tpl'
+		'jqueryspin'
 		],->

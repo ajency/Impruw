@@ -1,11 +1,23 @@
 
 define ['dashboard-app', 'controllers/base-controller'
-		'apps/leftnav/show/views'], (App, AppController)->
+		'apps/leftnav/show/views', 'entities/leftnav'], (App, AppController)->
 
 	App.module 'LeftNav.Show', (Show, App, Backbone, Marionette, $, _)->
 
 		class Show.Controller extends AppController
 
+			initialize:()->
+
+				@links = App.request 'leftnav:entities'
+
 			showLeftNav : ()->
+
+				window.reg = @region
 				
-				@show new Show.View.LeftNav		
+				view = new Show.View.LeftNav	
+							collection : @links
+
+				@show  view, (loading : true)
+
+
+	App.LeftNav.Show.Controller		

@@ -3,8 +3,8 @@
   var __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  define(['dashboard-app', 'controllers/base-controller', 'apps/leftnav/show/views'], function(App, AppController) {
-    return App.module('LeftNav.Show', function(Show, App, Backbone, Marionette, $, _) {
+  define(['dashboard-app', 'controllers/base-controller', 'apps/leftnav/show/views', 'entities/leftnav'], function(App, AppController) {
+    App.module('LeftNav.Show', function(Show, App, Backbone, Marionette, $, _) {
       var _ref;
       return Show.Controller = (function(_super) {
         __extends(Controller, _super);
@@ -14,14 +14,26 @@
           return _ref;
         }
 
+        Controller.prototype.initialize = function() {
+          return this.links = App.request('leftnav:entities');
+        };
+
         Controller.prototype.showLeftNav = function() {
-          return this.show(new Show.View.LeftNav);
+          var view;
+          window.reg = this.region;
+          view = new Show.View.LeftNav({
+            collection: this.links
+          });
+          return this.show(view, {
+            loading: true
+          });
         };
 
         return Controller;
 
       })(AppController);
     });
+    return App.LeftNav.Show.Controller;
   });
 
 }).call(this);

@@ -25,6 +25,14 @@ define ['marionette'], (Marionette)->
 	App.reqres.setHandler "default:region", ->
 		App.rightRegion
 
+	App.commands.setHandler "when:fetched", (entities, callback) ->
+		xhrs = _.chain([entities]).flatten().pluck("_fetch").value()
+
+		console.log entities
+
+		$.when(xhrs...).done ->
+			callback()
+
 	App.commands.setHandler "register:instance", (instance, id) ->
 		App.register instance, id
 	

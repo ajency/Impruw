@@ -8,7 +8,9 @@
       underscore: 'plugins/underscore',
       backbone: 'plugins/backbone',
       marionette: 'plugins/backbone.marionette',
-      tpl: 'plugins/tpl'
+      tpl: 'plugins/tpl',
+      spin: 'plugins/spin',
+      jqueryspin: 'plugins/jquery.spin'
     },
     shim: {
       underscore: {
@@ -21,11 +23,12 @@
       marionette: {
         deps: ['backbone'],
         exports: 'Marionette'
-      }
+      },
+      jqueryspin: ['spin']
     }
   });
 
-  require(['plugins/plugin-loader', 'configs/config-loader', 'dashboard-app', 'controllers/base-controller', 'apps/apps-loader'], function(plugins, configs, App) {
+  require(['plugins/plugin-loader', 'configs/config-loader', 'dashboard-app', 'controllers/base-controller', 'components/component-loader', 'apps/apps-loader'], function(plugins, configs, App) {
     return App.start();
   });
 
