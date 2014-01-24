@@ -26,3 +26,15 @@ function get_rooms_list(){
 
 }
 add_action('wp_ajax_get-rooms','get_rooms_list');
+
+
+/**
+ * [get_rooms description]
+ * @return [type] [description]
+ */
+function get_site_profile(){
+
+	wp_send_json(array('name' => 'My Site Profile Data'));
+
+}
+add_action('wp_ajax_get-site-profile','get_site_profile');

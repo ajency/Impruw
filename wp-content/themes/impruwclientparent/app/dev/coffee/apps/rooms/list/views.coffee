@@ -1,7 +1,7 @@
 define ['dashboard-app'
-		'tpl!apps/rooms/list/templates/mainview.tpl'
-		'tpl!apps/rooms/list/templates/singleroom.tpl'
-		'tpl!apps/rooms/list/templates/emptyview.tpl'],
+		'tpl!apps/rooms/list/templates/mainview'
+		'tpl!apps/rooms/list/templates/singleroom'
+		'tpl!apps/rooms/list/templates/emptyview'],
 		(App, mainviewTpl, roomsingleTpl, emptyTpl)->
 
 

@@ -50,7 +50,6 @@
 
       AppController.prototype._manageView = function(view, options) {
         if (options.loading) {
-          console.log("Reached");
           return App.commands.execute("show:loading", view, options);
         } else {
           return options.region.show(view);

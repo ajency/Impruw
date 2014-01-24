@@ -1,6 +1,6 @@
 define ['dashboard-app'
-		'tpl!apps/leftnav/show/templates/leftNav.tpl'
-		'tpl!apps/leftnav/show/templates/menuitem.tpl'],
+		'tpl!apps/leftnav/show/templates/leftNav'
+		'tpl!apps/leftnav/show/templates/menuitem'],
 		(App, leftNavTpl, menuitemTpl)->
 
 

@@ -10,6 +10,7 @@ require.config
 		backbone    : 'plugins/backbone'
 		marionette  : 'plugins/backbone.marionette'
 		tpl 		: 'plugins/tpl'
+		text 		: 'plugins/text'
 		spin 		: 'plugins/spin'
 		jqueryspin  : 'plugins/jquery.spin'
 	shim:
@@ -22,6 +23,9 @@ require.config
 			deps : ['backbone']
 			exports : 'Marionette'
 		jqueryspin : ['spin']
+
+	tpl :
+		extension : '.tpl'
 
 ##
 ## Start with application

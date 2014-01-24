@@ -5,7 +5,7 @@
   define(['underscore'], function(_) {
     _.templateSettings = {
       evaluate: /\{\[([\s\S]+?)\]\}/g,
-      interpolate: /\{\{(.+?)\}\}/g
+      interpolate: /\{\{([\s\S]+?)\}\}/g
     };
     return _.mixin({
       logAppMsg: function() {
