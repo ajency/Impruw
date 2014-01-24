@@ -704,9 +704,9 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 		
 		/*functino triggered when new tax is saved */
 		newTaxAdded:function(response,evt_){
-			//ImpruwDashboard.vent.trigger('modal-closed');
-			this.stopListening(ImpruwDashboard.vent, 'new-tax-added');
-			console.log('newTaxAdded triggered')
+			ImpruwDashboard.vent.trigger('modal-closed');
+			//this.stopListening(ImpruwDashboard.vent, 'new-tax-added');
+			//console.log('newTaxAdded triggered')
 			self_ = this ;
 			response.model = true
 			
@@ -842,10 +842,13 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 						'<td> -  ' +							
 						'</td>   ' +
 						'<td>    ' +						 
-						'<a href="javascript:void(0)" class="addtariff_link" planid="'+response.plandata.planid+'" ><span class="glyphicon glyphicon-plus"></span> Add tariff</a>'+
-						'<a href="javascript:void(0)" class="edit-link edittariff-link"  planid='+response.plandata.planid+'><span class="glyphicon glyphicon-pencil"></span> Edit Tariff</a>'+
+						'<a href="javascript:void(0)" class="editplan_link" planid="'+response.plandata.planid+'"    ><span class="glyphicon glyphicon-pencil"></span> Edit Plan</a>'+
+						'<a href="javascript:void(0)" class="addtariff_link" planid="'+response.plandata.planid+'"    ><span class="glyphicon glyphicon-plus"></span> Add Tariff</a>'+
+						'<a href="javascript:void(0)" class="edit-link edittariff-link  hidden"  planid="'+response.plandata.planid+'"   date-range-plan-tariffid=""  ><span class="glyphicon glyphicon-pencil"></span> Edit Tariff</a>'+
 					'</td>'+
 					'</tr>');
+				
+				
 				 
 			}
 			else{
@@ -958,7 +961,8 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 						else{
 							/*$(evt.target).html('Save');
 							$(evt.target).prop('disabled',false);
-							self_.saveFailure(response,evt_,self_);  */
+							 */
+							self_.saveFailure(response,evt_,self_);
 						} 
 				
 			 });
@@ -1228,13 +1232,17 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 			
 		},
 		
-		
+		/**
+		 * Triggered when new date  range added.
+		 * appends new date range element to daterange list
+		 * @param response
+		 * @param evt_
+		 */
 		newDateRangeAdded : function(response,evt_){
 			response.model = true;
-			console.log(response)
+			 
 			if(response.code=='OK'){
-			 		
-				
+			 	
 				var dateRangePlanFn = _.bind(function(DaterangePlanTpl){
 					
 					var html = _.template(DaterangePlanTpl, {daterange : response.daterange});
@@ -1245,70 +1253,21 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 				}, this);
 				
 				require(['text!templates/siteprofile/DaterangePlansTpl.tpl'],dateRangePlanFn );
+			 	  
 				
 				
-				
-				
-				
-				/* $('#tbl_daterangelist').append(''+
-				 '<tr>'+
-					'<td colspan="4" class="no-mar table-responsive">'+
-					
-						'<table class="table table-vc" >'+
-							'<tbody data-link="row" class="rowlink">'+
-								'<tr>'+
-									'<td width="5%"><a href="#rowlink'+response.daterange.id+'>" data-toggle="collapse"><span class="glyphicon glyphicon-chevron-down"></span></a></td>'+
-									'<td width="30%">'+
-										'<span class="label label-info">From:</span>'+response.daterange.from_date+'    <span class="label label-info">To:</span> '+ response.daterange.to_date+
-									'</td>'+
-									'<td width="35%">'+
-										'<span class="label label-info">Weekday:</span> from<strong> - </strong> <span class="label label-info">Weekend:</span> from<strong> - </strong>'+
-									'</td>'+
-									'<td width="30%" class="rowlink-skip">'+
-										'<a href="javascript:void(0)" class="edit-link editdaterange_lnk" daterange-id = "'+response.daterange.id+'"><span class="glyphicon glyphicon-pencil " ></span> Edit</a>'+
-										'<a href="javascript:void(0)" class="edit-link canceleditdaterange_lnk hidden"  daterange-id = "'+response.daterange.id+'"  ><span class="glyphicon glyphicon-ban-circle"></span>Cancel</a>'+
-										'<a href="javascript:void(0)" class="delete-link deletedaterange_lnk" daterange-id = "'+response.daterange.id+'"><span class="glyphicon glyphicon-trash " ></span> Delete</a>'+
-									'</td>'+
-								'</tr>'+
-								
-							'</tbody>'+
-						'</table>'+
-						'<div id="rowlink'+response.daterange.id+'" class="inner collapse">'+
-							'<div class="form-table table-responsive">'+
-								'<table class="table table-bordered table-hover" id="planlist_'+response.daterange.id+'">'+
-									'<thead>'+
-										'<tr>'+
-											'<th>Plan Name</th>'+
-											'<th>Plan Description</th>'+
-											'<th>Weekday Tariff</th>'+
-											'<th>Weekend Tariff</th>'+
-											'<th>Actions</th>'+
-										'</tr>'+
-									'</thead>'+
-									
-									'<tbody data-link="row" class="rowlink">'+
-									 	'<tr>'+
-												'<td colspan="5">'+
-													 'No plans added yet'+
-												'</td>'+
-										'</tr>'+
-								  
-									'</tbody>'+
-								'</table>'+
-							'</div>'+
-							'<div class="add-text">'+
-								'Add Another Plan <button type="button" daterange-id = "'+response.daterange.id+'"  class="btn add-btn btn-sm btn_addplanmodal" data-toggle="modal" data-target="#add-plantype"><i class="glyphicon glyphicon-plus btn_addplanmodal"  daterange-id = "'+response.daterange.id+'"></i></button>'+
-							'</div>'+
-						'</div>'+
-					'</td>'+
-				'</tr>')*/
 				$('#rowlink'+response.daterange.id).collapse({
 	                toggle : true 
 	            });
-				 response.popupmodel = true;
-				 this.saveSuccess(response,evt_,this);  
-				 var dateRange = this.popupViewManager.findByCustom("add-daterange-popup");
-				 setTimeout(function(){
+				
+				response.popupmodel = true;
+				
+				this.saveSuccess(response,evt_,this);  //show success message
+				
+				//hide daterange popup model
+				var dateRange = this.popupViewManager.findByCustom("add-daterange-popup");
+				
+				setTimeout(function(){     
 					 dateRange.hide();
 				   }, 2100);
 			}
@@ -1320,7 +1279,9 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 			
 		},
 		
-		
+		/**
+		 * Function to delete date range
+		 */
 		deleteDateRange : function(evt){
 			
 			var x;
@@ -1362,6 +1323,10 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 			
 		},
 		
+		
+		/**
+		 * Show edit input elements for selected daterange
+		 */
 		enableEditDateRange : function(evt){
 			// console.log($(evt.target).children().find('.editdaterange_lnktext').html())
 		

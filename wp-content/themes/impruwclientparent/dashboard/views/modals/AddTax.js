@@ -75,9 +75,12 @@ define(['modal', 'tpl!templates/modal/AddTax.tpl','parsley'],
     								 //	$(evt_.target).parent().parent().find('#taxtype_price').val("")
     									self_.$el.find('#form_add_tax')[0].reset();
     								 	
+    									self_.$el.find('.validation-icon').remove()
+        								self_.$el.find('.has-error').removeClass('has-error')
+        								self_.$el.find('.has-success').removeClass('has-success')
     								 	  								 	
     								 	ImpruwDashboard.vent.trigger('new-tax-added',response,evt_);
-    									
+    								  
     							 	
     							 	
     								 	//$(evt_.target).parent().parent().find('.close').click();
@@ -85,7 +88,7 @@ define(['modal', 'tpl!templates/modal/AddTax.tpl','parsley'],
     								 	 
     								}
     								else{
-    									ImpruwDashboard.vent.trigger('new-tax-added',response,evt_)
+    									//ImpruwDashboard.vent.trigger('new-tax-added',response,evt_)
     									//console.log("error new tax")
     									 
     								}

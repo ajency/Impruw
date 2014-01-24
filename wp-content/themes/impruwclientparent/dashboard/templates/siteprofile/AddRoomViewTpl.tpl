@@ -109,49 +109,9 @@ var facilities_selected_exists;
 						
 						<div class="scroll-indicator-container" id="scr1">
 							<h4 class="aj-imp-sub-head scroll-ref">Images <small>Add attachment images to your room.</small></h4>
-							<form class="form-horizontal clearfix">
+							<form class="form-horizontal clearfix" name="frm_images">
 								
-								<div class="form-group pic-upload">
-									<label for="inputSEO1" class="col-sm-2 control-label">Attachments</label>
-									<div class="col-sm-10 col-sm-offset-2">
-		                            <div class="fileinput fileinput-new" data-provides="fileinput">
-		                                <div class="fileinput-preview thumbnail room-attachment-img hidden" data-trigger="fileinput" style="width: 120px; height: 120px;">
-		                                	<a href="javascript:void(0)" class="btn btn-danger btn_deleteAttachment" attachment-id="" data-dismiss="fileinput" >&times;</a>
-		                                	<img name="business_logo"  id="businesslogo_img"   class="" src="" />		                                	
-		                                </div>
-		                                
-		                                <% var rmAttachIds =  '';
-		                                	var cnt_roomattachments = 0 ;
-		                                 	_.each(roomAttachments,function(rmAttachment,index){
-		                                     
-		                                     if(cnt_roomattachments>0)
-		                                     	rmAttachIds+= ',';
-		                                     rmAttachIds+=rmAttachment.attach_id;
-		                                
-			                                %>
-			                                <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 120px; height: 120px;">
-			                                	<a href="javascript:void(0)" class="btn btn-danger btn_deleteAttachment" attachment-id="<%=rmAttachment.attach_id%>" data-dismiss="fileinput" >&times;</a>
-			                                	<img name="business_logo"  id="businesslogo_img"   class="" src="<%=rmAttachment.attach_url%>" />		                                	
-			                                </div>
-			                                <%
-			                                
-			                                cnt_roomattachments++;
-			                                	})
-		                                %>
-		                                <input type="hidden" name="hdn_roomattachments"  id="hdn_roomattachments" value="<%=rmAttachIds%>"  />
-		                                <div>
-		                                    <span class="btn btn-default btn-file"><span class="fileinput-new filepopup" id="select_businesslogo">Select image</span> <!-- <input type="file" name="inputFile3">--> </span>
-		                                    
-		                                </div>
-		                            </div>
-		                        </div>
-								</div>
-								
-								
-								
-								
-								
-								
+							 	
 								<div class="form-group pic-upload">
 									<label for="inputSEO1" class="col-sm-2 control-label">Featured image</label>
 									<div class="col-sm-10 col-sm-offset-2">
@@ -171,8 +131,46 @@ var facilities_selected_exists;
 								</div>
 								
 								
+								<div class="form-group pic-upload">
+									<label for="inputSEO1" class="col-sm-2 control-label">Attachments</label>
+									<div class="col-sm-10 col-sm-offset-2">
+			                            <div class="fileinput fileinput-new" data-provides="fileinput">
+			                                <div class="fileinput-preview thumbnail room-attachment-img hidden" data-trigger="fileinput" style="width: 120px; height: 120px;">
+			                                	<a href="javascript:void(0)" class="btn btn-danger btn_deleteAttachment" attachment-id="" data-dismiss="fileinput" >&times;</a>
+			                                	<img name="business_logo"  id="businesslogo_img"   class="" src="" />		                                	
+			                                </div>
+			                                
+			                                <% var rmAttachIds =  '';
+			                                	var cnt_roomattachments = 0 ;
+			                                 	_.each(roomAttachments,function(rmAttachment,index){
+			                                     
+			                                     	if(cnt_roomattachments>0)
+			                                     		rmAttachIds+= ',';
+			                                    	 rmAttachIds+=rmAttachment.attach_id;
+			                                
+					                                %>
+					                                <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 120px; height: 120px;">
+					                                	<a href="javascript:void(0)" class="btn btn-danger btn_deleteAttachment" attachment-id="<%=rmAttachment.attach_id%>" data-dismiss="fileinput" >&times;</a>
+					                                	<img name="business_logo"  id="businesslogo_img"   class="" src="<%=rmAttachment.attach_url%>" />		                                	
+					                                </div>
+					                                <%
+					                                
+					                                cnt_roomattachments++;
+					                            })
+			                                %>
+			                                <input type="hidden" name="hdn_roomattachments"  id="hdn_roomattachments" value="<%=rmAttachIds%>"  />
+			                                <div>
+			                                    <span class="btn btn-default btn-file"><span class="fileinput-new filepopup" id="select_businesslogo">Select image</span> <!-- <input type="file" name="inputFile3">--> </span>
+			                                    
+			                                </div>
+			                            </div>
+		                        	</div>
+								</div>
+								 
 								
-							</form>
+								
+								
+							</form><!--  end .frm_images -->
 						</div>
 						
 						
@@ -646,7 +644,17 @@ var facilities_selected_exists;
 								<div class="form-group checkin_span_block">
 									<div class="alert alert-success hidden status_message"></div>
 									<div class="col-sm-12">
-										<p class="checkinformat_text"> <% if(!_.isUndefined(roomdata.checkinformat)) {%> <%=roomdata.checkinformat %>-hour Format <% } %></p>
+										<p class="checkinformat_text"> 
+											<% if(!_.isUndefined(roomdata.checkinformat)) { 
+													if(!_.isEmpty(roomdata.checkinformat)){ %>
+														<%=roomdata.checkinformat %>-hour Format <% 
+													} 
+													else{ %>
+														Please select checkin time format<% 
+													} 
+												} 
+											%>
+										</p>
 										<div class="checkinformat_edit row hidden">
 											<div class="col-sm-2">
 												<label class="radio <% if(!_.isUndefined(roomdata.checkinformat)) { 
@@ -679,7 +687,17 @@ var facilities_selected_exists;
 								<div class="form-group">
 									<div class="alert alert-success hidden status_message"></div>
 									<div class="col-sm-7">
-										<p class="checkintime_text"><% if(!_.isUndefined(roomdata.checkintime)) {%><%=roomdata.checkintime %> <%}%></p>
+										<p class="checkintime_text">
+											<% if(!_.isUndefined(roomdata.checkintime)) { 
+											 		 if(_.isEmpty(roomdata.checkintime) ){ %>
+												 	 	Please enter checkin time <% 
+													 }
+													 else { %>
+													 <%=roomdata.checkintime %>
+												  <% } 
+											   }
+											%>
+										  </p>
 										<div class="checkintime_edittext hidden">
 											<input type='text' class="form-control" data-mask="99:99" placeholder="9:00" name="checkin_time" id="checkin_time" value="<% if(!_.isUndefined(roomdata.checkintime)) {%><%=roomdata.checkintime %> <%}%>" >
 										</div>
@@ -726,9 +744,20 @@ var facilities_selected_exists;
 								<div class="form-group">
 									<div class="alert alert-success hidden status_message"></div>
 									<div class="col-sm-12">
-										<p class='addpoliciestext'><% if(!_.isUndefined(roomdata.additionalpolicies)) {%><%=roomdata.additionalpolicies%> <%}%></p>
+										<p class='addpoliciestext'>
+										<% if(!_.isUndefined(roomdata.additionalpolicies)){   
+												if(_.isEmpty(roomdata.additionalpolicies)){ %>
+													Please add additional policies<%} 
+												else { %>
+													<%=roomdata.additionalpolicies%> <% }
+											}%>
+										</p>
 										<div class="addpoliciestext_edit hidden">
-											<textarea class="form-control" rows="3" name="additional_policies"  id="additional_policies" placeholder="eg. All rates are per night rates."><% if(!_.isUndefined(roomdata.additionalpolicies)) {%><%=roomdata.additionalpolicies%> <%}%></textarea>
+											<textarea class="form-control" rows="3" name="additional_policies"  id="additional_policies" placeholder="eg. All rates are per night rates.">
+												<% if(!_.isUndefined(roomdata.additionalpolicies)) {%>
+														<%=roomdata.additionalpolicies%> 
+												<% } %>
+											</textarea>
 										</div>
 										<a class="edit-link edit-additional-policies" href="javascript:void(0)"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
 										<a class="delete-link delete-additional-policies hidden" href="javascript:void(0)"><span class="glyphicon glyphicon-trash"></span> Delete</a>
