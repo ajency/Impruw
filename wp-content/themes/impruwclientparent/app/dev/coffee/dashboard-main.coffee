@@ -9,6 +9,7 @@ require.config
 		underscore	: 'plugins/underscore'
 		backbone    : 'plugins/backbone'
 		marionette  : 'plugins/backbone.marionette'
+		tpl 		: 'plugins/tpl'
 	shim:
 		underscore : 
 			exports : '_'
@@ -22,6 +23,10 @@ require.config
 ##
 ## Start with application
 ##
-require ['plugins/plugin-loader','configs/config-loader','dashboard-app','apps/apps-loader'], (plugins, configs, App)->
+require [	'plugins/plugin-loader'
+			'configs/config-loader'
+			'dashboard-app'
+			'controllers/base-controller'
+			'apps/apps-loader'], (plugins, configs, App)->
 
 	App.start()

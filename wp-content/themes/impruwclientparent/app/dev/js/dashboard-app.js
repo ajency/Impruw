@@ -8,7 +8,7 @@
       rightRegion: '#aj-imp-right',
       footerRegion: '#footer-section'
     });
-    App.rootRoute = "dashboard";
+    App.rootRoute = "";
     App.addInitializer(function() {
       return App.module('LeftNav').start();
     });

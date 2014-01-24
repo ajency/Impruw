@@ -11,7 +11,7 @@ define ['marionette'], (Marionette)->
 		rightRegion 	: '#aj-imp-right'
 		footerRegion 	: '#footer-section'
 
-	App.rootRoute = "dashboard"
+	App.rootRoute = ""
 
 	App.addInitializer ()->
 		App.module('LeftNav').start()

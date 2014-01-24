@@ -1,22 +1,21 @@
-define ['dashboard-app','apps/leftnav/show/controller'], (app, ShowController)->
+define ['dashboard-app','apps/leftnav/show/controller'], (app)->
 
 	app.module 'LeftNav', (LeftNav, App, Backbone, Marionette, $, _)->
 
-		@startWithParent = false
-
-		class LeftNav.Router extends Marionette.AppRouter
-
-			appRoutes : 
-				'leftNav' : 'show'
-
 		API = 
-			show : 
-				new ShowController
+			show : ()->
+
+				controller = new LeftNav.Show.Controller
+									region : App.leftRegion
+
+				controller.showLeftNav()
+				
 
 		LeftNav.on 'start': ->
+			
 			_.logAppMsg "LeftNav Module started..."
-			new Router 
-				controller : API
+
+			API.show()
 			
 
 		
