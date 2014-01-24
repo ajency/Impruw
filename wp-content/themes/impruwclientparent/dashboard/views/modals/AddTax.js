@@ -46,6 +46,7 @@ define(['modal', 'tpl!templates/modal/AddTax.tpl','parsley'],
     		
     		addNewTaxType :function(evt){
     			
+    			console.log('new  tax added click')
     			if (!this.$el.find('#form_add_tax').parsley('validate'))
     				  return;
     			
@@ -68,13 +69,13 @@ define(['modal', 'tpl!templates/modal/AddTax.tpl','parsley'],
     							data,
     							function(response){
     								 
-    								
+    								response.popupmodel = true;  
     								if(response.code=='OK'){
     									//$(evt_.target).parent().parent().find('#taxtype_name').val("")
     								 //	$(evt_.target).parent().parent().find('#taxtype_price').val("")
     									self_.$el.find('#form_add_tax')[0].reset();
     								 	
-    								 	response.popupmodel = true;    								 	
+    								 	  								 	
     								 	ImpruwDashboard.vent.trigger('new-tax-added',response,evt_);
     									
     							 	

@@ -2288,11 +2288,28 @@ add_action( 'wp_ajax_nopriv_update_checkinformat', 'update_checkinformat' );
 
 function add_date_range(){
 	
+	global $wpdb;
+	
 	$from_daterange 	= date('Y-m-d H:i:s',strtotime($_POST['fromdaterange']));
 	$to_daterange 	    = date('Y-m-d H:i:s',strtotime($_POST['todaterange'])); 
- 	$label              = "winter season test";
-	
-	global $wpdb; 
+ 	$label              = $_POST['daterangeLabel'];
+
+ 	
+ 	//check if selected date range overlaps with the existing date range
+ 	$qry_check_range = $wpdb->prepare("SELECT * FROM {$wpdb->prefix}daterange WHERE  from_date<=%s and to_date>=%s", $to_daterange,$from_daterange);
+ 	$result_daterange_overlap = $wpdb->get_results($qry_check_range);
+ 	if($result_daterange_overlap){
+ 		wp_send_json( array( 'code' => 'ERROR', 'msg' =>_('The selected daterange overlaps existing dateranges.') ) ); 		
+ 	} 
+ 	
+ 	//check if daterange label exists
+ 	$qry_exists_label = $wpdb->prepare("SELECT * FROM {$wpdb->prefix}daterange WHERE label = %s",$label);
+ 	$result_exists_label  		  = $wpdb->get_results($qry_exists_label);
+ 	
+ 	if($result_exists_label){
+ 		wp_send_json( array( 'code' => 'ERROR', 'msg' =>_('Daterange label already exists.') ) );
+ 	}
+ 	  
 							
 	/*$qry_insert_daterange = $wpdb->prepare("INSERT INTO {$wpdb->prefix}daterange (  `from`, `to`, `label`) VALUES ( %s, %s, %s);",
 							$from_daterange,$to_daterange,$label); */
@@ -2348,6 +2365,24 @@ function update_daterange(){
 	$table_name = $wpdb->prefix."daterange";
 	
  
+	
+	
+	//check if selected date range overlaps with the existing date range
+ 	$qry_check_range = $wpdb->prepare("SELECT * FROM {$wpdb->prefix}daterange WHERE  from_date<=%s and to_date>=%s and id!= %d", $to_daterange,$from_daterange, $daterange_id);
+ 	$result_daterange_overlap = $wpdb->get_results($qry_check_range);
+ 	if($result_daterange_overlap){
+ 		wp_send_json( array( 'code' => 'ERROR', 'msg' =>_('The selected daterange overlaps other existing dateranges.') ) ); 		
+ 	} 
+ 	
+ 	//check if daterange label exists
+ 	/*$qry_exists_label = $wpdb->prepare("SELECT * FROM {$wpdb->prefix}daterange WHERE label = %s where id != %d",$label,$daterange_id);
+ 	$result_exists_label  		  = $wpdb->get_results($qry_exists_label);
+ 	
+ 	if($result_exists_label){
+ 		wp_send_json( array( 'code' => 'ERROR', 'msg' =>_('Daterange label is already used for other daterange.') ) );
+ 	}
+ 	*/
+ 	
 	
 	/*$result = $wpdb->update(	$table_name,
 								array(	'from_date'	=> $from_daterange,

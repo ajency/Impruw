@@ -85,6 +85,7 @@ define(['modal', 'tpl!templates/modal/AddDateRange.tpl','parsley'],
             	
     			var fromDaterange 	=  $(evt.target).closest('.modal-content').find('#fromdaterange').val() 
     			var toDaterange		=  $(evt.target).closest('.modal-content').find('#todaterange').val() 
+    			var daterangeLabel		=  $(evt.target).closest('.modal-content').find('#daterange_label').val()
     			$(evt.target).next().show();
     			 
     			
@@ -93,7 +94,8 @@ define(['modal', 'tpl!templates/modal/AddDateRange.tpl','parsley'],
     			
     			var data = {	action			: 'add_date_range',						 
     							fromdaterange 	: fromDaterange,
-    							todaterange		: toDaterange
+    							todaterange		: toDaterange,
+    							daterangeLabel 	: daterangeLabel
     						};
     			
     			
