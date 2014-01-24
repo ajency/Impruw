@@ -128,6 +128,11 @@ h6.sub-title {
   font-size: 0.88em;
   color: #555555;
 }
+@media (max-width: 767px) {
+  .site-style-container .topbar .address {
+    text-align: center;
+  }
+}
 .site-style-container .topbar .social-links {
   padding: 1.3em 0 1em;
 }
@@ -229,6 +234,11 @@ h6.sub-title {
 }
 .site-style-container .topbar .social-links .social li:hover a {
   top: -50px;
+}
+@media (max-width: 767px) {
+  .site-style-container .topbar .social-links .social {
+    text-align: center;
+  }
 }
 .site-style-container .main-menu {
   padding: 0;
@@ -337,6 +347,25 @@ h6.sub-title {
   font-size: 1.5em;
   font-weight: 400;
 }
+@media (max-width: 767px) {
+  .site-style-container .pic-box {
+    *zoom: 1;
+  }
+  .site-style-container .pic-box:after,
+  .site-style-container .pic-box:before {
+    clear: both;
+    content: "";
+    display: table;
+  }
+  .site-style-container .pic-box .row {
+    width: 30%;
+    float: left;
+    margin-right: 0.5em;
+  }
+  .site-style-container .pic-box .row .img-holder {
+    height: auto;
+  }
+}
 .site-style-container .white-bg {
   margin: 1em 0;
   padding: 1em 15px;
@@ -435,6 +464,12 @@ h6.sub-title {
   -ms-transition: all 0.25s ease;
   transition: all 0.25s ease;
 }
+@media (max-width: 767px) {
+  .site-style-container .footerbar .left {
+    border-bottom: 1px solid #f2f2f2;
+    padding-bottom: 1em;
+  }
+}
 .site-style-container .footerbar .middle p {
   color: #fff;
   font-weight: 100;
@@ -458,6 +493,13 @@ h6.sub-title {
   -o-transition: all 0.25s ease;
   -ms-transition: all 0.25s ease;
   transition: all 0.25s ease;
+}
+@media (max-width: 767px) {
+  .site-style-container .footerbar .middle {
+    border-bottom: 1px solid #f2f2f2;
+    padding-bottom: 1em;
+    padding-top: 1em;
+  }
 }
 .site-style-container .footerbar .right ul {
   list-style: none;
@@ -502,4 +544,9 @@ h6.sub-title {
 }
 .site-style-container .footerbar .right ul li:hover {
   border-bottom-style: solid;
+}
+@media (max-width: 767px) {
+  .site-style-container .footerbar .right {
+    padding-top: 1em;
+  }
 }
