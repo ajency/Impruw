@@ -4,4 +4,5 @@
 
 define ['jquery'], ($)->
 
-	$
+	$.hello = ()->
+		alert("sdfsdf");

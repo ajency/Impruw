@@ -15,3 +15,14 @@ function get_menu_items(){
 
 }
 add_action('wp_ajax_get-menu-items','get_menu_items');
+
+/**
+ * [get_rooms description]
+ * @return [type] [description]
+ */
+function get_rooms_list(){
+
+	wp_send_json(array(array('name' => 'Room one1'),array('name' => 'Room two')));
+
+}
+add_action('wp_ajax_get-rooms','get_rooms_list');

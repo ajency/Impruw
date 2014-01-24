@@ -1,6 +1,6 @@
-define ['dashboard-app','apps/leftnav/show/controller'], (app)->
+define ['dashboard-app','apps/leftnav/show/controller'], (App)->
 
-	app.module 'LeftNav', (LeftNav, App, Backbone, Marionette, $, _)->
+	App.module 'LeftNav', (LeftNav, App, Backbone, Marionette, $, _)->
 
 		API = 
 			show : ()->
@@ -11,7 +11,7 @@ define ['dashboard-app','apps/leftnav/show/controller'], (app)->
 				controller.showLeftNav()
 				
 
-		LeftNav.on 'start': ->
+		LeftNav.on 'start', ->
 			
 			_.logAppMsg "LeftNav Module started..."
 
