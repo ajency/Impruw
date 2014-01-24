@@ -1648,6 +1648,8 @@ function fetch_daterange_plans($daterange_id){
 	
 	
 	$plans_data = maybe_unserialize(get_option('plans'));
+	if($plans_data==false)
+		return $plans;
 	foreach ($plans_data as $plan_data){
 	 
 		$plan_name 			= $plan_data['label'];
