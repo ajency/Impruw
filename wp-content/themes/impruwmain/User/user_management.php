@@ -989,7 +989,8 @@ function user_login() {
 
 
             $blog = get_active_blog_for_user( $user->ID );
-            $blog_url = $blog->siteurl; /* or $blog->path, together with $blog->siteurl */
+            $blog_url = $blog->siteurl.'/dashboard/'; /* or $blog->path, together with $blog->siteurl */
+            
             //var_dump($blog_url);
             //wp_redirect( $blog_url );
             //exit;
