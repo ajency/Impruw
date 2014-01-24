@@ -684,10 +684,15 @@ blockquote p {
   -ms-transition: all 0.25s ease;
   transition: all 0.25s ease;
 }
-.site-style-container .roomList .roomBox img {
+.site-style-container .roomList .roomBox .imgHolder {
   -moz-box-shadow: 2px 2px 5px #989898;
   -webkit-box-shadow: 2px 2px 5px #989898;
   box-shadow: 2px 2px 5px #989898;
+  height: 260px;
+  overflow: hidden;
+}
+.site-style-container .roomList .roomBox .imgHolder img {
+  width: 100%;
 }
 .site-style-container .roomList .roomBox .roomName {
   background: #989898;
@@ -713,6 +718,10 @@ blockquote p {
   -o-transition: all 0.25s ease;
   -ms-transition: all 0.25s ease;
   transition: all 0.25s ease;
+}
+.site-style-container .roomList .roomBox .facilities {
+  height: 50px;
+  overflow: hidden;
 }
 .site-style-container .roomList .roomBox .roomAmenity {
   font-size: 0.722em;
