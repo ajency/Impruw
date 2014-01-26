@@ -1694,3 +1694,6 @@ form .aj-imp-submit:hover {
 .panel .panel-body p {
   color: #aaaaaa;
 }
+.loading-container {
+  margin-top: 100px;
+}

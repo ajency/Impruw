@@ -13,9 +13,12 @@ require.config
 		text 		: 'plugins/text'
 		spin 		: 'plugins/spin'
 		jqueryspin  : 'plugins/jquery.spin'
+		bootstrap   : 'plugins/bootstrap'
+		app 		: 'dashboard-app' 
 	shim:
 		underscore : 
 			exports : '_'
+		jquery : ['underscore']
 		backbone : 
 			deps : ['jquery','underscore']
 			exports : 'Backbone'
@@ -23,6 +26,8 @@ require.config
 			deps : ['backbone']
 			exports : 'Marionette'
 		jqueryspin : ['spin']
+		bootstrap : ['jquery']
+		app : ['plugins/plugin-loader','configs/config-loader']
 
 	tpl :
 		extension : '.tpl'
@@ -32,7 +37,7 @@ require.config
 ##
 require [	'plugins/plugin-loader'
 			'configs/config-loader'
-			'dashboard-app'
+			'app'
 			'controllers/base-controller'
 			'components/component-loader'
 			'apps/apps-loader'], (plugins, configs, App)->

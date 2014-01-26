@@ -2,5 +2,6 @@ define [
 		'configs/jquery'
 		'configs/underscore'
 		'configs/backbone'
-		'configs/marionette'
-		]
+		'configs/marionette/dialog-region'
+		'configs/marionette/marionette'
+		],->

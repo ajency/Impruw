@@ -1,5 +1,5 @@
 define ["marionette"
-		"dashboard-app"], (Marionette, App) ->
+		"app"], (Marionette, App) ->
 
 	class AppController extends Marionette.Controller
 		

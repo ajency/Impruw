@@ -1,4 +1,4 @@
-define ['dashboard-app'
+define ['app'
 		'tpl!apps/leftnav/show/templates/leftNav'
 		'tpl!apps/leftnav/show/templates/menuitem'],
 		(App, leftNavTpl, menuitemTpl)->
@@ -20,5 +20,4 @@ define ['dashboard-app'
 					itemView : View.MenuItem
 
 
-				
 			return App.LeftNav.Show.View

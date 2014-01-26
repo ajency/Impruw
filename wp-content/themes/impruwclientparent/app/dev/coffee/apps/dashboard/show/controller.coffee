@@ -1,5 +1,5 @@
 
-define ['dashboard-app', 'controllers/base-controller'
+define ['app', 'controllers/base-controller'
 		'apps/dashboard/show/views'], (App, AppController)->
 
 	App.module 'DashboardApp.Show', (Show, App, Backbone, Marionette, $, _)->

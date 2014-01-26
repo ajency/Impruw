@@ -1,5 +1,5 @@
 define [
-		'dashboard-app'
+		'app'
 		'controllers/base-controller'
 		'components/loading/view'
 	], (App, AppController, LoadingView)->

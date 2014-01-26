@@ -1,4 +1,4 @@
-define ['dashboard-app'
+define ['app'
 		'tpl!apps/rooms/list/templates/mainview'
 		'tpl!apps/rooms/list/templates/singleroom'
 		'tpl!apps/rooms/list/templates/emptyview'],
@@ -10,6 +10,13 @@ define ['dashboard-app'
 				class View.RoomSingle extends Marionette.ItemView
 
 					template : roomsingleTpl
+
+					tagName : 'tr'
+
+					events : 
+						'click a.editroom_link' : (e)-> 
+								e.preventDefault()
+								@trigger 'edit:room:clicked', @model
 
 				class View.EmptyView extends Marionette.ItemView
 

@@ -1,4 +1,4 @@
-define ['dashboard-app'
+define ['app'
 		'tpl!apps/dashboard/show/templates/mainview'],
 		(App, mainviewTpl)->
 

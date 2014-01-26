@@ -1,4 +1,4 @@
-define ['dashboard-app','apps/leftnav/show/controller'], (App)->
+define ['app','apps/leftnav/show/controller'], (App)->
 
 	App.module 'LeftNav', (LeftNav, App, Backbone, Marionette, $, _)->
 

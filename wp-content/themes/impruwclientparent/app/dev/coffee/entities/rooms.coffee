@@ -1,4 +1,4 @@
-define ["dashboard-app", 'backbone'], (App, Backbone) ->
+define ["app", 'backbone'], (App, Backbone) ->
 
     class Room extends Backbone.Model
 

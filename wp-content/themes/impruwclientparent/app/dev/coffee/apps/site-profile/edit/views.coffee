@@ -1,4 +1,4 @@
-define ['dashboard-app'
+define ['app'
 		'tpl!apps/site-profile/edit/templates/mainview'
 		'tpl!apps/site-profile/edit/templates/siteprofile'],
 		(App, mainviewTpl, siteprofileTpl)->
@@ -12,6 +12,9 @@ define ['dashboard-app'
 
 					onRender :()->
 						console.log @model
+
+					events : 
+						'click .save-site-profile' : -> @triggers "save:site:profile"
 
 
 				class View.MainView extends Marionette.ItemView

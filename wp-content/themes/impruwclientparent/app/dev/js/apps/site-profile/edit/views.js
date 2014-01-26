@@ -3,7 +3,7 @@
   var __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  define(['dashboard-app', 'tpl!apps/site-profile/edit/templates/mainview', 'tpl!apps/site-profile/edit/templates/siteprofile'], function(App, mainviewTpl, siteprofileTpl) {
+  define(['app', 'tpl!apps/site-profile/edit/templates/mainview', 'tpl!apps/site-profile/edit/templates/siteprofile'], function(App, mainviewTpl, siteprofileTpl) {
     App.module('SiteProfileApp.Edit.View', function(View, App, Backbone, Marionette, $, _) {
       var _ref, _ref1;
       View.SiteProfile = (function(_super) {
@@ -18,6 +18,12 @@
 
         SiteProfile.prototype.onRender = function() {
           return console.log(this.model);
+        };
+
+        SiteProfile.prototype.events = {
+          'click .save-site-profile': function() {
+            return this.triggers("save:site:profile");
+          }
         };
 
         return SiteProfile;

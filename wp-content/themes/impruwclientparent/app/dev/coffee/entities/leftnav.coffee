@@ -1,7 +1,7 @@
 #
 #
 #
-define ["dashboard-app", 'backbone'], (App, Backbone) ->
+define ["app", 'backbone'], (App, Backbone) ->
 
     class LeftNavItems extends Backbone.Collection
 

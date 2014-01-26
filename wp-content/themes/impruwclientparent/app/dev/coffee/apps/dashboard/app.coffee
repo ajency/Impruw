@@ -1,10 +1,11 @@
-define ['dashboard-app','apps/dashboard/show/controller'], (App)->
+define ['app','apps/dashboard/show/controller'], (App)->
 
 	App.module 'DashboardApp', (DashboardApp, App, Backbone, Marionette, $, _)->
 
 		class DashboardApp.Router extends Marionette.AppRouter
 
 			appRoutes :
+				'' : 'show'
 				'dashboard' : 'show'
 
 		API = 

@@ -1,11 +1,11 @@
 ##
 ## Set backbone overrites or mixins
 ##
-
 define ['marionette'], (Marionette)->
 
+	# Extends the Marionette.Application to add some additional functions 
 	_.extend Marionette.Application::,
-	
+		
 		navigate: (route, options = {}) ->
 			Backbone.history.navigate route, options
 	
@@ -17,10 +17,12 @@ define ['marionette'], (Marionette)->
 			if Backbone.history
 				Backbone.history.start()
 		
+		# register a controller instance
 		register: (instance, id) ->
 			@_registry ?= {}
 			@_registry[id] = instance
 		
+		# unregister a controller instance
 		unregister: (instance, id) ->
 			delete @_registry[id]
 		
@@ -34,9 +36,12 @@ define ['marionette'], (Marionette)->
 		getRegistrySize: ->
 			_.size @_registry
 
+
+	# Override the loadTemplate function as we are using requirejs
+	# Marionette expects "templateId" to be the ID of a DOM element.
+	# But with RequireJS, templateId is actually the full text of the template.
 	Marionette.TemplateCache::loadTemplate = (templateId) ->
-		# Marionette expects "templateId" to be the ID of a DOM element.
-		# But with RequireJS, templateId is actually the full text of the template.
+		
 		template = templateId
 		
 		if not template or template.length is 0

@@ -1,4 +1,4 @@
-define ['dashboard-app', 'controllers/base-controller'
+define ['app', 'controllers/base-controller'
 		'apps/site-profile/edit/views', 'entities/site'], (App, AppController)->
 
 	App.module 'SiteProfileApp.Edit', (Edit, App, Backbone, Marionette, $, _)->

@@ -22,7 +22,7 @@
 </head>
 <body>
 	<div class="aj-imp-container container">
-		<div class="row">
+		<div class="row aj-upper-content">
 			<div class="aj-imp-left col-md-3 col-sm-4" id="aj-imp-left">
 			</div>
 			<!-- /aj-imp-left -->
@@ -38,6 +38,11 @@
 			</div>
 		</div>
 	</div>
+	<!-- Dialog region code -->
+	<div id="dialog-region" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+		
+	</div>
+
 	<script>
         var THEMEURL    = '<?php echo get_parent_template_directory_uri(); ?>';
         var SITEURL     = '<?php echo site_url(); ?>';

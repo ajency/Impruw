@@ -3,7 +3,7 @@
   var __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  define(['dashboard-app', 'tpl!apps/leftnav/show/templates/leftNav', 'tpl!apps/leftnav/show/templates/menuitem'], function(App, leftNavTpl, menuitemTpl) {
+  define(['app', 'tpl!apps/leftnav/show/templates/leftNav', 'tpl!apps/leftnav/show/templates/menuitem'], function(App, leftNavTpl, menuitemTpl) {
     App.module('LeftNav.Show.View', function(View, App, Backbone, Marionette, $, _) {
       var _ref, _ref1;
       View.MenuItem = (function(_super) {

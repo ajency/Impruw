@@ -1725,3 +1725,6 @@ form .aj-imp-submit:hover {
   font-size: 1.1em;
   color: #aaaaaa;
 }
+.loading-container {
+  margin-top: 100px;
+}

@@ -11,12 +11,15 @@
       tpl: 'plugins/tpl',
       text: 'plugins/text',
       spin: 'plugins/spin',
-      jqueryspin: 'plugins/jquery.spin'
+      jqueryspin: 'plugins/jquery.spin',
+      bootstrap: 'plugins/bootstrap',
+      app: 'dashboard-app'
     },
     shim: {
       underscore: {
         exports: '_'
       },
+      jquery: ['underscore'],
       backbone: {
         deps: ['jquery', 'underscore'],
         exports: 'Backbone'
@@ -25,14 +28,16 @@
         deps: ['backbone'],
         exports: 'Marionette'
       },
-      jqueryspin: ['spin']
+      jqueryspin: ['spin'],
+      bootstrap: ['jquery'],
+      app: ['plugins/plugin-loader', 'configs/config-loader']
     },
     tpl: {
       extension: '.tpl'
     }
   });
 
-  require(['plugins/plugin-loader', 'configs/config-loader', 'dashboard-app', 'controllers/base-controller', 'components/component-loader', 'apps/apps-loader'], function(plugins, configs, App) {
+  require(['plugins/plugin-loader', 'configs/config-loader', 'app', 'controllers/base-controller', 'components/component-loader', 'apps/apps-loader'], function(plugins, configs, App) {
     return App.start();
   });
 

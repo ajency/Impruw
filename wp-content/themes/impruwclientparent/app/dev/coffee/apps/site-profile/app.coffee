@@ -1,5 +1,5 @@
 define [
-		'dashboard-app'
+		'app'
 		'apps/site-profile/edit/controller'
 		], (App)->
 

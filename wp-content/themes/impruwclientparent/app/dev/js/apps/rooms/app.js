@@ -3,7 +3,7 @@
   var __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  define(['dashboard-app', 'apps/rooms/list/controller'], function(App) {
+  define(['app', 'apps/rooms/list/controller', 'apps/rooms/edit/controller'], function(App) {
     return App.module('RoomsApp', function(RoomsApp, App, Backbone, Marionette, $, _) {
       var API, _ref;
       RoomsApp.Router = (function(_super) {
@@ -28,12 +28,18 @@
           list = new RoomsApp.List.Controller;
           return list.showListView();
         },
-        edit: function(id) {
+        edit: function(room) {
           var edit;
-          edit = new RoomsApp.Edit.Controller(id);
-          return edit.showEdit();
+          edit = new RoomsApp.Edit.Controller({
+            model: room,
+            region: App.dialogRegion
+          });
+          return console.log(room);
         }
       };
+      App.vent.on("edit:room:clicked", function(room) {
+        return API.edit(room);
+      });
       return RoomsApp.on({
         'start': function() {
           _.logAppMsg("Room Module started...");
