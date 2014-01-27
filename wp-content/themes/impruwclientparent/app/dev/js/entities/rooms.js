@@ -4,46 +4,60 @@
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
   define(["app", 'backbone'], function(App, Backbone) {
-    var API, Room, RoomCollection, _ref, _ref1;
-    Room = (function(_super) {
-      __extends(Room, _super);
+    return App.module("Entities.Rooms", function(Rooms, App) {
+      var API, _ref, _ref1;
+      Rooms.Room = (function(_super) {
+        __extends(Room, _super);
 
-      function Room() {
-        _ref = Room.__super__.constructor.apply(this, arguments);
-        return _ref;
-      }
-
-      return Room;
-
-    })(Backbone.Model);
-    RoomCollection = (function(_super) {
-      __extends(RoomCollection, _super);
-
-      function RoomCollection() {
-        _ref1 = RoomCollection.__super__.constructor.apply(this, arguments);
-        return _ref1;
-      }
-
-      return RoomCollection;
-
-    })(Backbone.Collection);
-    API = {
-      getRooms: function(action, param) {
-        var rooms;
-        if (param == null) {
-          param = {};
+        function Room() {
+          _ref = Room.__super__.constructor.apply(this, arguments);
+          return _ref;
         }
-        rooms = new RoomCollection;
-        rooms.url = AJAXURL + '?action=get-rooms';
-        rooms.fetch({
-          reset: true,
-          data: param
-        });
-        return rooms;
-      }
-    };
-    return App.reqres.setHandler("get:room:entities", function() {
-      return API.getRooms();
+
+        Room.prototype.relations = [
+          {
+            type: Backbone.HasMany,
+            key: 'facilities',
+            relatedModel: 'App.Entities.Facilities.Facility'
+          }, {
+            type: Backbone.HasMany,
+            key: 'attachments',
+            relatedModel: 'App.Entities.Media.MediaModel'
+          }
+        ];
+
+        return Room;
+
+      })(Backbone.RelationalModel);
+      Rooms.RoomCollection = (function(_super) {
+        __extends(RoomCollection, _super);
+
+        function RoomCollection() {
+          _ref1 = RoomCollection.__super__.constructor.apply(this, arguments);
+          return _ref1;
+        }
+
+        return RoomCollection;
+
+      })(Backbone.Collection);
+      API = {
+        getRooms: function(param) {
+          var rooms;
+          if (param == null) {
+            param = {};
+          }
+          rooms = new Rooms.RoomCollection;
+          rooms.url = AJAXURL + '?action=get-rooms';
+          rooms.fetch({
+            reset: true,
+            data: param
+          });
+          return rooms;
+        }
+      };
+      return App.reqres.setHandler("get:room:entities", function() {
+        return API.getRooms();
+      });
     });
   });
 

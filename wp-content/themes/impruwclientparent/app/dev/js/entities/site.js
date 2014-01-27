@@ -4,29 +4,31 @@
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
   define(["app", 'backbone'], function(App, Backbone) {
-    var API, Site, _ref;
-    Site = (function(_super) {
-      __extends(Site, _super);
+    return App.module("Entities.Site", function(Site, App) {
+      var API, SiteModel, _ref;
+      SiteModel = (function(_super) {
+        __extends(SiteModel, _super);
 
-      function Site() {
-        _ref = Site.__super__.constructor.apply(this, arguments);
-        return _ref;
-      }
+        function SiteModel() {
+          _ref = SiteModel.__super__.constructor.apply(this, arguments);
+          return _ref;
+        }
 
-      return Site;
+        return SiteModel;
 
-    })(Backbone.Model);
-    API = {
-      getSiteProfile: function() {
-        var site;
-        site = new Site;
-        site.url = AJAXURL + '?action=get-site-profile';
-        site.fetch();
-        return site;
-      }
-    };
-    return App.reqres.setHandler("get:site:profile", function() {
-      return API.getSiteProfile();
+      })(Backbone.Model);
+      API = {
+        getSiteProfile: function() {
+          var site;
+          site = new SiteModel;
+          site.url = AJAXURL + '?action=get-site-profile';
+          site.fetch();
+          return site;
+        }
+      };
+      return App.reqres.setHandler("get:site:profile", function() {
+        return API.getSiteProfile();
+      });
     });
   });
 

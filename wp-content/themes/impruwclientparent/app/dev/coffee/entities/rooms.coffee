@@ -1,24 +1,39 @@
 define ["app", 'backbone'], (App, Backbone) ->
 
-    class Room extends Backbone.Model
+        App.module "Entities.Rooms", (Rooms, App)->
 
-    class RoomCollection extends Backbone.Collection
+            class Rooms.Room extends Backbone.RelationalModel
 
-    ##PUBLIC API FOR ENitity
-    API =
-        getRooms: (action, param ={})->
+                relations : [(
+                                type : Backbone.HasMany
+                                key  : 'facilities'
+                                relatedModel : 'App.Entities.Facilities.Facility'
+                            ),
+                            (
+                                type : Backbone.HasMany
+                                key  : 'attachments'
+                                relatedModel : 'App.Entities.Media.MediaModel'
+                            )]
 
-            rooms = new RoomCollection
-            
-            rooms.url = AJAXURL + '?action=get-rooms'
-            
-            rooms.fetch
-                        reset : true
-                        data  : param
-                        
-            rooms
+            class Rooms.RoomCollection extends Backbone.Collection
 
 
-    #REQUEST HANDLERS
-    App.reqres.setHandler "get:room:entities", ->
-        API.getRooms()
+
+            #PUBLIC API FOR ENtity
+            API =
+                getRooms: (param ={})->
+
+                    rooms = new Rooms.RoomCollection
+                    
+                    rooms.url = AJAXURL + '?action=get-rooms'
+                    
+                    rooms.fetch
+                                reset : true
+                                data  : param
+                                
+                    rooms
+
+
+            #REQUEST HANDLERS
+            App.reqres.setHandler "get:room:entities", ->
+                API.getRooms()

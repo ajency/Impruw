@@ -1,24 +1,23 @@
-#
-#
-#
 define ["app", 'backbone'], (App, Backbone) ->
 
-    class Site extends Backbone.Model
+        App.module "Entities.Site", (Site, App)->
 
-    #PUBLIC API FOR ENitity
-    API =
-        getSiteProfile: ()->
+            class SiteModel extends Backbone.Model
 
-            site = new Site
-            
-            site.url = AJAXURL + '?action=get-site-profile'
-            
-            site.fetch()
-                        
-            site
+            #PUBLIC API FOR ENitity
+            API =
+                getSiteProfile: ()->
+
+                    site = new SiteModel
+                    
+                    site.url = AJAXURL + '?action=get-site-profile'
+                    
+                    site.fetch()
+                                
+                    site
 
 
-    #REQUEST HANDLERS
-    App.reqres.setHandler "get:site:profile", ->
+            #REQUEST HANDLERS
+            App.reqres.setHandler "get:site:profile", ->
 
-        API.getSiteProfile()
+                API.getSiteProfile()
