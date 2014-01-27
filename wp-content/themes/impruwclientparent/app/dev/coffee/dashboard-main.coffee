@@ -22,24 +22,24 @@ require.config
 		jqueryvalidate 		: 'plugins/jquery.validate'
 		app 				: 'dashboard-app' 
 	shim:
-		underscore : 
+		underscore: 
 			exports : '_'
-		jquery : ['underscore']
-		backbone : 
-			deps : ['jquery','underscore']
+		jquery 				: ['underscore']
+		backbone: 
+			deps 	: ['jquery','underscore']
 			exports : 'Backbone'
 		marionette : 
-			deps : ['backbone']
+			deps 	: ['backbone']
 			exports : 'Marionette'
-		jqueryvalidate : ['jquery']
-		backboneform : ['backbone']
-		backbonesyphon : ['backbone']
-		backbonerelational : ['backbone']
-		jqueryspin : ['spin']
-		bootstrap : ['jquery']
-		radio : ['bootstrap']
-		checkbox : ['bootstrap']
-		app : ['plugins/plugin-loader','configs/config-loader']
+		jqueryvalidate 		: ['jquery']
+		backboneform 		: ['backbone']
+		backbonesyphon 		: ['backbone']
+		backbonerelational 	: ['backbone']
+		jqueryspin 			: ['spin']
+		bootstrap 			: ['jquery']
+		radio 				: ['bootstrap']
+		checkbox 			: ['bootstrap']
+		app 				: ['plugins/plugin-loader','configs/config-loader']
 
 	tpl :
 		extension : '.tpl'
@@ -50,6 +50,7 @@ require.config
 require [	'plugins/plugin-loader'
 			'configs/config-loader'
 			'app'
+			'entities/appstate'
 			'controllers/base-controller'
 			'components/component-loader'
 			'apps/apps-loader'], (plugins, configs, App)->

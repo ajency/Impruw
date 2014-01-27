@@ -49,7 +49,7 @@
     }
   });
 
-  require(['plugins/plugin-loader', 'configs/config-loader', 'app', 'controllers/base-controller', 'components/component-loader', 'apps/apps-loader'], function(plugins, configs, App) {
+  require(['plugins/plugin-loader', 'configs/config-loader', 'app', 'entities/appstate', 'controllers/base-controller', 'components/component-loader', 'apps/apps-loader'], function(plugins, configs, App) {
     return App.start();
   });
 

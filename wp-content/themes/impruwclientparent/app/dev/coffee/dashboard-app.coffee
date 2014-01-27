@@ -1,7 +1,7 @@
 ##
 ## The main dashboard App
 ##
-define ['marionette', 'entities/appstate'], (Marionette)->
+define ['marionette'], (Marionette)->
 
 	window.App = new Marionette.Application
 	
@@ -14,6 +14,9 @@ define ['marionette', 'entities/appstate'], (Marionette)->
 
 	# The default route for app
 	App.rootRoute = ""
+
+	#loginRoute in case session expires
+	App.loginRoute = "login"
 
 	App.on 'start',()->
 		_.logAppMsg "Application Started...."

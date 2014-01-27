@@ -8,19 +8,17 @@ define ["app", 'backbone'], (App, Backbone) ->
                 defaults:
                     userId      : 0
                     accessToken : _.unique 'access-token'
-                    loginStatus : null
+                    loginStatus : false
 
                 #check if app is in logged in state or not
                 isLoggedIn : ()->
-
-                    return true if @get 'loginstatus' is true
-
-                    false
-
+                    
+                    @get 'loginStatus'
+                    
 
             appState = new AppState APPSTATE
 
-            appState.on "loginStatus:change", App.command.execute "app:loginstatus:changed"
+            appState.on "loginStatus:change", App.commands.execute "app:loginstatus:changed"
 
             API =
                 getAppState: ->

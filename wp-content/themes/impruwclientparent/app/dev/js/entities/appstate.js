@@ -17,21 +17,18 @@
         AppState.prototype.defaults = {
           userId: 0,
           accessToken: _.unique('access-token'),
-          loginStatus: null
+          loginStatus: false
         };
 
         AppState.prototype.isLoggedIn = function() {
-          if (this.get('loginstatus' === true)) {
-            return true;
-          }
-          return false;
+          return this.get('loginStatus');
         };
 
         return AppState;
 
       })(Backbone.Model);
       appState = new AppState(APPSTATE);
-      appState.on("loginStatus:change", App.command.execute("app:loginstatus:changed"));
+      appState.on("loginStatus:change", App.commands.execute("app:loginstatus:changed"));
       API = {
         getAppState: function() {
           return appState;

@@ -15,7 +15,7 @@
         }
 
         Controller.prototype.initialize = function() {
-          return this.myProfile = App.request("get:my:profile");
+          return this.myProfile = App.request("get:user:profile");
         };
 
         Controller.prototype.showMyProfile = function() {

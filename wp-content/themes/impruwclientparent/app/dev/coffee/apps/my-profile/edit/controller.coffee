@@ -7,7 +7,7 @@ define ['app', 'controllers/base-controller'
 
 			initialize:()->
 
-				@myProfile = App.request "get:my:profile"
+				@myProfile = App.request "get:user:profile"
 
 				#@layout = @.getLayout()
 			
