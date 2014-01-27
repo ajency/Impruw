@@ -3,16 +3,16 @@ define ['marionette'], (Marionette) ->
 
 	class Marionette.Region.Dialog extends Marionette.Region
 
-		constructor : ->
-
-			console.log "Into constructor"
-
-
+		#initiate modal on show
 		onShow :(view)->
 
 			@setupBindings view
 
-			@$el.modal()
+			options = if view.dialog then view.dialog else {}
+			
+			_.defaults options,{}
+
+			@$el.modal(options)
 
 			@$el.modal 'show'
 

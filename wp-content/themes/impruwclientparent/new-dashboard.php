@@ -39,9 +39,8 @@
 		</div>
 	</div>
 	<!-- Dialog region code -->
-	<div id="dialog-region" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-		
-	</div>
+	<div id="dialog-region" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
+	<div id="login-region" class="modal" tabindex="-1" role="dialog" aria-hidden="true"></div>
 
 	<script>
         var THEMEURL    = '<?php echo get_parent_template_directory_uri(); ?>';

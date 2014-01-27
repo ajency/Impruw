@@ -8,6 +8,9 @@
       footerRegion: '#footer-section',
       dialogRegion: Marionette.Region.Dialog.extend({
         el: '#dialog-region'
+      }),
+      loginRegion: Marionette.Region.Dialog.extend({
+        el: '#login-region'
       })
     });
     App.rootRoute = "";
@@ -34,7 +37,7 @@
     App.on("initialize:after", function(options) {
       var appState;
       appState = App.request("get:current:appstate");
-      if (appState.isLoggedIn()) {
+      if (!appState.isLoggedIn()) {
         App.startHistory();
         if (!this.getCurrentRoute()) {
           return App.navigate(this.rootRoute, {

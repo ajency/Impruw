@@ -4,17 +4,22 @@
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
   define(['marionette'], function(Marionette) {
+    var _ref;
     return Marionette.Region.Dialog = (function(_super) {
       __extends(Dialog, _super);
 
       function Dialog() {
-        console.log("Into constructor");
+        _ref = Dialog.__super__.constructor.apply(this, arguments);
+        return _ref;
       }
 
       Dialog.prototype.onShow = function(view) {
-        var _this = this;
+        var options,
+          _this = this;
         this.setupBindings(view);
-        this.$el.modal();
+        options = view.dialog ? view.dialog : {};
+        _.defaults(options, {});
+        this.$el.modal(options);
         this.$el.modal('show');
         return this.$el.on('hidden.bs.modal', function() {
           return _this.closeDialog();

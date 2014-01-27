@@ -28,7 +28,7 @@
 
       })(Backbone.Model);
       appState = new AppState(APPSTATE);
-      appState.on("loginStatus:change", App.commands.execute("app:loginstatus:changed"));
+      appState.on("loginStatus:change", App.commands.execute("app:loginstatus:changed", appState.toJSON()));
       API = {
         getAppState: function() {
           return appState;

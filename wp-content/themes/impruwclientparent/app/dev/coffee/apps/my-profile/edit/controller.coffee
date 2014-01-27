@@ -5,12 +5,13 @@ define ['app', 'controllers/base-controller'
 
 		class Edit.Controller extends AppController
 
+			#initiliaze controller
 			initialize:()->
 
 				@myProfile = App.request "get:user:profile"
 
-				#@layout = @.getLayout()
 			
+			#show my profile view
 			showMyProfile : ()->	
 				
 				view = @.getMainView(@myProfile)	
@@ -18,10 +19,11 @@ define ['app', 'controllers/base-controller'
 				@show view,(loading : true)
 
 
+			#get main view 
 			getMainView : (model)->
 				
 				new Edit.View.MainView
-						model : model
+							model : model
 
 			
 	App.MyProfileApp.Edit.Controller		

@@ -11,6 +11,7 @@ define ['marionette'], (Marionette)->
 		rightRegion 	: '#aj-imp-right'
 		footerRegion 	: '#footer-section'
 		dialogRegion 	: Marionette.Region.Dialog.extend el : '#dialog-region'
+		loginRegion 	: Marionette.Region.Dialog.extend el : '#login-region'
 
 	# The default route for app
 	App.rootRoute = ""
@@ -47,7 +48,7 @@ define ['marionette'], (Marionette)->
 
 		appState = App.request "get:current:appstate"
 
-		if appState.isLoggedIn()
+		if not appState.isLoggedIn()
 			App.startHistory()
 			App.navigate(@rootRoute, trigger: true) unless @getCurrentRoute()
 		else
