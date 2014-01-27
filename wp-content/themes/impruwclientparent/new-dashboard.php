@@ -51,7 +51,7 @@
         var SITEID 		= {'id':<?php echo get_current_blog_id(); ?>}
         var UPLOADURL 	= '<?php echo admin_url('async-upload.php'); ?>';
         var _WPNONCE 	= '<?php echo wp_create_nonce('media-form');?>'; 
-        var APPSTATE 	= {userId : 1, accessToken : 'xklfti3967xwiltyiosp98drt5', loginStatus : true};
+        var APPSTATE 	= <?php echo impruw_app_model() ?>;
      </script>
 
 	<script
