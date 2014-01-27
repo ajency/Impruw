@@ -18,7 +18,8 @@ define ["app", 'backbone'], (App, Backbone) ->
 
             appState = new AppState APPSTATE
 
-            appState.on "loginStatus:change", App.commands.execute "app:loginstatus:changed", appState.toJSON()
+            appState.on "change:loginStatus", ->
+                App.commands.execute "app:loginstatus:changed", appState.toJSON()
 
             API =
                 getAppState: ->

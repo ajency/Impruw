@@ -10,7 +10,7 @@ define [
 					appRoutes :
 						'login' : 'showLogin'
 
-				#public API
+				#PUBLIC API
 				API = 
 					showLogin : ()->
 
