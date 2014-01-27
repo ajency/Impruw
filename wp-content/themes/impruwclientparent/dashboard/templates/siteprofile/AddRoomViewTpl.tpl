@@ -453,13 +453,20 @@ var facilities_selected_exists;
 									
 									
 									 
-											<table class="table table-bordered table-striped 
-											<%   if (  (roomdata.taxtypes.length<=0) || (_.isUndefined(roomdata.taxtypes.length))  ) { %>hidden<% } %>" id="tax_list">
+											<table class="table table-bordered table-striped" id="tax_list">
 													<thead>
 														<th>Tax Name</th>
 														<th>Tax Percentage</th>
 														<th>Actions</th>
 													</thead>
+
+													<%   if (  (roomdata.taxtypes.length<=0) || (_.isUndefined(roomdata.taxtypes.length))  ) { %>
+														<tr class="no-data">
+															<td>No Taxes Set</td>
+															<td>No Taxes Set</td>
+															<td>No Taxes Set</td>
+														</tr>
+													<% } %>
 									
 											<%  
 											 if(roomdata.taxtypes.length>0){
@@ -543,12 +550,20 @@ var facilities_selected_exists;
 									<div class="alert alert-success hidden status_message"></div>
 									<div class="col-sm-12">
 									
-											<table class="table table-bordered table-striped  <%   if (  (roomdata.addontypes.length<=0) || (_.isUndefined(roomdata.addontypes.length))  ) { %>hidden<% } %>" id="addons_list">
+											<table class="table table-bordered table-striped" id="addons_list">
 														<thead>
 															<th>Add-On</th>
 															<th>Price</th>
 															<th>Actions</th>
 														</thead>
+
+														<%   if (  (roomdata.addontypes.length<=0) || (_.isUndefined(roomdata.addontypes.length))  ) { %>
+															<tr class="no-data">
+																<td>No Add-ons Defined</td>
+																<td>No Add-ons Defined</td>
+																<td>No Add-ons Defined</td>
+															</tr>
+														<% } %>
 											<%  
 											 if(roomdata.addontypes.length>0){
 											
@@ -650,7 +665,7 @@ var facilities_selected_exists;
 														<%=roomdata.checkinformat %>-hour Format <% 
 													} 
 													else{ %>
-														Please select checkin time format<% 
+														<div class="alert">Please select Check-in time format</div><% 
 													} 
 												} 
 											%>
@@ -699,7 +714,7 @@ var facilities_selected_exists;
 											%>
 										  </p>
 										<div class="checkintime_edittext hidden">
-											<input type='text' class="form-control" data-mask="99:99" placeholder="9:00" name="checkin_time" id="checkin_time" value="<% if(!_.isUndefined(roomdata.checkintime)) {%><%=roomdata.checkintime %> <%}%>" >
+											<input type='text' class="form-control" data-mask="99:99" placeholder="09:00" name="checkin_time" id="checkin_time" value="<% if(!_.isUndefined(roomdata.checkintime)) {%><%=roomdata.checkintime %> <%}%>" >
 										</div>
 										<a class="edit-link edit-checkintime" href="javascript:void(0)"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
 										<a class="delete-link delete-checkintime hidden" href="javascript:void(0)"><span class="glyphicon glyphicon-trash"></span> Delete</a>

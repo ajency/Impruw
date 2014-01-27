@@ -1634,6 +1634,10 @@ form .aj-imp-submit:hover {
 .table-vc td {
   vertical-align: middle !important;
 }
+.no-data td {
+  font-style: italic;
+  color: #c3c3c3;
+}
 .no-mar {
   padding: 0 !important;
 }

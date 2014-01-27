@@ -31,8 +31,8 @@
                 <div class="tab-pane active" id="content">
                     <ul class="aj-imp-builder-items clearfix">
                         <li data-element="logoelement">
-                            <a href="#" class="drag builder-element"  >
-                                <div class="aj-imp-builder-icon"  data-icon="&#xf110;"></div>
+                            <a href="#" class="drag builder-element">
+                                <div class="aj-imp-builder-icon" data-icon="&#xf110;"></div>
                                 <div class="aj-imp-builder-title">Logo</div>
                             </a>
                         </li>
