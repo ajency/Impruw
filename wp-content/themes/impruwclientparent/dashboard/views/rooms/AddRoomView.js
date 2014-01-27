@@ -69,8 +69,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 		}, 
 
 		initialize : function(args) {
-			//console.log('args')
-			//console.log(args)
+			 
 			
 			/* if(!_.isUndefined(args)){
 				this.model = args;
@@ -96,8 +95,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 		 * 
 		 */
 		renderTemplate:function(editRoomModel2){
-			console.log('render template')
-			console.log(editRoomModel2)
+			 
 			var template = _.template(AddRoomViewTpl);			 
 			var html = template({
 				roomdata : this.allFacilities,
@@ -380,8 +378,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 						 
 						 	self_.allFacilities  = response.data;
 							if(!_.isUndefined(editRoomModel1))
-							{   console.log('self_.renderTemplate')
-								console.log(editRoomModel1)
+							{    
 								self_.renderTemplate(editRoomModel1);
 							}
 							else
@@ -681,8 +678,8 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 			 var addTaxModal = _.bind(function(_, AddTaxModal) {
 				    
 				 
-				 if(this.isEventListenedTo('modal-closed')){
-					// console.log('listening to model closed')
+				 if(this.isEventListenedTo('new-tax-added')){
+					 
 					ImpruwDashboard.vent.trigger('modal-closed'); //stop listening to any previous  add tax events
 				 }
 					 
@@ -698,7 +695,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 
                     //start listening event
                     this.listenToOnce(ImpruwDashboard.vent, 'new-tax-added', this.newTaxAdded);
-                    console.log('strted listening to event new tax added ')
+                    
 
                     //modal hide event
                     this.listenTo(ImpruwDashboard.vent, 'modal-closed', this.stopListeningEvents);
@@ -715,7 +712,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 		newTaxAdded:function(response,evt_){
 			ImpruwDashboard.vent.trigger('modal-closed');
 			//this.stopListening(ImpruwDashboard.vent, 'new-tax-added');
-			console.log('newTaxAdded triggered')
+			 
 			self_ = this ;
 			response.model = true
 			
@@ -795,9 +792,17 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 			 
 			 var addPlanModal = _.bind(function(_, AddPlanModal) {
 
-				 	ImpruwDashboard.vent.trigger('add-plan-closed'); //stop listening to any previous  add tax events
-				 	ImpruwDashboard.vent.trigger('edit-plan-closed'); //stop listening to any previous  add addon events
+				 
+				 	if(this.isEventListenedTo('new-plan-added')){
+				 		 
+						ImpruwDashboard.vent.trigger('add-plan-closed'); //stop listening to any previous  add tax events
+				 	}
 				 	
+				 	if(this.isEventListenedTo('plan-updatesaved')){
+				 		 
+						ImpruwDashboard.vent.trigger('edit-plan-closed'); //stop listening to any previous  add tax events
+				 	}
+				  	 
 				 	
                     var addPlan = this.popupViewManager.findByCustom("add-plan-popup");
 
@@ -1001,9 +1006,17 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 		 	
 			 var addTariffModal = _.bind(function(_, AddTariffModal) {
 
-				 	ImpruwDashboard.vent.trigger('add-tariff-closed'); //stop listening to any previous  add tax events
-				 	ImpruwDashboard.vent.trigger('edit-tariff-closed'); //stop listening to any previous  add tax events
+				 	if(this.isEventListenedTo('new-tariff-added')){
+				 		 
+						ImpruwDashboard.vent.trigger('add-tariff-closed'); //stop listening to any previous  add tax events
+				 	}
+				 	
+				 	if(this.isEventListenedTo('tariff-updated')){
+				 		 
+						ImpruwDashboard.vent.trigger('edit-tariff-closed'); //stop listening to any previous  add tax events
+				 	}
 				 
+				 	 
                     var addTariff = this.popupViewManager.findByCustom("add-tariff-popup");
 
                     //ensure Menu manager is created just once
@@ -1128,9 +1141,12 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 		showAddAddOnModal : function(evt){
 			 
 			 var addAddOnModal = _.bind(function(_, AddAddOnModal) {
-				 	console.log(ImpruwDashboard.vent)
-				 
-					ImpruwDashboard.vent.trigger('modal-closed'); //stop listening to any previous  add addon events
+				 	 
+				 	
+				 	if(this.isEventListenedTo('new-add-on-added')){
+				 		ImpruwDashboard.vent.trigger('modal-closed'); //stop listening to any previous  add addon events
+				 	}
+				 	 
 				 
                     var addOn = this.popupViewManager.findByCustom("add-addon-popup");
 
@@ -1211,7 +1227,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 				 
 			}
 			else{ 
-				//console.log("erro new addon")
+				 
 				 this.saveFailure(response,evt_,this);  				
 			}
 			
@@ -1225,8 +1241,14 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 		 * @param evt
 		 */
 		showAddDateRangeModal : function(evt){
+			
+			
+			if(this.isEventListenedTo('new-date-range-added')){
+				 
+				ImpruwDashboard.vent.trigger('modal-closed'); //stop listening to any previous  add daterange events
+		 	}
+			
 			 
-			ImpruwDashboard.vent.trigger('modal-closed'); //stop listening to any previous  add addon events
 			
 			 var addDaterangeModal = _.bind(function(_, AddDateRangeModal) {
 
@@ -1349,8 +1371,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 		 * Show edit input elements for selected daterange
 		 */
 		enableEditDateRange : function(evt){
-			// console.log($(evt.target).children().find('.editdaterange_lnktext').html())
-		
+					
 			$(evt.target).html('<span class="glyphicon glyphicon-floppy-disk"></span>Save')
 			$(evt.target).removeClass('editdaterange_lnk').addClass('savedaterange_lnk');
 			$(evt.target).parent().parent().find('.canceleditdaterange_lnk').removeClass('hidden');
@@ -1458,6 +1479,11 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 		 * @returns
 		 */
 		isEventListenedTo: function(eventName) {
+			
+			if(_.isUndefined(ImpruwDashboard.vent._events))
+				return false
+				
+			if(!_.isUndefined(ImpruwDashboard.vent._events[eventName]))
 			  return !!ImpruwDashboard.vent._events[eventName];
 			},
 		
@@ -1511,8 +1537,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 		 * Function to delete addontype 
 		 */
 		deleteAddonType:function(evt){
-			
-			console.log($(evt.target));
+			  
 			
 			  $(evt.target).parent().html(function (i, old) {
 			     return old
@@ -1746,7 +1771,6 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 	 		/*if (!this.$el.find('#form_add_addon').parsley('validate'))
 				  return;
 				 */
-			//console.log( $(evt.target).next().prop('tagName')) 
 			// $(evt.target).next().next().show()
 			 
 			this.parsleyInitialize(this.$el.find('#input_editaddontype-'+addonTypeId));	
@@ -1852,7 +1876,6 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 	 		/*if (!this.$el.find('#form_add_addon').parsley('validate'))
 				  return;
 				 */
-			//console.log( $(evt.target).next().prop('tagName')) 
 			// $(evt.target).next().next().show()
 			 
 			this.parsleyInitialize(this.$el.find('#input_edittaxtype-'+taxTypeId));	
@@ -2381,10 +2404,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 		 * @param size
 		 */
 		roomFeaturedImgSelected : function(image, size){
-		 	
-			console.log('featured image selected')
-			console.log(image)
-			console.log(size)
+		   
 			//stop listening to image-selected event
           //   this.stopListening(ImpruwDashboard.vent, 'image-selected', this.updateSelf);
 
@@ -2453,7 +2473,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 		 * @param size
 		 */
 		roomAttachmentSelected : function(image, size){
-		 	console.log('roomAttachmentSelected')
+		  
 			//stop listening to image-selected event
             this.stopListening(ImpruwDashboard.vent, 'image-selected', this.updateSelf);
 
@@ -2521,7 +2541,6 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 		 */
 		saveSuccess : function(response,event,_self){
 			 
-			// console.log('save success message....  ')
 			if(!_.isUndefined($(event.target).next().get(0))) 
 				var next_element = $(event.target).next().get(0);
 			else
@@ -2535,9 +2554,9 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 			 
 			
 			if(!_.isUndefined(response.inlineresultmsg)){
-			//	console.log('.form-group // form message ')
+			 
 				if( (_.isUndefined(response.facilitymsgspan))  && (_.isUndefined(response.daterangemsgspan)) ){
-					//console.log('.form group msg')
+					 
 					if(_.isUndefined(response.checkintime )){ 
 						message_span = $(event.target).closest('.form-group').find('.status_message');
 					}
@@ -2547,24 +2566,23 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 					
 				}	
 				else{
-					//console.log('form message')
 					message_span = $(event.target).closest('form').find('.status_message')
 				}
 				 
 			}
 			else if(!_.isUndefined(response.popupmodel)){
-				//console.log('popup message1')
+				 
 				message_span = $(event.target).closest('.modal-content').find('.status_message');
 				 
 			}
 			
 			else{
-				//console.log('default message1')
+				 
 				message_span = _self.$el.find('#roomsave_status')
 				 
 				 
 			}
-			//console.log(message_span)
+		 
 			 message_span.removeClass('alert-error').addClass('alert-success');
 			_self.showAlertMessage(event,response,_self,message_span);			 
 			 
@@ -2591,22 +2609,22 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 			if(!_.isUndefined(response.inlineresultmsg)){
 				 
 				if( (_.isUndefined(response.facilitymsgspan))  && (_.isUndefined(response.daterangemsgspan)) ){ 
-					//console.log('.form group msg')
+					 
 						message_span = $(event.target).closest('.form-group').find('.status_message');
 					}	
 				else{
-					//console.log('form message')
+					 
 					message_span = $(event.target).closest('form').find('.status_message')
 				}
 				
 			}
 			else if(!_.isUndefined(response.popupmodel)){
-				//console.log('popup message1')
+				 
 				message_span = $(event.target).closest('.modal-content').find('.status_message') 
 				 
 			}
 			else{
-				//console.log('default message')
+				 
 				message_span = _self.$el.find('#roomsave_status');
 				 
 			}
@@ -2628,8 +2646,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 			
 			if(!_.isUndefined(response.inlineresultmsg)){
 				
-				//console.log('show inline msg')
-				
+				 
 				var $div2 = message_span;
 				$div2.html(response.msg)
 				$div2.removeClass('hidden');
