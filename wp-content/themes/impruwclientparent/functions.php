@@ -7,7 +7,9 @@
 global $page_id;
 $page_id = 0;
 
+
 define( 'PARENTTHEMEPATH', ABSPATH . 'wp-content/themes/impruwclientparent/' );
+
 require_once PARENTTHEMEPATH . 'includes/Underscore.php';
 require_once PARENTTHEMEPATH . 'elements/Element.php';
 require_once PARENTTHEMEPATH . 'includes/SiteModel.php';
@@ -269,6 +271,19 @@ function add_element_markup( $element ) {
     return $html;
 }
 
+/**
+ * [require_file description]
+ * @param  [type] $path [description]
+ * @return [type]       [description]
+ */
+function require_file($path){
+
+    if(file_exists(CURRENTTHEMEPATH . $path))
+        require_once CURRENTTHEMEPATH . $path;
+    else
+        require_once PARENTTHEMEPATH . $path;
+
+}
 
 
 /**
@@ -278,7 +293,7 @@ function add_element_markup( $element ) {
  */
 function get_builder_row_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/BuilderRow.php';
+    require_file('elements/BuilderRow.php');
 
     $row = new BuilderRow( $element );
 
@@ -307,7 +322,7 @@ function get_builder_row_markup( $element ) {
  */
 function get_builder_row_column_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/BuilderRowColumn.php';
+    require_file('elements/BuilderRowColumn.php');
 
     $column = new BuilderRowColumn( $element );
 
@@ -338,7 +353,7 @@ function get_builder_row_column_markup( $element ) {
  */
 function get_room_description_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/room/RoomDescription.php';
+    require_file('elements/room/RoomDescription.php');
 
     global $page_id;
 
@@ -357,7 +372,7 @@ function get_room_description_markup( $element ) {
  */
 function get_room_title_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/room/RoomTitle.php';
+    require_file('elements/room/RoomTitle.php');
 
     $room = new RoomTitle( $element );
 
@@ -374,7 +389,7 @@ function get_room_title_markup( $element ) {
  */
 function get_room_tariff_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/room/RoomTariff.php';
+    require_file('elements/room/RoomTariff.php');
 
     $tariff = new RoomTariff( $element );
 
@@ -392,7 +407,7 @@ function get_room_tariff_markup( $element ) {
  */
 function get_room_gallery_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/room/RoomGallery.php';
+    require_file('elements/room/RoomGallery.php');
 
     $room = new RoomGallery( $element );
 
@@ -409,7 +424,7 @@ function get_room_gallery_markup( $element ) {
  */
 function get_gallery_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/GalleryElement.php';
+    require_file('elements/GalleryElement.php');
 
     $gallery = new GalleryElement( $element );
 
@@ -426,7 +441,7 @@ function get_gallery_markup( $element ) {
  */
 function get_room_list_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/room/RoomList.php';
+    require_file('elements/room/RoomList.php');
 
     $room = new RoomList( $element );
 
@@ -443,7 +458,7 @@ function get_room_list_markup( $element ) {
  */
 function get_room_facilities_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/room/RoomFacilities.php';
+    require_file('elements/room/RoomFacilities.php');
 
     $room = new RoomFacilities( $element );
 
@@ -460,7 +475,7 @@ function get_room_facilities_markup( $element ) {
  */
 function get_image_element_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/ImageElement.php';
+    require_file('elements/ImageElement.php');
 
     $image = new ImageElement( $element );
 
@@ -477,7 +492,7 @@ function get_image_element_markup( $element ) {
  */
 function get_contact_form_element_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/ContactFormElement.php';
+    require_file('elements/ContactFormElement.php');
 
     $contact = new ContactFormElement( $element);
 
@@ -494,7 +509,7 @@ function get_contact_form_element_markup( $element ) {
  */
 function get_map_element_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/MapElement.php';
+    require_file('elements/MapElement.php');
 
     $map = new MapElement( $element);
 
@@ -511,7 +526,7 @@ function get_map_element_markup( $element ) {
  */
 function get_logo_element_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/LogoElement.php';
+    require_file('elements/LogoElement.php');
 
     $logo = new LogoElement( $element );
 
@@ -528,7 +543,7 @@ function get_logo_element_markup( $element ) {
  */
 function get_address_element_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/AddressElement.php';
+    require_file('elements/AddressElement.php');
 
     $address = new AddressElement( $element );
 
@@ -545,7 +560,7 @@ function get_address_element_markup( $element ) {
  */
 function get_social_element_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/SocialElement.php';
+    require_file('elements/SocialElement.php');
 
     $social = new SocialElement( $element );
 
@@ -562,7 +577,7 @@ function get_social_element_markup( $element ) {
  */
 function get_title_element_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/TitleElement.php';
+    require_file('elements/TitleElement.php');
 
     $title = new TitleElement( $element );
 
@@ -579,7 +594,7 @@ function get_title_element_markup( $element ) {
  */
 function get_text_element_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/TextElement.php';
+    require_file('elements/TextElement.php');
 
     $text = new TextElement( $element );
 
@@ -595,7 +610,7 @@ function get_text_element_markup( $element ) {
  */
 function get_slider_element_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/SliderElement.php';
+    require_file('elements/SliderElement.php');
 
     $slider = new SliderElement( $element );
 
@@ -612,7 +627,7 @@ function get_slider_element_markup( $element ) {
  */
 function get_menu_element_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/MenuElement.php';
+    require_file('elements/MenuElement.php');
 
     $menu = new MenuElement( $element );
 
@@ -628,7 +643,7 @@ function get_menu_element_markup( $element ) {
  */
 function get_container_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/ContainerElement.php';
+    require_file('elements/ContainerElement.php');
 
     $row = new ContainerElement( $element );
 
