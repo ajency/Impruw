@@ -47,9 +47,10 @@ define ['marionette'], (Marionette)->
 	App.on "initialize:after", (options) ->
 
 		appState = App.request "get:current:appstate"
+		
+		App.startHistory()
 
-		if not appState.isLoggedIn()
-			App.startHistory()
+		if appState.isLoggedIn()
 			App.navigate(@rootRoute, trigger: true) unless @getCurrentRoute()
 		else
 			App.navigate(@loginRoute, trigger : true)

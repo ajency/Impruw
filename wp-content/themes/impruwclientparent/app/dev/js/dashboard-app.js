@@ -37,8 +37,8 @@
     App.on("initialize:after", function(options) {
       var appState;
       appState = App.request("get:current:appstate");
-      if (!appState.isLoggedIn()) {
-        App.startHistory();
+      App.startHistory();
+      if (appState.isLoggedIn()) {
         if (!this.getCurrentRoute()) {
           return App.navigate(this.rootRoute, {
             trigger: true

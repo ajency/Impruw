@@ -25,7 +25,7 @@
         showLogin: function() {
           var appState, show;
           appState = App.request("get:current:appstate");
-          if (appState.isLoggedIn()) {
+          if (!appState.isLoggedIn()) {
             return show = new LoginApp.Show.Controller({
               region: App.loginRegion
             });

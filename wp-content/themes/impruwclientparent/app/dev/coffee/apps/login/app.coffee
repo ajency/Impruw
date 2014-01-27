@@ -16,7 +16,7 @@ define [
 
 						appState = App.request "get:current:appstate"
 
-						if appState.isLoggedIn()
+						if not appState.isLoggedIn()
 							show = new LoginApp.Show.Controller
 													region : App.loginRegion
 						else
