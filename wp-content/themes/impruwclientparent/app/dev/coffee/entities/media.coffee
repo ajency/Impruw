@@ -1,14 +1,14 @@
 define ["app", 'backbone'], (App, Backbone) ->
 
-        App.module "Entities.Media", (Media, App)->
+        App.module "Entities.Media", (Media, App, Backbone, Marionette, $, _)->
 
+            #Media Model
             class Media.MediaModel extends Backbone.RelationalModel
 
-
+            #Media collection
             class Media.MediaCollection extends Backbone.Collection
 
                 
-
             ##PUBLIC API FOR ENitity
             API =
                 getMedia: (param ={})->

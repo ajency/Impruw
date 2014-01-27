@@ -1,7 +1,7 @@
 ##
 ## The main dashboard App
 ##
-define ['marionette'], (Marionette)->
+define ['marionette', 'entities/appstate'], (Marionette)->
 
 	window.App = new Marionette.Application
 	
@@ -41,7 +41,13 @@ define ['marionette'], (Marionette)->
 		App.unregister instance, id
 
 	App.on "initialize:after", (options) ->
-		App.startHistory()
-		App.navigate(@rootRoute, trigger: true) unless @getCurrentRoute()
 
+		appState = App.request "get:current:appstate"
+
+		if appState.isLoggedIn()
+			App.startHistory()
+			App.navigate(@rootRoute, trigger: true) unless @getCurrentRoute()
+		else
+			App.navigate(@loginRoute, trigger : true)
+			
 	App

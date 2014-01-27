@@ -1,6 +1,6 @@
 define ["app", 'backbone'], (App, Backbone) ->
 
-        App.module "Entities.Users", (Users, App)->
+		App.module "Entities.Users", (Users, App, Backbone, Marionette, $, _)->
 
 			class UserModel extends Backbone.Model
 

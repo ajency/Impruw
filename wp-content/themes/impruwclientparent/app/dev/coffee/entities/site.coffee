@@ -1,6 +1,6 @@
 define ["app", 'backbone'], (App, Backbone) ->
 
-        App.module "Entities.Site", (Site, App)->
+        App.module "Entities.Site", (Site, App, Backbone, Marionette, $, _)->
 
             class SiteModel extends Backbone.Model
 

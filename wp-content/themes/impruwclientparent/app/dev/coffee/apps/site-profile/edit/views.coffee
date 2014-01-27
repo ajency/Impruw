@@ -21,9 +21,5 @@ define ['app'
 
 					template : mainviewTpl
 					
-					#itemViewContainer: '#aj-imp-dash-content'
-
-					#temView : View.SiteProfile
-
 				
 			return App.SiteProfileApp.Edit.View
