@@ -75,13 +75,15 @@ class RoomList extends Element {
 
         ?>
         <div class="roomBox">
-            <?php echo the_post_thumbnail('full', array('class' => 'img-responsive img-center')) ?>
+            <div class="img-holder">
+                <?php echo the_post_thumbnail('full', array('class' => 'img-responsive img-center')) ?>
+            </div>
             
             <div class="subTitle roomName"><a href="<?php echo get_permalink(); ?>"><?php the_title(); ?></a></div>
-            <p><?php echo get_the_excerpt(); ?></p>
+            <p class="roomDesc"><?php echo get_the_excerpt(); ?></p>
             
             <div class="row">
-                <div class="col-sm-6 roomRate"><!-- <span class="currency">kr</span> <span class="amount">210</span> / night--></div>
+                <div class="col-sm-6 roomRate"><span class="currency">&dollar;</span> <span class="amount">210</span> / night</div>
                 <div class="col-sm-6 roomDetail"><a href="<?php echo get_permalink(); ?>" class="detailBtn">View Details</a></div>
             </div>
         </div>

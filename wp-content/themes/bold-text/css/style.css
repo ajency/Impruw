@@ -415,6 +415,53 @@ h6.sub-title {
   font-size: 1.5em;
   font-weight: 400;
 }
+.site-style-container .roomRow {
+  margin-bottom: 2em;
+  padding-bottom: 1em;
+  border-bottom: 1px solid #bfbfbf;
+}
+.site-style-container .roomBox {
+  margin: 0.5em 0;
+}
+.site-style-container .roomBox .img-holder {
+  height: 220px;
+  overflow: hidden;
+  border: 2px solid #bfbfbf;
+  margin: 0 0 1em;
+}
+.site-style-container .roomBox .roomName a {
+  font-size: 2em;
+}
+.site-style-container .roomBox .roomName a:hover {
+  text-decoration: none;
+}
+.site-style-container .roomBox .roomDesc {
+  margin: 1em 0;
+  font-size: 0.88em;
+}
+.site-style-container .roomBox .roomRate {
+  color: #555555;
+  font-size: 1.6em;
+}
+.site-style-container .roomBox .roomRate span {
+  font-size: 2em;
+  font-weight: 100;
+}
+.site-style-container .roomBox .roomDetail {
+  text-align: right;
+  padding-top: 0.8em;
+}
+.site-style-container .roomBox .roomDetail .detailBtn {
+  background: #07669e;
+  color: #fff;
+  padding: 0.8em 1.2em;
+  border-radius: 3px;
+  display: inline-block;
+}
+.site-style-container .roomBox .roomDetail .detailBtn:hover {
+  background: #0986cf;
+  text-decoration: none;
+}
 .site-style-container .footerbar {
   background: #555555;
   padding: 2em 0 1em;
