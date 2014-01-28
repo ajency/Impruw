@@ -41,7 +41,7 @@
             <nav class="aj-imp-builder-top-nav row" role="navigation">
                 <div class="aj-imp-builder-back col-sm-2">
                     <p class="navbar-text">
-                        <a href="#"><span class="glyphicon glyphicon-arrow-left"></span> Back to Dashboard</a>
+                        <a href="<?php echo get_site_url();?>/dashboard/"><span class="glyphicon glyphicon-arrow-left"></span> Back to Dashboard</a>
                     </p>
                 </div>
                 <div class="aj-imp-page-layout col-sm-8 clearfix navbar-text">
@@ -52,7 +52,8 @@
                         <?php endforeach; ?>
                     </select>&nbsp;&nbsp;&nbsp;&nbsp;
                 </div>
-               <div class="aj-imp-builder-top-options col-sm-1">
+               <div class="aj-imp-builder-top-options col-sm-1 navbar-text">
+                    <a href="<?php echo get_site_url();?>/choose-theme/" class="btn btn-default aj-imp-theme-btn">Choose Theme</a>
                      <!-- <form class="navbar-search">
                        <div id="aj-imp-color-sel" class="dropdown"> 
                             <a class="btn bt-default" data-toggle="dropdown" href="#"><span class="pull-left">Change Color</span><span class="caret"></span></a>
