@@ -52,7 +52,7 @@
           if (!config.debug) {
             return _this.show(realView);
           }
-        }, 100);
+        }, 2000);
         return App.commands.execute("when:fetched", config.entities, callbackFn);
       };
 

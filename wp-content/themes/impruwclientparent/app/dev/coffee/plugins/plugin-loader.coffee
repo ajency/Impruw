@@ -15,4 +15,6 @@ define [
 		'checkbox'
 		'tpl'
 		'jqueryspin'
+		'polyglot'
+		'bootstrapselect'
 		],->

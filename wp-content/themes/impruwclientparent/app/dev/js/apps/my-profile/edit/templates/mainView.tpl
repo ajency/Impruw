@@ -50,29 +50,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-group pic-upload">
-                    <label for="inputFile4" class="col-sm-2 control-label">
-                        Profile Picture
-                    </label>
-                    <div class="col-sm-10 col-sm-offset-2">
-                        <div class="fileinput fileinput-new" data-provides="fileinput">
-                            <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 200px;">
-                            </div>
-                            <div>
-                                <span class="btn btn-default btn-file">
-                                    <span class="fileinput-new">
-                                        Select image
-                                    </span>
-                                    <span class="fileinput-exists">
-                                        Change
-                                    </span>
-                                    <input type="file" name="inputFile4">
-                                </span>
-                                <a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput">Remove</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
                         <label for="checkbox2" class="checkbox checked">
@@ -122,9 +99,11 @@
                     </label>
                     <div class="col-sm-10 col-sm-offset-2">
                         <input type="password" class="form-control" id="newpass1" name="newpass1"
-                        placeholder="{{ __('New Password') }}" required parsley-trigger="blur" parsley-validation-minlength="0"
-                        parsley-minlength="6" parsley-equalto="#newpass1" 
-                        parsley-required-message="{{ __('Please enter new password') }}">
+                            placeholder="{{ __('New Password') }}" 
+                            required parsley-trigger="blur" 
+                            parsley-validation-minlength="0"
+                            parsley-minlength="6" parsley-equalto="#newpass1" 
+                            parsley-required-message="{{ __('Please enter new password') }}">
                         <div class="p-messages">
                         </div>
                     </div>
@@ -135,9 +114,11 @@
                     </label>
                     <div class="col-sm-10 col-sm-offset-2">
                         <input type="password" class="form-control" id="newpass2" name="newpass2"
-                        placeholder="Confirm Password" required parsley-trigger="blur" parsley-validation-minlength="0"
+                        placeholder="{{ __('Confirm Password') }}" 
+                        required parsley-trigger="blur" 
+                        parsley-validation-minlength="0"
                         parsley-minlength="6" parsley-equalto="#newpass1" 
-                        parsley-required-message="Please Retype new password">
+                        parsley-required-message="{{ __('Please Retype new password') }}">
                         <div class="p-messages">
                         </div>
                     </div>
@@ -156,15 +137,15 @@
         </div>
         <div class="scroll-indicator-container" id="scr2">
             <h6 class="aj-imp-sub-head-thin scroll-ref">
-                Change Language
+                {{ __('Change Language') }}
                 <small>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing
+                    {{ __('Lorem ipsum dolor sit amet, consectetur adipiscing') }}
                 </small>
             </h6>
             <form class="form-horizontal clearfix">
                 <div class="form-group">
                     <label for="inputAddress4" class="col-sm-2 control-label">
-                        Select Language
+                        {{ __('Select Language') }}
                     </label>
                     <div class="col-sm-10 col-sm-offset-2">
                         <select>

@@ -23,6 +23,14 @@
           }
         ];
 
+        UserModel.prototype.defaults = function() {
+          return {
+            user_name: '',
+            display_name: '',
+            user_email: ''
+          };
+        };
+
         return UserModel;
 
       })(Backbone.Model);

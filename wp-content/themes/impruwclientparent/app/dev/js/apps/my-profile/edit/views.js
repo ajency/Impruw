@@ -16,6 +16,16 @@
 
         MainView.prototype.template = mainviewTpl;
 
+        MainView.prototype.onRender = function() {
+          this.$el.find('input[type="checkbox"]').checkbox();
+          this.$el.find('input[type="radio"]').radio();
+          return this.$el.find('select').selectpicker({
+            style: 'btn-mini btn-default'
+          }, {
+            menuStyle: 'dropdown'
+          });
+        };
+
         return MainView;
 
       })(Marionette.ItemView);

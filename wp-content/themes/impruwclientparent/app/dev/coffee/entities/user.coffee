@@ -11,9 +11,18 @@ define ["app", 'backbone'], (App, Backbone) ->
 								collectionType : 'App.Entities.Rooms.RoomCollection'
 							)]
 
+				defaults : ->
+					user_name 		: ''
+					display_name 	: ''
+					user_email 		: ''
+					
+
 			class UserCollection extends Backbone.Collection
 
 				model : UserModel
+
+				
+
 
 
 			#PUBLIC API

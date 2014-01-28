@@ -13,12 +13,14 @@
       spin: 'plugins/spin',
       jqueryspin: 'plugins/jquery.spin',
       bootstrap: 'plugins/bootstrap',
+      bootstrapselect: 'plugins/bootstrapselect',
       radio: 'plugins/flatui-radio',
       checkbox: 'plugins/flatui-checkbox',
       backboneform: 'plugins/backbone.form',
       backbonesyphon: 'plugins/backbone.syphon',
       backbonerelational: 'plugins/backbone.relational',
       jqueryvalidate: 'plugins/jquery.validate',
+      polyglot: 'plugins/polyglot',
       app: 'dashboard-app'
     },
     shim: {
@@ -34,6 +36,9 @@
         deps: ['backbone'],
         exports: 'Marionette'
       },
+      polyglot: {
+        exports: 'Polyglot'
+      },
       jqueryvalidate: ['jquery'],
       backboneform: ['backbone'],
       backbonesyphon: ['backbone'],
@@ -42,6 +47,7 @@
       bootstrap: ['jquery'],
       radio: ['bootstrap'],
       checkbox: ['bootstrap'],
+      bootstrapselect: ['bootstrap'],
       app: ['plugins/plugin-loader', 'configs/config-loader']
     },
     tpl: {

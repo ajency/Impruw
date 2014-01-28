@@ -1,0 +1,40 @@
+{
+  "name": "Impruw",
+  "version": "0.0.1",
+  "description": "Being built for the travel accommodation industry in Norway and London the service is a drag and drop website builder. The service will integrate 3 aspects of the online presence for a hotel or B&B. A modern and responsive website",
+  "main": "index.php",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ajency/Impruw.git"
+  },
+  "keywords": [
+    "Impruw",
+    "Site",
+    "builder",
+    "dashboard",
+    "BACKBONE",
+    "APP",
+    "Marionette",
+    "application",
+    "requirejs",
+    "jade",
+    "Less",
+    "coffeescript"
+  ],
+  "author": "Suraj Air",
+  "license": "copyright@ajency.in @ 2014",
+  "bugs": {
+    "url": "https://github.com/ajency/Impruw/issues"
+  },
+  "homepage": "https://github.com/ajency/Impruw",
+  "THEMESPATH": "wp-content/themes/",
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-contrib-jshint": "~0.6.3",
+    "grunt-contrib-nodeunit": "~0.2.0",
+    "grunt-contrib-uglify": "~0.2.2"
+  }
+}

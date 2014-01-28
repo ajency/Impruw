@@ -10,9 +10,13 @@ define [
 					appRoutes :
 						'login' : 'showLogin'
 
+					login : ()=>
+
+						return false if i isnt 0
+
 				#PUBLIC API
 				API = 
-					showLogin : ()->
+					showLogin : (opt = {})->
 
 						appState = App.request "get:current:appstate"
 

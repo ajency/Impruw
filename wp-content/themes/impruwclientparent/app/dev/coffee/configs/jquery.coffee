@@ -1,6 +1,6 @@
 ## You can add your own jquery plugins here
 ## Or even mixin some extra functions
-define ['jquery', 'underscore'], ($, _)->
+define ['jquery', 'underscore', 'polyglot'], ($, _, Polyglot)->
 
 	# adjust the dimesion of upper content and also the left section and right section
 	# Uses jquery to get window dimensions and sets min-height css property so that if height 
@@ -25,6 +25,9 @@ define ['jquery', 'underscore'], ($, _)->
 		
 	#adjust the page size and dimensions on resize
 	$(window).resize adjustPageDim
+
+	window.pt = new Polyglot
+						phrases : {}
 
 	window.__ = (key, opt = {})->
 
