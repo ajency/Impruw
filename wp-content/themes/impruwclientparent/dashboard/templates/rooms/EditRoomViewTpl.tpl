@@ -635,7 +635,7 @@
 							<form class="form-horizontal clearfix">
 								<div class="affix-show">You have unsaved changes!</div>
 								<button type="button" class="btn btn-wide aj-imp-submit" id="btn_saveroom" name="btn_saveroom">Save Room</button>
-								<img src ="<%=THEMEURL%>/images/loader.gif" width="38" height="30"  
+								<img src ="<%=THEMEURL%>/images/loader-white.gif" width="38" height="30"  
 													id="roomsave_loader" style="display:none"/>
 							</form>
 						</div>
