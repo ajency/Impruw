@@ -45,27 +45,6 @@
 				</div>
 			</div>
 		</div>
-		<div class="aj-imp-dash-widget">
-			<h6 class="aj-imp-sub-head"><%= __('Site Builder') %></h6>
-			<div class="aj-imp-widget-container panel panel-default">
-				<div class="panel-body">
-					<div class="aj-imp-widget-head row">
-						<div class="col-sm-12">
-							<h6 class="aj-imp-sub-head">
-								<small><%= __('Drag, drop and create a site in less than 30 minutes.') %></small>
-							</h6>
-						</div>
-					</div>
-					<div class="aj-imp-widget-content row">
-						<div class="col-sm-12">
-							<p><%= __('Our site builder makes it fast and easy to create a professional website in under 30 minutes. Our drag and drop editor allows you to add your content anywhere you want on the site. Simply add rows and drag - drop text or forms or images in the row.') %></p>
-							<p><%= __('Customize your site with additional functionality like social media, contact forms and more.') %></p>
-							<a href="<%= SITEURL%>/site-builder" target = "_blank"><%= __('Click here to edit your website') %></a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
 	</div>
 	<div class="aj-imp-dash-content col-md-6">
 		<div class="aj-imp-dash-widget">
@@ -96,6 +75,33 @@
 				</div>
 			</div>
 		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="aj-imp-dash-content col-md-6">
+		<div class="aj-imp-dash-widget">
+			<h6 class="aj-imp-sub-head"><%= __('Site Builder') %></h6>
+			<div class="aj-imp-widget-container panel panel-default">
+				<div class="panel-body">
+					<div class="aj-imp-widget-head row">
+						<div class="col-sm-12">
+							<h6 class="aj-imp-sub-head">
+								<small><%= __('Drag, drop and create a site in less than 30 minutes.') %></small>
+							</h6>
+						</div>
+					</div>
+					<div class="aj-imp-widget-content row">
+						<div class="col-sm-12">
+							<p><%= __('Our site builder makes it fast and easy to create a professional website in under 30 minutes. Our drag and drop editor allows you to add your content anywhere you want on the site. Simply add rows and drag - drop text or forms or images in the row.') %></p>
+							<p><%= __('Customize your site with additional functionality like social media, contact forms and more.') %></p>
+							<a href="<%= SITEURL%>/site-builder" target = "_blank"><%= __('Click here to edit your website') %></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="aj-imp-dash-content col-md-6">
 		<div class="aj-imp-dash-widget">
 			<h6 class="aj-imp-sub-head"><%= __('User Profile') %></h6>
 			<div class="aj-imp-widget-container panel panel-default">

@@ -68,7 +68,7 @@ define([ 'underscore', 'jquery', 'backbone',
 			$(document).ready(function() {
 			  setTimeout(function() {
 			  		equalheight('.aj-imp-widget-container');
-			  	}, 100);
+			  	}, 1000);
 			});
 
 
