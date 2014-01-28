@@ -24,6 +24,8 @@ define ['jquery', 'underscore'], ($, _)->
 		adjustPageDim()
 		
 	#adjust the page size and dimensions on resize
-	$(window).resize adjustPageDim	
+	$(window).resize adjustPageDim
 
-	
+	window.__ = (key, opt = {})->
+
+		pt.t(key, opt)

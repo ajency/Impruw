@@ -12,7 +12,13 @@
     $(document).ready(function() {
       return adjustPageDim();
     });
-    return $(window).resize(adjustPageDim);
+    $(window).resize(adjustPageDim);
+    return window.__ = function(key, opt) {
+      if (opt == null) {
+        opt = {};
+      }
+      return pt.t(key, opt);
+    };
   });
 
 }).call(this);
