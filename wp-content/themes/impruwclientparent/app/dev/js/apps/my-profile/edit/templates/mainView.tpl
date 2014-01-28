@@ -20,19 +20,17 @@
                     {{ __('Lorem ipsum dolor sit amet, consectetur adipiscing') }}
                 </small>
             </h4>
-            <form class="form-horizontal clearfix form_userprofile" name="form_usergeneral"
-            id="form_usergeneral">
+            <form class="form-horizontal clearfix form_userprofile" name="form_usergeneral" id="form_usergeneral">
                 <div class="form-group">
                     <label for="name" class="col-sm-2 control-label">
                         {{ __('Name') }}
                     </label>
                     <div class="col-sm-10 col-sm-offset-2">
                         <input type="text" class="form-control" id="display_name" name="display_name"
-                        placeholder="Name" value="{{display_name}}" required parsley-validation-minlength="0"
-                        parsley-minlength="3" parsley-trigger="blur" parsley-regexp="^[a-zA-Z ]+$"
-                        parsley-required-message="{{ __('Please enter firstname lastname') }}" 
-                        parsley-minlength-message="{{ __('Name should be atleast 3 characters long') }}"
-                        parsley-regexp-message="{{ __('Please enter valid name ex. John Parker') }}" />
+                        placeholder="Name" value="{{display_name}}" 
+                        required required-message="{{ __('Please enter firstname lastname') }}" 
+                        minlength="3" minlength-message="{{ __('Name should be atleast 3 characters long') }}"
+                        regexp="^[a-zA-Z ]+$" regexp-message="{{ __('Please enter valid name ex. John Parker') }}" />
                         <div class="p-messages">
                         </div>
                     </div>
@@ -43,9 +41,10 @@
                     </label>
                     <div class="col-sm-10 col-sm-offset-2">
                         <input type="email" class="form-control" id="user_email" name="user_email"
-                        placeholder="Email" value='{{ user_email }}' parsley-required="true"
-                        parsley-trigger="blur" parsley-validation-minlength="0" parsley-type="email"
-                        parsley-required-message="{{ __('Please enter email Id') }}" />
+                        placeholder="Email" value='{{ user_email }}' 
+                        parsley-trigger="blur"
+                        required required-message="{{ __('Please enter email Id') }}" 
+                        remote="{{AJAXURL}}?action=check_email_exists" remote-message="Email id is already registered"/>
                         <div class="p-messages">
                         </div>
                     </div>
@@ -53,7 +52,7 @@
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
                         <label for="checkbox2" class="checkbox checked">
-                            <input type="checkbox" data-toggle="checkbox" checked="checked" id="new_feature_alert"
+                            <input type="checkbox" data-toggle="checkbox" checked="checked"
                             name="new_feature_alert" value="1">
                             {{ __('Let me know about new features and tips!') }}
                         </label>

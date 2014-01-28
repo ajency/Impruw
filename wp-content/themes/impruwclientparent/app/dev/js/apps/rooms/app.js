@@ -41,9 +41,6 @@
           });
         }
       };
-      App.vent.on("edit:room:clicked", function(room) {
-        return API.edit(room);
-      });
       return RoomsApp.on({
         'start': function() {
           _.logAppMsg("Room Module started...");

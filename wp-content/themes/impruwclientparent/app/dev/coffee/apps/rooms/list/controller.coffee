@@ -15,8 +15,8 @@ define ['app', 'controllers/base-controller'
 				
 				view = @.getMainView(@rooms)	
 
-				view.on "itemview:edit:room:clicked", (iv, room)->
-					App.vent.trigger "edit:room:clicked", room
+				#view.on "itemview:edit:room:clicked", (iv, room)->
+					#App.vent.trigger "edit:room:clicked", room
 
 				@show view,(loading : true)
 

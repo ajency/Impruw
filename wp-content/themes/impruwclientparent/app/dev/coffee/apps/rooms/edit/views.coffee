@@ -9,4 +9,4 @@ define ['app'
 					template : editRoomTpl
 
 
-			return App.RoomsApp.Edit.View
+			App.RoomsApp.Edit.View

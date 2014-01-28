@@ -40,7 +40,7 @@ define [
 
 					@show realView unless config.debug
 
-				, 2000
+				, 100
 
 				App.commands.execute "when:fetched", config.entities, callbackFn
 					

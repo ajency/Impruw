@@ -3162,3 +3162,23 @@ function impruw_app_model(){
                             )
                     );
 }
+
+/**
+ * Function to check if email id already exist( Registration page)
+ * Returns
+ */
+function check_email_exists() {
+
+    $email = $_GET['user_email'];
+    header( 'Content-Type: application/json' );
+
+    if ( email_exists( $email ) ) {
+        echo json_encode(false);
+    }
+    else {
+        echo json_encode( true );
+    }
+    die();
+}
+add_action( 'wp_ajax_check_email_exists', 'check_email_exists' );
+add_action( 'wp_ajax_nopriv_check_email_exists', 'check_email_exists' );

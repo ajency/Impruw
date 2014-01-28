@@ -25,3 +25,6 @@ define [
 			
 			new SiteProfileApp.Router
 				controller : API
+
+
+	App.SiteProfileApp

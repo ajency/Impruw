@@ -17,10 +17,12 @@ define [
 
 		#public API
 		API = 
+			# list rooms route handler
 			list : ()->
 				list = new RoomsApp.List.Controller
 				list.showListView()
 
+			#edit room route handler
 			edit :(room)->
 
 				if not _.isObject room
@@ -31,10 +33,7 @@ define [
 											model : room
 												 
 
-
-		App.vent.on "edit:room:clicked", (room)->
-			API.edit(room)
-
+		# Setup router on module start event
 		RoomsApp.on 'start': ->
 			_.logAppMsg "Room Module started..."
 			

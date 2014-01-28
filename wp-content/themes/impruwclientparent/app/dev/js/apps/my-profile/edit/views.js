@@ -16,14 +16,35 @@
 
         MainView.prototype.template = mainviewTpl;
 
+        MainView.prototype.events = {
+          'click button[name="btn_saveusergeneral"]': 'submitUserGeneral'
+        };
+
         MainView.prototype.onRender = function() {
           this.$el.find('input[type="checkbox"]').checkbox();
           this.$el.find('input[type="radio"]').radio();
-          return this.$el.find('select').selectpicker({
-            style: 'btn-mini btn-default'
-          }, {
+          this.$el.find('select').selectpicker({
+            style: 'btn-mini btn-default',
             menuStyle: 'dropdown'
           });
+          return this.setupFormValidation();
+        };
+
+        MainView.prototype.setupFormValidation = function() {
+          var forms;
+          forms = this.$el.find('form');
+          return $.each(forms, function(index, form) {
+            $(form).validate();
+          });
+        };
+
+        MainView.prototype.submitUserGeneral = function(evt) {
+          var form;
+          form = $(evt.target).closest('form');
+          console.log(form);
+          if ($(form).valid()) {
+            return form.submit();
+          }
         };
 
         return MainView;

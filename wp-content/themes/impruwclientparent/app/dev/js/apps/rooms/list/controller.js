@@ -21,9 +21,6 @@
         Controller.prototype.showListView = function() {
           var view;
           view = this.getMainView(this.rooms);
-          view.on("itemview:edit:room:clicked", function(iv, room) {
-            return App.vent.trigger("edit:room:clicked", room);
-          });
           return this.show(view, {
             loading: true
           });
