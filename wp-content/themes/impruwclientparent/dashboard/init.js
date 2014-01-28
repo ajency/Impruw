@@ -99,6 +99,9 @@ require.config({
             deps : ['jquery'],
             exports : 'moment'
         },
+        'jpanelmenu' : {
+        	deps : ['jquery']
+        },
         'jqueryui' : {
             deps : ['jquery']    
         },
@@ -236,7 +239,7 @@ function getFormData(form) {
 
 
 require(['backbone','marionette',
-         'routers/DashboardRouter','sitemodel','usermodel', 'polyglot', 'text!../languages/NO.json'], 
+         'routers/DashboardRouter','sitemodel','usermodel', 'polyglot', 'json!../languages/'+CURRENTLANG+'.json'], 
          function( Backbone, Marionette, Router, SiteModel, UserModel, Polyglot, phrases) {
 
         $(document).ready(function(){   

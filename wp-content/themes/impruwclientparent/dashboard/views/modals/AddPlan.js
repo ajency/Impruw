@@ -98,6 +98,11 @@ define(['underscore','modal', 'tpl!templates/modal/AddPlan.tpl','tpl!templates/m
     							
     							$(evt.target).prop('disabled',false);
     							ImpruwDashboard.vent.trigger('new-plan-added',response,evt_);
+    							
+    							self_.$el.find('#form_addplan')[0].reset();
+    						 	self_.$el.find('.validation-icon').remove()
+    							self_.$el.find('.has-error').removeClass('has-error')
+    							self_.$el.find('.has-success').removeClass('has-success')
     								
     						 	setTimeout(function(){
     						 		self_.hide();
@@ -147,6 +152,11 @@ define(['underscore','modal', 'tpl!templates/modal/AddPlan.tpl','tpl!templates/m
     							
     							$(evt.target).prop('disabled',false);
     							ImpruwDashboard.vent.trigger('plan-updatesaved',response,evt_);
+    							
+    							self_.$el.find('#form_addplan')[0].reset();
+    						 	self_.$el.find('.validation-icon').remove()
+    							self_.$el.find('.has-error').removeClass('has-error')
+    							self_.$el.find('.has-success').removeClass('has-success')
     								
     						 	setTimeout(function(){
     						 		self_.hide();

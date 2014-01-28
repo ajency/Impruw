@@ -46,6 +46,7 @@ define(['modal', 'tpl!templates/modal/AddTax.tpl','parsley'],
     		
     		addNewTaxType :function(evt){
     			
+    			console.log('new  tax added click')
     			if (!this.$el.find('#form_add_tax').parsley('validate'))
     				  return;
     			
@@ -68,23 +69,26 @@ define(['modal', 'tpl!templates/modal/AddTax.tpl','parsley'],
     							data,
     							function(response){
     								 
-    								
+    								response.popupmodel = true;  
     								if(response.code=='OK'){
-    									$(evt_.target).parent().parent().find('#taxtype_name').val("")
-    								 	$(evt_.target).parent().parent().find('#taxtype_price').val("")
+    									//$(evt_.target).parent().parent().find('#taxtype_name').val("")
+    								 //	$(evt_.target).parent().parent().find('#taxtype_price').val("")
+    									self_.$el.find('#form_add_tax')[0].reset();
     								 	
-    								 	
-    								 	response.popupmodel = true;    								 	
+    									self_.$el.find('.validation-icon').remove()
+        								self_.$el.find('.has-error').removeClass('has-error')
+        								self_.$el.find('.has-success').removeClass('has-success')
+    								 	  								 	
     								 	ImpruwDashboard.vent.trigger('new-tax-added',response,evt_);
-    									ImpruwDashboard.vent.trigger('modal-closed');
+    								  
     							 	
     							 	
-    								 	$(evt_.target).parent().parent().find('.close').click();
+    								 	//$(evt_.target).parent().parent().find('.close').click();
     									
     								 	 
     								}
     								else{
-    									ImpruwDashboard.vent.trigger('new-tax-added',response,evt_)
+    									//ImpruwDashboard.vent.trigger('new-tax-added',response,evt_)
     									//console.log("error new tax")
     									 
     								}

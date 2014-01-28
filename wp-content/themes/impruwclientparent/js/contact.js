@@ -19,6 +19,8 @@ $(document).ready(function($){
 				data,
 				function(response){
 
+					$('#contact-form-save').closest('form').parent().find('.alert').remove();
+
 					if(response.code === 'OK'){
 
 						$('#contact-form-reset').click();

@@ -167,9 +167,9 @@ function create_new_site( $blog_id, $blog_name, $blog_title, $user_id, $file_nam
     
     //toggle_plugin( $new_blog_id );//activating the wpml plugin for the current site.
     
-    assign_default_language( $new_blog_id, $user_default_language );
+    //assign_default_language( $new_blog_id, $user_default_language );
     
-    assign_active_languages( $new_blog_id );
+    //assign_active_languages( $new_blog_id );
 
 
     $pages =    array(  
@@ -191,7 +191,7 @@ function create_new_site( $blog_id, $blog_name, $blog_title, $user_id, $file_nam
                                          'page', 
                                          $value['template']);
     
-        $post_nb_id = mwm_wpml_translate_post( $new_blog_id, $post_id, 'page', 'nb', $user_id );
+        //$post_nb_id = mwm_wpml_translate_post( $new_blog_id, $post_id, 'page', 'nb', $user_id );
     
         //commented the template part 5dec2013 to bypass
         if($value['template'] === '')
@@ -237,9 +237,21 @@ function create_new_site( $blog_id, $blog_name, $blog_title, $user_id, $file_nam
     switch_to_blog(BLOG_ID_CURRENT_SITE);    
     send_email( $initiator_id, 'site_creation', $data );
     restore_current_blog(); 
+
+    set_post_name_rewrite($new_blog_id);
         
     return $new_blog_id;
 
+}
+
+/**
+ * [set_post_name_rewrite description]
+ */
+function set_post_name_rewrite($new_blog_id){
+    
+    switch_to_blog($new_blog_id);
+    update_option('permalink_structure','/%postname%/');
+    restore_current_blog();
 }
 
 /**
@@ -593,7 +605,7 @@ function add_menu_to_blog( $user_id, $blog_id ) {
         foreach(get_all_menu_pages() as $page):
 
             //then add the actuall link/ menu item and you do this for each item you want to add
-            wp_update_nav_menu_item( $menu->term_id, 0, array(
+            wp_update_nav_menu_item( $menu_id, 0, array(
                 'menu-item-title'   => $page->post_title,
                 'menu-item-classes' => $page->post_name ,
                 'menu-item-url'     => get_permalink( $page->ID),
@@ -603,7 +615,7 @@ function add_menu_to_blog( $user_id, $blog_id ) {
 
         //then you set the wanted theme  location
         $locations = get_theme_mod( 'nav_menu_locations' );
-        $locations['header_menu'] = $menu->term_id;
+        $locations['header_menu'] = $menu_id;
         set_theme_mod( 'nav_menu_locations', $locations );
 
 
@@ -611,13 +623,11 @@ function add_menu_to_blog( $user_id, $blog_id ) {
         $name_footer = 'Footet Menu';
         //create the menu
         $menu_id_footer = wp_create_nav_menu( $name_footer );
-        //then get the menu object by its name
-        $menu_footer = get_term_by( 'name', $name_footer, 'nav_menu' );
-
+       
         foreach(get_all_menu_pages() as $page):
 
             //then add the actuall link/ menu item and you do this for each item you want to add
-            wp_update_nav_menu_item( $name_footer->term_id, 0, array(
+            wp_update_nav_menu_item( $menu_id_footer, 0, array(
                 'menu-item-title'   => $page->post_title,
                 'menu-item-classes' => $page->post_name ,
                 'menu-item-url'     => get_permalink( $page->ID),
@@ -627,7 +637,7 @@ function add_menu_to_blog( $user_id, $blog_id ) {
 
         //then you set the wanted theme  location
         $locations_footer = get_theme_mod( 'nav_menu_locations' );
-        $locations_footer['footer_menu'] = $menu_footer->term_id;
+        $locations_footer['footer_menu'] = $menu_id_footer;
         set_theme_mod( 'nav_menu_locations', $locations_footer );
 
 
@@ -637,6 +647,29 @@ function add_menu_to_blog( $user_id, $blog_id ) {
     restore_current_blog();
 }
 
+
+/**
+ * Get all menu pages for the site
+ * @return [type] [description]
+ */
+function get_all_menu_pages(){
+        
+    $args = array('post_type' => 'page','posts_per_page' => -1);
+    $pages  = new WP_query($args);
+     
+    $p = array();
+
+    if($pages->have_posts()){
+    
+        foreach($pages->posts as $page){
+
+            $p[] = $page;
+        }
+    }
+
+    return $p;
+
+}
 
 
 /**
@@ -916,7 +949,23 @@ function user_login() {
         global $user;
 
         $blog = get_active_blog_for_user( get_current_user_id() );
-        $blogUrl = $blog->siteurl.'/dashboard/'; /* or $blog->path, together with $blog->siteurl */
+         
+        
+        //get the default language for the logged in blog 
+        switch_to_blog($blog->blog_id );
+        
+        $wpml_options = get_option( 'icl_sitepress_settings' );
+	 	$default_lang = $wpml_options['default_language'];
+
+	 	
+	 	//get the redirect url based on language
+	 	if($default_lang=='en')
+	 		$blogUrl = $blog->siteurl.'/dashboard/'; /* or $blog->path, together with $blog->siteurl */
+	 	else
+	 		$blogUrl = $blog->siteurl.'/dashboard-2/'; /* or $blog->path, together with $blog->siteurl */
+	 	   		
+	 	restore_current_blog();
+	 	   		
         $response = array( "code" => "OK", 'blog_url' => $blogUrl, 'msg'=>'User already logged in' );
         wp_send_json( $response );
     }
@@ -955,8 +1004,23 @@ function user_login() {
         );*/
 
 
+            
             $blog = get_active_blog_for_user( $user->ID );
-            $blog_url = $blog->siteurl; /* or $blog->path, together with $blog->siteurl */
+              
+           //get the default language for the logged in blog 
+           switch_to_blog($blog->blog_id );
+           $wpml_options = get_option( 'icl_sitepress_settings' );
+	 	   $default_lang = $wpml_options['default_language'];
+	 	  
+	 	   
+	 	   //get the redirect url on logged in 
+	 	   if($default_lang=='en')
+	 	   		$blog_url = $blog->siteurl.'/dashboard/'; /* or $blog->path, together with $blog->siteurl */
+	 	   	else
+	 	   		$blog_url = $blog->siteurl.'/dashboard-2/'; /* or $blog->path, together with $blog->siteurl */
+	 	   
+	 	   	restore_current_blog();
+	 	   		
             //var_dump($blog_url);
             //wp_redirect( $blog_url );
             //exit;
@@ -1011,3 +1075,47 @@ function user_activation( $email, $key ) {
     }
 
 }
+
+
+
+/**
+ * Function to delete custom blog tables on site deletion
+ * Enter description here ...
+ * @param unknown_type $blog_id
+ */
+function  remove_custom_blog_tables($blog_id) {
+	global $wpdb;
+	$tables_to_drop[] = $wpdb->get_blog_prefix($blog_id)."room_tariffs";
+	$tables_to_drop[] = $wpdb->get_blog_prefix($blog_id)."datetarriff";
+	$tables_to_drop[] = $wpdb->get_blog_prefix($blog_id)."daterange";
+  
+	/*$tables_to_drop_str = implode(',', $tables_to_drop);
+	
+	$wpdb->query( "DROP TABLE  if EXISTS  $tables_to_drop_str" );
+	*/
+  
+	foreach (   $tables_to_drop as $drop_table ) {
+			$wpdb->query( "DROP TABLE IF EXISTS $drop_table " );		 
+	 }
+	 
+
+}
+add_action('delete_blog', 'remove_custom_blog_tables');
+
+ 
+ /* //Function to delete custom blog tables on site deletion
+ function remove_custom_plugin_tables($tables) {
+   global $wpdb;
+   
+   $id = isset( $_REQUEST['id'] ) ? intval( $_REQUEST['id'] ) : 0;
+   
+   //WPML translation tables
+	$tables[] = $wpdb->get_blog_prefix($id)."icl_content_status";
+	$tables[] = $wpdb->get_blog_prefix($id)."icl_core_status";
+	
+   return $tables;
+}
+add_filter('wpmu_drop_tables', 'remove_custom_plugin_tables'); 
+
+ */
+ 

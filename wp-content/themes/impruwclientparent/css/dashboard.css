@@ -1215,6 +1215,111 @@ form .aj-imp-submit:hover {
 .modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group#map-settings-accordion .panel .panel-heading > a .imgactions {
   text-align: right;
 }
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .thumbnails .single-img {
+  position: relative;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .thumbnails .single-img .thumbnail {
+  margin-bottom: 7px;
+  border: 2px solid #aaaaaa;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .thumbnails .single-img .thumbnail .imgthumb {
+  height: 145px;
+  text-align: center;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .thumbnails .single-img .thumbnail .imgthumb img {
+  vertical-align: middle;
+  max-height: 145px;
+  display: inline-block;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .thumbnails .single-img .thumbnail .imgthumb:before {
+  content: "";
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .thumbnails .single-img .thumbnail:hover {
+  border-color: #849fb0;
+  background: #f3f3f3;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .thumbnails .single-img .ticker {
+  position: absolute;
+  top: -7px;
+  right: 5px;
+  color: #fff;
+  padding: 3px 4px;
+  border-radius: 2px;
+  text-shadow: 0 0 1px #f3f3f3;
+  background: #849fb0;
+  display: none;
+  box-shadow: 0 0 2px #333;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .thumbnails .single-img .ticker .glyphicon-minus {
+  display: none;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .thumbnails .single-img .ticker:hover {
+  cursor: pointer;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .thumbnails .single-img .ticker:hover .glyphicon-ok {
+  display: none;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .thumbnails .single-img .ticker:hover .glyphicon-minus {
+  display: inline-block;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .thumbnails .single-img.ui-selected .thumbnail {
+  border-color: #849fb0;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .thumbnails .single-img.ui-selected .ticker {
+  display: block;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .img-details {
+  border: 2px solid #aaaaaa;
+  border-radius: 3px;
+  background: #ffffff;
+  padding: 5px;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .img-details .pick-image {
+  text-align: center;
+  padding: 2em;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .img-details .pick-image .glyphicon {
+  font-size: 4em;
+  color: #aaaaaa;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .img-details .pick-image h4 {
+  color: #aaaaaa;
+  text-transform: uppercase;
+  font-size: 1.2em;
+  margin: 2em 0 0;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .img-details h5 {
+  color: #777777;
+  font-size: 1em;
+  text-transform: uppercase;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .img-details .imgdetails {
+  margin: 0 0 1em;
+  padding: 0 0 1em;
+  border-bottom: 1px solid #aaaaaa;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .img-details .imginfo {
+  color: #aaaaaa;
+  font-size: 0.88em;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .img-details .imginfo h6 {
+  font-size: 1.2em;
+  color: #182944;
+  margin: 0 0 0.2em;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .img-details .imginfo .edit-image {
+  margin: 0.5em 0.5em 0.5em 0;
+  color: #849fb0;
+  display: inline-block;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .img-details .imginfo .delete-image {
+  color: #cc6500;
+  margin: 0.5em 0.5em 0.5em 0;
+  display: inline-block;
+}
 .modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .aj-imp-block-button {
   margin: 1em 0;
 }
@@ -1528,6 +1633,10 @@ form .aj-imp-submit:hover {
 }
 .table-vc td {
   vertical-align: middle !important;
+}
+.no-data td {
+  font-style: italic;
+  color: #c3c3c3;
 }
 .no-mar {
   padding: 0 !important;
