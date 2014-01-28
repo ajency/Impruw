@@ -8,6 +8,7 @@ define ["app", 'backbone'], (App, Backbone) ->
 								type : Backbone.HasMany
 								key  : 'rooms'
 								relatedModel : 'App.Entities.Rooms.Room'
+								collectionType : 'App.Entities.Rooms.RoomCollection'
 							)]
 
 			class UserCollection extends Backbone.Collection
@@ -15,7 +16,7 @@ define ["app", 'backbone'], (App, Backbone) ->
 				model : UserModel
 
 
-			#Public API
+			#PUBLIC API
 			API = 
 				getUserProfile:(userId)->
 
@@ -28,9 +29,10 @@ define ["app", 'backbone'], (App, Backbone) ->
 					
 					user
 
+
 			#REQUEST HANDLERS
 			App.reqres.setHandler "get:user:profile",(options = {}) ->
 
 				{ userId } = options
 
-				API.getUserProfile(userId)
+				API.getUserProfile userId

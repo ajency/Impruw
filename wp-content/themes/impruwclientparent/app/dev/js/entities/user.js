@@ -18,7 +18,8 @@
           {
             type: Backbone.HasMany,
             key: 'rooms',
-            relatedModel: 'App.Entities.Rooms.Room'
+            relatedModel: 'App.Entities.Rooms.Room',
+            collectionType: 'App.Entities.Rooms.RoomCollection'
           }
         ];
 

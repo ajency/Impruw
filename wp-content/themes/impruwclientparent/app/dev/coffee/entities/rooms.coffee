@@ -8,11 +8,13 @@ define ["app", 'backbone'], (App, Backbone) ->
                                 type : Backbone.HasMany
                                 key  : 'facilities'
                                 relatedModel : 'App.Entities.Facilities.Facility'
+                                collectionType : 'App.Entities.Facilities.FacilityCollection'
                             ),
                             (
                                 type : Backbone.HasMany
                                 key  : 'attachments'
                                 relatedModel : 'App.Entities.Media.MediaModel'
+                                collectionType : 'App.Entities.Media.MediaCollection'
                             )]
 
             class Rooms.RoomCollection extends Backbone.Collection

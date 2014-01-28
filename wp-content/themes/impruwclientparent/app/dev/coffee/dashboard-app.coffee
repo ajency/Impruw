@@ -16,7 +16,7 @@ define ['marionette'], (Marionette)->
 	# The default route for app
 	App.rootRoute = ""
 
-	#loginRoute in case session expires
+	# loginRoute in case session expires
 	App.loginRoute = "login"
 
 	App.on 'start',()->

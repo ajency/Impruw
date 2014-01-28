@@ -22,6 +22,7 @@ define [
 						else
 							App.navigate App.rootRoute, {trigger : true}
 
+
 				LoginApp.on 'start': ->
 					
 					_.logAppMsg "LoginApp Module started..."

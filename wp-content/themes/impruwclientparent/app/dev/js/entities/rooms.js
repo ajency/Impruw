@@ -18,11 +18,13 @@
           {
             type: Backbone.HasMany,
             key: 'facilities',
-            relatedModel: 'App.Entities.Facilities.Facility'
+            relatedModel: 'App.Entities.Facilities.Facility',
+            collectionType: 'App.Entities.Facilities.FacilityCollection'
           }, {
             type: Backbone.HasMany,
             key: 'attachments',
-            relatedModel: 'App.Entities.Media.MediaModel'
+            relatedModel: 'App.Entities.Media.MediaModel',
+            collectionType: 'App.Entities.Media.MediaCollection'
           }
         ];
 
