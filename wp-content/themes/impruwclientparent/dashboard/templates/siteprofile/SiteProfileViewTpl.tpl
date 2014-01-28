@@ -33,7 +33,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group pic-upload">
+                    <!-- <div class="form-group pic-upload">
                         <label for="inputFile4" class="col-sm-2 control-label">Upload Favicon <br><small>of size 16 X 16 pixels</small></label>
                         <div class="col-sm-10 col-sm-offset-2">
                             <div class="fileinput fileinput-new" data-provides="fileinput">
@@ -45,7 +45,7 @@
                             </div>
                         </div>
                     </div>
-
+ -->
                     <div class="form-group">
                         <div class="col-sm-10 col-sm-offset-2">
                             <span class="help-block">

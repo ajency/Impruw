@@ -7,12 +7,12 @@
 <div class="row">
 	<div class="aj-imp-dash-content col-md-12">
 		<h4 class="aj-imp-sub-head">
-			<small>Your website is ready: <a href="#">http://www.mysite.impruw.com</a>&nbsp;
+			<small>Your website is ready: <a target="_BLANK" href="<%= SITEURL %>"><%= SITEURL %></a>&nbsp;
 
 			
 		
 		</h4>
-		<a href="#" class="btn btn-xs">Edit Site</a></small>
+		<a target="_BLANK" href="<%= SITEURL %>/site-builder" class="btn btn-xs">Edit Site</a></small>
 		<hr>
 		<h3 class="aj-imp-sub-head-thin">Hi! Good to see you here. Lets get
 			you started on Impruw.</h3>
