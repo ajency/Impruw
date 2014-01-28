@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: im\n"
-"POT-Creation-Date: 2014-01-22 09:55+0530\n"
-"PO-Revision-Date: 2014-01-22 09:55+0530\n"
+"POT-Creation-Date: 2014-01-28 13:00+0530\n"
+"PO-Revision-Date: 2014-01-28 13:05+0530\n"
 "Last-Translator: Vanessa <vanessa.pinto2609@gmail.com>\n"
 "Language-Team: a <parag@ajency.in>\n"
 "Language: nb\n"
@@ -15,6 +15,111 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: _e;__\n"
 "X-Poedit-SearchPath-0: ../../impruwmain\n"
+"X-Poedit-SearchPath-1: ../../impruwclientparent\n"
+
+#: ../../impruwmain/hello.js:1
+msgid "hello random"
+msgstr "hello random_n"
+
+#: ../../impruwclientparent/dashboard/templates/siteprofile/AddRoomViewTpl.tpl:52
+msgid "Add Room"
+msgstr "Add Room_n"
+
+#: ../../impruwclientparent/dashboard/templates/siteprofile/AddRoomViewTpl.tpl:61
+msgid "Your details have been successfully saved."
+msgstr "Your details have been successfully saved._n"
+
+#: ../../impruwclientparent/dashboard/templates/siteprofile/AddRoomViewTpl.tpl:67
+msgid "Add Room Category"
+msgstr "Add Room Category_n"
+
+#: ../../impruwclientparent/dashboard/templates/siteprofile/DashboardViewTpl.tpl:4
+msgid "My Dashboard"
+msgstr "My Dashboard_n"
+
+#: ../../impruwclientparent/dashboard/templates/siteprofile/DashboardViewTpl.tpl:14
+msgid "Hi! Good to see you here. Lets get you started on Impruw."
+msgstr "Hi! Good to see you here. Lets get you started on Impruw._n"
+
+#: ../../impruwclientparent/dashboard/templates/siteprofile/DashboardViewTpl.tpl:27
+msgid "Filling your Website profile is an essential step. Let us explain why?"
+msgstr ""
+"Filling your Website profile is an essential step. Let us explain why?_n"
+
+#: ../../impruwclientparent/dashboard/templates/siteprofile/DashboardViewTpl.tpl:33
+msgid "It lets you add your"
+msgstr "It lets you add your_n"
+
+#: ../../impruwclientparent/dashboard/templates/siteprofile/DashboardViewTpl.tpl:37
+msgid "Add your facebook/ twitter page urls."
+msgstr "Add your facebook/ twitter page urls._n"
+
+#: ../../impruwclientparent/dashboard/templates/siteprofile/DashboardViewTpl.tpl:41
+msgid ""
+"We know how tedious it is to keep filling the same content over and over "
+"again every time you decide to change the design of your website so we like "
+"making things simpler. Fill in your website details once and that's it, your "
+"job is done."
+msgstr ""
+"We know how tedious it is to keep filling the same content over and over "
+"again every time you decide to change the design of your website so we like "
+"making things simpler. Fill in your website details once and that's it, your "
+"job is done._n"
+
+#: ../../impruwclientparent/dashboard/templates/siteprofile/DashboardViewTpl.tpl:55
+#, fuzzy
+msgid "Drag, drop and create a site in less than 30 minutes."
+msgstr "Create a site in less than 30 minutes._n"
+
+#: ../../impruwclientparent/dashboard/templates/siteprofile/DashboardViewTpl.tpl:61
+msgid ""
+"Our site builder makes it fast and easy to create a professional website in "
+"under 30 minutes. Our drag and drop editor allows you to add your content "
+"anywhere you want on the site. Simply add rows and drag - drop text or forms "
+"or images in the row."
+msgstr ""
+"Our site builder makes it fast and easy to create a professional website in "
+"under 30 minutes. Our drag and drop editor allows you to add your content "
+"anywhere you want on the site. Simply add rows and drag - drop text or forms "
+"or images in the row._n"
+
+#: ../../impruwclientparent/dashboard/templates/siteprofile/DashboardViewTpl.tpl:63
+#, fuzzy
+msgid "Click here to edit your website"
+msgstr "Click here to resend activation mail_n"
+
+#: ../../impruwclientparent/dashboard/templates/siteprofile/DashboardViewTpl.tpl:78
+msgid "Add your room types, tariff and packages - at one place"
+msgstr "Add your room types, tariff and packages - at one place_n"
+
+#: ../../impruwclientparent/dashboard/templates/siteprofile/DashboardViewTpl.tpl:84
+msgid ""
+"Impruw has been specifically designed to suit your business needs and "
+"therefore you can"
+msgstr ""
+"Impruw has been specifically designed to suit your business needs and "
+"therefore you can_n"
+
+#: ../../impruwclientparent/dashboard/templates/siteprofile/DashboardViewTpl.tpl:87
+msgid "Add tariff according to your chosen date range"
+msgstr "Add tariff according to your chosen date range_n"
+
+#: ../../impruwclientparent/dashboard/templates/siteprofile/DashboardViewTpl.tpl:89
+msgid "Create room types of your choice"
+msgstr "Create room types of your choice_n"
+
+#: ../../impruwclientparent/dashboard/templates/siteprofile/DashboardViewTpl.tpl:93
+#, fuzzy
+msgid "Click here to add rooms"
+msgstr "Click here to resend activation mail_n"
+
+#: ../../impruwclientparent/dashboard/templates/siteprofile/DashboardViewTpl.tpl:100
+msgid "User Profile"
+msgstr "User Profile_n"
+
+#: ../../impruwclientparent/dashboard/templates/siteprofile/DashboardViewTpl.tpl:113
+msgid "You can also change your password or your preferred language here."
+msgstr "You can also change your password or your preferred language here._n"
 
 #: ../../impruwmain/functions.php:55 ../../impruwmain/index.php:11
 msgid "email"
@@ -91,6 +196,42 @@ msgstr "New Tag_n"
 #: ../../impruwmain/functions.php:125
 msgid "Tag"
 msgstr "Tag_n"
+
+#: ../../impruwmain/functions.php:440
+#, fuzzy
+msgid "Your Name"
+msgstr "Your Full Name_n"
+
+#: ../../impruwmain/functions.php:441
+#, fuzzy
+msgid "Your E-mail Address"
+msgstr "Email_n"
+
+#: ../../impruwmain/functions.php:442
+msgid "Subject"
+msgstr "Subject_n"
+
+#: ../../impruwmain/functions.php:443
+msgid "Your Message"
+msgstr "Your Message_n"
+
+#: ../../impruwmain/functions.php:444
+msgid "Submit"
+msgstr "Submit_n"
+
+#: ../../impruwmain/functions.php:446
+msgid "Please fill in all the required fields."
+msgstr "Please fill in all the required fields._n"
+
+#: ../../impruwmain/functions.php:448
+msgid "Please enter a valid e-mail address."
+msgstr "Please enter a valid e-mail address._n"
+
+#: ../../impruwmain/functions.php:450
+msgid ""
+"Thanks for your e-mail! We'll get back to you as soon as we can.impruwmain"
+msgstr ""
+"Thanks for your e-mail! We'll get back to you as soon as we can.impruwmain_n"
 
 #: ../../impruwmain/page-contact.php:12
 msgid "Contact Us"
@@ -376,24 +517,24 @@ msgstr ""
 "The following words are reserved for use by WordPress functions and cannot "
 "be used as blog names: <code>%s</code>_n"
 
-#: ../../impruwmain/User/user_management.php:752
+#: ../../impruwmain/User/user_management.php:785
 msgid "It is a reserved word and cannot be used as site names: "
 msgstr "It is a reserved word and cannot be used as site names: _n"
 
-#: ../../impruwmain/User/user_management.php:764
+#: ../../impruwmain/User/user_management.php:797
 msgid "Missing or invalid site address."
 msgstr "Missing or invalid site address._n"
 
-#: ../../impruwmain/User/user_management.php:791
+#: ../../impruwmain/User/user_management.php:824
 msgid "Oops you cannot use this name. It's already taken."
 msgstr "Oops you cannot use this name. It's already taken._n"
 
-#: ../../impruwmain/User/user_management.php:796
+#: ../../impruwmain/User/user_management.php:829
 msgid "Site Name is available."
 msgstr "Site Name is available._n"
 
-#: ../../impruwmain/User/user_management.php:817
-#: ../../impruwmain/User/user_management.php:889
+#: ../../impruwmain/User/user_management.php:850
+#: ../../impruwmain/User/user_management.php:922
 msgid ""
 "Looks like some of fields have been filled incorrectly. Please check again "
 "and submit."
@@ -401,11 +542,11 @@ msgstr ""
 "Looks like some of fields have been filled incorrectly. Please check again "
 "and submit._n"
 
-#: ../../impruwmain/User/user_management.php:867
+#: ../../impruwmain/User/user_management.php:900
 msgid "Oops! Please contact a human."
 msgstr "Oops! Please contact a human._n"
 
-#: ../../impruwmain/User/user_management.php:886
+#: ../../impruwmain/User/user_management.php:919
 msgid ""
 "Great!  Now activate your account by clicking on the link sent you by email "
 "in next  5 minutes. If you don't see it there check your spam folder."
@@ -413,9 +554,265 @@ msgstr ""
 "Great!  Now activate your account by clicking on the link sent you by email "
 "in next  5 minutes. If you don't see it there check your spam folder._n"
 
-#: ../../impruwmain/User/user_management.php:930
+#: ../../impruwmain/User/user_management.php:979
 msgid "Invalid Form Data"
 msgstr "Invalid Form Data_n"
+
+#: ../../impruwclientparent/functions.php:59
+msgid "room"
+msgstr "room_n"
+
+#: ../../impruwclientparent/functions.php:125
+#, fuzzy
+msgid "Search Facilities"
+msgstr "Search Tags_n"
+
+#: ../../impruwclientparent/functions.php:126
+msgid "Popular Faclilities"
+msgstr "Popular Faclilities_n"
+
+#: ../../impruwclientparent/functions.php:127
+msgid "All Facilities"
+msgstr "All Facilities_n"
+
+#: ../../impruwclientparent/functions.php:130
+msgid "Edit Facility"
+msgstr "Edit Facility_n"
+
+#: ../../impruwclientparent/functions.php:131
+#, fuzzy
+msgid "Update Facility"
+msgstr "Update Tag_n"
+
+#: ../../impruwclientparent/functions.php:132
+#, fuzzy
+msgid "Add New Facility"
+msgstr "Add New Tag_n"
+
+#: ../../impruwclientparent/functions.php:133
+msgid "New Facility Name"
+msgstr "New Facility Name_n"
+
+#: ../../impruwclientparent/functions.php:134
+msgid "Separate facilities with commas"
+msgstr "Separate facilities with commas_n"
+
+#: ../../impruwclientparent/functions.php:135
+msgid "Add or remove facilities"
+msgstr "Add or remove facilities_n"
+
+#: ../../impruwclientparent/functions.php:136
+msgid "Choose from the most used facilities"
+msgstr "Choose from the most used facilities_n"
+
+#: ../../impruwclientparent/functions.php:137
+msgid "No facilities found."
+msgstr "No facilities found._n"
+
+#: ../../impruwclientparent/functions.php:138
+msgid "Facilities"
+msgstr "Facilities_n"
+
+#: ../../impruwclientparent/functions.php:1086
+msgid "Error removing business logo"
+msgstr "Error removing business logo_n"
+
+#: ../../impruwclientparent/functions.php:1090
+msgid "Business logo removed successfully"
+msgstr "Business logo removed successfully_n"
+
+#: ../../impruwclientparent/functions.php:1120
+msgid "Could not save site profile"
+msgstr "Could not save site profile_n"
+
+#: ../../impruwclientparent/functions.php:1226
+msgid "User profile updated successfully"
+msgstr "User profile updated successfully_n"
+
+#: ../../impruwclientparent/functions.php:1270
+msgid "Password changed successfully"
+msgstr "Password changed successfully_n"
+
+#: ../../impruwclientparent/functions.php:1849
+msgid "Error updating Tariff plan"
+msgstr "Error updating Tariff plan_n"
+
+#: ../../impruwclientparent/functions.php:1860
+msgid "Tariff plan is successfully updated"
+msgstr "Tariff plan is successfully updated_n"
+
+#: ../../impruwclientparent/functions.php:1866
+msgid "Error updating tariff plan"
+msgstr "Error updating tariff plan_n"
+
+#: ../../impruwclientparent/functions.php:1902
+msgid "New facility is successfully added"
+msgstr "New facility is successfully added_n"
+
+#: ../../impruwclientparent/functions.php:1938
+msgid "The tax name already exists"
+msgstr "The tax name already exists_n"
+
+#: ../../impruwclientparent/functions.php:1948
+msgid "New tax added successfully"
+msgstr "New tax added successfully_n"
+
+#: ../../impruwclientparent/functions.php:1951
+msgid "Error adding the tax"
+msgstr "Error adding the tax_n"
+
+#: ../../impruwclientparent/functions.php:1988
+msgid "The addon type already exists"
+msgstr "The addon type already exists_n"
+
+#: ../../impruwclientparent/functions.php:1997
+msgid "New addon type added successfully"
+msgstr "New addon type added successfully_n"
+
+#: ../../impruwclientparent/functions.php:2000
+msgid "Error adding the addon type"
+msgstr "Error adding the addon type_n"
+
+#: ../../impruwclientparent/functions.php:2057
+msgid "Addon type updated successfully"
+msgstr "Addon type updated successfully_n"
+
+#: ../../impruwclientparent/functions.php:2061
+msgid "Error updating the addon type"
+msgstr "Error updating the addon type_n"
+
+#: ../../impruwclientparent/functions.php:2105
+msgid "Tax type updated successfully"
+msgstr "Tax type updated successfully_n"
+
+#: ../../impruwclientparent/functions.php:2109
+msgid "Error updating the tax type"
+msgstr "Error updating the tax type_n"
+
+#: ../../impruwclientparent/functions.php:2130
+msgid "Facility is successfully Deleted"
+msgstr "Facility is successfully Deleted_n"
+
+#: ../../impruwclientparent/functions.php:2134
+msgid "Error deleting facility"
+msgstr "Error deleting facility_n"
+
+#: ../../impruwclientparent/functions.php:2162
+msgid "Addon type is successfully Deleted"
+msgstr "Addon type is successfully Deleted_n"
+
+#: ../../impruwclientparent/functions.php:2166
+msgid "Error deleting addon type"
+msgstr "Error deleting addon type_n"
+
+#: ../../impruwclientparent/functions.php:2197
+msgid "Error deleting tax type"
+msgstr "Error deleting tax type_n"
+
+#: ../../impruwclientparent/functions.php:2228
+msgid "Facility updated successfully"
+msgstr "Facility updated successfully_n"
+
+#: ../../impruwclientparent/functions.php:2245
+msgid "Check-in time updated successfully"
+msgstr "Check-in time updated successfully_n"
+
+#: ../../impruwclientparent/functions.php:2247
+msgid "Error updating check-in time"
+msgstr "Error updating check-in time_n"
+
+#: ../../impruwclientparent/functions.php:2262
+msgid "Additional policies updated successfully"
+msgstr "Additional policies updated successfully_n"
+
+#: ../../impruwclientparent/functions.php:2264
+msgid "Error updating additional policies"
+msgstr "Error updating additional policies_n"
+
+#: ../../impruwclientparent/functions.php:2278
+msgid "Tax option updated successfully"
+msgstr "Tax option updated successfully_n"
+
+#: ../../impruwclientparent/functions.php:2280
+msgid "Error updating tax option"
+msgstr "Error updating tax option_n"
+
+#: ../../impruwclientparent/functions.php:2291
+msgid "Check-in format updated successfully"
+msgstr "Check-in format updated successfully_n"
+
+#: ../../impruwclientparent/functions.php:2293
+msgid "Error updating Check-in format"
+msgstr "Error updating Check-in format_n"
+
+#: ../../impruwclientparent/functions.php:2317
+msgid "The selected daterange overlaps existing dateranges."
+msgstr "The selected daterange overlaps existing dateranges._n"
+
+#: ../../impruwclientparent/functions.php:2325
+msgid "Daterange label already exists."
+msgstr "Daterange label already exists._n"
+
+#: ../../impruwclientparent/functions.php:2355
+msgid "Date range is successfully added"
+msgstr "Date range is successfully added_n"
+
+#: ../../impruwclientparent/functions.php:2357
+msgid "Error adding Date range"
+msgstr "Error adding Date range_n"
+
+#: ../../impruwclientparent/functions.php:2389
+msgid "The selected daterange overlaps other existing dateranges."
+msgstr "The selected daterange overlaps other existing dateranges._n"
+
+#: ../../impruwclientparent/functions.php:2422
+msgid "Date range updated successfully"
+msgstr "Date range updated successfully_n"
+
+#: ../../impruwclientparent/functions.php:2424
+msgid "Error updating Date range"
+msgstr "Error updating Date range_n"
+
+#: ../../impruwclientparent/functions.php:2488
+msgid "Error adding Tariff plan"
+msgstr "Error adding Tariff plan_n"
+
+#: ../../impruwclientparent/functions.php:2501
+msgid "Tariff plan is successfully added"
+msgstr "Tariff plan is successfully added_n"
+
+#: ../../impruwclientparent/functions.php:2507
+#: ../../impruwclientparent/functions.php:2542
+msgid "Error adding plan"
+msgstr "Error adding plan_n"
+
+#: ../../impruwclientparent/functions.php:2536
+msgid "Plan is successfully added"
+msgstr "Plan is successfully added_n"
+
+#: ../../impruwclientparent/functions.php:2636
+msgid "Error updating plan"
+msgstr "Error updating plan_n"
+
+#: ../../impruwclientparent/functions.php:2638
+msgid "The plan updated successfully"
+msgstr "The plan updated successfully_n"
+
+#: ../../impruwclientparent/functions.php:2847
+msgid "Date range successfully deleted"
+msgstr "Date range successfully deleted_n"
+
+#: ../../impruwclientparent/functions.php:2850
+msgid "Error deleting date range"
+msgstr "Error deleting date range_n"
+
+#: ../../impruwclientparent/functions.php:2910
+msgid "New Room added successfully"
+msgstr "New Room added successfully_n"
+
+#: ../../impruwclientparent/functions.php:2953
+msgid "Room Details updated successfully"
+msgstr "Room Details updated successfully_n"
 
 #~ msgid "Login"
 #~ msgstr "Login_n"
@@ -449,9 +846,6 @@ msgstr "Invalid Form Data_n"
 
 #~ msgid "Step 1:"
 #~ msgstr "Step 1:_n"
-
-#~ msgid "Create a site in less than 30 minutes."
-#~ msgstr "Create a site in less than 30 minutes._n"
 
 #~ msgid "Step 2:"
 #~ msgstr "Step 2:_n"
