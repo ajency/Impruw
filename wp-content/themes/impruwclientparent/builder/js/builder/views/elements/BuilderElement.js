@@ -450,7 +450,7 @@ define(['backbone', 'jquery', 'underscore', 'global'],
 
                      this.$el.append('<div class="aj-imp-drag-handle">\
                                         <p title="Move">\
-                                            <span class="icon-uniF140"></span>\
+                                            <span class="bicon icon-uniF140"></span>\
                                         </p>\
                                     </div>');
                 }
