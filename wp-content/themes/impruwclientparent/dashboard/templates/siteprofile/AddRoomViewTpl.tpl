@@ -802,7 +802,7 @@ var facilities_selected_exists;
 								<%	
 								   }
 								%>
-								<img src ="<%=THEMEURL%>/images/loader.gif" width="38" height="30"  
+								<img src ="<%=THEMEURL%>/images/loader-white.gif" width="38" height="30"  
 													id="roomsave_loader" style="display:none"/>
 							</form>
 						</div>
