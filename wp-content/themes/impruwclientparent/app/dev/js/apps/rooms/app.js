@@ -29,12 +29,16 @@
           return list.showListView();
         },
         edit: function(room) {
-          var edit;
-          edit = new RoomsApp.Edit.Controller({
-            model: room,
-            region: App.dialogRegion
+          var edit, roomId;
+          if (!_.isObject(room)) {
+            roomId = parseInt(room);
+            room = new App.Entities.Rooms.Room({
+              id: roomId
+            });
+          }
+          return edit = new RoomsApp.Edit.Controller({
+            model: room
           });
-          return console.log(room);
         }
       };
       App.vent.on("edit:room:clicked", function(room) {

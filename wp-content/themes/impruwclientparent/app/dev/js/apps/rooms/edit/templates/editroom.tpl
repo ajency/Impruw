@@ -1,13 +1,5 @@
-<div class="modal-content">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-    <h4 class="modal-title" id="myModalLabel">Edit room {{ name }}</h4>
+<header class="aj-imp-dash-header row">
+  <div class="aj-imp-dash-title col-xs-12">
+    <h2 class="aj-imp-page-head">Edit Room</h2>
   </div>
-  <div class="modal-body">
-    
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-    <button type="button" class="btn btn-primary">Save changes</button>
-  </div>
-</div><!-- /.modal-content -->
+</header>

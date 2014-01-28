@@ -22,12 +22,14 @@ define [
 				list.showListView()
 
 			edit :(room)->
+
+				if not _.isObject room
+					roomId = parseInt room
+					room = new App.Entities.Rooms.Room({id : roomId}) 
+
 				edit = new RoomsApp.Edit.Controller 
-												model : room
-												region : App.dialogRegion
+											model : room
 												 
-				#edit.showEdit()
-				console.log room
 
 
 		App.vent.on "edit:room:clicked", (room)->

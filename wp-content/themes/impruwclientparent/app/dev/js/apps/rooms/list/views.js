@@ -20,7 +20,6 @@
 
         RoomSingle.prototype.events = {
           'click a.editroom_link': function(e) {
-            e.preventDefault();
             return this.trigger('edit:room:clicked', this.model);
           }
         };

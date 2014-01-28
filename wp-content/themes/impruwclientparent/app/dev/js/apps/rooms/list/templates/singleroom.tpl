@@ -34,8 +34,8 @@
 	</div>
 </td>
 <td class="actions">
-	<a href="#edit-room/20" class="btn btn-xs editroom_link">
+	<a href="#rooms/edit/20" class="btn btn-xs editroom_link">
 	<span class="glyphicon glyphicon-pencil"></span> Edit</a> 
-	<a href="#delete-room/20" class="btn btn-danger btn-xs deleteroom_link">
+	<a href="#rooms/delete/20" class="btn btn-danger btn-xs deleteroom_link">
 	<span class="glyphicon glyphicon-trash"></span> Delete</a>
 </td>

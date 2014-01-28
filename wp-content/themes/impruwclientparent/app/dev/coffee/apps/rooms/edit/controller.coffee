@@ -1,5 +1,5 @@
 define ['app', 'controllers/base-controller'
-		'apps/rooms/edit/views'], (App, AppController)->
+		'apps/rooms/edit/views','entities/facilities','entities/media'], (App, AppController)->
 
 	App.module 'RoomsApp.Edit', (Edit, App, Backbone, Marionette, $, _)->
 
@@ -11,7 +11,8 @@ define ['app', 'controllers/base-controller'
 
 				view = @.getEditView(@model)	
 
-				@show view
+				@show view,
+						loading : true
 
 
 			getEditView : (room)->

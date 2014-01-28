@@ -15,7 +15,6 @@ define ['app'
 
 					events : 
 						'click a.editroom_link' : (e)-> 
-								e.preventDefault()
 								@trigger 'edit:room:clicked', @model
 
 				class View.EmptyView extends Marionette.ItemView

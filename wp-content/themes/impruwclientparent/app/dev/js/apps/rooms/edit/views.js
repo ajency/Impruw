@@ -16,12 +16,6 @@
 
         EditRoom.prototype.template = editRoomTpl;
 
-        EditRoom.prototype.className = 'modal-dialog';
-
-        EditRoom.prototype.dialog = {
-          title: 'Edit Room'
-        };
-
         return EditRoom;
 
       })(Marionette.ItemView);

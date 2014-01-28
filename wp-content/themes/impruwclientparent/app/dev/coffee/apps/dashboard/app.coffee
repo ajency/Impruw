@@ -8,6 +8,7 @@ define ['app','apps/dashboard/show/controller'], (App)->
 				'' : 'show'
 				'dashboard' : 'show'
 
+		#PUBLIC API
 		API = 
 			show : ()->
 
@@ -21,7 +22,7 @@ define ['app','apps/dashboard/show/controller'], (App)->
 			_.logAppMsg "DashboardApp Module started..."
 
 			new DashboardApp.Router
-				controller : API
+						controller : API
 			
 
 		
