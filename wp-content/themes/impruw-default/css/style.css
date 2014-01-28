@@ -26,121 +26,23 @@ Version:        0.1.0
   font-style: normal;
 }
 /*---Font Import---*/
-/****Color Variables****/
-/*---Color Variables---*/
-/****Selection Color****/
-::selection {
-  background: #7ecbc3;
-  color: #fff;
-}
-::-moz-selection {
-  background: #7ecbc3;
-  color: #fff;
-}
-/*---Selection Color---*/
-/****Mixins****/
-.clearfix {
-  *zoom: 1;
-}
-.clearfix:after,
-.clearfix:before {
-  clear: both;
-  content: "";
-  display: table;
-}
-.t-a-r {
-  text-align: right;
-}
-.t-a-l {
-  text-align: left;
-}
-.t-a-c {
-  text-align: center;
-}
-.f-r {
-  float: right;
-}
-.f-l {
-  float: left;
-}
-.backTrans {
-  -webkit-transition: all 0.25s ease;
-  -moz-transition: all 0.25s ease;
-  -o-transition: all 0.25s ease;
-  -ms-transition: all 0.25s ease;
-  transition: all 0.25s ease;
-}
-.spinTrans {
-  -webkit-transform: rotate(360deg);
-  -moz-transform: rotate(360deg);
-  -o-transform: rotate(360deg);
-  -ms-transform: rotate(360deg);
-  transform: rotate(360deg);
-}
-/*---Mixins---*/h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: 'Open Sans', sans-serif;
-  font-weight: 400;
-}
-h1 {
-  font-size: 3.389em;
-}
-h2 {
-  font-size: 2.889em;
-}
-h3 {
-  font-size: 2.222em;
-}
-h4 {
-  font-size: 1.833em;
-}
-h5 {
-  font-size: 1.500em;
-}
-h6 {
-  font-size: 1.222em;
-}
-li {
-  font-size: 1em;
-}
-a {
-  color: #5ca9a1;
-}
-a:hover {
-  color: #7ecbc3;
-}
-blockquote p {
-  font-style: italic;
-  font-size: 0.944em;
-}
-.breadcrumb {
-  padding: 5px 15px;
-  border-radius: 0;
-  font-size: 0.833em;
-}
-.breadcrumb li {
-  font-size: 1em;
-}
-.breadcrumb li a {
-  font-size: 1em;
-}
-.img-center {
-  display: block;
-  margin: 0 auto;
-}
-.btn {
-  border-radius: 0;
-}
 /****Template Styles****/
 .site-style-container {
   font-size: 18px;
   color: #989898;
   font-family: 'Open Sans', sans-serif;
   line-height: 30px;
+  /****Color Variables****/
+
+  /*---Color Variables---*/
+
+  /****Selection Color****/
+
+  /*---Selection Color---*/
+
+  /****Mixins****/
+
+  /*---Mixins---*/
   /***Social Bar***/
 
   /*--Social Bar--*/
@@ -169,6 +71,110 @@ blockquote p {
 
   /*--Fix Row Padding--*/
 
+}
+.site-style-container ::selection {
+  background: #7ecbc3;
+  color: #fff;
+}
+.site-style-container ::-moz-selection {
+  background: #7ecbc3;
+  color: #fff;
+}
+.site-style-container .clearfix {
+  *zoom: 1;
+}
+.site-style-container .clearfix:after,
+.site-style-container .clearfix:before {
+  clear: both;
+  content: "";
+  display: table;
+}
+.site-style-container .t-a-r {
+  text-align: right;
+}
+.site-style-container .t-a-l {
+  text-align: left;
+}
+.site-style-container .t-a-c {
+  text-align: center;
+}
+.site-style-container .f-r {
+  float: right;
+}
+.site-style-container .f-l {
+  float: left;
+}
+.site-style-container .backTrans {
+  -webkit-transition: all 0.25s ease;
+  -moz-transition: all 0.25s ease;
+  -o-transition: all 0.25s ease;
+  -ms-transition: all 0.25s ease;
+  transition: all 0.25s ease;
+}
+.site-style-container .spinTrans {
+  -webkit-transform: rotate(360deg);
+  -moz-transform: rotate(360deg);
+  -o-transform: rotate(360deg);
+  -ms-transform: rotate(360deg);
+  transform: rotate(360deg);
+}
+.site-style-container h1,
+.site-style-container h2,
+.site-style-container h3,
+.site-style-container h4,
+.site-style-container h5,
+.site-style-container h6 {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+}
+.site-style-container h1 {
+  font-size: 3.389em;
+}
+.site-style-container h2 {
+  font-size: 2.889em;
+}
+.site-style-container h3 {
+  font-size: 2.222em;
+}
+.site-style-container h4 {
+  font-size: 1.833em;
+}
+.site-style-container h5 {
+  font-size: 1.500em;
+}
+.site-style-container h6 {
+  font-size: 1.222em;
+}
+.site-style-container li {
+  font-size: 1em;
+}
+.site-style-container a {
+  color: #5ca9a1;
+}
+.site-style-container a:hover {
+  color: #7ecbc3;
+}
+.site-style-container blockquote p {
+  font-style: italic;
+  font-size: 0.944em;
+}
+.site-style-container .breadcrumb {
+  padding: 5px 15px;
+  border-radius: 0;
+  font-size: 0.833em;
+}
+.site-style-container .breadcrumb li {
+  font-size: 1em;
+}
+.site-style-container .breadcrumb li a {
+  font-size: 1em;
+}
+.site-style-container .img-center {
+  display: block;
+  margin: 0 auto;
+}
+.site-style-container .btn {
+  border-radius: 0;
 }
 .site-style-container .topStrip {
   background: #5ca9a1;
