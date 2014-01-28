@@ -51,6 +51,7 @@ require.config({
         addresselement  : 'builder/views/elements/AddressElement',
         contactformelement : 'builder/views/elements/ContactFormElement',
         mapelement      : 'builder/views/elements/MapElement',
+        galleryelement  : 'builder/views/elements/GalleryElement',
 
         roomtitle       : 'builder/views/elements/rooms/RoomTitle',
         roomdescription : 'builder/views/elements/rooms/RoomDescription',

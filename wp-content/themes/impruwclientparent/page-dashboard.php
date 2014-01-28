@@ -32,15 +32,26 @@
 				</div>
 				<nav class="aj-imp-dash-nav">
 					<ul id="aj-imp-dash-menu">
+					   <li class="aj-imp-nav-dashboard">
+							<span class="icon"></span>
+							<span class="arrow"></span><?php
+							$wpml_options = get_option( 'icl_sitepress_settings' );
+							
+							$default_lang = $wpml_options['default_language'];
+							
+							$dashboard_page = ($default_lang=='en'?'dashboard':'dashboard-2' );
+							?>
+							<a href="<?php echo site_url()."/".$dashboard_page?>">Dashboard</a>
+						</li>
 						<li class="aj-imp-nav-create">
 							<span class="icon"></span>
 							<span class="arrow"></span>
-							<a href="#">Site Builder</a>
+							<a href="<?php echo site_url()?>/site-builder">Site Builder</a>
 						</li>
 						<li class="aj-imp-nav-booking active">
 							<span class="icon"></span>
 							<span class="arrow"></span>
-							<a href="#">Rooms</a>
+							<a href="#room-list">Rooms</a>
 							<ul class="sub-menu">
 								<li>
 									<a href="#room-list">View All</a>
@@ -90,6 +101,8 @@
         var SITEID 		= {'id':<?php echo get_current_blog_id(); ?>}
         var UPLOADURL = '<?php echo admin_url('async-upload.php'); ?>';
         var _WPNONCE = '<?php echo wp_create_nonce('media-form');?>'; 
+        var JSVERSION   = '<?php echo JSVERSION; ?>';
+        var CURRENTLANG = 'en_US';
      </script>
 
 	<script

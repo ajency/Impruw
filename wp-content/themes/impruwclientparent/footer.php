@@ -15,6 +15,9 @@
                     <?php echo generate_markup('footer'); ?>
 		</footer><!-- .site-footer -->
 	</div><!-- .container -->
+  <script type="text/javascript">
+  var AJAXURL = "<?php echo admin_url('admin-ajax.php'); ?>";
+  </script>
 	<script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
     <?php get_theme_JS() ;?>
 	<?php wp_footer(); ?>
@@ -22,6 +25,10 @@
 		$('.carousel').carousel();
 		function initialize() {
             var map_canvas = document.getElementById('map_canvas');
+            
+            if(map_canvas === null)
+              return;
+
             var youcou = new google.maps.LatLng(37.390345, -6.022595);
             var marker;
             var map_options = {

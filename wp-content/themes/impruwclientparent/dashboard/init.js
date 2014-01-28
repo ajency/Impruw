@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-var _urlArg = "ver=" + (location.host === 'localhost' ? (new Date()).getTime() : '1.0'); //to avoid file caching
+var _urlArg = "ver=" + (location.host === 'localhost' ? (new Date()).getTime() : JSVERSION); //to avoid file caching
 
 /**
  * configure require
@@ -32,8 +32,10 @@ require.config({
         marionette      		: 'lib/backbone.marionette.min',
         plupload        		: 'lib/plupload.full.min',
         tpl                     : 'lib/tpl',
+        json                    : 'lib/json',
         parsley                 : 'lib/parsley/parsley',
         jpanelmenu              : 'lib/jquery.jpanelmenu.min',
+        polyglot                : 'lib/polyglot',
         
         //Views
         mainview				: 'views/DashboardMainView',
@@ -97,6 +99,9 @@ require.config({
             deps : ['jquery'],
             exports : 'moment'
         },
+        'jpanelmenu' : {
+        	deps : ['jquery']
+        },
         'jqueryui' : {
             deps : ['jquery']    
         },
@@ -110,6 +115,9 @@ require.config({
         'marionette' : {
         	deps : ['backbone'],
         	exports : 'Marionette'
+        },
+        'polyglot': {
+          exports: 'Polyglot'
         }
         
     }
@@ -229,11 +237,21 @@ function getFormData(form) {
 	
 }
 
-require(['backbone','marionette',
-         'routers/DashboardRouter','sitemodel','usermodel'], 
-         function( Backbone, Marionette, Router, SiteModel, UserModel) {
 
-         $(document).ready(function(){   
+var __ = function(string){
+
+    return pt.t(string)
+
+}
+
+
+require(['backbone','marionette',
+         'routers/DashboardRouter','sitemodel','usermodel', 'polyglot', 'json!../languages/'+CURRENTLANG+'.json'], 
+         function( Backbone, Marionette, Router, SiteModel, UserModel, Polyglot, phrases) {
+
+        $(document).ready(function(){   
+
+            window.pt = new Polyglot({phrases : phrases});
 
             Backbone.emulateHTTP = true;
             

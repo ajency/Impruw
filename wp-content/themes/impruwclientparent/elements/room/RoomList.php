@@ -75,12 +75,15 @@ class RoomList extends Element {
 
         ?>
         <div class="roomBox">
-            <?php echo the_post_thumbnail('full', array('class' => 'img-responsive img-center')) ?>
+            <div class="imgHolder">
+                <?php echo the_post_thumbnail('full', array('class' => 'img-responsive img-center')) ?>
+            </div>
             <div class="row">
                 <div class="subTitle roomName"><a href="<?php echo get_permalink(); ?>"><?php the_title(); ?></a></div>
             </div>
             <p><?php echo get_the_excerpt(); ?></p>
             <div class="line-separator"></div>
+            <div class="facilities">
                 <?php
                 $facilities = wp_get_post_terms(get_the_ID(), 'impruw_room_facility');
 
@@ -103,6 +106,7 @@ class RoomList extends Element {
                     echo '</div>';
                     
                 } ?>
+            </div>
             <div class="line-separator"></div>
             <div class="row">
                 <div class="col-xs-6 roomRate"><!-- <span class="currency">kr</span> <span class="amount">210</span> / night--></div>

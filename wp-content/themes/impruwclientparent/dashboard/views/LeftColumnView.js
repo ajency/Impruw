@@ -21,7 +21,7 @@ define(['underscore', 'jquery', 'backbone', 'jpanelmenu' ],
                     //jPanel Menu
 	               	var jPM = $.jPanelMenu({
 					    menu: '.aj-imp-dash-nav',
-					    trigger: '#nav-trigger',
+					    trigger: '#nav-trigger' 
 					});
 					jPM.on();
                   	
@@ -38,7 +38,7 @@ define(['underscore', 'jquery', 'backbone', 'jpanelmenu' ],
 
 					var self = this;
 
-				},
+				} 
                	
 
 			});	

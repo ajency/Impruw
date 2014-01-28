@@ -186,6 +186,7 @@ a {
 				@media (max-width: 767px) { 
 					font-size: 2.5em;
 					margin: 0.2em 0;
+					text-align: center;
 				}
 			}
 			.aj-imp-dash-actions {
@@ -444,12 +445,31 @@ form {
 			.fileinput {
 				.thumbnail {
 					border-radius: 0;
+					position: relative;
+					.btn_deleteAttachment, .btn_del_featuredimg {
+						position: absolute;
+						padding: 1px 6px 0px;
+						background: @logo-orange;
+						border-radius: 2px;
+						box-shadow: 0 0 2px @dash-grey;
+						color: #fff;
+						top: 0;
+						right: 0;
+						font-size: 1em;
+						&:hover {
+							color: #fff;
+							background: @orange;
+						}
+					}
 				}
 				.btn {
 					color: @blue-grey;
 					&:hover {
 						text-shadow: none;
 						color: darken(@blue-grey, 10%);
+					}
+					&.btn-file {
+						margin-top: 0.5em;
 					}
 				}
 			}
@@ -1255,6 +1275,116 @@ form {
 								}
 							}
 						}
+						.thumbnails {
+							.single-img {
+								position: relative;
+								.thumbnail {
+									margin-bottom: 7px;
+									border: 2px solid @dash-grey;
+									.imgthumb {
+										height: 145px;
+										text-align: center;
+										img {
+											vertical-align: middle;
+											max-height: 145px;
+											display: inline-block;
+											
+										}
+										&:before {
+											content: "";
+										    display: inline-block;
+										    height: 100%;
+										    vertical-align: middle;
+										}
+									}
+									&:hover {
+										border-color: @blue-grey;
+										background: @preview-grey;
+									}
+								}
+								.ticker {
+									position: absolute;
+									top: -7px;
+									right: 5px;
+									color: #fff;
+									padding: 3px 4px;
+									border-radius: 2px;
+									text-shadow: 0 0 1px @preview-grey;
+									background: @blue-grey;
+									display: none;
+									box-shadow: 0 0 2px #333;
+									.glyphicon-minus {
+										display: none;
+									}
+									&:hover {
+										cursor: pointer;
+										.glyphicon-ok {
+											display: none;
+										}
+										.glyphicon-minus {
+											display: inline-block;
+										}
+									}
+								}
+								&.ui-selected {
+									.thumbnail {
+										border-color: @blue-grey;
+									}
+									.ticker {
+										display: block;
+									}
+								}
+							}
+						}
+						.img-details {
+							border: 2px solid @dash-grey;
+							border-radius: 3px;
+							background: lighten(@preview-grey, 10%);
+							padding: 5px;
+							.pick-image {
+								text-align: center;
+								padding: 2em;
+								.glyphicon {
+									font-size: 4em;
+									color: @dash-grey;
+								}
+								h4 {
+									color: @dash-grey;
+									text-transform: uppercase;
+									font-size: 1.2em;
+									margin: 2em 0 0;
+								}
+							}
+							h5 {
+								color: darken(@dash-grey, 20%);
+								font-size: 1em;
+								text-transform: uppercase;
+							}
+							.imgdetails {
+								margin: 0 0 1em;
+								padding: 0 0 1em;
+								border-bottom: 1px solid @dash-grey;
+							}
+							.imginfo {
+								color: @dash-grey;
+								font-size: 0.88em;
+								h6 {
+									font-size: 1.2em;
+									color: @logo-blue;
+									margin: 0 0 0.2em;
+								}
+								.edit-image {
+									margin: 0.5em 0.5em 0.5em 0;
+									color: @blue-grey;
+									display: inline-block;
+								}
+								.delete-image {
+									color: darken(@orange, 10%);
+									margin: 0.5em 0.5em 0.5em 0;
+									display: inline-block;
+								}
+							}
+						}
 						.aj-imp-block-button {
 							margin: 1em 0;
 							a {
@@ -1584,6 +1714,13 @@ form {
 	background: transparent !important;
 	td {
 		vertical-align: middle !important;
+	}
+}
+
+.no-data {
+	td {
+		font-style: italic;
+		color: lighten(@dash-grey, 10%);
 	}
 }
 

@@ -14,7 +14,13 @@ var roomModel;
 	var noOfRooms	 		= editroomdata.get('inventory');
 	var roomDesc	 		= editroomdata.get('roomDesc');
 	var selectedFacilities 	= editroomdata.get('facilities');
-	var datePlanTariff 		= editroomdata.get('daterangetariff')}
+	var roomAttachments 	= editroomdata.get('roomAttachments')
+	var minMaxTariff		= editroomdata.get('minmaxTariff');
+	var datePlanTariff 		= editroomdata.get('daterangetariff');
+	var roomFeaturedImg		= editroomdata.get('roomFeaturedImg');
+	}
+	
+	 
 	
 	var datePlantariffIds;
 	var cntPlanTariff = 0; 
@@ -43,7 +49,7 @@ var facilities_selected_exists;
 %>
 				<header class="aj-imp-dash-header row">
 					<div class="aj-imp-dash-title col-xs-12">
-						<h2 class="aj-imp-page-head">Add Room</h2>
+						<h2 class="aj-imp-page-head"><%= __('Add Room') %></h2>
 					</div>
 				</header>
 	
@@ -52,24 +58,24 @@ var facilities_selected_exists;
 					
 						<div class="alert alert-success hidden" id="roomsave_status" name="roomsave_status" >
 							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-							Your details have been successfully saved.
+							<%= __('Your details have been successfully saved.') %>
 						</div>
 						<form class="form-horizontal clearfix" name="frm_addroom" id="frm_addroom" >
 							 <input type='hidden' name='hdn_roomId'  id='hdn_roomId' value='<% if(!_.isUndefined(roomId)) { %><%=roomId%><% } %>' /> 	
 								
 							<div class="form-group">
-								<label for="inputEmail3" class="col-sm-2 control-label">Add Room Category</label>
+								<label for="inputEmail3" class="col-sm-2 control-label"><%= __('Add Room Category') %></label>
 								<div class="col-sm-10 col-sm-offset-2">
 									<input type="text" class="form-control" id="roomcategory" name="roomcategory" 
 									placeholder="eg. Executive Room" required parsley-trigger="blur" parsley-validation-minlength="0"
-									parsely-required-message = "Please enter room category" 
+									parsely-required-message = "<%= __('Please enter room category') %>" 
 									value="<%if(!_.isUndefined(roomCategory)) {%><%=roomCategory%><%}%>" />
 									<div class="p-messages"></div>
 								</div>
 							</div>
 
 							<div class="form-group">
-								<label for="inputEmail3" class="col-sm-2 control-label">No. of Rooms</label>
+								<label for="inputEmail3" class="col-sm-2 control-label"><%= __('No. of Rooms') %></label>
 								<div class="col-sm-10 col-sm-offset-2">
 									<input type="numeric" class="form-control" name="roomnos" id="roomnos" placeholder="eg. 10" 
 									required parsley-trigger="blur" parsley-validation-minlength="0" parsley-type="number"
@@ -103,26 +109,68 @@ var facilities_selected_exists;
 						
 						<div class="scroll-indicator-container" id="scr1">
 							<h4 class="aj-imp-sub-head scroll-ref">Images <small>Add attachment images to your room.</small></h4>
-							<form class="form-horizontal clearfix">
+							<form class="form-horizontal clearfix" name="frm_images">
 								
-								<div class="form-group">
-									<label for="inputSEO1" class="col-sm-2 control-label">Attachments</label>
+							 	
+								<div class="form-group pic-upload">
+									<label for="inputSEO1" class="col-sm-2 control-label">Featured image</label>
 									<div class="col-sm-10 col-sm-offset-2">
 		                            <div class="fileinput fileinput-new" data-provides="fileinput">
-		                                <div class="fileinput-preview thumbnail room-attachment-img hidden" data-trigger="fileinput" style="width: 120px; height: 140px;">
-		                                	<a href="javascript:void(0)" class="btn btn-danger btn_deleteAttachment" attachment-id="" data-dismiss="fileinput" >X</a>
-		                                	<img name="business_logo"  id="businesslogo_img"   class="" src="" />		                                	
+		                                <div class="fileinput-preview thumbnail room-featured-img <% if(_.isUndefined(roomFeaturedImg)){  %>hidden<% } else if(_.isNull(roomFeaturedImg.url)) {%> hidden<%} %>" data-trigger="fileinput" style="width: 120px; height: 120px;">
+		                                	<a href="javascript:void(0)" class="btn btn-danger btn_del_featuredimg" attachment-id="" data-dismiss="fileinput" >&times;</a>
+		                                	<img name="featured_image"  id="featured_image"   class="" src="<% if(!_.isUndefined(roomFeaturedImg)){ %><%=roomFeaturedImg.url%><% } %>" />		                                	
 		                                </div>
-		                                <input type="hidden" name="hdn_roomattachments"  id="hdn_roomattachments" value=""  />
+		                                
+		                                <input type="hidden" name="hdn_roomfeaturedimg"  id="hdn_roomfeaturedimg"  value='<% if(!_.isUndefined(roomFeaturedImg)){ %><%=roomFeaturedImg.id%><% } %>'   />
 		                                <div>
-		                                    <span class="btn btn-default btn-file"><span class="fileinput-new filepopup" id="select_businesslogo">Select image</span> <!-- <input type="file" name="inputFile3">--> </span>
+		                                    <span class="btn btn-default btn-file"><span class="fileinput-new " id="select_featuredimg">Select image</span> <!-- <input type="file" name="inputFile3">--> </span>
 		                                    
 		                                </div>
 		                            </div>
 		                        </div>
 								</div>
 								
-							</form>
+								
+								<div class="form-group pic-upload">
+									<label for="inputSEO1" class="col-sm-2 control-label">Attachments</label>
+									<div class="col-sm-10 col-sm-offset-2">
+			                            <div class="fileinput fileinput-new" data-provides="fileinput">
+			                                <div class="fileinput-preview thumbnail room-attachment-img hidden" data-trigger="fileinput" style="width: 120px; height: 120px;">
+			                                	<a href="javascript:void(0)" class="btn btn-danger btn_deleteAttachment" attachment-id="" data-dismiss="fileinput" >&times;</a>
+			                                	<img name="business_logo"  id="businesslogo_img"   class="" src="" />		                                	
+			                                </div>
+			                                
+			                                <% var rmAttachIds =  '';
+			                                	var cnt_roomattachments = 0 ;
+			                                 	_.each(roomAttachments,function(rmAttachment,index){
+			                                     
+			                                     	if(cnt_roomattachments>0)
+			                                     		rmAttachIds+= ',';
+			                                    	 rmAttachIds+=rmAttachment.attach_id;
+			                                
+					                                %>
+					                                <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 120px; height: 120px;">
+					                                	<a href="javascript:void(0)" class="btn btn-danger btn_deleteAttachment" attachment-id="<%=rmAttachment.attach_id%>" data-dismiss="fileinput" >&times;</a>
+					                                	<img name="business_logo"  id="businesslogo_img"   class="" src="<%=rmAttachment.attach_url%>" />		                                	
+					                                </div>
+					                                <%
+					                                
+					                                cnt_roomattachments++;
+					                            })
+			                                %>
+			                                <input type="hidden" name="hdn_roomattachments"  id="hdn_roomattachments" value="<%=rmAttachIds%>"  />
+			                                <div>
+			                                    <span class="btn btn-default btn-file"><span class="fileinput-new filepopup" id="select_businesslogo">Select image</span> <!-- <input type="file" name="inputFile3">--> </span>
+			                                    
+			                                </div>
+			                            </div>
+		                        	</div>
+								</div>
+								 
+								
+								
+								
+							</form><!--  end .frm_images -->
 						</div>
 						
 						
@@ -249,7 +297,7 @@ var facilities_selected_exists;
 																	</span>
 																</td>
 																<td width="35%">
-																	<span class="label label-info">Weekday:</span> from<strong>$29</strong> <span class="label label-info">Weekend:</span> from<strong>$37</strong>
+																	<span class="label label-info">Weekday:</span> from<strong><%if(!_.isUndefined(minMaxTariff)){ %>$<%=minMaxTariff.min_weekday%><% } else {%> - <% } %></strong> <span class="label label-info">Weekend:</span> from<strong><%if(!_.isUndefined(minMaxTariff)){ %>$<%=minMaxTariff.min_weekend%><% } else {%> - <% } %></strong>
 																</td>
 																<td width="30%" class="rowlink-skip">
 																	<a href="javascript:void(0)" class="edit-link editdaterange_lnk"  daterange-id = "<%=daterange.id%>"  ><span class="glyphicon glyphicon-pencil"></span>Edit</a>
@@ -405,13 +453,20 @@ var facilities_selected_exists;
 									
 									
 									 
-											<table class="table table-bordered table-striped 
-											<%   if (  (roomdata.taxtypes.length<=0) || (_.isUndefined(roomdata.taxtypes.length))  ) { %>hidden<% } %>" id="tax_list">
+											<table class="table table-bordered table-striped" id="tax_list">
 													<thead>
 														<th>Tax Name</th>
 														<th>Tax Percentage</th>
 														<th>Actions</th>
 													</thead>
+
+													<%   if (  (roomdata.taxtypes.length<=0) || (_.isUndefined(roomdata.taxtypes.length))  ) { %>
+														<tr class="no-data">
+															<td>No Taxes Set</td>
+															<td>No Taxes Set</td>
+															<td>No Taxes Set</td>
+														</tr>
+													<% } %>
 									
 											<%  
 											 if(roomdata.taxtypes.length>0){
@@ -449,11 +504,11 @@ var facilities_selected_exists;
 														</td>
 														<td>
 															<a href="javascript:void(0)" class="edit-link edit-taxlink" taxtype-id="<%=taxtype.id %>" >
-															<span class="glyphicon glyphicon-pencil"></span> Edit</a>
+															<span class="glyphicon glyphicon-pencil"  taxtype-id="<%=taxtype.id %>" ></span> Edit</a>
 															<a href="javascript:void(0)" class="edit-link cancel-taxlink hidden" taxtype-id="<%=taxtype.id %>" >
-															<span class="glyphicon glyphicon-ban-circle"></span> Cancel</a>
+															<span class="glyphicon glyphicon-ban-circle"  taxtype-id="<%=taxtype.id %>" ></span> Cancel</a>
 															<a href="javascript:void(0)" class="delete-link delete-taxlink"  taxtype-id="<%=taxtype.id %>" >
-															<span class="glyphicon glyphicon-trash"></span> Delete</a>
+															<span class="glyphicon glyphicon-trash"  taxtype-id="<%=taxtype.id %>" ></span> Delete</a>
 														</td>
 													</tbody>
 														 	
@@ -481,7 +536,7 @@ var facilities_selected_exists;
 								<div class="add-text">
 									
 									<!--  Add Tax <button type="button" class="btn add-btn btn-sm" data-toggle="modal" data-target="#add-tax"><i class="glyphicon glyphicon-plus"></i></button> -->
-									 <button type="button" class="btn add-btn btn-sm add_tax_btn"><i class="glyphicon glyphicon-plus add_tax_btn"></i></button>
+									Add Tax <button type="button" class="btn add-btn btn-sm add_tax_btn"><i class="glyphicon glyphicon-plus"></i></button>
 									 
 								</div>
 
@@ -495,12 +550,20 @@ var facilities_selected_exists;
 									<div class="alert alert-success hidden status_message"></div>
 									<div class="col-sm-12">
 									
-											<table class="table table-bordered table-striped  <%   if (  (roomdata.addontypes.length<=0) || (_.isUndefined(roomdata.addontypes.length))  ) { %>hidden<% } %>" id="addons_list">
+											<table class="table table-bordered table-striped" id="addons_list">
 														<thead>
 															<th>Add-On</th>
 															<th>Price</th>
 															<th>Actions</th>
 														</thead>
+
+														<%   if (  (roomdata.addontypes.length<=0) || (_.isUndefined(roomdata.addontypes.length))  ) { %>
+															<tr class="no-data">
+																<td>No Add-ons Defined</td>
+																<td>No Add-ons Defined</td>
+																<td>No Add-ons Defined</td>
+															</tr>
+														<% } %>
 											<%  
 											 if(roomdata.addontypes.length>0){
 											
@@ -540,11 +603,11 @@ var facilities_selected_exists;
 															</td>
 															<td>
 																<a href="javascript:void(0)" class="edit-link edit-addonlink" addontype-id="<%=addontype.id %>"   > 
-																	<span class="glyphicon glyphicon-pencil"></span> Edit</a>
+																	<span class="glyphicon glyphicon-pencil"  addontype-id="<%=addontype.id %>"></span> Edit</a>
 																<a href="javascript:void(0)" class="edit-link cancel-addonlink hidden" addontype-id="<%=addontype.id %>">
-																	<span class="glyphicon glyphicon-ban-circle"></span> Cancel</a>
+																	<span class="glyphicon glyphicon-ban-circle"  addontype-id="<%=addontype.id %>"></span> Cancel</a>
 																<a href="javascript:void(0)" class="delete-link delete-addonlink" addontype-id="<%=addontype.id %>">
-																	<span class="glyphicon glyphicon-trash"></span> Delete</a>
+																	<span class="glyphicon glyphicon-trash"  addontype-id="<%=addontype.id %>"></span> Delete</a>
 															</td>
 														</tbody>	
 														 
@@ -596,7 +659,17 @@ var facilities_selected_exists;
 								<div class="form-group checkin_span_block">
 									<div class="alert alert-success hidden status_message"></div>
 									<div class="col-sm-12">
-										<p class="checkinformat_text"> <% if(!_.isUndefined(roomdata.checkinformat)) {%> <%=roomdata.checkinformat %>-hour Format <% } %></p>
+										<p class="checkinformat_text"> 
+											<% if(!_.isUndefined(roomdata.checkinformat)) { 
+													if(!_.isEmpty(roomdata.checkinformat)){ %>
+														<%=roomdata.checkinformat %>-hour Format <% 
+													} 
+													else{ %>
+														<div class="alert">Please select Check-in time format</div><% 
+													} 
+												} 
+											%>
+										</p>
 										<div class="checkinformat_edit row hidden">
 											<div class="col-sm-2">
 												<label class="radio <% if(!_.isUndefined(roomdata.checkinformat)) { 
@@ -629,9 +702,19 @@ var facilities_selected_exists;
 								<div class="form-group">
 									<div class="alert alert-success hidden status_message"></div>
 									<div class="col-sm-7">
-										<p class="checkintime_text"><% if(!_.isUndefined(roomdata.checkintime)) {%><%=roomdata.checkintime %> <%}%></p>
+										<p class="checkintime_text">
+											<% if(!_.isUndefined(roomdata.checkintime)) { 
+											 		 if(_.isEmpty(roomdata.checkintime) ){ %>
+												 	 	Please enter checkin time <% 
+													 }
+													 else { %>
+													 <%=roomdata.checkintime %>
+												  <% } 
+											   }
+											%>
+										  </p>
 										<div class="checkintime_edittext hidden">
-											<input type='text' class="form-control" data-mask="99:99" name="checkin_time" id="checkin_time" value="<% if(!_.isUndefined(roomdata.checkintime)) {%><%=roomdata.checkintime %> <%}%>" >
+											<input type='text' class="form-control" data-mask="99:99" placeholder="09:00" name="checkin_time" id="checkin_time" value="<% if(!_.isUndefined(roomdata.checkintime)) {%><%=roomdata.checkintime %> <%}%>" >
 										</div>
 										<a class="edit-link edit-checkintime" href="javascript:void(0)"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
 										<a class="delete-link delete-checkintime hidden" href="javascript:void(0)"><span class="glyphicon glyphicon-trash"></span> Delete</a>
@@ -676,9 +759,20 @@ var facilities_selected_exists;
 								<div class="form-group">
 									<div class="alert alert-success hidden status_message"></div>
 									<div class="col-sm-12">
-										<p class='addpoliciestext'><% if(!_.isUndefined(roomdata.additionalpolicies)) {%><%=roomdata.additionalpolicies%> <%}%></p>
+										<p class='addpoliciestext'>
+										<% if(!_.isUndefined(roomdata.additionalpolicies)){   
+												if(_.isEmpty(roomdata.additionalpolicies)){ %>
+													Please add additional policies<%} 
+												else { %>
+													<%=roomdata.additionalpolicies%> <% }
+											}%>
+										</p>
 										<div class="addpoliciestext_edit hidden">
-											<textarea class="form-control" rows="3" name="additional_policies"  id="additional_policies" placeholder="eg. All rates are per night rates."><% if(!_.isUndefined(roomdata.additionalpolicies)) {%><%=roomdata.additionalpolicies%> <%}%></textarea>
+											<textarea class="form-control" rows="3" name="additional_policies"  id="additional_policies" placeholder="eg. All rates are per night rates.">
+												<% if(!_.isUndefined(roomdata.additionalpolicies)) {%>
+														<%=roomdata.additionalpolicies%> 
+												<% } %>
+											</textarea>
 										</div>
 										<a class="edit-link edit-additional-policies" href="javascript:void(0)"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
 										<a class="delete-link delete-additional-policies hidden" href="javascript:void(0)"><span class="glyphicon glyphicon-trash"></span> Delete</a>

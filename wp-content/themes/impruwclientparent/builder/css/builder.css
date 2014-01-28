@@ -85,6 +85,7 @@ Version:        0.1.0
 .aj-imp-drag-menu .aj-imp-add-row a:focus {
   background: #ff7e00;
   transition-duration: 0.6s;
+  text-decoration: none;
 }
 .aj-imp-drag-menu .aj-imp-add-row a:hover .glyphicon,
 .aj-imp-drag-menu .aj-imp-add-row a:focus .glyphicon {
@@ -155,6 +156,10 @@ Version:        0.1.0
   height: 40px;
   overflow: hidden;
 }
+.aj-imp-drag-menu .tab-content .aj-imp-builder-items li a:hover,
+.aj-imp-drag-menu .tab-content .aj-imp-builder-items li a:focus {
+  text-decoration: none;
+}
 .aj-imp-drag-menu .tab-content .aj-imp-builder-items li:hover,
 .aj-imp-drag-menu .tab-content .aj-imp-builder-items li:focus {
   background: #ff7e00;
@@ -163,6 +168,7 @@ Version:        0.1.0
 .aj-imp-drag-menu .tab-content .aj-imp-builder-items li:hover a,
 .aj-imp-drag-menu .tab-content .aj-imp-builder-items li:focus a {
   color: #fff;
+  background: rgba(0, 0, 0, 0.1);
 }
 /****Builder Top Nav****/
 .aj-imp-builder-top-nav {

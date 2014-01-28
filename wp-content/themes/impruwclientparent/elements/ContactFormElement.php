@@ -66,13 +66,14 @@ class ContactFormElement extends Element {
             <fieldset>
                 <div class="row">
                     <div class="col-md-6">
-                        <input type="text" class="form-control flat" name="name" id="name" title="Enter your name" placeholder="Name"><br>
-                        <input type="email" class="form-control flat" name="email" id="email" title="Enter your email" placeholder="Email Address"><br>
-                        <input type="text" class="form-control flat" name="phonenumber" id="phonenumber" title="Enter your phone number" placeholder="Phone Number" value=""><br>
+                        <input type="text" required class="form-control flat" name="c-name" id="name" title="Enter your name" placeholder="Name"><br>
+                        <input type="email" required class="form-control flat" name="c-email" id="email" title="Enter your email" placeholder="Email Address"><br>
+                        <input type="text" class="form-control flat" name="c-phoneno" id="phonenumber" title="Enter your phone number" placeholder="Phone Number" value=""><br>
                     </div>
                     <div class="col-md-6">
-                        <textarea name="message" class="form-control flat" id="message" title="Enter your message" placeholder="Your Message"></textarea><br>
-                        <button class="submit btn btn-default" name="submit" type="submit" id="contact_submit">Send Message</button>
+                        <textarea required name="c-message" class="form-control flat" id="message" title="Enter your message" placeholder="Your Message"></textarea><br>
+                        <button class="submit btn btn-default" name="submit" type="button" id="contact-form-save">Send Message</button>
+                        <input type="reset" id="contact-form-reset" class="hidden"/>
                     </div>
                 </div>
             </fieldset>
@@ -81,7 +82,7 @@ class ContactFormElement extends Element {
 
         $html .= ob_get_clean();
         
-        $html       .= $this->get_close_tag();
+        $html .= $this->get_close_tag();
         
         return $html;
     }

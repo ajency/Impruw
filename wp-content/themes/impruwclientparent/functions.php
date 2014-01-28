@@ -7,7 +7,9 @@
 global $page_id;
 $page_id = 0;
 
+
 define( 'PARENTTHEMEPATH', ABSPATH . 'wp-content/themes/impruwclientparent/' );
+
 require_once PARENTTHEMEPATH . 'includes/Underscore.php';
 require_once PARENTTHEMEPATH . 'elements/Element.php';
 require_once PARENTTHEMEPATH . 'includes/SiteModel.php';
@@ -240,6 +242,9 @@ function add_element_markup( $element ) {
     case 'LogoElement':
         $html = get_logo_element_markup( $element );
         break; 
+    case 'GalleryElement':
+        $html = get_gallery_markup( $element );
+        break;
     case 'RoomDescription':
         $html = get_room_description_markup( $element );
         break; 
@@ -266,6 +271,19 @@ function add_element_markup( $element ) {
     return $html;
 }
 
+/**
+ * [require_file description]
+ * @param  [type] $path [description]
+ * @return [type]       [description]
+ */
+function require_file($path){
+
+    if(file_exists(CURRENTTHEMEPATH . $path))
+        require_once CURRENTTHEMEPATH . $path;
+    else
+        require_once PARENTTHEMEPATH . $path;
+
+}
 
 
 /**
@@ -275,7 +293,7 @@ function add_element_markup( $element ) {
  */
 function get_builder_row_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/BuilderRow.php';
+    require_file('elements/BuilderRow.php');
 
     $row = new BuilderRow( $element );
 
@@ -304,7 +322,7 @@ function get_builder_row_markup( $element ) {
  */
 function get_builder_row_column_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/BuilderRowColumn.php';
+    require_file('elements/BuilderRowColumn.php');
 
     $column = new BuilderRowColumn( $element );
 
@@ -335,7 +353,7 @@ function get_builder_row_column_markup( $element ) {
  */
 function get_room_description_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/room/RoomDescription.php';
+    require_file('elements/room/RoomDescription.php');
 
     global $page_id;
 
@@ -354,7 +372,7 @@ function get_room_description_markup( $element ) {
  */
 function get_room_title_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/room/RoomTitle.php';
+    require_file('elements/room/RoomTitle.php');
 
     $room = new RoomTitle( $element );
 
@@ -371,7 +389,7 @@ function get_room_title_markup( $element ) {
  */
 function get_room_tariff_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/room/RoomTariff.php';
+    require_file('elements/room/RoomTariff.php');
 
     $tariff = new RoomTariff( $element );
 
@@ -389,7 +407,7 @@ function get_room_tariff_markup( $element ) {
  */
 function get_room_gallery_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/room/RoomGallery.php';
+    require_file('elements/room/RoomGallery.php');
 
     $room = new RoomGallery( $element );
 
@@ -404,9 +422,26 @@ function get_room_gallery_markup( $element ) {
  *
  * @param type    $element
  */
+function get_gallery_markup( $element ) {
+
+    require_file('elements/GalleryElement.php');
+
+    $gallery = new GalleryElement( $element );
+
+    $html = $gallery->get_markup();
+
+    return $html;
+
+}
+
+/**
+ * Generates the room title markup
+ *
+ * @param type    $element
+ */
 function get_room_list_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/room/RoomList.php';
+    require_file('elements/room/RoomList.php');
 
     $room = new RoomList( $element );
 
@@ -423,7 +458,7 @@ function get_room_list_markup( $element ) {
  */
 function get_room_facilities_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/room/RoomFacilities.php';
+    require_file('elements/room/RoomFacilities.php');
 
     $room = new RoomFacilities( $element );
 
@@ -440,7 +475,7 @@ function get_room_facilities_markup( $element ) {
  */
 function get_image_element_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/ImageElement.php';
+    require_file('elements/ImageElement.php');
 
     $image = new ImageElement( $element );
 
@@ -457,7 +492,7 @@ function get_image_element_markup( $element ) {
  */
 function get_contact_form_element_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/ContactFormElement.php';
+    require_file('elements/ContactFormElement.php');
 
     $contact = new ContactFormElement( $element);
 
@@ -474,7 +509,7 @@ function get_contact_form_element_markup( $element ) {
  */
 function get_map_element_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/MapElement.php';
+    require_file('elements/MapElement.php');
 
     $map = new MapElement( $element);
 
@@ -491,7 +526,7 @@ function get_map_element_markup( $element ) {
  */
 function get_logo_element_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/LogoElement.php';
+    require_file('elements/LogoElement.php');
 
     $logo = new LogoElement( $element );
 
@@ -508,7 +543,7 @@ function get_logo_element_markup( $element ) {
  */
 function get_address_element_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/AddressElement.php';
+    require_file('elements/AddressElement.php');
 
     $address = new AddressElement( $element );
 
@@ -525,7 +560,7 @@ function get_address_element_markup( $element ) {
  */
 function get_social_element_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/SocialElement.php';
+    require_file('elements/SocialElement.php');
 
     $social = new SocialElement( $element );
 
@@ -542,7 +577,7 @@ function get_social_element_markup( $element ) {
  */
 function get_title_element_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/TitleElement.php';
+    require_file('elements/TitleElement.php');
 
     $title = new TitleElement( $element );
 
@@ -559,7 +594,7 @@ function get_title_element_markup( $element ) {
  */
 function get_text_element_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/TextElement.php';
+    require_file('elements/TextElement.php');
 
     $text = new TextElement( $element );
 
@@ -575,7 +610,7 @@ function get_text_element_markup( $element ) {
  */
 function get_slider_element_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/SliderElement.php';
+    require_file('elements/SliderElement.php');
 
     $slider = new SliderElement( $element );
 
@@ -592,7 +627,7 @@ function get_slider_element_markup( $element ) {
  */
 function get_menu_element_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/MenuElement.php';
+    require_file('elements/MenuElement.php');
 
     $menu = new MenuElement( $element );
 
@@ -608,7 +643,7 @@ function get_menu_element_markup( $element ) {
  */
 function get_container_markup( $element ) {
 
-    require_once PARENTTHEMEPATH . 'elements/ContainerElement.php';
+    require_file('elements/ContainerElement.php');
 
     $row = new ContainerElement( $element );
 
@@ -693,7 +728,11 @@ function get_theme_JS() {
     <script src="<?php echo get_parent_template_directory_uri(); ?>/js/bootstrap.min.js"></script>
     <script src="<?php echo get_parent_template_directory_uri(); ?>/js/holder.js"></script>
     <script src="<?php echo get_parent_template_directory_uri(); ?>/js/cssFx.js"></script>
-   <?php
+    <script src="<?php echo get_parent_template_directory_uri(); ?>/js/lightbox.js"></script>
+    <script src="<?php echo get_parent_template_directory_uri(); ?>/js/parsley.js"></script>
+    <script src="<?php echo get_parent_template_directory_uri(); ?>/js/contact.js"></script>
+   
+    <?php
     $theme_path =  get_stylesheet_directory() . "/js";
     if ( file_exists( $theme_path ) && is_dir( $theme_path ) ) {
 
@@ -724,6 +763,7 @@ function get_theme_CSS() {
 ?>
     <link href="<?php echo get_parent_template_directory_uri(); ?>/css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
     <link href="<?php echo get_parent_template_directory_uri(); ?>/css/flat-ui.css" type="text/css" rel="stylesheet"/>
+    <link href="<?php echo get_parent_template_directory_uri(); ?>/css/lightbox.css" type="text/css" rel="stylesheet"/>
     <?php
     $theme_path =  get_stylesheet_directory()."/css";
     $css_files = scandir( $theme_path, 1 );
@@ -858,12 +898,14 @@ function add_new_room( $blog_id, $array, $tariff_array ) {
     update_post_meta($post_id,'room-attachments',$array['room_attachments'] );
     
    //insert featured image  
-   $room_attachments_ar = explode(',',$array['room_attachments']);
+   /*$room_attachments_ar = explode(',',$array['room_attachments']);
    if(count($room_attachments_ar)>0){
    		set_post_thumbnail( $post_id, $room_attachments_ar[0] );
     	//update_post_meta($post_id,'thumbnail-id',$array['room_attachments'][0] );    	
-    }
+    }*/ 
+    set_post_thumbnail( $post_id, $array['room_featuredimg'] );
     
+     
     $plan_tariff_array = explode(',',$array['plantariff']);
     $plan_tariff_serialized = maybe_serialize($plan_tariff_array);
     
@@ -1556,13 +1598,11 @@ function fetch_all_tax_types(){
  
 /**
  * 
- * Function to get all date ranges
+ * Function to get all date ranges and the plans
  */
 function fetch_all_daterange(){
 	global $wpdb; 
-	
-
-	 
+ 	 
 	$table_name =  $wpdb->prefix."daterange";
  
 	$result = $wpdb->get_results("SELECT * FROM $table_name"); 
@@ -1623,6 +1663,8 @@ function fetch_daterange_plans($daterange_id){
 	
 	
 	$plans_data = maybe_unserialize(get_option('plans'));
+	if($plans_data==false)
+		return $plans;
 	foreach ($plans_data as $plan_data){
 	 
 		$plan_name 			= $plan_data['label'];
@@ -2261,11 +2303,28 @@ add_action( 'wp_ajax_nopriv_update_checkinformat', 'update_checkinformat' );
 
 function add_date_range(){
 	
+	global $wpdb;
+	
 	$from_daterange 	= date('Y-m-d H:i:s',strtotime($_POST['fromdaterange']));
 	$to_daterange 	    = date('Y-m-d H:i:s',strtotime($_POST['todaterange'])); 
- 	$label              = "winter season test";
-	
-	global $wpdb; 
+ 	$label              = $_POST['daterangeLabel'];
+
+ 	
+ 	//check if selected date range overlaps with the existing date range
+ 	$qry_check_range = $wpdb->prepare("SELECT * FROM {$wpdb->prefix}daterange WHERE  from_date<=%s and to_date>=%s", $to_daterange,$from_daterange);
+ 	$result_daterange_overlap = $wpdb->get_results($qry_check_range);
+ 	if($result_daterange_overlap){
+ 		wp_send_json( array( 'code' => 'ERROR', 'msg' =>_('The selected daterange overlaps existing dateranges.') ) ); 		
+ 	} 
+ 	
+ 	//check if daterange label exists
+ 	$qry_exists_label = $wpdb->prepare("SELECT * FROM {$wpdb->prefix}daterange WHERE label = %s",$label);
+ 	$result_exists_label  		  = $wpdb->get_results($qry_exists_label);
+ 	
+ 	if($result_exists_label){
+ 		wp_send_json( array( 'code' => 'ERROR', 'msg' =>_('Daterange label already exists.') ) );
+ 	}
+ 	  
 							
 	/*$qry_insert_daterange = $wpdb->prepare("INSERT INTO {$wpdb->prefix}daterange (  `from`, `to`, `label`) VALUES ( %s, %s, %s);",
 							$from_daterange,$to_daterange,$label); */
@@ -2286,8 +2345,10 @@ function add_date_range(){
  	$datarange_data = array( 	'id'		 => $wpdb->insert_id,			
  								'from_date'  => date('d/m/y',strtotime($_POST['fromdaterange'])), 
 								'to_date' 	 => date('d/m/y',strtotime($_POST['todaterange'])),
-								'label'		 => $label
-						   );				
+								'label'		 => $label,
+ 								'plans'		 => fetch_all_plans() 
+						   );	
+						   			
  	switch_to_blog(get_current_blog_id());
   	
 	if ( $result==true ) 
@@ -2300,7 +2361,15 @@ add_action( 'wp_ajax_add_date_range', 'add_date_range' );
 add_action( 'wp_ajax_nopriv_add_date_range', 'add_date_range' );
 
 
+ function fetch_all_plans(){
+ 	$plans = maybe_unserialize(get_option('plans'));
+ 	return $plans;
+ }
 
+/**
+ * Function to update daterange
+ * Enter description here ...
+ */
 function update_daterange(){
 	
 	global $wpdb;
@@ -2311,6 +2380,24 @@ function update_daterange(){
 	$table_name = $wpdb->prefix."daterange";
 	
  
+	
+	
+	//check if selected date range overlaps with the existing date range
+ 	$qry_check_range = $wpdb->prepare("SELECT * FROM {$wpdb->prefix}daterange WHERE  from_date<=%s and to_date>=%s and id!= %d", $to_daterange,$from_daterange, $daterange_id);
+ 	$result_daterange_overlap = $wpdb->get_results($qry_check_range);
+ 	if($result_daterange_overlap){
+ 		wp_send_json( array( 'code' => 'ERROR', 'msg' =>_('The selected daterange overlaps other existing dateranges.') ) ); 		
+ 	} 
+ 	
+ 	//check if daterange label exists
+ 	/*$qry_exists_label = $wpdb->prepare("SELECT * FROM {$wpdb->prefix}daterange WHERE label = %s where id != %d",$label,$daterange_id);
+ 	$result_exists_label  		  = $wpdb->get_results($qry_exists_label);
+ 	
+ 	if($result_exists_label){
+ 		wp_send_json( array( 'code' => 'ERROR', 'msg' =>_('Daterange label is already used for other daterange.') ) );
+ 	}
+ 	*/
+ 	
 	
 	/*$result = $wpdb->update(	$table_name,
 								array(	'from_date'	=> $from_daterange,
@@ -2799,9 +2886,10 @@ function add_new_room_ajx() {
     $additional_policies 	= $_POST['additionalpolicies'];
 	$tax_option				= $_POST['tax_option'];
 	$room_attachments 		= $_POST['room_attachments'];
+	$room_featuredimg 		= $_POST['room_featuredimg'];
 	$room_plantariff 		= $_POST['plantariffids'];
 	
-    $array=array( 'post_title' => $room_name, 'post_content' => $room_desc, 'user_id' => get_current_user_id(), 'inventory' => $room_nos, 'terms'=>$room_facilities, 'room_attachments'=>$room_attachments, 'plantariff'=>$room_plantariff );
+    $array=array( 'post_title' => $room_name, 'post_content' => $room_desc, 'user_id' => get_current_user_id(), 'inventory' => $room_nos, 'terms'=>$room_facilities, 'room_attachments'=>$room_attachments,'room_featuredimg'=>$room_featuredimg, 'plantariff'=>$room_plantariff );
 
     $attribute_array = array( 'weekday_price'=>'10', 'weekend_price'=>'20', 'num_of_adults'=>'2', 'num_of_children'=>'2', 'extra_adult'=>'10', 'extra_child'=>'10', 'include_tax'=>'yes', 'tax_percent'=>'12', 'terms_and_conditions'=>'agree' );
 
@@ -2840,10 +2928,11 @@ function update_room_ajx(){
     $checkin_time 			= $_POST['checkintime'];
     $additional_policies 	= $_POST['additionalpolicies'];
 	$tax_option				= $_POST['tax_option'];
-	$room_attachments 		= $_POST['room_attachments'];
+	$room_attachments 		= $_POST['room_attachments'];	
+	$room_featuredimg 		= $_POST['room_featuredimg'];
 	$room_plantariff 		= $_POST['plantariffids'];
 	
-    $array=array( 'ID'=> $room_id,'post_title' => $room_name, 'post_content' => $room_desc, 'user_id' => get_current_user_id(), 'inventory' => $room_nos, 'terms'=>$room_facilities, 'room_attachments'=>$room_attachments, 'plantariff'=>$room_plantariff );
+    $array=array( 'ID'=> $room_id,'post_title' => $room_name, 'post_content' => $room_desc, 'user_id' => get_current_user_id(), 'inventory' => $room_nos, 'terms'=>$room_facilities, 'room_attachments'=>$room_attachments, 'room_featuredimg'=>$room_featuredimg, 'plantariff'=>$room_plantariff );
 
     $attribute_array = array( 'weekday_price'=>'10', 'weekend_price'=>'20', 'num_of_adults'=>'2', 'num_of_children'=>'2', 'extra_adult'=>'10', 'extra_child'=>'10', 'include_tax'=>'yes', 'tax_percent'=>'12', 'terms_and_conditions'=>'agree' );
 
@@ -2896,11 +2985,17 @@ function update_room( $blog_id, $array, $tariff_array ) {
     
      
 	//update featured image  
-   $room_attachments_ar = explode(',',$array['room_attachments']);
+  /* $room_attachments_ar = explode(',',$array['room_attachments']);
    if(count($room_attachments_ar)>0){
    		set_post_thumbnail( $array['ID'], $room_attachments_ar[0] );
     	//update_post_meta($array['ID'],'thumbnail-id',$array['room_attachments'][0] );    	
-    }
+    }*/
+    
+    set_post_thumbnail( $array['ID'], $array['room_featuredimg'] );
+    
+    if(empty($array['room_featuredimg']))
+   		delete_post_thumbnail($array['ID']);
+   		
     
     $plan_tariff_array = explode(',',$array['plantariff']);
     $plan_tariff_serialized = maybe_serialize($plan_tariff_array);
@@ -2929,7 +3024,8 @@ function get_room_list_ajx(){
 		
 		$room = new RoomModel($room);
 				 				 
-		$room_data[] = $room->get_all_roomdata(); 					  
+		//$room_data[] = $room->get_all_roomdata(array('noOFplansreqd'=>2)); 					  
+		$room_data[] = $room->get_all_roomdata();
 	}	 
 	wp_send_json( array( 'code' => 'OK' , 'data' =>$room_data ) );
 	
@@ -3122,6 +3218,9 @@ function is_single_room_edit(){
 
     $post = get_post($post_id);
 
+    if($post->post_title === 'Single Room')
+        return true;
+
     return $post->post_type === 'impruw_room';
 
 }
@@ -3167,3 +3266,86 @@ function get_rooms(){
 
     return $r;
 }
+
+/**
+ * [add_rel_attribute description]
+ * @param [type] $link      [description]
+ * @param [type] $id        [description]
+ * @param [type] $size      [description]
+ * @param [type] $permalink [description]
+ * @param [type] $icon      [description]
+ * @param [type] $text      [description]
+ */
+function add_rel_attribute($link, $id, $size, $permalink, $icon, $text ) {
+        
+    $url = wp_get_attachment_url( $id );
+
+    $link_text = wp_get_attachment_image( $id, $size, $icon );
+
+    return "<a data-lightbox='room-lightbox' href='$url'>$link_text</a>";
+}
+
+/**
+ * [send_contact_form_message description]
+ * @return [type] [description]
+ */
+function send_contact_form_message(){
+
+    $admin_email = get_option('admin_email');
+
+    $message    = $_POST['c-message'];
+    $name       = $_POST['c-name'];
+    $email      = $_POST['c-email'];
+    $phoneno    = $_POST['c-phoneno'];
+    
+    $phoneno    = (!empty($phoneno) ? $phoneno : '-');
+    $mailsubject    = "Impruw Notification: Someone has tried to contact you";
+    $mailbody       = " You have been contacted by<br /><br />
+                        Name    : $name<br />
+                        Email   : $email<br />
+                        Phone no: $phoneno<br /><br />
+                        The details of the message are as follows:<br />
+                        <p>$message</p>";
+
+    add_filter( 'wp_mail_content_type', 'change_email_content_type' );
+    if(wp_mail($admin_email, $mailsubject, $mailbody))
+        wp_send_json(array('code' =>'OK'));
+    else
+        wp_send_json(array('code' =>'ERROR', 'message' => 'Failed to send you message. Please try again.'));
+               
+}
+add_action('wp_ajax_send-contact-form-message','send_contact_form_message');
+add_action('wp_ajax_nopriv_send-contact-form-message','send_contact_form_message');
+
+/**
+ * [change_email_content_type description]
+ * @param  [type] $content_type [description]
+ * @return [type]               [description]
+ */
+function change_email_content_type( $content_type )
+{
+    return 'text/html';
+}
+
+/**
+ * [impruw_wp_mail_from description]
+ * @param  [type] $original_email_address [description]
+ * @return [type]                         [description]
+ */
+function impruw_wp_mail_from( $original_email_address ){
+    //Make sure the email is from the same domain 
+    //as your website to avoid being marked as spam.
+    return 'support@unpruwen.com';
+}
+add_filter( 'wp_mail_from', 'impruw_wp_mail_from' );
+
+/**
+ * [impruw_wp_mail_from_name description]
+ * @param  [type] $original_email_from [description]
+ * @return [type]                      [description]
+ */
+function impruw_wp_mail_from_name( $original_email_from )
+{
+    return 'Impruw Support';
+}
+add_filter( 'wp_mail_from_name', 'impruw_wp_mail_from_name' );
