@@ -32,79 +32,79 @@
                     <ul class="aj-imp-builder-items clearfix">
                         <li data-element="logoelement">
                             <a href="#" class="drag builder-element">
-                                <div class="aj-imp-builder-icon" data-icon="&#xf110;"></div>
+                                <div class="aj-imp-builder-icon"><span class="bicon icon-uniF124"></span></div>
                                 <div class="aj-imp-builder-title">Logo</div>
                             </a>
                         </li>
                         <li data-element="titleelement">
                             <a href="#" class="drag builder-element"  data-placeholder-height="60">
-                                <div class="aj-imp-builder-icon" data-icon="&#xf13c;"></div>
+                                <div class="aj-imp-builder-icon"><span class="bicon icon-uniF11C"></span></div>
                                 <div class="aj-imp-builder-title">Title</div>
                             </a>
                         </li>
                         <li data-element="imageelement">
                             <a href="#" class="drag builder-element" data-placeholder-height="120">
-                                <div class="aj-imp-builder-icon" data-icon="&#xf10e;"></div>
+                                <div class="aj-imp-builder-icon"><span class="bicon icon-uniF10E"></span></div>
                                 <div class="aj-imp-builder-title">Image</div>
                             </a>
                         </li>
                         <li data-element="textelement">
                             <a href="#" class="drag builder-element" data-placeholder-height="50">
-                                <div class="aj-imp-builder-icon" data-icon="&#xf111;"></div>
+                                <div class="aj-imp-builder-icon"><span class="bicon icon-uniF111"></span></div>
                                 <div class="aj-imp-builder-title">Text</div>
                             </a>
                         </li>
                         <li data-element="menuelement">
                             <a href="#" class="drag builder-element" data-placeholder-height="50">
-                                <div class="aj-imp-builder-icon" data-icon="&#xf112;"></div>
+                                <div class="aj-imp-builder-icon"><span class="bicon icon-uniF16A"></span></div>
                                 <div class="aj-imp-builder-title">Menu</div>
                             </a>
                         </li>
                         <li data-element="socialelement">
                             <a href="#" class="drag builder-element" data-placeholder-height="50">
-                                <div class="aj-imp-builder-icon" data-icon="&#xf10c;"></div>
+                                <div class="aj-imp-builder-icon"><span class="bicon icon-uniF11A"></span></div>
                                 <div class="aj-imp-builder-title">Social</div>
                             </a>
                         </li>
                         <li data-element="sliderelement">
                             <a href="#" class="drag builder-element" data-placeholder-height="400">
-                                <div class="aj-imp-builder-icon" data-icon="&#xf10c;"></div>
+                                <div class="aj-imp-builder-icon"><span class="bicon icon-uniF119"></span></div>
                                 <div class="aj-imp-builder-title">Slider</div>
                             </a>
                         </li>
                         <li data-element="addresselement">
                             <a href="#" class="drag builder-element" data-placeholder-height="100">
-                                <div class="aj-imp-builder-icon"  data-icon="&#xf110;"></div>
+                                <div class="aj-imp-builder-icon"><span class="bicon icon-uniF183"></span></div>
                                 <div class="aj-imp-builder-title">Address</div>
                             </a>
                         </li>
                         <li data-element="imagetextelement">
                             <a href="#" class="drag builder-element" data-placeholder-height="100">
-                                <div class="aj-imp-builder-icon"  data-icon="&#xf110;"></div>
+                                <div class="aj-imp-builder-icon"><span class="bicon icon-uniF112"></span></div>
                                 <div class="aj-imp-builder-title">Image With Text</div>
                             </a>
                         </li>
                         <li data-element="contactformelement">
                             <a href="#" class="drag builder-element" data-placeholder-height="100">
-                                <div class="aj-imp-builder-icon"  data-icon="&#xf110;"></div>
+                                <div class="aj-imp-builder-icon"><span class="bicon icon-uniF11B"></span></div>
                                 <div class="aj-imp-builder-title">Contact Form</div>
                             </a>
                         </li>
                         <li data-element="mapelement">
                             <a href="#" class="drag builder-element" data-placeholder-height="100">
-                                <div class="aj-imp-builder-icon"  data-icon="&#xf110;"></div>
+                                <div class="aj-imp-builder-icon"><span class="bicon icon-uniF110"></span></div>
                                 <div class="aj-imp-builder-title">Map</div>
                             </a>
                         </li>
                         <li data-element="galleryelement">
                             <a href="#" class="drag builder-element" data-placeholder-height="100">
-                                <div class="aj-imp-builder-icon"  data-icon="&#xf110;"></div>
+                                <div class="aj-imp-builder-icon"><span class="bicon icon-uniF10C"></span></div>
                                 <div class="aj-imp-builder-title">Gallery</div>
                             </a>
                         </li>
                         <li data-element="roomlistelement">
                             <a href="#" class="drag builder-element" data-placeholder-height="100">
-                                <div class="aj-imp-builder-icon"  data-icon="&#xf110;"></div>
+                                <div class="aj-imp-builder-icon"><span class="bicon icon-uniF166"></span></div>
                                 <div class="aj-imp-builder-title">Room</div>
                             </a>
                         </li>
@@ -115,31 +115,31 @@
                         <ul class="aj-imp-builder-items clearfix">
                             <li data-element="roomtitle">
                                 <a href="#" class="drag builder-element" data-placeholder-height="100">
-                                    <div class="aj-imp-builder-icon"  data-icon="&#xf110;"></div>
+                                    <div class="aj-imp-builder-icon"><span class="bicon icon-uniF11C"></span></div>
                                     <div class="aj-imp-builder-title">Room Title</div>
                                 </a>
                             </li>
                             <li data-element="roomdescription">
                                 <a href="#" class="drag builder-element" data-placeholder-height="100">
-                                    <div class="aj-imp-builder-icon"  data-icon="&#xf110;"></div>
+                                    <div class="aj-imp-builder-icon"><span class="bicon icon-uniF111"></span></div>
                                     <div class="aj-imp-builder-title">Room Description</div>
                                 </a>
                             </li>
                             <li data-element="roomfacilities">
                                 <a href="#" class="drag builder-element" data-placeholder-height="100">
-                                    <div class="aj-imp-builder-icon"  data-icon="&#xf110;"></div>
+                                    <div class="aj-imp-builder-icon"><span class="bicon icon-uniF12F"></span></div>
                                     <div class="aj-imp-builder-title">Facilities</div>
                                 </a>
                             </li>
                             <li data-element="roomtariff">
                                 <a href="#" class="drag builder-element" data-placeholder-height="100">
-                                    <div class="aj-imp-builder-icon"  data-icon="&#xf110;"></div>
+                                    <div class="aj-imp-builder-icon"><span class="bicon icon-uniF12B"></span></div>
                                     <div class="aj-imp-builder-title">Tariff</div>
                                 </a>
                             </li>
                             <li data-element="roomgallery">
                                 <a href="#" class="drag builder-element" data-placeholder-height="100">
-                                    <div class="aj-imp-builder-icon"  data-icon="&#xf110;"></div>
+                                    <div class="aj-imp-builder-icon"><span class="bicon icon-uniF10C"></span></div>
                                     <div class="aj-imp-builder-title">Gallery</div>
                                 </a>
                             </li>

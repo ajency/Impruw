@@ -49,7 +49,7 @@ var facilities_selected_exists;
 %>
 				<header class="aj-imp-dash-header row">
 					<div class="aj-imp-dash-title col-xs-12">
-						<h2 class="aj-imp-page-head">Add Room</h2>
+						<h2 class="aj-imp-page-head"><%= __('Add Room') %></h2>
 					</div>
 				</header>
 	
@@ -58,24 +58,24 @@ var facilities_selected_exists;
 					
 						<div class="alert alert-success hidden" id="roomsave_status" name="roomsave_status" >
 							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-							Your details have been successfully saved.
+							<%= __('Your details have been successfully saved.') %>
 						</div>
 						<form class="form-horizontal clearfix" name="frm_addroom" id="frm_addroom" >
 							 <input type='hidden' name='hdn_roomId'  id='hdn_roomId' value='<% if(!_.isUndefined(roomId)) { %><%=roomId%><% } %>' /> 	
 								
 							<div class="form-group">
-								<label for="inputEmail3" class="col-sm-2 control-label">Add Room Category</label>
+								<label for="inputEmail3" class="col-sm-2 control-label"><%= __('Add Room Category') %></label>
 								<div class="col-sm-10 col-sm-offset-2">
 									<input type="text" class="form-control" id="roomcategory" name="roomcategory" 
 									placeholder="eg. Executive Room" required parsley-trigger="blur" parsley-validation-minlength="0"
-									parsely-required-message = "Please enter room category" 
+									parsely-required-message = "<%= __('Please enter room category') %>" 
 									value="<%if(!_.isUndefined(roomCategory)) {%><%=roomCategory%><%}%>" />
 									<div class="p-messages"></div>
 								</div>
 							</div>
 
 							<div class="form-group">
-								<label for="inputEmail3" class="col-sm-2 control-label">No. of Rooms</label>
+								<label for="inputEmail3" class="col-sm-2 control-label"><%= __('No. of Rooms') %></label>
 								<div class="col-sm-10 col-sm-offset-2">
 									<input type="numeric" class="form-control" name="roomnos" id="roomnos" placeholder="eg. 10" 
 									required parsley-trigger="blur" parsley-validation-minlength="0" parsley-type="number"

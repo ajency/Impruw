@@ -1,3 +1,4 @@
+@import url(font-style.css);
 /*
 Theme Name:     Impruw Dashboard
 Theme URI:      http://ajency.in/
@@ -7,6 +8,7 @@ Author URI:     http://ajency.in/
 Template:       impruw
 Version:        0.1.0
 */
+/****Builder Icon Font****/
 /****Colors****/
 /****Link Styles****/
 a {
@@ -17,6 +19,7 @@ a:active,
 a:focus {
   text-shadow: 1px 1px 2px #ffcb99;
   color: #ff7e00;
+  outline: none;
 }
 /****Container and Menu Styles****/
 .aj-imp-container {
@@ -67,6 +70,42 @@ a:focus {
 }
 .aj-imp-container .aj-imp-left .aj-imp-dash-nav #aj-imp-dash-menu li {
   position: relative;
+  /*&.aj-imp-nav-create {
+						.icon {
+							background-position: 0 0;
+						}
+					}
+					&.aj-imp-nav-booking {
+						.icon {
+							background-position: 0 -65px;
+						}
+					}
+					&.aj-imp-nav-reports {
+						.icon {
+							background-position: 0 -130px;
+						}
+					}
+					&.aj-imp-nav-marketing {
+						.icon {
+							background-position: 0 -197px;
+						}
+					}
+					&.aj-imp-nav-inventory {
+						.icon {
+							background-position: 0 -263px;
+						}
+					}
+					&.aj-imp-nav-profile {
+						.icon {
+							background-position: 0 -328px;
+						}
+					}
+					&.aj-imp-nav-support {
+						.icon {
+							background-position: 0 -394px;
+						}
+					}*/
+
 }
 .aj-imp-container .aj-imp-left .aj-imp-dash-nav #aj-imp-dash-menu li .sub-menu {
   display: none;
@@ -83,9 +122,12 @@ a:focus {
   height: 33px;
   display: block;
   position: absolute;
-  background: url('../images/dash-nav-sprite.png') no-repeat;
-  top: 20px;
+  /*background: url('../images/dash-nav-sprite.png') no-repeat;*/
+
+  top: 16px;
   left: 30px;
+  color: #aaaaaa;
+  font-size: 2.2em;
 }
 .aj-imp-container .aj-imp-left .aj-imp-dash-nav #aj-imp-dash-menu li .arrow {
   width: 33px;
@@ -101,27 +143,6 @@ a:focus {
   display: block;
   color: #aaaaaa;
   font-size: 1.5em;
-}
-.aj-imp-container .aj-imp-left .aj-imp-dash-nav #aj-imp-dash-menu li.aj-imp-nav-create .icon {
-  background-position: 0 0;
-}
-.aj-imp-container .aj-imp-left .aj-imp-dash-nav #aj-imp-dash-menu li.aj-imp-nav-booking .icon {
-  background-position: 0 -65px;
-}
-.aj-imp-container .aj-imp-left .aj-imp-dash-nav #aj-imp-dash-menu li.aj-imp-nav-reports .icon {
-  background-position: 0 -130px;
-}
-.aj-imp-container .aj-imp-left .aj-imp-dash-nav #aj-imp-dash-menu li.aj-imp-nav-marketing .icon {
-  background-position: 0 -197px;
-}
-.aj-imp-container .aj-imp-left .aj-imp-dash-nav #aj-imp-dash-menu li.aj-imp-nav-inventory .icon {
-  background-position: 0 -263px;
-}
-.aj-imp-container .aj-imp-left .aj-imp-dash-nav #aj-imp-dash-menu li.aj-imp-nav-profile .icon {
-  background-position: 0 -328px;
-}
-.aj-imp-container .aj-imp-left .aj-imp-dash-nav #aj-imp-dash-menu li.aj-imp-nav-support .icon {
-  background-position: 0 -394px;
 }
 .aj-imp-container .aj-imp-left .aj-imp-dash-nav #aj-imp-dash-menu li.active {
   background: #fff;

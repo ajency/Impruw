@@ -33,7 +33,7 @@
 				<nav class="aj-imp-dash-nav">
 					<ul id="aj-imp-dash-menu">
 					   <li class="aj-imp-nav-dashboard">
-							<span class="icon"></span>
+							<span class="icon icon-library"></span>
 							<span class="arrow"></span><?php
 							$wpml_options = get_option( 'icl_sitepress_settings' );
 							
@@ -44,12 +44,12 @@
 							<a href="<?php echo site_url()."/".$dashboard_page?>">Dashboard</a>
 						</li>
 						<li class="aj-imp-nav-create">
-							<span class="icon"></span>
+							<span class="icon icon-tools"></span>
 							<span class="arrow"></span>
 							<a href="<?php echo site_url()?>/site-builder">Site Builder</a>
 						</li>
 						<li class="aj-imp-nav-booking active">
-							<span class="icon"></span>
+							<span class="icon icon-cabinet"></span>
 							<span class="arrow"></span>
 							<a href="#room-list">Rooms</a>
 							<ul class="sub-menu">
@@ -62,17 +62,17 @@
 							</ul>
 						</li>
 						<li class="aj-imp-nav-profile">
-							<span class="icon"></span>
+							<span class="icon icon-globe"></span>
 							<span class="arrow"></span>
 							<a href="#site-profile">My Site Profile</a>
 						</li>
 						<li class="aj-imp-nav-marketing">
-							<span class="icon"></span>
+							<span class="icon icon-profile"></span>
 							<span class="arrow"></span>
 							<a href="#user-profile">My Profile</a>
 						</li>
 						<li class="aj-imp-nav-support">
-							<span class="icon"></span>
+							<span class="icon icon-chat"></span>
 							<span class="arrow"></span>
 							<a href="#support">Support</a>
 						</li>
@@ -102,7 +102,7 @@
         var UPLOADURL = '<?php echo admin_url('async-upload.php'); ?>';
         var _WPNONCE = '<?php echo wp_create_nonce('media-form');?>'; 
         var JSVERSION   = '<?php echo JSVERSION; ?>';
-        var CURRENTLANG = 'en_US';
+        var CURRENTLANG = 'nb_NO';
      </script>
 
 	<script

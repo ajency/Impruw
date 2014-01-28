@@ -8,6 +8,9 @@ Template:       impruw
 Version:        0.1.0
 */
 
+/****Builder Icon Font****/
+@import url(font-style.css);
+
 /****Colors****/
 @logo-blue: #182944;
 @dash-grey: #AAAAAA;
@@ -26,6 +29,7 @@ a {
 	&:hover, &:active, &:focus {
 		text-shadow: 1px 1px 2px lighten(@orange, 30%);
 		color: @orange;
+		outline: none;
 	}
 }
 
@@ -89,9 +93,11 @@ a {
 						height: 33px;
 						display: block;
 						position: absolute;
-						background: url('../images/dash-nav-sprite.png') no-repeat;
-						top: 20px;
+						/*background: url('../images/dash-nav-sprite.png') no-repeat;*/
+						top: 16px;
 						left: 30px;
+						color: @dash-grey;
+						font-size: 2.2em;
 					}
 					.arrow {
 						width: 33px;
@@ -108,7 +114,7 @@ a {
 						color: @dash-grey;
 						font-size: 1.5em;
 					}
-					&.aj-imp-nav-create {
+					/*&.aj-imp-nav-create {
 						.icon {
 							background-position: 0 0;
 						}
@@ -142,7 +148,7 @@ a {
 						.icon {
 							background-position: 0 -394px;
 						}
-					}
+					}*/
 					&.active {
 						background: #fff;
 						.sub-menu {
