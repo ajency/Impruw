@@ -238,13 +238,20 @@ function getFormData(form) {
 }
 
 
+var __ = function(string){
+
+    return pt.t(string)
+
+}
+
+
 require(['backbone','marionette',
          'routers/DashboardRouter','sitemodel','usermodel', 'polyglot', 'json!../languages/'+CURRENTLANG+'.json'], 
          function( Backbone, Marionette, Router, SiteModel, UserModel, Polyglot, phrases) {
 
         $(document).ready(function(){   
 
-            window.__ = new Polyglot({phrases : phrases});
+            window.pt = new Polyglot({phrases : phrases});
 
             Backbone.emulateHTTP = true;
             

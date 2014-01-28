@@ -18,6 +18,8 @@ define([ 'underscore', 'jquery', 'backbone',
 
 			//g = this.site;
 			var template = _.template(DashboardDefaultViewTpl);
+			
+			console.log(template);
 
 			var html = template({
 				site : this.site

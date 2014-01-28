@@ -6,7 +6,7 @@ Description: This file has a list of the following functions used in this theme
 1)  site_template_directory_uri - Function to change the default template uri.
 */
 
-define( 'CURRENTTHEMEPATH', ABSPATH . 'wp-content/themes/impruw-default/' );
+define( 'CURRENTTHEMEPATH', ABSPATH . 'wp-content/themes/pinktheme/' );
 
 /**
  * 
@@ -19,7 +19,9 @@ define( 'CURRENTTHEMEPATH', ABSPATH . 'wp-content/themes/impruw-default/' );
  */
 function site_template_directory_uri($template_dir_uri, $template, $theme_root_uri){
     
-    return site_url('wp-content/themes/impruw-default');
+    return site_url('wp-content/themes/pinktheme');
     
 }
 add_filter('template_directory_uri','site_template_directory_uri',10,3);
+
+
