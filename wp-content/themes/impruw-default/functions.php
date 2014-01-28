@@ -4,6 +4,9 @@ File Name: functions.php
 Description: This file has a list of the following functions used in this theme
 
 1)  site_template_directory_uri - Function to change the default template uri.
+*/
+
+define( 'CURRENTTHEMEPATH', ABSPATH . 'wp-content/themes/impruw-default/' );
 
 /**
  * 
