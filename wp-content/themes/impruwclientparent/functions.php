@@ -3056,6 +3056,23 @@ add_action( 'wp_ajax_nopriv_delete_room_ajx', 'delete_room_ajx' );
 
 
 
+function change_default_language_ajx(){
+	
+	$selected_language = $_POST['selectedlanguage'];
+	global $sitepress, $wpdb;
+	if($sitepress->set_default_language($selected_language)){
+		wp_send_json( array( 'code' => 'OK' , 'msg' =>'Default language for site changed successfully') );
+	}
+	else{
+		wp_send_json( array( 'code' => 'ERROR' , 'msg' =>'Error changing default language' ) );
+	}
+	
+	 
+	
+}
+add_action( 'wp_ajax_change_default_language_ajx', 'change_default_language_ajx' );
+add_action( 'wp_ajax_nopriv_change_default_language_ajx', 'change_default_language_ajx' );
+
 
 /**
  * Get all menu pages for the site
@@ -3266,6 +3283,14 @@ function get_rooms(){
 
     return $r;
 }
+
+
+
+
+
+
+
+
 
 /**
  * [add_rel_attribute description]
