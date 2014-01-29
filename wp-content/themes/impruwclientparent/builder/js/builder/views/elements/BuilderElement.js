@@ -43,8 +43,8 @@ define(['backbone', 'jquery', 'underscore', 'global'],
                 var ele = {
                     id              : this.get('id'),
                     elementType     : this.get('elementType'),
-                    draggable       : this.get('draggable'),
-                    editable        : this.get('editable'),
+                    //draggable       : this.get('draggable'),
+                    //editable        : this.get('editable'),
                     extraClasses    : this.get('extraClasses'),
                     dataSource      : this.get('dataSource'),
                     contentFetched  : this.get('contentFetched') 
