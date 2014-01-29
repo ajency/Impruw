@@ -190,18 +190,24 @@ Version:        0.1.0
 	margin: 0;
 	.aj-imp-builder-back {
 		margin-top: 3px;
+		text-align: center;
+		.navbar-text {
+			float: none;
+		}
 		a {
 			color: lighten(@3-grey, 20%);
 			font-weight: 700;
 			font-size: 0.8em;
 			&:hover {
 				color: @orange;
+				text-decoration: none;
 			}
 		}
 	}
 	.aj-imp-page-layout {
-		margin: 15px 0;
+		margin: 0;
 		border-left: 1px solid lighten(@dash-grey, 10%);
+		border-right: 1px solid lighten(@dash-grey, 10%);
 		.select {
 			margin-bottom: 0;
 		}
@@ -240,6 +246,9 @@ Version:        0.1.0
 			text-align: right;
 			padding-right: 2%;
 		}
+		.navbar-text {
+			font-size: 1em;
+		}
 	}
 	.aj-imp-builder-top-title {
 		p {
@@ -252,7 +261,7 @@ Version:        0.1.0
 		}
 	}
 	.aj-imp-builder-top-options {
-		text-align: right;
+		text-align: center;
 		.navbar-search {
 			max-width: none;
 			padding: 10px 5px;
@@ -354,11 +363,14 @@ Version:        0.1.0
 				}
 			}
 		}
-		.aj-imp-theme-btn {
-			background: @orange;
-			color: #fff;
-			&:hover {
-				background: lighten(@orange, 10%);
+		.navbar-text {
+			float: none;
+			.aj-imp-theme-btn {
+				background: @orange;
+				color: #fff;
+				&:hover {
+					background: lighten(@orange, 10%);
+				}
 			}
 		}
 	}

@@ -179,6 +179,10 @@ Version:        0.1.0
 }
 .aj-imp-builder-top-nav .aj-imp-builder-back {
   margin-top: 3px;
+  text-align: center;
+}
+.aj-imp-builder-top-nav .aj-imp-builder-back .navbar-text {
+  float: none;
 }
 .aj-imp-builder-top-nav .aj-imp-builder-back a {
   color: #666666;
@@ -187,10 +191,12 @@ Version:        0.1.0
 }
 .aj-imp-builder-top-nav .aj-imp-builder-back a:hover {
   color: #ff7e00;
+  text-decoration: none;
 }
 .aj-imp-builder-top-nav .aj-imp-page-layout {
-  margin: 15px 0;
+  margin: 0;
   border-left: 1px solid #c3c3c3;
+  border-right: 1px solid #c3c3c3;
 }
 .aj-imp-builder-top-nav .aj-imp-page-layout .select {
   margin-bottom: 0;
@@ -226,6 +232,9 @@ Version:        0.1.0
   text-align: right;
   padding-right: 2%;
 }
+.aj-imp-builder-top-nav .aj-imp-page-layout .navbar-text {
+  font-size: 1em;
+}
 .aj-imp-builder-top-nav .aj-imp-builder-top-title p {
   text-align: center;
   float: none;
@@ -235,7 +244,7 @@ Version:        0.1.0
   color: #849fb0;
 }
 .aj-imp-builder-top-nav .aj-imp-builder-top-options {
-  text-align: right;
+  text-align: center;
 }
 .aj-imp-builder-top-nav .aj-imp-builder-top-options .navbar-search {
   max-width: none;
@@ -328,11 +337,14 @@ Version:        0.1.0
   top: -4px;
   position: relative;
 }
-.aj-imp-builder-top-nav .aj-imp-builder-top-options .aj-imp-theme-btn {
+.aj-imp-builder-top-nav .aj-imp-builder-top-options .navbar-text {
+  float: none;
+}
+.aj-imp-builder-top-nav .aj-imp-builder-top-options .navbar-text .aj-imp-theme-btn {
   background: #ff7e00;
   color: #fff;
 }
-.aj-imp-builder-top-nav .aj-imp-builder-top-options .aj-imp-theme-btn:hover {
+.aj-imp-builder-top-nav .aj-imp-builder-top-options .navbar-text .aj-imp-theme-btn:hover {
   background: #ff9833;
 }
 /****Builder Sub-Nav****/
