@@ -2924,10 +2924,10 @@ function update_room_ajx(){
     $room_nos 				= $_POST['nos'];
     $room_desc 				= $_POST['description'];
     $room_facilities 		= $_POST['facilities'];
-    $checkin_format 		= $_POST['checkinformat'];
+    $checkin_format 		= (isset($_POST['checkinformat'])?$_POST['checkinformat']:'');
     $checkin_time 			= $_POST['checkintime'];
     $additional_policies 	= $_POST['additionalpolicies'];
-	$tax_option				= $_POST['tax_option'];
+	$tax_option				= (isset($_POST['tax_option'])?$_POST['tax_option']:'');
 	$room_attachments 		= $_POST['room_attachments'];	
 	$room_featuredimg 		= $_POST['room_featuredimg'];
 	$room_plantariff 		= $_POST['plantariffids'];

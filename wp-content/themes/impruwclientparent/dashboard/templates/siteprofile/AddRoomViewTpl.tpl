@@ -107,7 +107,7 @@ var facilities_selected_exists;
 							</form><!--  frm_roomdesc -->
 						</div>
 						
-						<div class="scroll-indicator-container" id="scr2">
+						<div class="scroll-indicator-container" id="scr1">
 							<h4 class="aj-imp-sub-head scroll-ref">Images <small>Add attachment images to your room.</small></h4>
 							<form class="form-horizontal clearfix" name="frm_images">
 								
@@ -176,7 +176,7 @@ var facilities_selected_exists;
 						
 						
 						
-						<div class="scroll-indicator-container" id="scr3">
+						<div class="scroll-indicator-container" id="scr2">
 							<h4 class="aj-imp-sub-head scroll-ref">Facilities <small>List the facilities available in this room.</small></h4>
 							<form class="form-horizontal clearfix" name="form_addfacility" id="form_addfacility">
 								<div class="alert alert-success hidden status_message"></div>
@@ -246,7 +246,7 @@ var facilities_selected_exists;
 						
 						
 						
-						<div class="scroll-indicator-container" id="scr4">
+						<div class="scroll-indicator-container" id="scr3">
 							<h4 class="aj-imp-sub-head scroll-ref">Add Date Range <small>Add your peak season, off-season or create your own seasonal tariffs here.</small></h4>
 							<form class="form-horizontal clearfix">
 								<div class="alert alert-success hidden status_message"></div>
@@ -415,7 +415,7 @@ var facilities_selected_exists;
 						
 						
 						
-						<div class="scroll-indicator-container" id="scr5">
+						<div class="scroll-indicator-container" id="scr4">
 							<h4 class="aj-imp-sub-head scroll-ref">Additional Info <small>These details shall apply to all room categories, unless you want to edit them separately.</small></h4>
 							<form class="form-horizontal clearfix">
 
@@ -425,8 +425,9 @@ var facilities_selected_exists;
 									</div>
 								</div>
 								<div class="form-group">
+								<div class="alert alert-success status_message hidden"></div>
 									<div class="col-sm-12"> 
-										<p class="taxoptiontext"> <% if(!_.isUndefined(roomdata.taxoption)) {%><%=roomdata.taxoption %> <%}%> </p>
+										<p class="taxoptiontext alert"> <% if(!_.isUndefined(roomdata.taxoption)) { if(!_.isEmpty(roomdata.taxoption)) { %><%=roomdata.taxoption %> <% } else{%> Please select Tax option <%} }else {%> Please select Tax option <% } %> </p>
 										<div class="taxoption_edit row hidden"> 
 											<div class="col-sm-2">
 												<label class="radio <%   if(!_.isUndefined(roomdata.taxoption)) { if(roomdata.taxoption==='With Tax'){ %>  checked  <% } }%>">
@@ -440,10 +441,9 @@ var facilities_selected_exists;
 												  Without Tax
 												</label>
 											</div>
-											<br>
 										</div>
 										<a class="edit-link edit-taxoption" href="javascript:void(0)"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
-										<a class="delete-link delete-taxoption hidden" href="javascript:void(0)"><span class="glyphicon glyphicon-ban-circle"></span> Cancel</a>
+										<a class="delete-link delete-taxoption hidden" href="javascript:void(0)"><span class="glyphicon glyphicon-trash"></span> Delete</a>
 									</div>
 								</div>
 
@@ -659,32 +659,32 @@ var facilities_selected_exists;
 
 								<div class="form-group checkin_span_block">
 									<div class="alert alert-success hidden status_message"></div>
-									<div class="col-sm-6">
-										<div class="checkinformat_text"> 
+									<div class="col-sm-12">
+										<p class="checkinformat_text alert"> 
 											<% if(!_.isUndefined(roomdata.checkinformat)) { 
 													if(!_.isEmpty(roomdata.checkinformat)){ %>
-														<p><%=roomdata.checkinformat %>-hour Format</p> <% 
+														<%=roomdata.checkinformat %>-hour Format <% 
 													} 
 													else{ %>
-														<div class="alert">Please select Check-in Time format!</div><% 
+														 Please select Check-in time format<% 
 													} 
 												} 
 											%>
-										</div>
+										</p>
 										<div class="checkinformat_edit row hidden">
-											<div class="col-sm-6">
+											<div class="col-sm-2">
 												<label class="radio <% if(!_.isUndefined(roomdata.checkinformat)) { 
-												  if(roomdata.checkinformat=="12") { %>  checked <% } }%>">
+												  if(roomdata.checkinformat=="12") { %>  checked " <% } }%>">
 												  <input type="radio" name="checkin_format" value="12" data-toggle="radio" 
 												  <% if(!_.isUndefined(roomdata.checkinformat)) { 
-												  if(roomdata.checkinformat=="12") { %>  checked="checked" <% } } %> >
+												  if(roomdata.checkinformat=="12") { %>  checked="checked" <% } }%>>
 												  12-hour Format
 												</label>
 												<span class="help-block">eg. 12:01 AM</span>
 											</div>
-											<div class="col-sm-6">
+											<div class="col-sm-2">
 												<label class="radio <% if(!_.isUndefined(roomdata.checkinformat)) { 
-												  if(roomdata.checkinformat=="24") { %>  checked <% } }%>">
+												  if(roomdata.checkinformat=="24") { %>  checked " <% } }%>">
 												  <input type="radio" name="checkin_format" value="24" data-toggle="radio" 
 												  <% if(!_.isUndefined(roomdata.checkinformat)) { 
 												  if(roomdata.checkinformat=="24") { %>  checked="checked" <% } }%>>
@@ -702,24 +702,23 @@ var facilities_selected_exists;
 								
 								<div class="form-group">
 									<div class="alert alert-success hidden status_message"></div>
-									<div class="col-sm-6">
-										<div class="checkintime_text">
+									<div class="col-sm-7">
+										<p class="checkintime_text alert">
 											<% if(!_.isUndefined(roomdata.checkintime)) { 
 											 		 if(_.isEmpty(roomdata.checkintime) ){ %>
-												 	 	<div class="alert">Please enter Check-in Time.</div><% 
+												 	 	Please enter checkin time.<% 
 													 }
 													 else { %>
-													 	<p><strong>Check-in Time: </strong><%=roomdata.checkintime %></p>
+													 <%=roomdata.checkintime %>
 												  <% } 
 											   }
 											%>
-										</div>
+										  </p>
 										<div class="checkintime_edittext hidden">
 											<input type='text' class="form-control" data-mask="99:99" placeholder="09:00" name="checkin_time" id="checkin_time" value="<% if(!_.isUndefined(roomdata.checkintime)) {%><%=roomdata.checkintime %> <%}%>" >
 										</div>
-										<br>
 										<a class="edit-link edit-checkintime" href="javascript:void(0)"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
-										<a class="delete-link delete-checkintime hidden" href="javascript:void(0)"><span class="glyphicon glyphicon-ban-circle"></span> Cancel</a>
+										<a class="delete-link delete-checkintime hidden" href="javascript:void(0)"><span class="glyphicon glyphicon-trash"></span> Delete</a>
 									</div>
 								</div>
 								<hr>
@@ -761,14 +760,14 @@ var facilities_selected_exists;
 								<div class="form-group">
 									<div class="alert alert-success hidden status_message"></div>
 									<div class="col-sm-12">
-										<div class="addpoliciestext">
+										<p class="addpoliciestext alert">
 										<% if(!_.isUndefined(roomdata.additionalpolicies)){   
 												if(_.isEmpty(roomdata.additionalpolicies)){ %>
-													<div class="alert">Add additional policies if any.</div><%} 
+													Add additional policies if any.<%} 
 												else { %>
-													<p><%=roomdata.additionalpolicies%></p> <% }
+													<%=roomdata.additionalpolicies%> <% }
 											}%>
-										</div>
+										</p>
 										<div class="addpoliciestext_edit hidden">
 											<textarea class="form-control" rows="3" name="additional_policies"  id="additional_policies" placeholder="eg. All rates are per night rates.">
 												<% if(!_.isUndefined(roomdata.additionalpolicies)) {%>
