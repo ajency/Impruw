@@ -2,6 +2,7 @@
 ## Or even mixin some extra functions
 define ['jquery', 'underscore', 'polyglot'], ($, _, Polyglot)->
 
+	
 	# adjust the dimesion of upper content and also the left section and right section
 	# Uses jquery to get window dimensions and sets min-height css property so that if height 
 	# is greater it will not hide the content
@@ -26,6 +27,7 @@ define ['jquery', 'underscore', 'polyglot'], ($, _, Polyglot)->
 	#adjust the page size and dimensions on resize
 	$(window).resize adjustPageDim
 
+	# Setup Polyglot
 	window.pt = new Polyglot
 						phrases : {}
 

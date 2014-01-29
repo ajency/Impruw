@@ -5,8 +5,8 @@
 
   define(["app", 'backbone'], function(App, Backbone) {
     return App.module("Entities.Users", function(Users, App, Backbone, Marionette, $, _) {
-      var API, UserCollection, UserModel, _ref, _ref1;
-      UserModel = (function(_super) {
+      var API, _ref, _ref1;
+      Users.UserModel = (function(_super) {
         __extends(UserModel, _super);
 
         function UserModel() {
@@ -23,18 +23,22 @@
           }
         ];
 
+        UserModel.prototype.url = function() {
+          return AJAXURL + '?action=get-user-profile';
+        };
+
         UserModel.prototype.defaults = function() {
           return {
-            user_name: '',
-            display_name: '',
-            user_email: ''
+            user_name: 'surajair',
+            display_name: 'Suraj Air',
+            user_email: 'surajair@gmail.com'
           };
         };
 
         return UserModel;
 
       })(Backbone.Model);
-      UserCollection = (function(_super) {
+      Users.UserCollection = (function(_super) {
         __extends(UserCollection, _super);
 
         function UserCollection() {
@@ -42,7 +46,7 @@
           return _ref1;
         }
 
-        UserCollection.prototype.model = UserModel;
+        UserCollection.prototype.model = Users.UserModel;
 
         return UserCollection;
 
@@ -50,7 +54,7 @@
       API = {
         getUserProfile: function(userId) {
           var user;
-          user = new UserModel({
+          user = new Users.UserModel({
             id: userId
           });
           user.url = AJAXURL + '?action=get-user-profile';

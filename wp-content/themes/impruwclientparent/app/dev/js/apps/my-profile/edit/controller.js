@@ -15,21 +15,28 @@
         }
 
         Controller.prototype.initialize = function() {
-          return this.myProfile = App.request("get:user:profile");
-        };
-
-        Controller.prototype.showMyProfile = function() {
-          var view;
-          view = this.getMainView(this.myProfile);
-          return this.show(view, {
-            loading: true
+          this.userProfile = App.request("get:user:profile");
+          this.layout = this.getLayout();
+          this.show(this.layout);
+          this.layout.generalFormRegion.show(this.getGeneralFormView());
+          this.layout.passwordFormRegion.show(this.getPasswordFormView());
+          return this.on("itemview:generalform:submit:clicked", function() {
+            return console.log("general form submitted");
           });
         };
 
-        Controller.prototype.getMainView = function(model) {
-          return new Edit.View.MainView({
-            model: model
+        Controller.prototype.getLayout = function() {
+          return new Edit.View.Layout;
+        };
+
+        Controller.prototype.getGeneralFormView = function() {
+          return new Edit.View.GeneralForm({
+            model: this.userProfile
           });
+        };
+
+        Controller.prototype.getPasswordFormView = function() {
+          return new Edit.View.PasswordForm;
         };
 
         return Controller;

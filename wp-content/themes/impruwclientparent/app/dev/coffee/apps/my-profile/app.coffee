@@ -18,7 +18,7 @@ define [
 		API = 
 			show : ()->
 				edit = new MyProfileApp.Edit.Controller
-				edit.showMyProfile()
+				#edit.showMyProfile()
 
 		
 		MyProfileApp.on 'start': ->

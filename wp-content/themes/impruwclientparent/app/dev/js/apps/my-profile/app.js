@@ -24,8 +24,7 @@
       API = {
         show: function() {
           var edit;
-          edit = new MyProfileApp.Edit.Controller;
-          return edit.showMyProfile();
+          return edit = new MyProfileApp.Edit.Controller;
         }
       };
       return MyProfileApp.on({

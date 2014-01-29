@@ -20,55 +20,7 @@
                     {{ __('Lorem ipsum dolor sit amet, consectetur adipiscing') }}
                 </small>
             </h4>
-            <form class="form-horizontal clearfix form_userprofile" name="form_usergeneral" id="form_usergeneral">
-                <div class="form-group">
-                    <label for="name" class="col-sm-2 control-label">
-                        {{ __('Name') }}
-                    </label>
-                    <div class="col-sm-10 col-sm-offset-2">
-                        <input type="text" class="form-control" id="display_name" name="display_name"
-                        placeholder="Name" value="{{display_name}}" 
-                        required required-message="{{ __('Please enter firstname lastname') }}" 
-                        minlength="3" minlength-message="{{ __('Name should be atleast 3 characters long') }}"
-                        regexp="^[a-zA-Z ]+$" regexp-message="{{ __('Please enter valid name ex. John Parker') }}" />
-                        <div class="p-messages">
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="inputEmail1" class="col-sm-2 control-label">
-                        Email
-                    </label>
-                    <div class="col-sm-10 col-sm-offset-2">
-                        <input type="email" class="form-control" id="user_email" name="user_email"
-                        placeholder="Email" value='{{ user_email }}' 
-                        parsley-trigger="blur"
-                        required required-message="{{ __('Please enter email Id') }}" 
-                        remote="{{AJAXURL}}?action=check_email_exists" remote-message="Email id is already registered"/>
-                        <div class="p-messages">
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-10">
-                        <label for="checkbox2" class="checkbox checked">
-                            <input type="checkbox" data-toggle="checkbox" checked="checked"
-                            name="new_feature_alert" value="1">
-                            {{ __('Let me know about new features and tips!') }}
-                        </label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-10">
-                        <button type="button" class="btn btn-wide aj-imp-submit" name="btn_saveusergeneral"
-                        id="btn_saveusergeneral">
-                            Update
-                        </button>
-                        <img src='{{THEMEURL}}/images/loader.gif' width="38" height="30" id="userprofilesubmitm_loader"
-                        style="display:none" />
-                    </div>
-                </div>
-            </form>
+            <div id="user-general-form"></div>
         </div>
         <div class="scroll-indicator-container" id="scr2">
             <h6 class="aj-imp-sub-head-thin scroll-ref">
@@ -77,62 +29,7 @@
                     {{ __('Lorem ipsum dolor sit amet, consectetur adipiscing') }}
                 </small>
             </h6>
-            <form class="form-horizontal clearfix form_userprofile" id="form_userpass"
-            name="form_userpass">
-                <div class="form-group">
-                    <label for="inputAddress1" class="col-sm-2 control-label">
-                        {{ __('Old Password') }}
-                    </label>
-                    <div class="col-sm-10 col-sm-offset-2">
-                        <input type="password" class="form-control" id="currentpass" name="currentpass"
-                        placeholder="Old Password" required parsley-trigger="blur" parsley-validation-minlength="0"
-                        parsley-minlength="6" 
-                        parsley-required-message="{{ __('Please enter current password') }}">
-                        <div class="p-messages">
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="inputAddress1" class="col-sm-2 control-label">
-                        {{ __('New Password') }}
-                    </label>
-                    <div class="col-sm-10 col-sm-offset-2">
-                        <input type="password" class="form-control" id="newpass1" name="newpass1"
-                            placeholder="{{ __('New Password') }}" 
-                            required parsley-trigger="blur" 
-                            parsley-validation-minlength="0"
-                            parsley-minlength="6" parsley-equalto="#newpass1" 
-                            parsley-required-message="{{ __('Please enter new password') }}">
-                        <div class="p-messages">
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="inputAddress1" class="col-sm-2 control-label">
-                        {{ __('Confirm Password') }}
-                    </label>
-                    <div class="col-sm-10 col-sm-offset-2">
-                        <input type="password" class="form-control" id="newpass2" name="newpass2"
-                        placeholder="{{ __('Confirm Password') }}" 
-                        required parsley-trigger="blur" 
-                        parsley-validation-minlength="0"
-                        parsley-minlength="6" parsley-equalto="#newpass1" 
-                        parsley-required-message="{{ __('Please Retype new password') }}">
-                        <div class="p-messages">
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-10">
-                        <button type="button" id="btn_updatepassword" name="btn_updatepassword"
-                        class="btn btn-wide aj-imp-submit">
-                            Change Password
-                        </button>
-                        <img src='{{THEMEURL}}/images/loader.gif' width="38" height="30" id="changepassubmit_loader"
-                        style="display:none" />
-                    </div>
-                </div>
-            </form>
+            <div id="form-userpass"></div>
         </div>
         <div class="scroll-indicator-container" id="scr2">
             <h6 class="aj-imp-sub-head-thin scroll-ref">

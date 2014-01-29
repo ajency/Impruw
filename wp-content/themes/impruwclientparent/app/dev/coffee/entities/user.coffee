@@ -2,7 +2,8 @@ define ["app", 'backbone'], (App, Backbone) ->
 
 		App.module "Entities.Users", (Users, App, Backbone, Marionette, $, _)->
 
-			class UserModel extends Backbone.Model
+			# User model
+			class Users.UserModel extends Backbone.Model
 
 				relations :[(
 								type : Backbone.HasMany
@@ -11,26 +12,28 @@ define ["app", 'backbone'], (App, Backbone) ->
 								collectionType : 'App.Entities.Rooms.RoomCollection'
 							)]
 
+				url : ->
+					AJAXURL + '?action=get-user-profile'
+
 				defaults : ->
-					user_name 		: ''
-					display_name 	: ''
-					user_email 		: ''
+					user_name 		: 'surajair'
+					display_name 	: 'Suraj Air'
+					user_email 		: 'surajair@gmail.com'
 					
 
-			class UserCollection extends Backbone.Collection
+			# User collection
+			class Users.UserCollection extends Backbone.Collection
 
-				model : UserModel
+				model : Users.UserModel
 
 				
-
-
 
 			#PUBLIC API
 			API = 
 				getUserProfile:(userId)->
 
-					user =  new UserModel
-									id : userId
+					user =  new Users.UserModel
+										id : userId
 
 					user.url = AJAXURL + '?action=get-user-profile'
 

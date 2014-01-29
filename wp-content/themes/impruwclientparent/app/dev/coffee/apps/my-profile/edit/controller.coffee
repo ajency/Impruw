@@ -5,25 +5,40 @@ define ['app', 'controllers/base-controller'
 
 		class Edit.Controller extends AppController
 
-			#initiliaze controller
+			# initiliaze controller
 			initialize:()->
 
-				@myProfile = App.request "get:user:profile"
+				@userProfile = App.request "get:user:profile"
 
-			
-			#show my profile view
-			showMyProfile : ()->	
+				@layout = @getLayout()
+
+				# show main layout
+				@show @layout
+
+				# show general form view
+				@layout.generalFormRegion.show @getGeneralFormView()
+
+				# show password field view
+				@layout.passwordFormRegion.show @getPasswordFormView()
+
+				@on "itemview:generalform:submit:clicked", ->
+						console.log "general form submitted"
+
 				
-				view = @.getMainView(@myProfile)	
+			# get layout
+			getLayout : ->
+				new Edit.View.Layout
 
-				@show view,(loading : true)
+
+			getGeneralFormView : ->
+				new Edit.View.GeneralForm 
+							model : @userProfile 
 
 
-			#get main view 
-			getMainView : (model)->
-				
-				new Edit.View.MainView
-							model : model
+			getPasswordFormView : ->
+				new Edit.View.PasswordForm
+
+
 
 			
 	App.MyProfileApp.Edit.Controller		

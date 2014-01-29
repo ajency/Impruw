@@ -1,18 +1,21 @@
 define ['app'
-		'tpl!apps/my-profile/edit/templates/mainview'],
-		(App, mainviewTpl)->
+		'tpl!apps/my-profile/edit/templates/mainview'
+		'tpl!apps/my-profile/edit/templates/generalform'
+		'tpl!apps/my-profile/edit/templates/passwordform'],
+		(App, mainviewTpl, generalformTpl, passwordformTpl)->
 
 
 			App.module 'MyProfileApp.Edit.View', (View, App, Backbone, Marionette, $, _)->
 
-				class View.MainView extends Marionette.ItemView
+				class View.Layout extends Marionette.Layout
 
 					# Main edit profile template
 					template : mainviewTpl
 
-					# events hash
-					events : 
-						'click button[name="btn_saveusergeneral"]' : 'submitUserGeneral'
+					# Layout regions
+					regions :
+						generalFormRegion : '#user-general-form'
+						passwordFormRegion: '#form-userpass'
 
 					# set the flatui checkbox radio and bootstrap select ui 
 					onRender : ->
@@ -22,25 +25,14 @@ define ['app'
 												style: 'btn-mini btn-default',
 												menuStyle: 'dropdown'
 
-						@setupFormValidation()
+				# Genral form
+				class View.GeneralForm extends Marionette.FormView
+					template : generalformTpl
 
-					# setup form validation
-					setupFormValidation : ->
 
-						forms = @$el.find('form')
-
-						$.each forms, (index, form)->
-							$(form).validate()
-							return
-
-					# submit user general
-					submitUserGeneral :(evt) ->
-
-						form = $(evt.target).closest 'form'
-						console.log form
-						if $(form).valid()
-							form.submit()
-						
+				# Password form
+				class View.PasswordForm extends Marionette.FormView
+					template : passwordformTpl
 
 
 			App.MyProfileApp.Edit.View

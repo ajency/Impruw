@@ -3,53 +3,62 @@
   var __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  define(['app', 'tpl!apps/my-profile/edit/templates/mainview'], function(App, mainviewTpl) {
+  define(['app', 'tpl!apps/my-profile/edit/templates/mainview', 'tpl!apps/my-profile/edit/templates/generalform', 'tpl!apps/my-profile/edit/templates/passwordform'], function(App, mainviewTpl, generalformTpl, passwordformTpl) {
     App.module('MyProfileApp.Edit.View', function(View, App, Backbone, Marionette, $, _) {
-      var _ref;
-      return View.MainView = (function(_super) {
-        __extends(MainView, _super);
+      var _ref, _ref1, _ref2;
+      View.Layout = (function(_super) {
+        __extends(Layout, _super);
 
-        function MainView() {
-          _ref = MainView.__super__.constructor.apply(this, arguments);
+        function Layout() {
+          _ref = Layout.__super__.constructor.apply(this, arguments);
           return _ref;
         }
 
-        MainView.prototype.template = mainviewTpl;
+        Layout.prototype.template = mainviewTpl;
 
-        MainView.prototype.events = {
-          'click button[name="btn_saveusergeneral"]': 'submitUserGeneral'
+        Layout.prototype.regions = {
+          generalFormRegion: '#user-general-form',
+          passwordFormRegion: '#form-userpass'
         };
 
-        MainView.prototype.onRender = function() {
+        Layout.prototype.onRender = function() {
           this.$el.find('input[type="checkbox"]').checkbox();
           this.$el.find('input[type="radio"]').radio();
-          this.$el.find('select').selectpicker({
+          return this.$el.find('select').selectpicker({
             style: 'btn-mini btn-default',
             menuStyle: 'dropdown'
           });
-          return this.setupFormValidation();
         };
 
-        MainView.prototype.setupFormValidation = function() {
-          var forms;
-          forms = this.$el.find('form');
-          return $.each(forms, function(index, form) {
-            $(form).validate();
-          });
-        };
+        return Layout;
 
-        MainView.prototype.submitUserGeneral = function(evt) {
-          var form;
-          form = $(evt.target).closest('form');
-          console.log(form);
-          if ($(form).valid()) {
-            return form.submit();
-          }
-        };
+      })(Marionette.Layout);
+      View.GeneralForm = (function(_super) {
+        __extends(GeneralForm, _super);
 
-        return MainView;
+        function GeneralForm() {
+          _ref1 = GeneralForm.__super__.constructor.apply(this, arguments);
+          return _ref1;
+        }
 
-      })(Marionette.ItemView);
+        GeneralForm.prototype.template = generalformTpl;
+
+        return GeneralForm;
+
+      })(Marionette.FormView);
+      return View.PasswordForm = (function(_super) {
+        __extends(PasswordForm, _super);
+
+        function PasswordForm() {
+          _ref2 = PasswordForm.__super__.constructor.apply(this, arguments);
+          return _ref2;
+        }
+
+        PasswordForm.prototype.template = passwordformTpl;
+
+        return PasswordForm;
+
+      })(Marionette.FormView);
     });
     return App.MyProfileApp.Edit.View;
   });
