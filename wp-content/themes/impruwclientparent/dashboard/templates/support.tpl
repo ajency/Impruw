@@ -3,6 +3,7 @@
 		<h2 class="aj-imp-page-head">Support</h2>
 	</div>
 </header>
+<div class="alert alert-success hidden" id="support_status" name="support_status" ></div>
 <div class="row">
 	<div class="aj-imp-dash-content col-md-12">
 		<h4 class="aj-imp-sub-head">Need Help? <small>Send us a message and we will get back to you.</small></h4>

@@ -29,6 +29,8 @@ define([ 'underscore', 'jquery', 'backbone',
 			
 			submitSupportForm : function(evt){
 				
+				var evt_ 	= evt ;
+				var self_ 	= this; 
 				$(evt.target).next().removeClass('hidden');
 				
 				if (!this.$el.find('#frm_support').parsley('validate')){
@@ -49,7 +51,23 @@ define([ 'underscore', 'jquery', 'backbone',
 						data,
 						function(response){
 					 		if(response.code=='OK'){
-									 
+								 
+					 			$(evt_.target).next().addClass('hidden')
+					 			var message_span = self_.$el.find('#support_status');
+					 			message_span.html(response.message);
+					 			message_span.removeClass('alert-error').addClass('alert-success').removeClass('hidden');
+					 			
+					 			var $div2  = message_span;
+					 			
+					 			$('html, body').animate({
+							        scrollTop: $div2.offset().top
+							    }, 1000);
+					 			
+					 			 
+					 			 setTimeout(function(){		 
+									 $div2.addClass('hidden');							  
+					 			 }, 5000);
+					 			 
 							 	//reset form 
 					 			self_.$el.find('#frm_support')[0].reset();
 								
@@ -58,20 +76,86 @@ define([ 'underscore', 'jquery', 'backbone',
 								self_.$el.find('.has-error').removeClass('has-error')
 								self_.$el.find('.has-success').removeClass('has-success')
 								
-							    ImpruwDashboard.vent.trigger('new-add-on-added',response,evt_);
+							    
 							  
 							}
 							else{
 								
 								 
-								ImpruwDashboard.vent.trigger('new-add-on-added',response,evt_);
+								$(evt_.target).next().addClass('hidden')
+					 			var message_span = self_.$el.find('#support_status');
+					 			message_span.html(response.message);
+					 			message_span.removeClass('alert-success').addClass('alert-error').removeClass('hidden');
+					 			
+					 			var $div2  = message_span;
+					 			
+					 			$('html, body').animate({
+							        scrollTop: $div2.offset().top
+							    }, 1000);
 								 
 							}
 					
 						});	
 				 
 				
-			}
+			},
+			
+			
+			
+			
+			
+			
+			/**
+			 * Function to show message after success of save 
+			 * @param response
+			 * @param event
+			 * @param _self
+			 */
+			saveSuccess : function(response,event,_self){
+				 
+				 
+				
+				var message_span = '';
+				 
+				
+				if(!_.isUndefined(response.inlineresultmsg)){
+				 
+					if( (_.isUndefined(response.facilitymsgspan))  && (_.isUndefined(response.daterangemsgspan)) ){
+						 
+						if(_.isUndefined(response.checkintime )){ 
+							message_span = $(event.target).closest('.form-group').find('.status_message');
+						}
+						else{
+							message_span = $(event.target).closest('.form-group').parent().find('.checkin_span_block').find('.status_message');
+						}
+						
+					}	
+					else{
+						message_span = $(event.target).closest('form').find('.status_message')
+					}
+					 
+				}
+				else if(!_.isUndefined(response.popupmodel)){
+					 
+					message_span = $(event.target).closest('.modal-content').find('.status_message');
+					 
+				}
+				
+				else{
+					 
+					message_span = _self.$el.find('#roomsave_status')
+					 
+					 
+				}
+			 
+				 message_span.removeClass('alert-error').addClass('alert-success');
+				_self.showAlertMessage(event,response,_self,message_span);			 
+				 
+			} 
+			
+			
+			
+			
 
 		});
 

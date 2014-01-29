@@ -3307,13 +3307,13 @@ function send_support_form_message(){
     
     
 	
-	//add_filter( 'wp_mail_content_type', 'change_email_content_type' );
-	add_filter('wp_mail_content_type',create_function('', 'return "text/html";'));
+	add_filter( 'wp_mail_content_type', 'change_email_content_type' );
+	//add_filter('wp_mail_content_type',create_function('', 'return "text/html";'));
 	
     if(wp_mail($admin_email, $mailsubject, $mailbody))
-        wp_send_json(array('code' =>'OK'));
+        wp_send_json(array('code' =>'OK','message'=>_('Your message sent successfully. We will get back to you soon.')));
     else
-        wp_send_json(array('code' =>'ERROR', 'message' => 'Failed to send you message. Please try again.')); 
+        wp_send_json(array('code' =>'ERROR', 'message' => _('Failed to send you message. Please try again.'))); 
 }
 add_action('wp_ajax_send_support_form_message','send_support_form_message');
 add_action('wp_ajax_nopriv_send_support_form_message','send_support_form_message');
