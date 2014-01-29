@@ -162,12 +162,15 @@ define([ 'underscore', 'jquery', 'backbone',
 			var indicators = [];
 			var rawIndicators = "";
 			var $articles = $(".scroll-indicator-container");
+			
 			// Create a bubble for each article
-			$articles.each(_.bind(function(i) {
-				var iInverse = $articles.length - i - 1;
-				var margins = 'margin: ' + (i+0.5) + 'em 0 ' + (iInverse+0.5) + 'em 0;'; 
-				rawIndicators +=  '<a class="indicator indicator--upcoming" style="' + margins + '" href="#' + this.id + '"><span class="indicator-tooltip">' + this.$el.find(".scroll-ref").justtext() + '</span></a>';
-			}, this));
+			$articles.each(function(index, article){
+				var iInverse = $articles.length - index - 1;
+				var margins = 'margin: ' + (index+0.5) + 'em 0 ' + (iInverse+0.5) + 'em 0;'; 
+				var text = $(article).find(".scroll-ref").justtext();
+				rawIndicators +=  '<a class="indicator indicator--upcoming" style="' + margins + '" href="#' + article.id + '"><span class="indicator-tooltip">' + text + '</span></a>';
+			});
+
 
 			this.$el.append(rawIndicators);
 
@@ -219,19 +222,19 @@ define([ 'underscore', 'jquery', 'backbone',
 				// http://stackoverflow.com/questions/16239520/chrome-remembers-scroll-position
 				setTimeout(function(){
 				  var st = $(document).scrollTop();
-				  $(indicators).each(function(){
-					if(st<=this.absPos && st>=(-1*this.absBottomStop))
-					  this.$indicator.removeClass("indicator--upcoming").removeClass("indicator--passed").addClass("indicator--active")
-						  .css({ "top" : this.absPos });
-					else if(st>=(-1*this.absBottomStop)) 
-					  this.$indicator.removeClass("indicator--active").removeClass("indicator--upcoming").addClass("indicator--passed").css({ "top" : "" });
+				  _.each(indicators, function(p){
+					if(st<=p.absPos && st>=(-1*p.absBottomStop))
+					  p.$indicator.removeClass("indicator--upcoming").removeClass("indicator--passed").addClass("indicator--active")
+						  .css({ "top" : p.absPos });
+					else if(st>=(-1*p.absBottomStop)) 
+					  p.$indicator.removeClass("indicator--active").removeClass("indicator--upcoming").addClass("indicator--passed").css({ "top" : "" });
 					else
-					  this.$indicator.removeClass("indicator--active").removeClass("indicator--passed").addClass("indicator--upcoming").css({ "top" : "" });
+					  p.$indicator.removeClass("indicator--active").removeClass("indicator--passed").addClass("indicator--upcoming").css({ "top" : "" });
 					
-					if(st>=this.viewableTopStop && st<=(this.viewableBottomStop))
-					  this.$indicator.addClass("indicator--viewing");
+					if(st>=p.viewableTopStop && st<=(p.viewableBottomStop))
+					  p.$indicator.addClass("indicator--viewing");
 					else
-					  this.$indicator.removeClass("indicator--viewing");
+					  p.$indicator.removeClass("indicator--viewing");
 				  });
 				}, 0);
 			  }
@@ -304,7 +307,11 @@ define([ 'underscore', 'jquery', 'backbone',
 			  initIndicators();
 			  adjustIndicators();
 			  
-			  $(".indicator").click(function(){
+			  $(".indicator").click(function(e){
+			  	e.preventDefault();
+			  	$('html, body').animate({
+			        scrollTop: $($(e.target).attr('href')).offset().top - 110
+			    }, 1000);
 				initIndicators();
 				adjustIndicators();
 			  })

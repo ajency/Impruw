@@ -526,6 +526,9 @@ form .form-group.dual > [class^="col-sm-"]:last-child {
     margin: 0;
   }
 }
+form .form-group p {
+  color: #919191;
+}
 form .form-group .help-block {
   color: #b7b7b7;
   font-weight: 300;
