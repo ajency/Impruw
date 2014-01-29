@@ -1,5 +1,3 @@
-@import url(builder-icon-fonts.css);
-
 @import url(font-style.css);
 
 @import url(toggle-switch.css);
@@ -452,6 +450,7 @@ Version:        0.1.0
 .aj-imp-builder-area .aj-imp-browser-preview {
   border-radius: 6px;
   border: 1px solid #dadada;
+  box-shadow: 0 0 10px #f3f3f3;
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header {
   padding: 1em;
@@ -838,8 +837,8 @@ Version:        0.1.0
   box-sizing: border-box;
   position: relative;
 }
-.aj-imp-builder-layout-mode [class^="aj-imp-elem-"] > [class^="icon-"] {
-  font-size: 3em;
+.aj-imp-builder-layout-mode [class^="aj-imp-elem-"] > .layout .bicon {
+  font-size: 2em;
 }
 .aj-imp-builder-layout-mode [class^="aj-imp-elem-"] .aj-imp-descriptor {
   text-transform: uppercase;

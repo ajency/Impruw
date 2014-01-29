@@ -38,7 +38,7 @@ define(['titleelement', 'tpl!builder/templates/elements/BasicElement.tpl', 'glob
                 } else {
                     this.setProperties(options.config);
                 }
-                this.generateMarkup({icon : 'icon', name : 'Room Title'});
+                this.generateMarkup({icon : 'uniF11C', name : 'Room Title'});
                 this.setContextMenu();
             }
 

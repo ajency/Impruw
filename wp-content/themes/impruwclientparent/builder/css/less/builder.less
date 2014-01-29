@@ -9,7 +9,6 @@ Version:        0.1.0
 */ 
 
 /****Builder Icon Font****/
-@import url(builder-icon-fonts.css);
 @import url(font-style.css);
 
 /****Builder Toggle Switch****/
@@ -485,6 +484,7 @@ Version:        0.1.0
 	.aj-imp-browser-preview {
 		border-radius: 6px;
 		border: 1px solid darken(@preview-grey, 10%);
+		box-shadow: 0 0 10px @preview-grey;
 		.aj-imp-browser-header {
 			padding: 1em;
 			background: #fff;
@@ -885,8 +885,10 @@ Version:        0.1.0
 		padding: 0.5em;
 		box-sizing: border-box;
 		position: relative;
-		> [class^="icon-"] {
-			font-size: 3em;
+		> .layout {
+			.bicon {
+				font-size: 2em;
+			}
 		}
 		.aj-imp-descriptor {
 			text-transform: uppercase;

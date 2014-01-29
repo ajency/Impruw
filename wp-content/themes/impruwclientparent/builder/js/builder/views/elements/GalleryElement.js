@@ -40,7 +40,7 @@
           this.setProperties(options.config);
         }
         this.generateMarkup({
-          icon: '',
+          icon: 'uniF10C',
           name: 'Gallery Element'
         });
         this.setContextMenu();

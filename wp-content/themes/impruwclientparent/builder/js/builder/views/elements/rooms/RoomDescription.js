@@ -38,7 +38,7 @@ define(['textelement', 'tpl!builder/templates/elements/BasicElement.tpl', 'globa
                 } else {
                     this.setProperties(options.config);
                 }
-                this.generateMarkup({icon : 'icon', name : 'Room Description'});
+                this.generateMarkup({icon : 'uniF111', name : 'Room Description'});
                 this.setContextMenu();
             }
 

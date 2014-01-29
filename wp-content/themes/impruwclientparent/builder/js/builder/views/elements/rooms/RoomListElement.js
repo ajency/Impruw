@@ -40,7 +40,7 @@
           this.setProperties(options.config);
         }
         this.generateMarkup({
-          icon: '',
+          icon: 'uniF166',
           name: 'Room Element'
         });
         this.setContextMenu();
