@@ -355,6 +355,13 @@ Version:        0.1.0
 				}
 			}
 		}
+		.aj-imp-theme-btn {
+			background: @orange;
+			color: #fff;
+			&:hover {
+				background: lighten(@orange, 10%);
+			}
+		}
 	}
 }
 
@@ -1569,10 +1576,11 @@ Version:        0.1.0
 .aj-imp-block-list {
 	ul {
 		margin: 1em 0;
+		padding: 0;
 		list-style: none;
 		text-align: center;
 		.block {
-			width: 21%;
+			width: 31%;
 			display: inline-block;
 			position: relative;
 			border: 1px solid lighten(@dash-grey, 20%);
@@ -1580,6 +1588,15 @@ Version:        0.1.0
 			padding: 1%;
 			margin: 1%;
 			border-radius: 4px;
+			.img-holder {
+				height: 300px;
+				overflow: hidden;
+				margin-bottom: 1em;
+				img {
+					max-width: 100%;
+					height: auto;
+				}
+			}
 			.desc {
 				font-size: 1em;
 			}

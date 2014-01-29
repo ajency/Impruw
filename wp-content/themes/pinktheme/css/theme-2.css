@@ -60,19 +60,19 @@ h6.sub-title {
   display: table;
 }
 /****Container Styles****/
-.main-container {
+.site-style-container {
   width: 100%;
   max-width: 100%;
   padding: 0 -2em;
 }
-.main-container .layout-header > .row,
-.main-container .layout-body > .row,
-.main-container .layout-footer > .row {
+.site-style-container .site-header > .row,
+.site-style-container .layout-body > .row,
+.site-style-container .layout-footer > .row {
   padding: 0 2em;
 }
-.main-container .layout-header > .row.grey-bg,
-.main-container .layout-body > .row.grey-bg,
-.main-container .layout-footer > .row.grey-bg {
+.site-style-container .site-header > .row.grey-bg,
+.site-style-container .layout-body > .row.grey-bg,
+.site-style-container .layout-footer > .row.grey-bg {
   background: #e9e9e9;
   padding: 2em 0 1em;
 }

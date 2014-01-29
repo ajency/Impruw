@@ -399,7 +399,7 @@
             <form class="form-horizontal">
                 <div class="affix-show">You have unsaved changes!</div>
                 <button type="button" id="btn_savesitedetails"  name="btn_savesitedetails" class="btn btn-wide aj-imp-submit">Save</button>
-                <img src ='<%=THEMEURL%>/images/loader.gif' width="38" height="30"  id="siteprofilesubmitm_loader" style="display:none"/>
+                <img src ='<%=THEMEURL%>/images/loader-white.gif' width="38" height="30"  id="siteprofilesubmitm_loader" style="display:none"/>
             </form>
         </div>
     </div>

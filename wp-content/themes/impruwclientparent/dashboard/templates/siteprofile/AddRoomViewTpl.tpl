@@ -702,10 +702,10 @@ var facilities_selected_exists;
 								<div class="form-group">
 									<div class="alert alert-success hidden status_message"></div>
 									<div class="col-sm-7">
-										<p class="checkintime_text">
+										<p class="checkintime_text alert">
 											<% if(!_.isUndefined(roomdata.checkintime)) { 
 											 		 if(_.isEmpty(roomdata.checkintime) ){ %>
-												 	 	Please enter checkin time <% 
+												 	 	Please enter checkin time.<% 
 													 }
 													 else { %>
 													 <%=roomdata.checkintime %>
@@ -759,10 +759,10 @@ var facilities_selected_exists;
 								<div class="form-group">
 									<div class="alert alert-success hidden status_message"></div>
 									<div class="col-sm-12">
-										<p class='addpoliciestext'>
+										<p class="addpoliciestext alert">
 										<% if(!_.isUndefined(roomdata.additionalpolicies)){   
 												if(_.isEmpty(roomdata.additionalpolicies)){ %>
-													Please add additional policies<%} 
+													Add additional policies if any.<%} 
 												else { %>
 													<%=roomdata.additionalpolicies%> <% }
 											}%>
@@ -770,12 +770,13 @@ var facilities_selected_exists;
 										<div class="addpoliciestext_edit hidden">
 											<textarea class="form-control" rows="3" name="additional_policies"  id="additional_policies" placeholder="eg. All rates are per night rates.">
 												<% if(!_.isUndefined(roomdata.additionalpolicies)) {%>
-														<%=roomdata.additionalpolicies%> 
+													<%=roomdata.additionalpolicies%>
 												<% } %>
 											</textarea>
 										</div>
+										<br>
 										<a class="edit-link edit-additional-policies" href="javascript:void(0)"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
-										<a class="delete-link delete-additional-policies hidden" href="javascript:void(0)"><span class="glyphicon glyphicon-trash"></span> Delete</a>
+										<a class="delete-link delete-additional-policies hidden" href="javascript:void(0)"><span class="glyphicon glyphicon-remove-circle"></span> Cancel</a>
 									</div>
 								</div>
 								
@@ -802,7 +803,7 @@ var facilities_selected_exists;
 								<%	
 								   }
 								%>
-								<img src ="<%=THEMEURL%>/images/loader.gif" width="38" height="30"  
+								<img src ="<%=THEMEURL%>/images/loader-white.gif" width="38" height="30"  
 													id="roomsave_loader" style="display:none"/>
 							</form>
 						</div>
