@@ -2061,7 +2061,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 			$.post(	AJAXURL,
 			data,
 			function(response){ 
-				 
+				 response.inlineresultmsg = true;
 				 if(response.code=='OK'){
 				 	 
 					 

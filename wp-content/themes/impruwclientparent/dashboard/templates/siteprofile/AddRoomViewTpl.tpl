@@ -425,8 +425,9 @@ var facilities_selected_exists;
 									</div>
 								</div>
 								<div class="form-group">
+								<div class="alert alert-success status_message hidden"></div>
 									<div class="col-sm-12"> 
-										<p class="taxoptiontext"> <% if(!_.isUndefined(roomdata.taxoption)) {%><%=roomdata.taxoption %> <%}%> </p>
+										<p class="taxoptiontext alert"> <% if(!_.isUndefined(roomdata.taxoption)) { if(!_.isEmpty(roomdata.taxoption)) { %><%=roomdata.taxoption %> <% } else{%> Please select Tax option <%} }else {%> Please select Tax option <% } %> </p>
 										<div class="taxoption_edit row hidden"> 
 											<div class="col-sm-2">
 												<label class="radio <%   if(!_.isUndefined(roomdata.taxoption)) { if(roomdata.taxoption==='With Tax'){ %>  checked  <% } }%>">
@@ -659,13 +660,13 @@ var facilities_selected_exists;
 								<div class="form-group checkin_span_block">
 									<div class="alert alert-success hidden status_message"></div>
 									<div class="col-sm-12">
-										<p class="checkinformat_text"> 
+										<p class="checkinformat_text alert"> 
 											<% if(!_.isUndefined(roomdata.checkinformat)) { 
 													if(!_.isEmpty(roomdata.checkinformat)){ %>
 														<%=roomdata.checkinformat %>-hour Format <% 
 													} 
 													else{ %>
-														<div class="alert">Please select Check-in time format</div><% 
+														 Please select Check-in time format<% 
 													} 
 												} 
 											%>
