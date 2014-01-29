@@ -38,11 +38,22 @@
 			</div>
 		 <% 
 		  }) %>
+		 
 			
-			 
 			<div class="view-all">
-				<a href="#">View All</a>
+			<% 
+			 
+			if(!_.isEmpty(room.get('daterangetariff'))){
+			%>	<a href="#">View All</a>
+			<%
+			}
+			else{
+			%> No Tariff added yet.Please add room tariff
+			<%
+			}
+			%>
 			</div>
+			
 		</div>
 	</td>
 	<td class="actions">

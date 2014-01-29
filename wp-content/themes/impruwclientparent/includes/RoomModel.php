@@ -91,7 +91,7 @@ class RoomModel {
 			$daterangeplan_options = array('noofplans' => $room_retrival_data['noOFplansreqd'], //total no of daterange plans required
 	 										'current'	   => false   //set true if daterange plans for current date is required
 	 									   );
-			 $daterange_tariff = $this->get_room_tariffs($daterangeplan_options);
+			$daterange_tariff = $this->get_room_tariffs($daterangeplan_options);
 			
 		}
 		else{
@@ -199,11 +199,14 @@ function get_room_tariffs($tariffplan_options=array()){
 	//echo ' current : '.$current;
 	 
 	global $wpdb ; 
-	
+	$daterange_tariff = array();
 	$plans = maybe_unserialize(get_option('plans'));
 	
 	$plan_tariff_array = maybe_unserialize(get_post_meta($this->room->ID, 'room-plantariff',true))	;
 	
+	if(!is_array($plan_tariff_array))
+		return $daterange_tariff;
+	 
 	$plan_tariff = implode(',',$plan_tariff_array);
 		 
 	$qry_tariff = "SELECT a.daterange_id as daterange_id, a.id as dateplan_tariffid, b.from_date as from_date, b.to_date as to_date, a.plan_id as plan_id, a.tarriff as tariff 
@@ -211,6 +214,7 @@ function get_room_tariffs($tariffplan_options=array()){
 							LEFT JOIN 	{$wpdb->prefix}daterange  b 
 							on a.daterange_id = b.id  
 							WHERE a.id in(".$plan_tariff.")";
+	 
 	if(isset($current))
 		if($current==true)
 			$qry_tariff.= "AND  NOW() BETWEEN b.from_date AND b.to_date";
@@ -228,7 +232,7 @@ function get_room_tariffs($tariffplan_options=array()){
 	  
 	 
  
-	$daterange_tariff = array();
+	
 		
 	$qry_result = $wpdb->get_results($qry_tariff);
 	 	

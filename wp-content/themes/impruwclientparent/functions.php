@@ -3056,6 +3056,23 @@ add_action( 'wp_ajax_nopriv_delete_room_ajx', 'delete_room_ajx' );
 
 
 
+function change_default_language_ajx(){
+	
+	$selected_language = $_POST['selectedlanguage'];
+	global $sitepress, $wpdb;
+	if($sitepress->set_default_language($selected_language)){
+		wp_send_json( array( 'code' => 'OK' , 'msg' =>'Default language for site changed successfully') );
+	}
+	else{
+		wp_send_json( array( 'code' => 'ERROR' , 'msg' =>'Error changing default language' ) );
+	}
+	
+	 
+	
+}
+add_action( 'wp_ajax_change_default_language_ajx', 'change_default_language_ajx' );
+add_action( 'wp_ajax_nopriv_change_default_language_ajx', 'change_default_language_ajx' );
+
 
 /**
  * Get all menu pages for the site
@@ -3267,6 +3284,14 @@ function get_rooms(){
     return $r;
 }
 
+
+
+
+
+
+
+
+
 /**
  * [add_rel_attribute description]
  * @param [type] $link      [description]
@@ -3284,6 +3309,46 @@ function add_rel_attribute($link, $id, $size, $permalink, $icon, $text ) {
 
     return "<a data-lightbox='room-lightbox' href='$url'>$link_text</a>";
 }
+
+
+
+
+function send_support_form_message(){
+	
+	$support_form_data = $_POST['support_formdata'];
+	$name = $support_form_data['your_name'];
+	$email = $support_form_data['email'];
+	$subject = $support_form_data['subject'];
+	$message = $support_form_data['message'];
+	$admin_email = get_option('admin_email');
+	
+	
+	$mailsubject    = "Impruw Support Notification: Someone has tried to contact you";
+    $mailbody       = " You have been contacted by<br /><br />
+                        Name    : $name<br />
+                        Email   : $email<br />                        
+                        The details of the message are as follows:<br />
+                        <p>$message</p>";
+    
+    
+	
+	add_filter( 'wp_mail_content_type', 'change_email_content_type' );
+	//add_filter('wp_mail_content_type',create_function('', 'return "text/html";'));
+	
+    if(wp_mail($admin_email, $mailsubject, $mailbody))
+        wp_send_json(array('code' =>'OK','message'=>_('Your message sent successfully. We will get back to you soon.')));
+    else
+        wp_send_json(array('code' =>'ERROR', 'message' => _('Failed to send you message. Please try again.'))); 
+}
+add_action('wp_ajax_send_support_form_message','send_support_form_message');
+add_action('wp_ajax_nopriv_send_support_form_message','send_support_form_message');
+
+
+
+
+
+
+
 
 /**
  * [send_contact_form_message description]

@@ -147,11 +147,12 @@
 					<label for="inputAddress4" class="col-sm-2 control-label">Select Language</label>
 					<div class="col-sm-10 col-sm-offset-2">
 						 
-							<select>
-								<option value="English">English</option>
-								<option value="Norsk">Norsk</option>
-								<option value="Swedish">Swedish</option>
+							<select name="lst_selectlanguage" id="lst_selectlanguage">
+								<option value="en" <% if(user.get('defaultLanguage')=="en") { %> selected <% } %> >English</option>
+								<option value="nb"  <% if(user.get('defaultLanguage')=="nb") { %> selected <% }%> >Norwegian</option>								
 							</select>
+							<img src ='<%=THEMEURL%>/images/loader.gif' width="38" height="30"  
+							class="changelanguage_loader" style="display:none"/>
 						 
 					</div>
 				</div>
