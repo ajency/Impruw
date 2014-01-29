@@ -3285,6 +3285,46 @@ function add_rel_attribute($link, $id, $size, $permalink, $icon, $text ) {
     return "<a data-lightbox='room-lightbox' href='$url'>$link_text</a>";
 }
 
+
+
+
+function send_support_form_message(){
+	
+	$support_form_data = $_POST['support_formdata'];
+	$name = $support_form_data['your_name'];
+	$email = $support_form_data['email'];
+	$subject = $support_form_data['subject'];
+	$message = $support_form_data['message'];
+	$admin_email = get_option('admin_email');
+	
+	
+	$mailsubject    = "Impruw Support Notification: Someone has tried to contact you";
+    $mailbody       = " You have been contacted by<br /><br />
+                        Name    : $name<br />
+                        Email   : $email<br />                        
+                        The details of the message are as follows:<br />
+                        <p>$message</p>";
+    
+    
+	
+	//add_filter( 'wp_mail_content_type', 'change_email_content_type' );
+	add_filter('wp_mail_content_type',create_function('', 'return "text/html";'));
+	
+    if(wp_mail($admin_email, $mailsubject, $mailbody))
+        wp_send_json(array('code' =>'OK'));
+    else
+        wp_send_json(array('code' =>'ERROR', 'message' => 'Failed to send you message. Please try again.')); 
+}
+add_action('wp_ajax_send_support_form_message','send_support_form_message');
+add_action('wp_ajax_nopriv_send_support_form_message','send_support_form_message');
+
+
+
+
+
+
+
+
 /**
  * [send_contact_form_message description]
  * @return [type] [description]

@@ -167,7 +167,7 @@ jQuery(document).ready(function($) {
                     $container = $("<div class='p-messages'></div>").insertAfter(element);
                 }
                 return $container;
-            },
+            }
             /* classHandler: function ( elem  ) {
               elem.parent().addClass("has-error").removeClass("has-success");
                 elem.parent().find('.fui-check-inverted').remove()
@@ -183,7 +183,7 @@ jQuery(document).ready(function($) {
 
             onFieldError: function(elem, constraints, ParsleyField) {
                 elem.parent().parent().removeClass("has-success").addClass("has-error");
-                console.log(elem)
+                //console.log(elem)
                 elem.parent().find('.fui-check-inverted,.fui-cross-inverted').remove();
                 elem.after('<span class="validation-icon input-icon fui-cross-inverted"></span>')
             }
