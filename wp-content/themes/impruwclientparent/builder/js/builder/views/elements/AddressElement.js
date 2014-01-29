@@ -38,7 +38,7 @@ define(['builderelement', 'tpl!builder/templates/elements/BasicElement.tpl', 'gl
                 } else {
                     this.setProperties(options.config);
                 }
-                this.generateMarkup({icon : '', name : 'Address Element'});
+                this.generateMarkup({icon : 'uniF183', name : 'Address Element'});
                 this.setContextMenu();
 
             }

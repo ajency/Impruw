@@ -37,7 +37,7 @@
           this.setProperties(options.config);
         }
         this.generateMarkup({
-          icon: '',
+          icon: 'uniF11B',
           name: 'Contact Form Element'
         });
         this.setContextMenu();

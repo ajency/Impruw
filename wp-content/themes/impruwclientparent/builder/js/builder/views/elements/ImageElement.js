@@ -46,7 +46,7 @@ define(['builderelement', 'tpl!builder/templates/elements/BasicElement.tpl', 'gl
                 } else {
                     this.setProperties(options.config);
                 }
-                this.generateMarkup({icon : '', name : 'Image Element'});
+                this.generateMarkup({icon : 'uniF10E', name : 'Image Element'});
              
                 this.setContextMenu();
 

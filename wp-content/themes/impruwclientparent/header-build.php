@@ -44,16 +44,20 @@
                         <a href="<?php echo get_site_url();?>/dashboard/"><span class="glyphicon glyphicon-arrow-left"></span> Back to Dashboard</a>
                     </p>
                 </div>
-                <div class="aj-imp-page-layout col-sm-8 clearfix navbar-text">
-                    Page: <select id="aj-imp-page-sel" name="current_page_id">
-                        <?php foreach(get_all_menu_pages() as $page): ?>
-                            <?php $selected = (isset($_COOKIE["current_page_id"]) && $_COOKIE["current_page_id"] == $page->ID) ? 'selected'  :''; ?>
-                            <option value="<?php echo $page->ID; ?>" <?php echo $selected; ?>><?php echo $page->post_title; ?></option>
-                        <?php endforeach; ?>
-                    </select>&nbsp;&nbsp;&nbsp;&nbsp;
+                <div class="aj-imp-page-layout col-sm-8 clearfix">
+                    <p class="navbar-text">
+                        Page: <select id="aj-imp-page-sel" name="current_page_id">
+                            <?php foreach(get_all_menu_pages() as $page): ?>
+                                <?php $selected = (isset($_COOKIE["current_page_id"]) && $_COOKIE["current_page_id"] == $page->ID) ? 'selected'  :''; ?>
+                                <option value="<?php echo $page->ID; ?>" <?php echo $selected; ?>><?php echo $page->post_title; ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </p>
                 </div>
-               <div class="aj-imp-builder-top-options col-sm-1 navbar-text">
-                    <a href="<?php echo get_site_url();?>/choose-theme/" class="btn btn-default aj-imp-theme-btn">Choose Theme</a>
+                <div class="aj-imp-builder-top-options col-sm-2">
+                    <p class="navbar-text">
+                        <a href="<?php echo get_site_url();?>/choose-theme/" class="btn btn-default aj-imp-theme-btn">Choose Theme</a>
+                    </p>
                      <!-- <form class="navbar-search">
                        <div id="aj-imp-color-sel" class="dropdown"> 
                             <a class="btn bt-default" data-toggle="dropdown" href="#"><span class="pull-left">Change Color</span><span class="caret"></span></a>
