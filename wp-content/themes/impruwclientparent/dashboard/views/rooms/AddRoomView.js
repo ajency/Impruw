@@ -2087,8 +2087,14 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 			var evt_ = evt;
 			var self_ = this;
 			
+			//var taxoptionVal 	= $('input[name=tax_option1]:radio:checked');
+			//taxoption 	: $(evt.target).parent().find('input[type="radio"][name="tax_option1"]:checked').val()
+			var taxoptionVal 	= $('input[name=tax_option1]:checked').val();
+			
+			
+			console.log(taxoptionVal)
 			var data = {	action		: 'update_taxoption',						 
-							taxoption 	: $(evt.target).parent().find('input[type="radio"][name="tax_option1"]:checked').val()
+							taxoption 	: taxoptionVal
 						};
 			//$('input[type="radio"][name="tax_option1"]:checked').val() 
 			
