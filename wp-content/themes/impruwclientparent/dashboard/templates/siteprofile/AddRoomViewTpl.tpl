@@ -107,7 +107,7 @@ var facilities_selected_exists;
 							</form><!--  frm_roomdesc -->
 						</div>
 						
-						<div class="scroll-indicator-container" id="scr1">
+						<div class="scroll-indicator-container" id="scr2">
 							<h4 class="aj-imp-sub-head scroll-ref">Images <small>Add attachment images to your room.</small></h4>
 							<form class="form-horizontal clearfix" name="frm_images">
 								
@@ -176,7 +176,7 @@ var facilities_selected_exists;
 						
 						
 						
-						<div class="scroll-indicator-container" id="scr2">
+						<div class="scroll-indicator-container" id="scr3">
 							<h4 class="aj-imp-sub-head scroll-ref">Facilities <small>List the facilities available in this room.</small></h4>
 							<form class="form-horizontal clearfix" name="form_addfacility" id="form_addfacility">
 								<div class="alert alert-success hidden status_message"></div>
@@ -246,7 +246,7 @@ var facilities_selected_exists;
 						
 						
 						
-						<div class="scroll-indicator-container" id="scr3">
+						<div class="scroll-indicator-container" id="scr4">
 							<h4 class="aj-imp-sub-head scroll-ref">Add Date Range <small>Add your peak season, off-season or create your own seasonal tariffs here.</small></h4>
 							<form class="form-horizontal clearfix">
 								<div class="alert alert-success hidden status_message"></div>
@@ -266,9 +266,14 @@ var facilities_selected_exists;
 											</tr>
 										</thead>
 										<tbody>
- 
-										
-										
+ 										<% if(_.isUndefined(datePlantariffIds)){ %>
+											<tr class="no-data">
+												<td></td>
+												<td>No Date Range Defined.</td>
+												<td>No Date Range Defined.</td>
+												<td>No Date Range Defined.</td>
+											</tr>
+										<% } %>
 										 
 										
 										<% _.each(roomdata.dateranges,function(daterange,index){
@@ -415,7 +420,7 @@ var facilities_selected_exists;
 						
 						
 						
-						<div class="scroll-indicator-container" id="scr4">
+						<div class="scroll-indicator-container" id="scr5">
 							<h4 class="aj-imp-sub-head scroll-ref">Additional Info <small>These details shall apply to all room categories, unless you want to edit them separately.</small></h4>
 							<form class="form-horizontal clearfix">
 
