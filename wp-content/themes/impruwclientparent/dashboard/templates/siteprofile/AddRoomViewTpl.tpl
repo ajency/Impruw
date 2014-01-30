@@ -450,7 +450,7 @@ var facilities_selected_exists;
 											</div>
 										</div>
 										<a class="edit-link edit-taxoption" href="javascript:void(0)"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
-										<a class="delete-link delete-taxoption hidden" href="javascript:void(0)"><span class="glyphicon glyphicon-trash"></span> Delete</a>
+										<a class="delete-link delete-taxoption hidden" href="javascript:void(0)"><span class="glyphicon glyphicon-remove-circle"></span> Cancel</a>
 									</div>
 								</div>
 
@@ -726,7 +726,7 @@ var facilities_selected_exists;
 										</div>
 										<br>
 										<a class="edit-link edit-checkintime" href="javascript:void(0)"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
-										<a class="delete-link delete-checkintime hidden" href="javascript:void(0)"><span class="glyphicon glyphicon-trash"></span> Delete</a>
+										<a class="delete-link delete-checkintime hidden" href="javascript:void(0)"><span class="glyphicon glyphicon-remove-circle"></span> Cancel</a>
 									</div>
 								</div>
 								<hr>
