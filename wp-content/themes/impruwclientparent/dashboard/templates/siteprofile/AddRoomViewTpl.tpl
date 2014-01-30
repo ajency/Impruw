@@ -449,7 +449,7 @@ var facilities_selected_exists;
 									</div>
 								</div>
 
-								<div class="form-group">
+								<div id="div_taxlist" class="form-group <%   if(!_.isUndefined(roomdata.taxoption)) { if(roomdata.taxoption!=='With Tax'){ %> hidden <% }  }%>">
 								
 									<div class="alert alert-success hidden status_message"></div>
 									<div class="col-sm-12">
@@ -536,7 +536,7 @@ var facilities_selected_exists;
 									</div>
 								</div>
 
-								<div class="add-text">
+								<div id="div_addtax" class="add-text <%   if(!_.isUndefined(roomdata.taxoption)) { if(roomdata.taxoption!=='With Tax'){ %> hidden <% }  }%>">
 									
 									<!--  Add Tax <button type="button" class="btn add-btn btn-sm" data-toggle="modal" data-target="#add-tax"><i class="glyphicon glyphicon-plus"></i></button> -->
 									Add Tax <button type="button" class="btn add-btn btn-sm add_tax_btn"><i class="glyphicon glyphicon-plus"></i></button>
