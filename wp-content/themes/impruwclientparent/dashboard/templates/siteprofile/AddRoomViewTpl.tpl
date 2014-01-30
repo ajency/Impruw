@@ -289,20 +289,20 @@ var facilities_selected_exists;
 															<tr>
 																<td width="5%"><a href="#rowlink<%=daterange.id%>" data-toggle="collapse"><span class="glyphicon glyphicon-chevron-down"></span></a></td>
 																<td width="30%">
-																	<span class="label label-info daterange_fromlabel">From:</span>
+																	<span class="daterange_fromlabel">From:</span>
 																	<span class="daterange_fromtxt" ><%=daterange.from%></span>
 																	<span class="daterange_frominput hidden" >
 																		<input type="text" class="form-control dated fromdaterange_input" value="<%=daterange.from_calendar%>"  /> 	
 																	</span>   
 																	<br class="hidden"> 
-																	<span class="label label-info daterange_tolabel">To:</span> 
-																	<span class="daterange_totxt" ><%=daterange.to%></span>
+																	<span class="daterange_tolabel">To:</span> 
+																	<span class="daterange_totxt"><%=daterange.to%></span>
 																	<span class="daterange_toinput hidden" >	
 																		<input type="text" class="form-control dated todaterange_input" value="<%=daterange.to_calendar%>" id="todaterange" /> 
 																	</span>
 																</td>
 																<td width="35%">
-																	<span class="label label-info">Weekday:</span> from<strong><%if(!_.isUndefined(minMaxTariff)){ %>$<%=minMaxTariff.min_weekday%><% } else {%> - <% } %></strong> <span class="label label-info">Weekend:</span> from<strong><%if(!_.isUndefined(minMaxTariff)){ %>$<%=minMaxTariff.min_weekend%><% } else {%> - <% } %></strong>
+																	<span class="tariff_label">Weekday:</span> from<strong><%if(!_.isUndefined(minMaxTariff)){ %>$<%=minMaxTariff.min_weekday%><% } else {%> - <% } %></strong> <span class="tariff_label">Weekend:</span> from<strong><%if(!_.isUndefined(minMaxTariff)){ %>$<%=minMaxTariff.min_weekend%><% } else {%> - <% } %></strong>
 																</td>
 																<td width="30%" class="rowlink-skip">
 																	<a href="javascript:void(0)" class="edit-link editdaterange_lnk"  daterange-id = "<%=daterange.id%>"  ><span class="glyphicon glyphicon-pencil"></span>Edit</a>
