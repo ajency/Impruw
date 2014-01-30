@@ -48,7 +48,7 @@
 			<%
 			}
 			else{
-			%> No Tariff added yet.Please add room tariff
+			%> <span class="no-data">No Tariff added yet. Please add a tariff plan.</span>
 			<%
 			}
 			%>

@@ -569,6 +569,12 @@ form .form-group.has-error .input-icon,
 form .form-group.loading .input-icon {
   background: transparent;
 }
+form .form-group > .alert {
+  margin: 1em 15px;
+}
+form > .alert {
+  margin: 1em 15px;
+}
 form .form-control {
   border-radius: 0;
   border: 0;
@@ -1658,7 +1664,7 @@ form .aj-imp-submit:hover {
 .table-vc td {
   vertical-align: middle !important;
 }
-.no-data td {
+.no-data {
   font-style: italic;
   color: #c3c3c3;
 }
@@ -1715,9 +1721,16 @@ form .aj-imp-submit:hover {
 .ui-datepicker:before {
   border-bottom-color: #c3c3c3;
 }
+.dates {
+  margin: 0 !important;
+}
 .dates .input-icon {
   background: transparent;
   color: #b7b7b7;
+}
+.dates .has-error .fui-calendar,
+.dates .has-success .fui-calendar {
+  display: none;
 }
 /****Room List View Styles****/
 .room-list thead th {

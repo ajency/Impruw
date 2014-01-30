@@ -1,6 +1,6 @@
 <div class="modal-body">
 	<form class="form-horizontal clearfix" name="form_daterange" id="form_daterange">
-	<span class="alert alert-message status_message hidden"></span>
+	<div class="alert alert-message status_message hidden"></div>
 	
 	
 		<div class="form-group">
@@ -21,7 +21,7 @@
 					<div class="col-sm-8 col-sm-offset-4">
 						<div class="input-group">
 							<input type="text" class="form-control dated"
-								value="14 March, 2013" id="fromdaterange" 
+								value="14 March, 2014" id="fromdaterange" 
 								required parsley-trigger="blur" 
 								parsley-validation-minlength="0"/> 
 								<span class="input-icon fui-calendar" ></span>
@@ -36,7 +36,7 @@
 					<div class="col-sm-8 col-sm-offset-4">
 						<div class="input-group">
 							<input type="text" class="form-control dated"
-								value="14 March, 2013" id="todaterange" 
+								value="14 April, 2014" id="todaterange" 
 								required parsley-trigger="blur" 
 								parsley-validation-minlength="0"/> 
 								<span class="input-icon fui-calendar"></span>

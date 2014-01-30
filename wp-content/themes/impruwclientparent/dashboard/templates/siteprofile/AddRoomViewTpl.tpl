@@ -705,17 +705,17 @@ var facilities_selected_exists;
 								<div class="form-group">
 									<div class="alert alert-success hidden status_message"></div>
 									<div class="col-sm-6">
-										<p class="checkintime_text alert">
+										<div class="checkintime_text">
 											<% if(!_.isUndefined(roomdata.checkintime)) { 
 											 		 if(_.isEmpty(roomdata.checkintime) ){ %>
-												 	 	Please enter checkin time.<% 
+												 	 	<p class="alert">Please enter a Check-in Time.</p><% 
 													 }
 													 else { %>
-													 <%=roomdata.checkintime %>
+													 <p><%=roomdata.checkintime %></p>
 												  <% } 
 											   }
 											%>
-										  </p>
+										 </div>
 										<div class="checkintime_edittext hidden">
 											<input type='text' class="form-control" data-mask="99:99" placeholder="09:00" name="checkin_time" id="checkin_time" value="<% if(!_.isUndefined(roomdata.checkintime)) {%><%=roomdata.checkintime %> <%}%>" >
 										</div>
