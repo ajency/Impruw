@@ -1298,7 +1298,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 				var dateRangePlanFn = _.bind(function(DaterangePlanTpl){
 					
 					var html = _.template(DaterangePlanTpl, {daterange : response.daterange});
-					
+					$('#tbl_daterangelist').find(".no-data").remove();
 					$('#tbl_daterangelist').append(html)
 					
 					//this.$el.find('tbody').append(html);
@@ -1356,6 +1356,23 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 								response.inlineresultmsg = true;
 							 	response.daterangemsgspan = true;
 								this.saveSuccess(response,evt_,this); 
+								
+								
+								//console.log(self_.$el.find('#tbl_daterangelist tr').length)
+								//console.log(self_.$el.find('#tbl_daterangelist .no-data').length)
+								
+								//if addons-list table has only header row and no addons are present in addons list. add empty addon row
+								if(self_.$el.find('#tbl_daterangelist tr').length ==1){
+									if(self_.$el.find('#tbl_daterangelist .no-data').length==0){
+										self_.$el.find('#tbl_daterangelist').append('<tr class="no-data">'+
+												'<td></td>'+
+												'<td>No Date Range Defined.</td>'+
+												'<td>No Date Range Defined.</td>'+
+												'<td>No Date Range Defined.</td>'+
+											'</tr>')
+									}
+								}
+								
 								
 								//$(evt_.target).parent().parent().remove();
 								$(evt_.target).closest('.table-vc').closest('tr').remove();
