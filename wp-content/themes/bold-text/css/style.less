@@ -546,6 +546,36 @@ h1, h2, h3, h4, h5, h6{
 		}
 	}
 
+	/****Contact Page Styles****/
+	.contact-us {
+		margin: 1em 0;
+		.infoPoint {
+			margin: 0 0 1em;
+			text-align: left;
+			color: @blue;
+			font-size: 2em;
+		}
+		.form-control {
+			border-radius: 0;
+			border: 0;
+			border-bottom: 2px solid darken(@grey, 10%);
+			&:focus {
+				border-color: @blue;
+			}
+		}
+		.submit {
+			background: @blue;
+			color: #fff;
+			padding: 0.8em 1.2em;
+			border-radius: 3px;
+			display: inline-block;
+			&:hover {
+				background: lighten(@blue, 10%);
+				text-decoration: none;
+			}
+		}
+	}
+
 	/****Footer Styles****/
 	.footerbar {
 		background: @dark-grey;

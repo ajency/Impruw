@@ -90,6 +90,8 @@ h6.sub-title {
 
   /****Single Room Styles****/
 
+  /****Contact Page Styles****/
+
   /****Footer Styles****/
 
   /*-- Site Builder Container --*/
@@ -537,6 +539,34 @@ h6.sub-title {
   display: inline-block;
 }
 .site-style-container .action a:hover {
+  background: #0986cf;
+  text-decoration: none;
+}
+.site-style-container .contact-us {
+  margin: 1em 0;
+}
+.site-style-container .contact-us .infoPoint {
+  margin: 0 0 1em;
+  text-align: left;
+  color: #07669e;
+  font-size: 2em;
+}
+.site-style-container .contact-us .form-control {
+  border-radius: 0;
+  border: 0;
+  border-bottom: 2px solid #d9d9d9;
+}
+.site-style-container .contact-us .form-control:focus {
+  border-color: #07669e;
+}
+.site-style-container .contact-us .submit {
+  background: #07669e;
+  color: #fff;
+  padding: 0.8em 1.2em;
+  border-radius: 3px;
+  display: inline-block;
+}
+.site-style-container .contact-us .submit:hover {
   background: #0986cf;
   text-decoration: none;
 }
