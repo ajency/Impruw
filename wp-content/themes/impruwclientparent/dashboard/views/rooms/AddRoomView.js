@@ -2108,6 +2108,15 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 						 $(evt_.target).parent().find('.taxoptiontext').html('<p class="alert">Please select Tax option</p>')
 					 }
 					 else{
+						 if(response.taxoption.trim()=="With Tax"){
+						
+							 self_.$el.find('#div_addtax').removeClass('hidden');
+							 self_.$el.find('#div_taxlist').removeClass('hidden');	
+						 }
+						 else{
+							 self_.$el.find('#div_addtax').addClass('hidden');
+							 self_.$el.find('#div_taxlist').addClass('hidden');
+						 }
 						 $(evt_.target).parent().find('.taxoptiontext').html(response.taxoption)
 					 }
 					 
