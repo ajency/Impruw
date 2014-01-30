@@ -476,11 +476,14 @@ form .form-group.pic-upload .fileinput .btn:hover {
   text-shadow: none;
   color: #65879c;
 }
-form .form-group.pic-upload .fileinput .btn.btn-file {
-  margin-top: 0.5em;
+form .form-group.pic-upload .fileinput .btn.btn-danger {
+  color: #cc6500;
 }
 form .form-group.add-another .control-label {
   top: 1em;
+}
+form .form-group.add-another .has-error .p-messages .help-block {
+  color: #E74C3C;
 }
 form .form-group.add-another .div_email,
 form .form-group.add-another .div_phone {
@@ -575,6 +578,12 @@ form .form-group.loading .input-icon {
 form .form-group > .alert {
   margin: 1em 15px;
 }
+form .form-group .form-control[disabled],
+form .form-group .form-control[readonly],
+form .form-group fieldset[disabled] .form-control {
+  color: #aaaaaa;
+  cursor: not-allowed;
+}
 form > .alert {
   margin: 1em 15px;
 }
@@ -622,6 +631,11 @@ form .aj-imp-submit:hover {
 }
 .select .dropdown-toggle .caret {
   border-top-color: #aaaaaa;
+}
+.select .dropdown-toggle:hover,
+.select .dropdown-toggle:focus {
+  background: #fff;
+  z-index: 0;
 }
 .select .dropdown-menu .selected a {
   background: #ff7e00;
