@@ -476,7 +476,11 @@ form .form-group.pic-upload .fileinput .btn:hover {
   text-shadow: none;
   color: #65879c;
 }
+form .form-group.pic-upload .fileinput .btn.btn-file {
+  margin-top: 0.5em;
+}
 form .form-group.pic-upload .fileinput .btn.btn-danger {
+  margin-top: 0.5em;
   color: #cc6500;
 }
 form .form-group.add-another .control-label {

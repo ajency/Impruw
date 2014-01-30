@@ -4,7 +4,7 @@
  */
 
 define([ 'underscore', 'jquery', 'backbone', 
-		'text!templates/siteprofile/SiteProfileViewTpl.tpl', 'sitemodel','parsley'], 
+		'text!templates/siteprofile/SiteProfileViewTpl.tpl', 'sitemodel', 'parsley', 'inputmask' ], 
 		function(_, $, Backbone, SiteProfileViewTpl, SiteModel) {
 
 	var SiteProfileView = Backbone.View.extend({

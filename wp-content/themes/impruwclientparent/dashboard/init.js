@@ -36,6 +36,7 @@ require.config({
         parsley                 : 'lib/parsley/parsley',
         jpanelmenu              : 'lib/jquery.jpanelmenu.min',
         polyglot                : 'lib/polyglot',
+        inputmask               : 'lib/bootstrap-input-mask.min',
         
         //Views
         mainview				: 'views/DashboardMainView',
@@ -117,7 +118,10 @@ require.config({
         	exports : 'Marionette'
         },
         'polyglot': {
-          exports: 'Polyglot'
+            exports: 'Polyglot'
+        },
+        'inputmask': {
+            deps : ['jquery','bootstrap']
         }
         
     }

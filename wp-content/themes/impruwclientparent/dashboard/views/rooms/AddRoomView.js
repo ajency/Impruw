@@ -4,8 +4,8 @@
  */
 
 define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
-		'text!templates/siteprofile/AddRoomViewTpl.tpl','jqueryui','parsley','radio' ], 
-      function(_, $, Backbone, RoomModel, RoomCollection, AddRoomViewTpl,jqueryui) {
+		'text!templates/siteprofile/AddRoomViewTpl.tpl','jqueryui','parsley','radio', 'inputmask' ], 
+      function(_, $, Backbone, RoomModel, RoomCollection, AddRoomViewTpl, jqueryui) {
 
 	var AddRoomView = Backbone.View.extend({
 
