@@ -326,6 +326,9 @@ a:focus {
   width: 100% !important;
   margin-left: 0 !important;
 }
+.aj-imp-container .aj-imp-right.aj-imp-loader {
+  background: url('../images/loader.gif') no-repeat center center #ffffff;
+}
 @media only screen and (min-width: 1440px) {
   /* Styles */
   .aj-imp-container .aj-imp-left,
