@@ -728,7 +728,8 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 			
 				if($('#tax_list').hasClass('hidden'))
 					$('#tax_list').removeClass('hidden')
-		 		
+					$("#tax_list").find('.no-data').remove();
+					
 					$("#tax_list").append(''+
 							'<tbody id="blocktaxtype-'+response.taxData.id+'">'+
 							'<td id="block_edittaxtype-'+response.taxData.id+'">'+
@@ -1187,7 +1188,9 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 				
 				if($('#addons_list').hasClass('hidden'))
 			 		$('#addons_list').removeClass('hidden')
-			 		
+			 	
+			    $("#addons_list").find('.no-data').remove();
+				
 			 	$("#addons_list").append(''+
 				 	'<tbody id="blockaddontype-'+response.addontype.id+'">'+
 					'<td id="block_editaddontype-'+response.addontype.id+'">'+
@@ -1575,6 +1578,19 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 							response.inlineresultmsg = true;
 							self_.saveSuccess(response,evt_,self_);  
 							self_.$el.find('#blockaddontype-'+addonTypeId).remove() 
+							
+							
+							//if addons-list table has only header row and no addons are present in addons list. add empty addon row
+							if(self_.$el.find('#addons_list tr').length ==1){
+								if(self_.$el.find('#addons_list .no-data').length==0){
+									self_.$el.find('#addons_list').append('<tr class="no-data">'+
+											'<td>No Add-ons Defined</td>'+
+											'<td>No Add-ons Defined</td>'+
+											'<td>No Add-ons Defined</td>'+
+										'</tr>')
+								}
+							}
+							
 						}
 						else{
 							$(evt_.target).prop('disabled',false);
@@ -1617,6 +1633,18 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 							response.inlineresultmsg = true;
 							self_.saveSuccess(response,evt_,self_);
 							self_.$el.find('#blocktaxtype-'+taxTypeId).remove()  
+							
+							//if tax-list table has only header row and no taxexs are present in tax list. add empty tax row
+							if(self_.$el.find('#tax_list tr').length ==1){
+								if(self_.$el.find('#tax_list .no-data').length==0){
+									self_.$el.find('#tax_list').append('<tr class="no-data">'+
+											'<td>No Taxes Set</td>'+
+											'<td>No Taxes Set</td>'+
+											'<td>No Taxes Set</td>'+
+										'</tr>')
+								}
+							}
+							
 							  
 						}
 						else{
@@ -2076,7 +2104,13 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 					 $(evt_.target).parent().find('.taxoptiontext').removeClass('hidden')
 					 $(evt_.target).removeClass('save-taxoption').addClass('edit-taxoption');
 					 
-					 $(evt_.target).parent().find('.taxoptiontext').html(response.taxoption)
+					 if(response.taxoption.trim()==""){
+						 $(evt_.target).parent().find('.taxoptiontext').html('<p class="alert">Please select Tax option</p>')
+					 }
+					 else{
+						 $(evt_.target).parent().find('.taxoptiontext').html(response.taxoption)
+					 }
+					 
 					  
 					 $(evt_.target).prop('disabled',false);
 					 $(evt_.target).html(function (i, old) {
@@ -2210,8 +2244,21 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 					 $(evt_.target).parent().find('.checkintime_text').removeClass('hidden')
 					 $(evt_.target).removeClass('save-checkintime').addClass('edit-checkintime');
 					 
-					 $(evt_.target).parent().find('.checkintime_text').html(response.checkinTime)
-					 $(evt_.target).parent().parent().parent().find('.checkinformat_text').html(response.checkinformat+"-hour Format")
+					 if(response.checkinTime.trim()==""){
+						 $(evt_.target).parent().find('.checkintime_text').html('<p class="alert">Please enter checkin time.</p>')
+					 }
+					 else{
+						 $(evt_.target).parent().find('.checkintime_text').html(response.checkinTime)
+					 }
+					 
+					 if(response.checkinformat.trim()==""){
+						 $(evt_.target).parent().parent().parent().find('.checkinformat_text').html('<p class="alert">Please select Check-in time format</p>')
+					 }
+					 else{
+						 $(evt_.target).parent().parent().parent().find('.checkinformat_text').html(response.checkinformat+"-hour Format")
+					 }
+					 
+					 
 					  
 					 $(evt_.target).prop('disabled',false);
 					 $(evt_.target).html(function (i, old) {
@@ -2291,7 +2338,13 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 					 $(evt_.target).parent().find('.addpoliciestext').removeClass('hidden')
 					 $(evt_.target).removeClass('save-additional-policies').addClass('edit-additional-policies');
 					 
-					 $(evt_.target).parent().find('.addpoliciestext').html(response.additionalPolicies)
+					 if(response.additionalPolicies.trim()==""){
+						 $(evt_.target).parent().find('.addpoliciestext').html('<p class="alert">Add additional policies if any.</p>') 
+					 }
+					 else{
+						 $(evt_.target).parent().find('.addpoliciestext').html(response.additionalPolicies.trim())
+					 }
+					 
 					  
 					 $(evt_.target).prop('disabled',false);
 					 $(evt_.target).html(function (i, old) {

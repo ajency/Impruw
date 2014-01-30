@@ -19,8 +19,13 @@
 	<td><% //console.log(room.get('daterangetariff'))    %>
 		<div class="tariff">
 		
-		<% _.each(room.get('daterangetariff'),function(dateRangeTariff,index){  
-		 //console.log(dateRangeTariff.planId) 
+		<%
+		var count_roomtariff = 0;
+		
+		 _.each(room.get('daterangetariff'),function(dateRangeTariff,index){
+		   
+		 //console.log(dateRangeTariff.planId)
+		 if(count_roomtariff<=1) 
 		 %>
 		 <div class="row tariff-plan">
 				<div class="col-sm-6 plan">
@@ -37,6 +42,7 @@
 				</div>
 			</div>
 		 <% 
+		 count_roomtariff++;
 		  }) %>
 		 
 			

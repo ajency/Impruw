@@ -428,7 +428,7 @@ var facilities_selected_exists;
 								<div class="alert alert-success status_message hidden"></div>
 									<div class="col-sm-12"> 
 										<div class="taxoptiontext">
-											<% if(!_.isUndefined(roomdata.taxoption)) { if(!_.isEmpty(roomdata.taxoption)) { %><p><%=roomdata.taxoption %></p> <% } else{%> <p class="alert">Please select Tax option</p> <%} }else {%> <p class="alert">Please select Tax option</p> <% } %> 
+											<% if(!_.isUndefined(roomdata.taxoption)) { if(!_.isEmpty(roomdata.taxoption.trim())) { %><p><%=roomdata.taxoption %></p> <% } else{%> <p class="alert">Please select Tax option</p> <%} }else {%> <p class="alert">Please select Tax option</p> <% } %> 
 										</div>
 										<div class="taxoption_edit row hidden"> 
 											<div class="col-sm-2">
@@ -664,7 +664,7 @@ var facilities_selected_exists;
 									<div class="col-sm-6">
 										<div class="checkinformat_text"> 
 											<% if(!_.isUndefined(roomdata.checkinformat)) { 
-													if(!_.isEmpty(roomdata.checkinformat)){ %>
+													if(!_.isEmpty(roomdata.checkinformat.trim())){ %>
 														<p><%=roomdata.checkinformat %>-hour Format</p> <% 
 													} 
 													else{ %>
@@ -705,17 +705,17 @@ var facilities_selected_exists;
 								<div class="form-group">
 									<div class="alert alert-success hidden status_message"></div>
 									<div class="col-sm-6">
-										<div class="checkintime_text">
+											<div class="checkintime_text">
 											<% if(!_.isUndefined(roomdata.checkintime)) { 
-											 		 if(_.isEmpty(roomdata.checkintime) ){ %>
-												 	 	<p class="alert">Please enter a Check-in Time.</p><% 
+											 		 if(_.isEmpty(roomdata.checkintime.trim()) ){ %>
+												 	 	<p class="alert">Please enter checkin time.</p><% 
 													 }
 													 else { %>
-													 <p><%=roomdata.checkintime %></p>
+													 	<p><%=roomdata.checkintime %></p>
 												  <% } 
 											   }
 											%>
-										 </div>
+										    </div>
 										<div class="checkintime_edittext hidden">
 											<input type='text' class="form-control" data-mask="99:99" placeholder="09:00" name="checkin_time" id="checkin_time" value="<% if(!_.isUndefined(roomdata.checkintime)) {%><%=roomdata.checkintime %> <%}%>" >
 										</div>
@@ -765,18 +765,18 @@ var facilities_selected_exists;
 									<div class="col-sm-12">
 										<div class="addpoliciestext">
 										<% if(!_.isUndefined(roomdata.additionalpolicies)){   
-												if(_.isEmpty(roomdata.additionalpolicies)){ %>
+												if(_.isEmpty(roomdata.additionalpolicies.trim())){ %>
 													<p class="alert">Add additional policies if any.</p><%} 
 												else { %>
 													<p><%=roomdata.additionalpolicies%></p> <% }
 											}%>
 										</div>
 										<div class="addpoliciestext_edit hidden">
-											<textarea class="form-control" rows="3" name="additional_policies"  id="additional_policies" placeholder="eg. All rates are per night rates.">
-												<% if(!_.isUndefined(roomdata.additionalpolicies)) {%>
-													<%=roomdata.additionalpolicies%>
-												<% } %>
-											</textarea>
+											<textarea class="form-control" rows="3" name="additional_policies"  id="additional_policies" placeholder="eg. All rates are per night rates."><%
+												 if(!_.isUndefined(roomdata.additionalpolicies)) {
+													%><%=roomdata.additionalpolicies.trim()
+												%><% } 
+											%></textarea>
 										</div>
 										<br>
 										<a class="edit-link edit-additional-policies" href="javascript:void(0)"><span class="glyphicon glyphicon-pencil"></span> Edit</a>

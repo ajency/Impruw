@@ -48,7 +48,7 @@ if(isset($_REQUEST['lang']))
 				<a href="<?php echo get_bloginfo('url'); ?>/"><img src="<?php echo get_template_directory_uri(); ?>/images/impruw-logo-blue.png" title="Impruw" alt="Impruw" /></a>
 			</div>
 			<div class="col-md-6 lang-actions">
-				<a href="<?php echo get_bloginfo('url'); ?>/login/" class="btn btn-sm login-btn"><span class="glyphicon glyphicon-lock"></span> Sign In</a>
+				<?php if(!is_user_logged_in()){?><a href="<?php echo get_bloginfo('url'); ?>/login/" class="btn btn-sm login-btn"><span class="glyphicon glyphicon-lock"></span> Sign In</a><?php } ?>
 				<div class="lang-sel">
 					<?php do_action('icl_language_selector');?>
 				</div>
