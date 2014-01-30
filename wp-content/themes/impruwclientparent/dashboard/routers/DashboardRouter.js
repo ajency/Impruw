@@ -87,7 +87,7 @@ define(['underscore', 'jquery', 'backbone', 'mainview', 'bootstrapselect','check
 				 */
 				adjustRightColumnHeight: function(){
 					
-					$(".aj-imp-right").css('min-height',$('.aj-imp-left').height());
+					$(".aj-imp-right").css('min-height', $(window).height() - 40 );
 					
 				}
 				

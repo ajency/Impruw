@@ -324,6 +324,9 @@ a {
 				}
 			}
 		}
+		&.aj-imp-loader {
+			background: url('../images/loader.gif') no-repeat center center #fff;
+		}
 	}
 }
 
@@ -480,12 +483,23 @@ form {
 					&.btn-file {
 						margin-top: 0.5em;
 					}
+					&.btn-danger {
+						margin-top: 0.5em;
+						color: darken(@orange, 10%);
+					}
 				}
 			}
 		}
 		&.add-another {
 			.control-label {
 				top: 1em;
+			}
+			.has-error {
+				.p-messages {
+					.help-block {
+						color: #E74C3C;
+					}
+				}
 			}
 			.div_email, .div_phone {
 				position: relative;
@@ -575,6 +589,10 @@ form {
 		> .alert {
 			margin: 1em 15px;
 		}
+		.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+			color: @dash-grey;
+			cursor: not-allowed; 
+		}
 	}
 	> .alert {
 		margin: 1em 15px;
@@ -624,6 +642,10 @@ form {
 		border-bottom: 1px solid lighten(@dash-grey, 10%);
 		.caret {
 			border-top-color: @dash-grey;
+		}
+		&:hover, &:focus {
+			background: #fff;
+			z-index: 0;
 		}
 	}
 	.dropdown-menu {
