@@ -1439,7 +1439,10 @@ form {
 					.form-group {
 						@media (max-width: 767px) { 
 							margin: 0;
-						}	
+						}
+						&.dual {
+							margin: 0 0 20px;
+						}
 					}
 				}
 			}
@@ -1772,7 +1775,7 @@ form {
 }
 
 .edit-link {
-	color: @blue-grey;
+	color: @blue-grey !important;
 	margin-right: 1em;
 	&:hover {
 		color: darken(@blue-grey, 10%);

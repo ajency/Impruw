@@ -1389,6 +1389,9 @@ form .aj-imp-submit:hover {
     margin: 0;
   }
 }
+.modal.wide-modal .modal-dialog .modal-content .modal-body .form-group.dual {
+  margin: 0 0 20px;
+}
 /****File Upload Plugin Styles****/
 .btn-file {
   overflow: hidden;
@@ -1701,7 +1704,7 @@ form .aj-imp-submit:hover {
   padding: 0 !important;
 }
 .edit-link {
-  color: #849fb0;
+  color: #849fb0 !important;
   margin-right: 1em;
 }
 .edit-link:hover {

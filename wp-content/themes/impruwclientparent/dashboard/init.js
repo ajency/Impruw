@@ -37,6 +37,7 @@ require.config({
         jpanelmenu              : 'lib/jquery.jpanelmenu.min',
         polyglot                : 'lib/polyglot',
         inputmask               : 'lib/bootstrap-input-mask.min',
+        rowlink                 : 'lib/bootstrap-row-link.min',
         
         //Views
         mainview				: 'views/DashboardMainView',
@@ -121,6 +122,10 @@ require.config({
             exports: 'Polyglot'
         },
         'inputmask': {
+            deps : ['jquery','bootstrap']
+        }
+        ,
+        'rowlink': {
             deps : ['jquery','bootstrap']
         }
         

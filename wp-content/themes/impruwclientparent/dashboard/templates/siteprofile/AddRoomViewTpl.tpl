@@ -363,8 +363,8 @@ var facilities_selected_exists;
 																			 <%  if(!_.isEmpty(datePlanTariffExists)) {%>$<%=datePlanTariffExists[0].weekEndTariff%> <% }else { %> - <%} %>
 																		</td>
 																		<td class="block-plan-tariff-action">
-																			<a href="javascript:void(0)" class="editplan_link" planid="<%=plan.plan_id %>"    ><span class="glyphicon glyphicon-pencil"></span> Edit Plan</a>
-																			<a href="javascript:void(0)" class="addtariff_link <%  if(!_.isEmpty(datePlanTariffExists)) {%>hidden<%} %>" planid="<%=plan.plan_id %>"    ><span class="glyphicon glyphicon-plus"></span> Add Tariff</a>
+																			<a href="javascript:void(0)" class="edit-link editplan_link" planid="<%=plan.plan_id %>"    ><span class="glyphicon glyphicon-pencil"></span> Edit Plan</a>
+																			<a href="javascript:void(0)" class="edit-link addtariff_link <%  if(!_.isEmpty(datePlanTariffExists)) {%>hidden<%} %>" planid="<%=plan.plan_id %>"    ><span class="glyphicon glyphicon-plus"></span> Add Tariff</a>
 																			<a href="javascript:void(0)" class="edit-link edittariff-link <%  if(_.isEmpty(datePlanTariffExists)) {%>hidden<%} %>"  planid="<%=plan.plan_id %>"  <%  if(!_.isEmpty(datePlanTariffExists)) {%>date-range-plan-tariffid='<%=datePlanTariffExists[0].daterangePlanTariffId%>'<% } %>  ><span class="glyphicon glyphicon-pencil"></span> Edit Tariff</a>	
 																			 
 																		</td>
