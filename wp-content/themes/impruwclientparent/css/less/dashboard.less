@@ -368,6 +368,9 @@ and (min-width : 1440px) {
 		padding: 0;
 		li {
 			border-bottom: 1px solid lighten(@dash-grey, 40%);
+			.icon {
+				display: none;
+			}
 			a {
 				display: block;
 				padding: 1em 0.5em;
@@ -1411,6 +1414,11 @@ form {
 							border: 2px dashed @dash-grey;
 						}
 					}
+					.form-group {
+						@media (max-width: 767px) { 
+							margin: 0;
+						}	
+					}
 				}
 			}
 		}
@@ -1795,6 +1803,9 @@ form {
 
 .dates {
 	margin: 0 !important;
+	@media (max-width: 767px) { 
+		margin: 0 -15px !important;
+	}
 	.input-icon {
 		background: transparent;
 		color: lighten(@dash-grey, 5%);

@@ -363,6 +363,9 @@ a:focus {
 #jPanelMenu-menu #aj-imp-dash-menu li {
   border-bottom: 1px solid #ffffff;
 }
+#jPanelMenu-menu #aj-imp-dash-menu li .icon {
+  display: none;
+}
 #jPanelMenu-menu #aj-imp-dash-menu li a {
   display: block;
   padding: 1em 0.5em;
@@ -1360,6 +1363,11 @@ form .aj-imp-submit:hover {
   padding: 0.5em;
   border: 2px dashed #aaaaaa;
 }
+@media (max-width: 767px) {
+  .modal.wide-modal .modal-dialog .modal-content .modal-body .form-group {
+    margin: 0;
+  }
+}
 /****File Upload Plugin Styles****/
 .btn-file {
   overflow: hidden;
@@ -1723,6 +1731,11 @@ form .aj-imp-submit:hover {
 }
 .dates {
   margin: 0 !important;
+}
+@media (max-width: 767px) {
+  .dates {
+    margin: 0 -15px !important;
+  }
 }
 .dates .input-icon {
   background: transparent;
