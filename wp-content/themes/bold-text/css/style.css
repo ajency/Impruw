@@ -325,6 +325,16 @@ h6.sub-title {
 .site-style-container .main-menu .slimmenu > li:last-child a {
   border-right: 0;
 }
+.site-style-container .main-menu .menu-collapser {
+  background: #fff;
+  color: #07669e;
+  font-weight: 700;
+  text-shadow: none;
+}
+.site-style-container .main-menu .menu-collapser .collapse-button {
+  background: #07669e;
+  border-radius: 3px;
+}
 .site-style-container .title-meta p {
   color: #07669e !important;
   font-size: 1.2em !important;
