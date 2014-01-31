@@ -1406,7 +1406,9 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 			$(evt.target).parent().parent().find('.daterange_fromtxt').addClass('hidden');
 			$(evt.target).parent().parent().find('.daterange_totxt').addClass('hidden');
 			
-			$(evt.target).parent().parent().find('br').removeClass('hidden')
+			$(evt.target).parent().parent().find('br').removeClass('hidden');
+
+			$(evt.target).parent().parent().find('.daterange_tolabel').css('margin-right', '1.4em');
 
 			
 			/*$(evt.target).parent().parent().find('.daterange_fromlabel').addClass('hidden');
@@ -1484,7 +1486,9 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 			$(evt.target).parent().parent().find('.daterange_fromlabel').removeClass('hidden');
 			$(evt.target).parent().parent().find('.daterange_tolabel').removeClass('hidden');
  
-			$(evt.target).parent().parent().find('br').addClass('hidden')
+			$(evt.target).parent().parent().find('br').addClass('hidden');
+
+			$(evt.target).parent().parent().find('.daterange_tolabel').css('margin-right', '0');
 		},
 		
 		/**
@@ -1967,11 +1971,11 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 								taxtype_lbl_span.html(response.updatedtaxtype.name)
 								taxpercent_lbl_span.html(response.updatedtaxtype.percent)
 								 
-								 $(evt_.target).parent().find('.cancel-taxlink').addClass('hidden')
+								$(evt_.target).parent().find('.cancel-taxlink').addClass('hidden')
 								
 								$(evt_.target).html(function (i, old) {
-								     return old
-								         .replace('Save', 'Edit')
+								    return old
+								    .replace('Save', 'Edit')
 								         
 								});	
 								

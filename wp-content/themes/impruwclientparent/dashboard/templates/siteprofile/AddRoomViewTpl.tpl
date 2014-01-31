@@ -389,8 +389,7 @@ var facilities_selected_exists;
 															</table>
 														</div>
 														<div class="add-text">
-														<!--  Add Another Plan <button type="button" daterange-id = '<%=daterange.id %>'  class="btn add-btn btn-sm btn_addplanmodal" data-toggle="modal" data-target="#add-plantype"><i class="glyphicon glyphicon-plus btn_addplanmodal"  daterange-id = '<%=daterange.id %>'></i></button> -->
-														Add Another Plan <button type="button" daterange-id = '<%=daterange.id %>'  class="btn add-btn btn-sm btn_addplanmodal"><i class="glyphicon glyphicon-plus btn_addplanmodal"  daterange-id = '<%=daterange.id %>'></i></button>
+															<button type="button" daterange-id = '<%=daterange.id %>'  class="btn add-btn btn-sm btn_addplanmodal"><i class="glyphicon glyphicon-plus"></i> Add Another Plan</button>
 														</div>
 													</div>
 												</td>
@@ -403,7 +402,7 @@ var facilities_selected_exists;
 									</table>
 								</div>
 								<div class="add-text">
-									Add Date Range <button type="button" class="btn add-btn btn-sm" id="btn_add_daterange"  ><i class="glyphicon glyphicon-plus"></i></button> 
+									<button type="button" class="btn add-btn btn-sm" id="btn_add_daterange"  ><i class="glyphicon glyphicon-plus"></i> Add Date Range</button> 
 								</div>
 							</form>
 
@@ -543,8 +542,7 @@ var facilities_selected_exists;
 
 								<div id="div_addtax" class="add-text <%   if(!_.isUndefined(roomdata.taxoption)) { if(roomdata.taxoption!=='With Tax'){ %> hidden <% }  }%>">
 									
-									<!--  Add Tax <button type="button" class="btn add-btn btn-sm" data-toggle="modal" data-target="#add-tax"><i class="glyphicon glyphicon-plus"></i></button> -->
-									Add Tax <button type="button" class="btn add-btn btn-sm add_tax_btn"><i class="glyphicon glyphicon-plus"></i></button>
+									<button type="button" class="btn add-btn btn-sm add_tax_btn"><i class="glyphicon glyphicon-plus"></i> Add Tax</button>
 									 
 								</div>
 
@@ -649,7 +647,7 @@ var facilities_selected_exists;
 								</div>
 
 								<div class="add-text">
-									Add Add-On <button type="button" class="btn add-btn btn-sm"  id="btn_add_addon"><i class="glyphicon glyphicon-plus"></i></button> 
+									<button type="button" class="btn add-btn btn-sm"  id="btn_add_addon"><i class="glyphicon glyphicon-plus"></i> Add Add-On</button> 
 								</div>
 
 								<div class="form-group">
