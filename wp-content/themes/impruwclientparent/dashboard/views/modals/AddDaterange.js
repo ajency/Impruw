@@ -29,6 +29,8 @@ define(['modal', 'tpl!templates/modal/AddDateRange.tpl','parsley'],
                 
                 //add markup
                 var h = this.template({});
+
+                this.$el.addClass('wide-modal');
                 
                 this.$el.find('.modal-content').append(h);
                 

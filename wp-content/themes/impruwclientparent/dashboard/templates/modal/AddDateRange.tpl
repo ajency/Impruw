@@ -16,8 +16,7 @@
 		<div class="form-group dual dates">
 			<div class="col-sm-6">
 				<div class="form-group">
-					<label for="inputAddress2" class="col-sm-4 control-label">Start
-						Date</label>
+					<label for="inputAddress2" class="col-sm-4 control-label">Start Date</label>
 					<div class="col-sm-8 col-sm-offset-4">
 						<div class="input-group">
 							<input type="text" class="form-control dated"
