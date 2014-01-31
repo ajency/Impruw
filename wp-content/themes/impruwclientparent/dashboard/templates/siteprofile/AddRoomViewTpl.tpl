@@ -95,11 +95,11 @@ var facilities_selected_exists;
 									<div class="col-sm-10 col-sm-offset-2">
 										  <textarea class="form-control" rows="2" name="inputSEO1" id="roomdescription" name="roomdescription"
 										 placeholder="Room Description" required parsley-trigger="blur" 
-										 parsley-validation-minlength="0" parsley-required-message="please enter room description"  ><%if(!_.isUndefined(noOfRooms)) {
+										 parsley-validation-minlength="0" parsley-required-message="Please enter room description"  ><%if(!_.isUndefined(noOfRooms)) {
 										 %><%=roomDesc%><%}%></textarea>  
 										<!-- <input type="text" class="form-control" id="roomdescription" name="roomdescription"
 										 placeholder="Room Description" required parsley-trigger="blur" 
-										 parsley-validation-minlength="0" parsley-required-message="please enter room description" > -->
+										 parsley-validation-minlength="0" parsley-required-message="Please enter room description" > -->
 										<div class="p-messages"></div>
 									</div>
 								</div>
@@ -266,7 +266,7 @@ var facilities_selected_exists;
 											</tr>
 										</thead>
 										<tbody>
- 										<% if(_.isUndefined(datePlantariffIds)){ %>
+ 										<% if(!_.isArray(roomdata.dateranges)){ %>
 											<tr class="no-data">
 												<td></td>
 												<td>No Date Range Defined.</td>
@@ -432,7 +432,7 @@ var facilities_selected_exists;
 								<div class="alert alert-success status_message hidden"></div>
 									<div class="col-sm-12"> 
 										<div class="taxoptiontext">
-											<% if(!_.isUndefined(roomdata.taxoption)) { if(!_.isEmpty(roomdata.taxoption.trim())) { %><p><%=roomdata.taxoption %></p> <% } else{%> <p class="alert">Please select Tax option</p> <%} }else {%> <p class="alert">Please select Tax option</p> <% } %> 
+											<% if(!_.isUndefined(roomdata.taxoption)) { if(!_.isEmpty(roomdata.taxoption.trim())) { %><p><%=roomdata.taxoption %></p> <% } else{%> <p class="alert empty-val">Please select Tax option</p> <%} }else {%> <p class="alert empty-val">Please select Tax option</p> <% } %> 
 										</div>
 										<div class="taxoption_edit row hidden"> 
 											<div class="col-sm-2">
@@ -671,7 +671,7 @@ var facilities_selected_exists;
 														<p><%=roomdata.checkinformat %>-hour Format</p> <% 
 													} 
 													else{ %>
-														<p class="alert">Please select Check-in time format</p><% 
+														<p class="alert empty-val">Please select Check-in time format</p><% 
 													} 
 												} 
 											%>
@@ -711,7 +711,7 @@ var facilities_selected_exists;
 											<div class="checkintime_text">
 											<% if(!_.isUndefined(roomdata.checkintime)) { 
 											 		 if(_.isEmpty(roomdata.checkintime.trim()) ){ %>
-												 	 	<p class="alert">Please enter checkin time.</p><% 
+												 	 	<p class="alert empty-val">Please enter checkin time.</p><% 
 													 }
 													 else { %>
 													 	<p><%=roomdata.checkintime %></p>
@@ -769,7 +769,7 @@ var facilities_selected_exists;
 										<div class="addpoliciestext">
 										<% if(!_.isUndefined(roomdata.additionalpolicies)){   
 												if(_.isEmpty(roomdata.additionalpolicies.trim())){ %>
-													<p class="alert">Add additional policies if any.</p><%} 
+													<p class="alert empty-val">Add additional policies if any.</p><%} 
 												else { %>
 													<p><%=roomdata.additionalpolicies%></p> <% }
 											}%>

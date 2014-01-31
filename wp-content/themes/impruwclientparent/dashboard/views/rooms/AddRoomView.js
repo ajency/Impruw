@@ -2794,7 +2794,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 				//_self.$el.find('#roomsave_status').removeClass('hidden');
 				/* Move to top at status message after success/failure */
 				 $('html, body').animate({
-			        scrollTop: _self.$el.find('#roomsave_status').offset().top
+			        scrollTop: _self.$el.find('#roomsave_status').offset().top - 110
 			    }, 1000);
 				 
 				 setTimeout(function(){		 
