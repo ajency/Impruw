@@ -555,6 +555,9 @@ h1, h2, h3, h4, h5, h6{
 			color: @blue;
 			font-size: 2em;
 		}
+		textarea {
+			height: 150px;
+		}
 		.form-control {
 			border-radius: 0;
 			border: 0;
@@ -573,6 +576,18 @@ h1, h2, h3, h4, h5, h6{
 				background: lighten(@blue, 10%);
 				text-decoration: none;
 			}
+		}
+	}
+
+	.contact-map {
+		margin: 0 0 1em;
+		padding: 0.2em;
+		border: 2px solid darken(@grey, 10%);
+		#map_canvas {
+			height: 455px;
+		}
+		&:hover {
+			border-color: @blue;
 		}
 	}
 

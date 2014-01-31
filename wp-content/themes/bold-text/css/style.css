@@ -551,6 +551,9 @@ h6.sub-title {
   color: #07669e;
   font-size: 2em;
 }
+.site-style-container .contact-us textarea {
+  height: 150px;
+}
 .site-style-container .contact-us .form-control {
   border-radius: 0;
   border: 0;
@@ -569,6 +572,17 @@ h6.sub-title {
 .site-style-container .contact-us .submit:hover {
   background: #0986cf;
   text-decoration: none;
+}
+.site-style-container .contact-map {
+  margin: 0 0 1em;
+  padding: 0.2em;
+  border: 2px solid #d9d9d9;
+}
+.site-style-container .contact-map #map_canvas {
+  height: 455px;
+}
+.site-style-container .contact-map:hover {
+  border-color: #07669e;
 }
 .site-style-container .footerbar {
   background: #555555;
