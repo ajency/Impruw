@@ -467,6 +467,11 @@ h6.sub-title {
   text-align: right;
   padding-top: 0.8em;
 }
+@media (max-width: 767px) {
+  .site-style-container .roomBox .roomDetail {
+    text-align: left;
+  }
+}
 .site-style-container .roomBox .roomDetail .detailBtn {
   background: #07669e;
   color: #fff;

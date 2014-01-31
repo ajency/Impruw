@@ -448,6 +448,7 @@ var facilities_selected_exists;
 												</label>
 											</div>
 										</div>
+										<br>
 										<a class="edit-link edit-taxoption" href="javascript:void(0)"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
 										<a class="delete-link delete-taxoption hidden" href="javascript:void(0)"><span class="glyphicon glyphicon-remove-circle"></span> Cancel</a>
 									</div>
