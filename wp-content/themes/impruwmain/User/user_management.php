@@ -199,8 +199,11 @@ function create_new_site( $blog_id, $blog_name, $blog_title, $user_id, $file_nam
     }
 
     //set header and footer
-     $clone_blog = CLONEBLOG; //server
+    $clone_blog = CLONEBLOG; //server
 	//$clone_blog = 81; //local
+   
+    //get all rooms
+    clone_rooms($new_blog_id, $user_id);
 	
     switch_to_blog($clone_blog);
 
@@ -245,6 +248,47 @@ function create_new_site( $blog_id, $blog_name, $blog_title, $user_id, $file_nam
 }
 
 /**
+ * [clone_rooms description]
+ * @return [type] [description]
+ */
+function clone_rooms($new_blog_id, $user_id){
+    
+    $clone_blog = CLONEBLOG;
+
+    switch_to_blog($clone_blog);
+
+    $args = array('post_type' => 'impruw_room','posts_per_page' => -1);
+    $rooms  = new WP_query($args);
+
+    $r = array();
+
+    if($rooms->have_posts()){
+    
+        foreach($rooms->posts as $room){
+
+            $r[] = $room;
+            
+        }
+    }
+
+    restore_current_blog();
+
+    //create rooms
+    switch_to_blog($new_blog_id);
+
+    foreach($r as $room){
+
+        $post_id = add_new_post_to_blog($new_blog_id, 
+                                    $user_id, $room->post_title, 
+                                    $room->post_content,
+                                    'impruw_room', 
+                                    '');
+    }
+    
+    restore_current_blog();
+}
+
+/**
  * [set_post_name_rewrite description]
  */
 function set_post_name_rewrite($new_blog_id){
@@ -252,6 +296,7 @@ function set_post_name_rewrite($new_blog_id){
     switch_to_blog($new_blog_id);
     update_option('permalink_structure','/%postname%/');
     restore_current_blog();
+
 }
 
 /**
