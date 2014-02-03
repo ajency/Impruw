@@ -72,8 +72,9 @@
                             <div class="form-group">
                                 <label for="inputAddress2" class="col-sm-5 control-label">Postal Code</label>
                                 <div class="col-sm-7 col-sm-offset-5">
+                                    <!-- data-mask="aa-9999" -->
                                     <input type="text" class="form-control" id="postalcode" name="postalcode"  
-                                           data-mask="aa-9999" placeholder="NO-7321" value="<%= site.get('postalcode') %>" 
+                                            placeholder="NO-7321" value="<%= site.get('postalcode') %>" 
                                            required parsley-trigger="blur" parsley-validation-minlength="0"  parsley-type="number" parsley-type-number-message="Please enter valid postal code" />
                                     <div class="p-messages"></div>
 
@@ -156,7 +157,8 @@
                                     %>  
                                     <span class="div_phone" >
                                         <div>
-                                            <input type="text" class="form-control" name="phone[]" data-mask="99-999-999"  placeholder="+47 - 12 34 56 78"
+                                            <!-- data-mask="99-999-999" -->
+                                            <input type="text" class="form-control" name="phone[]"   placeholder="+47 - 12 34 56 78"
                                                    value="<%= phone %>" parsley-required="true" parsley-trigger="blur" 
                                                    parsley-validation-minlength="0" parsley-required-message="Please enter phone no"
                                                    parsley-group="myphones" parsley-rangelength="[10,10]"
