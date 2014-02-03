@@ -614,6 +614,8 @@ define(['underscore', 'jquery', 'backbone', 'global',
 
                 var self = this;
 
+                global.Holder.run();
+
                 if(self.contentLoaded)
                     return;
 
