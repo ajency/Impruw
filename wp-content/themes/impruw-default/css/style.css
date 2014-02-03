@@ -371,6 +371,14 @@ Version:        0.1.0
 .site-style-container .gallContainer .gallContent .row {
   margin-bottom: 20px;
 }
+@media (max-width: 767px) {
+  .site-style-container .address {
+    text-align: center;
+  }
+}
+.site-style-container .full-width {
+  width: 100%;
+}
 .site-style-container .socialBox .infoPoint {
   text-align: center;
   color: #656565;

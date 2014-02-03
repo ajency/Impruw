@@ -325,6 +325,16 @@ h6.sub-title {
 .site-style-container .main-menu .slimmenu > li:last-child a {
   border-right: 0;
 }
+.site-style-container .main-menu .menu-collapser {
+  background: #fff;
+  color: #07669e;
+  font-weight: 700;
+  text-shadow: none;
+}
+.site-style-container .main-menu .menu-collapser .collapse-button {
+  background: #07669e;
+  border-radius: 3px;
+}
 .site-style-container .title-meta p {
   color: #07669e !important;
   font-size: 1.2em !important;
@@ -457,6 +467,11 @@ h6.sub-title {
   text-align: right;
   padding-top: 0.8em;
 }
+@media (max-width: 767px) {
+  .site-style-container .roomBox .roomDetail {
+    text-align: left;
+  }
+}
 .site-style-container .roomBox .roomDetail .detailBtn {
   background: #07669e;
   color: #fff;
@@ -551,6 +566,9 @@ h6.sub-title {
   color: #07669e;
   font-size: 2em;
 }
+.site-style-container .contact-us textarea {
+  height: 150px;
+}
 .site-style-container .contact-us .form-control {
   border-radius: 0;
   border: 0;
@@ -569,6 +587,17 @@ h6.sub-title {
 .site-style-container .contact-us .submit:hover {
   background: #0986cf;
   text-decoration: none;
+}
+.site-style-container .contact-map {
+  margin: 0 0 1em;
+  padding: 0.2em;
+  border: 2px solid #d9d9d9;
+}
+.site-style-container .contact-map #map_canvas {
+  height: 455px;
+}
+.site-style-container .contact-map:hover {
+  border-color: #07669e;
 }
 .site-style-container .footerbar {
   background: #555555;

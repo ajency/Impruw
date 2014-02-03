@@ -1585,6 +1585,12 @@ form .aj-imp-submit:hover {
   background: #f9bdb1;
   border-color: #f9bdb1;
 }
+.alert.empty-val {
+  background: #fff;
+  padding: 0.5em;
+  border: 1px dashed #aaaaaa;
+  margin: 0.5em 0;
+}
 /****Add Room Form Styles****/
 .facilities-list .facility {
   margin: 0.5em 0;
@@ -1676,18 +1682,13 @@ form .aj-imp-submit:hover {
   margin-bottom: 0.5em;
 }
 .add-text .add-btn {
-  background: #ff7e00;
+  background: #849fb0;
   border-radius: 0;
   margin-left: 1em;
-  position: relative;
-  top: 1px;
+  margin-bottom: 0.5em;
 }
-.add-text:hover {
-  color: #919191;
-  border-bottom-color: #ff7e00;
-}
-.add-text:hover .add-btn {
-  margin-left: 0.5em;
+.add-text .add-btn:hover {
+  background: #65879c;
 }
 .table-vc {
   margin: 0 0 0.5em !important;
@@ -1730,10 +1731,10 @@ form .aj-imp-submit:hover {
 .daterange_tolabel,
 .daterange_fromlabel,
 .tariff_label {
-  font-style: italic;
   color: #aaaaaa;
   display: inline-block;
-  font-size: 0.88em;
+  font-size: 0.8em;
+  margin-right: 0.2em;
 }
 /****Date Picker Styles****/
 .ui-datepicker {

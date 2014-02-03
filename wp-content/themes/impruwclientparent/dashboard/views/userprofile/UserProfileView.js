@@ -45,6 +45,9 @@ define([ 'underscore', 'jquery', 'backbone',
 			//set custom selectbox & checkbox
 			this.$el.find('select').selectpicker();
 			this.$el.find('input[type="checkbox"]').checkbox();
+
+			//set language select to be dropup instead of dropdown
+			this.$el.find('#lst_selectlanguage').parent().addClass('dropup');
 			
 			//initialize parsley validation for the forms
 			this.parsleyInitialize(this.$el.find('#form_usergeneral'));

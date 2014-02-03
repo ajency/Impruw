@@ -296,6 +296,16 @@ h1, h2, h3, h4, h5, h6{
 				}
 			}
 		}
+		.menu-collapser {
+			background: #fff;
+			color: @blue;
+			font-weight: 700;
+			text-shadow: none;
+			.collapse-button {
+				background: @blue;
+				border-radius: 3px;
+			}
+		}
 	}
 
 	/****Content Styles****/
@@ -447,6 +457,9 @@ h1, h2, h3, h4, h5, h6{
 		.roomDetail {
 			text-align: right;
 			padding-top: 0.8em;
+			@media(max-width:767px){
+				text-align: left;
+			}
 			.detailBtn {
 				background: @blue;
 				color: #fff;
@@ -555,6 +568,9 @@ h1, h2, h3, h4, h5, h6{
 			color: @blue;
 			font-size: 2em;
 		}
+		textarea {
+			height: 150px;
+		}
 		.form-control {
 			border-radius: 0;
 			border: 0;
@@ -573,6 +589,18 @@ h1, h2, h3, h4, h5, h6{
 				background: lighten(@blue, 10%);
 				text-decoration: none;
 			}
+		}
+	}
+
+	.contact-map {
+		margin: 0 0 1em;
+		padding: 0.2em;
+		border: 2px solid darken(@grey, 10%);
+		#map_canvas {
+			height: 455px;
+		}
+		&:hover {
+			border-color: @blue;
 		}
 	}
 
