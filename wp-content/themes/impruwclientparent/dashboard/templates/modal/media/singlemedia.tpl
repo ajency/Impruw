@@ -7,9 +7,9 @@
             </label>
         </div>
     <% } %>
-	<div class="imgthumb">
-		<img src="<%= media.get('sizes').thumbnail.url %>" class="img-responsive" >
-	</div>
+    <div class="imgthumb">
+        <img src="<%= media.get('sizes').thumbnail.url %>" class="img-responsive" >
+    </div>
   </a>
   <div class="ticker">
     <span class="glyphicon glyphicon-ok"></span>
@@ -32,9 +32,9 @@
         </div>
     </div>
     <form class="clearfix">
-        <div class="form-group clearfix">
-            <label class="col-sm-2 control-label">Size: </label>
-            <div class="col-sm-10 col-sm-offset-2">
+        <div class="form-group">
+           <div class="col-sm-12">
+                <label class="control-label">Size: </label>
                 <select class="image-size" >
                     <% _.each(media.get('sizes'), function(ele, key){ %>
                     <option value="<%= key %>"><%= key + '( ' +(ele.width + ' x ' + ele.height) + ' )' %></option>
