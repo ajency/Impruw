@@ -105,6 +105,7 @@ define(['builderelement', 'tpl!builder/templates/elements/BasicElement.tpl', 'gl
                 this.dataSource.attachmentID    = image.get('id');
                 this.dataSource.size            = size;
 
+                this.$el.find('img').removeAttr('data-src').removeAttr('style').attr('alt','');
                 this.$el.find('img').attr('src', image.get('sizes')[size].url);
 
             }

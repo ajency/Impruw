@@ -105,6 +105,7 @@ require.config({
             deps : ['jquery'],
             exports : 'Holder'
         },
+        nestable : ['jqueryui'],
         'cssFx' : {
             deps : ['jquery'],
             exports : 'cssFx'

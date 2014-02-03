@@ -3087,27 +3087,25 @@ function get_all_menu_pages(){
 
     if($pages->have_posts()){
         
-        $skip = array('Site Builder','Dashboard');
+        $skip = array('Home','About Us', 'Rooms', 'Contact Us', 'Single Room');
 
         foreach($pages->posts as $page){
 
-            if(!in_array($page->post_title, $skip))
-                $p[] = $page;
+            if(in_array($page->post_title, $skip))
+                $p[$page->post_name] = $page;
         }
     }
 
-    $args = array('post_type' => 'impruw_room','posts_per_page' => -1);
-    $rooms  = new WP_query($args);
+    $sort = array('home', 'about-us', 'rooms', 'contact-us', 'single-room');
+    $data = array();
+    foreach($sort as $page){
 
-    if($rooms->have_posts()){
+        if(!isset($p[$page])) continue;
         
-        foreach($rooms->posts as $room){
-
-            $p[] = $room;
-        }
+        $data[$page] = $p[$page];
     }
 
-    return $p;
+    return $data;
 
 }
 

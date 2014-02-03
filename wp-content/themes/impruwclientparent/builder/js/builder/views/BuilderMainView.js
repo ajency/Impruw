@@ -29,6 +29,12 @@ define(['underscore', 'jquery', 'backbone', 'builder/views/BuilderEditorView'],
 
                 this.builderId = '';
 
+                var pid = $.cookie('current_page_id');
+
+                if(_.isUndefined(pid)){
+                    pid = $('select[name="current_page_id"]').val();
+                    $.cookie('current_page_id', pid, { expires: 7 });
+                }
             },
 
             /**
@@ -58,9 +64,8 @@ define(['underscore', 'jquery', 'backbone', 'builder/views/BuilderEditorView'],
 
                 var button = $(evt.target);
 
-                var page    = button.parent().find('select[name="current_page_id"]').val();
-                
-                $.cookie('current_theme', 36, { expires: 7 });
+                var page   = button.parent().find('select[name="current_page_id"]').val();
+            
                 $.cookie('current_page_id', page, { expires: 7 });
 
                 window.location.reload();
