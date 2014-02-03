@@ -192,7 +192,16 @@ function create_new_site( $blog_id, $blog_name, $blog_title, $user_id, $file_nam
                                          $value['template']);
     
         //$post_nb_id = mwm_wpml_translate_post( $new_blog_id, $post_id, 'page', 'nb', $user_id );
-    
+        //if home page set it as front page
+        if($key === 'Home'){
+            
+            switch_to_blog($new_blog_id);
+
+            update_option('page_on_front', $post_id);
+
+            restore_current_blog();
+            
+        }
         //commented the template part 5dec2013 to bypass
         if($value['template'] === '')
             add_layout_site( $new_blog_id, $post_id, $key);
