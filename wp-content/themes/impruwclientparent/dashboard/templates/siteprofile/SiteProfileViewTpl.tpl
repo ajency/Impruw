@@ -44,7 +44,7 @@
                                 </div>
                             </div>
                         </div>
-                     </div> -->
+                     </div> 
 
                     <div class="form-group">
                         <div class="col-sm-10 col-sm-offset-2">
@@ -173,7 +173,8 @@
                                     else { %>
 
                                     <span class="div_phone" >
-                                        <input type="text" class="form-control"   name="phone[]" data-mask="99-999-999"  placeholder="+47 - 12 34 56 78"
+                                        <!-- data-mask="99-999-999" -->
+                                        <input type="text" class="form-control"   name="phone[]"  placeholder="+47 - 12 34 56 78"
                                                value="" parsley-required="true" parsley-trigger="blur" 
                                                parsley-validation-minlength="0" parsley-required-message="Please enter phone no"
                                                parsley-group="myphones"  parsley-rangelength="[10,10]"
