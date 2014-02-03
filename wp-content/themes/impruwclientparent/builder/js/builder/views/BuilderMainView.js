@@ -115,7 +115,7 @@ define(['underscore', 'jquery', 'backbone', 'builder/views/BuilderEditorView'],
                 this.$el.find('.aj-imp-browser-body').html(this.builder.$el);
 
                 //remove loader
-                this.handleInitialLoader();
+               // this.handleInitialLoader();
 
                 //enable dragsort
                 this.builder.enableDropSort();
@@ -136,7 +136,7 @@ define(['underscore', 'jquery', 'backbone', 'builder/views/BuilderEditorView'],
              * trigger the mode siwtcher for builder editor
              */
             switchMode: function(evt) {
-
+            	
                 this.builder.switchMode(evt);
 
             },

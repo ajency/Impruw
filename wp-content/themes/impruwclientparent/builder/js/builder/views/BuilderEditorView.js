@@ -386,6 +386,7 @@ define(['underscore', 'jquery', 'backbone', 'global',
 
                         
                         this.enableDragDrop();
+                        this.$el.find('#editor-initial-loader').remove();
 
                     },this), 'json');
 
@@ -517,10 +518,30 @@ define(['underscore', 'jquery', 'backbone', 'global',
                 var switcher = $('<div class="element-drop-loader" id="editor-initial-loader">\
                                         <p>switching mode... Please wait... </p>\
                                     </div>');
-
-                switcher.height(this.$el.height()).css('top', 0);
-
-                //this.$el.append(switcher);
+                
+                
+                var divOffset =  this.$el.parent().offset();
+                
+                //switcher.height(this.$el.height()).css('top', 0);
+	
+                switcher.css({ 'top'				: divOffset.top+'px',
+                               'left'				: divOffset.left+'px',
+                               'width'				: this.$el.parent().width()+'px',
+                               /*'height'			: this.$el.parent().height()+'px',*/
+                               'height'				: '350px',
+                               'background-position': 'top center'
+                                 
+                             });
+                
+                
+                
+                this.$el.parent().parent().append(switcher);
+                 
+                 
+               
+                /* console.log(this.$el.find('.aj-imp-browser-body'))
+               console.log( switcher.height)
+                return false;*/
 
             },
 
@@ -529,11 +550,11 @@ define(['underscore', 'jquery', 'backbone', 'global',
              */
             removeSwitchLoader: function() {
 
-                this.$el.find('#editor-initial-loader').fadeOut('slow', function() {
+                  this.$el.parent().parent().find('#editor-initial-loader').fadeOut('slow', function() {
 
                     $(this).remove();
 
-                });
+                }); 
 
             },
 
