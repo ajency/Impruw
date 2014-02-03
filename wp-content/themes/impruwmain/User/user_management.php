@@ -1040,7 +1040,7 @@ function user_login() {
 
     if ( is_user_logged_in() ) {
         global $user;
-
+		$default_lang='';
         $blog = get_active_blog_for_user( get_current_user_id() );
          
         
@@ -1048,7 +1048,8 @@ function user_login() {
         switch_to_blog($blog->blog_id );
         
         $wpml_options = get_option( 'icl_sitepress_settings' );
-	 	$default_lang = $wpml_options['default_language'];
+	 	if(isset($wpml_options['default_language']))
+	 		$default_lang = $wpml_options['default_language'];
 
 	 	
 	 	//get the redirect url based on language
@@ -1103,7 +1104,8 @@ function user_login() {
            //get the default language for the logged in blog 
            switch_to_blog($blog->blog_id );
            $wpml_options = get_option( 'icl_sitepress_settings' );
-	 	   $default_lang = $wpml_options['default_language'];
+	 	   if(isset($wpml_options['default_language']))
+	 	   		$default_lang = $wpml_options['default_language'];
 	 	  
 	 	   
 	 	   //get the redirect url on logged in 
@@ -1146,7 +1148,8 @@ function check_login_redirect_user_dashboard()
 	        switch_to_blog($blog->blog_id );
 	        
 	        $wpml_options = get_option( 'icl_sitepress_settings' );
-		 	$default_lang = $wpml_options['default_language'];
+		 	if(isset($wpml_options['default_language']))
+		 		$default_lang = $wpml_options['default_language'];
 	
 		 	
 		 	//get the redirect url based on language

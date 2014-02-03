@@ -48,7 +48,10 @@
                     <p class="navbar-text">
                         Page: <select id="aj-imp-page-sel" name="current_page_id">
                             <?php foreach(get_all_menu_pages() as $page): ?>
-                                <?php $selected = (isset($_COOKIE["current_page_id"]) && $_COOKIE["current_page_id"] == $page->ID) ? 'selected'  :''; ?>
+                                <?php $selected = (isset($_COOKIE["current_page_id"]) && $_COOKIE["current_page_id"] == $page->ID) ? 'selected'  :''; 
+                                	 if(!isset($_COOKIE["current_page_id"]) && $page->post_title=='Home') 
+                                	 	$selected = ' selected';
+                                ?>
                                 <option value="<?php echo $page->ID; ?>" <?php echo $selected; ?>><?php echo $page->post_title; ?></option>
                             <?php endforeach; ?>
                         </select>
