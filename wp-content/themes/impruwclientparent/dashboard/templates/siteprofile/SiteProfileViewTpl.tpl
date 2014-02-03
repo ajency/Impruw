@@ -231,10 +231,10 @@
                         <div class="col-sm-10 col-sm-offset-2">
                             <span class="help-block">
                                 <p>It's always a good idea to have social links on your website. The reasons are</p>
-                                <h6>It’s the future</h6>
-                                <p>No business wants to get left behind right? Every single day that passes the more your competition promote across social media. This wave of social media marketing is here to stay... and if you don’t jump on board now you are severely hampering your chances of longevity online – which is where more business is going.</p>
+                                <h6>Itâ€™s the future</h6>
+                                <p>No business wants to get left behind right? Every single day that passes the more your competition promote across social media. This wave of social media marketing is here to stay... and if you donâ€™t jump on board now you are severely hampering your chances of longevity online â€“ which is where more business is going.</p>
                                 <h6>It's the best way to come up in search results</h6>
-                                <p>Every time you create content on a social media site that links back to your website, the search engines see that link. Every time the search engines “see” a link to your site, it makes them think, “Wow, that site must be pretty important, seeing as there are so many other places linking to it.” When the search engines think your site is important, they will make your listing appear higher in the results.</p>
+                                <p>Every time you create content on a social media site that links back to your website, the search engines see that link. Every time the search engines â€œseeâ€� a link to your site, it makes them think, â€œWow, that site must be pretty important, seeing as there are so many other places linking to it.â€� When the search engines think your site is important, they will make your listing appear higher in the results.</p>
                             </span>
                         </div>
                     </div>
@@ -382,9 +382,9 @@
                         <span class="help-block">
                             <h6>Roles and their Capabilities</h6>
                             <p><b>A user can have one of the below given roles.</b></p>
-                            <p><b>Administrator</b> – somebody who has access to all the administration features in the website<br>
-                            <b>Editor</b> – somebody who can publish and manage posts including the posts of other users.<br>
-                            <b>Author</b> – somebody who can publish and manage their own posts.</p>
+                            <p><b>Administrator</b> â€“ somebody who has access to all the administration features in the website<br>
+                            <b>Editor</b> â€“ somebody who can publish and manage posts including the posts of other users.<br>
+                            <b>Author</b> â€“ somebody who can publish and manage their own posts.</p>
                         </span>
                     </div>
                 </div>
