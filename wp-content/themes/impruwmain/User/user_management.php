@@ -197,7 +197,9 @@ function create_new_site( $blog_id, $blog_name, $blog_title, $user_id, $file_nam
             
             switch_to_blog($new_blog_id);
 
+            update_option('show_on_front','page');
             update_option('page_on_front', $post_id);
+
 
             restore_current_blog();
             
