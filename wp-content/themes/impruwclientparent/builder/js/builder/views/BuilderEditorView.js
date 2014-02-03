@@ -596,13 +596,15 @@ define(['underscore', 'jquery', 'backbone', 'global',
                             
                         }
 
-                        window.editorMode = 'content';
+                        
 
                         self.contentLoaded = true;
 
                         self.removeSwitchLoader();
 
                     }, 'json');
+
+                window.editorMode = 'content';
             },
 
             /**
