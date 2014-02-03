@@ -3177,24 +3177,38 @@ add_action('wp_ajax_save_initial_layout','save_initial_layout');
 function get_initial_saved_layout() {
 
     $theme_id = $_GET['forTheme'];
-    $page_id     = $_GET['forPage'];  
+    $page_id  = $_GET['forPage'];  
     $json     = array();
 
     //switch_to_blog(1);
 
     $header = get_option('theme-header');
 
-    if(is_array($header))
-        $json['header'] = $header;
+    if(is_array($header)){
+        
+        $str = maybe_serialize($header);
+        
+        $str = stripcslashes($str);
+
+        $json['header'] = maybe_unserialize($str);
+    }
 
     $page = get_post_meta($page_id,'page-json',true);
-    if(is_array($page))
-        $json['page']   = $page;
+    if(is_array($page)){
+        $str = maybe_serialize($page);
+        
+        $str = stripcslashes($str);
+
+        $json['page']   = maybe_unserialize($str);
+    }
 
     $footer = get_option('theme-footer');
-    if(is_array($footer))
-        $json['footer'] = $footer;
-
+    if(is_array($footer)){
+        $str = maybe_serialize($footer);
+        
+        $str = stripcslashes($str);
+        $json['footer'] = maybe_unserialize($str);
+    }
    
     wp_send_json($json);
 }

@@ -80,6 +80,7 @@
     $(document).ready(function(){
     
       initialize();
+      Holder.run();
 
     });
 
