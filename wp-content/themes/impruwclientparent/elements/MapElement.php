@@ -75,7 +75,7 @@ class MapElement extends Element {
         ob_start();
         ?> 
         <!-- Google maps API -->
-        <div id="map_canvas"></div>
+        <div id="map_canvas" data-address="<?php echo $this->get_address() ?>"></div>
         <?php
         $html = ob_get_clean();
 
@@ -84,5 +84,31 @@ class MapElement extends Element {
 
     }
 
+    /**
+     * [get_address description]
+     * @return [type] [description]
+     */
+    function get_address(){
+
+        $site = new SiteModel(get_current_blog_id());
+
+        $contact_at = $site->get_site_business();
+
+        
+        $defaults = array( "street"     => "", 
+                           "phone"    => "", 
+                           "email"      => "",
+                           "postalcode" => '',
+                           "country"    => '',
+                           "city"       => '');
+
+        $contact_at  = wp_parse_args($contact_at , $defaults);
+        
+        unset($contact_at['email']);
+        unset($contact_at['phone']);
+        
+        return implode(',', $contact_at);
+
+    }
     
 }

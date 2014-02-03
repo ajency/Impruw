@@ -22,40 +22,67 @@
     <?php get_theme_JS() ;?>
 	<?php wp_footer(); ?>
 	<script>
-		$('.carousel').carousel();
-		function initialize() {
-            var map_canvas = document.getElementById('map_canvas');
-            
-            if(map_canvas === null)
-              return;
 
-            var youcou = new google.maps.LatLng(37.390345, -6.022595);
-            var marker;
-            var map_options = {
-              center: new google.maps.LatLng(37.385299, -5.989634),
-              zoom: 14,
-              scrollwheel: false,
-              mapTypeId: google.maps.MapTypeId.TERRAIN 
-            }
-            var map = new google.maps.Map(map_canvas, map_options)
-            marker = new google.maps.Marker({
+		var marker, map ;
+
+    $('.carousel').carousel();
+    
+    geocoder = new google.maps.Geocoder();
+
+		function initialize() {
+
+      var address = $('#map_canvas').attr('data-address');
+
+      geocoder.geocode( { 'address': address}, function(results, status) {
+        
+        if (status == google.maps.GeocoderStatus.OK) {
+          
+          map.setCenter(results[0].geometry.location);
+          
+          marker = new google.maps.Marker({
             map:map,
-            draggable:true,
+            //draggable:true,
             animation: google.maps.Animation.DROP,
             position: map.getCenter()
           });
-          google.maps.event.addListener(marker, 'click', toggleBounce);
-          }
           
-          function toggleBounce() {
+          //google.maps.event.addListener(marker, 'click', toggleBounce);
+        
+        } 
 
-              if (marker.getAnimation() != null) {
-                marker.setAnimation(null);
-              } else {
-                marker.setAnimation(google.maps.Animation.BOUNCE);
-              }
-            }
-          google.maps.event.addDomListener(window, 'load', initialize);
+      });
+
+      var map_canvas = document.getElementById('map_canvas');
+      
+      if(map_canvas === null)
+        return;
+
+      var map_options = {
+        //center: new google.maps.LatLng(37.385299, -5.989634),
+        zoom: 17,
+        scrollwheel: false,
+        mapTypeId: google.maps.MapTypeId.TERRAIN 
+      }
+      
+      map = new google.maps.Map(map_canvas, map_options)
+    
+    }
+    
+    function toggleBounce() {
+
+        if (marker.getAnimation() != null) {
+          marker.setAnimation(null);
+        } else {
+          marker.setAnimation(google.maps.Animation.BOUNCE);
+        }
+    }
+    
+    $(document).ready(function(){
+    
+      initialize();
+
+    });
+
 	</script>
 </body>
 </html>

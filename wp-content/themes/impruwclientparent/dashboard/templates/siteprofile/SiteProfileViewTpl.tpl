@@ -44,7 +44,8 @@
                                 </div>
                             </div>
                         </div>
-                    </div> -->
+                     </div> -->
+
                     <div class="form-group">
                         <div class="col-sm-10 col-sm-offset-2">
                             <span class="help-block">
@@ -53,7 +54,7 @@
                                 <p>Most people have a very cluttered bookmarks / favorites list. Having yours stand out with a nice graphical reminder of your site beside it, is a good way to get their attention again.</p>
                             </span>
                         </div>
-                    </div>
+                    </div> -->
             </div>
             <div class="scroll-indicator-container" id="scr2">
                 <h4 class="aj-imp-sub-head scroll-ref">Business Details <small>These details will be used in your contact us page.</small></h4>
@@ -103,8 +104,6 @@
                             <div class="p-messages"></div>
                         </div>
                     </div>
-
-
                     <div class="form-group dual">
                         <div class="col-sm-5">
                             <div class="form-group  add-another">

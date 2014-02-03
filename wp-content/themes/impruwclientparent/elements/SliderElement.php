@@ -92,8 +92,10 @@ class SliderElement extends Element {
         if($id == 0)
             return get_parent_template_directory_uri() . '/js/holder.js/100%x400';
 
-
         $path = wp_get_attachment_image_src($id,'full');
+
+        if(!$path)
+            return get_parent_template_directory_uri() . '/js/holder.js/100%x400';
 
         return $path[0];
     }
