@@ -602,17 +602,22 @@ function add_menu_to_blog( $user_id, $blog_id ) {
         //then get the menu object by its name
         $menu = get_term_by( 'name', $name, 'nav_menu' );
 
+        global $wpdb;
+        //var_dump(get_all_menu_pages());
+      //  echo "menu id".$menu_id;
+      //  var_dump($menu);
         foreach(get_all_menu_pages() as $page):
 
             //then add the actuall link/ menu item and you do this for each item you want to add
-            wp_update_nav_menu_item( $menu_id, 0, array(
+            $thisMenuItem = wp_update_nav_menu_item( $menu_id, 0, array(
                 'menu-item-title'   => $page->post_title,
                 'menu-item-classes' => $page->post_name ,
                 'menu-item-url'     => get_permalink( $page->ID),
                 'menu-item-status'  => 'publish' ) );
+           $wpdb->insert($wpdb->term_relationships, array("object_id" => $thisMenuItem, "term_taxonomy_id" => $menu_id), array("%d", "%d"));
 
         endforeach;
-
+		
         //then you set the wanted theme  location
         $locations = get_theme_mod( 'nav_menu_locations' );
         $locations['header_menu'] = $menu_id;
@@ -654,17 +659,49 @@ function add_menu_to_blog( $user_id, $blog_id ) {
  */
 function get_all_menu_pages(){
         
-    $args = array('post_type' => 'page','posts_per_page' => -1);
+   /* $args = array('post_type' => 'page','posts_per_page' => -1);
     $pages  = new WP_query($args);
-     
+   */
+
+	$args = array(
+	'sort_order' => 'ASC',
+	'sort_column' => 'post_title',
+	'hierarchical' => 1,
+	'exclude' => '',
+	'include' => '',
+	'meta_key' => '',
+	'meta_value' => '',
+	'authors' => '',
+	'child_of' => 0,
+	'parent' => -1,
+	'exclude_tree' => '',
+	'number' => '',
+	'offset' => 0,
+	'post_type' => 'page',
+	'post_status' => 'publish');
+	$pages = get_pages($args);
+	 
+	$pages_to_get = array('Home','About Us','Rooms','Contact Us');
+	
     $p = array();
 
-    if($pages->have_posts()){
+    //if($pages->have_posts()) {
+    if(is_array($pages)){
+    	
+    	foreach($pages_to_get as $page_title){
+    		    		
+    		foreach($pages as $page) {
+    			if($page->post_title==$page_title)
+            		$p[] = $page;
+        	}
+        	
+    	}
     
-        foreach($pages->posts as $page){
-
-            $p[] = $page;
-        }
+       /* //foreach($pages->posts as $page) {
+    	foreach($pages as $page) {
+    		if(array_search($page->post_title,$pages_to_get)!==false)
+            	$p[] = $page;
+        }*/
     }
 
     return $p;
