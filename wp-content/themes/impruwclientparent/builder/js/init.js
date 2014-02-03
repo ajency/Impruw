@@ -160,6 +160,7 @@ function templatesUri(){
 window.editorMode       = 'layout';
 window.prevpopover      = null;
 window.prevmouseover    = null;
+window.fetchJSON        = false;
 
 //init the app
 require(['global','backbone', 'marionette',
