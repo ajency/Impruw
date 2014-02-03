@@ -44,7 +44,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                     </div> -->
 
                     <div class="form-group">
                         <div class="col-sm-10 col-sm-offset-2">
@@ -208,9 +208,8 @@
                                 <input type="text" class="form-control" id="facebook" name="facebook"  
                                        placeholder="yourpageurl"  value="<%= site.get('facebook') %>" 
                                        required parsley-trigger="blur" parsley-validation-minlength="0" />
-                                <div class="p-messages"></div>
-
                             </div>
+                            <div class="p-messages"></div>
                         </div>
                     </div>
 
@@ -223,9 +222,8 @@
                                 <input type="text" class="form-control" id="twitter" name="twitter"  placeholder="Twitter"
                                        value="<%= site.get('twitter') %>" required parsley-trigger="blur" 
                                        parsley-validation-minlength="0"  >
-                                <div class="p-messages"></div>
-
                             </div>
+                            <div class="p-messages"></div>
                         </div>
                     </div>
 

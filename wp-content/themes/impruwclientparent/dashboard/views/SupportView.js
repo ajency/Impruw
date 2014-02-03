@@ -34,7 +34,7 @@ define([ 'underscore', 'jquery', 'backbone',
 				$(evt.target).next().removeClass('hidden');
 				
 				if (!this.$el.find('#frm_support').parsley('validate')){
-					$(this.target).next().addClass('hidden');
+					$(evt.target).next().addClass('hidden');
 					 return;
 				}
 				

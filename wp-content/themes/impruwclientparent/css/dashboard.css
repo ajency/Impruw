@@ -326,6 +326,9 @@ a:focus {
   width: 100% !important;
   margin-left: 0 !important;
 }
+.aj-imp-container .aj-imp-right.aj-imp-loader {
+  background: url('../images/loader.gif') no-repeat center center #ffffff;
+}
 @media only screen and (min-width: 1440px) {
   /* Styles */
   .aj-imp-container .aj-imp-left,
@@ -362,6 +365,9 @@ a:focus {
 }
 #jPanelMenu-menu #aj-imp-dash-menu li {
   border-bottom: 1px solid #ffffff;
+}
+#jPanelMenu-menu #aj-imp-dash-menu li .icon {
+  display: none;
 }
 #jPanelMenu-menu #aj-imp-dash-menu li a {
   display: block;
@@ -476,8 +482,15 @@ form .form-group.pic-upload .fileinput .btn:hover {
 form .form-group.pic-upload .fileinput .btn.btn-file {
   margin-top: 0.5em;
 }
+form .form-group.pic-upload .fileinput .btn.btn-danger {
+  margin-top: 0.5em;
+  color: #cc6500;
+}
 form .form-group.add-another .control-label {
   top: 1em;
+}
+form .form-group.add-another .has-error .p-messages .help-block {
+  color: #E74C3C;
 }
 form .form-group.add-another .div_email,
 form .form-group.add-another .div_phone {
@@ -526,6 +539,9 @@ form .form-group.dual > [class^="col-sm-"]:last-child {
     margin: 0;
   }
 }
+form .form-group p {
+  color: #919191;
+}
 form .form-group .help-block {
   color: #b7b7b7;
   font-weight: 300;
@@ -565,6 +581,18 @@ form .form-group.has-success .input-icon,
 form .form-group.has-error .input-icon,
 form .form-group.loading .input-icon {
   background: transparent;
+}
+form .form-group > .alert {
+  margin: 1em 15px;
+}
+form .form-group .form-control[disabled],
+form .form-group .form-control[readonly],
+form .form-group fieldset[disabled] .form-control {
+  color: #aaaaaa;
+  cursor: not-allowed;
+}
+form > .alert {
+  margin: 1em 15px;
 }
 form .form-control {
   border-radius: 0;
@@ -610,6 +638,11 @@ form .aj-imp-submit:hover {
 }
 .select .dropdown-toggle .caret {
   border-top-color: #aaaaaa;
+}
+.select .dropdown-toggle:hover,
+.select .dropdown-toggle:focus {
+  background: #fff;
+  z-index: 0;
 }
 .select .dropdown-menu .selected a {
   background: #ff7e00;
@@ -1351,6 +1384,14 @@ form .aj-imp-submit:hover {
   padding: 0.5em;
   border: 2px dashed #aaaaaa;
 }
+@media (max-width: 767px) {
+  .modal.wide-modal .modal-dialog .modal-content .modal-body .form-group {
+    margin: 0;
+  }
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .form-group.dual {
+  margin: 0 0 20px;
+}
 /****File Upload Plugin Styles****/
 .btn-file {
   overflow: hidden;
@@ -1544,6 +1585,12 @@ form .aj-imp-submit:hover {
   background: #f9bdb1;
   border-color: #f9bdb1;
 }
+.alert.empty-val {
+  background: #fff;
+  padding: 0.5em;
+  border: 1px dashed #aaaaaa;
+  margin: 0.5em 0;
+}
 /****Add Room Form Styles****/
 .facilities-list .facility {
   margin: 0.5em 0;
@@ -1635,18 +1682,13 @@ form .aj-imp-submit:hover {
   margin-bottom: 0.5em;
 }
 .add-text .add-btn {
-  background: #ff7e00;
+  background: #849fb0;
   border-radius: 0;
   margin-left: 1em;
-  position: relative;
-  top: 1px;
+  margin-bottom: 0.5em;
 }
-.add-text:hover {
-  color: #919191;
-  border-bottom-color: #ff7e00;
-}
-.add-text:hover .add-btn {
-  margin-left: 0.5em;
+.add-text .add-btn:hover {
+  background: #65879c;
 }
 .table-vc {
   margin: 0 0 0.5em !important;
@@ -1655,7 +1697,7 @@ form .aj-imp-submit:hover {
 .table-vc td {
   vertical-align: middle !important;
 }
-.no-data td {
+.no-data {
   font-style: italic;
   color: #c3c3c3;
 }
@@ -1663,7 +1705,7 @@ form .aj-imp-submit:hover {
   padding: 0 !important;
 }
 .edit-link {
-  color: #849fb0;
+  color: #849fb0 !important;
   margin-right: 1em;
 }
 .edit-link:hover {
@@ -1685,10 +1727,14 @@ form .aj-imp-submit:hover {
 .daterange_frominput,
 .daterange_toinput {
   display: inline-block;
-  max-width: 75%;
 }
-.daterange_tolabel {
-  margin-right: 15px;
+.daterange_tolabel,
+.daterange_fromlabel,
+.tariff_label {
+  color: #aaaaaa;
+  display: inline-block;
+  font-size: 0.8em;
+  margin-right: 0.2em;
 }
 /****Date Picker Styles****/
 .ui-datepicker {
@@ -1712,9 +1758,21 @@ form .aj-imp-submit:hover {
 .ui-datepicker:before {
   border-bottom-color: #c3c3c3;
 }
+.dates {
+  margin: 0 !important;
+}
+@media (max-width: 767px) {
+  .dates {
+    margin: 0 -15px !important;
+  }
+}
 .dates .input-icon {
   background: transparent;
   color: #b7b7b7;
+}
+.dates .has-error .fui-calendar,
+.dates .has-success .fui-calendar {
+  display: none;
 }
 /****Room List View Styles****/
 .room-list thead th {

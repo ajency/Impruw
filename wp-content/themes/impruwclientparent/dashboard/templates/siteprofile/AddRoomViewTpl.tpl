@@ -95,11 +95,11 @@ var facilities_selected_exists;
 									<div class="col-sm-10 col-sm-offset-2">
 										  <textarea class="form-control" rows="2" name="inputSEO1" id="roomdescription" name="roomdescription"
 										 placeholder="Room Description" required parsley-trigger="blur" 
-										 parsley-validation-minlength="0" parsley-required-message="please enter room description"  ><%if(!_.isUndefined(noOfRooms)) {
+										 parsley-validation-minlength="0" parsley-required-message="Please enter room description"  ><%if(!_.isUndefined(noOfRooms)) {
 										 %><%=roomDesc%><%}%></textarea>  
 										<!-- <input type="text" class="form-control" id="roomdescription" name="roomdescription"
 										 placeholder="Room Description" required parsley-trigger="blur" 
-										 parsley-validation-minlength="0" parsley-required-message="please enter room description" > -->
+										 parsley-validation-minlength="0" parsley-required-message="Please enter room description" > -->
 										<div class="p-messages"></div>
 									</div>
 								</div>
@@ -107,7 +107,7 @@ var facilities_selected_exists;
 							</form><!--  frm_roomdesc -->
 						</div>
 						
-						<div class="scroll-indicator-container" id="scr1">
+						<div class="scroll-indicator-container" id="scr2">
 							<h4 class="aj-imp-sub-head scroll-ref">Images <small>Add attachment images to your room.</small></h4>
 							<form class="form-horizontal clearfix" name="frm_images">
 								
@@ -176,7 +176,7 @@ var facilities_selected_exists;
 						
 						
 						
-						<div class="scroll-indicator-container" id="scr2">
+						<div class="scroll-indicator-container" id="scr3">
 							<h4 class="aj-imp-sub-head scroll-ref">Facilities <small>List the facilities available in this room.</small></h4>
 							<form class="form-horizontal clearfix" name="form_addfacility" id="form_addfacility">
 								<div class="alert alert-success hidden status_message"></div>
@@ -246,7 +246,7 @@ var facilities_selected_exists;
 						
 						
 						
-						<div class="scroll-indicator-container" id="scr3">
+						<div class="scroll-indicator-container" id="scr4">
 							<h4 class="aj-imp-sub-head scroll-ref">Add Date Range <small>Add your peak season, off-season or create your own seasonal tariffs here.</small></h4>
 							<form class="form-horizontal clearfix">
 								<div class="alert alert-success hidden status_message"></div>
@@ -266,9 +266,14 @@ var facilities_selected_exists;
 											</tr>
 										</thead>
 										<tbody>
- 
-										
-										
+ 										<% if(!_.isArray(roomdata.dateranges)){ %>
+											<tr class="no-data">
+												<td></td>
+												<td>No Date Range Defined.</td>
+												<td>No Date Range Defined.</td>
+												<td>No Date Range Defined.</td>
+											</tr>
+										<% } %>
 										 
 										
 										<% _.each(roomdata.dateranges,function(daterange,index){
@@ -284,20 +289,20 @@ var facilities_selected_exists;
 															<tr>
 																<td width="5%"><a href="#rowlink<%=daterange.id%>" data-toggle="collapse"><span class="glyphicon glyphicon-chevron-down"></span></a></td>
 																<td width="30%">
-																	<span class="label label-info daterange_fromlabel">From:</span>
+																	<span class="daterange_fromlabel">From:</span>
 																	<span class="daterange_fromtxt" ><%=daterange.from%></span>
 																	<span class="daterange_frominput hidden" >
 																		<input type="text" class="form-control dated fromdaterange_input" value="<%=daterange.from_calendar%>"  /> 	
 																	</span>   
 																	<br class="hidden"> 
-																	<span class="label label-info daterange_tolabel">To:</span> 
-																	<span class="daterange_totxt" ><%=daterange.to%></span>
+																	<span class="daterange_tolabel">To:</span> 
+																	<span class="daterange_totxt"><%=daterange.to%></span>
 																	<span class="daterange_toinput hidden" >	
 																		<input type="text" class="form-control dated todaterange_input" value="<%=daterange.to_calendar%>" id="todaterange" /> 
 																	</span>
 																</td>
 																<td width="35%">
-																	<span class="label label-info">Weekday:</span> from<strong><%if(!_.isUndefined(minMaxTariff)){ %>$<%=minMaxTariff.min_weekday%><% } else {%> - <% } %></strong> <span class="label label-info">Weekend:</span> from<strong><%if(!_.isUndefined(minMaxTariff)){ %>$<%=minMaxTariff.min_weekend%><% } else {%> - <% } %></strong>
+																	<span class="tariff_label">Weekday:</span> from<strong><%if(!_.isUndefined(minMaxTariff)){ %>$<%=minMaxTariff.min_weekday%><% } else {%> - <% } %></strong> <span class="tariff_label">Weekend:</span> from<strong><%if(!_.isUndefined(minMaxTariff)){ %>$<%=minMaxTariff.min_weekend%><% } else {%> - <% } %></strong>
 																</td>
 																<td width="30%" class="rowlink-skip">
 																	<a href="javascript:void(0)" class="edit-link editdaterange_lnk"  daterange-id = "<%=daterange.id%>"  ><span class="glyphicon glyphicon-pencil"></span>Edit</a>
@@ -358,8 +363,8 @@ var facilities_selected_exists;
 																			 <%  if(!_.isEmpty(datePlanTariffExists)) {%>$<%=datePlanTariffExists[0].weekEndTariff%> <% }else { %> - <%} %>
 																		</td>
 																		<td class="block-plan-tariff-action">
-																			<a href="javascript:void(0)" class="editplan_link" planid="<%=plan.plan_id %>"    ><span class="glyphicon glyphicon-pencil"></span> Edit Plan</a>
-																			<a href="javascript:void(0)" class="addtariff_link <%  if(!_.isEmpty(datePlanTariffExists)) {%>hidden<%} %>" planid="<%=plan.plan_id %>"    ><span class="glyphicon glyphicon-plus"></span> Add Tariff</a>
+																			<a href="javascript:void(0)" class="edit-link editplan_link" planid="<%=plan.plan_id %>"    ><span class="glyphicon glyphicon-pencil"></span> Edit Plan</a>
+																			<a href="javascript:void(0)" class="edit-link addtariff_link <%  if(!_.isEmpty(datePlanTariffExists)) {%>hidden<%} %>" planid="<%=plan.plan_id %>"    ><span class="glyphicon glyphicon-plus"></span> Add Tariff</a>
 																			<a href="javascript:void(0)" class="edit-link edittariff-link <%  if(_.isEmpty(datePlanTariffExists)) {%>hidden<%} %>"  planid="<%=plan.plan_id %>"  <%  if(!_.isEmpty(datePlanTariffExists)) {%>date-range-plan-tariffid='<%=datePlanTariffExists[0].daterangePlanTariffId%>'<% } %>  ><span class="glyphicon glyphicon-pencil"></span> Edit Tariff</a>	
 																			 
 																		</td>
@@ -384,8 +389,7 @@ var facilities_selected_exists;
 															</table>
 														</div>
 														<div class="add-text">
-														<!--  Add Another Plan <button type="button" daterange-id = '<%=daterange.id %>'  class="btn add-btn btn-sm btn_addplanmodal" data-toggle="modal" data-target="#add-plantype"><i class="glyphicon glyphicon-plus btn_addplanmodal"  daterange-id = '<%=daterange.id %>'></i></button> -->
-														Add Another Plan <button type="button" daterange-id = '<%=daterange.id %>'  class="btn add-btn btn-sm btn_addplanmodal"><i class="glyphicon glyphicon-plus btn_addplanmodal"  daterange-id = '<%=daterange.id %>'></i></button>
+															<button type="button" daterange-id = '<%=daterange.id %>'  class="btn add-btn btn-sm btn_addplanmodal"><i class="glyphicon glyphicon-plus"></i> Add Another Plan</button>
 														</div>
 													</div>
 												</td>
@@ -398,7 +402,7 @@ var facilities_selected_exists;
 									</table>
 								</div>
 								<div class="add-text">
-									Add Date Range <button type="button" class="btn add-btn btn-sm" id="btn_add_daterange"  ><i class="glyphicon glyphicon-plus"></i></button> 
+									<button type="button" class="btn add-btn btn-sm" id="btn_add_daterange"  ><i class="glyphicon glyphicon-plus"></i> Add Date Range</button> 
 								</div>
 							</form>
 
@@ -415,7 +419,7 @@ var facilities_selected_exists;
 						
 						
 						
-						<div class="scroll-indicator-container" id="scr4">
+						<div class="scroll-indicator-container" id="scr5">
 							<h4 class="aj-imp-sub-head scroll-ref">Additional Info <small>These details shall apply to all room categories, unless you want to edit them separately.</small></h4>
 							<form class="form-horizontal clearfix">
 
@@ -425,8 +429,11 @@ var facilities_selected_exists;
 									</div>
 								</div>
 								<div class="form-group">
+								<div class="alert alert-success status_message hidden"></div>
 									<div class="col-sm-12"> 
-										<p class="taxoptiontext"> <% if(!_.isUndefined(roomdata.taxoption)) {%><%=roomdata.taxoption %> <%}%> </p>
+										<div class="taxoptiontext">
+											<% if(!_.isUndefined(roomdata.taxoption)) { if(!_.isEmpty(roomdata.taxoption.trim())) { %><p><%=roomdata.taxoption %></p> <% } else{%> <p class="alert empty-val">Please select Tax option</p> <%} }else {%> <p class="alert empty-val">Please select Tax option</p> <% } %> 
+										</div>
 										<div class="taxoption_edit row hidden"> 
 											<div class="col-sm-2">
 												<label class="radio <%   if(!_.isUndefined(roomdata.taxoption)) { if(roomdata.taxoption==='With Tax'){ %>  checked  <% } }%>">
@@ -441,12 +448,13 @@ var facilities_selected_exists;
 												</label>
 											</div>
 										</div>
+										<br>
 										<a class="edit-link edit-taxoption" href="javascript:void(0)"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
-										<a class="delete-link delete-taxoption hidden" href="javascript:void(0)"><span class="glyphicon glyphicon-trash"></span> Delete</a>
+										<a class="delete-link delete-taxoption hidden" href="javascript:void(0)"><span class="glyphicon glyphicon-remove-circle"></span> Cancel</a>
 									</div>
 								</div>
 
-								<div class="form-group">
+								<div id="div_taxlist" class="form-group <%   if(!_.isUndefined(roomdata.taxoption)) { if(roomdata.taxoption!=='With Tax'){ %> hidden <% }  }%>">
 								
 									<div class="alert alert-success hidden status_message"></div>
 									<div class="col-sm-12">
@@ -533,10 +541,9 @@ var facilities_selected_exists;
 									</div>
 								</div>
 
-								<div class="add-text">
+								<div id="div_addtax" class="add-text <%   if(!_.isUndefined(roomdata.taxoption)) { if(roomdata.taxoption!=='With Tax'){ %> hidden <% }  }%>">
 									
-									<!--  Add Tax <button type="button" class="btn add-btn btn-sm" data-toggle="modal" data-target="#add-tax"><i class="glyphicon glyphicon-plus"></i></button> -->
-									Add Tax <button type="button" class="btn add-btn btn-sm add_tax_btn"><i class="glyphicon glyphicon-plus"></i></button>
+									<button type="button" class="btn add-btn btn-sm add_tax_btn"><i class="glyphicon glyphicon-plus"></i> Add Tax</button>
 									 
 								</div>
 
@@ -641,7 +648,7 @@ var facilities_selected_exists;
 								</div>
 
 								<div class="add-text">
-									Add Add-On <button type="button" class="btn add-btn btn-sm"  id="btn_add_addon"><i class="glyphicon glyphicon-plus"></i></button> 
+									<button type="button" class="btn add-btn btn-sm"  id="btn_add_addon"><i class="glyphicon glyphicon-plus"></i> Add Add-On</button> 
 								</div>
 
 								<div class="form-group">
@@ -658,20 +665,20 @@ var facilities_selected_exists;
 
 								<div class="form-group checkin_span_block">
 									<div class="alert alert-success hidden status_message"></div>
-									<div class="col-sm-12">
-										<p class="checkinformat_text"> 
+									<div class="col-sm-6">
+										<div class="checkinformat_text"> 
 											<% if(!_.isUndefined(roomdata.checkinformat)) { 
-													if(!_.isEmpty(roomdata.checkinformat)){ %>
-														<%=roomdata.checkinformat %>-hour Format <% 
+													if(!_.isEmpty(roomdata.checkinformat.trim())){ %>
+														<p><%=roomdata.checkinformat %>-hour Format</p> <% 
 													} 
 													else{ %>
-														<div class="alert">Please select Check-in time format</div><% 
+														<p class="alert empty-val">Please select Check-in time format</p><% 
 													} 
 												} 
 											%>
-										</p>
+										</div>
 										<div class="checkinformat_edit row hidden">
-											<div class="col-sm-2">
+											<div class="col-sm-6">
 												<label class="radio <% if(!_.isUndefined(roomdata.checkinformat)) { 
 												  if(roomdata.checkinformat=="12") { %>  checked " <% } }%>">
 												  <input type="radio" name="checkin_format" value="12" data-toggle="radio" 
@@ -681,7 +688,7 @@ var facilities_selected_exists;
 												</label>
 												<span class="help-block">eg. 12:01 AM</span>
 											</div>
-											<div class="col-sm-2">
+											<div class="col-sm-6">
 												<label class="radio <% if(!_.isUndefined(roomdata.checkinformat)) { 
 												  if(roomdata.checkinformat=="24") { %>  checked " <% } }%>">
 												  <input type="radio" name="checkin_format" value="24" data-toggle="radio" 
@@ -701,23 +708,24 @@ var facilities_selected_exists;
 								
 								<div class="form-group">
 									<div class="alert alert-success hidden status_message"></div>
-									<div class="col-sm-7">
-										<p class="checkintime_text alert">
+									<div class="col-sm-6">
+											<div class="checkintime_text">
 											<% if(!_.isUndefined(roomdata.checkintime)) { 
-											 		 if(_.isEmpty(roomdata.checkintime) ){ %>
-												 	 	Please enter checkin time.<% 
+											 		 if(_.isEmpty(roomdata.checkintime.trim()) ){ %>
+												 	 	<p class="alert empty-val">Please enter checkin time.</p><% 
 													 }
 													 else { %>
-													 <%=roomdata.checkintime %>
+													 	<p><%=roomdata.checkintime %></p>
 												  <% } 
 											   }
 											%>
-										  </p>
+										    </div>
 										<div class="checkintime_edittext hidden">
 											<input type='text' class="form-control" data-mask="99:99" placeholder="09:00" name="checkin_time" id="checkin_time" value="<% if(!_.isUndefined(roomdata.checkintime)) {%><%=roomdata.checkintime %> <%}%>" >
 										</div>
+										<br>
 										<a class="edit-link edit-checkintime" href="javascript:void(0)"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
-										<a class="delete-link delete-checkintime hidden" href="javascript:void(0)"><span class="glyphicon glyphicon-trash"></span> Delete</a>
+										<a class="delete-link delete-checkintime hidden" href="javascript:void(0)"><span class="glyphicon glyphicon-remove-circle"></span> Cancel</a>
 									</div>
 								</div>
 								<hr>
@@ -759,20 +767,20 @@ var facilities_selected_exists;
 								<div class="form-group">
 									<div class="alert alert-success hidden status_message"></div>
 									<div class="col-sm-12">
-										<p class="addpoliciestext alert">
+										<div class="addpoliciestext">
 										<% if(!_.isUndefined(roomdata.additionalpolicies)){   
-												if(_.isEmpty(roomdata.additionalpolicies)){ %>
-													Add additional policies if any.<%} 
+												if(_.isEmpty(roomdata.additionalpolicies.trim())){ %>
+													<p class="alert empty-val">Add additional policies if any.</p><%} 
 												else { %>
-													<%=roomdata.additionalpolicies%> <% }
+													<p><%=roomdata.additionalpolicies%></p> <% }
 											}%>
-										</p>
+										</div>
 										<div class="addpoliciestext_edit hidden">
-											<textarea class="form-control" rows="3" name="additional_policies"  id="additional_policies" placeholder="eg. All rates are per night rates.">
-												<% if(!_.isUndefined(roomdata.additionalpolicies)) {%>
-													<%=roomdata.additionalpolicies%>
-												<% } %>
-											</textarea>
+											<textarea class="form-control" rows="3" name="additional_policies"  id="additional_policies" placeholder="eg. All rates are per night rates."><%
+												 if(!_.isUndefined(roomdata.additionalpolicies)) {
+													%><%=roomdata.additionalpolicies.trim()
+												%><% } 
+											%></textarea>
 										</div>
 										<br>
 										<a class="edit-link edit-additional-policies" href="javascript:void(0)"><span class="glyphicon glyphicon-pencil"></span> Edit</a>

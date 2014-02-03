@@ -1087,6 +1087,33 @@ add_action( 'wp_ajax_nopriv_user_login', 'user_login' );
 
 
 
+//Function to check if user logged in and redirect logged in user to dashboard
+function check_login_redirect_user_dashboard()
+{
+	 if ( is_user_logged_in() ) {
+	  
+			$blog = get_active_blog_for_user( get_current_user_id() );         
+	        
+	        //get the default language for the logged in blog 
+	        switch_to_blog($blog->blog_id );
+	        
+	        $wpml_options = get_option( 'icl_sitepress_settings' );
+		 	$default_lang = $wpml_options['default_language'];
+	
+		 	
+		 	//get the redirect url based on language
+		 	if($default_lang=='en')
+		 		$blogUrl = $blog->siteurl.'/dashboard/'; /* or $blog->path, together with $blog->siteurl */
+		 	else
+		 		$blogUrl = $blog->siteurl.'/dashboard-2/'; /* or $blog->path, together with $blog->siteurl */
+		 	   		
+		 	restore_current_blog();
+		 	wp_redirect($blogUrl);
+	}
+}
+
+
+
 /*
  * Function to activate new users
  */

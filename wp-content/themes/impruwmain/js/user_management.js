@@ -7,14 +7,17 @@ jQuery(document).ready(function($) {
         $('#btn_create_site').attr('disabled',true);
         var _this = this;
 
-        if ($('#frm_registration').parsley('validate')) {
+        if (!$('#frm_registration').parsley('validate')) {
+        	$('#btn_create_site').attr('disabled',false);
+        	return
+        }
 
-            $(this).next().show();
-            var data = {
+        $(this).next().show();
+        var data = {
                 action: 'save_new_user',
                 frmdata: $("#frm_registration").serializeArray(),
                 ajax_nonce: ajax_nonce
-            };
+        };
 
 
             // since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
@@ -67,7 +70,7 @@ jQuery(document).ready(function($) {
             }); //end  $.post(ajaxurl, data, function(response) 
 
 
-        }
+        
 
     });
 
@@ -191,8 +194,15 @@ jQuery(document).ready(function($) {
     });
 
     $("#btn_login").click(function() {
-
-        if ($('#frm_login').parsley('validate')) {
+    	
+    	$('#btn_login').attr('disabled',true);
+    	
+     
+    	
+        if (!$('#frm_login').parsley('validate')) {
+        	$('#btn_login').attr('disabled',false);
+        	return
+        }
 
             $("#login_loader").show();
 
@@ -208,7 +218,7 @@ jQuery(document).ready(function($) {
             $.post(ajaxurl, data, function(response) {
 
                 if (response.code == 'OK') {
-
+                	$('#btn_login').attr('disabled',false);
                     $("#login_loader").hide();
                     $("#login_success").show();
                     $("#login_status").html('<div class="alert alert-success">' +
@@ -218,7 +228,7 @@ jQuery(document).ready(function($) {
                     window.location.href = response.blog_url;
                     return true;
                 } else if ((response.code == 'ERROR') || (response.code == 'FAILED')) {
-
+                	$('#btn_login').attr('disabled',false);
                     $("#login_loader").hide();
                     $("#login_status_div").show()
                     $("#login_status").html('<div class="alert alert-error">' +
@@ -228,7 +238,7 @@ jQuery(document).ready(function($) {
                     return false;
                 }
             });
-        }
+         
     });
     /************************ /login.js ***********************************/
 

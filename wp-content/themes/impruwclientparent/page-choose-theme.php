@@ -29,22 +29,19 @@
                         <a href="<?php echo get_site_url();?>/dashboard/"><span class="glyphicon glyphicon-arrow-left"></span> Back to Dashboard</a>
                     </p>
                 </div>
-                <div class="aj-imp-page-layout col-sm-8 clearfix navbar-text">
-                    Page: <select name="current_page_id" id="aj-imp-page-sel" style="display: none;">
-                                                                                <option value="28">Choose Theme</option>
-                                                                                <option selected="" value="15">Single Room</option>
-                                                                                <option value="13">Rooms</option>
-                                                                                <option value="11">About Us</option>
-                                                                                <option value="9">Home</option>
-                                                                                <option value="25">Standard Room</option>
-                                                                                <option value="24">Deluxe Room</option>
-                                            </select><div class="btn-group select"><i class="dropdown-arrow dropdown"></i><button data-toggle="dropdown" class="btn dropdown-toggle clearfix btn-mini btn-default" id="aj-imp-page-sel"><span class="filter-option pull-left">Single Room</span>&nbsp;<span class="caret"></span></button><ul role="menu" class="dropdown-menu dropdown" style="overflow-y: auto; min-height: 111px;"><li rel="0"><a class="" href="#" tabindex="-1"><span class="pull-left">Choose Theme</span></a></li><li rel="1" class="selected"><a class="" href="#" tabindex="-1"><span class="pull-left">Single Room</span></a></li><li rel="2"><a class="" href="#" tabindex="-1"><span class="pull-left">Rooms</span></a></li><li rel="3"><a class="" href="#" tabindex="-1"><span class="pull-left">About Us</span></a></li><li rel="4"><a class="" href="#" tabindex="-1"><span class="pull-left">Home</span></a></li><li rel="5"><a class="" href="#" tabindex="-1"><span class="pull-left">Standard Room</span></a></li><li rel="6"><a class="" href="#" tabindex="-1"><span class="pull-left">Deluxe Room</span></a></li></ul></div>&nbsp;&nbsp;&nbsp;&nbsp;
+                <div class="aj-imp-page-layout col-sm-8 clearfix">
+                	<div class="navbar-text">
+                    	Page: <div class="btn-group select"><i class="dropdown-arrow dropdown"></i><button data-toggle="dropdown" class="btn dropdown-toggle clearfix btn-mini btn-default" id="aj-imp-page-sel"><span class="filter-option pull-left">Single Room</span>&nbsp;<span class="caret"></span></button><ul role="menu" class="dropdown-menu dropdown" style="overflow-y: auto; min-height: 111px;"><li rel="0"><a class="" href="#" tabindex="-1"><span class="pull-left">Choose Theme</span></a></li><li rel="1" class="selected"><a class="" href="#" tabindex="-1"><span class="pull-left">Single Room</span></a></li><li rel="2"><a class="" href="#" tabindex="-1"><span class="pull-left">Rooms</span></a></li><li rel="3"><a class="" href="#" tabindex="-1"><span class="pull-left">About Us</span></a></li><li rel="4"><a class="" href="#" tabindex="-1"><span class="pull-left">Home</span></a></li><li rel="5"><a class="" href="#" tabindex="-1"><span class="pull-left">Standard Room</span></a></li><li rel="6"><a class="" href="#" tabindex="-1"><span class="pull-left">Deluxe Room</span></a></li></ul></div>&nbsp;&nbsp;&nbsp;&nbsp;
+                	</div>
                 </div>
-               <div class="aj-imp-builder-top-options col-sm-1 navbar-text">
-                    <a href="#" class="btn btn-default aj-imp-theme-btn">Choose Theme</a>
+               	<div class="aj-imp-builder-top-options col-sm-2">
+               		<p class="navbar-text">
+	                    <a href="#" class="btn btn-default aj-imp-theme-btn">Choose Theme</a>
+	                </p>
                 </div>
             </nav>
         </div>
+        
 		<div class="aj-imp-builder-area">
 			<div class="aj-imp-theme-area">
 				<h2 class="page-title">Choose a Theme for your Site</h2>

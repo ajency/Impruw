@@ -324,6 +324,9 @@ a {
 				}
 			}
 		}
+		&.aj-imp-loader {
+			background: url('../images/loader.gif') no-repeat center center #fff;
+		}
 	}
 }
 
@@ -368,6 +371,9 @@ and (min-width : 1440px) {
 		padding: 0;
 		li {
 			border-bottom: 1px solid lighten(@dash-grey, 40%);
+			.icon {
+				display: none;
+			}
 			a {
 				display: block;
 				padding: 1em 0.5em;
@@ -477,12 +483,23 @@ form {
 					&.btn-file {
 						margin-top: 0.5em;
 					}
+					&.btn-danger {
+						margin-top: 0.5em;
+						color: darken(@orange, 10%);
+					}
 				}
 			}
 		}
 		&.add-another {
 			.control-label {
 				top: 1em;
+			}
+			.has-error {
+				.p-messages {
+					.help-block {
+						color: #E74C3C;
+					}
+				}
 			}
 			.div_email, .div_phone {
 				position: relative;
@@ -523,6 +540,9 @@ form {
 					}
 				}
 			}
+		}
+		p {
+			color: darken(@dash-grey, 10%);
 		}
 		.help-block {
 			color: lighten(@dash-grey, 5%);
@@ -566,6 +586,16 @@ form {
 				background: transparent;
 			}
 		}
+		> .alert {
+			margin: 1em 15px;
+		}
+		.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+			color: @dash-grey;
+			cursor: not-allowed; 
+		}
+	}
+	> .alert {
+		margin: 1em 15px;
 	}
 	.form-control {
 		border-radius: 0;
@@ -612,6 +642,10 @@ form {
 		border-bottom: 1px solid lighten(@dash-grey, 10%);
 		.caret {
 			border-top-color: @dash-grey;
+		}
+		&:hover, &:focus {
+			background: #fff;
+			z-index: 0;
 		}
 	}
 	.dropdown-menu {
@@ -1402,6 +1436,14 @@ form {
 							border: 2px dashed @dash-grey;
 						}
 					}
+					.form-group {
+						@media (max-width: 767px) { 
+							margin: 0;
+						}
+						&.dual {
+							margin: 0 0 20px;
+						}
+					}
 				}
 			}
 		}
@@ -1602,6 +1644,12 @@ form {
 		background: lighten(@logo-orange, 30%);
 		border-color: lighten(@logo-orange, 30%);
 	}
+	&.empty-val {
+		background: #fff;
+		padding: 0.5em;
+		border: 1px dashed @dash-grey;
+		margin: 0.5em 0;
+	}
 }
 
 /****Add Room Form Styles****/
@@ -1700,17 +1748,12 @@ form {
 	border-bottom: 1px solid lighten(@dash-grey, 20%);
 	margin-bottom: 0.5em;
 	.add-btn {
-		background: @orange;
+		background: @blue-grey;
 		border-radius: 0;
 		margin-left: 1em;
-		position: relative;
-		top: 1px;
-	}
-	&:hover {
-		color: darken(@dash-grey, 10%);
-		border-bottom-color: @orange;
-		.add-btn {
-			margin-left: 0.5em;
+		margin-bottom: 0.5em;
+		&:hover {
+			background: darken(@blue-grey, 10%);
 		}
 	}
 }
@@ -1724,10 +1767,8 @@ form {
 }
 
 .no-data {
-	td {
-		font-style: italic;
-		color: lighten(@dash-grey, 10%);
-	}
+	font-style: italic;
+	color: lighten(@dash-grey, 10%);
 }
 
 .no-mar {
@@ -1735,7 +1776,7 @@ form {
 }
 
 .edit-link {
-	color: @blue-grey;
+	color: @blue-grey !important;
 	margin-right: 1em;
 	&:hover {
 		color: darken(@blue-grey, 10%);
@@ -1758,11 +1799,13 @@ form {
 
 .daterange_frominput, .daterange_toinput {
 	display: inline-block;
-	max-width: 75%;
 }
 
-.daterange_tolabel {
-	margin-right: 15px;
+.daterange_tolabel, .daterange_fromlabel, .tariff_label {
+	color: @dash-grey;
+	display: inline-block;
+	font-size: 0.8em;
+	margin-right: 0.2em;
 }
 
 /****Date Picker Styles****/
@@ -1787,9 +1830,18 @@ form {
 }
 
 .dates {
+	margin: 0 !important;
+	@media (max-width: 767px) { 
+		margin: 0 -15px !important;
+	}
 	.input-icon {
 		background: transparent;
 		color: lighten(@dash-grey, 5%);
+	}
+	.has-error, .has-success {
+		.fui-calendar {
+			display: none;
+		}
 	}
 }
 
