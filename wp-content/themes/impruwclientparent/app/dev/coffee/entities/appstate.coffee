@@ -15,6 +15,7 @@ define ["app", 'backbone'], (App, Backbone) ->
                     
                     @get 'loginStatus'
                     
+            APPSTATE = {} unless APPSTATE
 
             appState = new AppState APPSTATE
 

@@ -5,7 +5,7 @@
 
   define(["app", 'backbone'], function(App, Backbone) {
     return App.module("Entities.AppState", function(AppState, App, Backbone, Marionette, $, _) {
-      var API, appState, _ref;
+      var API, APPSTATE, appState, _ref;
       AppState = (function(_super) {
         __extends(AppState, _super);
 
@@ -27,6 +27,9 @@
         return AppState;
 
       })(Backbone.Model);
+      if (!APPSTATE) {
+        APPSTATE = {};
+      }
       appState = new AppState(APPSTATE);
       appState.on("change:loginStatus", function() {
         return App.commands.execute("app:loginstatus:changed", appState.toJSON());
