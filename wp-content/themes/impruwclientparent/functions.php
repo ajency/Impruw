@@ -3190,11 +3190,12 @@ function get_initial_saved_layout() {
         
         $str = stripcslashes($str);
 
-        $json['header'] = maybe_unserialize($str);
+        $json['header'] = $header;//maybe_unserialize($str);
     }
 
     $page = get_post_meta($page_id,'page-json',true);
     if(is_array($page)){
+        
         $str = maybe_serialize($page);
         
         $str = stripcslashes($str);
@@ -3204,10 +3205,12 @@ function get_initial_saved_layout() {
 
     $footer = get_option('theme-footer');
     if(is_array($footer)){
+        
         $str = maybe_serialize($footer);
         
         $str = stripcslashes($str);
-        $json['footer'] = maybe_unserialize($str);
+
+        $json['footer'] = $footer;//maybe_unserialize($str);
     }
    
     wp_send_json($json);
