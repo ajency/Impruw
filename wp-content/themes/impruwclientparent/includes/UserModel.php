@@ -51,6 +51,13 @@ class ImpruwUser extends WP_User{
 		
 		$email_user = email_exists($user_data['general']['user_email']);
 		
+		
+		
+		if(isset($user_data['general']['new_feature_alert']))
+			update_user_meta($user_data['ID'], 'impruw_featurealert' , $user_data['general']['new_feature_alert']);
+		else
+			update_user_meta($user_data['ID'], 'impruw_featurealert' , '');
+		
 		if($email_user){
 			
 			if($this->data->ID!=$email_user){
@@ -62,17 +69,11 @@ class ImpruwUser extends WP_User{
 		}
 		else{
 			if(wp_update_user($new_user_data)){
-				
-				if(isset($user_data['general']['new_feature_alert']))
-					update_user_meta($user_data['ID'], 'impruw_featurealert' , $user_data['general']['new_feature_alert']);
-				else
-					update_user_meta($user_data['ID'], 'impruw_featurealert' , '');
-				
-				return true;
+			 	return true;
 			}
-			else
-				
+			else{				
 				return false;
+			}
 			
 		}
 		

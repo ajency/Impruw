@@ -263,6 +263,15 @@ define([ 'underscore', 'jquery', 'backbone',
 		        scrollTop: $(event.target).offsetParent().offsetParent().offsetParent()
 		        						   .find('#userprofilesave_status').offset().top
 		    }, 1000);
+			
+			
+			 setTimeout(function(){		 
+				 $(event.target).offsetParent().offsetParent().offsetParent()
+					.find('#userprofilesave_status').hide();							  
+			 }, 5000);
+			 
+			 
+			
 		},
 		
 		
