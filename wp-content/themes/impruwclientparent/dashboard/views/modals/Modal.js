@@ -14,7 +14,7 @@ define(['backbone', 'tpl!templates/modal/Model.tpl'],
 
             outerTemplate: outerTemplate,
 
-            className: 'modal',
+            className: 'modal wide-modal',
 
             open: function() {
                 this.$el.modal('show');
