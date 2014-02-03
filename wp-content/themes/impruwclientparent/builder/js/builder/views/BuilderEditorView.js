@@ -528,7 +528,7 @@ define(['underscore', 'jquery', 'backbone', 'global',
                                'left'				: divOffset.left+'px',
                                'width'				: this.$el.parent().width()+'px',
                                /*'height'			: this.$el.parent().height()+'px',*/
-                               'height'				: '350px',
+                               'height'				: $('.aj-imp-browser-body').height(),
                                'background-position': 'top center'
                                  
                              });
