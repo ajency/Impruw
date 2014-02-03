@@ -1356,12 +1356,10 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 								response.inlineresultmsg = true;
 							 	response.daterangemsgspan = true;
 								this.saveSuccess(response,evt_,this); 
-								
-								
-								//console.log(self_.$el.find('#tbl_daterangelist tr').length)
-								//console.log(self_.$el.find('#tbl_daterangelist .no-data').length)
-								
-								//if addons-list table has only header row and no addons are present in addons list. add empty addon row
+								//$(evt_.target).parent().parent().remove();
+								$(evt_.target).closest('.table-vc').closest('tr').remove();
+							 	 	
+								//if daterange-list table has only header row and no daterange is present in daterange list. add empty daterange row
 								if(self_.$el.find('#tbl_daterangelist tr').length ==1){
 									if(self_.$el.find('#tbl_daterangelist .no-data').length==0){
 										self_.$el.find('#tbl_daterangelist').append('<tr class="no-data">'+
@@ -1374,8 +1372,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 								}
 								
 								
-								//$(evt_.target).parent().parent().remove();
-								$(evt_.target).closest('.table-vc').closest('tr').remove();
+								
 							}
 							else{
 								response.inlineresultmsg = true;
