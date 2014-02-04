@@ -37,7 +37,7 @@
           this.setProperties(options.config);
         }
         this.generateMarkup({
-          icon: 'uniF110',
+          icon: '',
           name: 'Map Element'
         });
         this.setContextMenu();

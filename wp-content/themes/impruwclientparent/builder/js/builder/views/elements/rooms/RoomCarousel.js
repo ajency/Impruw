@@ -4,29 +4,30 @@
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
   define(['builderelement', 'tpl!builder/templates/elements/BasicElement.tpl', 'global'], function(BuilderElement, template, global) {
-    var ContactFormElement, _ref;
-    return ContactFormElement = (function(_super) {
-      __extends(ContactFormElement, _super);
+    var RoomCarousel, _ref;
+    return RoomCarousel = (function(_super) {
+      __extends(RoomCarousel, _super);
 
-      function ContactFormElement() {
-        _ref = ContactFormElement.__super__.constructor.apply(this, arguments);
+      function RoomCarousel() {
+        _ref = RoomCarousel.__super__.constructor.apply(this, arguments);
         return _ref;
       }
 
-      ContactFormElement.prototype.className = 'aj-imp-elem-contact-form element ';
+      RoomCarousel.prototype.className = 'aj-imp-elem-room-carousel element';
 
-      ContactFormElement.prototype.template = template;
+      RoomCarousel.prototype.template = template;
 
-      ContactFormElement.prototype.elementType = 'ContactFormElement';
+      RoomCarousel.prototype.elementType = 'RoomCarousel';
 
-      ContactFormElement.prototype.events = {
+      RoomCarousel.prototype.events = {
         'mouseenter': 'elementMouseEnter',
         'mouseleave': 'elementMouseLeave',
         'click > .aj-imp-delete-btn': 'destroyElement',
-        'contextmenu': 'showContextMenu'
+        'contextmenu': 'showContextMenu',
+        'click a': 'void'
       };
 
-      ContactFormElement.prototype.initialize = function(options) {
+      RoomCarousel.prototype.initialize = function(options) {
         if (options == null) {
           options = {};
         }
@@ -37,13 +38,13 @@
           this.setProperties(options.config);
         }
         this.generateMarkup({
-          icon: '',
-          name: 'Contact Form Element'
+          icon: 'uniF11C',
+          name: 'Room Carousel'
         });
         this.setContextMenu();
       };
 
-      return ContactFormElement;
+      return RoomCarousel;
 
     })(BuilderElement);
   });

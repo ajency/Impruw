@@ -108,6 +108,12 @@
                                 <div class="aj-imp-builder-title">Room</div>
                             </a>
                         </li>
+                        <li data-element="roomcarousel">
+                            <a href="#" class="drag builder-element" data-placeholder-height="100">
+                                <div class="aj-imp-builder-icon"><span class="bicon icon-uniF166"></span></div>
+                                <div class="aj-imp-builder-title">Room Carousel</div>
+                            </a>
+                        </li>
                     </ul>
                 </div>
                 <?php if(is_single_room_edit()): ?>

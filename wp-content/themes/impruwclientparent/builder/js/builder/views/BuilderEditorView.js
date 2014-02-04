@@ -672,23 +672,43 @@ define(['underscore', 'jquery', 'backbone', 'global',
                     //run maps
                     if($('#map_canvas').length === 0)
                         return;
-                    
+                    var address = $('#map_canvas').attr('data-address');
+
                     var map_canvas = document.getElementById('map_canvas');
-                    var youcou = new google.maps.LatLng(37.390345, -6.022595);
-                    var marker;
-                    var map_options = {
-                      center: new google.maps.LatLng(37.385299, -5.989634),
-                      zoom: 14,
-                      scrollwheel: false,
-                      mapTypeId: google.maps.MapTypeId.TERRAIN 
-                    }
-                    var map = new google.maps.Map(map_canvas, map_options)
-                    marker = new google.maps.Marker({
-                                    map:map,
-                                    draggable:true,
-                                    animation: google.maps.Animation.DROP,
-                                    position: map.getCenter()
-                              });
+      
+                      if(map_canvas === null)
+                        return;
+
+                      var map_options = {
+                        //center: new google.maps.LatLng(37.385299, -5.989634),
+                        zoom: 17,
+                        scrollwheel: false,
+                        mapTypeId: google.maps.MapTypeId.TERRAIN 
+                      }
+                      
+                      map = new google.maps.Map(map_canvas, map_options)
+
+                      geocoder = new google.maps.Geocoder();
+
+                    geocoder.geocode( { 'address': address}, function(results, status) {
+        
+                        if (status == google.maps.GeocoderStatus.OK) {
+                          
+                          map.setCenter(results[0].geometry.location);
+                          
+                          marker = new google.maps.Marker({
+                            map:map,
+                            //draggable:true,
+                            animation: google.maps.Animation.DROP,
+                            position: map.getCenter()
+                          });
+                          
+                          //google.maps.event.addListener(marker, 'click', toggleBounce);
+                        
+                        } 
+
+                    });
+
                 });
 
             },
