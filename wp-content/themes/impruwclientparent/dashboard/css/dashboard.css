@@ -1275,6 +1275,7 @@ form .aj-imp-submit:hover {
 .modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .thumbnails .single-img .thumbnail {
   margin-bottom: 7px;
   border: 2px solid #aaaaaa;
+  padding: 4px 0;
 }
 .modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .thumbnails .single-img .thumbnail .imgthumb {
   height: 145px;
