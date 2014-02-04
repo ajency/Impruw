@@ -69,7 +69,11 @@ define(['underscore', 'jquery', 'backbone', 'builder/views/BuilderEditorView'],
                 var button = $(evt.target);
 
                 var page   = button.parent().find('select[name="current_page_id"]').val();
-            
+
+                if(page === 'new'){
+                    getAppInstance().commands.execute('add:new:page');
+                    return;
+                }
                 $.cookie('current_page_id', page, { expires: 7 });
 
                 window.location.reload();
