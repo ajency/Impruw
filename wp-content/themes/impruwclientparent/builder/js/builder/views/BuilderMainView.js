@@ -38,7 +38,7 @@ define(['underscore', 'jquery', 'backbone', 'builder/views/BuilderEditorView'],
 
                 var page = $('select[name="current_page_id"]').find('option[value="'+pid+'"]').text();
                 var url = $('.aj-imp-browser-address-bar').text();
-                $('.aj-imp-browser-address-bar').text(url + '/' + _.slugify(page));
+                $('.aj-imp-browser-address-bar').text(_(url).trim() + '/' + _.slugify(page));
             },
 
             /**
