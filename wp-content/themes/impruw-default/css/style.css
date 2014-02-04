@@ -193,6 +193,9 @@ Version:        0.1.0
   font-size: 1.111em;
   text-align: right;
 }
+.site-style-container .header .cta > .row {
+  margin-bottom: 0;
+}
 .site-style-container .header .cta .contact {
   color: #fff;
 }
