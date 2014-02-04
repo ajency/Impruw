@@ -1084,6 +1084,35 @@ Version:        0.1.0
 .modal .modal-dialog .modal-content .modal-footer .aj-imp-modal-save:hover {
   background: #ffb266;
 }
+.modal .modal-dialog .modal-content .choose-room .room-btn {
+  border: 1px solid #dddddd;
+  margin: 0.5em 0;
+  padding: 0.5em 0.2em;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.modal .modal-dialog .modal-content .choose-room .room-btn .thumb {
+  width: 70px;
+  float: left;
+  margin: 0 0.5em;
+}
+.modal .modal-dialog .modal-content .choose-room .room-btn .thumb img {
+  border: 2px solid #aaaaaa;
+}
+.modal .modal-dialog .modal-content .choose-room .room-btn .title h4 {
+  color: #849fb0;
+  font-weight: 400;
+  font-size: 1.5em;
+}
+.modal .modal-dialog .modal-content .choose-room .room-btn:hover {
+  background: #dddddd;
+}
+.modal .modal-dialog .modal-content .choose-room .room-btn:hover .thumb img {
+  border-color: #fff;
+}
+.modal .modal-dialog .modal-content .choose-room .room-btn:hover .title h4 {
+  color: #ff7e00;
+}
 .modal.wide-modal {
   padding: 2em;
 }

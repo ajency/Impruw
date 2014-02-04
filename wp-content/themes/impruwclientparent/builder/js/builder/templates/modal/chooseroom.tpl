@@ -1,2 +1,2 @@
-<div class="modal-body">
+<div class="modal-body choose-room">
 </div>
