@@ -20,9 +20,7 @@
       };
 
       RoomSingle.prototype.roomSelected = function() {
-        return getAppInstance().vent.trigger('room-selected', {
-          room: this.model
-        });
+        return getAppInstance().vent.trigger('room-selected', this.model);
       };
 
       return RoomSingle;

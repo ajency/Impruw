@@ -12,8 +12,7 @@ define ['marionette'
 					'click' : 'roomSelected'
 
 				roomSelected :->
-					getAppInstance().vent.trigger 'room-selected', 
-															room : @model
+					getAppInstance().vent.trigger 'room-selected', @model
 
 
 			class RoomsView extends Marionette.CollectionView

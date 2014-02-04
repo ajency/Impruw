@@ -37,7 +37,8 @@
         roomsview = new RoomsView({
           collection: this.rooms
         });
-        return this.$el.find('.modal-body').html(roomsview.$el);
+        this.$el.find('.modal-body').html(roomsview.$el);
+        return this.listenTo(getAppInstance().vent, 'room-selected', this.hide);
       };
 
       return ChooseRoom;

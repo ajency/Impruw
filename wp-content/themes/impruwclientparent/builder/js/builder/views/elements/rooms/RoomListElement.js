@@ -41,7 +41,7 @@
           this.setProperties(options.config);
         }
         this.generateMarkup({
-          icon: 'uniF166',
+          icon: '',
           name: 'Room Element'
         });
         this.setContextMenu();
@@ -83,7 +83,19 @@
       };
 
       RoomElement.prototype.updateSelf = function(room) {
-        return log(room);
+        var json, param, responseFn,
+          _this = this;
+        this.stopListening(getAppInstance().vent, 'room-selected', this.updateSelf);
+        this.dataSource = room.get('ID');
+        json = this.generateJSON();
+        responseFn = function(resp) {
+          return _this.$el.find('.content').html(resp.html);
+        };
+        param = {
+          action: 'get-element-markup',
+          json: json
+        };
+        return $.get(AJAXURL, param, responseFn, 'json');
       };
 
       return RoomElement;

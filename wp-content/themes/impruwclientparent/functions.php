@@ -3238,7 +3238,7 @@ function get_element_markup(){
     die;
 
 }
-add_action('wp_ajax_get_element_markup','get_element_markup');
+add_action('wp_ajax_get-element-markup','get_element_markup');
 
 /**
  * Check if single rooms edit view is loaded
@@ -3445,3 +3445,4 @@ function get_all_room_to_json(){
                 ));
 }
 add_action('wp_ajax_get-all-rooms', 'get_all_room_to_json');
+
