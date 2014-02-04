@@ -26,7 +26,8 @@
         'mouseleave': 'elementMouseLeave',
         'click > .aj-imp-delete-btn': 'destroyElement',
         'contextmenu': 'showContextMenu',
-        'click a': 'void'
+        'click a': 'void',
+        'click': 'showChooseRoomModal'
       };
 
       RoomElement.prototype.initialize = function(options) {
@@ -66,6 +67,23 @@
         }
         pcontent = $(evt.target).closest('.popover');
         return this.dataSource = parseInt($(pcontent).find('select[name="for-room"]').val());
+      };
+
+      RoomElement.prototype.showChooseRoomModal = function() {
+        return require(['underscore', 'chooseroom'], _.bind(function(_, ChooseRoom) {
+          var chooseroom;
+          chooseroom = getAppInstance().ViewManager.findByCustom("choose-room");
+          if (_.isUndefined(chooseroom)) {
+            chooseroom = new ChooseRoom();
+            getAppInstance().ViewManager.add(chooseroom, "choose-room");
+          }
+          this.listenTo(getAppInstance().vent, 'room-selected', this.updateSelf);
+          return chooseroom.open();
+        }, this));
+      };
+
+      RoomElement.prototype.updateSelf = function(room) {
+        return log(room);
       };
 
       return RoomElement;

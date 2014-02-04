@@ -35,6 +35,9 @@ require.config({
         //routers
         builderrouter   : 'builder/routers/BuilderRouter',
 
+        rooms           : 'builder/models/Rooms',
+        roomsview       : 'builder/views/modals/roomsview',        
+
         //elements
         builderelement  : 'builder/views/elements/BuilderElement',
         builderrow      : 'builder/views/elements/layout/BuilderRow',
@@ -65,6 +68,8 @@ require.config({
         menumanager     : 'builder/views/modals/MenuManager',
         menumodel       : 'builder/models/MenuModel',
         menucollection  : 'builder/collections/MenuCollection',
+
+        chooseroom      : 'builder/views/modals/ChooseRoomModal',
 
         //media 
         mediamanager    : 'builder/views/modals/media/MediaManager',

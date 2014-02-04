@@ -20,9 +20,9 @@ define ['builderelement','tpl!builder/templates/elements/BasicElement.tpl','glob
 			'click > .aj-imp-delete-btn' 	: 'destroyElement'
 			'contextmenu'					: 'showContextMenu'
 			'click a'						: 'void'
+			'click'							: 'showChooseRoomModal'
 
-		##
-		##
+		# Initialize
 		initialize:(options = {})->
 
 			if _.isUndefined options.config
@@ -39,6 +39,7 @@ define ['builderelement','tpl!builder/templates/elements/BasicElement.tpl','glob
 
 			return
 
+		# add some extra settings to view
 		hasExtraSettings :()->
 
 			if _.isEmpty ROOMS then return ''
@@ -53,11 +54,34 @@ define ['builderelement','tpl!builder/templates/elements/BasicElement.tpl','glob
 			html += '</select></div>'
 
 
+		# Save extra settings
 		updateExtraProperties:( evt = {})->
 
 			pcontent = $(evt.target).closest '.popover'
 
 			@dataSource = parseInt $(pcontent).find('select[name="for-room"]').val()
+
+
+		# Show Choose room modal
+		showChooseRoomModal: ()->
+
+			require ['underscore', 'chooseroom'], _.bind (_, ChooseRoom)-> 
+
+				chooseroom = getAppInstance().ViewManager.findByCustom "choose-room"
+
+				if _.isUndefined chooseroom
+					chooseroom = new ChooseRoom();
+					getAppInstance().ViewManager.add(chooseroom, "choose-room");
+
+				this.listenTo getAppInstance().vent,'room-selected', this.updateSelf 
+
+				chooseroom.open();
+
+			, this
+
+		updateSelf :(room)->
+
+			log room
 
 
 

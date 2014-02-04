@@ -3429,3 +3429,14 @@ function impruw_wp_mail_from_name( $original_email_from )
     return 'Impruw Support';
 }
 add_filter( 'wp_mail_from_name', 'impruw_wp_mail_from_name' );
+
+
+function get_all_room_to_json(){
+
+    $rooms = get_posts(array('post_type' => 'impruw_room'));
+
+    wp_send_json(array( 'code' => 'OK', 
+                        'data' => $rooms
+                ));
+}
+add_action('wp_ajax_get-all-rooms', 'get_all_room_to_json');

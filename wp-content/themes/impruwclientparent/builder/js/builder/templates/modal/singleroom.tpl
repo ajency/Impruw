@@ -1,0 +1,1 @@
+<h1>singleroom <%= post_title %></h1>
