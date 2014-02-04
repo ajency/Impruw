@@ -10,6 +10,7 @@ Version:        0.1.0
 
 /****Builder Icon Font****/
 @import url(font-style.css);
+@import url(font-style-bicon.css);
 
 /****Colors****/
 @logo-blue: #182944;
@@ -1181,7 +1182,7 @@ form {
 							text-align: center;
 							> span {
 								display: block;
-								&[class^="icon-"] {
+								&.bicon {
 									font-size: 10em;
 									color: darken(@preview-grey, 5%);
 								}
@@ -1321,6 +1322,7 @@ form {
 								.thumbnail {
 									margin-bottom: 7px;
 									border: 2px solid @dash-grey;
+									padding: 4px 0;
 									.imgthumb {
 										height: 145px;
 										text-align: center;

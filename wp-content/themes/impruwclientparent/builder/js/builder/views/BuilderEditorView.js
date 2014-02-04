@@ -389,7 +389,10 @@ define(['underscore', 'jquery', 'backbone', 'global',
 
                         
                         this.enableDragDrop();
-                        this.$el.find('#editor-initial-loader').remove();
+                       // this.$el.find('#editor-initial-loader').remove();
+                        _.delay(function(){
+                        	$('label.editormode').last().click();
+                        }, 2000);
 
                     },this), 'json');
 
@@ -565,7 +568,7 @@ define(['underscore', 'jquery', 'backbone', 'global',
              *  Switch to content mode
              */
             switchToContent: function(evt) {
-
+            	this.removeSwitchLoader();
                 var self = this;
 
                 this.$el.removeClass('aj-imp-builder-layout-mode').addClass('aj-imp-builder-content-mode');
@@ -609,7 +612,7 @@ define(['underscore', 'jquery', 'backbone', 'global',
                         pageId: this.getCurrentPage()
                     },
                     function(response) {
-
+                    	self.$el.find('#editor-initial-loader').remove();
                         window.fetchJSON = false;
 
                         if (response.code === 'OK') {
