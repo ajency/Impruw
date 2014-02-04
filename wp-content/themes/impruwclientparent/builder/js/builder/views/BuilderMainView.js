@@ -35,6 +35,10 @@ define(['underscore', 'jquery', 'backbone', 'builder/views/BuilderEditorView'],
                     pid = $('select[name="current_page_id"]').val();
                     $.cookie('current_page_id', pid, { expires: 7 });
                 }
+
+                var page = $('select[name="current_page_id"]').find('option[value="'+pid+'"]').text();
+                var url = $('.aj-imp-browser-address-bar').text();
+                $('.aj-imp-browser-address-bar').text(url + '/' + _.slugify(page));
             },
 
             /**
