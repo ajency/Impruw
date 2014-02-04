@@ -1,4 +1,6 @@
 @import url(font-style.css);
+
+@import url(font-style-bicon.css);
 /*
 Theme Name:     Impruw Dashboard
 Theme URI:      http://ajency.in/
@@ -1149,7 +1151,7 @@ form .aj-imp-submit:hover {
 .modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .aj-imp-upload-media > span {
   display: block;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .aj-imp-upload-media > span[class^="icon-"] {
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .aj-imp-upload-media > span.bicon {
   font-size: 10em;
   color: #e6e6e6;
 }
