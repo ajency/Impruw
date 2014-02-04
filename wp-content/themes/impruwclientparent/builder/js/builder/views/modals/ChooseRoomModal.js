@@ -28,6 +28,7 @@
         this.$el.html(html);
         $('body').append(this.$el);
         this.$el.modal();
+        this.$el.removeClass('wide-modal');
         markup = this.template();
         this.$el.find('.modal-content').append(markup);
         this.rooms = new Rooms.RoomCollection();
