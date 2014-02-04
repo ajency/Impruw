@@ -192,7 +192,7 @@ define(['views/modals/Modal', 'tpl!templates/modal/media/mediamanager.tpl',
             saveImageDetails: function(evt) {
 
                 var form = $(evt.target).closest('form');
-                var formData = getFormData(form);
+                var formData = global.getFormData(form);
 
                 var self = this;
 

@@ -57,6 +57,9 @@ define(['builderelement', 'tpl!builder/templates/elements/BasicElement.tpl', 'gl
              */
             generateJSON: function() {
 
+                if(window.fetchJSON === true && this.get('contentFetched') === true)
+                    return;
+
                 var json = this.returnJSON();
 
                 json.dataSource = this.dataSource;

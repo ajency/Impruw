@@ -133,7 +133,7 @@ define(['underscore', 'jquery', 'backbone', 'global',
                 //get the JSON
                 this.generateJSON();
 
-                $(evt.target).text('Saving...')
+                $(evt.target).text('Saving...');
 
                 //save it
                 $.post(AJAXURL,
@@ -143,7 +143,10 @@ define(['underscore', 'jquery', 'backbone', 'global',
                             forPage     : this.getCurrentPage(),
                             json        : this.json
                         },
-                        function(response){        
+                        function(response){
+                            
+                            window.fetchJSON = false; 
+
                             $(evt.target).text(text);    
                             if(response.code === 'OK'){
 
@@ -516,8 +519,8 @@ define(['underscore', 'jquery', 'backbone', 'global',
             holdOnWhileSwitching: function() {
 
                 var switcher = $('<div class="element-drop-loader" id="editor-initial-loader">\
-                                        <p>switching mode... Please wait... </p>\
-                                    </div>');
+                                    <p>Switching mode... Please wait... </p>\
+                                </div>');
                 
                 
                 var divOffset =  this.$el.parent().offset();
@@ -592,12 +595,22 @@ define(['underscore', 'jquery', 'backbone', 'global',
 
                 var _json = this.json;
 
+                window.fetchJSON = true;
+
+                if( this.getElementFetchCount(_json.header.elements) === 0 &&
+                    this.getElementFetchCount(_json.page.elements)   === 0 &&
+                    this.getElementFetchCount(_json.footer.elements) === 0) {
+                    return;  
+                }
+
                 $.post(AJAXURL, {
                         action: 'get_content_markup',
                         json: _json,
                         pageId: this.getCurrentPage()
                     },
                     function(response) {
+
+                        window.fetchJSON = false;
 
                         if (response.code === 'OK') {
 
@@ -617,8 +630,6 @@ define(['underscore', 'jquery', 'backbone', 'global',
                             
                         }
 
-                        
-
                         self.contentLoaded = true;
 
                         self.removeSwitchLoader();
@@ -626,6 +637,16 @@ define(['underscore', 'jquery', 'backbone', 'global',
                     }, 'json');
 
                 window.editorMode = 'content';
+            },
+
+            /**
+             * [getElementFetchCount description]
+             * @return {[type]} [description]
+             */
+            getElementFetchCount : function(section){
+
+               return 1;
+
             },
 
             /**

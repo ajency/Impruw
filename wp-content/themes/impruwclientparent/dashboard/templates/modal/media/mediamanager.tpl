@@ -45,4 +45,3 @@
 <div class="modal-footer">
 	<button type="button" class="pull-right btn btn-primary" id="done-button" disabled="disabled">Done</button>
 </div>	
-
