@@ -1106,12 +1106,17 @@ function update_site_data() {
     if('POST' !== $_SERVER['REQUEST_METHOD'])
         wp_send_json('Invalid request method');
 
+        
+    if(!isset($_POST['changes'])){
+    	wp_send_json(array('code'=>'OK','msg'=>'The site profile is already up to date'));
+    }   
+     
     $changes = $_POST['changes'];
 
     if ( save_site_data( $changes) ) {
 
         header( 'Content-Type: application/json' );
-        echo json_encode( array( 'code' => 'OK') );
+        echo json_encode( array( 'code' => 'OK','msg'=>'Your details have been successfully saved.') );
         die();
     }
     else {

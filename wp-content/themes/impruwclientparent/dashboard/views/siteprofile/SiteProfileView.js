@@ -433,11 +433,17 @@ define([ 'underscore', 'jquery', 'backbone',
 		 */
 		saveProfile : function(evt) {
 			
+			
+			console.log('save site profile')
 			if (this.$el.find('#form-siteprofile').parsley('validate')){
 
 				var formData = getFormData(this.$el.find('#form-siteprofile'));
 				log(formData);
-				getAppInstance().siteModel.save(formData);
+				getAppInstance().siteModel.save(formData, {
+															event : evt,
+															successfn : this.saveProfileSuccess,
+															failurefn : this.saveProfileFailure
+														});
 			}
 				
 		},
@@ -446,15 +452,23 @@ define([ 'underscore', 'jquery', 'backbone',
 		 * Function to show success message on save site profile success
 		 * @param response
 		 */
-		saveProfileSuccess : function(response,evnt){
-			  
-			 $(evnt.target).offsetParent().find('#siteprofilesave_status').removeClass('has-error').addClass('has-success')
+		saveProfileSuccess : function(response){
+			console.log(response)
+			console.log('showing update profile success  div')
 			 
-			 $(evnt.target).offsetParent().find('#siteprofilesave_status').show()
+			this.$el.find('#siteprofilesave_status').html(response.msg)
+			this.$el.find('#siteprofilesave_status').removeClass('alert-error').addClass('alert-success')
+			 var self = this;
+			// this.$el.find('#siteprofilesave_status').show()
+			 this.$el.find('#siteprofilesave_status').removeClass('hidden')
 			 
 			 $('html, body').animate({
-			        scrollTop: $(evnt.target).offsetParent().find('#siteprofilesave_status').offset().top
+			        scrollTop: this.$el.find('#siteprofilesave_status').offset().top
 			    }, 1000);
+			  
+			  setTimeout(function(){		 
+				  self.$el.find('#siteprofilesave_status').addClass('hidden')
+		   }, 5000);
 			 
 		},
 		
@@ -462,15 +476,24 @@ define([ 'underscore', 'jquery', 'backbone',
 		 * Function to show error message on save site profile failure
 		 * @param response
 		 */
-		saveProfileFailure : function(response){
+		saveProfileFailure : function(error){
 			
-			$(evnt.target).offsetParent().find('#siteprofilesave_status').removeClass('has-success').addClass('has-error');
+			this.$el.find('#siteprofilesave_status').html(error)
+			console.log('showing update profile failure  div')
+			 var self = this;
+			this.$el.find('#siteprofilesave_status').removeClass('alert-success').addClass('alert-error');
 			
-			$(evnt.target).offsetParent().find('#siteprofilesave_status').show();
+			//$(evnt.target).offsetParent().find('#siteprofilesave_status').show();
+			 this.$el.find('#siteprofilesave_status').removeClass('hidden')
 			
 			$('html, body').animate({
-		        scrollTop: $(evnt.target).offsetParent().find('#siteprofilesave_status').offset().top
+				 scrollTop: this.$el.find('#siteprofilesave_status').offset().top
 		    }, 1000);
+			 
+			 
+			 setTimeout(function(){		 
+				  self.$el.find('#siteprofilesave_status').addClass('hidden')
+		   }, 5000);
 			
 		},
 
