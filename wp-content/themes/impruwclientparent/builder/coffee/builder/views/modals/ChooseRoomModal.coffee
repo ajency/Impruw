@@ -40,3 +40,5 @@ define ['builder/views/modals/Modal'
 
 					@$el.find('.modal-body').html roomsview.$el
 
+					this.listenTo getAppInstance().vent,'room-selected', this.hide
+

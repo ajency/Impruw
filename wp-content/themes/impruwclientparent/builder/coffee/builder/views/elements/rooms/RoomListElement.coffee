@@ -39,7 +39,7 @@ define ['builderelement','tpl!builder/templates/elements/BasicElement.tpl','glob
 
 			return
 
-		# add some extra settings to view
+		# Add some extra settings to view
 		hasExtraSettings :()->
 
 			if _.isEmpty ROOMS then return ''
@@ -79,11 +79,20 @@ define ['builderelement','tpl!builder/templates/elements/BasicElement.tpl','glob
 
 			, this
 
+		# Update self
 		updateSelf :(room)->
 
-			log room
+			this.stopListening getAppInstance().vent,'room-selected', this.updateSelf 
 
+			@dataSource = room.get 'ID'
 
+			json = @generateJSON()
 
+			responseFn = (resp)=>
+				@$el.find('.content').html resp.html
 
-
+			param = 
+				action : 'get-element-markup'
+				json   : json
+				  	
+			$.get AJAXURL, param, responseFn, 'json'
