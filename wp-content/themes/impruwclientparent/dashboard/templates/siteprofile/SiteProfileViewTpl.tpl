@@ -7,7 +7,7 @@
     <div class="aj-imp-dash-content col-md-12">
         <div class="alert alert-success hidden" id="siteprofilesave_status">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            Your details have been successfully saved.
+           
         </div>
         <form class="form-horizontal clearfix" name="form-siteprofile" id="form-siteprofile">
             <div class="scroll-indicator-container" id="scr1">
@@ -74,8 +74,10 @@
                                 <div class="col-sm-7 col-sm-offset-5">
                                     <!-- data-mask="aa-9999" -->
                                     <input type="text" class="form-control" id="postalcode" name="postalcode"  
+                                    		data-mask="aa-9999"
                                             placeholder="NO-7321" value="<%= site.get('postalcode') %>" 
-                                           required parsley-trigger="blur" parsley-validation-minlength="0"  parsley-type="number" parsley-type-number-message="Please enter valid postal code" />
+                                           required parsley-trigger="blur" parsley-validation-minlength="0"    parsley-rangelength="[7,7]"
+										   parsley-error-message="You must enter 7 characters alphanumeric value ex:NO-7321" />
                                     <div class="p-messages"></div>
 
                                 </div>
