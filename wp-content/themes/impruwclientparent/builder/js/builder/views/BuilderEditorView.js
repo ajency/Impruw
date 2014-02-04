@@ -389,6 +389,9 @@ define(['underscore', 'jquery', 'backbone', 'global',
 
                         
                         this.enableDragDrop();
+                        $('.element-drop-loader').css({'height': '600px',
+                        							   'background-position': 'top center'
+                        							  });
                        // this.$el.find('#editor-initial-loader').remove();
                         _.delay(function(){
                         	$('label.editormode').last().click();
