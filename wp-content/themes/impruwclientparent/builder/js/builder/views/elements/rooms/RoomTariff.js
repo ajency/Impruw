@@ -40,7 +40,7 @@
           this.setProperties(options.config);
         }
         this.generateMarkup({
-          icon: 'uniF12B',
+          icon: '',
           name: 'Room Tariff'
         });
         this.setContextMenu();
