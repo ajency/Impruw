@@ -1139,6 +1139,9 @@ Version:        0.1.0
 .modal .modal-dialog .modal-content .add-page .aj-imp-block-list .block .img-holder {
   height: auto;
 }
+.modal .modal-dialog .modal-content .add-page .aj-imp-block-list .block .desc {
+  color: #849fb0;
+}
 .modal .modal-dialog .modal-content .add-page .save-page {
   border-top: 1px solid #aaaaaa;
   padding-top: 0.5em;
