@@ -1142,6 +1142,32 @@ Version:        0.1.0
 .modal .modal-dialog .modal-content .add-page .aj-imp-block-list .block .desc {
   color: #849fb0;
 }
+.modal .modal-dialog .modal-content .add-page .aj-imp-block-list .block.ui-selected {
+  border-color: #ff7e00;
+  box-shadow: 0 0 2px #ff7e00;
+  -webkit-transform: scale(1.05);
+  -moz-transform: scale(1.05);
+  -ms-transform: scale(1.05);
+  -o-transform: scale(1.05);
+  transform: scale(1.05);
+}
+.modal .modal-dialog .modal-content .add-page .aj-imp-block-list .block.ui-selected .desc {
+  color: #ff7e00;
+}
+.modal .modal-dialog .modal-content .add-page .aj-imp-block-list .block.ui-selected:hover .aj-imp-choose-btn {
+  display: none;
+}
+.modal .modal-dialog .modal-content .add-page .parsley-error {
+  border-color: #ff6666;
+}
+.modal .modal-dialog .modal-content .add-page .parsley-error-list {
+  list-style: none;
+  margin: 0.5em 0 0.2em;
+  padding: 0;
+}
+.modal .modal-dialog .modal-content .add-page .parsley-error-list li {
+  color: #ff6666;
+}
 .modal .modal-dialog .modal-content .add-page .save-page {
   border-top: 1px solid #aaaaaa;
   padding-top: 0.5em;
@@ -1151,7 +1177,7 @@ Version:        0.1.0
   background: #ff7e00;
 }
 .modal .modal-dialog .modal-content .add-page .save-page .btn:hover {
-  background: #ffb266;
+  background: #ff9833;
 }
 .modal.wide-modal {
   padding: 2em;

@@ -21,6 +21,7 @@ Version:        0.1.0
 @orange: #FF7E00;
 @3-grey: #333333;
 @preview-grey: #F3F3F3;
+@error-red: lighten(#ff3333, 10%);
 
 /****Builder Container & Container Structure****/
 .aj-imp-builder {
@@ -1215,6 +1216,34 @@ Version:        0.1.0
 						.desc {
 							color: @blue-grey;
 						}
+						&.ui-selected {
+							border-color: @orange;
+							box-shadow: 0 0 2px @orange;
+							-webkit-transform: scale(1.05);
+							-moz-transform: scale(1.05);
+							-ms-transform: scale(1.05);
+							-o-transform: scale(1.05);
+							transform: scale(1.05);
+							.desc {
+								color: @orange;
+							}
+							&:hover {
+								.aj-imp-choose-btn {
+									display: none;
+								}
+							}
+						}
+					}
+				}
+				.parsley-error {
+					border-color: @error-red;
+				}
+				.parsley-error-list {
+					list-style: none;
+					margin: 0.5em 0 0.2em;
+					padding: 0;
+					li {
+						color: @error-red;
 					}
 				}
 				.save-page {
@@ -1224,7 +1253,7 @@ Version:        0.1.0
 					.btn {
 						background: @orange;
 						&:hover {
-							background: lighten(@orange, 20%);
+							background: lighten(@orange, 10%);
 						}
 					}
 				}
