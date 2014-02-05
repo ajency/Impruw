@@ -1,5 +1,5 @@
 <div class="room-btn clearfix">
-	<div class="thumb1">
+	<div class="thumb">
 		<img class="img-responsive" src="<%= image %>">
 	</div>
 	<div class="title">

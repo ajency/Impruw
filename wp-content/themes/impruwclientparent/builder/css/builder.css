@@ -222,6 +222,19 @@ Version:        0.1.0
 .aj-imp-builder-top-nav .aj-imp-page-layout #aj-imp-page-sel .dropdown-menu li.aj-imp-add-page a:hover {
   color: #fff;
 }
+.aj-imp-builder-top-nav .aj-imp-page-layout .dropdown-menu .aj-imp-add-page {
+  background: #dddddd;
+  text-align: center;
+  color: #849fb0;
+  padding-top: 10px;
+}
+.aj-imp-builder-top-nav .aj-imp-page-layout .dropdown-menu .aj-imp-add-page .pull-left {
+  float: none !important;
+}
+.aj-imp-builder-top-nav .aj-imp-page-layout .dropdown-menu .aj-imp-add-page:hover {
+  background: #ff7e00;
+  color: #fff;
+}
 .aj-imp-builder-top-nav .aj-imp-page-layout .aj-imp-sub-bar-head {
   width: 60%;
   float: left;
@@ -1092,8 +1105,10 @@ Version:        0.1.0
   cursor: pointer;
 }
 .modal .modal-dialog .modal-content .choose-room .room-btn .thumb {
-  width: 70px;
+  width: 150px;
   float: left;
+  height: 70px;
+  overflow: hidden;
   margin: 0 0.5em;
 }
 .modal .modal-dialog .modal-content .choose-room .room-btn .thumb img {
@@ -1112,6 +1127,31 @@ Version:        0.1.0
 }
 .modal .modal-dialog .modal-content .choose-room .room-btn:hover .title h4 {
   color: #ff7e00;
+}
+.modal .modal-dialog .modal-content .add-page {
+  padding: 1em;
+}
+.modal .modal-dialog .modal-content .add-page h5 {
+  color: #aaaaaa;
+  font-weight: 400;
+  font-size: 1.1em;
+}
+.modal .modal-dialog .modal-content .add-page .aj-imp-block-list .block .img-holder {
+  height: auto;
+}
+.modal .modal-dialog .modal-content .add-page .aj-imp-block-list .block .desc {
+  color: #849fb0;
+}
+.modal .modal-dialog .modal-content .add-page .save-page {
+  border-top: 1px solid #aaaaaa;
+  padding-top: 0.5em;
+  text-align: right;
+}
+.modal .modal-dialog .modal-content .add-page .save-page .btn {
+  background: #ff7e00;
+}
+.modal .modal-dialog .modal-content .add-page .save-page .btn:hover {
+  background: #ffb266;
 }
 .modal.wide-modal {
   padding: 2em;
