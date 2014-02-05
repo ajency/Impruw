@@ -52,7 +52,11 @@ define(['underscore', 'jquery', 'backbone', 'builder/views/BuilderEditorView'],
                 //setup select picker
                 this.$el.find('.aj-imp-builder-top-nav select').selectpicker({
                                                                     style: 'btn-mini btn-default',
-                                                                    menuStyle: 'dropdown'
+                                                                    menuStyle: 'dropdown',
+                                                                    onPick: function(value, label) {
+                                                                        console.log(this);
+                                                                        console.log(label + ": " + value);
+                                                                      }
                                                                 });
 
                 this.renderView();
@@ -71,6 +75,9 @@ define(['underscore', 'jquery', 'backbone', 'builder/views/BuilderEditorView'],
                 var page   = button.parent().find('select[name="current_page_id"]').val();
 
                 if(page === 'new'){
+                    var pid = $.cookie('current_page_id');
+                    $('select[name="current_page_id"]').find('option[value="'+pid+'"]').attr('selected',true).siblings().removeAttr('selected')
+                    ff = $('select[name="current_page_id"]').find('option[value="'+pid+'"]');
                     this.addNewPage();
                     return;
                 }

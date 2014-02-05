@@ -786,29 +786,6 @@ function get_theme_CSS() {
     }
 }
 
-/**
- * Fecthed the json for a page from DB
- *
- * @global type $wpdb
- * @param type    $id
- */
-function get_page_json( $id ) {
-
-
-    global $wpdb;
-
-    $sql = $wpdb->prepare( "SELECT json FROM {$wpdb->base_prefix}page_layouts
-                           WHERE id = %d", $id );
-
-    $json = $wpdb->get_var( $sql );
-
-    if ( $json == null )
-        return array();
-
-    $json = maybe_unserialize( $json );
-
-    return  $json;
-}
 
 
 /**
@@ -3488,6 +3465,10 @@ function add_new_page(){
                             'post_status'   => 'publish'
                         ));
 
+    $json = get_page_json($page_layout);
+
+    update_post_meta($id , 'page-json', $json);
+
     if($id !== 0)
         wp_send_json(array('code' => 'OK', 'data' => array('id' => $id , 'name' => $page_title)));
     else
@@ -3495,4 +3476,28 @@ function add_new_page(){
 
 }
 add_action('wp_ajax_add-new-page','add_new_page');
+
+/**
+ * [get_page_json description]
+ * @param  [type] $page [description]
+ * @return [type]       [description]
+ */
+function get_page_json($page){
+
+    global $wpdb;
+
+    switch_to_blog(CLONEBLOG);
+
+    $sql = $wpdb->prepare(" SELECT ID FROM {$wpdb->prefix}posts
+                            WHERE post_name=%s", $page);
+
+    $id = $wpdb->get_var($sql);
+
+    $json = get_post_meta($id, 'page-json', true);
+
+    restore_current_blog();
+
+    return $json;
+
+}
 
