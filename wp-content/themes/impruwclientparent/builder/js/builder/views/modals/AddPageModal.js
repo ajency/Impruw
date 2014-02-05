@@ -19,8 +19,13 @@
 
       AddPageModal.prototype.className = 'modal';
 
+      AddPageModal.prototype.events = {
+        'click button.add-new-page': 'saveNewPage'
+      };
+
       AddPageModal.prototype.initialize = function(options) {
-        var html, markup;
+        var html, markup,
+          _this = this;
         if (options == null) {
           options = {};
         }
@@ -30,8 +35,45 @@
         this.$el.html(html);
         $('body').append(this.$el);
         this.$el.modal();
+        this.$el.on('hidden.bs.modal', function(evt) {
+          _this.$el.find('form').find('div.alert').remove();
+          return _this.$el.find('form').find('input[type="reset"]').click();
+        });
         markup = this.template();
-        return this.$el.find('.modal-content').append(markup);
+        this.$el.find('.modal-content').append(markup);
+        return this.$el.find('.selectable-layout').selectable({
+          selected: function(event, ui) {
+            return _this.$el.find('input[name="layout_page"]').val($(ui.selected).attr('data-layout'));
+          }
+        });
+      };
+
+      AddPageModal.prototype.saveNewPage = function(evt) {
+        var button, form, layout, name, params, responseFn;
+        form = $(evt.target).closest('form');
+        button = $(evt.target);
+        if (form.parsley('validate')) {
+          name = $(form).find('input[name="page_name"]').val();
+          layout = $(form).find('input[name="layout_page"]').val();
+          params = {
+            action: 'add-new-page',
+            page_name: _.str.capitalize(name),
+            layout: layout
+          };
+          responseFn = function(response) {
+            button.text('Add Page');
+            if (response.code === 'OK') {
+              form.prepend('<div class="alert alert-success">New Page added successfully</div>');
+              getAppInstance().vent.trigger("new:page:added", response);
+              return form.find('input[type="reset"]').click();
+            } else {
+              return form.prepend('<div class="alert alert-danger">Failed!! Please try again</div>');
+            }
+          };
+          button.text('Adding... Please Wait');
+          form.find('div.alert').remove();
+          return $.post(AJAXURL, params, responseFn, 'json');
+        }
       };
 
       return AddPageModal;

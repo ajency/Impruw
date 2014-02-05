@@ -17,7 +17,11 @@ define ['builder/views/modals/Modal'
 				# class Name
 				className : 'modal'
 
-				#
+				# events
+				events:
+					'click button.add-new-page' : 'saveNewPage'
+
+				# Initialize
 				initialize:(options = {})->
 
 					html = @outerTemplate
@@ -29,11 +33,44 @@ define ['builder/views/modals/Modal'
 
 					@$el.modal()
 
+					@$el.on 'hidden.bs.modal', (evt)=>
+						@$el.find('form').find('div.alert').remove()
+						@$el.find('form').find('input[type="reset"]').click()
+						
 					markup = this.template()
 
 					@$el.find('.modal-content').append markup
 
-					#@$el.find('.modal-body').html roomsview.$el
+					@$el.find('.selectable-layout').selectable
+														selected:( event, ui )=>
+															@$el.find('input[name="layout_page"]').val $(ui.selected).attr 'data-layout'
 
-					#this.listenTo getAppInstance().vent,'room-selected', this.hide
+				# save new page to DB
+				saveNewPage:(evt)->
 
+					form 	= $(evt.target).closest 'form'
+					button 	= $ evt.target
+
+					if form.parsley 'validate'
+						
+						name 	= $(form).find('input[name="page_name"]').val()
+						layout 	= $(form).find('input[name="layout_page"]').val()
+
+						params = 
+							action 		: 'add-new-page'
+							page_name	: _.str.capitalize name
+							layout  	: layout
+
+						responseFn = (response)->
+							button.text 'Add Page'
+							if response.code is 'OK'
+								form.prepend '<div class="alert alert-success">New Page added successfully</div>'
+								getAppInstance().vent.trigger "new:page:added", response
+								form.find('input[type="reset"]').click()
+							else
+								form.prepend '<div class="alert alert-danger">Failed!! Please try again</div>'
+
+						button.text 'Adding... Please Wait'
+						form.find('div.alert').remove()
+
+						$.post AJAXURL, params, responseFn, 'json'

@@ -86,7 +86,7 @@ define(['underscore', 'jquery', 'backbone', 'builder/views/BuilderEditorView'],
 
                 require(['underscore', 'addpage'], _.bind(function(_, AddPageModal){ 
 
-                    addpage = getAppInstance().ViewManager.findByCustom("add-page");
+                    var addpage = getAppInstance().ViewManager.findByCustom("add-page");
 
                     if(_.isUndefined(addpage)){
 
@@ -94,9 +94,22 @@ define(['underscore', 'jquery', 'backbone', 'builder/views/BuilderEditorView'],
                         getAppInstance().ViewManager.add(addpage, "add-page");
                     }
 
+                    this.listenTo(getAppInstance().vent, 'new:page:added', this.newRoomAdded);
+
                     addpage.open();
 
                 },this));
+
+            },
+
+            /**
+             * [newRoomAdded description]
+             * @return {[type]} [description]
+             */
+            newRoomAdded : function(response){
+
+                var option = '<option value="'+ response.data.id +'">' + response.data.name + '</option>';
+                this.$el.find('select[name="current_page_id"]').prepend(option);
 
             },
 

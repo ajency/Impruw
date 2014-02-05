@@ -3109,25 +3109,25 @@ function get_all_menu_pages(){
 
     if($pages->have_posts()){
         
-        $skip = array('Home','About Us', 'Rooms', 'Contact Us', 'Single Room');
+        $skip = array('Sample Page', 'Dashboard','Site Builder');
 
         foreach($pages->posts as $page){
 
-            if(in_array($page->post_title, $skip))
+            if(!in_array($page->post_title, $skip))
                 $p[$page->post_name] = $page;
         }
     }
 
-    $sort = array('home', 'about-us', 'rooms', 'contact-us', 'single-room');
-    $data = array();
-    foreach($sort as $page){
+    // $sort = array('home', 'about-us', 'rooms', 'contact-us', 'single-room');
+    // $data = array();
+    // foreach($sort as $page){
 
-        if(!isset($p[$page])) continue;
+    //     if(!isset($p[$page])) continue;
         
-        $data[$page] = $p[$page];
-    }
+    //     $data[$page] = $p[$page];
+    // }
 
-    return $data;
+    return $p;
 
 }
 
@@ -3473,4 +3473,26 @@ function get_all_room_to_json(){
                 ));
 }
 add_action('wp_ajax_get-all-rooms', 'get_all_room_to_json');
+
+/**
+ * 
+ */
+function add_new_page(){
+
+    $page_title     = $_POST['page_name'];
+    $page_layout    = $_POST['layout'];
+
+    $id = wp_insert_post(array(
+                            'post_title'    => $page_title,
+                            'post_type'     => 'page',
+                            'post_status'   => 'publish'
+                        ));
+
+    if($id !== 0)
+        wp_send_json(array('code' => 'OK', 'data' => array('id' => $id , 'name' => $page_title)));
+    else
+        wp_send_json(array('code' => 'ERROR', 'message' => 'Failed to add new page'));
+
+}
+add_action('wp_ajax_add-new-page','add_new_page');
 
