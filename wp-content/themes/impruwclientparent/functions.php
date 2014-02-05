@@ -3469,6 +3469,20 @@ function add_new_page(){
 
     update_post_meta($id , 'page-json', $json);
 
+    //set menu
+    $menu = get_term_by( 'name', 'Main Menu', 'nav_menu' );
+
+    global $wpdb;
+
+    $page = get_post($id);
+    
+    $thisMenuItem = wp_update_nav_menu_item( $menu->term_id, 0, array(
+            'menu-item-title'   => $page->post_title,
+            'menu-item-classes' => $page->post_name ,
+            'menu-item-url'     => get_permalink( $page->ID),
+            'menu-item-status'  => 'publish' ) );
+    $wpdb->insert($wpdb->term_relationships, array("object_id" => $thisMenuItem, "term_taxonomy_id" => $menu_id), array("%d", "%d"));
+
     if($id !== 0)
         wp_send_json(array('code' => 'OK', 'data' => array('id' => $id , 'name' => $page_title)));
     else
