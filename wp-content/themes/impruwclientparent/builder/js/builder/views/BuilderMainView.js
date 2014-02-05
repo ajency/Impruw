@@ -71,12 +71,33 @@ define(['underscore', 'jquery', 'backbone', 'builder/views/BuilderEditorView'],
                 var page   = button.parent().find('select[name="current_page_id"]').val();
 
                 if(page === 'new'){
-                    getAppInstance().commands.execute('add:new:page');
+                    this.addNewPage();
                     return;
                 }
                 $.cookie('current_page_id', page, { expires: 7 });
 
                 window.location.reload();
+            },
+
+            /**
+             * [addNewPage description]
+             */
+            addNewPage : function(){
+
+                require(['underscore', 'addpage'], _.bind(function(_, AddPageModal){ 
+
+                    addpage = getAppInstance().ViewManager.findByCustom("add-page");
+
+                    if(_.isUndefined(addpage)){
+
+                        addpage = new AddPageModal();
+                        getAppInstance().ViewManager.add(addpage, "add-page");
+                    }
+
+                    addpage.open();
+
+                },this));
+
             },
 
             /**

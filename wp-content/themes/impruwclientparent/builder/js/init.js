@@ -36,7 +36,8 @@ require.config({
         builderrouter   : 'builder/routers/BuilderRouter',
 
         rooms           : 'builder/models/Rooms',
-        roomsview       : 'builder/views/modals/roomsview',        
+        roomsview       : 'builder/views/modals/roomsview',
+        addpage         : 'builder/views/modals/AddPageModal',        
 
         //elements
         builderelement  : 'builder/views/elements/BuilderElement',
