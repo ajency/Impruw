@@ -10,7 +10,7 @@ define ['builder/views/modals/Modal'
 
 			class ChooseRoom extends Modal
 
-				id: 'menu-manager'
+				id: 'choose-room'
 
 				template : template
 
