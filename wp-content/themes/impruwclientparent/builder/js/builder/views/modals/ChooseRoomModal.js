@@ -13,7 +13,7 @@
         return _ref;
       }
 
-      ChooseRoom.prototype.id = 'menu-manager';
+      ChooseRoom.prototype.id = 'choose-room';
 
       ChooseRoom.prototype.template = template;
 
@@ -28,7 +28,6 @@
         this.$el.html(html);
         $('body').append(this.$el);
         this.$el.modal();
-        this.$el.removeClass('wide-modal');
         markup = this.template();
         this.$el.find('.modal-content').append(markup);
         this.rooms = new Rooms.RoomCollection();
