@@ -54,7 +54,7 @@
                                 ?>
                                 <option value="<?php echo $page->ID; ?>" <?php echo $selected; ?>><?php echo $page->post_title; ?></option>
                             <?php endforeach; ?>
-                            <option value="new">Add New Page</option>
+                            <option value="new" class="aj-imp-add-page">Add New Page</option>
                         </select>
                     </p>
                 </div>

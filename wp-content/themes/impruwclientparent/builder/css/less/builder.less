@@ -236,6 +236,21 @@ Version:        0.1.0
 				}
 			}
 		}
+		.dropdown-menu {
+			.aj-imp-add-page {
+				background: lighten(@dash-grey, 20%);
+				text-align: center;
+				color: @blue-grey;
+				padding-top: 10px;
+				.pull-left {
+					float: none !important;
+				}
+				&:hover {
+					background: @orange;
+					color: #fff;
+				}
+			}
+		}
 		.aj-imp-sub-bar-head {
 			width: 60%;
 			float: left;
@@ -1154,8 +1169,10 @@ Version:        0.1.0
 					border-radius: 4px;
 					cursor: pointer;
 					.thumb {
-						width: 70px;
+						width: 150px;
 						float: left;
+						height: 70px;
+						overflow: hidden;
 						margin: 0 0.5em;
 						img {
 							border: 2px solid @dash-grey;
@@ -1179,6 +1196,32 @@ Version:        0.1.0
 							h4 {
 								color: @orange;
 							}
+						}
+					}
+				}
+			}
+			.add-page {
+				padding: 1em;
+				h5 {
+					color: @dash-grey;
+					font-weight: 400;
+					font-size: 1.1em;
+				}
+				.aj-imp-block-list {
+					.block {
+						.img-holder {
+							height: auto;
+						}
+					}
+				}
+				.save-page {
+					border-top: 1px solid @dash-grey;
+					padding-top: 0.5em;
+					text-align: right;
+					.btn {
+						background: @orange;
+						&:hover {
+							background: lighten(@orange, 20%);
 						}
 					}
 				}
