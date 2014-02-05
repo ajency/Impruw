@@ -2051,6 +2051,12 @@ function update_addon_type(){
 	    }
     } 
     
+    //get old option value 
+    $old_addon_type_value = get_option('addon-type');
+    if(strcmp($old_addon_type_value,maybe_serialize($updated_addon_types))===0){
+    	wp_send_json( array( 'code' => 'ERROR', 'msg' => _('The addon type is already updated') ) );	
+    }
+    
     $update_result = update_option('addon-type', maybe_serialize($updated_addon_types));
     
    
@@ -2063,7 +2069,7 @@ function update_addon_type(){
         
     }
     else {
-	wp_send_json( array( 'code' => 'ERROR', 'msg' => _('Error updating the addon type') ) );	
+		wp_send_json( array( 'code' => 'ERROR', 'msg' => _('Error updating the addon type') ) );	
     }
     
 }
@@ -2098,6 +2104,12 @@ function update_tax_type(){
 	    	
 	    }
     } 
+    
+    //check if new and old values are same 
+    $old_taxtypevalue = get_option('tax-type');
+    if(strcmp($old_taxtypevalue, maybe_serialize($updated_tax_types))===0){
+    	wp_send_json( array( 'code' => 'ERROR', 'msg' => _('The tax type is already updated.') ) );	
+    }
     
     $update_result = update_option('tax-type', maybe_serialize($updated_tax_types));
     
@@ -2261,6 +2273,11 @@ add_action( 'wp_ajax_nopriv_update_checkintime', 'update_checkintime' );
 function update_additional_policies(){
 
 	$additional_policies = $_POST['additional_policies'];
+	 
+	$old_additional_policies = get_option('additional-policies');
+	if(strcmp($old_additional_policies, $additional_policies)===0){
+		wp_send_json( array( 'code' => 'ERROR', 'msg' => _('The additional policies is already updated.') ) );
+	}
 	
 	$result = update_option('additional-policies', $additional_policies);
 	if($result)
