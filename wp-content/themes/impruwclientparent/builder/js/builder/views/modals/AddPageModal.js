@@ -57,7 +57,7 @@
           layout = $(form).find('input[name="layout_page"]').val();
           params = {
             action: 'add-new-page',
-            page_name: _.str.capitalize(name),
+            page_name: _.titleize(name),
             layout: layout
           };
           responseFn = function(response) {

@@ -58,7 +58,7 @@ define ['builder/views/modals/Modal'
 
 						params = 
 							action 		: 'add-new-page'
-							page_name	: _.str.capitalize name
+							page_name	: _.titleize name
 							layout  	: layout
 
 						responseFn = (response)->
