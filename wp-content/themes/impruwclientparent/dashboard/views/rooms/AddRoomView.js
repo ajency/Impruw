@@ -19,7 +19,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 			 	'click .delete'						: 'deleteFacility',
 			 	'click .edit'						: 'editFacility',
 			 	'click .cancel_editfacility'		: 'cancelEditFacility',
-			 	'click .savefacililty' 				: 'savefacility', 
+			 	'click .savefacililty' 				: 'saveFacility', 
 			 	
 			 	'click #btn_add_addon'				: 'add_addon',			 	
 			 	'click .delete-addonlink'			: 'deleteAddonType',
@@ -1993,7 +1993,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 		/**
 		 * Function to save updated facility 
 		 */
-		savefacility : function(evt){
+		saveFacility : function(evt){
 			
 			 
 			var evt_ = evt;
