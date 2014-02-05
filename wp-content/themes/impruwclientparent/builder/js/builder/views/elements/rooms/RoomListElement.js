@@ -41,7 +41,7 @@
           this.setProperties(options.config);
         }
         this.generateMarkup({
-          icon: 'uniF166',
+          icon: '',
           name: 'Room Element'
         });
         this.setContextMenu();

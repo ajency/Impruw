@@ -3435,10 +3435,21 @@ function impruw_wp_mail_from_name( $original_email_from )
 }
 add_filter( 'wp_mail_from_name', 'impruw_wp_mail_from_name' );
 
-
+/**
+ * 
+ */
 function get_all_room_to_json(){
 
     $rooms = get_posts(array('post_type' => 'impruw_room'));
+
+    foreach($rooms as $room){
+         
+        $path = wp_get_attachment_image_src(get_post_thumbnail_id($room->ID));
+        if($path !== false) 
+            $room->image = $path[0];
+        else
+            $room->image = get_parent_template_directory_uri () . '/js/holder.js/150x70';
+    }
 
     wp_send_json(array( 'code' => 'OK', 
                         'data' => $rooms

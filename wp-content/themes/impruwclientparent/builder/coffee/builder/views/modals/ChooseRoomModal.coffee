@@ -14,6 +14,8 @@ define ['builder/views/modals/Modal'
 
 				template : template
 
+				className : 'modal'
+
 				##
 				initialize:(options = {})->
 
@@ -32,8 +34,8 @@ define ['builder/views/modals/Modal'
 
 					@rooms = new Rooms.RoomCollection();
 
-					@rooms.fetch
-							reset : true
+					@rooms.fetch(reset : true).done ()->
+									global.Holder.run()
 
 					roomsview = new RoomsView
 										collection : @rooms

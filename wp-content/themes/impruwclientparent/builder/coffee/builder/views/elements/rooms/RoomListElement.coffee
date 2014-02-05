@@ -90,6 +90,7 @@ define ['builderelement','tpl!builder/templates/elements/BasicElement.tpl','glob
 
 			responseFn = (resp)=>
 				@$el.find('.content').html resp.html
+				
 
 			param = 
 				action : 'get-element-markup'
