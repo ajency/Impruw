@@ -17,6 +17,8 @@
 
       ChooseRoom.prototype.template = template;
 
+      ChooseRoom.prototype.className = 'modal';
+
       ChooseRoom.prototype.initialize = function(options) {
         var html, markup, roomsview;
         if (options == null) {
@@ -33,6 +35,8 @@
         this.rooms = new Rooms.RoomCollection();
         this.rooms.fetch({
           reset: true
+        }).done(function() {
+          return global.Holder.run();
         });
         roomsview = new RoomsView({
           collection: this.rooms
