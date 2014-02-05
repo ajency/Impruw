@@ -2093,7 +2093,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 		 * @param evt
 		 */
 		saveTaxOption : function(evt){
-			
+			 
 			$(evt.target).prop('disabled',true);
 			
 			$(evt.target).html(function (i, old) {
@@ -2104,17 +2104,22 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 			
 			var evt_ = evt;
 			var self_ = this;
+			  
+			//var taxoptionVal 	= this.$el.find('input[name=tax_option1]:checked').val();
+			//$('input[type="radio"][name="tax_option1"]:checked').val() 
+			var taxoptionVal 	= '';
+			this.$el.find('input[name=tax_option1]').each(function(index,el){
+				var attr = $(el).attr('checked');
+
+				if (typeof attr !== 'undefined' && attr !== false) {
+					taxoptionVal =  $(el).val();
+				}
+			})
 			
-			//var taxoptionVal 	= $('input[name=tax_option1]:radio:checked');
-			//taxoption 	: $(evt.target).parent().find('input[type="radio"][name="tax_option1"]:checked').val()
-			var taxoptionVal 	= $('input[name=tax_option1]:checked').val();
-			
-			
-			console.log(taxoptionVal)
 			var data = {	action		: 'update_taxoption',						 
 							taxoption 	: taxoptionVal
 						};
-			//$('input[type="radio"][name="tax_option1"]:checked').val() 
+			
 			
 			$.post(	AJAXURL,
 			data,
@@ -2162,7 +2167,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 						self_.saveFailure(response,evt_,self_);  
 				} 
 			
-			});	
+			}); 
 			
 		},
 		
@@ -2250,12 +2255,16 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 			var evt_ = evt;
 			var self_ = this;
 			
-			//var selCheckinFormat = $(evt.target).parent().parent().parent().find('input[type="radio"][name="checkin_format"]:checked').val();
-			
-			//var selCheckinFormat = $(evt.target).parent().parent().parent().find('input[name=checkin_format]:checked').val();
-			
-			var selCheckinFormat = $('input[type="radio"][name="checkin_format"]:checked').val();
-			
+			var selCheckinFormat = '';
+			this.$el.find('input[name="checkin_format"]').each(function(index,element){
+				
+				var attr = $(element).attr('checked');
+				if(!_.isUndefined(attr) && attr!==false ){
+					selCheckinFormat = $(element).val();
+				}
+			})
+			//console.log('check in format'+selCheckinFormat)			
+			//var selCheckinFormat = $('input[type="radio"][name="checkin_format"]:checked').val();
 			 
 			var data = {	action			: 'update_checkintime',						 
 							checkintime 	: $(evt.target).parent().find('#checkin_time').val(),
