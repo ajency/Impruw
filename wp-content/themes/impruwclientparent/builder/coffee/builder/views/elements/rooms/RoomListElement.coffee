@@ -32,7 +32,7 @@ define ['builderelement','tpl!builder/templates/elements/BasicElement.tpl','glob
 				@setProperties options.config
 
 			@generateMarkup 
-				icon : ''
+				icon : 'uniF166'
 				name : 'Room Element'
 
 			@setContextMenu()
