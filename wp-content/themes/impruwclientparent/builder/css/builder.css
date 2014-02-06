@@ -665,7 +665,7 @@ Version:        0.1.0
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-body {
   background: no-repeat center -0.5em #ffffff;
-  margin: 0 1em;
+  margin: 0 0.5em;
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-body.aj-imp-preview {
   background: #fff;

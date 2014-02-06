@@ -456,25 +456,6 @@ form {
 				top: 0;
 			}
 			.fileinput {
-				.thumbnail {
-					border-radius: 0;
-					position: relative;
-					.btn_deleteAttachment, .btn_del_featuredimg {
-						position: absolute;
-						padding: 1px 6px 0px;
-						background: @logo-orange;
-						border-radius: 2px;
-						box-shadow: 0 0 2px @dash-grey;
-						color: #fff;
-						top: 0;
-						right: 0;
-						font-size: 1em;
-						&:hover {
-							color: #fff;
-							background: @orange;
-						}
-					}
-				}
 				.btn {
 					color: @blue-grey;
 					&:hover {
@@ -489,6 +470,26 @@ form {
 						color: darken(@orange, 10%);
 						&:focus {
 							background: transparent;
+						}
+					}
+				}
+				.thumbnail {
+					border-radius: 0;
+					position: relative;
+					.btn_deleteAttachment, .btn_del_featuredimg {
+						position: absolute;
+						padding: 1px 6px 0px;
+						background: @logo-orange;
+						border-radius: 2px;
+						box-shadow: 0 0 2px @dash-grey;
+						color: #fff;
+						top: 0;
+						right: 0;
+						font-size: 1em;
+						margin-top: 0;
+						&:hover {
+							color: #fff;
+							background: @orange;
 						}
 					}
 				}
@@ -1198,6 +1199,7 @@ form {
 								font-size: 1.1em;
 								display: inline-block;
 								padding: 0.5em 1em 0.6em;
+								cursor: pointer;
 							}
 							.small-text {
 								font-size: 0.9em;
