@@ -669,7 +669,7 @@ var facilities_selected_exists;
 										<div class="checkinformat_text"> 
 											<% if(!_.isUndefined(roomdata.checkinformat)) { 
 													if(!_.isEmpty(roomdata.checkinformat.trim())){ %>
-														<p><span class="icon icon-time"></span> <%=roomdata.checkinformat %>-hour Format</p> <% 
+														<p><span class="icon icon-time2"></span> <%=roomdata.checkinformat %>-hour Format</p> <% 
 													} 
 													else{ %>
 														<p class="alert empty-val">Please select Check-in time format</p><% 

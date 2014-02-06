@@ -1744,6 +1744,11 @@ form .aj-imp-submit:hover {
   font-size: 0.8em;
   margin-right: 0.2em;
 }
+.checkinformat_text .icon,
+.checkintime_text .icon,
+.taxoptiontext .icon {
+  color: #849fb0;
+}
 /****Date Picker Styles****/
 .ui-datepicker {
   border-color: #c3c3c3;

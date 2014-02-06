@@ -2297,7 +2297,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 						 $(evt_.target).parent().parent().parent().find('.checkinformat_text').html('<p class="alert">Please select Check-in time format</p>')
 					 }
 					 else{
-						 $(evt_.target).parent().parent().parent().find('.checkinformat_text').html('<p><span class="icon icon-time"></span> '+response.checkinformat+'-hour Format</p>')
+						 $(evt_.target).parent().parent().parent().find('.checkinformat_text').html('<p><span class="icon icon-time2"></span> '+response.checkinformat+'-hour Format</p>')
 					 }
 					 
 					 
