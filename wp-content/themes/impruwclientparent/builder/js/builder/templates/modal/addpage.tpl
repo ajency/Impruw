@@ -37,7 +37,7 @@
 					</div>
 				</li>
 			</ul>
-			<input type="hidden" name="layout_page" value="" />
+			<input type="hidden" name="layout_page" value="home" />
 		</div>
 		<div class="save-page">
 			<button type="button" class="btn btn-wide add-new-page"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;Add Page</button>
