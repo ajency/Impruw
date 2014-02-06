@@ -59,7 +59,7 @@ define(['builderelement', 'tpl!builder/templates/elements/BasicElement.tpl', 'gl
 
                 var json = this.returnJSON();
 
-                json.content = this.$el.find('.content').html();
+                json.content = this.stripslashes(this.$el.find('.content').html());
 
                 return json;
 

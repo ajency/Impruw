@@ -69,7 +69,7 @@ define(['builderelement', 'tpl!builder/templates/elements/BasicElement.tpl', 'gl
 
                 var json = this.returnJSON();
 
-                var content = this.$el.find('.content').html();
+                var content = this.stripslashes(this.$el.find('.content').html());
 
                 json.content = content.trim() === '' ? "Lorem Ipsum is simply dummy text of the printing and typesetting industry.\
                                                              Lorem Ipsum has been the industrys standard dummy text ever since the 1500s,\
