@@ -260,7 +260,7 @@ require(['backbone','marionette',
 
         $(document).ready(function(){   
 
-            window.pt = new Polyglot({phrases : phrases});
+            window.pt = new Polyglot({phrases : {}});
 
             Backbone.emulateHTTP = true;
             

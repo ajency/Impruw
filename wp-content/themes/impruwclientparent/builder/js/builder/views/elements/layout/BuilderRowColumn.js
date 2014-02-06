@@ -42,7 +42,7 @@ define(['builderelement', 'global'],
              */
             initialize: function(options) {
 
-                _.bindAll(this , 'elementRemoved', 'handleColumnDrop');
+                _.bindAll(this , 'elementRemoved', 'handleColumnDrop', 'holdCurrentColRef');
 
                 this.colClass = options.colClass;
 
@@ -362,6 +362,7 @@ define(['builderelement', 'global'],
                 if (_.isNull(ui.helper)) {
 
                     var sender = ui.item.sender;
+                    console.log(ui);
 
                     this.$el.removeClass('empty-column');
 
