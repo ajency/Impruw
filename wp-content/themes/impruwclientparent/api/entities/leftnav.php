@@ -42,3 +42,16 @@ function get_site_profile(){
 
 }
 add_action('wp_ajax_get-site-profile','get_site_profile');
+
+/**
+ * [get_pages description]
+ * @return [type] [description]
+ */
+function get_pages1(){
+
+	wp_send_json(array('code' => 'OK', 'data' => array(
+													array('ID' => 12, 'post_title' => 'Home'),
+													array('ID' => 23, 'post_title' => 'About Us')
+												)));
+}
+add_action('wp_ajax_get-pages', 'get_pages1');
