@@ -25,6 +25,8 @@
           return _ref1;
         }
 
+        MenuCollection.prototype.model = Menus.MenuModel;
+
         return MenuCollection;
 
       })(Backbone.Collection);

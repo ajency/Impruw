@@ -27,6 +27,24 @@
 
         FacilityCollection.prototype.model = Facilities.Facility;
 
+        FacilityCollection.prototype.url = function(models) {
+          var facility, ids, _i, _len;
+          if (models == null) {
+            models = [];
+          }
+          if (models.length === 0) {
+            return "" + AJAXURL + "?action=facilities";
+          } else {
+            ids = [];
+            for (_i = 0, _len = models.length; _i < _len; _i++) {
+              facility = models[_i];
+              ids.push(facility.get('id'));
+            }
+            ids = ids.join();
+            return "" + AJAXURL + "?action=facilities&ids=" + ids;
+          }
+        };
+
         return FacilityCollection;
 
       })(Backbone.Collection);

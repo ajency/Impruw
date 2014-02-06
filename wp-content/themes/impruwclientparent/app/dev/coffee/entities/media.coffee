@@ -7,6 +7,18 @@ define ["app", 'backbone'], (App, Backbone) ->
 
             #Media collection
             class Media.MediaCollection extends Backbone.Collection
+                
+                model : Media.MediaModel
+
+                url :(models = []) ->
+
+                    if models.length is 0 
+                        "#{AJAXURL}?action=media"
+                    else
+                        ids = []
+                        ids.push media.get('ID') for media in models
+                        ids = ids.join()
+                        "#{AJAXURL}?action=media&ids=#{ids}"
 
                 
             ##PUBLIC API FOR ENitity
@@ -14,8 +26,6 @@ define ["app", 'backbone'], (App, Backbone) ->
                 getMedia: (param ={})->
 
                     media = new Media.MediaCollection
-                    
-                    media.url = AJAXURL + '?action=get-media'
                     
                     media.fetch
                                 reset : true

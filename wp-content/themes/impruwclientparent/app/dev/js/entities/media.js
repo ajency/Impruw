@@ -25,6 +25,26 @@
           return _ref1;
         }
 
+        MediaCollection.prototype.model = Media.MediaModel;
+
+        MediaCollection.prototype.url = function(models) {
+          var ids, media, _i, _len;
+          if (models == null) {
+            models = [];
+          }
+          if (models.length === 0) {
+            return "" + AJAXURL + "?action=media";
+          } else {
+            ids = [];
+            for (_i = 0, _len = models.length; _i < _len; _i++) {
+              media = models[_i];
+              ids.push(media.get('ID'));
+            }
+            ids = ids.join();
+            return "" + AJAXURL + "?action=media&ids=" + ids;
+          }
+        };
+
         return MediaCollection;
 
       })(Backbone.Collection);
@@ -35,7 +55,6 @@
             param = {};
           }
           media = new Media.MediaCollection;
-          media.url = AJAXURL + '?action=get-media';
           media.fetch({
             reset: true,
             data: param

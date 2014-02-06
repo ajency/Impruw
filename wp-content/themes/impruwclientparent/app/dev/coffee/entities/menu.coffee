@@ -7,9 +7,11 @@ define ["app", 'backbone'], (App, Backbone) ->
 
         	class Menus.MenuCollection extends Backbone.Collection
 
+                        model : Menus.MenuModel
+
 
         	API = 
-        		getMenus :(param = {})->
+        		getMenus:(param = {})->
 
         			menus = new Menus.MenuCollection
 

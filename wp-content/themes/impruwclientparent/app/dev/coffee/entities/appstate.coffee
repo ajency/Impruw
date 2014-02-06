@@ -8,7 +8,7 @@ define ["app", 'backbone'], (App, Backbone) ->
                 defaults:
                     userId      : 0
                     accessToken : _.unique 'access-token'
-                    loginStatus : false
+                    loginStatus : true
 
                 #check if app is in logged in state or not
                 isLoggedIn : ()->

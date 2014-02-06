@@ -12,6 +12,16 @@ define ['app'
 
 				model : Facilities.Facility
 
+				url :(models = []) ->
+
+                    if models.length is 0 
+                        "#{AJAXURL}?action=facilities"
+                    else
+                        ids = []
+                        ids.push facility.get('id') for facility in models
+                        ids = ids.join()
+                        "#{AJAXURL}?action=facilities&ids=#{ids}"
+
 
 			#Public API
 			API = 

@@ -23,7 +23,10 @@ add_action('wp_ajax_get-menu-items','get_menu_items');
  */
 function get_rooms_list(){
 
-	wp_send_json(array(array('name' => 'Room one1'),array('name' => 'Room two')));
+	wp_send_json(array(array('name' => 'Room one1','attachments' => array(
+																		array('id' => 23),
+																		array('id' => 2))
+													)));
 
 }
 add_action('wp_ajax_get-rooms','get_rooms_list');

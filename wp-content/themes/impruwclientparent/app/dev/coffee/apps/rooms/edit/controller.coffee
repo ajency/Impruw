@@ -1,5 +1,5 @@
 define ['app', 'controllers/base-controller'
-		'apps/rooms/edit/views','entities/facilities','entities/media'], (App, AppController)->
+		'apps/rooms/edit/views','entities/tariffs','entities/facilities','entities/media'], (App, AppController)->
 
 	App.module 'RoomsApp.Edit', (Edit, App, Backbone, Marionette, $, _)->
 

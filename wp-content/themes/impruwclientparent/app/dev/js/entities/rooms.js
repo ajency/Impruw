@@ -6,16 +6,33 @@
   define(["app", 'backbone'], function(App, Backbone) {
     return App.module("Entities.Rooms", function(Rooms, App, Backbone, Marionette, $, _) {
       var API, _ref, _ref1;
-      Rooms.Room = (function(_super) {
-        __extends(Room, _super);
+      Rooms.RoomModel = (function(_super) {
+        __extends(RoomModel, _super);
 
-        function Room() {
-          _ref = Room.__super__.constructor.apply(this, arguments);
+        function RoomModel() {
+          _ref = RoomModel.__super__.constructor.apply(this, arguments);
           return _ref;
         }
 
-        Room.prototype.relations = [
+        RoomModel.prototype.defaults = function() {
+          return {
+            post_title: '',
+            post_content: '',
+            facilities: [],
+            attachments: [],
+            thumbnail_id: 0,
+            no_of_rooms: 0,
+            tariffs: []
+          };
+        };
+
+        RoomModel.prototype.relations = [
           {
+            type: Backbone.HasOne,
+            key: 'thumbnail_id',
+            relatedModel: 'App.Entities.Media.MediaModel',
+            collectionType: 'App.Entities.Media.MediaCollection'
+          }, {
             type: Backbone.HasMany,
             key: 'facilities',
             relatedModel: 'App.Entities.Facilities.Facility',
@@ -25,10 +42,15 @@
             key: 'attachments',
             relatedModel: 'App.Entities.Media.MediaModel',
             collectionType: 'App.Entities.Media.MediaCollection'
+          }, {
+            type: Backbone.HasMany,
+            key: 'tariffs',
+            relatedModel: 'App.Entities.Tariffs.TariffModel',
+            collectionType: 'App.Entities.Tariffs.TariffCollection'
           }
         ];
 
-        return Room;
+        return RoomModel;
 
       })(Backbone.RelationalModel);
       Rooms.RoomCollection = (function(_super) {
@@ -38,6 +60,12 @@
           _ref1 = RoomCollection.__super__.constructor.apply(this, arguments);
           return _ref1;
         }
+
+        RoomCollection.prototype.model = Rooms.RoomModel;
+
+        RoomCollection.prototype.url = function() {
+          return AJAXURL + '?action=get-rooms';
+        };
 
         return RoomCollection;
 
@@ -49,7 +77,6 @@
             param = {};
           }
           rooms = new Rooms.RoomCollection;
-          rooms.url = AJAXURL + '?action=get-rooms';
           rooms.fetch({
             reset: true,
             data: param

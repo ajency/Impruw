@@ -17,7 +17,7 @@
         AppState.prototype.defaults = {
           userId: 0,
           accessToken: _.unique('access-token'),
-          loginStatus: false
+          loginStatus: true
         };
 
         AppState.prototype.isLoggedIn = function() {
