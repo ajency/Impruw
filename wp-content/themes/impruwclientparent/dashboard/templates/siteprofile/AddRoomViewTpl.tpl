@@ -123,7 +123,7 @@ var facilities_selected_exists;
 		                                
 		                                <input type="hidden" name="hdn_roomfeaturedimg"  id="hdn_roomfeaturedimg"  value='<% if(!_.isUndefined(roomFeaturedImg)){ %><%=roomFeaturedImg.id%><% } %>'   />
 		                                <div>
-		                                    <span class="btn btn-default btn-file"><span class="fileinput-new " id="select_featuredimg">Select image</span> <!-- <input type="file" name="inputFile3">--> </span>
+		                                    <span class="btn btn-default btn-file"><span class="fileinput-new " id="select_featuredimg">Select Image</span> <!-- <input type="file" name="inputFile3">--> </span>
 		                                    
 		                                </div>
 		                            </div>
@@ -160,7 +160,7 @@ var facilities_selected_exists;
 			                                %>
 			                                <input type="hidden" name="hdn_roomattachments"  id="hdn_roomattachments" value="<%=rmAttachIds%>"  />
 			                                <div>
-			                                    <span class="btn btn-default btn-file"><span class="fileinput-new filepopup" id="select_businesslogo">Select image</span> <!-- <input type="file" name="inputFile3">--> </span>
+			                                    <span class="btn btn-default btn-file"><span class="fileinput-new filepopup" id="select_businesslogo">Add Image</span> <!-- <input type="file" name="inputFile3">--> </span>
 			                                    
 			                                </div>
 			                            </div>

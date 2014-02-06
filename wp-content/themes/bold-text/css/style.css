@@ -539,7 +539,7 @@ Version:        0.1.0
 }
 .site-style-container .tariff {
   text-align: right;
-  margin: 1em 0;
+  margin: 0 0 1em;
   padding: 0.5em 0.2em;
   background: #a5a5a5;
   font-weight: 100;
