@@ -211,9 +211,6 @@ Version:        0.1.0
   text-transform: uppercase;
   font-size: 0.947em;
   font-weight: 600;
-  display: inline;
-  /* Reove this line when changing */
-
 }
 @media (max-width: 767px) {
   .site-style-container .header .cta {
@@ -394,11 +391,13 @@ Version:        0.1.0
 .site-style-container .full-width {
   width: 100%;
 }
-.site-style-container .socialBox .infoPoint {
+.site-style-container .socialBox .infoPoint,
+.site-style-container .socialBox .infoPoint p {
   text-align: center;
   color: #656565;
   font-weight: 400;
   margin-bottom: 15px;
+  font-size: 1.3em;
 }
 .site-style-container .socialBox .icon-dribbble:before,
 .site-style-container .socialBox .icon-twitter:before,
@@ -752,7 +751,7 @@ Version:        0.1.0
   transition: all 0.25s ease;
 }
 .site-style-container .roomList .roomBox .facilities {
-  height: 50px;
+  height: 45px;
   overflow: hidden;
 }
 .site-style-container .roomList .roomBox .roomAmenity {
