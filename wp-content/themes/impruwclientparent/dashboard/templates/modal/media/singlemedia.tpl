@@ -8,7 +8,7 @@
         </div>
     <% } %>
     <div class="imgthumb">
-        <img src="<%= media.get('sizes').thumbnail.url %>" class="img-responsive" >
+        <img src="<%= media.get('sizes').thumbnail ? media.get('sizes').thumbnail.url : media.get('sizes').full.url %>" class="img-responsive" >
     </div>
   </a>
   <div class="ticker">
