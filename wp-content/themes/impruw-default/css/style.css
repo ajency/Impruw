@@ -593,6 +593,16 @@ Version:        0.1.0
 .site-style-container .list_carousel .caroufredsel_wrapper .roomType .room p {
   display: block;
 }
+.site-style-container .homeroom {
+  margin: 1em 0;
+  text-align: center;
+}
+.site-style-container .homeroom .img-responsive {
+  margin: 0 auto;
+}
+.site-style-container .homeroom .subTitle p {
+  font-size: inherit;
+}
 .site-style-container #roomTypeIndicator {
   text-align: center;
   margin: 0 0 20px;
