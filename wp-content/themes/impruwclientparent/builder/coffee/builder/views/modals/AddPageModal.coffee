@@ -21,7 +21,7 @@ define ['builder/views/modals/Modal'
 				events:
 					'click button.add-new-page' : 'saveNewPage'
 
-				# Initialize
+				# initialize
 				initialize:(options = {})->
 
 					html = @outerTemplate
@@ -36,6 +36,7 @@ define ['builder/views/modals/Modal'
 					@$el.on 'hidden.bs.modal', (evt)=>
 						@$el.find('form').find('div.alert').remove()
 						@$el.find('form').find('input[type="reset"]').click()
+
 						
 					markup = this.template()
 
@@ -44,6 +45,7 @@ define ['builder/views/modals/Modal'
 					@$el.find('.selectable-layout').selectable
 														selected:( event, ui )=>
 															@$el.find('input[name="layout_page"]').val $(ui.selected).attr 'data-layout'
+
 
 				# save new page to DB
 				saveNewPage:(evt)->
