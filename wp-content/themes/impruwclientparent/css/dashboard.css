@@ -453,27 +453,6 @@ form .form-group .control-label.dd-label {
 form .form-group.pic-upload .control-label {
   top: 0;
 }
-form .form-group.pic-upload .fileinput .thumbnail {
-  border-radius: 0;
-  position: relative;
-}
-form .form-group.pic-upload .fileinput .thumbnail .btn_deleteAttachment,
-form .form-group.pic-upload .fileinput .thumbnail .btn_del_featuredimg {
-  position: absolute;
-  padding: 1px 6px 0px;
-  background: #ee4423;
-  border-radius: 2px;
-  box-shadow: 0 0 2px #aaaaaa;
-  color: #fff;
-  top: 0;
-  right: 0;
-  font-size: 1em;
-}
-form .form-group.pic-upload .fileinput .thumbnail .btn_deleteAttachment:hover,
-form .form-group.pic-upload .fileinput .thumbnail .btn_del_featuredimg:hover {
-  color: #fff;
-  background: #ff7e00;
-}
 form .form-group.pic-upload .fileinput .btn {
   color: #849fb0;
 }
@@ -490,6 +469,28 @@ form .form-group.pic-upload .fileinput .btn.btn-danger {
 }
 form .form-group.pic-upload .fileinput .btn.btn-danger:focus {
   background: transparent;
+}
+form .form-group.pic-upload .fileinput .thumbnail {
+  border-radius: 0;
+  position: relative;
+}
+form .form-group.pic-upload .fileinput .thumbnail .btn_deleteAttachment,
+form .form-group.pic-upload .fileinput .thumbnail .btn_del_featuredimg {
+  position: absolute;
+  padding: 1px 6px 0px;
+  background: #ee4423;
+  border-radius: 2px;
+  box-shadow: 0 0 2px #aaaaaa;
+  color: #fff;
+  top: 0;
+  right: 0;
+  font-size: 1em;
+  margin-top: 0;
+}
+form .form-group.pic-upload .fileinput .thumbnail .btn_deleteAttachment:hover,
+form .form-group.pic-upload .fileinput .thumbnail .btn_del_featuredimg:hover {
+  color: #fff;
+  background: #ff7e00;
 }
 form .form-group.add-another .control-label {
   top: 1em;
@@ -1166,6 +1167,7 @@ form .aj-imp-submit:hover {
   font-size: 1.1em;
   display: inline-block;
   padding: 0.5em 1em 0.6em;
+  cursor: pointer;
 }
 .modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .aj-imp-upload-media .small-text {
   font-size: 0.9em;

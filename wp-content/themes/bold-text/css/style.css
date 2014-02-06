@@ -20,68 +20,18 @@ Version:        0.1.0
   font-weight: normal;
   font-style: normal;
 }
-/****Selection Color****/
-::selection {
-  background: #07669e;
-  color: #fff;
-}
-::-moz-selection {
-  background: #07669e;
-  color: #fff;
-}
-/****Link Styles****/
-a {
-  color: #07669e;
-  text-decoration: none;
-}
-a:hover,
-a:focus,
-a:active {
-  color: #0986cf;
-  text-decoration: underline;
-}
-/****Heading Styles****/
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-weight: 700;
-  color: #07669e;
-}
-h1.sub-title,
-h2.sub-title,
-h3.sub-title,
-h4.sub-title,
-h5.sub-title,
-h6.sub-title {
-  text-transform: uppercase;
-  color: #727272;
-  font-weight: 300;
-  margin: 0.5em 0;
-}
-/****Mixins****/
-.clearfix {
-  *zoom: 1;
-}
-.clearfix:after,
-.clearfix:before {
-  clear: both;
-  content: "";
-  display: table;
-}
-.backTrans {
-  -webkit-transition: all 0.25s ease;
-  -moz-transition: all 0.25s ease;
-  -o-transition: all 0.25s ease;
-  -ms-transition: all 0.25s ease;
-  transition: all 0.25s ease;
-}
 .site-style-container {
   font-family: 'Lato', sans-serif;
   font-weight: 400;
-  background: #f2f2f2;
+  background: #f2f2f2 !important;
+  /****Selection Color****/
+
+  /****Link Styles****/
+
+  /****Heading Styles****/
+
+  /****Mixins****/
+
   /****Container Styles****/
 
   /****Header Styles****/
@@ -98,6 +48,60 @@ h6.sub-title {
 
   /*-- Site Builder Container --*/
 
+}
+.site-style-container ::selection {
+  background: #07669e;
+  color: #fff;
+}
+.site-style-container ::-moz-selection {
+  background: #07669e;
+  color: #fff;
+}
+.site-style-container a {
+  color: #07669e;
+  text-decoration: none;
+}
+.site-style-container a:hover,
+.site-style-container a:focus,
+.site-style-container a:active {
+  color: #0986cf;
+  text-decoration: underline;
+}
+.site-style-container h1,
+.site-style-container h2,
+.site-style-container h3,
+.site-style-container h4,
+.site-style-container h5,
+.site-style-container h6 {
+  font-weight: 700;
+  color: #07669e;
+}
+.site-style-container h1.sub-title,
+.site-style-container h2.sub-title,
+.site-style-container h3.sub-title,
+.site-style-container h4.sub-title,
+.site-style-container h5.sub-title,
+.site-style-container h6.sub-title {
+  text-transform: uppercase;
+  color: #727272;
+  font-weight: 300;
+  margin: 0.5em 0;
+}
+.site-style-container .clearfix {
+  *zoom: 1;
+}
+.site-style-container .clearfix:after,
+.site-style-container .clearfix:before {
+  clear: both;
+  content: "";
+  display: table;
+}
+.site-style-container .backTrans {
+  -webkit-transition: all 0.25s ease;
+  -moz-transition: all 0.25s ease;
+  -o-transition: all 0.25s ease;
+  -ms-transition: all 0.25s ease;
+  transition: all 0.25s ease;
 }
 .site-style-container .site-header > .row,
 .site-style-container .site-footer > .row,
