@@ -34,7 +34,6 @@
     <form class="clearfix">
         <div class="form-group">
            <div class="col-sm-12">
-                <label class="control-label">Size: </label>
                 <select class="image-size" >
                     <% _.each(media.get('sizes'), function(ele, key){ %>
                     <option value="<%= key %>"><%= key + '( ' +(ele.width + ' x ' + ele.height) + ' )' %></option>
