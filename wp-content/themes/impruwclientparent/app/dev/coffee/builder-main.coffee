@@ -1,3 +1,8 @@
+# The main builder app entry point
+# <ul>
+# <li>-this file sets the requirejs configurations </li> 
+# <li>-load all JS files</li>
+# </ul>
 require.config 
 	
 	urlArgs : "ver=#{(new Date()).getTime()}"

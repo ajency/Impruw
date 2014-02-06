@@ -15,12 +15,23 @@
         }
 
         Controller.prototype.initialize = function(opt) {
-          var view;
+          var view, _entities;
           if (opt == null) {
             opt = {};
           }
+          _entities = this._getEntities();
           view = new Show.View.MainView;
-          return this.show(view);
+          return this.show(view, {
+            loading: true,
+            entities: _entities
+          });
+        };
+
+        Controller.prototype._getEntities = function() {
+          return {
+            pages: App.request("get:editable:pages"),
+            themes: App.request("get:themes")
+          };
         };
 
         return Controller;
