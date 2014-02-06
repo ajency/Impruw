@@ -488,6 +488,9 @@ form .form-group.pic-upload .fileinput .btn.btn-danger {
   margin-top: 0.5em;
   color: #cc6500;
 }
+form .form-group.pic-upload .fileinput .btn.btn-danger:focus {
+  background: transparent;
+}
 form .form-group.add-another .control-label {
   top: 1em;
 }
