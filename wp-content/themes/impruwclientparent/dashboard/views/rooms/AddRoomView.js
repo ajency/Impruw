@@ -2146,7 +2146,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 							 self_.$el.find('#div_addtax').addClass('hidden');
 							 self_.$el.find('#div_taxlist').addClass('hidden');
 						 }
-						 $(evt_.target).parent().find('.taxoptiontext').html(response.taxoption)
+						 $(evt_.target).parent().find('.taxoptiontext').html('<p><span class="icon icon-notice"></span> '+response.taxoption+'</p>')
 					 }
 					 
 					  
@@ -2290,14 +2290,14 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 						 $(evt_.target).parent().find('.checkintime_text').html('<p class="alert">Please enter checkin time.</p>')
 					 }
 					 else{
-						 $(evt_.target).parent().find('.checkintime_text').html(response.checkinTime)
+						 $(evt_.target).parent().find('.checkintime_text').html('<p><span class="icon icon-watch2"></span> '+response.checkinTime+'</p>')
 					 }
 					 
 					 if(response.checkinformat.trim()==""){
 						 $(evt_.target).parent().parent().parent().find('.checkinformat_text').html('<p class="alert">Please select Check-in time format</p>')
 					 }
 					 else{
-						 $(evt_.target).parent().parent().parent().find('.checkinformat_text').html(response.checkinformat+"-hour Format")
+						 $(evt_.target).parent().parent().parent().find('.checkinformat_text').html('<p><span class="icon icon-time"></span> '+response.checkinformat+'-hour Format</p>')
 					 }
 					 
 					 

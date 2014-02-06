@@ -432,7 +432,7 @@ var facilities_selected_exists;
 								<div class="alert alert-success status_message hidden"></div>
 									<div class="col-sm-12"> 
 										<div class="taxoptiontext">
-											<% if(!_.isUndefined(roomdata.taxoption)) { if(!_.isEmpty(roomdata.taxoption.trim())) { %><p><%=roomdata.taxoption %></p> <% } else{%> <p class="alert empty-val">Please select Tax option</p> <%} }else {%> <p class="alert empty-val">Please select Tax option</p> <% } %> 
+											<% if(!_.isUndefined(roomdata.taxoption)) { if(!_.isEmpty(roomdata.taxoption.trim())) { %><p><span class="icon icon-notice"></span> <%=roomdata.taxoption %></p> <% } else{%> <p class="alert empty-val">Please select Tax option</p> <%} }else {%> <p class="alert empty-val">Please select Tax option</p> <% } %> 
 										</div>
 										<div class="taxoption_edit row hidden"> 
 											<div class="col-sm-2">
@@ -669,7 +669,7 @@ var facilities_selected_exists;
 										<div class="checkinformat_text"> 
 											<% if(!_.isUndefined(roomdata.checkinformat)) { 
 													if(!_.isEmpty(roomdata.checkinformat.trim())){ %>
-														<p><%=roomdata.checkinformat %>-hour Format</p> <% 
+														<p><span class="icon icon-time"></span> <%=roomdata.checkinformat %>-hour Format</p> <% 
 													} 
 													else{ %>
 														<p class="alert empty-val">Please select Check-in time format</p><% 
@@ -715,7 +715,7 @@ var facilities_selected_exists;
 												 	 	<p class="alert empty-val">Please enter checkin time.</p><% 
 													 }
 													 else { %>
-													 	<p><%=roomdata.checkintime %></p>
+													 	<p><span class="icon icon-watch2"></span> <%=roomdata.checkintime %></p>
 												  <% } 
 											   }
 											%>
