@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>dashboard-app.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../doc-style.css" />
+  <script src="../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../", thisFile = "coffee/dashboard-app.coffee", defaultSidebar = true;
+  </script>
+  <script src="../doc-script.js"></script>
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+      <div class="heading h1">
+        <a href="#the%20main%20dashboard%20app">The main dashboard App</a>
+      </div>
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container"><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs"><p>#</p>
+
+
+<div class="pilwrap" id="the%20main%20dashboard%20app">
+  <h1>
+    <a href="#the%20main%20dashboard%20app" name="the%20main%20dashboard%20app" class="pilcrow">&#182;</a>
+    The main dashboard App
+  </h1>
+</div>
+
+
+<p>#</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre><span class="nx">define</span> <span class="p">[</span><span class="s">&#39;marionette&#39;</span><span class="p">],</span> <span class="nf">(Marionette)-&gt;</span>
+
+  <span class="nb">window</span><span class="p">.</span><span class="nv">App = </span><span class="k">new</span> <span class="nx">Marionette</span><span class="p">.</span><span class="nx">Application</span>
+  
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2">&#182;</a>
+</div>
+<p>Main app regions</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nx">App</span><span class="p">.</span><span class="nx">addRegions</span>
+    <span class="nv">leftRegion    : </span><span class="s">&#39;#aj-imp-left&#39;</span>
+    <span class="nv">rightRegion   : </span><span class="s">&#39;#aj-imp-right&#39;</span>
+    <span class="nv">footerRegion  : </span><span class="s">&#39;#footer-section&#39;</span>
+    <span class="nv">dialogRegion  : </span><span class="nx">Marionette</span><span class="p">.</span><span class="nx">Region</span><span class="p">.</span><span class="nx">Dialog</span><span class="p">.</span><span class="nx">extend</span> <span class="nv">el : </span><span class="s">&#39;#dialog-region&#39;</span>
+    <span class="nv">loginRegion   : </span><span class="nx">Marionette</span><span class="p">.</span><span class="nx">Region</span><span class="p">.</span><span class="nx">Dialog</span><span class="p">.</span><span class="nx">extend</span> <span class="nv">el : </span><span class="s">&#39;#login-region&#39;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+</div>
+<p>The default route for app</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nv">App.rootRoute = </span><span class="s">&quot;&quot;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
+</div>
+<p>loginRoute in case session expires</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nv">App.loginRoute = </span><span class="s">&quot;login&quot;</span>
+
+  <span class="nx">App</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;start&#39;</span><span class="p">,()</span><span class="nf">-&gt;</span>
+    <span class="nx">_</span><span class="p">.</span><span class="nx">logAppMsg</span> <span class="s">&quot;Application Started....&quot;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
+</div>
+<p>Reqres handler to return a default region. If a controller is not explicitly specified a 
+region it will trigger default region handler</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nx">App</span><span class="p">.</span><span class="nx">reqres</span><span class="p">.</span><span class="nx">setHandler</span> <span class="s">&quot;default:region&quot;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+    <span class="nx">App</span><span class="p">.</span><span class="nx">rightRegion</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6">&#182;</a>
+</div>
+<p>App command to handle async request and action to be performed after that
+entities are the the dependencies which trigger a fetch to server.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nx">App</span><span class="p">.</span><span class="nx">commands</span><span class="p">.</span><span class="nx">setHandler</span> <span class="s">&quot;when:fetched&quot;</span><span class="p">,</span> <span class="nf">(entities, callback) -&gt;</span>
+    
+    <span class="nv">xhrs = </span><span class="nx">_</span><span class="p">.</span><span class="nx">chain</span><span class="p">([</span><span class="nx">entities</span><span class="p">]).</span><span class="nx">flatten</span><span class="p">().</span><span class="nx">pluck</span><span class="p">(</span><span class="s">&quot;_fetch&quot;</span><span class="p">).</span><span class="nx">value</span><span class="p">()</span>
+
+    <span class="nx">$</span><span class="p">.</span><span class="nx">when</span><span class="p">(</span><span class="nx">xhrs</span><span class="p">...).</span><span class="nx">done</span> <span class="nf">-&gt;</span>
+      <span class="nx">callback</span><span class="p">()</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7">&#182;</a>
+</div>
+<p>Registers a controller instance</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nx">App</span><span class="p">.</span><span class="nx">commands</span><span class="p">.</span><span class="nx">setHandler</span> <span class="s">&quot;register:instance&quot;</span><span class="p">,</span> <span class="nf">(instance, id) -&gt;</span>
+    <span class="nx">App</span><span class="p">.</span><span class="nx">register</span> <span class="nx">instance</span><span class="p">,</span> <span class="nx">id</span>
+  
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8">&#182;</a>
+</div>
+<p>Unregisters a controller instance</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nx">App</span><span class="p">.</span><span class="nx">commands</span><span class="p">.</span><span class="nx">setHandler</span> <span class="s">&quot;unregister:instance&quot;</span><span class="p">,</span> <span class="nf">(instance, id) -&gt;</span>
+    <span class="nx">App</span><span class="p">.</span><span class="nx">unregister</span> <span class="nx">instance</span><span class="p">,</span> <span class="nx">id</span>
+
+  <span class="nx">App</span><span class="p">.</span><span class="nx">on</span> <span class="s">&quot;initialize:after&quot;</span><span class="p">,</span> <span class="nf">(options) -&gt;</span>
+
+    <span class="nv">appState = </span><span class="nx">App</span><span class="p">.</span><span class="nx">request</span> <span class="s">&quot;get:current:appstate&quot;</span>
+    
+    <span class="nx">App</span><span class="p">.</span><span class="nx">startHistory</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="nx">appState</span><span class="p">.</span><span class="nx">isLoggedIn</span><span class="p">()</span>
+      <span class="nx">App</span><span class="p">.</span><span class="nx">navigate</span><span class="p">(</span><span class="nx">@rootRoute</span><span class="p">,</span> <span class="nv">trigger: </span><span class="kc">true</span><span class="p">)</span> <span class="k">unless</span> <span class="nx">@getCurrentRoute</span><span class="p">()</span>
+    <span class="k">else</span>
+      <span class="nx">App</span><span class="p">.</span><span class="nx">navigate</span><span class="p">(</span><span class="nx">@loginRoute</span><span class="p">,</span> <span class="nv">trigger : </span><span class="kc">true</span><span class="p">)</span>
+      
+  <span class="nx">App</span>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>
