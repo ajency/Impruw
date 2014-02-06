@@ -116,7 +116,7 @@ class RoomList extends Element {
                 </div>
                 <div class="line-separator"></div>
                 <div class="row">
-                    <div class="col-xs-6 roomRate"><!-- <span class="currency">kr</span> <span class="amount">210</span> / night--></div>
+                    <div class="col-xs-6 roomRate"><span class="currency">kr</span> <span class="amount">210</span> / night</div>
                     <div class="col-xs-6 roomDetail"><a href="<?php echo get_permalink(); ?>" class="detailBtn">View Details</a></div>
                 </div>
             </div>
