@@ -1230,6 +1230,7 @@ Version:        0.1.0
   font-size: 1.1em;
   display: inline-block;
   padding: 0.5em 1em 0.6em;
+  cursor: pointer;
 }
 .modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .aj-imp-upload-media .small-text {
   font-size: 0.9em;
