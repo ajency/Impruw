@@ -172,9 +172,9 @@ Version:        0.1.0
 
 	.header{
 		max-width:1000px;
-		padding-top:52px;
+		padding-top:25px;
 		.row{
-			margin-bottom:23px;
+			margin-bottom:0px;
 		}
 		.logo{
 			float:left;
@@ -189,7 +189,7 @@ Version:        0.1.0
 				color:#fff;
 			}
 			.rates{
-				a{	
+				p {	/* Change this back to <a> tag later and */
 					padding:5px 10px;
 					margin:10px 0;
 					display:inline-block;
@@ -199,6 +199,7 @@ Version:        0.1.0
 					text-transform:uppercase;
 					font-size:0.947em;
 					font-weight:600;
+					display: inline;/* Reove this line when changing */
 				}
 			}
 		}
@@ -276,7 +277,7 @@ Version:        0.1.0
 	}
 	
 	.slideshow{
-		margin:50px auto;
+		margin:20px auto;
 		.carousel-caption{
 			font-size:3.778em;
 			padding:5px 19px 5px;
@@ -307,7 +308,10 @@ Version:        0.1.0
 		margin-bottom:50px;
 		background:url('../images/stripe_bg.png');
 		.boxHead{
-			margin:20px 0;
+			margin:20px 0 10px;
+		}
+		.pageContent {
+			margin-bottom: 0;
 		}
 	}
 	
@@ -355,7 +359,7 @@ Version:        0.1.0
 		padding:10px 0;
 	}
 	
-	.infoPoint{
+	.infoPoint, .infoPoint p {
 		color:@secondary2;
 		font-size:1.667em;
 		font-weight:200;
@@ -383,14 +387,17 @@ Version:        0.1.0
 	}
 	
 	.gallContainer{
-		margin:30px auto 60px;
+		margin:30px auto;
 		.boxHead{
-			margin-bottom:30px;
+			margin-bottom:20px;
 		}
 		.gallContent{
 			.row{
 				margin-bottom:20px;
 			}
+		}
+		.pageContent {
+			margin-bottom: 0;
 		}
 	}
 
@@ -505,7 +512,7 @@ Version:        0.1.0
 			margin-bottom:0;
 			.footerLinks{
 				display:table;
-				margin:40px auto 80px;
+				margin:40px auto 50px;
 				ul{
 					padding-left:0;
 					li{

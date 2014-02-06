@@ -181,10 +181,10 @@ Version:        0.1.0
 }
 .site-style-container .header {
   max-width: 1000px;
-  padding-top: 52px;
+  padding-top: 25px;
 }
 .site-style-container .header .row {
-  margin-bottom: 23px;
+  margin-bottom: 0px;
 }
 .site-style-container .header .logo {
   float: left;
@@ -199,7 +199,9 @@ Version:        0.1.0
 .site-style-container .header .cta .contact {
   color: #fff;
 }
-.site-style-container .header .cta .rates a {
+.site-style-container .header .cta .rates p {
+  /* Change this back to <a> tag later and */
+
   padding: 5px 10px;
   margin: 10px 0;
   display: inline-block;
@@ -209,6 +211,9 @@ Version:        0.1.0
   text-transform: uppercase;
   font-size: 0.947em;
   font-weight: 600;
+  display: inline;
+  /* Reove this line when changing */
+
 }
 @media (max-width: 767px) {
   .site-style-container .header .cta {
@@ -276,7 +281,7 @@ Version:        0.1.0
   background: none;
 }
 .site-style-container .slideshow {
-  margin: 50px auto;
+  margin: 20px auto;
 }
 .site-style-container .slideshow .carousel-caption {
   font-size: 3.778em;
@@ -299,7 +304,10 @@ Version:        0.1.0
   background: url('../images/stripe_bg.png');
 }
 .site-style-container .shadeBox .boxHead {
-  margin: 20px 0;
+  margin: 20px 0 10px;
+}
+.site-style-container .shadeBox .pageContent {
+  margin-bottom: 0;
 }
 .site-style-container .pageContent {
   max-width: 1300px;
@@ -339,7 +347,8 @@ Version:        0.1.0
   font-weight: 600;
   padding: 10px 0;
 }
-.site-style-container .infoPoint {
+.site-style-container .infoPoint,
+.site-style-container .infoPoint p {
   color: #989898;
   font-size: 1.667em;
   font-weight: 200;
@@ -366,13 +375,16 @@ Version:        0.1.0
   }
 }
 .site-style-container .gallContainer {
-  margin: 30px auto 60px;
+  margin: 30px auto;
 }
 .site-style-container .gallContainer .boxHead {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 .site-style-container .gallContainer .gallContent .row {
   margin-bottom: 20px;
+}
+.site-style-container .gallContainer .pageContent {
+  margin-bottom: 0;
 }
 @media (max-width: 767px) {
   .site-style-container .address {
@@ -491,7 +503,7 @@ Version:        0.1.0
 }
 .site-style-container .footer .pageContent .footerLinks {
   display: table;
-  margin: 40px auto 80px;
+  margin: 40px auto 50px;
 }
 .site-style-container .footer .pageContent .footerLinks ul {
   padding-left: 0;
@@ -632,7 +644,10 @@ Version:        0.1.0
     color: #656565;
   }
   .site-style-container .contactDetails .boxHead {
-    margin: 20px 0;
+    margin: 20px 0 10px;
+  }
+  .site-style-container .contactDetails .pageContent {
+    margin-bottom: 0;
   }
   .site-style-container .contactDetails a {
     color: #656565;
