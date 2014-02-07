@@ -9,7 +9,7 @@
     optimizeCss: 'standard',
     removeCombined: true,
     findNestedDependencies: true,
-    optimize : 'none',
+    //optimize : 'none',
     paths: {
         jquery          : 'lib/jquery.min',
         jqueryui        : 'lib/jquery.ui.min',

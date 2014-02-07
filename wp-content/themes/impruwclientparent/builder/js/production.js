@@ -138,17 +138,17 @@
 
   window.fetchJSON = false;
 
-  require(['underscore','jquery', 'global', 'backbone', 'marionette', 'builderrouter'], function(_, $, global, Backbone, Marionette, Router) {
+  require(['jquery', 'global', 'backbone', 'marionette', 'builderrouter'], function($, global, Backbone, Marionette, Router) {
     Backbone.emulateHTTP = true;
-    $(document).ready(function() {
-      return window.SiteBuilder = new Backbone.Marionette.Application();
+    return $(document).ready(function() {
+      window.SiteBuilder = new Backbone.Marionette.Application();
+      window.SiteBuilder.ViewManager = new Backbone.ChildViewContainer();
+      window.SiteBuilder.addInitializer(function(options) {
+        new Router();
+        return Backbone.history.start();
+      });
+      return window.SiteBuilder.start();
     });
-    getAppInstance().ViewManager = new Backbone.ChildViewContainer();
-    getAppInstance().addInitializer(function(options) {
-      new Router();
-      return Backbone.history.start();
-    });
-    return getAppInstance().start();
   });
 
 }).call(this);
