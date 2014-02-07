@@ -2,19 +2,19 @@
 define ['app', 'controllers/base-controller'
 		'apps/builder/elementsbox/show/views'], (App, AppController)->
 
-	App.module 'ElementsBoxApp.Show', (Show, App, Backbone, Marionette, $, _)->
+		App.module 'ElementsBoxApp.Show', (Show, App, Backbone, Marionette, $, _)->
 
-		class Show.Controller extends AppController
+			class Show.Controller extends AppController
 
-			initialize:(opt = {})->
+				initialize:(opt = {})->
 
-				elements = App.request "get:elementbox:elements"
+					elements = App.request "get:elementbox:elements"
 
-				view = new Show.View.MainView
-										collection : elements	
+					view = new Show.Views.MainView
+											collection : elements	
 
-				@show  view,
-						loading : true
+					@show  view,
+							loading : true
 
 
-	App.ElementsBoxApp.Show.Controller		
+		App.ElementsBoxApp.Show.Controller		

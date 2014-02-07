@@ -20,7 +20,7 @@
             opt = {};
           }
           elements = App.request("get:elementbox:elements");
-          view = new Show.View.MainView({
+          view = new Show.Views.MainView({
             collection: elements
           });
           return this.show(view, {

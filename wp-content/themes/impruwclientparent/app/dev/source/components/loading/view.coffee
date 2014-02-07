@@ -1,9 +1,9 @@
 # list currency views
-define ['tpl!components/loading/templates/loader', 'marionette'], (loaderTpl, Marionette) ->
+define ['marionette'], (Marionette) ->
 
     class LoadingView extends Marionette.ItemView
 
-        template : loaderTpl
+        template : _.template('<i></i>',{})
 
         className : 'loading-container'
 

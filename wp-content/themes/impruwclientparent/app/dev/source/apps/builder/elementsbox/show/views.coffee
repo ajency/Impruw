@@ -1,11 +1,12 @@
 define ['app'
-		'tpl!apps/builder/elementsbox/show/templates/main'],
-		(App, mainviewTpl)->
+		'tpl!apps/builder/elementsbox/show/templates/main'
+		'tpl!apps/builder/elementsbox/show/templates/singleelement'],
+		(App, mainviewTpl, singleEleTpl)->
 
+			App.module 'ElementsBoxApp.Show.Views', (Views, App, Backbone, Marionette, $, _)->
 
-			App.module 'ElementsBoxApp.Show.View', (View, App, Backbone, Marionette, $, _)->
-
-				class View.MainView extends Marionette.CompositeView
+				# Composite view wrapper for element box region
+				class Views.MainView extends Marionette.CompositeView
 
 					template 	: mainviewTpl
 
@@ -13,5 +14,10 @@ define ['app'
 
 					id 			: 'controls-drag'
 
+				# Single element region
+				class Views.SingleElement extends Marionette.ItemView
+
+					template 	: singleEleTpl
+
 				
-			App.ElementsBoxApp.Show.View
+			App.ElementsBoxApp.Show.Views
