@@ -1,2 +1,43 @@
+.aj-imp-builder-area
+	.aj-imp-browser-preview
 
-	
+		// browser header
+		.aj-imp-browser-header
+			//row first
+			.row
+				.col-sm-2
+					.aj-imp-browser-dots
+						li.red: span &nbsp;
+						li.yellow: span &nbsp;
+						li.green: span &nbsp;
+				.col-sm-4
+					.aj-imp-browser-title How does your site look in a browser?
+				.col-sm-6
+					.aj-imp-page-publish
+						.aj-imp-publish
+							a.publish#save-initial-layout(href="#") Save Layout
+
+			//second row
+			.row.second
+				.col-sm-6
+					.aj-imp-browser-address-bar {{SITEURL}}
+				.col-sm-3
+				.col-sm-3.aj-imp-mode-switch
+					.switch-toggle.switch-2
+						input(name="mode",type="radio",checked="checked")
+						lable.editormode Layout Mode
+						input(name="mode",type="radio")
+						lable.editormode Content Mode
+
+		// browser body
+		#aj-imp-browser-body
+			.container.aj-imp-builder-layout-mode#aj-imp-builder-drag-drop
+				header#header-region
+				div#page-content-region
+				footer#footer-region
+
+		//browser footer
+		.aj-imp-browser-footer
+
+
+

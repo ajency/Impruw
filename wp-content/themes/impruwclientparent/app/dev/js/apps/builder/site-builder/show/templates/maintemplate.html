@@ -1,9 +1,51 @@
 
-<form action="" method="POST" role="form">
-  <legend>Form title</legend>
-  <div class="form-group">
-    <label for="">label</label>
-    <input type="text" placeholder="Input field" class="form-control"/>
+<div class="aj-imp-builder-area">
+  <div class="aj-imp-browser-preview">
+    <!-- browser header-->
+    <div class="aj-imp-browser-header">
+      <!--row first-->
+      <div class="row">
+        <div class="col-sm-2">
+          <div class="aj-imp-browser-dots">
+            <li class="red"><span>&nbsp;</span></li>
+            <li class="yellow"><span>&nbsp;</span></li>
+            <li class="green"><span>&nbsp;</span></li>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="aj-imp-browser-title">How does your site look in a browser?</div>
+        </div>
+        <div class="col-sm-6">
+          <div class="aj-imp-page-publish">
+            <div class="aj-imp-publish"><a id="save-initial-layout" href="#" class="publish">Save Layout</a></div>
+          </div>
+        </div>
+      </div>
+      <!--second row-->
+      <div class="row second">
+        <div class="col-sm-6">
+          <div class="aj-imp-browser-address-bar">{{SITEURL}}</div>
+        </div>
+        <div class="col-sm-3"></div>
+        <div class="col-sm-3 aj-imp-mode-switch">
+          <div class="switch-toggle switch-2">
+            <input name="mode" type="radio" checked="checked"/>
+            <lable class="editormode">Layout Mode</lable>
+            <input name="mode" type="radio"/>
+            <lable class="editormode">Content Mode</lable>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- browser body-->
+    <div id="aj-imp-browser-body">
+      <div id="aj-imp-builder-drag-drop" class="container aj-imp-builder-layout-mode">
+        <header id="header-region"></header>
+        <div id="page-content-region"></div>
+        <footer id="footer-region"></footer>
+      </div>
+    </div>
+    <!--browser footer-->
+    <div class="aj-imp-browser-footer"></div>
   </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+</div>
