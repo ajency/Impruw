@@ -51,7 +51,7 @@
       app: ['plugins/plugin-loader', 'configs/config-loader']
     },
     tpl: {
-      extension: '.tpl'
+      extension: '.html'
     }
   });
 

@@ -47,11 +47,9 @@ require.config
 		app 				: ['plugins/plugin-loader','configs/config-loader']
 
 	tpl :
-		extension : '.tpl'
+		extension : '.html'
 
-##
 ## Start with application
-##
 require [	'plugins/plugin-loader'
 			'configs/config-loader'
 			'app'

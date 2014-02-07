@@ -60,11 +60,10 @@ require.config
 		app 				: ['pluginloader','configloader']
 
 	tpl :
-		extension : '.tpl'
+		extension : '.html'
 
-##
+
 ## Start with application
-##
 require [	'pluginloader'
 			'configloader'
 			'app'

@@ -60,7 +60,7 @@
       app: ['pluginloader', 'configloader']
     },
     tpl: {
-      extension: '.tpl'
+      extension: '.html'
     }
   });
 
