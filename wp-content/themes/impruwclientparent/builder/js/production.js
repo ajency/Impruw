@@ -27,6 +27,9 @@
       marionette: 'lib/backbone.marionette.min',
       async: 'lib/async',
       builderrouter: 'builder/routers/BuilderRouter',
+      rooms: 'builder/models/Rooms',
+      roomsview: 'builder/views/modals/roomsview',
+      addpage: 'builder/views/modals/AddPageModal',
       builderelement: 'builder/views/elements/BuilderElement',
       builderrow: 'builder/views/elements/layout/BuilderRow',
       builderrowcolumn: 'builder/views/elements/layout/BuilderRowColumn',
@@ -41,14 +44,18 @@
       addresselement: 'builder/views/elements/AddressElement',
       contactformelement: 'builder/views/elements/ContactFormElement',
       mapelement: 'builder/views/elements/MapElement',
+      galleryelement: 'builder/views/elements/GalleryElement',
       roomtitle: 'builder/views/elements/rooms/RoomTitle',
       roomdescription: 'builder/views/elements/rooms/RoomDescription',
       roomfacilities: 'builder/views/elements/rooms/RoomFacilities',
       roomgallery: 'builder/views/elements/rooms/RoomGallery',
       roomlistelement: 'builder/views/elements/rooms/RoomListElement',
+      roomtariff: 'builder/views/elements/rooms/RoomTariff',
+      roomcarousel: 'builder/views/elements/rooms/RoomCarousel',
       menumanager: 'builder/views/modals/MenuManager',
       menumodel: 'builder/models/MenuModel',
       menucollection: 'builder/collections/MenuCollection',
+      chooseroom: 'builder/views/modals/ChooseRoomModal',
       mediamanager: 'builder/views/modals/media/MediaManager',
       mediamodel: 'builder/models/MediaModel',
       mediacollection: 'builder/collections/MediaCollection',
@@ -129,7 +136,9 @@
 
   window.prevmouseover = null;
 
-  require(['global', 'backbone', 'jquery', 'marionette', 'builderrouter'], function(global, Backbone, $, Marionette, Router) {
+  window.fetchJSON = false;
+
+  require(['underscore','jquery', 'global', 'backbone', 'marionette', 'builderrouter'], function(_, $, global, Backbone, Marionette, Router) {
     Backbone.emulateHTTP = true;
     $(document).ready(function() {
       return window.SiteBuilder = new Backbone.Marionette.Application();
