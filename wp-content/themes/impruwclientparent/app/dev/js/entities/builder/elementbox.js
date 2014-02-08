@@ -39,22 +39,29 @@
           });
         };
 
+        ElementCollection.prototype.parse = function(resp) {
+          if (resp.code === 'OK') {
+            return resp.data;
+          }
+          return App.vent.trigger("elementbox:collection:fetch:error", resp);
+        };
+
         return ElementCollection;
 
       })(Backbone.Collection);
       API = {
         getElements: function(param) {
-          var media;
+          var elements;
           if (param == null) {
             param = {};
           }
-          media = new ElementBox.ElementCollection;
-          media.url = AJAXURL + '?action=get-elementbox-elements';
-          media.fetch({
+          elements = new ElementBox.ElementCollection;
+          elements.url = AJAXURL + '?action=get-elementbox-elements';
+          elements.fetch({
             reset: true,
             data: param
           });
-          return media;
+          return elements;
         }
       };
       return App.reqres.setHandler("get:elementbox:elements", function() {

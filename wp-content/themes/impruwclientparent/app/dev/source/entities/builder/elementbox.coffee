@@ -21,20 +21,27 @@ define ["app", 'backbone'], (App, Backbone) ->
                     @where
                         type : 'room'
 
+                # parse
+                parse: (resp)->
+
+                    return resp.data if resp.code is 'OK'
+
+                    App.vent.trigger "elementbox:collection:fetch:error", resp
+
                 
             # PUBLIC API FOR ENitity
             API =
                 getElements: (param = {})->
 
-                    media = new ElementBox.ElementCollection
+                    elements = new ElementBox.ElementCollection
                     
-                    media.url = AJAXURL + '?action=get-elementbox-elements'
+                    elements.url = AJAXURL + '?action=get-elementbox-elements'
                     
-                    media.fetch
+                    elements.fetch
                                 reset : true
                                 data  : param
                                 
-                    media
+                    elements
 
 
             # REQUEST HANDLERS

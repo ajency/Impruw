@@ -5,8 +5,8 @@
 
   define(['app', 'controllers/base-controller', 'apps/builder/elementsbox/show/views'], function(App, AppController) {
     App.module('ElementsBoxApp.Show', function(Show, App, Backbone, Marionette, $, _) {
-      var _ref;
-      return Show.Controller = (function(_super) {
+      var _ref, _ref1;
+      Show.Controller = (function(_super) {
         __extends(Controller, _super);
 
         function Controller() {
@@ -29,6 +29,26 @@
         };
 
         return Controller;
+
+      })(AppController);
+      return Show.ErrorController = (function(_super) {
+        __extends(ErrorController, _super);
+
+        function ErrorController() {
+          _ref1 = ErrorController.__super__.constructor.apply(this, arguments);
+          return _ref1;
+        }
+
+        ErrorController.prototype.initialize = function(opt) {
+          var view;
+          if (opt == null) {
+            opt = {};
+          }
+          view = new Show.Views.ErrorView;
+          return this.show(view);
+        };
+
+        return ErrorController;
 
       })(AppController);
     });

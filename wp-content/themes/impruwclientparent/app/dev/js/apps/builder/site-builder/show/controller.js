@@ -4,7 +4,7 @@
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
   define(['app', 'controllers/base-controller', 'apps/builder/site-builder/show/views'], function(App, AppController) {
-    App.module('SiteBuilderApp.Show', function(SiteBuilderApp, App, Backbone, Marionette, $, _) {
+    App.module('SiteBuilderApp.Show', function(Show, App, Backbone, Marionette, $, _) {
       var _ref;
       return Show.Controller = (function(_super) {
         __extends(Controller, _super);
@@ -15,12 +15,14 @@
         }
 
         Controller.prototype.initialize = function(opt) {
-          var view, _entities;
+          var view;
           if (opt == null) {
             opt = {};
           }
-          _entities = this._getEntities();
           view = new Show.View.MainView;
+          this.listenTo(view, "element:dropped", function(evt, ui) {
+            return App.vent.trigger("element:dropped", evt, ui);
+          });
           return this.show(view);
         };
 

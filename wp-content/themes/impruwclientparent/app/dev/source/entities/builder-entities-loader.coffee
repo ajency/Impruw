@@ -9,4 +9,5 @@ define [
 		'entities/builder/pages'
 		'entities/builder/themes'
 		'entities/builder/elementbox'
+		'entities/builder/element'
 		], ->

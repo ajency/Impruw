@@ -11,6 +11,7 @@ require.config
 	
 	paths:
 		jquery 				: 'plugins/jquery'
+		jqueryui 			: 'plugins/jquery.ui'
 		underscore			: 'plugins/underscore'
 		backbone    		: 'plugins/backbone'
 		marionette  		: 'plugins/backbone.marionette'
@@ -37,7 +38,8 @@ require.config
 	shim:
 		underscore: 
 			exports : '_'
-		jquery 				: ['underscore']
+		jquery 		: ['underscore']
+		jqueryui 	: ['jquery']
 		backbone: 
 			deps 	: ['jquery','underscore']
 			exports : 'Backbone'
@@ -69,6 +71,7 @@ require [	'pluginloader'
 			'app'
 			'entitiesloader'
 			'controllers/base-controller'
+			'controllers/builder-base-controller'
 			'componentloader'
 			'appsloader'], (plugins, configs, App)->
 

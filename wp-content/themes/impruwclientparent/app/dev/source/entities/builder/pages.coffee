@@ -20,6 +20,10 @@ define ["app", 'backbone'], (App, Backbone) ->
                 url : ->
                 	"#{AJAXURL}?action=get-pages"
 
+                parse: (resp)->
+
+                    return resp.data if resp.code is 'OK'
+
 
                 
             # PUBLIC API FOR ENitity

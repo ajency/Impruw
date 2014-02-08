@@ -65,3 +65,12 @@ div.element-drop-loader > p{
 .settings{
     display:none;
 }
+
+.droppable-column{
+    min-height: 200px;
+}
+
+#elements-box-region{
+    position:absolute;
+    top:100px;
+}

@@ -4,6 +4,7 @@ define ['app', 'controllers/base-controller'
 
 		App.module 'ElementsBoxApp.Show', (Show, App, Backbone, Marionette, $, _)->
 
+			# show actual view
 			class Show.Controller extends AppController
 
 				initialize:(opt = {})->
@@ -15,6 +16,15 @@ define ['app', 'controllers/base-controller'
 
 					@show  view,
 							loading : true
+
+			# show error
+			class Show.ErrorController extends AppController
+
+				initialize:(opt = {})->
+
+					view = new Show.Views.ErrorView	
+
+					@show  view
 
 
 		App.ElementsBoxApp.Show.Controller		

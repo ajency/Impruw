@@ -4,25 +4,49 @@
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
   define(['app', 'tpl!apps/builder/header/show/templates/mainview'], function(App, mainviewTpl) {
-    App.module('HeaderApp.Show.View', function(View, App, Backbone, Marionette, $, _) {
-      var _ref;
-      return View.MainView = (function(_super) {
+    App.module('HeaderApp.Show.Views', function(Views, App, Backbone, Marionette, $, _) {
+      var SinglePageView, _ref, _ref1;
+      SinglePageView = (function(_super) {
+        __extends(SinglePageView, _super);
+
+        function SinglePageView() {
+          _ref = SinglePageView.__super__.constructor.apply(this, arguments);
+          return _ref;
+        }
+
+        SinglePageView.prototype.template = _.template('<option value="{{ID}}"">{{post_title}}</option>');
+
+        return SinglePageView;
+
+      })(Marionette.ItemView);
+      return Views.MainView = (function(_super) {
         __extends(MainView, _super);
 
         function MainView() {
-          _ref = MainView.__super__.constructor.apply(this, arguments);
-          return _ref;
+          _ref1 = MainView.__super__.constructor.apply(this, arguments);
+          return _ref1;
         }
+
+        MainView.prototype.itemView = SinglePageView;
+
+        MainView.prototype.itemViewContainer = 'select#aj-imp-page-sel';
 
         MainView.prototype.template = mainviewTpl;
 
         MainView.prototype.className = 'navbar navbar-default';
 
+        MainView.prototype.onShow = function() {
+          return this.$el.find('select#aj-imp-page-sel').selectpicker({
+            style: 'btn-mini btn-default',
+            menuStyle: 'dropdown'
+          });
+        };
+
         return MainView;
 
       })(Marionette.CompositeView);
     });
-    return App.HeaderApp.Show.View;
+    return App.HeaderApp.Show.Views;
   });
 
 }).call(this);

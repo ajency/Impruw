@@ -1,6 +1,4 @@
-##
 ## The main dashboard App
-##
 define ['marionette'], (Marionette)->
 
 	window.App = new Marionette.Application

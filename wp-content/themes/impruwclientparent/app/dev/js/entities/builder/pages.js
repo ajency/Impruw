@@ -38,6 +38,12 @@
           return "" + AJAXURL + "?action=get-pages";
         };
 
+        PageCollection.prototype.parse = function(resp) {
+          if (resp.code === 'OK') {
+            return resp.data;
+          }
+        };
+
         return PageCollection;
 
       })(Backbone.Collection);

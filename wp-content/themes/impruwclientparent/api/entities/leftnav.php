@@ -55,3 +55,11 @@ function get_pages1(){
 												)));
 }
 add_action('wp_ajax_get-pages', 'get_pages1');
+
+function get_elementbox_elements(){
+	wp_send_json(array('code' => 'OK', 'data' => array(
+													array('element' => 'row'	, 'title' => 'Row'	, 'icon' => ''),
+													array('element' => 'logo'	, 'title' => 'Logo'	, 'icon' => '')
+												)));
+}
+add_action('wp_ajax_get-elementbox-elements','get_elementbox_elements');

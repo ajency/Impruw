@@ -5,6 +5,7 @@
     baseUrl: 'http://localhost/impruw/wp-content/themes/impruwclientparent/app/dev/js/',
     paths: {
       jquery: 'plugins/jquery',
+      jqueryui: 'plugins/jquery.ui',
       underscore: 'plugins/underscore',
       backbone: 'plugins/backbone',
       marionette: 'plugins/backbone.marionette',
@@ -34,6 +35,7 @@
         exports: '_'
       },
       jquery: ['underscore'],
+      jqueryui: ['jquery'],
       backbone: {
         deps: ['jquery', 'underscore'],
         exports: 'Backbone'
@@ -64,7 +66,7 @@
     }
   });
 
-  require(['pluginloader', 'configloader', 'app', 'entitiesloader', 'controllers/base-controller', 'componentloader', 'appsloader'], function(plugins, configs, App) {
+  require(['pluginloader', 'configloader', 'app', 'entitiesloader', 'controllers/base-controller', 'controllers/builder-base-controller', 'componentloader', 'appsloader'], function(plugins, configs, App) {
     return App.start();
   });
 

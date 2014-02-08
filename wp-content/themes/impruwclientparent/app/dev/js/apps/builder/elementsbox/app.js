@@ -8,11 +8,19 @@
           return new ElementsBoxApp.Show.Controller({
             region: App.elementsBoxRegion
           });
+        },
+        showFetchError: function(resp) {
+          return new ElementsBoxApp.Show.ErrorController({
+            region: App.elementsBoxRegion
+          });
         }
       };
-      return ElementsBoxApp.on('start', function() {
+      ElementsBoxApp.on('start', function() {
         console.log("Elements module started");
         return API.show();
+      });
+      return App.vent.on("elementbox:collection:fetch:error", function(resp) {
+        return API.showFetchError(resp);
       });
     });
   });

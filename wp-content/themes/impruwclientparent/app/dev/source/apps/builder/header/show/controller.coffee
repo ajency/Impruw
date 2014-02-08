@@ -10,20 +10,13 @@ define ['app', 'controllers/base-controller'
 					# initialize the controller. Get all required entities and show the view
 					initialize:(opt = {})->
 
-						_entities = @_getEntities()
+						pages = App.request "get:editable:pages"
 
-						view = new Show.View.MainView	
-
+						view = new Show.Views.MainView
+										collection : pages	
+						
 						@show  view,
-								loading : true 
-								entities: _entities
-
-					# get all the entities for the controller
-					# here we need pages and themes entities for header region
-					_getEntities :->
-
-						pages : App.request "get:editable:pages"
-						themes: App.request "get:themes"
+								loading : true
 
 
 			App.HeaderApp.Show.Controller		

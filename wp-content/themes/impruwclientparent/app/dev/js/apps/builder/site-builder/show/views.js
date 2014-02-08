@@ -3,7 +3,7 @@
   var __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  define(['app', 'tpl!apps/builder/site-builder/show/templates/mainview'], function(App, mainviewTpl) {
+  define(['app', 'tpl!apps/builder/site-builder/show/templates/maintemplate'], function(App, mainviewTpl) {
     App.module('SiteBuilderApp.Show.View', function(View, App, Backbone, Marionette, $, _) {
       var _ref;
       return View.MainView = (function(_super) {
@@ -15,6 +15,22 @@
         }
 
         MainView.prototype.template = mainviewTpl;
+
+        MainView.prototype.className = 'aj-imp-builder-area';
+
+        MainView.prototype.onShow = function() {
+          var _this = this;
+          return this.$el.find('.droppable-column').sortable({
+            revert: 'invalid',
+            items: '> .element-wrapper',
+            connectWith: '.droppable-column',
+            helper: 'clone',
+            opacity: .65,
+            receive: function(evt, ui) {
+              return _this.trigger("element:dropped", evt, ui);
+            }
+          });
+        };
 
         return MainView;
 
