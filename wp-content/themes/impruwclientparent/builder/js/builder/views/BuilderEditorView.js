@@ -655,6 +655,7 @@ define(['underscore', 'jquery', 'backbone', 'global',
                     function(response) {
                         
                         $('#editor-initial-loader').remove();
+                        self.$el.find('hr.virtual-divider,.aj-imp-drag-handle,.aj-imp-delete-btn,.aj-imp-col-divider,.aj-imp-col-sel').hide();
                         if (response.code === 'OK') {
 
                             //set HTML
