@@ -373,7 +373,7 @@ define(['underscore', 'jquery', 'backbone', 'global',
                 $('.element-drop-loader').css({'height': '600px',
 					   'background-position': 'top center'
 				});
-                _this.holdOnWhileSwitching();
+                this.holdOnWhileSwitching();
                 $.get(AJAXURL, {
                         action  : 'get_initial_saved_layout',
                         forPage  : this.getCurrentPage(),
@@ -399,15 +399,14 @@ define(['underscore', 'jquery', 'backbone', 'global',
                         if(fetch){
                             this.$el.find('hr.virtual-divider,.aj-imp-drag-handle,.aj-imp-delete-btn,.aj-imp-col-divider,.aj-imp-col-sel').hide();
                             _.delay(function(){ 
-                                
                                 _this.fetchContentMarkup();
-                            }, 100);
+                            }, 1000);
                         
                         }
                         else{
                             _.delay(function(){
                             	$('label.editormode').last().click();
-                            }, 2000);
+                            }, 1000);
                         }
 
                     },this), 'json');
@@ -640,8 +639,7 @@ define(['underscore', 'jquery', 'backbone', 'global',
 
                 var self = this;
 
-                this.$el.find('hr.virtual-divider,.aj-imp-drag-handle,.aj-imp-delete-btn,.aj-imp-col-divider,.aj-imp-col-sel').hide();
-                
+                this.json = {};
 
                 //get latest json
                 this.generateJSON();
@@ -655,8 +653,8 @@ define(['underscore', 'jquery', 'backbone', 'global',
                         pageId: this.getCurrentPage()
                     },
                     function(response) {
-
-                    	self.$el.find('#editor-initial-loader').remove();
+                        
+                        $('#editor-initial-loader').remove();
                         if (response.code === 'OK') {
 
                             //set HTML
