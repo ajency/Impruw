@@ -273,7 +273,7 @@ define(['builderelement', 'builderrowcolumn', 'global'],
 
                 var self = this;
 
-                var template = '<div class="aj-imp-col-divider">\
+                var template = '<div class="aj-imp-col-divider" style="display:none">\
                                         <p title="Move">\
                                             <span class="bicon icon-uniF140"></span>\
                                         </p>\
