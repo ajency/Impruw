@@ -701,10 +701,16 @@ define(['underscore', 'jquery', 'backbone', 'global',
 
                 global.Holder.run();
 
-                if(self.contentLoaded)
-                    return;
+                // if(self.contentLoaded)
+                //     return;
+                //clear all prev instance
+                
 
                 require(['ckeditor'], function(CKEDITOR) {
+
+                    _.each(CKEDITOR.instances, function(instance, key){
+                        delete CKEDITOR.instances[key];
+                    });
 
                     CKEDITOR.on('instanceCreated', self.configureEditor);
 
