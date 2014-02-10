@@ -525,7 +525,7 @@ define(['underscore', 'jquery', 'backbone', 'global',
             holdOnWhileSwitching: function() {
 
                 var switcher = $('<div class="element-drop-loader" id="editor-initial-loader">\
-                                    <p>Switching mode... Please wait... </p>\
+                                    <p>Loading editor... Please wait... </p>\
                                 </div>');
                 
                 
@@ -559,7 +559,7 @@ define(['underscore', 'jquery', 'backbone', 'global',
              */
             removeSwitchLoader: function() {
 
-                  this.$el.parent().parent().find('#editor-initial-loader').fadeOut('slow', function() {
+                  this.$el.parent().parent().find('#editor-initial-loader').fadeOut('fast', function() {
 
                     $(this).remove();
 

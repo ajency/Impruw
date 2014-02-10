@@ -3,7 +3,8 @@
     baseUrl : 'js',
     dir     : '../dist',
     modules : [{
-       	            name: 'production'
+       	            name: 'production',
+                    exclude : ['ckeditor']
                 }],
     fileExclusionRegExp: /^(r|build)\.js$/,
     optimizeCss: 'standard',

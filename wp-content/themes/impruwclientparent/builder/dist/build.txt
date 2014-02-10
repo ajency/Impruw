@@ -159,7 +159,6 @@ js/builder/views/modals/ChooseRoomModal.js
 js/builder/views/elements/rooms/RoomListElement.js
 tpl!builder/templates/modal/addpage.tpl
 js/builder/views/modals/AddPageModal.js
-js/lib/ckeditor.js
 js/builder/views/BuilderEditorView.js
 js/builder/views/BuilderMainView.js
 js/builder/routers/BuilderRouter.js

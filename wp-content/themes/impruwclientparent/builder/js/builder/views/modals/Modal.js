@@ -20,7 +20,6 @@ define(['backbone', 'tpl!builder/templates/modal/modal.tpl', 'global'],
 
             open: function() {
                 this.$el.modal('show');
-                $('#controls-drag').hide();
                 SiteBuilder.vent.trigger(this.id + '-open');
             },
 

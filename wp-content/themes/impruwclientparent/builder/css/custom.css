@@ -41,6 +41,7 @@ li.ui-sortable-placeholder{
 
 #controls-drag{
 	z-index : 10000;
+    display:none;
 }
 
 a{
