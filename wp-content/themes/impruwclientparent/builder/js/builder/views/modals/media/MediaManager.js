@@ -51,9 +51,6 @@ define(['builder/views/modals/Modal', 'tpl!builder/templates/modal/media/mediama
                 var self = this;
                 this.$el.on('hidden.bs.modal', function(evt) {
 
-                    if (!$('#controls-drag').is(':visible'))
-                        $('#controls-drag').show();
-
                     //trigger the elements update self
                     getAppInstance().vent.trigger('modal-closed', self);
 
