@@ -365,14 +365,15 @@ define(['underscore', 'jquery', 'backbone', 'global',
             /**
              *  Render function for view
              */
-            render: function() {
+            render: function(fetch) {
 
                 var self = this;
 
                 var templatePath = '';
                 $('.element-drop-loader').css({'height': '600px',
 					   'background-position': 'top center'
-					  });
+				});
+
                 $.get(AJAXURL, {
                         action  : 'get_initial_saved_layout',
                         forPage  : this.getCurrentPage(),
@@ -391,16 +392,59 @@ define(['underscore', 'jquery', 'backbone', 'global',
 
                         
                         this.enableDragDrop();
-                       
-                       // this.$el.find('#editor-initial-loader').remove();
-                        _.delay(function(){
-                        	$('label.editormode').last().click();
-                        }, 2000);
+                        
+                        var _this = this;
+
+                        // this.$el.find('#editor-initial-loader').remove();
+                        if(fetch){
+                            this.$el.find('hr.virtual-divider,.aj-imp-drag-handle,.aj-imp-delete-btn,.aj-imp-col-divider,.aj-imp-col-sel').hide();
+                            _.delay(function(){ 
+                                _this.holdOnWhileSwitching();
+                                _this.fetchContentMarkup();
+                            }, 100);
+                        
+                        }
+                        else{
+                            _.delay(function(){
+                            	$('label.editormode').last().click();
+                            }, 2000);
+                        }
 
                     },this), 'json');
 
 
                 return this;
+            },
+
+            /**
+             * [clearbuilder description]
+             * @return {[type]} [description]
+             */
+            clearbuilder: function(){
+
+                var _this = this;
+                
+                _.each(this.elements, function(section, key){
+
+                    _.each(section,function(row, i){
+
+                        if(row.elements.length > 0){
+                            _.each(row.elements, function(c, k){
+                                c.makeEmpty();
+                            });
+                            row.removeElement();
+                        }
+
+                    });
+                    
+                    _this.elements[key] = [];
+
+                });
+
+                this.$el.css('min-height','500px');
+
+                this.render(true);
+
             },
 
             /**
@@ -596,28 +640,23 @@ define(['underscore', 'jquery', 'backbone', 'global',
 
                 var self = this;
 
+                this.$el.find('hr.virtual-divider,.aj-imp-drag-handle,.aj-imp-delete-btn,.aj-imp-col-divider,.aj-imp-col-sel').hide();
+                
+
                 //get latest json
                 this.generateJSON();
 
                 var _json = this.json;
 
-                window.fetchJSON = true;
-
-                if( this.getElementFetchCount(_json.header.elements) === 0 &&
-                    this.getElementFetchCount(_json.page.elements)   === 0 &&
-                    this.getElementFetchCount(_json.footer.elements) === 0) {
-                    return;  
-                }
-
+                
                 $.post(AJAXURL, {
                         action: 'get_content_markup',
                         json: _json,
                         pageId: this.getCurrentPage()
                     },
                     function(response) {
-                    	self.$el.find('#editor-initial-loader').remove();
-                        window.fetchJSON = false;
 
+                    	self.$el.find('#editor-initial-loader').remove();
                         if (response.code === 'OK') {
 
                             //set HTML

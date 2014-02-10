@@ -644,7 +644,6 @@ define(['backbone', 'jquery', 'underscore', 'global'],
             destroyElement: function(evt) {
 
                 evt.preventDefault();
-
                 evt.stopPropagation();
 
                 if (!confirm("Are you sure?"))
@@ -668,7 +667,7 @@ define(['backbone', 'jquery', 'underscore', 'global'],
              */
             removeElement: function(evt) {
 
-                this.$el.fadeOut(400, _.bind(this.destroy, this));
+                this.$el.hide(_.bind(this.destroy, this));
             },
 
             /**
@@ -690,9 +689,9 @@ define(['backbone', 'jquery', 'underscore', 'global'],
 
                 this.undelegateEvents();
 
-                delete this.$el; // Delete the jQuery wrapped object variable
+                delete this.el; // Delete the jQuery wrapped object variable
 
-                delete this.el;
+                delete this;
             }
 
         });

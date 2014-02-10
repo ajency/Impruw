@@ -83,7 +83,8 @@ define(['underscore', 'jquery', 'backbone', 'builder/views/BuilderEditorView'],
                 }
                 $.cookie('current_page_id', page, { expires: 7 });
 
-                window.location.reload();
+                //window.location.reload();
+                this.builder.clearbuilder();
             },
 
             /**

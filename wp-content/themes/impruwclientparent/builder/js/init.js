@@ -194,7 +194,7 @@ require(['jquery','global','backbone', 'marionette',
             // });
 
             getAppInstance().addInitializer(function(options){
-                new Router();
+                window.b = new Router();
                 Backbone.history.start();
             });
 

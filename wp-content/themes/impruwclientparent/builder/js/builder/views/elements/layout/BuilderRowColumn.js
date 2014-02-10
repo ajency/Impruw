@@ -522,7 +522,7 @@ define(['builderelement', 'global'],
                     if (element.type === 'row')
                         element.emptyColumns();
                     else
-                        element.destroy();
+                        element.removeElement();
 
                 });
 

@@ -242,7 +242,7 @@ define(['builderelement', 'builderrowcolumn', 'global'],
                                         </div>');
 
                 if (this.get('editable')) {
-                    this.$el.append('<div class="aj-imp-col-sel tooltip fade top in">\
+                    this.$el.append('<div class="aj-imp-col-sel tooltip fade top">\
                                             <div class="tooltip-arrow"></div>\
                                             <div class="tooltip-inner">\
                                                 <label>Columns: </label>\
