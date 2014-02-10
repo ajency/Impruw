@@ -373,7 +373,7 @@ define(['underscore', 'jquery', 'backbone', 'global',
                 $('.element-drop-loader').css({'height': '600px',
 					   'background-position': 'top center'
 				});
-
+                _this.holdOnWhileSwitching();
                 $.get(AJAXURL, {
                         action  : 'get_initial_saved_layout',
                         forPage  : this.getCurrentPage(),
@@ -399,7 +399,7 @@ define(['underscore', 'jquery', 'backbone', 'global',
                         if(fetch){
                             this.$el.find('hr.virtual-divider,.aj-imp-drag-handle,.aj-imp-delete-btn,.aj-imp-col-divider,.aj-imp-col-sel').hide();
                             _.delay(function(){ 
-                                _this.holdOnWhileSwitching();
+                                
                                 _this.fetchContentMarkup();
                             }, 100);
                         

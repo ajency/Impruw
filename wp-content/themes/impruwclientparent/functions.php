@@ -977,8 +977,8 @@ function elements_markup( $elements ) {
     foreach ( $elements as $element ) {
 
         //skip if already sent
-        if($element['contentFetched'] == 'true')
-            continue;
+        // if($element['contentFetched'] == 'true')
+        //     continue;
 
         if ( $element['elementType'] === 'BuilderRow' || $element['elementType'] === 'BuilderRowColumn' ) {
 
