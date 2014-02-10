@@ -373,7 +373,12 @@ define(['underscore', 'jquery', 'backbone', 'global',
                 $('.element-drop-loader').css({'height': '600px',
 					   'background-position': 'top center'
 				});
-                this.holdOnWhileSwitching();
+
+                var pageId = this.getCurrentPage();
+                var pageName = $('option[value="'+pageId+'"]').text();
+                
+                this.holdOnWhileSwitching(pageName);
+
                 $.get(AJAXURL, {
                         action  : 'get_initial_saved_layout',
                         forPage  : this.getCurrentPage(),
@@ -396,18 +401,15 @@ define(['underscore', 'jquery', 'backbone', 'global',
                         var _this = this;
 
                         // this.$el.find('#editor-initial-loader').remove();
-                        if(fetch){
-                            this.$el.find('hr.virtual-divider,.aj-imp-drag-handle,.aj-imp-delete-btn,.aj-imp-col-divider,.aj-imp-col-sel').hide();
-                            _.delay(function(){ 
-                                _this.fetchContentMarkup();
-                            }, 1000);
+                        //if(fetch){
+
+                        this.$el.find('hr.virtual-divider,.aj-imp-drag-handle,.aj-imp-delete-btn,.aj-imp-col-divider,.aj-imp-col-sel').hide();
+                        _.delay(function(){ 
+                            _this.fetchContentMarkup();
+                            _this.switchToContent();
+                        }, 1000);
                         
-                        }
-                        else{
-                            _.delay(function(){
-                            	$('label.editormode').last().click();
-                            }, 1000);
-                        }
+                        
 
                     },this), 'json');
 
@@ -525,9 +527,7 @@ define(['underscore', 'jquery', 'backbone', 'global',
              * @returns {undefined}
              */
             switchMode: function(evt) {
-
-                this.holdOnWhileSwitching();
-
+                
                 if (window.editorMode === 'layout') {
 
                     this.switchToContent(evt);
@@ -565,10 +565,13 @@ define(['underscore', 'jquery', 'backbone', 'global',
             /**
              * Show the loader while switching modes
              */
-            holdOnWhileSwitching: function() {
+            holdOnWhileSwitching: function(page) {
+
+                if(!page)
+                    page = 'editor';
 
                 var switcher = $('<div class="element-drop-loader" id="editor-initial-loader">\
-                                    <p>Loading editor... Please wait... </p>\
+                                    <p>Loading '+page+'...</p>\
                                 </div>');
                 
                 
@@ -614,7 +617,7 @@ define(['underscore', 'jquery', 'backbone', 'global',
              *  Switch to content mode
              */
             switchToContent: function(evt) {
-            	this.removeSwitchLoader();
+            	
                 var self = this;
 
                 this.$el.removeClass('aj-imp-builder-layout-mode').addClass('aj-imp-builder-content-mode');
@@ -628,7 +631,7 @@ define(['underscore', 'jquery', 'backbone', 'global',
                 if (!_.isNull(window.prevpopover))
                         window.prevpopover.popover('hide');
 
-                this.fetchContentMarkup();
+                //this.fetchContentMarkup();
 
             },
 
@@ -677,10 +680,11 @@ define(['underscore', 'jquery', 'backbone', 'global',
                         self.contentLoaded = true;
 
                         self.removeSwitchLoader();
+                        window.editorMode = 'content';
 
                     }, 'json');
 
-                window.editorMode = 'content';
+                
             },
 
             /**

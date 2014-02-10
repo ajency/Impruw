@@ -85,6 +85,7 @@ define(['underscore', 'jquery', 'backbone', 'builder/views/BuilderEditorView'],
 
                 //window.location.reload();
                 this.builder.clearbuilder();
+                
             },
 
             /**
@@ -164,13 +165,9 @@ define(['underscore', 'jquery', 'backbone', 'builder/views/BuilderEditorView'],
 
                 this.builder = new BuilderEditorView();
 
-                this.builder.render();
-
+                this.builder.clearbuilder();
 
                 this.$el.find('.aj-imp-browser-body').html(this.builder.$el);
-
-                //remove loader
-               // this.handleInitialLoader();
 
                 //enable dragsort
                 this.builder.enableDropSort();
