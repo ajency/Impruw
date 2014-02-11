@@ -14,8 +14,10 @@ define [
 		'bootstrap'
 		'radio'
 		'checkbox'
+		'holder'
 		'tpl'
 		'jqueryspin'
 		'polyglot'
 		'bootstrapselect'
+		'ckeditor'
 		],->

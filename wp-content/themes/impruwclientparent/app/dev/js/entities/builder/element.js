@@ -14,8 +14,52 @@
           return _ref;
         }
 
+        ElementModel.prototype.defaults = function() {
+          return {
+            markup: '<span></span>'
+          };
+        };
+
         ElementModel.prototype.url = function() {
           return "" + AJAXURL + "?action=element";
+        };
+
+        ElementModel.prototype.name = function() {
+          return 'element-model';
+        };
+
+        ElementModel.prototype.sync = function(method, model, options) {
+          var name, _action;
+          if (options == null) {
+            options = {};
+          }
+          if (!this.name) {
+            throw new Error("'name' property missing");
+          }
+          if (_.isFunction(this.name)) {
+            name = this.name();
+          } else {
+            name = this.name;
+          }
+          _action = "" + method + "-" + name;
+          switch (method) {
+            case 'create':
+              options.data = model.toJSON();
+              this.removeFields(options.data);
+              return Backbone.send(_action, options);
+            default:
+              return Backbone.Model.prototype.sync.apply(this, arguments);
+          }
+        };
+
+        ElementModel.prototype.removeFields = function(data) {
+          return delete data.markup;
+        };
+
+        ElementModel.prototype.parse = function(resp) {
+          if (resp.code === 'OK') {
+            return resp.data;
+          }
         };
 
         return ElementModel;
@@ -24,8 +68,14 @@
       API = {
         createElement: function(data) {
           var element;
+          if (data == null) {
+            data = {};
+          }
           element = new Elements.ElementModel;
-          element.save(data);
+          element.set(data);
+          element.save(null, {
+            wait: true
+          });
           return element;
         }
       };

@@ -58,8 +58,33 @@ add_action('wp_ajax_get-pages', 'get_pages1');
 
 function get_elementbox_elements(){
 	wp_send_json(array('code' => 'OK', 'data' => array(
-													array('element' => 'row'	, 'title' => 'Row'	, 'icon' => ''),
-													array('element' => 'logo'	, 'title' => 'Logo'	, 'icon' => '')
+													array('element' => 'MenuElement'	, 'title' => 'Menu '	, 'icon' => ''),
+													array('element' => 'SliderElement'	, 'title' => 'Slider '	, 'icon' => ''),
+													array('element' => 'TextElement'	, 'title' => 'Text '	, 'icon' => ''),
+													array('element' => 'ImageElement'	, 'title' => 'Image '	, 'icon' => ''),
+													array('element' => 'RoomElement'	, 'title' => 'Room '	, 'icon' => ''),
+													array('element' => 'MenuElement'	, 'title' => 'Menu '	, 'icon' => ''),
+													array('element' => 'TitleElement'	, 'title' => 'Title'	, 'icon' => ''),
+													array('element' => 'AddressElement'	, 'title' => 'Address'	, 'icon' => '')
 												)));
 }
 add_action('wp_ajax_get-elementbox-elements','get_elementbox_elements');
+
+
+/**
+ * [get_rooms description]
+ * @return [type] [description]
+ */
+function create_element_model(){
+
+	$element = $_POST;
+
+	unset($element['action']);
+
+	$markup  = add_element_markup($element);
+	$meta_id = rand(1000,9999);
+
+	wp_send_json(array('code' => 'OK', 'data' => array('id' => $meta_id, 'markup' => $markup)));
+
+}
+add_action('wp_ajax_create-element-model','create_element_model');

@@ -30,7 +30,8 @@
 
       AppController.prototype.add = function(view, section) {
         var type;
-        type = view.model.get("type");
+        window.f = view;
+        type = view.model.get("elementType");
         section.find("li[data-element='" + type + "']").replaceWith(view.$el);
         return view.render();
       };

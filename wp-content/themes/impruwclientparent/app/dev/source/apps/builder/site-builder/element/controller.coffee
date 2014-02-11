@@ -1,11 +1,11 @@
 
 define ['app', 'controllers/builder-base-controller'
-		'apps/builder/site-builder/new/views'], (App, AppController)->
+		'apps/builder/site-builder/element/views'], (App, AppController)->
 
-			App.module 'SiteBuilderApp.NewElement', (NewElement, App, Backbone, Marionette, $, _)->
+			App.module 'SiteBuilderApp.Element', (Element, App, Backbone, Marionette, $, _)->
 
 				# Controller class for showing header resion
-				class NewElement.Controller extends AppController
+				class Element.Controller extends AppController
 
 					# initialize the controller. Get all required entities and show the view
 					initialize:(opt = {})->
@@ -16,21 +16,26 @@ define ['app', 'controllers/builder-base-controller'
 						type  		= ui.item.attr 'data-element'
 
 						options = 
-							type 		: type
+							elementType : type
 							position 	: sectionID
 							draggable 	: true
-							parent 		: 0
 
 						element = App.request "create:new:element", options
 
 						view = @_getView element
 
+						@listenTo view, "show:setting:popup", @showSettingPopup
+
 						@add view, $ "#"+sectionID
 
-					# get view
+					# Get view
 					_getView : (element)->
-						new NewElement.Views.ElementView
+						new Element.Views.ElementView
 												model : element
 
+					# show settings popup for the element
+					showSettingPopup:->
+						console.log "time to show setting popup"
 
-			App.SiteBuilderApp.NewElement.Controller		
+
+			App.SiteBuilderApp.Element.Controller		

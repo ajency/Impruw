@@ -1,6 +1,6 @@
 define ['app'
 		'apps/builder/site-builder/show/controller'
-		'apps/builder/site-builder/new/controller'], (App)->
+		'apps/builder/site-builder/element/controller'], (App)->
 
 	App.module 'SiteBuilderApp', (SiteBuilderApp, App, Backbone, Marionette, $, _)->
 
@@ -10,7 +10,7 @@ define ['app'
 				new SiteBuilderApp.Show.Controller
 
 			appendNewElement:(evt, ui)->
-				new SiteBuilderApp.NewElement.Controller
+				new SiteBuilderApp.Element.Controller
 													evt : evt
 													ui  : ui
 

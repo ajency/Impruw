@@ -115,7 +115,7 @@ class SliderElement extends Element {
             <div class="carousel-inner">
                 <?php foreach($this->get_images() as $index => $image){ ?>
                     <div class="item <?php echo ($index === 0 ) ? 'active' : '' ?>">
-                        <img src="<?php echo $this->get_image_src($image); ?>" alt="...">
+                        <img <?php echo $image == 0 ? 'data-' : '' ?>src="<?php echo $this->get_image_src($image); ?>" alt="...">
                     </div>
                 <?php } ?>
             </div>

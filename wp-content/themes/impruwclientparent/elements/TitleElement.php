@@ -65,7 +65,7 @@ class TitleElement extends Element {
         // if(empty($this->content))
         //     $html       .= $this->get_open_tag($attr);
 
-        $html           .=  ($this->content === '') ? 'Enter your title here' : $this->content;
+        $html           .=  ($this->content === '') ? '<h2 contenteditable="true">Enter your title here</h2>' : $this->content;
         
         // if(empty($this->content))
         //     $html       .= $this->get_close_tag();

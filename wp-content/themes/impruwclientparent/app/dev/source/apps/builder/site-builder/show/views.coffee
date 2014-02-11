@@ -16,6 +16,7 @@ define ['app'
 												revert 		: 'invalid'
 												items 		: '> .element-wrapper'
 												connectWith : '.droppable-column'
+												handle 		: '.aj-imp-drag-handle'
 												helper 		: 'clone'
 												opacity		: .65
 												receive 	: (evt, ui)=> @trigger "element:dropped", evt, ui

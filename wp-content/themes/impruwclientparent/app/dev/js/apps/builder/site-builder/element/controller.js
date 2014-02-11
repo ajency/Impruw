@@ -3,10 +3,10 @@
   var __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  define(['app', 'controllers/builder-base-controller', 'apps/builder/site-builder/new/views'], function(App, AppController) {
-    App.module('SiteBuilderApp.NewElement', function(NewElement, App, Backbone, Marionette, $, _) {
+  define(['app', 'controllers/builder-base-controller', 'apps/builder/site-builder/element/views'], function(App, AppController) {
+    App.module('SiteBuilderApp.Element', function(Element, App, Backbone, Marionette, $, _) {
       var _ref;
-      return NewElement.Controller = (function(_super) {
+      return Element.Controller = (function(_super) {
         __extends(Controller, _super);
 
         function Controller() {
@@ -23,27 +23,31 @@
           sectionID = $(evt.target).attr('id');
           type = ui.item.attr('data-element');
           options = {
-            type: type,
+            elementType: type,
             position: sectionID,
-            draggable: true,
-            parent: 0
+            draggable: true
           };
           element = App.request("create:new:element", options);
           view = this._getView(element);
+          this.listenTo(view, "show:setting:popup", this.showSettingPopup);
           return this.add(view, $("#" + sectionID));
         };
 
         Controller.prototype._getView = function(element) {
-          return new NewElement.Views.ElementView({
+          return new Element.Views.ElementView({
             model: element
           });
+        };
+
+        Controller.prototype.showSettingPopup = function() {
+          return console.log("time to show setting popup");
         };
 
         return Controller;
 
       })(AppController);
     });
-    return App.SiteBuilderApp.NewElement.Controller;
+    return App.SiteBuilderApp.Element.Controller;
   });
 
 }).call(this);

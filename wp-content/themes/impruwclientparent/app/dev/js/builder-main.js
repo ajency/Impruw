@@ -14,9 +14,11 @@
       spin: 'plugins/spin',
       jqueryspin: 'plugins/jquery.spin',
       bootstrap: 'plugins/bootstrap',
+      holder: 'plugins/holder',
       bootstrapselect: 'plugins/bootstrapselect',
       radio: 'plugins/flatui-radio',
       checkbox: 'plugins/flatui-checkbox',
+      ckeditor: 'plugins/ckeditor',
       backboneform: 'plugins/backbone.form',
       backbonesyphon: 'plugins/backbone.syphon',
       backbonerelational: 'plugins/backbone.relational',
@@ -50,6 +52,8 @@
       google: {
         exports: 'google'
       },
+      ckeditor: 'CKEDITOR',
+      holder: 'Holder',
       jqueryvalidate: ['jquery'],
       backboneform: ['backbone'],
       backbonesyphon: ['backbone'],
