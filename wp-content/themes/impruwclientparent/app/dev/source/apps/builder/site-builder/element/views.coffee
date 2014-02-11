@@ -18,7 +18,12 @@ define ['app'
 
 					# element events
 					events : 
-						'click' : -> @trigger "show:setting:popup"
+						'click' : (evt)-> 
+							evt.stopPropagation()
+							@trigger "show:setting:popup"
+						'click .aj-imp-delete-btn': =>
+							evt.stopPropagation()
+							@trigger "delete:element", @model 
 
 					# model events
 					# listen to markup change event. update the UI accordingly

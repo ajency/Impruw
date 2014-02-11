@@ -7,6 +7,8 @@
     App.module('SiteBuilderApp.Element.Views', function(Views, App, Backbone, Marionette, $, _) {
       var _ref;
       return Views.ElementView = (function(_super) {
+        var _this = this;
+
         __extends(ElementView, _super);
 
         function ElementView() {
@@ -21,8 +23,13 @@
         ElementView.prototype.className = 'element-wrapper';
 
         ElementView.prototype.events = {
-          'click': function() {
+          'click': function(evt) {
+            evt.stopPropagation();
             return this.trigger("show:setting:popup");
+          },
+          'click .aj-imp-delete-btn': function() {
+            evt.stopPropagation();
+            return ElementView.trigger("delete:element", ElementView.model);
           }
         };
 
@@ -86,7 +93,7 @@
 
         return ElementView;
 
-      })(Marionette.ItemView);
+      }).call(this, Marionette.ItemView);
     });
     return App.SiteBuilderApp.Element.Views;
   });

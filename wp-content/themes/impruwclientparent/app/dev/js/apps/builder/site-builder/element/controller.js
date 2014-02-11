@@ -15,7 +15,7 @@
         }
 
         Controller.prototype.initialize = function(opt) {
-          var element, evt, options, sectionID, type, ui, view;
+          var evt, options, sectionID, type, ui, view;
           if (opt == null) {
             opt = {};
           }
@@ -27,8 +27,8 @@
             position: sectionID,
             draggable: true
           };
-          element = App.request("create:new:element", options);
-          view = this._getView(element);
+          this.element = App.request("create:new:element", options);
+          view = this._getView(this.element);
           this.listenTo(view, "show:setting:popup", this.showSettingPopup);
           return this.add(view, $("#" + sectionID));
         };
@@ -40,7 +40,7 @@
         };
 
         Controller.prototype.showSettingPopup = function() {
-          return console.log("time to show setting popup");
+          return App.vent.trigger("show:settings:popup", this.element);
         };
 
         return Controller;

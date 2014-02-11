@@ -6,8 +6,8 @@
       headerRegion: '#header-region',
       elementsBoxRegion: '#elements-box-region',
       builderRegion: '#builder-region',
-      dialogRegion: Marionette.Region.Dialog.extend({
-        el: '#dialog-region'
+      settingsRegion: Marionette.Region.Settings.extend({
+        el: '#settings-region'
       }),
       loginRegion: Marionette.Region.Dialog.extend({
         el: '#login-region'

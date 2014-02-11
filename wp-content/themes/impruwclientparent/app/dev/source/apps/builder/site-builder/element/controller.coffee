@@ -20,9 +20,9 @@ define ['app', 'controllers/builder-base-controller'
 							position 	: sectionID
 							draggable 	: true
 
-						element = App.request "create:new:element", options
+						@element = App.request "create:new:element", options
 
-						view = @_getView element
+						view = @_getView @element
 
 						@listenTo view, "show:setting:popup", @showSettingPopup
 
@@ -35,7 +35,6 @@ define ['app', 'controllers/builder-base-controller'
 
 					# show settings popup for the element
 					showSettingPopup:->
-						console.log "time to show setting popup"
-
+						App.vent.trigger "show:settings:popup", @element
 
 			App.SiteBuilderApp.Element.Controller		
