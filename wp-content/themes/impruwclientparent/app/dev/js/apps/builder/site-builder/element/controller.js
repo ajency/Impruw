@@ -15,14 +15,13 @@
         }
 
         Controller.prototype.initialize = function(opt) {
-          var evt, options, sectionID, type, ui, view;
+          var container, evt, options, type, ui, view;
           if (opt == null) {
             opt = {};
           }
           evt = opt.evt, ui = opt.ui;
-          sectionID = $(evt.target).attr('id');
-          type = ui.item.attr('data-element');
-          console.log($(evt.target));
+          container = $(evt.target);
+          type = ui.helper.attr('data-element');
           if ($(evt.target).hasClass('empty-column')) {
             $(evt.target).removeClass('empty-column');
           }
@@ -36,7 +35,7 @@
           this.listenTo(view, "element:dropped", function(evt, ui) {
             return App.vent.trigger("element:dropped", evt, ui);
           });
-          return this.add(view, $("#" + sectionID));
+          return this.add(view, container);
         };
 
         Controller.prototype._getView = function(element) {

@@ -51,21 +51,28 @@
             page: this._getJson($site.find('#site-page-content-region')),
             footer: this._getJson($site.find('#site-footer-region'))
           };
+          console.log(json);
           return json;
         };
 
         Controller.prototype._getJson = function($element, arr) {
-          var elements;
+          var elements,
+            _this = this;
           if (arr == null) {
             arr = [];
           }
-          elements = $element.find('.element-wrapper');
+          elements = $element.children('.element-wrapper');
           _.each(elements, function(element, index) {
             var ele;
             ele = {
               type: $(element).find('form input[name="element_type"]').val(),
-              meta_id: $(element).find('form input[name="meta_id"]').val()
+              meta_id: parseInt($(element).find('form input[name="meta_id"]').val())
             };
+            if (ele.type === 'BuilderRow') {
+              _.each($(element).find('.column'), function(column, index) {
+                ele["col-" + (index + 1)] = _this._getJson($(column));
+              });
+            }
             return arr.push(ele);
           });
           return arr;

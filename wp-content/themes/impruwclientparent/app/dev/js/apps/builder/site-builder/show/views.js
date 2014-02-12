@@ -34,8 +34,7 @@
             handle: '.aj-imp-drag-handle',
             helper: 'clone',
             opacity: .65,
-            receive: function(evt, ui) {
-              console.log($(evt.target));
+            update: function(evt, ui) {
               return _this.trigger("element:dropped", evt, ui);
             }
           });

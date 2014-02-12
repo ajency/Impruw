@@ -24,8 +24,7 @@ define ['app'
 												handle 		: '.aj-imp-drag-handle'
 												helper 		: 'clone'
 												opacity		: .65
-												receive 	: (evt, ui)=> 
-													console.log $(evt.target)
+												update 		: (evt, ui)=> 
 													@trigger "element:dropped", evt, ui
 												
 			return App.SiteBuilderApp.Show.View

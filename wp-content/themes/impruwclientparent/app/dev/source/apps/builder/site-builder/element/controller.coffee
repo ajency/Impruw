@@ -12,10 +12,8 @@ define ['app', 'controllers/builder-base-controller'
 
 						{evt, ui} 	= opt
 	
-						sectionID 	= $(evt.target).attr 'id'
-						type  		= ui.item.attr 'data-element'
-
-						console.log $(evt.target)
+						container 	= $(evt.target)
+						type  		= ui.helper.attr 'data-element'
 
 						# remove empty-column class if empty
 						if $(evt.target).hasClass 'empty-column'
@@ -34,7 +32,7 @@ define ['app', 'controllers/builder-base-controller'
 						@listenTo view, "element:dropped", (evt, ui)->
 							App.vent.trigger "element:dropped", evt, ui
 
-						@add view, $ "#"+sectionID
+						@add view, container
 
 					# Get view
 					_getView : (element)->

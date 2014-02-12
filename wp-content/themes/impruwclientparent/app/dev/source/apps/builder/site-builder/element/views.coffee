@@ -51,7 +51,7 @@ define ['app'
 						mouseOverFn = _.throttle (evt)=>
 							evt.stopPropagation()
 							@$el.addClass "hover-class"
-						,600
+						,00
 
 						@$el.mouseover(mouseOverFn).mouseout (evt)=>
 														@$el.removeClass "hover-class"

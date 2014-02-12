@@ -42,19 +42,27 @@ define ['app'], (App)->
 					page 	: @_getJson $site.find '#site-page-content-region'
 					footer 	: @_getJson $site.find '#site-footer-region'
 
+				console.log json
+
 				json
 
-			# get json for an element
+			# generate the JSON for the layout
+			# loops through rows and nested columns and elements inside it
 			_getJson:($element, arr = [])->
 
 				# find all elements inside $element container
-				elements = $element.find '.element-wrapper'
+				elements = $element.children '.element-wrapper'
 
-				_.each elements, (element, index)->
+				_.each elements, (element, index)=>
 					
 					ele =
 						type 	: $(element).find('form input[name="element_type"]').val()
-						meta_id : $(element).find('form input[name="meta_id"]').val()
+						meta_id : parseInt $(element).find('form input[name="meta_id"]').val()
+
+					if ele.type is 'BuilderRow'
+						_.each $(element).find('.column'), (column, index)=>
+							ele["col-#{index + 1}"] = @_getJson $(column)
+							return
 
 					arr.push ele
 					
