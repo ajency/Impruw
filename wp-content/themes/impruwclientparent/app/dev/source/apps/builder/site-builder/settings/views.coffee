@@ -10,7 +10,7 @@ define ['app'
 
 					template : settingsTpl
 
-					className : 'modal-content'
+					className : 'modal-content settings-box'
 
 					events:
 						'click .close-settings' : -> App.settingsRegion.close()

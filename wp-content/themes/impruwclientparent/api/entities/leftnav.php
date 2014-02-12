@@ -84,7 +84,7 @@ function create_element_model(){
 	$markup  = add_element_markup($element);
 	$meta_id = rand(1000,9999);
 
-	wp_send_json(array('code' => 'OK', 'data' => array('id' => $meta_id, 'markup' => $markup)));
+	wp_send_json(array('code' => 'OK', 'data' => array('meta_id' => $meta_id, 'markup' => $markup)));
 
 }
 add_action('wp_ajax_create-element-model','create_element_model');

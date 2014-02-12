@@ -17,10 +17,10 @@ define ['app'
 								App.commands.execute "auto:save"
 
 					onShow:->
-						@$el.find('.droppable-column').sortable
+						@$el.find('.droppable-column,.column').sortable
 												revert 		: 'invalid'
 												items 		: '> .element-wrapper'
-												connectWith : '.droppable-column'
+												connectWith : '.droppable-column,.column'
 												handle 		: '.aj-imp-drag-handle'
 												helper 		: 'clone'
 												opacity		: .65

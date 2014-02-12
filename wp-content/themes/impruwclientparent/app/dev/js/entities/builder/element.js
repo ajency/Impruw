@@ -14,6 +14,8 @@
           return _ref;
         }
 
+        ElementModel.prototype.idAttribute = 'meta_id';
+
         ElementModel.prototype.defaults = function() {
           return {
             markup: '<span></span>'
@@ -70,13 +72,13 @@
       })(Backbone.Model);
       API = {
         createElement: function(data) {
-          var element;
+          var ele, element;
           if (data == null) {
             data = {};
           }
           element = new Elements.ElementModel;
           element.set(data);
-          element.save(null, {
+          ele = element.save(null, {
             wait: true
           });
           return element;
