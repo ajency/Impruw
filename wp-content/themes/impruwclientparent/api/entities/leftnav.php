@@ -88,3 +88,16 @@ function create_element_model(){
 
 }
 add_action('wp_ajax_create-element-model','create_element_model');
+
+/**
+ * [save_page_json description]
+ * @return [type] [description]
+ */
+function save_page_json(){
+	$json = $_POST['json'];
+	$json = stripcslashes($json);
+	$json = json_decode($json,true);
+	update_post_meta($page_id,'page-json', $json['page']);
+	die;
+}
+add_action('wp_ajax_save-page-json','save_page_json');

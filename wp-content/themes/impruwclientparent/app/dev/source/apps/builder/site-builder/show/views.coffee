@@ -11,6 +11,11 @@ define ['app'
 
 					className : 'aj-imp-builder-area'
 
+					events : 
+						'click .auto-save' :(evt) -> 
+								evt.preventDefault()
+								App.commands.execute "auto:save"
+
 					onShow:->
 						@$el.find('.droppable-column').sortable
 												revert 		: 'invalid'

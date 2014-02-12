@@ -82,6 +82,9 @@ div.element-drop-loader > p{
 .element-wrapper:hover .element-controls .aj-imp-drag-handle{
     display: block
 }
+.element-wrapper:hover .element-controls .aj-imp-settings-btn{
+    display: block
+}
 .element-wrapper .element-controls{
     position : relative;
 }
@@ -99,6 +102,13 @@ div.element-drop-loader > p{
     left: 0%;
     padding: 5px 20px 0;
     margin-left: -48px;
+}
+.element-wrapper .element-controls .aj-imp-settings-btn{
+    position: absolute;
+    top: -13px;
+    right: 10px;
+    padding: 5px 10px 10px 5px;
+    display:none;
 }
 
 .droppable-column{

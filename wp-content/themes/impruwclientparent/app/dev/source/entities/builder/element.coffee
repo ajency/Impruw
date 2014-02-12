@@ -6,10 +6,10 @@ define ["app", 'backbone'], (App, Backbone) ->
             class Elements.ElementModel extends Backbone.Model
 
                 defaults:->
-                    markup : '<span></span>'
+                    markup : '<span></span>' # this is for the initial spinner
 
                 url :->
-                    "#{AJAXURL}?action=element"
+                    "#{AJAXURL}"
                 
                 # name property. this property is used by the sync function to 
                 # set the action name. Ex: create-element-model, update-element-model, delete-element-model
@@ -27,6 +27,8 @@ define ["app", 'backbone'], (App, Backbone) ->
                     else 
                         name = @name
 
+                    # creation the action property with method name and name property
+                    # ex: create-model-name, delete-model-name, update-model-name, read-model-name
                     _action = "#{method}-#{name}"
                     
                     switch method
@@ -40,6 +42,10 @@ define ["app", 'backbone'], (App, Backbone) ->
 
                 # remove fields which should not be sent to server
                 removeFields:(data)->
+                    # do not delete markup field if element type is text or title
+                    # we need to actually store this field with json
+                    return if @get('elementType') is 'text' or @get('elementType') is 'title'
+
                     delete data.markup
 
                 # parse the json response

@@ -21,8 +21,11 @@
         ElementView.prototype.className = 'element-wrapper';
 
         ElementView.prototype.events = {
-          'click': function(evt) {
+          'click .aj-imp-settings-btn': function(evt) {
             var x, y;
+            if (this.model.get('elementType') === 'text' || this.model.get('elementType') === 'title') {
+              return;
+            }
             evt.stopPropagation();
             x = screen.width / 2 - this.$el.width() / 2;
             y = screen.height / 2 - this.$el.height() / 2;
@@ -35,12 +38,22 @@
         };
 
         ElementView.prototype.modelEvents = {
-          'change:markup': 'renderMarkup'
+          'change:markup': 'renderMarkup',
+          'change:id': 'setMetaId'
         };
 
         ElementView.prototype.onRender = function() {
           this.$el.attr("data-element", this.model.get('type'));
-          return this.$el.find('.element-markup > span').spin(this._getOptions());
+          this.$el.find('.element-markup > span').spin(this._getOptions());
+          return this.setElementType();
+        };
+
+        ElementView.prototype.setMetaId = function(model) {
+          return this.$el.find('input[name="meta_id"]').val(model.get('id'));
+        };
+
+        ElementView.prototype.setElementType = function() {
+          return this.$el.find('input[name="element_type"]').val(this.model.get('elementType'));
         };
 
         ElementView.prototype.renderMarkup = function(model) {

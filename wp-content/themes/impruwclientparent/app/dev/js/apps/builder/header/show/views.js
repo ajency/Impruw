@@ -14,7 +14,14 @@
           return _ref;
         }
 
-        SinglePageView.prototype.template = _.template('<option value="{{ID}}"">{{post_title}}</option>');
+        SinglePageView.prototype.template = _.template('');
+
+        SinglePageView.prototype.tagName = 'option';
+
+        SinglePageView.prototype.onRender = function() {
+          this.$el.attr('value', this.model.get('ID'));
+          return this.$el.text(this.model.get('post_title'));
+        };
 
         return SinglePageView;
 

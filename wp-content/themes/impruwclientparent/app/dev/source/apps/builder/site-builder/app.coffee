@@ -1,7 +1,8 @@
 define ['app'
 		'apps/builder/site-builder/show/controller'
 		'apps/builder/site-builder/element/controller'
-		'apps/builder/site-builder/settings/controller'], (App)->
+		'apps/builder/site-builder/settings/controller'
+		'apps/builder/site-builder/autosave/controller'], (App)->
 
 	App.module 'SiteBuilderApp', (SiteBuilderApp, App, Backbone, Marionette, $, _)->
 
@@ -24,7 +25,12 @@ define ['app'
 												model  	: model
 												x		: x
 												y 		: y
-			
+
+			# auto save function call
+			autoSave:->
+				autoSave = new SiteBuilderApp.AutoSave.Controller
+				autoSave.autoSave()
+
 			# deletes the element model
 			# view is automatically wired up to listen to destroy event of
 			# associated model and clear itself
@@ -56,9 +62,16 @@ define ['app'
 			if confirm("Are you sure?")
 				API.deleteElement model
 
+		App.commands.setHandler "auto:save", ->
+			API.autoSave()
+
 
 		# Show all region on start
 		SiteBuilderApp.on 'start', ->
 			API.show()
+
+			# setInterval ->
+			# 	App.commands.execute "auto:save"
+			# , 4000
 
 		

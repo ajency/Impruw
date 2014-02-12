@@ -18,7 +18,11 @@ define ['app'
 
 					# element events
 					events : 
-						'click' : (evt)-> 
+						'click .aj-imp-settings-btn' : (evt)-> 
+
+							# ignore if element is text or title
+							return if @model.get('elementType') is 'text' or @model.get('elementType') is 'title'
+
 							evt.stopPropagation()
 							x = screen.width / 2 - @$el.width() / 2
 							y = screen.height / 2 - @$el.height() / 2
@@ -31,13 +35,23 @@ define ['app'
 					# model events
 					# listen to markup change event. update the UI accordingly
 					modelEvents : 
-						'change:markup' : 'renderMarkup'
+						'change:markup' 	: 'renderMarkup'
+						'change:id'			: 'setMetaId'
 
 					# set the data-element attribute for element 
 					onRender:->
 						@$el.attr "data-element", @model.get('type')
 						@$el.find('.element-markup > span').spin @_getOptions()
-						
+						@setElementType()
+					
+					# set the meta id for element
+					setMetaId :(model)->
+						@$el.find('input[name="meta_id"]').val model.get('id')
+
+					# set element type in hidden field
+					setElementType :()->
+						@$el.find('input[name="element_type"]').val @model.get('elementType')
+
 					# rerender markup 
 					renderMarkup:(model)->
 						# close the spinner
@@ -73,7 +87,6 @@ define ['app'
 							$(imageElements).removeAttr 'data-src'
 
 					
-
 					# spinner options
 					_getOptions : ->
 			            lines 		: 10

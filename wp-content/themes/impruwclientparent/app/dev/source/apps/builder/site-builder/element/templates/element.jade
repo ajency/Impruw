@@ -1,7 +1,12 @@
+form
+	input(type="hidden" name="meta_id")
+	input(type="hidden" name="element_type")
 .element-controls
 	.aj-imp-drag-handle
 		p(title="Move"): span.icon-uniF140
 	.aj-imp-delete-btn
 		span(title="Delete") &times;
+	.aj-imp-settings-btn
+		span.glyphicon.glyphicon-search(title="Settings")
 .element-markup
-	{{markup}}
+	|{{markup}}

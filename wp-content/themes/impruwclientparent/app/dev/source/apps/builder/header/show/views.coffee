@@ -8,7 +8,13 @@ define ['app'
 				# Pages single view
 				class SinglePageView extends Marionette.ItemView
 
-					template : _.template '<option value="{{ID}}"">{{post_title}}</option>'
+					template : _.template ''
+
+					tagName : 'option'
+
+					onRender:->
+						@$el.attr 'value',@model.get 'ID'
+						@$el.text @model.get 'post_title'
 
 				# Header main view
 				class Views.MainView extends Marionette.CompositeView

@@ -18,6 +18,13 @@
 
         MainView.prototype.className = 'aj-imp-builder-area';
 
+        MainView.prototype.events = {
+          'click .auto-save': function(evt) {
+            evt.preventDefault();
+            return App.commands.execute("auto:save");
+          }
+        };
+
         MainView.prototype.onShow = function() {
           var _this = this;
           return this.$el.find('.droppable-column').sortable({

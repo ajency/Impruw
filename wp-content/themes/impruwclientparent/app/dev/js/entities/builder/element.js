@@ -21,7 +21,7 @@
         };
 
         ElementModel.prototype.url = function() {
-          return "" + AJAXURL + "?action=element";
+          return "" + AJAXURL;
         };
 
         ElementModel.prototype.name = function() {
@@ -53,6 +53,9 @@
         };
 
         ElementModel.prototype.removeFields = function(data) {
+          if (this.get('elementType') === 'text' || this.get('elementType') === 'title') {
+            return;
+          }
           return delete data.markup;
         };
 

@@ -8,8 +8,14 @@
           return new HeaderApp.Show.Controller({
             region: App.headerRegion
           });
+        },
+        getCurrentPageId: function() {
+          return App.headerRegion.$el.find('#aj-imp-page-sel').val();
         }
       };
+      App.reqres.setHandler("get:current:editable:page", function() {
+        return API.getCurrentPageId();
+      });
       return HeaderApp.on('start', function() {
         return API.show();
       });
