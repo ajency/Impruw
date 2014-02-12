@@ -70,7 +70,7 @@ div.element-drop-loader > p{
     display:none;
 }
 
-.element-wrapper:hover{
+/*.element-wrapper:hover{
     border : 1px solid orange;
 }
 .element-wrapper{
@@ -109,7 +109,7 @@ div.element-drop-loader > p{
     right: 10px;
     padding: 5px 10px 10px 5px;
     display:none;
-}
+}*/
 
 .droppable-column{
     min-height: 200px;

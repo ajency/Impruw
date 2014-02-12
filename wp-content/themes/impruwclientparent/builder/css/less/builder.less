@@ -693,47 +693,75 @@ Version:        0.1.0
 		outline: 1px dashed @orange;
 		outline-offset: -0.2em; 
 	}
-	.aj-imp-drag-handle, .aj-imp-delete-btn {
-		position: absolute;
-		display: none;
-		top: -15px;
-		z-index: 2;
-	}
-	.aj-imp-drag-handle {
-		left: 0;
-		height: 20px;
-		width: 100%;
-		text-align: center;
-		p {
-			cursor: move;
-			display: block;
-			width: 10%;
-			min-width: 60px;
-			margin: auto;
-			color: @orange;
-			font-size: 20px;
-			line-height: 20px;
-			background: #fff;
-			border: 1px solid @orange;
-			border-radius: 3px;
-			&:hover {
+	.element-wrapper {
+		border: 1px solid rgba(0, 0, 0, 0.0);
+		padding-top: 7px;
+		.element-controls {
+			position: relative;
+			.aj-imp-drag-handle, .aj-imp-delete-btn, .aj-imp-settings-btn {
+				position: absolute;
+				display: none;
+				top: -20px;
+				z-index: 2;
+			}
+			.aj-imp-drag-handle {
+				left: 0;
+				height: 20px;
+				width: 100%;
+				text-align: center;
+				p {
+					cursor: move;
+					display: block;
+					width: 10%;
+					min-width: 60px;
+					margin: auto;
+					color: @orange;
+					font-size: 20px;
+					line-height: 20px;
+					background: #fff;
+					border: 1px solid @orange;
+					border-radius: 3px;
+					&:hover {
+						background: @orange;
+						color: #fff;
+					}
+				}
+			}
+			.aj-imp-delete-btn {
+				right: -10px;
+				width: 20px;
+				height: 20px;
 				background: @orange;
-				color: #fff;
+				text-align: center;
+				cursor: pointer;
+				span {
+					color: #fff;
+					font-size: 18px;
+					font-weight: 700;
+					line-height: 20px;
+					display: block;
+				}
+			}
+			.aj-imp-settings-btn {
+				right: 20px;
+				width: 20px;
+				height: 20px;
+				background: @orange;
+				text-align: center;
+				cursor: pointer;
+				span {
+					color: #fff;
+					font-size: 13px;
+					line-height: 18px;
+					display: block;
+				}
 			}
 		}
-	}
-	.aj-imp-delete-btn {
-		right: -10px;
-		width: 20px;
-		height: 20px;
-		background: @orange;
-		text-align: center;
-		cursor: pointer;
-		span {
-			color: #fff;
-			font-size: 18px;
-			font-weight: 700;
-			line-height: 20px;
+		&:hover {
+			border: 1px solid @orange;
+			.aj-imp-drag-handle, .aj-imp-delete-btn, .aj-imp-settings-btn {
+				display: block;
+			}
 		}
 	}
 	.aj-imp-col-sel {

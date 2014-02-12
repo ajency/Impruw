@@ -645,20 +645,28 @@ Version:        0.1.0
   outline: 1px dashed #ff7e00;
   outline-offset: -0.2em;
 }
-.aj-imp-builder-layout-mode .aj-imp-drag-handle,
-.aj-imp-builder-layout-mode .aj-imp-delete-btn {
+.aj-imp-builder-layout-mode .element-wrapper {
+  border: 1px solid rgba(0, 0, 0, 0);
+  padding-top: 7px;
+}
+.aj-imp-builder-layout-mode .element-wrapper .element-controls {
+  position: relative;
+}
+.aj-imp-builder-layout-mode .element-wrapper .element-controls .aj-imp-drag-handle,
+.aj-imp-builder-layout-mode .element-wrapper .element-controls .aj-imp-delete-btn,
+.aj-imp-builder-layout-mode .element-wrapper .element-controls .aj-imp-settings-btn {
   position: absolute;
   display: none;
-  top: -15px;
+  top: -20px;
   z-index: 2;
 }
-.aj-imp-builder-layout-mode .aj-imp-drag-handle {
+.aj-imp-builder-layout-mode .element-wrapper .element-controls .aj-imp-drag-handle {
   left: 0;
   height: 20px;
   width: 100%;
   text-align: center;
 }
-.aj-imp-builder-layout-mode .aj-imp-drag-handle p {
+.aj-imp-builder-layout-mode .element-wrapper .element-controls .aj-imp-drag-handle p {
   cursor: move;
   display: block;
   width: 10%;
@@ -671,11 +679,11 @@ Version:        0.1.0
   border: 1px solid #ff7e00;
   border-radius: 3px;
 }
-.aj-imp-builder-layout-mode .aj-imp-drag-handle p:hover {
+.aj-imp-builder-layout-mode .element-wrapper .element-controls .aj-imp-drag-handle p:hover {
   background: #ff7e00;
   color: #fff;
 }
-.aj-imp-builder-layout-mode .aj-imp-delete-btn {
+.aj-imp-builder-layout-mode .element-wrapper .element-controls .aj-imp-delete-btn {
   right: -10px;
   width: 20px;
   height: 20px;
@@ -683,11 +691,34 @@ Version:        0.1.0
   text-align: center;
   cursor: pointer;
 }
-.aj-imp-builder-layout-mode .aj-imp-delete-btn span {
+.aj-imp-builder-layout-mode .element-wrapper .element-controls .aj-imp-delete-btn span {
   color: #fff;
   font-size: 18px;
   font-weight: 700;
   line-height: 20px;
+  display: block;
+}
+.aj-imp-builder-layout-mode .element-wrapper .element-controls .aj-imp-settings-btn {
+  right: 20px;
+  width: 20px;
+  height: 20px;
+  background: #ff7e00;
+  text-align: center;
+  cursor: pointer;
+}
+.aj-imp-builder-layout-mode .element-wrapper .element-controls .aj-imp-settings-btn span {
+  color: #fff;
+  font-size: 13px;
+  line-height: 18px;
+  display: block;
+}
+.aj-imp-builder-layout-mode .element-wrapper:hover {
+  border: 1px solid #ff7e00;
+}
+.aj-imp-builder-layout-mode .element-wrapper:hover .aj-imp-drag-handle,
+.aj-imp-builder-layout-mode .element-wrapper:hover .aj-imp-delete-btn,
+.aj-imp-builder-layout-mode .element-wrapper:hover .aj-imp-settings-btn {
+  display: block;
 }
 .aj-imp-builder-layout-mode .aj-imp-col-sel {
   top: -4.6em;
