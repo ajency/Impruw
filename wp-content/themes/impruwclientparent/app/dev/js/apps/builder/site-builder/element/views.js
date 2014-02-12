@@ -23,7 +23,7 @@
         ElementView.prototype.events = {
           'click .aj-imp-settings-btn': function(evt) {
             var x, y;
-            if (this.model.get('elementType') === 'text' || this.model.get('elementType') === 'title') {
+            if (this.model.get('elementType') === 'TextElement' || this.model.get('elementType') === 'TitleElement') {
               return;
             }
             evt.stopPropagation();
@@ -48,6 +48,29 @@
           return this.setElementType();
         };
 
+        ElementView.prototype.onElementViewFetched = function() {
+          var _this = this;
+          this.$el.mouseover(_.debounce(function(evt) {
+            evt.stopPropagation();
+            return _this.$el.addClass("hover-class");
+          }).mouseout(function(evt) {
+            return _this.$el.removeClass("hover-class");
+          }));
+          if (this.model.get('elementType') === 'BuilderRow') {
+            return this.$el.find('.column').sortable({
+              revert: 'invalid',
+              items: '> .element-wrapper',
+              connectWith: '.droppable-column,.column',
+              handle: '.aj-imp-drag-handle',
+              helper: 'clone',
+              opacity: .65,
+              receive: function(evt, ui) {
+                return _this.trigger("element:dropped", evt, ui);
+              }
+            });
+          }
+        };
+
         ElementView.prototype.setMetaId = function(model) {
           return this.$el.find('input[name="meta_id"]').val(model.get('meta_id'));
         };
@@ -60,7 +83,8 @@
           this.$el.find('.element-markup > span').spin(false);
           this.$el.find('.element-markup').html(model.get('markup'));
           this.setInilineEditing();
-          return this.setImagePlaceholders();
+          this.setImagePlaceholders();
+          return this.triggerMethod("element:view:fetched");
         };
 
         ElementView.prototype.setInilineEditing = function() {

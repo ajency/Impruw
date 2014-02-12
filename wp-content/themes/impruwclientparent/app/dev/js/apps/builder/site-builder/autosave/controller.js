@@ -66,7 +66,7 @@
               type: $(element).find('form input[name="element_type"]').val(),
               meta_id: $(element).find('form input[name="meta_id"]').val()
             };
-            arr.push(ele);
+            return arr.push(ele);
           });
           return arr;
         };

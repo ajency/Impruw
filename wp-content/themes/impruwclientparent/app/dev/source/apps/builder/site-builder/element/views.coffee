@@ -10,18 +10,19 @@ define ['app'
 				# Pages single view
 				class Views.ElementView extends Marionette.ItemView
 
+					# basic template
 					template : elementTpl
 
 					tagName : 'div'
 
+					# class name
 					className : 'element-wrapper'
 
 					# element events
 					events : 
 						'click .aj-imp-settings-btn' : (evt)-> 
-
 							# ignore if element is text or title
-							return if @model.get('elementType') is 'text' or @model.get('elementType') is 'title'
+							return if @model.get('elementType') is 'TextElement' or @model.get('elementType') is 'TitleElement'
 
 							evt.stopPropagation()
 							x = screen.width / 2 - @$el.width() / 2
@@ -43,7 +44,29 @@ define ['app'
 						@$el.attr "data-element", @model.get('type')
 						@$el.find('.element-markup > span').spin @_getOptions()
 						@setElementType()
-					
+
+					# triggered on show
+					onElementViewFetched:->
+
+						# set element hover
+						@$el.mouseover _.debounce (evt)=>
+							evt.stopPropagation()
+							@$el.addClass "hover-class"
+						.mouseout (evt)=>
+							@$el.removeClass "hover-class"
+						
+						
+
+						if @model.get('elementType') is 'BuilderRow'
+							@$el.find('.column').sortable
+												revert 		: 'invalid'
+												items 		: '> .element-wrapper'
+												connectWith : '.droppable-column,.column'
+												handle 		: '.aj-imp-drag-handle'
+												helper 		: 'clone'
+												opacity		: .65
+												receive 	: (evt, ui)=> @trigger "element:dropped", evt, ui
+				
 					# set the meta id for element
 					setMetaId :(model)->
 						@$el.find('input[name="meta_id"]').val model.get('meta_id')
@@ -60,6 +83,7 @@ define ['app'
 						@$el.find('.element-markup').html model.get 'markup'
 						@setInilineEditing()
 						@setImagePlaceholders()
+						@triggerMethod "element:view:fetched"
 
 					# set CKEDITOR if applicable
 					setInilineEditing:->

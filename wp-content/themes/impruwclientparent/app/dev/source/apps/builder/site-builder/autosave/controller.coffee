@@ -47,6 +47,7 @@ define ['app'], (App)->
 			# get json for an element
 			_getJson:($element, arr = [])->
 
+				# find all elements inside $element container
 				elements = $element.find '.element-wrapper'
 
 				_.each elements, (element, index)->
@@ -56,8 +57,7 @@ define ['app'], (App)->
 						meta_id : $(element).find('form input[name="meta_id"]').val()
 
 					arr.push ele
-					return
-
+					
 				arr
 
 

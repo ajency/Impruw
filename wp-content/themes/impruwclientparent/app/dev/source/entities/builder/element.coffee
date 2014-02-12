@@ -65,8 +65,8 @@ define ["app", 'backbone'], (App, Backbone) ->
                         
                     element.set data    
 
-                    element.save null,
-                                wait : true
+                    ele = element.save null,
+                                    wait : true
 
                     element
 

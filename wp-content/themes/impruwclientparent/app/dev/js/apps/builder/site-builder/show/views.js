@@ -27,10 +27,10 @@
 
         MainView.prototype.onShow = function() {
           var _this = this;
-          return this.$el.find('.droppable-column').sortable({
+          return this.$el.find('.droppable-column,.column').sortable({
             revert: 'invalid',
             items: '> .element-wrapper',
-            connectWith: '.droppable-column',
+            connectWith: '.droppable-column,.column',
             handle: '.aj-imp-drag-handle',
             helper: 'clone',
             opacity: .65,

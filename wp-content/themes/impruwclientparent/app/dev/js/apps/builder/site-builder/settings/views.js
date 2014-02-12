@@ -16,7 +16,7 @@
 
         SettingView.prototype.template = settingsTpl;
 
-        SettingView.prototype.className = 'modal-content';
+        SettingView.prototype.className = 'modal-content settings-box';
 
         SettingView.prototype.events = {
           'click .close-settings': function() {

@@ -274,7 +274,7 @@ function add_element_markup( $element ) {
  */
 function get_builder_row_markup( $element ) {
 
-    return "<div class='row'><div class='col-md-12 empty-column'></div></div>";
+    return "<div class='row'><div class='column col-md-12 empty-column'></div></div>";
 
     require_once PARENTTHEMEPATH . 'elements/BuilderRow.php';
 
