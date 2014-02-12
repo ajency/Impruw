@@ -50,6 +50,7 @@ define ['app'
 		App.vent.on "element:dropped",(evt, ui)->
 			API.appendNewElement evt, ui
 
+		
 		# get the dropped region
 		App.reqres.setHandler "get:dropped:region",(sectionID)->
 			API.getDroppedRegion sectionID

@@ -60,13 +60,14 @@ define ['app'
 
 						if @model.get('elementType') is 'BuilderRow'
 							@$el.find('.column').sortable
-												revert 		: 'invalid'
-												items 		: '> .element-wrapper'
-												connectWith : '.droppable-column,.column'
-												handle 		: '.aj-imp-drag-handle'
-												helper 		: 'clone'
-												opacity		: .65
-												receive 	: (evt, ui)=> @trigger "element:dropped", evt, ui
+											revert 		: 'invalid'
+											items 		: '> .element-wrapper'
+											connectWith : '.droppable-column,.column'
+											handle 		: '.aj-imp-drag-handle'
+											helper 		: 'clone'
+											opacity		: .65
+											update 		: (evt, ui)=> 
+													@trigger "element:dropped", evt, ui
 				
 					# set the meta id for element
 					setMetaId :(model)->

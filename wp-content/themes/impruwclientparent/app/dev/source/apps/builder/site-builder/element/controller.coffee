@@ -15,6 +15,12 @@ define ['app', 'controllers/builder-base-controller'
 						sectionID 	= $(evt.target).attr 'id'
 						type  		= ui.item.attr 'data-element'
 
+						console.log $(evt.target)
+
+						# remove empty-column class if empty
+						if $(evt.target).hasClass 'empty-column'
+							$(evt.target).removeClass 'empty-column'
+
 						options = 
 							elementType : type
 							draggable 	: true
@@ -24,6 +30,9 @@ define ['app', 'controllers/builder-base-controller'
 						view = @_getView @element
 
 						@listenTo view, "show:setting:popup", @showSettingPopup
+
+						@listenTo view, "element:dropped", (evt, ui)->
+							App.vent.trigger "element:dropped", evt, ui
 
 						@add view, $ "#"+sectionID
 

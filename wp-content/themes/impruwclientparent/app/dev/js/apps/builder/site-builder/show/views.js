@@ -27,7 +27,7 @@
 
         MainView.prototype.onShow = function() {
           var _this = this;
-          return this.$el.find('.droppable-column,.column').sortable({
+          return this.$el.find('.droppable-column').sortable({
             revert: 'invalid',
             items: '> .element-wrapper',
             connectWith: '.droppable-column,.column',
@@ -35,6 +35,7 @@
             helper: 'clone',
             opacity: .65,
             receive: function(evt, ui) {
+              console.log($(evt.target));
               return _this.trigger("element:dropped", evt, ui);
             }
           });

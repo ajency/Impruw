@@ -17,13 +17,15 @@ define ['app'
 								App.commands.execute "auto:save"
 
 					onShow:->
-						@$el.find('.droppable-column,.column').sortable
+						@$el.find('.droppable-column').sortable
 												revert 		: 'invalid'
 												items 		: '> .element-wrapper'
 												connectWith : '.droppable-column,.column'
 												handle 		: '.aj-imp-drag-handle'
 												helper 		: 'clone'
 												opacity		: .65
-												receive 	: (evt, ui)=> @trigger "element:dropped", evt, ui
+												receive 	: (evt, ui)=> 
+													console.log $(evt.target)
+													@trigger "element:dropped", evt, ui
 												
 			return App.SiteBuilderApp.Show.View
