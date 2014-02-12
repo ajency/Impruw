@@ -3,7 +3,7 @@
   var __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  define(['app', 'ckeditor', 'holder', 'tpl!apps/builder/site-builder/element/templates/element'], function(App, CKEDITOR, Holder, elementTpl) {
+  define(['app', 'holder', 'tpl!apps/builder/site-builder/element/templates/element'], function(App, Holder, elementTpl) {
     App.module('SiteBuilderApp.Element.Views', function(Views, App, Backbone, Marionette, $, _) {
       var _ref;
       return Views.ElementView = (function(_super) {
@@ -49,13 +49,15 @@
         };
 
         ElementView.prototype.onElementViewFetched = function() {
-          var _this = this;
-          this.$el.mouseover(_.debounce(function(evt) {
+          var mouseOverFn,
+            _this = this;
+          mouseOverFn = _.throttle(function(evt) {
             evt.stopPropagation();
             return _this.$el.addClass("hover-class");
-          }).mouseout(function(evt) {
+          }, 600);
+          this.$el.mouseover(mouseOverFn).mouseout(function(evt) {
             return _this.$el.removeClass("hover-class");
-          }));
+          });
           if (this.model.get('elementType') === 'BuilderRow') {
             return this.$el.find('.column').sortable({
               revert: 'invalid',

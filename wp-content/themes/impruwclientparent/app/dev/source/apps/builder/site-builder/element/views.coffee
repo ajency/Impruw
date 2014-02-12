@@ -1,8 +1,7 @@
 define ['app'
-		'ckeditor'
 		'holder'
 		'tpl!apps/builder/site-builder/element/templates/element'],
-		(App,CKEDITOR, Holder, elementTpl)->
+		(App, Holder, elementTpl)->
 
 			# Headerapp views
 			App.module 'SiteBuilderApp.Element.Views', (Views, App, Backbone, Marionette, $, _)->
@@ -49,11 +48,13 @@ define ['app'
 					onElementViewFetched:->
 
 						# set element hover
-						@$el.mouseover _.debounce (evt)=>
+						mouseOverFn = _.throttle (evt)=>
 							evt.stopPropagation()
 							@$el.addClass "hover-class"
-						.mouseout (evt)=>
-							@$el.removeClass "hover-class"
+						,600
+
+						@$el.mouseover(mouseOverFn).mouseout (evt)=>
+														@$el.removeClass "hover-class"
 						
 						
 

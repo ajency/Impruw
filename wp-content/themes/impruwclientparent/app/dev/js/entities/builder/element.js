@@ -55,7 +55,7 @@
         };
 
         ElementModel.prototype.removeFields = function(data) {
-          if (this.get('elementType') === 'text' || this.get('elementType') === 'title') {
+          if (this.get('elementType') === 'TextElement' || this.get('elementType') === 'TitleElement') {
             return;
           }
           return delete data.markup;

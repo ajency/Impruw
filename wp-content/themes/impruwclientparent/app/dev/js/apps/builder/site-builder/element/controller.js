@@ -24,7 +24,6 @@
           type = ui.item.attr('data-element');
           options = {
             elementType: type,
-            position: sectionID,
             draggable: true
           };
           this.element = App.request("create:new:element", options);

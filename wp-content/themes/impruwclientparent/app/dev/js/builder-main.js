@@ -52,7 +52,6 @@
       google: {
         exports: 'google'
       },
-      ckeditor: 'CKEDITOR',
       holder: 'Holder',
       jqueryvalidate: ['jquery'],
       backboneform: ['backbone'],

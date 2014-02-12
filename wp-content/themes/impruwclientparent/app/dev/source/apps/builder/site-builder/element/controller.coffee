@@ -17,7 +17,6 @@ define ['app', 'controllers/builder-base-controller'
 
 						options = 
 							elementType : type
-							position 	: sectionID
 							draggable 	: true
 
 						@element = App.request "create:new:element", options

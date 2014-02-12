@@ -80,7 +80,7 @@ function create_element_model(){
 	$element = $_POST;
 
 	unset($element['action']);
-
+	
 	$markup  = add_element_markup($element);
 	$meta_id = rand(1000,9999);
 

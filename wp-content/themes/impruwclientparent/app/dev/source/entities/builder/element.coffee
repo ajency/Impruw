@@ -48,7 +48,7 @@ define ["app", 'backbone'], (App, Backbone) ->
                 removeFields:(data)->
                     # do not delete markup field if element type is text or title
                     # we need to actually store this field with json
-                    return if @get('elementType') is 'text' or @get('elementType') is 'title'
+                    return if @get('elementType') is 'TextElement' or @get('elementType') is 'TitleElement'
 
                     delete data.markup
 

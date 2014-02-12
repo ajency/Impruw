@@ -52,7 +52,7 @@ require.config
 			exports : 'Polyglot'
 		google :
 			exports : 'google'
-		ckeditor 	: 'CKEDITOR'
+		#ckeditor 	: 'CKEDITOR'
 		holder 		: 'Holder'
 		jqueryvalidate 		: ['jquery']
 		backboneform 		: ['backbone']
