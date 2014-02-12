@@ -15,13 +15,18 @@
         }
 
         Controller.prototype.initialize = function(opt) {
-          var model, view;
+          var model, view, x, y,
+            _this = this;
           if (opt == null) {
             opt = {};
           }
-          model = opt.model;
+          model = opt.model, x = opt.x, y = opt.y;
           view = new Settings.Views.SettingView({
             model: model
+          });
+          this.listenTo(view, 'render', function() {
+            _this.region.$el.css('top', x);
+            return _this.region.$el.css('left', y);
           });
           return this.show(view);
         };

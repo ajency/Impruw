@@ -13,10 +13,12 @@
             ui: ui
           });
         },
-        showSettings: function(model) {
+        showSettings: function(model, x, y) {
           return new SiteBuilderApp.Settings.Controller({
             region: App.settingsRegion,
-            model: model
+            model: model,
+            x: x,
+            y: y
           });
         },
         deleteElement: function(model) {
@@ -41,8 +43,8 @@
       App.reqres.setHandler("get:dropped:region", function(sectionID) {
         return API.getDroppedRegion(sectionID);
       });
-      App.vent.on("show:settings:popup", function(model) {
-        return API.showSettings(model);
+      App.vent.on("show:settings:popup", function(model, x, y) {
+        return API.showSettings(model, x, y);
       });
       App.vent.on("delete:element", function(model) {
         if (confirm("Are you sure?")) {

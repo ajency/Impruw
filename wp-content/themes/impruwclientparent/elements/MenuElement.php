@@ -100,10 +100,10 @@ class MenuElement extends Element {
         $args = array(
             'echo'              => false,
             'menu'              => $mname,
-            'container'         => 'ul',
-            'container_class'   => $this->get_classes(),
+            'container'         => 'nav',
+            'container_class'   => 'menu',
             'container_id'      => $this->id,
-            'items_wrap'        => '<ul id="' . $this->id . '" class="'.$this->get_classes().'">%3$s</ul>',
+            'items_wrap'        => '<ul>%3$s</ul>',
             'walker'            => $walker
         );
         

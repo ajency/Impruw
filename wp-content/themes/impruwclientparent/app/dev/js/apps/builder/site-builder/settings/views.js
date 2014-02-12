@@ -16,6 +16,14 @@
 
         SettingView.prototype.template = settingsTpl;
 
+        SettingView.prototype.className = 'modal-content';
+
+        SettingView.prototype.events = {
+          'click .close-settings': function() {
+            return App.settingsRegion.close();
+          }
+        };
+
         return SettingView;
 
       })(Marionette.ItemView);

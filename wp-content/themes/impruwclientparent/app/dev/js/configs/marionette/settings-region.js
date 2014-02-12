@@ -14,18 +14,11 @@
       }
 
       Settings.prototype.onShow = function(view) {
-        var _this = this;
-        return this.$el.dialog({
-          title: 'Settings',
-          close: function(e, ui) {
-            return _this.closeDialog();
-          }
-        });
+        return this.$el.draggable();
       };
 
-      Settings.prototype.closeDialog = function() {
-        this.close();
-        return this.$el.dialog("destroy");
+      Settings.prototype.onClose = function() {
+        return this.$el.draggable('destroy');
       };
 
       return Settings;

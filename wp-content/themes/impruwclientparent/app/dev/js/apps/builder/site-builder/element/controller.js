@@ -39,8 +39,8 @@
           });
         };
 
-        Controller.prototype.showSettingPopup = function() {
-          return App.vent.trigger("show:settings:popup", this.element);
+        Controller.prototype.showSettingPopup = function(x, y) {
+          return App.vent.trigger("show:settings:popup", this.element, x, y);
         };
 
         return Controller;

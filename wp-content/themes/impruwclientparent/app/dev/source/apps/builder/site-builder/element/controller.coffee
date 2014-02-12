@@ -34,7 +34,7 @@ define ['app', 'controllers/builder-base-controller'
 												model : element
 
 					# show settings popup for the element
-					showSettingPopup:->
-						App.vent.trigger "show:settings:popup", @element
+					showSettingPopup:(x, y)->
+						App.vent.trigger "show:settings:popup", @element,x,y 
 
 			App.SiteBuilderApp.Element.Controller		

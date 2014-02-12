@@ -7,8 +7,6 @@
     App.module('SiteBuilderApp.Element.Views', function(Views, App, Backbone, Marionette, $, _) {
       var _ref;
       return Views.ElementView = (function(_super) {
-        var _this = this;
-
         __extends(ElementView, _super);
 
         function ElementView() {
@@ -24,12 +22,15 @@
 
         ElementView.prototype.events = {
           'click': function(evt) {
+            var x, y;
             evt.stopPropagation();
-            return this.trigger("show:setting:popup");
+            x = screen.width / 2 - this.$el.width() / 2;
+            y = screen.height / 2 - this.$el.height() / 2;
+            return this.trigger("show:setting:popup", x, y);
           },
-          'click .aj-imp-delete-btn': function() {
+          'click .aj-imp-delete-btn': function(evt) {
             evt.stopPropagation();
-            return ElementView.trigger("delete:element", ElementView.model);
+            return this.trigger("delete:element", this.model);
           }
         };
 
@@ -39,11 +40,11 @@
 
         ElementView.prototype.onRender = function() {
           this.$el.attr("data-element", this.model.get('type'));
-          return this.$el.find('.element-markup span').spin(this._getOptions());
+          return this.$el.find('.element-markup > span').spin(this._getOptions());
         };
 
         ElementView.prototype.renderMarkup = function(model) {
-          this.$el.find('.element-markup span').spin(false);
+          this.$el.find('.element-markup > span').spin(false);
           this.$el.find('.element-markup').html(model.get('markup'));
           this.setInilineEditing();
           return this.setImagePlaceholders();
@@ -55,9 +56,6 @@
           if (_.isUndefined(editable)) {
             return;
           }
-          _.each(CKEDITOR.instances, function(instance, key) {
-            return delete CKEDITOR.instances[key];
-          });
           return CKEDITOR.inlineAll();
         };
 
@@ -93,7 +91,7 @@
 
         return ElementView;
 
-      }).call(this, Marionette.ItemView);
+      })(Marionette.ItemView);
     });
     return App.SiteBuilderApp.Element.Views;
   });

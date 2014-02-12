@@ -20,10 +20,13 @@ define ['app'
 					events : 
 						'click' : (evt)-> 
 							evt.stopPropagation()
-							@trigger "show:setting:popup"
-						'click .aj-imp-delete-btn': =>
+							x = screen.width / 2 - @$el.width() / 2
+							y = screen.height / 2 - @$el.height() / 2
+							@trigger "show:setting:popup", x, y
+
+						'click .aj-imp-delete-btn': (evt)->
 							evt.stopPropagation()
-							@trigger "delete:element", @model 
+							@trigger "delete:element", @model
 
 					# model events
 					# listen to markup change event. update the UI accordingly
@@ -33,12 +36,12 @@ define ['app'
 					# set the data-element attribute for element 
 					onRender:->
 						@$el.attr "data-element", @model.get('type')
-						@$el.find('.element-markup span').spin @_getOptions()
+						@$el.find('.element-markup > span').spin @_getOptions()
 						
 					# rerender markup 
 					renderMarkup:(model)->
 						# close the spinner
-						@$el.find('.element-markup span').spin false
+						@$el.find('.element-markup > span').spin false
 						# update the markup
 						@$el.find('.element-markup').html model.get 'markup'
 						@setInilineEditing()
@@ -53,8 +56,10 @@ define ['app'
 						return if _.isUndefined editable
 
 						#destry previous instances if any
-						_.each CKEDITOR.instances, (instance, key)->
-							delete CKEDITOR.instances[key]
+						# if not _.isUndefined(CKEDITOR.instances) and _.size(CKEDITOR.instances) > 0
+						# 	_.each CKEDITOR.instances, (instance, key)->
+						# 		delete CKEDITOR.instances[key]
+						# 		return
 
 						CKEDITOR.inlineAll()
 

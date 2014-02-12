@@ -18,10 +18,12 @@ define ['app'
 													ui  : ui
 
 			# show settings box for a view
-			showSettings :(model)->
+			showSettings :(model, x, y)->
 				new SiteBuilderApp.Settings.Controller
-												region : App.settingsRegion
-												model  : model
+												region 	: App.settingsRegion
+												model  	: model
+												x		: x
+												y 		: y
 			
 			# deletes the element model
 			# view is automatically wired up to listen to destroy event of
@@ -47,8 +49,8 @@ define ['app'
 			API.getDroppedRegion sectionID
 
 		# listen to show:settings:popup command
-		App.vent.on "show:settings:popup", (model)->
-			API.showSettings model
+		App.vent.on "show:settings:popup", (model, x, y)->
+			API.showSettings model, x, y
 
 		App.vent.on "delete:element", (model)->
 			if confirm("Are you sure?")

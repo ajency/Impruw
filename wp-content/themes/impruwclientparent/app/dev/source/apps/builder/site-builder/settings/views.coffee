@@ -9,5 +9,10 @@ define ['app'
 				class Views.SettingView extends Marionette.ItemView
 
 					template : settingsTpl
+
+					className : 'modal-content'
+
+					events:
+						'click .close-settings' : -> App.settingsRegion.close()
 							
 			App.SiteBuilderApp.Settings.Views

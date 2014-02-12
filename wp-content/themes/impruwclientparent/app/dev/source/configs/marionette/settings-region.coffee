@@ -5,11 +5,7 @@ define ['marionette'], (Marionette) ->
 
 		#initiate modal on show
 		onShow :(view)->
-			@$el.dialog
-				title : 'Settings'
-				close :(e,ui) =>
-					@closeDialog()
+			@$el.draggable()
 
-		closeDialog:->
-			@close()
-			@$el.dialog "destroy"	
+		onClose:->
+			@$el.draggable 'destroy'
