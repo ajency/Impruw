@@ -713,12 +713,12 @@ Version:        0.1.0
   line-height: 18px;
   display: block;
 }
-.aj-imp-builder-layout-mode .element-wrapper:hover {
+.aj-imp-builder-layout-mode .element-wrapper.hover-class:hover {
   border: 1px solid #ff7e00;
 }
-.aj-imp-builder-layout-mode .element-wrapper:hover .aj-imp-drag-handle,
-.aj-imp-builder-layout-mode .element-wrapper:hover .aj-imp-delete-btn,
-.aj-imp-builder-layout-mode .element-wrapper:hover .aj-imp-settings-btn {
+.aj-imp-builder-layout-mode .element-wrapper.hover-class:hover > .element-controls .aj-imp-drag-handle,
+.aj-imp-builder-layout-mode .element-wrapper.hover-class:hover > .element-controls .aj-imp-delete-btn,
+.aj-imp-builder-layout-mode .element-wrapper.hover-class:hover > .element-controls .aj-imp-settings-btn {
   display: block;
 }
 .aj-imp-builder-layout-mode .aj-imp-col-sel {
@@ -812,21 +812,21 @@ Version:        0.1.0
 .aj-imp-builder-layout-mode .row {
   margin: 0 0 1em;
   position: relative;
-  box-shadow: inset 0 0 2px #c3c3c3;
   border: 1px solid transparent;
 }
 .aj-imp-builder-layout-mode .row .column {
-  background: #fff;
   height: 100%;
   position: relative;
   background-clip: content-box;
-  padding: 0.5em;
+  background: #fff;
 }
 .aj-imp-builder-layout-mode .row .column.empty-column {
   background: url(../images/empty-drag-bg.svg) no-repeat center center #ffffff;
   background-clip: content-box;
   background-size: contain;
   min-height: 100px;
+  box-shadow: inset 0 0 2px #c3c3c3;
+  padding: 0.5em;
 }
 .aj-imp-builder-layout-mode .row .column .container {
   padding: 0;
