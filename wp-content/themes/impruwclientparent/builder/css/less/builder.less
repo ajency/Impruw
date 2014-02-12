@@ -759,10 +759,12 @@ Version:        0.1.0
 				}
 			}
 		}
-		&:hover {
+		&.hover-class:hover {
 			border: 1px solid @orange;
-			.aj-imp-drag-handle, .aj-imp-delete-btn, .aj-imp-settings-btn {
-				display: block;
+			>.element-controls {
+				.aj-imp-drag-handle, .aj-imp-delete-btn, .aj-imp-settings-btn {
+					display: block;
+				}
 			}
 		}
 	}
@@ -858,19 +860,20 @@ Version:        0.1.0
 	.row {
 		margin: 0 0 1em;
 		position: relative;
-		box-shadow: inset 0 0 2px lighten(@dash-grey, 10%);
 		border: 1px solid transparent;
 		.column {
 			background: #fff;
 			height: 100%;
 			position: relative;
 			background-clip: content-box;
-			padding: 0.5em;
+			background: #fff;
 			&.empty-column {
 				background: url(../images/empty-drag-bg.svg) no-repeat center center #fff;
 				background-clip: content-box;
 				background-size: contain;
 				min-height:100px;
+				box-shadow: inset 0 0 2px lighten(@dash-grey, 10%);
+				padding: 0.5em;
 			}
 			.container {
 				padding: 0;
