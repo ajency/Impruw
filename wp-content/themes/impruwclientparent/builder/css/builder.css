@@ -64,6 +64,7 @@ Version:        0.1.0
 }
 .aj-imp-drag-menu .aj-imp-add-row {
   padding: 5px 3.5%;
+  list-style: none;
 }
 .aj-imp-drag-menu .aj-imp-add-row a {
   display: block;
@@ -848,7 +849,7 @@ Version:        0.1.0
   border: 2px solid #151a20;
 }
 .settings-box .settings-header {
-  border-bottom: 1px solid #aaaaaa;
+  border-bottom: 1px solid #444444;
   margin: 0 -0.5em 0.3em;
   padding: 0 0.5em;
   background: #151a20;
