@@ -53,7 +53,7 @@ Version:        0.1.0
 .aj-imp-drag-menu {
   width: 220px;
   padding: 0.5em;
-  background: #29333F;
+  background: #29333f;
   z-index: 10;
 }
 .aj-imp-drag-menu .desc {
@@ -841,6 +841,19 @@ Version:        0.1.0
 }
 .aj-imp-builder-layout-mode .row:last-child {
   margin: 0;
+}
+/****Builder Settings Box Styles****/
+.settings-box {
+  width: 400px;
+  background: #29333f;
+  box-shadow: 0 0 0 3px #aaaaaa;
+  padding: 0.5em;
+}
+.settings-box .settings-header {
+  border-bottom: 1px solid #aaaaaa;
+}
+.settings-box .settings-header h5 {
+  color: #fff;
 }
 /****Builder Element Layout Mode Styles****/
 .aj-imp-builder-layout-mode [class^="aj-imp-elem-"] {

@@ -21,6 +21,7 @@ Version:        0.1.0
 @orange: #FF7E00;
 @3-grey: #333333;
 @preview-grey: #F3F3F3;
+@dark-blue: #29333F;
 
 /****Builder Container & Container Structure****/
 .aj-imp-builder {
@@ -67,7 +68,7 @@ Version:        0.1.0
 .aj-imp-drag-menu {
 	width: 220px;
 	padding: 0.5em;
-	background: #29333F;
+	background: @dark-blue;
 	z-index: 10;
 	.desc {
 		font-size: 0.88em;
@@ -884,6 +885,20 @@ Version:        0.1.0
 		}
 		&:last-child {
 			margin: 0;
+		}
+	}
+}
+
+/****Builder Settings Box Styles****/
+.settings-box {
+	width: 400px;
+	background: @dark-blue;
+	box-shadow: 0 0 0 3px @dash-grey;
+	padding: 0.5em;
+	.settings-header {
+		border-bottom: 1px solid @dash-grey;
+		h5 {
+			color: #fff;
 		}
 	}
 }
