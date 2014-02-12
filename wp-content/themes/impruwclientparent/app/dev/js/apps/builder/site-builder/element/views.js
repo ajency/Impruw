@@ -39,7 +39,7 @@
 
         ElementView.prototype.modelEvents = {
           'change:markup': 'renderMarkup',
-          'change:id': 'setMetaId'
+          'change:meta_id': 'setMetaId'
         };
 
         ElementView.prototype.onRender = function() {
@@ -49,7 +49,7 @@
         };
 
         ElementView.prototype.setMetaId = function(model) {
-          return this.$el.find('input[name="meta_id"]').val(model.get('id'));
+          return this.$el.find('input[name="meta_id"]').val(model.get('meta_id'));
         };
 
         ElementView.prototype.setElementType = function() {

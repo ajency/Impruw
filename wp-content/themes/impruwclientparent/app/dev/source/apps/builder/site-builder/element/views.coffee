@@ -36,7 +36,7 @@ define ['app'
 					# listen to markup change event. update the UI accordingly
 					modelEvents : 
 						'change:markup' 	: 'renderMarkup'
-						'change:id'			: 'setMetaId'
+						'change:meta_id'	: 'setMetaId'
 
 					# set the data-element attribute for element 
 					onRender:->
@@ -46,7 +46,7 @@ define ['app'
 					
 					# set the meta id for element
 					setMetaId :(model)->
-						@$el.find('input[name="meta_id"]').val model.get('id')
+						@$el.find('input[name="meta_id"]').val model.get('meta_id')
 
 					# set element type in hidden field
 					setElementType :()->

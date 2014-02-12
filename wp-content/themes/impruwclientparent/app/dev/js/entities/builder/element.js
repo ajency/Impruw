@@ -14,6 +14,8 @@
           return _ref;
         }
 
+        ElementModel.prototype.idAttribute = 'meta_id';
+
         ElementModel.prototype.defaults = function() {
           return {
             markup: '<span></span>'
