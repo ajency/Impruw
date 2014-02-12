@@ -809,12 +809,8 @@ Version:        0.1.0
   border-color: #ff7e00;
 }
 .aj-imp-builder-layout-mode .row {
-  /*min-height: 150px;*/
-
-  padding: 0.5em;
   margin: 0 0 1em;
   position: relative;
-  background: #dadada;
   box-shadow: inset 0 0 2px #c3c3c3;
   border: 1px solid transparent;
 }
@@ -846,13 +842,30 @@ Version:        0.1.0
 .settings-box {
   width: 400px;
   background: #29333f;
-  box-shadow: 0 0 0 3px #aaaaaa;
-  padding: 0.5em;
+  box-shadow: 0 0 3px 1px #aaaaaa;
+  padding: 0 0.5em 0.5em;
+  border-radius: 3px;
+  border: 2px solid #151a20;
 }
 .settings-box .settings-header {
   border-bottom: 1px solid #aaaaaa;
+  margin: 0 -0.5em 0.3em;
+  padding: 0 0.5em;
+  background: #151a20;
 }
 .settings-box .settings-header h5 {
+  color: #aaaaaa;
+  font-size: 1.1em;
+}
+.settings-box .settings-header .close-btn {
+  text-align: right;
+}
+.settings-box .settings-header .close-btn a {
+  color: #aaaaaa;
+  font-size: 1.3em;
+  font-weight: bold;
+}
+.settings-box .settings-header .close-btn a:hover {
   color: #fff;
 }
 /****Builder Element Layout Mode Styles****/
