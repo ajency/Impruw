@@ -51,10 +51,10 @@
         ElementView.prototype.onElementViewFetched = function() {
           var mouseOverFn,
             _this = this;
-          mouseOverFn = _.throttle(function(evt) {
+          mouseOverFn = _.debounce(function(evt) {
             evt.stopPropagation();
             return _this.$el.addClass("hover-class");
-          }, 600);
+          }, 100, true);
           this.$el.mouseover(mouseOverFn).mouseout(function(evt) {
             return _this.$el.removeClass("hover-class");
           });

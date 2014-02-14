@@ -13,7 +13,7 @@ define ['app', 'controllers/builder-base-controller'
 						{evt, ui} 	= opt
 	
 						container 	= $(evt.target)
-						type  		= ui.helper.attr 'data-element'
+						type  		= ui.item.attr 'data-element'
 
 						# remove empty-column class if empty
 						if $(evt.target).hasClass 'empty-column'

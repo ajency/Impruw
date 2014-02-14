@@ -48,10 +48,11 @@ define ['app'
 					onElementViewFetched:->
 
 						# set element hover
-						mouseOverFn = _.throttle (evt)=>
+						mouseOverFn = _.debounce (evt)=>
 							evt.stopPropagation()
 							@$el.addClass "hover-class"
-						,00
+						, 100
+						, true
 
 						@$el.mouseover(mouseOverFn).mouseout (evt)=>
 														@$el.removeClass "hover-class"

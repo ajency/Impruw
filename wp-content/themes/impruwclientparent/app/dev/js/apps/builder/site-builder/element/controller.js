@@ -21,7 +21,7 @@
           }
           evt = opt.evt, ui = opt.ui;
           container = $(evt.target);
-          type = ui.helper.attr('data-element');
+          type = ui.item.attr('data-element');
           if ($(evt.target).hasClass('empty-column')) {
             $(evt.target).removeClass('empty-column');
           }
