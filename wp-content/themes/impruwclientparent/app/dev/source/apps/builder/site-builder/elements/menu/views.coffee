@@ -7,11 +7,12 @@ define ['app'],
 				# Menu item view
 				class Views.MenuItemView extends Marionette.ItemView
 
+					initialize:(opt = {})->
+						@template = opt.template
+						super(opt)
+
 					tagName : 'li'
 
-					# pick the template from view options
-					template :=>
-						@options.template
 
 				# Submenu view
 				class Views.SubMenuView extends Marionette.CompositeView
@@ -23,20 +24,23 @@ define ['app'],
 				# Menu view
 				class Views.MenuView extends Marionette.CompositeView
 
+					initialize:(opt = {})->
+						#assign template
+						@template = opt.templates.menuTpl
+						super(opt)
+
 					itemView : Views.MenuItemView
 					
-					# override the build item view to handle template passing			
+					# # override the build item view to handle template passing			
 					buildItemView: (item, ItemViewType, itemViewOptions = {})=>
 						itemViewOptions.template = @options.templates.menuItemTpl
-						options = _.extend {model: item}, itemViewOptions
-						new ItemViewType options
+						super item, ItemViewType, itemViewOptions
 				  
 					itemViewContainer : 'ul.menu'
 
-					template :=>
-						@options.templates.menuTpl
-
-					#before rendering the view sort the collection 
+					# before rendering the view sort the collection
+					# this helps to reorder the menu item elements before
+					# the collection is rendered with item views
 					onBeforeRender:->
 						@collection.sort()
 						

@@ -28,15 +28,14 @@
           element = App.request("create:new:element", options);
           this.view = this._getView(element, type);
           this.listenTo(this.view, "show:setting:popup", function() {
-            return App.vent.trigger("show:settings:popup", this.element, x, y);
+            return App.vent.trigger("show:settings:popup", element, x, y);
           });
           this.listenTo(element, "element:model:fetched", this.setupViews);
           return this.add(this.view, container);
         };
 
         Controller.prototype._getView = function(elementModel, element) {
-          var ele;
-          return ele = new Element.Views.ElementView({
+          return new Element.Views.ElementView({
             model: elementModel
           });
         };

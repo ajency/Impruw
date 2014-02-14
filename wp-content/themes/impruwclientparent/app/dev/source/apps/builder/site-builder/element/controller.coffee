@@ -24,7 +24,7 @@ define ['app', 'controllers/builder-base-controller'
 
 						# start listening to events
 						@listenTo @view, "show:setting:popup", ->
-								App.vent.trigger "show:settings:popup", @element,x,y 
+								App.vent.trigger "show:settings:popup", element,x,y 
 
 						@listenTo element, "element:model:fetched", @setupViews
 						
@@ -33,8 +33,8 @@ define ['app', 'controllers/builder-base-controller'
 
 					# Get view
 					_getView : (elementModel, element)->
-						ele = new Element.Views.ElementView
-													model : elementModel
+						new Element.Views.ElementView
+										model : elementModel
 
 					# show the view markup
 					addElementMarkup:(view)->
