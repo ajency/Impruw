@@ -67,7 +67,15 @@
               helper: 'clone',
               opacity: .65,
               update: function(evt, ui) {
-                return _this.trigger("element:dropped", evt, ui);
+                if ($(evt.target).hasClass('empty-column')) {
+                  return $(evt.target).removeClass('empty-column');
+                }
+              },
+              remove: function(evt, ui) {
+                console.log(evt);
+                if ($(evt.target).children().length === 0) {
+                  return $(evt.target).addClass('empty-column');
+                }
               }
             });
           }

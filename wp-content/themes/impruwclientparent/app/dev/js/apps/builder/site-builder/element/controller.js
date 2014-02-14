@@ -22,9 +22,6 @@
           evt = opt.evt, ui = opt.ui;
           container = $(evt.target);
           type = ui.item.attr('data-element');
-          if ($(evt.target).hasClass('empty-column')) {
-            $(evt.target).removeClass('empty-column');
-          }
           options = {
             elementType: type,
             draggable: true
@@ -32,9 +29,6 @@
           this.element = App.request("create:new:element", options);
           view = this._getView(this.element);
           this.listenTo(view, "show:setting:popup", this.showSettingPopup);
-          this.listenTo(view, "element:dropped", function(evt, ui) {
-            return App.vent.trigger("element:dropped", evt, ui);
-          });
           return this.add(view, container);
         };
 

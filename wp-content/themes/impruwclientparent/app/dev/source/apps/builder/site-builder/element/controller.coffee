@@ -15,10 +15,6 @@ define ['app', 'controllers/builder-base-controller'
 						container 	= $(evt.target)
 						type  		= ui.item.attr 'data-element'
 
-						# remove empty-column class if empty
-						if $(evt.target).hasClass 'empty-column'
-							$(evt.target).removeClass 'empty-column'
-
 						options = 
 							elementType : type
 							draggable 	: true
@@ -29,8 +25,8 @@ define ['app', 'controllers/builder-base-controller'
 
 						@listenTo view, "show:setting:popup", @showSettingPopup
 
-						@listenTo view, "element:dropped", (evt, ui)->
-							App.vent.trigger "element:dropped", evt, ui
+						#@listenTo view, "element:dropped", (evt, ui)->
+							#App.vent.trigger "element:dropped", evt, ui
 
 						@add view, container
 

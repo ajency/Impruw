@@ -67,8 +67,17 @@ define ['app'
 											handle 		: '.aj-imp-drag-handle'
 											helper 		: 'clone'
 											opacity		: .65
-											update 		: (evt, ui)=> 
-													@trigger "element:dropped", evt, ui
+											update		: (evt, ui)=> 
+												# remove the empty-column class if an element is 
+												# dropped inside column
+												if $(evt.target).hasClass 'empty-column'
+													$(evt.target).removeClass 'empty-column'
+											remove 		: (evt,ui)=>
+												console.log evt
+												# add the empty-column class if no elements 
+												# are present inside column
+												if $(evt.target).children().length is 0
+													$(evt.target).addClass 'empty-column'
 				
 					# set the meta id for element
 					setMetaId :(model)->
