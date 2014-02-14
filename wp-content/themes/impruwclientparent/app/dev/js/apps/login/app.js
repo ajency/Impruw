@@ -7,6 +7,7 @@
   define(['app', 'apps/login/show/controller'], function(App) {
     return App.module('LoginApp', function(LoginApp, App, Backbone, Marionette, $, _) {
       var API, _ref;
+      this.startWithParent = false;
       LoginApp.Router = (function(_super) {
         __extends(Router, _super);
 

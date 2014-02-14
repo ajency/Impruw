@@ -16,8 +16,8 @@ define ['app', 'controllers/base-controller'
 													model : model	
 
 						@listenTo view, 'render', =>
-												@region.$el.css 'top',x
-												@region.$el.css 'left',y												
+											@region.$el.css 'top',x
+											@region.$el.css 'left',y												
 
 						@show  view
 

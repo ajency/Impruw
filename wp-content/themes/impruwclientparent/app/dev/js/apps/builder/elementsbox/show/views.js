@@ -3,7 +3,7 @@
   var __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  define(['app', 'tpl!apps/builder/elementsbox/show/templates/main', 'tpl!apps/builder/elementsbox/show/templates/singleelement', 'tpl!apps/builder/elementsbox/show/templates/error'], function(App, mainviewTpl, singleEleTpl, errorTpl) {
+  define(['app', 'text!apps/builder/elementsbox/show/templates/main.html', 'text!apps/builder/elementsbox/show/templates/singleelement.html', 'text!apps/builder/elementsbox/show/templates/error.html'], function(App, mainviewTpl, singleEleTpl, errorTpl) {
     App.module('ElementsBoxApp.Show.Views', function(Views, App, Backbone, Marionette, $, _) {
       var _ref, _ref1, _ref2;
       Views.SingleElement = (function(_super) {

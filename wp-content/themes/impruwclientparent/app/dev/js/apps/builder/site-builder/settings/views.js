@@ -3,7 +3,7 @@
   var __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  define(['app', 'tpl!apps/builder/site-builder/settings/templates/settings'], function(App, settingsTpl) {
+  define(['app', 'text!apps/builder/site-builder/settings/templates/settings.html'], function(App, settingsTpl) {
     App.module('SiteBuilderApp.Settings.Views', function(Views, App, Backbone, Marionette, $, _) {
       var _ref;
       return Views.SettingView = (function(_super) {
@@ -19,7 +19,8 @@
         SettingView.prototype.className = 'modal-content settings-box';
 
         SettingView.prototype.events = {
-          'click .close-settings': function() {
+          'click .close-settings': function(evt) {
+            evt.preventDefault();
             return App.settingsRegion.close();
           }
         };

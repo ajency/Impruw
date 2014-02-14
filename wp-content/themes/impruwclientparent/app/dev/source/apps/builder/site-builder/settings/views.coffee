@@ -1,5 +1,5 @@
 define ['app'
-		'tpl!apps/builder/site-builder/settings/templates/settings'],
+		'text!apps/builder/site-builder/settings/templates/settings.html'],
 		(App, settingsTpl)->
 
 
@@ -13,6 +13,8 @@ define ['app'
 					className : 'modal-content settings-box'
 
 					events:
-						'click .close-settings' : -> App.settingsRegion.close()
+						'click .close-settings' : (evt)-> 
+										evt.preventDefault()
+										App.settingsRegion.close()
 							
 			App.SiteBuilderApp.Settings.Views

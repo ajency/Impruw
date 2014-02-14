@@ -18,7 +18,7 @@
 
         ElementModel.prototype.defaults = function() {
           return {
-            markup: '<span></span>'
+            templates: {}
           };
         };
 
@@ -72,14 +72,16 @@
       })(Backbone.Model);
       API = {
         createElement: function(data) {
-          var ele, element;
+          var element;
           if (data == null) {
             data = {};
           }
           element = new Elements.ElementModel;
           element.set(data);
-          ele = element.save(null, {
+          element.save(null, {
             wait: true
+          }).done(function() {
+            return element.trigger("element:model:fetched");
           });
           return element;
         }

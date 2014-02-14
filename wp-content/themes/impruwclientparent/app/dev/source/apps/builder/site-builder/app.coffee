@@ -2,7 +2,8 @@ define ['app'
 		'apps/builder/site-builder/show/controller'
 		'apps/builder/site-builder/element/controller'
 		'apps/builder/site-builder/settings/controller'
-		'apps/builder/site-builder/autosave/controller'], (App)->
+		'apps/builder/site-builder/autosave/controller'
+		'apps/builder/site-builder/elements-loader'], (App)->
 
 	App.module 'SiteBuilderApp', (SiteBuilderApp, App, Backbone, Marionette, $, _)->
 
@@ -13,10 +14,10 @@ define ['app'
 				new SiteBuilderApp.Show.Controller
 
 			# add a new element to the builder region
-			appendNewElement:(evt, ui)->
-				new SiteBuilderApp.Element.Controller
-													evt : evt
-													ui  : ui
+			appendNewElement:(evt, type)->
+				new SiteBuilderApp.Element[type].Controller
+														evt : evt
+														type: type
 
 			# show settings box for a view
 			showSettings :(model, x, y)->
@@ -48,7 +49,8 @@ define ['app'
 
 		# listen to "element:dropped" event.
 		App.vent.on "element:dropped",(evt, ui)->
-			API.appendNewElement evt, ui
+			type  = ui.item.attr 'data-element'
+			API.appendNewElement evt, type
 
 		
 		# get the dropped region

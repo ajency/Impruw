@@ -10,33 +10,37 @@ define ['app', 'controllers/builder-base-controller'
 					# initialize the controller. Get all required entities and show the view
 					initialize:(opt = {})->
 
-						{evt, ui} 	= opt
-	
+						{evt, type} 	= opt
+						
 						container 	= $(evt.target)
-						type  		= ui.item.attr 'data-element'
 
 						options = 
 							elementType : type
 							draggable 	: true
 
-						@element = App.request "create:new:element", options
+						element = App.request "create:new:element", options
 
-						view = @_getView @element
+						@view = @_getView element,type
 
-						@listenTo view, "show:setting:popup", @showSettingPopup
+						# start listening to events
+						@listenTo @view, "show:setting:popup", ->
+								App.vent.trigger "show:settings:popup", @element,x,y 
 
-						#@listenTo view, "element:dropped", (evt, ui)->
-							#App.vent.trigger "element:dropped", evt, ui
+						@listenTo element, "element:model:fetched", @setupViews
+						
+						@add @view, container
 
-						@add view, container
 
 					# Get view
-					_getView : (element)->
-						new Element.Views.ElementView
-												model : element
+					_getView : (elementModel, element)->
+						ele = new Element.Views.ElementView
+													model : elementModel
 
-					# show settings popup for the element
-					showSettingPopup:(x, y)->
-						App.vent.trigger "show:settings:popup", @element,x,y 
+					# show the view markup
+					addElementMarkup:(view)->
+						@view.$el.find('.element-markup').html view.$el
+						view.render()
+						view.triggerMethod "show"
+
 
 			App.SiteBuilderApp.Element.Controller		

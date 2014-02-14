@@ -15,31 +15,36 @@
         }
 
         Controller.prototype.initialize = function(opt) {
-          var container, evt, options, type, ui, view;
+          var container, element, evt, options, type;
           if (opt == null) {
             opt = {};
           }
-          evt = opt.evt, ui = opt.ui;
+          evt = opt.evt, type = opt.type;
           container = $(evt.target);
-          type = ui.item.attr('data-element');
           options = {
             elementType: type,
             draggable: true
           };
-          this.element = App.request("create:new:element", options);
-          view = this._getView(this.element);
-          this.listenTo(view, "show:setting:popup", this.showSettingPopup);
-          return this.add(view, container);
+          element = App.request("create:new:element", options);
+          this.view = this._getView(element, type);
+          this.listenTo(this.view, "show:setting:popup", function() {
+            return App.vent.trigger("show:settings:popup", this.element, x, y);
+          });
+          this.listenTo(element, "element:model:fetched", this.setupViews);
+          return this.add(this.view, container);
         };
 
-        Controller.prototype._getView = function(element) {
-          return new Element.Views.ElementView({
-            model: element
+        Controller.prototype._getView = function(elementModel, element) {
+          var ele;
+          return ele = new Element.Views.ElementView({
+            model: elementModel
           });
         };
 
-        Controller.prototype.showSettingPopup = function(x, y) {
-          return App.vent.trigger("show:settings:popup", this.element, x, y);
+        Controller.prototype.addElementMarkup = function(view) {
+          this.view.$el.find('.element-markup').html(view.$el);
+          view.render();
+          return view.triggerMethod("show");
         };
 
         return Controller;

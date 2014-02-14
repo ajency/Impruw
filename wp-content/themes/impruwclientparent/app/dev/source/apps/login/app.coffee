@@ -5,13 +5,14 @@ define [
 
 			App.module 'LoginApp', (LoginApp, App, Backbone, Marionette, $, _)->
 
+				@startWithParent = false
+
 				class LoginApp.Router extends Marionette.AppRouter
 
 					appRoutes :
 						'login' : 'showLogin'
 
 					login : ()=>
-
 						return false if i isnt 0
 
 				#PUBLIC API

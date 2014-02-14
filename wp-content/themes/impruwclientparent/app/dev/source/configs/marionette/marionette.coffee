@@ -1,7 +1,7 @@
 ##
 ## Set backbone overrites or mixins
 ##
-define ['marionette'], (Marionette)->
+define ['marionette','mustache'], (Marionette, Mustache)->
 
 	# Extends the Marionette.Application to add some additional functions 
 	_.extend Marionette.Application::,
@@ -36,6 +36,20 @@ define ['marionette'], (Marionette)->
 		getRegistrySize: ->
 			_.size @_registry
 
+
+	# overwrite the default rendering engine to mustache
+	Marionette.Renderer.render = (template, data)->
+		
+		if not template
+			template = ''
+
+		if typeof template is "function"
+		  template = template()
+		
+		Mustache.to_html template,data
+	
+	# override the serialize data function
+	# Marionette.View serializeData:
 
 	# Override the loadTemplate function as we are using requirejs
 	# Marionette expects "templateId" to be the ID of a DOM element.

@@ -2,6 +2,8 @@ define ['app','apps/builder/elementsbox/show/controller'], (App)->
 
 	App.module 'ElementsBoxApp', (ElementsBoxApp, App, Backbone, Marionette, $, _)->
 
+		#@startWithParent = false
+
 		#PUBLIC API
 		API = 
 			show : ()->

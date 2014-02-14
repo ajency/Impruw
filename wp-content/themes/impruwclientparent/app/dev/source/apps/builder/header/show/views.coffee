@@ -1,5 +1,5 @@
 define ['app'
-		'tpl!apps/builder/header/show/templates/mainview'],
+		'text!apps/builder/header/show/templates/mainview.html'],
 		(App, mainviewTpl)->
 
 			# Headerapp views
@@ -8,7 +8,7 @@ define ['app'
 				# Pages single view
 				class SinglePageView extends Marionette.ItemView
 
-					template : _.template ''
+					template : ''
 
 					tagName : 'option'
 

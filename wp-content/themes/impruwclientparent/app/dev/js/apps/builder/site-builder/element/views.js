@@ -3,7 +3,7 @@
   var __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  define(['app', 'holder', 'tpl!apps/builder/site-builder/element/templates/element'], function(App, Holder, elementTpl) {
+  define(['app', 'holder', 'text!apps/builder/site-builder/element/templates/element.html'], function(App, Holder, elementTpl) {
     App.module('SiteBuilderApp.Element.Views', function(Views, App, Backbone, Marionette, $, _) {
       var _ref;
       return Views.ElementView = (function(_super) {
@@ -38,47 +38,13 @@
         };
 
         ElementView.prototype.modelEvents = {
-          'change:markup': 'renderMarkup',
+          'change:templates': 'renderMarkup',
           'change:meta_id': 'setMetaId'
         };
 
         ElementView.prototype.onRender = function() {
-          this.$el.attr("data-element", this.model.get('type'));
           this.$el.find('.element-markup > span').spin(this._getOptions());
           return this.setElementType();
-        };
-
-        ElementView.prototype.onElementViewFetched = function() {
-          var mouseOverFn,
-            _this = this;
-          mouseOverFn = _.debounce(function(evt) {
-            evt.stopPropagation();
-            return _this.$el.addClass("hover-class");
-          }, 100, true);
-          this.$el.mouseover(mouseOverFn).mouseout(function(evt) {
-            return _this.$el.removeClass("hover-class");
-          });
-          if (this.model.get('elementType') === 'BuilderRow') {
-            return this.$el.find('.column').sortable({
-              revert: 'invalid',
-              items: '> .element-wrapper',
-              connectWith: '.droppable-column,.column',
-              handle: '.aj-imp-drag-handle',
-              helper: 'clone',
-              opacity: .65,
-              update: function(evt, ui) {
-                if ($(evt.target).hasClass('empty-column')) {
-                  return $(evt.target).removeClass('empty-column');
-                }
-              },
-              remove: function(evt, ui) {
-                console.log(evt);
-                if ($(evt.target).children().length === 0) {
-                  return $(evt.target).addClass('empty-column');
-                }
-              }
-            });
-          }
         };
 
         ElementView.prototype.setMetaId = function(model) {
@@ -90,29 +56,7 @@
         };
 
         ElementView.prototype.renderMarkup = function(model) {
-          this.$el.find('.element-markup > span').spin(false);
-          this.$el.find('.element-markup').html(model.get('markup'));
-          this.setInilineEditing();
-          this.setImagePlaceholders();
-          return this.triggerMethod("element:view:fetched");
-        };
-
-        ElementView.prototype.setInilineEditing = function() {
-          var editable;
-          editable = this.$el.find('.element-markup').children().eq(0).attr('contenteditable');
-          if (_.isUndefined(editable)) {
-            return;
-          }
-          return CKEDITOR.inlineAll();
-        };
-
-        ElementView.prototype.setImagePlaceholders = function() {
-          var imageElements;
-          imageElements = this.$el.find('*[data-src]');
-          if (_.size(imageElements) > 0) {
-            Holder.run();
-            return $(imageElements).removeAttr('data-src');
-          }
+          return this.$el.find('.element-markup > span').spin(false);
         };
 
         ElementView.prototype._getOptions = function() {

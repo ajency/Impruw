@@ -5,7 +5,7 @@
 
   define(["app", 'backbone'], function(App, Backbone) {
     App.module("Entities.Menus", function(Menus, App, Backbone, Marionette, $, _) {
-      var API, _ref, _ref1;
+      var API, _ref, _ref1, _ref2, _ref3;
       Menus.MenuModel = (function(_super) {
         __extends(MenuModel, _super);
 
@@ -13,6 +13,12 @@
           _ref = MenuModel.__super__.constructor.apply(this, arguments);
           return _ref;
         }
+
+        MenuModel.prototype.defaults = {
+          menu_name: '',
+          menu_description: '',
+          menu_items: []
+        };
 
         return MenuModel;
 
@@ -30,6 +36,36 @@
         return MenuCollection;
 
       })(Backbone.Collection);
+      Menus.MenuItemModel = (function(_super) {
+        __extends(MenuItemModel, _super);
+
+        function MenuItemModel() {
+          _ref2 = MenuItemModel.__super__.constructor.apply(this, arguments);
+          return _ref2;
+        }
+
+        MenuItemModel.prototype.defaults = {
+          post_title: '',
+          menu_item_link: '',
+          menu_item_parent: 0
+        };
+
+        return MenuItemModel;
+
+      })(Backbone.Model);
+      Menus.MenuItemCollection = (function(_super) {
+        __extends(MenuItemCollection, _super);
+
+        function MenuItemCollection() {
+          _ref3 = MenuItemCollection.__super__.constructor.apply(this, arguments);
+          return _ref3;
+        }
+
+        MenuItemCollection.prototype.model = Menus.MenuItemModel;
+
+        return MenuItemCollection;
+
+      })(Backbone.Collection);
       API = {
         getMenus: function(param) {
           var menus;
@@ -43,10 +79,49 @@
             data: param
           });
           return menus;
+        },
+        getMenuItems: function(menuId) {
+          var menuItems;
+          if (menuId == null) {
+            menuId = 0;
+          }
+          menuItems = new Menus.MenuItemCollection;
+          menuItems.url = "" + AJAXURL + "?action=get-menu-items";
+          menuItems.fetch({
+            reset: true,
+            data: {
+              menu_id: menuId
+            }
+          });
+          return menuItems;
+        },
+        createMenuItemsCollection: function(items) {
+          if (!_.isArray(items)) {
+            items = [];
+          }
+          return new Menus.MenuItemCollection(items);
+        },
+        createMenuModel: function(menu) {
+          if (menu == null) {
+            menu = {};
+          }
+          if (!menu.id) {
+            throw new Error("no menu");
+          }
+          return new Menus.MenuModel(menu);
         }
       };
-      return App.reqres.setHandler("get:site:menus", function() {
+      App.reqres.setHandler("get:site:menus", function() {
         return API.getMenus();
+      });
+      App.reqres.setHandler("get:menu:menuitems", function(menuId) {
+        return API.getMenuItems(menuId);
+      });
+      App.reqres.setHandler("create:menuitem:collection", function(items) {
+        return API.createMenuItemsCollection(items);
+      });
+      return App.reqres.setHandler("create:menu:model", function(menu) {
+        return API.createMenuModel(menu);
       });
     });
     return App.Entities.Menus;

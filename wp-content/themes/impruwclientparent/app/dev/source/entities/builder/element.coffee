@@ -10,7 +10,7 @@ define ["app", 'backbone'], (App, Backbone) ->
                 idAttribute : 'meta_id'
 
                 defaults:->
-                    markup : '<span></span>' # this is for the initial spinner
+                    templates : {} # this is for the initial spinner
 
                 url :->
                     "#{AJAXURL}"
@@ -65,8 +65,10 @@ define ["app", 'backbone'], (App, Backbone) ->
                         
                     element.set data    
 
-                    ele = element.save null,
-                                    wait : true
+                    element.save null,
+                                wait : true
+                    .done ->
+                        element.trigger "element:model:fetched"
 
                     element
 

@@ -1,5 +1,5 @@
 define ['app'
-		'tpl!apps/builder/site-builder/show/templates/maintemplate'],
+		'text!apps/builder/site-builder/show/templates/maintemplate.html'],
 		(App, mainviewTpl)->
 
 

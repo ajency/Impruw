@@ -1,4 +1,4 @@
-define ["backbone"], (Backbone) ->
+define ["backbone","mustache"], (Backbone, Mustache) ->
 
 	# Hold reference to original sync function
 	_sync = Backbone.sync
@@ -12,6 +12,9 @@ define ["backbone"], (Backbone) ->
 			entity._fetch = sync
 			
 		sync
+
+	# attach mustache to all view
+	Backbone.View.Mustache = Mustache
 
 	# set backbone.send function for making ajax request with wordpress
 	Backbone.send =  (action, options = {})->

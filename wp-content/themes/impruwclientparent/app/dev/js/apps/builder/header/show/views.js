@@ -3,7 +3,7 @@
   var __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  define(['app', 'tpl!apps/builder/header/show/templates/mainview'], function(App, mainviewTpl) {
+  define(['app', 'text!apps/builder/header/show/templates/mainview.html'], function(App, mainviewTpl) {
     App.module('HeaderApp.Show.Views', function(Views, App, Backbone, Marionette, $, _) {
       var SinglePageView, _ref, _ref1;
       SinglePageView = (function(_super) {
@@ -14,7 +14,7 @@
           return _ref;
         }
 
-        SinglePageView.prototype.template = _.template('');
+        SinglePageView.prototype.template = '';
 
         SinglePageView.prototype.tagName = 'option';
 

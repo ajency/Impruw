@@ -6,6 +6,7 @@ define [
 		'entities/rooms'
 		'entities/site'
 		'entities/user'
+		'entities/menu'
 		'entities/builder/pages'
 		'entities/builder/themes'
 		'entities/builder/elementbox'

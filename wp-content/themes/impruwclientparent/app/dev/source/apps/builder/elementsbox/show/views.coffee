@@ -1,7 +1,7 @@
 define ['app'
-		'tpl!apps/builder/elementsbox/show/templates/main'
-		'tpl!apps/builder/elementsbox/show/templates/singleelement'
-		'tpl!apps/builder/elementsbox/show/templates/error'],
+		'text!apps/builder/elementsbox/show/templates/main.html'
+		'text!apps/builder/elementsbox/show/templates/singleelement.html'
+		'text!apps/builder/elementsbox/show/templates/error.html'],
 		(App, mainviewTpl, singleEleTpl, errorTpl)->
 
 			App.module 'ElementsBoxApp.Show.Views', (Views, App, Backbone, Marionette, $, _)->
