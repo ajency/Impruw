@@ -70,8 +70,8 @@
           return this.options.templates.menuTpl;
         };
 
-        MenuView.prototype.onShow = function() {
-          return console.log("ele");
+        MenuView.prototype.onBeforeRender = function() {
+          return this.collection.sort();
         };
 
         return MenuView;

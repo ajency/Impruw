@@ -84,7 +84,7 @@ function create_element_model(){
 	$markup  = add_element_markup($element);
 	$meta_id = rand(1000,9999);
 
-	$templates = get_templates()
+	$templates = get_templates();
 
 	wp_send_json(array(	'code' => 'OK', 
 						'data' => array(
@@ -99,16 +99,25 @@ function create_element_model(){
 													'ID' => 23,
 													'post_title' 		=> 'Home',
 													'menu_item_link' 	=> 'http://google.com',
+													'order'				=> 5
 												),
 												array(
 													'ID' => 24,
 													'post_title' 		=> 'About Us',
-													'menu_item_link' 	=> 'http://google.com/about'
-												),array(
+													'menu_item_link' 	=> 'http://google.com/about',
+													'order'				=> 2
+												),
+												array(
 													'ID' => 25,
 													'post_title' 		=> 'Contact Us',
-													'menu_item_link' 	=> 'http://google.com/contact'
-												),
+													'menu_item_link' 	=> 'http://google.com/contact',
+													'order'				=> 3
+												),array(
+													'ID' => 26,
+													'post_title' 		=> 'Custom Page',
+													'menu_item_link' 	=> 'http://google.com/custom',
+													'order'				=> 4
+												)
 											)
 								)));
 
@@ -117,8 +126,20 @@ add_action('wp_ajax_create-element-model','create_element_model');
 
 function get_templates($default = array()){
 
+	$templates = array();
 	ob_start();
+	include_once CURRENTTHEMEPATH . '/templates/menu/default/menu.php';
+	$html = ob_get_clean();
+	$templates['menuTpl'] = $html; 
 
+	ob_start();
+	include_once CURRENTTHEMEPATH . '/templates/menu/default/menuItem.php';
+	$html = ob_get_clean();
+
+	$templates['menuItemTpl'] = $html; 
+	$templates['subMenuTpl'] = ''; 
+	
+	return $templates;	
 }
 
 /**

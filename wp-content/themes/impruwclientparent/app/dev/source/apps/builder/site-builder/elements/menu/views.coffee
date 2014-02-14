@@ -36,7 +36,9 @@ define ['app'],
 					template :=>
 						@options.templates.menuTpl
 
-					onShow:->
-						console.log "ele"
+					#before rendering the view sort the collection 
+					onBeforeRender:->
+						@collection.sort()
+						
 
 			App.SiteBuilderApp.Element.Menu.Views

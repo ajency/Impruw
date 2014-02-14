@@ -63,6 +63,8 @@
 
         MenuItemCollection.prototype.model = Menus.MenuItemModel;
 
+        MenuItemCollection.prototype.comparator = 'order';
+
         return MenuItemCollection;
 
       })(Backbone.Collection);

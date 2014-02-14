@@ -11,19 +11,22 @@ define ['app','apps/builder/site-builder/elements/menu/views'],
 						super(options)
 
 
-					_getMenuView:(templates,menu, menuItems)->
-						window.v = new Menu.Views.MenuView
-											model 		: menu
-											collection 	: menuItems
-											templates 	: templates
+					_getMenuView:(templates, menuItems)->
+						new Menu.Views.MenuView
+								collection 	: menuItems
+								templates 	: templates
 
 
 
 					# setup templates for the element
 					setupViews: ->
-						menu = App.request "create:menu:model", @view.model.get('menu')
+						#menu = App.request "create:menu:model", @view.model.get('menu')
 						menuItems = App.request "create:menuitem:collection", @view.model.get('menu_items')
 
-						menuView = @_getMenuView(@view.model.get('templates') ? {},menu, menuItems)
+						window.menuView = @_getMenuView(@view.model.get('templates') ? {}, menuItems)
+
+						#listen to order change event
+						menuItems.each (model,index)=>
+							@listenTo model, 'change:order', menuView.render
 
 						@addElementMarkup menuView

@@ -21,19 +21,21 @@
           return Controller.__super__.initialize.call(this, options);
         };
 
-        Controller.prototype._getMenuView = function(templates, menu, menuItems) {
-          return window.v = new Menu.Views.MenuView({
-            model: menu,
+        Controller.prototype._getMenuView = function(templates, menuItems) {
+          return new Menu.Views.MenuView({
             collection: menuItems,
             templates: templates
           });
         };
 
         Controller.prototype.setupViews = function() {
-          var menu, menuItems, menuView, _ref1;
-          menu = App.request("create:menu:model", this.view.model.get('menu'));
+          var menuItems, _ref1,
+            _this = this;
           menuItems = App.request("create:menuitem:collection", this.view.model.get('menu_items'));
-          menuView = this._getMenuView((_ref1 = this.view.model.get('templates')) != null ? _ref1 : {}, menu, menuItems);
+          window.menuView = this._getMenuView((_ref1 = this.view.model.get('templates')) != null ? _ref1 : {}, menuItems);
+          menuItems.each(function(model, index) {
+            return _this.listenTo(model, 'change:order', menuView.render);
+          });
           return this.addElementMarkup(menuView);
         };
 
