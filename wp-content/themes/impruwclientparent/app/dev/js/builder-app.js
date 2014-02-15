@@ -11,7 +11,8 @@
       }),
       loginRegion: Marionette.Region.Dialog.extend({
         el: '#login-region'
-      })
+      }),
+      dialogRegion: '#dialog-region'
     });
     App.rootRoute = "";
     App.loginRoute = "login";

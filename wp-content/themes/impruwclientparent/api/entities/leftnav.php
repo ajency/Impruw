@@ -103,37 +103,108 @@ function create_element_model(){
 								'templates' => $templates,
 								'menu'		=> array(
 												'id' => 2,
-												'menu_name' => 'Main Menu'
-											),
-								'menu_items'=> array(
-												array(
-													'ID' => 23,
-													'post_title' 		=> 'Home',
-													'menu_item_link' 	=> 'http://google.com',
-													'order'				=> 1
-												),
-												array(
-													'ID' => 24,
-													'post_title' 		=> 'About Us',
-													'menu_item_link' 	=> 'http://google.com/about',
-													'order'				=> 2
-												),
-												array(
-													'ID' => 25,
-													'post_title' 		=> 'Contact Us',
-													'menu_item_link' 	=> 'http://google.com/contact',
-													'order'				=> 3
-												),array(
-													'ID' => 26,
-													'post_title' 		=> 'Custom Page',
-													'menu_item_link' 	=> 'http://google.com/custom',
-													'order'				=> 4
-												)
-											)
-								)));
+												'menu_name' => 'Main Menu',
+												'menu_slug'	=> 'main-menu',
+												'menu_items'=> array(
+																array(
+																	'ID' => 23,
+																	'post_title' 		=> 'Home',
+																	'menu_item_link' 	=> 'http://google.com',
+																	'order'				=> 1
+																),
+																array(
+																	'ID' => 24,
+																	'post_title' 		=> 'About Us',
+																	'menu_item_link' 	=> 'http://google.com/about',
+																	'order'				=> 2
+																),
+																array(
+																	'ID' => 25,
+																	'post_title' 		=> 'Contact Us',
+																	'menu_item_link' 	=> 'http://google.com/contact',
+																	'order'				=> 3
+																),array(
+																	'ID' => 26,
+																	'post_title' 		=> 'Custom Page',
+																	'menu_item_link' 	=> 'http://google.com/custom',
+																	'order'				=> 4
+																)
+															)
+								))));
 
 }
 add_action('wp_ajax_create-element-model','create_element_model');
+
+
+
+function get_site_menus_collection(){
+
+	$data = array(
+				array(
+					'id' => 2,
+					'menu_name' => 'Main Menu',
+					'menu_slug'	=> 'main-menu',
+					'menu_items'=> array(
+										array(
+											'ID' => 23,
+											'post_title' 		=> 'Home',
+											'menu_item_link' 	=> 'http://google.com',
+											'order'				=> 1
+										),
+										array(
+											'ID' => 24,
+											'post_title' 		=> 'About Us',
+											'menu_item_link' 	=> 'http://google.com/about',
+											'order'				=> 2
+										),
+										array(
+											'ID' => 25,
+											'post_title' 		=> 'Contact Us',
+											'menu_item_link' 	=> 'http://google.com/contact',
+											'order'				=> 3
+										),array(
+											'ID' => 26,
+											'post_title' 		=> 'Custom Page',
+											'menu_item_link' 	=> 'http://google.com/custom',
+											'order'				=> 4
+										)
+									) 
+				),
+				array(
+					'id' => 3,
+					'menu_name' => 'Footer Menu',
+					'menu_slug'	=> 'footer-menu',
+					'menu_items'=> array(
+										array(
+											'ID' => 23,
+											'post_title' 		=> 'Home',
+											'menu_item_link' 	=> 'http://google.com',
+											'order'				=> 5
+										),
+										array(
+											'ID' => 24,
+											'post_title' 		=> 'About Us',
+											'menu_item_link' 	=> 'http://google.com/about',
+											'order'				=> 4
+										),
+										array(
+											'ID' => 25,
+											'post_title' 		=> 'Contact Us',
+											'menu_item_link' 	=> 'http://google.com/contact',
+											'order'				=> 2
+										),array(
+											'ID' => 26,
+											'post_title' 		=> 'Custom Page',
+											'menu_item_link' 	=> 'http://google.com/custom',
+											'order'				=> 9
+										)
+									) 
+				)
+			);
+	wp_send_json(array('code' => 'OK', 'data' => $data));
+
+}
+add_action('wp_ajax_get-menus','get_site_menus_collection');
 
 function get_templates($default = array()){
 

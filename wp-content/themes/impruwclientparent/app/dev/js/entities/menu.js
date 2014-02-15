@@ -49,7 +49,15 @@
         MenuModel.prototype.defaults = {
           menu_name: '',
           menu_description: '',
+          menu_slug: '',
           menu_items: new Menus.MenuItemCollection
+        };
+
+        MenuModel.prototype.parse = function(resp) {
+          var items, _ref3;
+          items = (_ref3 = resp.menu_items) != null ? _ref3 : [];
+          resp.menu_items = new Menus.MenuItemCollection(items);
+          return resp;
         };
 
         return MenuModel;
@@ -65,6 +73,12 @@
 
         MenuCollection.prototype.model = Menus.MenuModel;
 
+        MenuCollection.prototype.parse = function(resp) {
+          if (resp.code === 'OK') {
+            return resp.data;
+          }
+        };
+
         return MenuCollection;
 
       })(Backbone.Collection);
@@ -75,6 +89,7 @@
             param = {};
           }
           menus = new Menus.MenuCollection;
+          App.request("set:collection", 'menucollection', menus);
           menus.url = AJAXURL + '?action=get-menus';
           menus.fetch({
             reset: true,
@@ -103,14 +118,18 @@
           }
           return new Menus.MenuItemCollection(items);
         },
-        createMenuModel: function(menu) {
-          if (menu == null) {
-            menu = {};
+        createMenuModel: function(menuData) {
+          var items, menu;
+          if (menuData == null) {
+            menuData = {};
           }
-          if (!menu.id) {
+          if (!menuData.id) {
             throw new Error("no menu");
           }
-          return new Menus.MenuModel(menu);
+          items = menuData.menu_items;
+          menu = new Menus.MenuModel(menuData);
+          menu.set('menu_items', new Menus.MenuItemCollection(items));
+          return menu;
         }
       };
       App.reqres.setHandler("get:site:menus", function() {

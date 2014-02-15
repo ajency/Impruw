@@ -23,6 +23,10 @@ define ['app'],
 				# Menu view
 				class Views.MenuView extends Marionette.CompositeView
 
+					events : 
+						'click li' : (evt)-> 
+							@trigger "show:menu:manager", @model
+
 					initialize:(opt = {})->
 						#assign template
 						@template = opt.templates.menuTpl ? ''

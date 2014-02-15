@@ -10,6 +10,7 @@ define ['marionette'], (Marionette)->
 		builderRegion 		: '#builder-region'
 		settingsRegion 		: Marionette.Region.Settings.extend el : '#settings-region'
 		loginRegion 		: Marionette.Region.Dialog.extend el : '#login-region'
+		dialogRegion 		: '#dialog-region'
 
 
 	# The default route for app

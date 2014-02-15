@@ -19,13 +19,24 @@ define ["app", 'backbone'], (App, Backbone) ->
 				defaults : 
 					menu_name           : ''
 					menu_description    : ''
+					menu_slug 			: ''
 					menu_items          : new Menus.MenuItemCollection
+
+				parse :(resp)->
+					items = resp.menu_items ? []
+					resp.menu_items = new Menus.MenuItemCollection items
+					resp
+						
 
 			# menu collection
 			class Menus.MenuCollection extends Backbone.Collection
 				model : Menus.MenuModel
 
-			
+				parse :(resp)->
+					if resp.code is 'OK'
+						return resp.data 
+
+
 
 			# API 
 			API = 
@@ -33,6 +44,9 @@ define ["app", 'backbone'], (App, Backbone) ->
 				getMenus:(param = {})->
 
 					menus = new Menus.MenuCollection
+
+					# save menu collection
+					App.request "set:collection", 'menucollection', menus
 
 					menus.url = AJAXURL + '?action=get-menus'
 
@@ -64,11 +78,14 @@ define ["app", 'backbone'], (App, Backbone) ->
 					new Menus.MenuItemCollection items
 
 				# 
-				createMenuModel :(menu ={})->
-					if not menu.id
+				createMenuModel :(menuData ={})->
+					if not menuData.id
 						throw new Error "no menu"
-						
-					new Menus.MenuModel menu
+
+					items = menuData.menu_items
+					menu = new Menus.MenuModel menuData
+					menu.set 'menu_items', new Menus.MenuItemCollection items
+					menu
 
 			# request handler to get all site menus
 			App.reqres.setHandler "get:site:menus", ->

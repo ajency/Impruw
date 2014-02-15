@@ -52,6 +52,12 @@
           return _ref2;
         }
 
+        MenuView.prototype.events = {
+          'click li': function(evt) {
+            return this.trigger("show:menu:manager", this.model);
+          }
+        };
+
         MenuView.prototype.initialize = function(opt) {
           var _ref3;
           if (opt == null) {
