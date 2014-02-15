@@ -24,7 +24,8 @@ define ['app'],
 				class Views.MenuView extends Marionette.CompositeView
 
 					events : 
-						'click li' : (evt)-> 
+						'click li' : (evt)->
+							evt.stopPropagation()
 							@trigger "show:menu:manager", @model
 
 					initialize:(opt = {})->

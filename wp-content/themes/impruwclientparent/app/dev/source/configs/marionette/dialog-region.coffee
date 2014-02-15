@@ -3,6 +3,10 @@ define ['marionette'], (Marionette) ->
 
 	class Marionette.Region.Dialog extends Marionette.Region
 
+		# override open method
+		open:(view)->
+			@$el.find('.modal-body').empty().append(view.el);
+
 		#initiate modal on show
 		onShow :(view)->
 
@@ -26,8 +30,8 @@ define ['marionette'], (Marionette) ->
 			@listenTo view, 'dialog:resize', @resizeDialog
 
 
-		closeDialog : ()->
+		closeDialog:()->
 			@close()
-			@$el.empty()
+			@$el.find('.modal-body').empty()
 
 			

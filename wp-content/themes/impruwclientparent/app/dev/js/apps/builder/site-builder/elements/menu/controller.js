@@ -23,6 +23,7 @@
 
         Controller.prototype._getMenuView = function(templates, menu) {
           return new Menu.Views.MenuView({
+            model: menu,
             collection: menu.get('menu_items'),
             templates: templates
           });
@@ -39,12 +40,8 @@
           this.listenTo(model, 'change:style', this.fetchNewStyle);
           menu = App.request("create:menu:model", this.view.model.get('menu'));
           menuView = this._getMenuView((_ref1 = this.view.model.get('templates')) != null ? _ref1 : {}, menu);
-          this.listenTo(menuView, "show:menu:manager", function(menuModel) {
-            var menuId;
-            menuId = menuModel.get('id');
-            return App.navigate("menu-manager", {
-              trigger: true
-            });
+          this.listenTo(menuView, "show:menu:manager", function() {
+            return App.vent.trigger("show:menu:manager");
           });
           menu.get('menu_items').each(function(model, index) {
             return _this.listenTo(model, 'change:order', menuView.render);

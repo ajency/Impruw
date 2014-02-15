@@ -20,5 +20,6 @@ define ['app', 'controllers/base-controller', 'apps/menu-manager/show/views'], (
 
 
 			#gets the main login view
-			getView :()->
-				new Show.Views.ManagerView
+			getView :(menuCollection)->
+				new Show.Views.MenuManagerView
+								collection : menuCollection

@@ -54,6 +54,7 @@
 
         MenuView.prototype.events = {
           'click li': function(evt) {
+            evt.stopPropagation();
             return this.trigger("show:menu:manager", this.model);
           }
         };

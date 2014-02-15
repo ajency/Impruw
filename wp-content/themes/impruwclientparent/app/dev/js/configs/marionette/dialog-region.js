@@ -13,6 +13,10 @@
         return _ref;
       }
 
+      Dialog.prototype.open = function(view) {
+        return this.$el.find('.modal-body').empty().append(view.el);
+      };
+
       Dialog.prototype.onShow = function(view) {
         var options,
           _this = this;
@@ -33,7 +37,7 @@
 
       Dialog.prototype.closeDialog = function() {
         this.close();
-        return this.$el.empty();
+        return this.$el.find('.modal-body').empty();
       };
 
       return Dialog;

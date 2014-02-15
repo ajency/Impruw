@@ -26,8 +26,10 @@
           });
         };
 
-        Controller.prototype.getView = function() {
-          return new Show.Views.ManagerView;
+        Controller.prototype.getView = function(menuCollection) {
+          return new Show.Views.MenuManagerView({
+            collection: menuCollection
+          });
         };
 
         return Controller;

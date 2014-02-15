@@ -12,6 +12,7 @@ define ['app','apps/builder/site-builder/elements/menu/views'],
 
 					_getMenuView:(templates, menu)->
 						new Menu.Views.MenuView
+								model 		: menu
 								collection 	: menu.get 'menu_items'
 								templates 	: templates
 
@@ -31,9 +32,8 @@ define ['app','apps/builder/site-builder/elements/menu/views'],
 
 						menuView = @_getMenuView(@view.model.get('templates') ? {}, menu)
 
-						@listenTo menuView, "show:menu:manager", (menuModel)=>
-								menuId = menuModel.get 'id'
-								App.navigate "menu-manager", trigger : true
+						@listenTo menuView, "show:menu:manager", ()=>
+														App.vent.trigger "show:menu:manager"
 
 
 						# listen to order change event

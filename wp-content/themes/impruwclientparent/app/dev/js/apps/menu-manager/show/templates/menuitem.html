@@ -1,2 +1,24 @@
 
-<li>Menu item template</li>
+<li class="list-group-item">
+  <div class="row menu-item">
+    <div class="col-sm-1 menu-dragger"><span class="icon-uniF160"></span></div>
+    <div class="col-sm-8 menu-name">{{post_title}}</div>
+    <div class="col-sm-3 menu-edit"><a href="#menu-item-{{ID}}" data-toggle="collapse"><span class="glyphicon glyphicon-edit">Edit</span></a></div>
+  </div>
+  <div id="menu-item-{{ID}}" class="collapse menu-item-edit">
+    <form class="form-horizontal">
+      <div class="form-group">
+        <label class="col-sm-4 control-label">Menu Link Label</label>
+        <div class="col-sm-8">
+          <input value="{{post_title}}" parsley-required="true" type="text" name="item-title" class="form-control"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-4 control-label">Menu Link</label>
+        <div class="col-sm-8">
+          <input value="{{menu_item_link}}" parsley-type="url" parsley-required="true" type="text" name="item-url" class="form-control"/>
+        </div>
+      </div>
+    </form>
+  </div>
+</li>

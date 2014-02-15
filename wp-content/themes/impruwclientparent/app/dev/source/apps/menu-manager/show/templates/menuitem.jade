@@ -1,1 +1,18 @@
-li Menu item template
+li.list-group-item
+	.row.menu-item
+		.col-sm-1.menu-dragger: span.icon-uniF160
+		.col-sm-8.menu-name {{post_title}}
+		.col-sm-3.menu-edit
+			a(href="#menu-item-{{ID}}" data-toggle="collapse") 
+				span.glyphicon.glyphicon-edit Edit
+
+	.collapse.menu-item-edit(id="menu-item-{{ID}}")
+		form.form-horizontal
+			.form-group
+				label.col-sm-4.control-label Menu Link Label
+				.col-sm-8
+					input.form-control(value="{{post_title}}" parsley-required="true" type="text" name="item-title")
+			.form-group
+				label.col-sm-4.control-label Menu Link
+				.col-sm-8
+					input.form-control(value="{{menu_item_link}}" parsley-type="url" parsley-required="true" type="text" name="item-url")
