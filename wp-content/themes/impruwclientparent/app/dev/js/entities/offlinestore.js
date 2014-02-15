@@ -14,6 +14,7 @@
           if (_.isUndefined(model)) {
             return false;
           }
+          return model;
         },
         setCollection: function(type, collection) {
           return OfflineStore[type] = collection;
@@ -26,6 +27,7 @@
         return API.setCollection(type, collection);
       });
       return App.reqres.setHandler("get:collection:model", function(collectionType, modelId) {
+        console.log(modelId);
         return API.getCollectionModel(collectionType, modelId);
       });
     });

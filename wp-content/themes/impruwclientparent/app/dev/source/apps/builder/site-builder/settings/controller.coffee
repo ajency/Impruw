@@ -14,10 +14,9 @@ define ['app', 'controllers/base-controller'
 
 						elementBoxModel = App.request "get:collection:model", 'elementbox', model.get 'element'
 
-						console.log elementBoxModel
-
 						view = new Settings.Views.SettingView
-													model : model	
+													model : elementBoxModel
+													viewModel : model	
 
 						@listenTo view, 'render', =>
 											@region.$el.css 'top',x

@@ -42,7 +42,7 @@ define ['app', 'controllers/builder-base-controller'
 
 					# show the view markup
 					addElementMarkup:(view)->
-						#stop spinner if any
+						#stop spinner if found
 						if @view.$el.find('.element-markup > span').length > 0
 							@view.$el.find('.element-markup > span').spin false
 

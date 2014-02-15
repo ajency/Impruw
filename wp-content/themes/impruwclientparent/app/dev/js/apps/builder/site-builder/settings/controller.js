@@ -22,9 +22,9 @@
           }
           model = opt.model, x = opt.x, y = opt.y;
           elementBoxModel = App.request("get:collection:model", 'elementbox', model.get('element'));
-          console.log(elementBoxModel);
           view = new Settings.Views.SettingView({
-            model: model
+            model: elementBoxModel,
+            viewModel: model
           });
           this.listenTo(view, 'render', function() {
             _this.region.$el.css('top', x);

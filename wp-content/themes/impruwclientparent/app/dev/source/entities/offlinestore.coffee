@@ -12,6 +12,7 @@ define ['app'], (App)->
 			getCollectionModel:(collectionType, modelId)->
 				model = OfflineStore[collectionType].get modelId
 				return false if _.isUndefined model
+				model
 
 			# set the collection for the type
 			setCollection: (type, collection)->
@@ -28,4 +29,5 @@ define ['app'], (App)->
 
 		#get model for collection
 		App.reqres.setHandler "get:collection:model",(collectionType, modelId)->
+			console.log modelId
 			API.getCollectionModel collectionType, modelId
