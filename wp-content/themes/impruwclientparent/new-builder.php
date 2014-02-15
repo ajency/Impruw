@@ -31,23 +31,7 @@
     <link href="<?php echo get_template_directory_uri(); ?>/css/style.css" rel="stylesheet" media="screen"/>
 </head>
 <body <?php body_class(); ?>>
-    <div id="dialog-region" class="modal  wide-modal">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title">Modal title</h4>
-          </div>
-          <div class="modal-body">
-
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
-          </div>
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+    <div id="dialog-region" class="modal  wide-modal"></div><!-- /.modal -->
     <div class="aj-imp-builder container">
         <div id="header-region"></div>
         <div id="builder-region"></div>

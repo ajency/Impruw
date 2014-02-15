@@ -3,7 +3,7 @@
   var __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  define(['marionette'], function(Marionette) {
+  define(['marionette', 'mustache', 'text!configs/marionette/templates/modal.html'], function(Marionette, Mustache, modalTpl) {
     var _ref;
     return Marionette.Region.Dialog = (function(_super) {
       __extends(Dialog, _super);
@@ -13,20 +13,29 @@
         return _ref;
       }
 
+      Dialog.prototype.template = modalTpl;
+
       Dialog.prototype.open = function(view) {
-        return this.$el.find('.modal-body').empty().append(view.el);
+        var options, wrapper;
+        options = view.dialogOptions ? view.dialogOptions : {};
+        wrapper = Mustache.to_html(modalTpl, this._getOptions(options));
+        this.$el.html(wrapper);
+        return this.$el.find('.modal-body').append(view.el);
       };
 
       Dialog.prototype.onShow = function(view) {
-        var options,
-          _this = this;
+        var _this = this;
         this.setupBindings(view);
-        options = view.dialog ? view.dialog : {};
-        _.defaults(options, {});
-        this.$el.modal(options);
+        this.$el.modal();
         this.$el.modal('show');
         return this.$el.on('hidden.bs.modal', function() {
           return _this.closeDialog();
+        });
+      };
+
+      Dialog.prototype._getOptions = function(options) {
+        return _.defaults(options, {
+          modal_title: ''
         });
       };
 
@@ -37,7 +46,7 @@
 
       Dialog.prototype.closeDialog = function() {
         this.close();
-        return this.$el.find('.modal-body').empty();
+        return this.$el.empty();
       };
 
       return Dialog;

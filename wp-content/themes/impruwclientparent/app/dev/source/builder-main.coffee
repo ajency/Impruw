@@ -29,6 +29,8 @@ require.config
 		backboneform		: 'plugins/backbone.form'
 		backbonesyphon 		: 'plugins/backbone.syphon'
 		backbonerelational 	: 'plugins/backbone.relational'
+		backboneassociations: 'plugins/backbone.associations'
+		nestedsortable 		: 'plugins/nested.sortable'
 		jqueryvalidate 		: 'plugins/jquery.validate'
 		polyglot 			: 'plugins/polyglot'
 		localforage			: 'plugins/localforage'
@@ -60,8 +62,10 @@ require.config
 		backboneform 		: ['backbone']
 		backbonesyphon 		: ['backbone']
 		backbonerelational 	: ['backbone']
+		backboneassociations: ['backbone']
 		jqueryspin 			: ['spin']
 		bootstrap 			: ['jquery']
+		nestedsortable 		: ['jqueryui']
 		radio 				: ['bootstrap']
 		checkbox 			: ['bootstrap']
 		bootstrapselect		: ['bootstrap']

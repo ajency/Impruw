@@ -6,7 +6,7 @@ define ['app', 'controllers/base-controller', 'apps/menu-manager/show/views'], (
 		#Show Controller 
 		class Show.Controller extends AppController
 
-			#initialize
+			# initialize
 			initialize:()->
 
 				menuCollection = App.request "get:collection", 'menucollection'
@@ -19,7 +19,7 @@ define ['app', 'controllers/base-controller', 'apps/menu-manager/show/views'], (
 				@show view, loading : true
 
 
-			#gets the main login view
+			# gets the main login view
 			getView :(menuCollection)->
 				new Show.Views.MenuManagerView
 								collection : menuCollection

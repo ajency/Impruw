@@ -16,6 +16,10 @@
 
         MenuItemView.prototype.template = menuItemTpl;
 
+        MenuItemView.prototype.tagName = 'li';
+
+        MenuItemView.prototype.className = 'list-group-item';
+
         return MenuItemView;
 
       })(Marionette.ItemView);
@@ -44,7 +48,12 @@
           if (this.itemIndex === 0) {
             this.$el.addClass('active');
           }
-          return this.$el.attr('id', this.model.get('menu_slug'));
+          this.$el.attr('id', this.model.get('menu_slug'));
+          return this.$el.find('.sortable-menu-items').nestedSortable({
+            handle: 'div.menu-dragger',
+            items: 'li.list-group-item',
+            toleranceElement: '> div'
+          });
         };
 
         return SingleManagerView;
@@ -67,6 +76,10 @@
             itemIndex: index,
             collection: item.get('menu_items')
           };
+        };
+
+        MenuManagerView.prototype.dialogOptions = {
+          modal_title: 'Menu Manager'
         };
 
         MenuManagerView.prototype.serializeData = function() {

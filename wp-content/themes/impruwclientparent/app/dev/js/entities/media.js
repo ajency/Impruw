@@ -16,7 +16,7 @@
 
         return MediaModel;
 
-      })(Backbone.RelationalModel);
+      })(Backbone.AssociatedModel);
       Media.MediaCollection = (function(_super) {
         __extends(MediaCollection, _super);
 

@@ -52,7 +52,7 @@
 
         return RoomModel;
 
-      })(Backbone.RelationalModel);
+      })(Backbone.AssociatedModel);
       Rooms.RoomCollection = (function(_super) {
         __extends(RoomCollection, _super);
 

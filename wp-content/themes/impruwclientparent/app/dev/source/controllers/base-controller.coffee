@@ -4,7 +4,6 @@ define ["marionette"
 	class AppController extends Marionette.Controller
 		
 		constructor: (options = {}) ->
-			
 			@region = options.region or App.request "default:region"
 			#App.execute "register:instance", @, @_instance_id
 			@_instance_id = _.uniqueId("controller")
@@ -13,7 +12,6 @@ define ["marionette"
 
 
 		close: (args...) ->
-			
 			delete @region
 			delete @options
 			App.commands.execute "unregister:instance", @, @_instance_id
@@ -21,7 +19,6 @@ define ["marionette"
 
 		
 		show: (view, options = {}) ->
-
 			_.defaults options,
 				loading: false
 				region: @region

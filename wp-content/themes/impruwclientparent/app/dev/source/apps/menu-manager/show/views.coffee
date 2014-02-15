@@ -9,6 +9,10 @@ define ['app'
 
 					template : menuItemTpl
 
+					tagName : 'li'
+
+					className : 'list-group-item'
+
 				# main menu manager view
 				class SingleManagerView extends Marionette.CompositeView
 
@@ -32,6 +36,11 @@ define ['app'
 
 						@$el.attr 'id', @model.get 'menu_slug'
 
+						@$el.find('.sortable-menu-items').nestedSortable
+													handle 	: 'div.menu-dragger'
+													items 	: 'li.list-group-item'
+													toleranceElement: '> div'
+
 
 				# main view
 				class Views.MenuManagerView extends Marionette.CompositeView
@@ -43,6 +52,9 @@ define ['app'
 					itemViewOptions:(item, index)->
 									itemIndex : index
 									collection: item.get 'menu_items'
+
+					dialogOptions : 
+						modal_title : 'Menu Manager'
 
 					serializeData: ->
 						data = 

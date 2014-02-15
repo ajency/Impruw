@@ -15,18 +15,20 @@ define ["app", 'backbone'], (App, Backbone) ->
 				comparator : 'order'
 
 			# menu model
-			class Menus.MenuModel extends Backbone.Model
+			class Menus.MenuModel extends Backbone.AssociatedModel
 				defaults : 
 					menu_name           : ''
 					menu_description    : ''
 					menu_slug 			: ''
-					menu_items          : new Menus.MenuItemCollection
+					menu_items          : []
 
-				parse :(resp)->
-					items = resp.menu_items ? []
-					resp.menu_items = new Menus.MenuItemCollection items
-					resp
-						
+				relations : [(
+                                type : Backbone.Many
+                                key  : 'menu_items'
+                                relatedModel : Menus.MenuItemModel
+                                collectionType : Menus.MenuItemCollection
+							)]
+
 
 			# menu collection
 			class Menus.MenuCollection extends Backbone.Collection
@@ -77,6 +79,9 @@ define ["app", 'backbone'], (App, Backbone) ->
 
 					new Menus.MenuItemCollection items
 
+				createMenuCollection: (modelsArr = [])->
+					new Menus.MenuCollection modelsArr
+
 				# 
 				createMenuModel :(menuData ={})->
 					if not menuData.id
@@ -98,6 +103,10 @@ define ["app", 'backbone'], (App, Backbone) ->
 			# request handler to get all site menus
 			App.reqres.setHandler "create:menuitem:collection",(items)->
 				API.createMenuItemsCollection(items)
+				
+			# request handler to get all site menus
+			App.reqres.setHandler "create:menu:collection",(items)->
+				API.createMenuCollection()
 
 			# request handler to get all site menus
 			App.reqres.setHandler "create:menu:model",(menu)->

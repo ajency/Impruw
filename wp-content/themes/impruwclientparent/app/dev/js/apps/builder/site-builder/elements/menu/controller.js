@@ -34,11 +34,17 @@
         };
 
         Controller.prototype.setupViews = function() {
-          var menu, menuView, model, _ref1,
+          var menu, menuCollection, menuView, model, _ref1,
             _this = this;
           model = this.view.model;
           this.listenTo(model, 'change:style', this.fetchNewStyle);
           menu = App.request("create:menu:model", this.view.model.get('menu'));
+          menuCollection = App.request("get:collection", 'menucollection');
+          if (!menuCollection) {
+            menuCollection = App.request("create:menu:collection");
+            menuCollection.add(menu);
+            App.request("set:collection", 'menucollection', menuCollection);
+          }
           menuView = this._getMenuView((_ref1 = this.view.model.get('templates')) != null ? _ref1 : {}, menu);
           this.listenTo(menuView, "show:menu:manager", function() {
             return App.vent.trigger("show:menu:manager");

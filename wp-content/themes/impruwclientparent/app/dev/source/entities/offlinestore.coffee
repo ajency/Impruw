@@ -18,6 +18,10 @@ define ['app'], (App)->
 			setCollection: (type, collection)->
 				OfflineStore[type] = collection
 
+			# creates new offline collection
+			createOfflineCollection :(type, collection)->
+				
+
 
 		#get collection
 		App.reqres.setHandler "get:collection",(type)->
@@ -29,5 +33,7 @@ define ['app'], (App)->
 
 		#get model for collection
 		App.reqres.setHandler "get:collection:model",(collectionType, modelId)->
-			console.log modelId
 			API.getCollectionModel collectionType, modelId
+
+		App.commands.setHandler "create:offline:collection", (type,collection)->
+			API.createOfflineCollection type, collection

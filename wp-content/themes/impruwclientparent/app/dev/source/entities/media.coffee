@@ -3,7 +3,7 @@ define ["app", 'backbone'], (App, Backbone) ->
         App.module "Entities.Media", (Media, App, Backbone, Marionette, $, _)->
 
             #Media Model
-            class Media.MediaModel extends Backbone.RelationalModel
+            class Media.MediaModel extends Backbone.AssociatedModel
 
             #Media collection
             class Media.MediaCollection extends Backbone.Collection

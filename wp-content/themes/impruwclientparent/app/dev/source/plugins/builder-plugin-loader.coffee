@@ -9,7 +9,7 @@ define [
 		'backboneform'
 		'backbonesyphon'
 		'mustache'
-		'backbonerelational'
+		'backboneassociations'
 		'jqueryvalidate'
 		'marionette'
 		'bootstrap'
@@ -22,4 +22,5 @@ define [
 		'polyglot'
 		'bootstrapselect'
 		'ckeditor'
+		'nestedsortable'
 		],->

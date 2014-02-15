@@ -1,27 +1,34 @@
 
-define ['marionette'], (Marionette) ->
+define ['marionette','mustache', 'text!configs/marionette/templates/modal.html'], (Marionette, Mustache ,modalTpl) ->
 
 	class Marionette.Region.Dialog extends Marionette.Region
 
+		template : modalTpl
+
 		# override open method
 		open:(view)->
-			@$el.find('.modal-body').empty().append(view.el);
+			options = if view.dialogOptions then view.dialogOptions else {}
+			wrapper = Mustache.to_html modalTpl, @_getOptions options
+			@$el.html(wrapper)
+			@$el.find('.modal-body').append(view.el);
 
 		#initiate modal on show
 		onShow :(view)->
 
 			@setupBindings view
 
-			options = if view.dialog then view.dialog else {}
-			
-			_.defaults options,{}
-
-			@$el.modal(options)
+			@$el.modal()
 
 			@$el.modal 'show'
 
 			@$el.on 'hidden.bs.modal', ()=>
 				@closeDialog()
+
+		# get options
+		_getOptions:(options)->
+
+			_.defaults options,
+						modal_title : ''
 
 
 		setupBindings :(view)->
@@ -32,6 +39,6 @@ define ['marionette'], (Marionette) ->
 
 		closeDialog:()->
 			@close()
-			@$el.find('.modal-body').empty()
+			@$el.empty()
 
 			

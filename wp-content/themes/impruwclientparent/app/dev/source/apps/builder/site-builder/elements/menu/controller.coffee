@@ -28,7 +28,11 @@ define ['app','apps/builder/site-builder/elements/menu/views'],
 						@listenTo model, 'change:style', @fetchNewStyle
 
 						menu = App.request "create:menu:model", @view.model.get('menu')
-						#menuItems = App.request "create:menuitem:collection", @view.model.get('menu_items')
+						menuCollection = App.request "get:collection", 'menucollection'
+						if not menuCollection
+							menuCollection = App.request "create:menu:collection"
+							menuCollection.add menu
+							App.request "set:collection",'menucollection', menuCollection
 
 						menuView = @_getMenuView(@view.model.get('templates') ? {}, menu)
 
