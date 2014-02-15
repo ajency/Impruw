@@ -23,12 +23,14 @@
           model = opt.model, x = opt.x, y = opt.y;
           elementBoxModel = App.request("get:collection:model", 'elementbox', model.get('element'));
           view = new Settings.Views.SettingView({
-            model: elementBoxModel,
-            viewModel: model
+            model: elementBoxModel
           });
           this.listenTo(view, 'render', function() {
             _this.region.$el.css('top', x);
             return _this.region.$el.css('left', y);
+          });
+          this.listenTo(view, "element:style:changed", function(style) {
+            return model.set("style", style);
           });
           return this.show(view);
         };

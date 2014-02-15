@@ -28,9 +28,15 @@
           });
         };
 
+        Controller.prototype.fetchNewStyle = function() {
+          return console.log("fetch new style");
+        };
+
         Controller.prototype.setupViews = function() {
-          var menuItems, menuView, _ref1,
+          var menuItems, menuView, model, _ref1,
             _this = this;
+          model = this.view.model;
+          this.listenTo(model, 'change:style', this.fetchNewStyle);
           menuItems = App.request("create:menuitem:collection", this.view.model.get('menu_items'));
           menuView = this._getMenuView((_ref1 = this.view.model.get('templates')) != null ? _ref1 : {}, menuItems);
           menuItems.each(function(model, index) {

@@ -16,11 +16,13 @@ define ['app', 'controllers/base-controller'
 
 						view = new Settings.Views.SettingView
 													model : elementBoxModel
-													viewModel : model	
 
 						@listenTo view, 'render', =>
 											@region.$el.css 'top',x
-											@region.$el.css 'left',y												
+											@region.$el.css 'left',y	
+						
+						@listenTo view, "element:style:changed",(style)=>
+													model.set "style", style											
 
 						@show  view
 

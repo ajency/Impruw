@@ -10,16 +10,22 @@ define ['app','apps/builder/site-builder/elements/menu/views'],
 					initialize:(options = {})->
 						super(options)
 
-
 					_getMenuView:(templates, menuItems)->
 						new Menu.Views.MenuView
 								collection 	: menuItems
 								templates 	: templates
 
-
+					# fetch new style
+					fetchNewStyle:->
+						console.log "fetch new style"
 
 					# setup templates for the element
 					setupViews: ->
+
+						#listen to 
+						model = @view.model
+						@listenTo model, 'change:style', @fetchNewStyle
+
 						# menu = App.request "create:menu:model", @view.model.get('menu')
 						menuItems = App.request "create:menuitem:collection", @view.model.get('menu_items')
 
