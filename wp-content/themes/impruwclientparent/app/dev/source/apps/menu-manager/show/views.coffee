@@ -45,15 +45,15 @@ define ['app'
 													toleranceElement: '> div'
 													stop : (e,ui)=>
 														order = @$el.find('.sortable-menu-items').sortable 'toArray'
-														@trigger 'menu:order:changed', @collection,order
+														@trigger 'menu:order:changed', order
 
 
 				# main view
 				class Views.MenuManagerView extends Marionette.CompositeView
 
 					initialize:->
-						@on "itemview:menu:order:changed",(iv,collection,order) -> 
-											@trigger "menu:order:changed", collection,order
+						@on "itemview:menu:order:changed",(iv,order)=> 
+											@trigger "menu:order:changed", iv.model,order
 
 					template : menucollectionTpl
 

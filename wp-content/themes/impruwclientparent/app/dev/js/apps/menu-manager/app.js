@@ -10,13 +10,8 @@
           });
         }
       };
-      App.vent.on("show:menu:manager", function() {
+      return App.vent.on("show:menu:manager", function() {
         return API.show();
-      });
-      return MenuManager.on({
-        'start': function() {
-          return _.logAppMsg("MenuManager Module started...");
-        }
       });
     });
   });

@@ -61,7 +61,7 @@
             stop: function(e, ui) {
               var order;
               order = _this.$el.find('.sortable-menu-items').sortable('toArray');
-              return _this.trigger('menu:order:changed', _this.collection, order);
+              return _this.trigger('menu:order:changed', order);
             }
           });
         };
@@ -78,8 +78,9 @@
         }
 
         MenuManagerView.prototype.initialize = function() {
-          return this.on("itemview:menu:order:changed", function(iv, collection, order) {
-            return this.trigger("menu:order:changed", collection, order);
+          var _this = this;
+          return this.on("itemview:menu:order:changed", function(iv, order) {
+            return _this.trigger("menu:order:changed", iv.model, order);
           });
         };
 

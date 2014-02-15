@@ -16,15 +16,12 @@
 
         Controller.prototype.initialize = function() {
           var menuCollection, view;
-          menuCollection = App.request("get:collection", 'menucollection');
-          if (!menuCollection) {
-            menuCollection = App.request("get:site:menus");
-          }
+          menuCollection = App.request("get:site:menus");
           view = this.getView(menuCollection);
-          this.listenTo(view, 'menu:order:changed', function(collection, order) {
+          this.listenTo(view, 'menu:order:changed', function(model, order) {
             var newOrder;
             newOrder = _.idOrder(order);
-            return collection.updateOrder(newOrder);
+            return model.get('menu_items').updateOrder(newOrder, model.get('id'));
           });
           return this.show(view, {
             loading: true

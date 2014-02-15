@@ -52,7 +52,9 @@
             return App.vent.trigger("show:menu:manager");
           });
           this.listenTo(menu.get('menu_items'), "menu:order:updated", menuView.render);
-          this.listenTo(model, 'change:templates', menuView.render);
+          this.listenTo(model, 'change:templates', function() {
+            return menuView.render();
+          });
           return this.addElementMarkup(menuView);
         };
 

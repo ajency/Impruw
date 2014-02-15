@@ -37,7 +37,7 @@
 
         MenuItemCollection.prototype.comparator = 'order';
 
-        MenuItemCollection.prototype.updateOrder = function(newOrder) {
+        MenuItemCollection.prototype.updateOrder = function(newOrder, menuId) {
           var _this = this;
           if (newOrder == null) {
             newOrder = [];
@@ -47,7 +47,20 @@
             model = _this.get(ele);
             return model.set('order', index + 1);
           });
-          return this.trigger("menu:order:updated");
+          this.trigger("menu:order:updated");
+          return this.syncToServer(newOrder, menuId);
+        };
+
+        MenuItemCollection.prototype.syncToServer = function(newOrder, menuId, options) {
+          var _action;
+          if (options == null) {
+            options = {};
+          }
+          _action = 'update-menu-order';
+          options.data = {};
+          options.data.newOrder = newOrder.join();
+          options.data.menuId = menuId;
+          return Backbone.send(_action, options);
         };
 
         return MenuItemCollection;
@@ -101,18 +114,21 @@
       })(Backbone.Collection);
       API = {
         getMenus: function(param) {
-          var menus;
+          var menuCollection;
           if (param == null) {
             param = {};
           }
-          menus = new Menus.MenuCollection;
-          App.request("set:collection", 'menucollection', menus);
-          menus.url = AJAXURL + '?action=get-menus';
-          menus.fetch({
-            reset: true,
-            data: param
-          });
-          return menus;
+          menuCollection = App.request("get:collection", 'menucollection');
+          if (!menuCollection) {
+            menuCollection = new Menus.MenuCollection;
+            App.request("set:collection", 'menucollection', menus);
+            menuCollection.url = AJAXURL + '?action=get-menus';
+            menuCollection.fetch({
+              reset: true,
+              data: param
+            });
+          }
+          return menuCollection;
         },
         getMenuItems: function(menuId) {
           var menuItems;

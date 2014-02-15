@@ -9,16 +9,13 @@ define ['app', 'controllers/base-controller', 'apps/menu-manager/show/views'], (
 			# initialize
 			initialize:()->
 
-				menuCollection = App.request "get:collection", 'menucollection'
-
-				if not menuCollection
-					menuCollection = App.request "get:site:menus"
+				menuCollection = App.request "get:site:menus"
 
 				view = @getView menuCollection
 
-				@listenTo view, 'menu:order:changed',(collection, order)->
+				@listenTo view, 'menu:order:changed',(model, order)->
 					newOrder = _.idOrder order
-					collection.updateOrder newOrder
+					model.get('menu_items').updateOrder newOrder, model.get 'id'
 					
 				@show view, loading : true
 

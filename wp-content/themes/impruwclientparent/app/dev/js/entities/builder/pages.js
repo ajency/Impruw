@@ -54,6 +54,7 @@
             param = {};
           }
           pages = new Pages.PageCollection;
+          App.request("set:collection", 'pagecollection', pages);
           pages.fetch({
             reset: true,
             data: param

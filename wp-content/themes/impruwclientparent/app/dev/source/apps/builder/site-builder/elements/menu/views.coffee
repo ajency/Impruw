@@ -23,22 +23,26 @@ define ['app'],
 				# Menu view
 				class Views.MenuView extends Marionette.CompositeView
 
+					tagName : 'ul'
+
+					className : 'nav'
+
 					events : 
 						'click li' : (evt)->
 							evt.stopPropagation()
-							@trigger "show:menu:manager", @model
-
-					initialize:(opt = {})->
-						#assign template
-						@template = opt.eleModel.get('templates').menuTpl ? ''
-						super(opt)	
+							#@trigger "show:menu:manager", @model
 
 					itemView : Views.MenuItemView
 					
+					# item view options
 					itemViewOptions :=>
 						template : @options.eleModel.get('templates').menuItemTpl ? ''
 
-					itemViewContainer : 'ul.menu'
+					# on render set the class name
+					onRender:->
+						@$el.removeClass()
+						@$el.addClass @className
+						@$el.addClass @options.eleModel.get('templates').className
 
 					# before rendering the view sort the collection
 					# this helps to reorder the menu items before

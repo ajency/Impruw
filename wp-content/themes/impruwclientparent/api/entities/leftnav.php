@@ -62,7 +62,7 @@ function get_elementbox_elements(){
 										array('element' => 'Menu'	, 
 												'title' => 'Menu '	, 
 												'icon' => '' , 
-												'styles' => array('default','style1')
+												'styles' => array('header','footer')
 										)
 									)
 					)
@@ -94,12 +94,12 @@ function create_element_model(){
 	$markup  = add_element_markup($element);
 	$meta_id = rand(1000,9999);
 
-	$templates = get_templates();
+	$templates = get_templates('Menu','header');
 
 	wp_send_json(array(	'code' => 'OK', 
 						'data' => array(
 								'meta_id' 	=> $meta_id,
-								'style'		=> 'default',
+								'style'		=> 'header',
 								'templates' => $templates,
 								'menu'		=> array(
 												'id' => 2,
@@ -147,7 +147,7 @@ function update_element_model(){
 	$template = array();
 
 	if(isset($changes['style']))
-		$template = get_templates($changes['style']);
+		$template = get_templates('Menu',$changes['style']);
 
 	wp_send_json(array('code' => 'OK', 'data' => array( 'templates' => $template)));
 
@@ -225,23 +225,14 @@ function get_site_menus_collection(){
 }
 add_action('wp_ajax_get-menus','get_site_menus_collection');
 
-function get_templates($style = 'default'){
+function get_templates($element, $style){
 
 	$templates = array();
-	
-	ob_start();
-	include_once CURRENTTHEMEPATH . "/templates/menu/$style/menu.php";
-	$html = ob_get_clean();
-	$templates['menuTpl'] = $html; 
 
-	ob_start();
-	include_once CURRENTTHEMEPATH . "/templates/menu/$style/menuItem.php";
-	$html = ob_get_clean();
+	global $element_templates;
 
-	$templates['menuItemTpl'] = $html; 
-	$templates['subMenuTpl'] = ''; 
+	return $element_templates[$element][$style];
 	
-	return $templates;	
 }
 
 /**

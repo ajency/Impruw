@@ -19,10 +19,4 @@ define ['app'
 
 				
 				App.vent.on "show:menu:manager", ->
-						API.show()				
-
-				MenuManager.on 'start': ->
-					
-					_.logAppMsg "MenuManager Module started..."
-					
-					
+						API.show()					

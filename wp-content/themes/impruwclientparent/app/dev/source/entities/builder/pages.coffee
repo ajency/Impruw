@@ -21,7 +21,6 @@ define ["app", 'backbone'], (App, Backbone) ->
                 	"#{AJAXURL}?action=get-pages"
 
                 parse: (resp)->
-
                     return resp.data if resp.code is 'OK'
 
 
@@ -29,13 +28,11 @@ define ["app", 'backbone'], (App, Backbone) ->
             # PUBLIC API FOR ENitity
             API =
                 getPages: (param = {})->
-
                     pages = new Pages.PageCollection
-
+                    App.request "set:collection", 'pagecollection',pages
                     pages.fetch
-                                reset : true
-                                data  : param
-                                
+                            reset : true
+                            data  : param
                     pages
 
 

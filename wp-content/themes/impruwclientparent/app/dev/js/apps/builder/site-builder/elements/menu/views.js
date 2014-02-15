@@ -52,20 +52,14 @@
           return _ref2;
         }
 
+        MenuView.prototype.tagName = 'ul';
+
+        MenuView.prototype.className = 'nav';
+
         MenuView.prototype.events = {
           'click li': function(evt) {
-            evt.stopPropagation();
-            return this.trigger("show:menu:manager", this.model);
+            return evt.stopPropagation();
           }
-        };
-
-        MenuView.prototype.initialize = function(opt) {
-          var _ref3;
-          if (opt == null) {
-            opt = {};
-          }
-          this.template = (_ref3 = opt.eleModel.get('templates').menuTpl) != null ? _ref3 : '';
-          return MenuView.__super__.initialize.call(this, opt);
         };
 
         MenuView.prototype.itemView = Views.MenuItemView;
@@ -77,7 +71,11 @@
           };
         };
 
-        MenuView.prototype.itemViewContainer = 'ul.menu';
+        MenuView.prototype.onRender = function() {
+          this.$el.removeClass();
+          this.$el.addClass(this.className);
+          return this.$el.addClass(this.options.eleModel.get('templates').className);
+        };
 
         MenuView.prototype.onBeforeRender = function() {
           return this.collection.sort();

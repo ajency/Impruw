@@ -18,12 +18,20 @@ define ["app", 'backbone'], (App, Backbone) ->
 				comparator : 'order'
 
 				# update the model order attribute
-				updateOrder:(newOrder = [])->
+				updateOrder:(newOrder = [], menuId)->
 					_.each newOrder, (ele,index)=>
 						model = @get ele
 						model.set 'order', index + 1
 
 					@trigger "menu:order:updated"
+					@syncToServer newOrder,menuId
+
+				syncToServer:(newOrder,menuId, options = {})->
+					_action = 'update-menu-order'
+					options.data = {}
+					options.data.newOrder = newOrder.join()
+					options.data.menuId   = menuId
+					Backbone.send _action,options
 
 			# menu model
 			class Menus.MenuModel extends Backbone.AssociatedModel
@@ -56,18 +64,20 @@ define ["app", 'backbone'], (App, Backbone) ->
 				# get all site menus
 				getMenus:(param = {})->
 
-					menus = new Menus.MenuCollection
+					menuCollection = App.request "get:collection", 'menucollection'
 
-					# save menu collection
-					App.request "set:collection", 'menucollection', menus
+					if not menuCollection
+						menuCollection = new Menus.MenuCollection
+						# save menu collection
+						App.request "set:collection", 'menucollection', menus
 
-					menus.url = AJAXURL + '?action=get-menus'
+						menuCollection.url = AJAXURL + '?action=get-menus'
 
-					menus.fetch
-							reset : true
-							data  : param
+						menuCollection.fetch
+								reset : true
+								data  : param
 
-					menus
+					menuCollection
 
 				# get all menu items for the passed menu
 				# menuId = 0 if no menu is passed

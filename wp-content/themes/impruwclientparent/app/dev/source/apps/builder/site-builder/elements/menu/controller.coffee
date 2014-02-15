@@ -27,7 +27,6 @@ define ['app','apps/builder/site-builder/elements/menu/views'],
 						model = @view.model
 						@listenTo model, 'change:style', -> model.save()
 
-
 						menu = App.request "create:menu:model", @view.model.get('menu')
 						menuCollection = App.request "get:collection", 'menucollection'
 						if not menuCollection
@@ -45,6 +44,9 @@ define ['app','apps/builder/site-builder/elements/menu/views'],
 						# this will rerender the menu element with new order
 						# view will sort the menu items wiht onBeforeRender function
 						@listenTo menu.get('menu_items'), "menu:order:updated", menuView.render
-						@listenTo model, 'change:templates', menuView.render
+						@listenTo model, 'change:templates', =>
+														menuView.render()
+
+
 
 						@addElementMarkup menuView
