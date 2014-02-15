@@ -21,15 +21,15 @@
         ElementView.prototype.className = 'element-wrapper';
 
         ElementView.prototype.events = {
-          'click .aj-imp-settings-btn': function(evt) {
+          'click': function(evt) {
             var x, y;
-            if (this.model.get('elementType') === 'TextElement' || this.model.get('elementType') === 'TitleElement') {
+            if (this.model.get('element') === 'Text' || this.model.get('element') === 'Title') {
               return;
             }
             evt.stopPropagation();
             x = screen.width / 2 - this.$el.width() / 2;
             y = screen.height / 2 - this.$el.height() / 2;
-            return this.trigger("show:setting:popup", x, y);
+            return this.trigger("show:setting:popup", this.model, x, y);
           },
           'click .aj-imp-delete-btn': function(evt) {
             evt.stopPropagation();
@@ -52,7 +52,7 @@
         };
 
         ElementView.prototype.setElementType = function() {
-          return this.$el.find('input[name="element_type"]').val(this.model.get('elementType'));
+          return this.$el.find('input[name="element_type"]').val(this.model.get('element'));
         };
 
         ElementView.prototype.renderMarkup = function(model) {

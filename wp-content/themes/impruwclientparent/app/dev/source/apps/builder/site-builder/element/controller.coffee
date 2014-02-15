@@ -15,16 +15,20 @@ define ['app', 'controllers/builder-base-controller'
 						container 	= $(evt.target)
 
 						options = 
-							elementType : type
+							element 	: type
 							draggable 	: true
 
 						element = App.request "create:new:element", options
 
-						@view = @_getView element,type
+						@view = @_getView element
 
 						# start listening to events
-						@listenTo @view, "show:setting:popup", ->
-								App.vent.trigger "show:settings:popup", element,x,y 
+						@listenTo @view, "show:setting:popup", (model, x,y)->
+								App.vent.trigger "show:settings:popup",model, x,y 
+
+						@listenTo @view, "delete:element", (model)=>
+												if confirm("Are you sure?")
+													@deleteElement model
 
 						@listenTo element, "element:model:fetched", @setupViews
 						
@@ -32,15 +36,23 @@ define ['app', 'controllers/builder-base-controller'
 
 
 					# Get view
-					_getView : (elementModel, element)->
+					_getView : (elementModel)->
 						new Element.Views.ElementView
 										model : elementModel
 
 					# show the view markup
 					addElementMarkup:(view)->
-						@view.$el.find('.element-markup').html view.$el
+						#stop spinner if any
+						if @view.$el.find('.element-markup > span').length > 0
+							@view.$el.find('.element-markup > span').spin false
+
+						@view.$el.find('.element-markup').empty().html view.$el
 						view.render()
 						view.triggerMethod "show"
+
+					# remove the element model
+					deleteElement:(model)->
+						model.destroy()
 
 
 			App.SiteBuilderApp.Element.Controller		

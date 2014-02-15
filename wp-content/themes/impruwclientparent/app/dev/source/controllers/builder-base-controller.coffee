@@ -19,7 +19,6 @@ define ["marionette"
 
 		# add new element to the section
 		add:(view, section)->
-			window.f = section
-			type = view.model.get "elementType"
+			type = view.model.get "element"
 			section.find("li[data-element='#{type}']").replaceWith view.$el
 			view.render()

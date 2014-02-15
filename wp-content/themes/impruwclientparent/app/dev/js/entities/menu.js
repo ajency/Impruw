@@ -6,42 +6,12 @@
   define(["app", 'backbone'], function(App, Backbone) {
     App.module("Entities.Menus", function(Menus, App, Backbone, Marionette, $, _) {
       var API, _ref, _ref1, _ref2, _ref3;
-      Menus.MenuModel = (function(_super) {
-        __extends(MenuModel, _super);
-
-        function MenuModel() {
-          _ref = MenuModel.__super__.constructor.apply(this, arguments);
-          return _ref;
-        }
-
-        MenuModel.prototype.defaults = {
-          menu_name: '',
-          menu_description: '',
-          menu_items: []
-        };
-
-        return MenuModel;
-
-      })(Backbone.Model);
-      Menus.MenuCollection = (function(_super) {
-        __extends(MenuCollection, _super);
-
-        function MenuCollection() {
-          _ref1 = MenuCollection.__super__.constructor.apply(this, arguments);
-          return _ref1;
-        }
-
-        MenuCollection.prototype.model = Menus.MenuModel;
-
-        return MenuCollection;
-
-      })(Backbone.Collection);
       Menus.MenuItemModel = (function(_super) {
         __extends(MenuItemModel, _super);
 
         function MenuItemModel() {
-          _ref2 = MenuItemModel.__super__.constructor.apply(this, arguments);
-          return _ref2;
+          _ref = MenuItemModel.__super__.constructor.apply(this, arguments);
+          return _ref;
         }
 
         MenuItemModel.prototype.defaults = {
@@ -57,8 +27,8 @@
         __extends(MenuItemCollection, _super);
 
         function MenuItemCollection() {
-          _ref3 = MenuItemCollection.__super__.constructor.apply(this, arguments);
-          return _ref3;
+          _ref1 = MenuItemCollection.__super__.constructor.apply(this, arguments);
+          return _ref1;
         }
 
         MenuItemCollection.prototype.model = Menus.MenuItemModel;
@@ -66,6 +36,36 @@
         MenuItemCollection.prototype.comparator = 'order';
 
         return MenuItemCollection;
+
+      })(Backbone.Collection);
+      Menus.MenuModel = (function(_super) {
+        __extends(MenuModel, _super);
+
+        function MenuModel() {
+          _ref2 = MenuModel.__super__.constructor.apply(this, arguments);
+          return _ref2;
+        }
+
+        MenuModel.prototype.defaults = {
+          menu_name: '',
+          menu_description: '',
+          menu_items: new Menus.MenuItemCollection
+        };
+
+        return MenuModel;
+
+      })(Backbone.Model);
+      Menus.MenuCollection = (function(_super) {
+        __extends(MenuCollection, _super);
+
+        function MenuCollection() {
+          _ref3 = MenuCollection.__super__.constructor.apply(this, arguments);
+          return _ref3;
+        }
+
+        MenuCollection.prototype.model = Menus.MenuModel;
+
+        return MenuCollection;
 
       })(Backbone.Collection);
       API = {

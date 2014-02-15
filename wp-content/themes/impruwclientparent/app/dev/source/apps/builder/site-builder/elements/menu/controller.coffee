@@ -20,12 +20,14 @@ define ['app','apps/builder/site-builder/elements/menu/views'],
 
 					# setup templates for the element
 					setupViews: ->
-						#menu = App.request "create:menu:model", @view.model.get('menu')
+						# menu = App.request "create:menu:model", @view.model.get('menu')
 						menuItems = App.request "create:menuitem:collection", @view.model.get('menu_items')
 
-						window.menuView = @_getMenuView(@view.model.get('templates') ? {}, menuItems)
+						menuView = @_getMenuView(@view.model.get('templates') ? {}, menuItems)
 
-						#listen to order change event
+						# listen to order change event
+						# this will rerender the menu element with new order
+						# view will sort the menu items wiht onBeforeRender function
 						menuItems.each (model,index)=>
 							@listenTo model, 'change:order', menuView.render
 

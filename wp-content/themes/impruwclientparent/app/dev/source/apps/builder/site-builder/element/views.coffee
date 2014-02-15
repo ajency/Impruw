@@ -19,14 +19,14 @@ define ['app'
 
 					# element events
 					events : 
-						'click .aj-imp-settings-btn' : (evt)-> 
+						'click' : (evt)-> 
 							# ignore if element is text or title
-							return if @model.get('elementType') is 'TextElement' or @model.get('elementType') is 'TitleElement'
+							return if @model.get('element') is 'Text' or @model.get('element') is 'Title'
 
 							evt.stopPropagation()
 							x = screen.width / 2 - @$el.width() / 2
 							y = screen.height / 2 - @$el.height() / 2
-							@trigger "show:setting:popup", x, y
+							@trigger "show:setting:popup", @model,x, y
 
 						'click .aj-imp-delete-btn': (evt)->
 							evt.stopPropagation()
@@ -82,7 +82,7 @@ define ['app'
 
 					# set element type in hidden field
 					setElementType :()->
-						@$el.find('input[name="element_type"]').val @model.get('elementType')
+						@$el.find('input[name="element_type"]').val @model.get('element')
 
 					# rerender markup 
 					renderMarkup:(model)->

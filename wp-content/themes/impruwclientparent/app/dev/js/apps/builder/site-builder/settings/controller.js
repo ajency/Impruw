@@ -15,12 +15,14 @@
         }
 
         Controller.prototype.initialize = function(opt) {
-          var model, view, x, y,
+          var elementBoxModel, model, view, x, y,
             _this = this;
           if (opt == null) {
             opt = {};
           }
           model = opt.model, x = opt.x, y = opt.y;
+          elementBoxModel = App.request("get:collection:model", 'elementbox', model.get('element'));
+          console.log(elementBoxModel);
           view = new Settings.Views.SettingView({
             model: model
           });

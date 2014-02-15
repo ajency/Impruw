@@ -5,6 +5,8 @@ define ["app", 'backbone'], (App, Backbone) ->
             # Element Model
             class ElementBox.ElementModel extends Backbone.Model
 
+                idAttribute : 'element'
+
             # Element collection
             class ElementBox.ElementCollection extends Backbone.Collection
 
@@ -34,6 +36,8 @@ define ["app", 'backbone'], (App, Backbone) ->
                 getElements: (param = {})->
 
                     elements = new ElementBox.ElementCollection
+
+                    App.request "set:collection", 'elementbox', elements
                     
                     elements.url = AJAXURL + '?action=get-elementbox-elements'
                     

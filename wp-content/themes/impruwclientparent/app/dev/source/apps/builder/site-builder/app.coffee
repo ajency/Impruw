@@ -23,7 +23,7 @@ define ['app'
 			showSettings :(model, x, y)->
 				new SiteBuilderApp.Settings.Controller
 												region 	: App.settingsRegion
-												model  	: model
+												model 	: model
 												x		: x
 												y 		: y
 
@@ -32,11 +32,6 @@ define ['app'
 				autoSave = new SiteBuilderApp.AutoSave.Controller
 				autoSave.autoSave()
 
-			# deletes the element model
-			# view is automatically wired up to listen to destroy event of
-			# associated model and clear itself
-			deleteElement: (model)->
-				model.destroy()
 
 			# function to identify the dropped region
 			getDroppedRegion:(sectionID)->
@@ -58,12 +53,8 @@ define ['app'
 			API.getDroppedRegion sectionID
 
 		# listen to show:settings:popup command
-		App.vent.on "show:settings:popup", (model, x, y)->
-			API.showSettings model, x, y
-
-		App.vent.on "delete:element", (model)->
-			if confirm("Are you sure?")
-				API.deleteElement model
+		App.vent.on "show:settings:popup", (model, x,y )->
+			API.showSettings model, x,y 
 
 		App.commands.setHandler "auto:save", ->
 			API.autoSave()

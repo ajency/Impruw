@@ -29,10 +29,10 @@
         };
 
         Controller.prototype.setupViews = function() {
-          var menuItems, _ref1,
+          var menuItems, menuView, _ref1,
             _this = this;
           menuItems = App.request("create:menuitem:collection", this.view.model.get('menu_items'));
-          window.menuView = this._getMenuView((_ref1 = this.view.model.get('templates')) != null ? _ref1 : {}, menuItems);
+          menuView = this._getMenuView((_ref1 = this.view.model.get('templates')) != null ? _ref1 : {}, menuItems);
           menuItems.each(function(model, index) {
             return _this.listenTo(model, 'change:order', menuView.render);
           });

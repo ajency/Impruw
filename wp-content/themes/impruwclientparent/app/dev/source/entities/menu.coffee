@@ -2,17 +2,6 @@ define ["app", 'backbone'], (App, Backbone) ->
 
 		App.module "Entities.Menus", (Menus, App, Backbone, Marionette, $, _)->
 
-			# menu model
-			class Menus.MenuModel extends Backbone.Model
-				defaults : 
-					menu_name           : ''
-					menu_description    : ''
-					menu_items          : []
-
-			# menu collection
-			class Menus.MenuCollection extends Backbone.Collection
-				model : Menus.MenuModel
-
 			# menu item model
 			class Menus.MenuItemModel extends Backbone.Model
 				defaults:
@@ -25,6 +14,18 @@ define ["app", 'backbone'], (App, Backbone) ->
 				model : Menus.MenuItemModel
 				comparator : 'order'
 
+			# menu model
+			class Menus.MenuModel extends Backbone.Model
+				defaults : 
+					menu_name           : ''
+					menu_description    : ''
+					menu_items          : new Menus.MenuItemCollection
+
+			# menu collection
+			class Menus.MenuCollection extends Backbone.Collection
+				model : Menus.MenuModel
+
+			
 
 			# API 
 			API = 
@@ -59,6 +60,7 @@ define ["app", 'backbone'], (App, Backbone) ->
 				# creates a menu items collection 
 				createMenuItemsCollection :(items)->
 					items = [] if not _.isArray(items)
+
 					new Menus.MenuItemCollection items
 
 				# 

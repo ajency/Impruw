@@ -26,9 +26,6 @@
           autoSave = new SiteBuilderApp.AutoSave.Controller;
           return autoSave.autoSave();
         },
-        deleteElement: function(model) {
-          return model.destroy();
-        },
         getDroppedRegion: function(sectionID) {
           switch (sectionID) {
             case 'site-header-region':
@@ -52,11 +49,6 @@
       });
       App.vent.on("show:settings:popup", function(model, x, y) {
         return API.showSettings(model, x, y);
-      });
-      App.vent.on("delete:element", function(model) {
-        if (confirm("Are you sure?")) {
-          return API.deleteElement(model);
-        }
       });
       App.commands.setHandler("auto:save", function() {
         return API.autoSave();

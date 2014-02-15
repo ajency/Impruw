@@ -15,35 +15,48 @@
         }
 
         Controller.prototype.initialize = function(opt) {
-          var container, element, evt, options, type;
+          var container, element, evt, options, type,
+            _this = this;
           if (opt == null) {
             opt = {};
           }
           evt = opt.evt, type = opt.type;
           container = $(evt.target);
           options = {
-            elementType: type,
+            element: type,
             draggable: true
           };
           element = App.request("create:new:element", options);
-          this.view = this._getView(element, type);
-          this.listenTo(this.view, "show:setting:popup", function() {
-            return App.vent.trigger("show:settings:popup", element, x, y);
+          this.view = this._getView(element);
+          this.listenTo(this.view, "show:setting:popup", function(model, x, y) {
+            return App.vent.trigger("show:settings:popup", model, x, y);
+          });
+          this.listenTo(this.view, "delete:element", function(model) {
+            if (confirm("Are you sure?")) {
+              return _this.deleteElement(model);
+            }
           });
           this.listenTo(element, "element:model:fetched", this.setupViews);
           return this.add(this.view, container);
         };
 
-        Controller.prototype._getView = function(elementModel, element) {
+        Controller.prototype._getView = function(elementModel) {
           return new Element.Views.ElementView({
             model: elementModel
           });
         };
 
         Controller.prototype.addElementMarkup = function(view) {
-          this.view.$el.find('.element-markup').html(view.$el);
+          if (this.view.$el.find('.element-markup > span').length > 0) {
+            this.view.$el.find('.element-markup > span').spin(false);
+          }
+          this.view.$el.find('.element-markup').empty().html(view.$el);
           view.render();
           return view.triggerMethod("show");
+        };
+
+        Controller.prototype.deleteElement = function(model) {
+          return model.destroy();
         };
 
         return Controller;

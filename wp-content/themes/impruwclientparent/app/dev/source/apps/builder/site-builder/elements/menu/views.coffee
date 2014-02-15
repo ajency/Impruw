@@ -13,7 +13,6 @@ define ['app'],
 
 					tagName : 'li'
 
-
 				# Submenu view
 				class Views.SubMenuView extends Marionette.CompositeView
 
@@ -26,20 +25,18 @@ define ['app'],
 
 					initialize:(opt = {})->
 						#assign template
-						@template = opt.templates.menuTpl
-						super(opt)
+						@template = opt.templates.menuTpl ? ''
+						super(opt)	
 
 					itemView : Views.MenuItemView
 					
-					# # override the build item view to handle template passing			
-					buildItemView: (item, ItemViewType, itemViewOptions = {})=>
-						itemViewOptions.template = @options.templates.menuItemTpl
-						super item, ItemViewType, itemViewOptions
-				  
+					itemViewOptions :=>
+						template : @options.templates.menuItemTpl ? ''
+
 					itemViewContainer : 'ul.menu'
 
 					# before rendering the view sort the collection
-					# this helps to reorder the menu item elements before
+					# this helps to reorder the menu items before
 					# the collection is rendered with item views
 					onBeforeRender:->
 						@collection.sort()

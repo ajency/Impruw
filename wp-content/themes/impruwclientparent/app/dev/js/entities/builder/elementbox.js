@@ -14,6 +14,8 @@
           return _ref;
         }
 
+        ElementModel.prototype.idAttribute = 'element';
+
         return ElementModel;
 
       })(Backbone.Model);
@@ -56,6 +58,7 @@
             param = {};
           }
           elements = new ElementBox.ElementCollection;
+          App.request("set:collection", 'elementbox', elements);
           elements.url = AJAXURL + '?action=get-elementbox-elements';
           elements.fetch({
             reset: true,

@@ -48,7 +48,7 @@ define ["app", 'backbone'], (App, Backbone) ->
                 removeFields:(data)->
                     # do not delete markup field if element type is text or title
                     # we need to actually store this field with json
-                    return if @get('elementType') is 'TextElement' or @get('elementType') is 'TitleElement'
+                    return if @get('element') is 'Text' or @get('element') is 'Title'
 
                     delete data.markup
 
@@ -69,6 +69,7 @@ define ["app", 'backbone'], (App, Backbone) ->
                                 wait : true
                     .done ->
                         element.trigger "element:model:fetched"
+                       
 
                     element
 

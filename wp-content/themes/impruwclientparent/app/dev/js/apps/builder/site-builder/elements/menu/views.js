@@ -47,27 +47,27 @@
         __extends(MenuView, _super);
 
         function MenuView() {
-          this.buildItemView = __bind(this.buildItemView, this);
+          this.itemViewOptions = __bind(this.itemViewOptions, this);
           _ref2 = MenuView.__super__.constructor.apply(this, arguments);
           return _ref2;
         }
 
         MenuView.prototype.initialize = function(opt) {
+          var _ref3;
           if (opt == null) {
             opt = {};
           }
-          this.template = opt.templates.menuTpl;
+          this.template = (_ref3 = opt.templates.menuTpl) != null ? _ref3 : '';
           return MenuView.__super__.initialize.call(this, opt);
         };
 
         MenuView.prototype.itemView = Views.MenuItemView;
 
-        MenuView.prototype.buildItemView = function(item, ItemViewType, itemViewOptions) {
-          if (itemViewOptions == null) {
-            itemViewOptions = {};
-          }
-          itemViewOptions.template = this.options.templates.menuItemTpl;
-          return MenuView.__super__.buildItemView.call(this, item, ItemViewType, itemViewOptions);
+        MenuView.prototype.itemViewOptions = function() {
+          var _ref3;
+          return {
+            template: (_ref3 = this.options.templates.menuItemTpl) != null ? _ref3 : ''
+          };
         };
 
         MenuView.prototype.itemViewContainer = 'ul.menu';

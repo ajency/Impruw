@@ -57,18 +57,28 @@ function get_pages1(){
 add_action('wp_ajax_get-pages', 'get_pages1');
 
 function get_elementbox_elements(){
-	wp_send_json(array('code' => 'OK', 'data' => array(
-													array('element' => 'Menu'	, 'title' => 'Menu '	, 'icon' => ''),
-													array('element' => 'Slider'	, 'title' => 'Slider '	, 'icon' => ''),
-													array('element' => 'Text'	, 'title' => 'Text '	, 'icon' => ''),
-													array('element' => 'Image'	, 'title' => 'Image '	, 'icon' => ''),
-													array('element' => 'Room'	, 'title' => 'Room '	, 'icon' => ''),
-													array('element' => 'Menu'	, 'title' => 'Menu '	, 'icon' => ''),
-													array('element' => 'Title'	, 'title' => 'Title'	, 'icon' => ''),
-													array('element' => 'Address'	, 'title' => 'Address'	, 'icon' => '')
-												)));
+	wp_send_json(array('code' 	=> 'OK', 
+						'data' 	=> array(
+										array('element' => 'Menu'	, 
+												'title' => 'Menu '	, 
+												'icon' => '' , 
+												'styles' => array('default','style1')
+										)
+									)
+					)
+				);
 }
 add_action('wp_ajax_get-elementbox-elements','get_elementbox_elements');
+
+/**
+ * 	array('element' => 'Slider'	, 'title' => 'Slider '	, 'icon' => ''),
+	array('element' => 'Text'	, 'title' => 'Text '	, 'icon' => ''),
+	array('element' => 'Image'	, 'title' => 'Image '	, 'icon' => ''),
+	array('element' => 'Room'	, 'title' => 'Room '	, 'icon' => ''),
+	array('element' => 'Menu'	, 'title' => 'Menu '	, 'icon' => ''),
+	array('element' => 'Title'	, 'title' => 'Title'	, 'icon' => ''),
+	array('element' => 'Address'	, 'title' => 'Address'	, 'icon' => '')
+ */
 
 
 /**
@@ -88,7 +98,8 @@ function create_element_model(){
 
 	wp_send_json(array(	'code' => 'OK', 
 						'data' => array(
-								'meta_id' 	=> $meta_id, 
+								'meta_id' 	=> $meta_id,
+								'style'		=> 'default',
 								'templates' => $templates,
 								'menu'		=> array(
 												'id' => 2,
@@ -99,7 +110,7 @@ function create_element_model(){
 													'ID' => 23,
 													'post_title' 		=> 'Home',
 													'menu_item_link' 	=> 'http://google.com',
-													'order'				=> 5
+													'order'				=> 1
 												),
 												array(
 													'ID' => 24,

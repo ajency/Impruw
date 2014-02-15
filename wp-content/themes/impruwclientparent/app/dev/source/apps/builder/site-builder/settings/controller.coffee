@@ -12,6 +12,10 @@ define ['app', 'controllers/base-controller'
 
 						{ model, x, y } = opt
 
+						elementBoxModel = App.request "get:collection:model", 'elementbox', model.get 'element'
+
+						console.log elementBoxModel
+
 						view = new Settings.Views.SettingView
 													model : model	
 
