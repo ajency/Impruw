@@ -14,6 +14,8 @@
           return _ref;
         }
 
+        MenuItemModel.prototype.idAttribute = 'ID';
+
         MenuItemModel.prototype.defaults = {
           post_title: '',
           menu_item_link: '',
@@ -34,6 +36,19 @@
         MenuItemCollection.prototype.model = Menus.MenuItemModel;
 
         MenuItemCollection.prototype.comparator = 'order';
+
+        MenuItemCollection.prototype.updateOrder = function(newOrder) {
+          var _this = this;
+          if (newOrder == null) {
+            newOrder = [];
+          }
+          _.each(newOrder, function(ele, index) {
+            var model;
+            model = _this.get(ele);
+            return model.set('order', index + 1);
+          });
+          return this.trigger("menu:order:updated");
+        };
 
         return MenuItemCollection;
 

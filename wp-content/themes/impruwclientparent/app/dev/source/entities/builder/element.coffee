@@ -41,6 +41,14 @@ define ["app", 'backbone'], (App, Backbone) ->
                             options.data = model.toJSON()
                             @removeFields options.data
                             Backbone.send _action,options
+                        when 'update'
+                            options.data = options.data ? {}
+                            if model.hasChanged()
+                                options.data.changes = {}
+                                _.each model.changed, ( value, key )->
+                                    options.data.changes[ key ] = this.get key
+                                , this
+                            Backbone.send _action,options
                         else
                             Backbone.Model.prototype.sync.apply this, arguments
 

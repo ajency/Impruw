@@ -21,6 +21,16 @@
         return _.each(arguments, function(l, index) {
           return console.log(l);
         });
+      },
+      idOrder: function(arr) {
+        var newArray;
+        newArray = [];
+        _.each(arr, function(ele, index) {
+          var i;
+          i = ele.split('-');
+          return newArray.push(parseInt(i[1]));
+        });
+        return newArray;
       }
     });
   });

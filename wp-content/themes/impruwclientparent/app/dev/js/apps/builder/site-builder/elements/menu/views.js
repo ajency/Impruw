@@ -64,7 +64,7 @@
           if (opt == null) {
             opt = {};
           }
-          this.template = (_ref3 = opt.templates.menuTpl) != null ? _ref3 : '';
+          this.template = (_ref3 = opt.eleModel.get('templates').menuTpl) != null ? _ref3 : '';
           return MenuView.__super__.initialize.call(this, opt);
         };
 
@@ -73,7 +73,7 @@
         MenuView.prototype.itemViewOptions = function() {
           var _ref3;
           return {
-            template: (_ref3 = this.options.templates.menuItemTpl) != null ? _ref3 : ''
+            template: (_ref3 = this.options.eleModel.get('templates').menuItemTpl) != null ? _ref3 : ''
           };
         };
 

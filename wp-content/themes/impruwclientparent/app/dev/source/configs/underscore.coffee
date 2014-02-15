@@ -20,3 +20,12 @@ define ['underscore'], ( _ ) ->
 		logAppErr : (msg...)->
 			_.each arguments, (l, index)->
 				console.log(l)
+
+		# id order array
+		idOrder : (arr)->
+			newArray = []
+			_.each arr, (ele, index)->
+				i = ele.split '-'
+				newArray.push parseInt i[1]
+
+			newArray

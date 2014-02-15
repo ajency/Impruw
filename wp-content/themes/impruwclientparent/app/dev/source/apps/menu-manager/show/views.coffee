@@ -13,6 +13,9 @@ define ['app'
 
 					className : 'list-group-item'
 
+					onRender:->
+						@$el.attr 'id', 'item-' + @model.get 'ID'
+
 				# main menu manager view
 				class SingleManagerView extends Marionette.CompositeView
 
@@ -36,14 +39,21 @@ define ['app'
 
 						@$el.attr 'id', @model.get 'menu_slug'
 
-						@$el.find('.sortable-menu-items').nestedSortable
+						@$el.find('.sortable-menu-items').sortable
 													handle 	: 'div.menu-dragger'
 													items 	: 'li.list-group-item'
 													toleranceElement: '> div'
+													stop : (e,ui)=>
+														order = @$el.find('.sortable-menu-items').sortable 'toArray'
+														@trigger 'menu:order:changed', @collection,order
 
 
 				# main view
 				class Views.MenuManagerView extends Marionette.CompositeView
+
+					initialize:->
+						@on "itemview:menu:order:changed",(iv,collection,order) -> 
+											@trigger "menu:order:changed", collection,order
 
 					template : menucollectionTpl
 

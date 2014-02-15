@@ -20,9 +20,6 @@ define ['app'
 					# element events
 					events : 
 						'click' : (evt)-> 
-							# ignore if element is text or title
-							return if @model.get('element') is 'Text' or @model.get('element') is 'Title'
-
 							evt.stopPropagation()
 							x = screen.width / 2 - @$el.width() / 2
 							y = screen.height / 2 - @$el.height() / 2

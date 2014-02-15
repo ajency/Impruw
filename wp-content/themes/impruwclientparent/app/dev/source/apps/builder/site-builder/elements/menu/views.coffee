@@ -30,13 +30,13 @@ define ['app'],
 
 					initialize:(opt = {})->
 						#assign template
-						@template = opt.templates.menuTpl ? ''
+						@template = opt.eleModel.get('templates').menuTpl ? ''
 						super(opt)	
 
 					itemView : Views.MenuItemView
 					
 					itemViewOptions :=>
-						template : @options.templates.menuItemTpl ? ''
+						template : @options.eleModel.get('templates').menuItemTpl ? ''
 
 					itemViewContainer : 'ul.menu'
 

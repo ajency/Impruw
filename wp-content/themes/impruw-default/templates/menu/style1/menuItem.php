@@ -1,0 +1,1 @@
+<a href="#newstyle">{{post_title}}</a>

@@ -21,6 +21,11 @@
             menuCollection = App.request("get:site:menus");
           }
           view = this.getView(menuCollection);
+          this.listenTo(view, 'menu:order:changed', function(collection, order) {
+            var newOrder;
+            newOrder = _.idOrder(order);
+            return collection.updateOrder(newOrder);
+          });
           return this.show(view, {
             loading: true
           });

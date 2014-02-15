@@ -20,6 +20,10 @@
 
         MenuItemView.prototype.className = 'list-group-item';
 
+        MenuItemView.prototype.onRender = function() {
+          return this.$el.attr('id', 'item-' + this.model.get('ID'));
+        };
+
         return MenuItemView;
 
       })(Marionette.ItemView);
@@ -45,14 +49,20 @@
         SingleManagerView.prototype.className = 'tab-pane';
 
         SingleManagerView.prototype.onRender = function() {
+          var _this = this;
           if (this.itemIndex === 0) {
             this.$el.addClass('active');
           }
           this.$el.attr('id', this.model.get('menu_slug'));
-          return this.$el.find('.sortable-menu-items').nestedSortable({
+          return this.$el.find('.sortable-menu-items').sortable({
             handle: 'div.menu-dragger',
             items: 'li.list-group-item',
-            toleranceElement: '> div'
+            toleranceElement: '> div',
+            stop: function(e, ui) {
+              var order;
+              order = _this.$el.find('.sortable-menu-items').sortable('toArray');
+              return _this.trigger('menu:order:changed', _this.collection, order);
+            }
           });
         };
 
@@ -66,6 +76,12 @@
           _ref2 = MenuManagerView.__super__.constructor.apply(this, arguments);
           return _ref2;
         }
+
+        MenuManagerView.prototype.initialize = function() {
+          return this.on("itemview:menu:order:changed", function(iv, collection, order) {
+            return this.trigger("menu:order:changed", collection, order);
+          });
+        };
 
         MenuManagerView.prototype.template = menucollectionTpl;
 

@@ -31,7 +31,7 @@
         };
 
         ElementModel.prototype.sync = function(method, model, options) {
-          var name, _action;
+          var name, _action, _ref1;
           if (options == null) {
             options = {};
           }
@@ -48,6 +48,15 @@
             case 'create':
               options.data = model.toJSON();
               this.removeFields(options.data);
+              return Backbone.send(_action, options);
+            case 'update':
+              options.data = (_ref1 = options.data) != null ? _ref1 : {};
+              if (model.hasChanged()) {
+                options.data.changes = {};
+                _.each(model.changed, function(value, key) {
+                  return options.data.changes[key] = this.get(key);
+                }, this);
+              }
               return Backbone.send(_action, options);
             default:
               return Backbone.Model.prototype.sync.apply(this, arguments);

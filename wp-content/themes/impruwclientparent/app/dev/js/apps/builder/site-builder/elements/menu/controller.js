@@ -21,11 +21,11 @@
           return Controller.__super__.initialize.call(this, options);
         };
 
-        Controller.prototype._getMenuView = function(templates, menu) {
+        Controller.prototype._getMenuView = function(eleModel, menu) {
           return new Menu.Views.MenuView({
             model: menu,
             collection: menu.get('menu_items'),
-            templates: templates
+            eleModel: eleModel
           });
         };
 
@@ -34,10 +34,12 @@
         };
 
         Controller.prototype.setupViews = function() {
-          var menu, menuCollection, menuView, model, _ref1,
+          var menu, menuCollection, menuView, model,
             _this = this;
           model = this.view.model;
-          this.listenTo(model, 'change:style', this.fetchNewStyle);
+          this.listenTo(model, 'change:style', function() {
+            return model.save();
+          });
           menu = App.request("create:menu:model", this.view.model.get('menu'));
           menuCollection = App.request("get:collection", 'menucollection');
           if (!menuCollection) {
@@ -45,13 +47,12 @@
             menuCollection.add(menu);
             App.request("set:collection", 'menucollection', menuCollection);
           }
-          menuView = this._getMenuView((_ref1 = this.view.model.get('templates')) != null ? _ref1 : {}, menu);
+          menuView = this._getMenuView(this.view.model, menu);
           this.listenTo(menuView, "show:menu:manager", function() {
             return App.vent.trigger("show:menu:manager");
           });
-          menu.get('menu_items').each(function(model, index) {
-            return _this.listenTo(model, 'change:order', menuView.render);
-          });
+          this.listenTo(menu.get('menu_items'), "menu:order:updated", menuView.render);
+          this.listenTo(model, 'change:templates', menuView.render);
           return this.addElementMarkup(menuView);
         };
 

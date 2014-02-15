@@ -16,6 +16,10 @@ define ['app', 'controllers/base-controller', 'apps/menu-manager/show/views'], (
 
 				view = @getView menuCollection
 
+				@listenTo view, 'menu:order:changed',(collection, order)->
+					newOrder = _.idOrder order
+					collection.updateOrder newOrder
+					
 				@show view, loading : true
 
 

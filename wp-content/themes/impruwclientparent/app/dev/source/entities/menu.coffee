@@ -4,6 +4,9 @@ define ["app", 'backbone'], (App, Backbone) ->
 
 			# menu item model
 			class Menus.MenuItemModel extends Backbone.Model
+
+				idAttribute : 'ID'
+
 				defaults:
 					post_title          : ''
 					menu_item_link      : ''
@@ -13,6 +16,14 @@ define ["app", 'backbone'], (App, Backbone) ->
 			class Menus.MenuItemCollection extends Backbone.Collection
 				model : Menus.MenuItemModel
 				comparator : 'order'
+
+				# update the model order attribute
+				updateOrder:(newOrder = [])->
+					_.each newOrder, (ele,index)=>
+						model = @get ele
+						model.set 'order', index + 1
+
+					@trigger "menu:order:updated"
 
 			# menu model
 			class Menus.MenuModel extends Backbone.AssociatedModel

@@ -23,9 +23,6 @@
         ElementView.prototype.events = {
           'click': function(evt) {
             var x, y;
-            if (this.model.get('element') === 'Text' || this.model.get('element') === 'Title') {
-              return;
-            }
             evt.stopPropagation();
             x = screen.width / 2 - this.$el.width() / 2;
             y = screen.height / 2 - this.$el.height() / 2;
