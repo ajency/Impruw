@@ -7,23 +7,24 @@ define ['app'
 			App.module 'SiteBuilderApp.Element.Views', (Views, App, Backbone, Marionette, $, _)->
 
 				# Pages single view
-				class Views.ElementView extends Marionette.ItemView
+				class Views.ElementView extends Marionette.Layout
 
 					# basic template
 					template : elementTpl
 
 					tagName : 'div'
 
+					regions: 
+						elementRegion : '> .element-markup'
+
 					# class name
 					className : 'element-wrapper'
 
 					# element events
 					events : 
-						'click' : (evt)-> 
-							evt.stopPropagation()
-							x = screen.width / 2 - @$el.width() / 2
-							y = screen.height / 2 - @$el.height() / 2
-							@trigger "show:setting:popup", @model,x, y
+						'click' : (evt)->
+							evt.stopPropagation() 
+							@trigger "show:setting:popup", @model
 
 						'click .aj-imp-delete-btn': (evt)->
 							evt.stopPropagation()
@@ -32,46 +33,12 @@ define ['app'
 					# model events
 					# listen to markup change event. update the UI accordingly
 					modelEvents : 
-						'change:templates' 	: 'renderMarkup'
 						'change:meta_id'	: 'setMetaId'
 
 					# set the data-element attribute for element 
 					onRender:->
 						@$el.find('.element-markup > span').spin @_getOptions()
 						@setElementType()
-
-					# # triggered on show
-					# onElementViewFetched:->
-
-					# 	# set element hover
-					# 	mouseOverFn = _.debounce (evt)=>
-					# 		#evt.stopPropagation()
-					# 		@$el.addClass "hover-class"
-					# 	, 100
-					# 	, true
-
-					# 	@$el.mouseover(mouseOverFn).mouseout (evt)=>
-					# 									@$el.removeClass "hover-class"
-						
-
-					# 	if @model.get('elementType') is 'BuilderRow'
-					# 		@$el.find('.column').sortable
-					# 						revert 		: 'invalid'
-					# 						items 		: '> .element-wrapper'
-					# 						connectWith : '.droppable-column,.column'
-					# 						handle 		: '.aj-imp-drag-handle'
-					# 						helper 		: 'clone'
-					# 						opacity		: .65
-					# 						update		: (evt, ui)=> 
-					# 							# remove the empty-column class if an element is 
-					# 							# dropped inside column
-					# 							if $(evt.target).hasClass 'empty-column'
-					# 								$(evt.target).removeClass 'empty-column'
-					# 						remove 		: (evt,ui)=>
-					# 							# add the empty-column class if no elements 
-					# 							# are present inside column
-					# 							if $(evt.target).children().length is 0
-					# 								$(evt.target).addClass 'empty-column'
 				
 					# set the meta id for element
 					setMetaId :(model)->
@@ -79,43 +46,13 @@ define ['app'
 
 					# set element type in hidden field
 					setElementType :()->
-						@$el.find('input[name="element_type"]').val @model.get('element')
+						@$el.find('input[name="element"]').val @model.get('element')
 
 					# rerender markup 
-					renderMarkup:(model)->
+					onElementModelCreated:->
 						# close the spinner
 						@$el.find('.element-markup > span').spin false
-						# # update the markup
-						# @$el.find('.element-markup').html model.get 'markup'
-						# @setInilineEditing()
-						# @setImagePlaceholders()
-						# @triggerMethod "element:view:fetched"
-
-					# # set CKEDITOR if applicable
-					# setInilineEditing:->
-					# 	# get all inline editable fields for the element
-					# 	editable = @$el.find('.element-markup').children().eq(0).attr 'contenteditable'
-
-					# 	# return if this element has not inline editable fields
-					# 	return if _.isUndefined editable
-
-					# 	#destry previous instances if any
-					# 	# if not _.isUndefined(CKEDITOR.instances) and _.size(CKEDITOR.instances) > 0
-					# 	# 	_.each CKEDITOR.instances, (instance, key)->
-					# 	# 		delete CKEDITOR.instances[key]
-					# 	# 		return
-
-					# 	CKEDITOR.inlineAll()
-
-					# # initializes the holder image placeholders
-					# setImagePlaceholders:->
-					# 	imageElements = @$el.find '*[data-src]'
-
-					# 	if _.size(imageElements) > 0
-					# 		Holder.run()
-					# 		# remove data-src attribute
-					# 		$(imageElements).removeAttr 'data-src'
-
+						
 					
 					# spinner options
 					_getOptions : ->

@@ -9,7 +9,7 @@
         options = {};
       }
       sync = _sync(method, entity, options);
-      if (!entity._fetch && method === "read") {
+      if (!entity._fetch && method === "read" || !entity._fetch && method === "create") {
         entity._fetch = sync;
       }
       return sync;

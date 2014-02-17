@@ -35,7 +35,7 @@
             helper: 'clone',
             opacity: .65,
             receive: function(evt, ui) {
-              return _this.trigger("element:dropped", evt, ui);
+              return _this.trigger("element:dropped", $(evt.target), ui);
             }
           });
         };

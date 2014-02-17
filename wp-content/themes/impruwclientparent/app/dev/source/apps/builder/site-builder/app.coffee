@@ -14,9 +14,9 @@ define ['app'
 				new SiteBuilderApp.Show.Controller
 
 			# add a new element to the builder region
-			appendNewElement:(evt, type)->
+			appendNewElement:(container, type)->
 				new SiteBuilderApp.Element[type].Controller
-														evt : evt
+														container : container
 														type: type
 
 			# show settings box for a view
@@ -24,8 +24,7 @@ define ['app'
 				new SiteBuilderApp.Settings.Controller
 												region 	: App.settingsRegion
 												model 	: model
-												x		: x
-												y 		: y
+												
 
 			# auto save function call
 			autoSave:->
@@ -43,9 +42,9 @@ define ['app'
 					else 'page'
 
 		# listen to "element:dropped" event.
-		App.vent.on "element:dropped",(evt, ui)->
+		App.vent.on "element:dropped",(container, ui)->
 			type  = ui.item.attr 'data-element'
-			API.appendNewElement evt, type
+			API.appendNewElement container, type
 
 		
 		# get the dropped region

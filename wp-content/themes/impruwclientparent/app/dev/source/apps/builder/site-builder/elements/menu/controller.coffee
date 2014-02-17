@@ -9,39 +9,18 @@ define ['app','apps/builder/site-builder/elements/menu/views','apps/builder/site
 					# intializer
 					initialize:(options = {})->
 						super(options)
-
-					_getMenuView:(eleModel, menu)->
+						# start listening to events
+						@listenTo @view.model, "change:menu_id", @showView
+						
+					_getMenuView:(model, collection)->
 						new Menu.Views.MenuView
-								model 		: menu
-								collection 	: menu.get 'menu_items'
-								eleModel 	: eleModel
-
+								model 		: model
+								collection 	: collection
+								
 					# setup templates for the element
-					setupViews: ->
-
-						#listen to 
-						model = @view.model
-						@listenTo model, 'change:style', -> model.save()
-
-						menu = App.request "create:menu:model", @view.model.get('menu')
-						menuCollection = App.request "get:collection", 'menucollection'
-						if not menuCollection
-							menuCollection = App.request "create:menu:collection"
-							menuCollection.add menu
-							App.request "set:collection",'menucollection', menuCollection
-
-						menuView = @_getMenuView(@view.model, menu)
-
-						@listenTo menuView, "show:menu:manager", ()=>
-														App.vent.trigger "show:menu:manager"
-
-						# listen to order change event
-						# this will rerender the menu element with new order
-						# view will sort the menu items wiht onBeforeRender function
-						@listenTo menu.get('menu_items'), "menu:order:updated", menuView.render
-						@listenTo model, 'change:templates', menuView.render
-						@listenTo model, 'change:alignment', menuView.setAlignment
-
-
-
-						@addElementMarkup menuView
+					showView:(model)=>
+						# get menu 
+						menu = App.request "get:collection:model", "menucollection", model.get 'menu_id'
+						itemCollection = menu.get 'menu_items'
+						view = @_getMenuView menu, itemCollection
+						@view.elementRegion.show view

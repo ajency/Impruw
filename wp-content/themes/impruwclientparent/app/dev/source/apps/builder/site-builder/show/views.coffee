@@ -25,6 +25,6 @@ define ['app'
 												helper 		: 'clone'
 												opacity		: .65
 												receive		: (evt, ui)=> 
-													@trigger "element:dropped", evt, ui
+													@trigger "element:dropped", $(evt.target), ui
 												
 			return App.SiteBuilderApp.Show.View

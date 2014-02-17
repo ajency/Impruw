@@ -15,15 +15,19 @@
         }
 
         Controller.prototype.initialize = function(opt) {
-          var view;
+          var menus, view;
           if (opt == null) {
             opt = {};
           }
           view = new Show.View.MainView;
+          menus = App.request("get:site:menus");
           this.listenTo(view, "element:dropped", function(evt, ui) {
             return App.vent.trigger("element:dropped", evt, ui);
           });
-          return this.show(view);
+          return this.show(view, {
+            loading: true,
+            entities: menus
+          });
         };
 
         return Controller;

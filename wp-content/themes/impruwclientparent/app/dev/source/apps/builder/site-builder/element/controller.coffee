@@ -10,30 +10,30 @@ define ['app', 'controllers/builder-base-controller'
 					# initialize the controller. Get all required entities and show the view
 					initialize:(opt = {})->
 
-						{evt, type} 	= opt
-						
-						container 	= $(evt.target)
+						{container, type} = opt
 
 						options = 
-							element 	: type
-							draggable 	: true
+							element : type
 
-						element = App.request "create:new:element", options
+						window.element = App.request "create:new:element", options
 
 						@view = @_getView element
 
 						# start listening to events
-						@listenTo @view, "show:setting:popup", (model, x,y)->
+						@listenTo @view, "show:setting:popup", (model)->
 								ele = _.slugify model.get 'element'
-								App.vent.trigger "show:#{ele}:settings:popup",model, x,y 
+								App.vent.trigger "show:#{ele}:settings:popup",model
 
+						# listen to delete element event
 						@listenTo @view, "delete:element", (model)=>
 												if confirm("Are you sure?")
 													@deleteElement model
 
-						@listenTo element, "element:model:fetched", @setupViews
-						
-						@add @view, container
+						App.commands.execute "when:fetched", [element], =>
+									@view.triggerMethod "element:model:created"
+
+
+						@add @view, $(container)
 
 
 					# Get view

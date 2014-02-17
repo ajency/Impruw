@@ -12,11 +12,16 @@ define ['app', 'controllers/base-controller'
 
 						view = new Show.View.MainView	
 
+						# fetch initial required elements
+						menus = App.request "get:site:menus"
+
 						# listen to element dropped event for next action
 						@listenTo view, "element:dropped", (evt, ui)->
 							App.vent.trigger "element:dropped", evt, ui
 
-						@show  view
-
+						@show  view,
+								loading  : true
+								entities : menus
+ 
 
 			App.SiteBuilderApp.Show.Controller		

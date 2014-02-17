@@ -18,7 +18,8 @@
 
         ElementModel.prototype.defaults = function() {
           return {
-            templates: {}
+            style: '',
+            draggable: true
           };
         };
 
@@ -89,8 +90,6 @@
           element.set(data);
           element.save(null, {
             wait: true
-          }).done(function() {
-            return element.trigger("element:model:fetched");
           });
           return element;
         }

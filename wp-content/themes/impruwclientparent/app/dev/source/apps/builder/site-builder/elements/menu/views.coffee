@@ -28,10 +28,10 @@ define ['app'],
 					
 					# item view options
 					itemViewOptions :=>
-						template : @options.eleModel.get('templates').menuItemTpl ? ''
+						template : '<a href="#">{{post_title}}</a>'
 
 					# on render set the class name
-					onRender:->
+					onRender1:->
 						@$el.removeClass()
 						@$el.addClass @className
 						@$el.addClass @options.eleModel.get('templates').className

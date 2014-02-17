@@ -121,7 +121,7 @@
           menuCollection = App.request("get:collection", 'menucollection');
           if (!menuCollection) {
             menuCollection = new Menus.MenuCollection;
-            App.request("set:collection", 'menucollection', menus);
+            App.request("set:collection", 'menucollection', menuCollection);
             menuCollection.url = AJAXURL + '?action=get-menus';
             menuCollection.fetch({
               reset: true,

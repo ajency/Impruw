@@ -69,7 +69,7 @@ define ["app", 'backbone'], (App, Backbone) ->
 					if not menuCollection
 						menuCollection = new Menus.MenuCollection
 						# save menu collection
-						App.request "set:collection", 'menucollection', menus
+						App.request "set:collection", 'menucollection', menuCollection
 
 						menuCollection.url = AJAXURL + '?action=get-menus'
 

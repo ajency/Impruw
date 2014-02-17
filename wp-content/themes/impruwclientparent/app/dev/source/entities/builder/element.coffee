@@ -10,7 +10,8 @@ define ["app", 'backbone'], (App, Backbone) ->
                 idAttribute : 'meta_id'
 
                 defaults:->
-                    templates : {} # this is for the initial spinner
+                    style       : ''
+                    draggable   : true
 
                 url :->
                     "#{AJAXURL}"
@@ -75,10 +76,7 @@ define ["app", 'backbone'], (App, Backbone) ->
 
                     element.save null,
                                 wait : true
-                    .done ->
-                        element.trigger "element:model:fetched"
-                       
-
+                                
                     element
 
 

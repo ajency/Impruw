@@ -24,6 +24,8 @@
           this.region = App.settingsRegion;
           config = App.request("get:element:settings:options", 'Menu');
           view = this._getSettingView(model, config);
+          x = screen.width / 2 - this.$el.width() / 2;
+          y = screen.height / 2 - this.$el.height() / 2;
           this.listenTo(view, 'render', function() {
             _this.region.$el.css('top', x);
             return _this.region.$el.css('left', y);
@@ -47,11 +49,9 @@
         return Controller;
 
       })(AppController);
-      return App.vent.on("show:menu:settings:popup", function(model, x, y) {
+      return App.vent.on("show:menu:settings:popup", function(model) {
         return new Settings.Controller({
-          model: model,
-          x: x,
-          y: y
+          model: model
         });
       });
     });

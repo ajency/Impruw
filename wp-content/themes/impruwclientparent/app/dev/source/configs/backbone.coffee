@@ -8,7 +8,7 @@ define ["backbone","mustache"], (Backbone, Mustache) ->
 	# Sets only for 'read' method
 	Backbone.sync = (method, entity, options = {}) ->
 		sync = _sync(method, entity, options)
-		if !entity._fetch and method is "read"
+		if !entity._fetch and method is "read" or !entity._fetch and method is "create"
 			entity._fetch = sync
 			
 		sync

@@ -60,13 +60,12 @@
         MenuView.prototype.itemView = Views.MenuItemView;
 
         MenuView.prototype.itemViewOptions = function() {
-          var _ref3;
           return {
-            template: (_ref3 = this.options.eleModel.get('templates').menuItemTpl) != null ? _ref3 : ''
+            template: '<a href="#">{{post_title}}</a>'
           };
         };
 
-        MenuView.prototype.onRender = function() {
+        MenuView.prototype.onRender1 = function() {
           this.$el.removeClass();
           this.$el.addClass(this.className);
           return this.$el.addClass(this.options.eleModel.get('templates').className);

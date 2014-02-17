@@ -15,31 +15,31 @@
         }
 
         Controller.prototype.initialize = function(opt) {
-          var container, element, evt, options, type,
+          var container, options, type,
             _this = this;
           if (opt == null) {
             opt = {};
           }
-          evt = opt.evt, type = opt.type;
-          container = $(evt.target);
+          container = opt.container, type = opt.type;
           options = {
-            element: type,
-            draggable: true
+            element: type
           };
-          element = App.request("create:new:element", options);
+          window.element = App.request("create:new:element", options);
           this.view = this._getView(element);
-          this.listenTo(this.view, "show:setting:popup", function(model, x, y) {
+          this.listenTo(this.view, "show:setting:popup", function(model) {
             var ele;
             ele = _.slugify(model.get('element'));
-            return App.vent.trigger("show:" + ele + ":settings:popup", model, x, y);
+            return App.vent.trigger("show:" + ele + ":settings:popup", model);
           });
           this.listenTo(this.view, "delete:element", function(model) {
             if (confirm("Are you sure?")) {
               return _this.deleteElement(model);
             }
           });
-          this.listenTo(element, "element:model:fetched", this.setupViews);
-          return this.add(this.view, container);
+          App.commands.execute("when:fetched", [element], function() {
+            return _this.view.triggerMethod("element:model:created");
+          });
+          return this.add(this.view, $(container));
         };
 
         Controller.prototype._getView = function(elementModel) {

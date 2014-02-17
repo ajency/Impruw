@@ -12,6 +12,9 @@ define ['app','controllers/base-controller','apps/builder/site-builder/elements/
 						@region = App.settingsRegion
 						config  = App.request "get:element:settings:options", 'Menu'
 						view = @_getSettingView model, config
+
+						x = screen.width / 2 - @$el.width() / 2
+						y = screen.height / 2 - @$el.height() / 2	
 						@listenTo view, 'render', =>
 											@region.$el.css 'top',x
 											@region.$el.css 'left',y
@@ -30,11 +33,9 @@ define ['app','controllers/base-controller','apps/builder/site-builder/elements/
 												config: config
 
 
-				App.vent.on "show:menu:settings:popup", (model, x, y)->
+				App.vent.on "show:menu:settings:popup", (model)->
 					new Settings.Controller
 									model : model
-									x	  : x
-									y 	  : y
 
 
 						

@@ -18,15 +18,16 @@
 
         ElementView.prototype.tagName = 'div';
 
+        ElementView.prototype.regions = {
+          elementRegion: '> .element-markup'
+        };
+
         ElementView.prototype.className = 'element-wrapper';
 
         ElementView.prototype.events = {
           'click': function(evt) {
-            var x, y;
             evt.stopPropagation();
-            x = screen.width / 2 - this.$el.width() / 2;
-            y = screen.height / 2 - this.$el.height() / 2;
-            return this.trigger("show:setting:popup", this.model, x, y);
+            return this.trigger("show:setting:popup", this.model);
           },
           'click .aj-imp-delete-btn': function(evt) {
             evt.stopPropagation();
@@ -35,7 +36,6 @@
         };
 
         ElementView.prototype.modelEvents = {
-          'change:templates': 'renderMarkup',
           'change:meta_id': 'setMetaId'
         };
 
@@ -49,10 +49,10 @@
         };
 
         ElementView.prototype.setElementType = function() {
-          return this.$el.find('input[name="element_type"]').val(this.model.get('element'));
+          return this.$el.find('input[name="element"]').val(this.model.get('element'));
         };
 
-        ElementView.prototype.renderMarkup = function(model) {
+        ElementView.prototype.onElementModelCreated = function() {
           return this.$el.find('.element-markup > span').spin(false);
         };
 
@@ -79,7 +79,7 @@
 
         return ElementView;
 
-      })(Marionette.ItemView);
+      })(Marionette.Layout);
     });
     return App.SiteBuilderApp.Element.Views;
   });

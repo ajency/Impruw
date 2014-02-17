@@ -7,18 +7,16 @@
         show: function() {
           return new SiteBuilderApp.Show.Controller;
         },
-        appendNewElement: function(evt, type) {
+        appendNewElement: function(container, type) {
           return new SiteBuilderApp.Element[type].Controller({
-            evt: evt,
+            container: container,
             type: type
           });
         },
         showSettings: function(model, x, y) {
           return new SiteBuilderApp.Settings.Controller({
             region: App.settingsRegion,
-            model: model,
-            x: x,
-            y: y
+            model: model
           });
         },
         autoSave: function() {
@@ -39,10 +37,10 @@
           }
         }
       };
-      App.vent.on("element:dropped", function(evt, ui) {
+      App.vent.on("element:dropped", function(container, ui) {
         var type;
         type = ui.item.attr('data-element');
-        return API.appendNewElement(evt, type);
+        return API.appendNewElement(container, type);
       });
       App.reqres.setHandler("get:dropped:region", function(sectionID) {
         return API.getDroppedRegion(sectionID);
