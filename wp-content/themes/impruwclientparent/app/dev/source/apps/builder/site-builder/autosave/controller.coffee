@@ -65,6 +65,7 @@ define ['app'], (App)->
 						_.each $(element).find('.column'), (column, index)=>
 							className = $(column).attr 'data-class'
 							col = {}
+							col.type = 'Column'
 							col.className = className
 							col.elements = @_getJson $(column)
 							ele.elements.push col 

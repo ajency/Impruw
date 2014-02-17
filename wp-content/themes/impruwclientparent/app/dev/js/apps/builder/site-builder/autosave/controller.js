@@ -75,6 +75,7 @@
                 var className, col;
                 className = $(column).attr('data-class');
                 col = {};
+                col.type = 'Column';
                 col.className = className;
                 col.elements = _this._getJson($(column));
                 ele.elements.push(col);

@@ -4,6 +4,14 @@
     Description: This file has a list of the following functions used in this theme
  */
 define( 'PARENTTHEMEPATH', ABSPATH . 'wp-content/themes/impruwclientparent/' );
+#include mustache
+require PARENTTHEMEPATH. '/lib/Mustache/Autoloader.php';
+Mustache_Autoloader::register();
+
+global $me;
+$me = new Mustache_Engine;
+
+
 require_once PARENTTHEMEPATH . 'api/entities/leftnav.php';
 
 global $page_id;
@@ -174,7 +182,6 @@ function generate_markup( $section ) {
 
     $markup_JSON = get_page_markup_JSON( );
     
-    
     if ( !isset( $markup_JSON[$section] ) )
         return;
 
@@ -182,7 +189,7 @@ function generate_markup( $section ) {
 
     $html = '';
 
-    foreach ( $json['elements'] as $element ) {
+    foreach ( $json as $element ) {
 
         $html .= add_element_markup( $element );
 
@@ -200,13 +207,19 @@ function generate_markup( $section ) {
 function add_element_markup( $element ) {
 
     $html = '';
+    $type = $element['type'];
+    if($type != 'Row' || $type != 'Column'){
+        $meta = get_metadata_by_mid('post', $element['meta_id']);
+        $element =  $meta->meta_value;   
+        $element['type'] = $type;
+    }
+    
+    switch ( $element['type'] ) {
 
-    switch ( $element['elementType'] ) {
-
-    case 'BuilderRow':
+    case 'Row':
         $html = get_builder_row_markup( $element );
         break;
-    case 'BuilderRowColumn':
+    case 'Column':
         $html = get_builder_row_column_markup( $element );
         break;
     case 'ContainerElement':
@@ -215,7 +228,7 @@ function add_element_markup( $element ) {
     case 'ImageElement':
         $html = get_image_element_markup( $element );
         break;
-    case 'MenuElement':
+    case 'Menu':
         $html = get_menu_element_markup( $element );
         break;
     case 'TitleElement':
@@ -274,8 +287,6 @@ function add_element_markup( $element ) {
  */
 function get_builder_row_markup( $element ) {
 
-    return "<div class='row'><div class='column col-md-12 empty-column'></div></div>";
-
     require_once PARENTTHEMEPATH . 'elements/BuilderRow.php';
 
     $row = new BuilderRow( $element );
@@ -310,8 +321,6 @@ function get_builder_row_column_markup( $element ) {
     $column = new BuilderRowColumn( $element );
 
     $html = $column->get_open_tag();
-
-    $html .= ( isset( $element['content'] ) ? $element['content'] : '' );//for testing
 
     if ( $column->has_child_elements() ) {
 
