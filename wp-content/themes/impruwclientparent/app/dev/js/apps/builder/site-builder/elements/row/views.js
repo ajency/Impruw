@@ -16,8 +16,10 @@
 
         RowView.prototype.className = 'row';
 
-        RowView.prototype.template = '<div data-class="col-md-6" class="col-md-6 column empty-column"></div>\
-						<div data-class="col-md-6" class="col-md-6 column empty-column"></div>';
+        RowView.prototype.template = '<div data-class="6" class="col-md-6 column empty-column"></div>\
+						<div data-class="6" class="col-md-6 column empty-column"></div>';
+
+        RowView.prototype.resizers = [];
 
         RowView.prototype.onRender = function() {
           return this.$el.find('.column').sortable({
@@ -38,6 +40,118 @@
               return $(e.target).removeClass('empty-column');
             }
           });
+        };
+
+        RowView.prototype.onShow = function() {
+          return this.setColumnResizer();
+        };
+
+        RowView.prototype.columnCount = function() {
+          return this.$el.children('.column').length;
+        };
+
+        RowView.prototype.getColumnAt = function(index) {
+          var columns;
+          columns = this.$el.children('.column');
+          return columns[index];
+        };
+
+        RowView.prototype.clearResizers = function() {
+          var resizer, _i, _len, _ref1;
+          _ref1 = this.resizers;
+          for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
+            resizer = _ref1[_i];
+            resizer.draggable('destroy');
+            return;
+          }
+        };
+
+        RowView.prototype.setColumnResizer = function() {
+          var numberOfResizers, template,
+            _this = this;
+          this.clearResizers();
+          if (this.columnCount() === 1) {
+            return;
+          }
+          template = '<div class="aj-imp-col-divider">\
+								<p title="Move">\
+									<span class="icon-uniF140"></span>\
+								</p>\
+							</div>';
+          numberOfResizers = this.columnCount() - 1;
+          return _.each(_.range(numberOfResizers), function(ele, index) {
+            var column, left, resizer;
+            column = _this.getColumnAt(index + 1);
+            left = $(column).position().left;
+            resizer = $(template);
+            resizer.attr('data-position', index + 1);
+            resizer.css('left', left);
+            _this.$el.append(resizer);
+            return _this.makeResizer(resizer);
+          });
+        };
+
+        RowView.prototype.makeResizer = function(resizer) {
+          var row, snap,
+            _this = this;
+          row = resizer.parent();
+          snap = row.width();
+          snap = snap / 12;
+          resizer.draggable({
+            axis: "x",
+            containment: row,
+            grid: [snap, 0],
+            start: function(event, ui) {
+              if (_.isUndefined(ui.helper.start)) {
+                return ui.helper.start = ui.originalPosition;
+              }
+            },
+            stop: function(event, ui) {
+              return ui.helper.start = ui.position;
+            },
+            drag: function(event, ui) {
+              var p, position, s;
+              p = Math.round(ui.position.left);
+              s = Math.round(ui.helper.start.left);
+              if (p > s) {
+                ui.helper.start = ui.position;
+                position = $(event.target).attr("data-position");
+                return _this.resizeColumns("right", parseInt(position));
+              } else if (p < s) {
+                ui.helper.start = ui.position;
+                position = $(event.target).attr("data-position");
+                return _this.resizeColumns("left", parseInt(position));
+              }
+            }
+          });
+          return this.resizers.push(resizer);
+        };
+
+        RowView.prototype.resizeColumns = function(direction, position) {
+          var columns, currentClassOne, currentClassZero;
+          columns = [];
+          columns.push(this.getColumnAt(position - 1));
+          columns.push(this.getColumnAt(position));
+          currentClassZero = parseInt($(columns[0]).attr('data-class'));
+          currentClassOne = parseInt($(columns[1]).attr('data-class'));
+          if (currentClassZero - 1 === 0 || currentClassOne - 1 === 0) {
+            return;
+          }
+          $(columns[0]).removeClass("col-md-" + currentClassZero);
+          $(columns[1]).removeClass("col-md-" + currentClassOne);
+          switch (direction) {
+            case "right":
+              currentClassZero++;
+              currentClassOne--;
+              break;
+            case "left":
+              currentClassZero--;
+              currentClassOne++;
+          }
+          $(columns[0]).attr('data-class', currentClassZero);
+          $(columns[1]).attr('data-class', currentClassOne);
+          $(columns[0]).addClass("col-md-" + currentClassZero);
+          return $(columns[1]).addClass("col-md-" + currentClassOne);
         };
 
         return RowView;

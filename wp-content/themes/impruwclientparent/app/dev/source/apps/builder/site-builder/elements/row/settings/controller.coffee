@@ -20,19 +20,11 @@ define ['app','controllers/base-controller','apps/builder/site-builder/elements/
 						@listenTo view, "element:style:changed",(style)=>
 														@model.set "style", style
 
-						@listenTo view, "element:alignment:changed",(align)=>
-														@model.set "align", align
-
 						@listenTo view, "element:draggable:changed", (draggable)=>
 														@model.set "draggable", draggable	
 
 						@show view
 
-					# time to save model to server
-					onClose:->
-						console.log @model
-						@model.save null,
-								wait : true
 
 					# get settigns view
 					_getSettingView:(model, config)->

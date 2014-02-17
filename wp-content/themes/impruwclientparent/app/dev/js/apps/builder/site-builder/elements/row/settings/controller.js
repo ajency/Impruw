@@ -31,20 +31,10 @@
           this.listenTo(view, "element:style:changed", function(style) {
             return _this.model.set("style", style);
           });
-          this.listenTo(view, "element:alignment:changed", function(align) {
-            return _this.model.set("align", align);
-          });
           this.listenTo(view, "element:draggable:changed", function(draggable) {
             return _this.model.set("draggable", draggable);
           });
           return this.show(view);
-        };
-
-        Controller.prototype.onClose = function() {
-          console.log(this.model);
-          return this.model.save(null, {
-            wait: true
-          });
         };
 
         Controller.prototype._getSettingView = function(model, config) {

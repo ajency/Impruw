@@ -66,7 +66,7 @@ define ['app'], (App)->
 							className = $(column).attr 'data-class'
 							col = {}
 							col.type = 'Column'
-							col.className = className
+							col.className = "col-md-#{className}"
 							col.elements = @_getJson $(column)
 							ele.elements.push col 
 							return
