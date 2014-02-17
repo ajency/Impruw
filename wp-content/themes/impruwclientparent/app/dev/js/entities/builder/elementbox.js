@@ -65,10 +65,18 @@
             data: param
           });
           return elements;
+        },
+        getElementSettingOptions: function(ele) {
+          var element;
+          element = App.request("get:collection:model", 'elementbox', ele);
+          return element;
         }
       };
-      return App.reqres.setHandler("get:elementbox:elements", function() {
+      App.reqres.setHandler("get:elementbox:elements", function() {
         return API.getElements();
+      });
+      return App.reqres.setHandler("get:element:settings:options", function(ele) {
+        return API.getElementSettingOptions(ele);
       });
     });
   });

@@ -47,7 +47,18 @@ define ["app", 'backbone'], (App, Backbone) ->
                                 
                     elements
 
+                # returns the element settings options
+                getElementSettingOptions:(ele)->
+
+                    element = App.request "get:collection:model", 'elementbox', ele
+
+                    element
+
 
             # REQUEST HANDLERS
             App.reqres.setHandler "get:elementbox:elements", ->
                 API.getElements()
+
+            App.reqres.setHandler "get:element:settings:options",(ele)->
+                API.getElementSettingOptions ele
+

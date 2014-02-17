@@ -1,0 +1,21 @@
+header.settings-header
+	.row
+		.col-sm-10
+			h5.title {{config.element}} Settings
+		.col-sm-2.close-btn
+			a(class='close-settings', href='#') &times;
+	.row
+		.col-sm-12
+			form(action='', method='POST', role='form')
+				.form-group
+					label(for='') Choose Style
+					select(name="style")
+						{{#config.styles}}
+						option(value="{{.}}" {{#model.style === .}}selected="selected"{{}}) {{.}}
+						{{/config.styles}}
+				.form-group
+					label(for='') Align
+					select(name="align")
+						{{#config.align}}
+						option(value="{{.}}") {{.}}
+						{{/config.align}}

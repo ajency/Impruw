@@ -29,7 +29,9 @@
           element = App.request("create:new:element", options);
           this.view = this._getView(element);
           this.listenTo(this.view, "show:setting:popup", function(model, x, y) {
-            return App.vent.trigger("show:settings:popup", model, x, y);
+            var ele;
+            ele = _.slugify(model.get('element'));
+            return App.vent.trigger("show:" + ele + ":settings:popup", model, x, y);
           });
           this.listenTo(this.view, "delete:element", function(model) {
             if (confirm("Are you sure?")) {

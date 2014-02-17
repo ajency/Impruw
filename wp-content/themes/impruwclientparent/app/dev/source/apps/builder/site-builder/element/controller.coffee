@@ -24,7 +24,8 @@ define ['app', 'controllers/builder-base-controller'
 
 						# start listening to events
 						@listenTo @view, "show:setting:popup", (model, x,y)->
-								App.vent.trigger "show:settings:popup",model, x,y 
+								ele = _.slugify model.get 'element'
+								App.vent.trigger "show:#{ele}:settings:popup",model, x,y 
 
 						@listenTo @view, "delete:element", (model)=>
 												if confirm("Are you sure?")

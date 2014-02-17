@@ -6,7 +6,7 @@
   define(['app', 'controllers/base-controller', 'apps/builder/site-builder/elements/menu/settings/views'], function(App, AppController) {
     return App.module('SiteBuilderApp.Element.Menu.Settings', function(Settings, App, Backbone, Marionette, $, _) {
       var _ref;
-      return Settings.Controller = (function(_super) {
+      Settings.Controller = (function(_super) {
         __extends(Controller, _super);
 
         function Controller() {
@@ -14,13 +14,46 @@
           return _ref;
         }
 
-        Controller.prototype.initialize = function() {
-          return this.region = App.settingsRegion;
+        Controller.prototype.initialize = function(opt) {
+          var config, model, view, x, y,
+            _this = this;
+          if (opt == null) {
+            opt = {};
+          }
+          model = opt.model, x = opt.x, y = opt.y;
+          this.region = App.settingsRegion;
+          config = App.request("get:element:settings:options", 'Menu');
+          view = this._getSettingView(model, config);
+          this.listenTo(view, 'render', function() {
+            _this.region.$el.css('top', x);
+            return _this.region.$el.css('left', y);
+          });
+          this.listenTo(view, "element:style:changed", function(style) {
+            return model.set("style", style);
+          });
+          this.listenTo(view, "element:alignment:changed", function(align) {
+            return model.set("alignment", align);
+          });
+          return this.show(view);
+        };
+
+        Controller.prototype._getSettingView = function(model, config) {
+          return new Settings.Views.SettingsView({
+            model: model,
+            config: config
+          });
         };
 
         return Controller;
 
       })(AppController);
+      return App.vent.on("show:menu:settings:popup", function(model, x, y) {
+        return new Settings.Controller({
+          model: model,
+          x: x,
+          y: y
+        });
+      });
     });
   });
 

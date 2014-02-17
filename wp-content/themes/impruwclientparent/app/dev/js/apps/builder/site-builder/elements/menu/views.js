@@ -57,12 +57,6 @@
 
         MenuView.prototype.className = 'nav';
 
-        MenuView.prototype.events = {
-          'click li': function(evt) {
-            return evt.stopPropagation();
-          }
-        };
-
         MenuView.prototype.itemView = Views.MenuItemView;
 
         MenuView.prototype.itemViewOptions = function() {

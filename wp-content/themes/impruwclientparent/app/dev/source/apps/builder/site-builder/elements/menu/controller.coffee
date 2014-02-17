@@ -1,4 +1,4 @@
-define ['app','apps/builder/site-builder/elements/menu/views'],
+define ['app','apps/builder/site-builder/elements/menu/views','apps/builder/site-builder/elements/menu/settings/controller'],
 		(App)->
 
 			App.module 'SiteBuilderApp.Element.Menu', (Menu, App, Backbone, Marionette, $, _)->

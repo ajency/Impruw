@@ -24,11 +24,6 @@ define ['app'],
 				class Views.MenuView extends Marionette.CompositeView
 					tagName : 'ul'
 					className : 'nav'
-					events : 
-						'click li' : (evt)->
-							evt.stopPropagation()
-							#@trigger "show:menu:manager", @model
-
 					itemView : Views.MenuItemView
 					
 					# item view options
