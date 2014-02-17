@@ -32,7 +32,8 @@
         var type;
         type = view.model.get("element");
         section.find("li[data-element='" + type + "']").replaceWith(view.$el);
-        return view.render();
+        view.render();
+        return view.triggerMethod('show');
       };
 
       return AppController;

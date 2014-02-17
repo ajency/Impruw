@@ -2,6 +2,9 @@
 ## Or even mixin some extra functions
 define ['jquery', 'underscore', 'polyglot'], ($, _, Polyglot)->
 
+	# define helper functions
+	$.fn.isEmptyColumn=(params)->
+		@children('.element-wrapper').length is 0
 	
 	# adjust the dimesion of upper content and also the left section and right section
 	# Uses jquery to get window dimensions and sets min-height css property so that if height 

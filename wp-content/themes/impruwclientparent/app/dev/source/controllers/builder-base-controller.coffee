@@ -22,3 +22,4 @@ define ["marionette"
 			type = view.model.get "element"
 			section.find("li[data-element='#{type}']").replaceWith view.$el
 			view.render()
+			view.triggerMethod 'show'

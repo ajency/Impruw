@@ -40,6 +40,15 @@ define ['app'
 						@$el.find('.element-markup > span').spin @_getOptions()
 						@setElementType()
 
+					# set mouse hover for element
+					onShow:()=>
+						@$el.mouseover (evt)=>
+							evt.stopPropagation()
+							@$el.addClass 'hover-class'
+						.mouseout ()=>
+							@$el.removeClass 'hover-class'
+
+					# on set draggable
 					onSetDraggable:(draggable)->
 						if draggable is false
 							@$el.find('.aj-imp-drag-handle').addClass('non-visible')

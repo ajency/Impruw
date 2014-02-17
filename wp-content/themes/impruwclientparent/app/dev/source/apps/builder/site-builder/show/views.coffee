@@ -23,7 +23,7 @@ define ['app'
 												connectWith : '.droppable-column,.column'
 												start: (e, ui)->
         											ui.placeholder.height ui.item.height()
-												#handle 		: '.aj-imp-drag-handle'
+												handle 		: '.aj-imp-drag-handle'
 												helper 		: 'clone'
 												opacity		: .65
 												receive		: (evt, ui)=> 

@@ -34,6 +34,7 @@
             start: function(e, ui) {
               return ui.placeholder.height(ui.item.height());
             },
+            handle: '.aj-imp-drag-handle',
             helper: 'clone',
             opacity: .65,
             receive: function(evt, ui) {

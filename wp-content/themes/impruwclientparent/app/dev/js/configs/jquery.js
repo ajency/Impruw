@@ -2,6 +2,9 @@
 (function() {
   define(['jquery', 'underscore', 'polyglot'], function($, _, Polyglot) {
     var adjustPageDim;
+    $.fn.isEmptyColumn = function(params) {
+      return this.children('.element-wrapper').length === 0;
+    };
     adjustPageDim = _.debounce(function() {
       var height, minHeight;
       height = $(window).height();

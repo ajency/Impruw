@@ -19,7 +19,7 @@ define ['app'],(App)->
 										revert 		: 'invalid'
 										items 		: '> .element-wrapper'
 										connectWith : '.droppable-column,.column'
-										#handle 		: '.aj-imp-drag-handle'
+										handle 		: '.aj-imp-drag-handle'
 										start: (e, ui)->
 											ui.placeholder.height ui.item.height()
 										helper 		: 'clone'
@@ -34,6 +34,9 @@ define ['app'],(App)->
 
 			columnCount:()->
 				@$el.children('.column').length
+
+			getColumns:()->
+				@$el.children('.column')
 
 			getColumnAt:(index)->
 				columns = @$el.children('.column')
@@ -105,7 +108,7 @@ define ['app'],(App)->
 				columns.push @getColumnAt(position)
 				currentClassZero = parseInt $(columns[0]).attr 'data-class'
 				currentClassOne  = parseInt $(columns[1]).attr 'data-class'
-  
+
 				#return if one column class is set to zero
 				return  if currentClassZero - 1 is 0 or currentClassOne - 1 is 0
 
@@ -126,6 +129,69 @@ define ['app'],(App)->
 				# add classes
 				$(columns[0]).addClass "col-md-#{currentClassZero}"
 				$(columns[1]).addClass "col-md-#{currentClassOne}"
+
+			# 
+			adjustColumnsInRow :(count)=>
+				requestedColumns = count
+				#if same column count is clicked ignore
+				return  if requestedColumns is @columnCount()
+				colClass = 12 / requestedColumns
+				if requestedColumns > @columnCount()
+					extraColumns = requestedColumns - @columnCount()
+					#adjust class of existing columns
+					_.each @getColumns(), (column, index)=>
+						$(column).addClass "col-md-#{colClass}"
+
+					_.each _.range(extraColumns), ->
+						@addNewColumn colClass
+
+				else if requestedColumns < @columnCount()
+					emptyColumns = []
+					_.each @elements, (column, index) ->
+						emptyColumns.push column  if column.isEmpty()
+
+					emptyColsLen = emptyColumns.length
+				
+					#first check
+					if emptyColsLen is 0
+						alert "None of the columns are empty. Please delete elements inside columns to remove"
+						return
+				
+					#check if current columns - requested columns > empty columns
+					if @columnCount() - requestedColumns > emptyColsLen
+						alert "Unable to perform this action"
+						return
+					
+					colsToRemove = 0
+				
+					#check if current columns - requested columns <= empty columns
+					if @columnCount() - requestedColumns <= emptyColsLen
+						colsToRemove = @columnCount() - requestedColumns
+					else
+						colsToRemove = emptyColsLen - requestedColumns
+					
+					nCols = []
+				
+					#get indexes to remove
+					_.each @elements, (column, index) ->
+					if colsToRemove is 0 or not column.isEmpty()
+						nCols.push column
+						return
+					column.destroy()
+					colsToRemove--
+
+					@elements = []
+					@elements = nCols
+				
+					#adjust class of existing columns
+					_.each @elements, (column, index) ->
+						column.setColumnClass colClass
+
+			  
+				#set active column count
+				$(evt.target).parent().addClass("active").siblings().removeClass "active"
+				@sortableColumns()
+				@appendColumnResizer()
 
 	
 
