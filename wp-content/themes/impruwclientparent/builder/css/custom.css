@@ -70,6 +70,10 @@ div.element-drop-loader > p{
     display:none;
 }
 
+.hover-class:hover > .element-controls .non-visible{
+    display:none !important;
+}
+
 /*.element-wrapper:hover{
     border : 1px solid orange;
 }

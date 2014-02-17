@@ -41,7 +41,9 @@
         };
 
         Controller.prototype.onClose = function() {
-          console.log(this.model);
+          if (!this.model.hasChanged()) {
+            return;
+          }
           return this.model.save(null, {
             wait: true
           });
