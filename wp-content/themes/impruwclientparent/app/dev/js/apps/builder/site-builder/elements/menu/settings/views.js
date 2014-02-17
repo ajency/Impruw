@@ -32,13 +32,23 @@
           return data;
         };
 
+        SettingsView.prototype.onRender = function() {
+          this.$el.find('input[type="checkbox"]').checkbox();
+          this.$el.find('input[type="radio"]').radio();
+          return this.$el.find('select').selectpicker({
+            style: 'btn-mini btn-default',
+            menuStyle: 'dropdown'
+          });
+        };
+
         SettingsView.prototype.events = {
           'click .close-settings': function(evt) {
             evt.preventDefault();
             return App.settingsRegion.close();
           },
           'change select[name="style"]': 'updateStyle',
-          'change select[name="align"]': 'alignElement'
+          'change select[name="align"]': 'alignElement',
+          'change input[name="draggable"]': 'setDraggable'
         };
 
         SettingsView.prototype.updateStyle = function(evt) {
@@ -51,6 +61,12 @@
           var align;
           align = $(evt.target).val();
           return this.trigger("element:alignment:changed", align);
+        };
+
+        SettingsView.prototype.setDraggable = function(evt) {
+          var draggable;
+          draggable = $(evt.target).is(':checked');
+          return this.trigger("element:draggable:changed", draggable);
         };
 
         return SettingsView;

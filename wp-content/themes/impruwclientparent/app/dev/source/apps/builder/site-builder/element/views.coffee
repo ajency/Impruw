@@ -39,6 +39,12 @@ define ['app'
 					onRender:->
 						@$el.find('.element-markup > span').spin @_getOptions()
 						@setElementType()
+
+					onSetDraggable:(draggable)->
+						if draggable is false
+							@$el.find('.aj-imp-drag-handle').addClass('non-visible')
+						else if draggable is true
+							@$el.find('.aj-imp-drag-handle').removeClass('non-visible')
 				
 					# set the meta id for element
 					setMetaId :(model)->

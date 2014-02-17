@@ -40,27 +40,14 @@ define ["app", 'backbone'], (App, Backbone) ->
                         when 'create'
                             # set the data property for request
                             options.data = model.toJSON()
-                            @removeFields options.data
                             Backbone.send _action,options
                         when 'update'
-                            options.data = options.data ? {}
-                            if model.hasChanged()
-                                options.data.changes = {}
-                                _.each model.changed, ( value, key )->
-                                    options.data.changes[ key ] = this.get key
-                                , this
+                            options.data = model.toJSON()
                             Backbone.send _action,options
                         else
                             Backbone.Model.prototype.sync.apply this, arguments
 
-                # remove fields which should not be sent to server
-                removeFields:(data)->
-                    # do not delete markup field if element type is text or title
-                    # we need to actually store this field with json
-                    return if @get('element') is 'Text' or @get('element') is 'Title'
-
-                    delete data.markup
-
+                
                 # parse the json response
                 parse : (resp)->
                     return resp.data if resp.code is 'OK'

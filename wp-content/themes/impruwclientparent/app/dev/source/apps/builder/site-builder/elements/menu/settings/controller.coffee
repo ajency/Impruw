@@ -8,22 +8,31 @@ define ['app','controllers/base-controller','apps/builder/site-builder/elements/
 
 					# initialize controller
 					initialize:(opt ={})->
-						{ model } = opt
+						{ @model } = opt
 						@region = App.settingsRegion
 						config  = App.request "get:element:settings:options", 'Menu'
-						view = @_getSettingView model, config
+						view = @_getSettingView @model, config
 
 						@listenTo view, 'render', =>
 											@region.$el.css 'top',200
 											@region.$el.css 'left',200
 
 						@listenTo view, "element:style:changed",(style)=>
-														model.set "style", style
+														@model.set "style", style
 
 						@listenTo view, "element:alignment:changed",(align)=>
-														model.set "align", align	
+														@model.set "align", align
+
+						@listenTo view, "element:draggable:changed", (draggable)=>
+														@model.set "draggable", draggable	
 
 						@show view
+
+					# time to save model to server
+					onClose:->
+						console.log @model
+						@model.save null,
+								wait : true
 
 					# get settigns view
 					_getSettingView:(model, config)->

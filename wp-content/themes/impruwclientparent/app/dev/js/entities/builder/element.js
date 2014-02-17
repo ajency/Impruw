@@ -32,7 +32,7 @@
         };
 
         ElementModel.prototype.sync = function(method, model, options) {
-          var name, _action, _ref1;
+          var name, _action;
           if (options == null) {
             options = {};
           }
@@ -48,27 +48,13 @@
           switch (method) {
             case 'create':
               options.data = model.toJSON();
-              this.removeFields(options.data);
               return Backbone.send(_action, options);
             case 'update':
-              options.data = (_ref1 = options.data) != null ? _ref1 : {};
-              if (model.hasChanged()) {
-                options.data.changes = {};
-                _.each(model.changed, function(value, key) {
-                  return options.data.changes[key] = this.get(key);
-                }, this);
-              }
+              options.data = model.toJSON();
               return Backbone.send(_action, options);
             default:
               return Backbone.Model.prototype.sync.apply(this, arguments);
           }
-        };
-
-        ElementModel.prototype.removeFields = function(data) {
-          if (this.get('element') === 'Text' || this.get('element') === 'Title') {
-            return;
-          }
-          return delete data.markup;
         };
 
         ElementModel.prototype.parse = function(resp) {

@@ -4,12 +4,10 @@ define ["app", 'backbone'], (App, Backbone) ->
 
             # Element Model
             class ElementBox.ElementModel extends Backbone.Model
-
                 idAttribute : 'element'
 
             # Element collection
             class ElementBox.ElementCollection extends Backbone.Collection
-
                 # model
                 model : ElementBox.ElementModel
 
@@ -25,33 +23,24 @@ define ["app", 'backbone'], (App, Backbone) ->
 
                 # parse
                 parse: (resp)->
-
                     return resp.data if resp.code is 'OK'
-
                     App.vent.trigger "elementbox:collection:fetch:error", resp
 
                 
             # PUBLIC API FOR ENitity
             API =
                 getElements: (param = {})->
-
                     elements = new ElementBox.ElementCollection
-
                     App.request "set:collection", 'elementbox', elements
-                    
                     elements.url = AJAXURL + '?action=get-elementbox-elements'
-                    
                     elements.fetch
                                 reset : true
                                 data  : param
-                                
                     elements
 
                 # returns the element settings options
                 getElementSettingOptions:(ele)->
-
                     element = App.request "get:collection:model", 'elementbox', ele
-
                     element
 
 

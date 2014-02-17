@@ -15,26 +15,36 @@
         }
 
         Controller.prototype.initialize = function(opt) {
-          var config, model, view,
+          var config, view,
             _this = this;
           if (opt == null) {
             opt = {};
           }
-          model = opt.model;
+          this.model = opt.model;
           this.region = App.settingsRegion;
           config = App.request("get:element:settings:options", 'Menu');
-          view = this._getSettingView(model, config);
+          view = this._getSettingView(this.model, config);
           this.listenTo(view, 'render', function() {
             _this.region.$el.css('top', 200);
             return _this.region.$el.css('left', 200);
           });
           this.listenTo(view, "element:style:changed", function(style) {
-            return model.set("style", style);
+            return _this.model.set("style", style);
           });
           this.listenTo(view, "element:alignment:changed", function(align) {
-            return model.set("align", align);
+            return _this.model.set("align", align);
+          });
+          this.listenTo(view, "element:draggable:changed", function(draggable) {
+            return _this.model.set("draggable", draggable);
           });
           return this.show(view);
+        };
+
+        Controller.prototype.onClose = function() {
+          console.log(this.model);
+          return this.model.save(null, {
+            wait: true
+          });
         };
 
         Controller.prototype._getSettingView = function(model, config) {

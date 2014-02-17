@@ -44,6 +44,14 @@
           return this.setElementType();
         };
 
+        ElementView.prototype.onSetDraggable = function(draggable) {
+          if (draggable === false) {
+            return this.$el.find('.aj-imp-drag-handle').addClass('non-visible');
+          } else if (draggable === true) {
+            return this.$el.find('.aj-imp-drag-handle').removeClass('non-visible');
+          }
+        };
+
         ElementView.prototype.setMetaId = function(model) {
           return this.$el.find('input[name="meta_id"]').val(model.get('meta_id'));
         };

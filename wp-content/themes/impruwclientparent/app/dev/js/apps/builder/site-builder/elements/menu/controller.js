@@ -12,18 +12,24 @@
 
         function Controller() {
           this.showView = __bind(this.showView, this);
+          this.setDraggable = __bind(this.setDraggable, this);
           _ref = Controller.__super__.constructor.apply(this, arguments);
           return _ref;
         }
 
         Controller.prototype.initialize = function(options) {
-          var _this = this;
           if (options == null) {
             options = {};
           }
           Controller.__super__.initialize.call(this, options);
+          return this.bindEvents();
+        };
+
+        Controller.prototype.bindEvents = function() {
+          var _this = this;
           this.listenTo(this.view.model, "change:menu_id", this.showView);
           this.listenTo(this.view.model, "change:style", this.showView);
+          this.listenTo(this.view.model, "change:draggable", this.setDraggable);
           return this.listenTo(this.view.model, "change:align", function(model) {
             return _this.view.elementRegion.currentView.setAlignment(model.get('align'));
           });
@@ -35,6 +41,10 @@
             collection: collection,
             templates: templates
           });
+        };
+
+        Controller.prototype.setDraggable = function(model) {
+          return this.view.triggerMethod("set:draggable", model.get('draggable'));
         };
 
         Controller.prototype.showView = function(model) {

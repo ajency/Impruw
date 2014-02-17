@@ -9,9 +9,13 @@ define ['app','apps/builder/site-builder/elements/menu/views','apps/builder/site
 					# intializer
 					initialize:(options = {})->
 						super(options)
+						@bindEvents()
+
+					bindEvents:->
 						# start listening to events
 						@listenTo @view.model, "change:menu_id", @showView
 						@listenTo @view.model, "change:style", @showView
+						@listenTo @view.model, "change:draggable", @setDraggable
 						@listenTo @view.model, "change:align",(model)=>
 							@view.elementRegion.currentView.setAlignment model.get 'align'
 						
@@ -20,6 +24,10 @@ define ['app','apps/builder/site-builder/elements/menu/views','apps/builder/site
 								model 		: model
 								collection 	: collection,
 								templates   : templates
+
+					# set draggable
+					setDraggable:(model)=>
+						@view.triggerMethod "set:draggable", model.get 'draggable'
 								
 					# setup templates for the element
 					showView:(model)=>
