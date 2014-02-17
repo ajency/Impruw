@@ -89,20 +89,9 @@ class Element {
     /**
      * Parent class constructor
      */
-    function __construct($config){
+    function __construct($element){
 
-        if(isset($config['elements'])){
-            $this->elements     = $config['elements'];
-        }
-        
-        if(isset($config['extraClasses'])){
-            $this->extra_classes = $config['extraClasses'];
-        }
-
-        if(isset($config['id'])){
-            $this->id = $config['id'];
-        }
-
+        //$this->elements = $element['elements'];
         
     }
     
@@ -118,20 +107,6 @@ class Element {
             return true;
         
         return false;
-        
-    }
-    
-    /**
-     * Uses type proeprty + random number genration logic to 
-     * create a unique ID for each element
-     * @return string - random generated ID
-     */
-    function generate_random_ID(){
-        return;
-        if(isset($this->id) && ($this->type !== 'row' || $this->type !== 'column'))
-            return $this->id;
-        
-        return $this->type . '-' . rand(100000, 999999);
         
     }
     
@@ -189,16 +164,6 @@ class Element {
      */
     function get_open_tag($args = array()){
         
-        $this->id   = $this->generate_random_ID();
-
-        $attr = '';    
-
-        if(!empty($args)){
-            foreach($args as $key => $val){
-                $attr .= " $key='$val'";
-            }
-        }
-
         $html       = "<{$this->tag_name}  class='{$this->get_classes()}'$attr>";
         
         return $html;

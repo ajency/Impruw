@@ -208,7 +208,7 @@ function add_element_markup( $element ) {
 
     $html = '';
     $type = $element['type'];
-    if($type != 'Row' || $type != 'Column'){
+    if($type != 'Row' && $type != 'Column'){
         $meta = get_metadata_by_mid('post', $element['meta_id']);
         $element =  $meta->meta_value;   
         $element['type'] = $type;
@@ -217,6 +217,7 @@ function add_element_markup( $element ) {
     switch ( $element['type'] ) {
 
     case 'Row':
+        
         $html = get_builder_row_markup( $element );
         break;
     case 'Column':
@@ -286,15 +287,15 @@ function add_element_markup( $element ) {
  * @param type    $element
  */
 function get_builder_row_markup( $element ) {
-
+   
     require_once PARENTTHEMEPATH . 'elements/BuilderRow.php';
 
     $row = new BuilderRow( $element );
 
     $html = $row->get_open_tag();
-
+    
     if ( $row->has_child_elements() ) {
-
+        
         foreach ( $row->get_elements() as $ele ) {
 
             $html .= add_element_markup( $ele );
