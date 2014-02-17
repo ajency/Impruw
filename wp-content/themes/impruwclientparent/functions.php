@@ -2962,17 +2962,6 @@ function get_all_menu_pages(){
         }
     }
 
-    $args = array('post_type' => 'impruw_room','posts_per_page' => -1);
-    $rooms  = new WP_query($args);
-
-    if($rooms->have_posts()){
-        
-        foreach($rooms->posts as $room){
-
-            $p[] = $room;
-        }
-    }
-
     return $p;
 
 }

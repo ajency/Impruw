@@ -25,6 +25,7 @@ require.config
 		bootstrapselect 	: 'plugins/bootstrapselect'
 		underscorestring 	: 'plugins/underscore.string'
 		radio 				: 'plugins/flatui-radio'
+		cookie				: 'plugins/cookie.min'
 		checkbox			: 'plugins/flatui-checkbox'
 		ckeditor			: 'plugins/ckeditor'
 		backboneform		: 'plugins/backbone.form'
@@ -67,6 +68,7 @@ require.config
 		backboneassociations: ['backbone']
 		jqueryspin 			: ['spin']
 		bootstrap 			: ['jquery']
+		cookie				: ['jquery']
 		nestedsortable 		: ['jqueryui']
 		radio 				: ['bootstrap']
 		checkbox 			: ['bootstrap']

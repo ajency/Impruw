@@ -23,6 +23,9 @@
           view = new Show.Views.MainView({
             collection: pages
           });
+          this.listenTo(view, 'editable:page:changed', function(pageId) {
+            return $.cookie('current-page-id', pageId);
+          });
           return this.show(view, {
             loading: true
           });

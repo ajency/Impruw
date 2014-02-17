@@ -69,8 +69,15 @@
               meta_id: parseInt($(element).find('form input[name="meta_id"]').val())
             };
             if (ele.type === 'Row') {
+              delete ele.meta_id;
+              ele.elements = [];
               _.each($(element).find('.column'), function(column, index) {
-                ele["col-" + (index + 1)] = _this._getJson($(column));
+                var className, col;
+                className = $(column).attr('data-class');
+                col = {};
+                col.className = className;
+                col.elements = _this._getJson($(column));
+                ele.elements.push(col);
               });
             }
             return arr.push(ele);

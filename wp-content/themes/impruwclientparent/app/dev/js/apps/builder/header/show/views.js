@@ -42,7 +42,14 @@
 
         MainView.prototype.className = 'navbar navbar-default';
 
+        MainView.prototype.events = {
+          'change select#aj-imp-page-sel': function(evt) {
+            return this.trigger('editable:page:changed', $(evt.target).val());
+          }
+        };
+
         MainView.prototype.onShow = function() {
+          this.$el.find('select#aj-imp-page-sel').val(App.request("get:current:editable:page"));
           return this.$el.find('select#aj-imp-page-sel').selectpicker({
             style: 'btn-mini btn-default',
             menuStyle: 'dropdown'

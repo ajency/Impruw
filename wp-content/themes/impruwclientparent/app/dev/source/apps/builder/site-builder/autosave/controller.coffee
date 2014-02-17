@@ -60,8 +60,14 @@ define ['app'], (App)->
 						meta_id : parseInt $(element).find('form input[name="meta_id"]').val()
 
 					if ele.type is 'Row'
+						delete ele.meta_id
+						ele.elements = []
 						_.each $(element).find('.column'), (column, index)=>
-							ele["col-#{index + 1}"] = @_getJson $(column)
+							className = $(column).attr 'data-class'
+							col = {}
+							col.className = className
+							col.elements = @_getJson $(column)
+							ele.elements.push col 
 							return
 
 					arr.push ele

@@ -48,11 +48,8 @@ add_action('wp_ajax_get-site-profile','get_site_profile');
  * @return [type] [description]
  */
 function get_pages1(){
-
-	wp_send_json(array('code' => 'OK', 'data' => array(
-													array('ID' => 12, 'post_title' => 'Home'),
-													array('ID' => 23, 'post_title' => 'About Us')
-												)));
+    $pages = get_all_menu_pages();
+    wp_send_json(array('code' => 'OK', 'data' => $pages));
 }
 add_action('wp_ajax_get-pages', 'get_pages1');
 
@@ -100,21 +97,52 @@ function create_element_model(){
 	$element = $_POST;
 
 	unset($element['action']);
+	$page_id = isset($_POST['page_id']) ? $_POST['page_id'] : 0;
 	
-	$markup  = add_element_markup($element);
-	$meta_id = rand(1000,9999);
-
-	$templates = get_templates('Menu','header');
-
+	//insert into DB
+	global $wpdb;
+	$model = get_element_model($element); 
+	$model['meta_id'] = set_element_data($model);
+	
 	wp_send_json(array(	'code' => 'OK', 
-						'data' => array(
-								'meta_id' 	=> $meta_id,
-								'style'		=> 'header',
-								'menu_id'	=> 2
-								)));
+				'data' => $model));
 
 }
 add_action('wp_ajax_create-element-model','create_element_model');
+
+
+function set_element_data($data){
+    
+    $serialized_element = maybe_serialize($data);
+    
+    global $wpdb;
+    $wpdb->insert($wpdb->postmeta,
+        array(
+                'post_id'    => $page_id,
+                'meta_value' => $serialized_element,
+                'meta_key'   => $element['element']
+        ));
+        
+    return $wpdb->insert_id;    
+}
+
+function get_element_model($element){
+
+	$model = array();
+
+	switch($element['element']){
+
+		case 'Menu':
+			$model = array(
+						'style' 	=> 'header',
+						'menu_id' 	=> 3
+					);
+			break;
+
+	}
+
+	return $model;
+}
 
 /**
  * [update_element_model description]
@@ -224,7 +252,12 @@ function save_page_json(){
 	$json = $_POST['json'];
 	$json = stripcslashes($json);
 	$json = json_decode($json,true);
+        $page_id = $_POST['page_id'];
+        //$e = json_encode($json);
+        //wp_send_json($json['header']);
+        update_option('theme-header',$json['header']);
 	update_post_meta($page_id,'page-json', $json['page']);
-	die;
+	update_option('theme-footer', $page['footer']);
+        die;
 }
 add_action('wp_ajax_save-page-json','save_page_json');

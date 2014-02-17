@@ -13,7 +13,7 @@ define ['app','apps/builder/header/show/controller'], (App)->
 
 			# get the currently editable page ID
 			getCurrentPageId : ->
-				App.headerRegion.$el.find('#aj-imp-page-sel').val()
+				$.cookie 'current-page-id'
 
 
 		# return the current ediatble page ID

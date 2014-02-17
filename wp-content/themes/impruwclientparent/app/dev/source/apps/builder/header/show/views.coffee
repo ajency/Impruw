@@ -27,8 +27,12 @@ define ['app'
 
 					className : 'navbar navbar-default'
 
-					onShow:->
+					events:
+						'change select#aj-imp-page-sel' : (evt)-> 
+									@trigger 'editable:page:changed', $(evt.target).val()
 
+					onShow:->
+						@$el.find('select#aj-imp-page-sel').val App.request "get:current:editable:page"
 						@$el.find('select#aj-imp-page-sel').selectpicker
 												style 		: 'btn-mini btn-default'
 												menuStyle	: 'dropdown'

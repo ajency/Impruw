@@ -10,7 +10,7 @@
           });
         },
         getCurrentPageId: function() {
-          return App.headerRegion.$el.find('#aj-imp-page-sel').val();
+          return $.cookie('current-page-id');
         }
       };
       App.reqres.setHandler("get:current:editable:page", function() {

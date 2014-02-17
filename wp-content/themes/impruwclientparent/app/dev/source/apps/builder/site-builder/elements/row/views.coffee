@@ -9,7 +9,8 @@ define ['app'],(App)->
 
 			className : 'row'
 
-			template : '<div class="col-md-6 column empty-column"></div><div class="col-md-6 column empty-column"></div>'
+			template : '<div data-class="col-md-6" class="col-md-6 column empty-column"></div>
+						<div data-class="col-md-6" class="col-md-6 column empty-column"></div>'
 
 			onRender:()->
 				@$el.find('.column').sortable 

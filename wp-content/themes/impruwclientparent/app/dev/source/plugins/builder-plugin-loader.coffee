@@ -16,6 +16,7 @@ define [
 		'bootstrap'
 		'radio'
 		'checkbox'
+		'cookie'
 		'localforage'
 		'holder'
 		'text'

@@ -16,7 +16,8 @@
 
         RowView.prototype.className = 'row';
 
-        RowView.prototype.template = '<div class="col-md-6 column empty-column"></div><div class="col-md-6 column empty-column"></div>';
+        RowView.prototype.template = '<div data-class="col-md-6" class="col-md-6 column empty-column"></div>\
+						<div data-class="col-md-6" class="col-md-6 column empty-column"></div>';
 
         RowView.prototype.onRender = function() {
           return this.$el.find('.column').sortable({

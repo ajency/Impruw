@@ -14,6 +14,10 @@ define ['app', 'controllers/base-controller'
 
 						view = new Show.Views.MainView
 										collection : pages	
+
+						@listenTo view, 'editable:page:changed',(pageId)->
+															# set the cookie
+															$.cookie 'current-page-id', pageId
 						
 						@show  view,
 								loading : true
