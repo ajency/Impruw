@@ -61,8 +61,9 @@ define ["app", 'backbone'], (App, Backbone) ->
                         
                     element.set data    
 
-                    element.save null,
-                                wait : true
+                    if element.get('element') isnt 'Row'
+                        element.save null,
+                                    wait : true
                                 
                     element
 

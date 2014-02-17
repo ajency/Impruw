@@ -21,10 +21,14 @@ define ['app'
 												revert 		: 'invalid'
 												items 		: '> .element-wrapper'
 												connectWith : '.droppable-column,.column'
-												handle 		: '.aj-imp-drag-handle'
+												start: (e, ui)->
+        											ui.placeholder.height ui.item.height()
+												#handle 		: '.aj-imp-drag-handle'
 												helper 		: 'clone'
 												opacity		: .65
 												receive		: (evt, ui)=> 
-													@trigger "element:dropped", $(evt.target), ui
+													# trigger drop event if ui.item is Li tag
+													if ui.item.prop("tagName") is 'LI'
+														@trigger "element:dropped", $(evt.target), ui
 												
 			return App.SiteBuilderApp.Show.View

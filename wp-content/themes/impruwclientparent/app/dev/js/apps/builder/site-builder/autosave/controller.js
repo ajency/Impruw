@@ -65,10 +65,10 @@
           _.each(elements, function(element, index) {
             var ele;
             ele = {
-              type: $(element).find('form input[name="element_type"]').val(),
+              type: $(element).find('form input[name="element"]').val(),
               meta_id: parseInt($(element).find('form input[name="meta_id"]').val())
             };
-            if (ele.type === 'BuilderRow') {
+            if (ele.type === 'Row') {
               _.each($(element).find('.column'), function(column, index) {
                 ele["col-" + (index + 1)] = _this._getJson($(column));
               });

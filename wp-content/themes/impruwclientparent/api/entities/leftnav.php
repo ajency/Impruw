@@ -66,6 +66,13 @@ function get_elementbox_elements(){
 												'templates' => get_templates('Menu'),
 												'align' 	=> 'left',
 												'draggable' => true
+										),
+										array(	'element' 	=> 'Row'	, 
+												'title' 	=> 'Row'	, 
+												'icon' 		=> '' , 
+												'styles' 	=> array('Green Background','Blue Background'),
+												'templates' => array(),
+												'draggable' => true
 										)
 									)
 					)

@@ -56,10 +56,10 @@ define ['app'], (App)->
 				_.each elements, (element, index)=>
 					
 					ele =
-						type 	: $(element).find('form input[name="element_type"]').val()
+						type 	: $(element).find('form input[name="element"]').val()
 						meta_id : parseInt $(element).find('form input[name="meta_id"]').val()
 
-					if ele.type is 'BuilderRow'
+					if ele.type is 'Row'
 						_.each $(element).find('.column'), (column, index)=>
 							ele["col-#{index + 1}"] = @_getJson $(column)
 							return

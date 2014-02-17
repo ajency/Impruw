@@ -3,8 +3,8 @@
   var __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  define(['app', 'controllers/base-controller', 'apps/builder/site-builder/elements/menu/settings/views'], function(App, AppController) {
-    return App.module('SiteBuilderApp.Element.Menu.Settings', function(Settings, App, Backbone, Marionette, $, _) {
+  define(['app', 'controllers/base-controller', 'apps/builder/site-builder/elements/row/settings/views'], function(App, AppController) {
+    return App.module('SiteBuilderApp.Element.Row.Settings', function(Settings, App, Backbone, Marionette, $, _) {
       var _ref;
       Settings.Controller = (function(_super) {
         __extends(Controller, _super);
@@ -22,7 +22,7 @@
           }
           this.model = opt.model;
           this.region = App.settingsRegion;
-          config = App.request("get:element:settings:options", 'Menu');
+          config = App.request("get:element:settings:options", 'Row');
           view = this._getSettingView(this.model, config);
           this.listenTo(view, 'render', function() {
             _this.region.$el.css('top', 200);
@@ -57,7 +57,7 @@
         return Controller;
 
       })(AppController);
-      return App.vent.on("show:menu:settings:popup", function(model) {
+      return App.vent.on("show:row:settings:popup", function(model) {
         return new Settings.Controller({
           model: model
         });

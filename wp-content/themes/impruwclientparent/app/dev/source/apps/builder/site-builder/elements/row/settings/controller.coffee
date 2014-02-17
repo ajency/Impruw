@@ -1,7 +1,7 @@
-define ['app','controllers/base-controller','apps/builder/site-builder/elements/menu/settings/views'],
+define ['app','controllers/base-controller','apps/builder/site-builder/elements/row/settings/views'],
 		(App, AppController)->
 
-			App.module 'SiteBuilderApp.Element.Menu.Settings', (Settings, App, Backbone, Marionette, $, _)->
+			App.module 'SiteBuilderApp.Element.Row.Settings', (Settings, App, Backbone, Marionette, $, _)->
 
 				# menu controller
 				class Settings.Controller extends AppController
@@ -10,7 +10,7 @@ define ['app','controllers/base-controller','apps/builder/site-builder/elements/
 					initialize:(opt ={})->
 						{ @model } = opt
 						@region = App.settingsRegion
-						config  = App.request "get:element:settings:options", 'Menu'
+						config  = App.request "get:element:settings:options", 'Row'
 						view = @_getSettingView @model, config
 
 						@listenTo view, 'render', =>
@@ -41,7 +41,7 @@ define ['app','controllers/base-controller','apps/builder/site-builder/elements/
 												config: config
 
 
-				App.vent.on "show:menu:settings:popup", (model)->
+				App.vent.on "show:row:settings:popup", (model)->
 					new Settings.Controller
 									model : model
 

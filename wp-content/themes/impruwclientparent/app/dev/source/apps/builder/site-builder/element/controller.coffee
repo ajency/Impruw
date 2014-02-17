@@ -32,7 +32,7 @@ define ['app', 'controllers/builder-base-controller'
 						App.commands.execute "when:fetched", [element], =>
 									@view.triggerMethod "element:model:created"
 
-
+						
 						@add @view, $(container)
 
 

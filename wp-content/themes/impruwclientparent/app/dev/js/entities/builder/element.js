@@ -74,9 +74,11 @@
           }
           element = new Elements.ElementModel;
           element.set(data);
-          element.save(null, {
-            wait: true
-          });
+          if (element.get('element') !== 'Row') {
+            element.save(null, {
+              wait: true
+            });
+          }
           return element;
         }
       };

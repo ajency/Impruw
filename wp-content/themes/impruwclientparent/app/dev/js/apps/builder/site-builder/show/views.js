@@ -31,11 +31,15 @@
             revert: 'invalid',
             items: '> .element-wrapper',
             connectWith: '.droppable-column,.column',
-            handle: '.aj-imp-drag-handle',
+            start: function(e, ui) {
+              return ui.placeholder.height(ui.item.height());
+            },
             helper: 'clone',
             opacity: .65,
             receive: function(evt, ui) {
-              return _this.trigger("element:dropped", $(evt.target), ui);
+              if (ui.item.prop("tagName") === 'LI') {
+                return _this.trigger("element:dropped", $(evt.target), ui);
+              }
             }
           });
         };
