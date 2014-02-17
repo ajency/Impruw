@@ -15,26 +15,24 @@
         }
 
         Controller.prototype.initialize = function(opt) {
-          var config, model, view, x, y,
+          var config, model, view,
             _this = this;
           if (opt == null) {
             opt = {};
           }
-          model = opt.model, x = opt.x, y = opt.y;
+          model = opt.model;
           this.region = App.settingsRegion;
           config = App.request("get:element:settings:options", 'Menu');
           view = this._getSettingView(model, config);
-          x = screen.width / 2 - this.$el.width() / 2;
-          y = screen.height / 2 - this.$el.height() / 2;
           this.listenTo(view, 'render', function() {
-            _this.region.$el.css('top', x);
-            return _this.region.$el.css('left', y);
+            _this.region.$el.css('top', 200);
+            return _this.region.$el.css('left', 200);
           });
           this.listenTo(view, "element:style:changed", function(style) {
             return model.set("style", style);
           });
           this.listenTo(view, "element:alignment:changed", function(align) {
-            return model.set("alignment", align);
+            return model.set("align", align);
           });
           return this.show(view);
         };

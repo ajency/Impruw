@@ -11,11 +11,12 @@ header.settings-header
 					label(for='') Choose Style
 					select(name="style")
 						{{#config.styles}}
-						option(value="{{.}}" {{#model.style === .}}selected="selected"{{}}) {{.}}
+						option(value="{{.}}") {{.}}
 						{{/config.styles}}
 				.form-group
 					label(for='') Align
 					select(name="align")
-						{{#config.align}}
-						option(value="{{.}}") {{.}}
-						{{/config.align}}
+						option(value="left") Left
+						option(value="center") Center
+						option(value="right") Right
+						

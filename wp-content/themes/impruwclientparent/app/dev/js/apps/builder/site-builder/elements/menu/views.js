@@ -60,24 +60,25 @@
         MenuView.prototype.itemView = Views.MenuItemView;
 
         MenuView.prototype.itemViewOptions = function() {
+          var _ref3;
           return {
-            template: '<a href="#">{{post_title}}</a>'
+            template: (_ref3 = this.options.templates.menuItemTpl) != null ? _ref3 : ''
           };
         };
 
-        MenuView.prototype.onRender1 = function() {
+        MenuView.prototype.onRender = function() {
           this.$el.removeClass();
           this.$el.addClass(this.className);
-          return this.$el.addClass(this.options.eleModel.get('templates').className);
+          return this.$el.addClass(this.options.templates.className);
         };
 
         MenuView.prototype.onBeforeRender = function() {
           return this.collection.sort();
         };
 
-        MenuView.prototype.setAlignment = function(model) {
+        MenuView.prototype.setAlignment = function(align) {
           this.$el.removeClass('navbar-left navbar-center navbar-right');
-          return this.$el.addClass("navbar-" + (_.slugify(model.get('alignment'))));
+          return this.$el.addClass("navbar-" + align);
         };
 
         return MenuView;

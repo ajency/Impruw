@@ -29,7 +29,6 @@
             config: config,
             model: modelData
           };
-          console.log(data);
           return data;
         };
 

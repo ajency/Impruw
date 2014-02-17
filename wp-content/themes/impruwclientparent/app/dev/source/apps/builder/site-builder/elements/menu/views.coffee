@@ -28,14 +28,14 @@ define ['app'],
 					
 					# item view options
 					itemViewOptions :=>
-						template : '<a href="#">{{post_title}}</a>'
+						template : @options.templates.menuItemTpl ? ''
 
 					# on render set the class name
-					onRender1:->
+					onRender:->
 						@$el.removeClass()
 						@$el.addClass @className
-						@$el.addClass @options.eleModel.get('templates').className
-
+						@$el.addClass @options.templates.className
+						
 					# before rendering the view sort the collection
 					# this helps to reorder the menu items before
 					# the collection is rendered with item views
@@ -43,9 +43,9 @@ define ['app'],
 						@collection.sort()
 
 					#
-					setAlignment:(model)=>
+					setAlignment:(align)=>
 						@$el.removeClass 'navbar-left navbar-center navbar-right'
-						@$el.addClass "navbar-#{_.slugify model.get 'alignment' }"
+						@$el.addClass "navbar-#{align}"
 						
 
 			App.SiteBuilderApp.Element.Menu.Views

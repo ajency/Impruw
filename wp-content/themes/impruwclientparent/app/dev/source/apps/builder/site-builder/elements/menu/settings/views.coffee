@@ -20,7 +20,6 @@ define ['app', 'text!apps/builder/site-builder/elements/menu/settings/templates/
 							config 	: config
 							model	: modelData
 
-						console.log data
 						data
 
 					events:

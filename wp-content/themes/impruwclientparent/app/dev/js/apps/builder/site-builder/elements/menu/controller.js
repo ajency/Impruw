@@ -17,25 +17,33 @@
         }
 
         Controller.prototype.initialize = function(options) {
+          var _this = this;
           if (options == null) {
             options = {};
           }
           Controller.__super__.initialize.call(this, options);
-          return this.listenTo(this.view.model, "change:menu_id", this.showView);
+          this.listenTo(this.view.model, "change:menu_id", this.showView);
+          this.listenTo(this.view.model, "change:style", this.showView);
+          return this.listenTo(this.view.model, "change:align", function(model) {
+            return _this.view.elementRegion.currentView.setAlignment(model.get('align'));
+          });
         };
 
-        Controller.prototype._getMenuView = function(model, collection) {
+        Controller.prototype._getMenuView = function(model, collection, templates) {
           return new Menu.Views.MenuView({
             model: model,
-            collection: collection
+            collection: collection,
+            templates: templates
           });
         };
 
         Controller.prototype.showView = function(model) {
-          var itemCollection, menu, view;
+          var elementBox, itemCollection, menu, templates, view;
           menu = App.request("get:collection:model", "menucollection", model.get('menu_id'));
           itemCollection = menu.get('menu_items');
-          view = this._getMenuView(menu, itemCollection);
+          elementBox = App.request("get:collection:model", "elementbox", 'Menu');
+          templates = elementBox.get('templates')[model.get('style')];
+          view = this._getMenuView(menu, itemCollection, templates);
           return this.view.elementRegion.show(view);
         };
 
