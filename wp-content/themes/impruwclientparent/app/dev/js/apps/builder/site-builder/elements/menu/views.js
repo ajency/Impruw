@@ -47,6 +47,7 @@
         __extends(MenuView, _super);
 
         function MenuView() {
+          this.setAlignment = __bind(this.setAlignment, this);
           this.itemViewOptions = __bind(this.itemViewOptions, this);
           _ref2 = MenuView.__super__.constructor.apply(this, arguments);
           return _ref2;
@@ -79,6 +80,11 @@
 
         MenuView.prototype.onBeforeRender = function() {
           return this.collection.sort();
+        };
+
+        MenuView.prototype.setAlignment = function(model) {
+          this.$el.removeClass('navbar-left navbar-center navbar-right');
+          return this.$el.addClass("navbar-" + (_.slugify(model.get('alignment'))));
         };
 
         return MenuView;

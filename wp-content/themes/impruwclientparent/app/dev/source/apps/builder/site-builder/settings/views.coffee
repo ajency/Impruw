@@ -15,12 +15,18 @@ define ['app'
 						'click .close-settings' : (evt)-> 
 										evt.preventDefault()
 										App.settingsRegion.close()
-						'change select[name="style"]': 'updateStyle'
+						'change select[name="style"]' : 'updateStyle'
+						'change select[name="align"]' : 'alignElement'
 
 					# update the style 
 					updateStyle:(evt)=>
 						newStyle = $(evt.target).val()
 						@trigger "element:style:changed", newStyle
+
+					# align
+					alignElement :(evt)->
+						align = $(evt.target).val()
+						@trigger "element:alignment:changed", align
 						
 
 							

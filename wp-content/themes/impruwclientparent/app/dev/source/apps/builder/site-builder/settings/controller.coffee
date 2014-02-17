@@ -22,7 +22,10 @@ define ['app', 'controllers/base-controller'
 											@region.$el.css 'left',y	
 						
 						@listenTo view, "element:style:changed",(style)=>
-													model.set "style", style											
+														model.set "style", style
+
+						@listenTo view, "element:alignment:changed",(align)=>
+														model.set "alignment", align												
 
 						@show  view
 

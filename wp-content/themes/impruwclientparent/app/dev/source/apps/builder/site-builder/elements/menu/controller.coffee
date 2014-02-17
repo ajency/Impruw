@@ -16,10 +16,6 @@ define ['app','apps/builder/site-builder/elements/menu/views'],
 								collection 	: menu.get 'menu_items'
 								eleModel 	: eleModel
 
-					# fetch new style
-					fetchNewStyle:->
-						console.log "fetch new style"
-
 					# setup templates for the element
 					setupViews: ->
 
@@ -39,13 +35,12 @@ define ['app','apps/builder/site-builder/elements/menu/views'],
 						@listenTo menuView, "show:menu:manager", ()=>
 														App.vent.trigger "show:menu:manager"
 
-
 						# listen to order change event
 						# this will rerender the menu element with new order
 						# view will sort the menu items wiht onBeforeRender function
 						@listenTo menu.get('menu_items'), "menu:order:updated", menuView.render
-						@listenTo model, 'change:templates', =>
-														menuView.render()
+						@listenTo model, 'change:templates', menuView.render
+						@listenTo model, 'change:alignment', menuView.setAlignment
 
 
 

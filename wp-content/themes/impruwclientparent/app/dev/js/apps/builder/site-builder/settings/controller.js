@@ -32,6 +32,9 @@
           this.listenTo(view, "element:style:changed", function(style) {
             return model.set("style", style);
           });
+          this.listenTo(view, "element:alignment:changed", function(align) {
+            return model.set("alignment", align);
+          });
           return this.show(view);
         };
 

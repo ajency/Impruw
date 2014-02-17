@@ -10,6 +10,7 @@ define [
 		'backbonesyphon'
 		'mustache'
 		'backboneassociations'
+		'underscorestring'
 		'jqueryvalidate'
 		'marionette'
 		'bootstrap'

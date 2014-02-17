@@ -23,6 +23,7 @@ require.config
 		holder 				: 'plugins/holder'
 		mustache			: 'plugins/Mustache'
 		bootstrapselect 	: 'plugins/bootstrapselect'
+		underscorestring 	: 'plugins/underscore.string'
 		radio 				: 'plugins/flatui-radio'
 		checkbox			: 'plugins/flatui-checkbox'
 		ckeditor			: 'plugins/ckeditor'
@@ -59,6 +60,7 @@ require.config
 		#ckeditor 	: 'CKEDITOR'
 		holder 		: 'Holder'
 		jqueryvalidate 		: ['jquery']
+		underscorestring 	: ['underscore']
 		backboneform 		: ['backbone']
 		backbonesyphon 		: ['backbone']
 		backbonerelational 	: ['backbone']

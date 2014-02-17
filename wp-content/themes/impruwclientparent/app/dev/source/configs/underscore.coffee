@@ -1,12 +1,14 @@
 ##
 ##
 ##
-define ['underscore'], ( _ ) ->
+define ['underscore', 'underscorestring'], ( _) ->
 
 	# overwrite template settings defaults to use mustache style
 	_.templateSettings =
 			evaluate : /\{\[([\s\S]+?)\]\}/g,
 			interpolate : /\{\{([\s\S]+?)\}\}/g
+
+	_.mixin _.str.exports()
 	
 	# mixin to add additional functionality underscore
 	_.mixin

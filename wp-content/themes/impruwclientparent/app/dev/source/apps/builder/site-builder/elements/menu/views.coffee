@@ -13,20 +13,17 @@ define ['app'],
 
 					tagName : 'li'
 
+
 				# Submenu view
 				class Views.SubMenuView extends Marionette.CompositeView
-
 					itemView : Views.MenuItemView
-
 					itemViewContainer : 'ul.submenu'
+
 
 				# Menu view
 				class Views.MenuView extends Marionette.CompositeView
-
 					tagName : 'ul'
-
 					className : 'nav'
-
 					events : 
 						'click li' : (evt)->
 							evt.stopPropagation()
@@ -49,6 +46,11 @@ define ['app'],
 					# the collection is rendered with item views
 					onBeforeRender:->
 						@collection.sort()
+
+					#
+					setAlignment:(model)=>
+						@$el.removeClass 'navbar-left navbar-center navbar-right'
+						@$el.addClass "navbar-#{_.slugify model.get 'alignment' }"
 						
 
 			App.SiteBuilderApp.Element.Menu.Views

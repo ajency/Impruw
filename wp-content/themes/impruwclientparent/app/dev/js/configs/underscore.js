@@ -2,11 +2,12 @@
 (function() {
   var __slice = [].slice;
 
-  define(['underscore'], function(_) {
+  define(['underscore', 'underscorestring'], function(_) {
     _.templateSettings = {
       evaluate: /\{\[([\s\S]+?)\]\}/g,
       interpolate: /\{\{([\s\S]+?)\}\}/g
     };
+    _.mixin(_.str.exports());
     return _.mixin({
       logAppMsg: function() {
         var msg;

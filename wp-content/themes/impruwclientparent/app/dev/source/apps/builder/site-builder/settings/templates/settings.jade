@@ -13,3 +13,9 @@ header.settings-header
 						{{#styles}}
 						option(value="{{.}}") {{.}}
 						{{/styles}}
+				.form-group
+					label(for='') Align
+					select(name="align")
+						{{#align}}
+						option(value="{{.}}") {{.}}
+						{{/align}}

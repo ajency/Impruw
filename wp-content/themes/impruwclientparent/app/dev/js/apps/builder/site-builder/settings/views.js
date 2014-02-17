@@ -25,13 +25,20 @@
             evt.preventDefault();
             return App.settingsRegion.close();
           },
-          'change select[name="style"]': 'updateStyle'
+          'change select[name="style"]': 'updateStyle',
+          'change select[name="align"]': 'alignElement'
         };
 
         SettingView.prototype.updateStyle = function(evt) {
           var newStyle;
           newStyle = $(evt.target).val();
           return this.trigger("element:style:changed", newStyle);
+        };
+
+        SettingView.prototype.alignElement = function(evt) {
+          var align;
+          align = $(evt.target).val();
+          return this.trigger("element:alignment:changed", align);
         };
 
         return SettingView;
