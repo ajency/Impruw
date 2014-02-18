@@ -35,10 +35,18 @@
         SettingsView.prototype.onRender = function() {
           this.$el.find('input[type="checkbox"]').checkbox();
           this.$el.find('input[type="radio"]').radio();
-          return this.$el.find('select').selectpicker({
-            style: 'btn-mini btn-default',
-            menuStyle: 'dropdown'
-          });
+          return this.setFields();
+        };
+
+        SettingsView.prototype.setFields = function() {
+          if (this.model.get('draggable') === true) {
+            this.$el.find('input[name="draggable"]').checkbox('check');
+          }
+          if (this.model.get('justified') === true) {
+            this.$el.find('input[name="justified"]').checkbox('check');
+          }
+          this.$el.find('select[name="style"]').val(this.model.get('style'));
+          return this.$el.find('select[name="align"]').val(this.model.get('align'));
         };
 
         SettingsView.prototype.events = {
@@ -48,7 +56,8 @@
           },
           'change select[name="style"]': 'updateStyle',
           'change select[name="align"]': 'alignElement',
-          'change input[name="draggable"]': 'setDraggable'
+          'change input[name="draggable"]': 'setDraggable',
+          'change input[name="justified"]': 'setJustified'
         };
 
         SettingsView.prototype.updateStyle = function(evt) {
@@ -61,6 +70,12 @@
           var align;
           align = $(evt.target).val();
           return this.trigger("element:alignment:changed", align);
+        };
+
+        SettingsView.prototype.setJustified = function(evt) {
+          var align;
+          align = $(evt.target).is(':checked');
+          return this.trigger("element:justified:changed", align);
         };
 
         SettingsView.prototype.setDraggable = function(evt) {

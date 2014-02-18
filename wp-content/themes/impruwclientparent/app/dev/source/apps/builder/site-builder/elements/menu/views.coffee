@@ -35,6 +35,8 @@ define ['app'],
 						@$el.removeClass()
 						@$el.addClass @className
 						@$el.addClass @options.templates.className
+						@setAlignment @options.prop.align
+						@onSetJustified @options.prop.justified
 						
 					# before rendering the view sort the collection
 					# this helps to reorder the menu items before
@@ -42,10 +44,16 @@ define ['app'],
 					onBeforeRender:->
 						@collection.sort()
 
-					#
+					# set alignment
 					setAlignment:(align)=>
 						@$el.removeClass 'navbar-left navbar-center navbar-right'
 						@$el.addClass "navbar-#{align}"
-						
+
+					# set justified
+					onSetJustified:(val)->
+						if val is true
+							@$el.addClass "nav-justified"
+						else
+							@$el.removeClass "nav-justified"
 
 			App.SiteBuilderApp.Element.Menu.Views

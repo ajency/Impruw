@@ -30,8 +30,8 @@
           this.listenTo(this.layout.model, "change:menu_id", this.showView);
           this.listenTo(this.layout.model, "change:style", this.showView);
           this.listenTo(this.layout.model, "change:draggable", this.setDraggable);
-          return this.listenTo(this.layout.model, "change:align", function(model) {
-            return _this.layout.elementRegion.currentView.setAlignment(model.get('align'));
+          return this.listenTo(this.layout.model, "change:justified", function(model) {
+            return _this.layout.elementRegion.currentView.triggerMethod("set:justified", model.get('justified'));
           });
         };
 
@@ -39,7 +39,8 @@
           return new Menu.Views.MenuView({
             model: model,
             collection: collection,
-            templates: templates
+            templates: templates,
+            prop: this.layout.model.toJSON()
           });
         };
 

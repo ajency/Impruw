@@ -40,6 +40,7 @@ class MenuElement extends Element {
     function __construct($element) {
         parent::__construct($element);
         $this->menu_id = $element['menu_id'];
+        $this->justified = $element['justified'];
         $templates =  get_templates('Menu');
         $this->templates = $templates[$element['style']]; 
         $this->markup = $this->generateMarkup();
@@ -62,9 +63,10 @@ class MenuElement extends Element {
     function get_menu(){
         global $me;
         $menu = get_site_menu_by_id($this->menu_id);
-        $html = "<ul class='nav {$this->templates['className']}'>";
+        $justified = $this->justified ? 'nav-justified' : '';
+        $html = "<ul class='nav {$this->templates['className']} $justified'>";
         foreach($menu['menu_items'] as $item):
-            $html .= '<li>' . $me->render($this->templates['menuItemTpl'], $item) . '<li>    ';
+            $html .= '<li>' . $me->render($this->templates['menuItemTpl'], $item) . '</li>';
         endforeach;
         $html .= "</ul>";
         return $html;

@@ -47,7 +47,6 @@ define ['app'],(App)->
 				columns[index]
 
 			clearResizers:()->
-				console.log @getResizers()
 				for resizer in @getResizers()
 					$(resizer).draggable 'destroy'
 					return
@@ -135,12 +134,9 @@ define ['app'],(App)->
 						currentClassZero--
 						currentClassOne++
 						
-				$(columns[0]).attr 'data-class',currentClassZero
-				$(columns[1]).attr 'data-class',currentClassOne
-				# add classes
-				$(columns[0]).addClass "col-md-#{currentClassZero}"
-				$(columns[1]).addClass "col-md-#{currentClassOne}"
-
+				$(columns[0]).attr('data-class',currentClassZero).addClass "col-md-#{currentClassZero}"
+				$(columns[1]).attr('data-class',currentClassOne).addClass "col-md-#{currentClassOne}"
+				
 			# 
 			adjustColumnsInRow :(count)=>
 				requestedColumns = count

@@ -71,7 +71,6 @@
 
         RowView.prototype.clearResizers = function() {
           var resizer, _i, _len, _ref1;
-          console.log(this.getResizers());
           _ref1 = this.getResizers();
           for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
             resizer = _ref1[_i];
@@ -170,10 +169,8 @@
               currentClassZero--;
               currentClassOne++;
           }
-          $(columns[0]).attr('data-class', currentClassZero);
-          $(columns[1]).attr('data-class', currentClassOne);
-          $(columns[0]).addClass("col-md-" + currentClassZero);
-          return $(columns[1]).addClass("col-md-" + currentClassOne);
+          $(columns[0]).attr('data-class', currentClassZero).addClass("col-md-" + currentClassZero);
+          return $(columns[1]).attr('data-class', currentClassOne).addClass("col-md-" + currentClassOne);
         };
 
         RowView.prototype.adjustColumnsInRow = function(count) {

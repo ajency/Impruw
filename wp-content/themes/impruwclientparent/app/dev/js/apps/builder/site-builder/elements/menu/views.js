@@ -69,7 +69,9 @@
         MenuView.prototype.onRender = function() {
           this.$el.removeClass();
           this.$el.addClass(this.className);
-          return this.$el.addClass(this.options.templates.className);
+          this.$el.addClass(this.options.templates.className);
+          this.setAlignment(this.options.prop.align);
+          return this.onSetJustified(this.options.prop.justified);
         };
 
         MenuView.prototype.onBeforeRender = function() {
@@ -79,6 +81,14 @@
         MenuView.prototype.setAlignment = function(align) {
           this.$el.removeClass('navbar-left navbar-center navbar-right');
           return this.$el.addClass("navbar-" + align);
+        };
+
+        MenuView.prototype.onSetJustified = function(val) {
+          if (val === true) {
+            return this.$el.addClass("nav-justified");
+          } else {
+            return this.$el.removeClass("nav-justified");
+          }
         };
 
         return MenuView;

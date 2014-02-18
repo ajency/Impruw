@@ -16,14 +16,18 @@ define ['app','apps/builder/site-builder/elements/menu/views','apps/builder/site
 						@listenTo @layout.model, "change:menu_id", @showView
 						@listenTo @layout.model, "change:style", @showView
 						@listenTo @layout.model, "change:draggable", @setDraggable
-						@listenTo @layout.model, "change:align",(model)=>
-							@layout.elementRegion.currentView.setAlignment model.get 'align'
+						@listenTo @layout.model, "change:justified",(model)=>
+							@layout.elementRegion.currentView.triggerMethod "set:justified",model.get 'justified'
+
+						# @listenTo @layout.model, "change:align",(model)=>
+						# 	@layout.elementRegion.currentView.setAlignment model.get 'align'
 						
 					_getMenuView:(model, collection, templates)->
 						new Menu.Views.MenuView
 								model 		: model
 								collection 	: collection,
 								templates   : templates
+								prop 		: @layout.model.toJSON()
 
 					# set draggable
 					setDraggable:(model)=>

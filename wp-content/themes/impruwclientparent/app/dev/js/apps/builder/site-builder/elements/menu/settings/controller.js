@@ -37,6 +37,9 @@
           this.listenTo(view, "element:draggable:changed", function(draggable) {
             return _this.model.set("draggable", draggable);
           });
+          this.listenTo(view, "element:justified:changed", function(justified) {
+            return _this.model.set("justified", justified);
+          });
           return this.show(view);
         };
 

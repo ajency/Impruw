@@ -25,9 +25,21 @@ define ['app', 'text!apps/builder/site-builder/elements/menu/settings/templates/
 					onRender:->
 						@$el.find('input[type="checkbox"]').checkbox()
 						@$el.find('input[type="radio"]').radio()
-						@$el.find('select').selectpicker 
-												style: 'btn-mini btn-default',
-												menuStyle: 'dropdown'
+						#@$el.find('select').selectpicker() 
+						@setFields()
+
+					# set fields for the form
+					setFields:->
+						if @model.get('draggable') is true
+							@$el.find('input[name="draggable"]').checkbox('check')
+						if @model.get('justified') is true
+							@$el.find('input[name="justified"]').checkbox('check')
+
+						# @$el.find('select[name="style"]').selectpicker 'val',@model.get 'style'
+						# @$el.find('select[name="align"]').selectpicker 'val',@model.get 'align'
+						@$el.find('select[name="style"]').val @model.get 'style'
+						@$el.find('select[name="align"]').val @model.get 'align'
+
 
 					events:
 						'click .close-settings' : (evt)-> 
@@ -36,6 +48,7 @@ define ['app', 'text!apps/builder/site-builder/elements/menu/settings/templates/
 						'change select[name="style"]' 	: 'updateStyle'
 						'change select[name="align"]' 	: 'alignElement'
 						'change input[name="draggable"]': 'setDraggable'
+						'change input[name="justified"]': 'setJustified'
 
 					# update the style 
 					updateStyle:(evt)=>
@@ -46,6 +59,11 @@ define ['app', 'text!apps/builder/site-builder/elements/menu/settings/templates/
 					alignElement :(evt)->
 						align = $(evt.target).val()
 						@trigger "element:alignment:changed", align
+
+					# align
+					setJustified :(evt)->
+						align = $(evt.target).is(':checked')
+						@trigger "element:justified:changed", align
 
 					#setDraggable
 					setDraggable:(evt)->

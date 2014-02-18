@@ -24,31 +24,12 @@ define ['app', 'text!apps/builder/site-builder/elements/row/settings/templates/s
 
 					onRender:->
 						@$el.find('input[type="checkbox"]').checkbox()
-						@$el.find('input[type="radio"]').radio()
 						@$el.find('select').selectpicker 
-												style: 'btn-mini btn-default',
-												menuStyle: 'dropdown'
+												style: 'btn-mini btn-default'
 
 					events:
 						'click .close-settings' : (evt)-> 
 											evt.preventDefault()
 											App.settingsRegion.close()
-						'change select[name="style"]' 	: 'updateStyle'
-						'change select[name="align"]' 	: 'alignElement'
-						'change input[name="draggable"]': 'setDraggable'
-
-					# update the style 
-					updateStyle:(evt)=>
-						newStyle = $(evt.target).val()
-						@trigger "element:style:changed", newStyle
-
-					# align
-					alignElement :(evt)->
-						align = $(evt.target).val()
-						@trigger "element:alignment:changed", align
-
-					#setDraggable
-					setDraggable:(evt)->
-						draggable = $(evt.target).is(':checked')
-						@trigger "element:draggable:changed", draggable
-					
+						'change select[name="style"]' 	:(evt)-> @trigger "element:style:changed", $(evt.target).val()
+						'change input[name="draggable"]': (evt)-> @trigger "element:draggable:changed", $(evt.target).is(':checked')

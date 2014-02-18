@@ -26,6 +26,9 @@ define ['app','controllers/base-controller','apps/builder/site-builder/elements/
 						@listenTo view, "element:draggable:changed", (draggable)=>
 														@model.set "draggable", draggable	
 
+						@listenTo view, "element:justified:changed", (justified)=>
+														@model.set "justified", justified	
+
 						@show view
 
 					# time to save model to server
