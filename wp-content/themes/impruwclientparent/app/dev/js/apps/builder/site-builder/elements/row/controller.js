@@ -18,9 +18,6 @@
         }
 
         Controller.prototype.initialize = function(options) {
-          if (options == null) {
-            options = {};
-          }
           Controller.__super__.initialize.call(this, options);
           this.bindEvents();
           return this.showView();
@@ -32,7 +29,9 @@
         };
 
         Controller.prototype._getRowView = function() {
-          return new Row.Views.RowView;
+          return new Row.Views.RowView({
+            model: this.layout.model
+          });
         };
 
         Controller.prototype.setDraggable = function(model) {
@@ -45,6 +44,7 @@
 
         Controller.prototype.showView = function() {
           var view;
+          this.removeSpinner();
           view = this._getRowView();
           return this.layout.elementRegion.show(view);
         };

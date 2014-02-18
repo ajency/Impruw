@@ -25,16 +25,31 @@ define ['app', 'controllers/base-controller'
 						# triggered when all models are fetched for the page
 						# usign this event to start filling up the builder 
 						# with elements
-						@listenTo @view, "dependencies:fetched", @startFillingElements
+						@listenTo @view, "dependencies:fetched", =>
+								_.delay =>
+									@startFillingElements()
+								, 2000
 
 						@show  @view,
 								loading : true
+
+					_getContainer :(section)->
+						switch section
+							when 'header' 
+								$('#site-header-region')
+							when 'page' 
+								$('#site-page-content-region')
+							when 'footer' 
+								$('#site-footer-region')
+
 
 					# start filling elements
 					startFillingElements: ()->
 						json = @view.model.get('json')
 						_.each json, (section, key)=>
-							console.log key	
+							container = @_getContainer key
+							_.each section, (element, index)=>
+								App.vent.trigger "element:dropped",container,element.element, element
 
 
 

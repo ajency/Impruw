@@ -77,7 +77,7 @@
           }
           element = new Elements.ElementModel;
           element.set(data);
-          if (element.get('element') !== 'Row' || !element.isNew()) {
+          if (element.get('element') !== 'Row' && element.get('element') && 'Column' && !element.isNew()) {
             element.save(null, {
               wait: true
             });

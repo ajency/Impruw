@@ -38,7 +38,8 @@
       return App.unregister(instance, id);
     });
     App.on("initialize:after", function(options) {
-      var appState;
+      var appState, menus;
+      menus = App.request("get:site:menus");
       appState = App.request("get:current:appstate");
       App.startHistory();
       if (appState.isLoggedIn()) {

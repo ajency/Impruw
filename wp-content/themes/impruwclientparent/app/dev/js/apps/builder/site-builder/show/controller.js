@@ -15,7 +15,8 @@
         }
 
         BuilderController.prototype.initialize = function(opt) {
-          var elements, pageId;
+          var elements, pageId,
+            _this = this;
           if (opt == null) {
             opt = {};
           }
@@ -28,10 +29,25 @@
           this.listenTo(this.view, "element:dropped", function(container, type) {
             return App.vent.trigger("element:dropped", container, type);
           });
-          this.listenTo(this.view, "dependencies:fetched", this.startFillingElements);
+          this.listenTo(this.view, "dependencies:fetched", function() {
+            return _.delay(function() {
+              return _this.startFillingElements();
+            }, 2000);
+          });
           return this.show(this.view, {
             loading: true
           });
+        };
+
+        BuilderController.prototype._getContainer = function(section) {
+          switch (section) {
+            case 'header':
+              return $('#site-header-region');
+            case 'page':
+              return $('#site-page-content-region');
+            case 'footer':
+              return $('#site-footer-region');
+          }
         };
 
         BuilderController.prototype.startFillingElements = function() {
@@ -39,7 +55,11 @@
             _this = this;
           json = this.view.model.get('json');
           return _.each(json, function(section, key) {
-            return console.log(key);
+            var container;
+            container = _this._getContainer(key);
+            return _.each(section, function(element, index) {
+              return App.vent.trigger("element:dropped", container, element.element, element);
+            });
           });
         };
 

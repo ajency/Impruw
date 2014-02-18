@@ -7,7 +7,7 @@ define ['app','apps/builder/site-builder/elements/row/views','apps/builder/site-
 				class Row.Controller extends App.SiteBuilderApp.Element.Controller
 
 					# intializer
-					initialize:(options = {})->
+					initialize:(options)->
 						super(options)
 						@bindEvents()
 						@showView()
@@ -19,6 +19,7 @@ define ['app','apps/builder/site-builder/elements/row/views','apps/builder/site-
 						
 					_getRowView:()->
 						new Row.Views.RowView
+										model : @layout.model
 
 					# set draggable
 					setDraggable:(model)=>
@@ -29,6 +30,7 @@ define ['app','apps/builder/site-builder/elements/row/views','apps/builder/site-
 								
 					# setup templates for the element
 					showView:()=>
+						@removeSpinner()
 						# get menu 
 						view = @_getRowView()
 						@layout.elementRegion.show view

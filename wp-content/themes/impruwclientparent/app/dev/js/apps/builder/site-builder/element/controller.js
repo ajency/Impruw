@@ -14,21 +14,14 @@
           return _ref;
         }
 
-        Controller.prototype.initialize = function(container, type, modelData) {
-          var element, options,
+        Controller.prototype.initialize = function(opts) {
+          var container, element, modelData, options, type,
             _this = this;
-          if (type == null) {
-            type = '';
-          }
-          if (modelData == null) {
-            modelData = {};
-          }
+          container = opts.container, type = opts.type, modelData = opts.modelData;
           options = {
             element: type
           };
           _.defaults(options, modelData);
-          console.log(options);
-          return;
           element = App.request("create:new:element", options);
           this.layout = this._getView(element);
           this.listenTo(this.layout, "show:setting:popup", function(model) {
@@ -56,13 +49,10 @@
           });
         };
 
-        Controller.prototype.addElementMarkup = function(view) {
+        Controller.prototype.removeSpinner = function() {
           if (this.layout.$el.find('.element-markup > span').length > 0) {
-            this.layout.$el.find('.element-markup > span').spin(false);
+            return this.layout.$el.find('.element-markup > span').spin(false);
           }
-          this.layout.$el.find('.element-markup').empty().html(view.$el);
-          view.render();
-          return view.triggerMethod("show");
         };
 
         Controller.prototype.deleteElement = function(model) {

@@ -8,7 +8,11 @@
           return this.showController = new SiteBuilderApp.Show.Controller;
         },
         appendNewElement: function(container, type, modelData) {
-          return new SiteBuilderApp.Element[type].Controller(container, type, modelData);
+          return new SiteBuilderApp.Element[type].Controller({
+            container: container,
+            type: type,
+            modelData: modelData
+          });
         },
         showSettings: function(model, x, y) {
           return new SiteBuilderApp.Settings.Controller({
@@ -40,9 +44,6 @@
         }
       };
       App.vent.on("element:dropped", function(container, type, modelData) {
-        if (type == null) {
-          type = '';
-        }
         if (modelData == null) {
           modelData = {};
         }

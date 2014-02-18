@@ -18,8 +18,15 @@ define ["marionette"
 			super args
 
 		# add new element to the section
-		add:(view, section)->
-			type = view.model.get "element"
-			section.find("li[data-element='#{type}']").replaceWith view.$el
-			view.render()
-			view.triggerMethod 'show'
+		add:(layout, section)->
+			type = layout.model.get "element"
+			if section.find("li[data-element='#{type}']").length is 1
+				section.find("li[data-element='#{type}']").replaceWith layout.$el
+			else
+				section.append layout.$el
+			layout.render()
+			layout.triggerMethod 'show'
+
+			#check if element need save
+			if not layout.model.isNew()
+				@showView layout.model

@@ -64,9 +64,9 @@ define ["app", 'backbone'], (App, Backbone) ->
                         
                     element.set data    
 
-                    if element.get('element') isnt 'Row' or not element.isNew()
+                    if element.get('element') isnt 'Row' and element.get('element') and 'Column' and not element.isNew()
                         element.save null,
-                                    wait : true
+                                     wait : true
                                 
                     element
 

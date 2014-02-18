@@ -2,7 +2,7 @@ define ['app','apps/builder/header/show/controller'], (App)->
 
 	App.module 'HeaderApp', (HeaderApp, App, Backbone, Marionette, $, _)->
 
-		@startWithParent = false
+		#@startWithParent = false
 
 		#PUBLIC API
 		API = 

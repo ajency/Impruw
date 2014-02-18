@@ -28,12 +28,19 @@
         return AppController.__super__.close.call(this, args);
       };
 
-      AppController.prototype.add = function(view, section) {
+      AppController.prototype.add = function(layout, section) {
         var type;
-        type = view.model.get("element");
-        section.find("li[data-element='" + type + "']").replaceWith(view.$el);
-        view.render();
-        return view.triggerMethod('show');
+        type = layout.model.get("element");
+        if (section.find("li[data-element='" + type + "']").length === 1) {
+          section.find("li[data-element='" + type + "']").replaceWith(layout.$el);
+        } else {
+          section.append(layout.$el);
+        }
+        layout.render();
+        layout.triggerMethod('show');
+        if (!layout.model.isNew()) {
+          return this.showView(layout.model);
+        }
       };
 
       return AppController;

@@ -18,11 +18,11 @@
         }
 
         Controller.prototype.initialize = function(options) {
-          if (options == null) {
-            options = {};
-          }
           Controller.__super__.initialize.call(this, options);
-          return this.bindEvents();
+          this.bindEvents();
+          if (!this.layout.model.isNew()) {
+            return this.showView(this.layout.model);
+          }
         };
 
         Controller.prototype.bindEvents = function() {

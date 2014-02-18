@@ -8,15 +8,14 @@ define ['app', 'controllers/builder-base-controller'
 				class Element.Controller extends AppController
 
 					# initialize the controller. Get all required entities and show the view
-					initialize:(container, type = '', modelData = {})->
+					initialize:(opts)->
+
+						{container, type, modelData} = opts
 
 						options = 
 							element : type
-
+						
 						_.defaults options, modelData
-
-						console.log options
-						return
 
 						element = App.request "create:new:element", options
 
@@ -37,7 +36,6 @@ define ['app', 'controllers/builder-base-controller'
 						App.commands.execute "when:fetched", [element], =>
 									@layout.triggerMethod "element:model:created"
 
-						
 						@add @layout, $(container)
 
 
@@ -47,14 +45,11 @@ define ['app', 'controllers/builder-base-controller'
 										model : elementModel
 
 					# show the view markup
-					addElementMarkup:(view)->
+					removeSpinner:()->
 						#stop spinner if found
 						if@layout.$el.find('.element-markup > span').length > 0
 							@layout.$el.find('.element-markup > span').spin false
 
-						@layout.$el.find('.element-markup').empty().html view.$el
-						view.render()
-						view.triggerMethod "show"
 
 					# remove the element model
 					deleteElement:(model)->

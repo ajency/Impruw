@@ -7,9 +7,13 @@ define ['app','apps/builder/site-builder/elements/menu/views','apps/builder/site
 				class Menu.Controller extends App.SiteBuilderApp.Element.Controller
 
 					# intializer
-					initialize:(options = {})->
+					initialize:(options)->
 						super(options)
 						@bindEvents()
+
+						# show if model is ready
+						if not @layout.model.isNew()
+							@showView @layout.model
 
 					bindEvents:->
 						# start listening to events

@@ -309,11 +309,17 @@ function get_page_json1(){
                         array(
                             'element'   => 'Row',
                             'draggable' => true,
-                            'meta_id'   => rand(1000,9999)
+                            'meta_id'   => rand(1000,9999),
+                            'elements'  => array(
+                                array(
+                                    'type' => 'Column'
+                                )
+                            )
                         ),
                         array(
                             'element'   => 'Menu',
                             'draggable' => true,
+                            'menu_id'   => 2,
                             'meta_id'   => rand(1000,9999),
                             'style'     => 'header',
                             'justified' => true
