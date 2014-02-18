@@ -18,7 +18,11 @@ define ['app', 'controllers/base-controller', 'apps/menu-manager/show/views'], (
 					model.get('menu_items').updateOrder newOrder, model.get 'id'
 					
 				@show view, loading : true
-
+				App.getRegion('elementsBoxRegion').hide()
+				
+			onClose: ->
+				App.navigate ''
+				App.getRegion('elementsBoxRegion').unhide()
 
 			# gets the main login view
 			getView :(menuCollection)->

@@ -5,10 +5,10 @@ define ['app'
 
 				#@startWithParent = false
 
-				# class MenuManager.Router extends Marionette.AppRouter
+				class MenuManager.Router extends Marionette.AppRouter
 
-				# 	appRoutes :
-				# 		'menu-manager' : 'show'
+					appRoutes :
+						'menu-manager' : 'show'
 
 				
 				#public API
@@ -19,4 +19,8 @@ define ['app'
 
 				
 				App.vent.on "show:menu:manager", ->
-						API.show()					
+						API.show()	
+
+				MenuManager.on "start", ->
+					new MenuManager.Router
+								controller : API				

@@ -55,6 +55,11 @@
           elementBox = App.request("get:collection:model", "elementbox", 'Menu');
           templates = elementBox.get('templates')[model.get('style')];
           view = this._getMenuView(menu, itemCollection, templates);
+          this.listenTo(view, "open:menu:manager", function() {
+            return App.navigate("menu-manager", {
+              trigger: true
+            });
+          });
           return this.layout.elementRegion.show(view);
         };
 

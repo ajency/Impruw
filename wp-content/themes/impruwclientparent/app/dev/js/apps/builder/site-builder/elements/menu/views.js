@@ -59,6 +59,15 @@
 
         MenuView.prototype.itemView = Views.MenuItemView;
 
+        MenuView.prototype.events = {
+          'click': function() {
+            return this.trigger("open:menu:manager");
+          },
+          'click a': function(evt) {
+            return evt.preventDefault();
+          }
+        };
+
         MenuView.prototype.itemViewOptions = function() {
           var _ref3;
           return {

@@ -27,7 +27,7 @@
         ElementView.prototype.className = 'element-wrapper';
 
         ElementView.prototype.events = {
-          'click': function(evt) {
+          'click .aj-imp-settings-btn': function(evt) {
             evt.stopPropagation();
             return this.trigger("show:setting:popup", this.model);
           },

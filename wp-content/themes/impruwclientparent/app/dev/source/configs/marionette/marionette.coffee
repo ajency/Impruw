@@ -37,6 +37,15 @@ define ['marionette','mustache'], (Marionette, Mustache)->
 			_.size @_registry
 
 
+	# add hide /unhide functionality to a region
+	_.extend Marionette.Region::,
+
+		hide : ->
+			@$el.hide()
+
+		unhide:->
+			@$el.show()
+
 	# overwrite the default rendering engine to mustache
 	Marionette.Renderer.render = (template, data)->
 		

@@ -47,4 +47,9 @@ define ['app','apps/builder/site-builder/elements/menu/views','apps/builder/site
 						templates = elementBox.get('templates')[model.get 'style']
 
 						view = @_getMenuView menu, itemCollection, templates
+
+						@listenTo view, "open:menu:manager", ->
+							App.navigate "menu-manager", trigger : true
+
+
 						@layout.elementRegion.show view

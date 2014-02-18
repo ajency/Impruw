@@ -319,7 +319,7 @@ function get_page_json1(){
                         array(
                             'element'   => 'Menu',
                             'draggable' => true,
-                            'menu_id'   => 2,
+                            'menu_id'   => 3,
                             'meta_id'   => rand(1000,9999),
                             'style'     => 'header',
                             'justified' => true

@@ -23,9 +23,15 @@
             newOrder = _.idOrder(order);
             return model.get('menu_items').updateOrder(newOrder, model.get('id'));
           });
-          return this.show(view, {
+          this.show(view, {
             loading: true
           });
+          return App.getRegion('elementsBoxRegion').hide();
+        };
+
+        Controller.prototype.onClose = function() {
+          App.navigate('');
+          return App.getRegion('elementsBoxRegion').unhide();
         };
 
         Controller.prototype.getView = function(menuCollection) {

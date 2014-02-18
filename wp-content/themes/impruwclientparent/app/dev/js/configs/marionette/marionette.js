@@ -50,6 +50,14 @@
         return _.size(this._registry);
       }
     });
+    _.extend(Marionette.Region.prototype, {
+      hide: function() {
+        return this.$el.hide();
+      },
+      unhide: function() {
+        return this.$el.show();
+      }
+    });
     Marionette.Renderer.render = function(template, data) {
       if (!template) {
         template = '';

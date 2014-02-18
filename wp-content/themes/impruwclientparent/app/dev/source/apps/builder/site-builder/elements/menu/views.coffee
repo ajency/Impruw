@@ -25,6 +25,10 @@ define ['app'],
 					tagName : 'ul'
 					className : 'nav'
 					itemView : Views.MenuItemView
+
+					events : 
+						'click'		: -> @trigger "open:menu:manager"
+						'click a' 	:(evt)-> evt.preventDefault() 
 					
 					# item view options
 					itemViewOptions :=>
