@@ -27,11 +27,11 @@
 
         Controller.prototype.bindEvents = function() {
           var _this = this;
-          this.listenTo(this.view.model, "change:menu_id", this.showView);
-          this.listenTo(this.view.model, "change:style", this.showView);
-          this.listenTo(this.view.model, "change:draggable", this.setDraggable);
-          return this.listenTo(this.view.model, "change:align", function(model) {
-            return _this.view.elementRegion.currentView.setAlignment(model.get('align'));
+          this.listenTo(this.layout.model, "change:menu_id", this.showView);
+          this.listenTo(this.layout.model, "change:style", this.showView);
+          this.listenTo(this.layout.model, "change:draggable", this.setDraggable);
+          return this.listenTo(this.layout.model, "change:align", function(model) {
+            return _this.layout.elementRegion.currentView.setAlignment(model.get('align'));
           });
         };
 
@@ -44,7 +44,7 @@
         };
 
         Controller.prototype.setDraggable = function(model) {
-          return this.view.triggerMethod("set:draggable", model.get('draggable'));
+          return this.layout.triggerMethod("set:draggable", model.get('draggable'));
         };
 
         Controller.prototype.showView = function(model) {
@@ -54,7 +54,7 @@
           elementBox = App.request("get:collection:model", "elementbox", 'Menu');
           templates = elementBox.get('templates')[model.get('style')];
           view = this._getMenuView(menu, itemCollection, templates);
-          return this.view.elementRegion.show(view);
+          return this.layout.elementRegion.show(view);
         };
 
         return Controller;

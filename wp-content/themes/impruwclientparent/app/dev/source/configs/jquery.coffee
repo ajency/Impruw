@@ -3,9 +3,19 @@
 define ['jquery', 'underscore', 'polyglot'], ($, _, Polyglot)->
 
 	# define helper functions
-	$.fn.isEmptyColumn=(params)->
+	$.fn.isEmptyColumn=(params = {})->
 		@children('.element-wrapper').length is 0
-	
+
+	# check if a row is empty and can be deleted
+	$.fn.canBeDeleted = ()->
+		columns = @children('.column')
+		empty = true
+		_.each columns, (column, index)=>	
+			if not $(column).isEmptyColumn()
+				empty = false
+				
+		empty
+
 	# adjust the dimesion of upper content and also the left section and right section
 	# Uses jquery to get window dimensions and sets min-height css property so that if height 
 	# is greater it will not hide the content

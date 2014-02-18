@@ -44,6 +44,9 @@ define ["app", 'backbone'], (App, Backbone) ->
                         when 'update'
                             options.data = model.toJSON()
                             Backbone.send _action,options
+                        when 'delete'
+                            options.data = model.toJSON()
+                            Backbone.send _action,options
                         else
                             Backbone.Model.prototype.sync.apply this, arguments
 

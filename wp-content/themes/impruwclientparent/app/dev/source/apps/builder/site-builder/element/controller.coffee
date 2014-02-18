@@ -15,25 +15,27 @@ define ['app', 'controllers/builder-base-controller'
 						options = 
 							element : type
 
-						window.element = App.request "create:new:element", options
+						element = App.request "create:new:element", options
 
-						@view = @_getView element
+						@layout = @_getView element
 
 						# start listening to events
-						@listenTo @view, "show:setting:popup", (model)->
+						@listenTo @layout, "show:setting:popup", (model)->
 								ele = _.slugify model.get 'element'
 								App.vent.trigger "show:#{ele}:settings:popup",model
 
 						# listen to delete element event
-						@listenTo @view, "delete:element", (model)=>
+						@listenTo @layout, "delete:element", (model)=>
 												if confirm("Are you sure?")
 													@deleteElement model
 
+						@listenTo element, "destroy", => @layout.close()
+
 						App.commands.execute "when:fetched", [element], =>
-									@view.triggerMethod "element:model:created"
+									@layout.triggerMethod "element:model:created"
 
 						
-						@add @view, $(container)
+						@add @layout, $(container)
 
 
 					# Get view
@@ -44,16 +46,17 @@ define ['app', 'controllers/builder-base-controller'
 					# show the view markup
 					addElementMarkup:(view)->
 						#stop spinner if found
-						if @view.$el.find('.element-markup > span').length > 0
-							@view.$el.find('.element-markup > span').spin false
+						if@layout.$el.find('.element-markup > span').length > 0
+							@layout.$el.find('.element-markup > span').spin false
 
-						@view.$el.find('.element-markup').empty().html view.$el
+						@layout.$el.find('.element-markup').empty().html view.$el
 						view.render()
 						view.triggerMethod "show"
 
 					# remove the element model
 					deleteElement:(model)->
-						model.destroy()
+						model.destroy 
+									wait : true
 
 
 			App.SiteBuilderApp.Element.Controller		

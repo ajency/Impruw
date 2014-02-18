@@ -3,7 +3,22 @@
   define(['jquery', 'underscore', 'polyglot'], function($, _, Polyglot) {
     var adjustPageDim;
     $.fn.isEmptyColumn = function(params) {
+      if (params == null) {
+        params = {};
+      }
       return this.children('.element-wrapper').length === 0;
+    };
+    $.fn.canBeDeleted = function() {
+      var columns, empty,
+        _this = this;
+      columns = this.children('.column');
+      empty = true;
+      _.each(columns, function(column, index) {
+        if (!$(column).isEmptyColumn()) {
+          return empty = false;
+        }
+      });
+      return empty;
     };
     adjustPageDim = _.debounce(function() {
       var height, minHeight;

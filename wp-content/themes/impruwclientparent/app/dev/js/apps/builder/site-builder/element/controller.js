@@ -15,7 +15,7 @@
         }
 
         Controller.prototype.initialize = function(opt) {
-          var container, options, type,
+          var container, element, options, type,
             _this = this;
           if (opt == null) {
             opt = {};
@@ -24,22 +24,25 @@
           options = {
             element: type
           };
-          window.element = App.request("create:new:element", options);
-          this.view = this._getView(element);
-          this.listenTo(this.view, "show:setting:popup", function(model) {
+          element = App.request("create:new:element", options);
+          this.layout = this._getView(element);
+          this.listenTo(this.layout, "show:setting:popup", function(model) {
             var ele;
             ele = _.slugify(model.get('element'));
             return App.vent.trigger("show:" + ele + ":settings:popup", model);
           });
-          this.listenTo(this.view, "delete:element", function(model) {
+          this.listenTo(this.layout, "delete:element", function(model) {
             if (confirm("Are you sure?")) {
               return _this.deleteElement(model);
             }
           });
-          App.commands.execute("when:fetched", [element], function() {
-            return _this.view.triggerMethod("element:model:created");
+          this.listenTo(element, "destroy", function() {
+            return _this.layout.close();
           });
-          return this.add(this.view, $(container));
+          App.commands.execute("when:fetched", [element], function() {
+            return _this.layout.triggerMethod("element:model:created");
+          });
+          return this.add(this.layout, $(container));
         };
 
         Controller.prototype._getView = function(elementModel) {
@@ -49,16 +52,18 @@
         };
 
         Controller.prototype.addElementMarkup = function(view) {
-          if (this.view.$el.find('.element-markup > span').length > 0) {
-            this.view.$el.find('.element-markup > span').spin(false);
+          if (this.layout.$el.find('.element-markup > span').length > 0) {
+            this.layout.$el.find('.element-markup > span').spin(false);
           }
-          this.view.$el.find('.element-markup').empty().html(view.$el);
+          this.layout.$el.find('.element-markup').empty().html(view.$el);
           view.render();
           return view.triggerMethod("show");
         };
 
         Controller.prototype.deleteElement = function(model) {
-          return model.destroy();
+          return model.destroy({
+            wait: true
+          });
         };
 
         return Controller;

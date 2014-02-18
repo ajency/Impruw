@@ -169,6 +169,25 @@ function update_element_model() {
 
 add_action('wp_ajax_update-element-model', 'update_element_model');
 
+/**
+ * [update_element_model description]
+ * @return [type] [description]
+ */
+function delete_element_model() {
+    
+    $element = $_POST;
+    $meta_id = $element['meta_id'];
+    global $wpdb;
+    $wpdb->delete($wpdb->postmeta,
+                array(
+                    'meta_id' => $meta_id
+                ));
+    
+    wp_send_json(array('code' => 'OK'));
+}
+
+add_action('wp_ajax_delete-element-model', 'delete_element_model');
+
 
 global $menus;
 $menus = array(

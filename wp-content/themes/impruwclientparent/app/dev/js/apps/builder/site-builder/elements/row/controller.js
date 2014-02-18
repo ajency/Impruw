@@ -27,8 +27,8 @@
         };
 
         Controller.prototype.bindEvents = function() {
-          this.listenTo(this.view.model, "change:style", this.changeStyle);
-          return this.listenTo(this.view.model, "change:draggable", this.setDraggable);
+          this.listenTo(this.layout.model, "change:style", this.changeStyle);
+          return this.listenTo(this.layout.model, "change:draggable", this.setDraggable);
         };
 
         Controller.prototype._getRowView = function() {
@@ -36,17 +36,25 @@
         };
 
         Controller.prototype.setDraggable = function(model) {
-          return this.view.triggerMethod("set:draggable", model.get('draggable'));
+          return this.layout.triggerMethod("set:draggable", model.get('draggable'));
         };
 
         Controller.prototype.changeStyle = function(model) {
-          return this.view.triggerMethod("set:style", model.get('style'));
+          return this.layout.triggerMethod("set:style", model.get('style'));
         };
 
         Controller.prototype.showView = function() {
           var view;
           view = this._getRowView();
-          return this.view.elementRegion.show(view);
+          return this.layout.elementRegion.show(view);
+        };
+
+        Controller.prototype.deleteElement = function(model) {
+          if (!this.layout.elementRegion.currentView.$el.canBeDeleted()) {
+            return alert("Please remove elements inside row and then delete.");
+          } else {
+            return model.destroy();
+          }
         };
 
         return Controller;

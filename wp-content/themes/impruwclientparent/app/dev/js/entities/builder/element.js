@@ -52,6 +52,9 @@
             case 'update':
               options.data = model.toJSON();
               return Backbone.send(_action, options);
+            case 'delete':
+              options.data = model.toJSON();
+              return Backbone.send(_action, options);
             default:
               return Backbone.Model.prototype.sync.apply(this, arguments);
           }

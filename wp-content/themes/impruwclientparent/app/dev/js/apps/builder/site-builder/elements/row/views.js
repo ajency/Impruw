@@ -21,10 +21,12 @@
         RowView.prototype.template = '<div data-class="6" class="col-md-6 column empty-column"></div>\
 						<div data-class="6" class="col-md-6 column empty-column"></div>';
 
-        RowView.prototype.resizers = [];
+        RowView.prototype.resizers = function() {
+          return [];
+        };
 
         RowView.prototype.onRender = function() {
-          return this.$el.find('.column').sortable({
+          return this.$el.children('.column').sortable({
             revert: 'invalid',
             items: '> .element-wrapper',
             connectWith: '.droppable-column,.column',
@@ -57,6 +59,10 @@
           return this.$el.children('.column');
         };
 
+        RowView.prototype.getResizers = function() {
+          return this.$el.children('.aj-imp-col-divider');
+        };
+
         RowView.prototype.getColumnAt = function(index) {
           var columns;
           columns = this.$el.children('.column');
@@ -65,12 +71,22 @@
 
         RowView.prototype.clearResizers = function() {
           var resizer, _i, _len, _ref1;
-          _ref1 = this.resizers;
+          console.log(this.getResizers());
+          _ref1 = this.getResizers();
           for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
             resizer = _ref1[_i];
-            resizer.draggable('destroy');
+            $(resizer).draggable('destroy');
             return;
           }
+        };
+
+        RowView.prototype.destroySortableColumns = function() {
+          return this.$el.children('.column').sortable('destroy');
+        };
+
+        RowView.prototype.onClose = function() {
+          this.clearResizers();
+          return this.destroySortableColumns();
         };
 
         RowView.prototype.setColumnResizer = function() {
@@ -104,7 +120,7 @@
           row = resizer.parent();
           snap = row.width();
           snap = snap / 12;
-          resizer.draggable({
+          return resizer.draggable({
             axis: "x",
             containment: row,
             grid: [snap, 0],
@@ -131,7 +147,6 @@
               }
             }
           });
-          return this.resizers.push(resizer);
         };
 
         RowView.prototype.resizeColumns = function(direction, position) {

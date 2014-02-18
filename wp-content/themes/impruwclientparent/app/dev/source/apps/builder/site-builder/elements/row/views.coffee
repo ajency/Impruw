@@ -12,10 +12,11 @@ define ['app'],(App)->
 			template : '<div data-class="6" class="col-md-6 column empty-column"></div>
 						<div data-class="6" class="col-md-6 column empty-column"></div>'
 
-			resizers : []
+			resizers :->
+			 	[]
 
 			onRender:()->
-				@$el.find('.column').sortable 
+				@$el.children('.column').sortable 
 										revert 		: 'invalid'
 										items 		: '> .element-wrapper'
 										connectWith : '.droppable-column,.column'
@@ -38,14 +39,25 @@ define ['app'],(App)->
 			getColumns:()->
 				@$el.children('.column')
 
+			getResizers:()->
+				@$el.children('.aj-imp-col-divider')
+
 			getColumnAt:(index)->
 				columns = @$el.children('.column')
 				columns[index]
 
 			clearResizers:()->
-				for resizer in @resizers
-					resizer.draggable('destroy')
+				console.log @getResizers()
+				for resizer in @getResizers()
+					$(resizer).draggable 'destroy'
 					return
+
+			destroySortableColumns:->
+				@$el.children('.column').sortable 'destroy'
+
+			onClose:->
+				@clearResizers()
+				@destroySortableColumns()
 
 			# set column resizer
 			setColumnResizer:()->
@@ -98,8 +110,7 @@ define ['app'],(App)->
 							position = $(event.target).attr("data-position")
 							@resizeColumns "left", parseInt(position)
 
-				@resizers.push resizer
-
+				
 			resizeColumns : (direction, position)->
 				#get columns to adjust width depending on position value.
 				#columns to adjust  = row.elements[postion - 1] and row.elements[position]

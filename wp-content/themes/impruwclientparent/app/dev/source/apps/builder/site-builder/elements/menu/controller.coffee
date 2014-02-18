@@ -13,11 +13,11 @@ define ['app','apps/builder/site-builder/elements/menu/views','apps/builder/site
 
 					bindEvents:->
 						# start listening to events
-						@listenTo @view.model, "change:menu_id", @showView
-						@listenTo @view.model, "change:style", @showView
-						@listenTo @view.model, "change:draggable", @setDraggable
-						@listenTo @view.model, "change:align",(model)=>
-							@view.elementRegion.currentView.setAlignment model.get 'align'
+						@listenTo @layout.model, "change:menu_id", @showView
+						@listenTo @layout.model, "change:style", @showView
+						@listenTo @layout.model, "change:draggable", @setDraggable
+						@listenTo @layout.model, "change:align",(model)=>
+							@layout.elementRegion.currentView.setAlignment model.get 'align'
 						
 					_getMenuView:(model, collection, templates)->
 						new Menu.Views.MenuView
@@ -27,7 +27,7 @@ define ['app','apps/builder/site-builder/elements/menu/views','apps/builder/site
 
 					# set draggable
 					setDraggable:(model)=>
-						@view.triggerMethod "set:draggable", model.get 'draggable'
+						@layout.triggerMethod "set:draggable", model.get 'draggable'
 								
 					# setup templates for the element
 					showView:(model)=>
@@ -39,4 +39,4 @@ define ['app','apps/builder/site-builder/elements/menu/views','apps/builder/site
 						templates = elementBox.get('templates')[model.get 'style']
 
 						view = @_getMenuView menu, itemCollection, templates
-						@view.elementRegion.show view
+						@layout.elementRegion.show view

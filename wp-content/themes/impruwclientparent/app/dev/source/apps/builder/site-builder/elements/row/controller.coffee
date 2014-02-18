@@ -14,21 +14,28 @@ define ['app','apps/builder/site-builder/elements/row/views','apps/builder/site-
 
 					bindEvents:->
 						# start listening to events
-						@listenTo @view.model, "change:style", @changeStyle
-						@listenTo @view.model, "change:draggable", @setDraggable
+						@listenTo @layout.model, "change:style", @changeStyle
+						@listenTo @layout.model, "change:draggable", @setDraggable
 						
 					_getRowView:()->
 						new Row.Views.RowView
 
 					# set draggable
 					setDraggable:(model)=>
-						@view.triggerMethod "set:draggable", model.get 'draggable'
+						@layout.triggerMethod "set:draggable", model.get 'draggable'
 
 					changeStyle:(model)->
-						@view.triggerMethod "set:style", model.get 'style'						
+						@layout.triggerMethod "set:style", model.get 'style'						
 								
 					# setup templates for the element
 					showView:()=>
 						# get menu 
 						view = @_getRowView()
-						@view.elementRegion.show view
+						@layout.elementRegion.show view
+
+					# remove the element model
+					deleteElement:(model)->
+						if not @layout.elementRegion.currentView.$el.canBeDeleted()
+							alert "Please remove elements inside row and then delete."							
+						else
+							model.destroy()
