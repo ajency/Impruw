@@ -18,10 +18,17 @@
           var menuCollection, view;
           menuCollection = App.request("get:site:menus");
           view = this.getView(menuCollection);
-          this.listenTo(view, 'menu:order:changed', function(model, order) {
+          this.listenTo(view, 'itemview:menu:order:changed', function(iv, order) {
             var newOrder;
             newOrder = _.idOrder(order);
-            return model.get('menu_items').updateOrder(newOrder, model.get('id'));
+            return iv.model.get('menu_items').updateOrder(newOrder, iv.model.get('id'));
+          });
+          this.listenTo(view, "itemview:new:menu:item:added", function(iv, data) {
+            var items, menu;
+            menu = menuCollection.get(parseInt(data['menu_id']));
+            items = menu.get('menu_items');
+            data.ID = _.uniqueId();
+            return items.add(data);
           });
           this.show(view, {
             loading: true

@@ -31,6 +31,11 @@ define ['app'
 
 					className : 'tab-pane'
 
+					events: 
+						'click .add-menu-item' : ->
+							formData = Backbone.Syphon.serialize @
+							@trigger "new:menu:item:added", formData
+
 					# setup nested sortable onRender
 					onRender:->
 						# set active class

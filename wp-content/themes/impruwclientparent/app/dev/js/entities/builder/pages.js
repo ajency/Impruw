@@ -53,12 +53,15 @@
           if (param == null) {
             param = {};
           }
-          pages = new Pages.PageCollection;
-          App.request("set:collection", 'pagecollection', pages);
-          pages.fetch({
-            reset: true,
-            data: param
-          });
+          pages = App.request("get:collection", 'pagecollection');
+          if (!pages) {
+            pages = new Pages.PageCollection;
+            App.request("set:collection", 'pagecollection', pages);
+            pages.fetch({
+              reset: true,
+              data: param
+            });
+          }
           return pages;
         }
       };

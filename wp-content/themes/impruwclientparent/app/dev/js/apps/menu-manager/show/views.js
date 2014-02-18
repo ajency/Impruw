@@ -48,6 +48,14 @@
 
         SingleManagerView.prototype.className = 'tab-pane';
 
+        SingleManagerView.prototype.events = {
+          'click .add-menu-item': function() {
+            var formData;
+            formData = Backbone.Syphon.serialize(this);
+            return this.trigger("new:menu:item:added", formData);
+          }
+        };
+
         SingleManagerView.prototype.onRender = function() {
           var _this = this;
           if (this.itemIndex === 0) {

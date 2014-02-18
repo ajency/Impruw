@@ -28,11 +28,15 @@ define ["app", 'backbone'], (App, Backbone) ->
             # PUBLIC API FOR ENitity
             API =
                 getPages: (param = {})->
-                    pages = new Pages.PageCollection
-                    App.request "set:collection", 'pagecollection',pages
-                    pages.fetch
-                            reset : true
-                            data  : param
+                    pages = App.request "get:collection", 'pagecollection'
+
+                    if not pages
+                        pages = new Pages.PageCollection
+                        App.request "set:collection", 'pagecollection',pages
+                        pages.fetch
+                                reset : true
+                                data  : param
+
                     pages
 
 
