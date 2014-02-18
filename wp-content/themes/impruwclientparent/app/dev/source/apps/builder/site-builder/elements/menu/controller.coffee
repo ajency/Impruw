@@ -48,8 +48,9 @@ define ['app','apps/builder/site-builder/elements/menu/views','apps/builder/site
 
 						view = @_getMenuView menu, itemCollection, templates
 
+						@listenTo itemCollection, "menu:order:updated", view.render
+
 						@listenTo view, "open:menu:manager", ->
 							App.navigate "menu-manager", trigger : true
-
 
 						@layout.elementRegion.show view

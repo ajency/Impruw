@@ -60,12 +60,11 @@ define ["app", 'backbone'], (App, Backbone) ->
             API =
                 createElement: (data = {})->
                     
-                    element = new Elements.ElementModel
-                        
+                    element = new Elements.ElementModel                        
                     element.set data    
-
-                    if element.get('element') isnt 'Row' and element.get('element') and 'Column' and not element.isNew()
-                        element.save null,
+                    if element.get('element') isnt 'Row' and element.get('element') isnt 'Column' 
+                        if element.isNew()
+                            element.save null,
                                      wait : true
                                 
                     element

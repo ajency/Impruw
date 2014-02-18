@@ -55,6 +55,7 @@
           elementBox = App.request("get:collection:model", "elementbox", 'Menu');
           templates = elementBox.get('templates')[model.get('style')];
           view = this._getMenuView(menu, itemCollection, templates);
+          this.listenTo(itemCollection, "menu:order:updated", view.render);
           this.listenTo(view, "open:menu:manager", function() {
             return App.navigate("menu-manager", {
               trigger: true

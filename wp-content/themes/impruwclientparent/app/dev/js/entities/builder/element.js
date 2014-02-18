@@ -77,10 +77,12 @@
           }
           element = new Elements.ElementModel;
           element.set(data);
-          if (element.get('element') !== 'Row' && element.get('element') && 'Column' && !element.isNew()) {
-            element.save(null, {
-              wait: true
-            });
+          if (element.get('element') !== 'Row' && element.get('element') !== 'Column') {
+            if (element.isNew()) {
+              element.save(null, {
+                wait: true
+              });
+            }
           }
           return element;
         }

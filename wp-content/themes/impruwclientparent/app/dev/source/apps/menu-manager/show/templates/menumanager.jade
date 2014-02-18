@@ -4,15 +4,15 @@
 		p.desc {{menu_description}}
 		a.aj-imp-add-link(href="#{{menu_slug}}-add-menu" data-toggle="collapse") Add New Menu Item
 		.collapse.in.add-menu-form(id="{{menu_slug}}-add-menu")
-			form.form-horizontal.well(parsley-validate="true")
+			form.form-horizontal.well
 				.form-group
 					label.col-sm-4.control-label Menu Link Label
 					.col-sm-8
-						input.required.form-control(type="text" name="item-title" parsley-required="true")
+						input.required.form-control(type="text" name="item-title" required="true")
 				.form-group
 					label.col-sm-4.control-label Menu Link
 					.col-sm-8
-						input.required.form-control(type="text" name="item-url" parsley-type="url" parsley-required="true")
+						input.required.form-control(type="text" name="item-url" required="true")
 				.form-group.form-actions
 					.col-sm-offset-4.col-sm-8
 						input(type="hidden")
