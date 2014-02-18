@@ -14,6 +14,12 @@ define ["app", 'backbone'], (App, Backbone) ->
 
 				name: 'menu-item'
 
+				parse : (resp)->
+					if resp.code && resp.code is 'OK'
+						return resp.data 
+
+					return resp
+
 				# override the default sync to make it wirk with wordpress :(
 				sync:(method, model, options = {}) ->
 
@@ -146,6 +152,7 @@ define ["app", 'backbone'], (App, Backbone) ->
 
 				# update new menu item
 				updateMenuItemModel:(menuitem, data)->
+					console.log data
 					menuitem.set data
 					menuitem.save()
 					menuitem

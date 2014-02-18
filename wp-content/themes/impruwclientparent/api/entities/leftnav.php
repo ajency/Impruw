@@ -192,7 +192,7 @@ add_action('wp_ajax_delete-element-model', 'delete_element_model');
  * 
  */
 function create_menu_item(){
-    wp_send_json(array('code' => 'OK', 'data' => array('ID' => 232, 'post_title' => 'New menu', 'menu_item_link' => 'http://localhost.com', 'order' => 8)));
+    wp_send_json(array('code' => 'OK', 'data' => array('ID' => rand(100,300),'order' => 8)));
 }
 add_action('wp_ajax_create-menu-item','create_menu_item');
 

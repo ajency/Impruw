@@ -24,6 +24,13 @@
 
         MenuItemModel.prototype.name = 'menu-item';
 
+        MenuItemModel.prototype.parse = function(resp) {
+          if (resp.code && resp.code === 'OK') {
+            return resp.data;
+          }
+          return resp;
+        };
+
         MenuItemModel.prototype.sync = function(method, model, options) {
           var name, _action;
           if (options == null) {
@@ -202,6 +209,7 @@
           return menu;
         },
         updateMenuItemModel: function(menuitem, data) {
+          console.log(data);
           menuitem.set(data);
           menuitem.save();
           return menuitem;
