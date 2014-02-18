@@ -30,6 +30,9 @@
             items = menu.get('menu_items');
             return items.add(menuitem);
           });
+          this.listenTo(App.vent, "itemview:update:menu:item", function(menuItem, newData) {
+            return App.execute("update:menu:item", menuItem, newData);
+          });
           this.show(view, {
             loading: true
           });

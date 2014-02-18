@@ -7,14 +7,22 @@ define ['app'
 
 				class MenuItemView extends Marionette.ItemView
 
+					initialize:->
+						@listenTo @model, "change", @render
+
 					template : menuItemTpl
 
 					tagName : 'li'
 
 					className : 'list-group-item'
 
+					events:
+						'click .update-menu-item' : -> 
+							App.vent.trigger "itemview:update:menu:item", @.model, Backbone.Syphon.serialize @
+
 					onRender:->
 						@$el.attr 'id', 'item-' + @model.get 'ID'
+
 
 				# main menu manager view
 				class SingleManagerView extends Marionette.CompositeView

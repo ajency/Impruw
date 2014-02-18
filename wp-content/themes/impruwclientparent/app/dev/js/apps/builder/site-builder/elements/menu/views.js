@@ -20,6 +20,7 @@
             opt = {};
           }
           this.template = opt.template;
+          this.listenTo(this.model, "change", this.render);
           return MenuItemView.__super__.initialize.call(this, opt);
         };
 

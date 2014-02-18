@@ -14,11 +14,21 @@
           return _ref;
         }
 
+        MenuItemView.prototype.initialize = function() {
+          return this.listenTo(this.model, "change", this.render);
+        };
+
         MenuItemView.prototype.template = menuItemTpl;
 
         MenuItemView.prototype.tagName = 'li';
 
         MenuItemView.prototype.className = 'list-group-item';
+
+        MenuItemView.prototype.events = {
+          'click .update-menu-item': function() {
+            return App.vent.trigger("itemview:update:menu:item", this.model, Backbone.Syphon.serialize(this));
+          }
+        };
 
         MenuItemView.prototype.onRender = function() {
           return this.$el.attr('id', 'item-' + this.model.get('ID'));

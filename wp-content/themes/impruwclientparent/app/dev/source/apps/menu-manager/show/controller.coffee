@@ -22,6 +22,10 @@ define ['app', 'controllers/base-controller', 'apps/menu-manager/show/views'], (
 												menu = menuCollection.get parseInt data['menu_id']
 												items = menu.get 'menu_items'
 												items.add menuitem
+
+				@listenTo App.vent, "itemview:update:menu:item", (menuItem,newData)->
+												App.execute "update:menu:item", menuItem, newData
+
 					
 				@show view, loading : true
 				App.getRegion('elementsBoxRegion').hide()

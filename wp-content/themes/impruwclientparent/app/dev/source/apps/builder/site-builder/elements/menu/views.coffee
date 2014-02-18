@@ -9,6 +9,7 @@ define ['app'],
 
 					initialize:(opt = {})->
 						@template = opt.template
+						@listenTo @model, "change", @render
 						super(opt)
 
 					tagName : 'li'

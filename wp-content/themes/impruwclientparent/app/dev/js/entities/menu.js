@@ -200,6 +200,11 @@
           menu = new Menus.MenuModel(menuData);
           menu.set('menu_items', new Menus.MenuItemCollection(items));
           return menu;
+        },
+        updateMenuItemModel: function(menuitem, data) {
+          menuitem.set(data);
+          menuitem.save();
+          return menuitem;
         }
       };
       App.reqres.setHandler("get:site:menus", function() {
@@ -217,8 +222,11 @@
       App.reqres.setHandler("create:menu:model", function(menu) {
         return API.createMenuModel(menu);
       });
-      return App.reqres.setHandler("create:new:menu:item", function(data, menuId) {
+      App.reqres.setHandler("create:new:menu:item", function(data, menuId) {
         return API.createMenuItemModel(data, menuId);
+      });
+      return App.commands.setHandler("update:menu:item", function(menuitem, data) {
+        return API.updateMenuItemModel(menuitem, data);
       });
     });
     return App.Entities.Menus;

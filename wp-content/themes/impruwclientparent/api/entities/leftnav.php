@@ -208,24 +208,28 @@ $menus = array(
                 'ID' => 23,
                 'post_title' => 'Home',
                 'menu_item_link' => 'http://google.com',
-                'order' => 1
+                'order' => 1,
+                'menu_id' => 2
             ),
             array(
                 'ID' => 24,
                 'post_title' => 'About Us',
                 'menu_item_link' => 'http://google.com/about',
-                'order' => 2
+                'order' => 2,
+                'menu_id' => 2
             ),
             array(
                 'ID' => 25,
                 'post_title' => 'Contact Us',
                 'menu_item_link' => 'http://google.com/contact',
-                'order' => 3
+                'order' => 3,
+                'menu_id' => 2
             ), array(
                 'ID' => 26,
                 'post_title' => 'Custom Page',
                 'menu_item_link' => 'http://google.com/custom',
-                'order' => 4
+                'order' => 4,
+                'menu_id' => 2
             )
         )
     ),
@@ -238,24 +242,28 @@ $menus = array(
                 'ID' => 23,
                 'post_title' => 'Home',
                 'menu_item_link' => 'http://google.com',
-                'order' => 5
+                'order' => 5,
+                'menu_id' => 3
             ),
             array(
                 'ID' => 24,
                 'post_title' => 'About Us',
                 'menu_item_link' => 'http://google.com/about',
-                'order' => 4
+                'order' => 4,
+                'menu_id' => 3
             ),
             array(
                 'ID' => 25,
                 'post_title' => 'Contact Us',
                 'menu_item_link' => 'http://google.com/contact',
-                'order' => 2
+                'order' => 2,
+                'menu_id' => 3
             ), array(
                 'ID' => 26,
                 'post_title' => 'Custom Page',
                 'menu_item_link' => 'http://google.com/custom',
-                'order' => 9
+                'order' => 9,
+                'menu_id' => 3
             )
         )
     )

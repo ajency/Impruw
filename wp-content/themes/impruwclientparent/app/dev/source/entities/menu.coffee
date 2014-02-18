@@ -144,6 +144,13 @@ define ["app", 'backbone'], (App, Backbone) ->
 					menu.set 'menu_items', new Menus.MenuItemCollection items
 					menu
 
+				# update new menu item
+				updateMenuItemModel:(menuitem, data)->
+					menuitem.set data
+					menuitem.save()
+					menuitem
+
+
 			# request handler to get all site menus
 			App.reqres.setHandler "get:site:menus", ->
 				API.getMenus()
@@ -167,6 +174,9 @@ define ["app", 'backbone'], (App, Backbone) ->
 			# create new menu item
 			App.reqres.setHandler "create:new:menu:item", (data, menuId)->
 				API.createMenuItemModel data, menuId
+
+			App.commands.setHandler "update:menu:item",(menuitem, data)->
+				API.updateMenuItemModel menuitem, data
 
 
 		App.Entities.Menus
