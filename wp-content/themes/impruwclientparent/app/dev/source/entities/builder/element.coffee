@@ -2,7 +2,7 @@ define ["app", 'backbone'], (App, Backbone) ->
 
         App.module "Entities.Elements", (Elements, App, Backbone, Marionette, $, _)->
 
-        	# Generic element model
+            # Generic element model
             class Elements.ElementModel extends Backbone.Model
 
                 # custom id attribute as we will be using post_meta table for saving this 
@@ -64,7 +64,7 @@ define ["app", 'backbone'], (App, Backbone) ->
                         
                     element.set data    
 
-                    if element.get('element') isnt 'Row'
+                    if element.get('element') isnt 'Row' or not element.isNew()
                         element.save null,
                                     wait : true
                                 

@@ -14,16 +14,21 @@
           return _ref;
         }
 
-        Controller.prototype.initialize = function(opt) {
-          var container, element, options, type,
+        Controller.prototype.initialize = function(container, type, modelData) {
+          var element, options,
             _this = this;
-          if (opt == null) {
-            opt = {};
+          if (type == null) {
+            type = '';
           }
-          container = opt.container, type = opt.type;
+          if (modelData == null) {
+            modelData = {};
+          }
           options = {
             element: type
           };
+          _.defaults(options, modelData);
+          console.log(options);
+          return;
           element = App.request("create:new:element", options);
           this.layout = this._getView(element);
           this.listenTo(this.layout, "show:setting:popup", function(model) {

@@ -11,13 +11,11 @@ define ['app'
 		API = 	
 			# show the site builder
 			show : ()->	
-				new SiteBuilderApp.Show.Controller
+				@showController = new SiteBuilderApp.Show.Controller
 
 			# add a new element to the builder region
-			appendNewElement:(container, type)->
-				new SiteBuilderApp.Element[type].Controller
-														container : container
-														type: type
+			appendNewElement:(container, type, modelData)->
+				new SiteBuilderApp.Element[type].Controller container,type, modelData
 
 			# show settings box for a view
 			showSettings :(model, x, y)->
@@ -31,6 +29,11 @@ define ['app'
 				autoSave = new SiteBuilderApp.AutoSave.Controller
 				autoSave.autoSave()
 
+			#fetchCurrentPageJSON
+			fetchCurrentPageJSON:->
+				pageId = App.request "get:current:editable:page"
+				@showController.fetchCurrentPageJSON(pageId)
+
 
 			# function to identify the dropped region
 			getDroppedRegion:(sectionID)->
@@ -42,9 +45,8 @@ define ['app'
 					else 'page'
 
 		# listen to "element:dropped" event.
-		App.vent.on "element:dropped",(container, ui)->
-			type  = ui.item.attr 'data-element'
-			API.appendNewElement container, type
+		App.vent.on "element:dropped",(container, type = '', modelData = {})->
+			API.appendNewElement container, type, modelData
 
 		
 		# get the dropped region
@@ -58,13 +60,10 @@ define ['app'
 		App.commands.setHandler "auto:save", ->
 			API.autoSave()
 
+		App.commands.setHandler "fetch:current:page:json",()->
+			API.fetchCurrentPageJSON()
 
 		# Show all region on start
 		SiteBuilderApp.on 'start', ->
 			API.show()
-
-			# setInterval ->
-			# 	App.commands.execute "auto:save"
-			# , 4000
-
 		

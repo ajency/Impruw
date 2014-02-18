@@ -31,7 +31,6 @@
     <link href="<?php echo get_template_directory_uri(); ?>/css/style.css" rel="stylesheet" media="screen"/>
 </head>
 <body <?php body_class(); ?>>
-    <div id="dialog-region" class="modal  wide-modal"></div><!-- /.modal -->
     <div class="aj-imp-builder container">
         <div id="header-region"></div>
         <div id="builder-region"></div>
@@ -41,7 +40,8 @@
     
     <div id="login-region"></div>
     <div id="settings-region"></div>
-
+    <div id="dialog-region" class="modal  wide-modal"></div><!-- /.modal -->
+    
     <script type="text/javascript">
     	var THEMEURL    = '<?php echo get_parent_template_directory_uri(); ?>';
         var SITEURL     = '<?php echo site_url(); ?>';

@@ -7,7 +7,7 @@ define ['marionette'], (Marionette)->
 	App.addRegions
 		headerRegion 		: '#header-region'
 		elementsBoxRegion 	: '#elements-box-region'
-		builderRegion 		: '#builder-region'
+		builderWrapper 		: '#builder-region'
 		settingsRegion 		: Marionette.Region.Settings.extend el : '#settings-region'
 		loginRegion 		: Marionette.Region.Dialog.extend el : '#login-region'
 		dialogRegion 		: Marionette.Region.Dialog.extend el : '#dialog-region'
@@ -43,7 +43,6 @@ define ['marionette'], (Marionette)->
 		App.unregister instance, id
 
 	App.on "initialize:after", (options) ->
-
 		appState = App.request "get:current:appstate"
 		App.startHistory()
 		if appState.isLoggedIn()

@@ -299,3 +299,30 @@ function save_page_json() {
 }
 
 add_action('wp_ajax_save-page-json', 'save_page_json');
+
+
+function get_page_json1(){
+    $data = array(
+                'id'    => 5,
+                'json'  => array(
+                    'header' => array(
+                        array(
+                            'element'   => 'Row',
+                            'draggable' => true,
+                            'meta_id'   => rand(1000,9999)
+                        ),
+                        array(
+                            'element'   => 'Menu',
+                            'draggable' => true,
+                            'meta_id'   => rand(1000,9999),
+                            'style'     => 'header',
+                            'justified' => true
+                        )
+                    ),
+                    'page' => array(),
+                    'footer' => array()
+                )
+            );      
+    wp_send_json(array('code' => 'OK' , 'data' => $data));
+}
+add_action('wp_ajax_get-page-json','get_page_json1');

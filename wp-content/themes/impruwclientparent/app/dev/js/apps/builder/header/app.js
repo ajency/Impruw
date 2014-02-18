@@ -3,6 +3,7 @@
   define(['app', 'apps/builder/header/show/controller'], function(App) {
     return App.module('HeaderApp', function(HeaderApp, App, Backbone, Marionette, $, _) {
       var API;
+      this.startWithParent = false;
       API = {
         show: function() {
           return new HeaderApp.Show.Controller({

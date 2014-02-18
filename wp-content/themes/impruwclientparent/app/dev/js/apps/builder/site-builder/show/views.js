@@ -3,10 +3,10 @@
   var __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'], function(App, mainviewTpl) {
+  define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html', 'text!apps/builder/site-builder/show/templates/builder.html'], function(App, mainviewTpl, builderTpl) {
     App.module('SiteBuilderApp.Show.View', function(View, App, Backbone, Marionette, $, _) {
-      var _ref;
-      return View.MainView = (function(_super) {
+      var _ref, _ref1;
+      View.MainView = (function(_super) {
         __extends(MainView, _super);
 
         function MainView() {
@@ -25,7 +25,20 @@
           }
         };
 
-        MainView.prototype.onShow = function() {
+        return MainView;
+
+      })(Marionette.Layout);
+      return View.Builder = (function(_super) {
+        __extends(Builder, _super);
+
+        function Builder() {
+          _ref1 = Builder.__super__.constructor.apply(this, arguments);
+          return _ref1;
+        }
+
+        Builder.prototype.template = builderTpl;
+
+        Builder.prototype.onShow = function() {
           var _this = this;
           return this.$el.find('.droppable-column').sortable({
             revert: 'invalid',
@@ -38,16 +51,18 @@
             helper: 'clone',
             opacity: .65,
             receive: function(evt, ui) {
+              var type;
               if (ui.item.prop("tagName") === 'LI') {
-                return _this.trigger("element:dropped", $(evt.target), ui);
+                type = ui.item.attr('data-element');
+                return _this.trigger("element:dropped", $(evt.target), type);
               }
             }
           });
         };
 
-        return MainView;
+        return Builder;
 
-      })(Marionette.CompositeView);
+      })(Marionette.ItemView);
     });
     return App.SiteBuilderApp.Show.View;
   });

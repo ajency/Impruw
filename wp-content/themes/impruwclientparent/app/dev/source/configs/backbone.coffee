@@ -28,6 +28,7 @@ define ["backbone","mustache"], (Backbone, Mustache) ->
 		options = _.defaults options,
 								type	: 'POST',
 								url		: AJAXURL
+		xhr = null
 
 		$.Deferred (deferred)->
 
@@ -41,7 +42,7 @@ define ["backbone","mustache"], (Backbone, Mustache) ->
 			delete options.error
 
 			# Use with PHP's wp_send_json_success() and wp_send_json_error()
-			$.ajax( options ).done (response)->
+			xhr = $.ajax( options ).done (response)->
 				# Treat a response of `1` as successful for backwards
 				# compatibility with existing handlers.
 				if response.code is not 'OK'
@@ -56,3 +57,6 @@ define ["backbone","mustache"], (Backbone, Mustache) ->
 				deferred.rejectWith this, arguments
 			
 		.promise()
+		
+		# return a xhr object
+		xhr

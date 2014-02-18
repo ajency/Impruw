@@ -1,11 +1,12 @@
 define ['app'
-		'text!apps/builder/site-builder/show/templates/maintemplate.html'],
-		(App, mainviewTpl)->
+		'text!apps/builder/site-builder/show/templates/maintemplate.html'
+		'text!apps/builder/site-builder/show/templates/builder.html'],
+		(App, mainviewTpl, builderTpl)->
 
 
 			App.module 'SiteBuilderApp.Show.View', (View, App, Backbone, Marionette, $, _)->
 
-				class View.MainView extends Marionette.CompositeView
+				class View.MainView extends Marionette.Layout
 
 					template : mainviewTpl
 
@@ -14,7 +15,12 @@ define ['app'
 					events : 
 						'click .auto-save' :(evt) -> 
 								evt.preventDefault()
-								App.commands.execute "auto:save"
+								App.commands.execute "auto:save"	
+
+
+				class View.Builder extends Marionette.ItemView
+
+					template: builderTpl
 
 					onShow:->
 						@$el.find('.droppable-column').sortable
@@ -29,6 +35,7 @@ define ['app'
 												receive		: (evt, ui)=> 
 													# trigger drop event if ui.item is Li tag
 													if ui.item.prop("tagName") is 'LI'
-														@trigger "element:dropped", $(evt.target), ui
+														type  = ui.item.attr 'data-element'
+														@trigger "element:dropped", $(evt.target), type
 												
 			return App.SiteBuilderApp.Show.View

@@ -16,6 +16,7 @@
     };
     Backbone.View.Mustache = Mustache;
     return Backbone.send = function(action, options) {
+      var xhr;
       if (options == null) {
         options = {};
       }
@@ -31,7 +32,8 @@
         type: 'POST',
         url: AJAXURL
       });
-      return $.Deferred(function(deferred) {
+      xhr = null;
+      $.Deferred(function(deferred) {
         if (options.success) {
           deferred.done(options.success);
         }
@@ -40,7 +42,7 @@
         }
         delete options.success;
         delete options.error;
-        return $.ajax(options).done(function(response) {
+        return xhr = $.ajax(options).done(function(response) {
           if (response.code === !'OK') {
             response = {
               code: 'ERROR'
@@ -55,6 +57,7 @@
           return deferred.rejectWith(this, arguments);
         });
       }).promise();
+      return xhr;
     };
   });
 

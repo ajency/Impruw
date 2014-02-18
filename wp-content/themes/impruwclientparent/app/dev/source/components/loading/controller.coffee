@@ -38,9 +38,11 @@ define [
 						when "spinner"
 							return realView.close() if @region.currentView isnt loadingView
 
-					@show realView unless config.debug
 
-				, 100
+					if not config.debug
+						@show realView
+						realView.triggerMethod "dependencies:fetched" 
+				, 10
 
 				App.commands.execute "when:fetched", config.entities, callbackFn
 					

@@ -5,7 +5,7 @@
     App.addRegions({
       headerRegion: '#header-region',
       elementsBoxRegion: '#elements-box-region',
-      builderRegion: '#builder-region',
+      builderWrapper: '#builder-region',
       settingsRegion: Marionette.Region.Settings.extend({
         el: '#settings-region'
       }),

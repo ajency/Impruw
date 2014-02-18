@@ -5,13 +5,10 @@
       var API;
       API = {
         show: function() {
-          return new SiteBuilderApp.Show.Controller;
+          return this.showController = new SiteBuilderApp.Show.Controller;
         },
-        appendNewElement: function(container, type) {
-          return new SiteBuilderApp.Element[type].Controller({
-            container: container,
-            type: type
-          });
+        appendNewElement: function(container, type, modelData) {
+          return new SiteBuilderApp.Element[type].Controller(container, type, modelData);
         },
         showSettings: function(model, x, y) {
           return new SiteBuilderApp.Settings.Controller({
@@ -23,6 +20,11 @@
           var autoSave;
           autoSave = new SiteBuilderApp.AutoSave.Controller;
           return autoSave.autoSave();
+        },
+        fetchCurrentPageJSON: function() {
+          var pageId;
+          pageId = App.request("get:current:editable:page");
+          return this.showController.fetchCurrentPageJSON(pageId);
         },
         getDroppedRegion: function(sectionID) {
           switch (sectionID) {
@@ -37,10 +39,14 @@
           }
         }
       };
-      App.vent.on("element:dropped", function(container, ui) {
-        var type;
-        type = ui.item.attr('data-element');
-        return API.appendNewElement(container, type);
+      App.vent.on("element:dropped", function(container, type, modelData) {
+        if (type == null) {
+          type = '';
+        }
+        if (modelData == null) {
+          modelData = {};
+        }
+        return API.appendNewElement(container, type, modelData);
       });
       App.reqres.setHandler("get:dropped:region", function(sectionID) {
         return API.getDroppedRegion(sectionID);
@@ -50,6 +56,9 @@
       });
       App.commands.setHandler("auto:save", function() {
         return API.autoSave();
+      });
+      App.commands.setHandler("fetch:current:page:json", function() {
+        return API.fetchCurrentPageJSON();
       });
       return SiteBuilderApp.on('start', function() {
         return API.show();

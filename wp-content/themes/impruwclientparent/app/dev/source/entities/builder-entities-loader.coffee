@@ -11,5 +11,6 @@ define [
 		'entities/builder/pages'
 		'entities/builder/themes'
 		'entities/builder/elementbox'
+		'entities/builder/json'
 		'entities/builder/element'
 		], ->

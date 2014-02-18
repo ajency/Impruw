@@ -56,7 +56,7 @@ define ['app'], (App)->
 				_.each elements, (element, index)=>
 					
 					ele =
-						type 	: $(element).find('form input[name="element"]').val()
+						element : $(element).find('form input[name="element"]').val()
 						meta_id : parseInt $(element).find('form input[name="meta_id"]').val()
 
 					if ele.type is 'Row'

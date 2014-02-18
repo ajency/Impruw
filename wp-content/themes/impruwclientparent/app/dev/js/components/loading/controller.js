@@ -50,9 +50,10 @@
               }
           }
           if (!config.debug) {
-            return _this.show(realView);
+            _this.show(realView);
+            return realView.triggerMethod("dependencies:fetched");
           }
-        }, 100);
+        }, 10);
         return App.commands.execute("when:fetched", config.entities, callbackFn);
       };
 

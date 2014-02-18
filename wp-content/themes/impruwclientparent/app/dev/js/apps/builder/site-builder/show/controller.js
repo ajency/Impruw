@@ -5,29 +5,71 @@
 
   define(['app', 'controllers/base-controller', 'apps/builder/site-builder/show/views'], function(App, AppController) {
     App.module('SiteBuilderApp.Show', function(Show, App, Backbone, Marionette, $, _) {
-      var _ref;
+      var _ref, _ref1;
+      Show.BuilderController = (function(_super) {
+        __extends(BuilderController, _super);
+
+        function BuilderController() {
+          _ref = BuilderController.__super__.constructor.apply(this, arguments);
+          return _ref;
+        }
+
+        BuilderController.prototype.initialize = function(opt) {
+          var elements, pageId;
+          if (opt == null) {
+            opt = {};
+          }
+          this.region = App.getRegion('builderRegion');
+          pageId = 5;
+          elements = App.request("get:page:json", pageId);
+          this.view = new Show.View.Builder({
+            model: elements
+          });
+          this.listenTo(this.view, "element:dropped", function(container, type) {
+            return App.vent.trigger("element:dropped", container, type);
+          });
+          this.listenTo(this.view, "dependencies:fetched", this.startFillingElements);
+          return this.show(this.view, {
+            loading: true
+          });
+        };
+
+        BuilderController.prototype.startFillingElements = function() {
+          var json,
+            _this = this;
+          json = this.view.model.get('json');
+          return _.each(json, function(section, key) {
+            return console.log(key);
+          });
+        };
+
+        return BuilderController;
+
+      })(AppController);
       return Show.Controller = (function(_super) {
         __extends(Controller, _super);
 
         function Controller() {
-          _ref = Controller.__super__.constructor.apply(this, arguments);
-          return _ref;
+          _ref1 = Controller.__super__.constructor.apply(this, arguments);
+          return _ref1;
         }
 
         Controller.prototype.initialize = function(opt) {
-          var menus, view;
+          var view;
           if (opt == null) {
             opt = {};
           }
+          this.region = App.getRegion('builderWrapper');
           view = new Show.View.MainView;
-          menus = App.request("get:site:menus");
-          this.listenTo(view, "element:dropped", function(evt, ui) {
-            return App.vent.trigger("element:dropped", evt, ui);
+          this.listenTo(view, 'render', function(view) {
+            return _.delay(function() {
+              App.addRegions({
+                builderRegion: '#aj-imp-builder-drag-drop'
+              });
+              return new Show.BuilderController();
+            }, 400);
           });
-          return this.show(view, {
-            loading: true,
-            entities: menus
-          });
+          return this.show(view);
         };
 
         return Controller;

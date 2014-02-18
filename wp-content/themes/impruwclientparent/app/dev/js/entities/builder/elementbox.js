@@ -57,6 +57,7 @@
           if (param == null) {
             param = {};
           }
+          elements = App.request("get:collection", 'elementbox');
           elements = new ElementBox.ElementCollection;
           App.request("set:collection", 'elementbox', elements);
           elements.url = AJAXURL + '?action=get-elementbox-elements';

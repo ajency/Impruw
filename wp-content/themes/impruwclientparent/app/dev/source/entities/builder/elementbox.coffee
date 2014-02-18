@@ -30,6 +30,7 @@ define ["app", 'backbone'], (App, Backbone) ->
             # PUBLIC API FOR ENitity
             API =
                 getElements: (param = {})->
+                    elements = App.request "get:collection", 'elementbox'
                     elements = new ElementBox.ElementCollection
                     App.request "set:collection", 'elementbox', elements
                     elements.url = AJAXURL + '?action=get-elementbox-elements'

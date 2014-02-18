@@ -8,12 +8,15 @@ define ['app', 'controllers/builder-base-controller'
 				class Element.Controller extends AppController
 
 					# initialize the controller. Get all required entities and show the view
-					initialize:(opt = {})->
-
-						{container, type} = opt
+					initialize:(container, type = '', modelData = {})->
 
 						options = 
 							element : type
+
+						_.defaults options, modelData
+
+						console.log options
+						return
 
 						element = App.request "create:new:element", options
 
