@@ -18,10 +18,10 @@ define ['app', 'controllers/base-controller', 'apps/menu-manager/show/views'], (
 					iv.model.get('menu_items').updateOrder newOrder, iv.model.get 'id'
 
 				@listenTo view, "itemview:new:menu:item:added", (iv, data)->
+												menuitem = App.request "create:new:menu:item", data, data['menu_id']
 												menu = menuCollection.get parseInt data['menu_id']
 												items = menu.get 'menu_items'
-												data.ID= _.uniqueId()
-												items.add data
+												items.add menuitem
 					
 				@show view, loading : true
 				App.getRegion('elementsBoxRegion').hide()

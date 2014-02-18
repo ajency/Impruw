@@ -22,6 +22,26 @@
           menu_item_parent: 0
         };
 
+        MenuItemModel.prototype.name = 'menu-item';
+
+        MenuItemModel.prototype.sync = function(method, model, options) {
+          var name, _action;
+          if (options == null) {
+            options = {};
+          }
+          if (!this.name) {
+            throw new Error("'name' property missing");
+          }
+          if (_.isFunction(this.name)) {
+            name = this.name();
+          } else {
+            name = this.name;
+          }
+          _action = "" + method + "-" + name;
+          options.data = model.toJSON();
+          return Backbone.send(_action, options);
+        };
+
         return MenuItemModel;
 
       })(Backbone.Model);
@@ -90,6 +110,8 @@
           }
         ];
 
+        MenuModel.prototype.name = 'menu';
+
         return MenuModel;
 
       })(Backbone.AssociatedModel);
@@ -157,6 +179,15 @@
           }
           return new Menus.MenuCollection(modelsArr);
         },
+        createMenuItemModel: function(data, menuId) {
+          var menuitem;
+          data.menu_id = menuId;
+          menuitem = new Menus.MenuItemModel(data);
+          menuitem.save(null, {
+            wait: true
+          });
+          return menuitem;
+        },
         createMenuModel: function(menuData) {
           var items, menu;
           if (menuData == null) {
@@ -183,8 +214,11 @@
       App.reqres.setHandler("create:menu:collection", function(items) {
         return API.createMenuCollection();
       });
-      return App.reqres.setHandler("create:menu:model", function(menu) {
+      App.reqres.setHandler("create:menu:model", function(menu) {
         return API.createMenuModel(menu);
+      });
+      return App.reqres.setHandler("create:new:menu:item", function(data, menuId) {
+        return API.createMenuItemModel(data, menuId);
       });
     });
     return App.Entities.Menus;

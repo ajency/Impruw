@@ -6,6 +6,8 @@ define ["app", 'backbone'], (App, Backbone) ->
             class ElementBox.ElementModel extends Backbone.Model
                 idAttribute : 'element'
 
+                name: 'elementbox'
+
             # Element collection
             class ElementBox.ElementCollection extends Backbone.Collection
                 # model

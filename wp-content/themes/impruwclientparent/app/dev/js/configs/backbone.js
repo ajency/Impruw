@@ -14,7 +14,6 @@
       }
       return sync;
     };
-    Backbone.View.Mustache = Mustache;
     return Backbone.send = function(action, options) {
       var xhr;
       if (options == null) {

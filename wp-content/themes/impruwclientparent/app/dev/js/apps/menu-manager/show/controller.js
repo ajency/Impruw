@@ -24,11 +24,11 @@
             return iv.model.get('menu_items').updateOrder(newOrder, iv.model.get('id'));
           });
           this.listenTo(view, "itemview:new:menu:item:added", function(iv, data) {
-            var items, menu;
+            var items, menu, menuitem;
+            menuitem = App.request("create:new:menu:item", data, data['menu_id']);
             menu = menuCollection.get(parseInt(data['menu_id']));
             items = menu.get('menu_items');
-            data.ID = _.uniqueId();
-            return items.add(data);
+            return items.add(menuitem);
           });
           this.show(view, {
             loading: true

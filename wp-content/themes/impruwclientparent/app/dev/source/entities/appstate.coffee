@@ -14,8 +14,8 @@ define ["app", 'backbone'], (App, Backbone) ->
 
                 #check if app is in logged in state or not
                 isLoggedIn : ()->
-                    
                     @get 'loginStatus'
+                    
                     
             APPSTATE = {} ? APPSTATE
 

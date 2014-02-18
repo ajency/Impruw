@@ -12,6 +12,27 @@ define ["app", 'backbone'], (App, Backbone) ->
 					menu_item_link      : ''
 					menu_item_parent    : 0
 
+				name: 'menu-item'
+
+				# override the default sync to make it wirk with wordpress :(
+				sync:(method, model, options = {}) ->
+
+					if not @name
+						throw new Error "'name' property missing"
+
+					if _.isFunction @name
+						name = @name()
+					else 
+						name = @name
+
+					# creation the action property with method name and name property
+					# ex: create-model-name, delete-model-name, update-model-name, read-model-name
+					_action = "#{method}-#{name}"
+					
+					options.data = model.toJSON()
+					Backbone.send _action,options
+					
+
 			# menu item collection class
 			class Menus.MenuItemCollection extends Backbone.Collection
 				model : Menus.MenuItemModel
@@ -42,11 +63,13 @@ define ["app", 'backbone'], (App, Backbone) ->
 					menu_items          : []
 
 				relations : [(
-                                type : Backbone.Many
-                                key  : 'menu_items'
-                                relatedModel : Menus.MenuItemModel
-                                collectionType : Menus.MenuItemCollection
+								type : Backbone.Many
+								key  : 'menu_items'
+								relatedModel : Menus.MenuItemModel
+								collectionType : Menus.MenuItemCollection
 							)]
+
+				name: 'menu'
 
 
 			# menu collection
@@ -103,6 +126,14 @@ define ["app", 'backbone'], (App, Backbone) ->
 				createMenuCollection: (modelsArr = [])->
 					new Menus.MenuCollection modelsArr
 
+				# create a new menu item instance onserver
+				createMenuItemModel:(data, menuId)->
+					# set the menu id
+					data.menu_id = menuId
+					menuitem = new Menus.MenuItemModel data
+					menuitem.save null,
+									wait : true
+					menuitem
 				# 
 				createMenuModel :(menuData ={})->
 					if not menuData.id
@@ -131,7 +162,11 @@ define ["app", 'backbone'], (App, Backbone) ->
 
 			# request handler to get all site menus
 			App.reqres.setHandler "create:menu:model",(menu)->
-				API.createMenuModel(menu)		
+				API.createMenuModel(menu)	
+
+			# create new menu item
+			App.reqres.setHandler "create:new:menu:item", (data, menuId)->
+				API.createMenuItemModel data, menuId
 
 
 		App.Entities.Menus

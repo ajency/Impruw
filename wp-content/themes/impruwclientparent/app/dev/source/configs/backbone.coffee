@@ -13,8 +13,6 @@ define ["backbone","mustache"], (Backbone, Mustache) ->
 			
 		sync
 
-	# attach mustache to all view
-	Backbone.View.Mustache = Mustache
 
 	# set backbone.send function for making ajax request with wordpress
 	Backbone.send =  (action, options = {})->

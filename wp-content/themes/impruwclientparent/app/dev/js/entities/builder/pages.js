@@ -21,6 +21,8 @@
           };
         };
 
+        PageModel.prototype.name = 'page';
+
         return PageModel;
 
       })(Backbone.Model);

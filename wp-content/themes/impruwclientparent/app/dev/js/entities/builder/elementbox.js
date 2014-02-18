@@ -16,6 +16,8 @@
 
         ElementModel.prototype.idAttribute = 'element';
 
+        ElementModel.prototype.name = 'elementbox';
+
         return ElementModel;
 
       })(Backbone.Model);
