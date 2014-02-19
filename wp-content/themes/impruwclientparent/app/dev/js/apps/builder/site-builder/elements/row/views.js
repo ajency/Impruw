@@ -51,11 +51,14 @@
         };
 
         RowView.prototype.onStyleChange = function(newStyle, old) {
-          console.log(newStyle);
           if (!_(old).isEmpty()) {
             this.$el.removeClass(old);
           }
           return this.$el.addClass(newStyle);
+        };
+
+        RowView.prototype.onColumnCountChanged = function(columnCount) {
+          return this.adjustColumnsInRow(columnCount);
         };
 
         RowView.prototype.columnCount = function() {
@@ -67,7 +70,7 @@
         };
 
         RowView.prototype.getResizers = function() {
-          return this.$el.closest('.element-controls').find('.aj-imp-col-divider');
+          return this.$el.closest('.element-wrapper').find('.element-controls > .aj-imp-col-divider');
         };
 
         RowView.prototype.getColumnAt = function(index) {
@@ -77,13 +80,15 @@
         };
 
         RowView.prototype.clearResizers = function() {
-          var resizer, _i, _len, _ref1;
+          var resizer, _i, _len, _ref1, _results;
           _ref1 = this.getResizers();
+          _results = [];
           for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
             resizer = _ref1[_i];
             $(resizer).draggable('destroy');
-            return;
+            _results.push($(resizer).remove());
           }
+          return _results;
         };
 
         RowView.prototype.destroySortableColumns = function() {
@@ -115,8 +120,7 @@
             resizer = $(template);
             resizer.attr('data-position', index + 1);
             resizer.css('left', left);
-            console.log(_this.$el.find('.element-controls'));
-            _this.$el.closest('.element-wrapper').find('.element-controls').append(resizer);
+            _this.$el.closest('.element-wrapper').children('.element-controls').append(resizer);
             return _this.makeResizer(resizer);
           });
         };
@@ -181,6 +185,20 @@
           return $(columns[1]).attr('data-class', currentClassOne).addClass("col-md-" + currentClassOne);
         };
 
+        RowView.prototype.addNewColumn = function(colClass) {
+          var template;
+          template = _.template('<div data-class="{{cclass}}" class="col-md-{{cclass}} column empty-column"></div>', {
+            cclass: colClass
+          });
+          this.$el.append(template);
+          return this.$el.children('.column').last().sortable();
+        };
+
+        RowView.prototype.removeColumn = function($column) {
+          $column.sortable("destroy");
+          return $column.remove();
+        };
+
         RowView.prototype.adjustColumnsInRow = function(count) {
           var colClass, colsToRemove, emptyColsLen, emptyColumns, extraColumns, nCols, requestedColumns,
             _this = this;
@@ -192,16 +210,18 @@
           if (requestedColumns > this.columnCount()) {
             extraColumns = requestedColumns - this.columnCount();
             _.each(this.getColumns(), function(column, index) {
-              return $(column).addClass("col-md-" + colClass);
+              var currentClass;
+              currentClass = $(column).attr('data-class');
+              return $(column).removeClass("col-md-" + currentClass).addClass("col-md-" + colClass).attr('data-class', colClass);
             });
             _.each(_.range(extraColumns), function() {
-              return this.addNewColumn(colClass);
+              return _this.addNewColumn(colClass);
             });
           } else if (requestedColumns < this.columnCount()) {
             emptyColumns = [];
-            _.each(this.elements, function(column, index) {
-              if (column.isEmpty()) {
-                return emptyColumns.push(column);
+            _.each(this.getColumns(), function(column, index) {
+              if ($(column).isEmptyColumn()) {
+                return emptyColumns.push($(column));
               }
             });
             emptyColsLen = emptyColumns.length;
@@ -220,22 +240,20 @@
               colsToRemove = emptyColsLen - requestedColumns;
             }
             nCols = [];
-            _.each(this.elements, function(column, index) {});
-            if (colsToRemove === 0 || !column.isEmpty()) {
-              nCols.push(column);
-              return;
-            }
-            column.destroy();
-            colsToRemove--;
-            this.elements = [];
-            this.elements = nCols;
-            _.each(this.elements, function(column, index) {
-              return column.setColumnClass(colClass);
+            _.each(this.getColumns(), function(column, index) {
+              if (colsToRemove === 0 || !$(column).isEmptyColumn()) {
+                return;
+              }
+              _this.removeColumn($(column));
+              return colsToRemove--;
+            });
+            _.each(this.getColumns(), function(column, index) {
+              var currentClass;
+              currentClass = $(column).attr('data-class');
+              return $(column).removeClass("col-md-" + currentClass).addClass("col-md-" + colClass).attr('data-class', colClass);
             });
           }
-          $(evt.target).parent().addClass("active").siblings().removeClass("active");
-          this.sortableColumns();
-          return this.appendColumnResizer();
+          return this.setColumnResizer();
         };
 
         return RowView;

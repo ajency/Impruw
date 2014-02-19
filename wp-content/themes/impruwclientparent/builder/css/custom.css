@@ -77,6 +77,10 @@ div.element-drop-loader > p{
     z-index:100;
 }
 
+.aj-imp-builder-layout-mode .element-wrapper{
+    border-radius: 4px;
+}
+
 /*.element-wrapper:hover{
     border : 1px solid orange;
 }

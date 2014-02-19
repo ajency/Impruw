@@ -32,9 +32,6 @@
 
         SettingsView.prototype.onRender = function() {
           this.$el.find('input[type="checkbox"]').checkbox();
-          this.$el.find('select').selectpicker({
-            style: 'btn-mini btn-default'
-          });
           return this.setFields();
         };
 
@@ -49,6 +46,9 @@
           'click .close-settings': function(evt) {
             evt.preventDefault();
             return App.settingsRegion.close();
+          },
+          'click .set-column-count a.btn': function(evt) {
+            return this.trigger("element:column:count:changed", parseInt($(evt.target).text()));
           },
           'change select[name="style"]': function(evt) {
             return this.trigger("element:style:changed", $(evt.target).val());

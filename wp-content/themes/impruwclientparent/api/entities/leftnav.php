@@ -115,11 +115,11 @@ function set_element_data($data) {
     global $wpdb;
     if(isset($data['meta_id'])){
         $meta_id = $data['meta_id'];
-        unset($data['meta_id']);
         $serialized_element = maybe_serialize($data);
         $wpdb->update(  $wpdb->postmeta, 
                         array(
-                            'meta_value' => $serialized_element
+                            'meta_value' => $serialized_element,
+                            'meta_key'  => $data['element']
                         ),
                         array(
                             'meta_id' => $meta_id
@@ -128,7 +128,7 @@ function set_element_data($data) {
     else{
         $serialized_element = maybe_serialize($data);
         $wpdb->insert($wpdb->postmeta, array(
-            'post_id' => $page_id,
+            'post_id' => 0,
             'meta_value' => $serialized_element,
             'meta_key' => $element['element']
         ));
@@ -233,11 +233,11 @@ function save_page_json() {
     $json = json_decode($json, true);
     $page_id = $_POST['page_id'];
     //$e = json_encode($json);
-    //wp_send_json($json['header']);
+    
     update_option('theme-header', $json['header']);
     update_post_meta($page_id, 'page-json', $json['page']);
-    update_option('theme-footer', $page['footer']);
-    die;
+    update_option('theme-footer', $json['footer']);
+    wp_send_json(array('code' => 'OK'));
 }
 
 add_action('wp_ajax_save-page-json', 'save_page_json');
@@ -250,16 +250,19 @@ function get_page_json1(){
     $json['footer'] = get_option('theme-footer');
     $json['page']   = get_post_meta($page_id,'page-json', true);
     
-    
     $d = array();
     foreach($json as $section => $elements){
         $d[$section] = array();
         if(!is_array($elements))
             continue;
         foreach($elements as $element){
-           if($element['element'] === 'Row' || $element['element'] === 'Column')
+           if($element['element'] === 'Row' ){
+               $element['columncount'] = count($element['elements']);
+               $d[$section][] = $element;
+           }
+           else if($element['element'] === 'Column')
                 $d[$section][] = $element;
-            else
+           else
                 $d[$section][] = get_meta_values ($element);
         }
     }
@@ -274,7 +277,7 @@ add_action('wp_ajax_get-page-json','get_page_json1');
 
 function get_meta_values($element){
     $meta = get_metadata_by_mid('post', $element['meta_id']);
-    $ele =  $meta->meta_value;
+    $ele = maybe_unserialize($meta->meta_value);
     $ele['meta_id'] = $element['meta_id'];
     validate_element($ele);
     return $ele;

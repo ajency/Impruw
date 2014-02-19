@@ -12,6 +12,7 @@ define ['app','apps/builder/site-builder/elements/row/views','apps/builder/site-
 						_.defaults options.modelData,
 											draggable : true
 											style 	  : ''
+											columncount: 2
 
 						super(options)
 						@bindEvents()
@@ -22,6 +23,7 @@ define ['app','apps/builder/site-builder/elements/row/views','apps/builder/site-
 						# start listening to events
 						@listenTo @layout.model, "change:style", @changeStyle
 						@listenTo @layout.model, "change:draggable", @setDraggable
+						@listenTo @layout.model, "change:columncount", @columnCountChanged
 
 					addPropertiesField:->
 						@layout.$el.children('form').append '<input type="hidden" name="draggable" value=""/>'
@@ -37,6 +39,9 @@ define ['app','apps/builder/site-builder/elements/row/views','apps/builder/site-
 					setDraggable:(model)=>
 						@layout.triggerMethod "set:draggable", model.get 'draggable'
 						@layout.$el.children('form').find('input[name="draggable"]').val model.get 'draggable'
+
+					columnCountChanged:(model)->
+						@layout.elementRegion.currentView.triggerMethod "column:count:changed", model.get 'columncount'
 
 					changeStyle:(model)->
 						@layout.elementRegion.currentView.triggerMethod "style:change", model.get('style'), model.previousAttributes().style ? ''	
