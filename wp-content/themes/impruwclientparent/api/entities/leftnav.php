@@ -196,97 +196,23 @@ function create_menu_item(){
 }
 add_action('wp_ajax_create-menu-item','create_menu_item');
 
-
-global $menus;
-$menus = array(
-    array(
-        'id' => 2,
-        'menu_name' => 'Main Menu',
-        'menu_slug' => 'main-menu',
-        'menu_items' => array(
-            array(
-                'ID' => 23,
-                'post_title' => 'Home',
-                'menu_item_link' => 'http://google.com',
-                'order' => 1,
-                'menu_id' => 2
-            ),
-            array(
-                'ID' => 24,
-                'post_title' => 'About Us',
-                'menu_item_link' => 'http://google.com/about',
-                'order' => 2,
-                'menu_id' => 2
-            ),
-            array(
-                'ID' => 25,
-                'post_title' => 'Contact Us',
-                'menu_item_link' => 'http://google.com/contact',
-                'order' => 3,
-                'menu_id' => 2
-            ), array(
-                'ID' => 26,
-                'post_title' => 'Custom Page',
-                'menu_item_link' => 'http://google.com/custom',
-                'order' => 4,
-                'menu_id' => 2
-            )
-        )
-    ),
-    array(
-        'id' => 3,
-        'menu_name' => 'Footer Menu',
-        'menu_slug' => 'footer-menu',
-        'menu_items' => array(
-            array(
-                'ID' => 23,
-                'post_title' => 'Home',
-                'menu_item_link' => 'http://google.com',
-                'order' => 5,
-                'menu_id' => 3
-            ),
-            array(
-                'ID' => 24,
-                'post_title' => 'About Us',
-                'menu_item_link' => 'http://google.com/about',
-                'order' => 4,
-                'menu_id' => 3
-            ),
-            array(
-                'ID' => 25,
-                'post_title' => 'Contact Us',
-                'menu_item_link' => 'http://google.com/contact',
-                'order' => 2,
-                'menu_id' => 3
-            ), array(
-                'ID' => 26,
-                'post_title' => 'Custom Page',
-                'menu_item_link' => 'http://google.com/custom',
-                'order' => 9,
-                'menu_id' => 3
-            )
-        )
-    )
-);
-
+/**
+ * get all menus
+ */
 function get_site_menus_collection() {
-    global $menus;
-    wp_send_json(array('code' => 'OK', 'data' => $menus));
+    
+    $menus = get_terms( 'nav_menu', array( 'hide_empty' => true ) );
+    
+    $data = array();
+    foreach($menus as $menu)
+        $data[] = get_menu_to_array($menu->name);
+    
+    wp_send_json(array('code' => 'OK', 'data' => $data));
 }
 
 add_action('wp_ajax_get-menus', 'get_site_menus_collection');
 
-function get_site_menu_by_id($id) {
-    global $menus;
-    $menu = array();
-    foreach ($menus as $m) {
-        if ($m['id'] == $id) {
-            $menu = $m;
-            break;
-        }
-    }
-    return $menu;
-}
+
 
 function get_templates($element, $style = '') {
 
@@ -345,6 +271,6 @@ function get_page_json1(){
                     'footer' => array()
                 )
             );      
-    wp_send_json(array('code' => 'OK' , 'data' => $data));
+    wp_send_json(array('code' => 'OK1' , 'data' => $data));
 }
 add_action('wp_ajax_get-page-json','get_page_json1');

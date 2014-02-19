@@ -12,7 +12,7 @@ define ['app'], (App)->
 			# autoSave
 			autoSave:->
 
-				siteRegion = App.builderRegion.$el.find '#aj-imp-builder-drag-drop'
+				siteRegion = App.builderRegion.$el
 
 				_json 	= @_getPageJson siteRegion
 
@@ -59,10 +59,10 @@ define ['app'], (App)->
 						element : $(element).find('form input[name="element"]').val()
 						meta_id : parseInt $(element).find('form input[name="meta_id"]').val()
 
-					if ele.type is 'Row'
+					if ele.element is 'Row'
 						delete ele.meta_id
 						ele.elements = []
-						_.each $(element).find('.column'), (column, index)=>
+						_.each $(element).children('.column'), (column, index)=>
 							className = $(column).attr 'data-class'
 							col = {}
 							col.type = 'Column'

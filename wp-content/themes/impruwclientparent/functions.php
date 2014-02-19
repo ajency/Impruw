@@ -188,7 +188,7 @@ function generate_markup( $section ) {
     $json = $markup_JSON[$section];
 
     $html = '';
-
+    
     foreach ( $json as $element ) {
 
         $html .= add_element_markup( $element );
@@ -207,17 +207,16 @@ function generate_markup( $section ) {
 function add_element_markup( $element ) {
 
     $html = '';
-    $type = $element['type'];
+    $type = $element['element'];
     if($type != 'Row' && $type != 'Column'){
         $meta = get_metadata_by_mid('post', $element['meta_id']);
         $element =  $meta->meta_value;   
-        $element['type'] = $type;
+        $element['element'] = $type;
     }
     
-    switch ( $element['type'] ) {
+    switch ( $element['element'] ) {
 
     case 'Row':
-        
         $html = get_builder_row_markup( $element );
         break;
     case 'Column':
@@ -1265,9 +1264,9 @@ add_action( 'wp_ajax_get_site_menu', 'get_site_menu' );
  *
  * @param unknown $menu_id The menu Id
  */
-function get_menu_to_array( $menu_name ) {
-
-    $menu = get_term_by( 'name', $menu_name, 'nav_menu' );
+function get_menu_to_array( $mn , $by = 'name') {
+   
+    $menu = get_term_by( $by, $mn, 'nav_menu' );
 
     if ( $menu === false )
         return array( 'code' => 'ERROR', 'message' => 'Invalid menu id' );
@@ -1280,15 +1279,16 @@ function get_menu_to_array( $menu_name ) {
     foreach ( (array) $m as $menu_item ) {
 
         $mn = array(
-            'ID'            => $menu_item->ID,
-            'menuOrder'     => $menu_item->menu_order,
-            'title'         => $menu_item->title,
-            'url'           => $menu_item->url
+            'ID'                => $menu_item->ID,
+            'order'             => $menu_item->menu_order,
+            'post_title'        => $menu_item->title,
+            'menu_item_link'    => $menu_item->url,
+            'menu_id'           => $menu->term_id
         );
 
         if ( (int)$menu_item->menu_item_parent === 0 ) {
 
-            $sorted_menu_items[$menu_item->menu_order] = $mn;
+            $sorted_menu_items[] = $mn;
         }
 
     }
@@ -1297,24 +1297,25 @@ function get_menu_to_array( $menu_name ) {
     foreach ( (array) $m as $menu_item ) {
 
         $mn = array(
-            'ID'            => $menu_item->ID,
-            'menuOrder'     => $menu_item->menu_order,
-            'title'         => $menu_item->title,
-            'url'           => $menu_item->url
+            'ID'                => $menu_item->ID,
+            'order'             => $menu_item->menu_order,
+            'post_title'        => $menu_item->title,
+            'menu_item_link'    => $menu_item->url,
+            'menu_id'           => (int)$menu->term_id
         );
 
         if ( (int)$menu_item->menu_item_parent !== 0 ) {
-            $sorted_menu_items[$menu_item->menu_item_parent]['subMenu'][] = $mn;
+            $sorted_menu_items[]['subMenu'][] = $mn;
         }
 
     }
 
     $wp_menu = array(
         'id'            => (int)$menu->term_id,
-        'name'          => $menu->name,
-        'slug'          => $menu->slug,
-        'description'   => $menu->description,
-        'items'         => $sorted_menu_items
+        'menu_name'     => $menu->name,
+        'menu_slug'     => $menu->slug,
+        'menu_description'   => $menu->description,
+        'menu_items'    => $sorted_menu_items
     );
 
     return $wp_menu;

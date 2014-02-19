@@ -62,7 +62,8 @@ class MenuElement extends Element {
      */
     function get_menu(){
         global $me;
-        $menu = get_site_menu_by_id($this->menu_id);
+        $menu = get_menu_to_array($this->menu_id, 'id');
+       
         $justified = $this->justified ? 'nav-justified' : '';
         $html = "<ul class='nav {$this->templates['className']} $justified'>";
         foreach($menu['menu_items'] as $item):

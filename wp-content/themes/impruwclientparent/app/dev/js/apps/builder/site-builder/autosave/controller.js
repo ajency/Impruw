@@ -22,7 +22,7 @@
 
         Controller.prototype.autoSave = function() {
           var options, siteRegion, _json, _page_id;
-          siteRegion = App.builderRegion.$el.find('#aj-imp-builder-drag-drop');
+          siteRegion = App.builderRegion.$el;
           _json = this._getPageJson(siteRegion);
           if (!_.isObject(_json)) {
             throw new Error("invalid json...");
@@ -68,10 +68,10 @@
               element: $(element).find('form input[name="element"]').val(),
               meta_id: parseInt($(element).find('form input[name="meta_id"]').val())
             };
-            if (ele.type === 'Row') {
+            if (ele.element === 'Row') {
               delete ele.meta_id;
               ele.elements = [];
-              _.each($(element).find('.column'), function(column, index) {
+              _.each($(element).children('.column'), function(column, index) {
                 var className, col;
                 className = $(column).attr('data-class');
                 col = {};
