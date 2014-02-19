@@ -244,34 +244,57 @@ add_action('wp_ajax_save-page-json', 'save_page_json');
 
 
 function get_page_json1(){
+    $page_id = $_POST['page_id'];
+    $json = array();
+    $json['header'] = get_option('theme-header');
+    $json['footer'] = get_option('theme-footer');
+    $json['page']   = get_post_meta($page_id,'page-json', true);
+    
+    
+    $d = array();
+    foreach($json as $section => $elements){
+        $d[$section] = array();
+        if(!is_array($elements))
+            continue;
+        foreach($elements as $element){
+           if($element['element'] === 'Row' || $element['element'] === 'Column')
+                $d[$section][] = $element;
+            else
+                $d[$section][] = get_meta_values ($element);
+        }
+    }
     $data = array(
                 'id'    => 5,
-                'json'  => array(
-                    'header' => array(
-                        array(
-                            'element'   => 'Row',
-                            'draggable' => false,
-                            'meta_id'   => rand(1000,9999),
-                            'style'     => 'footer-row',
-                            'elements'  => array(
-                                array(
-                                    'type' => 'Column'
-                                )
-                            )
-                        ),
-                        array(
-                            'element'   => 'Menu',
-                            'draggable' => true,
-                            'menu_id'   => 3,
-                            'meta_id'   => rand(1000,9999),
-                            'style'     => 'header',
-                            'justified' => true
-                        )
-                    ),
-                    'page' => array(),
-                    'footer' => array()
-                )
-            );      
+                'json'  => $d
+             );      
     wp_send_json(array('code' => 'OK' , 'data' => $data));
 }
 add_action('wp_ajax_get-page-json','get_page_json1');
+
+
+function get_meta_values($element){
+    $meta = get_metadata_by_mid('post', $element['meta_id']);
+    $ele =  $meta->meta_value;
+    $ele['meta_id'] = $element['meta_id'];
+    validate_element($ele);
+    return $ele;
+}
+
+/**
+ * 
+ */
+function validate_element(&$element){
+    $numkeys = array('id', 'meta_id', 'menu_id','ID');
+    $boolkey = array('draggable', 'justified');
+     
+    if(!is_array($element) && !is_object($element))
+        return $element;
+    
+    foreach ($element as $key => $val){
+        if(in_array($key, $numkeys))
+            $element[$key] = (int) $val;
+        if(in_array($key, $boolkey))
+            $element[$key] = $val === "true";
+    }
+    return $element;
+}

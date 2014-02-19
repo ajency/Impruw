@@ -8,6 +8,10 @@ define ['app','apps/builder/site-builder/elements/menu/views','apps/builder/site
 
 					# intializer
 					initialize:(options)->
+
+						_.defaults options.modelData,
+											draggable : true
+											style 	  : 'header'
 						super(options)
 						@bindEvents()
 

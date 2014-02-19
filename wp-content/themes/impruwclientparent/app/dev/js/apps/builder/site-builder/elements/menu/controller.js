@@ -18,6 +18,10 @@
         }
 
         Controller.prototype.initialize = function(options) {
+          _.defaults(options.modelData, {
+            draggable: true,
+            style: 'header'
+          });
           Controller.__super__.initialize.call(this, options);
           this.bindEvents();
           if (!this.layout.model.isNew()) {
