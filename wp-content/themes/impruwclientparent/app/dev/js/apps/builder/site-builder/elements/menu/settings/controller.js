@@ -15,14 +15,17 @@
         }
 
         Controller.prototype.initialize = function(opt) {
-          var config, view,
+          var config, menus, siteMenus, view,
             _this = this;
           if (opt == null) {
             opt = {};
           }
           this.model = opt.model;
           this.region = App.settingsRegion;
+          menus = App.request("get:site:menus");
+          siteMenus = menus.getSiteMenus();
           config = App.request("get:element:settings:options", 'Menu');
+          config.set('site_menus', siteMenus);
           view = this._getSettingView(this.model, config);
           this.listenTo(view, 'render', function() {
             _this.region.$el.css('top', 200);
@@ -31,8 +34,8 @@
           this.listenTo(view, "element:style:changed", function(style) {
             return _this.model.set("style", style);
           });
-          this.listenTo(view, "element:alignment:changed", function(align) {
-            return _this.model.set("align", align);
+          this.listenTo(view, "element:menu:changed", function(menuId) {
+            return _this.model.set("menu_id", menuId);
           });
           this.listenTo(view, "element:draggable:changed", function(draggable) {
             return _this.model.set("draggable", draggable);

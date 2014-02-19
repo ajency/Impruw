@@ -38,17 +38,17 @@ define ['app', 'text!apps/builder/site-builder/elements/menu/settings/templates/
 						# @$el.find('select[name="style"]').selectpicker 'val',@model.get 'style'
 						# @$el.find('select[name="align"]').selectpicker 'val',@model.get 'align'
 						@$el.find('select[name="style"]').val @model.get 'style'
-						@$el.find('select[name="align"]').val @model.get 'align'
+						@$el.find('select[name="choose-menu"]').val @model.get 'menu_id'
 
 
 					events:
 						'click .close-settings' : (evt)-> 
 											evt.preventDefault()
 											App.settingsRegion.close()
-						'change select[name="style"]' 	: 'updateStyle'
-						'change select[name="align"]' 	: 'alignElement'
-						'change input[name="draggable"]': 'setDraggable'
-						'change input[name="justified"]': 'setJustified'
+						'change select[name="style"]' 		: 'updateStyle'
+						'change select[name="choose-menu"]' : (evt)-> @trigger "element:menu:changed", $(evt.target).val()
+						'change input[name="draggable"]'	: 'setDraggable'
+						'change input[name="justified"]'	: 'setJustified'
 
 					# update the style 
 					updateStyle:(evt)=>

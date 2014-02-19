@@ -82,6 +82,11 @@ define ["app", 'backbone'], (App, Backbone) ->
 			class Menus.MenuCollection extends Backbone.Collection
 				model : Menus.MenuModel
 
+				getSiteMenus:()->
+					@map (model)->
+						menu_id : model.get 'id'
+						menu_name : model.get 'menu_name'
+
 				parse :(resp)->
 					if resp.code is 'OK'
 						return resp.data 

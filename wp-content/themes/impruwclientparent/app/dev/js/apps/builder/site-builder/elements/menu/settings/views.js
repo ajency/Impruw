@@ -46,7 +46,7 @@
             this.$el.find('input[name="justified"]').checkbox('check');
           }
           this.$el.find('select[name="style"]').val(this.model.get('style'));
-          return this.$el.find('select[name="align"]').val(this.model.get('align'));
+          return this.$el.find('select[name="choose-menu"]').val(this.model.get('menu_id'));
         };
 
         SettingsView.prototype.events = {
@@ -55,7 +55,9 @@
             return App.settingsRegion.close();
           },
           'change select[name="style"]': 'updateStyle',
-          'change select[name="align"]': 'alignElement',
+          'change select[name="choose-menu"]': function(evt) {
+            return this.trigger("element:menu:changed", $(evt.target).val());
+          },
           'change input[name="draggable"]': 'setDraggable',
           'change input[name="justified"]': 'setJustified'
         };

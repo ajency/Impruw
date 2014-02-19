@@ -10,7 +10,11 @@ define ['app','controllers/base-controller','apps/builder/site-builder/elements/
 					initialize:(opt ={})->
 						{ @model } = opt
 						@region = App.settingsRegion
+						menus = App.request "get:site:menus"
+						siteMenus = menus.getSiteMenus()
+
 						config  = App.request "get:element:settings:options", 'Menu'
+						config.set 'site_menus' , siteMenus
 						view = @_getSettingView @model, config
 
 						@listenTo view, 'render', =>
@@ -20,8 +24,8 @@ define ['app','controllers/base-controller','apps/builder/site-builder/elements/
 						@listenTo view, "element:style:changed",(style)=>
 														@model.set "style", style
 
-						@listenTo view, "element:alignment:changed",(align)=>
-														@model.set "align", align
+						@listenTo view, "element:menu:changed",(menuId)=>
+														@model.set "menu_id", menuId
 
 						@listenTo view, "element:draggable:changed", (draggable)=>
 														@model.set "draggable", draggable	

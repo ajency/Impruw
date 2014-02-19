@@ -132,6 +132,15 @@
 
         MenuCollection.prototype.model = Menus.MenuModel;
 
+        MenuCollection.prototype.getSiteMenus = function() {
+          return this.map(function(model) {
+            return {
+              menu_id: model.get('id'),
+              menu_name: model.get('menu_name')
+            };
+          });
+        };
+
         MenuCollection.prototype.parse = function(resp) {
           if (resp.code === 'OK') {
             return resp.data;

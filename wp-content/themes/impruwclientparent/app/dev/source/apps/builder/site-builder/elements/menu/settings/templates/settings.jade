@@ -13,12 +13,12 @@ header.settings-header
 						{{#config.styles}}
 						option(value="{{.}}") {{.}}
 						{{/config.styles}}
-				//- .form-group
-				//- 	label(for='') Align
-				//- 	select(name="align")
-				//- 		option(value="left") Left
-				//- 		option(value="center") Center
-				//- 		option(value="right") Right
+				.form-group
+					label(for='') Choose Menu
+					select(name="choose-menu")
+						{{#config.site_menus}}
+						option(value="{{menu_id}}") {{menu_name}}
+						{{/config.site_menus}}
 				.form-group
 					label.pull-left(for='') Draggable
 					span.checkbox.pull-left
