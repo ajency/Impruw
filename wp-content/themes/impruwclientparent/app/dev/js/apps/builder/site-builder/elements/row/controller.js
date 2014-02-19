@@ -18,14 +18,26 @@
         }
 
         Controller.prototype.initialize = function(options) {
+          _.defaults(options.modelData, {
+            draggable: true,
+            style: ''
+          });
           Controller.__super__.initialize.call(this, options);
           this.bindEvents();
-          return this.showView();
+          this.showView();
+          return this.addPropertiesField();
         };
 
         Controller.prototype.bindEvents = function() {
           this.listenTo(this.layout.model, "change:style", this.changeStyle);
           return this.listenTo(this.layout.model, "change:draggable", this.setDraggable);
+        };
+
+        Controller.prototype.addPropertiesField = function() {
+          this.layout.$el.children('form').append('<input type="hidden" name="draggable" value=""/>');
+          this.layout.$el.children('form').append('<input type="hidden" name="style" value=""/>');
+          this.setDraggable(this.layout.model);
+          return this.changeStyle(this.layout.model);
         };
 
         Controller.prototype._getRowView = function() {
@@ -35,12 +47,14 @@
         };
 
         Controller.prototype.setDraggable = function(model) {
-          return this.layout.triggerMethod("set:draggable", model.get('draggable'));
+          this.layout.triggerMethod("set:draggable", model.get('draggable'));
+          return this.layout.$el.children('form').find('input[name="draggable"]').val(model.get('draggable'));
         };
 
         Controller.prototype.changeStyle = function(model) {
           var _ref1;
-          return this.layout.elementRegion.currentView.triggerMethod("style:change", model.get('style', (_ref1 = model.previousAttributes().style) != null ? _ref1 : ''));
+          this.layout.elementRegion.currentView.triggerMethod("style:change", model.get('style'), (_ref1 = model.previousAttributes().style) != null ? _ref1 : '');
+          return this.layout.$el.children('form').find('input[name="style"]').val(model.get('style'));
         };
 
         Controller.prototype.showView = function() {

@@ -28,7 +28,9 @@ define ['app'],(App)->
 										receive 	: (e,ui)->
 											$(e.target).removeClass 'empty-column'
 			onShow:()->		
-				@setColumnResizer()
+				_.delay => 
+					@setColumnResizer()
+				,200
 
 			# set new classes on style change
 			onStyleChange : (newStyle, old)->
@@ -43,7 +45,7 @@ define ['app'],(App)->
 				@$el.children('.column')
 
 			getResizers:()->
-				@$el.children('.aj-imp-col-divider')
+				@$el.closest('.element-controls').find('.aj-imp-col-divider')
 
 			getColumnAt:(index)->
 				columns = @$el.children('.column')
@@ -84,7 +86,8 @@ define ['app'],(App)->
 					resizer = $(template)
 					resizer.attr('data-position', (index + 1))
 					resizer.css('left', left)
-					@$el.append(resizer)
+					console.log @$el.find('.element-controls')
+					@$el.closest('.element-wrapper').find('.element-controls').append(resizer)
 					@makeResizer resizer 
 
 

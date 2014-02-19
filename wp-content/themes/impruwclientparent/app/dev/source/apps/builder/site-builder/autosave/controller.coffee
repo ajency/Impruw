@@ -60,12 +60,14 @@ define ['app'], (App)->
 						meta_id : parseInt $(element).find('form input[name="meta_id"]').val()
 
 					if ele.element is 'Row'
+						ele.draggable = $(element).children('form').find('input[name="draggable"]').val() is "true"
+						ele.style = $(element).children('form').find('input[name="style"]').val()
 						delete ele.meta_id
 						ele.elements = []
-						_.each $(element).children('.column'), (column, index)=>
+						_.each $(element).find('.element-markup > .row').children('.column'), (column, index)=>
 							className = $(column).attr 'data-class'
 							col = {}
-							col.type = 'Column'
+							col.element = 'Column'
 							col.className = "col-md-#{className}"
 							col.elements = @_getJson $(column)
 							ele.elements.push col 

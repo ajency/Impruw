@@ -8,14 +8,26 @@ define ['app','apps/builder/site-builder/elements/row/views','apps/builder/site-
 
 					# intializer
 					initialize:(options)->
+
+						_.defaults options.modelData,
+											draggable : true
+											style 	  : ''
+
 						super(options)
 						@bindEvents()
 						@showView()
+						@addPropertiesField()
 
 					bindEvents:->
 						# start listening to events
 						@listenTo @layout.model, "change:style", @changeStyle
 						@listenTo @layout.model, "change:draggable", @setDraggable
+
+					addPropertiesField:->
+						@layout.$el.children('form').append '<input type="hidden" name="draggable" value=""/>'
+						@layout.$el.children('form').append '<input type="hidden" name="style" value=""/>'
+						@setDraggable @layout.model
+						@changeStyle @layout.model
 						
 					_getRowView:()->
 						new Row.Views.RowView
@@ -24,9 +36,11 @@ define ['app','apps/builder/site-builder/elements/row/views','apps/builder/site-
 					# set draggable
 					setDraggable:(model)=>
 						@layout.triggerMethod "set:draggable", model.get 'draggable'
+						@layout.$el.children('form').find('input[name="draggable"]').val model.get 'draggable'
 
 					changeStyle:(model)->
-						@layout.elementRegion.currentView.triggerMethod "style:change", model.get 'style', model.previousAttributes().style ? ''			
+						@layout.elementRegion.currentView.triggerMethod "style:change", model.get('style'), model.previousAttributes().style ? ''	
+						@layout.$el.children('form').find('input[name="style"]').val model.get 'style'		
 								
 					# setup templates for the element
 					showView:()=>

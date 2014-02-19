@@ -69,13 +69,15 @@
               meta_id: parseInt($(element).find('form input[name="meta_id"]').val())
             };
             if (ele.element === 'Row') {
+              ele.draggable = $(element).children('form').find('input[name="draggable"]').val() === "true";
+              ele.style = $(element).children('form').find('input[name="style"]').val();
               delete ele.meta_id;
               ele.elements = [];
-              _.each($(element).children('.column'), function(column, index) {
+              _.each($(element).find('.element-markup > .row').children('.column'), function(column, index) {
                 var className, col;
                 className = $(column).attr('data-class');
                 col = {};
-                col.type = 'Column';
+                col.element = 'Column';
                 col.className = "col-md-" + className;
                 col.elements = _this._getJson($(column));
                 ele.elements.push(col);

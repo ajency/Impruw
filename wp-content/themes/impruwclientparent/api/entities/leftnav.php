@@ -250,8 +250,9 @@ function get_page_json1(){
                     'header' => array(
                         array(
                             'element'   => 'Row',
-                            'draggable' => true,
+                            'draggable' => false,
                             'meta_id'   => rand(1000,9999),
+                            'style'     => 'footer-row',
                             'elements'  => array(
                                 array(
                                     'type' => 'Column'
@@ -271,6 +272,6 @@ function get_page_json1(){
                     'footer' => array()
                 )
             );      
-    wp_send_json(array('code' => 'OK1' , 'data' => $data));
+    wp_send_json(array('code' => 'OK' , 'data' => $data));
 }
 add_action('wp_ajax_get-page-json','get_page_json1');

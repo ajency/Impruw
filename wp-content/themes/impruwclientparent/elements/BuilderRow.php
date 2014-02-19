@@ -43,6 +43,13 @@ class BuilderRow extends Element {
     function __construct($element) {
         
         $this->elements     = $element['elements'];
+        $this->style        = $element['style'];
+        
+    }
+    
+    function get_classes(){
+        
+        return $this->class_name . ' ' . $this->style ;
         
     }
     

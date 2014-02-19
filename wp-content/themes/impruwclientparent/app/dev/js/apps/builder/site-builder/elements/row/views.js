@@ -44,7 +44,10 @@
         };
 
         RowView.prototype.onShow = function() {
-          return this.setColumnResizer();
+          var _this = this;
+          return _.delay(function() {
+            return _this.setColumnResizer();
+          }, 200);
         };
 
         RowView.prototype.onStyleChange = function(newStyle, old) {
@@ -64,7 +67,7 @@
         };
 
         RowView.prototype.getResizers = function() {
-          return this.$el.children('.aj-imp-col-divider');
+          return this.$el.closest('.element-controls').find('.aj-imp-col-divider');
         };
 
         RowView.prototype.getColumnAt = function(index) {
@@ -112,7 +115,8 @@
             resizer = $(template);
             resizer.attr('data-position', index + 1);
             resizer.css('left', left);
-            _this.$el.append(resizer);
+            console.log(_this.$el.find('.element-controls'));
+            _this.$el.closest('.element-wrapper').find('.element-controls').append(resizer);
             return _this.makeResizer(resizer);
           });
         };
