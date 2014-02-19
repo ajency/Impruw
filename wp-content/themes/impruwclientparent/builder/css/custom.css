@@ -194,15 +194,6 @@ div.element-drop-loader > p{
     border: 1px solid #b94a48;
 }
 
-
-.dropdown-menu {
-  z-index: 2000;
-}
-
-.bootstrap-select.show-menu-arrow.open > .btn {
-    z-index: 2051;
-}
-
 .bootstrap-select .btn:focus {
     outline: thin dotted #333333 !important;
     outline: 5px auto -webkit-focus-ring-color !important;
