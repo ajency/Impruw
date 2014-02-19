@@ -1,5 +1,5 @@
 .row.menu-item
-	.col-sm-1.menu-dragger: span.icon-uniF160
+	.col-sm-1.menu-dragger: span.bicon.icon-uniF160
 	.col-sm-8.menu-name {{post_title}}
 	.col-sm-3.menu-edit
 		a(href="#menu-item-{{menu_id}}-{{ID}}" data-toggle="collapse") 
@@ -18,5 +18,9 @@
 		.form-group.form-actions
 			.col-sm-offset-4.col-sm-8
 				input(type="hidden" value="{{menu_id}}" name="menu_id")
-				input.update-menu-item.btn(type="button" value="Update Menu")
-				input.btn(type="button" value="Cancel")
+				button.update-menu-item.btn.btn-info(type="button")
+					span Update Menu Item
+				button.btn(type="button")
+					span Cancel
+				button.btn.btn-danger(type="button")
+					span.glyphicon.glyphicon-trash
