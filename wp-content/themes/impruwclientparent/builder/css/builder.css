@@ -873,6 +873,20 @@ Version:        0.1.0
 .settings-box .settings-header .close-btn a:hover {
   color: #fff;
 }
+.settings-box .form-horizontal .form-group .control-label {
+  color: #aaaaaa;
+  font-weight: normal;
+}
+.settings-box .form-horizontal .form-group .checkbox {
+  margin-top: 8px;
+}
+.settings-box .form-horizontal .form-group .checkbox .icons {
+  line-height: 20px;
+}
+.settings-box .form-horizontal .form-group .checkbox .icons .first-icon,
+.settings-box .form-horizontal .form-group .checkbox .icons .second-icon {
+  border-radius: 5px;
+}
 /****Builder Element Layout Mode Styles****/
 .aj-imp-builder-layout-mode [class^="aj-imp-elem-"] {
   background: #fff;

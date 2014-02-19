@@ -4,18 +4,20 @@ header.settings-header
 			h5.title {{config.element}} Settings
 		.col-sm-2.close-btn
 			a(class='close-settings', href='#') &times;
-	.row
-		.col-sm-12
-			form(action='', method='POST', role='form')
-				.form-group
-					label(for='') Choose Style
+.row
+	.col-sm-12
+		form.form-horizontal(action='', method='POST', role='form')
+			.form-group
+				label.col-sm-4.control-label(for='') Choose Style
+				.col-sm-8
 					select(name="style")
 						option(value="") None
 						{{#config.styles}}
 						option(value="{{.}}") {{.}}
 						{{/config.styles}}
-				.form-group
-					label.pull-left(for='') Draggable
-					span.checkbox.pull-left
+			.form-group
+				label.col-sm-4.control-label(for='') Draggable
+				.col-sm-8
+					span.checkbox
 						input(type='checkbox' name="draggable")
 						
