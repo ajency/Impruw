@@ -50,6 +50,9 @@
             evt.preventDefault();
             return App.settingsRegion.close();
           },
+          'click .set-column-count a.btn': function(evt) {
+            return this.trigger("element:column:count:changed", parseInt($(evt.target).text()));
+          },
           'change select[name="style"]': function(evt) {
             return this.trigger("element:style:changed", $(evt.target).val());
           },

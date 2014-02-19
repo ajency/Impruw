@@ -39,5 +39,6 @@ define ['app', 'text!apps/builder/site-builder/elements/row/settings/templates/s
 						'click .close-settings' : (evt)-> 
 											evt.preventDefault()
 											App.settingsRegion.close()
+						'click .set-column-count a.btn' : (evt)-> @trigger "element:column:count:changed", parseInt $(evt.target).text()
 						'change select[name="style"]' 	:(evt)-> @trigger "element:style:changed", $(evt.target).val()
 						'change input[name="draggable"]': (evt)-> @trigger "element:draggable:changed", $(evt.target).is(':checked')

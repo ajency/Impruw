@@ -38,6 +38,9 @@ define ['app'],(App)->
 				@$el.removeClass(old) if not _(old).isEmpty()
 				@$el.addClass newStyle
 
+			onColumnCountChanged:(columnCount)->
+				@adjustColumnsInRow(columnCount)
+
 			columnCount:()->
 				@$el.children('.column').length
 
@@ -142,20 +145,28 @@ define ['app'],(App)->
 						
 				$(columns[0]).attr('data-class',currentClassZero).addClass "col-md-#{currentClassZero}"
 				$(columns[1]).attr('data-class',currentClassOne).addClass "col-md-#{currentClassOne}"
+
+			# add new columns
+			addNewColumn:(colClass)->
+				template = _.template '<div data-class="{{cclass}}" class="col-md-{{cclass}} column empty-column"></div>', cclass : colClass
+				@$el.append template					
 				
-			# 
+			# adjust columns in row
 			adjustColumnsInRow :(count)=>
 				requestedColumns = count
 				#if same column count is clicked ignore
 				return  if requestedColumns is @columnCount()
+
 				colClass = 12 / requestedColumns
+				
 				if requestedColumns > @columnCount()
 					extraColumns = requestedColumns - @columnCount()
 					#adjust class of existing columns
 					_.each @getColumns(), (column, index)=>
-						$(column).addClass "col-md-#{colClass}"
+						currentClass = $(column).attr 'data-class'
+						$(column).removeClass("col-md-#{currentClass}").addClass("col-md-#{colClass}").attr 'data-class', colClass
 
-					_.each _.range(extraColumns), ->
+					_.each _.range(extraColumns), =>
 						@addNewColumn colClass
 
 				else if requestedColumns < @columnCount()

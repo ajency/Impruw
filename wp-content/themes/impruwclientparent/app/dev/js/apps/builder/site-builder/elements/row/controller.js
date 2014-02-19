@@ -20,7 +20,8 @@
         Controller.prototype.initialize = function(options) {
           _.defaults(options.modelData, {
             draggable: true,
-            style: ''
+            style: '',
+            columncount: 2
           });
           Controller.__super__.initialize.call(this, options);
           this.bindEvents();
@@ -30,7 +31,8 @@
 
         Controller.prototype.bindEvents = function() {
           this.listenTo(this.layout.model, "change:style", this.changeStyle);
-          return this.listenTo(this.layout.model, "change:draggable", this.setDraggable);
+          this.listenTo(this.layout.model, "change:draggable", this.setDraggable);
+          return this.listenTo(this.layout.model, "change:columncount", this.columnCountChanged);
         };
 
         Controller.prototype.addPropertiesField = function() {
@@ -49,6 +51,10 @@
         Controller.prototype.setDraggable = function(model) {
           this.layout.triggerMethod("set:draggable", model.get('draggable'));
           return this.layout.$el.children('form').find('input[name="draggable"]').val(model.get('draggable'));
+        };
+
+        Controller.prototype.columnCountChanged = function(model) {
+          return this.layout.elementRegion.currentView.triggerMethod("column:count:changed", model.get('columncount'));
         };
 
         Controller.prototype.changeStyle = function(model) {

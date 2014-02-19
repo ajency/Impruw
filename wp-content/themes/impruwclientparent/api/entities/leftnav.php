@@ -257,9 +257,13 @@ function get_page_json1(){
         if(!is_array($elements))
             continue;
         foreach($elements as $element){
-           if($element['element'] === 'Row' || $element['element'] === 'Column')
+           if($element['element'] === 'Row' ){
+               $element['columncount'] = count($element['elements']);
+               $d[$section][] = $element;
+           }
+           else if($element['element'] === 'Column')
                 $d[$section][] = $element;
-            else
+           else
                 $d[$section][] = get_meta_values ($element);
         }
     }

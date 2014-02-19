@@ -58,6 +58,10 @@
           return this.$el.addClass(newStyle);
         };
 
+        RowView.prototype.onColumnCountChanged = function(columnCount) {
+          return this.adjustColumnsInRow(columnCount);
+        };
+
         RowView.prototype.columnCount = function() {
           return this.$el.children('.column').length;
         };
@@ -181,6 +185,14 @@
           return $(columns[1]).attr('data-class', currentClassOne).addClass("col-md-" + currentClassOne);
         };
 
+        RowView.prototype.addNewColumn = function(colClass) {
+          var template;
+          template = _.template('<div data-class="{{cclass}}" class="col-md-{{cclass}} column empty-column"></div>', {
+            cclass: colClass
+          });
+          return this.$el.append(template);
+        };
+
         RowView.prototype.adjustColumnsInRow = function(count) {
           var colClass, colsToRemove, emptyColsLen, emptyColumns, extraColumns, nCols, requestedColumns,
             _this = this;
@@ -192,10 +204,12 @@
           if (requestedColumns > this.columnCount()) {
             extraColumns = requestedColumns - this.columnCount();
             _.each(this.getColumns(), function(column, index) {
-              return $(column).addClass("col-md-" + colClass);
+              var currentClass;
+              currentClass = $(column).attr('data-class');
+              return $(column).removeClass("col-md-" + currentClass).addClass("col-md-" + colClass).attr('data-class', colClass);
             });
             _.each(_.range(extraColumns), function() {
-              return this.addNewColumn(colClass);
+              return _this.addNewColumn(colClass);
             });
           } else if (requestedColumns < this.columnCount()) {
             emptyColumns = [];
