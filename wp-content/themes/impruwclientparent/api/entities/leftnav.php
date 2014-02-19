@@ -145,7 +145,7 @@ function get_element_model($element) {
         case 'Menu':
             $model = array(
                 'style' => 'header',
-                'menu_id' => 3
+                'menu_id' => 2
             );
             break;
     }
