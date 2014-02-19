@@ -15,7 +15,7 @@
         }
         this.section = options.section;
         this._instance_id = _.uniqueId("controller");
-        App.commands.execute("register:instance", this, this._instance_id);
+        App.commands.execute("register:builder:instance", this, this._instance_id);
         AppController.__super__.constructor.call(this, options);
       }
 
@@ -24,7 +24,7 @@
         args = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
         delete this.region;
         delete this.options;
-        App.commands.execute("unregister:instance", this, this._instance_id);
+        App.commands.execute("unregister:builder:instance", this, this._instance_id);
         return AppController.__super__.close.call(this, args);
       };
 
