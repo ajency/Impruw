@@ -34,7 +34,6 @@ define ['app'],(App)->
 
 			# set new classes on style change
 			onStyleChange : (newStyle, old)->
-				console.log newStyle
 				@$el.removeClass(old) if not _(old).isEmpty()
 				@$el.addClass newStyle
 
@@ -48,7 +47,7 @@ define ['app'],(App)->
 				@$el.children('.column')
 
 			getResizers:()->
-				@$el.closest('.element-controls').find('.aj-imp-col-divider')
+				@$el.closest('.element-wrapper').find('.element-controls > .aj-imp-col-divider')
 
 			getColumnAt:(index)->
 				columns = @$el.children('.column')
@@ -57,8 +56,8 @@ define ['app'],(App)->
 			clearResizers:()->
 				for resizer in @getResizers()
 					$(resizer).draggable 'destroy'
-					return
-
+					$(resizer).remove()
+				
 			destroySortableColumns:->
 				@$el.children('.column').sortable 'destroy'
 
@@ -88,9 +87,8 @@ define ['app'],(App)->
 					left = $(column).position().left
 					resizer = $(template)
 					resizer.attr('data-position', (index + 1))
-					resizer.css('left', left)
-					console.log @$el.find('.element-controls')
-					@$el.closest('.element-wrapper').find('.element-controls').append(resizer)
+					resizer.css 'left', left
+					@$el.closest('.element-wrapper').children('.element-controls').append resizer
 					@makeResizer resizer 
 
 
@@ -148,8 +146,15 @@ define ['app'],(App)->
 
 			# add new columns
 			addNewColumn:(colClass)->
-				template = _.template '<div data-class="{{cclass}}" class="col-md-{{cclass}} column empty-column"></div>', cclass : colClass
-				@$el.append template					
+				template = _.template '<div data-class="{{cclass}}" class="col-md-{{cclass}} column empty-column"></div>', 
+																												cclass : colClass
+				@$el.append template
+				@$el.children('.column').last().sortable()
+
+			removeColumn:($column)->
+				#clear sortable
+				$column.sortable "destroy"
+				$column.remove()					
 				
 			# adjust columns in row
 			adjustColumnsInRow :(count)=>
@@ -171,8 +176,8 @@ define ['app'],(App)->
 
 				else if requestedColumns < @columnCount()
 					emptyColumns = []
-					_.each @elements, (column, index) ->
-						emptyColumns.push column  if column.isEmpty()
+					_.each @getColumns(), (column, index) ->
+						emptyColumns.push $(column) if $(column).isEmptyColumn()
 
 					emptyColsLen = emptyColumns.length
 				
@@ -197,25 +202,17 @@ define ['app'],(App)->
 					nCols = []
 				
 					#get indexes to remove
-					_.each @elements, (column, index) ->
-					if colsToRemove is 0 or not column.isEmpty()
-						nCols.push column
-						return
-					column.destroy()
-					colsToRemove--
+					_.each @getColumns(), (column, index)=>
+						if colsToRemove is 0 or not $(column).isEmptyColumn()
+							return
+						@removeColumn $(column)
+						colsToRemove--
 
-					@elements = []
-					@elements = nCols
-				
 					#adjust class of existing columns
-					_.each @elements, (column, index) ->
-						column.setColumnClass colClass
+					_.each @getColumns(), (column, index) ->
+						currentClass = $(column).attr 'data-class'
+						$(column).removeClass("col-md-#{currentClass}").addClass("col-md-#{colClass}").attr 'data-class', colClass
 
-			  
-				#set active column count
-				$(evt.target).parent().addClass("active").siblings().removeClass "active"
-				@sortableColumns()
-				@appendColumnResizer()
-
+				@setColumnResizer()
 	
 

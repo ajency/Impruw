@@ -24,8 +24,7 @@ define ['app', 'text!apps/builder/site-builder/elements/row/settings/templates/s
 
 					onRender:->
 						@$el.find('input[type="checkbox"]').checkbox()
-						@$el.find('select').selectpicker 
-												style: 'btn-mini btn-default'
+						#@$el.find('select').selectpicker()
 						@setFields()
 
 					# set fields for the form

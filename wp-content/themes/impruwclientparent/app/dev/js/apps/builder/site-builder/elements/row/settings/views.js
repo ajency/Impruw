@@ -32,9 +32,6 @@
 
         SettingsView.prototype.onRender = function() {
           this.$el.find('input[type="checkbox"]').checkbox();
-          this.$el.find('select').selectpicker({
-            style: 'btn-mini btn-default'
-          });
           return this.setFields();
         };
 
