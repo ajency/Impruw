@@ -74,7 +74,7 @@ define ['app'],(App)->
 
 				template = '<div class="aj-imp-col-divider">
 								<p title="Move">
-									<span class="icon-uniF140"></span>
+									<span class="bicon icon-uniF140"></span>
 								</p>
 							</div>'
 
