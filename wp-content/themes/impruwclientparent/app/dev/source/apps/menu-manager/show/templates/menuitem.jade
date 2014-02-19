@@ -18,5 +18,9 @@
 		.form-group.form-actions
 			.col-sm-offset-4.col-sm-8
 				input(type="hidden" value="{{menu_id}}" name="menu_id")
-				input.update-menu-item.btn(type="button" value="Update Menu")
-				input.btn(type="button" value="Cancel")
+				button.update-menu-item.btn.btn-info(type="button")
+					span Update Menu Item
+				button.btn(type="button")
+					span Cancel
+				button.btn.btn-danger(type="button")
+					span.glyphicon.glyphicon-trash
