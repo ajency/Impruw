@@ -10,10 +10,12 @@ header.settings-header
 				.form-group
 					label(for='') Choose Style
 					select(name="style")
+						option(value="") None
 						{{#config.styles}}
 						option(value="{{.}}") {{.}}
 						{{/config.styles}}
 				.form-group
-					label(for='') Draggable
-					input(type='checkbox' name="draggable")
+					label.pull-left(for='') Draggable
+					span.checkbox.pull-left
+						input(type='checkbox' name="draggable")
 						

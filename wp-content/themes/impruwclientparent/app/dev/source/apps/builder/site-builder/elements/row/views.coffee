@@ -12,9 +12,6 @@ define ['app'],(App)->
 			template : '<div data-class="6" class="col-md-6 column empty-column"></div>
 						<div data-class="6" class="col-md-6 column empty-column"></div>'
 
-			resizers :->
-			 	[]
-
 			onRender:()->
 				@$el.children('.column').sortable 
 										revert 		: 'invalid'
@@ -32,6 +29,12 @@ define ['app'],(App)->
 											$(e.target).removeClass 'empty-column'
 			onShow:()->		
 				@setColumnResizer()
+
+			# set new classes on style change
+			onStyleChange : (newStyle, old)->
+				console.log newStyle
+				@$el.removeClass(old) if not _(old).isEmpty()
+				@$el.addClass newStyle
 
 			columnCount:()->
 				@$el.children('.column').length

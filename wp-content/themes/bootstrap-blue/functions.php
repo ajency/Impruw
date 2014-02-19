@@ -39,5 +39,13 @@ $element_templates = array(
             menuItemTpl => '<a href="#">{{post_title}}</a>',
             submenuTpl => ''
         )
+    ),
+    'Row' => array(
+        'header-row' => array(
+            className => 'header-row'
+        ),
+        'footer-row' => array(
+            className => 'footer-row'
+        )
     )
 );

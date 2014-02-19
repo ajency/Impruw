@@ -26,7 +26,7 @@ define ['app','apps/builder/site-builder/elements/row/views','apps/builder/site-
 						@layout.triggerMethod "set:draggable", model.get 'draggable'
 
 					changeStyle:(model)->
-						@layout.triggerMethod "set:style", model.get 'style'						
+						@layout.elementRegion.currentView.triggerMethod "style:change", model.get 'style', model.previousAttributes().style ? ''			
 								
 					# setup templates for the element
 					showView:()=>

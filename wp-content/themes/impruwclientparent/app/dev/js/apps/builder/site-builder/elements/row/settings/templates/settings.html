@@ -11,13 +11,14 @@
       <form action="" method="POST" role="form">
         <div class="form-group">
           <label for="">Choose Style</label>
-          <select name="style">{{#config.styles}}
+          <select name="style">
+            <option value="">None</option>{{#config.styles}}
             <option value="{{.}}">{{.}}</option>{{/config.styles}}
           </select>
         </div>
         <div class="form-group">
-          <label for="">Draggable</label>
-          <input type="checkbox" name="draggable"/>
+          <label for="" class="pull-left">Draggable</label><span class="checkbox pull-left">
+            <input type="checkbox" name="draggable"/></span>
         </div>
       </form>
     </div>

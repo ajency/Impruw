@@ -39,7 +39,8 @@
         };
 
         Controller.prototype.changeStyle = function(model) {
-          return this.layout.triggerMethod("set:style", model.get('style'));
+          var _ref1;
+          return this.layout.elementRegion.currentView.triggerMethod("style:change", model.get('style', (_ref1 = model.previousAttributes().style) != null ? _ref1 : ''));
         };
 
         Controller.prototype.showView = function() {

@@ -21,10 +21,6 @@
         RowView.prototype.template = '<div data-class="6" class="col-md-6 column empty-column"></div>\
 						<div data-class="6" class="col-md-6 column empty-column"></div>';
 
-        RowView.prototype.resizers = function() {
-          return [];
-        };
-
         RowView.prototype.onRender = function() {
           return this.$el.children('.column').sortable({
             revert: 'invalid',
@@ -49,6 +45,14 @@
 
         RowView.prototype.onShow = function() {
           return this.setColumnResizer();
+        };
+
+        RowView.prototype.onStyleChange = function(newStyle, old) {
+          console.log(newStyle);
+          if (!_(old).isEmpty()) {
+            this.$el.removeClass(old);
+          }
+          return this.$el.addClass(newStyle);
         };
 
         RowView.prototype.columnCount = function() {

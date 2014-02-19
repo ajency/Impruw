@@ -29,7 +29,8 @@
             return _this.region.$el.css('left', 400);
           });
           this.listenTo(view, "element:style:changed", function(style) {
-            return _this.model.set("style", style);
+            _this.model.set("style", style);
+            return console.log(_this.model);
           });
           this.listenTo(view, "element:draggable:changed", function(draggable) {
             return _this.model.set("draggable", draggable);

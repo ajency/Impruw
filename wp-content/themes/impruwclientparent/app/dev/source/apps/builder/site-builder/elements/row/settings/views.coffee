@@ -26,6 +26,14 @@ define ['app', 'text!apps/builder/site-builder/elements/row/settings/templates/s
 						@$el.find('input[type="checkbox"]').checkbox()
 						@$el.find('select').selectpicker 
 												style: 'btn-mini btn-default'
+						@setFields()
+
+					# set fields for the form
+					setFields:->
+						if @model.get('draggable') is true
+							@$el.find('input[name="draggable"]').checkbox('check')
+						@$el.find('select[name="style"]').val @model.get 'style'
+						
 
 					events:
 						'click .close-settings' : (evt)-> 
