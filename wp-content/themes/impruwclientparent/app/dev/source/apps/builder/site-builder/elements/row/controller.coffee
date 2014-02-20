@@ -33,6 +33,7 @@ define ['app','apps/builder/site-builder/elements/row/views','apps/builder/site-
 					changeStyle:(model)->
 						prevStyle = model.previousAttributes().style ? ''
 						newStyle  = model.get('style')
+						console.log newStyle
 						@layout.elementRegion.currentView.triggerMethod "style:changed", newStyle, prevStyle	
 						@layout.setHiddenField 'style', newStyle
 								
@@ -42,6 +43,7 @@ define ['app','apps/builder/site-builder/elements/row/views','apps/builder/site-
 						# get menu 
 						view = @_getRowView()
 						@layout.elementRegion.show view
+						@changeStyle @layout.model
 
 					# remove the element model
 					deleteElement:(model)->

@@ -46,6 +46,7 @@
           var newStyle, prevStyle, _ref1;
           prevStyle = (_ref1 = model.previousAttributes().style) != null ? _ref1 : '';
           newStyle = model.get('style');
+          console.log(newStyle);
           this.layout.elementRegion.currentView.triggerMethod("style:changed", newStyle, prevStyle);
           return this.layout.setHiddenField('style', newStyle);
         };
@@ -54,7 +55,8 @@
           var view;
           this.removeSpinner();
           view = this._getRowView();
-          return this.layout.elementRegion.show(view);
+          this.layout.elementRegion.show(view);
+          return this.changeStyle(this.layout.model);
         };
 
         Controller.prototype.deleteElement = function(model) {

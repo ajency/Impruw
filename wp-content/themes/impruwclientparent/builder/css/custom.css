@@ -81,6 +81,14 @@ div.element-drop-loader > p{
     border-radius: 4px;
 }
 
+.aj-imp-builder-layout-mode .row .column.empty-column{
+    background: none !important;
+}
+
+.aj-imp-builder-layout-mode .row .column {
+    background: none !important;
+}
+
 /*.element-wrapper:hover{
     border : 1px solid orange;
 }

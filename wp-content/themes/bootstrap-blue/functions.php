@@ -41,11 +41,11 @@ $element_templates = array(
         )
     ),
     'Row' => array(
-        'header-row' => array(
-            className => 'header-row'
+        'green-background' => array(
+            className => 'green-background'
         ),
-        'footer-row' => array(
-            className => 'footer-row'
+        'grey-background' => array(
+            className => 'grey-background'
         )
     )
 );

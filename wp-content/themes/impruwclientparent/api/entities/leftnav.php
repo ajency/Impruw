@@ -68,7 +68,7 @@ function get_elementbox_elements() {
             array('element' => 'Row',
                 'title' => 'Row',
                 'icon' => '',
-                'styles' => array('header-row', 'footer-row'),
+                'styles' => array('green-background', 'grey-background'),
                 'templates' => get_templates('Row'),
                 'draggable' => true
             )
