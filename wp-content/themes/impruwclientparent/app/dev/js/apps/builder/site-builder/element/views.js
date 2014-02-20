@@ -12,6 +12,7 @@
 
         function ElementView() {
           this.onShow = __bind(this.onShow, this);
+          this.initialize = __bind(this.initialize, this);
           _ref = ElementView.__super__.constructor.apply(this, arguments);
           return _ref;
         }
@@ -35,6 +36,13 @@
             evt.stopPropagation();
             return this.trigger("delete:element", this.model);
           }
+        };
+
+        ElementView.prototype.initialize = function() {
+          var _this = this;
+          return this.once('before:render:element', function() {
+            return _this.trigger("bind:element:events");
+          });
         };
 
         ElementView.prototype.onRender = function() {

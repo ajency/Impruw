@@ -98,22 +98,20 @@ function create_element_model() {
     $element = $_POST;
 
     unset($element['action']);
-    $page_id = isset($_POST['page_id']) ? $_POST['page_id'] : 0;
-
-    //insert into DB
-    global $wpdb;
-    $model = get_element_model($element);
+    $model = get_element_model($element['element']);
+    
+    $model = wp_parse_args($model, $element);
+    
     $model['meta_id'] = set_element_data($model);
 
-    wp_send_json(array('code' => 'OK',
-        'data' => $model));
+    wp_send_json(array( 'code' => 'OK',
+                        'data' => $model));
 }
 
 add_action('wp_ajax_create-element-model', 'create_element_model');
-
+        
 function set_element_data($data) {
     global $wpdb;
-    
     if(isset($data['meta_id'])){
         $meta_id = $data['meta_id'];
         $serialized_element = maybe_serialize($data);
@@ -123,7 +121,7 @@ function set_element_data($data) {
                             'meta_key'  => $data['element']
                         ),
                         array(
-                            'meta_id' => $meta_id
+                            'meta_id' =>(int)$meta_id
                         ));
     }
     else{
@@ -131,17 +129,18 @@ function set_element_data($data) {
         $wpdb->insert($wpdb->postmeta, array(
             'post_id' => 0,
             'meta_value' => $serialized_element,
-            'meta_key' => $element['element']
+            'meta_key' => $data['element']
         ));
+        return $wpdb->insert_id;
     }
-    return $wpdb->insert_id;
+    
 }
 
 function get_element_model($element) {
 
     $model = array();
 
-    switch ($element['element']) {
+    switch ($element) {
 
         case 'Menu':
             $model = array(
@@ -164,7 +163,6 @@ function update_element_model() {
     unset($element['action']);
     $meta_id = $element['meta_id'];
     set_element_data($element);
-    
     wp_send_json(array('code' => 'OK', 'data' => array('meta_id' => $meta_id)));
 }
 

@@ -30,9 +30,10 @@
           var _this = this;
           this.listenTo(this.layout.model, "change:menu_id", this.renderElement);
           this.listenTo(this.layout.model, "change:style", this.renderElement);
-          return this.listenTo(this.layout.model, "change:justified", function(model) {
+          this.listenTo(this.layout.model, "change:justified", function(model) {
             return _this.layout.elementRegion.currentView.triggerMethod("set:justified", model.get('justified'));
           });
+          return Controller.__super__.bindEvents.call(this);
         };
 
         Controller.prototype._getMenuView = function(model, collection, templates) {

@@ -22,6 +22,7 @@ define ['app','apps/builder/site-builder/elements/menu/views','apps/builder/site
 						@listenTo @layout.model, "change:style", @renderElement
 						@listenTo @layout.model, "change:justified",(model)=>
 							@layout.elementRegion.currentView.triggerMethod "set:justified",model.get 'justified'
+						super()
 
 					# create a new menu view
 					_getMenuView:(model, collection, templates)->

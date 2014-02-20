@@ -37,6 +37,7 @@
               return _this.deleteElement(model);
             }
           });
+          this.listenTo(this.layout, "bind:element:events", this.bindEvents);
           this.listenTo(element, "destroy", function() {
             return _this.layout.close();
           });
@@ -46,8 +47,7 @@
               return _this.renderElement();
             });
           }
-          this.add(this.layout, $(container));
-          return this.bindEvents();
+          return this.add(this.layout, $(container));
         };
 
         Controller.prototype.bindEvents = function() {

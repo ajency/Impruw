@@ -33,6 +33,8 @@ define ['app', 'controllers/builder-base-controller'
 												if confirm("Are you sure?")
 													@deleteElement model
 
+						@listenTo @layout, "bind:element:events", @bindEvents
+
 						# register to element model destroy event.
 						# close the layout (i.e element)
 						@listenTo element, "destroy", => @layout.close()
@@ -45,8 +47,7 @@ define ['app', 'controllers/builder-base-controller'
 						# add the element to container
 						@add @layout, $(container)
 
-						@bindEvents()
-
+						
 					bindEvents:->
 						@listenTo @layout.model, "change:draggable", @setDraggable
 						

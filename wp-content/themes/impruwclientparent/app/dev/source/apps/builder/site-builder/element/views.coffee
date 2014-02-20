@@ -29,8 +29,12 @@ define ['app'
 						'click .aj-imp-delete-btn': (evt)->
 							evt.stopPropagation()
 							@trigger "delete:element", @model
+					
+					initialize:=>
+						# bind event only once
+						@once 'before:render:element',=>
+							@trigger "bind:element:events"
 
-				
 					# set the data-element attribute for element 
 					onRender:->
 						@$el.find('.element-markup > span').spin @_getOptions()
