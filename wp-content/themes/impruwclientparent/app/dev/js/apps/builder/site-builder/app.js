@@ -7,10 +7,9 @@
         show: function() {
           return this.showController = new SiteBuilderApp.Show.Controller;
         },
-        appendNewElement: function(container, type, modelData) {
+        addNewElement: function(container, type, modelData) {
           return new SiteBuilderApp.Element[type].Controller({
             container: container,
-            type: type,
             modelData: modelData
           });
         },
@@ -43,11 +42,11 @@
           }
         }
       };
-      App.vent.on("element:dropped", function(container, type, modelData) {
+      App.reqres.setHandler("add:new:element", function(container, type, modelData) {
         if (modelData == null) {
           modelData = {};
         }
-        return API.appendNewElement(container, type, modelData);
+        return API.addNewElement(container, type, modelData);
       });
       App.reqres.setHandler("get:dropped:region", function(sectionID) {
         return API.getDroppedRegion(sectionID);

@@ -10,45 +10,33 @@ define ['app','apps/builder/site-builder/elements/row/views','apps/builder/site-
 					initialize:(options)->
 
 						_.defaults options.modelData,
-											draggable : true
-											style 	  : ''
-											columncount: 2
+											element  	: 'Row'
+											columncount : 2
+											elements 	: []
 
 						super(options)
-						@bindEvents()
-						@showView()
-						@addPropertiesField()
-
-					bindEvents:->
-						# start listening to events
-						@listenTo @layout.model, "change:style", @changeStyle
-						@listenTo @layout.model, "change:draggable", @setDraggable
-						@listenTo @layout.model, "change:columncount", @columnCountChanged
-
-					addPropertiesField:->
-						@layout.$el.children('form').append '<input type="hidden" name="draggable" value=""/>'
-						@layout.$el.children('form').append '<input type="hidden" name="style" value=""/>'
-						@setDraggable @layout.model
-						@changeStyle @layout.model
 						
+					bindEvents:->
+						# start listening to model events
+						@listenTo @layout.model, "change:style", @changeStyle
+						@listenTo @layout.model, "change:columncount", @columnCountChanged
+						super()
+
 					_getRowView:()->
 						new Row.Views.RowView
 										model : @layout.model
-
-					# set draggable
-					setDraggable:(model)=>
-						@layout.triggerMethod "set:draggable", model.get 'draggable'
-						@layout.$el.children('form').find('input[name="draggable"]').val model.get 'draggable'
 
 					columnCountChanged:(model)->
 						@layout.elementRegion.currentView.triggerMethod "column:count:changed", model.get 'columncount'
 
 					changeStyle:(model)->
-						@layout.elementRegion.currentView.triggerMethod "style:change", model.get('style'), model.previousAttributes().style ? ''	
-						@layout.$el.children('form').find('input[name="style"]').val model.get 'style'		
+						prevStyle = model.previousAttributes().style ? ''
+						newStyle  = model.get('style')
+						@layout.elementRegion.currentView.triggerMethod "style:changed", newStyle, prevStyle	
+						@layout.setHiddenField 'style', newStyle
 								
 					# setup templates for the element
-					showView:()=>
+					renderElement:()=>
 						@removeSpinner()
 						# get menu 
 						view = @_getRowView()

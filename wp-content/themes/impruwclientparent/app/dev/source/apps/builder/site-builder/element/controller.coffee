@@ -10,18 +10,20 @@ define ['app', 'controllers/builder-base-controller'
 					# initialize the controller. Get all required entities and show the view
 					initialize:(opts)->
 
-						{container, type, modelData} = opts
+						{container, modelData} = opts
 
 						options = 
-							element : type
-						
-						_.defaults options, modelData
+							draggable 	: true
+							style 	  	: ''
+											
+						_.defaults modelData, options
 
-						element = App.request "create:new:element", options
+						element = App.request "create:new:element", modelData
 
+						# define the element layout view
 						@layout = @_getView element
 
-						# start listening to events
+						# listen to shoiw settings popup event from view
 						@listenTo @layout, "show:setting:popup", (model)->
 								ele = _.slugify model.get 'element'
 								App.vent.trigger "show:#{ele}:settings:popup",model
@@ -31,13 +33,26 @@ define ['app', 'controllers/builder-base-controller'
 												if confirm("Are you sure?")
 													@deleteElement model
 
+						# register to element model destroy event.
+						# close the layout (i.e element)
 						@listenTo element, "destroy", => @layout.close()
 
-						App.commands.execute "when:fetched", [element], =>
-									@layout.triggerMethod "element:model:created"
-
+						if element.isNew()
+							App.execute "when:fetched", element, =>
+														@layout.triggerMethod "before:render:element"
+														@renderElement()
+							
+						# add the element to container
 						@add @layout, $(container)
 
+						@bindEvents()
+
+					bindEvents:->
+						@listenTo @layout.model, "change:draggable", @setDraggable
+						
+					# set draggable
+					setDraggable:(model)=>
+						@layout.setDraggable model.get 'draggable'
 
 					# Get view
 					_getView : (elementModel)->
@@ -47,14 +62,14 @@ define ['app', 'controllers/builder-base-controller'
 					# show the view markup
 					removeSpinner:()->
 						#stop spinner if found
-						if@layout.$el.find('.element-markup > span').length > 0
+						if @layout.$el.find('.element-markup > span').length > 0
 							@layout.$el.find('.element-markup > span').spin false
 
 
 					# remove the element model
 					deleteElement:(model)->
 						model.destroy 
-									wait : true
+								wait : true
 
 
 			App.SiteBuilderApp.Element.Controller		

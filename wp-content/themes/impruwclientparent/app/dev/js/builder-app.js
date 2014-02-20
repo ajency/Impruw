@@ -37,6 +37,12 @@
     App.commands.setHandler("unregister:instance", function(instance, id) {
       return App.unregister(instance, id);
     });
+    App.commands.setHandler("register:builder:instance", function(instance, id) {
+      return App.register(instance, id);
+    });
+    App.commands.setHandler("unregister:builder:instance", function(instance, id) {
+      return App.unregister(instance, id);
+    });
     App.on("initialize:after", function(options) {
       var appState, menus;
       menus = App.request("get:site:menus");

@@ -11,35 +11,24 @@
         __extends(Controller, _super);
 
         function Controller() {
-          this.showView = __bind(this.showView, this);
-          this.setDraggable = __bind(this.setDraggable, this);
+          this.renderElement = __bind(this.renderElement, this);
           _ref = Controller.__super__.constructor.apply(this, arguments);
           return _ref;
         }
 
         Controller.prototype.initialize = function(options) {
           _.defaults(options.modelData, {
-            draggable: true,
-            style: '',
-            columncount: 2
+            element: 'Row',
+            columncount: 2,
+            elements: []
           });
-          Controller.__super__.initialize.call(this, options);
-          this.bindEvents();
-          this.showView();
-          return this.addPropertiesField();
+          return Controller.__super__.initialize.call(this, options);
         };
 
         Controller.prototype.bindEvents = function() {
           this.listenTo(this.layout.model, "change:style", this.changeStyle);
-          this.listenTo(this.layout.model, "change:draggable", this.setDraggable);
-          return this.listenTo(this.layout.model, "change:columncount", this.columnCountChanged);
-        };
-
-        Controller.prototype.addPropertiesField = function() {
-          this.layout.$el.children('form').append('<input type="hidden" name="draggable" value=""/>');
-          this.layout.$el.children('form').append('<input type="hidden" name="style" value=""/>');
-          this.setDraggable(this.layout.model);
-          return this.changeStyle(this.layout.model);
+          this.listenTo(this.layout.model, "change:columncount", this.columnCountChanged);
+          return Controller.__super__.bindEvents.call(this);
         };
 
         Controller.prototype._getRowView = function() {
@@ -48,22 +37,19 @@
           });
         };
 
-        Controller.prototype.setDraggable = function(model) {
-          this.layout.triggerMethod("set:draggable", model.get('draggable'));
-          return this.layout.$el.children('form').find('input[name="draggable"]').val(model.get('draggable'));
-        };
-
         Controller.prototype.columnCountChanged = function(model) {
           return this.layout.elementRegion.currentView.triggerMethod("column:count:changed", model.get('columncount'));
         };
 
         Controller.prototype.changeStyle = function(model) {
-          var _ref1;
-          this.layout.elementRegion.currentView.triggerMethod("style:change", model.get('style'), (_ref1 = model.previousAttributes().style) != null ? _ref1 : '');
-          return this.layout.$el.children('form').find('input[name="style"]').val(model.get('style'));
+          var newStyle, prevStyle, _ref1;
+          prevStyle = (_ref1 = model.previousAttributes().style) != null ? _ref1 : '';
+          newStyle = model.get('style');
+          this.layout.elementRegion.currentView.triggerMethod("style:changed", newStyle, prevStyle);
+          return this.layout.setHiddenField('style', newStyle);
         };
 
-        Controller.prototype.showView = function() {
+        Controller.prototype.renderElement = function() {
           var view;
           this.removeSpinner();
           view = this._getRowView();

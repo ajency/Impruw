@@ -4,15 +4,14 @@ define ["marionette"
 	class AppController extends Marionette.Controller
 		
 		constructor: (options = {}) ->
-			@section = options.section
-			@_instance_id = _.uniqueId("controller")
+			@_instance_id = _.uniqueId "elementcontroller" 
 			App.commands.execute "register:builder:instance", @, @_instance_id
 			super options
 
 		# close the controller. 
 		# unregister the controller instance from application object
 		close: (args...) ->
-			delete @region
+			delete @layout
 			delete @options
 			App.commands.execute "unregister:builder:instance", @, @_instance_id
 			super args
@@ -27,6 +26,10 @@ define ["marionette"
 			layout.render()
 			layout.triggerMethod 'show'
 
-			#check if element need save
-			if not layout.model.isNew()
-				@showView layout.model
+			# for row add hidden fields
+			@layout.addHiddenFields() if layout.model.get('element') is 'Row'
+
+			#check if element need save 
+			if not layout.model.isNew() or layout.model.get('element') is 'Row'
+				layout.triggerMethod "before:render:element"
+				@renderElement()

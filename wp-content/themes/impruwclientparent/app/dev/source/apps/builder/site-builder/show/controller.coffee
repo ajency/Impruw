@@ -4,23 +4,26 @@ define ['app', 'controllers/base-controller'
 
 			App.module 'SiteBuilderApp.Show', (Show, App, Backbone, Marionette, $, _)->
 
+				siteBuilderController = null
+
 				class Show.BuilderController extends AppController
 
 					initialize:(opt = {})->
 						@region = App.getRegion 'builderRegion'
 
 						#get pageElements
-						pageId = 5 #App.request "get:current:editable:page"
+						pageId = App.request "get:current:editable:page"
 
 						#element json
 						elements = App.request "get:page:json", pageId
 
+						# builder view
 						@view = new Show.View.Builder
 											model : elements
 
 						# listen to element dropped event for next action
-						@listenTo @view, "element:dropped", (container, type)->
-							App.vent.trigger "element:dropped", container, type
+						@listenTo @view, "add:new:element", (container, type)->
+									App.request "add:new:element", container, type
 
 						# triggered when all models are fetched for the page
 						# usign this event to start filling up the builder 
@@ -28,7 +31,7 @@ define ['app', 'controllers/base-controller'
 						@listenTo @view, "dependencies:fetched", =>
 								_.delay =>
 									@startFillingElements()
-								, 2000
+								, 400
 
 						@show  @view,
 								loading : true
@@ -45,11 +48,10 @@ define ['app', 'controllers/base-controller'
 
 					# start filling elements
 					startFillingElements: ()->
-						json = @view.model.get('json')
-						_.each json, (section, key)=>
-							container = @_getContainer key
-							_.each section, (element, index)=>
-								App.vent.trigger "element:dropped",container,element.element, element
+						section = @view.model.get('header')
+						container = @_getContainer 'header'
+						_.each section, (element, i)=>
+							App.request "add:new:element",container,element.element, element									
 
 
 
@@ -63,17 +65,22 @@ define ['app', 'controllers/base-controller'
 						
 						view = new Show.View.MainView
 
-						@listenTo view, 'render',(view)->
+						@listenTo view, 'render',(view)=>
 							# added delay so that the html is fully rendered
-							_.delay ->
+							_.delay =>
 								# add new region to application
 								App.addRegions
 										builderRegion : '#aj-imp-builder-drag-drop'
 
-								new Show.BuilderController()
+								siteBuilderController = new Show.BuilderController()
 							, 400
 
 						@show  view
+
+
+				App.commands.setHandler "editable:page:changed",(pageId)=>
+					siteBuilderController.close() if @siteBuilderController isnt null
+					siteBuilderController = new Show.BuilderController()
 
 						
 

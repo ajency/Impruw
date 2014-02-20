@@ -13,8 +13,7 @@
         if (options == null) {
           options = {};
         }
-        this.section = options.section;
-        this._instance_id = _.uniqueId("controller");
+        this._instance_id = _.uniqueId("elementcontroller");
         App.commands.execute("register:builder:instance", this, this._instance_id);
         AppController.__super__.constructor.call(this, options);
       }
@@ -22,7 +21,7 @@
       AppController.prototype.close = function() {
         var args;
         args = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
-        delete this.region;
+        delete this.layout;
         delete this.options;
         App.commands.execute("unregister:builder:instance", this, this._instance_id);
         return AppController.__super__.close.call(this, args);
@@ -38,8 +37,12 @@
         }
         layout.render();
         layout.triggerMethod('show');
-        if (!layout.model.isNew()) {
-          return this.showView(layout.model);
+        if (layout.model.get('element') === 'Row') {
+          this.layout.addHiddenFields();
+        }
+        if (!layout.model.isNew() || layout.model.get('element') === 'Row') {
+          layout.triggerMethod("before:render:element");
+          return this.renderElement();
         }
       };
 

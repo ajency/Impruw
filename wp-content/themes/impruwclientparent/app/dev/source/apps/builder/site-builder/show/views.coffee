@@ -36,6 +36,6 @@ define ['app'
 													# trigger drop event if ui.item is Li tag
 													if ui.item.prop("tagName") is 'LI'
 														type  = ui.item.attr 'data-element'
-														@trigger "element:dropped", $(evt.target), type
+														@trigger "add:new:element", $(evt.target), type
 												
 			return App.SiteBuilderApp.Show.View

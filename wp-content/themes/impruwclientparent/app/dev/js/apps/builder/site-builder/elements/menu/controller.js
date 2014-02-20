@@ -11,29 +11,25 @@
         __extends(Controller, _super);
 
         function Controller() {
-          this.showView = __bind(this.showView, this);
-          this.setDraggable = __bind(this.setDraggable, this);
+          this.renderElement = __bind(this.renderElement, this);
           _ref = Controller.__super__.constructor.apply(this, arguments);
           return _ref;
         }
 
         Controller.prototype.initialize = function(options) {
           _.defaults(options.modelData, {
-            draggable: true,
+            element: 'Menu',
+            justified: false,
+            menu_id: 0,
             style: 'header'
           });
-          Controller.__super__.initialize.call(this, options);
-          this.bindEvents();
-          if (!this.layout.model.isNew()) {
-            return this.showView(this.layout.model);
-          }
+          return Controller.__super__.initialize.call(this, options);
         };
 
         Controller.prototype.bindEvents = function() {
           var _this = this;
-          this.listenTo(this.layout.model, "change:menu_id", this.showView);
-          this.listenTo(this.layout.model, "change:style", this.showView);
-          this.listenTo(this.layout.model, "change:draggable", this.setDraggable);
+          this.listenTo(this.layout.model, "change:menu_id", this.renderElement);
+          this.listenTo(this.layout.model, "change:style", this.renderElement);
           return this.listenTo(this.layout.model, "change:justified", function(model) {
             return _this.layout.elementRegion.currentView.triggerMethod("set:justified", model.get('justified'));
           });
@@ -48,12 +44,9 @@
           });
         };
 
-        Controller.prototype.setDraggable = function(model) {
-          return this.layout.triggerMethod("set:draggable", model.get('draggable'));
-        };
-
-        Controller.prototype.showView = function(model) {
-          var elementBox, itemCollection, menu, templates, view;
+        Controller.prototype.renderElement = function() {
+          var elementBox, itemCollection, menu, model, templates, view;
+          model = this.layout.model;
           menu = App.request("get:collection:model", "menucollection", model.get('menu_id'));
           itemCollection = menu.get('menu_items');
           elementBox = App.request("get:collection:model", "elementbox", 'Menu');

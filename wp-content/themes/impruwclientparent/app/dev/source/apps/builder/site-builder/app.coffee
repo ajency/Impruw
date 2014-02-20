@@ -14,10 +14,9 @@ define ['app'
 				@showController = new SiteBuilderApp.Show.Controller
 
 			# add a new element to the builder region
-			appendNewElement:(container, type, modelData)->
+			addNewElement:(container, type, modelData)->
 				new SiteBuilderApp.Element[type].Controller 
 													container 	: container
-													type		: type
 													modelData	: modelData
 
 			# show settings box for a view
@@ -48,8 +47,8 @@ define ['app'
 					else 'page'
 
 		# listen to "element:dropped" event.
-		App.vent.on "element:dropped",(container, type, modelData = {})->
-			API.appendNewElement container, type, modelData
+		App.reqres.setHandler "add:new:element",(container, type, modelData = {})->
+			API.addNewElement container, type, modelData
 
 		
 		# get the dropped region

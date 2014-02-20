@@ -35,6 +35,7 @@
         SettingsView.prototype.onRender = function() {
           this.$el.find('input[type="checkbox"]').checkbox();
           this.$el.find('input[type="radio"]').radio();
+          this.$el.find('select').selectpicker();
           return this.setFields();
         };
 
@@ -45,8 +46,8 @@
           if (this.model.get('justified') === true) {
             this.$el.find('input[name="justified"]').checkbox('check');
           }
-          this.$el.find('select[name="style"]').val(this.model.get('style'));
-          return this.$el.find('select[name="choose-menu"]').val(this.model.get('menu_id'));
+          this.$el.find('select[name="style"]').selectpicker('val', this.model.get('style'));
+          return this.$el.find('select[name="choose-menu"]').selectpicker('val', this.model.get('menu_id'));
         };
 
         SettingsView.prototype.events = {

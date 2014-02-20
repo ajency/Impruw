@@ -113,6 +113,7 @@ add_action('wp_ajax_create-element-model', 'create_element_model');
 
 function set_element_data($data) {
     global $wpdb;
+    
     if(isset($data['meta_id'])){
         $meta_id = $data['meta_id'];
         $serialized_element = maybe_serialize($data);
@@ -251,6 +252,7 @@ function get_page_json1(){
     $json['page']   = get_post_meta($page_id,'page-json', true);
     
     $d = array();
+    
     foreach($json as $section => $elements){
         $d[$section] = array();
         if(!is_array($elements))
@@ -267,8 +269,10 @@ function get_page_json1(){
         }
     }
     $data = array(
-                'id'    => 5,
-                'json'  => $d
+                'id'        => $page_id,
+                'header'    => $d['header'],
+                'page'      => $d['page'],
+                'footer'    => $d['footer']
              );      
     wp_send_json(array('code' => 'OK' , 'data' => $data));
 }

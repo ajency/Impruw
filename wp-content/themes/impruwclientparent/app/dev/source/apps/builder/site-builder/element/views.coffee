@@ -30,16 +30,11 @@ define ['app'
 							evt.stopPropagation()
 							@trigger "delete:element", @model
 
-					# model events
-					# listen to markup change event. update the UI accordingly
-					modelEvents : 
-						'change:meta_id'	: 'setMetaId'
-
+				
 					# set the data-element attribute for element 
 					onRender:->
 						@$el.find('.element-markup > span').spin @_getOptions()
-						@setElementType()
-
+						
 					# set mouse hover for element
 					onShow:()=>
 						@$el.mouseover (evt)=>
@@ -48,20 +43,29 @@ define ['app'
 						.mouseout ()=>
 							@$el.removeClass 'hover-class'
 
+					# set the hidden fields before rendering the element
+					onBeforeRenderElement:->
+						for field in ['draggable', 'meta_id', 'style', 'element']
+							@setHiddenField field, @model.get field
+
+					# special hidden fields for row element
+					addHiddenFields:()->
+						for field in ['draggable', 'style']
+							@$el.children('form').append "<input type='hidden' name='#{field}' value=''/>"
+
 					# on set draggable
-					onSetDraggable:(draggable)->
+					setDraggable:(draggable)->
 						if draggable is false
 							@$el.find('.aj-imp-drag-handle').addClass('non-visible')
 						else if draggable is true
 							@$el.find('.aj-imp-drag-handle').removeClass('non-visible')
+
+						@setHiddenField 'draggable', draggable
 				
 					# set the meta id for element
-					setMetaId :(model)->
-						@$el.find('input[name="meta_id"]').val model.get('meta_id')
-
-					# set element type in hidden field
-					setElementType :()->
-						@$el.find('input[name="element"]').val @model.get('element')
+					setHiddenField :(name, value)->
+						if @$el.children('form').find("input[name='#{name}']").length is 1
+							@$el.children('form').find("input[name='#{name}']").val value
 
 					# rerender markup 
 					onElementModelCreated:->

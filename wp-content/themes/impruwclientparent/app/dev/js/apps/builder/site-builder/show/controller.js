@@ -5,7 +5,9 @@
 
   define(['app', 'controllers/base-controller', 'apps/builder/site-builder/show/views'], function(App, AppController) {
     App.module('SiteBuilderApp.Show', function(Show, App, Backbone, Marionette, $, _) {
-      var _ref, _ref1;
+      var siteBuilderController, _ref, _ref1,
+        _this = this;
+      siteBuilderController = null;
       Show.BuilderController = (function(_super) {
         __extends(BuilderController, _super);
 
@@ -21,18 +23,18 @@
             opt = {};
           }
           this.region = App.getRegion('builderRegion');
-          pageId = 5;
+          pageId = App.request("get:current:editable:page");
           elements = App.request("get:page:json", pageId);
           this.view = new Show.View.Builder({
             model: elements
           });
-          this.listenTo(this.view, "element:dropped", function(container, type) {
-            return App.vent.trigger("element:dropped", container, type);
+          this.listenTo(this.view, "add:new:element", function(container, type) {
+            return App.request("add:new:element", container, type);
           });
           this.listenTo(this.view, "dependencies:fetched", function() {
             return _.delay(function() {
               return _this.startFillingElements();
-            }, 2000);
+            }, 400);
           });
           return this.show(this.view, {
             loading: true
@@ -51,22 +53,19 @@
         };
 
         BuilderController.prototype.startFillingElements = function() {
-          var json,
+          var container, section,
             _this = this;
-          json = this.view.model.get('json');
-          return _.each(json, function(section, key) {
-            var container;
-            container = _this._getContainer(key);
-            return _.each(section, function(element, index) {
-              return App.vent.trigger("element:dropped", container, element.element, element);
-            });
+          section = this.view.model.get('header');
+          container = this._getContainer('header');
+          return _.each(section, function(element, i) {
+            return App.request("add:new:element", container, element.element, element);
           });
         };
 
         return BuilderController;
 
       })(AppController);
-      return Show.Controller = (function(_super) {
+      Show.Controller = (function(_super) {
         __extends(Controller, _super);
 
         function Controller() {
@@ -75,7 +74,8 @@
         }
 
         Controller.prototype.initialize = function(opt) {
-          var view;
+          var view,
+            _this = this;
           if (opt == null) {
             opt = {};
           }
@@ -86,7 +86,7 @@
               App.addRegions({
                 builderRegion: '#aj-imp-builder-drag-drop'
               });
-              return new Show.BuilderController();
+              return siteBuilderController = new Show.BuilderController();
             }, 400);
           });
           return this.show(view);
@@ -95,6 +95,12 @@
         return Controller;
 
       })(AppController);
+      return App.commands.setHandler("editable:page:changed", function(pageId) {
+        if (_this.siteBuilderController !== null) {
+          siteBuilderController.close();
+        }
+        return siteBuilderController = new Show.BuilderController();
+      });
     });
     return App.SiteBuilderApp.Show.Controller;
   });

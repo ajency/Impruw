@@ -24,7 +24,8 @@
             collection: pages
           });
           this.listenTo(view, 'editable:page:changed', function(pageId) {
-            return $.cookie('current-page-id', pageId);
+            $.cookie('current-page-id', pageId);
+            return App.execute("editable:page:changed", pageId);
           });
           return this.show(view, {
             loading: true

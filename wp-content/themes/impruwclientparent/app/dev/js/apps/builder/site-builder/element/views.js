@@ -37,13 +37,8 @@
           }
         };
 
-        ElementView.prototype.modelEvents = {
-          'change:meta_id': 'setMetaId'
-        };
-
         ElementView.prototype.onRender = function() {
-          this.$el.find('.element-markup > span').spin(this._getOptions());
-          return this.setElementType();
+          return this.$el.find('.element-markup > span').spin(this._getOptions());
         };
 
         ElementView.prototype.onShow = function() {
@@ -56,20 +51,41 @@
           });
         };
 
-        ElementView.prototype.onSetDraggable = function(draggable) {
-          if (draggable === false) {
-            return this.$el.find('.aj-imp-drag-handle').addClass('non-visible');
-          } else if (draggable === true) {
-            return this.$el.find('.aj-imp-drag-handle').removeClass('non-visible');
+        ElementView.prototype.onBeforeRenderElement = function() {
+          var field, _i, _len, _ref1, _results;
+          _ref1 = ['draggable', 'meta_id', 'style', 'element'];
+          _results = [];
+          for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
+            field = _ref1[_i];
+            _results.push(this.setHiddenField(field, this.model.get(field)));
           }
+          return _results;
         };
 
-        ElementView.prototype.setMetaId = function(model) {
-          return this.$el.find('input[name="meta_id"]').val(model.get('meta_id'));
+        ElementView.prototype.addHiddenFields = function() {
+          var field, _i, _len, _ref1, _results;
+          _ref1 = ['draggable', 'style'];
+          _results = [];
+          for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
+            field = _ref1[_i];
+            _results.push(this.$el.children('form').append("<input type='hidden' name='" + field + "' value=''/>"));
+          }
+          return _results;
         };
 
-        ElementView.prototype.setElementType = function() {
-          return this.$el.find('input[name="element"]').val(this.model.get('element'));
+        ElementView.prototype.setDraggable = function(draggable) {
+          if (draggable === false) {
+            this.$el.find('.aj-imp-drag-handle').addClass('non-visible');
+          } else if (draggable === true) {
+            this.$el.find('.aj-imp-drag-handle').removeClass('non-visible');
+          }
+          return this.setHiddenField('draggable', draggable);
+        };
+
+        ElementView.prototype.setHiddenField = function(name, value) {
+          if (this.$el.children('form').find("input[name='" + name + "']").length === 1) {
+            return this.$el.children('form').find("input[name='" + name + "']").val(value);
+          }
         };
 
         ElementView.prototype.onElementModelCreated = function() {

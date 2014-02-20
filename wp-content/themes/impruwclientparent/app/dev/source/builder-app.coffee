@@ -42,6 +42,14 @@ define ['marionette'], (Marionette)->
 	App.commands.setHandler "unregister:instance", (instance, id) ->
 		App.unregister instance, id
 
+	# Registers a controller instance
+	App.commands.setHandler "register:builder:instance", (instance, id) ->
+		App.register instance, id
+	
+	# Unregisters a controller instance
+	App.commands.setHandler "unregister:builder:instance", (instance, id) ->
+		App.unregister instance, id
+
 	App.on "initialize:after", (options) ->
 		menus = App.request "get:site:menus"
 		appState = App.request "get:current:appstate"

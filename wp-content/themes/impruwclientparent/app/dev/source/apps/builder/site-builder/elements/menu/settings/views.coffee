@@ -25,7 +25,7 @@ define ['app', 'text!apps/builder/site-builder/elements/menu/settings/templates/
 					onRender:->
 						@$el.find('input[type="checkbox"]').checkbox()
 						@$el.find('input[type="radio"]').radio()
-						#@$el.find('select').selectpicker() 
+						@$el.find('select').selectpicker() 
 						@setFields()
 
 					# set fields for the form
@@ -35,11 +35,8 @@ define ['app', 'text!apps/builder/site-builder/elements/menu/settings/templates/
 						if @model.get('justified') is true
 							@$el.find('input[name="justified"]').checkbox('check')
 
-						# @$el.find('select[name="style"]').selectpicker 'val',@model.get 'style'
-						# @$el.find('select[name="align"]').selectpicker 'val',@model.get 'align'
-						@$el.find('select[name="style"]').val @model.get 'style'
-						@$el.find('select[name="choose-menu"]').val @model.get 'menu_id'
-
+						@$el.find('select[name="style"]').selectpicker 'val',@model.get 'style'
+						@$el.find('select[name="choose-menu"]').selectpicker 'val',@model.get 'menu_id'
 
 					events:
 						'click .close-settings' : (evt)-> 

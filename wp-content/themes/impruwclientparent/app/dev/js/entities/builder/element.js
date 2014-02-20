@@ -32,7 +32,7 @@
         };
 
         ElementModel.prototype.sync = function(method, model, options) {
-          var name, _action;
+          var name, xhr, _action;
           if (options == null) {
             options = {};
           }
@@ -45,19 +45,9 @@
             name = this.name;
           }
           _action = "" + method + "-" + name;
-          switch (method) {
-            case 'create':
-              options.data = model.toJSON();
-              return Backbone.send(_action, options);
-            case 'update':
-              options.data = model.toJSON();
-              return Backbone.send(_action, options);
-            case 'delete':
-              options.data = model.toJSON();
-              return Backbone.send(_action, options);
-            default:
-              return Backbone.Model.prototype.sync.apply(this, arguments);
-          }
+          options.data = model.toJSON();
+          xhr = Backbone.send(_action, options);
+          return model._fetch = xhr;
         };
 
         ElementModel.prototype.parse = function(resp) {

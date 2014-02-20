@@ -32,6 +32,7 @@
 
         SettingsView.prototype.onRender = function() {
           this.$el.find('input[type="checkbox"]').checkbox();
+          this.$el.find('select').selectpicker();
           return this.setFields();
         };
 
@@ -39,7 +40,7 @@
           if (this.model.get('draggable') === true) {
             this.$el.find('input[name="draggable"]').checkbox('check');
           }
-          return this.$el.find('select[name="style"]').val(this.model.get('style'));
+          return this.$el.find('select[name="style"]').selectpicker('val', this.model.get('style'));
         };
 
         SettingsView.prototype.events = {

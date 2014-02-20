@@ -36,19 +36,9 @@ define ["app", 'backbone'], (App, Backbone) ->
                     # ex: create-model-name, delete-model-name, update-model-name, read-model-name
                     _action = "#{method}-#{name}"
                     
-                    switch method
-                        when 'create'
-                            # set the data property for request
-                            options.data = model.toJSON()
-                            Backbone.send _action,options
-                        when 'update'
-                            options.data = model.toJSON()
-                            Backbone.send _action,options
-                        when 'delete'
-                            options.data = model.toJSON()
-                            Backbone.send _action,options
-                        else
-                            Backbone.Model.prototype.sync.apply this, arguments
+                    options.data = model.toJSON()
+                    xhr = Backbone.send _action,options
+                    model._fetch = xhr
 
                 
                 # parse the json response

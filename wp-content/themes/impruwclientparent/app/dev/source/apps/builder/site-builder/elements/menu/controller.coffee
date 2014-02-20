@@ -10,26 +10,20 @@ define ['app','apps/builder/site-builder/elements/menu/views','apps/builder/site
 					initialize:(options)->
 
 						_.defaults options.modelData,
-											draggable : true
-											style 	  : 'header'
+											element 	: 'Menu'
+											justified 	: false
+											menu_id		: 0
+											style 		: 'header'
 						super(options)
-						@bindEvents()
-
-						# show if model is ready
-						if not @layout.model.isNew()
-							@showView @layout.model
-
+						
 					bindEvents:->
 						# start listening to events
-						@listenTo @layout.model, "change:menu_id", @showView
-						@listenTo @layout.model, "change:style", @showView
-						@listenTo @layout.model, "change:draggable", @setDraggable
+						@listenTo @layout.model, "change:menu_id", @renderElement
+						@listenTo @layout.model, "change:style", @renderElement
 						@listenTo @layout.model, "change:justified",(model)=>
 							@layout.elementRegion.currentView.triggerMethod "set:justified",model.get 'justified'
 
-						# @listenTo @layout.model, "change:align",(model)=>
-						# 	@layout.elementRegion.currentView.setAlignment model.get 'align'
-						
+					# create a new menu view
 					_getMenuView:(model, collection, templates)->
 						new Menu.Views.MenuView
 								model 		: model
@@ -37,12 +31,9 @@ define ['app','apps/builder/site-builder/elements/menu/views','apps/builder/site
 								templates   : templates
 								prop 		: @layout.model.toJSON()
 
-					# set draggable
-					setDraggable:(model)=>
-						@layout.triggerMethod "set:draggable", model.get 'draggable'
-								
 					# setup templates for the element
-					showView:(model)=>
+					renderElement:()=>
+						model = @layout.model
 						# get menu 
 						menu = App.request "get:collection:model", "menucollection", model.get 'menu_id'
 						itemCollection = menu.get 'menu_items'

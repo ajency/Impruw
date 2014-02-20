@@ -54,7 +54,7 @@
               var type;
               if (ui.item.prop("tagName") === 'LI') {
                 type = ui.item.attr('data-element');
-                return _this.trigger("element:dropped", $(evt.target), type);
+                return _this.trigger("add:new:element", $(evt.target), type);
               }
             }
           });

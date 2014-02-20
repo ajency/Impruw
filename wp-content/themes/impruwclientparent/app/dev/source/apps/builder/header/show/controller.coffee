@@ -18,6 +18,7 @@ define ['app', 'controllers/base-controller'
 						@listenTo view, 'editable:page:changed',(pageId)->
 															# set the cookie
 															$.cookie 'current-page-id', pageId
+															App.execute "editable:page:changed", pageId
 						
 						@show  view,
 								loading : true

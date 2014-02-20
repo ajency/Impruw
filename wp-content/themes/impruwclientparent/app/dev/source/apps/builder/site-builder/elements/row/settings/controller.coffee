@@ -19,7 +19,6 @@ define ['app','controllers/base-controller','apps/builder/site-builder/elements/
 
 						@listenTo view, "element:style:changed",(style)=>
 														@model.set "style", style
-														console.log @model
 
 						@listenTo view, "element:draggable:changed", (draggable)=>
 														@model.set "draggable", draggable	

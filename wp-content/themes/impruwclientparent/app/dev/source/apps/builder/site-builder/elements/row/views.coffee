@@ -2,15 +2,19 @@ define ['app'],(App)->
 
 	# Row views
 	App.module 'SiteBuilderApp.Element.Row.Views', (Views, App, Backbone, Marionette, $, _)->
-		
+
+		class ColumnView extends Marionette.ItemView
+			
+			template : '<div data-class="6" class="col-md-6 column empty-column"></div>'
 
 		# Menu item view
-		class Views.RowView extends Marionette.ItemView
+		class Views.RowView extends Marionette.CollectionView
 
 			className : 'row'
 
-			template : '<div data-class="6" class="col-md-6 column empty-column"></div>
-						<div data-class="6" class="col-md-6 column empty-column"></div>'
+			template : ''
+
+			itemView : ColumnView
 
 			onRender:()->
 				@$el.children('.column').sortable 
@@ -18,22 +22,23 @@ define ['app'],(App)->
 										items 		: '> .element-wrapper'
 										connectWith : '.droppable-column,.column'
 										handle 		: '.aj-imp-drag-handle'
-										start: (e, ui)->
-											ui.placeholder.height ui.item.height()
+										start 		: (e, ui)->
+														ui.placeholder.height ui.item.height()
 										helper 		: 'clone'
 										opacity		: .65
 										remove 		: (evt, ui)->
-											if $(evt.target).children().length is 0
-												$(evt.target).addClass 'empty-column'
-										receive 	: (e,ui)->
-											$(e.target).removeClass 'empty-column'
+														if $(evt.target).children().length is 0
+															$(evt.target).addClass 'empty-column'
+										update 		: (e,ui)->
+														$(e.target).removeClass 'empty-column'
+														
 			onShow:()->		
 				_.delay => 
 					@setColumnResizer()
 				,200
 
 			# set new classes on style change
-			onStyleChange : (newStyle, old)->
+			onStyleChanged : (newStyle, old)->
 				@$el.removeClass(old) if not _(old).isEmpty()
 				@$el.addClass newStyle
 
