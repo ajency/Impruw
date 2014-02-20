@@ -69,7 +69,7 @@
         RowView.prototype.itemView = ColumnView;
 
         RowView.prototype.initialize = function(opt) {
-          var column, i, _i, _j, _len, _len1, _ref2, _ref3, _results, _results1;
+          var col, column, i, _i, _j, _len, _len1, _ref2, _ref3, _results, _results1;
           if (opt == null) {
             opt = {};
           }
@@ -92,7 +92,9 @@
             _results1 = [];
             for (_j = 0, _len1 = _ref3.length; _j < _len1; _j++) {
               column = _ref3[_j];
-              _results1.push(this.collection.add(column));
+              col = _.clone(column);
+              delete col.elements;
+              _results1.push(this.collection.add(col));
             }
             return _results1;
           }

@@ -76,11 +76,12 @@
               _.each($(element).children('.element-markup').children('.row').children('.column'), function(column, index) {
                 var className, col;
                 className = $(column).attr('data-class');
-                col = {};
-                col.position = index + 1;
-                col.element = 'Column';
-                col.className = className;
-                col.elements = _this._getJson($(column));
+                col = {
+                  position: index + 1,
+                  element: 'Column',
+                  className: className,
+                  elements: _this._getJson($(column))
+                };
                 ele.elements.push(col);
               });
             }

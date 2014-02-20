@@ -49,8 +49,10 @@ define ['app'
 
 					# set the hidden fields before rendering the element
 					onBeforeRenderElement:->
-						for field in ['draggable', 'meta_id', 'style', 'element']
+						for field in ['meta_id', 'style', 'element']
 							@setHiddenField field, @model.get field
+
+						@setDraggable @model.get 'draggable'
 
 					# special hidden fields for row element
 					addHiddenFields:()->

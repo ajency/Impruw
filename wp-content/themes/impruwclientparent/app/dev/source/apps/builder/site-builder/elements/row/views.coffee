@@ -50,7 +50,9 @@ define ['app'],(App)->
 								elements 	: []
 				else
 					for column in opt.model.get('elements')
-						@collection.add column
+						col = _.clone column
+						delete col.elements
+						@collection.add col
 
 			onShow:()->		
 				_.delay => 

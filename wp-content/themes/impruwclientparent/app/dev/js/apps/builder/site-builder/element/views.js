@@ -60,14 +60,13 @@
         };
 
         ElementView.prototype.onBeforeRenderElement = function() {
-          var field, _i, _len, _ref1, _results;
-          _ref1 = ['draggable', 'meta_id', 'style', 'element'];
-          _results = [];
+          var field, _i, _len, _ref1;
+          _ref1 = ['meta_id', 'style', 'element'];
           for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
             field = _ref1[_i];
-            _results.push(this.setHiddenField(field, this.model.get(field)));
+            this.setHiddenField(field, this.model.get(field));
           }
-          return _results;
+          return this.setDraggable(this.model.get('draggable'));
         };
 
         ElementView.prototype.addHiddenFields = function() {
