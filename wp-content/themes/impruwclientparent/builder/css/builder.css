@@ -843,6 +843,38 @@ Version:        0.1.0
 .aj-imp-builder-layout-mode .row:last-child {
   margin: 0;
 }
+/****Builder Area Label Styles****/
+#aj-imp-builder-drag-drop #site-header-region,
+#aj-imp-builder-drag-drop #site-footer-region,
+#aj-imp-builder-drag-drop #site-page-content-region {
+  min-height: 200px;
+  position: relative;
+}
+#aj-imp-builder-drag-drop #site-header-region:after,
+#aj-imp-builder-drag-drop #site-footer-region:after,
+#aj-imp-builder-drag-drop #site-page-content-region:after {
+  display: block;
+  padding: 0.2em 0.5em 0.3em;
+  position: absolute;
+  right: -90px;
+  background: #dddddd;
+  color: #fff;
+  width: 90px;
+  border-radius: 0 3px 3px 0;
+  font-size: 0.88em;
+}
+#aj-imp-builder-drag-drop #site-header-region:after {
+  content: 'Site Header';
+}
+#aj-imp-builder-drag-drop #site-footer-region:after {
+  content: 'Site Footer';
+}
+#aj-imp-builder-drag-drop #site-page-content-region {
+  min-height: 400px;
+}
+#aj-imp-builder-drag-drop #site-page-content-region:after {
+  content: 'Site Content';
+}
 /****Builder Settings Box Styles****/
 .settings-box {
   width: 400px;
