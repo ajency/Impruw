@@ -243,7 +243,7 @@ add_action('wp_ajax_save-page-json', 'save_page_json');
 
 
 function get_page_json1(){
-    $page_id = $_POST['page_id'];
+    $page_id = $_REQUEST['page_id'];
     $json = array();
     $json['header'] = get_option('theme-header');
     $json['footer'] = get_option('theme-footer');
@@ -258,10 +258,8 @@ function get_page_json1(){
         foreach($elements as $element){
            if($element['element'] === 'Row' ){
                $element['columncount'] = count($element['elements']);
-               $d[$section][] = $element;
+               $d[$section][] = get_row_elements($element);
            }
-           else if($element['element'] === 'Column')
-                $d[$section][] = $element;
            else
                 $d[$section][] = get_meta_values ($element);
         }
@@ -275,6 +273,23 @@ function get_page_json1(){
     wp_send_json(array('code' => 'OK' , 'data' => $data));
 }
 add_action('wp_ajax_get-page-json','get_page_json1');
+
+function get_row_elements($element){
+    foreach($element['elements'] as &$column){
+        foreach($column['elements'] as &$ele){
+            if($ele['element'] === 'Row' ){
+                $ele['columncount'] = count($ele['elements']);
+                $ele = get_row_elements($ele);
+            }
+            else{
+                $meta = get_meta_values ($ele);
+                $ele = wp_parse_args($meta,$ele);
+            }
+        }
+        
+    }
+    return $element;
+}
 
 
 function get_meta_values($element){

@@ -58,17 +58,48 @@
           section = this.view.model.get('header');
           container = this._getContainer('header');
           _.each(section, function(element, i) {
-            return App.request("add:new:element", container, element.element, element);
+            if (element.element === 'Row') {
+              return _this.addNestedElements(container, element);
+            } else {
+              return App.request("add:new:element", container, element.element, element);
+            }
           });
           section = this.view.model.get('page');
           container = this._getContainer('page');
           _.each(section, function(element, i) {
-            return App.request("add:new:element", container, element.element, element);
+            if (element.element === 'Row') {
+              return _this.addNestedElements(container, element);
+            } else {
+              return App.request("add:new:element", container, element.element, element);
+            }
           });
           section = this.view.model.get('footer');
           container = this._getContainer('footer');
           return _.each(section, function(element, i) {
-            return App.request("add:new:element", container, element.element, element);
+            if (element.element === 'Row') {
+              return _this.addNestedElements(container, element);
+            } else {
+              return App.request("add:new:element", container, element.element, element);
+            }
+          });
+        };
+
+        BuilderController.prototype.addNestedElements = function(container, element) {
+          var controller,
+            _this = this;
+          controller = App.request("add:new:element", container, element.element, element);
+          return _.each(element.elements, function(column, index) {
+            if (column.elements.length === 0) {
+              return;
+            }
+            container = controller.layout.elementRegion.currentView.$el.children().eq(index);
+            return _.each(column.elements, function(ele, i) {
+              if (element.element === 'Row') {
+                return _this.addNestedElements($(container), ele);
+              } else {
+                return App.request("add:new:element", container, ele.element, ele);
+              }
+            });
           });
         };
 

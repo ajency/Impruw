@@ -73,7 +73,7 @@
               ele.style = $(element).children('form').find('input[name="style"]').val();
               delete ele.meta_id;
               ele.elements = [];
-              _.each($(element).find('.element-markup > .row').children('.column'), function(column, index) {
+              _.each($(element).children('.element-markup').children('.row').children('.column'), function(column, index) {
                 var className, col;
                 className = $(column).attr('data-class');
                 col = {};

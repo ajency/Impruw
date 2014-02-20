@@ -51,17 +51,37 @@ define ['app', 'controllers/base-controller'
 						section = @view.model.get('header')
 						container = @_getContainer 'header'
 						_.each section, (element, i)=>
-							App.request "add:new:element",container,element.element, element
+							if element.element is 'Row'
+								@addNestedElements container,element
+							else
+								App.request "add:new:element",container,element.element, element
 
 						section = @view.model.get('page')
 						container = @_getContainer 'page'
 						_.each section, (element, i)=>
-							App.request "add:new:element",container,element.element, element
+							if element.element is 'Row'
+								@addNestedElements container,element
+							else
+								App.request "add:new:element",container,element.element, element
 
 						section = @view.model.get('footer')
 						container = @_getContainer 'footer'
 						_.each section, (element, i)=>
-							App.request "add:new:element",container,element.element, element									
+							if element.element is 'Row'
+								@addNestedElements container,element
+							else
+								App.request "add:new:element",container,element.element, element						
+
+					addNestedElements:(container,element)->
+						controller = App.request "add:new:element",container,element.element, element
+						_.each element.elements, (column, index)=>
+							return if column.elements.length is 0
+							container = controller.layout.elementRegion.currentView.$el.children().eq(index)
+							_.each column.elements,(ele, i)=>
+								if element.element is 'Row'
+									@addNestedElements $(container),ele
+								else
+									App.request "add:new:element",container,ele.element, ele
 
 
 
