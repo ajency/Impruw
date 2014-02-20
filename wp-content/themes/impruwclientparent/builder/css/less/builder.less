@@ -894,6 +894,41 @@ Version:        0.1.0
 	}
 }
 
+/****Builder Area Label Styles****/
+#aj-imp-builder-drag-drop {
+	#site-header-region, #site-footer-region, #site-page-content-region {
+		min-height: 200px;
+		position: relative;
+		&:after {
+			display: block;
+			padding: 0.2em 0.5em 0.3em;
+			position: absolute;
+			right: -90px;
+			background: lighten(@dash-grey, 20%);
+			color: #fff;
+			width: 90px;
+			border-radius: 0 3px 3px 0;
+			font-size: 0.88em;
+		}
+	}
+	#site-header-region {
+		&:after {
+			content: 'Site Header';
+		}
+	}
+	#site-footer-region {
+		&:after {
+			content: 'Site Footer';
+		}
+	}
+	#site-page-content-region {
+		min-height: 400px;
+		&:after {
+			content: 'Site Content';
+		}
+	}
+}
+
 /****Builder Settings Box Styles****/
 .settings-box {
 	width: 400px;
