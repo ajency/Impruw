@@ -20,7 +20,8 @@
           _.defaults(options.modelData, {
             element: 'Row',
             columncount: 2,
-            elements: []
+            elements: [],
+            meta_id: 0
           });
           return Controller.__super__.initialize.call(this, options);
         };

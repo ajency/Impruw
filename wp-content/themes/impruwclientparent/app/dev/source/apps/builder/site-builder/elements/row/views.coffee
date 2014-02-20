@@ -4,9 +4,32 @@ define ['app'],(App)->
 	App.module 'SiteBuilderApp.Element.Row.Views', (Views, App, Backbone, Marionette, $, _)->
 
 		class ColumnView extends Marionette.ItemView
-			
-			template : '<div data-class="6" class="col-md-6 column empty-column"></div>'
+			className 	: 'column empty-column'
+			tagName 	: 'div'
+			template 	: ''
+			onRender 	: ->
+				@$el.attr 'data-position',@model.get 'position'
+				@$el.addClass("col-md-#{@model.get 'className'}").attr 'data-class',@model.get 'className'
+				@$el.sortable 
+						revert 		: 'invalid'
+						items 		: '> .element-wrapper'
+						connectWith : '.droppable-column,.column'
+						handle 		: '.aj-imp-drag-handle'
+						start 		: (e, ui)->
+										ui.placeholder.height ui.item.height()
+						helper 		: 'clone'
+						opacity		: .65
+						remove 		: (evt, ui)->
+										if $(evt.target).children().length is 0
+											$(evt.target).addClass 'empty-column'
+						update 		: (e,ui)->
+										$(e.target).removeClass 'empty-column'
 
+			onClose:->
+				@$el.sortable 'destroy'
+				@el.remove()
+
+			
 		# Menu item view
 		class Views.RowView extends Marionette.CollectionView
 
@@ -16,22 +39,19 @@ define ['app'],(App)->
 
 			itemView : ColumnView
 
-			onRender:()->
-				@$el.children('.column').sortable 
-										revert 		: 'invalid'
-										items 		: '> .element-wrapper'
-										connectWith : '.droppable-column,.column'
-										handle 		: '.aj-imp-drag-handle'
-										start 		: (e, ui)->
-														ui.placeholder.height ui.item.height()
-										helper 		: 'clone'
-										opacity		: .65
-										remove 		: (evt, ui)->
-														if $(evt.target).children().length is 0
-															$(evt.target).addClass 'empty-column'
-										update 		: (e,ui)->
-														$(e.target).removeClass 'empty-column'
-														
+			initialize:(opt = {})->
+				@collection = new Backbone.Collection
+				if opt.model.get('elements').length is 0
+					for i in [1,2]
+						@collection.add
+								position 	: i
+								element 	: 'Column'
+								className 	: 6
+								elements 	: []
+				else
+					for column in opt.model.get('elements')
+						@collection.add column
+
 			onShow:()->		
 				_.delay => 
 					@setColumnResizer()
@@ -150,17 +170,20 @@ define ['app'],(App)->
 				$(columns[1]).attr('data-class',currentClassOne).addClass "col-md-#{currentClassOne}"
 
 			# add new columns
-			addNewColumn:(colClass)->
-				template = _.template '<div data-class="{{cclass}}" class="col-md-{{cclass}} column empty-column"></div>', 
-																												cclass : colClass
-				@$el.append template
-				@$el.children('.column').last().sortable()
+			addNewColumn:(colClass, position)->
+				@collection.add
+						position 	: position
+						element 	: 'Column'
+						className 	: parseInt colClass
+						elements 	: []
+
 
 			removeColumn:($column)->
 				#clear sortable
-				$column.sortable "destroy"
-				$column.remove()					
-				
+				_position = parseInt $column.attr 'data-position'
+				column = @collection.findWhere position : _position					
+				@collection.remove column
+
 			# adjust columns in row
 			adjustColumnsInRow :(count)=>
 				requestedColumns = count
@@ -176,8 +199,10 @@ define ['app'],(App)->
 						currentClass = $(column).attr 'data-class'
 						$(column).removeClass("col-md-#{currentClass}").addClass("col-md-#{colClass}").attr 'data-class', colClass
 
-					_.each _.range(extraColumns), =>
-						@addNewColumn colClass
+					count = @columnCount()
+					for i in _.range(extraColumns)
+						@addNewColumn colClass, (count + i + 1)
+						
 
 				else if requestedColumns < @columnCount()
 					emptyColumns = []
@@ -206,8 +231,10 @@ define ['app'],(App)->
 					
 					nCols = []
 				
-					#get indexes to remove
-					_.each @getColumns(), (column, index)=>
+					#get columns to remove and reverse the array
+					cols = @getColumns().toArray().reverse()
+					
+					_.each cols, (column, index)=>
 						if colsToRemove is 0 or not $(column).isEmptyColumn()
 							return
 						@removeColumn $(column)

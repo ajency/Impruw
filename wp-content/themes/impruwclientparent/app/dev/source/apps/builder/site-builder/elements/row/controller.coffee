@@ -13,6 +13,7 @@ define ['app','apps/builder/site-builder/elements/row/views','apps/builder/site-
 											element  	: 'Row'
 											columncount : 2
 											elements 	: []
+											meta_id 	: 0
 
 						super(options)
 						

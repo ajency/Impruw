@@ -51,6 +51,16 @@ define ['app', 'controllers/base-controller'
 						section = @view.model.get('header')
 						container = @_getContainer 'header'
 						_.each section, (element, i)=>
+							App.request "add:new:element",container,element.element, element
+
+						section = @view.model.get('page')
+						container = @_getContainer 'page'
+						_.each section, (element, i)=>
+							App.request "add:new:element",container,element.element, element
+
+						section = @view.model.get('footer')
+						container = @_getContainer 'footer'
+						_.each section, (element, i)=>
 							App.request "add:new:element",container,element.element, element									
 
 

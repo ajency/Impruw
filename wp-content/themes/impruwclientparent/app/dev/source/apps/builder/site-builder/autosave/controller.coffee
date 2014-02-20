@@ -67,9 +67,10 @@ define ['app'], (App)->
 						_.each $(element).find('.element-markup > .row').children('.column'), (column, index)=>
 							className = $(column).attr 'data-class'
 							col = {}
-							col.element = 'Column'
-							col.className = "col-md-#{className}"
-							col.elements = @_getJson $(column)
+							col.position 	= index + 1
+							col.element 	= 'Column'
+							col.className 	= className
+							col.elements 	= @_getJson $(column)
 							ele.elements.push col 
 							return
 

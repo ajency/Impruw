@@ -15,7 +15,40 @@
           return _ref;
         }
 
-        ColumnView.prototype.template = '<div data-class="6" class="col-md-6 column empty-column"></div>';
+        ColumnView.prototype.className = 'column empty-column';
+
+        ColumnView.prototype.tagName = 'div';
+
+        ColumnView.prototype.template = '';
+
+        ColumnView.prototype.onRender = function() {
+          this.$el.attr('data-position', this.model.get('position'));
+          this.$el.addClass("col-md-" + (this.model.get('className'))).attr('data-class', this.model.get('className'));
+          return this.$el.sortable({
+            revert: 'invalid',
+            items: '> .element-wrapper',
+            connectWith: '.droppable-column,.column',
+            handle: '.aj-imp-drag-handle',
+            start: function(e, ui) {
+              return ui.placeholder.height(ui.item.height());
+            },
+            helper: 'clone',
+            opacity: .65,
+            remove: function(evt, ui) {
+              if ($(evt.target).children().length === 0) {
+                return $(evt.target).addClass('empty-column');
+              }
+            },
+            update: function(e, ui) {
+              return $(e.target).removeClass('empty-column');
+            }
+          });
+        };
+
+        ColumnView.prototype.onClose = function() {
+          this.$el.sortable('destroy');
+          return this.el.remove();
+        };
 
         return ColumnView;
 
@@ -35,26 +68,34 @@
 
         RowView.prototype.itemView = ColumnView;
 
-        RowView.prototype.onRender = function() {
-          return this.$el.children('.column').sortable({
-            revert: 'invalid',
-            items: '> .element-wrapper',
-            connectWith: '.droppable-column,.column',
-            handle: '.aj-imp-drag-handle',
-            start: function(e, ui) {
-              return ui.placeholder.height(ui.item.height());
-            },
-            helper: 'clone',
-            opacity: .65,
-            remove: function(evt, ui) {
-              if ($(evt.target).children().length === 0) {
-                return $(evt.target).addClass('empty-column');
-              }
-            },
-            update: function(e, ui) {
-              return $(e.target).removeClass('empty-column');
+        RowView.prototype.initialize = function(opt) {
+          var column, i, _i, _j, _len, _len1, _ref2, _ref3, _results, _results1;
+          if (opt == null) {
+            opt = {};
+          }
+          this.collection = new Backbone.Collection;
+          if (opt.model.get('elements').length === 0) {
+            _ref2 = [1, 2];
+            _results = [];
+            for (_i = 0, _len = _ref2.length; _i < _len; _i++) {
+              i = _ref2[_i];
+              _results.push(this.collection.add({
+                position: i,
+                element: 'Column',
+                className: 6,
+                elements: []
+              }));
             }
-          });
+            return _results;
+          } else {
+            _ref3 = opt.model.get('elements');
+            _results1 = [];
+            for (_j = 0, _len1 = _ref3.length; _j < _len1; _j++) {
+              column = _ref3[_j];
+              _results1.push(this.collection.add(column));
+            }
+            return _results1;
+          }
         };
 
         RowView.prototype.onShow = function() {
@@ -199,22 +240,26 @@
           return $(columns[1]).attr('data-class', currentClassOne).addClass("col-md-" + currentClassOne);
         };
 
-        RowView.prototype.addNewColumn = function(colClass) {
-          var template;
-          template = _.template('<div data-class="{{cclass}}" class="col-md-{{cclass}} column empty-column"></div>', {
-            cclass: colClass
+        RowView.prototype.addNewColumn = function(colClass, position) {
+          return this.collection.add({
+            position: position,
+            element: 'Column',
+            className: parseInt(colClass),
+            elements: []
           });
-          this.$el.append(template);
-          return this.$el.children('.column').last().sortable();
         };
 
         RowView.prototype.removeColumn = function($column) {
-          $column.sortable("destroy");
-          return $column.remove();
+          var column, _position;
+          _position = parseInt($column.attr('data-position'));
+          column = this.collection.findWhere({
+            position: _position
+          });
+          return this.collection.remove(column);
         };
 
         RowView.prototype.adjustColumnsInRow = function(count) {
-          var colClass, colsToRemove, emptyColsLen, emptyColumns, extraColumns, nCols, requestedColumns,
+          var colClass, cols, colsToRemove, emptyColsLen, emptyColumns, extraColumns, i, nCols, requestedColumns, _i, _len, _ref2,
             _this = this;
           requestedColumns = count;
           if (requestedColumns === this.columnCount()) {
@@ -228,9 +273,12 @@
               currentClass = $(column).attr('data-class');
               return $(column).removeClass("col-md-" + currentClass).addClass("col-md-" + colClass).attr('data-class', colClass);
             });
-            _.each(_.range(extraColumns), function() {
-              return _this.addNewColumn(colClass);
-            });
+            count = this.columnCount();
+            _ref2 = _.range(extraColumns);
+            for (_i = 0, _len = _ref2.length; _i < _len; _i++) {
+              i = _ref2[_i];
+              this.addNewColumn(colClass, count + i + 1);
+            }
           } else if (requestedColumns < this.columnCount()) {
             emptyColumns = [];
             _.each(this.getColumns(), function(column, index) {
@@ -254,7 +302,8 @@
               colsToRemove = emptyColsLen - requestedColumns;
             }
             nCols = [];
-            _.each(this.getColumns(), function(column, index) {
+            cols = this.getColumns().toArray().reverse();
+            _.each(cols, function(column, index) {
               if (colsToRemove === 0 || !$(column).isEmptyColumn()) {
                 return;
               }
