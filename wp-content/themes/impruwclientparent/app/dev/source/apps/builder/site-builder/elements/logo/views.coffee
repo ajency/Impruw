@@ -10,4 +10,10 @@ define ['app'],(App)->
 
 			template : '<a href="{{SITEURL}}"><img src="{{url}}" alt="{{title}}"/></a>'
 
+			events:
+				'click'		: (e)->
+								e.stopPropagation()
+								@trigger "show:media:manager"
+				'click a'	: (e)-> e.preventDefault()
+
 

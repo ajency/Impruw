@@ -36,29 +36,18 @@
 
         MediaCollection.prototype.model = Media.MediaModel;
 
-        MediaCollection.prototype.url = function(models) {
-          var ids, media, _i, _len;
-          if (models == null) {
-            models = [];
+        MediaCollection.prototype.parse = function(resp) {
+          if (resp.code === 'OK') {
+            return resp.data;
           }
-          if (models.length === 0) {
-            return "" + AJAXURL + "?action=media";
-          } else {
-            ids = [];
-            for (_i = 0, _len = models.length; _i < _len; _i++) {
-              media = models[_i];
-              ids.push(media.get('ID'));
-            }
-            ids = ids.join();
-            return "" + AJAXURL + "?action=media&ids=" + ids;
-          }
+          return resp;
         };
 
         return MediaCollection;
 
       })(Backbone.Collection);
       API = {
-        getMedia: function(param) {
+        fetchMedia: function(param, reset) {
           var mediaCollection;
           if (param == null) {
             param = {};
@@ -67,17 +56,19 @@
           if (!mediaCollection) {
             mediaCollection = new Media.MediaCollection;
           }
-          if (!mediaCollection.fetched()) {
-            media.fetch();
-          }
-          return media;
+          mediaCollection.url = "" + AJAXURL + "?action=query_attachments";
+          mediaCollection.fetch({
+            reset: reset,
+            data: param
+          });
+          return mediaCollection;
         },
         createStoreCollection: function() {
           var mediaCollection;
           mediaCollection = new Media.MediaCollection;
           return App.request("set:collection", 'mediacollection', mediaCollection);
         },
-        getImageById: function(mediaId) {
+        getMediaById: function(mediaId) {
           var media, mediaCollection;
           mediaCollection = App.request("get:collection", 'mediacollection');
           media = mediaCollection.get(parseInt(mediaId));
@@ -95,11 +86,14 @@
       App.commands.setHandler("create:media:store", function() {
         return API.createStoreCollection();
       });
-      App.reqres.setHandler("get:media:entities", function() {
-        return API.getMedia();
+      App.reqres.setHandler("fetch:media", function(shouldReset) {
+        if (shouldReset == null) {
+          shouldReset = true;
+        }
+        return API.fetchMedia(shouldReset);
       });
       return App.reqres.setHandler("get:media:by:id", function(mediaId) {
-        return API.getImageById(mediaId);
+        return API.getMediaById(mediaId);
       });
     });
   });

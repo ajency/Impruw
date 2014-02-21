@@ -44,6 +44,11 @@
           return App.execute("when:fetched", imageModel, function() {
             var view;
             view = _this._getLogoView(imageModel);
+            _this.listenTo(view, "show:media:manager", function() {
+              return App.navigate("media-manager", {
+                trigger: true
+              });
+            });
             return _this.layout.elementRegion.show(view);
           });
         };

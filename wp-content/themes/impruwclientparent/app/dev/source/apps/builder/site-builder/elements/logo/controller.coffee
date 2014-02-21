@@ -32,4 +32,6 @@ define ['app','apps/builder/site-builder/elements/logo/views','apps/builder/site
 						imageModel = App.request "get:media:by:id",@layout.model.get 'image_id'
 						App.execute "when:fetched", imageModel, =>
 							view = @_getLogoView imageModel
+							@listenTo view, "show:media:manager", ->
+									App.navigate "media-manager", trigger : true
 							@layout.elementRegion.show view

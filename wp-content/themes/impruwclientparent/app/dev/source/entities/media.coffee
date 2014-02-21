@@ -8,7 +8,6 @@ define ["app", 'backbone'], (App, Backbone) ->
 
                 parse:(resp)->
                     return resp.data if resp.code is 'OK'
-
                     resp
 
 
@@ -17,35 +16,31 @@ define ["app", 'backbone'], (App, Backbone) ->
                 
                 model : Media.MediaModel
 
-                url :(models = []) ->
-
-                    if models.length is 0 
-                        "#{AJAXURL}?action=media"
-                    else
-                        ids = []
-                        ids.push media.get('ID') for media in models
-                        ids = ids.join()
-                        "#{AJAXURL}?action=media&ids=#{ids}"
+                parse:(resp)->
+                    return resp.data if resp.code is 'OK'
+                    resp
 
                 
             ##PUBLIC API FOR ENitity
             API =
-                getMedia: (param ={})->
+                fetchMedia: (param ={}, reset)->
                     mediaCollection = App.request "get:collection", 'mediacollection'
                     if not mediaCollection
                         mediaCollection = new Media.MediaCollection
-                    
-                    if not mediaCollection.fetched()
-                        media.fetch()
+                    mediaCollection.url = "#{AJAXURL}?action=query_attachments"
+                    mediaCollection.fetch
+                                    reset : reset
+                                    data  : param
                              
-                    media
+                    mediaCollection
 
                 # create a empty collection of media and store it in offline store
                 createStoreCollection:->
                     mediaCollection = new Media.MediaCollection
                     App.request "set:collection", 'mediacollection', mediaCollection
 
-                getImageById:(mediaId)->
+                #get a media 
+                getMediaById:(mediaId)->
                     # check if present
                     mediaCollection = App.request "get:collection", 'mediacollection'
                     media = mediaCollection.get parseInt mediaId
@@ -63,8 +58,8 @@ define ["app", 'backbone'], (App, Backbone) ->
              App.commands.setHandler "create:media:store", ->
                 API.createStoreCollection()
             
-            App.reqres.setHandler "get:media:entities", ->
-                API.getMedia()
+            App.reqres.setHandler "fetch:media",(shouldReset = true) ->
+                API.fetchMedia shouldReset
 
             App.reqres.setHandler "get:media:by:id",(mediaId)->
-                API.getImageById mediaId
+                API.getMediaById mediaId

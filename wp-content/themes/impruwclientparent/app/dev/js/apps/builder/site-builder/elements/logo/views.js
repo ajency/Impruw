@@ -18,6 +18,16 @@
 
         LogoView.prototype.template = '<a href="{{SITEURL}}"><img src="{{url}}" alt="{{title}}"/></a>';
 
+        LogoView.prototype.events = {
+          'click': function(e) {
+            e.stopPropagation();
+            return this.trigger("show:media:manager");
+          },
+          'click a': function(e) {
+            return e.preventDefault();
+          }
+        };
+
         return LogoView;
 
       })(Marionette.ItemView);

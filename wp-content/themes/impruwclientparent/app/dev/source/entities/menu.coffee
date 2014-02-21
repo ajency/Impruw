@@ -79,7 +79,6 @@ define ["app", 'backbone'], (App, Backbone) ->
 
 				parse:(resp)->
 					return resp.data if resp.code is 'OK'
-
 					resp
 
 
@@ -109,9 +108,7 @@ define ["app", 'backbone'], (App, Backbone) ->
 						menuCollection = new Menus.MenuCollection
 						# save menu collection
 						App.request "set:collection", 'menucollection', menuCollection
-
 						menuCollection.url = AJAXURL + '?action=get-menus'
-
 						menuCollection.fetch
 								reset : true
 								data  : param
