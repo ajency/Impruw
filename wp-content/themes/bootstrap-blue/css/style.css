@@ -1,3 +1,42 @@
+/****Mixins****/
+.clearfix {
+  *zoom: 1;
+}
+.clearfix:after,
+.clearfix:before {
+  clear: both;
+  content: "";
+  display: table;
+}
+.t-a-r {
+  text-align: right;
+}
+.t-a-l {
+  text-align: left;
+}
+.t-a-c {
+  text-align: center;
+}
+.f-r {
+  float: right;
+}
+.f-l {
+  float: left;
+}
+.backTrans {
+  -webkit-transition: all 0.25s ease;
+  -moz-transition: all 0.25s ease;
+  -o-transition: all 0.25s ease;
+  -ms-transition: all 0.25s ease;
+  transition: all 0.25s ease;
+}
+.spinTrans {
+  -webkit-transform: rotate(360deg);
+  -moz-transform: rotate(360deg);
+  -o-transform: rotate(360deg);
+  -ms-transform: rotate(360deg);
+  transform: rotate(360deg);
+}
 /*
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
@@ -8,10 +47,99 @@ and open the template in the editor.
     Author     : surajair
 */
 .green-background {
-  background: none repeat scroll 0 0 #5CA9A1;
+  background: #5ca9a1;
   min-height: 100px;
 }
 .grey-background {
-  background: none repeat scroll 0 0 #989898;
+  background: #656565;
   min-height: 100px;
+}
+/****Top Slim-menu Styles****/
+.nav {
+  border-radius: 0;
+  margin-bottom: 0;
+}
+.nav.slimmenu {
+  border-radius: 0;
+  margin-bottom: 0;
+  border-top: 1px solid #7ecbc3;
+  border-bottom: 0;
+}
+.nav.slimmenu li {
+  border-left: 1px solid #7ecbc3;
+  border-right: 1px solid #7ecbc3;
+  border-radius: 0;
+  border-bottom: 0;
+  background-color: #5ca9a1;
+}
+.nav.slimmenu li.active {
+  background-color: #fff;
+  border-left: 1px solid #fff;
+  border-right: 1px solid #fff;
+  border-bottom: 0;
+}
+.nav.slimmenu li.active a {
+  color: #5ca9a1;
+}
+.nav.slimmenu li.open {
+  background-color: #fff;
+  border-left: 1px solid #fff;
+  border-right: 1px solid #fff;
+  border-bottom: 0;
+}
+.nav.slimmenu li:hover {
+  border-left: 1px solid #fff;
+  border-right: 1px solid #fff;
+  border-bottom: 0;
+}
+.nav.slimmenu li:focus {
+  color: #fff;
+}
+.nav.slimmenu li a {
+  text-transform: uppercase;
+  font-size: 0.722em;
+  color: #fff;
+  padding: 12px 30px;
+}
+.nav.slimmenu li a:hover {
+  background-color: #fff;
+  color: #5ca9a1;
+}
+.nav.slimmenu li .dropDrown {
+  padding-left: 0;
+}
+.nav.slimmenu li .dropDrown li {
+  width: 100%;
+  background: #7ecbc3;
+}
+.nav.footer-menu {
+  padding-left: 0;
+  text-align: center;
+}
+.nav.footer-menu li {
+  list-style: none;
+  display: inline-block;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  background: #5ca9a1;
+  cursor: pointer;
+}
+.nav.footer-menu li a {
+  font-size: 1.333em;
+  color: #fff;
+  font-weight: 200;
+  padding: 10px 45px;
+  display: block;
+}
+.nav.footer-menu li:hover {
+  background: #fff;
+  text-shadow: none;
+  -webkit-transition: background-color 0.25s, color 0.25s, border-bottom-color 0.25s;
+  -moz-transition: background-color 0.25s, color 0.25s, border-bottom-color 0.25s;
+  -o-transition: background-color 0.25s, color 0.25s, border-bottom-color 0.25s;
+  transition: background-color 0.25s, color 0.25s, border-bottom-color 0.25s;
+  -webkit-backface-visibility: hidden;
+}
+.nav.footer-menu li:hover a {
+  color: #5ca9a1;
 }
