@@ -18,6 +18,12 @@
 
         MediaView.prototype.className = 'col-sm-2 single-img';
 
+        MediaView.prototype.events = {
+          'click a': function(e) {
+            return e.preventDefault();
+          }
+        };
+
         return MediaView;
 
       })(Marionette.ItemView);
@@ -37,9 +43,13 @@
 
         GridView.prototype.itemViewContainer = '#selectable-images';
 
+        GridView.prototype.onCollectionRendered = function() {
+          return this.$el.find('#selectable-images').selectable();
+        };
+
         return GridView;
 
-      })(Marionette.CollectionView);
+      })(Marionette.CompositeView);
     });
   });
 
