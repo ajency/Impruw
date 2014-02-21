@@ -834,7 +834,6 @@ Version:        0.1.0
 }
 .aj-imp-builder-layout-mode .row .column .row {
   margin: 0.5em;
-  box-shadow: inset 0 0 2px #c3c3c3;
   border: 1px solid transparent;
 }
 .aj-imp-builder-layout-mode .row .column:last-child {
@@ -857,6 +856,7 @@ Version:        0.1.0
   padding: 0.2em 0.5em 0.3em;
   position: absolute;
   right: -90px;
+  top: 0;
   background: #dddddd;
   color: #fff;
   width: 90px;
