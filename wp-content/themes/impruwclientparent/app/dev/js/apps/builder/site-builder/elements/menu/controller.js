@@ -21,7 +21,7 @@
             element: 'Menu',
             justified: false,
             menu_id: 0,
-            style: 'header'
+            style: ''
           });
           return Controller.__super__.initialize.call(this, options);
         };
@@ -36,23 +36,22 @@
           return Controller.__super__.bindEvents.call(this);
         };
 
-        Controller.prototype._getMenuView = function(model, collection, templates) {
+        Controller.prototype._getMenuView = function(collection, templateClass) {
           return new Menu.Views.MenuView({
-            model: model,
             collection: collection,
-            templates: templates,
-            prop: this.layout.model.toJSON()
+            prop: this.layout.model.toJSON(),
+            templateClass: templateClass
           });
         };
 
         Controller.prototype.renderElement = function() {
-          var elementBox, itemCollection, menu, model, templates, view;
+          var elementBox, itemCollection, menu, model, templateClass, view, _ref1;
           model = this.layout.model;
           menu = App.request("get:collection:model", "menucollection", model.get('menu_id'));
           itemCollection = menu.get('menu_items');
           elementBox = App.request("get:collection:model", "elementbox", 'Menu');
-          templates = elementBox.get('templates')[model.get('style')];
-          view = this._getMenuView(menu, itemCollection, templates);
+          templateClass = (_ref1 = elementBox.get('templates')[model.get('style')]) != null ? _ref1 : '';
+          view = this._getMenuView(itemCollection, templateClass);
           this.listenTo(itemCollection, "menu:order:updated", view.render);
           this.listenTo(view, "open:menu:manager", function() {
             return App.navigate("menu-manager", {

@@ -12,15 +12,15 @@ define ['app', 'text!apps/builder/site-builder/elements/row/settings/templates/s
 
 					# override the serializeData function for settings view
 					serializeData:()->
-						data = {}
-						config = @options.config.toJSON()
-						modelData = @model.toJSON()
-
-						data = 
-							config 	: config
-							model	: modelData
-
-						data
+						data = @model.toJSON()
+						
+						dataCloned = _.clone data
+						dataCloned.templates = []
+						_.each data.templates, (val, key)=>
+							dataCloned.templates.push 
+													name : key
+													slug : _.slugify key
+						dataCloned
 
 					onRender:->
 						@$el.find('input[type="checkbox"]').checkbox()

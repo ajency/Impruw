@@ -29,23 +29,11 @@ global $element_templates;
 
 $element_templates = array(
     'Menu' => array(
-        'header' => array(
-            className => 'nav-pills',
-            menuItemTpl => '<a href="#{{link}}">{{post_title}}</a>',
-            submenuTpl => ''
-        ),
-        'footer' => array(
-            className => 'nav-tabs',
-            menuItemTpl => '<a href="#">{{post_title}}</a>',
-            submenuTpl => ''
-        )
+        'Slimmenu' => array(),
+        'Footer' => array()
     ),
     'Row' => array(
-        'green-background' => array(
-            className => 'green-background'
-        ),
-        'grey-background' => array(
-            className => 'grey-background'
-        )
+        'Green Background' => array(),
+        'Grey Background' => array()
     )
 );

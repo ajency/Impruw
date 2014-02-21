@@ -19,15 +19,18 @@
         SettingsView.prototype.className = 'modal-content settings-box';
 
         SettingsView.prototype.serializeData = function() {
-          var config, data, modelData;
-          data = {};
-          config = this.options.config.toJSON();
-          modelData = this.model.toJSON();
-          data = {
-            config: config,
-            model: modelData
-          };
-          return data;
+          var data, dataCloned,
+            _this = this;
+          data = this.model.toJSON();
+          dataCloned = _.clone(data);
+          dataCloned.templates = [];
+          _.each(data.templates, function(val, key) {
+            return dataCloned.templates.push({
+              name: key,
+              slug: _.slugify(key)
+            });
+          });
+          return dataCloned;
         };
 
         SettingsView.prototype.onRender = function() {

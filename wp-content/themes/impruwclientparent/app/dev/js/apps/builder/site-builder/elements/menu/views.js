@@ -15,11 +15,12 @@
           return _ref;
         }
 
+        MenuItemView.prototype.template = '<a href="{{menu_item_link}}">{{post_title}}</a>';
+
         MenuItemView.prototype.initialize = function(opt) {
           if (opt == null) {
             opt = {};
           }
-          this.template = opt.template;
           this.listenTo(this.model, "change", this.render);
           return MenuItemView.__super__.initialize.call(this, opt);
         };
@@ -49,7 +50,6 @@
 
         function MenuView() {
           this.setAlignment = __bind(this.setAlignment, this);
-          this.itemViewOptions = __bind(this.itemViewOptions, this);
           _ref2 = MenuView.__super__.constructor.apply(this, arguments);
           return _ref2;
         }
@@ -69,18 +69,10 @@
           }
         };
 
-        MenuView.prototype.itemViewOptions = function() {
-          var _ref3;
-          return {
-            template: (_ref3 = this.options.templates.menuItemTpl) != null ? _ref3 : ''
-          };
-        };
-
         MenuView.prototype.onRender = function() {
           this.$el.removeClass();
           this.$el.addClass(this.className);
-          this.$el.addClass(this.options.templates.className);
-          this.setAlignment(this.options.prop.align);
+          this.$el.addClass(this.options.templateClass);
           return this.onSetJustified(this.options.prop.justified);
         };
 

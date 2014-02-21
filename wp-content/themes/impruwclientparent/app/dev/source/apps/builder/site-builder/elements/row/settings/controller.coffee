@@ -11,7 +11,7 @@ define ['app','controllers/base-controller','apps/builder/site-builder/elements/
 						{ @model } = opt
 						@region = App.settingsRegion
 						config  = App.request "get:element:settings:options", 'Row'
-						view = @_getSettingView @model, config
+						view = @_getSettingView config
 
 						@listenTo view, 'render', =>
 											@region.$el.css 'top',200
@@ -30,10 +30,9 @@ define ['app','controllers/base-controller','apps/builder/site-builder/elements/
 
 
 					# get settigns view
-					_getSettingView:(model, config)->
+					_getSettingView:(config)->
 						new Settings.Views.SettingsView
-												model : model
-												config: config
+												model : config
 
 
 				App.vent.on "show:row:settings:popup", (model)->

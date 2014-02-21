@@ -12,9 +12,9 @@ header.settings-header
 				.col-sm-8
 					select(name="style")
 						option(value="") None
-						{{#config.styles}}
-						option(value="{{.}}") {{.}}
-						{{/config.styles}}
+						{{#templates}}
+						option(value="{{slug}}") {{name}}
+						{{/templates}}
 			.form-group
 				label.col-sm-4.control-label(for='') Draggable
 				.col-sm-8

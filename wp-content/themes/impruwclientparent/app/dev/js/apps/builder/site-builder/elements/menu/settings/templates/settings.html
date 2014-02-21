@@ -11,14 +11,14 @@
       <form action="" method="POST" role="form">
         <div class="form-group">
           <label for="">Choose Style</label>
-          <select name="style">{{#config.styles}}
-            <option value="{{.}}">{{.}}</option>{{/config.styles}}
+          <select name="style">{{#templates}}
+            <option value="{{slug}}">{{name}}</option>{{/templates}}
           </select>
         </div>
         <div class="form-group">
           <label for="">Choose Menu</label>
-          <select name="choose-menu">{{#config.site_menus}}
-            <option value="{{menu_id}}">{{menu_name}}</option>{{/config.site_menus}}
+          <select name="choose-menu">{{#site_menus}}
+            <option value="{{menu_id}}">{{menu_name}}</option>{{/site_menus}}
           </select>
         </div>
         <div class="form-group">

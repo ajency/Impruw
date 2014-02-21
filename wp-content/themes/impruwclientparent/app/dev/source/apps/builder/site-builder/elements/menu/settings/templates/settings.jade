@@ -10,15 +10,15 @@ header.settings-header
 				.form-group
 					label(for='') Choose Style
 					select(name="style")
-						{{#config.styles}}
-						option(value="{{.}}") {{.}}
-						{{/config.styles}}
+						{{#templates}}
+						option(value="{{slug}}") {{name}}
+						{{/templates}}
 				.form-group
 					label(for='') Choose Menu
 					select(name="choose-menu")
-						{{#config.site_menus}}
+						{{#site_menus}}
 						option(value="{{menu_id}}") {{menu_name}}
-						{{/config.site_menus}}
+						{{/site_menus}}
 				.form-group
 					label.pull-left(for='') Draggable
 					span.checkbox.pull-left

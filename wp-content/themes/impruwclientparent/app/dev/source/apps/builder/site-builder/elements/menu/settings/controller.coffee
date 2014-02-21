@@ -15,7 +15,7 @@ define ['app','controllers/base-controller','apps/builder/site-builder/elements/
 
 						config  = App.request "get:element:settings:options", 'Menu'
 						config.set 'site_menus' , siteMenus
-						view = @_getSettingView @model, config
+						view = @_getSettingView config
 
 						@listenTo view, 'render', =>
 											@region.$el.css 'top',200
@@ -43,10 +43,9 @@ define ['app','controllers/base-controller','apps/builder/site-builder/elements/
 								wait : true
 
 					# get settigns view
-					_getSettingView:(model, config)->
+					_getSettingView:(config)->
 						new Settings.Views.SettingsView
-												model : model
-												config: config
+												model : config
 
 
 				App.vent.on "show:menu:settings:popup", (model)->

@@ -14,8 +14,8 @@
         <label for="" class="col-sm-4 control-label">Choose Style</label>
         <div class="col-sm-8">
           <select name="style">
-            <option value="">None</option>{{#config.styles}}
-            <option value="{{.}}">{{.}}</option>{{/config.styles}}
+            <option value="">None</option>{{#templates}}
+            <option value="{{slug}}">{{name}}</option>{{/templates}}
           </select>
         </div>
       </div>

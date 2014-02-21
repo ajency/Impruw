@@ -12,15 +12,15 @@ define ['app', 'text!apps/builder/site-builder/elements/menu/settings/templates/
 
 					# override the serializeData function for settings view
 					serializeData:()->
-						data = {}
-						config = @options.config.toJSON()
-						modelData = @model.toJSON()
-
-						data = 
-							config 	: config
-							model	: modelData
-
-						data
+						data = @model.toJSON()
+						
+						dataCloned = _.clone data
+						dataCloned.templates = []
+						_.each data.templates, (val, key)=>
+							dataCloned.templates.push 
+													name : key
+													slug : _.slugify key
+						dataCloned
 
 					onRender:->
 						@$el.find('input[type="checkbox"]').checkbox()
@@ -35,35 +35,16 @@ define ['app', 'text!apps/builder/site-builder/elements/menu/settings/templates/
 						if @model.get('justified') is true
 							@$el.find('input[name="justified"]').checkbox('check')
 
-						@$el.find('select[name="style"]').selectpicker 'val',@model.get 'style'
+						@$el.find('select[name="style"]').selectpicker 'val',_.slugify @model.get 'style'
 						@$el.find('select[name="choose-menu"]').selectpicker 'val',@model.get 'menu_id'
 
 					events:
 						'click .close-settings' : (evt)-> 
 											evt.preventDefault()
 											App.settingsRegion.close()
-						'change select[name="style"]' 		: 'updateStyle'
-						'change select[name="choose-menu"]' : (evt)-> @trigger "element:menu:changed", $(evt.target).val()
-						'change input[name="draggable"]'	: 'setDraggable'
-						'change input[name="justified"]'	: 'setJustified'
+						'change select[name="style"]' 		: (evt)-> @trigger "element:style:changed"		, $(evt.target).val()
+						'change select[name="choose-menu"]' : (evt)-> @trigger "element:menu:changed"		, $(evt.target).val()
+						'change input[name="draggable"]'	: (evt)-> @trigger "element:draggable:changed"	, $(evt.target).is(':checked')
+						'change input[name="justified"]'	: (evt)-> @trigger "element:justified:changed"	, $(evt.target).is(':checked')
 
-					# update the style 
-					updateStyle:(evt)=>
-						newStyle = $(evt.target).val()
-						@trigger "element:style:changed", newStyle
-
-					# align
-					alignElement :(evt)->
-						align = $(evt.target).val()
-						@trigger "element:alignment:changed", align
-
-					# align
-					setJustified :(evt)->
-						align = $(evt.target).is(':checked')
-						@trigger "element:justified:changed", align
-
-					#setDraggable
-					setDraggable:(evt)->
-						draggable = $(evt.target).is(':checked')
-						@trigger "element:draggable:changed", draggable
 					

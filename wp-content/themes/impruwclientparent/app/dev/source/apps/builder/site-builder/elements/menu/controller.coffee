@@ -13,7 +13,7 @@ define ['app','apps/builder/site-builder/elements/menu/views','apps/builder/site
 											element 	: 'Menu'
 											justified 	: false
 											menu_id		: 0
-											style 		: 'header'
+											style 		: ''
 						super(options)
 						
 					bindEvents:->
@@ -25,12 +25,11 @@ define ['app','apps/builder/site-builder/elements/menu/views','apps/builder/site
 						super()
 
 					# create a new menu view
-					_getMenuView:(model, collection, templates)->
+					_getMenuView:(collection,templateClass)->
 						new Menu.Views.MenuView
-								model 		: model
 								collection 	: collection,
-								templates   : templates
 								prop 		: @layout.model.toJSON()
+								templateClass: templateClass
 
 					# setup templates for the element
 					renderElement:()=>
@@ -40,9 +39,9 @@ define ['app','apps/builder/site-builder/elements/menu/views','apps/builder/site
 						itemCollection = menu.get 'menu_items'
 
 						elementBox =  App.request "get:collection:model", "elementbox", 'Menu'
-						templates = elementBox.get('templates')[model.get 'style']
+						templateClass = elementBox.get('templates')[model.get 'style'] ? ''
 
-						view = @_getMenuView menu, itemCollection, templates
+						view = @_getMenuView itemCollection,templateClass
 
 						@listenTo itemCollection, "menu:order:updated", view.render
 

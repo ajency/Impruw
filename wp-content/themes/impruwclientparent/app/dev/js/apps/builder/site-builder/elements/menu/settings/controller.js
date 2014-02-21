@@ -26,7 +26,7 @@
           siteMenus = menus.getSiteMenus();
           config = App.request("get:element:settings:options", 'Menu');
           config.set('site_menus', siteMenus);
-          view = this._getSettingView(this.model, config);
+          view = this._getSettingView(config);
           this.listenTo(view, 'render', function() {
             _this.region.$el.css('top', 200);
             return _this.region.$el.css('left', 400);
@@ -55,10 +55,9 @@
           });
         };
 
-        Controller.prototype._getSettingView = function(model, config) {
+        Controller.prototype._getSettingView = function(config) {
           return new Settings.Views.SettingsView({
-            model: model,
-            config: config
+            model: config
           });
         };
 

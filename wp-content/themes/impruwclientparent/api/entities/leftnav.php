@@ -55,25 +55,18 @@ function get_pages1() {
 add_action('wp_ajax_get-pages', 'get_pages1');
 
 function get_elementbox_elements() {
-    wp_send_json(array('code' => 'OK',
-        'data' => array(
-            array('element' => 'Menu',
-                'title' => 'Menu ',
-                'icon' => '',
-                'styles' => array('header', 'footer'),
-                'templates' => get_templates('Menu'),
-                'align' => 'left',
-                'draggable' => true
-            ),
-            array('element' => 'Row',
-                'title' => 'Row',
-                'icon' => '',
-                'styles' => array('green-background', 'grey-background'),
-                'templates' => get_templates('Row'),
-                'draggable' => true
-            )
-        )
-            )
+    wp_send_json(array( 'code' => 'OK',
+                        'data' => array(
+                            array(  'element' => 'Menu',
+                                    'icon' => '',
+                                    'templates' => get_templates('Menu')
+                            ),
+                            array(  'element' => 'Row',
+                                    'icon' => '',
+                                    'templates' => get_templates('Row')
+                            )
+                        )
+                )
     );
 }
 

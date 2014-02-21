@@ -7,8 +7,9 @@ define ['app'],
 				# Menu item view
 				class Views.MenuItemView extends Marionette.ItemView
 
+					template: '<a href="{{menu_item_link}}">{{post_title}}</a>'
+
 					initialize:(opt = {})->
-						@template = opt.template
 						@listenTo @model, "change", @render
 						super(opt)
 
@@ -31,16 +32,11 @@ define ['app'],
 						'click'		: -> @trigger "open:menu:manager"
 						'click a' 	:(evt)-> evt.preventDefault() 
 					
-					# item view options
-					itemViewOptions :=>
-						template : @options.templates.menuItemTpl ? ''
-
 					# on render set the class name
 					onRender:->
 						@$el.removeClass()
 						@$el.addClass @className
-						@$el.addClass @options.templates.className
-						@setAlignment @options.prop.align
+						@$el.addClass @options.templateClass
 						@onSetJustified @options.prop.justified
 						
 					# before rendering the view sort the collection
