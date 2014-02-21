@@ -14,6 +14,8 @@
           return _ref;
         }
 
+        MediaModel.prototype.idAttribute = 'ID';
+
         return MediaModel;
 
       })(Backbone.AssociatedModel);
@@ -50,20 +52,47 @@
       })(Backbone.Collection);
       API = {
         getMedia: function(param) {
-          var media;
+          var mediaCollection;
           if (param == null) {
             param = {};
           }
-          media = new Media.MediaCollection;
-          media.fetch({
-            reset: true,
-            data: param
-          });
+          mediaCollection = App.request("get:collection", 'mediacollection');
+          if (!mediaCollection) {
+            mediaCollection = new Media.MediaCollection;
+          }
+          if (!mediaCollection.fetched()) {
+            media.fetch();
+          }
+          return media;
+        },
+        createStoreCollection: function() {
+          var mediaCollection;
+          mediaCollection = new Media.MediaCollection;
+          return App.request("set:collection", 'mediacollection', mediaCollection);
+        },
+        getImageById: function(mediaId) {
+          var media, mediaCollection;
+          mediaCollection = App.request("get:collection", 'mediacollection');
+          media = mediaCollection.get(parseInt(mediaId));
+          if (_.isUndefined(media)) {
+            media = new Media.MediaModel({
+              ID: mediaId
+            });
+            media.url = "" + AJAXURL + "?action=get-media&ID=" + mediaId;
+            mediaCollection.add(media);
+            media.fetch();
+          }
           return media;
         }
       };
-      return App.reqres.setHandler("get:media:entities", function() {
+      App.commands.setHandler("create:media:store", function() {
+        return API.createStoreCollection();
+      });
+      App.reqres.setHandler("get:media:entities", function() {
         return API.getMedia();
+      });
+      return App.reqres.setHandler("get:media:by:id", function(mediaId) {
+        return API.getImageById(mediaId);
       });
     });
   });

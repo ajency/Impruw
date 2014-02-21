@@ -14,6 +14,9 @@
       }
       return sync;
     };
+    _.extend(Backbone.Collection.prototype, {
+      fetched: false
+    });
     return Backbone.send = function(action, options) {
       var xhr;
       if (options == null) {

@@ -13,6 +13,11 @@ define ["backbone","mustache"], (Backbone, Mustache) ->
 			
 		sync
 
+	_.extend Backbone.Collection::,
+
+		fetched : false
+
+
 
 	# set backbone.send function for making ajax request with wordpress
 	Backbone.send =  (action, options = {})->

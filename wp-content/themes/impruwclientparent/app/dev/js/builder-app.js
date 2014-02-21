@@ -45,6 +45,7 @@
     });
     App.on("initialize:after", function(options) {
       var appState, menus;
+      App.execute("create:media:store");
       menus = App.request("get:site:menus");
       appState = App.request("get:current:appstate");
       App.startHistory();

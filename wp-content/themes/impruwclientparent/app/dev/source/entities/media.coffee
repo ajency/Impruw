@@ -4,6 +4,8 @@ define ["app", 'backbone'], (App, Backbone) ->
 
             #Media Model
             class Media.MediaModel extends Backbone.AssociatedModel
+                idAttribute : 'ID'
+
 
             #Media collection
             class Media.MediaCollection extends Backbone.Collection
@@ -24,16 +26,40 @@ define ["app", 'backbone'], (App, Backbone) ->
             ##PUBLIC API FOR ENitity
             API =
                 getMedia: (param ={})->
-
-                    media = new Media.MediaCollection
+                    mediaCollection = App.request "get:collection", 'mediacollection'
+                    if not mediaCollection
+                        mediaCollection = new Media.MediaCollection
                     
-                    media.fetch
-                                reset : true
-                                data  : param
-                                
+                    if not mediaCollection.fetched()
+                        media.fetch()
+                             
+                    media
+
+                # create a empty collection of media and store it in offline store
+                createStoreCollection:->
+                    mediaCollection = new Media.MediaCollection
+                    App.request "set:collection", 'mediacollection', mediaCollection
+
+                getImageById:(mediaId)->
+                    # check if present
+                    mediaCollection = App.request "get:collection", 'mediacollection'
+                    media = mediaCollection.get parseInt mediaId
+
+                    if _.isUndefined media
+                        media = new Media.MediaModel ID : mediaId
+                        media.url = "#{AJAXURL}?action=get-media&ID=#{mediaId}" 
+                        mediaCollection.add media
+                        media.fetch()
+
                     media
 
 
             #REQUEST HANDLERS
+             App.commands.setHandler "create:media:store", ->
+                API.createStoreCollection()
+            
             App.reqres.setHandler "get:media:entities", ->
                 API.getMedia()
+
+            App.reqres.setHandler "get:media:by:id",(mediaId)->
+                API.getImageById mediaId

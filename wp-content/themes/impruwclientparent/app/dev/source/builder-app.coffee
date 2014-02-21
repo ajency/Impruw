@@ -51,6 +51,7 @@ define ['marionette'], (Marionette)->
 		App.unregister instance, id
 
 	App.on "initialize:after", (options) ->
+		App.execute "create:media:store"
 		menus = App.request "get:site:menus"
 		appState = App.request "get:current:appstate"
 		App.startHistory()
