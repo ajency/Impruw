@@ -43,6 +43,13 @@ function get_site_profile() {
 
 add_action('wp_ajax_get-site-profile', 'get_site_profile');
 
+function get_media(){
+    $id = $_GET['ID'];
+    $media = wp_prepare_attachment_for_js($id);
+    wp_send_json(array('code' => 'OK', 'data' => $media ));
+}
+add_action('wp_ajax_get-media','get_media');
+
 /**
  * [get_pages description]
  * @return [type] [description]
@@ -66,6 +73,10 @@ function get_elementbox_elements() {
                             array(  'element' => 'Row',
                                     'icon' => '',
                                     'styles' => get_styles('Row')
+                            ),
+                            array(  'element' => 'Logo',
+                                    'icon' => '',
+                                    'styles' => array()
                             )
                         )
                 )
@@ -139,8 +150,14 @@ function get_element_model($element) {
 
         case 'Menu':
             $model = array(
-                'style' => 'header',
+                'style' => 'Slimmenu',
                 'menu_id' => 2
+            );
+        case 'Logo':
+            $model = array(
+                'style'     => 'header',
+                'image_id'  => 56, //hardcoded,
+                'size'      => 'full'
             );
             break;
     }

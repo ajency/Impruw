@@ -16,11 +16,11 @@
 
         LogoView.prototype.className = 'logo';
 
-        LogoView.prototype.template = '<a href="{{SITEURL}}"><img src="{{image_url}}" alt="{{alt_text}}"/></a>';
+        LogoView.prototype.template = '<a href="{{SITEURL}}"><img src="{{url}}" alt="{{title}}"/></a>';
 
         return LogoView;
 
-      })(Marionette.CollectionView);
+      })(Marionette.ItemView);
     });
   });
 

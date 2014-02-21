@@ -10,7 +10,7 @@ define ['app','controllers/base-controller','apps/builder/site-builder/elements/
 					initialize:(opt ={})->
 						{ @model } = opt
 						@region = App.settingsRegion
-						model  = App.request "get:element:settings:options", 'Row'
+						model  = App.request "get:element:settings:options", 'Logo'
 						view = @_getSettingView model,@model
 
 						@listenTo view, 'render', =>
@@ -36,7 +36,7 @@ define ['app','controllers/base-controller','apps/builder/site-builder/elements/
 												model 	 : model
 
 
-				App.vent.on "show:row:settings:popup", (model)->
+				App.vent.on "show:logo:settings:popup", (model)->
 					new Settings.Controller
 									model : model
 

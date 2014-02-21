@@ -4,10 +4,10 @@ define ['app'],(App)->
 	App.module 'SiteBuilderApp.Element.Logo.Views', (Views, App, Backbone, Marionette, $, _)->
 
 		# Menu item view
-		class Views.LogoView extends Marionette.CollectionView
+		class Views.LogoView extends Marionette.ItemView
 
 			className : 'logo'
 
-			template : '<a href="{{SITEURL}}"><img src="{{image_url}}" alt="{{alt_text}}"/></a>'
+			template : '<a href="{{SITEURL}}"><img src="{{url}}" alt="{{title}}"/></a>'
 
 

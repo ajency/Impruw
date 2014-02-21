@@ -29,6 +29,7 @@ define ['app','apps/builder/site-builder/elements/logo/views','apps/builder/site
 					renderElement:()=>
 						@removeSpinner()
 						# get logo attachment
-						imageModel = App.request "get:image:by:id",@layout.model.get 'image_id'
-						view = @_getLogoView imageModel
-						@layout.elementRegion.show view
+						imageModel = App.request "get:media:by:id",@layout.model.get 'image_id'
+						App.execute "when:fetched", imageModel, =>
+							view = @_getLogoView imageModel
+							@layout.elementRegion.show view

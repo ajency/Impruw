@@ -16,6 +16,13 @@
 
         MediaModel.prototype.idAttribute = 'ID';
 
+        MediaModel.prototype.parse = function(resp) {
+          if (resp.code === 'OK') {
+            return resp.data;
+          }
+          return resp;
+        };
+
         return MediaModel;
 
       })(Backbone.AssociatedModel);

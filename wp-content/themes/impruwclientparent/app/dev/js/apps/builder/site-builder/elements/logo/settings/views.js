@@ -34,18 +34,14 @@
 
         SettingsView.prototype.setFields = function() {
           if (this.eleModel.get('draggable') === true) {
-            this.$el.find('input[name="draggable"]').checkbox('check');
+            return this.$el.find('input[name="draggable"]').checkbox('check');
           }
-          return this.$el.find('select[name="style"]').selectpicker('val', this.eleModel.get('style'));
         };
 
         SettingsView.prototype.events = {
           'click .close-settings': function(evt) {
             evt.preventDefault();
             return App.settingsRegion.close();
-          },
-          'change select[name="style"]': function(evt) {
-            return this.trigger("element:style:changed", $(evt.target).val());
           },
           'change input[name="draggable"]': function(evt) {
             return this.trigger("element:draggable:changed", $(evt.target).is(':checked'));

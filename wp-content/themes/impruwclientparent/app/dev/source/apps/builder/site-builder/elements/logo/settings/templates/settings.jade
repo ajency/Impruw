@@ -8,26 +8,7 @@ header.settings-header
 	.col-sm-12
 		form.form-horizontal(action='', method='POST', role='form')
 			.form-group
-				label.col-sm-4.control-label(for='') Choose Style
-				.col-sm-8
-					select(name="style")
-						option(value="") None
-						{{#styles}}
-						option(value="{{name}}") {{name}}
-						{{/styles}}
-			.form-group
 				label.col-sm-4.control-label(for='') Draggable
 				.col-sm-8
 					span.checkbox
 						input(type='checkbox' name="draggable")
-				.clearfix
-			.form-group
-				label.col-sm-4.control-label(for='') No of columns
-				.col-sm-8
-					.set-column-count
-						a.btn.badge 1 &nbsp;
-						a.btn.badge 2 &nbsp;
-						a.btn.badge 3 &nbsp;
-						a.btn.badge 4 &nbsp;
-						a.btn.badge 6 &nbsp;
-						

@@ -22,7 +22,7 @@
           }
           this.model = opt.model;
           this.region = App.settingsRegion;
-          model = App.request("get:element:settings:options", 'Row');
+          model = App.request("get:element:settings:options", 'Logo');
           view = this._getSettingView(model, this.model);
           this.listenTo(view, 'render', function() {
             _this.region.$el.css('top', 200);
@@ -50,7 +50,7 @@
         return Controller;
 
       })(AppController);
-      return App.vent.on("show:row:settings:popup", function(model) {
+      return App.vent.on("show:logo:settings:popup", function(model) {
         return new Settings.Controller({
           model: model
         });

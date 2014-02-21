@@ -6,6 +6,11 @@ define ["app", 'backbone'], (App, Backbone) ->
             class Media.MediaModel extends Backbone.AssociatedModel
                 idAttribute : 'ID'
 
+                parse:(resp)->
+                    return resp.data if resp.code is 'OK'
+
+                    resp
+
 
             #Media collection
             class Media.MediaCollection extends Backbone.Collection

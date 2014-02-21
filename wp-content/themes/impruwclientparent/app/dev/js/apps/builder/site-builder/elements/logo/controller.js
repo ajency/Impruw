@@ -37,11 +37,15 @@
         };
 
         Controller.prototype.renderElement = function() {
-          var imageModel, view;
+          var imageModel,
+            _this = this;
           this.removeSpinner();
-          imageModel = App.request("get:image:by:id", this.layout.model.get('image_id'));
-          view = this._getLogoView(imageModel);
-          return this.layout.elementRegion.show(view);
+          imageModel = App.request("get:media:by:id", this.layout.model.get('image_id'));
+          return App.execute("when:fetched", imageModel, function() {
+            var view;
+            view = _this._getLogoView(imageModel);
+            return _this.layout.elementRegion.show(view);
+          });
         };
 
         return Controller;
