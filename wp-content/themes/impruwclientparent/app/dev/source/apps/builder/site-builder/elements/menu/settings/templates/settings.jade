@@ -10,9 +10,9 @@ header.settings-header
 				.form-group
 					label(for='') Choose Style
 					select(name="style")
-						{{#templates}}
-						option(value="{{slug}}") {{name}}
-						{{/templates}}
+						{{#styles}}
+						option(value="{{name}}") {{name}}
+						{{/styles}}
 				.form-group
 					label(for='') Choose Menu
 					select(name="choose-menu")

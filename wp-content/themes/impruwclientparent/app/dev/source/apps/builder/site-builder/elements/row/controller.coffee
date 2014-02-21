@@ -33,8 +33,7 @@ define ['app','apps/builder/site-builder/elements/row/views','apps/builder/site-
 					changeStyle:(model)->
 						prevStyle = model.previousAttributes().style ? ''
 						newStyle  = model.get('style')
-						console.log newStyle
-						@layout.elementRegion.currentView.triggerMethod "style:changed", newStyle, prevStyle	
+						@layout.elementRegion.currentView.triggerMethod "style:changed", _.slugify(newStyle), _.slugify(prevStyle)	
 						@layout.setHiddenField 'style', newStyle
 								
 					# setup templates for the element

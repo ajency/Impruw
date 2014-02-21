@@ -36,7 +36,7 @@ define ['app'],
 					onRender:->
 						@$el.removeClass()
 						@$el.addClass @className
-						@$el.addClass @options.templateClass
+						@$el.addClass _.slugify @options.templateClass
 						@onSetJustified @options.prop.justified
 						
 					# before rendering the view sort the collection

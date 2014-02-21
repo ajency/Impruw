@@ -10,17 +10,9 @@ define ['app', 'text!apps/builder/site-builder/elements/row/settings/templates/s
 
 					className : 'modal-content settings-box'
 
-					# override the serializeData function for settings view
-					serializeData:()->
-						data = @model.toJSON()
-						
-						dataCloned = _.clone data
-						dataCloned.templates = []
-						_.each data.templates, (val, key)=>
-							dataCloned.templates.push 
-													name : key
-													slug : _.slugify key
-						dataCloned
+					initialize:(opt = {})->
+						{@eleModel} = opt
+						super opt
 
 					onRender:->
 						@$el.find('input[type="checkbox"]').checkbox()
@@ -29,9 +21,10 @@ define ['app', 'text!apps/builder/site-builder/elements/row/settings/templates/s
 
 					# set fields for the form
 					setFields:->
-						if @model.get('draggable') is true
+						if @eleModel.get('draggable') is true
 							@$el.find('input[name="draggable"]').checkbox('check')
-						@$el.find('select[name="style"]').selectpicker 'val',@model.get 'style'
+						
+						@$el.find('select[name="style"]').selectpicker 'val',@eleModel.get 'style'
 						
 
 					events:

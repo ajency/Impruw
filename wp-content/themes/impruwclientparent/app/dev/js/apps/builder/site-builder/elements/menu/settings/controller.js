@@ -15,18 +15,15 @@
         }
 
         Controller.prototype.initialize = function(opt) {
-          var config, menus, siteMenus, view,
+          var model, view,
             _this = this;
           if (opt == null) {
             opt = {};
           }
           this.model = opt.model;
           this.region = App.settingsRegion;
-          menus = App.request("get:site:menus");
-          siteMenus = menus.getSiteMenus();
-          config = App.request("get:element:settings:options", 'Menu');
-          config.set('site_menus', siteMenus);
-          view = this._getSettingView(config);
+          model = App.request("get:element:settings:options", 'Menu');
+          view = this._getSettingView(model, this.model);
           this.listenTo(view, 'render', function() {
             _this.region.$el.css('top', 200);
             return _this.region.$el.css('left', 400);
@@ -55,9 +52,10 @@
           });
         };
 
-        Controller.prototype._getSettingView = function(config) {
+        Controller.prototype._getSettingView = function(model, eleModel) {
           return new Settings.Views.SettingsView({
-            model: config
+            eleModel: eleModel,
+            model: model
           });
         };
 

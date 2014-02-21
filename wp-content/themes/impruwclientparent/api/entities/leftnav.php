@@ -59,11 +59,13 @@ function get_elementbox_elements() {
                         'data' => array(
                             array(  'element' => 'Menu',
                                     'icon' => '',
-                                    'templates' => get_templates('Menu')
+                                    'styles' => get_styles('Menu'),
+                                    'site_menus' => array(  array('menu_id' => 2, 'menu_name' => 'Main Menu'),
+                                                            array('menu_id' => 3, 'menu_name' =>   'Site Footer menu'))
                             ),
                             array(  'element' => 'Row',
                                     'icon' => '',
-                                    'templates' => get_templates('Row')
+                                    'styles' => get_styles('Row')
                             )
                         )
                 )
@@ -206,7 +208,7 @@ add_action('wp_ajax_get-menus', 'get_site_menus_collection');
 
 
 
-function get_templates($element, $style = '') {
+function get_styles($element, $style = '') {
 
     $templates = array();
 

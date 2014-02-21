@@ -45,12 +45,13 @@
         };
 
         Controller.prototype.renderElement = function() {
-          var elementBox, itemCollection, menu, model, templateClass, view, _ref1;
+          var elementBox, itemCollection, menu, model, templateClass, templates, view, _ref1;
           model = this.layout.model;
           menu = App.request("get:collection:model", "menucollection", model.get('menu_id'));
           itemCollection = menu.get('menu_items');
           elementBox = App.request("get:collection:model", "elementbox", 'Menu');
-          templateClass = (_ref1 = elementBox.get('templates')[model.get('style')]) != null ? _ref1 : '';
+          templates = elementBox.get('templates');
+          templateClass = (_ref1 = [model.get('style')]) != null ? _ref1 : '';
           view = this._getMenuView(itemCollection, templateClass);
           this.listenTo(itemCollection, "menu:order:updated", view.render);
           this.listenTo(view, "open:menu:manager", function() {

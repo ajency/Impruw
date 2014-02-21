@@ -14,8 +14,8 @@
         <label for="" class="col-sm-4 control-label">Choose Style</label>
         <div class="col-sm-8">
           <select name="style">
-            <option value="">None</option>{{#templates}}
-            <option value="{{slug}}">{{name}}</option>{{/templates}}
+            <option value="">None</option>{{#styles}}
+            <option value="{{name}}">{{name}}</option>{{/styles}}
           </select>
         </div>
       </div>
@@ -28,7 +28,7 @@
       <div class="form-group">
         <label for="" class="col-sm-4 control-label">No of columns</label>
         <div class="col-sm-8">
-          <div class="set-column-count"><a class="btn badge">1</a><a class="btn badge">2</a><a class="btn badge">3</a><a class="btn badge">4</a><a class="btn badge">6 </a></div>
+          <div class="set-column-count"><a class="btn badge">1 &nbsp;</a><a class="btn badge">2 &nbsp;</a><a class="btn badge">3 &nbsp;</a><a class="btn badge">4 &nbsp;</a><a class="btn badge">6 &nbsp;</a></div>
         </div>
       </div>
     </form>

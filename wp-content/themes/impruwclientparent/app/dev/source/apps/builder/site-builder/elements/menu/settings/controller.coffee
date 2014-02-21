@@ -10,12 +10,10 @@ define ['app','controllers/base-controller','apps/builder/site-builder/elements/
 					initialize:(opt ={})->
 						{ @model } = opt
 						@region = App.settingsRegion
-						menus = App.request "get:site:menus"
-						siteMenus = menus.getSiteMenus()
 
-						config  = App.request "get:element:settings:options", 'Menu'
-						config.set 'site_menus' , siteMenus
-						view = @_getSettingView config
+						model  = App.request "get:element:settings:options", 'Menu'
+						
+						view = @_getSettingView model,@model
 
 						@listenTo view, 'render', =>
 											@region.$el.css 'top',200
@@ -43,9 +41,10 @@ define ['app','controllers/base-controller','apps/builder/site-builder/elements/
 								wait : true
 
 					# get settigns view
-					_getSettingView:(config)->
+					_getSettingView:(model,eleModel)->
 						new Settings.Views.SettingsView
-												model : config
+												eleModel : eleModel
+												model 	 : model
 
 
 				App.vent.on "show:menu:settings:popup", (model)->

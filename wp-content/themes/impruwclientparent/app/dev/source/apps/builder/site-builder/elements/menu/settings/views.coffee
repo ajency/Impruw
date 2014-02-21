@@ -10,6 +10,10 @@ define ['app', 'text!apps/builder/site-builder/elements/menu/settings/templates/
 
 					className : 'modal-content settings-box'
 
+					initialize:(opt = {})->
+						{@eleModel} = opt
+						super opt
+
 					# override the serializeData function for settings view
 					serializeData:()->
 						data = @model.toJSON()
@@ -30,13 +34,13 @@ define ['app', 'text!apps/builder/site-builder/elements/menu/settings/templates/
 
 					# set fields for the form
 					setFields:->
-						if @model.get('draggable') is true
+						if @eleModel.get('draggable') is true
 							@$el.find('input[name="draggable"]').checkbox('check')
-						if @model.get('justified') is true
+						if @eleModel.get('justified') is true
 							@$el.find('input[name="justified"]').checkbox('check')
 
-						@$el.find('select[name="style"]').selectpicker 'val',_.slugify @model.get 'style'
-						@$el.find('select[name="choose-menu"]').selectpicker 'val',@model.get 'menu_id'
+						@$el.find('select[name="style"]').selectpicker 'val', @eleModel.get 'style'
+						@$el.find('select[name="choose-menu"]').selectpicker 'val', @eleModel.get 'menu_id'
 
 					events:
 						'click .close-settings' : (evt)-> 

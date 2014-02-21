@@ -27,9 +27,9 @@ define ['app','apps/builder/site-builder/elements/menu/views','apps/builder/site
 					# create a new menu view
 					_getMenuView:(collection,templateClass)->
 						new Menu.Views.MenuView
-								collection 	: collection,
-								prop 		: @layout.model.toJSON()
-								templateClass: templateClass
+								collection 		: collection,
+								prop 			: @layout.model.toJSON()
+								templateClass	: templateClass
 
 					# setup templates for the element
 					renderElement:()=>
@@ -38,8 +38,9 @@ define ['app','apps/builder/site-builder/elements/menu/views','apps/builder/site
 						menu = App.request "get:collection:model", "menucollection", model.get 'menu_id'
 						itemCollection = menu.get 'menu_items'
 
-						elementBox =  App.request "get:collection:model", "elementbox", 'Menu'
-						templateClass = elementBox.get('templates')[model.get 'style'] ? ''
+						elementBox 	=  App.request "get:collection:model", "elementbox", 'Menu'
+						templates 	= elementBox.get('templates')
+						templateClass = [model.get 'style'] ? ''
 
 						view = @_getMenuView itemCollection,templateClass
 

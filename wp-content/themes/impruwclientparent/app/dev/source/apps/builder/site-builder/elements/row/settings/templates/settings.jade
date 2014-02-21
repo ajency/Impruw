@@ -12,9 +12,9 @@ header.settings-header
 				.col-sm-8
 					select(name="style")
 						option(value="") None
-						{{#templates}}
-						option(value="{{slug}}") {{name}}
-						{{/templates}}
+						{{#styles}}
+						option(value="{{name}}") {{name}}
+						{{/styles}}
 			.form-group
 				label.col-sm-4.control-label(for='') Draggable
 				.col-sm-8
@@ -25,9 +25,9 @@ header.settings-header
 				label.col-sm-4.control-label(for='') No of columns
 				.col-sm-8
 					.set-column-count
-						a.btn.badge 1
-						a.btn.badge 2
-						a.btn.badge 3
-						a.btn.badge 4
-						a.btn.badge 6 
+						a.btn.badge 1 &nbsp;
+						a.btn.badge 2 &nbsp;
+						a.btn.badge 3 &nbsp;
+						a.btn.badge 4 &nbsp;
+						a.btn.badge 6 &nbsp;
 						

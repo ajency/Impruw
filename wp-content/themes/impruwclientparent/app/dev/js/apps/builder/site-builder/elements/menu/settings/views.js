@@ -18,6 +18,14 @@
 
         SettingsView.prototype.className = 'modal-content settings-box';
 
+        SettingsView.prototype.initialize = function(opt) {
+          if (opt == null) {
+            opt = {};
+          }
+          this.eleModel = opt.eleModel;
+          return SettingsView.__super__.initialize.call(this, opt);
+        };
+
         SettingsView.prototype.serializeData = function() {
           var data, dataCloned,
             _this = this;
@@ -41,14 +49,14 @@
         };
 
         SettingsView.prototype.setFields = function() {
-          if (this.model.get('draggable') === true) {
+          if (this.eleModel.get('draggable') === true) {
             this.$el.find('input[name="draggable"]').checkbox('check');
           }
-          if (this.model.get('justified') === true) {
+          if (this.eleModel.get('justified') === true) {
             this.$el.find('input[name="justified"]').checkbox('check');
           }
-          this.$el.find('select[name="style"]').selectpicker('val', _.slugify(this.model.get('style')));
-          return this.$el.find('select[name="choose-menu"]').selectpicker('val', this.model.get('menu_id'));
+          this.$el.find('select[name="style"]').selectpicker('val', this.eleModel.get('style'));
+          return this.$el.find('select[name="choose-menu"]').selectpicker('val', this.eleModel.get('menu_id'));
         };
 
         SettingsView.prototype.events = {

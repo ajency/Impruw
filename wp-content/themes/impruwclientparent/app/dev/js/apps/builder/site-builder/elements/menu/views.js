@@ -72,7 +72,7 @@
         MenuView.prototype.onRender = function() {
           this.$el.removeClass();
           this.$el.addClass(this.className);
-          this.$el.addClass(this.options.templateClass);
+          this.$el.addClass(_.slugify(this.options.templateClass));
           return this.onSetJustified(this.options.prop.justified);
         };
 

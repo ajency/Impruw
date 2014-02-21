@@ -29,11 +29,23 @@ global $element_templates;
 
 $element_templates = array(
     'Menu' => array(
-        'Slimmenu' => array(),
-        'Footer' => array()
-    ),
+                array(
+                    'name'      => 'Slimmenu',
+                    'clsName'   => 'slimmenu'
+                ),
+                array(
+                    'name'      => 'Footer Menu',
+                    'clsName'   => 'footer-links'
+                )
+              ),
     'Row' => array(
-        'Green Background' => array(),
-        'Grey Background' => array()
-    )
+                array(
+                    'name'      => 'Green Background',
+                    'clsName'   => 'green-background'
+                ),
+                array(
+                    'name'      => 'Grey Background',
+                    'clsName'   => 'grey-background'
+                )
+             )
 );
