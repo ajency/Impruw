@@ -1205,7 +1205,7 @@ Version:        0.1.0
 .modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .aj-imp-upload-media > span {
   display: block;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .aj-imp-upload-media > span[class^="icon-"] {
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .aj-imp-upload-media > span.bicon {
   font-size: 10em;
   color: #e6e6e6;
 }
@@ -1325,33 +1325,40 @@ Version:        0.1.0
 .modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group#map-settings-accordion .panel .panel-heading > a .imgactions {
   text-align: right;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .thumbnails .single-img {
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .thumbnails .single-img,
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #selectable-images .single-img {
   position: relative;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .thumbnails .single-img .thumbnail {
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .thumbnails .single-img .thumbnail,
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #selectable-images .single-img .thumbnail {
   margin-bottom: 7px;
   border: 2px solid #aaaaaa;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .thumbnails .single-img .thumbnail .imgthumb {
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .thumbnails .single-img .thumbnail .imgthumb,
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #selectable-images .single-img .thumbnail .imgthumb {
   height: 145px;
   text-align: center;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .thumbnails .single-img .thumbnail .imgthumb img {
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .thumbnails .single-img .thumbnail .imgthumb img,
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #selectable-images .single-img .thumbnail .imgthumb img {
   vertical-align: middle;
   max-height: 145px;
   display: inline-block;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .thumbnails .single-img .thumbnail .imgthumb:before {
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .thumbnails .single-img .thumbnail .imgthumb:before,
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #selectable-images .single-img .thumbnail .imgthumb:before {
   content: "";
   display: inline-block;
   height: 100%;
   vertical-align: middle;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .thumbnails .single-img .thumbnail:hover {
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .thumbnails .single-img .thumbnail:hover,
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #selectable-images .single-img .thumbnail:hover {
   border-color: #849fb0;
   background: #f3f3f3;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .thumbnails .single-img .ticker {
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .thumbnails .single-img .ticker,
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #selectable-images .single-img .ticker {
   position: absolute;
   top: -7px;
   right: 5px;
@@ -1363,22 +1370,28 @@ Version:        0.1.0
   display: none;
   box-shadow: 0 0 2px #333;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .thumbnails .single-img .ticker .glyphicon-minus {
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .thumbnails .single-img .ticker .glyphicon-minus,
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #selectable-images .single-img .ticker .glyphicon-minus {
   display: none;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .thumbnails .single-img .ticker:hover {
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .thumbnails .single-img .ticker:hover,
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #selectable-images .single-img .ticker:hover {
   cursor: pointer;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .thumbnails .single-img .ticker:hover .glyphicon-ok {
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .thumbnails .single-img .ticker:hover .glyphicon-ok,
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #selectable-images .single-img .ticker:hover .glyphicon-ok {
   display: none;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .thumbnails .single-img .ticker:hover .glyphicon-minus {
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .thumbnails .single-img .ticker:hover .glyphicon-minus,
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #selectable-images .single-img .ticker:hover .glyphicon-minus {
   display: inline-block;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .thumbnails .single-img.ui-selected .thumbnail {
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .thumbnails .single-img.ui-selected .thumbnail,
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #selectable-images .single-img.ui-selected .thumbnail {
   border-color: #849fb0;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .thumbnails .single-img.ui-selected .ticker {
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .thumbnails .single-img.ui-selected .ticker,
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #selectable-images .single-img.ui-selected .ticker {
   display: block;
 }
 .modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .img-details {
