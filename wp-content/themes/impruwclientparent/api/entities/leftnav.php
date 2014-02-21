@@ -50,6 +50,13 @@ function get_media(){
 }
 add_action('wp_ajax_get-media','get_media');
 
+function get_menu(){
+    $id = $_GET['id'];
+    $menu = get_menu_to_array($id, 'id');
+    wp_send_json(array('code' => 'OK', 'data' => $menu ));
+}
+add_action('wp_ajax_get-menu','get_menu');
+
 /**
  * [get_pages description]
  * @return [type] [description]

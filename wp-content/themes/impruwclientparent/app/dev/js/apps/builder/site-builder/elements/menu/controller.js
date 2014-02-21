@@ -45,21 +45,25 @@
         };
 
         Controller.prototype.renderElement = function() {
-          var elementBox, itemCollection, menu, model, templateClass, templates, view, _ref1;
+          var menu, model,
+            _this = this;
           model = this.layout.model;
-          menu = App.request("get:collection:model", "menucollection", model.get('menu_id'));
-          itemCollection = menu.get('menu_items');
-          elementBox = App.request("get:collection:model", "elementbox", 'Menu');
-          templates = elementBox.get('templates');
-          templateClass = (_ref1 = [model.get('style')]) != null ? _ref1 : '';
-          view = this._getMenuView(itemCollection, templateClass);
-          this.listenTo(itemCollection, "menu:order:updated", view.render);
-          this.listenTo(view, "open:menu:manager", function() {
-            return App.navigate("menu-manager", {
-              trigger: true
+          menu = App.request("get:menu:by:id", model.get('menu_id'));
+          return App.execute("when:fetched", menu, function() {
+            var elementBox, itemCollection, templateClass, templates, view, _ref1;
+            itemCollection = menu.get('menu_items');
+            elementBox = App.request("get:collection:model", "elementbox", 'Menu');
+            templates = elementBox.get('templates');
+            templateClass = (_ref1 = [model.get('style')]) != null ? _ref1 : '';
+            view = _this._getMenuView(itemCollection, templateClass);
+            _this.listenTo(itemCollection, "menu:order:updated", view.render);
+            _this.listenTo(view, "open:menu:manager", function() {
+              return App.navigate("menu-manager", {
+                trigger: true
+              });
             });
+            return _this.layout.elementRegion.show(view);
           });
-          return this.layout.elementRegion.show(view);
         };
 
         return Controller;

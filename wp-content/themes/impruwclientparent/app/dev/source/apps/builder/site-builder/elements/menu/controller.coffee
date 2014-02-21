@@ -35,18 +35,19 @@ define ['app','apps/builder/site-builder/elements/menu/views','apps/builder/site
 					renderElement:()=>
 						model = @layout.model
 						# get menu 
-						menu = App.request "get:collection:model", "menucollection", model.get 'menu_id'
-						itemCollection = menu.get 'menu_items'
+						menu = App.request "get:menu:by:id", model.get 'menu_id'
+						
+						App.execute "when:fetched", menu, =>
+							itemCollection = menu.get 'menu_items'
+							elementBox 	=  App.request "get:collection:model", "elementbox", 'Menu'
+							templates 	= elementBox.get('templates')
+							templateClass = [model.get 'style'] ? ''
 
-						elementBox 	=  App.request "get:collection:model", "elementbox", 'Menu'
-						templates 	= elementBox.get('templates')
-						templateClass = [model.get 'style'] ? ''
+							view = @_getMenuView itemCollection,templateClass
 
-						view = @_getMenuView itemCollection,templateClass
+							@listenTo itemCollection, "menu:order:updated", view.render
 
-						@listenTo itemCollection, "menu:order:updated", view.render
+							@listenTo view, "open:menu:manager", ->
+								App.navigate "menu-manager", trigger : true
 
-						@listenTo view, "open:menu:manager", ->
-							App.navigate "menu-manager", trigger : true
-
-						@layout.elementRegion.show view
+							@layout.elementRegion.show view

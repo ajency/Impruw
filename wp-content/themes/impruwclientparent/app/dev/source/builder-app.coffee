@@ -52,7 +52,8 @@ define ['marionette'], (Marionette)->
 
 	App.on "initialize:after", (options) ->
 		App.execute "create:media:store"
-		menus = App.request "get:site:menus"
+		App.execute "create:menu:store"
+		
 		appState = App.request "get:current:appstate"
 		App.startHistory()
 		if appState.isLoggedIn()

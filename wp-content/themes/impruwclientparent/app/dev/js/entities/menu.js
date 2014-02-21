@@ -119,6 +119,13 @@
 
         MenuModel.prototype.name = 'menu';
 
+        MenuModel.prototype.parse = function(resp) {
+          if (resp.code === 'OK') {
+            return resp.data;
+          }
+          return resp;
+        };
+
         return MenuModel;
 
       })(Backbone.AssociatedModel);
@@ -222,8 +229,33 @@
           menuitem.set(data);
           menuitem.save();
           return menuitem;
+        },
+        createStoreCollection: function() {
+          var menuCollection;
+          menuCollection = new Menus.MenuCollection;
+          return App.request("set:collection", 'menucollection', menuCollection);
+        },
+        getMenuById: function(menuId) {
+          var menu, menuCollection;
+          menuCollection = App.request("get:collection", 'menucollection');
+          menu = menuCollection.get(parseInt(menuId));
+          if (_.isUndefined(menu)) {
+            menu = new Menus.MenuModel({
+              id: menuId
+            });
+            menu.url = "" + AJAXURL + "?action=get-menu&id=" + menuId;
+            menuCollection.add(menu);
+            menu.fetch();
+          }
+          return menu;
         }
       };
+      App.commands.setHandler("create:menu:store", function() {
+        return API.createStoreCollection();
+      });
+      App.reqres.setHandler("get:menu:by:id", function(menuId) {
+        return API.getMenuById(menuId);
+      });
       App.reqres.setHandler("get:site:menus", function() {
         return API.getMenus();
       });

@@ -44,9 +44,9 @@
       return App.unregister(instance, id);
     });
     App.on("initialize:after", function(options) {
-      var appState, menus;
+      var appState;
       App.execute("create:media:store");
-      menus = App.request("get:site:menus");
+      App.execute("create:menu:store");
       appState = App.request("get:current:appstate");
       App.startHistory();
       if (appState.isLoggedIn()) {
