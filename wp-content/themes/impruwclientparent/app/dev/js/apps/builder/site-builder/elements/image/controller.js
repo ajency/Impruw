@@ -62,9 +62,7 @@
               return _this.listenTo(App.vent, "media:manager:choosed:media", function(media, size) {
                 _this.layout.model.set('image_id', media.get('id'));
                 _this.layout.model.set('size', size);
-                if (_this.layout.model.hasChanged()) {
-                  return _this.layout.model.save();
-                }
+                return _this.layout.model.save();
               });
             });
             return _this.layout.elementRegion.show(view);

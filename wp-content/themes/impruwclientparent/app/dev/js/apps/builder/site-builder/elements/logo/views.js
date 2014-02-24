@@ -20,8 +20,7 @@
 
         LogoView.prototype.events = {
           'click': function(e) {
-            e.stopPropagation();
-            return this.trigger("show:media:manager");
+            return e.stopPropagation();
           },
           'click a': function(e) {
             return e.preventDefault();

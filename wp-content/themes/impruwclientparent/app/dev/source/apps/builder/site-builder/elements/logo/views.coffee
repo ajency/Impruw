@@ -13,7 +13,7 @@ define ['app'],(App)->
 			events:
 				'click'		: (e)->
 								e.stopPropagation()
-								@trigger "show:media:manager"
+								#@trigger "show:media:manager"
 				'click a'	: (e)-> e.preventDefault()
 
 

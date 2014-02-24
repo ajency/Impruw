@@ -35,6 +35,7 @@
         } else {
           section.append(layout.$el);
         }
+        section.removeClass('empty-column');
         layout.render();
         layout.triggerMethod('show');
         if (layout.model.get('element') === 'Row') {

@@ -39,11 +39,12 @@ class MenuElement extends Element {
      */
     function __construct($element) {
         parent::__construct($element);
-        $this->menu_id = $element['menu_id'];
-        $this->justified = $element['justified'];
-        $templates =  get_templates('Menu');
-        $this->templates = $templates[$element['style']]; 
-        $this->markup = $this->generateMarkup();
+        $this->menu_id      = $element['menu_id'];
+        $this->justified    = $element['justified'];
+        $templates          = get_styles('Menu');
+        $this->style        = sanitize_title($element['style']);
+        $this->templates    = $templates[$element['style']]; 
+        $this->markup       = $this->generateMarkup();
     }
     
     /**
@@ -65,9 +66,9 @@ class MenuElement extends Element {
         $menu = get_menu_to_array($this->menu_id, 'id');
         
         $justified = $this->justified ? 'nav-justified' : '';
-        $html = "<ul class='nav {$this->templates['className']} $justified'>";
+        $html = "<ul class='nav {$this->style} $justified'>";
         foreach($menu['menu_items'] as $item):
-            $html .= '<li>' . $me->render($this->templates['menuItemTpl'], $item) . '</li>';
+            $html .= '<li>' . $me->render('<a href="{{menu_item_link}}">{{post_title}}</a>', $item) . '</li>';
         endforeach;
         $html .= "</ul>";
         return $html;

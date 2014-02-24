@@ -23,6 +23,10 @@ define ["marionette"
 				section.find("li[data-element='#{type}']").replaceWith layout.$el
 			else
 				section.append layout.$el
+				
+			# remove empty-column class if found
+			section.removeClass 'empty-column'
+
 			layout.render()
 			layout.triggerMethod 'show'
 

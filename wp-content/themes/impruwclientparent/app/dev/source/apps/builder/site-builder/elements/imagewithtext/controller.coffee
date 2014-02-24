@@ -55,7 +55,9 @@ define ['app','apps/builder/site-builder/elements/imagewithtext/views','apps/bui
 									@listenTo App.vent,"media:manager:choosed:media",(media, size)=>
 										@layout.model.set 'image_id', media.get 'id'
 										@layout.model.set 'size',size
-										@layout.model.save() if @layout.model.hasChanged()
+										@layout.model.save()
+										#stop listening to event
+										@stopListening App.vent, "media:manager:choosed:media"
 
 							@listenTo view, "text:element:blur",(html) =>
 								@layout.model.set 'content', "#{html}"

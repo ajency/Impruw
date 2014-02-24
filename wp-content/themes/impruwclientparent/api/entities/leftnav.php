@@ -277,8 +277,10 @@ function save_page_json() {
 add_action('wp_ajax_save-page-json', 'save_page_json');
 
 
-function get_page_json1(){
-    $page_id = $_REQUEST['page_id'];
+function get_page_json1($page_id = 0){
+    if($page_id == 0)   
+       return false;
+    
     $json = array();
     $json['header'] = get_option('theme-header');
     $json['footer'] = get_option('theme-footer');
@@ -304,10 +306,16 @@ function get_page_json1(){
                 'header'    => $d['header'],
                 'page'      => $d['page'],
                 'footer'    => $d['footer']
-             );      
+             ); 
+   return $data;
+}
+
+function sds(){
+    $page_id = $_REQUEST['page_id'];
+    $data = get_page_json1($page_id);
     wp_send_json(array('code' => 'OK' , 'data' => $data));
 }
-add_action('wp_ajax_get-page-json','get_page_json1');
+add_action('wp_ajax_get-page-json','sds');
 
 function get_row_elements($element){
     foreach($element['elements'] as &$column){

@@ -43,13 +43,12 @@ class ImageElement extends Element {
      * The config to create a row element
      * @param array $config
      */
-    function __construct($config) {
+    function __construct($element) {
         
-        parent::__construct($config);
+        parent::__construct($element);
         
-        if(isset($config['dataSource'])){
-            $this->data  = $config['dataSource'];
-        }
+        $this->image_id = $element['image_id'];
+        $this->size = $element['size'];
         
         $this->markup    = $this->generate_markup();
     }
@@ -76,11 +75,7 @@ class ImageElement extends Element {
      */
     function get_image_id(){
          
-        if(isset($this->data['attachmentID'])){
-            return (int)$this->data['attachmentID'];
-        }
-        
-        return 0;
+        $this->image_id;
     }
     
     /**
@@ -102,9 +97,9 @@ class ImageElement extends Element {
      */
     function get_image(){
         
-        $a_id = $this->get_image_id();
+        $a_id = $this->image_id;
 
-        $size = $this->get_image_size();
+        $size = $this->size;
         
         $path = get_parent_template_directory_uri() . '/js/holder.js/100%x220';
 

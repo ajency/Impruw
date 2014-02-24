@@ -47,6 +47,15 @@
           });
         };
 
+        Controller.prototype.onClose = function() {
+          if (!this.model.hasChanged()) {
+            return;
+          }
+          return this.model.save(null, {
+            wait: true
+          });
+        };
+
         return Controller;
 
       })(AppController);

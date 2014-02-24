@@ -33,15 +33,14 @@ class TextElement extends Element {
      * The config to create a row element
      * @param array $config
      */
-    function __construct($config) {
+    function __construct($element) {
         
-        parent::__construct($config);
+        parent::__construct($element);
         
-        if(isset($config['content'])){
-            $this->content          = stripcslashes(trim($config['content']));
-        }
         
-        $this->markup               = $this->generate_markup();
+        $this->content          = stripcslashes(trim($element['content']));
+        
+        $this->markup           = $this->generate_markup();
 
         
         
@@ -67,7 +66,7 @@ class TextElement extends Element {
                                                  Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
                                                  when an unknown printer took a galley of type and scrambled it to make a 
                                                  type specimen book. It has survived not only five centuries, but also the 
-                                                 leap into electronic typesetting</p>" : $this->content;
+                                                 leap into electronic typesetting</p>" : "<p>{$this->content}</p>";
         // if(empty($this->content))
         //     $html       .= $this->get_close_tag();
         

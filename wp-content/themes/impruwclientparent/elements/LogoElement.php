@@ -42,13 +42,11 @@ class LogoElement extends Element {
      * The config to create a row element
      * @param array $config
      */
-    function __construct($config) {
+    function __construct($element) {
         
-        parent::__construct($config);
+        parent::__construct($element);
         
-        if(isset($config['dataSource'])){
-            $this->data  = $config['dataSource'];
-        }
+        $this->image_id = $element['image_id'];
         
         $this->markup    = $this->generate_markup();
     }
@@ -75,7 +73,7 @@ class LogoElement extends Element {
      */
     function get_image_id(){
          
-        $id = get_option('businessLogoId');
+        $id = 56;
 
         return (int)$id;
     }
@@ -86,11 +84,7 @@ class LogoElement extends Element {
      */
     function get_image_size(){
             
-        if(isset($this->data['size'])){
-            return $this->data['size'];
-        }
-        
-        return array('700','200');
+        return 'full';
     }
     
     /**
@@ -109,7 +103,7 @@ class LogoElement extends Element {
             return  sprintf("<a href='%s'><img data-src='%s' class='img-responsive' /></a>", site_url(), $path);
         }
 
-        $image = wp_get_attachment_image_src($a_id, 'full');
+        $image = wp_get_attachment_image_src($a_id, 'large');
         if($image !== false) {
             return sprintf("<a href='%s'><img src='%s' class='img-responsive' /></a>", site_url(), $image[0]);
         }

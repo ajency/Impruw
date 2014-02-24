@@ -64,9 +64,8 @@
               return _this.listenTo(App.vent, "media:manager:choosed:media", function(media, size) {
                 _this.layout.model.set('image_id', media.get('id'));
                 _this.layout.model.set('size', size);
-                if (_this.layout.model.hasChanged()) {
-                  return _this.layout.model.save();
-                }
+                _this.layout.model.save();
+                return _this.stopListening(App.vent, "media:manager:choosed:media");
               });
             });
             _this.listenTo(view, "text:element:blur", function(html) {

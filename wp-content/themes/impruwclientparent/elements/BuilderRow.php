@@ -43,7 +43,7 @@ class BuilderRow extends Element {
     function __construct($element) {
         
         $this->elements     = $element['elements'];
-        $this->style        = $element['style'];
+        $this->style        = sanitize_title($element['style']);
         
     }
     

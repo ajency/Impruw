@@ -80,16 +80,23 @@ div.element-drop-loader > p{
 .aj-imp-builder-layout-mode .element-wrapper{
     border-radius: 4px;
 }
-
+/*
 .aj-imp-builder-layout-mode .row .column.empty-column{
     background: none !important;
 }
-
+*/
 .aj-imp-builder-layout-mode .row .column {
-    background: none !important;
+    background-color: transparent !important;
 }
 
-.image-img-with-text{
+
+
+:focus {outline:none;}
+::-moz-focus-inner {border:0;}
+
+
+
+.image-img-with-text,.img-responsive{
     margin: 7px
 }
 

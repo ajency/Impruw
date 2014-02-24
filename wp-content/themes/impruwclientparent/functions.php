@@ -207,12 +207,6 @@ function generate_markup( $section ) {
 function add_element_markup( $element ) {
 
     $html = '';
-    $type = $element['element'];
-    if($type != 'Row' && $type != 'Column'){
-        $meta = get_metadata_by_mid('post', $element['meta_id']);
-        $element =  $meta->meta_value;   
-        $element['element'] = $type;
-    }
     
     switch ( $element['element'] ) {
 
@@ -225,16 +219,16 @@ function add_element_markup( $element ) {
     case 'ContainerElement':
         $html = get_container_markup( $element );
         break;
-    case 'ImageElement':
+    case 'Image':
         $html = get_image_element_markup( $element );
         break;
     case 'Menu':
         $html = get_menu_element_markup( $element );
         break;
-    case 'TitleElement':
+    case 'Title':
         $html = get_title_element_markup( $element );
         break;
-    case 'TextElement':
+    case 'Text':
         $html = get_text_element_markup( $element );
         break;
     case 'AddressElement':
@@ -252,7 +246,7 @@ function add_element_markup( $element ) {
     case 'MapElement':
         $html = get_map_element_markup( $element );
         break;
-    case 'LogoElement':
+    case 'Logo':
         $html = get_logo_element_markup( $element );
         break; 
     case 'RoomDescription':
@@ -296,7 +290,7 @@ function get_builder_row_markup( $element ) {
     if ( $row->has_child_elements() ) {
         
         foreach ( $row->get_elements() as $ele ) {
-
+            
             $html .= add_element_markup( $ele );
 
         }
@@ -632,6 +626,9 @@ function get_page_markup_JSON( $page_id  = 0 ) {
 
     //get page slug
     $page_id = get_the_ID();
+    
+    return get_page_json1($page_id);
+    
 
     $json     = array();
 

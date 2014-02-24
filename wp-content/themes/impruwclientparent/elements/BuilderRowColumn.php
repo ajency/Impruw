@@ -50,9 +50,8 @@ class BuilderRowColumn extends Element {
 
         parent::__construct($element);    
         
-        $this->className = $element['className'];
-        
         $this->elements = $element['elements'];
+        $this->className = 'col-md-'.  $element['className'];
 
     }
     

@@ -35,6 +35,13 @@ define ['app','controllers/base-controller','apps/builder/site-builder/elements/
 												eleModel : eleModel
 												model 	 : model
 
+					# time to save model to server
+					onClose:->
+						return if not @model.hasChanged()
+						
+						@model.save null,
+								wait : true
+
 
 				App.vent.on "show:logo:settings:popup", (model)->
 					new Settings.Controller
