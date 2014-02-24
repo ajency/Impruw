@@ -1394,54 +1394,59 @@ Version:        0.1.0
 .modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #selectable-images .single-img.ui-selected .ticker {
   display: block;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .img-details {
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #edit-media-region {
   border: 2px solid #aaaaaa;
   border-radius: 3px;
   background: #ffffff;
   padding: 5px;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .img-details .pick-image {
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #edit-media-region .pick-image {
   text-align: center;
   padding: 2em;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .img-details .pick-image .glyphicon {
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #edit-media-region .pick-image .glyphicon {
   font-size: 4em;
   color: #aaaaaa;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .img-details .pick-image h4 {
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #edit-media-region .pick-image h4 {
   color: #aaaaaa;
   text-transform: uppercase;
   font-size: 1.2em;
   margin: 2em 0 0;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .img-details h5 {
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #edit-media-region h5 {
   color: #777777;
   font-size: 1em;
   text-transform: uppercase;
+  border-bottom: 1px solid #aaaaaa;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .img-details .imgdetails {
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #edit-media-region .imgdetails {
   margin: 0 0 1em;
   padding: 0 0 1em;
   border-bottom: 1px solid #aaaaaa;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .img-details .imginfo {
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #edit-media-region .imginfo {
   color: #aaaaaa;
   font-size: 0.88em;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .img-details .imginfo h6 {
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #edit-media-region .imginfo h6 {
   font-size: 1.2em;
   color: #182944;
   margin: 0 0 0.2em;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .img-details .imginfo .edit-image {
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #edit-media-region .imginfo .edit-image {
   margin: 0.5em 0.5em 0.5em 0;
   color: #849fb0;
   display: inline-block;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .img-details .imginfo .delete-image {
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #edit-media-region .imginfo .delete-image {
   color: #cc6500;
   margin: 0.5em 0.5em 0.5em 0;
   display: inline-block;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #edit-media-region label {
+  font-size: 0.88em;
+  color: #aaaaaa;
 }
 .modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .aj-imp-block-button {
   margin: 1em 0;
