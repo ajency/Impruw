@@ -137,6 +137,7 @@
 
       })(AppController);
       return App.commands.setHandler("editable:page:changed", function(pageId) {
+        App.resetElementRegistry();
         if (_this.siteBuilderController !== null) {
           siteBuilderController.close();
         }

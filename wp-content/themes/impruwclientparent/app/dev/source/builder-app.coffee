@@ -44,11 +44,11 @@ define ['marionette'], (Marionette)->
 
 	# Registers a controller instance
 	App.commands.setHandler "register:builder:instance", (instance, id) ->
-		App.register instance, id
+		App.registerElement instance, id
 	
 	# Unregisters a controller instance
 	App.commands.setHandler "unregister:builder:instance", (instance, id) ->
-		App.unregister instance, id
+		App.unregisterElement instance, id
 
 	App.on "initialize:after", (options) ->
 		App.execute "create:media:store"

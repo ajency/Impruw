@@ -36,6 +36,24 @@ define ['marionette','mustache'], (Marionette, Mustache)->
 		getRegistrySize: ->
 			_.size @_registry
 
+		# register a controller instance
+		registerElement: (instance, id) ->
+			@_elementRegistry ?= {}
+			@_elementRegistry[id] = instance
+		
+		# unregister a controller instance
+		unregisterElement: (instance, id) ->
+			delete @_elementRegistry[id]
+		
+		resetElementRegistry: ->
+			oldCount = @getElementRegistrySize()
+			for key, controller of @_elementRegistry
+				controller.layout.close()
+			msg = "There were #{oldCount} controllers in the registry, there are now #{@getElementRegistrySize()}"
+			if @getElementRegistrySize() > 0 then console.warn(msg, @_elementRegistry) else console.log(msg)
+		
+		getElementRegistrySize: ->
+			_.size @_elementRegistry
 
 	# add hide /unhide functionality to a region
 	_.extend Marionette.Region::,

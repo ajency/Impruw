@@ -29,6 +29,7 @@
 
       AppController.prototype.add = function(layout, section) {
         var type;
+        this.listenTo(layout, 'close', this.close);
         type = layout.model.get("element");
         if (section.find("li[data-element='" + type + "']").length === 1) {
           section.find("li[data-element='" + type + "']").replaceWith(layout.$el);

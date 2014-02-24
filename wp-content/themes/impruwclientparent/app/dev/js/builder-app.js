@@ -38,10 +38,10 @@
       return App.unregister(instance, id);
     });
     App.commands.setHandler("register:builder:instance", function(instance, id) {
-      return App.register(instance, id);
+      return App.registerElement(instance, id);
     });
     App.commands.setHandler("unregister:builder:instance", function(instance, id) {
-      return App.unregister(instance, id);
+      return App.unregisterElement(instance, id);
     });
     App.on("initialize:after", function(options) {
       var appState;

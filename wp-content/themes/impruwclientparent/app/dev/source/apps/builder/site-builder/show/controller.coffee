@@ -109,6 +109,7 @@ define ['app', 'controllers/base-controller'
 
 
 				App.commands.setHandler "editable:page:changed",(pageId)=>
+					App.resetElementRegistry()
 					siteBuilderController.close() if @siteBuilderController isnt null
 					siteBuilderController = new Show.BuilderController()
 

@@ -48,6 +48,33 @@
       },
       getRegistrySize: function() {
         return _.size(this._registry);
+      },
+      registerElement: function(instance, id) {
+        if (this._elementRegistry == null) {
+          this._elementRegistry = {};
+        }
+        return this._elementRegistry[id] = instance;
+      },
+      unregisterElement: function(instance, id) {
+        return delete this._elementRegistry[id];
+      },
+      resetElementRegistry: function() {
+        var controller, key, msg, oldCount, _ref;
+        oldCount = this.getElementRegistrySize();
+        _ref = this._elementRegistry;
+        for (key in _ref) {
+          controller = _ref[key];
+          controller.layout.close();
+        }
+        msg = "There were " + oldCount + " controllers in the registry, there are now " + (this.getElementRegistrySize());
+        if (this.getElementRegistrySize() > 0) {
+          return console.warn(msg, this._elementRegistry);
+        } else {
+          return console.log(msg);
+        }
+      },
+      getElementRegistrySize: function() {
+        return _.size(this._elementRegistry);
       }
     });
     _.extend(Marionette.Region.prototype, {

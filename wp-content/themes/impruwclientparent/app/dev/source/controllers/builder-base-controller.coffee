@@ -18,6 +18,7 @@ define ["marionette"
 
 		# add new element to the section
 		add:(layout, section)->
+			@listenTo layout,'close',@close
 			type = layout.model.get "element"
 			if section.find("li[data-element='#{type}']").length is 1
 				section.find("li[data-element='#{type}']").replaceWith layout.$el
