@@ -16,6 +16,24 @@
 
         EditMediaView.prototype.template = formTpl;
 
+        EditMediaView.prototype.serializeData = function() {
+          var data, sizes;
+          data = EditMediaView.__super__.serializeData.call(this);
+          sizes = _.clone(data.sizes);
+          delete data.sizes;
+          data.sizes = [];
+          _.each(sizes, function(size, key) {
+            var s;
+            s = {};
+            s[key] = size;
+            return data.sizes.push(s);
+          });
+          data.sizename = function() {
+            return _.chain(_.keys(this)).first().value();
+          };
+          return data;
+        };
+
         return EditMediaView;
 
       })(Marionette.ItemView);

@@ -6,5 +6,19 @@ define ['app', 'text!apps/media-manager/edit-media/templates/form.html'], (App, 
 					
 					template : formTpl
 
+					serializeData: ->
+						data = super()
+						# change sizes to array for mustache rendrening
+						sizes = _.clone data.sizes
+						delete data.sizes
+						# reset array
+						data.sizes = []
+						_.each sizes, (size, key)->
+							s = {}
+							s[key] = size
+							data.sizes.push s 
+										
+						data.sizename = ->
+							_.chain(_.keys(@)).first().value()
 
-				
+						data				
