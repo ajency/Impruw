@@ -26,6 +26,7 @@ define ['app'],(App)->
 			# we can destroy it on close of element
 			onShow:->
 				@$el.attr('contenteditable','true').attr 'id', _.uniqueId 'title-'
+				CKEDITOR.on 'instanceCreated', @configureEditor
 				@editor = CKEDITOR.inline document.getElementById @$el.attr 'id'
 				@editor.setData _.stripslashes @model.get 'content'
 
@@ -34,3 +35,25 @@ define ['app'],(App)->
 			# Ckeditor has a destroy method to remove a editor instance
 			onClose:->
 				@editor.destroy()
+
+			# set configuration for the Ckeditor
+			configureEditor: (event) ->
+				editor = event.editor
+				element = editor.element
+			  
+				# Customize the editor configurations on "configLoaded" event,
+				# which is fired after the configuration file loading and
+				# execution. This makes it possible to change the
+				# configurations before the editor initialization takes place.
+				editor.on "configLoaded", ->
+			  
+					# Rearrange the layout of the toolbar.
+					editor.config.toolbarGroups = [
+													  name: "basicstyles"
+													  groups: [ "basicstyles", "cleanup" ]
+													,
+													  name: "paragraph"
+													  groups: [ "list", "indent", "blocks", "align", "bidi" ]
+													,
+													  name: "styles"
+													 ]

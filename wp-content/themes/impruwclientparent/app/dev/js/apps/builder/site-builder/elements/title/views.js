@@ -29,12 +29,32 @@
 
         TitleView.prototype.onShow = function() {
           this.$el.attr('contenteditable', 'true').attr('id', _.uniqueId('title-'));
+          CKEDITOR.on('instanceCreated', this.configureEditor);
           this.editor = CKEDITOR.inline(document.getElementById(this.$el.attr('id')));
           return this.editor.setData(_.stripslashes(this.model.get('content')));
         };
 
         TitleView.prototype.onClose = function() {
           return this.editor.destroy();
+        };
+
+        TitleView.prototype.configureEditor = function(event) {
+          var editor, element;
+          editor = event.editor;
+          element = editor.element;
+          return editor.on("configLoaded", function() {
+            return editor.config.toolbarGroups = [
+              {
+                name: "basicstyles",
+                groups: ["basicstyles", "cleanup"]
+              }, {
+                name: "paragraph",
+                groups: ["list", "indent", "blocks", "align", "bidi"]
+              }, {
+                name: "styles"
+              }
+            ];
+          });
         };
 
         return TitleView;
