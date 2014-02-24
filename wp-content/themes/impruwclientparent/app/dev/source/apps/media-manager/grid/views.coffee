@@ -1,15 +1,16 @@
 define ['app'
-		'text!apps/media-manager/all-media/templates/media.html'
-		], (App, mediaTpl)->
+		'text!apps/media-manager/grid/templates/media.html'
+		], (App, mediaTpl, layoutTpl)->
 	
-			App.module 'MediaManager.AllMedia.Views', (Views, App)->
+			App.module 'MediaManager.Grid.Views', (Views, App)->
 
 				# single media view
 				class MediaView extends Marionette.ItemView
 					template : mediaTpl
 					className: 'col-sm-2 single-img'
 					events:
-						'click a': (e)-> e.preventDefault()
+						'click a'	: (e)-> e.preventDefault()
+						'click'		: (e)-> @trigger "media:element:clicked"
 
 				# collection view
 				class Views.GridView extends Marionette.CompositeView
@@ -17,8 +18,5 @@ define ['app'
 					template: '<div id="selectable-images"></div>'
 					itemView : MediaView
 					itemViewContainer: '#selectable-images'
-
 					onCollectionRendered:->
 						@$el.find('#selectable-images').selectable()
-
-				

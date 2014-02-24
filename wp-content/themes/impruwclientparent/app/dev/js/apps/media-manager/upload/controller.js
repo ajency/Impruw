@@ -5,7 +5,8 @@
 
   define(['app', 'controllers/base-controller', 'apps/media-manager/upload/views'], function(App, AppController) {
     return App.module("MediaManager.Upload", function(Upload, App) {
-      var _ref;
+      var _ref,
+        _this = this;
       this.startWithParent = false;
       Upload.Controller = (function(_super) {
         __extends(Controller, _super);
@@ -29,9 +30,6 @@
 
       })(AppController);
       return Upload.on('start', function(options) {
-        if (options == null) {
-          options = {};
-        }
         return new Upload.Controller({
           region: options.region
         });

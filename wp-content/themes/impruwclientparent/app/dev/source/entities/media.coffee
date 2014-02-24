@@ -13,6 +13,12 @@ define ["app", 'backbone'], (App, Backbone) ->
 
             #Media collection
             class Media.MediaCollection extends Backbone.Collection
+
+                filters: 
+                    order           : 'DESC'
+                    orderby         : 'date'
+                    paged           : 1
+                    posts_per_page  : 40
                 
                 model : Media.MediaModel
 
@@ -23,14 +29,20 @@ define ["app", 'backbone'], (App, Backbone) ->
                 
             ##PUBLIC API FOR ENitity
             API =
-                fetchMedia: (param ={}, reset)->
+                fetchMedia: (params ={}, reset)->
+                    
                     mediaCollection = App.request "get:collection", 'mediacollection'
+                    
                     if not mediaCollection
                         mediaCollection = new Media.MediaCollection
+                    
                     mediaCollection.url = "#{AJAXURL}?action=query_attachments"
+                    
+                    _.defaults params,mediaCollection.filters 
+
                     mediaCollection.fetch
                                     reset : reset
-                                    data  : param
+                                    data  : params
                              
                     mediaCollection
 

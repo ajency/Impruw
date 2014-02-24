@@ -3,8 +3,8 @@
   var __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  define(['app', 'text!apps/media-manager/all-media/templates/media.html'], function(App, mediaTpl) {
-    return App.module('MediaManager.AllMedia.Views', function(Views, App) {
+  define(['app', 'text!apps/media-manager/grid/templates/media.html'], function(App, mediaTpl, layoutTpl) {
+    return App.module('MediaManager.Grid.Views', function(Views, App) {
       var MediaView, _ref, _ref1;
       MediaView = (function(_super) {
         __extends(MediaView, _super);
@@ -21,6 +21,9 @@
         MediaView.prototype.events = {
           'click a': function(e) {
             return e.preventDefault();
+          },
+          'click': function(e) {
+            return this.trigger("media:element:clicked");
           }
         };
 

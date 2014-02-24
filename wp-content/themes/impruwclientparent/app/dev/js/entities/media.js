@@ -34,6 +34,13 @@
           return _ref1;
         }
 
+        MediaCollection.prototype.filters = {
+          order: 'DESC',
+          orderby: 'date',
+          paged: 1,
+          posts_per_page: 40
+        };
+
         MediaCollection.prototype.model = Media.MediaModel;
 
         MediaCollection.prototype.parse = function(resp) {
@@ -47,19 +54,20 @@
 
       })(Backbone.Collection);
       API = {
-        fetchMedia: function(param, reset) {
+        fetchMedia: function(params, reset) {
           var mediaCollection;
-          if (param == null) {
-            param = {};
+          if (params == null) {
+            params = {};
           }
           mediaCollection = App.request("get:collection", 'mediacollection');
           if (!mediaCollection) {
             mediaCollection = new Media.MediaCollection;
           }
           mediaCollection.url = "" + AJAXURL + "?action=query_attachments";
+          _.defaults(params, mediaCollection.filters);
           mediaCollection.fetch({
             reset: reset,
-            data: param
+            data: params
           });
           return mediaCollection;
         },

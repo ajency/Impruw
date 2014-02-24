@@ -18,6 +18,6 @@ define ['app', 'controllers/base-controller', 'apps/media-manager/upload/views']
 				new Upload.Views.UploadView
 
 
-		Upload.on 'start',(options = {})->
-			new Upload.Controller 
-							region : options.region
+		Upload.on 'start',(options) =>
+			new Upload.Controller
+						region : options.region
