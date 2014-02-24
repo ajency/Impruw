@@ -1,8 +1,8 @@
-define ['app', 'text!apps/builder/site-builder/elements/image/settings/templates/settings.html'],
+define ['app', 'text!apps/builder/site-builder/elements/imagewithtext/settings/templates/settings.html'],
 		(App, settingsTpl)->
 
 			# Headerapp views
-			App.module 'SiteBuilderApp.Element.Image.Settings.Views', (Views, App, Backbone, Marionette, $, _)->
+			App.module 'SiteBuilderApp.Element.ImageWithText.Settings.Views', (Views, App, Backbone, Marionette, $, _)->
 
 				class Views.SettingsView extends Marionette.ItemView
 

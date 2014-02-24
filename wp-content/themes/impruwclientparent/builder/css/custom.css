@@ -89,6 +89,10 @@ div.element-drop-loader > p{
     background: none !important;
 }
 
+.image-img-with-text{
+    margin: 7px
+}
+
 /*.element-wrapper:hover{
     border : 1px solid orange;
 }

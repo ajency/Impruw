@@ -8,7 +8,8 @@ define ['app', 'holder'],(App, Holder)->
 
 			className : 'image'
 
-			template : '<img {{holder}}src="{{imageurl}}" alt="{{title}}" class="{{alignclass}} img-responsive"/>'
+			template : '<img {{holder}}src="{{imageurl}}" alt="{{title}}" class="{{alignclass}} img-responsive"/>
+						<div class="clearfix"></div>'
 
 			# override serializeData to set holder property for the view
 			mixinTemplateHelpers:(data)->
@@ -50,4 +51,4 @@ define ['app', 'holder'],(App, Holder)->
 					Holder.run()
 					@$el.find('img').removeAttr 'data-src'
 
-				@$el.height @$el.find('img').height()
+				#@$el.height @$el.find('img').height()

@@ -16,7 +16,8 @@
 
         ImageView.prototype.className = 'image';
 
-        ImageView.prototype.template = '<img {{holder}}src="{{imageurl}}" alt="{{title}}" class="{{alignclass}} img-responsive"/>';
+        ImageView.prototype.template = '<img {{holder}}src="{{imageurl}}" alt="{{title}}" class="{{alignclass}} img-responsive"/>\
+						<div class="clearfix"></div>';
 
         ImageView.prototype.mixinTemplateHelpers = function(data) {
           data = ImageView.__super__.mixinTemplateHelpers.call(this, data);
@@ -55,9 +56,8 @@
         ImageView.prototype.onShow = function() {
           if (this.model.isNew()) {
             Holder.run();
-            this.$el.find('img').removeAttr('data-src');
+            return this.$el.find('img').removeAttr('data-src');
           }
-          return this.$el.height(this.$el.find('img').height());
         };
 
         return ImageView;

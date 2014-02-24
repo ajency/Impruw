@@ -3,8 +3,8 @@
   var __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  define(['app', 'text!apps/builder/site-builder/elements/image/settings/templates/settings.html'], function(App, settingsTpl) {
-    return App.module('SiteBuilderApp.Element.Image.Settings.Views', function(Views, App, Backbone, Marionette, $, _) {
+  define(['app', 'text!apps/builder/site-builder/elements/imagewithtext/settings/templates/settings.html'], function(App, settingsTpl) {
+    return App.module('SiteBuilderApp.Element.ImageWithText.Settings.Views', function(Views, App, Backbone, Marionette, $, _) {
       var _ref;
       return Views.SettingsView = (function(_super) {
         __extends(SettingsView, _super);
