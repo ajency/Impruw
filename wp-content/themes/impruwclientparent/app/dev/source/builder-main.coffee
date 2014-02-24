@@ -36,6 +36,7 @@ require.config
 		jqueryvalidate 		: 'plugins/jquery.validate'
 		polyglot 			: 'plugins/polyglot'
 		localforage			: 'plugins/localforage'
+		plupload			: 'plugins/plupload.full'
 		googlemap 			: 'https://maps.googleapis.com/maps/api/js?sensor=false'
 		pluginloader		: 'plugins/builder-plugin-loader'
 		appsloader 			: 'apps/builder-apps-loader'
@@ -68,6 +69,9 @@ require.config
 		backboneassociations: ['backbone']
 		jqueryspin 			: ['spin']
 		bootstrap 			: ['jquery']
+		plupload			: 
+			deps : ['jquery']
+			exports : 'plupload'
 		cookie				: ['jquery']
 		nestedsortable 		: ['jqueryui']
 		radio 				: ['bootstrap']

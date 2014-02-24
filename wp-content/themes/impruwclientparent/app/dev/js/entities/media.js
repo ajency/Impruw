@@ -89,6 +89,12 @@
             media.fetch();
           }
           return media;
+        },
+        createNewMedia: function(data) {
+          var media, mediaCollection;
+          media = new Media.MediaModel(data);
+          mediaCollection = App.request("get:collection", 'mediacollection');
+          return mediaCollection.add(media);
         }
       };
       App.commands.setHandler("create:media:store", function() {
@@ -100,8 +106,11 @@
         }
         return API.fetchMedia(shouldReset);
       });
-      return App.reqres.setHandler("get:media:by:id", function(mediaId) {
+      App.reqres.setHandler("get:media:by:id", function(mediaId) {
         return API.getMediaById(mediaId);
+      });
+      return App.commands.setHandler("new:media:added", function(modelData) {
+        return API.createNewMedia(modelData);
       });
     });
   });

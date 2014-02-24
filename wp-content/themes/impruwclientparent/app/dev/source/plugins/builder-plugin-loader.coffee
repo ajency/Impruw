@@ -19,6 +19,7 @@ define [
 		'cookie'
 		'localforage'
 		'holder'
+		'plupload'
 		'text'
 		'jqueryspin'
 		'polyglot'

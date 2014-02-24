@@ -68,6 +68,11 @@ define ["app", 'backbone'], (App, Backbone) ->
 
 					media
 
+				createNewMedia:(data)->
+					media = new Media.MediaModel data
+					mediaCollection = App.request "get:collection", 'mediacollection'
+					mediaCollection.add media
+
 
 			#REQUEST HANDLERS
 			App.commands.setHandler "create:media:store", ->
@@ -78,3 +83,6 @@ define ["app", 'backbone'], (App, Backbone) ->
 
 			App.reqres.setHandler "get:media:by:id",(mediaId)->
 				API.getMediaById mediaId
+
+			App.commands.setHandler "new:media:added",(modelData)->
+				API.createNewMedia modelData
