@@ -34,6 +34,7 @@
           if (opt == null) {
             opt = {};
           }
+          this.choosedMedia = null;
           this.layout = this._getLayout();
           this.show(this.layout);
           MediaManager.Upload.start({
@@ -44,7 +45,14 @@
           });
           MediaManager.EditMedia.start();
           this.listenTo(this.layout.gridRegion, "media:element:clicked", function(media) {
+            _this.choosedMedia = media;
             return App.vent.trigger("media:element:clicked", media, _this.layout.editMediaRegion);
+          });
+          this.listenTo(this.layout, "media:selected", function() {
+            if (!_.isNull(_this.choosedMedia)) {
+              App.vent.trigger("media:manager:choosed:media", _this.choosedMedia);
+              return _this.region.closeDialog();
+            }
           });
           return App.getRegion('elementsBoxRegion').hide();
         };
@@ -82,6 +90,12 @@
 
         OuterLayout.prototype.dialogOptions = {
           modal_title: 'Media Manager'
+        };
+
+        OuterLayout.prototype.events = {
+          'click button.media-manager-select': function() {
+            return this.trigger("media:selected");
+          }
         };
 
         return OuterLayout;

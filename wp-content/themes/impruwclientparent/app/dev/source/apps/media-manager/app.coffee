@@ -7,15 +7,11 @@ define ['app'
 
 			App.module 'MediaManager', (MediaManager, App, Backbone, Marionette, $, _)->
 
-				#@startWithParent = false
-
 				# defineall routers required for the app in MediaManager.Router class
 				class MediaManager.Router extends Marionette.AppRouter
 					appRoutes :
 						'media-manager' 				: 'show'
-						# 'media-manager/upload' 		: 'showUpload'
-						# 'media-manager/all-media'	: 'showAllMedia'
-						# 'media-manager/gallery'		: 'showGallery'
+						
 
 				# Define the initial controller for the media-manager. this controller will 
 				# be responsible for getting the initial layout, show the dialog in dialog region
@@ -24,6 +20,8 @@ define ['app'
 
 					# initialize
 					initialize:(opt = {})->
+
+						@choosedMedia = null
 					
 						@layout = @_getLayout()
 						@show @layout
@@ -36,9 +34,15 @@ define ['app'
 						MediaManager.EditMedia.start()
 						
 						@listenTo @layout.gridRegion, "media:element:clicked",(media)=>
+																	@choosedMedia = media
 																	App.vent.trigger 	"media:element:clicked", 
 																						media, 
 																						@layout.editMediaRegion
+
+						@listenTo @layout ,"media:selected", =>
+											if not _.isNull @choosedMedia
+												App.vent.trigger "media:manager:choosed:media", @choosedMedia
+												@region.closeDialog()
 
 						App.getRegion('elementsBoxRegion').hide()
 						
@@ -74,6 +78,10 @@ define ['app'
 
 					dialogOptions : 
 						modal_title : 'Media Manager'
+
+					events: 
+						'click button.media-manager-select' : ->
+												@trigger "media:selected"
 
 				
 				#public API

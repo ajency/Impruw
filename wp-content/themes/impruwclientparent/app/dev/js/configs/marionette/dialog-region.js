@@ -29,8 +29,12 @@
         this.$el.modal();
         this.$el.modal('show');
         return this.$el.on('hidden.bs.modal', function() {
-          return _this.closeDialog();
+          return _this.clearDialog();
         });
+      };
+
+      Dialog.prototype.closeDialog = function() {
+        return this.$el.modal('hide');
       };
 
       Dialog.prototype._getOptions = function(options) {
@@ -44,7 +48,7 @@
         return this.listenTo(view, 'dialog:resize', this.resizeDialog);
       };
 
-      Dialog.prototype.closeDialog = function() {
+      Dialog.prototype.clearDialog = function() {
         this.close();
         return this.$el.empty();
       };

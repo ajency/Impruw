@@ -22,7 +22,10 @@ define ['marionette','mustache', 'text!configs/marionette/templates/modal.html']
 			@$el.modal 'show'
 
 			@$el.on 'hidden.bs.modal', ()=>
-				@closeDialog()
+				@clearDialog()
+
+		closeDialog:->
+			@$el.modal 'hide'
 
 		# get options
 		_getOptions:(options)->
@@ -37,7 +40,7 @@ define ['marionette','mustache', 'text!configs/marionette/templates/modal.html']
 			@listenTo view, 'dialog:resize', @resizeDialog
 
 
-		closeDialog:()->
+		clearDialog:()->
 			@close()
 			@$el.empty()
 
