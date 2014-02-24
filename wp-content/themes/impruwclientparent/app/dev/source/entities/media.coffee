@@ -4,7 +4,7 @@ define ["app", 'backbone'], (App, Backbone) ->
 
 			#Media Model
 			class Media.MediaModel extends Backbone.AssociatedModel
-				idAttribute : 'ID'
+				idAttribute : 'id'
 
 				parse:(resp)->
 					# change sizes to an array
@@ -56,6 +56,9 @@ define ["app", 'backbone'], (App, Backbone) ->
 
 				#get a media 
 				getMediaById:(mediaId)->
+
+					return API.getPlaceHolderMedia() if 0 is parseInt mediaId 
+
 					# check if present
 					mediaCollection = App.request "get:collection", 'mediacollection'
 					media = mediaCollection.get parseInt mediaId
@@ -65,6 +68,16 @@ define ["app", 'backbone'], (App, Backbone) ->
 						media.url = "#{AJAXURL}?action=get-media&ID=#{mediaId}" 
 						mediaCollection.add media
 						media.fetch()
+
+					media
+
+				# this fucntion will return a placeholder media for the requesting element
+				# this will be special purpose media model.
+				getPlaceHolderMedia:->
+					media = new Media.MediaModel
+					media.set 
+							url : "#{SITEURL}/wp-content/themes/impruwclientparent/app/dev/js/plugins/holder.js/100%x200"
+							title : 'Placeholder'
 
 					media
 

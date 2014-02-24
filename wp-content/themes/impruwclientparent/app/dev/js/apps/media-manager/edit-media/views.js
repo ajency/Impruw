@@ -16,6 +16,12 @@
 
         EditMediaView.prototype.template = formTpl;
 
+        EditMediaView.prototype.events = {
+          'change select[name="size"]': function(e) {
+            return this.trigger("size:select:changed", $(e.target).val());
+          }
+        };
+
         EditMediaView.prototype.serializeData = function() {
           var data, sizes;
           data = EditMediaView.__super__.serializeData.call(this);

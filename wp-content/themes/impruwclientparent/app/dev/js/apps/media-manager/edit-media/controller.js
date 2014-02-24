@@ -15,12 +15,16 @@
         }
 
         Controller.prototype.initialize = function(opt) {
-          var model, view;
+          var model, view,
+            _this = this;
           if (opt == null) {
             opt = {};
           }
           model = opt.model;
           view = this._getView(model);
+          this.listenTo(view, "size:select:changed", function(newSize) {
+            return Marionette.triggerMethod.call(_this.region, "size:select:changed", newSize);
+          });
           return this.show(view);
         };
 

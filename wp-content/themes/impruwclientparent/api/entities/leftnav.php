@@ -84,6 +84,18 @@ function get_elementbox_elements() {
                             array(  'element' => 'Logo',
                                     'icon' => '',
                                     'styles' => array()
+                            ),
+                            array(  'element' => 'Text',
+                                    'icon' => '',
+                                    'styles' => array()
+                            ),
+                            array(  'element' => 'Title',
+                                    'icon' => '',
+                                    'styles' => array()
+                            ),
+                            array(  'element' => 'Image',
+                                    'icon' => '',
+                                    'styles' => array()
                             )
                         )
                 )
@@ -323,7 +335,7 @@ function get_meta_values($element){
  * 
  */
 function validate_element(&$element){
-    $numkeys = array('id', 'meta_id', 'menu_id','ID');
+    $numkeys = array('id', 'meta_id', 'menu_id','ID', 'image_id');
     $boolkey = array('draggable', 'justified');
      
     if(!is_array($element) && !is_object($element))

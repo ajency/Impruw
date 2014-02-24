@@ -6,6 +6,9 @@ define ['app', 'text!apps/media-manager/edit-media/templates/form.html'], (App, 
 					
 					template : formTpl
 
+					events: 
+						'change select[name="size"]' : (e)-> @trigger "size:select:changed", $(e.target).val()
+
 					serializeData: ->
 						data = super()
 						# change sizes to array for mustache rendrening

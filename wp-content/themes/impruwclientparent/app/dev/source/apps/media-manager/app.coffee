@@ -35,13 +35,18 @@ define ['app'
 						
 						@listenTo @layout.gridRegion, "media:element:clicked",(media)=>
 																	@choosedMedia = media
+																	@choosedSize = _.chain(_.keys(media.get('sizes'))).first().value()
 																	App.vent.trigger 	"media:element:clicked", 
 																						media, 
 																						@layout.editMediaRegion
 
+						@listenTo @layout.editMediaRegion, "size:select:changed",(size)=>
+																	@choosedSize = size
+
 						@listenTo @layout ,"media:selected", =>
 											if not _.isNull @choosedMedia
-												App.vent.trigger "media:manager:choosed:media", @choosedMedia
+												console.log @choosedSize
+												App.vent.trigger "media:manager:choosed:media", @choosedMedia, @choosedSize
 												@region.closeDialog()
 
 						App.getRegion('elementsBoxRegion').hide()

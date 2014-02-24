@@ -14,7 +14,7 @@
           return _ref;
         }
 
-        MediaModel.prototype.idAttribute = 'ID';
+        MediaModel.prototype.idAttribute = 'id';
 
         MediaModel.prototype.parse = function(resp) {
           if (resp.code === 'OK') {
@@ -78,6 +78,9 @@
         },
         getMediaById: function(mediaId) {
           var media, mediaCollection;
+          if (0 === parseInt(mediaId)) {
+            return API.getPlaceHolderMedia();
+          }
           mediaCollection = App.request("get:collection", 'mediacollection');
           media = mediaCollection.get(parseInt(mediaId));
           if (_.isUndefined(media)) {
@@ -88,6 +91,15 @@
             mediaCollection.add(media);
             media.fetch();
           }
+          return media;
+        },
+        getPlaceHolderMedia: function() {
+          var media;
+          media = new Media.MediaModel;
+          media.set({
+            url: "" + SITEURL + "/wp-content/themes/impruwclientparent/app/dev/js/plugins/holder.js/100%x200",
+            title: 'Placeholder'
+          });
           return media;
         },
         createNewMedia: function(data) {

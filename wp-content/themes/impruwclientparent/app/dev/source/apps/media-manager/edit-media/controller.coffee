@@ -10,6 +10,10 @@ define ['app', 'controllers/base-controller', 'apps/media-manager/edit-media/vie
 			initialize:(opt = {})->
 				{model} = opt
 				view = @_getView model
+
+				@listenTo view, "size:select:changed", (newSize)=>
+								Marionette.triggerMethod.call(@region,"size:select:changed", newSize);
+
 				@show view
 				 
 			# gets the main login view

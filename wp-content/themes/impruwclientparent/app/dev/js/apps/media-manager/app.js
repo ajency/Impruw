@@ -46,11 +46,16 @@
           MediaManager.EditMedia.start();
           this.listenTo(this.layout.gridRegion, "media:element:clicked", function(media) {
             _this.choosedMedia = media;
+            _this.choosedSize = _.chain(_.keys(media.get('sizes'))).first().value();
             return App.vent.trigger("media:element:clicked", media, _this.layout.editMediaRegion);
+          });
+          this.listenTo(this.layout.editMediaRegion, "size:select:changed", function(size) {
+            return _this.choosedSize = size;
           });
           this.listenTo(this.layout, "media:selected", function() {
             if (!_.isNull(_this.choosedMedia)) {
-              App.vent.trigger("media:manager:choosed:media", _this.choosedMedia);
+              console.log(_this.choosedSize);
+              App.vent.trigger("media:manager:choosed:media", _this.choosedMedia, _this.choosedSize);
               return _this.region.closeDialog();
             }
           });

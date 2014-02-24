@@ -31,3 +31,17 @@ define ['underscore', 'underscorestring'], ( _) ->
 				newArray.push parseInt i[1]
 
 			newArray
+
+		stripslashes:(str) ->
+
+		  	(str + "").replace /\\(.?)/g, (s, n1) ->
+		    	switch n1
+			      	when "\\"
+			       		"\\"
+			      	when "0"
+			        	"\u0000"
+			      	when ""
+			        	""
+			      	else
+			        	n1
+
