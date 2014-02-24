@@ -34,6 +34,10 @@
           return data;
         };
 
+        EditMediaView.prototype.onRender = function() {
+          return this.$el.find('select').selectpicker();
+        };
+
         return EditMediaView;
 
       })(Marionette.ItemView);

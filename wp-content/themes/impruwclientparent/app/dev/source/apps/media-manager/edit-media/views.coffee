@@ -21,4 +21,7 @@ define ['app', 'text!apps/media-manager/edit-media/templates/form.html'], (App, 
 						data.sizename = ->
 							_.chain(_.keys(@)).first().value()
 
-						data				
+						data	
+
+					onRender:->
+						@$el.find('select').selectpicker()			
