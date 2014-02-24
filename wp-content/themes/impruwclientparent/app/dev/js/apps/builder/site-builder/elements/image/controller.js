@@ -20,7 +20,8 @@
           _.defaults(options.modelData, {
             element: 'Image',
             image_id: 0,
-            size: 'thumbnail'
+            size: 'thumbnail',
+            align: 'left'
           });
           return Controller.__super__.initialize.call(this, options);
         };
@@ -28,15 +29,21 @@
         Controller.prototype.bindEvents = function() {
           this.listenTo(this.layout.model, "change:image_id", this.renderElement);
           this.listenTo(this.layout.model, "change:size", this.renderElement);
+          this.listenTo(this.layout.model, "change:align", this.renderElement);
           return Controller.__super__.bindEvents.call(this);
+        };
+
+        Controller.prototype._getTemplateHelpers = function() {
+          return {
+            size: this.layout.model.get('size'),
+            alignment: this.layout.model.get('align')
+          };
         };
 
         Controller.prototype._getImageView = function(imageModel) {
           return new Image.Views.ImageView({
             model: imageModel,
-            templateHelpers: {
-              size: this.layout.model.get('size')
-            }
+            templateHelpers: this._getTemplateHelpers()
           });
         };
 

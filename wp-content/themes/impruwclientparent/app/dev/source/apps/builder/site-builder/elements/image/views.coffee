@@ -8,7 +8,7 @@ define ['app', 'holder'],(App, Holder)->
 
 			className : 'image'
 
-			template : '<img {{holder}}src="{{imageurl}}" alt="{{title}}"/>'
+			template : '<img {{holder}}src="{{imageurl}}" alt="{{title}}" class="{{alignclass}} img-responsive"/>'
 
 			# override serializeData to set holder property for the view
 			mixinTemplateHelpers:(data)->
@@ -19,12 +19,19 @@ define ['app', 'holder'],(App, Holder)->
 					data.imageurl = ->
 						@url	
 				else
-					console.log data
+					
 					if not data.sizes[data.size]
 						data.size = _.chain(_.keys(data.sizes)).first().value()
 
 					data.imageurl = ->
 						@sizes[@size].url	
+
+					data.alignclass = ->
+						switch @alignment
+							when 'left' 
+								return 'pull-left'
+							when 'right'
+								return 'pull-right'
 
 				data
 
@@ -33,6 +40,7 @@ define ['app', 'holder'],(App, Holder)->
 								e.stopPropagation()
 								@trigger "show:media:manager"
 
+			# set the height of the parent of img in case float value is set
 			# check if a valid image_id is set for the element
 			# if present ignore else run the Holder.js to show a placeholder
 			# after run remove the data-src attribute of the image to avoid
@@ -41,3 +49,5 @@ define ['app', 'holder'],(App, Holder)->
 				if @model.isNew()
 					Holder.run()
 					@$el.find('img').removeAttr 'data-src'
+
+				@$el.height @$el.find('img').height()

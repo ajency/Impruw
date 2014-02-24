@@ -45,6 +45,9 @@
           },
           'change input[name="draggable"]': function(evt) {
             return this.trigger("element:draggable:changed", $(evt.target).is(':checked'));
+          },
+          'change select[name="align"]': function(evt) {
+            return this.trigger("element:alignment:changed", $(evt.target).val());
           }
         };
 

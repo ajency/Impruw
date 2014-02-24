@@ -34,7 +34,19 @@
           this.listenTo(view, "element:draggable:changed", function(draggable) {
             return _this.model.set("draggable", draggable);
           });
+          this.listenTo(view, "element:alignment:changed", function(alignment) {
+            return _this.model.set("align", alignment);
+          });
           return this.show(view);
+        };
+
+        Controller.prototype.onClose = function() {
+          if (!this.model.hasChanged()) {
+            return;
+          }
+          return this.model.save(null, {
+            wait: true
+          });
         };
 
         Controller.prototype._getSettingView = function(model, eleModel) {

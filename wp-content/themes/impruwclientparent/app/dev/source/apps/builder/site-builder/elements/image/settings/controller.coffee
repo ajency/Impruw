@@ -23,7 +23,18 @@ define ['app','controllers/base-controller','apps/builder/site-builder/elements/
 						@listenTo view, "element:draggable:changed", (draggable)=>
 														@model.set "draggable", draggable	
 
+						@listenTo view, "element:alignment:changed", (alignment)=>
+														@model.set "align", alignment	
+
 						@show view
+
+					# time to save model to server
+					onClose:->
+						return if not @model.hasChanged()
+						
+						@model.save null,
+								wait : true
+
 
 
 					# get settigns view

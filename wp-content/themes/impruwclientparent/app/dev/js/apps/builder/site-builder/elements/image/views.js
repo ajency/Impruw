@@ -16,7 +16,7 @@
 
         ImageView.prototype.className = 'image';
 
-        ImageView.prototype.template = '<img {{holder}}src="{{imageurl}}" alt="{{title}}"/>';
+        ImageView.prototype.template = '<img {{holder}}src="{{imageurl}}" alt="{{title}}" class="{{alignclass}} img-responsive"/>';
 
         ImageView.prototype.mixinTemplateHelpers = function(data) {
           data = ImageView.__super__.mixinTemplateHelpers.call(this, data);
@@ -27,12 +27,19 @@
               return this.url;
             };
           } else {
-            console.log(data);
             if (!data.sizes[data.size]) {
               data.size = _.chain(_.keys(data.sizes)).first().value();
             }
             data.imageurl = function() {
               return this.sizes[this.size].url;
+            };
+            data.alignclass = function() {
+              switch (this.alignment) {
+                case 'left':
+                  return 'pull-left';
+                case 'right':
+                  return 'pull-right';
+              }
             };
           }
           return data;
@@ -48,8 +55,9 @@
         ImageView.prototype.onShow = function() {
           if (this.model.isNew()) {
             Holder.run();
-            return this.$el.find('img').removeAttr('data-src');
+            this.$el.find('img').removeAttr('data-src');
           }
+          return this.$el.height(this.$el.find('img').height());
         };
 
         return ImageView;
