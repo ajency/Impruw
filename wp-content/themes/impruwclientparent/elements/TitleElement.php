@@ -45,6 +45,7 @@ class TitleElement extends Element {
         parent::__construct($element);
         
         $this->content = stripslashes($element['content']);
+        $this->style = sanitize_title($element['style']);
         
         $this->markup  = $this->generate_markup();
         
@@ -63,7 +64,7 @@ class TitleElement extends Element {
         // if(empty($this->content))
         //     $html       .= $this->get_open_tag($attr);
 
-        $html  .=  ($this->content === '') ? '<h2 contenteditable="true">Enter your title here</h2>' : "<h2>{$this->content}</h2>";
+        $html  .= "<h2 class='title {$this->style}'>{$this->content}</h2>";
         
         // if(empty($this->content))
         //     $html       .= $this->get_close_tag();
