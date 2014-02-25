@@ -159,38 +159,38 @@ and open the template in the editor.
   color: #989898;
 }
 .top-margin-small {
-  margin-top: 5px;
+  margin-top: 0.5em;
 }
 .left-margin-small {
-  margin-left: 5px;
+  margin-left: 0.5em;
 }
 .right-margin-small {
-  margin-right: 5px;
+  margin-right: 0.5em;
 }
 .bottom-margin-small {
-  margin-bottom: 5px;
+  margin-bottom: 0.5em;
 }
 .top-margin-medium {
-  margin-top: 10px;
+  margin-top: 1em;
 }
 .left-margin-medium {
-  margin-left: 10px;
+  margin-left: 1em;
 }
 .right-margin-medium {
-  margin-right: 10px;
+  margin-right: 1em;
 }
 .bottom-margin-medium {
-  margin-bottom: 10px;
+  margin-bottom: 1em;
 }
 .top-margin-large {
-  margin-top: 15px;
+  margin-top: 1.5em;
 }
 .left-margin-large {
-  margin-left: 15px;
+  margin-left: 1.5em;
 }
 .right-margin-large {
-  margin-right: 15px;
+  margin-right: 1.5em;
 }
 .bottom-margin-large {
-  margin-bottom: 15px;
+  margin-bottom: 1.5em;
 }
