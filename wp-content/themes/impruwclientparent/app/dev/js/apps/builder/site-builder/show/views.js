@@ -18,6 +18,14 @@
 
         MainView.prototype.className = 'aj-imp-builder-area';
 
+        MainView.prototype.templateHelpers = function(data) {
+          if (data == null) {
+            data = {};
+          }
+          data.SITEURL = SITEURL;
+          return data;
+        };
+
         MainView.prototype.events = {
           'click .auto-save': function(evt) {
             evt.preventDefault();
