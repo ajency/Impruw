@@ -34,8 +34,12 @@
 
         SettingsView.prototype.setFields = function() {
           if (this.eleModel.get('draggable') === true) {
-            return this.$el.find('input[name="draggable"]').checkbox('check');
+            this.$el.find('input[name="draggable"]').checkbox('check');
           }
+          this.$el.find('select[name="top_margin"]').selectpicker('val', this.eleModel.get('top_margin'));
+          this.$el.find('select[name="left_margin"]').selectpicker('val', this.eleModel.get('left_margin'));
+          this.$el.find('select[name="bottom_margin"]').selectpicker('val', this.eleModel.get('bottom_margin'));
+          return this.$el.find('select[name="right_margin"]').selectpicker('val', this.eleModel.get('right_margin'));
         };
 
         SettingsView.prototype.events = {
@@ -45,6 +49,9 @@
           },
           'change input[name="draggable"]': function(evt) {
             return this.trigger("element:draggable:changed", $(evt.target).is(':checked'));
+          },
+          'change select.spacing': function(evt) {
+            return this.trigger("element:spacing:changed", $(evt.target).attr('name'), $(evt.target).val());
           }
         };
 

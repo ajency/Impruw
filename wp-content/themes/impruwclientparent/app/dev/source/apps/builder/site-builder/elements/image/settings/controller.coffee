@@ -25,6 +25,8 @@ define ['app','controllers/base-controller','apps/builder/site-builder/elements/
 
 						@listenTo view, "element:alignment:changed", (alignment)=>
 														@model.set "align", alignment	
+						@listenTo view, "element:spacing:changed",(spacing, value)=>
+																@model.set spacing, value
 
 						@show view
 

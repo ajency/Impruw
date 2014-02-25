@@ -34,8 +34,8 @@
           this.listenTo(view, "element:draggable:changed", function(draggable) {
             return _this.model.set("draggable", draggable);
           });
-          this.listenTo(view, "element:column:count:changed", function(newCount) {
-            return _this.model.set("columncount", newCount);
+          this.listenTo(view, "element:spacing:changed", function(spacing, value) {
+            return _this.model.set(spacing, value);
           });
           return this.show(view);
         };

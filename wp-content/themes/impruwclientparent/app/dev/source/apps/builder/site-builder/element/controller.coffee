@@ -13,8 +13,12 @@ define ['app', 'controllers/builder-base-controller'
 						{container, modelData} = opts
 
 						options = 
-							draggable 	: true
-							style 	  	: ''
+							draggable 		: true
+							style 	  		: ''
+							bottom_margin 	: ''
+							top_margin 		: ''
+							left_margin 	: ''
+							right_margin 	: ''
 											
 						_.defaults modelData, options
 
@@ -39,6 +43,11 @@ define ['app', 'controllers/builder-base-controller'
 						# close the layout (i.e element)
 						@listenTo element, "destroy", => @layout.close()
 
+						@layout.elementRegion.on "show",(view)=>
+								model = Marionette.getOption @layout, 'model'
+								for margin in ['top_margin','left_margin','right_margin','bottom_margin']
+									@layout.setMargin model.get margin
+
 						if element.isNew()
 							App.execute "when:fetched", element, =>
 														@layout.triggerMethod "before:render:element"
@@ -50,10 +59,20 @@ define ['app', 'controllers/builder-base-controller'
 						
 					bindEvents:->
 						@listenTo @layout.model, "change:draggable", @setDraggable
+						@listenTo @layout.model, "change:top_margin", @setMargin
+						@listenTo @layout.model, "change:bottom_margin",@setMargin
+						@listenTo @layout.model, "change:left_margin",@setMargin
+						@listenTo @layout.model, "change:right_margin",@setMargin
 						
 					# set draggable
 					setDraggable:(model)=>
 						@layout.setDraggable model.get 'draggable'
+
+					# set draggable
+					setMargin:(model)=>
+						prop = _.chain(_.keys(model.changed)).first().value()
+						prevMargin = model.previous prop
+						@layout.setMargin model.get(prop),prevMargin
 
 					# Get view
 					_getView : (elementModel)->

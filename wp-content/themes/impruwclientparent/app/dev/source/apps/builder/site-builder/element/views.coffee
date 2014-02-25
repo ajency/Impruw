@@ -67,7 +67,12 @@ define ['app'
 							@$el.find('.aj-imp-drag-handle').removeClass('non-visible')
 
 						@setHiddenField 'draggable', draggable
-				
+
+					setMargin:(newMargin, prevMargin = '')->
+						element = @elementRegion.currentView
+						element.$el.removeClass prevMargin
+						element.$el.addClass newMargin
+
 					# set the meta id for element
 					setHiddenField :(name, value)->
 						if @$el.children('form').find("input[name='#{name}']").length is 1

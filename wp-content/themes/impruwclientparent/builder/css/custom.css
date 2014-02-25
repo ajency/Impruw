@@ -100,6 +100,23 @@ div.element-drop-loader > p{
     margin: 7px
 }
 
+.top-margin-small{margin-top:5px;}
+.left-margin-small{margin-left:5px;}
+.right-margin-small{margin-right:5px;}
+.bottom-margin-small{margin-bottom:5px;}
+
+.top-margin-medium{margin-top:10px;}
+.left-margin-medium{margin-left:10px;}
+.right-margin-medium{margin-right:10px;}
+.bottom-margin-medium{margin-bottom:10px;}
+
+.top-margin-large{margin-top:15px;}
+.left-margin-large{margin-left:15px;}
+.right-margin-large{margin-right:15px;}
+.bottom-margin-large{margin-bottom:15px;}
+
+
+
 /*.element-wrapper:hover{
     border : 1px solid orange;
 }

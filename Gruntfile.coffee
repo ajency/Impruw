@@ -7,7 +7,7 @@ module.exports = (grunt)->
 			options: 
 				banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
 
-	  	build:
+		build:
 			src: '<%= pkg.THEMESPATH %>/impruwclientparent/builder/js/init.js',
 			dest: '<%= pkg.THEMESPATH %>/impruwclientparent/builder/js/init.min.js'
 	

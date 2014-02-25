@@ -89,6 +89,16 @@
           return this.setHiddenField('draggable', draggable);
         };
 
+        ElementView.prototype.setMargin = function(newMargin, prevMargin) {
+          var element;
+          if (prevMargin == null) {
+            prevMargin = '';
+          }
+          element = this.elementRegion.currentView;
+          element.$el.removeClass(prevMargin);
+          return element.$el.addClass(newMargin);
+        };
+
         ElementView.prototype.setHiddenField = function(name, value) {
           if (this.$el.children('form').find("input[name='" + name + "']").length === 1) {
             return this.$el.children('form').find("input[name='" + name + "']").val(value);

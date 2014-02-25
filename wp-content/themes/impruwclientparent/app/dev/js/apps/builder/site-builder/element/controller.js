@@ -11,6 +11,7 @@
         __extends(Controller, _super);
 
         function Controller() {
+          this.setMargin = __bind(this.setMargin, this);
           this.setDraggable = __bind(this.setDraggable, this);
           _ref = Controller.__super__.constructor.apply(this, arguments);
           return _ref;
@@ -22,7 +23,11 @@
           container = opts.container, modelData = opts.modelData;
           options = {
             draggable: true,
-            style: ''
+            style: '',
+            bottom_margin: '',
+            top_margin: '',
+            left_margin: '',
+            right_margin: ''
           };
           _.defaults(modelData, options);
           element = App.request("create:new:element", modelData);
@@ -41,6 +46,17 @@
           this.listenTo(element, "destroy", function() {
             return _this.layout.close();
           });
+          this.layout.elementRegion.on("show", function(view) {
+            var margin, model, _i, _len, _ref1, _results;
+            model = Marionette.getOption(_this.layout, 'model');
+            _ref1 = ['top_margin', 'left_margin', 'right_margin', 'bottom_margin'];
+            _results = [];
+            for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
+              margin = _ref1[_i];
+              _results.push(_this.layout.setMargin(model.get(margin)));
+            }
+            return _results;
+          });
           if (element.isNew()) {
             App.execute("when:fetched", element, function() {
               _this.layout.triggerMethod("before:render:element");
@@ -51,11 +67,22 @@
         };
 
         Controller.prototype.bindEvents = function() {
-          return this.listenTo(this.layout.model, "change:draggable", this.setDraggable);
+          this.listenTo(this.layout.model, "change:draggable", this.setDraggable);
+          this.listenTo(this.layout.model, "change:top_margin", this.setMargin);
+          this.listenTo(this.layout.model, "change:bottom_margin", this.setMargin);
+          this.listenTo(this.layout.model, "change:left_margin", this.setMargin);
+          return this.listenTo(this.layout.model, "change:right_margin", this.setMargin);
         };
 
         Controller.prototype.setDraggable = function(model) {
           return this.layout.setDraggable(model.get('draggable'));
+        };
+
+        Controller.prototype.setMargin = function(model) {
+          var prevMargin, prop;
+          prop = _.chain(_.keys(model.changed)).first().value();
+          prevMargin = model.previous(prop);
+          return this.layout.setMargin(model.get(prop), prevMargin);
         };
 
         Controller.prototype._getView = function(elementModel) {

@@ -37,6 +37,9 @@
           this.listenTo(view, "element:alignment:changed", function(alignment) {
             return _this.model.set("align", alignment);
           });
+          this.listenTo(view, "element:spacing:changed", function(spacing, value) {
+            return _this.model.set(spacing, value);
+          });
           return this.show(view);
         };
 

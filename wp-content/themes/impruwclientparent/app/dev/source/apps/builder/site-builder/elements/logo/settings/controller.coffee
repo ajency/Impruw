@@ -23,8 +23,10 @@ define ['app','controllers/base-controller','apps/builder/site-builder/elements/
 						@listenTo view, "element:draggable:changed", (draggable)=>
 														@model.set "draggable", draggable	
 
-						@listenTo view, "element:column:count:changed",(newCount)=>
-														@model.set "columncount", newCount
+						@listenTo view, "element:spacing:changed",(spacing, value)=>
+																@model.set spacing, value
+
+
 
 						@show view
 

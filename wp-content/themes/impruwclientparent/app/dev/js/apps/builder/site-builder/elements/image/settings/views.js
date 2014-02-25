@@ -49,6 +49,9 @@
           },
           'change select[name="align"]': function(evt) {
             return this.trigger("element:alignment:changed", $(evt.target).val());
+          },
+          'change select.spacing': function(evt) {
+            return this.trigger("element:spacing:changed", $(evt.target).attr('name'), $(evt.target).val());
           }
         };
 

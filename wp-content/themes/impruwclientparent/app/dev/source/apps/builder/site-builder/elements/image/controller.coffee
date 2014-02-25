@@ -43,6 +43,7 @@ define ['app','apps/builder/site-builder/elements/image/views','apps/builder/sit
 						@removeSpinner()
 						# get logo attachment
 						imageModel = App.request "get:media:by:id",@layout.model.get 'image_id'
+						
 						App.execute "when:fetched", imageModel, =>
 							
 							view = @_getImageView imageModel
@@ -56,3 +57,4 @@ define ['app','apps/builder/site-builder/elements/image/views','apps/builder/sit
 										@layout.model.save() 
 
 							@layout.elementRegion.show view
+							
