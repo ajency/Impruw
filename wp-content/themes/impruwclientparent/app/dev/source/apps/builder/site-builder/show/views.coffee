@@ -12,6 +12,10 @@ define ['app'
 
 					className : 'aj-imp-builder-area'
 
+					templateHelpers:(data = {})->
+						data.SITEURL = SITEURL
+						data
+
 					events : 
 						'click .auto-save' :(evt) -> 
 								evt.preventDefault()

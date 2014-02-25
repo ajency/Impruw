@@ -21,7 +21,7 @@
 
         ColumnView.prototype.template = '';
 
-        ColumnView.prototype.onRender = function() {
+        ColumnView.prototype.onShow = function() {
           this.$el.attr('data-position', this.model.get('position'));
           this.$el.addClass("col-md-" + (this.model.get('className'))).attr('data-class', this.model.get('className'));
           return this.$el.sortable({
@@ -46,8 +46,9 @@
         };
 
         ColumnView.prototype.onClose = function() {
-          this.$el.sortable('destroy');
-          return this.el.remove();
+          if (this.$el.hasClass('ui-sortable')) {
+            return this.$el.sortable('destroy');
+          }
         };
 
         return ColumnView;
@@ -102,9 +103,10 @@
 
         RowView.prototype.onShow = function() {
           var _this = this;
+          this.$el.attr('id', _.uniqueId('row-'));
           return _.delay(function() {
             return _this.setColumnResizer();
-          }, 200);
+          }, 400);
         };
 
         RowView.prototype.onStyleChanged = function(newStyle, old) {
@@ -143,8 +145,12 @@
           _results = [];
           for (_i = 0, _len = _ref2.length; _i < _len; _i++) {
             resizer = _ref2[_i];
-            $(resizer).draggable('destroy');
-            _results.push($(resizer).remove());
+            if ($(resizer).hasClass('ui-draggable')) {
+              $(resizer).draggable('destroy');
+              _results.push($(resizer).remove());
+            } else {
+              _results.push(void 0);
+            }
           }
           return _results;
         };
@@ -167,7 +173,7 @@
           }
           template = '<div class="aj-imp-col-divider">\
 								<p title="Move">\
-									<span class="bicon icon-uniF140"></span>\
+									<span class="bicon bicon-uniF140"></span>\
 								</p>\
 							</div>';
           numberOfResizers = this.columnCount() - 1;

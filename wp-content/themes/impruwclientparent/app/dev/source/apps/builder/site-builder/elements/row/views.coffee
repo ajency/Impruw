@@ -7,7 +7,7 @@ define ['app'],(App)->
 			className 	: 'column empty-column'
 			tagName 	: 'div'
 			template 	: ''
-			onRender 	: ->
+			onShow 	: ->
 				@$el.attr 'data-position',@model.get 'position'
 				@$el.addClass("col-md-#{@model.get 'className'}").attr 'data-class',@model.get 'className'
 				@$el.sortable 
@@ -25,9 +25,10 @@ define ['app'],(App)->
 						update 		: (e,ui)->
 										$(e.target).removeClass 'empty-column'
 
+
 			onClose:->
-				@$el.sortable 'destroy'
-				@el.remove()
+				@$el.sortable('destroy') if @$el.hasClass 'ui-sortable'
+				
 
 			
 		# Menu item view
@@ -54,10 +55,11 @@ define ['app'],(App)->
 						delete col.elements
 						@collection.add col
 
-			onShow:()->		
+			onShow:()->	
+				@$el.attr 'id', _.uniqueId 'row-'	
 				_.delay => 
 					@setColumnResizer()
-				,200
+				,400
 
 			# set new classes on style change
 			onStyleChanged : (newStyle, old)->
@@ -83,8 +85,9 @@ define ['app'],(App)->
 
 			clearResizers:()->
 				for resizer in @getResizers()
-					$(resizer).draggable 'destroy'
-					$(resizer).remove()
+					if $(resizer).hasClass 'ui-draggable'
+						$(resizer).draggable('destroy') 
+						$(resizer).remove()
 				
 			destroySortableColumns:->
 				@$el.children('.column').sortable 'destroy'
@@ -104,7 +107,7 @@ define ['app'],(App)->
 
 				template = '<div class="aj-imp-col-divider">
 								<p title="Move">
-									<span class="bicon icon-uniF140"></span>
+									<span class="bicon bicon-uniF140"></span>
 								</p>
 							</div>'
 
