@@ -12,7 +12,7 @@ define ['app','controllers/base-controller','apps/builder/site-builder/elements/
 						@region = App.settingsRegion
 						model  = App.request "get:element:settings:options", 'Title'
 						view = @_getSettingView model,@model
-
+						console.log model.toJSON()
 						@listenTo view, 'render', =>
 											@region.$el.css 'top',200
 											@region.$el.css 'left',400
@@ -31,6 +31,13 @@ define ['app','controllers/base-controller','apps/builder/site-builder/elements/
 						new Settings.Views.SettingsView
 												eleModel : eleModel
 												model 	 : model
+
+					# time to save model to server
+					onClose:->
+						return if not @model.hasChanged()
+						
+						@model.save null,
+								wait : true
 
 
 				App.vent.on "show:title:settings:popup", (model)->

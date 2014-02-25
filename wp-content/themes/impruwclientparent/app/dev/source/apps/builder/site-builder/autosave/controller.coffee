@@ -42,8 +42,6 @@ define ['app'], (App)->
 					page 	: @_getJson $site.find '#site-page-content-region'
 					footer 	: @_getJson $site.find '#site-footer-region'
 
-				console.log json
-
 				json
 
 			# generate the JSON for the layout

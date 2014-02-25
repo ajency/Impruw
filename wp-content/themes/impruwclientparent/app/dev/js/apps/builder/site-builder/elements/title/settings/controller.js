@@ -24,6 +24,7 @@
           this.region = App.settingsRegion;
           model = App.request("get:element:settings:options", 'Title');
           view = this._getSettingView(model, this.model);
+          console.log(model.toJSON());
           this.listenTo(view, 'render', function() {
             _this.region.$el.css('top', 200);
             return _this.region.$el.css('left', 400);
@@ -41,6 +42,15 @@
           return new Settings.Views.SettingsView({
             eleModel: eleModel,
             model: model
+          });
+        };
+
+        Controller.prototype.onClose = function() {
+          if (!this.model.hasChanged()) {
+            return;
+          }
+          return this.model.save(null, {
+            wait: true
           });
         };
 

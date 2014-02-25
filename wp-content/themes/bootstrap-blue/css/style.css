@@ -143,3 +143,9 @@ and open the template in the editor.
 .nav.footer-menu li:hover a {
   color: #5ca9a1;
 }
+/**** Title Styles****/
+.title.box-title {
+  color: #656565;
+  text-align: center;
+  text-transform: uppercase;
+}

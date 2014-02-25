@@ -91,7 +91,7 @@ function get_elementbox_elements() {
                             ),
                             array(  'element' => 'Title',
                                     'icon' => '',
-                                    'styles' => array()
+                                    'styles' => get_styles('Title')
                             ),
                             array(  'element' => 'Image',
                                     'icon' => '',

@@ -18,12 +18,15 @@ define ['app'
 						
 					bindEvents:->
 						# start listening to model events
-						#@listenTo @layout.model, "change:content", @renderElement
+						@listenTo @layout.model, "change:style", @renderElement
+						@layout.elementRegion.on 'show',(view)=>
+													@layout.setStyle _.slugify @layout.model.get 'style'
 						super()
 
 					_getTitleView:(model)->
 						new Title.Views.TitleView
 										model : model
+
 
 					# setup templates for the element
 					renderElement:()=>

@@ -38,6 +38,12 @@ $element_templates = array(
                     'clsName'   => 'footer-links'
                 )
               ),
+    'Title' => array(
+                array(
+                    'name'      => 'Box Title',
+                    'clsName'   => 'box-title'
+                )
+              ),
     'Row' => array(
                 array(
                     'name'      => 'Green Background',

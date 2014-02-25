@@ -18,6 +18,8 @@
 
         TitleView.prototype.template = '';
 
+        TitleView.prototype.className = 'title';
+
         TitleView.prototype.events = {
           'click a': function(e) {
             return e.preventDefault();

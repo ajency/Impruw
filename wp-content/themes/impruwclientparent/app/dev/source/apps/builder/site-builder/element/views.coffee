@@ -73,6 +73,11 @@ define ['app'
 						element.$el.removeClass prevMargin
 						element.$el.addClass newMargin
 
+					setStyle:(newStyle, prevStyle = '')->
+						element = @elementRegion.currentView
+						element.$el.removeClass prevStyle
+						element.$el.addClass newStyle
+
 					# set the meta id for element
 					setHiddenField :(name, value)->
 						if @$el.children('form').find("input[name='#{name}']").length is 1

@@ -10,6 +10,8 @@ define ['app'],(App)->
 
 			template : ''
 
+			className: 'title'
+
 			# avoid and anchor tag click events
 			# listen to blur event for the text element so that we can save the new edited markup
 			# to server. The element will triggger a title:element:blur event on blur and pass the 

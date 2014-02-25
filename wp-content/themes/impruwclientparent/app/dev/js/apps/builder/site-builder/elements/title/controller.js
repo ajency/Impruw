@@ -25,6 +25,11 @@
         };
 
         Controller.prototype.bindEvents = function() {
+          var _this = this;
+          this.listenTo(this.layout.model, "change:style", this.renderElement);
+          this.layout.elementRegion.on('show', function(view) {
+            return _this.layout.setStyle(_.slugify(_this.layout.model.get('style')));
+          });
           return Controller.__super__.bindEvents.call(this);
         };
 

@@ -51,7 +51,6 @@
             page: this._getJson($site.find('#site-page-content-region')),
             footer: this._getJson($site.find('#site-footer-region'))
           };
-          console.log(json);
           return json;
         };
 

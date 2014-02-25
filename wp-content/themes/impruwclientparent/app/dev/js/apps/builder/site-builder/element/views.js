@@ -99,6 +99,16 @@
           return element.$el.addClass(newMargin);
         };
 
+        ElementView.prototype.setStyle = function(newStyle, prevStyle) {
+          var element;
+          if (prevStyle == null) {
+            prevStyle = '';
+          }
+          element = this.elementRegion.currentView;
+          element.$el.removeClass(prevStyle);
+          return element.$el.addClass(newStyle);
+        };
+
         ElementView.prototype.setHiddenField = function(name, value) {
           if (this.$el.children('form').find("input[name='" + name + "']").length === 1) {
             return this.$el.children('form').find("input[name='" + name + "']").val(value);

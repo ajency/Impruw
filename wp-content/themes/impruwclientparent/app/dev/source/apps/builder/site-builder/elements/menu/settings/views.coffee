@@ -14,18 +14,6 @@ define ['app', 'text!apps/builder/site-builder/elements/menu/settings/templates/
 						{@eleModel} = opt
 						super opt
 
-					# override the serializeData function for settings view
-					serializeData:()->
-						data = @model.toJSON()
-						
-						dataCloned = _.clone data
-						dataCloned.templates = []
-						_.each data.templates, (val, key)=>
-							dataCloned.templates.push 
-													name : key
-													slug : _.slugify key
-						dataCloned
-
 					onRender:->
 						@$el.find('input[type="checkbox"]').checkbox()
 						@$el.find('input[type="radio"]').radio()

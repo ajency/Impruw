@@ -26,21 +26,6 @@
           return SettingsView.__super__.initialize.call(this, opt);
         };
 
-        SettingsView.prototype.serializeData = function() {
-          var data, dataCloned,
-            _this = this;
-          data = this.model.toJSON();
-          dataCloned = _.clone(data);
-          dataCloned.templates = [];
-          _.each(data.templates, function(val, key) {
-            return dataCloned.templates.push({
-              name: key,
-              slug: _.slugify(key)
-            });
-          });
-          return dataCloned;
-        };
-
         SettingsView.prototype.onRender = function() {
           this.$el.find('input[type="checkbox"]').checkbox();
           this.$el.find('input[type="radio"]').radio();
