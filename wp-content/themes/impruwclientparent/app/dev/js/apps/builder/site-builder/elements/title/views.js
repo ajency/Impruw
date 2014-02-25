@@ -14,7 +14,7 @@
           return _ref;
         }
 
-        TitleView.prototype.tagName = 'h2';
+        TitleView.prototype.tagName = 'h3';
 
         TitleView.prototype.template = '';
 
@@ -31,8 +31,8 @@
 
         TitleView.prototype.onShow = function() {
           this.$el.attr('contenteditable', 'true').attr('id', _.uniqueId('title-'));
-          CKEDITOR.on('instanceCreated', this.configureEditor);
           this.editor = CKEDITOR.inline(document.getElementById(this.$el.attr('id')));
+          this.editor.on('instanceCreated', this.configureEditor);
           return this.editor.setData(_.stripslashes(this.model.get('content')));
         };
 

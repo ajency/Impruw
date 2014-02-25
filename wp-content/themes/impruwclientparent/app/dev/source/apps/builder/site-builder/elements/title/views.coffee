@@ -6,7 +6,7 @@ define ['app'],(App)->
 		# Menu item view
 		class Views.TitleView extends Marionette.ItemView
 
-			tagName : 'h2'
+			tagName : 'h3'
 
 			template : ''
 
@@ -28,8 +28,9 @@ define ['app'],(App)->
 			# we can destroy it on close of element
 			onShow:->
 				@$el.attr('contenteditable','true').attr 'id', _.uniqueId 'title-'
-				CKEDITOR.on 'instanceCreated', @configureEditor
+				
 				@editor = CKEDITOR.inline document.getElementById @$el.attr 'id'
+				@editor.on 'instanceCreated', @configureEditor
 				@editor.setData _.stripslashes @model.get 'content'
 
 			# destroy the Ckeditor instance to avoiid memory leaks on close of element

@@ -27,7 +27,7 @@ define ['app'
 												revert 		: 'invalid'
 												items 		: '> .element-wrapper'
 												connectWith : '.droppable-column,.column'
-												start: (e, ui)->
+												start 		: (e, ui)->
         											ui.placeholder.height ui.item.height()
 												handle 		: '.aj-imp-drag-handle'
 												helper 		: 'clone'
