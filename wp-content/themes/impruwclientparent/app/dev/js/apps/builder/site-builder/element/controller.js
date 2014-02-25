@@ -44,6 +44,9 @@
           });
           this.listenTo(this.layout, "bind:element:events", this.bindEvents);
           this.listenTo(element, "destroy", function() {
+            if (_this.layout.$el.parent().hasClass('column') && _this.layout.$el.parent().children('.element-wrapper').length === 1) {
+              _this.layout.$el.parent().addClass('empty-column');
+            }
             return _this.layout.close();
           });
           this.layout.elementRegion.on("show", function(view) {

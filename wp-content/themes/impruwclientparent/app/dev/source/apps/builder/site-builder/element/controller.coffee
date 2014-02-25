@@ -41,7 +41,11 @@ define ['app', 'controllers/builder-base-controller'
 
 						# register to element model destroy event.
 						# close the layout (i.e element)
-						@listenTo element, "destroy", => @layout.close()
+						@listenTo element, "destroy", => 
+							if @layout.$el.parent().hasClass('column') and @layout.$el.parent().children('.element-wrapper').length is 1
+								@layout.$el.parent().addClass('empty-column') 
+
+							@layout.close()
 
 						@layout.elementRegion.on "show",(view)=>
 								model = Marionette.getOption @layout, 'model'
@@ -73,6 +77,7 @@ define ['app', 'controllers/builder-base-controller'
 						prop = _.chain(_.keys(model.changed)).first().value()
 						prevMargin = model.previous prop
 						@layout.setMargin model.get(prop),prevMargin
+
 
 					# Get view
 					_getView : (elementModel)->
