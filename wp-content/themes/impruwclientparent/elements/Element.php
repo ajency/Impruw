@@ -91,7 +91,7 @@ class Element {
      */
     function __construct($element){
 
-        //$this->elements = $element['elements'];
+        $this->margins = $this->get_margin_classes($element);
         
     }
     
@@ -188,5 +188,9 @@ class Element {
         
         return $this->class_name . ' ' . $this->extra_classes;
         
+    }
+
+    function get_margin_classes($element){
+        return $element['top_margin'] . ' ' . $element['left_margin'] . ' ' . $element['right_margin'] . ' ' . $element['bottom_margin'];
     }
 }

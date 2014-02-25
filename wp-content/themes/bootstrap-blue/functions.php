@@ -50,8 +50,16 @@ $element_templates = array(
                     'clsName'   => 'green-background'
                 ),
                 array(
+                    'name'      => 'Center Container',
+                    'clsName'   => 'center-container'
+                ),
+                array(
                     'name'      => 'Grey Background',
                     'clsName'   => 'grey-background'
+                ),
+                array(
+                    'name'      => 'Shaded Background',
+                    'clsName'   => 'shaded-background'
                 )
              )
 );

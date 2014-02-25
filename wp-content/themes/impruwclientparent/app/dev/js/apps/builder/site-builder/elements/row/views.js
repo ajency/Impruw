@@ -111,7 +111,8 @@
           if (!_(old).isEmpty()) {
             this.$el.removeClass(old);
           }
-          return this.$el.addClass(newStyle);
+          this.$el.addClass(newStyle);
+          return this.setColumnResizer();
         };
 
         RowView.prototype.onColumnCountChanged = function(columnCount) {

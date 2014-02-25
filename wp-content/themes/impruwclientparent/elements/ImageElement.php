@@ -49,7 +49,7 @@ class ImageElement extends Element {
         
         $this->image_id = $element['image_id'];
         $this->size = $element['size'];
-        
+        // $this->margins = 
         $this->markup    = $this->generate_markup();
     }
     
@@ -96,7 +96,7 @@ class ImageElement extends Element {
      * @return string
      */
     function get_image(){
-        
+
         $a_id = $this->image_id;
 
         $size = $this->size;
@@ -104,7 +104,7 @@ class ImageElement extends Element {
         $path = get_parent_template_directory_uri() . '/js/holder.js/100%x220';
 
         if($a_id === 0){
-            return  "<img data-src='$path' class='img-responsive' />";
+            return  "<img data-src='$path' class='img-responsive {$this->margins}' />";
         }
 
         $path = wp_get_attachment_image_src($a_id, $size);
@@ -112,10 +112,10 @@ class ImageElement extends Element {
 
         
         if($path !== false) {
-            return "<img src='{$path[0]}' class='img-responsive' />";
+            return "<img src='{$path[0]}' class='img-responsive {$this->margins}' />";
         }
         else{
-            return "<img data-src='". get_parent_template_directory_uri(). "'/js/holder.js/100%x220' class='img-responsive'/>";
+            return "<img data-src='". get_parent_template_directory_uri(). "'/js/holder.js/100%x220' class='img-responsive {$this->margins}'/>";
         }
             
     }

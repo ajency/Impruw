@@ -31,7 +31,7 @@ define ['app','apps/builder/site-builder/elements/row/views','apps/builder/site-
 						@layout.elementRegion.currentView.triggerMethod "column:count:changed", model.get 'columncount'
 
 					changeStyle:(model)->
-						prevStyle = model.previousAttributes().style ? ''
+						prevStyle = model.previous('style') ? ''
 						newStyle  = model.get('style')
 						@layout.elementRegion.currentView.triggerMethod "style:changed", _.slugify(newStyle), _.slugify(prevStyle)	
 						@layout.setHiddenField 'style', newStyle

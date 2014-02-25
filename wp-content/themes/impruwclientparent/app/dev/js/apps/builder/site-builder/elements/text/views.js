@@ -18,6 +18,8 @@
 
         TextView.prototype.template = '';
 
+        TextView.prototype.className = 'text';
+
         TextView.prototype.events = {
           'click a': function(e) {
             return e.preventDefault();

@@ -46,13 +46,19 @@ and open the template in the editor.
     Created on : 20 Feb, 2014, 7:45:35 PM
     Author     : surajair
 */
-.green-background {
+.row.green-background {
   background: #5ca9a1;
   min-height: 100px;
 }
-.grey-background {
+.row.grey-background {
   background: #656565;
   min-height: 100px;
+}
+.row.center-container {
+  margin: 0px 12% !important;
+}
+.row.shaded-background {
+  background: url("../resources/img/stripe_bg.png") repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 /****Top Slim-menu Styles****/
 .nav {
@@ -148,4 +154,43 @@ and open the template in the editor.
   color: #656565;
   text-align: center;
   text-transform: uppercase;
+}
+.text {
+  color: #989898;
+}
+.top-margin-small {
+  margin-top: 5px;
+}
+.left-margin-small {
+  margin-left: 5px;
+}
+.right-margin-small {
+  margin-right: 5px;
+}
+.bottom-margin-small {
+  margin-bottom: 5px;
+}
+.top-margin-medium {
+  margin-top: 10px;
+}
+.left-margin-medium {
+  margin-left: 10px;
+}
+.right-margin-medium {
+  margin-right: 10px;
+}
+.bottom-margin-medium {
+  margin-bottom: 10px;
+}
+.top-margin-large {
+  margin-top: 15px;
+}
+.left-margin-large {
+  margin-left: 15px;
+}
+.right-margin-large {
+  margin-right: 15px;
+}
+.bottom-margin-large {
+  margin-bottom: 15px;
 }

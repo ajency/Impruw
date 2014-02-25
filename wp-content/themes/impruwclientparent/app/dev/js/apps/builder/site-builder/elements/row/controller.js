@@ -44,7 +44,7 @@
 
         Controller.prototype.changeStyle = function(model) {
           var newStyle, prevStyle, _ref1;
-          prevStyle = (_ref1 = model.previousAttributes().style) != null ? _ref1 : '';
+          prevStyle = (_ref1 = model.previous('style')) != null ? _ref1 : '';
           newStyle = model.get('style');
           this.layout.elementRegion.currentView.triggerMethod("style:changed", _.slugify(newStyle), _.slugify(prevStyle));
           return this.layout.setHiddenField('style', newStyle);

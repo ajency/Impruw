@@ -63,6 +63,7 @@ define ['app'],(App)->
 			onStyleChanged : (newStyle, old)->
 				@$el.removeClass(old) if not _(old).isEmpty()
 				@$el.addClass newStyle
+				@setColumnResizer()
 
 			onColumnCountChanged:(columnCount)->
 				@adjustColumnsInRow(columnCount)
