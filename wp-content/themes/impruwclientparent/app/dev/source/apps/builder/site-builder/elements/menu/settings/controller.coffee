@@ -30,6 +30,8 @@ define ['app','controllers/base-controller','apps/builder/site-builder/elements/
 
 						@listenTo view, "element:justified:changed", (justified)=>
 														@model.set "justified", justified	
+						@listenTo view, "element:spacing:changed",(spacing, value)=>
+																@model.set spacing, value
 
 						@show view
 

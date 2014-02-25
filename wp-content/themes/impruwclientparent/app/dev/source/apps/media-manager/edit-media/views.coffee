@@ -24,6 +24,10 @@ define ['app', 'text!apps/media-manager/edit-media/templates/form.html'], (App, 
 						data.sizename = ->
 							_.chain(_.keys(@)).first().value()
 
+						data.sizedimension = ->
+							size = _.chain(_.values(@)).first().value()
+							return "#{size.width}x#{size.height}"
+
 						data	
 
 					onRender:->

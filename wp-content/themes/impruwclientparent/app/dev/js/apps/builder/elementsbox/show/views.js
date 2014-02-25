@@ -5,7 +5,7 @@
 
   define(['app', 'text!apps/builder/elementsbox/show/templates/main.html', 'text!apps/builder/elementsbox/show/templates/singleelement.html', 'text!apps/builder/elementsbox/show/templates/error.html'], function(App, mainviewTpl, singleEleTpl, errorTpl) {
     App.module('ElementsBoxApp.Show.Views', function(Views, App, Backbone, Marionette, $, _) {
-      var _ref, _ref1, _ref2;
+      var _ref, _ref1;
       Views.SingleElement = (function(_super) {
         __extends(SingleElement, _super);
 
@@ -16,28 +16,28 @@
 
         SingleElement.prototype.template = singleEleTpl;
 
+        SingleElement.prototype.serializeData = function() {
+          var data;
+          data = SingleElement.__super__.serializeData.call(this);
+          data.elementName = function() {
+            if (this.title) {
+              return this.title;
+            } else {
+              return this.element;
+            }
+          };
+          return data;
+        };
+
         return SingleElement;
-
-      })(Marionette.ItemView);
-      Views.ErrorView = (function(_super) {
-        __extends(ErrorView, _super);
-
-        function ErrorView() {
-          _ref1 = ErrorView.__super__.constructor.apply(this, arguments);
-          return _ref1;
-        }
-
-        ErrorView.prototype.template = errorTpl;
-
-        return ErrorView;
 
       })(Marionette.ItemView);
       return Views.MainView = (function(_super) {
         __extends(MainView, _super);
 
         function MainView() {
-          _ref2 = MainView.__super__.constructor.apply(this, arguments);
-          return _ref2;
+          _ref1 = MainView.__super__.constructor.apply(this, arguments);
+          return _ref1;
         }
 
         MainView.prototype.template = mainviewTpl;

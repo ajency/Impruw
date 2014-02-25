@@ -12,13 +12,14 @@ form(action='', method='POST', role='form')
 	.form-group
 		label(for='') Description
 		input.form-control(type='text', placeholder='', value="{{description}}")
+	button.btn.btn-primary(type='button') Save		
 
-	h5 Advanced Media settings
-	.form-group
-		label(for='') Size
-		select(name="size")
-			{{#sizes}}
-			option(value="{{sizename}}") {{sizename}}
-			{{/sizes}}
-	button.btn.btn-primary(type='button') Save
+h5 Advanced Media settings
+.form-group
+	label(for='') Size
+	select(name="size")
+		{{#sizes}}
+		option(value="{{sizename}}") {{sizename}} ({{sizedimension}})
+		{{/sizes}}
+	
 	

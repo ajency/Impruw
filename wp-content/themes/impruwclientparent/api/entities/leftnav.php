@@ -98,6 +98,7 @@ function get_elementbox_elements() {
                                     'styles' => array()
                             ),
                             array(  'element' => 'ImageWithText',
+                                    'title' => 'Image With Text',
                                     'icon' => '',
                                     'styles' => array()
                             )

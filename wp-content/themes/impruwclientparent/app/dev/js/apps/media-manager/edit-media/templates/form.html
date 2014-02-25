@@ -17,12 +17,12 @@
     <label for="">Description</label>
     <input type="text" placeholder="" value="{{description}}" class="form-control"/>
   </div>
-  <h5>Advanced Media settings</h5>
-  <div class="form-group">
-    <label for="">Size</label>
-    <select name="size">{{#sizes}}
-      <option value="{{sizename}}">{{sizename}}</option>{{/sizes}}
-    </select>
-  </div>
-  <button type="button" class="btn btn-primary">Save</button>
+  <button type="button" class="btn btn-primary">Save		</button>
 </form>
+<h5>Advanced Media settings</h5>
+<div class="form-group">
+  <label for="">Size</label>
+  <select name="size">{{#sizes}}
+    <option value="{{sizename}}">{{sizename}} ({{sizedimension}})</option>{{/sizes}}
+  </select>
+</div>

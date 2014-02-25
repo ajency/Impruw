@@ -11,12 +11,17 @@ define ['app'
 
 					template 	: singleEleTpl
 
-				# Error view 
-				class Views.ErrorView extends Marionette.ItemView
+					serializeData:->
+						data = super()
+						data.elementName = ->
+							if @title 
+								return @title 
+							else 
+								return @element
 
-					template 	: errorTpl
-
-
+						data 
+								
+				
 				# Composite view wrapper for element box region
 				class Views.MainView extends Marionette.CompositeView
 

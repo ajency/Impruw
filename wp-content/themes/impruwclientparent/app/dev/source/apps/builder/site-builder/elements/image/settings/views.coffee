@@ -25,7 +25,10 @@ define ['app', 'text!apps/builder/site-builder/elements/image/settings/templates
 							@$el.find('input[name="draggable"]').checkbox('check')
 						
 						@$el.find('select[name="align"]').selectpicker 'val',@eleModel.get 'align'
-						
+						@$el.find('select[name="top_margin"]').selectpicker 'val',@eleModel.get 'top_margin'
+						@$el.find('select[name="left_margin"]').selectpicker 'val',@eleModel.get 'left_margin'
+						@$el.find('select[name="bottom_margin"]').selectpicker 'val',@eleModel.get 'bottom_margin'
+						@$el.find('select[name="right_margin"]').selectpicker 'val',@eleModel.get 'right_margin'
 
 					events:
 						'click .close-settings' : (evt)-> 

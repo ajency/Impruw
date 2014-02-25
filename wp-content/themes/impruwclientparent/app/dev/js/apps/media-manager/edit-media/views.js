@@ -37,6 +37,11 @@
           data.sizename = function() {
             return _.chain(_.keys(this)).first().value();
           };
+          data.sizedimension = function() {
+            var size;
+            size = _.chain(_.values(this)).first().value();
+            return "" + size.width + "x" + size.height;
+          };
           return data;
         };
 

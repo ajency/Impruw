@@ -40,6 +40,9 @@
           this.listenTo(view, "element:justified:changed", function(justified) {
             return _this.model.set("justified", justified);
           });
+          this.listenTo(view, "element:spacing:changed", function(spacing, value) {
+            return _this.model.set(spacing, value);
+          });
           return this.show(view);
         };
 
