@@ -16,7 +16,7 @@
 
         SocialItem.prototype.tagName = 'li';
 
-        SocialItem.prototype.template = '<a href="{{sociallink}}" target="_BLANK"><span class="name">{{socialname}}</span></a>';
+        SocialItem.prototype.template = '<a href="{{sociallink}}" target="_BLANK" class="icon-facebook"></a>';
 
         SocialItem.prototype.onRender = function() {
           return this.$el.addClass("social-" + (_.slugify(this.model.get('socialname'))));
