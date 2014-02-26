@@ -94,6 +94,16 @@
           });
         };
 
+        Controller.prototype._getElementTemplate = function(eleModel) {
+          var model, style, styles, _ref1;
+          model = App.request("get:element:settings:options", eleModel.get('element'));
+          styles = model.get('styles');
+          style = _.findWhere(styles, {
+            name: eleModel.get('style')
+          });
+          return (_ref1 = style['template']) != null ? _ref1 : '';
+        };
+
         Controller.prototype.removeSpinner = function() {
           if (this.layout.$el.find('.element-markup > span').length > 0) {
             return this.layout.$el.find('.element-markup > span').spin(false);

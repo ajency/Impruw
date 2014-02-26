@@ -101,6 +101,14 @@ function get_elementbox_elements() {
                                     'title' => 'Image With Text',
                                     'icon' => '',
                                     'styles' => array()
+                            ),
+                            array(  'element' => 'Address',
+                                    'icon' => '',
+                                    'styles' => get_styles('Address')
+                            ),
+                            array(  'element' => 'Social',
+                                    'icon' => '',
+                                    'styles' => get_styles('Social')
                             )
                         )
                 )
@@ -180,7 +188,7 @@ function get_element_model($element) {
         case 'Logo':
             $model = array(
                 'style'     => 'header',
-                'image_id'  => 28, //hardcoded,
+                'image_id'  => 56, //hardcoded,
                 'size'      => 'full'
             );
             break;

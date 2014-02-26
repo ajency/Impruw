@@ -84,6 +84,13 @@ define ['app', 'controllers/builder-base-controller'
 						new Element.Views.ElementView
 										model : elementModel
 
+					_getElementTemplate:(eleModel)->
+						model  = App.request "get:element:settings:options", eleModel.get 'element'
+						styles = model.get 'styles'
+						style = _.findWhere styles, name:  eleModel.get 'style'
+						return style['template'] ? ''
+
+
 					# show the view markup
 					removeSpinner:()->
 						#stop spinner if found
