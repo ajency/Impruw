@@ -5,7 +5,7 @@
 
   define(["app", 'backbone'], function(App, Backbone) {
     return App.module("Entities.Site", function(Site, App, Backbone, Marionette, $, _) {
-      var API, SiteModel, _ref;
+      var API, SiteModel, SiteSocialItem, SiteSocialItemsCollection, _ref, _ref1, _ref2;
       SiteModel = (function(_super) {
         __extends(SiteModel, _super);
 
@@ -17,6 +17,43 @@
         return SiteModel;
 
       })(Backbone.Model);
+      SiteSocialItem = (function(_super) {
+        __extends(SiteSocialItem, _super);
+
+        function SiteSocialItem() {
+          _ref1 = SiteSocialItem.__super__.constructor.apply(this, arguments);
+          return _ref1;
+        }
+
+        SiteSocialItem.prototype.idAttribute = 'socialname';
+
+        return SiteSocialItem;
+
+      })(Backbone.Model);
+      SiteSocialItemsCollection = (function(_super) {
+        __extends(SiteSocialItemsCollection, _super);
+
+        function SiteSocialItemsCollection() {
+          _ref2 = SiteSocialItemsCollection.__super__.constructor.apply(this, arguments);
+          return _ref2;
+        }
+
+        SiteSocialItemsCollection.prototype.model = SiteSocialItem;
+
+        SiteSocialItemsCollection.prototype.url = function() {
+          return "" + AJAXURL + "?action=get-site-socials";
+        };
+
+        SiteSocialItemsCollection.prototype.parse = function(r) {
+          if (r.code === 'OK') {
+            return r.data;
+          }
+          return r;
+        };
+
+        return SiteSocialItemsCollection;
+
+      })(Backbone.Collection);
       API = {
         getSiteProfile: function() {
           var site;
@@ -24,10 +61,32 @@
           site.url = AJAXURL + '?action=get-site-profile';
           site.fetch();
           return site;
+        },
+        getSiteSocial: function() {
+          var socialCollection;
+          socialCollection = App.request("get:collection", 'socialcollection');
+          if (!socialCollection) {
+            socialCollection = new SiteSocialItemsCollection;
+          }
+          if (socialCollection.length === 0) {
+            socialCollection.fetch();
+          }
+          return socialCollection;
+        },
+        createSocialStoreCollection: function() {
+          var socialCollection;
+          socialCollection = new SiteSocialItemsCollection;
+          return App.request("set:collection", 'socialcollection', socialCollection);
         }
       };
-      return App.reqres.setHandler("get:site:profile", function() {
+      App.reqres.setHandler("get:site:profile", function() {
         return API.getSiteProfile();
+      });
+      App.reqres.setHandler("get:site:social", function() {
+        return API.getSiteSocial();
+      });
+      return App.commands.setHandler("create:social:store", function() {
+        return API.createSocialStoreCollection();
       });
     });
   });

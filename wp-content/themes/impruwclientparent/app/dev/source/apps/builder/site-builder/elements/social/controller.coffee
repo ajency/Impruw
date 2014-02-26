@@ -24,16 +24,17 @@ define ['app','apps/builder/site-builder/elements/social/views'
 						@listenTo @layout.model, "change:style", @renderElement
 						super()
 
-					_getAddressView:(model, template)->
+					_getAddressView:(collection, style)->
 						new Social.Views.SocialView
-											model 	: model
-											template : template
+											collection: collection
+											style : style
 												
 
 					# setup templates for the element
 					renderElement:()=>
 						@removeSpinner()
-						# get the address element template
-						template = @_getElementTemplate @layout.model
-						view = @_getAddressView @layout.model, template
+						# get the social element collection
+						style = @layout.model.get 'style'
+						collection = App.request "get:site:social"
+						view = @_getAddressView collection, style
 						@layout.elementRegion.show view

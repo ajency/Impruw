@@ -370,3 +370,29 @@ function validate_element(&$element){
     }
     return $element;
 }
+
+/**
+ * [get_site_socials description]
+ * @return [type] [description]
+ */
+function get_site_socials(){
+
+    $data = array(
+                array(
+                    'socialname'    => 'Facebook',
+                    'sociallink'    => 'http://sdsadsadas.com'
+                ),
+                array(
+                    'socialname'    => 'Twitter',
+                    'sociallink'    => 'http://Twitter.com'
+                ),
+                array(
+                    'socialname'    => 'Youtube',
+                    'sociallink'    => 'http://Youtube.com'
+                )
+            );
+
+    wp_send_json(array('code'=> 'OK',
+                        'data' => $data));
+}
+add_action('wp_ajax_get-site-socials','get_site_socials');

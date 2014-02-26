@@ -5,20 +5,50 @@
 
   define(['app'], function(App) {
     return App.module('SiteBuilderApp.Element.Social.Views', function(Views, App, Backbone, Marionette, $, _) {
-      var _ref;
+      var SocialItem, _ref, _ref1;
+      SocialItem = (function(_super) {
+        __extends(SocialItem, _super);
+
+        function SocialItem() {
+          _ref = SocialItem.__super__.constructor.apply(this, arguments);
+          return _ref;
+        }
+
+        SocialItem.prototype.tagName = 'li';
+
+        SocialItem.prototype.template = '<a href="{{sociallink}}" target="_BLANK"><span class="name">{{socialname}}</span></a>';
+
+        SocialItem.prototype.onRender = function() {
+          return this.$el.addClass("social-" + (_.slugify(this.model.get('socialname'))));
+        };
+
+        return SocialItem;
+
+      })(Marionette.ItemView);
       return Views.SocialView = (function(_super) {
         __extends(SocialView, _super);
 
         function SocialView() {
-          _ref = SocialView.__super__.constructor.apply(this, arguments);
-          return _ref;
+          _ref1 = SocialView.__super__.constructor.apply(this, arguments);
+          return _ref1;
         }
+
+        SocialView.prototype.tagName = 'ul';
 
         SocialView.prototype.className = 'social';
 
+        SocialView.prototype.itemView = SocialItem;
+
+        SocialView.prototype.onRender = function() {
+          var className, style;
+          style = Marionette.getOption(this, 'style');
+          className = _.slugify(style);
+          return this.$el.addClass(className);
+        };
+
         return SocialView;
 
-      })(Marionette.ItemView);
+      })(Marionette.CollectionView);
     });
   });
 

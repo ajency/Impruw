@@ -4,20 +4,45 @@ define ["app", 'backbone'], (App, Backbone) ->
 
             class SiteModel extends Backbone.Model
 
+            class SiteSocialItem extends Backbone.Model
+                idAttribute : 'socialname'
+
+            class SiteSocialItemsCollection extends Backbone.Collection
+                model : SiteSocialItem
+                url : ->
+                    "#{AJAXURL}?action=get-site-socials"
+
+                parse:(r)->
+                    return r.data if r.code is 'OK'
+                    r
+
+
+
             #PUBLIC API FOR ENitity
             API =
                 getSiteProfile: ()->
-
                     site = new SiteModel
-                    
                     site.url = AJAXURL + '?action=get-site-profile'
-                    
                     site.fetch()
-                                
                     site
+
+                getSiteSocial:->
+                    socialCollection = App.request "get:collection", 'socialcollection'
+                    socialCollection = new SiteSocialItemsCollection if not socialCollection
+                    socialCollection.fetch() if socialCollection.length is 0
+                    socialCollection
+
+                createSocialStoreCollection:->
+                    socialCollection = new SiteSocialItemsCollection
+                    App.request "set:collection", 'socialcollection', socialCollection
 
 
             #REQUEST HANDLERS
             App.reqres.setHandler "get:site:profile", ->
-
                 API.getSiteProfile()
+
+            App.reqres.setHandler "get:site:social", ->
+                API.getSiteSocial()
+
+            App.commands.setHandler "create:social:store", ->
+                API.createSocialStoreCollection()

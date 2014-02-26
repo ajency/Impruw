@@ -32,18 +32,19 @@
           return Controller.__super__.bindEvents.call(this);
         };
 
-        Controller.prototype._getAddressView = function(model, template) {
+        Controller.prototype._getAddressView = function(collection, style) {
           return new Social.Views.SocialView({
-            model: model,
-            template: template
+            collection: collection,
+            style: style
           });
         };
 
         Controller.prototype.renderElement = function() {
-          var template, view;
+          var collection, style, view;
           this.removeSpinner();
-          template = this._getElementTemplate(this.layout.model);
-          view = this._getAddressView(this.layout.model, template);
+          style = this.layout.model.get('style');
+          collection = App.request("get:site:social");
+          view = this._getAddressView(collection, style);
           return this.layout.elementRegion.show(view);
         };
 

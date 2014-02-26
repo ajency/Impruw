@@ -51,9 +51,12 @@ define ['marionette'], (Marionette)->
 		App.unregisterElement instance, id
 
 	App.on "initialize:after", (options) ->
+		
+		# create required empty stores
 		App.execute "create:media:store"
 		App.execute "create:menu:store"
-		
+		App.execute "create:social:store"
+
 		appState = App.request "get:current:appstate"
 		App.startHistory()
 		if appState.isLoggedIn()

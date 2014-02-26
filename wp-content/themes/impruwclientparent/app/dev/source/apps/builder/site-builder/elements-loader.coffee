@@ -6,4 +6,4 @@ define ['apps/builder/site-builder/elements/menu/controller'
 		'apps/builder/site-builder/elements/image/controller'
 		'apps/builder/site-builder/elements/imagewithtext/controller'
 		'apps/builder/site-builder/elements/address/controller'
-		'apps/builder/site-builder/elements/social/controller'],->
+		'apps/builder/site-builder/elements/social/controller' ],->
