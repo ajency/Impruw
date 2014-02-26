@@ -8,7 +8,7 @@ define ['app'
 				# menu controller
 				class Settings.Controller extends AppController
 
-					# initialize controller
+					# initialize controller.
 					initialize:(opt ={})->
 						{ @model } = opt
 						@region = App.settingsRegion

@@ -17,7 +17,7 @@ define ['app', 'text!apps/builder/site-builder/elements/social/settings/template
 					onRender:->
 						@$el.find('input[type="checkbox"]').checkbox()
 						@$el.find('select').selectpicker()
-						@setFields()
+						@setFields() 
 
 					# set fields for the form
 					setFields:->

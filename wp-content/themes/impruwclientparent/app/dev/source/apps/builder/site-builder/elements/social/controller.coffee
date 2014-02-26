@@ -20,7 +20,7 @@ define ['app','apps/builder/site-builder/elements/social/views'
 						super(options)
 						
 					bindEvents:->
-						# start listening to model events
+						# start listening to model events.
 						@listenTo @layout.model, "change:style", @renderElement
 						super()
 

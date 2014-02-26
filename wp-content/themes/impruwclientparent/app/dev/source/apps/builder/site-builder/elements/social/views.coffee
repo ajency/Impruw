@@ -6,4 +6,4 @@ define ['app'],(App)->
 		# Menu item view
 		class Views.SocialView extends Marionette.ItemView
 
-			className : 'social'
+			className : 'social' 
