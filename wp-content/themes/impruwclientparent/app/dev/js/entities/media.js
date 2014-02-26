@@ -23,6 +23,24 @@
           return resp;
         };
 
+        MediaModel.prototype.getBestFit = function(width, height) {
+          var mode, url;
+          mode = 'landscape';
+          if (height > width) {
+            mode = 'portrait';
+          }
+          url = 'http://dsdsdsd.com';
+          switch (mode) {
+            case 'landscape':
+              url = 'landscape';
+              break;
+            case 'portrait':
+              url = 'portrait';
+          }
+          console.log(this.toJSON());
+          return this.get('url');
+        };
+
         return MediaModel;
 
       })(Backbone.AssociatedModel);
@@ -97,7 +115,7 @@
           var media;
           media = new Media.MediaModel;
           media.set({
-            url: "" + SITEURL + "/wp-content/themes/impruwclientparent/app/dev/js/plugins/holder.js/100%x200",
+            url: "" + SITEURL + "/wp-content/themes/impruwclientparent/app/dev/js/plugins/holder.js/99%x200",
             title: 'Placeholder'
           });
           return media;

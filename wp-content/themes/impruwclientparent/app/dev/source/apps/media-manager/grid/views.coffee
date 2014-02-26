@@ -12,7 +12,7 @@ define ['app'
 						'click a'	: (e)-> e.preventDefault()
 						'click'		: (e)-> @trigger "media:element:clicked"
 
-				# collection view
+				# collection view 
 				class Views.GridView extends Marionette.CompositeView
 					className : 'row'
 					template: '<div id="selectable-images"></div>'

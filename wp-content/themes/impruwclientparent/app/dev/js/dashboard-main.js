@@ -14,6 +14,11 @@
       jqueryspin: 'plugins/jquery.spin',
       bootstrap: 'plugins/bootstrap',
       bootstrapselect: 'plugins/bootstrapselect',
+      underscorestring: 'plugins/underscore.string',
+      mustache: 'plugins/Mustache',
+      plupload: 'plugins/plupload.full',
+      d3: 'plugins/d3',
+      nvd3: 'plugins/nv.d3',
       radio: 'plugins/flatui-radio',
       checkbox: 'plugins/flatui-checkbox',
       backboneform: 'plugins/backbone.form',
@@ -39,7 +44,16 @@
       polyglot: {
         exports: 'Polyglot'
       },
+      plupload: {
+        deps: ['jquery'],
+        exports: 'plupload'
+      },
+      nvd3: {
+        deps: ['d3'],
+        exports: 'nv'
+      },
       jqueryvalidate: ['jquery'],
+      underscorestring: ['underscore'],
       backboneform: ['backbone'],
       backbonesyphon: ['backbone'],
       backbonerelational: ['backbone'],

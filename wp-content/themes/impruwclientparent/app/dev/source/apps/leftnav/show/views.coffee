@@ -1,6 +1,6 @@
 define ['app'
-		'tpl!apps/leftnav/show/templates/leftNav'
-		'tpl!apps/leftnav/show/templates/menuitem'],
+		'text!apps/leftnav/show/templates/leftNav.html'
+		'text!apps/leftnav/show/templates/menuitem.html'],
 		(App, leftNavTpl, menuitemTpl)->
 
 

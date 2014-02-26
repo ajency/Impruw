@@ -9,7 +9,7 @@ define ['app', 'controllers/base-controller', 'apps/media-manager/grid/views'], 
 		class Grid.Controller extends AppController
 
 			# initialize
-			initialize:()->
+			initialize:()-> 
 				mediaCollection = App.request "fetch:media", true
 				view = @_getView mediaCollection
 

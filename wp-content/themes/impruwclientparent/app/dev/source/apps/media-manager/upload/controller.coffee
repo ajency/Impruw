@@ -4,7 +4,7 @@ define ['app', 'controllers/base-controller', 'apps/media-manager/upload/views']
 	App.module "MediaManager.Upload", (Upload, App)->
 
 		@startWithParent = false
-
+ 
 		#Show Controller 
 		class Upload.Controller extends AppController
 

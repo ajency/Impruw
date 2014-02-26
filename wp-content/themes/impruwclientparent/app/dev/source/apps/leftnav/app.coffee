@@ -6,7 +6,7 @@ define ['app','apps/leftnav/show/controller'], (App)->
 			show : ()->
 
 				controller = new LeftNav.Show.Controller
-									region : App.leftRegion
+											region : App.leftRegion
 
 				controller.showLeftNav()
 				
