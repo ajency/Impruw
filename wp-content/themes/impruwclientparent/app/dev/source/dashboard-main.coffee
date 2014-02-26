@@ -15,6 +15,11 @@ require.config
 		jqueryspin  		: 'plugins/jquery.spin'
 		bootstrap   		: 'plugins/bootstrap'
 		bootstrapselect 	: 'plugins/bootstrapselect'
+		underscorestring 	: 'plugins/underscore.string'
+		mustache			: 'plugins/Mustache'
+		plupload			: 'plugins/plupload.full'
+		d3					: '//cdnjs.cloudflare.com/ajax/libs/d3/3.4.2/d3.min'
+		nvd3 				: 'plugins/nv.d3'
 		radio 				: 'plugins/flatui-radio'
 		checkbox			: 'plugins/flatui-checkbox'
 		backboneform		: 'plugins/backbone.form'
@@ -35,7 +40,14 @@ require.config
 			exports : 'Marionette'
 		polyglot : 
 			exports : 'Polyglot'
+		plupload			: 
+			deps : ['jquery']
+			exports : 'plupload'
+		nvd3:	
+			deps : ['d3']
+			exports : 'nv'
 		jqueryvalidate 		: ['jquery']
+		underscorestring 	: ['underscore']
 		backboneform 		: ['backbone']
 		backbonesyphon 		: ['backbone']
 		backbonerelational 	: ['backbone']
