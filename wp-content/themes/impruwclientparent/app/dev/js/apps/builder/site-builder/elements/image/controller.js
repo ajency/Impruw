@@ -59,9 +59,8 @@
               App.navigate("media-manager", {
                 trigger: true
               });
-              return _this.listenTo(App.vent, "media:manager:choosed:media", function(media, size) {
+              return _this.listenTo(App.vent, "media:manager:choosed:media", function(media) {
                 _this.layout.model.set('image_id', media.get('id'));
-                _this.layout.model.set('size', size);
                 return _this.layout.model.save();
               });
             });

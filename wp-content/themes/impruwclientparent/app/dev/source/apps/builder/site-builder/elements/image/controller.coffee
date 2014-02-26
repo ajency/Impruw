@@ -51,9 +51,8 @@ define ['app','apps/builder/site-builder/elements/image/views','apps/builder/sit
 							#trigger media manager popup and start listening to "media:manager:choosed:media" event
 							@listenTo view, "show:media:manager", =>
 									App.navigate "media-manager", trigger : true
-									@listenTo App.vent,"media:manager:choosed:media",(media, size)=>
+									@listenTo App.vent,"media:manager:choosed:media",(media)=>
 										@layout.model.set 'image_id', media.get 'id'
-										@layout.model.set 'size',size
 										@layout.model.save() 
 
 							@layout.elementRegion.show view

@@ -7,7 +7,7 @@ define ['app'
 
 				class Views.UploadView extends Marionette.ItemView
 
-					template: uploadTpl
+					template: uploadTpl 
 
 					# setup plupload on show
 					# the url for plupload will be async-upload.php(wordpress default)

@@ -20,12 +20,11 @@ define ['app', 'holder'],(App, Holder)->
 					data.imageurl = ->
 						@url	
 				else
-					
 					if not data.sizes[data.size]
 						data.size = _.chain(_.keys(data.sizes)).first().value()
 
 					data.imageurl = ->
-						@sizes[@size].url	
+						@sizes[@size].url
 
 					data.alignclass = ->
 						switch @alignment
@@ -41,7 +40,6 @@ define ['app', 'holder'],(App, Holder)->
 								e.stopPropagation()
 								@trigger "show:media:manager"
 
-			# set the height of the parent of img in case float value is set
 			# check if a valid image_id is set for the element
 			# if present ignore else run the Holder.js to show a placeholder
 			# after run remove the data-src attribute of the image to avoid
@@ -50,5 +48,3 @@ define ['app', 'holder'],(App, Holder)->
 				if @model.isNew()
 					Holder.run()
 					@$el.find('img').removeAttr 'data-src'
-
-				#@$el.height @$el.find('img').height()

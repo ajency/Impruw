@@ -76,7 +76,7 @@ define ["app", 'backbone'], (App, Backbone) ->
 				getPlaceHolderMedia:->
 					media = new Media.MediaModel
 					media.set 
-							url : "#{SITEURL}/wp-content/themes/impruwclientparent/app/dev/js/plugins/holder.js/100%x200"
+							url : "#{SITEURL}/wp-content/themes/impruwclientparent/app/dev/js/plugins/holder.js/99%x200"
 							title : 'Placeholder'
 
 					media
