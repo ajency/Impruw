@@ -48,3 +48,9 @@ define ['app', 'holder'],(App, Holder)->
 				if @model.isNew()
 					Holder.run()
 					@$el.find('img').removeAttr 'data-src'
+				else 
+					# set the URL of the image depending on the available size
+					width 	= @$el.width()
+					height 	= @$el.height()
+					src = @model.getBestFit width,height
+					@$el.find('img').attr 'src',src

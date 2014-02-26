@@ -18,7 +18,7 @@ require.config
 		underscorestring 	: 'plugins/underscore.string'
 		mustache			: 'plugins/Mustache'
 		plupload			: 'plugins/plupload.full'
-		d3					: '//cdnjs.cloudflare.com/ajax/libs/d3/3.4.2/d3.min'
+		d3					: 'plugins/d3'
 		nvd3 				: 'plugins/nv.d3'
 		radio 				: 'plugins/flatui-radio'
 		checkbox			: 'plugins/flatui-checkbox'

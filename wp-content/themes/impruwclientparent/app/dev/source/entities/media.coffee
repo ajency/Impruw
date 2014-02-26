@@ -13,6 +13,21 @@ define ["app", 'backbone'], (App, Backbone) ->
 
 					resp
 
+				# function to calculate the best fit for the given size
+				getBestFit:(width, height)->
+					mode = 'landscape'
+					mode = 'portrait' if height > width
+					url = 'http://dsdsdsd.com'
+					switch mode 
+						when 'landscape'
+							url = 'landscape'
+						when 'portrait'
+							url = 'portrait'
+
+					console.log @toJSON()
+					
+					return @get 'url'
+
 
 			#Media collection
 			class Media.MediaCollection extends Backbone.Collection
