@@ -35,7 +35,7 @@ define ['app', 'text!apps/builder/site-builder/elements/link/settings/templates/
 								name = $(evt.target).attr 'name'
 								@trigger "element:#{name}:changed", $(evt.target).val()
 						'change input[name="target"]': (evt)-> 
-								@trigger "element:draggable:changed", if $(evt.target).is(':checked') then '_BLANK' else 'self'
+								@trigger "element:target:changed", if $(evt.target).is(':checked') then '_BLANK' else 'self'
 					
 					onBeforeClose:->
 						#trigger blur events so that the model gets updated

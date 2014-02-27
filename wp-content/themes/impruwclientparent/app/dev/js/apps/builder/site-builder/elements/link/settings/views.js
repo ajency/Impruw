@@ -54,7 +54,7 @@ define(['app', 'text!apps/builder/site-builder/elements/link/settings/templates/
           return this.trigger("element:" + name + ":changed", $(evt.target).val());
         },
         'change input[name="target"]': function(evt) {
-          return this.trigger("element:draggable:changed", $(evt.target).is(':checked') ? '_BLANK' : 'self');
+          return this.trigger("element:target:changed", $(evt.target).is(':checked') ? '_BLANK' : 'self');
         }
       };
 
