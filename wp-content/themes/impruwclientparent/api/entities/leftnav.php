@@ -76,15 +76,16 @@ function get_elementbox_elements() {
                                     'icon' => '',
                                     'styles' => get_styles('Menu'),
                                     'site_menus' => array(  array('menu_id' => 2, 'menu_name' => 'Main Menu'),
-                                                            array('menu_id' => 3, 'menu_name' =>   'Site Footer menu'))
+                                                            array('menu_id' => 3, 'menu_name' =>   'Footer menu'))
                             ),
                             array(  'element' => 'Row',
                                     'icon' => '',
                                     'styles' => get_styles('Row')
                             ),
-                            array(  'element' => 'Logo',
-                                    'icon' => '',
-                                    'styles' => array()
+                            array(  'element'   => 'Logo',
+                                    'icon'      => '',
+                                    'styles'    => array(),
+                                    'size'      => get_logo_size()
                             ),
                             array(  'element' => 'Text',
                                     'icon' => '',

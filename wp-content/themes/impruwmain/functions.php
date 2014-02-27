@@ -682,6 +682,8 @@ function create_new_element(&$ele){
     //unset the existing meta_id
     unset($ele['meta_id']);
 
+    handle_unavailable_fields($ele);
+
     //insert the element in postmeta and retunr the meta_id
     $serialized_element = maybe_serialize($ele);
     $wpdb->insert($wpdb->postmeta, array(
@@ -694,4 +696,20 @@ function create_new_element(&$ele){
             'meta_id' => $wpdb->insert_id,
             'element' => $ele['element']
         );
+}
+
+/**
+ *  
+ */
+function handle_unavailable_fields(&$ele){
+
+    switch($ele['element']){
+
+        case 'Image':
+        case 'Logo':
+            $ele['image_id'] = 0;
+        case 'Menu':
+            $ele['menu_id'] = 2;
+    }
+
 }

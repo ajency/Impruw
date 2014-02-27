@@ -52,8 +52,8 @@ div.element-drop-loader{
     height      : 60px; 
     background  : url(../images/loader.gif) no-repeat center center #fff;
     position    : absolute;
-    width: 100%;
-    top: 0;
+    width       : 100%;
+    top         : 0;
 
 }
 
@@ -79,6 +79,7 @@ div.element-drop-loader > p{
 
 .aj-imp-builder-layout-mode .element-wrapper{
     border-radius: 4px;
+    padding:0px !important;
 }
 /*
 .aj-imp-builder-layout-mode .row .column.empty-column{
@@ -96,7 +97,7 @@ div.element-drop-loader > p{
 
 
 
-.image-img-with-text,.img-responsive{
+.image-img-with-text{
     margin: 7px
 }
 

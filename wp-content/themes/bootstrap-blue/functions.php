@@ -25,41 +25,41 @@ add_filter('template_directory_uri', 'site_template_directory_uri', 10, 3);
 
 define('CURRENTTHEMEPATH', ABSPATH . 'wp-content/themes/bootstrap-blue/');
 
+/**
+ * Logo size for the theme 
+ **/
+function get_logo_size(){
+    return array(312,40);
+}
+
 global $element_templates;
 
 $element_templates = array(
     'Menu' => array(
                 array(
-                    'name'      => 'Slimmenu',
-                    'clsName'   => 'slimmenu'
+                    'name'      => 'Slimmenu'
                 ),
                 array(
-                    'name'      => 'Footer Menu',
-                    'clsName'   => 'footer-links'
+                    'name'      => 'Footer Menu'
                 )
               ),
     'Title' => array(
                 array(
-                    'name'      => 'Box Title',
-                    'clsName'   => 'box-title'
+                    'name'      => 'Box Title'
                 )
               ),
     'Row' => array(
                 array(
-                    'name'      => 'Green Background',
-                    'clsName'   => 'green-background'
+                    'name'      => 'Green Background'
                 ),
                 array(
-                    'name'      => 'Center Container',
-                    'clsName'   => 'center-container'
+                    'name'      => 'Center Container'
                 ),
                 array(
-                    'name'      => 'Grey Background',
-                    'clsName'   => 'grey-background'
+                    'name'      => 'Grey Background'
                 ),
                 array(
-                    'name'      => 'Shaded Background',
-                    'clsName'   => 'shaded-background'
+                    'name'      => 'Shaded Background'
                 )
              ),
     'Address' => array(
