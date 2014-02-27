@@ -36,8 +36,6 @@ define ['app'
 					_loadCharts:->
 						Statistics.OverViewChart.start region : @region.chart1Region
 
-
-
 				#PUBLIC API
 				API = 
 					showStatistics : ()->

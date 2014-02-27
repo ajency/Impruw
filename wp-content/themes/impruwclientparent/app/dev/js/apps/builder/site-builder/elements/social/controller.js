@@ -19,9 +19,6 @@
         Controller.prototype.initialize = function(options) {
           _.defaults(options.modelData, {
             element: 'Social',
-            facebook: '#',
-            twitter: '#',
-            youtube: '#',
             style: 'Default Style'
           });
           return Controller.__super__.initialize.call(this, options);

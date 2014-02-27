@@ -12,9 +12,6 @@ define ['app','apps/builder/site-builder/elements/social/views'
 
 						_.defaults options.modelData,
 											element  	: 'Social'
-											facebook	: '#'
-											twitter		: '#'
-											youtube		: '#'
 											style 		: 'Default Style'
 
 						super(options)
