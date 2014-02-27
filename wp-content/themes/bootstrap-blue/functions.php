@@ -79,5 +79,13 @@ $element_templates = array(
                 array(
                     'name' => 'Small Social'
                 )
+            ),
+    'Link' => array(
+                array(
+                    'name' => 'Default Style'
+                ),
+                array(
+                    'name' => 'Button'
+                )
             )
 );

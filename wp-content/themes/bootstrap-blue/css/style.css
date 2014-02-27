@@ -62,7 +62,7 @@ and open the template in the editor.
   min-height: 100px;
 }
 .row.center-container {
-  margin: 0px 12% !important;
+  max-width: 1170px;
 }
 .row.shaded-background {
   background: url("../resources/img/stripe_bg.png") repeat scroll 0 0 rgba(0, 0, 0, 0);

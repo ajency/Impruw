@@ -111,6 +111,10 @@ function get_elementbox_elements() {
                             array(  'element' => 'Social',
                                     'icon' => '',
                                     'styles' => get_styles('Social')
+                            ),
+                            array(  'element' => 'Link',
+                                    'icon' => '',
+                                    'styles' => get_styles('Link')
                             )
                         )
                 )
