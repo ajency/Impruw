@@ -320,13 +320,6 @@ function get_page_json1($page_id = 0){
    return $data;
 }
 
-function sds(){
-    $page_id = $_REQUEST['page_id'];
-    $data = get_page_json1($page_id);
-    wp_send_json(array('code' => 'OK' , 'data' => $data));
-}
-add_action('wp_ajax_get-page-json','sds');
-
 function get_row_elements($element){
     foreach($element['elements'] as &$column){
         foreach($column['elements'] as &$ele){
@@ -353,6 +346,12 @@ function get_meta_values($element){
     return $ele;
 }
 
+function sds(){
+    $page_id = $_REQUEST['page_id'];
+    $data = get_page_json1($page_id);
+    wp_send_json(array('code' => 'OK' , 'data' => $data));
+}
+add_action('wp_ajax_get-page-json','sds');
 /**
  * 
  */

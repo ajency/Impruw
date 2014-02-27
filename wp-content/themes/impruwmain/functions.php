@@ -572,3 +572,126 @@ function impruw_contact_form_sc( $atts ) {
  
 }
 add_shortcode( 'contact', 'impruw_contact_form_sc' );
+
+
+function get_json_to_clone($section, $page_id = 0){
+    
+    $elements = array();
+    if($page_id == 0)   
+        $elements = get_option($section);
+    else
+        $elements  = get_post_meta($page_id,'page-json', true);
+    
+    $d = array();
+        
+    if(is_array($elements)){
+        foreach($elements as $element){
+            if($element['element'] === 'Row' ){
+                $element['columncount'] = count($element['elements']);
+                $d[] = get_row_elements($element);
+            }
+            else
+                $d[] = get_meta_values ($element);
+        }
+    }
+     
+   return $d;
+}
+
+function get_row_elements($element){
+    foreach($element['elements'] as &$column){
+        foreach($column['elements'] as &$ele){
+            if($ele['element'] === 'Row' ){
+                $ele['columncount'] = count($ele['elements']);
+                $ele = get_row_elements($ele);
+            }
+            else{
+                $meta = get_meta_values ($ele);
+                $ele = wp_parse_args($meta,$ele);
+            }
+        }
+        
+    }
+    return $element;
+}
+
+
+function get_meta_values($element, $create = false){
+    $meta = get_metadata_by_mid('post', $element['meta_id']);
+    $ele = maybe_unserialize($meta->meta_value);
+    $ele['meta_id'] = $create ? create_new_record($ele) : $element['meta_id'];
+    validate_element($ele);
+    return $ele;
+}
+
+function validate_element(&$element){
+    $numkeys = array('id', 'meta_id', 'menu_id','ID', 'image_id');
+    $boolkey = array('draggable', 'justified');
+     
+    if(!is_array($element) && !is_object($element))
+        return $element;
+    
+    foreach ($element as $key => $val){
+        if(in_array($key, $numkeys))
+            $element[$key] = (int) $val;
+        if(in_array($key, $boolkey))
+            $element[$key] = $val === "true";
+    }
+    return $element;
+}
+
+/**
+ * this function will set the fetched json data from on site to another
+ */
+function set_json_to_site($elements){
+
+    foreach($elements as &$element){
+        if($element['element'] === 'Row' ){
+            $element['columncount'] = count($element['elements']);
+            set_row_elements($element);
+        }
+        else
+            $element = create_new_element($element);
+    }
+
+    return $elements;
+}
+
+function set_row_elements(&$element){
+    foreach($element['elements'] as &$column){
+        foreach($column['elements'] as &$ele){
+            if($ele['element'] === 'Row' ){
+                $ele['columncount'] = count($ele['elements']);
+                set_row_elements($ele);
+            }
+            else{
+                $ele = create_new_element($ele);
+            }
+        }
+        
+    }
+}
+
+/**
+ * 
+ */
+function create_new_element(&$ele){
+
+    global $wpdb;
+
+    //unset the existing meta_id
+    unset($ele['meta_id']);
+
+    //insert the element in postmeta and retunr the meta_id
+    $serialized_element = maybe_serialize($ele);
+    $wpdb->insert($wpdb->postmeta, array(
+        'post_id' => 0,
+        'meta_value' => $serialized_element,
+        'meta_key' => $ele['element']
+    ));
+
+    return array(
+            'meta_id' => $wpdb->insert_id,
+            'element' => $ele['element']
+        );
+}
