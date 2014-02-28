@@ -30,9 +30,7 @@ define ['marionette'], (Marionette)->
 	# App command to handle async request and action to be performed after that
 	# entities are the the dependencies which trigger a fetch to server.
 	App.commands.setHandler "when:fetched", (entities, callback) ->
-		
 		xhrs = _.chain([entities]).flatten().pluck("_fetch").value()
-
 		$.when(xhrs...).done ->
 			callback()
 
