@@ -115,6 +115,11 @@ function get_elementbox_elements() {
                             array(  'element' => 'Link',
                                     'icon' => '',
                                     'styles' => get_styles('Link')
+                            ),
+                            array(  'element' => 'ContactForm',
+                                    'title' => 'Contact Form',
+                                    'icon' => '',
+                                    'styles' => get_styles('ContactForm')
                             )
                         )
                 )

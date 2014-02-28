@@ -87,5 +87,13 @@ $element_templates = array(
                 array(
                     'name' => 'Button'
                 )
+            ),
+    'ContactForm' => array(
+            array(
+                'name' => 'Style One'
+            ),
+            array(
+                'name' => 'Style Two'
             )
+        )
 );
