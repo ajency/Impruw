@@ -1,7 +1,23 @@
-form(action='', method='POST', role='form')
-	legend Form title
-	.form-group
-		label(for='') label
-		input.form-control(type='text', placeholder='Input field')
-	button.btn.btn-primary(type='submit') Submit 
-	
+form.well.span8
+	.row
+		.span3
+			label First Name
+			input.span3(type='text', placeholder='Your First Name')
+			label Last Name
+			input.span3(type='text', placeholder='Your Last Name')
+			label Email Address
+			input.span3(type='text', placeholder='Your email address')
+			label Subject
+			select#subject.span3(name='subject')
+				option(value='na', selected='')
+				| Choose One:
+				option(value='service')
+				| General Customer Service
+				option(value='suggestions')
+				| Suggestions
+				option(value='product')
+				| Product Support
+		.span5
+			label Message
+			textarea#message.input-xlarge.span5(rows='10', name='message')     
+		button.btn.btn-primary.pull-right(type='submit') Send

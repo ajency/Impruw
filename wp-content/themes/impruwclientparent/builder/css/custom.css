@@ -34,6 +34,10 @@ li.ui-sortable-placeholder{
     list-style: none;
 }
 
+#map-canvas{
+    height : 250px;
+}
+
 /*#aj-imp-builder-drag-drop > hr{
     margin-top: 0px;
     margin-bottom: 0px;

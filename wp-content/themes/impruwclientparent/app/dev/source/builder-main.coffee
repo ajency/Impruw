@@ -57,7 +57,7 @@ require.config
 			exports : 'Marionette'
 		polyglot : 
 			exports : 'Polyglot'
-		google :
+		googlemap :
 			exports : 'google'
 		#ckeditor 	: 'CKEDITOR'
 		holder 		: 'Holder'

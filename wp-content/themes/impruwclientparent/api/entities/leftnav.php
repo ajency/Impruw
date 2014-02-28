@@ -120,6 +120,10 @@ function get_elementbox_elements() {
                                     'title' => 'Contact Form',
                                     'icon' => '',
                                     'styles' => get_styles('ContactForm')
+                            ),
+                            array(  'element' => 'Map',
+                                    'icon' => '',
+                                    'styles' => get_styles('Map')
                             )
                         )
                 )
