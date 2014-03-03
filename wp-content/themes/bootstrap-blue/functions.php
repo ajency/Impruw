@@ -61,6 +61,10 @@ $element_templates = array(
                 array(
                     'name'      => 'Shaded Background'
                 )
+                ,
+                array(
+                    'name'      => 'Column Dividers'
+                )
              ),
     'Address' => array(
                 array(

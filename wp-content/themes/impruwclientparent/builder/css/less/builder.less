@@ -767,6 +767,16 @@ Version:        0.1.0
 					display: block;
 				}
 			}
+			>.element-markup {
+				>.row {
+					>.column {
+						border-right: 1px dotted lighten(@dash-grey, 10%);
+						&:last-child {
+							border-right: 0;
+						}
+					}
+				}
+			}
 		}
 	}
 	.aj-imp-col-sel {
@@ -868,7 +878,6 @@ Version:        0.1.0
 			position: relative;
 			background-clip: content-box;
 			background: #fff;
-			border-right: 1px dotted lighten(@dash-grey, 10%);
 			&.empty-column {
 				background: url(../images/empty-drag-bg.svg) no-repeat center center #fff;
 				background-clip: content-box;
@@ -882,9 +891,6 @@ Version:        0.1.0
 			.row {
 				margin: 0.5em;
 				border: 1px solid transparent;
-			}
-			&:last-child {
-				border-right: 0;
 			}
 		}
 		&:last-child {
