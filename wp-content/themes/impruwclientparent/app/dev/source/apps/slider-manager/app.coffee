@@ -27,24 +27,22 @@ define ['app'
 						# start media manager apps. conditional strating of apps is possible
 						# each app needs a region as the argument. Each app will be functional only
 						# for that region
-						App.Media.Upload.start region : @layout.uploadRegion
-						App.Media.Grid.start region : @layout.gridRegion
-						App.Media.Selected.start 
-										region : @layout.selectedMediaRegion
-										collection : @selectedMediaCollection
+						#App.Media.Upload.start region : @layout.uploadRegion
+						#App.Media.Grid.start region : @layout.gridRegion
+						#App.Media.Selected.start 
+										# region : @layout.selectedMediaRegion
+										# collection : @selectedMediaCollection
 
-						@listenTo @layout.gridRegion, "media:element:clicked",(media)=>
-																	@selectedMediaCollection.add media
-
+						# @listenTo @layout.gridRegion, "media:element:clicked",(media)=>
+						# 											@selectedMediaCollection.add media
 
 						App.getRegion('elementsBoxRegion').hide()
 						
 					onClose: ->
 						#stop all sub apps
-						App.Media.Upload.stop()
-						App.Media.Grid.stop()
+						#App.Media.Upload.stop()
+						#App.Media.Grid.stop()
 						
-
 						# navigate back to original route. do not trigger the router 
 						# only navigate
 						App.navigate ''
@@ -55,7 +53,7 @@ define ['app'
 						new OuterLayout
 								
 
-				# this is the outer layout for the media manager
+				# this is the outer layout for the slider manager
 				# this layout contians all the region for the manager. 
 				# define the region which can be later accessed with layout.{regionName} property
 				# this is the main view for the dialog region. dialogOptions property is set to 
@@ -71,10 +69,6 @@ define ['app'
 
 					dialogOptions : 
 						modal_title : 'Slider Manager'
-
-					events: 
-						'click button.media-manager-select' : ->
-												@trigger "media:selected"
 
 				
 				#public API
