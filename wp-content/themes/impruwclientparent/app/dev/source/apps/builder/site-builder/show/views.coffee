@@ -32,7 +32,12 @@ define ['app'
 												items 		: '> .element-wrapper'
 												connectWith : '.droppable-column,.column'
 												start 		: (e, ui)->
-        											ui.placeholder.height ui.item.height()
+																ui.placeholder.height ui.item.height()
+																window.dragging = true
+																return
+												stop 		:(e, ui)-> 
+																window.dragging = false
+																return
 												handle 		: '.aj-imp-drag-handle'
 												helper 		: 'clone'
 												opacity		: .65

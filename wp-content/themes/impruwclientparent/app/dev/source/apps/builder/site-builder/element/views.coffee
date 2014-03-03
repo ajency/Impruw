@@ -43,6 +43,7 @@ define ['app'
 					onShow:()=>
 						@$el.mouseover (evt)=>
 							evt.stopPropagation()
+							return if window.dragging
 							@$el.addClass 'hover-class'
 						.mouseout ()=>
 							@$el.removeClass 'hover-class'

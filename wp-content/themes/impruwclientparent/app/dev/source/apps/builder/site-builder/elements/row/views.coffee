@@ -17,6 +17,11 @@ define ['app'],(App)->
 						handle 		: '.aj-imp-drag-handle'
 						start 		: (e, ui)->
 										ui.placeholder.height ui.item.height()
+										window.dragging = true
+										return
+						stop 		:(e, ui)-> 
+										window.dragging = false
+										return
 						helper 		: 'clone'
 						opacity		: .65
 						remove 		: (evt, ui)->

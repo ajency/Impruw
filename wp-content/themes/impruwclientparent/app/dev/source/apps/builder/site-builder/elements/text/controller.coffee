@@ -11,7 +11,8 @@ define ['app','apps/builder/site-builder/elements/text/views','apps/builder/site
 
 						_.defaults options.modelData,
 											element  	: 'Text'
-											content		: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s'
+											content		: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+														   Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s'
 
 						super(options)
 						

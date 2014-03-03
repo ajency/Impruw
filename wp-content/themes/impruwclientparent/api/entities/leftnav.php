@@ -76,15 +76,16 @@ function get_elementbox_elements() {
                                     'icon' => '',
                                     'styles' => get_styles('Menu'),
                                     'site_menus' => array(  array('menu_id' => 2, 'menu_name' => 'Main Menu'),
-                                                            array('menu_id' => 3, 'menu_name' =>   'Site Footer menu'))
+                                                            array('menu_id' => 3, 'menu_name' =>   'Footer menu'))
                             ),
                             array(  'element' => 'Row',
                                     'icon' => '',
                                     'styles' => get_styles('Row')
                             ),
-                            array(  'element' => 'Logo',
-                                    'icon' => '',
-                                    'styles' => array()
+                            array(  'element'   => 'Logo',
+                                    'icon'      => '',
+                                    'styles'    => array(),
+                                    'size'      => get_logo_size()
                             ),
                             array(  'element' => 'Text',
                                     'icon' => '',
@@ -110,7 +111,25 @@ function get_elementbox_elements() {
                             array(  'element' => 'Social',
                                     'icon' => '',
                                     'styles' => get_styles('Social')
+                            ),
+                            array(  'element' => 'Link',
+                                    'icon' => '',
+                                    'styles' => get_styles('Link')
+                            ),
+                            array(  'element' => 'ContactForm',
+                                    'title' => 'Contact Form',
+                                    'icon' => '',
+                                    'styles' => get_styles('ContactForm')
+                            ),
+                            array(  'element' => 'Map',
+                                    'icon' => '',
+                                    'styles' => get_styles('Map')
+                            ),
+                            array(  'element' => 'Slider',
+                                    'icon' => '',
+                                    'styles' => get_styles('Slider')
                             )
+
                         )
                 )
     );
@@ -118,15 +137,6 @@ function get_elementbox_elements() {
 
 add_action('wp_ajax_get-elementbox-elements', 'get_elementbox_elements');
 
-/**
- * 	array('element' => 'Slider'	, 'title' => 'Slider '	, 'icon' => ''),
-  array('element' => 'Text'	, 'title' => 'Text '	, 'icon' => ''),
-  array('element' => 'Image'	, 'title' => 'Image '	, 'icon' => ''),
-  array('element' => 'Room'	, 'title' => 'Room '	, 'icon' => ''),
-  array('element' => 'Menu'	, 'title' => 'Menu '	, 'icon' => ''),
-  array('element' => 'Title'	, 'title' => 'Title'	, 'icon' => ''),
-  array('element' => 'Address'	, 'title' => 'Address'	, 'icon' => '')
- */
 
 /**
  * [get_rooms description]
@@ -320,13 +330,6 @@ function get_page_json1($page_id = 0){
    return $data;
 }
 
-function sds(){
-    $page_id = $_REQUEST['page_id'];
-    $data = get_page_json1($page_id);
-    wp_send_json(array('code' => 'OK' , 'data' => $data));
-}
-add_action('wp_ajax_get-page-json','sds');
-
 function get_row_elements($element){
     foreach($element['elements'] as &$column){
         foreach($column['elements'] as &$ele){
@@ -353,6 +356,12 @@ function get_meta_values($element){
     return $ele;
 }
 
+function sds(){
+    $page_id = $_REQUEST['page_id'];
+    $data = get_page_json1($page_id);
+    wp_send_json(array('code' => 'OK' , 'data' => $data));
+}
+add_action('wp_ajax_get-page-json','sds');
 /**
  * 
  */
