@@ -23,7 +23,7 @@ define ['app'
 
 					_getContactFormView:(template, className)->
 						data = {}
-						data.className = className
+						data.clsName = className
 						data.template = template if not _(template).isBlank()
 						new ContactForm.Views.ContactFormView data
 													
