@@ -63,9 +63,23 @@ and open the template in the editor.
 }
 .row.center-container {
   max-width: 1170px;
+  margin: 0.5em auto;
 }
 .row.shaded-background {
   background: url("../resources/img/stripe_bg.png") repeat scroll 0 0 rgba(0, 0, 0, 0);
+}
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 3 Mar, 2014, 1:00:35 PM
+    Author     : jarr-head
+*/
+#site-header-region .center-container {
+  max-width: 1000px;
+  margin: 0.5em auto;
 }
 /****Top Slim-menu Styles****/
 .nav {
