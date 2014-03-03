@@ -1,7 +1,7 @@
-define ['app', 'controllers/base-controller', 'apps/media-manager/upload/views'], (App, AppController)->
+define ['app', 'controllers/base-controller', 'apps/media/upload/views'], (App, AppController)->
 
 	#Login App module
-	App.module "MediaManager.Upload", (Upload, App)->
+	App.module "Media.Upload", (Upload, App)->
 
 		@startWithParent = false
  

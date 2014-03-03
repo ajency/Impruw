@@ -1,7 +1,7 @@
 var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-define(['app', 'controllers/base-controller', 'text!apps/media-manager/templates/outer.html'], function(App, AppController, outerTpl) {
+define(['app', 'controllers/base-controller', 'text!apps/media-manager/templates/outer.html', 'apps/media/upload/controller', 'apps/media/grid/controller', 'apps/media/edit-media/controller'], function(App, AppController, outerTpl) {
   return App.module('MediaManager', function(MediaManager, App, Backbone, Marionette, $, _) {
     var API, OuterLayout, ShowController;
     MediaManager.Router = (function(_super) {
@@ -57,9 +57,9 @@ define(['app', 'controllers/base-controller', 'text!apps/media-manager/templates
       };
 
       ShowController.prototype.onClose = function() {
-        App.Media.Upload.stop();
-        App.Media.Grid.stop();
-        App.Media.EditMedia.stop();
+        App.MediaManager.Upload.stop();
+        MediaManager.Grid.stop();
+        MediaManager.EditMedia.stop();
         App.navigate('');
         return App.getRegion('elementsBoxRegion').unhide();
       };

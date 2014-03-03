@@ -1,13 +1,13 @@
 define ['app'
 		'controllers/base-controller'
-		'text!apps/media-manager/templates/outer.html'], (App, AppController, outerTpl)->
+		'text!apps/slider-manager/templates/outer.html'], (App, AppController, outerTpl)->
 
-			App.module 'MediaManager', (MediaManager, App, Backbone, Marionette, $, _)->
+			App.module 'SliderManager', (SliderManager, App, Backbone, Marionette, $, _)->
 
-				# defineall routers required for the app in MediaManager.Router class
-				class MediaManager.Router extends Marionette.AppRouter
+				# defineall routers required for the app in SliderManager.Router class
+				class SliderManager.Router extends Marionette.AppRouter
 					appRoutes :
-						'media-manager' 				: 'show'
+						'slider-manager' : 'show'
 						
 
 				# Define the initial controller for the media-manager. this controller will 
@@ -18,30 +18,24 @@ define ['app'
 					# initialize
 					initialize:(opt = {})->
 
-						@choosedMedia = null
-					
+						# create an empty collection which will hold the selected images
+						@selectedMediaCollection = App.request "get:empty:media:collection"
+
 						@layout = @_getLayout()
 						@show @layout
 
-						
 						# start media manager apps. conditional strating of apps is possible
 						# each app needs a region as the argument. Each app will be functional only
 						# for that region
 						App.Media.Upload.start region : @layout.uploadRegion
 						App.Media.Grid.start region : @layout.gridRegion
-						App.Media.EditMedia.start()
-						
+						App.Media.Selected.start 
+										region : @layout.selectedMediaRegion
+										collection : @selectedMediaCollection
+
 						@listenTo @layout.gridRegion, "media:element:clicked",(media)=>
-																	@choosedMedia = media
-																	App.vent.trigger "media:element:clicked", 
-																						media, 
-																						@layout.editMediaRegion
+																	@selectedMediaCollection.add media
 
-
-						@listenTo @layout ,"media:selected", =>
-											if not _.isNull @choosedMedia
-												App.vent.trigger "media:manager:choosed:media", @choosedMedia
-												@region.closeDialog()
 
 						App.getRegion('elementsBoxRegion').hide()
 						
@@ -49,7 +43,7 @@ define ['app'
 						#stop all sub apps
 						App.Media.Upload.stop()
 						App.Media.Grid.stop()
-						App.Media.EditMedia.stop()
+						
 
 						# navigate back to original route. do not trigger the router 
 						# only navigate
@@ -71,12 +65,12 @@ define ['app'
 					template: outerTpl
 
 					regions : 
-						uploadRegion 	: '#upload-region'
-						gridRegion		: '#grid-region'
-						editMediaRegion : '#edit-media-region'
+						uploadRegion 		: '#upload-region'
+						gridRegion			: '#grid-region'
+						selectedMediaRegion : '#selected-media-region'
 
 					dialogOptions : 
-						modal_title : 'Media Manager'
+						modal_title : 'Slider Manager'
 
 					events: 
 						'click button.media-manager-select' : ->
@@ -94,10 +88,8 @@ define ['app'
 						
 
 
-				MediaManager.on "start", ->
-					new MediaManager.Router
+				SliderManager.on "start", ->
+					new SliderManager.Router
 								controller : API	
 
-				# stop listetning to media manager stop
-				MediaManager.on "stop", ->
-					App.vent.off "media:element:clicked"
+				

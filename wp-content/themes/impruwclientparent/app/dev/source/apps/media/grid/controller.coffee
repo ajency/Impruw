@@ -1,7 +1,7 @@
-define ['app', 'controllers/base-controller', 'apps/media-manager/grid/views'], (App, AppController)->
+define ['app', 'controllers/base-controller', 'apps/media/grid/views'], (App, AppController)->
 
 	#Login App module
-	App.module "MediaManager.Grid", (Grid, App)->
+	App.module "Media.Grid", (Grid, App)->
 		
 		@startWithParent = false
 

@@ -107,6 +107,9 @@ define(["app", 'backbone'], function(App, Backbone) {
         }
         return media;
       },
+      getEmptyMediaCollection: function() {
+        return new Media.MediaCollection;
+      },
       getPlaceHolderMedia: function() {
         var media;
         media = new Media.MediaModel;
@@ -125,6 +128,9 @@ define(["app", 'backbone'], function(App, Backbone) {
     };
     App.commands.setHandler("create:media:store", function() {
       return API.createStoreCollection();
+    });
+    App.reqres.setHandler("get:empty:media:collection", function() {
+      return API.getEmptyMediaCollection();
     });
     App.reqres.setHandler("fetch:media", function(shouldReset) {
       if (shouldReset == null) {

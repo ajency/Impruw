@@ -1,8 +1,8 @@
 define ['app'
-		'text!apps/media-manager/grid/templates/media.html'
+		'text!apps/media/grid/templates/media.html'
 		], (App, mediaTpl, layoutTpl)->
 	
-			App.module 'MediaManager.Grid.Views', (Views, App)->
+			App.module 'Media.Grid.Views', (Views, App)->
 
 				# single media view
 				class MediaView extends Marionette.ItemView

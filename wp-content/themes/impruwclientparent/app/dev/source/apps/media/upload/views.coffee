@@ -1,9 +1,9 @@
 define ['app'
 		'plupload'
-		'text!apps/media-manager/upload/templates/upload.html'
+		'text!apps/media/upload/templates/upload.html'
 		], (App, plupload, uploadTpl)->
 	
-			App.module 'MediaManager.Upload.Views', (Views, App)->
+			App.module 'Media.Upload.Views', (Views, App)->
 
 				class Views.UploadView extends Marionette.ItemView
 

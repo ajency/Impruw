@@ -1,7 +1,7 @@
-define ['app', 'controllers/base-controller', 'apps/media-manager/edit-media/views'], (App, AppController)->
+define ['app', 'controllers/base-controller', 'apps/media/edit-media/views'], (App, AppController)->
 
 	#Login App module
-	App.module "MediaManager.EditMedia", (EditMedia, App)->
+	App.module "Media.EditMedia", (EditMedia, App)->
 		
 		#Show Controller 
 		class EditMedia.Controller extends AppController
