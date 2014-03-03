@@ -8,7 +8,7 @@ define ['app', 'holder', 'text!apps/builder/site-builder/elements/slider/templat
 
 			className: 'item'
 
-			template : '<img data-src="http://localhost/impruw/wp-content/themes/impruwclientparent/app/dev/js/plugins/holder.js/100x400/#000:#fff" alt="Slide"/>'
+			template : '<img data-src="http://localhost/impruw/wp-content/themes/impruwclientparent/app/dev/js/plugins/holder.js/100%x400" alt="Slide"/>'
 
 			tagName : 'li'
 
@@ -33,17 +33,7 @@ define ['app', 'holder', 'text!apps/builder/site-builder/elements/slider/templat
 			templateHelpers :(data = {})->
 
 				data.slider_id = @id
-				data.SITEURL = SITEURL
-				data.slides = [
-								(
-									image : ''
-									order : 0
-								)
-								(
-									image : ''
-									order : 1
-								)
-							]
+				data.slides = @collection.toJSON()
 				data
 
 			onShow:->

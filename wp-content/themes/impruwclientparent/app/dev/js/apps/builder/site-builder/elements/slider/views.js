@@ -13,7 +13,7 @@ define(['app', 'holder', 'text!apps/builder/site-builder/elements/slider/templat
 
       SliderItem.prototype.className = 'item';
 
-      SliderItem.prototype.template = '<img data-src="http://localhost/impruw/wp-content/themes/impruwclientparent/app/dev/js/plugins/holder.js/100x400/#000:#fff" alt="Slide"/>';
+      SliderItem.prototype.template = '<img data-src="http://localhost/impruw/wp-content/themes/impruwclientparent/app/dev/js/plugins/holder.js/100%x400" alt="Slide"/>';
 
       SliderItem.prototype.tagName = 'li';
 
@@ -46,16 +46,7 @@ define(['app', 'holder', 'text!apps/builder/site-builder/elements/slider/templat
           data = {};
         }
         data.slider_id = this.id;
-        data.SITEURL = SITEURL;
-        data.slides = [
-          {
-            image: '',
-            order: 0
-          }, {
-            image: '',
-            order: 1
-          }
-        ];
+        data.slides = this.collection.toJSON();
         return data;
       };
 
