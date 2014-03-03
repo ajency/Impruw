@@ -9,4 +9,5 @@ define ['apps/builder/site-builder/elements/menu/controller'
 		'apps/builder/site-builder/elements/social/controller'
 		'apps/builder/site-builder/elements/link/controller'
 		'apps/builder/site-builder/elements/contactform/controller'
-		'apps/builder/site-builder/elements/map/controller' ],->
+		'apps/builder/site-builder/elements/map/controller'
+		'apps/builder/site-builder/elements/slider/controller' ],->

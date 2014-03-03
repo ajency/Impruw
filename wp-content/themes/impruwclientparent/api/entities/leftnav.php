@@ -124,7 +124,12 @@ function get_elementbox_elements() {
                             array(  'element' => 'Map',
                                     'icon' => '',
                                     'styles' => get_styles('Map')
+                            ),
+                            array(  'element' => 'Slider',
+                                    'icon' => '',
+                                    'styles' => get_styles('Slider')
                             )
+
                         )
                 )
     );
@@ -132,15 +137,6 @@ function get_elementbox_elements() {
 
 add_action('wp_ajax_get-elementbox-elements', 'get_elementbox_elements');
 
-/**
- * 	array('element' => 'Slider'	, 'title' => 'Slider '	, 'icon' => ''),
-  array('element' => 'Text'	, 'title' => 'Text '	, 'icon' => ''),
-  array('element' => 'Image'	, 'title' => 'Image '	, 'icon' => ''),
-  array('element' => 'Room'	, 'title' => 'Room '	, 'icon' => ''),
-  array('element' => 'Menu'	, 'title' => 'Menu '	, 'icon' => ''),
-  array('element' => 'Title'	, 'title' => 'Title'	, 'icon' => ''),
-  array('element' => 'Address'	, 'title' => 'Address'	, 'icon' => '')
- */
 
 /**
  * [get_rooms description]
