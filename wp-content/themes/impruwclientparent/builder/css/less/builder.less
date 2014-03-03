@@ -1810,13 +1810,13 @@ Version:        0.1.0
 /****Builder Slider Manager Styles****/
 .slider-mgr {
 	padding: 0.5em 15px;
-	.add-slider {
-		margin: 0.5em 0;
-	}
 	.sliders {
 		.thumbnail {
 			border: 2px solid @blue-grey;
 			position: relative;
+			height: 300px;
+			max-height: 300px;
+			overflow: hidden;
 			.caption {
 				text-align: center;
 				h5 {
@@ -1824,15 +1824,30 @@ Version:        0.1.0
 					color: @dash-grey;
 				}
 				.badge {
-					background: @orange;
+					background: @blue-grey;
 					padding: 0.5em 1em;
 					position: absolute;
-					top: 0.5em;
-					right: 0.5em;
+					top: 0.3em;
+					right: 0.3em;
 				}
 			}
 			.actions {
 				text-align: center;
+			}
+			&:hover {
+				border-color: @orange;
+			}
+			&.add-slider {
+				text-align: center;
+				min-height: 300px;
+				font-size: 2em;
+				color: @orange;
+				padding-top: 3.5em;
+				border-color: @orange;
+				&:hover {
+					background: @orange;
+					color: #fff;
+				}
 			}
 		}
 	}
