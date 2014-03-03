@@ -1,17 +1,16 @@
 .slider-mgr
-	.row
-		.col-sm-12
-			button(type="button").btn.btn-default.btn-block.add-slider 
+	.row.sliders
+		.col-sm-2
+			a.thumbnail.add-slider(href="#")
 				span.glyphicon.glyphicon-plus-sign
 				| &nbsp;Add New Slider
-	.row.sliders
 		.col-sm-2
 			.thumbnail
 				img(data-src="holder.js/200x200")
 				.caption
 					h5 
 						| Slider 1
-						span.badge 5
+						span.badge Slides: 5
 				.actions
 					button(type="button").btn.btn-default.btn-xs
 						span.glyphicon.glyphicon-pencil
@@ -25,7 +24,7 @@
 				.caption
 					h5 
 						| Slider 2
-						span.badge 13
+						span.badge Slides: 13
 				.actions
 					button(type="button").btn.btn-default.btn-xs
 						span.glyphicon.glyphicon-pencil

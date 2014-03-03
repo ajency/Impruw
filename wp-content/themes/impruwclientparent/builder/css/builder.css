@@ -1675,12 +1675,12 @@ Version:        0.1.0
 .slider-mgr {
   padding: 0.5em 15px;
 }
-.slider-mgr .add-slider {
-  margin: 0.5em 0;
-}
 .slider-mgr .sliders .thumbnail {
   border: 2px solid #849fb0;
   position: relative;
+  height: 300px;
+  max-height: 300px;
+  overflow: hidden;
 }
 .slider-mgr .sliders .thumbnail .caption {
   text-align: center;
@@ -1690,12 +1690,27 @@ Version:        0.1.0
   color: #aaaaaa;
 }
 .slider-mgr .sliders .thumbnail .caption .badge {
-  background: #ff7e00;
+  background: #849fb0;
   padding: 0.5em 1em;
   position: absolute;
-  top: 0.5em;
-  right: 0.5em;
+  top: 0.3em;
+  right: 0.3em;
 }
 .slider-mgr .sliders .thumbnail .actions {
   text-align: center;
+}
+.slider-mgr .sliders .thumbnail:hover {
+  border-color: #ff7e00;
+}
+.slider-mgr .sliders .thumbnail.add-slider {
+  text-align: center;
+  min-height: 300px;
+  font-size: 2em;
+  color: #ff7e00;
+  padding-top: 3.5em;
+  border-color: #ff7e00;
+}
+.slider-mgr .sliders .thumbnail.add-slider:hover {
+  background: #ff7e00;
+  color: #fff;
 }
