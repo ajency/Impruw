@@ -26,4 +26,13 @@ and open the template in the editor.
 	&.shaded-background{
 		background: url("../resources/img/stripe_bg.png") repeat scroll 0 0 rgba(0, 0, 0, 0);
 	}
+
+	&.column-dividers {
+		.column {
+			border-right: 1px solid lighten(@secondary2, 20%);
+			&:last-child {
+				border-right: 0;
+			} 
+		}
+	}
 }
