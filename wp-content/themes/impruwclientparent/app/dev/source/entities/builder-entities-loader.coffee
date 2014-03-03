@@ -4,6 +4,7 @@ define [
 		'entities/appstate'
 		'entities/offlinestore'
 		'entities/media'
+		'entities/slider'
 		'entities/rooms'
 		'entities/site'
 		'entities/user'

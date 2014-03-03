@@ -381,6 +381,16 @@ function validate_element(&$element){
     return $element;
 }
 
+// add_action('init', function(){
+
+//     $s = new RevSlider();
+//     $s->initByID(1);
+//     echo '<pre>';
+//     var_dump($s->getSlidesForOutput());
+//     die;
+
+// });
+
 /**
  * [get_site_socials description]
  * @return [type] [description]

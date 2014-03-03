@@ -32,27 +32,10 @@ define(['app', 'controllers/base-controller', 'text!apps/slider-manager/template
         this.selectedMediaCollection = App.request("get:empty:media:collection");
         this.layout = this._getLayout();
         this.show(this.layout);
-        App.Media.Upload.start({
-          region: this.layout.uploadRegion
-        });
-        App.Media.Grid.start({
-          region: this.layout.gridRegion
-        });
-        App.Media.Selected.start({
-          region: this.layout.selectedMediaRegion,
-          collection: this.selectedMediaCollection
-        });
-        this.listenTo(this.layout.gridRegion, "media:element:clicked", (function(_this) {
-          return function(media) {
-            return _this.selectedMediaCollection.add(media);
-          };
-        })(this));
         return App.getRegion('elementsBoxRegion').hide();
       };
 
       ShowController.prototype.onClose = function() {
-        App.Media.Upload.stop();
-        App.Media.Grid.stop();
         App.navigate('');
         return App.getRegion('elementsBoxRegion').unhide();
       };
@@ -81,12 +64,6 @@ define(['app', 'controllers/base-controller', 'text!apps/slider-manager/template
 
       OuterLayout.prototype.dialogOptions = {
         modal_title: 'Slider Manager'
-      };
-
-      OuterLayout.prototype.events = {
-        'click button.media-manager-select': function() {
-          return this.trigger("media:selected");
-        }
       };
 
       return OuterLayout;
