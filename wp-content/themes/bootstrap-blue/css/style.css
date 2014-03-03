@@ -303,6 +303,22 @@ ul.social li:hover {
 ul.social li:hover a {
   top: -50px;
 }
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 3 Mar, 2014, 16:08:41 PM
+    Author     : jarr-head
+*/
+.contactform label {
+  display: none;
+}
+.contactform .flat {
+  border-radius: 0;
+  margin-bottom: 0.6em;
+}
 .top-margin-small {
   margin-top: 0.5em;
 }
