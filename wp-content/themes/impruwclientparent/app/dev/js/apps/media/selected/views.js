@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
 
 define(['app'], function(App, mediaTpl, layoutTpl) {
   return App.module('Media.Selected.Views', function(Views, App) {
-    var SelectedSingle;
+    var EmptyView, SelectedSingle;
     SelectedSingle = (function(_super) {
       __extends(SelectedSingle, _super);
 
@@ -31,6 +31,20 @@ define(['app'], function(App, mediaTpl, layoutTpl) {
       return SelectedSingle;
 
     })(Marionette.ItemView);
+    EmptyView = (function(_super) {
+      __extends(EmptyView, _super);
+
+      function EmptyView() {
+        return EmptyView.__super__.constructor.apply(this, arguments);
+      }
+
+      EmptyView.prototype.className = 'pick-image';
+
+      EmptyView.prototype.template = '<span class="glyphicon glyphicon-hand-left"></span><h4>Select an Image from the library</h4>';
+
+      return EmptyView;
+
+    })(Marionette.ItemView);
     return Views.SelectedView = (function(_super) {
       __extends(SelectedView, _super);
 
@@ -38,11 +52,13 @@ define(['app'], function(App, mediaTpl, layoutTpl) {
         return SelectedView.__super__.constructor.apply(this, arguments);
       }
 
-      SelectedView.prototype.className = 'row';
+      SelectedView.prototype.className = 'clearfix';
 
       SelectedView.prototype.template = '<div id="selected-images"></div>';
 
       SelectedView.prototype.itemView = SelectedSingle;
+
+      SelectedView.prototype.emptyView = EmptyView;
 
       SelectedView.prototype.itemViewContainer = '#selected-images';
 
