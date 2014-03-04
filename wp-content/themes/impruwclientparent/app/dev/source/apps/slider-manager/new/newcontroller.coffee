@@ -10,7 +10,7 @@ define ['app'
 						# create an empty collection which will hold the selected images
 						@selectedMediaCollection = App.request "get:empty:media:collection"
 
-						layout = new NewSliderLayout
+						@layout = layout = new NewSliderLayout
 
 						@listenTo layout, "cancel:create:slider", =>
 							Marionette.triggerMethod.call @region,"cancel:create:slider"
@@ -23,7 +23,11 @@ define ['app'
 								@selectedMediaCollection.remove mediaModel
 
 						@listenTo layout, "create:new:slider",(sliderData)=>
-								data.slider_images 	= @selectedMediaCollection.toJSON()
+								if @selectedMediaCollection.length is 0
+									@showErrorView()
+									return
+
+								sliderData.slider_images 	= @selectedMediaCollection.toJSON()
 								sliderModel = App.request "create:new:slider:model", sliderData
 								sliderModel.save wait: true
 
@@ -36,6 +40,9 @@ define ['app'
 											collection : @selectedMediaCollection
 
 						@show layout
+
+					showErrorView:->
+						@layout.messageRegion.show new ErrorView()
 
 					# clean up code
 					onClose:->
@@ -76,6 +83,7 @@ define ['app'
 								<button class="btn cancel-new-slider"> Cancel </button>'
 
 					regions : 
+						messageRegion 	: '#message-region'
 						uploadRegion 	: '#upload-media-region'
 						gridRegion 	 	: '#grid-media-region' 
 						selectedRegion 	: '#selected-media-region' 
@@ -84,8 +92,17 @@ define ['app'
 						'click button.create-new-slider' : ->
 								data = {}
 								data.slider_name 	= @$el.find('input[name="slider-name"]').val()
+								@trigger "create:new:slider", data
+
 						'click button.cancel-new-slider': -> @trigger "cancel:create:slider"
 
+				class ErrorView extends Marionette.ItemView
+
+					template : 'Please select atleast 2 images'
+
+					tagName : 'div'
+
+					className: 'alert alert-danger'
 								
 
 				App.commands.setHandler 'start:create:new:slider', (opts = {})->
