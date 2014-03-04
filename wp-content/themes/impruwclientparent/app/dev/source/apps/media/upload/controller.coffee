@@ -21,3 +21,7 @@ define ['app', 'controllers/base-controller', 'apps/media/upload/views'], (App, 
 		Upload.on 'start',(options) =>
 			new Upload.Controller
 						region : options.region
+
+		App.commands.setHandler 'start:media:upload:app',(options) =>
+			new Upload.Controller
+						region : options.region

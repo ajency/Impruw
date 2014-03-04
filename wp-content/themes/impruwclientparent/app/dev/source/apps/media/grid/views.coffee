@@ -10,7 +10,12 @@ define ['app'
 					className: 'col-sm-2 single-img'
 					events:
 						'click a'	: (e)-> e.preventDefault()
-						'click'		: (e)-> @trigger "media:element:clicked"
+						'click'		: (e)-> 
+								media = if $(e.target).hasClass('single-img') then $(e.target) else $(e.target).closest('.single-img')
+								if $(media).hasClass('ui-selected')
+									@trigger "media:element:selected"
+								else
+									@trigger "media:element:unselected"
 
 				# collection view 
 				class Views.GridView extends Marionette.CompositeView
@@ -19,4 +24,6 @@ define ['app'
 					itemView : MediaView
 					itemViewContainer: '#selectable-images'
 					onCollectionRendered:->
-						@$el.find('#selectable-images').selectable()
+						@$el.find('#selectable-images').bind "mousedown", ( e )->
+							    	e.metaKey = true;
+								.selectable()
