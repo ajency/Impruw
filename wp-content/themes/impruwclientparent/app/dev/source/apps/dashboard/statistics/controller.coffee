@@ -33,8 +33,9 @@ define ['app'
 					onShow:->
 						@$el.find('input[type="checkbox"]').bootstrapSwitch()	
 						
-					
-						
+						@$el.find('.range-radio-button[checked="checked"]').parent().addClass('active')
+
+						@$el.find('.active .range-radio-button').prop('checked', true)
 
 
 				class Statistics.Controller extends AppController

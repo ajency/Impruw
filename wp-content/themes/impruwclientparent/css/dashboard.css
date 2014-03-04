@@ -1747,6 +1747,11 @@ form .aj-imp-submit:hover {
   border-radius: 0;
   text-transform: uppercase;
   color: #aaaaaa;
+  padding: 1em 0 0.2em;
+  margin: 0 1em;
+}
+#select-days .btn-group .btn:hover {
+  color: #ff7e00;
 }
 #select-days .btn-group .btn.active {
   color: #ff7e00;
