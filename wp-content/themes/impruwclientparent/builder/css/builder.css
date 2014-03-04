@@ -1725,6 +1725,10 @@ Version:        0.1.0
   background: #ff7e00;
   color: #fff;
 }
+.slider-mgr #new-edit-slider .selected-header {
+  color: #849fb0;
+  font-size: 1.2em;
+}
 .slider-mgr #new-edit-slider #selected-images .media {
   display: inline-block;
   padding: 2px;

@@ -48,7 +48,14 @@ define ['app'
 
 				class NewSliderLayout extends Marionette.Layout
 
-					template : '<div class="form-group"><input type="text" class="form-control" name="slider-name"/></div>
+					template : '<div class="form-horizontal">
+									<div class="form-group">
+										<label class="control-label col-md-2">Slider Name:</label>
+										<div class="col-md-10">
+											<input type="text" class="form-control" name="slider-name"/>
+										</div>
+									</div>
+								</div>
 								<ul class="nav nav-tabs">
 								  <li><a href="#upload-media-region" data-toggle="tab">Upload</a></li>
 								  <li class="active"><a href="#selected-media" data-toggle="tab">All Media</a></li>
@@ -58,7 +65,10 @@ define ['app'
 									<div id="selected-media" class="tab-pane active">
 										<div class="row">
 											<div class="col-md-9"><div id="grid-media-region"></div></div>
-											<div class="col-md-3"><div id="selected-media-region"></div></div>
+											<div class="col-md-3">
+												<h5 class="selected-header">Selected Images:</h5>
+												<div id="selected-media-region"></div>
+											</div>
 										</div>
 									</div>
 								</div>
