@@ -722,6 +722,12 @@ Version:        0.1.0
 .aj-imp-builder-layout-mode .element-wrapper.hover-class:hover > .element-controls .aj-imp-settings-btn {
   display: block;
 }
+.aj-imp-builder-layout-mode .element-wrapper.hover-class:hover > .element-markup > .row > .column {
+  border-right: 1px dotted #c3c3c3;
+}
+.aj-imp-builder-layout-mode .element-wrapper.hover-class:hover > .element-markup > .row > .column:last-child {
+  border-right: 0;
+}
 .aj-imp-builder-layout-mode .aj-imp-col-sel {
   top: -4.6em;
   display: none;
@@ -820,7 +826,6 @@ Version:        0.1.0
   position: relative;
   background-clip: content-box;
   background: #fff;
-  border-right: 1px dotted #c3c3c3;
 }
 .aj-imp-builder-layout-mode .row .column.empty-column {
   background: url(../images/empty-drag-bg.svg) no-repeat center center #ffffff;
@@ -835,9 +840,6 @@ Version:        0.1.0
 .aj-imp-builder-layout-mode .row .column .row {
   margin: 0.5em;
   border: 1px solid transparent;
-}
-.aj-imp-builder-layout-mode .row .column:last-child {
-  border-right: 0;
 }
 .aj-imp-builder-layout-mode .row:last-child {
   margin: 0;
@@ -918,6 +920,17 @@ Version:        0.1.0
 .settings-box .form-horizontal .form-group .checkbox .icons .first-icon,
 .settings-box .form-horizontal .form-group .checkbox .icons .second-icon {
   border-radius: 5px;
+}
+.settings-box .form-horizontal .form-group .set-column-count {
+  padding-top: 7px;
+}
+.settings-box .form-horizontal .form-group .set-column-count a {
+  margin-right: 1px;
+  padding: 1px 8px;
+}
+.settings-box .form-horizontal .form-group .set-column-count a:hover {
+  background: #ff7e00;
+  color: #fff;
 }
 /****Builder Element Layout Mode Styles****/
 .aj-imp-builder-layout-mode [class^="aj-imp-elem-"] {

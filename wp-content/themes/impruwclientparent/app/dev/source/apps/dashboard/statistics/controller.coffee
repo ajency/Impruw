@@ -53,8 +53,6 @@ define ['app'
 							collection : data
 						
 
-
-
 				#PUBLIC API
 				API = 
 					showStatistics : ()->

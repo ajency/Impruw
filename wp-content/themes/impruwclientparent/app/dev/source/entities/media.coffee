@@ -13,6 +13,21 @@ define ["app", 'backbone'], (App, Backbone) ->
 
 					resp
 
+				# function to calculate the best fit for the given size
+				getBestFit:(width, height)->
+					mode = 'landscape'
+					mode = 'portrait' if height > width
+					url = 'http://dsdsdsd.com'
+					switch mode 
+						when 'landscape'
+							url = 'landscape'
+						when 'portrait'
+							url = 'portrait'
+
+					console.log @toJSON()
+					
+					return @get 'url'
+
 
 			#Media collection
 			class Media.MediaCollection extends Backbone.Collection
@@ -71,12 +86,15 @@ define ["app", 'backbone'], (App, Backbone) ->
 
 					media
 
+				getEmptyMediaCollection:->
+					new Media.MediaCollection
+
 				# this fucntion will return a placeholder media for the requesting element
 				# this will be special purpose media model.
 				getPlaceHolderMedia:->
 					media = new Media.MediaModel
 					media.set 
-							url : "#{SITEURL}/wp-content/themes/impruwclientparent/app/dev/js/plugins/holder.js/99%x200"
+							url : "#{SITEURL}/wp-content/themes/impruwclientparent/app/dev/js/plugins/holder.js/100%x200/auto"
 							title : 'Placeholder'
 
 					media
@@ -90,6 +108,9 @@ define ["app", 'backbone'], (App, Backbone) ->
 			#REQUEST HANDLERS
 			App.commands.setHandler "create:media:store", ->
 				API.createStoreCollection()
+
+			App.reqres.setHandler "get:empty:media:collection",->
+				API.getEmptyMediaCollection()
 			
 			App.reqres.setHandler "fetch:media",(shouldReset = true) ->
 				API.fetchMedia shouldReset

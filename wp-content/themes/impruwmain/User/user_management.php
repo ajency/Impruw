@@ -161,23 +161,23 @@ function create_new_site( $blog_id, $blog_name, $blog_title, $user_id, $file_nam
     
     switch_to_blog( $new_blog_id );
     
-    assign_theme_to_site( $new_blog_id, 'impruw-default' );//assign a theme to the new site created
+    assign_theme_to_site( $new_blog_id, 'bootstrap-blue' );//assign a theme to the new site created
     
     restore_current_blog();
     
-    toggle_plugin( $new_blog_id );//activating the wpml plugin for the current site.
+    // toggle_plugin( $new_blog_id );//activating the wpml plugin for the current site.
     
-    assign_default_language( $new_blog_id, $user_default_language );
+    // assign_default_language( $new_blog_id, $user_default_language );
     
-    assign_active_languages( $new_blog_id );
+    // assign_active_languages( $new_blog_id );
 
 
     $pages =    array(  
-                        'Dashboard'     => array('content' => 'Dashboard Content', 'template' => 'page-dashboard.php'),
+                        'Dashboard'     => array('content' => 'Dashboard Content', 'template' => 'new-dashboard.php'),
                         'Home'          => array('content' => 'Home Content', 'template' => ''),
                         'About Us'      => array('content' => 'About Content', 'template' => ''),
                         'Contact Us'    => array('content' => 'Contact Content', 'template' => ''),
-                        'Site Builder'  => array('content' => 'Site Builder Content', 'template' => 'site-build.php'),
+                        'Site Builder'  => array('content' => 'Site Builder Content', 'template' => 'new-builder.php'),
                         'Single Room'   => array('content' => 'Single Room', 'template' => ''),
                         'Rooms'         => array('content' => 'Rooms', 'template' => '')
                     );
@@ -191,7 +191,7 @@ function create_new_site( $blog_id, $blog_name, $blog_title, $user_id, $file_nam
                                          'page', 
                                          $value['template']);
     
-        $post_nb_id = mwm_wpml_translate_post( $new_blog_id, $post_id, 'page', 'nb', $user_id );
+        //$post_nb_id = mwm_wpml_translate_post( $new_blog_id, $post_id, 'page', 'nb', $user_id );
     
         //commented the template part 5dec2013 to bypass
         if($value['template'] === '')
@@ -199,22 +199,10 @@ function create_new_site( $blog_id, $blog_name, $blog_title, $user_id, $file_nam
     }
 
     //set header and footer
-     $clone_blog = CLONEBLOG; //server
+     
 	//$clone_blog = 81; //local
 	
-    switch_to_blog($clone_blog);
-
-    $theme_header = get_option('theme-header');
-    $theme_footer = get_option('theme-footer');
-
-    restore_current_blog();
-
-    switch_to_blog($new_blog_id);
-
-    update_option('theme-header', $theme_header);
-    update_option('theme-footer', $theme_footer);
-
-    restore_current_blog();
+    clone_header_footer($new_blog_id);
     
     create_tariff_table_for_blog( $new_blog_id );
     
@@ -240,6 +228,22 @@ function create_new_site( $blog_id, $blog_name, $blog_title, $user_id, $file_nam
         
     return $new_blog_id;
 
+}
+
+function clone_header_footer($new_blog_id){
+
+    $clone_blog = CLONEBLOG; //server
+    switch_to_blog($clone_blog);
+    $header = get_json_to_clone('theme-header');
+    $footer = get_json_to_clone('theme-footer');
+    restore_current_blog(); 
+    
+    switch_to_blog($new_blog_id);   
+    $data = set_json_to_site($header);
+    update_option('theme-header', $data);
+    $data = set_json_to_site($footer);
+    update_option('theme-footer', $data);
+    restore_current_blog();
 }
 
 /**
@@ -474,30 +478,23 @@ function mwm_wpml_translate_post( $blog_id, $post_id, $post_type, $lang, $user_i
  * @param type    $post_id
  * @param type    $file_name
  */
-function add_layout_site( $blog_id, $post_id, $name ) {
+function add_layout_site( $new_blog_id, $post_id, $name ) {
     
-    //site to clone from
-     $clone_blog = CLONEBLOG;  //server
-	//$clone_blog = 81;  //local
-	
+    $clone_blog = CLONEBLOG;
+    
     switch_to_blog($clone_blog);
-
     $page = get_page_by_title($name);
-
-    $page_json = get_post_meta($page->ID ,'page-json', true);
-
-    if($page_json == null)
-        return;
-
-    restore_current_blog();        
-   
-    switch_to_blog($blog_id);
-
-    update_post_meta($post_id, 'page-json', $page_json);
-
-    restore_current_blog();
+    $data = get_json_to_clone('page-json', $page->ID);
+    restore_current_blog(); 
+    
+    switch_to_blog($new_blog_id);   
+    $data = set_json_to_site($data);
+    update_post_meta($post_id, 'page-json', $data);
+    restore_current_blog(); 
 
 }
+
+
 
 /**
  * create_tariff_table_for_blog

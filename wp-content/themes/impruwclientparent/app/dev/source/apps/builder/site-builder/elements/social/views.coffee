@@ -8,7 +8,7 @@ define ['app'],(App)->
 			template : '<a href="{{sociallink}}" target="_BLANK"><span class="name">{{socialname}}</span></a>'
 			# add a class to li to allow diferent styles for each social item
 			onRender:->
-				@$el.addClass "social-#{_.slugify @model.get 'socialname'}"
+				@$el.find('a').addClass "icon-#{_.slugify @model.get 'socialname'}"
 
 		# Social element view
 		class Views.SocialView extends Marionette.CollectionView

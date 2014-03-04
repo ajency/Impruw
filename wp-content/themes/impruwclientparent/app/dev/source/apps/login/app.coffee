@@ -5,7 +5,7 @@ define [
 
 			App.module 'LoginApp', (LoginApp, App, Backbone, Marionette, $, _)->
 
-				@startWithParent = false
+				#@startWithParent = false
 
 				class LoginApp.Router extends Marionette.AppRouter
 

@@ -18,7 +18,7 @@ require.config
 		underscorestring 	: 'plugins/underscore.string'
 		mustache			: 'plugins/Mustache'
 		plupload			: 'plugins/plupload.full'
-		d3					: 'plugins/d3.v3'
+		d3					: 'plugins/d3'
 		nvd3 				: 'plugins/nv.d3'
 		radio 				: 'plugins/flatui-radio'
 		checkbox			: 'plugins/flatui-checkbox'
@@ -43,13 +43,9 @@ require.config
 		plupload			: 
 			deps : ['jquery']
 			exports : 'plupload'
-		d3:
-			deps : []
-			exports : 'd3'
 		nvd3:	
 			deps : ['d3']
 			exports : 'nv'
-
 		jqueryvalidate 		: ['jquery']
 		underscorestring 	: ['underscore']
 		backboneform 		: ['backbone']
