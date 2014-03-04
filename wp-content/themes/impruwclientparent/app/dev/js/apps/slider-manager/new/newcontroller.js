@@ -21,14 +21,16 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         this.listenTo(layout.gridRegion, "media:element:unselected", function(mediaModel) {
           return this.selectedMediaCollection.remove(mediaModel);
         });
-        this.listenTo(layout, "create:new:slider", function(sliderData) {
-          var sliderModel;
-          data.slider_images = this.selectedMediaCollection.toJSON();
-          sliderModel = App.request("create:new:slider:model", sliderData);
-          return sliderModel.save({
-            wait: true
-          });
-        });
+        this.listenTo(layout, "create:new:slider", (function(_this) {
+          return function(sliderData) {
+            var sliderModel;
+            data.slider_images = _this.selectedMediaCollection.toJSON();
+            sliderModel = App.request("create:new:slider:model", sliderData);
+            return sliderModel.save({
+              wait: true
+            });
+          };
+        })(this));
         this.listenTo(layout, 'show', (function(_this) {
           return function() {
             App.execute("start:media:upload:app", {
@@ -44,6 +46,10 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
           };
         })(this));
         return this.show(layout);
+      };
+
+      NewSliderController.prototype.onClose = function() {
+        return delete this.selectedMediaCollection;
       };
 
       return NewSliderController;

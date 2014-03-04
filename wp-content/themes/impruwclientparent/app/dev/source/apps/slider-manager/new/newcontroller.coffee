@@ -18,7 +18,7 @@ define ['app'
 						@listenTo layout.gridRegion, "media:element:unselected",(mediaModel)->
 								@selectedMediaCollection.remove mediaModel
 
-						@listenTo layout, "create:new:slider",(sliderData)->
+						@listenTo layout, "create:new:slider",(sliderData)=>
 								data.slider_images 	= @selectedMediaCollection.toJSON()
 								sliderModel = App.request "create:new:slider:model", sliderData
 								sliderModel.save wait: true
@@ -32,6 +32,10 @@ define ['app'
 											collection : @selectedMediaCollection
 
 						@show layout
+
+					# clean up code
+					onClose:->
+						delete @selectedMediaCollection
 
 
 				class NewSliderLayout extends Marionette.Layout
