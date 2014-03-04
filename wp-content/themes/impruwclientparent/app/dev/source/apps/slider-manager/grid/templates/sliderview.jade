@@ -1,9 +1,9 @@
 .thumbnail
-	img(data-src="holder.js/200x200")
+	img(src="{{thumb_url}}", style="height:200px;width:100%")
 	.caption
 		h5 
-			| Slider 1
-			span.badge Slides: 5
+			| {{title}}
+			span.badge Slides: {{no_of_slides}}
 	.actions
 		button(type="button").btn.btn-default.btn-xs
 			span.glyphicon.glyphicon-pencil

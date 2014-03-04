@@ -93,9 +93,9 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         'click button.create-new-slider': function() {
           var data;
           data = {};
-          data.main = {};
-          data.main['title'] = this.$el.find('input[name="slider-name"]').val();
-          data.main['title'] = _.slugify(data.main['title']);
+          data['title'] = this.$el.find('input[name="slider-name"]').val();
+          data['alias'] = _.slugify(data['title']);
+          data['shortcode'] = "[rev_slider " + data['alias'] + "]";
           return this.trigger("create:new:slider", data);
         },
         'click button.cancel-new-slider': function() {

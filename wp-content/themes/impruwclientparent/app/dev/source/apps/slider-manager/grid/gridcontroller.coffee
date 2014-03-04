@@ -9,8 +9,8 @@ define ['app'
 					initialize:(opt)->
 
 						# get the slider collection
-						collection = App.request "get:collection",'slidercollection'
-
+						collection = App.request "get:sliders"
+						
 						# pass the collection to composite view
 						view = @_getSliderGridView collection
 

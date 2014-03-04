@@ -13,7 +13,7 @@ define(['app', 'controllers/base-controller', 'text!apps/slider-manager/grid/tem
 
       GridViewController.prototype.initialize = function(opt) {
         var collection, view;
-        collection = App.request("get:collection", 'slidercollection');
+        collection = App.request("get:sliders");
         view = this._getSliderGridView(collection);
         this.listenTo(view, "create:new:slider", function() {
           return Marionette.triggerMethod.call(this.region, "create:new:slider");

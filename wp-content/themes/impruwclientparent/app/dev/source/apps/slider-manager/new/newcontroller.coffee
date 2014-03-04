@@ -30,6 +30,7 @@ define ['app'
 								#sliderData.slider_images = @selectedMediaCollection.toJSON()
 								sliderModel = App.request "create:new:slider:model", sliderData
 								sliderModel.save wait: true
+								
 
 						# start apps on show event of layout
 						@listenTo layout, 'show', =>
@@ -91,9 +92,9 @@ define ['app'
 					events: 
 						'click button.create-new-slider' : ->
 								data = {}
-								data.main = {}
-								data.main['title'] 	= @$el.find('input[name="slider-name"]').val()
-								data.main['title'] 	= _.slugify data.main['title']
+								data['title'] 	= @$el.find('input[name="slider-name"]').val()
+								data['alias'] 	= _.slugify data['title']
+								data['shortcode'] = "[rev_slider #{data['alias']}]"
 								@trigger "create:new:slider", data
 
 						'click button.cancel-new-slider': -> @trigger "cancel:create:slider"
