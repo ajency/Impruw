@@ -205,6 +205,10 @@ define(['app', 'controllers/base-controller', 'text!apps/dashboard/statistics/te
         return this.trigger("radio:clicked", rangeData);
       };
 
+      StatisticsLayout.prototype.onShow = function() {
+        return this.$el.find('input[type="radio"]').bootstrapSwitch();
+      };
+
       return StatisticsLayout;
 
     })(Marionette.Layout);

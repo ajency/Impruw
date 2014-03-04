@@ -1,6 +1,6 @@
-#buttons-group.btn-group(data-toggle='buttons')
-    label.btn(for='visit') 
-        input#totVisitCheckbox.chart-button(type='checkbox', name='visit', value='ga:visits', checked='checked')
+#buttons-group
+    label(for='visit') 
+        input#totVisitCheckbox.chart-button(type='checkbox', name='visit', value='ga:visits', checked='checked' data-toggle='switch')
         |Total Visitors
     label.btn(for='unique') 
         input#uniqueVisitCheckbox.chart-button(type='checkbox', name='unique', value='ga:visitors', checked='checked')

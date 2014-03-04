@@ -67,7 +67,7 @@ define(['app', 'controllers/base-controller', 'text!apps/slider-manager/grid/tem
       };
 
       SliderGridView.prototype.onCollectionRendered = function() {
-        return this.$el.prepend('<div class="col-sm-2"> <a href="#" class="thumbnail create-slider"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;Add New Slider</a> </div>');
+        return this.$el.prepend('<div class="col-sm-2"> <a href="#" class="thumbnail create-slider"><span class="glyphicon glyphicon-plus-sign"></span><br>Add New Slider</a> </div>');
       };
 
       return SliderGridView;
