@@ -8,14 +8,13 @@ define ['app', 'holder', 'text!apps/builder/site-builder/elements/slider/templat
 
 			className: 'item'
 
-			template : '<img data-src="http://localhost/impruw/wp-content/themes/impruwclientparent/app/dev/js/plugins/holder.js/100%x400" alt="Slide"/>'
+			template : '<img src="http://placehold.it/900x400" alt="Slide"/>'
 
 			tagName : 'li'
 
-			onShow:->
-				Holder.run()
-
-
+			events:
+				'click' :(e)-> @trigger "show:slider:manager"
+ 
 
 		# Menu item view
 		class Views.SliderView extends Marionette.CompositeView
