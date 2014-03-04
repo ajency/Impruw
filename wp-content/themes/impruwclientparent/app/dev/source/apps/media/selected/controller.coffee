@@ -34,11 +34,16 @@ define ['app', 'controllers/base-controller', 'apps/media/selected/views'], (App
 					.height '50px'
 				@$el.attr 'src', @model.get('sizes').thumbnail.url
 
+		class EmptyView extends Marionette.ItemView
+			className : 'pick-image'
+			template : '<span class="glyphicon glyphicon-hand-left"></span><h4>Select an Image from the library</h4>'
+
 		# collection view 
 		class SelectedMedia extends Marionette.CompositeView
-			className : 'row'
+			className : 'clearfix'
 			template: '<div id="selected-images"></div>'
 			itemView : SelectedSingle
+			emptyView: EmptyView
 			itemViewContainer: '#selected-images'
 	
 		Selected.on 'initialize:before', ->

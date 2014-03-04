@@ -1,16 +1,16 @@
 
-<div class="row">
-  <div id="buttons-group">
-    <input id="totVisitCheckbox" type="checkbox" name="visit" value="ga:visits" checked="checked" class="chart-button"/>
-    <label for="visit">Total Visitors</label>
-    <input id="uniqueVisitCheckbox" type="checkbox" name="unique" value="ga:visitors" checked="checked" class="chart-button"/>
-    <label for="unique">Unique Visitor</label>
-    <input id="newVisitCheckbox" type="checkbox" name="new" value="ga:newVisits" checked="checked" class="chart-button"/>
-    <label for="new">New Visitor</label>
-    <input id="pageViewCheckbox" type="checkbox" name="page" value="ga:pageviews" checked="checked" class="chart-button"/>
-    <label for="page">Page Views</label>
-  </div>
+<div id="buttons-group">
+  <label for="visit">
+    <input id="totVisitCheckbox" type="checkbox" name="visit" value="ga:visits" checked="checked" data-toggle="switch" class="chart-button"/>Total Visitors
+  </label>
+  <label for="unique" class="btn">
+    <input id="uniqueVisitCheckbox" type="checkbox" name="unique" value="ga:visitors" checked="checked" class="chart-button"/>Unique Visitor
+  </label>
+  <label for="new" class="btn">
+    <input id="newVisitCheckbox" type="checkbox" name="new" value="ga:newVisits" checked="checked" class="chart-button"/>New Visitor
+  </label>
+  <label for="page" class="btn">
+    <input id="pageViewCheckbox" type="checkbox" name="page" value="ga:pageviews" checked="checked" class="chart-button"/>Page Views
+  </label>
 </div>
-<div class="row">
-  <div id="overview-chart-region"></div>
-</div>
+<div id="overview-chart-region"></div>

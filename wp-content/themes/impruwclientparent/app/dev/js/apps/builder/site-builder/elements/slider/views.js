@@ -13,12 +13,14 @@ define(['app', 'holder', 'text!apps/builder/site-builder/elements/slider/templat
 
       SliderItem.prototype.className = 'item';
 
-      SliderItem.prototype.template = '<img data-src="http://localhost/impruw/wp-content/themes/impruwclientparent/app/dev/js/plugins/holder.js/100%x400" alt="Slide"/>';
+      SliderItem.prototype.template = '<img src="http://placehold.it/900x400" alt="Slide"/>';
 
       SliderItem.prototype.tagName = 'li';
 
-      SliderItem.prototype.onShow = function() {
-        return Holder.run();
+      SliderItem.prototype.events = {
+        'click': function(e) {
+          return this.trigger("show:slider:manager");
+        }
       };
 
       return SliderItem;
