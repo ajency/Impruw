@@ -31,7 +31,7 @@ define ['app'
 						@trigger "radio:clicked" ,rangeData
 
 					onShow:->
-						@$el.find('input[type="radio"]').bootstrapSwitch()	
+						@$el.find('input[type="checkbox"]').bootstrapSwitch()	
 						
 					
 						

@@ -1694,6 +1694,66 @@ form .aj-imp-submit:hover {
 .panel .panel-body p {
   color: #aaaaaa;
 }
+/****Page Styles****/
+.aj-imp-default-page {
+  width: 80%;
+  min-height: 500px;
+  background: #fff;
+  box-shadow: 0 0 5px 4px #c3c3c3;
+  margin: 3em auto;
+  padding: 1em;
+}
+.aj-imp-default-page .aj-imp-register-header {
+  border-bottom: 1px solid #eaeaea;
+  text-align: center;
+}
+.aj-imp-default-page .aj-imp-register-header h1 {
+  font-size: 2.5em;
+  font-weight: 700;
+}
+.aj-imp-default-page .aj-imp-register-header h1 span {
+  color: #ff7e00;
+}
+.aj-imp-default-page .aj-imp-register-header .desc {
+  font-size: 1.1em;
+  color: #c3c3c3;
+}
+.aj-imp-default-page .aj-imp-page-content {
+  margin: 1em 0;
+}
+.aj-imp-default-page .aj-imp-page-content p {
+  font-size: 1.1em;
+  color: #aaaaaa;
+}
 .loading-container {
   margin-top: 100px;
+}
+/****Chart Styles****/
+#overview-region {
+  position: relative;
+}
+#overview-region #overview-chart-region {
+  background: #f3f3f3;
+  padding: 3em 0.5em 0.5em;
+}
+#select-days {
+  position: absolute;
+  top: 3.5em;
+  left: 45%;
+  z-index: 1;
+}
+#select-days .btn-group .btn {
+  background: transparent;
+  border-radius: 0;
+  text-transform: uppercase;
+  color: #aaaaaa;
+}
+#select-days .btn-group .btn.active {
+  color: #ff7e00;
+  border-bottom: 3px solid #ff7e00;
+}
+#buttons-group {
+  background: #f3f3f3;
+  padding: 1em 0;
+  border-bottom: 1px solid #dddddd;
 }

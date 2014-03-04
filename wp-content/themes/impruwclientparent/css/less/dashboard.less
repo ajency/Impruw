@@ -1815,3 +1815,37 @@ form {
 .loading-container {
 	margin-top : 100px; 
 }
+
+/****Chart Styles****/
+#overview-region {
+	position: relative;
+	#overview-chart-region {
+		background: @preview-grey;
+		padding: 3em 0.5em 0.5em;
+	}
+}
+
+#select-days {
+	position: absolute;
+	top: 3.5em;
+	left: 45%;
+	z-index: 1;
+	.btn-group {
+		.btn {
+			background: transparent;
+			border-radius: 0;
+			text-transform: uppercase;
+			color: @dash-grey;
+			&.active {
+				color: @orange;
+				border-bottom: 3px solid @orange;
+			}
+		}
+	}
+}
+
+#buttons-group {
+	background: @preview-grey;
+	padding: 1em 0;
+	border-bottom: 1px solid lighten(@dash-grey, 20%);
+}

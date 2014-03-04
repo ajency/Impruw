@@ -206,7 +206,7 @@ define(['app', 'controllers/base-controller', 'text!apps/dashboard/statistics/te
       };
 
       StatisticsLayout.prototype.onShow = function() {
-        return this.$el.find('input[type="radio"]').bootstrapSwitch();
+        return this.$el.find('input[type="checkbox"]').bootstrapSwitch();
       };
 
       return StatisticsLayout;
