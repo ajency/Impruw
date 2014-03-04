@@ -12,6 +12,10 @@ define ['app'
 
 						layout = new NewSliderLayout
 
+						@listenTo layout, "cancel:create:slider", =>
+							Marionette.triggerMethod.call @region,"cancel:create:slider"
+							layout.close()
+
 						@listenTo layout.gridRegion, "media:element:selected",(mediaModel)->
 								@selectedMediaCollection.add mediaModel
 
@@ -36,6 +40,10 @@ define ['app'
 					# clean up code
 					onClose:->
 						delete @selectedMediaCollection
+						App.navigate 'slider-manager'
+
+					onShow:->
+						App.navigate 'slider-manager/new'
 
 
 				class NewSliderLayout extends Marionette.Layout
@@ -54,7 +62,8 @@ define ['app'
 										</div>
 									</div>
 								</div>
-								<button class="btn btn-primary create-new-slider"> Create New Slider </button>'
+								<button class="btn btn-primary create-new-slider"> Create New Slider </button>
+								<button class="btn cancel-new-slider"> Cancel </button>'
 
 					regions : 
 						uploadRegion 	: '#upload-media-region'
@@ -62,14 +71,13 @@ define ['app'
 						selectedRegion 	: '#selected-media-region' 
 
 					events: 
-						'click .create-new-slider' : ->
+						'click button.create-new-slider' : ->
 								data = {}
 								data.slider_name 	= @$el.find('input[name="slider-name"]').val()
+						'click button.cancel-new-slider': -> @trigger "cancel:create:slider"
+
 								
 
 				App.commands.setHandler 'start:create:new:slider', (opts = {})->
-
-					App.navigate 'slider-manager/new'
-
 					new NewSliderController
 							region : opts.region

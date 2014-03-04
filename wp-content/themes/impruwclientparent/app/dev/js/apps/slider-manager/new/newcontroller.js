@@ -15,6 +15,12 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         var layout;
         this.selectedMediaCollection = App.request("get:empty:media:collection");
         layout = new NewSliderLayout;
+        this.listenTo(layout, "cancel:create:slider", (function(_this) {
+          return function() {
+            Marionette.triggerMethod.call(_this.region, "cancel:create:slider");
+            return layout.close();
+          };
+        })(this));
         this.listenTo(layout.gridRegion, "media:element:selected", function(mediaModel) {
           return this.selectedMediaCollection.add(mediaModel);
         });
@@ -49,7 +55,12 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
       };
 
       NewSliderController.prototype.onClose = function() {
-        return delete this.selectedMediaCollection;
+        delete this.selectedMediaCollection;
+        return App.navigate('slider-manager');
+      };
+
+      NewSliderController.prototype.onShow = function() {
+        return App.navigate('slider-manager/new');
       };
 
       return NewSliderController;
@@ -62,7 +73,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         return NewSliderLayout.__super__.constructor.apply(this, arguments);
       }
 
-      NewSliderLayout.prototype.template = '<div class="form-group"><input type="text" class="form-control" name="slider-name"/></div> <ul class="nav nav-tabs"> <li><a href="#upload-media-region" data-toggle="tab">Upload</a></li> <li class="active"><a href="#selected-media" data-toggle="tab">All Media</a></li> </ul> <div class="tab-content"> <div id="upload-media-region" class="tab-pane"></div> <div id="selected-media" class="tab-pane active"> <div class="row"> <div class="col-md-9"><div id="grid-media-region"></div></div> <div class="col-md-3"><div id="selected-media-region"></div></div> </div> </div> </div> <button class="btn btn-primary create-new-slider"> Create New Slider </button>';
+      NewSliderLayout.prototype.template = '<div class="form-group"><input type="text" class="form-control" name="slider-name"/></div> <ul class="nav nav-tabs"> <li><a href="#upload-media-region" data-toggle="tab">Upload</a></li> <li class="active"><a href="#selected-media" data-toggle="tab">All Media</a></li> </ul> <div class="tab-content"> <div id="upload-media-region" class="tab-pane"></div> <div id="selected-media" class="tab-pane active"> <div class="row"> <div class="col-md-9"><div id="grid-media-region"></div></div> <div class="col-md-3"><div id="selected-media-region"></div></div> </div> </div> </div> <button class="btn btn-primary create-new-slider"> Create New Slider </button> <button class="btn cancel-new-slider"> Cancel </button>';
 
       NewSliderLayout.prototype.regions = {
         uploadRegion: '#upload-media-region',
@@ -71,10 +82,13 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
       };
 
       NewSliderLayout.prototype.events = {
-        'click .create-new-slider': function() {
+        'click button.create-new-slider': function() {
           var data;
           data = {};
           return data.slider_name = this.$el.find('input[name="slider-name"]').val();
+        },
+        'click button.cancel-new-slider': function() {
+          return this.trigger("cancel:create:slider");
         }
       };
 
@@ -85,7 +99,6 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
       if (opts == null) {
         opts = {};
       }
-      App.navigate('slider-manager/new');
       return new NewSliderController({
         region: opts.region
       });
