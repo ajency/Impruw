@@ -6,13 +6,6 @@ define ["app", 'backbone'], (App, Backbone) ->
 			class Slider.SliderModel extends Backbone.AssociatedModel
 				idAttribute : 'id'
 
-				parse:(resp)->
-					# change sizes to an array
-					if resp.code is 'OK'
-						return resp.data 
-
-					resp
-
 
 			#Media collection
 			class Slider.SliderCollection extends Backbone.Collection

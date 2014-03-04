@@ -1,0 +1,171 @@
+# Copyright (C) 2013 
+# This file is distributed under the same license as the  package.
+msgid ""
+msgstr ""
+"Project-Id-Version:  \n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/wp\n"
+"POT-Creation-Date: 2013-02-27 11:21:28+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2013-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: google-analytics-mu.php:5
+msgid "Collect network-wide Google Analytics statistics and allow site admins to use their own tracking codes"
+msgstr ""
+
+#: google-analytics-mu.php:44 google-analytics-mu.php:54
+msgid "Google Analytics"
+msgstr ""
+
+#: google-analytics-mu.php:68 google-analytics-mu.php:157
+msgid "You do not have sufficient permissions to access this page."
+msgstr ""
+
+#: google-analytics-mu.php:76
+msgid "Analytics ID saved."
+msgstr ""
+
+#: google-analytics-mu.php:85
+msgid "Google Analytics Settings"
+msgstr ""
+
+#: google-analytics-mu.php:89
+msgid "Google Analytics Property-ID"
+msgstr ""
+
+#: google-analytics-mu.php:97 google-analytics-mu.php:265
+msgid "Format: UA-01234567-8"
+msgstr ""
+
+#: google-analytics-mu.php:99 google-analytics-mu.php:267
+msgid "Go to your %s to find your Property-ID"
+msgstr ""
+
+#: google-analytics-mu.php:99 google-analytics-mu.php:267
+msgid "Google Analytics Dashboard"
+msgstr ""
+
+#: google-analytics-mu.php:102
+msgid "Anonymize IPs"
+msgstr ""
+
+#: google-analytics-mu.php:112 google-analytics-mu.php:129
+#: google-analytics-mu.php:314 google-analytics-mu.php:333
+msgid "Activated"
+msgstr ""
+
+#: google-analytics-mu.php:115 google-analytics-mu.php:318
+msgid ""
+"If AnonymizeIP is activated all tracked IPs will be saved in shortened form."
+msgstr ""
+
+#: google-analytics-mu.php:119 google-analytics-mu.php:322
+msgid "Google PageSpeed"
+msgstr ""
+
+#: google-analytics-mu.php:132
+msgid "Activate to track performance via Google PageSpeed."
+msgstr ""
+
+#: google-analytics-mu.php:141
+msgid ""
+"As this is the main blog it uses the same ID as the network do. Changing "
+"this would change the networkwide ID; that is why it is disabled here."
+msgstr ""
+
+#: google-analytics-mu.php:189
+msgid "Network settings saved."
+msgstr ""
+
+#: google-analytics-mu.php:198
+msgid "Google Analytics Network Settings"
+msgstr ""
+
+#: google-analytics-mu.php:211
+msgid "Network-Settings"
+msgstr ""
+
+#: google-analytics-mu.php:212 google-analytics-mu.php:225
+msgid "About"
+msgstr ""
+
+#: google-analytics-mu.php:231
+msgid "Development"
+msgstr ""
+
+#: google-analytics-mu.php:233
+msgid "Main Developer"
+msgstr ""
+
+#: google-analytics-mu.php:238
+msgid "Requires at least: %s"
+msgstr ""
+
+#: google-analytics-mu.php:239
+msgid "Tested up to: %s"
+msgstr ""
+
+#: google-analytics-mu.php:242
+msgid "Languages"
+msgstr ""
+
+#: google-analytics-mu.php:247
+msgid "Help to translate at %s"
+msgstr ""
+
+#: google-analytics-mu.php:249
+msgid "License"
+msgstr ""
+
+#: google-analytics-mu.php:258
+msgid "Network Google Analytics Property-ID"
+msgstr ""
+
+#: google-analytics-mu.php:270
+msgid "Network domain"
+msgstr ""
+
+#: google-analytics-mu.php:277
+msgid "Format: \".mydomain.com\""
+msgstr ""
+
+#: google-analytics-mu.php:280
+msgid "Start with a dot! This value goes into %s"
+msgstr ""
+
+#: google-analytics-mu.php:284
+msgid "Site specific accounts"
+msgstr ""
+
+#: google-analytics-mu.php:295
+msgid "Allowed"
+msgstr ""
+
+#: google-analytics-mu.php:298
+msgid ""
+"If this is disallowed the Google Analytics settings page will not be visible "
+"to site admins."
+msgstr ""
+
+#: google-analytics-mu.php:299
+msgid ""
+"That means they will not be able to use their own Google Analytics accounts "
+"to track statistics."
+msgstr ""
+
+#: google-analytics-mu.php:303
+msgid "Anonymize IPs for Network-Tracking"
+msgstr ""
+
+#: google-analytics-mu.php:317
+msgid ""
+"This option activates IP-Anonymization for the network domain on the main "
+"site and all subsites."
+msgstr ""
+
+#: google-analytics-mu.php:335
+msgid "Activate to track network-wide performance via Google PageSpeed."
+msgstr ""

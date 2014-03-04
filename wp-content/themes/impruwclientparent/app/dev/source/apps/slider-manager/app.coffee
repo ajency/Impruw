@@ -30,6 +30,8 @@ define ['app'
 							App.execute "start:create:new:slider", 
 												region : @layout.newEditSliderRegion
 
+						@listenTo @layout.newEditSliderRegion, "cancel:create:slider", ->
+							@layout.slidersGridRegion.unhide()
 
 						App.getRegion('elementsBoxRegion').hide()
 

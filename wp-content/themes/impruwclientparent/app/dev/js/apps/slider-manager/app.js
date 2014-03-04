@@ -43,6 +43,9 @@ define(['app', 'controllers/base-controller', 'apps/slider-manager/new/newcontro
             region: this.layout.newEditSliderRegion
           });
         });
+        this.listenTo(this.layout.newEditSliderRegion, "cancel:create:slider", function() {
+          return this.layout.slidersGridRegion.unhide();
+        });
         App.getRegion('elementsBoxRegion').hide();
         return this.show(this.layout);
       };

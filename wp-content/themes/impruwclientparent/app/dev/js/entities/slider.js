@@ -13,13 +13,6 @@ define(["app", 'backbone'], function(App, Backbone) {
 
       SliderModel.prototype.idAttribute = 'id';
 
-      SliderModel.prototype.parse = function(resp) {
-        if (resp.code === 'OK') {
-          return resp.data;
-        }
-        return resp;
-      };
-
       return SliderModel;
 
     })(Backbone.AssociatedModel);
