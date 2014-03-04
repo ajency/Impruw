@@ -1,4 +1,4 @@
-define ['app', 'controllers/base-controller', 'apps/media/selected/views'], (App, AppController)->
+define ['app', 'controllers/base-controller'], (App, AppController)->
 
 	#Login App module
 	App.module "Media.Selected", (Selected, App)->
@@ -18,7 +18,7 @@ define ['app', 'controllers/base-controller', 'apps/media/selected/views'], (App
 			# gets the main login view
 			_getView :(collection)->
 				new SelectedMedia
-							collection : collection
+							collection : collection 
 
 
 		# Views
