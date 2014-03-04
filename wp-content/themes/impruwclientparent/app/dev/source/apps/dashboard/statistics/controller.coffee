@@ -29,6 +29,9 @@ define ['app'
 						dateRange = $('input.range-radio-button:checked').val()
 						rangeData = _.last rawData,dateRange
 						@trigger "radio:clicked" ,rangeData
+
+					onShow:->
+						@$el.find('input[type="radio"]').bootstrapSwitch()	
 						
 					
 						
