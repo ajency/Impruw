@@ -317,7 +317,20 @@ and open the template in the editor.
 }
 .contactform .flat {
   border-radius: 0;
-  margin-bottom: 0.6em;
+  margin-bottom: 0.8em;
+}
+.contactform select {
+  color: #B2BCC5;
+}
+.contactform select:focus {
+  color: #34495E;
+}
+.contactform .btn {
+  border-radius: 0;
+  margin-top: 0.3em;
+}
+.contactform .btn:hover {
+  background: #5ca9a1;
 }
 .top-margin-small {
   margin-top: 0.5em;
