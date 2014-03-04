@@ -34,6 +34,7 @@ define(['marionette'], function(Marionette) {
   });
   App.on("initialize:after", function(options) {
     var appState;
+    App.execute("create:analytics:store");
     appState = App.request("get:current:appstate");
     App.startHistory();
     if (appState.isLoggedIn()) {
