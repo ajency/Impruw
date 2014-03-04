@@ -40,6 +40,7 @@ define(['app', 'controllers/base-controller', 'apps/dashboard/statistics/charts/
               return graphArray.push(dailydata);
             });
             graphObject = {
+              area: true,
               key: 'Visits',
               values: graphArray
             };

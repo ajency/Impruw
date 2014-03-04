@@ -18,7 +18,7 @@ define ['app'
 
 					changeChart:->
 
-						criterion = new Array()
+						criterion = new Array() 
 
 						$('input.chart-button:checked').each ->
 							criterion.push $(this).val()
