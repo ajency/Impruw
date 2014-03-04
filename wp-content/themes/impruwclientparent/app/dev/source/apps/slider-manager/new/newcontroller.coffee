@@ -27,7 +27,7 @@ define ['app'
 									@showErrorView()
 									return
 
-								sliderData.slider_images 	= @selectedMediaCollection.toJSON()
+								#sliderData.slider_images = @selectedMediaCollection.toJSON()
 								sliderModel = App.request "create:new:slider:model", sliderData
 								sliderModel.save wait: true
 
@@ -91,7 +91,9 @@ define ['app'
 					events: 
 						'click button.create-new-slider' : ->
 								data = {}
-								data.slider_name 	= @$el.find('input[name="slider-name"]').val()
+								data.main = {}
+								data.main['title'] 	= @$el.find('input[name="slider-name"]').val()
+								data.main['title'] 	= _.slugify data.main['title']
 								@trigger "create:new:slider", data
 
 						'click button.cancel-new-slider': -> @trigger "cancel:create:slider"

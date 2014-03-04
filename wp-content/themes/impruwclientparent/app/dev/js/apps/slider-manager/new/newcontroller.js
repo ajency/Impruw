@@ -34,7 +34,6 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
               _this.showErrorView();
               return;
             }
-            sliderData.slider_images = _this.selectedMediaCollection.toJSON();
             sliderModel = App.request("create:new:slider:model", sliderData);
             return sliderModel.save({
               wait: true
@@ -94,7 +93,9 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         'click button.create-new-slider': function() {
           var data;
           data = {};
-          data.slider_name = this.$el.find('input[name="slider-name"]').val();
+          data.main = {};
+          data.main['title'] = this.$el.find('input[name="slider-name"]').val();
+          data.main['title'] = _.slugify(data.main['title']);
           return this.trigger("create:new:slider", data);
         },
         'click button.cancel-new-slider': function() {

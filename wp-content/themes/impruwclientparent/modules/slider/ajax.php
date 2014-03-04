@@ -28,8 +28,8 @@ function create_slider(){
 
 	unset($data['action']);
 
-	//$data = create_new_slider($data);
+	$id = create_new_slider($data);
 
-	wp_send_json(array('code' => 'OK', 'data' => $data));
+	wp_send_json(array('code' => 'OK', 'data' => array ('id' => $id)));
 }
 add_action('wp_ajax_create-slider', 'create_slider'); 
