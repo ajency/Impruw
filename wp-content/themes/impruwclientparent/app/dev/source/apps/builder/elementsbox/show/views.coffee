@@ -53,9 +53,6 @@ define ['app'
 														addClasses			: false
 														distance 			: 5
 														revert 				: 'invalid'
-				
-
-				
-
+			
 				
 			App.ElementsBoxApp.Show.Views

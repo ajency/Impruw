@@ -20,7 +20,13 @@ define(['app', 'text!apps/media/grid/templates/media.html'], function(App, media
           return e.preventDefault();
         },
         'click': function(e) {
-          return this.trigger("media:element:clicked");
+          var media;
+          media = $(e.target).hasClass('single-img') ? $(e.target) : $(e.target).closest('.single-img');
+          if ($(media).hasClass('ui-selected')) {
+            return this.trigger("media:element:selected");
+          } else {
+            return this.trigger("media:element:unselected");
+          }
         }
       };
 
@@ -43,7 +49,9 @@ define(['app', 'text!apps/media/grid/templates/media.html'], function(App, media
       GridView.prototype.itemViewContainer = '#selectable-images';
 
       GridView.prototype.onCollectionRendered = function() {
-        return this.$el.find('#selectable-images').selectable();
+        return this.$el.find('#selectable-images').bind("mousedown", function(e) {
+          return e.metaKey = true;
+        }).selectable();
       };
 
       return GridView;

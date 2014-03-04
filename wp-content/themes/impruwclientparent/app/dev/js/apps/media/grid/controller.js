@@ -15,9 +15,14 @@ define(['app', 'controllers/base-controller', 'apps/media/grid/views'], function
         var mediaCollection, view;
         mediaCollection = App.request("fetch:media", true);
         view = this._getView(mediaCollection);
-        this.listenTo(view, "itemview:media:element:clicked", (function(_this) {
+        this.listenTo(view, "itemview:media:element:selected", (function(_this) {
           return function(iv) {
-            return Marionette.triggerMethod.call(_this.region, "media:element:clicked", Marionette.getOption(iv, 'model'));
+            return Marionette.triggerMethod.call(_this.region, "media:element:selected", Marionette.getOption(iv, 'model'));
+          };
+        })(this));
+        this.listenTo(view, "itemview:media:element:unselected", (function(_this) {
+          return function(iv) {
+            return Marionette.triggerMethod.call(_this.region, "media:element:unselected", Marionette.getOption(iv, 'model'));
           };
         })(this));
         return this.show(view, {
@@ -34,7 +39,14 @@ define(['app', 'controllers/base-controller', 'apps/media/grid/views'], function
       return Controller;
 
     })(AppController);
-    return Grid.on('start', (function(_this) {
+    Grid.on('start', (function(_this) {
+      return function(options) {
+        return new Grid.Controller({
+          region: options.region
+        });
+      };
+    })(this));
+    return App.commands.setHandler('start:media:grid:app', (function(_this) {
       return function(options) {
         return new Grid.Controller({
           region: options.region

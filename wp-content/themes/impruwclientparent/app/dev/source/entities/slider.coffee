@@ -36,6 +36,7 @@ define ["app", 'backbone'], (App, Backbone) ->
 				createStoreCollection:->
 					sliderCollection = new Slider.SliderCollection
 					App.request "set:collection", 'slidercollection', sliderCollection
+					
 
 				fetchSliders:(reset)->
 					App.request "set:collection", 'slidercollection', sliderCollection
@@ -57,7 +58,7 @@ define ["app", 'backbone'], (App, Backbone) ->
 				createNewSlider:(data)->
 					slider = new Slider.SliderModel data
 					sliderCollection = App.request "get:collection", 'slidercollection'
-					sliderCollection.add slider
+					slider.collection = sliderCollection
 					slider
 
 
@@ -71,5 +72,5 @@ define ["app", 'backbone'], (App, Backbone) ->
 			App.reqres.setHandler "get:slider:by:id",(sliderId)->
 				API.getSliderById sliderId
 
-			App.commands.setHandler "create:new:slider",(modelData)->
+			App.reqres.setHandler "create:new:slider:model",(modelData)->
 				API.createNewSlider modelData

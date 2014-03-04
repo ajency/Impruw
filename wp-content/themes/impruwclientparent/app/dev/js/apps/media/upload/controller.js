@@ -24,7 +24,14 @@ define(['app', 'controllers/base-controller', 'apps/media/upload/views'], functi
       return Controller;
 
     })(AppController);
-    return Upload.on('start', (function(_this) {
+    Upload.on('start', (function(_this) {
+      return function(options) {
+        return new Upload.Controller({
+          region: options.region
+        });
+      };
+    })(this));
+    return App.commands.setHandler('start:media:upload:app', (function(_this) {
       return function(options) {
         return new Upload.Controller({
           region: options.region

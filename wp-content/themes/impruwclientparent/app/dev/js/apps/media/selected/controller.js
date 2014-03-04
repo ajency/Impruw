@@ -77,7 +77,12 @@ define(['app', 'controllers/base-controller', 'apps/media/selected/views'], func
 
     })(Marionette.CompositeView);
     Selected.on('initialize:before', function() {});
-    return Selected.on('start', (function(_this) {
+    Selected.on('start', (function(_this) {
+      return function(options) {
+        return new Selected.Controller(options);
+      };
+    })(this));
+    return App.commands.setHandler('start:media:selected:app', (function(_this) {
       return function(options) {
         return new Selected.Controller(options);
       };
