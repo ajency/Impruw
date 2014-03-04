@@ -1,7 +1,7 @@
 var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-define(['app', 'controllers/base-controller', 'text!apps/media-manager/templates/outer.html', 'apps/media-manager/upload/controller', 'apps/media-manager/grid/controller', 'apps/media-manager/edit-media/controller'], function(App, AppController, outerTpl) {
+define(['app', 'controllers/base-controller', 'text!apps/media-manager/templates/outer.html'], function(App, AppController, outerTpl) {
   return App.module('MediaManager', function(MediaManager, App, Backbone, Marionette, $, _) {
     var API, OuterLayout, ShowController;
     MediaManager.Router = (function(_super) {
@@ -32,13 +32,13 @@ define(['app', 'controllers/base-controller', 'text!apps/media-manager/templates
         this.choosedMedia = null;
         this.layout = this._getLayout();
         this.show(this.layout);
-        MediaManager.Upload.start({
+        App.Media.Upload.start({
           region: this.layout.uploadRegion
         });
-        MediaManager.Grid.start({
+        App.Media.Grid.start({
           region: this.layout.gridRegion
         });
-        MediaManager.EditMedia.start();
+        App.Media.EditMedia.start();
         this.listenTo(this.layout.gridRegion, "media:element:clicked", (function(_this) {
           return function(media) {
             _this.choosedMedia = media;
@@ -57,9 +57,9 @@ define(['app', 'controllers/base-controller', 'text!apps/media-manager/templates
       };
 
       ShowController.prototype.onClose = function() {
-        App.MediaManager.Upload.stop();
-        MediaManager.Grid.stop();
-        MediaManager.EditMedia.stop();
+        App.Media.Upload.stop();
+        App.Media.Grid.stop();
+        App.Media.EditMedia.stop();
         App.navigate('');
         return App.getRegion('elementsBoxRegion').unhide();
       };

@@ -1,23 +1,19 @@
-form.well.span8
+form
 	.row
-		.span3
+		.col-md-6
 			label First Name
-			input.span3(type='text', placeholder='Your First Name')
+			input.form-control.flat(type='text', placeholder='Your First Name')
 			label Last Name
-			input.span3(type='text', placeholder='Your Last Name')
+			input.form-control.flat(type='text', placeholder='Your Last Name')
 			label Email Address
-			input.span3(type='text', placeholder='Your email address')
+			input.form-control.flat(type='text', placeholder='Your Email Address')
 			label Subject
-			select#subject.span3(name='subject')
-				option(value='na', selected='')
-				| Choose One:
-				option(value='service')
-				| General Customer Service
-				option(value='suggestions')
-				| Suggestions
-				option(value='product')
-				| Product Support
-		.span5
+			select#subject.form-control.flat(name='subject', placeholder='Choose One:')
+				option(value='na', selected='') Choose One:
+				option(value='service') General Customer Service
+				option(value='suggestions') Suggestions
+				option(value='product') Product Support
+		.col-md-6
 			label Message
-			textarea#message.input-xlarge.span5(rows='10', name='message')     
-		button.btn.btn-primary.pull-right(type='submit') Send
+			textarea#message.form-control.flat(rows='5', name='message', placeholder='Your Message') 
+			button.btn.btn-default(type='submit') Send Message

@@ -1,9 +1,6 @@
 define ['app'
 		'controllers/base-controller'
-		'text!apps/media-manager/templates/outer.html'
-		'apps/media-manager/upload/controller'
-		'apps/media-manager/grid/controller'
-		'apps/media-manager/edit-media/controller'], (App, AppController, outerTpl)->
+		'text!apps/media-manager/templates/outer.html'], (App, AppController, outerTpl)->
 
 			App.module 'MediaManager', (MediaManager, App, Backbone, Marionette, $, _)->
 
@@ -26,12 +23,13 @@ define ['app'
 						@layout = @_getLayout()
 						@show @layout
 
+						
 						# start media manager apps. conditional strating of apps is possible
 						# each app needs a region as the argument. Each app will be functional only
 						# for that region
-						MediaManager.Upload.start region : @layout.uploadRegion
-						MediaManager.Grid.start region : @layout.gridRegion
-						MediaManager.EditMedia.start()
+						App.Media.Upload.start region : @layout.uploadRegion
+						App.Media.Grid.start region : @layout.gridRegion
+						App.Media.EditMedia.start()
 						
 						@listenTo @layout.gridRegion, "media:element:clicked",(media)=>
 																	@choosedMedia = media
@@ -49,9 +47,9 @@ define ['app'
 						
 					onClose: ->
 						#stop all sub apps
-						App.MediaManager.Upload.stop()
-						MediaManager.Grid.stop()
-						MediaManager.EditMedia.stop()
+						App.Media.Upload.stop()
+						App.Media.Grid.stop()
+						App.Media.EditMedia.stop()
 
 						# navigate back to original route. do not trigger the router 
 						# only navigate

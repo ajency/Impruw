@@ -86,6 +86,9 @@ define ["app", 'backbone'], (App, Backbone) ->
 
 					media
 
+				getEmptyMediaCollection:->
+					new Media.MediaCollection
+
 				# this fucntion will return a placeholder media for the requesting element
 				# this will be special purpose media model.
 				getPlaceHolderMedia:->
@@ -105,6 +108,9 @@ define ["app", 'backbone'], (App, Backbone) ->
 			#REQUEST HANDLERS
 			App.commands.setHandler "create:media:store", ->
 				API.createStoreCollection()
+
+			App.reqres.setHandler "get:empty:media:collection",->
+				API.getEmptyMediaCollection()
 			
 			App.reqres.setHandler "fetch:media",(shouldReset = true) ->
 				API.fetchMedia shouldReset

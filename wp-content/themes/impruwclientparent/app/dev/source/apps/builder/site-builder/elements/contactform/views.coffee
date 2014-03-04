@@ -13,4 +13,4 @@ define ['app'
 
 					# set the class name before element is rendered
 					onBeforeRender:->
-						@className += " " + Marionette.getOption this,'className'
+						@className += " " + Marionette.getOption this,'clsName'

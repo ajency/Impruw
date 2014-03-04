@@ -722,6 +722,12 @@ Version:        0.1.0
 .aj-imp-builder-layout-mode .element-wrapper.hover-class:hover > .element-controls .aj-imp-settings-btn {
   display: block;
 }
+.aj-imp-builder-layout-mode .element-wrapper.hover-class:hover > .element-markup > .row > .column {
+  border-right: 1px dotted #c3c3c3;
+}
+.aj-imp-builder-layout-mode .element-wrapper.hover-class:hover > .element-markup > .row > .column:last-child {
+  border-right: 0;
+}
 .aj-imp-builder-layout-mode .aj-imp-col-sel {
   top: -4.6em;
   display: none;
@@ -820,7 +826,6 @@ Version:        0.1.0
   position: relative;
   background-clip: content-box;
   background: #fff;
-  border-right: 1px dotted #c3c3c3;
 }
 .aj-imp-builder-layout-mode .row .column.empty-column {
   background: url(../images/empty-drag-bg.svg) no-repeat center center #ffffff;
@@ -835,9 +840,6 @@ Version:        0.1.0
 .aj-imp-builder-layout-mode .row .column .row {
   margin: 0.5em;
   border: 1px solid transparent;
-}
-.aj-imp-builder-layout-mode .row .column:last-child {
-  border-right: 0;
 }
 .aj-imp-builder-layout-mode .row:last-child {
   margin: 0;
@@ -918,6 +920,17 @@ Version:        0.1.0
 .settings-box .form-horizontal .form-group .checkbox .icons .first-icon,
 .settings-box .form-horizontal .form-group .checkbox .icons .second-icon {
   border-radius: 5px;
+}
+.settings-box .form-horizontal .form-group .set-column-count {
+  padding-top: 7px;
+}
+.settings-box .form-horizontal .form-group .set-column-count a {
+  margin-right: 1px;
+  padding: 1px 8px;
+}
+.settings-box .form-horizontal .form-group .set-column-count a:hover {
+  background: #ff7e00;
+  color: #fff;
 }
 /****Builder Element Layout Mode Styles****/
 .aj-imp-builder-layout-mode [class^="aj-imp-elem-"] {
@@ -1657,4 +1670,47 @@ Version:        0.1.0
 }
 .form-group .updateProperties:hover {
   background: #ffb266;
+}
+/****Builder Slider Manager Styles****/
+.slider-mgr {
+  padding: 0.5em 15px;
+}
+.slider-mgr .sliders .thumbnail {
+  border: 2px solid #849fb0;
+  position: relative;
+  height: 300px;
+  max-height: 300px;
+  overflow: hidden;
+}
+.slider-mgr .sliders .thumbnail .caption {
+  text-align: center;
+}
+.slider-mgr .sliders .thumbnail .caption h5 {
+  font-size: 1.5em;
+  color: #aaaaaa;
+}
+.slider-mgr .sliders .thumbnail .caption .badge {
+  background: #849fb0;
+  padding: 0.5em 1em;
+  position: absolute;
+  top: 0.3em;
+  right: 0.3em;
+}
+.slider-mgr .sliders .thumbnail .actions {
+  text-align: center;
+}
+.slider-mgr .sliders .thumbnail:hover {
+  border-color: #ff7e00;
+}
+.slider-mgr .sliders .thumbnail.add-slider {
+  text-align: center;
+  min-height: 300px;
+  font-size: 2em;
+  color: #ff7e00;
+  padding-top: 3.5em;
+  border-color: #ff7e00;
+}
+.slider-mgr .sliders .thumbnail.add-slider:hover {
+  background: #ff7e00;
+  color: #fff;
 }

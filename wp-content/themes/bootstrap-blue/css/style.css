@@ -63,9 +63,29 @@ and open the template in the editor.
 }
 .row.center-container {
   max-width: 1170px;
+  margin: 0.5em auto;
 }
 .row.shaded-background {
   background: url("../resources/img/stripe_bg.png") repeat scroll 0 0 rgba(0, 0, 0, 0);
+}
+.row.column-dividers .column {
+  border-right: 1px solid #cbcbcb;
+}
+.row.column-dividers .column:last-child {
+  border-right: 0;
+}
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 3 Mar, 2014, 1:00:35 PM
+    Author     : jarr-head
+*/
+#site-header-region .center-container {
+  max-width: 1000px;
+  margin: 0.5em auto;
 }
 /****Top Slim-menu Styles****/
 .nav {
@@ -259,6 +279,9 @@ ul.social li a {
   -o-transition: top 0.7s;
   transition: top 0.7s;
 }
+ul.social li a .name {
+  display: none;
+}
 ul.social li a:hover {
   color: #fff;
 }
@@ -279,6 +302,35 @@ ul.social li:hover {
 }
 ul.social li:hover a {
   top: -50px;
+}
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 3 Mar, 2014, 16:08:41 PM
+    Author     : jarr-head
+*/
+.contactform label {
+  display: none;
+}
+.contactform .flat {
+  border-radius: 0;
+  margin-bottom: 0.8em;
+}
+.contactform select {
+  color: #B2BCC5;
+}
+.contactform select:focus {
+  color: #34495E;
+}
+.contactform .btn {
+  border-radius: 0;
+  margin-top: 0.3em;
+}
+.contactform .btn:hover {
+  background: #5ca9a1;
 }
 .top-margin-small {
   margin-top: 0.5em;

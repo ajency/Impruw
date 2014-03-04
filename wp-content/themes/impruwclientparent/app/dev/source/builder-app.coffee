@@ -56,6 +56,7 @@ define ['marionette'], (Marionette)->
 		App.execute "create:media:store"
 		App.execute "create:menu:store"
 		App.execute "create:social:store"
+		App.execute "create:slider:store"
 
 		appState = App.request "get:current:appstate"
 		App.startHistory()

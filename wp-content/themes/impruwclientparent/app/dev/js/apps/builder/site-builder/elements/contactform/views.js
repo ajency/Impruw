@@ -15,7 +15,7 @@ define(['app', 'text!apps/builder/site-builder/elements/contactform/templates/co
       ContactFormView.prototype.template = contactformTpl;
 
       ContactFormView.prototype.onBeforeRender = function() {
-        return this.className += " " + Marionette.getOption(this, 'className');
+        return this.className += " " + Marionette.getOption(this, 'clsName');
       };
 
       return ContactFormView;

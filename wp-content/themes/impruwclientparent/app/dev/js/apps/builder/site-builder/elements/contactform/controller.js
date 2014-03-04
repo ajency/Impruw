@@ -27,7 +27,7 @@ define(['app', 'apps/builder/site-builder/elements/contactform/views', 'apps/bui
       Controller.prototype._getContactFormView = function(template, className) {
         var data;
         data = {};
-        data.className = className;
+        data.clsName = className;
         if (!_(template).isBlank()) {
           data.template = template;
         }
