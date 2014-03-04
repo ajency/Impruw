@@ -28,6 +28,7 @@ require.config
 		jqueryvalidate 		: 'plugins/jquery.validate'
 		polyglot 			: 'plugins/polyglot'
 		app 				: 'dashboard-app' 
+		bootstrapswitch 	: 'plugins/bootstrap-switch'
 	shim:
 		underscore: 
 			exports : '_'
@@ -56,6 +57,7 @@ require.config
 		radio 				: ['bootstrap']
 		checkbox 			: ['bootstrap']
 		bootstrapselect		: ['bootstrap']
+		bootstrapswitch		: ['bootstrap']
 		app 				: ['plugins/plugin-loader','configs/config-loader']
 
 	tpl :
