@@ -1,6 +1,7 @@
 define ['app'
 		'controllers/base-controller'
-		'text!apps/slider-manager/templates/outer.html'], (App, AppController, outerTpl)->
+		'apps/slider-manager/new/newcontroller'
+		'apps/slider-manager/grid/gridcontroller'], (App, AppController)->
 
 			App.module 'SliderManager', (SliderManager, App, Backbone, Marionette, $, _)->
 
@@ -18,31 +19,25 @@ define ['app'
 					# initialize
 					initialize:(opt = {})->
 
-						# create an empty collection which will hold the selected images
-						@selectedMediaCollection = App.request "get:empty:media:collection"
-
 						@layout = @_getLayout()
-						@show @layout
+						
+						@listenTo @layout, "show", =>
+							App.execute "start:show:all:sliders", region : @layout.slidersGridRegion
 
-						# start media manager apps. conditional strating of apps is possible
-						# each app needs a region as the argument. Each app will be functional only
-						# for that region
-						#App.Media.Upload.start region : @layout.uploadRegion
-						#App.Media.Grid.start region : @layout.gridRegion
-						#App.Media.Selected.start 
-										# region : @layout.selectedMediaRegion
-										# collection : @selectedMediaCollection
+						# listen to create new slider event from the region
+						@listenTo @layout.slidersGridRegion, "create:new:slider", ->
+							@layout.slidersGridRegion.hide()
+							App.execute "start:create:new:slider", 
+												region : @layout.newEditSliderRegion
 
-						# @listenTo @layout.gridRegion, "media:element:clicked",(media)=>
-						# 											@selectedMediaCollection.add media
 
 						App.getRegion('elementsBoxRegion').hide()
+
+						@show @layout
+
+						
 						
 					onClose: ->
-						#stop all sub apps
-						#App.Media.Upload.stop()
-						#App.Media.Grid.stop()
-						
 						# navigate back to original route. do not trigger the router 
 						# only navigate
 						App.navigate ''
@@ -60,12 +55,14 @@ define ['app'
 				# set the modal title
 				class OuterLayout extends Marionette.Layout
 
-					template: outerTpl
+					template: '<div id="slider-grid-region"></div>
+								<div id="new-edit-slider"></div>'
+
+					className : 'slider-mgr'
 
 					regions : 
-						uploadRegion 		: '#upload-region'
-						gridRegion			: '#grid-region'
-						selectedMediaRegion : '#selected-media-region'
+						slidersGridRegion 	: '#slider-grid-region'
+						newEditSliderRegion	: '#new-edit-slider'
 
 					dialogOptions : 
 						modal_title : 'Slider Manager'
@@ -76,11 +73,8 @@ define ['app'
 					show:()->
 						new ShowController
 									region 	: App.dialogRegion
-									statApp : 'all-media'
 
-					editMedia:(model, region)->
-						
-
+					
 
 				SliderManager.on "start", ->
 					new SliderManager.Router

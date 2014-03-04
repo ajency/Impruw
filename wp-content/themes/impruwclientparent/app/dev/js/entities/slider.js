@@ -76,7 +76,7 @@ define(["app", 'backbone'], function(App, Backbone) {
         var slider, sliderCollection;
         slider = new Slider.SliderModel(data);
         sliderCollection = App.request("get:collection", 'slidercollection');
-        sliderCollection.add(slider);
+        slider.collection = sliderCollection;
         return slider;
       }
     };
@@ -92,7 +92,7 @@ define(["app", 'backbone'], function(App, Backbone) {
     App.reqres.setHandler("get:slider:by:id", function(sliderId) {
       return API.getSliderById(sliderId);
     });
-    return App.commands.setHandler("create:new:slider", function(modelData) {
+    return App.reqres.setHandler("create:new:slider:model", function(modelData) {
       return API.createNewSlider(modelData);
     });
   });

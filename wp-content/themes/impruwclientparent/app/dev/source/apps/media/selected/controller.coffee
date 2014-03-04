@@ -47,3 +47,6 @@ define ['app', 'controllers/base-controller', 'apps/media/selected/views'], (App
 		# start the selected app
 		Selected.on 'start',(options) =>
 			new Selected.Controller options
+
+		App.commands.setHandler 'start:media:selected:app',(options) =>
+			new Selected.Controller options
