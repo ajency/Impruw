@@ -8,7 +8,7 @@ define [
 		'backboneform'
 		'd3'
 		'backbonesyphon'
-		'backbonerelational'
+		'backboneassociations'
 		'jqueryvalidate'
 		'marionette'
 		'bootstrap'
