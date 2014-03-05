@@ -1736,9 +1736,6 @@ form .aj-imp-submit:hover {
   background: #f3f3f3;
   padding: 3em 0.5em 0.5em;
 }
-#overview-region #overview-chart-region #overview-chart {
-  height: auto;
-}
 #select-days {
   position: absolute;
   top: 3.5em;
