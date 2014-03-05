@@ -8,16 +8,18 @@ define ['app'
 
 					initialize:(opt)->
 
-						# get the slider collection
-						collection = App.request "get:sliders"
-						
+						{collection} = opt
+
 						# pass the collection to composite view
 						view = @_getSliderGridView collection
 
 						# listen to create slider event from the view
 						@listenTo view, "create:new:slider",() ->
-							# bubble up the same event from a region
 							Marionette.triggerMethod.call @region, "create:new:slider"
+
+						# listen to create slider event from the view
+						@listenTo view, "itemview:edit:slider",(id) ->
+							Marionette.triggerMethod.call @region, "edit:slider", id
 
 						# show the view with loading indicator 
 						@show view, loading : true
@@ -33,10 +35,15 @@ define ['app'
 
 					className : 'col-sm-2'
 
+					events : 
+						'click .edit-slider' : -> @trigger "edit:slider", @model.get 'id'
+
 
 				class SliderGridView extends Marionette.CompositeView
 
-					template : ''
+					template : '<div class="col-sm-2">
+									<a href="#" class="thumbnail create-slider"><span class="glyphicon glyphicon-plus-sign"></span><br>Add New Slider</a>
+								</div>'
 
 					className : 'row sliders'
 
@@ -47,16 +54,7 @@ define ['app'
 								e.preventDefault()
 								@trigger "create:new:slider"
 
-					onCollectionRendered : ->
-						@$el.prepend '<div class="col-sm-2">
-										<a href="#" class="thumbnail create-slider"><span class="glyphicon glyphicon-plus-sign"></span><br>Add New Slider</a>
-									</div>'
 
-
-
-				App.commands.setHandler 'start:show:all:sliders', (opts = {})->
-
+				App.commands.setHandler 'show:sliders:grid', (opts = {})->
 					App.navigate 'slider-manager'
-
-					new GridViewController
-							region : opts.region
+					new GridViewController opts
