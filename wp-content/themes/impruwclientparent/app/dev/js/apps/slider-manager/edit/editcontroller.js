@@ -41,7 +41,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         return EditSliderLayout.__super__.constructor.apply(this, arguments);
       }
 
-      EditSliderLayout.prototype.template = 'left side pane will go here. may be it wact like tab but on left <div id="slider-settings-region"></div> <div id="sliders-list-region"></div> <div id="add-edit-slide-region"></div>';
+      EditSliderLayout.prototype.template = '<div class="row"> <div class="col-sm-3"> Left Nav </div> <div class="col-sm-9"> <div id="slider-settings-region"></div> <div id="sliders-list-region"></div> <div id="add-edit-slide-region"></div> </div> </div>';
 
       EditSliderLayout.prototype.regions = {
         sliderSettingsRegion: '#slider-settings-region',

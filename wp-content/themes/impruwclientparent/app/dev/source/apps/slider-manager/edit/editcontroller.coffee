@@ -30,10 +30,16 @@ define ['app'
 				# slider form
 				class EditSliderLayout extends Marionette.Layout
 
-					template : 'left side pane will go here. may be it wact like tab but on left
-								<div id="slider-settings-region"></div>
-								<div id="sliders-list-region"></div>
-								<div id="add-edit-slide-region"></div>'
+					template : '<div class="row">
+									<div class="col-sm-3">
+										Left Nav
+									</div>
+									<div class="col-sm-9">
+										<div id="slider-settings-region"></div>
+										<div id="sliders-list-region"></div>
+										<div id="add-edit-slide-region"></div>
+									</div>
+								</div>'
 
 					regions : 
 						sliderSettingsRegion 	: '#slider-settings-region'
