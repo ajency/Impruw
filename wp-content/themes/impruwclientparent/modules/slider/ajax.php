@@ -57,13 +57,26 @@ add_action('wp_ajax_update-slider', 'update_slider_ajax');
  */ 
 function delete_slider(){
 
-	$slider_id = $_POST['slider_id'];
+    $slider_id = $_POST['slider_id'];
 
-	unset($data['action']);
-        unset($data['wait']);
+    unset($data['action']);
+    unset($data['wait']);
 
-	$id = delete_slider($slider_id);
-
-	wp_send_json(array('code' => 'OK'));
+    $id = delete_slider($slider_id);
+    
+    wp_send_json(array('code' => 'OK'));
 }
 add_action('wp_ajax_delete-slider', 'delete_slider'); 
+
+
+/********** Slides ******************/
+
+function fetch_slides(){
+    
+    $slider_id = $_GET['slider_id'];
+    
+    $slides_arr = get_slides($slider_id);
+    
+    wp_send_json(array('code' => 'OK', 'data' => $slides_arr));
+}
+add_action('wp_ajax_fetch-slides','fetch_slides');

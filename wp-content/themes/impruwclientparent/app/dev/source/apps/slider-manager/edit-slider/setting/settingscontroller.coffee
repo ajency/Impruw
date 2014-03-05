@@ -19,6 +19,8 @@ define ['app'
 
 						@show view
 
+						App.navigate  "slider-manager/edit/#{@sliderId}/settings"
+
 					_getUpdateSettingsView:(slider)->
 						new CreateSliderView model : slider
 

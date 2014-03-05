@@ -1,6 +1,7 @@
 define ['app'
 		'controllers/base-controller'
-		'apps/slider-manager/edit-slider/setting/settingscontroller'], (App, AppController)->
+		'apps/slider-manager/edit-slider/setting/settingscontroller'
+		'apps/slider-manager/edit-slider/list-slides/listcontroller'], (App, AppController)->
 
 			App.module 'SliderManager.EditSlider', (EditSlider, App, Backbone, Marionette, $, _)->
 
@@ -77,7 +78,7 @@ define ['app'
 												<a href="#slider-settings-region" data-toggle="tab">Slider Settings</a>
 											</li>
 											<li>
-												<a href="#slides-list-region" data-toggle="tab">Sliders</a>
+												<a href="#slides-list-region" data-toggle="tab">Slides</a>
 											</li>
 											<li>
 												<a href="#add-edit-slide-region" data-toggle="tab">Add/Edit Slides</a>
@@ -99,7 +100,7 @@ define ['app'
 						
 					regions : 
 						sliderSettingsRegion 	: '#slider-settings-region'
-						slidesListRegion 		: '#sliders-list-region'
+						slidesListRegion 		: '#slides-list-region'
 						addEditSlideRegion 		: '#add-edit-slide-region'
 
 

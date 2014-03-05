@@ -29,7 +29,8 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
             });
           };
         })(this));
-        return this.show(view);
+        this.show(view);
+        return App.navigate("slider-manager/edit/" + this.sliderId + "/settings");
       };
 
       SettingsController.prototype._getUpdateSettingsView = function(slider) {

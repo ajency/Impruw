@@ -46,6 +46,8 @@ define ["app", 'backbone'], (App, Backbone) ->
 				
 				model : SlideModel
 
+				comparator : 'order'
+
 			
 				
 			##PUBLIC API FOR ENitity
@@ -103,6 +105,9 @@ define ["app", 'backbone'], (App, Backbone) ->
 
 			App.reqres.setHandler "get:slider:by:id",(sliderId)->
 				API.getSliderById sliderId
+
+			App.reqres.setHandler "get:slides:for:slide", (sliderId, shouldReset = true)->
+				API.fetchSlides sliderId, shouldReset
 
 			App.reqres.setHandler "create:new:slider:model",(modelData)->
 				API.createNewSlider modelData
