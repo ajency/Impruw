@@ -1,16 +1,34 @@
 
-<div id="overview-chart-region"></div>
-<div id="buttons-group">
-  <label for="visit">
-    <input id="totVisitCheckbox" type="checkbox" name="visit" value="ga:visits" checked="checked" data-toggle="switch" class="chart-button"/>Total Visitors
-  </label>
-  <label for="unique">
-    <input id="uniqueVisitCheckbox" type="checkbox" name="unique" value="ga:visitors" checked="checked" data-toggle="switch" class="chart-button"/>Unique Visitor
-  </label>
-  <label for="new">
-    <input id="newVisitCheckbox" type="checkbox" name="new" value="ga:newVisits" checked="checked" data-toggle="switch" class="chart-button"/>New Visitor
-  </label>
-  <label for="page">
-    <input id="pageViewCheckbox" type="checkbox" name="page" value="ga:pageviews" checked="checked" data-toggle="switch" class="chart-button"/>Page Views
-  </label>
+<div class="row">
+  <div id="overview-chart-region" class="col-md-12"></div>
+</div>
+<div id="buttons-group" class="row">
+  <div class="col-md-3">
+    <div class="checker">
+      <input id="totVisitCheckbox" type="checkbox" name="visit" value="ga:visits" checked="checked" data-toggle="switch" class="chart-button"/>
+      <label for="totVisitCheckbox"></label>
+      <div></div>
+    </div><span class="label-text">Total Visitors</span>
+  </div>
+  <div class="col-md-3">
+    <div class="checker">
+      <input id="uniqueVisitCheckbox" type="checkbox" name="unique" value="ga:visitors" checked="checked" data-toggle="switch" class="chart-button"/>
+      <label for="uniqueVisitCheckbox"></label>
+      <div></div>
+    </div><span class="label-text">Unique Visitors</span>
+  </div>
+  <div class="col-md-3">
+    <div class="checker">
+      <input id="newVisitCheckbox" type="checkbox" name="new" value="ga:newVisits" checked="checked" data-toggle="switch" class="chart-button"/>
+      <label for="newVisitCheckbox"></label>
+      <div></div>
+    </div><span class="label-text">New Visitors</span>
+  </div>
+  <div class="col-md-3">
+    <div class="checker">
+      <input id="pageViewCheckbox" type="checkbox" name="page" value="ga:pageviews" checked="checked" data-toggle="switch" class="chart-button"/>
+      <label for="pageViewCheckbox"></label>
+      <div></div>
+    </div><span class="label-text">Page Views</span>
+  </div>
 </div>
