@@ -1486,7 +1486,7 @@ Version:        0.1.0
 								}
 							}
 						}
-						#edit-media-region {
+						#edit-media-region, #selected-media-region {
 							border: 2px solid @dash-grey;
 							border-radius: 3px;
 							background: lighten(@preview-grey, 10%);
@@ -1837,7 +1837,7 @@ Version:        0.1.0
 			&:hover {
 				border-color: @orange;
 			}
-			&.add-slider {
+			&.create-slider {
 				text-align: center;
 				min-height: 300px;
 				font-size: 2em;
@@ -1848,6 +1848,20 @@ Version:        0.1.0
 					background: @orange;
 					color: #fff;
 				}
+			}
+		}
+	}
+	#new-edit-slider {
+		.selected-header {
+			color: @blue-grey;
+			font-size: 1.2em;
+		}
+		#selected-images {
+			.media {
+				display: inline-block;
+				padding: 2px;
+				border: 1px solid @preview-grey;
+				margin: 0 3px 3px 0;
 			}
 		}
 	}

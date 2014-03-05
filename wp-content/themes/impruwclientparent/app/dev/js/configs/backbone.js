@@ -1,5 +1,21 @@
 define(["backbone", "mustache"], function(Backbone, Mustache) {
   var _sync;
+  _.extend(Backbone.Model.prototype, {
+    parse: function(resp) {
+      if (resp.code === 'OK') {
+        return resp.data;
+      }
+      return resp;
+    }
+  });
+  _.extend(Backbone.Collection.prototype, {
+    parse: function(resp) {
+      if (resp.code === 'OK') {
+        return resp.data;
+      }
+      return resp;
+    }
+  });
   _sync = Backbone.sync;
   Backbone.sync = function(method, entity, options) {
     var sync;

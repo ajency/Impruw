@@ -47,6 +47,13 @@ define(['app', 'apps/builder/site-builder/elements/slider/views', 'apps/builder/
           }
         ]);
         view = this._getSliderView(collection);
+        this.listenTo(view, "itemview:show:slider:manager", (function(_this) {
+          return function() {
+            return App.navigate("slider-manager", {
+              trigger: true
+            });
+          };
+        })(this));
         return this.layout.elementRegion.show(view);
       };
 

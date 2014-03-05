@@ -6,28 +6,31 @@ define ["app", 'backbone'], (App, Backbone) ->
 			class Slider.SliderModel extends Backbone.AssociatedModel
 				idAttribute : 'id'
 
-				parse:(resp)->
-					# change sizes to an array
-					if resp.code is 'OK'
-						return resp.data 
+				name : 'slider'
 
-					resp
+				# override the default sync to make it wirk with wordpress :(
+				sync:(method, model, options = {}) ->
+
+					if not @name
+						throw new Error "'name' property missing"
+
+					if _.isFunction @name
+						name = @name()
+					else 
+						name = @name
+
+					# creation the action property with method name and name property
+					# ex: create-model-name, delete-model-name, update-model-name, read-model-name
+					_action = "#{method}-#{name}" 
+					
+					options.data = model.toJSON()
+					Backbone.send _action,options
 
 
 			#Media collection
 			class Slider.SliderCollection extends Backbone.Collection
-
-				filters: 
-					order           : 'DESC'
-					orderby         : 'date'
-					paged           : 1
-					posts_per_page  : 40
 				
 				model : Slider.SliderModel
-
-				parse:(resp)->
-					return resp.data if resp.code is 'OK'
-					resp
 
 				
 			##PUBLIC API FOR ENitity

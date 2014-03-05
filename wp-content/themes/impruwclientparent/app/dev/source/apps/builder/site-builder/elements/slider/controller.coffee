@@ -47,4 +47,8 @@ define ['app'
 
 
 						view = @_getSliderView collection
+
+						@listenTo view, "itemview:show:slider:manager", =>
+							App.navigate "slider-manager", trigger : true
+
 						@layout.elementRegion.show view

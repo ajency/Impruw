@@ -24,7 +24,8 @@ require.config({
     backbonerelational: 'plugins/backbone.relational',
     jqueryvalidate: 'plugins/jquery.validate',
     polyglot: 'plugins/polyglot',
-    app: 'dashboard-app'
+    app: 'dashboard-app',
+    bootstrapswitch: 'plugins/bootstrap-switch'
   },
   shim: {
     underscore: {
@@ -60,6 +61,7 @@ require.config({
     radio: ['bootstrap'],
     checkbox: ['bootstrap'],
     bootstrapselect: ['bootstrap'],
+    bootstrapswitch: ['bootstrap'],
     app: ['plugins/plugin-loader', 'configs/config-loader']
   },
   tpl: {

@@ -20,5 +20,6 @@ define [
 		'underscorestring'
 		'mustache'
 		'bootstrapselect'
+		'bootstrapswitch'
 		'nvd3'
 		],->

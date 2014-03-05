@@ -40,6 +40,7 @@ define ['app'
 						   			dailydata.y =parseInt _.first _.values _.pick day, 'ga:visits'#day.get 'ga:visits'
 						   			graphArray.push dailydata
 						   		graphObject = 
+						   			area : true 
 						   			key : 'Visits'
 						   			values : graphArray
 						  		graphData.push graphObject

@@ -1,9 +1,9 @@
 var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-define(['app', 'controllers/base-controller', 'apps/media/selected/views'], function(App, AppController) {
+define(['app', 'controllers/base-controller'], function(App, AppController) {
   return App.module("Media.Selected", function(Selected, App) {
-    var SelectedMedia, SelectedSingle;
+    var EmptyView, SelectedMedia, SelectedSingle;
     this.startWithParent = false;
     Selected.Controller = (function(_super) {
       __extends(Controller, _super);
@@ -58,6 +58,20 @@ define(['app', 'controllers/base-controller', 'apps/media/selected/views'], func
       return SelectedSingle;
 
     })(Marionette.ItemView);
+    EmptyView = (function(_super) {
+      __extends(EmptyView, _super);
+
+      function EmptyView() {
+        return EmptyView.__super__.constructor.apply(this, arguments);
+      }
+
+      EmptyView.prototype.className = 'pick-image';
+
+      EmptyView.prototype.template = '<span class="glyphicon glyphicon-hand-left"></span><h4>Select an Image from the library</h4>';
+
+      return EmptyView;
+
+    })(Marionette.ItemView);
     SelectedMedia = (function(_super) {
       __extends(SelectedMedia, _super);
 
@@ -65,11 +79,13 @@ define(['app', 'controllers/base-controller', 'apps/media/selected/views'], func
         return SelectedMedia.__super__.constructor.apply(this, arguments);
       }
 
-      SelectedMedia.prototype.className = 'row';
+      SelectedMedia.prototype.className = 'clearfix';
 
       SelectedMedia.prototype.template = '<div id="selected-images"></div>';
 
       SelectedMedia.prototype.itemView = SelectedSingle;
+
+      SelectedMedia.prototype.emptyView = EmptyView;
 
       SelectedMedia.prototype.itemViewContainer = '#selected-images';
 

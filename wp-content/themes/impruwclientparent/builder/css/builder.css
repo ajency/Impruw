@@ -1407,57 +1407,68 @@ Version:        0.1.0
 .modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #selectable-images .single-img.ui-selected .ticker {
   display: block;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #edit-media-region {
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #edit-media-region,
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #selected-media-region {
   border: 2px solid #aaaaaa;
   border-radius: 3px;
   background: #ffffff;
   padding: 5px;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #edit-media-region .pick-image {
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #edit-media-region .pick-image,
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #selected-media-region .pick-image {
   text-align: center;
   padding: 2em;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #edit-media-region .pick-image .glyphicon {
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #edit-media-region .pick-image .glyphicon,
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #selected-media-region .pick-image .glyphicon {
   font-size: 4em;
   color: #aaaaaa;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #edit-media-region .pick-image h4 {
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #edit-media-region .pick-image h4,
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #selected-media-region .pick-image h4 {
   color: #aaaaaa;
   text-transform: uppercase;
   font-size: 1.2em;
   margin: 2em 0 0;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #edit-media-region h5 {
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #edit-media-region h5,
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #selected-media-region h5 {
   color: #777777;
   font-size: 1em;
   text-transform: uppercase;
   border-bottom: 1px solid #aaaaaa;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #edit-media-region .imgdetails {
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #edit-media-region .imgdetails,
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #selected-media-region .imgdetails {
   margin: 0 0 1em;
   padding: 0 0 1em;
   border-bottom: 1px solid #aaaaaa;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #edit-media-region .imginfo {
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #edit-media-region .imginfo,
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #selected-media-region .imginfo {
   color: #aaaaaa;
   font-size: 0.88em;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #edit-media-region .imginfo h6 {
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #edit-media-region .imginfo h6,
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #selected-media-region .imginfo h6 {
   font-size: 1.2em;
   color: #182944;
   margin: 0 0 0.2em;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #edit-media-region .imginfo .edit-image {
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #edit-media-region .imginfo .edit-image,
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #selected-media-region .imginfo .edit-image {
   margin: 0.5em 0.5em 0.5em 0;
   color: #849fb0;
   display: inline-block;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #edit-media-region .imginfo .delete-image {
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #edit-media-region .imginfo .delete-image,
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #selected-media-region .imginfo .delete-image {
   color: #cc6500;
   margin: 0.5em 0.5em 0.5em 0;
   display: inline-block;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #edit-media-region label {
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #edit-media-region label,
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #selected-media-region label {
   font-size: 0.88em;
   color: #aaaaaa;
 }
@@ -1702,7 +1713,7 @@ Version:        0.1.0
 .slider-mgr .sliders .thumbnail:hover {
   border-color: #ff7e00;
 }
-.slider-mgr .sliders .thumbnail.add-slider {
+.slider-mgr .sliders .thumbnail.create-slider {
   text-align: center;
   min-height: 300px;
   font-size: 2em;
@@ -1710,7 +1721,17 @@ Version:        0.1.0
   padding-top: 3.5em;
   border-color: #ff7e00;
 }
-.slider-mgr .sliders .thumbnail.add-slider:hover {
+.slider-mgr .sliders .thumbnail.create-slider:hover {
   background: #ff7e00;
   color: #fff;
+}
+.slider-mgr #new-edit-slider .selected-header {
+  color: #849fb0;
+  font-size: 1.2em;
+}
+.slider-mgr #new-edit-slider #selected-images .media {
+  display: inline-block;
+  padding: 2px;
+  border: 1px solid #f3f3f3;
+  margin: 0 3px 3px 0;
 }
