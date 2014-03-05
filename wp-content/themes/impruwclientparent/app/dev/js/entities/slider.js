@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
 
 define(["app", 'backbone'], function(App, Backbone) {
   return App.module("Entities.Slider", function(Slider, App, Backbone, Marionette, $, _) {
-    var API;
+    var API, SlideCollection, SlideModel;
     Slider.SliderModel = (function(_super) {
       __extends(SliderModel, _super);
 
@@ -36,6 +36,18 @@ define(["app", 'backbone'], function(App, Backbone) {
       return SliderModel;
 
     })(Backbone.AssociatedModel);
+    SlideModel = (function(_super) {
+      __extends(SlideModel, _super);
+
+      function SlideModel() {
+        return SlideModel.__super__.constructor.apply(this, arguments);
+      }
+
+      SlideModel.prototype.name = 'slide';
+
+      return SlideModel;
+
+    })(Slider.SliderModel);
     Slider.SliderCollection = (function(_super) {
       __extends(SliderCollection, _super);
 
@@ -45,7 +57,23 @@ define(["app", 'backbone'], function(App, Backbone) {
 
       SliderCollection.prototype.model = Slider.SliderModel;
 
+      SliderCollection.prototype.url = function() {
+        return "" + AJAXURL + "?action=fetch-sliders";
+      };
+
       return SliderCollection;
+
+    })(Backbone.Collection);
+    SlideCollection = (function(_super) {
+      __extends(SlideCollection, _super);
+
+      function SlideCollection() {
+        return SlideCollection.__super__.constructor.apply(this, arguments);
+      }
+
+      SlideCollection.prototype.model = SlideModel;
+
+      return SlideCollection;
 
     })(Backbone.Collection);
     API = {
@@ -55,7 +83,21 @@ define(["app", 'backbone'], function(App, Backbone) {
         return App.request("set:collection", 'slidercollection', sliderCollection);
       },
       fetchSliders: function(reset) {
-        return App.request("set:collection", 'slidercollection', sliderCollection);
+        var sliderCollection;
+        sliderCollection = App.request("get:collection", 'slidercollection');
+        sliderCollection.fetch({
+          reset: reset
+        });
+        return sliderCollection;
+      },
+      fetchSlides: function(sliderId, reset) {
+        var slideCollection;
+        slideCollection = new SlideCollection();
+        slideCollection.url = "" + AJAXURL + "?action=fetch-slides&slider_id=" + sliderId;
+        slideCollection.fetch({
+          reset: reset
+        });
+        return slideCollection;
       },
       getSliderById: function(sliderId) {
         var slider, sliderCollection;
@@ -75,18 +117,24 @@ define(["app", 'backbone'], function(App, Backbone) {
         var slider, sliderCollection;
         slider = new Slider.SliderModel(data);
         sliderCollection = App.request("get:collection", 'slidercollection');
-        slider.collection = sliderCollection;
+        sliderCollection.add(slider);
         return slider;
       }
     };
     App.commands.setHandler("create:slider:store", function() {
       return API.createStoreCollection();
     });
-    App.reqres.setHandler("fetch:sliders", function(shouldReset) {
+    App.reqres.setHandler("get:sliders", function(shouldReset) {
       if (shouldReset == null) {
         shouldReset = true;
       }
       return API.fetchSliders(shouldReset);
+    });
+    App.reqres.setHandler("get:slides", function(sliderId, shouldReset) {
+      if (shouldReset == null) {
+        shouldReset = true;
+      }
+      return API.fetchSlides(shouldReset);
     });
     App.reqres.setHandler("get:slider:by:id", function(sliderId) {
       return API.getSliderById(sliderId);

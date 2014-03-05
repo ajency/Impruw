@@ -7,42 +7,20 @@ define ['app'
 
 					initialize:(opt)->
 
-						# create an empty collection which will hold the selected images
-						@selectedMediaCollection = App.request "get:empty:media:collection"
+						view = @_getCreateSliderFormView()
 
-						@layout = layout = new NewSliderLayout
-
-						@listenTo layout, "cancel:create:slider", =>
+						@listenTo view, "cancel:create:slider", =>
 							Marionette.triggerMethod.call @region,"cancel:create:slider"
-							layout.close()
+							view.close()
 
-						@listenTo layout.gridRegion, "media:element:selected",(mediaModel)->
-								@selectedMediaCollection.add mediaModel
-
-						@listenTo layout.gridRegion, "media:element:unselected",(mediaModel)->
-								@selectedMediaCollection.remove mediaModel
-
-						@listenTo layout, "create:new:slider",(sliderData)=>
-								if @selectedMediaCollection.length is 0
-									@showErrorView()
-									return
-
-								sliderData.slider_images 	= @selectedMediaCollection.toJSON()
+						@listenTo view, "create:new:slider",(sliderData)=>
 								sliderModel = App.request "create:new:slider:model", sliderData
 								sliderModel.save wait: true
+								
+						@show view
 
-						# start apps on show event of layout
-						@listenTo layout, 'show', =>
-							App.execute "start:media:upload:app", region : layout.uploadRegion
-							App.execute "start:media:grid:app", region : layout.gridRegion
-							App.execute "start:media:selected:app", 
-											region : layout.selectedRegion
-											collection : @selectedMediaCollection
-
-						@show layout
-
-					showErrorView:->
-						@layout.messageRegion.show new ErrorView()
+					_getCreateSliderFormView:->
+						new CreateSliderView
 
 					# clean up code
 					onClose:->
@@ -51,6 +29,16 @@ define ['app'
 
 					onShow:->
 						App.navigate 'slider-manager/new'
+
+
+				# slider form
+				class CreateSliderView extends Marionette.ItemView
+
+					template : 'form markup here. with button
+								<button class="btn cancel-new-slider"> Cancel </button>'
+
+					events : 
+						'click button.cancel-new-slider': -> @trigger "cancel:create:slider"
 
 
 				class NewSliderLayout extends Marionette.Layout
@@ -91,7 +79,9 @@ define ['app'
 					events: 
 						'click button.create-new-slider' : ->
 								data = {}
-								data.slider_name 	= @$el.find('input[name="slider-name"]').val()
+								data['title'] 	= @$el.find('input[name="slider-name"]').val()
+								data['alias'] 	= _.slugify data['title']
+								data['shortcode'] = "[rev_slider #{data['alias']}]"
 								@trigger "create:new:slider", data
 
 						'click button.cancel-new-slider': -> @trigger "cancel:create:slider"
@@ -105,6 +95,5 @@ define ['app'
 					className: 'alert alert-danger'
 								
 
-				App.commands.setHandler 'start:create:new:slider', (opts = {})->
-					new NewSliderController
-							region : opts.region
+				App.commands.setHandler 'show:create:new:slider', (opts = {})->
+					new NewSliderController opts

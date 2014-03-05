@@ -13,10 +13,13 @@ define(['app', 'controllers/base-controller', 'text!apps/slider-manager/grid/tem
 
       GridViewController.prototype.initialize = function(opt) {
         var collection, view;
-        collection = App.request("get:collection", 'slidercollection');
+        collection = opt.collection;
         view = this._getSliderGridView(collection);
         this.listenTo(view, "create:new:slider", function() {
           return Marionette.triggerMethod.call(this.region, "create:new:slider");
+        });
+        this.listenTo(view, "itemview:edit:slider", function(id) {
+          return Marionette.triggerMethod.call(this.region, "edit:slider", id);
         });
         return this.show(view, {
           loading: true
@@ -43,6 +46,12 @@ define(['app', 'controllers/base-controller', 'text!apps/slider-manager/grid/tem
 
       SliderView.prototype.className = 'col-sm-2';
 
+      SliderView.prototype.events = {
+        'click .edit-slider': function() {
+          return this.trigger("edit:slider", this.model.get('id'));
+        }
+      };
+
       return SliderView;
 
     })(Marionette.ItemView);
@@ -53,7 +62,7 @@ define(['app', 'controllers/base-controller', 'text!apps/slider-manager/grid/tem
         return SliderGridView.__super__.constructor.apply(this, arguments);
       }
 
-      SliderGridView.prototype.template = '';
+      SliderGridView.prototype.template = '<div class="col-sm-2"> <a href="#" class="thumbnail create-slider"><span class="glyphicon glyphicon-plus-sign"></span><br>Add New Slider</a> </div>';
 
       SliderGridView.prototype.className = 'row sliders';
 
@@ -66,21 +75,15 @@ define(['app', 'controllers/base-controller', 'text!apps/slider-manager/grid/tem
         }
       };
 
-      SliderGridView.prototype.onCollectionRendered = function() {
-        return this.$el.prepend('<div class="col-sm-2"> <a href="#" class="thumbnail create-slider"><span class="glyphicon glyphicon-plus-sign"></span><br>Add New Slider</a> </div>');
-      };
-
       return SliderGridView;
 
     })(Marionette.CompositeView);
-    return App.commands.setHandler('start:show:all:sliders', function(opts) {
+    return App.commands.setHandler('show:sliders:grid', function(opts) {
       if (opts == null) {
         opts = {};
       }
       App.navigate('slider-manager');
-      return new GridViewController({
-        region: opts.region
-      });
+      return new GridViewController(opts);
     });
   });
 });
