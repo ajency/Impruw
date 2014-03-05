@@ -9,11 +9,15 @@ define ['app'
 
 						{@sliderId} = opt
 
-						console.log @sliderId
-
 						@layout = layout = @_getEditLayout()
 
+						@listenTo layout, "cancel:edit:slider", =>
+							Marionette.triggerMethod.call @region,"cancel:edit:slider"
+							layout.close()
+
 						@show layout
+
+						App.navigate  "slider-manager/edit/#{@sliderId}"
 
 					# edit layout
 					_getEditLayout:->
@@ -40,6 +44,11 @@ define ['app'
 										<div id="add-edit-slide-region"></div>
 									</div>
 								</div>'
+
+
+					events : 
+						'click button.cancel-new-slider': -> @trigger "cancel:edit:slider"
+
 
 					regions : 
 						sliderSettingsRegion 	: '#slider-settings-region'

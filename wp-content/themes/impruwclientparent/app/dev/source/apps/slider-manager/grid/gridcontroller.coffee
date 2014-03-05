@@ -18,7 +18,7 @@ define ['app'
 							Marionette.triggerMethod.call @region, "create:new:slider"
 
 						# listen to create slider event from the view
-						@listenTo view, "itemview:edit:slider",(id) ->
+						@listenTo view, "itemview:edit:slider",(iv, id) ->
 							Marionette.triggerMethod.call @region, "edit:slider", id
 
 						# show the view with loading indicator 

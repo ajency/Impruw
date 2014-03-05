@@ -18,7 +18,7 @@ define(['app', 'controllers/base-controller', 'text!apps/slider-manager/grid/tem
         this.listenTo(view, "create:new:slider", function() {
           return Marionette.triggerMethod.call(this.region, "create:new:slider");
         });
-        this.listenTo(view, "itemview:edit:slider", function(id) {
+        this.listenTo(view, "itemview:edit:slider", function(iv, id) {
           return Marionette.triggerMethod.call(this.region, "edit:slider", id);
         });
         return this.show(view, {

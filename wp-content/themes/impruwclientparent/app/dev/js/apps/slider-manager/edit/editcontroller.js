@@ -14,9 +14,15 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
       EditSliderController.prototype.initialize = function(opt) {
         var layout;
         this.sliderId = opt.sliderId;
-        console.log(this.sliderId);
         this.layout = layout = this._getEditLayout();
-        return this.show(layout);
+        this.listenTo(layout, "cancel:edit:slider", (function(_this) {
+          return function() {
+            Marionette.triggerMethod.call(_this.region, "cancel:edit:slider");
+            return layout.close();
+          };
+        })(this));
+        this.show(layout);
+        return App.navigate("slider-manager/edit/" + this.sliderId);
       };
 
       EditSliderController.prototype._getEditLayout = function() {
@@ -42,6 +48,12 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
       }
 
       EditSliderLayout.prototype.template = '<div class="row"> <div class="col-sm-3"> Left Nav </div> <div class="col-sm-9"> <div id="slider-settings-region"></div> <div id="sliders-list-region"></div> <div id="add-edit-slide-region"></div> </div> </div>';
+
+      EditSliderLayout.prototype.events = {
+        'click button.cancel-new-slider': function() {
+          return this.trigger("cancel:edit:slider");
+        }
+      };
 
       EditSliderLayout.prototype.regions = {
         sliderSettingsRegion: '#slider-settings-region',
