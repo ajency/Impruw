@@ -21,6 +21,10 @@ define ['app'
 						@listenTo view, "itemview:edit:slider",(iv, id) ->
 							Marionette.triggerMethod.call @region, "edit:slider", id
 
+						# listen to delete slider event from the view
+						@listenTo view, "itemview:delete:slider",(iv, id) ->
+							Marionette.triggerMethod.call @region, "delete:slider", id
+
 						# show the view with loading indicator 
 						@show view, loading : true
 
@@ -36,7 +40,11 @@ define ['app'
 					className : 'col-sm-2'
 
 					events : 
-						'click .edit-slider' : -> @trigger "edit:slider", @model.get 'id'
+						'click .edit-slider' 	: -> @trigger "edit:slider", @model.get 'id'
+						'click .delete-slider' 	: -> 
+							if confirm("Are you sure?")
+								@trigger "delete:slider", @model.get 'id'
+
 
 
 				class SliderGridView extends Marionette.CompositeView

@@ -82,6 +82,10 @@ define(['app', 'controllers/base-controller', 'apps/slider-manager/new/newcontro
         });
       };
 
+      SliderManagerController.prototype.onClose = function() {
+        return App.navigate('');
+      };
+
       return SliderManagerController;
 
     })(AppController);

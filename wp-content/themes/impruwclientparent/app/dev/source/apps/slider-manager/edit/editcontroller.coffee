@@ -37,6 +37,7 @@ define ['app'
 					template : '<div class="row">
 									<div class="col-sm-3">
 										Left Nav
+										<button type="btutton" class="btn cancel-edit-slider">Cancel</button>
 									</div>
 									<div class="col-sm-9">
 										<div id="slider-settings-region"></div>
@@ -47,7 +48,7 @@ define ['app'
 
 
 					events : 
-						'click button.cancel-new-slider': -> @trigger "cancel:edit:slider"
+						'click button.cancel-edit-slider': -> @trigger "cancel:edit:slider"
 
 
 					regions : 

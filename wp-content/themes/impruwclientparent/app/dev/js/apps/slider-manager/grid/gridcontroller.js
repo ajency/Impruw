@@ -21,6 +21,9 @@ define(['app', 'controllers/base-controller', 'text!apps/slider-manager/grid/tem
         this.listenTo(view, "itemview:edit:slider", function(iv, id) {
           return Marionette.triggerMethod.call(this.region, "edit:slider", id);
         });
+        this.listenTo(view, "itemview:delete:slider", function(iv, id) {
+          return Marionette.triggerMethod.call(this.region, "delete:slider", id);
+        });
         return this.show(view, {
           loading: true
         });
@@ -49,6 +52,11 @@ define(['app', 'controllers/base-controller', 'text!apps/slider-manager/grid/tem
       SliderView.prototype.events = {
         'click .edit-slider': function() {
           return this.trigger("edit:slider", this.model.get('id'));
+        },
+        'click .delete-slider': function() {
+          if (confirm("Are you sure?")) {
+            return this.trigger("delete:slider", this.model.get('id'));
+          }
         }
       };
 

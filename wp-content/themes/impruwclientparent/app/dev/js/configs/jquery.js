@@ -1,4 +1,4 @@
-define(['jquery', 'underscore', 'polyglot'], function($, _, Polyglot) {
+define(['jquery', 'underscore', 'polyglot', 'jqueryvalidate'], function($, _, Polyglot) {
   var adjustPageDim;
   $.fn.isEmptyColumn = function(params) {
     if (params == null) {
@@ -19,6 +19,11 @@ define(['jquery', 'underscore', 'polyglot'], function($, _, Polyglot) {
     })(this));
     return empty;
   };
+  $.validator.setDefaults({
+    submitHandler: function() {
+      return alert("submitted! (skipping validation for cancel button)");
+    }
+  });
   adjustPageDim = _.debounce(function() {
     var height, minHeight;
     height = $(window).height();

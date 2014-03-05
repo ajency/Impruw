@@ -1,6 +1,6 @@
 ## You can add your own jquery plugins here
 ## Or even mixin some extra functions
-define ['jquery', 'underscore', 'polyglot'], ($, _, Polyglot)->
+define ['jquery', 'underscore', 'polyglot','jqueryvalidate'], ($, _, Polyglot)->
 
 	# define helper functions
 	$.fn.isEmptyColumn=(params = {})->
@@ -15,6 +15,11 @@ define ['jquery', 'underscore', 'polyglot'], ($, _, Polyglot)->
 				empty = false
 				
 		empty
+
+	$.validator.setDefaults
+		submitHandler: ()->
+			alert("submitted! (skipping validation for cancel button)");
+		
 
 	# adjust the dimesion of upper content and also the left section and right section
 	# Uses jquery to get window dimensions and sets min-height css property so that if height 

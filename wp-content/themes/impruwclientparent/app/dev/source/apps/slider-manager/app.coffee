@@ -78,6 +78,9 @@ define ['app'
 											sliderId : id
 											region :  @_getSliderManagerRegion()
 
+					onClose:->
+						App.navigate ''
+
 
 
 							
