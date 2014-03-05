@@ -36,7 +36,7 @@ define(['app', 'controllers/base-controller', 'apps/dashboard/statistics/charts/
               var dailydata;
               dailydata = {};
               dailydata.x = _.first(_.values(_.pick(day, 'date')));
-              dailydata.y = parseInt(_.first(_.values(_.pick(day, 'ga:visits'))));
+              dailydata.y = _.first(_.values(_.pick(day, 'ga:visits')));
               return graphArray.push(dailydata);
             });
             graphObject = {
@@ -52,7 +52,7 @@ define(['app', 'controllers/base-controller', 'apps/dashboard/statistics/charts/
               var dailydata;
               dailydata = {};
               dailydata.x = _.first(_.values(_.pick(day, 'date')));
-              dailydata.y = parseInt(_.first(_.values(_.pick(day, 'ga:visitors'))));
+              dailydata.y = _.first(_.values(_.pick(day, 'ga:visitors')));
               return graphArray.push(dailydata);
             });
             graphObject = {
@@ -67,7 +67,7 @@ define(['app', 'controllers/base-controller', 'apps/dashboard/statistics/charts/
               var dailydata;
               dailydata = {};
               dailydata.x = _.first(_.values(_.pick(day, 'date')));
-              dailydata.y = parseInt(_.first(_.values(_.pick(day, 'ga:newVisits'))));
+              dailydata.y = _.first(_.values(_.pick(day, 'ga:newVisits')));
               return graphArray.push(dailydata);
             });
             graphObject = {
@@ -82,7 +82,7 @@ define(['app', 'controllers/base-controller', 'apps/dashboard/statistics/charts/
               var dailydata;
               dailydata = {};
               dailydata.x = _.first(_.values(_.pick(day, 'date')));
-              dailydata.y = parseInt(_.first(_.values(_.pick(day, 'ga:pageviews'))));
+              dailydata.y = _.first(_.values(_.pick(day, 'ga:pageviews')));
               return graphArray.push(dailydata);
             });
             graphObject = {

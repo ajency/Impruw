@@ -13,11 +13,20 @@ define ['app'
 							Marionette.triggerMethod.call @region,"cancel:create:slider"
 							view.close()
 
-						@listenTo view, "create:new:slider",(sliderData)=>
+						@listenTo view, "create:new:slider:with:data",(sliderData)=>
 								sliderModel = App.request "create:new:slider:model", sliderData
-								sliderModel.save wait: true
+								sliderModel.save 
+											wait: true
+											success : @newSliderCreated
 								
 						@show view
+
+
+					newSliderCreated:(model, response, options)=>
+						# get sliders collection and add new slider
+						sliderCollection = App.request "get:collection", 'slidercollection'
+						sliderCollection.add model
+						Marionette.triggerMethod.call @region,"cancel:create:slider"
 
 					_getCreateSliderFormView:->
 						new CreateSliderView
@@ -34,78 +43,33 @@ define ['app'
 				# slider form
 				class CreateSliderView extends Marionette.ItemView
 
-					template : '<form class="form-horizontal">
-									<div class="form-group">
-										<label class="col-md-2 control-label">Slider Name</label>
-										<div class="col-md-10">
-											<input type="text" class="form-control" placeholder="Name Your Slider" />
-										</div>
+					tagName : 'form'
+
+					className : 'form-horizontal'
+
+					template : '<div class="form-group">
+									<label class="col-md-2 control-label">Slider Name</label>
+									<div class="col-md-10">
+										<input required type="text" name="title" class="form-control" placeholder="Name Your Slider" />
 									</div>
-									<div class="form-group">
-										<div class="col-md-10 col-md-offset-2">
-											<button class="btn btn-primary">Create Slider</button>
-											<button class="btn cancel-new-slider">Cancel</button>
-										</div>
+								</div>
+								<div class="form-group">
+									<div class="col-md-10 col-md-offset-2">
+										<button type="button" class="btn btn-primary create-new-slider">Create Slider</button>
+										<button type="btutton" class="btn cancel-new-slider">Cancel</button>
 									</div>
-								</form>'
+								</div>'
 
 					events : 
 						'click button.cancel-new-slider': -> @trigger "cancel:create:slider"
+						'click button.create-new-slider': (e)->
+								if @$el.valid()
+									data = Backbone.Syphon.serialize @
+									data['alias'] 	= _.slugify data['title']
+									data['shortcode'] = "[rev_slider #{data['alias']}]"
+									@trigger "create:new:slider:with:data", data
 
-
-				# class NewSliderLayout extends Marionette.Layout
-
-				# 	template : '<div class="form-horizontal">
-				# 					<div class="form-group">
-				# 						<label class="control-label col-md-2">Slider Name:</label>
-				# 						<div class="col-md-10">
-				# 							<input type="text" class="form-control" name="slider-name"/>
-				# 						</div>
-				# 					</div>
-				# 				</div>
-				# 				<ul class="nav nav-tabs">
-				# 				  <li><a href="#upload-media-region" data-toggle="tab">Upload</a></li>
-				# 				  <li class="active"><a href="#selected-media" data-toggle="tab">All Media</a></li>
-				# 				</ul>
-				# 				<div class="tab-content">
-				# 					<div id="upload-media-region" class="tab-pane"></div>
-				# 					<div id="selected-media" class="tab-pane active">
-				# 						<div class="row">
-				# 							<div class="col-md-9"><div id="grid-media-region"></div></div>
-				# 							<div class="col-md-3">
-				# 								<h5 class="selected-header">Selected Images:</h5>
-				# 								<div id="selected-media-region"></div>
-				# 							</div>
-				# 						</div>
-				# 					</div>
-				# 				</div>
-				# 				<button class="btn btn-primary create-new-slider"> Create New Slider </button>
-				# 				<button class="btn cancel-new-slider"> Cancel </button>'
-
-				# 	regions : 
-				# 		messageRegion 	: '#message-region'
-				# 		uploadRegion 	: '#upload-media-region'
-				# 		gridRegion 	 	: '#grid-media-region' 
-				# 		selectedRegion 	: '#selected-media-region' 
-
-				# 	events: 
-				# 		'click button.create-new-slider' : ->
-				# 				data = {}
-				# 				data['title'] 	= @$el.find('input[name="slider-name"]').val()
-				# 				data['alias'] 	= _.slugify data['title']
-				# 				data['shortcode'] = "[rev_slider #{data['alias']}]"
-				# 				@trigger "create:new:slider", data
-
-				# 		'click button.cancel-new-slider': -> @trigger "cancel:create:slider"
-
-				class ErrorView extends Marionette.ItemView
-
-					template : 'Please select atleast 2 images'
-
-					tagName : 'div'
-
-					className: 'alert alert-danger'
-								
-
+				
+				
 				App.commands.setHandler 'show:create:new:slider', (opts = {})->
 					new NewSliderController opts
