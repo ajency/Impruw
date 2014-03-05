@@ -43,6 +43,7 @@ define ['app'
 						# ...get data for the specified date range
 						analyticsCollection.filter (analytics)->
 							analytics.id >= start && analytics.id <=end
+							#else
 
 
 

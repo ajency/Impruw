@@ -16,12 +16,11 @@ define(['app', 'controllers/base-controller', 'apps/dashboard/statistics/charts/
 
       OverViewChartController.prototype.initialize = function(options) {
         this.layout = this._getLayout();
-        this.show(this.layout);
-        this.listenTo(this.layout, 'button:clicked', (function(_this) {
+        this.show(this.layout, this.listenTo(this.layout, 'button:clicked', (function(_this) {
           return function(criterion) {
             return _this._renderRegion(criterion);
           };
-        })(this));
+        })(this)));
         return this._renderRegion(graphNames);
       };
 
@@ -111,7 +110,8 @@ define(['app', 'controllers/base-controller', 'apps/dashboard/statistics/charts/
     return OverViewChart.on('start', function(options) {
       data = options.collection;
       return new OverViewChartController({
-        region: options.region
+        region: options.region,
+        collection: options.collection
       });
     });
   });
