@@ -74,9 +74,9 @@ function get_analytics_data(){
 	//call the google API method here to fetch the data
 	
 	$start_date=  $_GET['start_date']; //"1391212800000"; 
-	$end_date=   $_GET['end-date']; //"1392854400000"; //2014-02-20";
+	$end_date=   $_GET['end_date']; //"1392854400000"; //2014-02-20";
 	$profile_id=  $_GET['ids']; //"81856773";  
-	$metrics=  $_GET['metrics'];  //'ga:visits,ga:visitors,ga:newVisits,ga:pageviews,ga:pageviewsPerVisit,ga:bounces';  
+	$metrics=  $_GET['metrices'];  //'ga:visits,ga:visitors,ga:newVisits,ga:pageviews,ga:pageviewsPerVisit,ga:bounces';  
 	$dimensions = 'ga:date';
 	$optParams = array('dimensions' => $dimensions);
 
