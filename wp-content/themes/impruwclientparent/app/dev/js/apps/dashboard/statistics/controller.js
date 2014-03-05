@@ -32,18 +32,23 @@ define(['app', 'controllers/base-controller', 'text!apps/dashboard/statistics/te
       };
 
       StatisticsLayout.prototype.events = {
-        'click input.range-radio-button': 'changeRange'
+        'click .btn-group > label': 'changeRange'
       };
 
-      StatisticsLayout.prototype.initialize = function(options) {
-        return this.rawData = options.rawData;
-      };
+      StatisticsLayout.prototype.initialize = function(options) {};
 
-      StatisticsLayout.prototype.changeRange = function() {
-        var dateRange, rangeData;
-        dateRange = $('input.range-radio-button:checked').val();
-        rangeData = _.last(this.rawData, dateRange);
-        return this.trigger("radio:clicked", rangeData);
+      StatisticsLayout.prototype.changeRange = function(e) {
+        var Jsoncol, analyticsCollection, dateRange, endDate, startDate;
+        console.log("radio changed");
+        dateRange = $(e.target).find('input').val();
+        endDate = Date.parse(new Date().toDateString());
+        startDate = endDate - dateRange * 86400000;
+        analyticsCollection = App.request("get:analytics:by:date", startDate, endDate);
+        Jsoncol = _.map(analyticsCollection, function(analyticsModel) {
+          return analyticsModel.toJSON();
+        });
+        console.log(JSON.stringify(analyticsCollection));
+        return this.trigger("radio:clicked", Jsoncol);
       };
 
       StatisticsLayout.prototype.onShow = function() {
@@ -63,18 +68,23 @@ define(['app', 'controllers/base-controller', 'text!apps/dashboard/statistics/te
       }
 
       Controller.prototype.initialize = function() {
-        var endDate, rawData, startDate;
+        var analyticsCollection, endDate, startDate;
         endDate = Date.parse(new Date().toDateString());
-        startDate = endDate - 2592000000;
-        rawData = App.request("fetch:analytics", startDate, endDate);
-        console.log("fetched" + JSON.stringify(rawData));
-        this.layout = this._getLayout(rawData);
-        this.show(this.layout, this.listenTo(this.layout, 'radio:clicked', (function(_this) {
+        startDate = endDate - 365 * 86400000;
+        analyticsCollection = App.request("fetch:analytics", startDate, endDate);
+        console.log("fetched" + JSON.stringify(analyticsCollection));
+        this.layout = this._getLayout(analyticsCollection);
+        this.listenTo(this.layout, 'radio:clicked', (function(_this) {
           return function(rangeData) {
             return _this.layout.overviewRegion.show(_this._loadChartOverview(rangeData));
           };
-        })(this)));
-        return this.layout.overviewRegion.show(this._loadChartOverview(rawData));
+        })(this));
+        this.listenTo(this.layout, 'show', function() {
+          return this.layout.overviewRegion.show(this._loadChartOverview(analyticsCollection.toJSON()));
+        });
+        return this.show(this.layout, {
+          loading: true
+        });
       };
 
       Controller.prototype._setRegions = function(layout) {
@@ -83,7 +93,7 @@ define(['app', 'controllers/base-controller', 'text!apps/dashboard/statistics/te
 
       Controller.prototype._getLayout = function(data) {
         return new StatisticsLayout({
-          rawData: data
+          collection: data
         });
       };
 

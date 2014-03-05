@@ -56,15 +56,14 @@ define ['app'
 								margin :
 									left :100
 							#.showLegend(true).showYAxis(true).showXAxis(true)
-							chart.xAxis.axisLabel("Date (ms)").tickFormat (d)->
+							chart.xAxis.axisLabel("Date").tickFormat (d)->
 								d3.time.format('%x')(new Date(d))
-							chart.yAxis.axisLabel("Number (v)").tickFormat d3.format(".02f")
+							chart.yAxis.axisLabel("Number").tickFormat d3.format(".02f")
 							myData = data
 							d3.select("#overview-chart svg").datum(myData).call chart
 							nv.utils.windowResize chart.update
 							d3.select('.nv-context').remove()
 							d3.select('.nv-legendWrap').remove()
-							alert "chart done"
 							chart
 
 

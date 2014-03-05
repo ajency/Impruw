@@ -67,16 +67,15 @@ define(['app', 'text!apps/dashboard/statistics/charts/templates/layout.html', 'n
               left: 100
             }
           });
-          chart.xAxis.axisLabel("Date (ms)").tickFormat(function(d) {
+          chart.xAxis.axisLabel("Date").tickFormat(function(d) {
             return d3.time.format('%x')(new Date(d));
           });
-          chart.yAxis.axisLabel("Number (v)").tickFormat(d3.format(".02f"));
+          chart.yAxis.axisLabel("Number").tickFormat(d3.format(".02f"));
           myData = data;
           d3.select("#overview-chart svg").datum(myData).call(chart);
           nv.utils.windowResize(chart.update);
           d3.select('.nv-context').remove();
           d3.select('.nv-legendWrap').remove();
-          alert("chart done");
           return chart;
         });
       };

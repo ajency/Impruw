@@ -37,7 +37,7 @@ define ['app'
 						  		_.each data, (day)->
 						   			dailydata = {}
 						   			dailydata.x = _.first _.values _.pick day, 'date' #day.get 'date'
-						   			dailydata.y =parseInt _.first _.values _.pick day, 'ga:visits'#day.get 'ga:visits'
+						   			dailydata.y = _.first _.values _.pick day, 'ga:visits'#day.get 'ga:visits'
 						   			graphArray.push dailydata
 						   		graphObject = 
 						   			area : true 
@@ -50,7 +50,7 @@ define ['app'
 						  		_.each data, (day)->
 						   			dailydata = {}
 						   			dailydata.x = _.first _.values _.pick day, 'date' #day.get 'date'
-						   			dailydata.y =parseInt _.first _.values _.pick day, 'ga:visitors'#day.get 'ga:visits'
+						   			dailydata.y = _.first _.values _.pick day, 'ga:visitors'#day.get 'ga:visits'
 						   			graphArray.push dailydata
 						   		graphObject = 
 						   			key : 'Unique Visits'
@@ -62,7 +62,7 @@ define ['app'
 						  		_.each data, (day)->
 						   			dailydata = {}
 						   			dailydata.x = _.first _.values _.pick day, 'date' #day.get 'date'
-						   			dailydata.y =parseInt _.first _.values _.pick day, 'ga:newVisits'#day.get 'ga:visits'
+						   			dailydata.y = _.first _.values _.pick day, 'ga:newVisits'#day.get 'ga:visits'
 						   			graphArray.push dailydata
 						   		graphObject = 
 						   			key : 'New Visitors'
@@ -74,7 +74,7 @@ define ['app'
 						  		_.each data, (day)->
 						   			dailydata = {}
 						   			dailydata.x = _.first _.values _.pick day, 'date' #day.get 'date'
-						   			dailydata.y =parseInt _.first _.values _.pick day, 'ga:pageviews'#day.get 'ga:visits'
+						   			dailydata.y = _.first _.values _.pick day, 'ga:pageviews'#day.get 'ga:visits'
 						   			graphArray.push dailydata
 						   		graphObject = 
 						   			key : 'Page Views'
