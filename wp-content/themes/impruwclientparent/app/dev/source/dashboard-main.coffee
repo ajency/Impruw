@@ -24,11 +24,12 @@ require.config
 		checkbox			: 'plugins/flatui-checkbox'
 		backboneform		: 'plugins/backbone.form'
 		backbonesyphon 		: 'plugins/backbone.syphon'
-		backbonerelational 	: 'plugins/backbone.relational'
+		backboneassociations: 'plugins/backbone.associations'
 		jqueryvalidate 		: 'plugins/jquery.validate'
 		polyglot 			: 'plugins/polyglot'
 		app 				: 'dashboard-app' 
 		bootstrapswitch 	: 'plugins/bootstrap-switch'
+		entitiesloader		: 'entities/dashboard-entities-loader'
 	shim:
 		underscore: 
 			exports : '_'
@@ -51,7 +52,7 @@ require.config
 		underscorestring 	: ['underscore']
 		backboneform 		: ['backbone']
 		backbonesyphon 		: ['backbone']
-		backbonerelational 	: ['backbone']
+		backboneassociations: ['backbone']
 		jqueryspin 			: ['spin']
 		bootstrap 			: ['jquery']
 		radio 				: ['bootstrap']
@@ -67,6 +68,7 @@ require.config
 require [	'plugins/plugin-loader'
 			'configs/config-loader'
 			'app'
+			'entitiesloader'
 			'entities/appstate'
 			'controllers/base-controller'
 			'components/component-loader'

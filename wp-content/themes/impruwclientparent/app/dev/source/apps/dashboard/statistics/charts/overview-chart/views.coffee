@@ -27,6 +27,11 @@ define ['app'
 
 						@trigger "button:clicked" ,criterion
 
+					onShow:->
+						@$el.find('input[type="checkbox"]').bootstrapSwitch()	
+						
+					
+
 
 				class Views.Chart extends Marionette.ItemView
 
@@ -36,14 +41,15 @@ define ['app'
 
 					id : 'overview-chart'
 
+
 					initialize:(options)->
-						chartData = options.data
+						@chartData = options.data
 
 
 					# add the graph/chart handling code here
 					onShow:->
-
-						console.log JSON.stringify(chartData)
+						data = @chartData
+						console.log JSON.stringify(data)
 						nv.addGraph ->
 							chart = nv.models.lineWithFocusChart()
 							chart.options 
@@ -53,12 +59,18 @@ define ['app'
 							chart.xAxis.axisLabel("Date (ms)").tickFormat (d)->
 								d3.time.format('%x')(new Date(d))
 							chart.yAxis.axisLabel("Number (v)").tickFormat d3.format(".02f")
-							myData = chartData
+							myData = data
 							d3.select("#overview-chart svg").datum(myData).call chart
 							nv.utils.windowResize chart.update
 							d3.select('.nv-context').remove()
 							d3.select('.nv-legendWrap').remove()
+							alert "chart done"
 							chart
+
+
+				#class Views.PieChart extends Marionette.ItemView
+
+
 					
 					
  
