@@ -1736,6 +1736,9 @@ form .aj-imp-submit:hover {
   background: #f3f3f3;
   padding: 3em 0.5em 0.5em;
 }
+#overview-region #overview-chart-region #overview-chart {
+  height: auto;
+}
 #select-days {
   position: absolute;
   top: 3.5em;
@@ -1798,7 +1801,7 @@ form .aj-imp-submit:hover {
   letter-spacing: 1px;
   position: absolute;
   left: 3px;
-  top: -1px;
+  top: 0px;
 }
 #buttons-group .checker input[type=checkbox] {
   visibility: hidden;

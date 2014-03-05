@@ -28,7 +28,7 @@ define ['app'
 						@trigger "button:clicked" ,criterion
 
 					onShow:->
-						@$el.find('input[type="checkbox"]').bootstrapSwitch()	
+						#@$el.find('input[type="checkbox"]').bootstrapSwitch()	
 						
 					
 
