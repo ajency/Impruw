@@ -1,7 +1,7 @@
 define ['app'
 		'controllers/base-controller'
 		'apps/slider-manager/new/newcontroller'
-		'apps/slider-manager/edit/editcontroller'
+		'apps/slider-manager/edit-slider/editcontroller'
 		'apps/slider-manager/grid/gridcontroller'], (App, AppController)->
 
 			App.module 'SliderManager', (SliderManager, App, Backbone, Marionette, $, _)->
@@ -77,6 +77,9 @@ define ['app'
 						App.execute "show:edit:slider", 
 											sliderId : id
 											region :  @_getSliderManagerRegion()
+
+					onClose:->
+						App.navigate ''
 
 
 

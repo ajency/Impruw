@@ -73,6 +73,8 @@ define(["app", 'backbone'], function(App, Backbone) {
 
       SlideCollection.prototype.model = SlideModel;
 
+      SlideCollection.prototype.comparator = 'order';
+
       return SlideCollection;
 
     })(Backbone.Collection);
@@ -138,6 +140,12 @@ define(["app", 'backbone'], function(App, Backbone) {
     });
     App.reqres.setHandler("get:slider:by:id", function(sliderId) {
       return API.getSliderById(sliderId);
+    });
+    App.reqres.setHandler("get:slides:for:slide", function(sliderId, shouldReset) {
+      if (shouldReset == null) {
+        shouldReset = true;
+      }
+      return API.fetchSlides(sliderId, shouldReset);
     });
     return App.reqres.setHandler("create:new:slider:model", function(modelData) {
       return API.createNewSlider(modelData);

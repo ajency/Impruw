@@ -40,7 +40,7 @@ define ['app'
 												<a href="#slider-settings-region" data-toggle="tab">Slider Settings</a>
 											</li>
 											<li>
-												<a href="#sliders-list-region" data-toggle="tab">Sliders</a>
+												<a href="#sliders-list-region" data-toggle="tab">Slides</a>
 											</li>
 											<li>
 												<a href="#add-edit-slide-region" data-toggle="tab">Add/Edit Slides</a>
@@ -50,7 +50,35 @@ define ['app'
 									<div class="col-sm-10 slider-right-region">
 										<div class="tab-content">
 											<div id="slider-settings-region" class="tab-pane active"></div>
-											<div id="sliders-list-region" class="tab-pane"></div>
+											<div id="sliders-list-region" class="tab-pane">
+												<div class="slides-container">
+													<h6>Slides</h6>
+													<div class="slide">
+														<div class="row">
+															<div class="col-sm-1 move">
+																<div class="move-icon">
+																	<span class="glyphicon glyphicon-resize-vertical"></span>
+																</div>
+															</div>
+															<div class="col-sm-3 thumb">
+																<img data-src="holder.js/100%x75/social">
+															</div>
+															<div class="col-sm-8 details">
+																<div class="slide-title">
+																	Slide 1
+																</div>
+																<div class="slide-image-name">
+																	slide.jpg
+																</div>
+																<div class="slide-actions">
+																	<button class="btn btn-info btn-xs"><span class="glyphicon glyphicon-pencil"></span> Edit Slide</button>
+																	<button class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
 											<div id="add-edit-slide-region" class="tab-pane"></div>
 										</div>
 									</div>

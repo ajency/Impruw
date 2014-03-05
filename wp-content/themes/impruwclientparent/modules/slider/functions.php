@@ -1,11 +1,23 @@
 <?php
 
-function get_sliders(){
-	$slider = new RevSlider();
-	$arrSliders = $slider->getArrSliders();
-	echo '<pre>';
-	print_r($arrSliders);
-	return $arrSliders;
+function get_slides($sliderID){
+    $slider = new RevSlider();
+    $slider->initByID($sliderID);
+
+    $slides = $slider->getSlides(false);
+    $slides_arr = array();
+    foreach($slides as $order => $slide){
+
+        $slides_arr[] = array(
+                            'id'        => $slide->getID(),
+                            'thumb_url' => $slide->getThumbUrl(),
+                            'image_id'  => $slide->getImageID(),
+                            'full_image'=> $slide->getImageFilepath(),
+                            'order'     => $slide->getOrder()
+                        );
+    }
+
+    return $slides_arr;
 }
 
 /**
@@ -68,6 +80,28 @@ function create_new_slider($data, $sliderID = 0){
     }
     
     return $sliderID;
+}
+
+function update_slider($data, $slider_id = 0){
+    global $wpdb;
+    
+    $arrData = array();
+    $arrData["title"]   = $data['title'];
+    $arrData["alias"]   = $data['alias'];
+    $params  = wp_parse_args($data, slider_defaults());
+    
+    //change params to json
+    $arrData["params"] = json_encode($params);
+
+    if($slider_id === 0){	//create slider	
+       $wpdb->insert(GlobalsRevSlider::$table_sliders,$arrData);
+       return($wpdb->insert_id);
+    }else{	//update slider
+        
+       $slider_id = $wpdb->update(GlobalsRevSlider::$table_sliders,$arrData,array("id"=>$slider_id));				
+    }
+    
+    return $slider_id;
 }
 
 /**
