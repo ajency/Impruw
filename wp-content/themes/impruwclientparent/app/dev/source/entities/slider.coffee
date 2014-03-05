@@ -27,11 +27,26 @@ define ["app", 'backbone'], (App, Backbone) ->
 					Backbone.send _action,options
 
 
+			class SlideModel extends Slider.SliderModel
+
+				name : 'slide'
+
+
+
 			#Media collection
 			class Slider.SliderCollection extends Backbone.Collection
 				
 				model : Slider.SliderModel
 
+				url:->
+					"#{AJAXURL}?action=fetch-sliders"
+
+			#Media collection
+			class SlideCollection extends Backbone.Collection
+				
+				model : SlideModel
+
+			
 				
 			##PUBLIC API FOR ENitity
 			API =
@@ -40,9 +55,20 @@ define ["app", 'backbone'], (App, Backbone) ->
 					sliderCollection = new Slider.SliderCollection
 					App.request "set:collection", 'slidercollection', sliderCollection
 					
-
+				# 
 				fetchSliders:(reset)->
-					App.request "set:collection", 'slidercollection', sliderCollection
+					sliderCollection = App.request "get:collection", 'slidercollection'
+					sliderCollection.fetch 
+										reset : reset 
+					sliderCollection
+
+				# 
+				fetchSlides:(sliderId, reset)->
+					slideCollection = new SlideCollection()
+					slideCollection.url = "#{AJAXURL}?action=fetch-slides&slider_id=#{sliderId}"
+					slideCollection.fetch 
+										reset : reset
+					slideCollection
 
 				#get a media 
 				getSliderById:(sliderId)->
@@ -61,7 +87,7 @@ define ["app", 'backbone'], (App, Backbone) ->
 				createNewSlider:(data)->
 					slider = new Slider.SliderModel data
 					sliderCollection = App.request "get:collection", 'slidercollection'
-					slider.collection = sliderCollection
+					sliderCollection.add slider
 					slider
 
 
@@ -69,8 +95,11 @@ define ["app", 'backbone'], (App, Backbone) ->
 			App.commands.setHandler "create:slider:store", ->
 				API.createStoreCollection()
 
-			App.reqres.setHandler "fetch:sliders",(shouldReset = true) ->
+			App.reqres.setHandler "get:sliders",(shouldReset = true) ->
 				API.fetchSliders shouldReset
+
+			App.reqres.setHandler "get:slides",(sliderId, shouldReset = true) ->
+				API.fetchSlides shouldReset
 
 			App.reqres.setHandler "get:slider:by:id",(sliderId)->
 				API.getSliderById sliderId

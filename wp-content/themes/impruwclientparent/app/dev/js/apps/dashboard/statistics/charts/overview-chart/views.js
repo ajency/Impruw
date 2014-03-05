@@ -31,9 +31,7 @@ define(['app', 'text!apps/dashboard/statistics/charts/templates/layout.html', 'n
         return this.trigger("button:clicked", criterion);
       };
 
-      Layout.prototype.onShow = function() {
-        return this.$el.find('input[type="checkbox"]').bootstrapSwitch();
-      };
+      Layout.prototype.onShow = function() {};
 
       return Layout;
 

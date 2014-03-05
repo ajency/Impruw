@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
 
 define(['app', 'controllers/base-controller'], function(App, AppController) {
   return App.module('SliderManager.NewSlider', function(NewSlider, App, Backbone, Marionette, $, _) {
-    var ErrorView, NewSliderController, NewSliderLayout;
+    var CreateSliderView, ErrorView, NewSliderController;
     NewSliderController = (function(_super) {
       __extends(NewSliderController, _super);
 
@@ -12,54 +12,28 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
       }
 
       NewSliderController.prototype.initialize = function(opt) {
-        var layout;
-        this.selectedMediaCollection = App.request("get:empty:media:collection");
-        this.layout = layout = new NewSliderLayout;
-        this.listenTo(layout, "cancel:create:slider", (function(_this) {
+        var view;
+        view = this._getCreateSliderFormView();
+        this.listenTo(view, "cancel:create:slider", (function(_this) {
           return function() {
             Marionette.triggerMethod.call(_this.region, "cancel:create:slider");
-            return layout.close();
+            return view.close();
           };
         })(this));
-        this.listenTo(layout.gridRegion, "media:element:selected", function(mediaModel) {
-          return this.selectedMediaCollection.add(mediaModel);
-        });
-        this.listenTo(layout.gridRegion, "media:element:unselected", function(mediaModel) {
-          return this.selectedMediaCollection.remove(mediaModel);
-        });
-        this.listenTo(layout, "create:new:slider", (function(_this) {
+        this.listenTo(view, "create:new:slider", (function(_this) {
           return function(sliderData) {
             var sliderModel;
-            if (_this.selectedMediaCollection.length === 0) {
-              _this.showErrorView();
-              return;
-            }
-            sliderData.slider_images = _this.selectedMediaCollection.toJSON();
             sliderModel = App.request("create:new:slider:model", sliderData);
             return sliderModel.save({
               wait: true
             });
           };
         })(this));
-        this.listenTo(layout, 'show', (function(_this) {
-          return function() {
-            App.execute("start:media:upload:app", {
-              region: layout.uploadRegion
-            });
-            App.execute("start:media:grid:app", {
-              region: layout.gridRegion
-            });
-            return App.execute("start:media:selected:app", {
-              region: layout.selectedRegion,
-              collection: _this.selectedMediaCollection
-            });
-          };
-        })(this));
-        return this.show(layout);
+        return this.show(view);
       };
 
-      NewSliderController.prototype.showErrorView = function() {
-        return this.layout.messageRegion.show(new ErrorView());
+      NewSliderController.prototype._getCreateSliderFormView = function() {
+        return new CreateSliderView;
       };
 
       NewSliderController.prototype.onClose = function() {
@@ -74,37 +48,24 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
       return NewSliderController;
 
     })(AppController);
-    NewSliderLayout = (function(_super) {
-      __extends(NewSliderLayout, _super);
+    CreateSliderView = (function(_super) {
+      __extends(CreateSliderView, _super);
 
-      function NewSliderLayout() {
-        return NewSliderLayout.__super__.constructor.apply(this, arguments);
+      function CreateSliderView() {
+        return CreateSliderView.__super__.constructor.apply(this, arguments);
       }
 
-      NewSliderLayout.prototype.template = '<div class="form-horizontal"> <div class="form-group"> <label class="control-label col-md-2">Slider Name:</label> <div class="col-md-10"> <input type="text" class="form-control" name="slider-name"/> </div> </div> </div> <ul class="nav nav-tabs"> <li><a href="#upload-media-region" data-toggle="tab">Upload</a></li> <li class="active"><a href="#selected-media" data-toggle="tab">All Media</a></li> </ul> <div class="tab-content"> <div id="upload-media-region" class="tab-pane"></div> <div id="selected-media" class="tab-pane active"> <div class="row"> <div class="col-md-9"><div id="grid-media-region"></div></div> <div class="col-md-3"> <h5 class="selected-header">Selected Images:</h5> <div id="selected-media-region"></div> </div> </div> </div> </div> <button class="btn btn-primary create-new-slider"> Create New Slider </button> <button class="btn cancel-new-slider"> Cancel </button>';
+      CreateSliderView.prototype.template = '<form class="form-horizontal"> <div class="form-group"> <label class="col-md-2 control-label">Slider Name</label> <div class="col-md-10"> <input type="text" class="form-control" placeholder="Name Your Slider" /> </div> </div> <div class="form-group"> <div class="col-md-10 col-md-offset-2"> <button class="btn btn-primary">Create Slider</button> <button class="btn cancel-new-slider">Cancel</button> </div> </div> </form>';
 
-      NewSliderLayout.prototype.regions = {
-        messageRegion: '#message-region',
-        uploadRegion: '#upload-media-region',
-        gridRegion: '#grid-media-region',
-        selectedRegion: '#selected-media-region'
-      };
-
-      NewSliderLayout.prototype.events = {
-        'click button.create-new-slider': function() {
-          var data;
-          data = {};
-          data.slider_name = this.$el.find('input[name="slider-name"]').val();
-          return this.trigger("create:new:slider", data);
-        },
+      CreateSliderView.prototype.events = {
         'click button.cancel-new-slider': function() {
           return this.trigger("cancel:create:slider");
         }
       };
 
-      return NewSliderLayout;
+      return CreateSliderView;
 
-    })(Marionette.Layout);
+    })(Marionette.ItemView);
     ErrorView = (function(_super) {
       __extends(ErrorView, _super);
 
@@ -121,13 +82,11 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
       return ErrorView;
 
     })(Marionette.ItemView);
-    return App.commands.setHandler('start:create:new:slider', function(opts) {
+    return App.commands.setHandler('show:create:new:slider', function(opts) {
       if (opts == null) {
         opts = {};
       }
-      return new NewSliderController({
-        region: opts.region
-      });
+      return new NewSliderController(opts);
     });
   });
 });

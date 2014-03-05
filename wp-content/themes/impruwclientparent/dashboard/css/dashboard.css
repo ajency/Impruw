@@ -1762,3 +1762,56 @@ form .aj-imp-submit:hover {
   padding: 1em 0;
   border-bottom: 1px solid #dddddd;
 }
+#buttons-group .checker {
+  width: 60px;
+  height: 30px;
+  margin: 0 auto 0.5em;
+  position: relative;
+}
+#buttons-group .checker div {
+  width: 100%;
+  height: 100%;
+  background: #aaaaaa;
+  position: relative;
+  top: -30px;
+}
+#buttons-group .checker label {
+  display: block;
+  width: 20px;
+  height: 20px;
+  -webkit-transition: all .5s ease;
+  -moz-transition: all .5s ease;
+  -o-transition: all .5s ease;
+  -ms-transition: all .5s ease;
+  transition: all .5s ease;
+  cursor: pointer;
+  position: absolute;
+  top: -6px;
+  z-index: 1;
+  left: 6px;
+  background: #fffffd;
+}
+#buttons-group .checker label:before {
+  color: #c0c0c0;
+  content: '|||';
+  font-size: 13px;
+  letter-spacing: 1px;
+  position: absolute;
+  left: 3px;
+  top: 0px;
+}
+#buttons-group .checker input[type=checkbox] {
+  visibility: hidden;
+}
+#buttons-group .checker input[type=checkbox]:checked ~ div {
+  background: #849fb0;
+}
+#buttons-group .checker input[type=checkbox]:checked ~ label {
+  left: 35px;
+}
+#buttons-group .label-text {
+  display: block;
+  font-size: 1.1em;
+  text-align: center;
+  color: #aaaaaa;
+}

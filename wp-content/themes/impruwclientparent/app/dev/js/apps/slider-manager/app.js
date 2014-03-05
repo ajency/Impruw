@@ -1,9 +1,9 @@
 var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-define(['app', 'controllers/base-controller', 'apps/slider-manager/new/newcontroller', 'apps/slider-manager/grid/gridcontroller'], function(App, AppController) {
+define(['app', 'controllers/base-controller', 'apps/slider-manager/new/newcontroller', 'apps/slider-manager/edit/editcontroller', 'apps/slider-manager/grid/gridcontroller'], function(App, AppController) {
   return App.module('SliderManager', function(SliderManager, App, Backbone, Marionette, $, _) {
-    var API, OuterLayout, ShowController;
+    var API, OuterLayout, SliderManagerController;
     SliderManager.Router = (function(_super) {
       __extends(Router, _super);
 
@@ -18,48 +18,71 @@ define(['app', 'controllers/base-controller', 'apps/slider-manager/new/newcontro
       return Router;
 
     })(Marionette.AppRouter);
-    ShowController = (function(_super) {
-      __extends(ShowController, _super);
+    SliderManagerController = (function(_super) {
+      __extends(SliderManagerController, _super);
 
-      function ShowController() {
-        return ShowController.__super__.constructor.apply(this, arguments);
+      function SliderManagerController() {
+        return SliderManagerController.__super__.constructor.apply(this, arguments);
       }
 
-      ShowController.prototype.initialize = function(opt) {
+      SliderManagerController.prototype.initialize = function(opt) {
         if (opt == null) {
           opt = {};
         }
+        this.sliderCollection = App.request("get:sliders");
         this.layout = this._getLayout();
-        this.listenTo(this.layout, "show", (function(_this) {
+        this.listenTo(this._getSliderManagerRegion(), "create:new:slider", (function(_this) {
           return function() {
-            return App.execute("start:show:all:sliders", {
-              region: _this.layout.slidersGridRegion
-            });
+            return _this._startCreateSliderApp();
           };
         })(this));
-        this.listenTo(this.layout.slidersGridRegion, "create:new:slider", function() {
-          this.layout.slidersGridRegion.hide();
-          return App.execute("start:create:new:slider", {
-            region: this.layout.newEditSliderRegion
-          });
-        });
-        this.listenTo(this.layout.newEditSliderRegion, "cancel:create:slider", function() {
-          return this.layout.slidersGridRegion.unhide();
-        });
-        App.getRegion('elementsBoxRegion').hide();
+        this.listenTo(this._getSliderManagerRegion(), "edit:slider", (function(_this) {
+          return function(id) {
+            return _this._startEditSliderApp(id);
+          };
+        })(this));
+        this.listenTo(this._getSliderManagerRegion(), "cancel:create:slider cancel:edit:slider", (function(_this) {
+          return function() {
+            return _this._startGridApp();
+          };
+        })(this));
+        this.listenTo(this.layout, "show", (function(_this) {
+          return function() {
+            return _this._startGridApp();
+          };
+        })(this));
         return this.show(this.layout);
       };
 
-      ShowController.prototype.onClose = function() {
-        App.navigate('');
-        return App.getRegion('elementsBoxRegion').unhide();
+      SliderManagerController.prototype._getLayout = function() {
+        return new OuterLayout();
       };
 
-      ShowController.prototype._getLayout = function() {
-        return new OuterLayout;
+      SliderManagerController.prototype._getSliderManagerRegion = function() {
+        return this.layout.sliderManagerRegion;
       };
 
-      return ShowController;
+      SliderManagerController.prototype._startGridApp = function() {
+        return App.execute("show:sliders:grid", {
+          collection: this.sliderCollection,
+          region: this._getSliderManagerRegion()
+        });
+      };
+
+      SliderManagerController.prototype._startCreateSliderApp = function() {
+        return App.execute("show:create:new:slider", {
+          region: this._getSliderManagerRegion()
+        });
+      };
+
+      SliderManagerController.prototype._startEditSliderApp = function(id) {
+        return App.execute("show:edit:slider", {
+          sliderId: id,
+          region: this._getSliderManagerRegion()
+        });
+      };
+
+      return SliderManagerController;
 
     })(AppController);
     OuterLayout = (function(_super) {
@@ -69,13 +92,12 @@ define(['app', 'controllers/base-controller', 'apps/slider-manager/new/newcontro
         return OuterLayout.__super__.constructor.apply(this, arguments);
       }
 
-      OuterLayout.prototype.template = '<div id="slider-grid-region"></div> <div id="new-edit-slider"></div>';
+      OuterLayout.prototype.template = '<div id="slider-manager-region"></div>';
 
       OuterLayout.prototype.className = 'slider-mgr';
 
       OuterLayout.prototype.regions = {
-        slidersGridRegion: '#slider-grid-region',
-        newEditSliderRegion: '#new-edit-slider'
+        sliderManagerRegion: '#slider-manager-region'
       };
 
       OuterLayout.prototype.dialogOptions = {
@@ -87,7 +109,7 @@ define(['app', 'controllers/base-controller', 'apps/slider-manager/new/newcontro
     })(Marionette.Layout);
     API = {
       show: function() {
-        return new ShowController({
+        return new SliderManagerController({
           region: App.dialogRegion
         });
       }

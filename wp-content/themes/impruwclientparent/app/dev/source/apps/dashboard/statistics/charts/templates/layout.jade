@@ -1,14 +1,27 @@
-#overview-chart-region
-#buttons-group
-    label(for='visit') 
-        input#totVisitCheckbox.chart-button(type='checkbox', name='visit', value='ga:visits', checked='checked', data-toggle='switch')
-        |Total Visitors
-    label(for='unique') 
-        input#uniqueVisitCheckbox.chart-button(type='checkbox', name='unique', value='ga:visitors', checked='checked', data-toggle='switch')
-        |Unique Visitor
-    label(for='new') 
-        input#newVisitCheckbox.chart-button(type='checkbox', name='new', value='ga:newVisits', checked='checked', data-toggle='switch')
-        |New Visitor
-    label(for='page') 
-        input#pageViewCheckbox.chart-button(type='checkbox', name='page', value='ga:pageviews', checked='checked', data-toggle='switch')
-        |Page Views
+.row
+    #overview-chart-region.col-md-12
+#buttons-group.row
+    .col-md-3.total-visitors
+        .checker
+            input#totVisitCheckbox.chart-button(type='checkbox', name='visit', value='ga:visits', checked)
+            label(for='totVisitCheckbox') 
+            div
+        span.label-text Total Visitors
+    .col-md-3.unique-visitors
+        .checker
+            input#uniqueVisitCheckbox.chart-button(type='checkbox', name='unique', value='ga:visitors', checked)
+            label(for='uniqueVisitCheckbox') 
+            div
+        span.label-text Unique Visitors
+    .col-md-3.new-visitors
+        .checker
+            input#newVisitCheckbox.chart-button(type='checkbox', name='new', value='ga:newVisits', checked)
+            label(for='newVisitCheckbox') 
+            div
+        span.label-text New Visitors
+    .col-md-3.page-views
+        .checker
+            input#pageViewCheckbox.chart-button(type='checkbox', name='page', value='ga:pageviews', checked)
+            label(for='pageViewCheckbox') 
+            div
+        span.label-text Page Views

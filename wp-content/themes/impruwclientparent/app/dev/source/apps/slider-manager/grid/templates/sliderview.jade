@@ -1,13 +1,13 @@
 .thumbnail
-	img(data-src="holder.js/200x200")
+	img(src="{{thumb_url}}", style="height:200px;width:100%")
 	.caption
 		h5 
-			| Slider 1
-			span.badge Slides: 5
+			| {{title}}
+			span.badge Slides: {{no_of_slides}}
 	.actions
-		button(type="button").btn.btn-default.btn-xs
+		button(type="button").btn.btn-default.btn-xs.edit-slider
 			span.glyphicon.glyphicon-pencil
 			| &nbsp;Edit
-		button(type="button").btn.btn-danger.btn-xs
+		button(type="button").btn.btn-danger.btn-xs.delete-slider
 			span.glyphicon.glyphicon-trash
 			| &nbsp;Delete

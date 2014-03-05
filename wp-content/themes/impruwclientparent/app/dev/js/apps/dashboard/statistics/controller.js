@@ -52,7 +52,6 @@ define(['app', 'controllers/base-controller', 'text!apps/dashboard/statistics/te
       };
 
       StatisticsLayout.prototype.onShow = function() {
-        this.$el.find('input[type="checkbox"]').bootstrapSwitch();
         this.$el.find('.range-radio-button[checked="checked"]').parent().addClass('active');
         return this.$el.find('.active .range-radio-button').prop('checked', true);
       };
