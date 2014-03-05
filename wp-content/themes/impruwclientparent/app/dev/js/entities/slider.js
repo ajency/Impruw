@@ -13,6 +13,26 @@ define(["app", 'backbone'], function(App, Backbone) {
 
       SliderModel.prototype.idAttribute = 'id';
 
+      SliderModel.prototype.name = 'slider';
+
+      SliderModel.prototype.sync = function(method, model, options) {
+        var name, _action;
+        if (options == null) {
+          options = {};
+        }
+        if (!this.name) {
+          throw new Error("'name' property missing");
+        }
+        if (_.isFunction(this.name)) {
+          name = this.name();
+        } else {
+          name = this.name;
+        }
+        _action = "" + method + "-" + name;
+        options.data = model.toJSON();
+        return Backbone.send(_action, options);
+      };
+
       return SliderModel;
 
     })(Backbone.AssociatedModel);
@@ -23,21 +43,7 @@ define(["app", 'backbone'], function(App, Backbone) {
         return SliderCollection.__super__.constructor.apply(this, arguments);
       }
 
-      SliderCollection.prototype.filters = {
-        order: 'DESC',
-        orderby: 'date',
-        paged: 1,
-        posts_per_page: 40
-      };
-
       SliderCollection.prototype.model = Slider.SliderModel;
-
-      SliderCollection.prototype.parse = function(resp) {
-        if (resp.code === 'OK') {
-          return resp.data;
-        }
-        return resp;
-      };
 
       return SliderCollection;
 

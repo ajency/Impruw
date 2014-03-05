@@ -10,16 +10,6 @@ define ["backbone","mustache"], (Backbone, Mustache) ->
 	# urlRoot for wordpress will always be admin_url('admin-ajax.php')
 
 	_.extend Backbone.Model::,
-
-		# name : ''
-
-		# initialize: (opt = {})->
-				
-		# 	# set the name property if if passed with options
-		# 	@name = opt.name if opt.name	
-
-		# 	if not @name
-		# 		throw new Error '"name" property is not set the model. Please set the name property'
 		
 		# model parse function
 		parse:(resp)->
@@ -30,6 +20,11 @@ define ["backbone","mustache"], (Backbone, Mustache) ->
 			resp
 
 
+	_.extend Backbone.Collection::,
+
+		parse:(resp)->
+			return resp.data if resp.code is 'OK'
+			resp
 
 	# Hold reference to original sync function
 	_sync = Backbone.sync

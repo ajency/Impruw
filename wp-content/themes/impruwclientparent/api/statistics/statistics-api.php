@@ -11,6 +11,8 @@ require_once('google-api-php-client/src/contrib/Google_AnalyticsService.php');
 function get_data($start_date,$end_date,$profile_id,$metrics,$optParams){
 
 	$client= google_analytics_object();
+	$start_date= date("Y-m-d", ($start_date/1000));
+	$end_date= date("Y-m-d", ($end_date/1000));
 
 	// create service and get data
 	$service = new Google_AnalyticsService($client);
@@ -66,14 +68,15 @@ function google_analytics_object(){
 
 //defining ajax
 //// url to test this function :
-///http://localhost/impruw/wp-admin/admin-ajax.php?action=get-unique-page-views
+///http://localhost/impruw/wp-admin/admin-ajax.php?action=get_analytics_data
 function get_analytics_data(){
 
 	//call the google API method here to fetch the data
-	$start_date="2014-02-01"; //$_POST['start_date'];
-	$end_date="2014-02-20"; //$_POST['end-date'];
-	$profile_id= "81856773"; //$_POST['ids'];
-	$metrics= 'ga:visits,ga:visitors,ga:newVisits,ga:pageviews,ga:pageviewsPerVisit,ga:bounces'; //$_POST['metrics'];
+	
+	$start_date=  $_GET['start_date']; //"1391212800000"; 
+	$end_date=   $_GET['end-date']; //"1392854400000"; //2014-02-20";
+	$profile_id=  $_GET['ids']; //"81856773";  
+	$metrics=  $_GET['metrics'];  //'ga:visits,ga:visitors,ga:newVisits,ga:pageviews,ga:pageviewsPerVisit,ga:bounces';  
 	$dimensions = 'ga:date';
 	$optParams = array('dimensions' => $dimensions);
 
@@ -95,7 +98,7 @@ function get_analytics_data(){
   // echo '<pre>';
   // print_r($arr);
 
-   wp_send_json(array('response' => $arr));
+   wp_send_json($arr);
 }
 
 /**

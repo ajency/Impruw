@@ -49,7 +49,7 @@ define ['app'
 
 					onCollectionRendered : ->
 						@$el.prepend '<div class="col-sm-2">
-										<a href="#" class="thumbnail create-slider"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;Add New Slider</a>
+										<a href="#" class="thumbnail create-slider"><span class="glyphicon glyphicon-plus-sign"></span><br>Add New Slider</a>
 									</div>'
 
 

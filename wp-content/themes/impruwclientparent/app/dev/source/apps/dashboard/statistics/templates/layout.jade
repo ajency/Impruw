@@ -1,12 +1,14 @@
-.row
-  #date-picker
-.row
-  #select-days
-    input#7days.range-radio-button(type='radio', name='last', value='7')
-    | 7 days
-    input#30days.range-radio-button(type='radio', name='last', value='30')
-    | 30 days
-    input#1year.range-radio-button(type='radio', name='last', value='365', checked='checked')
-    | 1 year
-.row
-  #overview-region
+h4.aj-imp-sub-head-thin At a Glance
+#date-picker
+#select-days
+	.btn-group(data-toggle='buttons')
+		label.btn
+			input#7days.range-radio-button(type='radio', name='last', value='7')
+			|7 days
+		label.btn
+			input#30days.range-radio-button(type='radio', name='last', value='30')
+			|30 days
+		label.btn
+			input#1year.range-radio-button(type='radio', name='last', value='365', checked='checked')
+			|1 year
+#overview-region

@@ -1728,3 +1728,37 @@ form .aj-imp-submit:hover {
 .loading-container {
   margin-top: 100px;
 }
+/****Chart Styles****/
+#overview-region {
+  position: relative;
+}
+#overview-region #overview-chart-region {
+  background: #f3f3f3;
+  padding: 3em 0.5em 0.5em;
+}
+#select-days {
+  position: absolute;
+  top: 3.5em;
+  left: 45%;
+  z-index: 1;
+}
+#select-days .btn-group .btn {
+  background: transparent;
+  border-radius: 0;
+  text-transform: uppercase;
+  color: #aaaaaa;
+  padding: 1em 0 0.2em;
+  margin: 0 1em;
+}
+#select-days .btn-group .btn:hover {
+  color: #ff7e00;
+}
+#select-days .btn-group .btn.active {
+  color: #ff7e00;
+  border-bottom: 3px solid #ff7e00;
+}
+#buttons-group {
+  background: #f3f3f3;
+  padding: 1em 0;
+  border-bottom: 1px solid #dddddd;
+}

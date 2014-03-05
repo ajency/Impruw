@@ -10,7 +10,7 @@ define ['app'
 						# create an empty collection which will hold the selected images
 						@selectedMediaCollection = App.request "get:empty:media:collection"
 
-						layout = new NewSliderLayout
+						@layout = layout = new NewSliderLayout
 
 						@listenTo layout, "cancel:create:slider", =>
 							Marionette.triggerMethod.call @region,"cancel:create:slider"
@@ -23,7 +23,11 @@ define ['app'
 								@selectedMediaCollection.remove mediaModel
 
 						@listenTo layout, "create:new:slider",(sliderData)=>
-								data.slider_images 	= @selectedMediaCollection.toJSON()
+								if @selectedMediaCollection.length is 0
+									@showErrorView()
+									return
+
+								sliderData.slider_images 	= @selectedMediaCollection.toJSON()
 								sliderModel = App.request "create:new:slider:model", sliderData
 								sliderModel.save wait: true
 
@@ -37,6 +41,9 @@ define ['app'
 
 						@show layout
 
+					showErrorView:->
+						@layout.messageRegion.show new ErrorView()
+
 					# clean up code
 					onClose:->
 						delete @selectedMediaCollection
@@ -48,7 +55,14 @@ define ['app'
 
 				class NewSliderLayout extends Marionette.Layout
 
-					template : '<div class="form-group"><input type="text" class="form-control" name="slider-name"/></div>
+					template : '<div class="form-horizontal">
+									<div class="form-group">
+										<label class="control-label col-md-2">Slider Name:</label>
+										<div class="col-md-10">
+											<input type="text" class="form-control" name="slider-name"/>
+										</div>
+									</div>
+								</div>
 								<ul class="nav nav-tabs">
 								  <li><a href="#upload-media-region" data-toggle="tab">Upload</a></li>
 								  <li class="active"><a href="#selected-media" data-toggle="tab">All Media</a></li>
@@ -58,7 +72,10 @@ define ['app'
 									<div id="selected-media" class="tab-pane active">
 										<div class="row">
 											<div class="col-md-9"><div id="grid-media-region"></div></div>
-											<div class="col-md-3"><div id="selected-media-region"></div></div>
+											<div class="col-md-3">
+												<h5 class="selected-header">Selected Images:</h5>
+												<div id="selected-media-region"></div>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -66,6 +83,7 @@ define ['app'
 								<button class="btn cancel-new-slider"> Cancel </button>'
 
 					regions : 
+						messageRegion 	: '#message-region'
 						uploadRegion 	: '#upload-media-region'
 						gridRegion 	 	: '#grid-media-region' 
 						selectedRegion 	: '#selected-media-region' 
@@ -74,8 +92,17 @@ define ['app'
 						'click button.create-new-slider' : ->
 								data = {}
 								data.slider_name 	= @$el.find('input[name="slider-name"]').val()
+								@trigger "create:new:slider", data
+
 						'click button.cancel-new-slider': -> @trigger "cancel:create:slider"
 
+				class ErrorView extends Marionette.ItemView
+
+					template : 'Please select atleast 2 images'
+
+					tagName : 'div'
+
+					className: 'alert alert-danger'
 								
 
 				App.commands.setHandler 'start:create:new:slider', (opts = {})->
