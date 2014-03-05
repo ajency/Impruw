@@ -31,6 +31,10 @@ define(['app', 'text!apps/dashboard/statistics/charts/templates/layout.html', 'n
         return this.trigger("button:clicked", criterion);
       };
 
+      Layout.prototype.onShow = function() {
+        return this.$el.find('input[type="checkbox"]').bootstrapSwitch();
+      };
+
       return Layout;
 
     })(Marionette.Layout);
@@ -48,11 +52,13 @@ define(['app', 'text!apps/dashboard/statistics/charts/templates/layout.html', 'n
       Chart.prototype.id = 'overview-chart';
 
       Chart.prototype.initialize = function(options) {
-        return chartData = options.data;
+        return this.chartData = options.data;
       };
 
       Chart.prototype.onShow = function() {
-        console.log(JSON.stringify(chartData));
+        var data;
+        data = this.chartData;
+        console.log(JSON.stringify(data));
         return nv.addGraph(function() {
           var chart, myData;
           chart = nv.models.lineWithFocusChart();
@@ -65,11 +71,12 @@ define(['app', 'text!apps/dashboard/statistics/charts/templates/layout.html', 'n
             return d3.time.format('%x')(new Date(d));
           });
           chart.yAxis.axisLabel("Number (v)").tickFormat(d3.format(".02f"));
-          myData = chartData;
+          myData = data;
           d3.select("#overview-chart svg").datum(myData).call(chart);
           nv.utils.windowResize(chart.update);
           d3.select('.nv-context').remove();
           d3.select('.nv-legendWrap').remove();
+          alert("chart done");
           return chart;
         });
       };
