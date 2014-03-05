@@ -1735,3 +1735,17 @@ Version:        0.1.0
   border: 1px solid #f3f3f3;
   margin: 0 3px 3px 0;
 }
+.slider-mgr .edit-slider .slider-left-nav {
+  border-right: 2px solid #dadada;
+}
+.slider-mgr .edit-slider .slider-left-nav .cancel-slider {
+  margin: 0 0 1em;
+  padding: 0 0 0.5em;
+  border-bottom: 1px solid #f3f3f3;
+}
+.slider-mgr .edit-slider .slider-left-nav .nav-list li a {
+  color: #849fb0;
+}
+.slider-mgr .edit-slider .slider-left-nav .nav-list li.active a {
+  color: #ff7e00;
+}

@@ -41,7 +41,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         return EditSliderLayout.__super__.constructor.apply(this, arguments);
       }
 
-      EditSliderLayout.prototype.template = '<div class="row"> <div class="col-sm-3"> Left Nav </div> <div class="col-sm-9"> <div id="slider-settings-region"></div> <div id="sliders-list-region"></div> <div id="add-edit-slide-region"></div> </div> </div>';
+      EditSliderLayout.prototype.template = '<div class="row edit-slider"> <div class="col-sm-2 slider-left-nav"> <div class="cancel-slider"> <button class="btn btn-sm btn-cancel-slider"><span class="glyphicon glyphicon-remove-circle"></span> Cancel</button> </div> <ul class="nav nav-list"> <li class="active"> <a href="#slider-settings-region" data-toggle="tab">Slider Settings</a> </li> <li> <a href="#sliders-list-region" data-toggle="tab">Sliders</a> </li> <li> <a href="#add-edit-slide-region" data-toggle="tab">Add/Edit Slides</a> </li> </ul> </div> <div class="col-sm-10 slider-right-region"> <div class="tab-content"> <div id="slider-settings-region" class="tab-pane active"></div> <div id="sliders-list-region" class="tab-pane"></div> <div id="add-edit-slide-region" class="tab-pane"></div> </div> </div> </div>';
 
       EditSliderLayout.prototype.regions = {
         sliderSettingsRegion: '#slider-settings-region',
