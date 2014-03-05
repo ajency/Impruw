@@ -70,6 +70,28 @@ function create_new_slider($data, $sliderID = 0){
     return $sliderID;
 }
 
+function update_slider($data, $slider_id = 0){
+    global $wpdb;
+    
+    $arrData = array();
+    $arrData["title"]   = $data['title'];
+    $arrData["alias"]   = $data['alias'];
+    $params  = wp_parse_args($data, slider_defaults());
+    
+    //change params to json
+    $arrData["params"] = json_encode($params);
+
+    if($slider_id === 0){	//create slider	
+       $wpdb->insert(GlobalsRevSlider::$table_sliders,$arrData);
+       return($wpdb->insert_id);
+    }else{	//update slider
+        
+       $slider_id = $wpdb->update(GlobalsRevSlider::$table_sliders,$arrData,array("id"=>$slider_id));				
+    }
+    
+    return $slider_id;
+}
+
 /**
  * This is default configuration for the new slider
  * @return array the default config

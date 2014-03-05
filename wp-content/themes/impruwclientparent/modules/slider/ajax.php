@@ -35,6 +35,23 @@ function create_slider(){
 }
 add_action('wp_ajax_create-slider', 'create_slider'); 
 
+function update_slider_ajax(){
+
+	$data = $_POST;
+        
+        $slider_id = $_POST['id'];
+        
+	unset($data['action']);
+        unset($data['wait']);
+        unset($data['success']);
+        unset($data['id']);
+
+	update_slider($data, $slider_id);
+
+	wp_send_json(array('code' => 'OK', 'data' => array ('id' => $slider_id)));
+}
+add_action('wp_ajax_update-slider', 'update_slider_ajax');
+
 /**
  * 
  */ 

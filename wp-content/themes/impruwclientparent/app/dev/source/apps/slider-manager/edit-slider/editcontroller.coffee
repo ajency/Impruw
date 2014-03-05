@@ -1,5 +1,6 @@
 define ['app'
-		'controllers/base-controller'], (App, AppController)->
+		'controllers/base-controller'
+		'apps/slider-manager/edit-slider/setting/settingscontroller'], (App, AppController)->
 
 			App.module 'SliderManager.EditSlider', (EditSlider, App, Backbone, Marionette, $, _)->
 
@@ -9,11 +10,22 @@ define ['app'
 
 						{@sliderId} = opt
 
+						slider = App.request "get:slider:by:id" , @sliderId
+
 						@layout = layout = @_getEditLayout()
 
 						@listenTo layout, "cancel:edit:slider", =>
 							Marionette.triggerMethod.call @region,"cancel:edit:slider"
 							layout.close()
+
+
+						@listenTo layout, "show:edit:slide",(slideId)=>
+							@_startEditSlideApp @sliderId, slideId, layout.addEditSlideRegion
+
+						@listenTo layout, "show", =>
+							@_startSettingsApp slider, layout.sliderSettingsRegion
+							@_startSlidesListApp @sliderId, layout.slidesListRegion
+							@_startAddSlideApp @sliderId, layout.addEditSlideRegion
 
 						@show layout
 
@@ -22,6 +34,27 @@ define ['app'
 					# edit layout
 					_getEditLayout:->
 						new EditSliderLayout
+
+					_startSettingsApp:(slider, region)->
+						App.execute "show:slider:edit:settings",
+														model : slider
+														region : region
+
+					_startSlidesListApp:(id,region)->
+						App.execute "show:slides:list",
+												sliderId : id
+												region : region
+
+					_startAddSlideApp:(id, region)->
+						App.execute "show:add:slide",
+												sliderId : id
+												region : region
+
+					_startEditSlideApp:(id, slideId, region)->
+						App.execute "show:edit:slide",
+												sliderId : id
+												slideId : slideId
+												region : region
 
 					# clean up code
 					onClose:->
@@ -44,18 +77,18 @@ define ['app'
 												<a href="#slider-settings-region" data-toggle="tab">Slider Settings</a>
 											</li>
 											<li>
-												<a href="#sliders-list-region" data-toggle="tab">Sliders</a>
+												<a href="#slides-list-region" data-toggle="tab">Sliders</a>
 											</li>
 											<li>
 												<a href="#add-edit-slide-region" data-toggle="tab">Add/Edit Slides</a>
 											</li>
 										</ul>
-									</div>
+									</div> 
 									<div class="col-sm-10 slider-right-region">
 										<div class="tab-content">
-											<div id="slider-settings-region" class="tab-pane active"></div>
-											<div id="sliders-list-region" class="tab-pane"></div>
-											<div id="add-edit-slide-region" class="tab-pane"></div>
+											<div id="slider-settings-region" class="tab-pane active">dsd</div>
+											<div id="slides-list-region" class="tab-pane">dsds</div>
+											<div id="add-edit-slide-region" class="tab-pane">dsds</div>
 										</div>
 									</div>
 								</div>'
@@ -63,8 +96,7 @@ define ['app'
 
 					events : 
 						'click button.cancel-edit-slider': -> @trigger "cancel:edit:slider"
-
-
+						
 					regions : 
 						sliderSettingsRegion 	: '#slider-settings-region'
 						slidesListRegion 		: '#sliders-list-region'
