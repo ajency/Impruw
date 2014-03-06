@@ -15,12 +15,6 @@ define(['app', 'holder'], function(App, Holder) {
 
       SliderItem.prototype.tagName = 'li';
 
-      SliderItem.prototype.events = {
-        'click': function(e) {
-          return this.trigger("show:slider:manager");
-        }
-      };
-
       SliderItem.prototype.onRender = function() {
         return this.$el.attr('data-transition', 'fade').attr('data-slotamount', '7').attr('data-masterspeed', '1500');
       };
@@ -44,6 +38,15 @@ define(['app', 'holder'], function(App, Holder) {
       SliderView.prototype.itemView = SliderItem;
 
       SliderView.prototype.itemViewContainer = '.fullwidthbanner > ul';
+
+      SliderView.prototype.events = {
+        'click': function(e) {
+          return this.trigger("show:slides:manager");
+        },
+        'click .tp-rightarrow,.tp-leftarrow,.bullet': function(e) {
+          return e.stopPropagation();
+        }
+      };
 
       SliderView.prototype.onClose = function() {
         return delete this.revapi;

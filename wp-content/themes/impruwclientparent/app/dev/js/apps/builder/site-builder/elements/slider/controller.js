@@ -31,21 +31,20 @@ define(['app', 'apps/builder/site-builder/elements/slider/views', 'apps/builder/
         });
       };
 
-      Controller.prototype.renderElement = function() {
-        var slidesCollection;
+      Controller.prototype.renderElement = function(slidesCollection) {
         this.removeSpinner();
-        slidesCollection = App.request("get:slides:for:slide", this.layout.model.get('slider_id'));
+        if (!_.isObject(slidesCollection)) {
+          slidesCollection = App.request("get:slides:for:slide", this.layout.model.get('slider_id'));
+        }
         return App.execute("when:fetched", slidesCollection, (function(_this) {
           return function() {
             var view;
             view = _this._getSliderView(slidesCollection);
-            _this.listenTo(view, "itemview:show:slider:manager", function() {
-              return App.navigate("slider-manager", {
-                trigger: true
-              });
+            _this.listenTo(view, "show:slides:manager", function() {
+              return App.execute("show:slides:manager", slidesCollection);
             });
             _this.listenTo(slidesCollection, "remove add", function() {
-              return _this.renderElement();
+              return _this.renderElement(slidesCollection);
             });
             return _this.layout.elementRegion.show(view);
           };

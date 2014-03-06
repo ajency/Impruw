@@ -110,14 +110,17 @@ define ['app'
 						new SliderManagerController
 									region 	: App.dialogRegion
 
-					edit:(id)->
+					edit:(mixed)->
+
 						new SliderManagerController
-									region 	 : App.dialogRegion
-									sliderId : id
+									region 	 	: App.dialogRegion
+									collection 	: if _.isObject(mixed) then mixed else false
+									sliderId 	: if _.isNumber(sliderId) then sliderId else false
 					
 
 				SliderManager.on "start", ->
 					new SliderManager.Router
 								controller : API	
 
+				
 				

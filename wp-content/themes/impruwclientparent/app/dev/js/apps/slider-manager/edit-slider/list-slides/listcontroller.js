@@ -12,11 +12,13 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
       }
 
       SlidesListController.prototype.initialize = function(opt) {
-        var layout, listView, slidesCollection;
-        this.sliderId = opt.sliderId;
-        slidesCollection = App.request("get:slides:for:slide", this.sliderId);
+        var collection, layout, listView;
+        this.sliderId = opt.sliderId, collection = opt.collection;
+        if (!collection) {
+          collection = App.request("get:slides:for:slide", this.sliderId);
+        }
         this.layout = layout = this._getSlidesListLayout();
-        this.listView = listView = this._getSlidesListView(slidesCollection);
+        this.listView = listView = this._getSlidesListView(collection);
         this.listenTo(listView, "itemview:slide:updated:with:data", function(iv, data) {
           var slide;
           slide = iv.model;
@@ -40,7 +42,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         this.listenTo(layout.addSlideRegion, "region:closed new:slide:created", (function(_this) {
           return function(slide) {
             if (_.isObject(slide)) {
-              slidesCollection.add(slide);
+              collection.add(slide);
             }
             return layout.triggerMethod("show:add:slide");
           };
@@ -53,9 +55,9 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         });
       };
 
-      SlidesListController.prototype._getSlidesListView = function(slidesCollection) {
+      SlidesListController.prototype._getSlidesListView = function(collection) {
         return new SlidesListView({
-          collection: slidesCollection
+          collection: collection
         });
       };
 
@@ -130,11 +132,11 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
       };
 
       SlidesListView.prototype.onShow = function() {
-        return this.$el.sortable();
+        return this.$el.find('#slides-accordion').sortable();
       };
 
       SlidesListView.prototype.onClose = function() {
-        return this.$el.sortable('destroy');
+        return this.$el.find('#slides-accordion').sortable('destroy');
       };
 
       return SlidesListView;
@@ -156,6 +158,11 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         }
       };
 
+      SlidesListLayout.prototype.dialogOptions = {
+        modal_title: 'Slider Manager',
+        modal_size: 'medium-modal'
+      };
+
       SlidesListLayout.prototype.onShowAddSlide = function() {
         return this.$el.find('.add-new-slide').show();
       };
@@ -168,11 +175,17 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
       return SlidesListLayout;
 
     })(Marionette.Layout);
-    return App.commands.setHandler('show:slides:list', function(opts) {
+    App.commands.setHandler('show:slides:list', function(opts) {
       if (opts == null) {
         opts = {};
       }
       return new SlidesListController(opts);
+    });
+    return App.commands.setHandler("show:slides:manager", function(slidesCollection) {
+      return new SlidesListController({
+        region: App.dialogRegion,
+        collection: slidesCollection
+      });
     });
   });
 });
