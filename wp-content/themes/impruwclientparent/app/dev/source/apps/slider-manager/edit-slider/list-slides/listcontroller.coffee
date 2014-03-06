@@ -115,6 +115,7 @@ define ['app'
 
 						'click .remove-slide' 	:(e)-> 
 								e.preventDefault()
+								e.stopPropagation()
 								if confirm('Are you sure?')
 									@trigger "remove:slide", @model
 
