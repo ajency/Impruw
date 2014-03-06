@@ -30,7 +30,8 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         });
         this.listenTo(layout, "show:add:new:slide", function() {
           return App.execute("show:add:new:slide", {
-            region: layout.addSlideRegion
+            region: layout.addSlideRegion,
+            sliderId: this.sliderId
           });
         });
         this.listenTo(layout.addSlideRegion, "region:closed", (function(_this) {

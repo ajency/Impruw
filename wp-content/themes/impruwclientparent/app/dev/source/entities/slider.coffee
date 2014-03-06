@@ -92,6 +92,10 @@ define ["app", 'backbone'], (App, Backbone) ->
 					sliderCollection.add slider
 					slider
 
+				createNewSlide:(data)->
+					slide = new SlideModel data
+					slide
+
 
 			#REQUEST HANDLERS
 			App.commands.setHandler "create:slider:store", ->
@@ -111,3 +115,6 @@ define ["app", 'backbone'], (App, Backbone) ->
 
 			App.reqres.setHandler "create:new:slider:model",(modelData)->
 				API.createNewSlider modelData
+
+			App.reqres.setHandler "create:new:slide:model", (modelData)->
+				API.createNewSlide modelData

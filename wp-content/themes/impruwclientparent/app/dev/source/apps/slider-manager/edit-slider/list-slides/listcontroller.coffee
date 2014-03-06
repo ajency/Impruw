@@ -26,7 +26,9 @@ define ['app'
 							console.log "Remove slide app"
 
 						@listenTo layout, "show:add:new:slide",->
-							App.execute "show:add:new:slide", region : layout.addSlideRegion
+							App.execute "show:add:new:slide", 
+												region : layout.addSlideRegion
+												sliderId : @sliderId
 
 						@listenTo layout.addSlideRegion, "region:closed", =>
 							layout.triggerMethod "show:add:slide"

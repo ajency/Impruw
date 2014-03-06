@@ -13,8 +13,12 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         return AddSlideController.__super__.constructor.apply(this, arguments);
       }
 
-      AddSlideController.prototype.initialize = function() {
+      AddSlideController.prototype.initialize = function(opt) {
         var addSlideView, layout;
+        if (opt == null) {
+          opt = {};
+        }
+        this.sliderId = opt.sliderId;
         this.layout = layout = this._getAddSlideLayout();
         addSlideView = this._getAddSlideView();
         this.listenTo(layout, "show", (function(_this) {
@@ -38,6 +42,9 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
             });
           };
         })(this));
+        this.listenTo(layout, "media:element:selected", function(media) {
+          return addSlideView.triggerMethod("slide:image:selected", media);
+        });
         this.listenTo(addSlideView, "cancel:create:new:slide", (function(_this) {
           return function(data) {
             Marionette.triggerMethod.call(_this.region, "region:closed");
@@ -72,16 +79,26 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
 
       AddSlideView.prototype.tagName = 'form';
 
-      AddSlideView.prototype.template = '<div class="aj-imp-edit-image well"> <div class="row"> <div class="aj-imp-crop-link col-sm-4"> <img src="{{thumb_url}}" class="img-responsive add-image-to-slide"> </div> <div class="aj-imp-img-form col-sm-8"> <div class="row"> <div class="col-sm-6"> <input type="text" name="" value="{{slide_title}}" class="form-control" placeholder="Title"> </div> <div class="col-sm-6"> <input type="url" value="{{link}}" class="form-control" placeholder="Link"> </div> </div> </div> </div> <div class="aj-imp-img-save"> <button class="btn create-slide">Add</button> <button class="btn cancel-create-slide">Cancel</button> </div> </div>';
+      AddSlideView.prototype.template = '<div class="aj-imp-edit-image well"> <div class="row"> <div class="aj-imp-crop-link col-sm-4"> <img src="{{thumb_url}}" class="img-responsive add-image-to-slide"> <input type="hidden" name="background_type" value="image"/> <input type="hidden" name="image" value="" required/> <input type="hidden" name="image_id" value="" require/> </div> <div class="aj-imp-img-form col-sm-8"> <div class="row"> <div class="col-sm-6"> <input type="text" name="" value="{{title}}" class="form-control" placeholder="Title"> </div> <div class="col-sm-6"> <input type="url" value="{{link}}" class="form-control" placeholder="Link"> </div> </div> </div> </div> <div class="aj-imp-img-save"> <button type="button" class="btn create-slide">Add</button> <button type="button" class="btn cancel-create-slide">Cancel</button> </div> </div>';
+
+      AddSlideView.prototype.onSlideImageSelected = function(media) {
+        var url;
+        url = media.get('sizes').thumbnail ? media.get('sizes').thumbnail.url : media.get('sizes').full.url;
+        this.$el.find('.add-image-to-slide').attr('src', url);
+        this.$el.find('input[name="image"]').val(media.get('url'));
+        return this.$el.find('input[name="image_id"]').val(media.get('ID'));
+      };
 
       AddSlideView.prototype.events = {
         'click .create-slide': function() {
           var data;
-          data = Backbone.Syphon.serialize(this);
-          return this.trigger("create:new:slide", data);
+          if (this.$el.valid()) {
+            data = Backbone.Syphon.serialize(this);
+            return this.trigger("create:new:slide", data);
+          }
         },
         'click .add-image-to-slide': function() {
-          return this.$el.closest('#add-slide-form-region').next().slideToggle();
+          return this.$el.closest('#add-slide-form-region').next().show();
         },
         'click .cancel-create-slide': function() {
           return this.trigger("cancel:create:new:slide");
@@ -98,7 +115,19 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         return AddSlideLayout.__super__.constructor.apply(this, arguments);
       }
 
-      AddSlideLayout.prototype.template = '<div id="add-slide-form-region"></div> <div id="media-region" style="display:none"> <ul class="nav nav-tabs"> <li><a href="#upload-media-region" data-toggle="tab">Upload</a></li> <li class="active"><a href="#grid-media-region" data-toggle="tab">All Media</a></li> </ul> <div class="tab-content"> <div class="tab-pane" id="upload-media-region"></div> <div class="tab-pane active" id="grid-media-region"></div> </div> </div>';
+      AddSlideLayout.prototype.template = '<div id="add-slide-form-region"></div> <div id="media-region" style="display:none"> <ul class="nav nav-tabs"> <li><a href="#upload-media-region" data-toggle="tab">Upload</a></li> <li class="active"><a href="#grid-media-region" data-toggle="tab">All Media</a></li> </ul> <div class="tab-content"> <div class="tab-pane" id="upload-media-region"></div> <div class="tab-pane active" id="grid-media-region"></div> <button class="btn btn-primary slide-image-selected">Done</button> </div> </div>';
+
+      AddSlideLayout.prototype.events = {
+        'click .slide-image-selected': function(e) {
+          return $(e.target).closest('#media-region').hide();
+        }
+      };
+
+      AddSlideLayout.prototype.initialize = function() {
+        return this.listenTo(this.gridMediaRegion, "media:element:selected", function(media) {
+          return this.trigger("media:element:selected", media);
+        });
+      };
 
       AddSlideLayout.prototype.regions = {
         addSlideFormRegion: '#add-slide-form-region',

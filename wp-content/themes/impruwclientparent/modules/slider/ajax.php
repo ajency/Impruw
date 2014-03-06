@@ -80,3 +80,20 @@ function fetch_slides(){
     wp_send_json(array('code' => 'OK', 'data' => $slides_arr));
 }
 add_action('wp_ajax_fetch-slides','fetch_slides');
+
+
+function create_slide(){
+    
+    $slider_id = $_POST['slider_id'];
+
+    $data = $_POST;
+
+    unset($data['action']);
+    unset($data['wait']);
+    unset($data['success']);
+    
+    $slide_data= create_new_slide($data, $slider_id);
+    
+    wp_send_json(array('code' => 'OK', 'data' => $slide_data));
+}
+add_action('wp_ajax_create-slide','create_slide');
