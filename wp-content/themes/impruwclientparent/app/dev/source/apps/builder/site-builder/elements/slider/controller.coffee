@@ -13,7 +13,7 @@ define ['app'
 
 						_.defaults options.modelData,
 											element  	: 'Slider'
-											slider_id 	: 0
+											slider_id 	: 1
 
 						super(options)
 						
@@ -31,24 +31,12 @@ define ['app'
 					renderElement:()=>
 						@removeSpinner()
 
-						collection = new Backbone.Collection [	( 
-																	image: 'dsds'
-																	order: 1
-																)
-																( 
-																	image: 'dsds'
-																	order: 2
-																)
-																( 
-																	image: 'dsds'
-																	order: 3
-																)
-															]
+						slidesCollection = App.request "get:slides:for:slide" , @layout.model.get 'slider_id'
 
+						App.execute "when:fetched", slidesCollection, =>
+							view = @_getSliderView slidesCollection
 
-						view = @_getSliderView collection
+							@listenTo view, "itemview:show:slider:manager", =>
+								App.navigate "slider-manager", trigger : true
 
-						@listenTo view, "itemview:show:slider:manager", =>
-							App.navigate "slider-manager", trigger : true
-
-						@layout.elementRegion.show view
+							@layout.elementRegion.show view

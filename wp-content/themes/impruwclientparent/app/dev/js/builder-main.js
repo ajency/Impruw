@@ -29,6 +29,8 @@ require.config({
     polyglot: 'plugins/polyglot',
     localforage: 'plugins/localforage',
     plupload: 'plugins/plupload.full',
+    themepunch: 'plugins/themepunch.plugins.min',
+    revslider: 'plugins/revolution.min',
     googlemap: 'https://maps.googleapis.com/maps/api/js?sensor=false',
     pluginloader: 'plugins/builder-plugin-loader',
     appsloader: 'apps/builder-apps-loader',
@@ -66,6 +68,8 @@ require.config({
     backboneassociations: ['backbone'],
     jqueryspin: ['spin'],
     bootstrap: ['jquery'],
+    themepunch: ['jquery'],
+    revslider: ['themepunch'],
     plupload: {
       deps: ['jquery'],
       exports: 'plupload'
