@@ -24,15 +24,15 @@ define ['app'
 
 							
 						@listenTo listView, "itemview:remove:slide",(iv, slide)->
-							slide.destroy()
+							slide.destroy wait : true
 
 						@listenTo layout, "show:add:new:slide",->
 							App.execute "show:add:new:slide", 
 												region : layout.addSlideRegion
 												sliderId : @sliderId
 
-						@listenTo layout.addSlideRegion, "region:closed new:slide:created",(slide = null) =>
-							slidesCollection.add(slide) if slide isnt null
+						@listenTo layout.addSlideRegion, "region:closed new:slide:created",(slide) =>
+							slidesCollection.add(slide) if _.isObject slide
 							layout.triggerMethod "show:add:slide"
 
 						@listenTo layout, "show",->
@@ -81,19 +81,19 @@ define ['app'
 											<div class="row">
 												<div class="aj-imp-crop-link col-sm-4">
 													<img src="{{thumb_url}}" class="img-responsive">
-													<div class="aj-imp-crop-link-overlay">
-														<a href="#">
-															<span class="glyphicon glyphicon-edit"></span> Edit Image
-														</a>
-													</div>
 												</div>
 												<div class="aj-imp-img-form col-sm-8">
 													<div class="row">
 														<div class="col-sm-6">
-															<input type="text" name="" value="{{slide_title}}" class="form-control" placeholder="Title">
+															<input type="text" required name="title" value="{{title}}" class="form-control" placeholder="Title">
 														</div>
 														<div class="col-sm-6">
-															<input type="url" value="{{link}}" class="form-control" placeholder="Link">
+															<input type="url" type="link" value="{{link}}" class="form-control" placeholder="Link">
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-sm-12">
+															<textarea name="description" class="form-control" placeholder="Description"></textarea>
 														</div>
 													</div>
 												</div>

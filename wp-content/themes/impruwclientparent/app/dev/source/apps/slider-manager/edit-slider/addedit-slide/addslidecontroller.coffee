@@ -60,10 +60,15 @@ define ['app'
 										<div class="aj-imp-img-form col-sm-8">
 											<div class="row">
 												<div class="col-sm-6">
-													<input type="text" name="" value="{{title}}" class="form-control" placeholder="Title">
+													<input type="text" required name="title" value="{{title}}" class="form-control" placeholder="Title">
 												</div>
 												<div class="col-sm-6">
-													<input type="url" value="{{link}}" class="form-control" placeholder="Link">
+													<input type="url" type="link" value="{{link}}" class="form-control" placeholder="Link">
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-sm-12">
+													<textarea name="description" class="form-control" placeholder="Description"></textarea>
 												</div>
 											</div>
 										</div>
@@ -81,9 +86,10 @@ define ['app'
 						@$el.find('input[name="image_id"]').val media.get 'id'
 
 					events : 
-						'click .create-slide' : ->
+						'click .create-slide' :(e)->
 							if @$el.valid()
 								data = Backbone.Syphon.serialize @
+								$(e.target).attr 'disabled',true
 								@trigger "create:new:slide", data
 
 						'click .add-image-to-slide': ->

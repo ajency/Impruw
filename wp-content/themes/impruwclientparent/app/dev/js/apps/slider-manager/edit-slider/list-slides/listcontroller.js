@@ -27,7 +27,9 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
           });
         });
         this.listenTo(listView, "itemview:remove:slide", function(iv, slide) {
-          return slide.destroy();
+          return slide.destroy({
+            wait: true
+          });
         });
         this.listenTo(layout, "show:add:new:slide", function() {
           return App.execute("show:add:new:slide", {
@@ -37,10 +39,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         });
         this.listenTo(layout.addSlideRegion, "region:closed new:slide:created", (function(_this) {
           return function(slide) {
-            if (slide == null) {
-              slide = null;
-            }
-            if (slide !== null) {
+            if (_.isObject(slide)) {
               slidesCollection.add(slide);
             }
             return layout.triggerMethod("show:add:slide");
@@ -80,7 +79,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
 
       SlideView.prototype.className = 'panel panel-default';
 
-      SlideView.prototype.template = '<div class="panel-heading"> <a class="accordion-toggle" data-toggle="collapse" data-parent="#slides-accordion" href="#slide-{{id}}"> <div class="aj-imp-image-item row"> <div class="imgthumb col-sm-1"> <img src="{{thumb_url}}" class="img-responsive"> </div> <div class="imgname col-sm-7">{{file_name}}</div> <div class="imgactions col-sm-2"> <button class="btn" title="Edit Image"><span class="glyphicon glyphicon-edit"></span> Edit Image</button> <button class="btn remove-slide" title="Delete Image"><span class="glyphicon glyphicon-remove-sign"></span></button> </div> </div> </a> </div> <div id="slide-{{id}}" class="panel-collapse collapse"> <div class="panel-body"> <div class="aj-imp-edit-image well"> <div class="row"> <div class="aj-imp-crop-link col-sm-4"> <img src="{{thumb_url}}" class="img-responsive"> <div class="aj-imp-crop-link-overlay"> <a href="#"> <span class="glyphicon glyphicon-edit"></span> Edit Image </a> </div> </div> <div class="aj-imp-img-form col-sm-8"> <div class="row"> <div class="col-sm-6"> <input type="text" name="" value="{{slide_title}}" class="form-control" placeholder="Title"> </div> <div class="col-sm-6"> <input type="url" value="{{link}}" class="form-control" placeholder="Link"> </div> </div> </div> </div> <div class="aj-imp-img-save"> <button class="btn update-slide">Update</button> </div> </div> </div> </div>';
+      SlideView.prototype.template = '<div class="panel-heading"> <a class="accordion-toggle" data-toggle="collapse" data-parent="#slides-accordion" href="#slide-{{id}}"> <div class="aj-imp-image-item row"> <div class="imgthumb col-sm-1"> <img src="{{thumb_url}}" class="img-responsive"> </div> <div class="imgname col-sm-7">{{file_name}}</div> <div class="imgactions col-sm-2"> <button class="btn" title="Edit Image"><span class="glyphicon glyphicon-edit"></span> Edit Image</button> <button class="btn remove-slide" title="Delete Image"><span class="glyphicon glyphicon-remove-sign"></span></button> </div> </div> </a> </div> <div id="slide-{{id}}" class="panel-collapse collapse"> <div class="panel-body"> <div class="aj-imp-edit-image well"> <div class="row"> <div class="aj-imp-crop-link col-sm-4"> <img src="{{thumb_url}}" class="img-responsive"> </div> <div class="aj-imp-img-form col-sm-8"> <div class="row"> <div class="col-sm-6"> <input type="text" required name="title" value="{{title}}" class="form-control" placeholder="Title"> </div> <div class="col-sm-6"> <input type="url" type="link" value="{{link}}" class="form-control" placeholder="Link"> </div> </div> <div class="row"> <div class="col-sm-12"> <textarea name="description" class="form-control" placeholder="Description"></textarea> </div> </div> </div> </div> <div class="aj-imp-img-save"> <button class="btn update-slide">Update</button> </div> </div> </div> </div>';
 
       SlideView.prototype.events = {
         'click .update-slide': function() {

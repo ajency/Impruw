@@ -80,7 +80,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
 
       AddSlideView.prototype.tagName = 'form';
 
-      AddSlideView.prototype.template = '<div class="aj-imp-edit-image well"> <div class="row"> <div class="aj-imp-crop-link col-sm-4"> <img src="{{thumb_url}}" class="img-responsive add-image-to-slide"> <input type="hidden" name="background_type" value="image"/> <input type="hidden" name="image" value="" required/> <input type="hidden" name="image_id" value="" require/> </div> <div class="aj-imp-img-form col-sm-8"> <div class="row"> <div class="col-sm-6"> <input type="text" name="" value="{{title}}" class="form-control" placeholder="Title"> </div> <div class="col-sm-6"> <input type="url" value="{{link}}" class="form-control" placeholder="Link"> </div> </div> </div> </div> <div class="aj-imp-img-save"> <button type="button" class="btn create-slide">Add</button> <button type="button" class="btn cancel-create-slide">Cancel</button> </div> </div>';
+      AddSlideView.prototype.template = '<div class="aj-imp-edit-image well"> <div class="row"> <div class="aj-imp-crop-link col-sm-4"> <img src="{{thumb_url}}" class="img-responsive add-image-to-slide"> <input type="hidden" name="background_type" value="image"/> <input type="hidden" name="image" value="" required/> <input type="hidden" name="image_id" value="" require/> </div> <div class="aj-imp-img-form col-sm-8"> <div class="row"> <div class="col-sm-6"> <input type="text" required name="title" value="{{title}}" class="form-control" placeholder="Title"> </div> <div class="col-sm-6"> <input type="url" type="link" value="{{link}}" class="form-control" placeholder="Link"> </div> </div> <div class="row"> <div class="col-sm-12"> <textarea name="description" class="form-control" placeholder="Description"></textarea> </div> </div> </div> </div> <div class="aj-imp-img-save"> <button type="button" class="btn create-slide">Add</button> <button type="button" class="btn cancel-create-slide">Cancel</button> </div> </div>';
 
       AddSlideView.prototype.onSlideImageSelected = function(media) {
         var url;
@@ -91,10 +91,11 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
       };
 
       AddSlideView.prototype.events = {
-        'click .create-slide': function() {
+        'click .create-slide': function(e) {
           var data;
           if (this.$el.valid()) {
             data = Backbone.Syphon.serialize(this);
+            $(e.target).attr('disabled', true);
             return this.trigger("create:new:slide", data);
           }
         },
