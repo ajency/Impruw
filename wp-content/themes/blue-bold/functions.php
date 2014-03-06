@@ -50,7 +50,7 @@ $element_templates = array(
               ),
     'Row' => array(
                 array(
-                    'name'      => 'Green Background'
+                    'name'      => 'Blue Background'
                 ),
                 array(
                     'name'      => 'Center Container'
@@ -59,7 +59,7 @@ $element_templates = array(
                     'name'      => 'Grey Background'
                 ),
                 array(
-                    'name'      => 'Shaded Background'
+                    'name'      => 'White Shaded Background'
                 )
                 ,
                 array(
