@@ -91,6 +91,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         },
         'click .remove-slide': function(e) {
           e.preventDefault();
+          e.stopPropagation();
           if (confirm('Are you sure?')) {
             return this.trigger("remove:slide", this.model);
           }
