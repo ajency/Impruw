@@ -215,3 +215,66 @@ function slider_defaults(){
             'template' => 'false',
           );
 }
+
+function create_new_slide($data,$slider_id,$slide_order){
+    
+    global $wpdb;
+
+    $slider_id =1;
+    $slide_order= 6;
+    $arrData = array();
+    $arrData["slider_id"]   = $slider_id;
+    $arrData["slide_order"] = $slide_order;
+    $params  = wp_parse_args($data, slide_defaults());
+
+    //change params to json
+    $params2 = json_encode($params);
+    $arrData["params"]= $params2;
+
+    $tab= GlobalsRevSlider::$table_slides;
+    $wpdb->insert( $tab, $arrData);  
+    return($wpdb->insert_id);   
+}
+
+/**
+ * This is default configuration for the new slide
+ * @return array the default config
+ */
+function slide_defaults(){
+    
+ return array (
+    "background_type" => "image",
+    "image" => "imagepath",
+    "state" => "published",
+    "date_from" => "",
+    "date_to"=> "",
+    "slide_transition" => "random",
+    "0" => "Remove",
+    "slot_amount" => 7,
+    "transition_rotation" => 0,
+    "transition_duration" => 300,
+    "delay" => 9000,
+    "enable_link" => "false",
+    "link_type" => "regular",
+    "link" => "",
+    "link_open_in" => "same",
+    "slide_link" => "nothing",
+    "link_pos" => "front",
+    "slide_thumb" => "",
+    "slide_bg_color" => "#E7E7E7",
+    "slide_bg_external" => "",
+    "bg_fit" => "cover",
+    "bg_fit_x" => "100",
+    "bg_fit_y" => "100",
+    "bg_repeat" => "no-repeat",
+    "bg_position "=> "center top",
+    "bg_position_x" => "0",
+    "bg_position_y" => "0",
+    "kenburn_effect" => "off",
+    "kb_start_fit" => "100",
+    "kb_end_fit" => "100",
+    "bg_end_position" => "center top",
+    "kb_duration" => "9000",
+    "kb_easing" => "Linear.easeNone"
+          );
+}
