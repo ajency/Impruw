@@ -1,0 +1,42 @@
+// Core variables and mixins
+@import "variables.less";
+@import "mixins.less";
+
+// Font Files
+@font-face {
+	font-family: 'icomoon';
+	src: url("../resources/fonts/icomoon.eot");
+	src: url("../resources/fonts/icomoon.eot?#iefix") format("embedded-opentype"), url("../resources/fonts/icomoon.woff") format("woff"), url("../resources/fonts/icomoon.ttf") format("truetype"), url("../resources/fonts/icomoon.svg#icomoon") format("svg");
+	font-weight: normal;
+	font-style: normal; 
+}
+
+//theme specific css
+@import "row.less";
+@import "header.less";
+@import "menu.less";
+@import "title.less";
+@import "text.less";
+@import "address.less";
+@import "social.less";
+@import "contact.less";
+
+//generic
+@small: 0.5em;
+@medium: 1em;
+@large: 1.5em;
+
+.top-margin-small{margin-top:@small;}
+.left-margin-small{margin-left:@small;}
+.right-margin-small{margin-right:@small;}
+.bottom-margin-small{margin-bottom:@small;}
+
+.top-margin-medium{margin-top:@medium;}
+.left-margin-medium{margin-left:@medium;}
+.right-margin-medium{margin-right:@medium;}
+.bottom-margin-medium{margin-bottom:@medium;}
+
+.top-margin-large{margin-top:@large;}
+.left-margin-large{margin-left:@large;}
+.right-margin-large{margin-right:@large;}
+.bottom-margin-large{margin-bottom:@large;}

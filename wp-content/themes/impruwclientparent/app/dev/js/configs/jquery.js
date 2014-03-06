@@ -20,9 +20,7 @@ define(['jquery', 'underscore', 'polyglot', 'jqueryvalidate'], function($, _, Po
     return empty;
   };
   $.validator.setDefaults({
-    submitHandler: function() {
-      return alert("submitted! (skipping validation for cancel button)");
-    }
+    ignore: []
   });
   adjustPageDim = _.debounce(function() {
     var height, minHeight;

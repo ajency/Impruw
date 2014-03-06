@@ -127,7 +127,7 @@ function get_elementbox_elements() {
                             ),
                             array(  'element' => 'Slider',
                                     'icon' => '',
-                                    'styles' => get_styles('Slider')
+                                    'sliders' => get_theme_sliders()
                             )
 
                         )
@@ -137,6 +137,20 @@ function get_elementbox_elements() {
 
 add_action('wp_ajax_get-elementbox-elements', 'get_elementbox_elements');
 
+/**
+ * 
+ */ 
+function get_theme_sliders(){
+    $sliders = get_all_sliders();
+
+    $sliders_arr = array();
+
+    foreach ($sliders as $key => $slider) {
+        $sliders_arr[] = array('id' => $slider['id'], 'title' => $slider['title']);
+    }
+
+    return $sliders_arr;
+}
 
 /**
  * [get_rooms description]

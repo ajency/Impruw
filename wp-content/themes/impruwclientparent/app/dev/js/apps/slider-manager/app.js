@@ -122,10 +122,11 @@ define(['app', 'controllers/base-controller', 'apps/slider-manager/new/newcontro
           region: App.dialogRegion
         });
       },
-      edit: function(id) {
+      edit: function(mixed) {
         return new SliderManagerController({
           region: App.dialogRegion,
-          sliderId: id
+          collection: _.isObject(mixed) ? mixed : false,
+          sliderId: _.isNumber(sliderId) ? sliderId : false
         });
       }
     };

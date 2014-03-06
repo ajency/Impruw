@@ -98,6 +98,7 @@ add_action('wp_ajax_fetch-slides','fetch_slides');
 
 function create_slide(){
 
+
 	//$data = $_POST;
 	$data = array(
 		          'image_id' => 100,
@@ -116,3 +117,31 @@ function create_slide(){
 	
 }
 add_action('wp_ajax_create-slide', 'create_slide'); 
+    
+   
+
+
+function update_slide_ajax(){
+    
+    $slide_id = $_POST['id'];
+
+    $data = $_POST;
+
+    unset($data['action']);
+    
+    #$slide_data= create_new_slide($data, $slider_id);
+    
+    wp_send_json(array('code' => 'OK', 'data' => array('id' => $slide_id)));
+}
+add_action('wp_ajax_update-slide','update_slide_ajax');
+
+function delete_slide(){
+    
+    $slide_id = $_POST['id'];
+    
+    // $slides_arr = get_slides($slider_id);
+    
+    wp_send_json(array('code' => 'OK', 'data' => array('id' => $slide_id)));
+}
+add_action('wp_ajax_delete-slide','delete_slide');
+

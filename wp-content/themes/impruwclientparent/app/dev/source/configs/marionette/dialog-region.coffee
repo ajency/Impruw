@@ -8,9 +8,11 @@ define ['marionette','mustache', 'text!configs/marionette/templates/modal.html']
 		# override open method
 		open:(view)->
 			options = if view.dialogOptions then view.dialogOptions else {}
-			wrapper = Mustache.to_html modalTpl, @_getOptions options
+			options = @_getOptions options
+			wrapper = Mustache.to_html modalTpl, options
 			@$el.html(wrapper)
 			@$el.find('.modal-body').append(view.el);
+			@$el.addClass options.modal_size
 
 		#initiate modal on show
 		onShow :(view)->
@@ -32,6 +34,7 @@ define ['marionette','mustache', 'text!configs/marionette/templates/modal.html']
 
 			_.defaults options,
 						modal_title : ''
+						modal_size  : 'wide-modal'
 
 
 		setupBindings :(view)->

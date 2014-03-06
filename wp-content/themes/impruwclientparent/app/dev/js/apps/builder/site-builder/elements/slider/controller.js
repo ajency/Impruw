@@ -15,13 +15,13 @@ define(['app', 'apps/builder/site-builder/elements/slider/views', 'apps/builder/
       Controller.prototype.initialize = function(options) {
         _.defaults(options.modelData, {
           element: 'Slider',
-          slider_id: 0
+          slider_id: 1
         });
         return Controller.__super__.initialize.call(this, options);
       };
 
       Controller.prototype.bindEvents = function() {
-        this.listenTo(this.layout.model, "change:style", this.renderElement);
+        this.listenTo(this.layout.model, "change:slider_id", this.renderElement);
         return Controller.__super__.bindEvents.call(this);
       };
 
@@ -31,30 +31,24 @@ define(['app', 'apps/builder/site-builder/elements/slider/views', 'apps/builder/
         });
       };
 
-      Controller.prototype.renderElement = function() {
-        var collection, view;
+      Controller.prototype.renderElement = function(slidesCollection) {
         this.removeSpinner();
-        collection = new Backbone.Collection([
-          {
-            image: 'dsds',
-            order: 1
-          }, {
-            image: 'dsds',
-            order: 2
-          }, {
-            image: 'dsds',
-            order: 3
-          }
-        ]);
-        view = this._getSliderView(collection);
-        this.listenTo(view, "itemview:show:slider:manager", (function(_this) {
+        if (!_.isObject(slidesCollection)) {
+          slidesCollection = App.request("get:slides:for:slide", this.layout.model.get('slider_id'));
+        }
+        return App.execute("when:fetched", slidesCollection, (function(_this) {
           return function() {
-            return App.navigate("slider-manager", {
-              trigger: true
+            var view;
+            view = _this._getSliderView(slidesCollection);
+            _this.listenTo(view, "show:slides:manager", function() {
+              return App.execute("show:slides:manager", slidesCollection);
             });
+            _this.listenTo(slidesCollection, "remove add", function() {
+              return _this.renderElement(slidesCollection);
+            });
+            return _this.layout.elementRegion.show(view);
           };
         })(this));
-        return this.layout.elementRegion.show(view);
       };
 
       return Controller;

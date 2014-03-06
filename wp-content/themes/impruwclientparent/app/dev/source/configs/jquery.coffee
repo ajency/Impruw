@@ -17,8 +17,7 @@ define ['jquery', 'underscore', 'polyglot','jqueryvalidate'], ($, _, Polyglot)->
 		empty
 
 	$.validator.setDefaults
-		submitHandler: ()->
-			alert("submitted! (skipping validation for cancel button)");
+		ignore: []
 		
 
 	# adjust the dimesion of upper content and also the left section and right section
