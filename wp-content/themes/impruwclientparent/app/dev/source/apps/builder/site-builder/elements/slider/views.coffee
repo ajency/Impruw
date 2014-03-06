@@ -1,4 +1,4 @@
-define ['app', 'holder', 'text!apps/builder/site-builder/elements/slider/templates/slider.html'],(App, Holder, sliderTpl)->
+define ['app', 'holder'],(App, Holder)->
 
 	# Row views
 	App.module 'SiteBuilderApp.Element.Slider.Views', (Views, App, Backbone, Marionette, $, _)->
@@ -6,38 +6,75 @@ define ['app', 'holder', 'text!apps/builder/site-builder/elements/slider/templat
 
 		class SliderItem extends Marionette.ItemView
 
-			className: 'item'
-
-			template : '<img src="http://placehold.it/900x400" alt="Slide"/>'
+			template : '<img src="{{full_url}}" alt="Slide" data-bgfit="cover" data-bgposition="left top" data-bgrepeat="no-repeat"/>'
 
 			tagName : 'li'
 
 			events:
 				'click' :(e)-> @trigger "show:slider:manager"
+
+			onRender:->
+				@$el.attr 'data-transition','fade'
+					.attr 'data-slotamount','7'
+					.attr 'data-masterspeed','1500'
  
 
 		# Menu item view
 		class Views.SliderView extends Marionette.CompositeView
 
-			className : 'slider'
+			className : 'fullwidthbanner-container roundedcorners'
 
-			template : sliderTpl
+			template : '<div class="fullwidthbanner"><ul></ul></div>'
 
 			id : _.uniqueId('carousel-')
 
 			itemView : SliderItem
 
-			itemViewContainer: '.carousel-inner'
-
-			templateHelpers :(data = {})->
-
-				data.slider_id = @id
-				data.slides = @collection.toJSON()
-				data
+			itemViewContainer: '.fullwidthbanner > ul'
 
 			onShow:->
-				@$el.find('.carousel').carousel()
-
-			
-
-
+				console.log "logged"
+				@revapi = @$el.find(".fullwidthbanner").revolution
+													  	delay: 9000
+													  	startwidth: 1170
+													  	startheight: 500
+													  	hideThumbs: 10
+													  	thumbWidth: 100
+													  	thumbHeight: 50
+													  	thumbAmount: 5
+													  	navigationType: "both"
+													  	navigationArrows: "solo"
+													  	navigationStyle: "round"
+													  	touchenabled: "on"
+													  	onHoverStop: "on"
+													  	navigationHAlign: "center"
+													  	navigationVAlign: "bottom"
+													  	navigationHOffset: 0
+													  	navigationVOffset: 0
+													  	soloArrowLeftHalign: "left"
+													  	soloArrowLeftValign: "center"
+													  	soloArrowLeftHOffset: 20
+													  	soloArrowLeftVOffset: 0
+													  	soloArrowRightHalign: "right"
+													  	soloArrowRightValign: "center"
+													  	soloArrowRightHOffset: 20
+													  	soloArrowRightVOffset: 0
+													  	shadow: 0
+													  	fullWidth: "on"
+													  	fullScreen: "off"
+													  	stopLoop: "off"
+													  	stopAfterLoops: -1
+													  	stopAtSlide: -1
+													  	shuffle: "off"
+													  	autoHeight: "off"
+													  	forceFullWidth: "off"
+													  	hideThumbsOnMobile: "off"
+													  	hideBulletsOnMobile: "on"
+													  	hideArrowsOnMobile: "on"
+													  	hideThumbsUnderResolution: 0
+													  	hideSliderAtLimit: 0
+													  	hideCaptionAtLimit: 768
+													  	hideAllCaptionAtLilmit: 0
+													  	startWithSlide: 0
+													  	fullScreenOffsetContainer: ""
+														

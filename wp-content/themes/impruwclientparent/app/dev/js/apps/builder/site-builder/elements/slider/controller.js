@@ -15,7 +15,7 @@ define(['app', 'apps/builder/site-builder/elements/slider/views', 'apps/builder/
       Controller.prototype.initialize = function(options) {
         _.defaults(options.modelData, {
           element: 'Slider',
-          slider_id: 0
+          slider_id: 1
         });
         return Controller.__super__.initialize.call(this, options);
       };
@@ -32,29 +32,21 @@ define(['app', 'apps/builder/site-builder/elements/slider/views', 'apps/builder/
       };
 
       Controller.prototype.renderElement = function() {
-        var collection, view;
+        var slidesCollection;
         this.removeSpinner();
-        collection = new Backbone.Collection([
-          {
-            image: 'dsds',
-            order: 1
-          }, {
-            image: 'dsds',
-            order: 2
-          }, {
-            image: 'dsds',
-            order: 3
-          }
-        ]);
-        view = this._getSliderView(collection);
-        this.listenTo(view, "itemview:show:slider:manager", (function(_this) {
+        slidesCollection = App.request("get:slides:for:slide", this.layout.model.get('slider_id'));
+        return App.execute("when:fetched", slidesCollection, (function(_this) {
           return function() {
-            return App.navigate("slider-manager", {
-              trigger: true
+            var view;
+            view = _this._getSliderView(slidesCollection);
+            _this.listenTo(view, "itemview:show:slider:manager", function() {
+              return App.navigate("slider-manager", {
+                trigger: true
+              });
             });
+            return _this.layout.elementRegion.show(view);
           };
         })(this));
-        return this.layout.elementRegion.show(view);
       };
 
       return Controller;
