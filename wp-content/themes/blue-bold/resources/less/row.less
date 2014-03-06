@@ -5,16 +5,17 @@ and open the template in the editor.
 */
 /* 
     Created on : 20 Feb, 2014, 7:45:35 PM
-    Author     : surajair
+    Author     : jarr-head
 */
 .row{
-	&.green-background{
-	    background: @primary1;
-	    min-height :100px;
+	&.blue-strip-top{
+	    border-top: 5px solid @blue;
+	    background: @grey;
+	    min-height: 100px;
 	}
 
 	&.grey-background{
-	    background: @secondary1;
+	    background: @grey;
 	    min-height :100px;
 	}
 
@@ -23,13 +24,21 @@ and open the template in the editor.
 		margin: 0.5em auto;
 	}
 
-	&.shaded-background{
-		background: url("../resources/img/stripe_bg.png") repeat scroll 0 0 rgba(0, 0, 0, 0);
+	&.white-shaded-background{
+		margin: 1em 0;
+		padding: 1em 15px;
+		background: #fff;
+		box-shadow: 0 0 2px lighten(@dark-grey, 50%);
+	}
+
+	&.footer-container {
+		background: @dark-grey;
+		min-height: 100px;
 	}
 
 	&.column-dividers {
 		.column {
-			border-right: 1px solid lighten(@secondary2, 20%);
+			border-right: 1px solid lighten(@dark-grey, 20%);
 			&:last-child {
 				border-right: 0;
 			} 

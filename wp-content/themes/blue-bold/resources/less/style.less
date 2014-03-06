@@ -11,6 +11,49 @@
 	font-style: normal; 
 }
 
+/****Google Fonts****/
+@import url(http://fonts.googleapis.com/css?family=Lato:100,400,700);
+
+/****body styles****/
+.site-style-container {
+	font-family: 'Lato', sans-serif;
+	font-weight: 400;
+
+	/*-- Site Builder Container --*/
+
+	/****Selection Color****/
+	::selection {
+		background: @blue; 
+		color: #fff;
+	}
+	::-moz-selection {
+		background: @blue; 
+		color: #fff;
+	}
+
+	/****Link Styles****/
+	a {
+		color: @blue;
+		text-decoration: none;
+		&:hover, &:focus, &:active {
+			color: lighten(@blue, 10%);
+			text-decoration: underline;
+		}
+	}
+
+	/****Heading Styles****/
+	h1, h2, h3, h4, h5, h6{
+		font-weight: 700;
+		color: @blue;
+		&.sub-title {
+			text-transform: uppercase;
+			color: darken(@grey, 50%);
+			font-weight: 300;
+			margin: 0.5em 0;
+		}
+	}
+}
+
 //theme specific css
 @import "row.less";
 @import "header.less";
@@ -21,7 +64,7 @@
 @import "social.less";
 @import "contact.less";
 
-//generic
+//generic margins
 @small: 0.5em;
 @medium: 1em;
 @large: 1.5em;

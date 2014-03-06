@@ -50,7 +50,7 @@ $element_templates = array(
               ),
     'Row' => array(
                 array(
-                    'name'      => 'Green Background'
+                    'name'      => 'Blue Strip Top'
                 ),
                 array(
                     'name'      => 'Center Container'
@@ -59,9 +59,11 @@ $element_templates = array(
                     'name'      => 'Grey Background'
                 ),
                 array(
-                    'name'      => 'Shaded Background'
-                )
-                ,
+                    'name'      => 'White Shaded Background'
+                ),
+                array(
+                    'name'      => 'Footer Container'
+                ),
                 array(
                     'name'      => 'Column Dividers'
                 )
@@ -73,7 +75,7 @@ $element_templates = array(
                 ),
                 array(
                     'name' => 'Small Address',
-                    'template' => '<div><div class="info"><span class="fui-home"></span> {{address}}</div><div class="info"><span class="glyphicon glyphicon-earphone"></span> {{phoneno}}</div><div class="info"><span class="fui-mail"></span> {{email}}</div></div>'
+                    'template' => '<div><div class="info">{{address}}</div><div class="info">{{phoneno}}</div><div class="info">{{email}}</div></div>'
                 )
             ),
     'Social' => array(
