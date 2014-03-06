@@ -21,7 +21,7 @@ define(['app', 'apps/builder/site-builder/elements/slider/views', 'apps/builder/
       };
 
       Controller.prototype.bindEvents = function() {
-        this.listenTo(this.layout.model, "change:style", this.renderElement);
+        this.listenTo(this.layout.model, "change:slider_id", this.renderElement);
         return Controller.__super__.bindEvents.call(this);
       };
 
@@ -43,6 +43,9 @@ define(['app', 'apps/builder/site-builder/elements/slider/views', 'apps/builder/
               return App.navigate("slider-manager", {
                 trigger: true
               });
+            });
+            _this.listenTo(slidesCollection, "remove add", function() {
+              return _this.renderElement();
             });
             return _this.layout.elementRegion.show(view);
           };
