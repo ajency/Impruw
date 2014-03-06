@@ -49,9 +49,13 @@ define(['app', 'text!apps/media/grid/templates/media.html'], function(App, media
       GridView.prototype.itemViewContainer = '#selectable-images';
 
       GridView.prototype.onCollectionRendered = function() {
-        return this.$el.find('#selectable-images').bind("mousedown", function(e) {
-          return e.metaKey = true;
-        }).selectable();
+        if (this.multiSelect) {
+          return this.$el.find('#selectable-images').bind("mousedown", function(e) {
+            return e.metaKey = true;
+          }).selectable();
+        } else {
+          return this.$el.find('#selectable-images').selectable();
+        }
       };
 
       return GridView;

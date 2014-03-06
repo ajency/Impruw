@@ -1,7 +1,8 @@
 define ['app'
 		'controllers/base-controller'
 		'apps/slider-manager/edit-slider/setting/settingscontroller'
-		'apps/slider-manager/edit-slider/list-slides/listcontroller'], (App, AppController)->
+		'apps/slider-manager/edit-slider/list-slides/listcontroller'
+		'apps/slider-manager/edit-slider/addedit-slide/addslidecontroller'], (App, AppController)->
 
 			App.module 'SliderManager.EditSlider', (EditSlider, App, Backbone, Marionette, $, _)->
 
@@ -24,9 +25,9 @@ define ['app'
 							@_startEditSlideApp @sliderId, slideId, layout.addEditSlideRegion
 
 						@listenTo layout, "show", =>
-							@_startSettingsApp slider, layout.sliderSettingsRegion
+							#@_startSettingsApp slider, layout.sliderSettingsRegion
 							@_startSlidesListApp @sliderId, layout.slidesListRegion
-							@_startAddSlideApp @sliderId, layout.addEditSlideRegion
+							#@_startAddSlideApp @sliderId, layout.addEditSlideRegion
 
 						@show layout
 
@@ -69,26 +70,10 @@ define ['app'
 				class EditSliderLayout extends Marionette.Layout
 
 					template : '<div class="row edit-slider">
-									<div class="col-sm-2 slider-left-nav">
-										<div class="cancel-slider">
-											<button class="btn btn-sm btn-cancel-slider cancel-edit-slider"><span class="glyphicon glyphicon-remove-circle"></span> Cancel</button>
-										</div>
-										<ul class="nav nav-list">
-											<li class="active">
-												<a href="#slider-settings-region" data-toggle="tab">Slider Settings</a>
-											</li>
-											<li>
-												<a href="#slides-list-region" data-toggle="tab">Slides</a>
-											</li>
-											<li>
-												<a href="#add-edit-slide-region" data-toggle="tab">Add/Edit Slides</a>
-											</li>
-										</ul>
-									</div> 
-									<div class="col-sm-10 slider-right-region">
+									<div class="col-sm-12 slider-right-region">
 										<div class="tab-content">
-											<div id="slider-settings-region" class="tab-pane active">dsd</div>
-											<div id="slides-list-region" class="tab-pane">dsds</div>
+											<div id="slider-settings-region" class="tab-pane">dsd</div>
+											<div id="slides-list-region" class="tab-pane active"></div>
 											<div id="add-edit-slide-region" class="tab-pane">dsds</div>
 										</div>
 									</div>

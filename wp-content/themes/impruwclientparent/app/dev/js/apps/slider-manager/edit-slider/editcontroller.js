@@ -1,7 +1,7 @@
 var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-define(['app', 'controllers/base-controller', 'apps/slider-manager/edit-slider/setting/settingscontroller', 'apps/slider-manager/edit-slider/list-slides/listcontroller'], function(App, AppController) {
+define(['app', 'controllers/base-controller', 'apps/slider-manager/edit-slider/setting/settingscontroller', 'apps/slider-manager/edit-slider/list-slides/listcontroller', 'apps/slider-manager/edit-slider/addedit-slide/addslidecontroller'], function(App, AppController) {
   return App.module('SliderManager.EditSlider', function(EditSlider, App, Backbone, Marionette, $, _) {
     var EditSliderController, EditSliderLayout;
     EditSliderController = (function(_super) {
@@ -29,9 +29,7 @@ define(['app', 'controllers/base-controller', 'apps/slider-manager/edit-slider/s
         })(this));
         this.listenTo(layout, "show", (function(_this) {
           return function() {
-            _this._startSettingsApp(slider, layout.sliderSettingsRegion);
-            _this._startSlidesListApp(_this.sliderId, layout.slidesListRegion);
-            return _this._startAddSlideApp(_this.sliderId, layout.addEditSlideRegion);
+            return _this._startSlidesListApp(_this.sliderId, layout.slidesListRegion);
           };
         })(this));
         this.show(layout);
@@ -89,7 +87,7 @@ define(['app', 'controllers/base-controller', 'apps/slider-manager/edit-slider/s
         return EditSliderLayout.__super__.constructor.apply(this, arguments);
       }
 
-      EditSliderLayout.prototype.template = '<div class="row edit-slider"> <div class="col-sm-2 slider-left-nav"> <div class="cancel-slider"> <button class="btn btn-sm btn-cancel-slider cancel-edit-slider"><span class="glyphicon glyphicon-remove-circle"></span> Cancel</button> </div> <ul class="nav nav-list"> <li class="active"> <a href="#slider-settings-region" data-toggle="tab">Slider Settings</a> </li> <li> <a href="#slides-list-region" data-toggle="tab">Slides</a> </li> <li> <a href="#add-edit-slide-region" data-toggle="tab">Add/Edit Slides</a> </li> </ul> </div> <div class="col-sm-10 slider-right-region"> <div class="tab-content"> <div id="slider-settings-region" class="tab-pane active">dsd</div> <div id="slides-list-region" class="tab-pane">dsds</div> <div id="add-edit-slide-region" class="tab-pane">dsds</div> </div> </div> </div>';
+      EditSliderLayout.prototype.template = '<div class="row edit-slider"> <div class="col-sm-12 slider-right-region"> <div class="tab-content"> <div id="slider-settings-region" class="tab-pane">dsd</div> <div id="slides-list-region" class="tab-pane active"></div> <div id="add-edit-slide-region" class="tab-pane">dsds</div> </div> </div> </div>';
 
       EditSliderLayout.prototype.events = {
         'click button.cancel-edit-slider': function() {

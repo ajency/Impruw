@@ -12,7 +12,8 @@ define(['app', 'controllers/base-controller', 'apps/slider-manager/new/newcontro
       }
 
       Router.prototype.appRoutes = {
-        'slider-manager': 'show'
+        'slider-manager': 'show',
+        'slider-manager/edit/:id': 'edit'
       };
 
       return Router;
@@ -48,7 +49,11 @@ define(['app', 'controllers/base-controller', 'apps/slider-manager/new/newcontro
         })(this));
         this.listenTo(this.layout, "show", (function(_this) {
           return function() {
-            return _this._startGridApp();
+            var id;
+            if (opt.sliderId) {
+              id = opt.sliderId;
+            }
+            return _this._startEditSliderApp(id);
           };
         })(this));
         return this.show(this.layout);
@@ -115,6 +120,12 @@ define(['app', 'controllers/base-controller', 'apps/slider-manager/new/newcontro
       show: function() {
         return new SliderManagerController({
           region: App.dialogRegion
+        });
+      },
+      edit: function(id) {
+        return new SliderManagerController({
+          region: App.dialogRegion,
+          sliderId: id
         });
       }
     };
