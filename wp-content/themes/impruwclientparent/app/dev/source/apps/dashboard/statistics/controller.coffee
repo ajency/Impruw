@@ -34,19 +34,19 @@ define ['app'
 						endDate = Date.parse(new Date().toDateString())
 						startDate = endDate - dateRange*86400000
 						analyticsCollection = App.request "get:analytics:by:date" , startDate , endDate
-						Jsoncol= _.map analyticsCollection, (analyticsModel)->
+						JsonCollection= _.map analyticsCollection, (analyticsModel)->
 							analyticsModel.toJSON()
 
 						#rangeData = _.last rawData.toJSON(), dateRange
 						console.log JSON.stringify(analyticsCollection)
-						@trigger "radio:clicked" ,Jsoncol
+						@trigger "radio:clicked" ,JsonCollection
 
 					onShow:->
 						#@$el.find('input[type="checkbox"]').bootstrapSwitch()	
 						
-						@$el.find('.range-radio-button[checked="checked"]').parent().addClass('active')
+						#@$el.find('.range-radio-button[checked="checked"]').parent().addClass('active')
 
-						@$el.find('.active .range-radio-button').prop('checked', true)
+						#@$el.find('.active .range-radio-button').prop('checked', true)
 
 
 				class Statistics.Controller extends AppController
@@ -56,7 +56,7 @@ define ['app'
 						endDate = Date.parse(new Date().toDateString())
 
 						# end date - 1 month
-						startDate = endDate - 365* 86400000
+						startDate = endDate - 30* 86400000
 						#alert "i month ago"+startDate
 
 						analyticsCollection = App.request "fetch:analytics", startDate, endDate

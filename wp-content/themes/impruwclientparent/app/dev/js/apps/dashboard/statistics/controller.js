@@ -38,23 +38,20 @@ define(['app', 'controllers/base-controller', 'text!apps/dashboard/statistics/te
       StatisticsLayout.prototype.initialize = function(options) {};
 
       StatisticsLayout.prototype.changeRange = function(e) {
-        var Jsoncol, analyticsCollection, dateRange, endDate, startDate;
+        var JsonCollection, analyticsCollection, dateRange, endDate, startDate;
         console.log("radio changed");
         dateRange = $(e.target).find('input').val();
         endDate = Date.parse(new Date().toDateString());
         startDate = endDate - dateRange * 86400000;
         analyticsCollection = App.request("get:analytics:by:date", startDate, endDate);
-        Jsoncol = _.map(analyticsCollection, function(analyticsModel) {
+        JsonCollection = _.map(analyticsCollection, function(analyticsModel) {
           return analyticsModel.toJSON();
         });
         console.log(JSON.stringify(analyticsCollection));
-        return this.trigger("radio:clicked", Jsoncol);
+        return this.trigger("radio:clicked", JsonCollection);
       };
 
-      StatisticsLayout.prototype.onShow = function() {
-        this.$el.find('.range-radio-button[checked="checked"]').parent().addClass('active');
-        return this.$el.find('.active .range-radio-button').prop('checked', true);
-      };
+      StatisticsLayout.prototype.onShow = function() {};
 
       return StatisticsLayout;
 
@@ -69,7 +66,7 @@ define(['app', 'controllers/base-controller', 'text!apps/dashboard/statistics/te
       Controller.prototype.initialize = function() {
         var analyticsCollection, endDate, startDate;
         endDate = Date.parse(new Date().toDateString());
-        startDate = endDate - 365 * 86400000;
+        startDate = endDate - 30 * 86400000;
         analyticsCollection = App.request("fetch:analytics", startDate, endDate);
         console.log("fetched" + JSON.stringify(analyticsCollection));
         this.layout = this._getLayout(analyticsCollection);
