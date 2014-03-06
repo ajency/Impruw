@@ -52,10 +52,11 @@ define ['app'
 					template : '<div class="aj-imp-edit-image well">
 									<div class="row">
 										<div class="aj-imp-crop-link col-sm-4">
-											<img src="{{thumb_url}}" class="img-responsive add-image-to-slide">
-											<input type="hidden" name="background_type" value="image"/>
-											<input type="hidden" name="image" value="" required/>
-											<input type="hidden" name="image_id" value="" require/>
+											<div class="add-image-to-slide">
+												<span class="bicon icon-uniF10C"></span>
+												Click to Add an Image to Your Slide
+											</div>
+											<img src="{{thumb_url}}" class="img-responsive slide-image" style="display:none;">
 										</div>
 										<div class="aj-imp-img-form col-sm-8">
 											<div class="row">
@@ -81,7 +82,9 @@ define ['app'
 
 					onSlideImageSelected:(media)->
 						url = if media.get('sizes').thumbnail then media.get('sizes').thumbnail.url else media.get('sizes').full.url
-						@$el.find('.add-image-to-slide').attr 'src', url
+						@$el.find('.add-image-to-slide').hide()
+						@$el.find('.slide-image').attr 'src', url
+						@$el.find('.slide-image').show()
 						@$el.find('input[name="image"]').val media.get 'url'
 						@$el.find('input[name="image_id"]').val media.get 'id'
 

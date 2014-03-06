@@ -1191,38 +1191,53 @@ Version:        0.1.0
 .modal.wide-modal .modal-dialog .modal-content .modal-body {
   padding: 0.5em 0;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .nav-tabs {
+.modal.medium-modal {
+  padding: 2em;
+}
+.modal.medium-modal .modal-dialog {
+  width: 70%;
+}
+.modal.medium-modal .modal-dialog .modal-content {
+  width: 100%;
+}
+.modal.medium-modal .modal-dialog .modal-content .modal-body {
+  padding: 0.5em 0;
+}
+.modal .nav-tabs {
   border-width: 1px;
   margin: 0 0 0.5em;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .nav-tabs li a {
+.modal .nav-tabs li a {
   font-weight: normal;
   border: 0;
   background: transparent;
   font-size: 1.1em;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .nav-tabs li a:hover {
+.modal .nav-tabs li a:hover {
   color: #333333;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .nav-tabs li.active > a {
+.modal .nav-tabs li.active > a,
+.modal .nav-tabs li:hover > a {
   color: #ff7e00;
   font-weight: 700;
+  border: 0;
+  background: transparent;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content {
+.modal .tab-content {
   border-radius: 0;
   border: 0;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .aj-imp-upload-media {
+.modal .tab-content .aj-imp-upload-media {
   text-align: center;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .aj-imp-upload-media > span {
+.modal .tab-content .aj-imp-upload-media > span {
   display: block;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .aj-imp-upload-media > span.bicon {
+.modal .tab-content .aj-imp-upload-media > span.bicon {
   font-size: 10em;
   color: #e6e6e6;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .aj-imp-upload-media .aj-imp-upload-message {
+.modal .tab-content .aj-imp-upload-media .aj-imp-upload-message {
   margin: 1em 0;
   background: #919191;
   color: #fff;
@@ -1231,11 +1246,11 @@ Version:        0.1.0
   display: inline-block;
   padding: 0.5em 1em 0.6em;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .aj-imp-upload-media .small-text {
+.modal .tab-content .aj-imp-upload-media .small-text {
   font-size: 0.9em;
   color: #aaaaaa;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .aj-imp-image-header {
+.modal .tab-content .aj-imp-image-header {
   padding: 10px 15px;
   margin: 0 0 1em;
   background: #f3f3f3;
@@ -1244,62 +1259,59 @@ Version:        0.1.0
   font-weight: 700;
   border-bottom: 1px solid #aaaaaa;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel {
+.modal .tab-content .panel-group .panel {
   border-radius: 0;
   border: 0;
   border-bottom: 1px solid #c3c3c3;
   background: none;
   box-shadow: none;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-heading {
+.modal .tab-content .panel-group .panel .panel-heading {
   background: none;
   border: 0;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-heading > a {
+.modal .tab-content .panel-group .panel .panel-heading > a {
   display: block;
   outline: 0;
   color: #ff7e00;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-heading > a .imgthumb img {
+.modal .tab-content .panel-group .panel .panel-heading > a .imgthumb img {
   height: 100%;
   width: auto;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-heading > a .imgname,
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-heading > a .imgdate {
+.modal .tab-content .panel-group .panel .panel-heading > a .imgname,
+.modal .tab-content .panel-group .panel .panel-heading > a .imgdate {
   font-weight: bold;
   padding: 0.5em 15px;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-heading > a .imgactions {
-  text-align: center;
-}
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-heading > a .imgactions .btn {
+.modal .tab-content .panel-group .panel .panel-heading > a .imgactions .btn {
   padding: 5px 8px 6px;
   margin-right: 1em;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-heading > a .imgactions .btn:hover {
+.modal .tab-content .panel-group .panel .panel-heading > a .imgactions .btn:hover {
   background: #ff7e00;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-heading > a.collapsed {
+.modal .tab-content .panel-group .panel .panel-heading > a.collapsed {
   color: #aaaaaa;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-heading:hover {
+.modal .tab-content .panel-group .panel .panel-heading:hover {
   background: #f3f3f3;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-body {
+.modal .tab-content .panel-group .panel .panel-body {
   border: 0;
   padding: 1em 0;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-body .aj-imp-edit-image {
+.modal .tab-content .panel-group .panel .panel-body .aj-imp-edit-image {
   border-radius: 0;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-body .aj-imp-edit-image .aj-imp-crop-link {
+.modal .tab-content .panel-group .panel .panel-body .aj-imp-edit-image .aj-imp-crop-link {
   position: relative;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-body .aj-imp-edit-image .aj-imp-crop-link img {
+.modal .tab-content .panel-group .panel .panel-body .aj-imp-edit-image .aj-imp-crop-link img {
   padding: 1px;
   border: 1px solid #aaaaaa;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-body .aj-imp-edit-image .aj-imp-crop-link .aj-imp-crop-link-overlay {
+.modal .tab-content .panel-group .panel .panel-body .aj-imp-edit-image .aj-imp-crop-link .aj-imp-crop-link-overlay {
   position: absolute;
   top: 1px;
   bottom: 1px;
@@ -1307,71 +1319,91 @@ Version:        0.1.0
   right: 15px;
   background: rgba(0, 0, 0, 0.4);
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-body .aj-imp-edit-image .aj-imp-crop-link .aj-imp-crop-link-overlay a {
+.modal .tab-content .panel-group .panel .panel-body .aj-imp-edit-image .aj-imp-crop-link .aj-imp-crop-link-overlay a {
   position: relative;
   top: 50%;
   color: #fff;
   display: block;
   text-align: center;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-body .aj-imp-edit-image .aj-imp-img-form .row {
+.modal .tab-content .panel-group#settings-accordion .panel .panel-heading > a .imgthumb span[class^="icon"],
+.modal .tab-content .panel-group#map-settings-accordion .panel .panel-heading > a .imgthumb span[class^="icon"] {
+  font-size: 2em;
+}
+.modal .tab-content .panel-group#settings-accordion .panel .panel-heading > a .imgactions,
+.modal .tab-content .panel-group#map-settings-accordion .panel .panel-heading > a .imgactions {
+  text-align: right;
+}
+.modal .tab-content .aj-imp-img-form .row {
   margin: 0 0 1em;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-body .aj-imp-edit-image .aj-imp-img-form .row textarea {
+.modal .tab-content .aj-imp-img-form .row textarea {
   min-height: 115px;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-body .aj-imp-edit-image .aj-imp-img-form .row input:focus,
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-body .aj-imp-edit-image .aj-imp-img-form .row textarea:focus {
+.modal .tab-content .aj-imp-img-form .row input:focus,
+.modal .tab-content .aj-imp-img-form .row textarea:focus {
   border-color: #ff7e00;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-body .aj-imp-edit-image .aj-imp-img-save {
+.modal .tab-content .aj-imp-img-save {
   margin: 1em 0 0;
   text-align: right;
   padding: 0.5em 0 0;
   border-top: 1px solid #dadada;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group#settings-accordion .panel .panel-heading > a .imgthumb span[class^="icon"],
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group#map-settings-accordion .panel .panel-heading > a .imgthumb span[class^="icon"] {
+.modal .tab-content #add-slide-region {
+  margin: 0.5em 0;
+}
+.modal .tab-content #add-slide-region .add-image-to-slide {
+  padding: 1em;
+  text-align: center;
+  background: #fff;
+  font-size: 1.5em;
+  cursor: pointer;
+  border: 1px solid #dddddd;
+  color: #aaaaaa;
+}
+.modal .tab-content #add-slide-region .add-image-to-slide .bicon {
+  display: block;
   font-size: 2em;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group#settings-accordion .panel .panel-heading > a .imgactions,
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group#map-settings-accordion .panel .panel-heading > a .imgactions {
-  text-align: right;
+.modal .tab-content #add-slide-region .slide-image {
+  border: 1px solid #aaaaaa;
+  padding: 1px;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .thumbnails .single-img,
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #selectable-images .single-img {
+.modal .tab-content .thumbnails .single-img,
+.modal .tab-content #selectable-images .single-img {
   position: relative;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .thumbnails .single-img .thumbnail,
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #selectable-images .single-img .thumbnail {
+.modal .tab-content .thumbnails .single-img .thumbnail,
+.modal .tab-content #selectable-images .single-img .thumbnail {
   margin-bottom: 7px;
   border: 2px solid #aaaaaa;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .thumbnails .single-img .thumbnail .imgthumb,
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #selectable-images .single-img .thumbnail .imgthumb {
+.modal .tab-content .thumbnails .single-img .thumbnail .imgthumb,
+.modal .tab-content #selectable-images .single-img .thumbnail .imgthumb {
   height: 145px;
   text-align: center;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .thumbnails .single-img .thumbnail .imgthumb img,
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #selectable-images .single-img .thumbnail .imgthumb img {
+.modal .tab-content .thumbnails .single-img .thumbnail .imgthumb img,
+.modal .tab-content #selectable-images .single-img .thumbnail .imgthumb img {
   vertical-align: middle;
   max-height: 145px;
   display: inline-block;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .thumbnails .single-img .thumbnail .imgthumb:before,
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #selectable-images .single-img .thumbnail .imgthumb:before {
+.modal .tab-content .thumbnails .single-img .thumbnail .imgthumb:before,
+.modal .tab-content #selectable-images .single-img .thumbnail .imgthumb:before {
   content: "";
   display: inline-block;
   height: 100%;
   vertical-align: middle;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .thumbnails .single-img .thumbnail:hover,
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #selectable-images .single-img .thumbnail:hover {
+.modal .tab-content .thumbnails .single-img .thumbnail:hover,
+.modal .tab-content #selectable-images .single-img .thumbnail:hover {
   border-color: #849fb0;
   background: #f3f3f3;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .thumbnails .single-img .ticker,
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #selectable-images .single-img .ticker {
+.modal .tab-content .thumbnails .single-img .ticker,
+.modal .tab-content #selectable-images .single-img .ticker {
   position: absolute;
   top: -7px;
   right: 5px;
@@ -1383,208 +1415,208 @@ Version:        0.1.0
   display: none;
   box-shadow: 0 0 2px #333;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .thumbnails .single-img .ticker .glyphicon-minus,
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #selectable-images .single-img .ticker .glyphicon-minus {
+.modal .tab-content .thumbnails .single-img .ticker .glyphicon-minus,
+.modal .tab-content #selectable-images .single-img .ticker .glyphicon-minus {
   display: none;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .thumbnails .single-img .ticker:hover,
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #selectable-images .single-img .ticker:hover {
+.modal .tab-content .thumbnails .single-img .ticker:hover,
+.modal .tab-content #selectable-images .single-img .ticker:hover {
   cursor: pointer;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .thumbnails .single-img .ticker:hover .glyphicon-ok,
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #selectable-images .single-img .ticker:hover .glyphicon-ok {
+.modal .tab-content .thumbnails .single-img .ticker:hover .glyphicon-ok,
+.modal .tab-content #selectable-images .single-img .ticker:hover .glyphicon-ok {
   display: none;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .thumbnails .single-img .ticker:hover .glyphicon-minus,
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #selectable-images .single-img .ticker:hover .glyphicon-minus {
+.modal .tab-content .thumbnails .single-img .ticker:hover .glyphicon-minus,
+.modal .tab-content #selectable-images .single-img .ticker:hover .glyphicon-minus {
   display: inline-block;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .thumbnails .single-img.ui-selected .thumbnail,
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #selectable-images .single-img.ui-selected .thumbnail {
+.modal .tab-content .thumbnails .single-img.ui-selected .thumbnail,
+.modal .tab-content #selectable-images .single-img.ui-selected .thumbnail {
   border-color: #849fb0;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .thumbnails .single-img.ui-selected .ticker,
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #selectable-images .single-img.ui-selected .ticker {
+.modal .tab-content .thumbnails .single-img.ui-selected .ticker,
+.modal .tab-content #selectable-images .single-img.ui-selected .ticker {
   display: block;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #edit-media-region,
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #selected-media-region {
+.modal .tab-content #edit-media-region,
+.modal .tab-content #selected-media-region {
   border: 2px solid #aaaaaa;
   border-radius: 3px;
   background: #ffffff;
   padding: 5px;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #edit-media-region .pick-image,
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #selected-media-region .pick-image {
+.modal .tab-content #edit-media-region .pick-image,
+.modal .tab-content #selected-media-region .pick-image {
   text-align: center;
   padding: 2em;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #edit-media-region .pick-image .glyphicon,
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #selected-media-region .pick-image .glyphicon {
+.modal .tab-content #edit-media-region .pick-image .glyphicon,
+.modal .tab-content #selected-media-region .pick-image .glyphicon {
   font-size: 4em;
   color: #aaaaaa;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #edit-media-region .pick-image h4,
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #selected-media-region .pick-image h4 {
+.modal .tab-content #edit-media-region .pick-image h4,
+.modal .tab-content #selected-media-region .pick-image h4 {
   color: #aaaaaa;
   text-transform: uppercase;
   font-size: 1.2em;
   margin: 2em 0 0;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #edit-media-region h5,
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #selected-media-region h5 {
+.modal .tab-content #edit-media-region h5,
+.modal .tab-content #selected-media-region h5 {
   color: #777777;
   font-size: 1em;
   text-transform: uppercase;
   border-bottom: 1px solid #aaaaaa;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #edit-media-region .imgdetails,
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #selected-media-region .imgdetails {
+.modal .tab-content #edit-media-region .imgdetails,
+.modal .tab-content #selected-media-region .imgdetails {
   margin: 0 0 1em;
   padding: 0 0 1em;
   border-bottom: 1px solid #aaaaaa;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #edit-media-region .imginfo,
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #selected-media-region .imginfo {
+.modal .tab-content #edit-media-region .imginfo,
+.modal .tab-content #selected-media-region .imginfo {
   color: #aaaaaa;
   font-size: 0.88em;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #edit-media-region .imginfo h6,
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #selected-media-region .imginfo h6 {
+.modal .tab-content #edit-media-region .imginfo h6,
+.modal .tab-content #selected-media-region .imginfo h6 {
   font-size: 1.2em;
   color: #182944;
   margin: 0 0 0.2em;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #edit-media-region .imginfo .edit-image,
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #selected-media-region .imginfo .edit-image {
+.modal .tab-content #edit-media-region .imginfo .edit-image,
+.modal .tab-content #selected-media-region .imginfo .edit-image {
   margin: 0.5em 0.5em 0.5em 0;
   color: #849fb0;
   display: inline-block;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #edit-media-region .imginfo .delete-image,
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #selected-media-region .imginfo .delete-image {
+.modal .tab-content #edit-media-region .imginfo .delete-image,
+.modal .tab-content #selected-media-region .imginfo .delete-image {
   color: #cc6500;
   margin: 0.5em 0.5em 0.5em 0;
   display: inline-block;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #edit-media-region label,
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content #selected-media-region label {
+.modal .tab-content #edit-media-region label,
+.modal .tab-content #selected-media-region label {
   font-size: 0.88em;
   color: #aaaaaa;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .aj-imp-block-button {
+.modal .tab-content .aj-imp-block-button {
   margin: 1em 0;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .aj-imp-block-button a {
+.modal .tab-content .aj-imp-block-button a {
   text-transform: uppercase;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .aj-imp-map-view {
+.modal .tab-content .aj-imp-map-view {
   padding: 0.5em;
   border: 2px dashed #aaaaaa;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .form-horizontal {
+.modal .form-horizontal {
   margin: 1em;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .form-horizontal .form-group input[type="text"]:focus {
+.modal .form-horizontal .form-group input[type="text"]:focus {
   border-color: #ff7e00;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .form-horizontal .form-group label {
+.modal .form-horizontal .form-group label {
   font-size: 1.2em;
   color: #aaaaaa;
   line-height: 2em;
   text-align: right;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .form-horizontal .form-group .input-group .input-group-addon a {
+.modal .form-horizontal .form-group .input-group .input-group-addon a {
   font-weight: 700;
   font-size: 1.2em;
   color: #fff;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .form-horizontal .form-group .input-group .input-group-addon a:hover {
+.modal .form-horizontal .form-group .input-group .input-group-addon a:hover {
   color: #ff7e00;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .form-horizontal .form-group .btn-group button.active,
-.modal.wide-modal .modal-dialog .modal-content .modal-body .form-horizontal .form-group .btn-group button:active,
-.modal.wide-modal .modal-dialog .modal-content .modal-body .form-horizontal .form-group .btn-group button:focus {
+.modal .form-horizontal .form-group .btn-group button.active,
+.modal .form-horizontal .form-group .btn-group button:active,
+.modal .form-horizontal .form-group .btn-group button:focus {
   background: #849fb0;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .form-horizontal .form-group#social-drop .aj-imp-add-icon {
+.modal .form-horizontal .form-group#social-drop .aj-imp-add-icon {
   background: #ff7e00;
   position: relative;
   top: -5px;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .form-horizontal .form-group#social-drop .aj-imp-add-icon:hover {
+.modal .form-horizontal .form-group#social-drop .aj-imp-add-icon:hover {
   background: #ffb266;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .aj-imp-add-menu-item h4 {
+.modal .aj-imp-add-menu-item h4 {
   font-size: 2em;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .aj-imp-add-menu-item .desc {
+.modal .aj-imp-add-menu-item .desc {
   font-size: 0.9em;
   color: #aaaaaa;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .aj-imp-add-menu-item .aj-imp-add-link {
+.modal .aj-imp-add-menu-item .aj-imp-add-link {
   font-size: 1.2em;
   color: #ff7e00;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .aj-imp-add-menu-item .aj-imp-add-link:hover {
+.modal .aj-imp-add-menu-item .aj-imp-add-link:hover {
   text-decoration: underline;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .aj-imp-add-menu-item .add-menu-form {
+.modal .aj-imp-add-menu-item .add-menu-form {
   margin: 1em 0 0;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .aj-imp-add-menu-item .add-menu-form form {
+.modal .aj-imp-add-menu-item .add-menu-form form {
   margin: 0;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .aj-imp-add-menu-item .add-menu-form form .form-actions {
+.modal .aj-imp-add-menu-item .add-menu-form form .form-actions {
   text-align: right;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .aj-imp-add-menu-item .add-menu-form form .form-actions .btn {
+.modal .aj-imp-add-menu-item .add-menu-form form .form-actions .btn {
   padding: 5px 8px 6px;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .aj-imp-add-menu-item .add-menu-form form .form-actions .btn.save-btn {
+.modal .aj-imp-add-menu-item .add-menu-form form .form-actions .btn.save-btn {
   background: #ff7e00;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .aj-imp-add-menu-item .add-menu-form form .form-actions .btn.save-btn:hover {
+.modal .aj-imp-add-menu-item .add-menu-form form .form-actions .btn.save-btn:hover {
   background: #ffb266;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .aj-imp-menu-item-list .panel-title {
+.modal .aj-imp-menu-item-list .panel-title {
   font-size: 1.2em;
   font-weight: 700;
   color: #849fb0;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .aj-imp-menu-item-list .list-group .list-group-item .menu-item .menu-dragger {
+.modal .aj-imp-menu-item-list .list-group .list-group-item .menu-item .menu-dragger {
   color: #aaaaaa;
   font-size: 1.2em;
   text-align: center;
   cursor: move;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .aj-imp-menu-item-list .list-group .list-group-item .menu-item .menu-edit {
+.modal .aj-imp-menu-item-list .list-group .list-group-item .menu-item .menu-edit {
   text-align: right;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .aj-imp-menu-item-list .list-group .list-group-item .menu-item .menu-edit a {
+.modal .aj-imp-menu-item-list .list-group .list-group-item .menu-item .menu-edit a {
   color: #ff7e00;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .aj-imp-menu-item-list .list-group .list-group-item .menu-item-edit {
+.modal .aj-imp-menu-item-list .list-group .list-group-item .menu-item-edit {
   background: #f6f6f6;
   margin: 10px -15px -10px;
   padding: 15px 0;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .aj-imp-menu-item-list .list-group .list-group-item .menu-item-edit .form-actions .btn {
+.modal .aj-imp-menu-item-list .list-group .list-group-item .menu-item-edit .form-actions .btn {
   padding: 5px 8px 6px;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .aj-imp-menu-item-list .list-group .list-group-item .menu-item-edit .form-actions .btn.save-btn {
+.modal .aj-imp-menu-item-list .list-group .list-group-item .menu-item-edit .form-actions .btn.save-btn {
   background: #ff7e00;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .aj-imp-menu-item-list .list-group .list-group-item .menu-item-edit .form-actions .btn.save-btn:hover {
+.modal .aj-imp-menu-item-list .list-group .list-group-item .menu-item-edit .form-actions .btn.save-btn:hover {
   background: #ffb266;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .aj-imp-menu-item-list .list-group .list-group-item:last-child .menu-item-edit {
+.modal .aj-imp-menu-item-list .list-group .list-group-item:last-child .menu-item-edit {
   border-radius: 0 0 4px 4px;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .aj-imp-menu-item-list .list-group .list-group-item:hover .menu-dragger {
+.modal .aj-imp-menu-item-list .list-group .list-group-item:hover .menu-dragger {
   color: #ff7e00;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .aj-imp-menu-item-list .list-group .list-group-item:hover .menu-name {
+.modal .aj-imp-menu-item-list .list-group .list-group-item:hover .menu-name {
   color: #849fb0;
 }
 .drop-highlight {
@@ -1748,9 +1780,6 @@ Version:        0.1.0
 }
 .slider-mgr .edit-slider .slider-left-nav .nav-list li.active a {
   color: #ff7e00;
-}
-.slider-mgr .edit-slider .slider-right-region .tab-content {
-  padding: 0;
 }
 .slider-mgr .edit-slider .slider-right-region .tab-content #slides-list-region ul {
   list-style: none;
