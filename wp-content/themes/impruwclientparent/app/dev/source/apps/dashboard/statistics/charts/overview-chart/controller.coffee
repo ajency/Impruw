@@ -16,7 +16,8 @@ define ['app'
 
 						@layout = @_getLayout()
 
-						@show @layout
+						@show @layout,
+						#	loading : true
 
 						@listenTo @layout, 'button:clicked',(criterion) =>
 							@_renderRegion(criterion)
@@ -104,5 +105,6 @@ define ['app'
 					#console.log JSON.stringify(data)
 					new OverViewChartController
 						region : options.region		
+						collection :options.collection
 
 

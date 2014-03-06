@@ -10,9 +10,12 @@ function get_slides($sliderID){
 
         $slides_arr[] = array(
                             'id'        => $slide->getID(),
+                            'link'      => '',
+                            'slide_title' => '',
                             'thumb_url' => $slide->getThumbUrl(),
                             'image_id'  => $slide->getImageID(),
-                            'full_image'=> $slide->getImageFilepath(),
+                            'full_url'  => $slide->getImageUrl(),
+                            'file_name' => $slide->getImageFilename(),
                             'order'     => $slide->getOrder()
                         );
     }

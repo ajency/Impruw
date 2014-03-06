@@ -24,6 +24,9 @@ define ['app'
 					itemView : MediaView
 					itemViewContainer: '#selectable-images'
 					onCollectionRendered:->
-						@$el.find('#selectable-images').bind "mousedown", ( e )->
-							    	e.metaKey = true;
-								.selectable()
+						if @multiSelect
+							@$el.find('#selectable-images').bind "mousedown", ( e )->
+								    	e.metaKey = true;
+									.selectable()
+						else
+							@$el.find('#selectable-images').selectable()

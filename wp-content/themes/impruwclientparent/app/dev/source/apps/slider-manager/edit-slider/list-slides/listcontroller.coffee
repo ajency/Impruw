@@ -11,15 +11,30 @@ define ['app'
 
 						slidesCollection = App.request "get:slides:for:slide" , @sliderId
 
+						@layout = layout = @_getSlidesListLayout()
+
 						@listView = listView = @_getSlidesListView slidesCollection
 
-						@listenTo listView, "itemview:edit:slide",(iv, slide)->
-							console.log "Edit slide app"
+						@listenTo listView, "itemview:slide:updated:with:data",(iv, data)->
+							slide = iv.model
+							slide.set data
+							slide.save
+									wait: true
 
+							
 						@listenTo listView, "itemview:remove:slide",(iv, slide)->
 							console.log "Remove slide app"
 
-						@show listView, loading :true
+						@listenTo layout, "show:add:new:slide",->
+							App.execute "show:add:new:slide", region : layout.addSlideRegion
+
+						@listenTo layout.addSlideRegion, "region:closed", =>
+							layout.triggerMethod "show:add:slide"
+
+						@listenTo layout, "show",->
+							layout.slidesListRegion.show listView
+
+						@show layout, loading :true
 
 
 					# edit layout
@@ -27,45 +42,90 @@ define ['app'
 							new SlidesListView
 										collection : slidesCollection
 
-					# clean up code
-					onClose:->
-						App.navigate 'slider-manager'
+					_getSlidesListLayout:->
+							new SlidesListLayout
+
 
 
 				# views 
 				class SlideView extends Marionette.ItemView
 
-					tagName : 'li'
+					tagName : 'div'
 
-					template : '<div class="slide">
-									<div class="row">
-										<div class="col-sm-1 move">
-											<div class="move-icon">
-												<span class="glyphicon glyphicon-resize-vertical"></span>
-											</div>
+					className : 'panel panel-default'
+
+					template : '<div class="panel-heading">
+								  <a class="accordion-toggle" data-toggle="collapse" data-parent="#slides-accordion" href="#slide-{{id}}">
+									<div class="aj-imp-image-item row">
+										<div class="imgthumb col-sm-1">
+											<img src="{{thumb_url}}" class="img-responsive">
 										</div>
-										<div class="col-sm-3 thumb">
-											<img src={{thumb_url}} alt=""/>
-										</div>
-										<div class="col-sm-8 details">
-											<div class="slide-actions">
-												<button class="btn btn-info btn-xs btn-link edit-slide"><span class="glyphicon glyphicon-pencil"></span> Edit Slide</button>
-												<button class="btn btn-danger btn-xs btn-link remove-slide"><span class="glyphicon glyphicon-trash"></span> Delete</button>
-											</div>
+										<div class="imgname col-sm-7">{{file_name}}</div>
+										<div class="imgactions col-sm-2">
+											<button class="btn" title="Edit Image"><span class="glyphicon glyphicon-edit"></span> Edit Image</button>
+											<button class="btn remove-slide" title="Delete Image"><span class="glyphicon glyphicon-remove-sign"></span></button>
 										</div>
 									</div>
-								</div>'
+								  </a>
+							  	</div>
+							  	<div id="slide-{{id}}" class="panel-collapse collapse">
+							  		<div class="panel-body">
+									  	<div class="aj-imp-edit-image well">
+											<div class="row">
+												<div class="aj-imp-crop-link col-sm-4">
+													<img src="{{thumb_url}}" class="img-responsive">
+													<div class="aj-imp-crop-link-overlay">
+														<a href="#">
+															<span class="glyphicon glyphicon-edit"></span> Edit Image
+														</a>
+													</div>
+												</div>
+												<div class="aj-imp-img-form col-sm-8">
+													<div class="row">
+														<div class="col-sm-6">
+															<input type="text" name="" value="{{slide_title}}" class="form-control" placeholder="Title">
+														</div>
+														<div class="col-sm-6">
+															<input type="url" value="{{link}}" class="form-control" placeholder="Link">
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="aj-imp-img-save">
+												<button class="btn update-slide">Update</button>
+											</div>
+									  	</div>
+									</div>
+								 </div>'
 
 					events:
-						'click .edit-slide' 	:(e)-> @trigger "edit:slide", @model
-						'click .remove-slide' 	:(e)-> @trigger "remove:slide", @model
+						'click .update-slide' 	: -> 
+								data = Backbone.Syphon.serialize @
+								@trigger "slide:updated:with:data", data
+
+						'click .remove-slide' 	:(e)-> 
+								e.preventDefault()
+								@trigger "remove:slide", @model
 
 				# colllection view
-				class SlidesListView extends Marionette.CollectionView
+				class SlidesListView extends Marionette.CompositeView
 
-					tagName : 'ul'
+					template : '<div class="aj-imp-image-header row">
+									<div class="col-sm-1">
+										&nbsp;
+									</div>
+									<div class="col-sm-7">
+										File Name
+									</div>
+									<div class="col-sm-2 align-center">
+										Actions
+									</div>
+								</div>
+								<div class="panel-group" id="slides-accordion"></div>'
 
 					itemView : SlideView
+
+					itemViewContainer : '#slides-accordion'
 
 					onBeforeRender:->
 						@collection.sort()
@@ -76,6 +136,29 @@ define ['app'
 
 					onClose:->
 						@$el.sortable 'destroy'
+
+
+				class SlidesListLayout extends Marionette.Layout
+
+					template : '<div id="slides-list-region"></div>
+								<div class="aj-imp-block-button add-new-slide">
+									<button class="btn btn-default btn-hg btn-block"><span class="icon-uniF10C"></span>&nbsp;&nbsp;Add Slide</button>
+								</div>
+								<div id="add-slide-region"></div>'
+
+					events:
+						'click .add-new-slide' : -> 
+							@$el.find('.add-new-slide').hide()
+							@trigger "show:add:new:slide"
+
+					onShowAddSlide : ->
+						@$el.find('.add-new-slide').show()
+
+
+					regions:
+						slidesListRegion 	: '#slides-list-region'
+						addSlideRegion 		: '#add-slide-region'
+					
 
 
 				App.commands.setHandler 'show:slides:list', (opts = {})->

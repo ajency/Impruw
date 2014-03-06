@@ -10,6 +10,7 @@ define ['app'
 				class SliderManager.Router extends Marionette.AppRouter
 					appRoutes :
 						'slider-manager' : 'show'
+						'slider-manager/edit/:id' : 'edit'
 						
 
 				# Define the main controller for the slider-manager. this controller will 
@@ -44,7 +45,8 @@ define ['app'
 
 						# listen to "show" event of the main layout and start the grid app
 						@listenTo @layout, "show", =>
-							@_startGridApp()
+							if opt.sliderId then id = opt.sliderId 
+							@_startEditSliderApp id	
 
 						# show the main layout
 						@show @layout
@@ -108,6 +110,10 @@ define ['app'
 						new SliderManagerController
 									region 	: App.dialogRegion
 
+					edit:(id)->
+						new SliderManagerController
+									region 	 : App.dialogRegion
+									sliderId : id
 					
 
 				SliderManager.on "start", ->
