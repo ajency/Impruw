@@ -105,3 +105,13 @@ function create_slide(){
     wp_send_json(array('code' => 'OK', 'data' => $slide_data = array()));
 }
 add_action('wp_ajax_create-slide','create_slide');
+
+function delete_slide(){
+    
+    $slide_id = $_POST['id'];
+    
+    // $slides_arr = get_slides($slider_id);
+    
+    wp_send_json(array('code' => 'OK', 'data' => array('id' => $slide_id)));
+}
+add_action('wp_ajax_delete-slide','delete_slide');
