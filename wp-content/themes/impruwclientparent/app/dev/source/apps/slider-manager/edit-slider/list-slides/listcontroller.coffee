@@ -7,13 +7,14 @@ define ['app'
 
 					initialize:(opt)->
 
-						{@sliderId} = opt
+						{@sliderId, collection} = opt
 
-						slidesCollection = App.request "get:slides:for:slide" , @sliderId
+						if not collection
+							collection = App.request "get:slides:for:slide" , @sliderId
 
 						@layout = layout = @_getSlidesListLayout()
 
-						@listView = listView = @_getSlidesListView slidesCollection
+						@listView = listView = @_getSlidesListView collection
 
 						@listenTo listView, "itemview:slide:updated:with:data",(iv, data)->
 							slide = iv.model
@@ -32,7 +33,7 @@ define ['app'
 												sliderId : @sliderId
 
 						@listenTo layout.addSlideRegion, "region:closed new:slide:created",(slide) =>
-							slidesCollection.add(slide) if _.isObject slide
+							collection.add(slide) if _.isObject slide
 							layout.triggerMethod "show:add:slide"
 
 						@listenTo layout, "show",->
@@ -42,9 +43,9 @@ define ['app'
 
 
 					# edit layout
-					_getSlidesListView:(slidesCollection)->
+					_getSlidesListView:(collection)->
 							new SlidesListView
-										collection : slidesCollection
+										collection : collection
 
 					_getSlidesListLayout:->
 							new SlidesListLayout
@@ -148,10 +149,10 @@ define ['app'
 
 					# make them sortable
 					onShow:->
-						@$el.sortable()
+						@$el.find('#slides-accordion').sortable()
 
 					onClose:->
-						@$el.sortable 'destroy'
+						@$el.find('#slides-accordion').sortable 'destroy'
 
 
 				class SlidesListLayout extends Marionette.Layout
@@ -167,6 +168,10 @@ define ['app'
 							@$el.find('.add-new-slide').hide()
 							@trigger "show:add:new:slide"
 
+					dialogOptions : 
+						modal_title : 'Slider Manager'
+						modal_size  : 'medium-modal'
+
 					onShowAddSlide : ->
 						@$el.find('.add-new-slide').show()
 
@@ -179,3 +184,8 @@ define ['app'
 
 				App.commands.setHandler 'show:slides:list', (opts = {})->
 					new SlidesListController opts
+
+				App.commands.setHandler "show:slides:manager",(slidesCollection)->
+					new SlidesListController 
+								region : App.dialogRegion
+								collection : slidesCollection

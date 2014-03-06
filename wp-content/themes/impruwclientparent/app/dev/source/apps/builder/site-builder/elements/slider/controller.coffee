@@ -28,18 +28,19 @@ define ['app'
 												
 
 					# setup templates for the element
-					renderElement:()=>
+					renderElement:(slidesCollection)=>
 						@removeSpinner()
 
-						slidesCollection = App.request "get:slides:for:slide" , @layout.model.get 'slider_id'
+						if not _.isObject slidesCollection
+							slidesCollection = App.request "get:slides:for:slide" , @layout.model.get 'slider_id'
 
 						App.execute "when:fetched", slidesCollection, =>
 							view = @_getSliderView slidesCollection
 
-							@listenTo view, "itemview:show:slider:manager", =>
-								App.navigate "slider-manager", trigger : true
+							@listenTo view, "show:slides:manager", =>
+								App.execute "show:slides:manager",slidesCollection
 
 							@listenTo slidesCollection, "remove add", =>
-								@renderElement()
+								@renderElement slidesCollection
 
 							@layout.elementRegion.show view

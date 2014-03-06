@@ -10,9 +10,6 @@ define ['app', 'holder'],(App, Holder)->
 
 			tagName : 'li'
 
-			events:
-				'click' :(e)-> @trigger "show:slider:manager"
-
 			onRender:->
 				@$el.attr 'data-transition','fade'
 					.attr 'data-slotamount','7'
@@ -31,6 +28,11 @@ define ['app', 'holder'],(App, Holder)->
 			itemView : SliderItem
 
 			itemViewContainer: '.fullwidthbanner > ul'
+
+			events:
+				'click' :(e)-> 
+					@trigger "show:slides:manager"
+				'click .tp-rightarrow,.tp-leftarrow,.bullet' :(e)-> e.stopPropagation()
 
 			# close revolution slider on close
 			onClose:->
