@@ -90,7 +90,7 @@ define ['app'
 																<input type="text" required name="title" value="{{title}}" class="form-control" placeholder="Title">
 															</div>
 															<div class="col-sm-6">
-																<input type="url" type="link" value="{{link}}" class="form-control" placeholder="Link">
+																<input type="url" type="link" name="link" value="{{link}}" class="form-control" placeholder="Link">
 															</div>
 														</div>
 														<div class="row">

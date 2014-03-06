@@ -21,6 +21,7 @@ define ['app'
 						@listenTo addSlideView, "create:new:slide",(data)=>
 							data.sliderId = @sliderId
 							slide = App.request "create:new:slide:model", data
+							slide.set data
 							slide.save null,
 									wait : true
 									success : @newSlideCreated
@@ -57,6 +58,9 @@ define ['app'
 												Click to Add an Image to Your Slide
 											</div>
 											<img src="{{thumb_url}}" class="img-responsive slide-image" style="display:none;">
+											<input type="hidden" name="background_type" value="image"/>
+											<input type="hidden" name="image" value="" required/>
+											<input type="hidden" name="image_id" value="" require/>
 										</div>
 										<div class="aj-imp-img-form col-sm-8">
 											<div class="row">
@@ -64,8 +68,8 @@ define ['app'
 													<input type="text" required name="title" value="{{title}}" class="form-control" placeholder="Title">
 												</div>
 												<div class="col-sm-6">
-													<input type="url" type="link" value="{{link}}" class="form-control" placeholder="Link">
-												</div>
+													<input type="url" type="link" name="link" value="{{link}}" class="form-control" placeholder="Link">
+												</div>	
 											</div>
 											<div class="row">
 												<div class="col-sm-12">

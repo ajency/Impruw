@@ -38,13 +38,11 @@ add_action('wp_ajax_create-slider', 'create_slider');
 function update_slider_ajax(){
 
 	$data = $_POST;
-        
-        $slider_id = $_POST['id'];
+       
+    $slider_id = $_POST['id'];
         
 	unset($data['action']);
-        unset($data['wait']);
-        unset($data['success']);
-        unset($data['id']);
+    unset($data['id']);
 
 	update_slider($data, $slider_id);
 
@@ -60,7 +58,6 @@ function delete_slider(){
     $slider_id = $_POST['slider_id'];
 
     unset($data['action']);
-    unset($data['wait']);
 
     $id = delete_slider($slider_id);
     
@@ -110,7 +107,7 @@ function create_slide(){
 	//unset($data['action']);
     //unset($data['wait']);
 
-	$d = create_new_slide($data,$slider_id,$slide_order);
+	$d = create_new_slide($data,$slider_id);
     
 	wp_send_json(array('code' => 'OK', 'data' => $d));
 

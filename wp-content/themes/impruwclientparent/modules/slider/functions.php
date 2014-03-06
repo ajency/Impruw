@@ -16,7 +16,8 @@ function get_slides($sliderID){
                             'image_id'  => $slide->getImageID(),
                             'full_url'  => $slide->getImageUrl(),
                             'file_name' => $slide->getImageFilename(),
-                            'order'     => $slide->getOrder()
+                            'order'     => $slide->getOrder(),
+                            'slider_id' => $slide->getSliderId()
                         );
     }
 
@@ -216,7 +217,7 @@ function slider_defaults(){
           );
 }
 
-function create_new_slide($data,$slider_id,$slide_order){
+function create_new_slide($data,$slider_id){
     
     global $wpdb;
 
@@ -233,7 +234,22 @@ function create_new_slide($data,$slider_id,$slide_order){
 
     $tab= GlobalsRevSlider::$table_slides;
     $wpdb->insert( $tab, $arrData);  
-    return($wpdb->insert_id);   
+
+    $slide = new RevSlide();
+    $slide->initByID($wpdb->insert_id);
+
+    $data = array(
+                    'id'        => $slide->getID(),
+                    'link'      => '',
+                    'slide_title' => '',
+                    'thumb_url' => $slide->getThumbUrl(),
+                    'image_id'  => $slide->getImageID(),
+                    'full_url'  => $slide->getImageUrl(),
+                    'file_name' => $slide->getImageFilename(),
+                    'order'     => $slide->getOrder()
+                );
+
+    return $data;   
 }
 
 /**
