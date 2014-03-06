@@ -220,7 +220,7 @@ function create_new_slide($data,$slider_id,$slide_order){
     
     global $wpdb;
 
-    $slider_id =2;
+    $slider_id =1;
     $slide_order= 6;
     $arrData = array();
     $arrData["slider_id"]   = $slider_id;
@@ -232,20 +232,8 @@ function create_new_slide($data,$slider_id,$slide_order){
     $arrData["params"]= $params2;
 
     $tab= GlobalsRevSlider::$table_slides;
-    $wpdb->insert( $tab, $arrData);
-    
-    return($wpdb->insert_id);
-
-  
-       //$sliderID = $wpdb->insert(GlobalsRevSlider::$table_slides,$arrData);
-      // return($wpdb->insert_id);
-   // }else{  //update slider
-     //  $this->initByID($sliderID);
-      // $sliderID = $wpdb->update(GlobalsRevSlider::$table_sliders,$arrData,array("id"=>$sliderID));             
-   // }
-    
-    //return $sliderID;
-    
+    $wpdb->insert( $tab, $arrData);  
+    return($wpdb->insert_id);   
 }
 
 /**

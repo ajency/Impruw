@@ -102,7 +102,7 @@ function create_slide(){
 	//$data = $_POST;
 	$data = array(
 		          'image_id' => 100,
-		          'image'=> 'http://localhost/impruw/childsite/wp-content/uploads/sites/81/2014/03/images-4.jpg',
+		          'image'=> 'http://localhost/impruw/childsite/wp-content/uploads/sites/81/2014/03/freeproductsamples.jpg',
 		          'title' =>'Slide',
 	              'background_type' => 'image'
 		          );
@@ -110,9 +110,10 @@ function create_slide(){
 	//unset($data['action']);
     //unset($data['wait']);
 
-	$id = create_new_slide($data,$slider_id,$slide_order);
+	$d = create_new_slide($data,$slider_id,$slide_order);
+    
+	wp_send_json(array('code' => 'OK', 'data' => $d));
 
-	wp_send_json(array('code' => 'OK', 'data' => array ('id' => $id)));
 	
 	
 }
