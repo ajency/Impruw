@@ -19,7 +19,7 @@ define ['app'
 						
 					bindEvents:->
 						# start listening to model events
-						@listenTo @layout.model, "change:style", @renderElement
+						@listenTo @layout.model, "change:slider_id", @renderElement
 						super()
 
 					_getSliderView:(collection)->
@@ -38,5 +38,8 @@ define ['app'
 
 							@listenTo view, "itemview:show:slider:manager", =>
 								App.navigate "slider-manager", trigger : true
+
+							@listenTo slidesCollection, "remove add", =>
+								@renderElement()
 
 							@layout.elementRegion.show view

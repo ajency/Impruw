@@ -45,8 +45,11 @@ define(['app', 'holder'], function(App, Holder) {
 
       SliderView.prototype.itemViewContainer = '.fullwidthbanner > ul';
 
+      SliderView.prototype.onClose = function() {
+        return delete this.revapi;
+      };
+
       SliderView.prototype.onShow = function() {
-        console.log("logged");
         return this.revapi = this.$el.find(".fullwidthbanner").revolution({
           delay: 9000,
           startwidth: 1170,

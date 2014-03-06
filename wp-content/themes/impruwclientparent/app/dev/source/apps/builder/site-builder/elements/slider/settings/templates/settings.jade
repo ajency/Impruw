@@ -16,9 +16,9 @@ header.settings-header
 				label.col-sm-4.control-label(for='') Choose Style
 				.col-sm-8
 					select(name="style")
-						{{#styles}}
-						option(value="{{name}}") {{name}}
-						{{/styles}}
+						{{#sliders}}
+						option(value="{{id}}") {{title}}
+						{{/sliders}}
 			.form-group
 				label.col-sm-4.control-label(for='') Top Margin
 				.col-sm-8

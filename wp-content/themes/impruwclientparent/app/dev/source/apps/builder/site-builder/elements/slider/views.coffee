@@ -32,8 +32,11 @@ define ['app', 'holder'],(App, Holder)->
 
 			itemViewContainer: '.fullwidthbanner > ul'
 
+			# close revolution slider on close
+			onClose:->
+				delete @revapi
+
 			onShow:->
-				console.log "logged"
 				@revapi = @$el.find(".fullwidthbanner").revolution
 													  	delay: 9000
 													  	startwidth: 1170
@@ -77,4 +80,7 @@ define ['app', 'holder'],(App, Holder)->
 													  	hideAllCaptionAtLilmit: 0
 													  	startWithSlide: 0
 													  	fullScreenOffsetContainer: ""
+
+
+
 														
