@@ -1,0 +1,38 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 20 Feb, 2014, 7:45:35 PM
+    Author     : surajair
+*/
+.row{
+	&.green-background{
+	    background: @primary1;
+	    min-height :100px;
+	}
+
+	&.grey-background{
+	    background: @secondary1;
+	    min-height :100px;
+	}
+
+	&.center-container{
+		max-width: 1170px;
+		margin: 0.5em auto;
+	}
+
+	&.shaded-background{
+		background: url("../resources/img/stripe_bg.png") repeat scroll 0 0 rgba(0, 0, 0, 0);
+	}
+
+	&.column-dividers {
+		.column {
+			border-right: 1px solid lighten(@secondary2, 20%);
+			&:last-child {
+				border-right: 0;
+			} 
+		}
+	}
+}
