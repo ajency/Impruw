@@ -35,8 +35,9 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         this.listenTo(addSlideView, "create:new:slide", (function(_this) {
           return function(data) {
             var slide;
+            data.sliderId = _this.sliderId;
             slide = App.request("create:new:slide:model", data);
-            return slide.save({
+            return slide.save(null, {
               wait: true,
               success: _this.newSlideCreated
             });
@@ -86,7 +87,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         url = media.get('sizes').thumbnail ? media.get('sizes').thumbnail.url : media.get('sizes').full.url;
         this.$el.find('.add-image-to-slide').attr('src', url);
         this.$el.find('input[name="image"]').val(media.get('url'));
-        return this.$el.find('input[name="image_id"]').val(media.get('ID'));
+        return this.$el.find('input[name="image_id"]').val(media.get('id'));
       };
 
       AddSlideView.prototype.events = {

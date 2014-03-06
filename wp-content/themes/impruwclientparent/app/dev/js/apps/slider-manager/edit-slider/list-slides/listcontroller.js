@@ -21,12 +21,13 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
           var slide;
           slide = iv.model;
           slide.set(data);
-          return slide.save({
-            wait: true
+          return slide.save(null, {
+            wait: true,
+            success: this.slideModelUpdated
           });
         });
         this.listenTo(listView, "itemview:remove:slide", function(iv, slide) {
-          return console.log("Remove slide app");
+          return slide.destroy();
         });
         this.listenTo(layout, "show:add:new:slide", function() {
           return App.execute("show:add:new:slide", {
@@ -34,8 +35,14 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
             sliderId: this.sliderId
           });
         });
-        this.listenTo(layout.addSlideRegion, "region:closed", (function(_this) {
-          return function() {
+        this.listenTo(layout.addSlideRegion, "region:closed new:slide:created", (function(_this) {
+          return function(slide) {
+            if (slide == null) {
+              slide = null;
+            }
+            if (slide !== null) {
+              slidesCollection.add(slide);
+            }
             return layout.triggerMethod("show:add:slide");
           };
         })(this));
@@ -56,6 +63,8 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
       SlidesListController.prototype._getSlidesListLayout = function() {
         return new SlidesListLayout;
       };
+
+      SlidesListController.prototype.slideModelUpdated = function() {};
 
       return SlidesListController;
 
@@ -81,7 +90,9 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         },
         'click .remove-slide': function(e) {
           e.preventDefault();
-          return this.trigger("remove:slide", this.model);
+          if (confirm('Are you sure?')) {
+            return this.trigger("remove:slide", this.model);
+          }
         }
       };
 

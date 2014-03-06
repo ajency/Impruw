@@ -19,8 +19,9 @@ define ['app'
 							App.execute "start:media:grid:app", region : layout.gridMediaRegion
 
 						@listenTo addSlideView, "create:new:slide",(data)=>
+							data.sliderId = @sliderId
 							slide = App.request "create:new:slide:model", data
-							slide.save
+							slide.save null,
 									wait : true
 									success : @newSlideCreated
 
@@ -77,7 +78,7 @@ define ['app'
 						url = if media.get('sizes').thumbnail then media.get('sizes').thumbnail.url else media.get('sizes').full.url
 						@$el.find('.add-image-to-slide').attr 'src', url
 						@$el.find('input[name="image"]').val media.get 'url'
-						@$el.find('input[name="image_id"]').val media.get 'ID'
+						@$el.find('input[name="image_id"]').val media.get 'id'
 
 					events : 
 						'click .create-slide' : ->
@@ -110,7 +111,6 @@ define ['app'
 						'click .slide-image-selected' :(e)->  $(e.target).closest('#media-region').hide()
 
 					initialize:->
-
 						@listenTo @gridMediaRegion, "media:element:selected",(media)->
 							@trigger "media:element:selected", media
 

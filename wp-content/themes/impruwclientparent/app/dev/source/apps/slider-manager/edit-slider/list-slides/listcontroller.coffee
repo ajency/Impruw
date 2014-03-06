@@ -18,19 +18,21 @@ define ['app'
 						@listenTo listView, "itemview:slide:updated:with:data",(iv, data)->
 							slide = iv.model
 							slide.set data
-							slide.save
+							slide.save null,
 									wait: true
+									success : @slideModelUpdated
 
 							
 						@listenTo listView, "itemview:remove:slide",(iv, slide)->
-							console.log "Remove slide app"
+							slide.destroy()
 
 						@listenTo layout, "show:add:new:slide",->
 							App.execute "show:add:new:slide", 
 												region : layout.addSlideRegion
 												sliderId : @sliderId
 
-						@listenTo layout.addSlideRegion, "region:closed", =>
+						@listenTo layout.addSlideRegion, "region:closed new:slide:created",(slide = null) =>
+							slidesCollection.add(slide) if slide isnt null
 							layout.triggerMethod "show:add:slide"
 
 						@listenTo layout, "show",->
@@ -46,6 +48,9 @@ define ['app'
 
 					_getSlidesListLayout:->
 							new SlidesListLayout
+
+					slideModelUpdated:->
+
 
 
 
@@ -107,7 +112,8 @@ define ['app'
 
 						'click .remove-slide' 	:(e)-> 
 								e.preventDefault()
-								@trigger "remove:slide", @model
+								if confirm('Are you sure?')
+									@trigger "remove:slide", @model
 
 				# colllection view
 				class SlidesListView extends Marionette.CompositeView

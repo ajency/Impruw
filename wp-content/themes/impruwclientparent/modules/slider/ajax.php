@@ -86,14 +86,22 @@ function create_slide(){
     
     $slider_id = $_POST['slider_id'];
 
+    /**
+     * $data = array('title' => 'dsdsd'
+     *                'link' = ''dsd)
+     *                'background_type' = 'image'
+     *                'image' = imageurl
+     *                'image_id' = 232) 
+     */
+
     $data = $_POST;
 
     unset($data['action']);
     unset($data['wait']);
     unset($data['success']);
     
-    $slide_data= create_new_slide($data, $slider_id);
+    #$slide_data= create_new_slide($data, $slider_id);
     
-    wp_send_json(array('code' => 'OK', 'data' => $slide_data));
+    wp_send_json(array('code' => 'OK', 'data' => $slide_data = array()));
 }
 add_action('wp_ajax_create-slide','create_slide');
