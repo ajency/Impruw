@@ -78,29 +78,31 @@ define ['app'
 							  	<div id="slide-{{id}}" class="panel-collapse collapse">
 							  		<div class="panel-body">
 									  	<div class="aj-imp-edit-image well">
-											<div class="row">
-												<div class="aj-imp-crop-link col-sm-4">
-													<img src="{{thumb_url}}" class="img-responsive">
-												</div>
-												<div class="aj-imp-img-form col-sm-8">
-													<div class="row">
-														<div class="col-sm-6">
-															<input type="text" required name="title" value="{{title}}" class="form-control" placeholder="Title">
+									  		<form>
+												<div class="row">
+													<div class="aj-imp-crop-link col-sm-4">
+														<img src="{{thumb_url}}" class="img-responsive">
+													</div>
+													<div class="aj-imp-img-form col-sm-8">
+														<div class="row">
+															<div class="col-sm-6">
+																<input type="text" required name="title" value="{{title}}" class="form-control" placeholder="Title">
+															</div>
+															<div class="col-sm-6">
+																<input type="url" type="link" value="{{link}}" class="form-control" placeholder="Link">
+															</div>
 														</div>
-														<div class="col-sm-6">
-															<input type="url" type="link" value="{{link}}" class="form-control" placeholder="Link">
+														<div class="row">
+															<div class="col-sm-12">
+																<textarea name="description" class="form-control" placeholder="Description">{{description}}</textarea>
+															</div>
 														</div>
 													</div>
-													<div class="row">
-														<div class="col-sm-12">
-															<textarea name="description" class="form-control" placeholder="Description"></textarea>
-														</div>
-													</div>
 												</div>
-											</div>
-											<div class="aj-imp-img-save">
-												<button class="btn update-slide">Update</button>
-											</div>
+												<div class="aj-imp-img-save">
+													<button type="button" class="btn update-slide">Update</button>
+												</div>
+											</form>
 									  	</div>
 									</div>
 								 </div>'
@@ -114,6 +116,10 @@ define ['app'
 								e.preventDefault()
 								if confirm('Are you sure?')
 									@trigger "remove:slide", @model
+
+				class NoSlidesView extends Marionette.ItemView
+
+					template : 'No slides. Please add slides'
 
 				# colllection view
 				class SlidesListView extends Marionette.CompositeView
@@ -132,6 +138,8 @@ define ['app'
 								<div class="panel-group" id="slides-accordion"></div>'
 
 					itemView : SlideView
+
+					emptyView : NoSlidesView
 
 					itemViewContainer : '#slides-accordion'
 

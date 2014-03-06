@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
 
 define(['app', 'controllers/base-controller'], function(App, AppController) {
   return App.module('SliderManager.EditSlider.SlidesList', function(SlidesList, App, Backbone, Marionette, $, _) {
-    var SlideView, SlidesListController, SlidesListLayout, SlidesListView;
+    var NoSlidesView, SlideView, SlidesListController, SlidesListLayout, SlidesListView;
     SlidesListController = (function(_super) {
       __extends(SlidesListController, _super);
 
@@ -79,7 +79,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
 
       SlideView.prototype.className = 'panel panel-default';
 
-      SlideView.prototype.template = '<div class="panel-heading"> <a class="accordion-toggle" data-toggle="collapse" data-parent="#slides-accordion" href="#slide-{{id}}"> <div class="aj-imp-image-item row"> <div class="imgthumb col-sm-1"> <img src="{{thumb_url}}" class="img-responsive"> </div> <div class="imgname col-sm-7">{{file_name}}</div> <div class="imgactions col-sm-2"> <button class="btn" title="Edit Image"><span class="glyphicon glyphicon-edit"></span> Edit Image</button> <button class="btn remove-slide" title="Delete Image"><span class="glyphicon glyphicon-remove-sign"></span></button> </div> </div> </a> </div> <div id="slide-{{id}}" class="panel-collapse collapse"> <div class="panel-body"> <div class="aj-imp-edit-image well"> <div class="row"> <div class="aj-imp-crop-link col-sm-4"> <img src="{{thumb_url}}" class="img-responsive"> </div> <div class="aj-imp-img-form col-sm-8"> <div class="row"> <div class="col-sm-6"> <input type="text" required name="title" value="{{title}}" class="form-control" placeholder="Title"> </div> <div class="col-sm-6"> <input type="url" type="link" value="{{link}}" class="form-control" placeholder="Link"> </div> </div> <div class="row"> <div class="col-sm-12"> <textarea name="description" class="form-control" placeholder="Description"></textarea> </div> </div> </div> </div> <div class="aj-imp-img-save"> <button class="btn update-slide">Update</button> </div> </div> </div> </div>';
+      SlideView.prototype.template = '<div class="panel-heading"> <a class="accordion-toggle" data-toggle="collapse" data-parent="#slides-accordion" href="#slide-{{id}}"> <div class="aj-imp-image-item row"> <div class="imgthumb col-sm-1"> <img src="{{thumb_url}}" class="img-responsive"> </div> <div class="imgname col-sm-7">{{file_name}}</div> <div class="imgactions col-sm-2"> <button class="btn" title="Edit Image"><span class="glyphicon glyphicon-edit"></span> Edit Image</button> <button class="btn remove-slide" title="Delete Image"><span class="glyphicon glyphicon-remove-sign"></span></button> </div> </div> </a> </div> <div id="slide-{{id}}" class="panel-collapse collapse"> <div class="panel-body"> <div class="aj-imp-edit-image well"> <form> <div class="row"> <div class="aj-imp-crop-link col-sm-4"> <img src="{{thumb_url}}" class="img-responsive"> </div> <div class="aj-imp-img-form col-sm-8"> <div class="row"> <div class="col-sm-6"> <input type="text" required name="title" value="{{title}}" class="form-control" placeholder="Title"> </div> <div class="col-sm-6"> <input type="url" type="link" value="{{link}}" class="form-control" placeholder="Link"> </div> </div> <div class="row"> <div class="col-sm-12"> <textarea name="description" class="form-control" placeholder="Description">{{description}}</textarea> </div> </div> </div> </div> <div class="aj-imp-img-save"> <button type="button" class="btn update-slide">Update</button> </div> </form> </div> </div> </div>';
 
       SlideView.prototype.events = {
         'click .update-slide': function() {
@@ -98,6 +98,18 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
       return SlideView;
 
     })(Marionette.ItemView);
+    NoSlidesView = (function(_super) {
+      __extends(NoSlidesView, _super);
+
+      function NoSlidesView() {
+        return NoSlidesView.__super__.constructor.apply(this, arguments);
+      }
+
+      NoSlidesView.prototype.template = 'No slides. Please add slides';
+
+      return NoSlidesView;
+
+    })(Marionette.ItemView);
     SlidesListView = (function(_super) {
       __extends(SlidesListView, _super);
 
@@ -108,6 +120,8 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
       SlidesListView.prototype.template = '<div class="aj-imp-image-header row"> <div class="col-sm-1"> &nbsp; </div> <div class="col-sm-7"> File Name </div> <div class="col-sm-2 align-center"> Actions </div> </div> <div class="panel-group" id="slides-accordion"></div>';
 
       SlidesListView.prototype.itemView = SlideView;
+
+      SlidesListView.prototype.emptyView = NoSlidesView;
 
       SlidesListView.prototype.itemViewContainer = '#slides-accordion';
 
