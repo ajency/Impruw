@@ -64,13 +64,13 @@ define ['app'
 					template : '<div class="panel-heading">
 								  <a class="accordion-toggle" data-toggle="collapse" data-parent="#slides-accordion" href="#slide-{{id}}">
 									<div class="aj-imp-image-item row">
-										<div class="imgthumb col-sm-1">
+										<div class="imgthumb col-sm-3">
 											<img src="{{thumb_url}}" class="img-responsive">
 										</div>
-										<div class="imgname col-sm-7">{{file_name}}</div>
-										<div class="imgactions col-sm-2">
-											<button class="btn" title="Edit Image"><span class="glyphicon glyphicon-edit"></span> Edit Image</button>
-											<button class="btn remove-slide" title="Delete Image"><span class="glyphicon glyphicon-remove-sign"></span></button>
+										<div class="imgname col-sm-5">{{file_name}}</div>
+										<div class="imgactions col-sm-4">
+											<button class="btn btn-sm" title="Edit Image"><span class="glyphicon glyphicon-edit"></span> Edit Image</button>
+											<button class="btn btn-danger btn-sm remove-slide" title="Delete Image"><span class="glyphicon glyphicon-remove-sign"></span></button>
 										</div>
 									</div>
 								  </a>
@@ -119,19 +119,19 @@ define ['app'
 
 				class NoSlidesView extends Marionette.ItemView
 
-					template : 'No slides. Please add slides'
+					template : '<div class="alert">No slides. Please add slides.</div>'
 
 				# colllection view
 				class SlidesListView extends Marionette.CompositeView
 
 					template : '<div class="aj-imp-image-header row">
-									<div class="col-sm-1">
+									<div class="col-sm-3">
 										&nbsp;
 									</div>
-									<div class="col-sm-7">
+									<div class="col-sm-5">
 										File Name
 									</div>
-									<div class="col-sm-2 align-center">
+									<div class="col-sm-4">
 										Actions
 									</div>
 								</div>
@@ -158,7 +158,7 @@ define ['app'
 
 					template : '<div id="slides-list-region"></div>
 								<div class="aj-imp-block-button add-new-slide">
-									<button class="btn btn-default btn-hg btn-block"><span class="icon-uniF10C"></span>&nbsp;&nbsp;Add Slide</button>
+									<button class="btn btn-default btn-hg btn-block"><span class="bicon icon-uniF10C"></span>&nbsp;&nbsp;Add Slide</button>
 								</div>
 								<div id="add-slide-region"></div>'
 
