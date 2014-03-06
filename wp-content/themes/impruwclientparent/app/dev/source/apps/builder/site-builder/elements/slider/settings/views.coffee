@@ -34,6 +34,6 @@ define ['app', 'text!apps/builder/site-builder/elements/slider/settings/template
 						'click .close-settings' : (evt)-> 
 											evt.preventDefault()
 											App.settingsRegion.close()
-						'change select[name="style"]' 	:(evt)-> @trigger "element:style:changed", $(evt.target).val()
+						'change select[name="slider_id"]' 	:(evt)-> @trigger "element:slider_id:changed", $(evt.target).val()
 						'change input[name="draggable"]': (evt)-> @trigger "element:draggable:changed", $(evt.target).is(':checked')
 						'change select.spacing': (evt)-> @trigger "element:spacing:changed", $(evt.target).attr('name'), $(evt.target).val()

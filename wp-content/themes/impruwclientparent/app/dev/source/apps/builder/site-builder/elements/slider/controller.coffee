@@ -19,7 +19,7 @@ define ['app'
 						
 					bindEvents:->
 						# start listening to model events
-						@listenTo @layout.model, "change:slider_id", @renderElement
+						@listenTo @layout.model, "change:slider_id", @renderElement null
 						super()
 
 					_getSliderView:(collection)->
@@ -30,7 +30,7 @@ define ['app'
 					# setup templates for the element
 					renderElement:(slidesCollection)=>
 						@removeSpinner()
-
+						
 						if not _.isObject slidesCollection
 							slidesCollection = App.request "get:slides:for:slide" , @layout.model.get 'slider_id'
 

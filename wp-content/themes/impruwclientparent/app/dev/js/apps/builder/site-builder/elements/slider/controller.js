@@ -21,7 +21,7 @@ define(['app', 'apps/builder/site-builder/elements/slider/views', 'apps/builder/
       };
 
       Controller.prototype.bindEvents = function() {
-        this.listenTo(this.layout.model, "change:slider_id", this.renderElement);
+        this.listenTo(this.layout.model, "change:slider_id", this.renderElement(null));
         return Controller.__super__.bindEvents.call(this);
       };
 

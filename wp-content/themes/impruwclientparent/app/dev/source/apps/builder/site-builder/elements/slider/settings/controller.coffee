@@ -17,8 +17,8 @@ define ['app','controllers/base-controller','apps/builder/site-builder/elements/
 											@region.$el.css 'top',200
 											@region.$el.css 'left',400
 
-						@listenTo view, "element:style:changed",(style)=>
-														@model.set "style", style
+						@listenTo view, "element:slider_id:changed",(id)=>
+														@model.set "slider_id", parseInt id
 
 						@listenTo view, "element:draggable:changed", (draggable)=>
 														@model.set "draggable", draggable	
