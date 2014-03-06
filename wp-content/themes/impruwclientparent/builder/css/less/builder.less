@@ -1444,22 +1444,26 @@ Version:        0.1.0
 		}
 		#add-slide-region {
 			margin: 0.5em 0;
-			.add-image-to-slide {
-				padding: 1em;
-				text-align: center;
-				background: #fff;
-				font-size: 1.5em;
-				cursor: pointer;
-				border: 1px solid lighten(@dash-grey, 20%);
-				color: @dash-grey;
-				.bicon {
-					display: block;
-					font-size: 2em;
+			#add-slide-form-region {
+				border-top: 1px dashed darken(@preview-grey, 10px);
+				padding-top: 0.5em;
+				.add-image-to-slide {
+					padding: 1em;
+					text-align: center;
+					background: #fff;
+					font-size: 1.5em;
+					cursor: pointer;
+					border: 1px solid lighten(@dash-grey, 20%);
+					color: @dash-grey;
+					.bicon {
+						display: block;
+						font-size: 2em;
+					}
 				}
-			}
-			.slide-image {
-				border: 1px solid @dash-grey;
-				padding: 1px;
+				.slide-image {
+					border: 1px solid @dash-grey;
+					padding: 1px;
+				}
 			}
 		}
 		.thumbnails, #selectable-images {

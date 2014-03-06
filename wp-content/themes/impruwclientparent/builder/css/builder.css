@@ -1353,7 +1353,11 @@ Version:        0.1.0
 .modal .tab-content #add-slide-region {
   margin: 0.5em 0;
 }
-.modal .tab-content #add-slide-region .add-image-to-slide {
+.modal .tab-content #add-slide-region #add-slide-form-region {
+  border-top: 1px dashed #dadada;
+  padding-top: 0.5em;
+}
+.modal .tab-content #add-slide-region #add-slide-form-region .add-image-to-slide {
   padding: 1em;
   text-align: center;
   background: #fff;
@@ -1362,11 +1366,11 @@ Version:        0.1.0
   border: 1px solid #dddddd;
   color: #aaaaaa;
 }
-.modal .tab-content #add-slide-region .add-image-to-slide .bicon {
+.modal .tab-content #add-slide-region #add-slide-form-region .add-image-to-slide .bicon {
   display: block;
   font-size: 2em;
 }
-.modal .tab-content #add-slide-region .slide-image {
+.modal .tab-content #add-slide-region #add-slide-form-region .slide-image {
   border: 1px solid #aaaaaa;
   padding: 1px;
 }
