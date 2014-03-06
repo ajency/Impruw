@@ -1889,22 +1889,17 @@ Version:        0.1.0
 		.slider-right-region {
 			.tab-content {
 				padding: 0;
-				#sliders-list-region {
-					.slides-container {
-						border: 1px solid @preview-grey;
-						h6 {
-							color: @dash-grey;
-							font-size: 1.3em;
-							background: @preview-grey;
-							margin: 0;
-							padding: 0.5em;
-						}
+				#slides-list-region {
+					ul {
+						list-style: none;
+						padding: 0;
 						.slide {
 							margin: 0.5em;
 							padding: 0.4em 0.2em;
 							border: 1px solid darken(@preview-grey, 10%);
 							.move {
 								position: relative;
+								height: 100px;
 								.move-icon {
 									background: darken(@preview-grey, 10%);
 									position: absolute;

@@ -49,7 +49,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
 
       SlideView.prototype.tagName = 'li';
 
-      SlideView.prototype.template = '<img src={{thumb_url}} alt=""/> <button class="btn btn-link edit-slide">Edit</button> <button class="btn btn-link remove-slide">Remove</button>';
+      SlideView.prototype.template = '<div class="slide"> <div class="row"> <div class="col-sm-1 move"> <div class="move-icon"> <span class="glyphicon glyphicon-resize-vertical"></span> </div> </div> <div class="col-sm-3 thumb"> <img src={{thumb_url}} alt=""/> </div> <div class="col-sm-8 details"> <div class="slide-actions"> <button class="btn btn-info btn-xs btn-link edit-slide"><span class="glyphicon glyphicon-pencil"></span> Edit Slide</button> <button class="btn btn-danger btn-xs btn-link remove-slide"><span class="glyphicon glyphicon-trash"></span> Delete</button> </div> </div> </div> </div>';
 
       SlideView.prototype.events = {
         'click .edit-slide': function(e) {
