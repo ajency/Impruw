@@ -4,6 +4,7 @@
 define [
 		'underscore'
 		'jquery'
+		'jqueryui'
 		'backbone'
 		'backboneform'
 		'd3'
@@ -21,6 +22,4 @@ define [
 		'mustache'
 		'bootstrapselect'
 		'nvd3'
-		
-		
 		],->

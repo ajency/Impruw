@@ -3,6 +3,7 @@ require.config({
   baseUrl: 'http://localhost/impruw/wp-content/themes/impruwclientparent/app/dev/js/',
   paths: {
     jquery: 'plugins/jquery',
+    jqueryui: 'plugins/jquery.ui',
     underscore: 'plugins/underscore',
     backbone: 'plugins/backbone',
     marionette: 'plugins/backbone.marionette',
@@ -33,6 +34,7 @@ require.config({
       exports: '_'
     },
     jquery: ['underscore'],
+    jqueryui: ['jquery'],
     backbone: {
       deps: ['jquery', 'underscore'],
       exports: 'Backbone'

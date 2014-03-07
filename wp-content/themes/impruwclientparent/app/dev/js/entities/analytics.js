@@ -49,20 +49,40 @@ define(['app', 'backbone'], function(App, Backbone) {
           return analyticsCollection;
         }
       },
-      getAnalyticsCollectionByDate: function(start, end) {
+      getAnalyticsCollectionByDate: function(startDate, endDate) {
         var analyticsArray, analyticsCollection;
         analyticsCollection = App.request("get:collection", 'analyticscollection');
-        if (start >= analyticsCollection.startDate) {
-          console.log(start + "     " + end);
-          analyticsArray = analyticsCollection.filter(function(analytics) {
-            return analytics.id >= start && analytics.id <= end;
-          });
-          return analyticsArray;
-        } else {
-          fetchAnalytics(start, analyticsCollection.startDate);
-          analyticsArray = getAnalyticsCollection(start, end);
-          return analyticsArray;
+        console.log(startDate + "     " + endDate);
+        analyticsArray = analyticsCollection.filter(function(analytics) {
+          return analytics.id >= startDate && analytics.id <= endDate;
+        });
+        return analyticsArray;
+      },
+      getMissingDataForDateRange: function(startDate, endDate) {
+        var analyticsCollection, end, start;
+        analyticsCollection = App.request("get:collection", 'analyticscollection');
+        start = startDate;
+        while (!(start > endDate)) {
+          if (analyticsCollection.get(start)) {
+            start = start + 86400000;
+          } else {
+            end = start;
+            while (!(end > endDate)) {
+              if (!analyticsCollection.get(end)) {
+                end = end + 86400000;
+              } else {
+                end = end - 86400000;
+                break;
+              }
+            }
+            analyticsCollection = API.fetchAnalytics(start, end);
+            console.log(App.DashboardApp.Statistics.fetchCount);
+            console.log(" super fetch for " + start + "   to  " + end);
+            start = end + 86400000;
+          }
         }
+        analyticsCollection = App.request("get:collection", 'analyticscollection');
+        return analyticsCollection;
       },
       fetchAnalytics: function(start, end) {
         var analyticsCollection;
@@ -96,8 +116,11 @@ define(['app', 'backbone'], function(App, Backbone) {
     App.reqres.setHandler("fetch:analytics", function(startDate, endDate) {
       return API.fetchAnalytics(startDate, endDate);
     });
-    return App.reqres.setHandler("get:all:analytics", function(startDate, endDate) {
+    App.reqres.setHandler("get:all:analytics", function(startDate, endDate) {
       return API.getAllAnalyticsCollection(startDate, endDate);
+    });
+    return App.reqres.setHandler("get:missing:data", function(startDate, endDate) {
+      return API.getMissingDataForDateRange(startDate, endDate);
     });
   });
 });

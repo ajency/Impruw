@@ -8,7 +8,7 @@ define ['app'
 				@startWithParent = false
 
 				#data = null
-				graphNames=['ga:visits', 'ga:visitors', 'ga:newVisits', 'ga:pageviews']
+				
 
 				class OverViewChartController extends AppController
 
@@ -17,10 +17,12 @@ define ['app'
 						@startDate = options.startDate
 						@endDate = options.endDate
 
-						analyticsCollection= null
-						analyticsCollection = App.request "get:all:analytics" , @startDate , @endDate
+						@analyticsCollection= null
 
-						@layout = @_getLayout(analyticsCollection)
+						@analyticsCollection = App.request "get:missing:data" , @startDate , @endDate
+						# console.log JSON.stringify(@analyticsCollection)
+
+						@layout = @_getLayout(@analyticsCollection)
 
 						
 
@@ -31,7 +33,7 @@ define ['app'
 						# show chart
 						@listenTo @layout, 'show',->
 							console.log "xyz"
-							@_renderRegion(graphNames)
+							@_renderRegion(App.DashboardApp.Statistics.graphNames)
 
 
 						# App.commands.setHandler "reload:overview:chart", (start,end)->
@@ -69,6 +71,7 @@ define ['app'
 						   			area : true 
 						   			key : 'Visits'
 						   			values : graphArray
+						   			color : "red"
 						  		graphData.push graphObject
 
 						  	if graph == "ga:visitors"
@@ -81,6 +84,7 @@ define ['app'
 						   		graphObject = 
 						   			key : 'Unique Visits'
 						   			values : graphArray
+						   			color : "green"
 						  		graphData.push graphObject
 
 						  	if graph == "ga:newVisits"
@@ -93,6 +97,7 @@ define ['app'
 						   		graphObject = 
 						   			key : 'New Visitors'
 						   			values : graphArray
+						   			color : "blue"
 						  		graphData.push graphObject
 
 						  	if graph == "ga:pageviews"
@@ -105,6 +110,7 @@ define ['app'
 						   		graphObject = 
 						   			key : 'Page Views'
 						   			values : graphArray
+						   			color : "yellow"
 						  		graphData.push graphObject
   
 						# pieData = new Array()
@@ -137,9 +143,10 @@ define ['app'
 					
 
 
-				OverViewChart.on 'start',(options)->
+				# OverViewChart.on 'start',(options)->
 					#data = options.collection
 					#console.log JSON.stringify(data)
+				App.commands.setHandler "show:overview:chart",(options)->
 					new OverViewChartController
 						region : options.region		
 						startDate : options.startDate

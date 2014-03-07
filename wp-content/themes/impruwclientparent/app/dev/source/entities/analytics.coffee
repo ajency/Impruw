@@ -44,45 +44,81 @@ define ['app'
 						
 
 				#get the collection from offline store by date
-				getAnalyticsCollectionByDate:(start, end)->
-					analyticsCollection = App.request "get:collection", 'analyticscollection'
+				getAnalyticsCollectionByDate:(startDate, endDate)->
+						analyticsCollection = App.request "get:collection", 'analyticscollection'
 					
-					if start >= analyticsCollection.startDate 
+					# if start >= analyticsCollection.startDate 
 
-						console.log start+"     "+end 
+						console.log startDate+"     "+endDate
+
+
 						# ...get data for the specified date range
 						analyticsArray = analyticsCollection.filter (analytics)->
-							analytics.id >= start && analytics.id <=end
+							analytics.id >= startDate && analytics.id <=endDate
 						#console.log "arraay"+JSON.stringify(analyticsArray)
 						analyticsArray
 					
-					else
-						fetchAnalytics(start,analyticsCollection.startDate)
-						analyticsArray = getAnalyticsCollection(start,end)
-						#console.log "array"+analyticsArray
-						analyticsArray
+					# else
+					# 	fetchAnalytics(start,analyticsCollection.startDate)
+					# 	analyticsArray = getAnalyticsCollection(start,end)
+					# 	#console.log "array"+analyticsArray
+					# 	analyticsArray
 
 
-						#getMissingDataForDateRange:(startDate,endDate)->
+				getMissingDataForDateRange:(startDate,endDate)->
+						analyticsCollection = App.request "get:collection", 'analyticscollection'
+						# App.DashboardApp.Statistics.fetchCount = 0
+						#for s from startDate to endDate
+						start = startDate
+						until start>endDate
 
-							#for s from startDate to endDate
+							#if value for s exists 
+							if analyticsCollection.get(start)
 
-								#if value for s exists 
-									#s + iday
+								#s + iday
+								#console.log "data available for "+start
+								start = start + 86400000
 
-								#else if it doesnt exists
+							#else if it doesnt exists
+							else 
+	
+								#for e from s to end 
+								end = start
+								until end > endDate
 
-									#for e from s to end 
+									#if value for e doesnt exist
+									if not analyticsCollection.get(end)
+										# e + 1 day
+										#console.log "data not available for "+end
+										end = end + 86400000
 
-										#if value for e doesnt exist
-											# e + 1 day
+									#else if it exists
+									else
+										# e - 1 day
+										end = end - 86400000
 
-										#else if it exists
-											# e - 1 day
-											#fetch from s to e
-											#s=e+1day
-											#quit e loop
+										#quit e loop
+										break
 
+								#fromstart to end to fetch
+								analyticsCollection = API.fetchAnalytics start, end
+								# App.DashboardApp.Statistics.fetchCount = App.DashboardApp.Statistics.fetchCount+1
+								console.log App.DashboardApp.Statistics.fetchCount
+								console.log " super fetch for "+start+"   to  "+end
+								#s=e+1day
+								start = end+86400000
+
+
+							
+								
+								
+							
+
+						analyticsCollection = App.request "get:collection", 'analyticscollection'
+						
+
+
+						analyticsCollection
 
 
 
@@ -111,11 +147,19 @@ define ['app'
 							start_date 	: start
 							end_date 	: end
 							ids			: 81856773
+						# success
+
+					# success=()->
+					# 	alert App.DashboardApp.Statistics.fetchCount
+					# 	App.DashboardApp.Statistics.fetchCount = App.DashboardApp.Statistics.fetchCount-1
+
+
 
 					#sort collection according to date
 					analyticsCollection.comparator = 'date'
 					analyticsCollection.sort()
 
+					
 
 					analyticsCollection
 
@@ -136,6 +180,9 @@ define ['app'
 
 			App.reqres.setHandler "get:all:analytics",(startDate,endDate)->
 				API.getAllAnalyticsCollection startDate,endDate
+
+			App.reqres.setHandler "get:missing:data", (startDate,endDate)->
+				API.getMissingDataForDateRange startDate,endDate
 
 
 
