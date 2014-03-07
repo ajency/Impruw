@@ -39,6 +39,14 @@ define ['app'
 						@listenTo layout, "show",->
 							layout.slidesListRegion.show listView
 
+						@listenTo listView,"slides:order:updated",(newOrder)->
+							_.each newOrder,(slideId, index)->
+								slide = collection.get slideId
+								slide.set('order' , index + 1) if slide
+
+							collection.saveOrder
+											success : @showSuccessMessage
+
 						@show layout, loading :true
 
 
@@ -50,9 +58,11 @@ define ['app'
 					_getSlidesListLayout:->
 							new SlidesListLayout
 
-					slideModelUpdated:->
+					slideModelUpdated:=>
 
-
+					# show success
+					showSuccessMessage:=>
+						@layout.triggerMethod "show:order:updated:msg"
 
 
 				# views 
@@ -161,10 +171,9 @@ define ['app'
 						order = @$el.find('#slides-accordion').sortable 'toArray', attribute: 'data-slide-id'
 						
 						newOrder = _.map order, (o, i)->
-											slideId = parseInt o
-											order : i + 1
+											parseInt o
 
-						console.log newOrder
+						@trigger "slides:order:updated", newOrder
 
 					onClose:->
 						@$el.find('#slides-accordion').sortable 'destroy'
@@ -194,6 +203,14 @@ define ['app'
 					regions:
 						slidesListRegion 	: '#slides-list-region'
 						addSlideRegion 		: '#add-slide-region'
+
+					# show order updated message
+					onShowOrderUpdatedMsg:->
+
+						# remove previous alert message
+						@$el.find('.alert').remove()
+
+						@$el.prepend '<div class="alert alert-success">Order updated successfully</div>'
 					
 
 

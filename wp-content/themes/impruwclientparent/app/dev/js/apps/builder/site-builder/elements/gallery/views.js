@@ -58,6 +58,10 @@ define(['app', 'holder'], function(App, Holder) {
         };
       };
 
+      GalleryView.prototype.onBeforeRender = function() {
+        return this.collection.sort();
+      };
+
       GalleryView.prototype.events = {
         'click': function(e) {
           return this.trigger("show:slides:manager");
