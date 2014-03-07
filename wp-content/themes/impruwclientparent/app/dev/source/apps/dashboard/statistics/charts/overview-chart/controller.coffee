@@ -7,35 +7,60 @@ define ['app'
 
 				@startWithParent = false
 
-				data = null
+				#data = null
 				graphNames=['ga:visits', 'ga:visitors', 'ga:newVisits', 'ga:pageviews']
 
 				class OverViewChartController extends AppController
 
 					initialize :(options) ->
 
-						@layout = @_getLayout()
+						@startDate = options.startDate
+						@endDate = options.endDate
 
-						@show @layout,
-						#	loading : true
+						analyticsCollection= null
+						analyticsCollection = App.request "get:all:analytics" , @startDate , @endDate
+
+						@layout = @_getLayout(analyticsCollection)
+
+						
 
 						@listenTo @layout, 'button:clicked',(criterion) =>
 							@_renderRegion(criterion)
 
 
 						# show chart
-						@_renderRegion(graphNames)
+						@listenTo @layout, 'show',->
+							console.log "xyz"
+							@_renderRegion(graphNames)
+
+
+						# App.commands.setHandler "reload:overview:chart", (start,end)->
+						# 	OverViewChartController._renderRegion graphNames
+
+						@show @layout,
+							loading : true
+
+					_getLayout:(analyticsCollection)->
+						new OverViewChart.Views.Layout
+							collection : analyticsCollection
+
 
 					_renderRegion:(requiredGraphs)->
-						#console.log JSON.stringify(data)
-						# mydata = jsonsql.query "select date, ga:visits from json",data
+						
+						#get the required data from the offline store
+						analyticsCollection = App.request "get:analytics:by:date" , @startDate , @endDate
+						#convert the existing array of models to a JSON array of objects
+						analyticsJSON = _.map analyticsCollection, (analyticsModel)->
+							analyticsModel.toJSON()
+
+						#convert to proper format for th overview chart
 						graphData = new Array()
 
 						_.each requiredGraphs, (graph)->
 
 							if graph == "ga:visits"
 						  		graphArray = new Array()
-						  		_.each data, (day)->
+						  		_.each analyticsJSON, (day)->
 						   			dailydata = {}
 						   			dailydata.x = _.first _.values _.pick day, 'date' #day.get 'date'
 						   			dailydata.y = _.first _.values _.pick day, 'ga:visits'#day.get 'ga:visits'
@@ -48,7 +73,7 @@ define ['app'
 
 						  	if graph == "ga:visitors"
 						  		graphArray = new Array()
-						  		_.each data, (day)->
+						  		_.each analyticsJSON, (day)->
 						   			dailydata = {}
 						   			dailydata.x = _.first _.values _.pick day, 'date' #day.get 'date'
 						   			dailydata.y = _.first _.values _.pick day, 'ga:visitors'#day.get 'ga:visits'
@@ -60,7 +85,7 @@ define ['app'
 
 						  	if graph == "ga:newVisits"
 						  		graphArray = new Array()
-						  		_.each data, (day)->
+						  		_.each analyticsJSON, (day)->
 						   			dailydata = {}
 						   			dailydata.x = _.first _.values _.pick day, 'date' #day.get 'date'
 						   			dailydata.y = _.first _.values _.pick day, 'ga:newVisits'#day.get 'ga:visits'
@@ -72,7 +97,7 @@ define ['app'
 
 						  	if graph == "ga:pageviews"
 						  		graphArray = new Array()
-						  		_.each data, (day)->
+						  		_.each analyticsJSON, (day)->
 						   			dailydata = {}
 						   			dailydata.x = _.first _.values _.pick day, 'date' #day.get 'date'
 						   			dailydata.y = _.first _.values _.pick day, 'ga:pageviews'#day.get 'ga:visits'
@@ -82,29 +107,42 @@ define ['app'
 						   			values : graphArray
 						  		graphData.push graphObject
   
-     
+						# pieData = new Array()
+						
+						# newUserObj = 
+						# 	key : "New Users"
+						# 	y : 55
+							
+						# returiningUserObj = 
+						# 	key : "Returning Users"
+						# 	y : 110				
+						
+						# pieData.push newUserObj
+						# pieData.push returiningUserObj
 
 
-
-
+						 #render the overview chart
 						@layout.chartRegion.show @_getChartView(graphData)
+
+						# @layout.pieRegion.show @_getPieView(pieData)
 
 
 					_getChartView:(chartData)->
 						new OverViewChart.Views.Chart
 							data : chartData
 
-
-					_getLayout:->
-						new OverViewChart.Views.Layout
-
+					# _getPieView:(pieData)->
+					# 	new OverViewChart.Views.PieChart
+					# 		data : pieData
+					
 
 
 				OverViewChart.on 'start',(options)->
-					data = options.collection
+					#data = options.collection
 					#console.log JSON.stringify(data)
 					new OverViewChartController
 						region : options.region		
-						collection :options.collection
+						startDate : options.startDate
+						endDate : options.endDate
 
 

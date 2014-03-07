@@ -38,26 +38,42 @@ define(['app', 'backbone'], function(App, Backbone) {
         analyticsCollection = new Analytics.AnalyticsCollection;
         return App.request("set:collection", 'analyticscollection', analyticsCollection);
       },
-      getAnalyticsCollection: function() {
+      getAllAnalyticsCollection: function(start, end) {
         var analyticsCollection;
         analyticsCollection = App.request("get:collection", "analyticscollection");
-        return analyticsCollection;
+        if (start >= analyticsCollection.startDate) {
+          return analyticsCollection;
+        } else {
+          analyticsCollection = API.fetchAnalytics(start, analyticsCollection.startDate);
+          App.execute("reload:overview:chart", start, end);
+          return analyticsCollection;
+        }
       },
       getAnalyticsCollectionByDate: function(start, end) {
-        var analyticsCollection;
+        var analyticsArray, analyticsCollection;
         analyticsCollection = App.request("get:collection", 'analyticscollection');
         if (start >= analyticsCollection.startDate) {
-          return analyticsCollection.filter(function(analytics) {
+          console.log(start + "     " + end);
+          analyticsArray = analyticsCollection.filter(function(analytics) {
             return analytics.id >= start && analytics.id <= end;
           });
+          return analyticsArray;
+        } else {
+          fetchAnalytics(start, analyticsCollection.startDate);
+          analyticsArray = getAnalyticsCollection(start, end);
+          return analyticsArray;
         }
       },
       fetchAnalytics: function(start, end) {
         var analyticsCollection;
+        console.log("fetching from " + start + " to " + end);
         analyticsCollection = App.request("get:collection", 'analyticscollection');
         analyticsCollection.url = "" + AJAXURL + "?action=get_analytics_data";
         analyticsCollection.startDate = start;
         analyticsCollection.fetch({
+          reset: false,
+          remove: false,
+          add: true,
           data: {
             metrices: 'ga:visits,ga:visitors,ga:newVisits,ga:pageviews,ga:pageviewsPerVisit,ga:bounces',
             start_date: start,
@@ -65,6 +81,8 @@ define(['app', 'backbone'], function(App, Backbone) {
             ids: 81856773
           }
         });
+        analyticsCollection.comparator = 'date';
+        analyticsCollection.sort();
         return analyticsCollection;
       }
     };
@@ -78,8 +96,8 @@ define(['app', 'backbone'], function(App, Backbone) {
     App.reqres.setHandler("fetch:analytics", function(startDate, endDate) {
       return API.fetchAnalytics(startDate, endDate);
     });
-    return App.reqres.setHandler("get:analytics", function() {
-      return API.getAnalyticsCollection();
+    return App.reqres.setHandler("get:all:analytics", function(startDate, endDate) {
+      return API.getAllAnalyticsCollection(startDate, endDate);
     });
   });
 });

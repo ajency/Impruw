@@ -3,9 +3,8 @@ var __hasProp = {}.hasOwnProperty,
 
 define(['app', 'controllers/base-controller', 'apps/dashboard/statistics/charts/overview-chart/views'], function(App, AppController) {
   return App.module("DashboardApp.Statistics.OverViewChart", function(OverViewChart, App) {
-    var OverViewChartController, data, graphNames;
+    var OverViewChartController, graphNames;
     this.startWithParent = false;
-    data = null;
     graphNames = ['ga:visits', 'ga:visitors', 'ga:newVisits', 'ga:pageviews'];
     OverViewChartController = (function(_super) {
       __extends(OverViewChartController, _super);
@@ -15,23 +14,44 @@ define(['app', 'controllers/base-controller', 'apps/dashboard/statistics/charts/
       }
 
       OverViewChartController.prototype.initialize = function(options) {
-        this.layout = this._getLayout();
-        this.show(this.layout, this.listenTo(this.layout, 'button:clicked', (function(_this) {
+        var analyticsCollection;
+        this.startDate = options.startDate;
+        this.endDate = options.endDate;
+        analyticsCollection = null;
+        analyticsCollection = App.request("get:all:analytics", this.startDate, this.endDate);
+        this.layout = this._getLayout(analyticsCollection);
+        this.listenTo(this.layout, 'button:clicked', (function(_this) {
           return function(criterion) {
             return _this._renderRegion(criterion);
           };
-        })(this)));
-        return this._renderRegion(graphNames);
+        })(this));
+        this.listenTo(this.layout, 'show', function() {
+          console.log("xyz");
+          return this._renderRegion(graphNames);
+        });
+        return this.show(this.layout, {
+          loading: true
+        });
+      };
+
+      OverViewChartController.prototype._getLayout = function(analyticsCollection) {
+        return new OverViewChart.Views.Layout({
+          collection: analyticsCollection
+        });
       };
 
       OverViewChartController.prototype._renderRegion = function(requiredGraphs) {
-        var graphData;
+        var analyticsCollection, analyticsJSON, graphData;
+        analyticsCollection = App.request("get:analytics:by:date", this.startDate, this.endDate);
+        analyticsJSON = _.map(analyticsCollection, function(analyticsModel) {
+          return analyticsModel.toJSON();
+        });
         graphData = new Array();
         _.each(requiredGraphs, function(graph) {
           var graphArray, graphObject;
           if (graph === "ga:visits") {
             graphArray = new Array();
-            _.each(data, function(day) {
+            _.each(analyticsJSON, function(day) {
               var dailydata;
               dailydata = {};
               dailydata.x = _.first(_.values(_.pick(day, 'date')));
@@ -47,7 +67,7 @@ define(['app', 'controllers/base-controller', 'apps/dashboard/statistics/charts/
           }
           if (graph === "ga:visitors") {
             graphArray = new Array();
-            _.each(data, function(day) {
+            _.each(analyticsJSON, function(day) {
               var dailydata;
               dailydata = {};
               dailydata.x = _.first(_.values(_.pick(day, 'date')));
@@ -62,7 +82,7 @@ define(['app', 'controllers/base-controller', 'apps/dashboard/statistics/charts/
           }
           if (graph === "ga:newVisits") {
             graphArray = new Array();
-            _.each(data, function(day) {
+            _.each(analyticsJSON, function(day) {
               var dailydata;
               dailydata = {};
               dailydata.x = _.first(_.values(_.pick(day, 'date')));
@@ -77,7 +97,7 @@ define(['app', 'controllers/base-controller', 'apps/dashboard/statistics/charts/
           }
           if (graph === "ga:pageviews") {
             graphArray = new Array();
-            _.each(data, function(day) {
+            _.each(analyticsJSON, function(day) {
               var dailydata;
               dailydata = {};
               dailydata.x = _.first(_.values(_.pick(day, 'date')));
@@ -100,18 +120,14 @@ define(['app', 'controllers/base-controller', 'apps/dashboard/statistics/charts/
         });
       };
 
-      OverViewChartController.prototype._getLayout = function() {
-        return new OverViewChart.Views.Layout;
-      };
-
       return OverViewChartController;
 
     })(AppController);
     return OverViewChart.on('start', function(options) {
-      data = options.collection;
       return new OverViewChartController({
         region: options.region,
-        collection: options.collection
+        startDate: options.startDate,
+        endDate: options.endDate
       });
     });
   });
