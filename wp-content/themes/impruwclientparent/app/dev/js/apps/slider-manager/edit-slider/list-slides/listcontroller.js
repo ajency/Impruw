@@ -1,5 +1,6 @@
 var __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
 define(['app', 'controllers/base-controller'], function(App, AppController) {
   return App.module('SliderManager.EditSlider.SlidesList', function(SlidesList, App, Backbone, Marionette, $, _) {
@@ -98,6 +99,10 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         }
       };
 
+      SlideView.prototype.onRender = function() {
+        return this.$el.attr('data-slide-id', this.model.get('id'));
+      };
+
       return SlideView;
 
     })(Marionette.ItemView);
@@ -117,6 +122,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
       __extends(SlidesListView, _super);
 
       function SlidesListView() {
+        this.slidesSorted = __bind(this.slidesSorted, this);
         return SlidesListView.__super__.constructor.apply(this, arguments);
       }
 
@@ -133,7 +139,27 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
       };
 
       SlidesListView.prototype.onShow = function() {
-        return this.$el.find('#slides-accordion').sortable();
+        return this.$el.find('#slides-accordion').sortable({
+          start: function(e, ui) {
+            return ui.placeholder.height(ui.item.height());
+          },
+          update: this.slidesSorted
+        });
+      };
+
+      SlidesListView.prototype.slidesSorted = function(evt, ui) {
+        var newOrder, order;
+        order = this.$el.find('#slides-accordion').sortable('toArray', {
+          attribute: 'data-slide-id'
+        });
+        newOrder = _.map(order, function(o, i) {
+          var slideId;
+          slideId = parseInt(o);
+          return {
+            order: i + 1
+          };
+        });
+        return console.log(newOrder);
       };
 
       SlidesListView.prototype.onClose = function() {

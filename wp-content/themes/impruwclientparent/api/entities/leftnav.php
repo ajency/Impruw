@@ -102,7 +102,7 @@ function get_elementbox_elements() {
                             array(  'element' => 'ImageWithText',
                                     'title' => 'Image With Text',
                                     'icon' => '',
-                                    'styles' => array()
+                                    'styles' => get_styles('ImageWithText')
                             ),
                             array(  'element' => 'Address',
                                     'icon' => '',

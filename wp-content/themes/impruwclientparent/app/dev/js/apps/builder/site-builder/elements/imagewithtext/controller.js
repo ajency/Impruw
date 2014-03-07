@@ -25,6 +25,7 @@ define(['app', 'apps/builder/site-builder/elements/imagewithtext/views', 'apps/b
 
       Controller.prototype.bindEvents = function() {
         this.listenTo(this.layout.model, "change:image_id", this.renderElement);
+        this.listenTo(this.layout.model, "change:style", this.changeElementStyle);
         this.listenTo(this.layout.model, "change:size", this.renderElement);
         this.listenTo(this.layout.model, "change:align", this.renderElement);
         return Controller.__super__.bindEvents.call(this);
@@ -38,11 +39,19 @@ define(['app', 'apps/builder/site-builder/elements/imagewithtext/views', 'apps/b
         };
       };
 
-      Controller.prototype._getImageWithTextView = function(imageModel) {
+      Controller.prototype._getImageWithTextView = function(imageModel, style) {
         return new ImageWithText.Views.ImageWithTextView({
           model: imageModel,
-          templateHelpers: this._getTemplateHelpers()
+          templateHelpers: this._getTemplateHelpers(),
+          style: style
         });
+      };
+
+      Controller.prototype.changeElementStyle = function(model) {
+        var newStyle, prevStyle;
+        prevStyle = _.slugify(model.previous('style'));
+        newStyle = _.slugify(model.get('style'));
+        return this.layout.elementRegion.currentView.triggerMethod("style:upadted", newStyle, prevStyle);
       };
 
       Controller.prototype.renderElement = function() {
@@ -52,7 +61,7 @@ define(['app', 'apps/builder/site-builder/elements/imagewithtext/views', 'apps/b
         return App.execute("when:fetched", imageModel, (function(_this) {
           return function() {
             var view;
-            view = _this._getImageWithTextView(imageModel);
+            view = _this._getImageWithTextView(imageModel, _this.layout.model.get('style'));
             _this.listenTo(view, "show:media:manager", function() {
               App.navigate("media-manager", {
                 trigger: true

@@ -119,6 +119,9 @@ define ['app'
 								if confirm('Are you sure?')
 									@trigger "remove:slide", @model
 
+					onRender:->
+						@$el.attr 'data-slide-id' , @model.get 'id'
+
 				class NoSlidesView extends Marionette.ItemView
 
 					template : '<div class="alert">No slides. Please add slides.</div>'
@@ -150,7 +153,18 @@ define ['app'
 
 					# make them sortable
 					onShow:->
-						@$el.find('#slides-accordion').sortable()
+						@$el.find('#slides-accordion').sortable
+														start :(e,ui)-> ui.placeholder.height ui.item.height()
+														update : @slidesSorted
+
+					slidesSorted:(evt, ui)=>
+						order = @$el.find('#slides-accordion').sortable 'toArray', attribute: 'data-slide-id'
+						
+						newOrder = _.map order, (o, i)->
+											slideId = parseInt o
+											order : i + 1
+
+						console.log newOrder
 
 					onClose:->
 						@$el.find('#slides-accordion').sortable 'destroy'
