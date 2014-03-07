@@ -84,7 +84,8 @@ define(['app', 'controllers/base-controller', 'text!apps/media-manager/templates
       };
 
       OuterLayout.prototype.dialogOptions = {
-        modal_title: 'Media Manager'
+        modal_title: 'Media Manager',
+        modal_size: 'wide-modal'
       };
 
       OuterLayout.prototype.events = {

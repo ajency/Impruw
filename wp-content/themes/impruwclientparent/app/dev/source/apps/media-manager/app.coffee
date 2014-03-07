@@ -72,6 +72,7 @@ define ['app'
 
 					dialogOptions : 
 						modal_title : 'Media Manager'
+						modal_size  : 'wide-modal'
 
 					events: 
 						'click button.media-manager-select' : ->
