@@ -41,7 +41,7 @@
     
     <div id="login-region"></div>
     <div id="settings-region"></div>
-    <div id="dialog-region" class="modal  wide-modal"></div><!-- /.modal -->
+    <div id="dialog-region" class="modal "></div><!-- /.modal -->
     
     <script type="text/javascript">
     	var THEMEURL    = '<?php echo get_parent_template_directory_uri(); ?>';

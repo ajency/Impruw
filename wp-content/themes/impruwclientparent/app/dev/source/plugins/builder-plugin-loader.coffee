@@ -26,4 +26,6 @@ define [
 		'bootstrapselect'
 		'ckeditor'
 		'nestedsortable'
+		'themepunch'
+		'revslider'
 		],->

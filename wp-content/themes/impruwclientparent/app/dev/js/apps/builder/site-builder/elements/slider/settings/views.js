@@ -44,8 +44,8 @@ define(['app', 'text!apps/builder/site-builder/elements/slider/settings/template
           evt.preventDefault();
           return App.settingsRegion.close();
         },
-        'change select[name="style"]': function(evt) {
-          return this.trigger("element:style:changed", $(evt.target).val());
+        'change select[name="slider_id"]': function(evt) {
+          return this.trigger("element:slider_id:changed", $(evt.target).val());
         },
         'change input[name="draggable"]': function(evt) {
           return this.trigger("element:draggable:changed", $(evt.target).is(':checked'));

@@ -25,9 +25,9 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/element
             return _this.region.$el.css('left', 400);
           };
         })(this));
-        this.listenTo(view, "element:style:changed", (function(_this) {
-          return function(style) {
-            return _this.model.set("style", style);
+        this.listenTo(view, "element:slider_id:changed", (function(_this) {
+          return function(id) {
+            return _this.model.set("slider_id", parseInt(id));
           };
         })(this));
         this.listenTo(view, "element:draggable:changed", (function(_this) {

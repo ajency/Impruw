@@ -13,13 +13,13 @@ define ['app'
 
 						_.defaults options.modelData,
 											element  	: 'Slider'
-											slider_id 	: 0
+											slider_id 	: 1
 
 						super(options)
 						
 					bindEvents:->
 						# start listening to model events
-						@listenTo @layout.model, "change:style", @renderElement
+						@listenTo @layout.model, "change:slider_id", @renderElement null
 						super()
 
 					_getSliderView:(collection)->
@@ -28,27 +28,19 @@ define ['app'
 												
 
 					# setup templates for the element
-					renderElement:()=>
+					renderElement:(slidesCollection)=>
 						@removeSpinner()
+						
+						if not _.isObject slidesCollection
+							slidesCollection = App.request "get:slides:for:slide" , @layout.model.get 'slider_id'
 
-						collection = new Backbone.Collection [	( 
-																	image: 'dsds'
-																	order: 1
-																)
-																( 
-																	image: 'dsds'
-																	order: 2
-																)
-																( 
-																	image: 'dsds'
-																	order: 3
-																)
-															]
+						App.execute "when:fetched", slidesCollection, =>
+							view = @_getSliderView slidesCollection
 
+							@listenTo view, "show:slides:manager", =>
+								App.execute "show:slides:manager",slidesCollection
 
-						view = @_getSliderView collection
+							@listenTo slidesCollection, "remove add", =>
+								@renderElement slidesCollection
 
-						@listenTo view, "itemview:show:slider:manager", =>
-							App.navigate "slider-manager", trigger : true
-
-						@layout.elementRegion.show view
+							@layout.elementRegion.show view

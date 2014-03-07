@@ -14,9 +14,11 @@ define(['marionette', 'mustache', 'text!configs/marionette/templates/modal.html'
     Dialog.prototype.open = function(view) {
       var options, wrapper;
       options = view.dialogOptions ? view.dialogOptions : {};
-      wrapper = Mustache.to_html(modalTpl, this._getOptions(options));
+      options = this._getOptions(options);
+      wrapper = Mustache.to_html(modalTpl, options);
       this.$el.html(wrapper);
-      return this.$el.find('.modal-body').append(view.el);
+      this.$el.find('.modal-body').append(view.el);
+      return this.$el.addClass(options.modal_size);
     };
 
     Dialog.prototype.onShow = function(view) {
@@ -36,7 +38,8 @@ define(['marionette', 'mustache', 'text!configs/marionette/templates/modal.html'
 
     Dialog.prototype._getOptions = function(options) {
       return _.defaults(options, {
-        modal_title: ''
+        modal_title: '',
+        modal_size: 'wide-modal'
       });
     };
 
