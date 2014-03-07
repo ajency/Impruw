@@ -235,11 +235,60 @@ and open the template in the editor.
   background: #07669e;
   border-radius: 3px;
 }
-/**** Title Styles****/
-.title.box-title {
-  color: #656565;
-  text-align: center;
+.nav.footer-menu {
+  padding: 0;
+}
+.nav.footer-menu li {
+  position: relative;
+  margin: 0 0 0.2em;
+}
+.nav.footer-menu li a {
+  color: #fff;
+  font-weight: 100;
   text-transform: uppercase;
+  display: inline-block;
+  padding: 0.33em;
+}
+.nav.footer-menu li a:hover {
+  text-decoration: none;
+  background: transparent;
+}
+.nav.footer-menu li:before {
+  content: '›';
+  display: inline-block;
+  color: #fff;
+  font-size: 1.3em;
+  margin-right: 5px;
+}
+.nav.footer-menu li:hover {
+  left: 0.25em;
+  -webkit-transition: all 0.25s ease;
+  -moz-transition: all 0.25s ease;
+  -o-transition: all 0.25s ease;
+  -ms-transition: all 0.25s ease;
+  transition: all 0.25s ease;
+}
+/**** Title Styles****/
+.title.page-title {
+  color: #555555;
+  font-style: italic;
+  font-weight: 700;
+  font-size: 4em;
+}
+.title.title-super-text {
+  font-size: 1.5em;
+}
+.title.footer-title {
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 1.6em;
+  font-weight: 400;
+}
+.title.footer-sub-title {
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 200;
+  font-size: 1.4em;
 }
 .text {
   color: #989898;

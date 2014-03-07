@@ -6,6 +6,7 @@ require.config
 	
 	paths:
 		jquery 				: 'plugins/jquery'
+		#jqueryui 			: 'plugins/jquery.ui'
 		underscore			: 'plugins/underscore'
 		backbone    		: 'plugins/backbone'
 		marionette  		: 'plugins/backbone.marionette'
@@ -30,10 +31,12 @@ require.config
 		app 				: 'dashboard-app' 
 		bootstrapswitch 	: 'plugins/bootstrap-switch'
 		entitiesloader		: 'entities/dashboard-entities-loader'
+
 	shim:
 		underscore: 
 			exports : '_'
 		jquery 				: ['underscore']
+		# jqueryui 	: ['jquery']
 		backbone: 
 			deps 	: ['jquery','underscore']
 			exports : 'Backbone'
@@ -48,6 +51,7 @@ require.config
 		nvd3:	
 			deps : ['d3']
 			exports : 'nv'
+		
 		jqueryvalidate 		: ['jquery']
 		underscorestring 	: ['underscore']
 		backboneform 		: ['backbone']
@@ -60,6 +64,9 @@ require.config
 		bootstrapselect		: ['bootstrap']
 		bootstrapswitch		: ['bootstrap']
 		app 				: ['plugins/plugin-loader','configs/config-loader']
+
+		
+		
 
 	tpl :
 		extension : '.html'

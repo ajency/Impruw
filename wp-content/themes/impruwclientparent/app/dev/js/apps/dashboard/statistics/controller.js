@@ -38,17 +38,14 @@ define(['app', 'controllers/base-controller', 'text!apps/dashboard/statistics/te
       StatisticsLayout.prototype.initialize = function(options) {};
 
       StatisticsLayout.prototype.changeRange = function(e) {
-        var JsonCollection, analyticsCollection, dateRange, endDate, startDate;
+        var date, dateRange, endDate, startDate;
         console.log("radio changed");
-        dateRange = $(e.target).find('input').val();
-        endDate = Date.parse(new Date().toDateString());
+        dateRange = $(e.target).find('input[type="radio"]').val();
+        date = new Date();
+        endDate = Date.UTC(date.getFullYear(), date.getMonth(), date.getDate());
         startDate = endDate - dateRange * 86400000;
-        analyticsCollection = App.request("get:analytics:by:date", startDate, endDate);
-        JsonCollection = _.map(analyticsCollection, function(analyticsModel) {
-          return analyticsModel.toJSON();
-        });
-        console.log(JSON.stringify(analyticsCollection));
-        return this.trigger("radio:clicked", JsonCollection);
+        console.log("change range " + startDate + "       " + endDate);
+        return this.trigger("radio:clicked", startDate, endDate);
       };
 
       StatisticsLayout.prototype.onShow = function() {};
@@ -64,19 +61,20 @@ define(['app', 'controllers/base-controller', 'text!apps/dashboard/statistics/te
       }
 
       Controller.prototype.initialize = function() {
-        var analyticsCollection, endDate, startDate;
-        endDate = Date.parse(new Date().toDateString());
+        var analyticsCollection, date, endDate, startDate;
+        date = new Date();
+        endDate = Date.UTC(date.getFullYear(), date.getMonth(), date.getDate());
         startDate = endDate - 30 * 86400000;
         analyticsCollection = App.request("fetch:analytics", startDate, endDate);
-        console.log("fetched" + JSON.stringify(analyticsCollection));
         this.layout = this._getLayout(analyticsCollection);
         this.listenTo(this.layout, 'radio:clicked', (function(_this) {
-          return function(rangeData) {
-            return _this.layout.overviewRegion.show(_this._loadChartOverview(rangeData));
+          return function(start, end) {
+            console.log("radio range" + startDate + "       " + endDate);
+            return _this.layout.overviewRegion.show(_this._loadChartOverview(start, end));
           };
         })(this));
         this.listenTo(this.layout, 'show', function() {
-          return this.layout.overviewRegion.show(this._loadChartOverview(analyticsCollection.toJSON()));
+          return this.layout.overviewRegion.show(this._loadChartOverview(startDate, endDate));
         });
         return this.show(this.layout, {
           loading: true
@@ -93,11 +91,12 @@ define(['app', 'controllers/base-controller', 'text!apps/dashboard/statistics/te
         });
       };
 
-      Controller.prototype._loadChartOverview = function(data) {
+      Controller.prototype._loadChartOverview = function(start, end) {
         Statistics.OverViewChart.stop();
         return Statistics.OverViewChart.start({
           region: this.layout.overviewRegion,
-          collection: data
+          startDate: start,
+          endDate: end
         });
       };
 
