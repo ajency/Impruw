@@ -51,6 +51,16 @@ define(['app', 'holder'], function(App, Holder) {
         }
       };
 
+      ImageWithTextView.prototype.onStyleUpadted = function(newStyle, prevStyle) {
+        return this.$el.removeClass(prevStyle).addClass(newStyle);
+      };
+
+      ImageWithTextView.prototype.onRender = function() {
+        var style;
+        style = Marionette.getOption(this, 'style');
+        return this.onStyleUpadted(_.slugify(style), '');
+      };
+
       ImageWithTextView.prototype.onShow = function() {
         var content;
         if (this.model.isNew()) {

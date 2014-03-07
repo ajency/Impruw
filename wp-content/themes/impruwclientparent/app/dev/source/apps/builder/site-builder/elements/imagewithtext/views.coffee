@@ -42,6 +42,14 @@ define ['app', 'holder'],(App, Holder)->
 									@trigger "show:media:manager"
 				'blur p.editor' : (e)-> @trigger "text:element:blur", @$el.children('p.editor').html()
 
+			onStyleUpadted:(newStyle, prevStyle)->
+				@$el.removeClass prevStyle
+					.addClass newStyle
+
+			onRender:->
+				style = Marionette.getOption this, 'style'
+				@onStyleUpadted _.slugify(style), ''
+
 
 			# set the height of the parent of img in case float value is set
 			# check if a valid image_id is set for the element

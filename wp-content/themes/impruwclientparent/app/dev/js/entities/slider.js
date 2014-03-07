@@ -75,6 +75,28 @@ define(["app", 'backbone'], function(App, Backbone) {
 
       SlideCollection.prototype.comparator = 'order';
 
+      SlideCollection.prototype.saveOrder = function(options) {
+        var slideIds;
+        if (options == null) {
+          options = {};
+        }
+        this.sort();
+        slideIds = this.map(function(slide, index) {
+          return slide.get('id');
+        });
+        return $.post(AJAXURL, {
+          action: 'update-slides-order',
+          newOrder: slideIds
+        }, (function(_this) {
+          return function(response) {
+            if (options.success) {
+              options.success();
+            }
+            return _this.trigger("slides:order:updated");
+          };
+        })(this), 'json');
+      };
+
       return SlideCollection;
 
     })(Backbone.Collection);

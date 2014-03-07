@@ -48,6 +48,22 @@ define ["app", 'backbone'], (App, Backbone) ->
 
 				comparator : 'order'
 
+				saveOrder:(options = {})->
+
+					@sort()
+
+					slideIds = @map (slide, index)->
+									return slide.get 'id'
+
+					$.post 	AJAXURL,
+							{
+								action 	: 'update-slides-order'
+								newOrder 	: slideIds
+							},
+							(response)=>
+								options.success() if options.success
+								@trigger "slides:order:updated" 
+							,'json'
 			
 				
 			##PUBLIC API FOR ENitity

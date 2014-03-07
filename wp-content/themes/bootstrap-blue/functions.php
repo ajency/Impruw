@@ -99,5 +99,13 @@ $element_templates = array(
             array(
                 'name' => 'Style Two'
             )
+        ),
+    'ImageWithText' => array(
+            array(
+                'name' => 'Style One'
+            ),
+            array(
+                'name' => 'Style Two'
+            )
         )
 );

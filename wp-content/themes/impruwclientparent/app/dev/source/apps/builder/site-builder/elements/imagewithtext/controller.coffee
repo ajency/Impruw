@@ -21,6 +21,7 @@ define ['app','apps/builder/site-builder/elements/imagewithtext/views','apps/bui
 					bindEvents:->
 						# start listening to model events
 						@listenTo @layout.model, "change:image_id", @renderElement
+						@listenTo @layout.model, "change:style", @changeElementStyle
 						@listenTo @layout.model, "change:size", @renderElement
 						@listenTo @layout.model, "change:align", @renderElement
 						super()
@@ -34,20 +35,25 @@ define ['app','apps/builder/site-builder/elements/imagewithtext/views','apps/bui
 							alignment 	: @layout.model.get 'align'
 							content 	: @layout.model.get 'content'
 
-					_getImageWithTextView:(imageModel)->
+					_getImageWithTextView:(imageModel, style)->
 						new ImageWithText.Views.ImageWithTextView
 										model : imageModel
 										templateHelpers : @_getTemplateHelpers()
-												
+										style : style
+
+					changeElementStyle:(model)->
+						prevStyle = _.slugify model.previous 'style'
+						newStyle  = _.slugify model.get 'style' 
+						@layout.elementRegion.currentView.triggerMethod "style:upadted", newStyle, prevStyle					
 
 					# setup templates for the element
 					renderElement:()=>
 						@removeSpinner()
 						# get logo attachment
-						imageModel = App.request "get:media:by:id",@layout.model.get 'image_id'
+						imageModel = App.request "get:media:by:id",@layout.model.get('image_id')
 						App.execute "when:fetched", imageModel, =>
 							
-							view = @_getImageWithTextView imageModel
+							view = @_getImageWithTextView imageModel,@layout.model.get('style')
 
 							#trigger media manager popup and start listening to "media:manager:choosed:media" event
 							@listenTo view, "show:media:manager", =>

@@ -36,6 +36,9 @@ define ['app', 'holder'],(App, Holder)->
 			itemViewOptions:(model, index)->
 				noOfColumns : Marionette.getOption this, 'noOfColumns'
 
+			onBeforeRender:->
+				@collection.sort()
+
 			events:
 				'click' :(e)-> 
 					@trigger "show:slides:manager"

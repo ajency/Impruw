@@ -41,11 +41,41 @@ $element_templates = array(
                 ),
                 array(
                     'name'      => 'Footer Menu'
+                ),
+                array(
+                    'name'      => 'Footer Menu 2'
                 )
               ),
     'Title' => array(
                 array(
-                    'name'      => 'Box Title'
+                    'name'      => 'Title Super Text'
+                ),
+                array(
+                    'name'      => 'Page Title',
+                ),
+                array(
+                    'name'      => 'Footer Title'
+                ),
+                array(
+                    'name'      => 'Footer Sub Title'
+                ),
+                array(
+                    'name'      => 'Small Title'
+                ),
+                array(
+                    'name'      => 'Grey Title Text'
+                ),
+                array(
+                    'name'      => 'Emphasis Text'
+                ),
+                array(
+                    'name'      => 'Inner Title'
+                ),
+                array(
+                    'name'      => 'Thumb Title'
+                ),
+                array(
+                    'name'      => 'Thumb Main Title'
                 )
               ),
     'Row' => array(
@@ -95,6 +125,14 @@ $element_templates = array(
                 )
             ),
     'ContactForm' => array(
+            array(
+                'name' => 'Style One'
+            ),
+            array(
+                'name' => 'Style Two'
+            )
+        ),
+    'ImageWithText' => array(
             array(
                 'name' => 'Style One'
             ),
