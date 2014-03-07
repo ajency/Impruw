@@ -48,7 +48,7 @@ define(['app', 'apps/builder/site-builder/elements/gallery/views', 'apps/builder
             _this.listenTo(_this.layout.model, "change:no_of_columns", function() {
               return _this.renderElement(slidesCollection);
             });
-            _this.listenTo(slidesCollection, "remove add", function() {
+            _this.listenTo(slidesCollection, "remove add slides:order:updated", function() {
               return _this.renderElement(slidesCollection);
             });
             return _this.layout.elementRegion.show(view);

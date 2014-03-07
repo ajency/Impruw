@@ -1,6 +1,6 @@
-var __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
-  __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 define(['app', 'controllers/base-controller'], function(App, AppController) {
   return App.module('SliderManager.EditSlider.SlidesList', function(SlidesList, App, Backbone, Marionette, $, _) {
@@ -9,6 +9,8 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
       __extends(SlidesListController, _super);
 
       function SlidesListController() {
+        this.showSuccessMessage = __bind(this.showSuccessMessage, this);
+        this.slideModelUpdated = __bind(this.slideModelUpdated, this);
         return SlidesListController.__super__.constructor.apply(this, arguments);
       }
 
@@ -51,6 +53,18 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         this.listenTo(layout, "show", function() {
           return layout.slidesListRegion.show(listView);
         });
+        this.listenTo(listView, "slides:order:updated", function(newOrder) {
+          _.each(newOrder, function(slideId, index) {
+            var slide;
+            slide = collection.get(slideId);
+            if (slide) {
+              return slide.set('order', index + 1);
+            }
+          });
+          return collection.saveOrder({
+            success: this.showSuccessMessage
+          });
+        });
         return this.show(layout, {
           loading: true
         });
@@ -67,6 +81,10 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
       };
 
       SlidesListController.prototype.slideModelUpdated = function() {};
+
+      SlidesListController.prototype.showSuccessMessage = function() {
+        return this.layout.triggerMethod("show:order:updated:msg");
+      };
 
       return SlidesListController;
 
@@ -153,13 +171,9 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
           attribute: 'data-slide-id'
         });
         newOrder = _.map(order, function(o, i) {
-          var slideId;
-          slideId = parseInt(o);
-          return {
-            order: i + 1
-          };
+          return parseInt(o);
         });
-        return console.log(newOrder);
+        return this.trigger("slides:order:updated", newOrder);
       };
 
       SlidesListView.prototype.onClose = function() {
@@ -197,6 +211,11 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
       SlidesListLayout.prototype.regions = {
         slidesListRegion: '#slides-list-region',
         addSlideRegion: '#add-slide-region'
+      };
+
+      SlidesListLayout.prototype.onShowOrderUpdatedMsg = function() {
+        this.$el.find('.alert').remove();
+        return this.$el.prepend('<div class="alert alert-success">Order updated successfully</div>');
       };
 
       return SlidesListLayout;

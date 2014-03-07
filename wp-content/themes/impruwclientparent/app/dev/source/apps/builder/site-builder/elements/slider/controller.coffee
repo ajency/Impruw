@@ -40,7 +40,7 @@ define ['app'
 							@listenTo view, "show:slides:manager", =>
 								App.execute "show:slides:manager",slidesCollection
 
-							@listenTo slidesCollection, "remove add", =>
+							@listenTo slidesCollection, "remove add slides:order:updated", =>
 								@renderElement slidesCollection
 
 							@layout.elementRegion.show view

@@ -46,7 +46,7 @@ define ['app'
 							@listenTo @layout.model, "change:no_of_columns", =>
 								@renderElement slidesCollection
 
-							@listenTo slidesCollection, "remove add", =>
+							@listenTo slidesCollection, "remove add slides:order:updated", =>
 								@renderElement slidesCollection
 
 							@layout.elementRegion.show view
