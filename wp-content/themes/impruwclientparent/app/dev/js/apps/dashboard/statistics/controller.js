@@ -4,6 +4,7 @@ var __hasProp = {}.hasOwnProperty,
 define(['app', 'controllers/base-controller', 'text!apps/dashboard/statistics/templates/layout.html', 'apps/dashboard/statistics/charts-loader'], function(App, AppController, layoutTpl) {
   return App.module('DashboardApp.Statistics', function(Statistics, App, Backbone, Marionette, $, _) {
     var API, StatisticsLayout;
+    Statistics.graphNames = ['ga:visits', 'ga:visitors', 'ga:newVisits', 'ga:pageviews'];
     Statistics.Router = (function(_super) {
       __extends(Router, _super);
 
@@ -40,7 +41,7 @@ define(['app', 'controllers/base-controller', 'text!apps/dashboard/statistics/te
       StatisticsLayout.prototype.changeRange = function(e) {
         var date, dateRange, endDate, startDate;
         console.log("radio changed");
-        dateRange = $(e.target).find('input[type="radio"]').val();
+        dateRange = $(e.target).find('input[type="hidden"]').val();
         date = new Date();
         endDate = Date.UTC(date.getFullYear(), date.getMonth(), date.getDate());
         startDate = endDate - dateRange * 86400000;
@@ -61,12 +62,13 @@ define(['app', 'controllers/base-controller', 'text!apps/dashboard/statistics/te
       }
 
       Controller.prototype.initialize = function() {
-        var analyticsCollection, date, endDate, startDate;
+        var date, endDate, self, startDate;
+        self = this;
         date = new Date();
         endDate = Date.UTC(date.getFullYear(), date.getMonth(), date.getDate());
         startDate = endDate - 30 * 86400000;
-        analyticsCollection = App.request("fetch:analytics", startDate, endDate);
-        this.layout = this._getLayout(analyticsCollection);
+        this.analyticsCollection = App.request("fetch:analytics", startDate, endDate);
+        this.layout = this._getLayout(this.analyticsCollection);
         this.listenTo(this.layout, 'radio:clicked', (function(_this) {
           return function(start, end) {
             console.log("radio range" + startDate + "       " + endDate);
@@ -74,6 +76,30 @@ define(['app', 'controllers/base-controller', 'text!apps/dashboard/statistics/te
           };
         })(this));
         this.listenTo(this.layout, 'show', function() {
+          $("#from").datepicker({
+            defaultDate: "+1w",
+            changeMonth: true,
+            numberOfMonths: 3,
+            onClose: function(selectedDate) {
+              return $("#to").datepicker("option", "minDate", selectedDate);
+            }
+          });
+          $("#to").datepicker({
+            defaultDate: "+1w",
+            changeMonth: true,
+            numberOfMonths: 3,
+            onClose: function(selectedDate) {
+              return $("#from").datepicker("option", "maxDate", selectedDate);
+            }
+          });
+          $('#daterange-apply').on('click', function() {
+            var end, fromDate, start, toDate;
+            fromDate = $("#from").datepicker("getDate");
+            toDate = $("#to").datepicker("getDate");
+            start = Date.UTC(fromDate.getFullYear(), fromDate.getMonth(), fromDate.getDate());
+            end = Date.UTC(toDate.getFullYear(), toDate.getMonth(), toDate.getDate());
+            return self.layout.overviewRegion.show(self._loadChartOverview(start, end));
+          });
           return this.layout.overviewRegion.show(this._loadChartOverview(startDate, endDate));
         });
         return this.show(this.layout, {
@@ -92,8 +118,7 @@ define(['app', 'controllers/base-controller', 'text!apps/dashboard/statistics/te
       };
 
       Controller.prototype._loadChartOverview = function(start, end) {
-        Statistics.OverViewChart.stop();
-        return Statistics.OverViewChart.start({
+        return App.execute("show:overview:chart", {
           region: this.layout.overviewRegion,
           startDate: start,
           endDate: end

@@ -19,17 +19,21 @@ define ['app'
 
 					changeChart:->
 
-						criterion = new Array() 
+						App.DashboardApp.Statistics.graphNames = new Array() 
 
 						$('input.chart-button:checked').each ->
-							criterion.push $(this).val()
+							App.DashboardApp.Statistics.graphNames.push $(this).val()
 
 						#alert JSON.stringify(criterion)
 
-						@trigger "button:clicked" ,criterion
+						@trigger "button:clicked" ,App.DashboardApp.Statistics.graphNames
 
 					onShow:->
 						#@$el.find('input[type="checkbox"]').bootstrapSwitch()	
+						$('input.chart-button').each ->
+							if _.indexOf(App.DashboardApp.Statistics.graphNames, $(this).val())+1
+
+								$(this).attr "checked","checked"
 						
 					
 

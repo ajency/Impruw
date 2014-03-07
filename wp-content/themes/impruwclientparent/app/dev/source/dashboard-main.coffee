@@ -6,7 +6,7 @@ require.config
 	
 	paths:
 		jquery 				: 'plugins/jquery'
-		#jqueryui 			: 'plugins/jquery.ui'
+		jqueryui 			: 'plugins/jquery.ui'
 		underscore			: 'plugins/underscore'
 		backbone    		: 'plugins/backbone'
 		marionette  		: 'plugins/backbone.marionette'
@@ -36,7 +36,7 @@ require.config
 		underscore: 
 			exports : '_'
 		jquery 				: ['underscore']
-		# jqueryui 	: ['jquery']
+		jqueryui 	: ['jquery']
 		backbone: 
 			deps 	: ['jquery','underscore']
 			exports : 'Backbone'

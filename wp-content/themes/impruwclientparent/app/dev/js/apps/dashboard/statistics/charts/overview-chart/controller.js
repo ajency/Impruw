@@ -3,9 +3,8 @@ var __hasProp = {}.hasOwnProperty,
 
 define(['app', 'controllers/base-controller', 'apps/dashboard/statistics/charts/overview-chart/views'], function(App, AppController) {
   return App.module("DashboardApp.Statistics.OverViewChart", function(OverViewChart, App) {
-    var OverViewChartController, graphNames;
+    var OverViewChartController;
     this.startWithParent = false;
-    graphNames = ['ga:visits', 'ga:visitors', 'ga:newVisits', 'ga:pageviews'];
     OverViewChartController = (function(_super) {
       __extends(OverViewChartController, _super);
 
@@ -14,12 +13,11 @@ define(['app', 'controllers/base-controller', 'apps/dashboard/statistics/charts/
       }
 
       OverViewChartController.prototype.initialize = function(options) {
-        var analyticsCollection;
         this.startDate = options.startDate;
         this.endDate = options.endDate;
-        analyticsCollection = null;
-        analyticsCollection = App.request("get:all:analytics", this.startDate, this.endDate);
-        this.layout = this._getLayout(analyticsCollection);
+        this.analyticsCollection = null;
+        this.analyticsCollection = App.request("get:missing:data", this.startDate, this.endDate);
+        this.layout = this._getLayout(this.analyticsCollection);
         this.listenTo(this.layout, 'button:clicked', (function(_this) {
           return function(criterion) {
             return _this._renderRegion(criterion);
@@ -27,7 +25,7 @@ define(['app', 'controllers/base-controller', 'apps/dashboard/statistics/charts/
         })(this));
         this.listenTo(this.layout, 'show', function() {
           console.log("xyz");
-          return this._renderRegion(graphNames);
+          return this._renderRegion(App.DashboardApp.Statistics.graphNames);
         });
         return this.show(this.layout, {
           loading: true
@@ -61,7 +59,8 @@ define(['app', 'controllers/base-controller', 'apps/dashboard/statistics/charts/
             graphObject = {
               area: true,
               key: 'Visits',
-              values: graphArray
+              values: graphArray,
+              color: "red"
             };
             graphData.push(graphObject);
           }
@@ -76,7 +75,8 @@ define(['app', 'controllers/base-controller', 'apps/dashboard/statistics/charts/
             });
             graphObject = {
               key: 'Unique Visits',
-              values: graphArray
+              values: graphArray,
+              color: "green"
             };
             graphData.push(graphObject);
           }
@@ -91,7 +91,8 @@ define(['app', 'controllers/base-controller', 'apps/dashboard/statistics/charts/
             });
             graphObject = {
               key: 'New Visitors',
-              values: graphArray
+              values: graphArray,
+              color: "blue"
             };
             graphData.push(graphObject);
           }
@@ -106,7 +107,8 @@ define(['app', 'controllers/base-controller', 'apps/dashboard/statistics/charts/
             });
             graphObject = {
               key: 'Page Views',
-              values: graphArray
+              values: graphArray,
+              color: "yellow"
             };
             return graphData.push(graphObject);
           }
@@ -123,7 +125,7 @@ define(['app', 'controllers/base-controller', 'apps/dashboard/statistics/charts/
       return OverViewChartController;
 
     })(AppController);
-    return OverViewChart.on('start', function(options) {
+    return App.commands.setHandler("show:overview:chart", function(options) {
       return new OverViewChartController({
         region: options.region,
         startDate: options.startDate,

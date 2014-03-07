@@ -22,15 +22,20 @@ define(['app', 'text!apps/dashboard/statistics/charts/templates/layout.html', 'n
       };
 
       Layout.prototype.changeChart = function() {
-        var criterion;
-        criterion = new Array();
+        App.DashboardApp.Statistics.graphNames = new Array();
         $('input.chart-button:checked').each(function() {
-          return criterion.push($(this).val());
+          return App.DashboardApp.Statistics.graphNames.push($(this).val());
         });
-        return this.trigger("button:clicked", criterion);
+        return this.trigger("button:clicked", App.DashboardApp.Statistics.graphNames);
       };
 
-      Layout.prototype.onShow = function() {};
+      Layout.prototype.onShow = function() {
+        return $('input.chart-button').each(function() {
+          if (_.indexOf(App.DashboardApp.Statistics.graphNames, $(this).val()) + 1) {
+            return $(this).attr("checked", "checked");
+          }
+        });
+      };
 
       return Layout;
 

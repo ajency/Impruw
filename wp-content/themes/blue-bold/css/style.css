@@ -77,6 +77,9 @@
   color: #0986cf;
   text-decoration: underline;
 }
+.site-style-container p {
+  font-size: 1em;
+}
 .site-style-container h1,
 .site-style-container h2,
 .site-style-container h3,
@@ -268,6 +271,50 @@ and open the template in the editor.
   -ms-transition: all 0.25s ease;
   transition: all 0.25s ease;
 }
+.nav.footer-menu-2 {
+  padding: 0;
+}
+.nav.footer-menu-2 li {
+  border-bottom: 1px dotted #fff;
+  *zoom: 1;
+}
+.nav.footer-menu-2 li:after,
+.nav.footer-menu-2 li:before {
+  clear: both;
+  content: "";
+  display: table;
+}
+.nav.footer-menu-2 li a {
+  display: block;
+  color: #fff;
+  text-transform: uppercase;
+  padding: 0 0 0.5em;
+}
+.nav.footer-menu-2 li a:hover {
+  text-decoration: none;
+  background: transparent;
+}
+.nav.footer-menu-2 li:after {
+  content: '›';
+  display: block;
+  float: right;
+  color: #fff;
+  font-size: 1.3em;
+  line-height: 0.25em;
+  margin-left: 5px;
+  width: 14px;
+  height: 14px;
+  padding: 3px 0 0 2px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 20px;
+  text-align: center;
+  font-weight: 100;
+  position: relative;
+  top: -22px;
+}
+.nav.footer-menu-2 li:hover {
+  border-bottom-style: solid;
+}
 /**** Title Styles****/
 .title.page-title {
   color: #555555;
@@ -290,8 +337,84 @@ and open the template in the editor.
   font-weight: 200;
   font-size: 1.4em;
 }
+.title.small-title {
+  font-size: 1.2em;
+  font-weight: 300;
+}
+.title.grey-title-text {
+  color: #555555;
+  text-transform: uppercase;
+  font-size: 2em;
+  font-weight: 400;
+}
+.title.emphasis-text {
+  color: #555555;
+  font-weight: 300;
+  display: inline-block;
+  font-size: 1.5em;
+  border-bottom: 1px solid #07669e;
+}
+.title.inner-title {
+  color: #555555;
+  font-size: 2.5em;
+  font-weight: 700;
+  text-transform: none;
+  font-style: italic;
+}
+.title.thumb-title {
+  text-transform: uppercase;
+  color: #bfbfbf;
+  font-size: 0.8em;
+  font-weight: 300;
+  border-bottom: 1px solid #bfbfbf;
+}
+.title.thumb-main-title {
+  color: #555555;
+  font-weight: 400;
+  font-size: 1.6em;
+}
 .text {
   color: #989898;
+}
+/****Image With Text Styles****/
+.image {
+  padding: 0.5em 0;
+}
+.image .info {
+  color: #555555;
+  font-size: 1em;
+}
+.image.style-two {
+  color: #d9d9d9;
+  font-size: 1em;
+  font-weight: 300;
+}
+.image.style-two p {
+  font-size: inherit;
+}
+/****Link Element Styles****/
+.link {
+  display: inline-block;
+  margin: 0 0.5em 0.5em 0;
+}
+.link.button a {
+  background: #fff;
+  color: #07669e;
+  display: inline-block;
+  padding: 0.3em 0.5em 0.2em;
+  margin: 1em 0;
+  font-size: 1.2em;
+  font-weight: 400;
+}
+.link.button a:hover {
+  text-decoration: none;
+  background: #07669e;
+  color: #fff;
+  -webkit-transition: all 0.25s ease;
+  -moz-transition: all 0.25s ease;
+  -o-transition: all 0.25s ease;
+  -ms-transition: all 0.25s ease;
+  transition: all 0.25s ease;
 }
 /****Address Element Styles****/
 .address {
