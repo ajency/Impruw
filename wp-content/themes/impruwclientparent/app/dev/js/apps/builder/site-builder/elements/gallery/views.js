@@ -11,7 +11,7 @@ define(['app', 'holder'], function(App, Holder) {
         return GalleryItem.__super__.constructor.apply(this, arguments);
       }
 
-      GalleryItem.prototype.template = '<img src="{{thumb_url}}" alt="Slide" />';
+      GalleryItem.prototype.template = '<img src="{{thumb_url}}" alt="Slide" width="100%"/>';
 
       GalleryItem.prototype.onRender = function() {
         var colClass, noOfColumns;

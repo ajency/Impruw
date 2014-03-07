@@ -6,7 +6,7 @@ define ['app', 'holder'],(App, Holder)->
 
 		class GalleryItem extends Marionette.ItemView
 
-			template : '<img src="{{thumb_url}}" alt="Slide" />'
+			template : '<img src="{{thumb_url}}" alt="Slide" width="100%"/>'
 
 			onRender:->
 				noOfColumns = Marionette.getOption(this, 'noOfColumns')
