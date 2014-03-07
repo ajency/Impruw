@@ -58,6 +58,24 @@ $element_templates = array(
                 ),
                 array(
                     'name'      => 'Footer Sub Title'
+                ),
+                array(
+                    'name'      => 'Small Title'
+                ),
+                array(
+                    'name'      => 'Grey Title Text'
+                ),
+                array(
+                    'name'      => 'Emphasis Text'
+                ),
+                array(
+                    'name'      => 'Inner Title'
+                ),
+                array(
+                    'name'      => 'Thumb Title'
+                ),
+                array(
+                    'name'      => 'Thumb Main Title'
                 )
               ),
     'Row' => array(
