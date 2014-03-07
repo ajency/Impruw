@@ -97,18 +97,18 @@ add_action('wp_ajax_fetch-slides','fetch_slides');
 */
 function create_slide(){
 
-   /* $slider_id = $_POST['slider_id'];; 
+    $slider_id = $_POST['slider_id'];; 
     $image_path= $_POST['image'];
     $image_id = $_POST['image_id'];
 
      $data =  array( 'image' => $image_path,
                     'image_id' => $image_id);
-    */
+    
     
     //$data contains the image path and the image id
-    $data = array( 'image' => 'http://localhost/impruw/childsite/wp-content/uploads/sites/81/2014/03/images-2.jpg',
-                   'image_id' => "300");
-    $slider_id =1;
+    /*$data = array( 'image' => 'http://localhost/impruw/childsite/wp-content/uploads/sites/81/2014/03/images-2.jpg',
+                   'image_id' => "300"); */
+    //$slider_id =1;
 
     //unset($data['action']);
     //unset($data['wait']);
