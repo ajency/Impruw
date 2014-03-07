@@ -47,6 +47,11 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         this.listenTo(layout, "media:element:selected", function(media) {
           return addSlideView.triggerMethod("slide:image:selected", media);
         });
+        this.listenTo(layout, "image:selection:done", (function(_this) {
+          return function() {
+            return addSlideView.triggerMethod("show:action:button");
+          };
+        })(this));
         this.listenTo(addSlideView, "cancel:create:new:slide", (function(_this) {
           return function(data) {
             Marionette.triggerMethod.call(_this.region, "region:closed");
@@ -93,6 +98,10 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         return this.$el.find('input[name="image_id"]').val(media.get('id'));
       };
 
+      AddSlideView.prototype.onShowActionButton = function() {
+        return this.$el.find('.aj-imp-img-save').show();
+      };
+
       AddSlideView.prototype.events = {
         'click .create-slide': function(e) {
           var data;
@@ -102,7 +111,8 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
             return this.trigger("create:new:slide", data);
           }
         },
-        'click .add-image-to-slide': function() {
+        'click .add-image-to-slide,.slide-image': function() {
+          this.$el.find('.aj-imp-img-save').hide();
           return this.$el.closest('#add-slide-form-region').next().show();
         },
         'click .cancel-create-slide': function() {
@@ -124,6 +134,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
 
       AddSlideLayout.prototype.events = {
         'click .slide-image-selected': function(e) {
+          this.trigger("image:selection:done");
           return $(e.target).closest('#media-region').hide();
         }
       };

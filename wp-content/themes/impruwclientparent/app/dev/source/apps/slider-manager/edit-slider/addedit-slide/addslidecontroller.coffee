@@ -29,6 +29,9 @@ define ['app'
 						@listenTo layout, "media:element:selected", (media)->
 							addSlideView.triggerMethod "slide:image:selected", media
 
+						@listenTo layout, "image:selection:done",=>
+							addSlideView.triggerMethod "show:action:button"
+
 						@listenTo addSlideView, "cancel:create:new:slide",(data)=>
 							Marionette.triggerMethod.call @region, "region:closed"
 							layout.close()
@@ -92,6 +95,9 @@ define ['app'
 						@$el.find('input[name="image"]').val media.get 'url'
 						@$el.find('input[name="image_id"]').val media.get 'id'
 
+					onShowActionButton:->
+						@$el.find('.aj-imp-img-save').show()
+
 					events : 
 						'click .create-slide' :(e)->
 							if @$el.valid()
@@ -99,7 +105,8 @@ define ['app'
 								$(e.target).attr 'disabled',true
 								@trigger "create:new:slide", data
 
-						'click .add-image-to-slide': ->
+						'click .add-image-to-slide,.slide-image': ->
+								@$el.find('.aj-imp-img-save').hide()
 								@$el.closest('#add-slide-form-region').next().show()
 
 						'click .cancel-create-slide' : -> @trigger "cancel:create:new:slide"
@@ -121,7 +128,9 @@ define ['app'
 								</div>'
 
 					events:
-						'click .slide-image-selected' :(e)->  $(e.target).closest('#media-region').hide()
+						'click .slide-image-selected' :(e)->  
+								@trigger "image:selection:done"
+								$(e.target).closest('#media-region').hide()
 
 					initialize:->
 						@listenTo @gridMediaRegion, "media:element:selected",(media)->
