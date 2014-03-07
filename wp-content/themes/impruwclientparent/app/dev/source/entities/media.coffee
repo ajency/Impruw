@@ -24,9 +24,9 @@ define ["app", 'backbone'], (App, Backbone) ->
 						when 'portrait'
 							url = 'portrait'
 
-					console.log @toJSON()
-					
-					return @get 'url'
+					sizes = @get 'sizes'
+
+					if sizes['thumbnail'] then sizes['thumbnail'].url else sizes['full'].url
 
 
 			#Media collection

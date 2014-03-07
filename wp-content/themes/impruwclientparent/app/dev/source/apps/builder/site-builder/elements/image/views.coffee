@@ -24,7 +24,7 @@ define ['app', 'holder'],(App, Holder)->
 						data.size = _.chain(_.keys(data.sizes)).first().value()
 
 					data.imageurl = ->
-						@sizes[@size].url
+						if @sizes['thumbnail'] then @sizes['thumbnail'].url else @sizes['full'].url
 
 					data.alignclass = ->
 						switch @alignment
