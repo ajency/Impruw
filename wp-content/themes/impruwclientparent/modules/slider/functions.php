@@ -321,3 +321,26 @@ function update_slide($data, $slide_id){
         return 0;
    }  
 }
+/**
+ * Delete the slides based on the slide ID
+ * 
+ */
+
+function delete_slide_ajax($slide_id){   
+   
+    global $wpdb;
+    
+    $arrData = array('id'=>$slide_id);
+
+    $tab= GlobalsRevSlider::$table_slides; 
+
+    $slide_id_ret = $wpdb->delete($tab,$arrData);
+   
+   if($slide_id_ret != 0){
+        
+        return $slide_id;
+   } 
+   else{
+        return 0;
+   }  
+}
