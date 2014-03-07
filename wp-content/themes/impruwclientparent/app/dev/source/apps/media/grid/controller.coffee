@@ -3,8 +3,6 @@ define ['app', 'controllers/base-controller', 'apps/media/grid/views'], (App, Ap
 	#Login App module
 	App.module "Media.Grid", (Grid, App)->
 		
-		@startWithParent = false
-
 		#Show Controller 
 		class Grid.Controller extends AppController
 
@@ -33,10 +31,6 @@ define ['app', 'controllers/base-controller', 'apps/media/grid/views'], (App, Ap
 				new Grid.Views.GridView
 									collection : mediaCollection
 
-
-		Grid.on 'start',(options) =>
-			new Grid.Controller
-						region : options.region
 
 		App.commands.setHandler 'start:media:grid:app',(options) =>
 			new Grid.Controller

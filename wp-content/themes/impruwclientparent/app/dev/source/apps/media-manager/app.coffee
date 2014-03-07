@@ -20,22 +20,22 @@ define ['app'
 
 						@choosedMedia = null
 					
-						@layout = @_getLayout()
+						@layout = layout = @_getLayout()
 						@show @layout
 
 						
 						# start media manager apps. conditional strating of apps is possible
 						# each app needs a region as the argument. Each app will be functional only
 						# for that region
-						App.Media.Upload.start region : @layout.uploadRegion
-						App.Media.Grid.start region : @layout.gridRegion
-						App.Media.EditMedia.start()
+						App.execute "start:media:upload:app", region : layout.uploadRegion
+						App.execute "start:media:grid:app", region : layout.gridRegion 
 						
-						@listenTo @layout.gridRegion, "media:element:clicked",(media)=>
+						
+						@listenTo @layout.gridRegion, "media:element:selected",(media)=>
 																	@choosedMedia = media
-																	App.vent.trigger "media:element:clicked", 
-																						media, 
-																						@layout.editMediaRegion
+																	App.execute "show:edit:media", 
+																					media, 
+																					@layout.editMediaRegion
 
 
 						@listenTo @layout ,"media:selected", =>
@@ -46,11 +46,6 @@ define ['app'
 						App.getRegion('elementsBoxRegion').hide()
 						
 					onClose: ->
-						#stop all sub apps
-						App.Media.Upload.stop()
-						App.Media.Grid.stop()
-						App.Media.EditMedia.stop()
-
 						# navigate back to original route. do not trigger the router 
 						# only navigate
 						App.navigate ''

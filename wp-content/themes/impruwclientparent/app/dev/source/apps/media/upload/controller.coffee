@@ -3,8 +3,6 @@ define ['app', 'controllers/base-controller', 'apps/media/upload/views'], (App, 
 	#Login App module
 	App.module "Media.Upload", (Upload, App)->
 
-		@startWithParent = false
- 
 		#Show Controller 
 		class Upload.Controller extends AppController
 
@@ -18,9 +16,6 @@ define ['app', 'controllers/base-controller', 'apps/media/upload/views'], (App, 
 				new Upload.Views.UploadView
 
 
-		Upload.on 'start',(options) =>
-			new Upload.Controller
-						region : options.region
 
 		App.commands.setHandler 'start:media:upload:app',(options) =>
 			new Upload.Controller

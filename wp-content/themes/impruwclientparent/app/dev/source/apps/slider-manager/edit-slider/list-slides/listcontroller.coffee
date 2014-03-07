@@ -199,7 +199,6 @@ define ['app'
 					onShowAddSlide : ->
 						@$el.find('.add-new-slide').show()
 
-
 					regions:
 						slidesListRegion 	: '#slides-list-region'
 						addSlideRegion 		: '#add-slide-region'

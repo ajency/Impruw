@@ -4,7 +4,6 @@ var __hasProp = {}.hasOwnProperty,
 define(['app', 'controllers/base-controller'], function(App, AppController) {
   return App.module("Media.Selected", function(Selected, App) {
     var EmptyView, SelectedMedia, SelectedSingle;
-    this.startWithParent = false;
     Selected.Controller = (function(_super) {
       __extends(Controller, _super);
 
@@ -93,11 +92,6 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
 
     })(Marionette.CompositeView);
     Selected.on('initialize:before', function() {});
-    Selected.on('start', (function(_this) {
-      return function(options) {
-        return new Selected.Controller(options);
-      };
-    })(this));
     return App.commands.setHandler('start:media:selected:app', (function(_this) {
       return function(options) {
         return new Selected.Controller(options);

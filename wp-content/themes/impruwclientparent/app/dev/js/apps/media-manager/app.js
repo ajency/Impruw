@@ -26,23 +26,23 @@ define(['app', 'controllers/base-controller', 'text!apps/media-manager/templates
       }
 
       ShowController.prototype.initialize = function(opt) {
+        var layout;
         if (opt == null) {
           opt = {};
         }
         this.choosedMedia = null;
-        this.layout = this._getLayout();
+        this.layout = layout = this._getLayout();
         this.show(this.layout);
-        App.Media.Upload.start({
-          region: this.layout.uploadRegion
+        App.execute("start:media:upload:app", {
+          region: layout.uploadRegion
         });
-        App.Media.Grid.start({
-          region: this.layout.gridRegion
+        App.execute("start:media:grid:app", {
+          region: layout.gridRegion
         });
-        App.Media.EditMedia.start();
-        this.listenTo(this.layout.gridRegion, "media:element:clicked", (function(_this) {
+        this.listenTo(this.layout.gridRegion, "media:element:selected", (function(_this) {
           return function(media) {
             _this.choosedMedia = media;
-            return App.vent.trigger("media:element:clicked", media, _this.layout.editMediaRegion);
+            return App.execute("show:edit:media", media, _this.layout.editMediaRegion);
           };
         })(this));
         this.listenTo(this.layout, "media:selected", (function(_this) {
@@ -57,9 +57,6 @@ define(['app', 'controllers/base-controller', 'text!apps/media-manager/templates
       };
 
       ShowController.prototype.onClose = function() {
-        App.Media.Upload.stop();
-        App.Media.Grid.stop();
-        App.Media.EditMedia.stop();
         App.navigate('');
         return App.getRegion('elementsBoxRegion').unhide();
       };

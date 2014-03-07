@@ -3,8 +3,6 @@ define ['app', 'controllers/base-controller'], (App, AppController)->
 	#Login App module
 	App.module "Media.Selected", (Selected, App)->
 		
-		@startWithParent = false
-
 		#Show Controller 
 		class Selected.Controller extends AppController
 
@@ -47,11 +45,6 @@ define ['app', 'controllers/base-controller'], (App, AppController)->
 			itemViewContainer: '#selected-images'
 	
 		Selected.on 'initialize:before', ->
-			
-
-		# start the selected app
-		Selected.on 'start',(options) =>
-			new Selected.Controller options
 
 		App.commands.setHandler 'start:media:selected:app',(options) =>
 			new Selected.Controller options

@@ -23,7 +23,7 @@ define ['app', 'controllers/base-controller', 'apps/media/edit-media/views'], (A
 
 
 		
-		App.vent.on "media:element:clicked",(model, region)->
+		App.commands.setHandler "show:edit:media",(model, region)->
 								new EditMedia.Controller 
-													model : model 
-													region : region
+												model : model 
+												region : region

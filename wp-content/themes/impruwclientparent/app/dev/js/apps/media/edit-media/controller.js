@@ -34,7 +34,7 @@ define(['app', 'controllers/base-controller', 'apps/media/edit-media/views'], fu
       return Controller;
 
     })(AppController);
-    return App.vent.on("media:element:clicked", function(model, region) {
+    return App.commands.setHandler("show:edit:media", function(model, region) {
       return new EditMedia.Controller({
         model: model,
         region: region
