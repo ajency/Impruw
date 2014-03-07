@@ -294,3 +294,30 @@ function slide_defaults(){
     "kb_easing" => "Linear.easeNone"
           );
 }
+/**
+ * Update the slides based on the slide ID
+ * 
+ */
+
+function update_slide($data, $slide_id){
+    global $wpdb;
+    //$slide_id= 21;
+    $arrData = array();
+    $params  = wp_parse_args($data, slide_defaults());
+
+    //change params to json
+    $params2 = json_encode($params);
+    $arrData["params"]= $params2;
+
+    $tab= GlobalsRevSlider::$table_slides; 
+
+    $slide_id_ret = $wpdb->update($tab,$arrData,array("id"=>$slide_id));
+   
+   if($slide_id_ret !=0){
+        
+        return $slide_id;
+   } 
+   else{
+        return 0;
+   }  
+}
