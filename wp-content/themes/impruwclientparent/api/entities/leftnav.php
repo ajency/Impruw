@@ -128,7 +128,12 @@ function get_elementbox_elements() {
                             array(  'element' => 'Slider',
                                     'icon' => '',
                                     'sliders' => get_theme_sliders()
+                            ),
+                            array(  'element' => 'Gallery',
+                                    'icon' => '',
+                                    'galleries' => get_theme_sliders()
                             )
+
 
                         )
                 )

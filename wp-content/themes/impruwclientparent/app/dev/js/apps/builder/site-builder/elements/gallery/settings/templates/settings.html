@@ -18,8 +18,19 @@
       <div class="form-group">
         <label for="" class="col-sm-4 control-label">Choose Slider</label>
         <div class="col-sm-8">
-          <select name="slider_id">{{#sliders}}
-            <option value="{{id}}">{{title}}</option>{{/sliders}}
+          <select name="gallery_id">{{#galleries}}
+            <option value="{{id}}">{{title}}</option>{{/galleries}}
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="" class="col-sm-4 control-label">No Of columns</label>
+        <div class="col-sm-8">
+          <select name="no_of_columns">
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="6">6</option>
           </select>
         </div>
       </div>

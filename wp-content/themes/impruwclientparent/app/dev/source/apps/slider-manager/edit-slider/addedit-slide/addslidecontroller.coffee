@@ -21,12 +21,16 @@ define ['app'
 						@listenTo addSlideView, "create:new:slide",(data)=>
 							data.sliderId = @sliderId
 							slide = App.request "create:new:slide:model", data
+							slide.set data
 							slide.save null,
 									wait : true
 									success : @newSlideCreated
 
 						@listenTo layout, "media:element:selected", (media)->
 							addSlideView.triggerMethod "slide:image:selected", media
+
+						@listenTo layout, "image:selection:done",=>
+							addSlideView.triggerMethod "show:action:button"
 
 						@listenTo addSlideView, "cancel:create:new:slide",(data)=>
 							Marionette.triggerMethod.call @region, "region:closed"
@@ -57,6 +61,9 @@ define ['app'
 												Click to Add an Image to Your Slide
 											</div>
 											<img src="{{thumb_url}}" class="img-responsive slide-image" style="display:none;">
+											<input type="hidden" name="background_type" value="image"/>
+											<input type="hidden" name="image" value="" required/>
+											<input type="hidden" name="image_id" value="" require/>
 										</div>
 										<div class="aj-imp-img-form col-sm-8">
 											<div class="row">
@@ -64,8 +71,8 @@ define ['app'
 													<input type="text" required name="title" value="{{title}}" class="form-control" placeholder="Title">
 												</div>
 												<div class="col-sm-6">
-													<input type="url" type="link" value="{{link}}" class="form-control" placeholder="Link">
-												</div>
+													<input type="url" type="link" name="link" value="{{link}}" class="form-control" placeholder="Link">
+												</div>	
 											</div>
 											<div class="row">
 												<div class="col-sm-12">
@@ -88,6 +95,9 @@ define ['app'
 						@$el.find('input[name="image"]').val media.get 'url'
 						@$el.find('input[name="image_id"]').val media.get 'id'
 
+					onShowActionButton:->
+						@$el.find('.aj-imp-img-save').show()
+
 					events : 
 						'click .create-slide' :(e)->
 							if @$el.valid()
@@ -95,7 +105,8 @@ define ['app'
 								$(e.target).attr 'disabled',true
 								@trigger "create:new:slide", data
 
-						'click .add-image-to-slide': ->
+						'click .add-image-to-slide,.slide-image': ->
+								@$el.find('.aj-imp-img-save').hide()
 								@$el.closest('#add-slide-form-region').next().show()
 
 						'click .cancel-create-slide' : -> @trigger "cancel:create:new:slide"
@@ -117,7 +128,9 @@ define ['app'
 								</div>'
 
 					events:
-						'click .slide-image-selected' :(e)->  $(e.target).closest('#media-region').hide()
+						'click .slide-image-selected' :(e)->  
+								@trigger "image:selection:done"
+								$(e.target).closest('#media-region').hide()
 
 					initialize:->
 						@listenTo @gridMediaRegion, "media:element:selected",(media)->

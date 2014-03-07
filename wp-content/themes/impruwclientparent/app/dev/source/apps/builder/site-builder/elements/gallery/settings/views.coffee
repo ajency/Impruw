@@ -1,8 +1,8 @@
-define ['app', 'text!apps/builder/site-builder/elements/slider/settings/templates/settings.html'],
+define ['app', 'text!apps/builder/site-builder/elements/gallery/settings/templates/settings.html'],
 		(App, settingsTpl)->
 
 			# Headerapp views
-			App.module 'SiteBuilderApp.Element.Slider.Settings.Views', (Views, App, Backbone, Marionette, $, _)->
+			App.module 'SiteBuilderApp.Element.Gallery.Settings.Views', (Views, App, Backbone, Marionette, $, _)->
 
 				class Views.SettingsView extends Marionette.ItemView
 
@@ -34,6 +34,7 @@ define ['app', 'text!apps/builder/site-builder/elements/slider/settings/template
 						'click .close-settings' : (evt)-> 
 											evt.preventDefault()
 											App.settingsRegion.close()
-						'change select[name="slider_id"]' 	:(evt)-> @trigger "element:slider_id:changed", $(evt.target).val()
+						'change select[name="gallery_id"]' 	:(evt)-> @trigger "element:gallery_id:changed", $(evt.target).val()
+						'change select[name="no_of_columns"]' 	:(evt)-> @trigger "element:no_of_columns:changed", $(evt.target).val()
 						'change input[name="draggable"]': (evt)-> @trigger "element:draggable:changed", $(evt.target).is(':checked')
 						'change select.spacing': (evt)-> @trigger "element:spacing:changed", $(evt.target).attr('name'), $(evt.target).val()

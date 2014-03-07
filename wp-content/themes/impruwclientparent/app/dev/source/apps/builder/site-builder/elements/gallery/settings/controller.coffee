@@ -1,7 +1,7 @@
-define ['app','controllers/base-controller','apps/builder/site-builder/elements/slider/settings/views'],
+define ['app','controllers/base-controller','apps/builder/site-builder/elements/gallery/settings/views'],
 		(App, AppController)->
 
-			App.module 'SiteBuilderApp.Element.Slider.Settings', (Settings, App, Backbone, Marionette, $, _)->
+			App.module 'SiteBuilderApp.Element.Gallery.Settings', (Settings, App, Backbone, Marionette, $, _)->
 
 				# menu controller
 				class Settings.Controller extends AppController
@@ -10,15 +10,18 @@ define ['app','controllers/base-controller','apps/builder/site-builder/elements/
 					initialize:(opt ={})->
 						{ @model } = opt
 						@region = App.settingsRegion
-						model  = App.request "get:element:settings:options", 'Slider'
+						model  = App.request "get:element:settings:options", 'Gallery'
 						view = @_getSettingView model,@model
 
 						@listenTo view, 'render', =>
 											@region.$el.css 'top',200
 											@region.$el.css 'left',400
 
-						@listenTo view, "element:slider_id:changed",(id)=>
-														@model.set "slider_id", parseInt id
+						@listenTo view, "element:gallery_id:changed",(id)=>
+														@model.set "gallery_id", parseInt id
+
+						@listenTo view, "element:no_of_columns:changed",(count)=>
+														@model.set "no_of_columns", parseInt count
 
 						@listenTo view, "element:draggable:changed", (draggable)=>
 														@model.set "draggable", draggable	
@@ -44,7 +47,7 @@ define ['app','controllers/base-controller','apps/builder/site-builder/elements/
 												model 	 : model
 
 
-				App.vent.on "show:slider:settings:popup", (model)->
+				App.vent.on "show:gallery:settings:popup", (model)->
 										new Settings.Controller
 														model : model
 

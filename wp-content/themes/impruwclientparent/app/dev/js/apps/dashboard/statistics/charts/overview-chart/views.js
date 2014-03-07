@@ -3,8 +3,6 @@ var __hasProp = {}.hasOwnProperty,
 
 define(['app', 'text!apps/dashboard/statistics/charts/templates/layout.html', 'nvd3', 'd3'], function(App, layoutTmpl) {
   return App.module('DashboardApp.Statistics.OverViewChart.Views', function(Views, App, Backbone, Marionette, $, _) {
-    var chartData;
-    chartData = null;
     Views.Layout = (function(_super) {
       __extends(Layout, _super);
 
@@ -15,7 +13,8 @@ define(['app', 'text!apps/dashboard/statistics/charts/templates/layout.html', 'n
       Layout.prototype.template = layoutTmpl;
 
       Layout.prototype.regions = {
-        chartRegion: '#overview-chart-region'
+        chartRegion: '#overview-chart-region',
+        pieRegion: '#overview-pie-region'
       };
 
       Layout.prototype.events = {
@@ -56,7 +55,6 @@ define(['app', 'text!apps/dashboard/statistics/charts/templates/layout.html', 'n
       Chart.prototype.onShow = function() {
         var data;
         data = this.chartData;
-        console.log(JSON.stringify(data));
         return nv.addGraph(function() {
           var chart, myData;
           chart = nv.models.lineWithFocusChart();
