@@ -24,29 +24,29 @@ add_action('wp_ajax_fetch-sliders', 'fetch_sliders');
  */ 
 function create_slider(){
 
-	$data = $_POST;
+    $data = $_POST;
 
-	unset($data['action']);
+    unset($data['action']);
         unset($data['wait']);
 
-	$id = create_new_slider($data);
+    $id = create_new_slider($data);
 
-	wp_send_json(array('code' => 'OK', 'data' => array ('id' => $id)));
+    wp_send_json(array('code' => 'OK', 'data' => array ('id' => $id)));
 }
 add_action('wp_ajax_create-slider', 'create_slider'); 
 
 function update_slider_ajax(){
 
-	$data = $_POST;
+    $data = $_POST;
        
     $slider_id = $_POST['id'];
         
-	unset($data['action']);
+    unset($data['action']);
     unset($data['id']);
 
-	update_slider($data, $slider_id);
+    update_slider($data, $slider_id);
 
-	wp_send_json(array('code' => 'OK', 'data' => array ('id' => $slider_id)));
+    wp_send_json(array('code' => 'OK', 'data' => array ('id' => $slider_id)));
 }
 add_action('wp_ajax_update-slider', 'update_slider_ajax');
 
@@ -85,34 +85,39 @@ function fetch_slides(){
     $slider_id = $_GET['slider_id'];
     
     // call the get_slides function in the functions.php file along with the slider ID.
-	// The function will return an array containing the slides data 
+    // The function will return an array containing the slides data 
     $slides_arr = get_slides($slider_id);
     
     wp_send_json(array('code' => 'OK', 'data' => $slides_arr));
 }
 add_action('wp_ajax_fetch-slides','fetch_slides');
 
-
+/**
+* Create new slides for the slider
+*/
 function create_slide(){
 
+    $slider_id = $_POST['slider_id'];; 
+    $image_path= $_POST['image'];
+    $image_id = $_POST['image_id'];
 
-	//$data = $_POST;
-	$data = array(
-		          'image_id' => 100,
-		          'image'=> 'http://localhost/impruw/childsite/wp-content/uploads/sites/81/2014/03/freeproductsamples.jpg',
-		          'title' =>'Slide',
-	              'background_type' => 'image'
-		          );
+     $data =  array( 'image' => $image_path,
+                    'image_id' => $image_id);
+    
+    
+    //$data contains the image path and the image id
+    /*$data = array( 'image' => 'http://localhost/impruw/childsite/wp-content/uploads/sites/81/2014/03/images-2.jpg',
+                   'image_id' => "300"); */
+    //$slider_id =1;
 
-	//unset($data['action']);
+    //unset($data['action']);
     //unset($data['wait']);
 
-	$d = create_new_slide($data,$slider_id);
+    // returns the new slide ID
+    $d = create_new_slide($data,$slider_id);
     
-	wp_send_json(array('code' => 'OK', 'data' => $d));
-
-	
-	
+    wp_send_json(array('code' => 'OK', 'data' => $d));  
+    
 }
 add_action('wp_ajax_create-slide', 'create_slide'); 
     
@@ -141,11 +146,22 @@ add_action('wp_ajax_update-slide','update_slide_ajax');
 
 function delete_slide(){
     
+    $slider_id = 1; //$_POST[''];
     $slide_id = $_POST['id'];
+
+    $data= array('sliderID'=>$slider_id,'slideID'=>$slide_id);
     
-    $slide_id_ret= delete_slide_ajax($slide_id);
+    $slide_id_ret= delete_slide_ajax($data);
     
     wp_send_json(array('code' => 'OK', 'data' => array('id' => $slide_id_ret)));
 }
 add_action('wp_ajax_delete-slide','delete_slide');
 
+function test(){
+    $slide_id = 53;
+    
+    $slide_id_ret= slide_details_array($slide_id);
+    
+    wp_send_json(array('code' => 'OK', 'data' => array('id' => $slide_id_ret)));
+}
+add_action('wp_ajax_test','test');

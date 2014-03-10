@@ -27,7 +27,11 @@ define(['app', 'holder'], function(App, Holder) {
             data.size = _.chain(_.keys(data.sizes)).first().value();
           }
           data.imageurl = function() {
-            return this.sizes[this.size].url;
+            if (this.sizes['thumbnail']) {
+              return this.sizes['thumbnail'].url;
+            } else {
+              return this.sizes['full'].url;
+            }
           };
           data.alignclass = function() {
             switch (this.alignment) {

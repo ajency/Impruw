@@ -27,7 +27,7 @@ define ['app'
 						@listenTo listView, "itemview:remove:slide",(iv, slide)->
 							slide.destroy wait : true
 
-						@listenTo layout, "show:add:new:slide",->
+						@listenTo layout, "show:add:new:slide",=>
 							App.execute "show:add:new:slide", 
 												region : layout.addSlideRegion
 												sliderId : @sliderId
@@ -199,7 +199,6 @@ define ['app'
 					onShowAddSlide : ->
 						@$el.find('.add-new-slide').show()
 
-
 					regions:
 						slidesListRegion 	: '#slides-list-region'
 						addSlideRegion 		: '#add-slide-region'
@@ -217,7 +216,8 @@ define ['app'
 				App.commands.setHandler 'show:slides:list', (opts = {})->
 					new SlidesListController opts
 
-				App.commands.setHandler "show:slides:manager",(slidesCollection)->
+				App.commands.setHandler "show:slides:manager",(sliderId, slidesCollection)->
 					new SlidesListController 
 								region : App.dialogRegion
 								collection : slidesCollection
+								sliderId : sliderId

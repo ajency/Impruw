@@ -21,7 +21,7 @@ define(["app", 'backbone'], function(App, Backbone) {
       };
 
       MediaModel.prototype.getBestFit = function(width, height) {
-        var mode, url;
+        var mode, sizes, url;
         mode = 'landscape';
         if (height > width) {
           mode = 'portrait';
@@ -34,8 +34,12 @@ define(["app", 'backbone'], function(App, Backbone) {
           case 'portrait':
             url = 'portrait';
         }
-        console.log(this.toJSON());
-        return this.get('url');
+        sizes = this.get('sizes');
+        if (sizes['thumbnail']) {
+          return sizes['thumbnail'].url;
+        } else {
+          return sizes['full'].url;
+        }
       };
 
       return MediaModel;

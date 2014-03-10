@@ -41,7 +41,7 @@ define(['app', 'apps/builder/site-builder/elements/slider/views', 'apps/builder/
             var view;
             view = _this._getSliderView(slidesCollection);
             _this.listenTo(view, "show:slides:manager", function() {
-              return App.execute("show:slides:manager", slidesCollection);
+              return App.execute("show:slides:manager", _this.layout.model.get('slider_id'), slidesCollection);
             });
             _this.listenTo(slidesCollection, "remove add slides:order:updated", function() {
               return _this.renderElement(slidesCollection);

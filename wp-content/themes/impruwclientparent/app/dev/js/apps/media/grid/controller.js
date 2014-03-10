@@ -3,7 +3,6 @@ var __hasProp = {}.hasOwnProperty,
 
 define(['app', 'controllers/base-controller', 'apps/media/grid/views'], function(App, AppController) {
   return App.module("Media.Grid", function(Grid, App) {
-    this.startWithParent = false;
     Grid.Controller = (function(_super) {
       __extends(Controller, _super);
 
@@ -39,13 +38,6 @@ define(['app', 'controllers/base-controller', 'apps/media/grid/views'], function
       return Controller;
 
     })(AppController);
-    Grid.on('start', (function(_this) {
-      return function(options) {
-        return new Grid.Controller({
-          region: options.region
-        });
-      };
-    })(this));
     return App.commands.setHandler('start:media:grid:app', (function(_this) {
       return function(options) {
         return new Grid.Controller({
