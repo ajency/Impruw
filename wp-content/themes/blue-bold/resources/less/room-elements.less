@@ -2,10 +2,13 @@
     Created on : 10 March, 2014, 1:25:41 PM
     Author     : jarr-head
 */
+
+/****Room Tariff Styles****/
 .room-tariff-container {
 	.room-tariff-title {
 		h4 {
 			font-size: 1.5em;
+			text-transform: uppercase;
 		}
 		h5 {
 			font-size: 1em;
@@ -55,6 +58,9 @@
 								display: block;
 							}
 						}
+						&:hover {
+							border-color: @blue;
+						}
 					}
 				}
 			}
@@ -74,6 +80,56 @@
 					.block {
 						margin: 0.25em 0;
 					}
+				}
+			}
+		}
+	}
+}
+
+/****Room Facilities Styles****/
+.room-facilities-container {
+	.room-facilities-title {
+		h5 {
+			font-size: 1.5em;
+			text-transform: uppercase;
+		}
+		h4 {
+			font-weight: 300;
+			font-size: 2em;
+			text-transform: uppercase;
+		}
+	}
+	.facilities {
+		margin: 1em 0;
+		padding: 0;
+		list-style: none;
+		li {
+			font-size: 1.1em;
+			color: lighten(@dark-grey, 20%);
+			font-weight: 300;
+			margin: 0 0 0.5em;
+			display: block;
+			width: 30%;
+			float: left;
+			margin-right: 1%;
+			min-width: 300px;
+			&:before {
+				display: block;
+				content: '✓';
+				width: 13px;
+				height: 13px;
+				float: left;
+				margin-right: 10px;
+				border: 1px solid lighten(@dark-grey, 20%);
+				position: relative;
+				font-size: 1.2em;
+				line-height: 0.33em;
+				top: 3px;
+				color: @blue;
+			}
+			&:hover {
+				&:before {
+					color: @dark-grey;
 				}
 			}
 		}

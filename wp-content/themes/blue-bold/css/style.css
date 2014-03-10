@@ -558,8 +558,10 @@ and open the template in the editor.
     Created on : 10 March, 2014, 1:25:41 PM
     Author     : jarr-head
 */
+/****Room Tariff Styles****/
 .room-tariff-container .room-tariff-title h4 {
   font-size: 1.5em;
+  text-transform: uppercase;
 }
 .room-tariff-container .room-tariff-title h5 {
   font-size: 1em;
@@ -612,6 +614,9 @@ and open the template in the editor.
   font-size: 1.4em;
   display: block;
 }
+.room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .block:hover {
+  border-color: #07669e;
+}
 @media (max-width: 767px) {
   .room-tariff-container .room-tariff-grid .tariff .date-range,
   .room-tariff-container .room-tariff-grid .tariff .packages {
@@ -632,6 +637,49 @@ and open the template in the editor.
   .room-tariff-container .room-tariff-grid .tariff .package-blocks .block {
     margin: 0.25em 0;
   }
+}
+/****Room Facilities Styles****/
+.room-facilities-container .room-facilities-title h5 {
+  font-size: 1.5em;
+  text-transform: uppercase;
+}
+.room-facilities-container .room-facilities-title h4 {
+  font-weight: 300;
+  font-size: 2em;
+  text-transform: uppercase;
+}
+.room-facilities-container .facilities {
+  margin: 1em 0;
+  padding: 0;
+  list-style: none;
+}
+.room-facilities-container .facilities li {
+  font-size: 1.1em;
+  color: #888888;
+  font-weight: 300;
+  margin: 0 0 0.5em;
+  display: block;
+  width: 30%;
+  float: left;
+  margin-right: 1%;
+  min-width: 300px;
+}
+.room-facilities-container .facilities li:before {
+  display: block;
+  content: '✓';
+  width: 13px;
+  height: 13px;
+  float: left;
+  margin-right: 10px;
+  border: 1px solid #888888;
+  position: relative;
+  font-size: 1.2em;
+  line-height: 0.33em;
+  top: 3px;
+  color: #07669e;
+}
+.room-facilities-container .facilities li:hover:before {
+  color: #555555;
 }
 .top-margin-small {
   margin-top: 0.5em;

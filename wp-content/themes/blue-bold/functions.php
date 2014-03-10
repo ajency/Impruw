@@ -223,6 +223,27 @@ $element_templates = array(
                                             </div>
                                         </div>
                                    </div>'
+                ),
+                array(
+                    'name' => 'Facilities List',
+                    'template' => '<div class="room-facilities-container">
+                                        <div class="room-facilities-title">
+                                            <h5>Room Features</h5>
+                                            <h4>Standard Book</h5>
+                                        </div>
+                                        <ul class="facilities clearfix">
+                                            <li>Flat Screen Cable TV</li>
+                                            <li>On-demand Movies (surcharge)</li>
+                                            <li>Wireless High Speed Internet Access</li>
+                                            <li>In room Safe Box</li>
+                                            <li>Room Service</li>
+                                            <li>Wake Up Service</li>
+                                            <li>Mini Bar</li>
+                                            <li>Multi-line Phone</li>
+                                            <li>Hairdryer</li>
+                                            <li>Bathtub</li>
+                                        </ul>
+                                   </div>'
                 )
             ),
     'Social' => array(
