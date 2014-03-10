@@ -7,37 +7,23 @@ define ['app'
 
 				@startWithParent = false
 
-				#data = null
-				
-
 				class OverViewChartController extends AppController
 
 					initialize :(options) ->
 
+						@analyticsCollection = options.collection
 						@startDate = options.startDate
 						@endDate = options.endDate
 
-						@analyticsCollection= null
-
-						@analyticsCollection = App.request "get:missing:data" , @startDate , @endDate
-						# console.log JSON.stringify(@analyticsCollection)
-
 						@layout = @_getLayout(@analyticsCollection)
 
-						
-
+						#listen to the button clicked trigger
 						@listenTo @layout, 'button:clicked',(criterion) =>
 							@_renderRegion(criterion)
 
-
 						# show chart
 						@listenTo @layout, 'show',->
-							console.log "xyz"
 							@_renderRegion(App.DashboardApp.Statistics.graphNames)
-
-
-						# App.commands.setHandler "reload:overview:chart", (start,end)->
-						# 	OverViewChartController._renderRegion graphNames
 
 						@show @layout,
 							loading : true
@@ -48,12 +34,18 @@ define ['app'
 
 
 					_renderRegion:(requiredGraphs)->
+
+						start= @startDate
+						end = @endDate
 						
-						#get the required data from the offline store
-						analyticsCollection = App.request "get:analytics:by:date" , @startDate , @endDate
-						#convert the existing array of models to a JSON array of objects
-						analyticsJSON = _.map analyticsCollection, (analyticsModel)->
+						#extract the required models from the collection
+						analyticsArray = @analyticsCollection.filter (analytics)->
+							analytics.id >= start  && analytics.id <= end
+						
+						#convert the array of models to a JSON array
+						analyticsJSON = _.map analyticsArray, (analyticsModel)->							
 							analyticsModel.toJSON()
+
 
 						#convert to proper format for th overview chart
 						graphData = new Array()
@@ -112,44 +104,19 @@ define ['app'
 						   			values : graphArray
 						   			color : "yellow"
 						  		graphData.push graphObject
-  
-						# pieData = new Array()
-						
-						# newUserObj = 
-						# 	key : "New Users"
-						# 	y : 55
-							
-						# returiningUserObj = 
-						# 	key : "Returning Users"
-						# 	y : 110				
-						
-						# pieData.push newUserObj
-						# pieData.push returiningUserObj
-
-
-						 #render the overview chart
+ 
+						#render the overview chart
 						@layout.chartRegion.show @_getChartView(graphData)
-
-						# @layout.pieRegion.show @_getPieView(pieData)
-
 
 					_getChartView:(chartData)->
 						new OverViewChart.Views.Chart
 							data : chartData
 
-					# _getPieView:(pieData)->
-					# 	new OverViewChart.Views.PieChart
-					# 		data : pieData
-					
 
-
-				# OverViewChart.on 'start',(options)->
-					#data = options.collection
-					#console.log JSON.stringify(data)
 				App.commands.setHandler "show:overview:chart",(options)->
 					new OverViewChartController
 						region : options.region		
+						collection : options.collection
 						startDate : options.startDate
-						endDate : options.endDate
-
+						endDate :options.endDate
 

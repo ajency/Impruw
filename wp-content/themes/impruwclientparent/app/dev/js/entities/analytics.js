@@ -23,10 +23,6 @@ define(['app', 'backbone'], function(App, Backbone) {
         return AnalyticsCollection.__super__.constructor.apply(this, arguments);
       }
 
-      AnalyticsCollection.prototype.startDate = Date.parse(new Date().toDateString());
-
-      AnalyticsCollection.prototype.endDate = Date.parse(new Date().toDateString());
-
       AnalyticsCollection.prototype.model = Analytics.AnalyticsModel;
 
       return AnalyticsCollection;
@@ -38,25 +34,10 @@ define(['app', 'backbone'], function(App, Backbone) {
         analyticsCollection = new Analytics.AnalyticsCollection;
         return App.request("set:collection", 'analyticscollection', analyticsCollection);
       },
-      getAllAnalyticsCollection: function(start, end) {
+      getAllAnalyticsCollection: function() {
         var analyticsCollection;
         analyticsCollection = App.request("get:collection", "analyticscollection");
-        if (start >= analyticsCollection.startDate) {
-          return analyticsCollection;
-        } else {
-          analyticsCollection = API.fetchAnalytics(start, analyticsCollection.startDate);
-          App.execute("reload:overview:chart", start, end);
-          return analyticsCollection;
-        }
-      },
-      getAnalyticsCollectionByDate: function(startDate, endDate) {
-        var analyticsArray, analyticsCollection;
-        analyticsCollection = App.request("get:collection", 'analyticscollection');
-        console.log(startDate + "     " + endDate);
-        analyticsArray = analyticsCollection.filter(function(analytics) {
-          return analytics.id >= startDate && analytics.id <= endDate;
-        });
-        return analyticsArray;
+        return analyticsCollection;
       },
       getMissingDataForDateRange: function(startDate, endDate) {
         var analyticsCollection, end, start;
@@ -76,20 +57,15 @@ define(['app', 'backbone'], function(App, Backbone) {
               }
             }
             analyticsCollection = API.fetchAnalytics(start, end);
-            console.log(App.DashboardApp.Statistics.fetchCount);
-            console.log(" super fetch for " + start + "   to  " + end);
             start = end + 86400000;
           }
         }
-        analyticsCollection = App.request("get:collection", 'analyticscollection');
         return analyticsCollection;
       },
       fetchAnalytics: function(start, end) {
         var analyticsCollection;
-        console.log("fetching from " + start + " to " + end);
         analyticsCollection = App.request("get:collection", 'analyticscollection');
         analyticsCollection.url = "" + AJAXURL + "?action=get_analytics_data";
-        analyticsCollection.startDate = start;
         analyticsCollection.fetch({
           reset: false,
           remove: false,
@@ -99,6 +75,13 @@ define(['app', 'backbone'], function(App, Backbone) {
             start_date: start,
             end_date: end,
             ids: 81856773
+          },
+          success: function() {
+            return setTimeout(function() {
+              console.log("fetched");
+              App.execute("refresh:chart");
+              return null;
+            }, 1000);
           }
         });
         analyticsCollection.comparator = 'date';
@@ -107,17 +90,13 @@ define(['app', 'backbone'], function(App, Backbone) {
       }
     };
     App.commands.setHandler("create:analytics:store", function() {
-      console.log("collection init");
       return API.createStoreCollection();
-    });
-    App.reqres.setHandler("get:analytics:by:date", function(startDate, endDate) {
-      return API.getAnalyticsCollectionByDate(startDate, endDate);
     });
     App.reqres.setHandler("fetch:analytics", function(startDate, endDate) {
       return API.fetchAnalytics(startDate, endDate);
     });
-    App.reqres.setHandler("get:all:analytics", function(startDate, endDate) {
-      return API.getAllAnalyticsCollection(startDate, endDate);
+    App.reqres.setHandler("get:all:analytics", function() {
+      return API.getAllAnalyticsCollection();
     });
     return App.reqres.setHandler("get:missing:data", function(startDate, endDate) {
       return API.getMissingDataForDateRange(startDate, endDate);

@@ -13,8 +13,7 @@ define(['app', 'text!apps/dashboard/statistics/charts/templates/layout.html', 'n
       Layout.prototype.template = layoutTmpl;
 
       Layout.prototype.regions = {
-        chartRegion: '#overview-chart-region',
-        pieRegion: '#overview-pie-region'
+        chartRegion: '#overview-chart-region'
       };
 
       Layout.prototype.events = {

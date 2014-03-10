@@ -13,10 +13,9 @@ define(['app', 'controllers/base-controller', 'apps/dashboard/statistics/charts/
       }
 
       OverViewChartController.prototype.initialize = function(options) {
+        this.analyticsCollection = options.collection;
         this.startDate = options.startDate;
         this.endDate = options.endDate;
-        this.analyticsCollection = null;
-        this.analyticsCollection = App.request("get:missing:data", this.startDate, this.endDate);
         this.layout = this._getLayout(this.analyticsCollection);
         this.listenTo(this.layout, 'button:clicked', (function(_this) {
           return function(criterion) {
@@ -24,7 +23,6 @@ define(['app', 'controllers/base-controller', 'apps/dashboard/statistics/charts/
           };
         })(this));
         this.listenTo(this.layout, 'show', function() {
-          console.log("xyz");
           return this._renderRegion(App.DashboardApp.Statistics.graphNames);
         });
         return this.show(this.layout, {
@@ -39,9 +37,13 @@ define(['app', 'controllers/base-controller', 'apps/dashboard/statistics/charts/
       };
 
       OverViewChartController.prototype._renderRegion = function(requiredGraphs) {
-        var analyticsCollection, analyticsJSON, graphData;
-        analyticsCollection = App.request("get:analytics:by:date", this.startDate, this.endDate);
-        analyticsJSON = _.map(analyticsCollection, function(analyticsModel) {
+        var analyticsArray, analyticsJSON, end, graphData, start;
+        start = this.startDate;
+        end = this.endDate;
+        analyticsArray = this.analyticsCollection.filter(function(analytics) {
+          return analytics.id >= start && analytics.id <= end;
+        });
+        analyticsJSON = _.map(analyticsArray, function(analyticsModel) {
           return analyticsModel.toJSON();
         });
         graphData = new Array();
@@ -128,6 +130,7 @@ define(['app', 'controllers/base-controller', 'apps/dashboard/statistics/charts/
     return App.commands.setHandler("show:overview:chart", function(options) {
       return new OverViewChartController({
         region: options.region,
+        collection: options.collection,
         startDate: options.startDate,
         endDate: options.endDate
       });
