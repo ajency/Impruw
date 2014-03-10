@@ -38,7 +38,7 @@ define ['app'
 							view = @_getSliderView slidesCollection
 
 							@listenTo view, "show:slides:manager", =>
-								App.execute "show:slides:manager",slidesCollection
+								App.execute "show:slides:manager", @layout.model.get('slider_id'),slidesCollection
 
 							@listenTo slidesCollection, "remove add slides:order:updated", =>
 								@renderElement slidesCollection

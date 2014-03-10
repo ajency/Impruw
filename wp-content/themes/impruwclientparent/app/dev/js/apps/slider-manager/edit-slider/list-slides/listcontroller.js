@@ -36,12 +36,14 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
             wait: true
           });
         });
-        this.listenTo(layout, "show:add:new:slide", function() {
-          return App.execute("show:add:new:slide", {
-            region: layout.addSlideRegion,
-            sliderId: this.sliderId
-          });
-        });
+        this.listenTo(layout, "show:add:new:slide", (function(_this) {
+          return function() {
+            return App.execute("show:add:new:slide", {
+              region: layout.addSlideRegion,
+              sliderId: _this.sliderId
+            });
+          };
+        })(this));
         this.listenTo(layout.addSlideRegion, "region:closed new:slide:created", (function(_this) {
           return function(slide) {
             if (_.isObject(slide)) {
@@ -227,10 +229,11 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
       }
       return new SlidesListController(opts);
     });
-    return App.commands.setHandler("show:slides:manager", function(slidesCollection) {
+    return App.commands.setHandler("show:slides:manager", function(sliderId, slidesCollection) {
       return new SlidesListController({
         region: App.dialogRegion,
-        collection: slidesCollection
+        collection: slidesCollection,
+        sliderId: sliderId
       });
     });
   });

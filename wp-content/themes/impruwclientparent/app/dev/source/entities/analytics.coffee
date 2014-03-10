@@ -11,9 +11,9 @@ define ['app'
 			#Analytics Collection
 			class Analytics.AnalyticsCollection extends Backbone.Collection
 
-				startDate : Date.parse(new Date().toDateString())
+				# startDate : Date.parse(new Date().toDateString())
 
-				endDate : Date.parse(new Date().toDateString())
+				# endDate : Date.parse(new Date().toDateString())
 
 				model : Analytics.AnalyticsModel
 
@@ -30,58 +30,48 @@ define ['app'
 					App.request "set:collection", 'analyticscollection', analyticsCollection
 
 				#get full collection from offline store
-				getAllAnalyticsCollection:(start, end)->
+				getAllAnalyticsCollection:->
 					analyticsCollection = App.request "get:collection", "analyticscollection"
 
-					if start >= analyticsCollection.startDate 
-						# ...get data for the specified date range
-						analyticsCollection
-					
-					else
-						analyticsCollection = API.fetchAnalytics(start,analyticsCollection.startDate)
-						App.execute "reload:overview:chart" ,start, end
-						analyticsCollection
+					analyticsCollection
 						
 
 				#get the collection from offline store by date
-				getAnalyticsCollectionByDate:(startDate, endDate)->
-						analyticsCollection = App.request "get:collection", 'analyticscollection'
+				# getAnalyticsCollectionByDate:(startDate, endDate)->
+				# 		analyticsCollection = App.request "get:collection", 'analyticscollection'
 					
-					# if start >= analyticsCollection.startDate 
+				# 	# if start >= analyticsCollection.startDate 
 
-						console.log startDate+"     "+endDate
+				# 		console.log startDate+"     "+endDate
 
 
-						# ...get data for the specified date range
-						analyticsArray = analyticsCollection.filter (analytics)->
-							analytics.id >= startDate && analytics.id <=endDate
-						#console.log "arraay"+JSON.stringify(analyticsArray)
-						analyticsArray
+				# 		# ...get data for the specified date range
+				# 		analyticsArray = analyticsCollection.filter (analytics)->
+				# 			analytics.id >= startDate && analytics.id <=endDate
+				# 		#console.log "arraay"+JSON.stringify(analyticsArray)
+				# 		analyticsArray
 					
-					# else
-					# 	fetchAnalytics(start,analyticsCollection.startDate)
-					# 	analyticsArray = getAnalyticsCollection(start,end)
-					# 	#console.log "array"+analyticsArray
-					# 	analyticsArray
+				# 	# else
+				# 	# 	fetchAnalytics(start,analyticsCollection.startDate)
+				# 	# 	analyticsArray = getAnalyticsCollection(start,end)
+				# 	# 	#console.log "array"+analyticsArray
+				# 	# 	analyticsArray
 
-
+				#get the missing data for the given date range
 				getMissingDataForDateRange:(startDate,endDate)->
+						#get collection from offline store
 						analyticsCollection = App.request "get:collection", 'analyticscollection'
-						# App.DashboardApp.Statistics.fetchCount = 0
 						#for s from startDate to endDate
 						start = startDate
 						until start>endDate
 
 							#if value for s exists 
 							if analyticsCollection.get(start)
-
 								#s + iday
-								#console.log "data available for "+start
 								start = start + 86400000
 
 							#else if it doesnt exists
 							else 
-	
 								#for e from s to end 
 								end = start
 								until end > endDate
@@ -89,53 +79,28 @@ define ['app'
 									#if value for e doesnt exist
 									if not analyticsCollection.get(end)
 										# e + 1 day
-										#console.log "data not available for "+end
 										end = end + 86400000
 
 									#else if it exists
 									else
 										# e - 1 day
 										end = end - 86400000
-
-										#quit e loop
+										#exit e loop
 										break
 
-								#fromstart to end to fetch
+								#do smart fetch of missing data
 								analyticsCollection = API.fetchAnalytics start, end
-								# App.DashboardApp.Statistics.fetchCount = App.DashboardApp.Statistics.fetchCount+1
-								console.log App.DashboardApp.Statistics.fetchCount
-								console.log " super fetch for "+start+"   to  "+end
-								#s=e+1day
 								start = end+86400000
-
-
-							
-								
-								
-							
-
-						analyticsCollection = App.request "get:collection", 'analyticscollection'
 						
-
-
 						analyticsCollection
-
-
-
-
-
-
-					
 
 				#fetch the collection from the server
 				fetchAnalytics:(start, end)->
-
-					console.log "fetching from "+start+" to "+end
 					analyticsCollection = App.request "get:collection", 'analyticscollection'
 
 					analyticsCollection.url = "#{AJAXURL}?action=get_analytics_data"
 
-					analyticsCollection.startDate = start
+					# analyticsCollection.startDate = start
 
 					#fetch the data from server add to the existing collection
 					analyticsCollection.fetch
@@ -147,42 +112,31 @@ define ['app'
 							start_date 	: start
 							end_date 	: end
 							ids			: 81856773
-						# success
-
-					# success=()->
-					# 	alert App.DashboardApp.Statistics.fetchCount
-					# 	App.DashboardApp.Statistics.fetchCount = App.DashboardApp.Statistics.fetchCount-1
-
-
+						success :->
+							setTimeout ->
+								console.log "fetched"
+								App.execute "refresh:chart"
+								null
+							,1000
 
 					#sort collection according to date
 					analyticsCollection.comparator = 'date'
 					analyticsCollection.sort()
-
-					
-
+				
 					analyticsCollection
-
-
-
-
 
 			#request handlers
 			App.commands.setHandler "create:analytics:store", ->
-				console.log  "collection init"
 				API.createStoreCollection()
 
-			App.reqres.setHandler "get:analytics:by:date",(startDate,endDate)->
-				API.getAnalyticsCollectionByDate startDate,endDate
+			# App.reqres.setHandler "get:analytics:by:date",(startDate,endDate)->
+				# API.getAnalyticsCollectionByDate startDate,endDate
 
 			App.reqres.setHandler "fetch:analytics" ,(startDate,endDate)->
 				API.fetchAnalytics startDate,endDate
 
-			App.reqres.setHandler "get:all:analytics",(startDate,endDate)->
-				API.getAllAnalyticsCollection startDate,endDate
+			App.reqres.setHandler "get:all:analytics",->
+				API.getAllAnalyticsCollection()
 
 			App.reqres.setHandler "get:missing:data", (startDate,endDate)->
 				API.getMissingDataForDateRange startDate,endDate
-
-
-

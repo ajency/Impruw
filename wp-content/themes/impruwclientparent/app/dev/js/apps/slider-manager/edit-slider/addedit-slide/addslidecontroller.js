@@ -35,7 +35,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         this.listenTo(addSlideView, "create:new:slide", (function(_this) {
           return function(data) {
             var slide;
-            data.sliderId = _this.sliderId;
+            data.slider_id = _this.sliderId;
             slide = App.request("create:new:slide:model", data);
             slide.set(data);
             return slide.save(null, {

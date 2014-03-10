@@ -19,7 +19,7 @@ define ['app'
 							App.execute "start:media:grid:app", region : layout.gridMediaRegion
 
 						@listenTo addSlideView, "create:new:slide",(data)=>
-							data.sliderId = @sliderId
+							data.slider_id = @sliderId
 							slide = App.request "create:new:slide:model", data
 							slide.set data
 							slide.save null,

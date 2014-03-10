@@ -39,13 +39,11 @@ define(['app', 'controllers/base-controller', 'text!apps/dashboard/statistics/te
       StatisticsLayout.prototype.initialize = function(options) {};
 
       StatisticsLayout.prototype.changeRange = function(e) {
-        var date, dateRange, endDate, startDate;
-        console.log("radio changed");
-        dateRange = $(e.target).find('input[type="hidden"]').val();
+        var date, endDate, noOfDays, startDate;
         date = new Date();
+        noOfDays = $(e.target).find('input[type="hidden"]').val();
         endDate = Date.UTC(date.getFullYear(), date.getMonth(), date.getDate());
-        startDate = endDate - dateRange * 86400000;
-        console.log("change range " + startDate + "       " + endDate);
+        startDate = endDate - noOfDays * 86400000;
         return this.trigger("radio:clicked", startDate, endDate);
       };
 
@@ -62,17 +60,25 @@ define(['app', 'controllers/base-controller', 'text!apps/dashboard/statistics/te
       }
 
       Controller.prototype.initialize = function() {
-        var date, endDate, self, startDate;
+        var changedEnd, changedStart, date, endDate, self, startDate;
         self = this;
         date = new Date();
         endDate = Date.UTC(date.getFullYear(), date.getMonth(), date.getDate());
         startDate = endDate - 30 * 86400000;
+        changedStart = startDate;
+        changedEnd = endDate;
+        App.commands.setHandler("refresh:chart", function() {
+          self.analyticsCollection = App.request("get:all:analytics");
+          return self.layout.overviewRegion.show(self._loadChartOverview(self.analyticsCollection, changedStart, changedEnd));
+        });
         this.analyticsCollection = App.request("fetch:analytics", startDate, endDate);
         this.layout = this._getLayout(this.analyticsCollection);
         this.listenTo(this.layout, 'radio:clicked', (function(_this) {
           return function(start, end) {
-            console.log("radio range" + startDate + "       " + endDate);
-            return _this.layout.overviewRegion.show(_this._loadChartOverview(start, end));
+            changedStart = start;
+            changedEnd = end;
+            _this.analyticsCollection = App.request("get:missing:data", start, end);
+            return _this.layout.overviewRegion.show(_this._loadChartOverview(_this.analyticsCollection, start, end));
           };
         })(this));
         this.listenTo(this.layout, 'show', function() {
@@ -98,9 +104,12 @@ define(['app', 'controllers/base-controller', 'text!apps/dashboard/statistics/te
             toDate = $("#to").datepicker("getDate");
             start = Date.UTC(fromDate.getFullYear(), fromDate.getMonth(), fromDate.getDate());
             end = Date.UTC(toDate.getFullYear(), toDate.getMonth(), toDate.getDate());
-            return self.layout.overviewRegion.show(self._loadChartOverview(start, end));
+            changedStart = start;
+            changedEnd = end;
+            self.analyticsCollection = App.request("get:missing:data", start, end);
+            return self.layout.overviewRegion.show(self._loadChartOverview(self.analyticsCollection, start, end));
           });
-          return this.layout.overviewRegion.show(this._loadChartOverview(startDate, endDate));
+          return this.layout.overviewRegion.show(this._loadChartOverview(this.analyticsCollection, startDate, endDate));
         });
         return this.show(this.layout, {
           loading: true
@@ -117,9 +126,10 @@ define(['app', 'controllers/base-controller', 'text!apps/dashboard/statistics/te
         });
       };
 
-      Controller.prototype._loadChartOverview = function(start, end) {
+      Controller.prototype._loadChartOverview = function(analyticsCollection, start, end) {
         return App.execute("show:overview:chart", {
           region: this.layout.overviewRegion,
+          collection: analyticsCollection,
           startDate: start,
           endDate: end
         });

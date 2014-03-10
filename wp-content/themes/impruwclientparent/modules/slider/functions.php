@@ -75,12 +75,12 @@ function create_new_slider($data, $sliderID = 0){
     //change params to json
     $arrData["params"] = json_encode($params);
 
-    if($sliderID === 0){	//create slider	
+    if($sliderID === 0){    //create slider 
        $sliderID = $wpdb->insert(GlobalsRevSlider::$table_sliders,$arrData);
        return($wpdb->insert_id);
-    }else{	//update slider
+    }else{  //update slider
        $this->initByID($sliderID);
-       $sliderID = $wpdb->update(GlobalsRevSlider::$table_sliders,$arrData,array("id"=>$sliderID));				
+       $sliderID = $wpdb->update(GlobalsRevSlider::$table_sliders,$arrData,array("id"=>$sliderID));             
     }
     
     return $sliderID;
@@ -97,12 +97,12 @@ function update_slider($data, $slider_id = 0){
     //change params to json
     $arrData["params"] = json_encode($params);
 
-    if($slider_id === 0){	//create slider	
+    if($slider_id === 0){   //create slider 
        $wpdb->insert(GlobalsRevSlider::$table_sliders,$arrData);
        return($wpdb->insert_id);
-    }else{	//update slider
+    }else{  //update slider
         
-       $slider_id = $wpdb->update(GlobalsRevSlider::$table_sliders,$arrData,array("id"=>$slider_id));				
+       $slider_id = $wpdb->update(GlobalsRevSlider::$table_sliders,$arrData,array("id"=>$slider_id));               
     }
     
     return $slider_id;
@@ -216,40 +216,60 @@ function slider_defaults(){
             'template' => 'false',
           );
 }
-
+/**
+* Create new slides for the slider
+* $data array conatins the image path and image url
+* 
+*/
 function create_new_slide($data,$slider_id){
     
     global $wpdb;
+    $slide = new RevSlide();
+    
+    //create slide 
+    $slide_id_ret = $slide->createSlide($slider_id, $data);
 
-    $slider_id =1;
-    $slide_order= 6;
-    $arrData = array();
-    $arrData["slider_id"]   = $slider_id;
-    $arrData["slide_order"] = $slide_order;
     $params  = wp_parse_args($data, slide_defaults());
 
     //change params to json
     $params2 = json_encode($params);
     $arrData["params"]= $params2;
 
-    $tab= GlobalsRevSlider::$table_slides;
-    $wpdb->insert( $tab, $arrData);  
+    //table name
+    $tab= GlobalsRevSlider::$table_slides; 
 
-    $slide = new RevSlide();
-    $slide->initByID($wpdb->insert_id);
+    $wpdb->update($tab,$arrData,array("id"=>$slide_id_ret));
 
-    $data = array(
-                    'id'        => $slide->getID(),
-                    'link'      => '',
-                    'slide_title' => '',
-                    'thumb_url' => $slide->getThumbUrl(),
-                    'image_id'  => $slide->getImageID(),
-                    'full_url'  => $slide->getImageUrl(),
-                    'file_name' => $slide->getImageFilename(),
-                    'order'     => $slide->getOrder()
-                );
+    $slide_arr = slide_details_array($slide_id_ret);
 
-    return $data;   
+    return $slide_arr;
+
+}
+/**
+* Returns an array containing the slider defaults
+* for the slide ID passed 
+*/
+
+function slide_details_array($slide_id){
+     
+     $slide = new RevSlide();
+    
+     $slide->initByID($slide_id);
+     
+     $slide_arr = array(
+        'id'        => $slide->getID(),
+        'link'      => '',
+        'slide_title' => '',
+        'thumb_url' => $slide->getThumbUrl(),
+        'image_id'  => $slide->getImageID(),
+        'full_url'  => $slide->getImageUrl(),
+        'file_name' => $slide->getImageFilename(),
+        'order'     => $slide->getOrder(),
+        'slider_id' => $slide->getSliderId()
+        );
+
+     return $slide_arr;
+
 }
 
 /**
@@ -325,22 +345,8 @@ function update_slide($data, $slide_id){
  * Delete the slides based on the slide ID
  * 
  */
+function delete_slide_ajax($data){ 
+     $slide = new RevSlide();
 
-function delete_slide_ajax($slide_id){   
-   
-    global $wpdb;
-    
-    $arrData = array('id'=>$slide_id);
-
-    $tab= GlobalsRevSlider::$table_slides; 
-
-    $slide_id_ret = $wpdb->delete($tab,$arrData);
-   
-   if($slide_id_ret != 0){
-        
-        return $slide_id;
-   } 
-   else{
-        return 0;
-   }  
+     $slide->deleteSlideFromData($data);
 }

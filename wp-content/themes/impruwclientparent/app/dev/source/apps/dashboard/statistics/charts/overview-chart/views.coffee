@@ -5,14 +5,11 @@ define ['app'
 
 			App.module 'DashboardApp.Statistics.OverViewChart.Views', (Views, App, Backbone, Marionette, $, _)->
 
-			#	chartData = null
-
 				class Views.Layout extends Marionette.Layout
 					template : layoutTmpl
 
 					regions : 
 						chartRegion : '#overview-chart-region'
-						pieRegion : '#overview-pie-region'
 
 					events :
 						'click input.chart-button' : 'changeChart'
@@ -29,14 +26,12 @@ define ['app'
 						@trigger "button:clicked" ,App.DashboardApp.Statistics.graphNames
 
 					onShow:->
-						#@$el.find('input[type="checkbox"]').bootstrapSwitch()	
+						#check if the graph name exists in the array, if yes check the radio button
 						$('input.chart-button').each ->
 							if _.indexOf(App.DashboardApp.Statistics.graphNames, $(this).val())+1
 
 								$(this).attr "checked","checked"
 						
-					
-
 
 				class Views.Chart extends Marionette.ItemView
 
@@ -45,7 +40,6 @@ define ['app'
 					template: '<svg style="height:500px; font: 12px sans-serif;"></svg>'
 
 					id : 'overview-chart'
-
 
 					initialize:(options)->
 						@chartData = options.data
@@ -70,43 +64,3 @@ define ['app'
 							d3.select('.nv-context').remove()
 							d3.select('.nv-legendWrap').remove()
 							chart
-
-
-				# class Views.PieChart extends Marionette.ItemView
-
-				# 	className : 'overview-pie'
-
-				# 	template : '<svg style=" font: 12px sans-serif;"></svg>'
-
-				# 	id : 'overview-pie'
-
-				# 	initialize : (options)->
-				# 		@pieData = options.data
-
-				# 	onShow:->
-				# 		data = @pieData
-				# 		console.log "pie"
-
-				# 		nv.addGraph ->
-				# 			chart = nv.models.pieChart()
-				# 			chart.x (d)->
-				# 				d.key 
-				# 			chart.y (d)-> 
-				# 				d.y
-				# 			chart.color d3.scale.category10().range()
-				# 			chart.width(250).height 250
-
-				# 			d3.select("#overview-pie svg").datum(data).transition().duration(1200).attr('width', 250).attr('height', 250).call(chart);
-				# 			d3.select('.nv-legendWrap').remove()
-
-	   #  					#chart.dispatch.on('stateChange', function(e) { nv.log('New State:', JSON.stringify(e)); });
-				# 			chart
-
-
-
-					
-					
- 
-
-
-
