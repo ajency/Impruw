@@ -123,7 +123,6 @@ and open the template in the editor.
   margin: 0.5em auto;
 }
 .row.white-shaded-background {
-  margin: 1em 0;
   padding: 1em 15px;
   background: #fff;
   box-shadow: 0 0 2px #d4d4d4;
@@ -137,19 +136,6 @@ and open the template in the editor.
 }
 .row.column-dividers .column:last-child {
   border-right: 0;
-}
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-/* 
-    Created on : 3 Mar, 2014, 1:00:35 PM
-    Author     : jarr-head
-*/
-#site-header-region .center-container {
-  max-width: 1000px;
-  margin: 0.5em auto;
 }
 /****Top Slim-menu Styles****/
 .nav.slimmenu {
