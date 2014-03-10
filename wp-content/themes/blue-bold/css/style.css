@@ -559,6 +559,11 @@ and open the template in the editor.
     Author     : jarr-head
 */
 /****Room Tariff Styles****/
+.room-tariff-container {
+  background: #fff;
+  box-shadow: 1px 1px 2px 0 #bbbbbb;
+  padding: 0.5em;
+}
 .room-tariff-container .room-tariff-title h4 {
   font-size: 1.5em;
   text-transform: uppercase;
@@ -639,6 +644,11 @@ and open the template in the editor.
   }
 }
 /****Room Facilities Styles****/
+.room-facilities-container {
+  background: #fff;
+  box-shadow: 1px 1px 2px 0 #bbbbbb;
+  padding: 0.5em;
+}
 .room-facilities-container .room-facilities-title h5 {
   font-size: 1.5em;
   text-transform: uppercase;
@@ -649,7 +659,7 @@ and open the template in the editor.
   text-transform: uppercase;
 }
 .room-facilities-container .facilities {
-  margin: 1em 0;
+  margin: 1em 0 0.5em;
   padding: 0;
   list-style: none;
 }
