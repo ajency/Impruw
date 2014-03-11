@@ -691,6 +691,48 @@ and open the template in the editor.
 .room-facilities-container .facilities li:hover:before {
   color: #555555;
 }
+/****Room Summary Styles****/
+.room-summary-container .room-summary-title h4 {
+  font-size: 1.5em;
+  font-weight: 300;
+}
+.room-summary-container .room-summary {
+  background: #fff;
+  box-shadow: 1px 1px 2px 0 #bbbbbb;
+  padding: 1em 0.5em 0.5em;
+}
+.room-summary-container .room-summary .room-summary-item {
+  display: inline-block;
+  border-bottom: 1px solid #bbbbbb;
+  margin: 0 1em 1em 0;
+}
+.room-summary-container .room-summary .room-summary-item span {
+  display: inline-block;
+  font-size: 1.1em;
+}
+.room-summary-container .room-summary .room-summary-item span.key {
+  min-width: 100px;
+  color: #888888;
+}
+.room-summary-container .room-summary .room-summary-item span.value {
+  color: #555555;
+  font-weight: 700;
+}
+.room-summary-container .room-summary .room-summary-item:hover {
+  border-color: #07669e;
+}
+.room-summary-container .room-summary .room-summary-desc {
+  color: #888888;
+  margin: 1em 0 0;
+}
+.room-summary-container .room-summary .room-summary-desc .btn-book {
+  display: block;
+  margin: 0.5em 0;
+  background: #07669e;
+}
+.room-summary-container .room-summary .room-summary-desc .btn-book:hover {
+  background: #0986cf;
+}
 .top-margin-small {
   margin-top: 0.5em;
 }

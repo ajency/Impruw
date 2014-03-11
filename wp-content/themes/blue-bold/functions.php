@@ -244,6 +244,40 @@ $element_templates = array(
                                             <li>Bathtub</li>
                                         </ul>
                                    </div>'
+                ),
+                array(
+                    'name' => 'Room Summary',
+                    'template' => '<div class="room-summary-container">
+                                        <div class="room-summary-title">
+                                            <h4>Room Summary</h4>
+                                        </div>
+                                        <div class="room-summary">
+                                            <div class="room-summary-item">
+                                                <span class="key">No of Rooms</span>
+                                                <span class="value">2</span>
+                                            </div>
+                                            <div class="room-summary-item">
+                                                <span class="key">Guests</span>
+                                                <span class="value">2</span>
+                                            </div>
+                                            <div class="room-summary-item">
+                                                <span class="key">Room Type</span>
+                                                <span class="value">Double Deluxe Room</span>
+                                            </div>
+                                            <div class="room-summary-item">
+                                                <span class="key">Check In</span>
+                                                <span class="value">10:00 am</span>
+                                            </div>
+                                            <div class="room-summary-item">
+                                                <span class="key">Check Out</span>
+                                                <span class="value">01:00 pm</span>
+                                            </div>
+                                            <div class="room-summary-desc">
+                                                Lorem ipsum dolor sit amet, vestibulum curabitur congue in vitae.
+                                                <button class="btn btn-sm btn-book">Booking &amp; Availability</button>
+                                            </div>
+                                        </div>
+                                   </div>'
                 )
             ),
     'Social' => array(
