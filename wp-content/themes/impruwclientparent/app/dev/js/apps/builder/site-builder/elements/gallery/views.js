@@ -11,14 +11,9 @@ define(['app', 'holder'], function(App, Holder) {
         return GalleryItem.__super__.constructor.apply(this, arguments);
       }
 
-      GalleryItem.prototype.template = '<img src="{{thumb_url}}" alt="Slide" width="100%"/>';
+      GalleryItem.prototype.className = 'isotop-element';
 
-      GalleryItem.prototype.onRender = function() {
-        var colClass, noOfColumns;
-        noOfColumns = Marionette.getOption(this, 'noOfColumns');
-        colClass = 12 / noOfColumns;
-        return this.$el.addClass("col-sm-" + colClass);
-      };
+      GalleryItem.prototype.template = '<img src="{{thumb_url}}" alt="Slide" width="100%"/>';
 
       return GalleryItem;
 
@@ -44,7 +39,7 @@ define(['app', 'holder'], function(App, Holder) {
         return GalleryView.__super__.constructor.apply(this, arguments);
       }
 
-      GalleryView.prototype.className = 'gallery row';
+      GalleryView.prototype.className = 'gallery';
 
       GalleryView.prototype.id = _.uniqueId('gallery-');
 
@@ -52,14 +47,16 @@ define(['app', 'holder'], function(App, Holder) {
 
       GalleryView.prototype.emptyView = EmptyGallery;
 
-      GalleryView.prototype.itemViewOptions = function(model, index) {
-        return {
-          noOfColumns: Marionette.getOption(this, 'noOfColumns')
-        };
-      };
-
       GalleryView.prototype.onBeforeRender = function() {
         return this.collection.sort();
+      };
+
+      GalleryView.prototype.onShow = function() {
+        return this.$el.imagesLoaded(function() {
+          return this.$el.isotope({
+            itemSelector: '.isotop-element'
+          });
+        });
       };
 
       GalleryView.prototype.events = {

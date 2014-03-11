@@ -6,12 +6,14 @@ define ['app', 'holder'],(App, Holder)->
 
 		class GalleryItem extends Marionette.ItemView
 
+			className: 'isotop-element'
+
 			template : '<img src="{{thumb_url}}" alt="Slide" width="100%"/>'
 
-			onRender:->
-				noOfColumns = Marionette.getOption(this, 'noOfColumns')
-				colClass = 12 / noOfColumns
-				@$el.addClass "col-sm-#{colClass}"
+			# onRender:->
+			# 	noOfColumns = Marionette.getOption(this, 'noOfColumns')
+			# 	colClass = 12 / noOfColumns
+			# 	@$el.addClass "col-sm-#{colClass}"
 
 
 		# if not gallery items are displayed
@@ -25,7 +27,7 @@ define ['app', 'holder'],(App, Holder)->
 		# Menu item view
 		class Views.GalleryView extends Marionette.CollectionView
 
-			className : 'gallery row'
+			className : 'gallery'
 
 			id : _.uniqueId('gallery-')
 
@@ -33,11 +35,18 @@ define ['app', 'holder'],(App, Holder)->
 
 			emptyView : EmptyGallery
 
-			itemViewOptions:(model, index)->
-				noOfColumns : Marionette.getOption this, 'noOfColumns'
+			# itemViewOptions:(model, index)->
+			# 	noOfColumns : Marionette.getOption this, 'noOfColumns'
 
 			onBeforeRender:->
 				@collection.sort()
+
+			onShow:->
+				@$el.imagesLoaded ->
+					@$el.isotope
+						itemSelector: '.isotop-element'
+						
+					  
 
 			events:
 				'click' :(e)-> 
