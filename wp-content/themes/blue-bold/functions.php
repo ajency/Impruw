@@ -106,6 +106,144 @@ $element_templates = array(
                 array(
                     'name' => 'Small Address',
                     'template' => '<div><div class="info">{{address}}</div><div class="info">{{phoneno}}</div><div class="info">{{email}}</div></div>'
+                ),
+                array(
+                    'name' => 'Room Tariff Plans',
+                    'template' => '<div class="room-tariff-container">
+                                        <div class="room-tariff-title">
+                                            <h4>Room Price</h4>
+                                            <h5>Lorem ipsum dolor sit amet et odio vehicula, id porttitor quam malesuada</h5>
+                                        </div>
+                                        <div class="room-tariff-grid">
+                                            <div class="tariff clearfix">
+                                                <div class="date-range">
+                                                    <div class="from">
+                                                        From <span class="date">21/03</span>
+                                                    </div>
+                                                    <div class="to">
+                                                        To <span class="date">31/05</span>
+                                                    </div>
+                                                </div>
+                                                <div class="packages">
+                                                    <div class="row package-blocks">
+                                                        <div class="col-sm-4">
+                                                            <div class="block clearfix">
+                                                                <h6>Package 1</h6>
+                                                                <div class="weekday">
+                                                                    Weekdays
+                                                                    <span class="price">$100</span>
+                                                                </div>
+                                                                <div class="weekend">
+                                                                    Weekends
+                                                                    <span class="price">$120</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <div class="block clearfix">
+                                                                <h6>Package 1</h6>
+                                                                <div class="weekday">
+                                                                    Weekdays
+                                                                    <span class="price">$100</span>
+                                                                </div>
+                                                                <div class="weekend">
+                                                                    Weekends
+                                                                    <span class="price">$120</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <div class="block clearfix">
+                                                                <h6>Package 1</h6>
+                                                                <div class="weekday">
+                                                                    Weekdays
+                                                                    <span class="price">$100</span>
+                                                                </div>
+                                                                <div class="weekend">
+                                                                    Weekends
+                                                                    <span class="price">$120</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="tariff clearfix">
+                                                <div class="date-range">
+                                                    <div class="from">
+                                                        From <span class="date">21/03</span>
+                                                    </div>
+                                                    <div class="to">
+                                                        To <span class="date">31/05</span>
+                                                    </div>
+                                                </div>
+                                                <div class="packages">
+                                                    <div class="row package-blocks">
+                                                        <div class="col-sm-4">
+                                                            <div class="block clearfix">
+                                                                <h6>Package 1</h6>
+                                                                <div class="weekday">
+                                                                    Weekdays
+                                                                    <span class="price">$100</span>
+                                                                </div>
+                                                                <div class="weekend">
+                                                                    Weekends
+                                                                    <span class="price">$120</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <div class="block clearfix">
+                                                                <h6>Package 1</h6>
+                                                                <div class="weekday">
+                                                                    Weekdays
+                                                                    <span class="price">$100</span>
+                                                                </div>
+                                                                <div class="weekend">
+                                                                    Weekends
+                                                                    <span class="price">$120</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <div class="block clearfix">
+                                                                <h6>Package 1</h6>
+                                                                <div class="weekday">
+                                                                    Weekdays
+                                                                    <span class="price">$100</span>
+                                                                </div>
+                                                                <div class="weekend">
+                                                                    Weekends
+                                                                    <span class="price">$120</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                   </div>'
+                ),
+                array(
+                    'name' => 'Facilities List',
+                    'template' => '<div class="room-facilities-container">
+                                        <div class="room-facilities-title">
+                                            <h5>Room Features</h5>
+                                            <h4>Standard Book</h5>
+                                        </div>
+                                        <ul class="facilities clearfix">
+                                            <li>Flat Screen Cable TV</li>
+                                            <li>On-demand Movies (surcharge)</li>
+                                            <li>Wireless High Speed Internet Access</li>
+                                            <li>In room Safe Box</li>
+                                            <li>Room Service</li>
+                                            <li>Wake Up Service</li>
+                                            <li>Mini Bar</li>
+                                            <li>Multi-line Phone</li>
+                                            <li>Hairdryer</li>
+                                            <li>Bathtub</li>
+                                        </ul>
+                                   </div>'
                 )
             ),
     'Social' => array(
