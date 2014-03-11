@@ -27,6 +27,7 @@ require.config({
     nestedsortable: 'plugins/nested.sortable',
     jqueryvalidate: 'plugins/jquery.validate',
     polyglot: 'plugins/polyglot',
+    isotope: 'plugins/isotope',
     localforage: 'plugins/localforage',
     plupload: 'plugins/plupload.full',
     themepunch: 'plugins/themepunch.plugins.min',
@@ -69,6 +70,7 @@ require.config({
     jqueryspin: ['spin'],
     bootstrap: ['jquery'],
     themepunch: ['jquery'],
+    isotope: ['jquery'],
     revslider: ['themepunch'],
     plupload: {
       deps: ['jquery'],

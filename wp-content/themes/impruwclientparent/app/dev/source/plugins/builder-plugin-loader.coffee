@@ -28,4 +28,5 @@ define [
 		'nestedsortable'
 		'themepunch'
 		'revslider'
+		'isotope'
 		],->
