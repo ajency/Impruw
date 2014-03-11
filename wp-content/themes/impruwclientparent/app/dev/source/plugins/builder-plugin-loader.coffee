@@ -21,7 +21,7 @@ define [
 		'text'
 		'jqueryspin'
 		'bootstrapselect'
-		'ckeditor'
+		#'ckeditor'
 		'nestedsortable'
 		'themepunch'
 		'revslider'

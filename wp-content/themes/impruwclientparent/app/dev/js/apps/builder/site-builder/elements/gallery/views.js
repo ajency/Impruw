@@ -52,11 +52,13 @@ define(['app', 'holder'], function(App, Holder) {
       };
 
       GalleryView.prototype.onShow = function() {
-        return this.$el.imagesLoaded(function() {
-          return this.$el.isotope({
-            itemSelector: '.isotop-element'
-          });
-        });
+        return this.$el.imagesLoaded((function(_this) {
+          return function() {
+            return _this.$el.isotope({
+              itemSelector: '.isotop-element'
+            });
+          };
+        })(this));
       };
 
       GalleryView.prototype.events = {

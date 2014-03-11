@@ -2,6 +2,7 @@
   baseUrl: './js',
   name: 'plugins/almond',
   include : 'builder-main',
+  exclude : ['plugins/ckeditor'],
   //optimize: 'none',
   wrap: false,
   out: '../production/builder-main.js',
