@@ -1,10 +1,10 @@
 ({
-  baseUrl: '.',
+  baseUrl: './js',
   name: 'plugins/almond',
   include : 'builder-main',
-  optimize: 'none',
-  wrap: true,
-  out: '../../builder-main.js',
+  //optimize: 'none',
+  wrap: false,
+  out: '../production/builder-main.js',
   paths: {
     jquery: 'plugins/jquery',
     jqueryui: 'plugins/jquery.ui',
