@@ -563,6 +563,7 @@ and open the template in the editor.
   background: #fff;
   box-shadow: 1px 1px 2px 0 #bbbbbb;
   padding: 0.5em;
+  position: relative;
 }
 .room-tariff-container .room-tariff-title h4 {
   font-size: 1.5em;
@@ -572,12 +573,37 @@ and open the template in the editor.
   font-size: 1em;
   font-weight: 400;
 }
+.room-tariff-container .room-tariff-actions {
+  position: absolute;
+  top: 0.5em;
+  right: 0.5em;
+  display: none;
+}
+.room-tariff-container .room-tariff-actions .btn-add-plan {
+  background: #07669e;
+}
+.room-tariff-container .room-tariff-actions .btn-add-plan:hover {
+  background: #0986cf;
+}
+@media (max-width: 767px) {
+  .room-tariff-container .room-tariff-actions {
+    display: block;
+    position: static;
+  }
+}
+.room-tariff-container .room-tariff-grid {
+  overflow-x: auto;
+}
 .room-tariff-container .room-tariff-grid .tariff .date-range {
   color: #888888;
   text-align: right;
   font-weight: 300;
-  width: 5%;
-  float: left;
+  position: absolute;
+  width: 60px;
+  background: #fff;
+  max-width: 60px;
+  padding-right: 10px;
+  min-height: 150px;
 }
 .room-tariff-container .room-tariff-grid .tariff .date-range .date {
   display: block;
@@ -587,24 +613,43 @@ and open the template in the editor.
   margin: 0.2em 0 0.4em;
 }
 .room-tariff-container .room-tariff-grid .tariff .packages {
-  width: 95%;
-  float: left;
+  width: 100%;
+  padding-left: 70px;
 }
 .room-tariff-container .room-tariff-grid .tariff .packages .package-blocks {
   margin: 0 0 1em;
+  white-space: nowrap;
 }
-.room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .block {
+.room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer {
+  display: inline-block;
+  min-width: 200px;
+  max-width: 200px;
+  white-space: normal;
+  margin-right: 0.5em;
+}
+.room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block {
   background: #d9d9d9;
   border-left: 5px solid #bfbfbf;
   padding: 0.5em;
 }
-.room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .block h6 {
-  margin: 0 0 0.5em;
+.room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block h6 {
+  margin: 0 0 0.2em;
   font-weight: 400;
   font-size: 1.2em;
+  display: none;
 }
-.room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .block .weekday,
-.room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .block .weekend {
+.room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block .package-desc {
+  font-size: 0.88em;
+  color: #a2a2a2;
+  display: none;
+}
+.room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block .tariff-label {
+  color: #a2a2a2;
+  margin: 0.5em 0 0.2em;
+  font-size: 0.88em;
+}
+.room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block .weekday,
+.room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block .weekend {
   width: 49%;
   min-width: 80px;
   margin-right: 1%;
@@ -613,35 +658,71 @@ and open the template in the editor.
   color: #888888;
   font-weight: 300;
 }
-.room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .block .weekday .price,
-.room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .block .weekend .price {
+.room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block .weekday .price,
+.room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block .weekend .price {
   font-weight: 700;
   font-size: 1.4em;
   display: block;
 }
-.room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .block:hover {
+.room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block:hover {
   border-color: #07669e;
 }
+.room-tariff-container .room-tariff-grid .tariff .packages .package-blocks.header {
+  margin: 0 0 0.3em;
+}
+.room-tariff-container .room-tariff-grid .tariff .packages .package-blocks.header .block {
+  background: transparent;
+  border: 0;
+  padding: 0;
+}
+.room-tariff-container .room-tariff-grid .tariff .packages .package-blocks.header .block h6,
+.room-tariff-container .room-tariff-grid .tariff .packages .package-blocks.header .block .package-desc {
+  display: block;
+}
 @media (max-width: 767px) {
-  .room-tariff-container .room-tariff-grid .tariff .date-range,
-  .room-tariff-container .room-tariff-grid .tariff .packages {
-    float: none;
-    width: 100%;
+  .room-tariff-container .room-tariff-grid {
+    overflow-x: visible;
+  }
+  .room-tariff-container .room-tariff-grid .tariff {
+    border-left: 2px solid #bbbbbb;
+    padding-left: 0.5em;
+    margin: 0 0 1em;
   }
   .room-tariff-container .room-tariff-grid .tariff .date-range {
+    position: static;
+    width: 100%;
+    max-width: 100%;
+    min-height: 10px;
+    height: auto;
     text-align: left;
+    font-size: 1.2em;
   }
+  .room-tariff-container .room-tariff-grid .tariff .date-range .date,
   .room-tariff-container .room-tariff-grid .tariff .date-range .from,
-  .room-tariff-container .room-tariff-grid .tariff .date-range .to,
-  .room-tariff-container .room-tariff-grid .tariff .date-range .date {
+  .room-tariff-container .room-tariff-grid .tariff .date-range .to {
     display: inline-block;
   }
-  .room-tariff-container .room-tariff-grid .tariff .package-blocks {
-    border-left: 2px solid #d9d9d9;
+  .room-tariff-container .room-tariff-grid .tariff .packages {
+    padding: 0;
   }
-  .room-tariff-container .room-tariff-grid .tariff .package-blocks .block {
-    margin: 0.25em 0;
+  .room-tariff-container .room-tariff-grid .tariff .packages .package-blocks {
+    white-space: normal;
   }
+  .room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 0 0.2em;
+  }
+  .room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block h6,
+  .room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block .package-desc {
+    display: block;
+  }
+  .room-tariff-container .room-tariff-grid .tariff .packages .package-blocks.header {
+    display: none;
+  }
+}
+.room-tariff-container:hover .room-tariff-actions {
+  display: block;
 }
 /****Room Facilities Styles****/
 .room-facilities-container {
