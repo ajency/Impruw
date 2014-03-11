@@ -585,6 +585,12 @@ and open the template in the editor.
 .room-tariff-container .room-tariff-actions .btn-add-plan:hover {
   background: #0986cf;
 }
+@media (max-width: 767px) {
+  .room-tariff-container .room-tariff-actions {
+    display: block;
+    position: static;
+  }
+}
 .room-tariff-container .room-tariff-grid {
   overflow-x: auto;
 }
@@ -668,6 +674,10 @@ and open the template in the editor.
   background: transparent;
   border: 0;
   padding: 0;
+}
+.room-tariff-container .room-tariff-grid .tariff .packages .package-blocks.header .block h6,
+.room-tariff-container .room-tariff-grid .tariff .packages .package-blocks.header .block .package-desc {
+  display: block;
 }
 @media (max-width: 767px) {
   .room-tariff-container .room-tariff-grid {
