@@ -25,7 +25,7 @@ define(['app', 'holder'], function(App, Holder) {
         return EmptyGallery.__super__.constructor.apply(this, arguments);
       }
 
-      EmptyGallery.prototype.template = '<h2>Nothing found</h2> Please choose your gallery';
+      EmptyGallery.prototype.template = '<div class="empty-view"><span class="bicon icon-uniF10C"></span>Nothing Found.<br> Click to choose a gallery.</div>';
 
       EmptyGallery.prototype.className = 'col-md-12 well';
 
