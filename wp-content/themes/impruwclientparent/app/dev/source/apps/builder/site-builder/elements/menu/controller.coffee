@@ -12,7 +12,7 @@ define ['app','apps/builder/site-builder/elements/menu/views','apps/builder/site
 						_.defaults options.modelData,
 											element 	: 'Menu'
 											justified 	: false
-											menu_id		: 0
+											menu_id		: 2
 											style 		: ''
 						super(options)
 						

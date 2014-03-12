@@ -161,7 +161,7 @@ function create_new_site( $blog_id, $blog_name, $blog_title, $user_id, $file_nam
     
     switch_to_blog( $new_blog_id );
     
-    assign_theme_to_site( $new_blog_id, 'bootstrap-blue' );//assign a theme to the new site created
+    assign_theme_to_site( $new_blog_id );//assign a theme to the new site created
     
     restore_current_blog();
     
@@ -201,7 +201,8 @@ function create_new_site( $blog_id, $blog_name, $blog_title, $user_id, $file_nam
     //set header and footer
      
 	//$clone_blog = 81; //local
-	
+    create_initial_slider($new_blog_id);
+
     clone_header_footer($new_blog_id);
     
     create_tariff_table_for_blog( $new_blog_id );
@@ -245,6 +246,154 @@ function clone_header_footer($new_blog_id){
     update_option('theme-footer', $data);
     restore_current_blog();
 }
+    
+/**
+ * 
+ */ 
+function create_initial_slider($new_blog_id){
+    switch_to_blog($new_blog_id);   
+    $plugin_file = 'revslider/revslider.php';
+    $_REQUEST['action'] = 'activate';
+    $_REQUEST['_wpnonce'] = wp_create_nonce();
+    activate_plugin( $plugin_file );
+
+    create_new_slider(array('title' => 'Slider 1', 'alias' => 'slider-1'));
+    restore_current_blog();
+}
+
+function create_new_slider($data, $sliderID = 0){
+    
+    global $wpdb;
+    
+    $arrData = array();
+    $arrData["title"]   = $data['title'];
+    $arrData["alias"]   = $data['alias'];
+    $params  = wp_parse_args($data, slider_defaults());
+    
+    //change params to json
+    $arrData["params"] = json_encode($params);
+
+    if($sliderID === 0){    //create slider 
+       $sliderID = $wpdb->insert(GlobalsRevSlider::$table_sliders,$arrData);
+       return($wpdb->insert_id);
+    }else{  //update slider
+       $this->initByID($sliderID);
+       $sliderID = $wpdb->update(GlobalsRevSlider::$table_sliders,$arrData,array("id"=>$sliderID));             
+    }
+    
+    return $sliderID;
+}
+
+/**
+ * This is default configuration for the new slider
+ * @return array the default config
+ */
+function slider_defaults(){
+    
+ return array (
+            'title' => '',
+            'alias' => '',
+            'shortcode' => '[rev_slider ]',
+            'source_type' => 'gallery',
+            'post_types' => 'post',
+            'post_category' => 'category_1',
+            'post_sortby' => 'ID',
+            'posts_sort_direction' => 'DESC',
+            'max_slider_posts' => '30',
+            'excerpt_limit' => '55',
+            'slider_template_id' => '',
+            'posts_list' => '',
+            'slider_type' => 'fullwidth',
+            'fullscreen_offset_container' => '',
+            'fullscreen_min_height' => '',
+            'full_screen_align_force' => 'off',
+            'auto_height' => 'off',
+            'force_full_width' => 'off',
+            'width' => '960',
+            'height' => '350',
+            'responsitive_w1' => '940',
+            'responsitive_sw1' => '770',
+            'responsitive_w2' => '780',
+            'responsitive_sw2' => '500',
+            'responsitive_w3' => '510',
+            'responsitive_sw3' => '310',
+            'responsitive_w4' => '0',
+            'responsitive_sw4' => '0',
+            'responsitive_w5' => '0',
+            'responsitive_sw5' => '0',
+            'responsitive_w6' => '0',
+            'responsitive_sw6' => '0',
+            'delay' => '9000',
+            'shuffle' => 'off',
+            'lazy_load' => 'off',
+            'use_wpml' => 'off',
+            'stop_slider' => 'off',
+            'stop_after_loops' => 0,
+            'stop_at_slide' => 2,
+            'load_googlefont' => 'false',
+            'google_font' => 
+            array (
+              0 => '<link href=\'http://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700\' rel=\'stylesheet\' type=\'text/css\'>',
+            ),
+            'position' => 'center',
+            'margin_top' => 0,
+            'margin_bottom' => 0,
+            'margin_left' => 0,
+            'margin_right' => 0,
+            'shadow_type' => '2',
+            'show_timerbar' => 'top',
+            'padding' => 0,
+            'background_color' => '#E9E9E9',
+            'background_dotted_overlay' => 'none',
+            'show_background_image' => 'false',
+            'background_image' => '',
+            'bg_fit' => 'cover',
+            'bg_repeat' => 'no-repeat',
+            'bg_position' => 'center top',
+            'use_spinner' => '0',
+            'spinner_color' => '#FFFFFF',
+            'touchenabled' => 'on',
+            'stop_on_hover' => 'on',
+            'navigaion_type' => 'bullet',
+            'navigation_arrows' => 'solo',
+            'navigation_style' => 'round',
+            'navigaion_always_on' => 'false',
+            'hide_thumbs' => 200,
+            'navigaion_align_hor' => 'center',
+            'navigaion_align_vert' => 'bottom',
+            'navigaion_offset_hor' => '0',
+            'navigaion_offset_vert' => 20,
+            'leftarrow_align_hor' => 'left',
+            'leftarrow_align_vert' => 'center',
+            'leftarrow_offset_hor' => 20,
+            'leftarrow_offset_vert' => 0,
+            'rightarrow_align_hor' => 'right',
+            'rightarrow_align_vert' => 'center',
+            'rightarrow_offset_hor' => 20,
+            'rightarrow_offset_vert' => 0,
+            'thumb_width' => 100,
+            'thumb_height' => 50,
+            'thumb_amount' => 5,
+            'hide_slider_under' => 0,
+            'hide_defined_layers_under' => 0,
+            'hide_all_layers_under' => 0,
+            'hide_thumbs_under_resolution' => 0,
+            'loop_slide' => 'loop',
+            'start_with_slide' => '1',
+            'first_transition_type' => 'fade',
+            'first_transition_duration' => 300,
+            'first_transition_slot_amount' => 7,
+            'reset_transitions' => '',
+            'reset_transition_duration' => 0,
+            0 => 'Execute settings on all slides',
+            'jquery_noconflict' => 'on',
+            'js_to_body' => 'false',
+            'output_type' => 'none',
+            'template' => 'false',
+          );
+}
+
+
 
 /**
  * assign_theme_to_site
@@ -253,8 +402,12 @@ function clone_header_footer($new_blog_id){
  * @param int     $blog_id    - id of the blogto which theme needs to be assigned..
  * @param text    $theme_name - name of theme to assign to the new blog created.
  */
-function assign_theme_to_site( $blog_id, $theme_name ) {
+function assign_theme_to_site( $blog_id, $theme_name = '') {
     
+    switch_to_blog(CLONEBLOG);
+    $theme_name = get_option('stylesheet');
+    restore_current_blog();
+
     switch_to_blog( $blog_id );
 
     $theme = wp_get_theme( $theme_name ); //Change the name here to change the theme
@@ -584,13 +737,10 @@ function add_menu_to_blog( $user_id, $blog_id ) {
         $name = 'Main Menu';
         //create the menu
         $menu_id = wp_create_nav_menu( $name );
-        //then get the menu object by its name
-        $menu = get_term_by( 'name', $name, 'nav_menu' );
-
+        
         foreach(get_all_menu_pages() as $page):
-
             //then add the actuall link/ menu item and you do this for each item you want to add
-            wp_update_nav_menu_item( $menu->term_id, 0, array(
+            wp_update_nav_menu_item( $menu_id, 0, array(
                 'menu-item-title'   => $page->post_title,
                 'menu-item-classes' => $page->post_name ,
                 'menu-item-url'     => get_permalink( $page->ID),
@@ -600,7 +750,7 @@ function add_menu_to_blog( $user_id, $blog_id ) {
 
         //then you set the wanted theme  location
         $locations = get_theme_mod( 'nav_menu_locations' );
-        $locations['header_menu'] = $menu->term_id;
+        $locations['header_menu'] = $menu_id;
         set_theme_mod( 'nav_menu_locations', $locations );
 
 
@@ -608,13 +758,10 @@ function add_menu_to_blog( $user_id, $blog_id ) {
         $name_footer = 'Footet Menu';
         //create the menu
         $menu_id_footer = wp_create_nav_menu( $name_footer );
-        //then get the menu object by its name
-        $menu_footer = get_term_by( 'name', $name_footer, 'nav_menu' );
-
+        
         foreach(get_all_menu_pages() as $page):
-
             //then add the actuall link/ menu item and you do this for each item you want to add
-            wp_update_nav_menu_item( $name_footer->term_id, 0, array(
+            wp_update_nav_menu_item( $menu_id_footer, 0, array(
                 'menu-item-title'   => $page->post_title,
                 'menu-item-classes' => $page->post_name ,
                 'menu-item-url'     => get_permalink( $page->ID),
@@ -626,7 +773,7 @@ function add_menu_to_blog( $user_id, $blog_id ) {
         $locations_footer = get_theme_mod( 'nav_menu_locations' );
         $locations_footer['footer_menu'] = $menu_footer->term_id;
         set_theme_mod( 'nav_menu_locations', $locations_footer );
-
+        
 
         // then update the menu_check option to make sure this code only runs once
         update_option( 'menu_check', true );

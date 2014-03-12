@@ -6,27 +6,31 @@ header.settings-header
 			a(class='close-settings', href='#') &times;
 .row
 	.col-sm-12
-		form(action='', method='POST', role='form')
+		form.form-horizontal(action='', method='POST', role='form')
 			.form-group
-				label(for='') Choose Style
-				select(name="style")
-					{{#styles}}
-					option(value="{{name}}") {{name}}
-					{{/styles}}
+				label.col-sm-4.control-label(for='') Choose Style
+				.col-sm-8
+					select(name="style")
+						{{#styles}}
+						option(value="{{name}}") {{name}}
+						{{/styles}}
 			.form-group
-				label(for='') Choose Menu
-				select(name="choose-menu")
-					{{#site_menus}}
-					option(value="{{menu_id}}") {{menu_name}}
-					{{/site_menus}}
+				label.col-sm-4.control-label(for='') Choose Menu
+				.col-sm-8
+					select(name="choose-menu")
+						{{#site_menus}}
+						option(value="{{menu_id}}") {{menu_name}}
+						{{/site_menus}}
 			.form-group
-				label.pull-left(for='') Draggable
-				span.checkbox.pull-left
-					input(type='checkbox' name="draggable")
+				label.col-sm-4.control-label(for='') Draggable
+				.col-sm-8
+					span.checkbox
+						input(type='checkbox' name="draggable")
 			.form-group
-				label.pull-left(for='') Justified
-				span.checkbox.pull-left
-					input(type='checkbox' name="justified")
+				label.col-sm-4.control-label(for='') Justified
+				.col-sm-8
+					span.checkbox.pull-left
+						input(type='checkbox' name="justified")
 			.clearfix
 			.form-group
 				label.col-sm-4.control-label(for='') Top Margin

@@ -9,26 +9,32 @@
 </header>
 <div class="row">
   <div class="col-sm-12">
-    <form action="" method="POST" role="form">
+    <form action="" method="POST" role="form" class="form-horizontal">
       <div class="form-group">
-        <label for="">Choose Style</label>
-        <select name="style">{{#styles}}
-          <option value="{{name}}">{{name}}</option>{{/styles}}
-        </select>
+        <label for="" class="col-sm-4 control-label">Choose Style</label>
+        <div class="col-sm-8">
+          <select name="style">{{#styles}}
+            <option value="{{name}}">{{name}}</option>{{/styles}}
+          </select>
+        </div>
       </div>
       <div class="form-group">
-        <label for="">Choose Menu</label>
-        <select name="choose-menu">{{#site_menus}}
-          <option value="{{menu_id}}">{{menu_name}}</option>{{/site_menus}}
-        </select>
+        <label for="" class="col-sm-4 control-label">Choose Menu</label>
+        <div class="col-sm-8">
+          <select name="choose-menu">{{#site_menus}}
+            <option value="{{menu_id}}">{{menu_name}}</option>{{/site_menus}}
+          </select>
+        </div>
       </div>
       <div class="form-group">
-        <label for="" class="pull-left">Draggable</label><span class="checkbox pull-left">
-          <input type="checkbox" name="draggable"/></span>
+        <label for="" class="col-sm-4 control-label">Draggable</label>
+        <div class="col-sm-8"><span class="checkbox">
+            <input type="checkbox" name="draggable"/></span></div>
       </div>
       <div class="form-group">
-        <label for="" class="pull-left">Justified</label><span class="checkbox pull-left">
-          <input type="checkbox" name="justified"/></span>
+        <label for="" class="col-sm-4 control-label">Justified</label>
+        <div class="col-sm-8"><span class="checkbox pull-left">
+            <input type="checkbox" name="justified"/></span></div>
       </div>
       <div class="clearfix"></div>
       <div class="form-group">

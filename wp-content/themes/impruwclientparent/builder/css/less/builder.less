@@ -952,6 +952,7 @@ Version:        0.1.0
 		margin: 0 -0.5em 0.3em;
 		padding: 0 0.5em;
 		background: darken(@dark-blue, 10%);
+		cursor: move;
 		h5 {
 			color: @dash-grey;
 			font-size: 1.1em;
@@ -1967,5 +1968,26 @@ Version:        0.1.0
 				}
 			}
 		}
+	}
+}
+
+/****Empty View Styles****/
+.fullwidthbanner {
+	ul {
+		padding: 0;
+	}
+}
+
+.empty-view {
+	text-align: center;
+	font-size: 1.2em;
+	color: @dash-grey;
+	border: 1px dashed lighten(@dash-grey, 20%);
+	padding: 0.3em;
+	.bicon {
+		display: block;
+		margin: 0.2em 0;
+		font-size: 4em;
+		color: lighten(@dash-grey, 20%);
 	}
 }

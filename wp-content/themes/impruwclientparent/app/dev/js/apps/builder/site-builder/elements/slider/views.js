@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
 
 define(['app', 'holder'], function(App, Holder) {
   return App.module('SiteBuilderApp.Element.Slider.Views', function(Views, App, Backbone, Marionette, $, _) {
-    var SliderItem;
+    var EmptySlider, SliderItem;
     SliderItem = (function(_super) {
       __extends(SliderItem, _super);
 
@@ -22,6 +22,18 @@ define(['app', 'holder'], function(App, Holder) {
       return SliderItem;
 
     })(Marionette.ItemView);
+    EmptySlider = (function(_super) {
+      __extends(EmptySlider, _super);
+
+      function EmptySlider() {
+        return EmptySlider.__super__.constructor.apply(this, arguments);
+      }
+
+      EmptySlider.prototype.template = '<div class="empty-view"><span class="bicon icon-uniF119"></span>There are no slides.<br> Click to add slides.</div>';
+
+      return EmptySlider;
+
+    })(Marionette.ItemView);
     return Views.SliderView = (function(_super) {
       __extends(SliderView, _super);
 
@@ -36,6 +48,8 @@ define(['app', 'holder'], function(App, Holder) {
       SliderView.prototype.id = _.uniqueId('carousel-');
 
       SliderView.prototype.itemView = SliderItem;
+
+      SliderView.prototype.emptyView = EmptySlider;
 
       SliderView.prototype.itemViewContainer = '.fullwidthbanner > ul';
 
@@ -53,6 +67,9 @@ define(['app', 'holder'], function(App, Holder) {
       };
 
       SliderView.prototype.onShow = function() {
+        if (this.collection.length === 0) {
+          return;
+        }
         return this.revapi = this.$el.find(".fullwidthbanner").revolution({
           delay: 9000,
           startwidth: 1170,
