@@ -25,18 +25,23 @@ define(['app', 'apps/builder/site-builder/elements/roomfacilities/views'], funct
         return Controller.__super__.bindEvents.call(this);
       };
 
-      Controller.prototype._getRoomFacilitiesView = function(model, template) {
+      Controller.prototype._getRoomFacilitiesView = function(collection) {
         return new RoomFacilities.Views.RoomFacilitiesView({
-          model: model,
-          template: template
+          collection: collection
         });
       };
 
       Controller.prototype.renderElement = function() {
-        var view;
-        this.removeSpinner();
-        view = this._getRoomFacilitiesView(this.layout.model);
-        return this.layout.elementRegion.show(view);
+        var collection;
+        collection = App.request('get:all:facilities');
+        return App.execute("when:fetched", collection, (function(_this) {
+          return function() {
+            var view;
+            _this.removeSpinner();
+            view = _this._getRoomFacilitiesView(collection);
+            return _this.layout.elementRegion.show(view);
+          };
+        })(this));
       };
 
       return Controller;

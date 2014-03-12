@@ -23,16 +23,18 @@ define ['app'
 						@listenTo @layout.model, "change:style", @renderElement
 						super()
 
-					_getRoomFacilitiesView:(model, template)->
+					_getRoomFacilitiesView:(collection)->
 						new RoomFacilities.Views.RoomFacilitiesView
-											model 	: model
-											template : template
+											collection 	: collection
+											
 												
 
 					# setup templates for the element
 					renderElement:()=>
-						@removeSpinner()
-						# get the roomfacilities element template
-						#template = @_getElementTemplate @layout.model
-						view = @_getRoomFacilitiesView @layout.model 
-						@layout.elementRegion.show view
+						
+						collection= App.request 'get:all:facilities'
+
+						App.execute "when:fetched", collection, =>
+							@removeSpinner()
+							view = @_getRoomFacilitiesView collection	
+							@layout.elementRegion.show view
