@@ -11,4 +11,5 @@ define ['apps/builder/site-builder/elements/menu/controller'
 		'apps/builder/site-builder/elements/contactform/controller'
 		'apps/builder/site-builder/elements/map/controller'
 		'apps/builder/site-builder/elements/slider/controller' 
-		'apps/builder/site-builder/elements/gallery/controller' ],->
+		'apps/builder/site-builder/elements/gallery/controller'
+		'apps/builder/site-builder/elements/roomfacilities/controller' ],->

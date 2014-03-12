@@ -13,7 +13,7 @@ define(['app', 'backbone'], function(App, Backbone) {
 
       return Facility;
 
-    })(Backbone.RelationalModel);
+    })(Backbone.Model);
     Facilities.FacilityCollection = (function(_super) {
       __extends(FacilityCollection, _super);
 

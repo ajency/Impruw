@@ -14,4 +14,5 @@ define [
 		'entities/builder/elementbox'
 		'entities/builder/json'
 		'entities/builder/element'
+		'entities/facilities'
 		], ->
