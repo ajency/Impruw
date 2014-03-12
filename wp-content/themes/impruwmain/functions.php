@@ -421,25 +421,24 @@ function get_theme_stylesheet(){
  */
 function get_all_menu_pages(){
         
-    $args = array('post_type' => 'page','posts_per_page' => -1);
-    $pages  = new WP_Query($args);
+    $args = array('number' => 20);
+    $pages  = get_pages($args);
      
     $p = array();
 
-    if($pages->have_posts()){
-        
-        $skip = array('Site Builder','Dashboard');
+    $skip = array('Site Builder','Dashboard');
 
-        foreach($pages->posts as $page){
+    foreach($pages as $page){
 
-            if(!in_array($page->post_title, $skip))
-                $p[] = $page;
-        }
-    }
-    
+        if(!in_array($page->post_title, $skip))
+            $p[] = $page;
+
+    }    
+
     return $p;
 
 }
+
 
 /****SHORTCODE for CONTACT PAGE****/
 function impruwcontact_get_the_ip() {
