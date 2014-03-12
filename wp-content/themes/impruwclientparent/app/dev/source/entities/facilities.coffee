@@ -4,7 +4,7 @@ define ['app'
 		App.module "Entities.Facilities", (Facilities, App, Backbone, Marionette, $, _)->
 
 			#Facility model
-			class Facilities.Facility extends Backbone.RelationalModel
+			class Facilities.Facility extends Backbone.Model
 
 
 			#Facilities Collection class

@@ -133,7 +133,9 @@ function get_elementbox_elements() {
                                     'icon' => '',
                                     'galleries' => get_theme_sliders()
                             ),
-                            array(  'element' => 'Room Facilities',
+                            array(  'element' => 'RoomFacilities',
+                                    'title' =>'Room Facilities',
+                                    'styles' => get_styles('RoomFacilities'),
                                     'icon' => ''
                             )
 
