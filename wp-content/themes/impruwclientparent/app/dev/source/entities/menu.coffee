@@ -14,29 +14,6 @@ define ["app", 'backbone'], (App, Backbone) ->
 
 				name: 'menu-item'
 
-				parse : (resp)->
-					if resp.code && resp.code is 'OK'
-						return resp.data 
-
-					return resp
-
-				# override the default sync to make it wirk with wordpress :(
-				sync:(method, model, options = {}) ->
-
-					if not @name
-						throw new Error "'name' property missing"
-
-					if _.isFunction @name
-						name = @name()
-					else 
-						name = @name
-
-					# creation the action property with method name and name property
-					# ex: create-model-name, delete-model-name, update-model-name, read-model-name
-					_action = "#{method}-#{name}"
-					
-					options.data = model.toJSON()
-					Backbone.send _action,options
 					
 
 			# menu item collection class
@@ -77,11 +54,6 @@ define ["app", 'backbone'], (App, Backbone) ->
 
 				name: 'menu'
 
-				parse:(resp)->
-					return resp.data if resp.code is 'OK'
-					resp
-
-
 			# menu collection
 			class Menus.MenuCollection extends Backbone.Collection
 				model : Menus.MenuModel
@@ -91,11 +63,7 @@ define ["app", 'backbone'], (App, Backbone) ->
 						menu_id : model.get 'id'
 						menu_name : model.get 'menu_name'
 
-				parse :(resp)->
-					if resp.code is 'OK'
-						return resp.data 
-
-
+				
 
 			# API 
 			API = 
@@ -159,7 +127,6 @@ define ["app", 'backbone'], (App, Backbone) ->
 
 				# update new menu item
 				updateMenuItemModel:(menuitem, data)->
-					console.log data
 					menuitem.set data
 					menuitem.save()
 					menuitem

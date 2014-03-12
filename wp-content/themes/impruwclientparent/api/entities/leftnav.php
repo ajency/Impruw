@@ -56,7 +56,7 @@ function get_menu(){
     $menu = get_menu_to_array($id, 'id');
     wp_send_json(array('code' => 'OK', 'data' => $menu ));
 }
-add_action('wp_ajax_get-menu','get_menu');
+add_action('wp_ajax_read-menu','get_menu');
 
 /**
  * [get_pages description]
