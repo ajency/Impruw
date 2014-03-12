@@ -422,7 +422,7 @@ function get_theme_stylesheet(){
 function get_all_menu_pages(){
         
     $args = array('post_type' => 'page','posts_per_page' => -1);
-    $pages  = new WP_query($args);
+    $pages  = new WP_Query($args);
      
     $p = array();
 
