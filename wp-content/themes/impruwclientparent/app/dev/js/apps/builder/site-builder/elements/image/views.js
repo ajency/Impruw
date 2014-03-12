@@ -12,20 +12,14 @@ define(['app', 'holder'], function(App, Holder) {
 
       ImageView.prototype.className = 'image';
 
-      ImageView.prototype.template = '<img {{holder}}src="{{imageurl}}" alt="{{title}}" class="{{alignclass}} img-responsive"/> <div class="clearfix"></div>';
+      ImageView.prototype.template = '{{#image}} <img src="{{imageurl}}" alt="{{title}}" class="{{alignclass}} img-responsive"/> <div class="clearfix"></div> {{/image}} {{#placeholder}} <div class="image-placeholder"><span class=""></span></div> {{/placeholder}}';
 
       ImageView.prototype.mixinTemplateHelpers = function(data) {
         data = ImageView.__super__.mixinTemplateHelpers.call(this, data);
-        data.holder = '';
         if (this.model.isNew()) {
-          data.holder = 'data-';
-          data.imageurl = function() {
-            return this.url;
-          };
+          data.placeholder = true;
         } else {
-          if (!data.sizes[data.size]) {
-            data.size = _.chain(_.keys(data.sizes)).first().value();
-          }
+          data.image = true;
           data.imageurl = function() {
             if (this.sizes['thumbnail']) {
               return this.sizes['thumbnail'].url;

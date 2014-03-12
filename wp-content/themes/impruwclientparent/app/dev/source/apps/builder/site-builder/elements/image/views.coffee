@@ -8,21 +8,22 @@ define ['app', 'holder'],(App, Holder)->
 
 			className : 'image'
 
-			template : '<img {{holder}}src="{{imageurl}}" alt="{{title}}" class="{{alignclass}} img-responsive"/>
-						<div class="clearfix"></div>'
+			template : '{{#image}}
+							<img src="{{imageurl}}" alt="{{title}}" class="{{alignclass}} img-responsive"/>
+							<div class="clearfix"></div>
+						{{/image}}
+						{{#placeholder}}
+							<div class="image-placeholder"><span class=""></span></div>
+						{{/placeholder}}'
 
 			# override serializeData to set holder property for the view
 			mixinTemplateHelpers:(data)->
 				data = super data
-				data.holder = ''
-				if @model.isNew()
-					data.holder = 'data-'
-					data.imageurl = ->
-						@url	
-				else
-					if not data.sizes[data.size]
-						data.size = _.chain(_.keys(data.sizes)).first().value()
 
+				if @model.isNew()
+					data.placeholder = true
+				else
+					data.image = true
 					data.imageurl = ->
 						if @sizes['thumbnail'] then @sizes['thumbnail'].url else @sizes['full'].url
 
