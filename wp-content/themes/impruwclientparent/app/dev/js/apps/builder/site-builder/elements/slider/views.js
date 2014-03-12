@@ -29,7 +29,7 @@ define(['app', 'holder'], function(App, Holder) {
         return EmptySlider.__super__.constructor.apply(this, arguments);
       }
 
-      EmptySlider.prototype.template = 'No slides. Please some slides';
+      EmptySlider.prototype.template = '<div class="empty-view"><span class="bicon icon-uniF119"></span>There are no slides.<br> Click to add slides.</div>';
 
       return EmptySlider;
 

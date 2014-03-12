@@ -19,7 +19,7 @@ define ['app', 'holder'],(App, Holder)->
 		# if not gallery items are displayed
 		class EmptyGallery extends Marionette.ItemView
 
-			template : '<h2>Nothing found</h2> Please choose your gallery'
+			template : '<div class="empty-view"><span class="bicon icon-uniF10C"></span>Nothing Found.<br> Click to choose a gallery.</div>'
 
 			className : 'col-md-12 well'
 
