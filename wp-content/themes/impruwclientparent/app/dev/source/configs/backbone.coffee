@@ -96,9 +96,14 @@ define ["backbone","mustache"], (Backbone, Mustache) ->
 				# can have different idAttributes, hence, get the id attribute first and set it as the data attributes
 				# property.
 				when 'delete'
-					# get the model’s idAttribute. can be other then ‘id’
-					idAttr = model['idAttribute']
-					params.data[idAttr] = model.get idAttr
+					allData = options.allData ? true
+					if allData
+						# put all model data in params data attribute
+						params.data = _.defaults model.toJSON(), params.data
+					else
+						# get the model’s idAttribute. can be other then ‘id’
+						idAttr = model['idAttribute']
+						params.data[idAttr] = model.get idAttr
 					
 			# Don't process data on a non-GET request.
 			# params.processData = false  if params.type isnt "GET" and not options.emulateJSON						

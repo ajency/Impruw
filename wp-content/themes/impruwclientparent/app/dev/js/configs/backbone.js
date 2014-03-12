@@ -2,7 +2,7 @@ define(["backbone", "mustache"], function(Backbone, Mustache) {
   var _sync;
   _.extend(Backbone.Model.prototype, {
     sync: function(method, model, options) {
-      var idAttr, onlyChanged, params, xhr, _action, _ref;
+      var allData, idAttr, onlyChanged, params, xhr, _action, _ref, _ref1;
       if (!this.name) {
         throw new Error("'name' property not set for the model");
       }
@@ -37,8 +37,13 @@ define(["backbone", "mustache"], function(Backbone, Mustache) {
           }
           break;
         case 'delete':
-          idAttr = model['idAttribute'];
-          params.data[idAttr] = model.get(idAttr);
+          allData = (_ref1 = options.allData) != null ? _ref1 : true;
+          if (allData) {
+            params.data = _.defaults(model.toJSON(), params.data);
+          } else {
+            idAttr = model['idAttribute'];
+            params.data[idAttr] = model.get(idAttr);
+          }
       }
       xhr = options.xhr = Backbone.ajax(_.extend(params, options));
       model.trigger("request", model, xhr, options);
