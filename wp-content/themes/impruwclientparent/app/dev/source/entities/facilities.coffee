@@ -15,7 +15,7 @@ define ['app'
 				url :(models = []) ->
 
                     if models.length is 0 
-                        "#{AJAXURL}?action=facilities"
+                        "#{AJAXURL}?action=fetch-facilities"
                     else
                         ids = []
                         ids.push facility.get('id') for facility in models

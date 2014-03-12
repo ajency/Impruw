@@ -4,8 +4,41 @@ define ['app', 'holder'],(App, Holder)->
 	App.module 'SiteBuilderApp.Element.RoomFacilities.Views', (Views, App, Backbone, Marionette, $, _)->
 
 		# Menu item view
-		class Views.RoomFacilitiesView extends Marionette.ItemView
+		class RoomFacilitiesItemView extends Marionette.ItemView
 
 			className : 'roomfacilities'
 
-			template : '<div style="background:grey;height:30px">This is my room RoomFacilities </div><div class="clearfix"></div>'	
+			tagName: 'li' 
+
+			template : '{{name}}'
+   	
+   			# Menu item view
+		class EmptyView extends Marionette.ItemView
+
+			className : 'empty-roomfacilities'
+
+			tagName: 'li' 
+
+			template : 'No Facilities Found'
+
+		# Menu item view
+		class Views.RoomFacilitiesView extends Marionette.CompositeView
+
+			className : 'room-facilities-container'
+
+			template : "<div class='room-facilities-container'>
+							<div class='room-facilities-title'>
+								<h5>Room Features</h5>
+								<h4>Standard Book</h5>
+							</div>
+							<ul class='facilities clearfix'>
+							</ul>
+					   </div>"
+
+			itemView : RoomFacilitiesItemView
+
+			itemViewContainer: '.facilities'
+
+			emptyView :	EmptyView 
+
+		
