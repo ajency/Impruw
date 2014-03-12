@@ -45,11 +45,11 @@ function get_site_profile() {
 add_action('wp_ajax_get-site-profile', 'get_site_profile');
 
 function get_media(){
-    $id = $_GET['ID'];
+    $id = $_GET['id'];
     $media = wp_prepare_attachment_for_js($id);
     wp_send_json(array('code' => 'OK', 'data' => $media ));
 }
-add_action('wp_ajax_get-media','get_media');
+add_action('wp_ajax_read-media','get_media');
 
 function get_menu(){
     $id = $_GET['id'];

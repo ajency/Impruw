@@ -25,7 +25,7 @@ define(['app', 'holder'], function(App, Holder) {
         return EmptyGallery.__super__.constructor.apply(this, arguments);
       }
 
-      EmptyGallery.prototype.template = '<div class="empty-view"><span class="bicon icon-uniF10C"></span>Nothing Found.<br> Click to choose a gallery.</div>';
+      EmptyGallery.prototype.template = '<div class="empty-view"><span class="bicon icon-uniF10C"></span>Nothing Found.<br> Click to add images.</div>';
 
       EmptyGallery.prototype.className = 'col-md-12 well';
 
@@ -52,6 +52,7 @@ define(['app', 'holder'], function(App, Holder) {
       };
 
       GalleryView.prototype.onShow = function() {
+        return this.collection.length === 0;
         return this.$el.imagesLoaded((function(_this) {
           return function() {
             return _this.$el.isotope({
@@ -69,6 +70,6 @@ define(['app', 'holder'], function(App, Holder) {
 
       return GalleryView;
 
-    })(Marionette.CollectionView);
+    })(Marionette.CompositeView);
   });
 });
