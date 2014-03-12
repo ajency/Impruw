@@ -13,12 +13,7 @@ define(["app", 'backbone'], function(App, Backbone) {
 
       MediaModel.prototype.idAttribute = 'id';
 
-      MediaModel.prototype.parse = function(resp) {
-        if (resp.code === 'OK') {
-          return resp.data;
-        }
-        return resp;
-      };
+      MediaModel.prototype.name = 'media';
 
       MediaModel.prototype.getBestFit = function(width, height) {
         var mode, sizes, url;
@@ -44,7 +39,7 @@ define(["app", 'backbone'], function(App, Backbone) {
 
       return MediaModel;
 
-    })(Backbone.AssociatedModel);
+    })(Backbone.Model);
     Media.MediaCollection = (function(_super) {
       __extends(MediaCollection, _super);
 
@@ -103,9 +98,8 @@ define(["app", 'backbone'], function(App, Backbone) {
         media = mediaCollection.get(parseInt(mediaId));
         if (_.isUndefined(media)) {
           media = new Media.MediaModel({
-            ID: mediaId
+            id: mediaId
           });
-          media.url = "" + AJAXURL + "?action=get-media&ID=" + mediaId;
           mediaCollection.add(media);
           media.fetch();
         }

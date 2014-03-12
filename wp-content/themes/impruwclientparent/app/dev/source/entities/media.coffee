@@ -3,15 +3,10 @@ define ["app", 'backbone'], (App, Backbone) ->
 		App.module "Entities.Media", (Media, App, Backbone, Marionette, $, _)->
 
 			#Media Model
-			class Media.MediaModel extends Backbone.AssociatedModel
+			class Media.MediaModel extends Backbone.Model
 				idAttribute : 'id'
 
-				parse:(resp)->
-					# change sizes to an array
-					if resp.code is 'OK'
-						return resp.data 
-
-					resp
+				name : 'media'
 
 				# function to calculate the best fit for the given size
 				getBestFit:(width, height)->
@@ -79,8 +74,7 @@ define ["app", 'backbone'], (App, Backbone) ->
 					media = mediaCollection.get parseInt mediaId
 
 					if _.isUndefined media
-						media = new Media.MediaModel ID : mediaId
-						media.url = "#{AJAXURL}?action=get-media&ID=#{mediaId}" 
+						media = new Media.MediaModel id : mediaId
 						mediaCollection.add media
 						media.fetch()
 

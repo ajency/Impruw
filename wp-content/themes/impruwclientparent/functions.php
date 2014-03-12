@@ -3187,3 +3187,21 @@ function check_email_exists() {
 }
 add_action( 'wp_ajax_check_email_exists', 'check_email_exists' );
 add_action( 'wp_ajax_nopriv_check_email_exists', 'check_email_exists' );
+
+
+function check_page_access(){
+
+    if(!is_page())
+        return;
+    
+    $pages = array('site-builder','dashboard');
+    global $post;
+    $page_slug = $post->post_name;
+
+    if(in_array($page_slug, $pages) && !is_user_logged_in()){
+        wp_safe_redirect(wp_login_url(site_url($page_slug)));
+        die;
+    }
+
+}
+add_action('template_redirect', 'check_page_access');

@@ -12,38 +12,8 @@ define ["app", 'backbone'], (App, Backbone) ->
                 defaults:->
                     style       : ''
                     draggable   : true
-
-                url :->
-                    "#{AJAXURL}"
                 
-                # name property. this property is used by the sync function to 
-                # set the action name. Ex: create-element-model, update-element-model, delete-element-model
-                name :->
-                    'element-model'
-
-                # override the default sync to make it wirk with wordpress :(
-                sync:(method, model, options = {}) ->
-
-                    if not @name
-                        throw new Error "'name' property missing"
-
-                    if _.isFunction @name
-                        name = @name()
-                    else 
-                        name = @name
-
-                    # creation the action property with method name and name property
-                    # ex: create-model-name, delete-model-name, update-model-name, read-model-name
-                    _action = "#{method}-#{name}"
-                    
-                    options.data = model.toJSON()
-                    xhr = Backbone.send _action,options
-                    model._fetch = xhr
-
-                
-                # parse the json response
-                parse : (resp)->
-                    return resp.data if resp.code is 'OK'
+                name : 'element'
 
                 
             # PUBLIC API FOR ENitity

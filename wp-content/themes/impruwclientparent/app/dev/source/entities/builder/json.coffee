@@ -4,24 +4,16 @@ define ["app", 'backbone'], (App, Backbone) ->
 			
 			class PageJson extends Backbone.Model
 
-				sync:(method, model, options = {}) ->
-					_action 	= 'get-page-json'
-					options.data =
-							page_id	: model.get 'id'
-							onlyPage: false
+				idAttribute : 'page_id'
 
-					xhr = Backbone.send _action,options
-					model._fetch = xhr
-
-				parse:(resp)->
-					resp.data if resp.code is 'OK'
+				name : 'page-json'
 
 
 			API = 
 				getPageJSON:(pageId)->
 					
 					json = new PageJson 
-									id : parseInt pageId
+									page_id : parseInt pageId
 					json.fetch()
 					json
 

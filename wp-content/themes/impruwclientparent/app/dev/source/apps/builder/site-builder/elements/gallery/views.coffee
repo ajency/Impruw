@@ -42,7 +42,7 @@ define ['app', 'holder'],(App, Holder)->
 				@collection.sort()
 
 			onShow:->
-				@$el.imagesLoaded ->
+				@$el.imagesLoaded =>
 					@$el.isotope
 						itemSelector: '.isotop-element'
 						

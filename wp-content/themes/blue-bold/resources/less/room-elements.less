@@ -6,8 +6,9 @@
 /****Room Tariff Styles****/
 .room-tariff-container {
 	background: #fff;
-	box-shadow: 1px 1px 2px 0 lighten(@dark-grey, 40%);
+	box-shadow: 1px 1px 2px 0 lighten(@secondary1, 40%);
 	padding: 0.5em;
+	position: relative;
 	.room-tariff-title {
 		h4 {
 			font-size: 1.5em;
@@ -18,14 +19,35 @@
 			font-weight: 400;
 		}
 	}
+	.room-tariff-actions {
+		position: absolute;
+		top: 0.5em;
+		right: 0.5em;
+		display: none;
+		.btn-add-plan {
+			background: @primary1;
+			&:hover {
+				background: lighten(@primary1, 10%);
+			}
+		}
+		@media(max-width:767px){
+			display: block;
+			position: static;
+		}
+	}
 	.room-tariff-grid {
+		overflow-x: auto; 
 		.tariff {
 			.date-range {
-				color: lighten(@dark-grey, 20%);
+				color: lighten(@secondary1, 20%);
 				text-align: right;
 				font-weight: 300;
-				width: 5%;
-				float: left;
+				position: absolute;
+				width: 60px;
+				background: #fff;
+				max-width: 60px;
+				padding-right: 10px;
+				min-height: 150px;
 				.date {
 					display: block;
 				}
@@ -34,57 +56,113 @@
 				}
 			}
 			.packages {
-				width: 95%;
-				float: left;
+				width: 100%;
+				padding-left: 70px;
 				.package-blocks {
-					margin: 0 0 1em;
-					.block {
-						background: darken(@grey, 10%);
-						border-left: 5px solid  darken(@grey, 20%);
-						padding: 0.5em;
-						h6 {
-							margin: 0 0 0.5em;
-							font-weight: 400;
-							font-size: 1.2em;
+					margin: 0 0 1em;	
+					white-space: nowrap;				
+					.package-block-outer {
+						display: inline-block;
+						min-width: 200px;
+						max-width: 200px;
+						white-space: normal;
+						margin-right: 0.5em;
+						.block {
+							background: darken(@tertiary1, 10%);
+							border-left: 5px solid  darken(@tertiary1, 20%);
+							padding: 0.5em;
+							h6 {
+								margin: 0 0 0.2em;
+								font-weight: 400;
+								font-size: 1.2em;
+								display: none;
+							}
+							.package-desc {
+								font-size: 0.88em;
+								color: lighten(@secondary1, 30%);
+								display: none;
+							}
+							.tariff-label {
+								color: lighten(@secondary1, 30%);
+								margin: 0.5em 0 0.2em;
+								font-size: 0.88em;
+							}
+							.weekday, .weekend {
+								width: 49%;
+								min-width: 80px;
+								margin-right: 1%;
+								float: left;
+								text-transform: uppercase;
+								color: lighten(@secondary1, 20%);
+								font-weight: 300;
+								.price {
+									font-weight: 700;
+									font-size: 1.4em;
+									display: block;
+								}
+							}
+							&:hover {
+								border-color: @primary1;
+							}
 						}
-						.weekday, .weekend {
-							width: 49%;
-							min-width: 80px;
-							margin-right: 1%;
-							float: left;
-							text-transform: uppercase;
-							color: lighten(@dark-grey, 20%);
-							font-weight: 300;
-							.price {
-								font-weight: 700;
-								font-size: 1.4em;
+					}
+					&.header {
+						margin: 0 0 0.3em;
+						.block {
+							background: transparent;
+							border: 0;
+							padding: 0;
+							h6, .package-desc {
 								display: block;
 							}
 						}
-						&:hover {
-							border-color: @blue;
+					}
+				}
+			}
+		}
+		@media(max-width:767px){
+			overflow-x: visible;
+			.tariff {
+				border-left: 2px solid lighten(@secondary1, 40%);
+				padding-left: 0.5em;
+				margin: 0 0 1em;
+				.date-range {
+					position: static;
+					width: 100%;
+					max-width: 100%;
+					min-height: 10px;
+					height: auto;
+					text-align: left;
+					font-size: 1.2em;
+					.date, .from, .to {
+						display: inline-block;
+					}
+				}
+				.packages {
+					padding: 0;
+					.package-blocks {
+						white-space: normal;
+						.package-block-outer {
+							width: 100%;
+							max-width: 100%;
+							margin: 0 0 0.2em;
+							.block {
+								h6, .package-desc {
+									display: block;
+								}
+							}
+						}
+						&.header {
+							display: none;
 						}
 					}
 				}
 			}
-			@media(max-width:767px){
-				.date-range, .packages {
-					float: none;
-					width: 100%;
-				}
-				.date-range {
-					text-align: left;
-					.from, .to, .date {
-						display: inline-block;
-					}
-				}
-				.package-blocks {
-					border-left: 2px solid darken(@grey, 10%);
-					.block {
-						margin: 0.25em 0;
-					}
-				}
-			}
+		}
+	}
+	&:hover {
+		.room-tariff-actions {
+			display: block;
 		}
 	}
 }
@@ -92,7 +170,7 @@
 /****Room Facilities Styles****/
 .room-facilities-container {
 	background: #fff;
-	box-shadow: 1px 1px 2px 0 lighten(@dark-grey, 40%);
+	box-shadow: 1px 1px 2px 0 lighten(@secondary1, 40%);
 	padding: 0.5em;
 	.room-facilities-title {
 		h5 {
@@ -111,7 +189,7 @@
 		list-style: none;
 		li {
 			font-size: 1.1em;
-			color: lighten(@dark-grey, 20%);
+			color: lighten(@secondary1, 20%);
 			font-weight: 300;
 			margin: 0 0 0.5em;
 			display: block;
@@ -126,16 +204,63 @@
 				height: 13px;
 				float: left;
 				margin-right: 10px;
-				border: 1px solid lighten(@dark-grey, 20%);
+				border: 1px solid lighten(@secondary1, 20%);
 				position: relative;
 				font-size: 1.2em;
 				line-height: 0.33em;
 				top: 3px;
-				color: @blue;
+				color: @primary1;
 			}
 			&:hover {
 				&:before {
-					color: @dark-grey;
+					color: @secondary1;
+				}
+			}
+		}
+	}
+}
+
+/****Room Summary Styles****/
+.room-summary-container {
+	.room-summary-title {
+		h4 {
+			font-size: 1.5em;
+			font-weight: 300;
+		}
+	}
+	.room-summary {
+		background: #fff;
+		box-shadow: 1px 1px 2px 0 lighten(@secondary1, 40%);
+		padding: 1em 0.5em 0.5em;
+		.room-summary-item {
+			display: inline-block;
+			border-bottom: 1px solid lighten(@secondary1, 40%);
+			margin: 0 1em 1em 0;
+			span {
+				display: inline-block;
+				font-size: 1.1em;
+				&.key {
+					min-width: 100px;
+					color: lighten(@secondary1, 20%);
+				}
+				&.value {
+					color: @secondary1;
+					font-weight: 700;
+				}
+			}
+			&:hover {
+				border-color: @primary1;
+			}
+		}
+		.room-summary-desc {
+			color: lighten(@secondary1, 20%);
+			margin: 1em 0 0;
+			.btn-book {
+				display: block;
+				margin: 0.5em 0;
+				background: @primary1;
+				&:hover {
+					background: lighten(@primary1, 10%);
 				}
 			}
 		}

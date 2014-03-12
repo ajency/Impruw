@@ -114,54 +114,51 @@ $element_templates = array(
                                             <h4>Room Price</h4>
                                             <h5>Lorem ipsum dolor sit amet et odio vehicula, id porttitor quam malesuada</h5>
                                         </div>
+                                        <div class="room-tariff-actions">
+                                            <button class="btn btn-xs btn-add-range">Add Date Range</button>
+                                            <button class="btn btn-xs btn-add-plan">Add Plan</button>
+                                        </div>
                                         <div class="room-tariff-grid">
-                                            <div class="tariff clearfix">
-                                                <div class="date-range">
-                                                    <div class="from">
-                                                        From <span class="date">21/03</span>
-                                                    </div>
-                                                    <div class="to">
-                                                        To <span class="date">31/05</span>
-                                                    </div>
-                                                </div>
+                                            <div class="tariff package-names clearfix">
                                                 <div class="packages">
-                                                    <div class="row package-blocks">
-                                                        <div class="col-sm-4">
+                                                    <div class="package-blocks header clearfix">
+                                                        <div class="package-block-outer">
                                                             <div class="block clearfix">
                                                                 <h6>Package 1</h6>
-                                                                <div class="weekday">
-                                                                    Weekdays
-                                                                    <span class="price">$100</span>
-                                                                </div>
-                                                                <div class="weekend">
-                                                                    Weekends
-                                                                    <span class="price">$120</span>
+                                                                <div class="package-desc">
+                                                                    Lorem ipsum dolor sit amet et odio vehicula, id porttitor quam malesuada a nice room.
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm-4">
+                                                        <div class="package-block-outer">
                                                             <div class="block clearfix">
-                                                                <h6>Package 1</h6>
-                                                                <div class="weekday">
-                                                                    Weekdays
-                                                                    <span class="price">$100</span>
-                                                                </div>
-                                                                <div class="weekend">
-                                                                    Weekends
-                                                                    <span class="price">$120</span>
+                                                                <h6>Package 2</h6>
+                                                                <div class="package-desc">
+                                                                    Lorem ipsum dolor sit amet et odio vehicula, id porttitor quam malesuada a nice room.
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm-4">
+                                                        <div class="package-block-outer">
                                                             <div class="block clearfix">
-                                                                <h6>Package 1</h6>
-                                                                <div class="weekday">
-                                                                    Weekdays
-                                                                    <span class="price">$100</span>
+                                                                <h6>Package 3</h6>
+                                                                <div class="package-desc">
+                                                                    Lorem ipsum dolor sit amet et odio vehicula, id porttitor quam malesuada a nice room.
                                                                 </div>
-                                                                <div class="weekend">
-                                                                    Weekends
-                                                                    <span class="price">$120</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="package-block-outer">
+                                                            <div class="block clearfix">
+                                                                <h6>Package 4</h6>
+                                                                <div class="package-desc">
+                                                                    Lorem ipsum dolor sit amet et odio vehicula, id porttitor quam malesuada a nice room.
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="package-block-outer">
+                                                            <div class="block clearfix">
+                                                                <h6>Package 5</h6>
+                                                                <div class="package-desc">
+                                                                    Lorem ipsum dolor sit amet et odio vehicula, id porttitor quam malesuada a nice room.
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -178,10 +175,13 @@ $element_templates = array(
                                                     </div>
                                                 </div>
                                                 <div class="packages">
-                                                    <div class="row package-blocks">
-                                                        <div class="col-sm-4">
+                                                    <div class="package-blocks clearfix">
+                                                        <div class="package-block-outer">
                                                             <div class="block clearfix">
                                                                 <h6>Package 1</h6>
+                                                                <div class="package-desc">
+                                                                    Lorem ipsum dolor sit amet et odio vehicula, id porttitor quam malesuada a nice room.
+                                                                </div>
                                                                 <div class="weekday">
                                                                     Weekdays
                                                                     <span class="price">$100</span>
@@ -189,12 +189,29 @@ $element_templates = array(
                                                                 <div class="weekend">
                                                                     Weekends
                                                                     <span class="price">$120</span>
+                                                                </div>
+                                                                <div class="tariff-label clearfix">Extra Adult</div>
+                                                                <div class="weekday">
+                                                                    <span class="price">$20</span>
+                                                                </div>
+                                                                <div class="weekend">
+                                                                    <span class="price">$10</span>
+                                                                </div>
+                                                                <div class="tariff-label clearfix">Extra Child</div>
+                                                                <div class="weekday">
+                                                                    <span class="price">$10</span>
+                                                                </div>
+                                                                <div class="weekend">
+                                                                    <span class="price">$5</span>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm-4">
+                                                        <div class="package-block-outer">
                                                             <div class="block clearfix">
                                                                 <h6>Package 1</h6>
+                                                                <div class="package-desc">
+                                                                    Lorem ipsum dolor sit amet et odio vehicula, id porttitor quam malesuada a nice room.
+                                                                </div>
                                                                 <div class="weekday">
                                                                     Weekdays
                                                                     <span class="price">$100</span>
@@ -202,12 +219,29 @@ $element_templates = array(
                                                                 <div class="weekend">
                                                                     Weekends
                                                                     <span class="price">$120</span>
+                                                                </div>
+                                                                <div class="tariff-label clearfix">Extra Adult</div>
+                                                                <div class="weekday">
+                                                                    <span class="price">$20</span>
+                                                                </div>
+                                                                <div class="weekend">
+                                                                    <span class="price">$10</span>
+                                                                </div>
+                                                                <div class="tariff-label clearfix">Extra Child</div>
+                                                                <div class="weekday">
+                                                                    <span class="price">$10</span>
+                                                                </div>
+                                                                <div class="weekend">
+                                                                    <span class="price">$5</span>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm-4">
+                                                        <div class="package-block-outer">
                                                             <div class="block clearfix">
                                                                 <h6>Package 1</h6>
+                                                                <div class="package-desc">
+                                                                    Lorem ipsum dolor sit amet et odio vehicula, id porttitor quam malesuada a nice room.
+                                                                </div>
                                                                 <div class="weekday">
                                                                     Weekdays
                                                                     <span class="price">$100</span>
@@ -215,6 +249,244 @@ $element_templates = array(
                                                                 <div class="weekend">
                                                                     Weekends
                                                                     <span class="price">$120</span>
+                                                                </div>
+                                                                <div class="tariff-label clearfix">Extra Adult</div>
+                                                                <div class="weekday">
+                                                                    <span class="price">$20</span>
+                                                                </div>
+                                                                <div class="weekend">
+                                                                    <span class="price">$10</span>
+                                                                </div>
+                                                                <div class="tariff-label clearfix">Extra Child</div>
+                                                                <div class="weekday">
+                                                                    <span class="price">$10</span>
+                                                                </div>
+                                                                <div class="weekend">
+                                                                    <span class="price">$5</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="package-block-outer">
+                                                            <div class="block clearfix">
+                                                                <h6>Package 1</h6>
+                                                                <div class="package-desc">
+                                                                    Lorem ipsum dolor sit amet et odio vehicula, id porttitor quam malesuada a nice room.
+                                                                </div>
+                                                                <div class="weekday">
+                                                                    Weekdays
+                                                                    <span class="price">$100</span>
+                                                                </div>
+                                                                <div class="weekend">
+                                                                    Weekends
+                                                                    <span class="price">$120</span>
+                                                                </div>
+                                                                <div class="tariff-label clearfix">Extra Adult</div>
+                                                                <div class="weekday">
+                                                                    <span class="price">$20</span>
+                                                                </div>
+                                                                <div class="weekend">
+                                                                    <span class="price">$10</span>
+                                                                </div>
+                                                                <div class="tariff-label clearfix">Extra Child</div>
+                                                                <div class="weekday">
+                                                                    <span class="price">$10</span>
+                                                                </div>
+                                                                <div class="weekend">
+                                                                    <span class="price">$5</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="package-block-outer">
+                                                            <div class="block clearfix">
+                                                                <h6>Package 1</h6>
+                                                                <div class="package-desc">
+                                                                    Lorem ipsum dolor sit amet et odio vehicula, id porttitor quam malesuada a nice room.
+                                                                </div>
+                                                                <div class="weekday">
+                                                                    Weekdays
+                                                                    <span class="price">$100</span>
+                                                                </div>
+                                                                <div class="weekend">
+                                                                    Weekends
+                                                                    <span class="price">$120</span>
+                                                                </div>
+                                                                <div class="tariff-label clearfix">Extra Adult</div>
+                                                                <div class="weekday">
+                                                                    <span class="price">$20</span>
+                                                                </div>
+                                                                <div class="weekend">
+                                                                    <span class="price">$10</span>
+                                                                </div>
+                                                                <div class="tariff-label clearfix">Extra Child</div>
+                                                                <div class="weekday">
+                                                                    <span class="price">$10</span>
+                                                                </div>
+                                                                <div class="weekend">
+                                                                    <span class="price">$5</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="tariff clearfix">
+                                                <div class="date-range">
+                                                    <div class="from">
+                                                        From <span class="date">21/03</span>
+                                                    </div>
+                                                    <div class="to">
+                                                        To <span class="date">31/05</span>
+                                                    </div>
+                                                </div>
+                                                <div class="packages">
+                                                    <div class="package-blocks clearfix">
+                                                        <div class="package-block-outer">
+                                                            <div class="block clearfix">
+                                                                <h6>Package 1</h6>
+                                                                <div class="package-desc">
+                                                                    Lorem ipsum dolor sit amet et odio vehicula, id porttitor quam malesuada a nice room.
+                                                                </div>
+                                                                <div class="weekday">
+                                                                    Weekdays
+                                                                    <span class="price">$100</span>
+                                                                </div>
+                                                                <div class="weekend">
+                                                                    Weekends
+                                                                    <span class="price">$120</span>
+                                                                </div>
+                                                                <div class="tariff-label clearfix">Extra Adult</div>
+                                                                <div class="weekday">
+                                                                    <span class="price">$20</span>
+                                                                </div>
+                                                                <div class="weekend">
+                                                                    <span class="price">$10</span>
+                                                                </div>
+                                                                <div class="tariff-label clearfix">Extra Child</div>
+                                                                <div class="weekday">
+                                                                    <span class="price">$10</span>
+                                                                </div>
+                                                                <div class="weekend">
+                                                                    <span class="price">$5</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="package-block-outer">
+                                                            <div class="block clearfix">
+                                                                <h6>Package 1</h6>
+                                                                <div class="package-desc">
+                                                                    Lorem ipsum dolor sit amet et odio vehicula, id porttitor quam malesuada a nice room.
+                                                                </div>
+                                                                <div class="weekday">
+                                                                    Weekdays
+                                                                    <span class="price">$100</span>
+                                                                </div>
+                                                                <div class="weekend">
+                                                                    Weekends
+                                                                    <span class="price">$120</span>
+                                                                </div>
+                                                                <div class="tariff-label clearfix">Extra Adult</div>
+                                                                <div class="weekday">
+                                                                    <span class="price">$20</span>
+                                                                </div>
+                                                                <div class="weekend">
+                                                                    <span class="price">$10</span>
+                                                                </div>
+                                                                <div class="tariff-label clearfix">Extra Child</div>
+                                                                <div class="weekday">
+                                                                    <span class="price">$10</span>
+                                                                </div>
+                                                                <div class="weekend">
+                                                                    <span class="price">$5</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="package-block-outer">
+                                                            <div class="block clearfix">
+                                                                <h6>Package 1</h6>
+                                                                <div class="package-desc">
+                                                                    Lorem ipsum dolor sit amet et odio vehicula, id porttitor quam malesuada a nice room.
+                                                                </div>
+                                                                <div class="weekday">
+                                                                    Weekdays
+                                                                    <span class="price">$100</span>
+                                                                </div>
+                                                                <div class="weekend">
+                                                                    Weekends
+                                                                    <span class="price">$120</span>
+                                                                </div>
+                                                                <div class="tariff-label clearfix">Extra Adult</div>
+                                                                <div class="weekday">
+                                                                    <span class="price">$20</span>
+                                                                </div>
+                                                                <div class="weekend">
+                                                                    <span class="price">$10</span>
+                                                                </div>
+                                                                <div class="tariff-label clearfix">Extra Child</div>
+                                                                <div class="weekday">
+                                                                    <span class="price">$10</span>
+                                                                </div>
+                                                                <div class="weekend">
+                                                                    <span class="price">$5</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="package-block-outer">
+                                                            <div class="block clearfix">
+                                                                <h6>Package 1</h6>
+                                                                <div class="package-desc">
+                                                                    Lorem ipsum dolor sit amet et odio vehicula, id porttitor quam malesuada a nice room.
+                                                                </div>
+                                                                <div class="weekday">
+                                                                    Weekdays
+                                                                    <span class="price">$100</span>
+                                                                </div>
+                                                                <div class="weekend">
+                                                                    Weekends
+                                                                    <span class="price">$120</span>
+                                                                </div>
+                                                                <div class="tariff-label clearfix">Extra Adult</div>
+                                                                <div class="weekday">
+                                                                    <span class="price">$20</span>
+                                                                </div>
+                                                                <div class="weekend">
+                                                                    <span class="price">$10</span>
+                                                                </div>
+                                                                <div class="tariff-label clearfix">Extra Child</div>
+                                                                <div class="weekday">
+                                                                    <span class="price">$10</span>
+                                                                </div>
+                                                                <div class="weekend">
+                                                                    <span class="price">$5</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="package-block-outer">
+                                                            <div class="block clearfix">
+                                                                <h6>Package 1</h6>
+                                                                <div class="package-desc">
+                                                                    Lorem ipsum dolor sit amet et odio vehicula, id porttitor quam malesuada a nice room.
+                                                                </div>
+                                                                <div class="weekday">
+                                                                    Weekdays
+                                                                    <span class="price">$100</span>
+                                                                </div>
+                                                                <div class="weekend">
+                                                                    Weekends
+                                                                    <span class="price">$120</span>
+                                                                </div>
+                                                                <div class="tariff-label clearfix">Extra Adult</div>
+                                                                <div class="weekday">
+                                                                    <span class="price">$20</span>
+                                                                </div>
+                                                                <div class="weekend">
+                                                                    <span class="price">$10</span>
+                                                                </div>
+                                                                <div class="tariff-label clearfix">Extra Child</div>
+                                                                <div class="weekday">
+                                                                    <span class="price">$10</span>
+                                                                </div>
+                                                                <div class="weekend">
+                                                                    <span class="price">$5</span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -243,6 +515,40 @@ $element_templates = array(
                                             <li>Hairdryer</li>
                                             <li>Bathtub</li>
                                         </ul>
+                                   </div>'
+                ),
+                array(
+                    'name' => 'Room Summary',
+                    'template' => '<div class="room-summary-container">
+                                        <div class="room-summary-title">
+                                            <h4>Room Summary</h4>
+                                        </div>
+                                        <div class="room-summary">
+                                            <div class="room-summary-item">
+                                                <span class="key">No of Rooms</span>
+                                                <span class="value">2</span>
+                                            </div>
+                                            <div class="room-summary-item">
+                                                <span class="key">Guests</span>
+                                                <span class="value">2</span>
+                                            </div>
+                                            <div class="room-summary-item">
+                                                <span class="key">Room Type</span>
+                                                <span class="value">Double Deluxe Room</span>
+                                            </div>
+                                            <div class="room-summary-item">
+                                                <span class="key">Check In</span>
+                                                <span class="value">10:00 am</span>
+                                            </div>
+                                            <div class="room-summary-item">
+                                                <span class="key">Check Out</span>
+                                                <span class="value">01:00 pm</span>
+                                            </div>
+                                            <div class="room-summary-desc">
+                                                Lorem ipsum dolor sit amet, vestibulum curabitur congue in vitae.
+                                                <button class="btn btn-sm btn-book">Booking &amp; Availability</button>
+                                            </div>
+                                        </div>
                                    </div>'
                 )
             ),

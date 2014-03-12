@@ -146,7 +146,7 @@ add_action('wp_ajax_update-slide','update_slide_ajax');
 
 function delete_slide(){
     
-    $slider_id = 1; //$_POST[''];
+    $slider_id = $_POST['slider_id'];
     $slide_id = $_POST['id'];
 
     $data= array('sliderID'=>$slider_id,'slideID'=>$slide_id);

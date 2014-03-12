@@ -1,6 +1,57 @@
 define(["backbone", "mustache"], function(Backbone, Mustache) {
   var _sync;
   _.extend(Backbone.Model.prototype, {
+    sync: function(method, model, options) {
+      var allData, idAttr, onlyChanged, params, xhr, _action, _ref, _ref1;
+      if (!this.name) {
+        throw new Error("'name' property not set for the model");
+      }
+      params = {
+        type: "POST",
+        dataType: "json",
+        data: {}
+      };
+      params.url = AJAXURL;
+      _action = "" + method + "-" + this.name;
+      params.data['action'] = _action;
+      switch (method) {
+        case 'read':
+          params.type = 'GET';
+          idAttr = model['idAttribute'];
+          params.data[idAttr] = model.get(idAttr);
+          break;
+        case 'create':
+          params.data = _.defaults(model.toJSON(), params.data);
+          break;
+        case 'update':
+          onlyChanged = (_ref = options.onlyChanged) != null ? _ref : false;
+          if (onlyChanged) {
+            if (model.hasChanged()) {
+              params.data.changes = {};
+              _.each(model.changed, function(property, index) {
+                return params.data.changes[property] = this.get(property);
+              }, this);
+            }
+          } else {
+            params.data = _.defaults(model.toJSON(), params.data);
+          }
+          break;
+        case 'delete':
+          allData = (_ref1 = options.allData) != null ? _ref1 : true;
+          if (allData) {
+            params.data = _.defaults(model.toJSON(), params.data);
+          } else {
+            idAttr = model['idAttribute'];
+            params.data[idAttr] = model.get(idAttr);
+          }
+      }
+      xhr = options.xhr = Backbone.ajax(_.extend(params, options));
+      model.trigger("request", model, xhr, options);
+      if (method === 'read' || method === 'create') {
+        model._fetch = xhr;
+      }
+      return xhr;
+    },
     parse: function(resp) {
       if (resp.code === 'OK') {
         return resp.data;
@@ -17,7 +68,7 @@ define(["backbone", "mustache"], function(Backbone, Mustache) {
     }
   });
   _sync = Backbone.sync;
-  Backbone.sync = function(method, entity, options) {
+  return Backbone.sync = function(method, entity, options) {
     var sync;
     if (options == null) {
       options = {};
@@ -27,52 +78,5 @@ define(["backbone", "mustache"], function(Backbone, Mustache) {
       entity._fetch = sync;
     }
     return sync;
-  };
-  _.extend(Backbone.Collection.prototype, {
-    fetched: false
-  });
-  return Backbone.send = function(action, options) {
-    var xhr;
-    if (options == null) {
-      options = {};
-    }
-    if (_.isObject(action)) {
-      options = action;
-    } else {
-      options.data = options.data || {};
-      options.data = _.extend(options.data, {
-        action: action
-      });
-    }
-    options = _.defaults(options, {
-      type: 'POST',
-      url: AJAXURL
-    });
-    xhr = null;
-    $.Deferred(function(deferred) {
-      if (options.success) {
-        deferred.done(options.success);
-      }
-      if (options.error) {
-        deferred.fail(options.error);
-      }
-      delete options.success;
-      delete options.error;
-      return xhr = $.ajax(options).done(function(response) {
-        if (response.code === !'OK') {
-          response = {
-            code: 'ERROR'
-          };
-        }
-        if (_.isObject(response) && response.code === 'OK') {
-          return deferred.resolveWith(this, [response]);
-        } else {
-          return deferred.rejectWith(this, [response]);
-        }
-      }).fail(function() {
-        return deferred.rejectWith(this, arguments);
-      });
-    }).promise();
-    return xhr;
   };
 });

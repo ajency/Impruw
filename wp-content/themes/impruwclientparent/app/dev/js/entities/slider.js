@@ -15,24 +15,6 @@ define(["app", 'backbone'], function(App, Backbone) {
 
       SliderModel.prototype.name = 'slider';
 
-      SliderModel.prototype.sync = function(method, model, options) {
-        var name, _action;
-        if (options == null) {
-          options = {};
-        }
-        if (!this.name) {
-          throw new Error("'name' property missing");
-        }
-        if (_.isFunction(this.name)) {
-          name = this.name();
-        } else {
-          name = this.name;
-        }
-        _action = "" + method + "-" + name;
-        options.data = model.toJSON();
-        return Backbone.send(_action, options);
-      };
-
       return SliderModel;
 
     })(Backbone.AssociatedModel);
