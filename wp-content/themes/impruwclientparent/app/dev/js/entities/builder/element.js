@@ -20,38 +20,7 @@ define(["app", 'backbone'], function(App, Backbone) {
         };
       };
 
-      ElementModel.prototype.url = function() {
-        return "" + AJAXURL;
-      };
-
-      ElementModel.prototype.name = function() {
-        return 'element-model';
-      };
-
-      ElementModel.prototype.sync = function(method, model, options) {
-        var name, xhr, _action;
-        if (options == null) {
-          options = {};
-        }
-        if (!this.name) {
-          throw new Error("'name' property missing");
-        }
-        if (_.isFunction(this.name)) {
-          name = this.name();
-        } else {
-          name = this.name;
-        }
-        _action = "" + method + "-" + name;
-        options.data = model.toJSON();
-        xhr = Backbone.send(_action, options);
-        return model._fetch = xhr;
-      };
-
-      ElementModel.prototype.parse = function(resp) {
-        if (resp.code === 'OK') {
-          return resp.data;
-        }
-      };
+      ElementModel.prototype.name = 'element';
 
       return ElementModel;
 

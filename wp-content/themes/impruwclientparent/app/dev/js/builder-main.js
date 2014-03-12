@@ -22,13 +22,10 @@ require.config({
     ckeditor: 'plugins/ckeditor',
     backboneform: 'plugins/backbone.form',
     backbonesyphon: 'plugins/backbone.syphon',
-    backbonerelational: 'plugins/backbone.relational',
     backboneassociations: 'plugins/backbone.associations',
     nestedsortable: 'plugins/nested.sortable',
     jqueryvalidate: 'plugins/jquery.validate',
-    polyglot: 'plugins/polyglot',
     isotope: 'plugins/isotope',
-    localforage: 'plugins/localforage',
     plupload: 'plugins/plupload.full',
     themepunch: 'plugins/themepunch.plugins.min',
     revslider: 'plugins/revolution.min',
@@ -53,9 +50,6 @@ require.config({
     marionette: {
       deps: ['backbone'],
       exports: 'Marionette'
-    },
-    polyglot: {
-      exports: 'Polyglot'
     },
     googlemap: {
       exports: 'google'

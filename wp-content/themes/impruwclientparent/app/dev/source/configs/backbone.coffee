@@ -1,15 +1,119 @@
 define ["backbone","mustache"], (Backbone, Mustache) ->
 
-	# Override the default Backbone.Model.sync to handle wordpress ajax.
-	# All ajax in wordpresss are triggered from admin_url('admin-ajax.php') URL
-	# each ajax is differentiated with action an parameter. So, each model fetch/save/destroy
-	# needs to have an action parameeter to trigger ajax.
-	# each model MUST have a "name" property. We will have 4 different ajax action for each CRUD actions which 
-	# depends on name property viz. 
-	# (create-modelname, update-modelname, delete-destroyname, read-modelname )
-	# urlRoot for wordpress will always be admin_url('admin-ajax.php')
 
 	_.extend Backbone.Model::,
+
+		# Extended implementation of Bacbone.Model.sync to work with wordpress ajax
+		# Purpose of this function is to make the backbone sync compatible with 
+		# wordpress ajax. WP ajax requires a “action” param with ajax to identity the ajax actio to perform
+		# This implementation states that each model definition MUST have a “name” property which will be used to create 
+		# action parameter.
+		# Ex:
+		#  	class CarModel extends Backbone.Model	
+		#		name : ‘car’
+		#	
+		#   audi = new CarModel( { carname : ‘Audi Q7’, …})
+		#   
+		#   audi.save() # will trigger wp_ajax_create-car as id is not set and will send all data
+		#     
+		#   audi.save({onlyChanged : false}) # will trigger wp_ajax_update-car assuming model is created in previous call
+		#
+		#   audi.delete() will trigger wp_ajax_delete-car and pass ‘id’ 
+		#
+		#   audio.fetch() # will trigger wp_ajax_read-car and pass ‘id’
+		# 
+		# Note: Also supports all default backbone options
+		#
+		# params:
+		#  	method : the model method to trigger ( C-R-U-D )
+		# 	model : the model which will trigger the sync
+		# 	options : the ajax options for the user to overwrite
+
+		sync : (method, model, options)->
+			
+			# check if the name property is set for the model
+			# this property is important because the “action”
+			# param required for wordpress ajax is generated 
+			# combining “#{method}-#{name}”
+			
+			if not @name
+				throw new Error "'name' property not set for the model"
+			
+			# Default JSON-request options.
+			params =
+				type : "POST"
+				dataType: "json"
+				data : {}
+				
+			# All ajax request in wordpress are sent to admin_url(‘admin-ajax.php’)
+			# a global AJAXURL variable must be defined for all ajax actions
+			# so, the url is always AJAXURL
+			params.url = AJAXURL
+			
+			# generate the “action” param and bind it to data attribute of ‘params’
+			_action = "#{method}-#{@name}"
+			params.data['action'] = _action	
+			
+			# handle various CRUD operations depending on method name
+			switch method
+			
+				# read a model form server. the only property read a model from server is the 
+				# id attribute of the model. 
+				when 'read'
+					# read action must trigger a GET request. set the request to GET
+					params.type = 'GET'
+					
+					# get the id attribute of the model
+					idAttr = model['idAttribute']
+					params.data[idAttr] = model.get idAttr
+
+					
+					
+				# create a new model. At this point the model id/idAttribute is not set
+				# the required data to create the model is present inside model. so model.toJSON()
+				when 'create'
+					params.data = _.defaults model.toJSON(), params.data
+					
+				# update a model. Two possible options, send entire model data to server or send 
+				# only updated one. This condition will be handled with options passed along save
+				# options name is ‘onlyChanged’ accepting boolean value. default to ‘true’
+				when 'update'
+					onlyChanged = options.onlyChanged ? true
+					
+					if onlyChanged
+						# get all changed values and add them to param’s data attribute
+						if model.hasChanged()
+							params.data.changes = {}
+							
+							_.each model.changed, (property, index)->
+								params.data.changes[ property ] = this.get property
+							, @
+					else
+						# put all model data in params data attribute
+						params.data = model.toJSON()	
+				
+				# deleting a model. This will need only the id of the model to send to server. Different model 
+				# can have different idAttributes, hence, get the id attribute first and set it as the data attributes
+				# property.
+				when 'delete'
+					# get the model’s idAttribute. can be other then ‘id’
+					idAttr = model['idAttribute']
+					params.data[idAttr] = model.get idAttr
+					
+			# Don't process data on a non-GET request.
+			# params.processData = false  if params.type isnt "GET" and not options.emulateJSON						
+			
+			# Make the request, allowing the user to override any Ajax options.
+			xhr = options.xhr = Backbone.ajax(_.extend(params, options))
+			
+			# trigger the request event of the model
+			model.trigger "request", model, xhr, options
+
+			# attache _fetch to model
+			model._fetch = xhr if method is 'read' or method is 'create'
+
+			# return the xhr object. this is a jquery deffered object
+			xhr
 		
 		# model parse function
 		parse:(resp)->
@@ -26,7 +130,7 @@ define ["backbone","mustache"], (Backbone, Mustache) ->
 			return resp.data if resp.code is 'OK'
 			resp
 
-	# Hold reference to original sync function
+
 	_sync = Backbone.sync
 	
 	# Overwrite the Backbone.sync to set additional _fetch object to entity
@@ -38,54 +142,3 @@ define ["backbone","mustache"], (Backbone, Mustache) ->
 			entity._fetch = sync
 			
 		sync
-
-	_.extend Backbone.Collection::,
-
-		fetched : false
-
-
-
-	# set backbone.send function for making ajax request with wordpress
-	Backbone.send =  (action, options = {})->
-		
-		if _.isObject action
-			options = action 
-		else
-			options.data =  options.data || {}
-			options.data = _.extend options.data, action:action
-
-		options = _.defaults options,
-								type	: 'POST',
-								url		: AJAXURL
-		xhr = null
-
-		$.Deferred (deferred)->
-
-			# Transfer success/error callbacks.
-			if options.success
-				deferred.done options.success
-			if options.error
-				deferred.fail options.error
-
-			delete options.success
-			delete options.error
-
-			# Use with PHP's wp_send_json_success() and wp_send_json_error()
-			xhr = $.ajax( options ).done (response)->
-				# Treat a response of `1` as successful for backwards
-				# compatibility with existing handlers.
-				if response.code is not 'OK'
-					response = code : 'ERROR'
-
-				if _.isObject(response) and response.code is 'OK'
-					deferred.resolveWith this,[response]
-				else
-					deferred.rejectWith this, [response]
-
-			.fail ->
-				deferred.rejectWith this, arguments
-			
-		.promise()
-		
-		# return a xhr object
-		xhr

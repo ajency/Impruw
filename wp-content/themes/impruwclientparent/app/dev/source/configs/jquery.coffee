@@ -1,6 +1,6 @@
 ## You can add your own jquery plugins here
 ## Or even mixin some extra functions
-define ['jquery', 'underscore', 'polyglot','jqueryvalidate'], ($, _, Polyglot)->
+define ['jquery', 'underscore','jqueryvalidate'], ($, _)->
 
 	# define helper functions
 	$.fn.isEmptyColumn=(params = {})->
@@ -44,10 +44,10 @@ define ['jquery', 'underscore', 'polyglot','jqueryvalidate'], ($, _, Polyglot)->
 	#adjust the page size and dimensions on resize
 	$(window).resize adjustPageDim
 
-	# Setup Polyglot
-	window.pt = new Polyglot
-						phrases : {}
+	# # Setup Polyglot
+	# window.pt = new Polyglot
+	# 					phrases : {}
 
-	window.__ = (key, opt = {})->
+	# window.__ = (key, opt = {})->
 
-		pt.t(key, opt)
+	# 	pt.t(key, opt)

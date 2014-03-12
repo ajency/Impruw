@@ -1,4 +1,4 @@
-define(['jquery', 'underscore', 'polyglot', 'jqueryvalidate'], function($, _, Polyglot) {
+define(['jquery', 'underscore', 'jqueryvalidate'], function($, _) {
   var adjustPageDim;
   $.fn.isEmptyColumn = function(params) {
     if (params == null) {
@@ -32,14 +32,5 @@ define(['jquery', 'underscore', 'polyglot', 'jqueryvalidate'], function($, _, Po
   $(document).ready(function() {
     return adjustPageDim();
   });
-  $(window).resize(adjustPageDim);
-  window.pt = new Polyglot({
-    phrases: {}
-  });
-  return window.__ = function(key, opt) {
-    if (opt == null) {
-      opt = {};
-    }
-    return pt.t(key, opt);
-  };
+  return $(window).resize(adjustPageDim);
 });

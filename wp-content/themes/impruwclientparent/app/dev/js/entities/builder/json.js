@@ -11,25 +11,9 @@ define(["app", 'backbone'], function(App, Backbone) {
         return PageJson.__super__.constructor.apply(this, arguments);
       }
 
-      PageJson.prototype.sync = function(method, model, options) {
-        var xhr, _action;
-        if (options == null) {
-          options = {};
-        }
-        _action = 'get-page-json';
-        options.data = {
-          page_id: model.get('id'),
-          onlyPage: false
-        };
-        xhr = Backbone.send(_action, options);
-        return model._fetch = xhr;
-      };
+      PageJson.prototype.idAttribute = 'page_id';
 
-      PageJson.prototype.parse = function(resp) {
-        if (resp.code === 'OK') {
-          return resp.data;
-        }
-      };
+      PageJson.prototype.name = 'page-json';
 
       return PageJson;
 
@@ -38,7 +22,7 @@ define(["app", 'backbone'], function(App, Backbone) {
       getPageJSON: function(pageId) {
         var json;
         json = new PageJson({
-          id: parseInt(pageId)
+          page_id: parseInt(pageId)
         });
         json.fetch();
         return json;
