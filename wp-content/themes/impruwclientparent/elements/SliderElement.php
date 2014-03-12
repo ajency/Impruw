@@ -63,7 +63,7 @@ class SliderElement extends Element {
         $slider = new RevSlider();
         $slider->initByID($this->slider_id);   
         ob_start();
-        echo do_shortcode("[rev_slider first-title-new]");
+        echo do_shortcode("[rev_slider {$slider->getAlias()}]");
         $html = ob_get_clean();
         
         return $html;
