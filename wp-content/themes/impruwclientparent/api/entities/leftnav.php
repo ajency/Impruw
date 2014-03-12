@@ -147,6 +147,15 @@ function get_elementbox_elements() {
 
 add_action('wp_ajax_get-elementbox-elements', 'get_elementbox_elements');
 
+
+
+function fetch_facilities(){
+    $taxonomies= array( 'impruw_room_facility' );
+    $room_facilities    = get_terms( $taxonomies, array( 'hide_empty' => 0 ) );
+    wp_send_json(array('code' => 'OK' , 'data' => $room_facilities));
+}
+add_action('wp_ajax_fetch-facilities','fetch_facilities');
+
 /**
  * 
  */ 
