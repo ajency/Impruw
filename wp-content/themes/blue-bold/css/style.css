@@ -59,6 +59,11 @@
   /****Heading Styles****/
 
 }
+.site-style-container .site-header,
+.site-style-container .site-footer,
+.site-style-container .site-page {
+  padding: 0 15px;
+}
 .site-style-container ::selection {
   background: #07669e;
   color: #fff;
