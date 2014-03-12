@@ -80,6 +80,10 @@ div.element-drop-loader > p{
     display:none;
     z-index:100;
 }
+
+#header-region {
+    min-height: 80px;
+}
 /*
 .aj-imp-builder-layout-mode .row .column.empty-column{
     background: none !important;

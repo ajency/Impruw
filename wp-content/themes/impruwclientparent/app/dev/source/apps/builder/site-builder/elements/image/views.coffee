@@ -13,7 +13,7 @@ define ['app', 'holder'],(App, Holder)->
 							<div class="clearfix"></div>
 						{{/image}}
 						{{#placeholder}}
-							<div class="image-placeholder"><span class=""></span></div>
+							<div class="image-placeholder"><span class="bicon icon-uniF10E"></span>Upload Image</div>
 						{{/placeholder}}'
 
 			# override serializeData to set holder property for the view
