@@ -78,7 +78,7 @@ define ["backbone","mustache"], (Backbone, Mustache) ->
 				# only updated one. This condition will be handled with options passed along save
 				# options name is ‘onlyChanged’ accepting boolean value. default to ‘true’
 				when 'update'
-					onlyChanged = options.onlyChanged ? true
+					onlyChanged = options.onlyChanged ? false
 					
 					if onlyChanged
 						# get all changed values and add them to param’s data attribute
@@ -90,7 +90,7 @@ define ["backbone","mustache"], (Backbone, Mustache) ->
 							, @
 					else
 						# put all model data in params data attribute
-						params.data = model.toJSON()	
+						params.data = _.defaults model.toJSON(), params.data
 				
 				# deleting a model. This will need only the id of the model to send to server. Different model 
 				# can have different idAttributes, hence, get the id attribute first and set it as the data attributes

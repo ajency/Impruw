@@ -42,6 +42,10 @@
     <div id="login-region"></div>
     <div id="settings-region"></div>
     <div id="dialog-region" class="modal "></div><!-- /.modal -->
+    <div id="initial-loader" style="position:fixed;width:30%;left:35%;top:50%;text-align:center">
+        Loading Editor... Please Wait... <br />
+        <img src="<?php echo get_parent_template_directory_uri(); ?>/images/loader1.gif" />
+    </div>
     
     <script type="text/javascript">
     	var THEMEURL    = '<?php echo get_parent_template_directory_uri(); ?>';
@@ -57,7 +61,7 @@
     </script>
     <?php if(ENV === 'production'): ?>
         <script src="<?php echo get_parent_template_directory_uri(); ?>/app/dev/js/plugins/ckeditor.js"></script> 
-        <script src="<?php echo get_parent_template_directory_uri(); ?>/app/production/builder-main.js"></script> 
+        <script src="<?php echo get_parent_template_directory_uri(); ?>/app/production/builder-main.js?ver=<?php echo JSVERSION ?>"></script> 
     <?php else: ?>
    <!--  <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script> -->
    <script src="<?php echo get_parent_template_directory_uri(); ?>/app/dev/js/plugins/ckeditor.js"></script> 

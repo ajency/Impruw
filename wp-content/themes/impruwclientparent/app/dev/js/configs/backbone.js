@@ -24,7 +24,7 @@ define(["backbone", "mustache"], function(Backbone, Mustache) {
           params.data = _.defaults(model.toJSON(), params.data);
           break;
         case 'update':
-          onlyChanged = (_ref = options.onlyChanged) != null ? _ref : true;
+          onlyChanged = (_ref = options.onlyChanged) != null ? _ref : false;
           if (onlyChanged) {
             if (model.hasChanged()) {
               params.data.changes = {};
@@ -33,7 +33,7 @@ define(["backbone", "mustache"], function(Backbone, Mustache) {
               }, this);
             }
           } else {
-            params.data = model.toJSON();
+            params.data = _.defaults(model.toJSON(), params.data);
           }
           break;
         case 'delete':
