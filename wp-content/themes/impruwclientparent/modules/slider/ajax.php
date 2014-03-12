@@ -27,7 +27,6 @@ function create_slider(){
     $data = $_POST;
 
     unset($data['action']);
-        unset($data['wait']);
 
     $id = create_new_slider($data);
 
