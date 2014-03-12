@@ -21,31 +21,6 @@ define(["app", 'backbone'], function(App, Backbone) {
 
       MenuItemModel.prototype.name = 'menu-item';
 
-      MenuItemModel.prototype.parse = function(resp) {
-        if (resp.code && resp.code === 'OK') {
-          return resp.data;
-        }
-        return resp;
-      };
-
-      MenuItemModel.prototype.sync = function(method, model, options) {
-        var name, _action;
-        if (options == null) {
-          options = {};
-        }
-        if (!this.name) {
-          throw new Error("'name' property missing");
-        }
-        if (_.isFunction(this.name)) {
-          name = this.name();
-        } else {
-          name = this.name;
-        }
-        _action = "" + method + "-" + name;
-        options.data = model.toJSON();
-        return Backbone.send(_action, options);
-      };
-
       return MenuItemModel;
 
     })(Backbone.Model);
@@ -115,13 +90,6 @@ define(["app", 'backbone'], function(App, Backbone) {
 
       MenuModel.prototype.name = 'menu';
 
-      MenuModel.prototype.parse = function(resp) {
-        if (resp.code === 'OK') {
-          return resp.data;
-        }
-        return resp;
-      };
-
       return MenuModel;
 
     })(Backbone.AssociatedModel);
@@ -141,12 +109,6 @@ define(["app", 'backbone'], function(App, Backbone) {
             menu_name: model.get('menu_name')
           };
         });
-      };
-
-      MenuCollection.prototype.parse = function(resp) {
-        if (resp.code === 'OK') {
-          return resp.data;
-        }
       };
 
       return MenuCollection;
@@ -220,7 +182,6 @@ define(["app", 'backbone'], function(App, Backbone) {
         return menu;
       },
       updateMenuItemModel: function(menuitem, data) {
-        console.log(data);
         menuitem.set(data);
         menuitem.save();
         return menuitem;

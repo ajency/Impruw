@@ -12,13 +12,11 @@ define [
 			appRoutes :
 				'my-profile' : 'show'
 
-		
 
 		#public API
 		API = 
 			show : ()->
 				edit = new MyProfileApp.Edit.Controller
-				#edit.showMyProfile()
 
 		
 		MyProfileApp.on 'start': ->

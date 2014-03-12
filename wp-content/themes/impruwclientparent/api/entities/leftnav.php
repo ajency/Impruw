@@ -56,7 +56,7 @@ function get_menu(){
     $menu = get_menu_to_array($id, 'id');
     wp_send_json(array('code' => 'OK', 'data' => $menu ));
 }
-add_action('wp_ajax_get-menu','get_menu');
+add_action('wp_ajax_read-menu','get_menu');
 
 /**
  * [get_pages description]
@@ -179,7 +179,7 @@ function create_element_model() {
                         'data' => $model));
 }
 
-add_action('wp_ajax_create-element-model', 'create_element_model');
+add_action('wp_ajax_create-element', 'create_element_model');
         
 function set_element_data($data) {
     global $wpdb;
@@ -243,7 +243,7 @@ function update_element_model() {
     wp_send_json(array('code' => 'OK', 'data' => array('meta_id' => $meta_id)));
 }
 
-add_action('wp_ajax_update-element-model', 'update_element_model');
+add_action('wp_ajax_update-element', 'update_element_model');
 
 /**
  * [update_element_model description]
@@ -262,7 +262,7 @@ function delete_element_model() {
     wp_send_json(array('code' => 'OK'));
 }
 
-add_action('wp_ajax_delete-element-model', 'delete_element_model');
+add_action('wp_ajax_delete-element', 'delete_element_model');
 
 /**
  * 
@@ -378,12 +378,12 @@ function get_meta_values($element){
     return $ele;
 }
 
-function sds(){
+function read_page_json(){
     $page_id = $_REQUEST['page_id'];
     $data = get_page_json1($page_id);
     wp_send_json(array('code' => 'OK' , 'data' => $data));
 }
-add_action('wp_ajax_get-page-json','sds');
+add_action('wp_ajax_read-page-json','read_page_json');
 /**
  * 
  */

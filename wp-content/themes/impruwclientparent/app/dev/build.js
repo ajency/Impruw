@@ -1,6 +1,11 @@
-require.config({
-  urlArgs: "ver=" + ((new Date()).getTime()),
-  baseUrl: 'http://localhost/impruw/wp-content/themes/impruwclientparent/app/dev/js/',
+({
+  baseUrl: './js',
+  name: 'plugins/almond',
+  include : 'builder-main',
+  exclude : ['plugins/ckeditor'],
+  //optimize: 'none',
+  wrap: false,
+  out: '../production/builder-main.js',
   paths: {
     jquery: 'plugins/jquery',
     jqueryui: 'plugins/jquery.ui',
@@ -22,10 +27,13 @@ require.config({
     ckeditor: 'plugins/ckeditor',
     backboneform: 'plugins/backbone.form',
     backbonesyphon: 'plugins/backbone.syphon',
+    backbonerelational: 'plugins/backbone.relational',
     backboneassociations: 'plugins/backbone.associations',
     nestedsortable: 'plugins/nested.sortable',
     jqueryvalidate: 'plugins/jquery.validate',
+    polyglot: 'plugins/polyglot',
     isotope: 'plugins/isotope',
+    localforage: 'plugins/localforage',
     plupload: 'plugins/plupload.full',
     themepunch: 'plugins/themepunch.plugins.min',
     revslider: 'plugins/revolution.min',
@@ -50,6 +58,9 @@ require.config({
     marionette: {
       deps: ['backbone'],
       exports: 'Marionette'
+    },
+    polyglot: {
+      exports: 'Polyglot'
     },
     googlemap: {
       exports: 'google'
@@ -76,13 +87,5 @@ require.config({
     checkbox: ['bootstrap'],
     bootstrapselect: ['bootstrap'],
     app: ['pluginloader', 'configloader']
-  },
-  tpl: {
-    extension: '.html'
   }
-});
-
-require(['pluginloader', 'configloader', 'app', 'entitiesloader', 'controllers/base-controller', 'controllers/builder-base-controller', 'componentloader', 'appsloader'], function(plugins, configs, App) {
-  jQuery('#initial-loader').remove();
-  return App.start();
-});
+})

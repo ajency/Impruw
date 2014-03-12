@@ -22,19 +22,17 @@ require.config({
     ckeditor: 'plugins/ckeditor',
     backboneform: 'plugins/backbone.form',
     backbonesyphon: 'plugins/backbone.syphon',
+    backbonerelational: 'plugins/backbone.relational',
     backboneassociations: 'plugins/backbone.associations',
     nestedsortable: 'plugins/nested.sortable',
     jqueryvalidate: 'plugins/jquery.validate',
+    polyglot: 'plugins/polyglot',
     isotope: 'plugins/isotope',
+    localforage: 'plugins/localforage',
     plupload: 'plugins/plupload.full',
     themepunch: 'plugins/themepunch.plugins.min',
     revslider: 'plugins/revolution.min',
     googlemap: 'https://maps.googleapis.com/maps/api/js?sensor=false',
-    pluginloader: 'plugins/builder-plugin-loader',
-    appsloader: 'apps/builder-apps-loader',
-    configloader: 'configs/builder-config-loader',
-    entitiesloader: 'entities/builder-entities-loader',
-    componentloader: 'components/builder-component-loader',
     app: 'builder-app'
   },
   shim: {
@@ -50,6 +48,9 @@ require.config({
     marionette: {
       deps: ['backbone'],
       exports: 'Marionette'
+    },
+    polyglot: {
+      exports: 'Polyglot'
     },
     googlemap: {
       exports: 'google'
@@ -74,15 +75,6 @@ require.config({
     nestedsortable: ['jqueryui'],
     radio: ['bootstrap'],
     checkbox: ['bootstrap'],
-    bootstrapselect: ['bootstrap'],
-    app: ['pluginloader', 'configloader']
-  },
-  tpl: {
-    extension: '.html'
+    bootstrapselect: ['bootstrap']
   }
-});
-
-require(['pluginloader', 'configloader', 'app', 'entitiesloader', 'controllers/base-controller', 'controllers/builder-base-controller', 'componentloader', 'appsloader'], function(plugins, configs, App) {
-  jQuery('#initial-loader').remove();
-  return App.start();
 });
