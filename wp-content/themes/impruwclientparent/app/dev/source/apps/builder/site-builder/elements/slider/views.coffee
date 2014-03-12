@@ -14,6 +14,11 @@ define ['app', 'holder'],(App, Holder)->
 				@$el.attr 'data-transition','fade'
 					.attr 'data-slotamount','7'
 					.attr 'data-masterspeed','1500'
+
+
+		class EmptySlider extends Marionette.ItemView
+
+			template : 'No slides. Please some slides'
  
 
 		# Menu item view
@@ -27,6 +32,8 @@ define ['app', 'holder'],(App, Holder)->
 
 			itemView : SliderItem
 
+			emptyView : EmptySlider
+
 			itemViewContainer: '.fullwidthbanner > ul'
 
 			events:
@@ -39,6 +46,9 @@ define ['app', 'holder'],(App, Holder)->
 				delete @revapi
 
 			onShow:->
+
+				return if @collection.length is 0
+
 				@revapi = @$el.find(".fullwidthbanner").revolution
 													  	delay: 9000
 													  	startwidth: 1170
