@@ -237,19 +237,19 @@ function add_element_markup( $element ) {
     case 'Text':
         $html = get_text_element_markup( $element );
         break;
-    case 'AddressElement':
+    case 'Address':
         $html = get_address_element_markup( $element );
         break;
-    case 'SocialElement':
+    case 'Social':
         $html = get_social_element_markup( $element );
         break;
-    case 'SliderElement':
+    case 'Slider':
         $html = get_slider_element_markup( $element );
         break;
-    case 'ContactFormElement':
+    case 'ContactForm':
         $html = get_contact_form_element_markup( $element );
         break;
-    case 'MapElement':
+    case 'Map':
         $html = get_map_element_markup( $element );
         break;
     case 'Logo':
