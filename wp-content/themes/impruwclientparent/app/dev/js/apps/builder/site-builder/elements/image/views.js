@@ -12,20 +12,14 @@ define(['app', 'holder'], function(App, Holder) {
 
       ImageView.prototype.className = 'image';
 
-      ImageView.prototype.template = '<img {{holder}}src="{{imageurl}}" alt="{{title}}" class="{{alignclass}} img-responsive"/> <div class="clearfix"></div>';
+      ImageView.prototype.template = '{{#image}} <img src="{{imageurl}}" alt="{{title}}" class="{{alignclass}} img-responsive"/> <div class="clearfix"></div> {{/image}} {{#placeholder}} <div class="image-placeholder"><span class="bicon icon-uniF10E"></span>Upload Image</div> {{/placeholder}}';
 
       ImageView.prototype.mixinTemplateHelpers = function(data) {
         data = ImageView.__super__.mixinTemplateHelpers.call(this, data);
-        data.holder = '';
         if (this.model.isNew()) {
-          data.holder = 'data-';
-          data.imageurl = function() {
-            return this.url;
-          };
+          data.placeholder = true;
         } else {
-          if (!data.sizes[data.size]) {
-            data.size = _.chain(_.keys(data.sizes)).first().value();
-          }
+          data.image = true;
           data.imageurl = function() {
             if (this.sizes['thumbnail']) {
               return this.sizes['thumbnail'].url;
@@ -55,14 +49,12 @@ define(['app', 'holder'], function(App, Holder) {
       ImageView.prototype.onShow = function() {
         var height, src, width;
         if (this.model.isNew()) {
-          Holder.run();
-          return this.$el.find('img').removeAttr('data-src');
-        } else {
-          width = this.$el.width();
-          height = this.$el.height();
-          src = this.model.getBestFit(width, height);
-          return this.$el.find('img').attr('src', src);
+          return;
         }
+        width = this.$el.width();
+        height = this.$el.height();
+        src = this.model.getBestFit(width, height);
+        return this.$el.find('img').attr('src', src);
       };
 
       return ImageView;

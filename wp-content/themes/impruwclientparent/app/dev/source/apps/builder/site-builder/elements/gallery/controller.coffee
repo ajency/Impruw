@@ -41,7 +41,7 @@ define ['app'
 							view = @_getGalleryView slidesCollection, @layout.model.get 'no_of_columns'
 
 							@listenTo view, "show:slides:manager", =>
-								App.execute "show:slides:manager",slidesCollection
+								App.execute "show:slides:manager", @layout.model.get('gallery_id'), slidesCollection
 
 							@listenTo @layout.model, "change:no_of_columns", =>
 								@renderElement slidesCollection

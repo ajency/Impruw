@@ -237,19 +237,19 @@ function add_element_markup( $element ) {
     case 'Text':
         $html = get_text_element_markup( $element );
         break;
-    case 'AddressElement':
+    case 'Address':
         $html = get_address_element_markup( $element );
         break;
-    case 'SocialElement':
+    case 'Social':
         $html = get_social_element_markup( $element );
         break;
-    case 'SliderElement':
+    case 'Slider':
         $html = get_slider_element_markup( $element );
         break;
-    case 'ContactFormElement':
+    case 'ContactForm':
         $html = get_contact_form_element_markup( $element );
         break;
-    case 'MapElement':
+    case 'Map':
         $html = get_map_element_markup( $element );
         break;
     case 'Logo':
@@ -685,10 +685,7 @@ function get_parent_template_directory_uri() {
  */
 function get_theme_JS() {
 ?>
-    <script src="<?php echo get_parent_template_directory_uri(); ?>/js/jquery.min.js"></script>
     <script src="<?php echo get_parent_template_directory_uri(); ?>/js/bootstrap.min.js"></script>
-    <script src="<?php echo get_parent_template_directory_uri(); ?>/js/holder.js"></script>
-    <script src="<?php echo get_parent_template_directory_uri(); ?>/js/cssFx.js"></script>
    <?php
     $theme_path =  get_stylesheet_directory() . "/js";
     if ( file_exists( $theme_path ) && is_dir( $theme_path ) ) {
@@ -720,6 +717,7 @@ function get_theme_CSS() {
 ?>
     <link href="<?php echo get_parent_template_directory_uri(); ?>/css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
     <link href="<?php echo get_parent_template_directory_uri(); ?>/css/flat-ui.css" type="text/css" rel="stylesheet"/>
+    <link href="<?php echo get_parent_template_directory_uri(); ?>/css/style.css" type="text/css" rel="stylesheet"/>
     <?php
     $theme_path =  get_stylesheet_directory()."/css";
     $css_files = scandir( $theme_path, 1 );

@@ -81,9 +81,8 @@ div.element-drop-loader > p{
     z-index:100;
 }
 
-.aj-imp-builder-layout-mode .element-wrapper{
-    border-radius: 4px;
-    padding:0px !important;
+#header-region {
+    min-height: 80px;
 }
 /*
 .aj-imp-builder-layout-mode .row .column.empty-column{

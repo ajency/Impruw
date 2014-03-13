@@ -101,10 +101,10 @@ class ImageElement extends Element {
 
         $size = $this->size;
         
-        $path = get_parent_template_directory_uri() . '/js/holder.js/100%x220';
+        $path = '';
 
         if($a_id === 0){
-            return  "<img data-src='$path' class='img-responsive {$this->margins}' />";
+            return  '<div class="image-placeholder"><span class="bicon icon-uniF10E"></span></div>';
         }
 
         $path = wp_get_attachment_image_src($a_id, $size);

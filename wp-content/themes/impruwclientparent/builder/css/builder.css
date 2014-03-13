@@ -654,6 +654,7 @@ Version:        0.1.0
 .aj-imp-builder-layout-mode .element-wrapper {
   border: 1px solid rgba(0, 0, 0, 0);
   padding-top: 7px;
+  border-radius: 4px;
 }
 .aj-imp-builder-layout-mode .element-wrapper .element-controls {
   position: relative;
@@ -1832,10 +1833,26 @@ Version:        0.1.0
   color: #aaaaaa;
   border: 1px dashed #dddddd;
   padding: 0.3em;
+  cursor: pointer;
 }
 .empty-view .bicon {
   display: block;
   margin: 0.2em 0;
   font-size: 4em;
+  color: #dddddd;
+}
+/****Image Placeholder Styles****/
+.image-placeholder {
+  text-align: center;
+  font-size: 1.2em;
+  color: #aaaaaa;
+  border: 1px dashed #dddddd;
+  padding: 0.3em;
+  cursor: pointer;
+}
+.image-placeholder .bicon {
+  display: block;
+  margin: 0.025em 0;
+  font-size: 4.5em;
   color: #dddddd;
 }

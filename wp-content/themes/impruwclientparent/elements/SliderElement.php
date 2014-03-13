@@ -43,16 +43,14 @@ class SliderElement extends Element {
      * The config to create a row element
      * @param array $config
      */
-    function __construct($config) {
+    function __construct($element) {
         
-        parent::__construct($config);
+        parent::__construct($element);
 
-        if(isset($config['dataSource'])){
-            $this->data_source = $config['dataSource'];
-        }
-        
-        
+        $this->slider_id = $element['slider_id'];
+
         $this->markup           = $this->generate_markup();
+
     }
     
     /**
@@ -62,74 +60,13 @@ class SliderElement extends Element {
      */
     function generate_markup(){
         
-        $html       = $this->get_open_tag(array('data-ride'=> "carousel",'id' => 'impruw-carousel'));
-        
-        $html       .= $this->get_slider();
-        
-        $html       .= $this->get_close_tag();
-        
-        return $html;
-    }
-
-    /**
-     * [get_images description]
-     * @return [type] [description]
-     */
-    function get_images(){
-        
-        if(!isset($this->data_source['image-ids']) || !is_array($this->data_source['image-ids']))
-            return array(0);
-
-        return $this->data_source['image-ids'];
-    }
-
-    /**
-     * Get image src
-     * @param  [type] $id [description]
-     * @return [type]     [description]
-     */
-    function get_image_src($id){
-
-        if($id == 0)
-            return get_parent_template_directory_uri() . '/js/holder.js/100%x400';
-
-
-        $path = wp_get_attachment_image_src($id,'full');
-
-        return $path[0];
-    }
-    
-    /**
-     * returns the address markup
-     * @return string
-     */
-    function get_slider(){
-
-        
-        ob_start();?>
-        <!-- Indicators
-            <ol class="carousel-indicators">
-                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-            </ol>
-            Wrapper for slides -->
-            <div class="carousel-inner">
-                <?php foreach($this->get_images() as $index => $image){ ?>
-                    <div class="item <?php echo ($index === 0 ) ? 'active' : '' ?>">
-                        <img <?php echo $image == 0 ? 'data-' : '' ?>src="<?php echo $this->get_image_src($image); ?>" alt="...">
-                    </div>
-                <?php } ?>
-            </div>
-            <!-- Controls -->
-            <a class="left carousel-control" href="#impruw-carousel" data-slide="prev">
-                  <span class="icon-prev"></span>
-            </a>
-            <a class="right carousel-control" href="#impruw-carousel" data-slide="next">
-                  <span class="icon-next"></span>
-            </a>
-        <?php
+        $slider = new RevSlider();
+        $slider->initByID($this->slider_id);   
+        ob_start();
+        echo do_shortcode("[rev_slider {$slider->getAlias()}]");
         $html = ob_get_clean();
+        
         return $html;
-            
     }
     
 }

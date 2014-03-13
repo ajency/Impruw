@@ -43,7 +43,7 @@ define(['app', 'apps/builder/site-builder/elements/gallery/views', 'apps/builder
             var view;
             view = _this._getGalleryView(slidesCollection, _this.layout.model.get('no_of_columns'));
             _this.listenTo(view, "show:slides:manager", function() {
-              return App.execute("show:slides:manager", slidesCollection);
+              return App.execute("show:slides:manager", _this.layout.model.get('gallery_id'), slidesCollection);
             });
             _this.listenTo(_this.layout.model, "change:no_of_columns", function() {
               return _this.renderElement(slidesCollection);

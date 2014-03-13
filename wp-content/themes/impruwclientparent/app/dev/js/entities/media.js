@@ -111,10 +111,6 @@ define(["app", 'backbone'], function(App, Backbone) {
       getPlaceHolderMedia: function() {
         var media;
         media = new Media.MediaModel;
-        media.set({
-          url: "" + SITEURL + "/wp-content/themes/impruwclientparent/app/dev/js/plugins/holder.js/100%x200/auto",
-          title: 'Placeholder'
-        });
         return media;
       },
       createNewMedia: function(data) {

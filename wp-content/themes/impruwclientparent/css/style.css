@@ -1,0 +1,16 @@
+
+.image-placeholder {
+    border: 1px dashed #DDDDDD;
+    color: #AAAAAA;
+    cursor: pointer;
+    font-size: 1.2em;
+    padding: 0.3em;
+    text-align: center;
+}
+
+.image-placeholder .bicon {
+    color: #DDDDDD;
+    display: block;
+    font-size: 4.5em;
+    margin: 0.025em 0;
+}
