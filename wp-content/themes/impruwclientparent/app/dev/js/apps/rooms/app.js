@@ -13,7 +13,7 @@ define(['app', 'apps/rooms/list/controller', 'apps/rooms/add/controller'], funct
 
       Router.prototype.appRoutes = {
         'rooms': 'list',
-        'rooms/add/:id': 'add'
+        'rooms/add': 'add'
       };
 
       return Router;
@@ -25,22 +25,12 @@ define(['app', 'apps/rooms/list/controller', 'apps/rooms/add/controller'], funct
           region: App.rightRegion
         });
       },
-      add: function(room) {
-        var add, roomId;
-        if (!_.isObject(room)) {
-          roomId = parseInt(room);
-          room = new App.Entities.Rooms.Room({
-            id: roomId
-          });
-        }
-        return add = new RoomsApp.Add.Controller({
-          model: room
-        });
+      add: function() {
+        return App.execute("show:add:room");
       }
     };
     return RoomsApp.on({
       'start': function() {
-        _.logAppMsg("Room Module started...");
         return new RoomsApp.Router({
           controller: API
         });

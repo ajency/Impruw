@@ -1,5 +1,4 @@
-define ['app', 'controllers/base-controller'
-		'apps/rooms/list/views', 'entities/rooms'], (App, AppController)->
+define ['app', 'controllers/base-controller', 'apps/rooms/list/views'], (App, AppController)->
 
 	App.module 'RoomsApp.List', (List, App, Backbone, Marionette, $, _)->
 
@@ -16,21 +15,10 @@ define ['app', 'controllers/base-controller'
 				@show @layout
 				
 			_getLayout:->
-						new List.View.RoomListLayout
+				new List.View.RoomListLayout
 
-			_renderRegion:()->
-						#render the views in the region
-						console.log "button is clicked"
-						#@layout.roomRegion.show @_getRoomListView() 
-
-			_getRoomListView:()->
-						new List.View.RoomCollection
 					
-			
-
 		App.commands.setHandler "show:rooms:list", (opts)->
-
-				#if not opt.region throw new Error 'Region not specified'
 
 				new List.Controller
 							region : opts.region 

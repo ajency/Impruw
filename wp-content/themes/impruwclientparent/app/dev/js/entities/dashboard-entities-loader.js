@@ -1,1 +1,1 @@
-define(['entities/base-entities', 'entities/offlinestore', 'entities/analytics'], function() {});
+define(['entities/base-entities', 'entities/offlinestore', 'entities/analytics', 'entities/rooms'], function() {});

@@ -12,7 +12,7 @@ define [
 
 			appRoutes :
 				'rooms' : 'list'
-				'rooms/add/:id' : 'add'
+				'rooms/add' : 'add'
 
 
 		#public API
@@ -23,19 +23,11 @@ define [
 								region : App.rightRegion
 
 			#add room route handler
-			add :(room)->
-
-				if not _.isObject room
-					roomId = parseInt room
-					room = new App.Entities.Rooms.Room({id : roomId}) 
-
-				add = new RoomsApp.Add.Controller 
-											model : room
+			add :()->
+				App.execute "show:add:room"
 												 
 
 		# Setup router on module start event
 		RoomsApp.on 'start': ->
-			_.logAppMsg "Room Module started..."
-			
 			new RoomsApp.Router
-				controller : API
+						controller : API

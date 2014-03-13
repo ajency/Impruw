@@ -32,7 +32,8 @@ define ['app'],
 
 				class View.RoomListLayout extends Marionette.Layout
 
-					template : '<h4>Room Title</h4><input type="button" value="Add" class="add-room"/><div id="room-list"></div>'
+					template : '<h4>Room Title</h4><input type="button" value="Add" class="add-room"/>
+								<div id="room-list"></div>'
 
 					className: 'rooms-layout'
 

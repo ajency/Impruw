@@ -16,36 +16,14 @@ define(["app", 'backbone'], function(App, Backbone) {
           post_title: '',
           post_content: '',
           facilities: [],
-          attachments: [],
+          slider_id: 0,
           thumbnail_id: 0,
           no_of_rooms: 0,
           tariffs: []
         };
       };
 
-      RoomModel.prototype.relations = [
-        {
-          type: Backbone.HasOne,
-          key: 'thumbnail_id',
-          relatedModel: 'App.Entities.Media.MediaModel',
-          collectionType: 'App.Entities.Media.MediaCollection'
-        }, {
-          type: Backbone.HasMany,
-          key: 'facilities',
-          relatedModel: 'App.Entities.Facilities.Facility',
-          collectionType: 'App.Entities.Facilities.FacilityCollection'
-        }, {
-          type: Backbone.HasMany,
-          key: 'attachments',
-          relatedModel: 'App.Entities.Media.MediaModel',
-          collectionType: 'App.Entities.Media.MediaCollection'
-        }, {
-          type: Backbone.HasMany,
-          key: 'tariffs',
-          relatedModel: 'App.Entities.Tariffs.TariffModel',
-          collectionType: 'App.Entities.Tariffs.TariffCollection'
-        }
-      ];
+      RoomModel.prototype.name = 'room';
 
       return RoomModel;
 
@@ -78,10 +56,21 @@ define(["app", 'backbone'], function(App, Backbone) {
           data: param
         });
         return rooms;
+      },
+      createNewRoomModel: function(data) {
+        var room;
+        if (data == null) {
+          data = {};
+        }
+        room = new Rooms.RoomModel(data);
+        return room;
       }
     };
-    return App.reqres.setHandler("get:room:entities", function() {
+    App.reqres.setHandler("get:room:entities", function() {
       return API.getRooms();
+    });
+    return App.reqres.setHandler("create:new:room:model", function(data) {
+      return API.createNewRoomModel(data);
     });
   });
 });

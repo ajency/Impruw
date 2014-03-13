@@ -7,23 +7,42 @@ define ['app', 'controllers/base-controller'
 
 			initialize:(options)->
 
-				{ @model } = options
+				@layout = layout = @getAddRoomLayout()	
 
-				view = @.getAddView(@model)	
+				@listenTo layout, "show", =>
+					@_showAddRoomForm()
 
-				@show view,
-						loading : true
+				@show layout
+
+				App.navigate "rooms/add"
+
+			# show the form
+			_showAddRoomForm:->
+				@formView = @_getFormView()
+				
+				@listenTo @formView, "save:new:room", (data)=>
+					@_saveNewRoom data
+
+				@layout.formRegion.show @formView
 
 
-			getAddView : (room)->
+			_saveNewRoom:(data)=>
+				roomModel = App.request "create:new:room:model", data
+				
+				roomModel.save null,
+							wait : true
+							success : @showSaveMessage
 
+			showSaveMessage : =>
+				@formView.triggerMethod "show:success:message"
+
+			_getFormView:->
 				new Add.View.AddRoom
-					model : room
+
+			getAddRoomLayout : ()->
+				new Add.View.AddRoomLayout
 
 			
 		App.commands.setHandler "show:add:room", (opts)->
-
-				#if not opt.region throw new Error 'Region not specified'
-
 				new Add.Controller
-							 	
+								

@@ -52,7 +52,7 @@ define(['app'], function(App, mainviewTpl, roomsingleTpl, emptyTpl) {
         return RoomListLayout.__super__.constructor.apply(this, arguments);
       }
 
-      RoomListLayout.prototype.template = '<h4>Room Title</h4><input type="button" value="Add" class="add-room"/><div id="room-list"></div>';
+      RoomListLayout.prototype.template = '<h4>Room Title</h4><input type="button" value="Add" class="add-room"/> <div id="room-list"></div>';
 
       RoomListLayout.prototype.className = 'rooms-layout';
 
