@@ -135,7 +135,14 @@ function get_elementbox_elements() {
                             ),
                             array(  'element' => 'RoomFacilities',
                                     'title' =>'Room Facilities',
-                                    'styles' => get_styles('RoomFacilities'),
+                                    'icon' => ''
+                            ),
+                           array(  'element' => 'RoomTitle',
+                                    'title' =>'Room Title',
+                                    'icon' => ''
+                            ),
+                            array(  'element' => 'RoomDescription',
+                                    'title' =>'Room Description',
                                     'icon' => ''
                             )
 
