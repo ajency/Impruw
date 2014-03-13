@@ -37,21 +37,17 @@ define ['app', 'holder'],(App, Holder)->
 				data
 
 			events:
-				'click'		: (e)->
-								e.stopPropagation()
-								@trigger "show:media:manager"
+				'click'	: (e)->
+							e.stopPropagation()
+							@trigger "show:media:manager"
 
 			# check if a valid image_id is set for the element
 			# if present ignore else run the Holder.js to show a placeholder
 			# after run remove the data-src attribute of the image to avoid
 			# reloading placeholder image again
 			onShow:->
-				if @model.isNew()
-					Holder.run()
-					@$el.find('img').removeAttr 'data-src'
-				else 
-					# set the URL of the image depending on the available size
-					width 	= @$el.width()
-					height 	= @$el.height()
-					src = @model.getBestFit width,height
-					@$el.find('img').attr 'src',src
+				# set the URL of the image depending on the available size
+				width 	= @$el.width()
+				height 	= @$el.height()
+				src = @model.getBestFit width,height
+				@$el.find('img').attr 'src',src

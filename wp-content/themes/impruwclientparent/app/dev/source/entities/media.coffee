@@ -87,10 +87,6 @@ define ["app", 'backbone'], (App, Backbone) ->
 				# this will be special purpose media model.
 				getPlaceHolderMedia:->
 					media = new Media.MediaModel
-					media.set 
-							url : "#{SITEURL}/wp-content/themes/impruwclientparent/app/dev/js/plugins/holder.js/100%x200/auto"
-							title : 'Placeholder'
-
 					media
 
 				createNewMedia:(data)->

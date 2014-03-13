@@ -232,7 +232,7 @@ function get_element_model($element) {
         case 'Logo':
             $model = array(
                 'style'     => 'header',
-                'image_id'  => 22, //hardcoded,
+                'image_id'  => 133, //hardcoded,
                 'size'      => 'full'
             );
             break;

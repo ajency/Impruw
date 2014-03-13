@@ -48,15 +48,10 @@ define(['app', 'holder'], function(App, Holder) {
 
       ImageView.prototype.onShow = function() {
         var height, src, width;
-        if (this.model.isNew()) {
-          Holder.run();
-          return this.$el.find('img').removeAttr('data-src');
-        } else {
-          width = this.$el.width();
-          height = this.$el.height();
-          src = this.model.getBestFit(width, height);
-          return this.$el.find('img').attr('src', src);
-        }
+        width = this.$el.width();
+        height = this.$el.height();
+        src = this.model.getBestFit(width, height);
+        return this.$el.find('img').attr('src', src);
       };
 
       return ImageView;

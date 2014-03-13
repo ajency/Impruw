@@ -12,7 +12,20 @@ define(['app'], function(App) {
 
       LogoView.prototype.className = 'logo';
 
-      LogoView.prototype.template = '<a href="{{SITEURL}}"><img src="{{url}}" alt="{{title}}"/></a>';
+      LogoView.prototype.template = '{{#image}} <img src="{{imageurl}}" alt="{{title}}" class="{{alignclass}} img-responsive"/> <div class="clearfix"></div> {{/image}} {{#placeholder}} <div class="image-placeholder"><span class="bicon icon-uniF10E"></span>Upload Image</div> {{/placeholder}}';
+
+      LogoView.prototype.mixinTemplateHelpers = function(data) {
+        data = LogoView.__super__.mixinTemplateHelpers.call(this, data);
+        if (this.model.isNew()) {
+          data.placeholder = true;
+        } else {
+          data.image = true;
+          data.imageurl = function() {
+            return this.sizes['full'].url;
+          };
+        }
+        return data;
+      };
 
       LogoView.prototype.events = {
         'click': function(e) {
