@@ -7,24 +7,30 @@ define ['app', 'controllers/base-controller'
 
 			initialize:()->
 
-				@rooms = App.request "get:room:entities"
+				@layout = @_getLayout()
 
-				#@layout = @.getLayout()
-			
-			showListView : ()->	
+				#listen to the button clicked trigger
+				@listenTo @layout, 'add:new:room:clicked',() ->
+					App.execute "show:add:room"
+
+				@show @layout
 				
-				view = @.getMainView(@rooms)	
+			_getLayout:->
+						new List.View.RoomListLayout
 
-				#view.on "itemview:edit:room:clicked", (iv, room)->
-					#App.vent.trigger "edit:room:clicked", room
+			_renderRegion:()->
+						#render the views in the region
+						console.log "button is clicked"
+						#@layout.roomRegion.show @_getRoomListView() 
 
-				@show view,(loading : true)
-
-
-			getMainView : (collection)->
-
-				new List.View.MainView
-					collection : collection
-
+			_getRoomListView:()->
+						new List.View.RoomCollection
+					
 			
-	App.RoomsApp.List.Controller		
+
+		App.commands.setHandler "show:rooms:list", (opts)->
+
+				#if not opt.region throw new Error 'Region not specified'
+
+				new List.Controller
+							region : opts.region 

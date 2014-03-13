@@ -7,7 +7,7 @@
 function get_menu_items() {
 
     $menuItems = array(
-        // array('url' => 'rooms', 'title' => 'Rooms'),
+         array('url' => 'rooms', 'title' => 'Rooms'),
         // array('url' => 'dashboard', 'title' => 'Dashboard'),
         // array('url' => 'site-profile', 'title' => 'Site Profile'),
         // array('url' => 'my-profile', 'title' => 'My Profile'),

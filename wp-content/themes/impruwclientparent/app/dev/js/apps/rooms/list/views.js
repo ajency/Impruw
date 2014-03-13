@@ -1,7 +1,7 @@
 var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-define(['app', 'tpl!apps/rooms/list/templates/mainview', 'tpl!apps/rooms/list/templates/singleroom', 'tpl!apps/rooms/list/templates/emptyview'], function(App, mainviewTpl, roomsingleTpl, emptyTpl) {
+define(['app'], function(App, mainviewTpl, roomsingleTpl, emptyTpl) {
   App.module('RoomsApp.List.View', function(View, App, Backbone, Marionette, $, _) {
     View.RoomSingle = (function(_super) {
       __extends(RoomSingle, _super);
@@ -10,15 +10,7 @@ define(['app', 'tpl!apps/rooms/list/templates/mainview', 'tpl!apps/rooms/list/te
         return RoomSingle.__super__.constructor.apply(this, arguments);
       }
 
-      RoomSingle.prototype.template = roomsingleTpl;
-
-      RoomSingle.prototype.tagName = 'tr';
-
-      RoomSingle.prototype.events = {
-        'click a.editroom_link': function(e) {
-          return this.trigger('edit:room:clicked', this.model);
-        }
-      };
+      RoomSingle.prototype.template = '<h3>ROOM FEATURES</h3>';
 
       return RoomSingle;
 
@@ -35,7 +27,7 @@ define(['app', 'tpl!apps/rooms/list/templates/mainview', 'tpl!apps/rooms/list/te
       return EmptyView;
 
     })(Marionette.ItemView);
-    return View.MainView = (function(_super) {
+    View.MainView = (function(_super) {
       __extends(MainView, _super);
 
       function MainView() {
@@ -53,6 +45,30 @@ define(['app', 'tpl!apps/rooms/list/templates/mainview', 'tpl!apps/rooms/list/te
       return MainView;
 
     })(Marionette.CompositeView);
+    return View.RoomListLayout = (function(_super) {
+      __extends(RoomListLayout, _super);
+
+      function RoomListLayout() {
+        return RoomListLayout.__super__.constructor.apply(this, arguments);
+      }
+
+      RoomListLayout.prototype.template = '<h4>Room Title</h4><input type="button" value="Add" class="add-room"/><div id="room-list"></div>';
+
+      RoomListLayout.prototype.className = 'rooms-layout';
+
+      RoomListLayout.prototype.regions = {
+        roomRegion: '#room-list'
+      };
+
+      RoomListLayout.prototype.events = {
+        'click .add-room': function() {
+          return this.trigger("add:new:room:clicked");
+        }
+      };
+
+      return RoomListLayout;
+
+    })(Marionette.Layout);
   });
   return App.RoomsApp.List.View;
 });

@@ -1,1 +1,1 @@
-define(['apps/leftnav/app', 'apps/dashboard/statistics/controller'], function() {});
+define(['apps/leftnav/app', 'apps/dashboard/statistics/controller', 'apps/rooms/app'], function() {});

@@ -2,8 +2,8 @@ var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 define(['app', 'controllers/base-controller', 'apps/rooms/list/views', 'entities/rooms'], function(App, AppController) {
-  App.module('RoomsApp.List', function(List, App, Backbone, Marionette, $, _) {
-    return List.Controller = (function(_super) {
+  return App.module('RoomsApp.List', function(List, App, Backbone, Marionette, $, _) {
+    List.Controller = (function(_super) {
       __extends(Controller, _super);
 
       function Controller() {
@@ -11,26 +11,32 @@ define(['app', 'controllers/base-controller', 'apps/rooms/list/views', 'entities
       }
 
       Controller.prototype.initialize = function() {
-        return this.rooms = App.request("get:room:entities");
+        this.layout = this._getLayout();
+        this.listenTo(this.layout, 'add:new:room:clicked', function() {
+          return App.execute("show:add:room");
+        });
+        return this.show(this.layout);
       };
 
-      Controller.prototype.showListView = function() {
-        var view;
-        view = this.getMainView(this.rooms);
-        return this.show(view, {
-          loading: true
-        });
+      Controller.prototype._getLayout = function() {
+        return new List.View.RoomListLayout;
       };
 
-      Controller.prototype.getMainView = function(collection) {
-        return new List.View.MainView({
-          collection: collection
-        });
+      Controller.prototype._renderRegion = function() {
+        return console.log("button is clicked");
+      };
+
+      Controller.prototype._getRoomListView = function() {
+        return new List.View.RoomCollection;
       };
 
       return Controller;
 
     })(AppController);
+    return App.commands.setHandler("show:rooms:list", function(opts) {
+      return new List.Controller({
+        region: opts.region
+      });
+    });
   });
-  return App.RoomsApp.List.Controller;
 });

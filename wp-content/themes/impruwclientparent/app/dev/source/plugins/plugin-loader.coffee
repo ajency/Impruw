@@ -4,9 +4,7 @@
 define [
 		'underscore'
 		'jquery'
-		'jqueryui'
 		'backbone'
-		'backboneform'
 		'd3'
 		'backbonesyphon'
 		'backboneassociations'

@@ -1,7 +1,4 @@
-define ['app'
-		'tpl!apps/rooms/list/templates/mainview'
-		'tpl!apps/rooms/list/templates/singleroom'
-		'tpl!apps/rooms/list/templates/emptyview'],
+define ['app'],
 		(App, mainviewTpl, roomsingleTpl, emptyTpl)->
 
 
@@ -9,13 +6,13 @@ define ['app'
 
 				class View.RoomSingle extends Marionette.ItemView
 
-					template : roomsingleTpl
+					#template : roomsingleTpl
+					template : '<h3>ROOM FEATURES</h3>'
+					#tagName : 'tr'
 
-					tagName : 'tr'
-
-					events : 
-						'click a.editroom_link' : (e)-> 
-								@trigger 'edit:room:clicked', @model
+					#events : 
+						#'click a.addroom_link' : (e)-> 
+								#@trigger 'add:room:clicked', @model
 
 				class View.EmptyView extends Marionette.ItemView
 
@@ -33,5 +30,16 @@ define ['app'
 					emptyView : View.EmptyView
 
 
+				class View.RoomListLayout extends Marionette.Layout
+
+					template : '<h4>Room Title</h4><input type="button" value="Add" class="add-room"/><div id="room-list"></div>'
+
+					className: 'rooms-layout'
+
+					regions : 
+						roomRegion : '#room-list'
+
+					events:
+						'click .add-room' : -> @trigger "add:new:room:clicked"
 				
 			return App.RoomsApp.List.View

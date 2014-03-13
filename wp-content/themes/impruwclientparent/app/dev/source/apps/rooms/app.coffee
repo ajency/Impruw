@@ -1,7 +1,7 @@
 define [
 		'app'
 		'apps/rooms/list/controller'
-		'apps/rooms/edit/controller'
+		'apps/rooms/add/controller'
 		], (App)->
 
 	App.module 'RoomsApp', (RoomsApp, App, Backbone, Marionette, $, _)->
@@ -12,24 +12,24 @@ define [
 
 			appRoutes :
 				'rooms' : 'list'
-				'rooms/edit/:id' : 'edit'
+				'rooms/add/:id' : 'add'
 
 
 		#public API
 		API = 
 			# list rooms route handler
 			list : ()->
-				list = new RoomsApp.List.Controller
-				list.showListView()
+				App.execute "show:rooms:list", 
+								region : App.rightRegion
 
-			#edit room route handler
-			edit :(room)->
+			#add room route handler
+			add :(room)->
 
 				if not _.isObject room
 					roomId = parseInt room
 					room = new App.Entities.Rooms.Room({id : roomId}) 
 
-				edit = new RoomsApp.Edit.Controller 
+				add = new RoomsApp.Add.Controller 
 											model : room
 												 
 
