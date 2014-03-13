@@ -46,6 +46,9 @@ define ['app', 'holder'],(App, Holder)->
 			# after run remove the data-src attribute of the image to avoid
 			# reloading placeholder image again
 			onShow:->
+
+				return if @model.isNew()
+
 				# set the URL of the image depending on the available size
 				width 	= @$el.width()
 				height 	= @$el.height()

@@ -48,6 +48,9 @@ define(['app', 'holder'], function(App, Holder) {
 
       ImageView.prototype.onShow = function() {
         var height, src, width;
+        if (this.model.isNew()) {
+          return;
+        }
         width = this.$el.width();
         height = this.$el.height();
         src = this.model.getBestFit(width, height);
