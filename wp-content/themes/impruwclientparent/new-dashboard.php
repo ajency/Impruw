@@ -57,9 +57,14 @@
         var APPSTATE 	= <?php echo impruw_app_model() ?>;
      </script>
 
-	<script
-		data-main="<?php echo get_parent_template_directory_uri(); ?>/app/dev/js/dashboard-main"
-		src="<?php echo get_parent_template_directory_uri(); ?>/dashboard/require.js">
+    <?php if(ENV === 'production'): ?>
+        <script src="<?php echo get_parent_template_directory_uri(); ?>/app/production/dashboard-main.js?ver=<?php echo JSVERSION ?>"></script> 
+    <?php else: ?>
+   		<!--<script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script> -->
+		<script data-main="<?php echo get_parent_template_directory_uri(); ?>/app/dev/js/dashboard-main"
+			src="<?php echo get_parent_template_directory_uri(); ?>/dashboard/require.js">
+    <?php endif; ?>
+	
 		 
 	</script>
 	

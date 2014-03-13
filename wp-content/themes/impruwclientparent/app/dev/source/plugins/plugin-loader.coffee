@@ -6,7 +6,6 @@ define [
 		'jquery'
 		'jqueryui'
 		'backbone'
-		'backboneform'
 		'd3'
 		'backbonesyphon'
 		'backboneassociations'
