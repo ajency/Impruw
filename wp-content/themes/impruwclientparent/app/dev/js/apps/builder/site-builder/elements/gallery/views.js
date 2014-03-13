@@ -52,7 +52,9 @@ define(['app', 'holder'], function(App, Holder) {
       };
 
       GalleryView.prototype.onShow = function() {
-        return this.collection.length === 0;
+        if (this.collection.length === 0) {
+          return;
+        }
         return this.$el.imagesLoaded((function(_this) {
           return function() {
             return _this.$el.isotope({

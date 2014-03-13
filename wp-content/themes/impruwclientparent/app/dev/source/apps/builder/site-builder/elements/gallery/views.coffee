@@ -42,7 +42,8 @@ define ['app', 'holder'],(App, Holder)->
 				@collection.sort()
 
 			onShow:->
-				return @collection.length is 0
+
+				return if @collection.length is 0
 
 				@$el.imagesLoaded =>
 					@$el.isotope
