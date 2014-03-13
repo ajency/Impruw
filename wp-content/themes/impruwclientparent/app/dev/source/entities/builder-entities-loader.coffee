@@ -15,4 +15,5 @@ define [
 		'entities/builder/json'
 		'entities/builder/element'
 		'entities/facilities'
+		'entities/roomtitle'
 		], ->
