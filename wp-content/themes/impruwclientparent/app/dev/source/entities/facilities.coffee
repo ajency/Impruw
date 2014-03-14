@@ -6,6 +6,11 @@ define ['app'
 			#Facility model
 			class Facilities.Facility extends Backbone.Model
 
+				idAttribute : 'term_id'
+
+				name : 'facility'
+
+
 
 			#Facilities Collection class
 			class Facilities.FacilityCollection extends Backbone.Collection
@@ -18,7 +23,7 @@ define ['app'
                         "#{AJAXURL}?action=fetch-facilities"
                     else
                         ids = []
-                        ids.push facility.get('id') for facility in models
+                        ids.push facility.get('term_id') for facility in models
                         ids = ids.join()
                         "#{AJAXURL}?action=facilities&ids=#{ids}"
 
@@ -26,7 +31,6 @@ define ['app'
 			#Public API
 			API = 
 				getFacilities :(param = {})->
-
 					facilities = new Facilities.FacilityCollection
 					facilities.fetch
 						data : param

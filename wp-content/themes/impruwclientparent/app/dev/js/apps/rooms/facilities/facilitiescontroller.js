@@ -14,8 +14,16 @@ define(['app', 'controllers/base-controller', 'apps/rooms/facilities/facilitiesv
         var collection, cview;
         collection = App.request("get:all:facilities");
         cview = this._getFacilitiesView(collection);
+        this.listenTo(cview, "itemview:delete:facility:clicked", this.deleteFacility);
         return this.show(cview, {
           loading: true
+        });
+      };
+
+      FacilitiesController.prototype.deleteFacility = function(iv, model) {
+        return model.destroy({
+          allData: false,
+          wait: true
         });
       };
 

@@ -32,21 +32,6 @@ define(['app', 'controllers/base-controller', 'apps/rooms/add/views', 'apps/room
         return App.navigate("rooms/add");
       };
 
-      Controller.prototype._showAddRoomForm = function() {
-        this.formView = this._getFormView();
-        return this.layout.formRegion.show(this.formView);
-      };
-
-      Controller.prototype._showAddRoomForm = function() {
-        this.formView = this._getFormView();
-        this.listenTo(this.formView, "save:new:room", (function(_this) {
-          return function(data) {
-            return _this._saveNewRoom(data);
-          };
-        })(this));
-        return this.layout.formRegion.show(this.formView);
-      };
-
       Controller.prototype._saveNewRoom = function(data) {
         var roomModel;
         roomModel = App.request("create:new:room:model", data);
@@ -57,11 +42,7 @@ define(['app', 'controllers/base-controller', 'apps/rooms/add/views', 'apps/room
       };
 
       Controller.prototype.showSaveMessage = function() {
-        return this.formView.triggerMethod("show:success:message");
-      };
-
-      Controller.prototype._getFormView = function() {
-        return new Add.View.AddRoom;
+        return this.layout.triggerMethod("show:success:message");
       };
 
       Controller.prototype.getAddRoomLayout = function() {

@@ -11,6 +11,10 @@ define(['app', 'backbone'], function(App, Backbone) {
         return Facility.__super__.constructor.apply(this, arguments);
       }
 
+      Facility.prototype.idAttribute = 'term_id';
+
+      Facility.prototype.name = 'facility';
+
       return Facility;
 
     })(Backbone.Model);
@@ -34,7 +38,7 @@ define(['app', 'backbone'], function(App, Backbone) {
           ids = [];
           for (_i = 0, _len = models.length; _i < _len; _i++) {
             facility = models[_i];
-            ids.push(facility.get('id'));
+            ids.push(facility.get('term_id'));
           }
           ids = ids.join();
           return "" + AJAXURL + "?action=facilities&ids=" + ids;

@@ -24,22 +24,6 @@ define ['app', 'controllers/base-controller'
 
 				App.navigate "rooms/add"
 
-			# show the form
-			_showAddRoomForm:->
-				@formView = @_getFormView()
-			
-
-				@layout.formRegion.show @formView
-
-			# show the facilities form
-			_showAddRoomForm:->
-				@formView = @_getFormView()
-				
-				@listenTo @formView, "save:new:room", (data)=>
-					@_saveNewRoom data
-
-				@layout.formRegion.show @formView
-
 
 			_saveNewRoom:(data)=>
 				roomModel = App.request "create:new:room:model", data
@@ -49,10 +33,7 @@ define ['app', 'controllers/base-controller'
 							success : @showSaveMessage
 
 			showSaveMessage : =>
-				@formView.triggerMethod "show:success:message"
-
-			_getFormView:->
-				new Add.View.AddRoom
+				@layout.triggerMethod "show:success:message"
 
 			getAddRoomLayout : ()->
 				new Add.View.AddRoomLayout

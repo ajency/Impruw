@@ -15,7 +15,15 @@ define(['app'], function(App) {
 
       FacilityItem.prototype.tagName = 'div';
 
-      FacilityItem.prototype.template = '<label for="checkbox2" class="checkbox "> <span class="icons"> <span class="first-icon fui-checkbox-unchecked"></span> <span class="second-icon fui-checkbox-checked"></span> </span> <input type="checkbox" data-toggle="checkbox" name="facility[]" value="{{name}}"> <span>{{name}}</span> </label> <div class="action"> <a href="javascript:void(0)" class="edit">Edit</a>&nbsp; <a href="javascript:void(0)" class="cancel_editfacility hidden" >Cancel</a>&nbsp; <a href="javascript:void(0)" class="delete">Delete</a> </div>';
+      FacilityItem.prototype.template = '<label for="checkbox2" class="checkbox "> <span class="icons"> <span class="first-icon fui-checkbox-unchecked"></span> <span class="second-icon fui-checkbox-checked"></span> </span> <input type="checkbox" data-toggle="checkbox" name="facility[{{term_id}}]" value="{{term_id}}"> <span>{{name}}</span> </label> <div class="action"> <a href="javascript:void(0)" class="edit">Edit</a>&nbsp; <a href="javascript:void(0)" class="cancel_editfacility hidden" >Cancel</a>&nbsp; <a href="javascript:void(0)" class="delete">Delete</a> </div>';
+
+      FacilityItem.prototype.events = {
+        'click a.delete': function() {
+          if (confirm('Are you sure?')) {
+            return this.trigger("delete:facility:clicked", this.model);
+          }
+        }
+      };
 
       return FacilityItem;
 

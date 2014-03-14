@@ -11,13 +11,21 @@ define ['app'
 						# get the facilities collection
 						collection = App.request "get:all:facilities"
 						
-							 
 						# get the composite view 
 						cview = @_getFacilitiesView collection
+
+						# delete:facility:clicked
+						@listenTo cview, "itemview:delete:facility:clicked" , @deleteFacility
 
 						# display the view on the region 
 						@show cview,
 								loading : true
+
+					# delete:facility:clicked
+					deleteFacility :(iv, model)->
+						model.destroy
+								allData : false
+								wait : true
 
 					_getFacilitiesView:(collection)->
 						new FacilitiesApp.Views.FacilitiesView
