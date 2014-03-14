@@ -45,10 +45,6 @@ define(['app', 'text!apps/rooms/add/templates/add-room.html'], function(App, add
         facilitiesRegion: '#facilities'
       };
 
-      AddRoomLayout.prototype.events = {
-        'click .save-button': ''
-      };
-
       return AddRoomLayout;
 
     })(Marionette.Layout);
