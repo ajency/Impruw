@@ -1,5 +1,6 @@
 define ['app', 'controllers/base-controller'
-		'apps/rooms/add/views'], (App, AppController)->
+		'apps/rooms/add/views'
+		'apps/rooms/facilities/facilitiescontroller'], (App, AppController)->
 
 	App.module 'RoomsApp.Add', (Add, App, Backbone, Marionette, $, _)->
 
@@ -10,13 +11,27 @@ define ['app', 'controllers/base-controller'
 				@layout = layout = @getAddRoomLayout()	
 
 				@listenTo layout, "show", =>
-					@_showAddRoomForm()
+						App.execute "show:facilities", 
+                        					region : layout.facilitiesRegion
 
+					#App.execute "show:facilities", region : layout.facilitiesRegion
+					#App.execute "show:tariff:app", region : layout.tariffRegion
+
+				@listenTo @layout, "save:new:room", (data)=>
+					@_saveNewRoom data
+						
 				@show layout
 
 				App.navigate "rooms/add"
 
 			# show the form
+			_showAddRoomForm:->
+				@formView = @_getFormView()
+			
+
+				@layout.formRegion.show @formView
+
+			# show the facilities form
 			_showAddRoomForm:->
 				@formView = @_getFormView()
 				
