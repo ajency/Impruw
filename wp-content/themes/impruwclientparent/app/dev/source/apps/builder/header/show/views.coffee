@@ -31,6 +31,9 @@ define ['app'
 						'change select#aj-imp-page-sel' : (evt)-> 
 									@trigger 'editable:page:changed', $(evt.target).val()
 
+						'click .add-new-page' : ->
+							@trigger "add:new:page:clicked"
+
 					onShow:->
 						@$el.find('select#aj-imp-page-sel').val App.request "get:current:editable:page"
 						@$el.find('select#aj-imp-page-sel').selectpicker

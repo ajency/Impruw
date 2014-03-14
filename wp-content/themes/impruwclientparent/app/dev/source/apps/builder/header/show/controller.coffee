@@ -13,7 +13,10 @@ define ['app', 'controllers/base-controller'
 						pages = App.request "get:editable:pages"
 
 						view = new Show.Views.MainView
-										collection : pages	
+											collection : pages	
+
+						@listenTo view, "add:new:page:clicked", ->
+							App.execute "show:add:new:page", region : App.dialogRegion
 
 						@listenTo view, 'editable:page:changed',(pageId)->
 															# set the cookie

@@ -58,16 +58,7 @@ function get_menu(){
 }
 add_action('wp_ajax_read-menu','get_menu');
 
-/**
- * [get_pages description]
- * @return [type] [description]
- */
-function get_pages1() {
-    $pages = get_all_menu_pages();
-    wp_send_json(array('code' => 'OK', 'data' => $pages));
-}
 
-add_action('wp_ajax_get-pages', 'get_pages1');
 
 function get_elementbox_elements() {
     wp_send_json(array( 'code' => 'OK',

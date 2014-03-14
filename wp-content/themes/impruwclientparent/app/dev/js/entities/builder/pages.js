@@ -13,8 +13,7 @@ define(["app", 'backbone'], function(App, Backbone) {
 
       PageModel.prototype.defaults = function() {
         return {
-          post_title: '',
-          post_content: ''
+          post_title: ''
         };
       };
 
@@ -46,6 +45,9 @@ define(["app", 'backbone'], function(App, Backbone) {
 
     })(Backbone.Collection);
     API = {
+      getPagesCollection: function() {
+        return new Pages.PageCollection;
+      },
       getPages: function(param) {
         var pages;
         if (param == null) {
@@ -61,10 +63,24 @@ define(["app", 'backbone'], function(App, Backbone) {
           });
         }
         return pages;
+      },
+      createNewPage: function(data) {
+        var page;
+        if (data == null) {
+          data = {};
+        }
+        page = new Pages.PageModel(data);
+        return page;
       }
     };
-    return App.reqres.setHandler("get:editable:pages", function() {
+    App.reqres.setHandler("get:editable:pages", function() {
       return API.getPages();
+    });
+    App.reqres.setHandler("create:page:model", function(data) {
+      return API.createNewPage(data);
+    });
+    return App.reqres.setHandler("get:pages:collection", function() {
+      return API.getPagesCollection();
     });
   });
 });
