@@ -19,6 +19,11 @@ define(['app', 'controllers/base-controller', 'apps/builder/header/show/views'],
         view = new Show.Views.MainView({
           collection: pages
         });
+        this.listenTo(view, "add:new:page:clicked", function() {
+          return App.execute("show:add:new:page", {
+            region: App.dialogRegion
+          });
+        });
         this.listenTo(view, 'editable:page:changed', function(pageId) {
           $.cookie('current-page-id', pageId);
           return App.execute("editable:page:changed", pageId);

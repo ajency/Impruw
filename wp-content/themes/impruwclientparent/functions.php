@@ -16,6 +16,7 @@ $me = new Mustache_Engine;
  * Module Loader 
  */
 require_once 'modules/slider/ajax.php';
+require_once 'modules/pages/ajax.php';
 
 require_once PARENTTHEMEPATH . 'api/entities/leftnav.php';
 require_once PARENTTHEMEPATH . 'api/statistics/statistics-api.php';
@@ -2949,34 +2950,6 @@ function delete_room_ajx(){
 add_action( 'wp_ajax_delete_room_ajx', 'delete_room_ajx' );
 add_action( 'wp_ajax_nopriv_delete_room_ajx', 'delete_room_ajx' );
 
-
-
-
-/**
- * Get all menu pages for the site
- * @return [type] [description]
- */
-function get_all_menu_pages(){
-        
-    $args = array('post_type' => 'page','posts_per_page' => -1);
-    $pages  = new WP_query($args);
-     
-    $p = array();
-
-    if($pages->have_posts()){
-        
-        $skip = array('Site Builder','Dashboard');
-
-        foreach($pages->posts as $page){
-
-            if(!in_array($page->post_title, $skip))
-                $p[] = $page;
-        }
-    }
-
-    return $p;
-
-}
 
 /**
  * Get all themes data

@@ -8,7 +8,6 @@ define ["app", 'backbone'], (App, Backbone) ->
 				# defaults for 
 				defaults :->
 					post_title 	: ''
-					post_content: ''
 
 				name: 'page'
 
@@ -29,6 +28,9 @@ define ["app", 'backbone'], (App, Backbone) ->
 				
 			# PUBLIC API FOR ENitity
 			API =
+				getPagesCollection:->
+					new Pages.PageCollection
+
 				getPages: (param = {})->
 					pages = App.request "get:collection", 'pagecollection'
 
@@ -41,7 +43,16 @@ define ["app", 'backbone'], (App, Backbone) ->
 
 					pages
 
+				createNewPage:(data = {})->
+					page = new Pages.PageModel data
+					page
 
 			# REQUEST HANDLERS
 			App.reqres.setHandler "get:editable:pages", ->
 				API.getPages()
+
+			App.reqres.setHandler "create:page:model",(data)->
+				API.createNewPage data
+
+			App.reqres.setHandler "get:pages:collection", ->
+				API.getPagesCollection()
