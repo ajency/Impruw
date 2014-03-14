@@ -4,13 +4,13 @@ define ['app'
 
 			App.module 'RoomsApp.Add.View', (View, App, Backbone, Marionette, $, _)->
 
-				class View.AddRoom extends Marionette.ItemView
-
-					template : addRoomTpl
-
-					tagName : 'form'
+				class View.AddRoomLayout extends Marionette.Layout
+						
+					tagName: 'form'
 
 					className : 'form-horizontal clearfix'
+
+					template : addRoomTpl
 
 					events:
 						'click #btn_saveroom' : ->
@@ -22,16 +22,5 @@ define ['app'
 						@$el.prepend '<div class="alert alert-success">SAve successfully</div>'
 
 
-				class View.AddRoomLayout extends Marionette.Layout
-					
-					template : '<header class="aj-imp-dash-header row">
-									<div class="aj-imp-dash-title col-xs-12">
-										<h2 class="aj-imp-page-head">Add Room</h2>
-									</div>
-								</header>
-								<div class="row" id="add-room-form"></div>
-								<div class="row" id="facilities"></div>'
-
 					regions : 
-						formRegion : '#add-room-form'
-						facilitiesRegion : '#facilities'
+						facilitiesRegion : '#facilities-region'

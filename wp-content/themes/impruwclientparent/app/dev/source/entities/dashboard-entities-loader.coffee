@@ -3,4 +3,5 @@ define [
 		'entities/offlinestore'
 		'entities/analytics'
 		'entities/rooms'
+		'entities/facilities'
 		],->

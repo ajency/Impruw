@@ -2,7 +2,7 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-define(['app', 'controllers/base-controller', 'apps/rooms/add/views'], function(App, AppController) {
+define(['app', 'controllers/base-controller', 'apps/rooms/add/views', 'apps/rooms/facilities/facilitiescontroller'], function(App, AppController) {
   return App.module('RoomsApp.Add', function(Add, App, Backbone, Marionette, $, _) {
     Add.Controller = (function(_super) {
       __extends(Controller, _super);
@@ -18,11 +18,23 @@ define(['app', 'controllers/base-controller', 'apps/rooms/add/views'], function(
         this.layout = layout = this.getAddRoomLayout();
         this.listenTo(layout, "show", (function(_this) {
           return function() {
-            return _this._showAddRoomForm();
+            return App.execute("show:facilities", {
+              region: layout.facilitiesRegion
+            });
+          };
+        })(this));
+        this.listenTo(this.layout, "save:new:room", (function(_this) {
+          return function(data) {
+            return _this._saveNewRoom(data);
           };
         })(this));
         this.show(layout);
         return App.navigate("rooms/add");
+      };
+
+      Controller.prototype._showAddRoomForm = function() {
+        this.formView = this._getFormView();
+        return this.layout.formRegion.show(this.formView);
       };
 
       Controller.prototype._showAddRoomForm = function() {
