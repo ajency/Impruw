@@ -38,7 +38,7 @@ define(["app", 'backbone'], function(App, Backbone) {
       RoomCollection.prototype.model = Rooms.RoomModel;
 
       RoomCollection.prototype.url = function() {
-        return AJAXURL + '?action=get-rooms';
+        return "" + AJAXURL + "?action=create-room";
       };
 
       return RoomCollection;

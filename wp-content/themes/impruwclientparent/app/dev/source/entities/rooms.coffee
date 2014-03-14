@@ -23,8 +23,8 @@ define ["app", 'backbone'], (App, Backbone) ->
                 model : Rooms.RoomModel
 
                 url :->
-                    AJAXURL + '?action=get-rooms'
-
+                    "#{AJAXURL}?action=create-room"
+                    #AJAXURL + '?action=get-rooms'
 
             # PUBLIC API FOR ENtity
             API =

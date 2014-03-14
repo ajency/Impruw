@@ -35,6 +35,3 @@ define ['app'
 					regions : 
 						formRegion : '#add-room-form'
 						facilitiesRegion : '#facilities'
-
-					events:
-						'click .save-button' : ''

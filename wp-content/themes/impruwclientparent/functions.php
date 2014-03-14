@@ -16,6 +16,7 @@ $me = new Mustache_Engine;
  * Module Loader 
  */
 require_once 'modules/slider/ajax.php';
+require_once 'modules/rooms/ajax.php';
 
 require_once PARENTTHEMEPATH . 'api/entities/leftnav.php';
 require_once PARENTTHEMEPATH . 'api/statistics/statistics-api.php';
