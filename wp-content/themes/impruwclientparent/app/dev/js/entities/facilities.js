@@ -59,10 +59,16 @@ define(['app', 'backbone'], function(App, Backbone) {
           data: param
         });
         return facilities;
+      },
+      createFacilityModel: function(data) {
+        return new Facilities.Facility(data);
       }
     };
-    return App.reqres.setHandler("get:all:facilities", function(options) {
+    App.reqres.setHandler("get:all:facilities", function(options) {
       return API.getFacilities();
+    });
+    return App.reqres.setHandler("create:new:facility:model", function(data) {
+      return API.createFacilityModel(data);
     });
   });
 });

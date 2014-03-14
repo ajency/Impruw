@@ -35,7 +35,13 @@ define ['app'
 					facilities.fetch
 						data : param
 					facilities
+
+				createFacilityModel:(data)->
+					new Facilities.Facility data
 					
 			#App request handlers	
 			App.reqres.setHandler "get:all:facilities",(options)->
-				API.getFacilities();
+				API.getFacilities()
+
+			App.reqres.setHandler "create:new:facility:model",(data)->
+				API.createFacilityModel data

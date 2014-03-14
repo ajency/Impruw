@@ -1,7 +1,7 @@
 define ['app'],(App)->
 
 	# Row views
-	App.module 'FacilitiesApp.Views', (Views, App, Backbone, Marionette, $, _)->
+	App.module 'FacilitiesApp.List.Views', (Views, App, Backbone, Marionette, $, _)->
 
 		#empty view
 		class FacilityItem extends Marionette.ItemView
