@@ -194,16 +194,16 @@ function create_new_site( $blog_id, $blog_name, $blog_title, $user_id, $file_nam
         //$post_nb_id = mwm_wpml_translate_post( $new_blog_id, $post_id, 'page', 'nb', $user_id );
     
         //commented the template part 5dec2013 to bypass
-        if($value['template'] === '')
-            add_layout_site( $new_blog_id, $post_id, $key);
+        //if($value['template'] === '')
+            //add_layout_site( $new_blog_id, $post_id, $key);
     }
 
     //set header and footer
      
 	//$clone_blog = 81; //local
-    create_initial_slider($new_blog_id);
+    //create_initial_slider($new_blog_id);
 
-    clone_header_footer($new_blog_id);
+    //clone_header_footer($new_blog_id);
     
     create_tariff_table_for_blog( $new_blog_id );
     

@@ -26,7 +26,6 @@ define(['app', 'apps/my-profile/edit/controller'], function(App) {
     };
     return MyProfileApp.on({
       'start': function() {
-        _.logAppMsg("My Profile Module started...");
         return new MyProfileApp.Router({
           controller: API
         });

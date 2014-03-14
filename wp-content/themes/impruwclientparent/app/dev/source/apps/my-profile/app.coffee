@@ -21,7 +21,5 @@ define [
 		
 		MyProfileApp.on 'start': ->
 			
-			_.logAppMsg "My Profile Module started..."
-			
 			new MyProfileApp.Router
-				controller : API
+						controller : API

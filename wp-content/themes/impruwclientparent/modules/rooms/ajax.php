@@ -34,7 +34,3 @@ function create_room_ajax(){
     wp_send_json(array('code' => 'OK', 'data' => $room));
 }
 add_action('wp_ajax_create-room','create_room_ajax');
-
-/**
- * 
- */ 
