@@ -11,10 +11,17 @@
  * Calls wp_insert_user WP function to make the record
  * @return int|WP_Error new user_id or WP_Error object
  */
-function create_new_user($userdata){
+function create_new_user($user_data){
     
-    // extract indivisual variable of array
-    extract( $userdata, EXTR_SKIP );
+    // user_name is not captured in form so lets slugify display_name to user_name
+    if(!isset($user_data['user_login']))
+        $user_data['user_login'] = sanitize_username($user_data['display_name']);
+    
+    // any new registered user must be the adim of the site. so, add role as admin
+    if(!isset($user_data['role']))
+        $user_data['role'] = 'admin';
+    
+    $user_id = wp_insert_user($user_data);
     
     return $user_id;
 }

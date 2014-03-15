@@ -5,11 +5,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+require_once '../../../../../testbootstrap.php';
 
-class UserFunctionsTest extends WP_UnitTestCase
-{
-    public function testSanitizeUsername()
-    {
-        $this->assertEquals('suraj_air', sanitize_username('suraj air'));
+
+class UserFunctionsTest extends WP_UnitTestCase{
+    
+    public function testSanitizeUsername(){
+        $this->assertEquals('suraj_air_rt', sanitize_username('suraj air % rt'));
+    }
+    
+    public function testCreateNewUser(){
+        
+        $user_data = array( 'user_email'    => 'email'.  rand(00, 100) . '@mailinator.com',
+                            'display_name'  => 'New User',
+                            'user_pass'     => 'user');
+        
+        //$this->assertInternalType('integer', create_new_user($user_data));
+        
     }
 }

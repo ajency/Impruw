@@ -34,12 +34,6 @@ function new_user_registration(){
     // check done. now get the form data. pick the user specific fields and 
     // store in $user_data
     $user_data = pick_user_fields($form_data);
-    
-    // user_name is not captured in form so lets slugify display_name to user_name
-    $user_data['user_name'] = sanitize_user($user_data['display_name']);
-    
-    // any new registered user must be the adim of the site. so, add role as admin
-    $user_data['role'] = 'admin';
             
     //pass the data to create_new_user function capture return data
     $user_id = create_new_user($user_data);
