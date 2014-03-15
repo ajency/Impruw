@@ -15,12 +15,12 @@ class UserFunctionsTest extends WP_UnitTestCase{
     }
     
     public function testCreateNewUser(){
-        
-        $user_data = array( 'user_email'    => 'email'.  rand(00, 100) . '@mailinator.com',
-                            'display_name'  => 'New User',
+        $num = rand(00, 100);
+        $user_data = array( 'user_email'    => 'email'. $num . '@mailinator.com',
+                            'display_name'  => 'New User'. $num,
                             'user_pass'     => 'user');
         
-        //$this->assertInternalType('integer', create_new_user($user_data));
+        $this->assertInternalType('integer', create_new_user($user_data));
         
     }
 }

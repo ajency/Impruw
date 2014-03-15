@@ -19,7 +19,7 @@ function create_new_user($user_data){
     
     // any new registered user must be the adim of the site. so, add role as admin
     if(!isset($user_data['role']))
-        $user_data['role'] = 'admin';
+        $user_data['role'] = 'administrator';
     
     $user_id = wp_insert_user($user_data);
     
