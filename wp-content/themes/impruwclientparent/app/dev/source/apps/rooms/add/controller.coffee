@@ -1,6 +1,6 @@
 define ['app', 'controllers/base-controller'
 		'apps/rooms/add/views'
-		'apps/rooms/facilities/facilitiescontroller'], (App, AppController)->
+		'apps/rooms/facilities/facilitiesapp'], (App, AppController)->
 
 	App.module 'RoomsApp.Add', (Add, App, Backbone, Marionette, $, _)->
 

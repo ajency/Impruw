@@ -1,6 +1,5 @@
 define ['app' 
 		 'controllers/base-controller'
-		 'apps/rooms/facilities/facilitiesviews'
 		 'apps/rooms/facilities/add/addfacilitiesapp'
 		 'apps/rooms/facilities/list/facilitieslistapp'], (App , AppController)->
 

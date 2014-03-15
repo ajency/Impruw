@@ -1,21 +1,33 @@
 jQuery(document).ready(function($) {
+    
+    function getFromData(serializedData){
+        var data = {};
+        $.each(serializedData, function( key, ele) {
+            data[ele.name] = ele.value;
+        });
+        
+        return data;
+    }
 
     /****************** Sign up.js ********************/
     $('#btn_create_site').click(function(e) {
 
         e.preventDefault();
-        $('#btn_create_site').attr('disabled',true);
+        //$('#btn_create_site').attr('disabled',true);
         var _this = this;
 
-        if ($('#frm_registration').parsley('validate')) {
+        //if ($('#frm_registration').parsley('validate')) {
 
             $(this).next().show();
             var data = {
-                action: 'save_new_user',
-                frmdata: $("#frm_registration").serializeArray(),
-                ajax_nonce: ajax_nonce
+                action      : 'new_user_registration',
+                _nonce      : ajax_nonce
             };
-
+            
+            var formData = getFromData($("#frm_registration").serializeArray());
+            
+            // merge object
+            $.extend(data, formData);
 
             // since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
             $.post(ajaxurl, data, function(response) {
@@ -67,7 +79,7 @@ jQuery(document).ready(function($) {
             }); //end  $.post(ajaxurl, data, function(response) 
 
 
-        }
+        //}
 
     });
 

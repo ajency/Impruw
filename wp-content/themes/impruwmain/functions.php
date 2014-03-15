@@ -22,6 +22,16 @@ require_once 'User/user_management.php';//file containing all shortcodes to fetc
 //add theme support
 add_theme_support( 'post-thumbnails' );
 show_admin_bar(false);
+
+/******************** Theme Modules *********************************/
+require_once 'modules/user/ajax.php';
+
+
+
+
+
+
+
 /*--------------------------------------------------------------------------------------
 *
 * impruw_register_email_init
