@@ -3,6 +3,7 @@
 // https://github.com/nb/wordpress-tests
 //
 $_SERVER['SERVER_PROTOCOL'] = 'HTTP/1.1';
+$_SERVER['REMOTE_ADDR'] = '127.0.0.1';
 $_SERVER['HTTP_HOST'] = 'localhost';
 $PHP_SELF = $GLOBALS['PHP_SELF'] = $_SERVER['PHP_SELF'] = '/index.php';
 // These are still needed

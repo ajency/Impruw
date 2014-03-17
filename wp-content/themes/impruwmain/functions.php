@@ -15,16 +15,18 @@ Description: This file has a list of the following functions used in the theme
 
 /* ============================================================= */
 
-require_once 'Communication_module/user_shortcodes.php';//file containing all shortcodes to fetch user information
-require_once 'Communication_module/site_shortcodes.php';//file containing all shortcodes to fetch site information
-require_once 'User/user_management.php';//file containing all shortcodes to fetch site information
+//require_once 'Communication_module/user_shortcodes.php';//file containing all shortcodes to fetch user information
+//require_once 'Communication_module/site_shortcodes.php';//file containing all shortcodes to fetch site information
+//require_once 'User/user_management.php';//file containing all shortcodes to fetch site information
 
 //add theme support
 add_theme_support( 'post-thumbnails' );
 show_admin_bar(false);
 
 /******************** Theme Modules *********************************/
+require_once 'modules/pages/ajax.php';
 require_once 'modules/user/ajax.php';
+require_once 'modules/site/ajax.php';
 
 
 
@@ -284,7 +286,7 @@ function impruw_add_user_role_to_email( $post_id ) {
         update_post_meta( $post_id, 'user_roles', $user_roles_array );
     }
 }
-add_action( 'save_post', 'impruw_add_user_role_to_email' );
+//add_action( 'save_post', 'impruw_add_user_role_to_email' );
 
 
 /**

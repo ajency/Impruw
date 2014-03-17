@@ -170,7 +170,7 @@ get_header();
                             <!--  <button type="submit" class="btn btn-wide aj-imp-submit">Start Creating!</button> --> 
                             <button type="button" class="btn btn-wide aj-imp-submit" id="btn_create_site" name="btn_create"  ><?php echo __('Get started!', 'impruwmain'); ?></button> 
                             <img id="registration_loader" src="<?php echo site_url() . "/wp-content/themes/impruwmain/images/loader.gif"; ?>" width="38" height="30"  style="display:none;"/>
-
+                            <input type="reset" style="display: none"/>
                         </div>
                     </div>
                 </div>

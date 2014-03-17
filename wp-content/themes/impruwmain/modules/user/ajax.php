@@ -41,7 +41,14 @@ function new_user_registration(){
     // if int = $user_id return success else return error
     if(is_wp_error($user_id))
         wp_send_json_error ();
-    else
-        wp_send_json_success($user_data);
+   
+    // user created now lets create the site
+    
+    $site_id = create_new_site($form_data['site_name'], $user_id);
+    
+    if(is_wp_error($site_id))
+        wp_send_json_success ('Failed to create site');
+    
+    wp_send_json_success();
 }
 add_action('wp_ajax_nopriv_new_user_registration', 'new_user_registration');

@@ -34,18 +34,15 @@ jQuery(document).ready(function($) {
 
                 $(_this).next().hide();
 
-                if (response.code == 'OK') {
-
+                if (response.success) {
+                    
+                    response.msg = "Great!  Now activate your account by clicking on the link sent you by email in next  5 minutes. If you don't see it there check your spam folder.";
+                    
                     $("#register_message").html('<div class="alert alert-success">' +
                         '<button aria-hidden="true" data-dismiss="alert" class="close" type="button">x</button>' +
                         response.msg + '</div>');
                     
-                    $("#inputName").val('');
-                    $("#inputEmail").val('');
-                     $("#inputSitename").val('');
-                     $("#inputPass").val('');
-                     $("#inputRepass").val('');
-                     	$("#recaptcha_response_field").val('');
+                    $("#frm_registration").find('input[type="reset"]').click();
                     //$("#scrolltosuccess").click();
                     $('html, body').animate({
     			        scrollTop: $('#register_message').offset().top 
@@ -61,7 +58,7 @@ jQuery(document).ready(function($) {
                     
                     $('#btn_create_site').attr('disabled',false);
                     return true;
-                } else if (response.code == 'ERROR') {
+                } else if (!response.success) {
                     //alert("invalid captcha")
 
                     $("#recaptcha_reload").click();

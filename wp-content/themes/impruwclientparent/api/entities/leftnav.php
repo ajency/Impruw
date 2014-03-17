@@ -76,7 +76,7 @@ function get_elementbox_elements() {
                             array(  'element'   => 'Logo',
                                     'icon'      => '',
                                     'styles'    => array(),
-                                    'size'      => get_logo_size()
+                                    'size'      => '',//get_logo_size()
                             ),
                             array(  'element' => 'Text',
                                     'icon' => '',
