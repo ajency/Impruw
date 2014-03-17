@@ -8,7 +8,7 @@ define ['app', 'controllers/base-controller'
 			# initiliaze controller
 			initialize:()->
 
-				user = App.request "get:user:model"
+				#user = App.request "get:user:model"
 
 				@layout = @getLayout()
 

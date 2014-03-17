@@ -65,6 +65,10 @@ function activate_site_plugins($site_id, $plugins){
    
     activate_plugins($plugins);
     
+    // create rev slider tables
+    require_once ABSPATH . PLUGINDIR . '/revslider/revslider_admin.php';
+    RevSliderAdmin::createDBTables();
+    
     restore_current_blog();
 
 }

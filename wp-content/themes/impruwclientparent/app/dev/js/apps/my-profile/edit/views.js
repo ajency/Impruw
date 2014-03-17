@@ -1,7 +1,7 @@
 var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-define(['app', 'tpl!apps/my-profile/edit/templates/mainview', 'tpl!apps/my-profile/edit/templates/generalform', 'tpl!apps/my-profile/edit/templates/passwordform'], function(App, mainviewTpl, generalformTpl, passwordformTpl) {
+define(['app', 'text!apps/my-profile/edit/templates/mainview.html', 'text!apps/my-profile/edit/templates/generalform.html', 'text!apps/my-profile/edit/templates/passwordform.html'], function(App, mainviewTpl, generalformTpl, passwordformTpl) {
   App.module('MyProfileApp.Edit.View', function(View, App, Backbone, Marionette, $, _) {
     View.Layout = (function(_super) {
       __extends(Layout, _super);

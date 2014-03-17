@@ -11,6 +11,8 @@ define(["app", 'backbone'], function(App, Backbone) {
         return SiteModel.__super__.constructor.apply(this, arguments);
       }
 
+      SiteModel.prototype.name = 'site';
+
       return SiteModel;
 
     })(Backbone.Model);
@@ -37,13 +39,6 @@ define(["app", 'backbone'], function(App, Backbone) {
 
       SiteSocialItemsCollection.prototype.url = function() {
         return "" + AJAXURL + "?action=get-site-socials";
-      };
-
-      SiteSocialItemsCollection.prototype.parse = function(r) {
-        if (r.code === 'OK') {
-          return r.data;
-        }
-        return r;
       };
 
       return SiteSocialItemsCollection;

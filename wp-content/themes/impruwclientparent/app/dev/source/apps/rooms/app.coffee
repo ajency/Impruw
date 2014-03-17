@@ -13,6 +13,7 @@ define [
 			appRoutes :
 				'rooms' : 'list'
 				'rooms/add' : 'add'
+				'rooms/edit/:id' : 'edit'
 
 
 		#public API
@@ -25,6 +26,11 @@ define [
 			#add room route handler
 			add :()->
 				App.execute "show:add:room"
+
+			edit:(id)->
+				App.execute 'show:edit:room', 
+								region 	: App.rightRegion
+								ID 		: id
 												 
 
 		# Setup router on module start event

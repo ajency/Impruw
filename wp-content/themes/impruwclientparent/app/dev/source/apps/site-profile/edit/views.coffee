@@ -1,6 +1,6 @@
 define ['app'
-		'tpl!apps/site-profile/edit/templates/mainview'
-		'tpl!apps/site-profile/edit/templates/siteprofile'],
+		'text!apps/site-profile/edit/templates/mainview.html'
+		'text!apps/site-profile/edit/templates/siteprofile.html'],
 		(App, mainviewTpl, siteprofileTpl)->
 
 
@@ -9,9 +9,6 @@ define ['app'
 				class View.SiteProfile extends Marionette.ItemView
 
 					template : siteprofileTpl
-
-					onRender :()->
-						console.log @model
 
 					events : 
 						'click .save-site-profile' : -> @triggers "save:site:profile"

@@ -13,7 +13,8 @@ define(['app', 'apps/rooms/list/controller', 'apps/rooms/add/controller'], funct
 
       Router.prototype.appRoutes = {
         'rooms': 'list',
-        'rooms/add': 'add'
+        'rooms/add': 'add',
+        'rooms/edit/:id': 'edit'
       };
 
       return Router;
@@ -27,6 +28,12 @@ define(['app', 'apps/rooms/list/controller', 'apps/rooms/add/controller'], funct
       },
       add: function() {
         return App.execute("show:add:room");
+      },
+      edit: function(id) {
+        return App.execute('show:edit:room', {
+          region: App.rightRegion,
+          ID: id
+        });
       }
     };
     return RoomsApp.on({

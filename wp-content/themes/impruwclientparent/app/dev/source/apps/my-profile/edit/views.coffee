@@ -1,7 +1,7 @@
 define ['app'
-		'tpl!apps/my-profile/edit/templates/mainview'
-		'tpl!apps/my-profile/edit/templates/generalform'
-		'tpl!apps/my-profile/edit/templates/passwordform'],
+		'text!apps/my-profile/edit/templates/mainview.html'
+		'text!apps/my-profile/edit/templates/generalform.html'
+		'text!apps/my-profile/edit/templates/passwordform.html'],
 		(App, mainviewTpl, generalformTpl, passwordformTpl)->
 
 

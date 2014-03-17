@@ -4,6 +4,8 @@ define ["app", 'backbone'], (App, Backbone) ->
 
             class SiteModel extends Backbone.Model
 
+                name : 'site'
+
             class SiteSocialItem extends Backbone.Model
                 idAttribute : 'socialname'
 
@@ -12,11 +14,7 @@ define ["app", 'backbone'], (App, Backbone) ->
                 url : ->
                     "#{AJAXURL}?action=get-site-socials"
 
-                parse:(r)->
-                    return r.data if r.code is 'OK'
-                    r
-
-
+                
 
             #PUBLIC API FOR ENitity
             API =

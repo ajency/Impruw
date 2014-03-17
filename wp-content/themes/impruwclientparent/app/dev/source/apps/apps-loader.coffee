@@ -1,4 +1,7 @@
 
 define ['apps/leftnav/app'
 		'apps/dashboard/statistics/controller'
-		'apps/rooms/app'],->
+		'apps/dashboard/home/dashboardshowapp'
+		'apps/rooms/app'
+		'apps/site-profile/app'
+		'apps/my-profile/app'],->

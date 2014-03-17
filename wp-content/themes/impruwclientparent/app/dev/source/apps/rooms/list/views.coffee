@@ -43,4 +43,3 @@ define ['app'],
 					events:
 						'click .add-room' : -> @trigger "add:new:room:clicked"
 				
-			return App.RoomsApp.List.View

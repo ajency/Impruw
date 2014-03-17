@@ -11,8 +11,6 @@ define(['app', 'controllers/base-controller', 'apps/my-profile/edit/views', 'ent
       }
 
       Controller.prototype.initialize = function() {
-        var user;
-        user = App.request("get:user:model");
         this.layout = this.getLayout();
         this.show(this.layout);
         this.layout.generalFormRegion.show(this.getGeneralFormView());

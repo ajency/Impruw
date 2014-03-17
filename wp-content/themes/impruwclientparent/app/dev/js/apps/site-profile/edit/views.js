@@ -1,7 +1,7 @@
 var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-define(['app', 'tpl!apps/site-profile/edit/templates/mainview', 'tpl!apps/site-profile/edit/templates/siteprofile'], function(App, mainviewTpl, siteprofileTpl) {
+define(['app', 'text!apps/site-profile/edit/templates/mainview.html', 'text!apps/site-profile/edit/templates/siteprofile.html'], function(App, mainviewTpl, siteprofileTpl) {
   App.module('SiteProfileApp.Edit.View', function(View, App, Backbone, Marionette, $, _) {
     View.SiteProfile = (function(_super) {
       __extends(SiteProfile, _super);
@@ -11,10 +11,6 @@ define(['app', 'tpl!apps/site-profile/edit/templates/mainview', 'tpl!apps/site-p
       }
 
       SiteProfile.prototype.template = siteprofileTpl;
-
-      SiteProfile.prototype.onRender = function() {
-        return console.log(this.model);
-      };
 
       SiteProfile.prototype.events = {
         'click .save-site-profile': function() {
