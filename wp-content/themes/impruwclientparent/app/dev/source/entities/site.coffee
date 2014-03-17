@@ -4,7 +4,10 @@ define ["app", 'backbone'], (App, Backbone) ->
 
             class SiteModel extends Backbone.Model
 
+                idAttribute : 'site_id'
+
                 name : 'site'
+                
 
             class SiteSocialItem extends Backbone.Model
                 idAttribute : 'socialname'

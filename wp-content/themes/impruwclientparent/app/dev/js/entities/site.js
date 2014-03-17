@@ -11,6 +11,8 @@ define(["app", 'backbone'], function(App, Backbone) {
         return SiteModel.__super__.constructor.apply(this, arguments);
       }
 
+      SiteModel.prototype.idAttribute = 'site_id';
+
       SiteModel.prototype.name = 'site';
 
       return SiteModel;
