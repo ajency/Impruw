@@ -35,6 +35,7 @@ define(['app', 'controllers/base-controller', 'text!apps/dashboard/home/template
         var layout;
         this.layout = layout = this._getDashboardLayout();
         this.listenTo(layout, 'show', this.showDashboardSections);
+        App.vent.trigger("set:active:menu", 'dashboard');
         return this.show(layout);
       };
 

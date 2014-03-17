@@ -15,6 +15,9 @@ define ['app', 'controllers/base-controller'
 				
 				view = @.getMainView(@siteProfile)	
 
+				# trigger set:active:menu event
+				App.vent.trigger "set:active:menu", 'site-profile'
+
 				@show view,(loading : true)
 
 

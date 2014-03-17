@@ -23,6 +23,9 @@ define ['app', 'controllers/base-controller','text!apps/dashboard/home/templates
 				# listen to show event
 				@listenTo layout, 'show', @showDashboardSections
 
+				# trigger set:active:menu event
+				App.vent.trigger "set:active:menu", 'dashboard'
+
 				@show layout
 
 			_getDashboardLayout:->

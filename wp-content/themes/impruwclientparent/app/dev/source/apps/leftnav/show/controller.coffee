@@ -9,12 +9,16 @@ define ['app', 'controllers/base-controller'
 			initialize:()->
 				@links = App.request 'leftnav:entities'
 
+				@view = new Show.View.LeftNav	
+								collection : @links
 
-			showLeftNav : ()->
-				view = new Show.View.LeftNav	
-							collection : @links
+				@listenTo App.vent,"set:active:menu", @setActiveMenu
 
-				@show  view, (loading : true)	
+				@show  @view, (loading : true)	
 
 
-	App.LeftNav.Show.Controller		
+			setActiveMenu : (link)->
+				@view.triggerMethod "set:active:menu", link
+
+				
+	

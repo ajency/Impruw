@@ -24,6 +24,9 @@ define ['app', 'controllers/base-controller'
 				@on "itemview:generalform:submit:clicked", ->
 						console.log "general form submitted"
 
+				# trigger set:active:menu event
+				App.vent.trigger "set:active:menu", 'my-profile'
+
 				
 			# get layout
 			getLayout : ->

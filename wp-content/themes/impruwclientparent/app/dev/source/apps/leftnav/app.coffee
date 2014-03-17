@@ -7,8 +7,6 @@ define ['app','apps/leftnav/show/controller'], (App)->
 
 				controller = new LeftNav.Show.Controller
 											region : App.leftRegion
-
-				controller.showLeftNav()
 				
 
 		LeftNav.on 'start', ->

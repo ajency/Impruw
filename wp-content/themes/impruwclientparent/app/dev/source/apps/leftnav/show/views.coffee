@@ -6,7 +6,7 @@ define ['app'
 
 			App.module 'LeftNav.Show.View', (View, App, Backbone, Marionette, $, _)->
 
-				class View.MenuItem extends Marionette.ItemView
+				class MenuItem extends Marionette.ItemView
 
 					template : menuitemTpl
 
@@ -17,7 +17,12 @@ define ['app'
 					
 					itemViewContainer: '#aj-imp-dash-menu'
 
-					itemView : View.MenuItem
+					itemView : MenuItem
 
+					onSetActiveMenu:(link)=>
+						@$el.find "li"
+							.removeClass 'active'
 
-			return App.LeftNav.Show.View
+						@$el.find "a[data-route='#{link}']" 
+							.parent()
+							.addClass 'active'

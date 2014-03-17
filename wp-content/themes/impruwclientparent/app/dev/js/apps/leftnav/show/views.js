@@ -1,9 +1,11 @@
 var __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
 define(['app', 'text!apps/leftnav/show/templates/leftNav.html', 'text!apps/leftnav/show/templates/menuitem.html'], function(App, leftNavTpl, menuitemTpl) {
-  App.module('LeftNav.Show.View', function(View, App, Backbone, Marionette, $, _) {
-    View.MenuItem = (function(_super) {
+  return App.module('LeftNav.Show.View', function(View, App, Backbone, Marionette, $, _) {
+    var MenuItem;
+    MenuItem = (function(_super) {
       __extends(MenuItem, _super);
 
       function MenuItem() {
@@ -19,6 +21,7 @@ define(['app', 'text!apps/leftnav/show/templates/leftNav.html', 'text!apps/leftn
       __extends(LeftNav, _super);
 
       function LeftNav() {
+        this.onSetActiveMenu = __bind(this.onSetActiveMenu, this);
         return LeftNav.__super__.constructor.apply(this, arguments);
       }
 
@@ -26,11 +29,15 @@ define(['app', 'text!apps/leftnav/show/templates/leftNav.html', 'text!apps/leftn
 
       LeftNav.prototype.itemViewContainer = '#aj-imp-dash-menu';
 
-      LeftNav.prototype.itemView = View.MenuItem;
+      LeftNav.prototype.itemView = MenuItem;
+
+      LeftNav.prototype.onSetActiveMenu = function(link) {
+        this.$el.find("li").removeClass('active');
+        return this.$el.find("a[data-route='" + link + "']").parent().addClass('active');
+      };
 
       return LeftNav;
 
     })(Marionette.CompositeView);
   });
-  return App.LeftNav.Show.View;
 });

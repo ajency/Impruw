@@ -111,9 +111,10 @@ define(['app', 'controllers/base-controller', 'text!apps/dashboard/statistics/te
           });
           return this.layout.overviewRegion.show(this._loadChartOverview(this.analyticsCollection, startDate, endDate));
         });
-        return this.show(this.layout, {
+        this.show(this.layout, {
           loading: true
         });
+        return App.vent.trigger("set:active:menu", 'statistics');
       };
 
       Controller.prototype._setRegions = function(layout) {

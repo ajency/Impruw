@@ -12,6 +12,9 @@ define ['app', 'controllers/base-controller', 'apps/rooms/list/views'], (App, Ap
 				@listenTo @layout, 'add:new:room:clicked',() ->
 					App.execute "show:add:room"
 
+				# trigger set:active:menu event
+				App.vent.trigger "set:active:menu", 'rooms'
+
 				@show @layout
 				
 			_getLayout:->

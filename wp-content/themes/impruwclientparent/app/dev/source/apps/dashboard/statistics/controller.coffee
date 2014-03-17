@@ -110,6 +110,9 @@ define ['app'
 
 						@show @layout,
 							loading : true
+
+						# trigger set:active:menu event
+						App.vent.trigger "set:active:menu", 'statistics'
 						
 					_setRegions:(layout)->
 						@regions = layout.regions

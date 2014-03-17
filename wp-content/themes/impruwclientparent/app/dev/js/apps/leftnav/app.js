@@ -4,10 +4,9 @@ define(['app', 'apps/leftnav/show/controller'], function(App) {
     API = {
       show: function() {
         var controller;
-        controller = new LeftNav.Show.Controller({
+        return controller = new LeftNav.Show.Controller({
           region: App.leftRegion
         });
-        return controller.showLeftNav();
       }
     };
     return LeftNav.on('start', function() {

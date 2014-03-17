@@ -15,9 +15,10 @@ define(['app', 'controllers/base-controller', 'apps/my-profile/edit/views', 'ent
         this.show(this.layout);
         this.layout.generalFormRegion.show(this.getGeneralFormView());
         this.layout.passwordFormRegion.show(this.getPasswordFormView());
-        return this.on("itemview:generalform:submit:clicked", function() {
+        this.on("itemview:generalform:submit:clicked", function() {
           return console.log("general form submitted");
         });
+        return App.vent.trigger("set:active:menu", 'my-profile');
       };
 
       Controller.prototype.getLayout = function() {

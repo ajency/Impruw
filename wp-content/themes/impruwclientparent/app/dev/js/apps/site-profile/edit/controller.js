@@ -17,6 +17,7 @@ define(['app', 'controllers/base-controller', 'apps/site-profile/edit/views', 'e
       Controller.prototype.showSiteProfile = function() {
         var view;
         view = this.getMainView(this.siteProfile);
+        App.vent.trigger("set:active:menu", 'site-profile');
         return this.show(view, {
           loading: true
         });

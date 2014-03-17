@@ -15,6 +15,7 @@ define(['app', 'controllers/base-controller', 'apps/rooms/list/views'], function
         this.listenTo(this.layout, 'add:new:room:clicked', function() {
           return App.execute("show:add:room");
         });
+        App.vent.trigger("set:active:menu", 'rooms');
         return this.show(this.layout);
       };
 
