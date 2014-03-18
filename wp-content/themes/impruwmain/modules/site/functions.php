@@ -19,6 +19,9 @@ function create_new_site($site_name, $user_id){
     
     $site_id = wpmu_create_blog($domain, $path, 'New Site', $user_id, $meta);
     
+    if(is_wp_error($site_id))
+        return false;
+    
     // when a new site is created, it must be marked as comming soon. lets add a meta
     set_site_status($site_id, 'coming_soon');
     
@@ -34,10 +37,8 @@ function create_new_site($site_name, $user_id){
     
     add_pages_to_site($site_id, $user_id, $pages);
     
-    // activate the plugins. add more if required
-    $plugins = array('revslider/revslider.php');
-    
-    activate_site_plugins($site_id, $plugins);
+    // hack to create revslider plugin tables
+    create_revslider_tables($site_id);
     
     // create custom tables
     create_additional_tables($site_id);
@@ -49,7 +50,27 @@ function create_new_site($site_name, $user_id){
 }
 
 /**
- * 
+ * Ugly hack to create revslider tables
+ * @param type $site_id
+ */
+function create_revslider_tables($site_id){
+    
+    switch_to_blog($site_id);
+    
+    // get admin url
+    $url = admin_url();
+    
+    // simply trigger the admin_url through CURL
+    // this will create the table for revslider plugin
+    $ch = curl_init($url);
+    curl_exec($ch);
+    curl_close($ch);
+    
+    restore_current_blog();
+}
+
+/**
+ * Activate the passed plugins
  * @param type $plugins
  * @return boolean
  */

@@ -2,7 +2,7 @@
 define ['marionette'], (Marionette)->
 
 	window.App = new Marionette.Application
-	
+
 	# Main app regions
 	App.addRegions
 		headerRegion 		: '#header-region'
@@ -22,7 +22,7 @@ define ['marionette'], (Marionette)->
 	App.on 'start',()->
 		_.logAppMsg "Application Started...."
 
-	# Reqres handler to return a default region. If a controller is not explicitly specified a 
+	# Reqres handler to return a default region. If a controller is not explicitly specified a
 	# region it will trigger default region handler
 	App.reqres.setHandler "default:region", ->
 		App.builderRegion
@@ -37,7 +37,7 @@ define ['marionette'], (Marionette)->
 	# Registers a controller instance
 	App.commands.setHandler "register:instance", (instance, id) ->
 		App.register instance, id
-	
+
 	# Unregisters a controller instance
 	App.commands.setHandler "unregister:instance", (instance, id) ->
 		App.unregister instance, id
@@ -45,13 +45,13 @@ define ['marionette'], (Marionette)->
 	# Registers a controller instance
 	App.commands.setHandler "register:builder:instance", (instance, id) ->
 		App.registerElement instance, id
-	
+
 	# Unregisters a controller instance
 	App.commands.setHandler "unregister:builder:instance", (instance, id) ->
 		App.unregisterElement instance, id
 
 	App.on "initialize:after", (options) ->
-		
+
 		# create required empty stores
 		App.execute "create:media:store"
 		App.execute "create:menu:store"
@@ -64,5 +64,5 @@ define ['marionette'], (Marionette)->
 			App.navigate(@rootRoute, trigger: true) unless @getCurrentRoute()
 		else
 			App.navigate(@loginRoute, trigger : true)
-			
+
 	App

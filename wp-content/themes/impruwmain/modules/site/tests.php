@@ -22,7 +22,7 @@ class SiteFunctionsTest extends WP_UnitTestCase{
     }
     
     public function testSiteCreation() {
-        $this->site_id = create_new_site('testsite'. rand(00, 99), 13);
+        $this->site_id = create_new_site('testsite'. rand(00, 99), 1);
         $this->assertInternalType('integer', $this->site_id );
     }
     
