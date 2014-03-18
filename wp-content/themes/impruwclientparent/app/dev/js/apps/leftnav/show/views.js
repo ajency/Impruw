@@ -14,6 +14,15 @@ define(['app', 'text!apps/leftnav/show/templates/leftNav.html', 'text!apps/leftn
 
       MenuItem.prototype.template = menuitemTpl;
 
+      MenuItem.prototype.serializeData = function() {
+        var data;
+        data = this.model.toJSON();
+        data.slug = function() {
+          return _.slugify(this.title);
+        };
+        return data;
+      };
+
       return MenuItem;
 
     })(Marionette.ItemView);

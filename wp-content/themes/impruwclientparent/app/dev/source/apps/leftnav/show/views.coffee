@@ -10,6 +10,15 @@ define ['app'
 
 					template : menuitemTpl
 
+					serializeData:()->
+
+						data = @model.toJSON()
+
+						data.slug = ->
+							_.slugify @title
+
+						data
+
 
 				class View.LeftNav extends Marionette.CompositeView
 
