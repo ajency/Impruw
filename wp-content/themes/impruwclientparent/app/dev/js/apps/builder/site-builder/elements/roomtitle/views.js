@@ -12,7 +12,7 @@ define(['app', 'holder'], function(App, Holder) {
 
       RoomTitleView.prototype.className = 'roomtitle';
 
-      RoomTitleView.prototype.template = '<div class="room-title-container clearfix"> <div class="room-title"> <h1>Room Title</h1> <div class="room-title-desc">Lorem ipsum dolor sit amet</div> </div> <div class="room-title-actions"> <button class="btn btn-sm btn-book">Booking &amp; Availability</button> </div> </div>';
+      RoomTitleView.prototype.template = '<div class="room-title-container clearfix"> <div class="room-title"> <h1>Room Title</h1> <div class="room-title-desc">Lorem ipsum dolor sit amet et odio vehicula, id porttitor quam malesuada a nice room. </div> </div> <div class="room-title-actions"> <button class="btn btn-sm btn-book">Booking &amp; Availability</button> </div> </div>';
 
       return RoomTitleView;
 

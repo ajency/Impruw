@@ -32,6 +32,7 @@
     <link href="<?php echo get_parent_template_directory_uri(); ?>/builder/css/main.css"            rel="stylesheet" media="screen"/>
     <link href="<?php echo get_parent_template_directory_uri(); ?>/builder/css/builder.css"         rel="stylesheet" media="screen"/>
     <link href="<?php echo get_parent_template_directory_uri(); ?>/builder/css/custom.css"          rel="stylesheet" media="screen"/>
+    <link href="<?php echo get_parent_template_directory_uri(); ?>/css/style.css" rel="stylesheet" media="screen"/>
     <link href="<?php echo get_template_directory_uri(); ?>/css/style.css" rel="stylesheet" media="screen"/>
     <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
 </head>
