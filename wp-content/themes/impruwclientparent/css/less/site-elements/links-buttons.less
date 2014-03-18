@@ -4,17 +4,17 @@
 	margin: 0 0.5em 0.5em 0;
 	&.button {
 		a {
-			background: #fff;
-			color: @primary1;
+			background: @primary1;
+			color: #fff;
+			border-radius: 3px;
 			display: inline-block;
-			padding: 0.3em 0.5em 0.2em;
+			padding: 0.5em 0.7em 0.4em;
 			margin: 1em 0;
-			font-size: 1.2em;
+			font-size: 1em;
 			font-weight: 400;
 			&:hover {
 				text-decoration: none;
-				background: @primary1;
-				color: #fff;
+				background: lighten(@primary1, 20%);
 				.backTrans;
 			}
 		}

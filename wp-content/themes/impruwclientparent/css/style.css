@@ -37,9 +37,16 @@
   -ms-transform: rotate(360deg);
   transform: rotate(360deg);
 }
+@font-face {
+  font-family: 'icomoon';
+  src: url("../fonts/icomoon.eot");
+  src: url("../fonts/icomoon.eot?#iefix") format("embedded-opentype"), url("../fonts/icomoon.woff") format("woff"), url("../fonts/icomoon.ttf") format("truetype"), url("../fonts/icomoon.svg#icomoon") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
 /****body styles****/
 .site-style-container {
-  font-family: 'Lato', sans-serif;
+  font-family: 'Helvetica', sans-serif;
   font-weight: 400;
   /*-- Site Builder Container --*/
 
@@ -105,42 +112,15 @@ and open the template in the editor.
     Created on : 20 Feb, 2014, 7:45:35 PM
     Author     : jarr-head
 */
-.row.blue-strip-top {
-  border-top: 5px solid #ff7e00;
-  background: #f2f2f2;
-  min-height: 100px;
-}
-.row.grey-background {
-  background: #f2f2f2;
-  min-height: 100px;
-}
-.row.center-container {
-  max-width: 1170px;
-  margin: 0.5em auto;
-}
-.row.white-shaded-background {
-  padding: 1em 15px;
+.site-style-container .row {
   background: #fff;
-  box-shadow: 0 0 2px #a4b2c3;
-}
-.row.footer-container {
-  background: #29333f;
   min-height: 100px;
-}
-.row.column-dividers .column {
-  border-right: 1px solid #51657d;
-}
-.row.column-dividers .column:last-child {
-  border-right: 0;
 }
 /****Top Slim-menu Styles****/
 .nav.slimmenu {
   border: 1px solid #d9d9d9;
-  border-bottom: 0;
-  border-left: 0;
   padding: 0;
   margin: 0 auto 1em;
-  border-bottom: 3px solid #ff7e00 !important;
   background: #fff;
 }
 .nav.slimmenu > li {
@@ -153,8 +133,7 @@ and open the template in the editor.
   font-size: 1em;
   font-weight: bold;
   color: #ff7e00;
-  padding: 0.5em 44px 0.5em 1.5em;
-  border-right: 1px solid #d9d9d9;
+  padding: 0.5em 1.5em;
 }
 .nav.slimmenu > li a span {
   display: block;
@@ -207,9 +186,6 @@ and open the template in the editor.
 .nav.slimmenu > li.active a span {
   color: #ffffff;
 }
-.nav.slimmenu > li:last-child a {
-  border-right: 0;
-}
 .nav .menu-collapser {
   background: #fff;
   color: #ff7e00;
@@ -220,159 +196,18 @@ and open the template in the editor.
   background: #ff7e00;
   border-radius: 3px;
 }
-.nav.footer-menu {
-  padding: 0;
-}
-.nav.footer-menu li {
-  position: relative;
-  margin: 0 0 0.2em;
-}
-.nav.footer-menu li a {
-  color: #fff;
-  font-weight: 100;
-  text-transform: uppercase;
-  display: inline-block;
-  padding: 0.33em;
-}
-.nav.footer-menu li a:hover {
-  text-decoration: none;
-  background: transparent;
-}
-.nav.footer-menu li:before {
-  content: '›';
-  display: inline-block;
-  color: #fff;
-  font-size: 1.3em;
-  margin-right: 5px;
-}
-.nav.footer-menu li:hover {
-  left: 0.25em;
-  -webkit-transition: all 0.25s ease;
-  -moz-transition: all 0.25s ease;
-  -o-transition: all 0.25s ease;
-  -ms-transition: all 0.25s ease;
-  transition: all 0.25s ease;
-}
-.nav.footer-menu-2 {
-  padding: 0;
-}
-.nav.footer-menu-2 li {
-  border-bottom: 1px dotted #fff;
-  *zoom: 1;
-}
-.nav.footer-menu-2 li:after,
-.nav.footer-menu-2 li:before {
-  clear: both;
-  content: "";
-  display: table;
-}
-.nav.footer-menu-2 li a {
-  display: block;
-  color: #fff;
-  text-transform: uppercase;
-  padding: 0 0 0.5em;
-}
-.nav.footer-menu-2 li a:hover {
-  text-decoration: none;
-  background: transparent;
-}
-.nav.footer-menu-2 li:after {
-  content: '›';
-  display: block;
-  float: right;
-  color: #fff;
-  font-size: 1.3em;
-  line-height: 0.25em;
-  margin-left: 5px;
-  width: 14px;
-  height: 14px;
-  padding: 3px 0 0 2px;
-  background: rgba(255, 255, 255, 0.3);
-  border-radius: 20px;
-  text-align: center;
-  font-weight: 100;
-  position: relative;
-  top: -22px;
-}
-.nav.footer-menu-2 li:hover {
-  border-bottom-style: solid;
-}
 /**** Title Styles****/
-.title.page-title {
-  color: #29333f;
-  font-style: italic;
-  font-weight: 700;
-  font-size: 4em;
-}
-.title.title-super-text {
-  font-size: 1.5em;
-}
-.title.footer-title {
-  color: #fff;
-  text-transform: uppercase;
-  font-size: 1.6em;
-  font-weight: 400;
-}
-.title.footer-sub-title {
-  color: #fff;
-  text-transform: uppercase;
-  font-weight: 200;
-  font-size: 1.4em;
-}
-.title.small-title {
-  font-size: 1.2em;
-  font-weight: 300;
-}
-.title.grey-title-text {
-  color: #29333f;
-  text-transform: uppercase;
-  font-size: 2em;
-  font-weight: 400;
-}
-.title.emphasis-text {
-  color: #29333f;
-  font-weight: 300;
-  display: inline-block;
-  font-size: 1.5em;
-  border-bottom: 1px solid #ff7e00;
-}
-.title.inner-title {
-  color: #29333f;
-  font-size: 2.5em;
-  font-weight: 700;
-  text-transform: none;
-  font-style: italic;
-}
-.title.thumb-title {
-  text-transform: uppercase;
-  color: #bfbfbf;
-  font-size: 0.8em;
-  font-weight: 300;
-  border-bottom: 1px solid #bfbfbf;
-}
-.title.thumb-main-title {
-  color: #29333f;
-  font-weight: 400;
-  font-size: 1.6em;
-}
 .text {
   color: #989898;
 }
 /****Image With Text Styles****/
 .image {
   padding: 0.5em 0;
+  color: #989898;
 }
 .image .info {
   color: #29333f;
   font-size: 1em;
-}
-.image.style-two {
-  color: #d9d9d9;
-  font-size: 1em;
-  font-weight: 300;
-}
-.image.style-two p {
-  font-size: inherit;
 }
 /****Link Element Styles****/
 .link {
@@ -380,18 +215,18 @@ and open the template in the editor.
   margin: 0 0.5em 0.5em 0;
 }
 .link.button a {
-  background: #fff;
-  color: #ff7e00;
+  background: #ff7e00;
+  color: #fff;
+  border-radius: 3px;
   display: inline-block;
-  padding: 0.3em 0.5em 0.2em;
+  padding: 0.5em 0.7em 0.4em;
   margin: 1em 0;
-  font-size: 1.2em;
+  font-size: 1em;
   font-weight: 400;
 }
 .link.button a:hover {
   text-decoration: none;
-  background: #ff7e00;
-  color: #fff;
+  background: #ffb266;
   -webkit-transition: all 0.25s ease;
   -moz-transition: all 0.25s ease;
   -o-transition: all 0.25s ease;
@@ -402,16 +237,9 @@ and open the template in the editor.
 .address {
   padding: 0.5em 0;
 }
-.address .info {
-  color: #29333f;
-  font-size: 1em;
-}
-.address.small-address .info {
-  color: #29333f;
-  font-size: 1em;
-  font-weight: 200;
-  margin-bottom: 10px;
-  padding-left: 5px;
+.address ul {
+  list-style: none;
+  padding: 0;
 }
 /****Social Element Styles****/
 .icon-dribbble:before,
@@ -537,11 +365,8 @@ and open the template in the editor.
   border-radius: 0;
   margin-bottom: 0.8em;
 }
-.contactform select {
-  color: #B2BCC5;
-}
-.contactform select:focus {
-  color: #34495E;
+.contactform .flat:focus {
+  border-color: #ff7e00;
 }
 .contactform .btn {
   border-radius: 0;
