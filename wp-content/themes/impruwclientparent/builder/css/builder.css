@@ -1682,10 +1682,14 @@ Version:        0.1.0
 /****Builder Choose Theme Page Styles****/
 .aj-imp-theme-area {
   margin: 0 0 3em;
+  position: absolute;
+  width: 100%;
+  display: none;
+  top: 100px;
 }
 .aj-imp-theme-area .page-title {
   font-size: 1.5em;
-  color: #333333;
+  color: #666666;
   text-align: center;
 }
 .aj-imp-theme-area .desc {
@@ -1700,6 +1704,16 @@ Version:        0.1.0
 }
 .aj-imp-theme-area .aj-imp-block-list .btn {
   color: #fff;
+}
+.choose-theme-page {
+  position: relative;
+}
+.choose-theme-page .aj-imp-theme-area {
+  display: block;
+}
+.choose-theme-page #builder-region,
+.choose-theme-page #elements-box-region {
+  display: none;
 }
 /****Builder Settings Popover Styles****/
 #aj-imp-builder-drag-drop .popover .popover-title {
