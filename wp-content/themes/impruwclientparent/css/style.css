@@ -838,6 +838,11 @@ and open the template in the editor.
 .room-title-container .room-title-actions .btn-book:hover {
   background: #ff9833;
 }
+@media (max-width: 767px) {
+  .room-title-container .room-title-actions {
+    position: static;
+  }
+}
 .top-margin-small {
   margin-top: 0.5em;
 }

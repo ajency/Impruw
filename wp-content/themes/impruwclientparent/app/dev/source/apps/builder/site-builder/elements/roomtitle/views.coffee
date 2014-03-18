@@ -16,9 +16,4 @@ define ['app', 'holder'],(App, Holder)->
 							<div class="room-title-actions">
 								<button class="btn btn-sm btn-book">Booking &amp; Availability</button>
 							</div>
-						</div>'
-   	
-
-
-
-		
+						</div>'	
