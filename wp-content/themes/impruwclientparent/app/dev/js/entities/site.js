@@ -77,8 +77,11 @@ define(["app", 'backbone'], function(App, Backbone) {
     App.reqres.setHandler("get:site:social", function() {
       return API.getSiteSocial();
     });
-    return App.commands.setHandler("create:social:store", function() {
+    App.commands.setHandler("create:social:store", function() {
       return API.createSocialStoreCollection();
+    });
+    return App.commands.execute("create:global:site:model", function() {
+      return API.getSiteProfile();
     });
   });
 });

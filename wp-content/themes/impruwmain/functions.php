@@ -405,7 +405,7 @@ function register_themes_post_type() {
         'has_archive'        => true,
         'hierarchical'       => false,
         'menu_position'      => null,
-        'supports'           => array( 'title', 'editor', 'thumbnail', 'excerpt' )
+        'supports'           => array( 'title', 'editor', 'thumbnail', 'excerpt' ,'custom-fields')
     );
 
     register_post_type( 'theme', $args );

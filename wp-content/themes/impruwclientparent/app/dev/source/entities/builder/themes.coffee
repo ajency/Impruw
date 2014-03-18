@@ -5,7 +5,14 @@ define ["app", 'backbone'], (App, Backbone) ->
         	# Theme Model
             class Themes.ThemeModel extends Backbone.Model
 
+                idAttribute : 'ID'
+
             	defaults :->
+                    post_title  : ''
+                    image_url   : ''
+                    preview_link: '#'
+
+                name : 'theme'
 
 
 
@@ -22,17 +29,11 @@ define ["app", 'backbone'], (App, Backbone) ->
                 
             # PUBLIC API FOR ENitity
             API =
-                getThemes: (param = {})->
-
+                getThemesCollection: (param = {})->
                     themes = new Themes.ThemeCollection
-
-                    themes.fetch
-                                reset : true
-                                data  : param
-                                
                     themes
 
 
             # REQUEST HANDLERS
-            App.reqres.setHandler "get:themes", ->
-                API.getThemes()
+            App.reqres.setHandler "get:themes:collection", ->
+                API.getThemesCollection()

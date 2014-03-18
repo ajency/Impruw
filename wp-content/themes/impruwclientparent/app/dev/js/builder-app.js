@@ -12,7 +12,8 @@ define(['marionette'], function(Marionette) {
     }),
     dialogRegion: Marionette.Region.Dialog.extend({
       el: '#dialog-region'
-    })
+    }),
+    chooseThemeRegion: '#choose-theme-region'
   });
   App.rootRoute = "";
   App.loginRoute = "login";
@@ -42,11 +43,12 @@ define(['marionette'], function(Marionette) {
     return App.unregisterElement(instance, id);
   });
   App.on("initialize:after", function(options) {
-    var appState;
+    var appState, site;
     App.execute("create:media:store");
     App.execute("create:menu:store");
     App.execute("create:social:store");
     App.execute("create:slider:store");
+    site = App.request("get:site:profile");
     appState = App.request("get:current:appstate");
     App.startHistory();
     if (appState.isLoggedIn()) {
