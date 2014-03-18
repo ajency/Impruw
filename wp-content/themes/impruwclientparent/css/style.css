@@ -810,6 +810,34 @@ and open the template in the editor.
 .room-summary-container .room-summary .room-summary-desc .btn-book:hover {
   background: #ff9833;
 }
+/****Room Title Styles****/
+.room-title-container {
+  background: #fff;
+  box-shadow: 1px 1px 2px 0 #8598af;
+  padding: 0.5em;
+  position: relative;
+}
+.room-title-container .room-title h1 {
+  font-size: 2.5em;
+  text-transform: uppercase;
+  color: #ff7e00;
+}
+.room-title-container .room-title .room-title-desc {
+  font-size: 1em;
+  color: #51657d;
+}
+.room-title-container .room-title-actions {
+  position: absolute;
+  top: 0.5em;
+  right: 0.5em;
+  margin: 0.5em 0;
+}
+.room-title-container .room-title-actions .btn-book {
+  background: #ff7e00;
+}
+.room-title-container .room-title-actions .btn-book:hover {
+  background: #ff9833;
+}
 .top-margin-small {
   margin-top: 0.5em;
 }

@@ -26,14 +26,12 @@ define ['app', 'holder'],(App, Holder)->
 
 			className : 'room-facilities-container'
 
-			template : "<div class='room-facilities-container'>
-							<div class='room-facilities-title'>
-								<h5>Room Features</h5>
-								<h4>Standard Book</h5>
-							</div>
-							<ul class='facilities clearfix'>
-							</ul>
-					   </div>"
+			template : "<div class='room-facilities-title'>
+							<h5>Room Features</h5>
+							<h4>Standard Book</h5>
+						</div>
+						<ul class='facilities clearfix'>
+						</ul>"
 
 			itemView : RoomFacilitiesItemView
 

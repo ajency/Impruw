@@ -266,3 +266,34 @@
 		}
 	}
 }
+
+/****Room Title Styles****/
+.room-title-container {
+	background: #fff;
+	box-shadow: 1px 1px 2px 0 lighten(@secondary1, 40%);
+	padding: 0.5em;
+	position: relative;
+	.room-title {
+		h1 {
+			font-size: 2.5em;
+			text-transform: uppercase;
+			color: @primary1;
+		}
+		.room-title-desc {
+			font-size: 1em;
+			color: lighten(@secondary1, 20%);
+		}
+	}
+	.room-title-actions {
+		position: absolute;
+		top: 0.5em;
+		right: 0.5em;
+		margin: 0.5em 0;
+		.btn-book {
+			background: @primary1;
+			&:hover {
+				background: lighten(@primary1, 10%);
+			}
+		}
+	}
+}
