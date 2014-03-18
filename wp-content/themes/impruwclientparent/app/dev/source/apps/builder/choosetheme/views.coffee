@@ -9,7 +9,7 @@ define ['app'], (App )->
 						<h6 class="desc">{{post_title}}</h6>
 						<div class="aj-imp-choose-btn">
 							<a href="#" class="btn choose-theme"><span class="glyphicon glyphicon-ok"></span>&nbsp;Choose</a>
-							<a href="{{preview_link}}" target="_BLANK" class="btn"><span class="glyphicon glyphicon-ok"></span>&nbsp;Preview</a>
+							<a href="{{preview_link}}" target="_BLANK" class="btn"><span class="glyphicon glyphicon-eye-open"></span>&nbsp;Preview</a>
 						</div>'
 
 			className : 'block'
