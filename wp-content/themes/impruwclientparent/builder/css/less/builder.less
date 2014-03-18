@@ -1793,9 +1793,13 @@ Version:        0.1.0
 /****Builder Choose Theme Page Styles****/
 .aj-imp-theme-area {
 	margin: 0 0 3em;
+	position: absolute;
+	width: 100%;
+	display: none;
+	top: 100px;
 	.page-title {
 		font-size: 1.5em;
-		color: @3-grey;
+		color: lighten(@3-grey, 20%);
 		text-align: center;
 	}
 	.desc {
@@ -1812,6 +1816,16 @@ Version:        0.1.0
 		.btn {
 			color: #fff;
 		}
+	}
+}
+
+.choose-theme-page {
+	position: relative;
+	.aj-imp-theme-area {
+		display: block;
+	}
+	#builder-region, #elements-box-region {
+		display: none;
 	}
 }
 
