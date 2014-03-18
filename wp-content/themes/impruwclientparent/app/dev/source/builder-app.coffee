@@ -11,6 +11,7 @@ define ['marionette'], (Marionette)->
 		settingsRegion 		: Marionette.Region.Settings.extend el : '#settings-region'
 		loginRegion 		: Marionette.Region.Dialog.extend el : '#login-region'
 		dialogRegion 		: Marionette.Region.Dialog.extend el : '#dialog-region'
+		chooseThemeRegion	: '#choose-theme-region'
 
 
 	# The default route for app
@@ -57,6 +58,9 @@ define ['marionette'], (Marionette)->
 		App.execute "create:menu:store"
 		App.execute "create:social:store"
 		App.execute "create:slider:store"
+
+		# create a global site model 
+		site = App.request "get:site:profile"
 
 		appState = App.request "get:current:appstate"
 		App.startHistory()

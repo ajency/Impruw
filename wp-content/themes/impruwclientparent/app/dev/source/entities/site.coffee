@@ -47,3 +47,6 @@ define ["app", 'backbone'], (App, Backbone) ->
 
             App.commands.setHandler "create:social:store", ->
                 API.createSocialStoreCollection()
+
+            App.commands.execute "create:global:site:model",->
+                API.getSiteProfile()

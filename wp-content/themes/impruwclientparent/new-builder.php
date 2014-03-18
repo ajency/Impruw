@@ -32,6 +32,7 @@
     <link href="<?php echo get_template_directory_uri(); ?>/css/slimmenu.min.css" rel="stylesheet" media="screen"/>
 </head>
 <body <?php body_class(); ?>>
+     <div id="choose-theme-region"></div>
     <div class="aj-imp-builder container">
         <div id="header-region"></div>
         <div id="builder-region"></div>
@@ -40,6 +41,7 @@
     
     
     <div id="login-region"></div>
+   
     <div id="settings-region"></div>
     <div id="dialog-region" class="modal "></div><!-- /.modal -->
     <div id="initial-loader" style="position:fixed;width:30%;left:35%;top:50%;text-align:center">

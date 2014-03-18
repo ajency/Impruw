@@ -11,11 +11,21 @@ define(["app", 'backbone'], function(App, Backbone) {
         return ThemeModel.__super__.constructor.apply(this, arguments);
       }
 
-      ThemeModel.prototype.defaults = function() {};
+      ThemeModel.prototype.idAttribute = 'ID';
 
       return ThemeModel;
 
     })(Backbone.Model);
+    ({
+      defaults: function() {
+        return {
+          post_title: '',
+          image_url: '',
+          preview_link: '#'
+        };
+      },
+      name: 'theme'
+    });
     Themes.ThemeCollection = (function(_super) {
       __extends(ThemeCollection, _super);
 
@@ -33,21 +43,17 @@ define(["app", 'backbone'], function(App, Backbone) {
 
     })(Backbone.Collection);
     API = {
-      getThemes: function(param) {
+      getThemesCollection: function(param) {
         var themes;
         if (param == null) {
           param = {};
         }
         themes = new Themes.ThemeCollection;
-        themes.fetch({
-          reset: true,
-          data: param
-        });
         return themes;
       }
     };
-    return App.reqres.setHandler("get:themes", function() {
-      return API.getThemes();
+    return App.reqres.setHandler("get:themes:collection", function() {
+      return API.getThemesCollection();
     });
   });
 });
