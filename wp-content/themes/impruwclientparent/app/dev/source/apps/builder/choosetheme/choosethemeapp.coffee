@@ -23,10 +23,10 @@ define ['app', 'controllers/base-controller', 'apps/builder/choosetheme/views'],
 				view = @_getChooseThemeView themesCollection
 
 				@listenTo view, "itemview:choose:theme:clicked",(iv, model)=>
-					console.log model
-
+					@region.close()
 
 				@show view, loading : true
+
 
 			# get the choose theme view 
 			# accepts a collection object

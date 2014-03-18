@@ -40,3 +40,11 @@ define ['app'], (App )->
 
 			itemViewContainer : '.aj-imp-block-list ul'
 
+			onShow:->
+				# add class to body 
+				$('body').addClass 'choose-theme-page'
+
+			onClose:->
+				# remove body class
+				$('body').removeClass 'choose-theme-page'
+

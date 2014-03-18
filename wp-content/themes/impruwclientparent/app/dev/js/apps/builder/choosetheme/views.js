@@ -43,6 +43,14 @@ define(['app'], function(App) {
 
       ChooseThemeView.prototype.itemViewContainer = '.aj-imp-block-list ul';
 
+      ChooseThemeView.prototype.onShow = function() {
+        return $('body').addClass('choose-theme-page');
+      };
+
+      ChooseThemeView.prototype.onClose = function() {
+        return $('body').removeClass('choose-theme-page');
+      };
+
       return ChooseThemeView;
 
     })(Marionette.CompositeView);

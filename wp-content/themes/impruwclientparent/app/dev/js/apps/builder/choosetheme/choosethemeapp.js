@@ -32,7 +32,7 @@ define(['app', 'controllers/base-controller', 'apps/builder/choosetheme/views'],
         view = this._getChooseThemeView(themesCollection);
         this.listenTo(view, "itemview:choose:theme:clicked", (function(_this) {
           return function(iv, model) {
-            return console.log(model);
+            return _this.region.close();
           };
         })(this));
         return this.show(view, {
