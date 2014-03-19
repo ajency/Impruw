@@ -65,6 +65,9 @@ define ['marionette'], (Marionette)->
 		appState = App.request "get:current:appstate"
 		App.startHistory()
 		if appState.isLoggedIn()
+
+			@rootRoute = if ISTHEMESELECTED is 1 then '' else 'choose-theme' 
+
 			App.navigate(@rootRoute, trigger: true) unless @getCurrentRoute()
 		else
 			App.navigate(@loginRoute, trigger : true)

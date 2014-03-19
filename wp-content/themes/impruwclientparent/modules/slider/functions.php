@@ -1,8 +1,14 @@
 <?php
 
 function get_slides($sliderID){
+    
+    if(!slider_exists($sliderID))
+        return array();
+    
     $slider = new RevSlider();
     $slider->initByID($sliderID);
+    
+    
 
     $slides = $slider->getSlides(false);
     $slides_arr = array();
@@ -22,6 +28,17 @@ function get_slides($sliderID){
     }
 
     return $slides_arr;
+}
+
+function slider_exists($slider_id){
+    
+    global $wpdb;
+    
+    $table = GlobalsRevSlider::$table_sliders;
+    
+    $id = $wpdb->get_var("SELECT id FROM $table WHERE id=%d", $slider_id);
+    
+    return $id !== null;
 }
 
 /**

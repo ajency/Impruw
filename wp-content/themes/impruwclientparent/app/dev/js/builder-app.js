@@ -52,6 +52,7 @@ define(['marionette'], function(Marionette) {
     appState = App.request("get:current:appstate");
     App.startHistory();
     if (appState.isLoggedIn()) {
+      this.rootRoute = ISTHEMESELECTED === 1 ? '' : 'choose-theme';
       if (!this.getCurrentRoute()) {
         return App.navigate(this.rootRoute, {
           trigger: true

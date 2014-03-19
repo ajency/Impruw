@@ -39,15 +39,16 @@ define(['app', 'controllers/base-controller', 'apps/builder/choosetheme/views'],
       };
 
       ChooseThemeController.prototype.themeSelected = function(iv, model) {
-        return $.post(("" + AJAXURL + "?action=assign-theme-to-site")({
-          data: {
-            new_theme_id: this.model.get('ID')
-          }
-        }, (function(_this) {
-          return function(response) {
+        var data, responseFn;
+        data = {
+          new_theme_id: model.get('ID')
+        };
+        responseFn = (function(_this) {
+          return function(resp) {
             return _this.region.close();
           };
-        })(this), 'json'));
+        })(this);
+        return $.post("" + AJAXURL + "?action=assign-theme-to-site", data, responseFn, 'json');
       };
 
       ChooseThemeController.prototype._getChooseThemeView = function(themesCollection) {

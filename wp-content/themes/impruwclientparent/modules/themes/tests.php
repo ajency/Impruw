@@ -10,11 +10,6 @@ class ThemeFunctionsTest extends WP_UnitTestCase{
         $this->assertEquals(false, get_theme_image_url(19));
         
     }	
-    
-    public function testGetThemesResult(){
-        $this->assertEquals(2, count(get_impruw_themes()));
-    }
-    
+
    
-    
 }
