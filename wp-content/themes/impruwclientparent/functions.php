@@ -3179,3 +3179,72 @@ function check_page_access(){
 
 }
 add_action('template_redirect', 'check_page_access');
+
+/**
+ * Common Element Templates & Classes for Child Themes 
+ */
+global $base_element_templates;
+
+$base_element_templates = array(
+    'Row' => array(
+                array(
+                    'name'      => 'Center Container'
+                ),
+                array(
+                    'name'      => 'Grey Background'
+                ),
+                array(
+                    'name'      => 'Footer Container'
+                ),
+                array(
+                    'name'      => 'Column Dividers'
+                )
+             ),
+
+    'Menu' => array(
+                array(
+                    'name'      => 'Slimmenu'
+                ),
+                array(
+                    'name'      => 'Footer Menu'
+                )
+              ),
+
+    'Title' => array(
+                array(
+                    'name'      => 'Sub Title'
+                )
+              ),
+
+    'Image' => array(
+                array(
+                    'name'      => 'Image Bordered'
+                ),
+                array(
+                    'name'      => 'Image Rounded',
+                )
+              ),
+
+    'Address' => array(
+                array(
+                    'name' => 'Default Style',
+                    'template' => '<ul><li><span class="fui-home"></span> {{address}}</li><li><span class="glyphicon glyphicon-earphone"></span> {{phoneno}}</li><li><span class="fui-mail"></span> {{email}}</li></ul>'
+                ),
+                array(
+                    'name' => 'Small Address',
+                    'template' => '<div><div class="info">{{address}}</div><div class="info">{{phoneno}}</div><div class="info">{{email}}</div></div>'
+                )
+            ),
+
+    'Social' => array(
+                array(
+                    'name' => 'Social Right'
+                ),
+                array(
+                    'name' => 'Social Center'
+                ),
+                array(
+                    'name' => 'Social Left'
+                )
+            )
+);
