@@ -8,6 +8,9 @@ Template:       impruw
 Version:        0.1.0
 */
 
+/****Icon Font****/
+@import url(icon-fonts.css);
+
 /****Colors****/
 @logo-blue: #182944;
 @dash-grey: #AAAAAA;
@@ -89,16 +92,18 @@ a {
 						height: 33px;
 						display: block;
 						position: absolute;
-						background: url('../images/dash-nav-sprite.png') no-repeat;
+						/*background: url('../images/dash-nav-sprite.png') no-repeat;*/
 						top: 20px;
 						left: 30px;
+						font-size: 2em;
+						color: @dash-grey;
 					}
 					.arrow {
 						width: 33px;
 						height: 33px;
 						position: absolute;
 						background: url('../images/hover-bg-2.png') no-repeat;
-						top: 20px;
+						top: 18px;
 						left: 40px;
 						opacity: 0;
 					}
@@ -108,12 +113,12 @@ a {
 						color: @dash-grey;
 						font-size: 1.5em;
 					}
-					&.aj-imp-nav-create {
+					/*&.aj-imp-nav-dashboard {
 						.icon {
 							background-position: 0 0;
 						}
 					}
-					&.aj-imp-nav-booking {
+					&.aj-imp-nav-site-builder {
 						.icon {
 							background-position: 0 -65px;
 						}
@@ -142,7 +147,7 @@ a {
 						.icon {
 							background-position: 0 -394px;
 						}
-					}
+					}*/
 					&.active {
 						background: #fff;
 						.sub-menu {
