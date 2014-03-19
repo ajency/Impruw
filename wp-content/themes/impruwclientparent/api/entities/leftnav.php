@@ -306,7 +306,7 @@ function get_styles($element, $style = '') {
 
     global $element_templates;
 
-    return $element_templates[$element];
+    return isset($element_templates[$element]) ? $element_templates[$element] : array();
 }
 
 /**
@@ -362,31 +362,31 @@ function get_page_json1($page_id = 0){
    return $data;
 }
 
-function get_row_elements($element){
-    foreach($element['elements'] as &$column){
-        foreach($column['elements'] as &$ele){
-            if($ele['element'] === 'Row' ){
-                $ele['columncount'] = count($ele['elements']);
-                $ele = get_row_elements($ele);
-            }
-            else{
-                $meta = get_meta_values ($ele);
-                $ele = wp_parse_args($meta,$ele);
-            }
-        }
-        
-    }
-    return $element;
-}
-
-
-function get_meta_values($element){
-    $meta = get_metadata_by_mid('post', $element['meta_id']);
-    $ele = maybe_unserialize($meta->meta_value);
-    $ele['meta_id'] = $element['meta_id'];
-    validate_element($ele);
-    return $ele;
-}
+//function get_row_elements($element){
+//    foreach($element['elements'] as &$column){
+//        foreach($column['elements'] as &$ele){
+//            if($ele['element'] === 'Row' ){
+//                $ele['columncount'] = count($ele['elements']);
+//                $ele = get_row_elements($ele);
+//            }
+//            else{
+//                $meta = get_meta_values ($ele);
+//                $ele = wp_parse_args($meta,$ele);
+//            }
+//        }
+//        
+//    }
+//    return $element;
+//}
+//
+//
+//function get_meta_values($element){
+//    $meta = get_metadata_by_mid('post', $element['meta_id']);
+//    $ele = maybe_unserialize($meta->meta_value);
+//    $ele['meta_id'] = $element['meta_id'];
+//    validate_element($ele);
+//    return $ele;
+//}
 
 function read_page_json(){
     $page_id = $_REQUEST['page_id'];
@@ -397,21 +397,21 @@ add_action('wp_ajax_read-page-json','read_page_json');
 /**
  * 
  */
-function validate_element(&$element){
-    $numkeys = array('id', 'meta_id', 'menu_id','ID', 'image_id');
-    $boolkey = array('draggable', 'justified');
-     
-    if(!is_array($element) && !is_object($element))
-        return $element;
-    
-    foreach ($element as $key => $val){
-        if(in_array($key, $numkeys))
-            $element[$key] = (int) $val;
-        if(in_array($key, $boolkey))
-            $element[$key] = $val === "true";
-    }
-    return $element;
-}
+//function validate_element(&$element){
+//    $numkeys = array('id', 'meta_id', 'menu_id','ID', 'image_id');
+//    $boolkey = array('draggable', 'justified');
+//     
+//    if(!is_array($element) && !is_object($element))
+//        return $element;
+//    
+//    foreach ($element as $key => $val){
+//        if(in_array($key, $numkeys))
+//            $element[$key] = (int) $val;
+//        if(in_array($key, $boolkey))
+//            $element[$key] = $val === "true";
+//    }
+//    return $element;
+//}
 
 // add_action('init', function(){
 

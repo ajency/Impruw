@@ -90,3 +90,17 @@ function get_theme_preview_link($ID){
     return $link;
 }
 
+/**
+ * Is theme selected
+ * @return boolean
+ */
+function is_theme_choosed(){
+    
+    $theme = get_option('stylesheet');
+    
+    if($theme != 'impruwclientparent')
+        return 1;
+    
+    return 0;
+    
+}

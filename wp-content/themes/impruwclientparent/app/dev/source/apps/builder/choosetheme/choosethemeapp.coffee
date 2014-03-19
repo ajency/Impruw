@@ -30,13 +30,15 @@ define ['app', 'controllers/base-controller', 'apps/builder/choosetheme/views'],
 			# theme selected
 			themeSelected:(iv, model)=>
 
+				data =
+					new_theme_id : model.get 'ID'
+
+
+				responseFn = (resp)=>
+					@region.close()
+
 				# assign the new theme to site
-				$.post "#{AJAXURL}?action=assign-theme-to-site"
-						data : 
-							new_theme_id : @model.get 'ID'
-						(response)=>
-							@region.close()
-						'json'
+				$.post 	"#{AJAXURL}?action=assign-theme-to-site", data, responseFn, 'json'
 
 			# get the choose theme view 
 			# accepts a collection object
