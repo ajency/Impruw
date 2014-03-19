@@ -113,7 +113,6 @@ and open the template in the editor.
     Author     : jarr-head
 */
 .site-style-container .row {
-  background: #fff;
   min-height: 100px;
 }
 /****Top Slim-menu Styles****/
@@ -197,6 +196,9 @@ and open the template in the editor.
   border-radius: 3px;
 }
 /**** Title Styles****/
+.title {
+  color: #ff7e00;
+}
 .text {
   color: #989898;
 }
@@ -240,6 +242,17 @@ and open the template in the editor.
 .address ul {
   list-style: none;
   padding: 0;
+}
+.address .info {
+  color: #29333f;
+  font-size: 1em;
+}
+.address.small-address .info {
+  color: #29333f;
+  font-size: 1em;
+  font-weight: 200;
+  margin-bottom: 10px;
+  padding-left: 5px;
 }
 /****Social Element Styles****/
 .icon-dribbble:before,

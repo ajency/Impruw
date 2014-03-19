@@ -1,6 +1,8 @@
-// Core variables and mixins
+// Theme variables
 @import "variables.less";
-@import "mixins.less";
+
+// Core mixins
+@import "../../../impruwclientparent/css/less/site-elements/mixins.less";
 
 // Font Files
 @font-face {
@@ -19,27 +21,22 @@
 	font-family: 'Lato', sans-serif;
 	font-weight: 400;
 
-	/*-- Site Builder Container --*/
-	.site-header, .site-footer, .site-page {
-		padding: 0 15px;
-	}
-
 	/****Selection Color****/
 	::selection {
-		background: @blue; 
+		background: @primary1; 
 		color: #fff;
 	}
 	::-moz-selection {
-		background: @blue; 
+		background: @primary1; 
 		color: #fff;
 	}
 
 	/****Link Styles****/
 	a {
-		color: @blue;
+		color: @primary1;
 		text-decoration: none;
 		&:hover, &:focus, &:active {
-			color: lighten(@blue, 10%);
+			color: lighten(@primary1, 10%);
 			text-decoration: underline;
 		}
 	}
@@ -51,7 +48,7 @@
 	/****Heading Styles****/
 	h1, h2, h3, h4, h5, h6{
 		font-weight: 700;
-		color: @blue;
+		color: @primary1;
 		&.sub-title {
 			text-transform: uppercase;
 			color: darken(@grey, 50%);
@@ -61,34 +58,20 @@
 	}
 }
 
-//theme specific css
+// Base CSS
+@import "../../../impruwclientparent/css/less/site-elements/row.less";
+@import "../../../impruwclientparent/css/less/site-elements/menu.less";
+@import "../../../impruwclientparent/css/less/site-elements/title.less";
+@import "../../../impruwclientparent/css/less/site-elements/text.less";
+@import "../../../impruwclientparent/css/less/site-elements/image-with-text.less";
+@import "../../../impruwclientparent/css/less/site-elements/links-buttons.less";
+@import "../../../impruwclientparent/css/less/site-elements/address.less";
+@import "../../../impruwclientparent/css/less/site-elements/social.less";
+@import "../../../impruwclientparent/css/less/site-elements/contact.less";
+@import "../../../impruwclientparent/css/less/site-elements/room-elements.less";
+
+// Theme Specific CSS Overrides
 @import "row.less";
 @import "menu.less";
 @import "title.less";
-@import "text.less";
-@import "image-with-text.less";
-@import "links-buttons.less";
 @import "address.less";
-@import "social.less";
-@import "contact.less";
-@import "room-elements.less";
-
-//generic margins
-@small: 0.5em;
-@medium: 1em;
-@large: 1.5em;
-
-.top-margin-small{margin-top:@small;}
-.left-margin-small{margin-left:@small;}
-.right-margin-small{margin-right:@small;}
-.bottom-margin-small{margin-bottom:@small;}
-
-.top-margin-medium{margin-top:@medium;}
-.left-margin-medium{margin-left:@medium;}
-.right-margin-medium{margin-right:@medium;}
-.bottom-margin-medium{margin-bottom:@medium;}
-
-.top-margin-large{margin-top:@large;}
-.left-margin-large{margin-left:@large;}
-.right-margin-large{margin-right:@large;}
-.bottom-margin-large{margin-bottom:@large;}
