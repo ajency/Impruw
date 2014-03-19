@@ -110,6 +110,24 @@ and open the template in the editor.
 .site-style-container .row {
   min-height: 100px;
 }
+.site-style-container .row.center-container {
+  max-width: 1170px;
+  margin: 0.5em auto;
+}
+.site-style-container .row.grey-background {
+  background: #e1e1e1;
+  min-height: 100px;
+}
+.site-style-container .row.footer-container {
+  background: #656565;
+  min-height: 100px;
+}
+.site-style-container .row.column-dividers .column {
+  border-right: 1px solid #989898;
+}
+.site-style-container .row.column-dividers .column:last-child {
+  border-right: 0;
+}
 /****Top Slim-menu Styles****/
 .nav.slimmenu {
   border: 1px solid #c8c8c8;
@@ -190,12 +208,43 @@ and open the template in the editor.
   background: #5ca9a1;
   border-radius: 3px;
 }
+.nav.footer-menu {
+  padding-left: 0;
+  text-align: center;
+}
+.nav.footer-menu li {
+  list-style: none;
+  display: inline-block;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  background: #5ca9a1;
+  cursor: pointer;
+}
+.nav.footer-menu li a {
+  font-size: 1.333em;
+  color: #fff;
+  font-weight: 200;
+  padding: 10px 45px;
+  display: block;
+}
+.nav.footer-menu li:hover {
+  background: #fff;
+  text-shadow: none;
+  -webkit-transition: background-color 0.25s, color 0.25s, border-bottom-color 0.25s;
+  -moz-transition: background-color 0.25s, color 0.25s, border-bottom-color 0.25s;
+  -o-transition: background-color 0.25s, color 0.25s, border-bottom-color 0.25s;
+  transition: background-color 0.25s, color 0.25s, border-bottom-color 0.25s;
+  -webkit-backface-visibility: hidden;
+}
+.nav.footer-menu li:hover a {
+  color: #5ca9a1;
+}
 /**** Title Styles****/
 .title {
   color: #5ca9a1;
 }
 .text {
-  color: #989898;
+  color: #aeaeae;
 }
 /****Image With Text Styles****/
 .image {
@@ -705,21 +754,11 @@ and open the template in the editor.
   min-height: 100px;
 }
 .row.grey-background {
-  background: #656565;
+  background: #656565 !important;
   min-height: 100px;
-}
-.row.center-container {
-  max-width: 1170px;
-  margin: 0.5em auto;
 }
 .row.shaded-background {
   background: url("../resources/img/stripe_bg.png") repeat scroll 0 0 rgba(0, 0, 0, 0);
-}
-.row.column-dividers .column {
-  border-right: 1px solid #cbcbcb;
-}
-.row.column-dividers .column:last-child {
-  border-right: 0;
 }
 /****Top Slim-menu Styles****/
 .nav {
@@ -782,37 +821,6 @@ and open the template in the editor.
 .nav.slimmenu li .dropDrown li {
   width: 100%;
   background: #7ecbc3;
-}
-.nav.footer-menu {
-  padding-left: 0;
-  text-align: center;
-}
-.nav.footer-menu li {
-  list-style: none;
-  display: inline-block;
-  margin-left: 10px;
-  margin-bottom: 10px;
-  background: #5ca9a1;
-  cursor: pointer;
-}
-.nav.footer-menu li a {
-  font-size: 1.333em;
-  color: #fff;
-  font-weight: 200;
-  padding: 10px 45px;
-  display: block;
-}
-.nav.footer-menu li:hover {
-  background: #fff;
-  text-shadow: none;
-  -webkit-transition: background-color 0.25s, color 0.25s, border-bottom-color 0.25s;
-  -moz-transition: background-color 0.25s, color 0.25s, border-bottom-color 0.25s;
-  -o-transition: background-color 0.25s, color 0.25s, border-bottom-color 0.25s;
-  transition: background-color 0.25s, color 0.25s, border-bottom-color 0.25s;
-  -webkit-backface-visibility: hidden;
-}
-.nav.footer-menu li:hover a {
-  color: #5ca9a1;
 }
 /**** Title Styles****/
 .title.box-title {

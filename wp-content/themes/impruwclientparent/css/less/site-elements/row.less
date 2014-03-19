@@ -9,4 +9,27 @@ and open the template in the editor.
 */
 .site-style-container .row{
 	min-height: 100px;
+	&.center-container{
+		max-width: 1170px;
+		margin: 0.5em auto;
+	}
+
+	&.grey-background{
+	    background: @tertiary1;
+	    min-height :100px;
+	}
+	
+	&.footer-container {
+		background: @secondary1;
+		min-height: 100px;
+	}
+
+	&.column-dividers {
+		.column {
+			border-right: 1px solid lighten(@secondary1, 20%);
+			&:last-child {
+				border-right: 0;
+			} 
+		}
+	}
 }

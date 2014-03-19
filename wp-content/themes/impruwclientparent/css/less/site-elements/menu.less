@@ -80,4 +80,35 @@
 			border-radius: 3px;
 		}
 	}
+	&.footer-menu{
+		padding-left:0;
+		text-align: center;
+		li{
+			list-style:none;
+			display:inline-block;
+			margin-left:10px;
+			margin-bottom:10px;
+			background:@primary1;
+			cursor:pointer;
+			a{
+				font-size:1.333em;
+				color:#fff;
+				font-weight:200;
+				padding:10px 45px;
+				display: block;
+			}
+			&:hover{
+				background:#fff;
+				text-shadow: none;
+				  -webkit-transition: background-color .25s, color .25s, border-bottom-color .25s;
+				  -moz-transition: background-color .25s, color .25s, border-bottom-color .25s;
+				  -o-transition: background-color .25s, color .25s, border-bottom-color .25s;
+				  transition: background-color .25s, color .25s, border-bottom-color .25s;
+				  -webkit-backface-visibility: hidden;
+				a{
+					color:@primary1;
+				}
+			}
+		}
+	}
 }
