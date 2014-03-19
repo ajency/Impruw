@@ -7,12 +7,12 @@
 function get_menu_items() {
 
     $menuItems = array(
-        array('url' => '#dashboard',                'title' => 'Dashboard', 'icon' => 'dsds'),
-        array('url' => site_url('site-builder'),    'title' => 'Site Builder', 'target' => '_BLANK'),
-        array('url' => '#rooms',         'title' => 'Rooms'),
-        array('url' => '#site-profile',  'title' => 'Site Profile'),
-        array('url' => '#my-profile',    'title' => 'My Profile'),
-        array('url' => '#statistics',    'title' => 'Statistics')
+        array('url' => '#dashboard',                'title' => 'Dashboard', 'icon' => 'monitor'),
+        array('url' => site_url('site-builder'),    'title' => 'Site Builder', 'target' => '_BLANK', 'icon' => 'tools'),
+        array('url' => '#rooms',         'title' => 'Rooms', 'icon' => 'open'),
+        array('url' => '#site-profile',  'title' => 'Site Profile', 'icon' => 'globe'),
+        array('url' => '#my-profile',    'title' => 'My Profile', 'icon' => 'profile2'),
+        array('url' => '#statistics',    'title' => 'Statistics', 'icon' => 'stats')
     );
 
     wp_send_json($menuItems);
