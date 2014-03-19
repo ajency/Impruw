@@ -1,5 +1,6 @@
 var __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
 define(['app', 'controllers/base-controller', 'apps/builder/choosetheme/views'], function(App, AppController) {
   return App.module('ChooseTheme', function(ChooseTheme, App) {
@@ -22,6 +23,7 @@ define(['app', 'controllers/base-controller', 'apps/builder/choosetheme/views'],
       __extends(ChooseThemeController, _super);
 
       function ChooseThemeController() {
+        this.themeSelected = __bind(this.themeSelected, this);
         return ChooseThemeController.__super__.constructor.apply(this, arguments);
       }
 
@@ -30,14 +32,22 @@ define(['app', 'controllers/base-controller', 'apps/builder/choosetheme/views'],
         themesCollection = App.request("get:themes:collection");
         themesCollection.fetch();
         view = this._getChooseThemeView(themesCollection);
-        this.listenTo(view, "itemview:choose:theme:clicked", (function(_this) {
-          return function(iv, model) {
-            return _this.region.close();
-          };
-        })(this));
+        this.listenTo(view, "itemview:choose:theme:clicked", this.themeSelected);
         return this.show(view, {
           loading: true
         });
+      };
+
+      ChooseThemeController.prototype.themeSelected = function(iv, model) {
+        return $.post(("" + AJAXURL + "?action=assign-theme-to-site")({
+          data: {
+            new_theme_id: this.model.get('ID')
+          }
+        }, (function(_this) {
+          return function(response) {
+            return _this.region.close();
+          };
+        })(this), 'json'));
       };
 
       ChooseThemeController.prototype._getChooseThemeView = function(themesCollection) {

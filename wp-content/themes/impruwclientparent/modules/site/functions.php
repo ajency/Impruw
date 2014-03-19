@@ -41,3 +41,14 @@ function get_site_domain($site_id){
     
     return $domain;
 }
+
+/**
+ * 
+ * @param type $site_id
+ * @param type $theme_id
+ */
+function assign_theme_to_site($site_id, $theme_id){
+    
+    
+    
+}

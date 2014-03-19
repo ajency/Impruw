@@ -22,11 +22,21 @@ define ['app', 'controllers/base-controller', 'apps/builder/choosetheme/views'],
 
 				view = @_getChooseThemeView themesCollection
 
-				@listenTo view, "itemview:choose:theme:clicked",(iv, model)=>
-					@region.close()
+				@listenTo view, "itemview:choose:theme:clicked", @themeSelected
 
 				@show view, loading : true
 
+
+			# theme selected
+			themeSelected:(iv, model)=>
+
+				# assign the new theme to site
+				$.post "#{AJAXURL}?action=assign-theme-to-site"
+						data : 
+							new_theme_id : @model.get 'ID'
+						(response)=>
+							@region.close()
+						'json'
 
 			# get the choose theme view 
 			# accepts a collection object

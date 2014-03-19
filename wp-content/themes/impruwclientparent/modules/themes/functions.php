@@ -3,7 +3,7 @@
 /**
  * gets all themes for the main site
  * uses all args same as WP_Query
- * @param type $arg
+ * @param type $args
  * @return type
  */
 function get_impruw_themes($args = array()){
