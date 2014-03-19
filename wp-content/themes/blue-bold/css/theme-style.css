@@ -677,6 +677,20 @@ and open the template in the editor.
     position: static;
   }
 }
+/****Room description Styles****/
+.room-description-container {
+  margin: 0 0 1em;
+}
+.room-description-container h1 {
+  font-size: 1.5em;
+  font-weight: 300;
+}
+.room-description-container .room-description-desc {
+  background: #fff;
+  box-shadow: 1px 1px 2px 0 #bbbbbb;
+  padding: 1em 0.5em 0.5em;
+  color: #888888;
+}
 /*
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
