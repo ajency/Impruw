@@ -44,3 +44,22 @@ function delete_facility_ajax(){
 
 }
 add_action('wp_ajax_delete-facility','delete_facility_ajax');
+
+
+/**
+* Function to update the facility for a room from the dashboard
+*/
+function update_facility_ajax(){
+
+	//fetching the post data
+	$postdata= array('term_name' => $_POST['name'] ,
+					 'term_id' => $_POST['term_id'],
+					 'new_facility_name' => $_POST['facility_name']);
+	
+	// call the update function and passing the term id to
+	$ret = update_facility($postdata);
+
+	wp_send_json(array('code'=>'OK','data'=>$ret));
+
+}
+add_action('wp_ajax_update-facility','update_facility_ajax');

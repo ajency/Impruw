@@ -36,3 +36,28 @@ function delete_facility($term_id){
       return 'Could not delete facility';
     }
 }
+
+/**
+* Update the facility
+*/
+function update_facility($postdata){
+   
+   //check if the term name exists
+   $response = term_exists($postdata['term_name'], 'impruw_room_facility');
+   
+   // if term_id is the same as posted term id update the facility name
+   if( $response['term_id'] == $postdata['term_id']){
+
+       //prepare the new slug string
+       $slug= sanitize_title($postdata['new_facility_name']);
+       
+       $ret = wp_update_term( $response['term_id'], 'impruw_room_facility', array('name'=>$postdata['new_facility_name'],'slug'=>$slug) );
+
+       return $ret;
+   }
+   else{
+
+      return 'Not Updated';
+   
+   }
+}
