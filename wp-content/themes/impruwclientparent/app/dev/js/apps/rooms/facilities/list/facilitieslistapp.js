@@ -10,13 +10,14 @@ define(['app', 'controllers/base-controller', 'apps/rooms/facilities/list/views'
 
       function FacilityListController() {
         this.updateView = __bind(this.updateView, this);
+        this.updateFacility = __bind(this.updateFacility, this);
         return FacilityListController.__super__.constructor.apply(this, arguments);
       }
 
       FacilityListController.prototype.initialize = function(opt) {
         var collection, cview;
         this.collection = collection = App.request("get:all:facilities");
-        cview = this._getFacilitiesView(collection);
+        this.cview = cview = this._getFacilitiesView(collection);
         this.listenTo(cview, "itemview:delete:facility:clicked", this.deleteFacility);
         this.listenTo(cview, "itemview:update:facility:clicked", this.updateFacility);
         this.listenTo(this.region, "new:facility:added", function(model) {
@@ -36,16 +37,16 @@ define(['app', 'controllers/base-controller', 'apps/rooms/facilities/list/views'
         });
       };
 
-      FacilityListController.prototype.updateFacility = function(data) {
-        model.set(data);
-        return model.save(null, {
+      FacilityListController.prototype.updateFacility = function(iv, data) {
+        iv.model.set(data);
+        return iv.model.save(null, {
           wait: true,
           success: this.updateView
         });
       };
 
-      FacilityListController.prototype.updateView = function() {
-        return this.cview.triggerMethod("update:view");
+      FacilityListController.prototype.updateView = function(model) {
+        return this.cview.triggerMethod("update:view", model);
       };
 
       FacilityListController.prototype._getFacilitiesView = function(collection) {

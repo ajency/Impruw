@@ -11,7 +11,7 @@ define ['app'
 						# get the facilities collection
 						@collection = collection = App.request "get:all:facilities"
 
-						cview = @_getFacilitiesView collection
+						@cview = cview = @_getFacilitiesView collection
 						
 						# delete:facility:clicked
 						@listenTo cview, "itemview:delete:facility:clicked" , @deleteFacility
@@ -38,14 +38,15 @@ define ['app'
 								wait : true
 					
 					# update facility: clicked
-					updateFacility: (data) ->
-						model.set data
-						model.save null,
+					updateFacility: (iv, data) =>
+						iv.model.set data
+						iv.model.save null,
 								wait : true
 								success : @updateView
 
-					updateView :=>
-						@cview.triggerMethod "update:view"
+					updateView :(model)=>
+						@cview.triggerMethod "update:view", model
+						
 
 
 					_getFacilitiesView:(collection)->

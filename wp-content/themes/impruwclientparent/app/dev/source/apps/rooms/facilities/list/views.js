@@ -16,7 +16,13 @@ define(['app'], function(App) {
 
       FacilityItem.prototype.tagName = 'div';
 
-      FacilityItem.prototype.template = '<div class="display_facility"> <label for="checkbox2" class="checkbox "> <span class="icons"> <span class="first-icon fui-checkbox-unchecked"></span> <span class="second-icon fui-checkbox-checked"></span> </span> <input type="checkbox" data-toggle="checkbox" name="facility[{{term_id}}]" value="{{term_id}}"> <span>{{name}}</span> </label> <div class="action"> <a href="javascript:void(0)" class="edit">Edit</a>&nbsp; <a href="javascript:void(0)" class="delete">Delete</a> </div> </div> <div class="update_facility hidden"> <input type="text" name="facility_name" class="form-control input-sm" value="{{name}}" /> <div class=""> <a href="javascript:void(0)" class="update">Update</a>&nbsp;&nbsp; <a href="javascript:void(0)" class="cancel" >Cancel</a> </div> </div>';
+      FacilityItem.prototype.template = '<div class="display_facility"> <label for="checkbox2" class="checkbox "> <span class="icons"> <span class="first-icon fui-checkbox-unchecked"></span> <span class="second-icon fui-checkbox-checked"></span> </span> <input type="checkbox" data-toggle="checkbox" name="facility[{{term_id}}]" value="{{term_id}}"> <span>{{name}}</span> </label> <div class="action"> <a href="javascript:void(0)" class="edit">Edit</a>&nbsp; <a href="javascript:void(0)" class="delete">Delete</a> </div> </div> <div class="update_facility hidden"> <form class="facility_update"> <input type="text" name="facility_name" class="form-control input-sm" value="{{name}}" /> <div class=""> <a href="javascript:void(0)" class="update">Update</a>&nbsp;&nbsp; <a href="javascript:void(0)" class="cancel" >Cancel</a> </div> </form> </div>';
+
+      FacilityItem.prototype.onRender = function() {
+        return this.$el.find('.facility').attr({
+          'id': this.model.get('term_id')
+        });
+      };
 
       FacilityItem.prototype.events = {
         'click a.delete': function() {
@@ -71,6 +77,8 @@ define(['app'], function(App) {
       FacilitiesView.prototype.emptyView = EmptyView;
 
       FacilitiesView.prototype.itemViewContainer = '.facilities-list';
+
+      FacilitiesView.prototype.onUpdateView = function(model) {};
 
       return FacilitiesView;
 

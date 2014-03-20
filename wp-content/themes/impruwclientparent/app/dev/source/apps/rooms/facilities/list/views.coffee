@@ -27,12 +27,17 @@ define ['app'],(App)->
 							</div>
 						</div>
 						<div class="update_facility hidden">
+							<form class="facility_update">
 							<input type="text" name="facility_name" class="form-control input-sm" value="{{name}}" />
 							<div class="">
 								<a href="javascript:void(0)" class="update">Update</a>&nbsp;&nbsp;
 								<a href="javascript:void(0)" class="cancel" >Cancel</a>
 							</div>
+							</form>
 						</div>'
+
+			onRender : ->
+					 @$el.find('.facility').attr 'id': @model.get 'term_id'
 
 			events:
 				'click a.delete' : -> 
@@ -52,6 +57,8 @@ define ['app'],(App)->
 
 				'click a.update' : ->
 						@trigger "update:facility:clicked", Backbone.Syphon.serialize @
+
+
 						
 
 		#empty view
@@ -75,6 +82,11 @@ define ['app'],(App)->
 			emptyView : EmptyView
 
 			itemViewContainer : '.facilities-list'
+
+			onUpdateView :(model)->
+
+					#@$el.find('.update_facility').addClass 'hidden'
+					#@$el.find('.display_facility').removeClass 'hidden'
 
 			
 
