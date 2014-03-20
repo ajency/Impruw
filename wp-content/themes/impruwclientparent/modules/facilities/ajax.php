@@ -26,3 +26,5 @@ function create_facility_ajax(){
     wp_send_json(array('code' => 'OK','data' => $facility_id));
 }
 add_action('wp_ajax_create-facility','create_facility_ajax');
+
+

@@ -16,11 +16,15 @@ define ['app'
 						# delete:facility:clicked
 						@listenTo cview, "itemview:delete:facility:clicked" , @deleteFacility
 
+						# update facility : clicked
+						@listenTo cview, "itemview:update:facility:clicked", @updateFacility
+
+						
 						@listenTo @region,"new:facility:added",(model)->
 									console.log model
 									@collection.add model
 
-						# delete:facility:clicked
+						# new:facility:clicked
 						@listenTo cview, "add:new:facility" , @addFacility
 
 						# display the view on the region 
@@ -32,6 +36,17 @@ define ['app'
 						model.destroy
 								allData : false
 								wait : true
+					
+					# update facility: clicked
+					updateFacility: (data) ->
+						model.set data
+						model.save null,
+								wait : true
+								success : @updateView
+
+					updateView :=>
+						@cview.triggerMethod "update:view"
+
 
 					_getFacilitiesView:(collection)->
 						new List.Views.FacilitiesView
