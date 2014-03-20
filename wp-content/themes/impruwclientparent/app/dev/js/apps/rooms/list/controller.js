@@ -3,14 +3,14 @@ var __hasProp = {}.hasOwnProperty,
 
 define(['app', 'controllers/base-controller', 'apps/rooms/list/views'], function(App, AppController) {
   return App.module('RoomsApp.List', function(List, App, Backbone, Marionette, $, _) {
-    List.Controller = (function(_super) {
-      __extends(Controller, _super);
+    List.ListController = (function(_super) {
+      __extends(ListController, _super);
 
-      function Controller() {
-        return Controller.__super__.constructor.apply(this, arguments);
+      function ListController() {
+        return ListController.__super__.constructor.apply(this, arguments);
       }
 
-      Controller.prototype.initialize = function() {
+      ListController.prototype.initialize = function() {
         this.layout = this._getLayout();
         this.listenTo(this.layout, 'add:new:room:clicked', function() {
           return App.execute("show:add:room");
@@ -19,11 +19,11 @@ define(['app', 'controllers/base-controller', 'apps/rooms/list/views'], function
         return this.show(this.layout);
       };
 
-      Controller.prototype._getLayout = function() {
-        return new List.View.RoomListLayout;
+      ListController.prototype._getLayout = function() {
+        return new List.Views.RoomListLayout;
       };
 
-      return Controller;
+      return ListController;
 
     })(AppController);
     return App.commands.setHandler("show:rooms:list", function(opts) {

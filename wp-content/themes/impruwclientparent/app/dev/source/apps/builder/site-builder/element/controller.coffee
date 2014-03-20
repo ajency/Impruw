@@ -1,6 +1,6 @@
 
-define ['app', 'controllers/builder-base-controller'
-		'apps/builder/site-builder/element/views'], (App, AppController)->
+define ['app', 'controllers/builder-base-controller', 'bootbox'
+		'apps/builder/site-builder/element/views'], (App, AppController, bootbox)->
 
 			App.module 'SiteBuilderApp.Element', (Element, App, Backbone, Marionette, $, _)->
 
@@ -34,8 +34,9 @@ define ['app', 'controllers/builder-base-controller'
 
 						# listen to delete element event
 						@listenTo @layout, "delete:element", (model)=>
-												if confirm("Are you sure?")
-													@deleteElement model
+												bootbox.confirm "Are you sure?",(result)=>
+													if result is true
+														@deleteElement model
 
 						@listenTo @layout, "bind:element:events", @bindEvents
 

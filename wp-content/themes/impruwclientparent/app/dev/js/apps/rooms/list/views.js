@@ -2,8 +2,9 @@ var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 define(['app'], function(App, mainviewTpl, roomsingleTpl, emptyTpl) {
-  return App.module('RoomsApp.List.View', function(View, App, Backbone, Marionette, $, _) {
-    View.RoomSingle = (function(_super) {
+  return App.module('RoomsApp.List.Views', function(Views, App, Backbone, Marionette, $, _) {
+    var EmptyView, RoomSingle;
+    RoomSingle = (function(_super) {
       __extends(RoomSingle, _super);
 
       function RoomSingle() {
@@ -15,7 +16,7 @@ define(['app'], function(App, mainviewTpl, roomsingleTpl, emptyTpl) {
       return RoomSingle;
 
     })(Marionette.ItemView);
-    View.EmptyView = (function(_super) {
+    EmptyView = (function(_super) {
       __extends(EmptyView, _super);
 
       function EmptyView() {
@@ -27,25 +28,25 @@ define(['app'], function(App, mainviewTpl, roomsingleTpl, emptyTpl) {
       return EmptyView;
 
     })(Marionette.ItemView);
-    View.MainView = (function(_super) {
-      __extends(MainView, _super);
+    Views.RoomsListView = (function(_super) {
+      __extends(RoomsListView, _super);
 
-      function MainView() {
-        return MainView.__super__.constructor.apply(this, arguments);
+      function RoomsListView() {
+        return RoomsListView.__super__.constructor.apply(this, arguments);
       }
 
-      MainView.prototype.template = mainviewTpl;
+      RoomsListView.prototype.template = mainviewTpl;
 
-      MainView.prototype.itemViewContainer = '.room-list tbody';
+      RoomsListView.prototype.itemViewContainer = '.room-list tbody';
 
-      MainView.prototype.itemView = View.RoomSingle;
+      RoomsListView.prototype.itemView = RoomSingle;
 
-      MainView.prototype.emptyView = View.EmptyView;
+      RoomsListView.prototype.emptyView = EmptyView;
 
-      return MainView;
+      return RoomsListView;
 
     })(Marionette.CompositeView);
-    return View.RoomListLayout = (function(_super) {
+    return Views.RoomListLayout = (function(_super) {
       __extends(RoomListLayout, _super);
 
       function RoomListLayout() {

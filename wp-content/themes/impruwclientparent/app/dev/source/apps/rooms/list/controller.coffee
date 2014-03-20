@@ -2,7 +2,7 @@ define ['app', 'controllers/base-controller', 'apps/rooms/list/views'], (App, Ap
 
 	App.module 'RoomsApp.List', (List, App, Backbone, Marionette, $, _)->
 
-		class List.Controller extends AppController
+		class List.ListController extends AppController
 
 			initialize:()->
 
@@ -18,7 +18,7 @@ define ['app', 'controllers/base-controller', 'apps/rooms/list/views'], (App, Ap
 				@show @layout
 				
 			_getLayout:->
-				new List.View.RoomListLayout
+				new List.Views.RoomListLayout
 
 					
 		App.commands.setHandler "show:rooms:list", (opts)->

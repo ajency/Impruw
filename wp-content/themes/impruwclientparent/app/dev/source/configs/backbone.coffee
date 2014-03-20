@@ -66,8 +66,6 @@ define ["backbone","mustache"], (Backbone, Mustache) ->
 					# get the id attribute of the model
 					idAttr = model['idAttribute']
 					params.data[idAttr] = model.get idAttr
-
-					
 					
 				# create a new model. At this point the model id/idAttribute is not set
 				# the required data to create the model is present inside model. so model.toJSON()

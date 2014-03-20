@@ -31,7 +31,7 @@
     <body <?php //body_class();  ?>>
 
         <?php
-//var_dump($_REQUEST);
+        //var_dump($_REQUEST);
         global $norwegian_sel;
         $norwegian_sel = false;
         if (isset($_REQUEST['lang'])) {

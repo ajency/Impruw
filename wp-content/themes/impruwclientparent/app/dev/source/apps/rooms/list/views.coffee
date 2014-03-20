@@ -2,9 +2,9 @@ define ['app'],
 		(App, mainviewTpl, roomsingleTpl, emptyTpl)->
 
 
-			App.module 'RoomsApp.List.View', (View, App, Backbone, Marionette, $, _)->
+			App.module 'RoomsApp.List.Views', (Views, App, Backbone, Marionette, $, _)->
 
-				class View.RoomSingle extends Marionette.ItemView
+				class RoomSingle extends Marionette.ItemView
 
 					#template : roomsingleTpl
 					template : '<h3>ROOM FEATURES</h3>'
@@ -14,23 +14,23 @@ define ['app'],
 						#'click a.addroom_link' : (e)-> 
 								#@trigger 'add:room:clicked', @model
 
-				class View.EmptyView extends Marionette.ItemView
+				class EmptyView extends Marionette.ItemView
 
 					template : emptyTpl
 
 
-				class View.MainView extends Marionette.CompositeView
+				class Views.RoomsListView extends Marionette.CompositeView
 
 					template : mainviewTpl
 					
 					itemViewContainer: '.room-list tbody'
 
-					itemView : View.RoomSingle
+					itemView : RoomSingle
 
-					emptyView : View.EmptyView
+					emptyView : EmptyView
 
 
-				class View.RoomListLayout extends Marionette.Layout
+				class Views.RoomListLayout extends Marionette.Layout
 
 					template : '<h4>Room Title</h4><input type="button" value="Add" class="add-room"/>
 								<div id="room-list"></div>'
