@@ -6,8 +6,6 @@
 
 // Incluse all files
 include_once 'functions.php';
-include_once 'models.php';
-
 /**
  * Define all ajax handlers here
  */

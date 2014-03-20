@@ -1,3 +1,4 @@
+@import url(http://fonts.googleapis.com/css?family=Lato:100,400,700);
 /****Mixins****/
 .clearfix {
   *zoom: 1;
@@ -39,17 +40,16 @@
 }
 @font-face {
   font-family: 'icomoon';
-  src: url("../fonts/icomoon.eot");
-  src: url("../fonts/icomoon.eot?#iefix") format("embedded-opentype"), url("../fonts/icomoon.woff") format("woff"), url("../fonts/icomoon.ttf") format("truetype"), url("../fonts/icomoon.svg#icomoon") format("svg");
+  src: url("../resources/fonts/icomoon.eot");
+  src: url("../resources/fonts/icomoon.eot?#iefix") format("embedded-opentype"), url("../resources/fonts/icomoon.woff") format("woff"), url("../resources/fonts/icomoon.ttf") format("truetype"), url("../resources/fonts/icomoon.svg#icomoon") format("svg");
   font-weight: normal;
   font-style: normal;
 }
+/****Google Fonts****/
 /****body styles****/
 .site-style-container {
-  font-family: 'Helvetica', sans-serif;
+  font-family: 'Lato', sans-serif;
   font-weight: 400;
-  /*-- Site Builder Container --*/
-
   /****Selection Color****/
 
   /****Link Styles****/
@@ -57,27 +57,22 @@
   /****Heading Styles****/
 
 }
-.site-style-container .site-header,
-.site-style-container .site-footer,
-.site-style-container .site-page {
-  padding: 0 15px;
-}
 .site-style-container ::selection {
-  background: #ff7e00;
+  background: #5ca9a1;
   color: #fff;
 }
 .site-style-container ::-moz-selection {
-  background: #ff7e00;
+  background: #5ca9a1;
   color: #fff;
 }
 .site-style-container a {
-  color: #ff7e00;
+  color: #5ca9a1;
   text-decoration: none;
 }
 .site-style-container a:hover,
 .site-style-container a:focus,
 .site-style-container a:active {
-  color: #ff9833;
+  color: #7dbbb4;
   text-decoration: underline;
 }
 .site-style-container p {
@@ -90,7 +85,7 @@
 .site-style-container h5,
 .site-style-container h6 {
   font-weight: 700;
-  color: #ff7e00;
+  color: #5ca9a1;
 }
 .site-style-container h1.sub-title,
 .site-style-container h2.sub-title,
@@ -99,7 +94,7 @@
 .site-style-container h5.sub-title,
 .site-style-container h6.sub-title {
   text-transform: uppercase;
-  color: #727272;
+  color: #626262;
   font-weight: 300;
   margin: 0.5em 0;
 }
@@ -120,22 +115,22 @@ and open the template in the editor.
   margin: 0.5em auto;
 }
 .site-style-container .row.grey-background {
-  background: #f2f2f2;
+  background: #e1e1e1;
   min-height: 100px;
 }
 .site-style-container .row.footer-container {
-  background: #29333f;
+  background: #656565;
   min-height: 100px;
 }
 .site-style-container .row.column-dividers .column {
-  border-right: 1px solid #51657d;
+  border-right: 1px solid #989898;
 }
 .site-style-container .row.column-dividers .column:last-child {
   border-right: 0;
 }
 /****Top Slim-menu Styles****/
 .nav.slimmenu {
-  border: 1px solid #d9d9d9;
+  border: 1px solid #c8c8c8;
   padding: 0;
   margin: 0 auto 1em;
   background: #fff;
@@ -149,21 +144,21 @@ and open the template in the editor.
 .nav.slimmenu > li a {
   font-size: 1em;
   font-weight: bold;
-  color: #ff7e00;
+  color: #5ca9a1;
   padding: 0.5em 1.5em;
 }
 .nav.slimmenu > li a span {
   display: block;
   font-size: 0.75em;
   font-weight: normal;
-  color: #51657d;
+  color: #989898;
 }
 .nav.slimmenu > li a:hover {
   background: transparent;
-  color: #29333f;
+  color: #656565;
 }
 .nav.slimmenu > li a:hover span {
-  color: #ffb266;
+  color: #9fccc8;
 }
 .nav.slimmenu > li .sub-collapser {
   background: transparent;
@@ -171,7 +166,7 @@ and open the template in the editor.
 }
 .nav.slimmenu > li .sub-collapser > i {
   font-size: 0.6em;
-  color: #bfbfbf;
+  color: #aeaeae;
 }
 .nav.slimmenu > li > ul.dropDrown {
   padding: 0;
@@ -180,37 +175,37 @@ and open the template in the editor.
 .nav.slimmenu > li > ul.dropDrown li {
   width: 100%;
   background: #fff;
-  border-bottom: 1px solid #d9d9d9;
+  border-bottom: 1px solid #c8c8c8;
 }
 .nav.slimmenu > li > ul.dropDrown li a {
   border: 0;
   font-size: 1em;
   font-weight: normal;
   padding: 0.5em 1.5em;
-  color: #29333f;
+  color: #656565;
 }
 .nav.slimmenu > li > ul.dropDrown li a:hover {
-  background: #d9d9d9;
-  color: #ff7e00;
+  background: #c8c8c8;
+  color: #5ca9a1;
 }
 .nav.slimmenu > li.active {
-  background: #ff7e00;
+  background: #5ca9a1;
 }
 .nav.slimmenu > li.active a {
   color: #ffffff;
-  border-color: #ff7e00;
+  border-color: #5ca9a1;
 }
 .nav.slimmenu > li.active a span {
   color: #ffffff;
 }
 .nav .menu-collapser {
   background: #fff;
-  color: #ff7e00;
+  color: #5ca9a1;
   font-weight: 700;
   text-shadow: none;
 }
 .nav .menu-collapser .collapse-button {
-  background: #ff7e00;
+  background: #5ca9a1;
   border-radius: 3px;
 }
 .nav.footer-menu {
@@ -222,7 +217,7 @@ and open the template in the editor.
   display: inline-block;
   margin-left: 10px;
   margin-bottom: 10px;
-  background: #ff7e00;
+  background: #5ca9a1;
   cursor: pointer;
 }
 .nav.footer-menu li a {
@@ -242,14 +237,14 @@ and open the template in the editor.
   -webkit-backface-visibility: hidden;
 }
 .nav.footer-menu li:hover a {
-  color: #ff7e00;
+  color: #5ca9a1;
 }
 /**** Title Styles****/
 .title {
-  color: #ff7e00;
+  color: #5ca9a1;
 }
 .text {
-  color: #bfbfbf;
+  color: #aeaeae;
 }
 /****Image With Text Styles****/
 .image {
@@ -257,7 +252,7 @@ and open the template in the editor.
   color: #989898;
 }
 .image .info {
-  color: #29333f;
+  color: #656565;
   font-size: 1em;
 }
 /****Link Element Styles****/
@@ -266,7 +261,7 @@ and open the template in the editor.
   margin: 0 0.5em 0.5em 0;
 }
 .link.button a {
-  background: #ff7e00;
+  background: #5ca9a1;
   color: #fff;
   border-radius: 3px;
   display: inline-block;
@@ -277,7 +272,7 @@ and open the template in the editor.
 }
 .link.button a:hover {
   text-decoration: none;
-  background: #ffb266;
+  background: #9fccc8;
   -webkit-transition: all 0.25s ease;
   -moz-transition: all 0.25s ease;
   -o-transition: all 0.25s ease;
@@ -293,11 +288,11 @@ and open the template in the editor.
   padding: 0;
 }
 .address .info {
-  color: #29333f;
+  color: #656565;
   font-size: 1em;
 }
 .address.small-address .info {
-  color: #29333f;
+  color: #656565;
   font-size: 1em;
   font-weight: 200;
   margin-bottom: 10px;
@@ -362,7 +357,7 @@ and open the template in the editor.
   height: 40px;
   overflow: hidden;
   line-height: 40px;
-  background: #ff7e00;
+  background: #5ca9a1;
   border-radius: 100%;
   margin: 0 .3em .3em .3em;
   -webkit-transition-duration: 0.7s;
@@ -394,13 +389,13 @@ and open the template in the editor.
   left: 0;
   bottom: 0;
   line-height: 60px;
-  color: #29333f;
+  color: #656565;
 }
 .social li a:hover {
   text-decoration: none !important;
 }
 .social li:hover {
-  background: #f2f2f2;
+  background: #e1e1e1;
   box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.3);
 }
 .social li:hover a {
@@ -428,14 +423,14 @@ and open the template in the editor.
   margin-bottom: 0.8em;
 }
 .contactform .flat:focus {
-  border-color: #ff7e00;
+  border-color: #5ca9a1;
 }
 .contactform .btn {
   border-radius: 0;
   margin-top: 0.3em;
 }
 .contactform .btn:hover {
-  background: #ff7e00;
+  background: #5ca9a1;
 }
 /* 
     Created on : 10 March, 2014, 1:25:41 PM
@@ -444,7 +439,7 @@ and open the template in the editor.
 /****Room Tariff Styles****/
 .room-tariff-container {
   background: #fff;
-  box-shadow: 1px 1px 2px 0 #8598af;
+  box-shadow: 1px 1px 2px 0 #cbcbcb;
   padding: 0.5em;
   position: relative;
 }
@@ -463,10 +458,10 @@ and open the template in the editor.
   display: none;
 }
 .room-tariff-container .room-tariff-actions .btn-add-plan {
-  background: #ff7e00;
+  background: #5ca9a1;
 }
 .room-tariff-container .room-tariff-actions .btn-add-plan:hover {
-  background: #ff9833;
+  background: #7dbbb4;
 }
 @media (max-width: 767px) {
   .room-tariff-container .room-tariff-actions {
@@ -478,7 +473,7 @@ and open the template in the editor.
   overflow-x: auto;
 }
 .room-tariff-container .room-tariff-grid .tariff .date-range {
-  color: #51657d;
+  color: #989898;
   text-align: right;
   font-weight: 300;
   position: absolute;
@@ -511,8 +506,8 @@ and open the template in the editor.
   margin-right: 0.5em;
 }
 .room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block {
-  background: #d9d9d9;
-  border-left: 5px solid #bfbfbf;
+  background: #c8c8c8;
+  border-left: 5px solid #aeaeae;
   padding: 0.5em;
 }
 .room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block h6 {
@@ -523,11 +518,11 @@ and open the template in the editor.
 }
 .room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block .package-desc {
   font-size: 0.88em;
-  color: #667e9b;
+  color: #b2b2b2;
   display: none;
 }
 .room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block .tariff-label {
-  color: #667e9b;
+  color: #b2b2b2;
   margin: 0.5em 0 0.2em;
   font-size: 0.88em;
 }
@@ -538,7 +533,7 @@ and open the template in the editor.
   margin-right: 1%;
   float: left;
   text-transform: uppercase;
-  color: #51657d;
+  color: #989898;
   font-weight: 300;
 }
 .room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block .weekday .price,
@@ -548,7 +543,7 @@ and open the template in the editor.
   display: block;
 }
 .room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block:hover {
-  border-color: #ff7e00;
+  border-color: #5ca9a1;
 }
 .room-tariff-container .room-tariff-grid .tariff .packages .package-blocks.header {
   margin: 0 0 0.3em;
@@ -567,7 +562,7 @@ and open the template in the editor.
     overflow-x: visible;
   }
   .room-tariff-container .room-tariff-grid .tariff {
-    border-left: 2px solid #8598af;
+    border-left: 2px solid #cbcbcb;
     padding-left: 0.5em;
     margin: 0 0 1em;
   }
@@ -610,7 +605,7 @@ and open the template in the editor.
 /****Room Facilities Styles****/
 .room-facilities-container {
   background: #fff;
-  box-shadow: 1px 1px 2px 0 #8598af;
+  box-shadow: 1px 1px 2px 0 #cbcbcb;
   padding: 0.5em;
 }
 .room-facilities-container .room-facilities-title h5 {
@@ -629,7 +624,7 @@ and open the template in the editor.
 }
 .room-facilities-container .facilities li {
   font-size: 1.1em;
-  color: #51657d;
+  color: #989898;
   font-weight: 300;
   margin: 0 0 0.5em;
   display: block;
@@ -645,15 +640,15 @@ and open the template in the editor.
   height: 13px;
   float: left;
   margin-right: 10px;
-  border: 1px solid #51657d;
+  border: 1px solid #989898;
   position: relative;
   font-size: 1.2em;
   line-height: 0.33em;
   top: 3px;
-  color: #ff7e00;
+  color: #5ca9a1;
 }
 .room-facilities-container .facilities li:hover:before {
-  color: #29333f;
+  color: #656565;
 }
 /****Room Summary Styles****/
 .room-summary-container .room-summary-title h4 {
@@ -662,12 +657,12 @@ and open the template in the editor.
 }
 .room-summary-container .room-summary {
   background: #fff;
-  box-shadow: 1px 1px 2px 0 #8598af;
+  box-shadow: 1px 1px 2px 0 #cbcbcb;
   padding: 1em 0.5em 0.5em;
 }
 .room-summary-container .room-summary .room-summary-item {
   display: inline-block;
-  border-bottom: 1px solid #8598af;
+  border-bottom: 1px solid #cbcbcb;
   margin: 0 1em 1em 0;
 }
 .room-summary-container .room-summary .room-summary-item span {
@@ -676,31 +671,31 @@ and open the template in the editor.
 }
 .room-summary-container .room-summary .room-summary-item span.key {
   min-width: 100px;
-  color: #51657d;
+  color: #989898;
 }
 .room-summary-container .room-summary .room-summary-item span.value {
-  color: #29333f;
+  color: #656565;
   font-weight: 700;
 }
 .room-summary-container .room-summary .room-summary-item:hover {
-  border-color: #ff7e00;
+  border-color: #5ca9a1;
 }
 .room-summary-container .room-summary .room-summary-desc {
-  color: #51657d;
+  color: #989898;
   margin: 1em 0 0;
 }
 .room-summary-container .room-summary .room-summary-desc .btn-book {
   display: block;
   margin: 0.5em 0;
-  background: #ff7e00;
+  background: #5ca9a1;
 }
 .room-summary-container .room-summary .room-summary-desc .btn-book:hover {
-  background: #ff9833;
+  background: #7dbbb4;
 }
 /****Room Title Styles****/
 .room-title-container {
   background: #fff;
-  box-shadow: 1px 1px 2px 0 #8598af;
+  box-shadow: 1px 1px 2px 0 #cbcbcb;
   padding: 0.5em;
   position: relative;
   margin: 0 0 1em;
@@ -708,11 +703,11 @@ and open the template in the editor.
 .room-title-container .room-title h1 {
   font-size: 2.5em;
   text-transform: uppercase;
-  color: #ff7e00;
+  color: #5ca9a1;
 }
 .room-title-container .room-title .room-title-desc {
   font-size: 1em;
-  color: #51657d;
+  color: #989898;
 }
 .room-title-container .room-title-actions {
   position: absolute;
@@ -721,10 +716,10 @@ and open the template in the editor.
   margin: 0.5em 0;
 }
 .room-title-container .room-title-actions .btn-book {
-  background: #ff7e00;
+  background: #5ca9a1;
 }
 .room-title-container .room-title-actions .btn-book:hover {
-  background: #ff9833;
+  background: #7dbbb4;
 }
 @media (max-width: 767px) {
   .room-title-container .room-title-actions {
@@ -741,43 +736,213 @@ and open the template in the editor.
 }
 .room-description-container .room-description-desc {
   background: #fff;
-  box-shadow: 1px 1px 2px 0 #8598af;
+  box-shadow: 1px 1px 2px 0 #cbcbcb;
   padding: 1em 0.5em 0.5em;
-  color: #51657d;
+  color: #989898;
 }
-.top-margin-small {
-  margin-top: 0.5em;
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 20 Feb, 2014, 7:45:35 PM
+    Author     : surajair
+*/
+.row.green-background {
+  background: #5ca9a1;
+  min-height: 100px;
 }
-.left-margin-small {
-  margin-left: 0.5em;
+.row.grey-background {
+  background: #656565 !important;
+  min-height: 100px;
 }
-.right-margin-small {
-  margin-right: 0.5em;
+.row.shaded-background {
+  background: url("../resources/img/stripe_bg.png") repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
-.bottom-margin-small {
-  margin-bottom: 0.5em;
+/****Top Slim-menu Styles****/
+.nav {
+  border-radius: 0;
+  margin-bottom: 0;
 }
-.top-margin-medium {
-  margin-top: 1em;
+.nav.slimmenu {
+  border-radius: 0;
+  margin-bottom: 0;
+  border: 0;
+  border-left: 1px solid #7ecbc3;
+  border-top: 1px solid #7ecbc3;
+  background: transparent;
 }
-.left-margin-medium {
-  margin-left: 1em;
+.nav.slimmenu li {
+  border-left: 1px solid #7ecbc3;
+  border-right: 1px solid #7ecbc3;
+  border-radius: 0;
+  border-bottom: 0;
+  background-color: #5ca9a1;
+  padding: 0;
+  margin-right: -1px;
 }
-.right-margin-medium {
-  margin-right: 1em;
+.nav.slimmenu li.active {
+  background-color: #fff;
+  border-left: 1px solid #fff;
+  border-right: 1px solid #fff;
+  border-bottom: 0;
 }
-.bottom-margin-medium {
-  margin-bottom: 1em;
+.nav.slimmenu li.active a {
+  color: #5ca9a1;
 }
-.top-margin-large {
-  margin-top: 1.5em;
+.nav.slimmenu li.open {
+  background-color: #fff;
+  border-left: 1px solid #fff;
+  border-right: 1px solid #fff;
+  border-bottom: 0;
 }
-.left-margin-large {
-  margin-left: 1.5em;
+.nav.slimmenu li:hover {
+  border-left: 1px solid #fff;
+  border-right: 1px solid #fff;
+  border-bottom: 0;
 }
-.right-margin-large {
-  margin-right: 1.5em;
+.nav.slimmenu li:focus {
+  color: #fff;
 }
-.bottom-margin-large {
-  margin-bottom: 1.5em;
+.nav.slimmenu li a {
+  text-transform: uppercase;
+  font-size: 0.722em;
+  color: #fff;
+  padding: 12px 30px;
+}
+.nav.slimmenu li a:hover {
+  background-color: #fff;
+  color: #5ca9a1;
+}
+.nav.slimmenu li .dropDrown {
+  padding-left: 0;
+}
+.nav.slimmenu li .dropDrown li {
+  width: 100%;
+  background: #7ecbc3;
+}
+/**** Title Styles****/
+.title.box-title {
+  color: #656565;
+  text-align: center;
+  text-transform: uppercase;
+}
+/****Address Element Styles****/
+.address .info {
+  color: #989898;
+  font-size: 1.667em;
+  font-weight: 200;
+  margin-bottom: 30px;
+  padding-left: 20px;
+}
+.address.small .info {
+  color: #989898;
+  font-size: 1em;
+  font-weight: 200;
+  margin-bottom: 10px;
+  padding-left: 5px;
+}
+/****Social Element Styles****/
+.icon-dribbble:before,
+.icon-twitter:before,
+.icon-facebook:before,
+.icon-pinterest:before,
+.icon-flickr:before,
+.icon-google-plus:before,
+.icon-tumblr:before,
+.icon-youtube:before,
+.icon-dribbble:after,
+.icon-twitter:after,
+.icon-facebook:after,
+.icon-pinterest:after,
+.icon-flickr:after,
+.icon-google-plus:after,
+.icon-tumblr:after,
+.icon-youtube:after {
+  font-family: 'icomoon';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+}
+.icon-twitter:before,
+.icon-twitter:after {
+  content: "\e602";
+}
+.icon-facebook:before,
+.icon-facebook:after {
+  content: "\e600";
+}
+.icon-pinterest:before,
+.icon-pinterest:after {
+  content: "\e603";
+}
+.icon-flickr:before,
+.icon-flickr:after {
+  content: "\e607";
+}
+.icon-google-plus:before,
+.icon-google-plus:after {
+  content: "\e601";
+}
+.icon-youtube:before,
+.icon-youtube:after {
+  content: "\e606";
+}
+ul.social {
+  text-align: center;
+  padding-left: 0;
+}
+ul.social li {
+  font-size: 1.2em;
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  overflow: hidden;
+  line-height: 50px;
+  background: #a5a5a5;
+  border-radius: 100%;
+  margin: 0 .5em .5em .5em;
+  -webkit-transition-duration: 0.7s;
+  -moz-transition-duration: 0.7s;
+  -o-transition-duration: 0.7s;
+  transition-duration: 0.7s;
+}
+ul.social li a {
+  display: block;
+  width: 100%;
+  height: 200%;
+  position: relative;
+  top: 0;
+  color: #fff;
+  -webkit-transition: top 0.7s;
+  -moz-transition: top 0.7s;
+  -o-transition: top 0.7s;
+  transition: top 0.7s;
+}
+ul.social li a .name {
+  display: none;
+}
+ul.social li a:hover {
+  color: #fff;
+}
+ul.social li a:after {
+  text-align: center;
+  position: absolute;
+  width: inherit;
+  display: block;
+  height: 50%;
+  left: 0;
+  bottom: 0;
+  line-height: 50px;
+  color: #fff;
+}
+ul.social li:hover {
+  background: #5ca9a1;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.3);
+}
+ul.social li:hover a {
+  top: -50px;
 }

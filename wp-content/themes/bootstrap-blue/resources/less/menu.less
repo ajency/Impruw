@@ -5,16 +5,18 @@
 	&.slimmenu{
 		border-radius:0;
 		margin-bottom:0;			
+		border:0;
+		border-left: 1px solid @primary2;
 		border-top:1px solid @primary2;
-		border-bottom:0;
-
+		background: transparent;
 		li{
 			border-left:1px solid @primary2;
 			border-right:1px solid @primary2;
 			border-radius:0;
 			border-bottom:0;
 			background-color:@primary1;
-			
+			padding: 0;
+			margin-right: -1px;
 			&.active{
 				background-color:#fff;
 				border-left:1px solid #fff;
@@ -56,37 +58,6 @@
 				li{
 					width:100%;
 					background:@primary2;
-				}
-			}
-		}
-	}
-	&.footer-menu{
-		padding-left:0;
-		text-align: center;
-		li{
-			list-style:none;
-			display:inline-block;
-			margin-left:10px;
-			margin-bottom:10px;
-			background:@primary1;
-			cursor:pointer;
-			a{
-				font-size:1.333em;
-				color:#fff;
-				font-weight:200;
-				padding:10px 45px;
-				display: block;
-			}
-			&:hover{
-				background:#fff;
-				text-shadow: none;
-				  -webkit-transition: background-color .25s, color .25s, border-bottom-color .25s;
-				  -moz-transition: background-color .25s, color .25s, border-bottom-color .25s;
-				  -o-transition: background-color .25s, color .25s, border-bottom-color .25s;
-				  transition: background-color .25s, color .25s, border-bottom-color .25s;
-				  -webkit-backface-visibility: hidden;
-				a{
-					color:@primary1;
 				}
 			}
 		}

@@ -50,19 +50,12 @@
 .site-style-container {
   font-family: 'Lato', sans-serif;
   font-weight: 400;
-  /*-- Site Builder Container --*/
-
   /****Selection Color****/
 
   /****Link Styles****/
 
   /****Heading Styles****/
 
-}
-.site-style-container .site-header,
-.site-style-container .site-footer,
-.site-style-container .site-page {
-  padding: 0 15px;
 }
 .site-style-container ::selection {
   background: #07669e;
@@ -114,42 +107,32 @@ and open the template in the editor.
     Created on : 20 Feb, 2014, 7:45:35 PM
     Author     : jarr-head
 */
-.row.blue-strip-top {
-  border-top: 5px solid #07669e;
-  background: #f2f2f2;
+.site-style-container .row {
   min-height: 100px;
 }
-.row.grey-background {
-  background: #f2f2f2;
-  min-height: 100px;
-}
-.row.center-container {
+.site-style-container .row.center-container {
   max-width: 1170px;
   margin: 0.5em auto;
 }
-.row.white-shaded-background {
-  padding: 1em 15px;
-  background: #fff;
-  box-shadow: 0 0 2px #d4d4d4;
+.site-style-container .row.grey-background {
+  background: #f2f2f2;
+  min-height: 100px;
 }
-.row.footer-container {
+.site-style-container .row.footer-container {
   background: #555555;
   min-height: 100px;
 }
-.row.column-dividers .column {
+.site-style-container .row.column-dividers .column {
   border-right: 1px solid #888888;
 }
-.row.column-dividers .column:last-child {
+.site-style-container .row.column-dividers .column:last-child {
   border-right: 0;
 }
 /****Top Slim-menu Styles****/
 .nav.slimmenu {
   border: 1px solid #d9d9d9;
-  border-bottom: 0;
-  border-left: 0;
   padding: 0;
   margin: 0 auto 1em;
-  border-bottom: 3px solid #07669e !important;
   background: #fff;
 }
 .nav.slimmenu > li {
@@ -162,8 +145,7 @@ and open the template in the editor.
   font-size: 1em;
   font-weight: bold;
   color: #07669e;
-  padding: 0.5em 44px 0.5em 1.5em;
-  border-right: 1px solid #d9d9d9;
+  padding: 0.5em 1.5em;
 }
 .nav.slimmenu > li a span {
   display: block;
@@ -216,9 +198,6 @@ and open the template in the editor.
 .nav.slimmenu > li.active a span {
   color: #a9ddfb;
 }
-.nav.slimmenu > li:last-child a {
-  border-right: 0;
-}
 .nav .menu-collapser {
   background: #fff;
   color: #07669e;
@@ -230,158 +209,51 @@ and open the template in the editor.
   border-radius: 3px;
 }
 .nav.footer-menu {
-  padding: 0;
+  padding-left: 0;
+  text-align: center;
 }
 .nav.footer-menu li {
-  position: relative;
-  margin: 0 0 0.2em;
+  list-style: none;
+  display: inline-block;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  background: #07669e;
+  cursor: pointer;
 }
 .nav.footer-menu li a {
+  font-size: 1.333em;
   color: #fff;
-  font-weight: 100;
-  text-transform: uppercase;
-  display: inline-block;
-  padding: 0.33em;
-}
-.nav.footer-menu li a:hover {
-  text-decoration: none;
-  background: transparent;
-}
-.nav.footer-menu li:before {
-  content: '›';
-  display: inline-block;
-  color: #fff;
-  font-size: 1.3em;
-  margin-right: 5px;
+  font-weight: 200;
+  padding: 10px 45px;
+  display: block;
 }
 .nav.footer-menu li:hover {
-  left: 0.25em;
-  -webkit-transition: all 0.25s ease;
-  -moz-transition: all 0.25s ease;
-  -o-transition: all 0.25s ease;
-  -ms-transition: all 0.25s ease;
-  transition: all 0.25s ease;
+  background: #fff;
+  text-shadow: none;
+  -webkit-transition: background-color 0.25s, color 0.25s, border-bottom-color 0.25s;
+  -moz-transition: background-color 0.25s, color 0.25s, border-bottom-color 0.25s;
+  -o-transition: background-color 0.25s, color 0.25s, border-bottom-color 0.25s;
+  transition: background-color 0.25s, color 0.25s, border-bottom-color 0.25s;
+  -webkit-backface-visibility: hidden;
 }
-.nav.footer-menu-2 {
-  padding: 0;
-}
-.nav.footer-menu-2 li {
-  border-bottom: 1px dotted #fff;
-  *zoom: 1;
-}
-.nav.footer-menu-2 li:after,
-.nav.footer-menu-2 li:before {
-  clear: both;
-  content: "";
-  display: table;
-}
-.nav.footer-menu-2 li a {
-  display: block;
-  color: #fff;
-  text-transform: uppercase;
-  padding: 0 0 0.5em;
-}
-.nav.footer-menu-2 li a:hover {
-  text-decoration: none;
-  background: transparent;
-}
-.nav.footer-menu-2 li:after {
-  content: '›';
-  display: block;
-  float: right;
-  color: #fff;
-  font-size: 1.3em;
-  line-height: 0.25em;
-  margin-left: 5px;
-  width: 14px;
-  height: 14px;
-  padding: 3px 0 0 2px;
-  background: rgba(255, 255, 255, 0.3);
-  border-radius: 20px;
-  text-align: center;
-  font-weight: 100;
-  position: relative;
-  top: -22px;
-}
-.nav.footer-menu-2 li:hover {
-  border-bottom-style: solid;
+.nav.footer-menu li:hover a {
+  color: #07669e;
 }
 /**** Title Styles****/
-.title.page-title {
-  color: #555555;
-  font-style: italic;
-  font-weight: 700;
-  font-size: 4em;
-}
-.title.title-super-text {
-  font-size: 1.5em;
-}
-.title.footer-title {
-  color: #fff;
-  text-transform: uppercase;
-  font-size: 1.6em;
-  font-weight: 400;
-}
-.title.footer-sub-title {
-  color: #fff;
-  text-transform: uppercase;
-  font-weight: 200;
-  font-size: 1.4em;
-}
-.title.small-title {
-  font-size: 1.2em;
-  font-weight: 300;
-}
-.title.grey-title-text {
-  color: #555555;
-  text-transform: uppercase;
-  font-size: 2em;
-  font-weight: 400;
-}
-.title.emphasis-text {
-  color: #555555;
-  font-weight: 300;
-  display: inline-block;
-  font-size: 1.5em;
-  border-bottom: 1px solid #07669e;
-}
-.title.inner-title {
-  color: #555555;
-  font-size: 2.5em;
-  font-weight: 700;
-  text-transform: none;
-  font-style: italic;
-}
-.title.thumb-title {
-  text-transform: uppercase;
-  color: #bfbfbf;
-  font-size: 0.8em;
-  font-weight: 300;
-  border-bottom: 1px solid #bfbfbf;
-}
-.title.thumb-main-title {
-  color: #555555;
-  font-weight: 400;
-  font-size: 1.6em;
+.title {
+  color: #07669e;
 }
 .text {
-  color: #989898;
+  color: #bfbfbf;
 }
 /****Image With Text Styles****/
 .image {
   padding: 0.5em 0;
+  color: #989898;
 }
 .image .info {
   color: #555555;
   font-size: 1em;
-}
-.image.style-two {
-  color: #d9d9d9;
-  font-size: 1em;
-  font-weight: 300;
-}
-.image.style-two p {
-  font-size: inherit;
 }
 /****Link Element Styles****/
 .link {
@@ -389,18 +261,18 @@ and open the template in the editor.
   margin: 0 0.5em 0.5em 0;
 }
 .link.button a {
-  background: #fff;
-  color: #07669e;
+  background: #07669e;
+  color: #fff;
+  border-radius: 3px;
   display: inline-block;
-  padding: 0.3em 0.5em 0.2em;
+  padding: 0.5em 0.7em 0.4em;
   margin: 1em 0;
-  font-size: 1.2em;
+  font-size: 1em;
   font-weight: 400;
 }
 .link.button a:hover {
   text-decoration: none;
-  background: #07669e;
-  color: #fff;
+  background: #16a2f5;
   -webkit-transition: all 0.25s ease;
   -moz-transition: all 0.25s ease;
   -o-transition: all 0.25s ease;
@@ -410,6 +282,10 @@ and open the template in the editor.
 /****Address Element Styles****/
 .address {
   padding: 0.5em 0;
+}
+.address ul {
+  list-style: none;
+  padding: 0;
 }
 .address .info {
   color: #555555;
@@ -546,11 +422,8 @@ and open the template in the editor.
   border-radius: 0;
   margin-bottom: 0.8em;
 }
-.contactform select {
-  color: #B2BCC5;
-}
-.contactform select:focus {
-  color: #34495E;
+.contactform .flat:focus {
+  border-color: #07669e;
 }
 .contactform .btn {
   border-radius: 0;
@@ -853,39 +726,276 @@ and open the template in the editor.
     position: static;
   }
 }
-.top-margin-small {
-  margin-top: 0.5em;
+/****Room description Styles****/
+.room-description-container {
+  margin: 0 0 1em;
 }
-.left-margin-small {
-  margin-left: 0.5em;
+.room-description-container h1 {
+  font-size: 1.5em;
+  font-weight: 300;
 }
-.right-margin-small {
-  margin-right: 0.5em;
+.room-description-container .room-description-desc {
+  background: #fff;
+  box-shadow: 1px 1px 2px 0 #bbbbbb;
+  padding: 1em 0.5em 0.5em;
+  color: #888888;
 }
-.bottom-margin-small {
-  margin-bottom: 0.5em;
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 20 Feb, 2014, 7:45:35 PM
+    Author     : jarr-head
+*/
+.row {
+  background: transparent;
 }
-.top-margin-medium {
-  margin-top: 1em;
+.row.blue-strip-top {
+  border-top: 5px solid #07669e;
+  background: #f2f2f2;
+  min-height: 100px;
 }
-.left-margin-medium {
-  margin-left: 1em;
+.row.white-shaded-background {
+  padding: 1em 15px;
+  background: #fff;
+  box-shadow: 0 0 2px #d4d4d4;
 }
-.right-margin-medium {
-  margin-right: 1em;
+/****Top Slim-menu Styles****/
+.nav.slimmenu {
+  border: 1px solid #d9d9d9;
+  border-bottom: 0;
+  border-left: 0;
+  padding: 0;
+  margin: 0 auto 1em;
+  border-bottom: 3px solid #07669e !important;
+  background: #fff;
 }
-.bottom-margin-medium {
-  margin-bottom: 1em;
+.nav.slimmenu > li {
+  background: transparent !important;
+  padding: 0.3em 0;
+  border: 0;
+  margin-right: -3px;
 }
-.top-margin-large {
-  margin-top: 1.5em;
+.nav.slimmenu > li a {
+  font-size: 1em;
+  font-weight: bold;
+  color: #07669e;
+  padding: 0.5em 44px 0.5em 1.5em;
+  border-right: 1px solid #d9d9d9;
 }
-.left-margin-large {
-  margin-left: 1.5em;
+.nav.slimmenu > li a span {
+  display: block;
+  font-size: 0.75em;
+  font-weight: normal;
+  color: #888888;
 }
-.right-margin-large {
-  margin-right: 1.5em;
+.nav.slimmenu > li a:hover {
+  background: transparent;
+  color: #555555;
 }
-.bottom-margin-large {
-  margin-bottom: 1.5em;
+.nav.slimmenu > li a:hover span {
+  color: #16a2f5;
+}
+.nav.slimmenu > li .sub-collapser {
+  background: transparent;
+  width: 40px;
+}
+.nav.slimmenu > li .sub-collapser > i {
+  font-size: 0.6em;
+  color: #bfbfbf;
+}
+.nav.slimmenu > li > ul.dropDrown {
+  padding: 0;
+  width: auto;
+}
+.nav.slimmenu > li > ul.dropDrown li {
+  width: 100%;
+  background: #fff;
+  border-bottom: 1px solid #d9d9d9;
+}
+.nav.slimmenu > li > ul.dropDrown li a {
+  border: 0;
+  font-size: 1em;
+  font-weight: normal;
+  padding: 0.5em 1.5em;
+  color: #555555;
+}
+.nav.slimmenu > li > ul.dropDrown li a:hover {
+  background: #d9d9d9;
+  color: #07669e;
+}
+.nav.slimmenu > li.active {
+  background: #07669e;
+}
+.nav.slimmenu > li.active a {
+  color: #f2fafe;
+  border-color: #07669e;
+}
+.nav.slimmenu > li.active a span {
+  color: #a9ddfb;
+}
+.nav.slimmenu > li:last-child a {
+  border-right: 0;
+}
+.nav .menu-collapser {
+  background: #fff;
+  color: #07669e;
+  font-weight: 700;
+  text-shadow: none;
+}
+.nav .menu-collapser .collapse-button {
+  background: #07669e;
+  border-radius: 3px;
+}
+.nav.footer-menu {
+  padding: 0;
+}
+.nav.footer-menu li {
+  position: relative;
+  margin: 0 0 0.2em;
+}
+.nav.footer-menu li a {
+  color: #fff;
+  font-weight: 100;
+  text-transform: uppercase;
+  display: inline-block;
+  padding: 0.33em;
+}
+.nav.footer-menu li a:hover {
+  text-decoration: none;
+  background: transparent;
+}
+.nav.footer-menu li:before {
+  content: '›';
+  display: inline-block;
+  color: #fff;
+  font-size: 1.3em;
+  margin-right: 5px;
+}
+.nav.footer-menu li:hover {
+  left: 0.25em;
+  -webkit-transition: all 0.25s ease;
+  -moz-transition: all 0.25s ease;
+  -o-transition: all 0.25s ease;
+  -ms-transition: all 0.25s ease;
+  transition: all 0.25s ease;
+}
+.nav.footer-menu-2 {
+  padding: 0;
+}
+.nav.footer-menu-2 li {
+  border-bottom: 1px dotted #fff;
+  *zoom: 1;
+}
+.nav.footer-menu-2 li:after,
+.nav.footer-menu-2 li:before {
+  clear: both;
+  content: "";
+  display: table;
+}
+.nav.footer-menu-2 li a {
+  display: block;
+  color: #fff;
+  text-transform: uppercase;
+  padding: 0 0 0.5em;
+}
+.nav.footer-menu-2 li a:hover {
+  text-decoration: none;
+  background: transparent;
+}
+.nav.footer-menu-2 li:after {
+  content: '›';
+  display: block;
+  float: right;
+  color: #fff;
+  font-size: 1.3em;
+  line-height: 0.25em;
+  margin-left: 5px;
+  width: 14px;
+  height: 14px;
+  padding: 3px 0 0 2px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 20px;
+  text-align: center;
+  font-weight: 100;
+  position: relative;
+  top: -22px;
+}
+.nav.footer-menu-2 li:hover {
+  border-bottom-style: solid;
+}
+/**** Title Styles****/
+.title.page-title {
+  color: #555555;
+  font-style: italic;
+  font-weight: 700;
+  font-size: 4em;
+}
+.title.title-super-text {
+  font-size: 1.5em;
+}
+.title.footer-title {
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 1.6em;
+  font-weight: 400;
+}
+.title.footer-sub-title {
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 200;
+  font-size: 1.4em;
+}
+.title.small-title {
+  font-size: 1.2em;
+  font-weight: 300;
+}
+.title.grey-title-text {
+  color: #555555;
+  text-transform: uppercase;
+  font-size: 2em;
+  font-weight: 400;
+}
+.title.emphasis-text {
+  color: #555555;
+  font-weight: 300;
+  display: inline-block;
+  font-size: 1.5em;
+  border-bottom: 1px solid #07669e;
+}
+.title.inner-title {
+  color: #555555;
+  font-size: 2.5em;
+  font-weight: 700;
+  text-transform: none;
+  font-style: italic;
+}
+.title.thumb-title {
+  text-transform: uppercase;
+  color: #bfbfbf;
+  font-size: 0.8em;
+  font-weight: 300;
+  border-bottom: 1px solid #bfbfbf;
+}
+.title.thumb-main-title {
+  color: #555555;
+  font-weight: 400;
+  font-size: 1.6em;
+}
+/****Address Element Styles****/
+.address {
+  padding: 0.5em 0;
+}
+.address .info {
+  color: #555555;
+  font-size: 1em;
+}
+.address.small-address .info {
+  color: #555555;
+  font-size: 1em;
+  font-weight: 200;
+  margin-bottom: 10px;
+  padding-left: 5px;
 }

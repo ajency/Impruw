@@ -35,14 +35,6 @@ function get_logo_size(){
 global $element_templates;
 
 $element_templates = array(
-    'Menu' => array(
-                array(
-                    'name'      => 'Slimmenu'
-                ),
-                array(
-                    'name'      => 'Footer Menu'
-                )
-              ),
     'Title' => array(
                 array(
                     'name'      => 'Box Title'
@@ -53,17 +45,7 @@ $element_templates = array(
                     'name'      => 'Green Background'
                 ),
                 array(
-                    'name'      => 'Center Container'
-                ),
-                array(
-                    'name'      => 'Grey Background'
-                ),
-                array(
                     'name'      => 'Shaded Background'
-                )
-                ,
-                array(
-                    'name'      => 'Column Dividers'
                 )
              ),
     'Address' => array(
@@ -74,14 +56,6 @@ $element_templates = array(
                 array(
                     'name' => 'Small Address',
                     'template' => '<div><div class="info"><span class="fui-home"></span> {{address}}</div><div class="info"><span class="glyphicon glyphicon-earphone"></span> {{phoneno}}</div><div class="info"><span class="fui-mail"></span> {{email}}</div></div>'
-                )
-            ),
-    'Social' => array(
-                array(
-                    'name' => 'Default Style'
-                ),
-                array(
-                    'name' => 'Small Social'
                 )
             ),
     'Link' => array(

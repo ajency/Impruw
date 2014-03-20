@@ -2,12 +2,12 @@
 .nav {
 	&.slimmenu {
 		padding: 0;
-		border: 1px solid darken(@grey, 10%);
+		border: 1px solid darken(@tertiary1, 10%);
 		border-bottom: 0;
 		border-left: 0;
 		padding: 0;
 		margin: 0 auto 1em;
-		border-bottom: 3px solid @blue !important;
+		border-bottom: 3px solid @primary1 !important;
 		background: #fff;
 		> li {
 			background: transparent !important;
@@ -17,20 +17,20 @@
 			a {
 				font-size: 1em;
 				font-weight: bold;
-				color: @blue;
+				color: @primary1;
 				padding: 0.5em 44px 0.5em 1.5em;
-				border-right: 1px solid darken(@grey, 10%);
+				border-right: 1px solid darken(@tertiary1, 10%);
 				span {
 					display: block;
 					font-size: 0.75em;
 					font-weight: normal;
-					color: lighten(@dark-grey, 20%);
+					color: lighten(@secondary1, 20%);
 				}
 				&:hover {
 					background: transparent;
-					color: @dark-grey;
+					color: @secondary1;
 					span {
-						color: lighten(@blue, 20%);
+						color: lighten(@primary1, 20%);
 					}
 				}
 			}
@@ -39,7 +39,7 @@
 				width: 40px;
 				> i {
 					font-size: 0.6em;
-					color: darken(@grey, 20%);
+					color: darken(@tertiary1, 20%);
 				}
 			}
 			> ul.dropDrown {
@@ -48,27 +48,27 @@
 				li {
 					width: 100%;
 					background: #fff;
-					border-bottom: 1px solid darken(@grey, 10%);
+					border-bottom: 1px solid darken(@tertiary1, 10%);
 					a {
 						border: 0;
 						font-size: 1em;
 						font-weight: normal;
 						padding: 0.5em 1.5em;
-						color: @dark-grey;
+						color: @secondary1;
 						&:hover {
-							background: darken(@grey, 10%);
-							color: @blue;
+							background: darken(@tertiary1, 10%);
+							color: @primary1;
 						}
 					}
 				}
 			}
 			&.active {
-				background: @blue;
+				background: @primary1;
 				a {
-					color: lighten(@blue, 65%);
-					border-color: @blue;
+					color: lighten(@primary1, 65%);
+					border-color: @primary1;
 					span {
-						color: lighten(@blue, 50%);
+						color: lighten(@primary1, 50%);
 					}
 				}
 			}
@@ -81,11 +81,11 @@
 	}
 	.menu-collapser {
 		background: #fff;
-		color: @blue;
+		color: @primary1;
 		font-weight: 700;
 		text-shadow: none;
 		.collapse-button {
-			background: @blue;
+			background: @primary1;
 			border-radius: 3px;
 		}
 	}
