@@ -25,7 +25,9 @@ define(["backbone", "mustache"], function(Backbone, Mustache) {
           break;
         case 'update':
           onlyChanged = (_ref = options.onlyChanged) != null ? _ref : false;
+          idAttr = model['idAttribute'];
           if (onlyChanged) {
+            params.data[idAttr] = model.get(idAttr);
             if (model.hasChanged()) {
               params.data.changes = {};
               _.each(model.changed, function(property, index) {

@@ -77,8 +77,11 @@ define ["backbone","mustache"], (Backbone, Mustache) ->
 				# options name is ‘onlyChanged’ accepting boolean value. default to ‘true’
 				when 'update'
 					onlyChanged = options.onlyChanged ? false
-					
+
+					idAttr = model['idAttribute']
+
 					if onlyChanged
+						params.data[idAttr] = model.get idAttr
 						# get all changed values and add them to param’s data attribute
 						if model.hasChanged()
 							params.data.changes = {}
