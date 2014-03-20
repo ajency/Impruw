@@ -21,3 +21,18 @@ function create_facility($name){
       return $newfacililty_data;
     }
 }
+/**
+ * Delete a facility
+ * @param term_id
+ */
+function delete_facility($term_id){
+
+    $ret = wp_delete_term( $term_id, 'impruw_room_facility');
+    
+    if($ret){
+      return 'Facilty Deleted';
+    }
+    else{
+      return 'Could not delete facility';
+    }
+}
