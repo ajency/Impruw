@@ -23,5 +23,5 @@ define ['app', 'controllers/base-controller', 'apps/rooms/list/views'], (App, Ap
 					
 		App.commands.setHandler "show:rooms:list", (opts)->
 
-				new List.Controller
+				new List.ListController
 							region : opts.region 

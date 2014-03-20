@@ -19,7 +19,12 @@ a:active,
 a:focus {
   text-shadow: 1px 1px 2px #ffcb99;
   color: #ff7e00;
+  outline: none; 
 }
+
+
+
+
 /****Container and Menu Styles****/
 .aj-imp-container {
   font-family: 'Lato', sans-serif;

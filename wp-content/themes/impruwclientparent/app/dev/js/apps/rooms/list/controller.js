@@ -27,7 +27,7 @@ define(['app', 'controllers/base-controller', 'apps/rooms/list/views'], function
 
     })(AppController);
     return App.commands.setHandler("show:rooms:list", function(opts) {
-      return new List.Controller({
+      return new List.ListController({
         region: opts.region
       });
     });

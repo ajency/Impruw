@@ -11,7 +11,7 @@ define(['marionette'], function(Marionette) {
       el: '#login-region'
     })
   });
-  App.rootRoute = "";
+  App.rootRoute = "dashboard";
   App.loginRoute = "login";
   App.on('start', function() {
     return _.logAppMsg("Application Started....");
