@@ -18,7 +18,13 @@ define(['app'], function(App) {
       FacilityItem.prototype.template = '<div class="display_facility"> <label for="checkbox2" class="checkbox "> <span class="icons"> <span class="first-icon fui-checkbox-unchecked"></span> <span class="second-icon fui-checkbox-checked"></span> </span> <input type="checkbox" data-toggle="checkbox" name="facility[{{term_id}}]" value="{{term_id}}"> <span class="facility-name">{{name}}</span> </label> <div class="action"> <a href="javascript:void(0)" class="edit">Edit</a>&nbsp; <a href="javascript:void(0)" class="delete">Delete</a> </div> </div> <div class="update_facility hidden"> <form class="facility_update"> <input type="text" name="facility_name" class="form-control input-sm" value="{{name}}" /> <div class=""> <a href="javascript:void(0)" class="update">Update</a>&nbsp;&nbsp; <a href="javascript:void(0)" class="cancel" >Cancel</a> </div> </form> </div>';
 
       FacilityItem.prototype.onRender = function() {
+<<<<<<< HEAD
         return this.$el.attr('id', "facility-" + (this.model.get('term_id')));
+=======
+        return this.$el.attr({
+          'id': "facility-" + (this.model.get('term_id'))
+        });
+>>>>>>> 069eb002039940f8091a0c77bb983dd69a74f629
       };
 
       FacilityItem.prototype.events = {
@@ -53,11 +59,11 @@ define(['app'], function(App) {
         return EmptyView.__super__.constructor.apply(this, arguments);
       }
 
-      EmptyView.prototype.className = 'empty-roomfacilities';
+      EmptyView.prototype.className = 'empty-info empty-roomfacilities';
 
       EmptyView.prototype.tagName = 'div';
 
-      EmptyView.prototype.template = 'No Facilities Found';
+      EmptyView.prototype.template = 'No Facilities Found. Add Facilities to your Room here.';
 
       return EmptyView;
 
@@ -78,12 +84,20 @@ define(['app'], function(App) {
       FacilitiesView.prototype.itemViewContainer = '.facilities-list';
 
       FacilitiesView.prototype.onUpdateView = function(model) {
+<<<<<<< HEAD
         var facility_name, term_id;
         term_id = model.get('term_id');
         facility_name = model.get('facility_name');
         this.$el.find("#facility-" + term_id + " .display_facility").removeClass('hidden');
         this.$el.find("#facility-" + term_id + " .update_facility").addClass('hidden');
         return this.$el.find("#facility-" + term_id + " .facility-name").text(facility_name);
+=======
+        var view;
+        view = this.$el.find("#facility-" + (model.get('term_id')));
+        view.find('input[name="facility_name"]').val(model.get('name'));
+        view.find('.update_facility').addClass('hidden');
+        return view.find('.display_facility').removeClass('hidden');
+>>>>>>> 069eb002039940f8091a0c77bb983dd69a74f629
       };
 
       return FacilitiesView;

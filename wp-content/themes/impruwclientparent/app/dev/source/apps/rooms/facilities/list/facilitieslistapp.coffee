@@ -21,7 +21,6 @@ define ['app'
 
 						
 						@listenTo @region,"new:facility:added",(model)->
-									console.log model
 									@collection.add model
 
 						# new:facility:clicked

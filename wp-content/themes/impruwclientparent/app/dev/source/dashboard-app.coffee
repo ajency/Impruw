@@ -14,7 +14,7 @@ define ['marionette'], (Marionette)->
 		loginRegion 	: Marionette.Region.Dialog.extend el : '#login-region'
 
 	# The default route for app
-	App.rootRoute = ""
+	App.rootRoute = "dashboard"
 
 	# loginRoute in case session expires
 	App.loginRoute = "login"

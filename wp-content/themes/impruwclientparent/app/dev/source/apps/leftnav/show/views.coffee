@@ -28,9 +28,17 @@ define ['app'
 
 					itemView : MenuItem
 
+					onShow: ->
+						# set the initial active menu depending on current hash
+						hash = location.hash
+						hash = hash.replace '#',''
+						@onSetActiveMenu hash
+
 					onSetActiveMenu:(link)=>
 						@$el.find "li"
 							.removeClass 'active'
+
+						link = '#' + link
 
 						@$el.find "a[data-route='#{link}']" 
 							.parent()

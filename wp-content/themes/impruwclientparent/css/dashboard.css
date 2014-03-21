@@ -143,6 +143,10 @@ a:focus {
   color: #aaaaaa;
   font-size: 1.5em;
 }
+.aj-imp-container .aj-imp-left .aj-imp-dash-nav #aj-imp-dash-menu li a:hover,
+.aj-imp-container .aj-imp-left .aj-imp-dash-nav #aj-imp-dash-menu li a:focus {
+  outline: 0;
+}
 .aj-imp-container .aj-imp-left .aj-imp-dash-nav #aj-imp-dash-menu li.active {
   background: #fff;
 }
@@ -1466,15 +1470,32 @@ form .aj-imp-submit:hover {
 .facilities-list .facility:hover .action {
   display: block;
 }
-.facilities-list .facility.add .input-group-btn .btn {
-  border: 0;
+#add-facility-region .input-group .form-control:focus + .input-group-btn {
   background: #ff7e00;
+}
+#add-facility-region .input-group .input-group-btn {
+  border: 0;
+  background: #849fb0;
   border-radius: 0;
   color: #fff;
   line-height: 15px;
+  cursor: pointer;
 }
-.facilities-list .facility.add:hover {
+#add-facility-region .input-group:hover {
   border-color: transparent;
+}
+.facility {
+  border: 0;
+}
+.rooms-layout .add-room {
+  background: #ff7e00;
+}
+.empty-info {
+  padding: 0.8em 1em 0.7em;
+  border: 1px dashed #aaaaaa;
+  color: #aaaaaa;
+  font-size: 1.1em;
+  border-radius: 4px;
 }
 /*.dates, .plan {
 	margin: 1em 0 !important;

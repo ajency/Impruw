@@ -1,14 +1,14 @@
 # The main builder app entry point
 # <ul>
-# <li>-this file sets the requirejs configurations </li> 
+# <li>-this file sets the requirejs configurations </li>
 # <li>-load all JS files</li>
 # </ul>
-require.config 
-	
+require.config
+
 	urlArgs : "ver=#{(new Date()).getTime()}"
-	
+
 	baseUrl : 'http://localhost/impruw/wp-content/themes/impruwclientparent/app/dev/js/'
-	
+
 	paths:
 		jquery 				: 'plugins/jquery'
 		jqueryui 			: 'plugins/jquery.ui'
@@ -20,6 +20,7 @@ require.config
 		spin 				: 'plugins/spin'
 		jqueryspin  		: 'plugins/jquery.spin'
 		bootstrap   		: 'plugins/bootstrap'
+		bootbox				: 'plugins/bootbox.min'
 		holder 				: 'plugins/holder'
 		mustache			: 'plugins/Mustache'
 		bootstrapselect 	: 'plugins/bootstrapselect'
@@ -43,16 +44,16 @@ require.config
 		configloader 		: 'configs/builder-config-loader'
 		entitiesloader		: 'entities/builder-entities-loader'
 		componentloader 	: 'components/builder-component-loader'
-		app 				: 'builder-app' 
+		app 				: 'builder-app'
 	shim:
-		underscore: 
+		underscore:
 			exports : '_'
 		jquery 		: ['underscore']
 		jqueryui 	: ['jquery']
-		backbone: 
+		backbone:
 			deps 	: ['jquery','underscore']
 			exports : 'Backbone'
-		marionette : 
+		marionette :
 			deps 	: ['backbone']
 			exports : 'Marionette'
 		googlemap :
@@ -69,7 +70,7 @@ require.config
 		themepunch			: ['jquery']
 		isotope				: ['jquery']
 		revslider 			: ['themepunch']
-		plupload			: 
+		plupload			:
 			deps : ['jquery']
 			exports : 'plupload'
 		cookie				: ['jquery']
@@ -77,6 +78,9 @@ require.config
 		radio 				: ['bootstrap']
 		checkbox 			: ['bootstrap']
 		bootstrapselect		: ['bootstrap']
+		bootbox 			:
+			deps : ['bootstrap']
+			exports : 'bootbox'
 		app 				: ['pluginloader','configloader']
 
 	tpl :
@@ -84,7 +88,7 @@ require.config
 
 
 ## Start with application
-require [	'pluginloader'
+require [   'pluginloader'
 			'configloader'
 			'app'
 			'entitiesloader'

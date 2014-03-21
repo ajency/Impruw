@@ -2,7 +2,7 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-define(['app', 'controllers/builder-base-controller', 'apps/builder/site-builder/element/views'], function(App, AppController) {
+define(['app', 'controllers/builder-base-controller', 'bootbox', 'apps/builder/site-builder/element/views'], function(App, AppController, bootbox) {
   App.module('SiteBuilderApp.Element', function(Element, App, Backbone, Marionette, $, _) {
     return Element.Controller = (function(_super) {
       __extends(Controller, _super);
@@ -34,9 +34,11 @@ define(['app', 'controllers/builder-base-controller', 'apps/builder/site-builder
         });
         this.listenTo(this.layout, "delete:element", (function(_this) {
           return function(model) {
-            if (confirm("Are you sure?")) {
-              return _this.deleteElement(model);
-            }
+            return bootbox.confirm("Are you sure?", function(result) {
+              if (result === true) {
+                return _this.deleteElement(model);
+              }
+            });
           };
         })(this));
         this.listenTo(this.layout, "bind:element:events", this.bindEvents);

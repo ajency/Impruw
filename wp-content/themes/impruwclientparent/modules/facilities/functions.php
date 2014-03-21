@@ -53,6 +53,9 @@ function update_facility($postdata){
        
        $ret = wp_update_term( $response['term_id'], 'impruw_room_facility', array('name'=>$postdata['new_facility_name'],'slug'=>$slug) );
 
+       // update the new name
+       $ret['name'] = $postdata['new_facility_name'];
+
        return $ret;
    }
    else{

@@ -21,7 +21,6 @@ define(['app', 'controllers/base-controller', 'apps/rooms/facilities/list/views'
         this.listenTo(cview, "itemview:delete:facility:clicked", this.deleteFacility);
         this.listenTo(cview, "itemview:update:facility:clicked", this.updateFacility);
         this.listenTo(this.region, "new:facility:added", function(model) {
-          console.log(model);
           return this.collection.add(model);
         });
         this.listenTo(cview, "add:new:facility", this.addFacility);

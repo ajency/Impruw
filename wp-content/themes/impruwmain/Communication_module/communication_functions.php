@@ -297,7 +297,7 @@ function process_email_queue() {
                                     </body>';
             $send_email_array=send_email_through_mandrill( $email_template, $subject, $admin_email, $user_id );
             add_to_email_log( $user_id, $email->id, $send_email_array[0]['status'], $send_email_array[0]['reject_reason'] );
-            print_r( $send_email_array );
+        
         }
         $wpdb->update(
             $wpdb->prefix.'email_processing_queue',

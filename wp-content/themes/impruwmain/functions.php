@@ -15,8 +15,8 @@ Description: This file has a list of the following functions used in the theme
 
 /* ============================================================= */
 
-//require_once 'Communication_module/user_shortcodes.php';//file containing all shortcodes to fetch user information
-//require_once 'Communication_module/site_shortcodes.php';//file containing all shortcodes to fetch site information
+require_once 'Communication_module/user_shortcodes.php';//file containing all shortcodes to fetch user information
+require_once 'Communication_module/site_shortcodes.php';//file containing all shortcodes to fetch site information
 //require_once 'User/user_management.php';//file containing all shortcodes to fetch site information
 
 //add theme support

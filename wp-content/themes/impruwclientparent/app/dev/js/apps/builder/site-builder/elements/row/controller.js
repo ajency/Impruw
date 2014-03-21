@@ -2,7 +2,7 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-define(['app', 'apps/builder/site-builder/elements/row/views', 'apps/builder/site-builder/elements/row/settings/controller'], function(App) {
+define(['app', 'bootbox', 'apps/builder/site-builder/elements/row/views', 'apps/builder/site-builder/elements/row/settings/controller'], function(App, bootbox) {
   return App.module('SiteBuilderApp.Element.Row', function(Row, App, Backbone, Marionette, $, _) {
     return Row.Controller = (function(_super) {
       __extends(Controller, _super);
@@ -56,7 +56,7 @@ define(['app', 'apps/builder/site-builder/elements/row/views', 'apps/builder/sit
 
       Controller.prototype.deleteElement = function(model) {
         if (!this.layout.elementRegion.currentView.$el.canBeDeleted()) {
-          return alert("Please remove elements inside row and then delete.");
+          return bootbox.alert("Please remove elements inside row and then delete.", function() {});
         } else {
           return model.destroy();
         }

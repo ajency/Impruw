@@ -40,8 +40,16 @@ define(['app', 'text!apps/leftnav/show/templates/leftNav.html', 'text!apps/leftn
 
       LeftNav.prototype.itemView = MenuItem;
 
+      LeftNav.prototype.onShow = function() {
+        var hash;
+        hash = location.hash;
+        hash = hash.replace('#', '');
+        return this.onSetActiveMenu(hash);
+      };
+
       LeftNav.prototype.onSetActiveMenu = function(link) {
         this.$el.find("li").removeClass('active');
+        link = '#' + link;
         return this.$el.find("a[data-route='" + link + "']").parent().addClass('active');
       };
 
