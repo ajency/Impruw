@@ -2,6 +2,7 @@ define [
 		'app'
 		'apps/rooms/list/controller'
 		'apps/rooms/add/controller'
+		'apps/slider-manager/edit-slider/editcontroller'
 		], (App)->
 
 	App.module 'RoomsApp', (RoomsApp, App, Backbone, Marionette, $, _)->
@@ -14,7 +15,6 @@ define [
 				'rooms' : 'list'
 				'rooms/add' : 'add'
 				'rooms/edit/:id' : 'edit'
-
 
 		#public API
 		API = 

@@ -15,6 +15,7 @@ define(['app', 'controllers/base-controller', 'apps/slider-manager/edit-slider/s
         var layout, slider;
         this.sliderId = opt.sliderId;
         slider = App.request("get:slider:by:id", this.sliderId);
+        console.log(slider);
         this.layout = layout = this._getEditLayout();
         this.listenTo(layout, "cancel:edit:slider", (function(_this) {
           return function() {
