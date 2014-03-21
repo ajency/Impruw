@@ -33,11 +33,11 @@ define ['app'],(App)->
 		#empty view
 		class EmptyView extends Marionette.ItemView
 
-			className : 'empty-roomfacilities'
+			className : 'empty-info empty-roomfacilities'
 
 			tagName: 'div' 
 
-			template : 'No Facilities Found'
+			template : 'No Facilities Found. Add Facilities to your Room here.'
 
 	
 

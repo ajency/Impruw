@@ -112,6 +112,9 @@ a {
 						display: block;
 						color: @dash-grey;
 						font-size: 1.5em;
+						&:hover, &:focus {
+							outline: 0;
+						}
 					}
 					/*&.aj-imp-nav-dashboard {
 						.icon {
@@ -1509,21 +1512,48 @@ form {
 				display: block;
 			}
 		}
-		&.add {
-			.input-group-btn {
-				.btn {
-					border: 0;
+	}
+}
+
+#add-facility-region {
+	.input-group {
+		.form-control {
+			&:focus {
+				+ .input-group-btn {
 					background: @orange;
-					border-radius: 0;
-					color: #fff;
-					line-height: 15px;
 				}
 			}
-			&:hover {
-				border-color: transparent;
-			}
+		}
+		.input-group-btn {
+			border: 0;
+			background: @blue-grey;
+			border-radius: 0;
+			color: #fff;
+			line-height: 15px;
+			cursor: pointer;
+		}
+		&:hover {
+			border-color: transparent;
 		}
 	}
+}
+
+.facility {
+	border: 0;
+}
+
+.rooms-layout {
+	.add-room {
+		background: @orange;
+	}
+}
+
+.empty-info {
+	padding: 0.8em 1em 0.7em;
+	border: 1px dashed @dash-grey;
+	color: @dash-grey;
+	font-size: 1.1em;
+	border-radius: 4px;
 }
 
 /*.dates, .plan {
