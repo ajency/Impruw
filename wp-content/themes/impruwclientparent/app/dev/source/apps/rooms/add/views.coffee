@@ -24,3 +24,4 @@ define ['app'
 
 					regions : 
 						facilitiesRegion : '#facilities-region'
+						galleryRegion : '#gallery-region'

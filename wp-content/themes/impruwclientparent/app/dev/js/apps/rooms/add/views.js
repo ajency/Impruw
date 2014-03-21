@@ -29,7 +29,8 @@ define(['app', 'text!apps/rooms/add/templates/add-room.html'], function(App, add
       };
 
       AddRoomLayout.prototype.regions = {
-        facilitiesRegion: '#facilities-region'
+        facilitiesRegion: '#facilities-region',
+        galleryRegion: '#gallery-region'
       };
 
       return AddRoomLayout;

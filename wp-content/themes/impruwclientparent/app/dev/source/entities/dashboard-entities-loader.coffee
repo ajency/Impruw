@@ -4,4 +4,5 @@ define [
 		'entities/analytics'
 		'entities/rooms'
 		'entities/facilities'
+		'entities/slider'
 		],->
