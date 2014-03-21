@@ -35,7 +35,8 @@ define ['app'],(App)->
 						</div>'
 
 			onRender : ->
-					 @$el.attr 'id', "facility-#{@model.get 'term_id'}"
+				@$el.attr 'id': "facility-#{@model.get 'term_id'}"
+
 
 			events:
 				'click a.delete' : -> 
@@ -84,20 +85,10 @@ define ['app'],(App)->
 			itemViewContainer : '.facilities-list'
 
 			onUpdateView :(model)->
+				term_id = model.get 'term_id'
+				facility_name = model.get 'facility_name'
+				#console.log(model)
+				@$el.find("#facility-#{term_id} .display_facility").removeClass 'hidden'
+				@$el.find("#facility-#{term_id} .update_facility").addClass 'hidden'
+				@$el.find("#facility-#{term_id} .facility-name").text facility_name		
 
-					term_id = model.get 'term_id'
-					facility_name = model.get 'facility_name'
-					#console.log(model)
-					@$el.find("#facility-#{term_id} .display_facility").removeClass 'hidden'
-					@$el.find("#facility-#{term_id} .update_facility").addClass 'hidden'
-					@$el.find("#facility-#{term_id} .facility-name").text facility_name
-
-				#view = @$el.find "#facility-#{model.get 'term_id'}"
-				#view.find('input[name="facility_name"]').val model.get 'name'	
-				#view.find('.update_facility').addClass 'hidden'
-				#view.find('.display_facility').removeClass 'hidden'
-
-
-			
-
-		
