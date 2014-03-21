@@ -5,35 +5,32 @@ require.config
   baseUrl : '../js/'
   
   paths:
-    jquery        : 'plugins/jquery'
-    jqueryui      : 'plugins/jquery.ui'
+    jquery          : 'plugins/jquery'
+    jqueryui        : 'plugins/jquery.ui'
     underscore      : 'plugins/underscore'
     backbone        : 'plugins/backbone'
     marionette      : 'plugins/backbone.marionette'
-    tpl           : 'plugins/tpl'
-    text          : 'plugins/text'
-    spin          : 'plugins/spin'
+    tpl             : 'plugins/tpl'
+    text            : 'plugins/text'
+    spin            : 'plugins/spin'
     jqueryspin      : 'plugins/jquery.spin'
     bootstrap       : 'plugins/bootstrap'
     bootstrapselect   : 'plugins/bootstrapselect'
     underscorestring  : 'plugins/underscore.string'
-    mustache      : 'plugins/Mustache'
-    plupload      : 'plugins/plupload.full'
-    d3            : 'plugins/d3.v3'
-    nvd3          : 'plugins/nv.d3'
-    radio         : 'plugins/flatui-radio'
-    checkbox      : 'plugins/flatui-checkbox'
+    mustache        : 'plugins/Mustache'
+    plupload        : 'plugins/plupload.full'
+    d3              : 'plugins/d3.v3'
+    nvd3            : 'plugins/nv.d3'
+    radio           : 'plugins/flatui-radio'
+    checkbox        : 'plugins/flatui-checkbox'
     backboneform    : 'plugins/backbone.form'
     backbonesyphon    : 'plugins/backbone.syphon'
     backboneassociations: 'plugins/backbone.associations'
     jqueryvalidate    : 'plugins/jquery.validate'
-    polyglot      : 'plugins/polyglot'
-    app         : 'dashboard-app' 
+    polyglot          : 'plugins/polyglot'
+    app               : 'dashboard-app' 
     bootstrapswitch   : 'plugins/bootstrap-switch'
     entitiesloader    : 'entities/dashboard-entities-loader'
-    # unit testing framework
-    qunit             : "../tests/lib/qunit"
-    specs             : "../tests/specs"
 
   shim:
     underscore: 
@@ -54,9 +51,6 @@ require.config
     nvd3: 
       deps : ['d3']
       exports : 'nv'    
-    qunit  : 
-      deps : ['jquery']
-      exports : 'QUnit'
     jqueryvalidate    : ['jquery']
     underscorestring  : ['underscore']
     backboneform    : ['backbone']
@@ -83,7 +77,7 @@ require js, (plugins, configs, App)->
 
   #QUnit.config.autostart = false
   specs = []
-  specs.push '../tests/specs/listroom.spec'
+  specs.push '../tests/spec/roomstariff.spec'
 
   require specs,->
-    QUnit.start()
+    jasmine.getEnv().execute()

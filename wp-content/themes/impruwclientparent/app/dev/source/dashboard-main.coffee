@@ -35,7 +35,7 @@ require.config
 	shim:
 		underscore: 
 			exports : '_'
-		jquery 				: ['underscore']
+		jquery 		: ['underscore']
 		jqueryui 	: ['jquery']
 		backbone: 
 			deps 	: ['jquery','underscore']

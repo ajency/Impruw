@@ -6,9 +6,9 @@ define ['marionette'], (Marionette)->
 	# Main app regions
 	App.addRegions
 		headerRegion 		: '#header-region'
-		elementsBoxRegion 	: '#elements-box-region'
-		builderWrapper 		: '#builder-region'
-		settingsRegion 		: Marionette.Region.Settings.extend el : '#settings-region'
+		elementsBoxRegion  	: '#elements-box-region'
+		builderWrapper 	  	: '#builder-region'
+		settingsRegion 	  	: Marionette.Region.Settings.extend el : '#settings-region'
 		loginRegion 		: Marionette.Region.Dialog.extend el : '#login-region'
 		dialogRegion 		: Marionette.Region.Dialog.extend el : '#dialog-region'
 		chooseThemeRegion	: '#choose-theme-region'
@@ -19,6 +19,7 @@ define ['marionette'], (Marionette)->
 
 	# loginRoute in case session expires
 	App.loginRoute = "login"
+
 
 	App.on 'start',()->
 		_.logAppMsg "Application Started...."
@@ -59,14 +60,14 @@ define ['marionette'], (Marionette)->
 		App.execute "create:social:store"
 		App.execute "create:slider:store"
 
-		# create a global site model 
+		# create a global site model
 		site = App.request "get:site:profile"
 
 		appState = App.request "get:current:appstate"
 		App.startHistory()
 		if appState.isLoggedIn()
 
-			@rootRoute = if ISTHEMESELECTED is 1 then '' else 'choose-theme' 
+			@rootRoute = if ISTHEMESELECTED is 1 then '' else 'choose-theme'
 
 			App.navigate(@rootRoute, trigger: true) unless @getCurrentRoute()
 		else

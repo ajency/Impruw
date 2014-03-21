@@ -7,14 +7,14 @@ jQuery(document).ready ($)->
 
 
 
-	 getFormData(form) {
+	 getFormData = (form)->
 
 	    if (_.isUndefined(form))
 	        return false;
 
-	    var serializedData = $(form).serializeArray();
+	    serializedData = $(form).serializeArray();
 
-	    var data = {};
+	    data = {};
 
 	    _.each(serializedData, function(ele, key) {
 
@@ -25,13 +25,11 @@ jQuery(document).ready ($)->
 	            if(!_.isArray(data[name]))
 	                data[name] = [];
 
-	            data[name].push(ele.value); 
+	            data[name].push(ele.value);
 	        }
 	        else{
 	            data[ele.name] = ele.value;
 	        }
 	    });
 
-	    return data;
-
-	}
+	    data

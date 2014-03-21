@@ -30,9 +30,7 @@ require.config({
     polyglot: 'plugins/polyglot',
     app: 'dashboard-app',
     bootstrapswitch: 'plugins/bootstrap-switch',
-    entitiesloader: 'entities/dashboard-entities-loader',
-    qunit: "../tests/lib/qunit",
-    specs: "../tests/specs"
+    entitiesloader: 'entities/dashboard-entities-loader'
   },
   shim: {
     underscore: {
@@ -59,10 +57,6 @@ require.config({
       deps: ['d3'],
       exports: 'nv'
     },
-    qunit: {
-      deps: ['jquery'],
-      exports: 'QUnit'
-    },
     jqueryvalidate: ['jquery'],
     underscorestring: ['underscore'],
     backboneform: ['backbone'],
@@ -83,8 +77,8 @@ js = ['plugins/plugin-loader', 'configs/config-loader', 'app', 'entities/appstat
 require(js, function(plugins, configs, App) {
   var specs;
   specs = [];
-  specs.push('../tests/specs/listroom.spec');
+  specs.push('../tests/spec/roomstariff.spec');
   return require(specs, function() {
-    return QUnit.start();
+    return jasmine.getEnv().execute();
   });
 });
