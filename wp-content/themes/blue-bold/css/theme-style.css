@@ -887,10 +887,13 @@ and open the template in the editor.
 }
 .nav.footer-menu {
   padding: 0;
+  text-align: left;
 }
 .nav.footer-menu li {
   position: relative;
   margin: 0 0 0.2em;
+  display: block;
+  background: transparent;
 }
 .nav.footer-menu li a {
   color: #fff;
@@ -917,6 +920,10 @@ and open the template in the editor.
   -o-transition: all 0.25s ease;
   -ms-transition: all 0.25s ease;
   transition: all 0.25s ease;
+  background: transparent;
+}
+.nav.footer-menu li:hover a {
+  color: #fff;
 }
 .nav.footer-menu-2 {
   padding: 0;
