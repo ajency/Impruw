@@ -17,6 +17,7 @@
     spin: 'plugins/spin',
     jqueryspin: 'plugins/jquery.spin',
     bootstrap: 'plugins/bootstrap',
+    bootbox: 'plugins/bootbox.min',
     holder: 'plugins/holder',
     mustache: 'plugins/Mustache',
     bootstrapselect: 'plugins/bootstrapselect',
@@ -27,13 +28,10 @@
     ckeditor: 'plugins/ckeditor',
     backboneform: 'plugins/backbone.form',
     backbonesyphon: 'plugins/backbone.syphon',
-    backbonerelational: 'plugins/backbone.relational',
     backboneassociations: 'plugins/backbone.associations',
     nestedsortable: 'plugins/nested.sortable',
     jqueryvalidate: 'plugins/jquery.validate',
-    polyglot: 'plugins/polyglot',
     isotope: 'plugins/isotope',
-    localforage: 'plugins/localforage',
     plupload: 'plugins/plupload.full',
     themepunch: 'plugins/themepunch.plugins.min',
     revslider: 'plugins/revolution.min',
@@ -59,9 +57,6 @@
       deps: ['backbone'],
       exports: 'Marionette'
     },
-    polyglot: {
-      exports: 'Polyglot'
-    },
     googlemap: {
       exports: 'google'
     },
@@ -86,6 +81,10 @@
     radio: ['bootstrap'],
     checkbox: ['bootstrap'],
     bootstrapselect: ['bootstrap'],
+    bootbox: {
+      deps: ['bootstrap'],
+      exports: 'bootbox'
+    },
     app: ['pluginloader', 'configloader']
   }
 })

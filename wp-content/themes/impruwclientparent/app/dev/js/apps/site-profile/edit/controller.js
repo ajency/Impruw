@@ -11,7 +11,7 @@ define(['app', 'controllers/base-controller', 'apps/site-profile/edit/views', 'e
       }
 
       Controller.prototype.initialize = function() {
-        return this.siteProfile = App.request("get:site:profile");
+        return this.siteProfile = App.request("get:site:model");
       };
 
       Controller.prototype.showSiteProfile = function() {
