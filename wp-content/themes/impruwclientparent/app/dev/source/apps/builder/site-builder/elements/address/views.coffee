@@ -14,10 +14,3 @@ define ['app', 'holder'],(App, Holder)->
 			template : 'test'
 
 			className : 'address'
-
-			onShow:->
-				alert "dsds"
-				@$el.addClass 'address'
-
-
-
