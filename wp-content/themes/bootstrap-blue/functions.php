@@ -38,6 +38,9 @@ $element_templates = array(
     'Title' => array(
                 array(
                     'name'      => 'Box Title'
+                ),
+                array(
+                    'name'      => 'White Title'
                 )
               ),
     'Row' => array(

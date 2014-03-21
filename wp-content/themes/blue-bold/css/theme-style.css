@@ -1030,6 +1030,7 @@ and open the template in the editor.
 /****Address Element Styles****/
 .address {
   padding: 0.5em 0;
+  color: #555555;
 }
 .address .info {
   color: #555555;

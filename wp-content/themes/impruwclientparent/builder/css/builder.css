@@ -1870,3 +1870,8 @@ Version:        0.1.0
   font-size: 4.5em;
   color: #dddddd;
 }
+/****Builder Delete Modal Styles****/
+.delete-message {
+  color: #aaaaaa;
+  font-size: 1.6em;
+}

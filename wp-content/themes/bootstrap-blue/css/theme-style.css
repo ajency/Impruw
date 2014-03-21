@@ -791,10 +791,15 @@ and open the template in the editor.
 }
 .row.grey-background {
   background: #656565 !important;
+  color: #fff;
   min-height: 100px;
+}
+.row.grey-background .text {
+  color: #fff;
 }
 .row.shaded-background {
   background: url("../resources/img/stripe_bg.png") repeat scroll 0 0 rgba(0, 0, 0, 0);
+  margin-bottom: 1em;
 }
 /****Top Slim-menu Styles****/
 .nav {
@@ -864,7 +869,21 @@ and open the template in the editor.
   text-align: center;
   text-transform: uppercase;
 }
+.title.white-title {
+  color: #fff;
+  font-size: 1.3em;
+  font-weight: 400;
+  text-align: right;
+}
 /****Address Element Styles****/
+.address ul li {
+  color: #989898;
+  font-size: 1.8em;
+  margin-bottom: 0.4em;
+}
+.address ul li span {
+  margin-right: 0.2em;
+}
 .address .info {
   color: #989898;
   font-size: 1.667em;
