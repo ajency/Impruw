@@ -9,14 +9,15 @@ define ['app', 'holder'],(App, Holder)->
 			#className : 'address'
 
 		# layouts
-	    class Views.AddressView extends Marionette.Layout
-	    	# basic template
-					template : '<div class="main-test"><div id="test"></div></div>'
+		class Views.AddressView extends Marionette.ItemView
+			# basic template
+			template : 'test'
 
-					tagName : 'div'
+			className : 'address'
 
-					regions: 			
-							elementRegion : '#test'
+			onShow:->
+				alert "dsds"
+				@$el.addClass 'address'
 
 
 

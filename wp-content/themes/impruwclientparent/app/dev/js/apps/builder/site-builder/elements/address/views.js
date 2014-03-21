@@ -3,22 +3,24 @@ var __hasProp = {}.hasOwnProperty,
 
 define(['app', 'holder'], function(App, Holder) {
   return App.module('SiteBuilderApp.Element.Address.Views', function(Views, App, Backbone, Marionette, $, _) {
-    Views.AddressView = (function(_super) {
+    return Views.AddressView = (function(_super) {
       __extends(AddressView, _super);
 
       function AddressView() {
         return AddressView.__super__.constructor.apply(this, arguments);
       }
 
+      AddressView.prototype.template = 'test';
+
+      AddressView.prototype.className = 'address';
+
+      AddressView.prototype.onShow = function() {
+        alert("dsds");
+        return this.$el.addClass('address');
+      };
+
       return AddressView;
 
-    })(Marionette.Layout);
-    return {
-      template: '<div class="main-test"><div id="test"></div></div>',
-      tagName: 'div',
-      regions: {
-        elementRegion: '#test'
-      }
-    };
+    })(Marionette.ItemView);
   });
 });
