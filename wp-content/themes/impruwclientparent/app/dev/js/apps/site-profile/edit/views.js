@@ -2,7 +2,7 @@ var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 define(['app', 'text!apps/site-profile/edit/templates/mainview.html', 'text!apps/site-profile/edit/templates/siteprofile.html'], function(App, mainviewTpl, siteprofileTpl) {
-  App.module('SiteProfileApp.Edit.View', function(View, App, Backbone, Marionette, $, _) {
+  return App.module('SiteProfileApp.Edit.View', function(View, App, Backbone, Marionette, $, _) {
     View.SiteProfile = (function(_super) {
       __extends(SiteProfile, _super);
 
@@ -34,5 +34,4 @@ define(['app', 'text!apps/site-profile/edit/templates/mainview.html', 'text!apps
 
     })(Marionette.ItemView);
   });
-  return App.SiteProfileApp.Edit.View;
 });

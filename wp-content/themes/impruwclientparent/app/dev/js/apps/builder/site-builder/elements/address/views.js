@@ -14,11 +14,6 @@ define(['app', 'holder'], function(App, Holder) {
 
       AddressView.prototype.className = 'address';
 
-      AddressView.prototype.onShow = function() {
-        alert("dsds");
-        return this.$el.addClass('address');
-      };
-
       return AddressView;
 
     })(Marionette.ItemView);

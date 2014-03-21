@@ -18,5 +18,4 @@ define ['app'
 
 					template : mainviewTpl
 					
-				
-			return App.SiteProfileApp.Edit.View
+					
