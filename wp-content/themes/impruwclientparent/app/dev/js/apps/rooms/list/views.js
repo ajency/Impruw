@@ -53,7 +53,7 @@ define(['app'], function(App, mainviewTpl, roomsingleTpl, emptyTpl) {
         return RoomListLayout.__super__.constructor.apply(this, arguments);
       }
 
-      RoomListLayout.prototype.template = '<h4>Room Title</h4><input type="button" value="Add" class="add-room"/> <div id="room-list"></div>';
+      RoomListLayout.prototype.template = '<header class="aj-imp-dash-header row"> <div class="aj-imp-dash-title col-xs-12"> <h2 class="aj-imp-page-head">Rooms</h2> </div> </header> <button type="button" class="btn btn-default btn-lg add-room"><span class="icon icon-plus"></span> Add Room</button> <div id="room-list"></div>';
 
       RoomListLayout.prototype.className = 'rooms-layout';
 

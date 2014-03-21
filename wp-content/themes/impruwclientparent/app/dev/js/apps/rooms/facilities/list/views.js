@@ -53,11 +53,11 @@ define(['app'], function(App) {
         return EmptyView.__super__.constructor.apply(this, arguments);
       }
 
-      EmptyView.prototype.className = 'empty-roomfacilities';
+      EmptyView.prototype.className = 'empty-info empty-roomfacilities';
 
       EmptyView.prototype.tagName = 'div';
 
-      EmptyView.prototype.template = 'No Facilities Found';
+      EmptyView.prototype.template = 'No Facilities Found. Add Facilities to your Room here.';
 
       return EmptyView;
 

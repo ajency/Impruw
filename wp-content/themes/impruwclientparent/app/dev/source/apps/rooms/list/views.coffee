@@ -32,7 +32,12 @@ define ['app'],
 
 				class Views.RoomListLayout extends Marionette.Layout
 
-					template : '<h4>Room Title</h4><input type="button" value="Add" class="add-room"/>
+					template : '<header class="aj-imp-dash-header row">
+									<div class="aj-imp-dash-title col-xs-12">
+										<h2 class="aj-imp-page-head">Rooms</h2>
+									</div>
+								</header>
+								<button type="button" class="btn btn-default btn-lg add-room"><span class="icon icon-plus"></span> Add Room</button>
 								<div id="room-list"></div>'
 
 					className: 'rooms-layout'

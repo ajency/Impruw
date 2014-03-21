@@ -52,7 +52,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
 
       AddFacilityView.prototype.className = 'facility add';
 
-      AddFacilityView.prototype.template = '<input type="text" name="name" class="form-control input-sm "> <span class="input-group-btn add-facility">Add</span>';
+      AddFacilityView.prototype.template = '<div class="input-group"> <input type="text" name="name" class="form-control" placeholder="Add a Facility"> <span class="input-group-btn add-facility input-group-addon"><span class="icon icon-plus"></span> Add</span> </div>';
 
       AddFacilityView.prototype.events = {
         'click .add-facility': function() {

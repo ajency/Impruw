@@ -38,8 +38,10 @@ define ['app'
 
 					className : 'facility add'
 
-					template : '<input type="text" name="name" class="form-control input-sm ">
-								<span class="input-group-btn add-facility">Add</span>'
+					template : '<div class="input-group">
+									<input type="text" name="name" class="form-control" placeholder="Add a Facility">
+									<span class="input-group-btn add-facility input-group-addon"><span class="icon icon-plus"></span> Add</span>
+								</div>'
 
 					events : 
 						'click .add-facility' : ->
