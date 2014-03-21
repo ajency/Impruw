@@ -297,12 +297,12 @@ a:focus {
   z-index: 1;
   left: 0;
 }
-.aj-imp-container .aj-imp-right .aj-imp-dash-content .aj-imp-long-form-actions form {
+.aj-imp-container .aj-imp-right .aj-imp-dash-content .aj-imp-long-form-actions .action {
   background: rgba(0, 0, 0, 0.7);
   border: 0;
   padding: 1em;
 }
-.aj-imp-container .aj-imp-right .aj-imp-dash-content .aj-imp-long-form-actions form .affix-show {
+.aj-imp-container .aj-imp-right .aj-imp-dash-content .aj-imp-long-form-actions .action .affix-show {
   display: none;
 }
 .aj-imp-container .aj-imp-right .aj-imp-dash-content .aj-imp-long-form-actions.affix {
@@ -311,14 +311,14 @@ a:focus {
   width: 75%;
   padding: 0 15px;
 }
-.aj-imp-container .aj-imp-right .aj-imp-dash-content .aj-imp-long-form-actions.affix form {
+.aj-imp-container .aj-imp-right .aj-imp-dash-content .aj-imp-long-form-actions.affix .action {
   margin: 0;
   margin-right: 1em;
   border: 1px solid rgba(0, 0, 0, 0.8);
   border-top: 0;
   border-radius: 0 0 5px 5px;
 }
-.aj-imp-container .aj-imp-right .aj-imp-dash-content .aj-imp-long-form-actions.affix form .affix-show {
+.aj-imp-container .aj-imp-right .aj-imp-dash-content .aj-imp-long-form-actions.affix .action .affix-show {
   display: block;
   margin: 0 0 0.5em;
   color: #fff;
