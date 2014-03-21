@@ -19,12 +19,7 @@ a:active,
 a:focus {
   text-shadow: 1px 1px 2px #ffcb99;
   color: #ff7e00;
-  outline: none; 
 }
-
-
-
-
 /****Container and Menu Styles****/
 .aj-imp-container {
   font-family: 'Lato', sans-serif;
@@ -1489,8 +1484,22 @@ form .aj-imp-submit:hover {
 #add-facility-region .input-group:hover {
   border-color: transparent;
 }
-.facility {
+.facility,
+.facility_update {
   border: 0;
+}
+.facility .facility_actions,
+.facility_update .facility_actions {
+  margin: 0.5em 0;
+}
+.facility .facility_actions .update,
+.facility_update .facility_actions .update {
+  color: #849fb0;
+  margin-right: 0.5em;
+}
+.facility .facility_actions .cancel,
+.facility_update .facility_actions .cancel {
+  color: #ee4423;
 }
 .rooms-layout .add-room {
   background: #ff7e00;
