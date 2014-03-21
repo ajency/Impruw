@@ -15,12 +15,10 @@ define(['app'], function(App) {
 
       FacilityItem.prototype.tagName = 'div';
 
-      FacilityItem.prototype.template = '<div class="display_facility"> <label for="checkbox2" class="checkbox "> <span class="icons"> <span class="first-icon fui-checkbox-unchecked"></span> <span class="second-icon fui-checkbox-checked"></span> </span> <input type="checkbox" data-toggle="checkbox" name="facility[{{term_id}}]" value="{{term_id}}"> <span>{{name}}</span> </label> <div class="action"> <a href="javascript:void(0)" class="edit">Edit</a>&nbsp; <a href="javascript:void(0)" class="delete">Delete</a> </div> </div> <div class="update_facility hidden"> <form class="facility_update"> <input type="text" name="facility_name" class="form-control input-sm" value="{{name}}" /> <div class=""> <a href="javascript:void(0)" class="update">Update</a>&nbsp;&nbsp; <a href="javascript:void(0)" class="cancel" >Cancel</a> </div> </form> </div>';
+      FacilityItem.prototype.template = '<div class="display_facility"> <label for="checkbox2" class="checkbox "> <span class="icons"> <span class="first-icon fui-checkbox-unchecked"></span> <span class="second-icon fui-checkbox-checked"></span> </span> <input type="checkbox" data-toggle="checkbox" name="facility[{{term_id}}]" value="{{term_id}}"> <span class="facility-name">{{name}}</span> </label> <div class="action"> <a href="javascript:void(0)" class="edit">Edit</a>&nbsp; <a href="javascript:void(0)" class="delete">Delete</a> </div> </div> <div class="update_facility hidden"> <form class="facility_update"> <input type="text" name="facility_name" class="form-control input-sm" value="{{name}}" /> <div class=""> <a href="javascript:void(0)" class="update">Update</a>&nbsp;&nbsp; <a href="javascript:void(0)" class="cancel" >Cancel</a> </div> </form> </div>';
 
       FacilityItem.prototype.onRender = function() {
-        return this.$el.find('.facility').attr({
-          'id': this.model.get('term_id')
-        });
+        return this.$el.attr('id', "facility-" + (this.model.get('term_id')));
       };
 
       FacilityItem.prototype.events = {
@@ -77,7 +75,15 @@ define(['app'], function(App) {
 
       FacilitiesView.prototype.itemViewContainer = '.facilities-list';
 
-      FacilitiesView.prototype.onUpdateView = function(model) {};
+      FacilitiesView.prototype.onUpdateView = function(model) {
+        var facility_name, term_id;
+        term_id = model.get('term_id');
+        facility_name = model.get('facility_name');
+        console.log(model);
+        this.$el.find("#facility-" + term_id + " .display_facility").removeClass('hidden');
+        this.$el.find("#facility-" + term_id + " .update_facility").addClass('hidden');
+        return this.$el.find("#facility-" + term_id + " .facility-name").text(facility_name);
+      };
 
       return FacilitiesView;
 

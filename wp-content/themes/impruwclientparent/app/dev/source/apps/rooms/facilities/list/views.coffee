@@ -10,8 +10,6 @@ define ['app'],(App)->
 
 			tagName: 'div'
 
-			#ui : 'tre' :'<div class="display_facility"></div>' 
-
 			template : '<div class="display_facility">
 							<label for="checkbox2" class="checkbox ">
 								<span class="icons">
@@ -19,7 +17,7 @@ define ['app'],(App)->
 									<span class="second-icon fui-checkbox-checked"></span>
 								</span>
 								<input type="checkbox" data-toggle="checkbox" name="facility[{{term_id}}]" value="{{term_id}}">
-								<span>{{name}}</span>
+								<span class="facility-name">{{name}}</span>
 							</label>
 							<div class="action">
 								<a href="javascript:void(0)" class="edit">Edit</a>&nbsp;
@@ -37,7 +35,7 @@ define ['app'],(App)->
 						</div>'
 
 			onRender : ->
-					 @$el.find('.facility').attr 'id': @model.get 'term_id'
+					 @$el.attr 'id', "facility-#{@model.get 'term_id'}"
 
 			events:
 				'click a.delete' : -> 
@@ -84,9 +82,12 @@ define ['app'],(App)->
 			itemViewContainer : '.facilities-list'
 
 			onUpdateView :(model)->
-
-					#@$el.find('.update_facility').addClass 'hidden'
-					#@$el.find('.display_facility').removeClass 'hidden'
+					term_id = model.get 'term_id'
+					facility_name = model.get 'facility_name'
+					console.log(model)
+					@$el.find("#facility-#{term_id} .display_facility").removeClass 'hidden'
+					@$el.find("#facility-#{term_id} .update_facility").addClass 'hidden'
+					@$el.find("#facility-#{term_id} .facility-name").text facility_name
 
 			
 
