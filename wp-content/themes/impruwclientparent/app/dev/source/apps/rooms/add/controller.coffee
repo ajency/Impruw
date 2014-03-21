@@ -13,6 +13,9 @@ define ['app', 'controllers/base-controller'
 				@listenTo layout, "show", =>
 						App.execute "show:facilities", 
                         					region : layout.facilitiesRegion
+                       	App.execute "show:edit:slider",
+                       					region :	layout.galleryRegion
+                       					sliderId	: 1
 
 					#App.execute "show:facilities", region : layout.facilitiesRegion
 					#App.execute "show:tariff:app", region : layout.tariffRegion

@@ -18,8 +18,12 @@ define(['app', 'controllers/base-controller', 'apps/rooms/add/views', 'apps/room
         this.layout = layout = this.getAddRoomLayout();
         this.listenTo(layout, "show", (function(_this) {
           return function() {
-            return App.execute("show:facilities", {
+            App.execute("show:facilities", {
               region: layout.facilitiesRegion
+            });
+            return App.execute("show:edit:slider", {
+              region: layout.galleryRegion,
+              sliderId: 1
             });
           };
         })(this));

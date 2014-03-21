@@ -15,8 +15,7 @@ define(['app', 'apps/rooms/list/controller', 'apps/rooms/add/controller', 'apps/
       Router.prototype.appRoutes = {
         'rooms': 'list',
         'rooms/add': 'add',
-        'rooms/edit/:id': 'edit',
-        'slider': 'sliderstart'
+        'rooms/edit/:id': 'edit'
       };
 
       return Router;
@@ -25,11 +24,6 @@ define(['app', 'apps/rooms/list/controller', 'apps/rooms/add/controller', 'apps/
     API = {
       list: function() {
         return App.execute("show:rooms:list", {
-          region: App.rightRegion
-        });
-      },
-      sliderstart: function() {
-        return App.execute("show:edit:slider", {
           region: App.rightRegion
         });
       },

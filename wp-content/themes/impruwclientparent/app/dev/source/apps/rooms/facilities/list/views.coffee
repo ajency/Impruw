@@ -91,3 +91,4 @@ define ['app'],(App)->
 				@$el.find("#facility-#{term_id} .display_facility").removeClass 'hidden'
 				@$el.find("#facility-#{term_id} .update_facility").addClass 'hidden'
 				@$el.find("#facility-#{term_id} .facility-name").text facility_name		
+
