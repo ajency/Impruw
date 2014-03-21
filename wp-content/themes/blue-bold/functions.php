@@ -111,7 +111,7 @@ $element_templates = array(
             array(
                 'name' => 'Style Two'
             )
-        )
+        ),
     'Address' => array(
                             array(
                     'name' => 'Room Tariff Plans',
