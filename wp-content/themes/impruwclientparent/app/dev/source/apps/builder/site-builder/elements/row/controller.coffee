@@ -1,5 +1,5 @@
-define ['app','apps/builder/site-builder/elements/row/views','apps/builder/site-builder/elements/row/settings/controller'],
-		(App)->
+define ['app','bootbox','apps/builder/site-builder/elements/row/views','apps/builder/site-builder/elements/row/settings/controller'],
+		(App,bootbox)->
 
 			App.module 'SiteBuilderApp.Element.Row', (Row, App, Backbone, Marionette, $, _)->
 
@@ -47,6 +47,6 @@ define ['app','apps/builder/site-builder/elements/row/views','apps/builder/site-
 					# remove the element model
 					deleteElement:(model)->
 						if not @layout.elementRegion.currentView.$el.canBeDeleted()
-							alert "Please remove elements inside row and then delete."							
+							bootbox.alert "Please remove elements inside row and then delete.", ->						
 						else
 							model.destroy()

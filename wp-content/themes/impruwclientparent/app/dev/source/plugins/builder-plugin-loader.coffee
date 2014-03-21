@@ -13,6 +13,7 @@ define [
 		'underscorestring'
 		'jqueryvalidate'
 		'bootstrap'
+		'bootbox'
 		'radio'
 		'checkbox'
 		'cookie'

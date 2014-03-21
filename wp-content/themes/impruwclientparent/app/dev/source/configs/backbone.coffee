@@ -66,8 +66,6 @@ define ["backbone","mustache"], (Backbone, Mustache) ->
 					# get the id attribute of the model
 					idAttr = model['idAttribute']
 					params.data[idAttr] = model.get idAttr
-
-					
 					
 				# create a new model. At this point the model id/idAttribute is not set
 				# the required data to create the model is present inside model. so model.toJSON()
@@ -79,8 +77,11 @@ define ["backbone","mustache"], (Backbone, Mustache) ->
 				# options name is ‘onlyChanged’ accepting boolean value. default to ‘true’
 				when 'update'
 					onlyChanged = options.onlyChanged ? false
-					
+
+					idAttr = model['idAttribute']
+
 					if onlyChanged
+						params.data[idAttr] = model.get idAttr
 						# get all changed values and add them to param’s data attribute
 						if model.hasChanged()
 							params.data.changes = {}

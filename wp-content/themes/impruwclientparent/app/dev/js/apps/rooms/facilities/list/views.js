@@ -15,13 +15,31 @@ define(['app'], function(App) {
 
       FacilityItem.prototype.tagName = 'div';
 
-      FacilityItem.prototype.template = '<label for="checkbox2" class="checkbox "> <span class="icons"> <span class="first-icon fui-checkbox-unchecked"></span> <span class="second-icon fui-checkbox-checked"></span> </span> <input type="checkbox" data-toggle="checkbox" name="facility[{{term_id}}]" value="{{term_id}}"> <span>{{name}}</span> </label> <div class="action"> <a href="javascript:void(0)" class="edit">Edit</a>&nbsp; <a href="javascript:void(0)" class="cancel_editfacility hidden" >Cancel</a>&nbsp; <a href="javascript:void(0)" class="delete">Delete</a> </div>';
+      FacilityItem.prototype.template = '<div class="display_facility"> <label for="checkbox2" class="checkbox "> <span class="icons"> <span class="first-icon fui-checkbox-unchecked"></span> <span class="second-icon fui-checkbox-checked"></span> </span> <input type="checkbox" data-toggle="checkbox" name="facility[{{term_id}}]" value="{{term_id}}"> <span>{{name}}</span> </label> <div class="action"> <a href="javascript:void(0)" class="edit">Edit</a>&nbsp; <a href="javascript:void(0)" class="delete">Delete</a> </div> </div> <div class="update_facility hidden"> <form class="facility_update"> <input type="text" name="facility_name" class="form-control input-sm" value="{{name}}" /> <div class=""> <a href="javascript:void(0)" class="update">Update</a>&nbsp;&nbsp; <a href="javascript:void(0)" class="cancel" >Cancel</a> </div> </form> </div>';
+
+      FacilityItem.prototype.onRender = function() {
+        return this.$el.attr({
+          'id': "facility-" + (this.model.get('term_id'))
+        });
+      };
 
       FacilityItem.prototype.events = {
         'click a.delete': function() {
           if (confirm('Are you sure?')) {
             return this.trigger("delete:facility:clicked", this.model);
           }
+        },
+        'click a.edit': function() {
+          this.$el.find('input[name="facility_name"]').val(this.model.get('name'));
+          this.$el.find('.display_facility').addClass('hidden');
+          return this.$el.find('.update_facility').removeClass('hidden');
+        },
+        'click a.cancel': function() {
+          this.$el.find('.update_facility').addClass('hidden');
+          return this.$el.find('.display_facility').removeClass('hidden');
+        },
+        'click a.update': function() {
+          return this.trigger("update:facility:clicked", Backbone.Syphon.serialize(this));
         }
       };
 
@@ -58,6 +76,14 @@ define(['app'], function(App) {
       FacilitiesView.prototype.emptyView = EmptyView;
 
       FacilitiesView.prototype.itemViewContainer = '.facilities-list';
+
+      FacilitiesView.prototype.onUpdateView = function(model) {
+        var view;
+        view = this.$el.find("#facility-" + (model.get('term_id')));
+        view.find('input[name="facility_name"]').val(model.get('name'));
+        view.find('.update_facility').addClass('hidden');
+        return view.find('.display_facility').removeClass('hidden');
+      };
 
       return FacilitiesView;
 

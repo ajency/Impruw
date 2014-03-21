@@ -20,6 +20,7 @@ require.config
 		spin 				: 'plugins/spin'
 		jqueryspin  		: 'plugins/jquery.spin'
 		bootstrap   		: 'plugins/bootstrap'
+		bootbox				: 'plugins/bootbox.min'
 		holder 				: 'plugins/holder'
 		mustache			: 'plugins/Mustache'
 		bootstrapselect 	: 'plugins/bootstrapselect'
@@ -77,6 +78,9 @@ require.config
 		radio 				: ['bootstrap']
 		checkbox 			: ['bootstrap']
 		bootstrapselect		: ['bootstrap']
+		bootbox 			: 
+			deps : ['bootstrap']
+			exports : 'bootbox'
 		app 				: ['pluginloader','configloader']
 
 	tpl :

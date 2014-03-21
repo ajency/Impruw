@@ -1,4 +1,5 @@
-var __hasProp = {}.hasOwnProperty,
+var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+  __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 define(['app', 'controllers/base-controller', 'apps/rooms/facilities/list/views'], function(App, AppController) {
@@ -8,16 +9,18 @@ define(['app', 'controllers/base-controller', 'apps/rooms/facilities/list/views'
       __extends(FacilityListController, _super);
 
       function FacilityListController() {
+        this.updateView = __bind(this.updateView, this);
+        this.updateFacility = __bind(this.updateFacility, this);
         return FacilityListController.__super__.constructor.apply(this, arguments);
       }
 
       FacilityListController.prototype.initialize = function(opt) {
         var collection, cview;
         this.collection = collection = App.request("get:all:facilities");
-        cview = this._getFacilitiesView(collection);
+        this.cview = cview = this._getFacilitiesView(collection);
         this.listenTo(cview, "itemview:delete:facility:clicked", this.deleteFacility);
+        this.listenTo(cview, "itemview:update:facility:clicked", this.updateFacility);
         this.listenTo(this.region, "new:facility:added", function(model) {
-          console.log(model);
           return this.collection.add(model);
         });
         this.listenTo(cview, "add:new:facility", this.addFacility);
@@ -31,6 +34,18 @@ define(['app', 'controllers/base-controller', 'apps/rooms/facilities/list/views'
           allData: false,
           wait: true
         });
+      };
+
+      FacilityListController.prototype.updateFacility = function(iv, data) {
+        iv.model.set(data);
+        return iv.model.save(null, {
+          wait: true,
+          success: this.updateView
+        });
+      };
+
+      FacilityListController.prototype.updateView = function(model) {
+        return this.cview.triggerMethod("update:view", model);
       };
 
       FacilityListController.prototype._getFacilitiesView = function(collection) {
