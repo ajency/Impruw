@@ -38,6 +38,42 @@
   -ms-transform: rotate(360deg);
   transform: rotate(360deg);
 }
+.top-margin-small {
+  margin-top: 0.5em;
+}
+.left-margin-small {
+  margin-left: 0.5em;
+}
+.right-margin-small {
+  margin-right: 0.5em;
+}
+.bottom-margin-small {
+  margin-bottom: 0.5em;
+}
+.top-margin-medium {
+  margin-top: 1em;
+}
+.left-margin-medium {
+  margin-left: 1em;
+}
+.right-margin-medium {
+  margin-right: 1em;
+}
+.bottom-margin-medium {
+  margin-bottom: 1em;
+}
+.top-margin-large {
+  margin-top: 1.5em;
+}
+.left-margin-large {
+  margin-left: 1.5em;
+}
+.right-margin-large {
+  margin-right: 1.5em;
+}
+.bottom-margin-large {
+  margin-bottom: 1.5em;
+}
 @font-face {
   font-family: 'icomoon';
   src: url("../resources/fonts/icomoon.eot");

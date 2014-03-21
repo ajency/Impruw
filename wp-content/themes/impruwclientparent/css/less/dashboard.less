@@ -292,7 +292,7 @@ a {
 			.aj-imp-long-form-actions {
 				z-index: 1;
 				left: 0;
-				form {
+				.action {
 					background: rgba(0, 0, 0, 0.7);
 					border: 0;
 					padding: 1em;
@@ -305,7 +305,7 @@ a {
 					margin-left: 25%;
 					width: 75%;
 					padding: 0 15px;
-					form {
+					.action {
 						margin: 0;
 						margin-right: 1em;
 						border: 1px solid rgba(0, 0, 0, 0.8);
@@ -1538,8 +1538,18 @@ form {
 	}
 }
 
-.facility {
+.facility, .facility_update {
 	border: 0;
+	.facility_actions {
+		margin: 0.5em 0;
+		.update {
+			color: @blue-grey;
+			margin-right: 0.5em;
+		}
+		.cancel {
+			color: @logo-orange;
+		}
+	}
 }
 
 .rooms-layout {
