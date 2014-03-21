@@ -113,7 +113,7 @@ $element_templates = array(
             )
         ),
     'Address' => array(
-                            array(
+                    array(
                     'name' => 'Room Tariff Plans',
                     'template' => '<div class="room-tariff-container">
                                         <div class="room-tariff-title">

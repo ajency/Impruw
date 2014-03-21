@@ -307,17 +307,26 @@ function get_styles($element, $style = '') {
     # get base styles
     global $base_element_templates;
 
+    $styles = array();
+
     $base_styles = isset($base_element_templates[$element]) ? $base_element_templates[$element] : array();
+
+    foreach ($base_styles as $style)
+        $styles[] = $style;
+
 
     # get theme specific styles
     global $element_templates;
 
     $theme_styles =  isset($element_templates[$element]) ? $element_templates[$element] : array();
 
-    $styles = array_merge($base_styles, $theme_styles);
+    foreach ($theme_styles as $style)
+        $styles[] = $style;
+    
 
-    return array_unique($styles);
+    return $styles;
 }
+
 
 /**
  * [save_page_json description]
