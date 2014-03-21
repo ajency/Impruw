@@ -29,7 +29,9 @@ define(['app'], function(App) {
           }
         },
         'click a.edit': function() {
-          this.$el.find('input[name="facility_name"]').val(this.model.get('name'));
+          var facility_name;
+          facility_name = this.$el.find('.display_facility .facility-name').html();
+          this.$el.find('input[name="facility_name"]').val(facility_name);
           this.$el.find('.display_facility').addClass('hidden');
           return this.$el.find('.update_facility').removeClass('hidden');
         },
@@ -80,7 +82,6 @@ define(['app'], function(App) {
         var facility_name, term_id;
         term_id = model.get('term_id');
         facility_name = model.get('facility_name');
-        console.log(model);
         this.$el.find("#facility-" + term_id + " .display_facility").removeClass('hidden');
         this.$el.find("#facility-" + term_id + " .update_facility").addClass('hidden');
         return this.$el.find("#facility-" + term_id + " .facility-name").text(facility_name);

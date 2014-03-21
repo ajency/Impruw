@@ -44,7 +44,9 @@ define ['app'],(App)->
 
 				'click a.edit'	: ->					
 						# set the value to test field
-						@$el.find('input[name="facility_name"]').val @model.get 'name'						
+						facility_name = @$el.find('.display_facility .facility-name').html()
+						@$el.find('input[name="facility_name"]').val facility_name
+						#@$el.find('input[name="facility_name"]').val @model.get 'name'						
 						@$el.find('.display_facility').addClass 'hidden'
 						@$el.find('.update_facility').removeClass 'hidden'
 
@@ -84,7 +86,7 @@ define ['app'],(App)->
 			onUpdateView :(model)->
 					term_id = model.get 'term_id'
 					facility_name = model.get 'facility_name'
-					console.log(model)
+					#console.log(model)
 					@$el.find("#facility-#{term_id} .display_facility").removeClass 'hidden'
 					@$el.find("#facility-#{term_id} .update_facility").addClass 'hidden'
 					@$el.find("#facility-#{term_id} .facility-name").text facility_name
