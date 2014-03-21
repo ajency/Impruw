@@ -1538,8 +1538,18 @@ form {
 	}
 }
 
-.facility {
+.facility, .facility_update {
 	border: 0;
+	.facility_actions {
+		margin: 0.5em 0;
+		.update {
+			color: @blue-grey;
+			margin-right: 0.5em;
+		}
+		.cancel {
+			color: @logo-orange;
+		}
+	}
 }
 
 .rooms-layout {
