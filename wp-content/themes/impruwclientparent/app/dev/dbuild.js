@@ -16,6 +16,7 @@
     spin: 'plugins/spin',
     jqueryspin: 'plugins/jquery.spin',
     bootstrap: 'plugins/bootstrap',
+    moment: 'plugins/moment',
     bootstrapselect: 'plugins/bootstrapselect',
     underscorestring: 'plugins/underscore.string',
     mustache: 'plugins/Mustache',
