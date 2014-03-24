@@ -6,17 +6,16 @@ define ['app'
 
 			App.module 'SiteProfileApp.Edit.View', (View, App, Backbone, Marionette, $, _)->
 
-				class View.SiteProfile extends Marionette.ItemView
-
-					template : siteprofileTpl
-
-					events : 
-						'click .save-site-profile' : -> @triggers "save:site:profile"
-
 
 				class View.MainView extends Marionette.ItemView
 
 					template : mainviewTpl
+
+					onShow:->
+						@$el.find('select').selectpicker()
+
+						# set affix
+						@$el.find('*[data-spy="affix"]').width @$el.width()
+						@$el.find('*[data-spy="affix"]').affix()
 					
-				
-			return App.SiteProfileApp.Edit.View
+					

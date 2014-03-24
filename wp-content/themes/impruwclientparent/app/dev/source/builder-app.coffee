@@ -61,7 +61,7 @@ define ['marionette'], (Marionette)->
 		App.execute "create:slider:store"
 
 		# create a global site model
-		site = App.request "get:site:profile"
+		site = App.request "get:site:model"
 
 		appState = App.request "get:current:appstate"
 		App.startHistory()

@@ -7,7 +7,7 @@ define ['app', 'controllers/base-controller'
 
 			initialize:()->
 
-				@siteProfile = App.request "get:site:profile"
+				@siteProfile = App.request "get:site:model"
 
 				#@layout = @.getLayout()
 			

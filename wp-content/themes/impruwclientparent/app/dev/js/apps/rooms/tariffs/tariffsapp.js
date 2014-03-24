@@ -12,7 +12,7 @@ define(['app', 'controllers/base-controller', 'apps/rooms/tariffs/show/showcontr
       }
 
       RoomsTariffAppController.prototype.initialize = function(opt) {
-        this.layout = this.getLayout();
+        this.layout = this._getLayout();
         return this.show(this.layout);
       };
 
@@ -40,8 +40,6 @@ define(['app', 'controllers/base-controller', 'apps/rooms/tariffs/show/showcontr
 
     })(Marionette.Layout);
     return App.commands.setHandler("show:rooms:tariffs:app", function(opt) {
-      var region;
-      region = opt.region ? opt.region : void 0;
       return new RoomsTariff.RoomsTariffAppController(opt);
     });
   });
