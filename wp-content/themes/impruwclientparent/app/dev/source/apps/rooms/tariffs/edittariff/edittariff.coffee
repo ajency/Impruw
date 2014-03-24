@@ -13,8 +13,17 @@ define  ['app','controllers/base-controller', 'text!apps/rooms/tariffs/edittarif
 
 				@tariffView = tariffView = @_getEditTariffView tariff
 
+				@listenTo tariffView, "update:tariff:details", (data)=>
+					tariff.set data
+					tariff.save null,
+							wait : true
+							success : @tariffSaved
+
 				@show tariffView, 
 						loading : true
+
+			tariffSaved:=>
+				@tariffView.triggerMethod "saved:tariff"
 
 			# get the packages view
 			_getEditTariffView :(tariff)->
@@ -38,8 +47,10 @@ define  ['app','controllers/base-controller', 'text!apps/rooms/tariffs/edittarif
 				'click .update-tariff' : ->
 					if @$el.valid()
 						data = Backbone.Syphon.serialize @
-						console.log data
 						@trigger "update:tariff:details", data
+
+			onSavedTariff:->
+				@$el.parent().prepend '<div class="alert alert-success">Saved successfully</div>'
 
 			# show checkbox
 			onShow:->
