@@ -16,7 +16,7 @@ define  ['app','controllers/base-controller', 'apps/rooms/tariffs/show/views'],(
 
 				@dateRangeView = @_getDateRangeView dcollection
 
-				@listenTo @dateRangeView, 'itemview:show:edit:tariff', (id)=>
+				@listenTo @dateRangeView, 'itemview:show:edit:tariff', (iv,id)=>
 					App.execute "show:edit:tariff", id
 
 				@listenTo @layout, "show", =>

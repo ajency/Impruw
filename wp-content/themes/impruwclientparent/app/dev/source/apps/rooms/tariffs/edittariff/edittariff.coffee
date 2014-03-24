@@ -1,4 +1,4 @@
-define  ['app','controllers/base-controller', 'apps/rooms/tariffs/show/views'],(App, AppController)->
+define  ['app','controllers/base-controller', 'text!apps/rooms/tariffs/edittariff/templates/edittariff.html'],(App, AppController, editTariffTpl)->
 
 	App.module "RoomsApp.RoomsTariff.Show", (Show, App)->	
 
@@ -6,32 +6,43 @@ define  ['app','controllers/base-controller', 'apps/rooms/tariffs/show/views'],(
 
 			initialize:(opt)->
 
-				{@tariffId} = opt
+				if not opt.model
+					tariff = App.request "get:tariff", opt.tariffId
+				else 
+					tariff = opt.model
 
-				tariff = App.request "get:tariff", @tariffId
-
-				@tariffView = tariffView = @_getTariffView tariff
+				@tariffView = tariffView = @_getEditTariffView tariff
 
 				@show tariffView, 
 						loading : true
 
 			# get the packages view
-			_getTariffView :(pCollection)->
-				new Show.Views.PackagesView
-							collection 	: pCollection
+			_getEditTariffView :(tariff)->
+				new EditTariffView
+						model : tariff
 
+		# Edti tariff view
+		class EditTariffView extends Marionette.ItemView
 
-		class GridLayout extends Marionette.Layout
+			tagName : 'form'
 
-			template :'	<div id="packages-region"></div>
-						<div id="tariff-region"></div>'
+			className : 'form-horizontal'
 
-			regions : 
-				packagesRegion : '#packages-region'
-				tariffRegion   : '#tariff-region'
+			template : editTariffTpl
 
+			dialogOptions : 
+						modal_title : 'Edit Tariff'
+						modal_size  : 'wide-modal'
 
-		App.execute "show:edit:tariff", (id)->
-			new EditTariffController 
-							tariffId : id
-							region : App.dialogRegion
+		# handler
+		App.commands.setHandler "show:edit:tariff", (opt)->
+
+			opts = 
+				region : App.dialogRegion
+
+			if opt.tariffModel
+				opts.model = opt.tariffModel
+			else 
+				opts.tariffId = opt.tariffId
+
+			new EditTariffController opts

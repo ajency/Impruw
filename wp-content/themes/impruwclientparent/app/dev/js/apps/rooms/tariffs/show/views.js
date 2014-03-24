@@ -57,8 +57,9 @@ define(['app'], function(App) {
       DateRangeSingle.prototype.events = {
         'click .package-block-outer': function(e) {
           var id;
+          e.stopPropagation();
           id = $(e.target).attr('data-id');
-          return this.trigger("show:edit:tariff", id);
+          return this.trigger("show:edit:tariff", 2);
         }
       };
 

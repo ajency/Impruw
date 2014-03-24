@@ -42,8 +42,9 @@ define ['app'], (App)->
 
 			events : 
 				'click .package-block-outer' : (e)->
+					e.stopPropagation()
 					id = $(e.target).attr 'data-id'
-					@trigger "show:edit:tariff", id
+					@trigger "show:edit:tariff", 2
 
 			template : '<div class="date-range">
 							<div class="from">

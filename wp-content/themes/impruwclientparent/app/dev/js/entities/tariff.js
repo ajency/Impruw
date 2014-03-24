@@ -43,10 +43,21 @@ define(["app", 'backbone'], function(App, Backbone) {
     API = {
       getTariffCollection: function() {
         return tariffCollection;
+      },
+      getTariff: function(id) {
+        var tariff;
+        tariff = new Tariff({
+          id: id
+        });
+        tariff.fetch();
+        return tariff;
       }
     };
-    return App.reqres.setHandler("get:tariffs:collection", function() {
+    App.reqres.setHandler("get:tariffs:collection", function() {
       return API.getTariffCollection();
+    });
+    return App.reqres.setHandler("get:tariff", function(id) {
+      return API.getTariff(id);
     });
   });
 });

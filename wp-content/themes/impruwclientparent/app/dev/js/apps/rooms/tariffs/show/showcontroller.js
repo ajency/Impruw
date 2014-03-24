@@ -21,7 +21,7 @@ define(['app', 'controllers/base-controller', 'apps/rooms/tariffs/show/views'], 
         this.packagesView = this._getPackagesView(pcollection);
         this.dateRangeView = this._getDateRangeView(dcollection);
         this.listenTo(this.dateRangeView, 'itemview:show:edit:tariff', (function(_this) {
-          return function(id) {
+          return function(iv, id) {
             return App.execute("show:edit:tariff", id);
           };
         })(this));
