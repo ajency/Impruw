@@ -97,8 +97,6 @@ define ['app'], (App)->
 				data.enddate = ->
 					moment(new Date(@end_date)).format('DD/MMM')
 
-				console.log data
-
 				data
 
 		class Views.TariffsView extends Marionette.CollectionView

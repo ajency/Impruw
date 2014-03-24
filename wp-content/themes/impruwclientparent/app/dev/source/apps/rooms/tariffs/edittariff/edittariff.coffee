@@ -31,8 +31,20 @@ define  ['app','controllers/base-controller', 'text!apps/rooms/tariffs/edittarif
 			template : editTariffTpl
 
 			dialogOptions : 
-						modal_title : 'Edit Tariff'
-						modal_size  : 'wide-modal'
+				modal_title : 'Edit Tariff'
+				modal_size  : 'medium-modal'
+
+			events:
+				'click .update-tariff' : ->
+					if @$el.valid()
+						data = Backbone.Syphon.serialize @
+						console.log data
+						@trigger "update:tariff:details", data
+
+			# show checkbox
+			onShow:->
+				@$el.find('input[type="checkbox"]').checkbox()
+
 
 		# handler
 		App.commands.setHandler "show:edit:tariff", (opt)->

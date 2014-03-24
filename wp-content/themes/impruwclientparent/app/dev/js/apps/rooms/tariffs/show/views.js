@@ -74,7 +74,6 @@ define(['app'], function(App) {
         data.enddate = function() {
           return moment(new Date(this.end_date)).format('DD/MMM');
         };
-        console.log(data);
         return data;
       };
 

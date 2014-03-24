@@ -48,7 +48,22 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/edittarif
 
       EditTariffView.prototype.dialogOptions = {
         modal_title: 'Edit Tariff',
-        modal_size: 'wide-modal'
+        modal_size: 'medium-modal'
+      };
+
+      EditTariffView.prototype.events = {
+        'click .update-tariff': function() {
+          var data;
+          if (this.$el.valid()) {
+            data = Backbone.Syphon.serialize(this);
+            console.log(data);
+            return this.trigger("update:tariff:details", data);
+          }
+        }
+      };
+
+      EditTariffView.prototype.onShow = function() {
+        return this.$el.find('input[type="checkbox"]').checkbox();
       };
 
       return EditTariffView;
