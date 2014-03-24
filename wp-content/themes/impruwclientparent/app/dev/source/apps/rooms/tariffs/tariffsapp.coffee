@@ -8,7 +8,7 @@ define  ['app','controllers/base-controller', 'apps/rooms/tariffs/show/showcontr
 			initialize:(opt)->
 
 				# get the layout 
-				@layout = @getLayout()
+				@layout = @_getLayout()
 
 				@show @layout
 			
@@ -27,7 +27,6 @@ define  ['app','controllers/base-controller', 'apps/rooms/tariffs/show/showcontr
 
 		# set the command handler
 		App.commands.setHandler "show:rooms:tariffs:app", (opt)->
-			region = if opt.region then opt.region
 			new RoomsTariff.RoomsTariffAppController opt
 
 

@@ -3,24 +3,6 @@ var __hasProp = {}.hasOwnProperty,
 
 define(['app', 'text!apps/site-profile/edit/templates/mainview.html', 'text!apps/site-profile/edit/templates/siteprofile.html'], function(App, mainviewTpl, siteprofileTpl) {
   return App.module('SiteProfileApp.Edit.View', function(View, App, Backbone, Marionette, $, _) {
-    View.SiteProfile = (function(_super) {
-      __extends(SiteProfile, _super);
-
-      function SiteProfile() {
-        return SiteProfile.__super__.constructor.apply(this, arguments);
-      }
-
-      SiteProfile.prototype.template = siteprofileTpl;
-
-      SiteProfile.prototype.events = {
-        'click .save-site-profile': function() {
-          return this.triggers("save:site:profile");
-        }
-      };
-
-      return SiteProfile;
-
-    })(Marionette.ItemView);
     return View.MainView = (function(_super) {
       __extends(MainView, _super);
 
@@ -29,6 +11,12 @@ define(['app', 'text!apps/site-profile/edit/templates/mainview.html', 'text!apps
       }
 
       MainView.prototype.template = mainviewTpl;
+
+      MainView.prototype.onShow = function() {
+        this.$el.find('select').selectpicker();
+        this.$el.find('*[data-spy="affix"]').width(this.$el.width());
+        return this.$el.find('*[data-spy="affix"]').affix();
+      };
 
       return MainView;
 

@@ -44,20 +44,20 @@ define ['app'],(App)->
 						@trigger "delete:facility:clicked", @model
 
 				'click a.edit'	: ->					
-						# set the value to test field
-						facility_name = @$el.find('.display_facility .facility-name').html()
-						@$el.find('input[name="facility_name"]').val facility_name
-						#@$el.find('input[name="facility_name"]').val @model.get 'name'						
-						@$el.find('.display_facility').addClass 'hidden'
-						@$el.find('.update_facility').removeClass 'hidden'
+					# set the value to test field
+					facility_name = @$el.find('.display_facility .facility-name').html()
+					@$el.find('input[name="facility_name"]').val facility_name
+					#@$el.find('input[name="facility_name"]').val @model.get 'name'						
+					@$el.find('.display_facility').addClass 'hidden'
+					@$el.find('.update_facility').removeClass 'hidden'
 
 
 				'click a.cancel' :->	
-						@$el.find('.update_facility').addClass 'hidden'
-						@$el.find('.display_facility').removeClass 'hidden'
+					@$el.find('.update_facility').addClass 'hidden'
+					@$el.find('.display_facility').removeClass 'hidden'
 
 				'click a.update' : ->
-						@trigger "update:facility:clicked", Backbone.Syphon.serialize @
+					@trigger "update:facility:clicked", Backbone.Syphon.serialize @
 
 
 						

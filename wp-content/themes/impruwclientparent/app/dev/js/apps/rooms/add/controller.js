@@ -21,9 +21,12 @@ define(['app', 'controllers/base-controller', 'apps/rooms/add/views', 'apps/room
             App.execute("show:facilities", {
               region: layout.facilitiesRegion
             });
-            return App.execute("show:edit:slider", {
+            App.execute("show:edit:slider", {
               region: layout.galleryRegion,
               sliderId: 1
+            });
+            return App.execute("show:rooms:tariffs:app", {
+              region: layout.roomTariffRegion
             });
           };
         })(this));
