@@ -5,11 +5,10 @@ define ['app', 'controllers/base-controller'
 
 		class Edit.Controller extends AppController
 
-			initialize:()->
+			initialize:(options)->
 
 				@siteProfile = App.request "get:site:model"
 
-				#@layout = @.getLayout()
 			
 			showSiteProfile : ()->	
 				
@@ -20,8 +19,18 @@ define ['app', 'controllers/base-controller'
 
 				@show @view,(loading : true)
 
+				#updating the site profile entries
 				@listenTo @view, "save:site:profile" , @saveSiteProfile
-					
+				
+				#trigger media manager popup and start listening to "media:manager:choosed:media" event
+				@listenTo @view, "show:media:manager", =>
+						App.navigate "media-manager", trigger : true
+						@listenTo App.vent,"media:manager:choosed:media",(media)=>
+							@view.triggerMethod "set:logo" , media
+							console.log @view
+							@stopListening App.vent,"media:manager:choosed:media"	
+
+			
 
 			saveSiteProfile : (data) ->
 				siteModel = App.request "get:site:model"
