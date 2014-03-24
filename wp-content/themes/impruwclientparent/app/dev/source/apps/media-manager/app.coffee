@@ -1,6 +1,7 @@
 define ['app'
 		'controllers/base-controller'
-		'text!apps/media-manager/templates/outer.html'], (App, AppController, outerTpl)->
+		'text!apps/media-manager/templates/outer.html'
+		], (App, AppController, outerTpl)->
 
 			App.module 'MediaManager', (MediaManager, App, Backbone, Marionette, $, _)->
 
@@ -21,14 +22,18 @@ define ['app'
 						@choosedMedia = null
 					
 						@layout = layout = @_getLayout()
-						@show @layout
 
+						@listenTo @layout,"show" , =>
+									App.execute "start:media:upload:app", region : layout.uploadRegion
+									App.execute "start:media:grid:app", region : layout.gridRegion
+						
+						@show @layout 
 						
 						# start media manager apps. conditional strating of apps is possible
 						# each app needs a region as the argument. Each app will be functional only
 						# for that region
-						App.execute "start:media:upload:app", region : layout.uploadRegion
-						App.execute "start:media:grid:app", region : layout.gridRegion 
+						#App.execute "start:media:upload:app", region : layout.uploadRegion
+						#App.execute "start:media:grid:app", region : layout.gridRegion 
 						
 						
 						@listenTo @layout.gridRegion, "media:element:selected",(media)=>
@@ -43,13 +48,13 @@ define ['app'
 												App.vent.trigger "media:manager:choosed:media", @choosedMedia
 												@region.closeDialog()
 
-						App.getRegion('elementsBoxRegion').hide()
+						#App.getRegion('elementsBoxRegion').hide()
 						
 					onClose: ->
 						# navigate back to original route. do not trigger the router 
 						# only navigate
 						App.navigate ''
-						App.getRegion('elementsBoxRegion').unhide()
+						#App.getRegion('elementsBoxRegion').unhide()
 
 					# gets the main login view
 					_getLayout :()->

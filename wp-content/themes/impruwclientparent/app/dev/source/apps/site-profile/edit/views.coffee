@@ -15,6 +15,10 @@ define ['app'
 						'click #btn_savesitedetails' : ->
 										@trigger "save:site:profile", Backbone.Syphon.serialize @
 
+						'click .fileinput-new' : ->
+									@trigger "show:media:manager"
+
+
 					onShow:->
 						@$el.find('select').selectpicker()
 
@@ -27,5 +31,9 @@ define ['app'
 							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 							Save successfully</div>'
 						$('html, body').animate({
-			        		scrollTop: 0
-			    		}, 1000);
+							scrollTop: 0
+						}, 1000);
+
+					onSetLogo :(media) -> 
+						console.log media
+						#@$el.find().append(media.sizes.full.url)

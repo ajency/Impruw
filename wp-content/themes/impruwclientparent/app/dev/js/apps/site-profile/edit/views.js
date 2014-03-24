@@ -15,6 +15,9 @@ define(['app', 'text!apps/site-profile/edit/templates/mainview.html', 'text!apps
       MainView.prototype.events = {
         'click #btn_savesitedetails': function() {
           return this.trigger("save:site:profile", Backbone.Syphon.serialize(this));
+        },
+        'click .fileinput-new': function() {
+          return this.trigger("show:media:manager");
         }
       };
 
@@ -29,6 +32,10 @@ define(['app', 'text!apps/site-profile/edit/templates/mainview.html', 'text!apps
         return $('html, body').animate({
           scrollTop: 0
         }, 1000);
+      };
+
+      MainView.prototype.onSetLogo = function(media) {
+        return console.log(media);
       };
 
       return MainView;
