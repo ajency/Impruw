@@ -17,8 +17,9 @@ define ['app', 'controllers/base-controller'
                        					region :	layout.galleryRegion
                        					sliderId	: 1
 
-					#App.execute "show:facilities", region : layout.facilitiesRegion
-					#App.execute "show:tariff:app", region : layout.tariffRegion
+                       	App.execute "show:rooms:tariffs:app",
+                       					region : layout.roomTariffRegion
+
 
 				@listenTo @layout, "save:new:room", (data)=>
 					@_saveNewRoom data

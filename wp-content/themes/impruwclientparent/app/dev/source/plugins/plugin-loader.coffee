@@ -4,6 +4,7 @@
 define [
 		'underscore'
 		'jquery'
+		'jqueryui'
 		'backbone'
 		'd3'
 		'backbonesyphon'

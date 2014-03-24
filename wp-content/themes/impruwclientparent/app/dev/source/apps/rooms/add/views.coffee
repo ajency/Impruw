@@ -23,5 +23,6 @@ define ['app'
 
 
 					regions : 
-						facilitiesRegion : '#facilities-region'
-						galleryRegion : '#gallery-region'
+						facilitiesRegion 	: '#facilities-region'
+						galleryRegion 		: '#gallery-region'
+						roomTariffRegion	: '#room-tariff-region'
