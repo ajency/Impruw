@@ -10,6 +10,7 @@ require.config({
     tpl: 'plugins/tpl',
     text: 'plugins/text',
     spin: 'plugins/spin',
+    moment: 'plugins/moment',
     jqueryspin: 'plugins/jquery.spin',
     bootstrap: 'plugins/bootstrap',
     bootstrapselect: 'plugins/bootstrapselect',
@@ -66,9 +67,6 @@ require.config({
     bootstrapselect: ['bootstrap'],
     bootstrapswitch: ['bootstrap'],
     app: ['plugins/plugin-loader', 'configs/config-loader']
-  },
-  tpl: {
-    extension: '.html'
   }
 });
 

@@ -13,6 +13,7 @@ require.config
 		tpl 				: 'plugins/tpl'
 		text 				: 'plugins/text'
 		spin 				: 'plugins/spin'
+		moment 				: 'plugins/moment'
 		jqueryspin  		: 'plugins/jquery.spin'
 		bootstrap   		: 'plugins/bootstrap'
 		bootstrapselect 	: 'plugins/bootstrapselect'
@@ -51,7 +52,6 @@ require.config
 		nvd3:	
 			deps : ['d3']
 			exports : 'nv'
-		
 		jqueryvalidate 		: ['jquery']
 		underscorestring 	: ['underscore']
 		backboneform 		: ['backbone']
@@ -65,11 +65,6 @@ require.config
 		bootstrapswitch		: ['bootstrap']
 		app 				: ['plugins/plugin-loader','configs/config-loader']
 
-		
-		
-
-	tpl :
-		extension : '.html'
 
 ## Start with application
 require [	'plugins/plugin-loader'

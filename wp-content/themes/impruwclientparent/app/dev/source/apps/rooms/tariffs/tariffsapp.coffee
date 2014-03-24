@@ -10,19 +10,30 @@ define  ['app','controllers/base-controller', 'apps/rooms/tariffs/show/showcontr
 				# get the layout 
 				@layout = @_getLayout()
 
+				@listenTo @layout, "show", @showTariffGrid
+
 				@show @layout
 			
 			_getLayout : ->
 				new RoomsTariffAppLayout
 
+			showTariffGrid :->
+				App.execute "show:tariff:grid", region : @layout.tariffGridRegion
+
 
 		# Rooms tariff layout 				
 		class RoomsTariffAppLayout extends Marionette.Layout
 
-			template : 'rooms tariff layout'
+			className : 'room-tariff-container'
+
+			template : '<div class="room-tariff-title">
+                            <h4>Room Price</h4>
+                            <h5>Lorem ipsum dolor sit amet et odio vehicula, id porttitor quam malesuada</h5>
+                        </div>
+                        <div class="room-tariff-grid" id="room-tariff-grid"></div>'
 
 			regions : 
-				viewRegion : '#view-region' 
+				tariffGridRegion : '#room-tariff-grid' 
 
 
 		# set the command handler

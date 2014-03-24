@@ -5,4 +5,7 @@ define [
 		'entities/rooms'
 		'entities/facilities'
 		'entities/slider'
+		'entities/packages'
+		'entities/tariff'
+		'entities/daterange'
 		],->

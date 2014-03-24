@@ -13,11 +13,18 @@ define(['app', 'controllers/base-controller', 'apps/rooms/tariffs/show/showcontr
 
       RoomsTariffAppController.prototype.initialize = function(opt) {
         this.layout = this._getLayout();
+        this.listenTo(this.layout, "show", this.showTariffGrid);
         return this.show(this.layout);
       };
 
       RoomsTariffAppController.prototype._getLayout = function() {
         return new RoomsTariffAppLayout;
+      };
+
+      RoomsTariffAppController.prototype.showTariffGrid = function() {
+        return App.execute("show:tariff:grid", {
+          region: this.layout.tariffGridRegion
+        });
       };
 
       return RoomsTariffAppController;
@@ -30,10 +37,12 @@ define(['app', 'controllers/base-controller', 'apps/rooms/tariffs/show/showcontr
         return RoomsTariffAppLayout.__super__.constructor.apply(this, arguments);
       }
 
-      RoomsTariffAppLayout.prototype.template = 'rooms tariff layout';
+      RoomsTariffAppLayout.prototype.className = 'room-tariff-container';
+
+      RoomsTariffAppLayout.prototype.template = '<div class="room-tariff-title"> <h4>Room Price</h4> <h5>Lorem ipsum dolor sit amet et odio vehicula, id porttitor quam malesuada</h5> </div> <div class="room-tariff-grid" id="room-tariff-grid"></div>';
 
       RoomsTariffAppLayout.prototype.regions = {
-        viewRegion: '#view-region'
+        tariffGridRegion: '#room-tariff-grid'
       };
 
       return RoomsTariffAppLayout;
