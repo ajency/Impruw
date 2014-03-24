@@ -45,10 +45,19 @@ define(["app", 'backbone'], function(App, Backbone) {
         packageCollection;
         packageCollection.fetch();
         return packageCollection;
+      },
+      createPlanModel: function(data) {
+        if (data == null) {
+          data = {};
+        }
+        return new Package(data);
       }
     };
-    return App.reqres.setHandler("get:packages:collection", function() {
+    App.reqres.setHandler("get:packages:collection", function() {
       return API.getPackagesCollection();
+    });
+    return App.reqres.setHandler("create:plan:model", function(data) {
+      return API.createPlanModel(data);
     });
   });
 });

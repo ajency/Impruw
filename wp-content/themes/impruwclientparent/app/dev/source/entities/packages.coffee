@@ -31,6 +31,13 @@ define ["app", 'backbone'], (App, Backbone) ->
 				packageCollection.fetch()
 				packageCollection
 
+			createPlanModel:(data = {})->
+				new Package data
+
+
 
 		App.reqres.setHandler "get:packages:collection", ->
 			API.getPackagesCollection()
+
+		App.reqres.setHandler "create:plan:model", (data)->
+			API.createPlanModel data
