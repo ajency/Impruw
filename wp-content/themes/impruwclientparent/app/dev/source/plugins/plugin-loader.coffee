@@ -14,6 +14,7 @@ define [
 		'bootstrap'
 		'radio'
 		'checkbox'
+		'moment'
 		'text'
 		'jqueryspin'
 		'polyglot'

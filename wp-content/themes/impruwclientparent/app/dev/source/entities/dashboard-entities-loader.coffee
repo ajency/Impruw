@@ -4,5 +4,10 @@ define [
 		'entities/analytics'
 		'entities/rooms'
 		'entities/facilities'
+		'entities/site'
+		'entities/media'
 		'entities/slider'
+		'entities/packages'
+		'entities/tariff'
+		'entities/daterange'
 		],->

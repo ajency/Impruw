@@ -18,8 +18,6 @@ define ["app", 'backbone'], (App, Backbone) ->
                 getSiteModel: ()->
                     siteModel
 
-
-
             #REQUEST HANDLERS
             App.reqres.setHandler "get:site:model", ->
                 API.getSiteModel()

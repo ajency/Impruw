@@ -37,7 +37,7 @@ define ['app'],
 										<h2 class="aj-imp-page-head">Rooms</h2>
 									</div>
 								</header>
-								<button type="button" class="btn btn-default btn-lg add-room"><span class="icon icon-plus"></span> Add Room</button>
+								<a href="#rooms/add" class="btn btn-default btn-lg add-room"><span class="icon icon-plus"></span> Add Room</a>
 								<div id="room-list"></div>'
 
 					className: 'rooms-layout'

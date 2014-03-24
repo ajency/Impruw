@@ -21,6 +21,9 @@ require_once 'modules/rooms/ajax.php';
 require_once 'modules/site/ajax.php';
 require_once 'modules/themes/ajax.php';
 require_once 'modules/facilities/ajax.php';
+require_once 'modules/packages/ajax.php';
+require_once 'modules/tariff/ajax.php';
+require_once 'modules/daterange/ajax.php';
 
 require_once PARENTTHEMEPATH . 'api/entities/leftnav.php';
 require_once PARENTTHEMEPATH . 'api/statistics/statistics-api.php';
