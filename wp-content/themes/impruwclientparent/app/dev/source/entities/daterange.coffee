@@ -31,6 +31,5 @@ define ["app", 'backbone'], (App, Backbone) ->
 				dateRangeCollection
 
 
-		App.reqres.setHandler "get:daterange:collection",(opt)->
-			console.log opt.id
+		App.reqres.setHandler "get:daterange:collection",->
 			API.getDateRangeCollection()

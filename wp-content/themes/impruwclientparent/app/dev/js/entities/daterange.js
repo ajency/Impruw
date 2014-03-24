@@ -47,8 +47,7 @@ define(["app", 'backbone'], function(App, Backbone) {
         return dateRangeCollection;
       }
     };
-    return App.reqres.setHandler("get:daterange:collection", function(opt) {
-      console.log(opt.id);
+    return App.reqres.setHandler("get:daterange:collection", function() {
       return API.getDateRangeCollection();
     });
   });

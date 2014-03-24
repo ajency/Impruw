@@ -13,18 +13,30 @@ define ['app', 'controllers/base-controller'
 			
 			showSiteProfile : ()->	
 				
-				view = @.getMainView(@siteProfile)	
+				@view = @.getMainView(@siteProfile)	
 
 				# trigger set:active:menu event
 				App.vent.trigger "set:active:menu", 'site-profile'
 
-				@show view,(loading : true)
+				@show @view,(loading : true)
 
+				@listenTo @view, "save:site:profile" , @saveSiteProfile
+					
+
+			saveSiteProfile : (data) ->
+				siteModel = App.request "get:site:model"
+				#console.log data
+				siteModel.set(data)
+				siteModel.save null, 
+					wait : true
+					success : @siteProfileSuccess 
 
 			getMainView : (model)->
 				
 				new Edit.View.MainView
 						model : model
-
+			
+			siteProfileSuccess : () =>
+					@view.triggerMethod "site:profile:added"
 			
 	App.SiteProfileApp.Edit.Controller		

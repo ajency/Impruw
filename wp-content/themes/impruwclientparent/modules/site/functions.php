@@ -244,3 +244,28 @@ function get_theme_name($site_id){
     return $theme;
     
 }
+
+
+function create_site($formdata){
+   
+   unset($formdata['action']);
+   
+   // loop through the array containing the form values
+   foreach ($formdata as $key => $value) {
+      
+      // if the options are email or phone, store them as serailized array
+      if($key == "email" || $key == "phone_number" ){
+            $value_array = $formdata[$key];
+            update_option( $key, $value_array );
+      }
+
+      else{
+        update_option( $key, $value );
+      }
+      
+      // prepare array conatining all the form values
+      $return_array[$key] = $value;
+   }
+   return $return_array;
+
+}
