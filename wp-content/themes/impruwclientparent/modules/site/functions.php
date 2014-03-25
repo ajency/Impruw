@@ -270,6 +270,10 @@ function create_site($formdata){
 
 }
 
+/**
+ * Returns the logo id for the site
+ * @return int <mixed, boolean>
+ */
 function get_site_logo_id(){
 
     // get the logo_id from options

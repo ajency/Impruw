@@ -18,6 +18,8 @@ define ["app", 'backbone'], (App, Backbone) ->
                 # get site model
                 getSiteModel: ()->
                     siteModel
+                    siteModel.fetch()
+                    siteModel
 
                 # get site social
                 getSiteSocial:->
