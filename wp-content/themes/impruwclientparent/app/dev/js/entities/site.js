@@ -24,11 +24,18 @@ define(["app", 'backbone'], function(App, Backbone) {
         return siteModel;
       },
       getSiteSocial: function() {
-        return {
-          facebook: '#facbook',
-          twitter: '#twitter',
-          youtube: '#youtube'
-        };
+        return new Backbone.Collection([
+          {
+            sociallink: '#facebook',
+            socialname: 'facebook'
+          }, {
+            sociallink: '#twitter',
+            socialname: 'twitter'
+          }, {
+            sociallink: '#youtube',
+            socialname: 'youtube'
+          }
+        ]);
       }
     };
     App.reqres.setHandler("get:site:model", function() {

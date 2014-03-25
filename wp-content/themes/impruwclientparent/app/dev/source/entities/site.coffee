@@ -21,9 +21,11 @@ define ["app", 'backbone'], (App, Backbone) ->
 
                 # get site social
                 getSiteSocial:->
-                    facebook : '#facbook'
-                    twitter  : '#twitter'
-                    youtube  : '#youtube'   
+                    new Backbone.Collection [
+                                                (sociallink : '#facebook', socialname : 'facebook')
+                                                (sociallink : '#twitter', socialname : 'twitter')
+                                                (sociallink : '#youtube', socialname : 'youtube')
+                                            ]
 
             # REQUEST HANDLERS
             App.reqres.setHandler "get:site:model", ->
