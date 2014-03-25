@@ -23,6 +23,7 @@ define(['app', 'text!apps/site-profile/edit/templates/mainview.html', 'text!apps
 
       MainView.prototype.onShow = function() {
         this.$el.find('select').selectpicker();
+        this.$el.find('#inputAddress1').val('hiii');
         this.$el.find('*[data-spy="affix"]').width(this.$el.width());
         return this.$el.find('*[data-spy="affix"]').affix();
       };
@@ -40,7 +41,6 @@ define(['app', 'text!apps/site-profile/edit/templates/mainview.html', 'text!apps
         media_size = media.get('sizes');
         image_path = media_size.full.url;
         console.log(image_path);
-        this.$el.find('.fileinput-preview ').append('<img src ="" class="site_profile_images"/>');
         this.$el.find('.site_profile_images').attr('src', image_path);
         return this.$el.find('#logo_id').attr('value', image_id);
       };

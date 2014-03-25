@@ -20,7 +20,9 @@ define ['app'
 
 
 					onShow:->
+						#console.log model
 						@$el.find('select').selectpicker()
+						@$el.find('#inputAddress1').val 'hiii'
 
 						# set affix
 						@$el.find('*[data-spy="affix"]').width @$el.width()
@@ -39,6 +41,6 @@ define ['app'
 						media_size= media.get 'sizes'
 						image_path = media_size.full.url
 						console.log image_path
-						@$el.find('.fileinput-preview ').append '<img src ="" class="site_profile_images"/>'
+						#@$el.find('.fileinput-preview ').append '<img src ="" class="site_profile_images"/>'
 						@$el.find('.site_profile_images').attr 'src', image_path
 						@$el.find('#logo_id').attr 'value', image_id

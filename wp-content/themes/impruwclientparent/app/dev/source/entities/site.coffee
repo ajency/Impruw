@@ -26,6 +26,8 @@ define ["app", 'backbone'], (App, Backbone) ->
                                                 (sociallink : '#twitter', socialname : 'twitter')
                                                 (sociallink : '#youtube', socialname : 'youtube')
                                             ]
+                getSiteProfile : ->
+
 
             # REQUEST HANDLERS
             App.reqres.setHandler "get:site:model", ->
@@ -33,3 +35,6 @@ define ["app", 'backbone'], (App, Backbone) ->
 
             App.reqres.setHandler "get:site:social", ->
                 API.getSiteSocial()
+
+            App.reqres.setHandler "get:site:profile", ->
+                API.getSiteProfile()
