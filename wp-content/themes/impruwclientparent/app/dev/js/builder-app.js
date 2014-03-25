@@ -43,26 +43,24 @@ define(['marionette'], function(Marionette) {
     return App.unregisterElement(instance, id);
   });
   App.on("initialize:after", function(options) {
-    var appState, site;
+    var user;
     App.execute("create:media:store");
     App.execute("create:menu:store");
     App.execute("create:social:store");
     App.execute("create:slider:store");
-    site = App.request("get:site:model");
-    appState = App.request("get:current:appstate");
-    App.startHistory();
-    if (appState.isLoggedIn()) {
-      this.rootRoute = ISTHEMESELECTED === 1 ? '' : 'choose-theme';
-      if (!this.getCurrentRoute()) {
-        return App.navigate(this.rootRoute, {
-          trigger: true
-        });
-      }
-    } else {
-      return App.navigate(this.loginRoute, {
-        trigger: true
-      });
-    }
+    user = App.request("get:user:model");
+    return App.execute("when:fetched", user, (function(_this) {
+      return function() {
+        jQuery('#initial-loader').remove();
+        App.startHistory();
+        _this.rootRoute = ISTHEMESELECTED === 1 ? '' : 'choose-theme';
+        if (!_this.getCurrentRoute()) {
+          return App.navigate(_this.rootRoute, {
+            trigger: true
+          });
+        }
+      };
+    })(this));
   });
   return App;
 });

@@ -5,46 +5,18 @@ define ["app", 'backbone'], (App, Backbone) ->
 			# User model
 			class Users.UserModel extends Backbone.Model
 
-				relations :[(
-								type : Backbone.HasMany
-								key  : 'rooms'
-								relatedModel : 'App.Entities.Rooms.Room'
-								collectionType : 'App.Entities.Rooms.RoomCollection'
-							)]
+				name : 'user'
 
-				url : ->
-					AJAXURL + '?action=get-user-profile'
-
-				defaults : ->
-					user_name 		: 'surajair'
-					display_name 	: 'Suraj Air'
-					user_email 		: 'surajair@gmail.com'
-					
-
-			# User collection
-			class Users.UserCollection extends Backbone.Collection
-
-				model : Users.UserModel
-
-				
+			
+			user =  new Users.UserModel
+			user.fetch()
 
 			#PUBLIC API
 			API = 
-				getUserProfile:(userId)->
-
-					user =  new Users.UserModel
-										id : userId
-
-					user.url = AJAXURL + '?action=get-user-profile'
-
-					user.fetch
-					
+				getUserProfile:()->
 					user
 
 
 			#REQUEST HANDLERS
-			App.reqres.setHandler "get:user:profile",(options = {}) ->
-
-				{ userId } = options
-
-				API.getUserProfile userId
+			App.reqres.setHandler "get:user:model",(options = {}) ->
+				API.getUserProfile()

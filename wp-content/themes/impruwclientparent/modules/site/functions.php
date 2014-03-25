@@ -15,6 +15,7 @@ function get_site_details($site_id) {
         'street' => get_option('street',''),
         'postal_code' => get_option('postal_code',''),
         'city' => get_option('city',''),
+    	'logo_id' => get_option('logo_id',0),
         'country' => get_option('country',''),
         'other_emails' => get_option('other_emails',array()),
         'other_phone_no' => get_option('other_phone_no',array())

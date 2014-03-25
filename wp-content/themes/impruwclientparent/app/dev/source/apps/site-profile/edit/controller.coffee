@@ -11,7 +11,7 @@ define ['app', 'controllers/base-controller'
 			
 			showSiteProfile : ()->	
 				
-				@view = @.getMainView(@siteProfile)	
+				@view = @getMainView(@siteProfile)	
 
 				# trigger set:active:menu event
 				App.vent.trigger "set:active:menu", 'site-profile'
@@ -23,12 +23,11 @@ define ['app', 'controllers/base-controller'
 				
 				#trigger media manager popup and start listening to "media:manager:choosed:media" event
 				@listenTo @view, "show:media:manager", =>
-						App.navigate "media-manager", trigger : true
-						@listenTo App.vent,"media:manager:choosed:media",(media)=>
-							@view.triggerMethod "set:logo" , media
-							@stopListening App.vent,"media:manager:choosed:media"	
+					App.navigate "media-manager", trigger : true
+					@listenTo App.vent,"media:manager:choosed:media",(media)=>
+						@view.triggerMethod "set:logo" , media
+						@stopListening App.vent,"media:manager:choosed:media"	
 
-			
 
 			saveSiteProfile : (data) ->
 				#console.log data

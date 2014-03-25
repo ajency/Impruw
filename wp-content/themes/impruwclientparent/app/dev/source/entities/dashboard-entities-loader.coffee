@@ -9,5 +9,6 @@ define [
 		'entities/slider'
 		'entities/packages'
 		'entities/tariff'
+		'entities/user'
 		'entities/daterange'
 		],->
