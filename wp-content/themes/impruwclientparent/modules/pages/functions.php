@@ -126,6 +126,10 @@ function get_row_elements($element){
             }
             else{
                 $meta = get_meta_values ($ele);
+                
+                if(!$meta)
+                	continue;
+                
                 $ele = wp_parse_args($meta,$ele);
             }
         }
@@ -136,7 +140,11 @@ function get_row_elements($element){
 
 
 function get_meta_values($element, $create = false){
-    $meta = get_metadata_by_mid('post', $element['meta_id']);
+	$meta = get_metadata_by_mid('post', $element['meta_id']);
+	
+	if(!$meta)
+		return false;
+	
     $ele = maybe_unserialize($meta->meta_value);
     $ele['meta_id'] = $create ? create_new_record($ele) : $element['meta_id'];
     validate_element($ele);
