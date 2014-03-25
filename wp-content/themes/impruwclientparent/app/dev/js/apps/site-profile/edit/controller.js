@@ -30,7 +30,6 @@ define(['app', 'controllers/base-controller', 'apps/site-profile/edit/views', 'e
             });
             return _this.listenTo(App.vent, "media:manager:choosed:media", function(media) {
               _this.view.triggerMethod("set:logo", media);
-              console.log(_this.view);
               return _this.stopListening(App.vent, "media:manager:choosed:media");
             });
           };
