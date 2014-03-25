@@ -18,8 +18,12 @@ define ['app'
 						'click .fileinput-new' : ->
 									@trigger "show:media:manager"
 
+					# show the image
+					onRender:->
+						
 
 					onShow:->
+						#console.log model
 						@$el.find('select').selectpicker()
 
 						# set affix
@@ -30,10 +34,15 @@ define ['app'
 						@$el.find('#form-siteprofile').prepend '<div class="alert alert-warning alert-dismissable">
 							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 							Save successfully</div>'
-						$('html, body').animate({
+						$('html, body').animate
 							scrollTop: 0
-						}, 1000);
+						,1000
 
 					onSetLogo :(media) -> 
-						console.log media
-						#@$el.find().append(media.sizes.full.url)
+						image_id = media.get 'id'
+						media_size= media.get 'sizes'
+						image_path = media_size.full.url
+						console.log image_path
+						#@$el.find('.fileinput-preview ').append '<img src ="" class="site_profile_images"/>'
+						@$el.find('.site_profile_images').attr 'src', image_path
+						@$el.find('#logo_id').attr 'value', image_id

@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
 
 define(["app", 'backbone'], function(App, Backbone) {
   return App.module("Entities.Slider", function(Slider, App, Backbone, Marionette, $, _) {
-    var API, SlideCollection, SlideModel;
+    var API, SlideCollection, SlideModel, sliderCollection;
     Slider.SliderModel = (function(_super) {
       __extends(SliderModel, _super);
 
@@ -82,15 +82,9 @@ define(["app", 'backbone'], function(App, Backbone) {
       return SlideCollection;
 
     })(Backbone.Collection);
+    sliderCollection = new Slider.SliderCollection;
     API = {
-      createStoreCollection: function() {
-        var sliderCollection;
-        sliderCollection = new Slider.SliderCollection;
-        return App.request("set:collection", 'slidercollection', sliderCollection);
-      },
       fetchSliders: function(reset) {
-        var sliderCollection;
-        sliderCollection = App.request("get:collection", 'slidercollection');
         sliderCollection.fetch({
           reset: reset
         });
@@ -106,7 +100,7 @@ define(["app", 'backbone'], function(App, Backbone) {
         return slideCollection;
       },
       getSliderById: function(sliderId) {
-        var slider, sliderCollection;
+        var slider;
         sliderCollection = App.request("get:collection", 'slidercollection');
         slider = sliderCollection.get(parseInt(sliderId));
         if (_.isUndefined(slider)) {
@@ -120,9 +114,8 @@ define(["app", 'backbone'], function(App, Backbone) {
         return slider;
       },
       createNewSlider: function(data) {
-        var slider, sliderCollection;
+        var slider;
         slider = new Slider.SliderModel(data);
-        sliderCollection = App.request("get:collection", 'slidercollection');
         sliderCollection.add(slider);
         return slider;
       },
@@ -132,9 +125,6 @@ define(["app", 'backbone'], function(App, Backbone) {
         return slide;
       }
     };
-    App.commands.setHandler("create:slider:store", function() {
-      return API.createStoreCollection();
-    });
     App.reqres.setHandler("get:sliders", function(shouldReset) {
       if (shouldReset == null) {
         shouldReset = true;

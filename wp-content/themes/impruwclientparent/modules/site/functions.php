@@ -15,9 +15,12 @@ function get_site_details($site_id) {
         'street' => get_option('street',''),
         'postal_code' => get_option('postal_code',''),
         'city' => get_option('city',''),
+    	'logo_id' => get_option('logo_id',0),
         'country' => get_option('country',''),
         'other_emails' => get_option('other_emails',array()),
-        'other_phone_no' => get_option('other_phone_no',array())
+        'other_phone_no' => get_option('other_phone_no',array()),
+        'facebook' => get_option('facebook'),
+        'twitter' => get_option('twitter')
     );
 }
 
@@ -246,7 +249,7 @@ function get_theme_name($site_id){
 }
 
 
-function create_site($formdata){
+function update_site($formdata){
    
    unset($formdata['action']);
    
@@ -254,7 +257,7 @@ function create_site($formdata){
    foreach ($formdata as $key => $value) {
       
       // if the options are email or phone, store them as serailized array
-      if($key == "email" || $key == "phone_number" ){
+      if($key == "other_emails" || $key == "other_phone_no" ){
             $value_array = $formdata[$key];
             update_option( $key, $value_array );
       }
@@ -267,5 +270,18 @@ function create_site($formdata){
       $return_array[$key] = $value;
    }
    return $return_array;
+
+}
+
+/**
+ * Returns the logo id for the site
+ * @return int <mixed, boolean>
+ */
+function get_site_logo_id(){
+
+    // get the logo_id from options
+    $logo_id = get_option('logo_id', 0);
+
+    return $logo_id;
 
 }

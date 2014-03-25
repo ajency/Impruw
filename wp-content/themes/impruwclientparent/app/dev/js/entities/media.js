@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
 
 define(["app", 'backbone'], function(App, Backbone) {
   return App.module("Entities.Media", function(Media, App, Backbone, Marionette, $, _) {
-    var API;
+    var API, mediaCollection;
     Media.MediaModel = (function(_super) {
       __extends(MediaModel, _super);
 
@@ -56,6 +56,10 @@ define(["app", 'backbone'], function(App, Backbone) {
 
       MediaCollection.prototype.model = Media.MediaModel;
 
+      MediaCollection.prototype.url = function() {
+        return "" + AJAXURL + "?action=query_attachments";
+      };
+
       MediaCollection.prototype.parse = function(resp) {
         if (resp.code === 'OK') {
           return resp.data;
@@ -66,17 +70,12 @@ define(["app", 'backbone'], function(App, Backbone) {
       return MediaCollection;
 
     })(Backbone.Collection);
+    mediaCollection = new Media.MediaCollection;
     API = {
       fetchMedia: function(params, reset) {
-        var mediaCollection;
         if (params == null) {
           params = {};
         }
-        mediaCollection = App.request("get:collection", 'mediacollection');
-        if (!mediaCollection) {
-          mediaCollection = new Media.MediaCollection;
-        }
-        mediaCollection.url = "" + AJAXURL + "?action=query_attachments";
         _.defaults(params, mediaCollection.filters);
         mediaCollection.fetch({
           reset: reset,
@@ -84,17 +83,11 @@ define(["app", 'backbone'], function(App, Backbone) {
         });
         return mediaCollection;
       },
-      createStoreCollection: function() {
-        var mediaCollection;
-        mediaCollection = new Media.MediaCollection;
-        return App.request("set:collection", 'mediacollection', mediaCollection);
-      },
       getMediaById: function(mediaId) {
-        var media, mediaCollection;
+        var media;
         if (0 === parseInt(mediaId)) {
           return API.getPlaceHolderMedia();
         }
-        mediaCollection = App.request("get:collection", 'mediacollection');
         media = mediaCollection.get(parseInt(mediaId));
         if (_.isUndefined(media)) {
           media = new Media.MediaModel({
@@ -114,15 +107,12 @@ define(["app", 'backbone'], function(App, Backbone) {
         return media;
       },
       createNewMedia: function(data) {
-        var media, mediaCollection;
+        var media;
         media = new Media.MediaModel(data);
-        mediaCollection = App.request("get:collection", 'mediacollection');
-        return mediaCollection.add(media);
+        mediaCollection.add(media);
+        return media;
       }
     };
-    App.commands.setHandler("create:media:store", function() {
-      return API.createStoreCollection();
-    });
     App.reqres.setHandler("get:empty:media:collection", function() {
       return API.getEmptyMediaCollection();
     });

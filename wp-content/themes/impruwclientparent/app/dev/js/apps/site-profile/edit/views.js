@@ -21,6 +21,8 @@ define(['app', 'text!apps/site-profile/edit/templates/mainview.html', 'text!apps
         }
       };
 
+      MainView.prototype.onRender = function() {};
+
       MainView.prototype.onShow = function() {
         this.$el.find('select').selectpicker();
         this.$el.find('*[data-spy="affix"]').width(this.$el.width());
@@ -35,7 +37,13 @@ define(['app', 'text!apps/site-profile/edit/templates/mainview.html', 'text!apps
       };
 
       MainView.prototype.onSetLogo = function(media) {
-        return console.log(media);
+        var image_id, image_path, media_size;
+        image_id = media.get('id');
+        media_size = media.get('sizes');
+        image_path = media_size.full.url;
+        console.log(image_path);
+        this.$el.find('.site_profile_images').attr('src', image_path);
+        return this.$el.find('#logo_id').attr('value', image_id);
       };
 
       return MainView;

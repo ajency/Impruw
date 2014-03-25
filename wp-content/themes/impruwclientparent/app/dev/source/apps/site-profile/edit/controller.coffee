@@ -6,13 +6,12 @@ define ['app', 'controllers/base-controller'
 		class Edit.Controller extends AppController
 
 			initialize:(options)->
-
 				@siteProfile = App.request "get:site:model"
 
 			
 			showSiteProfile : ()->	
 				
-				@view = @.getMainView(@siteProfile)	
+				@view = @getMainView(@siteProfile)	
 
 				# trigger set:active:menu event
 				App.vent.trigger "set:active:menu", 'site-profile'
@@ -24,19 +23,16 @@ define ['app', 'controllers/base-controller'
 				
 				#trigger media manager popup and start listening to "media:manager:choosed:media" event
 				@listenTo @view, "show:media:manager", =>
-						App.navigate "media-manager", trigger : true
-						@listenTo App.vent,"media:manager:choosed:media",(media)=>
-							@view.triggerMethod "set:logo" , media
-							console.log @view
-							@stopListening App.vent,"media:manager:choosed:media"	
+					App.navigate "media-manager", trigger : true
+					@listenTo App.vent,"media:manager:choosed:media",(media)=>
+						@view.triggerMethod "set:logo" , media
+						@stopListening App.vent,"media:manager:choosed:media"	
 
-			
 
 			saveSiteProfile : (data) ->
-				siteModel = App.request "get:site:model"
 				#console.log data
-				siteModel.set(data)
-				siteModel.save null, 
+				@siteProfile.set(data)
+				@siteProfile.save null, 
 					wait : true
 					success : @siteProfileSuccess 
 
@@ -47,5 +43,3 @@ define ['app', 'controllers/base-controller'
 			
 			siteProfileSuccess : () =>
 					@view.triggerMethod "site:profile:added"
-			
-	App.SiteProfileApp.Edit.Controller		

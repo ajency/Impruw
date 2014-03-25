@@ -59,26 +59,22 @@ define ["app", 'backbone'], (App, Backbone) ->
 			class Menus.MenuCollection extends Backbone.Collection
 				model : Menus.MenuModel
 
+				url : ->
+					AJAXURL + '?action=get-menus'
+
 				getSiteMenus:()->
 					@map (model)->
 						menu_id : model.get 'id'
 						menu_name : model.get 'menu_name'
 
-				
 
+			menuCollection = new Menus.MenuCollection
+				
 			# API 
 			API = 
 				# get all site menus
 				getMenus:(param = {})->
-
-					menuCollection = App.request "get:collection", 'menucollection'
-
-					if not menuCollection
-						menuCollection = new Menus.MenuCollection
-						# save menu collection
-						App.request "set:collection", 'menucollection', menuCollection
-						menuCollection.url = AJAXURL + '?action=get-menus'
-						menuCollection.fetch
+					menuCollection.fetch
 								reset : true
 								data  : param
 
@@ -132,16 +128,8 @@ define ["app", 'backbone'], (App, Backbone) ->
 					menuitem.save()
 					menuitem
 
-				# create a empty collection of media and store it in offline store
-				createStoreCollection:->
-					menuCollection = new Menus.MenuCollection
-					App.request "set:collection", 'menucollection', menuCollection
-
 				getMenuById:(menuId)->
-					# check if present
-					menuCollection = App.request "get:collection", 'menucollection'
 					menu = menuCollection.get parseInt menuId
-
 					if _.isUndefined menu
 						menu = new Menus.MenuModel id : menuId
 						menu.url = "#{AJAXURL}?action=get-menu&id=#{menuId}" 
@@ -150,9 +138,6 @@ define ["app", 'backbone'], (App, Backbone) ->
 
 					menu
 
-
-			App.commands.setHandler "create:menu:store", ->
-				API.createStoreCollection()
 
 			App.reqres.setHandler "get:menu:by:id",(menuId)->
 				API.getMenuById menuId

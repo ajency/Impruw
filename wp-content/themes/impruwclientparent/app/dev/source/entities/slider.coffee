@@ -47,18 +47,15 @@ define ["app", 'backbone'], (App, Backbone) ->
 								options.success() if options.success
 								@trigger "slides:order:updated" 
 							,'json'
+
+
+			sliderCollection = new Slider.SliderCollection
 			
 				
 			##PUBLIC API FOR ENitity
 			API =
-				# create a empty collection of media and store it in offline store
-				createStoreCollection:->
-					sliderCollection = new Slider.SliderCollection
-					App.request "set:collection", 'slidercollection', sliderCollection
-					
 				# 
 				fetchSliders:(reset)->
-					sliderCollection = App.request "get:collection", 'slidercollection'
 					sliderCollection.fetch 
 										reset : reset 
 					sliderCollection
@@ -87,7 +84,6 @@ define ["app", 'backbone'], (App, Backbone) ->
 
 				createNewSlider:(data)->
 					slider = new Slider.SliderModel data
-					sliderCollection = App.request "get:collection", 'slidercollection'
 					sliderCollection.add slider
 					slider
 
@@ -97,8 +93,6 @@ define ["app", 'backbone'], (App, Backbone) ->
 
 
 			#REQUEST HANDLERS
-			App.commands.setHandler "create:slider:store", ->
-				API.createStoreCollection()
 
 			App.reqres.setHandler "get:sliders",(shouldReset = true) ->
 				API.fetchSliders shouldReset

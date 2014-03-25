@@ -21,11 +21,34 @@ define(["app", 'backbone'], function(App, Backbone) {
     siteModel = new SiteModel;
     API = {
       getSiteModel: function() {
+        siteModel;
+        siteModel.fetch();
         return siteModel;
-      }
+      },
+      getSiteSocial: function() {
+        return new Backbone.Collection([
+          {
+            sociallink: '#facebook',
+            socialname: 'facebook'
+          }, {
+            sociallink: '#twitter',
+            socialname: 'twitter'
+          }, {
+            sociallink: '#youtube',
+            socialname: 'youtube'
+          }
+        ]);
+      },
+      getSiteProfile: function() {}
     };
-    return App.reqres.setHandler("get:site:model", function() {
+    App.reqres.setHandler("get:site:model", function() {
       return API.getSiteModel();
+    });
+    App.reqres.setHandler("get:site:social", function() {
+      return API.getSiteSocial();
+    });
+    return App.reqres.setHandler("get:site:profile", function() {
+      return API.getSiteProfile();
     });
   });
 });

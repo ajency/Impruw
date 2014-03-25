@@ -54,23 +54,14 @@ define ['marionette'], (Marionette)->
 
 	App.on "initialize:after", (options) ->
 
-		# create required empty stores
-		App.execute "create:media:store"
-		App.execute "create:menu:store"
-		App.execute "create:social:store"
-		App.execute "create:slider:store"
-
 		# create a global site model
-		site = App.request "get:site:model"
+		user = App.request "get:user:model"
 
-		appState = App.request "get:current:appstate"
-		App.startHistory()
-		if appState.isLoggedIn()
-
+		App.execute "when:fetched", user, =>
+			jQuery('#initial-loader').remove()
+			App.startHistory()
 			@rootRoute = if ISTHEMESELECTED is 1 then '' else 'choose-theme'
-
 			App.navigate(@rootRoute, trigger: true) unless @getCurrentRoute()
-		else
-			App.navigate(@loginRoute, trigger : true)
+		
 
 	App

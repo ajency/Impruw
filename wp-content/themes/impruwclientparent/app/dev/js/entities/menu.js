@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
 
 define(["app", 'backbone'], function(App, Backbone) {
   App.module("Entities.Menus", function(Menus, App, Backbone, Marionette, $, _) {
-    var API;
+    var API, menuCollection;
     Menus.MenuItemModel = (function(_super) {
       __extends(MenuItemModel, _super);
 
@@ -103,6 +103,10 @@ define(["app", 'backbone'], function(App, Backbone) {
 
       MenuCollection.prototype.model = Menus.MenuModel;
 
+      MenuCollection.prototype.url = function() {
+        return AJAXURL + '?action=get-menus';
+      };
+
       MenuCollection.prototype.getSiteMenus = function() {
         return this.map(function(model) {
           return {
@@ -115,22 +119,16 @@ define(["app", 'backbone'], function(App, Backbone) {
       return MenuCollection;
 
     })(Backbone.Collection);
+    menuCollection = new Menus.MenuCollection;
     API = {
       getMenus: function(param) {
-        var menuCollection;
         if (param == null) {
           param = {};
         }
-        menuCollection = App.request("get:collection", 'menucollection');
-        if (!menuCollection) {
-          menuCollection = new Menus.MenuCollection;
-          App.request("set:collection", 'menucollection', menuCollection);
-          menuCollection.url = AJAXURL + '?action=get-menus';
-          menuCollection.fetch({
-            reset: true,
-            data: param
-          });
-        }
+        menuCollection.fetch({
+          reset: true,
+          data: param
+        });
         return menuCollection;
       },
       getMenuItems: function(menuId) {
@@ -187,14 +185,8 @@ define(["app", 'backbone'], function(App, Backbone) {
         menuitem.save();
         return menuitem;
       },
-      createStoreCollection: function() {
-        var menuCollection;
-        menuCollection = new Menus.MenuCollection;
-        return App.request("set:collection", 'menucollection', menuCollection);
-      },
       getMenuById: function(menuId) {
-        var menu, menuCollection;
-        menuCollection = App.request("get:collection", 'menucollection');
+        var menu;
         menu = menuCollection.get(parseInt(menuId));
         if (_.isUndefined(menu)) {
           menu = new Menus.MenuModel({
@@ -207,9 +199,6 @@ define(["app", 'backbone'], function(App, Backbone) {
         return menu;
       }
     };
-    App.commands.setHandler("create:menu:store", function() {
-      return API.createStoreCollection();
-    });
     App.reqres.setHandler("get:menu:by:id", function(menuId) {
       return API.getMenuById(menuId);
     });

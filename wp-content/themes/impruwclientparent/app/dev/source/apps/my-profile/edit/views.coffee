@@ -17,22 +17,46 @@ define ['app'
 						generalFormRegion : '#user-general-form'
 						passwordFormRegion: '#form-userpass'
 
+					events : 
+						'click #btn_update_language' :(e)->
+							data = $(e.target).closest('form').find('select').val()
+							@trigger "update:user:language", 'user_language' : data
+
+					# set the flatui checkbox radio and bootstrap select ui 
+					onShow : ->
+						@$el.find('input[type="checkbox"]').checkbox()
+						@$el.find('select').selectpicker()
+
+				# Genral form
+				class View.GeneralForm extends Marionette.ItemView
+
+					tagName : 'form'
+
+					template : generalformTpl
+
+					className : 'form-horizontal'
+
 					# set the flatui checkbox radio and bootstrap select ui 
 					onRender : ->
 						@$el.find('input[type="checkbox"]').checkbox()
-						@$el.find('input[type="radio"]').radio()
-						@$el.find('select').selectpicker 
-												style: 'btn-mini btn-default',
-												menuStyle: 'dropdown'
 
-				# Genral form
-				class View.GeneralForm extends Marionette.FormView
-					template : generalformTpl
-
+					events:
+						'click #btn-update-info' : (e)->
+							if @$el.valid()
+								data = Backbone.Syphon.serialize @
+								@trigger "update:user:info", data
 
 				# Password form
-				class View.PasswordForm extends Marionette.FormView
+				class View.PasswordForm extends Marionette.ItemView
+
+					tagName : 'form'
+
 					template : passwordformTpl
 
+					className : 'form-horizontal'
 
-			App.MyProfileApp.Edit.View
+					events:
+						'click #btn-update-password' : (e)->
+							if @$el.valid()
+								data = Backbone.Syphon.serialize @
+								@trigger "update:user:password", data

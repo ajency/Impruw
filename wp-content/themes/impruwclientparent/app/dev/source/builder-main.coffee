@@ -97,5 +97,4 @@ require [   'pluginloader'
 			'componentloader'
 			'appsloader'], (plugins, configs, App)->
 
-				jQuery('#initial-loader').remove()
 				App.start()

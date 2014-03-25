@@ -35,7 +35,11 @@ define(['app', 'apps/builder/site-builder/elements/logo/views', 'apps/builder/si
       Controller.prototype.renderElement = function() {
         var imageModel;
         this.removeSpinner();
-        imageModel = App.request("get:media:by:id", this.layout.model.get('image_id'));
+        if (this.layout.model.get('image_id') !== 0) {
+          imageModel = App.request("get:media:by:id", this.layout.model.get('image_id'));
+        } else {
+          imageModel = new Backbone.Model;
+        }
         return App.execute("when:fetched", imageModel, (function(_this) {
           return function() {
             var view;

@@ -12,13 +12,17 @@ define(['app', 'controllers/base-controller', 'apps/my-profile/edit/views', 'ent
 
       Controller.prototype.initialize = function() {
         this.layout = this.getLayout();
-        this.show(this.layout);
-        this.layout.generalFormRegion.show(this.getGeneralFormView());
-        this.layout.passwordFormRegion.show(this.getPasswordFormView());
+        this.listenTo(this.layout, "show", (function(_this) {
+          return function() {
+            _this.layout.generalFormRegion.show(_this.getGeneralFormView());
+            return _this.layout.passwordFormRegion.show(_this.getPasswordFormView());
+          };
+        })(this));
         this.on("itemview:generalform:submit:clicked", function() {
           return console.log("general form submitted");
         });
-        return App.vent.trigger("set:active:menu", 'my-profile');
+        App.vent.trigger("set:active:menu", 'my-profile');
+        return this.show(this.layout);
       };
 
       Controller.prototype.getLayout = function() {
