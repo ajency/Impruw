@@ -21,6 +21,8 @@ define(["app", 'backbone'], function(App, Backbone) {
     siteModel = new SiteModel;
     API = {
       getSiteModel: function() {
+        siteModel;
+        siteModel.fetch();
         return siteModel;
       },
       getSiteSocial: function() {

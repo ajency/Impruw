@@ -12,20 +12,21 @@ define ['app', 'controllers/base-controller'
 
 				@layout = @getLayout()
 
-				# show main layout
-				@show @layout
-
-				# show general form view
-				@layout.generalFormRegion.show @getGeneralFormView()
-
-				# show password field view
-				@layout.passwordFormRegion.show @getPasswordFormView()
+				@listenTo @layout, "show", =>
+					# show general form view
+					@layout.generalFormRegion.show @getGeneralFormView()
+					# show password field view
+					@layout.passwordFormRegion.show @getPasswordFormView()
+					
 
 				@on "itemview:generalform:submit:clicked", ->
 						console.log "general form submitted"
 
 				# trigger set:active:menu event
 				App.vent.trigger "set:active:menu", 'my-profile'
+
+				# show main layout
+				@show @layout
 
 				
 			# get layout
