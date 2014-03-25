@@ -57,13 +57,13 @@ define ['app', 'controllers/base-controller'
 								App.request "add:new:element",container,element.element, element
 
 						section = @view.model.get('page')
-						if _.isArray section
-							container = @_getContainer 'page'
-							_.each section, (element, i)=>
-								if element.element is 'Row'
-									@addNestedElements container,element
-								else
-									App.request "add:new:element",container,element.element, element
+						container = @_getContainer 'page'
+						_.each section, (element, i)=>
+							return if not _.isObject element
+							if element.element is 'Row'
+								@addNestedElements container,element
+							else
+								App.request "add:new:element",container,element.element, element
 
 						section = @view.model.get('footer')
 						container = @_getContainer 'footer'
