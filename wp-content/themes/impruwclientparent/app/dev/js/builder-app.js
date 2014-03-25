@@ -44,10 +44,6 @@ define(['marionette'], function(Marionette) {
   });
   App.on("initialize:after", function(options) {
     var user;
-    App.execute("create:media:store");
-    App.execute("create:menu:store");
-    App.execute("create:social:store");
-    App.execute("create:slider:store");
     user = App.request("get:user:model");
     return App.execute("when:fetched", user, (function(_this) {
       return function() {

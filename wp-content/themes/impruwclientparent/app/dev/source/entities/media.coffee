@@ -35,21 +35,21 @@ define ["app", 'backbone'], (App, Backbone) ->
 				
 				model : Media.MediaModel
 
+				url:->
+					"#{AJAXURL}?action=query_attachments"
+
 				parse:(resp)->
 					return resp.data if resp.code is 'OK'
 					resp
+
+
+			# intiate the collection
+			mediaCollection = new Media.MediaCollection
 
 				
 			##PUBLIC API FOR ENitity
 			API =
 				fetchMedia: (params ={}, reset)->
-					
-					mediaCollection = App.request "get:collection", 'mediacollection'
-					
-					if not mediaCollection
-						mediaCollection = new Media.MediaCollection
-					
-					mediaCollection.url = "#{AJAXURL}?action=query_attachments"
 					
 					_.defaults params,mediaCollection.filters 
 
@@ -59,18 +59,11 @@ define ["app", 'backbone'], (App, Backbone) ->
 							 
 					mediaCollection
 
-				# create a empty collection of media and store it in offline store
-				createStoreCollection:->
-					mediaCollection = new Media.MediaCollection
-					App.request "set:collection", 'mediacollection', mediaCollection
-
 				#get a media 
 				getMediaById:(mediaId)->
 
 					return API.getPlaceHolderMedia() if 0 is parseInt mediaId 
 
-					# check if present
-					mediaCollection = App.request "get:collection", 'mediacollection'
 					media = mediaCollection.get parseInt mediaId
 
 					if _.isUndefined media
@@ -91,14 +84,11 @@ define ["app", 'backbone'], (App, Backbone) ->
 
 				createNewMedia:(data)->
 					media = new Media.MediaModel data
-					mediaCollection = App.request "get:collection", 'mediacollection'
 					mediaCollection.add media
+					media
 
 
 			#REQUEST HANDLERS
-			App.commands.setHandler "create:media:store", ->
-				API.createStoreCollection()
-
 			App.reqres.setHandler "get:empty:media:collection",->
 				API.getEmptyMediaCollection()
 			
