@@ -38,13 +38,17 @@ define(["app", 'backbone'], function(App, Backbone) {
             socialname: 'youtube'
           }
         ]);
-      }
+      },
+      getSiteProfile: function() {}
     };
     App.reqres.setHandler("get:site:model", function() {
       return API.getSiteModel();
     });
-    return App.reqres.setHandler("get:site:social", function() {
+    App.reqres.setHandler("get:site:social", function() {
       return API.getSiteSocial();
+    });
+    return App.reqres.setHandler("get:site:profile", function() {
+      return API.getSiteProfile();
     });
   });
 });
