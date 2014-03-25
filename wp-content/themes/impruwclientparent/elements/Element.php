@@ -85,11 +85,15 @@ class Element {
      * @var String 
      */
     var $data  =  array();
+    
+    var $style_class = '';
 
     /**
      * Parent class constructor
      */
     function __construct($element){
+    	
+    	$this->style_class = sanitize_title($element['style']);
 
         $this->margins = $this->get_margin_classes($element);
         
@@ -164,7 +168,7 @@ class Element {
      */
     function get_open_tag($args = array()){
         
-        $html       = "<{$this->tag_name}  class='{$this->get_classes()}'$attr>";
+        $html       = "<{$this->tag_name}  class='{$this->get_classes()}'>";
         
         return $html;
     }
@@ -186,7 +190,7 @@ class Element {
      */
     function get_classes(){
         
-        return $this->class_name . ' ' . $this->extra_classes;
+        return $this->class_name . ' ' . $this->style_class;
         
     }
 

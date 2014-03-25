@@ -35,7 +35,7 @@ class MapElement extends Element {
      * Empty string by default
      * @var String 
      */
-    var $class_name  = '';
+    var $class_name  = 'map';
     
     
     
@@ -75,7 +75,7 @@ class MapElement extends Element {
         ob_start();
         ?> 
         <!-- Google maps API -->
-        <div id="map_canvas"></div>
+        <div id="map_canvas" style="height: 300px;"></div>
         <?php
         $html = ob_get_clean();
 

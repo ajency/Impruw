@@ -35,7 +35,7 @@ class ContactFormElement extends Element {
      * Empty string by default
      * @var String 
      */
-    var $class_name  = '';
+    var $class_name  = 'contactform';
     
     
     
@@ -43,9 +43,11 @@ class ContactFormElement extends Element {
      * The config to create a row element
      * @param array $config
      */
-    function __construct($config) {
+    function __construct($element) {
         
-        parent::__construct($config);
+        parent::__construct($element);
+        
+        $this->style_class = sanitize_title($element['style']);
         
         $this->markup           = $this->generate_markup();
     }
