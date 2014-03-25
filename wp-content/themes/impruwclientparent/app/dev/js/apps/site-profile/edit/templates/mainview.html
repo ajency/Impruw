@@ -30,7 +30,7 @@
                                 <!--<span class="fileinput-new">Select image</span> -->
                                 <span class="fileinput-exists">Change</span>
                                 <input type="file" >
-                                <input type="text" name="logo_id" id="logo_id">
+                                <input type="text" name="logo_id" id="logo_id" value="{{logo_id}}">
                             </span>
                             <a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput">Remove</a>
                           </div>
@@ -67,7 +67,7 @@
                         <div class="form-group">
                             <label for="inputAddress2" class="col-sm-5 control-label">Postal Code</label>
                             <div class="col-sm-7 col-sm-offset-5">
-                                <input type="text" class="form-control" name="postal_code" id="inputAddress2" data-mask="999-999" placeholder="420-001">
+                                <input type="text" class="form-control" name="postal_code" id="inputAddress2" data-mask="999-999" placeholder="420-001" value="{{postal_code}}">
                             </div>
                         </div>
                     </div>
@@ -76,7 +76,7 @@
                         <div class="form-group">
                             <label for="inputAddress3" class="col-sm-5 control-label">City / Town</label>
                             <div class="col-sm-7 col-sm-offset-5">
-                                <input type="text" class="form-control" id="inputAddress2" placeholder="Gotham City" name="city">
+                                <input type="text" class="form-control" id="inputAddress2" placeholder="Gotham City" name="city" value="{{city}}">
                             </div>
                         </div>
                     </div>
@@ -98,13 +98,13 @@
                 <div class="form-group add-another">
                     <label for="inputEmail1" class="col-sm-2 control-label">Email</label>
                     <div class="col-sm-4 col-sm-offset-2">
-                        <input type="email" class="form-control" id="inputEmail1" placeholder="youremail@site.com" name="email[]">
+                        <input type="email" class="form-control" id="inputEmail1" placeholder="youremail@site.com" name="other_emails[]" value="{{other_emails}}">
                         <span class="help-block add-another-link"><a href="#"><span class="glyphicon glyphicon-plus-sign"></span> Add Another</a></span>
                     </div>                              
                 
                     <label for="inputPhone1" class="col-sm-2 control-label label-2">Phone</label>
                     <div class="col-sm-4 col-sm-offset-2">
-                        <input type="text" class="form-control" id="inputEmail1" data-mask="99-999-999" placeholder="99-888-777" name="phone_number[]">
+                        <input type="text" class="form-control" id="inputEmail1" data-mask="99-999-999" placeholder="99-888-777" name="other_phone_no[]" value="{{other_phone_no}}">
                         <span class="help-block add-another-link"><a href="#"><span class="glyphicon glyphicon-plus-sign"></span> Add Another</a></span>
                     </div>
                 </div>
@@ -133,7 +133,7 @@
                     <div class="col-sm-10 col-sm-offset-2">
                         <div class="input-group">
                             <span class="input-group-addon">www.facebook.com/</span>
-                            <input type="text" class="form-control" id="inputSocial1" placeholder="yourpageurl" name="facebook">
+                            <input type="text" class="form-control" id="inputSocial1" placeholder="yourpageurl" name="facebook" value="{{facebook}}">
                         </div>
                     </div>
                 </div>
@@ -143,7 +143,7 @@
                     <div class="col-sm-10 col-sm-offset-2">
                         <div class="input-group">
                             <span class="input-group-addon">www.twitter.com/</span>
-                            <input type="text" class="form-control" id="inputSocial2" placeholder="Twitter" name="twitter">
+                            <input type="text" class="form-control" id="inputSocial2" placeholder="Twitter" name="twitter" value ="{{twitter}}">
                         </div>
                     </div>
                 </div>

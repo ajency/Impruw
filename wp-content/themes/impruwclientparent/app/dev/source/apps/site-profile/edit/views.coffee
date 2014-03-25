@@ -25,7 +25,6 @@ define ['app'
 					onShow:->
 						#console.log model
 						@$el.find('select').selectpicker()
-						@$el.find('#inputAddress1').val 'hiii'
 
 						# set affix
 						@$el.find('*[data-spy="affix"]').width @$el.width()
