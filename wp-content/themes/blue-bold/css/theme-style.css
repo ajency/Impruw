@@ -149,11 +149,9 @@ and open the template in the editor.
 }
 .site-style-container .row.grey-background {
   background: #f2f2f2;
-  min-height: 100px;
 }
 .site-style-container .row.footer-container {
   background: #555555;
-  min-height: 100px;
 }
 .site-style-container .row.column-dividers .column {
   border-right: 1px solid #888888;
@@ -788,7 +786,6 @@ and open the template in the editor.
 .row.blue-strip-top {
   border-top: 5px solid #07669e;
   background: #f2f2f2;
-  min-height: 100px;
 }
 .row.white-shaded-background {
   padding: 1em 15px;

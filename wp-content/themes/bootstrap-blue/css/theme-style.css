@@ -149,11 +149,9 @@ and open the template in the editor.
 }
 .site-style-container .row.grey-background {
   background: #e1e1e1;
-  min-height: 100px;
 }
 .site-style-container .row.footer-container {
   background: #656565;
-  min-height: 100px;
 }
 .site-style-container .row.column-dividers .column {
   border-right: 1px solid #989898;
@@ -784,12 +782,10 @@ and open the template in the editor.
 */
 .row.green-background {
   background: #5ca9a1;
-  min-height: 100px;
 }
 .row.grey-background {
   background: #656565 !important;
   color: #fff;
-  min-height: 100px;
 }
 .row.grey-background .text {
   color: #fff;
