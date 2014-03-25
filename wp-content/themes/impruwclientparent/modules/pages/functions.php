@@ -111,10 +111,8 @@ function get_json_to_clone($section, $page_id = 0){
             }
             else{
                 $meta = get_meta_values ($element);
-                if(!$meta)
-                	continue;
-                
-                $d[] = $meta;
+                if($meta !== false)
+	                $d[] = $meta;
             }
         }
     }
@@ -131,11 +129,8 @@ function get_row_elements($element){
             }
             else{
                 $meta = get_meta_values ($ele);
-                
-                if(!$meta)
-                	continue;
-                
-                $ele = wp_parse_args($meta,$ele);
+                if($meta !== false)
+                	$ele = wp_parse_args($meta,$ele);
             }
         }
         
