@@ -29,7 +29,11 @@ define ['app','apps/builder/site-builder/elements/logo/views','apps/builder/site
 					renderElement:()=>
 						@removeSpinner()
 						# get logo attachment
-						imageModel = App.request "get:media:by:id",@layout.model.get 'image_id'
+						if @layout.model.get('image_id') isnt 0
+							imageModel = App.request "get:media:by:id",@layout.model.get 'image_id'
+						else
+							imageModel = new Backbone.Model
+
 						App.execute "when:fetched", imageModel, =>
 							view = @_getLogoView imageModel
 							@listenTo view, "show:media:manager", ->

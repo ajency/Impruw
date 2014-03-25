@@ -269,3 +269,12 @@ function update_site($formdata){
    return $return_array;
 
 }
+
+function get_site_logo_id(){
+
+    // get the logo_id from options
+    $logo_id = get_option('logo_id', 0);
+
+    return $logo_id;
+
+}
