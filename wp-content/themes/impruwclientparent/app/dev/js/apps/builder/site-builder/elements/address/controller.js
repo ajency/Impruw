@@ -40,7 +40,6 @@ define(['app', 'apps/builder/site-builder/elements/address/views', 'apps/builder
         this.removeSpinner();
         template = this._getElementTemplate(this.layout.model);
         view = this._getAddressView(this.layout.model, template);
-        console.log(view);
         return this.layout.elementRegion.show(view);
       };
 

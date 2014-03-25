@@ -14,6 +14,12 @@ define(['app', 'holder'], function(App, Holder) {
 
       AddressView.prototype.className = 'address';
 
+      AddressView.prototype.onRender = function() {
+        var className;
+        className = _.slugify(this.model.get('style'));
+        return this.$el.addClass(className);
+      };
+
       return AddressView;
 
     })(Marionette.ItemView);
