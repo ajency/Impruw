@@ -1,0 +1,41 @@
+/****Link Element Styles****/
+.link {
+	display: inline-block;
+	margin: 0 0.5em 0.5em 0;
+	&.button {
+		a {
+			background: #fff;
+			color: @primary1;
+			display: inline-block;
+			padding: 0.3em 0.5em 0.2em;
+			margin: 1em 0;
+			font-size: 1.2em;
+			font-weight: 400;
+			&:hover {
+				text-decoration: none;
+				background: @primary1;
+				color: #fff;
+				.backTrans;
+			}
+		}
+	}
+	&.header-button {
+		text-align: right;
+		display: block;
+		a {
+			background: #fff;
+			color: @primary1;
+			display: inline-block;
+			padding: 0.4em 0.7em 0.3em;
+			margin: 1em 0;
+			font-size: 1.2em;
+			font-weight: 400;
+			&:hover {
+				text-decoration: none;
+				background: @secondary1;
+				color: #fff;
+				.backTrans;
+			}
+		}
+	}
+}
