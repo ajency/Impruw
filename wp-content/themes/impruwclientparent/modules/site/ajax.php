@@ -50,4 +50,4 @@ function update_site_ajax(){
 
     wp_send_json(array('code' => 'OK','data'=>$form_data));
 }
-add_action('wp_ajax_create-site','update_site_ajax');
+add_action('wp_ajax_update-site','update_site_ajax');

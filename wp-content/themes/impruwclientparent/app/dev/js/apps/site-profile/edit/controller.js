@@ -3,7 +3,7 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 define(['app', 'controllers/base-controller', 'apps/site-profile/edit/views', 'entities/site'], function(App, AppController) {
-  App.module('SiteProfileApp.Edit', function(Edit, App, Backbone, Marionette, $, _) {
+  return App.module('SiteProfileApp.Edit', function(Edit, App, Backbone, Marionette, $, _) {
     return Edit.Controller = (function(_super) {
       __extends(Controller, _super);
 
@@ -37,10 +37,8 @@ define(['app', 'controllers/base-controller', 'apps/site-profile/edit/views', 'e
       };
 
       Controller.prototype.saveSiteProfile = function(data) {
-        var siteModel;
-        siteModel = App.request("get:site:model");
-        siteModel.set(data);
-        return siteModel.save(null, {
+        this.siteProfile.set(data);
+        return this.siteProfile.save(null, {
           wait: true,
           success: this.siteProfileSuccess
         });
@@ -60,5 +58,4 @@ define(['app', 'controllers/base-controller', 'apps/site-profile/edit/views', 'e
 
     })(AppController);
   });
-  return App.SiteProfileApp.Edit.Controller;
 });
