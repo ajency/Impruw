@@ -55,6 +55,10 @@ define(['app', 'text!apps/builder/header/show/templates/mainview.html'], functio
         });
       };
 
+      MainView.prototype.getHomePageId = function() {
+        return this.$el.find('select#aj-imp-page-sel');
+      };
+
       return MainView;
 
     })(Marionette.CompositeView);

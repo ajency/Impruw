@@ -95,7 +95,7 @@ define ['app', 'controllers/base-controller'
 						
 						view = new Show.View.MainView
 
-						@listenTo view, 'render',(view)=>
+						@listenTo view, 'show',(view)=>
 							# added delay so that the html is fully rendered
 							_.delay =>
 								# add new region to application

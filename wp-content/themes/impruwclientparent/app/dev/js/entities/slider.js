@@ -101,7 +101,6 @@ define(["app", 'backbone'], function(App, Backbone) {
       },
       getSliderById: function(sliderId) {
         var slider;
-        sliderCollection = App.request("get:collection", 'slidercollection');
         slider = sliderCollection.get(parseInt(sliderId));
         if (_.isUndefined(slider)) {
           slider = new Slider.SliderModel({

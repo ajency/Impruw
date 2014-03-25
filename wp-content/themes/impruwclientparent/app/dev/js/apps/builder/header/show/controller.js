@@ -2,7 +2,7 @@ var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 define(['app', 'controllers/base-controller', 'apps/builder/header/show/views'], function(App, AppController) {
-  App.module('HeaderApp.Show', function(Show, App, Backbone, Marionette, $, _) {
+  return App.module('HeaderApp.Show', function(Show, App, Backbone, Marionette, $, _) {
     return Show.Controller = (function(_super) {
       __extends(Controller, _super);
 
@@ -16,7 +16,7 @@ define(['app', 'controllers/base-controller', 'apps/builder/header/show/views'],
           opt = {};
         }
         pages = App.request("get:editable:pages");
-        view = new Show.Views.MainView({
+        this.view = view = new Show.Views.MainView({
           collection: pages
         });
         this.listenTo(view, "add:new:page:clicked", function() {
@@ -33,9 +33,12 @@ define(['app', 'controllers/base-controller', 'apps/builder/header/show/views'],
         });
       };
 
+      Controller.prototype.getHomePageId = function() {
+        return this.view.getHomePageId();
+      };
+
       return Controller;
 
     })(AppController);
   });
-  return App.HeaderApp.Show.Controller;
 });

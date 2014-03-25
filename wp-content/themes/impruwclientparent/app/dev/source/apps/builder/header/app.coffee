@@ -2,19 +2,19 @@ define ['app','apps/builder/header/show/controller'], (App)->
 
 	App.module 'HeaderApp', (HeaderApp, App, Backbone, Marionette, $, _)->
 
-		#@startWithParent = false
+		headerController = null
 
 		#PUBLIC API
 		API = 
 			# show the header region
 			show : ()->
-				new HeaderApp.Show.Controller
-								region : App.headerRegion
+				headerController = new HeaderApp.Show.Controller
+											region : App.headerRegion
 
 			# get the currently editable page ID
 			getCurrentPageId : ->
-				$.cookie 'current-page-id'
-
+				page_id = if isNaN($.cookie('current-page-id')) then headerController.getHomePageId() else $.cookie('current-page-id') 
+				page_id
 
 		# return the current ediatble page ID
 		App.reqres.setHandler "get:current:editable:page", ->

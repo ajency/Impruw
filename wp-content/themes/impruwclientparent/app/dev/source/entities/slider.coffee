@@ -71,9 +71,7 @@ define ["app", 'backbone'], (App, Backbone) ->
 				#get a media 
 				getSliderById:(sliderId)->
 					# check if present
-					sliderCollection = App.request "get:collection", 'slidercollection'
 					slider = sliderCollection.get parseInt sliderId
-
 					if _.isUndefined slider
 						slider = new Slider.SliderModel id : sliderId
 						slider.url = "#{AJAXURL}?action=get-slider&id=#{sliderId}" 
