@@ -41,6 +41,12 @@ $element_templates = array(
                 ),
                 array(
                     'name'      => 'White Title'
+                ),
+                array(
+                    'name'      => 'Center Title'
+                ),
+                array(
+                    'name'      => 'Small Grey Title'
                 )
               ),
     'Row' => array(

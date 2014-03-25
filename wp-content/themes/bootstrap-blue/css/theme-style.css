@@ -876,6 +876,15 @@ and open the template in the editor.
   font-weight: 400;
   text-align: right;
 }
+.title.center-title {
+  font-size: 1.4em;
+  text-align: center;
+}
+.title.small-grey-title {
+  font-size: 1.2em;
+  text-align: center;
+  font-weight: 400;
+}
 /****Address Element Styles****/
 .address ul li {
   color: #989898;
