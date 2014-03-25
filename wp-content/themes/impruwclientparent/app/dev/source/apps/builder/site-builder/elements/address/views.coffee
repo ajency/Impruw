@@ -14,3 +14,7 @@ define ['app', 'holder'],(App, Holder)->
 			template : 'test'
 
 			className : 'address'
+
+			onRender:->
+				className = _.slugify @model.get 'style'
+				@$el.addClass className

@@ -13,8 +13,10 @@ define ['app','apps/builder/header/show/controller'], (App)->
 
 			# get the currently editable page ID
 			getCurrentPageId : ->
-				page_id = if isNaN($.cookie('current-page-id')) then headerController.getHomePageId() else $.cookie('current-page-id') 
+				page_id = if isNaN($.cookie('current-page-id')) then headerController.setHomePage() else $.cookie('current-page-id') 
 				page_id
+
+				$.cookie('current-page-id')
 
 		# return the current ediatble page ID
 		App.reqres.setHandler "get:current:editable:page", ->

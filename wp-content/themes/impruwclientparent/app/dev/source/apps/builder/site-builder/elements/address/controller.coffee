@@ -37,5 +37,4 @@ define ['app'
 						# get the address element template
 						template = @_getElementTemplate @layout.model
 						view = @_getAddressView @layout.model, template
-						console.log view
 						@layout.elementRegion.show view
