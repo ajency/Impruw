@@ -61,7 +61,6 @@ class ContactFormElement extends Element {
         
         ob_start(); ?>
 
-        <div class="infoPoint text-center">Send us a Message</div>
         <form id="contactForm" method="" action="">
             <fieldset>
                 <div class="row">
