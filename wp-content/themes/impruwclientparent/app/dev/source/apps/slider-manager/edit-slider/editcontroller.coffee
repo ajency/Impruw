@@ -13,7 +13,7 @@ define ['app'
 						{@sliderId} = opt
 
 						slider = App.request "get:slider:by:id" , @sliderId
-						console.log slider
+						
 						@layout = layout = @_getEditLayout()
 
 						@listenTo layout, "cancel:edit:slider", =>

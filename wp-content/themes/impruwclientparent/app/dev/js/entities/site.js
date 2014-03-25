@@ -22,10 +22,20 @@ define(["app", 'backbone'], function(App, Backbone) {
     API = {
       getSiteModel: function() {
         return siteModel;
+      },
+      getSiteSocial: function() {
+        return {
+          facebook: '#facbook',
+          twitter: '#twitter',
+          youtube: '#youtube'
+        };
       }
     };
-    return App.reqres.setHandler("get:site:model", function() {
+    App.reqres.setHandler("get:site:model", function() {
       return API.getSiteModel();
+    });
+    return App.reqres.setHandler("get:site:social", function() {
+      return API.getSiteSocial();
     });
   });
 });

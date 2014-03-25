@@ -13,11 +13,21 @@ define ["app", 'backbone'], (App, Backbone) ->
             siteModel = new SiteModel
 
 
-            #PUBLIC API FOR ENitity
+            # PUBLIC API FOR ENitity
             API =
+                # get site model
                 getSiteModel: ()->
                     siteModel
 
-            #REQUEST HANDLERS
+                # get site social
+                getSiteSocial:->
+                    facebook : '#facbook'
+                    twitter  : '#twitter'
+                    youtube  : '#youtube'   
+
+            # REQUEST HANDLERS
             App.reqres.setHandler "get:site:model", ->
                 API.getSiteModel()
+
+            App.reqres.setHandler "get:site:social", ->
+                API.getSiteSocial()
