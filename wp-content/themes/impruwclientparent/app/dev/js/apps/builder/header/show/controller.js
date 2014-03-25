@@ -33,9 +33,7 @@ define(['app', 'controllers/base-controller', 'apps/builder/header/show/views'],
         });
       };
 
-      Controller.prototype.getHomePageId = function() {
-        return this.view.getHomePageId();
-      };
+      Controller.prototype.setHomePage = function() {};
 
       return Controller;
 

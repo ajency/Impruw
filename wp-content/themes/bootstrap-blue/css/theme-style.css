@@ -143,20 +143,15 @@ and open the template in the editor.
     Created on : 20 Feb, 2014, 7:45:35 PM
     Author     : jarr-head
 */
-.site-style-container .row {
-  min-height: 100px;
-}
 .site-style-container .row.center-container {
   max-width: 1170px;
   margin: 0.5em auto;
 }
 .site-style-container .row.grey-background {
   background: #e1e1e1;
-  min-height: 100px;
 }
 .site-style-container .row.footer-container {
   background: #656565;
-  min-height: 100px;
 }
 .site-style-container .row.column-dividers .column {
   border-right: 1px solid #989898;
@@ -787,12 +782,10 @@ and open the template in the editor.
 */
 .row.green-background {
   background: #5ca9a1;
-  min-height: 100px;
 }
 .row.grey-background {
   background: #656565 !important;
   color: #fff;
-  min-height: 100px;
 }
 .row.grey-background .text {
   color: #fff;

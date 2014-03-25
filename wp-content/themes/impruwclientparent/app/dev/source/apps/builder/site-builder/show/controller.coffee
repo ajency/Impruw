@@ -59,6 +59,7 @@ define ['app', 'controllers/base-controller'
 						section = @view.model.get('page')
 						container = @_getContainer 'page'
 						_.each section, (element, i)=>
+							return if not _.isObject element
 							if element.element is 'Row'
 								@addNestedElements container,element
 							else

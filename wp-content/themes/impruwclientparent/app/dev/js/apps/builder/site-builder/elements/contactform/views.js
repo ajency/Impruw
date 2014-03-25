@@ -18,6 +18,12 @@ define(['app', 'text!apps/builder/site-builder/elements/contactform/templates/co
         return this.className += " " + Marionette.getOption(this, 'clsName');
       };
 
+      ContactFormView.prototype.onShow = function() {
+        var clsName;
+        clsName = Marionette.getOption(this, 'clsName');
+        return this.$el.addClass(clsName);
+      };
+
       return ContactFormView;
 
     })(Marionette.ItemView);

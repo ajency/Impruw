@@ -66,6 +66,9 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/show/vi
         container = this._getContainer('page');
         _.each(section, (function(_this) {
           return function(element, i) {
+            if (!_.isObject(element)) {
+              return;
+            }
             if (element.element === 'Row') {
               return _this.addNestedElements(container, element);
             } else {

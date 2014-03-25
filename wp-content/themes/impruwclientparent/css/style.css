@@ -148,20 +148,15 @@ and open the template in the editor.
     Created on : 20 Feb, 2014, 7:45:35 PM
     Author     : jarr-head
 */
-.site-style-container .row {
-  min-height: 100px;
-}
 .site-style-container .row.center-container {
   max-width: 1170px;
   margin: 0.5em auto;
 }
 .site-style-container .row.grey-background {
   background: #f2f2f2;
-  min-height: 100px;
 }
 .site-style-container .row.footer-container {
   background: #29333f;
-  min-height: 100px;
 }
 .site-style-container .row.column-dividers .column {
   border-right: 1px solid #51657d;
