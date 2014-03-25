@@ -231,7 +231,7 @@ function get_element_model($element) {
         case 'Logo':
             $model = array(
                 'style'     => 'header',
-                'image_id'  => 133, //hardcoded,
+                'image_id'  => get_site_logo_id(), //hardcoded,
                 'size'      => 'full'
             );
             break;
