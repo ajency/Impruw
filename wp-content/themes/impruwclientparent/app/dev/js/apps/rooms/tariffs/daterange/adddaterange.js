@@ -16,9 +16,10 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/daterange
       AddDateRangeController.prototype.initialize = function(opt) {
         var dateRangeView;
         this.dateRangeView = dateRangeView = this._getAddDateRangeView();
-        this.listenTo(dateRangeView, "update:daterange:details", (function(_this) {
+        this.listenTo(dateRangeView, "add:daterange:details", (function(_this) {
           return function(data) {
-            dateRange.set(data);
+            var dateRange;
+            dateRange = App.request("create:new:daterange:model", data);
             return dateRange.save(null, {
               wait: true,
               success: _this.dateRangeSaved
@@ -62,11 +63,11 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/daterange
       };
 
       AddDateRangeView.prototype.events = {
-        'click .update-DateRange': function() {
+        'click #btn_savedaterange': function() {
           var data;
           if (this.$el.valid()) {
             data = Backbone.Syphon.serialize(this);
-            return this.trigger("update:daterange:details", data);
+            return this.trigger("add:daterange:details", data);
           }
         }
       };
@@ -76,7 +77,18 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/daterange
       };
 
       AddDateRangeView.prototype.onShow = function() {
-        return this.$el.find('input[type="checkbox"]').checkbox();
+        this.$el.find('input[type="checkbox"]').checkbox();
+        return this.$el.find('.dated').datepicker({
+          showOtherMonths: true,
+          selectOtherMonths: true,
+          dateFormat: "d MM, yy",
+          yearRange: '-1:+1'
+        }).prev('.btn').on('click', (function(_this) {
+          return function(e) {
+            e && e.preventDefault();
+            return $(datepickerSelector).focus();
+          };
+        })(this));
       };
 
       return AddDateRangeView;

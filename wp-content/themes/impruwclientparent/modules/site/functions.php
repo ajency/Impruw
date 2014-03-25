@@ -6,6 +6,8 @@
  * @return type
  */
 function get_site_details($site_id) {
+     
+    // fetching the image path for the logo
      $logo_id = get_option('logo_id',0);
      $image_path = get_post_field( 'guid', $logo_id);
 

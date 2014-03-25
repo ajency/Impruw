@@ -22,7 +22,7 @@ require_once 'modules/site/ajax.php';
 require_once 'modules/user/ajax.php';
 require_once 'modules/themes/ajax.php';
 require_once 'modules/facilities/ajax.php';
-require_once 'modules/packages/ajax.php';
+require_once 'modules/plans/ajax.php';
 require_once 'modules/tariff/ajax.php';
 require_once 'modules/daterange/ajax.php';
 

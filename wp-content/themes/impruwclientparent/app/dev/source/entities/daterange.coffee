@@ -30,6 +30,15 @@ define ["app", 'backbone'], (App, Backbone) ->
 				dateRangeCollection.fetch()
 				dateRangeCollection
 
+			createDateRangeModel :(data = {})->
+				
+				daterange = new DateRange data 
+				
+				daterange
+
 
 		App.reqres.setHandler "get:daterange:collection",->
 			API.getDateRangeCollection()
+
+		App.reqres.setHandler "create:new:daterange:model",(data) ->
+			API.createDateRangeModel data

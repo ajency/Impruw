@@ -47,10 +47,12 @@ define(["app", 'backbone'], function(App, Backbone) {
         return packageCollection;
       },
       createPlanModel: function(data) {
+        var plan;
         if (data == null) {
           data = {};
         }
-        return new Package(data);
+        plan = new Package(data);
+        return plan;
       }
     };
     App.reqres.setHandler("get:packages:collection", function() {
