@@ -63,16 +63,18 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/show/vi
           };
         })(this));
         section = this.view.model.get('page');
-        container = this._getContainer('page');
-        _.each(section, (function(_this) {
-          return function(element, i) {
-            if (element.element === 'Row') {
-              return _this.addNestedElements(container, element);
-            } else {
-              return App.request("add:new:element", container, element.element, element);
-            }
-          };
-        })(this));
+        if (_.isArray(section)) {
+          container = this._getContainer('page');
+          _.each(section, (function(_this) {
+            return function(element, i) {
+              if (element.element === 'Row') {
+                return _this.addNestedElements(container, element);
+              } else {
+                return App.request("add:new:element", container, element.element, element);
+              }
+            };
+          })(this));
+        }
         section = this.view.model.get('footer');
         container = this._getContainer('footer');
         return _.each(section, (function(_this) {
