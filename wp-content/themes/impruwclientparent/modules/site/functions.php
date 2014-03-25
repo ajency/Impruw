@@ -17,7 +17,9 @@ function get_site_details($site_id) {
         'city' => get_option('city',''),
         'country' => get_option('country',''),
         'other_emails' => get_option('other_emails',array()),
-        'other_phone_no' => get_option('other_phone_no',array())
+        'other_phone_no' => get_option('other_phone_no',array()),
+        'facebook' => get_option('facebook'),
+        'twitter' => get_option('twitter')
     );
 }
 
@@ -254,7 +256,7 @@ function update_site($formdata){
    foreach ($formdata as $key => $value) {
       
       // if the options are email or phone, store them as serailized array
-      if($key == "email" || $key == "phone_number" ){
+      if($key == "other_emails" || $key == "other_phone_no" ){
             $value_array = $formdata[$key];
             update_option( $key, $value_array );
       }
