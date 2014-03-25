@@ -40,14 +40,14 @@ add_action('wp_ajax_assign-theme-to-site','assign_theme_to_site_ajax');
 * returns all the form data passed
 *
 */
-function create_site_ajax(){
+function update_site_ajax(){
 
     // fetching all the form data
     $formdata= $_POST;
     
     // passing all the form data to the function to insert the values into the options table
-    $form_data = create_site($formdata);
+    $form_data = update_site($formdata);
 
     wp_send_json(array('code' => 'OK','data'=>$form_data));
 }
-add_action('wp_ajax_create-site','create_site_ajax');
+add_action('wp_ajax_create-site','update_site_ajax');

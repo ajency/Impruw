@@ -35,5 +35,10 @@ define ['app'
 						}, 1000);
 
 					onSetLogo :(media) -> 
-						console.log media
-						#@$el.find().append(media.sizes.full.url)
+						image_id = media.get 'id'
+						media_size= media.get 'sizes'
+						image_path = media_size.full.url
+						console.log image_path
+						@$el.find('.fileinput-preview ').append '<img src ="" class="site_profile_images"/>'
+						@$el.find('.site_profile_images').attr 'src', image_path
+						@$el.find('#logo_id').attr 'value', image_id

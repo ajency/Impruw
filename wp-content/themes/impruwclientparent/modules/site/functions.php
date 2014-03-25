@@ -246,7 +246,7 @@ function get_theme_name($site_id){
 }
 
 
-function create_site($formdata){
+function update_site($formdata){
    
    unset($formdata['action']);
    

@@ -27,7 +27,6 @@ define ['app', 'controllers/base-controller'
 						App.navigate "media-manager", trigger : true
 						@listenTo App.vent,"media:manager:choosed:media",(media)=>
 							@view.triggerMethod "set:logo" , media
-							console.log @view
 							@stopListening App.vent,"media:manager:choosed:media"	
 
 			
