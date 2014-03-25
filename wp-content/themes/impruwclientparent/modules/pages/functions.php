@@ -109,8 +109,13 @@ function get_json_to_clone($section, $page_id = 0){
                 $element['columncount'] = count($element['elements']);
                 $d[] = get_row_elements($element);
             }
-            else
-                $d[] = get_meta_values ($element);
+            else{
+                $meta = get_meta_values ($element);
+                if(!$meta)
+                	continue;
+                
+                $d[] = $meta;
+            }
         }
     }
      
