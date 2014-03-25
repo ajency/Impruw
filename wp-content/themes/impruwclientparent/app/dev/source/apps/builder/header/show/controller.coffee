@@ -12,7 +12,7 @@ define ['app', 'controllers/base-controller'
 
 						pages = App.request "get:editable:pages"
 
-						view = new Show.Views.MainView
+						@view = view = new Show.Views.MainView
 											collection : pages	
 
 						@listenTo view, "add:new:page:clicked", ->
@@ -26,5 +26,5 @@ define ['app', 'controllers/base-controller'
 						@show  view,
 								loading : true
 
-
-			App.HeaderApp.Show.Controller		
+					getHomePageId:->
+						@view.getHomePageId()

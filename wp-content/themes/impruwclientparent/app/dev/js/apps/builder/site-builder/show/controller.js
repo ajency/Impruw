@@ -123,7 +123,7 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/show/vi
         }
         this.region = App.getRegion('builderWrapper');
         view = new Show.View.MainView;
-        this.listenTo(view, 'render', (function(_this) {
+        this.listenTo(view, 'show', (function(_this) {
           return function(view) {
             return _.delay(function() {
               App.addRegions({
