@@ -109,8 +109,11 @@ function get_json_to_clone($section, $page_id = 0){
                 $element['columncount'] = count($element['elements']);
                 $d[] = get_row_elements($element);
             }
-            else
-                $d[] = get_meta_values ($element);
+            else{
+                $meta = get_meta_values ($element);
+                if($meta !== false)
+	                $d[] = $meta;
+            }
         }
     }
      
@@ -126,7 +129,8 @@ function get_row_elements($element){
             }
             else{
                 $meta = get_meta_values ($ele);
-                $ele = wp_parse_args($meta,$ele);
+                if($meta !== false)
+                	$ele = wp_parse_args($meta,$ele);
             }
         }
         
@@ -136,7 +140,11 @@ function get_row_elements($element){
 
 
 function get_meta_values($element, $create = false){
-    $meta = get_metadata_by_mid('post', $element['meta_id']);
+	$meta = get_metadata_by_mid('post', $element['meta_id']);
+	
+	if(!$meta)
+		return false;
+	
     $ele = maybe_unserialize($meta->meta_value);
     $ele['meta_id'] = $create ? create_new_record($ele) : $element['meta_id'];
     validate_element($ele);
