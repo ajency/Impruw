@@ -45,10 +45,21 @@ define(["app", 'backbone'], function(App, Backbone) {
         dateRangeCollection;
         dateRangeCollection.fetch();
         return dateRangeCollection;
+      },
+      createDateRangeModel: function(data) {
+        var daterange;
+        if (data == null) {
+          data = {};
+        }
+        daterange = new DateRange(data);
+        return daterange;
       }
     };
-    return App.reqres.setHandler("get:daterange:collection", function() {
+    App.reqres.setHandler("get:daterange:collection", function() {
       return API.getDateRangeCollection();
+    });
+    return App.reqres.setHandler("create:new:daterange:model", function(data) {
+      return API.createDateRangeModel(data);
     });
   });
 });

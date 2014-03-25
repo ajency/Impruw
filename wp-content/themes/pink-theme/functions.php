@@ -37,7 +37,7 @@ global $element_templates;
 $element_templates = array(
     'Menu' => array(
                 array(
-                    'name'      => 'Footer Menu 2'
+                    'name'      => 'Left Menu'
                 )
               ),
     'Title' => array(
@@ -78,6 +78,9 @@ $element_templates = array(
                 ),
                 array(
                     'name'      => 'White Shaded Background'
+                ),
+                array(
+                    'name'      => 'Long Bar'
                 )
              ),
     'Social' => array(

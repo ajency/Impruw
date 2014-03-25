@@ -94,21 +94,21 @@
 
 }
 .site-style-container ::selection {
-  background: #07669e;
+  background: #ff5f5f;
   color: #fff;
 }
 .site-style-container ::-moz-selection {
-  background: #07669e;
+  background: #ff5f5f;
   color: #fff;
 }
 .site-style-container a {
-  color: #07669e;
+  color: #ff5f5f;
   text-decoration: none;
 }
 .site-style-container a:hover,
 .site-style-container a:focus,
 .site-style-container a:active {
-  color: #0986cf;
+  color: #ff9292;
   text-decoration: underline;
 }
 .site-style-container p {
@@ -121,7 +121,7 @@
 .site-style-container h5,
 .site-style-container h6 {
   font-weight: 700;
-  color: #07669e;
+  color: #ff5f5f;
 }
 .site-style-container h1.sub-title,
 .site-style-container h2.sub-title,
@@ -130,7 +130,7 @@
 .site-style-container h5.sub-title,
 .site-style-container h6.sub-title {
   text-transform: uppercase;
-  color: #727272;
+  color: #6a6a6a;
   font-weight: 300;
   margin: 0.5em 0;
 }
@@ -143,30 +143,25 @@ and open the template in the editor.
     Created on : 20 Feb, 2014, 7:45:35 PM
     Author     : jarr-head
 */
-.site-style-container .row {
-  min-height: 100px;
-}
 .site-style-container .row.center-container {
   max-width: 1170px;
   margin: 0.5em auto;
 }
 .site-style-container .row.grey-background {
-  background: #f2f2f2;
-  min-height: 100px;
+  background: #2a3b66;
 }
 .site-style-container .row.footer-container {
-  background: #555555;
-  min-height: 100px;
+  background: #e9e9e9;
 }
 .site-style-container .row.column-dividers .column {
-  border-right: 1px solid #888888;
+  border-right: 1px solid #ffffff;
 }
 .site-style-container .row.column-dividers .column:last-child {
   border-right: 0;
 }
 /****Top Slim-menu Styles****/
 .nav.slimmenu {
-  border: 1px solid #d9d9d9;
+  border: 1px solid #1b2642;
   padding: 0;
   margin: 0 auto 1em;
   background: #fff;
@@ -180,21 +175,21 @@ and open the template in the editor.
 .nav.slimmenu > li a {
   font-size: 1em;
   font-weight: bold;
-  color: #07669e;
+  color: #ff5f5f;
   padding: 0.5em 1.5em;
 }
 .nav.slimmenu > li a span {
   display: block;
   font-size: 0.75em;
   font-weight: normal;
-  color: #888888;
+  color: #ffffff;
 }
 .nav.slimmenu > li a:hover {
   background: transparent;
-  color: #555555;
+  color: #e9e9e9;
 }
 .nav.slimmenu > li a:hover span {
-  color: #16a2f5;
+  color: #ffc5c5;
 }
 .nav.slimmenu > li .sub-collapser {
   background: transparent;
@@ -202,7 +197,7 @@ and open the template in the editor.
 }
 .nav.slimmenu > li .sub-collapser > i {
   font-size: 0.6em;
-  color: #bfbfbf;
+  color: #0c111e;
 }
 .nav.slimmenu > li > ul.dropDrown {
   padding: 0;
@@ -211,37 +206,37 @@ and open the template in the editor.
 .nav.slimmenu > li > ul.dropDrown li {
   width: 100%;
   background: #fff;
-  border-bottom: 1px solid #d9d9d9;
+  border-bottom: 1px solid #1b2642;
 }
 .nav.slimmenu > li > ul.dropDrown li a {
   border: 0;
   font-size: 1em;
   font-weight: normal;
   padding: 0.5em 1.5em;
-  color: #555555;
+  color: #e9e9e9;
 }
 .nav.slimmenu > li > ul.dropDrown li a:hover {
-  background: #d9d9d9;
-  color: #07669e;
+  background: #1b2642;
+  color: #ff5f5f;
 }
 .nav.slimmenu > li.active {
-  background: #07669e;
+  background: #ff5f5f;
 }
 .nav.slimmenu > li.active a {
-  color: #f2fafe;
-  border-color: #07669e;
+  color: #ffffff;
+  border-color: #ff5f5f;
 }
 .nav.slimmenu > li.active a span {
-  color: #a9ddfb;
+  color: #ffffff;
 }
 .nav .menu-collapser {
   background: #fff;
-  color: #07669e;
+  color: #ff5f5f;
   font-weight: 700;
   text-shadow: none;
 }
 .nav .menu-collapser .collapse-button {
-  background: #07669e;
+  background: #ff5f5f;
   border-radius: 3px;
 }
 .nav.footer-menu {
@@ -253,7 +248,7 @@ and open the template in the editor.
   display: inline-block;
   margin-left: 10px;
   margin-bottom: 10px;
-  background: #07669e;
+  background: #ff5f5f;
   cursor: pointer;
 }
 .nav.footer-menu li a {
@@ -273,14 +268,14 @@ and open the template in the editor.
   -webkit-backface-visibility: hidden;
 }
 .nav.footer-menu li:hover a {
-  color: #07669e;
+  color: #ff5f5f;
 }
 /**** Title Styles****/
 .title {
-  color: #07669e;
+  color: #ff5f5f;
 }
 .text {
-  color: #bfbfbf;
+  color: #0c111e;
 }
 /****Image With Text Styles****/
 .image {
@@ -288,7 +283,7 @@ and open the template in the editor.
   color: #989898;
 }
 .image .info {
-  color: #555555;
+  color: #e9e9e9;
   font-size: 1em;
 }
 /****Link Element Styles****/
@@ -297,7 +292,7 @@ and open the template in the editor.
   margin: 0 0.5em 0.5em 0;
 }
 .link.button a {
-  background: #07669e;
+  background: #ff5f5f;
   color: #fff;
   border-radius: 3px;
   display: inline-block;
@@ -308,7 +303,7 @@ and open the template in the editor.
 }
 .link.button a:hover {
   text-decoration: none;
-  background: #16a2f5;
+  background: #ffc5c5;
   -webkit-transition: all 0.25s ease;
   -moz-transition: all 0.25s ease;
   -o-transition: all 0.25s ease;
@@ -324,11 +319,11 @@ and open the template in the editor.
   padding: 0;
 }
 .address .info {
-  color: #555555;
+  color: #e9e9e9;
   font-size: 1em;
 }
 .address.small-address .info {
-  color: #555555;
+  color: #e9e9e9;
   font-size: 1em;
   font-weight: 200;
   margin-bottom: 10px;
@@ -393,7 +388,7 @@ and open the template in the editor.
   height: 40px;
   overflow: hidden;
   line-height: 40px;
-  background: #07669e;
+  background: #ff5f5f;
   border-radius: 100%;
   margin: 0 .3em .3em .3em;
   -webkit-transition-duration: 0.7s;
@@ -425,13 +420,13 @@ and open the template in the editor.
   left: 0;
   bottom: 0;
   line-height: 60px;
-  color: #555555;
+  color: #e9e9e9;
 }
 .social li a:hover {
   text-decoration: none !important;
 }
 .social li:hover {
-  background: #f2f2f2;
+  background: #2a3b66;
   box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.3);
 }
 .social li:hover a {
@@ -459,14 +454,14 @@ and open the template in the editor.
   margin-bottom: 0.8em;
 }
 .contactform .flat:focus {
-  border-color: #07669e;
+  border-color: #ff5f5f;
 }
 .contactform .btn {
   border-radius: 0;
   margin-top: 0.3em;
 }
 .contactform .btn:hover {
-  background: #07669e;
+  background: #ff5f5f;
 }
 /* 
     Created on : 10 March, 2014, 1:25:41 PM
@@ -475,7 +470,7 @@ and open the template in the editor.
 /****Room Tariff Styles****/
 .room-tariff-container {
   background: #fff;
-  box-shadow: 1px 1px 2px 0 #bbbbbb;
+  box-shadow: 1px 1px 2px 0 #ffffff;
   padding: 0.5em;
   position: relative;
 }
@@ -494,10 +489,10 @@ and open the template in the editor.
   display: none;
 }
 .room-tariff-container .room-tariff-actions .btn-add-plan {
-  background: #07669e;
+  background: #ff5f5f;
 }
 .room-tariff-container .room-tariff-actions .btn-add-plan:hover {
-  background: #0986cf;
+  background: #ff9292;
 }
 @media (max-width: 767px) {
   .room-tariff-container .room-tariff-actions {
@@ -509,7 +504,7 @@ and open the template in the editor.
   overflow-x: auto;
 }
 .room-tariff-container .room-tariff-grid .tariff .date-range {
-  color: #888888;
+  color: #ffffff;
   text-align: right;
   font-weight: 300;
   position: absolute;
@@ -542,8 +537,8 @@ and open the template in the editor.
   margin-right: 0.5em;
 }
 .room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block {
-  background: #d9d9d9;
-  border-left: 5px solid #bfbfbf;
+  background: #1b2642;
+  border-left: 5px solid #0c111e;
   padding: 0.5em;
 }
 .room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block h6 {
@@ -554,11 +549,11 @@ and open the template in the editor.
 }
 .room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block .package-desc {
   font-size: 0.88em;
-  color: #a2a2a2;
+  color: #ffffff;
   display: none;
 }
 .room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block .tariff-label {
-  color: #a2a2a2;
+  color: #ffffff;
   margin: 0.5em 0 0.2em;
   font-size: 0.88em;
 }
@@ -569,7 +564,7 @@ and open the template in the editor.
   margin-right: 1%;
   float: left;
   text-transform: uppercase;
-  color: #888888;
+  color: #ffffff;
   font-weight: 300;
 }
 .room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block .weekday .price,
@@ -579,7 +574,7 @@ and open the template in the editor.
   display: block;
 }
 .room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block:hover {
-  border-color: #07669e;
+  border-color: #ff5f5f;
 }
 .room-tariff-container .room-tariff-grid .tariff .packages .package-blocks.header {
   margin: 0 0 0.3em;
@@ -598,7 +593,7 @@ and open the template in the editor.
     overflow-x: visible;
   }
   .room-tariff-container .room-tariff-grid .tariff {
-    border-left: 2px solid #bbbbbb;
+    border-left: 2px solid #ffffff;
     padding-left: 0.5em;
     margin: 0 0 1em;
   }
@@ -641,7 +636,7 @@ and open the template in the editor.
 /****Room Facilities Styles****/
 .room-facilities-container {
   background: #fff;
-  box-shadow: 1px 1px 2px 0 #bbbbbb;
+  box-shadow: 1px 1px 2px 0 #ffffff;
   padding: 0.5em;
 }
 .room-facilities-container .room-facilities-title h5 {
@@ -660,7 +655,7 @@ and open the template in the editor.
 }
 .room-facilities-container .facilities li {
   font-size: 1.1em;
-  color: #888888;
+  color: #ffffff;
   font-weight: 300;
   margin: 0 0 0.5em;
   display: block;
@@ -676,15 +671,15 @@ and open the template in the editor.
   height: 13px;
   float: left;
   margin-right: 10px;
-  border: 1px solid #888888;
+  border: 1px solid #ffffff;
   position: relative;
   font-size: 1.2em;
   line-height: 0.33em;
   top: 3px;
-  color: #07669e;
+  color: #ff5f5f;
 }
 .room-facilities-container .facilities li:hover:before {
-  color: #555555;
+  color: #e9e9e9;
 }
 /****Room Summary Styles****/
 .room-summary-container .room-summary-title h4 {
@@ -693,12 +688,12 @@ and open the template in the editor.
 }
 .room-summary-container .room-summary {
   background: #fff;
-  box-shadow: 1px 1px 2px 0 #bbbbbb;
+  box-shadow: 1px 1px 2px 0 #ffffff;
   padding: 1em 0.5em 0.5em;
 }
 .room-summary-container .room-summary .room-summary-item {
   display: inline-block;
-  border-bottom: 1px solid #bbbbbb;
+  border-bottom: 1px solid #ffffff;
   margin: 0 1em 1em 0;
 }
 .room-summary-container .room-summary .room-summary-item span {
@@ -707,31 +702,31 @@ and open the template in the editor.
 }
 .room-summary-container .room-summary .room-summary-item span.key {
   min-width: 100px;
-  color: #888888;
+  color: #ffffff;
 }
 .room-summary-container .room-summary .room-summary-item span.value {
-  color: #555555;
+  color: #e9e9e9;
   font-weight: 700;
 }
 .room-summary-container .room-summary .room-summary-item:hover {
-  border-color: #07669e;
+  border-color: #ff5f5f;
 }
 .room-summary-container .room-summary .room-summary-desc {
-  color: #888888;
+  color: #ffffff;
   margin: 1em 0 0;
 }
 .room-summary-container .room-summary .room-summary-desc .btn-book {
   display: block;
   margin: 0.5em 0;
-  background: #07669e;
+  background: #ff5f5f;
 }
 .room-summary-container .room-summary .room-summary-desc .btn-book:hover {
-  background: #0986cf;
+  background: #ff9292;
 }
 /****Room Title Styles****/
 .room-title-container {
   background: #fff;
-  box-shadow: 1px 1px 2px 0 #bbbbbb;
+  box-shadow: 1px 1px 2px 0 #ffffff;
   padding: 0.5em;
   position: relative;
   margin: 0 0 1em;
@@ -739,11 +734,11 @@ and open the template in the editor.
 .room-title-container .room-title h1 {
   font-size: 2.5em;
   text-transform: uppercase;
-  color: #07669e;
+  color: #ff5f5f;
 }
 .room-title-container .room-title .room-title-desc {
   font-size: 1em;
-  color: #888888;
+  color: #ffffff;
 }
 .room-title-container .room-title-actions {
   position: absolute;
@@ -752,10 +747,10 @@ and open the template in the editor.
   margin: 0.5em 0;
 }
 .room-title-container .room-title-actions .btn-book {
-  background: #07669e;
+  background: #ff5f5f;
 }
 .room-title-container .room-title-actions .btn-book:hover {
-  background: #0986cf;
+  background: #ff9292;
 }
 @media (max-width: 767px) {
   .room-title-container .room-title-actions {
@@ -772,9 +767,9 @@ and open the template in the editor.
 }
 .room-description-container .room-description-desc {
   background: #fff;
-  box-shadow: 1px 1px 2px 0 #bbbbbb;
+  box-shadow: 1px 1px 2px 0 #ffffff;
   padding: 1em 0.5em 0.5em;
-  color: #888888;
+  color: #ffffff;
 }
 /*
 To change this license header, choose License Headers in Project Properties.
@@ -789,100 +784,111 @@ and open the template in the editor.
   background: transparent;
 }
 .row.blue-strip-top {
-  border-top: 5px solid #07669e;
-  background: #f2f2f2;
+  border-top: 5px solid #ff5f5f;
+  background: #2a3b66;
   min-height: 100px;
 }
 .row.white-shaded-background {
   padding: 1em 15px;
   background: #fff;
-  box-shadow: 0 0 2px #d4d4d4;
+  box-shadow: 0 0 2px #ffffff;
 }
-/****Top Slim-menu Styles****/
+/****Menu Styles****/
 .nav.slimmenu {
-  border: 1px solid #d9d9d9;
-  border-bottom: 0;
-  border-left: 0;
-  padding: 0;
-  margin: 0 auto 1em;
-  border-bottom: 3px solid #07669e !important;
-  background: #fff;
+  text-align: center;
+  width: 100%;
+  margin-bottom: 1em;
+  margin-top: 3em;
+  background: #2a3b66;
+  border-radius: 6px;
+  box-shadow: 0 3px 2px -2px #2a3b66;
 }
 .nav.slimmenu > li {
-  background: transparent !important;
-  padding: 0.3em 0;
+  display: inline-block;
+  float: none;
+  width: auto;
   border: 0;
-  margin-right: -3px;
+  background: transparent;
 }
 .nav.slimmenu > li a {
-  font-size: 1em;
-  font-weight: bold;
-  color: #07669e;
-  padding: 0.5em 44px 0.5em 1.5em;
-  border-right: 1px solid #d9d9d9;
-}
-.nav.slimmenu > li a span {
-  display: block;
-  font-size: 0.75em;
-  font-weight: normal;
-  color: #888888;
+  color: #fff;
+  text-transform: uppercase;
+  font-family: 'Lato', sans-serif;
+  font-weight: 300;
+  padding: 0.5em 2.2em 0.5em 1.5em;
 }
 .nav.slimmenu > li a:hover {
-  background: transparent;
-  color: #555555;
+  background: none;
+  color: #d4dcee;
 }
-.nav.slimmenu > li a:hover span {
-  color: #16a2f5;
+.nav.slimmenu > li a .glyphicon {
+  font-size: 0.8em;
+}
+.nav.slimmenu > li.active a {
+  font-weight: 400;
+}
+.nav.slimmenu > li.active a:hover {
+  color: #d4dcee;
 }
 .nav.slimmenu > li .sub-collapser {
   background: transparent;
-  width: 40px;
 }
-.nav.slimmenu > li .sub-collapser > i {
-  font-size: 0.6em;
-  color: #bfbfbf;
+.nav.slimmenu > li .sub-collapser i {
+  color: #fff;
+  font-size: 0.8em;
 }
-.nav.slimmenu > li > ul.dropDrown {
-  padding: 0;
-  width: auto;
-}
-.nav.slimmenu > li > ul.dropDrown li {
+.nav.slimmenu > li ul {
+  text-align: left;
   width: 100%;
-  background: #fff;
-  border-bottom: 1px solid #d9d9d9;
+  background: #2a3b66;
+  margin: 0;
+  padding: 0;
+  box-shadow: 0 6px 4px -4px #2a3b66;
 }
-.nav.slimmenu > li > ul.dropDrown li a {
-  border: 0;
-  font-size: 1em;
-  font-weight: normal;
-  padding: 0.5em 1.5em;
-  color: #555555;
+.nav.slimmenu > li ul li {
+  background: #2a3b66;
+  display: block;
 }
-.nav.slimmenu > li > ul.dropDrown li a:hover {
-  background: #d9d9d9;
-  color: #07669e;
+.nav.slimmenu > li ul li a {
+  padding: 0.5em;
 }
-.nav.slimmenu > li.active {
-  background: #07669e;
+.nav.slimmenu > li ul li a:hover {
+  background: #d4dcee;
+  color: #2a3b66;
 }
-.nav.slimmenu > li.active a {
-  color: #f2fafe;
-  border-color: #07669e;
+.nav.slimmenu > li ul li a .glyphicon {
+  float: right;
 }
-.nav.slimmenu > li.active a span {
-  color: #a9ddfb;
+.nav.slimmenu > li ul:before {
+  display: none;
 }
-.nav.slimmenu > li:last-child a {
-  border-right: 0;
+@media (max-width: 767px) {
+  .nav.slimmenu {
+    text-align: left;
+    width: 100%;
+    margin-bottom: 1em;
+  }
+  .nav.slimmenu > li {
+    display: block;
+    width: 100%;
+  }
+  .nav.slimmenu > li .sub-collapser {
+    background: #1b2642;
+    height: 36px;
+    width: 40px;
+  }
+  .nav.slimmenu > li ul {
+    padding-left: 2em;
+  }
 }
 .nav .menu-collapser {
   background: #fff;
-  color: #07669e;
+  color: #ff5f5f;
   font-weight: 700;
   text-shadow: none;
 }
 .nav .menu-collapser .collapse-button {
-  background: #07669e;
+  background: #ff5f5f;
   border-radius: 3px;
 }
 .nav.footer-menu {
@@ -925,53 +931,9 @@ and open the template in the editor.
 .nav.footer-menu li:hover a {
   color: #fff;
 }
-.nav.footer-menu-2 {
-  padding: 0;
-}
-.nav.footer-menu-2 li {
-  border-bottom: 1px dotted #fff;
-  *zoom: 1;
-}
-.nav.footer-menu-2 li:after,
-.nav.footer-menu-2 li:before {
-  clear: both;
-  content: "";
-  display: table;
-}
-.nav.footer-menu-2 li a {
-  display: block;
-  color: #fff;
-  text-transform: uppercase;
-  padding: 0 0 0.5em;
-}
-.nav.footer-menu-2 li a:hover {
-  text-decoration: none;
-  background: transparent;
-}
-.nav.footer-menu-2 li:after {
-  content: '›';
-  display: block;
-  float: right;
-  color: #fff;
-  font-size: 1.3em;
-  line-height: 0.25em;
-  margin-left: 5px;
-  width: 14px;
-  height: 14px;
-  padding: 3px 0 0 2px;
-  background: rgba(255, 255, 255, 0.3);
-  border-radius: 20px;
-  text-align: center;
-  font-weight: 100;
-  position: relative;
-  top: -22px;
-}
-.nav.footer-menu-2 li:hover {
-  border-bottom-style: solid;
-}
 /**** Title Styles****/
 .title.page-title {
-  color: #555555;
+  color: #e9e9e9;
   font-style: italic;
   font-weight: 700;
   font-size: 4em;
@@ -996,20 +958,20 @@ and open the template in the editor.
   font-weight: 300;
 }
 .title.grey-title-text {
-  color: #555555;
+  color: #e9e9e9;
   text-transform: uppercase;
   font-size: 2em;
   font-weight: 400;
 }
 .title.emphasis-text {
-  color: #555555;
+  color: #e9e9e9;
   font-weight: 300;
   display: inline-block;
   font-size: 1.5em;
-  border-bottom: 1px solid #07669e;
+  border-bottom: 1px solid #ff5f5f;
 }
 .title.inner-title {
-  color: #555555;
+  color: #e9e9e9;
   font-size: 2.5em;
   font-weight: 700;
   text-transform: none;
@@ -1017,27 +979,27 @@ and open the template in the editor.
 }
 .title.thumb-title {
   text-transform: uppercase;
-  color: #bfbfbf;
+  color: #0c111e;
   font-size: 0.8em;
   font-weight: 300;
-  border-bottom: 1px solid #bfbfbf;
+  border-bottom: 1px solid #0c111e;
 }
 .title.thumb-main-title {
-  color: #555555;
+  color: #e9e9e9;
   font-weight: 400;
   font-size: 1.6em;
 }
 /****Address Element Styles****/
 .address {
   padding: 0.5em 0;
-  color: #555555;
+  color: #e9e9e9;
 }
 .address .info {
-  color: #555555;
+  color: #e9e9e9;
   font-size: 1em;
 }
 .address.small-address .info {
-  color: #555555;
+  color: #e9e9e9;
   font-size: 1em;
   font-weight: 200;
   margin-bottom: 10px;

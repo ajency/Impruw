@@ -9,10 +9,12 @@ define  ['app','controllers/base-controller', 'text!apps/rooms/tariffs/plan/temp
 				@planView = planView = @_getAddPlanView()
 
 				@listenTo planView, "add:plan:details", (data)=>
+					console.log data
 					plan = App.request "create:plan:model", data
-					plan.save null,
-							wait : true
-							success : @planSaved
+					
+					#plan.save null,
+							#wait : true
+							#success : @planSaved
 
 				@show planView
 
@@ -38,10 +40,10 @@ define  ['app','controllers/base-controller', 'text!apps/rooms/tariffs/plan/temp
 				modal_size  : 'medium-modal'
 
 			events:
-				'click .update-plan' : ->
+				'click #btn_addplan' : ->
 					if @$el.valid()
 						data = Backbone.Syphon.serialize @
-						@trigger "update:plan:details", data
+						@trigger "add:plan:details", data
 
 			onSavedPlan:->
 				@$el.parent().prepend '<div class="alert alert-success">Saved successfully</div>'

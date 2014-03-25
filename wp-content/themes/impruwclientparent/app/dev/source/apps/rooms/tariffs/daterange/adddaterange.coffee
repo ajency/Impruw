@@ -8,17 +8,19 @@ define  ['app','controllers/base-controller', 'text!apps/rooms/tariffs/daterange
 
 				@dateRangeView = dateRangeView = @_getAddDateRangeView()
 
-				@listenTo dateRangeView, "update:daterange:details", (data)=>
-					dateRange.set data
+				@listenTo dateRangeView, "add:daterange:details", (data)=>
+					dateRange = App.request "create:new:daterange:model", data
+					#console.log dateRange
 					dateRange.save null,
-							wait : true
-							success : @dateRangeSaved
+					 		wait : true
+					 		success : @dateRangeSaved
 
 				@show dateRangeView, 
 						loading : true
 
 			dateRangeSaved:=>
 				@dateRangeView.triggerMethod "saved:daterange"
+
 
 			# get the packages view
 			_getAddDateRangeView :(dateRange)->
@@ -39,18 +41,27 @@ define  ['app','controllers/base-controller', 'text!apps/rooms/tariffs/daterange
 				modal_size  : 'medium-modal'
 
 			events:
-				'click .update-DateRange' : ->
+				'click #btn_savedaterange' : ->
 					if @$el.valid()
 						data = Backbone.Syphon.serialize @
-						@trigger "update:daterange:details", data
+						@trigger "add:daterange:details", data
 
+		
 			onSavedDaterange:->
 				@$el.parent().prepend '<div class="alert alert-success">Saved successfully</div>'
 
 			# show checkbox
 			onShow:->
 				@$el.find('input[type="checkbox"]').checkbox()
-
+				@$el.find('.dated').datepicker
+										showOtherMonths: true
+										selectOtherMonths: true
+										dateFormat: "d MM, yy"
+										yearRange: '-1:+1'
+					.prev('.btn').on 'click' , (e) => 
+									e && e.preventDefault();
+									$(datepickerSelector).focus();
+				
 
 		# handler
 		App.commands.setHandler "show:add:daterange", ()->
