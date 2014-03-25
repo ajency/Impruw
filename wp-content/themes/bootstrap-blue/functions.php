@@ -63,6 +63,9 @@ $element_templates = array(
                 ),
                 array(
                     'name' => 'Button'
+                ),
+                array(
+                    'name' => 'Header Button'
                 )
             ),
     'ContactForm' => array(

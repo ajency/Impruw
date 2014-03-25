@@ -877,13 +877,14 @@ and open the template in the editor.
   text-align: right;
 }
 .title.center-title {
-  font-size: 1.4em;
+  font-size: 1.5em;
   text-align: center;
 }
 .title.small-grey-title {
-  font-size: 1.2em;
+  font-size: 1.7em;
   text-align: center;
   font-weight: 400;
+  color: #656565;
 }
 /****Address Element Styles****/
 .address ul li {
@@ -1010,4 +1011,51 @@ ul.social li:hover {
 }
 ul.social li:hover a {
   top: -50px;
+}
+/****Link Element Styles****/
+.link {
+  display: inline-block;
+  margin: 0 0.5em 0.5em 0;
+}
+.link.button a {
+  background: #fff;
+  color: #5ca9a1;
+  display: inline-block;
+  padding: 0.3em 0.5em 0.2em;
+  margin: 1em 0;
+  font-size: 1.2em;
+  font-weight: 400;
+}
+.link.button a:hover {
+  text-decoration: none;
+  background: #5ca9a1;
+  color: #fff;
+  -webkit-transition: all 0.25s ease;
+  -moz-transition: all 0.25s ease;
+  -o-transition: all 0.25s ease;
+  -ms-transition: all 0.25s ease;
+  transition: all 0.25s ease;
+}
+.link.header-button {
+  text-align: right;
+  display: block;
+}
+.link.header-button a {
+  background: #fff;
+  color: #5ca9a1;
+  display: inline-block;
+  padding: 0.4em 0.7em 0.3em;
+  margin: 1em 0;
+  font-size: 1.2em;
+  font-weight: 400;
+}
+.link.header-button a:hover {
+  text-decoration: none;
+  background: #656565;
+  color: #fff;
+  -webkit-transition: all 0.25s ease;
+  -moz-transition: all 0.25s ease;
+  -o-transition: all 0.25s ease;
+  -ms-transition: all 0.25s ease;
+  transition: all 0.25s ease;
 }
