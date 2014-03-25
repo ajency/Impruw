@@ -18,6 +18,9 @@ define ['app'
 						'click .fileinput-new' : ->
 									@trigger "show:media:manager"
 
+					# show the image
+					onRender:->
+						
 
 					onShow:->
 						#console.log model
@@ -31,9 +34,9 @@ define ['app'
 						@$el.find('#form-siteprofile').prepend '<div class="alert alert-warning alert-dismissable">
 							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 							Save successfully</div>'
-						$('html, body').animate({
+						$('html, body').animate
 							scrollTop: 0
-						}, 1000);
+						,1000
 
 					onSetLogo :(media) -> 
 						image_id = media.get 'id'

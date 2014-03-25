@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
 
 define(["app", 'backbone'], function(App, Backbone) {
   return App.module("Entities.Users", function(Users, App, Backbone, Marionette, $, _) {
-    var API;
+    var API, user;
     Users.UserModel = (function(_super) {
       __extends(UserModel, _super);
 
@@ -11,60 +11,23 @@ define(["app", 'backbone'], function(App, Backbone) {
         return UserModel.__super__.constructor.apply(this, arguments);
       }
 
-      UserModel.prototype.relations = [
-        {
-          type: Backbone.HasMany,
-          key: 'rooms',
-          relatedModel: 'App.Entities.Rooms.Room',
-          collectionType: 'App.Entities.Rooms.RoomCollection'
-        }
-      ];
-
-      UserModel.prototype.url = function() {
-        return AJAXURL + '?action=get-user-profile';
-      };
-
-      UserModel.prototype.defaults = function() {
-        return {
-          user_name: 'surajair',
-          display_name: 'Suraj Air',
-          user_email: 'surajair@gmail.com'
-        };
-      };
+      UserModel.prototype.name = 'user';
 
       return UserModel;
 
     })(Backbone.Model);
-    Users.UserCollection = (function(_super) {
-      __extends(UserCollection, _super);
-
-      function UserCollection() {
-        return UserCollection.__super__.constructor.apply(this, arguments);
-      }
-
-      UserCollection.prototype.model = Users.UserModel;
-
-      return UserCollection;
-
-    })(Backbone.Collection);
+    user = new Users.UserModel;
+    user.fetch();
     API = {
-      getUserProfile: function(userId) {
-        var user;
-        user = new Users.UserModel({
-          id: userId
-        });
-        user.url = AJAXURL + '?action=get-user-profile';
-        user.fetch;
+      getUserProfile: function() {
         return user;
       }
     };
-    return App.reqres.setHandler("get:user:profile", function(options) {
-      var userId;
+    return App.reqres.setHandler("get:user:model", function(options) {
       if (options == null) {
         options = {};
       }
-      userId = options.userId;
-      return API.getUserProfile(userId);
+      return API.getUserProfile();
     });
   });
 });

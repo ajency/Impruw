@@ -19,6 +19,7 @@ require_once 'modules/slider/ajax.php';
 require_once 'modules/pages/ajax.php';
 require_once 'modules/rooms/ajax.php';
 require_once 'modules/site/ajax.php';
+require_once 'modules/user/ajax.php';
 require_once 'modules/themes/ajax.php';
 require_once 'modules/facilities/ajax.php';
 require_once 'modules/packages/ajax.php';
