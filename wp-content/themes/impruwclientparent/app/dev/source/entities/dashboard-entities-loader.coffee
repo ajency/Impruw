@@ -7,7 +7,7 @@ define [
 		'entities/site'
 		'entities/media'
 		'entities/slider'
-		'entities/packages'
+		'entities/plans'
 		'entities/tariff'
 		'entities/user'
 		'entities/daterange'

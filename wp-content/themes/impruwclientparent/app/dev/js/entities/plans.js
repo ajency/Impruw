@@ -3,24 +3,24 @@ var __hasProp = {}.hasOwnProperty,
 
 define(["app", 'backbone'], function(App, Backbone) {
   return App.module("Entities.Plans", function(Plans, App, Backbone, Marionette, $, _) {
-    var API, Plan, PlanCollection, planCollection;
-    Plan = (function(_super) {
-      __extends(Plan, _super);
+    var API, PlanCollection, planCollection;
+    Plans = (function(_super) {
+      __extends(Plans, _super);
 
-      function Plan() {
-        return Plan.__super__.constructor.apply(this, arguments);
+      function Plans() {
+        return Plans.__super__.constructor.apply(this, arguments);
       }
 
-      Plan.prototype.name = 'package';
+      Plans.prototype.name = 'plan';
 
-      Plan.prototype.defaults = function() {
+      Plans.prototype.defaults = function() {
         return {
-          package_name: '',
-          package_description: ''
+          plan_name: '',
+          plan_description: ''
         };
       };
 
-      return Plan;
+      return Plans;
 
     })(Backbone.Model);
     PlanCollection = (function(_super) {
@@ -30,7 +30,7 @@ define(["app", 'backbone'], function(App, Backbone) {
         return PlanCollection.__super__.constructor.apply(this, arguments);
       }
 
-      PlanCollection.prototype.model = Plan;
+      PlanCollection.prototype.model = Plans;
 
       PlanCollection.prototype.url = function() {
         return "" + AJAXURL + "?action=fetch-plans";
@@ -42,11 +42,24 @@ define(["app", 'backbone'], function(App, Backbone) {
     planCollection = new PlanCollection;
     API = {
       getPlansCollection: function() {
+        planCollection;
+        planCollection.fetch();
         return planCollection;
+      },
+      createPlanModel: function(data) {
+        var plan;
+        if (data == null) {
+          data = {};
+        }
+        plan = new Plans(data);
+        return plan;
       }
     };
-    return App.reqres.setHandler("get:plans:collection", function() {
+    App.reqres.setHandler("get:plans:collection", function() {
       return API.getPlansCollection();
+    });
+    return App.reqres.setHandler("create:plan:model", function(data) {
+      return API.createPlanModel(data);
     });
   });
 });

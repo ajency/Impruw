@@ -19,11 +19,8 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/plan/temp
         this.listenTo(planView, "add:plan:details", (function(_this) {
           return function(data) {
             var plan;
-            plan = App.request("create:plan:model", data);
-            return plan.save(null, {
-              wait: true,
-              success: _this.planSaved
-            });
+            console.log(data);
+            return plan = App.request("create:plan:model", data);
           };
         })(this));
         return this.show(planView);
@@ -61,11 +58,11 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/plan/temp
       };
 
       AddPlanView.prototype.events = {
-        'click .update-plan': function() {
+        'click #btn_addplan': function() {
           var data;
           if (this.$el.valid()) {
             data = Backbone.Syphon.serialize(this);
-            return this.trigger("update:plan:details", data);
+            return this.trigger("add:plan:details", data);
           }
         }
       };

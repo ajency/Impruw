@@ -13,7 +13,7 @@ define(['app', 'controllers/base-controller', 'apps/rooms/tariffs/show/views'], 
 
       ShowController.prototype.initialize = function(opt) {
         var dcollection, pcollection;
-        pcollection = App.request("get:packages:collection");
+        pcollection = App.request("get:plans:collection");
         dcollection = App.request("get:daterange:collection", {
           id: 23232
         });
