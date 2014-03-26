@@ -49,6 +49,7 @@ define  ['app','controllers/base-controller', 'text!apps/rooms/tariffs/daterange
 		
 			onSavedDaterange:->
 				@$el.parent().prepend '<div class="alert alert-success">Saved successfully</div>'
+				@$el.find('input').val ''
 
 			# show checkbox
 			onShow:->

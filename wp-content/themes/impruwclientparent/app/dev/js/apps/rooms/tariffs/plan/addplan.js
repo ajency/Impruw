@@ -72,7 +72,9 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/plan/temp
       };
 
       AddPlanView.prototype.onSavedPlan = function() {
-        return this.$el.parent().prepend('<div class="alert alert-success">Saved successfully</div>');
+        this.$el.parent().prepend('<div class="alert alert-success">Saved successfully</div>');
+        this.$el.find('input').val('');
+        return this.$el.find('textarea').val('');
       };
 
       AddPlanView.prototype.onShow = function() {

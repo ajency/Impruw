@@ -46,6 +46,8 @@ define  ['app','controllers/base-controller', 'text!apps/rooms/tariffs/plan/temp
 
 			onSavedPlan:->
 				@$el.parent().prepend '<div class="alert alert-success">Saved successfully</div>'
+				@$el.find('input').val ''
+				@$el.find('textarea').val ''
 
 			# show checkbox
 			onShow:->

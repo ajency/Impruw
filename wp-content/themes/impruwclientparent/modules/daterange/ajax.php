@@ -65,7 +65,7 @@ function create_daterange_ajax(){
 	// pass the form data to the insert function, returns the date range id 
 	$daterange_id = wp_insert_daterange($formdata);
 
-	wp_send_json(array('code' => 'OK', 'daterange_id'=> $daterange_id));
+	wp_send_json(array('code' => 'OK', 'id'=> $daterange_id));
 
 }
 add_action('wp_ajax_create-daterange', 'create_daterange_ajax');
