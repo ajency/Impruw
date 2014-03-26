@@ -714,9 +714,10 @@ function get_parent_template_directory_uri() {
  */
 function get_theme_JS() {
 ?>
-    <script src="<?php echo get_parent_template_directory_uri(); ?>/js/bootstrap.min.js"></script>
+   <script src="<?php echo get_parent_template_directory_uri(); ?>/js/bootstrap.min.js"></script>
+   <script src="<?php echo get_parent_template_directory_uri(); ?>/js/contact.js"></script>
    <?php
-    $theme_path =  get_stylesheet_directory() . "/js";
+  	$theme_path =  get_stylesheet_directory() . "/js";
     if ( file_exists( $theme_path ) && is_dir( $theme_path ) ) {
 
         $js_files = scandir( $theme_path, 1 );

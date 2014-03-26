@@ -63,21 +63,30 @@ class ContactFormElement extends Element {
         
         ob_start(); ?>
 
-        <form id="contactForm" method="" action="">
-            <fieldset>
-                <div class="row">
-                    <div class="col-md-6">
-                        <input type="text" class="form-control flat" name="name" id="name" title="Enter your name" placeholder="Name"><br>
-                        <input type="email" class="form-control flat" name="email" id="email" title="Enter your email" placeholder="Email Address"><br>
-                        <input type="text" class="form-control flat" name="phonenumber" id="phonenumber" title="Enter your phone number" placeholder="Phone Number" value=""><br>
-                    </div>
-                    <div class="col-md-6">
-                        <textarea name="message" class="form-control flat" id="message" title="Enter your message" placeholder="Your Message"></textarea><br>
-                        <button class="submit btn btn-default" name="submit" type="submit" id="contact_submit">Send Message</button>
-                    </div>
-                </div>
-            </fieldset>
-        </form>
+        <form>
+		  <div class="row">
+		    <div class="col-md-6">
+		      <label>First Name</label>
+		      <input type="text" placeholder="Your First Name" required class="form-control flat"/>
+		      <label>Last Name</label>
+		      <input type="text" placeholder="Your Last Name" class="form-control flat"/>
+		      <label>Email Address</label>
+		      <input type="email" placeholder="Your Email Address" required class="email form-control flat"/>
+		      <label>Subject</label>
+		      <select id="subject" name="subject" placeholder="Choose One:" class="form-control flat">
+		        <option value="na" selected="">Choose One:</option>
+		        <option value="service">General Customer Service</option>
+		        <option value="suggestions">Suggestions</option>
+		        <option value="product">Product Support</option>
+		      </select>
+		    </div>
+		    <div class="col-md-6">
+		      <label>Message</label>
+		      <textarea id="message" rows="5" name="message" required placeholder="Your Message" class="form-control flat"></textarea>
+		      <button type="button" id="contact-form-save" class="btn btn-default">Send Message</button>
+		    </div>
+		  </div>
+		</form>
         <?php
 
         $html .= ob_get_clean();
