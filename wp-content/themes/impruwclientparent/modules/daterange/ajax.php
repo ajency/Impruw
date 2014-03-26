@@ -1,5 +1,7 @@
 <?php
 
+include_once 'functions.php';
+
 # function to fetch packages
 function fetch_daterange(){
 
@@ -50,3 +52,18 @@ function fetch_daterange(){
 
 }
 add_action('wp_ajax_fetch-daterange', 'fetch_daterange');
+
+
+function create_daterange_ajax(){
+
+	$from_date= date("Y-m-d H:i:s",strtotime($_POST['start_date']));
+	$to_date= date("Y-m-d H:i:s",strtotime($_POST['end_date']));
+
+	$formdata = array('from_date' => $from_date,'to_date' => $to_date,'label'=>' ');
+
+	$daterange_id = wp_insert_daterange($formdata);
+
+	wp_send_json(array('code' => 'OK', 'daterange_id'=> $daterange_id));
+
+}
+add_action('wp_ajax_create-daterange', 'create_daterange_ajax');
