@@ -67,13 +67,13 @@ class ContactFormElement extends Element {
 		  <div class="row">
 		    <div class="col-md-6">
 		      <label>First Name</label>
-		      <input type="text" placeholder="Your First Name" required class="form-control flat"/>
+		      <input type="text" placeholder="Your First Name" name="c-first-name" required class="form-control flat"/>
 		      <label>Last Name</label>
-		      <input type="text" placeholder="Your Last Name" class="form-control flat"/>
+		      <input type="text" placeholder="Your Last Name" name="c-last-name" class="form-control flat"/>
 		      <label>Email Address</label>
-		      <input type="email" placeholder="Your Email Address" required class="email form-control flat"/>
+		      <input type="email" placeholder="Your Email Address" name="c-email" required class="email form-control flat"/>
 		      <label>Subject</label>
-		      <select id="subject" name="subject" placeholder="Choose One:" class="form-control flat">
+		      <select id="subject" name="c-subject" placeholder="Choose One:" class="form-control flat">
 		        <option value="na" selected="">Choose One:</option>
 		        <option value="service">General Customer Service</option>
 		        <option value="suggestions">Suggestions</option>
@@ -82,7 +82,7 @@ class ContactFormElement extends Element {
 		    </div>
 		    <div class="col-md-6">
 		      <label>Message</label>
-		      <textarea id="message" rows="5" name="message" required placeholder="Your Message" class="form-control flat"></textarea>
+		      <textarea id="message" rows="5" name="c-message" required placeholder="Your Message" class="form-control flat"></textarea>
 		      <button type="button" id="contact-form-save" class="btn btn-default">Send Message</button>
 		    </div>
 		  </div>
