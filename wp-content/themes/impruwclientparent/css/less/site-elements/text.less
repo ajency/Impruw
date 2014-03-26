@@ -4,8 +4,21 @@
 
 .imagewithtext {
 	.clearfix;
-	img {
+	.image-placeholder {
 		float: left;
+		margin: 0 0.4em 0.4em 0;
+		width: 40%;
+		position: relative;
+		z-index: 1;
+	}
+	img {
+		margin-bottom: 0.4em;
+		&.pull-left {
+			margin-right: 0.4em;
+		}
+		&.pull-right {
+			margin-left: 0.4em;
+		}
 	}
 	p {
 		color: darken(@tertiary1, 20%);
