@@ -35,7 +35,7 @@ define(['app', 'apps/builder/site-builder/elements/imagewithtext/views', 'apps/b
       Controller.prototype._getTemplateHelpers = function() {
         return {
           size: this.layout.model.get('size'),
-          alignment: this.layout.model.get('align'),
+          align: this.layout.model.get('align'),
           content: this.layout.model.get('content')
         };
       };

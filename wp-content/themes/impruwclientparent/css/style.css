@@ -282,6 +282,34 @@ and open the template in the editor.
 .text {
   color: #bfbfbf;
 }
+.imagewithtext {
+  *zoom: 1;
+}
+.imagewithtext:after,
+.imagewithtext:before {
+  clear: both;
+  content: "";
+  display: table;
+}
+.imagewithtext .image-placeholder {
+  float: left;
+  margin: 0 0.4em 0.4em 0;
+  width: 40%;
+  position: relative;
+  z-index: 1;
+}
+.imagewithtext img {
+  margin-bottom: 0.4em;
+}
+.imagewithtext img.pull-left {
+  margin-right: 0.4em;
+}
+.imagewithtext img.pull-right {
+  margin-left: 0.4em;
+}
+.imagewithtext p {
+  color: #bfbfbf;
+}
 /****Image With Text Styles****/
 .image {
   padding: 0.5em 0;
@@ -826,5 +854,9 @@ and open the template in the editor.
 }
 .map {
   padding: 0.4em;
+  border: 1px dashed #29333f;
+  margin: 1em 0;
+}
+.map:hover {
   border: 1px solid #ff7e00;
 }
