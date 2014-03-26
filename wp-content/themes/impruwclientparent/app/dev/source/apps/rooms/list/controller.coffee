@@ -7,6 +7,9 @@ define ['app', 'controllers/base-controller', 'apps/rooms/list/views'], (App, Ap
 			initialize:()->
 
 				@layout = @_getLayout()
+				
+				# add the room list to roomRegion
+				@listenTo @layout, "show", @showRoomsList
 
 				#listen to the button clicked trigger
 				@listenTo @layout, 'add:new:room:clicked',() ->
@@ -16,6 +19,14 @@ define ['app', 'controllers/base-controller', 'apps/rooms/list/views'], (App, Ap
 				App.vent.trigger "set:active:menu", 'rooms'
 
 				@show @layout
+
+			showRoomsList:->
+				# get the collection
+				collection = App.request "get:room:collection"
+				
+				listView = @_getRoomsListView collection
+
+				@layout.roomListRegion.show listView
 				
 			_getLayout:->
 				new List.Views.RoomListLayout

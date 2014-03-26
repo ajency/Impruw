@@ -6,13 +6,8 @@ define ['app'],
 
 				class RoomSingle extends Marionette.ItemView
 
-					#template : roomsingleTpl
-					template : '<h3>ROOM FEATURES</h3>'
-					#tagName : 'tr'
-
-					#events : 
-						#'click a.addroom_link' : (e)-> 
-								#@trigger 'add:room:clicked', @model
+					template : roomsingleTpl
+				
 
 				class EmptyView extends Marionette.ItemView
 
