@@ -295,12 +295,13 @@ and open the template in the editor.
 }
 .imagewithtext img {
   margin-bottom: 0.4em;
+  margin-top: 0.6em;
 }
 .imagewithtext img.pull-left {
-  margin-right: 0.4em;
+  margin-right: 0.5em;
 }
 .imagewithtext img.pull-right {
-  margin-left: 0.4em;
+  margin-left: 0.5em;
 }
 .imagewithtext p {
   color: #aeaeae;
