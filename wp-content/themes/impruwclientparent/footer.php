@@ -15,23 +15,31 @@
                     <?php echo generate_markup('footer'); ?>
 		</footer><!-- .site-footer -->
 	</div><!-- .container -->
+	<script type="text/javascript">
+    	var THEMEURL    = '<?php echo get_parent_template_directory_uri(); ?>';
+        var SITEURL     = '<?php echo site_url(); ?>';
+        var AJAXURL     = '<?php echo admin_url('admin-ajax.php'); ?>';
+    </script>
+    <?php if(!is_page('contact-us')): ?>
+    <script src="<?php echo get_parent_template_directory_uri(); ?>/app/dev/js/plugins/jquery.validate.js"></script>
+    <?php endif; ?>
 	<?php get_theme_JS() ;?>
 	<?php if(is_page('contact-us')): ?>
-	<script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
-	<script>
-		var map;
-		function initialize() {
-		  var mapOptions = {
-		    zoom: 8,
-		    center: new google.maps.LatLng(-34.397, 150.644)
-		  };
-		  map = new google.maps.Map(document.getElementById('map_canvas'),
-		      mapOptions);
-		}
-	
-		google.maps.event.addDomListener(window, 'load', initialize);
-
-	</script>
+		<script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+		
+		<script>
+			var map;
+			function initialize() {
+			  var mapOptions = {
+			    zoom: 8,
+			    center: new google.maps.LatLng(-34.397, 150.644)
+			  };
+			  map = new google.maps.Map(document.getElementById('map_canvas'),
+			      mapOptions);
+			}
+		
+			google.maps.event.addDomListener(window, 'load', initialize);
+		</script>
 	<?php endif; ?>
 	<?php wp_footer(); ?>
 	

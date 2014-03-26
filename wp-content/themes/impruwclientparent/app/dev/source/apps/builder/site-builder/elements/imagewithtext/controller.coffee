@@ -33,7 +33,7 @@ define ['app','apps/builder/site-builder/elements/imagewithtext/views','apps/bui
 					# serialized data before render
 					_getTemplateHelpers:->
 							size 		: @layout.model.get 'size'
-							alignment 	: @layout.model.get 'align'
+							align 		: @layout.model.get 'align'
 							content 	: @layout.model.get 'content'
 
 					_getImageWithTextView:(imageModel, style)->

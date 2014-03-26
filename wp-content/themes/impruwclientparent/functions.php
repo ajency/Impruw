@@ -49,7 +49,42 @@ add_theme_support('post-thumbnails');
 show_admin_bar( false );
 load_theme_textdomain( 'impruwclientparent' );
 
+/**
+ * [send_contact_form_message description]
+ * @return [type] [description]
+ */
+function send_contact_form_message(){
 
+	$admin_email = get_option('admin_email');
+
+	$message    = $_POST['c-message'];
+	$fname       = $_POST['c-first-name'];
+	$lname       = $_POST['c-last-name'];
+	$email      = $_POST['c-email'];
+	$subject    = $_POST['c-subject'];
+
+	$subject    = (!empty($subject) ? $subject : '-');
+	$mailsubject    = "Impruw Notification: Someone has tried to contact you";
+	$mailbody       = " You have been contacted by<br /><br />
+	Name    : $fname $lname<br />
+	Email   : $email<br />
+	Subject : $subject<br /><br />
+	The details of the message are as follows:<br />
+	<p>$message</p>";
+
+	add_filter( 'wp_mail_content_type', 'change_email_content_type' );
+	if(wp_mail($admin_email, $mailsubject, $mailbody))
+		wp_send_json(array('code' =>'OK'));
+	else
+		wp_send_json(array('code' =>'ERROR', 'message' => 'Failed to send you message. Please try again.'));
+	 
+}
+add_action('wp_ajax_send-contact-form-message','send_contact_form_message');
+add_action('wp_ajax_nopriv_send-contact-form-message','send_contact_form_message');
+
+function change_email_content_type(){
+	return 'text/html';
+}
 
 /*--------------------------------------------------------------------------------------
 *
@@ -714,9 +749,10 @@ function get_parent_template_directory_uri() {
  */
 function get_theme_JS() {
 ?>
-    <script src="<?php echo get_parent_template_directory_uri(); ?>/js/bootstrap.min.js"></script>
+   <script src="<?php echo get_parent_template_directory_uri(); ?>/js/bootstrap.min.js"></script>
+   <script src="<?php echo get_parent_template_directory_uri(); ?>/js/contact.js"></script>
    <?php
-    $theme_path =  get_stylesheet_directory() . "/js";
+  	$theme_path =  get_stylesheet_directory() . "/js";
     if ( file_exists( $theme_path ) && is_dir( $theme_path ) ) {
 
         $js_files = scandir( $theme_path, 1 );
