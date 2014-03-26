@@ -27,8 +27,8 @@ function create_room_ajax(){
     $room_id = create_room($formdata);
         
     // get all room post data
-    $room_data = get_post_room($room_id);
+    $room_data = get_room($room_id);
 
-    wp_send_json(array('code' => 'OK', 'data' => $room_data));
+   wp_send_json(array('code' => 'OK', 'data' => $room_data));
 }
 add_action('wp_ajax_create-room','create_room_ajax');
