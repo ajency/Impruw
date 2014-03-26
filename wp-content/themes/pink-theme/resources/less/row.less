@@ -9,10 +9,20 @@ and open the template in the editor.
 */
 .row{
 	background: transparent;
-	&.blue-strip-top{
-	    border-top: 5px solid @primary1;
-	    background: @tertiary1;
-	    min-height: 100px;
+	&.long-bar {
+	    position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 25%;
+		width: 100%;
+		padding: 0 15px;
+		z-index: 900;
+		> .column, > div {
+			background: @primary1 !important;
+			color: #fff;
+			width: 100%;
+			max-width: 220px;
+		}
 	}
 
 	&.white-shaded-background{
