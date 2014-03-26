@@ -3256,6 +3256,10 @@ $base_element_templates = array(
 				array(
 					'name' => 'Room Summary Default',
 					'template' => '<dic class="title">Room summary markup here</div>'
+				),
+				array(
+					'name' => 'Room Summary New',
+					'template' => '<dic class="title">Room summary new here</div>'
 				)
 			)
 );

@@ -170,6 +170,3 @@ define ["app", 'backbone'], (App, Backbone) ->
 
 			App.commands.setHandler "update:menu:item",(menuitem, data)->
 				API.updateMenuItemModel menuitem, data
-
-
-		App.Entities.Menus
