@@ -3251,5 +3251,11 @@ $base_element_templates = array(
                 array(
                     'name' => 'Social Left'
                 )
-            )
+            ),
+	'RoomSummary' => array(
+				array(
+					'name' => 'Room Summary Default',
+					'template' => '<dic class="title">Room summary markup here</div>'
+				)
+			)
 );

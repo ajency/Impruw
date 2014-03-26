@@ -23,15 +23,15 @@ define ["app", 'backbone'], (App, Backbone) ->
                 model : Rooms.RoomModel
 
                 url :->
-                    "#{AJAXURL}?action=create-room"
+                    "#{AJAXURL}?action=get-rooms"
                     #AJAXURL + '?action=get-rooms'
+
+
+            rooms = new Rooms.RoomCollection
 
             # PUBLIC API FOR ENtity
             API =
                 getRooms: (param ={})->
-
-                    rooms = new Rooms.RoomCollection
-                    
                     rooms.fetch
                             reset : true
                             data  : param
@@ -39,9 +39,7 @@ define ["app", 'backbone'], (App, Backbone) ->
                     rooms
 
                 createNewRoomModel:(data = {})->
-
                     room = new Rooms.RoomModel data
-
                     room
 
 
