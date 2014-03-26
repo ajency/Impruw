@@ -50,6 +50,7 @@ define ['app','controllers/base-controller'], (App, AppController)->
 				@$el.imagesLoaded =>
 					@$el.isotope
 						itemSelector: '.isotop-element'
+						layoutMode : 'fitRows'
 
 
 		App.commands.setHandler "show:gallery:images",(opt)->

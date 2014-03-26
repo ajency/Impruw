@@ -82,7 +82,8 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         return this.$el.imagesLoaded((function(_this) {
           return function() {
             return _this.$el.isotope({
-              itemSelector: '.isotop-element'
+              itemSelector: '.isotop-element',
+              layoutMode: 'fitRows'
             });
           };
         })(this));
