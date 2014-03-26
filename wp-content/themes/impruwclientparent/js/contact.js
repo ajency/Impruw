@@ -30,6 +30,7 @@ jQuery(document).ready(function($){
 									</div>';
 
 						$('#contact-form-save').closest('form').before(html);
+						$('#contact-form-save').closest('form').find('input[type="reset"]').click()
 					}
 					else if(response.code === 'ERROR'){
 

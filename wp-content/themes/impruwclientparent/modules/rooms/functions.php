@@ -39,19 +39,20 @@ function create_room($formdata){
     if($post_id != 0){
         
         // insert the slider id into the post meta table
-        add_post_meta($post_id, 'slider_id', $slider_id);
+       $post_meta_return =add_post_meta($post_id, 'slider_id', $slider_id);
         
         // set the facilities selected for the room
        wp_set_post_terms( $post_id, $facility_ids, 'impruw_room_facility' );
+       
+       //return the room id
+       
     }
-
-     //return the room id
-     return $post_id;
-  
+    
+    return $post_id; 
 }
 
 // Function returns the data for the new room created
-function get_post_room($roomid){
+function get_room($roomid){
     
     $room_id= $roomid;
     
@@ -69,9 +70,8 @@ function get_post_room($roomid){
 
     // loop the array and get the facilities
     foreach ($room_term_names as $key => $value) {
-        $room_terms['facilities-'.$room_term_names[$key]->term_id] = $room_term_names[$key]->name;
+        $room_terms['facilities'][$room_term_names[$key]->term_id] = $room_term_names[$key]->name;
     }
-
     // merge the array  
     $merge_first =array_merge($room_post,$room_post_meta);
 

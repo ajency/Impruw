@@ -42,42 +42,15 @@ $element_templates = array(
               ),
     'Title' => array(
                 array(
-                    'name'      => 'Title Super Text'
-                ),
-                array(
                     'name'      => 'Page Title',
                 ),
                 array(
-                    'name'      => 'Footer Title'
-                ),
-                array(
-                    'name'      => 'Footer Sub Title'
-                ),
-                array(
-                    'name'      => 'Small Title'
-                ),
-                array(
-                    'name'      => 'Grey Title Text'
-                ),
-                array(
-                    'name'      => 'Emphasis Text'
-                ),
-                array(
-                    'name'      => 'Inner Title'
-                ),
-                array(
-                    'name'      => 'Thumb Title'
-                ),
-                array(
-                    'name'      => 'Thumb Main Title'
+                    'name'      => 'Blue Capital Title',
                 )
               ),
     'Row' => array(
                 array(
-                    'name'      => 'Blue Strip Top'
-                ),
-                array(
-                    'name'      => 'White Shaded Background'
+                    'name'      => 'Slideshow Container'
                 ),
                 array(
                     'name'      => 'Long Bar'

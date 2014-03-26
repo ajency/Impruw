@@ -84,6 +84,7 @@ class ContactFormElement extends Element {
 		      <label>Message</label>
 		      <textarea id="message" rows="5" name="c-message" required placeholder="Your Message" class="form-control flat"></textarea>
 		      <button type="button" id="contact-form-save" class="btn btn-default">Send Message</button>
+		      <input type="reset" class="hidden"/>
 		    </div>
 		  </div>
 		</form>

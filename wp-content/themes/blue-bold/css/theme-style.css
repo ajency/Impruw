@@ -277,6 +277,21 @@ and open the template in the editor.
 .text {
   color: #bfbfbf;
 }
+.imagewithtext {
+  *zoom: 1;
+}
+.imagewithtext:after,
+.imagewithtext:before {
+  clear: both;
+  content: "";
+  display: table;
+}
+.imagewithtext img {
+  float: left;
+}
+.imagewithtext p {
+  color: #bfbfbf;
+}
 /****Image With Text Styles****/
 .image {
   padding: 0.5em 0;
@@ -821,6 +836,10 @@ and open the template in the editor.
 }
 .map {
   padding: 0.4em;
+  border: 1px dashed #555555;
+  margin: 1em 0;
+}
+.map:hover {
   border: 1px solid #07669e;
 }
 /*
