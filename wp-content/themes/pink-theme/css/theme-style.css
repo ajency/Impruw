@@ -771,6 +771,54 @@ and open the template in the editor.
   padding: 1em 0.5em 0.5em;
   color: #ffffff;
 }
+/****Room List Summary Styles****/
+.roomsummary {
+  *zoom: 1;
+  margin: 0 0 1em;
+}
+.roomsummary:after,
+.roomsummary:before {
+  clear: both;
+  content: "";
+  display: table;
+}
+.roomsummary .room-title {
+  font-size: 1.6em;
+  color: #ff5f5f;
+  font-weight: 400;
+  margin: 0.5em 0;
+}
+.roomsummary .room-excerpt {
+  color: #b6b6b6;
+  padding-bottom: 0.5em;
+  margin-bottom: 0.5em;
+  border-bottom: 1px dotted #e9e9e9;
+}
+.roomsummary .room-actions {
+  *zoom: 1;
+  text-align: right;
+}
+.roomsummary .room-actions:after,
+.roomsummary .room-actions:before {
+  clear: both;
+  content: "";
+  display: table;
+}
+.roomsummary .room-actions .price {
+  float: left;
+  font-size: 2em;
+  color: #d0d0d0;
+}
+.roomsummary .room-actions .price small {
+  font-size: 0.88em;
+}
+.roomsummary .room-actions .btn-room {
+  background: #ff5f5f;
+  color: #fff;
+}
+.roomsummary .room-actions .btn-room:hover {
+  background: #ffc5c5;
+}
 .map {
   padding: 0.4em;
   border: 1px solid #ff5f5f;
