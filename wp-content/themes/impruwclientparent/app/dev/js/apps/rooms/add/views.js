@@ -28,7 +28,8 @@ define(['app', 'text!apps/rooms/add/templates/add-room.html'], function(App, add
       };
 
       AddRoomLayout.prototype.onShowSuccessMessage = function() {
-        return this.$el.prepend('<div class="alert alert-success">Saved successfully</div>');
+        this.$el.prepend('<div class="alert alert-success">Saved successfully</div>');
+        return this.$el.find('#btn_resetroom').click();
       };
 
       AddRoomLayout.prototype.onSetSliderId = function(slider_id) {
