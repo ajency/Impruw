@@ -26,7 +26,7 @@ function create_plan_ajax(){
 	// pass the formdata to the insert function, returns the new plan id
 	$plan_id = wp_insert_plan($formdata);
 
-	wp_send_json(array('code' => 'OK', 'plan_id' => $plan_id));
+	wp_send_json(array('code' => 'OK', 'id' => $plan_id));
 
 }
 add_action('wp_ajax_create-plan','create_plan_ajax');

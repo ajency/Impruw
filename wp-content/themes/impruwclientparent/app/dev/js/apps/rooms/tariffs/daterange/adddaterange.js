@@ -73,7 +73,8 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/daterange
       };
 
       AddDateRangeView.prototype.onSavedDaterange = function() {
-        return this.$el.parent().prepend('<div class="alert alert-success">Saved successfully</div>');
+        this.$el.parent().prepend('<div class="alert alert-success">Saved successfully</div>');
+        return this.$el.find('input').val('');
       };
 
       AddDateRangeView.prototype.onShow = function() {
