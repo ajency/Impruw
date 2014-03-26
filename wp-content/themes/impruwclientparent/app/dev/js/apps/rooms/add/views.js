@@ -18,9 +18,9 @@ define(['app', 'text!apps/rooms/add/templates/add-room.html'], function(App, add
 
       AddRoomLayout.prototype.events = {
         'click #btn_saveroom': function() {
-          if (this.$el.valid()) {
-            return this.trigger("save:new:room", Backbone.Syphon.serialize(this));
-          }
+          var data;
+          data = Backbone.Syphon.serialize(this);
+          return this.trigger("save:new:room", data);
         },
         'click .add-gallery-images': function() {
           return this.trigger("show:edit:slider");

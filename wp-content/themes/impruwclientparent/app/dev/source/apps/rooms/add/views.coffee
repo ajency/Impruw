@@ -14,8 +14,9 @@ define ['app'
 
 					events:
 						'click #btn_saveroom' : ->
-							if @$el.valid()
-								@trigger "save:new:room", Backbone.Syphon.serialize @
+							data = Backbone.Syphon.serialize @
+							#if @$el.valid()
+							@trigger "save:new:room", data
 
 						'click .add-gallery-images':-> @trigger "show:edit:slider"
 
