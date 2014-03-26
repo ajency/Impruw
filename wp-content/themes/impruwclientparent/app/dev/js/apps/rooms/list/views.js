@@ -11,7 +11,7 @@ define(['app'], function(App, mainviewTpl, roomsingleTpl, emptyTpl) {
         return RoomSingle.__super__.constructor.apply(this, arguments);
       }
 
-      RoomSingle.prototype.template = '<h3>ROOM FEATURES</h3>';
+      RoomSingle.prototype.template = roomsingleTpl;
 
       return RoomSingle;
 

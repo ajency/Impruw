@@ -286,8 +286,22 @@ and open the template in the editor.
   content: "";
   display: table;
 }
-.imagewithtext img {
+.imagewithtext .image-placeholder {
   float: left;
+  margin: 0 0.4em 0.4em 0;
+  width: 40%;
+  position: relative;
+  z-index: 1;
+}
+.imagewithtext img {
+  margin-bottom: 0.4em;
+  margin-top: 0.6em;
+}
+.imagewithtext img.pull-left {
+  margin-right: 0.5em;
+}
+.imagewithtext img.pull-right {
+  margin-left: 0.5em;
 }
 .imagewithtext p {
   color: #0c111e;
@@ -869,6 +883,8 @@ and open the template in the editor.
   color: #fff;
   width: 100%;
   max-width: 220px;
+  min-height: 500px;
+  padding: 0;
 }
 .row.grey-background {
   background: #e9e9e9 !important;
