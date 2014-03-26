@@ -3255,11 +3255,11 @@ $base_element_templates = array(
 	'RoomSummary' => array(
 				array(
 					'name' => 'Room Summary Default',
-					'template' => '<dic class="title">Room summary markup here</div>'
+					'template' => '<div class="room-img"><img src=""></div><div class="room-title">Room Title</div><div class="room-excerpt">Lorem Ipsum Dolor Sit Amet</div><div class="room-actions"><div class="price">$199<small>/night</small></div><button class="btn btn-room">View Details</button></div>'
 				),
 				array(
 					'name' => 'Room Summary New',
-					'template' => '<dic class="title">Room summary new here</div>'
+					'template' => '<div class="room-img"><img src=""></div><div class="room-title">Room Title</div><div class="room-excerpt">Lorem Ipsum Dolor Sit Amet</div><div class="room-actions"><div class="price">$199<small>/night</small></div><button class="btn btn-room">View Details</button></div>'
 				)
 			)
 );
