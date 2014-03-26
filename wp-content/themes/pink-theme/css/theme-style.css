@@ -783,10 +783,21 @@ and open the template in the editor.
 .row {
   background: transparent;
 }
-.row.blue-strip-top {
-  border-top: 5px solid #ff5f5f;
-  background: #2a3b66;
-  min-height: 100px;
+.row.long-bar {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 25%;
+  width: 100%;
+  padding: 0 15px;
+  z-index: 900;
+}
+.row.long-bar > .column,
+.row.long-bar > div {
+  background: #ff5f5f !important;
+  color: #fff;
+  width: 100%;
+  max-width: 220px;
 }
 .row.white-shaded-background {
   padding: 1em 15px;
@@ -892,44 +903,47 @@ and open the template in the editor.
   border-radius: 3px;
 }
 .nav.footer-menu {
+  margin: 1em 0 0;
+  list-style: none;
   padding: 0;
   text-align: left;
 }
 .nav.footer-menu li {
-  position: relative;
-  margin: 0 0 0.2em;
-  display: block;
+  display: inline-block;
+  padding: 0;
   background: transparent;
+  padding-right: 1em;
+  margin: 0;
 }
 .nav.footer-menu li a {
-  color: #fff;
-  font-weight: 100;
-  text-transform: uppercase;
-  display: inline-block;
-  padding: 0.33em;
+  font-size: 1.1em;
+  text-decoration: underline;
+  padding: 0;
+  color: #2a3b66;
 }
 .nav.footer-menu li a:hover {
-  text-decoration: none;
+  color: primary1;
   background: transparent;
 }
-.nav.footer-menu li:before {
-  content: '›';
-  display: inline-block;
-  color: #fff;
-  font-size: 1.3em;
-  margin-right: 5px;
+.nav.left-menu {
+  padding-bottom: 1em;
 }
-.nav.footer-menu li:hover {
-  left: 0.25em;
-  -webkit-transition: all 0.25s ease;
-  -moz-transition: all 0.25s ease;
-  -o-transition: all 0.25s ease;
-  -ms-transition: all 0.25s ease;
-  transition: all 0.25s ease;
-  background: transparent;
+.nav.left-menu li {
+  margin: 0;
 }
-.nav.footer-menu li:hover a {
+.nav.left-menu li a {
+  border-bottom: 1px solid #e9e9e9;
   color: #fff;
+  border-radius: 0;
+  font-size: 0.96em;
+  font-weight: 300;
+}
+.nav.left-menu li a:hover {
+  background: #ff2c2c;
+  color: #e9e9e9;
+}
+.nav.left-menu li:last-child a {
+  border-bottom: 0;
 }
 /**** Title Styles****/
 .title.page-title {
