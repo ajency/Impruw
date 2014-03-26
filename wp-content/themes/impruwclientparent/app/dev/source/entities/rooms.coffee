@@ -28,14 +28,11 @@ define ["app", 'backbone'], (App, Backbone) ->
 
 
             rooms = new Rooms.RoomCollection
+            rooms.fetch()
 
             # PUBLIC API FOR ENtity
             API =
                 getRooms: (param ={})->
-                    rooms.fetch
-                            reset : true
-                            data  : param
-                                
                     rooms
 
                 createNewRoomModel:(data = {})->

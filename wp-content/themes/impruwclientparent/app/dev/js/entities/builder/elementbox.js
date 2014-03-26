@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
 
 define(["app", 'backbone'], function(App, Backbone) {
   return App.module("Entities.ElementBox", function(ElementBox, App, Backbone, Marionette, $, _) {
-    var API;
+    var API, elements;
     ElementBox.ElementModel = (function(_super) {
       __extends(ElementModel, _super);
 
@@ -49,15 +49,12 @@ define(["app", 'backbone'], function(App, Backbone) {
       return ElementCollection;
 
     })(Backbone.Collection);
+    elements = new ElementBox.ElementCollection;
     API = {
       getElements: function(param) {
-        var elements;
         if (param == null) {
           param = {};
         }
-        elements = App.request("get:collection", 'elementbox');
-        elements = new ElementBox.ElementCollection;
-        App.request("set:collection", 'elementbox', elements);
         elements.url = AJAXURL + '?action=get-elementbox-elements';
         elements.fetch({
           reset: true,
@@ -67,7 +64,7 @@ define(["app", 'backbone'], function(App, Backbone) {
       },
       getElementSettingOptions: function(ele) {
         var element;
-        element = App.request("get:collection:model", 'elementbox', ele);
+        element = elements.get(ele);
         return element;
       }
     };

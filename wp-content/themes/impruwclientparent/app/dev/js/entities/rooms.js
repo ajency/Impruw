@@ -45,15 +45,12 @@ define(["app", 'backbone'], function(App, Backbone) {
 
     })(Backbone.Collection);
     rooms = new Rooms.RoomCollection;
+    rooms.fetch();
     API = {
       getRooms: function(param) {
         if (param == null) {
           param = {};
         }
-        rooms.fetch({
-          reset: true,
-          data: param
-        });
         return rooms;
       },
       createNewRoomModel: function(data) {
