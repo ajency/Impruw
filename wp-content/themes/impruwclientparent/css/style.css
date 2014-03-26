@@ -776,3 +776,7 @@ and open the template in the editor.
   padding: 1em 0.5em 0.5em;
   color: #51657d;
 }
+.map {
+  padding: 0.4em;
+  border: 1px solid #ff7e00;
+}

@@ -771,6 +771,10 @@ and open the template in the editor.
   padding: 1em 0.5em 0.5em;
   color: #888888;
 }
+.map {
+  padding: 0.4em;
+  border: 1px solid #07669e;
+}
 /*
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates

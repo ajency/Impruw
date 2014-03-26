@@ -771,6 +771,10 @@ and open the template in the editor.
   padding: 1em 0.5em 0.5em;
   color: #ffffff;
 }
+.map {
+  padding: 0.4em;
+  border: 1px solid #ff5f5f;
+}
 /*
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
@@ -1018,4 +1022,92 @@ and open the template in the editor.
   font-weight: 200;
   margin-bottom: 10px;
   padding-left: 5px;
+}
+/****Social Element Styles****/
+.icon-dribbble:before,
+.icon-twitter:before,
+.icon-facebook:before,
+.icon-pinterest:before,
+.icon-flickr:before,
+.icon-google-plus:before,
+.icon-tumblr:before,
+.icon-youtube:before,
+.icon-dribbble:after,
+.icon-twitter:after,
+.icon-facebook:after,
+.icon-pinterest:after,
+.icon-flickr:after,
+.icon-google-plus:after,
+.icon-tumblr:after,
+.icon-youtube:after {
+  font-family: 'icomoon';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+}
+.icon-twitter:before,
+.icon-twitter:after {
+  content: "\e602";
+}
+.icon-facebook:before,
+.icon-facebook:after {
+  content: "\e600";
+}
+.icon-pinterest:before,
+.icon-pinterest:after {
+  content: "\e603";
+}
+.icon-flickr:before,
+.icon-flickr:after {
+  content: "\e607";
+}
+.icon-google-plus:before,
+.icon-google-plus:after {
+  content: "\e601";
+}
+.icon-youtube:before,
+.icon-youtube:after {
+  content: "\e606";
+}
+.social {
+  text-align: right;
+  margin: 0.5em 0;
+}
+.social li a {
+  padding: 0.35em;
+  border-radius: 2.5em;
+  width: 2.5em;
+  height: 2.5em;
+  font-size: 1em;
+  line-height: 1.2em;
+  margin: 0.2em 0.1em;
+  text-shadow: 0 0 1px rgba(255, 255, 255, 0.4);
+  transform: rotate(-1e-10deg);
+  transform: translateX(-0.3em);
+}
+.social li a:last-child {
+  margin-right: 0;
+}
+.social li a:hover {
+  font-size: 1.2em;
+  line-height: 1.4em;
+  margin: 0;
+}
+.social li a:hover:before {
+  color: #ff5f5f;
+}
+.social li:hover {
+  transform: scale(1.2);
+  box-shadow: none;
+}
+.social li:hover a {
+  top: 0px;
+}
+@media (max-width: 767px) {
+  .social {
+    text-align: center;
+    margin: 1em 0;
+  }
 }
