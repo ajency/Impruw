@@ -316,3 +316,40 @@
 		color: lighten(@secondary1, 20%);
 	}
 }
+
+/****Room List Summary Styles****/
+.roomsummary {
+	.clearfix;
+	margin: 0 0 1em;
+	.room-title {
+		font-size: 1.6em;
+		color: @primary1;
+		font-weight: 400;
+		margin: 0.5em 0;
+	}
+	.room-excerpt {
+		color: darken(@secondary1, 20%);
+		padding-bottom: 0.5em;
+		margin-bottom: 0.5em;
+		border-bottom: 1px dotted @secondary1;
+	}
+	.room-actions {
+		.clearfix;
+		text-align: right;
+		.price {
+			float: left;
+			font-size: 2em;
+			color: darken(@secondary1, 10%);
+			small {
+				font-size: 0.88em;
+			}
+		}
+		.btn-room {
+			background: @primary1;
+			color: #fff;
+			&:hover {
+				background: lighten(@primary1, 20%);
+			}
+		}
+	}
+}

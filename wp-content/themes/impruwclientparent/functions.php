@@ -3251,5 +3251,15 @@ $base_element_templates = array(
                 array(
                     'name' => 'Social Left'
                 )
-            )
+            ),
+	'RoomSummary' => array(
+				array(
+					'name' => 'Room Summary Default',
+					'template' => '<div class="room-img"><img src="" class="img-responsive"></div><div class="room-title">Room Title</div><div class="room-excerpt">Lorem Ipsum Dolor Sit Amet</div><div class="room-actions"><div class="price">$199<small>/night</small></div><button class="btn btn-room">View Details</button></div>'
+				),
+				array(
+					'name' => 'Room Summary New',
+					'template' => '<div class="room-img"><img src="" class="img-responsive"></div><div class="room-title">Room Title</div><div class="room-excerpt">Lorem Ipsum Dolor Sit Amet</div><div class="room-actions"><div class="price">$199<small>/night</small></div><button class="btn btn-room">View Details</button></div>'
+				)
+			)
 );

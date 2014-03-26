@@ -47,10 +47,8 @@ define(['app', 'apps/builder/site-builder/elements/menu/views', 'apps/builder/si
         menu = App.request("get:menu:by:id", model.get('menu_id'));
         return App.execute("when:fetched", menu, (function(_this) {
           return function() {
-            var elementBox, itemCollection, templateClass, templates, view, _ref;
+            var itemCollection, templateClass, view, _ref;
             itemCollection = menu.get('menu_items');
-            elementBox = App.request("get:collection:model", "elementbox", 'Menu');
-            templates = elementBox.get('templates');
             templateClass = (_ref = [model.get('style')]) != null ? _ref : '';
             view = _this._getMenuView(itemCollection, templateClass);
             _this.listenTo(itemCollection, "menu:order:updated", view.render);

@@ -14,7 +14,9 @@ define(['app', 'apps/builder/site-builder/elements/roomsummary/views', 'apps/bui
 
       Controller.prototype.initialize = function(options) {
         _.defaults(options.modelData, {
-          element: 'RoomSummary'
+          element: 'RoomSummary',
+          ID: 0,
+          style: 'Room Summary Default'
         });
         return Controller.__super__.initialize.call(this, options);
       };

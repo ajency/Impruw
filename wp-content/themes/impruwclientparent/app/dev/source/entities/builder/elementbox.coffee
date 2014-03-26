@@ -28,13 +28,12 @@ define ["app", 'backbone'], (App, Backbone) ->
                     return resp.data if resp.code is 'OK'
                     App.vent.trigger "elementbox:collection:fetch:error", resp
 
-                
+            
+            elements = new ElementBox.ElementCollection
+
             # PUBLIC API FOR ENitity
             API =
                 getElements: (param = {})->
-                    elements = App.request "get:collection", 'elementbox'
-                    elements = new ElementBox.ElementCollection
-                    App.request "set:collection", 'elementbox', elements
                     elements.url = AJAXURL + '?action=get-elementbox-elements'
                     elements.fetch
                                 reset : true
@@ -43,7 +42,7 @@ define ["app", 'backbone'], (App, Backbone) ->
 
                 # returns the element settings options
                 getElementSettingOptions:(ele)->
-                    element = App.request "get:collection:model", 'elementbox', ele
+                    element = elements.get ele
                     element
 
 

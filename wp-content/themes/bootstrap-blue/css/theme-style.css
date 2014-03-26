@@ -771,6 +771,54 @@ and open the template in the editor.
   padding: 1em 0.5em 0.5em;
   color: #989898;
 }
+/****Room List Summary Styles****/
+.roomsummary {
+  *zoom: 1;
+  margin: 0 0 1em;
+}
+.roomsummary:after,
+.roomsummary:before {
+  clear: both;
+  content: "";
+  display: table;
+}
+.roomsummary .room-title {
+  font-size: 1.6em;
+  color: #5ca9a1;
+  font-weight: 400;
+  margin: 0.5em 0;
+}
+.roomsummary .room-excerpt {
+  color: #323232;
+  padding-bottom: 0.5em;
+  margin-bottom: 0.5em;
+  border-bottom: 1px dotted #656565;
+}
+.roomsummary .room-actions {
+  *zoom: 1;
+  text-align: right;
+}
+.roomsummary .room-actions:after,
+.roomsummary .room-actions:before {
+  clear: both;
+  content: "";
+  display: table;
+}
+.roomsummary .room-actions .price {
+  float: left;
+  font-size: 2em;
+  color: #4b4b4b;
+}
+.roomsummary .room-actions .price small {
+  font-size: 0.88em;
+}
+.roomsummary .room-actions .btn-room {
+  background: #5ca9a1;
+  color: #fff;
+}
+.roomsummary .room-actions .btn-room:hover {
+  background: #9fccc8;
+}
 /*
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates

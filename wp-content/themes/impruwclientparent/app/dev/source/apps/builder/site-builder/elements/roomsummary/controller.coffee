@@ -12,7 +12,9 @@ define ['app'
 					initialize:(options)->
 
 						_.defaults options.modelData,
-											element  	: 'RoomSummary'
+											element  : 'RoomSummary'
+											ID 		 : 0
+											style 	 : 'Room Summary Default'
 											
 
 						super(options)

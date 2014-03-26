@@ -11,7 +11,6 @@ define ['app'
 				name : 'facility'
 
 
-
 			#Facilities Collection class
 			class Facilities.FacilityCollection extends Backbone.Collection
 

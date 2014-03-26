@@ -39,8 +39,8 @@ define ['app','apps/builder/site-builder/elements/menu/views','apps/builder/site
 						
 						App.execute "when:fetched", menu, =>
 							itemCollection = menu.get 'menu_items'
-							elementBox 	=  App.request "get:collection:model", "elementbox", 'Menu'
-							templates 	= elementBox.get('templates')
+							#elementBox 	=  App.request "get:collection:model", "elementbox", 'Menu'
+							#templates 	= elementBox.get('templates')
 							templateClass = [model.get 'style'] ? ''
 
 							view = @_getMenuView itemCollection,templateClass

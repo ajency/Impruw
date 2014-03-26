@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
 
 define(["app", 'backbone'], function(App, Backbone) {
   return App.module("Entities.Rooms", function(Rooms, App, Backbone, Marionette, $, _) {
-    var API;
+    var API, rooms;
     Rooms.RoomModel = (function(_super) {
       __extends(RoomModel, _super);
 
@@ -38,23 +38,19 @@ define(["app", 'backbone'], function(App, Backbone) {
       RoomCollection.prototype.model = Rooms.RoomModel;
 
       RoomCollection.prototype.url = function() {
-        return "" + AJAXURL + "?action=create-room";
+        return "" + AJAXURL + "?action=get-rooms";
       };
 
       return RoomCollection;
 
     })(Backbone.Collection);
+    rooms = new Rooms.RoomCollection;
+    rooms.fetch();
     API = {
       getRooms: function(param) {
-        var rooms;
         if (param == null) {
           param = {};
         }
-        rooms = new Rooms.RoomCollection;
-        rooms.fetch({
-          reset: true,
-          data: param
-        });
         return rooms;
       },
       createNewRoomModel: function(data) {
