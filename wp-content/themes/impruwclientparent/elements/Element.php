@@ -95,7 +95,7 @@ class Element {
     	
     	$this->style_class = sanitize_title($element['style']);
 
-        $this->margins = $this->get_margin_classes($element);
+       // $this->margins = $this->get_margin_classes($element);
         
     }
     

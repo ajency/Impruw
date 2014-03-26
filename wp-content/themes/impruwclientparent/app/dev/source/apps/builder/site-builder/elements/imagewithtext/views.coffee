@@ -6,9 +6,14 @@ define ['app', 'holder'],(App, Holder)->
 		# Menu item view
 		class Views.ImageWithTextView extends Marionette.ItemView
 
-			className : 'image'
+			className : 'imagewithtext'
 
-			template : '<img {{holder}}src="{{imageurl}}" alt="{{title}}" class="{{alignclass}} img-responsive image-img-with-text"/>
+			template : '{{#image}}
+							<img src="{{imageurl}}" alt="{{title}}" class="{{alignclass}} img-responsive"/>
+						{{/image}}
+						{{#placeholder}}
+							<div class="image-placeholder"><span class="bicon icon-uniF10E"></span>Upload Image</div>
+						{{/placeholder}}
 						<p class="editor"></p>
 						<div class="clearfix"></div>'
 
@@ -17,18 +22,14 @@ define ['app', 'holder'],(App, Holder)->
 				data = super data
 				data.holder = ''
 				if @model.isNew()
-					data.holder = 'data-'
-					data.imageurl = ->
-						@url = "#{SITEURL}/wp-content/themes/impruwclientparent/app/dev/js/plugins/holder.js/35%x165"	
+					data.placeholder = true
 				else
-					if not data.sizes[data.size]
-						data.size = _.chain(_.keys(data.sizes)).first().value()
-
+					data.image = true
 					data.imageurl = ->
-						@sizes[@size].url	
+						if @sizes['thumbnail'] then @sizes['thumbnail'].url else @sizes['full'].url
 
 				data.alignclass = ->
-					switch @alignment
+					switch @align
 						when 'left' 
 							return 'pull-left'
 						when 'right'
@@ -37,9 +38,10 @@ define ['app', 'holder'],(App, Holder)->
 				data
 
 			events:
-				'click img'		: (e)->
-									e.stopPropagation()
-									@trigger "show:media:manager"
+				'click img,.image-placeholder': (e)->
+							e.stopPropagation()
+							@trigger "show:media:manager"
+
 				'blur p.editor' : (e)-> @trigger "text:element:blur", @$el.children('p.editor').html()
 
 			onStyleUpadted:(newStyle, prevStyle)->
@@ -57,14 +59,6 @@ define ['app', 'holder'],(App, Holder)->
 			# after run remove the data-src attribute of the image to avoid
 			# reloading placeholder image again
 			onShow:->
-				if @model.isNew()
-					Holder.run()
-					@$el.find('img').removeAttr 'data-src'
-
-
-
-				#@$el.height @$el.find('img').height()
-
 				#run ckeditor
 				@$el.children('p.editor').attr('contenteditable','true').attr 'id', _.uniqueId 'text-'
 				@editor = CKEDITOR.inline document.getElementById @$el.children('p.editor').attr 'id'
