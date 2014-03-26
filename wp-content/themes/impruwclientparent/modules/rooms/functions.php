@@ -61,23 +61,22 @@ function get_post_room($roomid){
     // returns a string of the post meta value
     $room_post_meta_val =get_post_meta( $room_id,'slider_id',true);
     
-    if(!empty($room_post_meta_val)){
-        // convert the post meta string to array
-        $room_post_meta = array('slider_id' => $room_post_meta_val);
+    // convert the post meta string to array
+    $room_post_meta = array('slider_id' => $room_post_meta_val);
 
-        // returns an array of the post terms of the room
-        $room_term_names = wp_get_post_terms( $room_id, 'impruw_room_facility');
+    // returns an array of the post terms of the room
+    $room_term_names = wp_get_post_terms( $room_id, 'impruw_room_facility');
 
-        // loop the array and get the facilities
-        foreach ($room_term_names as $key => $value) {
-            $room_terms['facilities-'.$room_term_names[$key]->term_id] = $room_term_names[$key]->name;
-        }
-
-        // merge the array  
-        $merge_first =array_merge($room_post,$room_post_meta);
-
-        $roomdata =array_merge($merge_first,$room_terms); 
-
-        return $roomdata;
+    // loop the array and get the facilities
+    foreach ($room_term_names as $key => $value) {
+        $room_terms['facilities-'.$room_term_names[$key]->term_id] = $room_term_names[$key]->name;
     }
+
+    // merge the array  
+    $merge_first =array_merge($room_post,$room_post_meta);
+
+    $roomdata =array_merge($merge_first,$room_terms); 
+
+    return $roomdata;
+   
 }
