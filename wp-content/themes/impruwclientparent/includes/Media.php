@@ -32,7 +32,9 @@ function impruw_media(){
 
 	// if('POST' !== $_SERVER['REQUEST_METHOD'])
 	// 	return;
-
+	
+	WP_Query;
+	
 	wp_send_json($_REQUEST);
 
 	$id = $_POST['media-id'];
