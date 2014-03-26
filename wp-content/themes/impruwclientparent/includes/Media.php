@@ -28,7 +28,6 @@ function get_site_media($query){
 	return $posts;	
 }
 
-
 function impruw_media(){
 
 	// if('POST' !== $_SERVER['REQUEST_METHOD'])

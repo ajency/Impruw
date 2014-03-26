@@ -70,7 +70,7 @@ class ImageWithText extends Element {
 							<img src="{{imageurl}}" alt="{{title}}" class="{{alignclass}} img-responsive"/>
 						{{/image}}
 						{{#placeholder}}
-							<div class="image-placeholder"><span class="bicon icon-uniF10E"></span>Image</div>
+							<div class="image-placeholder {{alignclass}}"><span class="bicon icon-uniF10E"></span>Image</div>
 						{{/placeholder}}
 						<p class="editor">{{content}}</p>
 						<div class="clearfix"></div>
@@ -80,15 +80,16 @@ class ImageWithText extends Element {
     	
     	if($this->image_id > 0){
     		$data['image'] = true;
-    		$image = '';
-    		$data['imageurl'] = $image->sizes['thumbnail']->url;
-    		$data['title'] = $image->title;
-    		$data['alignclass'] = $this->align === 'right' ? 'pull-left' : 'pull-left';	
+    		$image = wp_prepare_attachment_for_js($this->image_id);
+    		
+    		$data['imageurl'] = $image['sizes']['thumbnail']['url'];
+    		$data['title'] = $image['title'];	
     	}
     	else{
     		$data['placeholder'] = true;
     	}
     	
+    	$data['alignclass'] = $this->align == 'right' ? 'pull-right' : 'pull-left';
     	$data['content'] = $this->content;
     	$data['class_name'] = $this->style;
     	
