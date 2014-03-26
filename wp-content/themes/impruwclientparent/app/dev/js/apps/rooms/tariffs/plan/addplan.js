@@ -19,8 +19,12 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/plan/temp
         this.listenTo(planView, "add:plan:details", (function(_this) {
           return function(data) {
             var plan;
-            console.log(data);
-            return plan = App.request("create:plan:model", data);
+            plan = App.request("create:plan:model", data);
+            console.log(plan);
+            return plan.save(null, {
+              wait: true,
+              success: _this.planSaved
+            });
           };
         })(this));
         return this.show(planView);

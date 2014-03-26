@@ -1,5 +1,6 @@
 <?php
-
+// function to insert the new date range into the database
+// returns the new date range id
 function  wp_insert_daterange($formdata){
   
   global $wpdb;

@@ -9,12 +9,11 @@ define  ['app','controllers/base-controller', 'text!apps/rooms/tariffs/plan/temp
 				@planView = planView = @_getAddPlanView()
 
 				@listenTo planView, "add:plan:details", (data)=>
-					console.log data
 					plan = App.request "create:plan:model", data
-					
-					#plan.save null,
-							#wait : true
-							#success : @planSaved
+					console.log plan					
+					plan.save null,
+							wait : true
+							success : @planSaved
 
 				@show planView
 
