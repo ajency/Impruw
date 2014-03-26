@@ -83,9 +83,6 @@ require.config
 			exports : 'bootbox'
 		app 				: ['pluginloader','configloader']
 
-	tpl :
-		extension : '.html'
-
 
 ## Start with application
 require [   'pluginloader'

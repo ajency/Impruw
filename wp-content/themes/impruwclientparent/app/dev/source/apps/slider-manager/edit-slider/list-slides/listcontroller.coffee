@@ -12,6 +12,14 @@ define ['app'
 						if not collection
 							collection = App.request "get:slides:for:slide" , @sliderId
 
+						# if slider id is not present
+						if not @sliderId 
+							if collection.length > 0
+								@sliderId = collection.at(0).get 'slider_id'
+							else
+								collection.once "add",(model)=>
+									@sliderId = parseInt model.get 'slider_id'
+
 						@layout = layout = @_getSlidesListLayout()
 
 						@listView = listView = @_getSlidesListView collection
@@ -183,7 +191,7 @@ define ['app'
 
 					template : '<div id="slides-list-region"></div>
 								<div class="aj-imp-block-button add-new-slide">
-									<button class="btn btn-default btn-hg btn-block"><span class="bicon icon-uniF10C"></span>&nbsp;&nbsp;Add Slide</button>
+									<button class="btn btn-default btn-hg btn-block"><span class="bicon icon-uniF10C"></span>&nbsp;&nbsp;Add Image</button>
 								</div>
 								<div id="add-slide-region"></div>'
 
@@ -193,8 +201,8 @@ define ['app'
 							@trigger "show:add:new:slide"
 
 					dialogOptions : 
-						modal_title : 'Slider Manager'
-						modal_size  : 'medium-modal'
+						modal_title : 'Manage Images'
+						modal_size  : 'wide-modal'
 
 					onShowAddSlide : ->
 						@$el.find('.add-new-slide').show()

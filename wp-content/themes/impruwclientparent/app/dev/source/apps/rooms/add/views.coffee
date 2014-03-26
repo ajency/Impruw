@@ -14,13 +14,17 @@ define ['app'
 
 					events:
 						'click #btn_saveroom' : ->
-							# check for validation
 							if @$el.valid()
 								@trigger "save:new:room", Backbone.Syphon.serialize @
 
-					onShowSuccessMessage:->
-						@$el.prepend '<div class="alert alert-success">SAve successfully</div>'
+						'click .add-gallery-images':-> @trigger "show:edit:slider"
 
+
+					onShowSuccessMessage:->
+						@$el.prepend '<div class="alert alert-success">Saved successfully</div>'
+
+					onSetSliderId :(slider_id)->
+						@$el.find('input[name="slider_id"]').val slider_id
 
 					regions : 
 						facilitiesRegion 	: '#facilities-region'

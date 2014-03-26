@@ -104,6 +104,9 @@ define ["app", 'backbone'], (App, Backbone) ->
 			App.reqres.setHandler "get:slides:for:slide", (sliderId, shouldReset = true)->
 				API.fetchSlides sliderId, shouldReset
 
+			App.reqres.setHandler "get:slides:collection", ()->
+				new SlideCollection
+
 			App.reqres.setHandler "create:new:slider:model",(modelData)->
 				API.createNewSlider modelData
 

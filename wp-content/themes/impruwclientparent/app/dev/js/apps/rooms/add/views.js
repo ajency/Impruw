@@ -21,11 +21,18 @@ define(['app', 'text!apps/rooms/add/templates/add-room.html'], function(App, add
           if (this.$el.valid()) {
             return this.trigger("save:new:room", Backbone.Syphon.serialize(this));
           }
+        },
+        'click .add-gallery-images': function() {
+          return this.trigger("show:edit:slider");
         }
       };
 
       AddRoomLayout.prototype.onShowSuccessMessage = function() {
-        return this.$el.prepend('<div class="alert alert-success">SAve successfully</div>');
+        return this.$el.prepend('<div class="alert alert-success">Saved successfully</div>');
+      };
+
+      AddRoomLayout.prototype.onSetSliderId = function(slider_id) {
+        return this.$el.find('input[name="slider_id"]').val(slider_id);
       };
 
       AddRoomLayout.prototype.regions = {

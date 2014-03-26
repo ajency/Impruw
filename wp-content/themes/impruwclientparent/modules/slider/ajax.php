@@ -96,7 +96,7 @@ add_action('wp_ajax_fetch-slides','fetch_slides');
 */
 function create_slide(){
 
-    $slider_id = $_POST['slider_id'];; 
+   
     $image_path= $_POST['image'];
     $image_id = $_POST['image_id'];
 
@@ -111,6 +111,8 @@ function create_slide(){
 
     //unset($data['action']);
     //unset($data['wait']);
+    // check if slider is present if no create new
+     $slider_id = isset($_POST['slider_id']) ? $_POST['slider_id'] : create_new_slider(array('title' => 'Slider Title','alias' =>'slider-alias'));
 
     // returns the new slide ID
     $d = create_new_slide($data,$slider_id);

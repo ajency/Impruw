@@ -22,4 +22,5 @@ define [
 		'mustache'
 		'bootstrapselect'
 		'nvd3'
+		'isotope'
 		],->

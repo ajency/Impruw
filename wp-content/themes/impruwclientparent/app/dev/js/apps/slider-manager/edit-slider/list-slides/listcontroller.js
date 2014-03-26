@@ -20,6 +20,17 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         if (!collection) {
           collection = App.request("get:slides:for:slide", this.sliderId);
         }
+        if (!this.sliderId) {
+          if (collection.length > 0) {
+            this.sliderId = collection.at(0).get('slider_id');
+          } else {
+            collection.once("add", (function(_this) {
+              return function(model) {
+                return _this.sliderId = parseInt(model.get('slider_id'));
+              };
+            })(this));
+          }
+        }
         this.layout = layout = this._getSlidesListLayout();
         this.listView = listView = this._getSlidesListView(collection);
         this.listenTo(listView, "itemview:slide:updated:with:data", function(iv, data) {
@@ -192,7 +203,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         return SlidesListLayout.__super__.constructor.apply(this, arguments);
       }
 
-      SlidesListLayout.prototype.template = '<div id="slides-list-region"></div> <div class="aj-imp-block-button add-new-slide"> <button class="btn btn-default btn-hg btn-block"><span class="bicon icon-uniF10C"></span>&nbsp;&nbsp;Add Slide</button> </div> <div id="add-slide-region"></div>';
+      SlidesListLayout.prototype.template = '<div id="slides-list-region"></div> <div class="aj-imp-block-button add-new-slide"> <button class="btn btn-default btn-hg btn-block"><span class="bicon icon-uniF10C"></span>&nbsp;&nbsp;Add Image</button> </div> <div id="add-slide-region"></div>';
 
       SlidesListLayout.prototype.events = {
         'click .add-new-slide': function() {
@@ -202,8 +213,8 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
       };
 
       SlidesListLayout.prototype.dialogOptions = {
-        modal_title: 'Slider Manager',
-        modal_size: 'medium-modal'
+        modal_title: 'Manage Images',
+        modal_size: 'wide-modal'
       };
 
       SlidesListLayout.prototype.onShowAddSlide = function() {

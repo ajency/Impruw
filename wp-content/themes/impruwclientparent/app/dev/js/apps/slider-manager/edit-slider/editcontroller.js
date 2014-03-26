@@ -12,9 +12,11 @@ define(['app', 'controllers/base-controller', 'apps/slider-manager/edit-slider/s
       }
 
       EditSliderController.prototype.initialize = function(opt) {
-        var layout, slider;
-        this.sliderId = opt.sliderId;
-        slider = App.request("get:slider:by:id", this.sliderId);
+        var collection, layout, slider;
+        this.sliderId = opt.sliderId, collection = opt.collection;
+        if (!collection) {
+          slider = App.request("get:slider:by:id", this.sliderId);
+        }
         this.layout = layout = this._getEditLayout();
         this.listenTo(layout, "cancel:edit:slider", (function(_this) {
           return function() {
@@ -32,8 +34,7 @@ define(['app', 'controllers/base-controller', 'apps/slider-manager/edit-slider/s
             return _this._startSlidesListApp(_this.sliderId, layout.slidesListRegion);
           };
         })(this));
-        this.show(layout);
-        return App.navigate("slider-manager/edit/" + this.sliderId);
+        return this.show(layout);
       };
 
       EditSliderController.prototype._getEditLayout = function() {

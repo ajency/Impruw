@@ -81,9 +81,6 @@ require.config({
       exports: 'bootbox'
     },
     app: ['pluginloader', 'configloader']
-  },
-  tpl: {
-    extension: '.html'
   }
 });
 

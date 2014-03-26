@@ -145,6 +145,9 @@ define(["app", 'backbone'], function(App, Backbone) {
       }
       return API.fetchSlides(sliderId, shouldReset);
     });
+    App.reqres.setHandler("get:slides:collection", function() {
+      return new SlideCollection;
+    });
     App.reqres.setHandler("create:new:slider:model", function(modelData) {
       return API.createNewSlider(modelData);
     });

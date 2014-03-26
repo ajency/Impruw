@@ -10,9 +10,10 @@ define ['app'
 
 					initialize:(opt)->
 
-						{@sliderId} = opt
+						{@sliderId, collection} = opt
 
-						slider = App.request "get:slider:by:id" , @sliderId
+						if not collection
+							slider = App.request "get:slider:by:id" , @sliderId
 						
 						@layout = layout = @_getEditLayout()
 
@@ -31,7 +32,7 @@ define ['app'
 
 						@show layout
 
-						App.navigate  "slider-manager/edit/#{@sliderId}"
+						#App.navigate  "slider-manager/edit/#{@sliderId}"
 
 					# edit layout
 					_getEditLayout:->

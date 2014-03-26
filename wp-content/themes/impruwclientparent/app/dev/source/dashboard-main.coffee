@@ -22,6 +22,7 @@ require.config
 		plupload			: 'plugins/plupload.full'
 		d3					: 'plugins/d3.v3'
 		nvd3 				: 'plugins/nv.d3'
+		isotope 			: 'plugins/isotope'
 		radio 				: 'plugins/flatui-radio'
 		checkbox			: 'plugins/flatui-checkbox'
 		backboneform		: 'plugins/backbone.form'
@@ -57,6 +58,7 @@ require.config
 		backboneform 		: ['backbone']
 		backbonesyphon 		: ['backbone']
 		backboneassociations: ['backbone']
+		isotope				: ['jquery']
 		jqueryspin 			: ['spin']
 		bootstrap 			: ['jquery']
 		radio 				: ['bootstrap']
