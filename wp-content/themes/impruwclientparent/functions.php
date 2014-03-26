@@ -237,6 +237,9 @@ function add_element_markup( $element ) {
     case 'Image':
         $html = get_image_element_markup( $element );
         break;
+    case 'ImageWithText':
+      	$html = get_image_with_text_element_markup( $element );
+       	break;
     case 'Menu':
         $html = get_menu_element_markup( $element );
         break;
@@ -449,6 +452,23 @@ function get_image_element_markup( $element ) {
     $html = $image->get_markup();
 
     return $html;
+
+}
+
+/**
+ * Generates the image markup
+ *
+ * @param type    $element
+ */
+function get_image_with_text_element_markup( $element ) {
+
+	require_once PARENTTHEMEPATH . 'elements/ImageWithText.php';
+
+	$image = new ImageWithText( $element );
+
+	$html = $image->get_markup();
+
+	return $html;
 
 }
 

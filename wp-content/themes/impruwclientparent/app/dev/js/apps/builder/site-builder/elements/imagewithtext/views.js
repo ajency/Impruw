@@ -10,28 +10,27 @@ define(['app', 'holder'], function(App, Holder) {
         return ImageWithTextView.__super__.constructor.apply(this, arguments);
       }
 
-      ImageWithTextView.prototype.className = 'image';
+      ImageWithTextView.prototype.className = 'imagewithtext';
 
-      ImageWithTextView.prototype.template = '<img {{holder}}src="{{imageurl}}" alt="{{title}}" class="{{alignclass}} img-responsive image-img-with-text"/> <p class="editor"></p> <div class="clearfix"></div>';
+      ImageWithTextView.prototype.template = '{{#image}} <img src="{{imageurl}}" alt="{{title}}" class="{{alignclass}} img-responsive"/> {{/image}} {{#placeholder}} <div class="image-placeholder"><span class="bicon icon-uniF10E"></span>Upload Image</div> {{/placeholder}} <p class="editor"></p> <div class="clearfix"></div>';
 
       ImageWithTextView.prototype.mixinTemplateHelpers = function(data) {
         data = ImageWithTextView.__super__.mixinTemplateHelpers.call(this, data);
         data.holder = '';
         if (this.model.isNew()) {
-          data.holder = 'data-';
-          data.imageurl = function() {
-            return this.url = "" + SITEURL + "/wp-content/themes/impruwclientparent/app/dev/js/plugins/holder.js/35%x165";
-          };
+          data.placeholder = true;
         } else {
-          if (!data.sizes[data.size]) {
-            data.size = _.chain(_.keys(data.sizes)).first().value();
-          }
+          data.image = true;
           data.imageurl = function() {
-            return this.sizes[this.size].url;
+            if (this.sizes['thumbnail']) {
+              return this.sizes['thumbnail'].url;
+            } else {
+              return this.sizes['full'].url;
+            }
           };
         }
         data.alignclass = function() {
-          switch (this.alignment) {
+          switch (this.align) {
             case 'left':
               return 'pull-left';
             case 'right':
@@ -42,7 +41,7 @@ define(['app', 'holder'], function(App, Holder) {
       };
 
       ImageWithTextView.prototype.events = {
-        'click img': function(e) {
+        'click img,.image-placeholder': function(e) {
           e.stopPropagation();
           return this.trigger("show:media:manager");
         },
@@ -63,10 +62,6 @@ define(['app', 'holder'], function(App, Holder) {
 
       ImageWithTextView.prototype.onShow = function() {
         var content;
-        if (this.model.isNew()) {
-          Holder.run();
-          this.$el.find('img').removeAttr('data-src');
-        }
         this.$el.children('p.editor').attr('contenteditable', 'true').attr('id', _.uniqueId('text-'));
         this.editor = CKEDITOR.inline(document.getElementById(this.$el.children('p.editor').attr('id')));
         content = Marionette.getOption(this, 'templateHelpers').content;
