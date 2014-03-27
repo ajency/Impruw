@@ -47,12 +47,12 @@ define ["app", 'backbone'], (App, Backbone) ->
 					room = rooms.get parseInt room_id
 
 					if not room 
-						room = new Rooms.RoomModel ID : parseInt room_id
-
-					room.fetch()
-					rooms.add room
-					console.log room
-					#console.log rooms
+						room = new Rooms.RoomModel ID : parseInt room_id	
+						room.fetch()
+						rooms.add room
+						console.log room
+				
+						#console.log rooms
 					room
 
 

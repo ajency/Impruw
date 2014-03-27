@@ -70,10 +70,10 @@ define(["app", 'backbone'], function(App, Backbone) {
           room = new Rooms.RoomModel({
             ID: parseInt(room_id)
           });
+          room.fetch();
+          rooms.add(room);
+          console.log(room);
         }
-        room.fetch();
-        rooms.add(room);
-        console.log(room);
         return room;
       },
       addRoomModelToCollection: function(model) {
