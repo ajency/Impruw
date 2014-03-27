@@ -1,10 +1,15 @@
-define ['app'],
+define ['app'
+		'text!apps/rooms/list/templates/mainview.html'
+		'text!apps/rooms/list/templates/singleroom.html'
+		'text!apps/rooms/list/templates/emptyview.html'],
 		(App, mainviewTpl, roomsingleTpl, emptyTpl)->
 
 
 			App.module 'RoomsApp.List.Views', (Views, App, Backbone, Marionette, $, _)->
 
 				class RoomSingle extends Marionette.ItemView
+
+					tagName: "tr"
 
 					template : roomsingleTpl
 				

@@ -12,6 +12,7 @@ function create_room($formdata){
     $post_type= 'impruw_room';
     $post_status = 'publish';
     $slider_id= $formdata['slider_id'];
+    $no_of_rooms= $formdata['no_of_rooms'];
     
     // prepare facility array
     $facility= $formdata['facility'];
@@ -39,19 +40,21 @@ function create_room($formdata){
     if($post_id != 0){
         
         // insert the slider id into the post meta table
-       $post_meta_return =add_post_meta($post_id, 'slider_id', $slider_id);
+       add_post_meta($post_id, 'slider_id', $slider_id);
+       add_post_meta($post_id, 'no_of_rooms', $no_of_rooms);
         
         // set the facilities selected for the room
        wp_set_post_terms( $post_id, $facility_ids, 'impruw_room_facility' );
        
-       //return the room id
+      
        
-    }
-    
+    } 
+    //return the room id
     return $post_id; 
 }
 
 // Function returns the data for the new room created
+// @param room ID
 function get_room($roomid){
     
     $room_id= $roomid;
@@ -60,10 +63,15 @@ function get_room($roomid){
     $room_post = get_post($room_id,ARRAY_A);
     
     // returns a string of the post meta value
-    $room_post_meta_val =get_post_meta( $room_id,'slider_id',true);
+    $room_slider_id =get_post_meta( $room_id,'slider_id',true);
+    $no_of_rooms =get_post_meta( $room_id,'no_of_rooms',true);
+    
+    if(empty($no_of_rooms)){
+        $no_of_rooms = '0';
+    }
     
     // convert the post meta string to array
-    $room_post_meta = array('slider_id' => $room_post_meta_val);
+    $room_post_meta = array('slider_id' => $room_slider_id,'no_of_rooms'=>$no_of_rooms);
 
     // returns an array of the post terms of the room
     $room_term_names = wp_get_post_terms( $room_id, 'impruw_room_facility');
@@ -79,4 +87,20 @@ function get_room($roomid){
 
     return $roomdata;
    
+}
+
+function get_roomss(){
+    
+    $rooms = new WP_Query(array('post_type'=>'impruw_room','posts_per_page' => -1));
+
+    $room_data = array();
+
+    while($rooms->have_posts()): $rooms->the_post();
+
+        $room_data[] = get_room(get_the_ID());
+
+    endwhile;
+
+    return $room_data;
+    
 }

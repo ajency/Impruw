@@ -21,14 +21,21 @@ define(['app', 'controllers/base-controller', 'apps/rooms/list/views'], function
       };
 
       ListController.prototype.showRoomsList = function() {
-        var collection, listView;
-        collection = App.request("get:room:collection");
-        listView = this._getRoomsListView(collection);
-        return this.layout.roomListRegion.show(listView);
+        var collection;
+        collection = App.request("get:room:entities");
+        console.log(collection);
+        this.listView = this._getRoomsListView(collection);
+        return this.layout.roomRegion.show(this.listView);
       };
 
       ListController.prototype._getLayout = function() {
         return new List.Views.RoomListLayout;
+      };
+
+      ListController.prototype._getRoomsListView = function(collection) {
+        return new List.Views.RoomsListView({
+          collection: collection
+        });
       };
 
       return ListController;
