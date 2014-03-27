@@ -55,7 +55,7 @@ define(['app', 'text!apps/rooms/list/templates/mainview.html', 'text!apps/rooms/
         return RoomListLayout.__super__.constructor.apply(this, arguments);
       }
 
-      RoomListLayout.prototype.template = '<header class="aj-imp-dash-header row"> <div class="aj-imp-dash-title col-xs-12"> <h2 class="aj-imp-page-head">Rooms</h2> </div> </header> <a href="#rooms/add" class="btn btn-default btn-lg add-room"><span class="icon icon-plus"></span> Add Room</a> <div id="room-list"></div>';
+      RoomListLayout.prototype.template = '<div id="room-list"></div>';
 
       RoomListLayout.prototype.className = 'rooms-layout';
 
