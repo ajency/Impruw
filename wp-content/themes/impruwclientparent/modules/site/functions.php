@@ -81,6 +81,8 @@ function assign_theme_to_site( $theme_id ,$site_id = 0){
     if ( $theme->exists() && $theme->is_allowed() )
         switch_theme( $theme->get_template(), $theme->get_stylesheet() );
     
+    update_option('site_status', 'online');
+    
     $pages =    array(  
                     array('post_title' => 'Home'),
                     array('post_title' => 'About Us'),

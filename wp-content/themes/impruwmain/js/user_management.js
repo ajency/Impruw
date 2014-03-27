@@ -224,7 +224,7 @@ jQuery(document).ready(function($) {
                         '<button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>' +
                         response.msg + '</div>')
 
-                    window.location.href = response.blog_url;
+                    window.location.href = response.blog_url + '/dashboard';
                     return true;
                 } else if ((response.code == 'ERROR') || (response.code == 'FAILED')) {
 
