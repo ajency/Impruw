@@ -39,6 +39,9 @@ define ["app", 'backbone'], (App, Backbone) ->
                 createNewRoomModel:(data = {})->
                     room = new Rooms.RoomModel data
                     room
+
+                addRoomModelToCollection :(model)->
+                    rooms.add model
     
 
             # REQUEST HANDLERS
@@ -47,5 +50,10 @@ define ["app", 'backbone'], (App, Backbone) ->
 
             App.reqres.setHandler "create:new:room:model", (data)->
                 API.createNewRoomModel data
+
+            App.commands.setHandler "add:room:model", (model)->
+                return false if not _.isObject model
+                API.addRoomModelToCollection model
+
 
 

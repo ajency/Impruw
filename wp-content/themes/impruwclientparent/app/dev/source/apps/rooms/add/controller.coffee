@@ -54,7 +54,8 @@ define ['app', 'controllers/base-controller'
 							wait : true
 							success : @showSaveMessage
 
-			showSaveMessage : =>
+			showSaveMessage :(model) =>
+				App.execute "add:room:model", model
 				@layout.triggerMethod "show:success:message"
 
 			getAddRoomLayout : ()->
