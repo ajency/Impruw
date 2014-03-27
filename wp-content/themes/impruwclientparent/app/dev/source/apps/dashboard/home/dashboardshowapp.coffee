@@ -40,6 +40,11 @@ define ['app', 'controllers/base-controller','text!apps/dashboard/home/templates
 
 			template : dashboardTpl
 
+			serializeData:->
+				data = 
+					SITEURL : window.SITEURL
+
+				data
 
 		Home.on 'start',->
 			new DashboardRouter

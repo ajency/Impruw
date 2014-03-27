@@ -57,6 +57,14 @@ define(['app', 'controllers/base-controller', 'text!apps/dashboard/home/template
 
       DashboardLayout.prototype.template = dashboardTpl;
 
+      DashboardLayout.prototype.serializeData = function() {
+        var data;
+        data = {
+          SITEURL: window.SITEURL
+        };
+        return data;
+      };
+
       return DashboardLayout;
 
     })(Marionette.Layout);
