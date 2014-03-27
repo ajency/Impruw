@@ -50,11 +50,9 @@ define(['marionette'], function(Marionette) {
         jQuery('#initial-loader').remove();
         App.startHistory();
         _this.rootRoute = ISTHEMESELECTED === 1 ? '' : 'choose-theme';
-        if (!_this.getCurrentRoute()) {
-          return App.navigate(_this.rootRoute, {
-            trigger: true
-          });
-        }
+        return App.navigate(_this.rootRoute, {
+          trigger: true
+        });
       };
     })(this));
   });

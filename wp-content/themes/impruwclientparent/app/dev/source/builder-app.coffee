@@ -61,7 +61,7 @@ define ['marionette'], (Marionette)->
 			jQuery('#initial-loader').remove()
 			App.startHistory()
 			@rootRoute = if ISTHEMESELECTED is 1 then '' else 'choose-theme'
-			App.navigate(@rootRoute, trigger: true) unless @getCurrentRoute()
+			App.navigate(@rootRoute, trigger: true)
 		
 
 	App

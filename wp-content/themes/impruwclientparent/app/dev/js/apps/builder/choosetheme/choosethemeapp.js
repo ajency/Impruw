@@ -45,7 +45,7 @@ define(['app', 'controllers/base-controller', 'apps/builder/choosetheme/views'],
         };
         responseFn = (function(_this) {
           return function(resp) {
-            return _this.region.close();
+            return window.location.reload();
           };
         })(this);
         return $.post("" + AJAXURL + "?action=assign-theme-to-site", data, responseFn, 'json');

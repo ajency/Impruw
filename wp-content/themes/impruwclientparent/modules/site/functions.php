@@ -105,8 +105,14 @@ function add_menus_to_site(){
     $name = 'Main Menu';
     //create the menu
     $menu_id = wp_create_nav_menu( $name );
-
+	
+    $skip_pages = array('Coming Soon', 'Single Room', 'Support');
+    
     foreach(get_all_menu_pages() as $page):
+    	
+    	if(in_array($page->post_title, $skip_pages))
+    		continue;
+    
         //then add the actuall link/ menu item and you do this for each item you want to add
         wp_update_nav_menu_item( $menu_id, 0, array(
             'menu-item-title'   => $page->post_title,
@@ -128,6 +134,10 @@ function add_menus_to_site(){
     $menu_id_footer = wp_create_nav_menu( $name_footer );
 
     foreach(get_all_menu_pages() as $page):
+    	
+	    if(in_array($page->post_title, $skip_pages))
+	    	continue;
+    	
         //then add the actuall link/ menu item and you do this for each item you want to add
         wp_update_nav_menu_item( $menu_id_footer, 0, array(
             'menu-item-title'   => $page->post_title,
