@@ -98,7 +98,7 @@ function get_theme_preview_link($ID){
  */
 function is_theme_choosed(){
     
-    $status = get_option('site_status','coming_soon');
+    $status = get_option('site_status','online');
     
     if($status != 'coming_soon')
         return 1;
