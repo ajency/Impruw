@@ -25,7 +25,7 @@ define ['app', 'controllers/base-controller', 'apps/rooms/list/views'], (App, Ap
 				# get the collection
 				collection = App.request "get:room:entities"
 				
-				console.log collection
+				#console.log collection
 				
 				@listView = @_getRoomsListView collection
 

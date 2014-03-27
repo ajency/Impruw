@@ -23,7 +23,6 @@ define(['app', 'controllers/base-controller', 'apps/rooms/list/views'], function
       ListController.prototype.showRoomsList = function() {
         var collection;
         collection = App.request("get:room:entities");
-        console.log(collection);
         this.listView = this._getRoomsListView(collection);
         return this.layout.roomRegion.show(this.listView);
       };
