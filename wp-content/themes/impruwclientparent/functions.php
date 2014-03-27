@@ -3336,11 +3336,11 @@ $base_element_templates = array (
 		'RoomSummary' => array (
 				array (
 						'name' => 'Room Summary Default',
-						'template' => '<div class="room-img"><img src="" class="img-responsive"></div><div class="room-title">Room Title</div><div class="room-excerpt">Lorem Ipsum Dolor Sit Amet</div><div class="room-actions"><div class="price">$199<small>/night</small></div><button class="btn btn-room">View Details</button></div>' 
+						'template' => '<div class="room-img"><img src="{{thumb_url}}" class="img-responsive"></div><div class="room-title">{{post_title}}</div><div class="room-excerpt">{{post_content}}</div><div class="room-actions"><div class="price">$199<small>/night</small></div><button class="btn btn-room">View Details</button></div>' 
 				),
 				array (
 						'name' => 'Room Summary New',
-						'template' => '<div class="room-img"><img src="" class="img-responsive"></div><div class="room-title">Room Title</div><div class="room-excerpt">Lorem Ipsum Dolor Sit Amet</div><div class="room-actions"><div class="price">$199<small>/night</small></div><button class="btn btn-room">View Details</button></div>' 
+						'template' => 'Suraj<div class="room-img"><img src="{{thumb_url}}" class="img-responsive"></div><div class="room-title">{{post_title}}</div><div class="room-excerpt">{{post_content}}</div><div class="room-actions"><div class="price">$199<small>/night</small></div><button class="btn btn-room">View Details</button></div>' 
 				) 
 		) 
 );

@@ -40,6 +40,11 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/element
             return _this.model.set(spacing, value);
           };
         })(this));
+        this.listenTo(view, "element:selection:changed", (function(_this) {
+          return function(room_id) {
+            return _this.model.set("room_id", room_id);
+          };
+        })(this));
         return this.show(view);
       };
 
