@@ -45,3 +45,16 @@ function get_rooms_ajax(){
     wp_send_json(array('code'=>'OK','data'=>$data));
 }
 add_action('wp_ajax_get-rooms','get_rooms_ajax');
+
+/**
+* Function to get all room data 
+*  returns only the title and ID
+ */ 
+function get_all_rooms_ajax(){
+       
+    //returns all rooms    
+    $data = get_all_rooms();
+
+    wp_send_json(array('code'=>'OK','data'=>$data));
+}
+add_action('wp_ajax_get-all-rooms','get_all_rooms_ajax');

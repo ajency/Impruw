@@ -104,3 +104,21 @@ function get_roomss(){
     return $room_data;
     
 }
+/**
+* Function to get all room data 
+*  returns only the title and ID
+ */ 
+function get_all_rooms(){
+   $rooms = new WP_Query(array('post_type'=>'impruw_room','posts_per_page' => -1));
+
+    $room_data = array();
+
+    while($rooms->have_posts()): $rooms->the_post();
+
+        $room_data [] = array ( get_the_ID () => get_the_title () );
+
+    endwhile;
+
+    return $room_data;  
+    
+}
