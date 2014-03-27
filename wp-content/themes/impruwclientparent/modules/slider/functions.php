@@ -36,9 +36,9 @@ function slider_exists($slider_id){
     
     $table = GlobalsRevSlider::$table_sliders;
     
-    $id = $wpdb->get_var("SELECT id FROM $table WHERE id=%d", $slider_id);
+    $id_count = $wpdb->get_var("SELECT count(id) FROM $table WHERE id=%d", $slider_id);
     
-    return $id !== null;
+    return $id_count !== 0;
 }
 
 /**
