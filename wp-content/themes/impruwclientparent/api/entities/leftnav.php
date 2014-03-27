@@ -451,7 +451,7 @@ function get_page_json1($page_id = 0) {
 		if (! is_array ( $elements ))
 			continue;
 		foreach ( $elements as $element ) {
-			if ($element ['element'] === 'Row') {
+			if ($element ['element'] === "Row") {
 				$element ['columncount'] = count ( $element ['elements'] );
 				$d [$section] [] = get_row_elements ( $element );
 			} else
