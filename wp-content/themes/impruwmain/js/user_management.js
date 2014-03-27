@@ -16,7 +16,7 @@ jQuery(document).ready(function($) {
         //$('#btn_create_site').attr('disabled',true);
         var _this = this;
 
-        //if ($('#frm_registration').parsley('validate')) {
+        if ($('#frm_registration').parsley('validate')) {
 
             $(this).next().show();
             var data = {
@@ -76,7 +76,7 @@ jQuery(document).ready(function($) {
             }); //end  $.post(ajaxurl, data, function(response) 
 
 
-        //}
+        }
 
     });
 

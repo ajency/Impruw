@@ -426,7 +426,7 @@ function save_page_json() {
 	//$e = json_encode($json);
 
     // $e = json_encode($json);
-	nullupdate_option ( 'theme-header', $json ['header'] );
+	update_option ( 'theme-header', $json ['header'] );
 	update_post_meta ( $page_id, 'page-json', $json ['page'] );
 	update_option ( 'theme-footer', $json ['footer'] );
 	wp_send_json ( array (

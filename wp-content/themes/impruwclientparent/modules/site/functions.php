@@ -182,6 +182,9 @@ function add_pages_to_site($pages, $user_id = 0 ){
         // Insert the post into the database
         $post_id = wp_insert_post( $page_arr );
         
+        if($page['post_title'] === 'Home')
+        	set_home_page($post_id);
+        
         // assign the template if passed
         if(isset($page['template']))
             update_post_meta( $post_id, '_wp_page_template', $page['template'] );
@@ -189,6 +192,11 @@ function add_pages_to_site($pages, $user_id = 0 ){
     }
     
     return true;
+}
+
+function set_home_page($post_id){
+	update_option ( 'page_on_front', $post_id );
+	update_option ( 'show_on_front', 'page' );
 }
 
 /**

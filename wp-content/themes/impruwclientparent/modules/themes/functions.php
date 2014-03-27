@@ -98,9 +98,9 @@ function get_theme_preview_link($ID){
  */
 function is_theme_choosed(){
     
-    $theme = get_option('stylesheet');
+    $status = get_option('site_status','coming_soon');
     
-    if($theme != 'impruwclientparent')
+    if($status != 'coming_soon')
         return 1;
     
     return 0;

@@ -74,9 +74,9 @@ class LogoElement extends Element {
      */
     function get_image_id(){
          
-        $id = 56;
-
-        return (int)$id;
+       $logo_id = get_option('logo_id', 0);
+       
+       return $logo_id;
     }
     
     /**
@@ -98,20 +98,17 @@ class LogoElement extends Element {
 
         $size = $this->get_image_size();
         
-        $path = get_parent_template_directory_uri() . '/js/holder.js/100%x220/text:Logo';
-
-        if($a_id === 0){
-            return  sprintf("<a href='%s'><img data-src='%s' class='img-responsive' /></a>", site_url(), $path);
+       	if($a_id === 0){
+            return  '<div class="image-placeholder"><span class="bicon icon-uniF10E"></span></div>';
         }
 
-        $image = wp_get_attachment_image_src($a_id, 'large');
+        $image = wp_get_attachment_image_src($a_id, 'full');
         if($image !== false) {
             return sprintf("<a href='%s'><img src='%s' class='img-responsive' /></a>", site_url(), $image[0]);
         }
         else{
-            return sprintf("<a href='%s'><img data-src='%s' class='img-responsive' /></a>", site_url(), $path);
-        }
-            
+            return  '<div class="image-placeholder"><span class="bicon icon-uniF10E"></span></div>';
+        } 
     }
     
 }
