@@ -203,16 +203,7 @@ function get_elementbox_elements() {
 							'element' => 'RoomSummary',
 							'title' => 'Room Summary',
 							'styles' => get_styles ( 'RoomSummary' ),
-							'rooms' => array (
-									array (
-											'ID' => 1,
-											'post_title' => 'Room one' 
-									),
-									array (
-											'ID' => 2,
-											'post_title' => 'Room two' 
-									) 
-							),
+							'rooms' =>  get_all_rooms(),
 							'icon' => '' 
 					) 
 			) 
