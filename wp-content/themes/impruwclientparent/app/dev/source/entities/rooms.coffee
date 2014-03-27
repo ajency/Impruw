@@ -27,6 +27,7 @@ define ["app", 'backbone'], (App, Backbone) ->
                     #AJAXURL + '?action=get-rooms'
 
 
+            # create new room collection
             rooms = new Rooms.RoomCollection
             rooms.fetch()
 
@@ -38,7 +39,7 @@ define ["app", 'backbone'], (App, Backbone) ->
                 createNewRoomModel:(data = {})->
                     room = new Rooms.RoomModel data
                     room
-
+    
 
             # REQUEST HANDLERS
             App.reqres.setHandler "get:room:entities", ->
@@ -46,3 +47,5 @@ define ["app", 'backbone'], (App, Backbone) ->
 
             App.reqres.setHandler "create:new:room:model", (data)->
                 API.createNewRoomModel data
+
+

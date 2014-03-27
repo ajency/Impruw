@@ -32,3 +32,16 @@ function create_room_ajax(){
    wp_send_json(array('code' => 'OK', 'data' => $room_data));
 }
 add_action('wp_ajax_create-room','create_room_ajax');
+
+/**
+* Function to get all room data 
+*  returns all the post data of the room created
+ */ 
+function get_rooms_ajax(){
+       
+    //returns all rooms    
+    $data = get_roomss();
+
+    wp_send_json(array('code'=>'OK','data'=>$data));
+}
+add_action('wp_ajax_get-rooms','get_rooms_ajax');

@@ -1,7 +1,7 @@
 var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-define(['app'], function(App, mainviewTpl, roomsingleTpl, emptyTpl) {
+define(['app', 'text!apps/rooms/list/templates/mainview.html', 'text!apps/rooms/list/templates/singleroom.html', 'text!apps/rooms/list/templates/emptyview.html'], function(App, mainviewTpl, roomsingleTpl, emptyTpl) {
   return App.module('RoomsApp.List.Views', function(Views, App, Backbone, Marionette, $, _) {
     var EmptyView, RoomSingle;
     RoomSingle = (function(_super) {
@@ -10,6 +10,8 @@ define(['app'], function(App, mainviewTpl, roomsingleTpl, emptyTpl) {
       function RoomSingle() {
         return RoomSingle.__super__.constructor.apply(this, arguments);
       }
+
+      RoomSingle.prototype.tagName = "tr";
 
       RoomSingle.prototype.template = roomsingleTpl;
 
