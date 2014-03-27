@@ -24,6 +24,9 @@ define ['app'
 					onShowSuccessMessage:->
 						@$el.prepend '<div class="alert alert-success">Saved successfully</div>'
 						@$el.find('#btn_resetroom').click()
+						$('html, body').animate
+							scrollTop: 0
+						,1000
 
 					onSetSliderId :(slider_id)->
 						@$el.find('input[name="slider_id"]').val slider_id

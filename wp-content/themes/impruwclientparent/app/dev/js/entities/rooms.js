@@ -60,13 +60,22 @@ define(["app", 'backbone'], function(App, Backbone) {
         }
         room = new Rooms.RoomModel(data);
         return room;
+      },
+      addRoomModelToCollection: function(model) {
+        return rooms.add(model);
       }
     };
     App.reqres.setHandler("get:room:entities", function() {
       return API.getRooms();
     });
-    return App.reqres.setHandler("create:new:room:model", function(data) {
+    App.reqres.setHandler("create:new:room:model", function(data) {
       return API.createNewRoomModel(data);
+    });
+    return App.commands.setHandler("add:room:model", function(model) {
+      if (!_.isObject(model)) {
+        return false;
+      }
+      return API.addRoomModelToCollection(model);
     });
   });
 });

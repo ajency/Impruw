@@ -66,7 +66,8 @@ define(['app', 'controllers/base-controller', 'apps/rooms/add/views', 'apps/room
         });
       };
 
-      Controller.prototype.showSaveMessage = function() {
+      Controller.prototype.showSaveMessage = function(model) {
+        App.execute("add:room:model", model);
         return this.layout.triggerMethod("show:success:message");
       };
 
