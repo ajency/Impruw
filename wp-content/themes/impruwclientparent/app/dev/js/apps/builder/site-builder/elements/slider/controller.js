@@ -14,14 +14,13 @@ define(['app', 'apps/builder/site-builder/elements/slider/views', 'apps/builder/
 
       Controller.prototype.initialize = function(options) {
         _.defaults(options.modelData, {
-          element: 'Slider',
-          slider_id: 1
+          element: 'Slider'
         });
         return Controller.__super__.initialize.call(this, options);
       };
 
       Controller.prototype.bindEvents = function() {
-        this.listenTo(this.layout.model, "change:slider_id", this.renderElement(null));
+        this.listenTo(this.layout.model, "change:slider_id", this.renderElement);
         return Controller.__super__.bindEvents.call(this);
       };
 
@@ -31,17 +30,33 @@ define(['app', 'apps/builder/site-builder/elements/slider/views', 'apps/builder/
         });
       };
 
-      Controller.prototype.renderElement = function(slidesCollection) {
-        this.removeSpinner();
-        if (!_.isObject(slidesCollection)) {
-          slidesCollection = App.request("get:slides:for:slide", this.layout.model.get('slider_id'));
+      Controller.prototype._getSlidesCollection = function() {
+        if (!this.slidesCollection) {
+          if (this.layout.model.get('slider_id') > 0) {
+            this.slidesCollection = App.request("get:slides:for:slide", this.layout.model.get('slider_id'));
+          } else {
+            this.slidesCollection = App.request("get:slides:collection");
+            this.slidesCollection.once("add", (function(_this) {
+              return function(model) {
+                _this.layout.model.set('slider_id', model.get('slider_id'));
+                return _this.layout.model.save();
+              };
+            })(this));
+          }
         }
+        return this.slidesCollection;
+      };
+
+      Controller.prototype.renderElement = function() {
+        var slidesCollection;
+        this.removeSpinner();
+        slidesCollection = this._getSlidesCollection();
         return App.execute("when:fetched", slidesCollection, (function(_this) {
           return function() {
             var view;
             view = _this._getSliderView(slidesCollection);
             _this.listenTo(view, "show:slides:manager", function() {
-              return App.execute("show:slides:manager", _this.layout.model.get('slider_id'), slidesCollection);
+              return App.execute("show:slides:manager", slidesCollection);
             });
             _this.listenTo(slidesCollection, "remove add slides:order:updated", function() {
               return _this.renderElement(slidesCollection);

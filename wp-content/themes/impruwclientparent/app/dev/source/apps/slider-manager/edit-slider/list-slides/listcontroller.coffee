@@ -7,18 +7,14 @@ define ['app'
 
 					initialize:(opt)->
 
-						{@sliderId, collection} = opt
-
-						if not collection
-							collection = App.request "get:slides:for:slide" , @sliderId
+						{collection} = opt
 
 						# if slider id is not present
-						if not @sliderId 
-							if collection.length > 0
-								@sliderId = collection.at(0).get 'slider_id'
-							else
-								collection.once "add",(model)=>
-									@sliderId = parseInt model.get 'slider_id'
+						if collection.length > 0
+							@sliderId = collection.at(0).get 'slider_id'
+						else
+							collection.once "add",(model)=>
+								@sliderId = parseInt model.get 'slider_id'
 
 						@layout = layout = @_getSlidesListLayout()
 
@@ -224,8 +220,7 @@ define ['app'
 				App.commands.setHandler 'show:slides:list', (opts = {})->
 					new SlidesListController opts
 
-				App.commands.setHandler "show:slides:manager",(sliderId, slidesCollection)->
+				App.commands.setHandler "show:slides:manager",(slidesCollection)->
 					new SlidesListController 
 								region : App.dialogRegion
 								collection : slidesCollection
-								sliderId : sliderId

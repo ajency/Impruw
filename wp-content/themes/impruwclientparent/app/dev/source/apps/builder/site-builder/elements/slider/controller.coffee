@@ -13,32 +13,44 @@ define ['app'
 
 						_.defaults options.modelData,
 											element  	: 'Slider'
-											slider_id 	: 1
 
 						super(options)
 						
 					bindEvents:->
 						# start listening to model events
-						@listenTo @layout.model, "change:slider_id", @renderElement null
+						@listenTo @layout.model, "change:slider_id", @renderElement
 						super()
 
 					_getSliderView:(collection)->
 						new Slider.Views.SliderView
 											collection : collection
-												
+
+					_getSlidesCollection:->
+						if not @slidesCollection
+							if @layout.model.get('slider_id') > 0
+								@slidesCollection =  App.request "get:slides:for:slide" , @layout.model.get 'slider_id'					
+							else
+								@slidesCollection = App.request "get:slides:collection"
+								# listen to add event to set slider Id to element  model
+								@slidesCollection.once "add",(model)=>
+									@layout.model.set 'slider_id', model.get 'slider_id'
+									# save the model
+									@layout.model.save()
+					
+						@slidesCollection
 
 					# setup templates for the element
-					renderElement:(slidesCollection)=>
+					renderElement:()=>
 						@removeSpinner()
-						
-						if not _.isObject slidesCollection
-							slidesCollection = App.request "get:slides:for:slide" , @layout.model.get 'slider_id'
 
+						slidesCollection = @_getSlidesCollection()
+						
 						App.execute "when:fetched", slidesCollection, =>
+
 							view = @_getSliderView slidesCollection
 
 							@listenTo view, "show:slides:manager", =>
-								App.execute "show:slides:manager", @layout.model.get('slider_id'),slidesCollection
+								App.execute "show:slides:manager", slidesCollection
 
 							@listenTo slidesCollection, "remove add slides:order:updated", =>
 								@renderElement slidesCollection
