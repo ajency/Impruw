@@ -45,9 +45,9 @@ class RoomSummary extends Element {
     function get_room_summary(){  
        $data= $this->room;
        $data['link']= get_permalink( $this->room_id );
-
+    
        $template = '<div class="roomsummary"><div class="room-img">
-                         <img src="{{thumb_url}}" class="img-responsive">
+                         <img src="{{_thumbnail_id}}" class="img-responsive">
                     </div>
                     <div class="room-title">{{post_title}}</div>
                     <div class="room-excerpt">{{post_content}}</div>

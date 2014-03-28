@@ -17,6 +17,9 @@ define ['app'
 
 				model : Analytics.AnalyticsModel
 
+				url :->
+					"#{AJAXURL}?action=get_analytics_data"
+
 				
 					
 
@@ -125,12 +128,29 @@ define ['app'
 				
 					analyticsCollection
 
+				getWeeklyData:->
+					collection = new Analytics.AnalyticsCollection
+					date = new Date()
+					endDate = Date.UTC date.getFullYear(),date.getMonth(),date.getDate()
+
+					#set start date one month ago
+					startDate = endDate - 7* 86400000
+					params = 
+						metrices 	: 'ga:visits,ga:visitors,ga:newVisits,ga:pageviews,ga:pageviewsPerVisit,ga:bounces'
+						start_date 	: startDate
+						end_date 	: endDate
+						ids			: 81856773
+
+					collection.fetch
+								data : params
+					collection
+
 			#request handlers
 			App.commands.setHandler "create:analytics:store", ->
 				API.createStoreCollection()
 
-			# App.reqres.setHandler "get:analytics:by:date",(startDate,endDate)->
-				# API.getAnalyticsCollectionByDate startDate,endDate
+			App.reqres.setHandler "get:weekly:data", ->
+				API.getWeeklyData()
 
 			App.reqres.setHandler "fetch:analytics" ,(startDate,endDate)->
 				API.fetchAnalytics startDate,endDate

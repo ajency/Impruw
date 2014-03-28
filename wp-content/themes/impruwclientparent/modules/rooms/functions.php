@@ -42,7 +42,7 @@ function create_room($formdata){
         // insert the slider id into the post meta table
        add_post_meta($post_id, 'slider_id', $slider_id);
        add_post_meta($post_id, 'no_of_rooms', $no_of_rooms);
-        
+       add_post_meta($post_id, '_thumbnail_id', 'http://placehold.it/350x150'); 
         // set the facilities selected for the room
        wp_set_post_terms( $post_id, $facility_ids, 'impruw_room_facility' );
        
@@ -65,13 +65,16 @@ function get_room($roomid){
     // returns a string of the post meta value
     $room_slider_id =get_post_meta( $room_id,'slider_id',true);
     $no_of_rooms =get_post_meta( $room_id,'no_of_rooms',true);
+    $thumbnail =get_post_meta( $room_id,'_thumbnail_id',true);
     
     if(empty($no_of_rooms)){
         $no_of_rooms = '0';
     }
     
     // convert the post meta string to array
-    $room_post_meta = array('slider_id' => $room_slider_id,'no_of_rooms'=>$no_of_rooms);
+    $room_post_meta = array('slider_id' => $room_slider_id,
+                            'no_of_rooms'=>$no_of_rooms,
+                            '_thumbnail_id'=>$thumbnail);
 
     // returns an array of the post terms of the room
     $room_term_names = wp_get_post_terms( $room_id, 'impruw_room_facility');

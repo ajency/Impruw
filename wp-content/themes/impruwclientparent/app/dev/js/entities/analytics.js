@@ -25,6 +25,10 @@ define(['app', 'backbone'], function(App, Backbone) {
 
       AnalyticsCollection.prototype.model = Analytics.AnalyticsModel;
 
+      AnalyticsCollection.prototype.url = function() {
+        return "" + AJAXURL + "?action=get_analytics_data";
+      };
+
       return AnalyticsCollection;
 
     })(Backbone.Collection);
@@ -87,10 +91,30 @@ define(['app', 'backbone'], function(App, Backbone) {
         analyticsCollection.comparator = 'date';
         analyticsCollection.sort();
         return analyticsCollection;
+      },
+      getWeeklyData: function() {
+        var collection, date, endDate, params, startDate;
+        collection = new Analytics.AnalyticsCollection;
+        date = new Date();
+        endDate = Date.UTC(date.getFullYear(), date.getMonth(), date.getDate());
+        startDate = endDate - 7 * 86400000;
+        params = {
+          metrices: 'ga:visits,ga:visitors,ga:newVisits,ga:pageviews,ga:pageviewsPerVisit,ga:bounces',
+          start_date: startDate,
+          end_date: endDate,
+          ids: 81856773
+        };
+        collection.fetch({
+          data: params
+        });
+        return collection;
       }
     };
     App.commands.setHandler("create:analytics:store", function() {
       return API.createStoreCollection();
+    });
+    App.reqres.setHandler("get:weekly:data", function() {
+      return API.getWeeklyData();
     });
     App.reqres.setHandler("fetch:analytics", function(startDate, endDate) {
       return API.fetchAnalytics(startDate, endDate);
