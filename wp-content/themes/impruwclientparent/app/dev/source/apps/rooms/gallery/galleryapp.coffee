@@ -24,7 +24,7 @@ define ['app','controllers/base-controller'], (App, AppController)->
 
 		class SingleGalleryItem extends Marionette.ItemView
 			tagName : 'li'
-			className : 'isotop-element'
+			className : 'isotope-element'
 			template : '<img src="{{thumb_url}}" width="300"/>'
 
 
@@ -49,7 +49,7 @@ define ['app','controllers/base-controller'], (App, AppController)->
 
 				@$el.imagesLoaded =>
 					@$el.isotope
-						itemSelector: '.isotop-element'
+						itemSelector: '.isotope-element'
 						layoutMode : 'fitRows'
 
 
