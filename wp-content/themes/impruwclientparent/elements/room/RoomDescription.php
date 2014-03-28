@@ -26,17 +26,19 @@ class RoomDescription extends Element {
     
     /**
      * The config to create a row element
-     * @param array $config
+     * @param array $element
      */
-    function __construct($config, $post_id = 0) {
+    function __construct($element, $post_id = 0) {
         
-        parent::__construct($config);
+        parent::__construct($element);
 
         $this->post_id = $post_id;
 
         if($this->post_id === 0 && get_the_ID() > 0)
             $this->post_id = get_the_ID();
-
+        
+        $this->room = get_room($this->post_id);
+        
         $this->markup  = $this->generate_markup();
         
     }
@@ -59,7 +61,7 @@ class RoomDescription extends Element {
      */
     function get_room_description(){
 
-        if($this->post_id === 0)
+      /*  if($this->post_id === 0)
             return '';
 
         $post = get_post($this->post_id);
@@ -67,6 +69,21 @@ class RoomDescription extends Element {
         $content = $post->post_content;
 
         return $content;
+       */
+           $template = '<div class="room-description-container clearfix">
+                            <div class="room-description">
+                                    <div class="room-description-desc">{{post_content}}</div>
+                            </div>
+			</div>';
+        
+        
+        $data = array();
+        
+        $data['post_content'] = $this->room['post_content'];
+        
+        global $me;
+
+        return $me->render($template, $data);
     }
 
 }
