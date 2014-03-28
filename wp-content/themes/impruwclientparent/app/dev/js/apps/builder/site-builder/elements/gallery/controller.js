@@ -15,14 +15,13 @@ define(['app', 'apps/builder/site-builder/elements/gallery/views', 'apps/builder
       Controller.prototype.initialize = function(options) {
         _.defaults(options.modelData, {
           element: 'Gallery',
-          gallery_id: 1,
           no_of_columns: 3
         });
         return Controller.__super__.initialize.call(this, options);
       };
 
       Controller.prototype.bindEvents = function() {
-        this.listenTo(this.layout.model, "change:gallery_id", this.renderElement(null));
+        this.listenTo(this.layout.model, "change:slider_id", this.renderElement);
         return Controller.__super__.bindEvents.call(this);
       };
 
@@ -33,23 +32,39 @@ define(['app', 'apps/builder/site-builder/elements/gallery/views', 'apps/builder
         });
       };
 
-      Controller.prototype.renderElement = function(slidesCollection) {
-        this.removeSpinner();
-        if (!_.isObject(slidesCollection)) {
-          slidesCollection = App.request("get:slides:for:slide", this.layout.model.get('gallery_id'));
+      Controller.prototype._getSlidesCollection = function() {
+        if (!this.slidesCollection) {
+          if (this.layout.model.get('slider_id') > 0) {
+            this.slidesCollection = App.request("get:slides:for:slide", this.layout.model.get('slider_id'));
+          } else {
+            this.slidesCollection = App.request("get:slides:collection");
+            this.slidesCollection.once("add", (function(_this) {
+              return function(model) {
+                _this.layout.model.set('slider_id', model.get('slider_id'));
+                return _this.layout.model.save();
+              };
+            })(this));
+          }
         }
+        return this.slidesCollection;
+      };
+
+      Controller.prototype.renderElement = function() {
+        var slidesCollection;
+        this.removeSpinner();
+        slidesCollection = this._getSlidesCollection();
         return App.execute("when:fetched", slidesCollection, (function(_this) {
           return function() {
             var view;
             view = _this._getGalleryView(slidesCollection, _this.layout.model.get('no_of_columns'));
             _this.listenTo(view, "show:slides:manager", function() {
-              return App.execute("show:slides:manager", _this.layout.model.get('gallery_id'), slidesCollection);
+              return App.execute("show:slides:manager", slidesCollection);
             });
             _this.listenTo(_this.layout.model, "change:no_of_columns", function() {
-              return _this.renderElement(slidesCollection);
+              return _this.renderElement();
             });
             _this.listenTo(slidesCollection, "remove add slides:order:updated", function() {
-              return _this.renderElement(slidesCollection);
+              return _this.renderElement();
             });
             return _this.layout.elementRegion.show(view);
           };

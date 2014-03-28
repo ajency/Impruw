@@ -59,7 +59,7 @@ define(['app', 'apps/builder/site-builder/elements/slider/views', 'apps/builder/
               return App.execute("show:slides:manager", slidesCollection);
             });
             _this.listenTo(slidesCollection, "remove add slides:order:updated", function() {
-              return _this.renderElement(slidesCollection);
+              return _this.renderElement();
             });
             return _this.layout.elementRegion.show(view);
           };

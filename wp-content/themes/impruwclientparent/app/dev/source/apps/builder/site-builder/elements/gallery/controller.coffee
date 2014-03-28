@@ -13,14 +13,13 @@ define ['app'
 
 						_.defaults options.modelData,
 											element  	: 'Gallery'
-											gallery_id 	: 1
 											no_of_columns : 3
 
 						super(options)
 						
 					bindEvents:->
 						# start listening to model events
-						@listenTo @layout.model, "change:gallery_id", @renderElement null
+						@listenTo @layout.model, "change:slider_id", @renderElement
 
 						super()
 
@@ -28,25 +27,37 @@ define ['app'
 						new Gallery.Views.GalleryView
 											collection 	: collection
 											noOfColumns : columnCount
+
+					_getSlidesCollection:->
+						if not @slidesCollection
+							if @layout.model.get('slider_id') > 0
+								@slidesCollection =  App.request "get:slides:for:slide" , @layout.model.get 'slider_id'					
+							else
+								@slidesCollection = App.request "get:slides:collection"
+								# listen to add event to set slider Id to element  model
+								@slidesCollection.once "add",(model)=>
+									@layout.model.set 'slider_id', model.get 'slider_id'
+									# save the model
+									@layout.model.save()
 												
+						@slidesCollection
 
 					# setup templates for the element
-					renderElement:(slidesCollection)=>
+					renderElement:()=>
 						@removeSpinner()
 						
-						if not _.isObject slidesCollection
-							slidesCollection = App.request "get:slides:for:slide" , @layout.model.get 'gallery_id'
+						slidesCollection = @_getSlidesCollection()
 
 						App.execute "when:fetched", slidesCollection, =>
 							view = @_getGalleryView slidesCollection, @layout.model.get 'no_of_columns'
 
 							@listenTo view, "show:slides:manager", =>
-								App.execute "show:slides:manager", @layout.model.get('gallery_id'), slidesCollection
+								App.execute "show:slides:manager", slidesCollection
 
 							@listenTo @layout.model, "change:no_of_columns", =>
-								@renderElement slidesCollection
+								@renderElement()
 
 							@listenTo slidesCollection, "remove add slides:order:updated", =>
-								@renderElement slidesCollection
+								@renderElement()
 
 							@layout.elementRegion.show view

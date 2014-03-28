@@ -53,6 +53,6 @@ define ['app'
 								App.execute "show:slides:manager", slidesCollection
 
 							@listenTo slidesCollection, "remove add slides:order:updated", =>
-								@renderElement slidesCollection
+								@renderElement()
 
 							@layout.elementRegion.show view
