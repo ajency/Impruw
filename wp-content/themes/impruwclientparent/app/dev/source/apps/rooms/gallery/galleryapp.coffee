@@ -30,7 +30,7 @@ define ['app','controllers/base-controller'], (App, AppController)->
 
 		class NoGalleryItem extends Marionette.ItemView
 
-			template : 'No images found. Please add images'
+			template : '<div class="empty-info">No images found. Please add images.</div>'
 
 
 		class GalleryView extends Marionette.CompositeView
@@ -38,6 +38,8 @@ define ['app','controllers/base-controller'], (App, AppController)->
 			tagName : 'ul'
 
 			template : ''
+
+			className : 'isotope'
 
 			itemView : SingleGalleryItem
 
@@ -50,7 +52,7 @@ define ['app','controllers/base-controller'], (App, AppController)->
 				@$el.imagesLoaded =>
 					@$el.isotope
 						itemSelector: '.isotope-element'
-						layoutMode : 'fitRows'
+						layoutMode : 'masonry'
 
 
 		App.commands.setHandler "show:gallery:images",(opt)->

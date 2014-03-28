@@ -10,6 +10,7 @@ Version:        0.1.0
 
 /****Icon Font****/
 @import url(icon-fonts.css);
+@import url(../../builder/css/builder-icon-fonts.css);
 
 /****Colors****/
 @logo-blue: #182944;
@@ -1203,48 +1204,6 @@ form {
 								.panel-body {
 									border: 0;
 									padding: 1em 0;
-									.aj-imp-edit-image {
-										border-radius: 0;
-										.aj-imp-crop-link {
-											position: relative;
-											img {
-												padding: 1px;
-												border: 1px solid @dash-grey;
-											}
-											.aj-imp-crop-link-overlay {
-												position: absolute;
-												top: 1px;
-												bottom: 1px;
-												left: 15px;
-												right: 15px;
-												background: rgba(0, 0, 0, 0.4);
-												a {
-													position: relative;
-													top: 50%;
-													color: #fff;
-													display: block;
-													text-align: center;
-												}
-											}
-										}
-										.aj-imp-img-form {
-											.row {
-												margin: 0 0 1em;
-												textarea {
-													min-height: 115px;
-												}
-												input:focus, textarea:focus {
-													border-color: @orange;
-												}
-											}
-										}
-										.aj-imp-img-save {
-											margin: 1em 0 0;
-											text-align: right;
-											padding: 0.5em 0 0;
-											border-top: 1px solid darken(@preview-grey, 10%);
-										}
-									}
 								}
 							}
 							&#settings-accordion, &#map-settings-accordion {
@@ -1288,6 +1247,72 @@ form {
 				.modal-body {
 					padding: 0.5em;
 				}
+			}
+		}
+	}
+	.aj-imp-edit-image {
+		border-radius: 0;
+		.aj-imp-crop-link {
+			position: relative;
+			img {
+				padding: 1px;
+				border: 1px solid @dash-grey;
+			}
+			.aj-imp-crop-link-overlay {
+				position: absolute;
+				top: 1px;
+				bottom: 1px;
+				left: 15px;
+				right: 15px;
+				background: rgba(0, 0, 0, 0.4);
+				a {
+					position: relative;
+					top: 50%;
+					color: #fff;
+					display: block;
+					text-align: center;
+				}
+			}
+		}
+		.aj-imp-img-form {
+			.row {
+				margin: 0 0 1em;
+				textarea {
+					min-height: 115px;
+				}
+				input:focus, textarea:focus {
+					border-color: @orange;
+				}
+			}
+		}
+		.aj-imp-img-save {
+			margin: 1em 0 0;
+			text-align: right;
+			padding: 0.5em 0 0;
+			border-top: 1px solid darken(@preview-grey, 10%);
+		}
+	}
+	#add-slide-region {
+		margin: 0.5em 0;
+		#add-slide-form-region {
+			border-top: 1px dashed darken(@preview-grey, 10px);
+			padding-top: 0.5em;
+			.add-image-to-slide {
+				padding: 1em;
+				text-align: center;
+				background: #fff;
+				font-size: 1.5em;
+				cursor: pointer;
+				border: 1px solid lighten(@dash-grey, 20%);
+				color: @dash-grey;
+				.bicon {
+					display: block;
+					font-size: 2em;
+				}
+			}
+			.slide-image {
+				border: 1px solid @dash-grey;
+				padding: 1px;
 			}
 		}
 	}
@@ -2300,4 +2325,66 @@ form {
 			display: block;
 		}
 	}
+}
+
+/****Gallery Styling****/
+.add-gallery-images {
+	background: @blue-grey;
+	&:hover {
+		background: lighten(@blue-grey, 20%);
+	}
+}
+
+.isotope {
+	padding: 0;
+	margin: 1em 0;
+	list-style: none;
+}
+
+/**** Isotope Filtering ****/
+.isotope-item {
+  z-index: 2;
+  margin: 0.2em;
+}
+
+.isotope-hidden.isotope-item {
+  pointer-events: none;
+  z-index: 1;
+}
+
+/**** Isotope CSS3 transitions ****/
+.isotope,
+.isotope .isotope-item {
+  -webkit-transition-duration: 0.8s;
+     -moz-transition-duration: 0.8s;
+      -ms-transition-duration: 0.8s;
+       -o-transition-duration: 0.8s;
+          transition-duration: 0.8s;
+}
+
+.isotope {
+  -webkit-transition-property: height, width;
+     -moz-transition-property: height, width;
+      -ms-transition-property: height, width;
+       -o-transition-property: height, width;
+          transition-property: height, width;
+}
+
+.isotope .isotope-item {
+  -webkit-transition-property: -webkit-transform, opacity;
+     -moz-transition-property:    -moz-transform, opacity;
+      -ms-transition-property:     -ms-transform, opacity;
+       -o-transition-property:      -o-transform, opacity;
+          transition-property:         transform, opacity;
+}
+
+/**** disabling Isotope CSS3 transitions ****/
+.isotope.no-transition,
+.isotope.no-transition .isotope-item,
+.isotope .isotope-item.no-transition {
+  -webkit-transition-duration: 0s;
+     -moz-transition-duration: 0s;
+      -ms-transition-duration: 0s;
+       -o-transition-duration: 0s;
+          transition-duration: 0s;
 }

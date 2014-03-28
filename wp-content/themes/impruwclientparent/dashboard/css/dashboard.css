@@ -1,4 +1,6 @@
 @import url(icon-fonts.css);
+
+@import url(../../builder/css/builder-icon-fonts.css);
 /*
 Theme Name:     Impruw Dashboard
 Theme URI:      http://ajency.in/
@@ -1169,47 +1171,6 @@ form .aj-imp-submit:hover {
   border: 0;
   padding: 1em 0;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-body .aj-imp-edit-image {
-  border-radius: 0;
-}
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-body .aj-imp-edit-image .aj-imp-crop-link {
-  position: relative;
-}
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-body .aj-imp-edit-image .aj-imp-crop-link img {
-  padding: 1px;
-  border: 1px solid #aaaaaa;
-}
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-body .aj-imp-edit-image .aj-imp-crop-link .aj-imp-crop-link-overlay {
-  position: absolute;
-  top: 1px;
-  bottom: 1px;
-  left: 15px;
-  right: 15px;
-  background: rgba(0, 0, 0, 0.4);
-}
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-body .aj-imp-edit-image .aj-imp-crop-link .aj-imp-crop-link-overlay a {
-  position: relative;
-  top: 50%;
-  color: #fff;
-  display: block;
-  text-align: center;
-}
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-body .aj-imp-edit-image .aj-imp-img-form .row {
-  margin: 0 0 1em;
-}
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-body .aj-imp-edit-image .aj-imp-img-form .row textarea {
-  min-height: 115px;
-}
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-body .aj-imp-edit-image .aj-imp-img-form .row input:focus,
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-body .aj-imp-edit-image .aj-imp-img-form .row textarea:focus {
-  border-color: #ff7e00;
-}
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-body .aj-imp-edit-image .aj-imp-img-save {
-  margin: 1em 0 0;
-  text-align: right;
-  padding: 0.5em 0 0;
-  border-top: 1px solid #dadada;
-}
 .modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group#settings-accordion .panel .panel-heading > a .imgthumb span[class^="icon"],
 .modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group#map-settings-accordion .panel .panel-heading > a .imgthumb span[class^="icon"] {
   font-size: 2em;
@@ -1239,6 +1200,71 @@ form .aj-imp-submit:hover {
 }
 .modal.medium-modal .modal-dialog .modal-content .modal-body {
   padding: 0.5em;
+}
+.modal .aj-imp-edit-image {
+  border-radius: 0;
+}
+.modal .aj-imp-edit-image .aj-imp-crop-link {
+  position: relative;
+}
+.modal .aj-imp-edit-image .aj-imp-crop-link img {
+  padding: 1px;
+  border: 1px solid #aaaaaa;
+}
+.modal .aj-imp-edit-image .aj-imp-crop-link .aj-imp-crop-link-overlay {
+  position: absolute;
+  top: 1px;
+  bottom: 1px;
+  left: 15px;
+  right: 15px;
+  background: rgba(0, 0, 0, 0.4);
+}
+.modal .aj-imp-edit-image .aj-imp-crop-link .aj-imp-crop-link-overlay a {
+  position: relative;
+  top: 50%;
+  color: #fff;
+  display: block;
+  text-align: center;
+}
+.modal .aj-imp-edit-image .aj-imp-img-form .row {
+  margin: 0 0 1em;
+}
+.modal .aj-imp-edit-image .aj-imp-img-form .row textarea {
+  min-height: 115px;
+}
+.modal .aj-imp-edit-image .aj-imp-img-form .row input:focus,
+.modal .aj-imp-edit-image .aj-imp-img-form .row textarea:focus {
+  border-color: #ff7e00;
+}
+.modal .aj-imp-edit-image .aj-imp-img-save {
+  margin: 1em 0 0;
+  text-align: right;
+  padding: 0.5em 0 0;
+  border-top: 1px solid #dadada;
+}
+.modal #add-slide-region {
+  margin: 0.5em 0;
+}
+.modal #add-slide-region #add-slide-form-region {
+  border-top: 1px dashed #dadada;
+  padding-top: 0.5em;
+}
+.modal #add-slide-region #add-slide-form-region .add-image-to-slide {
+  padding: 1em;
+  text-align: center;
+  background: #fff;
+  font-size: 1.5em;
+  cursor: pointer;
+  border: 1px solid #dddddd;
+  color: #aaaaaa;
+}
+.modal #add-slide-region #add-slide-form-region .add-image-to-slide .bicon {
+  display: block;
+  font-size: 2em;
+}
+.modal #add-slide-region #add-slide-form-region .slide-image {
+  border: 1px solid #aaaaaa;
+  padding: 1px;
 }
 .modal .thumbnails .single-img,
 .modal #selectable-images .single-img {
@@ -2256,4 +2282,58 @@ form .aj-imp-submit:hover {
 }
 .room-tariff-container:hover .room-tariff-actions {
   display: block;
+}
+/****Gallery Styling****/
+.add-gallery-images {
+  background: #849fb0;
+}
+.add-gallery-images:hover {
+  background: #c2cfd8;
+}
+.isotope {
+  padding: 0;
+  margin: 1em 0;
+  list-style: none;
+}
+/**** Isotope Filtering ****/
+.isotope-item {
+  z-index: 2;
+  margin: 0.2em;
+}
+.isotope-hidden.isotope-item {
+  pointer-events: none;
+  z-index: 1;
+}
+/**** Isotope CSS3 transitions ****/
+.isotope,
+.isotope .isotope-item {
+  -webkit-transition-duration: 0.8s;
+  -moz-transition-duration: 0.8s;
+  -ms-transition-duration: 0.8s;
+  -o-transition-duration: 0.8s;
+  transition-duration: 0.8s;
+}
+.isotope {
+  -webkit-transition-property: height, width;
+  -moz-transition-property: height, width;
+  -ms-transition-property: height, width;
+  -o-transition-property: height, width;
+  transition-property: height, width;
+}
+.isotope .isotope-item {
+  -webkit-transition-property: -webkit-transform, opacity;
+  -moz-transition-property: -moz-transform, opacity;
+  -ms-transition-property: -ms-transform, opacity;
+  -o-transition-property: -o-transform, opacity;
+  transition-property: transform, opacity;
+}
+/**** disabling Isotope CSS3 transitions ****/
+.isotope.no-transition,
+.isotope.no-transition .isotope-item,
+.isotope .isotope-item.no-transition {
+  -webkit-transition-duration: 0s;
+  -moz-transition-duration: 0s;
+  -ms-transition-duration: 0s;
+  -o-transition-duration: 0s;
+  transition-duration: 0s;
 }
