@@ -216,17 +216,18 @@ function generate_markup($section) {
 	$id = ! is_null ( $post ) ? $post->ID : 0;
 	
 	$markup_JSON = get_page_markup_JSON ();
-	
+
 	if (! isset ( $markup_JSON [$section] ))
 		return;
 	
 	$json = $markup_JSON [$section];
-	
+      
 	$html = '';
-	
+	$i=0;
 	foreach ( $json as $element ) {
-		
-		$html .= add_element_markup ( $element );
+            
+            $html .= add_element_markup ( $element );
+           
 	}
 	
 	return $html;
@@ -300,6 +301,9 @@ function add_element_markup($element) {
 		case 'RoomListElement' :
 			$html = get_room_list_markup ( $element );
 			break;
+                case 'RoomSummary' :
+                        $html = get_room_summary_markup( $element );
+                        break;
 		default :
 			break;
 	}
@@ -347,7 +351,7 @@ function get_builder_row_column_markup($element) {
 	if ($column->has_child_elements ()) {
 		
 		foreach ( $column->get_elements () as $ele ) {
-			
+                
 			$html .= add_element_markup ( $ele );
 		}
 	}
@@ -413,6 +417,16 @@ function get_room_list_markup($element) {
 	require_once PARENTTHEMEPATH . 'elements/room/RoomList.php';
 	
 	$room = new RoomList ( $element );
+	
+	$html = $room->get_markup ();
+	
+	return $html;
+}
+
+function get_room_summary_markup($element){
+        require_once PARENTTHEMEPATH. 'elements/room/RoomSummary.php';
+         
+        $room = new RoomSummary ( $element );
 	
 	$html = $room->get_markup ();
 	

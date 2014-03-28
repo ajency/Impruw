@@ -93,7 +93,7 @@ class Element {
      */
     function __construct($element){
     	
-    	$this->style_class = sanitize_title($element['style']);
+    	$this->style_class = isset($element['style']) ? sanitize_title($element['style']) : '';
 
        // $this->margins = $this->get_margin_classes($element);
         
