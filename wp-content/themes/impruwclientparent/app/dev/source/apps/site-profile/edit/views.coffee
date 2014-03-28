@@ -29,6 +29,13 @@ define ['app'
 						# set affix
 						@$el.find('*[data-spy="affix"]').width @$el.width()
 						@$el.find('*[data-spy="affix"]').affix()
+						
+						# affix width
+						w = $('.aj-imp-right').width()
+						@$el.find('*[data-spy="affix"]').width(w)
+
+						m = $('.aj-imp-left').width()
+						@$el.find('*[data-spy="affix"]').css('margin-left', m)
 					
 					onSiteProfileAdded:->
 						@$el.find('#form-siteprofile').prepend '<div class="alert alert-warning alert-dismissable">

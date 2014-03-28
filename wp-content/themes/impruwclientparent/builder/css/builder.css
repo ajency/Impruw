@@ -1251,6 +1251,7 @@ Version:        0.1.0
   font-size: 1.1em;
   display: inline-block;
   padding: 0.5em 1em 0.6em;
+  cursor: pointer;
 }
 .modal .aj-imp-upload-media .small-text {
   font-size: 0.9em;
@@ -1388,7 +1389,7 @@ Version:        0.1.0
 }
 .modal .thumbnails .single-img .thumbnail,
 .modal #selectable-images .single-img .thumbnail {
-  margin-bottom: 7px;
+  margin-bottom: 20px;
   border: 2px solid #aaaaaa;
 }
 .modal .thumbnails .single-img .thumbnail .imgthumb,
@@ -1515,6 +1516,15 @@ Version:        0.1.0
 .modal #selected-media-region label {
   font-size: 0.88em;
   color: #aaaaaa;
+}
+.modal .media-select {
+  padding: 0 20px;
+}
+.modal .media-select .media-manager-select {
+  background: #ff7e00;
+}
+.modal .media-select .media-manager-select:hover {
+  background: #ff9833;
 }
 .modal .aj-imp-block-button {
   margin: 1em 0;
