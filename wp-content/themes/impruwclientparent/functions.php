@@ -221,9 +221,9 @@ function generate_markup($section) {
 		return;
 	
 	$json = $markup_JSON [$section];
-      
+        
 	$html = '';
-	$i=0;
+        
 	foreach ( $json as $element ) {
             
             $html .= add_element_markup ( $element );
