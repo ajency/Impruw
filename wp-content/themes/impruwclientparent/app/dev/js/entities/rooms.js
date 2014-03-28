@@ -11,6 +11,8 @@ define(["app", 'backbone'], function(App, Backbone) {
         return RoomModel.__super__.constructor.apply(this, arguments);
       }
 
+      RoomModel.prototype.idAttribute = 'ID';
+
       RoomModel.prototype.defaults = function() {
         return {
           post_title: '',
@@ -61,6 +63,19 @@ define(["app", 'backbone'], function(App, Backbone) {
         room = new Rooms.RoomModel(data);
         return room;
       },
+      getRoomModel: function(room_id) {
+        var room;
+        room = rooms.get(parseInt(room_id));
+        if (!room) {
+          room = new Rooms.RoomModel({
+            ID: parseInt(room_id)
+          });
+          room.fetch();
+          rooms.add(room);
+          console.log(room);
+        }
+        return room;
+      },
       addRoomModelToCollection: function(model) {
         return rooms.add(model);
       }
@@ -70,6 +85,9 @@ define(["app", 'backbone'], function(App, Backbone) {
     });
     App.reqres.setHandler("create:new:room:model", function(data) {
       return API.createNewRoomModel(data);
+    });
+    App.reqres.setHandler("get:room:model", function(room_id) {
+      return API.getRoomModel(room_id);
     });
     return App.commands.setHandler("add:room:model", function(model) {
       if (!_.isObject(model)) {

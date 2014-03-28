@@ -13,7 +13,7 @@ define ['app'
 
 						_.defaults options.modelData,
 											element  : 'RoomSummary'
-											ID 		 : 0
+											room_id  : 0
 											style 	 : 'Room Summary Default'
 											
 
@@ -22,6 +22,7 @@ define ['app'
 					bindEvents:->
 						# start listening to model events
 						@listenTo @layout.model, "change:style", @renderElement
+						@listenTo @layout.model, "change:room_id", @renderElement
 						super()
 
 					_getRoomSummaryView:(model, template)->
@@ -33,7 +34,10 @@ define ['app'
 					# setup templates for the element
 					renderElement:()=>
 						@removeSpinner()
-						# get the address element template
-						template = @_getElementTemplate @layout.model
-						view = @_getRoomSummaryView @layout.model, template
-						@layout.elementRegion.show view
+						roomId = @layout.model.get 'room_id'		
+						model = App.request "get:room:model" , roomId 
+						App.execute "when:fetched", model , =>
+							# get the address element template
+								template = @_getElementTemplate @layout.model
+								view = @_getRoomSummaryView model, template
+								@layout.elementRegion.show view

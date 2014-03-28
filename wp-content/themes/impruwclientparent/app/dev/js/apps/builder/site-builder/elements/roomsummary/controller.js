@@ -15,7 +15,7 @@ define(['app', 'apps/builder/site-builder/elements/roomsummary/views', 'apps/bui
       Controller.prototype.initialize = function(options) {
         _.defaults(options.modelData, {
           element: 'RoomSummary',
-          ID: 0,
+          room_id: 0,
           style: 'Room Summary Default'
         });
         return Controller.__super__.initialize.call(this, options);
@@ -23,6 +23,7 @@ define(['app', 'apps/builder/site-builder/elements/roomsummary/views', 'apps/bui
 
       Controller.prototype.bindEvents = function() {
         this.listenTo(this.layout.model, "change:style", this.renderElement);
+        this.listenTo(this.layout.model, "change:room_id", this.renderElement);
         return Controller.__super__.bindEvents.call(this);
       };
 
@@ -34,11 +35,18 @@ define(['app', 'apps/builder/site-builder/elements/roomsummary/views', 'apps/bui
       };
 
       Controller.prototype.renderElement = function() {
-        var template, view;
+        var model, roomId;
         this.removeSpinner();
-        template = this._getElementTemplate(this.layout.model);
-        view = this._getRoomSummaryView(this.layout.model, template);
-        return this.layout.elementRegion.show(view);
+        roomId = this.layout.model.get('room_id');
+        model = App.request("get:room:model", roomId);
+        return App.execute("when:fetched", model, (function(_this) {
+          return function() {
+            var template, view;
+            template = _this._getElementTemplate(_this.layout.model);
+            view = _this._getRoomSummaryView(model, template);
+            return _this.layout.elementRegion.show(view);
+          };
+        })(this));
       };
 
       return Controller;

@@ -52,6 +52,9 @@ define(['app', 'text!apps/builder/site-builder/elements/roomsummary/settings/tem
         },
         'change select.spacing': function(evt) {
           return this.trigger("element:spacing:changed", $(evt.target).attr('name'), $(evt.target).val());
+        },
+        'change select.room-name': function(evt) {
+          return this.trigger("element:selection:changed", $(evt.target).val());
         }
       };
 

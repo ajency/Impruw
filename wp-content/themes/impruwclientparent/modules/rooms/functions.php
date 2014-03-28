@@ -115,7 +115,7 @@ function get_all_rooms(){
 
     while($rooms->have_posts()): $rooms->the_post();
 
-        $room_data [] = array ( get_the_ID () => get_the_title () );
+        $room_data [] = array ( 'ID' => get_the_ID (), 'post_title' => get_the_title () );
 
     endwhile;
 

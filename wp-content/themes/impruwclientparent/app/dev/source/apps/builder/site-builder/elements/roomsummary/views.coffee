@@ -11,9 +11,9 @@ define ['app', 'holder'],(App, Holder)->
 			template : '<div class="room-img">
 							<img src="{{thumb_url}}" class="img-responsive">
 						</div>
-						<div class="room-title">Room Title</div>
-						<div class="room-excerpt">Lorem Ipsum Dolor Sit Amet</div>
+						<div class="room-title">Title</div>
+						<div class="room-excerpt">Lrem Ipsum Gipsum</div>
 						<div class="room-actions">
-							<div class="price">$999<small>/night</small></div>
+							<div class="price">$99<small>/night</small></div>
 							<button class="btn btn-room">View Details</button>
 						</div>'

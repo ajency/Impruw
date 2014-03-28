@@ -37,3 +37,4 @@ define ['app', 'text!apps/builder/site-builder/elements/roomsummary/settings/tem
 						'change select[name="style"]' 	:(evt)-> @trigger "element:style:changed", $(evt.target).val()
 						'change input[name="draggable"]': (evt)-> @trigger "element:draggable:changed", $(evt.target).is(':checked')
 						'change select.spacing': (evt)-> @trigger "element:spacing:changed", $(evt.target).attr('name'), $(evt.target).val()
+						'change select.room-name': (evt)-> @trigger "element:selection:changed", $(evt.target).val()
