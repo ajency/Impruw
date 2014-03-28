@@ -40,7 +40,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
 
       SingleGalleryItem.prototype.tagName = 'li';
 
-      SingleGalleryItem.prototype.className = 'isotop-element';
+      SingleGalleryItem.prototype.className = 'isotope-element';
 
       SingleGalleryItem.prototype.template = '<img src="{{thumb_url}}" width="300"/>';
 
@@ -82,7 +82,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         return this.$el.imagesLoaded((function(_this) {
           return function() {
             return _this.$el.isotope({
-              itemSelector: '.isotop-element',
+              itemSelector: '.isotope-element',
               layoutMode: 'fitRows'
             });
           };

@@ -36,7 +36,7 @@ define(['app'], function(App) {
 
       PackagesView.prototype.className = 'tariff package-names clearfix';
 
-      PackagesView.prototype.template = '<div class="packages"><div class="package-blocks header clearfix"></div></div>';
+      PackagesView.prototype.template = '<div class="packages"><div class="package-blocks header clearfix"></div><button type="button" class="btn-add-plan"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;Add Plan</button></div>';
 
       PackagesView.prototype.itemView = PackageSingle;
 
@@ -55,7 +55,7 @@ define(['app'], function(App) {
       DateRangeSingle.prototype.className = 'tariff clearfix';
 
       DateRangeSingle.prototype.events = {
-        'click .package-block-outer': function(e) {
+        'click .edit-tran': function(e) {
           var id;
           e.stopPropagation();
           id = $(e.target).attr('data-id');
@@ -63,7 +63,7 @@ define(['app'], function(App) {
         }
       };
 
-      DateRangeSingle.prototype.template = '<div class="date-range"> <div class="from"> From <span class="date">{{startdate}}</span> </div> <div class="to"> To <span class="date">{{enddate}}</span> </div> </div> <div class="packages"> <div class="package-blocks clearfix"> {{#tariffs}} <div class="package-block-outer" data-id="{{id}}"> <div class="block clearfix"> <div class="weekday"> Weekdays <span class="price">{{weekdays.charge}}</span> </div> <div class="weekend"> Weekends <span class="price">{{weekends.charge}}</span> </div> <div class="tariff-label clearfix">Extra Adult</div> <div class="weekday"> <span class="price">{{weekdays.extra_adult}}</span> </div> <div class="weekend"> <span class="price">{{weekends.extra_adult}}</span> </div> <div class="tariff-label clearfix">Extra Child</div> <div class="weekday"> <span class="price">{{weekdays.extra_child}}</span> </div> <div class="weekend"> <span class="price">{{weekends.extra_child}}</span> </div> </div> </div> {{/tariffs}} </div> </div>';
+      DateRangeSingle.prototype.template = '<div class="date-range"> <div class="from"> From <span class="date">{{startdate}}</span> </div> <div class="to"> To <span class="date">{{enddate}}</span> </div> </div> <div class="packages"> <div class="package-blocks clearfix"> {{#tariffs}} <div class="package-block-outer" data-id="{{id}}"> <div class="block clearfix"> <div class="weekday"> Weekdays <span class="price">{{weekdays.charge}}</span> </div> <div class="weekend"> Weekends <span class="price">{{weekends.charge}}</span> </div> <div class="tariff-label clearfix">Extra Adult</div> <div class="weekday"> <span class="price">{{weekdays.extra_adult}}</span> </div> <div class="weekend"> <span class="price">{{weekends.extra_adult}}</span> </div> <div class="tariff-label clearfix">Extra Child</div> <div class="weekday"> <span class="price">{{weekdays.extra_child}}</span> </div> <div class="weekend"> <span class="price">{{weekends.extra_child}}</span> </div> <div class="block-action"> <button class="btn btn-sm edit-tran"><span class="glyphicon glyphicon-pencil"></span>&nbsp;Edit</button> </div> </div> </div> {{/tariffs}} </div> </div>';
 
       DateRangeSingle.prototype.serializeData = function() {
         var data;

@@ -29,7 +29,7 @@ define ['app'], (App)->
 
 			className : 'tariff package-names clearfix'
 
-			template : '<div class="packages"><div class="package-blocks header clearfix"></div></div>'
+			template : '<div class="packages"><div class="package-blocks header clearfix"></div><button type="button" class="btn-add-plan"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;Add Plan</button></div>'
 						
 			itemView : PackageSingle
 
@@ -41,7 +41,7 @@ define ['app'], (App)->
 			className : 'tariff clearfix'
 
 			events : 
-				'click .package-block-outer' : (e)->
+				'click .edit-tran' : (e)->
 					e.stopPropagation()
 					id = $(e.target).attr 'data-id'
 					@trigger "show:edit:tariff", 2
@@ -80,6 +80,9 @@ define ['app'], (App)->
                                             </div>
                                             <div class="weekend">
                                                 <span class="price">{{weekends.extra_child}}</span>
+                                            </div>
+                                            <div class="block-action">
+                                            	<button class="btn btn-sm edit-tran"><span class="glyphicon glyphicon-pencil"></span>&nbsp;Edit</button>
                                             </div>
                                         </div>
                                     </div>
