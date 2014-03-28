@@ -20,6 +20,7 @@ class RoomSummary extends Element {
         
         parent::__construct($element);
         
+        $this->room_id= $element['room_id'];
         $this->room = get_room($element['room_id']);
         $this->style = $element['style'];
         $this->markup  = $this->generate_markup();
@@ -38,11 +39,13 @@ class RoomSummary extends Element {
     }
 
     /**
-     * Returns the room title markup
+     * Returns the room summary markup
      * @return [type] [description]
      */
-    function get_room_summary(){
-       
+    function get_room_summary(){  
+       $data= $this->room;
+       $data['link']= get_permalink( $this->room_id );
+
        $template = '<div class="roomsummary"><div class="room-img">
                          <img src="{{thumb_url}}" class="img-responsive">
                     </div>
@@ -50,11 +53,11 @@ class RoomSummary extends Element {
                     <div class="room-excerpt">{{post_content}}</div>
                     <div class="room-actions">
                             <div class="price">$99<small>/night</small></div>
-                            <a href="#" class="btn btn-room">View Details</a>
+                            <a href="{{link}}" class="btn btn-room">View Details</a>
                     </div></div>';
        
        global $me;
        
-       return $me->render($template, $this->room);
+       return $me->render($template, $data);
     }
 }
