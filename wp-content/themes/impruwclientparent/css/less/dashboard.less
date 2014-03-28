@@ -2095,3 +2095,209 @@ form {
 		color: @dash-grey;
 	}
 }
+
+/****Room Tariff Styles****/
+.room-tariff-container {
+	background: #fff;
+	box-shadow: 1px 1px 2px 0 lighten(@dash-grey, 10%);
+	padding: 0.5em;
+	position: relative;
+	.room-tariff-title {
+		h4 {
+			font-size: 1.5em;
+			text-transform: uppercase;
+		}
+		h5 {
+			font-size: 1em;
+			font-weight: 400;
+		}
+	}
+	.room-tariff-actions {
+		position: absolute;
+		top: 0.5em;
+		right: 0.5em;
+		display: none;
+		.btn-add-plan {
+			background: @blue-grey;
+			&:hover {
+				background: lighten(@blue-grey, 10%);
+			}
+		}
+		@media(max-width:767px){
+			display: block;
+			position: static;
+		}
+	}
+	.btn-add-range, .btn-add-plan {
+		background: transparent;
+		border: 0;
+		color: @orange;
+		font-size: 1.1em;
+	}
+	.room-tariff-grid {
+		overflow-x: auto; 
+		.tariff {
+			position: relative;
+			.date-range {
+				color: @dash-grey;
+				text-align: right;
+				font-weight: 300;
+				position: absolute;
+				width: 60px;
+				background: #fff;
+				max-width: 60px;
+				padding-right: 10px;
+				min-height: 150px;
+				.date {
+					display: block;
+				}
+				.from, .to {
+					margin: 0.2em 0 0.4em;	
+				}
+			}
+			.packages {
+				width: 100%;
+				padding-left: 70px;
+				.btn-add-plan {
+					position: absolute;
+					right: 0;
+					top: 0;
+					height: 40px;
+					background: -moz-linear-gradient(left,  rgba(255,255,255,0) 0%, rgba(255,255,255,0.5) 7%, rgba(255,255,255,1) 100%); /* FF3.6+ */
+					background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(255,255,255,0)), color-stop(7%,rgba(255,255,255,0.5)), color-stop(100%,rgba(255,255,255,1))); /* Chrome,Safari4+ */
+					background: -webkit-linear-gradient(left,  rgba(255,255,255,0) 0%,rgba(255,255,255,0.5) 7%,rgba(255,255,255,1) 100%); /* Chrome10+,Safari5.1+ */
+					background: -o-linear-gradient(left,  rgba(255,255,255,0) 0%,rgba(255,255,255,0.5) 7%,rgba(255,255,255,1) 100%); /* Opera 11.10+ */
+					background: -ms-linear-gradient(left,  rgba(255,255,255,0) 0%,rgba(255,255,255,0.5) 7%,rgba(255,255,255,1) 100%); /* IE10+ */
+					background: linear-gradient(to right,  rgba(255,255,255,0) 0%,rgba(255,255,255,0.5) 7%,rgba(255,255,255,1) 100%); /* W3C */
+					filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
+				}
+				.package-blocks {
+					margin: 0 0 1em;	
+					white-space: nowrap;				
+					.package-block-outer {
+						display: inline-block;
+						min-width: 200px;
+						max-width: 200px;
+						white-space: normal;
+						margin-right: 0.5em;
+						.block {
+							background: darken(@preview-grey, 10%);
+							border-left: 5px solid  darken(@preview-grey, 20%);
+							padding: 0.5em;
+							position: relative;
+							h6 {
+								margin: 0 0 0.2em;
+								font-weight: 400;
+								font-size: 1.2em;
+								display: none;
+							}
+							.package-desc {
+								font-size: 0.88em;
+								color: @blue-grey;
+								display: none;
+							}
+							.tariff-label {
+								color: @blue-grey;
+								margin: 0.5em 0 0.2em;
+								font-size: 0.88em;
+							}
+							.weekday, .weekend {
+								width: 49%;
+								min-width: 80px;
+								margin-right: 1%;
+								float: left;
+								text-transform: uppercase;
+								color: lighten(@3-grey, 30%);
+								font-weight: 300;
+								.price {
+									font-weight: 700;
+									font-size: 1.4em;
+									display: block;
+								}
+							}
+							.block-action {
+								display: none;
+								position: absolute;
+								top: 0;
+								bottom: 0;
+								left: 0;
+								right: 0;
+								background: rgba(255, 255, 255, 0.5);
+								text-align: center;
+								.edit-tran {
+									background: @orange;
+									position: relative;
+									top: 33%;
+									&:hover {
+										background: lighten(@orange, 20%);
+									}
+								}
+							}
+							&:hover {
+								border-color: @orange;
+								.block-action {
+									display: block;
+								}
+							}
+						}
+					}
+					&.header {
+						margin: 0 0 0.3em;
+						.block {
+							background: transparent;
+							border: 0;
+							padding: 0;
+							h6, .package-desc {
+								display: block;
+							}
+						}
+					}
+				}
+			}
+		}
+		@media(max-width:767px){
+			overflow-x: visible;
+			.tariff {
+				border-left: 2px solid lighten(@dash-grey, 10%);
+				padding-left: 0.5em;
+				margin: 0 0 1em;
+				.date-range {
+					position: static;
+					width: 100%;
+					max-width: 100%;
+					min-height: 10px;
+					height: auto;
+					text-align: left;
+					font-size: 1.2em;
+					.date, .from, .to {
+						display: inline-block;
+					}
+				}
+				.packages {
+					padding: 0;
+					.package-blocks {
+						white-space: normal;
+						.package-block-outer {
+							width: 100%;
+							max-width: 100%;
+							margin: 0 0 0.2em;
+							.block {
+								h6, .package-desc {
+									display: block;
+								}
+							}
+						}
+						&.header {
+							display: none;
+						}
+					}
+				}
+			}
+		}
+	}
+	&:hover {
+		.room-tariff-actions {
+			display: block;
+		}
+	}
+}

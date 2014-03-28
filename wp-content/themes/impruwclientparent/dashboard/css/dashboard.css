@@ -2032,3 +2032,228 @@ form .aj-imp-submit:hover {
   text-align: center;
   color: #aaaaaa;
 }
+/****Room Tariff Styles****/
+.room-tariff-container {
+  background: #fff;
+  box-shadow: 1px 1px 2px 0 #c3c3c3;
+  padding: 0.5em;
+  position: relative;
+}
+.room-tariff-container .room-tariff-title h4 {
+  font-size: 1.5em;
+  text-transform: uppercase;
+}
+.room-tariff-container .room-tariff-title h5 {
+  font-size: 1em;
+  font-weight: 400;
+}
+.room-tariff-container .room-tariff-actions {
+  position: absolute;
+  top: 0.5em;
+  right: 0.5em;
+  display: none;
+}
+.room-tariff-container .room-tariff-actions .btn-add-plan {
+  background: #849fb0;
+}
+.room-tariff-container .room-tariff-actions .btn-add-plan:hover {
+  background: #a3b7c4;
+}
+@media (max-width: 767px) {
+  .room-tariff-container .room-tariff-actions {
+    display: block;
+    position: static;
+  }
+}
+.room-tariff-container .btn-add-range,
+.room-tariff-container .btn-add-plan {
+  background: transparent;
+  border: 0;
+  color: #ff7e00;
+  font-size: 1.1em;
+}
+.room-tariff-container .room-tariff-grid {
+  overflow-x: auto;
+}
+.room-tariff-container .room-tariff-grid .tariff {
+  position: relative;
+}
+.room-tariff-container .room-tariff-grid .tariff .date-range {
+  color: #aaaaaa;
+  text-align: right;
+  font-weight: 300;
+  position: absolute;
+  width: 60px;
+  background: #fff;
+  max-width: 60px;
+  padding-right: 10px;
+  min-height: 150px;
+}
+.room-tariff-container .room-tariff-grid .tariff .date-range .date {
+  display: block;
+}
+.room-tariff-container .room-tariff-grid .tariff .date-range .from,
+.room-tariff-container .room-tariff-grid .tariff .date-range .to {
+  margin: 0.2em 0 0.4em;
+}
+.room-tariff-container .room-tariff-grid .tariff .packages {
+  width: 100%;
+  padding-left: 70px;
+}
+.room-tariff-container .room-tariff-grid .tariff .packages .btn-add-plan {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 40px;
+  background: -moz-linear-gradient(left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 7%, #ffffff 100%);
+  /* FF3.6+ */
+
+  background: -webkit-gradient(linear, left top, right top, color-stop(0%, rgba(255, 255, 255, 0)), color-stop(7%, rgba(255, 255, 255, 0.5)), color-stop(100%, #ffffff));
+  /* Chrome,Safari4+ */
+
+  background: -webkit-linear-gradient(left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 7%, #ffffff 100%);
+  /* Chrome10+,Safari5.1+ */
+
+  background: -o-linear-gradient(left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 7%, #ffffff 100%);
+  /* Opera 11.10+ */
+
+  background: -ms-linear-gradient(left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 7%, #ffffff 100%);
+  /* IE10+ */
+
+  background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 7%, #ffffff 100%);
+  /* W3C */
+
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00ffffff', endColorstr='#ffffff', GradientType=1);
+  /* IE6-9 */
+
+}
+.room-tariff-container .room-tariff-grid .tariff .packages .package-blocks {
+  margin: 0 0 1em;
+  white-space: nowrap;
+}
+.room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer {
+  display: inline-block;
+  min-width: 200px;
+  max-width: 200px;
+  white-space: normal;
+  margin-right: 0.5em;
+}
+.room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block {
+  background: #dadada;
+  border-left: 5px solid #c0c0c0;
+  padding: 0.5em;
+  position: relative;
+}
+.room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block h6 {
+  margin: 0 0 0.2em;
+  font-weight: 400;
+  font-size: 1.2em;
+  display: none;
+}
+.room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block .package-desc {
+  font-size: 0.88em;
+  color: #849fb0;
+  display: none;
+}
+.room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block .tariff-label {
+  color: #849fb0;
+  margin: 0.5em 0 0.2em;
+  font-size: 0.88em;
+}
+.room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block .weekday,
+.room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block .weekend {
+  width: 49%;
+  min-width: 80px;
+  margin-right: 1%;
+  float: left;
+  text-transform: uppercase;
+  color: #808080;
+  font-weight: 300;
+}
+.room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block .weekday .price,
+.room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block .weekend .price {
+  font-weight: 700;
+  font-size: 1.4em;
+  display: block;
+}
+.room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block .block-action {
+  display: none;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.5);
+  text-align: center;
+}
+.room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block .block-action .edit-tran {
+  background: #ff7e00;
+  position: relative;
+  top: 33%;
+}
+.room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block .block-action .edit-tran:hover {
+  background: #ffb266;
+}
+.room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block:hover {
+  border-color: #ff7e00;
+}
+.room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block:hover .block-action {
+  display: block;
+}
+.room-tariff-container .room-tariff-grid .tariff .packages .package-blocks.header {
+  margin: 0 0 0.3em;
+}
+.room-tariff-container .room-tariff-grid .tariff .packages .package-blocks.header .block {
+  background: transparent;
+  border: 0;
+  padding: 0;
+}
+.room-tariff-container .room-tariff-grid .tariff .packages .package-blocks.header .block h6,
+.room-tariff-container .room-tariff-grid .tariff .packages .package-blocks.header .block .package-desc {
+  display: block;
+}
+@media (max-width: 767px) {
+  .room-tariff-container .room-tariff-grid {
+    overflow-x: visible;
+  }
+  .room-tariff-container .room-tariff-grid .tariff {
+    border-left: 2px solid #c3c3c3;
+    padding-left: 0.5em;
+    margin: 0 0 1em;
+  }
+  .room-tariff-container .room-tariff-grid .tariff .date-range {
+    position: static;
+    width: 100%;
+    max-width: 100%;
+    min-height: 10px;
+    height: auto;
+    text-align: left;
+    font-size: 1.2em;
+  }
+  .room-tariff-container .room-tariff-grid .tariff .date-range .date,
+  .room-tariff-container .room-tariff-grid .tariff .date-range .from,
+  .room-tariff-container .room-tariff-grid .tariff .date-range .to {
+    display: inline-block;
+  }
+  .room-tariff-container .room-tariff-grid .tariff .packages {
+    padding: 0;
+  }
+  .room-tariff-container .room-tariff-grid .tariff .packages .package-blocks {
+    white-space: normal;
+  }
+  .room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 0 0.2em;
+  }
+  .room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block h6,
+  .room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block .package-desc {
+    display: block;
+  }
+  .room-tariff-container .room-tariff-grid .tariff .packages .package-blocks.header {
+    display: none;
+  }
+}
+.room-tariff-container:hover .room-tariff-actions {
+  display: block;
+}

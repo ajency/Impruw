@@ -41,11 +41,8 @@ define  ['app'
 									<h4>Room Price</h4>
 									<h5>Lorem ipsum dolor sit amet et odio vehicula, id porttitor quam malesuada</h5>
 								</div>
-								<div class="room-tariff-actions">
-									<button type="button" class="btn btn-xs btn-add-range">Add Date Range</button>
-									<button type="button" class="btn btn-xs btn-add-plan">Add Plan</button>
-								</div>
-								<div class="room-tariff-grid" id="room-tariff-grid"></div>'
+								<div class="room-tariff-grid" id="room-tariff-grid"></div>
+								<button type="button" class="btn-add-range"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;Add Date Range</button>'
 
 					events : 
 						'click .btn-add-range' : ->
