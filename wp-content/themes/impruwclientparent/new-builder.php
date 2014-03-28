@@ -65,6 +65,7 @@
         <?php endif; ?>
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+    <!-- <script src="<?php echo get_parent_template_directory_uri() ?>/app/dev/js/plugins/pace.js"></script> -->
     <?php if(ENV === 'production'): ?>
         <script src="<?php echo get_parent_template_directory_uri(); ?>/app/dev/js/plugins/ckeditor.js"></script> 
         <script src="<?php echo get_parent_template_directory_uri(); ?>/app/production/builder-main.js?ver=<?php echo JSVERSION ?>"></script> 
