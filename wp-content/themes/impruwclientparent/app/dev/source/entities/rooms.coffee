@@ -50,9 +50,7 @@ define ["app", 'backbone'], (App, Backbone) ->
 						room = new Rooms.RoomModel ID : parseInt room_id	
 						room.fetch()
 						rooms.add room
-						console.log room
-				
-						#console.log rooms
+						#console.log room
 					room
 
 

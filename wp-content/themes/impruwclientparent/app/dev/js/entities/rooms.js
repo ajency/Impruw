@@ -72,7 +72,6 @@ define(["app", 'backbone'], function(App, Backbone) {
           });
           room.fetch();
           rooms.add(room);
-          console.log(room);
         }
         return room;
       },

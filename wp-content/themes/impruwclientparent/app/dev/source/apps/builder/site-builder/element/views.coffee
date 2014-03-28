@@ -23,7 +23,7 @@ define ['app'
 					# element events
 					events : 
 						'click .aj-imp-settings-btn' : (evt)->
-							evt.stopPropagation() 
+							evt.stopPropagation()
 							@trigger "show:setting:popup", @model
 
 						'click .aj-imp-delete-btn': (evt)->

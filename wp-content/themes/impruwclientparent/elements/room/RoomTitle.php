@@ -26,17 +26,19 @@ class RoomTitle extends Element {
     
     /**
      * The config to create a row element
-     * @param array $config
+     * @param array $element
      */
-    function __construct($config, $post_id = 0) {
+    function __construct($element, $post_id = 0) {
         
-        parent::__construct($config);
+        parent::__construct($element);
 
         $this->post_id = $post_id;
 
         if($this->post_id === 0 && get_the_ID() > 0)
             $this->post_id = get_the_ID();
-
+        
+        $this->room = get_room($this->post_id);
+        
         $this->markup  = $this->generate_markup();
     }
     
@@ -57,13 +59,25 @@ class RoomTitle extends Element {
      * @return [type] [description]
      */
     function get_room_title(){
-
-        if($this->post_id === 0)
-            return '';
-
-        $title = get_the_title($this->post_id);
-
-        return "<h3>$title</h3>";
+        
+        $template = '<div class="room-title-container clearfix">
+                            <div class="room-title">
+                                    <h1>{{post_title}}</h1>
+                                    <div class="room-title-desc">Lorem ipsum dolor sit amet et odio vehicula, id porttitor quam malesuada</div>
+                            </div>
+                            <div class="room-title-actions">
+                                   <button class="btn btn-sm btn-book">Booking &amp; Availability</button>
+                            </div>
+                    </div>';
+        
+        
+        $data = array();
+        
+        $data['post_title'] = $this->room['post_title'];
+   
+        global $me;
+        
+        return $me->render($template, $data);
     }
 
 }

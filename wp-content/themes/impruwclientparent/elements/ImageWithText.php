@@ -93,7 +93,7 @@ class ImageWithText extends Element {
     	$data['content'] = $this->content;
     	$data['class_name'] = $this->style;
     	
-    	$html = $me->render($template, $data);
+    	$html = $me->render($template, $ata);
     	
     	return $html;
     }

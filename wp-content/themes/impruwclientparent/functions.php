@@ -104,7 +104,7 @@ function check_site_status() {
 		die ();
 	}
 }
-add_action ( 'template_redirect', 'check_site_status' );
+//add_action ( 'template_redirect', 'check_site_status' );
 
 /*
  * -------------------------------------------------------------------------------------- impruw_register_room_init function to create a new post type called rooms -------------------------------------------------------------------------------------
@@ -289,7 +289,7 @@ function add_element_markup($element) {
 			$html = get_room_description_markup ( $element );
 			break;
 		case 'RoomTitle' :
-			$html = get_room_title_markup ( $element );
+                        $html = get_room_title_markup ( $element );
 			break;
 		case 'RoomFacilities' :
 			$html = get_room_facilities_markup ( $element );
@@ -630,7 +630,6 @@ function get_container_markup($element) {
  * @param type $page_id        	
  */
 function get_page_markup_JSON($page_id = 0) {
-	
 	// get page slug
 	$page_id = get_the_ID ();
 	
