@@ -54,7 +54,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         return NoGalleryItem.__super__.constructor.apply(this, arguments);
       }
 
-      NoGalleryItem.prototype.template = 'No images found. Please add images';
+      NoGalleryItem.prototype.template = '<div class="empty-info">No images found. Please add images.</div>';
 
       return NoGalleryItem;
 
@@ -71,6 +71,8 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
 
       GalleryView.prototype.template = '';
 
+      GalleryView.prototype.className = 'isotope';
+
       GalleryView.prototype.itemView = SingleGalleryItem;
 
       GalleryView.prototype.emptyView = NoGalleryItem;
@@ -83,7 +85,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
           return function() {
             return _this.$el.isotope({
               itemSelector: '.isotope-element',
-              layoutMode: 'fitRows'
+              layoutMode: 'masonry'
             });
           };
         })(this));
