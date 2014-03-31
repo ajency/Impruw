@@ -20,7 +20,6 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/plan/temp
           return function(data) {
             var plan;
             plan = App.request("create:plan:model", data);
-            console.log(plan);
             return plan.save(null, {
               wait: true,
               success: _this.planSaved
