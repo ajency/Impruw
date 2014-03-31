@@ -13,6 +13,13 @@ define(['app', 'backbone'], function(App, Backbone) {
 
       AnalyticsModel.prototype.idAttribute = 'date';
 
+      AnalyticsModel.prototype.parse = function(resp) {
+        resp['ga:avgTimeOnSite'] = resp['ga:avgTimeOnSite'].toFixed(2);
+        resp['ga:pageviewsPerVisit'] = resp['ga:pageviewsPerVisit'].toFixed(2);
+        resp['ga:visitBounceRate'] = resp['ga:visitBounceRate'].toFixed(2);
+        return resp;
+      };
+
       return AnalyticsModel;
 
     })(Backbone.Model);
@@ -24,6 +31,10 @@ define(['app', 'backbone'], function(App, Backbone) {
       }
 
       AnalyticsCollection.prototype.model = Analytics.AnalyticsModel;
+
+      AnalyticsCollection.prototype.comparator = function(model) {
+        return -model.get('date');
+      };
 
       AnalyticsCollection.prototype.url = function() {
         return "" + AJAXURL + "?action=get_analytics_data";
@@ -75,7 +86,7 @@ define(['app', 'backbone'], function(App, Backbone) {
           remove: false,
           add: true,
           data: {
-            metrices: 'ga:visits,ga:visitors,ga:newVisits,ga:pageviews,ga:pageviewsPerVisit,ga:bounces',
+            metrices: 'ga:visits,ga:visitBounceRate,ga:avgTimeOnSite,ga:uniquePageviews,ga:visitBounceRate,ga:avgTimeOnSite,ga:visitors,ga:newVisits,ga:pageviews,ga:pageviewsPerVisit,ga:bounces',
             start_date: start,
             end_date: end,
             ids: 81856773
@@ -93,75 +104,20 @@ define(['app', 'backbone'], function(App, Backbone) {
         return analyticsCollection;
       },
       getWeeklyData: function() {
-        var collection;
+        var collection, date, endDate, params, startDate;
         collection = new Analytics.AnalyticsCollection;
-        collection.set([
-          {
-            "date": 1.39536e+12,
-            "ga:visits": 32,
-            "ga:visitors": 23,
-            "ga:newVisits": 19,
-            "ga:pageviews": 173,
-            "ga:pageviewsPerVisit": 5.40625,
-            "ga:bounces": 9
-          }, {
-            "date": 1.3954464e+12,
-            "ga:visits": 0,
-            "ga:visitors": 0,
-            "ga:newVisits": 0,
-            "ga:pageviews": 0,
-            "ga:pageviewsPerVisit": 0,
-            "ga:bounces": 0
-          }, {
-            "date": 1.3955328e+12,
-            "ga:visits": 16,
-            "ga:visitors": 10,
-            "ga:newVisits": 9,
-            "ga:pageviews": 97,
-            "ga:pageviewsPerVisit": 6.0625,
-            "ga:bounces": 7
-          }, {
-            "date": 1.3956192e+12,
-            "ga:visits": 35,
-            "ga:visitors": 26,
-            "ga:newVisits": 24,
-            "ga:pageviews": 169,
-            "ga:pageviewsPerVisit": 4.82857142857,
-            "ga:bounces": 12
-          }, {
-            "date": 1.3957056e+12,
-            "ga:visits": 16,
-            "ga:visitors": 16,
-            "ga:newVisits": 14,
-            "ga:pageviews": 151,
-            "ga:pageviewsPerVisit": 9.4375,
-            "ga:bounces": 4
-          }, {
-            "date": 1.395792e+12,
-            "ga:visits": 23,
-            "ga:visitors": 22,
-            "ga:newVisits": 17,
-            "ga:pageviews": 144,
-            "ga:pageviewsPerVisit": 6.26086956522,
-            "ga:bounces": 2
-          }, {
-            "date": 1.3958784e+12,
-            "ga:visits": 20,
-            "ga:visitors": 20,
-            "ga:newVisits": 18,
-            "ga:pageviews": 74,
-            "ga:pageviewsPerVisit": 3.7,
-            "ga:bounces": 5
-          }, {
-            "date": 1.3959648e+12,
-            "ga:visits": 19,
-            "ga:visitors": 18,
-            "ga:newVisits": 16,
-            "ga:pageviews": 100,
-            "ga:pageviewsPerVisit": 5.26315789474,
-            "ga:bounces": 4
-          }
-        ]);
+        date = new Date();
+        endDate = Date.UTC(date.getFullYear(), date.getMonth(), date.getDate());
+        startDate = endDate - 7 * 86400000;
+        params = {
+          metrices: 'ga:visits,ga:newVisits,ga:visitBounceRate,ga:avgTimeOnSite,ga:uniquePageviews,ga:visitBounceRate,ga:pageviews,ga:pageviewsPerVisit',
+          start_date: startDate,
+          end_date: endDate,
+          ids: 81856773
+        };
+        collection.fetch({
+          data: params
+        });
         return collection;
       }
     };

@@ -8,6 +8,13 @@ define ['app'
 
 				idAttribute : 'date'
 
+				parse :(resp)->
+					# convert in proper format
+					resp['ga:avgTimeOnSite'] = resp['ga:avgTimeOnSite'].toFixed(2)
+					resp['ga:pageviewsPerVisit'] = resp['ga:pageviewsPerVisit'].toFixed(2)
+					resp['ga:visitBounceRate'] = resp['ga:visitBounceRate'].toFixed(2)
+					resp
+
 			#Analytics Collection
 			class Analytics.AnalyticsCollection extends Backbone.Collection
 
@@ -16,6 +23,9 @@ define ['app'
 				# endDate : Date.parse(new Date().toDateString())
 
 				model : Analytics.AnalyticsModel
+
+				comparator :(model)->
+				  	-model.get 'date'
 
 				url :->
 					"#{AJAXURL}?action=get_analytics_data"
@@ -111,7 +121,7 @@ define ['app'
 						remove : false
 						add : true
 						data :
-							metrices	: 'ga:visits,ga:visitors,ga:newVisits,ga:pageviews,ga:pageviewsPerVisit,ga:bounces'
+							metrices	: 'ga:visits,ga:visitBounceRate,ga:avgTimeOnSite,ga:uniquePageviews,ga:visitBounceRate,ga:avgTimeOnSite,ga:visitors,ga:newVisits,ga:pageviews,ga:pageviewsPerVisit,ga:bounces'
 							start_date 	: start
 							end_date 	: end
 							ids			: 81856773
@@ -132,22 +142,22 @@ define ['app'
 					collection = new Analytics.AnalyticsCollection
 
 					# dummy data
-					collection.set [{"date":1.39536e+12,"ga:visits":32,"ga:visitors":23,"ga:newVisits":19,"ga:pageviews":173,"ga:pageviewsPerVisit":5.40625,"ga:bounces":9},{"date":1.3954464e+12,"ga:visits":0,"ga:visitors":0,"ga:newVisits":0,"ga:pageviews":0,"ga:pageviewsPerVisit":0,"ga:bounces":0},{"date":1.3955328e+12,"ga:visits":16,"ga:visitors":10,"ga:newVisits":9,"ga:pageviews":97,"ga:pageviewsPerVisit":6.0625,"ga:bounces":7},{"date":1.3956192e+12,"ga:visits":35,"ga:visitors":26,"ga:newVisits":24,"ga:pageviews":169,"ga:pageviewsPerVisit":4.82857142857,"ga:bounces":12},{"date":1.3957056e+12,"ga:visits":16,"ga:visitors":16,"ga:newVisits":14,"ga:pageviews":151,"ga:pageviewsPerVisit":9.4375,"ga:bounces":4},{"date":1.395792e+12,"ga:visits":23,"ga:visitors":22,"ga:newVisits":17,"ga:pageviews":144,"ga:pageviewsPerVisit":6.26086956522,"ga:bounces":2},{"date":1.3958784e+12,"ga:visits":20,"ga:visitors":20,"ga:newVisits":18,"ga:pageviews":74,"ga:pageviewsPerVisit":3.7,"ga:bounces":5},{"date":1.3959648e+12,"ga:visits":19,"ga:visitors":18,"ga:newVisits":16,"ga:pageviews":100,"ga:pageviewsPerVisit":5.26315789474,"ga:bounces":4}]
-
+					# collection.set [{"date":1.3956192e+12,"ga:visits":35,"ga:newVisits":24,"ga:visitBounceRate":34.2857142857,"ga:avgTimeOnSite":295.228571429,"ga:uniquePageviews":124,"ga:pageviews":169,"ga:pageviewsPerVisit":4.82857142857},{"date":1.3957056e+12,"ga:visits":16,"ga:newVisits":14,"ga:visitBounceRate":25,"ga:avgTimeOnSite":660.5,"ga:uniquePageviews":80,"ga:pageviews":151,"ga:pageviewsPerVisit":9.4375},{"date":1.395792e+12,"ga:visits":23,"ga:newVisits":17,"ga:visitBounceRate":8.69565217391,"ga:avgTimeOnSite":316.304347826,"ga:uniquePageviews":95,"ga:pageviews":144,"ga:pageviewsPerVisit":6.26086956522},{"date":1.3958784e+12,"ga:visits":20,"ga:newVisits":18,"ga:visitBounceRate":25,"ga:avgTimeOnSite":179.1,"ga:uniquePageviews":66,"ga:pageviews":74,"ga:pageviewsPerVisit":3.7},{"date":1.3959648e+12,"ga:visits":22,"ga:newVisits":18,"ga:visitBounceRate":18.1818181818,"ga:avgTimeOnSite":182.772727273,"ga:uniquePageviews":81,"ga:pageviews":109,"ga:pageviewsPerVisit":4.95454545455},{"date":1.3960512e+12,"ga:visits":0,"ga:newVisits":0,"ga:visitBounceRate":0,"ga:avgTimeOnSite":0,"ga:uniquePageviews":0,"ga:pageviews":0,"ga:pageviewsPerVisit":0},{"date":1.3961376e+12,"ga:visits":1,"ga:newVisits":1,"ga:visitBounceRate":100,"ga:avgTimeOnSite":0,"ga:uniquePageviews":1,"ga:pageviews":1,"ga:pageviewsPerVisit":1},{"date":1.396224e+12,"ga:visits":9,"ga:newVisits":7,"ga:visitBounceRate":11.1111111111,"ga:avgTimeOnSite":75,"ga:uniquePageviews":30,"ga:pageviews":34,"ga:pageviewsPerVisit":3.77777777778}]
+					# return collection
 					
-					# date = new Date()
-					# endDate = Date.UTC date.getFullYear(),date.getMonth(),date.getDate()
+					date = new Date()
+					endDate = Date.UTC date.getFullYear(),date.getMonth(),date.getDate()
 
-					# #set start date one month ago
-					# startDate = endDate - 7* 86400000
-					# params = 
-					# 	metrices 	: 'ga:visits,ga:visitors,ga:newVisits,ga:pageviews,ga:pageviewsPerVisit,ga:bounces'
-					# 	start_date 	: startDate
-					# 	end_date 	: endDate
-					# 	ids			: 81856773
+					#set start date one month ago
+					startDate = endDate - 7 * 86400000
+					params = 
+						metrices	: 'ga:visits,ga:newVisits,ga:visitBounceRate,ga:avgTimeOnSite,ga:uniquePageviews,ga:visitBounceRate,ga:pageviews,ga:pageviewsPerVisit'
+						start_date 	: startDate
+						end_date 	: endDate
+						ids			: 81856773
 
-					# collection.fetch
-					# 			data : params
+					collection.fetch
+								data : params
 					collection
 
 			#request handlers
