@@ -17,6 +17,8 @@
 
 require_once PARENTTHEMEPATH . 'elements/SliderElement.php';
 
+include_once PARENTTHEMEPATH.'modules/slider/functions.php';
+
 class RoomGallery extends SliderElement {
     
     /**
@@ -43,31 +45,62 @@ class RoomGallery extends SliderElement {
     
     /**
      * The config to create a row element
-     * @param array $config
+     * @param array $element
      */
-    function __construct($config, $post_id = 0) {
+    function __construct($element, $post_id = 0) {
         
-        parent::__construct($config);
-
-        $this->post_id = $post_id;
-
-        if($this->post_id === 0 && get_the_ID() > 0)
-            $this->post_id = get_the_ID();
-
-        $this->data_source = array();
-        $this->data_source['image-ids'] = $this->get_room_images();
-        
+        parent::__construct($element );
+            
+        $this->slider_id = isset($element['slider_id']) ? $element['slider_id'] : $this->get_slider_id();
+           
+        $this->markup    =  $this->slider_id === 0 ? '' :  $this->generate_markup();
+    }
+    
+    function get_slider_id(){
+       
+       if (!is_singular ( 'impruw_room' )) 
+           return 0;
+       
+       // ge the room id
+       $room_id = get_the_ID();
+       
+       $slider_id = get_post_meta ( $room_id, 'slider_id', true );
+       
+       if ($page === '')
+           return 0;         
+       else
+           return (int)$slider_id;
+ 
     }
 
     /**
      * [get_room_images description]
      * @return [type] [description]
      */
-    function get_room_images(){
-
+    function generate_markup(){
+       
+        $sliderID = $this->slider_id;
+       
+        $slides =get_slides($sliderID);
+        
+        $html = '<ul>';
+        
+        foreach ($slides as $key => $value) {
+           
+           $image_path = $slides[$key]["thumb_url"];
+           
+           $html .= '<li><img src="'.$image_path.'"></li>' ; 
+        }
+        
+        $html .= '</ul>';
+          
+        return $html;
+        /*
         $ids = get_post_meta($this->post_id, 'room-attachments', true);
 
         return $ids;
-    }
+         
+      */  
+}
     
 }
