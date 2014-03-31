@@ -24,7 +24,7 @@ define(['app'], function(App) {
 
       return OverviewChartView;
 
-    })(Marionette.CompositeView);
+    })(Marionette.ItemView);
     TrafficSingle = (function(_super) {
       __extends(TrafficSingle, _super);
 

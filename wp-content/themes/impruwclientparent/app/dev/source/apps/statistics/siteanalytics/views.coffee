@@ -2,7 +2,7 @@ define ['app'], (App)->
 
 	App.module 'DashboardApp.Statistics.SiteAnalytics.Views', (Views, App, Backbone, Marionette, $, _)->
 
-		class Views.OverviewChartView extends Marionette.CompositeView
+		class Views.OverviewChartView extends Marionette.ItemView
 
 			className : 'row'
 

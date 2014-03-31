@@ -53,7 +53,7 @@ define(['app', 'controllers/base-controller', 'apps/statistics/siteanalytics/vie
 
       SiteAnalyticsLayout.prototype.className = 'row';
 
-      SiteAnalyticsLayout.prototype.tempalte = '<input type="text" class="datepicker"/> <div id="overview-chart-region"></div> <div id="traffic-chart-region"></div>';
+      SiteAnalyticsLayout.prototype.template = '<input type="text" class="datepicker"/> <div id="overview-chart-region"></div> <div id="traffic-chart-region"></div>';
 
       SiteAnalyticsLayout.prototype.events = {
         'change .datepicker': function() {
@@ -67,6 +67,10 @@ define(['app', 'controllers/base-controller', 'apps/statistics/siteanalytics/vie
       SiteAnalyticsLayout.prototype.regions = {
         overviewChartRegion: '#overview-chart-region',
         trafficChartRegion: '#traffic-chart-region'
+      };
+
+      SiteAnalyticsLayout.prototype.onShow = function() {
+        return this.$el.find('.datepicker').datepicker();
       };
 
       return SiteAnalyticsLayout;

@@ -43,7 +43,7 @@ define ['app', 'controllers/base-controller','apps/statistics/siteanalytics/view
 
 			className : 'row'
 
-			tempalte : '<input type="text" class="datepicker"/>
+			template : '<input type="text" class="datepicker"/>
 						<div id="overview-chart-region"></div>
 						<div id="traffic-chart-region"></div>'
 
@@ -56,6 +56,9 @@ define ['app', 'controllers/base-controller','apps/statistics/siteanalytics/view
 			regions :
 				overviewChartRegion : '#overview-chart-region'
 				trafficChartRegion  : '#traffic-chart-region'
+
+			onShow:->
+				@$el.find('.datepicker').datepicker()
 
 
 		App.commands.setHandler "show:site:analytics:data", (opt)->
