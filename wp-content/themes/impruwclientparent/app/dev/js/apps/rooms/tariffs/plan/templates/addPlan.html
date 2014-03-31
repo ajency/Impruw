@@ -1,35 +1,24 @@
-	<form class="form-horizontal clearfix" name="form_addplan"
-		id="form_addplan">
-	
-	
-		<div class="form-group">
-			<label for="inputSocial2" class="col-sm-2 control-label">Plan Type</label>
-			<div class="col-sm-9 col-sm-offset-2">
-				<input type="text" class="form-control" id="plantype"
-					name="plan_name" placeholder="eg. American Plan" required parsley-trigger="blur" parsley-validation-minlength="0"
-					parsely-required-message = "Please enter plan type" >
-					<div class="p-messages"></div>
-			</div>
+	<div class="form-group">
+		<label for="inputSocial2" class="col-sm-2 control-label">Plan Type</label>
+		<div class="col-sm-9 col-sm-offset-2">
+			<input type="text" class="form-control" name="plan_name" placeholder="eg. American Plan" required >
+				<div class="p-messages"></div>
 		</div>
+	</div>
 
-		<div class="form-group">
-			<label for="inputSEO1" class="col-sm-2 control-label">Plan
-				Description</label>
-			<div class="col-sm-9 col-sm-offset-2">
-				<textarea class="form-control" rows="3" id="plandescription"
-					name= "plan_description"
-					placeholder="eg. This Plan is inclusive of 3 meals a day."
-					required parsley-trigger="blur" parsley-validation-minlength="0"
-					parsely-required-message = "Please enter plan description" ></textarea>
-					<div class="p-messages"></div>
-			</div>
+	<div class="form-group">
+		<label for="inputSEO1" class="col-sm-2 control-label">Plan
+			Description</label>
+		<div class="col-sm-9 col-sm-offset-2">
+			<textarea class="form-control" rows="3" id="plandescription"
+				name= "plan_description"
+				placeholder="eg. This Plan is inclusive of 3 meals a day."
+				required></textarea>
+				<div class="p-messages"></div>
 		</div>
-  
-	</form>
-	<div class="modal-footer">
-	<button type="button" class="btn btn-default aj-imp-modal-save" id="btn_addplan">
-		<i class="fui-plus"></i> Add Plan
-	</button>
-	<img src="<%=THEMEURL%>/images/loader.gif" width="38" height="30"
-	id="newaddonsave_loader" style="display:none"/>
-</div>
+	</div>
+ 	<div class="modal-footer">
+		<button type="button" class="btn btn-default aj-imp-modal-save" id="btn_addplan">
+			<i class="fui-plus"></i> Add Plan
+		</button>
+	</div>

@@ -11,7 +11,7 @@ define(['app', 'holder'], function(App, Holder) {
         return GalleryItem.__super__.constructor.apply(this, arguments);
       }
 
-      GalleryItem.prototype.className = 'isotop-element';
+      GalleryItem.prototype.className = 'isotope-element';
 
       GalleryItem.prototype.template = '<img src="{{thumb_url}}" alt="Slide" width="100%"/>';
 
@@ -58,7 +58,8 @@ define(['app', 'holder'], function(App, Holder) {
         return this.$el.imagesLoaded((function(_this) {
           return function() {
             return _this.$el.isotope({
-              itemSelector: '.isotop-element'
+              itemSelector: '.isotope-element',
+              layoutMode: 'masonry'
             });
           };
         })(this));

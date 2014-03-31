@@ -1727,6 +1727,7 @@ form {
 }
 
 .empty-info {
+	clear: both;
 	padding: 0.8em 1em 0.7em;
 	border: 1px dashed @dash-grey;
 	color: @dash-grey;
@@ -2328,10 +2329,28 @@ form {
 }
 
 /****Gallery Styling****/
+#gallery-region {
+	height: 220px;
+	.isotope {
+		height: 100%;
+	}
+	.empty-info {
+		height: 220px;
+	    line-height: 200px;
+	    text-align: center;
+	}
+}
+
+#slides-list-region, #add-slide-region, .aj-imp-block-button.add-new-slide {
+	margin-left: 0.5em;
+	margin-right: 0.5em;
+}
+
 .add-gallery-images {
 	background: @blue-grey;
+	border-radius: 0;
 	&:hover {
-		background: lighten(@blue-grey, 20%);
+		background: lighten(@blue-grey, 10%);
 	}
 }
 
@@ -2387,4 +2406,110 @@ form {
       -ms-transition-duration: 0s;
        -o-transition-duration: 0s;
           transition-duration: 0s;
+}
+
+/* statstic visitor*/
+.statistics-visitor{
+	margin: 10px;
+	border:1px solid #E9E9E9;
+	background:#f6f6f6;
+	.statistics-tod-visitor{
+		background:#fff;
+		padding: 20px;
+		min-height: 393px;
+		h3{
+			font-size: 2em;
+			text-align: center;
+			border-bottom: 1px solid #eee;
+			padding-bottom: 2%;
+		}
+		.today-visits{
+			font-size: 1.8em;
+			text-align:center;
+			color:@orange;
+				span{
+					font-size: .9em;
+					font-weight: 300;
+					text-transform: uppercase;
+				}
+		}
+		.today-visitor-details{
+			font-size:0.9em;
+			width: 68%;
+			margin: 3% auto;
+			color:#000;
+			.sm-txt{
+				display:block;
+				text-transform:uppercase;
+				color:#ccc;
+			}
+			.per-data{
+				text-align: center;
+				line-height: 38px;
+				.glyphicon-arrow-up{
+					color:#70d813;
+					margin-right:3%;
+				}
+			}
+			.glyphicon{
+				font-size: 1.2em;
+				color: #ccc;
+				margin-left: 5%;
+				
+			}
+		}
+		.total-visits{
+			font-size: 1.0em;
+			font-weight: 300;
+			text-align: center;
+			text-transform: uppercase;
+			color: #999;
+			b{
+				display: block;
+				font-size: 1.3em;
+				margin: 0.5em;
+			}
+			.col-md-3{
+				border-left:1px solid  #E9E8E8;
+			}
+			.col-md-3:first-child{
+				border-left:0px ;
+			}
+		}
+	}
+	.weekly-list{
+		padding:17px;
+		li{
+			padding: 15px;
+			color:#000;
+			border-bottom: 1px solid #E8E8E8;
+			em{
+				font-style: normal;
+				width: 10%;
+				margin-right: 20%;
+				display: inline-block;
+			}
+			b{
+				font-weight:300;
+				float: right;
+				display: inline-block;
+				color: #B5B3B3;
+			}
+			.glyphicon {
+				color:#ccc;
+			}
+			.glyphicon-arrow-up{
+				color:#2ECC71;
+				margin-left: 3%;
+			}
+			.glyphicon-arrow-down{
+				color: rgb(239, 139, 121);
+				margin-left: 3%;
+			}
+		}
+		li:last-child{
+			border:0px;
+		}
+	
+	}
 }

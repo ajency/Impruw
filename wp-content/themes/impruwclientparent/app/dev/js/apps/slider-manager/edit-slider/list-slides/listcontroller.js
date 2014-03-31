@@ -139,7 +139,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         return NoSlidesView.__super__.constructor.apply(this, arguments);
       }
 
-      NoSlidesView.prototype.template = '<div class="alert">No slides. Please add slides.</div>';
+      NoSlidesView.prototype.template = '<div class="alert">No images found. Please add images.</div>';
 
       return NoSlidesView;
 

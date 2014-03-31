@@ -31,16 +31,17 @@ define  ['app'
 					showTariffGrid :->
 						App.execute "show:tariff:grid", region : @layout.tariffGridRegion
 
+				#<div class="room-tariff-title">
+				#<h4>Room Price</h4>
+				#<h5>Lorem ipsum dolor sit amet et odio vehicula, id porttitor quam malesuada</h5>
+								
 
 				# Rooms tariff layout 				
 				class RoomsTariffAppLayout extends Marionette.Layout
 
 					className : 'room-tariff-container'
 
-					template : '<div class="room-tariff-title">
-									<h4>Room Price</h4>
-									<h5>Lorem ipsum dolor sit amet et odio vehicula, id porttitor quam malesuada</h5>
-								</div>
+					template : '</div>
 								<div class="room-tariff-grid" id="room-tariff-grid"></div>
 								<button type="button" class="btn-add-range"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;Add Date Range</button>'
 

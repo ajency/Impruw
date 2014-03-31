@@ -1,7 +1,8 @@
 define ['app', 'controllers/base-controller'
 		'apps/rooms/add/views'
 		'apps/rooms/facilities/facilitiesapp'
-		'apps/rooms/gallery/galleryapp'], (App, AppController)->
+		'apps/rooms/gallery/galleryapp'
+		'apps/rooms/booking/bookingcontroller'], (App, AppController)->
 
 	App.module 'RoomsApp.Add', (Add, App, Backbone, Marionette, $, _)->
 
@@ -22,7 +23,10 @@ define ['app', 'controllers/base-controller'
 											collection : @slidesCollection
 						
 						App.execute "show:rooms:tariffs:app",
-										region : layout.roomTariffRegion
+											region : layout.roomTariffRegion
+
+						App.execute "show:booking:app",
+											region : layout.roomBookingRegion
 
 				@listenTo @layout, "show:edit:slider", =>
 
