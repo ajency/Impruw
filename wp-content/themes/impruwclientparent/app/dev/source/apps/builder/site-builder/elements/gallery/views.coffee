@@ -8,7 +8,7 @@ define ['app', 'holder'],(App, Holder)->
 
 			className: 'isotope-element'
 
-			template : '<img src="{{thumb_url}}" alt="Slide" width="100%"/>'
+			template : '<img src="{{thumb_url}}" alt="Slide" class="img-responsive" />'
 
 			onRender:->
 				randomW = if Math.random() * 50  > 25 then 1 else 2

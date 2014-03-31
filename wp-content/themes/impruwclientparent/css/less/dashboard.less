@@ -2332,6 +2332,20 @@ form {
 #gallery-region {
 	width: 70%;
 	float: left;
+	height: 400px;
+	overflow-y: scroll;
+	overflow-x: auto;
+	border: 1px solid @preview-grey;
+	margin: 1em 0;
+	.empty-info {
+		margin: 0 1em;
+		height: 370px;
+		line-height: 350px;
+		text-align: center;
+	}
+	.isotope {
+		width: 100% !important;
+	}
 }
 
 .gallery-info {
@@ -2344,6 +2358,7 @@ form {
 	border-radius: 4px;
 	color: @dash-grey;
 	font-style: italic;
+	border: 1px dashed darken(@preview-grey, 10%);
 	.icon {
 		font-size: 5em;
 		color: darken(@preview-grey, 10%);
@@ -2376,20 +2391,23 @@ form {
   z-index: 2;
   margin: 0.2em;
   &.width-1 {
-  	width: 20%;
+  	width: 200px;
   	height: auto;
   }
   &.width-2 {
-  	width: 40%;
+  	width: 200px;
   	height: auto;
   }
-  &.height-1 {
+  /*&.height-1 {
   	height: 20%;
   	width: auto;
   }
   &.height-2 {
   	height: 40%;
   	width: auto;
+  }*/
+  .img-responsive {
+  	width: 100%;
   }
 }
 
@@ -2603,7 +2621,7 @@ form {
 			}
 		}
 
-	.room-booking-data{
+		.room-booking-data{
 						background: #999;
 						padding-top:1em;
 				.date-range{
