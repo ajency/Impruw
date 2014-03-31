@@ -22,7 +22,7 @@ define ['app'
 					template : '
 											<h4>
 											<span class="glyphicon glyphicon-calendar"></span>
-											Montly Calendar
+											Monthly Calendar
 												<span class="excerpt">Donec vulputate nibh et odio vehicula, id porttitor quam malesuada</span>
 											</h4>
 											<div id="room-booking-calendar"></div>
