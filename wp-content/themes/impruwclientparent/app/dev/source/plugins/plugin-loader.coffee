@@ -6,7 +6,8 @@ define [
 		'jquery'
 		'jqueryui'
 		'backbone'
-		'd3'
+		#'d3'
+		'chart'
 		'backbonesyphon'
 		'backboneassociations'
 		'jqueryvalidate'
@@ -21,6 +22,6 @@ define [
 		'underscorestring'
 		'mustache'
 		'bootstrapselect'
-		'nvd3'
+		#'nvd3'
 		'isotope'
 		],->

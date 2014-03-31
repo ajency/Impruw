@@ -15,6 +15,13 @@ define(['app', 'holder'], function(App, Holder) {
 
       GalleryItem.prototype.template = '<img src="{{thumb_url}}" alt="Slide" width="100%"/>';
 
+      GalleryItem.prototype.onRender = function() {
+        var randomH, randomW;
+        randomW = Math.random() * 50 > 25 ? 1 : 2;
+        randomH = Math.random() * 50 > 25 ? 1 : 2;
+        return this.$el.addClass("width-" + randomW + " height-" + randomH);
+      };
+
       return GalleryItem;
 
     })(Marionette.ItemView);

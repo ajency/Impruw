@@ -1,7 +1,7 @@
 var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-define(['app', 'controllers/base-controller', 'apps/statistics/weeklydata/weeklydata'], function(App, AppController, layoutTpl) {
+define(['app', 'controllers/base-controller', 'apps/statistics/weeklydata/weeklydata', 'apps/statistics/siteanalytics/siteanalyticscontroller'], function(App, AppController, layoutTpl) {
   return App.module('DashboardApp.Statistics', function(Statistics, App, Backbone, Marionette, $, _) {
     var API, StatisticsController, StatisticsLayout, StatisticsRouter;
     StatisticsRouter = (function(_super) {
@@ -35,8 +35,11 @@ define(['app', 'controllers/base-controller', 'apps/statistics/weeklydata/weekly
         layout = new StatisticsLayout;
         this.listenTo(layout, "show", (function(_this) {
           return function() {
-            return App.execute("show:weekly:data", {
+            App.execute("show:weekly:data", {
               region: layout.weeklyDataRegion
+            });
+            return App.execute("show:site:analytics:data", {
+              region: layout.analyticsDataRegion
             });
           };
         })(this));
@@ -53,12 +56,11 @@ define(['app', 'controllers/base-controller', 'apps/statistics/weeklydata/weekly
         return StatisticsLayout.__super__.constructor.apply(this, arguments);
       }
 
-      StatisticsLayout.prototype.template = '<div id="weekly-data-region"></div> <div id="overview-data-region"></div> <div id="all-traffic-data-region"></div>';
+      StatisticsLayout.prototype.template = '<div id="weekly-data-region"></div> <div id="analytics-data-region"></div>';
 
       StatisticsLayout.prototype.regions = {
         weeklyDataRegion: '#weekly-data-region',
-        overviewDataRegion: '#overview-data-region',
-        allTrafficDataRegion: '#all-traffic-data-region'
+        analyticsDataRegion: '#analytics-data-region'
       };
 
       return StatisticsLayout;

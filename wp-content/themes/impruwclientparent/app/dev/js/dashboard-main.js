@@ -27,6 +27,7 @@ require.config({
     backboneassociations: 'plugins/backbone.associations',
     jqueryvalidate: 'plugins/jquery.validate',
     polyglot: 'plugins/polyglot',
+    chart: 'plugins/chart',
     app: 'dashboard-app',
     bootstrapswitch: 'plugins/bootstrap-switch',
     entitiesloader: 'entities/dashboard-entities-loader'
