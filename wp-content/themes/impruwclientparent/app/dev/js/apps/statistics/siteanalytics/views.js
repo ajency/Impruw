@@ -58,9 +58,11 @@ define(['app'], function(App) {
         return TrafficSingle.__super__.constructor.apply(this, arguments);
       }
 
-      TrafficSingle.prototype.className = '';
+      TrafficSingle.prototype.className = 'sadsdas';
 
-      TrafficSingle.prototype.template = 'add single traffic row markup here';
+      TrafficSingle.prototype.tagName = 'tr';
+
+      TrafficSingle.prototype.template = '<td>add single traffic row markup here</td>';
 
       return TrafficSingle;
 
@@ -74,7 +76,7 @@ define(['app'], function(App) {
 
       TrafficEmpty.prototype.className = '';
 
-      TrafficEmpty.prototype.template = 'no traffic data to display';
+      TrafficEmpty.prototype.template = '<td colspan="4">no traffic data to display</td>';
 
       return TrafficEmpty;
 
@@ -88,9 +90,11 @@ define(['app'], function(App) {
 
       TrafficViewChart.prototype.className = 'row';
 
-      TrafficViewChart.prototype.template = '<add traffic chart markup here';
+      TrafficViewChart.prototype.template = '<h4> All Traffic Data</h4> add traffic chart markup here. <table class="traffic-list"></table>';
 
       TrafficViewChart.prototype.itemView = TrafficSingle;
+
+      TrafficViewChart.prototype.itemViewContainer = 'table.traffic-list';
 
       TrafficViewChart.prototype.emptyView = TrafficEmpty;
 

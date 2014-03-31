@@ -1,7 +1,6 @@
 define ['app'
-		'holder'
 		'text!apps/builder/site-builder/element/templates/element.html'],
-		(App, Holder, elementTpl)->
+		(App,elementTpl)->
 
 			# Headerapp views
 			App.module 'SiteBuilderApp.Element.Views', (Views, App, Backbone, Marionette, $, _)->

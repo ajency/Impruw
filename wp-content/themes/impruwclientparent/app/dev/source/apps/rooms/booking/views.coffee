@@ -36,10 +36,17 @@ define ['app'
 							.datepicker
 								inline: true
 								numberOfMonths : 2
+								#showOtherMonths: true
+								onSelect : @triggerOnSelect
 								beforeShowDay: @highlightDaysByDateRange
 
-					highlightDaysByDateRange:=>
+					triggerOnSelect:(date)=>
+						@trigger "date:selected", date
 
+					highlightDaysByDateRange:(date)=>
+						dateRangeName = App.request "get:daterange:name:for:date", date
+						className = _.slugify dateRangeName
+						return [true, className]
 
 				#Plans list view
 				class View.PlansView extends Marionette.CompositeView

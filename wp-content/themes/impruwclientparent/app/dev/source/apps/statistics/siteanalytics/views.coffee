@@ -45,24 +45,31 @@ define ['app'], (App)->
 		# traffic single view
 		class TrafficSingle extends Marionette.ItemView
 
-			className : ''
+			className : 'sadsdas'
 
-			template : 'add single traffic row markup here'
+			tagName : 'tr'
 
+			template : '<td>add single traffic row markup here</td>'
+
+		# 
 		class TrafficEmpty extends Marionette.ItemView
 
 			className : ''
 
-			template : 'no traffic data to display'
+			template : '<td colspan="4">no traffic data to display</td>'
 
 		# traffic view
 		class Views.TrafficViewChart extends Marionette.CompositeView
 
 			className : 'row'
 
-			template : '<add traffic chart markup here'
+			template : '<h4> All Traffic Data</h4>
+						add traffic chart markup here.
+						<table class="traffic-list"></table>'
 
 			itemView : TrafficSingle
+
+			itemViewContainer : 'table.traffic-list'
 
 			emptyView : TrafficEmpty
 
