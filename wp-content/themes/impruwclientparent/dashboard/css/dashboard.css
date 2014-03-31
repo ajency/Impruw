@@ -2302,6 +2302,22 @@ form .aj-imp-submit:hover {
   z-index: 2;
   margin: 0.2em;
 }
+.isotope-item.width-1 {
+  width: 20%;
+  height: auto;
+}
+.isotope-item.width-2 {
+  width: 40%;
+  height: auto;
+}
+.isotope-item.height-1 {
+  height: 20%;
+  width: auto;
+}
+.isotope-item.height-2 {
+  height: 40%;
+  width: auto;
+}
 .isotope-hidden.isotope-item {
   pointer-events: none;
   z-index: 1;

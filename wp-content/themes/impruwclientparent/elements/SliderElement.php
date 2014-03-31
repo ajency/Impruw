@@ -46,9 +46,7 @@ class SliderElement extends Element {
     function __construct($element) {
         
         parent::__construct($element);
-        
-        var_dump($element);
-      
+       
         $this->slider_id = $element['slider_id'];
 
         $this->markup   = $this->generate_markup();
@@ -63,11 +61,10 @@ class SliderElement extends Element {
     function generate_markup(){
         
         $slider = new RevSlider();
-        $slider->initByID($this->slider_id);   
+        $slider->initByID($this->slider_id);
         ob_start();
-        echo do_shortcode("[rev_slider {$slider->getAlias()}]");
+        echo do_shortcode("[rev_slider {$slider->getID()}]");
         $html = ob_get_clean();
-        
         return $html;
     }
     

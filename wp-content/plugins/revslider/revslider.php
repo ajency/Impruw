@@ -41,8 +41,8 @@ try{
 	//add shortcode
 	function rev_slider_shortcode($args){
 
-        extract(shortcode_atts(array('alias' => ''), $args, 'rev_slider'));
-        $sliderAlias = ($alias != '') ? $alias : UniteFunctionsRev::getVal($args,0);
+        extract(shortcode_atts(array('id' => ''), $args, 'rev_slider'));
+        $sliderAlias = ($id != '') ? $id : UniteFunctionsRev::getVal($args,0);
 
 		ob_start();
 		$slider = RevSliderOutput::putSlider($sliderAlias);
