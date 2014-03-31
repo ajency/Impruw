@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
 
 define(['app'], function(App) {
   return App.module('DashboardApp.Statistics.SiteAnalytics.Views', function(Views, App, Backbone, Marionette, $, _) {
-    var TrafficSingle;
+    var TrafficEmpty, TrafficSingle;
     Views.OverviewChartView = (function(_super) {
       __extends(OverviewChartView, _super);
 
@@ -58,11 +58,27 @@ define(['app'], function(App) {
         return TrafficSingle.__super__.constructor.apply(this, arguments);
       }
 
-      TrafficSingle.prototype.className = '';
+      TrafficSingle.prototype.className = 'sadsdas';
 
-      TrafficSingle.prototype.template = 'add single traffic row markup here';
+      TrafficSingle.prototype.tagName = 'tr';
+
+      TrafficSingle.prototype.template = '<td>add single traffic row markup here</td>';
 
       return TrafficSingle;
+
+    })(Marionette.ItemView);
+    TrafficEmpty = (function(_super) {
+      __extends(TrafficEmpty, _super);
+
+      function TrafficEmpty() {
+        return TrafficEmpty.__super__.constructor.apply(this, arguments);
+      }
+
+      TrafficEmpty.prototype.className = '';
+
+      TrafficEmpty.prototype.template = '<td colspan="4">no traffic data to display</td>';
+
+      return TrafficEmpty;
 
     })(Marionette.ItemView);
     return Views.TrafficViewChart = (function(_super) {
@@ -74,9 +90,13 @@ define(['app'], function(App) {
 
       TrafficViewChart.prototype.className = 'row';
 
-      TrafficViewChart.prototype.template = '<add traffic chart markup here';
+      TrafficViewChart.prototype.template = '<h4> All Traffic Data</h4> add traffic chart markup here. <table class="traffic-list"></table>';
 
       TrafficViewChart.prototype.itemView = TrafficSingle;
+
+      TrafficViewChart.prototype.itemViewContainer = 'table.traffic-list';
+
+      TrafficViewChart.prototype.emptyView = TrafficEmpty;
 
       TrafficViewChart.prototype.onShow = function() {
         var data;

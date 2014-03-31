@@ -9,18 +9,26 @@ define ['app', 'controllers/base-controller'
 
 				@layout = layout = @getRoomBookingLayout()	
 
-				@listenTo layout, "show", =>
-					@showBookingCalendarView()
-					@showBookingPlansView()
+				@listenTo layout, "show", @showBookingCalendarView
+					#@showBookingPlansView()
 						
 				@show layout
 
-			showBookingCalendarView:->
-				cview = new Booking.View.CalendarView
+			showBookingCalendarView:=>
+				@cview = cview = new Booking.View.CalendarView
+
+				# listen to date selected event
+				@listenTo cview, "date:selected", @showBookingPlansView
+
 				@layout.calendarRegion.show cview
 
-			showBookingPlansView:->
-				pview = new Booking.View.PlansView
+			showBookingPlansView:(date)=>
+
+				plansCollection = App.request "get:plans:collection", date
+
+				pview = new Booking.View.PlansView 
+										collection : plansCollection
+										
 				@layout.plansDetailsRegion.show pview
 
 			getRoomBookingLayout : ()->

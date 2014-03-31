@@ -205,7 +205,12 @@ function get_elementbox_elements() {
 							'styles' => get_styles ( 'RoomSummary' ),
 							'rooms' =>  get_all_rooms(),
 							'icon' => '' 
-					) 
+					),
+                                        array (
+							'element' => 'RoomTariff',
+							'title' => 'Room Tariff',
+							'icon' => '' 
+					)
 			) 
 	) );
 }

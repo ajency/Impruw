@@ -30,6 +30,10 @@ define ["app", 'backbone'], (App, Backbone) ->
 				dateRangeCollection.fetch()
 				dateRangeCollection
 
+			getDateRangeNameForDate:(date)->
+				random = _.uniqueId('Date Range Name-')
+				random
+
 			createDateRangeModel :(data = {})->
 				
 				daterange = new DateRange data 
@@ -42,3 +46,6 @@ define ["app", 'backbone'], (App, Backbone) ->
 
 		App.reqres.setHandler "create:new:daterange:model",(data) ->
 			API.createDateRangeModel data
+
+		App.reqres.setHandler "get:daterange:name:for:date",(date)->
+			API.getDateRangeNameForDate date
