@@ -25,7 +25,7 @@ define ['app','controllers/base-controller'], (App, AppController)->
 		class SingleGalleryItem extends Marionette.ItemView
 			tagName : 'li'
 			className : 'isotope-element'
-			template : '<img src="{{thumb_url}}" width="300"/>'
+			template : '<img src="{{thumb_url}}" height="200"/>'
 
 
 		class NoGalleryItem extends Marionette.ItemView
@@ -52,8 +52,10 @@ define ['app','controllers/base-controller'], (App, AppController)->
 				@$el.imagesLoaded =>
 					@$el.isotope
 						itemSelector: '.isotope-element'
-						layoutMode : 'masonry'
+						layoutMode : 'masonryHorizontal'
 
+				ww = $('#gallery-region').width()
+				$('.isotope').width(ww)
 
 		App.commands.setHandler "show:gallery:images",(opt)->
 			new GalleryController opt

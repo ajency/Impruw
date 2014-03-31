@@ -1693,6 +1693,7 @@ form .aj-imp-submit:hover {
   background: #ff7e00;
 }
 .empty-info {
+  clear: both;
   padding: 0.8em 1em 0.7em;
   border: 1px dashed #aaaaaa;
   color: #aaaaaa;
@@ -2284,11 +2285,24 @@ form .aj-imp-submit:hover {
   display: block;
 }
 /****Gallery Styling****/
+#gallery-region {
+  height: 420px;
+}
+#gallery-region .isotope {
+  height: 100%;
+}
+#slides-list-region,
+#add-slide-region,
+.aj-imp-block-button.add-new-slide {
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+}
 .add-gallery-images {
   background: #849fb0;
+  border-radius: 0;
 }
 .add-gallery-images:hover {
-  background: #c2cfd8;
+  background: #a3b7c4;
 }
 .isotope {
   padding: 0;

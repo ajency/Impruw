@@ -42,7 +42,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
 
       SingleGalleryItem.prototype.className = 'isotope-element';
 
-      SingleGalleryItem.prototype.template = '<img src="{{thumb_url}}" width="300"/>';
+      SingleGalleryItem.prototype.template = '<img src="{{thumb_url}}" height="200"/>';
 
       return SingleGalleryItem;
 
@@ -78,17 +78,20 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
       GalleryView.prototype.emptyView = NoGalleryItem;
 
       GalleryView.prototype.onShow = function() {
+        var ww;
         if (this.collection.length === 0) {
           return;
         }
-        return this.$el.imagesLoaded((function(_this) {
+        this.$el.imagesLoaded((function(_this) {
           return function() {
             return _this.$el.isotope({
               itemSelector: '.isotope-element',
-              layoutMode: 'masonry'
+              layoutMode: 'masonryHorizontal'
             });
           };
         })(this));
+        ww = $('#gallery-region').width();
+        return $('.isotope').width(ww);
       };
 
       return GalleryView;
