@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
 
 define(['app'], function(App) {
   return App.module('DashboardApp.Statistics.SiteAnalytics.Views', function(Views, App, Backbone, Marionette, $, _) {
-    var TrafficSingle;
+    var TrafficEmpty, TrafficSingle;
     Views.OverviewChartView = (function(_super) {
       __extends(OverviewChartView, _super);
 
@@ -65,6 +65,20 @@ define(['app'], function(App) {
       return TrafficSingle;
 
     })(Marionette.ItemView);
+    TrafficEmpty = (function(_super) {
+      __extends(TrafficEmpty, _super);
+
+      function TrafficEmpty() {
+        return TrafficEmpty.__super__.constructor.apply(this, arguments);
+      }
+
+      TrafficEmpty.prototype.className = '';
+
+      TrafficEmpty.prototype.template = 'no traffic data to display';
+
+      return TrafficEmpty;
+
+    })(Marionette.ItemView);
     return Views.TrafficViewChart = (function(_super) {
       __extends(TrafficViewChart, _super);
 
@@ -77,6 +91,8 @@ define(['app'], function(App) {
       TrafficViewChart.prototype.template = '<add traffic chart markup here';
 
       TrafficViewChart.prototype.itemView = TrafficSingle;
+
+      TrafficViewChart.prototype.emptyView = TrafficEmpty;
 
       TrafficViewChart.prototype.onShow = function() {
         var data;

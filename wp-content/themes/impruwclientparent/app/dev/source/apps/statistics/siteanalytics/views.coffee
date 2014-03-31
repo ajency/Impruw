@@ -49,6 +49,12 @@ define ['app'], (App)->
 
 			template : 'add single traffic row markup here'
 
+		class TrafficEmpty extends Marionette.ItemView
+
+			className : ''
+
+			template : 'no traffic data to display'
+
 		# traffic view
 		class Views.TrafficViewChart extends Marionette.CompositeView
 
@@ -57,6 +63,8 @@ define ['app'], (App)->
 			template : '<add traffic chart markup here'
 
 			itemView : TrafficSingle
+
+			emptyView : TrafficEmpty
 
 			onShow:->
 				data = @getChartData()
