@@ -50,56 +50,27 @@ class RoomGallery extends SliderElement {
     function __construct($element, $post_id = 0) {
         
         parent::__construct($element );
-        
-        $this->post_id = $post_id;
-
-        if($this->post_id === 0 && get_the_ID() > 0)
-            $this->post_id = get_the_ID();
-        
-        
-        if(isset($element['slider_id'])){
+            
+        $this->slider_id = isset($element['slider_id']) ? $element['slider_id'] : $this->get_slider_id();
            
-            $this->slider_id = get_post_meta ( $this->post_id, 'slider_id', true );
-           
-        }
-        else{
-             $this->slider_id = $this->get_sliderID();
-        }
-        
-        
-        $this->markup           = $this->generate_markup();
-  
-/*
-        $this->data_source = array();
-        $this->data_source['image-ids'] = $this->get_room_images();*/
-        
+        $this->markup    =  $this->slider_id === 0 ? '' :  $this->generate_markup();
     }
     
-    function get_sliderID(){
+    function get_slider_id(){
        
-       if (is_singular ( 'impruw_room' )) {
-           
-           $page = get_post_meta (  $this->post_id, 'page-json', true );
-           if ($page === '') {
-                    
-                    $p = get_page_by_title ( 'Single Room' );
-                    $page = get_post_meta ( $p->ID, 'page-json', true );
-           
-                    foreach ($page as $key => $value) {
-                        if($page[$key]['element'] == 'Gallery'){
-                            $meta_id = $page[$key]['meta_id'];
-                            $json =get_metadata_by_mid('post',$meta_id);
-                            $json = (array) $json;
-                            return $json['meta_value']['slider_id'];
-                        }
-                    }            
-           }
-       }
-       else{
-           $slider_id = get_post_meta ( $this->post_id, 'slider_id', true );
-           return $slider_id;
-       }
-        
+       if (!is_singular ( 'impruw_room' )) 
+           return 0;
+       
+       // ge the room id
+       $room_id = get_the_ID();
+       
+       $slider_id = get_post_meta ( $room_id, 'slider_id', true );
+       
+       if ($page === '')
+           return 0;         
+       else
+           return (int)$slider_id;
+ 
     }
 
     /**

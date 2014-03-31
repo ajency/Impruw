@@ -414,8 +414,7 @@ function save_page_json() {
 	$json = stripcslashes ( $json );
 	$json = json_decode ( $json, true );
 	$page_id = $_POST ['page_id'];
-	$a=$_POST;
-	$b= $json; 
+
 	//$e = json_encode($json);
 
     // $e = json_encode($json);
@@ -423,7 +422,7 @@ function save_page_json() {
 	update_post_meta ( $page_id, 'page-json', $json ['page'] );
 	update_option ( 'theme-footer', $json ['footer'] );
 	wp_send_json ( array (
-			'code' => 'OK' ,'data'=>$a,'data2'=>$b
+			'code' => 'OK' 
 	) );
 }
 

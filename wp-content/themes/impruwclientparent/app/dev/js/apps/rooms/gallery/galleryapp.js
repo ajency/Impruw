@@ -42,7 +42,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
 
       SingleGalleryItem.prototype.className = 'isotope-element';
 
-      SingleGalleryItem.prototype.template = '<img src="{{thumb_url}}" height="100"/>';
+      SingleGalleryItem.prototype.template = '<img src="{{thumb_url}}" class=""/>';
 
       return SingleGalleryItem;
 
@@ -86,7 +86,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
           return function() {
             return _this.$el.isotope({
               itemSelector: '.isotope-element',
-              layoutMode: 'masonryHorizontal'
+              layoutMode: 'masonry'
             });
           };
         })(this));
