@@ -10,10 +10,10 @@ define ['app', 'holder'],(App, Holder)->
 
 			template : '<img src="{{thumb_url}}" alt="Slide" width="100%"/>'
 
-			# onRender:->
-			# 	noOfColumns = Marionette.getOption(this, 'noOfColumns')
-			# 	colClass = 12 / noOfColumns
-			# 	@$el.addClass "col-sm-#{colClass}"
+			onRender:->
+				randomW = if Math.random() * 50  > 25 then 1 else 2
+				randomH = if Math.random() * 50  > 25 then 1 else 2
+				@$el.addClass "width-#{randomW} height-#{randomH}"
 
 
 		# if not gallery items are displayed
