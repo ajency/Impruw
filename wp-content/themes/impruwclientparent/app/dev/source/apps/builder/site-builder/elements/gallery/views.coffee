@@ -6,7 +6,7 @@ define ['app', 'holder'],(App, Holder)->
 
 		class GalleryItem extends Marionette.ItemView
 
-			className: 'isotop-element'
+			className: 'isotope-element'
 
 			template : '<img src="{{thumb_url}}" alt="Slide" width="100%"/>'
 
@@ -47,7 +47,8 @@ define ['app', 'holder'],(App, Holder)->
 
 				@$el.imagesLoaded =>
 					@$el.isotope
-						itemSelector: '.isotop-element'
+						itemSelector: '.isotope-element'
+						layoutMode : 'masonry'
 						
 					  
 			events:
