@@ -5,7 +5,7 @@
 		<input type='hidden' name='hdn_daterange' id='hdn_daterange' value='' />
 		<div class="form-group">
 			<label for="inputSocial2" class="col-sm-2 control-label">Plan Type</label>
-			<div class="col-sm-9 col-sm-offset-2">
+			<div class="col-sm-10 col-sm-offset-2">
 				<input type="text" class="form-control" id="plantype"
 					name="plantype" placeholder="eg. American Plan" required parsley-trigger="blur" parsley-validation-minlength="0"
 					parsely-required-message = "Please enter plan type">
@@ -14,9 +14,8 @@
 		</div>
 
 		<div class="form-group">
-			<label for="inputSEO1" class="col-sm-2 control-label">Plan
-				Description</label>
-			<div class="col-sm-9 col-sm-offset-2">
+			<label for="inputSEO1" class="col-sm-2 control-label">Plan Description</label>
+			<div class="col-sm-10 col-sm-offset-2">
 				<textarea class="form-control" rows="3" id="plandescription"
 					name="plandescription"
 					placeholder="eg. This Plan is inclusive of 3 meals a day."

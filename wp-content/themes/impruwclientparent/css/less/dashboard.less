@@ -1727,6 +1727,7 @@ form {
 }
 
 .empty-info {
+	clear: both;
 	padding: 0.8em 1em 0.7em;
 	border: 1px dashed @dash-grey;
 	color: @dash-grey;
@@ -2328,10 +2329,39 @@ form {
 }
 
 /****Gallery Styling****/
+#gallery-region {
+	width: 70%;
+	float: left;
+}
+
+.gallery-info {
+	width: 28%;
+	margin: 1em 0;
+	float: left;
+	padding: 1em;
+	margin-left: 2%;
+	background: @preview-grey;
+	border-radius: 4px;
+	color: @dash-grey;
+	font-style: italic;
+	.icon {
+		font-size: 5em;
+		color: darken(@preview-grey, 10%);
+		float: left;
+		margin-right: 0.2em;
+	}
+}
+
+#slides-list-region, #add-slide-region, .aj-imp-block-button.add-new-slide {
+	margin-left: 0.5em;
+	margin-right: 0.5em;
+}
+
 .add-gallery-images {
 	background: @blue-grey;
+	border-radius: 0;
 	&:hover {
-		background: lighten(@blue-grey, 20%);
+		background: lighten(@blue-grey, 10%);
 	}
 }
 

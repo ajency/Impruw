@@ -26,6 +26,7 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 					  	 	additionalpolicies	: args.additionalpolicies,
 					  	 	tax_option  		: args.tax_option,
 					  	 	room_attachments 	: args.room_attachments,
+					  	 	room_featuredimg 	: args.roomfeaturedimg,
 					  	 	plantariffids		: args.plantariffids
 					  	 };
 			 
@@ -52,6 +53,9 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 					});			
 			
 			},
+			
+			
+			
 			/**	Function to update new room
 			 * @param args
 			 * @param fn
@@ -71,6 +75,7 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 					  	 	additionalpolicies	: args.additionalpolicies,
 					  	 	tax_option  		: args.tax_option,
 					  	 	room_attachments 	: args.room_attachments,
+					  	 	room_featuredimg 	: args.roomfeaturedimg,
 					  	 	plantariffids		: args.plantariffids
 					  	 };
 			 
@@ -109,9 +114,15 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 					});			
 			
 			},
+			
+			
+			/**
+			 * Function to delete room
+			 * @param roomid
+			 * @param evt
+			 */
 			deleteRoom : function(roomid,evt){
-				console.log('room id ....')
-				console.log(roomid);
+				 
 				var data = {	room_id : roomid,
 								action  : 'delete_room_ajx'
 			 			 

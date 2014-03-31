@@ -295,7 +295,7 @@ function add_element_markup($element) {
 		case 'RoomFacilities' :
 			$html = get_room_facilities_markup ( $element );
 			break;
-		case 'RoomGallery' :
+		case 'Gallery' :
 			$html = get_room_gallery_markup ( $element );
 			break;
 		case 'RoomListElement' :

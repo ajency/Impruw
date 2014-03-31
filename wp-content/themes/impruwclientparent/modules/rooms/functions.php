@@ -4,8 +4,10 @@
  *  @param postdata passes the form data into the form
  * 
  */
+include_once PARENTTHEMEPATH.'modules/slider/functions.php';
+
 function create_room($formdata){
-     
+    
     // set the params
     $post_title = $formdata['post_title'];
     $post_content = $formdata['post_content'];
@@ -13,6 +15,7 @@ function create_room($formdata){
     $post_status = 'publish';
     $slider_id= $formdata['slider_id'];
     $no_of_rooms= $formdata['no_of_rooms'];
+    
     
     // prepare facility array
     $facility= $formdata['facility'];
@@ -38,11 +41,17 @@ function create_room($formdata){
     
     
     if($post_id != 0){
-        
+      
         // insert the slider id into the post meta table
-       add_post_meta($post_id, 'slider_id', $slider_id);
-       add_post_meta($post_id, 'no_of_rooms', $no_of_rooms);
-       add_post_meta($post_id, '_thumbnail_id', 'http://placehold.it/350x150'); 
+       update_post_meta($post_id, 'slider_id', $slider_id);
+       update_post_meta($post_id, 'no_of_rooms', $no_of_rooms);
+       
+        //check if slider exsists
+        $slider_return = slider_exists($slider_id);
+            if($slider_return == TRUE){
+               update_post_meta($post_id, '_thumbnail_id', $slider_id);
+            }
+        
         // set the facilities selected for the room
        wp_set_post_terms( $post_id, $facility_ids, 'impruw_room_facility' );
        
@@ -51,6 +60,7 @@ function create_room($formdata){
     } 
     //return the room id
     return $post_id; 
+    
 }
 
 // Function returns the data for the new room created

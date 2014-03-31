@@ -46,10 +46,12 @@ class SliderElement extends Element {
     function __construct($element) {
         
         parent::__construct($element);
-
+        
+        var_dump($element);
+      
         $this->slider_id = $element['slider_id'];
 
-        $this->markup           = $this->generate_markup();
+        $this->markup   = $this->generate_markup();
 
     }
     
@@ -68,5 +70,7 @@ class SliderElement extends Element {
         
         return $html;
     }
+    
+  
     
 }
