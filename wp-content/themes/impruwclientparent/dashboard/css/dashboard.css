@@ -2286,15 +2286,25 @@ form .aj-imp-submit:hover {
 }
 /****Gallery Styling****/
 #gallery-region {
-  height: 220px;
+  width: 70%;
+  float: left;
 }
-#gallery-region .isotope {
-  height: 100%;
+.gallery-info {
+  width: 28%;
+  margin: 1em 0;
+  float: left;
+  padding: 1em;
+  margin-left: 2%;
+  background: #f3f3f3;
+  border-radius: 4px;
+  color: #aaaaaa;
+  font-style: italic;
 }
-#gallery-region .empty-info {
-  height: 220px;
-  line-height: 200px;
-  text-align: center;
+.gallery-info .icon {
+  font-size: 5em;
+  color: #dadada;
+  float: left;
+  margin-right: 0.2em;
 }
 #slides-list-region,
 #add-slide-region,
