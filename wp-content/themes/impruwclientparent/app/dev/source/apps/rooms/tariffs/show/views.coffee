@@ -41,8 +41,9 @@ define ['app'], (App)->
 			className : 'tariff clearfix'
 
 			events : 
-				'click .edit-tran' : (e)->
+				'click .edit-trariff' : (e)->
 					e.stopPropagation()
+					e.preventDefault()
 					id = $(e.target).attr 'data-id'
 					@trigger "show:edit:tariff", 2
 
@@ -82,7 +83,7 @@ define ['app'], (App)->
                                                 <span class="price">{{weekends.extra_child}}</span>
                                             </div>
                                             <div class="block-action">
-                                            	<button class="btn btn-sm edit-tran"><span class="glyphicon glyphicon-pencil"></span>&nbsp;Edit</button>
+                                            	<button class="btn btn-sm edit-trariff edit-tran"><span class="glyphicon glyphicon-pencil"></span>&nbsp;Edit</button>
                                             </div>
                                         </div>
                                     </div>

@@ -23,8 +23,8 @@ function get_site_details($site_id) {
         'country' => get_option('country',''),
         'other_emails' => get_option('other_emails',array()),
         'other_phone_no' => get_option('other_phone_no',array()),
-        'facebook' => get_option('facebook'),
-        'twitter' => get_option('twitter')
+        'facebook' => get_option('facebook',''),
+        'twitter' => get_option('twitter','')
     );
 }
 

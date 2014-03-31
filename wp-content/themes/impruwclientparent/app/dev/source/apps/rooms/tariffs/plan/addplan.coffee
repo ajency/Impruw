@@ -10,7 +10,6 @@ define  ['app','controllers/base-controller', 'text!apps/rooms/tariffs/plan/temp
 
 				@listenTo planView, "add:plan:details", (data)=>
 					plan = App.request "create:plan:model", data
-					console.log plan					
 					plan.save null,
 							wait : true
 							success : @planSaved
