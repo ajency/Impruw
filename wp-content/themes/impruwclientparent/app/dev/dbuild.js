@@ -23,6 +23,7 @@
     plupload: 'plugins/plupload.full',
     d3: 'plugins/d3.v3',
     nvd3: 'plugins/nv.d3',
+    chart : 'plugins/chart',
     isotope: 'plugins/isotope',
     radio: 'plugins/flatui-radio',
     checkbox: 'plugins/flatui-checkbox',

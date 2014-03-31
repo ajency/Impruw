@@ -46,6 +46,11 @@ define(["app", 'backbone'], function(App, Backbone) {
         dateRangeCollection.fetch();
         return dateRangeCollection;
       },
+      getDateRangeNameForDate: function(date) {
+        var random;
+        random = _.uniqueId('Date Range Name-');
+        return random;
+      },
       createDateRangeModel: function(data) {
         var daterange;
         if (data == null) {
@@ -58,8 +63,11 @@ define(["app", 'backbone'], function(App, Backbone) {
     App.reqres.setHandler("get:daterange:collection", function() {
       return API.getDateRangeCollection();
     });
-    return App.reqres.setHandler("create:new:daterange:model", function(data) {
+    App.reqres.setHandler("create:new:daterange:model", function(data) {
       return API.createDateRangeModel(data);
+    });
+    return App.reqres.setHandler("get:daterange:name:for:date", function(date) {
+      return API.getDateRangeNameForDate(date);
     });
   });
 });

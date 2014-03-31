@@ -29,6 +29,7 @@ define(['app', 'text!apps/rooms/add/templates/add-room.html'], function(App, add
 
       function CalendarView() {
         this.highlightDaysByDateRange = __bind(this.highlightDaysByDateRange, this);
+        this.triggerOnSelect = __bind(this.triggerOnSelect, this);
         return CalendarView.__super__.constructor.apply(this, arguments);
       }
 
@@ -38,11 +39,21 @@ define(['app', 'text!apps/rooms/add/templates/add-room.html'], function(App, add
         return this.$el.find('#room-booking-calendar').datepicker({
           inline: true,
           numberOfMonths: 2,
+          onSelect: this.triggerOnSelect,
           beforeShowDay: this.highlightDaysByDateRange
         });
       };
 
-      CalendarView.prototype.highlightDaysByDateRange = function() {};
+      CalendarView.prototype.triggerOnSelect = function(date) {
+        return this.trigger("date:selected", date);
+      };
+
+      CalendarView.prototype.highlightDaysByDateRange = function(date) {
+        var className, dateRangeName;
+        dateRangeName = App.request("get:daterange:name:for:date", date);
+        className = _.slugify(dateRangeName);
+        return [true, className];
+      };
 
       return CalendarView;
 

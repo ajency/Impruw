@@ -15,4 +15,5 @@ define ['apps/builder/site-builder/elements/menu/controller'
 		'apps/builder/site-builder/elements/roomtitle/controller'
 		'apps/builder/site-builder/elements/roomfacilities/controller'
 		'apps/builder/site-builder/elements/roomdescription/controller'
+		'apps/builder/site-builder/elements/roomtariff/controller'
 		'apps/builder/site-builder/elements/roomsummary/controller' ],->

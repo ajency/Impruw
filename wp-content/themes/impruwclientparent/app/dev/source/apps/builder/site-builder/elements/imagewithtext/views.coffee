@@ -1,4 +1,4 @@
-define ['app', 'holder'],(App, Holder)->
+define ['app'],(App)->
 
 	# Row views
 	App.module 'SiteBuilderApp.Element.ImageWithText.Views', (Views, App, Backbone, Marionette, $, _)->
