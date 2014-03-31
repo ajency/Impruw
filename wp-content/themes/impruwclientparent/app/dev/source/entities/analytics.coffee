@@ -44,8 +44,8 @@ define ['app'
 						end_date 	: end
 						ids			: 81856773
 
-					analyticsCollection.fetch
-									data : params
+					# analyticsCollection.fetch
+					# 				data : params
 
 					analyticsCollection
 

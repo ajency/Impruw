@@ -88,7 +88,12 @@ function get_room($roomid){
 
     // returns an array of the post terms of the room
     $room_term_names = wp_get_post_terms( $room_id, 'impruw_room_facility');
-
+  echo $room_id;    
+//echo '<pre>';
+   //print_r($room_term_names);
+    
+    
+    
     // loop the array and get the facilities
     foreach ($room_term_names as $key => $value) {
         $room_terms['facilities'][$room_term_names[$key]->term_id] = $room_term_names[$key]->name;

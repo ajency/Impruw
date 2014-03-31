@@ -2332,20 +2332,6 @@ form {
 #gallery-region {
 	width: 70%;
 	float: left;
-	height: 400px;
-	overflow-y: scroll;
-	overflow-x: auto;
-	border: 1px solid @preview-grey;
-	margin: 1em 0;
-	.empty-info {
-		margin: 0 1em;
-		height: 370px;
-		line-height: 350px;
-		text-align: center;
-	}
-	.isotope {
-		width: 100% !important;
-	}
 }
 
 .gallery-info {
@@ -2358,7 +2344,6 @@ form {
 	border-radius: 4px;
 	color: @dash-grey;
 	font-style: italic;
-	border: 1px dashed darken(@preview-grey, 10%);
 	.icon {
 		font-size: 5em;
 		color: darken(@preview-grey, 10%);
@@ -2391,23 +2376,20 @@ form {
   z-index: 2;
   margin: 0.2em;
   &.width-1 {
-  	width: 200px;
+  	width: 20%;
   	height: auto;
   }
   &.width-2 {
-  	width: 200px;
+  	width: 40%;
   	height: auto;
   }
-  /*&.height-1 {
+  &.height-1 {
   	height: 20%;
   	width: auto;
   }
   &.height-2 {
   	height: 40%;
   	width: auto;
-  }*/
-  .img-responsive {
-  	width: 100%;
   }
 }
 
@@ -2561,7 +2543,7 @@ form {
 
 /*Room Booking Calender*/
 .room-booking{
-	background: #ccc;
+	background: #e3e3e3;
 	margin: 0px;
 .room-booking-calender{
 				
@@ -2569,12 +2551,13 @@ form {
 				h4{
 					font-weight: 600;
 					font-size: 1.5em;
-					color: #fff;
+					color: #b0b0b0;
 					text-transform: uppercase;
 					margin-bottom: 5%;
+					margin-top: 5%;
 					.glyphicon {
 						font-size: 1.5em;
-						color: #fff;
+						color: #b0b0b0;
 						float: left;
 						margin-right: 1%;
 					}
@@ -2588,16 +2571,32 @@ form {
 			.hasDatepicker{
 				.ui-datepicker-inline{
 					width:auto !important;
+					border: 0;
 				
 				}
 				.ui-datepicker td {
-					border: 1px solid #ccc!important;
+					border: 1px solid #EAEAEA!important;
 					height:42px!important;
 					a{
 							display: block;
 							border-radius:0px;
 							height: 39px;
 							line-height: 40px;
+					}
+				}
+				.ui-datepicker{
+				.ui-datepicker-header {
+						background: #d4d0d1;
+						height: 67px;
+						line-height: 86px;
+						margin:0px;
+						.ui-datepicker-prev, .ui-datepicker-next {
+						border: 0px;
+						height: 67px;
+						}
+					}
+					.ui-datepicker-title{
+					line-height: 74px;
 					}
 				}
 			}
@@ -2621,13 +2620,14 @@ form {
 			}
 		}
 
-		.room-booking-data{
-						background: #999;
+	.room-booking-data{
+						background: #d8d8d8;
 						padding-top:1em;
 				.date-range{
 						font-size:1.3em;
 						color:#fff;
 						margin-bottom: 10%;
+						
 						b{
 							font-size: 1.5em;
 							display: block;
@@ -2635,8 +2635,7 @@ form {
 						}
 			}
 			.room-plans{
-				height: 390px;
-				overflow-y: scroll;
+				
 				margin-bottom: 26px;
 			}
 			.room-booking-plan{
@@ -2647,7 +2646,7 @@ form {
 				h5{
 					font-weight: 600;
 					font-size: 1.5em;
-					color: rgba(40, 37, 37, 0.83);
+					color: #7a7879;
 				}
 				p{
 					font-size:0.9em;
@@ -2657,7 +2656,7 @@ form {
 					float:left;
 					font-size:0.9em;
 					font-weight:300;
-					color:#e5e5e5;
+					color:#7a7879;
 					span{
 						font-weight:800;
 						font-size:1.8em;
@@ -2685,3 +2684,19 @@ form {
 				}
 		}
 	}
+/* room chart*/
+
+.room-chart{
+	background: #f6f6f6;
+	/* padding: 40px; */
+	margin-left: 0px;
+	width: 100%;
+	canvas{
+		margin:auto;
+		display:block;
+		width: 900px;
+		height: 368px;
+		
+	}
+
+}

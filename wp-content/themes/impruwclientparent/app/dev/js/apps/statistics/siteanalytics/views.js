@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
 
 define(['app'], function(App) {
   return App.module('DashboardApp.Statistics.SiteAnalytics.Views', function(Views, App, Backbone, Marionette, $, _) {
-    var TrafficSingle;
+    var TrafficEmpty, TrafficSingle;
     Views.OverviewChartView = (function(_super) {
       __extends(OverviewChartView, _super);
 
@@ -11,16 +11,42 @@ define(['app'], function(App) {
         return OverviewChartView.__super__.constructor.apply(this, arguments);
       }
 
-      OverviewChartView.prototype.className = 'row';
+      OverviewChartView.prototype.className = 'row room-chart';
 
-      OverviewChartView.prototype.template = 'add overview chart markup here';
+      OverviewChartView.prototype.template = '<canvas id="overview-chart" height="400" width="700"></canvas><br><br><br>';
 
       OverviewChartView.prototype.onShow = function() {
-        var data;
-        return data = this.getChartData();
+        var chart, ctx, data;
+        chart = this.$el.find('#overview-chart').get(0);
+        console.log($(chart).parent().width());
+        $(chart).attr('width', $(chart).parent().width() - 50);
+        data = this.getChartData();
+        ctx = chart.getContext("2d");
+        return new Chart(ctx).Line(data, {});
       };
 
-      OverviewChartView.prototype.getChartData = function() {};
+      OverviewChartView.prototype.getChartData = function() {
+        var data;
+        data = {
+          labels: ["January", "February", "March", "April", "May", "June", "July"],
+          datasets: [
+            {
+              fillColor: "#c77d28",
+              strokeColor: "#c77d28",
+              pointColor: "#c77d28",
+              pointStrokeColor: "#fff",
+              data: [65, 59, 90, 81, 56, 55, 40]
+            }, {
+              fillColor: "rgba(244, 135, 8, 0.74)",
+              strokeColor: "rgba(244, 135, 8, 0.74)",
+              pointColor: "rgba(244, 135, 8, 0.74)",
+              pointStrokeColor: "#fff",
+              data: [28, 48, 40, 19, 96, 27, 100]
+            }
+          ]
+        };
+        return data;
+      };
 
       return OverviewChartView;
 
@@ -32,11 +58,27 @@ define(['app'], function(App) {
         return TrafficSingle.__super__.constructor.apply(this, arguments);
       }
 
-      TrafficSingle.prototype.className = '';
+      TrafficSingle.prototype.className = 'sadsdas';
 
-      TrafficSingle.prototype.template = 'add single traffic row markup here';
+      TrafficSingle.prototype.tagName = 'tr';
+
+      TrafficSingle.prototype.template = '<td>add single traffic row markup here</td>';
 
       return TrafficSingle;
+
+    })(Marionette.ItemView);
+    TrafficEmpty = (function(_super) {
+      __extends(TrafficEmpty, _super);
+
+      function TrafficEmpty() {
+        return TrafficEmpty.__super__.constructor.apply(this, arguments);
+      }
+
+      TrafficEmpty.prototype.className = '';
+
+      TrafficEmpty.prototype.template = '<td colspan="4">no traffic data to display</td>';
+
+      return TrafficEmpty;
 
     })(Marionette.ItemView);
     return Views.TrafficViewChart = (function(_super) {
@@ -48,9 +90,13 @@ define(['app'], function(App) {
 
       TrafficViewChart.prototype.className = 'row';
 
-      TrafficViewChart.prototype.template = '<add traffic chart markup here';
+      TrafficViewChart.prototype.template = '<h4> All Traffic Data</h4> add traffic chart markup here. <table class="traffic-list"></table>';
 
       TrafficViewChart.prototype.itemView = TrafficSingle;
+
+      TrafficViewChart.prototype.itemViewContainer = 'table.traffic-list';
+
+      TrafficViewChart.prototype.emptyView = TrafficEmpty;
 
       TrafficViewChart.prototype.onShow = function() {
         var data;

@@ -2506,7 +2506,7 @@ form .aj-imp-submit:hover {
 }
 /*Room Booking Calender*/
 .room-booking {
-  background: #ccc;
+  background: #e3e3e3;
   margin: 0px;
 }
 .room-booking .room-booking-calender {
@@ -2515,13 +2515,14 @@ form .aj-imp-submit:hover {
 .room-booking .room-booking-calender h4 {
   font-weight: 600;
   font-size: 1.5em;
-  color: #fff;
+  color: #b0b0b0;
   text-transform: uppercase;
   margin-bottom: 5%;
+  margin-top: 5%;
 }
 .room-booking .room-booking-calender h4 .glyphicon {
   font-size: 1.5em;
-  color: #fff;
+  color: #b0b0b0;
   float: left;
   margin-right: 1%;
 }
@@ -2533,9 +2534,10 @@ form .aj-imp-submit:hover {
 }
 .room-booking .room-booking-calender .hasDatepicker .ui-datepicker-inline {
   width: auto !important;
+  border: 0;
 }
 .room-booking .room-booking-calender .hasDatepicker .ui-datepicker td {
-  border: 1px solid #ccc!important;
+  border: 1px solid #EAEAEA!important;
   height: 42px!important;
 }
 .room-booking .room-booking-calender .hasDatepicker .ui-datepicker td a {
@@ -2543,6 +2545,20 @@ form .aj-imp-submit:hover {
   border-radius: 0px;
   height: 39px;
   line-height: 40px;
+}
+.room-booking .room-booking-calender .hasDatepicker .ui-datepicker .ui-datepicker-header {
+  background: #d4d0d1;
+  height: 67px;
+  line-height: 86px;
+  margin: 0px;
+}
+.room-booking .room-booking-calender .hasDatepicker .ui-datepicker .ui-datepicker-header .ui-datepicker-prev,
+.room-booking .room-booking-calender .hasDatepicker .ui-datepicker .ui-datepicker-header .ui-datepicker-next {
+  border: 0px;
+  height: 67px;
+}
+.room-booking .room-booking-calender .hasDatepicker .ui-datepicker .ui-datepicker-title {
+  line-height: 74px;
 }
 .room-booking .room-booking-calender .date-range {
   width: 14px;
@@ -2572,7 +2588,7 @@ form .aj-imp-submit:hover {
   margin-right: 5px;
 }
 .room-booking .room-booking-data {
-  background: #999;
+  background: #d8d8d8;
   padding-top: 1em;
 }
 .room-booking .room-booking-data .date-range {
@@ -2586,8 +2602,6 @@ form .aj-imp-submit:hover {
   font-weight: 300;
 }
 .room-booking .room-booking-data .room-plans {
-  height: 390px;
-  overflow-y: scroll;
   margin-bottom: 26px;
 }
 .room-booking .room-booking-data .room-booking-plan {
@@ -2599,7 +2613,7 @@ form .aj-imp-submit:hover {
 .room-booking .room-booking-data .room-booking-plan h5 {
   font-weight: 600;
   font-size: 1.5em;
-  color: rgba(40, 37, 37, 0.83);
+  color: #7a7879;
 }
 .room-booking .room-booking-data .room-booking-plan p {
   font-size: 0.9em;
@@ -2609,7 +2623,7 @@ form .aj-imp-submit:hover {
   float: left;
   font-size: 0.9em;
   font-weight: 300;
-  color: #e5e5e5;
+  color: #7a7879;
 }
 .room-booking .room-booking-data .room-booking-plan .booking-detail span {
   font-weight: 800;
@@ -2635,4 +2649,17 @@ form .aj-imp-submit:hover {
   .room-booking .room-booking-data {
     display: block;
   }
+}
+/* room chart*/
+.room-chart {
+  background: #f6f6f6;
+  /* padding: 40px; */
+  margin-left: 0px;
+  width: 100%;
+}
+.room-chart canvas {
+  margin: auto;
+  display: block;
+  width: 900px;
+  height: 368px;
 }
