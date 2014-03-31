@@ -353,3 +353,88 @@
 		}
 	}
 }
+
+/* Calender Booking */
+
+.room-booking{
+		.room-booking-container{
+			background: lighten(@primary1, 20%);
+			.room-booking-data{
+						background: @primary1;
+						padding-top:1em;
+				.date-range{
+						font-size:1.3em;
+						color:#fff;
+						margin-bottom: 10%;
+						b{
+							font-size: 1.5em;
+							display: block;
+							font-weight: 300;
+						}
+			}
+			.room-booking-plan{
+				color: #fff;
+				border-bottom: 1px dashed #280E0E;
+				padding-bottom: 5%;
+				margin-bottom: 5%;
+				h5{
+					font-weight: 600;
+					font-size: 1.5em;
+					color: rgba(40, 37, 37, 0.83);
+				}
+				.booking-detail{
+					width:50%;
+					float:left;
+					font-size:0.9em;
+					font-weight:300;
+					color:#e5e5e5;
+					span{
+						font-weight:800;
+						font-size:1.8em;
+						display: block;
+					}
+				}
+				h6{
+					font-weight:600;
+					font-size:1.0em;
+					text-transform:uppercase;
+					color:#fff;
+					margin-top:5%;
+				}
+				.booking-price{
+					font-size:0.8em;
+					font-weight:100;
+					margin-top:3%;
+					b{
+						font-size:2.0em;
+					}
+				}
+			}
+			@media(max-width:767px){
+				display: block;
+				}
+		}
+		.room-booking-calender{
+				padding: 20px 0 20px;
+				h4{
+					font-weight: 600;
+					font-size: 1.5em;
+					color: #fff;
+					text-transform: uppercase;
+					.glyphicon {
+						font-size: 1.5em;
+						color: #fff;
+						float: left;
+						margin-right: 1%;
+					}
+					.excerpt{
+						display: block;
+						font-size: 0.6em;
+						font-weight: 300;
+						text-transform: none;
+				}
+			}
+		}
+	}
+	
+}

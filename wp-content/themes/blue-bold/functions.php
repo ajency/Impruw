@@ -502,6 +502,78 @@ $element_templates = array(
                                         </div>
                                    </div>'
                 ),
-
+				array(
+                    'name' => 'Room Booking',
+                    'template' => '<div class="row room-booking-container">
+                                        <div class="col-md-8">
+											<div class="room-booking-calender">
+											
+											<h4>
+											<span class="glyphicon glyphicon-calendar"></span>
+											Montly Calendar
+												<span class="excerpt">Donec vulputate nibh et odio vehicula, id porttitor quam malesuada</span>
+											</h4>
+											</div>
+										</div>
+										<div class="col-md-4 room-booking-data">
+											<div class="date-range">
+												You have selected
+												<b>18 Jan to 16 Jan </b>
+											</div>
+											<div class="room-booking-plan">
+												<h5>Plan 1 </h5>
+													<p>Room. Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+													
+														<div class="booking-detail">
+															Max Adults:
+																<span>02</span>
+														</div>
+														<div class="booking-detail">
+															Max Children:
+															<span>	02</span>
+														</div>
+														<div class="clearfix"></div>
+														<h6>Additional Charge</h6>
+																<div class="booking-detail">
+																	per extra Adult : $200
+																	
+																</div>
+																<div class="booking-detail">
+																	 per extra Child : $152
+																		
+																</div>
+																<div class="clearfix"></div>
+																
+																<div class="booking-price">WEEKDAYS <b>$300</b></div>
+											</div>
+											
+												<div class="room-booking-plan">
+												<h5>Plan 2 </h5>
+													<p>Room. Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+													
+														<div class="booking-detail">
+															Max Adults:
+																<span>02</span>
+														</div>
+														<div class="booking-detail">
+															Max Children:
+															<span>	02</span>
+														</div>
+														<div class="clearfix"></div>
+														<h6>Additional Charge</h6>
+																<div class="booking-detail">
+																	per extra Adult : $200
+																	
+																</div>
+																<div class="booking-detail">
+																	 per extra Child : $152
+																		
+																</div>
+																<div class="clearfix"></div>
+																
+																<div class="booking-price">WEEKENDDAYS <b>$300</b></div>
+											</div>
+                                   </div>'
+                ),
         )
 );
