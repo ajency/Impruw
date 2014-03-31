@@ -13,14 +13,40 @@ define(['app'], function(App) {
 
       OverviewChartView.prototype.className = 'row';
 
-      OverviewChartView.prototype.template = 'add overview chart markup here';
+      OverviewChartView.prototype.template = '<canvas id="overview-chart" height="400" width="700"></canvas>';
 
       OverviewChartView.prototype.onShow = function() {
-        var data;
-        return data = this.getChartData();
+        var chart, ctx, data;
+        chart = this.$el.find('#overview-chart').get(0);
+        console.log($(chart).parent().width());
+        $(chart).attr('width', $(chart).parent().width() - 50);
+        data = this.getChartData();
+        ctx = chart.getContext("2d");
+        return new Chart(ctx).Line(data, {});
       };
 
-      OverviewChartView.prototype.getChartData = function() {};
+      OverviewChartView.prototype.getChartData = function() {
+        var data;
+        data = {
+          labels: ["January", "February", "March", "April", "May", "June", "July"],
+          datasets: [
+            {
+              fillColor: "rgba(220,220,220,0.5)",
+              strokeColor: "rgba(220,220,220,1)",
+              pointColor: "rgba(220,220,220,1)",
+              pointStrokeColor: "#fff",
+              data: [65, 59, 90, 81, 56, 55, 40]
+            }, {
+              fillColor: "rgba(151,187,205,0.5)",
+              strokeColor: "rgba(151,187,205,1)",
+              pointColor: "rgba(151,187,205,1)",
+              pointStrokeColor: "#fff",
+              data: [28, 48, 40, 19, 96, 27, 100]
+            }
+          ]
+        };
+        return data;
+      };
 
       return OverviewChartView;
 

@@ -53,9 +53,6 @@ define(['app', 'backbone'], function(App, Backbone) {
           end_date: end,
           ids: 81856773
         };
-        analyticsCollection.fetch({
-          data: params
-        });
         return analyticsCollection;
       },
       getWeeklyData: function() {
