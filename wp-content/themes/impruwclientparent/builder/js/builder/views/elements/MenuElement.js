@@ -44,7 +44,7 @@ define(['builderelement', 'tpl!builder/templates/elements/BasicElement.tpl', 'gl
                     if (!_.isUndefined(options.config.className))
                         this.contentClasses = options.config.className;
                 }
-                this.generateMarkup({icon : '', name : 'Menu'});
+                this.generateMarkup({icon : 'uniF16A', name : 'Menu'});
                 this.setContextMenu();
 
             },

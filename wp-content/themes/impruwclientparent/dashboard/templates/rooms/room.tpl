@@ -1,16 +1,16 @@
-<tr>
+<tr id="row_room_<%=room.get('id')    %>">
 	<td>
 		<div class="room-details">
 			<h4><%=room.get('roomType')%></h4>
 			<p class="desc"><%= _(room.get('roomDesc')).prune(150) %> </p>
 			<div class="row info-strip">
-				<div class="col-md-4 strip">
+				<div class="col-md-4 strip divNoRooms">
 					<span><%=room.get('inventory')    %></span> Rooms
 				</div>
-				<div class="col-md-4 strip">
+				<div class="col-md-4 strip divHourFormat">
 					<span><%=room.get('checkinformat')    %></span> Hour Format
 				</div>
-				<div class="col-md-4 strip">
+				<div class="col-md-4 strip divCheckinTime">
 					<span><%=room.get('checkintime')    %></span> Time
 				</div>
 			</div>
@@ -19,8 +19,13 @@
 	<td><% //console.log(room.get('daterangetariff'))    %>
 		<div class="tariff">
 		
-		<% _.each(room.get('daterangetariff'),function(dateRangeTariff,index){  
-		 //console.log(dateRangeTariff.planId) 
+		<%
+		var count_roomtariff = 0;
+		
+		 _.each(room.get('daterangetariff'),function(dateRangeTariff,index){
+		   
+		 //console.log(dateRangeTariff.planId)
+		 if(count_roomtariff<=1) 
 		 %>
 		 <div class="row tariff-plan">
 				<div class="col-sm-6 plan">
@@ -37,12 +42,24 @@
 				</div>
 			</div>
 		 <% 
+		 count_roomtariff++;
 		  }) %>
+		 
 			
-			 
 			<div class="view-all">
-				<a href="#">View All</a>
+			<% 
+			 
+			if(!_.isEmpty(room.get('daterangetariff'))){
+			%>	<a href="#">View All</a>
+			<%
+			}
+			else{
+			%> <span class="no-data">No Tariff added yet. Please add a tariff plan.</span>
+			<%
+			}
+			%>
 			</div>
+			
 		</div>
 	</td>
 	<td class="actions">

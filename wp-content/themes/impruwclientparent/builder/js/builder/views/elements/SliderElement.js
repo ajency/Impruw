@@ -40,7 +40,7 @@ define(['builderelement', 'tpl!builder/templates/elements/BasicElement.tpl', 'gl
                 } else {
                     this.setProperties(options.config);
                 }
-                this.generateMarkup({icon : '' , name : 'Slider Element'});
+                this.generateMarkup({icon : 'uniF119' , name : 'Slider Element'});
                 this.setContextMenu();
             },
 

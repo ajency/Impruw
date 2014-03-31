@@ -9,7 +9,7 @@ define(['underscore', 'jquery', 'backbone', 'global',
         'titleelement','textelement','socialelement','sliderelement','imagewithtextelement','addresselement',
         'contactformelement','mapelement','roomtitle','roomdescription','roomfacilities','roomgallery',
         'roomlistelement','menumanager','menumodel','menucollection','mediamanager','mediamodel','mediacollection',
-        'mediasingle','slidermanager'
+        'mediasingle','slidermanager','roomsview','addpage','rooms'
     ],
     function(_, $, Backbone, global) {
 
@@ -133,7 +133,7 @@ define(['underscore', 'jquery', 'backbone', 'global',
                 //get the JSON
                 this.generateJSON();
 
-                $(evt.target).text('Saving...')
+                $(evt.target).text('Saving...');
 
                 //save it
                 $.post(AJAXURL,
@@ -143,7 +143,10 @@ define(['underscore', 'jquery', 'backbone', 'global',
                             forPage     : this.getCurrentPage(),
                             json        : this.json
                         },
-                        function(response){        
+                        function(response){
+                            
+                            window.fetchJSON = false; 
+
                             $(evt.target).text(text);    
                             if(response.code === 'OK'){
 
@@ -362,11 +365,19 @@ define(['underscore', 'jquery', 'backbone', 'global',
             /**
              *  Render function for view
              */
-            render: function() {
+            render: function(fetch) {
 
                 var self = this;
 
                 var templatePath = '';
+                $('.element-drop-loader').css({'height': '600px',
+					   'background-position': 'top center'
+				});
+
+                var pageId = this.getCurrentPage();
+                var pageName = $('option[value="'+pageId+'"]').text();
+                
+                this.holdOnWhileSwitching(pageName);
 
                 $.get(AJAXURL, {
                         action  : 'get_initial_saved_layout',
@@ -386,11 +397,55 @@ define(['underscore', 'jquery', 'backbone', 'global',
 
                         
                         this.enableDragDrop();
+                        
+                        var _this = this;
+
+                        // this.$el.find('#editor-initial-loader').remove();
+                        //if(fetch){
+
+                        this.$el.find('hr.virtual-divider,.aj-imp-drag-handle,.aj-imp-delete-btn,.aj-imp-col-divider,.aj-imp-col-sel').hide();
+                        _.delay(function(){ 
+                            _this.fetchContentMarkup();
+                            _this.switchToContent();
+                        }, 1000);
+                        
+                        
 
                     },this), 'json');
 
 
                 return this;
+            },
+
+            /**
+             * [clearbuilder description]
+             * @return {[type]} [description]
+             */
+            clearbuilder: function(){
+
+                var _this = this;
+                
+                _.each(this.elements, function(section, key){
+
+                    _.each(section,function(row, i){
+
+                        if(row.elements.length > 0){
+                            _.each(row.elements, function(c, k){
+                                c.makeEmpty();
+                            });
+                            row.removeElement();
+                        }
+
+                    });
+                    
+                    _this.elements[key] = [];
+
+                });
+
+                this.$el.css('min-height','500px');
+
+                this.render(true);
+
             },
 
             /**
@@ -472,9 +527,7 @@ define(['underscore', 'jquery', 'backbone', 'global',
              * @returns {undefined}
              */
             switchMode: function(evt) {
-
-                this.holdOnWhileSwitching();
-
+                
                 if (window.editorMode === 'layout') {
 
                     this.switchToContent(evt);
@@ -512,15 +565,38 @@ define(['underscore', 'jquery', 'backbone', 'global',
             /**
              * Show the loader while switching modes
              */
-            holdOnWhileSwitching: function() {
+            holdOnWhileSwitching: function(page) {
+
+                if(!page)
+                    page = 'editor';
 
                 var switcher = $('<div class="element-drop-loader" id="editor-initial-loader">\
-                                        <p>switching mode... Please wait... </p>\
-                                    </div>');
-
-                switcher.height(this.$el.height()).css('top', 0);
-
-                //this.$el.append(switcher);
+                                    <p>Loading '+page+'...</p>\
+                                </div>');
+                
+                
+                var divOffset =  this.$el.parent().offset();
+                
+                //switcher.height(this.$el.height()).css('top', 0);
+	
+                switcher.css({ 'top'				: divOffset.top+'px',
+                               'left'				: divOffset.left+'px',
+                               'width'				: this.$el.parent().width()+'px',
+                               /*'height'			: this.$el.parent().height()+'px',*/
+                               'height'				: $('.aj-imp-browser-body').height(),
+                               'background-position': 'top center'
+                                 
+                             });
+                
+                
+                
+                this.$el.parent().parent().append(switcher);
+                 
+                 
+               
+                /* console.log(this.$el.find('.aj-imp-browser-body'))
+               console.log( switcher.height)
+                return false;*/
 
             },
 
@@ -529,11 +605,11 @@ define(['underscore', 'jquery', 'backbone', 'global',
              */
             removeSwitchLoader: function() {
 
-                this.$el.find('#editor-initial-loader').fadeOut('slow', function() {
+                  this.$el.parent().parent().find('#editor-initial-loader').fadeOut('fast', function() {
 
                     $(this).remove();
 
-                });
+                }); 
 
             },
 
@@ -541,7 +617,7 @@ define(['underscore', 'jquery', 'backbone', 'global',
              *  Switch to content mode
              */
             switchToContent: function(evt) {
-
+            	
                 var self = this;
 
                 this.$el.removeClass('aj-imp-builder-layout-mode').addClass('aj-imp-builder-content-mode');
@@ -555,7 +631,7 @@ define(['underscore', 'jquery', 'backbone', 'global',
                 if (!_.isNull(window.prevpopover))
                         window.prevpopover.popover('hide');
 
-                this.fetchContentMarkup();
+                //this.fetchContentMarkup();
 
             },
 
@@ -566,18 +642,23 @@ define(['underscore', 'jquery', 'backbone', 'global',
 
                 var self = this;
 
+                this.json = {};
+
                 //get latest json
                 this.generateJSON();
 
                 var _json = this.json;
 
+                
                 $.post(AJAXURL, {
                         action: 'get_content_markup',
                         json: _json,
                         pageId: this.getCurrentPage()
                     },
                     function(response) {
-
+                        
+                        $('#editor-initial-loader').remove();
+                        self.$el.find('hr.virtual-divider,.aj-imp-drag-handle,.aj-imp-delete-btn,.aj-imp-col-divider,.aj-imp-col-sel').hide();
                         if (response.code === 'OK') {
 
                             //set HTML
@@ -596,13 +677,24 @@ define(['underscore', 'jquery', 'backbone', 'global',
                             
                         }
 
-                        window.editorMode = 'content';
-
                         self.contentLoaded = true;
 
                         self.removeSwitchLoader();
+                        window.editorMode = 'content';
 
                     }, 'json');
+
+                
+            },
+
+            /**
+             * [getElementFetchCount description]
+             * @return {[type]} [description]
+             */
+            getElementFetchCount : function(section){
+
+               return 1;
+
             },
 
             /**
@@ -612,10 +704,18 @@ define(['underscore', 'jquery', 'backbone', 'global',
 
                 var self = this;
 
-                if(self.contentLoaded)
-                    return;
+                global.Holder.run();
+
+                // if(self.contentLoaded)
+                //     return;
+                //clear all prev instance
+                
 
                 require(['ckeditor'], function(CKEDITOR) {
+
+                    _.each(CKEDITOR.instances, function(instance, key){
+                        delete CKEDITOR.instances[key];
+                    });
 
                     CKEDITOR.on('instanceCreated', self.configureEditor);
 
@@ -626,23 +726,43 @@ define(['underscore', 'jquery', 'backbone', 'global',
                     //run maps
                     if($('#map_canvas').length === 0)
                         return;
-                    
+                    var address = $('#map_canvas').attr('data-address');
+
                     var map_canvas = document.getElementById('map_canvas');
-                    var youcou = new google.maps.LatLng(37.390345, -6.022595);
-                    var marker;
-                    var map_options = {
-                      center: new google.maps.LatLng(37.385299, -5.989634),
-                      zoom: 14,
-                      scrollwheel: false,
-                      mapTypeId: google.maps.MapTypeId.TERRAIN 
-                    }
-                    var map = new google.maps.Map(map_canvas, map_options)
-                    marker = new google.maps.Marker({
-                                    map:map,
-                                    draggable:true,
-                                    animation: google.maps.Animation.DROP,
-                                    position: map.getCenter()
-                              });
+      
+                      if(map_canvas === null)
+                        return;
+
+                      var map_options = {
+                        //center: new google.maps.LatLng(37.385299, -5.989634),
+                        zoom: 17,
+                        scrollwheel: false,
+                        mapTypeId: google.maps.MapTypeId.TERRAIN 
+                      }
+                      
+                      map = new google.maps.Map(map_canvas, map_options)
+
+                      geocoder = new google.maps.Geocoder();
+
+                    geocoder.geocode( { 'address': address}, function(results, status) {
+        
+                        if (status == google.maps.GeocoderStatus.OK) {
+                          
+                          map.setCenter(results[0].geometry.location);
+                          
+                          marker = new google.maps.Marker({
+                            map:map,
+                            //draggable:true,
+                            animation: google.maps.Animation.DROP,
+                            position: map.getCenter()
+                          });
+                          
+                          //google.maps.event.addListener(marker, 'click', toggleBounce);
+                        
+                        } 
+
+                    });
+
                 });
 
             },

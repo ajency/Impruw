@@ -43,14 +43,43 @@ define(['backbone', 'jquery', 'underscore', 'global'],
                 var ele = {
                     id              : this.get('id'),
                     elementType     : this.get('elementType'),
-                    draggable       : this.get('draggable'),
-                    editable        : this.get('editable'),
+                    //draggable       : this.get('draggable'),
+                    //editable        : this.get('editable'),
                     extraClasses    : this.get('extraClasses'),
                     dataSource      : this.get('dataSource'),
                     contentFetched  : this.get('contentFetched') 
                 };
 
                 return ele;
+            },
+
+            stripslashes:function(str) {
+              // +   original by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+              // +   improved by: Ates Goral (http://magnetiq.com)
+              // +      fixed by: Mick@el
+              // +   improved by: marrtins
+              // +   bugfixed by: Onno Marsman
+              // +   improved by: rezna
+              // +   input by: Rick Waldron
+              // +   reimplemented by: Brett Zamir (http://brett-zamir.me)
+              // +   input by: Brant Messenger (http://www.brantmessenger.com/)
+              // +   bugfixed by: Brett Zamir (http://brett-zamir.me)
+              // *     example 1: stripslashes('Kevin\'s code');
+              // *     returns 1: "Kevin's code"
+              // *     example 2: stripslashes('Kevin\\\'s code');
+              // *     returns 2: "Kevin\'s code"
+              return (str + '').replace(/\\(.?)/g, function (s, n1) {
+                switch (n1) {
+                case '\\':
+                  return '\\';
+                case '0':
+                  return '\u0000';
+                case '':
+                  return '';
+                default:
+                  return n1;
+                }
+              });
             },
 
             /**
@@ -450,7 +479,7 @@ define(['backbone', 'jquery', 'underscore', 'global'],
 
                      this.$el.append('<div class="aj-imp-drag-handle">\
                                         <p title="Move">\
-                                            <span class="icon-uniF140"></span>\
+                                            <span class="bicon icon-uniF140"></span>\
                                         </p>\
                                     </div>');
                 }
@@ -615,7 +644,6 @@ define(['backbone', 'jquery', 'underscore', 'global'],
             destroyElement: function(evt) {
 
                 evt.preventDefault();
-
                 evt.stopPropagation();
 
                 if (!confirm("Are you sure?"))
@@ -639,7 +667,7 @@ define(['backbone', 'jquery', 'underscore', 'global'],
              */
             removeElement: function(evt) {
 
-                this.$el.fadeOut(400, _.bind(this.destroy, this));
+                this.$el.hide(_.bind(this.destroy, this));
             },
 
             /**
@@ -661,9 +689,9 @@ define(['backbone', 'jquery', 'underscore', 'global'],
 
                 this.undelegateEvents();
 
-                delete this.$el; // Delete the jQuery wrapped object variable
+                delete this.el; // Delete the jQuery wrapped object variable
 
-                delete this.el;
+                delete this;
             }
 
         });
