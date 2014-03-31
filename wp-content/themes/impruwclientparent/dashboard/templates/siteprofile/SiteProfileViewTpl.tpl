@@ -7,7 +7,7 @@
     <div class="aj-imp-dash-content col-md-12">
         <div class="alert alert-success hidden" id="siteprofilesave_status">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            Your details have been successfully saved.
+           
         </div>
         <form class="form-horizontal clearfix" name="form-siteprofile" id="form-siteprofile">
             <div class="scroll-indicator-container" id="scr1">
@@ -33,7 +33,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group pic-upload">
+                    <!-- <div class="form-group pic-upload">
                         <label for="inputFile4" class="col-sm-2 control-label">Upload Favicon <br><small>of size 16 X 16 pixels</small></label>
                         <div class="col-sm-10 col-sm-offset-2">
                             <div class="fileinput fileinput-new" data-provides="fileinput">
@@ -44,7 +44,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                     </div> 
 
                     <div class="form-group">
                         <div class="col-sm-10 col-sm-offset-2">
@@ -54,7 +54,7 @@
                                 <p>Most people have a very cluttered bookmarks / favorites list. Having yours stand out with a nice graphical reminder of your site beside it, is a good way to get their attention again.</p>
                             </span>
                         </div>
-                    </div>
+                    </div> -->
             </div>
             <div class="scroll-indicator-container" id="scr2">
                 <h4 class="aj-imp-sub-head scroll-ref">Business Details <small>These details will be used in your contact us page.</small></h4>
@@ -72,9 +72,12 @@
                             <div class="form-group">
                                 <label for="inputAddress2" class="col-sm-5 control-label">Postal Code</label>
                                 <div class="col-sm-7 col-sm-offset-5">
+                                    <!-- data-mask="aa-9999" -->
                                     <input type="text" class="form-control" id="postalcode" name="postalcode"  
-                                           data-mask="aa-9999" placeholder="NO-7321" value="<%= site.get('postalcode') %>" 
-                                           required parsley-trigger="blur" parsley-validation-minlength="0"  parsley-type="number" parsley-type-number-message="Please enter valid postal code" />
+                                    		data-mask="aa-9999"
+                                            placeholder="NO-7321" value="<%= site.get('postalcode') %>" 
+                                           required parsley-trigger="blur" parsley-validation-minlength="0"    parsley-rangelength="[7,7]"
+										   parsley-error-message="You must enter 7 characters alphanumeric value ex:NO-7321" />
                                     <div class="p-messages"></div>
 
                                 </div>
@@ -104,8 +107,6 @@
                             <div class="p-messages"></div>
                         </div>
                     </div>
-
-
                     <div class="form-group dual">
                         <div class="col-sm-5">
                             <div class="form-group  add-another">
@@ -158,7 +159,8 @@
                                     %>  
                                     <span class="div_phone" >
                                         <div>
-                                            <input type="text" class="form-control" name="phone[]" data-mask="99-999-999"  placeholder="+47 - 12 34 56 78"
+                                            <!-- data-mask="99-999-999" -->
+                                            <input type="text" class="form-control" name="phone[]"   placeholder="+47 - 12 34 56 78"
                                                    value="<%= phone %>" parsley-required="true" parsley-trigger="blur" 
                                                    parsley-validation-minlength="0" parsley-required-message="Please enter phone no"
                                                    parsley-group="myphones" parsley-rangelength="[10,10]"
@@ -173,7 +175,8 @@
                                     else { %>
 
                                     <span class="div_phone" >
-                                        <input type="text" class="form-control"   name="phone[]" data-mask="99-999-999"  placeholder="+47 - 12 34 56 78"
+                                        <!-- data-mask="99-999-999" -->
+                                        <input type="text" class="form-control"   name="phone[]"  placeholder="+47 - 12 34 56 78"
                                                value="" parsley-required="true" parsley-trigger="blur" 
                                                parsley-validation-minlength="0" parsley-required-message="Please enter phone no"
                                                parsley-group="myphones"  parsley-rangelength="[10,10]"
@@ -199,58 +202,50 @@
                             </span>
                         </div>
                     </div>
-                </form>
             </div>
+            <div class="scroll-indicator-container" id="scr3">
+                <h4 class="aj-imp-sub-head scroll-ref">Social Settings <small>Update the social tags on your website.</small></h4>
+                    <div class="form-group">
+                        <label for="inputSocial1" class="col-sm-2 control-label">Facebook</label>
+                        <div class="col-sm-10 col-sm-offset-2">
+                            <div class="input-group">
+                                <span class="input-group-addon">www.facebook.com/</span>
+                                <input type="text" class="form-control" id="facebook" name="facebook"  
+                                       placeholder="yourpageurl"  value="<%= site.get('facebook') %>" 
+                                       required parsley-trigger="blur" parsley-validation-minlength="0" />
+                            </div>
+                            <div class="p-messages"></div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="inputSocial2" class="col-sm-2 control-label">Twitter</label>
+                        <div class="col-sm-10 col-sm-offset-2">
+                            <div class="input-group">
+                                <span class="input-group-addon">www.twitter.com/</span>
+                                <input type="text" class="form-control" id="twitter" name="twitter"  placeholder="Twitter"
+                                       value="<%= site.get('twitter') %>" required parsley-trigger="blur" 
+                                       parsley-validation-minlength="0"  >
+                            </div>
+                            <div class="p-messages"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-10 col-sm-offset-2">
+                            <span class="help-block">
+                                <p>It's always a good idea to have social links on your website. The reasons are</p>
+                                <h6>It's the future</h6>
+                                <p>No business wants to get left behind right? Every single day that passes the more your competition promote across social media. This wave of social media marketing is here to stay... and if you donâ€™t jump on board now you are severely hampering your chances of longevity online - which is where more business is going.</p>
+                                <h6>It's the best way to come up in search results</h6>
+                                <p>Every time you create content on a social media site that links back to your website, the search engines see that link. Every time the search engines "see" a link to your site, it makes them think, "Wow, that site must be pretty important, seeing as there are so many other places linking to it." When the search engines think your site is important, they will make your listing appear higher in the results.</p>
+                            </span>
+                        </div>
+                    </div>
+              </div>
         </form>
         <!--
-        <div class="scroll-indicator-container" id="scr3">
-            <h4 class="aj-imp-sub-head scroll-ref">Social Settings <small>Update the social tags on your website.</small></h4>
-            <form class="form-horizontal clearfix" id="form-siteprofile-social" name ="form-siteprofile-social" >
-
-
-                <div class="form-group">
-                    <label for="inputSocial1" class="col-sm-2 control-label">Facebook</label>
-                    <div class="col-sm-10 col-sm-offset-2">
-                        <div class="input-group">
-                            <span class="input-group-addon">www.facebook.com/</span>
-                            <input type="text" class="form-control" id="facebook" name="facebook"  
-                                   placeholder="yourpageurl"  value="<%= site.get('facebook') %>" 
-                                   required parsley-trigger="blur" parsley-validation-minlength="0" />
-                            <div class="p-messages"></div>
-
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="form-group">
-                    <label for="inputSocial2" class="col-sm-2 control-label">Twitter</label>
-                    <div class="col-sm-10 col-sm-offset-2">
-                        <div class="input-group">
-                            <span class="input-group-addon">www.twitter.com/</span>
-                            <input type="text" class="form-control" id="twitter" name="twitter"  placeholder="Twitter"
-                                   value="<%= site.get('twitter') %>" required parsley-trigger="blur" 
-                                   parsley-validation-minlength="0"  >
-                            <div class="p-messages"></div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-sm-10 col-sm-offset-2">
-                        <span class="help-block">
-                            <p>It's always a good idea to have social links on your website. The reasons are</p>
-                            <h6>It’s the future</h6>
-                            <p>No business wants to get left behind right? Every single day that passes the more your competition promote across social media. This wave of social media marketing is here to stay... and if you don’t jump on board now you are severely hampering your chances of longevity online – which is where more business is going.</p>
-                            <h6>It's the best way to come up in search results</h6>
-                            <p>Every time you create content on a social media site that links back to your website, the search engines see that link. Every time the search engines “see” a link to your site, it makes them think, “Wow, that site must be pretty important, seeing as there are so many other places linking to it.” When the search engines think your site is important, they will make your listing appear higher in the results.</p>
-                        </span>
-                    </div>
-                </div>
-
-            </form>
-        </div>
         <div class="scroll-indicator-container" id="scr4">
             <h4 class="aj-imp-sub-head scroll-ref">SEO <small>Make your website rank higher</small></h4>
             <form class="form-horizontal clearfix" id="form-siteprofile-meta" name="form-siteprofile-meta">
@@ -392,9 +387,9 @@
                         <span class="help-block">
                             <h6>Roles and their Capabilities</h6>
                             <p><b>A user can have one of the below given roles.</b></p>
-                            <p><b>Administrator</b> – somebody who has access to all the administration features in the website<br>
-                            <b>Editor</b> – somebody who can publish and manage posts including the posts of other users.<br>
-                            <b>Author</b> – somebody who can publish and manage their own posts.</p>
+                            <p><b>Administrator</b> â€“ somebody who has access to all the administration features in the website<br>
+                            <b>Editor</b> â€“ somebody who can publish and manage posts including the posts of other users.<br>
+                            <b>Author</b> â€“ somebody who can publish and manage their own posts.</p>
                         </span>
                     </div>
                 </div>
@@ -405,7 +400,7 @@
             <form class="form-horizontal">
                 <div class="affix-show">You have unsaved changes!</div>
                 <button type="button" id="btn_savesitedetails"  name="btn_savesitedetails" class="btn btn-wide aj-imp-submit">Save</button>
-                <img src ='<%=THEMEURL%>/images/loader.gif' width="38" height="30"  id="siteprofilesubmitm_loader" style="display:none"/>
+                <img src ='<%=THEMEURL%>/images/loader-white.gif' width="38" height="30"  id="siteprofilesubmitm_loader" style="display:none"/>
             </form>
         </div>
     </div>

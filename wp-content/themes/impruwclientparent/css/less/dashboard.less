@@ -2375,6 +2375,22 @@ form {
 .isotope-item {
   z-index: 2;
   margin: 0.2em;
+  &.width-1 {
+  	width: 20%;
+  	height: auto;
+  }
+  &.width-2 {
+  	width: 40%;
+  	height: auto;
+  }
+  &.height-1 {
+  	height: 20%;
+  	width: auto;
+  }
+  &.height-2 {
+  	height: 40%;
+  	width: auto;
+  }
 }
 
 .isotope-hidden.isotope-item {
@@ -2524,3 +2540,147 @@ form {
 	
 	}
 }
+
+/*Room Booking Calender*/
+.room-booking{
+	background: #e3e3e3;
+	margin: 0px;
+.room-booking-calender{
+				
+				padding: 10px;
+				h4{
+					font-weight: 600;
+					font-size: 1.5em;
+					color: #b0b0b0;
+					text-transform: uppercase;
+					margin-bottom: 5%;
+					margin-top: 5%;
+					.glyphicon {
+						font-size: 1.5em;
+						color: #b0b0b0;
+						float: left;
+						margin-right: 1%;
+					}
+					.excerpt{
+						display: block;
+						font-size: 0.6em;
+						font-weight: 300;
+						text-transform: none;
+				}
+			}
+			.hasDatepicker{
+				.ui-datepicker-inline{
+					width:auto !important;
+					border: 0;
+				
+				}
+				.ui-datepicker td {
+					border: 1px solid #EAEAEA!important;
+					height:42px!important;
+					a{
+							display: block;
+							border-radius:0px;
+							height: 39px;
+							line-height: 40px;
+					}
+				}
+				.ui-datepicker{
+				.ui-datepicker-header {
+						background: #d4d0d1;
+						height: 67px;
+						line-height: 86px;
+						margin:0px;
+						.ui-datepicker-prev, .ui-datepicker-next {
+						border: 0px;
+						height: 67px;
+						}
+					}
+					.ui-datepicker-title{
+					line-height: 74px;
+					}
+				}
+			}
+			.date-range{
+				width: 14px;
+				height: 14px;
+				display: inline-block;
+				margin-right: 5px;
+			}
+			.date-range1{
+				background: #85e730;
+				.date-range;
+			}
+			.date-range2{
+				background: #ffcf09;
+				.date-range
+			}
+			.date-range3{
+				background: #f73838;
+				.date-range
+			}
+		}
+
+	.room-booking-data{
+						background: #d8d8d8;
+						padding-top:1em;
+				.date-range{
+						font-size:1.3em;
+						color:#fff;
+						margin-bottom: 10%;
+						
+						b{
+							font-size: 1.5em;
+							display: block;
+							font-weight: 300;
+						}
+			}
+			.room-plans{
+				
+				margin-bottom: 26px;
+			}
+			.room-booking-plan{
+				color: #fff;
+				border-bottom: 1px dashed #280E0E;
+				padding-bottom: 5%;
+				margin-bottom: 5%;
+				h5{
+					font-weight: 600;
+					font-size: 1.5em;
+					color: #7a7879;
+				}
+				p{
+					font-size:0.9em;
+				}
+				.booking-detail{
+					width:50%;
+					float:left;
+					font-size:0.9em;
+					font-weight:300;
+					color:#7a7879;
+					span{
+						font-weight:800;
+						font-size:1.8em;
+						display: block;
+					}
+				}
+				h6{
+					font-weight:600;
+					font-size:1.0em;
+					text-transform:uppercase;
+					color:#fff;
+					margin-top:5%;
+				}
+				.booking-price{
+					font-size:0.8em;
+					font-weight:100;
+					margin-top:3%;
+					b{
+						font-size:2.0em;
+					}
+				}
+			}
+			@media(max-width:767px){
+				display: block;
+				}
+		}
+	}

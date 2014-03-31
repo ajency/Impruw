@@ -6,7 +6,7 @@
 	<div class="tab-content">
 		<div class="tab-pane active" id="upload">
 			<div class="aj-imp-upload-media">
-				<span class="icon-uniF10C"></span>
+				<span class="bicon icon-uniF10C"></span>
 				<div class="aj-imp-upload-message" id="choosefiles">
 					<span class="glyphicon glyphicon-cloud-upload"></span> Upload Images from your Computer
 				</div>

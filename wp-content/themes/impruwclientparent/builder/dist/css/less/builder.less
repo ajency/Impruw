@@ -9,7 +9,7 @@ Version:        0.1.0
 */ 
 
 /****Builder Icon Font****/
-@import url(builder-icon-fonts.css);
+@import url(font-style.css);
 
 /****Builder Toggle Switch****/
 @import url(toggle-switch.css);
@@ -21,6 +21,7 @@ Version:        0.1.0
 @orange: #FF7E00;
 @3-grey: #333333;
 @preview-grey: #F3F3F3;
+@error-red: lighten(#ff3333, 10%);
 
 /****Builder Container & Container Structure****/
 .aj-imp-builder {
@@ -95,6 +96,7 @@ Version:        0.1.0
 			&:hover, &:focus {
 				background: @orange;
 				transition-duration: 0.6s;
+				text-decoration: none;
 				.glyphicon {
 					color: #fff;
 				}
@@ -164,12 +166,16 @@ Version:        0.1.0
 						height: 40px;
 						overflow: hidden;
 					}
+					&:hover, &:focus {
+						text-decoration: none;
+					}
 				}
 				&:hover, &:focus {
 					background: @orange;
 					transition-duration: 0.6s;
 					a {
 						color: #fff;
+						background: rgba(0, 0, 0, 0.1);
 					}
 				}
 			}
@@ -185,18 +191,24 @@ Version:        0.1.0
 	margin: 0;
 	.aj-imp-builder-back {
 		margin-top: 3px;
+		text-align: center;
+		.navbar-text {
+			float: none;
+		}
 		a {
 			color: lighten(@3-grey, 20%);
 			font-weight: 700;
 			font-size: 0.8em;
 			&:hover {
 				color: @orange;
+				text-decoration: none;
 			}
 		}
 	}
 	.aj-imp-page-layout {
-		margin: 15px 0;
+		margin: 0;
 		border-left: 1px solid lighten(@dash-grey, 10%);
+		border-right: 1px solid lighten(@dash-grey, 10%);
 		.select {
 			margin-bottom: 0;
 		}
@@ -225,6 +237,21 @@ Version:        0.1.0
 				}
 			}
 		}
+		.dropdown-menu {
+			.aj-imp-add-page {
+				background: lighten(@dash-grey, 20%);
+				text-align: center;
+				color: @blue-grey;
+				padding-top: 10px;
+				.pull-left {
+					float: none !important;
+				}
+				&:hover {
+					background: @orange;
+					color: #fff;
+				}
+			}
+		}
 		.aj-imp-sub-bar-head {
 			width: 60%;
 			float: left;
@@ -234,6 +261,9 @@ Version:        0.1.0
 			font-weight: 300;
 			text-align: right;
 			padding-right: 2%;
+		}
+		.navbar-text {
+			font-size: 1em;
 		}
 	}
 	.aj-imp-builder-top-title {
@@ -247,7 +277,7 @@ Version:        0.1.0
 		}
 	}
 	.aj-imp-builder-top-options {
-		text-align: right;
+		text-align: center;
 		.navbar-search {
 			max-width: none;
 			padding: 10px 5px;
@@ -346,6 +376,16 @@ Version:        0.1.0
 						top: -4px;
 						position: relative;
 					}
+				}
+			}
+		}
+		.navbar-text {
+			float: none;
+			.aj-imp-theme-btn {
+				background: @orange;
+				color: #fff;
+				&:hover {
+					background: lighten(@orange, 10%);
 				}
 			}
 		}
@@ -472,6 +512,7 @@ Version:        0.1.0
 	.aj-imp-browser-preview {
 		border-radius: 6px;
 		border: 1px solid darken(@preview-grey, 10%);
+		box-shadow: 0 0 10px @preview-grey;
 		.aj-imp-browser-header {
 			padding: 1em;
 			background: #fff;
@@ -673,7 +714,7 @@ Version:        0.1.0
 		}
 		.aj-imp-browser-body {
 			background: no-repeat center -0.5em #fff;
-			margin: 0 1em;
+			margin: 0 0.5em;
 			&.aj-imp-preview {
 				background: #fff;
 			}
@@ -872,8 +913,10 @@ Version:        0.1.0
 		padding: 0.5em;
 		box-sizing: border-box;
 		position: relative;
-		> [class^="icon-"] {
-			font-size: 3em;
+		> .layout {
+			.bicon {
+				font-size: 2em;
+			}
 		}
 		.aj-imp-descriptor {
 			text-transform: uppercase;
@@ -1119,6 +1162,102 @@ Version:        0.1.0
 					}
 				}
 			}
+			.choose-room {
+				.room-btn {
+					border: 1px solid lighten(@dash-grey, 20%);
+					margin: 0.5em 0;
+					padding: 0.5em 0.2em;
+					border-radius: 4px;
+					cursor: pointer;
+					.thumb {
+						width: 150px;
+						float: left;
+						height: 70px;
+						overflow: hidden;
+						margin: 0 0.5em;
+						img {
+							border: 2px solid @dash-grey;
+						}
+					}
+					.title {
+						h4 {
+							color: @blue-grey;
+							font-weight: 400;
+							font-size: 1.5em;
+						}
+					}
+					&:hover {
+						background: lighten(@dash-grey, 20%);
+						.thumb {
+							img {
+								border-color: #fff;
+							}
+						}
+						.title {
+							h4 {
+								color: @orange;
+							}
+						}
+					}
+				}
+			}
+			.add-page {
+				padding: 1em;
+				h5 {
+					color: @dash-grey;
+					font-weight: 400;
+					font-size: 1.1em;
+				}
+				.aj-imp-block-list {
+					.block {
+						.img-holder {
+							height: auto;
+						}
+						.desc {
+							color: @blue-grey;
+						}
+						&.ui-selected {
+							border-color: @orange;
+							box-shadow: 0 0 2px @orange;
+							-webkit-transform: scale(1.05);
+							-moz-transform: scale(1.05);
+							-ms-transform: scale(1.05);
+							-o-transform: scale(1.05);
+							transform: scale(1.05);
+							.desc {
+								color: @orange;
+							}
+							&:hover {
+								.aj-imp-choose-btn {
+									display: none;
+								}
+							}
+						}
+					}
+				}
+				.parsley-error {
+					border-color: @error-red;
+				}
+				.parsley-error-list {
+					list-style: none;
+					margin: 0.5em 0 0.2em;
+					padding: 0;
+					li {
+						color: @error-red;
+					}
+				}
+				.save-page {
+					border-top: 1px solid @dash-grey;
+					padding-top: 0.5em;
+					text-align: right;
+					.btn {
+						background: @orange;
+						&:hover {
+							background: lighten(@orange, 10%);
+						}
+					}
+				}
+			}
 		}
 	}
 	&.wide-modal {
@@ -1157,7 +1296,7 @@ Version:        0.1.0
 							text-align: center;
 							> span {
 								display: block;
-								&[class^="icon-"] {
+								&.bicon {
 									font-size: 10em;
 									color: darken(@preview-grey, 5%);
 								}
@@ -1170,6 +1309,7 @@ Version:        0.1.0
 								font-size: 1.1em;
 								display: inline-block;
 								padding: 0.5em 1em 0.6em;
+								cursor: pointer;
 							}
 							.small-text {
 								font-size: 0.9em;
@@ -1563,10 +1703,11 @@ Version:        0.1.0
 .aj-imp-block-list {
 	ul {
 		margin: 1em 0;
+		padding: 0;
 		list-style: none;
 		text-align: center;
 		.block {
-			width: 21%;
+			width: 31%;
 			display: inline-block;
 			position: relative;
 			border: 1px solid lighten(@dash-grey, 20%);
@@ -1574,6 +1715,15 @@ Version:        0.1.0
 			padding: 1%;
 			margin: 1%;
 			border-radius: 4px;
+			.img-holder {
+				height: 300px;
+				overflow: hidden;
+				margin-bottom: 1em;
+				img {
+					max-width: 100%;
+					height: auto;
+				}
+			}
 			.desc {
 				font-size: 1em;
 			}

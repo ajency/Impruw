@@ -1,4 +1,6 @@
-define ['app', 'controllers/base-controller', 'apps/statistics/weeklydata/weeklydata'], (App, AppController, layoutTpl)->
+define ['app', 'controllers/base-controller', 
+		'apps/statistics/weeklydata/weeklydata'
+		'apps/statistics/siteanalytics/siteanalyticscontroller'], (App, AppController, layoutTpl)->
 
 	App.module 'DashboardApp.Statistics', (Statistics, App, Backbone, Marionette, $, _)->
 
@@ -22,6 +24,7 @@ define ['app', 'controllers/base-controller', 'apps/statistics/weeklydata/weekly
 				#listen to show event of layout and trigger apps
 				@listenTo layout, "show", =>
 					App.execute "show:weekly:data", region : layout.weeklyDataRegion
+					App.execute "show:site:analytics:data", region : layout.analyticsDataRegion
 
 				@show layout
 
@@ -30,13 +33,11 @@ define ['app', 'controllers/base-controller', 'apps/statistics/weeklydata/weekly
 		class StatisticsLayout extends Marionette.Layout
 
 			template : '<div id="weekly-data-region"></div>
-						<div id="overview-data-region"></div>
-						<div id="all-traffic-data-region"></div>'
+						<div id="analytics-data-region"></div>'
 
 			regions : 
 				weeklyDataRegion : '#weekly-data-region'
-				overviewDataRegion : '#overview-data-region'
-				allTrafficDataRegion : '#all-traffic-data-region'
+				analyticsDataRegion : '#analytics-data-region'
 
 
 		Statistics.on "start",->

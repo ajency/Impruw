@@ -76,14 +76,29 @@ define([ 'underscore', 'jquery', 'backbone','roomcollection',
 			require(['text!templates/rooms/room.tpl'],roomFn );
 		},
 		
-		
+		/**
+		 * Triggered when room is changed
+		 * Function to update room list after room is updated
+		 * @param room
+		 */
 		roomdataUpdated : function(room){
-			console.log('roomdataUpdated')
-			console.log(room)
 			
+			var roomRow = this.$el.find('#row_room_'+room.id)
 			
-			///UPDATE ROOM LIST TABLE
+			var roomFn = _.bind(function(RoomTpl){
+				
+				var html = _.template(RoomTpl, {room : room});
+				
+				roomRow.replaceWith(html)
+				
+				this.$el.find('.divHourFormat').find('span').html(room.get('checkinformat'))
+				this.$el.find('.divCheckinTime').find('span').html(room.get('checkintime'))
+				
+				//this.$el.find('tbody').append(html);
+			}, this);
 			
+			require(['text!templates/rooms/room.tpl'],roomFn );
+			 
 			
 		},
 		

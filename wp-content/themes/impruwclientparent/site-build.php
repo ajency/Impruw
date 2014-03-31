@@ -66,10 +66,10 @@ get_header('build');
                 </div>
                 <div class="aj-imp-mode-switch col-sm-3">
                     <div class="switch-toggle switch-2">
-                        <input id="week-d1" name="view-d" type="radio" checked>
+                        <input id="week-d1" name="view-d" type="radio" >
                         <label for="week-d1" onclick="" class="editormode">Layout Mode</label>
 
-                        <input id="month-d2" name="view-d" type="radio">
+                        <input id="month-d2" name="view-d" type="radio" checked>
                         <label for="month-d2" onclick="" class="editormode">Content Mode</label>
 
                         <a class="btn btn-warning"></a>

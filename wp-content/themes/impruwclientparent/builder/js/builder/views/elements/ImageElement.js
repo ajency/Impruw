@@ -46,7 +46,7 @@ define(['builderelement', 'tpl!builder/templates/elements/BasicElement.tpl', 'gl
                 } else {
                     this.setProperties(options.config);
                 }
-                this.generateMarkup({icon : '', name : 'Image Element'});
+                this.generateMarkup({icon : 'uniF10E', name : 'Image Element'});
              
                 this.setContextMenu();
 
@@ -56,6 +56,9 @@ define(['builderelement', 'tpl!builder/templates/elements/BasicElement.tpl', 'gl
              * retunrs the JSOn
              */
             generateJSON: function() {
+
+                if(window.fetchJSON === true && this.get('contentFetched') === true)
+                    return;
 
                 var json = this.returnJSON();
 
@@ -105,6 +108,7 @@ define(['builderelement', 'tpl!builder/templates/elements/BasicElement.tpl', 'gl
                 this.dataSource.attachmentID    = image.get('id');
                 this.dataSource.size            = size;
 
+                this.$el.find('img').removeAttr('data-src').removeAttr('style').attr('alt','');
                 this.$el.find('img').attr('src', image.get('sizes')[size].url);
 
             }

@@ -92,6 +92,8 @@
 
   /****Heading Styles****/
 
+  /****Logo Styles****/
+
 }
 .site-style-container ::selection {
   background: #ff5f5f;
@@ -133,6 +135,12 @@
   color: #6a6a6a;
   font-weight: 300;
   margin: 0.5em 0;
+}
+.site-style-container .logo {
+  padding: 1em;
+}
+.site-style-container .logo img {
+  margin: auto;
 }
 /*
 To change this license header, choose License Headers in Project Properties.

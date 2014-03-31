@@ -29,6 +29,16 @@ define(['underscore', 'jquery', 'backbone', 'builder/views/BuilderEditorView'],
 
                 this.builderId = '';
 
+                var pid = $.cookie('current_page_id');
+
+                if(_.isUndefined(pid)){
+                    pid = $('select[name="current_page_id"]').val();
+                    $.cookie('current_page_id', pid, { expires: 7 });
+                }
+
+                var page = $('select[name="current_page_id"]').find('option[value="'+pid+'"]').text();
+                var url = $('.aj-imp-browser-address-bar').text();
+                $('.aj-imp-browser-address-bar').text(_(url).trim() + '/' + _.slugify(page));
             },
 
             /**
@@ -42,7 +52,11 @@ define(['underscore', 'jquery', 'backbone', 'builder/views/BuilderEditorView'],
                 //setup select picker
                 this.$el.find('.aj-imp-builder-top-nav select').selectpicker({
                                                                     style: 'btn-mini btn-default',
-                                                                    menuStyle: 'dropdown'
+                                                                    menuStyle: 'dropdown',
+                                                                    onPick: function(value, label) {
+                                                                        console.log(this);
+                                                                        console.log(label + ": " + value);
+                                                                      }
                                                                 });
 
                 this.renderView();
@@ -58,12 +72,54 @@ define(['underscore', 'jquery', 'backbone', 'builder/views/BuilderEditorView'],
 
                 var button = $(evt.target);
 
-                var page    = button.parent().find('select[name="current_page_id"]').val();
-                
-                $.cookie('current_theme', 36, { expires: 7 });
+                var page   = button.parent().find('select[name="current_page_id"]').val();
+
+                if(page === 'new'){
+                    var pid = $.cookie('current_page_id');
+                    $('select[name="current_page_id"]').find('option[value="'+pid+'"]').attr('selected',true).siblings().removeAttr('selected')
+                    ff = $('select[name="current_page_id"]').find('option[value="'+pid+'"]');
+                    this.addNewPage();
+                    return;
+                }
                 $.cookie('current_page_id', page, { expires: 7 });
 
-                window.location.reload();
+                //window.location.reload();
+                this.builder.clearbuilder();
+                
+            },
+
+            /**
+             * [addNewPage description]
+             */
+            addNewPage : function(){
+
+                require(['underscore', 'addpage'], _.bind(function(_, AddPageModal){ 
+
+                    var addpage = getAppInstance().ViewManager.findByCustom("add-page");
+
+                    if(_.isUndefined(addpage)){
+
+                        addpage = new AddPageModal();
+                        getAppInstance().ViewManager.add(addpage, "add-page");
+                    }
+
+                    this.listenTo(getAppInstance().vent, 'new:page:added', this.newRoomAdded);
+
+                    addpage.open();
+
+                },this));
+
+            },
+
+            /**
+             * [newRoomAdded description]
+             * @return {[type]} [description]
+             */
+            newRoomAdded : function(response){
+
+                var option = '<option value="'+ response.data.id +'">' + response.data.name + '</option>';
+                this.$el.find('select[name="current_page_id"]').prepend(option);
+
             },
 
             /**
@@ -109,13 +165,9 @@ define(['underscore', 'jquery', 'backbone', 'builder/views/BuilderEditorView'],
 
                 this.builder = new BuilderEditorView();
 
-                this.builder.render();
-
+                this.builder.clearbuilder();
 
                 this.$el.find('.aj-imp-browser-body').html(this.builder.$el);
-
-                //remove loader
-                this.handleInitialLoader();
 
                 //enable dragsort
                 this.builder.enableDropSort();
@@ -136,7 +188,7 @@ define(['underscore', 'jquery', 'backbone', 'builder/views/BuilderEditorView'],
              * trigger the mode siwtcher for builder editor
              */
             switchMode: function(evt) {
-
+            	
                 this.builder.switchMode(evt);
 
             },

@@ -69,11 +69,16 @@ define(['modal', 'tpl!templates/modal/AddOn.tpl','parsley'],
     							response.popupmodel = true ; //to show alert message in popup window
     							if(response.code=='OK'){
     									 
-    							 	$(evt_.target).parent().parent().find('#addontype_name').val("");
-    							 	$(evt_.target).parent().parent().find('#addontype_price').val("");
-    							  
+    							 	//$(evt_.target).parent().parent().find('#addontype_name').val("");
+    							 	//$(evt_.target).parent().parent().find('#addontype_price').val("");
+    								self_.$el.find('#form_add_addon')[0].reset();
+    								
+    								self_.$el.find('.validation-icon').remove()
+    								self_.$el.find('.has-error').removeClass('has-error')
+    								self_.$el.find('.has-success').removeClass('has-success')
+    								
     							 	ImpruwDashboard.vent.trigger('new-add-on-added',response,evt_);
-    							 	ImpruwDashboard.vent.trigger('modal-closed');
+    							 	
     							 	
     							 	// $(evt_.target).parent().parent().find('.close').click();
     							 	

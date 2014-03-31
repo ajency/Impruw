@@ -41,13 +41,9 @@ class RoomGallery extends SliderElement {
      */
     var $class_name  = 'room-gallery';
     
-    
-    
-    /**
-     * The config to create a row element
-     * @param array $element
-     */
+   
     function __construct($element, $post_id = 0) {
+
         
         parent::__construct($element );
             
@@ -95,12 +91,6 @@ class RoomGallery extends SliderElement {
         $html .= '</ul>';
           
         return $html;
-        /*
-        $ids = get_post_meta($this->post_id, 'room-attachments', true);
-
-        return $ids;
-         
-      */  
-}
+	}
     
 }

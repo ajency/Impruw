@@ -37,7 +37,7 @@ define(['imageelement', 'tpl!builder/templates/elements/BasicElement.tpl', 'glob
                 } else {
                     this.setProperties(options.config);
                 }
-                this.generateMarkup({icon : '', name : 'Image With Text Element'});
+                this.generateMarkup({icon : 'uniF112', name : 'Image With Text Element'});
                 this.setContextMenu();
 
             },

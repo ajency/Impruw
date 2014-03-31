@@ -13,7 +13,8 @@ define([ 'underscore', 'jquery', 'backbone',
 
 	 events : {
 			 	'click #btn_saveusergeneral'	: 'saveUserProfileGeneral',
-			 	'click #btn_updatepassword'		: 'updateUserPassword'
+			 	'click #btn_updatepassword'		: 'updateUserPassword',
+			 	'change #lst_selectlanguage'	: 'changeDefaultLanguage'
 		}, 
 
 		initialize : function(args) {
@@ -25,6 +26,7 @@ define([ 'underscore', 'jquery', 'backbone',
 				this.showInvalidCallView();
 			
 			this.user = getAppInstance().impruwUser;
+			 
 
 		},
 
@@ -43,6 +45,9 @@ define([ 'underscore', 'jquery', 'backbone',
 			//set custom selectbox & checkbox
 			this.$el.find('select').selectpicker();
 			this.$el.find('input[type="checkbox"]').checkbox();
+
+			//set language select to be dropup instead of dropdown
+			this.$el.find('#lst_selectlanguage').parent().addClass('dropup');
 			
 			//initialize parsley validation for the forms
 			this.parsleyInitialize(this.$el.find('#form_usergeneral'));
@@ -77,7 +82,78 @@ define([ 'underscore', 'jquery', 'backbone',
 			  }
 			 			
 		},
+		
+	 	
+		
+		changeDefaultLanguage : function(evt){
+			this.$el.find('.changelanguage_loader').show();
+			var self_ = this ; 
+			var evt_ = evt ;
+			var data = { 	action				: 'change_default_language_ajx', 					  		 
+			  				selectedlanguage	: $('#lst_selectlanguage').val()	
+						};
+ 
+	
+			$.post(	AJAXURL,
+			data,
+			function(response){
+		 		if(response.code=='OK'){
+			 		
+		 			self_.saveLanguageSuccess(response,evt_,self_) 
+				}
+				else{
+					
+				 	self_.saveLanguageFailure(response,evt_,self_)
+					 
+				}
+		
+			});	
+			
+			
+			
+		},
+		
+		
+		
+		
+		
+		/**
+		 * Function to show message after success of save profile
+		 * @param response
+		 * @param event
+		 * @param _self
+		 */
+		saveLanguageSuccess : function(response,event,_self){
+			 
+			_self.$el.find('.changelanguage_loader').hide();
 		 
+			$(event.target).offsetParent().offsetParent().offsetParent()
+			 				.find('#userprofilesave_status').removeClass('alert-error').addClass('alert-success');
+			 
+			 _self.showAlertMessage(event,response);
+			
+			 
+		},
+		
+		/**
+		 * Function to show message after failure of saveprofile
+		 * @param response
+		 * @param event
+		 * @param _self
+		 */
+		saveLanguageFailure : function(response,event,_self){
+			 
+			_self.$el.find('.changelanguage_loader').hide();
+			
+			$(event.target).offsetParent().offsetParent().offsetParent()
+							.find('#userprofilesave_status').removeClass('alert-success').addClass('alert-error');
+			
+			_self.showAlertMessage(event,response);			 
+			
+		}, 
+		
+		
+		
 		
 		/**
 		 * Function to show message after success of save profile
@@ -187,6 +263,15 @@ define([ 'underscore', 'jquery', 'backbone',
 		        scrollTop: $(event.target).offsetParent().offsetParent().offsetParent()
 		        						   .find('#userprofilesave_status').offset().top
 		    }, 1000);
+			
+			
+			 setTimeout(function(){		 
+				 $(event.target).offsetParent().offsetParent().offsetParent()
+					.find('#userprofilesave_status').hide();							  
+			 }, 5000);
+			 
+			 
+			
 		},
 		
 		
@@ -209,7 +294,7 @@ define([ 'underscore', 'jquery', 'backbone',
 		    	                   $container = $("<div class='p-messages'></div>").insertAfter(element);
 		    		    		}
 		    		    		return $container;
-	    		    },
+	    		    } 
 	    		   
 	    		},
 	            listeners: {

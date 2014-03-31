@@ -35,11 +35,11 @@ define(['builderelement', 'tpl!builder/templates/elements/BasicElement.tpl', 'gl
                 if (_.isUndefined(options.config)) {
                     this.id = this.type() + '-' + global.generateRandomId();
                     this.$el.attr('id', this.id);
-                    this.generateMarkup({icon : 'uniF13C', name : 'Text Element'});
+                    this.generateMarkup({icon : 'uniF111', name : 'Text Element'});
                 } else {
                     this.setProperties(options.config);
                     if (!_.isUndefined(options.config.content))
-                        this.generateMarkup({icon : '', name : 'Text Element'}, options.config.content);
+                        this.generateMarkup({icon : 'uniF111', name : 'Text Element'}, options.config.content);
                 }
                 this.setContextMenu();
 
@@ -69,7 +69,7 @@ define(['builderelement', 'tpl!builder/templates/elements/BasicElement.tpl', 'gl
 
                 var json = this.returnJSON();
 
-                var content = this.$el.find('.content').html();
+                var content = this.stripslashes(this.$el.find('.content').html());
 
                 json.content = content.trim() === '' ? "Lorem Ipsum is simply dummy text of the printing and typesetting industry.\
                                                              Lorem Ipsum has been the industrys standard dummy text ever since the 1500s,\

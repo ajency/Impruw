@@ -20,14 +20,14 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 		sync : function(method, model, options){
 
 			options = options || {};
-                  
+                 
 			switch(method){
 
 				case 'read':
 					// Set the action and ID.
                     options.data = _.extend( options.data || {}, {
                         action 	:  'get_site_data_ajx',
-                        id 		:  this.get('id'),
+                        id 		:  this.get('id')
                     });
                     break;
 				case 'update':
@@ -48,8 +48,13 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
                         }, this );
                     }
 
+                  //start listening to event success
+                   this.listenTo(this,'update-success',this.siteUpdateSuccessTrigger);
+                 //start listening to event error
+                   this.listenTo(this,'update-error',this.siteUpdateFailureTrigger);
+                   
                     this.ajax(method, model, options);
-
+                    return;
 					break;
 				case 'delete':
 
@@ -59,6 +64,36 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 
 			return Backbone.Model.prototype.sync.apply( this, arguments );
 
+		},
+		/**
+		 * Function triggered when ajax cal for savesite profile is successsfull
+		 * calls a function to disaply success or error message based on ajax response code
+		 * @param response
+		 * @param options
+		 */
+		siteUpdateSuccessTrigger : function(response,options){
+			  
+			this.stopListening(this, 'update-success');
+			this.stopListening(this, 'update-error'); 
+			
+			if(response.code=='OK'){
+				if(!_.isUndefined(options.successfn) && _.isFunction(options.successfn))
+					options.successfn(response);
+			}
+			else{
+				
+				if(!_.isUndefined(options.failurefn) && _.isFunction(options.failurefn))
+					options.failurefn(response.msg);
+			}
+		},
+		
+		
+		siteUpdateFailureTrigger : function(error,options){
+			 
+			this.stopListening(this, 'update-success'); 
+			this.stopListening(this, 'update-error'); 
+			if(!_.isUndefined(options.failurefn) && _.isFunction(options.failurefn))
+				options.failurefn(error);
 		},
 
 		/**
@@ -76,14 +111,19 @@ define([ "jquery", "underscore", "backbone" ], function($, _, Backbone) {
 				throw 'action parameter missing';
 
 			var doneFn = _.bind(function(response) {
-                			this.trigger(method + '-success', response);
+							console.log('save profile ajax success'+method)
+							console.log(response)
+                			this.trigger(method + '-success', response,options);
                 		}, this);
 
 			var failFn = _.bind(function(error) {
-                			this.trigger(method + '-error', error);
+				console.log('save profile ajax failed '+method)
+				console.log(error)
+                			this.trigger(method + '-error', error,options);
                 		}, this);
 
             var alwaysFn = _.bind(function() {
+            	console.log('save profile ajax always'+method)
                 			this.trigger(method + '-always');
                 		}, this);
 

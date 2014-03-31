@@ -26,12 +26,13 @@ class ImpruwUser extends WP_User{
 	function get_user_basic_info(){
 
 		return 	array(
-					'id' 			=> $this->data->ID,
-					'userLogin'		=> $this->data->user_login,
-					'userEmail'		=> $this->data->user_email,
-					'displayName'	=> $this->data->display_name,
-					'roles'			=> $this->roles,
-					'capabilities'	=> $this->allcaps
+					'id'				=> $this->data->ID,
+					'userLogin'			=> $this->data->user_login,
+					'userEmail'			=> $this->data->user_email,
+					'displayName'		=> $this->data->display_name,
+					'roles'				=> $this->roles,
+					'capabilities'		=> $this->allcaps,
+					'defaultLanguage'	=> $this->get_site_language() 					 
 				);
 	}
 	
@@ -50,6 +51,13 @@ class ImpruwUser extends WP_User{
 		
 		$email_user = email_exists($user_data['general']['user_email']);
 		
+		
+		
+		if(isset($user_data['general']['new_feature_alert']))
+			update_user_meta($user_data['ID'], 'impruw_featurealert' , $user_data['general']['new_feature_alert']);
+		else
+			update_user_meta($user_data['ID'], 'impruw_featurealert' , '');
+		
 		if($email_user){
 			
 			if($this->data->ID!=$email_user){
@@ -61,24 +69,24 @@ class ImpruwUser extends WP_User{
 		}
 		else{
 			if(wp_update_user($new_user_data)){
-				
-				if(isset($user_data['general']['new_feature_alert']))
-					update_user_meta($user_data['ID'], 'impruw_featurealert' , $user_data['general']['new_feature_alert']);
-				else
-					update_user_meta($user_data['ID'], 'impruw_featurealert' , '');
-				
-				return true;
+			 	return true;
 			}
-			else
-				
+			else{				
 				return false;
+			}
 			
 		}
 		
 	
 	}
-	
-	
+	//Functin to get site default language
+	function get_site_language(){
+			
+			$wpml_options = get_option( 'icl_sitepress_settings' );
+			$default_lang = $wpml_options['default_language'];
+			return $default_lang;
+			
+	}
 	
 	/**
 	 * Handles resetting the user's password.
