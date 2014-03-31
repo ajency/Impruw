@@ -138,7 +138,7 @@ define ['app'
 
 				class NoSlidesView extends Marionette.ItemView
 
-					template : '<div class="alert">No slides. Please add slides.</div>'
+					template : '<div class="alert">No images found. Please add images.</div>'
 
 				# colllection view
 				class SlidesListView extends Marionette.CompositeView

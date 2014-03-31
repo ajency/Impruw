@@ -189,7 +189,7 @@ define(['app'], function(App) {
 
       RowView.prototype.makeResizer = function(resizer) {
         var row, snap;
-        row = resizer.parent();
+        row = resizer.parent().next().children('.row');
         snap = row.width();
         snap = snap / 12;
         return resizer.draggable({

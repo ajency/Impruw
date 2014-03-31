@@ -129,7 +129,7 @@ define ['app'],(App)->
 
 
 			makeResizer:(resizer) ->
-				row = resizer.parent()
+				row = resizer.parent().next().children('.row')
 				snap = row.width()
 				snap = snap / 12
 				resizer.draggable

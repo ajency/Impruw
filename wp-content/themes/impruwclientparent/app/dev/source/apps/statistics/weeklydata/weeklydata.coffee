@@ -53,7 +53,8 @@ define ['app', 'controllers/base-controller'], (App, AppController, layoutTpl)->
 			onBeforeRender:->
 				# pick out the model from collection
 				return if not @collection
-	
+				
+				# pop out the last model from collection
 				@model = @collection.pop()
 
 
