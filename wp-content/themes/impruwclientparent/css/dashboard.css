@@ -2286,10 +2286,15 @@ form .aj-imp-submit:hover {
 }
 /****Gallery Styling****/
 #gallery-region {
-  height: 420px;
+  height: 220px;
 }
 #gallery-region .isotope {
   height: 100%;
+}
+#gallery-region .empty-info {
+  height: 220px;
+  line-height: 200px;
+  text-align: center;
 }
 #slides-list-region,
 #add-slide-region,

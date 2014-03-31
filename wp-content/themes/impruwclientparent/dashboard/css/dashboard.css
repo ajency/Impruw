@@ -1,4 +1,5 @@
 @import url(icon-fonts.css);
+
 @import url(../../builder/css/builder-icon-fonts.css);
 /*
 Theme Name:     Impruw Dashboard
@@ -58,8 +59,10 @@ a:focus {
   transform: scale(0.8, 0.8);
   -ms-transform: scale(0.8, 0.8);
   /* IE 9 */
+
   -webkit-transform: scale(0.8, 0.8);
   /* Safari and Chrome */
+
   transition-duration: 1s;
 }
 .aj-imp-container .aj-imp-left .aj-imp-dash-nav #aj-imp-dash-menu {
@@ -103,6 +106,7 @@ a:focus {
 							background-position: 0 -394px;
 						}
 					}*/
+
 }
 .aj-imp-container .aj-imp-left .aj-imp-dash-nav #aj-imp-dash-menu li .sub-menu {
   display: none;
@@ -120,6 +124,7 @@ a:focus {
   display: block;
   position: absolute;
   /*background: url('../images/dash-nav-sprite.png') no-repeat;*/
+
   top: 20px;
   left: 30px;
   font-size: 2em;
@@ -203,20 +208,28 @@ a:focus {
   padding: 0.5em 1em;
   background: #ffffff;
   /* Old browsers */
+
   background: -moz-linear-gradient(top, #ffffff 0%, #f6f6f6 47%, #f4f4f4 100%);
   /* FF3.6+ */
+
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(47%, #f6f6f6), color-stop(100%, #f4f4f4));
   /* Chrome,Safari4+ */
+
   background: -webkit-linear-gradient(top, #ffffff 0%, #f6f6f6 47%, #f4f4f4 100%);
   /* Chrome10+,Safari5.1+ */
+
   background: -o-linear-gradient(top, #ffffff 0%, #f6f6f6 47%, #f4f4f4 100%);
   /* Opera 11.10+ */
+
   background: -ms-linear-gradient(top, #ffffff 0%, #f6f6f6 47%, #f4f4f4 100%);
   /* IE10+ */
+
   background: linear-gradient(to bottom, #ffffff 0%, #f6f6f6 47%, #f4f4f4 100%);
   /* W3C */
+
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#f4f4f4', GradientType=0);
   /* IE6-9 */
+
 }
 .aj-imp-container .aj-imp-right .aj-imp-dash-content .aj-imp-dash-widget .aj-imp-widget-container .aj-imp-widget-head {
   background: #dddddd;
@@ -1610,18 +1623,25 @@ form .aj-imp-submit:hover {
   right: 1em;
   background: -moz-linear-gradient(left, rgba(255, 255, 255, 0) 0%, #ffffff 25%, #ffffff 100%);
   /* FF3.6+ */
+
   background: -webkit-gradient(linear, left top, right top, color-stop(0%, rgba(255, 255, 255, 0)), color-stop(25%, #ffffff), color-stop(100%, #ffffff));
   /* Chrome,Safari4+ */
+
   background: -webkit-linear-gradient(left, rgba(255, 255, 255, 0) 0%, #ffffff 25%, #ffffff 100%);
   /* Chrome10+,Safari5.1+ */
+
   background: -o-linear-gradient(left, rgba(255, 255, 255, 0) 0%, #ffffff 25%, #ffffff 100%);
   /* Opera 11.10+ */
+
   background: -ms-linear-gradient(left, rgba(255, 255, 255, 0) 0%, #ffffff 25%, #ffffff 100%);
   /* IE10+ */
+
   background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, #ffffff 25%, #ffffff 100%);
   /* W3C */
+
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00ffffff', endColorstr='#ffffff', GradientType=1);
   /* IE6-9 */
+
   font-size: 0.8em;
   display: none;
 }
@@ -2114,18 +2134,25 @@ form .aj-imp-submit:hover {
   height: 40px;
   background: -moz-linear-gradient(left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 7%, #ffffff 100%);
   /* FF3.6+ */
+
   background: -webkit-gradient(linear, left top, right top, color-stop(0%, rgba(255, 255, 255, 0)), color-stop(7%, rgba(255, 255, 255, 0.5)), color-stop(100%, #ffffff));
   /* Chrome,Safari4+ */
+
   background: -webkit-linear-gradient(left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 7%, #ffffff 100%);
   /* Chrome10+,Safari5.1+ */
+
   background: -o-linear-gradient(left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 7%, #ffffff 100%);
   /* Opera 11.10+ */
+
   background: -ms-linear-gradient(left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 7%, #ffffff 100%);
   /* IE10+ */
+
   background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 7%, #ffffff 100%);
   /* W3C */
+
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00ffffff', endColorstr='#ffffff', GradientType=1);
   /* IE6-9 */
+
 }
 .room-tariff-container .room-tariff-grid .tariff .packages .package-blocks {
   margin: 0 0 1em;
@@ -2259,10 +2286,15 @@ form .aj-imp-submit:hover {
 }
 /****Gallery Styling****/
 #gallery-region {
-  height: 420px;
+  height: 220px;
 }
 #gallery-region .isotope {
   height: 100%;
+}
+#gallery-region .empty-info {
+  height: 220px;
+  line-height: 200px;
+  text-align: center;
 }
 #slides-list-region,
 #add-slide-region,

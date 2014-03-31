@@ -25,7 +25,7 @@ define ['app','controllers/base-controller'], (App, AppController)->
 		class SingleGalleryItem extends Marionette.ItemView
 			tagName : 'li'
 			className : 'isotope-element'
-			template : '<img src="{{thumb_url}}" height="200"/>'
+			template : '<img src="{{thumb_url}}" height="100"/>'
 
 
 		class NoGalleryItem extends Marionette.ItemView

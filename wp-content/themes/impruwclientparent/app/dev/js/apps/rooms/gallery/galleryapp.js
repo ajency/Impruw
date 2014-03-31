@@ -42,7 +42,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
 
       SingleGalleryItem.prototype.className = 'isotope-element';
 
-      SingleGalleryItem.prototype.template = '<img src="{{thumb_url}}" height="200"/>';
+      SingleGalleryItem.prototype.template = '<img src="{{thumb_url}}" height="100"/>';
 
       return SingleGalleryItem;
 
