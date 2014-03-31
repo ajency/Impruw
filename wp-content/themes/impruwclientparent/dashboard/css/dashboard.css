@@ -1,5 +1,4 @@
 @import url(icon-fonts.css);
-
 @import url(../../builder/css/builder-icon-fonts.css);
 /*
 Theme Name:     Impruw Dashboard
@@ -59,10 +58,8 @@ a:focus {
   transform: scale(0.8, 0.8);
   -ms-transform: scale(0.8, 0.8);
   /* IE 9 */
-
   -webkit-transform: scale(0.8, 0.8);
   /* Safari and Chrome */
-
   transition-duration: 1s;
 }
 .aj-imp-container .aj-imp-left .aj-imp-dash-nav #aj-imp-dash-menu {
@@ -106,7 +103,6 @@ a:focus {
 							background-position: 0 -394px;
 						}
 					}*/
-
 }
 .aj-imp-container .aj-imp-left .aj-imp-dash-nav #aj-imp-dash-menu li .sub-menu {
   display: none;
@@ -124,7 +120,6 @@ a:focus {
   display: block;
   position: absolute;
   /*background: url('../images/dash-nav-sprite.png') no-repeat;*/
-
   top: 20px;
   left: 30px;
   font-size: 2em;
@@ -208,28 +203,20 @@ a:focus {
   padding: 0.5em 1em;
   background: #ffffff;
   /* Old browsers */
-
   background: -moz-linear-gradient(top, #ffffff 0%, #f6f6f6 47%, #f4f4f4 100%);
   /* FF3.6+ */
-
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(47%, #f6f6f6), color-stop(100%, #f4f4f4));
   /* Chrome,Safari4+ */
-
   background: -webkit-linear-gradient(top, #ffffff 0%, #f6f6f6 47%, #f4f4f4 100%);
   /* Chrome10+,Safari5.1+ */
-
   background: -o-linear-gradient(top, #ffffff 0%, #f6f6f6 47%, #f4f4f4 100%);
   /* Opera 11.10+ */
-
   background: -ms-linear-gradient(top, #ffffff 0%, #f6f6f6 47%, #f4f4f4 100%);
   /* IE10+ */
-
   background: linear-gradient(to bottom, #ffffff 0%, #f6f6f6 47%, #f4f4f4 100%);
   /* W3C */
-
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#f4f4f4', GradientType=0);
   /* IE6-9 */
-
 }
 .aj-imp-container .aj-imp-right .aj-imp-dash-content .aj-imp-dash-widget .aj-imp-widget-container .aj-imp-widget-head {
   background: #dddddd;
@@ -1623,25 +1610,18 @@ form .aj-imp-submit:hover {
   right: 1em;
   background: -moz-linear-gradient(left, rgba(255, 255, 255, 0) 0%, #ffffff 25%, #ffffff 100%);
   /* FF3.6+ */
-
   background: -webkit-gradient(linear, left top, right top, color-stop(0%, rgba(255, 255, 255, 0)), color-stop(25%, #ffffff), color-stop(100%, #ffffff));
   /* Chrome,Safari4+ */
-
   background: -webkit-linear-gradient(left, rgba(255, 255, 255, 0) 0%, #ffffff 25%, #ffffff 100%);
   /* Chrome10+,Safari5.1+ */
-
   background: -o-linear-gradient(left, rgba(255, 255, 255, 0) 0%, #ffffff 25%, #ffffff 100%);
   /* Opera 11.10+ */
-
   background: -ms-linear-gradient(left, rgba(255, 255, 255, 0) 0%, #ffffff 25%, #ffffff 100%);
   /* IE10+ */
-
   background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, #ffffff 25%, #ffffff 100%);
   /* W3C */
-
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00ffffff', endColorstr='#ffffff', GradientType=1);
   /* IE6-9 */
-
   font-size: 0.8em;
   display: none;
 }
@@ -2134,25 +2114,18 @@ form .aj-imp-submit:hover {
   height: 40px;
   background: -moz-linear-gradient(left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 7%, #ffffff 100%);
   /* FF3.6+ */
-
   background: -webkit-gradient(linear, left top, right top, color-stop(0%, rgba(255, 255, 255, 0)), color-stop(7%, rgba(255, 255, 255, 0.5)), color-stop(100%, #ffffff));
   /* Chrome,Safari4+ */
-
   background: -webkit-linear-gradient(left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 7%, #ffffff 100%);
   /* Chrome10+,Safari5.1+ */
-
   background: -o-linear-gradient(left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 7%, #ffffff 100%);
   /* Opera 11.10+ */
-
   background: -ms-linear-gradient(left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 7%, #ffffff 100%);
   /* IE10+ */
-
   background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 7%, #ffffff 100%);
   /* W3C */
-
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00ffffff', endColorstr='#ffffff', GradientType=1);
   /* IE6-9 */
-
 }
 .room-tariff-container .room-tariff-grid .tariff .packages .package-blocks {
   margin: 0 0 1em;
@@ -2350,4 +2323,107 @@ form .aj-imp-submit:hover {
   -ms-transition-duration: 0s;
   -o-transition-duration: 0s;
   transition-duration: 0s;
+}
+/* statstic visitor*/
+.statistics-visitor {
+  margin: 10px;
+  border: 1px solid #E9E9E9;
+  background: #f6f6f6;
+}
+.statistics-visitor .statistics-tod-visitor {
+  background: #fff;
+  padding: 20px;
+  min-height: 393px;
+}
+.statistics-visitor .statistics-tod-visitor h3 {
+  font-size: 2em;
+  text-align: center;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 2%;
+}
+.statistics-visitor .statistics-tod-visitor .today-visits {
+  font-size: 1.8em;
+  text-align: center;
+  color: #ff7e00;
+}
+.statistics-visitor .statistics-tod-visitor .today-visits span {
+  font-size: .9em;
+  font-weight: 300;
+  text-transform: uppercase;
+}
+.statistics-visitor .statistics-tod-visitor .today-visitor-details {
+  font-size: 0.9em;
+  width: 68%;
+  margin: 3% auto;
+  color: #000;
+}
+.statistics-visitor .statistics-tod-visitor .today-visitor-details .sm-txt {
+  display: block;
+  text-transform: uppercase;
+  color: #ccc;
+}
+.statistics-visitor .statistics-tod-visitor .today-visitor-details .per-data {
+  text-align: center;
+  line-height: 38px;
+}
+.statistics-visitor .statistics-tod-visitor .today-visitor-details .per-data .glyphicon-arrow-up {
+  color: #70d813;
+  margin-right: 3%;
+}
+.statistics-visitor .statistics-tod-visitor .today-visitor-details .glyphicon {
+  font-size: 1.2em;
+  color: #ccc;
+  margin-left: 5%;
+}
+.statistics-visitor .statistics-tod-visitor .total-visits {
+  font-size: 1.0em;
+  font-weight: 300;
+  text-align: center;
+  text-transform: uppercase;
+  color: #999;
+}
+.statistics-visitor .statistics-tod-visitor .total-visits b {
+  display: block;
+  font-size: 1.3em;
+  margin: 0.5em;
+}
+.statistics-visitor .statistics-tod-visitor .total-visits .col-md-3 {
+  border-left: 1px solid  #E9E8E8;
+}
+.statistics-visitor .statistics-tod-visitor .total-visits .col-md-3:first-child {
+  border-left: 0px ;
+}
+.statistics-visitor .weekly-list {
+  padding: 17px;
+}
+.statistics-visitor .weekly-list li {
+  padding: 15px;
+  color: #000;
+  border-bottom: 1px solid #E8E8E8;
+}
+.statistics-visitor .weekly-list li em {
+  font-style: normal;
+  width: 10%;
+  margin-right: 20%;
+  display: inline-block;
+}
+.statistics-visitor .weekly-list li b {
+  font-weight: 300;
+  float: right;
+  display: inline-block;
+  color: #B5B3B3;
+}
+.statistics-visitor .weekly-list li .glyphicon {
+  color: #ccc;
+}
+.statistics-visitor .weekly-list li .glyphicon-arrow-up {
+  color: #2ECC71;
+  margin-left: 3%;
+}
+.statistics-visitor .weekly-list li .glyphicon-arrow-down {
+  color: #ef8b79;
+  margin-left: 3%;
+}
+.statistics-visitor .weekly-list li:last-child {
+  border: 0px;
 }
