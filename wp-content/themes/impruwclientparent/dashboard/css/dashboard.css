@@ -2413,3 +2413,135 @@ form .aj-imp-submit:hover {
 .statistics-visitor .weekly-list li:last-child {
   border: 0px;
 }
+/*Room Booking Calender*/
+.room-booking {
+  background: #ccc;
+  margin: 0px;
+}
+.room-booking .room-booking-calender {
+  padding: 10px;
+}
+.room-booking .room-booking-calender h4 {
+  font-weight: 600;
+  font-size: 1.5em;
+  color: #fff;
+  text-transform: uppercase;
+  margin-bottom: 5%;
+}
+.room-booking .room-booking-calender h4 .glyphicon {
+  font-size: 1.5em;
+  color: #fff;
+  float: left;
+  margin-right: 1%;
+}
+.room-booking .room-booking-calender h4 .excerpt {
+  display: block;
+  font-size: 0.6em;
+  font-weight: 300;
+  text-transform: none;
+}
+.room-booking .room-booking-calender .hasDatepicker .ui-datepicker-inline {
+  width: auto !important;
+}
+.room-booking .room-booking-calender .hasDatepicker .ui-datepicker td {
+  border: 1px solid #ccc!important;
+  height: 42px!important;
+}
+.room-booking .room-booking-calender .hasDatepicker .ui-datepicker td a {
+  display: block;
+  border-radius: 0px;
+  height: 39px;
+  line-height: 40px;
+}
+.room-booking .room-booking-calender .date-range {
+  width: 14px;
+  height: 14px;
+  display: inline-block;
+  margin-right: 5px;
+}
+.room-booking .room-booking-calender .date-range1 {
+  background: #85e730;
+  width: 14px;
+  height: 14px;
+  display: inline-block;
+  margin-right: 5px;
+}
+.room-booking .room-booking-calender .date-range2 {
+  background: #ffcf09;
+  width: 14px;
+  height: 14px;
+  display: inline-block;
+  margin-right: 5px;
+}
+.room-booking .room-booking-calender .date-range3 {
+  background: #f73838;
+  width: 14px;
+  height: 14px;
+  display: inline-block;
+  margin-right: 5px;
+}
+.room-booking .room-booking-data {
+  background: #999;
+  padding-top: 1em;
+}
+.room-booking .room-booking-data .date-range {
+  font-size: 1.3em;
+  color: #fff;
+  margin-bottom: 10%;
+}
+.room-booking .room-booking-data .date-range b {
+  font-size: 1.5em;
+  display: block;
+  font-weight: 300;
+}
+.room-booking .room-booking-data .room-plans {
+  height: 390px;
+  overflow-y: scroll;
+  margin-bottom: 26px;
+}
+.room-booking .room-booking-data .room-booking-plan {
+  color: #fff;
+  border-bottom: 1px dashed #280E0E;
+  padding-bottom: 5%;
+  margin-bottom: 5%;
+}
+.room-booking .room-booking-data .room-booking-plan h5 {
+  font-weight: 600;
+  font-size: 1.5em;
+  color: rgba(40, 37, 37, 0.83);
+}
+.room-booking .room-booking-data .room-booking-plan p {
+  font-size: 0.9em;
+}
+.room-booking .room-booking-data .room-booking-plan .booking-detail {
+  width: 50%;
+  float: left;
+  font-size: 0.9em;
+  font-weight: 300;
+  color: #e5e5e5;
+}
+.room-booking .room-booking-data .room-booking-plan .booking-detail span {
+  font-weight: 800;
+  font-size: 1.8em;
+  display: block;
+}
+.room-booking .room-booking-data .room-booking-plan h6 {
+  font-weight: 600;
+  font-size: 1.0em;
+  text-transform: uppercase;
+  color: #fff;
+  margin-top: 5%;
+}
+.room-booking .room-booking-data .room-booking-plan .booking-price {
+  font-size: 0.8em;
+  font-weight: 100;
+  margin-top: 3%;
+}
+.room-booking .room-booking-data .room-booking-plan .booking-price b {
+  font-size: 2.0em;
+}
+@media (max-width: 767px) {
+  .room-booking .room-booking-data {
+    display: block;
+  }
+}

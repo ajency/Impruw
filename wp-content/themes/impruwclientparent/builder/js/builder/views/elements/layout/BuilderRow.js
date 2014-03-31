@@ -242,7 +242,7 @@ define(['builderelement', 'builderrowcolumn', 'global'],
                                         </div>');
 
                 if (this.get('editable')) {
-                    this.$el.append('<div class="aj-imp-col-sel tooltip fade top in">\
+                    this.$el.append('<div class="aj-imp-col-sel tooltip fade top">\
                                             <div class="tooltip-arrow"></div>\
                                             <div class="tooltip-inner">\
                                                 <label>Columns: </label>\
@@ -273,9 +273,9 @@ define(['builderelement', 'builderrowcolumn', 'global'],
 
                 var self = this;
 
-                var template = '<div class="aj-imp-col-divider">\
+                var template = '<div class="aj-imp-col-divider" style="display:none">\
                                         <p title="Move">\
-                                            <span class="icon-uniF140"></span>\
+                                            <span class="bicon icon-uniF140"></span>\
                                         </p>\
                                     </div>';
 

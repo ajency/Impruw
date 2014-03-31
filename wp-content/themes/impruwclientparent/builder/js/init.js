@@ -35,6 +35,10 @@ require.config({
         //routers
         builderrouter   : 'builder/routers/BuilderRouter',
 
+        rooms           : 'builder/models/Rooms',
+        roomsview       : 'builder/views/modals/roomsview',
+        addpage         : 'builder/views/modals/AddPageModal',        
+
         //elements
         builderelement  : 'builder/views/elements/BuilderElement',
         builderrow      : 'builder/views/elements/layout/BuilderRow',
@@ -51,17 +55,22 @@ require.config({
         addresselement  : 'builder/views/elements/AddressElement',
         contactformelement : 'builder/views/elements/ContactFormElement',
         mapelement      : 'builder/views/elements/MapElement',
+        galleryelement  : 'builder/views/elements/GalleryElement',
 
         roomtitle       : 'builder/views/elements/rooms/RoomTitle',
         roomdescription : 'builder/views/elements/rooms/RoomDescription',
         roomfacilities  : 'builder/views/elements/rooms/RoomFacilities',
         roomgallery     : 'builder/views/elements/rooms/RoomGallery',
         roomlistelement : 'builder/views/elements/rooms/RoomListElement',
+        roomtariff      : 'builder/views/elements/rooms/RoomTariff',
+        roomcarousel    : 'builder/views/elements/rooms/RoomCarousel',
 
         //menu
         menumanager     : 'builder/views/modals/MenuManager',
         menumodel       : 'builder/models/MenuModel',
         menucollection  : 'builder/collections/MenuCollection',
+
+        chooseroom      : 'builder/views/modals/ChooseRoomModal',
 
         //media 
         mediamanager    : 'builder/views/modals/media/MediaManager',
@@ -103,6 +112,7 @@ require.config({
             deps : ['jquery'],
             exports : 'Holder'
         },
+        nestable : ['jqueryui'],
         'cssFx' : {
             deps : ['jquery'],
             exports : 'cssFx'
@@ -157,10 +167,11 @@ function templatesUri(){
 window.editorMode       = 'layout';
 window.prevpopover      = null;
 window.prevmouseover    = null;
+window.fetchJSON        = false;
 
 //init the app
-require(['global','backbone', 'marionette',
-         'builderrouter'], function(global, Backbone, Marionette, Router) {
+require(['jquery','global','backbone', 'marionette',
+         'builderrouter'], function($,global, Backbone, Marionette, Router) {
 
         Backbone.emulateHTTP = true;
 
@@ -183,7 +194,7 @@ require(['global','backbone', 'marionette',
             // });
 
             getAppInstance().addInitializer(function(options){
-                new Router();
+                window.b = new Router();
                 Backbone.history.start();
             });
 

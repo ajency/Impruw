@@ -4,8 +4,8 @@
  */
 
 define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
-		'text!templates/siteprofile/AddRoomViewTpl.tpl','jqueryui','parsley','radio' ], 
-      function(_, $, Backbone, RoomModel, RoomCollection, AddRoomViewTpl,jqueryui) {
+		'text!templates/siteprofile/AddRoomViewTpl.tpl','jqueryui','parsley','radio', 'inputmask', 'rowlink' ], 
+      function(_, $, Backbone, RoomModel, RoomCollection, AddRoomViewTpl, jqueryui) {
 
 	var AddRoomView = Backbone.View.extend({
 
@@ -19,7 +19,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 			 	'click .delete'						: 'deleteFacility',
 			 	'click .edit'						: 'editFacility',
 			 	'click .cancel_editfacility'		: 'cancelEditFacility',
-			 	'click .savefacililty' 				: 'savefacility', 
+			 	'click .savefacililty' 				: 'saveFacility', 
 			 	
 			 	'click #btn_add_addon'				: 'add_addon',			 	
 			 	'click .delete-addonlink'			: 'deleteAddonType',
@@ -61,12 +61,15 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
                 'click .canceleditdaterange_lnk'	: 'cancelEditRange',
                 
                 'click .filepopup'					: 'showFilePopup',
-                'click .btn_deleteAttachment'		: 'deleteRoomAttachment'
+                'click .btn_deleteAttachment'		: 'deleteRoomAttachment',
+                	
+                'click #select_featuredimg'			: 'showFeaturedImgFilePopup',
+                'click .btn_del_featuredimg'		: 'deleteFeaturedImage' 
+                
 		}, 
 
 		initialize : function(args) {
-			//console.log('args')
-			//console.log(args)
+			 
 			
 			/* if(!_.isUndefined(args)){
 				this.model = args;
@@ -92,8 +95,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 		 * 
 		 */
 		renderTemplate:function(editRoomModel2){
-			console.log('render template')
-			console.log(editRoomModel2)
+			 
 			var template = _.template(AddRoomViewTpl);			 
 			var html = template({
 				roomdata : this.allFacilities,
@@ -131,6 +133,232 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 
  			// Now let's align datepicker with the prepend button
  			$(datepickerSelector).datepicker('widget').css({'margin-left': -$(datepickerSelector).prev('.btn').outerWidth()});
+
+
+ 			// Long Form Actions
+			$(".aj-imp-long-form-actions").affix({
+				offset: { top: 200 }
+			});
+
+			if( $(window).width()< 768){
+				$(".aj-imp-long-form-actions").affix({
+					offset: { top: function () {
+				        return (this.top = $('.aj-imp-left').outerHeight(true))
+				      } 
+				  	}					
+				});
+			}
+
+			// Long form dyanamic width
+			$(window).load(function() { 
+				var w = $('.aj-imp-right').width();
+				$('.aj-imp-long-form-actions.affix').width(w);
+
+				var m = $('.aj-imp-left').width();
+				$('.aj-imp-long-form-actions.affix').css('margin-left', (m));
+
+				if( $(window).width()< 768){
+					var w = $('window').width();
+					$('.aj-imp-long-form-actions.affix').width(w);
+
+					$('.aj-imp-long-form-actions.affix').css('margin-left', (0));
+				}
+			});
+			$(window).scroll(function() { 
+				var w = $('.aj-imp-right').width();
+				$('.aj-imp-long-form-actions.affix').width(w);
+
+				var m = $('.aj-imp-left').width();
+				$('.aj-imp-long-form-actions.affix').css('margin-left', (m));
+
+				if( $(window).width()< 768){
+					var w = $('window').width();
+					$('.aj-imp-long-form-actions.affix').width(w);
+
+					$('.aj-imp-long-form-actions.affix').css('margin-left', (0));
+				}
+			});
+			$(window).resize(function() { 
+				var w = $('.aj-imp-right').width();
+				$('.aj-imp-long-form-actions.affix').width(w);
+
+				var m = $('.aj-imp-left').width();
+				$('.aj-imp-long-form-actions.affix').css('margin-left', (m));
+
+				if( $(window).width()< 768){
+					var w = $('window').width();
+					$('.aj-imp-long-form-actions.affix').width(w);
+
+					$('.aj-imp-long-form-actions.affix').css('margin-left', (0));
+				}
+			});
+
+			/* js for dashboard --scroll indicators */
+			$.fn.justtext = function() {
+				   return $(this).clone()
+				           .children()
+				           .remove()
+				           .end()
+				           .text();
+			};
+			
+			// Global var to cache info about indicators for easy access. 
+			var indicators = [];
+			var rawIndicators = "";
+			var $articles = $(".scroll-indicator-container");
+			
+			// Create a bubble for each article
+			$articles.each(function(index, article){
+				var iInverse = $articles.length - index - 1;
+				var margins = 'margin: ' + (index+0.5) + 'em 0 ' + (iInverse+0.5) + 'em 0;'; 
+				var text = $(article).find(".scroll-ref").justtext();
+				rawIndicators +=  '<a class="indicator indicator--upcoming" style="' + margins + '" href="#' + article.id + '"><span class="indicator-tooltip">' + text + '</span></a>';
+			});
+
+
+			this.$el.append(rawIndicators);
+
+			  // Utility function to calculate the proper top coordinate for a bubble when it's on the move (position: absolute)
+			  var getNodeTopPos = function(indicator, target) {
+				var indMargTop = parseInt(indicator.css("margin-top").replace("px", ""));
+				var targCenter =  target.outerHeight(false)/2;
+				var indCenter = indicator.outerHeight(false)/2;
+				return target.offset().top - indMargTop + targCenter - indCenter;
+			  }
+
+
+			  // 
+			  // INITIAL SET UP OF INDICATOR OBJECT
+			  //
+
+			  var calcIndicatorInfo = function(){
+
+				indicators = []
+				$(".indicator").each(function(){
+				  
+				  var o = {
+					$indicator: $(this),
+					$target: $( $(this).attr("href") ),
+					$targetTitle: $( $(this).attr("href") + " .scroll-ref" )
+				  };
+
+				  // When it's abs positioned (on the move), this is the top pos
+				  o.absPos = getNodeTopPos(o.$indicator, o.$targetTitle); 
+
+				  // When it's abs positioned, at this scroll pos we should make the indicator fixed to the bottom
+				  o.absBottomStop = window.innerHeight - (o.absPos + o.$indicator.outerHeight(true));
+
+				  // Top / bottom stops for being 'viewable'
+				  o.viewableTopStop = o.$target.offset().top - window.innerHeight;
+				  o.viewableBottomStop = o.$target.offset().top + o.$target.outerHeight();
+				  indicators[indicators.length] = o;
+				  
+				});
+			  };
+
+			  //
+			  // ON RESIZE FUNCTION - UPDATE THE CACHED POSITON VALUES
+			  //
+
+			  var initIndicators = function() {
+				calcIndicatorInfo();
+				// Bug fix - without timeout scroll top reports 0, even when it scrolls down the page to last page loaded position
+				// http://stackoverflow.com/questions/16239520/chrome-remembers-scroll-position
+				setTimeout(function(){
+				  var st = $(document).scrollTop();
+				  _.each(indicators, function(p){
+					if(st<=p.absPos && st>=(-1*p.absBottomStop))
+					  p.$indicator.removeClass("indicator--upcoming").removeClass("indicator--passed").addClass("indicator--active")
+						  .css({ "top" : p.absPos });
+					else if(st>=(-1*p.absBottomStop)) 
+					  p.$indicator.removeClass("indicator--active").removeClass("indicator--upcoming").addClass("indicator--passed").css({ "top" : "" });
+					else
+					  p.$indicator.removeClass("indicator--active").removeClass("indicator--passed").addClass("indicator--upcoming").css({ "top" : "" });
+					
+					if(st>=p.viewableTopStop && st<=(p.viewableBottomStop))
+					  p.$indicator.addClass("indicator--viewing");
+					else
+					  p.$indicator.removeClass("indicator--viewing");
+				  });
+				}, 0);
+			  }
+
+			  //
+			  // SCROLL FUNCTION - UPDATE ALL OF THE INDICATORS
+			  //
+
+			  var adjustIndicators = function() {
+				var st = $(document).scrollTop();
+
+				// The indicators that SHOULD be scrolling
+				var anticipated = _.filter(indicators, function(o) { return (st<=o.absPos && st>=(-1*o.absBottomStop)) });
+
+				// The $ elements that are indeed scrolling
+				var active$ = $(".indicator--active");
+
+				// Anything in anticipated that isn't in active should be activated ...
+				var needsActivation = _.filter(anticipated, function(o) { return !_.contains(active$, o.$indicator[0]); })
+
+				// ... And anything thats in active that isn't in anticipated needs to be stopped. 
+				var anticipatedEls = _.pluck(anticipated, "$indicator");
+				var needsDeactivation = _.filter(active$, function(o) { 
+				  return !_.find(anticipatedEls, function(e){ return e[0] == o }); 
+				});
+
+				// Do the Activation
+				_.each(needsActivation, function(o) {
+				  o.$indicator
+					.removeClass("indicator--upcoming").removeClass("indicator--passed")
+					.addClass("indicator--active")
+					.css({ "top" : o.absPos })
+				});
+
+				_.each(needsDeactivation, function(i$){
+				  var indicator = _.find(indicators, function(i) {
+					return i.$indicator[0] == i$;
+				  });
+				  if(st>=indicator.absPos) {
+					// Went off top. now passed. 
+					indicator.$indicator.removeClass("indicator--active").addClass("indicator--passed").css({ "top" : "" });
+				  }
+				  else {
+					// Went off bottom. now upcoming. 
+					indicator.$indicator.removeClass("indicator--active").addClass("indicator--upcoming").css({ "top" : "" });
+				  }
+				});
+
+				$(indicators).each(function(){
+				  if(st>=this.viewableTopStop && st<=(this.viewableBottomStop))
+					this.$indicator.addClass("indicator--viewing");
+				  else
+					this.$indicator.removeClass("indicator--viewing");
+				});
+
+			  }
+
+			  //
+			  // BIND EVENTS
+			  //
+
+			  $(document).scroll(function() {
+				adjustIndicators();
+			  });
+			  $(window).resize(function() {
+				initIndicators();
+				adjustIndicators();
+			  });
+			  
+			  initIndicators();
+			  adjustIndicators();
+			  
+			  $(".indicator").click(function(e){
+			  	e.preventDefault();
+			  	$('html, body').animate({
+			        scrollTop: $($(e.target).attr('href')).offset().top - 110
+			    }, 1000);
+				initIndicators();
+				adjustIndicators();
+			  })
  		
 				 	
 			return this;
@@ -156,8 +384,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 						 
 						 	self_.allFacilities  = response.data;
 							if(!_.isUndefined(editRoomModel1))
-							{   console.log('self_.renderTemplate')
-								console.log(editRoomModel1)
+							{    
 								self_.renderTemplate(editRoomModel1);
 							}
 							else
@@ -199,12 +426,12 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
                var roomcategory 		= $("#roomcategory").val();
                var roomnos 				= $("#roomnos").val();
                var roomdescription 		= $("#roomdescription").val();
-               var checkinformat 		= $('input[type="radio"][name="checkin_format"]:checked').val()
+               var checkinformat 		= $('input[type="radio"][name="checkin_format"]:checked').val();
                var checkintime        	= $("#checkin_time").val();
                var additionalpolicies 	= $("#additional_policies").val();
-               var tax_option 			= $('input[type="radio"][name="tax_option1"]:checked').val() 
+               var tax_option 			= $('input[type="radio"][name="tax_option1"]:checked').val() ;
                var room_attachments 	= $('#hdn_roomattachments').val();
-               
+               var roomFeaturedImg 		= $('#hdn_roomfeaturedimg').val();
                var facilityValues = new Array();
 					  
                //Read checked facillities
@@ -230,8 +457,8 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 					  	 	'additionalpolicies': additionalpolicies,
 					  	 	'tax_option'		: tax_option,
 					  	 	'room_attachments'	: room_attachments,
+					  	 	'roomfeaturedimg'	: roomFeaturedImg,
 					  	 	'plantariffids'		: plantariffids
-					  	 	
 					  	 	
 					};
 			  
@@ -252,6 +479,13 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 			 			
 		},
 		
+		
+		/**
+		 * Function to add room modal to collection
+		 * @param room
+		 * @param self
+		 * @param evnt
+		 */
 		addRoomModeltoCollection : function(room,self,evnt) {
 			 	
 			self.$el.find('.has-error').removeClass('has-error')
@@ -266,11 +500,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 			}
 		},
 		
-		
-		
-		
-		
-		/**
+		 /**
 		 * Function to update room
 		 * @param evt
 		 */
@@ -295,6 +525,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
                var additionalpolicies 	= $("#additional_policies").val();
                var tax_option 			= $('input[type="radio"][name="tax_option1"]:checked').val() 
                var room_attachments 	= $('#hdn_roomattachments').val();
+               var roomFeaturedImg 		= $('#hdn_roomfeaturedimg').val();
                var roomId 				= $('#hdn_roomId').val();
                var facilityValues = new Array();
 					  
@@ -318,22 +549,19 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 				  	 	'additionalpolicies': additionalpolicies,
 				  	 	'tax_option'		: tax_option,
 				  	 	'room_attachments'	: room_attachments,
+				  	 	'roomfeaturedimg'	: roomFeaturedImg,
 				  	 	'plantariffids'		: plantariffids,
 				  	 	'roomid'			: roomId
 				  	 	
 				  	 	
 				};
-               
-               
-               
+                
                room = getAppInstance().roomCollection.get(roomId)
                
                
               // var room = new RoomModel(data);
 			  
-			  
-              
-			  
+			 	  
 			  room.updateRoomData(data, {
 					event : evt,
 					_self:self,
@@ -351,9 +579,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 			 			
 		},
 		
-	 
-		
-		
+	  	
 		
 		
 		/**
@@ -456,8 +682,16 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 			 
 			
 			 var addTaxModal = _.bind(function(_, AddTaxModal) {
-
-                    var addTax = this.popupViewManager.findByCustom("add-tax-popup");
+				    
+				 
+				 if(this.isEventListenedTo('new-tax-added')){
+					 
+					ImpruwDashboard.vent.trigger('modal-closed'); //stop listening to any previous  add tax events
+				 }
+					 
+				 	
+                    
+				 	var addTax = this.popupViewManager.findByCustom("add-tax-popup");
 
                     //ensure Menu manager is created just once
                     if (_.isUndefined(addTax)){
@@ -466,7 +700,8 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
                     }
 
                     //start listening event
-                    this.listenTo(ImpruwDashboard.vent, 'new-tax-added', this.newTaxAdded);
+                    this.listenToOnce(ImpruwDashboard.vent, 'new-tax-added', this.newTaxAdded);
+                    
 
                     //modal hide event
                     this.listenTo(ImpruwDashboard.vent, 'modal-closed', this.stopListeningEvents);
@@ -481,17 +716,20 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 		
 		/*functino triggered when new tax is saved */
 		newTaxAdded:function(response,evt_){
+			ImpruwDashboard.vent.trigger('modal-closed');
+			//this.stopListening(ImpruwDashboard.vent, 'new-tax-added');
 			 
 			self_ = this ;
 			response.model = true
-			 
+			
 		 	 
 			if(response.code=='OK'){
 				
 			
 				if($('#tax_list').hasClass('hidden'))
 					$('#tax_list').removeClass('hidden')
-		 		
+					$("#tax_list").find('.no-data').remove();
+					
 					$("#tax_list").append(''+
 							'<tbody id="blocktaxtype-'+response.taxData.id+'">'+
 							'<td id="block_edittaxtype-'+response.taxData.id+'">'+
@@ -523,16 +761,23 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 							
 							'</td>'+
 							'<td>'+
-							'	<a href="javascript:void(0)" class="edit-link edit-taxlink" taxtype-id="'+response.taxData.id+'"  > <span class="glyphicon glyphicon-pencil"></span> Edit</a>'+
+							'	<a href="javascript:void(0)" class="edit-link edit-taxlink" taxtype-id="'+response.taxData.id+'"  > '+
+							'		<span class="glyphicon glyphicon-pencil"  taxtype-id="'+response.taxData.id+'" ></span> Edit</a>'+
 							'	<a href="javascript:void(0)" class="edit-link cancel-taxlink hidden" taxtype-id="'+response.taxData.id+'" >'+
-							'		<span class="glyphicon glyphicon-ban-circle"></span> Cancel</a>'+
-							'	<a href="javascript:void(0)" class="delete-link delete-taxlink" taxtype-id="'+response.taxData.id+'"><span class="glyphicon glyphicon-trash"></span> Delete</a>'+
+							'		<span class="glyphicon glyphicon-ban-circle"  taxtype-id="'+response.taxData.id+'" ></span> Cancel</a>'+
+							'	<a href="javascript:void(0)" class="delete-link delete-taxlink" taxtype-id="'+response.taxData.id+'">'+
+							'		<span class="glyphicon glyphicon-trash"  taxtype-id="'+response.taxData.id+'" ></span> Delete</a>'+
 							'</td>'+
 					'</tbody>');
 				
 				/*self_.$el.find('input[type="checkbox"]').checkbox();*/
 			 	/*self_.$el.find('#new_facilityname').val("");*/
 				 self_.saveSuccess(response,evt_,self_); 
+				 
+				 var addTax = this.popupViewManager.findByCustom("add-tax-popup");
+				 setTimeout(function(){
+					 addTax.hide();
+				   }, 2100);
 			}
 			else{
 				 self_.saveFailure(response,evt_,self_);  
@@ -554,6 +799,18 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 			 
 			 var addPlanModal = _.bind(function(_, AddPlanModal) {
 
+				 
+				 	if(this.isEventListenedTo('new-plan-added')){
+				 		 
+						ImpruwDashboard.vent.trigger('add-plan-closed'); //stop listening to any previous  add tax events
+				 	}
+				 	
+				 	if(this.isEventListenedTo('plan-updatesaved')){
+				 		 
+						ImpruwDashboard.vent.trigger('edit-plan-closed'); //stop listening to any previous  add tax events
+				 	}
+				  	 
+				 	
                     var addPlan = this.popupViewManager.findByCustom("add-plan-popup");
 
                   //ensure plan-popup is created just once
@@ -565,7 +822,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
                     if(_.isUndefined(plandetails)){
                     	
                      	 //start listening event
-                        this.listenTo(ImpruwDashboard.vent, 'new-plan-added', this.newPlanAdded);
+                        this.listenToOnce(ImpruwDashboard.vent, 'new-plan-added', this.newPlanAdded);
                         //modal hide event
                         this.listenTo(ImpruwDashboard.vent, 'add-plan-closed', this.stopListeningEvents);
                         addPlan.open();
@@ -573,7 +830,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
                         
                     }
                     else{
-                    	this.listenTo(ImpruwDashboard.vent, 'plan-updatesaved', this.planUpdateSaved);
+                    	this.listenToOnce(ImpruwDashboard.vent, 'plan-updatesaved', this.planUpdateSaved);
                     	//modal hide event
                         this.listenTo(ImpruwDashboard.vent, 'edit-plan-closed', this.stopListeningEvents);
                         addPlan.open({plandata:plandetails});
@@ -610,10 +867,13 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 						'<td> -  ' +							
 						'</td>   ' +
 						'<td>    ' +						 
-						'<a href="javascript:void(0)" class="addtariff_link" planid="'+response.plandata.planid+'" ><span class="glyphicon glyphicon-plus"></span> Add tariff</a>'+
-						'<a href="javascript:void(0)" class="edit-link edittariff-link"  planid='+response.plandata.planid+'><span class="glyphicon glyphicon-pencil"></span> Edit Tariff</a>'+
+						'<a href="javascript:void(0)" class="editplan_link" planid="'+response.plandata.planid+'"    ><span class="glyphicon glyphicon-pencil"></span> Edit Plan</a>'+
+						'<a href="javascript:void(0)" class="addtariff_link" planid="'+response.plandata.planid+'"    ><span class="glyphicon glyphicon-plus"></span> Add Tariff</a>'+
+						'<a href="javascript:void(0)" class="edit-link edittariff-link  hidden"  planid="'+response.plandata.planid+'"   date-range-plan-tariffid=""  ><span class="glyphicon glyphicon-pencil"></span> Edit Tariff</a>'+
 					'</td>'+
 					'</tr>');
+				
+				
 				 
 			}
 			else{
@@ -726,7 +986,8 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 						else{
 							/*$(evt.target).html('Save');
 							$(evt.target).prop('disabled',false);
-							self_.saveFailure(response,evt_,self_);  */
+							 */
+							self_.saveFailure(response,evt_,self_);
 						} 
 				
 			 });
@@ -752,6 +1013,17 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 		 	
 			 var addTariffModal = _.bind(function(_, AddTariffModal) {
 
+				 	if(this.isEventListenedTo('new-tariff-added')){
+				 		 
+						ImpruwDashboard.vent.trigger('add-tariff-closed'); //stop listening to any previous  add tax events
+				 	}
+				 	
+				 	if(this.isEventListenedTo('tariff-updated')){
+				 		 
+						ImpruwDashboard.vent.trigger('edit-tariff-closed'); //stop listening to any previous  add tax events
+				 	}
+				 
+				 	 
                     var addTariff = this.popupViewManager.findByCustom("add-tariff-popup");
 
                     //ensure Menu manager is created just once
@@ -763,7 +1035,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
                     
                     if(_.isUndefined(dateplanTariff)){
                     	//start listening event
-                        this.listenTo(ImpruwDashboard.vent, 'new-tariff-added', this.newTariffAdded);
+                        this.listenToOnce(ImpruwDashboard.vent, 'new-tariff-added', this.newTariffAdded);
 
                         //modal hide event
                         this.listenTo(ImpruwDashboard.vent, 'add-tariff-closed', this.stopListeningEvents);
@@ -772,7 +1044,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
                     }
                     else{
                     	//start listening event
-                        this.listenTo(ImpruwDashboard.vent, 'tariff-updated', this.tariffupdated);
+                        this.listenToOnce(ImpruwDashboard.vent, 'tariff-updated', this.tariffupdated);
 
                         //modal hide event
                         this.listenTo(ImpruwDashboard.vent, 'edit-tariff-closed', this.stopListeningEvents);
@@ -811,7 +1083,8 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 				planRow.find('.block-plan-weekend-tariff').html('$ '+response.tariffdata.weekendtariff);
 				planRow.find('.block-plan-tariff-action').find('.edittariff-link')
 						.attr('date-range-plan-tariffid',response.tariffdata.daterangePlanTariffId).removeClass('hidden')
-						
+				
+				planRow.find('.block-plan-tariff-action').find('.addtariff_link').addClass('hidden')		
 				
 				var inputPlanTariffIds =  $('#hdn_plantariffids').val();
 				 
@@ -875,18 +1148,23 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 		showAddAddOnModal : function(evt){
 			 
 			 var addAddOnModal = _.bind(function(_, AddAddOnModal) {
-
+				 	 
+				 	
+				 	if(this.isEventListenedTo('new-add-on-added')){
+				 		ImpruwDashboard.vent.trigger('modal-closed'); //stop listening to any previous  add addon events
+				 	}
+				 	 
+				 
                     var addOn = this.popupViewManager.findByCustom("add-addon-popup");
 
                     //ensure Menu manager is created just once
                     if (_.isUndefined(addOn)){
-                        a.ddOn = new AddAddOnModal();
+                        addOn = new AddAddOnModal();
                         this.popupViewManager.add(addOn, "add-addon-popup");
                     }
 
                     //start listening event
-                    this.listenTo(ImpruwDashboard.vent, 'new-add-on-added', this.newAddOnAdded);
-
+                    this.listenToOnce(ImpruwDashboard.vent, 'new-add-on-added', this.newAddOnAdded);
                     //modal hide event
                     this.listenTo(ImpruwDashboard.vent, 'modal-closed', this.stopListeningEvents);
 
@@ -901,21 +1179,52 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 		
 		/* function lilstner view */ 
 		newAddOnAdded : function(response,evt_){
-			 			 
+			
+			ImpruwDashboard.vent.trigger('modal-closed');
+			
 			response.model = true
 			 
 			if(response.code=='OK'){
 				
 				if($('#addons_list').hasClass('hidden'))
 			 		$('#addons_list').removeClass('hidden')
-			 		
+			 	
+			    $("#addons_list").find('.no-data').remove();
+				
 			 	$("#addons_list").append(''+
 				 	'<tbody id="blockaddontype-'+response.addontype.id+'">'+
-					'<td id="block_editaddontype-'+response.addontype.id+'">'+response.addontype.label+'</td>'+
-					'<td id="block_editaddonprice-'+response.addontype.id+'" >'+response.addontype.price+'</td>'+
+					'<td id="block_editaddontype-'+response.addontype.id+'">'+
+			 		
+						'<span class="lbl_addon">'+response.addontype.label+'</span>'+
+						'<div class="form-group hidden"> '+ 
+				 			'<div class="">'+
+								'<input type="text" class="form-control" name="input_editaddontype-'+response.addontype.id+'" id="input_editaddontype-'+response.addontype.id+'"  '+
+									'placeholder="Scuba diving" required parsley-trigger="blur" parsley-validation-minlength="0" '+
+									'parsley-required-message = "Please enter addon type"    value="'+response.addontype.label+'"  /> '+
+									'<div class="p-messages"></div> '+
+							'</div> '+
+						'</div> '+
+				 	
+					
+					'</td>'+
+					'<td id="block_editaddonprice-'+response.addontype.id+'" >'+ 
+						'<span class="lbl_addon">'+response.addontype.price+'</span>'+
+						'<div class="form-group hidden"> '+
+							'<div class="">'+
+								'<input type="text" class="form-control"  name="input_editaddonprice-'+response.addontype.id+'"  id="input_editaddonprice-'+response.addontype.id+'" '+
+								'placeholder="12.99" required parsley-trigger="blur" parsley-validation-minlength="0"  '+
+								'parsley-required-message = "Please enter price"   value="'+response.addontype.price+'"   />  '+
+								'<div class="p-messages"></div> '+
+							'</div> '+
+						'</div>  '+
+					'</td>'+
 					'<td>'+
-						'<a href="javascript:void(0)" class="edit-link edit-addonlink" addontype-id="'+response.addontype.id+'"  > <span class="glyphicon glyphicon-pencil"></span> Edit</a>'+
-						'<a href="javascript:void(0)" class="delete-link delete-addonlink" addontype-id="'+response.addontype.id+'"><span class="glyphicon glyphicon-trash"></span> Delete</a>'+
+						'<a href="javascript:void(0)" class="edit-link edit-addonlink" addontype-id="'+response.addontype.id+'"  > '+
+							'<span class="glyphicon glyphicon-pencil"  addontype-id="'+response.addontype.id+'"></span> Edit</a>'+
+						'<a href="javascript:void(0)" class="edit-link cancel-addonlink hidden" addontype-id="'+response.addontype.id+'">'+
+						'	<span class="glyphicon glyphicon-ban-circle"  addontype-id="'+response.addontype.id+'"></span> Cancel</a>'+
+						'<a href="javascript:void(0)" class="delete-link delete-addonlink" addontype-id="'+response.addontype.id+'">'+
+							'<span class="glyphicon glyphicon-trash"  addontype-id="'+response.addontype.id+'"></span> Delete</a>'+
 					'</td>'+
 			 	'</tbody>');
 				
@@ -927,7 +1236,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 				 
 			}
 			else{ 
-				//console.log("erro new addon")
+				 
 				 this.saveFailure(response,evt_,this);  				
 			}
 			
@@ -941,8 +1250,15 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 		 * @param evt
 		 */
 		showAddDateRangeModal : function(evt){
+			
+			
+			if(this.isEventListenedTo('new-date-range-added')){
+				 
+				ImpruwDashboard.vent.trigger('modal-closed'); //stop listening to any previous  add daterange events
+		 	}
+			
 			 
-			 
+			
 			 var addDaterangeModal = _.bind(function(_, AddDateRangeModal) {
 
                     var dateRange = this.popupViewManager.findByCustom("add-daterange-popup");
@@ -954,7 +1270,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
                     }
 
                     //start listening event
-                    this.listenTo(ImpruwDashboard.vent, 'new-date-range-added', this.newDateRangeAdded);
+                    this.listenToOnce(ImpruwDashboard.vent, 'new-date-range-added', this.newDateRangeAdded);
 
                     //modal hide event
                     this.listenTo(ImpruwDashboard.vent, 'modal-closed', this.stopListeningEvents);
@@ -968,69 +1284,42 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 			
 		},
 		
-		
+		/**
+		 * Triggered when new date  range added.
+		 * appends new date range element to daterange list
+		 * @param response
+		 * @param evt_
+		 */
 		newDateRangeAdded : function(response,evt_){
 			response.model = true;
-			
+			 
 			if(response.code=='OK'){
-			 			 
-				 $('#tbl_daterangelist').append(''+
-				 '<tr>'+
-					'<td colspan="4" class="no-mar table-responsive">'+
+			 	
+				var dateRangePlanFn = _.bind(function(DaterangePlanTpl){
 					
-						'<table class="table table-vc" >'+
-							'<tbody data-link="row" class="rowlink">'+
-								'<tr>'+
-									'<td width="5%"><a href="#rowlink_'+response.daterange.id+'>" data-toggle="collapse"><span class="glyphicon glyphicon-chevron-down"></span></a></td>'+
-									'<td width="30%">'+
-										'<span class="label label-info">From:</span>'+response.daterange.from_date+'    <span class="label label-info">To:</span> '+ response.daterange.to_date+
-									'</td>'+
-									'<td width="35%">'+
-										'<span class="label label-info">Weekday:</span> from<strong> - </strong> <span class="label label-info">Weekend:</span> from<strong> - </strong>'+
-									'</td>'+
-									'<td width="30%" class="rowlink-skip">'+
-										'<a href="javascript:void(0)" class="edit-link editdaterange_lnk" daterange-id = "'+response.daterange.id+'"><span class="glyphicon glyphicon-pencil " ></span> Edit</a>'+
-										'<a href="javascript:void(0)" class="edit-link canceleditdaterange_lnk hidden"  daterange-id = "'+response.daterange.id+'"  ><span class="glyphicon glyphicon-ban-circle"></span>Cancel</a>'+
-										'<a href="javascript:void(0)" class="delete-link deletedaterange_lnk" daterange-id = "'+response.daterange.id+'"><span class="glyphicon glyphicon-trash " ></span> Delete</a>'+
-									'</td>'+
-								'</tr>'+
-								
-							'</tbody>'+
-						'</table>'+
-						'<div id="rowlink_'+response.daterange.id+'" class="inner collapse">'+
-							'<div class="form-table table-responsive">'+
-								'<table class="table table-bordered table-hover" id="planlist_'+response.daterange.id+'">'+
-									'<thead>'+
-										'<tr>'+
-											'<th>Plan Name</th>'+
-											'<th>Plan Description</th>'+
-											'<th>Weekday Tariff</th>'+
-											'<th>Weekend Tariff</th>'+
-											'<th>Actions</th>'+
-										'</tr>'+
-									'</thead>'+
-									
-									'<tbody data-link="row" class="rowlink">'+
-									 	'<tr>'+
-												'<td colspan="5">'+
-													 'No plans added yet'+
-												'</td>'+
-										'</tr>'+
-								  
-									'</tbody>'+
-								'</table>'+
-							'</div>'+
-							'<div class="add-text">'+
-								'Add Another Plan <button type="button" daterange-id = "'+response.daterange.id+'"  class="btn add-btn btn-sm btn_addplanmodal" data-toggle="modal" data-target="#add-plantype"><i class="glyphicon glyphicon-plus btn_addplanmodal"  daterange-id = "'+response.daterange.id+'"></i></button>'+
-							'</div>'+
-						'</div>'+
-					'</td>'+
-				'</tr>')
+					var html = _.template(DaterangePlanTpl, {daterange : response.daterange});
+					$('#tbl_daterangelist').find(".no-data").remove();
+					$('#tbl_daterangelist').append(html)
+					
+					//this.$el.find('tbody').append(html);
+				}, this);
 				
-				 response.popupmodel = true;
-				 this.saveSuccess(response,evt_,this);  
-				 var dateRange = this.popupViewManager.findByCustom("add-daterange-popup");
-				 setTimeout(function(){
+				require(['text!templates/siteprofile/DaterangePlansTpl.tpl'],dateRangePlanFn );
+			 	  
+				
+				
+				$('#rowlink'+response.daterange.id).collapse({
+	                toggle : true 
+	            });
+				
+				response.popupmodel = true;
+				
+				this.saveSuccess(response,evt_,this);  //show success message
+				
+				//hide daterange popup model
+				var dateRange = this.popupViewManager.findByCustom("add-daterange-popup");
+				
+				setTimeout(function(){     
 					 dateRange.hide();
 				   }, 2100);
 			}
@@ -1042,7 +1331,9 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 			
 		},
 		
-		
+		/**
+		 * Function to delete date range
+		 */
 		deleteDateRange : function(evt){
 			
 			var x;
@@ -1065,9 +1356,23 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 								response.inlineresultmsg = true;
 							 	response.daterangemsgspan = true;
 								this.saveSuccess(response,evt_,this); 
-								
 								//$(evt_.target).parent().parent().remove();
 								$(evt_.target).closest('.table-vc').closest('tr').remove();
+							 	 	
+								//if daterange-list table has only header row and no daterange is present in daterange list. add empty daterange row
+								if(self_.$el.find('#tbl_daterangelist tr').length ==1){
+									if(self_.$el.find('#tbl_daterangelist .no-data').length==0){
+										self_.$el.find('#tbl_daterangelist').append('<tr class="no-data">'+
+												'<td></td>'+
+												'<td>No Date Range Defined.</td>'+
+												'<td>No Date Range Defined.</td>'+
+												'<td>No Date Range Defined.</td>'+
+											'</tr>')
+									}
+								}
+								
+								
+								
 							}
 							else{
 								response.inlineresultmsg = true;
@@ -1084,9 +1389,12 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 			
 		},
 		
-		enableEditDateRange : function(evt){
-			// console.log($(evt.target).children().find('.editdaterange_lnktext').html())
 		
+		/**
+		 * Show edit input elements for selected daterange
+		 */
+		enableEditDateRange : function(evt){
+					
 			$(evt.target).html('<span class="glyphicon glyphicon-floppy-disk"></span>Save')
 			$(evt.target).removeClass('editdaterange_lnk').addClass('savedaterange_lnk');
 			$(evt.target).parent().parent().find('.canceleditdaterange_lnk').removeClass('hidden');
@@ -1095,7 +1403,9 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 			$(evt.target).parent().parent().find('.daterange_fromtxt').addClass('hidden');
 			$(evt.target).parent().parent().find('.daterange_totxt').addClass('hidden');
 			
-			$(evt.target).parent().parent().find('br').removeClass('hidden')
+			$(evt.target).parent().parent().find('br').removeClass('hidden');
+
+			$(evt.target).parent().parent().find('.daterange_tolabel').css('margin-right', '1.4em');
 
 			
 			/*$(evt.target).parent().parent().find('.daterange_fromlabel').addClass('hidden');
@@ -1173,7 +1483,9 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 			$(evt.target).parent().parent().find('.daterange_fromlabel').removeClass('hidden');
 			$(evt.target).parent().parent().find('.daterange_tolabel').removeClass('hidden');
  
-			$(evt.target).parent().parent().find('br').addClass('hidden')
+			$(evt.target).parent().parent().find('br').addClass('hidden');
+
+			$(evt.target).parent().parent().find('.daterange_tolabel').css('margin-right', '0');
 		},
 		
 		/**
@@ -1188,6 +1500,19 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 			this.stopListening(ImpruwDashboard.vent, 'new-tariff-added');
 		},
 		
+		/**
+		 * Function to check if listening to event
+		 * @param eventName
+		 * @returns
+		 */
+		isEventListenedTo: function(eventName) {
+			
+			if(_.isUndefined(ImpruwDashboard.vent._events))
+				return false
+				
+			if(!_.isUndefined(ImpruwDashboard.vent._events[eventName]))
+			  return !!ImpruwDashboard.vent._events[eventName];
+			},
 		
 		
 		
@@ -1239,9 +1564,17 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 		 * Function to delete addontype 
 		 */
 		deleteAddonType:function(evt){
+			  
 			
-			 $(evt.target).html('Deleting');
+			  $(evt.target).parent().html(function (i, old) {
+			     return old
+			         .replace('Delete', 'Deleting')								         
+			});	
 			 $(evt.target).prop('disabled',true);
+			  
+			
+			/* $(evt.target).html('Deleting');
+			 $(evt.target).prop('disabled',true);*/
 		 
 			var self_ = this;
 			
@@ -1263,6 +1596,19 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 							response.inlineresultmsg = true;
 							self_.saveSuccess(response,evt_,self_);  
 							self_.$el.find('#blockaddontype-'+addonTypeId).remove() 
+							
+							
+							//if addons-list table has only header row and no addons are present in addons list. add empty addon row
+							if(self_.$el.find('#addons_list tr').length ==1){
+								if(self_.$el.find('#addons_list .no-data').length==0){
+									self_.$el.find('#addons_list').append('<tr class="no-data">'+
+											'<td>No Add-ons Defined</td>'+
+											'<td>No Add-ons Defined</td>'+
+											'<td>No Add-ons Defined</td>'+
+										'</tr>')
+								}
+							}
+							
 						}
 						else{
 							$(evt_.target).prop('disabled',false);
@@ -1279,7 +1625,12 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 		
 		deleteTaxType : function(evt){
 			
-			$(evt.target).html('Deleting');
+			$(evt.target).parent().html(function (i, old) {
+			     return old
+			         .replace('Delete', 'Deleting')								         
+			});	
+			
+			//$(evt.target).html('Deleting');
 			$(evt.target).prop('disabled',true);
 		 
 			var self_ = this;
@@ -1300,6 +1651,18 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 							response.inlineresultmsg = true;
 							self_.saveSuccess(response,evt_,self_);
 							self_.$el.find('#blocktaxtype-'+taxTypeId).remove()  
+							
+							//if tax-list table has only header row and no taxexs are present in tax list. add empty tax row
+							if(self_.$el.find('#tax_list tr').length ==1){
+								if(self_.$el.find('#tax_list .no-data').length==0){
+									self_.$el.find('#tax_list').append('<tr class="no-data">'+
+											'<td>No Taxes Set</td>'+
+											'<td>No Taxes Set</td>'+
+											'<td>No Taxes Set</td>'+
+										'</tr>')
+								}
+							}
+							
 							  
 						}
 						else{
@@ -1460,7 +1823,6 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 	 		/*if (!this.$el.find('#form_add_addon').parsley('validate'))
 				  return;
 				 */
-			//console.log( $(evt.target).next().prop('tagName')) 
 			// $(evt.target).next().next().show()
 			 
 			this.parsleyInitialize(this.$el.find('#input_editaddontype-'+addonTypeId));	
@@ -1566,7 +1928,6 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 	 		/*if (!this.$el.find('#form_add_addon').parsley('validate'))
 				  return;
 				 */
-			//console.log( $(evt.target).next().prop('tagName')) 
 			// $(evt.target).next().next().show()
 			 
 			this.parsleyInitialize(this.$el.find('#input_edittaxtype-'+taxTypeId));	
@@ -1607,11 +1968,11 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 								taxtype_lbl_span.html(response.updatedtaxtype.name)
 								taxpercent_lbl_span.html(response.updatedtaxtype.percent)
 								 
-								 $(evt_.target).parent().find('.cancel-taxlink').addClass('hidden')
+								$(evt_.target).parent().find('.cancel-taxlink').addClass('hidden')
 								
 								$(evt_.target).html(function (i, old) {
-								     return old
-								         .replace('Save', 'Edit')
+								    return old
+								    .replace('Save', 'Edit')
 								         
 								});	
 								
@@ -1632,7 +1993,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 		/**
 		 * Function to save updated facility 
 		 */
-		savefacility : function(evt){
+		saveFacility : function(evt){
 			
 			 
 			var evt_ = evt;
@@ -1732,7 +2093,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 		 * @param evt
 		 */
 		saveTaxOption : function(evt){
-			
+			 
 			$(evt.target).prop('disabled',true);
 			
 			$(evt.target).html(function (i, old) {
@@ -1743,16 +2104,27 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 			
 			var evt_ = evt;
 			var self_ = this;
+			  
+			//var taxoptionVal 	= this.$el.find('input[name=tax_option1]:checked').val();
+			//$('input[type="radio"][name="tax_option1"]:checked').val() 
+			var taxoptionVal 	= '';
+			this.$el.find('input[name=tax_option1]').each(function(index,el){
+				var attr = $(el).attr('checked');
+
+				if (typeof attr !== 'undefined' && attr !== false) {
+					taxoptionVal =  $(el).val();
+				}
+			})
 			
 			var data = {	action		: 'update_taxoption',						 
-							taxoption 	: $(evt.target).parent().find('input[type="radio"][name="tax_option1"]:checked').val()
+							taxoption 	: taxoptionVal
 						};
-			//$('input[type="radio"][name="tax_option1"]:checked').val() 
+			
 			
 			$.post(	AJAXURL,
 			data,
 			function(response){ 
-				 
+				 response.inlineresultmsg = true;
 				 if(response.code=='OK'){
 				 	 
 					 
@@ -1761,7 +2133,22 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 					 $(evt_.target).parent().find('.taxoptiontext').removeClass('hidden')
 					 $(evt_.target).removeClass('save-taxoption').addClass('edit-taxoption');
 					 
-					 $(evt_.target).parent().find('.taxoptiontext').html(response.taxoption)
+					 if(response.taxoption.trim()==""){
+						 $(evt_.target).parent().find('.taxoptiontext').html('<p class="alert">Please select Tax option</p>')
+					 }
+					 else{
+						 if(response.taxoption.trim()=="With Tax"){
+						
+							 self_.$el.find('#div_addtax').removeClass('hidden');
+							 self_.$el.find('#div_taxlist').removeClass('hidden');	
+						 }
+						 else{
+							 self_.$el.find('#div_addtax').addClass('hidden');
+							 self_.$el.find('#div_taxlist').addClass('hidden');
+						 }
+						 $(evt_.target).parent().find('.taxoptiontext').html('<p><span class="icon icon-notice"></span> '+response.taxoption+'</p>')
+					 }
+					 
 					  
 					 $(evt_.target).prop('disabled',false);
 					 $(evt_.target).html(function (i, old) {
@@ -1780,7 +2167,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 						self_.saveFailure(response,evt_,self_);  
 				} 
 			
-			});	
+			}); 
 			
 		},
 		
@@ -1868,12 +2255,16 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 			var evt_ = evt;
 			var self_ = this;
 			
-			//var selCheckinFormat = $(evt.target).parent().parent().parent().find('input[type="radio"][name="checkin_format"]:checked').val();
-			
-			//var selCheckinFormat = $(evt.target).parent().parent().parent().find('input[name=checkin_format]:checked').val();
-			
-			var selCheckinFormat = $('input[type="radio"][name="checkin_format"]:checked').val();
-			
+			var selCheckinFormat = '';
+			this.$el.find('input[name="checkin_format"]').each(function(index,element){
+				
+				var attr = $(element).attr('checked');
+				if(!_.isUndefined(attr) && attr!==false ){
+					selCheckinFormat = $(element).val();
+				}
+			})
+			//console.log('check in format'+selCheckinFormat)			
+			//var selCheckinFormat = $('input[type="radio"][name="checkin_format"]:checked').val();
 			 
 			var data = {	action			: 'update_checkintime',						 
 							checkintime 	: $(evt.target).parent().find('#checkin_time').val(),
@@ -1895,8 +2286,21 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 					 $(evt_.target).parent().find('.checkintime_text').removeClass('hidden')
 					 $(evt_.target).removeClass('save-checkintime').addClass('edit-checkintime');
 					 
-					 $(evt_.target).parent().find('.checkintime_text').html(response.checkinTime)
-					 $(evt_.target).parent().parent().parent().find('.checkinformat_text').html(response.checkinformat+"-hour Format")
+					 if(response.checkinTime.trim()==""){
+						 $(evt_.target).parent().find('.checkintime_text').html('<p class="alert">Please enter checkin time.</p>')
+					 }
+					 else{
+						 $(evt_.target).parent().find('.checkintime_text').html('<p><span class="icon icon-watch2"></span> '+response.checkinTime+'</p>')
+					 }
+					 
+					 if(response.checkinformat.trim()==""){
+						 $(evt_.target).parent().parent().parent().find('.checkinformat_text').html('<p class="alert">Please select Check-in time format</p>')
+					 }
+					 else{
+						 $(evt_.target).parent().parent().parent().find('.checkinformat_text').html('<p><span class="icon icon-time2"></span> '+response.checkinformat+'-hour Format</p>')
+					 }
+					 
+					 
 					  
 					 $(evt_.target).prop('disabled',false);
 					 $(evt_.target).html(function (i, old) {
@@ -1976,7 +2380,13 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 					 $(evt_.target).parent().find('.addpoliciestext').removeClass('hidden')
 					 $(evt_.target).removeClass('save-additional-policies').addClass('edit-additional-policies');
 					 
-					 $(evt_.target).parent().find('.addpoliciestext').html(response.additionalPolicies)
+					 if(response.additionalPolicies.trim()==""){
+						 $(evt_.target).parent().find('.addpoliciestext').html('<p class="alert">Add additional policies if any.</p>') 
+					 }
+					 else{
+						 $(evt_.target).parent().find('.addpoliciestext').html(response.additionalPolicies.trim())
+					 }
+					 
 					  
 					 $(evt_.target).prop('disabled',false);
 					 $(evt_.target).html(function (i, old) {
@@ -2060,6 +2470,72 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 		},
 		
 		
+		 /** Open media manager
+		 * @param  {[type]} evt [description]
+		 * @return {[type]}     [description]
+		 */
+		showFeaturedImgFilePopup : function(evt){
+
+			var popupFn = _.bind(function(_, MediaManager) {
+
+                 var mediamanager = getAppInstance().ViewManager.findByCustom("media-manager");
+
+                 //if not present create new
+                 if (_.isUndefined(mediamanager)) {
+                     mediamanager = new MediaManager();
+                     ImpruwDashboard.ViewManager.add(mediamanager, "media-manager");
+                 }
+
+                 //start listening to event
+                 this.listenTo(getAppInstance().vent,'image-selected', this.roomFeaturedImgSelected);
+
+
+                 mediamanager.open();
+
+             }, this);
+
+            require(['underscore', 'mediamanager'], popupFn);
+			
+		},
+		
+		
+		/**
+		 * Function triggered when room attachment is selected
+		 * @param image
+		 * @param size
+		 */
+		roomFeaturedImgSelected : function(image, size){
+		   
+			//stop listening to image-selected event
+          //   this.stopListening(ImpruwDashboard.vent, 'image-selected', this.updateSelf);
+
+            if (!_.isObject(image))
+                throw 'Invalid <image> datatype. Must be an Object';
+
+            this.dataSource = {};
+
+            this.dataSource.attachmentID    = image.get('id');
+            this.dataSource.size            = size;
+            
+           // $("#cloneme").clone().prop({ id: "im-a-clone", name: "im-a-clone" }).appendTo(document.body);
+
+            var attachments =  $('#hdn_roomfeaturedimg').val()
+            
+            if(attachments.search(this.dataSource.attachmentID)<0){
+            	$('.room-featured-img').removeClass('hidden')
+            	 $('.room-featured-img').find('img').attr('src',image.get('sizes')[size].url) ;
+            	  
+            	 $('.room-featured-img').find('.btn_del_featuredimg').attr('attachment-id',image.get('id')) ;
+             
+            	  
+            	 $('#hdn_roomfeaturedimg').val(this.dataSource.attachmentID)
+            	  
+             } 
+			 
+		},
+		
+		
+		
 		
 		
 		
@@ -2092,9 +2568,13 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 			
 		},
 		 
-		
+		/**
+		 * Function triggered when room attachment is selected
+		 * @param image
+		 * @param size
+		 */
 		roomAttachmentSelected : function(image, size){
-		 	
+		  
 			//stop listening to image-selected event
             this.stopListening(ImpruwDashboard.vent, 'image-selected', this.updateSelf);
 
@@ -2145,6 +2625,15 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 		},
 		
 		
+		deleteFeaturedImage : function(evt){
+			
+			$('.room-featured-img').find('img').attr('src','');
+			$('.room-featured-img').addClass('hidden');
+			$('#hdn_roomfeaturedimg').val('');
+			
+		},
+		
+		
 		/**
 		 * Function to show message after success of save 
 		 * @param response
@@ -2153,7 +2642,6 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 		 */
 		saveSuccess : function(response,event,_self){
 			 
-			// console.log('save success message....  ')
 			if(!_.isUndefined($(event.target).next().get(0))) 
 				var next_element = $(event.target).next().get(0);
 			else
@@ -2167,9 +2655,9 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 			 
 			
 			if(!_.isUndefined(response.inlineresultmsg)){
-			//	console.log('.form-group // form message ')
+			 
 				if( (_.isUndefined(response.facilitymsgspan))  && (_.isUndefined(response.daterangemsgspan)) ){
-					//console.log('.form group msg')
+					 
 					if(_.isUndefined(response.checkintime )){ 
 						message_span = $(event.target).closest('.form-group').find('.status_message');
 					}
@@ -2179,24 +2667,23 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 					
 				}	
 				else{
-					//console.log('form message')
 					message_span = $(event.target).closest('form').find('.status_message')
 				}
 				 
 			}
 			else if(!_.isUndefined(response.popupmodel)){
-				//console.log('popup message1')
+				 
 				message_span = $(event.target).closest('.modal-content').find('.status_message');
 				 
 			}
 			
 			else{
-				//console.log('default message1')
+				 
 				message_span = _self.$el.find('#roomsave_status')
 				 
 				 
 			}
-			//console.log(message_span)
+		 
 			 message_span.removeClass('alert-error').addClass('alert-success');
 			_self.showAlertMessage(event,response,_self,message_span);			 
 			 
@@ -2223,22 +2710,22 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 			if(!_.isUndefined(response.inlineresultmsg)){
 				 
 				if( (_.isUndefined(response.facilitymsgspan))  && (_.isUndefined(response.daterangemsgspan)) ){ 
-					//console.log('.form group msg')
+					 
 						message_span = $(event.target).closest('.form-group').find('.status_message');
 					}	
 				else{
-					//console.log('form message')
+					 
 					message_span = $(event.target).closest('form').find('.status_message')
 				}
 				
 			}
 			else if(!_.isUndefined(response.popupmodel)){
-				//console.log('popup message1')
+				 
 				message_span = $(event.target).closest('.modal-content').find('.status_message') 
 				 
 			}
 			else{
-				//console.log('default message')
+				 
 				message_span = _self.$el.find('#roomsave_status');
 				 
 			}
@@ -2260,8 +2747,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 			
 			if(!_.isUndefined(response.inlineresultmsg)){
 				
-				//console.log('show inline msg')
-				
+				 
 				var $div2 = message_span;
 				$div2.html(response.msg)
 				$div2.removeClass('hidden');
@@ -2314,7 +2800,7 @@ define([ 'underscore', 'jquery', 'backbone','roommodel','roomcollection',
 				//_self.$el.find('#roomsave_status').removeClass('hidden');
 				/* Move to top at status message after success/failure */
 				 $('html, body').animate({
-			        scrollTop: _self.$el.find('#roomsave_status').offset().top
+			        scrollTop: _self.$el.find('#roomsave_status').offset().top - 110
 			    }, 1000);
 				 
 				 setTimeout(function(){		 

@@ -37,7 +37,7 @@ define(['sliderelement', 'tpl!builder/templates/elements/BasicElement.tpl', 'glo
                 } else {
                     this.setProperties(options.config);
                 }
-                this.generateMarkup({icon : '' , name : 'Room Gallery'});
+                this.generateMarkup({icon : 'uniF10C' , name : 'Room Gallery'});
                 this.setContextMenu();
             }
 

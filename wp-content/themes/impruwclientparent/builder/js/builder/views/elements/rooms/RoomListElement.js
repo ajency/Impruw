@@ -26,7 +26,8 @@
         'mouseleave': 'elementMouseLeave',
         'click > .aj-imp-delete-btn': 'destroyElement',
         'contextmenu': 'showContextMenu',
-        'click a': 'void'
+        'click a': 'void',
+        'click': 'showChooseRoomModal'
       };
 
       RoomElement.prototype.initialize = function(options) {
@@ -40,7 +41,7 @@
           this.setProperties(options.config);
         }
         this.generateMarkup({
-          icon: '',
+          icon: 'uniF166',
           name: 'Room Element'
         });
         this.setContextMenu();
@@ -65,8 +66,36 @@
           evt = {};
         }
         pcontent = $(evt.target).closest('.popover');
-        this.dataSource = parseInt($(pcontent).find('select[name="for-room"]').val());
-        return "dsdsds			dsadas			dsadassdasdasd			sadsa			commandsad			sadas";
+        return this.dataSource = parseInt($(pcontent).find('select[name="for-room"]').val());
+      };
+
+      RoomElement.prototype.showChooseRoomModal = function() {
+        return require(['underscore', 'chooseroom'], _.bind(function(_, ChooseRoom) {
+          var chooseroom;
+          chooseroom = getAppInstance().ViewManager.findByCustom("choose-room");
+          if (_.isUndefined(chooseroom)) {
+            chooseroom = new ChooseRoom();
+            getAppInstance().ViewManager.add(chooseroom, "choose-room");
+          }
+          this.listenTo(getAppInstance().vent, 'room-selected', this.updateSelf);
+          return chooseroom.open();
+        }, this));
+      };
+
+      RoomElement.prototype.updateSelf = function(room) {
+        var json, param, responseFn,
+          _this = this;
+        this.stopListening(getAppInstance().vent, 'room-selected', this.updateSelf);
+        this.dataSource = room.get('ID');
+        json = this.generateJSON();
+        responseFn = function(resp) {
+          return _this.$el.find('.content').html(resp.html);
+        };
+        param = {
+          action: 'get-element-markup',
+          json: json
+        };
+        return $.get(AJAXURL, param, responseFn, 'json');
       };
 
       return RoomElement;

@@ -56,6 +56,10 @@ class RoomGallery extends SliderElement {
 
         $this->data_source = array();
         $this->data_source['image-ids'] = $this->get_room_images();
+
+        $this->markup           = $this->get_gallery();
+
+
         
     }
 
@@ -69,5 +73,27 @@ class RoomGallery extends SliderElement {
 
         return $ids;
     }
+
+    /**
+     * [get_gallery description]
+     * @return [type] [description]
+     */
+    function get_gallery(){
+
+        //set filter
+        add_filter('wp_get_attachment_link', 'add_rel_attribute', 100, 6);
+
+        $ids = $this->data_source['image-ids'];
+
+        $html = do_shortcode("[gallery ids='$ids']");
+        //$html = do_shortcode('[gallery ids="96,92,93"]');
+
+        remove_filter('wp_get_attachment_link', 'add_rel_attribute', 100, 6);
+
+        return $html;
+    }
+
+
+
     
 }

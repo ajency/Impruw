@@ -20,7 +20,7 @@
     <h5>Image Details</h5>
     <div class="row imgdetails">
         <div class="col-sm-5 thumbnail">
-            <img src="<%= media.get('sizes').medium.url %>" class="img-responsive">
+            <img src="<%= media.get('sizes').medium ? media.get('sizes').medium.url : media.get('sizes').full.url %>" class="img-responsive">
         </div>
         <div class="col-sm-7 imginfo">
             <h6><%= media.get('title') %></h6>

@@ -38,7 +38,7 @@ define(['builderelement', 'tpl!builder/templates/elements/BasicElement.tpl', 'gl
                 } else {
                     this.setProperties(options.config);
                 }
-                this.generateMarkup({icon : 'icon', name : 'Social Element'});
+                this.generateMarkup({icon : 'uniF11A', name : 'Social Element'});
                 this.setContextMenu();
 
             },
