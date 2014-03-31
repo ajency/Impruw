@@ -2604,3 +2604,16 @@ form .aj-imp-submit:hover {
     display: block;
   }
 }
+/* room chart*/
+.room-chart {
+  background: #f6f6f6;
+  /* padding: 40px; */
+  margin-left: 0px;
+  width: 100%;
+}
+.room-chart canvas {
+  margin: auto;
+  display: block;
+  width: 900px;
+  height: 368px;
+}
