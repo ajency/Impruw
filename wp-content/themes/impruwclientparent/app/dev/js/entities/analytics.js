@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
 
 define(['app', 'backbone'], function(App, Backbone) {
   return App.module("Entities.Analytics", function(Analytics, App, Backbone, Marionette, $, _) {
-    var API;
+    var API, analyticsCollection;
     Analytics.AnalyticsModel = (function(_super) {
       __extends(AnalyticsModel, _super);
 
@@ -43,64 +43,19 @@ define(['app', 'backbone'], function(App, Backbone) {
       return AnalyticsCollection;
 
     })(Backbone.Collection);
+    analyticsCollection = new Analytics.AnalyticsCollection;
     API = {
-      createStoreCollection: function() {
-        var analyticsCollection;
-        analyticsCollection = new Analytics.AnalyticsCollection;
-        return App.request("set:collection", 'analyticscollection', analyticsCollection);
-      },
-      getAllAnalyticsCollection: function() {
-        var analyticsCollection;
-        analyticsCollection = App.request("get:collection", "analyticscollection");
-        return analyticsCollection;
-      },
-      getMissingDataForDateRange: function(startDate, endDate) {
-        var analyticsCollection, end, start;
-        analyticsCollection = App.request("get:collection", 'analyticscollection');
-        start = startDate;
-        while (!(start > endDate)) {
-          if (analyticsCollection.get(start)) {
-            start = start + 86400000;
-          } else {
-            end = start;
-            while (!(end > endDate)) {
-              if (!analyticsCollection.get(end)) {
-                end = end + 86400000;
-              } else {
-                end = end - 86400000;
-                break;
-              }
-            }
-            analyticsCollection = API.fetchAnalytics(start, end);
-            start = end + 86400000;
-          }
-        }
-        return analyticsCollection;
-      },
-      fetchAnalytics: function(start, end) {
-        var analyticsCollection;
-        analyticsCollection = App.request("get:collection", 'analyticscollection');
-        analyticsCollection.url = "" + AJAXURL + "?action=get_analytics_data";
+      getAnalyticsData: function(start, end) {
+        var params;
+        params = {
+          metrices: 'ga:visits,ga:newVisits,ga:visitBounceRate,ga:avgTimeOnSite,ga:uniquePageviews,ga:visitBounceRate,ga:pageviews,ga:pageviewsPerVisit',
+          start_date: start,
+          end_date: end,
+          ids: 81856773
+        };
         analyticsCollection.fetch({
-          reset: false,
-          remove: false,
-          add: true,
-          data: {
-            metrices: 'ga:visits,ga:visitBounceRate,ga:avgTimeOnSite,ga:uniquePageviews,ga:visitBounceRate,ga:avgTimeOnSite,ga:visitors,ga:newVisits,ga:pageviews,ga:pageviewsPerVisit,ga:bounces',
-            start_date: start,
-            end_date: end,
-            ids: 81856773
-          },
-          success: function() {
-            return setTimeout(function() {
-              console.log("fetched");
-              App.execute("refresh:chart");
-              return null;
-            }, 1000);
-          }
+          data: params
         });
-        analyticsCollection.comparator = 'date';
-        analyticsCollection.sort();
         return analyticsCollection;
       },
       getWeeklyData: function() {
@@ -121,20 +76,11 @@ define(['app', 'backbone'], function(App, Backbone) {
         return collection;
       }
     };
-    App.commands.setHandler("create:analytics:store", function() {
-      return API.createStoreCollection();
-    });
     App.reqres.setHandler("get:weekly:data", function() {
       return API.getWeeklyData();
     });
-    App.reqres.setHandler("fetch:analytics", function(startDate, endDate) {
-      return API.fetchAnalytics(startDate, endDate);
-    });
-    App.reqres.setHandler("get:all:analytics", function() {
-      return API.getAllAnalyticsCollection();
-    });
-    return App.reqres.setHandler("get:missing:data", function(startDate, endDate) {
-      return API.getMissingDataForDateRange(startDate, endDate);
+    return App.reqres.setHandler("get:site:analytics:data", function(start, end) {
+      return API.getAnalyticsData(start, end);
     });
   });
 });
