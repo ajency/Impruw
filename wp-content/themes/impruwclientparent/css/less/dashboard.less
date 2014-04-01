@@ -2437,9 +2437,9 @@ form {
 
 /* statstic visitor*/
 .statistics-visitor{
-	margin: 10px;
-	border:1px solid #E9E9E9;
-	background:#f6f6f6;
+	padding: 55px 50px;
+	border: 1px solid #E9E9E9;
+	background: #f6f6f6;
 	.statistics-tod-visitor{
 		background:#fff;
 		padding: 20px;
@@ -2462,7 +2462,7 @@ form {
 		}
 		.today-visitor-details{
 			font-size:0.9em;
-			width: 68%;
+			width: 84%;
 			margin: 3% auto;
 			color:#000;
 			.sm-txt{
@@ -2493,11 +2493,12 @@ form {
 			color: #999;
 			b{
 				display: block;
-				font-size: 1.3em;
+				font-size: 1em;
 				margin: 0.5em;
 			}
 			.col-md-3{
 				border-left:1px solid  #E9E8E8;
+				font-size: 0.9em;
 			}
 			.col-md-3:first-child{
 				border-left:0px ;
@@ -2505,15 +2506,18 @@ form {
 		}
 	}
 	.weekly-list{
-		padding:17px;
+		background: #F0F0F0;
+		min-height: 393px;
+		
 		li{
 			padding: 15px;
 			color:#000;
 			border-bottom: 1px solid #E8E8E8;
+			list-style:none;
 			em{
 				font-style: normal;
 				width: 10%;
-				margin-right: 20%;
+				margin-right: 10%;
 				display: inline-block;
 			}
 			b{
@@ -2534,11 +2538,10 @@ form {
 				margin-left: 3%;
 			}
 		}
-		li:last-child{
-			border:0px;
-		}
-	
+			
+		
 	}
+	
 }
 
 /*Room Booking Calender*/
@@ -2705,10 +2708,11 @@ form {
 			line-height: 22px;
 		}
 }
+.chart-datepicker{
+			padding: 4%;
+			margin: 0px;
 .select-type{
-		
-		
-			li{
+		li{
 				text-transform:uppercase;
 				padding: 6px 8px;
 			}
@@ -2722,6 +2726,11 @@ form {
 			}
 		
 	}
+}
+.chart-title{
+	padding:5%;
+	text-transform: uppercase;
+}
 .room-chart{
 	background: #f6f6f6;
 	/* padding: 40px; */
@@ -2788,6 +2797,14 @@ form {
 			}
 		}
 	}
+	@media (max-width: 969px) { 
+		h3{
+			font-size:1.8em;
+		}
+		.chart-data{
+			font-size: 0.8em;
+		}
+	}
 }
 
 /*Traffic Chart Region*/
@@ -2801,6 +2818,7 @@ form {
 			}
 			h4{
 				padding: 5%;
+				text-transform: uppercase;
 			}
 			.traffic-list{
 				text-align:center;

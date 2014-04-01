@@ -443,7 +443,7 @@ function get_room_summary_markup($element){
  * Generates the room summary markup
  *
  * @param type $element        	
- */
+ *
 function get_room_summary_markup($element){
         require_once PARENTTHEMEPATH. 'elements/room/RoomSummary.php';
          
@@ -452,7 +452,7 @@ function get_room_summary_markup($element){
 	$html = $room->get_markup ();
 	
 	return $html;
-}
+}*/
 /**
  * Generates the room tariff
  *

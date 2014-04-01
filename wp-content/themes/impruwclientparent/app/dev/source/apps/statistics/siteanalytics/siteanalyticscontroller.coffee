@@ -47,7 +47,7 @@ define ['app', 'controllers/base-controller','apps/statistics/siteanalytics/view
 
 			className : 'row'
 
-			template : '<div class="row"> 
+			template : '<div class="row chart-datepicker"> 
 							<div class="col-md-3">
 								<div class="left-inner-addon ">
 									<span class="glyphicon glyphicon-calendar"></span>
