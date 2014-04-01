@@ -10,9 +10,9 @@ define ['app'], (App)->
 			className : 'package-block-outer'
 
 			template : '<div class="block clearfix">
-							<h6>{{package_name}}</h6>
+							<h6>{{plan_name}}</h6>
 							<div class="package-desc">
-								{{package_description}}
+								{{plan_description}}
 							</div>
 						</div>'
 
@@ -20,7 +20,7 @@ define ['app'], (App)->
 				data = super()
 
 				data.packagedescription = ->
-					_(@package_description).prune(50)
+					_(@plan_description).prune(50)
 
 				data
 
@@ -96,10 +96,10 @@ define ['app'], (App)->
 				data = super()
 
 				data.startdate = ->
-					moment(new Date(@start_date)).format('DD/MMM')
+					moment(new Date(@from_date)).format('DD/MMM')
 
 				data.enddate = ->
-					moment(new Date(@end_date)).format('DD/MMM')
+					moment(new Date(@to_date)).format('DD/MMM')
 
 				data
 

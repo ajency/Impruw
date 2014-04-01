@@ -40,10 +40,9 @@ define(["app", 'backbone'], function(App, Backbone) {
 
     })(Backbone.Collection);
     dateRangeCollection = new DateRangeCollection;
+    dateRangeCollection.set(DATERANGE);
     API = {
       getDateRangeCollection: function() {
-        dateRangeCollection;
-        dateRangeCollection.fetch();
         return dateRangeCollection;
       },
       getDateRangeNameForDate: function(date) {

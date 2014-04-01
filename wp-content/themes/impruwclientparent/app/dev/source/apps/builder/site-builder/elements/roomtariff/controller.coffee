@@ -17,6 +17,8 @@ define ['app'
 											
 
 						super(options)
+
+				
 						
 					bindEvents:->
 						# start listening to model events

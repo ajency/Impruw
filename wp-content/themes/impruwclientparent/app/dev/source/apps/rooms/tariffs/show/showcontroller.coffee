@@ -7,7 +7,7 @@ define  ['app','controllers/base-controller', 'apps/rooms/tariffs/show/views'],(
 			initialize:(opt)->
 
 				pcollection = App.request "get:plans:collection"
-				dcollection = App.request "get:daterange:collection", id : 23232
+				dcollection = App.request "get:daterange:collection"
 				
 				@layout = @_getGridLayout()
 

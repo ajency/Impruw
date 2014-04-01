@@ -49,12 +49,27 @@
         var THEMEURL    = '<?php echo get_parent_template_directory_uri(); ?>';
         var SITEURL     = '<?php echo site_url(); ?>';
         var AJAXURL     = '<?php echo admin_url('admin-ajax.php'); ?>';
-       <?php /* var SITEDATA 	= <?php  $impruwSiteModel = new SiteModel(get_current_blog_id()); echo json_encode($impruwSiteModel->get_site_profile());  ?>; */ ?>
-        var USERDATA 	= <?php  $impruwUserModel =  new ImpruwUser(get_current_user_id()); echo json_encode($impruwUserModel->get_user_basic_info());  ?>;
+       	var USERDATA 	= <?php  $impruwUserModel =  new ImpruwUser(get_current_user_id()); echo json_encode($impruwUserModel->get_user_basic_info());  ?>;
         var SITEID 		= {'id':<?php echo get_current_blog_id(); ?>}
         var UPLOADURL 	= '<?php echo admin_url('async-upload.php'); ?>';
         var _WPNONCE 	= '<?php echo wp_create_nonce('media-form');?>'; 
         var APPSTATE 	= <?php echo impruw_app_model() ?>;
+
+		/************************* Bootstrap Data *************************/
+		<?php /*
+		var PLANS = <?php get_plans(); ?>
+		var DATERANGE = <?php get_daterange(); ?>
+		var FACILITIES = <?php get_facilities(); */?>
+		var DATERANGE = [{id:1, form_data : '1/1/2014', to_data : '3/31/2014', label : 'date range one' },
+		                 {id:2, form_data : '4/1/2014', to_data : '4/20/2014', label : 'date range two' },
+		                 {id:3, form_data : '4/21/2014', to_data : '6/31/2014', label : 'date range three' }];
+        
+		var PLANS = [{id: 1, plan_name : 'Plan Name 1', plan_description : 'Plan description 1' },
+		             {id: 2, plan_name : 'Plan Name 2', plan_description : 'Plan description 2' },
+		             {id: 3, plan_name : 'Plan Name 3', plan_description : 'Plan description 3' },
+		             {id: 4, plan_name : 'Plan Name 4', plan_description : 'Plan description 4' }];
+
+       	var  TARIFFS = [];
      </script>
 
     <?php if(ENV === 'production'): ?>

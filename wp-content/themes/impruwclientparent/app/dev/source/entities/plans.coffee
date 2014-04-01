@@ -4,7 +4,7 @@ define ["app", 'backbone'], (App, Backbone) ->
 	App.module "Entities.Plans", (Plans, App, Backbone, Marionette, $, _)->
 
 		# plan model
-		class Plans extends Backbone.Model
+		class Plan extends Backbone.Model
 
 			name : 'plan'
 
@@ -15,7 +15,7 @@ define ["app", 'backbone'], (App, Backbone) ->
 		# package collection
 		class PlanCollection extends Backbone.Collection
 
-			model : Plans
+			model : Plan
 
 			url : ->
 				"#{AJAXURL}?action=fetch-plans"
@@ -23,20 +23,17 @@ define ["app", 'backbone'], (App, Backbone) ->
 
 		# create  a package collection
 		planCollection = new PlanCollection
-
+		# set plans collection
+		planCollection.set PLANS
 
 		API = 
 			getPlansCollection:->
+				console.log planCollection
 				planCollection
-				planCollection.fetch()
-				planCollection
-
+				
 			createPlanModel:(data = {})->
-				
 				plan = new Plans data
-				
 				plan
-
 
 
 		App.reqres.setHandler "get:plans:collection", ->
