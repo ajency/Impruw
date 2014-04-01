@@ -2288,6 +2288,20 @@ form .aj-imp-submit:hover {
 #gallery-region {
   width: 70%;
   float: left;
+  height: 400px;
+  overflow-y: scroll;
+  overflow-x: auto;
+  border: 1px solid #f3f3f3;
+  margin: 1em 0;
+}
+#gallery-region .empty-info {
+  margin: 0 1em;
+  height: 370px;
+  line-height: 350px;
+  text-align: center;
+}
+#gallery-region .isotope {
+  width: 100% !important;
 }
 .gallery-info {
   width: 28%;
@@ -2328,22 +2342,26 @@ form .aj-imp-submit:hover {
 .isotope-item {
   z-index: 2;
   margin: 0.2em;
+  /*&.height-1 {
+  	height: 20%;
+  	width: auto;
+  }
+  &.height-2 {
+  	height: 40%;
+  	width: auto;
+  }*/
+
 }
 .isotope-item.width-1 {
-  width: 20%;
+  width: 200px;
   height: auto;
 }
 .isotope-item.width-2 {
-  width: 40%;
+  width: 200px;
   height: auto;
 }
-.isotope-item.height-1 {
-  height: 20%;
-  width: auto;
-}
-.isotope-item.height-2 {
-  height: 40%;
-  width: auto;
+.isotope-item .img-responsive {
+  width: 100%;
 }
 .isotope-hidden.isotope-item {
   pointer-events: none;
@@ -2384,7 +2402,7 @@ form .aj-imp-submit:hover {
 }
 /* statstic visitor*/
 .statistics-visitor {
-  margin: 10px;
+  padding: 55px 50px;
   border: 1px solid #E9E9E9;
   background: #f6f6f6;
 }
@@ -2411,7 +2429,7 @@ form .aj-imp-submit:hover {
 }
 .statistics-visitor .statistics-tod-visitor .today-visitor-details {
   font-size: 0.9em;
-  width: 68%;
+  width: 84%;
   margin: 3% auto;
   color: #000;
 }
@@ -2442,27 +2460,30 @@ form .aj-imp-submit:hover {
 }
 .statistics-visitor .statistics-tod-visitor .total-visits b {
   display: block;
-  font-size: 1.3em;
+  font-size: 1em;
   margin: 0.5em;
 }
 .statistics-visitor .statistics-tod-visitor .total-visits .col-md-3 {
   border-left: 1px solid  #E9E8E8;
+  font-size: 0.9em;
 }
 .statistics-visitor .statistics-tod-visitor .total-visits .col-md-3:first-child {
   border-left: 0px ;
 }
 .statistics-visitor .weekly-list {
-  padding: 17px;
+  background: #F0F0F0;
+  min-height: 393px;
 }
 .statistics-visitor .weekly-list li {
   padding: 15px;
   color: #000;
   border-bottom: 1px solid #E8E8E8;
+  list-style: none;
 }
 .statistics-visitor .weekly-list li em {
   font-style: normal;
   width: 10%;
-  margin-right: 20%;
+  margin-right: 10%;
   display: inline-block;
 }
 .statistics-visitor .weekly-list li b {
@@ -2481,9 +2502,6 @@ form .aj-imp-submit:hover {
 .statistics-visitor .weekly-list li .glyphicon-arrow-down {
   color: #ef8b79;
   margin-left: 3%;
-}
-.statistics-visitor .weekly-list li:last-child {
-  border: 0px;
 }
 /*Room Booking Calender*/
 .room-booking {
@@ -2632,6 +2650,44 @@ form .aj-imp-submit:hover {
   }
 }
 /* room chart*/
+.left-inner-addon {
+  margin-left: 5%;
+  margin-bottom: 3%;
+  position: relative;
+}
+.left-inner-addon span {
+  position: absolute;
+  padding: 10px 12px;
+  pointer-events: none;
+  color: #ccc;
+}
+.left-inner-addon input {
+  padding: 7px 30px;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border: 1px solid #ccc;
+  line-height: 22px;
+}
+.chart-datepicker {
+  padding: 4%;
+  margin: 0px;
+}
+.chart-datepicker .select-type li {
+  text-transform: uppercase;
+  padding: 6px 8px;
+}
+.chart-datepicker .select-type .active {
+  border-radius: 20px;
+  -moz-border-radius: 20px;
+  -webkit-border-radius: 20px;
+  color: #ff7e00;
+  border: 1px solid #ff7e00;
+}
+.chart-title {
+  padding: 5%;
+  text-transform: uppercase;
+}
 .room-chart {
   background: #f6f6f6;
   /* padding: 40px; */
@@ -2644,4 +2700,169 @@ form .aj-imp-submit:hover {
   display: block;
   width: 900px;
   height: 368px;
+}
+.room-chart .chart-data {
+  font-size: 1.2em;
+  padding: 30px 70px;
+  background: #f0f0f0;
+  margin: 0px;
+  color: #9ea7b3;
+  border-top: 1px solid #ccc;
+}
+.room-chart .chart-data h3 {
+  color: #8b9daa;
+}
+.room-chart .chart-data .col-md-3 {
+  border-left: 1px solid #E0E0E0;
+}
+.room-chart .chart-data .col-md-3:first-child {
+  border-left: 0px;
+}
+.room-chart .chart-legends {
+  padding: 22px 0px;
+}
+.room-chart .chart-legends ul li {
+  text-transform: uppercase;
+  padding: 6px 8px;
+}
+.room-chart .chart-legends ul li .new-visit {
+  border-radius: 100%;
+  -moz-border-radius: 100%;
+  -webkit-border-radius: 100%;
+  border: 2px solid #c77d28;
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  margin-right: 5px;
+}
+.room-chart .chart-legends ul li .unique-visit {
+  border-radius: 100%;
+  -moz-border-radius: 100%;
+  -webkit-border-radius: 100%;
+  border: 2px solid rgba(244, 135, 8, 0.74);
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  margin-right: 5px;
+}
+.room-chart .chart-legends ul .active {
+  border-radius: 20px;
+  -moz-border-radius: 20px;
+  -webkit-border-radius: 20px;
+  color: #ff7e00;
+  border: 1px solid #ff7e00;
+}
+@media (max-width: 969px) {
+  .room-chart h3 {
+    font-size: 1.8em;
+  }
+  .room-chart .chart-data {
+    font-size: 0.8em;
+  }
+}
+/*Traffic Chart Region*/
+#traffic-chart-region .row {
+  margin: 0px;
+}
+#traffic-chart-region .row .traffic-list-table {
+  background: #e5e9ec;
+  border-top: 1px solid #ced4d8;
+  padding: 5%;
+}
+#traffic-chart-region .row h4 {
+  padding: 5%;
+  text-transform: uppercase;
+}
+#traffic-chart-region .row .traffic-list {
+  text-align: center;
+}
+#traffic-chart-region .row .traffic-list th {
+  background: #fbfbfb;
+  height: 65px;
+  line-height: 25px;
+  color: #9A9797;
+  font-weight: 500;
+  text-transform: uppercase;
+  font-size: 0.8em;
+  text-align: center;
+}
+#traffic-chart-region .row .traffic-list td {
+  font-size: 0.8em;
+}
+#traffic-chart-region .row .traffic-list td a {
+  color: #37526b;
+}
+#traffic-chart-region .row .traffic-list td .glyphicon-arrow-down {
+  color: #fd5d5d;
+  margin-left: 2%;
+}
+#traffic-chart-region .row .traffic-list td .glyphicon-arrow-up {
+  color: #aada36;
+  margin-left: 2%;
+}
+#traffic-chart-region .row .traffic-list td .label {
+  padding: 6px;
+  font-size: 0.9em;
+}
+@media (max-width: 969px) {
+  #traffic-chart-region .row .traffic-list thead,
+  #traffic-chart-region .row .traffic-list tbody,
+  #traffic-chart-region .row .traffic-list th,
+  #traffic-chart-region .row .traffic-list td,
+  #traffic-chart-region .row .traffic-list tr {
+    display: block;
+  }
+  #traffic-chart-region .row .traffic-list thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+  #traffic-chart-region .row .traffic-list td {
+    /* Behave  like a "row" */
+  
+    border: none;
+    border-bottom: 1px solid #eee;
+    position: relative;
+    padding-left: 50%;
+    white-space: normal;
+    text-align: left;
+  }
+  #traffic-chart-region .row .traffic-list td .label {
+    position: absolute;
+    top: 5px;
+    left: 54px;
+  }
+  #traffic-chart-region .row .traffic-list td:before {
+    /* Now like a table header */
+  
+    position: absolute;
+    /* Top/left values mimic padding */
+  
+    top: 6px;
+    left: 6px;
+    width: 45%;
+    padding-right: 10px;
+    white-space: nowrap;
+    text-align: left;
+    font-weight: bold;
+  }
+  #traffic-chart-region .row .traffic-list td:before {
+    content: attr(data-title);
+  }
+}
+#traffic-chart-region .row .table-striped > tbody > tr:nth-child(odd) > td {
+  background: #f0f2f2;
+}
+/*Error-style-profile*/
+.aj-imp-dash-content .field-error {
+  color: #f21515;
+}
+.aj-imp-dash-content .control-label {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+}
+.aj-imp-dash-content input.field-error {
+  color: #f21515 !important;
+  border-bottom: 1px solid #f21515;
 }
