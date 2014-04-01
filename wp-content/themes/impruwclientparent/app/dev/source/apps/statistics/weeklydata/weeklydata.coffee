@@ -43,7 +43,7 @@ define ['app', 'controllers/base-controller','moment'], (App, AppController, mom
 		# create the composite view
 		class WeeklyDataView extends Marionette.CompositeView
 
-			template : '<h4>At a glance</h4>
+			template : '<h4 class="chart-title"> At a glance</h4>
 						<div class="row statistics-visitor">
 							<div class="col-md-7 statistics-tod-visitor">
 								<h3>Today Visits</h3>
@@ -53,20 +53,20 @@ define ['app', 'controllers/base-controller','moment'], (App, AppController, mom
 								<span>Visits</span>
 								</div>
 								<div class="row today-visitor-details">
-									<div class="col-md-3"><span class="sm-txt per-data"><span class="glyphicon glyphicon-arrow-up"></span>{{ga:visitBounceRate}}</span></div>
-									<div class="col-md-4">{{ga:pageviews}} <span class="glyphicon glyphicon-file"></span> <span class="sm-txt">pageviews</span></div>
-									<div class="col-md-5">{{ga:avgTimeOnSite}}<span class="glyphicon glyphicon-time"></span><i class="fa fa-clock-o"></i> <span class="sm-txt">Avg visit duration</span></div>
+									<div class="col-md-3 col-xs-3"><span class="sm-txt per-data"><span class="glyphicon glyphicon-arrow-up"></span>{{ga:visitBounceRate}}</span></div>
+									<div class="col-md-4 col-xs-4">{{ga:pageviews}} <span class="glyphicon glyphicon-file"></span> <span class="sm-txt">pageviews</span></div>
+									<div class="col-md-5 col-xs-5">{{ga:avgTimeOnSite}}<span class="glyphicon glyphicon-time"></span><i class="fa fa-clock-o"></i> <span class="sm-txt">Avg visit duration</span></div>
 								</div>
 								<hr>
 								<div class="row total-visits">
-									<div class="col-md-3">Unique pageviews <b>{{ga:uniquePageviews}}</b></div>
-									<div class="col-md-3">New visits <b>{{ga:newVisits}}</b></div>
-									<div class="col-md-3">Page views per visit <b>{{ga:pageviewsPerVisit}}</b></div>
-									<div class="col-md-3">Visit Bounce rate <b>{{ga:visitBounceRate}}</b></div>
+									<div class="col-md-3 col-xs-3">Unique <br>pageviews <b>{{ga:uniquePageviews}}</b></div>
+									<div class="col-md-3 col-xs-3">New <br>visits <b>{{ga:newVisits}}</b></div>
+									<div class="col-md-3 col-xs-3">Page views<br> per visit <b>{{ga:pageviewsPerVisit}}</b></div>
+									<div class="col-md-3 col-xs-3">Visit Bounce <br>rate <b>{{ga:visitBounceRate}}</b></div>
 								</div>
 							</div>
-							<div class="col-md-5">
-								<ul class="list-unstyled weekly-list">
+							<div class="col-md-5 weekly-list">
+								<ul class="list-unstyled">
 								</ul>
 							</div>
 						</div>'
