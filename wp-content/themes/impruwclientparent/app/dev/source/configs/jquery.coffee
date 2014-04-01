@@ -21,6 +21,19 @@ define ['jquery', 'underscore','jqueryvalidate'], ($, _)->
 		errorElement : 'div'
 		errorClass : 'field-error'
 		validClass : 'field-valid'
+
+
+	# scroll to top
+	$.scrollTop = ->
+		$('html, body').animate
+					scrollTop: 0
+				,1000
+
+	$.scrollTo =(ele)->
+		$ele = $(ele)
+		$('html, body').animate
+					scrollTop: $ele.offset().top
+				,1000
 		
 
 	# adjust the dimesion of upper content and also the left section and right section
