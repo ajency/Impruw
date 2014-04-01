@@ -2772,3 +2772,84 @@ form {
 		}
 	}
 }
+
+/*Traffic Chart Region*/
+#traffic-chart-region{
+		.row{
+			margin:0px;
+			.traffic-list-table{
+				background:#e5e9ec;
+				border-top:1px solid #ced4d8;
+				padding: 5%;
+			}
+			h4{
+				padding: 5%;
+			}
+			.traffic-list{
+				text-align:center;
+				th{
+					background: #fbfbfb;
+					height: 65px;
+					line-height: 25px;
+					color: #9A9797;
+					font-weight: 500;
+					text-transform: uppercase;
+					font-size: 0.8em;
+					text-align: center;
+				}
+				td{
+					font-size:0.8em;
+					a{
+						color:#37526b;
+					}
+					.glyphicon-arrow-down{
+						color:#fd5d5d;
+						margin-left:2%;
+					}
+					.glyphicon-arrow-up{
+						color:#aada36;
+						margin-left:2%;
+					}
+					.label{
+						padding: 6px;
+						font-size: 0.9em;
+					}
+				}
+					@media (max-width: 767px) { 
+						thead, tbody, th, td, tr { 
+							display: block; 
+						}
+						 thead tr { 
+							position: absolute;
+							top: -9999px;
+							left: -9999px;
+						}
+						td { 
+							/* Behave  like a "row" */
+							border: none;
+							border-bottom: 1px solid #eee; 
+							position: relative;
+							padding-left: 50%; 
+							white-space: normal;
+							text-align:left;
+						}
+						td:before { 
+							/* Now like a table header */
+							position: absolute;
+							/* Top/left values mimic padding */
+							top: 6px;
+							left: 6px;
+							width: 45%; 
+							padding-right: 10px; 
+							white-space: nowrap;
+							text-align:left;
+							font-weight: bold;
+						}
+						 td:before { content: attr(data-title); }
+					}
+			}
+			.table-striped > tbody > tr:nth-child(odd) > td{
+				background: #f0f2f2;
+				}
+		}
+}
