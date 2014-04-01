@@ -25,7 +25,12 @@ define ['app','controllers/base-controller'], (App, AppController)->
 		class SingleGalleryItem extends Marionette.ItemView
 			tagName : 'li'
 			className : 'isotope-element'
-			template : '<img src="{{thumb_url}}" class=""/>'
+			template : '<img src="{{thumb_url}}" class="img-responsive"/>'
+
+			onRender:->
+				randomW = if Math.random() * 50  > 25 then 1 else 2
+				randomH = if Math.random() * 50  > 25 then 1 else 2
+				@$el.addClass "width-#{randomW} height-#{randomH}"
 
 
 		class NoGalleryItem extends Marionette.ItemView

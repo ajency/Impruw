@@ -11,9 +11,9 @@ define(['app'], function(App) {
         return OverviewChartView.__super__.constructor.apply(this, arguments);
       }
 
-      OverviewChartView.prototype.className = 'row';
+      OverviewChartView.prototype.className = 'row room-chart';
 
-      OverviewChartView.prototype.template = '<canvas id="overview-chart" height="400" width="700"></canvas>';
+      OverviewChartView.prototype.template = '<canvas id="overview-chart" height="400" width="700"></canvas><br><br><br>';
 
       OverviewChartView.prototype.onShow = function() {
         var chart, ctx, data;
@@ -31,15 +31,15 @@ define(['app'], function(App) {
           labels: ["January", "February", "March", "April", "May", "June", "July"],
           datasets: [
             {
-              fillColor: "rgba(220,220,220,0.5)",
-              strokeColor: "rgba(220,220,220,1)",
-              pointColor: "rgba(220,220,220,1)",
+              fillColor: "#c77d28",
+              strokeColor: "#c77d28",
+              pointColor: "#c77d28",
               pointStrokeColor: "#fff",
               data: [65, 59, 90, 81, 56, 55, 40]
             }, {
-              fillColor: "rgba(151,187,205,0.5)",
-              strokeColor: "rgba(151,187,205,1)",
-              pointColor: "rgba(151,187,205,1)",
+              fillColor: "rgba(244, 135, 8, 0.74)",
+              strokeColor: "rgba(244, 135, 8, 0.74)",
+              pointColor: "rgba(244, 135, 8, 0.74)",
               pointStrokeColor: "#fff",
               data: [28, 48, 40, 19, 96, 27, 100]
             }
