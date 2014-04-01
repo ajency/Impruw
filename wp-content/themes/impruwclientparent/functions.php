@@ -304,6 +304,9 @@ function add_element_markup($element) {
                 case 'RoomSummary' :
                         $html = get_room_summary_markup( $element );
                         break;
+                case 'RoomTariff' :
+                            $html = get_room_tariff_markup( $element );
+                            break;
 		default :
 			break;
 	}
@@ -422,7 +425,11 @@ function get_room_list_markup($element) {
 	
 	return $html;
 }
-
+/**
+ * Generates the room summary markup
+ *
+ * @param type $element        	
+ */
 function get_room_summary_markup($element){
         require_once PARENTTHEMEPATH. 'elements/room/RoomSummary.php';
          
@@ -432,16 +439,29 @@ function get_room_summary_markup($element){
 	
 	return $html;
 }
-
 /**
- * Generates the room facilities
+ * Generates the room summary markup
  *
  * @param type $element        	
  */
-function get_room_facilities_markup($element) {
-	require_once PARENTTHEMEPATH . 'elements/room/RoomFacilities.php';
+function get_room_summary_markup($element){
+        require_once PARENTTHEMEPATH. 'elements/room/RoomSummary.php';
+         
+        $room = new RoomSummary ( $element );
 	
-	$room = new RoomFacilities ( $element );
+	$html = $room->get_markup ();
+	
+	return $html;
+}
+/**
+ * Generates the room tariff
+ *
+ * @param type $element        	
+ */
+function get_room_tariff_markup($element) {
+	require_once PARENTTHEMEPATH . 'elements/room/RoomTariff.php';
+	
+	$room = new RoomTariff ( $element );
 	
 	$html = $room->get_markup ();
 	
