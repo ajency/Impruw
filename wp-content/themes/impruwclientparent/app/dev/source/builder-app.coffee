@@ -20,7 +20,7 @@ define ['marionette'], (Marionette)->
 	# loginRoute in case session expires
 	App.loginRoute = "login"
 
-
+	# on app start
 	App.on 'start',()->
 		_.logAppMsg "Application Started...."
 

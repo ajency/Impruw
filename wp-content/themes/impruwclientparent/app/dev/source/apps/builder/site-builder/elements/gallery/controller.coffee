@@ -30,17 +30,26 @@ define ['app'
 
 					_getSlidesCollection:->
 						if not @slidesCollection
-							if @layout.model.get('slider_id') > 0
-								@slidesCollection =  App.request "get:slides:for:slide" , @layout.model.get 'slider_id'					
+
+							# check if Single Room Page
+							if @isSingleRoomPage() and not @layout.model.get('slider_id')
+								@slidesCollection = App.request "get:dummy:slides:collection"
 							else
-								@slidesCollection = App.request "get:slides:collection"
-								# listen to add event to set slider Id to element  model
-								@slidesCollection.once "add",(model)=>
-									@layout.model.set 'slider_id', model.get 'slider_id'
-									# save the model
-									@layout.model.save()
+								if @layout.model.get('slider_id') > 0
+									@slidesCollection =  App.request "get:slides:for:slide" , @layout.model.get 'slider_id'					
+								else
+									@slidesCollection = App.request "get:slides:collection"
+									# listen to add event to set slider Id to element  model
+									@slidesCollection.once "add",(model)=>
+										@layout.model.set 'slider_id', model.get 'slider_id'
+										# save the model
+										@layout.model.save()
 												
 						@slidesCollection
+
+					isSingleRoomPage:->
+						pageName = App.request "get:current:editable:page:name"
+						pageName is 'Single Room'
 
 					# setup templates for the element
 					renderElement:()=>
@@ -51,8 +60,9 @@ define ['app'
 						App.execute "when:fetched", slidesCollection, =>
 							view = @_getGalleryView slidesCollection, @layout.model.get 'no_of_columns'
 
-							@listenTo view, "show:slides:manager", =>
-								App.execute "show:slides:manager", slidesCollection
+							if not @isSingleRoomPage()
+								@listenTo view, "show:slides:manager", =>
+									App.execute "show:slides:manager", slidesCollection
 
 							@listenTo @layout.model, "change:no_of_columns", =>
 								@renderElement()

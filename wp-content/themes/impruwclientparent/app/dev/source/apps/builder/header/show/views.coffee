@@ -40,8 +40,7 @@ define ['app'
 												style 		: 'btn-mini btn-default'
 												menuStyle	: 'dropdown'
 
-					setHomePage:->
-						@$el.find('select#aj-imp-page-sel').selectpicker 'val', 10
-
-				
-			App.HeaderApp.Show.Views
+					getCurrentPageName:->
+						pageId = @$el.find('select#aj-imp-page-sel').val()
+						name = @$el.find('select#aj-imp-page-sel').find("option[value='#{pageId}']").text()
+						name

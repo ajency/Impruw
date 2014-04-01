@@ -23,21 +23,19 @@ define ["app", 'backbone'], (App, Backbone) ->
 
 		# create  a daterange collection
 		dateRangeCollection = new DateRangeCollection
+		# set the daterange collection
+		dateRangeCollection.set DATERANGE
 
 		API = 
 			getDateRangeCollection:->
 				dateRangeCollection
-				dateRangeCollection.fetch()
-				dateRangeCollection
-
+				
 			getDateRangeNameForDate:(date)->
 				random = _.uniqueId('Date Range Name-')
 				random
 
 			createDateRangeModel :(data = {})->
-				
 				daterange = new DateRange data 
-				
 				daterange
 
 

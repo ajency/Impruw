@@ -3,24 +3,24 @@ var __hasProp = {}.hasOwnProperty,
 
 define(["app", 'backbone'], function(App, Backbone) {
   return App.module("Entities.Plans", function(Plans, App, Backbone, Marionette, $, _) {
-    var API, PlanCollection, planCollection;
-    Plans = (function(_super) {
-      __extends(Plans, _super);
+    var API, Plan, PlanCollection, planCollection;
+    Plan = (function(_super) {
+      __extends(Plan, _super);
 
-      function Plans() {
-        return Plans.__super__.constructor.apply(this, arguments);
+      function Plan() {
+        return Plan.__super__.constructor.apply(this, arguments);
       }
 
-      Plans.prototype.name = 'plan';
+      Plan.prototype.name = 'plan';
 
-      Plans.prototype.defaults = function() {
+      Plan.prototype.defaults = function() {
         return {
           plan_name: '',
           plan_description: ''
         };
       };
 
-      return Plans;
+      return Plan;
 
     })(Backbone.Model);
     PlanCollection = (function(_super) {
@@ -30,7 +30,7 @@ define(["app", 'backbone'], function(App, Backbone) {
         return PlanCollection.__super__.constructor.apply(this, arguments);
       }
 
-      PlanCollection.prototype.model = Plans;
+      PlanCollection.prototype.model = Plan;
 
       PlanCollection.prototype.url = function() {
         return "" + AJAXURL + "?action=fetch-plans";
@@ -40,10 +40,10 @@ define(["app", 'backbone'], function(App, Backbone) {
 
     })(Backbone.Collection);
     planCollection = new PlanCollection;
+    planCollection.set(PLANS);
     API = {
       getPlansCollection: function() {
-        planCollection;
-        planCollection.fetch();
+        console.log(planCollection);
         return planCollection;
       },
       createPlanModel: function(data) {

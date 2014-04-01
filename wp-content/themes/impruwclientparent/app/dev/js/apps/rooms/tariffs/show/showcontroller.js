@@ -14,9 +14,7 @@ define(['app', 'controllers/base-controller', 'apps/rooms/tariffs/show/views'], 
       ShowController.prototype.initialize = function(opt) {
         var dcollection, pcollection;
         pcollection = App.request("get:plans:collection");
-        dcollection = App.request("get:daterange:collection", {
-          id: 23232
-        });
+        dcollection = App.request("get:daterange:collection");
         this.layout = this._getGridLayout();
         this.packagesView = this._getPackagesView(pcollection);
         this.dateRangeView = this._getDateRangeView(dcollection);
