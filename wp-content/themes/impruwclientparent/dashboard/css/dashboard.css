@@ -2624,6 +2624,17 @@ form .aj-imp-submit:hover {
   border: 1px solid #ccc;
   line-height: 22px;
 }
+.select-type li {
+  text-transform: uppercase;
+  padding: 6px 8px;
+}
+.select-type .active {
+  border-radius: 20px;
+  -moz-border-radius: 20px;
+  -webkit-border-radius: 20px;
+  color: #ff7e00;
+  border: 1px solid #ff7e00;
+}
 .room-chart {
   background: #f6f6f6;
   /* padding: 40px; */
@@ -2730,7 +2741,7 @@ form .aj-imp-submit:hover {
   padding: 6px;
   font-size: 0.9em;
 }
-@media (max-width: 767px) {
+@media (max-width: 969px) {
   #traffic-chart-region .row .traffic-list thead,
   #traffic-chart-region .row .traffic-list tbody,
   #traffic-chart-region .row .traffic-list th,
@@ -2751,6 +2762,11 @@ form .aj-imp-submit:hover {
     padding-left: 50%;
     white-space: normal;
     text-align: left;
+  }
+  #traffic-chart-region .row .traffic-list td .label {
+    position: absolute;
+    top: 5px;
+    left: 54px;
   }
   #traffic-chart-region .row .traffic-list td:before {
     /* Now like a table header */

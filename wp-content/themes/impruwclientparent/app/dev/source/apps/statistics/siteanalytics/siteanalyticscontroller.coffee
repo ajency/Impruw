@@ -47,17 +47,20 @@ define ['app', 'controllers/base-controller','apps/statistics/siteanalytics/view
 
 			className : 'row'
 
-			template : '<div class="left-inner-addon ">
-							<span class="glyphicon glyphicon-calendar"></span>
-							<input type="text" class="datepicker "/>
-							<div class="room-chart">
-								<div class="chart-legends">
-									<ul class="list-inline duration">
-										<li data-duration="7">Week</li>
-										<li class="active" data-duration="30">Month</li>
-										<li data-duration="180">6 Months</li>
-									</ul>
+			template : '<div class="row"> 
+							<div class="col-md-3">
+								<div class="left-inner-addon ">
+									<span class="glyphicon glyphicon-calendar"></span>
+									<input type="text" class="datepicker "/>
 								</div>
+							</div>
+							<div class="col-md-1"><h6>or</h6></div>
+							<div class="col-md-8 "> 
+								<ul class="list-inline select-type ">
+									<li class="active">Week</li>
+									<li>Day</li>
+									<li>Month</li>
+								</ul>
 							</div>
 						</div>
 						<div id="overview-chart-region"></div>

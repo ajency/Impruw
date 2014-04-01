@@ -2705,6 +2705,23 @@ form {
 			line-height: 22px;
 		}
 }
+.select-type{
+		
+		
+			li{
+				text-transform:uppercase;
+				padding: 6px 8px;
+			}
+			.active{
+				border-radius:20px;
+				-moz-border-radius:20px;
+				-webkit-border-radius:20px;
+				color:@orange;
+				border:1px solid @orange;
+				
+			}
+		
+	}
 .room-chart{
 	background: #f6f6f6;
 	/* padding: 40px; */
@@ -2815,7 +2832,7 @@ form {
 						font-size: 0.9em;
 					}
 				}
-					@media (max-width: 767px) { 
+					@media (max-width: 969px) { 
 						thead, tbody, th, td, tr { 
 							display: block; 
 						}
@@ -2832,6 +2849,11 @@ form {
 							padding-left: 50%; 
 							white-space: normal;
 							text-align:left;
+							.label{
+								position: absolute;
+								top: 5px;
+								left: 54px;
+							}
 						}
 						td:before { 
 							/* Now like a table header */

@@ -7,15 +7,7 @@ define ['app'], (App)->
 			className : 'row room-chart'
 
 			template : '<div class="row chart-legends">
-							<div class="col-md-1">&nbsp;</div>
-							<div class="col-md-5">
-								<!--<ul class="list-inline duration">
-									<li class="active" data-duration="7">Week</li>
-									<li data-duration="30">Month</li>
-									<li data-duration="180">6 Months</li>
-								</ul>-->
-							</div>
-							<div class="col-md-5">
+							<div class="col-md-11">
 								<ul class="list-inline pull-right">
 									<li ><span class="new-visit">&nbsp;</span>NEW VISITS</li>
 									<li><span class="unique-visit">&nbsp;</span>UNIQUE VISITORS</li>
