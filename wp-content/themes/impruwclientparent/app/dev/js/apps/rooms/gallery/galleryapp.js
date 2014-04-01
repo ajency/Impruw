@@ -42,7 +42,14 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
 
       SingleGalleryItem.prototype.className = 'isotope-element';
 
-      SingleGalleryItem.prototype.template = '<img src="{{thumb_url}}" class=""/>';
+      SingleGalleryItem.prototype.template = '<img src="{{thumb_url}}" class="img-responsive"/>';
+
+      SingleGalleryItem.prototype.onRender = function() {
+        var randomH, randomW;
+        randomW = Math.random() * 50 > 25 ? 1 : 2;
+        randomH = Math.random() * 50 > 25 ? 1 : 2;
+        return this.$el.addClass("width-" + randomW + " height-" + randomH);
+      };
 
       return SingleGalleryItem;
 

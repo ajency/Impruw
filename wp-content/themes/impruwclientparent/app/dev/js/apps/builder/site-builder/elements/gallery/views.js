@@ -13,7 +13,7 @@ define(['app'], function(App) {
 
       GalleryItem.prototype.className = 'isotope-element';
 
-      GalleryItem.prototype.template = '<img src="{{thumb_url}}" alt="Slide" width="100%"/>';
+      GalleryItem.prototype.template = '<img src="{{thumb_url}}" alt="Slide" class="img-responsive" />';
 
       GalleryItem.prototype.onRender = function() {
         var randomH, randomW;
