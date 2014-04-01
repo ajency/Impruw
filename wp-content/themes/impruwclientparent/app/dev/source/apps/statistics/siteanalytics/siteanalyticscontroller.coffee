@@ -17,13 +17,14 @@ define ['app', 'controllers/base-controller','apps/statistics/siteanalytics/view
 
 				@layout = layout = @_getLayout()
 
-				@listenTo layout, "show", @renderCharts
+				@listenTo layout, "show", =>
+					@renderCharts startDate, endDate
 
 				@listenTo layout, "date:range:changed", @renderCharts
 
 				@show layout
 
-			renderCharts:(startDate = new Date(), endDate)=>
+			renderCharts:(startDate, endDate)=>
 
 				@collection = App.request "get:site:analytics:data", startDate, endDate
 

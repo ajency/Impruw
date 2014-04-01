@@ -32,7 +32,6 @@ define ['app'], (App)->
 						</div>'
 
 			onShow:->
-				console.log @collection
 				# set the width of parent
 				chart = @$el.find('#overview-chart').get(0)
 				$(chart).attr 'width',$(chart).parent().width() - 50
@@ -68,18 +67,23 @@ define ['app'], (App)->
 		# traffic single view
 		class TrafficSingle extends Marionette.ItemView
 
-			className : 'sadsdas'
-
 			tagName : 'tr'
 
-			template : '<td>add single traffic row markup here</td>'
+			template : '<td class="text-left" data-title="Source">
+							<a href="#">http://dribbble.com/shots/popular? </a>
+							<span class="label label-info">R</span>
+						</td>
+						<td data-title="Visits">163</td>
+						<td data-title="Page views">  2.08 </td>
+						<td data-title="Avg time on the page"> 00:12:36 </td>
+						<td data-title="Bounce rate"> 
+							70.38%<span class="glyphicon glyphicon-arrow-up"></span>
+						</td>'
 
-		# 
+		# traffic empty view
 		class TrafficEmpty extends Marionette.ItemView
 
-			className : ''
-
-			template : '<td colspan="4">no traffic data to display</td>'
+			template : '<td colspan="4">No traffic data to display</td>'
 
 		# traffic view
 		class Views.TrafficViewChart extends Marionette.CompositeView
@@ -87,12 +91,27 @@ define ['app'], (App)->
 			className : 'row'
 
 			template : '<h4> All Traffic Data</h4>
-						add traffic chart markup here.
-						<table class="traffic-list"></table>'
+						<div class="row traffic-list-table">
+							<div class="col-md-12">
+								<table class="traffic-list table table-striped">
+									<thead>
+										<tr>
+											<th class="text-left">Source</th>
+											<th >Visits</th>
+											<th>Page views</th>
+											<th>Avg time on the page</th>
+											<th>Bounce rate</th>
+										</tr>
+									</thead>
+									<tbody>
+									</tbody>
+								</table>
+							</div>
+						</div>'
 
 			itemView : TrafficSingle
 
-			itemViewContainer : 'table.traffic-list'
+			itemViewContainer : 'table > tbody'
 
 			emptyView : TrafficEmpty
 

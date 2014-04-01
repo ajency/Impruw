@@ -17,7 +17,6 @@ define(['app'], function(App) {
 
       OverviewChartView.prototype.onShow = function() {
         var chart, ctx, data;
-        console.log(this.collection);
         chart = this.$el.find('#overview-chart').get(0);
         $(chart).attr('width', $(chart).parent().width() - 50);
         data = this.getChartData();
@@ -58,11 +57,9 @@ define(['app'], function(App) {
         return TrafficSingle.__super__.constructor.apply(this, arguments);
       }
 
-      TrafficSingle.prototype.className = 'sadsdas';
-
       TrafficSingle.prototype.tagName = 'tr';
 
-      TrafficSingle.prototype.template = '<td>add single traffic row markup here</td>';
+      TrafficSingle.prototype.template = '<td class="text-left" data-title="Source"> <a href="#">http://dribbble.com/shots/popular? </a> <span class="label label-info">R</span> </td> <td data-title="Visits">163</td> <td data-title="Page views">  2.08 </td> <td data-title="Avg time on the page"> 00:12:36 </td> <td data-title="Bounce rate"> 70.38%<span class="glyphicon glyphicon-arrow-up"></span> </td>';
 
       return TrafficSingle;
 
@@ -74,9 +71,7 @@ define(['app'], function(App) {
         return TrafficEmpty.__super__.constructor.apply(this, arguments);
       }
 
-      TrafficEmpty.prototype.className = '';
-
-      TrafficEmpty.prototype.template = '<td colspan="4">no traffic data to display</td>';
+      TrafficEmpty.prototype.template = '<td colspan="4">No traffic data to display</td>';
 
       return TrafficEmpty;
 
@@ -90,11 +85,11 @@ define(['app'], function(App) {
 
       TrafficViewChart.prototype.className = 'row';
 
-      TrafficViewChart.prototype.template = '<h4> All Traffic Data</h4> add traffic chart markup here. <table class="traffic-list"></table>';
+      TrafficViewChart.prototype.template = '<h4> All Traffic Data</h4> <div class="row traffic-list-table"> <div class="col-md-12"> <table class="traffic-list table table-striped"> <thead> <tr> <th class="text-left">Source</th> <th >Visits</th> <th>Page views</th> <th>Avg time on the page</th> <th>Bounce rate</th> </tr> </thead> <tbody> </tbody> </table> </div> </div>';
 
       TrafficViewChart.prototype.itemView = TrafficSingle;
 
-      TrafficViewChart.prototype.itemViewContainer = 'table.traffic-list';
+      TrafficViewChart.prototype.itemViewContainer = 'table > tbody';
 
       TrafficViewChart.prototype.emptyView = TrafficEmpty;
 

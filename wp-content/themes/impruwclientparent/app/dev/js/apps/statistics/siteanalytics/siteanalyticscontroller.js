@@ -20,16 +20,17 @@ define(['app', 'controllers/base-controller', 'apps/statistics/siteanalytics/vie
         startDate = endDate - (30 * 86400000);
         this.collection = App.request("get:site:analytics:data", startDate, endDate);
         this.layout = layout = this._getLayout();
-        this.listenTo(layout, "show", this.renderCharts);
+        this.listenTo(layout, "show", (function(_this) {
+          return function() {
+            return _this.renderCharts(startDate, endDate);
+          };
+        })(this));
         this.listenTo(layout, "date:range:changed", this.renderCharts);
         return this.show(layout);
       };
 
       SiteAnalyticsController.prototype.renderCharts = function(startDate, endDate) {
         var overviewChart, trafficViewChart;
-        if (startDate == null) {
-          startDate = new Date();
-        }
         this.collection = App.request("get:site:analytics:data", startDate, endDate);
         overviewChart = new SiteAnalytics.Views.OverviewChartView({
           collection: this.collection
