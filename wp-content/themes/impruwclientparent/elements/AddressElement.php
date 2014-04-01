@@ -35,7 +35,7 @@ class AddressElement extends Element {
      * Empty string by default
      * @var String 
      */
-    var $class_name  = '';
+    var $class_name  = 'address';
     
     
     
