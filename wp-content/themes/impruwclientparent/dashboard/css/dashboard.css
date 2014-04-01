@@ -2866,3 +2866,7 @@ form .aj-imp-submit:hover {
   color: #f21515 !important;
   border-bottom: 1px solid #f21515;
 }
+
+.field-error {
+    color: #f21515 !important;
+}

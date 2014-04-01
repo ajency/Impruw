@@ -14,14 +14,15 @@ define ['app'
 
 					events:
 						'click #btn_saveroom' : ->
-							data = Backbone.Syphon.serialize @
-							#if @$el.valid()
-							@trigger "save:new:room", data
+							if @$el.valid()
+								data = Backbone.Syphon.serialize @
+								@trigger "save:new:room", data
 
 						'click .add-gallery-images':-> @trigger "show:edit:slider"
 
 
 					onShowSuccessMessage:->
+						@$el.find('.alert').remove()
 						@$el.prepend '<div class="alert alert-success">Saved successfully</div>'
 						@$el.find('#btn_resetroom').click()
 						$('html, body').animate

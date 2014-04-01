@@ -35,7 +35,8 @@ define(['app', 'text!apps/site-profile/edit/templates/mainview.html', 'text!apps
       };
 
       MainView.prototype.onSiteProfileAdded = function() {
-        this.$el.find('#form-siteprofile').prepend('<div class="alert alert-warning alert-dismissable"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> Save successfully</div>');
+        this.$el.find('.alert').remove();
+        this.$el.find('#form-siteprofile').prepend('<div class="alert alert-success alert-dismissable"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> Save successfully</div>');
         return $('html, body').animate({
           scrollTop: 0
         }, 1000);
@@ -46,7 +47,6 @@ define(['app', 'text!apps/site-profile/edit/templates/mainview.html', 'text!apps
         image_id = media.get('id');
         media_size = media.get('sizes');
         image_path = media_size.full.url;
-        console.log(image_path);
         this.$el.find('.site_profile_images').attr('src', image_path);
         return this.$el.find('#logo_id').attr('value', image_id);
       };
