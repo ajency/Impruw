@@ -987,6 +987,7 @@ and open the template in the editor.
 */
 .row.green-background {
   background: #5ca9a1;
+  padding-top: 2em;
 }
 .row.grey-background {
   background: #656565 !important;
