@@ -8,9 +8,12 @@ and open the template in the editor.
     Author     : jarr-head
 */
 
-#site-header-region {
+#site-header-region, .site-header {
 	.center-container {
-		max-width: 1000px;
+		max-width: 1000px !important;
 		margin: 0.5em auto;
+		&:last-child {
+			margin-bottom: 0;
+		}
 	}
 }
