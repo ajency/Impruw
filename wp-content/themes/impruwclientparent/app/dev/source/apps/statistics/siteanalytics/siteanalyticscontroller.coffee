@@ -56,10 +56,10 @@ define ['app', 'controllers/base-controller','apps/statistics/siteanalytics/view
 							</div>
 							<div class="col-md-1"><h6>or</h6></div>
 							<div class="col-md-8 "> 
-								<ul class="list-inline select-type ">
-									<li class="active">Week</li>
-									<li>Day</li>
-									<li>Month</li>
+								<ul class="list-inline select-type duration">
+									<li class="active" data-duration="7">Week</li>
+									<li data-duration="30">Month</li>
+									<li data-duration="180">6 Months</li>
 								</ul>
 							</div>
 						</div>
@@ -75,6 +75,11 @@ define ['app', 'controllers/base-controller','apps/statistics/siteanalytics/view
 					@trigger "date:range:changed", start, end
 
 				'click .duration > li':(e)->
+
+					# set active class
+					$(e.target).addClass 'active'
+								.siblings().removeClass 'active'
+
 					date = new Date()
 					endDate 	= Date.UTC date.getFullYear(),date.getMonth(),date.getDate()
 					duration 	= parseInt $(e.target).attr 'data-duration'

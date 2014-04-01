@@ -43,7 +43,8 @@ define ['app', 'controllers/base-controller','moment'], (App, AppController, mom
 		# create the composite view
 		class WeeklyDataView extends Marionette.CompositeView
 
-			template : '<div class="row statistics-visitor">
+			template : '<h4>At a glance</h4>
+						<div class="row statistics-visitor">
 							<div class="col-md-7 statistics-tod-visitor">
 								<h3>Today Visits</h3>
 								<div class="today-visits">
