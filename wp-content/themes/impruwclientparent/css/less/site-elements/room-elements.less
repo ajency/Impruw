@@ -438,4 +438,36 @@
 	}
 	
 }
-
+/*Room tariff*/
+.room-tariff-container {
+	background: #fff;
+	box-shadow: 1px 1px 2px 0 lighten(@dark-grey, 10%);
+	padding: 0.5em;
+	position: relative;
+	.room-tariff-title {
+		h4 {
+			font-size: 1.5em;
+			text-transform: uppercase;
+		}
+		h5 {
+			font-size: 1em;
+			font-weight: 400;
+		}
+	}
+	.room-tariff-actions {
+		position: absolute;
+		top: 0.5em;
+		right: 0.5em;
+		display: none;
+		.btn-add-plan {
+			background: @dark-grey;
+			&:hover {
+				background: lighten(@dark-grey, 10%);
+			}
+		}
+		@media(max-width:767px){
+			display: block;
+			position: static;
+		}
+	}
+}
