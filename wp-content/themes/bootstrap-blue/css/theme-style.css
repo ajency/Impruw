@@ -1000,6 +1000,24 @@ and open the template in the editor.
   margin-bottom: 1em;
   margin-top: 1em;
 }
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 3 Mar, 2014, 1:00:35 PM
+    Author     : jarr-head
+*/
+#site-header-region .center-container,
+.site-header .center-container {
+  max-width: 1000px !important;
+  margin: 0.5em auto;
+}
+#site-header-region .center-container:last-child,
+.site-header .center-container:last-child {
+  margin-bottom: 0;
+}
 /****Top Slim-menu Styles****/
 .nav {
   border-radius: 0;
@@ -1256,4 +1274,12 @@ ul.social li:hover a {
   -o-transition: all 0.25s ease;
   -ms-transition: all 0.25s ease;
   transition: all 0.25s ease;
+}
+.map {
+  padding: 0;
+  border: none;
+  margin: 0 -15px 2em;
+}
+.map:hover {
+  border: none;
 }

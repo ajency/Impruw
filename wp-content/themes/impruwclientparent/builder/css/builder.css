@@ -1897,6 +1897,12 @@ Version:        0.1.0
   margin: 1em 0;
   list-style: none;
 }
+#slides-list-region,
+#add-slide-region,
+.aj-imp-block-button.add-new-slide {
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+}
 /**** Isotope Filtering ****/
 .isotope-item {
   z-index: 2;
