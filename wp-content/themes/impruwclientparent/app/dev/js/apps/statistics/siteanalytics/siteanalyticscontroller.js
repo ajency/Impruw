@@ -53,7 +53,7 @@ define(['app', 'controllers/base-controller', 'apps/statistics/siteanalytics/vie
 
       SiteAnalyticsLayout.prototype.className = 'row';
 
-      SiteAnalyticsLayout.prototype.template = '<input type="text" class="datepicker"/> <div id="overview-chart-region"></div> <div id="traffic-chart-region"></div>';
+      SiteAnalyticsLayout.prototype.template = '<div class="left-inner-addon "> <span class="glyphicon glyphicon-calendar"></span> <input type="text" class="datepicker "/> </div> <div id="overview-chart-region"></div> <div id="traffic-chart-region"></div>';
 
       SiteAnalyticsLayout.prototype.events = {
         'change .datepicker': function() {

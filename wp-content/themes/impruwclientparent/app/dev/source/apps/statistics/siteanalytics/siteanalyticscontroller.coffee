@@ -43,7 +43,10 @@ define ['app', 'controllers/base-controller','apps/statistics/siteanalytics/view
 
 			className : 'row'
 
-			template : '<input type="text" class="datepicker"/>
+			template : '<div class="left-inner-addon ">
+							<span class="glyphicon glyphicon-calendar"></span>
+							<input type="text" class="datepicker "/>
+						</div>
 						<div id="overview-chart-region"></div>
 						<div id="traffic-chart-region"></div>'
 
