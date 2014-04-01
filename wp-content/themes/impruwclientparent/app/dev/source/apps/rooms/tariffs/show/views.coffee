@@ -96,10 +96,10 @@ define ['app'], (App)->
 				data = super()
 
 				data.startdate = ->
-					moment(new Date(@from_date)).format('DD/MMM')
+					moment(@from_date).format('DD/MMM')
 
 				data.enddate = ->
-					moment(new Date(@to_date)).format('DD/MMM')
+					moment(@to_date).format('DD/MMM')
 
 				data
 

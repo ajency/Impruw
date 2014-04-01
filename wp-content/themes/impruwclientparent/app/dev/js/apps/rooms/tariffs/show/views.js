@@ -70,10 +70,10 @@ define(['app'], function(App) {
         var data;
         data = DateRangeSingle.__super__.serializeData.call(this);
         data.startdate = function() {
-          return moment(new Date(this.from_date)).format('DD/MMM');
+          return moment(this.from_date).format('DD/MMM');
         };
         data.enddate = function() {
-          return moment(new Date(this.to_date)).format('DD/MMM');
+          return moment(this.to_date).format('DD/MMM');
         };
         return data;
       };

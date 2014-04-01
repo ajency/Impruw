@@ -60,9 +60,9 @@
 		var PLANS = <?php get_plans(); ?>
 		var DATERANGE = <?php get_daterange(); ?>
 		var FACILITIES = <?php get_facilities(); */?>
-		var DATERANGE = [{id:1, form_data : '1/1/2014', to_data : '3/31/2014', label : 'date range one' },
-		                 {id:2, form_data : '4/1/2014', to_data : '4/20/2014', label : 'date range two' },
-		                 {id:3, form_data : '4/21/2014', to_data : '6/31/2014', label : 'date range three' }];
+		var DATERANGE = [{id:1, form_data : '2014-01-01', to_data : '2014-03-31', label : 'date range one' },
+		                 {id:2, form_data : '2014-04-01', to_data : '2014-04-20', label : 'date range two' },
+		                 {id:3, form_data : '2014-04-21', to_data : '2014-06-01', label : 'date range three' }];
         
 		var PLANS = [{id: 1, plan_name : 'Plan Name 1', plan_description : 'Plan description 1' },
 		             {id: 2, plan_name : 'Plan Name 2', plan_description : 'Plan description 2' },

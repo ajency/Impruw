@@ -23,7 +23,7 @@ Version:        0.1.0
 @preview-grey: #F3F3F3;
 @success-green: #2ECC71;
 @alert-green: #c5e5de;
-
+@red:#f21515;
 /****Link Styles****/
 a {
 	color: @orange;
@@ -2892,4 +2892,23 @@ form {
 				background: #f0f2f2;
 				}
 		}
+}
+
+/*Error-style-profile*/
+
+.aj-imp-dash-content{
+	.field-error{
+		color:@red;
+		
+	}
+	
+	.control-label {
+		position: absolute;
+		bottom: 10px;
+		left: 0;
+	}
+	input.field-error{
+    color:@red !important;
+	border-bottom:1px solid @red;
+	}
 }

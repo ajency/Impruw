@@ -2804,3 +2804,16 @@ form .aj-imp-submit:hover {
 #traffic-chart-region .row .table-striped > tbody > tr:nth-child(odd) > td {
   background: #f0f2f2;
 }
+/*Error-style-profile*/
+.aj-imp-dash-content .field-error {
+  color: #f21515;
+}
+.aj-imp-dash-content .control-label {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+}
+.aj-imp-dash-content input.field-error {
+  color: #f21515 !important;
+  border-bottom: 1px solid #f21515;
+}
