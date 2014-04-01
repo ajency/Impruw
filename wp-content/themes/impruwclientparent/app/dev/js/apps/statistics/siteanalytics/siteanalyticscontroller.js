@@ -58,7 +58,7 @@ define(['app', 'controllers/base-controller', 'apps/statistics/siteanalytics/vie
 
       SiteAnalyticsLayout.prototype.className = 'row';
 
-      SiteAnalyticsLayout.prototype.template = '<div class="row chart-datepicker"> <div class="col-md-3"> <div class="left-inner-addon "> <span class="glyphicon glyphicon-calendar"></span> <input type="text" class="datepicker "/> </div> </div> <div class="col-md-1"><h6>or</h6></div> <div class="col-md-8 "> <ul class="list-inline select-type "> <li class="active">Week</li> <li>Day</li> <li>Month</li> </ul> </div> </div> <div id="overview-chart-region"></div> <div id="traffic-chart-region"></div>';
+      SiteAnalyticsLayout.prototype.template = '<div class="row chart-datepicker"> <div class="col-md-3"> <div class="left-inner-addon "> <span class="glyphicon glyphicon-calendar"></span> <input type="text" class="datepicker "/> </div> </div> <div class="col-md-8 "> <ul class="list-inline select-type duration"> <li data-duration="7">Week</li> <li class="active" data-duration="30">Month</li> <li data-duration="180">6 Months</li> </ul> </div> </div> <div id="overview-chart-region"></div> <div id="traffic-chart-region"></div>';
 
       SiteAnalyticsLayout.prototype.events = {
         'change .datepicker': function() {
@@ -70,6 +70,7 @@ define(['app', 'controllers/base-controller', 'apps/statistics/siteanalytics/vie
         },
         'click .duration > li': function(e) {
           var date, duration, endDate, startDate;
+          $(e.target).addClass('active').siblings().removeClass('active');
           date = new Date();
           endDate = Date.UTC(date.getFullYear(), date.getMonth(), date.getDate());
           duration = parseInt($(e.target).attr('data-duration'));

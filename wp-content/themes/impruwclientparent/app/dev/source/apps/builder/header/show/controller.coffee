@@ -26,5 +26,5 @@ define ['app', 'controllers/base-controller'
 						@show  view,
 								loading : true
 
-					setHomePage:->
-						#@view.setHomePage()
+					getCurrentPageName:->
+						@view.getCurrentPageName()

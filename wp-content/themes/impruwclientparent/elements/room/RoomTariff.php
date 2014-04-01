@@ -38,6 +38,8 @@ class RoomTariff extends Element {
         $this->date_range = $this->get_date_range();
         
         $this->tariff = $this->get_tariff($this->room_id);
+        
+        $this->plans = $this->get_plans();
 
         //$this->post_id = $post_id;
         
@@ -77,6 +79,18 @@ class RoomTariff extends Element {
         return $tariff;
     }
     
+    function get_plans() {
+        global $wpdb;
+        
+        $table_name =  $wpdb->prefix.'plans';
+        
+        $query = "SELECT * FROM $table_name ORDER BY ID ASC";
+        
+        $plans =$wpdb->get_results($query,ARRAY_A); 
+        
+        return $plans; 
+    }
+    
     /**
      * Create the basic markup for an element
      * @uses className and tagName properties of element
@@ -86,24 +100,25 @@ class RoomTariff extends Element {
         
         global  $me;
         
-        $template ="";
+        $template =""; $template2="";
         
-        $html = '<div class="room-tariff-container">
+        $date_range= $this->date_range;
+        $tariff= $this->tariff;
+        $plans= $this->plans;
+        
+        $html = '<h4 class="aj-imp-sub-head scroll-ref">Room Tariff</h4>
+                  <div id="room-tariff-region">
+                  <div class="room-tariff-container">
                    <div class="room-tariff-grid" id="room-tariff-grid">
                         <div id="package-region"></div>
                         <div id="tariff-region">';
         
-       // echo '<pre>';
-       // print_r($this->date_range);
-       $date_range= $this->date_range;
-        
-       // echo '<pre>';
-       // print_r($date_range);
+       
         
         foreach ($date_range as $key => $value) {
             
-            $data = array('from_date' => $date_range[$key]['from_date'],
-                           'to_date' => $date_range[$key]['to_date']  );
+            $data = array('from_date' => date('d/M ',strtotime($date_range[$key]['from_date'])),
+                           'to_date' => date('d/M ',strtotime($date_range[$key]['to_date'] )));
             
             $template = '<div class="">
                             <div class="date-range">
@@ -114,8 +129,68 @@ class RoomTariff extends Element {
                                      <span class="date">{{to_date}} </span>
                                  </div>
                              </div>
-                             <div class="packages"></div>
-                          </div>';
+                             <div class="packages">';
+                
+                foreach ($tariff as $key2 => $value2) :
+                     if($tariff[$key2]['daterange_id'] == $date_range[$key]['id'] ){
+                        
+                        $weekday_key = array('wd_charge','wd_max_adults','wd_max_children','wd_extra_adult','wd_extra_child');
+                        $weekend_key = array('we_charge','we_max_adults','we_max_children','we_extra_adult','we_extra_child'); 
+                        
+                        $weekday_value= unserialize($tariff[$key2]['weekday']);
+                        $weekend_value= unserialize($tariff[$key2]['weekend']);
+                        
+                        $weekday= array_combine($weekday_key, $weekday_value);
+                        $weekend= array_combine($weekend_key, $weekend_value);
+                       
+                        $data2 = array_merge($weekday,$weekend);
+                        
+                        //echo '<pre>';
+                       // print_r($data2);
+                         
+                        $template2 .= '<div class="package-blocks clearfix">
+                                         <div class="package-block-outer" id="">
+                                             <div class="block clearfix">
+                                                
+                                                <div class="weekday"> Weekdays
+                                                    <span class="price">{{wd_charge}}</span> 
+                                                </div>
+                                                
+                                                <div class="weekend"> Weekends 
+                                                    <span class="price">{{we_charge}}</span>
+                                                </div> 
+                                                
+                                                <div class="tariff-label clearfix">Extra Adult</div>
+                                                
+                                                <div class="weekday"> 
+                                                    <span class="price">{{wd_extra_adult}}</span>
+                                                </div>
+                                                
+                                                <div class="weekend"> 
+                                                    <span class="price">{{we_extra_adult}}</span>
+                                                </div> 
+                                                
+                                                <div class="tariff-label clearfix">Extra Child</div> 
+
+                                                <div class="weekday">
+                                                    <span class="price">{{wd_extra_child}}</span> 
+                                                </div>
+                                                
+                                                <div class="weekend">
+                                                    <span class="price">{{we_extra_child}}</span> 
+                                                </div> 
+                                               
+                                              </div>
+                                          </div>
+                                      </div>';
+                        
+                        $template .= $me->render($template2,$data2);
+                     }
+                     
+                endforeach;
+                             
+           $template .=     ' </div>
+                         </div>';
             
             $html .= $me->render($template,$data);
             
@@ -124,6 +199,7 @@ class RoomTariff extends Element {
         
         $html .=  '     </div>
                       </div>
+                   </div>
                    </div>';
         
        
