@@ -43,11 +43,23 @@ define ['app', 'controllers/base-controller','apps/statistics/siteanalytics/view
 
 			className : 'row'
 
-			template : '<div class="left-inner-addon ">
+			template : '<div class="row"> 
+			<div class="col-md-3">
+				<div class="left-inner-addon ">
 							<span class="glyphicon glyphicon-calendar"></span>
 							<input type="text" class="datepicker "/>
-						</div>
-						<div id="overview-chart-region"></div>
+				</div>
+			</div>
+			<div class="col-md-1"><h6>or</h6></div>
+				<div class="col-md-8 "> 
+				<ul class="list-inline select-type ">
+								<li class="active">Weak</li>
+								<li>Day</li>
+								<li>Month</li>
+						</ul>
+				</div>
+			</div>
+			<div id="overview-chart-region"></div>
 						<div id="traffic-chart-region"></div>'
 
 			events:
