@@ -964,6 +964,19 @@ and open the template in the editor.
     position: static;
   }
 }
+.aj-imp-sub-head {
+  font-weight: 700;
+  color: #aaa !important;
+  text-transform: uppercase;
+  margin: 2px 5px 10px;
+  letter-spacing: .04em;
+}
+.aj-imp-sub-head small {
+  font-weight: 300;
+  font-size: .6em;
+  color: #919191;
+  text-transform: none;
+}
 .map {
   padding: 0.4em;
   border: 1px dashed #29333f;
