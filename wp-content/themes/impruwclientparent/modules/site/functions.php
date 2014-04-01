@@ -5,7 +5,10 @@
  * @param type $site_id
  * @return type
  */
-function get_site_details($site_id) {
+function get_site_details($site_id = 0) {
+	
+	if($site_id === 0)
+		$site_id = get_current_blog_id();
      
     // fetching the image path for the logo
      $logo_id = get_option('logo_id',0);
@@ -309,3 +312,20 @@ function get_site_logo_id(){
     return $logo_id;
 
 }
+
+/**
+ * Returns the hotel address string
+ * @return string
+ */
+function get_hotel_address(){
+	$site_details = get_site_details();
+	
+	extract($site_details);
+	
+	$address = $street . ',' . $city . ',' . $postal_code . ',' . $country;
+	
+	if(trim($address) === '')
+		return 'default address';
+	
+	return $address;
+}	
