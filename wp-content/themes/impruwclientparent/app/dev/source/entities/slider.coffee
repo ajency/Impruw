@@ -109,10 +109,11 @@ define ["app", 'backbone'], (App, Backbone) ->
 
 			App.reqres.setHandler "get:dummy:slides:collection",->
 				new SlideCollection [
-										{"id":1,"thumb_url":"add image link here","order":1},
-										{"id":2,"thumb_url":"add image link here","order":2},
-										{"id":3,"thumb_url":"add image link here","order":3},
-										{"id":4,"thumb_url":"add image link here","order":4}
+										{"id":1,"thumb_url":"http://classicgreen2.unpruwen.com/wp-content/themes/impruwclientparent/images/image-01.jpg","order":1},
+										{"id":2,"thumb_url":"http://classicgreen2.unpruwen.com/wp-content/themes/impruwclientparent/images/hotel-1.jpg","order":2},
+										{"id":3,"thumb_url":"http://classicgreen2.unpruwen.com/wp-content/themes/impruwclientparent/images/image-02.jpg","order":3},
+										{"id":4,"thumb_url":"http://classicgreen2.unpruwen.com/wp-content/themes/impruwclientparent/images/hotel-04.jpg","order":4}
+										{"id":5,"thumb_url":"http://classicgreen2.unpruwen.com/wp-content/themes/impruwclientparent/images/image-03.jpg","order":5}
 									]
 
 			App.reqres.setHandler "create:new:slider:model",(modelData)->
