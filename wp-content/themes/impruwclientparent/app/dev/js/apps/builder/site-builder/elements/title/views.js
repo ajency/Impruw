@@ -1,4 +1,5 @@
-var __hasProp = {}.hasOwnProperty,
+var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+  __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 define(['app'], function(App) {
@@ -7,6 +8,7 @@ define(['app'], function(App) {
       __extends(TitleView, _super);
 
       function TitleView() {
+        this.configureEditor = __bind(this.configureEditor, this);
         return TitleView.__super__.constructor.apply(this, arguments);
       }
 
@@ -27,8 +29,8 @@ define(['app'], function(App) {
 
       TitleView.prototype.onShow = function() {
         this.$el.attr('contenteditable', 'true').attr('id', _.uniqueId('title-'));
+        CKEDITOR.on('instanceCreated', this.configureEditor);
         this.editor = CKEDITOR.inline(document.getElementById(this.$el.attr('id')));
-        this.editor.on('instanceCreated', this.configureEditor);
         return this.editor.setData(_.stripslashes(this.model.get('content')));
       };
 
@@ -43,9 +45,6 @@ define(['app'], function(App) {
         return editor.on("configLoaded", function() {
           return editor.config.toolbarGroups = [
             {
-              name: "basicstyles",
-              groups: ["basicstyles", "cleanup"]
-            }, {
               name: "paragraph",
               groups: ["list", "indent", "blocks", "align", "bidi"]
             }, {
