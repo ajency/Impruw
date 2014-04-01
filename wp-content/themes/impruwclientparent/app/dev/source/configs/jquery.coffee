@@ -18,6 +18,9 @@ define ['jquery', 'underscore','jqueryvalidate'], ($, _)->
 
 	$.validator.setDefaults
 		ignore: []
+		errorElement : 'div'
+		errorClass : 'field-error'
+		validClass : 'field-valid'
 		
 
 	# adjust the dimesion of upper content and also the left section and right section
