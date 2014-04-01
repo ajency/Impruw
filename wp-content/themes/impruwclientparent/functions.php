@@ -443,6 +443,7 @@ function get_room_summary_markup($element){
  * Generates the room tariff
  *
  * @param type $element        	
+<<<<<<< HEAD
  */
 function get_room_tariff_markup($element){
         require_once PARENTTHEMEPATH. 'elements/room/RoomTariff.php';
@@ -452,8 +453,8 @@ function get_room_tariff_markup($element){
 	$html = $room->get_markup ();
 	
 	return $html;
-}
 
+}
 /**
  * Generates the room facilities
  *

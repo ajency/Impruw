@@ -17,10 +17,10 @@ define ['app'], (App)->
 						</div>
 						<canvas id="overview-chart" height="400" width="700"></canvas><br><br><br>
 						<div class="row chart-data">
-							<div class="col-md-3"><h3>00:45:36</h3> Avg Visitor Duration</div>
-							<div class="col-md-3"><h3>57</h3> Unique Visitor</div>
-							<div class="col-md-3"><h3>70 </h3>Total Visits</div>
-							<div class="col-md-3"><h3>24%</h3> Bounce Rate</div>
+							<div class="col-md-3 col-xs-3"><h3>00:45:36</h3> Avg Visitor Duration</div>
+							<div class="col-md-3 col-xs-3"><h3>57</h3> Unique Visitor</div>
+							<div class="col-md-3 col-xs-3"><h3>70 </h3>Total Visits</div>
+							<div class="col-md-3 col-xs-3"><h3>24%</h3> Bounce Rate</div>
 						</div>'
 
 			onShow:->
