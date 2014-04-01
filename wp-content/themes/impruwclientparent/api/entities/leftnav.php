@@ -406,7 +406,24 @@ function get_styles($element, $style = '') {
 	foreach ( $theme_styles as $style )
 		$styles [] = $style;
 	
-		return $styles;
+	return $styles;
+}
+
+function get_style_template($element){
+	
+	if(!isset($element['style']))
+		return false;
+	
+	$templates = get_styles($element['element']);
+	
+	$mtemplate = '';
+	
+	foreach($templates as $template){
+		if($template['name'] == $element['style'])
+			$mtemplate = $template['template'];
+	}
+	
+	return $mtemplate;
 }
 
 /**

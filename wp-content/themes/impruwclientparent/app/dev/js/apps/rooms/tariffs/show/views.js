@@ -13,13 +13,13 @@ define(['app'], function(App) {
 
       PackageSingle.prototype.className = 'package-block-outer';
 
-      PackageSingle.prototype.template = '<div class="block clearfix"> <h6>{{package_name}}</h6> <div class="package-desc"> {{package_description}} </div> </div>';
+      PackageSingle.prototype.template = '<div class="block clearfix"> <h6>{{plan_name}}</h6> <div class="package-desc"> {{plan_description}} </div> </div>';
 
       PackageSingle.prototype.serializeData = function() {
         var data;
         data = PackageSingle.__super__.serializeData.call(this);
         data.packagedescription = function() {
-          return _(this.package_description).prune(50);
+          return _(this.plan_description).prune(50);
         };
         return data;
       };
@@ -70,10 +70,10 @@ define(['app'], function(App) {
         var data;
         data = DateRangeSingle.__super__.serializeData.call(this);
         data.startdate = function() {
-          return moment(new Date(this.start_date)).format('DD/MMM');
+          return moment(this.from_date).format('DD/MMM');
         };
         data.enddate = function() {
-          return moment(new Date(this.end_date)).format('DD/MMM');
+          return moment(this.to_date).format('DD/MMM');
         };
         return data;
       };

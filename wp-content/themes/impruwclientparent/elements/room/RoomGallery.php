@@ -45,7 +45,7 @@ class RoomGallery extends SliderElement {
     function __construct($element, $post_id = 0) {
 
         
-        parent::__construct($element );
+        //parent::__construct($element );
             
         $this->slider_id = isset($element['slider_id']) ? $element['slider_id'] : $this->get_slider_id();
            
@@ -62,7 +62,7 @@ class RoomGallery extends SliderElement {
        
        $slider_id = get_post_meta ( $room_id, 'slider_id', true );
        
-       if ($page === '')
+       if ($slider_id === '')
            return 0;         
        else
            return (int)$slider_id;

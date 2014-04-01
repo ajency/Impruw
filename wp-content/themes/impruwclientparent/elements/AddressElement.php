@@ -43,11 +43,15 @@ class AddressElement extends Element {
      * The config to create a row element
      * @param array $config
      */
-    function __construct($config) {
+    function __construct($element) {
         
-        parent::__construct($config);
+        parent::__construct($element);
         
-        $this->markup           = $this->generate_markup();
+        $this->style = $element['style'];
+
+        $this->template = get_style_template($element);
+        
+        $this->markup  = $this->generate_markup();
     }
     
     /**
@@ -77,32 +81,18 @@ class AddressElement extends Element {
         $contact_at = $site->get_site_business();
 
         
-        $defaults = array( "street"     => "", 
-                           "phone"    => "", 
+        $defaults = array( "street"     => "Street no", 
+                           "phone"    => "432432423", 
                            "email"      => "",
                            "postalcode" => '',
-                           "country"    => '',
-                           "city"       => '');
+                           "country"    => 'Norway',
+                           "city"       => 'Oslo');
 
         $contact_at  = wp_parse_args($contact_at , $defaults);
         
-        extract( $contact_at, EXTR_SKIP );
-        
-        $html = '';
-        
-        $html .= "<div class='infoPoint'>";
-        $html .= "<span class='fui-home'></span>";
-        $html .= " $street</div>";
-
-        $html .= "<div class='infoPoint'>";
-        $html .= "<span class='glyphicon glyphicon-earphone'></span>";
-        $html .= " $phone</div>";
-
-        $html .= "<div class='infoPoint'>";
-        $html .= "<span class='fui-mail'></span>";
-        $html .= " $email</div>";
-
-        
+        //extract( $contact_at, EXTR_SKIP );
+        global $me;
+        $html = $me->render($this->template, $contact_at);
         return $html;
             
     }

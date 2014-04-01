@@ -2,7 +2,7 @@ var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 define(['app', 'text!apps/builder/header/show/templates/mainview.html'], function(App, mainviewTpl) {
-  App.module('HeaderApp.Show.Views', function(Views, App, Backbone, Marionette, $, _) {
+  return App.module('HeaderApp.Show.Views', function(Views, App, Backbone, Marionette, $, _) {
     var SinglePageView;
     SinglePageView = (function(_super) {
       __extends(SinglePageView, _super);
@@ -55,13 +55,15 @@ define(['app', 'text!apps/builder/header/show/templates/mainview.html'], functio
         });
       };
 
-      MainView.prototype.setHomePage = function() {
-        return this.$el.find('select#aj-imp-page-sel').selectpicker('val', 10);
+      MainView.prototype.getCurrentPageName = function() {
+        var name, pageId;
+        pageId = this.$el.find('select#aj-imp-page-sel').val();
+        name = this.$el.find('select#aj-imp-page-sel').find("option[value='" + pageId + "']").text();
+        return name;
       };
 
       return MainView;
 
     })(Marionette.CompositeView);
   });
-  return App.HeaderApp.Show.Views;
 });
