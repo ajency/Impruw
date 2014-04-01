@@ -2,7 +2,7 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-define(['app', 'controllers/base-controller', 'apps/statistics/siteanalytics/views', 'moment'], function(App, AppController, moment) {
+define(['app', 'controllers/base-controller', 'apps/statistics/siteanalytics/views'], function(App, AppController) {
   return App.module('DashboardApp.Statistics.SiteAnalytics', function(SiteAnalytics, App, Backbone, Marionette, $, _) {
     var SiteAnalyticsController, SiteAnalyticsLayout;
     SiteAnalyticsController = (function(_super) {
@@ -17,7 +17,7 @@ define(['app', 'controllers/base-controller', 'apps/statistics/siteanalytics/vie
         var date, endDate, layout, startDate;
         date = new Date();
         endDate = Date.UTC(date.getFullYear(), date.getMonth(), date.getDate());
-        startDate = endDate - (7 * 86400000);
+        startDate = endDate - (30 * 86400000);
         this.collection = App.request("get:site:analytics:data", startDate, endDate);
         this.layout = layout = this._getLayout();
         this.listenTo(layout, "show", this.renderCharts);
@@ -25,8 +25,12 @@ define(['app', 'controllers/base-controller', 'apps/statistics/siteanalytics/vie
         return this.show(layout);
       };
 
-      SiteAnalyticsController.prototype.renderCharts = function() {
+      SiteAnalyticsController.prototype.renderCharts = function(startDate, endDate) {
         var overviewChart, trafficViewChart;
+        if (startDate == null) {
+          startDate = new Date();
+        }
+        this.collection = App.request("get:site:analytics:data", startDate, endDate);
         overviewChart = new SiteAnalytics.Views.OverviewChartView({
           collection: this.collection
         });
@@ -53,14 +57,23 @@ define(['app', 'controllers/base-controller', 'apps/statistics/siteanalytics/vie
 
       SiteAnalyticsLayout.prototype.className = 'row';
 
-      SiteAnalyticsLayout.prototype.template = '<input type="text" class="datepicker"/> <div id="overview-chart-region"></div> <div id="traffic-chart-region"></div>';
+      SiteAnalyticsLayout.prototype.template = '<div class="left-inner-addon "> <span class="glyphicon glyphicon-calendar"></span> <input type="text" class="datepicker "/> <div class="room-chart"> <div class="chart-legends"> <ul class="list-inline duration"> <li data-duration="7">Week</li> <li class="active" data-duration="30">Month</li> <li data-duration="180">6 Months</li> </ul> </div> </div> </div> <div id="overview-chart-region"></div> <div id="traffic-chart-region"></div>';
 
       SiteAnalyticsLayout.prototype.events = {
         'change .datepicker': function() {
-          var end, start;
-          start = new Date();
-          end = start - (30 * 8460000);
+          var date, endDate, startDate;
+          date = new Date();
+          endDate = Date.UTC(date.getFullYear(), date.getMonth(), date.getDate());
+          startDate = endDate - (30 * 86400000);
           return this.trigger("date:range:changed", start, end);
+        },
+        'click .duration > li': function(e) {
+          var date, duration, endDate, startDate;
+          date = new Date();
+          endDate = Date.UTC(date.getFullYear(), date.getMonth(), date.getDate());
+          duration = parseInt($(e.target).attr('data-duration'));
+          startDate = endDate - (duration * 86400000);
+          return this.trigger("date:range:changed", startDate, endDate);
         }
       };
 

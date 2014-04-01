@@ -2651,6 +2651,25 @@ form .aj-imp-submit:hover {
   }
 }
 /* room chart*/
+.left-inner-addon {
+  margin-left: 5%;
+  margin-bottom: 3%;
+  position: relative;
+}
+.left-inner-addon span {
+  position: absolute;
+  padding: 10px 12px;
+  pointer-events: none;
+  color: #ccc;
+}
+.left-inner-addon input {
+  padding: 7px 30px;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border: 1px solid #ccc;
+  line-height: 22px;
+}
 .room-chart {
   background: #f6f6f6;
   /* padding: 40px; */
@@ -2662,4 +2681,55 @@ form .aj-imp-submit:hover {
   display: block;
   width: 900px;
   height: 368px;
+}
+.room-chart .chart-data {
+  font-size: 1.2em;
+  padding: 30px 70px;
+  background: #f0f0f0;
+  margin: 0px;
+  color: #9ea7b3;
+  border-top: 1px solid #ccc;
+}
+.room-chart .chart-data h3 {
+  color: #8b9daa;
+}
+.room-chart .chart-data .col-md-3 {
+  border-left: 1px solid #E0E0E0;
+}
+.room-chart .chart-data .col-md-3:first-child {
+  border-left: 0px;
+}
+.room-chart .chart-legends {
+  padding: 22px 0px;
+}
+.room-chart .chart-legends ul li {
+  text-transform: uppercase;
+  padding: 6px 8px;
+}
+.room-chart .chart-legends ul li .new-visit {
+  border-radius: 100%;
+  -moz-border-radius: 100%;
+  -webkit-border-radius: 100%;
+  border: 2px solid #c77d28;
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  margin-right: 5px;
+}
+.room-chart .chart-legends ul li .unique-visit {
+  border-radius: 100%;
+  -moz-border-radius: 100%;
+  -webkit-border-radius: 100%;
+  border: 2px solid rgba(244, 135, 8, 0.74);
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  margin-right: 5px;
+}
+.room-chart .chart-legends ul .active {
+  border-radius: 20px;
+  -moz-border-radius: 20px;
+  -webkit-border-radius: 20px;
+  color: #ff7e00;
+  border: 1px solid #ff7e00;
 }

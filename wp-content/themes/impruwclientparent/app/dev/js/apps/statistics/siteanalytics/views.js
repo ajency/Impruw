@@ -13,12 +13,12 @@ define(['app'], function(App) {
 
       OverviewChartView.prototype.className = 'row room-chart';
 
-      OverviewChartView.prototype.template = '<canvas id="overview-chart" height="400" width="700"></canvas><br><br><br>';
+      OverviewChartView.prototype.template = '<div class="row chart-legends"> <div class="col-md-1">&nbsp;</div> <div class="col-md-5"> <!--<ul class="list-inline duration"> <li class="active" data-duration="7">Week</li> <li data-duration="30">Month</li> <li data-duration="180">6 Months</li> </ul>--> </div> <div class="col-md-5"> <ul class="list-inline pull-right"> <li ><span class="new-visit">&nbsp;</span>NEW VISITS</li> <li><span class="unique-visit">&nbsp;</span>UNIQUE VISITORS</li> </ul> </div> <div class="col-md-1">&nbsp;</div> </div> <canvas id="overview-chart" height="400" width="700"></canvas><br><br><br> <div class="row chart-data"> <div class="col-md-3"><h3>00:45:36</h3> Avg Visitor Duration</div> <div class="col-md-3"><h3>57</h3> Unique Visitor</div> <div class="col-md-3"><h3>70 </h3>Total Visits</div> <div class="col-md-3"><h3>24%</h3> Bounce Rate</div> </div>';
 
       OverviewChartView.prototype.onShow = function() {
         var chart, ctx, data;
+        console.log(this.collection);
         chart = this.$el.find('#overview-chart').get(0);
-        console.log($(chart).parent().width());
         $(chart).attr('width', $(chart).parent().width() - 50);
         data = this.getChartData();
         ctx = chart.getContext("2d");
