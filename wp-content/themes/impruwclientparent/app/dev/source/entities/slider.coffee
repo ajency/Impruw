@@ -107,6 +107,14 @@ define ["app", 'backbone'], (App, Backbone) ->
 			App.reqres.setHandler "get:slides:collection", ()->
 				new SlideCollection
 
+			App.reqres.setHandler "get:dummy:slides:collection",->
+				new SlideCollection [
+										{"id":1,"thumb_url":"add image link here","order":1},
+										{"id":2,"thumb_url":"add image link here","order":2},
+										{"id":3,"thumb_url":"add image link here","order":3},
+										{"id":4,"thumb_url":"add image link here","order":4}
+									]
+
 			App.reqres.setHandler "create:new:slider:model",(modelData)->
 				API.createNewSlider modelData
 

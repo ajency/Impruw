@@ -18,9 +18,15 @@ define ['app','apps/builder/header/show/controller'], (App)->
 
 				$.cookie('current-page-id')
 
+			getCurrentPageName:->
+				headerController.getCurrentPageName()
+
 		# return the current ediatble page ID
 		App.reqres.setHandler "get:current:editable:page", ->
 			API.getCurrentPageId()
+
+		App.reqres.setHandler "get:current:editable:page:name", ->
+			API.getCurrentPageName()
 
 		# show the region on start
 		HeaderApp.on 'start', ->
