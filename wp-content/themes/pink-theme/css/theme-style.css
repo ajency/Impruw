@@ -1290,6 +1290,10 @@ and open the template in the editor.
 .social li:hover a {
   top: 0px;
 }
+.social.small-social {
+  margin: 0.5em auto;
+  max-width: 220px;
+}
 @media (max-width: 767px) {
   .social {
     text-align: center;
