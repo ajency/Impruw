@@ -13,12 +13,11 @@ define(['app'], function(App) {
 
       OverviewChartView.prototype.className = 'row room-chart';
 
-      OverviewChartView.prototype.template = '<div class="row chart-legends"> <div class="col-md-1">&nbsp;</div> <div class="col-md-5"><ul class="list-inline "> <li class="active">Weak</li> <li>Day</li> <li>Month</li> </ul></div> <div class="col-md-5"><ul class="list-inline pull-right"> <li ><span class="new-visit">&nbsp;</span>NEW VISITS</li> <li><span class="unique-visit">&nbsp;</span>UNIQUE VISITORS</li> </ul> </div> <div class="col-md-1">&nbsp;</div> </div> <canvas id="overview-chart" height="400" width="700"></canvas><br><br><br> <div class="row chart-data"> <div class="col-md-3"><h3>00:45:36</h3> Avg Visitor Duration</div> <div class="col-md-3"><h3>57</h3> Unique Visitor</div> <div class="col-md-3"><h3>70 </h3>Total Visits</div> <div class="col-md-3"><h3>24%</h3> Bounce Rate</div> </div>';
+      OverviewChartView.prototype.template = '<div class="row chart-legends"> <div class="col-md-11"> <ul class="list-inline pull-right"> <li ><span class="new-visit">&nbsp;</span>NEW VISITS</li> <li><span class="unique-visit">&nbsp;</span>UNIQUE VISITORS</li> </ul> </div> <div class="col-md-1">&nbsp;</div> </div> <canvas id="overview-chart" height="400" width="700"></canvas><br><br><br> <div class="row chart-data"> <div class="col-md-3"><h3>00:45:36</h3> Avg Visitor Duration</div> <div class="col-md-3"><h3>57</h3> Unique Visitor</div> <div class="col-md-3"><h3>70 </h3>Total Visits</div> <div class="col-md-3"><h3>24%</h3> Bounce Rate</div> </div>';
 
       OverviewChartView.prototype.onShow = function() {
         var chart, ctx, data;
         chart = this.$el.find('#overview-chart').get(0);
-        console.log($(chart).parent().width());
         $(chart).attr('width', $(chart).parent().width() - 50);
         data = this.getChartData();
         ctx = chart.getContext("2d");
@@ -58,11 +57,9 @@ define(['app'], function(App) {
         return TrafficSingle.__super__.constructor.apply(this, arguments);
       }
 
-      TrafficSingle.prototype.className = 'sadsdas';
-
       TrafficSingle.prototype.tagName = 'tr';
 
-      TrafficSingle.prototype.template = '<td>add single traffic row markup here</td>';
+      TrafficSingle.prototype.template = '<td class="text-left" data-title="Source"> <a href="#">http://dribbble.com/shots/popular? </a> <span class="label label-info">R</span> </td> <td data-title="Visits">163</td> <td data-title="Page views">  2.08 </td> <td data-title="Avg time on the page"> 00:12:36 </td> <td data-title="Bounce rate"> 70.38%<span class="glyphicon glyphicon-arrow-up"></span> </td>';
 
       return TrafficSingle;
 
@@ -74,9 +71,7 @@ define(['app'], function(App) {
         return TrafficEmpty.__super__.constructor.apply(this, arguments);
       }
 
-      TrafficEmpty.prototype.className = '';
-
-      TrafficEmpty.prototype.template = '<td colspan="4">no traffic data to display</td>';
+      TrafficEmpty.prototype.template = '<td colspan="4">No traffic data to display</td>';
 
       return TrafficEmpty;
 
@@ -90,11 +85,11 @@ define(['app'], function(App) {
 
       TrafficViewChart.prototype.className = 'row';
 
-      TrafficViewChart.prototype.template = '<h4> All Traffic Data</h4> add traffic chart markup here. <table class="traffic-list"></table>';
+      TrafficViewChart.prototype.template = '<h4> All Traffic Data</h4> <div class="row traffic-list-table"> <div class="col-md-12"> <table class="traffic-list table table-striped"> <thead> <tr> <th class="text-left">Source</th> <th >Visits</th> <th>Page views</th> <th>Avg time on the page</th> <th>Bounce rate</th> </tr> </thead> <tbody> </tbody> </table> </div> </div>';
 
       TrafficViewChart.prototype.itemView = TrafficSingle;
 
-      TrafficViewChart.prototype.itemViewContainer = 'table.traffic-list';
+      TrafficViewChart.prototype.itemViewContainer = 'table > tbody';
 
       TrafficViewChart.prototype.emptyView = TrafficEmpty;
 

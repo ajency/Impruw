@@ -7,32 +7,25 @@ define ['app'], (App)->
 			className : 'row room-chart'
 
 			template : '<div class="row chart-legends">
-			<div class="col-md-1">&nbsp;</div>
-			<div class="col-md-5"><ul class="list-inline ">
-			<li class="active">Weak</li>
-			<li>Day</li>
-			<li>Month</li>
-			</ul></div>
-			<div class="col-md-5"><ul class="list-inline pull-right">
-			<li ><span class="new-visit">&nbsp;</span>NEW VISITS</li>
-			<li><span class="unique-visit">&nbsp;</span>UNIQUE VISITORS</li>
-			
-			</ul> </div>
-			<div class="col-md-1">&nbsp;</div>
-			</div>
-			<canvas id="overview-chart" height="400" width="700"></canvas><br><br><br>
-			<div class="row chart-data">
-				<div class="col-md-3"><h3>00:45:36</h3> Avg Visitor Duration</div>
-				<div class="col-md-3"><h3>57</h3> Unique Visitor</div>
-				<div class="col-md-3"><h3>70 </h3>Total Visits</div>
-				<div class="col-md-3"><h3>24%</h3> Bounce Rate</div>
-			</div>
-			'
+							<div class="col-md-11">
+								<ul class="list-inline pull-right">
+									<li ><span class="new-visit">&nbsp;</span>NEW VISITS</li>
+									<li><span class="unique-visit">&nbsp;</span>UNIQUE VISITORS</li>
+								</ul>
+							</div>
+							<div class="col-md-1">&nbsp;</div>
+						</div>
+						<canvas id="overview-chart" height="400" width="700"></canvas><br><br><br>
+						<div class="row chart-data">
+							<div class="col-md-3"><h3>00:45:36</h3> Avg Visitor Duration</div>
+							<div class="col-md-3"><h3>57</h3> Unique Visitor</div>
+							<div class="col-md-3"><h3>70 </h3>Total Visits</div>
+							<div class="col-md-3"><h3>24%</h3> Bounce Rate</div>
+						</div>'
 
 			onShow:->
 				# set the width of parent
 				chart = @$el.find('#overview-chart').get(0)
-				console.log $(chart).parent().width()
 				$(chart).attr 'width',$(chart).parent().width() - 50
 				data = @getChartData()
 				# setup the chart here`
@@ -66,18 +59,23 @@ define ['app'], (App)->
 		# traffic single view
 		class TrafficSingle extends Marionette.ItemView
 
-			className : 'sadsdas'
-
 			tagName : 'tr'
 
-			template : '<td>add single traffic row markup here</td>'
+			template : '<td class="text-left" data-title="Source">
+							<a href="#">http://dribbble.com/shots/popular? </a>
+							<span class="label label-info">R</span>
+						</td>
+						<td data-title="Visits">163</td>
+						<td data-title="Page views">  2.08 </td>
+						<td data-title="Avg time on the page"> 00:12:36 </td>
+						<td data-title="Bounce rate"> 
+							70.38%<span class="glyphicon glyphicon-arrow-up"></span>
+						</td>'
 
-		# 
+		# traffic empty view
 		class TrafficEmpty extends Marionette.ItemView
 
-			className : ''
-
-			template : '<td colspan="4">no traffic data to display</td>'
+			template : '<td colspan="4">No traffic data to display</td>'
 
 		# traffic view
 		class Views.TrafficViewChart extends Marionette.CompositeView
@@ -85,12 +83,27 @@ define ['app'], (App)->
 			className : 'row'
 
 			template : '<h4> All Traffic Data</h4>
-						add traffic chart markup here.
-						<table class="traffic-list"></table>'
+						<div class="row traffic-list-table">
+							<div class="col-md-12">
+								<table class="traffic-list table table-striped">
+									<thead>
+										<tr>
+											<th class="text-left">Source</th>
+											<th >Visits</th>
+											<th>Page views</th>
+											<th>Avg time on the page</th>
+											<th>Bounce rate</th>
+										</tr>
+									</thead>
+									<tbody>
+									</tbody>
+								</table>
+							</div>
+						</div>'
 
 			itemView : TrafficSingle
 
-			itemViewContainer : 'table.traffic-list'
+			itemViewContainer : 'table > tbody'
 
 			emptyView : TrafficEmpty
 

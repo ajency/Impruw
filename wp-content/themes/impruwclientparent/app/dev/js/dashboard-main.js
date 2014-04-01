@@ -19,6 +19,7 @@ require.config({
     plupload: 'plugins/plupload.full',
     d3: 'plugins/d3.v3',
     nvd3: 'plugins/nv.d3',
+    datepicker: 'plugins/datepicker',
     isotope: 'plugins/isotope',
     radio: 'plugins/flatui-radio',
     checkbox: 'plugins/flatui-checkbox',
@@ -58,6 +59,7 @@ require.config({
       exports: 'nv'
     },
     jqueryvalidate: ['jquery'],
+    datepicker: ['jquery'],
     underscorestring: ['underscore'],
     backboneform: ['backbone'],
     backbonesyphon: ['backbone'],

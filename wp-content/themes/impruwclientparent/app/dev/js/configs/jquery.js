@@ -20,7 +20,10 @@ define(['jquery', 'underscore', 'jqueryvalidate'], function($, _) {
     return empty;
   };
   $.validator.setDefaults({
-    ignore: []
+    ignore: [],
+    errorElement: 'div',
+    errorClass: 'field-error',
+    validClass: 'field-valid'
   });
   adjustPageDim = _.debounce(function() {
     var height, minHeight;

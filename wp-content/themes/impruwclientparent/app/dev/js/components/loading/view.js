@@ -33,7 +33,7 @@ define(['marionette'], function(Marionette) {
         corners: 1,
         rotate: 9,
         direction: 1,
-        color: '#000',
+        color: '#ff9e2c',
         speed: 1,
         trail: 60,
         shadow: false,
