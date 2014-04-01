@@ -1257,3 +1257,11 @@ ul.social li:hover a {
   -ms-transition: all 0.25s ease;
   transition: all 0.25s ease;
 }
+.map {
+  padding: 0;
+  border: none;
+  margin: 0 -15px 2em;
+}
+.map:hover {
+  border: none;
+}
