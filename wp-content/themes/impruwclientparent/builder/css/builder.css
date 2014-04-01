@@ -1897,26 +1897,27 @@ Version:        0.1.0
   margin: 1em 0;
   list-style: none;
 }
+#slides-list-region,
+#add-slide-region,
+.aj-imp-block-button.add-new-slide {
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+}
 /**** Isotope Filtering ****/
 .isotope-item {
   z-index: 2;
   margin: 0.2em;
 }
 .isotope-item.width-1 {
-  width: 20%;
+  width: 200px;
   height: auto;
 }
 .isotope-item.width-2 {
-  width: 40%;
+  width: 200px;
   height: auto;
 }
-.isotope-item.height-1 {
-  height: 20%;
-  width: auto;
-}
-.isotope-item.height-2 {
-  height: 40%;
-  width: auto;
+.isotope-item .img-responsive {
+  width: 100%;
 }
 .isotope-hidden.isotope-item {
   pointer-events: none;

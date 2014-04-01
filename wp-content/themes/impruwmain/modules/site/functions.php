@@ -200,8 +200,9 @@ function create_additional_tables($site_id) {
 	// date range table
 	$query = "CREATE TABLE IF NOT EXISTS {$wpdb->prefix}daterange(
 			    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-			    form_data DATE,
-			    to_date DATE)";
+			    from_date VARCHAR(100),
+			    to_date VARCHAR(100),
+				daterange_name VARCHAR(100)";
 	
 	$wpdb->query ( $query );
 	

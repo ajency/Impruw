@@ -60,7 +60,7 @@ function create_daterange_ajax(){
 	$from_date= date("Y-m-d H:i:s",strtotime($_POST['start_date']));
 	$to_date= date("Y-m-d H:i:s",strtotime($_POST['end_date']));
 
-	$formdata = array('from_date' => $from_date,'to_date' => $to_date,'label'=>' ');
+	$formdata = array('from_date' => $from_date,'to_date' => $to_date,'daterange_name'=>$_POST['daterange_name']);
 
 	// pass the form data to the insert function, returns the date range id 
 	$daterange_id = wp_insert_daterange($formdata);

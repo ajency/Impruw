@@ -7,7 +7,13 @@ function  wp_insert_daterange($formdata){
   
   $table_name= $wpdb->prefix.'daterange';
   
-  $wpdb->insert($table_name, $formdata);
+  $data = array();
+  
+  $data['from_date'] = strtotime($formdata['from_date']);
+  $data['to_date'] = strtotime($formdata['to_date']);
+  $data['daterange_name'] = $formdata['daterange_name'];
+
+  $wpdb->insert($table_name, $data);
   
   return $wpdb->insert_id;
 }

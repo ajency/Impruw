@@ -65,16 +65,16 @@ class ImageWithText extends Element {
     	
     	global $me;
     	
-    	$template = '<div class={{class_name}}>
-	    				{{#image}}
-							<img src="{{imageurl}}" alt="{{title}}" class="{{alignclass}} img-responsive"/>
-						{{/image}}
-						{{#placeholder}}
-							<div class="image-placeholder {{alignclass}}"><span class="bicon icon-uniF10E"></span>Image</div>
-						{{/placeholder}}
-						<p class="editor">{{content}}</p>
-						<div class="clearfix"></div>
-    				 </div>';
+    	
+    	
+    	$template = '{{#image}}
+						<img src="{{imageurl}}" alt="{{title}}" class="{{alignclass}} img-responsive"/>
+					{{/image}}
+					{{#placeholder}}
+						<div class="image-placeholder {{alignclass}}"><span class="bicon icon-uniF10E"></span>Image</div>
+					{{/placeholder}}
+					<p class="editor">{{content}}</p>
+					<div class="clearfix"></div>';
     	
     	$data = array();
     	
@@ -91,9 +91,10 @@ class ImageWithText extends Element {
     	
     	$data['alignclass'] = $this->align == 'right' ? 'pull-right' : 'pull-left';
     	$data['content'] = $this->content;
-    	$data['class_name'] = $this->style;
     	
-    	$html = $me->render($template, $ata);
+    	$html = $this->get_open_tag();
+    	$html .= $me->render($template, $data);
+    	$html .= $this->get_close_tag();
     	
     	return $html;
     }

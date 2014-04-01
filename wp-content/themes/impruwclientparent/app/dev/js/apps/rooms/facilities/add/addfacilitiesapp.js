@@ -22,7 +22,6 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
       AddFacilityController.prototype.addFacility = function(data) {
         var facility;
         facility = App.request("create:new:facility:model", data);
-        console.log(data);
         return facility.save(null, {
           wait: true,
           success: this.facilityAdded
@@ -48,17 +47,13 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         return AddFacilityView.__super__.constructor.apply(this, arguments);
       }
 
-      AddFacilityView.prototype.tagName = 'form';
-
       AddFacilityView.prototype.className = 'facility add';
 
       AddFacilityView.prototype.template = '<div class="input-group"> <input type="text" name="name" class="form-control" placeholder="Add a Facility"> <span class="input-group-btn add-facility input-group-addon"><span class="icon icon-plus"></span> Add</span> </div>';
 
       AddFacilityView.prototype.events = {
         'click .add-facility': function() {
-          if (this.$el.valid()) {
-            return this.trigger("add:new:facility", Backbone.Syphon.serialize(this));
-          }
+          return this.trigger("add:new:facility", Backbone.Syphon.serialize(this));
         }
       };
 

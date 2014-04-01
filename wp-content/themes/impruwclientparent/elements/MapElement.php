@@ -71,11 +71,13 @@ class MapElement extends Element {
      * @return [type] [description]
      */
     function get_map(){
-
-        ob_start();
+		ob_start();
         ?> 
         <!-- Google maps API -->
         <div id="map_canvas" style="height: 300px;"></div>
+        <script type="text/javascript">
+		var HOTELADDRESS = '<?php echo get_hotel_address(); ?>';
+        </script>
         <?php
         $html = ob_get_clean();
 

@@ -22,7 +22,7 @@ define [
 		'underscorestring'
 		'mustache'
 		'bootstrapselect'
-		'datepicker'
+		#'datepicker'
 		#'nvd3'
 		'isotope'
 		],->

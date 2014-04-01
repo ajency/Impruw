@@ -25,6 +25,18 @@ define(['jquery', 'underscore', 'jqueryvalidate'], function($, _) {
     errorClass: 'field-error',
     validClass: 'field-valid'
   });
+  $.scrollTop = function() {
+    return $('html, body').animate({
+      scrollTop: 0
+    }, 1000);
+  };
+  $.scrollTo = function(ele) {
+    var $ele;
+    $ele = $(ele);
+    return $('html, body').animate({
+      scrollTop: $ele.offset().top
+    }, 1000);
+  };
   adjustPageDim = _.debounce(function() {
     var height, minHeight;
     height = $(window).height();

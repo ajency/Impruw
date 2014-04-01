@@ -25,13 +25,13 @@ define ['app'],(App)->
 							</div>
 						</div>
 						<div class="update_facility hidden">
-							<form class="facility_update">
+							<div class="facility_update">
 								<input type="text" name="facility_name" class="form-control input-sm" value="{{name}}" />
 								<div class="facility_actions">
 									<a href="javascript:void(0)" class="update">Update</a>
 									<a href="javascript:void(0)" class="cancel" >Cancel</a>
 								</div>
-							</form>
+							</div>
 						</div>'
 
 			onRender : ->

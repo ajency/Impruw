@@ -152,20 +152,24 @@ define(["app", 'backbone'], function(App, Backbone) {
       return new SlideCollection([
         {
           "id": 1,
-          "thumb_url": "add image link here",
+          "thumb_url": "http://classicgreen2.unpruwen.com/wp-content/themes/impruwclientparent/images/dummy/1.jpg",
           "order": 1
         }, {
           "id": 2,
-          "thumb_url": "add image link here",
+          "thumb_url": "http://classicgreen2.unpruwen.com/wp-content/themes/impruwclientparent/images/dummy/2.jpg",
           "order": 2
         }, {
           "id": 3,
-          "thumb_url": "add image link here",
+          "thumb_url": "http://classicgreen2.unpruwen.com/wp-content/themes/impruwclientparent/images/dummy/3.jpg",
           "order": 3
         }, {
           "id": 4,
-          "thumb_url": "add image link here",
+          "thumb_url": "http://classicgreen2.unpruwen.com/wp-content/themes/impruwclientparent/images/dummy/4.jpg",
           "order": 4
+        }, {
+          "id": 5,
+          "thumb_url": "http://classicgreen2.unpruwen.com/wp-content/themes/impruwclientparent/images/dummy/5.jpg",
+          "order": 5
         }
       ]);
     });

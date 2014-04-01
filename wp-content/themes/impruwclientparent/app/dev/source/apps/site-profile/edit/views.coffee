@@ -38,7 +38,8 @@ define ['app'
 						@$el.find('*[data-spy="affix"]').css('margin-left', m)
 					
 					onSiteProfileAdded:->
-						@$el.find('#form-siteprofile').prepend '<div class="alert alert-warning alert-dismissable">
+						@$el.find('.alert').remove()
+						@$el.find('#form-siteprofile').prepend '<div class="alert alert-success alert-dismissable">
 							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 							Save successfully</div>'
 						$('html, body').animate
@@ -49,7 +50,6 @@ define ['app'
 						image_id = media.get 'id'
 						media_size= media.get 'sizes'
 						image_path = media_size.full.url
-						console.log image_path
 						#@$el.find('.fileinput-preview ').append '<img src ="" class="site_profile_images"/>'
 						@$el.find('.site_profile_images').attr 'src', image_path
 						@$el.find('#logo_id').attr 'value', image_id
