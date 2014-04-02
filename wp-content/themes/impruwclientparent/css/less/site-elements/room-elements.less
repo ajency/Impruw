@@ -431,23 +431,45 @@
 				}
 		}
 		.room-booking-calender{
-				padding: 20px 0 20px;
-				h4{
-					font-weight: 600;
+			padding: 20px 0 20px;
+			h4{
+				font-weight: 600;
+				font-size: 1.5em;
+				color: #fff;
+				text-transform: uppercase;
+				.glyphicon {
 					font-size: 1.5em;
 					color: #fff;
-					text-transform: uppercase;
-					.glyphicon {
-						font-size: 1.5em;
-						color: #fff;
-						float: left;
-						margin-right: 1%;
+					float: left;
+					margin-right: 1%;
+				}
+				.excerpt{
+					display: block;
+					font-size: 0.6em;
+					font-weight: 300;
+					text-transform: none;
+				}
+			}
+			#room-booking-calendar {
+				.ui-datepicker {
+					width: 100% !important;
+					border-color: @primary1;
+					.ui-datepicker-header {
+						background: @primary1;
+						border: none;
+						.ui-datepicker-prev, .ui-datepicker-next {
+							border-color: @primary1;
+							&:hover {
+								background: lighten(@primary1, 10%);
+							}
+						}
 					}
-					.excerpt{
-						display: block;
-						font-size: 0.6em;
-						font-weight: 300;
-						text-transform: none;
+					.ui-state-active {
+						background: @primary1;
+					}
+					.ui-state-highlight {
+						border-color: lighten(@primary1, 20%);
+					}
 				}
 			}
 		}
