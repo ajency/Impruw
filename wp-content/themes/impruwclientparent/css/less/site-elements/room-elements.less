@@ -454,6 +454,11 @@
 				.ui-datepicker {
 					width: 100% !important;
 					border-color: @primary1;
+					box-shadow: none;
+					&:before {
+						border-bottom-color: lighten(@primary1, 20%);
+						top: -7px;
+					}
 					.ui-datepicker-header {
 						background: @primary1;
 						border: none;
