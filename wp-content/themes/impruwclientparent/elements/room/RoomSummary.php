@@ -45,16 +45,19 @@ class RoomSummary extends Element {
     function get_room_summary(){  
        $data= $this->room;
        $data['link']= get_permalink( $this->room_id );
+       $data['thumbnail_id']= wp_get_attachment_thumb_url(get_post_thumbnail_id( $this->room_id ));
     
-       $template = '<div class="roomsummary"><div class="room-img">
-                         <img src="{{_thumbnail_id}}" class="img-responsive">
-                    </div>
-                    <div class="room-title">{{post_title}}</div>
-                    <div class="room-excerpt">{{post_content}}</div>
-                    <div class="room-actions">
-                            <div class="price">$99<small>/night</small></div>
-                            <a href="{{link}}" class="btn btn-room">View Details</a>
-                    </div></div>';
+       $template = '<div class="roomsummary">
+                        <div class="room-img">
+                             <img src="{{thumbnail_id}}" class="img-responsive">
+                        </div>
+                        <div class="room-title">{{post_title}}</div>
+                        <div class="room-excerpt">{{post_content}}</div>
+                        <div class="room-actions">
+                                <div class="price">$99<small>/night</small></div>
+                                <a href="{{link}}" class="btn btn-room">View Details</a>
+                        </div>
+                    </div>';
        
        global $me;
        
