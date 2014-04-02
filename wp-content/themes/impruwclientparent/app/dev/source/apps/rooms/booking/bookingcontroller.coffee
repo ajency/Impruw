@@ -29,7 +29,9 @@ define ['app', 'controllers/base-controller'
 											templateHelpers : templateHelpers
 
 				# listen to date selected event
-				@listenTo cview, "date:selected", @showBookingPlansView
+				# @listenTo cview, "date:selected", @showBookingPlansView
+				@listenTo cview, "change:availability", (value)->
+					console.log value
 
 				@layout.calendarRegion.show cview
 
@@ -42,9 +44,9 @@ define ['app', 'controllers/base-controller'
 										
 				@layout.plansDetailsRegion.show pview
 
-			getRoomBookingLayout : (c)->
+			getRoomBookingLayout : (collection)->
 				new Booking.View.BookingRoomLayout
-										collection : c
+										collection : collection
 
 			
 		App.commands.setHandler "show:booking:app", (opts)->

@@ -25,6 +25,7 @@ define ["app", 'backbone', 'moment'], (App, Backbone, moment) ->
 
 			# get bookings on
 			getBookingOn:(date)->
+				date = if _.isString(date) then moment(date) else date
 				time = date.getTime()
 
 				checkBooking =(booking)->

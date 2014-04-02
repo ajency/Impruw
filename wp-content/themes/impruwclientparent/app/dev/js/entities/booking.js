@@ -40,6 +40,7 @@ define(["app", 'backbone', 'moment'], function(App, Backbone, moment) {
 
       BookingCollection.prototype.getBookingOn = function(date) {
         var checkBooking, models, time;
+        date = _.isString(date) ? moment(date) : date;
         time = date.getTime();
         checkBooking = function(booking) {
           var from, to;

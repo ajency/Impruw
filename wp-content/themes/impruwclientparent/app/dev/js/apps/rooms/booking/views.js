@@ -14,7 +14,7 @@ define(['app', 'text!apps/rooms/add/templates/add-room.html'], function(App, add
 
       BookingRoomLayout.prototype.className = 'row room-booking';
 
-      BookingRoomLayout.prototype.template = '<div class="col-md-8 room-booking-calender" id="calendar-region"></div> <div class="col-md-4 room-booking-data" id="plans-details-region"></div>';
+      BookingRoomLayout.prototype.template = '<div class="col-md-8 room-booking-calender" id="calendar-region"></div> <div class="col-md-0 room-booking-data" id="plans-details-region"></div>';
 
       BookingRoomLayout.prototype.regions = {
         calendarRegion: '#calendar-region',
@@ -29,6 +29,7 @@ define(['app', 'text!apps/rooms/add/templates/add-room.html'], function(App, add
 
       function CalendarView() {
         this.highlightDaysByDateRange = __bind(this.highlightDaysByDateRange, this);
+        this.changeAvaliability = __bind(this.changeAvaliability, this);
         this.triggerOnSelect = __bind(this.triggerOnSelect, this);
         this.setDateRangeColor = __bind(this.setDateRangeColor, this);
         return CalendarView.__super__.constructor.apply(this, arguments);
@@ -40,6 +41,7 @@ define(['app', 'text!apps/rooms/add/templates/add-room.html'], function(App, add
         this.$el.find('#room-booking-calendar').datepicker({
           inline: true,
           numberOfMonths: 2,
+          dateFormat: 'yy-mm-dd',
           onSelect: this.triggerOnSelect,
           beforeShowDay: this.highlightDaysByDateRange
         });
@@ -58,7 +60,77 @@ define(['app', 'text!apps/rooms/add/templates/add-room.html'], function(App, add
 
       CalendarView.prototype.triggerOnSelect = function(date, selected) {
         this.trigger("date:selected", date);
-        return _.delay(this.setDateRangeColor, 0);
+        return _.delay((function(_this) {
+          return function() {
+            _this.setDateRangeColor();
+            return _this.showPopover(date);
+          };
+        })(this), 10);
+      };
+
+      CalendarView.prototype.showPopover = function(date) {
+        var self, td;
+        self = this;
+        td = this.$el.find('td.ui-datepicker-current-day');
+        this.clearPrevPopover();
+        td.popover({
+          content: this.getAvailabilityMarkup(date),
+          html: true,
+          placement: 'bottom',
+          container: 'body'
+        });
+        td.on('shown.bs.popover', function(t, r, p) {
+          var value;
+          value = parseInt($('#booking-slider').attr('data-value'));
+          return $('#booking-slider').slider({
+            value: value,
+            min: 0,
+            max: 60,
+            step: 30,
+            slide: self.changeAvaliability
+          });
+        });
+        td.popover('show');
+        return this.popovertd = td;
+      };
+
+      CalendarView.prototype.changeAvaliability = function(event, ui) {
+        var value;
+        if (ui.value === 0) {
+          value = 'availabile';
+        }
+        if (ui.value === 30) {
+          value = 'semi-availabile';
+        }
+        if (ui.value === 60) {
+          value = 'unavailabile';
+        }
+        return this.trigger("change:availability", value);
+      };
+
+      CalendarView.prototype.getAvailabilityMarkup = function(date) {
+        var currentStatus, html, value;
+        date = new Date(date);
+        currentStatus = App.request("get:avaliability:status", date);
+        if (currentStatus === 'available') {
+          value = 0;
+        }
+        if (currentStatus === 'semi-available') {
+          value = 30;
+        }
+        if (currentStatus === 'unavailable') {
+          value = 60;
+        }
+        html = "<div style='width:200px'> <div id='booking-slider' data-value='" + value + "'></div> </div>";
+        return html;
+      };
+
+      CalendarView.prototype.clearPrevPopover = function() {
+        if (!this.popovertd) {
+          return;
+        }
+        $('.popover').remove();
+        return delete this.popovertd;
       };
 
       CalendarView.prototype.highlightDaysByDateRange = function(date) {
