@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This class is responsible for all actions/functions related to 
  * Room Title Element
@@ -14,43 +15,41 @@
  * @since      Class available since Release 0.1
  * @deprecated NA
  */
-
 class RoomTitle extends Element {
-    
+
     /**
      * The default type property for element
      * @var String 
      */
-    var $type       = 'roomtitle';
+    var $type = 'roomtitle';
 
-    
     /**
      * The config to create a row element
      * @param array $element
      */
     function __construct($element, $post_id = 0) {
-        
+
         parent::__construct($element);
 
         $this->post_id = $post_id;
 
-        if($this->post_id === 0 && get_the_ID() > 0)
+        if ($this->post_id === 0 && get_the_ID() > 0)
             $this->post_id = get_the_ID();
-        
+
         $this->room = get_room($this->post_id);
-        
-        $this->markup  = $this->generate_markup();
+
+        $this->markup = $this->generate_markup();
     }
-    
+
     /**
      * Create the basic markup for an element
      * @uses className and tagName properties of element
      * @return String basic markup
      */
-    function generate_markup(){
-        
+    function generate_markup() {
+
         $html = $this->get_room_title();
-        
+
         return $html;
     }
 
@@ -58,25 +57,33 @@ class RoomTitle extends Element {
      * Returns the room title markup
      * @return [type] [description]
      */
-    function get_room_title(){
-        
+    function get_room_title() {
+
         $template = '<div class="room-title-container clearfix">
                             <div class="room-title">
                                     <h1>{{post_title}}</h1>
-                                    <div class="room-title-desc">Lorem ipsum dolor sit amet et odio vehicula, id porttitor quam malesuada</div>
+                                    <div class="room-title-desc">Lorem ipsum dolor sit amet et 
+                                    odio vehicula, id porttitor quam malesuada</div>
                             </div>
                             <div class="room-title-actions">
-                                   <button class="btn btn-sm btn-book">Booking &amp; Availability</button>
+                                   <button class="btn btn-sm btn-book">Booking &amp;
+                                   Availability</button>
                             </div>
                     </div>';
-        
-        
+
+
         $data = array();
+
+        if ($this->room['post_title'] == '')
+            
+            $data['post_title'] = 'Room Title';
         
-        $data['post_title'] = $this->room['post_title'];
-   
+        else {
+            $data['post_title'] = $this->room['post_title'];
+        }
+        
         global $me;
-        
+
         return $me->render($template, $data);
     }
 

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This class is responsible for all actions/functions related to 
  * Room description Element
@@ -14,42 +15,39 @@
  * @since      Class available since Release 0.1
  * @deprecated NA
  */
-
 class RoomDescription extends Element {
-    
+
     /**
      * The default type property for element
      * @var String 
      */
-    var $type       = 'roomdescription';
+    var $type = 'roomdescription';
 
-    
     /**
      * The config to create a row element
      * @param array $element
      */
     function __construct($element, $post_id = 0) {
-        
+
         parent::__construct($element);
 
         $this->post_id = $post_id;
 
-        if($this->post_id === 0 && get_the_ID() > 0)
+        if ($this->post_id === 0 && get_the_ID() > 0)
             $this->post_id = get_the_ID();
-        
+
         $this->room = get_room($this->post_id);
-        
-        $this->markup  = $this->generate_markup();
-        
+
+        $this->markup = $this->generate_markup();
     }
-    
+
     /**
      * Create the basic markup for an element
      * @uses className and tagName properties of element
      * @return String basic markup
      */
-    function generate_markup(){
-        
+    function generate_markup() {
+
         $html = $this->get_room_description();
 
         return $html;
@@ -59,28 +57,35 @@ class RoomDescription extends Element {
      * Returns the room description markup
      * @return [type] [description]
      */
-    function get_room_description(){
+    function get_room_description() {
 
-      /*  if($this->post_id === 0)
-            return '';
+        /*  if($this->post_id === 0)
+          return '';
 
-        $post = get_post($this->post_id);
+          $post = get_post($this->post_id);
 
-        $content = $post->post_content;
+          $content = $post->post_content;
 
-        return $content;
-       */
-           $template = '<div class="room-description-container clearfix">
+          return $content;
+         */
+        $template = '<div class="room-description-container clearfix">
                             <div class="room-description">
                                     <div class="room-description-desc">{{post_content}}</div>
                             </div>
 			</div>';
-        
-        
+
+
         $data = array();
+
+        if ($this->room['post_content'] == '')
+            
+            $data['post_content'] = 'Room Description';
         
-        $data['post_content'] = $this->room['post_content'];
-        
+        else {
+
+            $data['post_content'] = $this->room['post_content'];
+        }
+
         global $me;
 
         return $me->render($template, $data);
