@@ -16,7 +16,7 @@ define(['app', 'controllers/base-controller', 'apps/rooms/booking/views'], funct
       Controller.prototype.initialize = function(options) {
         var layout, roomId;
         roomId = options.roomId;
-        this.bookings = App.request("fetch:room:bookings", roomId = 2);
+        this.bookings = App.request("fetch:room:bookings", roomId);
         this.layout = layout = this.getRoomBookingLayout(this.bookings);
         this.listenTo(layout, "show", this.showBookingCalendarView);
         return this.show(layout, {

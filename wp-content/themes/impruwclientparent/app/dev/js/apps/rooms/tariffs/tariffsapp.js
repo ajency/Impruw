@@ -12,8 +12,17 @@ define(['app', 'controllers/base-controller', 'apps/rooms/tariffs/show/showcontr
       }
 
       RoomsTariffAppController.prototype.initialize = function(opt) {
+        var roomId;
+        roomId = opt.roomId;
         this.layout = this._getLayout();
-        this.listenTo(this.layout, "show", this.showTariffGrid);
+        this.listenTo(this.layout, "show", (function(_this) {
+          return function() {
+            return App.execute("show:tariff:grid", {
+              region: _this.layout.tariffGridRegion,
+              roomId: roomId
+            });
+          };
+        })(this));
         this.listenTo(this.layout, "show:add:daterange", (function(_this) {
           return function() {
             return App.execute("show:add:daterange");
@@ -29,12 +38,6 @@ define(['app', 'controllers/base-controller', 'apps/rooms/tariffs/show/showcontr
 
       RoomsTariffAppController.prototype._getLayout = function() {
         return new RoomsTariffAppLayout;
-      };
-
-      RoomsTariffAppController.prototype.showTariffGrid = function() {
-        return App.execute("show:tariff:grid", {
-          region: this.layout.tariffGridRegion
-        });
       };
 
       return RoomsTariffAppController;

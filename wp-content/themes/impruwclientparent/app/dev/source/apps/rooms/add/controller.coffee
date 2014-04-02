@@ -10,7 +10,9 @@ define ['app', 'controllers/base-controller'
 
 			initialize:(options)->
 
-				@layout = layout = @getAddRoomLayout()	
+				@roomModel = App.request "create:new:room:model", {}
+
+				@layout = layout = @getAddRoomLayout @roomModel
 
 				@slidesCollection = App.request "get:slides:collection"
 
@@ -24,9 +26,11 @@ define ['app', 'controllers/base-controller'
 						
 						App.execute "show:rooms:tariffs:app",
 											region : layout.roomTariffRegion
+											roomId : @roomModel.get 'ID'
 
 						App.execute "show:booking:app",
 											region : layout.roomBookingRegion
+											roomId : @roomModel.get 'ID'
 
 				@listenTo @layout, "show:edit:slider", =>
 
@@ -46,15 +50,16 @@ define ['app', 'controllers/base-controller'
 				@listenTo @layout, "save:new:room", (data)=>
 					@_saveNewRoom data
 						
-				@show layout
+				@show layout, 
+						loading : true
 
 				App.navigate "rooms/add"
 
 
 			_saveNewRoom:(data)=>
-				roomModel = App.request "create:new:room:model", data
-				
-				roomModel.save null,
+				data['post_status'] = 'publish'
+				@roomModel.set data
+				@roomModel.save null,
 							wait : true
 							success : @showSaveMessage
 
@@ -62,8 +67,9 @@ define ['app', 'controllers/base-controller'
 				App.execute "add:room:model", model
 				@layout.triggerMethod "show:success:message"
 
-			getAddRoomLayout : ()->
+			getAddRoomLayout : (model)->
 				new Add.View.AddRoomLayout
+									model : model
 
 			
 		App.commands.setHandler "show:add:room", (opts)->

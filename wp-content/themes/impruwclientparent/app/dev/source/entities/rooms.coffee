@@ -10,6 +10,7 @@ define ["app", 'backbone'], (App, Backbone) ->
 				defaults : ()->
 					post_title      : ''
 					post_content    : ''
+					post_status 	: 'draft'
 					facilities      : []
 					slider_id       : 0
 					thumbnail_url   : 'http://localhost/impruw/childsite/wp-content/uploads/sites/81/2014/03/5-yama-zbrush-model-by-jemark-150x150.jpg'
@@ -39,6 +40,7 @@ define ["app", 'backbone'], (App, Backbone) ->
 
 				createNewRoomModel:(data = {})->
 					room = new Rooms.RoomModel data
+					room.save()
 					room
 
 				getRoomModel :(room_id) ->

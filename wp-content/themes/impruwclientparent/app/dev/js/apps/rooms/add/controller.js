@@ -15,7 +15,8 @@ define(['app', 'controllers/base-controller', 'apps/rooms/add/views', 'apps/room
 
       Controller.prototype.initialize = function(options) {
         var layout;
-        this.layout = layout = this.getAddRoomLayout();
+        this.roomModel = App.request("create:new:room:model", {});
+        this.layout = layout = this.getAddRoomLayout(this.roomModel);
         this.slidesCollection = App.request("get:slides:collection");
         this.listenTo(layout, "show", (function(_this) {
           return function() {
@@ -27,10 +28,12 @@ define(['app', 'controllers/base-controller', 'apps/rooms/add/views', 'apps/room
               collection: _this.slidesCollection
             });
             App.execute("show:rooms:tariffs:app", {
-              region: layout.roomTariffRegion
+              region: layout.roomTariffRegion,
+              roomId: _this.roomModel.get('ID')
             });
             return App.execute("show:booking:app", {
-              region: layout.roomBookingRegion
+              region: layout.roomBookingRegion,
+              roomId: _this.roomModel.get('ID')
             });
           };
         })(this));
@@ -56,14 +59,16 @@ define(['app', 'controllers/base-controller', 'apps/rooms/add/views', 'apps/room
             return _this._saveNewRoom(data);
           };
         })(this));
-        this.show(layout);
+        this.show(layout, {
+          loading: true
+        });
         return App.navigate("rooms/add");
       };
 
       Controller.prototype._saveNewRoom = function(data) {
-        var roomModel;
-        roomModel = App.request("create:new:room:model", data);
-        return roomModel.save(null, {
+        data['post_status'] = 'publish';
+        this.roomModel.set(data);
+        return this.roomModel.save(null, {
           wait: true,
           success: this.showSaveMessage
         });
@@ -74,8 +79,10 @@ define(['app', 'controllers/base-controller', 'apps/rooms/add/views', 'apps/room
         return this.layout.triggerMethod("show:success:message");
       };
 
-      Controller.prototype.getAddRoomLayout = function() {
-        return new Add.View.AddRoomLayout;
+      Controller.prototype.getAddRoomLayout = function(model) {
+        return new Add.View.AddRoomLayout({
+          model: model
+        });
       };
 
       return Controller;

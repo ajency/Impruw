@@ -9,7 +9,7 @@ define ['app', 'controllers/base-controller'
 
 				{roomId} = options
 
-				@bookings = App.request "fetch:room:bookings", roomId = 2
+				@bookings = App.request "fetch:room:bookings", roomId
 
 				@layout = layout = @getRoomBookingLayout(@bookings)	
 
