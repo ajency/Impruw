@@ -45,10 +45,36 @@ define(['app'], function(App) {
         return editor.on("configLoaded", function() {
           return editor.config.toolbarGroups = [
             {
-              name: "paragraph",
-              groups: ["list", "indent", "blocks", "align", "bidi"]
+              name: 'clipboard',
+              groups: ['clipboard', 'undo']
             }, {
-              name: "styles"
+              name: 'editing',
+              groups: ['find', 'selection', 'spellchecker']
+            }, {
+              name: 'links'
+            }, {
+              name: 'insert'
+            }, {
+              name: 'forms'
+            }, {
+              name: 'tools'
+            }, {
+              name: 'document',
+              groups: ['mode', 'document', 'doctools']
+            }, {
+              name: 'others'
+            }, '/', {
+              name: 'basicstyles',
+              groups: ['basicstyles', 'cleanup']
+            }, {
+              name: 'paragraph',
+              groups: ['list', 'indent', 'blocks', 'align', 'bidi']
+            }, {
+              name: 'styles'
+            }, {
+              name: 'colors'
+            }, {
+              name: 'about'
             }
           ];
         });
