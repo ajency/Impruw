@@ -51,9 +51,30 @@ class RoomBooking extends Element {
         $html = '<h4 class="aj-imp-sub-head scroll-ref">Room Booking</h4>
                 <div id="room-booking-region">
                     <div class="row room-booking">
-                        <div class="col-md-8 room-booking-calender" id="calendar-region"></div>
+                        
+                        <div class="col-md-8 room-booking-calender" id="calendar-region">
+                            
+                            <h4>
+                                <span class="glyphicon glyphicon-calendar"></span>
+                                 Monthly Calendar
+                                 <span class="excerpt">Donec vulputate nibh et odio vehicula, 
+                                 id porttitor quam malesuada</span>
+                            </h4>
+                            
+                            <div id="room-booking-calendar"></div>
+			    <br><br><br>
+                            
+                            <ul class="list-inline daterange-legends">
+                                    {{#dateRanges}}
+                                            <li><span class="{{class}}">&nbsp;</span>{{name}}</li>
+                                    {{/dateRanges}}
+                            </ul>
+                        
+                        </div>
+                       
                         <div class="col-md-0 room-booking-data" id="plans-details-region"></div>
-                    </div>
+                   
+                   </div>
                 </div>';
 
         return $html;
