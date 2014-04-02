@@ -37,6 +37,8 @@ define(['app', 'controllers/base-controller', 'apps/builder/header/show/views'],
         return this.view.getCurrentPageName();
       };
 
+      Controller.prototype.setHomePage = function() {};
+
       return Controller;
 
     })(AppController);
