@@ -34,17 +34,26 @@ define(['app'], function(App) {
               strokeColor: "#c77d28",
               pointColor: "#c77d28",
               pointStrokeColor: "#fff",
-              data: [65, 59, 90, 81, 56, 55, 40]
+              data: this.getRandomData()
             }, {
               fillColor: "rgba(244, 135, 8, 0.74)",
               strokeColor: "rgba(244, 135, 8, 0.74)",
               pointColor: "rgba(244, 135, 8, 0.74)",
               pointStrokeColor: "#fff",
-              data: [28, 48, 40, 19, 96, 27, 100]
+              data: this.getRandomData()
             }
           ]
         };
         return data;
+      };
+
+      OverviewChartView.prototype.getRandomData = function() {
+        var d;
+        d = [];
+        _.each(_.range(10), function(ele, index) {
+          return d.push(Math.floor(Math.random() * 75));
+        });
+        return d;
       };
 
       return OverviewChartView;
