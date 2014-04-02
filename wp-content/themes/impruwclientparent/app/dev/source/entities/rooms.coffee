@@ -12,7 +12,7 @@ define ["app", 'backbone'], (App, Backbone) ->
 					post_content    : ''
 					facilities      : []
 					slider_id       : 0
-					thumbnail_id    : 0
+					thumbnail_url   : 'http://localhost/impruw/childsite/wp-content/uploads/sites/81/2014/03/5-yama-zbrush-model-by-jemark-150x150.jpg'
 					no_of_rooms     : 0
 					tariffs         : []
 

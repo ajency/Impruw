@@ -85,7 +85,7 @@ function create_room($formdata) {
 function get_room($roomid) {
 
     $room_id = $roomid;
-
+    
     $room_post = get_post($room_id, ARRAY_A);
 
     // returns a string of the post meta value
@@ -131,7 +131,7 @@ function get_room($roomid) {
     $merge_first = array_merge($room_post, $room_post_meta);
 
     $roomdata = array_merge($merge_first, $room_terms);
-
+    
     return $roomdata;
 }
 
