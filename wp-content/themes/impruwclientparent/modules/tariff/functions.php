@@ -35,6 +35,22 @@ function update_tariff($formdata){
 		$wpdb->update($table_name, $formdata,array('id' => $formdata['id'] ));
 		return $formdata['id'];
 	}
+}
 
+/**
+ * 
+ * @param unknown $room_id
+ * @return Ambigous <mixed, NULL, multitype:, multitype:multitype: , multitype:Ambigous <multitype:, NULL> >
+ */
+function get_tariff($room_id) {
 
+	global $wpdb;
+
+	$table_name = $wpdb->prefix . 'tariff';
+
+	$query = "SELECT * FROM $table_name WHERE room_id = $room_id ";
+
+	$tariff = $wpdb->get_results($query, ARRAY_A);
+
+	return $tariff;
 }

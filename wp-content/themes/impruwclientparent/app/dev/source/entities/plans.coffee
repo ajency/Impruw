@@ -12,6 +12,7 @@ define ["app", 'backbone'], (App, Backbone) ->
 				plan_name : ''
 				plan_description : ''
 
+
 		# package collection
 		class PlanCollection extends Backbone.Collection
 
@@ -23,12 +24,16 @@ define ["app", 'backbone'], (App, Backbone) ->
 
 		# create  a package collection
 		planCollection = new PlanCollection
+
+		# format pla data
+		_.each PLANS, (ele,index)->
+			ele['id'] = parseInt ele['id']
+
 		# set plans collection
 		planCollection.set PLANS
 
 		API = 
 			getPlansCollection:->
-				console.log planCollection
 				planCollection
 				
 			createPlanModel:(data = {})->

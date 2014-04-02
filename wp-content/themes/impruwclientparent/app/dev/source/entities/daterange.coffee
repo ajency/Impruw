@@ -1,4 +1,4 @@
-define ["app", 'backbone'], (App, Backbone) ->
+define ["app", 'backbone', 'moment'], (App, Backbone, moment) ->
 
 	# App state entity
 	App.module "Entities.DateRange", (DateRange, App, Backbone, Marionette, $, _)->
@@ -23,6 +23,12 @@ define ["app", 'backbone'], (App, Backbone) ->
 
 		# create  a daterange collection
 		dateRangeCollection = new DateRangeCollection
+
+		# format pla data
+		_.each DATERANGE, (range,index)->
+			range['id'] = parseInt range['id']
+			
+
 		# set the daterange collection
 		dateRangeCollection.set DATERANGE
 
@@ -31,8 +37,23 @@ define ["app", 'backbone'], (App, Backbone) ->
 				dateRangeCollection
 				
 			getDateRangeNameForDate:(date)->
-				random = _.uniqueId('Date Range Name-')
-				random
+				time = date.getTime()
+				checkDateRange =(daterange)->
+					from = daterange.get 'from_date'
+					to   = daterange.get 'to_date'
+
+					from = moment(from).subtract('days',1)
+					to = moment(to).add('days',1)
+
+					moment(time).isAfter(from) and moment(time).isBefore(to)  
+
+				# find the daterange model
+				models = dateRangeCollection.filter checkDateRange
+
+				if models.length > 0
+					return _.slugify models[0].get 'daterange_name'
+				else 
+					return ''
 
 			createDateRangeModel :(data = {})->
 				daterange = new DateRange data 

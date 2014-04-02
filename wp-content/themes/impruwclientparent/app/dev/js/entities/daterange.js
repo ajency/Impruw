@@ -1,7 +1,7 @@
 var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-define(["app", 'backbone'], function(App, Backbone) {
+define(["app", 'backbone', 'moment'], function(App, Backbone, moment) {
   return App.module("Entities.DateRange", function(DateRange, App, Backbone, Marionette, $, _) {
     var API, DateRangeCollection, dateRangeCollection;
     DateRange = (function(_super) {
@@ -40,15 +40,31 @@ define(["app", 'backbone'], function(App, Backbone) {
 
     })(Backbone.Collection);
     dateRangeCollection = new DateRangeCollection;
+    _.each(DATERANGE, function(range, index) {
+      return range['id'] = parseInt(range['id']);
+    });
     dateRangeCollection.set(DATERANGE);
     API = {
       getDateRangeCollection: function() {
         return dateRangeCollection;
       },
       getDateRangeNameForDate: function(date) {
-        var random;
-        random = _.uniqueId('Date Range Name-');
-        return random;
+        var checkDateRange, models, time;
+        time = date.getTime();
+        checkDateRange = function(daterange) {
+          var from, to;
+          from = daterange.get('from_date');
+          to = daterange.get('to_date');
+          from = moment(from).subtract('days', 1);
+          to = moment(to).add('days', 1);
+          return moment(time).isAfter(from) && moment(time).isBefore(to);
+        };
+        models = dateRangeCollection.filter(checkDateRange);
+        if (models.length > 0) {
+          return _.slugify(models[0].get('daterange_name'));
+        } else {
+          return '';
+        }
       },
       createDateRangeModel: function(data) {
         var daterange;
