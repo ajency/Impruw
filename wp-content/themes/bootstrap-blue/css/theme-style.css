@@ -949,6 +949,11 @@ and open the template in the editor.
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker {
   width: 100% !important;
   border-color: #5ca9a1;
+  box-shadow: none;
+}
+.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker:before {
+  border-bottom-color: #9fccc8;
+  top: -7px;
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .ui-datepicker-header {
   background: #5ca9a1;
