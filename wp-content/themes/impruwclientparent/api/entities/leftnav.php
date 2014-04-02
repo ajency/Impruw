@@ -206,9 +206,14 @@ function get_elementbox_elements() {
 							'rooms' =>  get_all_rooms(),
 							'icon' => '' 
 					),
-                                        array (
+                    array (
 							'element' => 'RoomTariff',
 							'title' => 'Room Tariff',
+							'icon' => '' 
+					),
+                    array (
+							'element' => 'RoomBooking',
+							'title' => 'Room Booking',
 							'icon' => '' 
 					)
 			) 
