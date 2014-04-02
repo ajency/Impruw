@@ -23,8 +23,9 @@ function create_room_ajax(){
     // unset the action 
     unset($formdata['action']);
     
-    // returns the room id
-    $room_id = create_room($formdata);
+	if($formdata['post_status'] === 'draft'){
+		$room_id = create_draft_room();
+	}
         
     // get all room post data
     $room_data = get_room($room_id);
@@ -32,6 +33,24 @@ function create_room_ajax(){
    wp_send_json(array('code' => 'OK', 'data' => $room_data));
 }
 add_action('wp_ajax_create-room','create_room_ajax');
+
+function update_room_ajax(){
+
+	// get all form data
+	$formdata = $_POST;
+
+	// unset the action
+	unset($formdata['action']);
+
+	// returns the room id
+	$room_id = create_room($formdata);
+
+	// get all room post data
+	$room_data = get_room($room_id);
+
+	wp_send_json(array('code' => 'OK', 'data' => $room_data));
+}
+add_action('wp_ajax_update-room','update_room_ajax');
 
 /**
 * Function to get all room data 

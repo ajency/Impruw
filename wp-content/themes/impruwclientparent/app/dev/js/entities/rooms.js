@@ -17,6 +17,7 @@ define(["app", 'backbone'], function(App, Backbone) {
         return {
           post_title: '',
           post_content: '',
+          post_status: 'draft',
           facilities: [],
           slider_id: 0,
           thumbnail_id: 0,
@@ -61,6 +62,7 @@ define(["app", 'backbone'], function(App, Backbone) {
           data = {};
         }
         room = new Rooms.RoomModel(data);
+        room.save();
         return room;
       },
       getRoomModel: function(room_id) {

@@ -10,6 +10,7 @@ define ["app", 'backbone'], (App, Backbone) ->
 				defaults : ()->
 					post_title      : ''
 					post_content    : ''
+					post_status 	: 'draft'
 					facilities      : []
 					slider_id       : 0
 					thumbnail_id    : 0
@@ -39,6 +40,7 @@ define ["app", 'backbone'], (App, Backbone) ->
 
 				createNewRoomModel:(data = {})->
 					room = new Rooms.RoomModel data
+					room.save()
 					room
 
 				getRoomModel :(room_id) ->
