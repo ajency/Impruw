@@ -33,7 +33,9 @@ define(['app', 'controllers/base-controller', 'apps/rooms/booking/views'], funct
         this.cview = cview = new Booking.View.CalendarView({
           templateHelpers: templateHelpers
         });
-        this.listenTo(cview, "date:selected", this.showBookingPlansView);
+        this.listenTo(cview, "change:availability", function(status, date) {
+          return App.execute("set:booking:status:for:date", date, status);
+        });
         return this.layout.calendarRegion.show(cview);
       };
 
@@ -46,9 +48,9 @@ define(['app', 'controllers/base-controller', 'apps/rooms/booking/views'], funct
         return this.layout.plansDetailsRegion.show(pview);
       };
 
-      Controller.prototype.getRoomBookingLayout = function(c) {
+      Controller.prototype.getRoomBookingLayout = function(collection) {
         return new Booking.View.BookingRoomLayout({
-          collection: c
+          collection: collection
         });
       };
 

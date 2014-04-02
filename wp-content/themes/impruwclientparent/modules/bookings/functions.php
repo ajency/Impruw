@@ -18,3 +18,39 @@ function get_bookings($room_id = 0) {
 
 	return $bookings;
 }
+
+/**
+ * 
+ * @param unknown $data
+ */
+function create_new_booking($data){
+	
+	$data['bdate'] = date('Y-m-d', strtotime($data['bdate']));
+	
+	global $wpdb;
+	
+	$table_name = $wpdb->prefix . 'bookings';
+	
+	$wpdb->insert($table_name,$data);
+	
+	return $wpdb->insert_id;
+	
+}
+
+/**
+ *
+ * @param unknown $data
+ */
+function update_booking($data, $id){
+
+	$data['bdate'] = date('Y-m-d', strtotime($data['bdate']));
+
+	global $wpdb;
+
+	$table_name = $wpdb->prefix . 'bookings';
+
+	$wpdb->update($table_name,$data, array('id' => $id));
+
+	return true;
+
+}

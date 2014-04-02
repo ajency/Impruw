@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
 
 define(["app", 'backbone', 'moment'], function(App, Backbone, moment) {
   return App.module("Entities.Booking", function(Booking, App, Backbone, Marionette, $, _) {
-    var API, BookingCollection, bookings;
+    var API, BookingCollection;
     Booking = (function(_super) {
       __extends(Booking, _super);
 
@@ -11,15 +11,23 @@ define(["app", 'backbone', 'moment'], function(App, Backbone, moment) {
         return Booking.__super__.constructor.apply(this, arguments);
       }
 
-      Booking.prototype.name = 'Booking';
+      Booking.prototype.name = 'booking';
 
       Booking.prototype.defaults = function() {
         return {
           'room_id': 0,
           'status': 'available',
-          'from_date': '',
-          'to_date': ''
+          'bdate': ''
         };
+      };
+
+      Booking.prototype.parse = function(resp) {
+        if (resp.code === 'OK') {
+          resp.data.id = parseInt(resp.data.id);
+          resp.data.room_id = parseInt(resp.data.room_id);
+          return resp.data;
+        }
+        return resp;
       };
 
       return Booking;
@@ -40,14 +48,12 @@ define(["app", 'backbone', 'moment'], function(App, Backbone, moment) {
 
       BookingCollection.prototype.getBookingOn = function(date) {
         var checkBooking, models, time;
+        date = _.isString(date) ? moment(date) : date;
         time = date.getTime();
         checkBooking = function(booking) {
-          var from, to;
-          from = booking.get('from_date');
-          to = booking.get('to_date');
-          from = moment(from).subtract('days', 1);
-          to = moment(to).add('days', 1);
-          return moment(time).isAfter(from) && moment(time).isBefore(to);
+          var bdate;
+          bdate = new Date(booking.get('bdate'));
+          return moment(time).isSame(bdate);
         };
         models = this.filter(checkBooking);
         if (models.length > 0) {
@@ -60,9 +66,10 @@ define(["app", 'backbone', 'moment'], function(App, Backbone, moment) {
       return BookingCollection;
 
     })(Backbone.Collection);
-    bookings = new BookingCollection;
+    window.bookings = new BookingCollection;
     API = {
       fetchRoomBookings: function(roomId) {
+        bookings.roomId = roomId;
         bookings.fetch({
           reset: true,
           data: {
@@ -70,6 +77,23 @@ define(["app", 'backbone', 'moment'], function(App, Backbone, moment) {
           }
         });
         return bookings;
+      },
+      setBookingStatusForDate: function(date, status) {
+        var booking;
+        booking = bookings.getBookingOn(date);
+        if (!booking) {
+          booking = new Booking({
+            bdate: date
+          });
+          bookings.add(booking);
+        }
+        booking.set({
+          status: status,
+          room_id: bookings.roomId
+        });
+        return booking.save(null, {
+          wait: true
+        });
       },
       getAvailabiltyStatus: function(date) {
         var model;
@@ -84,8 +108,11 @@ define(["app", 'backbone', 'moment'], function(App, Backbone, moment) {
     App.reqres.setHandler("fetch:room:bookings", function(roomId) {
       return API.fetchRoomBookings(roomId);
     });
-    return App.reqres.setHandler("get:avaliability:status", function(date) {
+    App.reqres.setHandler("get:avaliability:status", function(date) {
       return API.getAvailabiltyStatus(date);
+    });
+    return App.commands.setHandler("set:booking:status:for:date", function(date, status) {
+      return API.setBookingStatusForDate(date, status);
     });
   });
 });
