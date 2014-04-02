@@ -9,7 +9,7 @@ define ['app'
 					className : 'row room-booking'
 						
 					template : '<div class="col-md-8 room-booking-calender" id="calendar-region"></div>
-								<div class="col-md-4 room-booking-data" id="plans-details-region"></div>'
+								<div class="col-md-0 room-booking-data" id="plans-details-region"></div>'
 
 					regions:
 						calendarRegion : '#calendar-region'
@@ -36,7 +36,7 @@ define ['app'
 							.datepicker
 								inline: true
 								numberOfMonths : 2
-								#showOtherMonths: true
+								dateFormat : 'yy-mm-dd'
 								onSelect : @triggerOnSelect
 								beforeShowDay: @highlightDaysByDateRange
 
@@ -57,8 +57,65 @@ define ['app'
 
 					triggerOnSelect:(date, selected)=>
 						@trigger "date:selected", date
-						_.delay @setDateRangeColor, 0
+						
+						_.delay =>
+							@setDateRangeColor()
+							@showPopover(date)
+						, 10
 
+					# show popover
+					showPopover:(date)->
+						self = @
+						td = @$el.find('td.ui-datepicker-current-day')
+						@clearPrevPopover()
+						
+						td.popover 
+							content : @getAvailabilityMarkup(date)
+							html : true
+							placement : 'bottom'
+							container : 'body'
+
+						td.on 'shown.bs.popover',(t,r,p)->
+							value = parseInt $('#booking-slider').attr 'data-value'
+							$('#booking-slider').slider
+													value : value
+													min : 0
+													max : 60
+													step : 30
+													slide : self.changeAvaliability
+
+						td.popover 'show'
+						@popovertd = td
+
+					changeAvaliability:(event, ui)=>
+						value = 'availabile' if ui.value is 0
+						value = 'semi-availabile' if ui.value is 30
+						value = 'unavailabile' if ui.value is 60
+						date = @$el.find('#room-booking-calendar').datepicker 'getDate'
+						@trigger "change:availability", value, date
+
+					# get availability markup
+					getAvailabilityMarkup:(date)->
+						date = new Date date
+						currentStatus = App.request "get:avaliability:status", date
+						value = 0 if currentStatus is 'available'
+						value = 30 if currentStatus is 'semi-available'
+						value = 60 if currentStatus is 'unavailable'
+
+						html = "<div style='width:200px'>
+									<div id='booking-slider' data-value='#{value}'></div>
+								</div>"
+						html
+						
+
+
+					# remove previous popover
+					clearPrevPopover:->
+						return if not @popovertd 
+						$('.popover').remove()
+						delete @popovertd
+
+					# highlight days
 					highlightDaysByDateRange:(date)=>
 						dateRangeName = App.request "get:daterange:name:for:date", date
 						className = _.slugify dateRangeName
