@@ -15,6 +15,9 @@ and open the template in the editor.
 	.flat {
 		border-radius: 0;
 		margin-bottom: 0.8em;
+		&.error {
+			border-color: #ff3333;
+		}
 		&:focus {
 			border-color: @primary1;
 		}
@@ -25,5 +28,11 @@ and open the template in the editor.
 		&:hover {
 			background: @primary1;
 		}
+	}
+	.error {
+		display: block;
+		color: #ff3333;
+		margin: 0 0 1em;
+		padding-left: 0.5em;
 	}
 }

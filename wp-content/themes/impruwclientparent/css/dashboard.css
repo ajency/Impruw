@@ -1099,7 +1099,8 @@ form .aj-imp-submit:hover {
 .modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .aj-imp-upload-media > span {
   display: block;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .aj-imp-upload-media > span[class^="icon-"] {
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .aj-imp-upload-media > span.icon,
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .aj-imp-upload-media > span.bicon {
   font-size: 10em;
   color: #e6e6e6;
 }
@@ -1609,6 +1610,9 @@ form .aj-imp-submit:hover {
   border-color: #f9bdb1;
 }
 /****Add Room Form Styles****/
+.facilities-list {
+  margin: 0 0 1em;
+}
 .facilities-list .facility {
   margin: 0.5em 0;
   width: 50%;
