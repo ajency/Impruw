@@ -4,6 +4,8 @@
  * Room Summary Element
  *
  */
+include_once PARENTTHEMEPATH.'modules/rooms/functions.php';
+
 class RoomSummary extends Element {
     /**
      * The default type property for element
@@ -20,8 +22,8 @@ class RoomSummary extends Element {
         
         parent::__construct($element);
         
-        $this->room_id= $element['room_id'];
-        $this->room = get_room($element['room_id']);
+        $this->room_id = $element['room_id'];
+        $this->room = get_room($this->room_id);
         $this->style = $element['style'];
         $this->markup  = $this->generate_markup();
     }
@@ -45,19 +47,20 @@ class RoomSummary extends Element {
     function get_room_summary(){  
        $data= $this->room;
        $data['link']= get_permalink( $this->room_id );
-       $data['thumbnail_id']= wp_get_attachment_thumb_url(get_post_thumbnail_id( $this->room_id ));
-    
-       $template = '<div class="roomsummary">
-                        <div class="room-img">
-                             <img src="{{thumbnail_id}}" class="img-responsive">
-                        </div>
-                        <div class="room-title">{{post_title}}</div>
-                        <div class="room-excerpt">{{post_content}}</div>
-                        <div class="room-actions">
-                                <div class="price">$99<small>/night</small></div>
-                                <a href="{{link}}" class="btn btn-room">View Details</a>
-                        </div>
-                    </div>';
+       if(empty($data['thumbnail_url']))
+           $data['thumbnail_url'] = 'http://localhost/impruw/childsite/wp-content/uploads/'
+                                    .'sites/81/2014/03/5-yama-zbrush-model-by-jemark-150x150.jpg';
+           
+
+       $template = '<div class="roomsummary"><div class="room-img">
+                         <img src="{{thumbnail_url}}" class="img-responsive">
+                    </div>
+                    <div class="room-title">{{post_title}}</div>
+                    <div class="room-excerpt">{{post_content}}</div>
+                    <div class="room-actions">
+                            <div class="price">$99<small>/night</small></div>
+                            <a href="{{link}}" class="btn btn-room">View Details</a>
+                    </div></div>';
        
        global $me;
        

@@ -9,7 +9,7 @@ define ['app'],(App)->
 			className : 'roomsummary'
 
 			template : '<div class="room-img">
-							<img src="{{thumb_url}}" class="img-responsive">
+							<img src="{{thumbnail_url}}" class="img-responsive">
 						</div>
 						<div class="room-title">Title</div>
 						<div class="room-excerpt">Lrem Ipsum Gipsum</div>
