@@ -31,8 +31,8 @@ class RoomTariff extends Element {
 
         parent::__construct($element);
 
-        $this->room_id = get_the_ID();
-        //$this->room_id = 2;
+        //$this->room_id = get_the_ID();
+        $this->room_id = 2;
 
         $this->date_range = $this->get_date_range();
 
@@ -223,7 +223,7 @@ class RoomTariff extends Element {
             
                 
             } else {
-                $html .= '<div class="package-block-outer" id="">NA</div> ';
+                $html .= '<div class="package-block-outer" id=""><div class="block empty clearfix"><span class="no-data"><span class="glyphicon glyphicon-exclamation-sign"></span></span><div class="tariff-label clearfix">No Data Available</div></div></div> ';
             }
 
 
