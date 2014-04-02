@@ -2592,7 +2592,22 @@ form {
 				.ui-datepicker-inline{
 					width:auto !important;
 					border: 0;
-				
+					background:none;
+					.ui-datepicker-group {
+						width: 48%;
+						margin-right: 12px;
+							.ui-datepicker-calendar{
+								background:#fff;
+								width:100%;
+								th{
+									background:#c0c0c0;
+									text-transform:uppercase;
+									color:#fff;
+									font-weight: 100;
+									font-size: 12px;
+								}
+							}
+						}
 				}
 				.ui-datepicker td {
 					border: 1px solid #EAEAEA!important;
@@ -2603,7 +2618,58 @@ form {
 							height: 39px;
 							line-height: 40px;
 					}
+					
 				}
+				.booking-red{
+						background:#f97d61;
+						a{
+							color:#fff;
+							&:hover{
+								background:#ffd200;
+							}
+						}
+						
+					}
+					.booking-orange{
+					background:#ffd200;
+						a{
+							color:#fff;
+							&:hover{
+								background:#ffd200;
+							}
+						}
+						
+					}
+						.booking-blue{
+					background:#5fd7fe;
+						a{
+							color:#fff;
+							&:hover{
+							background:#5fd7fe;
+							}
+						}
+						
+					}
+						.booking-green{
+					background:#84e72f;
+						a{
+							color:#fff;
+							&:hover{
+							background:#84e72f;
+						}
+						}
+						
+					}
+						.booking-pink{
+					background:#fea5a5;
+						a{
+							color:#fff;
+							&:hover{
+								background:#fea5a5;
+							}
+						}
+					
+					}
 				.ui-datepicker{
 				.ui-datepicker-header {
 						background: #d4d0d1;
@@ -2927,5 +2993,48 @@ form {
 	input.field-error{
     color:@red !important;
 	border-bottom:1px solid @red;
+	}
+}
+
+/*status*/
+
+	.ui-datepicker td.unavailabile {
+		a{
+			text-decoration:line-through;
+			color:#000 !important;
+		}
+	}
+	.ui-datepicker td.semi-availabile {
+		a{
+		
+			background:url(../images/gray-semi.png)no-repeat;
+		}
+	}
+.daterange-legends{
+	text-transform:uppercase;
+	font-size:0.9em;
+	li{
+			span{
+			width: 13px;
+			height: 13px;
+			display: inline-block;
+			background: #ccc;
+			margin-right: 5px;
+		}
+	}
+	.booking-red{
+		background:#f97d61;
+	}
+	.booking-blue{
+		background:#5fd7fe;
+	}
+	.booking-orange{
+		background:#ffd200;
+	}
+	.booking-pink{
+		background:#fea5a5;
+	}
+	.booking-green{
+		background:#84e72f;
 	}
 }

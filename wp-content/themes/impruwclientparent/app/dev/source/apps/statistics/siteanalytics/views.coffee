@@ -43,18 +43,26 @@ define ['app'], (App)->
 							strokeColor : "#c77d28",
 							pointColor : "#c77d28",
 							pointStrokeColor : "#fff",
-							data : [65,59,90,81,56,55,40]
+							data : @getRandomData()
 						),
 						(
 							fillColor : "rgba(244, 135, 8, 0.74)",
 							strokeColor : "rgba(244, 135, 8, 0.74)",
 							pointColor : "rgba(244, 135, 8, 0.74)",
 							pointStrokeColor : "#fff",
-							data : [28,48,40,19,96,27,100]
+							data : @getRandomData()
 						)
 					]
 
 				data
+
+			getRandomData:->
+				d = []
+				_.each _.range(10),(ele,index)->
+					d.push Math.floor Math.random() * 75
+
+				d
+
 
 		# traffic single view
 		class TrafficSingle extends Marionette.ItemView

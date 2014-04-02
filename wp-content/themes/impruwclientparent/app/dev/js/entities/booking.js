@@ -47,13 +47,12 @@ define(["app", 'backbone', 'moment'], function(App, Backbone, moment) {
       };
 
       BookingCollection.prototype.getBookingOn = function(date) {
-        var checkBooking, models, time;
+        var checkBooking, models;
         date = _.isString(date) ? moment(date) : date;
-        time = date.getTime();
         checkBooking = function(booking) {
           var bdate;
           bdate = new Date(booking.get('bdate'));
-          return moment(time).isSame(bdate);
+          return moment(date).isSame(bdate);
         };
         models = this.filter(checkBooking);
         if (models.length > 0) {

@@ -57,54 +57,58 @@ define ['app'], (App)->
 						</div>
 						<div class="packages">
 							<div class="package-blocks clearfix">
-								{{#tariffs}}
-									<div class="package-block-outer" data-id="{{id}}">
-                                        <div class="block clearfix">
-                                            <div class="weekday">
-                                                Weekdays
-                                                <span class="price">{{weekdays.charge}}</span>
-                                            </div>
-                                            <div class="weekend">
-                                                Weekends
-                                                <span class="price">{{weekends.charge}}</span>
-                                            </div>
-                                            <div class="tariff-label clearfix">Extra Adult</div>
-                                            <div class="weekday">
-                                                <span class="price">{{weekdays.extra_adult}}</span>
-                                            </div>
-                                            <div class="weekend">
-                                                <span class="price">{{weekends.extra_adult}}</span>
-                                            </div>
-                                            <div class="tariff-label clearfix">Extra Child</div>
-                                            <div class="weekday">
-                                                <span class="price">{{weekdays.extra_child}}</span>
-                                            </div>
-                                            <div class="weekend">
-                                                <span class="price">{{weekends.extra_child}}</span>
-                                            </div>
-                                            <div class="block-action">
-                                            	<button class="btn btn-sm edit-trariff edit-tran"><span class="glyphicon glyphicon-pencil"></span>&nbsp;Edit</button>
-                                            </div>
-                                        </div>
-                                    </div>
-								{{/tariffs}}
+						
 							</div>
 						</div>'
 
-			serializeData:->
+		class SingleTariff extends Marionette.ItemView
 
-				data = super()
+			className : 'package-block-outer'
 
-				data.startdate = ->
-					moment(@from_date).format('DD/MMM')
+			template : '<div class="block clearfix">
+							<div class="weekday">
+								Weekdays
+								<span class="price">{{weekdays.charge}}</span>
+							</div>
+							<div class="weekend">
+								Weekends
+								<span class="price">{{weekends.charge}}</span>
+							</div>
+							<div class="tariff-label clearfix">Extra Adult</div>
+							<div class="weekday">
+								<span class="price">{{weekdays.extra_adult}}</span>
+							</div>
+							<div class="weekend">
+								<span class="price">{{weekends.extra_adult}}</span>
+							</div>
+							<div class="tariff-label clearfix">Extra Child</div>
+							<div class="weekday">
+								<span class="price">{{weekdays.extra_child}}</span>
+							</div>
+							<div class="weekend">
+								<span class="price">{{weekends.extra_child}}</span>
+							</div>
+							<div class="block-action">
+								<button class="btn btn-sm edit-trariff edit-tran"><span class="glyphicon glyphicon-pencil"></span>&nbsp;Edit</button>
+							</div>
+						</div>'			
 
-				data.enddate = ->
-					moment(@to_date).format('DD/MMM')
+		class NoTariff extends Marionette.ItemView
 
-				data
+			className : 'package-block-outer'
 
-		class Views.TariffsView extends Marionette.CollectionView
+			template : '<div class="block clearfix"> 
+							<h3>NA</h3>
+						</div>'
 
-			itemView : DateRangeSingle
+		
+		class Views.TariffsView extends Marionette.CompositeView
+
+			template : ''
+
+			
+
+
+
 
 				 
