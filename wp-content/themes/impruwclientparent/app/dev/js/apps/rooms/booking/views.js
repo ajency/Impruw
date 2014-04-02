@@ -30,17 +30,29 @@ define(['app', 'text!apps/rooms/add/templates/add-room.html'], function(App, add
       function CalendarView() {
         this.highlightDaysByDateRange = __bind(this.highlightDaysByDateRange, this);
         this.triggerOnSelect = __bind(this.triggerOnSelect, this);
+        this.setDateRangeColor = __bind(this.setDateRangeColor, this);
         return CalendarView.__super__.constructor.apply(this, arguments);
       }
 
-      CalendarView.prototype.template = '<h4> <span class="glyphicon glyphicon-calendar"></span> Monthly Calendar <span class="excerpt">Donec vulputate nibh et odio vehicula, id porttitor quam malesuada</span> </h4> <div id="room-booking-calendar"></div> <br><br><br> <ul class="list-inline"> <li><span class="date-range1">&nbsp;</span>Date Range 1</li> <li><span class="date-range2">&nbsp;</span>Date Range 2</li> <li><span class="date-range3">&nbsp;</span>Date Range 3</li> </ul>';
+      CalendarView.prototype.template = '<h4> <span class="glyphicon glyphicon-calendar"></span> Monthly Calendar <span class="excerpt">Donec vulputate nibh et odio vehicula, id porttitor quam malesuada</span> </h4> <div id="room-booking-calendar"></div> <br><br><br> <ul class="list-inline daterange-legends"> {{#dateRanges}} <li><span class="{{class}}">&nbsp;</span>{{name}}</li> {{/dateRanges}} </ul>';
 
       CalendarView.prototype.onShow = function() {
-        return this.$el.find('#room-booking-calendar').datepicker({
+        this.$el.find('#room-booking-calendar').datepicker({
           inline: true,
           numberOfMonths: 2,
           onSelect: this.triggerOnSelect,
           beforeShowDay: this.highlightDaysByDateRange
+        });
+        return this.setDateRangeColor();
+      };
+
+      CalendarView.prototype.setDateRangeColor = function() {
+        var colors, dateRanges, templateHelpers;
+        colors = ['green', 'red', 'orange', 'blue', 'pink'];
+        templateHelpers = Marionette.getOption(this, 'templateHelpers');
+        dateRanges = templateHelpers['dateRanges'];
+        return _.each(dateRanges, function(range, index) {
+          return $("td." + range["class"] + ",span." + range["class"]).css('background', colors[index]);
         });
       };
 
@@ -52,6 +64,7 @@ define(['app', 'text!apps/rooms/add/templates/add-room.html'], function(App, add
         var className, dateRangeName;
         dateRangeName = App.request("get:daterange:name:for:date", date);
         className = _.slugify(dateRangeName);
+        className += " " + App.request("get:avaliability:status", date);
         return [true, className];
       };
 

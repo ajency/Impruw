@@ -14,15 +14,25 @@ define(['app', 'controllers/base-controller', 'apps/rooms/booking/views'], funct
       }
 
       Controller.prototype.initialize = function(options) {
-        var layout;
-        this.layout = layout = this.getRoomBookingLayout();
+        var layout, roomId;
+        roomId = options.roomId;
+        this.bookings = App.request("fetch:room:bookings", roomId = 2);
+        this.layout = layout = this.getRoomBookingLayout(this.bookings);
         this.listenTo(layout, "show", this.showBookingCalendarView);
-        return this.show(layout);
+        return this.show(layout, {
+          loading: true
+        });
       };
 
       Controller.prototype.showBookingCalendarView = function() {
-        var cview;
-        this.cview = cview = new Booking.View.CalendarView;
+        var cview, dateRangeCollection, templateHelpers;
+        dateRangeCollection = App.request("get:daterange:collection");
+        templateHelpers = {
+          dateRanges: dateRangeCollection.getDateRanges()
+        };
+        this.cview = cview = new Booking.View.CalendarView({
+          templateHelpers: templateHelpers
+        });
         this.listenTo(cview, "date:selected", this.showBookingPlansView);
         return this.layout.calendarRegion.show(cview);
       };
@@ -36,8 +46,10 @@ define(['app', 'controllers/base-controller', 'apps/rooms/booking/views'], funct
         return this.layout.plansDetailsRegion.show(pview);
       };
 
-      Controller.prototype.getRoomBookingLayout = function() {
-        return new Booking.View.BookingRoomLayout;
+      Controller.prototype.getRoomBookingLayout = function(c) {
+        return new Booking.View.BookingRoomLayout({
+          collection: c
+        });
       };
 
       return Controller;

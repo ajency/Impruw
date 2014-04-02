@@ -40,10 +40,12 @@ define(["app", 'backbone'], function(App, Backbone) {
 
     })(Backbone.Collection);
     planCollection = new PlanCollection;
+    _.each(PLANS, function(ele, index) {
+      return ele['id'] = parseInt(ele['id']);
+    });
     planCollection.set(PLANS);
     API = {
       getPlansCollection: function() {
-        console.log(planCollection);
         return planCollection;
       },
       createPlanModel: function(data) {

@@ -11,4 +11,5 @@ define [
 		'entities/tariff'
 		'entities/user'
 		'entities/daterange'
+		'entities/booking'
 		],->

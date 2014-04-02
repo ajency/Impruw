@@ -56,20 +56,20 @@
         var APPSTATE 	= <?php echo impruw_app_model() ?>;
 
 		/************************* Bootstrap Data *************************/
-		<?php /*
-		var PLANS = <?php get_plans(); ?>
-		var DATERANGE = <?php get_daterange(); ?>
-		var FACILITIES = <?php get_facilities(); */?>
-		var DATERANGE = [{id:1, form_data : '2014-01-01', to_data : '2014-03-31', label : 'date range one' },
-		                 {id:2, form_data : '2014-04-01', to_data : '2014-04-20', label : 'date range two' },
-		                 {id:3, form_data : '2014-04-21', to_data : '2014-06-01', label : 'date range three' }];
+		
+		var PLANS = <?php echo json_encode(get_plans()); ?>;
+		var DATERANGE = <?php echo json_encode(get_date_range()); ?>;
+		
+// 		var DATERANGE = [{id:1, form_data : '2014-01-01', to_data : '2014-03-31', label : 'date range one' },
+// 		                 {id:2, form_data : '2014-04-01', to_data : '2014-04-20', label : 'date range two' },
+// 		                 {id:3, form_data : '2014-04-21', to_data : '2014-06-01', label : 'date range three' }];
         
-		var PLANS = [{id: 1, plan_name : 'Plan Name 1', plan_description : 'Plan description 1' },
-		             {id: 2, plan_name : 'Plan Name 2', plan_description : 'Plan description 2' },
-		             {id: 3, plan_name : 'Plan Name 3', plan_description : 'Plan description 3' },
-		             {id: 4, plan_name : 'Plan Name 4', plan_description : 'Plan description 4' }];
+// 		var PLANS = [{id: 1, plan_name : 'Plan Name 1', plan_description : 'Plan description 1' },
+// 		             {id: 2, plan_name : 'Plan Name 2', plan_description : 'Plan description 2' },
+// 		             {id: 3, plan_name : 'Plan Name 3', plan_description : 'Plan description 3' },
+// 		             {id: 4, plan_name : 'Plan Name 4', plan_description : 'Plan description 4' }];
 
-       	var  TARIFFS = [];
+//        	var  TARIFFS = [];
      </script>
 
     <?php if(ENV === 'production'): ?>
