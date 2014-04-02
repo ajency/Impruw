@@ -6,13 +6,19 @@ define ["app", 'backbone', 'moment'], (App, Backbone, moment) ->
 		# Booking model
 		class Booking extends Backbone.Model
 
-			name : 'Booking'
+			name : 'booking'
 
 			defaults : ->
 				'room_id'	: 0
 				'status' 	: 'available'
-				'from_date'	: ''
-				'to_date'	: '' 
+				'bdate'		: ''
+
+			parse:(resp)->
+				if resp.code is 'OK'
+					resp.data.id = parseInt resp.data.id
+					resp.data.room_id = parseInt resp.data.room_id
+					return resp.data
+				resp
 
 		# Booking collection
 		class BookingCollection extends Backbone.Collection
@@ -29,13 +35,8 @@ define ["app", 'backbone', 'moment'], (App, Backbone, moment) ->
 				time = date.getTime()
 
 				checkBooking =(booking)->
-					from = booking.get 'from_date'
-					to   = booking.get 'to_date'
-
-					from = moment(from).subtract('days',1)
-					to = moment(to).add('days',1)
-
-					moment(time).isAfter(from) and moment(time).isBefore(to)  
+					bdate = new Date booking.get 'bdate'
+					moment(time).isSame(bdate)  
 
 				# find the booking model
 				models = @filter checkBooking
@@ -46,17 +47,35 @@ define ["app", 'backbone', 'moment'], (App, Backbone, moment) ->
 					return false
 
 
-		bookings = new BookingCollection
+		window.bookings = new BookingCollection
 
 		# API to access 
 		API = 
 			fetchRoomBookings:(roomId)->
+				bookings.roomId = roomId
 				bookings.fetch 
 							reset : true # so it will remove previously fetched models
 							data : 
 								room_id : roomId
 
 				bookings
+
+			setBookingStatusForDate:(date, status)->
+				booking = bookings.getBookingOn date
+
+				if not booking 
+					booking = new Booking 
+										bdate : date
+					bookings.add booking
+				
+				booking.set 
+						status : status
+						room_id : bookings.roomId
+							
+
+				booking.save null,
+							wait : true 
+
 
 			getAvailabiltyStatus :(date)->
 				# get the model
@@ -73,3 +92,6 @@ define ["app", 'backbone', 'moment'], (App, Backbone, moment) ->
 
 		App.reqres.setHandler "get:avaliability:status",(date)->
 			API.getAvailabiltyStatus date
+
+		App.commands.setHandler "set:booking:status:for:date", (date, status)->
+			API.setBookingStatusForDate date, status

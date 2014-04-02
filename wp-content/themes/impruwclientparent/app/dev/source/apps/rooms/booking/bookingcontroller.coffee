@@ -30,8 +30,8 @@ define ['app', 'controllers/base-controller'
 
 				# listen to date selected event
 				# @listenTo cview, "date:selected", @showBookingPlansView
-				@listenTo cview, "change:availability", (value)->
-					console.log value
+				@listenTo cview, "change:availability", (status, date)->
+					App.execute  "set:booking:status:for:date", date, status
 
 				@layout.calendarRegion.show cview
 

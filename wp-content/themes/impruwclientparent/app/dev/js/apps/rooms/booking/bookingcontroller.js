@@ -33,8 +33,8 @@ define(['app', 'controllers/base-controller', 'apps/rooms/booking/views'], funct
         this.cview = cview = new Booking.View.CalendarView({
           templateHelpers: templateHelpers
         });
-        this.listenTo(cview, "change:availability", function(value) {
-          return console.log(value);
+        this.listenTo(cview, "change:availability", function(status, date) {
+          return App.execute("set:booking:status:for:date", date, status);
         });
         return this.layout.calendarRegion.show(cview);
       };

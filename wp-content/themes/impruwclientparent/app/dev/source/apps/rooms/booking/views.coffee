@@ -91,7 +91,8 @@ define ['app'
 						value = 'availabile' if ui.value is 0
 						value = 'semi-availabile' if ui.value is 30
 						value = 'unavailabile' if ui.value is 60
-						@trigger "change:availability", value
+						date = @$el.find('#room-booking-calendar').datepicker 'getDate'
+						@trigger "change:availability", value, date
 
 					# get availability markup
 					getAvailabilityMarkup:(date)->

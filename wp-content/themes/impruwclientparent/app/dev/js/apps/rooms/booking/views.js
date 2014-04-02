@@ -95,7 +95,7 @@ define(['app', 'text!apps/rooms/add/templates/add-room.html'], function(App, add
       };
 
       CalendarView.prototype.changeAvaliability = function(event, ui) {
-        var value;
+        var date, value;
         if (ui.value === 0) {
           value = 'availabile';
         }
@@ -105,7 +105,8 @@ define(['app', 'text!apps/rooms/add/templates/add-room.html'], function(App, add
         if (ui.value === 60) {
           value = 'unavailabile';
         }
-        return this.trigger("change:availability", value);
+        date = this.$el.find('#room-booking-calendar').datepicker('getDate');
+        return this.trigger("change:availability", value, date);
       };
 
       CalendarView.prototype.getAvailabilityMarkup = function(date) {
