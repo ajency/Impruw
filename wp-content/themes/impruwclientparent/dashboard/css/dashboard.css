@@ -2894,3 +2894,7 @@ td.booking-orange,span.booking-orange{
 td.booking-pink,span.booking-pink{
   background: pink
 }
+
+.room-tariff-container .room-tariff-grid .tariff{
+  min-height: 70px
+}

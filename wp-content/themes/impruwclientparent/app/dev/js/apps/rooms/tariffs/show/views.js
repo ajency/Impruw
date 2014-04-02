@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
 
 define(['app'], function(App) {
   return App.module("RoomsApp.RoomsTariff.Show.Views", function(Views, App) {
-    var DateRangeSingle, NoTariff, PackageSingle, SingleTariff;
+    var NoTariff, PackageSingle, SingleTariff;
     PackageSingle = (function(_super) {
       __extends(PackageSingle, _super);
 
@@ -45,30 +45,6 @@ define(['app'], function(App) {
       return PackagesView;
 
     })(Marionette.CompositeView);
-    DateRangeSingle = (function(_super) {
-      __extends(DateRangeSingle, _super);
-
-      function DateRangeSingle() {
-        return DateRangeSingle.__super__.constructor.apply(this, arguments);
-      }
-
-      DateRangeSingle.prototype.className = 'tariff clearfix';
-
-      DateRangeSingle.prototype.events = {
-        'click .edit-trariff': function(e) {
-          var id;
-          e.stopPropagation();
-          e.preventDefault();
-          id = $(e.target).attr('data-id');
-          return this.trigger("show:edit:tariff", 2);
-        }
-      };
-
-      DateRangeSingle.prototype.template = '<div class="date-range"> <div class="from"> From <span class="date">{{startdate}}</span> </div> <div class="to"> To <span class="date">{{enddate}}</span> </div> </div> <div class="packages"> <div class="package-blocks clearfix"> </div> </div>';
-
-      return DateRangeSingle;
-
-    })(Marionette.ItemView);
     SingleTariff = (function(_super) {
       __extends(SingleTariff, _super);
 
@@ -105,6 +81,84 @@ define(['app'], function(App) {
       }
 
       TariffsView.prototype.template = '';
+
+      TariffsView.prototype.dateRangeTemplate = '<div class="date-range"> <div class="from"> <span class="date">{{startdate}}</span> to <span class="date">{{enddate}}</span> </div> </div>';
+
+      TariffsView.prototype.dateRangeItemViewContainer = '.package-blocks';
+
+      TariffsView.prototype.render = function() {
+        var dCollection, html;
+        this.isRendered = true;
+        this.isClosed = false;
+        this.triggerBeforeRender();
+        dCollection = Marionette.getOption(this, 'dateRangeCollection');
+        html = '';
+        dCollection.each((function(_this) {
+          return function(model) {
+            return html += _this.renderDaterange(model);
+          };
+        })(this));
+        this.$el.html(html);
+        return this;
+      };
+
+      TariffsView.prototype.renderDaterange = function(model) {
+        var data, html, markup, template;
+        data = this.serailizeDaterangeModel(model);
+        template = this.dateRangeTemplate;
+        html = Marionette.Renderer.render(template, data);
+        markup = '<div class="tariff clearfix">';
+        markup += html;
+        markup += '	<div class="packages"> <div class="package-blocks clearfix">';
+        markup += this.renderTariffs();
+        markup += '</div> </div> </div> <hr />';
+        return markup;
+      };
+
+      TariffsView.prototype.renderTariffs = function(dateRangeId) {
+        var html, plans;
+        plans = Marionette.getOption(this, 'planCollection');
+        html = '';
+        plans.each((function(_this) {
+          return function(plan) {
+            var tariff;
+            tariff = _this.getTariff(plan.get('id'), dateRangeId);
+            return html += !tariff ? _this.getEmptyTariff() : _this.getTariffView(tariff);
+          };
+        })(this));
+        return html;
+      };
+
+      TariffsView.prototype.getEmptyTariff = function() {
+        return 'No Tariff Available';
+      };
+
+      TariffsView.prototype.getTariffView = function() {
+        return 'show tariff';
+      };
+
+      TariffsView.prototype.getTariff = function(planId, dateRangeId) {
+        var models;
+        models = this.collection.filter(function(model) {
+          return model.get('plan_id') === planId && model.get('daterange_id') === dateRangeId;
+        });
+        if (models.length > 0) {
+          return models[0];
+        }
+        return false;
+      };
+
+      TariffsView.prototype.serailizeDaterangeModel = function(model) {
+        var data;
+        data = model.toJSON();
+        data.startdate = function() {
+          return moment(this.from_date).format('Do-MMM');
+        };
+        data.enddate = function() {
+          return moment(this.to_date).format('Do-MMM');
+        };
+        return data;
+      };
 
       return TariffsView;
 

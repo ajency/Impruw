@@ -22,7 +22,7 @@ define(['app', 'controllers/base-controller', 'apps/rooms/tariffs/show/views'], 
         tcollection = App.request("get:tariffs:collection", this.roomId);
         this.layout = this._getGridLayout();
         this.packagesView = this._getPackagesView(pcollection);
-        this.dateRangeView = this._getTariffsView(tcollection, dcollection);
+        this.dateRangeView = this._getTariffsView(tcollection, dcollection, pcollection);
         this.listenTo(this.dateRangeView, 'itemview:show:edit:tariff', (function(_this) {
           return function(iv, id) {
             return App.execute("show:edit:tariff", id);
@@ -45,10 +45,11 @@ define(['app', 'controllers/base-controller', 'apps/rooms/tariffs/show/views'], 
         });
       };
 
-      ShowController.prototype._getTariffsView = function(tcollection, dcollection) {
+      ShowController.prototype._getTariffsView = function(tcollection, dcollection, pCollection) {
         return new Show.Views.TariffsView({
           collection: tcollection,
-          dateRangeCollection: dcollection
+          dateRangeCollection: dcollection,
+          planCollection: pCollection
         });
       };
 
