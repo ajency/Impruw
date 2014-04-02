@@ -487,6 +487,9 @@ and open the template in the editor.
   border-radius: 0;
   margin-bottom: 0.8em;
 }
+.contactform .flat.error {
+  border-color: #ff3333;
+}
 .contactform .flat:focus {
   border-color: #ff7e00;
 }
@@ -496,6 +499,12 @@ and open the template in the editor.
 }
 .contactform .btn:hover {
   background: #ff7e00;
+}
+.contactform .error {
+  display: block;
+  color: #ff3333;
+  margin: 0 0 1em;
+  padding-left: 0.5em;
 }
 /* 
     Created on : 10 March, 2014, 1:25:41 PM
