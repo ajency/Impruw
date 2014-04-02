@@ -41,24 +41,35 @@ function create_room($formdata) {
     $post_id = wp_insert_post($data, false);
 
 
+    // if post insert succesfull
     if ($post_id != 0) {
 
         //check if slider exsists
         $slider_return = slider_exists($slider_id);
-        
-        if ($slider_return == TRUE) 
-            
+
+        if ($slider_return == TRUE) {
+
             update_post_meta($post_id, 'slider_id', $slider_id);
-        
-        else{ 
+
+            $all_slides = get_slides($slider_id);
+
+            if (!empty($all_slides))
+                
+                 $slide_random_key = array_rand($all_slides);
+
+                 $slide = $all_slides[$slide_random_key];
+
+                 set_post_thumbnail($post_id, $slide['image_id']);
+        }
+
+        else {
+
             update_post_meta($post_id, 'slider_id', 0);
         }
+
         
         update_post_meta($post_id, 'no_of_rooms', $no_of_rooms);
 
-      
-        update_post_meta($post_id, '_thumbnail_id', $slider_id);
-        
 
         // set the facilities selected for the room
         wp_set_post_terms($post_id, $facility_ids, 'impruw_room_facility');
@@ -70,27 +81,27 @@ function create_room($formdata) {
 
 // Function returns the data for the new room created
 // @param room ID
+
 function get_room($roomid) {
 
     $room_id = $roomid;
 
-    // returns an array of values from post table
     $room_post = get_post($room_id, ARRAY_A);
 
     // returns a string of the post meta value
     $room_slider_id = get_post_meta($room_id, 'slider_id', true);
+    
     $no_of_rooms = get_post_meta($room_id, 'no_of_rooms', true);
-    $thumbnail = get_post_meta($room_id, '_thumbnail_id', true);
+    
+    $thumbnail = wp_get_attachment_image_src(get_post_thumbnail_id( $room_id ));
 
-    if (empty($no_of_rooms)) {
-        $no_of_rooms = '0';
-    }
 
-    // prepare the post meta string to array
+    // prepare the post meta strings to array
     $room_post_meta = array('slider_id' => $room_slider_id,
         'no_of_rooms' => $no_of_rooms,
-        '_thumbnail_id' => $thumbnail);
+        'thumbnail_url' => $thumbnail[0]);
 
+    
     // returns an array of the post terms(facilities) of the room
     $room_term_names = wp_get_post_terms($room_id, 'impruw_room_facility');
 
@@ -99,14 +110,19 @@ function get_room($roomid) {
 
     // loop the array and get prepare a facilities array
         foreach ($room_term_names as $key => $value) {
+            
             $room_terms['facilities'][$room_term_names[$key]->term_id] = $room_term_names[$key]->name;
-        } else {
+        } 
+        
+    
+    else {
         // get all facilities 
         $taxonomies = array('impruw_room_facility');
 
         $room_facilities = get_terms($taxonomies, array('hide_empty' => 0));
 
         foreach ($room_facilities as $key => $value) {
+            
             $room_terms['facilities'][$room_facilities[$key]->term_id] = $room_facilities[$key]->name;
         }
     }
