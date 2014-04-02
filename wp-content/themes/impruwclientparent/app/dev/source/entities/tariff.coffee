@@ -26,7 +26,12 @@ define ["app", 'backbone'], (App, Backbone) ->
 
 		API = 
 			# get tariff collection
-			getTariffCollection:->
+			getTariffCollection:(roomId)->
+				tariffCollection.fetch 
+								reset : true
+								data : 
+									room_id : roomId
+
 				tariffCollection
 
 			# fetch the tariff model
@@ -36,8 +41,8 @@ define ["app", 'backbone'], (App, Backbone) ->
 				tariff
 
 
-		App.reqres.setHandler "get:tariffs:collection", ->
-			API.getTariffCollection()
+		App.reqres.setHandler "get:tariffs:collection",(roomId)->
+			API.getTariffCollection roomId
 
 		App.reqres.setHandler "get:tariff",(id)->
 			API.getTariff id

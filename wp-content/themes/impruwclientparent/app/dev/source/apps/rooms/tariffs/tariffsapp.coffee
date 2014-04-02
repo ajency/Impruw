@@ -12,29 +12,26 @@ define  ['app'
 
 					initialize:(opt)->
 
+						{roomId} = opt
+
 						# get the layout 
 						@layout = @_getLayout()
 
-						@listenTo @layout, "show", @showTariffGrid
+						@listenTo @layout, "show", =>
+							App.execute "show:tariff:grid", 
+											region : @layout.tariffGridRegion
+											roomId : roomId
 
 						@listenTo @layout, "show:add:daterange", =>
 							App.execute "show:add:daterange"
 						
 						@listenTo @layout, "show:add:plan", =>
 							App.execute "show:add:plan"
-
+						 
 						@show @layout
 					
 					_getLayout : ->
 						new RoomsTariffAppLayout
-
-					showTariffGrid :->
-						App.execute "show:tariff:grid", region : @layout.tariffGridRegion
-
-				#<div class="room-tariff-title">
-				#<h4>Room Price</h4>
-				#<h5>Lorem ipsum dolor sit amet et odio vehicula, id porttitor quam malesuada</h5>
-								
 
 				# Rooms tariff layout 				
 				class RoomsTariffAppLayout extends Marionette.Layout

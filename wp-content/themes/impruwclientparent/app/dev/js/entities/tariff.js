@@ -41,7 +41,13 @@ define(["app", 'backbone'], function(App, Backbone) {
     })(Backbone.Collection);
     tariffCollection = new TariffCollection;
     API = {
-      getTariffCollection: function() {
+      getTariffCollection: function(roomId) {
+        tariffCollection.fetch({
+          reset: true,
+          data: {
+            room_id: roomId
+          }
+        });
         return tariffCollection;
       },
       getTariff: function(id) {
@@ -53,8 +59,8 @@ define(["app", 'backbone'], function(App, Backbone) {
         return tariff;
       }
     };
-    App.reqres.setHandler("get:tariffs:collection", function() {
-      return API.getTariffCollection();
+    App.reqres.setHandler("get:tariffs:collection", function(roomId) {
+      return API.getTariffCollection(roomId);
     });
     return App.reqres.setHandler("get:tariff", function(id) {
       return API.getTariff(id);

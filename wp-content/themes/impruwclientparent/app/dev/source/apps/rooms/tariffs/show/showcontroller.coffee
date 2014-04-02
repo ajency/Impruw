@@ -6,15 +6,20 @@ define  ['app','controllers/base-controller', 'apps/rooms/tariffs/show/views'],(
 
 			initialize:(opt)->
 
+				{@roomId} = opt
+
+				if not @roomId 
+					throw new Error "Invalid room id: #{@roomId}"
+
 				pcollection = App.request "get:plans:collection"
-				dcollection = App.request "get:daterange:collection"
+				tcollection = App.request "get:tariffs:collection", @roomId
 				
 				@layout = @_getGridLayout()
 
 				# get the packages view
 				@packagesView = @_getPackagesView pcollection
 
-				@dateRangeView = @_getDateRangeView dcollection
+				@dateRangeView = @_getTariffsView tcollection
 
 				@listenTo @dateRangeView, 'itemview:show:edit:tariff', (iv,id)=>
 					App.execute "show:edit:tariff", id
@@ -32,9 +37,9 @@ define  ['app','controllers/base-controller', 'apps/rooms/tariffs/show/views'],(
 							collection 	: pCollection
 
 			# get the tariffs view
-			_getDateRangeView :(dCollection)->
+			_getTariffsView :(tcollection)->
 				new Show.Views.TariffsView
-							collection : dCollection
+							collection : tcollection
 							
 			_getGridLayout:->
 				new GridLayout
@@ -51,7 +56,6 @@ define  ['app','controllers/base-controller', 'apps/rooms/tariffs/show/views'],(
 
 
 		App.commands.setHandler "show:tariff:grid", (opt)->
-
 			new ShowController opt
 				
 				

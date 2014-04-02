@@ -2,6 +2,17 @@
 
 include 'functions.php';
 
+
+function fetch_tariffs(){
+	
+	$room_id =(int)$_REQUEST['room_id'];
+	
+	$tariffs = get_tariff($room_id);
+	
+	wp_send_json(array('code' => 'OK','data' => $tariffs));
+}
+add_action('wp_ajax_fetch-tariffs','fetch_tariffs');
+
 # function to fetch packages
 function read_tariff(){
 
