@@ -20,7 +20,7 @@ define  ['app','controllers/base-controller', 'apps/rooms/tariffs/show/views'],(
 				# get the packages view
 				@packagesView = @_getPackagesView pcollection
 
-				@dateRangeView = @_getTariffsView tcollection, dcollection
+				@dateRangeView = @_getTariffsView tcollection, dcollection, pcollection
 
 				@listenTo @dateRangeView, 'itemview:show:edit:tariff', (iv,id)=>
 					App.execute "show:edit:tariff", id
@@ -38,10 +38,11 @@ define  ['app','controllers/base-controller', 'apps/rooms/tariffs/show/views'],(
 							collection 	: pCollection
 
 			# get the tariffs view
-			_getTariffsView :(tcollection, dcollection)->
+			_getTariffsView :(tcollection, dcollection, pCollection)->
 				new Show.Views.TariffsView
 							collection : tcollection
 							dateRangeCollection : dcollection
+							planCollection : pCollection
 			
 			# grid layout
 			_getGridLayout:->

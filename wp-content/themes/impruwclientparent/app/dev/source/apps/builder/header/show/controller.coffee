@@ -28,3 +28,6 @@ define ['app', 'controllers/base-controller'
 
 					getCurrentPageName:->
 						@view.getCurrentPageName()
+
+					setHomePage:->
+						

@@ -48,7 +48,7 @@ define  ['app','controllers/base-controller', 'text!apps/rooms/tariffs/daterange
 
 		
 			onSavedDaterange:->
-				@$el.find('.alert').remove()
+				@$el.parent().find('.alert').remove()
 				@$el.parent().prepend '<div class="alert alert-success">Saved successfully</div>'
 				@$el.find('input').val ''
 

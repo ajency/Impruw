@@ -1130,7 +1130,7 @@ form {
 							text-align: center;
 							> span {
 								display: block;
-								&[class^="icon-"] {
+								&.icon, &.bicon {
 									font-size: 10em;
 									color: darken(@preview-grey, 5%);
 								}
@@ -1646,6 +1646,7 @@ form {
 
 /****Add Room Form Styles****/
 .facilities-list {
+	margin: 0 0 1em;
 	.facility {
 		margin: 0.5em 0;
 		width: 50%;

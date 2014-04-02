@@ -53,7 +53,7 @@ define(["app", 'backbone'], function(App, Backbone) {
         if (data == null) {
           data = {};
         }
-        plan = new Plans(data);
+        plan = new Plan(data);
         return plan;
       }
     };
