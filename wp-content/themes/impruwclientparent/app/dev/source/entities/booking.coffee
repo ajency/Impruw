@@ -32,11 +32,11 @@ define ["app", 'backbone', 'moment'], (App, Backbone, moment) ->
 			# get bookings on
 			getBookingOn:(date)->
 				date = if _.isString(date) then moment(date) else date
-				time = date.getTime()
+				#time = date.getTime()
 
 				checkBooking =(booking)->
 					bdate = new Date booking.get 'bdate'
-					moment(time).isSame(bdate)  
+					moment(date).isSame(bdate)  
 
 				# find the booking model
 				models = @filter checkBooking

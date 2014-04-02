@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
 
 define(['app'], function(App) {
   return App.module("RoomsApp.RoomsTariff.Show.Views", function(Views, App) {
-    var DateRangeSingle, PackageSingle;
+    var DateRangeSingle, NoTariff, PackageSingle, SingleTariff;
     PackageSingle = (function(_super) {
       __extends(PackageSingle, _super);
 
@@ -64,21 +64,37 @@ define(['app'], function(App) {
         }
       };
 
-      DateRangeSingle.prototype.template = '<div class="date-range"> <div class="from"> From <span class="date">{{startdate}}</span> </div> <div class="to"> To <span class="date">{{enddate}}</span> </div> </div> <div class="packages"> <div class="package-blocks clearfix"> {{#tariffs}} <div class="package-block-outer" data-id="{{id}}"> <div class="block clearfix"> <div class="weekday"> Weekdays <span class="price">{{weekdays.charge}}</span> </div> <div class="weekend"> Weekends <span class="price">{{weekends.charge}}</span> </div> <div class="tariff-label clearfix">Extra Adult</div> <div class="weekday"> <span class="price">{{weekdays.extra_adult}}</span> </div> <div class="weekend"> <span class="price">{{weekends.extra_adult}}</span> </div> <div class="tariff-label clearfix">Extra Child</div> <div class="weekday"> <span class="price">{{weekdays.extra_child}}</span> </div> <div class="weekend"> <span class="price">{{weekends.extra_child}}</span> </div> <div class="block-action"> <button class="btn btn-sm edit-trariff edit-tran"><span class="glyphicon glyphicon-pencil"></span>&nbsp;Edit</button> </div> </div> </div> {{/tariffs}} </div> </div>';
-
-      DateRangeSingle.prototype.serializeData = function() {
-        var data;
-        data = DateRangeSingle.__super__.serializeData.call(this);
-        data.startdate = function() {
-          return moment(this.from_date).format('DD/MMM');
-        };
-        data.enddate = function() {
-          return moment(this.to_date).format('DD/MMM');
-        };
-        return data;
-      };
+      DateRangeSingle.prototype.template = '<div class="date-range"> <div class="from"> From <span class="date">{{startdate}}</span> </div> <div class="to"> To <span class="date">{{enddate}}</span> </div> </div> <div class="packages"> <div class="package-blocks clearfix"> </div> </div>';
 
       return DateRangeSingle;
+
+    })(Marionette.ItemView);
+    SingleTariff = (function(_super) {
+      __extends(SingleTariff, _super);
+
+      function SingleTariff() {
+        return SingleTariff.__super__.constructor.apply(this, arguments);
+      }
+
+      SingleTariff.prototype.className = 'package-block-outer';
+
+      SingleTariff.prototype.template = '<div class="block clearfix"> <div class="weekday"> Weekdays <span class="price">{{weekdays.charge}}</span> </div> <div class="weekend"> Weekends <span class="price">{{weekends.charge}}</span> </div> <div class="tariff-label clearfix">Extra Adult</div> <div class="weekday"> <span class="price">{{weekdays.extra_adult}}</span> </div> <div class="weekend"> <span class="price">{{weekends.extra_adult}}</span> </div> <div class="tariff-label clearfix">Extra Child</div> <div class="weekday"> <span class="price">{{weekdays.extra_child}}</span> </div> <div class="weekend"> <span class="price">{{weekends.extra_child}}</span> </div> <div class="block-action"> <button class="btn btn-sm edit-trariff edit-tran"><span class="glyphicon glyphicon-pencil"></span>&nbsp;Edit</button> </div> </div>';
+
+      return SingleTariff;
+
+    })(Marionette.ItemView);
+    NoTariff = (function(_super) {
+      __extends(NoTariff, _super);
+
+      function NoTariff() {
+        return NoTariff.__super__.constructor.apply(this, arguments);
+      }
+
+      NoTariff.prototype.className = 'package-block-outer';
+
+      NoTariff.prototype.template = '<div class="block clearfix"> <h3>NA</h3> </div>';
+
+      return NoTariff;
 
     })(Marionette.ItemView);
     return Views.TariffsView = (function(_super) {
@@ -88,10 +104,10 @@ define(['app'], function(App) {
         return TariffsView.__super__.constructor.apply(this, arguments);
       }
 
-      TariffsView.prototype.itemView = DateRangeSingle;
+      TariffsView.prototype.template = '';
 
       return TariffsView;
 
-    })(Marionette.CollectionView);
+    })(Marionette.CompositeView);
   });
 });
