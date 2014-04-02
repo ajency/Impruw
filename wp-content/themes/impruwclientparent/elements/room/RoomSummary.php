@@ -4,6 +4,8 @@
  * Room Summary Element
  *
  */
+include_once PARENTTHEMEPATH.'modules/rooms/functions.php';
+
 class RoomSummary extends Element {
     /**
      * The default type property for element
@@ -20,8 +22,8 @@ class RoomSummary extends Element {
         
         parent::__construct($element);
         
-        $this->room_id= $element['room_id'];
-        $this->room = get_room($element['room_id']);
+        $this->room_id = $element['room_id'];
+        $this->room = get_room($this->room_id);
         $this->style = $element['style'];
         $this->markup  = $this->generate_markup();
     }
@@ -45,9 +47,13 @@ class RoomSummary extends Element {
     function get_room_summary(){  
        $data= $this->room;
        $data['link']= get_permalink( $this->room_id );
-    
+       if(empty($data['thumbnail_url']))
+           $data['thumbnail_url'] = 'http://localhost/impruw/childsite/wp-content/uploads/'
+                                    .'sites/81/2014/03/5-yama-zbrush-model-by-jemark-150x150.jpg';
+           
+
        $template = '<div class="roomsummary"><div class="room-img">
-                         <img src="{{_thumbnail_id}}" class="img-responsive">
+                         <img src="{{thumbnail_url}}" class="img-responsive">
                     </div>
                     <div class="room-title">{{post_title}}</div>
                     <div class="room-excerpt">{{post_content}}</div>
