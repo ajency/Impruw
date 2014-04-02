@@ -2605,6 +2605,22 @@ form .aj-imp-submit:hover {
 .room-booking .room-booking-calender .hasDatepicker .ui-datepicker-inline {
   width: auto !important;
   border: 0;
+  background: none;
+}
+.room-booking .room-booking-calender .hasDatepicker .ui-datepicker-inline .ui-datepicker-group {
+  width: 48%;
+  margin-right: 12px;
+}
+.room-booking .room-booking-calender .hasDatepicker .ui-datepicker-inline .ui-datepicker-group .ui-datepicker-calendar {
+  background: #fff;
+  width: 100%;
+}
+.room-booking .room-booking-calender .hasDatepicker .ui-datepicker-inline .ui-datepicker-group .ui-datepicker-calendar th {
+  background: #c0c0c0;
+  text-transform: uppercase;
+  color: #fff;
+  font-weight: 100;
+  font-size: 12px;
 }
 .room-booking .room-booking-calender .hasDatepicker .ui-datepicker td {
   border: 1px solid #EAEAEA!important;
@@ -2615,6 +2631,51 @@ form .aj-imp-submit:hover {
   border-radius: 0px;
   height: 39px;
   line-height: 40px;
+}
+.room-booking .room-booking-calender .hasDatepicker .booking-red {
+  background: #f97d61;
+}
+.room-booking .room-booking-calender .hasDatepicker .booking-red a {
+  color: #fff;
+}
+.room-booking .room-booking-calender .hasDatepicker .booking-red a:hover {
+  background: #ffd200;
+}
+.room-booking .room-booking-calender .hasDatepicker .booking-orange {
+  background: #ffd200;
+}
+.room-booking .room-booking-calender .hasDatepicker .booking-orange a {
+  color: #fff;
+}
+.room-booking .room-booking-calender .hasDatepicker .booking-orange a:hover {
+  background: #ffd200;
+}
+.room-booking .room-booking-calender .hasDatepicker .booking-blue {
+  background: #5fd7fe;
+}
+.room-booking .room-booking-calender .hasDatepicker .booking-blue a {
+  color: #fff;
+}
+.room-booking .room-booking-calender .hasDatepicker .booking-blue a:hover {
+  background: #5fd7fe;
+}
+.room-booking .room-booking-calender .hasDatepicker .booking-green {
+  background: #84e72f;
+}
+.room-booking .room-booking-calender .hasDatepicker .booking-green a {
+  color: #fff;
+}
+.room-booking .room-booking-calender .hasDatepicker .booking-green a:hover {
+  background: #84e72f;
+}
+.room-booking .room-booking-calender .hasDatepicker .booking-pink {
+  background: #fea5a5;
+}
+.room-booking .room-booking-calender .hasDatepicker .booking-pink a {
+  color: #fff;
+}
+.room-booking .room-booking-calender .hasDatepicker .booking-pink a:hover {
+  background: #fea5a5;
 }
 .room-booking .room-booking-calender .hasDatepicker .ui-datepicker .ui-datepicker-header {
   background: #d4d0d1;
@@ -2936,4 +2997,38 @@ form .aj-imp-submit:hover {
 .aj-imp-dash-content input.field-error {
   color: #f21515 !important;
   border-bottom: 1px solid #f21515;
+}
+/*status*/
+.ui-datepicker td.unavailabile a {
+  text-decoration: line-through;
+  color: #000 !important;
+}
+.ui-datepicker td.semi-availabile a {
+  background: url(../images/gray-semi.png) no-repeat;
+}
+.daterange-legends {
+  text-transform: uppercase;
+  font-size: 0.9em;
+}
+.daterange-legends li span {
+  width: 13px;
+  height: 13px;
+  display: inline-block;
+  background: #ccc;
+  margin-right: 5px;
+}
+.daterange-legends .booking-red {
+  background: #f97d61;
+}
+.daterange-legends .booking-blue {
+  background: #5fd7fe;
+}
+.daterange-legends .booking-orange {
+  background: #ffd200;
+}
+.daterange-legends .booking-pink {
+  background: #fea5a5;
+}
+.daterange-legends .booking-green {
+  background: #84e72f;
 }
