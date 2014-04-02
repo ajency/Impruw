@@ -7,11 +7,16 @@ define ['app', 'controllers/base-controller'
 
 			initialize:(options)->
 
-				@layout = layout = @getRoomBookingLayout()	
+				{roomId} = options
+
+				@bookings = App.request "fetch:room:bookings", roomId = 2
+
+				@layout = layout = @getRoomBookingLayout(@bookings)	
 
 				@listenTo layout, "show", @showBookingCalendarView
 						
-				@show layout
+				@show layout, 
+						loading : true
 
 			showBookingCalendarView:=>
 
@@ -21,7 +26,7 @@ define ['app', 'controllers/base-controller'
 						dateRanges : dateRangeCollection.getDateRanges()
 
 				@cview = cview = new Booking.View.CalendarView
-														templateHelpers : templateHelpers
+											templateHelpers : templateHelpers
 
 				# listen to date selected event
 				@listenTo cview, "date:selected", @showBookingPlansView
@@ -37,8 +42,9 @@ define ['app', 'controllers/base-controller'
 										
 				@layout.plansDetailsRegion.show pview
 
-			getRoomBookingLayout : ()->
+			getRoomBookingLayout : (c)->
 				new Booking.View.BookingRoomLayout
+										collection : c
 
 			
 		App.commands.setHandler "show:booking:app", (opts)->

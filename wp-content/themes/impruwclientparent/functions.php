@@ -23,6 +23,7 @@ require_once 'modules/facilities/ajax.php';
 require_once 'modules/plans/ajax.php';
 require_once 'modules/tariff/ajax.php';
 require_once 'modules/daterange/ajax.php';
+require_once 'modules/bookings/ajax.php';
 
 require_once PARENTTHEMEPATH . 'api/entities/leftnav.php';
 require_once PARENTTHEMEPATH . 'api/statistics/statistics-api.php';
