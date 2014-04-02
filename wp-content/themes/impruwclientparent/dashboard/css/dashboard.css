@@ -2878,3 +2878,19 @@ form .aj-imp-submit:hover {
     margin-right: 5px;
     width: 20px;
 }
+
+td.booking-green,span.booking-green{
+  background: green
+}
+
+td.booking-red,span.booking-red{
+  background: red
+}
+
+td.booking-orange,span.booking-orange{
+  background: orange
+}
+
+td.booking-pink,span.booking-pink{
+  background: pink
+}

@@ -47,17 +47,18 @@ define(['app', 'text!apps/rooms/add/templates/add-room.html'], function(App, add
       };
 
       CalendarView.prototype.setDateRangeColor = function() {
-        var colors, dateRanges, templateHelpers;
-        colors = ['green', 'red', 'orange', 'blue', 'pink'];
+        var classNames, dateRanges, templateHelpers;
+        classNames = ['green', 'red', 'orange', 'blue', 'pink'];
         templateHelpers = Marionette.getOption(this, 'templateHelpers');
         dateRanges = templateHelpers['dateRanges'];
         return _.each(dateRanges, function(range, index) {
-          return $("td." + range["class"] + ",span." + range["class"]).css('background', colors[index]);
+          return $("td." + range["class"] + ",span." + range["class"]).addClass("booking-" + classNames[index]);
         });
       };
 
-      CalendarView.prototype.triggerOnSelect = function(date) {
-        return this.trigger("date:selected", date);
+      CalendarView.prototype.triggerOnSelect = function(date, selected) {
+        this.trigger("date:selected", date);
+        return _.delay(this.setDateRangeColor, 0);
       };
 
       CalendarView.prototype.highlightDaysByDateRange = function(date) {
