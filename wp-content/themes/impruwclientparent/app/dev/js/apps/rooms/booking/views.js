@@ -64,6 +64,7 @@ define(['app', 'text!apps/rooms/add/templates/add-room.html'], function(App, add
         var className, dateRangeName;
         dateRangeName = App.request("get:daterange:name:for:date", date);
         className = _.slugify(dateRangeName);
+        className += " " + App.request("get:avaliability:status", date);
         return [true, className];
       };
 

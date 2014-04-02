@@ -60,6 +60,9 @@ define ['app'
 					highlightDaysByDateRange:(date)=>
 						dateRangeName = App.request "get:daterange:name:for:date", date
 						className = _.slugify dateRangeName
+
+						className += " " + App.request "get:avaliability:status", date
+
 						return [true, className]
 
 				#Plans list view
