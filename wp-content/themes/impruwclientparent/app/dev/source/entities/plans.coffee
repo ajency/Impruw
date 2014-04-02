@@ -37,7 +37,7 @@ define ["app", 'backbone'], (App, Backbone) ->
 				planCollection
 				
 			createPlanModel:(data = {})->
-				plan = new Plans data
+				plan = new Plan data
 				plan
 
 

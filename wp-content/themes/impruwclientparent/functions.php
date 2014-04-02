@@ -308,6 +308,9 @@ function add_element_markup($element) {
                 case 'RoomTariff' :
                             $html = get_room_tariff_markup( $element );
                             break;
+                case 'RoomBooking' :
+                            $html = get_room_booking_markup( $element );
+                            break;
 		default :
 			break;
 	}
@@ -466,6 +469,21 @@ function get_room_facilities_markup($element) {
 	require_once PARENTTHEMEPATH . 'elements/room/RoomFacilities.php';
 	
 	$room = new RoomFacilities ( $element );
+	
+	$html = $room->get_markup ();
+	
+	return $html;
+}
+/**
+ * Generates the room booking
+ *
+ * @param type $element        	
+ */
+function get_room_booking_markup($element) {
+	
+        require_once PARENTTHEMEPATH . 'elements/room/RoomBooking.php';
+	
+	$room = new RoomBooking ( $element );
 	
 	$html = $room->get_markup ();
 	
