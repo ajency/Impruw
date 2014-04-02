@@ -25,10 +25,10 @@ define ['app'
 								</h4>
 								<div id="room-booking-calendar"></div>
 								<br><br><br>
-								<ul class="list-inline">
-									<li><span class="date-range1">&nbsp;</span>Date Range 1</li>
-									<li><span class="date-range2">&nbsp;</span>Date Range 2</li>
-									<li><span class="date-range3">&nbsp;</span>Date Range 3</li>
+								<ul class="list-inline daterange-legends">
+									{{#dateRanges}}
+										<li><span class="{{class}}">&nbsp;</span>{{name}}</li>
+									{{/dateRanges}}
 								</ul>'
 
 					onShow:->
@@ -39,6 +39,20 @@ define ['app'
 								#showOtherMonths: true
 								onSelect : @triggerOnSelect
 								beforeShowDay: @highlightDaysByDateRange
+
+						@setDateRangeColor()
+
+					# sets a background color for daterange
+					setDateRangeColor:=>
+						colors = ['green','red', 'orange', 'blue', 'pink'] # you can specify rgb() color or hexadecimal
+						templateHelpers = Marionette.getOption @, 'templateHelpers'
+						dateRanges = templateHelpers['dateRanges']
+
+						# assign color for each daterange
+						_.each dateRanges, (range, index)->
+							# assign color
+							$("td.#{range.class},span.#{range.class}").css 'background', colors[index]
+
 
 					triggerOnSelect:(date)=>
 						@trigger "date:selected", date

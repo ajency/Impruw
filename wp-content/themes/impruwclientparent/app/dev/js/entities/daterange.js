@@ -36,6 +36,18 @@ define(["app", 'backbone', 'moment'], function(App, Backbone, moment) {
         return "" + AJAXURL + "?action=fetch-daterange";
       };
 
+      DateRangeCollection.prototype.getDateRanges = function() {
+        if (this.length === 0) {
+          return [];
+        }
+        return this.map(function(model) {
+          return {
+            name: model.get('daterange_name'),
+            "class": _.slugify(model.get('daterange_name'))
+          };
+        });
+      };
+
       return DateRangeCollection;
 
     })(Backbone.Collection);

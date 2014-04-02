@@ -17,8 +17,16 @@ define ["app", 'backbone', 'moment'], (App, Backbone, moment) ->
 
 			model : DateRange
 
+			# url to fetch dateranges
 			url : ->
 				"#{AJAXURL}?action=fetch-daterange"
+
+			# returns all the date range names from the collection
+			getDateRanges :->
+				return [] if @length is 0
+				@map (model)->
+					name : model.get 'daterange_name'
+					class : _.slugify model.get 'daterange_name'
 
 
 		# create  a daterange collection

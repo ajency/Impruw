@@ -10,12 +10,18 @@ define ['app', 'controllers/base-controller'
 				@layout = layout = @getRoomBookingLayout()	
 
 				@listenTo layout, "show", @showBookingCalendarView
-					#@showBookingPlansView()
 						
 				@show layout
 
 			showBookingCalendarView:=>
+
+				dateRangeCollection = App.request "get:daterange:collection"
+
+				templateHelpers = 
+						dateRanges : dateRangeCollection.getDateRanges()
+
 				@cview = cview = new Booking.View.CalendarView
+														templateHelpers : templateHelpers
 
 				# listen to date selected event
 				@listenTo cview, "date:selected", @showBookingPlansView

@@ -21,8 +21,14 @@ define(['app', 'controllers/base-controller', 'apps/rooms/booking/views'], funct
       };
 
       Controller.prototype.showBookingCalendarView = function() {
-        var cview;
-        this.cview = cview = new Booking.View.CalendarView;
+        var cview, dateRangeCollection, templateHelpers;
+        dateRangeCollection = App.request("get:daterange:collection");
+        templateHelpers = {
+          dateRanges: dateRangeCollection.getDateRanges()
+        };
+        this.cview = cview = new Booking.View.CalendarView({
+          templateHelpers: templateHelpers
+        });
         this.listenTo(cview, "date:selected", this.showBookingPlansView);
         return this.layout.calendarRegion.show(cview);
       };
