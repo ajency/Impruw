@@ -946,6 +946,28 @@ and open the template in the editor.
   font-weight: 300;
   text-transform: none;
 }
+.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker {
+  width: 100% !important;
+  border-color: #07669e;
+}
+.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .ui-datepicker-header {
+  background: #07669e;
+  border: none;
+}
+.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .ui-datepicker-header .ui-datepicker-prev,
+.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .ui-datepicker-header .ui-datepicker-next {
+  border-color: #07669e;
+}
+.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .ui-datepicker-header .ui-datepicker-prev:hover,
+.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .ui-datepicker-header .ui-datepicker-next:hover {
+  background: #0986cf;
+}
+.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .ui-state-active {
+  background: #07669e;
+}
+.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .ui-state-highlight {
+  border-color: #16a2f5;
+}
 /*Room tariff*/
 .room-tariff-container {
   background: #fff;
