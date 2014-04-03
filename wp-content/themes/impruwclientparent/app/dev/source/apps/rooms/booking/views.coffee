@@ -102,7 +102,7 @@ define ['app'
 						value = 30 if currentStatus is 'semi-available'
 						value = 60 if currentStatus is 'unavailable'
 
-						html = "<div style='width:200px'>
+						html = "<div style='width:250px'>
 									<div id='booking-slider' data-value='#{value}'></div>
 									<div class='row'>
 										<div class='col-md-4'>availabile</div>
