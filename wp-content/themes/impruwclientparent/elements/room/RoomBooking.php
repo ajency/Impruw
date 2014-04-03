@@ -49,6 +49,7 @@ class RoomBooking extends Element {
     function generate_markup() {
      $html = ' 
          <script src="http://localhost/impruw/childsite/wp-content\themes\impruwclientparent\dashboard\lib\jquery.ui.min.js"></script>
+          <script src="http://localhost/impruw/childsite/wp-content\themes\impruwclientparent\dashboard\lib\moment.min.js"></script>
             <h4 class="aj-imp-sub-head scroll-ref">Room Booking</h4>
             <div class="room-booking" id="room-booking-region">
                 <div class="row room-booking-container">
