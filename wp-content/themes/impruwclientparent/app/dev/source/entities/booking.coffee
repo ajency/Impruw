@@ -31,11 +31,11 @@ define ["app", 'backbone', 'moment'], (App, Backbone, moment) ->
 
 			# get bookings on
 			getBookingOn:(date)->
-				date = if _.isString(date) then moment(date) else date
+				#date = if _.isString(date) then moment(date) else date
 				#time = date.getTime()
 
 				checkBooking =(booking)->
-					bdate = new Date booking.get 'bdate'
+					bdate = booking.get 'bdate'
 					moment(date).isSame(bdate)  
 
 				# find the booking model
@@ -91,6 +91,7 @@ define ["app", 'backbone', 'moment'], (App, Backbone, moment) ->
 			API.fetchRoomBookings roomId
 
 		App.reqres.setHandler "get:avaliability:status",(date)->
+
 			API.getAvailabiltyStatus date
 
 		App.commands.setHandler "set:booking:status:for:date", (date, status)->

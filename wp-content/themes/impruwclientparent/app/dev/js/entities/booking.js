@@ -48,10 +48,9 @@ define(["app", 'backbone', 'moment'], function(App, Backbone, moment) {
 
       BookingCollection.prototype.getBookingOn = function(date) {
         var checkBooking, models;
-        date = _.isString(date) ? moment(date) : date;
         checkBooking = function(booking) {
           var bdate;
-          bdate = new Date(booking.get('bdate'));
+          bdate = booking.get('bdate');
           return moment(date).isSame(bdate);
         };
         models = this.filter(checkBooking);

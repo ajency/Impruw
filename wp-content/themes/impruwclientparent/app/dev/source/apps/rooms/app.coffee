@@ -2,6 +2,7 @@ define [
 		'app'
 		'apps/rooms/list/controller'
 		'apps/rooms/add/controller'
+		'apps/rooms/edit/controller'
 		'apps/slider-manager/edit-slider/editcontroller'
 		], (App)->
 
@@ -30,7 +31,7 @@ define [
 			edit:(id)->
 				App.execute 'show:edit:room', 
 								region 	: App.rightRegion
-								ID 		: id
+								roomId 	: parseInt id
 												 
 
 		# Setup router on module start event
