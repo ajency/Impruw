@@ -47,7 +47,7 @@ class SliderElement extends Element {
         
         parent::__construct($element);
        
-        $this->slider_id = $element['slider_id'];
+        $this->slider_id = isset($element['slider_id']) ? $element['slider_id'] : 0;
 
         $this->markup   = $this->generate_markup();
 
