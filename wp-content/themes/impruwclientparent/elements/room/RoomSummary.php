@@ -23,8 +23,14 @@ class RoomSummary extends Element {
         parent::__construct($element);
         
         $this->room_id = isset($element['room_id']) ? $element['room_id'] : 0;
-        	
-       	if($this->room_id === 0 || get_post($this->room_id) == null){
+        
+        if(is_singular('impruw_room')){
+        	$this->room_id = get_the_ID();
+        	$this->markup = $this->generate_single_room_summary();
+        	return;
+        }
+        
+        if($this->room_id === 0 || get_post($this->room_id) == null){
        		$this->markup  = $this->generate_dummy_markup();
        		return;
        	}
@@ -45,6 +51,16 @@ class RoomSummary extends Element {
         $html = $this->get_room_summary();
         
         return $html;
+    }
+    
+    function generate_single_room_summary(){
+    	$this->room = get_room($this->room_id);
+    	
+    	$template = '<h4>Define your template for single room sumary here</h4>';
+    	
+    	global $me;
+    	
+    	return $me->render($template, $this->room);
     }
 
     /**

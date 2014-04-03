@@ -28,10 +28,22 @@ define(['app', 'apps/builder/site-builder/elements/roomsummary/views', 'apps/bui
       };
 
       Controller.prototype._getRoomSummaryView = function(model, template) {
-        return new RoomSummary.Views.RoomSummaryView({
-          model: model,
-          template: template
-        });
+        var opt;
+        opt = {
+          model: model
+        };
+        if (this.isSingleRoomPage()) {
+          opt.isSingleRoom = true;
+        } else {
+          opt.template = template;
+        }
+        return new RoomSummary.Views.RoomSummaryView(opt);
+      };
+
+      Controller.prototype.isSingleRoomPage = function() {
+        var pageName;
+        pageName = App.request("get:current:editable:page:name");
+        return pageName === 'Single Room';
       };
 
       Controller.prototype.renderElement = function() {

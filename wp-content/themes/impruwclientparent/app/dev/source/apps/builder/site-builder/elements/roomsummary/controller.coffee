@@ -26,9 +26,20 @@ define ['app'
 						super()
 
 					_getRoomSummaryView:(model, template)->
-						new RoomSummary.Views.RoomSummaryView
-												model 	: model
-												template : template
+						opt = 
+							model : model
+
+						if @isSingleRoomPage()
+							opt.isSingleRoom = true
+						else
+							opt.template = template
+
+						new RoomSummary.Views.RoomSummaryView opt
+												
+
+					isSingleRoomPage:->
+						pageName = App.request "get:current:editable:page:name"
+						pageName is 'Single Room'
 												
 
 					# setup templates for the element
