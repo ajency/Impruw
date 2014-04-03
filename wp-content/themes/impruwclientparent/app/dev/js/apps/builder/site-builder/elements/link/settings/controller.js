@@ -55,9 +55,6 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/element
       };
 
       Controller.prototype.onClose = function() {
-        if (!this.model.hasChanged()) {
-          return;
-        }
         return this.model.save(null, {
           wait: true
         });

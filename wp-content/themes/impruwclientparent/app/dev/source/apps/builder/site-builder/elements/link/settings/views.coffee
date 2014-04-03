@@ -23,6 +23,11 @@ define ['app', 'text!apps/builder/site-builder/elements/link/settings/templates/
 					setFields:->
 						if @eleModel.get('draggable') is true
 							@$el.find('input[name="draggable"]').checkbox 'check'
+
+						_.each ['link','text'], (field,i)=>
+							@$el.find("input[name='#{field}']").val @eleModel.get field
+
+						@$el.find('select[name="style"]').selectpicker 'val', @eleModel.get 'style'	
 					
 					# events
 					events:

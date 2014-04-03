@@ -30,8 +30,14 @@ define(['app', 'text!apps/builder/site-builder/elements/link/settings/templates/
 
       SettingsView.prototype.setFields = function() {
         if (this.eleModel.get('draggable') === true) {
-          return this.$el.find('input[name="draggable"]').checkbox('check');
+          this.$el.find('input[name="draggable"]').checkbox('check');
         }
+        _.each(['link', 'text'], (function(_this) {
+          return function(field, i) {
+            return _this.$el.find("input[name='" + field + "']").val(_this.eleModel.get(field));
+          };
+        })(this));
+        return this.$el.find('select[name="style"]').selectpicker('val', this.eleModel.get('style'));
       };
 
       SettingsView.prototype.events = {
