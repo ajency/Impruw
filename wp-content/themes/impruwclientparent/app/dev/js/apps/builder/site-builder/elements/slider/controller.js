@@ -14,7 +14,8 @@ define(['app', 'apps/builder/site-builder/elements/slider/views', 'apps/builder/
 
       Controller.prototype.initialize = function(options) {
         _.defaults(options.modelData, {
-          element: 'Slider'
+          element: 'Slider',
+          vertical: false
         });
         return Controller.__super__.initialize.call(this, options);
       };
