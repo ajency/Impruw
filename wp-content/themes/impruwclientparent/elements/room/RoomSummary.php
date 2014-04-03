@@ -86,6 +86,6 @@ class RoomSummary extends Element {
                     </div></div>';
     	global $me;
     	 
-    	return $me->render($template, $data);
+    	return $me->render($template, array());
     }
 }
