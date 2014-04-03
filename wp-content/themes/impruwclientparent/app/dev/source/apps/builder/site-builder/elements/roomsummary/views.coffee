@@ -18,5 +18,10 @@ define ['app'],(App)->
 							<button class="btn btn-room">View Details</button>
 						</div>'
 
-			onShow:->
-				
+			singleRoomTemplate : '<h3>Add dummy template here to show room summary element on single room</h3>'
+
+			onBeforeRender:->
+				isSingle = Marionette.getOption @, 'isSingleRoom'
+
+				if not _.isUndefined isSingle
+					@template = @singleRoomTemplate
