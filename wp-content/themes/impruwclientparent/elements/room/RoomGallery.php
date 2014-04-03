@@ -82,7 +82,7 @@ class RoomGallery extends SliderElement {
         $html = '';
         
         if(is_singular('impruw_room'))
-        	$html = '<h3>Gallery Or add markup here</h3>';
+        	$html = '<h3 class="gallery-title">Gallery</h3>';
         	
         $html .= '<ul>';
         
