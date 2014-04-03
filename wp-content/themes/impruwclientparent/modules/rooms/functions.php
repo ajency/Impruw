@@ -105,6 +105,9 @@ function get_room($roomid) {
     $room_id = $roomid;
     
     $room_post = get_post($room_id, ARRAY_A);
+    
+    if($room_post === null)
+    	return array();
 
     // returns a string of the post meta value
     $room_slider_id = get_post_meta($room_id, 'slider_id', true);
@@ -116,13 +119,14 @@ function get_room($roomid) {
 
     // prepare the post meta strings to array
     $room_post_meta = array('slider_id' => $room_slider_id,
-        'no_of_rooms' => $no_of_rooms,
-        'thumbnail_url' => $thumbnail[0]);
+					        'no_of_rooms' => $no_of_rooms,
+					        'thumbnail_url' => $thumbnail[0]);
 
     
     // returns an array of the post terms(facilities) of the room
     $room_term_names = wp_get_post_terms($room_id, 'impruw_room_facility');
 
+    $room_terms = array();
 
     if (!empty($room_term_names))
 
