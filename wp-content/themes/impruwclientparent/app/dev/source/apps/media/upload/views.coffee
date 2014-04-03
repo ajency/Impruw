@@ -42,7 +42,6 @@ define ['app'
 							@$el.find("#progress").show()
 					  
 						@uploader.bind "UploadProgress",(up, file)=>
-							console.log file
 							@$el.find(".progress-bar").css "width", file.percent + "%"
 						
 						@uploader.bind "Error", (up, err)=>

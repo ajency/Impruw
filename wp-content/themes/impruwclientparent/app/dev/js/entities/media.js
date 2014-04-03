@@ -15,26 +15,24 @@ define(["app", 'backbone'], function(App, Backbone) {
 
       MediaModel.prototype.name = 'media';
 
-      MediaModel.prototype.getBestFit = function(width, height) {
-        var mode, sizes, url;
-        mode = 'landscape';
-        if (height > width) {
-          mode = 'portrait';
-        }
-        url = 'http://dsdsdsd.com';
-        switch (mode) {
-          case 'landscape':
-            url = 'landscape';
-            break;
-          case 'portrait':
-            url = 'portrait';
-        }
+      MediaModel.prototype.getBestFit = function(width) {
+        var closest, sizes, smallest;
         sizes = this.get('sizes');
-        if (sizes['thumbnail']) {
-          return sizes['thumbnail'].url;
-        } else {
-          return sizes['full'].url;
+        closest = null;
+        smallest = 99999;
+        _.each(sizes, function(size, index) {
+          var val;
+          val = size.width - width;
+          val = val < 0 ? -1 * val : val;
+          if (val <= smallest) {
+            closest = size;
+            return smallest = val;
+          }
+        });
+        if (_.isNull(closest)) {
+          closest = sizes['full'];
         }
+        return closest.url;
       };
 
       return MediaModel;

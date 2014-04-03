@@ -47,13 +47,12 @@ define(['app'], function(App) {
       };
 
       ImageView.prototype.onShow = function() {
-        var height, src, width;
+        var src, width;
         if (this.model.isNew()) {
           return;
         }
         width = this.$el.width();
-        height = this.$el.height();
-        src = this.model.getBestFit(width, height);
+        src = this.model.getBestFit(width);
         return this.$el.find('img').attr('src', src);
       };
 
