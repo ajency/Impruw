@@ -55,7 +55,13 @@ define(['app'], function(App) {
       GalleryView.prototype.emptyView = EmptyGallery;
 
       GalleryView.prototype.onBeforeRender = function() {
-        return this.collection.sort();
+        var isSingleRoom;
+        this.collection.sort();
+        isSingleRoom = Marionette.getOption(this, 'inSingleRoom');
+        if (isSingleRoom) {
+          this.template = '<h3>Gallery</h3> <div class="if-required"></div>';
+          return this.itemViewContainer = '.if-required';
+        }
       };
 
       GalleryView.prototype.onShow = function() {

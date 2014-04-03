@@ -13,7 +13,6 @@ define ['app'
 
 						_.defaults options.modelData,
 											element  	: 'Gallery'
-											no_of_columns : 3
 
 						super(options)
 						
@@ -23,10 +22,10 @@ define ['app'
 
 						super()
 
-					_getGalleryView:(collection, columnCount)->
+					_getGalleryView:(collection)->
 						new Gallery.Views.GalleryView
 											collection 	: collection
-											noOfColumns : columnCount
+											inSingleRoom: @isSingleRoomPage()
 
 					_getSlidesCollection:->
 						if not @slidesCollection
@@ -58,14 +57,11 @@ define ['app'
 						slidesCollection = @_getSlidesCollection()
 
 						App.execute "when:fetched", slidesCollection, =>
-							view = @_getGalleryView slidesCollection, @layout.model.get 'no_of_columns'
+							view = @_getGalleryView slidesCollection
 
 							if not @isSingleRoomPage()
 								@listenTo view, "show:slides:manager", =>
 									App.execute "show:slides:manager", slidesCollection
-
-							@listenTo @layout.model, "change:no_of_columns", =>
-								@renderElement()
 
 							@listenTo slidesCollection, "remove add slides:order:updated", =>
 								@renderElement()

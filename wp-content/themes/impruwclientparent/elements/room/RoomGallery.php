@@ -79,7 +79,12 @@ class RoomGallery extends SliderElement {
        
         $slides =get_slides($sliderID);
         
-        $html = '<ul>';
+        $html = '';
+        
+        if(is_singular('impruw_room'))
+        	$html = '<h3>Gallery Or add markup here</h3>';
+        	
+        $html .= '<ul>';
         
         foreach ($slides as $key => $value) {
            

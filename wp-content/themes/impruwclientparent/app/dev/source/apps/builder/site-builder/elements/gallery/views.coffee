@@ -41,6 +41,13 @@ define ['app'],(App)->
 			onBeforeRender:->
 				@collection.sort()
 
+				# set the template if single room
+				isSingleRoom = Marionette.getOption @, 'inSingleRoom'
+				if isSingleRoom
+					@template = '<h3>Gallery</h3>
+								<div class="if-required"></div>'
+					@itemViewContainer = '.if-required'
+
 			onShow:->
 
 				return if @collection.length is 0

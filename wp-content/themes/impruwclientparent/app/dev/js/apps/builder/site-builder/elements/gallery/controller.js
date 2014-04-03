@@ -14,8 +14,7 @@ define(['app', 'apps/builder/site-builder/elements/gallery/views', 'apps/builder
 
       Controller.prototype.initialize = function(options) {
         _.defaults(options.modelData, {
-          element: 'Gallery',
-          no_of_columns: 3
+          element: 'Gallery'
         });
         return Controller.__super__.initialize.call(this, options);
       };
@@ -25,10 +24,10 @@ define(['app', 'apps/builder/site-builder/elements/gallery/views', 'apps/builder
         return Controller.__super__.bindEvents.call(this);
       };
 
-      Controller.prototype._getGalleryView = function(collection, columnCount) {
+      Controller.prototype._getGalleryView = function(collection) {
         return new Gallery.Views.GalleryView({
           collection: collection,
-          noOfColumns: columnCount
+          inSingleRoom: this.isSingleRoomPage()
         });
       };
 
@@ -66,15 +65,12 @@ define(['app', 'apps/builder/site-builder/elements/gallery/views', 'apps/builder
         return App.execute("when:fetched", slidesCollection, (function(_this) {
           return function() {
             var view;
-            view = _this._getGalleryView(slidesCollection, _this.layout.model.get('no_of_columns'));
+            view = _this._getGalleryView(slidesCollection);
             if (!_this.isSingleRoomPage()) {
               _this.listenTo(view, "show:slides:manager", function() {
                 return App.execute("show:slides:manager", slidesCollection);
               });
             }
-            _this.listenTo(_this.layout.model, "change:no_of_columns", function() {
-              return _this.renderElement();
-            });
             _this.listenTo(slidesCollection, "remove add slides:order:updated", function() {
               return _this.renderElement();
             });

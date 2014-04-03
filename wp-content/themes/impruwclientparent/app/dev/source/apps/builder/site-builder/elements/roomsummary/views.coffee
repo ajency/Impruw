@@ -17,3 +17,6 @@ define ['app'],(App)->
 							<div class="price">$99<small>/night</small></div>
 							<button class="btn btn-room">View Details</button>
 						</div>'
+
+			onShow:->
+				
