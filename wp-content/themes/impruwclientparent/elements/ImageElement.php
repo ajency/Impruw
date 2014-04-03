@@ -112,7 +112,7 @@ class ImageElement extends Element {
 
         
         if($path !== false) {
-            return "<img src='{$path[0]}' class='img-responsive {$this->margins}' />";
+            return "<img src='{$path[0]}' class='img-responsive {$this->margins}' width='100%'/>";
         }
         else{
             return "<img data-src='". get_parent_template_directory_uri(). "'/js/holder.js/100%x220' class='img-responsive {$this->margins}'/>";

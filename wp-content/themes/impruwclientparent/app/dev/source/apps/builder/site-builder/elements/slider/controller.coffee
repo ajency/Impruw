@@ -12,7 +12,8 @@ define ['app'
 					initialize:(options)->
 
 						_.defaults options.modelData,
-											element  	: 'Slider'
+											element  : 'Slider'
+											vertical : false
 
 						super(options)
 						

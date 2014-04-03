@@ -15,17 +15,18 @@ define ["app", 'backbone'], (App, Backbone) ->
 					closest = null
 					# get closest size
 					smallest = 99999
-					_.each sizes, (size, index)->
+					_.each sizes, (size, key)->
 						val = size.width - width
 						val = if val < 0 then (-1 * val) else val
 						if val <= smallest
-							closest = size
+							closest = 
+								url : size.url
+								size : key
 							smallest = val
 
 					closest = sizes['full'] if _.isNull closest
 
-					closest.url
-
+					closest 
 				
 
 
