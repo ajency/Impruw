@@ -44,10 +44,6 @@ define ['app'],(App)->
 			                                <span class="key">Check-out</span>
 			                                <span class="value">1.00 PM</span>
 			                            </div>
-			                            <div class="room-summary-desc">
-			                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s.
-			                                <button class="btn btn-sm btn-book">Booking &amp; Availability</button>
-			                            </div>
 			                        </div>
 			                    </div>'
 

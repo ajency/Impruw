@@ -815,6 +815,7 @@ and open the template in the editor.
 }
 .room-title-container .room-title-actions .btn-book {
   background: #ff5f5f;
+  color: #fff;
 }
 .room-title-container .room-title-actions .btn-book:hover {
   background: #ff9292;
