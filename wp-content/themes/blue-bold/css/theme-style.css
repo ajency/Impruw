@@ -807,6 +807,7 @@ and open the template in the editor.
 }
 .room-title-container .room-title-actions .btn-book {
   background: #07669e;
+  color: #fff;
 }
 .room-title-container .room-title-actions .btn-book:hover {
   background: #0986cf;
@@ -1369,7 +1370,7 @@ and open the template in the editor.
 .address.small-address .info {
   color: #555555;
   font-size: 1em;
-  font-weight: 200;
+  font-weight: 300;
   margin-bottom: 10px;
   padding-left: 5px;
 }

@@ -91,7 +91,7 @@ class RoomTariff extends Element {
                     <div class="room-tariff-container">
                         <div class="room-tariff-title">
                             <h4>Room Price</h4>
-                            <h5>Lorem Ipsum Dolor Sit Amet</h5>
+                            <h5>View the prices for different dates here.</h5>
                         </div>
                         <div class="room-tariff-grid" id="room-tariff-grid">';
 

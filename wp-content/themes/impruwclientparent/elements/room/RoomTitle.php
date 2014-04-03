@@ -62,12 +62,10 @@ class RoomTitle extends Element {
         $template = '<div class="room-title-container clearfix">
                             <div class="room-title">
                                     <h1>{{post_title}}</h1>
-                                    <div class="room-title-desc">Lorem ipsum dolor sit amet et 
-                                    odio vehicula, id porttitor quam malesuada</div>
+                                    <div class="room-title-desc">{{post_excerpt}}</div>
                             </div>
                             <div class="room-title-actions">
-                                   <button class="btn btn-sm btn-book">Booking &amp;
-                                   Availability</button>
+                                   <a href="#room-booking-region" class="btn btn-sm btn-book">Booking &amp; Availability</a>
                             </div>
                     </div>';
 
