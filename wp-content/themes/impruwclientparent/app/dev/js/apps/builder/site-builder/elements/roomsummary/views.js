@@ -12,15 +12,19 @@ define(['app'], function(App) {
 
       RoomSummaryView.prototype.className = 'roomsummary';
 
-      RoomSummaryView.prototype.template = '<div class="room-img"> <img src="{{thumbnail_url}}" class="img-responsive"> </div> <div class="room-title">Title</div> <div class="room-excerpt">Lrem Ipsum Gipsum</div> <div class="room-actions"> <div class="price">$99<small>/night</small></div> <button class="btn btn-room">View Details</button> </div>';
+      RoomSummaryView.prototype.roomNotSetTemplate = '<div class="room-img"> <div class="image-placeholder"><span class="bicon icon-uniF10E"></span>Room Image</div> </div> <div class="room-title">Room Title</div> <div class="room-excerpt">Lorem Ipsum is simply dummy text of the printing and typesetting industry</div> <div class="room-actions"> <div class="price">$99<small>/night</small></div> <button class="btn btn-room">View Details</button> </div>';
 
       RoomSummaryView.prototype.singleRoomTemplate = '<h3>Add dummy template here to show room summary element on single room</h3>';
 
       RoomSummaryView.prototype.onBeforeRender = function() {
-        var isSingle;
+        var isSingle, roomNotSet;
         isSingle = Marionette.getOption(this, 'isSingleRoom');
         if (!_.isUndefined(isSingle)) {
-          return this.template = this.singleRoomTemplate;
+          this.template = this.singleRoomTemplate;
+        }
+        roomNotSet = Marionette.getOption(this, 'roomNotSet');
+        if (!_.isUndefined(roomNotSet)) {
+          return this.template = this.roomNotSetTemplate;
         }
       };
 
