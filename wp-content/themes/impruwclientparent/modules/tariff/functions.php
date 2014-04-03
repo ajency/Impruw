@@ -42,9 +42,12 @@ function update_tariff($formdata){
  * @param unknown $room_id
  * @return Ambigous <mixed, NULL, multitype:, multitype:multitype: , multitype:Ambigous <multitype:, NULL> >
  */
-function get_tariff($room_id) {
+function get_tariff($room_id = 0) {
 
 	global $wpdb;
+        
+        if($room_id === 0)
+		$room_id = get_the_ID();
 
 	$table_name = $wpdb->prefix . 'tariff';
 

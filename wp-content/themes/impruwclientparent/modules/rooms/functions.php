@@ -9,10 +9,17 @@ include_once PARENTTHEMEPATH . 'modules/slider/functions.php';
 
 function create_room($formdata) {
 	
+
+    if($formdata['post_status'] === 'draft'){
+            $post_id = create_draft_room();
+            return $post_id; 
+    }
+
 	if($formdata['post_status'] === 'auto-draft'){
 		$post_id = create_draft_room();
 		return $post_id; 
 	}
+
 		
     // set the params
     $post_title = $formdata['post_title'];
