@@ -9,7 +9,7 @@ define ['app'],(App)->
 			className : 'image'
 
 			template : '{{#image}}
-							<img src="{{imageurl}}" alt="{{title}}" class="{{alignclass}} img-responsive"/>
+							<img src="{{imageurl}}" alt="{{title}}" width="100%" class="{{alignclass}} img-responsive"/>
 							<div class="clearfix"></div>
 						{{/image}}
 						{{#placeholder}}
@@ -24,8 +24,7 @@ define ['app'],(App)->
 					data.placeholder = true
 				else
 					data.image = true
-					data.imageurl = ->
-						if @sizes['thumbnail'] then @sizes['thumbnail'].url else @sizes['full'].url
+					data.imageurl = ''
 
 					data.alignclass = ->
 						switch @alignment
@@ -53,3 +52,5 @@ define ['app'],(App)->
 				#height 	= @$el.height()
 				src = @model.getBestFit width
 				@$el.find('img').attr 'src',src
+
+
