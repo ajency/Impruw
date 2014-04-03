@@ -44,7 +44,7 @@ define ['app'],(App)->
 				# set the template if single room
 				isSingleRoom = Marionette.getOption @, 'inSingleRoom'
 				if isSingleRoom
-					@template = '<h3>Gallery</h3>
+					@template = '<h3 class="gallery-title">Gallery</h3>
 								<div class="if-required"></div>'
 					@itemViewContainer = '.if-required'
 
@@ -53,7 +53,7 @@ define ['app'],(App)->
 				return if @collection.length is 0
 
 				@$el.imagesLoaded =>
-					@$el.isotope
+					@$el.find('.if-required').isotope
 						itemSelector: '.isotope-element'
 						layoutMode : 'masonry'
 						

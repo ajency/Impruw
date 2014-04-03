@@ -59,7 +59,7 @@ define(['app'], function(App) {
         this.collection.sort();
         isSingleRoom = Marionette.getOption(this, 'inSingleRoom');
         if (isSingleRoom) {
-          this.template = '<h3>Gallery</h3> <div class="if-required"></div>';
+          this.template = '<h3 class="gallery-title">Gallery</h3> <div class="if-required"></div>';
           return this.itemViewContainer = '.if-required';
         }
       };
@@ -70,7 +70,7 @@ define(['app'], function(App) {
         }
         return this.$el.imagesLoaded((function(_this) {
           return function() {
-            return _this.$el.isotope({
+            return _this.$el.find('.if-required').isotope({
               itemSelector: '.isotope-element',
               layoutMode: 'masonry'
             });
