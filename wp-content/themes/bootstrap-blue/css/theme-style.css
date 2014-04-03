@@ -1037,11 +1037,10 @@ and open the template in the editor.
   margin: 0 0 1em;
   list-style: none;
 }
-#slides-list-region,
-#add-slide-region,
-.aj-imp-block-button.add-new-slide {
-  margin-left: 0.5em;
-  margin-right: 0.5em;
+.gallery {
+  margin: 0 0 1em;
+  padding: 0;
+  list-style: none;
 }
 .gallery-title {
   font-size: 1.5em;

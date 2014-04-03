@@ -34,7 +34,7 @@ define ['app'],(App)->
 			                            </div>
 			                            <div class="room-summary-item">
 			                                <span class="key">Room Type</span>
-			                                <span class="value">Double Deluxe Room</span>
+			                                <span class="value">Deluxe Room</span>
 			                            </div>
 			                            <div class="room-summary-item">
 			                                <span class="key">Check-in</span>
