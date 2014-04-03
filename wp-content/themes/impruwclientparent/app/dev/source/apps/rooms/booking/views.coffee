@@ -104,6 +104,11 @@ define ['app'
 
 						html = "<div style='width:200px'>
 									<div id='booking-slider' data-value='#{value}'></div>
+									<div class="row">
+										<div class="col-md-4">availabile</div>
+										<div class="col-md-4">semi-availabile</div>
+										<div class="col-md-4">unavailabile </div>
+									</div>
 								</div>"
 						html
 						
