@@ -31,6 +31,8 @@ define ['app'
 
 						if @isSingleRoomPage()
 							opt.isSingleRoom = true
+						else if model.get('ID') is 0
+							opt.roomNotSet = true
 						else
 							opt.template = template
 

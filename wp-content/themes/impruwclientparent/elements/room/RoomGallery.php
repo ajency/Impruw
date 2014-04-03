@@ -84,13 +84,13 @@ class RoomGallery extends SliderElement {
         if(is_singular('impruw_room'))
         	$html = '<h3 class="gallery-title">Gallery</h3>';
         	
-        $html .= '<ul>';
+        $html .= '<ul class="gallery">';
         
         foreach ($slides as $key => $value) {
            
            $image_path = $slides[$key]["thumb_url"];
            
-           $html .= '<li><img src="'.$image_path.'"></li>' ; 
+           $html .= '<li class="isotope-element"><img src="'.$image_path.'"></li>' ; 
         }
         
         $html .= '</ul>';
