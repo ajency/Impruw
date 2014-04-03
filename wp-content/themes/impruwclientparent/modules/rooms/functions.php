@@ -9,10 +9,17 @@ include_once PARENTTHEMEPATH . 'modules/slider/functions.php';
 
 function create_room($formdata) {
 	
+
     if($formdata['post_status'] === 'draft'){
             $post_id = create_draft_room();
             return $post_id; 
     }
+
+	if($formdata['post_status'] === 'auto-draft'){
+		$post_id = create_draft_room();
+		return $post_id; 
+	}
+
 		
     // set the params
     $post_title = $formdata['post_title'];
@@ -88,7 +95,7 @@ function create_room($formdata) {
 function create_draft_room(){
 	$data = array(
 			'post_type' => 'impruw_room',
-			'post_status' => 'draft'
+			'post_status' => 'auto-draft'
 	);
 	
 	//insert data array into the post table using wp function
@@ -173,7 +180,7 @@ function get_roomss() {
  *  returns only the title and ID
  */
 function get_all_rooms() {
-    $rooms = new WP_Query(array('post_type' => 'impruw_room', 'posts_per_page' => -1));
+    $rooms = new WP_Query(array('post_type' => 'impruw_room', 'posts_per_page' => -1, 'post_status' => 'publish'));
 
     $room_data = array();
 

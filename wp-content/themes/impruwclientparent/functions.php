@@ -230,6 +230,8 @@ function generate_markup($section) {
             $html .= add_element_markup ( $element );
            
 	}
+
+
 	
 	return $html;
 }

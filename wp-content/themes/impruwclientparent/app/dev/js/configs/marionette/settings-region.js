@@ -10,7 +10,11 @@ define(['marionette'], function(Marionette) {
     }
 
     Settings.prototype.onShow = function(view) {
-      return this.$el.draggable();
+      this.$el.draggable({
+        handle: "p.desc",
+        addClasses: false
+      });
+      return this.$el.center(false);
     };
 
     Settings.prototype.onClose = function() {

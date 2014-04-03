@@ -47,7 +47,7 @@ class SliderElement extends Element {
         
         parent::__construct($element);
        
-        $this->slider_id = $element['slider_id'];
+        $this->slider_id = isset($element['slider_id']) ? $element['slider_id'] : 0;
 
         $this->markup   = $this->generate_markup();
 
@@ -59,6 +59,9 @@ class SliderElement extends Element {
      * @return String basic markup
      */
     function generate_markup(){
+    	
+    	if(!slider_exists($this->slider_id))
+    		return '';
         
         $slider = new RevSlider();
         $slider->initByID($this->slider_id);

@@ -43,7 +43,7 @@
     
     <div id="login-region"></div>
    
-    <div id="settings-region"></div>
+    <div id="settings-region" style="position:fixed;top:50%;left:40%"></div>
     <div id="dialog-region" class="modal "></div><!-- /.modal -->
     <div id="initial-loader" style="position:fixed;width:30%;left:35%;top:50%;text-align:center">
         Loading Editor... Please Wait... <br />

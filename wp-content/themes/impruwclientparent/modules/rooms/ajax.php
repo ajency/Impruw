@@ -23,7 +23,7 @@ function create_room_ajax(){
     // unset the action 
     unset($formdata['action']);
     
-	if($formdata['post_status'] === 'draft'){
+	if($formdata['post_status'] === 'auto-draft'){
 		$room_id = create_draft_room();
 	}
         

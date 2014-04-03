@@ -44,7 +44,6 @@ define(['app', 'plupload', 'text!apps/media/upload/templates/upload.html'], func
         })(this));
         this.uploader.bind("UploadProgress", (function(_this) {
           return function(up, file) {
-            console.log(file);
             return _this.$el.find(".progress-bar").css("width", file.percent + "%");
           };
         })(this));

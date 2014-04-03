@@ -58,5 +58,27 @@ jQuery(document).ready(function($){
         return data;
 
        }
+       
+       // generate the datepicker  for the room booking
+       
+        function showDateRangeColour(date){
+         var date1 = new Date(2014, 4, 1);
+         var date2 = new Date(2014, 4, 12);
+         if (date >= date1 && date <= date2) {
+                return [true, 'red', ''];
+            }
+         else{
+         return [true, 'pink', ''];
+             }
+        }
+        
+       $('#room-booking-calendar').datepicker({
+          inline: true,
+          numberOfMonths: 2,
+          dateFormat: 'yy-mm-dd',
+          beforeShowDay : showDateRangeColour
+        });
+        
+      
 
 });

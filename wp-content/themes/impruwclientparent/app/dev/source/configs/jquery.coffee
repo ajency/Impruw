@@ -22,6 +22,17 @@ define ['jquery', 'underscore','jqueryvalidate'], ($, _)->
 		errorClass : 'field-error'
 		validClass : 'field-valid'
 
+	$.fn.center = (parent) ->
+	  	if parent
+	    	parent = @parent()
+	  	else
+	    	parent = window
+	  	@css
+	    	position: "fixed"
+	    	top: ((($(parent).height() - @outerHeight()) / 2) + $(parent).scrollTop() + "px")
+	    	left: ((($(parent).width() - @outerWidth()) / 2) + $(parent).scrollLeft() + "px")
+		this
+
 
 	# scroll to top
 	$.scrollTop = ->

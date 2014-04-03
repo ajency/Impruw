@@ -67,12 +67,12 @@ define(['app'], function(App) {
       };
 
       SliderView.prototype.onShow = function() {
+        window.t = this.$el.find(".fullwidthbanner");
         if (this.collection.length === 0) {
           return;
         }
         return this.revapi = this.$el.find(".fullwidthbanner").revolution({
           delay: 9000,
-          startwidth: 1170,
           startheight: 500,
           hideThumbs: 10,
           thumbWidth: 100,

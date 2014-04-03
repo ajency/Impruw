@@ -20,6 +20,14 @@
         var SITEURL     = '<?php echo site_url(); ?>';
         var AJAXURL     = '<?php echo admin_url('admin-ajax.php'); ?>';
     </script>
+    <?php if(is_singular()): ?>
+     <script type="text/javascript">
+    	var PLANS = <?php echo json_encode(get_plans()); ?>;
+        var DATERANGE = <?php echo json_encode(get_date_range()); ?>;
+        var TARIFF = <?php echo json_encode(get_tariff(2)); ?>;
+        var BOOKING = <?php echo json_encode(get_tariff(2)); ?>;
+    </script>  
+   <?php  endif; ?>
     <?php if(is_page('contact-us')): ?>
     <script src="<?php echo get_parent_template_directory_uri(); ?>/app/dev/js/plugins/jquery.validate.js"></script>
     <?php endif; ?>

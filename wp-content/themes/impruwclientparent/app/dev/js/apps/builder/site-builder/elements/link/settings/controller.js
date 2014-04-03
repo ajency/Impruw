@@ -19,12 +19,6 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/element
         this.region = App.settingsRegion;
         model = App.request("get:element:settings:options", 'Link');
         view = this._getSettingView(model, this.model);
-        this.listenTo(view, 'render', (function(_this) {
-          return function() {
-            _this.region.$el.css('top', 200);
-            return _this.region.$el.css('left', 400);
-          };
-        })(this));
         this.listenTo(view, "element:style:changed", (function(_this) {
           return function(style) {
             return _this.model.set("style", style);
