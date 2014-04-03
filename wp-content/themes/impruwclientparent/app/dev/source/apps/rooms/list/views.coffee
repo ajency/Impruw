@@ -1,6 +1,6 @@
 define ['app'
-		'text!apps/rooms/list/templates/mainview.html'
-		'text!apps/rooms/list/templates/singleroom.html'
+		'text!apps/rooms/list/templates/mainview2.html'
+		'text!apps/rooms/list/templates/singleroom2.html'
 		'text!apps/rooms/list/templates/emptyview.html'],
 		(App, mainviewTpl, roomsingleTpl, emptyTpl)->
 
@@ -9,7 +9,7 @@ define ['app'
 
 				class RoomSingle extends Marionette.ItemView
 
-					tagName: "tr"
+					tagName: "li"
 
 					template : roomsingleTpl
 				
@@ -23,7 +23,7 @@ define ['app'
 
 					template : mainviewTpl
 					
-					itemViewContainer: '.room-list tbody'
+					itemViewContainer: '.new-room-list'
 
 					itemView : RoomSingle
 

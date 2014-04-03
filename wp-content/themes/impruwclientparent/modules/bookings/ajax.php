@@ -4,7 +4,7 @@ include_once 'functions.php';
 
 function fetch_bookings(){
 	
-	$room_id = 2;
+	$room_id = $_REQUEST['room_id'];
 	
 	$data = get_bookings($room_id);
 	

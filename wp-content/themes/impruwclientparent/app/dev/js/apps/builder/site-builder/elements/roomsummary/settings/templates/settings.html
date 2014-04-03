@@ -35,16 +35,14 @@
           </select>
         </div>
       </div>
-      
       <div class="form-group">
-
         <label for="" class="col-sm-4 control-label">Top Margin</label>
-
         <div class="col-sm-8">
-          <select name="room" class="room-name">
-            {{#rooms}}
-              <option value="{{ID}}">{{post_title}}</option>
-            {{/rooms}}
+          <select name="top_margin" class="spacing">
+            <option value="">None</option>
+            <option value="top-margin-small">Small</option>
+            <option value="top-margin-medium">Medium</option>
+            <option value="top-margin-large">Large</option>
           </select>
         </div>
       </div>

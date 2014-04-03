@@ -21,6 +21,16 @@ a:focus {
   text-shadow: 1px 1px 2px #ffcb99;
   color: #ff7e00;
 }
+/****Clearfix****/
+.clearfix {
+  *zoom: 1;
+}
+.clearfix:after,
+.clearfix:before {
+  clear: both;
+  content: "";
+  display: table;
+}
 /****Container and Menu Styles****/
 .aj-imp-container {
   font-family: 'Lato', sans-serif;
@@ -1913,6 +1923,63 @@ form .aj-imp-submit:hover {
   .room-list tbody td.actions .btn {
     display: block;
   }
+}
+.new-room-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.new-room-list li {
+  width: 30%;
+  margin: 0 1% 1em;
+  float: left;
+}
+.new-room-list li .roomsummary {
+  *zoom: 1;
+  margin: 0 0 1em;
+}
+.new-room-list li .roomsummary:after,
+.new-room-list li .roomsummary:before {
+  clear: both;
+  content: "";
+  display: table;
+}
+.new-room-list li .roomsummary .room-title {
+  font-size: 1.6em;
+  color: #ff7e00;
+  font-weight: 400;
+  margin: 0.5em 0;
+}
+.new-room-list li .roomsummary .room-excerpt {
+  color: #777777;
+  padding-bottom: 0.5em;
+  margin-bottom: 0.5em;
+  border-bottom: 1px dotted #aaaaaa;
+}
+.new-room-list li .roomsummary .room-actions {
+  *zoom: 1;
+  text-align: right;
+}
+.new-room-list li .roomsummary .room-actions:after,
+.new-room-list li .roomsummary .room-actions:before {
+  clear: both;
+  content: "";
+  display: table;
+}
+.new-room-list li .roomsummary .room-actions .price {
+  float: left;
+  font-size: 2em;
+  color: #919191;
+}
+.new-room-list li .roomsummary .room-actions .price small {
+  font-size: 0.88em;
+}
+.new-room-list li .roomsummary .room-actions .btn-room {
+  background: #ff7e00;
+  color: #fff;
+}
+.new-room-list li .roomsummary .room-actions .btn-room:hover {
+  background: #ffb266;
 }
 /****Dashboard Panel Styles****/
 .panel .panel-body h5 {

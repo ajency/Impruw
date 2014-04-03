@@ -95,7 +95,7 @@ class Element {
     	
     	$this->style_class = isset($element['style']) ? sanitize_title($element['style']) : '';
 
-       // $this->margins = $this->get_margin_classes($element);
+        $this->margins = $this->get_margin_classes($element);
         
     }
     
@@ -195,6 +195,12 @@ class Element {
     }
 
     function get_margin_classes($element){
-        return $element['top_margin'] . ' ' . $element['left_margin'] . ' ' . $element['right_margin'] . ' ' . $element['bottom_margin'];
+    	
+    	$mtop = isset($element['top_margin']) ? $element['top_margin'] : '';
+    	$mleft = isset($element['left_margin']) ? $element['left_margin'] : '';
+    	$mright = isset($element['right_margin']) ? $element['right_margin'] : '';
+    	$mbottom = isset($element['bottom_margin']) ? $element['bottom_margin'] : '';
+    	
+        return $mtop . ' ' .$mleft . ' ' . $mright . ' ' . $mbottom;
     }
 }

@@ -52,9 +52,7 @@ define(['app'], function(App) {
         return SingleTariff.__super__.constructor.apply(this, arguments);
       }
 
-      SingleTariff.prototype.className = 'package-block-outer';
-
-      SingleTariff.prototype.template = '<div class="block clearfix"> <div class="weekday"> Weekdays <span class="price">{{weekdays.charge}}</span> </div> <div class="weekend"> Weekends <span class="price">{{weekends.charge}}</span> </div> <div class="tariff-label clearfix">Extra Adult</div> <div class="weekday"> <span class="price">{{weekdays.extra_adult}}</span> </div> <div class="weekend"> <span class="price">{{weekends.extra_adult}}</span> </div> <div class="tariff-label clearfix">Extra Child</div> <div class="weekday"> <span class="price">{{weekdays.extra_child}}</span> </div> <div class="weekend"> <span class="price">{{weekends.extra_child}}</span> </div> <div class="block-action"> <button class="btn btn-sm edit-trariff edit-tran"><span class="glyphicon glyphicon-pencil"></span>&nbsp;Edit</button> </div> </div>';
+      SingleTariff.prototype.template = '<div class="package-block-outer"> <div class="block clearfix"> <div class="weekday"> Weekdays <span class="price">{{weekdays.charge}}</span> </div> <div class="weekend"> Weekends <span class="price">{{weekends.charge}}</span> </div> <div class="tariff-label clearfix">Extra Adult</div> <div class="weekday"> <span class="price">{{weekdays.extra_adult}}</span> </div> <div class="weekend"> <span class="price">{{weekends.extra_adult}}</span> </div> <div class="tariff-label clearfix">Extra Child</div> <div class="weekday"> <span class="price">{{weekdays.extra_child}}</span> </div> <div class="weekend"> <span class="price">{{weekends.extra_child}}</span> </div> <div class="block-action"> <button type="button" class="btn btn-sm edit-trariff edit-tran"><span class="glyphicon glyphicon-pencil"></span>&nbsp;Edit</button> </div> </div> </div>';
 
       return SingleTariff;
 
@@ -66,9 +64,13 @@ define(['app'], function(App) {
         return NoTariff.__super__.constructor.apply(this, arguments);
       }
 
-      NoTariff.prototype.className = 'package-block-outer';
+      NoTariff.prototype.template = '<div class="package-block-outer"> <div class="block clearfix"> <p>+Add</p> </div> </div>';
 
-      NoTariff.prototype.template = '<div class="block clearfix"> <h3>NA</h3> </div>';
+      NoTariff.prototype.events = {
+        'click': function() {
+          return this.trigger("show:add:tariff");
+        }
+      };
 
       return NoTariff;
 
@@ -123,18 +125,26 @@ define(['app'], function(App) {
           return function(plan) {
             var tariff;
             tariff = _this.getTariff(plan.get('id'), dateRangeId);
-            return html += !tariff ? _this.getEmptyTariff() : _this.getTariffView(tariff);
+            return html += tariff === false ? _this.getEmptyTariff() : _this.getTariffView(tariff);
           };
         })(this));
         return html;
       };
 
-      TariffsView.prototype.getEmptyTariff = function() {
-        return 'No Tariff Available';
+      TariffsView.prototype.getEmptyTariff = function(tariff) {
+        var v;
+        v = new SingleTariff({
+          model: tariff
+        });
+        v.render();
+        return v.$el.html();
       };
 
       TariffsView.prototype.getTariffView = function() {
-        return 'show tariff';
+        var v;
+        v = new NoTariff;
+        v.render();
+        return v.$el.html();
       };
 
       TariffsView.prototype.getTariff = function(planId, dateRangeId) {
