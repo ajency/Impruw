@@ -9,7 +9,7 @@ include_once PARENTTHEMEPATH . 'modules/slider/functions.php';
 
 function create_room($formdata) {
 	
-	if($formdata['post_status'] === 'draft'){
+	if($formdata['post_status'] === 'auto-draft'){
 		$post_id = create_draft_room();
 		return $post_id; 
 	}
@@ -88,7 +88,7 @@ function create_room($formdata) {
 function create_draft_room(){
 	$data = array(
 			'post_type' => 'impruw_room',
-			'post_status' => 'draft'
+			'post_status' => 'auto-draft'
 	);
 	
 	//insert data array into the post table using wp function
