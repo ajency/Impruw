@@ -3004,7 +3004,7 @@ form .aj-imp-submit:hover {
   color: #000 !important;
 }
 .ui-datepicker td.semi-availabile a {
-  background: url(../images/gray-semi.png) no-repeat;
+  background: url(../images/gray-semi.png) right no-repeat;
 }
 .daterange-legends {
   text-transform: uppercase;
@@ -3031,4 +3031,12 @@ form .aj-imp-submit:hover {
 }
 .daterange-legends .booking-green {
   background: #84e72f;
+}
+.popover-content .ui-slider {
+  background: #E3E3E3 !IMPORTANT;
+}
+.popover-content .row .col-md-4 {
+  padding: 0px 0PX 4PX;
+  font-size: 0.8em;
+  text-align: center;
 }

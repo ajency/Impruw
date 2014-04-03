@@ -76,7 +76,8 @@ define(['app'], function(App) {
           startHeight: this.getTallestColumnHeight()
         };
         options = _.defaults(options, defaults);
-        return this.revapi = this.$el.find(".fullwidthbanner").revolution(options);
+        this.revapi = this.$el.find(".fullwidthbanner").revolution(options);
+        return this.trigger("set:slider:height", options.startHeight);
       };
 
       SliderView.prototype.getTallestColumnHeight = function() {

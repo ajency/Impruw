@@ -15,7 +15,7 @@ define(['app', 'apps/builder/site-builder/elements/slider/views', 'apps/builder/
       Controller.prototype.initialize = function(options) {
         _.defaults(options.modelData, {
           element: 'Slider',
-          vertical: false
+          height: 350
         });
         return Controller.__super__.initialize.call(this, options);
       };
@@ -58,6 +58,10 @@ define(['app', 'apps/builder/site-builder/elements/slider/views', 'apps/builder/
             view = _this._getSliderView(slidesCollection);
             _this.listenTo(view, "show:slides:manager", function() {
               return App.execute("show:slides:manager", slidesCollection);
+            });
+            _this.listenTo(view, "set:slider:height", function(height) {
+              _this.layout.model.set('height', height);
+              return _this.layout.model.save();
             });
             _this.listenTo(slidesCollection, "remove add slides:order:updated", function() {
               return _this.renderElement();

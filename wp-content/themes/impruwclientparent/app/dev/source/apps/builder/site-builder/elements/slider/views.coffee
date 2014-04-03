@@ -58,6 +58,8 @@ define ['app'],(App)->
 
 				@revapi = @$el.find(".fullwidthbanner").revolution options
 
+				@trigger "set:slider:height", options.startHeight
+
 			getTallestColumnHeight:->
 
 				column = @$el.closest('.column')

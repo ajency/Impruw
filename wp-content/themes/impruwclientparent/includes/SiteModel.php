@@ -94,18 +94,16 @@ class SiteModel {
 		
 		$address = array();
 
-		$address['street'] 		= (get_option('street')!=false?get_option('street'):'');
-		$address['postalcode'] 	= (get_option('postalcode')!=false?get_option('postalcode'):'');
-		$address['city'] 		= (get_option('city')!=false?get_option('city'):'');
-		$address['country'] 	= (get_option('country')!=false?get_option('country'):'');
+		$address['street'] 		= get_option('street','');
+		$address['postal_code'] = get_option('postal_code','');
+		$address['city'] = get_option('city','');
+		$address['country'] = get_option('country','');
+		
+		$emails = get_option('other_emails',array());
+		$address['email'] = !empty($emails) ? $emails[0] : get_option('admin_email'); 	
 
-		$emails = get_option('email');
-
-		$address['email'] = is_array($emails) && !empty($emails) ? $emails[0] : get_option('admin_email'); 	
-
-		$phoneno = get_option('phone');
-
-		$address['phone'] = is_array($phoneno) && !empty($phoneno) ? $phoneno[0] : ''; 	
+		$phoneno = get_option('other_phone_no',array());
+		$address['phone_no'] = !empty($phoneno) ? $phoneno[0] : 'Not Specified'; 	
 		
 		return $address;
 	}
