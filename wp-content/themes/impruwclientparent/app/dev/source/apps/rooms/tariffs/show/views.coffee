@@ -39,43 +39,47 @@ define ['app'], (App)->
 
 		class SingleTariff extends Marionette.ItemView
 
-			className : 'package-block-outer'
-
-			template : '<div class="block clearfix">
-							<div class="weekday">
-								Weekdays
-								<span class="price">{{weekdays.charge}}</span>
-							</div>
-							<div class="weekend">
-								Weekends
-								<span class="price">{{weekends.charge}}</span>
-							</div>
-							<div class="tariff-label clearfix">Extra Adult</div>
-							<div class="weekday">
-								<span class="price">{{weekdays.extra_adult}}</span>
-							</div>
-							<div class="weekend">
-								<span class="price">{{weekends.extra_adult}}</span>
-							</div>
-							<div class="tariff-label clearfix">Extra Child</div>
-							<div class="weekday">
-								<span class="price">{{weekdays.extra_child}}</span>
-							</div>
-							<div class="weekend">
-								<span class="price">{{weekends.extra_child}}</span>
-							</div>
-							<div class="block-action">
-								<button class="btn btn-sm edit-trariff edit-tran"><span class="glyphicon glyphicon-pencil"></span>&nbsp;Edit</button>
+			template : '<div class="package-block-outer">
+							<div class="block clearfix">
+								<div class="weekday">
+									Weekdays
+									<span class="price">{{weekdays.charge}}</span>
+								</div>
+								<div class="weekend">
+									Weekends
+									<span class="price">{{weekends.charge}}</span>
+								</div>
+								<div class="tariff-label clearfix">Extra Adult</div>
+								<div class="weekday">
+									<span class="price">{{weekdays.extra_adult}}</span>
+								</div>
+								<div class="weekend">
+									<span class="price">{{weekends.extra_adult}}</span>
+								</div>
+								<div class="tariff-label clearfix">Extra Child</div>
+								<div class="weekday">
+									<span class="price">{{weekdays.extra_child}}</span>
+								</div>
+								<div class="weekend">
+									<span class="price">{{weekends.extra_child}}</span>
+								</div>
+								<div class="block-action">
+									<button type="button" class="btn btn-sm edit-trariff edit-tran"><span class="glyphicon glyphicon-pencil"></span>&nbsp;Edit</button>
+								</div>
 							</div>
 						</div>'			
 
 		class NoTariff extends Marionette.ItemView
 
-			className : 'package-block-outer'
-
-			template : '<div class="block clearfix"> 
-							<h3>NA</h3>
+			template : '<div class="package-block-outer">
+							<div class="block clearfix"> 
+								<p>+Add</p>
+							</div>
 						</div>'
+
+			events:
+				'click' : ->
+					@trigger "show:add:tariff"
 
 		
 		class Views.TariffsView extends Marionette.CompositeView
@@ -134,15 +138,19 @@ define ['app'], (App)->
 
 				plans.each (plan)=>
 					tariff = @getTariff plan.get('id'), dateRangeId
-					html += if not tariff then @getEmptyTariff() else @getTariffView(tariff)
+					html += if tariff is false then @getEmptyTariff() else @getTariffView(tariff)
 
 				html
 
-			getEmptyTariff:->
-				'No Tariff Available'
+			getEmptyTariff:(tariff)->
+				v = new SingleTariff model : tariff
+				v.render()
+				v.$el.html()
 
 			getTariffView:->
-				'show tariff'
+				v = new NoTariff
+				v.render()
+				v.$el.html()
 
 			# get tariff model
 			getTariff:(planId, dateRangeId)->
@@ -153,6 +161,7 @@ define ['app'], (App)->
 
 				return false
 
+			# serialize the daterange model
 			serailizeDaterangeModel:(model)->
 
 				data = model.toJSON()

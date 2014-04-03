@@ -202,7 +202,7 @@ function create_additional_tables($site_id) {
 			    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 			    from_date DATE,
 			    to_date DATE,
-				daterange_name VARCHAR(100)";
+				daterange_name VARCHAR(100))";
 	
 	$wpdb->query ( $query );
 	
@@ -213,7 +213,7 @@ function create_additional_tables($site_id) {
 				room_id INT,
 				from_date DATE,
 				to_date DATE,
-				status VARCHAR(100)";
+				status VARCHAR(100))";
 	
 	$wpdb->query ( $query );
 	
