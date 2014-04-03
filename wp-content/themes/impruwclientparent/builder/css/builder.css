@@ -47,6 +47,9 @@ Version:        0.1.0
 .dropdown-menu li.selected a {
   background: #ff7e00;
 }
+.dropdown-menu li.selected a .text {
+  color: #fff;
+}
 .dropdown-menu li.selected a:hover {
   background: #849fb0;
 }

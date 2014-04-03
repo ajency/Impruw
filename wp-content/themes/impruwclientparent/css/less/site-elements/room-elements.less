@@ -6,7 +6,6 @@
 /****Room Tariff Styles****/
 .room-tariff-container {
 	background: #fff;
-	box-shadow: 1px 1px 2px 0 lighten(@secondary1, 40%);
 	padding: 0.5em;
 	position: relative;
 	.room-tariff-title {
@@ -37,6 +36,9 @@
 	}
 	.room-tariff-grid {
 		overflow-x: auto; 
+		#tariff-region {
+			position: static;
+		}
 		.tariff {
 			.date-range {
 				color: lighten(@secondary1, 20%);
@@ -48,6 +50,7 @@
 				max-width: 60px;
 				padding-right: 10px;
 				min-height: 150px;
+				z-index: 1;
 				.date {
 					display: block;
 				}
@@ -124,12 +127,15 @@
 					}
 					&.header {
 						margin: 0 0 0.3em;
-						.block {
-							background: transparent;
-							border: 0;
-							padding: 0;
-							h6, .package-desc {
-								display: block;
+						.package-block-outer {
+							margin-right: 0.7em;
+							.block {
+								background: transparent;
+								border: 0;
+								padding: 0;
+								h6, .package-desc {
+									display: block;
+								}
 							}
 						}
 					}
@@ -185,8 +191,7 @@
 
 /****Room Facilities Styles****/
 .room-facilities-container {
-	background: #fff;
-	box-shadow: 1px 1px 2px 0 lighten(@secondary1, 40%);
+	background: darken(@tertiary1, 10%);
 	padding: 0.5em;
 	.room-facilities-title {
 		h5 {
@@ -246,7 +251,6 @@
 	}
 	.room-summary {
 		background: #fff;
-		box-shadow: 1px 1px 2px 0 lighten(@secondary1, 40%);
 		padding: 1em 0.5em 0.5em;
 		.room-summary-item {
 			display: inline-block;
@@ -286,7 +290,6 @@
 /****Room Title Styles****/
 .room-title-container {
 	background: #fff;
-	box-shadow: 1px 1px 2px 0 lighten(@secondary1, 40%);
 	padding: 0.5em;
 	position: relative;
 	margin: 0 0 1em;
@@ -327,7 +330,6 @@
 	}
 	.room-description-desc {
 		background: #fff;
-		box-shadow: 1px 1px 2px 0 lighten(@secondary1, 40%);
 		padding: 1em 0.5em 0.5em;
 		color: lighten(@secondary1, 20%);
 	}
@@ -373,22 +375,22 @@
 /* Calender Booking */
 
 .room-booking{
-		.room-booking-container{
-			background: lighten(@primary1, 20%);
-			.room-booking-data{
-						background: @primary1;
-						padding-top:1em;
-				.date-range{
-						font-size:1.3em;
-						color:#fff;
-						margin-bottom: 10%;
-						b{
-							font-size: 1.5em;
-							display: block;
-							font-weight: 300;
-						}
+	.room-booking-container{
+		background: lighten(@primary1, 20%);
+		.room-booking-data{
+			background: @primary1;
+			padding-top:1em;
+			.date-range{
+				font-size:1.3em;
+				color:#fff;
+				margin-bottom: 10%;
+				b {
+					font-size: 1.5em;
+					display: block;
+					font-weight: 300;
+				}
 			}
-			.room-booking-plan{
+			.room-booking-plan {
 				color: #fff;
 				border-bottom: 1px dashed #280E0E;
 				padding-bottom: 5%;
@@ -428,7 +430,7 @@
 			}
 			@media(max-width:767px){
 				display: block;
-				}
+			}
 		}
 		.room-booking-calender{
 			padding: 20px 0 20px;
@@ -479,12 +481,11 @@
 			}
 		}
 	}
-	
 }
+
 /*Room tariff*/
 .room-tariff-container {
 	background: #fff;
-	box-shadow: 1px 1px 2px 0 lighten(@dark-grey, 10%);
 	padding: 0.5em;
 	position: relative;
 	.room-tariff-title {
@@ -515,15 +516,15 @@
 	}
 }
 .aj-imp-sub-head {
-			font-weight: 700;
-			color: #aaa !important;
-			text-transform: uppercase;
-			margin: 2px 5px 10px;
-			letter-spacing: .04em;
-		small {
-			font-weight: 300;
-			font-size: .6em;
-			color: #919191;
-			text-transform: none;
-		}
+	font-weight: 700;
+	color: #aaa !important;
+	text-transform: uppercase;
+	margin: 2px 5px 10px;
+	letter-spacing: .04em;
+	small {
+		font-weight: 300;
+		font-size: .6em;
+		color: #919191;
+		text-transform: none;
+	}
 }

@@ -508,7 +508,6 @@ and open the template in the editor.
 /****Room Tariff Styles****/
 .room-tariff-container {
   background: #fff;
-  box-shadow: 1px 1px 2px 0 #cbcbcb;
   padding: 0.5em;
   position: relative;
 }
@@ -541,6 +540,9 @@ and open the template in the editor.
 .room-tariff-container .room-tariff-grid {
   overflow-x: auto;
 }
+.room-tariff-container .room-tariff-grid #tariff-region {
+  position: static;
+}
 .room-tariff-container .room-tariff-grid .tariff .date-range {
   color: #989898;
   text-align: right;
@@ -551,6 +553,7 @@ and open the template in the editor.
   max-width: 60px;
   padding-right: 10px;
   min-height: 150px;
+  z-index: 1;
 }
 .room-tariff-container .room-tariff-grid .tariff .date-range .date {
   display: block;
@@ -633,13 +636,16 @@ and open the template in the editor.
 .room-tariff-container .room-tariff-grid .tariff .packages .package-blocks.header {
   margin: 0 0 0.3em;
 }
-.room-tariff-container .room-tariff-grid .tariff .packages .package-blocks.header .block {
+.room-tariff-container .room-tariff-grid .tariff .packages .package-blocks.header .package-block-outer {
+  margin-right: 0.7em;
+}
+.room-tariff-container .room-tariff-grid .tariff .packages .package-blocks.header .package-block-outer .block {
   background: transparent;
   border: 0;
   padding: 0;
 }
-.room-tariff-container .room-tariff-grid .tariff .packages .package-blocks.header .block h6,
-.room-tariff-container .room-tariff-grid .tariff .packages .package-blocks.header .block .package-desc {
+.room-tariff-container .room-tariff-grid .tariff .packages .package-blocks.header .package-block-outer .block h6,
+.room-tariff-container .room-tariff-grid .tariff .packages .package-blocks.header .package-block-outer .block .package-desc {
   display: block;
 }
 @media (max-width: 767px) {
@@ -689,8 +695,7 @@ and open the template in the editor.
 }
 /****Room Facilities Styles****/
 .room-facilities-container {
-  background: #fff;
-  box-shadow: 1px 1px 2px 0 #cbcbcb;
+  background: #c8c8c8;
   padding: 0.5em;
 }
 .room-facilities-container .room-facilities-title h5 {
@@ -742,7 +747,6 @@ and open the template in the editor.
 }
 .room-summary-container .room-summary {
   background: #fff;
-  box-shadow: 1px 1px 2px 0 #cbcbcb;
   padding: 1em 0.5em 0.5em;
 }
 .room-summary-container .room-summary .room-summary-item {
@@ -780,7 +784,6 @@ and open the template in the editor.
 /****Room Title Styles****/
 .room-title-container {
   background: #fff;
-  box-shadow: 1px 1px 2px 0 #cbcbcb;
   padding: 0.5em;
   position: relative;
   margin: 0 0 1em;
@@ -821,7 +824,6 @@ and open the template in the editor.
 }
 .room-description-container .room-description-desc {
   background: #fff;
-  box-shadow: 1px 1px 2px 0 #cbcbcb;
   padding: 1em 0.5em 0.5em;
   color: #989898;
 }
@@ -985,7 +987,6 @@ and open the template in the editor.
 /*Room tariff*/
 .room-tariff-container {
   background: #fff;
-  box-shadow: 1px 1px 2px 0 #3d4c5e;
   padding: 0.5em;
   position: relative;
 }
