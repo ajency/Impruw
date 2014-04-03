@@ -296,6 +296,8 @@ and open the template in the editor.
 .imagewithtext img {
   margin-bottom: 0.4em;
   margin-top: 0.6em;
+  position: relative;
+  z-index: 1;
 }
 .imagewithtext img.pull-left {
   margin-right: 0.5em;
