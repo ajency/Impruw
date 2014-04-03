@@ -17,7 +17,7 @@ define(["app", 'backbone'], function(App, Backbone) {
         return {
           post_title: '',
           post_content: '',
-          post_status: 'draft',
+          post_status: 'auto-draft',
           facilities: [],
           slider_id: 0,
           thumbnail_url: 'http://localhost/impruw/childsite/wp-content/uploads/sites/81/2014/03/5-yama-zbrush-model-by-jemark-150x150.jpg',
