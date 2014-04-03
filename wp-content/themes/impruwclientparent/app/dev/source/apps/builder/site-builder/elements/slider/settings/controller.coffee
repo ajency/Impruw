@@ -13,10 +13,6 @@ define ['app','controllers/base-controller','apps/builder/site-builder/elements/
 						model  = App.request "get:element:settings:options", 'Slider'
 						view = @_getSettingView model,@model
 
-						@listenTo view, 'render', =>
-											@region.$el.css 'top',200
-											@region.$el.css 'left',400
-
 						@listenTo view, "element:slider_id:changed",(id)=>
 														@model.set "slider_id", parseInt id
 

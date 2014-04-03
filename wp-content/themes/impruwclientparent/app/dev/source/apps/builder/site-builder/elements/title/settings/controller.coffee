@@ -12,11 +12,7 @@ define ['app','controllers/base-controller','apps/builder/site-builder/elements/
 						@region = App.settingsRegion
 						model  = App.request "get:element:settings:options", 'Title'
 						view = @_getSettingView model,@model
-						console.log model.toJSON()
-						@listenTo view, 'render', =>
-											@region.$el.css 'top',200
-											@region.$el.css 'left',400
-
+						
 						@listenTo view, "element:style:changed",(style)=>
 														@model.set "style", style
 

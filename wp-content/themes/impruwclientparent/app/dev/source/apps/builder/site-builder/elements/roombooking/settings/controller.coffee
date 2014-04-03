@@ -13,10 +13,6 @@ define ['app','controllers/base-controller','apps/builder/site-builder/elements/
 						model  = App.request "get:element:settings:options", 'RoomBooking'
 						view = @_getSettingView model,@model
 
-						@listenTo view, 'render', =>
-											@region.$el.css 'top',200
-											@region.$el.css 'left',400
-
 						@listenTo view, "element:style:changed",(style)=>
 														@model.set "style", style
 

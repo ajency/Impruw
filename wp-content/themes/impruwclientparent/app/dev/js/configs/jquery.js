@@ -25,6 +25,19 @@ define(['jquery', 'underscore', 'jqueryvalidate'], function($, _) {
     errorClass: 'field-error',
     validClass: 'field-valid'
   });
+  $.fn.center = function(parent) {
+    if (parent) {
+      parent = this.parent();
+    } else {
+      parent = window;
+    }
+    return this.css({
+      position: "fixed",
+      top: (($(parent).height() - this.outerHeight()) / 2) + $(parent).scrollTop() + "px",
+      left: (($(parent).width() - this.outerWidth()) / 2) + $(parent).scrollLeft() + "px"
+    });
+  };
+  this;
   $.scrollTop = function() {
     return $('html, body').animate({
       scrollTop: 0

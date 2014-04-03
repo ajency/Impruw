@@ -5,7 +5,11 @@ define ['marionette'], (Marionette) ->
 
 		#initiate modal on show
 		onShow :(view)->
-			@$el.draggable()
+			@$el.draggable
+					handle: "p.desc",
+					addClasses: false
+
+			@$el.center(false)
 
 		onClose:->
 			@$el.draggable 'destroy'
