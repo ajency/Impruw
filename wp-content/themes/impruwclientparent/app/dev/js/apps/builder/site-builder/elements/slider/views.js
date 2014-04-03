@@ -67,17 +67,14 @@ define(['app'], function(App) {
       };
 
       SliderView.prototype.onShow = function() {
-        var defaults, isVertical, options;
+        var defaults, options;
         if (this.collection.length === 0) {
           return;
         }
         defaults = this._getDefaults();
-        isVertical = true;
-        if (!_.isUndefined(isVertical)) {
-          options = {
-            startHeight: this.getTallestColumnHeight()
-          };
-        }
+        options = {
+          startHeight: this.getTallestColumnHeight()
+        };
         options = _.defaults(options, defaults);
         return this.revapi = this.$el.find(".fullwidthbanner").revolution(options);
       };
@@ -102,7 +99,6 @@ define(['app'], function(App) {
         return {
           delay: 9000,
           startwidth: '100%',
-          startheight: 600,
           hideThumbs: 10,
           thumbWidth: 100,
           thumbHeight: 50,

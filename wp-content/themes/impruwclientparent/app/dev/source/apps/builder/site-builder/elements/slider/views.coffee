@@ -50,12 +50,9 @@ define ['app'],(App)->
 				return if @collection.length is 0	
 
 				defaults = @_getDefaults()
-
-				isVertical = true #Marionette.getOption @, 'vertical'
-
-				if not _.isUndefined isVertical
-					options = 
-						startHeight : @getTallestColumnHeight()
+				
+				options = 
+					startHeight : @getTallestColumnHeight()
 
 				options = _.defaults options, defaults
 
@@ -80,7 +77,6 @@ define ['app'],(App)->
 			_getDefaults:->
 				delay: 9000
 				startwidth: '100%'
-				startheight: 600
 				hideThumbs: 10
 				thumbWidth: 100
 				thumbHeight: 50
