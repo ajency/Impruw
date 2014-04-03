@@ -59,6 +59,9 @@ class SliderElement extends Element {
      * @return String basic markup
      */
     function generate_markup(){
+    	
+    	if(!slider_exists($this->slider_id))
+    		return '';
         
         $slider = new RevSlider();
         $slider->initByID($this->slider_id);

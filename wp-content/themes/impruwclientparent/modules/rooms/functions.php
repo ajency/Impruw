@@ -173,7 +173,7 @@ function get_roomss() {
  *  returns only the title and ID
  */
 function get_all_rooms() {
-    $rooms = new WP_Query(array('post_type' => 'impruw_room', 'posts_per_page' => -1));
+    $rooms = new WP_Query(array('post_type' => 'impruw_room', 'posts_per_page' => -1, 'post_status' => 'publish'));
 
     $room_data = array();
 

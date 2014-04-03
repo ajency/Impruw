@@ -493,7 +493,7 @@ function get_page_main_json($page_id = 0){
         // get the json from single room
         $p = get_page_by_title ( 'Single Room' );
         
-	$json = get_post_meta ( $p->ID, 'page-json', true );
+		$json = get_post_meta ( $p->ID, 'page-json', true );
     }
     else{
         $json = get_post_meta ( $page_id, 'page-json', true );

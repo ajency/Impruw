@@ -46,12 +46,11 @@ define ['app'],(App)->
 				delete @revapi
 
 			onShow:->
-
-				return if @collection.length is 0
-
+				window.t = @$el.find(".fullwidthbanner")
+				return if @collection.length is 0				
 				@revapi = @$el.find(".fullwidthbanner").revolution
 													  	delay: 9000
-													  	startwidth: 1170
+													  	#startwidth: 1170
 													  	startheight: 500
 													  	hideThumbs: 10
 													  	thumbWidth: 100

@@ -41,9 +41,7 @@ class MenuElement extends Element {
         parent::__construct($element);
         $this->menu_id      = $element['menu_id'];
         $this->justified    = $element['justified'];
-        $templates          = get_styles('Menu');
         $this->style        = sanitize_title($element['style']);
-        $this->templates    = $templates[$element['style']]; 
         $this->margins      = $this->get_margin_classes($element);
         $this->markup       = $this->generateMarkup();
     }
