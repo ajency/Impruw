@@ -20,14 +20,19 @@ define  ['app','controllers/base-controller', 'apps/rooms/tariffs/show/views'],(
 				# get the packages view
 				@packagesView = @_getPackagesView pcollection
 
-				@dateRangeView = @_getTariffsView tcollection, dcollection, pcollection
+				@tariffsView = @_getTariffsView tcollection, dcollection, pcollection
 
-				@listenTo @dateRangeView, 'itemview:show:edit:tariff', (iv,id)=>
-					App.execute "show:edit:tariff", id
+				@listenTo @tariffsView, 'itemview:show:edit:tariff', (iv,model)=>
+					console.log model
+					App.execute "show:edit:tariff", model
+
+				@listenTo @tariffsView, 'itemview:show:add:tariff', (iv)=>
+					console.log "dsdsd"
+					App.execute "show:add:tariff", id
 
 				@listenTo @layout, "show", =>
 					@layout.packagesRegion.show @packagesView
-					@layout.tariffRegion.show @dateRangeView
+					@layout.tariffRegion.show @tariffsView
 
 				@show @layout, 
 						loading : true

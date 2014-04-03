@@ -22,16 +22,23 @@ define(['app', 'controllers/base-controller', 'apps/rooms/tariffs/show/views'], 
         tcollection = App.request("get:tariffs:collection", this.roomId);
         this.layout = this._getGridLayout();
         this.packagesView = this._getPackagesView(pcollection);
-        this.dateRangeView = this._getTariffsView(tcollection, dcollection, pcollection);
-        this.listenTo(this.dateRangeView, 'itemview:show:edit:tariff', (function(_this) {
-          return function(iv, id) {
-            return App.execute("show:edit:tariff", id);
+        this.tariffsView = this._getTariffsView(tcollection, dcollection, pcollection);
+        this.listenTo(this.tariffsView, 'itemview:show:edit:tariff', (function(_this) {
+          return function(iv, model) {
+            console.log(model);
+            return App.execute("show:edit:tariff", model);
+          };
+        })(this));
+        this.listenTo(this.tariffsView, 'itemview:show:add:tariff', (function(_this) {
+          return function(iv) {
+            console.log("dsdsd");
+            return App.execute("show:add:tariff", id);
           };
         })(this));
         this.listenTo(this.layout, "show", (function(_this) {
           return function() {
             _this.layout.packagesRegion.show(_this.packagesView);
-            return _this.layout.tariffRegion.show(_this.dateRangeView);
+            return _this.layout.tariffRegion.show(_this.tariffsView);
           };
         })(this));
         return this.show(this.layout, {

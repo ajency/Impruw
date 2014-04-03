@@ -15,8 +15,11 @@ define(['app', 'apps/builder/site-builder/elements/address/views', 'apps/builder
       Controller.prototype.initialize = function(options) {
         _.defaults(options.modelData, {
           element: 'Address',
-          address: 'Your hotel address here',
-          phoneno: '0000000',
+          street: '21 Street',
+          city: 'Oslo',
+          postal_code: '4000212',
+          country: 'Norway',
+          phone_no: '424434212',
           email: 'demo@email.com',
           style: 'Default Style'
         });

@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
 
 define(['app'], function(App) {
   return App.module("RoomsApp.RoomsTariff.Show.Views", function(Views, App) {
-    var NoTariff, PackageSingle, SingleTariff;
+    var PackageSingle, SingleTariff;
     PackageSingle = (function(_super) {
       __extends(PackageSingle, _super);
 
@@ -54,25 +54,16 @@ define(['app'], function(App) {
 
       SingleTariff.prototype.template = '<div class="package-block-outer"> <div class="block clearfix"> <div class="weekday"> Weekdays <span class="price">{{weekdays.charge}}</span> </div> <div class="weekend"> Weekends <span class="price">{{weekends.charge}}</span> </div> <div class="tariff-label clearfix">Extra Adult</div> <div class="weekday"> <span class="price">{{weekdays.extra_adult}}</span> </div> <div class="weekend"> <span class="price">{{weekends.extra_adult}}</span> </div> <div class="tariff-label clearfix">Extra Child</div> <div class="weekday"> <span class="price">{{weekdays.extra_child}}</span> </div> <div class="weekend"> <span class="price">{{weekends.extra_child}}</span> </div> <div class="block-action"> <button type="button" class="btn btn-sm edit-trariff edit-tran"><span class="glyphicon glyphicon-pencil"></span>&nbsp;Edit</button> </div> </div> </div>';
 
-      return SingleTariff;
-
-    })(Marionette.ItemView);
-    NoTariff = (function(_super) {
-      __extends(NoTariff, _super);
-
-      function NoTariff() {
-        return NoTariff.__super__.constructor.apply(this, arguments);
-      }
-
-      NoTariff.prototype.template = '<div class="package-block-outer"> <div class="block clearfix"> <p>+Add</p> </div> </div>';
-
-      NoTariff.prototype.events = {
-        'click': function() {
-          return this.trigger("show:add:tariff");
-        }
+      SingleTariff.prototype.onRender = function() {
+        return this.$el.find('div.not-applicable').click((function(_this) {
+          return function() {
+            alert("dsdsds");
+            return _this.trigger("show:add:tariff");
+          };
+        })(this));
       };
 
-      return NoTariff;
+      return SingleTariff;
 
     })(Marionette.ItemView);
     return Views.TariffsView = (function(_super) {
@@ -112,7 +103,7 @@ define(['app'], function(App) {
         markup = '<div class="tariff clearfix">';
         markup += html;
         markup += '	<div class="packages"> <div class="package-blocks clearfix">';
-        markup += this.renderTariffs();
+        markup += this.renderTariffs(model.get('id'));
         markup += '</div> </div> </div> <hr />';
         return markup;
       };
@@ -125,24 +116,33 @@ define(['app'], function(App) {
           return function(plan) {
             var tariff;
             tariff = _this.getTariff(plan.get('id'), dateRangeId);
-            return html += tariff === false ? _this.getEmptyTariff() : _this.getTariffView(tariff);
+            tariff = tariff === false ? new Backbone.Model : tariff;
+            return html += _this.getTariffView(tariff);
           };
         })(this));
         return html;
       };
 
-      TariffsView.prototype.getEmptyTariff = function(tariff) {
-        var v;
-        v = new SingleTariff({
+      TariffsView.prototype.getTariffView = function(tariff) {
+        var opt, v;
+        opt = {
           model: tariff
-        });
-        v.render();
-        return v.$el.html();
-      };
-
-      TariffsView.prototype.getTariffView = function() {
-        var v;
-        v = new NoTariff;
+        };
+        if (tariff.isNew()) {
+          opt.template = '<div class="package-block-outer not-applicable"> <div class="block clearfix"> <h4>NA</h4> </div> </div>';
+        }
+        v = new SingleTariff(opt);
+        this.listenTo(v, "show:add:tariff", (function(_this) {
+          return function() {
+            console.log("Dsdsds");
+            return _this.trigger("itemview:show:add:tariff", v);
+          };
+        })(this));
+        this.listenTo(v, "show:edit:tariff", (function(_this) {
+          return function(model) {
+            return _this.trigger("itemview:show:edit:tariff", v, model);
+          };
+        })(this));
         v.render();
         return v.$el.html();
       };

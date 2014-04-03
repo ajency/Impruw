@@ -67,19 +67,12 @@ define ['app'], (App)->
 									<button type="button" class="btn btn-sm edit-trariff edit-tran"><span class="glyphicon glyphicon-pencil"></span>&nbsp;Edit</button>
 								</div>
 							</div>
-						</div>'			
-
-		class NoTariff extends Marionette.ItemView
-
-			template : '<div class="package-block-outer">
-							<div class="block clearfix"> 
-								<p>+Add</p>
-							</div>
-						</div>'
-
-			events:
-				'click' : ->
-					@trigger "show:add:tariff"
+						</div>'	
+			
+			onRender:->
+				@$el.find('div.not-applicable').click => 
+						alert "dsdsds"
+						@trigger "show:add:tariff"
 
 		
 		class Views.TariffsView extends Marionette.CompositeView
@@ -121,7 +114,7 @@ define ['app'], (App)->
 				markup +='	<div class="packages">
 								<div class="package-blocks clearfix">' 
 
-				markup += @renderTariffs()
+				markup += @renderTariffs model.get 'id'
 
 				markup += 		'</div>
 							</div>
@@ -135,23 +128,38 @@ define ['app'], (App)->
 				plans = Marionette.getOption @, 'planCollection'
 
 				html = ''
-
+				
 				plans.each (plan)=>
 					tariff = @getTariff plan.get('id'), dateRangeId
-					html += if tariff is false then @getEmptyTariff() else @getTariffView(tariff)
+					tariff = if tariff is false then (new Backbone.Model) else tariff
+					html += @getTariffView tariff 
 
 				html
 
-			getEmptyTariff:(tariff)->
-				v = new SingleTariff model : tariff
+			getTariffView:(tariff)->
+
+				opt = 
+					model : tariff 
+
+				if tariff.isNew()
+					opt.template = '<div class="package-block-outer not-applicable">
+										<div class="block clearfix">
+											<h4>NA</h4>
+										</div>
+									</div>'
+
+				v = new SingleTariff opt
+
+				# listen to event
+				@listenTo v,"show:add:tariff",()=> 
+					console.log "Dsdsds"
+					@trigger "itemview:show:add:tariff", v
+
+				@listenTo v,"show:edit:tariff",(model)=> @trigger "itemview:show:edit:tariff", v, model
+
 				v.render()
 				v.$el.html()
-
-			getTariffView:->
-				v = new NoTariff
-				v.render()
-				v.$el.html()
-
+			
 			# get tariff model
 			getTariff:(planId, dateRangeId)->
 				models = @collection.filter (model)->
