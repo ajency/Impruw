@@ -268,6 +268,9 @@ function add_element_markup($element) {
 		case 'Title' :
 			$html = get_title_element_markup ( $element );
 			break;
+		case 'Link' :
+			$html = get_link_element_markup ( $element );
+			break;
 		case 'Text' :
 			$html = get_text_element_markup ( $element );
 			break;
@@ -293,7 +296,7 @@ function add_element_markup($element) {
 			$html = get_room_description_markup ( $element );
 			break;
 		case 'RoomTitle' :
-                        $html = get_room_title_markup ( $element );
+            $html = get_room_title_markup ( $element );
 			break;
 		case 'RoomFacilities' :
 			$html = get_room_facilities_markup ( $element );
@@ -304,15 +307,15 @@ function add_element_markup($element) {
 		case 'RoomListElement' :
 			$html = get_room_list_markup ( $element );
 			break;
-                case 'RoomSummary' :
-                        $html = get_room_summary_markup( $element );
-                        break;
-                case 'RoomTariff' :
-                            $html = get_room_tariff_markup( $element );
-                            break;
-                case 'RoomBooking' :
-                            $html = get_room_booking_markup( $element );
-                            break;
+        case 'RoomSummary' :
+            $html = get_room_summary_markup( $element );
+            break;
+        case 'RoomTariff' :
+            $html = get_room_tariff_markup( $element );
+            break;
+        case 'RoomBooking' :
+            $html = get_room_booking_markup( $element );
+            break;
 		default :
 			break;
 	}
@@ -609,6 +612,21 @@ function get_title_element_markup($element) {
 	
 	$html = $title->get_markup ();
 	
+	return $html;
+}
+
+/**
+ * Generates the title markup
+ *
+ * @param type $element
+ */
+function get_link_element_markup($element) {
+	require_once PARENTTHEMEPATH . 'elements/LinkElement.php';
+
+	$link = new LinkElement ( $element );
+
+	$html = $link->get_markup ();
+
 	return $html;
 }
 
