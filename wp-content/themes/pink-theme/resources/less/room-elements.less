@@ -171,7 +171,6 @@
 /****Room Facilities Styles****/
 .room-facilities-container {
 	background: #fff;
-	box-shadow: 1px 1px 2px 0 lighten(@secondary1, 40%);
 	padding: 0.5em;
 	.room-facilities-title {
 		h5 {
@@ -223,6 +222,7 @@
 
 /****Room Summary Styles****/
 .room-summary-container {
+	margin: 0 0 1em;
 	.room-summary-title {
 		h4 {
 			font-size: 1.5em;
@@ -231,7 +231,6 @@
 	}
 	.room-summary {
 		background: #fff;
-		box-shadow: 1px 1px 2px 0 lighten(@secondary1, 40%);
 		padding: 1em 0.5em 0.5em;
 		.room-summary-item {
 			display: inline-block;
@@ -242,10 +241,10 @@
 				font-size: 1.1em;
 				&.key {
 					min-width: 100px;
-					color: lighten(@secondary1, 20%);
+					color: darken(@secondary1, 20%);
 				}
 				&.value {
-					color: @secondary1;
+					color: darken(@secondary1, 40%);
 					font-weight: 700;
 				}
 			}
@@ -254,7 +253,7 @@
 			}
 		}
 		.room-summary-desc {
-			color: lighten(@secondary1, 20%);
+			color: darken(@secondary1, 20%);
 			margin: 1em 0 0;
 			.btn-book {
 				display: block;
@@ -271,7 +270,6 @@
 /****Room Title Styles****/
 .room-title-container {
 	background: #fff;
-	box-shadow: 1px 1px 2px 0 lighten(@secondary1, 40%);
 	padding: 0.5em;
 	position: relative;
 	margin: 1em 0;
@@ -312,9 +310,8 @@
 	}
 	.room-description-desc {
 		background: #fff;
-		box-shadow: 1px 1px 2px 0 darken(@secondary1, 40%);
 		padding: 1em 0.5em 0.5em;
-		color: lighten(@secondary1, 20%);
+		color: darken(@secondary1, 20%);
 	}
 }
 
@@ -332,7 +329,7 @@
 		color: darken(@secondary1, 20%);
 		padding-bottom: 0.5em;
 		margin-bottom: 0.5em;
-		border-bottom: 1px dotted @secondary1;
+		border-bottom: 1px dotted darken(@secondary1, 40%);
 	}
 	.room-actions {
 		.clearfix;

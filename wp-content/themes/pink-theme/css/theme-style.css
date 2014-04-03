@@ -1598,7 +1598,6 @@ and open the template in the editor.
 /****Room Facilities Styles****/
 .room-facilities-container {
   background: #fff;
-  box-shadow: 1px 1px 2px 0 #ffffff;
   padding: 0.5em;
 }
 .room-facilities-container .room-facilities-title h5 {
@@ -1644,13 +1643,15 @@ and open the template in the editor.
   color: #2a3b66;
 }
 /****Room Summary Styles****/
+.room-summary-container {
+  margin: 0 0 1em;
+}
 .room-summary-container .room-summary-title h4 {
   font-size: 1.5em;
   font-weight: 300;
 }
 .room-summary-container .room-summary {
   background: #fff;
-  box-shadow: 1px 1px 2px 0 #ffffff;
   padding: 1em 0.5em 0.5em;
 }
 .room-summary-container .room-summary .room-summary-item {
@@ -1664,17 +1665,17 @@ and open the template in the editor.
 }
 .room-summary-container .room-summary .room-summary-item span.key {
   min-width: 100px;
-  color: #ffffff;
+  color: #b6b6b6;
 }
 .room-summary-container .room-summary .room-summary-item span.value {
-  color: #e9e9e9;
+  color: #838383;
   font-weight: 700;
 }
 .room-summary-container .room-summary .room-summary-item:hover {
   border-color: #ff5f5f;
 }
 .room-summary-container .room-summary .room-summary-desc {
-  color: #ffffff;
+  color: #b6b6b6;
   margin: 1em 0 0;
 }
 .room-summary-container .room-summary .room-summary-desc .btn-book {
@@ -1688,7 +1689,6 @@ and open the template in the editor.
 /****Room Title Styles****/
 .room-title-container {
   background: #fff;
-  box-shadow: 1px 1px 2px 0 #ffffff;
   padding: 0.5em;
   position: relative;
   margin: 1em 0;
@@ -1729,9 +1729,8 @@ and open the template in the editor.
 }
 .room-description-container .room-description-desc {
   background: #fff;
-  box-shadow: 1px 1px 2px 0 #838383;
   padding: 1em 0.5em 0.5em;
-  color: #ffffff;
+  color: #b6b6b6;
 }
 /****Room List Summary Styles****/
 .roomsummary {
@@ -1754,7 +1753,7 @@ and open the template in the editor.
   color: #b6b6b6;
   padding-bottom: 0.5em;
   margin-bottom: 0.5em;
-  border-bottom: 1px dotted #e9e9e9;
+  border-bottom: 1px dotted #838383;
 }
 .roomsummary .room-actions {
   *zoom: 1;
