@@ -130,6 +130,7 @@ function get_room($roomid) {
     // returns an array of the post terms(facilities) of the room
     $room_term_names = wp_get_post_terms($room_id, 'impruw_room_facility');
 
+    $room_terms = array();
 
     if (!empty($room_term_names))
 
