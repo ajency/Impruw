@@ -19,24 +19,14 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/element
         this.region = App.settingsRegion;
         model = App.request("get:element:settings:options", 'Gallery');
         view = this._getSettingView(model, this.model);
-        this.listenTo(view, "element:gallery_id:changed", (function(_this) {
+        this.listenTo(view, "element:slider_id:changed", (function(_this) {
           return function(id) {
-            return _this.model.set("gallery_id", parseInt(id));
-          };
-        })(this));
-        this.listenTo(view, "element:no_of_columns:changed", (function(_this) {
-          return function(count) {
-            return _this.model.set("no_of_columns", parseInt(count));
+            return _this.model.set("slider_id", parseInt(id));
           };
         })(this));
         this.listenTo(view, "element:draggable:changed", (function(_this) {
           return function(draggable) {
             return _this.model.set("draggable", draggable);
-          };
-        })(this));
-        this.listenTo(view, "element:spacing:changed", (function(_this) {
-          return function(spacing, value) {
-            return _this.model.set(spacing, value);
           };
         })(this));
         return this.show(view);

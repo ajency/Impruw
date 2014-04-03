@@ -1897,7 +1897,7 @@ Version:        0.1.0
 }
 .isotope {
   padding: 0;
-  margin: 1em 0;
+  margin: 0 0 1em;
   list-style: none;
 }
 #slides-list-region,
@@ -1905,6 +1905,10 @@ Version:        0.1.0
 .aj-imp-block-button.add-new-slide {
   margin-left: 0.5em;
   margin-right: 0.5em;
+}
+.gallery-title {
+  font-size: 1.5em;
+  font-weight: 300 !important;
 }
 /**** Isotope Filtering ****/
 .isotope-item {

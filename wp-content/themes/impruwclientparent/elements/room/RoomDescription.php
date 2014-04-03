@@ -69,10 +69,11 @@ class RoomDescription extends Element {
           return $content;
          */
         $template = '<div class="room-description-container clearfix">
-                            <div class="room-description">
-                                    <div class="room-description-desc">{{post_content}}</div>
-                            </div>
-			</div>';
+                        <div class="room-description">
+                            <h1>Description</h1>
+                            <div class="room-description-desc">{{post_content}}</div>
+                        </div>
+			         </div>';
 
 
         $data = array();

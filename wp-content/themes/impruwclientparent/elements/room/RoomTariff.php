@@ -87,10 +87,13 @@ class RoomTariff extends Element {
      */
     function generate_markup() {
 
-        $html = '<h4 class="aj-imp-sub-head scroll-ref">Room Tariff</h4>
-                  <div id="room-tariff-region">
-                        <div class="room-tariff-container">
-                                <div class="room-tariff-grid" id="room-tariff-grid">';
+        $html = '<div id="room-tariff-region">
+                    <div class="room-tariff-container">
+                        <div class="room-tariff-title">
+                            <h4>Room Price</h4>
+                            <h5>Lorem Ipsum Dolor Sit Amet</h5>
+                        </div>
+                        <div class="room-tariff-grid" id="room-tariff-grid">';
 
         $html .= $this->get_package_region();
 

@@ -17,18 +17,12 @@ define ['app','controllers/base-controller','apps/builder/site-builder/elements/
 						# 					@region.$el.css 'top', '50%'
 						# 					@region.$el.css 'left', '50%'
 
-						@listenTo view, "element:gallery_id:changed",(id)=>
-														@model.set "gallery_id", parseInt id
-
-						@listenTo view, "element:no_of_columns:changed",(count)=>
-														@model.set "no_of_columns", parseInt count
+						@listenTo view, "element:slider_id:changed",(id)=>
+														@model.set "slider_id", parseInt id
 
 						@listenTo view, "element:draggable:changed", (draggable)=>
 														@model.set "draggable", draggable	
 	
-						@listenTo view, "element:spacing:changed",(spacing, value)=>
-																@model.set spacing, value
-
 						@show view
 
 					# time to save model to server

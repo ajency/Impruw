@@ -44,11 +44,8 @@ define(['app', 'text!apps/builder/site-builder/elements/gallery/settings/templat
           evt.preventDefault();
           return App.settingsRegion.close();
         },
-        'change select[name="gallery_id"]': function(evt) {
-          return this.trigger("element:gallery_id:changed", $(evt.target).val());
-        },
-        'change select[name="no_of_columns"]': function(evt) {
-          return this.trigger("element:no_of_columns:changed", $(evt.target).val());
+        'change select[name="slider_id"]': function(evt) {
+          return this.trigger("element:slider_id:changed", $(evt.target).val());
         },
         'change input[name="draggable"]': function(evt) {
           return this.trigger("element:draggable:changed", $(evt.target).is(':checked'));
