@@ -57,9 +57,12 @@ define(['app', 'apps/builder/site-builder/elements/image/views', 'apps/builder/s
               });
               return _this.listenTo(App.vent, "media:manager:choosed:media", function(media) {
                 _this.layout.model.set('image_id', media.get('id'));
-                _this.layout.model.save();
                 return _this.stopListening(App.vent, "media:manager:choosed:media");
               });
+            });
+            _this.listenTo(view, "image:size:selected", function(size) {
+              _this.layout.model.set('size', size);
+              return _this.layout.model.save();
             });
             return _this.layout.elementRegion.show(view);
           };

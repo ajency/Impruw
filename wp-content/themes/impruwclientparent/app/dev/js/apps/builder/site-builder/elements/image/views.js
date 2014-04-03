@@ -41,13 +41,14 @@ define(['app'], function(App) {
       };
 
       ImageView.prototype.onShow = function() {
-        var src, width;
+        var image, width;
         if (this.model.isNew()) {
           return;
         }
         width = this.$el.width();
-        src = this.model.getBestFit(width);
-        return this.$el.find('img').attr('src', src);
+        image = this.model.getBestFit(width);
+        this.$el.find('img').attr('src', image.url);
+        return this.trigger("image:size:selected", image.size);
       };
 
       return ImageView;

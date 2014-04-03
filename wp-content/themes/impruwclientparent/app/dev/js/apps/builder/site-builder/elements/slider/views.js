@@ -67,13 +67,39 @@ define(['app'], function(App) {
       };
 
       SliderView.prototype.onShow = function() {
-        window.t = this.$el.find(".fullwidthbanner");
+        var defaults, options;
         if (this.collection.length === 0) {
           return;
         }
-        return this.revapi = this.$el.find(".fullwidthbanner").revolution({
+        defaults = this._getDefaults();
+        options = {
+          startHeight: this.getTallestColumnHeight()
+        };
+        options = _.defaults(options, defaults);
+        this.revapi = this.$el.find(".fullwidthbanner").revolution(options);
+        return this.trigger("set:slider:height", options.startHeight);
+      };
+
+      SliderView.prototype.getTallestColumnHeight = function() {
+        var column, height, row;
+        column = this.$el.closest('.column');
+        if (column.length === 0) {
+          return 350;
+        }
+        row = column.closest('.row');
+        height = 350;
+        $(row).children('.column').each(function(index, col) {
+          if ($(col).height() >= height) {
+            return height = $(col).height();
+          }
+        });
+        return height;
+      };
+
+      SliderView.prototype._getDefaults = function() {
+        return {
           delay: 9000,
-          startheight: 500,
+          startwidth: '100%',
           hideThumbs: 10,
           thumbWidth: 100,
           thumbHeight: 50,
@@ -113,7 +139,7 @@ define(['app'], function(App) {
           hideAllCaptionAtLilmit: 0,
           startWithSlide: 0,
           fullScreenOffsetContainer: ""
-        });
+        };
       };
 
       return SliderView;

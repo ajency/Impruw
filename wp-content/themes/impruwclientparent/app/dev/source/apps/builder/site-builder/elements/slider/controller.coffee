@@ -12,7 +12,8 @@ define ['app'
 					initialize:(options)->
 
 						_.defaults options.modelData,
-											element  	: 'Slider'
+											element  : 'Slider'
+											height 	 : 350
 
 						super(options)
 						
@@ -51,6 +52,10 @@ define ['app'
 
 							@listenTo view, "show:slides:manager", =>
 								App.execute "show:slides:manager", slidesCollection
+
+							@listenTo view, "set:slider:height", (height)=>
+								@layout.model.set 'height', height
+								@layout.model.save()
 
 							@listenTo slidesCollection, "remove add slides:order:updated", =>
 								@renderElement()

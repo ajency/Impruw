@@ -20,19 +20,22 @@ define(["app", 'backbone'], function(App, Backbone) {
         sizes = this.get('sizes');
         closest = null;
         smallest = 99999;
-        _.each(sizes, function(size, index) {
+        _.each(sizes, function(size, key) {
           var val;
           val = size.width - width;
           val = val < 0 ? -1 * val : val;
           if (val <= smallest) {
-            closest = size;
+            closest = {
+              url: size.url,
+              size: key
+            };
             return smallest = val;
           }
         });
         if (_.isNull(closest)) {
           closest = sizes['full'];
         }
-        return closest.url;
+        return closest;
       };
 
       return MediaModel;
