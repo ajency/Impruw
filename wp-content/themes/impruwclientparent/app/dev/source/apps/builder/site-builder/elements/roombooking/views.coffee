@@ -10,3 +10,10 @@ define ['app'
 			className : 'roombooking'
 
 			template : mainTpl
+
+			onShow:->
+				@$el.find '#room-booking-calendar'
+							.datepicker
+								inline: true
+								numberOfMonths : 2
+								dateFormat : 'yy-mm-dd'

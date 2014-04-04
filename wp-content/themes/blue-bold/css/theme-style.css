@@ -87,8 +87,11 @@
   font-family: 'Lato', sans-serif;
   font-weight: 400;
   /****Selection Color****/
+
   /****Link Styles****/
+
   /****Heading Styles****/
+
 }
 .site-style-container ::selection {
   background: #07669e;
@@ -1042,6 +1045,7 @@ and open the template in the editor.
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker:before {
   border-bottom-color: #16a2f5;
   top: -7px;
+  display: none;
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .ui-datepicker-header {
   background: #0986cf;

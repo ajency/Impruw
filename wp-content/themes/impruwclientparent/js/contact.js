@@ -91,7 +91,7 @@ jQuery(document).ready(function($){
                     break;
                }
                else{
-                   date_range_name = 'class_name_slug';
+                   date_range_name = ' ';
                }
             
             }
@@ -143,6 +143,7 @@ jQuery(document).ready(function($){
         
         getColour();
        
+   // display the colour on the calender for date ranges 
         function getColour(){
             
           var classNames = ['green', 'red', 'orange', 'blue', 'pink','yellow'];
@@ -174,7 +175,7 @@ jQuery(document).ready(function($){
          $('#plans-details-region').append(html);
       }
       
-      
+      // display the date selected along with availabilty status
       function displaySelectedDate(date){
           
           var selected_date = moment(date).format('D MMM');
@@ -271,7 +272,7 @@ jQuery(document).ready(function($){
                         
                         html += '<div class="booking-price">WEEKEND <b>$'+weekend.charge+'</b></div>';
                        
-                        html += '<div>';
+                        html += '</div>';
                     }
                    
                }

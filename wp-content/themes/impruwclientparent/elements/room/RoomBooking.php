@@ -31,13 +31,6 @@ class RoomBooking extends Element {
 
         parent::__construct($element);
 
-        /* $this->post_id = $post_id;
-
-          if ($this->post_id === 0 && get_the_ID() > 0)
-          $this->post_id = get_the_ID();
-
-          $this->room = get_room($this->post_id); */
-
         $this->markup = $this->generate_markup();
     }
 
