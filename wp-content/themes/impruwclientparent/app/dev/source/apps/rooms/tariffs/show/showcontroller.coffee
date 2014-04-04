@@ -13,8 +13,9 @@ define  ['app','controllers/base-controller', 'apps/rooms/tariffs/show/views'],(
 
 				pcollection = App.request "get:plans:collection"
 				dcollection = App.request "get:daterange:collection"
+				tcollection = App.request "get:tariffs:collection", @roomId
 				
-				@layout = @_getGridLayout()
+				@layout = @_getGridLayout tcollection
 
 				# get the packages view
 				@packagesView = @_getPackagesView pcollection
@@ -36,11 +37,13 @@ define  ['app','controllers/base-controller', 'apps/rooms/tariffs/show/views'],(
 			# get the tariffs view
 			_getDateRangeView :(dCollection)->
 				new Show.Views.DateRangeCollectionView
-							collection : dCollection
+									collection : dCollection
+									roomId 	: @roomId
 			
 			# grid layout
-			_getGridLayout:->
+			_getGridLayout:(tcollection)->
 				new GridLayout
+						collection :tcollection
 
 
 		class GridLayout extends Marionette.Layout

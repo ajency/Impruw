@@ -17,7 +17,6 @@ define(['app', 'controllers/base-controller', 'apps/rooms/edit/views', 'apps/roo
         var layout, roomId;
         roomId = options.roomId;
         this.roomModel = App.request("get:room:model", roomId);
-        console.log(this.roomModel);
         this.layout = layout = this.getEditRoomLayout(this.roomModel);
         this.listenTo(layout, "show", (function(_this) {
           return function() {

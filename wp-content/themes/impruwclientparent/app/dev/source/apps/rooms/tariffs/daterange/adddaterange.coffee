@@ -18,7 +18,8 @@ define  ['app','controllers/base-controller', 'text!apps/rooms/tariffs/daterange
 				@show dateRangeView, 
 						loading : true
 
-			dateRangeSaved:=>
+			dateRangeSaved:(dateRange)=>
+				App.execute "add:daterange", dateRange
 				@dateRangeView.triggerMethod "saved:daterange"
 
 
@@ -58,7 +59,7 @@ define  ['app','controllers/base-controller', 'text!apps/rooms/tariffs/daterange
 				@$el.find('.dated').datepicker
 										showOtherMonths: true
 										selectOtherMonths: true
-										dateFormat: "d MM, yy"
+										dateFormat: "yy-mm-dd"
 										
 					.prev('.btn').on 'click' , (e) => 
 									e && e.preventDefault();

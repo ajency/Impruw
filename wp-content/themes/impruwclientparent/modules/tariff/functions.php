@@ -8,7 +8,7 @@ function update_tariff($formdata){
 
 	global $wpdb;
   
-    $table_name= $wpdb->prefix.'tariff';
+    $table_name= $wpdb->prefix.'tariffs';
 
     // serializing the weekend and weekday array
     foreach ($formdata as $key => $value) {
@@ -19,22 +19,33 @@ function update_tariff($formdata){
     	}	
     }
 
+	$wpdb->update($table_name, $formdata,array('id' => $formdata['id'] ));
+	return $formdata['id'];
+}
 
-	$sql = $wpdb->prepare("SELECT COUNT(*) FROM $table_name WHERE id = %s",$formdata['id']);
+/**
+ * 
+ * @param unknown $formdata
+ * @return number
+ */
+function add_tariff($formdata){
+
+	global $wpdb;
+
+	$table_name= $wpdb->prefix.'tariffs';
+
+	// serializing the weekend and weekday array
+	foreach ($formdata as $key => $value) {
+		 
+		if($key == "weekend" || $key == "weekday")
+		{
+			$formdata[$key] = maybe_serialize($value);
+		}
+	}
 	
-	$query_return = $wpdb->get_var($sql);
+	$wpdb->insert($table_name, $formdata);
+	return $wpdb->insert_id;
 
-	if( $query_return == 0){
-
-		$wpdb->insert($table_name, $formdata);
-		return $wpdb->insert_id;
-
-	}
-	else{
-
-		$wpdb->update($table_name, $formdata,array('id' => $formdata['id'] ));
-		return $formdata['id'];
-	}
 }
 
 /**
@@ -49,7 +60,7 @@ function get_tariff($room_id = 0) {
         if($room_id === 0)
 		$room_id = get_the_ID();
 
-	$table_name = $wpdb->prefix . 'tariff';
+	$table_name = $wpdb->prefix . 'tariffs';
 
 	$query = "SELECT * FROM $table_name WHERE room_id = $room_id ";
 

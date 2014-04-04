@@ -31,10 +31,14 @@ add_action('wp_ajax_read-tariff', 'read_tariff');
 
 
 function create_tariff_ajax(){
-
-	// add ur logic here
-
-	wp_send_json(array('code' => 'OK', 'data' => array('id' => 23)) );
+	
+	$data = $_POST;
+	
+	unset($data['action']);
+	
+	$tariff_id = add_tariff($data);
+	
+	wp_send_json(array('id'=> $tariff_id));
 
 }
 add_action('wp_ajax_create-tariff', 'create_tariff_ajax');
@@ -46,29 +50,12 @@ add_action('wp_ajax_create-tariff', 'create_tariff_ajax');
 */
 function update_tariff_ajax(){
     
-    $id= 12;
-    
-    $daterange_id = 1;
+	$data = $_POST;
+	
+	unset($data['action']);
 
-    $plan_id = 1;
+     $tariff_id = update_tariff($data);
 
-    $weekday = $_POST['weekdays'];
-
-    $weekend = $_POST['weekends'];
-
-    $room_id = 2;
-
-    $formdata= array(
-    			'id' => $id,
-    			'daterange_id' => $daterange_id,
-    			'weekend' => $weekend,
-    			'weekday' => $weekday,
-    			'plan_id' => $plan_id,
-    			'room_id' => $room_id
-    			);
-
-     $tariff_id = update_tariff($formdata);
-
-	wp_send_json(array('code' => 'OK','id'=> $tariff_id));
+	 wp_send_json(array('id'=> $tariff_id));
 }
 add_action('wp_ajax_update-tariff','update_tariff_ajax');

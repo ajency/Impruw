@@ -121,12 +121,12 @@ function get_room($roomid) {
     $attachment_id = get_post_thumbnail_id( $room_id );
 	
     $image = (int) $attachment_id > 0 ? wp_get_attachment_image_src($attachment_id, 'medium') : array();
-
+	
     // prepare the post meta strings to array
     $room_post_meta = array('slider_id' 	=> $room_slider_id,
 					        'no_of_rooms' 	=> $no_of_rooms,
 					        'thumbnail_id' 	=> (int)$attachment_id,
-                                                'post_excerpt'=> get_the_excerpt(),
+                            'post_excerpt'=> '',
     						'image_url' => is_array($image) && count($image) > 0 ? $image[0] : '');
 
     

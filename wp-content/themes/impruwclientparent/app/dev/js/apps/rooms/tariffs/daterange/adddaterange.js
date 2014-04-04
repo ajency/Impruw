@@ -31,7 +31,8 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/daterange
         });
       };
 
-      AddDateRangeController.prototype.dateRangeSaved = function() {
+      AddDateRangeController.prototype.dateRangeSaved = function(dateRange) {
+        App.execute("add:daterange", dateRange);
         return this.dateRangeView.triggerMethod("saved:daterange");
       };
 
@@ -83,7 +84,7 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/daterange
         return this.$el.find('.dated').datepicker({
           showOtherMonths: true,
           selectOtherMonths: true,
-          dateFormat: "d MM, yy"
+          dateFormat: "yy-mm-dd"
         }).prev('.btn').on('click', (function(_this) {
           return function(e) {
             e && e.preventDefault();

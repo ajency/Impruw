@@ -14,6 +14,13 @@ define ["app", 'backbone'], (App, Backbone) ->
 				'weekday' : {}
 				'weekend' : {}
 
+			parse:(resp)->
+				resp.id = parseInt resp.id
+				resp.room_id = parseInt resp.room_id
+				resp.daterange_id = parseInt resp.daterange_id
+				resp.plan_id = parseInt resp.plan_id
+				resp
+
 		# tariff collection
 		class TariffCollection extends Backbone.Collection
 

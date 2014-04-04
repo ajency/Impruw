@@ -9,8 +9,8 @@ define ["app", 'backbone', 'moment'], (App, Backbone, moment) ->
 			name : 'daterange'
 
 			defaults : ->
-				'start_date' : 0
-				'end_date' 	 : 0
+				'from_date' : 0
+				'to_date' 	 : 0
 
 		# daterange collection
 		class DateRangeCollection extends Backbone.Collection
@@ -67,6 +67,10 @@ define ["app", 'backbone', 'moment'], (App, Backbone, moment) ->
 				daterange = new DateRange data 
 				daterange
 
+			addDateRange:(d)->
+				dateRangeCollection.add d
+
+
 
 		App.reqres.setHandler "get:daterange:collection",->
 			API.getDateRangeCollection()
@@ -76,3 +80,6 @@ define ["app", 'backbone', 'moment'], (App, Backbone, moment) ->
 
 		App.reqres.setHandler "get:daterange:name:for:date",(date)->
 			API.getDateRangeNameForDate date
+
+		App.commands.setHandler "add:daterange",(daterange)->
+			API.addDateRange daterange

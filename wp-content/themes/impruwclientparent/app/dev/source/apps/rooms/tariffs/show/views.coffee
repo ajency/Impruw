@@ -62,25 +62,25 @@ define ['app', 'moment'], (App, moment)->
 							<div class="block clearfix">
 								<div class="weekday">
 									Weekdays
-									<span class="price">{{weekdays.charge}}</span>
+									<span class="price">{{weekday.charge}}</span>
 								</div>
 								<div class="weekend">
 									Weekends
-									<span class="price">{{weekends.charge}}</span>
+									<span class="price">{{weekend.charge}}</span>
 								</div>
 								<div class="tariff-label clearfix">Extra Adult</div>
 								<div class="weekday">
-									<span class="price">{{weekdays.extra_adult}}</span>
+									<span class="price">{{weekday.extra_adult}}</span>
 								</div>
 								<div class="weekend">
-									<span class="price">{{weekends.extra_adult}}</span>
+									<span class="price">{{weekend.extra_adult}}</span>
 								</div>
 								<div class="tariff-label clearfix">Extra Child</div>
 								<div class="weekday">
-									<span class="price">{{weekdays.extra_child}}</span>
+									<span class="price">{{weekday.extra_child}}</span>
 								</div>
 								<div class="weekend">
-									<span class="price">{{weekends.extra_child}}</span>
+									<span class="price">{{weekend.extra_child}}</span>
 								</div>
 								<div class="block-action">
 									<button type="button" class="btn btn-sm edit-trariff edit-tran"><span class="glyphicon glyphicon-pencil"></span>&nbsp;Edit</button>
@@ -138,6 +138,8 @@ define ['app', 'moment'], (App, moment)->
 					return tariff[0] if tariff.length > 0
 					return false
 
+				roomId = Marionette.getOption @,'roomId'
+
 				plans.each (plan, index)=>
 
 					tariff = getTariff plan.get 'id'
@@ -147,10 +149,8 @@ define ['app', 'moment'], (App, moment)->
 						tariff.set 
 								plan_id : plan.get 'id'
 								daterange_id : dateRangeId
-					else
-						tariff = new Backbone.Model tariff
-
-					tariff.name = 'tariff'
+								room_id : roomId
+						tariff.name = 'tariff'
 
 					tariffCollection.add tariff
 

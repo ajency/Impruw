@@ -13,7 +13,6 @@ define ['app', 'controllers/base-controller'
 				{roomId} = options
 
 				@roomModel = App.request "get:room:model", roomId
-				console.log @roomModel
 				@layout = layout = @getEditRoomLayout @roomModel
 
 				@listenTo layout, "show", =>

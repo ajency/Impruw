@@ -76,7 +76,7 @@ define(['app', 'moment'], function(App, moment) {
         return SingleTariff.__super__.render.call(this);
       };
 
-      SingleTariff.prototype.template = '{{^id}} <div class="block clearfix not-yet-added"><h4>NA</h4></div> {{/id}} {{#id}} <div class="block clearfix"> <div class="weekday"> Weekdays <span class="price">{{weekdays.charge}}</span> </div> <div class="weekend"> Weekends <span class="price">{{weekends.charge}}</span> </div> <div class="tariff-label clearfix">Extra Adult</div> <div class="weekday"> <span class="price">{{weekdays.extra_adult}}</span> </div> <div class="weekend"> <span class="price">{{weekends.extra_adult}}</span> </div> <div class="tariff-label clearfix">Extra Child</div> <div class="weekday"> <span class="price">{{weekdays.extra_child}}</span> </div> <div class="weekend"> <span class="price">{{weekends.extra_child}}</span> </div> <div class="block-action"> <button type="button" class="btn btn-sm edit-trariff edit-tran"><span class="glyphicon glyphicon-pencil"></span>&nbsp;Edit</button> </div> </div> {{/id}}';
+      SingleTariff.prototype.template = '{{^id}} <div class="block clearfix not-yet-added"><h4>NA</h4></div> {{/id}} {{#id}} <div class="block clearfix"> <div class="weekday"> Weekdays <span class="price">{{weekday.charge}}</span> </div> <div class="weekend"> Weekends <span class="price">{{weekend.charge}}</span> </div> <div class="tariff-label clearfix">Extra Adult</div> <div class="weekday"> <span class="price">{{weekday.extra_adult}}</span> </div> <div class="weekend"> <span class="price">{{weekend.extra_adult}}</span> </div> <div class="tariff-label clearfix">Extra Child</div> <div class="weekday"> <span class="price">{{weekday.extra_child}}</span> </div> <div class="weekend"> <span class="price">{{weekend.extra_child}}</span> </div> <div class="block-action"> <button type="button" class="btn btn-sm edit-trariff edit-tran"><span class="glyphicon glyphicon-pencil"></span>&nbsp;Edit</button> </div> </div> {{/id}}';
 
       return SingleTariff;
 
@@ -121,7 +121,7 @@ define(['app', 'moment'], function(App, moment) {
       DateRangeCollectionView.prototype.itemView = DateRageView;
 
       DateRangeCollectionView.prototype.itemViewOptions = function(item, index) {
-        var dateRangeId, getTariff, plans, tariffCollection, tariffs;
+        var dateRangeId, getTariff, plans, roomId, tariffCollection, tariffs;
         dateRangeId = item.get('id');
         tariffs = App.request("get:tariffs:for:daterange", dateRangeId);
         plans = App.request("get:plans:collection");
@@ -136,6 +136,7 @@ define(['app', 'moment'], function(App, moment) {
           }
           return false;
         };
+        roomId = Marionette.getOption(this, 'roomId');
         plans.each((function(_this) {
           return function(plan, index) {
             var tariff;
@@ -144,12 +145,11 @@ define(['app', 'moment'], function(App, moment) {
               tariff = new Backbone.Model;
               tariff.set({
                 plan_id: plan.get('id'),
-                daterange_id: dateRangeId
+                daterange_id: dateRangeId,
+                room_id: roomId
               });
-            } else {
-              tariff = new Backbone.Model(tariff);
+              tariff.name = 'tariff';
             }
-            tariff.name = 'tariff';
             return tariffCollection.add(tariff);
           };
         })(this));

@@ -15,8 +15,8 @@ define(["app", 'backbone', 'moment'], function(App, Backbone, moment) {
 
       DateRange.prototype.defaults = function() {
         return {
-          'start_date': 0,
-          'end_date': 0
+          'from_date': 0,
+          'to_date': 0
         };
       };
 
@@ -85,6 +85,9 @@ define(["app", 'backbone', 'moment'], function(App, Backbone, moment) {
         }
         daterange = new DateRange(data);
         return daterange;
+      },
+      addDateRange: function(d) {
+        return dateRangeCollection.add(d);
       }
     };
     App.reqres.setHandler("get:daterange:collection", function() {
@@ -93,8 +96,11 @@ define(["app", 'backbone', 'moment'], function(App, Backbone, moment) {
     App.reqres.setHandler("create:new:daterange:model", function(data) {
       return API.createDateRangeModel(data);
     });
-    return App.reqres.setHandler("get:daterange:name:for:date", function(date) {
+    App.reqres.setHandler("get:daterange:name:for:date", function(date) {
       return API.getDateRangeNameForDate(date);
+    });
+    return App.commands.setHandler("add:daterange", function(daterange) {
+      return API.addDateRange(daterange);
     });
   });
 });

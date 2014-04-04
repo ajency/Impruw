@@ -12,14 +12,15 @@ define(['app', 'controllers/base-controller', 'apps/rooms/tariffs/show/views'], 
       }
 
       ShowController.prototype.initialize = function(opt) {
-        var dcollection, pcollection;
+        var dcollection, pcollection, tcollection;
         this.roomId = opt.roomId;
         if (!this.roomId) {
           throw new Error("Invalid room id: " + this.roomId);
         }
         pcollection = App.request("get:plans:collection");
         dcollection = App.request("get:daterange:collection");
-        this.layout = this._getGridLayout();
+        tcollection = App.request("get:tariffs:collection", this.roomId);
+        this.layout = this._getGridLayout(tcollection);
         this.packagesView = this._getPackagesView(pcollection);
         this.dateRangeView = this._getDateRangeView(dcollection);
         this.listenTo(this.layout, "show", (function(_this) {
@@ -41,12 +42,15 @@ define(['app', 'controllers/base-controller', 'apps/rooms/tariffs/show/views'], 
 
       ShowController.prototype._getDateRangeView = function(dCollection) {
         return new Show.Views.DateRangeCollectionView({
-          collection: dCollection
+          collection: dCollection,
+          roomId: this.roomId
         });
       };
 
-      ShowController.prototype._getGridLayout = function() {
-        return new GridLayout;
+      ShowController.prototype._getGridLayout = function(tcollection) {
+        return new GridLayout({
+          collection: tcollection
+        });
       };
 
       return ShowController;

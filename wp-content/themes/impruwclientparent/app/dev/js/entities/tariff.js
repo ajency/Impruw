@@ -22,6 +22,14 @@ define(["app", 'backbone'], function(App, Backbone) {
         };
       };
 
+      Tariff.prototype.parse = function(resp) {
+        resp.id = parseInt(resp.id);
+        resp.room_id = parseInt(resp.room_id);
+        resp.daterange_id = parseInt(resp.daterange_id);
+        resp.plan_id = parseInt(resp.plan_id);
+        return resp;
+      };
+
       return Tariff;
 
     })(Backbone.Model);

@@ -57,8 +57,8 @@ add_action('wp_ajax_fetch-daterange', 'fetch_daterange');
 function create_daterange_ajax(){
 
 	//convert the string to date time format
-	$from_date= date("Y-m-d H:i:s",strtotime($_POST['start_date']));
-	$to_date= date("Y-m-d H:i:s",strtotime($_POST['end_date']));
+	$from_date= date("Y-m-d",strtotime($_POST['from_date']));
+	$to_date= date("Y-m-d",strtotime($_POST['to_date']));
 
 	$formdata = array('from_date' => $from_date,'to_date' => $to_date,'daterange_name'=>$_POST['daterange_name']);
 
