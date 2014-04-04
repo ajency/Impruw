@@ -332,6 +332,9 @@ Version:        0.1.0
   top: -4px;
   position: relative;
 }
+.aj-imp-builder-top-nav .aj-imp-builder-top-options .btn-logout {
+  color: #fff;
+}
 /****Builder Sub-Nav****/
 .aj-imp-builder-sub-bar {
   padding: 30px 3em 10px;
