@@ -60,6 +60,8 @@
        	var ROOMS       = <?php echo json_encode(get_rooms()); ?>;
         var ISTHEMESELECTED = <?php echo is_theme_choosed() ?>;
         var LOGOUTURL = '<?php echo wp_logout_url(site_url()); ?>';
+        var DASHBOARDURL = '<?php echo site_url('dashboard'); ?>';
+        var BUILDERURL = '<?php echo site_url('dashboard'); ?>';
         <?php if(is_single_room_edit()): ?>
         
         var ISSINGLEROOM = true;   

@@ -31,6 +31,7 @@ define ['app'
 						data = super()
 
 						data.LOGOUTURL = LOGOUTURL
+						data.DASHBOARDURL = DASHBOARDURL
 
 						data
 

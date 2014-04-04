@@ -35,7 +35,7 @@ define ['app', 'controllers/base-controller', 'apps/builder/choosetheme/views'],
 
 
 				responseFn = (resp)=>
-					window.location.reload()
+					window.location.href = BUILDERURL
 					#@region.close()
 
 				# assign the new theme to site

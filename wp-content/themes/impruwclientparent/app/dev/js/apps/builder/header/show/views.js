@@ -42,6 +42,7 @@ define(['app', 'text!apps/builder/header/show/templates/mainview.html'], functio
         var data;
         data = MainView.__super__.serializeData.call(this);
         data.LOGOUTURL = LOGOUTURL;
+        data.DASHBOARDURL = DASHBOARDURL;
         return data;
       };
 
