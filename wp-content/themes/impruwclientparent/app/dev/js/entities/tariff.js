@@ -15,8 +15,10 @@ define(["app", 'backbone'], function(App, Backbone) {
 
       Tariff.prototype.defaults = function() {
         return {
-          '': '',
-          '': ''
+          'plan_id': 0,
+          'daterange_id': 0,
+          'weekday': {},
+          'weekend': {}
         };
       };
 
