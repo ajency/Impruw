@@ -40,7 +40,7 @@ class RoomBooking extends Element {
      * @return String basic markup
      */ 
     function generate_markup() {
-     $html = ' 
+     $html = '       
          <script src="'.site_url().'/wp-content\themes\impruwclientparent\dashboard\lib\jquery.ui.min.js"></script>
           <script src="'.site_url().'/wp-content\themes\impruwclientparent\dashboard\lib\moment.min.js"></script>
               <script src="'.site_url().'/wp-content\themes\impruwclientparent\dashboard\lib\moment-range.js"></script>
@@ -67,41 +67,42 @@ class RoomBooking extends Element {
                         </div>
                     </div>
                     <div class="col-md-4 room-booking-data" id="plans-details-region">
-                        <div class="date-range">
-                            You have selected
-                            <b>18 Jan to 16 Jan </b>
-                            <p class="status">Available</p>
-                        </div>
-                        <div class="room-booking-plan">
-                            <h5>Plan 1 </h5>
-                            <p>Room. Lorem Ipsum is simply dummy text of the printing
-                            and typesetting industry.</p>
-
-                            <div class="booking-detail">
-                                Max Adults:
-                                <span>02</span>
+                            <div class="date-range">
+                                You have selected
+                                <b>18 Jan to 16 Jan </b>
+                                <p class="status">Available</p>
                             </div>
-                            <div class="booking-detail">
-                                Max Children:
-                                <span>  02</span>
-                            </div>
-                            <div class="clearfix"></div>
-                            <h6>Additional Charge</h6>
-                            <div class="booking-detail">
-                                per extra Adult : $200
+                   
+                                <div class="room-booking-plan">
+                                    <h5>Plan 1 </h5>
+                                    <p>Room. Lorem Ipsum is simply dummy text of the printing
+                                    and typesetting industry.</p>
 
-                            </div>
-                            <div class="booking-detail">
-                                per extra Child : $152
+                                    <div class="booking-detail">
+                                        Max Adults:
+                                        <span>02</span>
+                                    </div>
+                                    <div class="booking-detail">
+                                        Max Children:
+                                        <span>  02</span>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <h6>Additional Charge</h6>
+                                    <div class="booking-detail">
+                                        per extra Adult : $200
 
-                            </div>
-                            <div class="clearfix"></div>
+                                    </div>
+                                    <div class="booking-detail">
+                                        per extra Child : $152
 
-                            <div class="booking-price">WEEKDAYS <b>$300</b>
-                            </div>
-                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
 
-                    </div>
+                                    <div class="booking-price">WEEKDAYS <b>$300</b>
+                                    </div>
+                                </div>
+                          </div> 
+                </div>
                 </div>
                          ';
 

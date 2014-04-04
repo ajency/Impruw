@@ -305,7 +305,5 @@ jQuery(document).ready(function($){
          return html;
       }
         
-        
-      
 
 });

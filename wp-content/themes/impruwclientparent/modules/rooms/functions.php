@@ -126,6 +126,7 @@ function get_room($roomid) {
     $room_post_meta = array('slider_id' 	=> $room_slider_id,
 					        'no_of_rooms' 	=> $no_of_rooms,
 					        'thumbnail_id' 	=> (int)$attachment_id,
+                                                'post_excerpt'=> get_the_excerpt(),
     						'image_url' => is_array($image) && count($image) > 0 ? $image[0] : '');
 
     
