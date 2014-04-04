@@ -36,6 +36,10 @@ define ["app", 'backbone'], (App, Backbone) ->
 
 				tariffCollection
 
+			getTariffsForDateRange:(daterangeId)->
+				tariffCollection.where 'daterange_id': daterangeId
+
+
 			# fetch the tariff model
 			getTariff :(id)->
 				tariff = new Tariff id : id
@@ -45,6 +49,9 @@ define ["app", 'backbone'], (App, Backbone) ->
 
 		App.reqres.setHandler "get:tariffs:collection",(roomId)->
 			API.getTariffCollection roomId
+
+		App.reqres.setHandler "get:tariffs:for:daterange",(daterangeId)->
+			API.getTariffsForDateRange daterangeId
 
 		App.reqres.setHandler "get:tariff",(id)->
 			API.getTariff id

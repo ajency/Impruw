@@ -1,6 +1,6 @@
 # , 'apps/rooms/tariffs/show/templates/'
 
-define ['app'], (App)->
+define ['app', 'moment'], (App, moment)->
 
 	App.module "RoomsApp.RoomsTariff.Show.Views", (Views, App)->
 
@@ -12,14 +12,14 @@ define ['app'], (App)->
 			template : '<div class="block clearfix">
 							<h6>{{plan_name}}</h6>
 							<div class="package-desc">
-								{{plan_description}}
+								{{plandescription}}
 							</div>
 						</div>'
 
 			serializeData:->
 				data = super()
 
-				data.packagedescription = ->
+				data.plandescription = ->
 					_(@plan_description).prune(50)
 
 				data
@@ -36,10 +36,29 @@ define ['app'], (App)->
 			itemViewContainer : '.package-blocks'
 
 
+		################ Tariffs views ###################
 
 		class SingleTariff extends Marionette.ItemView
 
-			template : '<div class="package-block-outer">
+			className: 'package-block-outer'
+
+			events:
+				'click .edit-trariff' : -> 
+						App.execute "show:edit:tariff", model : @model
+				'click .not-yet-added': -> 
+						App.execute "show:add:tariff", model : @model
+
+			modelEvents:
+				'change' : 'render'
+
+			render :->
+				console.log @model
+				super()
+
+			template : '{{^id}}
+							<div class="block clearfix not-yet-added"><h4>NA</h4></div>
+						{{/id}}
+						{{#id}}
 							<div class="block clearfix">
 								<div class="weekday">
 									Weekdays
@@ -67,121 +86,75 @@ define ['app'], (App)->
 									<button type="button" class="btn btn-sm edit-trariff edit-tran"><span class="glyphicon glyphicon-pencil"></span>&nbsp;Edit</button>
 								</div>
 							</div>
-						</div>'	
+						{{/id}}'	
+
+
+		class DateRageView extends Marionette.CompositeView
 			
-			onRender:->
-				@$el.find('div.not-applicable').click => 
-						alert "dsdsds"
-						@trigger "show:add:tariff"
-
-		
-		class Views.TariffsView extends Marionette.CompositeView
-
-			template : ''
-
-			dateRangeTemplate : '<div class="date-range">
-									<div class="from">
-										<span class="date">{{startdate}}</span>
-										to <span class="date">{{enddate}}</span>
-									</div>
-								</div>'
-
-			dateRangeItemViewContainer : '.package-blocks'
-
-			render:->
-				@isRendered = true
-				@isClosed = false
-				
-				@triggerBeforeRender()
-					
-				# get daterange collection
-				dCollection = Marionette.getOption @,'dateRangeCollection'
-				html = ''
-				dCollection.each (model)=>
-					html += @renderDaterange model
-
-				@$el.html html 
-				@
-
-			# render the daterange 
-			renderDaterange:(model)->
-				data = @serailizeDaterangeModel model
-				template = @dateRangeTemplate
-				html =  Marionette.Renderer.render template, data
-
-				markup = '<div class="tariff clearfix">'
-				markup += html
-				markup +='	<div class="packages">
-								<div class="package-blocks clearfix">' 
-
-				markup += @renderTariffs model.get 'id'
-
-				markup += 		'</div>
+			template : '<div class="date-range">
+							<div class="from">
+								<span class="date">{{fromdate}}</span>
+								to <span class="date">{{todate}}</span>
 							</div>
 						</div>
-						<hr />'
+						<div class="packages">
+							<div class="package-blocks clearfix"></div>
+						</div>'	
 
-				markup
+			serializeData:->
+				data = super()
 
-			# render all tariffs
-			renderTariffs:(dateRangeId)->
-				plans = Marionette.getOption @, 'planCollection'
+				data.fromdate = ->
+					moment(@from_date).format 'Do-MMM'
 
-				html = ''
-				
-				plans.each (plan)=>
-					tariff = @getTariff plan.get('id'), dateRangeId
-					tariff = if tariff is false then (new Backbone.Model) else tariff
-					html += @getTariffView tariff 
-
-				html
-
-			getTariffView:(tariff)->
-
-				opt = 
-					model : tariff 
-
-				if tariff.isNew()
-					opt.template = '<div class="package-block-outer not-applicable">
-										<div class="block clearfix">
-											<h4>NA</h4>
-										</div>
-									</div>'
-
-				v = new SingleTariff opt
-
-				# listen to event
-				@listenTo v,"show:add:tariff",()=> 
-					console.log "Dsdsds"
-					@trigger "itemview:show:add:tariff", v
-
-				@listenTo v,"show:edit:tariff",(model)=> @trigger "itemview:show:edit:tariff", v, model
-
-				v.render()
-				v.$el.html()
-			
-			# get tariff model
-			getTariff:(planId, dateRangeId)->
-				models = @collection.filter (model)->
-								model.get('plan_id') is planId and model.get('daterange_id') is dateRangeId
-
-				return models[0] if models.length > 0
-
-				return false
-
-			# serialize the daterange model
-			serailizeDaterangeModel:(model)->
-
-				data = model.toJSON()
-
-				data.startdate = ->
-					moment(@from_date).format('Do-MMM')
-
-				data.enddate = ->
-					moment(@to_date).format('Do-MMM')
+				data.todate = ->
+					moment(@to_date).format 'Do-MMM'
 
 				data
 
+			itemView : SingleTariff
+
+			itemViewContainer : '.package-blocks'		
+
+		
+		class Views.DateRangeCollectionView extends Marionette.CollectionView
+
+			className : 'tariff clearfix'
+
+			itemView : DateRageView
+
+			itemViewOptions:(item, index)->
+				dateRangeId = item.get 'id'
+				tariffs = App.request "get:tariffs:for:daterange", dateRangeId
+
+				plans = App.request "get:plans:collection"
+
+				tariffCollection = new Backbone.Collection
+
+				getTariff =(planId)->
+					tariff = _.filter tariffs,(t)->
+									t.get('plan_id') is planId and t.get('daterange_id') is dateRangeId
+
+					return tariff[0] if tariff.length > 0
+					return false
+
+				plans.each (plan, index)=>
+
+					tariff = getTariff plan.get 'id'
+
+					if tariff is false
+						tariff = new Backbone.Model
+						tariff.set 
+								plan_id : plan.get 'id'
+								daterange_id : dateRangeId
+					else
+						tariff = new Backbone.Model tariff
+
+					tariff.name = 'tariff'
+
+					tariffCollection.add tariff
+
+				collection : tariffCollection
 
 
 

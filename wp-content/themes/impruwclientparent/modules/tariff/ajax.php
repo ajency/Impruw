@@ -29,6 +29,16 @@ function read_tariff(){
 }
 add_action('wp_ajax_read-tariff', 'read_tariff');
 
+
+function create_tariff_ajax(){
+
+	// add ur logic here
+
+	wp_send_json(array('code' => 'OK', 'data' => array('id' => 23)) );
+
+}
+add_action('wp_ajax_create-tariff', 'create_tariff_ajax');
+
 /*
 * Function to update the tariff plans 
 * returns the tariff Id
