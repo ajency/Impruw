@@ -50,15 +50,14 @@ class RoomBooking extends Element {
      $html = ' 
          <script src="http://localhost/impruw/childsite/wp-content\themes\impruwclientparent\dashboard\lib\jquery.ui.min.js"></script>
           <script src="http://localhost/impruw/childsite/wp-content\themes\impruwclientparent\dashboard\lib\moment.min.js"></script>
-            <h4 class="aj-imp-sub-head scroll-ref">Room Booking</h4>
-            <div class="room-booking" id="room-booking-region">
+            <h4 class="booking-title">Room Booking</h4>
+            <div class="room-booking front" id="room-booking-region">
                 <div class="row room-booking-container">
                     <div class="col-md-8">
                         <div class="room-booking-calender" id="calendar-region">
                             <h4>
                                  <span class="glyphicon glyphicon-calendar"></span>
-                                 Monthly Calendar <span class="excerpt">Donec vulputate nibh et 
-                                 odio vehicula, id porttitor quam malesuada</span>
+                                 Monthly Calendar <span class="excerpt">Choose the dates you want to check availability for.</span>
                             </h4> 
                             <div id="room-booking-calendar"></div>
                             <br>

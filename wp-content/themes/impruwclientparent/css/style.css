@@ -884,6 +884,14 @@ and open the template in the editor.
   background: #ffb266;
 }
 /* Calender Booking */
+.booking-title {
+  font-size: 2em;
+  font-weight: 300 !important;
+  color: #ff7e00;
+}
+.room-booking.front {
+  margin: 0 15px;
+}
 .room-booking .room-booking-container {
   background: #ffb266;
 }
