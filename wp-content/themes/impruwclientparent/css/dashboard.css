@@ -591,31 +591,76 @@ form .aj-imp-submit {
 form .aj-imp-submit:hover {
   background: #ff9833;
 }
-.select {
+/****Dropdown Menu Styles****/
+.dropdown-menu {
+  border-radius: 0;
+  background: #fff;
+  box-shadow: 1px 1px 3px 1px #aaaaaa;
+  display: none;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+.dropdown-menu li {
+  border-bottom: 1px solid #f6f6f6;
+}
+.dropdown-menu li a {
+  border-radius: 0 !important;
+}
+.dropdown-menu li a .check-mark {
+  display: none;
+}
+.dropdown-menu li a:hover {
+  background: #849fb0;
+  color: #fff;
+}
+.dropdown-menu li.selected a {
+  background: #ff7e00;
+}
+.dropdown-menu li.selected a .text {
+  color: #fff;
+}
+.dropdown-menu li.selected a:hover {
+  background: #849fb0;
+}
+.dropdown-menu li:last-child {
+  border-bottom: 0;
+}
+.bootstrap-select {
   margin-bottom: 0;
 }
-.select .dropdown-toggle {
+.bootstrap-select .dropdown-toggle {
   background: #fff;
   color: #aaaaaa;
   border-radius: 0 !important;
   border: 0;
   border-bottom: 1px solid #c3c3c3;
+  margin: 0 0 0.5em;
 }
-.select .dropdown-toggle .caret {
+.bootstrap-select .dropdown-toggle .filter-option {
+  margin-right: 1em;
+}
+.bootstrap-select .dropdown-toggle .caret {
   border-top-color: #aaaaaa;
 }
-.select .dropdown-menu .selected a {
+.bootstrap-select .dropdown-menu {
+  display: none;
+}
+.bootstrap-select .dropdown-menu .selected a {
   background: #ff7e00;
 }
-.select .dropdown-menu .selected a:hover {
+.bootstrap-select .dropdown-menu .selected a:hover {
   background: #ffb266;
 }
-.select.open .dropdown-toggle {
+.bootstrap-select.open .dropdown-menu {
+  display: block;
+  overflow: visible !important;
+}
+.bootstrap-select.open .dropdown-toggle {
   background: #fff !important;
   color: #ff7e00 !important;
   border-color: #ff7e00;
 }
-.select.open .dropdown-toggle .caret {
+.bootstrap-select.open .dropdown-toggle .caret {
   border-top-color: #ff7e00;
 }
 /****Logged Out Header, Footer & Coming Soon Styles****/

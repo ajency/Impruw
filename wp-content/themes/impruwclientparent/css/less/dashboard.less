@@ -595,7 +595,44 @@ form {
 	}
 }
 
-.select {
+/****Dropdown Menu Styles****/
+.dropdown-menu {
+	border-radius: 0;
+	background: #fff;
+	box-shadow: 1px 1px 3px 1px @dash-grey;
+	display: none;
+	padding: 0 !important;
+	margin: 0 !important;
+	li {
+		border-bottom: 1px solid lighten(@dash-grey, 30%);
+		a {
+			border-radius: 0 !important;
+			.check-mark {
+				display: none;
+			}
+			&:hover {
+				background: @blue-grey;
+				color: #fff;
+			}
+		}
+		&.selected {
+			a {
+				background: @orange;
+				.text {
+					color: #fff;
+				}
+				&:hover {
+					background: @blue-grey;
+				}
+			}
+		}
+		&:last-child {
+			border-bottom: 0;
+		}
+	}
+}
+
+.bootstrap-select {
 	margin-bottom: 0;
 	.dropdown-toggle {
 		background: #fff;
@@ -603,11 +640,16 @@ form {
 		border-radius: 0 !important;
 		border: 0;
 		border-bottom: 1px solid lighten(@dash-grey, 10%);
+		margin: 0 0 0.5em;
+		.filter-option {
+			margin-right: 1em;
+		}
 		.caret {
 			border-top-color: @dash-grey;
 		}
 	}
 	.dropdown-menu {
+		display: none;
 		.selected {
 			a {
 				background: @orange;
@@ -618,6 +660,10 @@ form {
 		}
 	}
 	&.open {
+		.dropdown-menu {
+			display: block;
+			overflow: visible !important;
+		}
 		.dropdown-toggle {
 			background: #fff !important;
 			color: @orange !important;
