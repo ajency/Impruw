@@ -48,8 +48,9 @@ class RoomBooking extends Element {
      */ 
     function generate_markup() {
      $html = ' 
-         <script src="http://localhost/impruw/childsite/wp-content\themes\impruwclientparent\dashboard\lib\jquery.ui.min.js"></script>
-          <script src="http://localhost/impruw/childsite/wp-content\themes\impruwclientparent\dashboard\lib\moment.min.js"></script>
+         <script src="'.site_url().'/wp-content\themes\impruwclientparent\dashboard\lib\jquery.ui.min.js"></script>
+          <script src="'.site_url().'/wp-content\themes\impruwclientparent\dashboard\lib\moment.min.js"></script>
+              <script src="'.site_url().'/wp-content\themes\impruwclientparent\dashboard\lib\moment-range.js"></script>
 
             <h4 class="booking-title">Booking &amp; Availability</h4>
             <div class="room-booking front" id="room-booking-region">
