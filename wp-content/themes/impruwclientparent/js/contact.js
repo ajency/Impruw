@@ -170,9 +170,9 @@ jQuery(document).ready(function($){
          
          var html = showPlans(date);
          
-         $('#plans-details-region').find('.room-booking-plan').remove();
+         $('#plans-details-region').find('.item').remove();
          
-         $('#plans-details-region').append(html);
+         $('#plans-details-region').find('.carousel-inner').append('<div class="item">'+html+'</div>');
       }
       
       // display the date selected along with availabilty status
@@ -312,6 +312,7 @@ jQuery(document).ready(function($){
          
          return html;
       }
-        
-
+            $('.carousel').carousel({
+              interval: 3000
+            })
 });

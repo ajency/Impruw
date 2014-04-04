@@ -44,6 +44,8 @@ class RoomBooking extends Element {
          <script src="'.site_url().'/wp-content\themes\impruwclientparent\dashboard\lib\jquery.ui.min.js"></script>
           <script src="'.site_url().'/wp-content\themes\impruwclientparent\dashboard\lib\moment.min.js"></script>
               <script src="'.site_url().'/wp-content\themes\impruwclientparent\dashboard\lib\moment-range.js"></script>
+              <script src="'.site_url().'/wp-content\themes\impruwclientparent\dashboard\lib\jquery.bxslider.min.js"></script>
+              <link href="'.site_url().'/wp-content\themes\impruwclientparent\dashboard\lib\jquery.bxslider.css" rel="stylesheet" />
 
             <h4 class="booking-title">Booking &amp; Availability</h4>
             <div class="room-booking front" id="room-booking-region">
@@ -61,7 +63,7 @@ class RoomBooking extends Element {
                             <br>
                             <ul class="list-inline daterange-legends"> ';
      
-     $html .= $this->get_daterange_legends();
+                     $html .= $this->get_daterange_legends();
                               
            $html .= '       </ul>
                         </div>
@@ -72,7 +74,9 @@ class RoomBooking extends Element {
                                 <b>18 Jan to 16 Jan </b>
                                 <p class="status">Available</p>
                             </div>
-                   
+                            <div id="myCarousel" class="carousel slide vertical">
+                                <div class="carousel-inner">
+                                 <div class="item">
                                 <div class="room-booking-plan">
                                     <h5>Plan 1 </h5>
                                     <p>Room. Lorem Ipsum is simply dummy text of the printing
@@ -103,6 +107,9 @@ class RoomBooking extends Element {
                                      </div>
                                     </div>
                                 </div>
+                                </div> <!-- class item -->
+                                </div> <!-- slider inner -->
+                            </div> <!-- slider -->
                           </div> 
                 </div>
                 </div>
