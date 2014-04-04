@@ -9,8 +9,10 @@ define ["app", 'backbone'], (App, Backbone) ->
 			name : 'tariff'
 
 			defaults : ->
-				'' : ''
-				'' : ''
+				'plan_id' : 0
+				'daterange_id' : 0
+				'weekday' : {}
+				'weekend' : {}
 
 		# tariff collection
 		class TariffCollection extends Backbone.Collection

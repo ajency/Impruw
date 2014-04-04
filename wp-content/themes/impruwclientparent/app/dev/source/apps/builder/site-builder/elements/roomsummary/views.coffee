@@ -15,7 +15,7 @@ define ['app'],(App)->
 								<div class="room-excerpt">Lorem Ipsum is simply dummy text of the 
 									printing and typesetting industry</div>
 								<div class="room-actions">
-									<div class="price">$99<small>/night</small></div>
+									<div class="price">Total: {{no_of_rooms}}<small> rooms</small></div>
 									<button class="btn btn-room">View Details</button>
 								</div>'
 
