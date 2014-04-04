@@ -241,6 +241,8 @@ jQuery(document).ready(function($){
                                 weekday.max_children+'</span></div>';
                        
                         html += '<div class="clearfix"></div>';
+                        
+                         html += '<div class="plan-bg">'
 
                         html += '<h6>Additional Charge Weekdays</h6>'+
                                 '<div class="booking-detail">per extra Adult:$'
@@ -253,6 +255,8 @@ jQuery(document).ready(function($){
                         
                         html += '<div class="booking-price">WEEKDAYS <b>$'+weekday.charge+'</b></div>';
                         
+                        html += '</div>';
+                        
                         html += '<div class="booking-detail">Max Adults Weekend:<span>'+
                                 weekend.max_adults+'</span></div>';
  
@@ -260,6 +264,8 @@ jQuery(document).ready(function($){
                                 weekend.max_children+'</span></div>';
                        
                         html += '<div class="clearfix"></div>';
+                        
+                        html += '<div class="plan-bg">';
 
                         html += '<h6>Additional Charge Weekend</h6>'+
                                 '<div class="booking-detail">per extra Adult:$'
@@ -271,6 +277,8 @@ jQuery(document).ready(function($){
                         html += '<div class="clearfix"></div>';
                         
                         html += '<div class="booking-price">WEEKEND <b>$'+weekend.charge+'</b></div>';
+                        
+                        html += '</div>';
                        
                         html += '</div>';
                     }
@@ -305,7 +313,5 @@ jQuery(document).ready(function($){
          return html;
       }
         
-        
-      
 
 });
