@@ -54,6 +54,13 @@ function get_tariff($room_id = 0) {
 	$query = "SELECT * FROM $table_name WHERE room_id = $room_id ";
 
 	$tariff = $wpdb->get_results($query, ARRAY_A);
-
+        
+        foreach ($tariff as $key => $value) {
+          
+            $tariff[$key]['weekday'] = maybe_unserialize($tariff[$key]['weekday']);
+          
+          $tariff[$key]['weekend'] = maybe_unserialize($tariff[$key]['weekend']);  
+        }
+       
 	return $tariff;
 }

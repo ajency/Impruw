@@ -50,8 +50,10 @@ class RoomBooking extends Element {
      $html = ' 
          <script src="http://localhost/impruw/childsite/wp-content\themes\impruwclientparent\dashboard\lib\jquery.ui.min.js"></script>
           <script src="http://localhost/impruw/childsite/wp-content\themes\impruwclientparent\dashboard\lib\moment.min.js"></script>
+
             <h4 class="booking-title">Booking &amp; Availability</h4>
             <div class="room-booking front" id="room-booking-region">
+
                 <div class="row room-booking-container">
                     <div class="col-md-8">
                         <div class="room-booking-calender" id="calendar-region">
@@ -104,34 +106,6 @@ class RoomBooking extends Element {
                             </div>
                         </div>
 
-                        <div class="room-booking-plan">
-                            <h5>Plan 2 </h5>
-                            <p>Room. Lorem Ipsum is simply dummy text of the
-                            printing and typesetting industry.</p>
-
-                            <div class="booking-detail">
-                                Max Adults:
-                                <span>02</span>
-                            </div>
-                            <div class="booking-detail">
-                                Max Children:
-                                <span>  02</span>
-                            </div>
-                            <div class="clearfix"></div>
-                            <h6>Additional Charge</h6>
-                            <div class="booking-detail">
-                                per extra Adult : $200
-
-                            </div>
-                            <div class="booking-detail">
-                                per extra Child : $152
-
-                            </div>
-                            <div class="clearfix"></div>
-
-                            <div class="booking-price">WEEKENDDAYS <b>$300</b>
-                            </div>
-                        </div>
                     </div>
                 </div>
                          ';

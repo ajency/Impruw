@@ -120,8 +120,8 @@ jQuery(document).ready(function($){
             return status;
         }
         
-        
-        function showDateRangeColour(date){
+        // get the class names for the dateranges
+        function showDateRangeClass(date){
             
            var date_range_slug = getDateRangeClassName(date);
             
@@ -137,7 +137,8 @@ jQuery(document).ready(function($){
           inline: true,
           numberOfMonths: 2,
           dateFormat: 'yy-mm-dd',
-          beforeShowDay : showDateRangeColour
+          beforeShowDay : showDateRangeClass,
+          onSelect : showData
         });
         
         getColour();
@@ -159,6 +160,146 @@ jQuery(document).ready(function($){
            $.each(arr, function(key, val) {
               $(" ." + val ).addClass("booking-" + classNames[key]);
            });
+      }
+      
+    // display the selected date and corresponding plans for the date
+      function showData(date){
+          
+         displaySelectedDate(date);
+         
+         var html = showPlans(date);
+         
+         $('#plans-details-region').find('.room-booking-plan').remove();
+         
+         $('#plans-details-region').append(html);
+      }
+      
+      
+      function displaySelectedDate(date){
+          
+          var selected_date = moment(date).format('D MMM');
+          
+          $('.date-range').find('b').text(selected_date);
+         
+      }
+      
+      
+      function showPlans(date){
+        var html ='';
+        
+        for(var i=0; i< DATERANGE.length; i++){
+
+             var from_date = new Date(DATERANGE[i].from_date);
+
+             var to_date = new Date(DATERANGE[i].to_date);
+             
+             var selected_date=  new Date(date);
+             
+             var  range = moment().range(from_date, to_date);
+             
+              if(range.contains(selected_date)){
+                  
+                  html = checkTariffForPlanId(DATERANGE[i].id);
+                  
+                  break;
+              }
+              
+              else{
+                  
+                  html = ' <div class="room-booking-plan"><h5>No Plans for selected date</h5></div>';
+              }
+    
+          }
+          
+          return html;
+      }
+      
+      function checkTariffForPlanId(daterange_id){
+           var html ='';
+       
+           for(var i=0; i< TARIFF.length; i++){
+               
+               if(TARIFF[i].daterange_id == daterange_id){
+
+                    var plans = getPlans(TARIFF[i].plan_id);
+                    
+                    var weekday = TARIFF[i].weekday;
+                    
+                    var weekend = TARIFF[i].weekend;
+
+                    if( plans!= ''){
+                        
+                        html += '<div class="room-booking-plan">'+plans;
+                        
+                        html += '<div class="booking-detail">Max Adults Weekdays:<span>'+
+                                weekday.max_adults+'</span></div>';
+ 
+                        html += '<div class="booking-detail">Max Children Weekdays:<span>'+
+                                weekday.max_children+'</span></div>';
+                       
+                        html += '<div class="clearfix"></div>';
+
+                        html += '<h6>Additional Charge Weekdays</h6>'+
+                                '<div class="booking-detail">per extra Adult:$'
+                                + weekday.extra_adult+'</div>';
+
+                        html += '<div class="booking-detail">per extra Child:$'
+                                + weekday.extra_child+'</div>';
+
+                        html += '<div class="clearfix"></div>';
+                        
+                        html += '<div class="booking-price">WEEKDAYS <b>$'+weekday.charge+'</b>';
+                        
+                        html += '<div class="booking-detail">Max Adults Weekend:<span>'+
+                                weekend.max_adults+'</span></div>';
+ 
+                        html += '<div class="booking-detail">Max Children Weekend:<span>'+
+                                weekend.max_children+'</span></div>';
+                       
+                        html += '<div class="clearfix"></div>';
+
+                        html += '<h6>Additional Charge Weekend</h6>'+
+                                '<div class="booking-detail">per extra Adult:$'
+                                + weekend.extra_adult+'</div>';
+
+                        html += '<div class="booking-detail">per extra Child:$'
+                                + weekend.extra_child+'</div>';
+
+                        html += '<div class="clearfix"></div>';
+                        
+                        html += '<div class="booking-price">WEEKEND <b>$'+weekend.charge+'</b>';
+  
+                        html += '<div>';
+                    }
+                   
+               }
+               else{
+                   console.log(TARIFF[i].daterange_id+'----'+daterange_id);
+                  // html = ' <div class="room-booking-plan"><h5>No plans in tariff table</h5></div>'; 
+               }
+           }
+           
+           return html;
+          
+      }
+      
+      function getPlans(plan_id){
+         var html = '';
+         
+         for(var i=0; i< PLANS.length; i++){
+            
+              if(PLANS[i].id == plan_id){
+                  
+                  var plan_name = PLANS[i].plan_name;
+                  
+                  var plan_description = PLANS[i].plan_description;
+                  
+                  html = ' <h5>'+plan_name+
+                          '</h5><p>'+plan_description+'</p>';
+             }
+         }
+         
+         return html;
       }
         
         
