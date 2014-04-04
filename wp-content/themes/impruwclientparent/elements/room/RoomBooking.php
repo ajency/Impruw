@@ -87,18 +87,20 @@ class RoomBooking extends Element {
                                         <span>  02</span>
                                     </div>
                                     <div class="clearfix"></div>
-                                    <h6>Additional Charge</h6>
-                                    <div class="booking-detail">
-                                        per extra Adult : $200
+                                    <div class="plan-bg">
+                                            <h6>Additional Charge</h6>
+                                            <div class="booking-detail">
+                                                per extra Adult : $200
 
-                                    </div>
-                                    <div class="booking-detail">
-                                        per extra Child : $152
+                                            </div>
+                                            <div class="booking-detail">
+                                                per extra Child : $152
 
-                                    </div>
-                                    <div class="clearfix"></div>
+                                            </div>
+                                            <div class="clearfix"></div>
 
-                                    <div class="booking-price">WEEKDAYS <b>$300</b>
+                                            <div class="booking-price">WEEKDAYS <b>$300</b>
+                                     </div>
                                     </div>
                                 </div>
                           </div> 
