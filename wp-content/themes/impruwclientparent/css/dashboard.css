@@ -187,6 +187,11 @@ a:focus {
     display: none;
   }
 }
+@media (max-width: 767px) {
+  .aj-imp-container .aj-imp-left {
+    min-height: 0 !important;
+  }
+}
 .aj-imp-container .aj-imp-right {
   background: #fff;
 }
@@ -376,6 +381,9 @@ a:focus {
 }
 #jPanelMenu-menu #aj-imp-dash-menu li {
   border-bottom: 1px solid #ffffff;
+}
+#jPanelMenu-menu #aj-imp-dash-menu li .icon {
+  display: none;
 }
 #jPanelMenu-menu #aj-imp-dash-menu li a {
   display: block;
@@ -2046,6 +2054,14 @@ form .aj-imp-submit:hover {
 .new-room-list li .roomsummary .room-actions .btn-room:hover {
   background: #ffb266;
 }
+@media (max-width: 767px) {
+  .new-room-list li {
+    width: 100%;
+    float: none;
+    margin: 1em 0 1.5em;
+    border-bottom: 2px solid #aaaaaa;
+  }
+}
 /****Dashboard Panel Styles****/
 .panel .panel-body h5 {
   color: #aaaaaa;
@@ -2421,6 +2437,12 @@ form .aj-imp-submit:hover {
 #gallery-region .isotope {
   width: 100% !important;
 }
+@media (max-width: 767px) {
+  #gallery-region {
+    width: 100%;
+    float: none;
+  }
+}
 .gallery-info {
   width: 28%;
   margin: 1em 0;
@@ -2437,6 +2459,11 @@ form .aj-imp-submit:hover {
   color: #dadada;
   float: left;
   margin-right: 0.2em;
+}
+@media (max-width: 767px) {
+  .gallery-info {
+    display: none;
+  }
 }
 #slides-list-region,
 #add-slide-region,

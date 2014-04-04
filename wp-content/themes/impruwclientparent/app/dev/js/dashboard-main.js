@@ -31,7 +31,8 @@ require.config({
     chart: 'plugins/chart',
     app: 'dashboard-app',
     bootstrapswitch: 'plugins/bootstrap-switch',
-    entitiesloader: 'entities/dashboard-entities-loader'
+    entitiesloader: 'entities/dashboard-entities-loader',
+    jpanelmenu: 'plugins/jquery.jpanelmenu.min'
   },
   shim: {
     underscore: {
@@ -60,6 +61,7 @@ require.config({
     },
     jqueryvalidate: ['jquery'],
     datepicker: ['jquery'],
+    jpanelmenu: ['jquery'],
     underscorestring: ['underscore'],
     backboneform: ['backbone'],
     backbonesyphon: ['backbone'],

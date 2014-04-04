@@ -34,6 +34,14 @@ define ['app'
 						hash = hash.replace '#',''
 						@onSetActiveMenu hash
 
+						jPM = $.jPanelMenu({
+						    menu: '.aj-imp-dash-nav',
+						    trigger: '#nav-trigger'
+						})
+
+						jPM.on()
+							
+
 					onSetActiveMenu:(link)=>
 						@$el.find "li"
 							.removeClass 'active'
@@ -43,3 +51,7 @@ define ['app'
 						@$el.find "a[data-route='#{link}']" 
 							.parent()
 							.addClass 'active'
+
+						jPM = $.jPanelMenu()
+
+						jPM.close()

@@ -41,16 +41,24 @@ define(['app', 'text!apps/leftnav/show/templates/leftNav.html', 'text!apps/leftn
       LeftNav.prototype.itemView = MenuItem;
 
       LeftNav.prototype.onShow = function() {
-        var hash;
+        var hash, jPM;
         hash = location.hash;
         hash = hash.replace('#', '');
-        return this.onSetActiveMenu(hash);
+        this.onSetActiveMenu(hash);
+        jPM = $.jPanelMenu({
+          menu: '.aj-imp-dash-nav',
+          trigger: '#nav-trigger'
+        });
+        return jPM.on();
       };
 
       LeftNav.prototype.onSetActiveMenu = function(link) {
+        var jPM;
         this.$el.find("li").removeClass('active');
         link = '#' + link;
-        return this.$el.find("a[data-route='" + link + "']").parent().addClass('active');
+        this.$el.find("a[data-route='" + link + "']").parent().addClass('active');
+        jPM = $.jPanelMenu();
+        return jPM.close();
       };
 
       return LeftNav;
