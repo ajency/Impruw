@@ -10,9 +10,9 @@ define(['app', 'text!apps/rooms/add/templates/add-room.html'], function(App, add
         return AddRoomLayout.__super__.constructor.apply(this, arguments);
       }
 
-      AddRoomLayout.prototype.tagName = 'form';
+      AddRoomLayout.prototype.tagName = 'div';
 
-      AddRoomLayout.prototype.className = 'form-horizontal clearfix';
+      AddRoomLayout.prototype.className = 'add-room-container';
 
       AddRoomLayout.prototype.template = addRoomTpl;
 

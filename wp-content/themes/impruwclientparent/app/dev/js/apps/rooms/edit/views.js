@@ -10,9 +10,9 @@ define(['app', 'text!apps/rooms/edit/templates/edit-room.html'], function(App, a
         return EditRoomLayout.__super__.constructor.apply(this, arguments);
       }
 
-      EditRoomLayout.prototype.tagName = 'form';
+      EditRoomLayout.prototype.tagName = 'div';
 
-      EditRoomLayout.prototype.className = 'form-horizontal clearfix';
+      EditRoomLayout.prototype.className = 'edit-room-container';
 
       EditRoomLayout.prototype.template = addRoomTpl;
 

@@ -6,9 +6,9 @@ define ['app'
 
 				class View.AddRoomLayout extends Marionette.Layout
 						
-					tagName: 'form'
+					tagName: 'div'
 
-					className : 'form-horizontal clearfix'
+					className : 'add-room-container'
 
 					template : addRoomTpl
 
