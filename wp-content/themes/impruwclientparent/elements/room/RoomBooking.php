@@ -76,7 +76,7 @@ class RoomBooking extends Element {
                             </div>
                             <div id="myCarousel" class="carousel slide vertical">
                                 <div class="carousel-inner">
-                                 <div class="item">
+                                 <div class="item active">
                                 <div class="room-booking-plan">
                                     <h5>Plan 1 </h5>
                                     <p>Room. Lorem Ipsum is simply dummy text of the printing

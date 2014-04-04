@@ -170,9 +170,9 @@ jQuery(document).ready(function($){
          
          var html = showPlans(date);
          
-         $('#plans-details-region').find('.item').remove();
+         $('#plans-details-region').find('.carousel-inner').empty();
          
-         $('#plans-details-region').find('.carousel-inner').append('<div class="item">'+html+'</div>');
+         $('#plans-details-region').find('.carousel-inner').append(html);
       }
       
       // display the date selected along with availabilty status
@@ -209,7 +209,7 @@ jQuery(document).ready(function($){
               
               else{
                   
-                  html = ' <div class="room-booking-plan"><h5>No Plans for selected date</h5></div>';
+                  html = '  <div class="item"><div class="room-booking-plan"><h5>No Plans for selected date</h5></div></div>';
               }
     
           }
@@ -232,7 +232,7 @@ jQuery(document).ready(function($){
 
                     if( plans!= ''){
                         
-                        html += '<div class="room-booking-plan">'+plans;
+                        html += '<div class="item"><div class="room-booking-plan">'+plans;
                         
                         html += '<div class="booking-detail">Max Adults Weekdays:<span>'+
                                 weekday.max_adults+'</span></div>';
@@ -278,9 +278,8 @@ jQuery(document).ready(function($){
                         
                         html += '<div class="booking-price">WEEKEND <b>$'+weekend.charge+'</b></div>';
                         
-                        html += '</div>';
+                        html += '</div></div>';
                        
-                        html += '</div>';
                     }
                    
                }
