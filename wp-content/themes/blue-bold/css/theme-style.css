@@ -87,11 +87,8 @@
   font-family: 'Lato', sans-serif;
   font-weight: 400;
   /****Selection Color****/
-
   /****Link Styles****/
-
   /****Heading Styles****/
-
 }
 .site-style-container ::selection {
   background: #07669e;
@@ -884,6 +881,38 @@ and open the template in the editor.
   font-weight: 300 !important;
   color: #07669e;
 }
+.daterange-legends {
+  text-transform: uppercase;
+  font-size: 0.9em;
+  color: #fff;
+}
+.daterange-legends li span {
+  width: 13px;
+  height: 13px;
+  display: inline-block;
+  background: #ccc;
+  margin-right: 5px;
+}
+@media (max-width: 767px) {
+  .daterange-legends li {
+    padding: 5px;
+  }
+}
+.daterange-legends .booking-red {
+  background: #f97d61;
+}
+.daterange-legends .booking-blue {
+  background: #5fd7fe;
+}
+.daterange-legends .booking-orange {
+  background: #ffd200;
+}
+.daterange-legends .booking-pink {
+  background: #fea5a5;
+}
+.daterange-legends .booking-green {
+  background: #84e72f;
+}
 .room-booking.front {
   margin: 0 15px;
 }
@@ -893,6 +922,7 @@ and open the template in the editor.
 .room-booking .room-booking-container .room-booking-data {
   background: #07669e;
   padding-top: 1em;
+  min-height: 590px;
 }
 .room-booking .room-booking-container .room-booking-data .date-range {
   font-size: 1.3em;
@@ -913,7 +943,7 @@ and open the template in the editor.
 .room-booking .room-booking-container .room-booking-data .room-booking-plan h5 {
   font-weight: 600;
   font-size: 1.5em;
-  color: rgba(40, 37, 37, 0.83);
+  color: #78c9f9;
 }
 .room-booking .room-booking-container .room-booking-data .room-booking-plan .booking-detail {
   width: 50%;
@@ -955,8 +985,8 @@ and open the template in the editor.
   font-size: 1.5em;
   color: #fff;
   text-transform: uppercase;
-  margin-bottom: 5%;
-  margin-top: 5%;
+  margin-bottom: 30px;
+  margin-top: 30px;
 }
 .room-booking .room-booking-container .room-booking-calender h4 .glyphicon {
   font-size: 1.5em;
@@ -987,8 +1017,13 @@ and open the template in the editor.
   background: #78c9f9;
   text-transform: uppercase;
   color: #fff;
-  font-weight: 100;
+  font-weight: 300;
   font-size: 12px;
+}
+@media (max-width: 767px) {
+  .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker-inline .ui-datepicker-group {
+    width: 100%;
+  }
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker {
   width: 100% !important;
@@ -1025,8 +1060,8 @@ and open the template in the editor.
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td a {
   display: block;
   border-radius: 0px;
-  height: 39px;
-  line-height: 35px;
+  height: 51px;
+  line-height: 49px;
   text-align: center;
   border: 0px;
 }
