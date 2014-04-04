@@ -103,7 +103,7 @@ class RoomBooking extends Element {
 
                     </div>
                 </div>
-                         ';
+            </div>             ';
 
      return $html;
     }
