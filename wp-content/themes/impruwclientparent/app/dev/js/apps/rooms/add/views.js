@@ -10,16 +10,16 @@ define(['app', 'text!apps/rooms/add/templates/add-room.html'], function(App, add
         return AddRoomLayout.__super__.constructor.apply(this, arguments);
       }
 
-      AddRoomLayout.prototype.tagName = 'form';
+      AddRoomLayout.prototype.tagName = 'div';
 
-      AddRoomLayout.prototype.className = 'form-horizontal clearfix';
+      AddRoomLayout.prototype.className = 'add-room-container';
 
       AddRoomLayout.prototype.template = addRoomTpl;
 
       AddRoomLayout.prototype.events = {
         'click #btn_saveroom': function() {
           var data, ele;
-          if (this.$el.valid()) {
+          if (this.$el.find('form').valid()) {
             data = Backbone.Syphon.serialize(this);
             return this.trigger("save:new:room", data);
           } else {

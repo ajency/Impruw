@@ -10,9 +10,9 @@ define(['app', 'text!apps/rooms/edit/templates/edit-room.html'], function(App, a
         return EditRoomLayout.__super__.constructor.apply(this, arguments);
       }
 
-      EditRoomLayout.prototype.tagName = 'form';
+      EditRoomLayout.prototype.tagName = 'div';
 
-      EditRoomLayout.prototype.className = 'form-horizontal clearfix';
+      EditRoomLayout.prototype.className = 'edit-room-container';
 
       EditRoomLayout.prototype.template = addRoomTpl;
 
@@ -35,7 +35,6 @@ define(['app', 'text!apps/rooms/edit/templates/edit-room.html'], function(App, a
       EditRoomLayout.prototype.onShowSuccessMessage = function() {
         this.$el.find('.alert').remove();
         this.$el.prepend('<div class="alert alert-success">Room updated successfully</div>');
-        this.$el.find('#btn_resetroom').click();
         return $('html, body').animate({
           scrollTop: 0
         }, 1000);

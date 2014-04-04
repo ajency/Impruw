@@ -879,6 +879,14 @@ and open the template in the editor.
   background: #9fccc8;
 }
 /* Calender Booking */
+.booking-title {
+  font-size: 2em;
+  font-weight: 300 !important;
+  color: #5ca9a1;
+}
+.room-booking.front {
+  margin: 0 15px;
+}
 .room-booking .room-booking-container {
   background: #9fccc8;
 }
@@ -940,13 +948,15 @@ and open the template in the editor.
   }
 }
 .room-booking .room-booking-container .room-booking-calender {
-  padding: 20px 0 20px;
+  padding: 10px;
 }
 .room-booking .room-booking-container .room-booking-calender h4 {
   font-weight: 600;
   font-size: 1.5em;
   color: #fff;
   text-transform: uppercase;
+  margin-bottom: 5%;
+  margin-top: 5%;
 }
 .room-booking .room-booking-container .room-booking-calender h4 .glyphicon {
   font-size: 1.5em;
@@ -960,9 +970,29 @@ and open the template in the editor.
   font-weight: 300;
   text-transform: none;
 }
+.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker-inline {
+  width: auto !important;
+  border: 0;
+  background: none;
+}
+.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker-inline .ui-datepicker-group {
+  width: 48%;
+  margin-right: 12px;
+}
+.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker-inline .ui-datepicker-group .ui-datepicker-calendar {
+  background: #fff;
+  width: 100%;
+}
+.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker-inline .ui-datepicker-group .ui-datepicker-calendar th {
+  background: #e2efee;
+  text-transform: uppercase;
+  color: #fff;
+  font-weight: 100;
+  font-size: 12px;
+}
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker {
   width: 100% !important;
-  border-color: #5ca9a1;
+  border: none;
   box-shadow: none;
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker:before {
@@ -970,16 +1000,87 @@ and open the template in the editor.
   top: -7px;
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .ui-datepicker-header {
-  background: #5ca9a1;
+  background: #7dbbb4;
   border: none;
+  height: 67px;
+  line-height: 86px;
+  margin: 0px;
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .ui-datepicker-header .ui-datepicker-prev,
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .ui-datepicker-header .ui-datepicker-next {
-  border-color: #5ca9a1;
+  border: 0px;
+  height: 67px;
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .ui-datepicker-header .ui-datepicker-prev:hover,
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .ui-datepicker-header .ui-datepicker-next:hover {
   background: #7dbbb4;
+}
+.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .ui-datepicker-title {
+  line-height: 74px;
+}
+.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td {
+  border: 1px solid #EAEAEA!important;
+  height: 42px!important;
+}
+.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td a {
+  display: block;
+  border-radius: 0px;
+  height: 39px;
+  line-height: 35px;
+  text-align: center;
+  border: 0px;
+}
+.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .booking-red {
+  background: #f97d61;
+}
+.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .booking-red a {
+  color: #fff;
+}
+.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .booking-red a:hover {
+  background: #ffd200;
+}
+.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .booking-orange {
+  background: #ffd200;
+}
+.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .booking-orange a {
+  color: #fff;
+}
+.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .booking-orange a:hover {
+  background: #ffd200;
+}
+.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .booking-blue {
+  background: #5fd7fe;
+}
+.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .booking-blue a {
+  color: #fff;
+}
+.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .booking-blue a:hover {
+  background: #5fd7fe;
+}
+.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .booking-green {
+  background: #84e72f;
+}
+.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .booking-green a {
+  color: #fff;
+}
+.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .booking-green a:hover {
+  background: #84e72f;
+}
+.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .booking-pink {
+  background: #fea5a5;
+}
+.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .booking-pink a {
+  color: #fff;
+}
+.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .booking-pink a:hover {
+  background: #fea5a5;
+}
+.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .ui-datepicker td.unavailabile a {
+  text-decoration: line-through;
+  color: #000 !important;
+}
+.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .ui-datepicker td.semi-availabile a {
+  background: url(../images/gray-semi.png) right no-repeat;
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .ui-state-active {
   background: #5ca9a1;
@@ -1051,12 +1152,6 @@ and open the template in the editor.
 .isotope-item {
   z-index: 2;
   margin: 0.2em;
-}
-.isotope-item.width-1 {
-  width: 200px;
-  height: auto;
-}
-.isotope-item.width-2 {
   width: 200px;
   height: auto;
 }

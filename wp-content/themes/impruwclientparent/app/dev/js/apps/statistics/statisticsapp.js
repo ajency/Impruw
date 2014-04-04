@@ -43,7 +43,8 @@ define(['app', 'controllers/base-controller', 'apps/statistics/weeklydata/weekly
             });
           };
         })(this));
-        return this.show(layout);
+        this.show(layout);
+        return App.vent.trigger("set:active:menu", 'statistics');
       };
 
       return StatisticsController;

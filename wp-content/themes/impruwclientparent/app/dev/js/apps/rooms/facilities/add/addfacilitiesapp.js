@@ -53,7 +53,9 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
 
       AddFacilityView.prototype.events = {
         'click .add-facility': function() {
-          return this.trigger("add:new:facility", Backbone.Syphon.serialize(this));
+          return this.trigger("add:new:facility", {
+            name: this.$el.find('input[name="name"]').val()
+          });
         }
       };
 

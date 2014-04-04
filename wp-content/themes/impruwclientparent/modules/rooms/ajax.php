@@ -34,6 +34,9 @@ function create_room_ajax(){
 }
 add_action('wp_ajax_create-room','create_room_ajax');
 
+/**
+ * 
+ */
 function update_room_ajax(){
 
 	// get all form data
@@ -43,14 +46,26 @@ function update_room_ajax(){
 	unset($formdata['action']);
 
 	// returns the room id
-	$room_id = create_room($formdata);
-
+	$room_id = updateroom($formdata);
+	//wp_send_json(array('code' => 'OK', 'data' => $formdata));
 	// get all room post data
 	$room_data = get_room($room_id);
 
 	wp_send_json(array('code' => 'OK', 'data' => $room_data));
 }
 add_action('wp_ajax_update-room','update_room_ajax');
+
+function read_room_ajax(){
+
+	// returns the room id
+	$room_id = $_REQUEST['ID'];
+
+	// get all room post data
+	$room_data = get_room($room_id);
+
+	wp_send_json(array('code' => 'OK', 'data' => $room_data));
+}
+add_action('wp_ajax_read-room','read_room_ajax');
 
 /**
 * Function to get all room data 

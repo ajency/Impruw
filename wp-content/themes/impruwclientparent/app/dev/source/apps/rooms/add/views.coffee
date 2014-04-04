@@ -6,15 +6,15 @@ define ['app'
 
 				class View.AddRoomLayout extends Marionette.Layout
 						
-					tagName: 'form'
+					tagName: 'div'
 
-					className : 'form-horizontal clearfix'
+					className : 'add-room-container'
 
 					template : addRoomTpl
 
 					events:
 						'click #btn_saveroom' : ->
-							if @$el.valid()
+							if @$el.find('form').valid()
 								data = Backbone.Syphon.serialize @
 								@trigger "save:new:room", data
 							else

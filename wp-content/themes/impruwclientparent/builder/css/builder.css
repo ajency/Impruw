@@ -239,6 +239,7 @@ Version:        0.1.0
 }
 .aj-imp-builder-top-nav .aj-imp-builder-top-options {
   text-align: right;
+  margin: 15px 0;
 }
 .aj-imp-builder-top-nav .aj-imp-builder-top-options .navbar-search {
   max-width: none;
@@ -1914,12 +1915,6 @@ Version:        0.1.0
 .isotope-item {
   z-index: 2;
   margin: 0.2em;
-}
-.isotope-item.width-1 {
-  width: 200px;
-  height: auto;
-}
-.isotope-item.width-2 {
   width: 200px;
   height: auto;
 }

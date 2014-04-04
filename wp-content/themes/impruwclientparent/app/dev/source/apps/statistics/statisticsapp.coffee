@@ -28,6 +28,8 @@ define ['app', 'controllers/base-controller',
 
 				@show layout
 
+				App.vent.trigger "set:active:menu", 'statistics'
+
 
 
 		class StatisticsLayout extends Marionette.Layout

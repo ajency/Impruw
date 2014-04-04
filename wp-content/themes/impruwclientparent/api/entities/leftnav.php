@@ -36,6 +36,11 @@ function get_menu_items() {
 					'url' => '#statistics',
 					'title' => 'Statistics',
 					'icon' => 'stats' 
+			),
+			array (
+					'url' => wp_logout_url(site_url()),
+					'title' => 'Logout',
+					'icon' => 'switch2' 
 			) 
 	);
 	

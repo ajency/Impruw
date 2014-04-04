@@ -6,9 +6,9 @@ define ['app'
 
 				class View.EditRoomLayout extends Marionette.Layout
 						
-					tagName: 'form'
+					tagName: 'div'
 
-					className : 'form-horizontal clearfix'
+					className : 'edit-room-container'
 
 					template : addRoomTpl
 
@@ -27,7 +27,7 @@ define ['app'
 					onShowSuccessMessage:->
 						@$el.find('.alert').remove()
 						@$el.prepend '<div class="alert alert-success">Room updated successfully</div>'
-						@$el.find('#btn_resetroom').click()
+						#@$el.find('#btn_resetroom').click()
 						$('html, body').animate
 							scrollTop: 0
 						,1000

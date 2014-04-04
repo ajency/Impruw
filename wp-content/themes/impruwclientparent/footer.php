@@ -29,7 +29,18 @@
     </script>  
    <?php  endif; ?>
     <?php if(is_page('contact-us')): ?>
-    <script src="<?php echo get_parent_template_directory_uri(); ?>/app/dev/js/plugins/jquery.validate.js"></script>
+    	<script src="<?php echo get_parent_template_directory_uri(); ?>/app/dev/js/plugins/jquery.validate.js"></script>
+    <?php endif; ?>
+    <?php if(is_singular('impruw_room')): ?>
+    	<script src="<?php echo get_parent_template_directory_uri(); ?>/app/dev/js/plugins/isotope.js"></script>
+    	<script>
+    		var $container = jQuery('.gallery').imagesLoaded( function() {
+			  $container.isotope({
+			    // options
+			    itemSelector: '.isotope-element'
+			  });
+			});
+    	</script>
     <?php endif; ?>
 	<?php get_theme_JS() ;?>
 	<?php if(is_page('contact-us')): ?>

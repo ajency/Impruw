@@ -197,7 +197,7 @@ a {
 	.aj-imp-right {
 		background: #fff;
 		.aj-imp-dash-header {
-			margin: 40px 0;
+			margin: 40px -15px;
 			@media (max-width: 767px) { 
 				margin: 0 0 20px;
 			}
@@ -2185,6 +2185,7 @@ form {
 	box-shadow: 1px 1px 2px 0 lighten(@dash-grey, 10%);
 	padding: 0.5em;
 	position: relative;
+	margin: 0 0 1em;
 	.room-tariff-title {
 		h4 {
 			font-size: 1.5em;
@@ -2219,6 +2220,7 @@ form {
 	}
 	.room-tariff-grid {
 		overflow-x: auto; 
+		min-height: 40px;
 		.tariff {
 			position: relative;
 			.date-range {
@@ -2446,22 +2448,8 @@ form {
 .isotope-item {
   z-index: 2;
   margin: 0.2em;
-  &.width-1 {
-  	width: 200px;
-  	height: auto;
-  }
-  &.width-2 {
-  	width: 200px;
-  	height: auto;
-  }
-  /*&.height-1 {
-  	height: 20%;
-  	width: auto;
-  }
-  &.height-2 {
-  	height: 40%;
-  	width: auto;
-  }*/
+  width: 200px;
+  height: auto;
   .img-responsive {
   	width: 100%;
   }
@@ -2621,7 +2609,7 @@ form {
 /*Room Booking Calender*/
 .room-booking{
 	background: #e3e3e3;
-	margin: 0px;
+	margin: 0 0 1em;
 .room-booking-calender{
 				
 				padding: 10px;

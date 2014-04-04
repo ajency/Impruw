@@ -3,7 +3,7 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 define(['app', 'text!apps/builder/site-builder/element/templates/element.html'], function(App, elementTpl) {
-  App.module('SiteBuilderApp.Element.Views', function(Views, App, Backbone, Marionette, $, _) {
+  return App.module('SiteBuilderApp.Element.Views', function(Views, App, Backbone, Marionette, $, _) {
     return Views.ElementView = (function(_super) {
       __extends(ElementView, _super);
 
@@ -131,7 +131,7 @@ define(['app', 'text!apps/builder/site-builder/element/templates/element.html'],
           corners: 1,
           rotate: 9,
           direction: 1,
-          color: '#000',
+          color: '#ff9e2c',
           speed: 1,
           trail: 60,
           shadow: false,
@@ -147,5 +147,4 @@ define(['app', 'text!apps/builder/site-builder/element/templates/element.html'],
 
     })(Marionette.Layout);
   });
-  return App.SiteBuilderApp.Element.Views;
 });
