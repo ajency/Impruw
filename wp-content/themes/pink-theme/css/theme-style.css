@@ -1160,12 +1160,6 @@ and open the template in the editor.
 .isotope-item {
   z-index: 2;
   margin: 0.2em;
-}
-.isotope-item.width-1 {
-  width: 200px;
-  height: auto;
-}
-.isotope-item.width-2 {
   width: 200px;
   height: auto;
 }

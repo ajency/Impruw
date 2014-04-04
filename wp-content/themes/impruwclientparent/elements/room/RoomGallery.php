@@ -90,7 +90,7 @@ class RoomGallery extends SliderElement {
            
            $image_path = $slides[$key]["thumb_url"];
            
-           $html .= '<li class="isotope-element"><img src="'.$image_path.'"></li>' ; 
+           $html .= '<li class="isotope-element"><img src="'.$image_path.'" class="img-responsive"></li>' ; 
         }
         
         $html .= '</ul>';
