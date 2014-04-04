@@ -83,8 +83,7 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/daterange
         return this.$el.find('.dated').datepicker({
           showOtherMonths: true,
           selectOtherMonths: true,
-          dateFormat: "d MM, yy",
-          yearRange: '-1:+1'
+          dateFormat: "d MM, yy"
         }).prev('.btn').on('click', (function(_this) {
           return function(e) {
             e && e.preventDefault();

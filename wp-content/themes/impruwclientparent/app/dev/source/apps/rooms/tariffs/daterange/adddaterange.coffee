@@ -59,7 +59,7 @@ define  ['app','controllers/base-controller', 'text!apps/rooms/tariffs/daterange
 										showOtherMonths: true
 										selectOtherMonths: true
 										dateFormat: "d MM, yy"
-										yearRange: '-1:+1'
+										
 					.prev('.btn').on 'click' , (e) => 
 									e && e.preventDefault();
 									$(datepickerSelector).focus();
