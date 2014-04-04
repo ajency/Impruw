@@ -33,6 +33,7 @@
     jqueryvalidate: 'plugins/jquery.validate',
     polyglot: 'plugins/polyglot',
     app: 'dashboard-app',
+    jpanelmenu  : 'plugins/jquery.jpanelmenu.min',
     bootstrapswitch: 'plugins/bootstrap-switch',
     entitiesloader: 'entities/dashboard-entities-loader'
   },
@@ -62,6 +63,7 @@
       exports: 'nv'
     },
     jqueryvalidate: ['jquery'],
+    jpanelmenu: ['jquery'],
     underscorestring: ['underscore'],
     backboneform: ['backbone'],
     backbonesyphon: ['backbone'],
