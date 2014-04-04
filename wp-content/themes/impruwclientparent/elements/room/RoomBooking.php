@@ -63,34 +63,11 @@ class RoomBooking extends Element {
                             <br>
                             <br>
                             <br>
-                            <ul class="list-inline daterange-legends">
-                                <li><span class="">&nbsp;</span>
-                                </li>
-                                <li><span class="">&nbsp;</span>
-                                </li>
-                                <li><span class="">&nbsp;</span>
-                                </li>
-                                <li><span class="">&nbsp;</span>
-                                </li>
-                                <li><span class="">&nbsp;</span>
-                                </li>
-                                <li><span class="">&nbsp;</span>
-                                </li>
-                                <li><span class="">&nbsp;</span>
-                                </li>
-                                <li><span class="">&nbsp;</span>
-                                </li>
-                                <li><span class="">&nbsp;</span>
-                                </li>
-                                <li><span class="">&nbsp;</span>
-                                </li>
-                                <li><span class="">&nbsp;</span>
-                                </li>
-                                <li><span class="">&nbsp;</span>
-                                </li>
-                                <li><span class="">&nbsp;</span>
-                                </li>
-                            </ul>
+                            <ul class="list-inline daterange-legends"> ';
+     
+     $html .= $this->get_daterange_legends();
+                              
+           $html .= '       </ul>
                         </div>
                     </div>
                     <div class="col-md-4 room-booking-data" id="plans-details-region">
@@ -160,6 +137,40 @@ class RoomBooking extends Element {
                          ';
 
      return $html;
+    }
+    
+  // slug the date range name  
+    function slugify($str){
+        $str = strtolower(trim($str));
+	$str = preg_replace('/[^a-z0-9-]/', '-', $str);
+	$str = preg_replace('/-+/', "-", $str);
+	return $str;
+    }
+    
+    function get_daterange_legends() {
+        global $me;
+        
+        $html ='';
+        
+        $daterange =get_date_range();
+        
+      
+        foreach ($daterange as $key => $value) {
+            
+            $data = array(
+                            'daterange_name'=> $daterange[$key]['daterange_name'],
+                            'daterange_class'=> $this->slugify($daterange[$key]['daterange_name'])
+                    );
+            
+            $template = ' <li>
+                            <span class="{{daterange_class}}">&nbsp;</span>
+                            {{daterange_name}}
+                         </li>';
+            
+            $html .= $me->render($template,$data);
+        }
+        
+        return $html;
     }
 
 }
