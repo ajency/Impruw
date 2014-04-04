@@ -104,9 +104,8 @@ class RoomBooking extends Element {
                                     </div>
                                 </div>
                           </div> 
-                </div>
-                </div>
-            </div>             ';
+                    </div>
+                </div>';
 
      return $html;
     }
