@@ -85,9 +85,13 @@
   font-family: 'Helvetica', sans-serif;
   font-weight: 400;
   /*-- Site Builder Container --*/
+
   /****Selection Color****/
+
   /****Link Styles****/
+
   /****Heading Styles****/
+
 }
 .site-style-container .site-header,
 .site-style-container .site-footer,
@@ -1037,6 +1041,7 @@ and open the template in the editor.
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker:before {
   border-bottom-color: #ffb266;
   top: -7px;
+  display: none;
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .ui-datepicker-header {
   background: #ff9833;
