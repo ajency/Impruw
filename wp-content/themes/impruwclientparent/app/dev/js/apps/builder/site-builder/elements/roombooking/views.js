@@ -14,6 +14,14 @@ define(['app', 'text!apps/builder/site-builder/elements/roombooking/template/mai
 
       RoomBookingView.prototype.template = mainTpl;
 
+      RoomBookingView.prototype.onShow = function() {
+        return this.$el.find('#room-booking-calendar').datepicker({
+          inline: true,
+          numberOfMonths: 2,
+          dateFormat: 'yy-mm-dd'
+        });
+      };
+
       return RoomBookingView;
 
     })(Marionette.ItemView);

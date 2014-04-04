@@ -12,7 +12,7 @@ define(['app'], function(App) {
 
       RoomDescriptionView.prototype.className = 'roomdescription';
 
-      RoomDescriptionView.prototype.template = '<div class="room-description-container clearfix"> <div class="room-description"> <h1>Room Description</h1> <div class="room-description-desc">Lorem ipsum dolor sit amet</div> </div> </div>';
+      RoomDescriptionView.prototype.template = '<div class="room-description-container clearfix"> <div class="room-description"> <h1>Room Description</h1> <div class="room-description-desc">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</div> </div> </div>';
 
       return RoomDescriptionView;
 
