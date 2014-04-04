@@ -937,6 +937,11 @@ and open the template in the editor.
   display: block;
   font-weight: 300;
 }
+.room-booking .room-booking-container .room-booking-data .date-range .status {
+  font-size: 1.0em;
+  text-transform: uppercase;
+  padding-top: 13px;
+}
 .room-booking .room-booking-container .room-booking-data .room-booking-plan {
   color: #fff;
   border-bottom: 1px dashed #280E0E;
@@ -947,6 +952,11 @@ and open the template in the editor.
   font-weight: 600;
   font-size: 1.5em;
   color: #e2efee;
+}
+.room-booking .room-booking-container .room-booking-data .room-booking-plan .plan-bg {
+  background: #7dbbb4;
+  padding: 1px 4px;
+  margin-top: 2%;
 }
 .room-booking .room-booking-container .room-booking-data .room-booking-plan .booking-detail {
   width: 50%;
@@ -965,7 +975,6 @@ and open the template in the editor.
   font-size: 1.0em;
   text-transform: uppercase;
   color: #fff;
-  margin-top: 5%;
 }
 .room-booking .room-booking-container .room-booking-data .room-booking-plan .booking-price {
   font-size: 0.8em;
