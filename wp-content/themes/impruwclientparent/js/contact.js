@@ -144,7 +144,7 @@ jQuery(document).ready(function($){
        
         function getColour(){
             
-          var classNames = ['green', 'red', 'orange', 'blue', 'pink'];
+          var classNames = ['green', 'red', 'orange', 'blue', 'pink','yellow'];
           
           var arr =[]; 
           for(var i=0; i< DATERANGE.length; i++){
