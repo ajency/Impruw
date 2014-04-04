@@ -77,6 +77,7 @@ class RoomBooking extends Element {
                         <div class="date-range">
                             You have selected
                             <b>18 Jan to 16 Jan </b>
+                            <p class="status">Available</p>
                         </div>
                         <div class="room-booking-plan">
                             <h5>Plan 1 </h5>

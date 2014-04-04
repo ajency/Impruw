@@ -180,6 +180,8 @@ jQuery(document).ready(function($){
           var selected_date = moment(date).format('D MMM');
           
           $('.date-range').find('b').text(selected_date);
+          
+          $('.status').text(getAvailabilityClassName(date));
          
       }
       
@@ -248,7 +250,7 @@ jQuery(document).ready(function($){
 
                         html += '<div class="clearfix"></div>';
                         
-                        html += '<div class="booking-price">WEEKDAYS <b>$'+weekday.charge+'</b>';
+                        html += '<div class="booking-price">WEEKDAYS <b>$'+weekday.charge+'</b></div>';
                         
                         html += '<div class="booking-detail">Max Adults Weekend:<span>'+
                                 weekend.max_adults+'</span></div>';
@@ -267,14 +269,14 @@ jQuery(document).ready(function($){
 
                         html += '<div class="clearfix"></div>';
                         
-                        html += '<div class="booking-price">WEEKEND <b>$'+weekend.charge+'</b>';
-  
+                        html += '<div class="booking-price">WEEKEND <b>$'+weekend.charge+'</b></div>';
+                       
                         html += '<div>';
                     }
                    
                }
                else{
-                   console.log(TARIFF[i].daterange_id+'----'+daterange_id);
+                   //console.log(TARIFF[i].daterange_id+'----'+daterange_id);
                   // html = ' <div class="room-booking-plan"><h5>No plans in tariff table</h5></div>'; 
                }
            }
