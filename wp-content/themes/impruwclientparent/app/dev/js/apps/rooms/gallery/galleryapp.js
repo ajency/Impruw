@@ -19,7 +19,9 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
           throw new Error("Slides collection not found");
         }
         this.galleryView = this._getGalleryView(collection);
-        return this.show(this.galleryView);
+        return this.show(this.galleryView, {
+          loading: true
+        });
       };
 
       GalleryController.prototype._getGalleryView = function(collection) {
@@ -98,7 +100,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
           };
         })(this));
         ww = $('#gallery-region').width();
-        return $('.isotope').width(ww);
+        return this.$el.width(ww);
       };
 
       return GalleryView;
