@@ -379,6 +379,38 @@
 	font-weight: 300 !important;
 	color: @primary1;
 }
+.daterange-legends{
+	text-transform:uppercase;
+	font-size:0.9em;
+	color:#fff;
+	li{
+			span{
+			width: 13px;
+			height: 13px;
+			display: inline-block;
+			background: #ccc;
+			margin-right: 5px;
+		}
+		@media(max-width:767px){
+			padding:5px;
+		}
+	}
+	.booking-red{
+		background:#f97d61;
+	}
+	.booking-blue{
+		background:#5fd7fe;
+	}
+	.booking-orange{
+		background:#ffd200;
+	}
+	.booking-pink{
+		background:#fea5a5;
+	}
+	.booking-green{
+		background:#84e72f;
+	}
+}
 
 .room-booking{
 	&.front {
@@ -389,6 +421,7 @@
 		.room-booking-data{
 			background: @primary1;
 			padding-top:1em;
+			min-height: 590px;
 			.date-range{
 				font-size:1.3em;
 				color:#fff;
@@ -407,7 +440,7 @@
 				h5{
 					font-weight: 600;
 					font-size: 1.5em;
-					color: rgba(40, 37, 37, 0.83);
+					color:lighten(@primary1, 40%);
 				}
 				.booking-detail{
 					width:50%;
@@ -437,6 +470,7 @@
 					}
 				}
 			}
+			
 			@media(max-width:767px){
 				display: block;
 			}
@@ -448,8 +482,8 @@
 				font-size: 1.5em;
 				color: #fff;
 				text-transform: uppercase;
-				margin-bottom: 5%;
-				margin-top: 5%;
+				margin-bottom: 30px;
+				margin-top: 30px;
 				.glyphicon {
 					font-size: 1.5em;
 					color: #fff;
@@ -478,9 +512,12 @@
 												background:lighten(@primary1, 40%);
 												text-transform:uppercase;
 												color:#fff;
-												font-weight: 100;
+												font-weight: 300;
 												font-size: 12px;
 											}
+										}
+										@media(max-width:767px){
+											width: 100%;
 										}
 									}
 							}
@@ -518,8 +555,8 @@
 								a{
 										display: block;
 										border-radius:0px;
-										height: 39px;
-										line-height: 35px;
+										height: 51px;
+										line-height: 49px;
 										text-align: center;
 										border:0px;
 								}
@@ -575,6 +612,7 @@
 						}
 					
 					}
+					
 					.ui-datepicker td.unavailabile {
 										a{
 											text-decoration:line-through;
