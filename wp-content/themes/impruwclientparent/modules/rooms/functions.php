@@ -7,13 +7,7 @@
  */
 include_once PARENTTHEMEPATH . 'modules/slider/functions.php';
 
-function create_room($formdata) {
-	
-
-    if($formdata['post_status'] === 'draft'){
-            $post_id = create_draft_room();
-            return $post_id; 
-    }
+function updateroom($formdata) {
 
 	if($formdata['post_status'] === 'auto-draft'){
 		$post_id = create_draft_room();
@@ -32,6 +26,8 @@ function create_room($formdata) {
 
     // prepare facility array
     $facility = $formdata['facility'];
+    
+    $facility_ids = array();
 
     // get selected facilities
     foreach ($facility as $key => $value) {
@@ -43,6 +39,7 @@ function create_room($formdata) {
 
     // prepare the data array
     $data = array(
+    	'ID'		=> $formdata['ID'],
         'post_title' => $post_title,
         'post_content' => $post_content,
         'post_type' => $post_type,
@@ -50,7 +47,7 @@ function create_room($formdata) {
     );
 
     //insert data array into the post table using wp function
-    $post_id = wp_insert_post($data, false);
+    $post_id = wp_update_post($data, false);
 
 
     // if post insert succesfull
