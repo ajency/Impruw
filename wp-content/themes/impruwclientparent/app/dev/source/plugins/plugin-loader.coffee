@@ -25,4 +25,5 @@ define [
 		#'datepicker'
 		#'nvd3'
 		'isotope'
+		'jpanelmenu'
 		],->
