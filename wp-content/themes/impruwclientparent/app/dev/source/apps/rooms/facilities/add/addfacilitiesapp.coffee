@@ -44,7 +44,7 @@ define ['app'
 
 					events : 
 						'click .add-facility' : ->
-							@trigger "add:new:facility", Backbone.Syphon.serialize @
+							@trigger "add:new:facility", name : @$el.find('input[name="name"]').val()
 
 					onFacilityAdded:->
 						@$el.find('input').val ''

@@ -49,7 +49,7 @@ function new_user_registration() {
 	$site_id = create_new_site ( $form_data ['site_name'], $user_id );
 	
 	if (is_wp_error ( $site_id ))
-		wp_send_json_success ( 'Failed to create site' );
+		wp_send_json_error( 'Failed to create site' );
 	
 	wp_send_json_success ();
 }
