@@ -2,6 +2,7 @@ define  ['app'
 		'controllers/base-controller'
 		'apps/rooms/tariffs/show/showcontroller'
 		'apps/rooms/tariffs/edittariff/edittariff'
+		'apps/rooms/tariffs/addtariff/addtariff'
 		'apps/rooms/tariffs/daterange/adddaterange'
 		'apps/rooms/tariffs/plan/addplan'],(App, AppController)->
 

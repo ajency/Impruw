@@ -1,9 +1,9 @@
 var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-define(['app'], function(App) {
+define(['app', 'moment'], function(App, moment) {
   return App.module("RoomsApp.RoomsTariff.Show.Views", function(Views, App) {
-    var PackageSingle, SingleTariff;
+    var DateRageView, PackageSingle, SingleTariff;
     PackageSingle = (function(_super) {
       __extends(PackageSingle, _super);
 
@@ -13,12 +13,12 @@ define(['app'], function(App) {
 
       PackageSingle.prototype.className = 'package-block-outer';
 
-      PackageSingle.prototype.template = '<div class="block clearfix"> <h6>{{plan_name}}</h6> <div class="package-desc"> {{plan_description}} </div> </div>';
+      PackageSingle.prototype.template = '<div class="block clearfix"> <h6>{{plan_name}}</h6> <div class="package-desc"> {{plandescription}} </div> </div>';
 
       PackageSingle.prototype.serializeData = function() {
         var data;
         data = PackageSingle.__super__.serializeData.call(this);
-        data.packagedescription = function() {
+        data.plandescription = function() {
           return _(this.plan_description).prune(50);
         };
         return data;
@@ -52,126 +52,114 @@ define(['app'], function(App) {
         return SingleTariff.__super__.constructor.apply(this, arguments);
       }
 
-      SingleTariff.prototype.template = '<div class="package-block-outer"> <div class="block clearfix"> <div class="weekday"> Weekdays <span class="price">{{weekdays.charge}}</span> </div> <div class="weekend"> Weekends <span class="price">{{weekends.charge}}</span> </div> <div class="tariff-label clearfix">Extra Adult</div> <div class="weekday"> <span class="price">{{weekdays.extra_adult}}</span> </div> <div class="weekend"> <span class="price">{{weekends.extra_adult}}</span> </div> <div class="tariff-label clearfix">Extra Child</div> <div class="weekday"> <span class="price">{{weekdays.extra_child}}</span> </div> <div class="weekend"> <span class="price">{{weekends.extra_child}}</span> </div> <div class="block-action"> <button type="button" class="btn btn-sm edit-trariff edit-tran"><span class="glyphicon glyphicon-pencil"></span>&nbsp;Edit</button> </div> </div> </div>';
+      SingleTariff.prototype.className = 'package-block-outer';
 
-      SingleTariff.prototype.onRender = function() {
-        return this.$el.find('div.not-applicable').click((function(_this) {
-          return function() {
-            alert("dsdsds");
-            return _this.trigger("show:add:tariff");
-          };
-        })(this));
+      SingleTariff.prototype.events = {
+        'click .edit-trariff': function() {
+          return App.execute("show:edit:tariff", {
+            model: this.model
+          });
+        },
+        'click .not-yet-added': function() {
+          return App.execute("show:add:tariff", {
+            model: this.model
+          });
+        }
       };
+
+      SingleTariff.prototype.modelEvents = {
+        'change': 'render'
+      };
+
+      SingleTariff.prototype.render = function() {
+        console.log(this.model);
+        return SingleTariff.__super__.render.call(this);
+      };
+
+      SingleTariff.prototype.template = '{{^id}} <div class="block clearfix not-yet-added"><h4>NA</h4></div> {{/id}} {{#id}} <div class="block clearfix"> <div class="weekday"> Weekdays <span class="price">{{weekdays.charge}}</span> </div> <div class="weekend"> Weekends <span class="price">{{weekends.charge}}</span> </div> <div class="tariff-label clearfix">Extra Adult</div> <div class="weekday"> <span class="price">{{weekdays.extra_adult}}</span> </div> <div class="weekend"> <span class="price">{{weekends.extra_adult}}</span> </div> <div class="tariff-label clearfix">Extra Child</div> <div class="weekday"> <span class="price">{{weekdays.extra_child}}</span> </div> <div class="weekend"> <span class="price">{{weekends.extra_child}}</span> </div> <div class="block-action"> <button type="button" class="btn btn-sm edit-trariff edit-tran"><span class="glyphicon glyphicon-pencil"></span>&nbsp;Edit</button> </div> </div> {{/id}}';
 
       return SingleTariff;
 
     })(Marionette.ItemView);
-    return Views.TariffsView = (function(_super) {
-      __extends(TariffsView, _super);
+    DateRageView = (function(_super) {
+      __extends(DateRageView, _super);
 
-      function TariffsView() {
-        return TariffsView.__super__.constructor.apply(this, arguments);
+      function DateRageView() {
+        return DateRageView.__super__.constructor.apply(this, arguments);
       }
 
-      TariffsView.prototype.template = '';
+      DateRageView.prototype.template = '<div class="date-range"> <div class="from"> <span class="date">{{fromdate}}</span> to <span class="date">{{todate}}</span> </div> </div> <div class="packages"> <div class="package-blocks clearfix"></div> </div>';
 
-      TariffsView.prototype.dateRangeTemplate = '<div class="date-range"> <div class="from"> <span class="date">{{startdate}}</span> to <span class="date">{{enddate}}</span> </div> </div>';
-
-      TariffsView.prototype.dateRangeItemViewContainer = '.package-blocks';
-
-      TariffsView.prototype.render = function() {
-        var dCollection, html;
-        this.isRendered = true;
-        this.isClosed = false;
-        this.triggerBeforeRender();
-        dCollection = Marionette.getOption(this, 'dateRangeCollection');
-        html = '';
-        dCollection.each((function(_this) {
-          return function(model) {
-            return html += _this.renderDaterange(model);
-          };
-        })(this));
-        this.$el.html(html);
-        return this;
-      };
-
-      TariffsView.prototype.renderDaterange = function(model) {
-        var data, html, markup, template;
-        data = this.serailizeDaterangeModel(model);
-        template = this.dateRangeTemplate;
-        html = Marionette.Renderer.render(template, data);
-        markup = '<div class="tariff clearfix">';
-        markup += html;
-        markup += '	<div class="packages"> <div class="package-blocks clearfix">';
-        markup += this.renderTariffs(model.get('id'));
-        markup += '</div> </div> </div> <hr />';
-        return markup;
-      };
-
-      TariffsView.prototype.renderTariffs = function(dateRangeId) {
-        var html, plans;
-        plans = Marionette.getOption(this, 'planCollection');
-        html = '';
-        plans.each((function(_this) {
-          return function(plan) {
-            var tariff;
-            tariff = _this.getTariff(plan.get('id'), dateRangeId);
-            tariff = tariff === false ? new Backbone.Model : tariff;
-            return html += _this.getTariffView(tariff);
-          };
-        })(this));
-        return html;
-      };
-
-      TariffsView.prototype.getTariffView = function(tariff) {
-        var opt, v;
-        opt = {
-          model: tariff
-        };
-        if (tariff.isNew()) {
-          opt.template = '<div class="package-block-outer not-applicable"> <div class="block clearfix"> <h4>NA</h4> </div> </div>';
-        }
-        v = new SingleTariff(opt);
-        this.listenTo(v, "show:add:tariff", (function(_this) {
-          return function() {
-            console.log("Dsdsds");
-            return _this.trigger("itemview:show:add:tariff", v);
-          };
-        })(this));
-        this.listenTo(v, "show:edit:tariff", (function(_this) {
-          return function(model) {
-            return _this.trigger("itemview:show:edit:tariff", v, model);
-          };
-        })(this));
-        v.render();
-        return v.$el.html();
-      };
-
-      TariffsView.prototype.getTariff = function(planId, dateRangeId) {
-        var models;
-        models = this.collection.filter(function(model) {
-          return model.get('plan_id') === planId && model.get('daterange_id') === dateRangeId;
-        });
-        if (models.length > 0) {
-          return models[0];
-        }
-        return false;
-      };
-
-      TariffsView.prototype.serailizeDaterangeModel = function(model) {
+      DateRageView.prototype.serializeData = function() {
         var data;
-        data = model.toJSON();
-        data.startdate = function() {
+        data = DateRageView.__super__.serializeData.call(this);
+        data.fromdate = function() {
           return moment(this.from_date).format('Do-MMM');
         };
-        data.enddate = function() {
+        data.todate = function() {
           return moment(this.to_date).format('Do-MMM');
         };
         return data;
       };
 
-      return TariffsView;
+      DateRageView.prototype.itemView = SingleTariff;
+
+      DateRageView.prototype.itemViewContainer = '.package-blocks';
+
+      return DateRageView;
 
     })(Marionette.CompositeView);
+    return Views.DateRangeCollectionView = (function(_super) {
+      __extends(DateRangeCollectionView, _super);
+
+      function DateRangeCollectionView() {
+        return DateRangeCollectionView.__super__.constructor.apply(this, arguments);
+      }
+
+      DateRangeCollectionView.prototype.className = 'tariff clearfix';
+
+      DateRangeCollectionView.prototype.itemView = DateRageView;
+
+      DateRangeCollectionView.prototype.itemViewOptions = function(item, index) {
+        var dateRangeId, getTariff, plans, tariffCollection, tariffs;
+        dateRangeId = item.get('id');
+        tariffs = App.request("get:tariffs:for:daterange", dateRangeId);
+        plans = App.request("get:plans:collection");
+        tariffCollection = new Backbone.Collection;
+        getTariff = function(planId) {
+          var tariff;
+          tariff = _.filter(tariffs, function(t) {
+            return t.get('plan_id') === planId && t.get('daterange_id') === dateRangeId;
+          });
+          if (tariff.length > 0) {
+            return tariff[0];
+          }
+          return false;
+        };
+        plans.each((function(_this) {
+          return function(plan, index) {
+            var tariff;
+            tariff = getTariff(plan.get('id'));
+            if (tariff === false) {
+              tariff = new Backbone.Model;
+              tariff.set({
+                plan_id: plan.get('id'),
+                daterange_id: dateRangeId
+              });
+            } else {
+              tariff = new Backbone.Model(tariff);
+            }
+            tariff.name = 'tariff';
+            return tariffCollection.add(tariff);
+          };
+        })(this));
+        return {
+          collection: tariffCollection
+        };
+      };
+
+      return DateRangeCollectionView;
+
+    })(Marionette.CollectionView);
   });
 });

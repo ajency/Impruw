@@ -1,8 +1,8 @@
-define  ['app','controllers/base-controller', 'text!apps/rooms/tariffs/edittariff/templates/edittariff.html'],(App, AppController, editTariffTpl)->
+define  ['app','controllers/base-controller', 'text!apps/rooms/tariffs/addtariff/templates/addtariff.html'],(App, AppController, addTariffTpl)->
 
-	App.module "RoomsApp.RoomsTariff.Edit", (Edit, App)->	
+	App.module "RoomsApp.RoomsTariff.Add", (Add, App)->	
 
-		class EditTariffController extends AppController
+		class AddTariffController extends AppController
 
 			initialize:(opt)->
 
@@ -11,9 +11,9 @@ define  ['app','controllers/base-controller', 'text!apps/rooms/tariffs/edittarif
 				else 
 					tariff = opt.model
 
-				@tariffView = tariffView = @_getEditTariffView tariff
+				@tariffView = tariffView = @_getAddTariffView tariff
 
-				@listenTo tariffView, "update:tariff:details", (data)=>
+				@listenTo tariffView, "add:tariff", (data)=>
 					tariff.set data
 					tariff.save null,
 							wait : true
@@ -26,31 +26,30 @@ define  ['app','controllers/base-controller', 'text!apps/rooms/tariffs/edittarif
 				@tariffView.triggerMethod "saved:tariff"
 
 			# get the packages view
-			_getEditTariffView :(tariff)->
-				new EditTariffView
-						model : tariff
+			_getAddTariffView :(tariff)->
+				new AddTariffView
 
 		# Edti tariff view
-		class EditTariffView extends Marionette.ItemView
+		class AddTariffView extends Marionette.ItemView
 
 			tagName : 'form'
 
 			className : 'form-horizontal'
 
-			template : editTariffTpl
+			template : addTariffTpl
 
 			dialogOptions : 
-				modal_title : 'Edit Tariff'
+				modal_title : 'Add Tariff'
 				modal_size  : 'medium-modal'
 
 			events:
 				'click .update-tariff' : ->
 					if @$el.valid()
 						data = Backbone.Syphon.serialize @
-						@trigger "update:tariff:details", data
+						@trigger "add:tariff", data
 
 			onSavedTariff:->
-				@$el.parent().prepend '<div class="alert alert-success">Saved successfully</div>'
+				@$el.parent().prepend '<div class="alert alert-success">Added successfully</div>'
 
 			# show checkbox
 			onShow:->
@@ -58,10 +57,10 @@ define  ['app','controllers/base-controller', 'text!apps/rooms/tariffs/edittarif
 
 
 		# handler
-		App.commands.setHandler "show:edit:tariff", (opt)->
+		App.commands.setHandler "show:add:tariff", (opt)->
 
 			opts = 
 				region : App.dialogRegion
 				model : opt.model
-			
-			new EditTariffController opts
+
+			new AddTariffController opts

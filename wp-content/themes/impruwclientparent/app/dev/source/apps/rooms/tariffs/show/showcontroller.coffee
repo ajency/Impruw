@@ -13,26 +13,17 @@ define  ['app','controllers/base-controller', 'apps/rooms/tariffs/show/views'],(
 
 				pcollection = App.request "get:plans:collection"
 				dcollection = App.request "get:daterange:collection"
-				tcollection = App.request "get:tariffs:collection", @roomId
 				
 				@layout = @_getGridLayout()
 
 				# get the packages view
 				@packagesView = @_getPackagesView pcollection
 
-				@tariffsView = @_getTariffsView tcollection, dcollection, pcollection
-
-				@listenTo @tariffsView, 'itemview:show:edit:tariff', (iv,model)=>
-					console.log model
-					App.execute "show:edit:tariff", model
-
-				@listenTo @tariffsView, 'itemview:show:add:tariff', (iv)=>
-					console.log "dsdsd"
-					App.execute "show:add:tariff", id
+				@dateRangeView = @_getDateRangeView dcollection
 
 				@listenTo @layout, "show", =>
 					@layout.packagesRegion.show @packagesView
-					@layout.tariffRegion.show @tariffsView
+					@layout.tariffRegion.show @dateRangeView
 
 				@show @layout, 
 						loading : true
@@ -43,11 +34,9 @@ define  ['app','controllers/base-controller', 'apps/rooms/tariffs/show/views'],(
 							collection 	: pCollection
 
 			# get the tariffs view
-			_getTariffsView :(tcollection, dcollection, pCollection)->
-				new Show.Views.TariffsView
-							collection : tcollection
-							dateRangeCollection : dcollection
-							planCollection : pCollection
+			_getDateRangeView :(dCollection)->
+				new Show.Views.DateRangeCollectionView
+							collection : dCollection
 			
 			# grid layout
 			_getGridLayout:->

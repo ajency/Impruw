@@ -3,7 +3,7 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/edittariff/templates/edittariff.html'], function(App, AppController, editTariffTpl) {
-  return App.module("RoomsApp.RoomsTariff.Show", function(Show, App) {
+  return App.module("RoomsApp.RoomsTariff.Edit", function(Edit, App) {
     var EditTariffController, EditTariffView;
     EditTariffController = (function(_super) {
       __extends(EditTariffController, _super);
@@ -90,13 +90,9 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/edittarif
     return App.commands.setHandler("show:edit:tariff", function(opt) {
       var opts;
       opts = {
-        region: App.dialogRegion
+        region: App.dialogRegion,
+        model: opt.model
       };
-      if (opt.tariffModel) {
-        opts.model = opt.tariffModel;
-      } else {
-        opts.tariffId = opt.tariffId;
-      }
       return new EditTariffController(opts);
     });
   });

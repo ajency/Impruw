@@ -52,6 +52,11 @@ define(["app", 'backbone'], function(App, Backbone) {
         });
         return tariffCollection;
       },
+      getTariffsForDateRange: function(daterangeId) {
+        return tariffCollection.where({
+          'daterange_id': daterangeId
+        });
+      },
       getTariff: function(id) {
         var tariff;
         tariff = new Tariff({
@@ -63,6 +68,9 @@ define(["app", 'backbone'], function(App, Backbone) {
     };
     App.reqres.setHandler("get:tariffs:collection", function(roomId) {
       return API.getTariffCollection(roomId);
+    });
+    App.reqres.setHandler("get:tariffs:for:daterange", function(daterangeId) {
+      return API.getTariffsForDateRange(daterangeId);
     });
     return App.reqres.setHandler("get:tariff", function(id) {
       return API.getTariff(id);

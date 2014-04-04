@@ -111,9 +111,8 @@ class RoomBooking extends Element {
                                 </div> <!-- slider inner -->
                             </div> <!-- slider -->
                           </div> 
-                </div>
-                </div>
-                         ';
+                    </div>
+                </div>';
 
      return $html;
     }
