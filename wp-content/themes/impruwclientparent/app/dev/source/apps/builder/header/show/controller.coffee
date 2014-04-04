@@ -13,7 +13,7 @@ define ['app', 'controllers/base-controller'
 						pages = App.request "get:editable:pages"
 
 						@view = view = new Show.Views.MainView
-											collection : pages	
+												collection : pages	
 
 						@listenTo view, "add:new:page:clicked", ->
 							App.execute "show:add:new:page", region : App.dialogRegion

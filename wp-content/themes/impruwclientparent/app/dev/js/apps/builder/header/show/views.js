@@ -38,6 +38,13 @@ define(['app', 'text!apps/builder/header/show/templates/mainview.html'], functio
 
       MainView.prototype.className = 'navbar navbar-default';
 
+      MainView.prototype.serializeData = function() {
+        var data;
+        data = MainView.__super__.serializeData.call(this);
+        data.LOGOUTURL = LOGOUTURL;
+        return data;
+      };
+
       MainView.prototype.events = {
         'change select#aj-imp-page-sel': function(evt) {
           return this.trigger('editable:page:changed', $(evt.target).val());

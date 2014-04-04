@@ -27,6 +27,13 @@ define ['app'
 
 					className : 'navbar navbar-default'
 
+					serializeData:->
+						data = super()
+
+						data.LOGOUTURL = LOGOUTURL
+
+						data
+
 					events:
 						'change select#aj-imp-page-sel' : (evt)-> 
 									@trigger 'editable:page:changed', $(evt.target).val()
