@@ -87,11 +87,8 @@
   font-family: 'Lato', sans-serif;
   font-weight: 400;
   /****Selection Color****/
-
   /****Link Styles****/
-
   /****Heading Styles****/
-
 }
 .site-style-container ::selection {
   background: #07669e;
@@ -937,6 +934,11 @@ and open the template in the editor.
   display: block;
   font-weight: 300;
 }
+.room-booking .room-booking-container .room-booking-data .date-range .status {
+  font-size: 1.0em;
+  text-transform: uppercase;
+  padding-top: 13px;
+}
 .room-booking .room-booking-container .room-booking-data .room-booking-plan {
   color: #fff;
   border-bottom: 1px dashed #280E0E;
@@ -947,6 +949,11 @@ and open the template in the editor.
   font-weight: 600;
   font-size: 1.5em;
   color: #78c9f9;
+}
+.room-booking .room-booking-container .room-booking-data .room-booking-plan .plan-bg {
+  background: #0986cf;
+  padding: 1px 4px;
+  margin-top: 2%;
 }
 .room-booking .room-booking-container .room-booking-data .room-booking-plan .booking-detail {
   width: 50%;
@@ -965,7 +972,6 @@ and open the template in the editor.
   font-size: 1.0em;
   text-transform: uppercase;
   color: #fff;
-  margin-top: 5%;
 }
 .room-booking .room-booking-container .room-booking-data .room-booking-plan .booking-price {
   font-size: 0.8em;
