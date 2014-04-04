@@ -442,12 +442,14 @@
 			}
 		}
 		.room-booking-calender{
-			padding: 20px 0 20px;
+				padding: 10px;
 			h4{
 				font-weight: 600;
 				font-size: 1.5em;
 				color: #fff;
 				text-transform: uppercase;
+				margin-bottom: 5%;
+				margin-top: 5%;
 				.glyphicon {
 					font-size: 1.5em;
 					color: #fff;
@@ -462,24 +464,128 @@
 				}
 			}
 			#room-booking-calendar {
+			.ui-datepicker-inline{
+								width:auto !important;
+								border: 0;
+								background:none;
+								.ui-datepicker-group {
+									width: 48%;
+									margin-right: 12px;
+										.ui-datepicker-calendar{
+											background:#fff;
+											width:100%;
+											th{
+												background:lighten(@primary1, 40%);
+												text-transform:uppercase;
+												color:#fff;
+												font-weight: 100;
+												font-size: 12px;
+											}
+										}
+									}
+							}
 				.ui-datepicker {
 					width: 100% !important;
-					border-color: @primary1;
+					border: none;
 					box-shadow: none;
+					
 					&:before {
 						border-bottom-color: lighten(@primary1, 20%);
 						top: -7px;
 					}
 					.ui-datepicker-header {
-						background: @primary1;
+						background: lighten(@primary1, 10%);
 						border: none;
+						height: 67px;
+						line-height: 86px;
+						margin:0px;
 						.ui-datepicker-prev, .ui-datepicker-next {
-							border-color: @primary1;
+							border: 0px;
+							height: 67px;
 							&:hover {
 								background: lighten(@primary1, 10%);
 							}
 						}
 					}
+					.ui-datepicker-title{
+						line-height: 74px;
+					}
+					
+						td {
+								border: 1px solid #EAEAEA!important;
+								height:42px!important;
+								a{
+										display: block;
+										border-radius:0px;
+										height: 39px;
+										line-height: 35px;
+										text-align: center;
+										border:0px;
+								}
+								
+							}
+								.booking-red{
+						background:#f97d61;
+						a{
+							color:#fff;
+							&:hover{
+								background:#ffd200;
+							}
+						}
+						
+					}
+					.booking-orange{
+					background:#ffd200;
+						a{
+							color:#fff;
+							&:hover{
+								background:#ffd200;
+							}
+						}
+						
+					}
+						.booking-blue{
+					background:#5fd7fe;
+						a{
+							color:#fff;
+							&:hover{
+							background:#5fd7fe;
+							}
+						}
+						
+					}
+						.booking-green{
+					background:#84e72f;
+						a{
+							color:#fff;
+							&:hover{
+							background:#84e72f;
+						}
+						}
+						
+					}
+						.booking-pink{
+					background:#fea5a5;
+						a{
+							color:#fff;
+							&:hover{
+								background:#fea5a5;
+							}
+						}
+					
+					}
+					.ui-datepicker td.unavailabile {
+										a{
+											text-decoration:line-through;
+											color:#000 !important;
+										}
+									}
+									.ui-datepicker td.semi-availabile {
+										a{
+										
+											background:url(../images/gray-semi.png)right no-repeat;
+										}
+									}
 					.ui-state-active {
 						background: @primary1;
 					}
@@ -614,3 +720,4 @@
        -o-transition-duration: 0s;
           transition-duration: 0s;
 }
+
