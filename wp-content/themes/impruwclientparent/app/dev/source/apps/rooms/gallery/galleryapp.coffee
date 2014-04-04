@@ -15,7 +15,7 @@ define ['app','controllers/base-controller'], (App, AppController)->
 
 				@galleryView = @_getGalleryView collection
 					
-				@show @galleryView
+				@show @galleryView, loading: true
 
 			_getGalleryView : (collection)->
 				new GalleryView 
@@ -60,7 +60,7 @@ define ['app','controllers/base-controller'], (App, AppController)->
 						layoutMode : 'masonry'
 
 				ww = $('#gallery-region').width()
-				$('.isotope').width(ww)
+				@$el.width(ww)
 
 		App.commands.setHandler "show:gallery:images",(opt)->
 			new GalleryController opt
