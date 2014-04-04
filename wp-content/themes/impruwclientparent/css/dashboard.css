@@ -191,7 +191,7 @@ a:focus {
   background: #fff;
 }
 .aj-imp-container .aj-imp-right .aj-imp-dash-header {
-  margin: 40px 0;
+  margin: 40px -15px;
 }
 @media (max-width: 767px) {
   .aj-imp-container .aj-imp-right .aj-imp-dash-header {
@@ -2413,21 +2413,6 @@ form .aj-imp-submit:hover {
 .isotope-item {
   z-index: 2;
   margin: 0.2em;
-  /*&.height-1 {
-  	height: 20%;
-  	width: auto;
-  }
-  &.height-2 {
-  	height: 40%;
-  	width: auto;
-  }*/
-
-}
-.isotope-item.width-1 {
-  width: 200px;
-  height: auto;
-}
-.isotope-item.width-2 {
   width: 200px;
   height: auto;
 }
