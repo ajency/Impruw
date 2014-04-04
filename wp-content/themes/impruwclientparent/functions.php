@@ -3411,11 +3411,11 @@ $base_element_templates = array (
 		'RoomSummary' => array (
 				array (
 						'name' => 'Room Summary Default',
-						'template' => '<div class="room-img"><img src="{{thumbnail_url}}" class="img-responsive"></div><div class="room-title">{{post_title}}</div><div class="room-excerpt">{{post_content}}</div><div class="room-actions"><div class="price">Total: {{no_of_rooms}}<small> rooms</small></div><button class="btn btn-room">View Details</button></div>' 
+						'template' => '<div class="room-img"><img src="{{image_url}}" width="100%" class="img-responsive"></div><div class="room-title">{{post_title}}</div><div class="room-excerpt">{{post_content}}</div><div class="room-actions"><div class="price">Total: {{no_of_rooms}}<small> rooms</small></div><button class="btn btn-room">View Details</button></div>' 
 				),
 				array (
 						'name' => 'Room Summary New',
-						'template' => 'Suraj<div class="room-img"><img src="{{thumbnail_url}}" class="img-responsive"></div><div class="room-title">{{post_title}}</div><div class="room-excerpt">{{post_content}}</div><div class="room-actions"><div class="price">Total: {{no_of_rooms}}<small> rooms</small></div><button class="btn btn-room">View Details</button></div>' 
+						'template' => 'Suraj<div class="room-img"><img src="{{image_url}}" width="100%"  class="img-responsive"></div><div class="room-title">{{post_title}}</div><div class="room-excerpt">{{post_content}}</div><div class="room-actions"><div class="price">Total: {{no_of_rooms}}<small> rooms</small></div><button class="btn btn-room">View Details</button></div>' 
 				) 
 		) 
 );

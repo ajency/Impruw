@@ -11,24 +11,28 @@ define(['app', 'controllers/base-controller', 'apps/rooms/list/views'], function
       }
 
       ListController.prototype.initialize = function() {
-        this.layout = this._getLayout();
+        var collection;
+        this.collection = collection = App.request("get:room:entities");
+        this.layout = this._getLayout(collection);
         this.listenTo(this.layout, "show", this.showRoomsList);
         this.listenTo(this.layout, 'add:new:room:clicked', function() {
           return App.execute("show:add:room");
         });
         App.vent.trigger("set:active:menu", 'rooms');
-        return this.show(this.layout);
+        return this.show(this.layout, {
+          loading: true
+        });
       };
 
       ListController.prototype.showRoomsList = function() {
-        var collection;
-        collection = App.request("get:room:entities");
-        this.listView = this._getRoomsListView(collection);
+        this.listView = this._getRoomsListView(this.collection);
         return this.layout.roomRegion.show(this.listView);
       };
 
-      ListController.prototype._getLayout = function() {
-        return new List.Views.RoomListLayout;
+      ListController.prototype._getLayout = function(collection) {
+        return new List.Views.RoomListLayout({
+          collection: collection
+        });
       };
 
       ListController.prototype._getRoomsListView = function(collection) {

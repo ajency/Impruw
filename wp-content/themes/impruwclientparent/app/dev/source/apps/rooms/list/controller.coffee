@@ -6,7 +6,10 @@ define ['app', 'controllers/base-controller', 'apps/rooms/list/views'], (App, Ap
 
 			initialize:()->
 
-				@layout = @_getLayout()
+				# get the collection
+				@collection = collection = App.request "get:room:entities"
+
+				@layout = @_getLayout collection
 				
 				# add the room list to roomRegion
 				@listenTo @layout, "show", @showRoomsList
@@ -18,21 +21,18 @@ define ['app', 'controllers/base-controller', 'apps/rooms/list/views'], (App, Ap
 				# trigger set:active:menu event
 				App.vent.trigger "set:active:menu", 'rooms'
 
-				@show @layout
+				@show @layout, 
+						loading : true
 
 			showRoomsList:->
-				
-				# get the collection
-				collection = App.request "get:room:entities"
-				
 				#console.log collection
-				
-				@listView = @_getRoomsListView collection
+				@listView = @_getRoomsListView @collection
 
 				@layout.roomRegion.show @listView
 				
-			_getLayout:->
+			_getLayout:(collection)->
 				new List.Views.RoomListLayout
+									collection : collection
 
 			_getRoomsListView:(collection)->
 				new List.Views.RoomsListView

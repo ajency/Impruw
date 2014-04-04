@@ -118,13 +118,15 @@ function get_room($roomid) {
     
     $no_of_rooms = get_post_meta($room_id, 'no_of_rooms', true);
     
-    $thumbnail = wp_get_attachment_image_src(get_post_thumbnail_id( $room_id ));
-
+    $attachment_id = get_post_thumbnail_id( $room_id );
+	
+    $image = (int) $attachment_id > 0 ? wp_get_attachment_image_src($attachment_id, 'medium') : array();
 
     // prepare the post meta strings to array
-    $room_post_meta = array('slider_id' => $room_slider_id,
-					        'no_of_rooms' => $no_of_rooms,
-					        'thumbnail_url' => $thumbnail[0]);
+    $room_post_meta = array('slider_id' 	=> $room_slider_id,
+					        'no_of_rooms' 	=> $no_of_rooms,
+					        'thumbnail_id' 	=> (int)$attachment_id,
+    						'image_url' => is_array($image) && count($image) > 0 ? $image[0] : '');
 
     
     // returns an array of the post terms(facilities) of the room

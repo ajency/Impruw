@@ -103,7 +103,7 @@ class RoomSummary extends Element {
 
        $template = '<div class="roomsummary">
                         <div class="room-img">
-                             <a href="{{link}}"><img src="{{thumbnail_url}}" class="img-responsive"></a>
+                             <a href="{{link}}"><img src="{{image_url}}" width="100%" class="img-responsive"></a>
                         </div>
                         <div class="room-title"><a href="{{link}}">{{post_title}}</a></div>
                         <div class="room-excerpt">{{post_content}}</div>

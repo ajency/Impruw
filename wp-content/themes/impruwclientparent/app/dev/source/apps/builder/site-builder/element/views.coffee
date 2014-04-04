@@ -98,7 +98,7 @@ define ['app'
 			            corners 	: 1
 			            rotate 		: 9
 			            direction 	: 1
-			            color 		: '#000'
+			            color 		: '#ff9e2c'
 			            speed 		: 1
 			            trail 		: 60
 			            shadow 		: false
@@ -107,6 +107,3 @@ define ['app'
 			            zIndex 		: 2e9
 			            top 		: '0px'
 			            left 		: '40px'
-
-				
-			App.SiteBuilderApp.Element.Views
