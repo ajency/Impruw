@@ -12,11 +12,14 @@ define(['app', 'controllers/base-controller', 'apps/rooms/facilities/add/addfaci
       }
 
       FacilitiesController.prototype.initialize = function(opt) {
+        var facilities;
+        facilities = opt.facilities;
         this.layout = this._getFacilitiesViewLayout();
         this.listenTo(this.layout, "show", (function(_this) {
           return function() {
             App.execute("show:facilities:list", {
-              region: _this.layout.facilitiesRegion
+              region: _this.layout.facilitiesRegion,
+              facilities: facilities
             });
             return App.execute("show:add:facility", {
               region: _this.layout.addFacilityRegion
@@ -56,9 +59,7 @@ define(['app', 'controllers/base-controller', 'apps/rooms/facilities/add/addfaci
 
     })(Marionette.Layout);
     return App.commands.setHandler("show:facilities", function(opts) {
-      return new FacilitiesApp.FacilitiesController({
-        region: opts.region
-      });
+      return new FacilitiesApp.FacilitiesController(opts);
     });
   });
 });

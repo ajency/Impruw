@@ -8,6 +8,8 @@ define ['app'
 				class FacilitiesApp.FacilitiesController extends AppController
 
 					initialize:(opt)->
+
+						{facilities} = opt
 						
 						# get the composite view 
 						@layout = @_getFacilitiesViewLayout()
@@ -15,6 +17,7 @@ define ['app'
 						@listenTo @layout, "show", =>
 							App.execute "show:facilities:list", 
 												region : @layout.facilitiesRegion
+												facilities : facilities
 							
 							App.execute "show:add:facility",
 												region : @layout.addFacilityRegion
@@ -51,8 +54,7 @@ define ['app'
 
 				App.commands.setHandler "show:facilities", (opts) ->
 
-					new FacilitiesApp.FacilitiesController
-													region : opts.region
+					new FacilitiesApp.FacilitiesController opts
 					
 
 

@@ -71,11 +71,6 @@ define(['app', 'moment'], function(App, moment) {
         'change': 'render'
       };
 
-      SingleTariff.prototype.render = function() {
-        console.log(this.model);
-        return SingleTariff.__super__.render.call(this);
-      };
-
       SingleTariff.prototype.template = '{{^id}} <div class="block clearfix not-yet-added"><h4>NA</h4></div> {{/id}} {{#id}} <div class="block clearfix"> <div class="weekday"> Weekdays <span class="price">{{weekday.charge}}</span> </div> <div class="weekend"> Weekends <span class="price">{{weekend.charge}}</span> </div> <div class="tariff-label clearfix">Extra Adult</div> <div class="weekday"> <span class="price">{{weekday.extra_adult}}</span> </div> <div class="weekend"> <span class="price">{{weekend.extra_adult}}</span> </div> <div class="tariff-label clearfix">Extra Child</div> <div class="weekday"> <span class="price">{{weekday.extra_child}}</span> </div> <div class="weekend"> <span class="price">{{weekend.extra_child}}</span> </div> <div class="block-action"> <button type="button" class="btn btn-sm edit-trariff edit-tran"><span class="glyphicon glyphicon-pencil"></span>&nbsp;Edit</button> </div> </div> {{/id}}';
 
       return SingleTariff;

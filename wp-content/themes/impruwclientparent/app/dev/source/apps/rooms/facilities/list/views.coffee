@@ -12,11 +12,7 @@ define ['app'],(App)->
 
 			template : '<div class="display_facility">
 							<label for="checkbox2" class="checkbox ">
-								<span class="icons">
-									<span class="first-icon fui-checkbox-unchecked"></span>
-									<span class="second-icon fui-checkbox-checked"></span>
-								</span>
-								<input type="checkbox" data-toggle="checkbox" name="facility[{{term_id}}]" value="{{term_id}}">
+								<input type="checkbox" {{#selected}}checked="true"{{/selected}} data-toggle="checkbox" name="facility[{{term_id}}]" value="{{term_id}}">
 								<span class="facility-name">{{name}}</span>
 							</label>
 							<div class="action">
@@ -34,8 +30,14 @@ define ['app'],(App)->
 							</div>
 						</div>'
 
-			onRender : ->
+			serializeData:->
+				data = super()
+				data.selected = Marionette.getOption @, 'selected'
+				data
+
+			onShow : ->
 				@$el.attr 'id': "facility-#{@model.get 'term_id'}"
+				@$el.find('input[type="checkbox"]').checkbox()
 
 
 			events:
@@ -83,6 +85,17 @@ define ['app'],(App)->
 			emptyView : EmptyView
 
 			itemViewContainer : '.facilities-list'
+
+			itemViewOptions:(item, index)->
+				prefacilities = Marionette.getOption @, 'prefacilities'
+				id = parseInt item.get 'term_id'
+				selected = false
+				ids = _.values _.invert prefacilities
+				v = _.filter ids, (d)->  parseInt(d) is id
+
+				selected = true if v.length > 0
+				selected : selected
+
 
 			onUpdateView :(model)->
 				term_id = model.get 'term_id'

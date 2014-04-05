@@ -15,9 +15,10 @@ define(['app', 'controllers/base-controller', 'apps/rooms/facilities/list/views'
       }
 
       FacilityListController.prototype.initialize = function(opt) {
-        var collection, cview;
+        var collection, cview, facilities;
+        facilities = opt.facilities;
         this.collection = collection = App.request("get:all:facilities");
-        this.cview = cview = this._getFacilitiesView(collection);
+        this.cview = cview = this._getFacilitiesView(collection, facilities);
         this.listenTo(cview, "itemview:delete:facility:clicked", this.deleteFacility);
         this.listenTo(cview, "itemview:update:facility:clicked", this.updateFacility);
         this.listenTo(this.region, "new:facility:added", function(model) {
@@ -48,9 +49,10 @@ define(['app', 'controllers/base-controller', 'apps/rooms/facilities/list/views'
         return this.cview.triggerMethod("update:view", model);
       };
 
-      FacilityListController.prototype._getFacilitiesView = function(collection) {
+      FacilityListController.prototype._getFacilitiesView = function(collection, facilities) {
         return new List.Views.FacilitiesView({
-          collection: collection
+          collection: collection,
+          prefacilities: facilities
         });
       };
 
@@ -86,9 +88,7 @@ define(['app', 'controllers/base-controller', 'apps/rooms/facilities/list/views'
 
     })(Marionette.ItemView);
     return App.commands.setHandler("show:facilities:list", function(opts) {
-      return new FacilityListController({
-        region: opts.region
-      });
+      return new FacilityListController(opts);
     });
   });
 });

@@ -22,7 +22,8 @@ define(['app', 'controllers/base-controller', 'apps/rooms/edit/views', 'apps/roo
           return function() {
             _this.slidesCollection = App.request("get:slides:for:slide", _this.roomModel.get('slider_id'));
             App.execute("show:facilities", {
-              region: layout.facilitiesRegion
+              region: layout.facilitiesRegion,
+              facilities: _this.roomModel.get('facilities')
             });
             App.execute("show:gallery:images", {
               region: layout.galleryRegion,

@@ -15,12 +15,20 @@ define(['app'], function(App) {
 
       FacilityItem.prototype.tagName = 'div';
 
-      FacilityItem.prototype.template = '<div class="display_facility"> <label for="checkbox2" class="checkbox "> <span class="icons"> <span class="first-icon fui-checkbox-unchecked"></span> <span class="second-icon fui-checkbox-checked"></span> </span> <input type="checkbox" data-toggle="checkbox" name="facility[{{term_id}}]" value="{{term_id}}"> <span class="facility-name">{{name}}</span> </label> <div class="action"> <a href="javascript:void(0)" class="edit">Edit</a>&nbsp; <a href="javascript:void(0)" class="delete">Delete</a> </div> </div> <div class="update_facility hidden"> <div class="facility_update"> <input type="text" name="facility_name" class="form-control input-sm" value="{{name}}" /> <div class="facility_actions"> <a href="javascript:void(0)" class="update">Update</a> <a href="javascript:void(0)" class="cancel" >Cancel</a> </div> </div> </div>';
+      FacilityItem.prototype.template = '<div class="display_facility"> <label for="checkbox2" class="checkbox "> <input type="checkbox" {{#selected}}checked="true"{{/selected}} data-toggle="checkbox" name="facility[{{term_id}}]" value="{{term_id}}"> <span class="facility-name">{{name}}</span> </label> <div class="action"> <a href="javascript:void(0)" class="edit">Edit</a>&nbsp; <a href="javascript:void(0)" class="delete">Delete</a> </div> </div> <div class="update_facility hidden"> <div class="facility_update"> <input type="text" name="facility_name" class="form-control input-sm" value="{{name}}" /> <div class="facility_actions"> <a href="javascript:void(0)" class="update">Update</a> <a href="javascript:void(0)" class="cancel" >Cancel</a> </div> </div> </div>';
 
-      FacilityItem.prototype.onRender = function() {
-        return this.$el.attr({
+      FacilityItem.prototype.serializeData = function() {
+        var data;
+        data = FacilityItem.__super__.serializeData.call(this);
+        data.selected = Marionette.getOption(this, 'selected');
+        return data;
+      };
+
+      FacilityItem.prototype.onShow = function() {
+        this.$el.attr({
           'id': "facility-" + (this.model.get('term_id'))
         });
+        return this.$el.find('input[type="checkbox"]').checkbox();
       };
 
       FacilityItem.prototype.events = {
@@ -78,6 +86,23 @@ define(['app'], function(App) {
       FacilitiesView.prototype.emptyView = EmptyView;
 
       FacilitiesView.prototype.itemViewContainer = '.facilities-list';
+
+      FacilitiesView.prototype.itemViewOptions = function(item, index) {
+        var id, ids, prefacilities, selected, v;
+        prefacilities = Marionette.getOption(this, 'prefacilities');
+        id = parseInt(item.get('term_id'));
+        selected = false;
+        ids = _.values(_.invert(prefacilities));
+        v = _.filter(ids, function(d) {
+          return parseInt(d) === id;
+        });
+        if (v.length > 0) {
+          selected = true;
+        }
+        return {
+          selected: selected
+        };
+      };
 
       FacilitiesView.prototype.onUpdateView = function(model) {
         var facility_name, term_id;

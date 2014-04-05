@@ -7,11 +7,13 @@ define ['app'
 				class FacilityListController extends AppController
 
 					initialize:(opt)->
+
+						{facilities} = opt
 						
 						# get the facilities collection
 						@collection = collection = App.request "get:all:facilities"
 
-						@cview = cview = @_getFacilitiesView collection
+						@cview = cview = @_getFacilitiesView collection, facilities
 						
 						# delete:facility:clicked
 						@listenTo cview, "itemview:delete:facility:clicked" , @deleteFacility
@@ -19,7 +21,7 @@ define ['app'
 						# update facility : clicked
 						@listenTo cview, "itemview:update:facility:clicked", @updateFacility
 
-						
+						# new facility
 						@listenTo @region,"new:facility:added",(model)->
 									@collection.add model
 
@@ -48,9 +50,10 @@ define ['app'
 						
 
 
-					_getFacilitiesView:(collection)->
+					_getFacilitiesView:(collection, facilities)->
 						new List.Views.FacilitiesView
 											collection 	: collection
+											prefacilities : facilities
 
 
 
@@ -77,8 +80,7 @@ define ['app'
 
 
 				App.commands.setHandler "show:facilities:list", (opts) ->
-					new FacilityListController
-									region : opts.region
+					new FacilityListController opts
 					
 
 

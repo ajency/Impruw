@@ -20,6 +20,7 @@ define ['app', 'controllers/base-controller'
 				
 						App.execute "show:facilities", 
 											region : layout.facilitiesRegion
+											facilities : @roomModel.get 'facilities'
 
 						App.execute "show:gallery:images", 
 											region : layout.galleryRegion

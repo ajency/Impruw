@@ -51,10 +51,6 @@ define ['app', 'moment'], (App, moment)->
 			modelEvents:
 				'change' : 'render'
 
-			render :->
-				console.log @model
-				super()
-
 			template : '{{^id}}
 							<div class="block clearfix not-yet-added"><h4>NA</h4></div>
 						{{/id}}
