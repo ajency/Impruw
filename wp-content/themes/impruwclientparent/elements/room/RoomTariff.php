@@ -32,7 +32,7 @@ class RoomTariff extends Element {
         parent::__construct($element);
 
         //$this->room_id = get_the_ID();
-        $this->room_id = 2;
+        $this->room_id = get_the_ID();
 
         $this->date_range = $this->get_date_range();
 
@@ -59,9 +59,9 @@ class RoomTariff extends Element {
 
         global $wpdb;
 
-        $table_name = $wpdb->prefix . 'tariff';
+        $table_name = $wpdb->prefix . 'tariffs';
 
-        $query = "SELECT * FROM $table_name WHERE ROOM_ID = $room_id ";
+        $query = "SELECT * FROM $table_name WHERE room_id = $room_id ";
 
         $tariff = $wpdb->get_results($query, ARRAY_A);
 

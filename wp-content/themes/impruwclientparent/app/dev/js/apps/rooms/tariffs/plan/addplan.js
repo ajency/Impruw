@@ -29,7 +29,10 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/plan/temp
         return this.show(planView);
       };
 
-      AddPlanController.prototype.planSaved = function() {
+      AddPlanController.prototype.planSaved = function(plan) {
+        var pcollection;
+        pcollection = App.request("get:plans:collection");
+        pcollection.add(plan);
         return this.planView.triggerMethod("saved:plan");
       };
 

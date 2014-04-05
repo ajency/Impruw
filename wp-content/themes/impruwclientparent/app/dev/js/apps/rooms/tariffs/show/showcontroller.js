@@ -20,6 +20,12 @@ define(['app', 'controllers/base-controller', 'apps/rooms/tariffs/show/views'], 
         pcollection = App.request("get:plans:collection");
         dcollection = App.request("get:daterange:collection");
         tcollection = App.request("get:tariffs:collection", this.roomId);
+        pcollection.on('add remove', (function(_this) {
+          return function() {
+            _this.dateRangeView = _this._getDateRangeView(dcollection);
+            return _this.layout.tariffRegion.show(_this.dateRangeView);
+          };
+        })(this));
         this.layout = this._getGridLayout(tcollection);
         this.packagesView = this._getPackagesView(pcollection);
         this.dateRangeView = this._getDateRangeView(dcollection);

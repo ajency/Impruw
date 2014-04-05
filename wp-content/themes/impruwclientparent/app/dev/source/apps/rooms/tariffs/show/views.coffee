@@ -45,17 +45,23 @@ define ['app', 'moment'], (App, moment)->
 			events:
 				'click .edit-trariff' : -> 
 						App.execute "show:edit:tariff", model : @model
-				'click .not-yet-added': -> 
+				'click .add-trariff': -> 
 						App.execute "show:add:tariff", model : @model
 
 			modelEvents:
 				'change' : 'render'
 
 			template : '{{^id}}
-							<div class="block clearfix not-yet-added"><h4>NA</h4></div>
+							<div class="block clearfix not-yet-added" style="min-height:94px">
+								<div class="block-action">
+									<button type="button" class="btn btn-sm add-trariff edit-tran">
+										<span class="glyphicon glyphicon-pencil"></span>&nbsp;Add
+									</button>
+								</div>
+							</div>
 						{{/id}}
 						{{#id}}
-							<div class="block clearfix">
+							<div class="block clearfix" style="top:-12px">
 								<div class="weekday">
 									Weekdays
 									<span class="price">{{weekday.charge}}</span>
@@ -120,6 +126,8 @@ define ['app', 'moment'], (App, moment)->
 			itemView : DateRageView
 
 			itemViewOptions:(item, index)->
+				console.log item
+
 				dateRangeId = item.get 'id'
 				tariffs = App.request "get:tariffs:for:daterange", dateRangeId
 
@@ -137,7 +145,7 @@ define ['app', 'moment'], (App, moment)->
 				roomId = Marionette.getOption @,'roomId'
 
 				plans.each (plan, index)=>
-
+					
 					tariff = getTariff plan.get 'id'
 
 					if tariff is false
@@ -146,6 +154,7 @@ define ['app', 'moment'], (App, moment)->
 								plan_id : plan.get 'id'
 								daterange_id : dateRangeId
 								room_id : roomId
+
 						tariff.name = 'tariff'
 
 					tariffCollection.add tariff

@@ -14,9 +14,13 @@ define  ['app','controllers/base-controller', 'text!apps/rooms/tariffs/plan/temp
 							wait : true
 							success : @planSaved
 
+					
+
 				@show planView
 
-			planSaved:=>
+			planSaved:(plan)=>
+				pcollection = App.request "get:plans:collection"
+				pcollection.add plan
 				@planView.triggerMethod "saved:plan"
 
 			# get the packages view
