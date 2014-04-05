@@ -144,7 +144,7 @@ jQuery(document).ready(function($){
         getColour();
        
    // display the colour on the calender for date ranges 
-        function getColour(){
+       function getColour(){
             
           var classNames = ['green', 'red', 'orange', 'blue', 'pink','yellow'];
           
@@ -173,6 +173,10 @@ jQuery(document).ready(function($){
          $('#plans-details-region').find('.carousel-inner').empty();
          
          $('#plans-details-region').find('.carousel-inner').append(html);
+         
+         setTimeout(function(){
+        	 getColour();
+         }, 10);
       }
       
       // display the date selected along with availabilty status
