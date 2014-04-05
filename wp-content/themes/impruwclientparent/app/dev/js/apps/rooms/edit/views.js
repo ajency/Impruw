@@ -19,7 +19,7 @@ define(['app', 'text!apps/rooms/edit/templates/edit-room.html'], function(App, a
       EditRoomLayout.prototype.events = {
         'click #btn_saveroom': function() {
           var data, ele;
-          if (this.$el.valid()) {
+          if (this.$el.find('form').valid()) {
             data = Backbone.Syphon.serialize(this);
             return this.trigger("save:edit:room", data);
           } else {

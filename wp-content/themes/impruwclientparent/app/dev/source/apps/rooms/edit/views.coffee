@@ -14,7 +14,7 @@ define ['app'
 
 					events:
 						'click #btn_saveroom' : ->
-							if @$el.valid()
+							if @$el.find('form').valid()
 								data = Backbone.Syphon.serialize @
 								@trigger "save:edit:room", data
 							else
