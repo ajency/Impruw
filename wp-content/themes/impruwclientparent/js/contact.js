@@ -192,6 +192,12 @@ jQuery(document).ready(function($){
          }, 10); 
       }
       
+      function showCarousel(){
+          $('#myCarousel').carousel({
+                interval: false
+          });
+      }
+      
     // display the selected date and corresponding plans for the date
       function showData(date){
           
@@ -203,12 +209,10 @@ jQuery(document).ready(function($){
          
          $('#plans-details-region').find('.carousel-inner').append(html);
  
-         $('#myCarousel').carousel({
-                interval: 2000
-          });
           
         setTimeout(function(){
         	 getColour();
+                 showCarousel();
          }, 10);
          
         

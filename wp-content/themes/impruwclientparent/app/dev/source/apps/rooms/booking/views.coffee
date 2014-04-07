@@ -127,6 +127,7 @@ define ['app'
 						value = 60 if currentStatus is 'unavailable'
 
 						html = "<div style='width:250px'>
+									<a href='#'>Close</a>
 									<div id='booking-slider' data-value='#{value}'></div>
 									<div class='row'>
 										<div class='col-md-4'>availabile</div>
