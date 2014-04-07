@@ -29,6 +29,7 @@ define(['app', 'text!apps/rooms/add/templates/add-room.html'], function(App, add
 
       function CalendarView() {
         this.highlightDaysByDateRange = __bind(this.highlightDaysByDateRange, this);
+        this.onBookingUpdated = __bind(this.onBookingUpdated, this);
         this.changeAvaliability = __bind(this.changeAvaliability, this);
         this.triggerOnSelect = __bind(this.triggerOnSelect, this);
         this.setDateRangeColor = __bind(this.setDateRangeColor, this);
@@ -45,7 +46,8 @@ define(['app', 'text!apps/rooms/add/templates/add-room.html'], function(App, add
           onSelect: this.triggerOnSelect,
           beforeShowDay: this.highlightDaysByDateRange
         });
-        return this.setDateRangeColor();
+        this.setDateRangeColor();
+        return App.vent.on("booking:updated", this.onBookingUpdated);
       };
 
       CalendarView.prototype.setDateRangeColor = function() {
@@ -87,7 +89,7 @@ define(['app', 'text!apps/rooms/add/templates/add-room.html'], function(App, add
             min: 0,
             max: 60,
             step: 30,
-            slide: self.changeAvaliability
+            stop: self.changeAvaliability
           });
         });
         td.popover('show');
@@ -106,7 +108,12 @@ define(['app', 'text!apps/rooms/add/templates/add-room.html'], function(App, add
           value = 'unavailabile';
         }
         date = this.$el.find('#room-booking-calendar').datepicker('getDate');
+        $('#booking-slider').slider('disable');
         return this.trigger("change:availability", value, date);
+      };
+
+      CalendarView.prototype.onBookingUpdated = function() {
+        return $('#booking-slider').slider('enable');
       };
 
       CalendarView.prototype.getAvailabilityMarkup = function(date) {

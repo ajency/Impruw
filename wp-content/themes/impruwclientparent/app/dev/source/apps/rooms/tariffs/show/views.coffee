@@ -126,8 +126,7 @@ define ['app', 'moment'], (App, moment)->
 			itemView : DateRageView
 
 			itemViewOptions:(item, index)->
-				console.log item
-
+				
 				dateRangeId = item.get 'id'
 				tariffs = App.request "get:tariffs:for:daterange", dateRangeId
 

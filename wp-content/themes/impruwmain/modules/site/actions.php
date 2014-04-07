@@ -21,6 +21,7 @@ function handle_site_deletion($site_id, $drop) {
 	$wpdb->query("DROP TABLE {$wpdb->prefix}daterange");
 	$wpdb->query("DROP TABLE {$wpdb->prefix}plans");
 	$wpdb->query("DROP TABLE {$wpdb->prefix}tariffs");
+	$wpdb->query("DROP TABLE {$wpdb->prefix}bookings");
 	
 	restore_current_blog ();
 	

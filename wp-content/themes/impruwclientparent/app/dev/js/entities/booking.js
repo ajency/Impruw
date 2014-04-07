@@ -90,7 +90,10 @@ define(["app", 'backbone', 'moment'], function(App, Backbone, moment) {
           room_id: bookings.roomId
         });
         return booking.save(null, {
-          wait: true
+          wait: true,
+          success: function() {
+            return App.vent.trigger("booking:updated");
+          }
         });
       },
       getAvailabiltyStatus: function(date) {

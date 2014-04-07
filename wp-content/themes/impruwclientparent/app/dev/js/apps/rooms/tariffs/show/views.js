@@ -117,7 +117,6 @@ define(['app', 'moment'], function(App, moment) {
 
       DateRangeCollectionView.prototype.itemViewOptions = function(item, index) {
         var dateRangeId, getTariff, plans, roomId, tariffCollection, tariffs;
-        console.log(item);
         dateRangeId = item.get('id');
         tariffs = App.request("get:tariffs:for:daterange", dateRangeId);
         plans = App.request("get:plans:collection");

@@ -42,6 +42,9 @@ define ['app'
 
 						@setDateRangeColor()
 
+						# bind booking updated event
+						App.vent.on "booking:updated", @onBookingUpdated
+
 					# sets a background color for daterange
 					setDateRangeColor:=>
 
@@ -82,7 +85,7 @@ define ['app'
 													min : 0
 													max : 60
 													step : 30
-													slide : self.changeAvaliability
+													stop : self.changeAvaliability
 
 						td.popover 'show'
 						@popovertd = td
@@ -92,7 +95,11 @@ define ['app'
 						value = 'semi-availabile' if ui.value is 30
 						value = 'unavailabile' if ui.value is 60
 						date = @$el.find('#room-booking-calendar').datepicker 'getDate'
+						$('#booking-slider').slider 'disable'
 						@trigger "change:availability", value, date
+
+					onBookingUpdated:=>
+						$('#booking-slider').slider 'enable'
 
 					# get availability markup
 					getAvailabilityMarkup:(date)->

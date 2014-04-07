@@ -72,9 +72,10 @@ define ["app", 'backbone', 'moment'], (App, Backbone, moment) ->
 						status : status
 						room_id : bookings.roomId
 							
-
 				booking.save null,
-							wait : true 
+							wait : true
+							success : ->
+								App.vent.trigger "booking:updated"
 
 
 			getAvailabiltyStatus :(date)->

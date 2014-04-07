@@ -211,8 +211,7 @@ function create_additional_tables($site_id) {
 	$query = "CREATE TABLE IF NOT EXISTS {$wpdb->prefix}bookings(
 				id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 				room_id INT,
-				from_date DATE,
-				to_date DATE,
+				bdate DATE,
 				status VARCHAR(100))";
 	
 	$wpdb->query ( $query );
