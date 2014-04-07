@@ -14,6 +14,7 @@ define ['app', 'moment'], (App, moment)->
 							<div class="package-desc">
 								{{plandescription}}
 							</div>
+							<a href="#" class="edit-pkg-link"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
 						</div>'
 
 			serializeData:->
@@ -52,7 +53,11 @@ define ['app', 'moment'], (App, moment)->
 				'change' : 'render'
 
 			template : '{{^id}}
-							<div class="block clearfix not-yet-added" style="min-height:94px">
+							<div class="block clearfix not-yet-added empty">
+								<span class="no-data">
+									<span class="glyphicon glyphicon-exclamation-sign"></span>
+								</span>
+								No Data Added
 								<div class="block-action">
 									<button type="button" class="btn btn-sm add-trariff edit-tran">
 										<span class="glyphicon glyphicon-pencil"></span>&nbsp;Add
@@ -98,6 +103,7 @@ define ['app', 'moment'], (App, moment)->
 								<span class="date">{{fromdate}}</span>
 								to <span class="date">{{todate}}</span>
 							</div>
+							<a href="#" class="edit-range-link"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
 						</div>
 						<div class="packages">
 							<div class="package-blocks clearfix"></div>

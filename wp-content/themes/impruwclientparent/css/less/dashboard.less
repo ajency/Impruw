@@ -2297,6 +2297,15 @@ form {
 				.from, .to {
 					margin: 0.2em 0 0.4em;	
 				}
+				.edit-range-link {
+					font-size: 0.8em;
+					display: none;
+				}
+				&:hover {
+					.edit-range-link {
+						display: block;
+					}
+				}
 			}
 			.packages {
 				width: 100%;
@@ -2376,6 +2385,24 @@ form {
 									}
 								}
 							}
+							&.empty {
+								height: 139px;
+								text-align: center;
+								color: @dash-grey;
+								.no-data {
+									min-height: 77px;
+									display: block;
+									text-align: center;
+									color: lighten(@dash-grey, 10%);
+									.glyphicon {
+										font-size: 2.5em;
+										margin-top: 25px;
+									}
+								}
+								.tariff-label {
+									text-align: center;
+								}
+							}
 							&:hover {
 								border-color: @orange;
 								.block-action {
@@ -2390,8 +2417,21 @@ form {
 							background: transparent;
 							border: 0;
 							padding: 0;
+							position: relative;
 							h6, .package-desc {
 								display: block;
+							}
+							.edit-pkg-link {
+								position: absolute;
+								top: 0em;
+								right: 0em;
+								font-size: 0.8em;
+								display: none;
+							}
+							&:hover {
+								.edit-pkg-link {
+									display: block;
+								}
 							}
 						}
 					}
