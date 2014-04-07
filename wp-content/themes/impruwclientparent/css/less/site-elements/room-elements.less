@@ -805,3 +805,20 @@
 .carousel.vertical .item {
 	left: 0;
 }
+
+.carousel.vertical {
+	.carousel-control {
+		top: -15px;
+		left: 35%;
+		transform: rotate(90deg);
+		line-height: 29px;
+		color: #fff;
+		&.right {
+			transform: rotate(90deg);
+			left: 55%;
+		}
+		&:hover, &:focus {
+			text-decoration: none !important;
+		}
+	}
+}

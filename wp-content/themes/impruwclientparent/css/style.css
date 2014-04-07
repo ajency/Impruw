@@ -1306,6 +1306,21 @@ and open the template in the editor.
 .carousel.vertical .item {
   left: 0;
 }
+.carousel.vertical .carousel-control {
+  top: -15px;
+  left: 35%;
+  transform: rotate(90deg);
+  line-height: 29px;
+  color: #fff;
+}
+.carousel.vertical .carousel-control.right {
+  transform: rotate(90deg);
+  left: 55%;
+}
+.carousel.vertical .carousel-control:hover,
+.carousel.vertical .carousel-control:focus {
+  text-decoration: none !important;
+}
 .map {
   padding: 0.4em;
   border: 1px dashed #29333f;
