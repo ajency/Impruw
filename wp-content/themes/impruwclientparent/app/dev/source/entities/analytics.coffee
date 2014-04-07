@@ -6,14 +6,9 @@ define ['app'
 			#Analytics Model
 			class Analytics.AnalyticsModel extends Backbone.Model
 
-				idAttribute : 'date'
-
 				parse :(resp)->
-					# convert in proper format
-					resp['ga:avgTimeOnSite'] = resp['ga:avgTimeOnSite'].toFixed(2)
-					resp['ga:pageviewsPerVisit'] = resp['ga:pageviewsPerVisit'].toFixed(2)
-					resp['ga:visitBounceRate'] = resp['ga:visitBounceRate'].toFixed(2)
-					resp
+					# set the id for the model
+					 
 
 			#Analytics Collection
 			class Analytics.AnalyticsCollection extends Backbone.Collection

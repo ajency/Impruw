@@ -26,4 +26,5 @@ define [
 		#'nvd3'
 		'isotope'
 		'jpanelmenu'
+		'scrollsections'
 		],->

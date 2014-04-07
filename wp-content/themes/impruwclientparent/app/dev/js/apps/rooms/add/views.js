@@ -32,6 +32,10 @@ define(['app', 'text!apps/rooms/add/templates/add-room.html'], function(App, add
         }
       };
 
+      AddRoomLayout.prototype.onShow = function() {
+        return this.$el.scrollSections();
+      };
+
       AddRoomLayout.prototype.onShowSuccessMessage = function() {
         this.$el.find('.alert').remove();
         this.$el.prepend('<div class="alert alert-success">New room added successfully</div>');

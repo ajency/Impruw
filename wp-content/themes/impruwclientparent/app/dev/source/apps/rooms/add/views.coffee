@@ -23,6 +23,9 @@ define ['app'
 
 						'click .add-gallery-images':-> @trigger "show:edit:slider"
 
+					onShow:->
+						@$el.scrollSections()
+
 
 					onShowSuccessMessage:->
 						@$el.find('.alert').remove()
