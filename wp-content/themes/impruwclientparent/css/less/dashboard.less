@@ -2719,16 +2719,15 @@ form {
 .room-booking{
 	background: #e3e3e3;
 	margin: 0 0 1em;
-.room-booking-calender{
-				
+	.room-booking-calender{
+				width: 100% !important;
 				padding: 10px;
 				h4{
 					font-weight: 600;
 					font-size: 1.5em;
 					color: #b0b0b0;
 					text-transform: uppercase;
-					margin-bottom: 5%;
-					margin-top: 5%;
+					margin: 2em 0 1em;
 					.glyphicon {
 						font-size: 1.5em;
 						color: #b0b0b0;
@@ -2748,7 +2747,7 @@ form {
 					border: 0;
 					background:none;
 					.ui-datepicker-group {
-						width: 48%;
+						width: 31%;
 						margin-right: 12px;
 							.ui-datepicker-calendar{
 								background:#fff;
@@ -2766,13 +2765,17 @@ form {
 				.ui-datepicker td {
 					border: 1px solid #EAEAEA!important;
 					height:42px!important;
-					a{
+					a, span{
 							display: block;
 							border-radius:0px;
 							height: 39px;
 							line-height: 40px;
 					}
-					
+					> span {
+						background: rgba(255, 255, 255, 0.6);
+						color: #fff;
+						cursor: not-allowed;
+					}
 				}
 				.booking-red{
 						background:#f97d61;
@@ -2924,6 +2927,25 @@ form {
 				}
 		}
 	}
+
+/**** Booking Availability Popover ****/
+.booking-slider-pop {
+	width: 236px;
+	margin-top: 30px;
+	.available, .semi-available, .unavailable {
+		text-transform: capitalize;
+	}
+	.available {
+		color: @success-green;
+	}
+	.semi-available {
+		color: @orange;
+	}
+	.unavailable {
+		color: @red;
+	}
+}
+
 /* room chart*/
 .left-inner-addon{
 	margin-left:5%;

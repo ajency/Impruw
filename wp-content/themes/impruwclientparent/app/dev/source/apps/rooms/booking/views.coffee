@@ -126,13 +126,13 @@ define ['app'
 						value = 30 if currentStatus is 'semi-available'
 						value = 60 if currentStatus is 'unavailable'
 
-						html = "<div style='width:250px'>
-									<a href='#'>Close</a>
+						html = "<button type='button' class='close' aria-hidden='true'>&times;</button>
+								<div class='booking-slider-pop'>
 									<div id='booking-slider' data-value='#{value}'></div>
 									<div class='row'>
-										<div class='col-md-4'>availabile</div>
-										<div class='col-md-4'>semi-availabile</div>
-										<div class='col-md-4'>unavailabile </div>
+										<div class='col-md-4 available'>available</div>
+										<div class='col-md-4 semi-available'>semi-available</div>
+										<div class='col-md-4 unavailable'>unavailable </div>
 									</div>
 								</div>"
 						html
