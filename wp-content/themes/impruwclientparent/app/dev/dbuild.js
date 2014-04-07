@@ -35,7 +35,8 @@
     app: 'dashboard-app',
     jpanelmenu  : 'plugins/jquery.jpanelmenu.min',
     bootstrapswitch: 'plugins/bootstrap-switch',
-    entitiesloader: 'entities/dashboard-entities-loader'
+    entitiesloader: 'entities/dashboard-entities-loader',
+    scrollsections: 'plugins/ajency.scrolldots'
   },
   shim: {
     underscore: {
