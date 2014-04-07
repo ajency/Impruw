@@ -1103,13 +1103,19 @@ and open the template in the editor.
   border: 1px solid #EAEAEA!important;
   height: 42px!important;
 }
-.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td a {
+.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td a,
+.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td span {
   display: block;
   border-radius: 0px;
   height: 51px;
   line-height: 49px;
   text-align: center;
   border: 0px;
+}
+.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td > span {
+  background: rgba(255, 255, 255, 0.6);
+  color: #fff;
+  cursor: not-allowed;
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .booking-red {
   background: #f97d61;
@@ -1312,11 +1318,15 @@ and open the template in the editor.
 .carousel.vertical .carousel-control {
   top: -15px;
   left: 35%;
+  -ms-transform: rotate(90deg);
+  -webkit-transform: rotate(90deg);
   transform: rotate(90deg);
   line-height: 29px;
   color: #fff;
 }
 .carousel.vertical .carousel-control.right {
+  -ms-transform: rotate(90deg);
+  -webkit-transform: rotate(90deg);
   transform: rotate(90deg);
   left: 55%;
 }

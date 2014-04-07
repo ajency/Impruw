@@ -2765,13 +2765,17 @@ form {
 				.ui-datepicker td {
 					border: 1px solid #EAEAEA!important;
 					height:42px!important;
-					a{
+					a, span{
 							display: block;
 							border-radius:0px;
 							height: 39px;
 							line-height: 40px;
 					}
-					
+					> span {
+						background: rgba(255, 255, 255, 0.6);
+						color: #fff;
+						cursor: not-allowed;
+					}
 				}
 				.booking-red{
 						background:#f97d61;
