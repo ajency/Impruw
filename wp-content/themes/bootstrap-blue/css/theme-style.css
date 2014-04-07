@@ -675,6 +675,10 @@ and open the template in the editor.
 .room-tariff-container .room-tariff-grid .tariff .packages .package-blocks.header .package-block-outer .block .package-desc {
   display: block;
 }
+.room-tariff-container .room-tariff-grid .tariff .packages .package-blocks.header .package-block-outer .block .package-desc {
+  height: 30px;
+  overflow: hidden;
+}
 @media (max-width: 767px) {
   .room-tariff-container .room-tariff-grid {
     overflow-x: visible;

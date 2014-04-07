@@ -2323,6 +2323,8 @@ form .aj-imp-submit:hover {
   font-size: 0.88em;
   color: #849fb0;
   display: none;
+  height: 30px;
+  overflow: hidden;
 }
 .room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block .tariff-label {
   color: #849fb0;
