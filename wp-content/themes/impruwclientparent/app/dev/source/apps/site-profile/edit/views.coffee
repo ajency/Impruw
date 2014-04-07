@@ -27,7 +27,6 @@ define ['app'
 						@$el.find('select').selectpicker()
 
 						# set affix
-						@$el.find('*[data-spy="affix"]').width @$el.width()
 						@$el.find('*[data-spy="affix"]').affix()
 						
 						# affix width

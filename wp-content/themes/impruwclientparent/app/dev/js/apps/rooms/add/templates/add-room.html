@@ -36,7 +36,7 @@
 	<div class="row">
 		<div class="col-md-12" id="facilities-region"></div>
 	</div>
-	<div class="row" >
+	<div class="row scrollsection" id="room-gallery" data-text="Room Gallery">
 		<div class="col-md-12">
 			<h4 class="aj-imp-sub-head scroll-ref">Images <small>Add attachment images to your room.</small></h4>
 			<div>
@@ -51,18 +51,24 @@
 			</div>
 		</div>
 	</div>
-	<div class="row" >
+	<div class="row scrollsection" id="room-tariffs" data-text="Room Tariff">
 		<div class="col-md-12">
 			<h4 class="aj-imp-sub-head scroll-ref">Room Tariff <small>Add tariffs and date ranges for your rooms.</small></h4>
 			<div id="room-tariff-region"></div>
 		</div>
 	</div>
-	<div class="row">
+	<div class="row scrollsection" id="room-bookings" data-text="Room Bookings">
 		<div class="col-md-12">
 			<h4 class="aj-imp-sub-head scroll-ref">Room Booking <small>Set up booking</small></h4>
 			<div id="room-booking-region"></div>
 		</div>
 	</div>
-	<button type="button" class="btn btn-wide aj-imp-submit" id="btn_saveroom" name="btn_saveroom">Save Room</button>
+	
 	<input type="reset" class="hidden" id="btn_resetroom" name="btn_resetroom">
+	<div class="aj-imp-long-form-actions" data-spy="affix">
+        <div class="action">
+            <div class="affix-show">You have unsaved changes!</div>
+            <button type="button" class="btn btn-wide aj-imp-submit" id="btn_saveroom" name="btn_saveroom">Save Room</button>
+        </div>
+    </div>
 </form>

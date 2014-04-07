@@ -11,14 +11,7 @@ define(['app', 'backbone'], function(App, Backbone) {
         return AnalyticsModel.__super__.constructor.apply(this, arguments);
       }
 
-      AnalyticsModel.prototype.idAttribute = 'date';
-
-      AnalyticsModel.prototype.parse = function(resp) {
-        resp['ga:avgTimeOnSite'] = resp['ga:avgTimeOnSite'].toFixed(2);
-        resp['ga:pageviewsPerVisit'] = resp['ga:pageviewsPerVisit'].toFixed(2);
-        resp['ga:visitBounceRate'] = resp['ga:visitBounceRate'].toFixed(2);
-        return resp;
-      };
+      AnalyticsModel.prototype.parse = function(resp) {};
 
       return AnalyticsModel;
 

@@ -26,7 +26,6 @@ define(['app', 'text!apps/site-profile/edit/templates/mainview.html', 'text!apps
       MainView.prototype.onShow = function() {
         var m, w;
         this.$el.find('select').selectpicker();
-        this.$el.find('*[data-spy="affix"]').width(this.$el.width());
         this.$el.find('*[data-spy="affix"]').affix();
         w = $('.aj-imp-right').width();
         this.$el.find('*[data-spy="affix"]').width(w);
