@@ -166,7 +166,7 @@ jQuery(document).ready(function($){
    // display the colour on the calender for date ranges 
        function getColour(){
             
-          var classNames = ['green', 'red', 'orange', 'blue', 'pink','yellow'];
+          var classNames = ['green', 'red', 'orange', 'blue', 'pink', 'yellow'];
           
           var arr =[]; 
           for(var i=0; i< DATERANGE.length; i++){
@@ -374,6 +374,19 @@ jQuery(document).ready(function($){
          }
          
          return html;
-      }    
-     
+      }
+  
+  /* Carousel Init */
+  $('.carousel').carousel({
+    interval: 3000
+  });
+
+  /* Slimmenu */
+  $('.slimmenu').slimmenu({
+    resizeWidth       : '767',
+    collapserTitle    : 'Menu',
+    animSpeed         : 'medium',
+    indentChildren    : false,
+    childrenIndenter  : '&nbsp;'
+  });
 });

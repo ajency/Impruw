@@ -167,6 +167,15 @@ and open the template in the editor.
 .site-style-container .row.column-dividers .column:last-child {
   border-right: 0;
 }
+/**** Logo Styles ****/
+@media (max-width: 767px) {
+  .logo {
+    text-align: center;
+  }
+  .logo a {
+    display: inline-block;
+  }
+}
 /****Top Slim-menu Styles****/
 .nav.slimmenu {
   border: 1px solid #1b2642;
@@ -278,6 +287,17 @@ and open the template in the editor.
 .nav.footer-menu li:hover a {
   color: #ff5f5f;
 }
+/**** Slimmenu Responsive Styles ****/
+.menu-collapser {
+  background: #ff5f5f;
+  color: #fff;
+}
+.menu-collapser .collapse-button {
+  background: #fff;
+}
+.menu-collapser .collapse-button .icon-bar {
+  background: #ff5f5f;
+}
 /**** Title Styles****/
 .title {
   color: #ff5f5f;
@@ -367,6 +387,11 @@ and open the template in the editor.
   font-weight: 200;
   margin-bottom: 10px;
   padding-left: 5px;
+}
+@media (max-width: 767px) {
+  .address {
+    text-align: center;
+  }
 }
 /****Social Element Styles****/
 .icon-dribbble:before,

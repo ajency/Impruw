@@ -758,24 +758,22 @@ function get_parent_template_directory_uri() {
  */
 function get_theme_JS() {
 	?>
-<script
-	src="<?php echo get_parent_template_directory_uri(); ?>/js/bootstrap.min.js"></script>
-<script
-	src="<?php echo get_parent_template_directory_uri(); ?>/js/contact.js"></script>
+<script src="<?php echo get_parent_template_directory_uri(); ?>/js/bootstrap.min.js"></script>
+<script	src="<?php echo get_parent_template_directory_uri(); ?>/js/jquery.slimmenu.min.js"></script>
+<script	src="<?php echo get_parent_template_directory_uri(); ?>/js/contact.js"></script>
 <?php
 	$theme_path = get_stylesheet_directory () . "/js";
 	if (file_exists ( $theme_path ) && is_dir ( $theme_path )) {
 		
 		$js_files = scandir ( $theme_path, 1 );
 		foreach ( $js_files as $key => $value ) {
-			if (! in_array ( $value, array (
-					".",
-					".." 
-			) )) {
+			if(endsWith($file, '.js'))
 				$files [] = $value;
-			}
+			
 		}
 		
+		$files = !is_array($files) ? array() : $files;
+
 		asort ( $files );
 		
 		foreach ( $files as $file ) {
@@ -785,6 +783,11 @@ function get_theme_JS() {
 <?php
 		}
 	}
+}
+
+function endsWith($haystack, $needle)
+{
+    return $needle === "" || substr($haystack, -strlen($needle)) === $needle;
 }
 
 /**
