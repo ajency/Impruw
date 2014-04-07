@@ -180,7 +180,7 @@ jQuery(document).ready(function($){
          
          $('#plans-details-region').find('.carousel-inner').append(html);
  
-         $('.carousel').carousel({
+         $('#myCarousel').carousel({
                 interval: 2000
           });
           

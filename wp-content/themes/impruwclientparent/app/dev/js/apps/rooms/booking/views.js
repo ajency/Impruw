@@ -99,7 +99,7 @@ define(['app', 'text!apps/rooms/add/templates/add-room.html'], function(App, add
       };
 
       CalendarView.prototype.changeAvaliability = function(event, ui) {
-        var date, value;
+        var date, dateTime, value;
         if (ui.value === 0) {
           value = 'availabile';
         }
@@ -109,7 +109,8 @@ define(['app', 'text!apps/rooms/add/templates/add-room.html'], function(App, add
         if (ui.value === 60) {
           value = 'unavailabile';
         }
-        date = this.$el.find('#room-booking-calendar').datepicker('getDate');
+        dateTime = this.$el.find('#room-booking-calendar').datepicker('getDate');
+        date = $.datepicker.formatDate("yy-mm-dd", dateTime);
         $('#booking-slider').slider('disable');
         return this.trigger("change:availability", value, date);
       };

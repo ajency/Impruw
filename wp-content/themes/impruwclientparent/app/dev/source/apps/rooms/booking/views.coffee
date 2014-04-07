@@ -97,7 +97,8 @@ define ['app'
 						value = 'availabile' if ui.value is 0
 						value = 'semi-availabile' if ui.value is 30
 						value = 'unavailabile' if ui.value is 60
-						date = @$el.find('#room-booking-calendar').datepicker 'getDate'
+						dateTime = @$el.find('#room-booking-calendar').datepicker 'getDate'
+						date = $.datepicker.formatDate( "yy-mm-dd", dateTime )
 						$('#booking-slider').slider 'disable'
 						@trigger "change:availability", value, date
 
