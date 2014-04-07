@@ -267,12 +267,14 @@ jQuery(document).ready(function($){
       function checkTariffForPlanId(daterange_id){
            var html = ''; var temp =0;
            
-           if(TARIFF.length > 0){ 
+           if(TARIFF.length === 0)
+               return ' <div class="room-booking-plan"><h5>No plans \n\
+                    exsists for selected date</h5></div>';
            
-              for(var i=0; i< TARIFF.length; i++){
-               
+           for(var i=0; i< TARIFF.length; i++){
+             
                if(TARIFF[i].daterange_id == daterange_id){
-                   
+                  
                     var plans = getPlans(TARIFF[i].plan_id);
                     
                     var weekday = TARIFF[i].weekday;
@@ -342,18 +344,20 @@ jQuery(document).ready(function($){
                    
                }
                else{
-                   //console.log(TARIFF[i].daterange_id+'----'+daterange_id);
-                  // html = ' <div class="room-booking-plan"><h5>No plans \n\
-                //   exsists for selected date</h5></div>'; 
+                       var plans_name = getPlans(TARIFF[i].plan_id);
+                       html += '<div class="item">\n\
+                                <div class="room-booking-plan">'+plans_name+
+                                '</div>\n\
+                                <div class="booking-detail">\n\
+                                    No tariff data available for selected date\n\
+                                </div>\n\
+                                </div>';
+                  
+              
                }
            }
-       }
-       else{
-           html = ' <div class="room-booking-plan"><h5>No plans \n\
-                    exsists for selected date</h5></div>';
-       }
            
-       return html;
+         return html;
           
       }
       
@@ -376,10 +380,6 @@ jQuery(document).ready(function($){
          return html;
       }
   
-  /* Carousel Init */
-  $('.carousel').carousel({
-    interval: 3000
-  });
 
   /* Slimmenu */
   $('.slimmenu').slimmenu({
