@@ -33,6 +33,8 @@ define(['app', 'text!apps/rooms/add/templates/add-room.html'], function(App, add
         this.changeAvaliability = __bind(this.changeAvaliability, this);
         this.triggerOnSelect = __bind(this.triggerOnSelect, this);
         this.setDateRangeColor = __bind(this.setDateRangeColor, this);
+        this.removeHightlight = __bind(this.removeHightlight, this);
+        this.displayColorMonthChange = __bind(this.displayColorMonthChange, this);
         return CalendarView.__super__.constructor.apply(this, arguments);
       }
 
@@ -43,11 +45,26 @@ define(['app', 'text!apps/rooms/add/templates/add-room.html'], function(App, add
           inline: true,
           numberOfMonths: 3,
           dateFormat: 'yy-mm-dd',
+          minDate: new Date(),
           onSelect: this.triggerOnSelect,
-          beforeShowDay: this.highlightDaysByDateRange
+          beforeShowDay: this.highlightDaysByDateRange,
+          onChangeMonthYear: this.displayColorMonthChange
         });
         this.setDateRangeColor();
-        App.vent.on("booking:updated", this.onBookingUpdated);
+        this.removeHightlight();
+        return App.vent.on("booking:updated", this.onBookingUpdated);
+      };
+
+      CalendarView.prototype.displayColorMonthChange = function(year, month, inst) {
+        return _.delay((function(_this) {
+          return function() {
+            _this.setDateRangeColor();
+            return _this.removeHightlight();
+          };
+        })(this), 10);
+      };
+
+      CalendarView.prototype.removeHightlight = function() {
         this.$el.find('#room-booking-calendar td.ui-datepicker-today a.ui-state-highlight').removeClass('ui-state-highlight');
         return this.$el.find('#room-booking-calendar td.ui-datepicker-today a.ui-state-active').removeClass('ui-state-active');
       };

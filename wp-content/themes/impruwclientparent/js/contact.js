@@ -139,15 +139,29 @@ jQuery(document).ready(function($){
           dateFormat: 'yy-mm-dd',
           beforeShowDay : showDateRangeClass,
           onSelect : showData,
+          minDate: new Date(),
+          onChangeMonthYear : displayColorMonthChange
           
         });
         
         $('.ui-datepicker-current-day').click();
         
-        $("#room-booking-calendar td.ui-datepicker-today a.ui-state-highlight").removeClass('ui-state-highlight');
-        $("#room-booking-calendar td.ui-datepicker-today a.ui-state-active").removeClass('ui-state-active');
-        
         getColour();
+        removeHightlight();
+        
+        // remove the current date highlight css 
+        function removeHightlight(){
+        
+       
+            $("#room-booking-calendar td.ui-datepicker-today\n\
+             a.ui-state-highlight").removeClass('ui-state-highlight');
+        
+            $("#room-booking-calendar td.ui-datepicker-today \n\
+             a.ui-state-active").removeClass('ui-state-active');
+        
+        }
+        
+     
        
    // display the colour on the calender for date ranges 
        function getColour(){
@@ -165,8 +179,17 @@ jQuery(document).ready(function($){
            }
            
            $.each(arr, function(key, val) {
-              $(" ." + val ).addClass("booking-" + classNames[key]);
+              $("."+val ).addClass("booking-" + classNames[key]);
            });
+      }
+     
+     // display the color of daterange on month selection change
+      function displayColorMonthChange(year, month, inst){
+          
+          setTimeout(function(){
+        	 getColour();
+                 removeHightlight();
+         }, 10); 
       }
       
     // display the selected date and corresponding plans for the date

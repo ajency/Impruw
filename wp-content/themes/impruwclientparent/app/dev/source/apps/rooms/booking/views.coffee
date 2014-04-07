@@ -37,14 +37,27 @@ define ['app'
 								inline: true
 								numberOfMonths : 3
 								dateFormat : 'yy-mm-dd'
+								minDate: new Date()
 								onSelect : @triggerOnSelect
 								beforeShowDay: @highlightDaysByDateRange
+								onChangeMonthYear : @displayColorMonthChange
 
 						@setDateRangeColor()
+						@removeHightlight()
 
 						# bind booking updated event
 						App.vent.on "booking:updated", @onBookingUpdated
 
+						
+
+					displayColorMonthChange :(year, month, inst) =>
+						
+						_.delay =>
+							@setDateRangeColor()
+							@removeHightlight()
+						, 10
+
+					removeHightlight :=>
 						@$el.find('#room-booking-calendar td.ui-datepicker-today a.ui-state-highlight').removeClass 'ui-state-highlight'
 						@$el.find('#room-booking-calendar td.ui-datepicker-today a.ui-state-active').removeClass 'ui-state-active'
 
