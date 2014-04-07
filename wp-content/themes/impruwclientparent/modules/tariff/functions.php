@@ -60,7 +60,7 @@ function get_tariff($room_id = 0) {
         if($room_id === 0)
 		$room_id = get_the_ID();
 
-	$table_name = $wpdb->prefix . 'tariffs';
+	$table_name = $wpdb->prefix . 'tariff';
 
 	$query = "SELECT * FROM $table_name WHERE room_id = $room_id ";
 

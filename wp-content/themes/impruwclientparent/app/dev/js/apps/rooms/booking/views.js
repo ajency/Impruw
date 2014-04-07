@@ -41,13 +41,15 @@ define(['app', 'text!apps/rooms/add/templates/add-room.html'], function(App, add
       CalendarView.prototype.onShow = function() {
         this.$el.find('#room-booking-calendar').datepicker({
           inline: true,
-          numberOfMonths: 2,
+          numberOfMonths: 3,
           dateFormat: 'yy-mm-dd',
           onSelect: this.triggerOnSelect,
           beforeShowDay: this.highlightDaysByDateRange
         });
         this.setDateRangeColor();
-        return App.vent.on("booking:updated", this.onBookingUpdated);
+        App.vent.on("booking:updated", this.onBookingUpdated);
+        this.$el.find('#room-booking-calendar td.ui-datepicker-today a.ui-state-highlight').removeClass('ui-state-highlight');
+        return this.$el.find('#room-booking-calendar td.ui-datepicker-today a.ui-state-active').removeClass('ui-state-active');
       };
 
       CalendarView.prototype.setDateRangeColor = function() {

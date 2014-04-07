@@ -44,74 +44,99 @@ class RoomBooking extends Element {
          <script src="'.site_url().'/wp-content/themes/impruwclientparent/dashboard/lib/jquery.ui.min.js"></script>
           <script src="'.site_url().'/wp-content/themes/impruwclientparent/dashboard/lib/moment.min.js"></script>
               <script src="'.site_url().'/wp-content/themes/impruwclientparent/dashboard/lib/moment-range.js"></script>
-              <script src="'.site_url().'/wp-content/themes/impruwclientparent/js/jquery.bxslider.min.js"></script>
               
             <h4 class="booking-title">Booking &amp; Availability</h4>
             <div class="room-booking front" id="room-booking-region">
 
                 <div class="row room-booking-container">
-                    <div class="col-md-8">
-                        <div class="room-booking-calender" id="calendar-region">
-                            <h4>
-                                 <span class="glyphicon glyphicon-calendar"></span>
-                                 Monthly Calendar <span class="excerpt">Choose the dates you want to check availability for.</span>
-                            </h4> 
-                            <div id="room-booking-calendar"></div>
-                            <br>
-                            <br>
-                            <br>
-                            <ul class="list-inline daterange-legends"> ';
-     
-                     $html .= $this->get_daterange_legends();
-                              
-           $html .= '       </ul>
-                        </div>
-                    </div>
-                    <div class="col-md-4 room-booking-data" id="plans-details-region">
+                    
+                     <div class="col-md-8">
+                            
+                            <div class="room-booking-calender" id="calendar-region">
+                                <h4>
+                                     <span class="glyphicon glyphicon-calendar"></span>
+                                     Monthly Calendar <span class="excerpt">Choose the dates 
+                                     you want to check availability for.</span>
+                                </h4> 
+                                <div id="room-booking-calendar"></div>
+                                <br>
+                                <br>
+                                <br>
+                                <ul class="list-inline daterange-legends"> ';
+                                
+                                     $html .= $this->get_daterange_legends();
+
+               $html .= '       </ul>
+                            </div>
+                            
+                      </div>
+                    
+                      <div class="col-md-4 room-booking-data" id="plans-details-region">
+                            
                             <div class="date-range">
                                 You have selected
                                 <b>18 Jan to 16 Jan </b>
                                 <p class="status">Available</p>
                             </div>
+                            
                             <div id="myCarousel" class="carousel slide vertical">
-                                <div class="carousel-inner">
-                                 <div class="item active">
-                                <div class="room-booking-plan">
-                                    <h5>Plan 1 </h5>
-                                    <p>Room. Lorem Ipsum is simply dummy text of the printing
-                                    and typesetting industry.</p>
+                                
+                                   <div class="carousel-inner">
+                                     
+                                        <div class="item active">
+                                            
+                                            <div class="room-booking-plan">
+                                               
+                                                <h5>Plan 1 </h5>
+                                                <p>Room. Lorem Ipsum is simply dummy text of the printing
+                                                and typesetting industry.</p>
 
-                                    <div class="booking-detail">
-                                        Max Adults:
-                                        <span>02</span>
-                                    </div>
-                                    <div class="booking-detail">
-                                        Max Children:
-                                        <span>  02</span>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                    <div class="plan-bg">
-                                            <h6>Additional Charge</h6>
-                                            <div class="booking-detail">
-                                                per extra Adult : $200
+                                                <div class="booking-detail">
+                                                    Max Adults:
+                                                    <span>02</span>
+                                                </div>
+                                               
+                                                <div class="booking-detail">
+                                                    Max Children:
+                                                    <span>  02</span>
+                                                </div>
+                                                
+                                                <div class="clearfix"></div>
+                                                
+                                                <div class="plan-bg">
+                                                        <h6>Additional Charge</h6>
+                                                        <div class="booking-detail">
+                                                            per extra Adult : $200
 
-                                            </div>
-                                            <div class="booking-detail">
-                                                per extra Child : $152
+                                                        </div>
+                                                        <div class="booking-detail">
+                                                            per extra Child : $152
 
-                                            </div>
-                                            <div class="clearfix"></div>
+                                                        </div>
+                                                        <div class="clearfix"></div>
 
-                                            <div class="booking-price">WEEKDAYS <b>$300</b>
-                                     </div>
-                                    </div>
-                                </div>
-                                </div> <!-- class item -->
-                                </div> <!-- slider inner -->
-                            </div> <!-- slider -->
-                          </div> 
-                    </div>
-                </div>';
+                                                        <div class="booking-price">WEEKDAYS
+                                                        <b>$300</b></div>
+                                                 </div>  <!-- plan-bg end -->
+                                                 
+                                           </div> <!-- room-booking-plan end -->
+                                     
+                                          </div> <!-- carousel item  end -->
+                                          
+                                    </div> <!-- carousel inner end -->
+                                    
+                                    <a class="carousel-control left" href="#myCarousel" 
+                                    data-slide="prev">‹</a>
+                                    <a class="carousel-control right" href="#myCarousel" 
+                                    data-slide="next">›</a>
+                                    
+                               </div> <!-- carousel end -->
+                         
+                          </div> <!-- plans-details-region end -->
+                          
+                    </div> <!-- room-booking-container end -->
+                    
+                </div> <!-- room-booking-region end  -->';
 
      return $html;
     }

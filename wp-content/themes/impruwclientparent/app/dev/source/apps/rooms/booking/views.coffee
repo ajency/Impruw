@@ -35,7 +35,7 @@ define ['app'
 						@$el.find '#room-booking-calendar'
 							.datepicker
 								inline: true
-								numberOfMonths : 2
+								numberOfMonths : 3
 								dateFormat : 'yy-mm-dd'
 								onSelect : @triggerOnSelect
 								beforeShowDay: @highlightDaysByDateRange
@@ -44,6 +44,9 @@ define ['app'
 
 						# bind booking updated event
 						App.vent.on "booking:updated", @onBookingUpdated
+
+						@$el.find('#room-booking-calendar td.ui-datepicker-today a.ui-state-highlight').removeClass 'ui-state-highlight'
+						@$el.find('#room-booking-calendar td.ui-datepicker-today a.ui-state-active').removeClass 'ui-state-active'
 
 					# sets a background color for daterange
 					setDateRangeColor:=>
