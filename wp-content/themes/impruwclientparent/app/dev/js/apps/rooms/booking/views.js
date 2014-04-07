@@ -149,7 +149,7 @@ define(['app', 'text!apps/rooms/add/templates/add-room.html'], function(App, add
         if (currentStatus === 'unavailable') {
           value = 60;
         }
-        html = "<div style='width:250px'> <a href='#'>Close</a> <div id='booking-slider' data-value='" + value + "'></div> <div class='row'> <div class='col-md-4'>availabile</div> <div class='col-md-4'>semi-availabile</div> <div class='col-md-4'>unavailabile </div> </div> </div>";
+        html = "<button type='button' class='close' aria-hidden='true'>&times;</button> <div class='booking-slider-pop'> <div id='booking-slider' data-value='" + value + "'></div> <div class='row'> <div class='col-md-4 available'>available</div> <div class='col-md-4 semi-available'>semi-available</div> <div class='col-md-4 unavailable'>unavailable </div> </div> </div>";
         return html;
       };
 
