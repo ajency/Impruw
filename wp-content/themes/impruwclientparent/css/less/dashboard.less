@@ -2279,6 +2279,7 @@ form {
 	.room-tariff-grid {
 		overflow-x: auto; 
 		min-height: 40px;
+		-webkit-overflow-scrolling: touch;
 		.tariff {
 			position: relative;
 			.date-range {
@@ -2297,14 +2298,23 @@ form {
 				.from, .to {
 					margin: 0.2em 0 0.4em;	
 				}
+				.edit-range-link {
+					font-size: 0.8em;
+					display: none;
+				}
+				&:hover {
+					.edit-range-link {
+						display: block;
+					}
+				}
 			}
 			.packages {
 				width: 100%;
 				padding-left: 70px;
 				.btn-add-plan {
 					position: absolute;
-					right: 0;
-					top: 0;
+					right: 1em;
+					top: 0.5em;
 					height: 40px;
 					background: -moz-linear-gradient(left,  rgba(255,255,255,0) 0%, rgba(255,255,255,0.5) 7%, rgba(255,255,255,1) 100%); /* FF3.6+ */
 					background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(255,255,255,0)), color-stop(7%,rgba(255,255,255,0.5)), color-stop(100%,rgba(255,255,255,1))); /* Chrome,Safari4+ */
@@ -2376,6 +2386,24 @@ form {
 									}
 								}
 							}
+							&.empty {
+								height: 139px;
+								text-align: center;
+								color: @dash-grey;
+								.no-data {
+									min-height: 77px;
+									display: block;
+									text-align: center;
+									color: lighten(@dash-grey, 10%);
+									.glyphicon {
+										font-size: 2.5em;
+										margin-top: 25px;
+									}
+								}
+								.tariff-label {
+									text-align: center;
+								}
+							}
 							&:hover {
 								border-color: @orange;
 								.block-action {
@@ -2390,12 +2418,28 @@ form {
 							background: transparent;
 							border: 0;
 							padding: 0;
+							position: relative;
 							h6, .package-desc {
 								display: block;
+							}
+							.edit-pkg-link {
+								position: absolute;
+								top: 0em;
+								right: 0em;
+								font-size: 0.8em;
+								display: none;
+							}
+							&:hover {
+								.edit-pkg-link {
+									display: block;
+								}
 							}
 						}
 					}
 				}
+			}
+			&.package-names {
+				position: static;
 			}
 		}
 		@media(max-width:767px){
