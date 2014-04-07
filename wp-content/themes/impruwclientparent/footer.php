@@ -24,7 +24,8 @@
      <script type="text/javascript">
     	var PLANS = <?php echo json_encode(get_plans()); ?>;
         var DATERANGE = <?php echo json_encode(get_date_range()); ?>;
-        var TARIFF = <?php echo json_encode(get_tariff(get_the_ID())); ?>;
+        var TARIFF = <?php echo json_encode(get_tariff(2)); ?>;
+        //var TARIFF = <?php echo json_encode(get_tariff(get_the_ID())); ?>;
         var BOOKING = <?php echo json_encode(get_bookings()); ?>;
     </script>  
    <?php  endif; ?>

@@ -122,13 +122,13 @@ jQuery(document).ready(function($){
         
         // get the class names for the dateranges
         function showDateRangeClass(date){
-            
+           
            var date_range_slug = getDateRangeClassName(date);
             
            var status = getAvailabilityClassName(date);
   
            var class_name = ['true',date_range_slug+' '+status];
-           
+                      
            return class_name;
         }
     
@@ -138,10 +138,30 @@ jQuery(document).ready(function($){
           numberOfMonths: 2,
           dateFormat: 'yy-mm-dd',
           beforeShowDay : showDateRangeClass,
-          onSelect : showData
+          onSelect : showData,
+          minDate: new Date(),
+          onChangeMonthYear : displayColorMonthChange
+          
         });
         
+        $('.ui-datepicker-current-day').click();
+        
         getColour();
+        removeHightlight();
+        
+        // remove the current date highlight css 
+        function removeHightlight(){
+        
+       
+            $("#room-booking-calendar td.ui-datepicker-today\n\
+             a.ui-state-highlight").removeClass('ui-state-highlight');
+        
+            $("#room-booking-calendar td.ui-datepicker-today \n\
+             a.ui-state-active").removeClass('ui-state-active');
+        
+        }
+        
+     
        
    // display the colour on the calender for date ranges 
        function getColour(){
@@ -159,8 +179,17 @@ jQuery(document).ready(function($){
            }
            
            $.each(arr, function(key, val) {
-              //$("." + val ).addClass("booking-" + classNames[key]);
+              $("."+val ).addClass("booking-" + classNames[key]);
            });
+      }
+     
+     // display the color of daterange on month selection change
+      function displayColorMonthChange(year, month, inst){
+          
+          setTimeout(function(){
+        	 getColour();
+                 removeHightlight();
+         }, 10); 
       }
       
     // display the selected date and corresponding plans for the date
@@ -173,10 +202,18 @@ jQuery(document).ready(function($){
          $('#plans-details-region').find('.carousel-inner').empty();
          
          $('#plans-details-region').find('.carousel-inner').append(html);
-         
-         setTimeout(function(){
+ 
+         $('#myCarousel').carousel({
+                interval: 2000
+          });
+          
+        setTimeout(function(){
         	 getColour();
          }, 10);
+         
+        
+         
+         
       }
       
       // display the date selected along with availabilty status
@@ -213,7 +250,9 @@ jQuery(document).ready(function($){
               
               else{
                   
-                  html = '  <div class="item"><div class="room-booking-plan"><h5>No Plans for selected date</h5></div></div>';
+                  html = '  <div class="item active">\n\
+                            <div class="room-booking-plan"><h5>\n\
+                            No plans exsists for selected date</h5></div></div>';
               }
     
           }
@@ -222,12 +261,14 @@ jQuery(document).ready(function($){
       }
       
       function checkTariffForPlanId(daterange_id){
-           var html ='';
-       
-           for(var i=0; i< TARIFF.length; i++){
+           var html = ''; var temp =0;
+           
+           if(TARIFF.length > 0){ 
+           
+              for(var i=0; i< TARIFF.length; i++){
                
                if(TARIFF[i].daterange_id == daterange_id){
-
+                   
                     var plans = getPlans(TARIFF[i].plan_id);
                     
                     var weekday = TARIFF[i].weekday;
@@ -236,7 +277,16 @@ jQuery(document).ready(function($){
 
                     if( plans!= ''){
                         
-                        html += '<div class="item"><div class="room-booking-plan">'+plans;
+                        if(temp == 0){
+                            
+                          html += '<div class=" active item">';
+                          temp = 1;
+                        }
+                        else{
+                             html += '<div class="item">';
+                        }
+                        
+                        html += '<div class="room-booking-plan">'+plans;
                         
                         html += '<div class="booking-detail">Max Adults Weekdays:<span>'+
                                 weekday.max_adults+'</span></div>';
@@ -282,18 +332,24 @@ jQuery(document).ready(function($){
                         
                         html += '<div class="booking-price">WEEKEND <b>$'+weekend.charge+'</b></div>';
                         
-                        html += '</div></div>';
+                        html += '</div></div></div>';
                        
                     }
                    
                }
                else{
                    //console.log(TARIFF[i].daterange_id+'----'+daterange_id);
-                  // html = ' <div class="room-booking-plan"><h5>No plans in tariff table</h5></div>'; 
+                  // html = ' <div class="room-booking-plan"><h5>No plans \n\
+                //   exsists for selected date</h5></div>'; 
                }
            }
+       }
+       else{
+           html = ' <div class="room-booking-plan"><h5>No plans \n\
+                    exsists for selected date</h5></div>';
+       }
            
-           return html;
+       return html;
           
       }
       

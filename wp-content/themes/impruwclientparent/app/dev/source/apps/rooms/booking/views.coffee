@@ -35,15 +35,31 @@ define ['app'
 						@$el.find '#room-booking-calendar'
 							.datepicker
 								inline: true
-								numberOfMonths : 2
+								numberOfMonths : 3
 								dateFormat : 'yy-mm-dd'
+								minDate: new Date()
 								onSelect : @triggerOnSelect
 								beforeShowDay: @highlightDaysByDateRange
+								onChangeMonthYear : @displayColorMonthChange
 
 						@setDateRangeColor()
+						@removeHightlight()
 
 						# bind booking updated event
 						App.vent.on "booking:updated", @onBookingUpdated
+
+						
+
+					displayColorMonthChange :(year, month, inst) =>
+						
+						_.delay =>
+							@setDateRangeColor()
+							@removeHightlight()
+						, 10
+
+					removeHightlight :=>
+						@$el.find('#room-booking-calendar td.ui-datepicker-today a.ui-state-highlight').removeClass 'ui-state-highlight'
+						@$el.find('#room-booking-calendar td.ui-datepicker-today a.ui-state-active').removeClass 'ui-state-active'
 
 					# sets a background color for daterange
 					setDateRangeColor:=>
@@ -94,7 +110,8 @@ define ['app'
 						value = 'availabile' if ui.value is 0
 						value = 'semi-availabile' if ui.value is 30
 						value = 'unavailabile' if ui.value is 60
-						date = @$el.find('#room-booking-calendar').datepicker 'getDate'
+						dateTime = @$el.find('#room-booking-calendar').datepicker 'getDate'
+						date = $.datepicker.formatDate( "yy-mm-dd", dateTime )
 						$('#booking-slider').slider 'disable'
 						@trigger "change:availability", value, date
 
