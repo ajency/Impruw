@@ -345,6 +345,13 @@ a:focus {
   width: 100% !important;
   margin-left: 0 !important;
 }
+@media (max-width: 767px) {
+  .aj-imp-container .aj-imp-right .aj-imp-dash-content .aj-imp-long-form-actions {
+    margin: 0 !important;
+    padding: 0 15px !important;
+    width: 100% !important;
+  }
+}
 @media only screen and (min-width: 1440px) {
   /* Styles */
   .aj-imp-container .aj-imp-left,
