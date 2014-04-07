@@ -2279,6 +2279,7 @@ form {
 	.room-tariff-grid {
 		overflow-x: auto; 
 		min-height: 40px;
+		-webkit-overflow-scrolling: touch;
 		.tariff {
 			position: relative;
 			.date-range {
@@ -2312,8 +2313,8 @@ form {
 				padding-left: 70px;
 				.btn-add-plan {
 					position: absolute;
-					right: 0;
-					top: 0;
+					right: 1em;
+					top: 0.5em;
 					height: 40px;
 					background: -moz-linear-gradient(left,  rgba(255,255,255,0) 0%, rgba(255,255,255,0.5) 7%, rgba(255,255,255,1) 100%); /* FF3.6+ */
 					background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(255,255,255,0)), color-stop(7%,rgba(255,255,255,0.5)), color-stop(100%,rgba(255,255,255,1))); /* Chrome,Safari4+ */
@@ -2436,6 +2437,9 @@ form {
 						}
 					}
 				}
+			}
+			&.package-names {
+				position: static;
 			}
 		}
 		@media(max-width:767px){

@@ -2235,6 +2235,7 @@ form .aj-imp-submit:hover {
 .room-tariff-container .room-tariff-grid {
   overflow-x: auto;
   min-height: 40px;
+  -webkit-overflow-scrolling: touch;
 }
 .room-tariff-container .room-tariff-grid .tariff {
   position: relative;
@@ -2270,8 +2271,8 @@ form .aj-imp-submit:hover {
 }
 .room-tariff-container .room-tariff-grid .tariff .packages .btn-add-plan {
   position: absolute;
-  right: 0;
-  top: 0;
+  right: 1em;
+  top: 0.5em;
   height: 40px;
   background: -moz-linear-gradient(left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 7%, #ffffff 100%);
   /* FF3.6+ */
@@ -2408,6 +2409,9 @@ form .aj-imp-submit:hover {
 }
 .room-tariff-container .room-tariff-grid .tariff .packages .package-blocks.header .block:hover .edit-pkg-link {
   display: block;
+}
+.room-tariff-container .room-tariff-grid .tariff.package-names {
+  position: static;
 }
 @media (max-width: 767px) {
   .room-tariff-container .room-tariff-grid {
