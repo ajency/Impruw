@@ -3173,3 +3173,59 @@ form .aj-imp-submit:hover {
   font-size: 0.8em;
   text-align: center;
 }
+
+.indicator {
+  display: inline-block;
+  right: 1em;
+  padding: 0.3em;
+  background: #806973;
+  border-radius: 50%;
+  opacity: 0.5;
+  transition: opacity 0.5s;
+}
+.indicator--passed, .indicator--upcoming {
+  position: fixed;
+}
+.indicator--passed { 
+  top: 0 !important;
+}
+.indicator--upcoming { 
+  bottom: 0 !important;
+}
+.indicator--active {
+  position: absolute;
+}
+.indicator--viewing, .indicator:hover {
+  opacity: 1;
+}
+
+.indicator-tooltip {
+  position: absolute;
+  right: 2em;
+  width: 0;
+  margin-top: -1em;
+  background-color: #806973;
+  color: #FFF;
+  white-space: nowrap;
+  border-radius: 3px;
+  overflow: hidden;
+  z-index: -1;
+}
+.indicator-tooltip:after {
+  display: block;
+  content: '';
+  position: absolute;
+  right: -0.9em;
+  top: 50%;
+  width: 0;
+  height: 0;
+  margin-top: -0.4em;
+  border: 0.4em solid transparent;
+  border-left: 0.5em solid #806973;
+}
+.indicator:hover .indicator-tooltip {
+  width: auto;
+  padding: 0.5em;
+  overflow: visible;
+  z-index: 1;
+}

@@ -139,14 +139,13 @@ $.fn.scrollSections =  ->
   #
   # BIND EVENTS
   #
-  $(document).scroll ->
-    adjustIndicators()
-    return
+  scrollFn  = _.throttle adjustIndicators, 150
+  $(document).scroll scrollFn
 
-  $(window).resize ->
-    initIndicators()
-    adjustIndicators()
-    return
+  $(window).resize _.debounce ->
+      initIndicators()
+      adjustIndicators()
+    , 300
 
   initIndicators()
   adjustIndicators()
