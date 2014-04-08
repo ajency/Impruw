@@ -25,3 +25,23 @@ function get_plans() {
 
 	return $plans;
 }
+
+function wp_update_plan($formdata){
+        global $wpdb;
+
+        $table_name= $wpdb->prefix.'plans';
+
+        $wpdb->update($table_name, $formdata,array('id'=>$formdata['id']));
+
+        return $formdata['id'];
+}
+
+function wp_delete_plan($formdata){
+        global $wpdb;
+
+        $table_name= $wpdb->prefix.'plans';
+
+        $wpdb->delete($table_name,array('id'=>$formdata['id']));
+
+        return $formdata['id'];
+}

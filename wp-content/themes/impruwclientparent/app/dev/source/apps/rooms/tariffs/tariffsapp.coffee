@@ -4,6 +4,7 @@ define  ['app'
 		'apps/rooms/tariffs/edittariff/edittariff'
 		'apps/rooms/tariffs/addtariff/addtariff'
 		'apps/rooms/tariffs/daterange/adddaterange'
+		'apps/rooms/tariffs/plan/editplan'
 		'apps/rooms/tariffs/plan/addplan'],(App, AppController)->
 
 			App.module "RoomsApp.RoomsTariff", (RoomsTariff, App)->
@@ -28,6 +29,9 @@ define  ['app'
 						
 						@listenTo @layout, "show:add:plan", =>
 							App.execute "show:add:plan"
+
+						@listenTo @layout, "show:edit:plan",=>
+							App.execute "show:edit:plan"
 						 
 						@show @layout
 					
@@ -44,10 +48,13 @@ define  ['app'
 								<button type="button" class="btn-add-range"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;Add Date Range</button>'
 
 					events : 
+						
 						'click .btn-add-range' : ->
 							@trigger "show:add:daterange"
+						
 						'click .btn-add-plan' : ->
 							@trigger "show:add:plan"
+
 
 					regions : 
 						tariffGridRegion : '#room-tariff-grid' 

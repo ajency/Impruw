@@ -1,57 +1,70 @@
-define  ['app','controllers/base-controller', 'text!apps/rooms/tariffs/plan/templates/addPlan.html'],(App, AppController, addPlanTpl)->
+define  ['app','controllers/base-controller', 'text!apps/rooms/tariffs/plan/templates/editPlan.html'],(App, AppController, editPlanTpl)->
 
-	App.module "RoomsApp.RoomsTariff.Plan.Add", (Add, App)->	
+	App.module "RoomsApp.RoomsTariff.Plan.Edit", (Edit, App)->	
 
-		class AddPlanController extends AppController
+		class EditPlanController extends AppController
 
 			initialize:(opt)->
+				
+				{model} = opt
 
-				@planView = planView = @_getAddPlanView()
+				@planView = planView = @_getEditPlanView model
 
-				@listenTo planView, "add:plan:details", (data)=>
-					plan = App.request "create:plan:model", data
-					plan.save null,
+				@listenTo planView, "update:plan:details", (data)=>
+					model.set data
+					model.save null,
 							wait : true
 							success : @planSaved
-
-					
+				
+				@listenTo planView, "delete:plan", (model) =>
+					model.destroy
+							allData : false
+							wait : true	
+							success : @planDeleted				
 
 				@show planView
 
-			planSaved:(plan)=>
-				pcollection = App.request "get:plans:collection"
-				pcollection.add plan
+			planSaved:()=>
 				@planView.triggerMethod "saved:plan"
+			
+			planDeleted:()=>
+				@planView.triggerMethod "deleted:plan"
 
 			# get the packages view
-			_getAddPlanView :(plan)->
-				new AddPlanView
+			_getEditPlanView :(plan)->
+				new EditPlanView
 						model : plan
 
 		# Edti plan view
-		class AddPlanView extends Marionette.ItemView
+		class EditPlanView extends Marionette.ItemView
 
 			tagName : 'form'
 
 			className : 'form-horizontal'
 
-			template : addPlanTpl
+			template : editPlanTpl
 
 			dialogOptions : 
-				modal_title : 'Add Plan'
+				modal_title : 'Edit Plan'
 				modal_size  : 'medium-modal'
 
 			events:
-				'click #btn_addplan' : ->
+				'click #btn_updateplan' : ->
 					if @$el.valid()
 						data = Backbone.Syphon.serialize @
-						@trigger "add:plan:details", data
+						@trigger "update:plan:details", data
+
+				'click #btn_deleteplan' : ->
+					if confirm('Delete plan?')
+						@trigger "delete:plan", @model
 
 			onSavedPlan:->
 				@$el.parent().find('.alert').remove()
 				@$el.parent().prepend '<div class="alert alert-success">Saved successfully</div>'
-				@$el.find('input').val ''
-				@$el.find('textarea').val ''
+			
+			onDeletedPlan:->
+				$('#dialog-region').modal 'hide'
+				#@$el.find('#dialog-region').modal 'hide'
 
 			# show checkbox
 			onShow:->
@@ -60,7 +73,9 @@ define  ['app','controllers/base-controller', 'text!apps/rooms/tariffs/plan/temp
 
 		# handler
 		App.commands.setHandler "show:edit:plan", (opts)->
+			
+			opts = 
+				region : App.dialogRegion
+				model : opts.model
 
-			new AddPlanController
-							region : App.dialogRegion
-							model : opts.model
+			new EditPlanController opts

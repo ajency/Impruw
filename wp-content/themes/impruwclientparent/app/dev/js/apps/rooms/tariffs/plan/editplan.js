@@ -2,96 +2,115 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/plan/templates/addPlan.html'], function(App, AppController, addPlanTpl) {
-  return App.module("RoomsApp.RoomsTariff.Plan.Add", function(Add, App) {
-    var AddPlanController, AddPlanView;
-    AddPlanController = (function(_super) {
-      __extends(AddPlanController, _super);
+define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/plan/templates/editPlan.html'], function(App, AppController, editPlanTpl) {
+  return App.module("RoomsApp.RoomsTariff.Plan.Edit", function(Edit, App) {
+    var EditPlanController, EditPlanView;
+    EditPlanController = (function(_super) {
+      __extends(EditPlanController, _super);
 
-      function AddPlanController() {
+      function EditPlanController() {
+        this.planDeleted = __bind(this.planDeleted, this);
         this.planSaved = __bind(this.planSaved, this);
-        return AddPlanController.__super__.constructor.apply(this, arguments);
+        return EditPlanController.__super__.constructor.apply(this, arguments);
       }
 
-      AddPlanController.prototype.initialize = function(opt) {
-        var planView;
-        this.planView = planView = this._getAddPlanView();
-        this.listenTo(planView, "add:plan:details", (function(_this) {
+      EditPlanController.prototype.initialize = function(opt) {
+        var model, planView;
+        model = opt.model;
+        this.planView = planView = this._getEditPlanView(model);
+        this.listenTo(planView, "update:plan:details", (function(_this) {
           return function(data) {
-            var plan;
-            plan = App.request("create:plan:model", data);
-            return plan.save(null, {
+            model.set(data);
+            return model.save(null, {
               wait: true,
               success: _this.planSaved
+            });
+          };
+        })(this));
+        this.listenTo(planView, "delete:plan", (function(_this) {
+          return function(model) {
+            return model.destroy({
+              allData: false,
+              wait: true,
+              success: _this.planDeleted
             });
           };
         })(this));
         return this.show(planView);
       };
 
-      AddPlanController.prototype.planSaved = function(plan) {
-        var pcollection;
-        pcollection = App.request("get:plans:collection");
-        pcollection.add(plan);
+      EditPlanController.prototype.planSaved = function() {
         return this.planView.triggerMethod("saved:plan");
       };
 
-      AddPlanController.prototype._getAddPlanView = function(plan) {
-        return new AddPlanView({
+      EditPlanController.prototype.planDeleted = function() {
+        return this.planView.triggerMethod("deleted:plan");
+      };
+
+      EditPlanController.prototype._getEditPlanView = function(plan) {
+        return new EditPlanView({
           model: plan
         });
       };
 
-      return AddPlanController;
+      return EditPlanController;
 
     })(AppController);
-    AddPlanView = (function(_super) {
-      __extends(AddPlanView, _super);
+    EditPlanView = (function(_super) {
+      __extends(EditPlanView, _super);
 
-      function AddPlanView() {
-        return AddPlanView.__super__.constructor.apply(this, arguments);
+      function EditPlanView() {
+        return EditPlanView.__super__.constructor.apply(this, arguments);
       }
 
-      AddPlanView.prototype.tagName = 'form';
+      EditPlanView.prototype.tagName = 'form';
 
-      AddPlanView.prototype.className = 'form-horizontal';
+      EditPlanView.prototype.className = 'form-horizontal';
 
-      AddPlanView.prototype.template = addPlanTpl;
+      EditPlanView.prototype.template = editPlanTpl;
 
-      AddPlanView.prototype.dialogOptions = {
-        modal_title: 'Add Plan',
+      EditPlanView.prototype.dialogOptions = {
+        modal_title: 'Edit Plan',
         modal_size: 'medium-modal'
       };
 
-      AddPlanView.prototype.events = {
-        'click #btn_addplan': function() {
+      EditPlanView.prototype.events = {
+        'click #btn_updateplan': function() {
           var data;
           if (this.$el.valid()) {
             data = Backbone.Syphon.serialize(this);
-            return this.trigger("add:plan:details", data);
+            return this.trigger("update:plan:details", data);
+          }
+        },
+        'click #btn_deleteplan': function() {
+          if (confirm('Delete plan?')) {
+            return this.trigger("delete:plan", this.model);
           }
         }
       };
 
-      AddPlanView.prototype.onSavedPlan = function() {
+      EditPlanView.prototype.onSavedPlan = function() {
         this.$el.parent().find('.alert').remove();
-        this.$el.parent().prepend('<div class="alert alert-success">Saved successfully</div>');
-        this.$el.find('input').val('');
-        return this.$el.find('textarea').val('');
+        return this.$el.parent().prepend('<div class="alert alert-success">Saved successfully</div>');
       };
 
-      AddPlanView.prototype.onShow = function() {
+      EditPlanView.prototype.onDeletedPlan = function() {
+        return $('#dialog-region').modal('hide');
+      };
+
+      EditPlanView.prototype.onShow = function() {
         return this.$el.find('input[type="checkbox"]').checkbox();
       };
 
-      return AddPlanView;
+      return EditPlanView;
 
     })(Marionette.ItemView);
     return App.commands.setHandler("show:edit:plan", function(opts) {
-      return new AddPlanController({
+      opts = {
         region: App.dialogRegion,
         model: opts.model
-      });
+      };
+      return new EditPlanController(opts);
     });
   });
 });

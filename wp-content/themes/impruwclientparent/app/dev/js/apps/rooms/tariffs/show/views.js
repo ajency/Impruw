@@ -15,6 +15,14 @@ define(['app', 'moment'], function(App, moment) {
 
       PackageSingle.prototype.template = '<div class="block clearfix"> <h6>{{plan_name}}</h6> <div class="package-desc"> {{plandescription}} </div> <a href="#" class="edit-pkg-link"><span class="glyphicon glyphicon-pencil"></span> Edit</a> </div>';
 
+      PackageSingle.prototype.events = {
+        'click .edit-pkg-link': function() {
+          return App.execute("show:edit:plan", {
+            model: this.model
+          });
+        }
+      };
+
       PackageSingle.prototype.serializeData = function() {
         var data;
         data = PackageSingle.__super__.serializeData.call(this);

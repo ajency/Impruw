@@ -16,6 +16,10 @@ define ['app', 'moment'], (App, moment)->
 							</div>
 							<a href="#" class="edit-pkg-link"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
 						</div>'
+			events: 						
+				'click .edit-pkg-link' : ->
+							App.execute "show:edit:plan", model : @model
+							#@trigger "show:edit:plan", @model 
 
 			serializeData:->
 				data = super()

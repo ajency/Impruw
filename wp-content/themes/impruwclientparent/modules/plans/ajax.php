@@ -30,3 +30,38 @@ function create_plan_ajax(){
 
 }
 add_action('wp_ajax_create-plan','create_plan_ajax');
+
+function update_plan_ajax() {
+    
+    $plan_id = $_POST['id'];
+    
+    $plan_name = $_POST['plan_name'];
+    
+    $plan_description = $_POST['plan_description'];
+    
+    $formdata= array(
+                    'plan_name' => $plan_name,
+                    'plan_description' => $plan_description,
+                    'id' => $plan_id
+        );
+
+    $plan_id = wp_update_plan($formdata);
+    
+    wp_send_json(array('code'=>'OK','data'=>array('id'=>$plan_id)));
+}
+add_action('wp_ajax_update-plan','update_plan_ajax');
+
+
+function delete_plan_ajax() {
+    
+    $plan_id = $_POST['id'];
+    
+    $formdata= array(
+                    'id' => $plan_id
+        );
+
+    $plan_id = wp_delete_plan($formdata);
+    
+    wp_send_json(array('code'=>'OK','data'=>array('id'=>$plan_id)));
+}
+add_action('wp_ajax_delete-plan','delete_plan_ajax');
