@@ -146,7 +146,8 @@ class RoomTariff extends Element {
         foreach ($date_range as $key => $value) {
 
             $data = array('from_date' => date('d/M ', strtotime($date_range[$key]['from_date'])),
-                'to_date' => date('d/M ', strtotime($date_range[$key]['to_date'])));
+                'to_date' => date('d/M ', strtotime($date_range[$key]['to_date'])),
+                'daterange_name' => $date_range[$key]['daterange_name'] );
 
             $html = '<div class="tariff clearfix">
                         <div class="range-name">{{daterange_name}}</div>
