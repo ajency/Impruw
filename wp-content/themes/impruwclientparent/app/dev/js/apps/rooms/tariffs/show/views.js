@@ -83,7 +83,7 @@ define(['app', 'moment'], function(App, moment) {
         return DateRageView.__super__.constructor.apply(this, arguments);
       }
 
-      DateRageView.prototype.template = '<div class="date-range"> <div class="from"> <span class="date">{{fromdate}}</span> to <span class="date">{{todate}}</span> </div> <a href="#" class="edit-range-link"><span class="glyphicon glyphicon-pencil"></span> Edit</a> </div> <div class="packages"> <div class="package-blocks clearfix"></div> </div>';
+      DateRageView.prototype.template = '<div class="date-range"> <div class="from"> <span class="date">{{daterange_name}}</span> <span class="date">{{fromdate}}</span> to <span class="date">{{todate}}</span> </div> <a href="#" class="edit-range-link"><span class="glyphicon glyphicon-pencil"></span> Edit</a> </div> <div class="packages"> <div class="package-blocks clearfix"></div> </div>';
 
       DateRageView.prototype.serializeData = function() {
         var data;

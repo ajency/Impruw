@@ -122,7 +122,7 @@ jQuery(document).ready(function($){
         
         // get the class names for the dateranges
         function showDateRangeClass(date){
-           
+
            var date_range_slug = getDateRangeClassName(date);
             
            var status = getAvailabilityClassName(date);

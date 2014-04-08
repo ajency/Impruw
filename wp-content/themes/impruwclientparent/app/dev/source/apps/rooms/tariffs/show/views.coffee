@@ -100,6 +100,7 @@ define ['app', 'moment'], (App, moment)->
 			
 			template : '<div class="date-range">
 							<div class="from">
+								<span class="date">{{daterange_name}}</span>
 								<span class="date">{{fromdate}}</span>
 								to <span class="date">{{todate}}</span>
 							</div>
