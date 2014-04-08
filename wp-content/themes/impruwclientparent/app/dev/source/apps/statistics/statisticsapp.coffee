@@ -24,7 +24,7 @@ define ['app', 'controllers/base-controller',
 				#listen to show event of layout and trigger apps
 				@listenTo layout, "show", =>
 					App.execute "show:weekly:data", region : layout.weeklyDataRegion
-					App.execute "show:site:analytics:data", region : layout.analyticsDataRegion
+					#App.execute "show:site:analytics:data", region : layout.analyticsDataRegion
 
 				@show layout
 

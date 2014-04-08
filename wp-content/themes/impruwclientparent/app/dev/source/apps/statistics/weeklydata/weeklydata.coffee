@@ -55,7 +55,7 @@ define ['app', 'controllers/base-controller','moment'], (App, AppController, mom
 								<div class="row today-visitor-details">
 									<div class="col-md-3 col-xs-3"><span class="sm-txt per-data"><span class="glyphicon glyphicon-arrow-up"></span>{{ga:visitBounceRate}}</span></div>
 									<div class="col-md-4 col-xs-4">{{ga:pageviews}} <span class="glyphicon glyphicon-file"></span> <span class="sm-txt">pageviews</span></div>
-									<div class="col-md-5 col-xs-5">{{ga:avgTimeOnSite}}<span class="glyphicon glyphicon-time"></span><i class="fa fa-clock-o"></i> <span class="sm-txt">Avg visit duration</span></div>
+									<div class="col-md-5 col-xs-5">{{ga:timeOnSite}}<span class="glyphicon glyphicon-time"></span><i class="fa fa-clock-o"></i> <span class="sm-txt">Time on Site</span></div>
 								</div>
 								<hr>
 								<div class="row total-visits">

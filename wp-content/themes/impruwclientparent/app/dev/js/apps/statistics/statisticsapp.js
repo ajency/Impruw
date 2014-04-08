@@ -35,11 +35,8 @@ define(['app', 'controllers/base-controller', 'apps/statistics/weeklydata/weekly
         layout = new StatisticsLayout;
         this.listenTo(layout, "show", (function(_this) {
           return function() {
-            App.execute("show:weekly:data", {
+            return App.execute("show:weekly:data", {
               region: layout.weeklyDataRegion
-            });
-            return App.execute("show:site:analytics:data", {
-              region: layout.analyticsDataRegion
             });
           };
         })(this));
