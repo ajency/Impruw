@@ -45,7 +45,6 @@ define(['app', 'text!apps/rooms/add/templates/add-room.html'], function(App, add
           inline: true,
           numberOfMonths: 3,
           dateFormat: 'yy-mm-dd',
-          minDate: new Date(),
           onSelect: this.triggerOnSelect,
           beforeShowDay: this.highlightDaysByDateRange,
           onChangeMonthYear: this.displayColorMonthChange

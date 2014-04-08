@@ -37,7 +37,6 @@ define ['app'
 								inline: true
 								numberOfMonths : 3
 								dateFormat : 'yy-mm-dd'
-								minDate: new Date()
 								onSelect : @triggerOnSelect
 								beforeShowDay: @highlightDaysByDateRange
 								onChangeMonthYear : @displayColorMonthChange
