@@ -73,6 +73,7 @@
 			text-align: left;
 			width: 100%;
 			margin-bottom: 1em;
+			margin-top: 1em;
 			> li {
 				display: block;
 				width: 100%;
@@ -85,16 +86,6 @@
 					padding-left: 2em;
 				}
 			}
-		}
-	}
-	.menu-collapser {
-		background: #fff;
-		color: @primary1;
-		font-weight: 700;
-		text-shadow: none;
-		.collapse-button {
-			background: @primary1;
-			border-radius: 3px;
 		}
 	}
 	&.footer-menu {
@@ -119,6 +110,9 @@
 					background: transparent;
 				}
 			}
+		}
+		@media(max-width:767px) {
+			text-align: center;
 		}
 	}
 	&.left-menu {
@@ -147,6 +141,19 @@
 		}
 		@media (max-width: 767px) { 
 			display: none;
+		}
+	}
+}
+
+/**** Slimmenu Responsive Styles ****/
+.menu-collapser {
+	background: @tertiary1;
+	color: #fff;
+	border-radius: 4px;
+	.collapse-button {
+		background: #fff;
+		.icon-bar {
+			background: @primary1;
 		}
 	}
 }

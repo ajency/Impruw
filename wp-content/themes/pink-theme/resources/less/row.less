@@ -25,9 +25,23 @@ and open the template in the editor.
 			min-height: 500px;
 			padding: 0;
 		}
+		@media(max-width:767px) {
+			display: none;
+		}
 	}
 
 	&.grey-background {
 		background: @secondary1 !important;
+	}
+
+	&.slideshow-container {
+		margin: 0 0 1em;
+	}
+
+	&.footer-container {
+		background: #fff !important;
+		@media(max-width:767px) {
+			text-align: center;
+		}
 	}
 }

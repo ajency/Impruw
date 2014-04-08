@@ -1423,6 +1423,11 @@ and open the template in the editor.
 .nav.slimmenu > li a:hover span {
   color: #16a2f5;
 }
+@media (max-width: 767px) {
+  .nav.slimmenu > li a {
+    border: 0;
+  }
+}
 .nav.slimmenu > li .sub-collapser {
   background: transparent;
   width: 40px;
