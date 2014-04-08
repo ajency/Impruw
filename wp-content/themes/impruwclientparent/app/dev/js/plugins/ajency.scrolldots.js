@@ -16,7 +16,7 @@ $.fn.scrollSections = function() {
     indMargTop = parseInt(indicator.css("margin-top").replace("px", ""));
     targCenter = target.outerHeight(false) / 2;
     indCenter = indicator.outerHeight(false) / 2;
-    return target.offset().top - indMargTop + targCenter - indCenter;
+    return target.offset().top;
   };
   calcIndicatorInfo = function() {
     self.find(".indicator").each(function() {
@@ -24,7 +24,7 @@ $.fn.scrollSections = function() {
       o = {
         $indicator: $(this),
         $target: $($(this).attr("href")),
-        $targetTitle: $($(this).attr("href"))
+        $targetTitle: $($(this).attr("href") + " h4")
       };
       o.absPos = getNodeTopPos(o.$indicator, o.$targetTitle);
       o.absBottomStop = window.innerHeight - (o.absPos + o.$indicator.outerHeight(true));
