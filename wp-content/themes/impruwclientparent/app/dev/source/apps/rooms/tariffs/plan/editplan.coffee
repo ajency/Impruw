@@ -63,8 +63,7 @@ define  ['app','controllers/base-controller', 'text!apps/rooms/tariffs/plan/temp
 				@$el.parent().prepend '<div class="alert alert-success">Saved successfully</div>'
 			
 			onDeletedPlan:->
-				$('#dialog-region').modal 'hide'
-				#@$el.find('#dialog-region').modal 'hide'
+				@trigger "dialog:close"
 
 			# show checkbox
 			onShow:->

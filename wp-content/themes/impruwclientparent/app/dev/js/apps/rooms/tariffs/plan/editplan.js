@@ -95,7 +95,7 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/plan/temp
       };
 
       EditPlanView.prototype.onDeletedPlan = function() {
-        return $('#dialog-region').modal('hide');
+        return this.trigger("dialog:close");
       };
 
       EditPlanView.prototype.onShow = function() {
