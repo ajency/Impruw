@@ -157,3 +157,37 @@
 		}
 	}
 }
+
+/**** jPanelMenu Styles ****/
+#jPanelMenu-menu {
+	background: @primary1;
+	box-shadow: inset -4px 0 6px -3px @blue;
+	overflow: visible !important;
+	.logo, .left-bar-extra {
+		display: none;
+	}
+	.left-nav {
+		.nav-list {
+			padding-bottom: 1em;
+			li {
+				margin: 0;
+				a {
+					border-bottom: 1px solid @secondary1;
+					color: #fff;
+					border-radius: 0;
+					font-size: 0.96em;
+					font-weight: 300;
+					&:hover {
+						background: darken(@primary1, 10%);
+						color: @secondary1;
+					}
+				}
+				&:last-child {
+					a {
+						border-bottom: 0;
+					}
+				}
+			}
+		}
+	}
+}

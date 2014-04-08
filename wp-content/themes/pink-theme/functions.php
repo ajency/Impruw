@@ -89,3 +89,10 @@ $element_templates = array(
             )
         )
 );
+
+/**** Add Custom JS for This Theme ****/
+function theme_specific_js() {
+    echo '<script src=" '. get_stylesheet_directory_uri() .'/js/jquery.jpanelmenu.min.js"></script>';
+    echo '<script src=" '. get_stylesheet_directory_uri() .'/js/theme.js"></script>';
+}
+add_action('wp_footer', 'theme_specific_js');

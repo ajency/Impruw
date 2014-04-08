@@ -150,8 +150,8 @@ class RoomTariff extends Element {
                 'daterange_name' => $date_range[$key]['daterange_name'] );
 
             $html = '<div class="tariff clearfix">
-                        <div class="range-name">{{daterange_name}}</div>
                         <div class="date-range">
+                            <div class="range-name">{{daterange_name}}</div>
                             <div class ="from">From
                                 <span class="date">{{from_date}} </span>        
                             </div>
