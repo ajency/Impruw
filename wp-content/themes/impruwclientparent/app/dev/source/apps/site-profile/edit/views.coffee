@@ -23,6 +23,8 @@ define ['app'
 						
 
 					onShow:->
+						@$el.scrollSections()
+						
 						#console.log model
 						@$el.find('select').selectpicker()
 
@@ -35,6 +37,7 @@ define ['app'
 
 						m = $('.aj-imp-left').width()
 						@$el.find('*[data-spy="affix"]').css('margin-left', m)
+
 					
 					onSiteProfileAdded:->
 						@$el.find('.alert').remove()
