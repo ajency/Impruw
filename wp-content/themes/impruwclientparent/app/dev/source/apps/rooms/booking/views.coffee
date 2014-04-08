@@ -47,7 +47,8 @@ define ['app'
 						# bind booking updated event
 						App.vent.on "booking:updated", @onBookingUpdated
 
-						
+					onClose :->
+							@clearPrevPopover()	
 
 					displayColorMonthChange :(year, month, inst) =>
 						
@@ -82,7 +83,7 @@ define ['app'
 						, 10
 
 					# show popover
-					showPopover:(date)->
+					showPopover:(date)=>
 						self = @
 						td = @$el.find('td.ui-datepicker-current-day')
 						@clearPrevPopover()
@@ -103,6 +104,10 @@ define ['app'
 													stop : self.changeAvaliability
 
 						td.popover 'show'
+
+						$('.booking-popover-close').on 'click', =>
+											@clearPrevPopover()
+						
 						@popovertd = td
 
 					changeAvaliability:(event, ui)=>
@@ -125,7 +130,7 @@ define ['app'
 						value = 30 if currentStatus is 'semi-available'
 						value = 60 if currentStatus is 'unavailable'
 
-						html = "<button type='button' class='close' aria-hidden='true'>&times;</button>
+						html = "<button type='button' class='close booking-popover-close' aria-hidden='true'>&times;</button>
 								<div class='booking-slider-pop'>
 									<div id='booking-slider' data-value='#{value}'></div>
 									<div class='row'>
@@ -135,7 +140,6 @@ define ['app'
 									</div>
 								</div>"
 						html
-						
 
 
 					# remove previous popover
