@@ -28,17 +28,14 @@ define ['app'
 						
 						# set affix
 						@$el.find('*[data-spy="affix"]').affix()
-
-						a=@$el.find('*[data-spy="affix"]').html()
-						console.log a
-
+						
 						# affix width
 						w = $('.aj-imp-right').width()
-						console.log w
+					
 						@$el.find('*[data-spy="affix"]').width(w)
 
 						m = $('.aj-imp-left').width()
-						console.log m
+					
 						@$el.find('*[data-spy="affix"]').css('margin-left', m)
 						
 

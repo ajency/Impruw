@@ -63,3 +63,4 @@ define  ['app','controllers/base-controller', 'text!apps/rooms/tariffs/plan/temp
 
 			new AddPlanController
 							region : App.dialogRegion
+							model : opts.model

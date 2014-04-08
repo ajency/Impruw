@@ -33,16 +33,12 @@ define(['app', 'text!apps/rooms/add/templates/add-room.html'], function(App, add
       };
 
       AddRoomLayout.prototype.onShow = function() {
-        var a, m, w;
+        var m, w;
         this.$el.scrollSections();
         this.$el.find('*[data-spy="affix"]').affix();
-        a = this.$el.find('*[data-spy="affix"]').html();
-        console.log(a);
         w = $('.aj-imp-right').width();
-        console.log(w);
         this.$el.find('*[data-spy="affix"]').width(w);
         m = $('.aj-imp-left').width();
-        console.log(m);
         return this.$el.find('*[data-spy="affix"]').css('margin-left', m);
       };
 

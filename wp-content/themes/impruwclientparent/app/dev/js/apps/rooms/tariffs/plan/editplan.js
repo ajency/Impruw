@@ -89,7 +89,8 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/plan/temp
     })(Marionette.ItemView);
     return App.commands.setHandler("show:edit:plan", function(opts) {
       return new AddPlanController({
-        region: App.dialogRegion
+        region: App.dialogRegion,
+        model: opts.model
       });
     });
   });
