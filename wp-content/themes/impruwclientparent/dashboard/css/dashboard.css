@@ -2730,6 +2730,9 @@ form .aj-imp-submit:hover {
   font-weight: 100;
   font-size: 12px;
 }
+.room-booking .room-booking-calender .hasDatepicker .ui-datepicker-inline:before {
+  display: none !important;
+}
 .room-booking .room-booking-calender .hasDatepicker .ui-datepicker td {
   border: 1px solid #EAEAEA!important;
   height: 42px!important;
