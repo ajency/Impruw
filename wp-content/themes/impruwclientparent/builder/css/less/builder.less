@@ -33,8 +33,10 @@ Version:        0.1.0
 	padding: 0;
 	a {
 		color: lighten(@3-grey, 20%);
-		&:hover {
+		outline: 0;
+		&:hover, &:active, &:focus {
 			color: @orange;
+			outline: 0;
 		}
 	}
 }
