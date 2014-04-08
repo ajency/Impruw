@@ -149,6 +149,7 @@ class RoomTariff extends Element {
                 'to_date' => date('d/M ', strtotime($date_range[$key]['to_date'])));
 
             $html = '<div class="tariff clearfix">
+                        <div class="range-name">{{daterange_name}}</div>
                         <div class="date-range">
                             <div class ="from">From
                                 <span class="date">{{from_date}} </span>        
