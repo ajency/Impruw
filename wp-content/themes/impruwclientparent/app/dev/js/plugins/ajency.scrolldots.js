@@ -1,5 +1,5 @@
 $.fn.scrollSections = function() {
-  var adjustIndicators, calcIndicatorInfo, getNodeTopPos, initIndicators, sections, sectionsIndicator, self;
+  var adjustIndicators, calcIndicatorInfo, getNodeTopPos, initIndicators, scrollFn, sections, sectionsIndicator, self;
   self = this;
   this.indicators = [];
   sectionsIndicator = "";
@@ -104,13 +104,12 @@ $.fn.scrollSections = function() {
       }
     });
   };
-  $(document).scroll(function() {
-    adjustIndicators();
-  });
-  $(window).resize(function() {
+  scrollFn = _.throttle(adjustIndicators, 150);
+  $(document).scroll(scrollFn);
+  $(window).resize(_.debounce(function() {
     initIndicators();
-    adjustIndicators();
-  });
+    return adjustIndicators();
+  }, 300));
   initIndicators();
   adjustIndicators();
   return self.find(".indicator").click(function(e) {
