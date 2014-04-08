@@ -12,7 +12,7 @@ define(['app', 'text!apps/rooms/add/templates/add-room.html'], function(App, add
 
       AddRoomLayout.prototype.tagName = 'div';
 
-      AddRoomLayout.prototype.className = 'add-room-container';
+      AddRoomLayout.prototype.className = 'add-room-container scroll-indicator-container';
 
       AddRoomLayout.prototype.template = addRoomTpl;
 

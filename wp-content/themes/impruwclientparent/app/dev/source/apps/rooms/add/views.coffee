@@ -8,7 +8,7 @@ define ['app'
 						
 					tagName: 'div'
 
-					className : 'add-room-container'
+					className : 'add-room-container scroll-indicator-container'
 
 					template : addRoomTpl
 

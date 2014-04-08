@@ -26,7 +26,7 @@ $.fn.scrollSections =  ->
     indMargTop = parseInt(indicator.css("margin-top").replace("px", ""))
     targCenter = target.outerHeight(false) / 2
     indCenter = indicator.outerHeight(false) / 2
-    target.offset().top - indMargTop + targCenter - indCenter
+    target.offset().top 
 
   
   # 
@@ -39,7 +39,7 @@ $.fn.scrollSections =  ->
       o =
         $indicator: $(this)
         $target: $($(this).attr("href"))
-        $targetTitle: $($(this).attr("href") )
+        $targetTitle: $($(this).attr("href") + " h4")
 
       
       # When it's abs positioned (on the move), this is the top pos

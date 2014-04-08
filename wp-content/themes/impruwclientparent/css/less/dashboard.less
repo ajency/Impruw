@@ -2288,15 +2288,21 @@ form {
 		.tariff {
 			position: relative;
 			.date-range {
-				color: @dash-grey;
+				color: darken(@dash-grey, 10%);
 				text-align: right;
 				font-weight: 300;
 				position: absolute;
-				width: 60px;
+				width: 80px;
 				background: #fff;
-				max-width: 60px;
+				max-width: 80px;
 				padding-right: 10px;
 				min-height: 150px;
+				font-size: 0.88em;
+				word-wrap: break-word;
+				.range-name {
+					color: lighten(@logo-blue, 10%);
+					font-weight: 700;
+				}
 				.date {
 					display: block;
 				}
@@ -2315,7 +2321,7 @@ form {
 			}
 			.packages {
 				width: 100%;
-				padding-left: 70px;
+				padding-left: 90px;
 				.btn-add-plan {
 					position: absolute;
 					right: 0.5em;
