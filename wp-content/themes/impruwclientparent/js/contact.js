@@ -102,19 +102,17 @@ jQuery(document).ready(function($){
         // get class name based on avaialbilty status
         function getAvailabilityClassName(date){
             
-            var status = '';
+            var status = 'available';
            
             for(var i=0; i< BOOKING.length; i++){
                     
                var check = moment(BOOKING[i].bdate).isSame(date);
                
-               if(check){
-                   
+               if(check){    
                     status = BOOKING[i].status;
+                    break;
                }
-               else{
-                   status = 'available';
-               } 
+               
             }
             
             return status;
