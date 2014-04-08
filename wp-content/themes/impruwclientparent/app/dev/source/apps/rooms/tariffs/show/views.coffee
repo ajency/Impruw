@@ -99,8 +99,8 @@ define ['app', 'moment'], (App, moment)->
 		class DateRageView extends Marionette.CompositeView
 			
 			template : '<div class="date-range">
+							<div class="range-name">{{daterange_name}}</div>
 							<div class="from">
-								<span class="date">{{daterange_name}}</span>
 								<span class="date">{{fromdate}}</span>
 								to <span class="date">{{todate}}</span>
 							</div>
