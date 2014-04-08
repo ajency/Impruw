@@ -31,6 +31,7 @@ define(['app', 'text!apps/rooms/add/templates/add-room.html'], function(App, add
         this.highlightDaysByDateRange = __bind(this.highlightDaysByDateRange, this);
         this.onBookingUpdated = __bind(this.onBookingUpdated, this);
         this.changeAvaliability = __bind(this.changeAvaliability, this);
+        this.showPopover = __bind(this.showPopover, this);
         this.triggerOnSelect = __bind(this.triggerOnSelect, this);
         this.setDateRangeColor = __bind(this.setDateRangeColor, this);
         this.removeHightlight = __bind(this.removeHightlight, this);
@@ -52,6 +53,10 @@ define(['app', 'text!apps/rooms/add/templates/add-room.html'], function(App, add
         this.setDateRangeColor();
         this.removeHightlight();
         return App.vent.on("booking:updated", this.onBookingUpdated);
+      };
+
+      CalendarView.prototype.onClose = function() {
+        return this.clearPrevPopover();
       };
 
       CalendarView.prototype.displayColorMonthChange = function(year, month, inst) {
@@ -111,6 +116,11 @@ define(['app', 'text!apps/rooms/add/templates/add-room.html'], function(App, add
           });
         });
         td.popover('show');
+        $('.booking-popover-close').on('click', (function(_this) {
+          return function() {
+            return _this.clearPrevPopover();
+          };
+        })(this));
         return this.popovertd = td;
       };
 
@@ -148,7 +158,7 @@ define(['app', 'text!apps/rooms/add/templates/add-room.html'], function(App, add
         if (currentStatus === 'unavailable') {
           value = 60;
         }
-        html = "<button type='button' class='close' aria-hidden='true'>&times;</button> <div class='booking-slider-pop'> <div id='booking-slider' data-value='" + value + "'></div> <div class='row'> <div class='col-md-4 available'>available</div> <div class='col-md-4 semi-available'>semi-available</div> <div class='col-md-4 unavailable'>unavailable </div> </div> </div>";
+        html = "<button type='button' class='close booking-popover-close' aria-hidden='true'>&times;</button> <div class='booking-slider-pop'> <div id='booking-slider' data-value='" + value + "'></div> <div class='row'> <div class='col-md-4 available'>available</div> <div class='col-md-4 semi-available'>semi-available</div> <div class='col-md-4 unavailable'>unavailable </div> </div> </div>";
         return html;
       };
 

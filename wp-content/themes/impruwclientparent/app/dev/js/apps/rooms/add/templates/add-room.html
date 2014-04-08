@@ -4,6 +4,13 @@
 	</div>
 </header>
 <form class="form-horizontal clearfix">
+    <div class="aj-imp-long-form-actions" data-spy="affix" id="addroom-affix">
+        <div class="action">
+            <div class="affix-show">You have unsaved changes!</div> 
+            <button type="button" class="btn btn-wide aj-imp-submit" id="btn_savesitedetails" name="btn_saveroom">Save Room</button>
+            <img src ='{{THEMEURL}}/images/loader.gif' width="38" height="30"  id="addroomsubmitm_loader" style="display:none"/> 
+		</div>
+    </div> 
 	<div id="add-room-form">
 		<div class="form-group">
 			<label for="inputEmail3" class="col-sm-2 control-label">Add Room Category</label>
@@ -65,10 +72,11 @@
 	</div>
 	
 	<input type="reset" class="hidden" id="btn_resetroom" name="btn_resetroom">
-	<div class="aj-imp-long-form-actions" data-spy="affix">
+	<!--<div class="aj-imp-long-form-actions" data-spy="affix" id="addroom-affix">
         <div class="action">
-            <div class="affix-show">You have unsaved changes!</div>
-            <button type="button" class="btn btn-wide aj-imp-submit" id="btn_saveroom" name="btn_saveroom">Save Room</button>
-        </div>
-    </div>
+            <div class="affix-show">You have unsaved changes!</div> 
+            <button type="button" class="btn btn-wide aj-imp-submit" id="btn_savesitedetails" name="btn_saveroom">Save Room</button>
+            <img src ='{{THEMEURL}}/images/loader.gif' width="38" height="30"  id="addroomsubmitm_loader" style="display:none"/> 
+		</div>
+    </div> -->
 </form>
