@@ -195,6 +195,17 @@ jQuery(document).ready(function($) {
             interval: false
         });
     }
+    
+    // display the carousel navigation buttons
+    function displayCarouselNav() {
+        $('.carousel-control').hide()
+        
+        var nav_display = $('.carousel-inner')
+                .find('.room-booking-plan .booking-detail').length
+
+        if (nav_display != 0)
+            $('.carousel-control').show()
+    }
 
     // display the selected date and corresponding plans for the date
     function showData(date) {
@@ -206,14 +217,8 @@ jQuery(document).ready(function($) {
         $('#plans-details-region').find('.carousel-inner').empty();
 
         $('#plans-details-region').find('.carousel-inner').append(html);
-        
-        $('.carousel-control').hide()
-        
-        var nav_display = $('.carousel-inner')
-                          .find('.room-booking-plan .booking-detail').length
-        
-        if(nav_display != 0)
-            $('.carousel-control').show()
+
+        displayCarouselNav();
 
         setTimeout(function() {
             getColour();
