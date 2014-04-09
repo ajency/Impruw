@@ -2768,10 +2768,16 @@ form .aj-imp-submit:hover {
 .room-booking .room-booking-calender .hasDatepicker .booking-red a {
   color: #fff;
 }
+.room-booking .room-booking-calender .hasDatepicker .booking-red a.ui-state-active {
+  color: #fff;
+}
 .room-booking .room-booking-calender .hasDatepicker .booking-orange {
   background: #ffd200;
 }
 .room-booking .room-booking-calender .hasDatepicker .booking-orange a {
+  color: #fff;
+}
+.room-booking .room-booking-calender .hasDatepicker .booking-orange a.ui-state-active {
   color: #fff;
 }
 .room-booking .room-booking-calender .hasDatepicker .booking-blue {
@@ -2780,16 +2786,25 @@ form .aj-imp-submit:hover {
 .room-booking .room-booking-calender .hasDatepicker .booking-blue a {
   color: #fff;
 }
+.room-booking .room-booking-calender .hasDatepicker .booking-blue a.ui-state-active {
+  color: #fff;
+}
 .room-booking .room-booking-calender .hasDatepicker .booking-green {
   background: #84e72f;
 }
 .room-booking .room-booking-calender .hasDatepicker .booking-green a {
   color: #fff;
 }
+.room-booking .room-booking-calender .hasDatepicker .booking-green a.ui-state-active {
+  color: #fff;
+}
 .room-booking .room-booking-calender .hasDatepicker .booking-pink {
   background: #fea5a5;
 }
 .room-booking .room-booking-calender .hasDatepicker .booking-pink a {
+  color: #fff;
+}
+.room-booking .room-booking-calender .hasDatepicker .booking-pink a.ui-state-active {
   color: #fff;
 }
 .room-booking .room-booking-calender .hasDatepicker .ui-datepicker .ui-datepicker-header {
@@ -2908,7 +2923,6 @@ form .aj-imp-submit:hover {
   background: #aaaaaa;
 }
 .booking-slider-pop .row .col-md-4 {
-  padding: 0px 0px 4px;
   font-size: 0.8em;
   text-align: center;
 }
@@ -2916,15 +2930,28 @@ form .aj-imp-submit:hover {
 .booking-slider-pop .semi-available,
 .booking-slider-pop .unavailable {
   text-transform: capitalize;
+  padding: 0 5px;
 }
-.booking-slider-pop .available {
-  color: #2ecc71;
+.booking-slider-pop .available span,
+.booking-slider-pop .semi-available span,
+.booking-slider-pop .unavailable span {
+  display: block;
+  margin: 0.5em 0;
+  border: 1px solid #aaaaaa;
+  padding: 1em 0.2em;
 }
-.booking-slider-pop .semi-available {
-  color: #ff7e00;
+.booking-slider-pop .available span {
+  background: #2ecc71;
+  color: #fff;
 }
-.booking-slider-pop .unavailable {
-  color: #f21515;
+.booking-slider-pop .semi-available span {
+  background: url('../images/gray-semi.png') no-repeat bottom right #ff7e00;
+  color: #fff;
+}
+.booking-slider-pop .unavailable span {
+  background: #f21515;
+  color: #fff;
+  text-decoration: line-through;
 }
 /* room chart*/
 .left-inner-addon {

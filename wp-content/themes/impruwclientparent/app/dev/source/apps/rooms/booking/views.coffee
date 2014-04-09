@@ -134,9 +134,9 @@ define ['app'
 								<div class='booking-slider-pop'>
 									<div id='booking-slider' data-value='#{value}'></div>
 									<div class='row'>
-										<div class='col-md-4 available'>available</div>
-										<div class='col-md-4 semi-available'>semi-available</div>
-										<div class='col-md-4 unavailable'>unavailable </div>
+										<div class='col-md-4 available'><span>available</span></div>
+										<div class='col-md-4 semi-available'><span>semi-available</span></div>
+										<div class='col-md-4 unavailable'><span>unavailable</span></div>
 									</div>
 								</div>"
 						html

@@ -2817,6 +2817,9 @@ form {
 						background:#f97d61;
 						a{
 							color:#fff;
+							&.ui-state-active {
+								color: #fff;
+							}
 						}
 						
 					}
@@ -2824,6 +2827,9 @@ form {
 					background:#ffd200;
 						a{
 							color:#fff;
+							&.ui-state-active {
+								color: #fff;
+							}
 						}
 						
 					}
@@ -2831,6 +2837,9 @@ form {
 					background:#5fd7fe;
 						a{
 							color:#fff;
+							&.ui-state-active {
+								color: #fff;
+							}
 						}
 						
 					}
@@ -2838,6 +2847,9 @@ form {
 					background:#84e72f;
 						a{
 							color:#fff;
+							&.ui-state-active {
+								color: #fff;
+							}
 						}
 						
 					}
@@ -2845,6 +2857,9 @@ form {
 					background:#fea5a5;
 						a{
 							color:#fff;
+							&.ui-state-active {
+								color: #fff;
+							}
 						}
 					
 					}
@@ -2960,23 +2975,39 @@ form {
 		}
 	}
 	.row{
-		.col-md-4{
-			padding: 0px 0px 4px;
-			font-size:0.8em;
-			text-align:center;
+		.col-md-4 {
+			font-size: 0.8em;
+			text-align: center;
 		}
 	}
 	.available, .semi-available, .unavailable {
 		text-transform: capitalize;
+		padding: 0 5px;
+		span {
+			display: block;
+			margin: 0.5em 0;
+			border: 1px solid @dash-grey;
+			padding: 1em 0.2em;
+		}
 	}
 	.available {
-		color: @success-green;
+		span {
+			background: @success-green;
+			color: #fff;
+		}
 	}
 	.semi-available {
-		color: @orange;
+		span {
+			background: url('../images/gray-semi.png') no-repeat bottom right @orange;
+			color: #fff;
+		}
 	}
 	.unavailable {
-		color: @red;
+		span {
+			background: @red;
+			color: #fff;
+			text-decoration: line-through;
+		}
 	}
 }
 
