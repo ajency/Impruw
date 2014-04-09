@@ -91,7 +91,7 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/plan/temp
 
       EditPlanView.prototype.onSavedPlan = function() {
         this.$el.parent().find('.alert').remove();
-        return this.$el.parent().prepend('<div class="alert alert-success">Saved successfully</div>');
+        return this.$el.parent().prepend('<div class="alert alert-success">Updated successfully</div>');
       };
 
       EditPlanView.prototype.onDeletedPlan = function() {

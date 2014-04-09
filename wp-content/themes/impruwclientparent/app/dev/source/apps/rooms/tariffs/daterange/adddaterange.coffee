@@ -10,7 +10,6 @@ define  ['app','controllers/base-controller', 'text!apps/rooms/tariffs/daterange
 
 				@listenTo dateRangeView, "add:daterange:details", (data)=>
 					dateRange = App.request "create:new:daterange:model", data
-					#console.log dateRange
 					dateRange.save null,
 					 		wait : true
 					 		success : @dateRangeSaved

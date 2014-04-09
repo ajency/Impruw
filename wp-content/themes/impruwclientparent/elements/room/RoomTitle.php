@@ -71,18 +71,10 @@ class RoomTitle extends Element {
 
 
         $data = array();
-
-        if ($this->room['post_title'] == '' || $this->room['post_excerpt'] == '' ) {
-           
-            $data['post_title'] = 'Room Title';
-            
-            $data['post_excerpt'] = 'Room Title Description';
-        } 
+       
+        $data['post_title'] = $this->room['post_title'];
+        $data['post_excerpt'] = $this->room['post_excerpt'];
         
-        else {
-            $data['post_title'] = $this->room['post_title'];
-            $data['post_excerpt'] = $this->room['post_excerpt'];
-        }
 
         global $me;
 

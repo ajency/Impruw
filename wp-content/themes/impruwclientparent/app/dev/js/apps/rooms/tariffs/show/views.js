@@ -97,6 +97,18 @@ define(['app', 'moment'], function(App, moment) {
 
       DateRageView.prototype.template = '<div class="date-range"> <div class="range-name">{{daterange_name}}</div> <div class="from"> <span class="date">{{fromdate}}</span> to <span class="date">{{todate}}</span> </div> <a href="#" class="edit-range-link"><span class="glyphicon glyphicon-pencil"></span> Edit</a> </div> <div class="packages"> <div class="package-blocks clearfix"></div> </div>';
 
+      DateRageView.prototype.events = {
+        'click .edit-range-link': function() {
+          return App.execute("show:edit:daterange", {
+            model: this.model
+          });
+        }
+      };
+
+      DateRageView.prototype.modelEvents = {
+        'change': 'render'
+      };
+
       DateRageView.prototype.serializeData = function() {
         var data;
         data = DateRageView.__super__.serializeData.call(this);
