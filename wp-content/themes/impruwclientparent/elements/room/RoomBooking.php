@@ -75,8 +75,8 @@ class RoomBooking extends Element {
                             
                             <div class="date-range">
                                 You have selected
-                                <b>18 Jan to 16 Jan </b>
-                                <p class="status">Available</p>
+                                <b>18 Jan to 16 Jan </b></br>
+                                <span class="label label-success">Available</span>
                             </div>
                             
                             <div id="myCarousel" class="carousel slide vertical">
