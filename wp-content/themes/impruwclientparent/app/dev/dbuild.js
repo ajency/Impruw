@@ -36,7 +36,8 @@
     jpanelmenu  : 'plugins/jquery.jpanelmenu.min',
     bootstrapswitch: 'plugins/bootstrap-switch',
     entitiesloader: 'entities/dashboard-entities-loader',
-    scrollsections: 'plugins/ajency.scrolldots'
+    scrollsections: 'plugins/ajency.scrolldots',
+    minicolors: 'plugins/jquery.minicolors.min'
   },
   shim: {
     underscore: {
