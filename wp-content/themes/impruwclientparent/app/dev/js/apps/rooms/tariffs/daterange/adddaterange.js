@@ -81,6 +81,7 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/daterange
 
       AddDateRangeView.prototype.onShow = function() {
         this.$el.find('input[type="checkbox"]').checkbox();
+        this.$el.find('#daterange_colour').minicolors();
         return this.$el.find('.dated').datepicker({
           showOtherMonths: true,
           selectOtherMonths: true,

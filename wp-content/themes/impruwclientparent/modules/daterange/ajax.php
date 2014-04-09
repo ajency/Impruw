@@ -63,7 +63,8 @@ function create_daterange_ajax() {
     $formdata = array(
         'from_date' => $_POST['from_date'],
         'to_date' => $_POST['to_date'],
-        'daterange_name' => $_POST['daterange_name']
+        'daterange_name' => $_POST['daterange_name'],
+        'daterange_colour' => $_POST['daterange_colour']
     );
 
     // pass the form data to the insert function,

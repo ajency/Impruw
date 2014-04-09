@@ -54,8 +54,9 @@ define  ['app','controllers/base-controller', 'text!apps/rooms/tariffs/plan/temp
 						data = Backbone.Syphon.serialize @
 						@trigger "update:plan:details", data
 
-				'click #btn_deleteplan' : ->
+				'click #btn_deleteplan' :(e) ->
 					if confirm('Delete plan?')
+						e.preventDefault()
 						@trigger "delete:plan", @model
 
 			onSavedPlan:->

@@ -59,7 +59,7 @@ class RoomTariff extends Element {
 
         global $wpdb;
 
-        $table_name = $wpdb->prefix . 'tariffs';
+        $table_name = $wpdb->prefix . 'tariff';
 
         $query = "SELECT * FROM $table_name WHERE room_id = $room_id ";
 
@@ -225,10 +225,18 @@ class RoomTariff extends Element {
                     ';
 
                 $html .= $me->render($template, $data);
+               
             
                 
             } else {
-                $html .= '<div class="package-block-outer" id=""><div class="block empty clearfix"><span class="no-data"><span class="glyphicon glyphicon-exclamation-sign"></span></span><div class="tariff-label clearfix">No Data Available</div></div></div> ';
+                $html .= '<div class="package-block-outer" id="">'
+                        . '<div class="block empty clearfix">'
+                        . '<span class="no-data">'
+                        . '<span class="glyphicon glyphicon-exclamation-sign"></span>'
+                        . '</span>'
+                        . '<div class="tariff-label clearfix">No Data Available</div>'
+                        . '</div>'
+                        . '</div> ';
             }
 
 
@@ -242,6 +250,7 @@ class RoomTariff extends Element {
     function check_tariff($plan_id, $daterange_id) {
 
         $tariff = $this->tariff;
+        
 
         foreach ($tariff as $key => $value):
             if ($tariff[$key]['daterange_id'] == $daterange_id &&
