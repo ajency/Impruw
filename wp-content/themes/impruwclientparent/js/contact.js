@@ -59,8 +59,96 @@ jQuery(document).ready(function($) {
 
     }
 
+    // generate the datepicker  for the room booking 
+    $('#room-booking-calendar').datepicker({
+        inline: true,
+        numberOfMonths: 2,
+        dateFormat: 'yy-mm-dd',
+        beforeShowDay: showDateRangeClass
 
-    // create the slugs for the class names
+    });
+
+    //$('.ui-datepicker-current-day').click();
+
+    //getColour();
+    // removeHightlight();
+
+    /**
+     * @param {type} date
+     * @returns {Array}
+     * 
+     * Get the class names for each daterange dates
+     */
+    function showDateRangeClass(date) {
+
+        var date_range_slug = getDateRangeClassName(date);
+
+        var status = getAvailabilityClassName(date);
+
+        var class_name = ['true', date_range_slug + ' ' + status];
+
+        return class_name;
+    }
+    /**
+     * 
+     * @param {type} date
+     * @returns {String}
+     *
+     *get the class name based on the daterange name
+     */
+    function getDateRangeClassName(date) {
+        var date_range_name = 'h';
+
+        var ar = DateInRange(date);
+        
+        if (ar === -1)
+            return date_range_name
+
+        var class_name = DATERANGE[ar].daterange_name;
+
+        var class_name_slug = slugify(class_name);
+
+        date_range_name = class_name_slug;
+
+        return date_range_name;
+    }
+
+    /**
+     * 
+     * @param {type} date
+     * @returns {Number}
+     * 
+     * Check if date is in range of the dateranges
+     */
+    function DateInRange(date) {
+        console.log(date)
+        var arr = -1;
+        for (var i = 0; i < DATERANGE.length; i++) {
+
+            var from_date = new Date(DATERANGE[i].from_date);
+            console.log(from_date);
+            var to_date = new Date(DATERANGE[i].to_date);
+
+            var current_date = new Date(date);
+
+            var range = moment().range(from_date, to_date);
+
+            if (range.contains(current_date)) {
+
+                var arr = i;
+                return arr;
+                break;
+            }
+
+        }
+        return arr;
+    }
+
+   /**
+    * 
+    * @param {type} str
+    * @returns slug of daterange name
+    */
     function slugify(str) {
         var $slug = '';
         var trimmed = $.trim(str);
@@ -70,34 +158,7 @@ jQuery(document).ready(function($) {
         return $slug.toLowerCase();
     }
 
-    // get the class name based on the daterange
-    function getDateRangeClassName(date) {
-        var date_range_name = '';
 
-        for (var i = 0; i < DATERANGE.length; i++) {
-
-            var from_date = new Date(DATERANGE[i].from_date);
-
-            var to_date = new Date(DATERANGE[i].to_date);
-
-            if (date >= from_date && date <= to_date) {
-
-                var class_name = DATERANGE[i].daterange_name;
-
-                var class_name_slug = slugify(class_name);
-
-                date_range_name = class_name_slug;
-
-                break;
-            }
-            else {
-                date_range_name = ' ';
-            }
-
-        }
-
-        return date_range_name;
-    }
 
     // get class name based on avaialbilty status
     function getAvailabilityClassName(date) {
@@ -118,34 +179,11 @@ jQuery(document).ready(function($) {
         return status;
     }
 
-    // get the class names for the dateranges
-    function showDateRangeClass(date) {
 
-        var date_range_slug = getDateRangeClassName(date);
 
-        var status = getAvailabilityClassName(date);
 
-        var class_name = ['true', date_range_slug + ' ' + status];
 
-        return class_name;
-    }
 
-    // generate the datepicker  for the room booking 
-    $('#room-booking-calendar').datepicker({
-        inline: true,
-        numberOfMonths: 2,
-        dateFormat: 'yy-mm-dd',
-        beforeShowDay: showDateRangeClass,
-        onSelect: showData,
-        minDate: new Date(),
-        onChangeMonthYear: displayColorMonthChange
-
-    });
-
-    $('.ui-datepicker-current-day').click();
-
-    getColour();
-    removeHightlight();
 
     // remove the current date highlight css 
     function removeHightlight() {
