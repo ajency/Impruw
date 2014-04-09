@@ -195,11 +195,11 @@ jQuery(document).ready(function($) {
             interval: false
         });
     }
-    
+
     // display the carousel navigation buttons
     function displayCarouselNav() {
         $('.carousel-control').hide()
-        
+
         var nav_display = $('.carousel-inner')
                 .find('.room-booking-plan .booking-detail').length
 

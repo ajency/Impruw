@@ -37,6 +37,7 @@ require.config
 		entitiesloader		: 'entities/dashboard-entities-loader'
 		jpanelmenu			: 'plugins/jquery.jpanelmenu.min'
 		scrollsections		: 'plugins/ajency.scrolldots'
+		minicolors			: 'plugins/jquery.minicolors.min'
 
 	shim:
 		underscore: 
@@ -61,6 +62,7 @@ require.config
 		datepicker 			: ['jquery']
 		scrollsections		: ['jquery']
 		jpanelmenu 			: ['jquery']
+		minicolors			: ['jquery']
 		underscorestring 	: ['underscore']
 		backboneform 		: ['backbone']
 		backbonesyphon 		: ['backbone']

@@ -27,4 +27,5 @@ define [
 		'isotope'
 		'jpanelmenu'
 		'scrollsections'
+		'minicolors'
 		],->
