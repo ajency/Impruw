@@ -2366,7 +2366,7 @@ form .aj-imp-submit:hover {
 .room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block .block-action .edit-tran {
   background: #ff7e00;
   position: relative;
-  top: 33%;
+  top: 45px;
 }
 .room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block .block-action .edit-tran:hover {
   background: #ffb266;
