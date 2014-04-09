@@ -1118,6 +1118,10 @@ and open the template in the editor.
   text-align: center;
   border: 0px;
 }
+.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td a:hover,
+.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td span:hover {
+  background: none;
+}
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker td > span {
   background: rgba(255, 255, 255, 0.6);
   color: #fff;
