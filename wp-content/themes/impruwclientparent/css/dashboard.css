@@ -2249,12 +2249,12 @@ form .aj-imp-submit:hover {
 .room-tariff-container .btn-add-range {
   position: absolute;
   left: 0;
-  bottom: 30px;
+  bottom: 25px;
 }
 .room-tariff-container .room-tariff-grid {
   overflow-x: auto;
   min-height: 80px;
-  padding-bottom: 20px;
+  padding-bottom: 30px;
   -webkit-overflow-scrolling: touch;
 }
 .room-tariff-container .room-tariff-grid .tariff {
@@ -2471,6 +2471,12 @@ form .aj-imp-submit:hover {
 }
 .room-tariff-container:hover .room-tariff-actions {
   display: block;
+}
+.update-tariff {
+  background: #ff7e00;
+}
+.update-tariff:hover {
+  background: #ffb266;
 }
 /****Gallery Styling****/
 #gallery-region {
