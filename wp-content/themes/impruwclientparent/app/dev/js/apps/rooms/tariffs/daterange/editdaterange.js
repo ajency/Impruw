@@ -84,8 +84,9 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/daterange
             return this.trigger("update:daterange:details", data);
           }
         },
-        'click #btn_deletedaterange': function() {
+        'click #btn_deletedaterange': function(e) {
           if (confirm('Delete the Date range?')) {
+            e.preventDefault();
             return this.trigger("delete:daterange", this.model);
           }
         }
