@@ -2246,9 +2246,15 @@ form .aj-imp-submit:hover {
   color: #ff7e00;
   font-size: 1.1em;
 }
+.room-tariff-container .btn-add-range {
+  position: absolute;
+  left: 0;
+  bottom: 2em;
+}
 .room-tariff-container .room-tariff-grid {
   overflow-x: auto;
-  min-height: 40px;
+  min-height: 80px;
+  padding-bottom: 20px;
   -webkit-overflow-scrolling: touch;
 }
 .room-tariff-container .room-tariff-grid .tariff {
@@ -2731,6 +2737,7 @@ form .aj-imp-submit:hover {
 }
 .room-booking .room-booking-calender .hasDatepicker .ui-datepicker-inline .ui-state-active {
   background: none;
+  color: #34495E;
 }
 .room-booking .room-booking-calender .hasDatepicker .ui-datepicker-inline:before {
   display: none !important;
