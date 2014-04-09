@@ -5,12 +5,12 @@
 
 /****Room Tariff Styles****/
 .room-tariff-container {
-	background: #fff;
-	box-shadow: 1px 1px 2px 0 lighten(@secondary1, 40%);
-	padding: 0.5em;
+	background: transparent !important;
+	padding: 0 !important;
 	position: relative;
-	margin: 0 0 1em;
 	.room-tariff-title {
+		border-bottom: 1px dotted @primary1;
+		margin: 0 0 0.5em;
 		h4 {
 			font-size: 1.5em;
 			text-transform: uppercase;
@@ -38,17 +38,26 @@
 	}
 	.room-tariff-grid {
 		overflow-x: auto; 
+		#tariff-region {
+			position: static;
+		}
 		.tariff {
 			.date-range {
 				color: darken(@secondary1, 20%);
 				text-align: right;
 				font-weight: 300;
 				position: absolute;
-				width: 60px;
+				width: 80px;
 				background: #fff;
-				max-width: 60px;
+				max-width: 80px;
 				padding-right: 10px;
-				min-height: 150px;
+				min-height: 139px;
+				z-index: 1;
+				font-size: 0.88em;
+				.range-name {
+					color: darken(@secondary1, 10%);
+					font-weight: 700;
+				}
 				.date {
 					display: block;
 				}
@@ -58,7 +67,7 @@
 			}
 			.packages {
 				width: 100%;
-				padding-left: 70px;
+				padding-left: 90px;
 				.package-blocks {
 					margin: 0 0 1em;	
 					white-space: nowrap;				
@@ -80,11 +89,11 @@
 							}
 							.package-desc {
 								font-size: 0.88em;
-								color: lighten(@secondary1, 30%);
+								color: darken(@secondary1, 30%);
 								display: none;
 							}
 							.tariff-label {
-								color: lighten(@secondary1, 30%);
+								color: darken(@secondary1, 30%);
 								margin: 0.5em 0 0.2em;
 								font-size: 0.88em;
 							}
@@ -94,12 +103,28 @@
 								margin-right: 1%;
 								float: left;
 								text-transform: uppercase;
-								color: lighten(@secondary1, 20%);
+								color: darken(@secondary1, 20%);
 								font-weight: 300;
 								.price {
 									font-weight: 700;
 									font-size: 1.4em;
 									display: block;
+								}
+							}
+							&.empty {
+								height: 139px;
+								.no-data {
+									min-height: 77px;
+									display: block;
+									text-align: center;
+									color: darken(@secondary1, 40%);
+									.glyphicon {
+										font-size: 2.5em;
+										margin-top: 25px;
+									}
+								}
+								.tariff-label {
+									text-align: center;
 								}
 							}
 							&:hover {
@@ -109,12 +134,19 @@
 					}
 					&.header {
 						margin: 0 0 0.3em;
-						.block {
-							background: transparent;
-							border: 0;
-							padding: 0;
-							h6, .package-desc {
-								display: block;
+						.package-block-outer {
+							margin-right: 0.7em;
+							.block {
+								background: transparent;
+								border: 0;
+								padding: 0;
+								h6, .package-desc {
+									display: block;
+								}
+								.package-desc {
+									height: 30px;
+									overflow: hidden;
+								}
 							}
 						}
 					}
@@ -170,7 +202,7 @@
 
 /****Room Facilities Styles****/
 .room-facilities-container {
-	background: #fff;
+	background: darken(@tertiary1, 10%);
 	padding: 0.5em;
 	.room-facilities-title {
 		h5 {
@@ -189,7 +221,7 @@
 		list-style: none;
 		li {
 			font-size: 1.1em;
-			color: lighten(@tertiary1, 20%) !important;
+			color: lighten(@secondary1, 20%);
 			font-weight: 300;
 			margin: 0 0 0.5em;
 			display: block;
@@ -204,7 +236,7 @@
 				height: 13px;
 				float: left;
 				margin-right: 10px;
-				border: 1px solid @secondary1;
+				border: 1px solid lighten(@secondary1, 20%);
 				position: relative;
 				font-size: 1.2em;
 				line-height: 0.33em;
@@ -213,7 +245,7 @@
 			}
 			&:hover {
 				&:before {
-					color: @tertiary1;
+					color: @secondary1;
 				}
 			}
 		}
@@ -222,19 +254,21 @@
 
 /****Room Summary Styles****/
 .room-summary-container {
-	margin: 0 0 1em;
+	margin: 0 0 1.5em;
 	.room-summary-title {
+		border-bottom: 1px dotted @primary1;
+		margin: 0 0 0.5em;
 		h4 {
 			font-size: 1.5em;
 			font-weight: 300;
 		}
 	}
 	.room-summary {
-		background: #fff;
-		padding: 1em 0.5em 0.5em;
+		background: transparent !important;
+		padding: 0 !important;
 		.room-summary-item {
 			display: inline-block;
-			border-bottom: 1px solid lighten(@secondary1, 40%);
+			border-bottom: 1px solid darken(@secondary1, 40%);
 			margin: 0 1em 1em 0;
 			span {
 				display: inline-block;
@@ -269,15 +303,15 @@
 
 /****Room Title Styles****/
 .room-title-container {
-	background: #fff;
-	padding: 0.5em;
+	background: transparent !important;
+	padding: 0 !important;
 	position: relative;
-	margin: 1em 0;
+	margin: 0 0 1.5em;
 	.room-title {
 		h1 {
-			font-size: 2.5em;
-			text-transform: uppercase;
-			color: @primary1;
+			font-size: 3em;
+			text-transform: none !important;
+			color: @tertiary1;
 		}
 		.room-title-desc {
 			font-size: 1em;
@@ -286,11 +320,12 @@
 	}
 	.room-title-actions {
 		position: absolute;
-		top: 0.5em;
-		right: 0.5em;
-		margin: 0.5em 0;
+		top: 0;
+		right: 0;
+		margin: 0;
 		.btn-book {
 			background: @primary1;
+			color: #fff;
 			&:hover {
 				background: lighten(@primary1, 10%);
 			}
@@ -303,14 +338,16 @@
 
 /****Room description Styles****/
 .room-description-container {
-	margin: 0 0 1em;
+	margin: 0 0 1.5em;
 	h1 {
 		font-size: 1.5em;
 		font-weight: 300;
+		border-bottom: 1px dotted @primary1;
+		margin: 0 0 0.5em;
 	}
 	.room-description-desc {
-		background: #fff;
-		padding: 1em 0.5em 0.5em;
+		background: transparent !important;
+		padding: 0;
 		color: darken(@secondary1, 20%);
 	}
 }
@@ -329,7 +366,7 @@
 		color: darken(@secondary1, 20%);
 		padding-bottom: 0.5em;
 		margin-bottom: 0.5em;
-		border-bottom: 1px dotted darken(@secondary1, 40%);
+		border-bottom: 1px dotted @secondary1;
 	}
 	.room-actions {
 		.clearfix;
@@ -348,6 +385,455 @@
 			&:hover {
 				background: lighten(@primary1, 20%);
 			}
+		}
+	}
+}
+
+/* Calender Booking */
+.booking-title {
+	font-size: 2em;
+	font-weight: 300 !important;
+	color: @primary1;
+}
+.daterange-legends{
+	text-transform:uppercase;
+	font-size:0.9em;
+	color:#fff;
+	li{
+			span{
+			width: 13px;
+			height: 13px;
+			display: inline-block;
+			background: #ccc;
+			margin-right: 5px;
+		}
+		@media(max-width:767px){
+			padding:5px;
+		}
+	}
+	.booking-red{
+		background:#f97d61;
+	}
+	.booking-blue{
+		background:#5fd7fe;
+	}
+	.booking-orange{
+		background:#ffd200;
+	}
+	.booking-pink{
+		background:#fea5a5;
+	}
+	.booking-green{
+		background:#84e72f;
+	}
+}
+
+.room-booking{
+	&.front {
+		margin: 0 15px 1em;
+	}
+	.room-booking-container{
+		background: lighten(@primary1, 20%);
+		.room-booking-data{
+			background: @primary1;
+			padding-top:1em;
+			min-height: 590px;
+			.date-range{
+				font-size:1.3em;
+				color:#fff;
+				margin-bottom: 10%;
+				b {
+					font-size: 1.5em;
+					display: block;
+					font-weight: 300;
+				}
+				.status{
+					font-size: 1.0em;
+					text-transform: uppercase;
+					padding-top: 13px;
+				}
+			}
+			.room-booking-plan {
+				color: #fff;
+				border-bottom: 1px dashed #280E0E;
+				padding-bottom: 5%;
+				margin-bottom: 5%;
+				h5{
+					font-weight: 600;
+					font-size: 1.5em;
+					color:lighten(@primary1, 40%);
+				}
+				.plan-bg{
+					background:lighten(@primary1, 10%);
+					padding:1px 4px;
+					margin-top: 2%;
+				}
+				.booking-detail{
+					width:50%;
+					float:left;
+					font-size:0.9em;
+					font-weight:300;
+					color:#e5e5e5;
+					span{
+						font-weight:800;
+						font-size:1.8em;
+						display: block;
+					}
+				}
+				h6{
+					font-weight:600;
+					font-size:1.0em;
+					text-transform:uppercase;
+					color:#fff;
+					
+				}
+				.booking-price{
+					font-size:0.8em;
+					font-weight:100;
+					margin-top:3%;
+					b{
+						font-size:2.0em;
+					}
+				}
+			}
+			
+			@media(max-width:767px){
+				display: block;
+			}
+		}
+		.room-booking-calender{
+				padding: 10px;
+			h4{
+				font-weight: 600;
+				font-size: 1.5em;
+				color: #fff;
+				text-transform: uppercase;
+				margin-bottom: 30px;
+				margin-top: 30px;
+				.glyphicon {
+					font-size: 1.5em;
+					color: #fff;
+					float: left;
+					margin-right: 1%;
+				}
+				.excerpt{
+					display: block;
+					font-size: 0.6em;
+					font-weight: 300;
+					text-transform: none;
+				}
+			}
+			#room-booking-calendar {
+			.ui-datepicker-inline{
+								width:auto !important;
+								border: 0;
+								background:none;
+								.ui-datepicker-group {
+									width: 48%;
+									margin-right: 12px;
+										.ui-datepicker-calendar{
+											background:#fff;
+											width:100%;
+											th{
+												background:lighten(@primary1, 40%);
+												text-transform:uppercase;
+												color:#fff;
+												font-weight: 300;
+												font-size: 12px;
+											}
+										}
+										@media(max-width:767px){
+											width: 100%;
+										}
+									}
+							}
+				.ui-datepicker {
+					width: 100% !important;
+					border: none;
+					box-shadow: none;
+					
+					&:before {
+						border-bottom-color: lighten(@primary1, 20%);
+						top: -7px;
+						display: none;
+					}
+					.ui-datepicker-header {
+						background: lighten(@primary1, 10%);
+						border: none;
+						height: 67px;
+						line-height: 86px;
+						margin:0px;
+						.ui-datepicker-prev, .ui-datepicker-next {
+							border: 0px;
+							height: 67px;
+							&:hover {
+								background: lighten(@primary1, 10%);
+							}
+						}
+					}
+					.ui-datepicker-title{
+						line-height: 74px;
+					}
+					
+						td {
+								border: 1px solid #EAEAEA!important;
+								height:42px!important;
+								a, span {
+										display: block;
+										border-radius:0px;
+										height: 51px;
+										line-height: 49px;
+										text-align: center;
+										border:0px;
+								}
+								> span {
+									background: rgba(255, 255, 255, 0.6);
+									color: #fff;
+									cursor: not-allowed;
+								}
+								
+							}
+								.booking-red{
+						background:#f97d61;
+						a{
+							color:#fff;
+							&:hover{
+								background:#f97d61;
+							}
+						}
+						
+					}
+					.booking-orange{
+					background:#ffd200;
+						a{
+							color:#fff;
+							&:hover{
+								background:#ffd200;
+							}
+						}
+						
+					}
+						.booking-blue{
+					background:#5fd7fe;
+						a{
+							color:#fff;
+							&:hover{
+							background:#5fd7fe;
+							}
+						}
+						
+					}
+						.booking-green{
+					background:#84e72f;
+						a{
+							color:#fff;
+							&:hover{
+							background:#84e72f;
+						}
+						}
+						
+					}
+						.booking-pink{
+					background:#fea5a5;
+						a{
+							color:#fff;
+							&:hover{
+								background:#fea5a5;
+							}
+						}
+					
+					}
+					
+					.ui-datepicker td.unavailabile {
+										a{
+											text-decoration:line-through;
+											color:#000 !important;
+										}
+									}
+									.ui-datepicker td.semi-availabile {
+										a{
+										
+											background:url(../images/gray-semi.png)right no-repeat;
+										}
+									}
+					.ui-state-active {
+						background: transparent;
+						color: #34495E;
+					}
+					.ui-state-highlight {
+						border-color: lighten(@primary1, 20%);
+					}
+				}
+			}
+		}
+	}
+}
+
+/*status*/
+.ui-datepicker td.unavailabile {
+	a {
+		text-decoration:line-through;
+		color:#000 !important;
+	}
+}
+.ui-datepicker td.semi-availabile {
+	a {
+		background: -moz-linear-gradient(-45deg,  rgba(0,0,0,0) 0%, rgba(0,0,0,0) 1%, rgba(0,0,0,0) 50%, rgba(0,0,0,0.28) 51%, rgba(0,0,0,0.28) 100%); /* FF3.6+ */
+		background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,rgba(0,0,0,0)), color-stop(1%,rgba(0,0,0,0)), color-stop(50%,rgba(0,0,0,0)), color-stop(51%,rgba(0,0,0,0.28)), color-stop(100%,rgba(0,0,0,0.28))); /* Chrome,Safari4+ */
+		background: -webkit-linear-gradient(-45deg,  rgba(0,0,0,0) 0%,rgba(0,0,0,0) 1%,rgba(0,0,0,0) 50%,rgba(0,0,0,0.28) 51%,rgba(0,0,0,0.28) 100%); /* Chrome10+,Safari5.1+ */
+		background: -o-linear-gradient(-45deg,  rgba(0,0,0,0) 0%,rgba(0,0,0,0) 1%,rgba(0,0,0,0) 50%,rgba(0,0,0,0.28) 51%,rgba(0,0,0,0.28) 100%); /* Opera 11.10+ */
+		background: -ms-linear-gradient(-45deg,  rgba(0,0,0,0) 0%,rgba(0,0,0,0) 1%,rgba(0,0,0,0) 50%,rgba(0,0,0,0.28) 51%,rgba(0,0,0,0.28) 100%); /* IE10+ */
+		background: linear-gradient(135deg,  rgba(0,0,0,0) 0%,rgba(0,0,0,0) 1%,rgba(0,0,0,0) 50%,rgba(0,0,0,0.28) 51%,rgba(0,0,0,0.28) 100%); /* W3C */
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#47000000',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+	}
+}
+
+.aj-imp-sub-head {
+	font-weight: 700;
+	color: #aaa !important;
+	text-transform: uppercase;
+	margin: 2px 5px 10px;
+	letter-spacing: .04em;
+	small {
+		font-weight: 300;
+		font-size: .6em;
+		color: #919191;
+		text-transform: none;
+	}
+}
+
+/****Room Gallery Styles****/
+.isotope {
+	padding: 0;
+	margin: 0 0 1em;
+	list-style: none;
+}
+
+.gallery {
+	margin: 0 0 1em;
+	padding: 0;
+	list-style: none;
+}
+
+.gallery-title {
+	font-size: 1.5em;
+	font-weight: 300 !important;
+	border-bottom: 1px dotted @primary1;
+	margin: 0 0 0.5em;
+}
+
+/**** Isotope Filtering ****/
+.isotope-item {
+  z-index: 2;
+  margin: 0.2em;
+  width: 200px;
+  height: auto;
+  .img-responsive {
+  	width: 100%;
+  }
+}
+
+.isotope-hidden.isotope-item {
+  pointer-events: none;
+  z-index: 1;
+}
+
+/**** Isotope CSS3 transitions ****/
+.isotope,
+.isotope .isotope-item {
+  -webkit-transition-duration: 0.8s;
+     -moz-transition-duration: 0.8s;
+      -ms-transition-duration: 0.8s;
+       -o-transition-duration: 0.8s;
+          transition-duration: 0.8s;
+}
+
+.isotope {
+  -webkit-transition-property: height, width;
+     -moz-transition-property: height, width;
+      -ms-transition-property: height, width;
+       -o-transition-property: height, width;
+          transition-property: height, width;
+}
+
+.isotope .isotope-item {
+  -webkit-transition-property: -webkit-transform, opacity;
+     -moz-transition-property:    -moz-transform, opacity;
+      -ms-transition-property:     -ms-transform, opacity;
+       -o-transition-property:      -o-transform, opacity;
+          transition-property:         transform, opacity;
+}
+
+/**** disabling Isotope CSS3 transitions ****/
+.isotope.no-transition,
+.isotope.no-transition .isotope-item,
+.isotope .isotope-item.no-transition {
+  -webkit-transition-duration: 0s;
+     -moz-transition-duration: 0s;
+      -ms-transition-duration: 0s;
+       -o-transition-duration: 0s;
+          transition-duration: 0s;
+}
+
+/**** Vertical Bootstrap Slider Styles ****/
+.vertical .carousel-inner {
+  	height: 100%;
+}
+
+.carousel.vertical .item {
+  -webkit-transition: 0.6s ease-in-out top;
+     -moz-transition: 0.6s ease-in-out top;
+      -ms-transition: 0.6s ease-in-out top;
+       -o-transition: 0.6s ease-in-out top;
+          transition: 0.6s ease-in-out top;
+}
+
+.carousel.vertical .active {
+  	top: 0;
+}
+
+.carousel.vertical .next {
+  	top: 560px;
+}
+
+.carousel.vertical .prev {
+  	top: -560px;
+}
+
+.carousel.vertical .next.left,
+.carousel.vertical .prev.right {
+  	top: 0;
+}
+
+.carousel.vertical .active.left {
+  	top: -560px;
+}
+
+.carousel.vertical .active.right {
+  	top: 560px;
+}
+
+.carousel.vertical .item {
+	left: 0;
+}
+
+.carousel.vertical {
+	.carousel-control {
+		top: -15px;
+		left: 35%;
+		-ms-transform: rotate(90deg);
+		-webkit-transform: rotate(90deg);
+		transform: rotate(90deg);
+		line-height: 29px;
+		color: #fff;
+		&.right {
+			-ms-transform: rotate(90deg);
+			-webkit-transform: rotate(90deg);
+			transform: rotate(90deg);
+			left: 55%;
+		}
+		&:hover, &:focus {
+			text-decoration: none !important;
 		}
 	}
 }
