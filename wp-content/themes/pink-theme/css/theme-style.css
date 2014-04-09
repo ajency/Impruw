@@ -2217,7 +2217,7 @@ and open the template in the editor.
   background: #84e72f;
 }
 .room-booking.front {
-  margin: 0 15px;
+  margin: 0 15px 1em;
 }
 .room-booking .room-booking-container {
   background: #ffc5c5;
