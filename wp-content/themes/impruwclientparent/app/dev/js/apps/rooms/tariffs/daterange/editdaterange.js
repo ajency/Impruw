@@ -84,8 +84,9 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/daterange
             return this.trigger("update:daterange:details", data);
           }
         },
-        'click #btn_deletedaterange': function() {
+        'click #btn_deletedaterange': function(e) {
           if (confirm('Delete the Date range?')) {
+            e.preventDefault();
             return this.trigger("delete:daterange", this.model);
           }
         }
@@ -110,7 +111,7 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/daterange
 
       EditDateRangeView.prototype.onShow = function() {
         this.$el.find('input[type="checkbox"]').checkbox();
-        this.$el.find('#daterange_color').minicolors();
+        this.$el.find('#daterange_colour').minicolors();
         return this.$el.find('.dated').datepicker({
           showOtherMonths: true,
           selectOtherMonths: true,

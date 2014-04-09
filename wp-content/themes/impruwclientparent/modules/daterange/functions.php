@@ -17,6 +17,7 @@ function wp_insert_daterange($formdata) {
     $data['from_date'] = date('Y-m-d', strtotime($formdata['from_date']));
     $data['to_date'] = date('Y-m-d', strtotime($formdata['to_date']));
     $data['daterange_name'] = $formdata['daterange_name'];
+    $data['daterange_colour'] = $formdata['daterange_colour'];
 
     $wpdb->insert($table_name, $data);
 

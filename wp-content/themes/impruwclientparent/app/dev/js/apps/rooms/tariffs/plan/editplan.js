@@ -82,8 +82,9 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/plan/temp
             return this.trigger("update:plan:details", data);
           }
         },
-        'click #btn_deleteplan': function() {
+        'click #btn_deleteplan': function(e) {
           if (confirm('Delete plan?')) {
+            e.preventDefault();
             return this.trigger("delete:plan", this.model);
           }
         }

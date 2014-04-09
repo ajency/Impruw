@@ -56,8 +56,9 @@ define  ['app','controllers/base-controller', 'text!apps/rooms/tariffs/daterange
 						data = Backbone.Syphon.serialize @
 						@trigger "update:daterange:details", data
 
-				'click #btn_deletedaterange' : ->
+				'click #btn_deletedaterange' :(e) ->
 					if confirm 'Delete the Date range?'
+							e.preventDefault()
 							@trigger "delete:daterange", @model
 
 			serializeData: ->
@@ -76,7 +77,8 @@ define  ['app','controllers/base-controller', 'text!apps/rooms/tariffs/daterange
 			# show checkbox
 			onShow:->
 				@$el.find('input[type="checkbox"]').checkbox()
-				@$el.find('#daterange_color').minicolors()
+				@$el.find('#daterange_colour').minicolors()
+
 				@$el.find('.dated').datepicker
 										showOtherMonths: true
 										selectOtherMonths: true

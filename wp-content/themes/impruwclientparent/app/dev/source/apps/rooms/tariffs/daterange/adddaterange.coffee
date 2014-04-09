@@ -55,6 +55,7 @@ define  ['app','controllers/base-controller', 'text!apps/rooms/tariffs/daterange
 			# show checkbox
 			onShow:->
 				@$el.find('input[type="checkbox"]').checkbox()
+				@$el.find('#daterange_colour').minicolors()
 				@$el.find('.dated').datepicker
 										showOtherMonths: true
 										selectOtherMonths: true
