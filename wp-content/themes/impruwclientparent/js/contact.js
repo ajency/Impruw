@@ -80,12 +80,18 @@ jQuery(document).ready(function($) {
      * Get the class names for each daterange dates
      */
     function showDateRangeClass(date) {
+        var range = true;
 
         var date_range_slug = getDateRangeClassName(date);
 
+        var date_in_range = DateInRange(date);
+
+        if (date_in_range == -1) {
+            range = false;
+        }
         var status = getAvailabilityClassName(date);
 
-        var class_name = ['true', date_range_slug + ' ' + status];
+        var class_name = [range, date_range_slug + ' ' + status];
 
         return class_name;
     }
@@ -97,10 +103,10 @@ jQuery(document).ready(function($) {
      *get the class name based on the daterange name
      */
     function getDateRangeClassName(date) {
-        var date_range_name = 'h';
+        var date_range_name = '';
 
         var ar = DateInRange(date);
-        
+
         if (ar === -1)
             return date_range_name
 
@@ -121,13 +127,12 @@ jQuery(document).ready(function($) {
      * Check if date is in range of the dateranges
      */
     function DateInRange(date) {
-        console.log(date)
         var arr = -1;
         for (var i = 0; i < DATERANGE.length; i++) {
 
-            var from_date = new Date(DATERANGE[i].from_date);
-            console.log(from_date);
-            var to_date = new Date(DATERANGE[i].to_date);
+            var from_date = DATERANGE[i].from_date;
+
+            var to_date = DATERANGE[i].to_date;
 
             var current_date = new Date(date);
 
@@ -144,11 +149,11 @@ jQuery(document).ready(function($) {
         return arr;
     }
 
-   /**
-    * 
-    * @param {type} str
-    * @returns slug of daterange name
-    */
+    /**
+     * 
+     * @param {type} str
+     * @returns slug of daterange name
+     */
     function slugify(str) {
         var $slug = '';
         var trimmed = $.trim(str);
@@ -159,8 +164,13 @@ jQuery(document).ready(function($) {
     }
 
 
-
-    // get class name based on avaialbilty status
+    /**
+     * 
+     * @param {type} date
+     * @returns {String}
+     * 
+     * Returns the availability status of the date
+     */
     function getAvailabilityClassName(date) {
 
         var status = 'available';
@@ -178,26 +188,6 @@ jQuery(document).ready(function($) {
 
         return status;
     }
-
-
-
-
-
-
-
-    // remove the current date highlight css 
-    function removeHightlight() {
-
-
-        $("#room-booking-calendar td.ui-datepicker-today\n\
-             a.ui-state-highlight").removeClass('ui-state-highlight');
-
-        $("#room-booking-calendar td.ui-datepicker-today \n\
-             a.ui-state-active").removeClass('ui-state-active');
-
-    }
-
-
 
     // display the colour on the calender for date ranges 
     function getColour() {
@@ -218,6 +208,26 @@ jQuery(document).ready(function($) {
             $("." + val).addClass("booking-" + classNames[key]);
         });
     }
+
+
+
+
+
+    // remove the current date highlight css 
+    function removeHightlight() {
+
+
+        $("#room-booking-calendar td.ui-datepicker-today\n\
+             a.ui-state-highlight").removeClass('ui-state-highlight');
+
+        $("#room-booking-calendar td.ui-datepicker-today \n\
+             a.ui-state-active").removeClass('ui-state-active');
+
+    }
+
+
+
+
 
     // display the color of daterange on month selection change
     function displayColorMonthChange(year, month, inst) {
