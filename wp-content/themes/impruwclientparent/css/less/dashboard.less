@@ -33,6 +33,11 @@ a {
 		color: @orange;
 		outline: 0;
 	}
+	&.red-link {
+		color: @logo-orange;
+		display: inline-block;
+		margin: 0 0.5em;
+	}
 }
 
 /****Clearfix****/
@@ -1920,7 +1925,7 @@ form {
 		}
 	}
 	.ui-state-active {
-		background: none;
+		background: @orange;
 	}
 	&:before {
 		border-bottom-color: lighten(@dash-grey, 10%);
@@ -2775,6 +2780,9 @@ form {
 									font-size: 12px;
 								}
 							}
+						}
+						.ui-state-active {
+							background: none;
 						}
 						&:before {
 							display: none !important;

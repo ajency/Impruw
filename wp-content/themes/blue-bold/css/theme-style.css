@@ -1125,7 +1125,7 @@ and open the template in the editor.
   color: #fff;
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .booking-red a:hover {
-  background: #ffd200;
+  background: #f97d61;
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .booking-orange {
   background: #ffd200;
@@ -2281,7 +2281,7 @@ and open the template in the editor.
   color: #fff;
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .booking-red a:hover {
-  background: #ffd200;
+  background: #f97d61;
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .booking-orange {
   background: #ffd200;
@@ -2327,7 +2327,8 @@ and open the template in the editor.
   background: url(../images/gray-semi.png) right no-repeat;
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .ui-state-active {
-  background: #07669e;
+  background: transparent;
+  color: #34495E;
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .ui-state-highlight {
   border-color: #16a2f5;
