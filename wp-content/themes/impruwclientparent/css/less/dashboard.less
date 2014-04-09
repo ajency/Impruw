@@ -2288,9 +2288,15 @@ form {
 		color: @orange;
 		font-size: 1.1em;
 	}
+	.btn-add-range {
+		position: absolute;
+		left: 0;
+		bottom: 2em;
+	}
 	.room-tariff-grid {
 		overflow-x: auto; 
-		min-height: 40px;
+		min-height: 80px;
+		padding-bottom: 20px;
 		-webkit-overflow-scrolling: touch;
 		.tariff {
 			position: relative;
@@ -2783,6 +2789,7 @@ form {
 						}
 						.ui-state-active {
 							background: none;
+							color: #34495E;
 						}
 						&:before {
 							display: none !important;
