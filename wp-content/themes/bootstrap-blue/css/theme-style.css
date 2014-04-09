@@ -1171,7 +1171,8 @@ and open the template in the editor.
   background: url(../images/gray-semi.png) right no-repeat;
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .ui-state-active {
-  background: #5ca9a1;
+  background: transparent;
+  color: #34495E;
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .ui-state-highlight {
   border-color: #9fccc8;
