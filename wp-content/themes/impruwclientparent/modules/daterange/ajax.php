@@ -85,7 +85,8 @@ function update_daterange_ajax() {
         'id' => $_POST['id'],
         'from_date' => $_POST['from_date'],
         'to_date' => $_POST['to_date'],
-        'daterange_name' => $_POST['daterange_name']
+        'daterange_name' => $_POST['daterange_name'],
+        'daterange_colour' => $_POST['daterange_colour']
     );
 
     // pass the form data to the update function, returns the date range id 
