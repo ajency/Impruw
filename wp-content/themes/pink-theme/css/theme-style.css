@@ -822,6 +822,7 @@ and open the template in the editor.
 .room-summary-container .room-summary-title h4 {
   font-size: 1.5em;
   font-weight: 300;
+  margin: 0;
 }
 .room-summary-container .room-summary {
   background: #fff;
@@ -1792,7 +1793,7 @@ and open the template in the editor.
   position: relative;
 }
 .room-tariff-container .room-tariff-title {
-  border-bottom: 1px dotted #ff5f5f;
+  border-bottom: 1px solid #d0d0d0;
   margin: 0 0 0.5em;
 }
 .room-tariff-container .room-tariff-title h4 {
@@ -1802,6 +1803,7 @@ and open the template in the editor.
 .room-tariff-container .room-tariff-title h5 {
   font-size: 1em;
   font-weight: 400;
+  color: #b6b6b6;
 }
 .room-tariff-container .room-tariff-actions {
   position: absolute;
@@ -1841,7 +1843,7 @@ and open the template in the editor.
   font-size: 0.88em;
 }
 .room-tariff-container .room-tariff-grid .tariff .date-range .range-name {
-  color: #d0d0d0;
+  color: #0c111e;
   font-weight: 700;
 }
 .room-tariff-container .room-tariff-grid .tariff .date-range .date {
@@ -1988,7 +1990,7 @@ and open the template in the editor.
 }
 /****Room Facilities Styles****/
 .room-facilities-container {
-  background: #1b2642;
+  background: #2a3b66;
   padding: 0.5em;
 }
 .room-facilities-container .room-facilities-title h5 {
@@ -2038,12 +2040,13 @@ and open the template in the editor.
   margin: 0 0 1.5em;
 }
 .room-summary-container .room-summary-title {
-  border-bottom: 1px dotted #ff5f5f;
+  border-bottom: 1px solid #d0d0d0;
   margin: 0 0 0.5em;
 }
 .room-summary-container .room-summary-title h4 {
   font-size: 1.5em;
   font-weight: 300;
+  margin: 0;
 }
 .room-summary-container .room-summary {
   background: transparent !important;
@@ -2060,17 +2063,17 @@ and open the template in the editor.
 }
 .room-summary-container .room-summary .room-summary-item span.key {
   min-width: 100px;
-  color: #b6b6b6;
+  color: #0c111e;
 }
 .room-summary-container .room-summary .room-summary-item span.value {
-  color: #838383;
+  color: #ff5f5f;
   font-weight: 700;
 }
 .room-summary-container .room-summary .room-summary-item:hover {
   border-color: #ff5f5f;
 }
 .room-summary-container .room-summary .room-summary-desc {
-  color: #b6b6b6;
+  color: #0c111e;
   margin: 1em 0 0;
 }
 .room-summary-container .room-summary .room-summary-desc .btn-book {
@@ -2095,7 +2098,7 @@ and open the template in the editor.
 }
 .room-title-container .room-title .room-title-desc {
   font-size: 1em;
-  color: #b6b6b6;
+  color: #0c111e;
 }
 .room-title-container .room-title-actions {
   position: absolute;
@@ -2122,13 +2125,13 @@ and open the template in the editor.
 .room-description-container h1 {
   font-size: 1.5em;
   font-weight: 300;
-  border-bottom: 1px dotted #ff5f5f;
+  border-bottom: 1px solid #d0d0d0;
   margin: 0 0 0.5em;
 }
 .room-description-container .room-description-desc {
   background: transparent !important;
   padding: 0;
-  color: #b6b6b6;
+  color: #0c111e;
 }
 /****Room List Summary Styles****/
 .roomsummary {
@@ -2498,7 +2501,7 @@ and open the template in the editor.
 .gallery-title {
   font-size: 1.5em;
   font-weight: 300 !important;
-  border-bottom: 1px dotted #ff5f5f;
+  border-bottom: 1px solid #d0d0d0;
   margin: 0 0 0.5em;
 }
 /**** Isotope Filtering ****/

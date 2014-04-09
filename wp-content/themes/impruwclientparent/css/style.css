@@ -85,9 +85,13 @@
   font-family: 'Helvetica', sans-serif;
   font-weight: 400;
   /*-- Site Builder Container --*/
+
   /****Selection Color****/
+
   /****Link Styles****/
+
   /****Heading Styles****/
+
 }
 .site-style-container .site-header,
 .site-style-container .site-footer,
@@ -781,6 +785,7 @@ and open the template in the editor.
 .room-summary-container .room-summary-title h4 {
   font-size: 1.5em;
   font-weight: 300;
+  margin: 0;
 }
 .room-summary-container .room-summary {
   background: #fff;
@@ -1190,18 +1195,25 @@ and open the template in the editor.
 .ui-datepicker td.semi-availabile a {
   background: -moz-linear-gradient(-45deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 1%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.28) 51%, rgba(0, 0, 0, 0.28) 100%);
   /* FF3.6+ */
+
   background: -webkit-gradient(linear, left top, right bottom, color-stop(0%, rgba(0, 0, 0, 0)), color-stop(1%, rgba(0, 0, 0, 0)), color-stop(50%, rgba(0, 0, 0, 0)), color-stop(51%, rgba(0, 0, 0, 0.28)), color-stop(100%, rgba(0, 0, 0, 0.28)));
   /* Chrome,Safari4+ */
+
   background: -webkit-linear-gradient(-45deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 1%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.28) 51%, rgba(0, 0, 0, 0.28) 100%);
   /* Chrome10+,Safari5.1+ */
+
   background: -o-linear-gradient(-45deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 1%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.28) 51%, rgba(0, 0, 0, 0.28) 100%);
   /* Opera 11.10+ */
+
   background: -ms-linear-gradient(-45deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 1%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.28) 51%, rgba(0, 0, 0, 0.28) 100%);
   /* IE10+ */
+
   background: linear-gradient(135deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 1%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.28) 51%, rgba(0, 0, 0, 0.28) 100%);
   /* W3C */
+
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#47000000', GradientType=1);
   /* IE6-9 fallback on horizontal gradient */
+
 }
 /*Room tariff*/
 .room-tariff-container {
