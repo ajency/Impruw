@@ -64,14 +64,16 @@ jQuery(document).ready(function($) {
         inline: true,
         numberOfMonths: 2,
         dateFormat: 'yy-mm-dd',
-        beforeShowDay: showDateRangeClass
+        minDate: new Date(),
+        beforeShowDay: showDateRangeClass,
+        onChangeMonthYear: displayColorMonthChange,
+        onSelect: showData
 
     });
 
-    //$('.ui-datepicker-current-day').click();
+    $('.ui-datepicker-current-day').click();
 
-    //getColour();
-    // removeHightlight();
+    getDateRangeColour();
 
     /**
      * @param {type} date
@@ -104,7 +106,7 @@ jQuery(document).ready(function($) {
      */
     function getDateRangeClassName(date) {
         var date_range_name = '';
-
+                    
         var ar = DateInRange(date);
 
         if (ar === -1)
@@ -189,27 +191,34 @@ jQuery(document).ready(function($) {
         return status;
     }
 
-    // display the colour on the calender for date ranges 
-    function getColour() {
+    /**
+     * Displays the colour of the daterange
+     * 
+     */ 
+    function getDateRangeColour() {
 
-        var classNames = ['green', 'red', 'orange', 'blue', 'pink', 'yellow'];
-
-        var arr = [];
         for (var i = 0; i < DATERANGE.length; i++) {
 
             var date_range_name = DATERANGE[i].daterange_name;
 
             var slug_name = slugify(date_range_name);
-
-            arr.push(slug_name);
+            
+            $("." + slug_name).css({'background-color': DATERANGE[i].daterange_colour});
         }
-
-        $.each(arr, function(key, val) {
-            $("." + val).addClass("booking-" + classNames[key]);
-        });
     }
+/**
+ * 
+ * @param {type} year
+ * @param {type} month
+ * @param {type} inst
+ * Display the color of daterange on month selection change
+ */
+    function displayColorMonthChange(year, month, inst) {
 
-
+        setTimeout(function() {
+            getDateRangeColour();
+        }, 10);
+    }
 
 
 
@@ -229,14 +238,7 @@ jQuery(document).ready(function($) {
 
 
 
-    // display the color of daterange on month selection change
-    function displayColorMonthChange(year, month, inst) {
-
-        setTimeout(function() {
-            getColour();
-            removeHightlight();
-        }, 10);
-    }
+   
 
     function showCarousel() {
         $('#myCarousel').carousel({
@@ -269,7 +271,7 @@ jQuery(document).ready(function($) {
         displayCarouselNav();
 
         setTimeout(function() {
-            getColour();
+            getDateRangeColour();
             showCarousel();
         }, 10);
 
