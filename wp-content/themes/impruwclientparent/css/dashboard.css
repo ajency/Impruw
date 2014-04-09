@@ -2249,7 +2249,7 @@ form .aj-imp-submit:hover {
 .room-tariff-container .btn-add-range {
   position: absolute;
   left: 0;
-  bottom: 2em;
+  bottom: 30px;
 }
 .room-tariff-container .room-tariff-grid {
   overflow-x: auto;
