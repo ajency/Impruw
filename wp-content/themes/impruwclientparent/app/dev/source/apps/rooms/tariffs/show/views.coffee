@@ -117,7 +117,10 @@ define ['app', 'moment'], (App, moment)->
 						<div class="packages">
 							<div class="package-blocks clearfix"></div>
 						</div>'	
-
+			events:
+				'click .edit-range-link' : ->
+						@trigger "show:edit:daterange", @model
+			
 			serializeData:->
 				data = super()
 

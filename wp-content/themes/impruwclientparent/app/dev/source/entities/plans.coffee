@@ -40,18 +40,9 @@ define ["app", 'backbone'], (App, Backbone) ->
 				plan = new Plan data
 				plan
 
-			# fetch the plan model
-			getPlan :(id)->
-				plan = new Plan id : id
-				plan.fetch()
-				plan
-
 
 		App.reqres.setHandler "get:plans:collection", ->
 			API.getPlansCollection()
 
 		App.reqres.setHandler "create:plan:model", (data)->
 			API.createPlanModel data
-
-		App.reqres.setHandler "get:plan:model",(id)->
-			API.getPlan id

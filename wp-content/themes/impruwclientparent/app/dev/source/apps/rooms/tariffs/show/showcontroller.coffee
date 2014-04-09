@@ -24,10 +24,10 @@ define  ['app','controllers/base-controller', 'apps/rooms/tariffs/show/views'],(
 				# get the packages view
 				@packagesView = @_getPackagesView pcollection
 
-				#@listenTo @packagesView, "itemview:show:edit:plan", (model) =>
-					#App.execute "show:edit:plan", model : model
-
 				@dateRangeView = @_getDateRangeView dcollection
+
+				@listenTo @dateRangeView, "itemview:show:edit:daterange", (model) =>
+					App.execute "show:edit:daterange", model : model
 
 				@listenTo @layout, "show", =>
 					@layout.packagesRegion.show @packagesView

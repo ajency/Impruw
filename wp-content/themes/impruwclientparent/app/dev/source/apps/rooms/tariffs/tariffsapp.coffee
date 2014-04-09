@@ -4,6 +4,7 @@ define  ['app'
 		'apps/rooms/tariffs/edittariff/edittariff'
 		'apps/rooms/tariffs/addtariff/addtariff'
 		'apps/rooms/tariffs/daterange/adddaterange'
+		'apps/rooms/tariffs/daterange/editdaterange'
 		'apps/rooms/tariffs/plan/editplan'
 		'apps/rooms/tariffs/plan/addplan'],(App, AppController)->
 
