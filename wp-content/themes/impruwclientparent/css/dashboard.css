@@ -3213,3 +3213,17 @@ form .aj-imp-submit:hover {
 .daterange-legends .booking-green {
   background: #84e72f;
 }
+/**** MiniColors Colorpicker Styles ****/
+.minicolors-theme-default .minicolors-input {
+  height: 41px !important;
+  padding: 8px 12px 8px 41px !important;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+.minicolors-theme-default .minicolors-swatch {
+  height: 30px !important;
+  width: 30px !important;
+}
