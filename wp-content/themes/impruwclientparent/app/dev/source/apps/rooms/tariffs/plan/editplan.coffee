@@ -60,7 +60,7 @@ define  ['app','controllers/base-controller', 'text!apps/rooms/tariffs/plan/temp
 
 			onSavedPlan:->
 				@$el.parent().find('.alert').remove()
-				@$el.parent().prepend '<div class="alert alert-success">Saved successfully</div>'
+				@$el.parent().prepend '<div class="alert alert-success">Updated successfully</div>'
 			
 			onDeletedPlan:->
 				@trigger "dialog:close"

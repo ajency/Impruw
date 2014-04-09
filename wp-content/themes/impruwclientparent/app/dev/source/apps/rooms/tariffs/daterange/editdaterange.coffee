@@ -10,19 +10,26 @@ define  ['app','controllers/base-controller', 'text!apps/rooms/tariffs/daterange
 
 				@dateRangeView = dateRangeView = @_getEditDateRangeView model
 
-				@listenTo dateRangeView, "add:daterange:details", (data)=>
-					dateRange = App.request "create:new:daterange:model", data
-					#console.log dateRange
-					dateRange.save null,
+				@listenTo dateRangeView, "update:daterange:details", (data)=>
+					model.save data
+					model.save null,
 							wait : true
-							success : @dateRangeSaved
+							success : @dateRangeUpdated
+				
+				@listenTo dateRangeView, "delete:daterange",(data) =>
+					model.destroy
+							allData: false
+							wait:true
+							success : @daterangeDeleted
 
 				@show dateRangeView, 
 						loading : true
 
-			dateRangeSaved:(dateRange)=>
-				App.execute "add:daterange", dateRange
-				@dateRangeView.triggerMethod "saved:daterange"
+			daterangeDeleted :=>
+				@dateRangeView.triggerMethod "deleted:daterange" 
+
+			dateRangeUpdated:(dateRange)=>
+				@dateRangeView.triggerMethod "updated:daterange"
 
 
 			# get the packages view
@@ -40,20 +47,31 @@ define  ['app','controllers/base-controller', 'text!apps/rooms/tariffs/daterange
 			template : editDateRangeTpl
 
 			dialogOptions : 
-				modal_title : 'Add DateRange'
+				modal_title : 'Edit DateRange'
 				modal_size  : 'medium-modal'
 
 			events:
-				'click #btn_savedaterange' : ->
+				'click #btn_updatedaterange' : ->
 					if @$el.valid()
 						data = Backbone.Syphon.serialize @
-						@trigger "add:daterange:details", data
+						@trigger "update:daterange:details", data
 
+				'click #btn_deletedaterange' : ->
+					if confirm 'Delete the Date range?'
+							@trigger "delete:daterange", @model
+
+			serializeData: ->
+				data = super()
+				data.from_date = moment(data.from_date).format "YYYY-MM-DD"
+				data.to_date = moment(data.to_date).format "YYYY-MM-DD"
+				data
 		
-			onSavedDaterange:->
+			onUpdatedDaterange:->
 				@$el.parent().find('.alert').remove()
-				@$el.parent().prepend '<div class="alert alert-success">Saved successfully</div>'
-				@$el.find('input').val ''
+				@$el.parent().prepend '<div class="alert alert-success">Updated successfully</div>'
+
+			onDeletedDaterange : ->
+				@trigger "dialog:close"
 
 			# show checkbox
 			onShow:->

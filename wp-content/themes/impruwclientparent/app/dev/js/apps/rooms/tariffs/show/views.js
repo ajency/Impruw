@@ -99,8 +99,14 @@ define(['app', 'moment'], function(App, moment) {
 
       DateRageView.prototype.events = {
         'click .edit-range-link': function() {
-          return this.trigger("show:edit:daterange", this.model);
+          return App.execute("show:edit:daterange", {
+            model: this.model
+          });
         }
+      };
+
+      DateRageView.prototype.modelEvents = {
+        'change': 'render'
       };
 
       DateRageView.prototype.serializeData = function() {

@@ -9,7 +9,8 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/daterange
       __extends(EditDateRangeController, _super);
 
       function EditDateRangeController() {
-        this.dateRangeSaved = __bind(this.dateRangeSaved, this);
+        this.dateRangeUpdated = __bind(this.dateRangeUpdated, this);
+        this.daterangeDeleted = __bind(this.daterangeDeleted, this);
         return EditDateRangeController.__super__.constructor.apply(this, arguments);
       }
 
@@ -17,13 +18,21 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/daterange
         var dateRangeView, model;
         model = opt.model;
         this.dateRangeView = dateRangeView = this._getEditDateRangeView(model);
-        this.listenTo(dateRangeView, "add:daterange:details", (function(_this) {
+        this.listenTo(dateRangeView, "update:daterange:details", (function(_this) {
           return function(data) {
-            var dateRange;
-            dateRange = App.request("create:new:daterange:model", data);
-            return dateRange.save(null, {
+            model.save(data);
+            return model.save(null, {
               wait: true,
-              success: _this.dateRangeSaved
+              success: _this.dateRangeUpdated
+            });
+          };
+        })(this));
+        this.listenTo(dateRangeView, "delete:daterange", (function(_this) {
+          return function(data) {
+            return model.destroy({
+              allData: false,
+              wait: true,
+              success: _this.daterangeDeleted
             });
           };
         })(this));
@@ -32,9 +41,12 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/daterange
         });
       };
 
-      EditDateRangeController.prototype.dateRangeSaved = function(dateRange) {
-        App.execute("add:daterange", dateRange);
-        return this.dateRangeView.triggerMethod("saved:daterange");
+      EditDateRangeController.prototype.daterangeDeleted = function() {
+        return this.dateRangeView.triggerMethod("deleted:daterange");
+      };
+
+      EditDateRangeController.prototype.dateRangeUpdated = function(dateRange) {
+        return this.dateRangeView.triggerMethod("updated:daterange");
       };
 
       EditDateRangeController.prototype._getEditDateRangeView = function(dateRange) {
@@ -60,24 +72,40 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/daterange
       EditDateRangeView.prototype.template = editDateRangeTpl;
 
       EditDateRangeView.prototype.dialogOptions = {
-        modal_title: 'Add DateRange',
+        modal_title: 'Edit DateRange',
         modal_size: 'medium-modal'
       };
 
       EditDateRangeView.prototype.events = {
-        'click #btn_savedaterange': function() {
+        'click #btn_updatedaterange': function() {
           var data;
           if (this.$el.valid()) {
             data = Backbone.Syphon.serialize(this);
-            return this.trigger("add:daterange:details", data);
+            return this.trigger("update:daterange:details", data);
+          }
+        },
+        'click #btn_deletedaterange': function() {
+          if (confirm('Delete the Date range?')) {
+            return this.trigger("delete:daterange", this.model);
           }
         }
       };
 
-      EditDateRangeView.prototype.onSavedDaterange = function() {
+      EditDateRangeView.prototype.serializeData = function() {
+        var data;
+        data = EditDateRangeView.__super__.serializeData.call(this);
+        data.from_date = moment(data.from_date).format("YYYY-MM-DD");
+        data.to_date = moment(data.to_date).format("YYYY-MM-DD");
+        return data;
+      };
+
+      EditDateRangeView.prototype.onUpdatedDaterange = function() {
         this.$el.parent().find('.alert').remove();
-        this.$el.parent().prepend('<div class="alert alert-success">Saved successfully</div>');
-        return this.$el.find('input').val('');
+        return this.$el.parent().prepend('<div class="alert alert-success">Updated successfully</div>');
+      };
+
+      EditDateRangeView.prototype.onDeletedDaterange = function() {
+        return this.trigger("dialog:close");
       };
 
       EditDateRangeView.prototype.onShow = function() {

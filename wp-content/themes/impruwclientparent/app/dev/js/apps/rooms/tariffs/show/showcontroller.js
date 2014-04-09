@@ -29,13 +29,6 @@ define(['app', 'controllers/base-controller', 'apps/rooms/tariffs/show/views'], 
         this.layout = this._getGridLayout(tcollection);
         this.packagesView = this._getPackagesView(pcollection);
         this.dateRangeView = this._getDateRangeView(dcollection);
-        this.listenTo(this.dateRangeView, "itemview:show:edit:daterange", (function(_this) {
-          return function(model) {
-            return App.execute("show:edit:daterange", {
-              model: model
-            });
-          };
-        })(this));
         this.listenTo(this.layout, "show", (function(_this) {
           return function() {
             _this.layout.packagesRegion.show(_this.packagesView);

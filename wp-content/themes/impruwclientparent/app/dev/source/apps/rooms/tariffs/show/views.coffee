@@ -119,7 +119,10 @@ define ['app', 'moment'], (App, moment)->
 						</div>'	
 			events:
 				'click .edit-range-link' : ->
-						@trigger "show:edit:daterange", @model
+						App.execute "show:edit:daterange", model : @model
+						#@trigger "show:edit:daterange", @model
+			modelEvents:
+				'change' : 'render'
 			
 			serializeData:->
 				data = super()
