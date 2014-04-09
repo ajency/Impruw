@@ -22,7 +22,8 @@ define ['app', 'moment'], (App, moment)->
 				 
 
 			events: 						
-				'click .edit-pkg-link' : ->
+				'click .edit-pkg-link' :(e) ->
+							e.preventDefault()
 							App.execute "show:edit:plan", model : @model
 
 			serializeData:->
@@ -118,7 +119,8 @@ define ['app', 'moment'], (App, moment)->
 							<div class="package-blocks clearfix"></div>
 						</div>'	
 			events:
-				'click .edit-range-link' : ->
+				'click .edit-range-link' :(e)->
+						e.preventDefault()
 						App.execute "show:edit:daterange", model : @model
 						#@trigger "show:edit:daterange", @model
 			modelEvents:

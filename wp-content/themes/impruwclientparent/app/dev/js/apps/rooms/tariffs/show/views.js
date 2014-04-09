@@ -20,7 +20,8 @@ define(['app', 'moment'], function(App, moment) {
       };
 
       PackageSingle.prototype.events = {
-        'click .edit-pkg-link': function() {
+        'click .edit-pkg-link': function(e) {
+          e.preventDefault();
           return App.execute("show:edit:plan", {
             model: this.model
           });
@@ -98,7 +99,8 @@ define(['app', 'moment'], function(App, moment) {
       DateRageView.prototype.template = '<div class="date-range"> <div class="range-name">{{daterange_name}}</div> <div class="from"> <span class="date">{{fromdate}}</span> to <span class="date">{{todate}}</span> </div> <a href="#" class="edit-range-link"><span class="glyphicon glyphicon-pencil"></span> Edit</a> </div> <div class="packages"> <div class="package-blocks clearfix"></div> </div>';
 
       DateRageView.prototype.events = {
-        'click .edit-range-link': function() {
+        'click .edit-range-link': function(e) {
+          e.preventDefault();
           return App.execute("show:edit:daterange", {
             model: this.model
           });
