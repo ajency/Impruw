@@ -306,7 +306,7 @@ a {
 				padding-top: 0;
 			}
 			.aj-imp-long-form-actions {
-				z-index: 1;
+				z-index: 2;
 				left: 0;
 				.action {
 					background: rgba(0, 0, 0, 0.7);
@@ -1920,7 +1920,7 @@ form {
 		}
 	}
 	.ui-state-active {
-		background: @orange;
+		background: none;
 	}
 	&:before {
 		border-bottom-color: lighten(@dash-grey, 10%);
@@ -2326,16 +2326,10 @@ form {
 				padding-left: 90px;
 				.btn-add-plan {
 					position: absolute;
-					right: 0.5em;
+					left: 0;
 					top: 0.5em;
 					height: 40px;
-					background: -moz-linear-gradient(left,  rgba(255,255,255,0) 0%, rgba(255,255,255,0.5) 7%, rgba(255,255,255,1) 100%); /* FF3.6+ */
-					background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(255,255,255,0)), color-stop(7%,rgba(255,255,255,0.5)), color-stop(100%,rgba(255,255,255,1))); /* Chrome,Safari4+ */
-					background: -webkit-linear-gradient(left,  rgba(255,255,255,0) 0%,rgba(255,255,255,0.5) 7%,rgba(255,255,255,1) 100%); /* Chrome10+,Safari5.1+ */
-					background: -o-linear-gradient(left,  rgba(255,255,255,0) 0%,rgba(255,255,255,0.5) 7%,rgba(255,255,255,1) 100%); /* Opera 11.10+ */
-					background: -ms-linear-gradient(left,  rgba(255,255,255,0) 0%,rgba(255,255,255,0.5) 7%,rgba(255,255,255,1) 100%); /* IE10+ */
-					background: linear-gradient(to right,  rgba(255,255,255,0) 0%,rgba(255,255,255,0.5) 7%,rgba(255,255,255,1) 100%); /* W3C */
-					filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
+					background: #fff;
 				}
 				.package-blocks {
 					margin: 0 0 1em;	
@@ -2434,6 +2428,7 @@ form {
 							border: 0;
 							padding: 0;
 							position: relative;
+							overflow: hidden;
 							h6, .package-desc {
 								display: block;
 							}
@@ -2793,6 +2788,9 @@ form {
 							border-radius:0px;
 							height: 39px;
 							line-height: 40px;
+							&:hover {
+								background: inherit;
+							}
 					}
 					> span {
 						background: rgba(255, 255, 255, 0.6);
@@ -2804,9 +2802,6 @@ form {
 						background:#f97d61;
 						a{
 							color:#fff;
-							&:hover{
-								background:#ffd200;
-							}
 						}
 						
 					}
@@ -2814,9 +2809,6 @@ form {
 					background:#ffd200;
 						a{
 							color:#fff;
-							&:hover{
-								background:#ffd200;
-							}
 						}
 						
 					}
@@ -2824,9 +2816,6 @@ form {
 					background:#5fd7fe;
 						a{
 							color:#fff;
-							&:hover{
-							background:#5fd7fe;
-							}
 						}
 						
 					}
@@ -2834,9 +2823,6 @@ form {
 					background:#84e72f;
 						a{
 							color:#fff;
-							&:hover{
-							background:#84e72f;
-						}
 						}
 						
 					}
@@ -2844,9 +2830,6 @@ form {
 					background:#fea5a5;
 						a{
 							color:#fff;
-							&:hover{
-								background:#fea5a5;
-							}
 						}
 					
 					}
@@ -2955,6 +2938,19 @@ form {
 .booking-slider-pop {
 	width: 236px;
 	margin-top: 30px;
+	.ui-slider {
+		background: #E3E3E3 !important;
+		.ui-slider-handle {
+			background: @dash-grey;
+		}
+	}
+	.row{
+		.col-md-4{
+			padding: 0px 0px 4px;
+			font-size:0.8em;
+			text-align:center;
+		}
+	}
 	.available, .semi-available, .unavailable {
 		text-transform: capitalize;
 	}
@@ -3204,8 +3200,10 @@ form {
 }
 .ui-datepicker td.semi-availabile {
 	a{
-	
-		background:url(../images/gray-semi.png)right no-repeat;
+		background:url(../images/gray-semi.png) bottom right no-repeat;
+		&:hover {
+			background:url(../images/gray-semi.png) bottom right no-repeat !important;
+		}
 	}
 }
 
@@ -3235,18 +3233,5 @@ form {
 	}
 	.booking-green{
 		background:#84e72f;
-	}
-}
-
-.popover-content{
-	.ui-slider {
-		background: #E3E3E3 !IMPORTANT;
-		}
-	.row{
-		.col-md-4{
-			padding: 0px 0PX 4PX;
-			font-size:0.8em;
-			text-align:center;
-		}
 	}
 }

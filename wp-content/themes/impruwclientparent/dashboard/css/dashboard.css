@@ -313,7 +313,7 @@ a:focus {
   padding-top: 0;
 }
 .aj-imp-container .aj-imp-right .aj-imp-dash-content .aj-imp-long-form-actions {
-  z-index: 1;
+  z-index: 2;
   left: 0;
 }
 .aj-imp-container .aj-imp-right .aj-imp-dash-content .aj-imp-long-form-actions .action {
@@ -1875,7 +1875,7 @@ form .aj-imp-submit:hover {
   background: #ff7e00;
 }
 .ui-datepicker .ui-state-active {
-  background: #ff7e00;
+  background: none;
 }
 .ui-datepicker:before {
   border-bottom-color: #c3c3c3;
@@ -2286,30 +2286,10 @@ form .aj-imp-submit:hover {
 }
 .room-tariff-container .room-tariff-grid .tariff .packages .btn-add-plan {
   position: absolute;
-  right: 0.5em;
+  left: 0;
   top: 0.5em;
   height: 40px;
-  background: -moz-linear-gradient(left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 7%, #ffffff 100%);
-  /* FF3.6+ */
-
-  background: -webkit-gradient(linear, left top, right top, color-stop(0%, rgba(255, 255, 255, 0)), color-stop(7%, rgba(255, 255, 255, 0.5)), color-stop(100%, #ffffff));
-  /* Chrome,Safari4+ */
-
-  background: -webkit-linear-gradient(left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 7%, #ffffff 100%);
-  /* Chrome10+,Safari5.1+ */
-
-  background: -o-linear-gradient(left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 7%, #ffffff 100%);
-  /* Opera 11.10+ */
-
-  background: -ms-linear-gradient(left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 7%, #ffffff 100%);
-  /* IE10+ */
-
-  background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 7%, #ffffff 100%);
-  /* W3C */
-
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00ffffff', endColorstr='#ffffff', GradientType=1);
-  /* IE6-9 */
-
+  background: #fff;
 }
 .room-tariff-container .room-tariff-grid .tariff .packages .package-blocks {
   margin: 0 0 1em;
@@ -2412,6 +2392,7 @@ form .aj-imp-submit:hover {
   border: 0;
   padding: 0;
   position: relative;
+  overflow: hidden;
 }
 .room-tariff-container .room-tariff-grid .tariff .packages .package-blocks.header .block h6,
 .room-tariff-container .room-tariff-grid .tariff .packages .package-blocks.header .block .package-desc {
@@ -2757,6 +2738,10 @@ form .aj-imp-submit:hover {
   height: 39px;
   line-height: 40px;
 }
+.room-booking .room-booking-calender .hasDatepicker .ui-datepicker td a:hover,
+.room-booking .room-booking-calender .hasDatepicker .ui-datepicker td span:hover {
+  background: inherit;
+}
 .room-booking .room-booking-calender .hasDatepicker .ui-datepicker td > span {
   background: rgba(255, 255, 255, 0.6);
   color: #fff;
@@ -2768,17 +2753,11 @@ form .aj-imp-submit:hover {
 .room-booking .room-booking-calender .hasDatepicker .booking-red a {
   color: #fff;
 }
-.room-booking .room-booking-calender .hasDatepicker .booking-red a:hover {
-  background: #ffd200;
-}
 .room-booking .room-booking-calender .hasDatepicker .booking-orange {
   background: #ffd200;
 }
 .room-booking .room-booking-calender .hasDatepicker .booking-orange a {
   color: #fff;
-}
-.room-booking .room-booking-calender .hasDatepicker .booking-orange a:hover {
-  background: #ffd200;
 }
 .room-booking .room-booking-calender .hasDatepicker .booking-blue {
   background: #5fd7fe;
@@ -2786,26 +2765,17 @@ form .aj-imp-submit:hover {
 .room-booking .room-booking-calender .hasDatepicker .booking-blue a {
   color: #fff;
 }
-.room-booking .room-booking-calender .hasDatepicker .booking-blue a:hover {
-  background: #5fd7fe;
-}
 .room-booking .room-booking-calender .hasDatepicker .booking-green {
   background: #84e72f;
 }
 .room-booking .room-booking-calender .hasDatepicker .booking-green a {
   color: #fff;
 }
-.room-booking .room-booking-calender .hasDatepicker .booking-green a:hover {
-  background: #84e72f;
-}
 .room-booking .room-booking-calender .hasDatepicker .booking-pink {
   background: #fea5a5;
 }
 .room-booking .room-booking-calender .hasDatepicker .booking-pink a {
   color: #fff;
-}
-.room-booking .room-booking-calender .hasDatepicker .booking-pink a:hover {
-  background: #fea5a5;
 }
 .room-booking .room-booking-calender .hasDatepicker .ui-datepicker .ui-datepicker-header {
   background: #d4d0d1;
@@ -2915,6 +2885,17 @@ form .aj-imp-submit:hover {
 .booking-slider-pop {
   width: 236px;
   margin-top: 30px;
+}
+.booking-slider-pop .ui-slider {
+  background: #E3E3E3 !important;
+}
+.booking-slider-pop .ui-slider .ui-slider-handle {
+  background: #aaaaaa;
+}
+.booking-slider-pop .row .col-md-4 {
+  padding: 0px 0px 4px;
+  font-size: 0.8em;
+  text-align: center;
 }
 .booking-slider-pop .available,
 .booking-slider-pop .semi-available,
@@ -3153,7 +3134,10 @@ form .aj-imp-submit:hover {
   color: #000 !important;
 }
 .ui-datepicker td.semi-availabile a {
-  background: url(../images/gray-semi.png) right no-repeat;
+  background: url(../images/gray-semi.png) bottom right no-repeat;
+}
+.ui-datepicker td.semi-availabile a:hover {
+  background: url(../images/gray-semi.png) bottom right no-repeat !important;
 }
 .daterange-legends {
   text-transform: uppercase;
@@ -3180,12 +3164,4 @@ form .aj-imp-submit:hover {
 }
 .daterange-legends .booking-green {
   background: #84e72f;
-}
-.popover-content .ui-slider {
-  background: #E3E3E3 !IMPORTANT;
-}
-.popover-content .row .col-md-4 {
-  padding: 0px 0PX 4PX;
-  font-size: 0.8em;
-  text-align: center;
 }
