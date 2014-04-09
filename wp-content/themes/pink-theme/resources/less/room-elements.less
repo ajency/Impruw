@@ -9,7 +9,7 @@
 	padding: 0 !important;
 	position: relative;
 	.room-tariff-title {
-		border-bottom: 1px dotted @primary1;
+		border-bottom: 1px solid darken(@secondary1, 10%);
 		margin: 0 0 0.5em;
 		h4 {
 			font-size: 1.5em;
@@ -18,6 +18,7 @@
 		h5 {
 			font-size: 1em;
 			font-weight: 400;
+			color: darken(@secondary1, 20%);
 		}
 	}
 	.room-tariff-actions {
@@ -55,7 +56,7 @@
 				z-index: 1;
 				font-size: 0.88em;
 				.range-name {
-					color: darken(@secondary1, 10%);
+					color: darken(@tertiary1, 20%);
 					font-weight: 700;
 				}
 				.date {
@@ -202,7 +203,7 @@
 
 /****Room Facilities Styles****/
 .room-facilities-container {
-	background: darken(@tertiary1, 10%);
+	background: @tertiary1;
 	padding: 0.5em;
 	.room-facilities-title {
 		h5 {
@@ -256,11 +257,12 @@
 .room-summary-container {
 	margin: 0 0 1.5em;
 	.room-summary-title {
-		border-bottom: 1px dotted @primary1;
+		border-bottom: 1px solid darken(@secondary1, 10%);
 		margin: 0 0 0.5em;
 		h4 {
 			font-size: 1.5em;
 			font-weight: 300;
+			margin: 0;
 		}
 	}
 	.room-summary {
@@ -275,10 +277,10 @@
 				font-size: 1.1em;
 				&.key {
 					min-width: 100px;
-					color: darken(@secondary1, 20%);
+					color: darken(@tertiary1, 20%);
 				}
 				&.value {
-					color: darken(@secondary1, 40%);
+					color: @primary1;
 					font-weight: 700;
 				}
 			}
@@ -287,7 +289,7 @@
 			}
 		}
 		.room-summary-desc {
-			color: darken(@secondary1, 20%);
+			color: darken(@tertiary1, 20%);
 			margin: 1em 0 0;
 			.btn-book {
 				display: block;
@@ -315,7 +317,7 @@
 		}
 		.room-title-desc {
 			font-size: 1em;
-			color: darken(@secondary1, 20%);
+			color: darken(@tertiary1, 20%);
 		}
 	}
 	.room-title-actions {
@@ -342,13 +344,13 @@
 	h1 {
 		font-size: 1.5em;
 		font-weight: 300;
-		border-bottom: 1px dotted @primary1;
+		border-bottom: 1px solid darken(@secondary1, 10%);
 		margin: 0 0 0.5em;
 	}
 	.room-description-desc {
 		background: transparent !important;
 		padding: 0;
-		color: darken(@secondary1, 20%);
+		color: darken(@tertiary1, 20%);
 	}
 }
 
@@ -718,7 +720,7 @@
 .gallery-title {
 	font-size: 1.5em;
 	font-weight: 300 !important;
-	border-bottom: 1px dotted @primary1;
+	border-bottom: 1px solid darken(@secondary1, 10%);
 	margin: 0 0 0.5em;
 }
 
