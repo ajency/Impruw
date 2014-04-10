@@ -93,7 +93,6 @@ define  ['app','controllers/base-controller', 'text!apps/rooms/tariffs/daterange
 
 		# handler
 		App.commands.setHandler "show:edit:daterange", (opts)->
-			
 			opts = 
 				region : App.dialogRegion
 				model : opts.model

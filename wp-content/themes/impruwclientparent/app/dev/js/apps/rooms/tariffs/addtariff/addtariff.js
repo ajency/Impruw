@@ -75,7 +75,7 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/addtariff
       };
 
       AddTariffView.prototype.onSavedTariff = function() {
-        return this.$el.parent().prepend('<div class="alert alert-success">Added successfully</div>');
+        return this.$el.parent().prepend('<div class="alert alert-success"> Tariff added succesfully for the plan</div>');
       };
 
       AddTariffView.prototype.onShow = function() {

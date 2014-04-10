@@ -49,7 +49,8 @@ define  ['app','controllers/base-controller', 'text!apps/rooms/tariffs/addtariff
 						@trigger "add:tariff", data
 
 			onSavedTariff:->
-				@$el.parent().prepend '<div class="alert alert-success">Added successfully</div>'
+				@$el.parent().prepend '<div class="alert alert-success">
+								Tariff added succesfully for the plan</div>'
 
 			# show checkbox
 			onShow:->
