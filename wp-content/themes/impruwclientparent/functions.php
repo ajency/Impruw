@@ -244,6 +244,8 @@ function generate_markup($section) {
  */
 function add_element_markup($element) {
 	$html = '';
+	$element_name = sanitize_title($element['element']);
+	do_action("before_{$element_name}_markup_start", $element);
 	
 	switch ($element ['element']) {
 		
@@ -320,9 +322,17 @@ function add_element_markup($element) {
 			break;
 	}
 	
+	$html = apply_filters("{$element_name}_markup",$html, $element);
+	
 	return $html;
 }
 
+// function add_menu_markup($html, $element){
+	
+// 	return $html . '<h2>Extra markup</h2>';
+	
+// }
+// add_filter('menu_markup', 'add_menu_markup', 20, 2);
 /**
  * Generates the row markup
  *
