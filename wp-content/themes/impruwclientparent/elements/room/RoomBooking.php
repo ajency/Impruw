@@ -71,12 +71,10 @@ class RoomBooking extends Element {
                             
                       </div>
                     
-                      <div class="col-md-4 room-booking-data" id="plans-details-region">
-                            
-                            <div class="date-range">
-                                You have selected
-                                <b>18 Jan to 16 Jan </b></br>
-                                <span class="label label-success">Available</span>
+                      <div class="col-md-4 room-booking-data" id="plans-details-region">  
+                            <div class="date-range">  
+                                <b> </b></br>
+                                <span class="label label-success"></span>
                             </div>
                             
                             <div id="myCarousel" class="carousel slide vertical">
@@ -87,38 +85,7 @@ class RoomBooking extends Element {
                                             
                                             <div class="room-booking-plan">
                                                
-                                                <h5>Plan 1 </h5>
-                                                <p>Room. Lorem Ipsum is simply dummy text of the printing
-                                                and typesetting industry.</p>
-
-                                                <div class="booking-detail">
-                                                    Max Adults:
-                                                    <span>02</span>
-                                                </div>
-                                               
-                                                <div class="booking-detail">
-                                                    Max Children:
-                                                    <span>  02</span>
-                                                </div>
-                                                
-                                                <div class="clearfix"></div>
-                                                
-                                                <div class="plan-bg">
-                                                        <h6>Additional Charge</h6>
-                                                        <div class="booking-detail">
-                                                            per extra Adult : $200
-
-                                                        </div>
-                                                        <div class="booking-detail">
-                                                            per extra Child : $152
-
-                                                        </div>
-                                                        <div class="clearfix"></div>
-
-                                                        <div class="booking-price">WEEKDAYS
-                                                        <b>$300</b></div>
-                                                 </div>  <!-- plan-bg end -->
-                                                 
+                                       
                                            </div> <!-- room-booking-plan end -->
                                      
                                           </div> <!-- carousel item  end -->

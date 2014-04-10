@@ -74,8 +74,8 @@ jQuery(document).ready(function($) {
 
     });
 
-    $('.ui-datepicker-current-day').click();
-
+    //$('.ui-datepicker-current-day').click();
+    displayCarouselNav();
     getDateRangeColour();
 
     /**
