@@ -96,3 +96,18 @@ function theme_specific_js() {
     echo '<script src=" '. get_stylesheet_directory_uri() .'/js/theme.js"></script>';
 }
 add_action('wp_footer', 'theme_specific_js');
+
+
+/**** Custom Markup for Responsive Panel Menu ****/
+function add_menu_markup($html, $element){
+
+    if(sanitize_title($element['style']) !== 'long-bar')
+        return $html;
+    
+    return $html . '<div id="left-bar-open">
+                        <a href="#fakelink" class="left-menu-trigger"><span class="glyphicon glyphicon-chevron-right"></span></a>
+                        <a href="#fakelink" class="logo"><img class="img-responsive" src="http://pinkthemeclone.unpruwen.com/wp-content/uploads/sites/75/2014/04/t2-logo.png"></a>
+                    </div>';
+    
+}
+add_filter('row_markup', 'add_menu_markup', 20, 2);
