@@ -2783,7 +2783,7 @@ form .aj-imp-submit:hover {
 }
 .room-booking .room-booking-calender .hasDatepicker .ui-datepicker td > span {
   background: rgba(255, 255, 255, 0.6);
-  color: #dadada;
+  color: #c0c0c0;
   cursor: not-allowed;
 }
 .room-booking .room-booking-calender .hasDatepicker .booking-red {
