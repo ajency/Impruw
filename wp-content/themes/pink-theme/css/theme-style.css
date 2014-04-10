@@ -936,6 +936,10 @@ and open the template in the editor.
   content: "";
   display: table;
 }
+.roomsummary .room-img {
+  max-height: 240px;
+  overflow: hidden;
+}
 .roomsummary .room-title {
   font-size: 1.6em;
   color: #ff5f5f;

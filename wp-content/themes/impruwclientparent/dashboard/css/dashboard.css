@@ -2035,6 +2035,10 @@ form .aj-imp-submit:hover {
   content: "";
   display: table;
 }
+.new-room-list li .roomsummary .room-img {
+  max-height: 240px;
+  overflow: hidden;
+}
 .new-room-list li .roomsummary .room-title {
   font-size: 1.6em;
   color: #ff7e00;
