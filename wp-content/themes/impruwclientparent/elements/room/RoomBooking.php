@@ -72,9 +72,10 @@ class RoomBooking extends Element {
                       </div>
                     
                       <div class="col-md-4 room-booking-data" id="plans-details-region">  
-                            <div class="date-range">  
+                            <div class="date-range">
+                                <span class="display-label"></span>
                                 <b> </b></br>
-                                <span class="label label-success"></span>
+                                <span class="label label-success status"></span>
                             </div>
                             
                             <div id="myCarousel" class="carousel slide vertical">

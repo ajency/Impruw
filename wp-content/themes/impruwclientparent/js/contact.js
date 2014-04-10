@@ -257,7 +257,11 @@ jQuery(document).ready(function($) {
     function displaySelectedDate(date) {
 
         var selected_date = moment(date).format('D MMM');
-
+        
+        $('.display-label').empty();
+        
+        $('.display-label').prepend("You have selected");
+        
         $('.date-range').find('b').text(selected_date);
 
         $('.status').text(getAvailabilityClassName(date));
@@ -274,7 +278,8 @@ jQuery(document).ready(function($) {
         var html = '<div class="item active">\n\
                         <div class="room-booking-plan">\n\
                             <h5>\n\
-                                No plans exsists for selected date\n\
+                                Selected date does not exsists in any of the\n\
+                                available dateranges\n\
                             </h5>\n\
                         </div>\n\
                    </div>';
@@ -375,15 +380,15 @@ jQuery(document).ready(function($) {
 
             }
             else {
-                var plans_name = getPlans(TARIFF[i].plan_id);
+               /* var plans_name = getPlans(TARIFF[i].plan_id);
                 html += '<div class="item">\n\
                                 <div class="room-booking-plan">' + plans_name +
                         '</div>\n\
                                 <div class="booking-detail">\n\
                                     No tariff data available for selected date\n\
                                 </div>\n\
-                                </div>';
-
+                                </div>';*/
+                
 
             }
         }

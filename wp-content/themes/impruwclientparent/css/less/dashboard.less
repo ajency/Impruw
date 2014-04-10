@@ -2070,6 +2070,10 @@ form {
 		.roomsummary {
 			.clearfix;
 			margin: 0 0 1em;
+			.room-img {
+				max-height: 240px;
+				overflow: hidden;
+			}
 			.room-title {
 				font-size: 1.6em;
 				color: @orange;
@@ -2833,7 +2837,7 @@ form {
 					}
 					> span {
 						background: rgba(255, 255, 255, 0.6);
-						color: darken(@preview-grey, 10%);
+						color: darken(@preview-grey, 20%);
 						cursor: not-allowed;
 					}
 				}
