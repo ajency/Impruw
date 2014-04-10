@@ -90,14 +90,6 @@ $element_templates = array(
         )
 );
 
-/**** Add Custom JS for This Theme ****/
-function theme_specific_js() {
-    echo '<script src=" '. get_stylesheet_directory_uri() .'/js/jquery.jpanelmenu.min.js"></script>';
-    echo '<script src=" '. get_stylesheet_directory_uri() .'/js/theme.js"></script>';
-}
-add_action('wp_footer', 'theme_specific_js');
-
-
 /**** Custom Markup for Responsive Panel Menu ****/
 function add_responsive_menu_markup($html, $element){
 
@@ -122,3 +114,21 @@ function add_responsive_menu_markup($html, $element){
     
 }
 add_filter('row_markup', 'add_responsive_menu_markup', 20, 2);
+
+/**** Add Custom JS for This Theme ****/
+function theme_specific_js() {
+    echo '<script src=" '. get_stylesheet_directory_uri() .'/js/jquery.jpanelmenu.min.js"></script>';
+    echo '<script src=" '. get_stylesheet_directory_uri() .'/js/theme.js"></script>';
+    echo '<script>
+            jQuery(document).ready(function(){
+                var jPM = jQuery.jPanelMenu({
+                    menu: ".left-menu",
+                    trigger: ".left-menu-trigger",
+                    excludedPanelContent : "script, style"
+                });
+
+                jPM.on();
+            });
+          </script>';
+}
+add_action('wp_footer', 'theme_specific_js');
