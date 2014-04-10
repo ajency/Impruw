@@ -59,7 +59,10 @@ jQuery(document).ready(function($) {
 
     }
 
-    // generate the datepicker  for the room booking 
+    // generate the datepicker  for the room booking
+    if($('#room-booking-calendar').length ===  0)
+    	return;
+    
     $('#room-booking-calendar').datepicker({
         inline: true,
         numberOfMonths: 2,
@@ -71,8 +74,8 @@ jQuery(document).ready(function($) {
 
     });
 
-    $('.ui-datepicker-current-day').click();
-
+    //$('.ui-datepicker-current-day').click();
+    displayCarouselNav();
     getDateRangeColour();
 
     /**

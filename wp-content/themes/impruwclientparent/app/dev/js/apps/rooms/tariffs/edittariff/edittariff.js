@@ -9,6 +9,7 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/edittarif
       __extends(EditTariffController, _super);
 
       function EditTariffController() {
+        this.tariffDeleted = __bind(this.tariffDeleted, this);
         this.tariffSaved = __bind(this.tariffSaved, this);
         return EditTariffController.__super__.constructor.apply(this, arguments);
       }
@@ -30,6 +31,15 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/edittarif
             });
           };
         })(this));
+        this.listenTo(tariffView, "delete:tariff", (function(_this) {
+          return function(model) {
+            return model.destroy({
+              allData: false,
+              wait: true,
+              success: _this.tariffDeleted
+            });
+          };
+        })(this));
         return this.show(tariffView, {
           loading: true
         });
@@ -37,6 +47,10 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/edittarif
 
       EditTariffController.prototype.tariffSaved = function() {
         return this.tariffView.triggerMethod("saved:tariff");
+      };
+
+      EditTariffController.prototype.tariffDeleted = function() {
+        return this.tariffView.triggerMethod("deleted:tariff");
       };
 
       EditTariffController.prototype._getEditTariffView = function(tariff) {
@@ -73,11 +87,22 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/edittarif
             data = Backbone.Syphon.serialize(this);
             return this.trigger("update:tariff:details", data);
           }
+        },
+        'click .delete-tariff-btn': function(e) {
+          e.preventDefault();
+          if (confirm('The tariff will be deleted for the plan and date range. Are you sure you want to continue?')) {
+            return this.trigger("delete:tariff", this.model);
+          }
         }
       };
 
       EditTariffView.prototype.onSavedTariff = function() {
-        return this.$el.parent().prepend('<div class="alert alert-success">Saved successfully</div>');
+        return this.$el.parent().prepend('<div class="alert alert-success"> Tariff updated successfully </div>');
+      };
+
+      EditTariffView.prototype.onDeletedTariff = function() {
+        console.log('hi');
+        return this.trigger("dialog:close");
       };
 
       EditTariffView.prototype.onShow = function() {

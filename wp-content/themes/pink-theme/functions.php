@@ -91,18 +91,29 @@ $element_templates = array(
 );
 
 /**** Custom Markup for Responsive Panel Menu ****/
-function add_menu_markup($html, $element){
+function add_responsive_menu_markup($html, $element){
 
     if(sanitize_title($element['style']) !== 'long-bar')
         return $html;
     
+   	$logo_id = get_option('logo_id', 0);
+   	$logo = '';
+   	if($logo_id === 0){
+   		$logo = 'placeholder image';
+   	}
+   	else{
+   		$image = wp_get_attachment_image_src($logo_id, 'full');
+   		$logo = $image[0];
+   	}
+   		
+    
     return $html . '<div id="left-bar-open">
                         <a href="#fakelink" class="left-menu-trigger"><span class="glyphicon glyphicon-chevron-right"></span></a>
-                        <a href="#fakelink" class="logo"><img class="img-responsive" src="http://pinkthemeclone.unpruwen.com/wp-content/uploads/sites/75/2014/04/t2-logo.png"></a>
+                        <a href="'. site_url() .'" class="logo"><img class="img-responsive" src="'.$logo.'"></a>
                     </div>';
     
 }
-add_filter('row_markup', 'add_menu_markup', 20, 2);
+add_filter('row_markup', 'add_responsive_menu_markup', 20, 2);
 
 /**** Add Custom JS for This Theme ****/
 function theme_specific_js() {

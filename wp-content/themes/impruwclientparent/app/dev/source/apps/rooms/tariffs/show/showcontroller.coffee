@@ -26,8 +26,6 @@ define  ['app','controllers/base-controller', 'apps/rooms/tariffs/show/views'],(
 
 				@dateRangeView = @_getDateRangeView dcollection
 
-				#@listenTo @dateRangeView, "itemview:show:edit:daterange", (model) =>
-					#App.execute "show:edit:daterange", model : model
 
 				@listenTo @layout, "show", =>
 					@layout.packagesRegion.show @packagesView
