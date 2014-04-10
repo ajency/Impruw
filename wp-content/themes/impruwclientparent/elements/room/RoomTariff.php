@@ -59,7 +59,7 @@ class RoomTariff extends Element {
 
         global $wpdb;
 
-        $table_name = $wpdb->prefix . 'tariff';
+        $table_name = $wpdb->prefix . 'tariffs';
 
         $query = "SELECT * FROM $table_name WHERE room_id = $room_id ";
 

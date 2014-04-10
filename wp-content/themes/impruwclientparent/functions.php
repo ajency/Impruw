@@ -777,7 +777,7 @@ function get_theme_JS() {
 		
 		$js_files = scandir ( $theme_path, 1 );
 		foreach ( $js_files as $key => $value ) {
-			if(endsWith($file, '.js'))
+			if(endsWith($value, '.js'))
 				$files [] = $value;
 			
 		}

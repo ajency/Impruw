@@ -152,7 +152,6 @@ define ['app'
 						range = if dateRangeName then true else false
 						className = _.slugify dateRangeName
 						className += " " + App.request "get:avaliability:status", date
-
 						return [range, className]
 
 				#Plans list view
