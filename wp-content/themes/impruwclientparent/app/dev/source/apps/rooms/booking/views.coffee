@@ -63,15 +63,12 @@ define ['app'
 
 					# sets a background color for daterange
 					setDateRangeColor:=>
-
-						classNames = ['green','red', 'orange', 'blue', 'pink']
-						templateHelpers = Marionette.getOption @, 'templateHelpers'
-						dateRanges = templateHelpers['dateRanges']
-
-						# assign color for each daterange
-						_.each dateRanges, (range, index)->
-							# assign color
-							$("td.#{range.class},span.#{range.class}").addClass "booking-#{classNames[index]}"
+						daterangeCollection = App.request "get:daterange:collection"
+						daterangeCollection.each (daterangeModel) ->
+							dateRangeName = daterangeModel. get 'daterange_name'
+							dateRangeColour = daterangeModel. get 'daterange_colour'
+							className = _.slugify dateRangeName
+							$(".#{className}").css' "background-color" : dateRangeColour'
 
 
 					triggerOnSelect:(date, selected)=>

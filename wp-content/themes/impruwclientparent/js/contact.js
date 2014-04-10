@@ -106,7 +106,7 @@ jQuery(document).ready(function($) {
      */
     function getDateRangeClassName(date) {
         var date_range_name = '';
-                    
+
         var ar = DateInRange(date);
 
         if (ar === -1)
@@ -194,7 +194,7 @@ jQuery(document).ready(function($) {
     /**
      * Displays the colour of the daterange
      * 
-     */ 
+     */
     function getDateRangeColour() {
 
         for (var i = 0; i < DATERANGE.length; i++) {
@@ -202,17 +202,17 @@ jQuery(document).ready(function($) {
             var date_range_name = DATERANGE[i].daterange_name;
 
             var slug_name = slugify(date_range_name);
-            
+
             $("." + slug_name).css({'background-color': DATERANGE[i].daterange_colour});
         }
     }
-/**
- * 
- * @param {type} year
- * @param {type} month
- * @param {type} inst
- * Display the color of daterange on month selection change
- */
+    /**
+     * 
+     * @param {type} year
+     * @param {type} month
+     * @param {type} inst
+     * Display the color of daterange on month selection change
+     */
     function displayColorMonthChange(year, month, inst) {
 
         setTimeout(function() {
@@ -220,44 +220,12 @@ jQuery(document).ready(function($) {
         }, 10);
     }
 
-
-
-    // remove the current date highlight css 
-    function removeHightlight() {
-
-
-        $("#room-booking-calendar td.ui-datepicker-today\n\
-             a.ui-state-highlight").removeClass('ui-state-highlight');
-
-        $("#room-booking-calendar td.ui-datepicker-today \n\
-             a.ui-state-active").removeClass('ui-state-active');
-
-    }
-
-
-
-
-
-   
-
-    function showCarousel() {
-        $('#myCarousel').carousel({
-            interval: false
-        });
-    }
-
-    // display the carousel navigation buttons
-    function displayCarouselNav() {
-        $('.carousel-control').hide()
-
-        var nav_display = $('.carousel-inner')
-                .find('.room-booking-plan .booking-detail').length
-
-        if (nav_display != 0)
-            $('.carousel-control').show()
-    }
-
-    // display the selected date and corresponding plans for the date
+    /**
+     * 
+     * @param {type} date
+     * 
+     * Display the selected date and corresponding plans for the date
+     */
     function showData(date) {
 
         displaySelectedDate(date);
@@ -277,7 +245,12 @@ jQuery(document).ready(function($) {
 
     }
 
-    // display the date selected along with availabilty status
+    /**
+     * 
+     * @param {type} date
+     * 
+     * Display the date selected along with availabilty status
+     */
     function displaySelectedDate(date) {
 
         var selected_date = moment(date).format('D MMM');
@@ -288,45 +261,42 @@ jQuery(document).ready(function($) {
 
     }
 
-
+    /**
+     * 
+     * @param {type} date
+     * @returns {String}
+     * Display all the plans for the selected date
+     */
     function showPlans(date) {
-        var html = '';
+        var html = '<div class="item active">\n\
+                        <div class="room-booking-plan">\n\
+                            <h5>\n\
+                                No plans exsists for selected date\n\
+                            </h5>\n\
+                        </div>\n\
+                   </div>';
 
-        for (var i = 0; i < DATERANGE.length; i++) {
+        var range = DateInRange(date);
 
-            var from_date = new Date(DATERANGE[i].from_date);
+        if (range === -1)
+            return html;
 
-            var to_date = new Date(DATERANGE[i].to_date);
-
-            var selected_date = new Date(date);
-
-            var range = moment().range(from_date, to_date);
-
-            if (range.contains(selected_date)) {
-
-                html = checkTariffForPlanId(DATERANGE[i].id);
-
-                break;
-            }
-
-            else {
-
-                html = '  <div class="item active">\n\
-                            <div class="room-booking-plan"><h5>\n\
-                            No plans exsists for selected date</h5></div></div>';
-            }
-
-        }
+        html = checkTariffForPlanId(DATERANGE[range].id);
 
         return html;
     }
-
+    
+    /**
+     * 
+     * @param {type} daterange_id
+     * @returns {String}
+     */
     function checkTariffForPlanId(daterange_id) {
         var html = '';
         var temp = 0;
 
         if (TARIFF.length === 0)
-            return ' <div class="room-booking-plan"><h5>No plans \n\
+            return ' <div class="room-booking-plan"><h5>No tariff/plans \n\
                     exsists for selected date</h5></div>';
 
         for (var i = 0; i < TARIFF.length; i++) {
@@ -418,6 +388,32 @@ jQuery(document).ready(function($) {
         return html;
 
     }
+
+    function showCarousel() {
+        $('#myCarousel').carousel({
+            interval: false
+        });
+    }
+
+    // display the carousel navigation buttons
+    function displayCarouselNav() {
+        $('.carousel-control').hide()
+
+        var nav_display = $('.carousel-inner')
+                .find('.room-booking-plan .booking-detail').length
+
+        if (nav_display != 0)
+            $('.carousel-control').show()
+    }
+
+
+
+
+
+
+
+
+
 
     function getPlans(plan_id) {
         var html = '';
