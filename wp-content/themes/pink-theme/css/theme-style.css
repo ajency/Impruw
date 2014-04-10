@@ -1992,6 +1992,11 @@ and open the template in the editor.
 .room-facilities-container {
   background: #2a3b66;
   padding: 0.5em;
+  border-radius: 4px;
+}
+.room-facilities-container .room-facilities-title {
+  text-align: right;
+  border-bottom: 1px solid #ff5f5f;
 }
 .room-facilities-container .room-facilities-title h5 {
   font-size: 1.5em;
@@ -2089,7 +2094,7 @@ and open the template in the editor.
   background: transparent !important;
   padding: 0 !important;
   position: relative;
-  margin: 0 0 1.5em;
+  margin: 1em 0 1.5em;
 }
 .room-title-container .room-title h1 {
   font-size: 3em;
