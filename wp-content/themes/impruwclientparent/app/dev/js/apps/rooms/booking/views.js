@@ -74,12 +74,16 @@ define(['app', 'text!apps/rooms/add/templates/add-room.html'], function(App, add
       };
 
       CalendarView.prototype.setDateRangeColor = function() {
-        var classNames, dateRanges, templateHelpers;
-        classNames = ['green', 'red', 'orange', 'blue', 'pink'];
-        templateHelpers = Marionette.getOption(this, 'templateHelpers');
-        dateRanges = templateHelpers['dateRanges'];
-        return _.each(dateRanges, function(range, index) {
-          return $("td." + range["class"] + ",span." + range["class"]).addClass("booking-" + classNames[index]);
+        var daterangeCollection;
+        daterangeCollection = App.request("get:daterange:collection");
+        return daterangeCollection.each(function(daterangeModel) {
+          var className, dateRangeColour, dateRangeName;
+          dateRangeName = daterangeModel.get('daterange_name');
+          dateRangeColour = daterangeModel.get('daterange_colour');
+          className = _.slugify(dateRangeName);
+          return $("." + className).css({
+            'background-color': dateRangeColour
+          });
         });
       };
 
