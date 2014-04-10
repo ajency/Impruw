@@ -55,8 +55,8 @@ define  ['app','controllers/base-controller', 'text!apps/rooms/tariffs/plan/temp
 						@trigger "update:plan:details", data
 
 				'click #btn_deleteplan' :(e) ->
-					if confirm('Delete plan?')
-						e.preventDefault()
+					e.preventDefault()
+					if confirm 'Are you sure you want to delete the plan?'
 						@trigger "delete:plan", @model
 
 			onSavedPlan:->

@@ -85,8 +85,8 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/daterange
           }
         },
         'click #btn_deletedaterange': function(e) {
-          if (confirm('Delete the Date range?')) {
-            e.preventDefault();
+          e.preventDefault();
+          if (confirm('All the plans associated with the date range will also be deleted. Are you sure you want to delete the date range?')) {
             return this.trigger("delete:daterange", this.model);
           }
         }
