@@ -123,34 +123,11 @@ define ['app', 'moment'], (App, moment)->
 						e.preventDefault()
 						App.execute "show:edit:daterange", model : @model
 
-			modelEvents:
-				'change' : 'render'
-			
-			serializeData:->
-				data = super()
-
-				data.fromdate = ->
-					moment(@from_date).format 'Do-MMM'
-
-				data.todate = ->
-					moment(@to_date).format 'Do-MMM'
-
-				data
-
-			itemView : SingleTariff
-
-			itemViewContainer : '.package-blocks'		
-
-		
-		class Views.DateRangeCollectionView extends Marionette.CollectionView
-
-			className : 'tariff clearfix'
-
-			itemView : DateRageView
-
-			itemViewOptions:(item, index)->
+			initialize:->
 				
-				dateRangeId = item.get 'id'
+
+			onBeforeRender:->
+				dateRangeId = @model.get 'id'
 				tariffs = App.request "get:tariffs:for:daterange", dateRangeId
 
 				plans = App.request "get:plans:collection"
@@ -181,7 +158,44 @@ define ['app', 'moment'], (App, moment)->
 
 					tariffCollection.add tariff
 
-				collection : tariffCollection
+				@collection = tariffCollection
+				@listenTo @collection , "remove", @render 
+
+			render:->
+				#console.log @collection
+				super()
+
+			modelEvents:
+				'change' : 'render'
+			
+			serializeData:->
+				data = super()
+
+				data.fromdate = ->
+					moment(@from_date).format 'Do-MMM'
+
+				data.todate = ->
+					moment(@to_date).format 'Do-MMM'
+
+				data
+
+			itemView : SingleTariff
+
+			itemViewContainer : '.package-blocks'		
+
+		
+		class Views.DateRangeCollectionView extends Marionette.CollectionView
+
+			className : 'tariff clearfix'
+
+			itemView : DateRageView
+
+			itemViewOptions:(item, index)->
+				
+				roomId = Marionette.getOption @,'roomId'
+
+				roomId : roomId				
+				
 
 
 

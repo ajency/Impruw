@@ -107,6 +107,49 @@ define(['app', 'moment'], function(App, moment) {
         }
       };
 
+      DateRageView.prototype.initialize = function() {};
+
+      DateRageView.prototype.onBeforeRender = function() {
+        var dateRangeId, getTariff, plans, roomId, tariffCollection, tariffs;
+        dateRangeId = this.model.get('id');
+        tariffs = App.request("get:tariffs:for:daterange", dateRangeId);
+        plans = App.request("get:plans:collection");
+        tariffCollection = new Backbone.Collection;
+        getTariff = function(planId) {
+          var tariff;
+          tariff = _.filter(tariffs, function(t) {
+            return t.get('plan_id') === planId && t.get('daterange_id') === dateRangeId;
+          });
+          if (tariff.length > 0) {
+            return tariff[0];
+          }
+          return false;
+        };
+        roomId = Marionette.getOption(this, 'roomId');
+        plans.each((function(_this) {
+          return function(plan, index) {
+            var tariff;
+            tariff = getTariff(plan.get('id'));
+            if (tariff === false) {
+              tariff = new Backbone.Model;
+              tariff.set({
+                plan_id: plan.get('id'),
+                daterange_id: dateRangeId,
+                room_id: roomId
+              });
+              tariff.name = 'tariff';
+            }
+            return tariffCollection.add(tariff);
+          };
+        })(this));
+        this.collection = tariffCollection;
+        return this.listenTo(this.collection, "remove", this.render);
+      };
+
+      DateRageView.prototype.render = function() {
+        return DateRageView.__super__.render.call(this);
+      };
+
       DateRageView.prototype.modelEvents = {
         'change': 'render'
       };
@@ -142,40 +185,10 @@ define(['app', 'moment'], function(App, moment) {
       DateRangeCollectionView.prototype.itemView = DateRageView;
 
       DateRangeCollectionView.prototype.itemViewOptions = function(item, index) {
-        var dateRangeId, getTariff, plans, roomId, tariffCollection, tariffs;
-        dateRangeId = item.get('id');
-        tariffs = App.request("get:tariffs:for:daterange", dateRangeId);
-        plans = App.request("get:plans:collection");
-        tariffCollection = new Backbone.Collection;
-        getTariff = function(planId) {
-          var tariff;
-          tariff = _.filter(tariffs, function(t) {
-            return t.get('plan_id') === planId && t.get('daterange_id') === dateRangeId;
-          });
-          if (tariff.length > 0) {
-            return tariff[0];
-          }
-          return false;
-        };
+        var roomId;
         roomId = Marionette.getOption(this, 'roomId');
-        plans.each((function(_this) {
-          return function(plan, index) {
-            var tariff;
-            tariff = getTariff(plan.get('id'));
-            if (tariff === false) {
-              tariff = new Backbone.Model;
-              tariff.set({
-                plan_id: plan.get('id'),
-                daterange_id: dateRangeId,
-                room_id: roomId
-              });
-              tariff.name = 'tariff';
-            }
-            return tariffCollection.add(tariff);
-          };
-        })(this));
         return {
-          collection: tariffCollection
+          roomId: roomId
         };
       };
 

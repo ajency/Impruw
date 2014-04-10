@@ -18,12 +18,22 @@ define  ['app','controllers/base-controller', 'text!apps/rooms/tariffs/edittarif
 					tariff.save null,
 							wait : true
 							success : @tariffSaved
+				
+				@listenTo tariffView, "delete:tariff", (model) =>
+					model.destroy
+							allData : false
+							wait : true	
+							success : @tariffDeleted
+				
 
 				@show tariffView, 
 						loading : true
 
 			tariffSaved:=>
 				@tariffView.triggerMethod "saved:tariff"
+			
+			tariffDeleted:=>
+				@tariffView.triggerMethod "deleted:tariff"
 
 			# get the packages view
 			_getEditTariffView :(tariff)->
@@ -49,8 +59,20 @@ define  ['app','controllers/base-controller', 'text!apps/rooms/tariffs/edittarif
 						data = Backbone.Syphon.serialize @
 						@trigger "update:tariff:details", data
 
+				'click .delete-tariff-btn' :(e) ->
+					e.preventDefault()					
+					if confirm 'The tariff will be deleted for the plan and date range.
+								 Are you sure you want to continue?'
+						
+						@trigger "delete:tariff", @model
+
 			onSavedTariff:->
-				@$el.parent().prepend '<div class="alert alert-success">Saved successfully</div>'
+				@$el.parent().prepend '<div class="alert alert-success">
+										Tariff updated successfully </div>'
+
+			onDeletedTariff:->
+				console.log 'hi'
+				@trigger "dialog:close"
 
 			# show checkbox
 			onShow:->
