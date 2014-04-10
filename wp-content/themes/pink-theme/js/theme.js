@@ -14,12 +14,4 @@ jQuery(window).load(function() {
 	setTimeout(function(){
 		jQuery(window).resize();
 	}, 500);
-
-	// jPanelMenu
-	var jPM = jQuery.jPanelMenu({
-    	menu: '.left-menu',
-	    trigger: '.left-menu-trigger'
-	});
-
-	jPM.on();
 });

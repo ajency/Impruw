@@ -62,7 +62,15 @@ define ['app', 'moment'], (App, moment)->
 				'change' : 'render'
 
 			template : '{{^id}}
+							<div class="package-header">
+								<h6>{{plan_name}}</h6>
+								<div class="package-desc">
+									{{plandescription}}
+								</div>
+								<a href="#" class="edit-pkg-link"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
+							</div>
 							<div class="block clearfix not-yet-added empty">
+								
 								<span class="no-data">
 									<span class="glyphicon glyphicon-exclamation-sign"></span>
 								</span>
@@ -75,6 +83,13 @@ define ['app', 'moment'], (App, moment)->
 							</div>
 						{{/id}}
 						{{#id}}
+							<div class="package-header">
+								<h6>{{plan_name}}</h6>
+								<div class="package-desc">
+									{{plandescription}}
+								</div>
+								<a href="#" class="edit-pkg-link"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
+							</div>
 							<div class="block clearfix">
 								<div class="weekday">
 									Weekdays

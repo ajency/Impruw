@@ -37,6 +37,9 @@ a {
 		color: @logo-orange;
 		display: inline-block;
 		margin: 0 0.5em;
+		&.pull-left, &.pull-right {
+			margin: 0.5em;
+		}
 	}
 }
 
@@ -2298,6 +2301,11 @@ form {
 		min-height: 80px;
 		padding-bottom: 30px;
 		-webkit-overflow-scrolling: touch;
+		#packages-region {
+			@media(max-width:767px){
+				padding-top: 30px;
+			}
+		}
 		.tariff {
 			position: relative;
 			.date-range {
@@ -2351,6 +2359,9 @@ form {
 						max-width: 200px;
 						white-space: normal;
 						margin-right: 0.5em;
+						.package-header {
+							display: none;
+						}
 						.block {
 							background: darken(@preview-grey, 10%);
 							border-left: 5px solid  darken(@preview-grey, 20%);
@@ -2485,6 +2496,9 @@ form {
 					.date, .from, .to {
 						display: inline-block;
 					}
+					.edit-range-link {
+						display: block;
+					}
 				}
 				.packages {
 					padding: 0;
@@ -2494,6 +2508,9 @@ form {
 							width: 100%;
 							max-width: 100%;
 							margin: 0 0 0.2em;
+							.package-header {
+								display: block;
+							}
 							.block {
 								h6, .package-desc {
 									display: block;
@@ -2816,7 +2833,7 @@ form {
 					}
 					> span {
 						background: rgba(255, 255, 255, 0.6);
-						color: #fff;
+						color: darken(@preview-grey, 10%);
 						cursor: not-allowed;
 					}
 				}
