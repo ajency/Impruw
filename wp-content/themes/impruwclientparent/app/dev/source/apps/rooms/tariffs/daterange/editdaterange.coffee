@@ -57,8 +57,10 @@ define  ['app','controllers/base-controller', 'text!apps/rooms/tariffs/daterange
 						@trigger "update:daterange:details", data
 
 				'click #btn_deletedaterange' :(e) ->
-					if confirm 'Delete the Date range?'
-							e.preventDefault()
+					e.preventDefault()
+					if confirm 'All the plans associated with
+								 the date range will also be deleted.
+								 Are you sure you want to delete the date range?'
 							@trigger "delete:daterange", @model
 
 			serializeData: ->

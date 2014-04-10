@@ -11,8 +11,8 @@ define  ['app','controllers/base-controller', 'text!apps/rooms/tariffs/daterange
 				@listenTo dateRangeView, "add:daterange:details", (data)=>
 					dateRange = App.request "create:new:daterange:model", data
 					dateRange.save null,
-					 		wait : true
-					 		success : @dateRangeSaved
+							wait : true
+							success : @dateRangeSaved
 
 				@show dateRangeView, 
 						loading : true
@@ -49,7 +49,8 @@ define  ['app','controllers/base-controller', 'text!apps/rooms/tariffs/daterange
 		
 			onSavedDaterange:->
 				@$el.parent().find('.alert').remove()
-				@$el.parent().prepend '<div class="alert alert-success">Saved successfully</div>'
+				@$el.parent().prepend '<div class="alert alert-success">You have added a new date range. 
+										Add plans and tariff to the date range</div>'
 				@$el.find('input').val ''
 
 			# show checkbox

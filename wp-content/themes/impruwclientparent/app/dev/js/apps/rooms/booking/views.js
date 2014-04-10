@@ -76,13 +76,13 @@ define(['app', 'text!apps/rooms/add/templates/add-room.html'], function(App, add
       CalendarView.prototype.setDateRangeColor = function() {
         var daterangeCollection;
         daterangeCollection = App.request("get:daterange:collection");
-        return daterangeCollection.each(function(daterangeModel) {
+        return _.each(daterangeCollection.models, function(daterangeModel, index) {
           var className, dateRangeColour, dateRangeName;
           dateRangeName = daterangeModel.get('daterange_name');
           dateRangeColour = daterangeModel.get('daterange_colour');
           className = _.slugify(dateRangeName);
           return $("." + className).css({
-            'background-color': dateRangeColour
+            "background-color": dateRangeColour
           });
         });
       };
@@ -175,11 +175,13 @@ define(['app', 'text!apps/rooms/add/templates/add-room.html'], function(App, add
       };
 
       CalendarView.prototype.highlightDaysByDateRange = function(date) {
-        var className, dateRangeName;
+        var className, dateRangeName, range;
         dateRangeName = App.request("get:daterange:name:for:date", date);
+        range = '';
+        range = dateRangeName ? true : false;
         className = _.slugify(dateRangeName);
         className += " " + App.request("get:avaliability:status", date);
-        return [true, className];
+        return [range, className];
       };
 
       return CalendarView;
