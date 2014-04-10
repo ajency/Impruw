@@ -75,7 +75,7 @@ define ['app', 'moment'], (App, moment)->
 							</div>
 						{{/id}}
 						{{#id}}
-							<div class="block clearfix" style="top:-12px">
+							<div class="block clearfix">
 								<div class="weekday">
 									Weekdays
 									<span class="price">{{weekday.charge}}</span>
