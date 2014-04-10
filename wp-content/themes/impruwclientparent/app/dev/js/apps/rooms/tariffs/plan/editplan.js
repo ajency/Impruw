@@ -84,7 +84,7 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/plan/temp
         },
         'click #btn_deleteplan': function(e) {
           e.preventDefault();
-          if (confirm('Are you sure you want to delete the plan?')) {
+          if (confirm('The plan will not exist for all the date ranges. Are you sure you want to continue?')) {
             return this.trigger("delete:plan", this.model);
           }
         }

@@ -49,7 +49,8 @@ define  ['app','controllers/base-controller', 'text!apps/rooms/tariffs/plan/temp
 
 			onSavedPlan:->
 				@$el.parent().find('.alert').remove()
-				@$el.parent().prepend '<div class="alert alert-success">Saved successfully</div>'
+				@$el.parent().prepend '<div class="alert alert-success">You have created a new plan.
+										 Update your tariff by clicking on the plan</div>'
 				@$el.find('input').val ''
 				@$el.find('textarea').val ''
 
