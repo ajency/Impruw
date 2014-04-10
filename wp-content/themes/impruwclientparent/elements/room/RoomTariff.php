@@ -190,6 +190,10 @@ class RoomTariff extends Element {
             if (!empty($data)) {
 
                 $template = '<div class="package-block-outer" id="">
+                    <div class="package-header"> 
+                        <h6>{{plan_name}}</h6>
+                        <div class="package-desc"> {{plan_description}} </div> 
+                    </div>
                     <div class="block clearfix">
 
                     <div class="weekday">Weekdays
@@ -230,6 +234,7 @@ class RoomTariff extends Element {
                 
             } else {
                 $html .= '<div class="package-block-outer" id="">'
+                        . '<div class="package-header"><h6>{{plan_name}}</h6><div class="package-desc"> {{plan_description}} </div></div>'
                         . '<div class="block empty clearfix">'
                         . '<span class="no-data">'
                         . '<span class="glyphicon glyphicon-exclamation-sign"></span>'

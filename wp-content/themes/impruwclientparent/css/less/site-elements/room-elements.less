@@ -75,6 +75,19 @@
 						max-width: 200px;
 						white-space: normal;
 						margin-right: 0.5em;
+						.package-header {
+							background: @primary1;
+							padding: 0.5em;
+							display: none;
+							h6 {
+								color: #fff;
+								font-size: 1.1em;
+							}
+							.package-desc {
+								color: lighten(@secondary1, 30%);
+								font-size: 0.8em;
+							}
+						}
 						.block {
 							background: darken(@tertiary1, 10%);
 							border-left: 5px solid  darken(@tertiary1, 20%);
@@ -177,6 +190,9 @@
 							width: 100%;
 							max-width: 100%;
 							margin: 0 0 0.2em;
+							.package-header {
+								display: block;
+							}
 							.block {
 								h6, .package-desc {
 									display: block;

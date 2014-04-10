@@ -614,6 +614,19 @@ and open the template in the editor.
   white-space: normal;
   margin-right: 0.5em;
 }
+.room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .package-header {
+  background: #ff7e00;
+  padding: 0.5em;
+  display: none;
+}
+.room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .package-header h6 {
+  color: #fff;
+  font-size: 1.1em;
+}
+.room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .package-header .package-desc {
+  color: #667e9b;
+  font-size: 0.8em;
+}
 .room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block {
   background: #d9d9d9;
   border-left: 5px solid #bfbfbf;
@@ -722,6 +735,9 @@ and open the template in the editor.
     width: 100%;
     max-width: 100%;
     margin: 0 0 0.2em;
+  }
+  .room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .package-header {
+    display: block;
   }
   .room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block h6,
   .room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block .package-desc {
