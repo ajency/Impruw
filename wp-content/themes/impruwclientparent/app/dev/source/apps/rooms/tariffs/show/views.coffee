@@ -122,7 +122,7 @@ define ['app', 'moment'], (App, moment)->
 				'click .edit-range-link' :(e)->
 						e.preventDefault()
 						App.execute "show:edit:daterange", model : @model
-						#@trigger "show:edit:daterange", @model
+
 			modelEvents:
 				'change' : 'render'
 			
