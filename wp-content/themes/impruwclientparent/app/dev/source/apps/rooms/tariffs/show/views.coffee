@@ -61,14 +61,15 @@ define ['app', 'moment'], (App, moment)->
 			modelEvents:
 				'change' : 'render'
 
-			template : '<div class="package-header">
-								<h6>{{plan_name}}</h6>
-								<div class="package-desc">
-									{{plan_description}}
-								</div>
-								<a href="#" class="edit-pkg-link"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
-						</div>
+			template : '
 						{{^id}}	
+							<div class="package-header">
+									<h6>{{plan_name}}</h6>
+									<div class="package-desc">
+										{{plan_description}}
+									</div>
+									<a href="#" class="edit-pkg-link"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
+							</div>
 							<div class="block clearfix not-yet-added empty">
 								
 								<span class="no-data">
