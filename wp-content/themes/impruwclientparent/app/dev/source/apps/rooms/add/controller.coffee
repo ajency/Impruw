@@ -19,6 +19,7 @@ define ['app', 'controllers/base-controller'
 				@listenTo layout, "show", =>
 						App.execute "show:facilities", 
 											region : layout.facilitiesRegion
+											facilities : @roomModel.get 'facilities'
 
 						App.execute "show:gallery:images", 
 											region : layout.galleryRegion
