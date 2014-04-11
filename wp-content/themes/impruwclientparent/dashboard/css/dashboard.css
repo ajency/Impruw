@@ -2327,7 +2327,17 @@ form .aj-imp-submit:hover {
   margin-right: 0.5em;
 }
 .room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .package-header {
+  background: #c3c3c3;
+  padding: 0.5em;
   display: none;
+}
+.room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .package-header h6 {
+  color: #333333;
+  font-size: 1.1em;
+}
+.room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .package-header .package-desc {
+  color: #808080;
+  font-size: 0.8em;
 }
 .room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block {
   background: #dadada;
