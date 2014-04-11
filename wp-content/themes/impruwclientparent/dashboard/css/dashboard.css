@@ -2339,6 +2339,11 @@ form .aj-imp-submit:hover {
   color: #808080;
   font-size: 0.8em;
 }
+.room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .package-header .edit-pkg-link {
+  display: inline-block;
+  font-size: 0.8em;
+  margin: 0.5em 0 0;
+}
 .room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block {
   background: #dadada;
   border-left: 5px solid #c0c0c0;
