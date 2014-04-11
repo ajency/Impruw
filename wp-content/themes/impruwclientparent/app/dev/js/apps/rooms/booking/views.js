@@ -39,7 +39,7 @@ define(['app', 'text!apps/rooms/add/templates/add-room.html'], function(App, add
         return CalendarView.__super__.constructor.apply(this, arguments);
       }
 
-      CalendarView.prototype.template = '<h4> <span class="glyphicon glyphicon-calendar"></span> Monthly Calendar <span class="excerpt">Donec vulputate nibh et odio vehicula, id porttitor quam malesuada</span> </h4> <div id="room-booking-calendar"></div> <br><br><br> <ul class="list-inline daterange-legends"> {{#dateRanges}} <li><span class="{{class}}">&nbsp;</span>{{name}}</li> {{/dateRanges}} </ul>';
+      CalendarView.prototype.template = '<h4> <span class="glyphicon glyphicon-calendar"></span> Monthly Calendar <span class="excerpt">Choose the dates you want to add availability for.</span> </h4> <div id="room-booking-calendar"></div> <br><br><br> <ul class="list-inline daterange-legends"> {{#dateRanges}} <li><span class="{{class}}">&nbsp;</span>{{name}}</li> {{/dateRanges}} </ul>';
 
       CalendarView.prototype.onShow = function() {
         this.$el.find('#room-booking-calendar').datepicker({
