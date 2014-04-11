@@ -58,8 +58,22 @@ define ['app', 'moment'], (App, moment)->
 				'click .add-trariff': -> 
 						App.execute "show:add:tariff", model : @model
 
+				'click .edit-pkg-link' :(e) ->
+						e.preventDefault()
+						App.execute "show:edit:plan", model : @plan
+
 			modelEvents:
 				'change' : 'render'
+
+			initialize:->
+				@plan = App.request "get:plan:by:id", @model.get 'plan_id'
+				@listenTo @plan, "change", @render			
+
+			serializeData:->
+				data = super()
+				data.plan_name = @plan.get 'plan_name'
+				data.plan_description = @plan.get 'plan_description'
+				data
 
 			template : '
 						{{^id}}	
@@ -172,10 +186,6 @@ define ['app', 'moment'], (App, moment)->
 								room_id : roomId
 
 						tariff.name = 'tariff'
-
-					tariff.set 
-							plan_name : plan.get 'plan_name'
-							plan_description : plan.get 'plan_description'
 
 					tariffCollection.add tariff
 

@@ -77,11 +77,30 @@ define(['app', 'moment'], function(App, moment) {
           return App.execute("show:add:tariff", {
             model: this.model
           });
+        },
+        'click .edit-pkg-link': function(e) {
+          e.preventDefault();
+          return App.execute("show:edit:plan", {
+            model: this.plan
+          });
         }
       };
 
       SingleTariff.prototype.modelEvents = {
         'change': 'render'
+      };
+
+      SingleTariff.prototype.initialize = function() {
+        this.plan = App.request("get:plan:by:id", this.model.get('plan_id'));
+        return this.listenTo(this.plan, "change", this.render);
+      };
+
+      SingleTariff.prototype.serializeData = function() {
+        var data;
+        data = SingleTariff.__super__.serializeData.call(this);
+        data.plan_name = this.plan.get('plan_name');
+        data.plan_description = this.plan.get('plan_description');
+        return data;
       };
 
       SingleTariff.prototype.template = '{{^id}} <div class="package-header"> <h6>{{plan_name}}</h6> <div class="package-desc"> {{plan_description}} </div> <a href="#" class="edit-pkg-link"><span class="glyphicon glyphicon-pencil"></span> Edit</a> </div> <div class="block clearfix not-yet-added empty"> <span class="no-data"> <span class="glyphicon glyphicon-exclamation-sign"></span> </span> No Data Added <div class="block-action"> <button type="button" class="btn btn-sm add-trariff edit-tran"> <span class="glyphicon glyphicon-pencil"></span>&nbsp;Add </button> </div> </div> {{/id}} {{#id}} <div class="package-header"> <h6>{{plan_name}}</h6> <div class="package-desc"> {{plan_description}} </div> <a href="#" class="edit-pkg-link"><span class="glyphicon glyphicon-pencil"></span> Edit</a> </div> <div class="block clearfix"> <div class="weekday"> Weekdays <span class="price">{{weekday.charge}}</span> </div> <div class="weekend"> Weekends <span class="price">{{weekend.charge}}</span> </div> <div class="tariff-label clearfix">Extra Adult</div> <div class="weekday"> <span class="price">{{weekday.extra_adult}}</span> </div> <div class="weekend"> <span class="price">{{weekend.extra_adult}}</span> </div> <div class="tariff-label clearfix">Extra Child</div> <div class="weekday"> <span class="price">{{weekday.extra_child}}</span> </div> <div class="weekend"> <span class="price">{{weekend.extra_child}}</span> </div> <div class="block-action"> <button type="button" class="btn btn-sm edit-trariff edit-tran"><span class="glyphicon glyphicon-pencil"></span>&nbsp;Edit</button> </div> </div> {{/id}}';
@@ -139,10 +158,6 @@ define(['app', 'moment'], function(App, moment) {
               });
               tariff.name = 'tariff';
             }
-            tariff.set({
-              plan_name: plan.get('plan_name'),
-              plan_description: plan.get('plan_description')
-            });
             return tariffCollection.add(tariff);
           };
         })(this));

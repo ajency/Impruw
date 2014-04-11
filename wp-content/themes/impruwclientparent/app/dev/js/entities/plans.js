@@ -55,13 +55,21 @@ define(["app", 'backbone'], function(App, Backbone) {
         }
         plan = new Plan(data);
         return plan;
+      },
+      getPlanById: function(id) {
+        var plan;
+        plan = planCollection.get(parseInt(id));
+        return plan;
       }
     };
     App.reqres.setHandler("get:plans:collection", function() {
       return API.getPlansCollection();
     });
-    return App.reqres.setHandler("create:plan:model", function(data) {
+    App.reqres.setHandler("create:plan:model", function(data) {
       return API.createPlanModel(data);
+    });
+    return App.reqres.setHandler("get:plan:by:id", function(id) {
+      return API.getPlanById(id);
     });
   });
 });

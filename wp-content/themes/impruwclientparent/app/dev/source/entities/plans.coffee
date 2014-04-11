@@ -40,9 +40,15 @@ define ["app", 'backbone'], (App, Backbone) ->
 				plan = new Plan data
 				plan
 
-
+			getPlanById:(id)->
+				plan = planCollection.get parseInt id
+				plan
+				
 		App.reqres.setHandler "get:plans:collection", ->
 			API.getPlansCollection()
 
 		App.reqres.setHandler "create:plan:model", (data)->
 			API.createPlanModel data
+
+		App.reqres.setHandler "get:plan:by:id",(id)->
+			API.getPlanById id
