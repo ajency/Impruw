@@ -118,7 +118,7 @@ define ['app'
 								<div id="media-region" style="display:none">
 									<ul class="nav nav-tabs">
 										<li><a href="#upload-media-region" data-toggle="tab">Upload</a></li>
-										<li class="active"><a href="#grid-media-region" data-toggle="tab">All Media</a></li>
+										<li class="active"><a href="#grid-media-region" data-toggle="tab">Gallery</a></li>
 									</ul>	
 									<div class="tab-content">
 										<div class="tab-pane" id="upload-media-region"></div>

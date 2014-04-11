@@ -2494,11 +2494,13 @@ form .aj-imp-submit:hover {
 .room-tariff-container:hover .room-tariff-actions {
   display: block;
 }
-.update-tariff {
-  background: #ff7e00;
+.update-tariff,
+.slide-image-selected {
+  background: #ff7e00 !important;
 }
-.update-tariff:hover {
-  background: #ffb266;
+.update-tariff:hover,
+.slide-image-selected:hover {
+  background: #ffb266 !important;
 }
 /****Gallery Styling****/
 #gallery-region {

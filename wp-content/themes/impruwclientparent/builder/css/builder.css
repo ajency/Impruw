@@ -1965,3 +1965,10 @@ Version:        0.1.0
   -o-transition-duration: 0s;
   transition-duration: 0s;
 }
+/**** button Orange Styles ****/
+.slide-image-selected {
+  background: #ff7e00 !important;
+}
+.slide-image-selected:hover {
+  background: #ffb266 !important;
+}
