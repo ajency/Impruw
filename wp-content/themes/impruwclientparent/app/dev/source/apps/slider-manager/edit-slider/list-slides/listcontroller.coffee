@@ -85,7 +85,7 @@ define ['app'
 										<div class="imgname col-sm-5">{{file_name}}</div>
 										<div class="imgactions col-sm-4">
 											<button class="btn btn-sm" title="Edit Image"><span class="glyphicon glyphicon-edit"></span> Edit Image</button>
-											<button class="btn btn-danger btn-sm remove-slide" title="Delete Image"><span class="glyphicon glyphicon-remove-sign"></span></button>
+											<button class="btn btn-danger btn-sm remove-slide" title="Delete Image"><span class="glyphicon glyphicon-remove-sign"></span> Delete Image</button>
 										</div>
 									</div>
 								  </a>
@@ -197,7 +197,7 @@ define ['app'
 							@trigger "show:add:new:slide"
 
 					dialogOptions : 
-						modal_title : 'Manage Images'
+						modal_title : 'Image Gallery'
 						modal_size  : 'wide-modal'
 
 					onShowAddSlide : ->
