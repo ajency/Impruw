@@ -2364,7 +2364,17 @@ form {
 						white-space: normal;
 						margin-right: 0.5em;
 						.package-header {
+							background: lighten(@dash-grey, 10%);
+							padding: 0.5em;
 							display: none;
+							h6 {
+								color: @3-grey;
+								font-size: 1.1em;
+							}
+							.package-desc {
+								color: lighten(@3-grey, 30%);
+								font-size: 0.8em;
+							}
 						}
 						.block {
 							background: darken(@preview-grey, 10%);
