@@ -40,6 +40,13 @@ define(['app', 'text!apps/leftnav/show/templates/leftNav.html', 'text!apps/leftn
 
       LeftNav.prototype.itemView = MenuItem;
 
+      LeftNav.prototype.serializeData = function() {
+        var data;
+        data = LeftNav.__super__.serializeData.call(this);
+        data.SITEURL = SITEURL;
+        return data;
+      };
+
       LeftNav.prototype.onShow = function() {
         var hash, jPM;
         hash = location.hash;

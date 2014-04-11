@@ -28,6 +28,13 @@ define ['app'
 
 					itemView : MenuItem
 
+					serializeData:->
+						data = super()
+
+						data.SITEURL = SITEURL
+
+						data
+
 					onShow: ->
 						# set the initial active menu depending on current hash
 						hash = location.hash
