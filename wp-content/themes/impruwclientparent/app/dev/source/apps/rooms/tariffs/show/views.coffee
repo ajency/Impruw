@@ -61,14 +61,14 @@ define ['app', 'moment'], (App, moment)->
 			modelEvents:
 				'change' : 'render'
 
-			template : '{{^id}}
-							<div class="package-header">
+			template : '<div class="package-header">
 								<h6>{{plan_name}}</h6>
 								<div class="package-desc">
-									{{plandescription}}
+									{{plan_description}}
 								</div>
 								<a href="#" class="edit-pkg-link"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
-							</div>
+						</div>
+						{{^id}}	
 							<div class="block clearfix not-yet-added empty">
 								
 								<span class="no-data">
@@ -170,6 +170,10 @@ define ['app', 'moment'], (App, moment)->
 								room_id : roomId
 
 						tariff.name = 'tariff'
+
+					tariff.set 
+							plan_name : plan.get 'plan_name'
+							plan_description : plan.get 'plan_description'
 
 					tariffCollection.add tariff
 

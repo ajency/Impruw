@@ -130,7 +130,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         return AddSlideLayout.__super__.constructor.apply(this, arguments);
       }
 
-      AddSlideLayout.prototype.template = '<div id="add-slide-form-region"></div> <div id="media-region" style="display:none"> <ul class="nav nav-tabs"> <li><a href="#upload-media-region" data-toggle="tab">Upload</a></li> <li class="active"><a href="#grid-media-region" data-toggle="tab">All Media</a></li> </ul> <div class="tab-content"> <div class="tab-pane" id="upload-media-region"></div> <div class="tab-pane active" id="grid-media-region"></div> <button class="btn btn-primary slide-image-selected">Done</button> </div> </div>';
+      AddSlideLayout.prototype.template = '<div id="add-slide-form-region"></div> <div id="media-region" style="display:none"> <ul class="nav nav-tabs"> <li><a href="#upload-media-region" data-toggle="tab">Upload</a></li> <li class="active"><a href="#grid-media-region" data-toggle="tab">Gallery</a></li> </ul> <div class="tab-content"> <div class="tab-pane" id="upload-media-region"></div> <div class="tab-pane active" id="grid-media-region"></div> <button class="btn btn-primary slide-image-selected">Done</button> </div> </div>';
 
       AddSlideLayout.prototype.events = {
         'click .slide-image-selected': function(e) {

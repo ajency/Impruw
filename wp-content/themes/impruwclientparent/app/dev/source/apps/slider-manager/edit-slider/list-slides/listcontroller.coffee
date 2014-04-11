@@ -89,11 +89,11 @@ define ['app'
 										</div>
 									</div>
 								  </a>
-							  	</div>
-							  	<div id="slide-{{id}}" class="panel-collapse collapse">
-							  		<div class="panel-body">
-									  	<div class="aj-imp-edit-image well">
-									  		<form>
+								</div>
+								<div id="slide-{{id}}" class="panel-collapse collapse">
+									<div class="panel-body">
+										<div class="aj-imp-edit-image well">
+											<form>
 												<div class="row">
 													<div class="aj-imp-crop-link col-sm-4">
 														<img src="{{thumb_url}}" class="img-responsive">
@@ -118,7 +118,7 @@ define ['app'
 													<button type="button" class="btn update-slide">Update</button>
 												</div>
 											</form>
-									  	</div>
+										</div>
 									</div>
 								 </div>'
 
