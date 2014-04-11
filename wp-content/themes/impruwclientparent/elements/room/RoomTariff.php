@@ -147,7 +147,7 @@ class RoomTariff extends Element {
 
             $data = array('from_date' => date('d/M ', strtotime($date_range[$key]['from_date'])),
                 'to_date' => date('d/M ', strtotime($date_range[$key]['to_date'])),
-                'daterange_name' => $date_range[$key]['daterange_name'] );
+                'daterange_name' => $date_range[$key]['daterange_name']);
 
             $html = '<div class="tariff clearfix">
                         <div class="date-range">
@@ -188,7 +188,10 @@ class RoomTariff extends Element {
             $data = $this->check_tariff($plans[$key2]['id'], $date_range_id);
 
             if (!empty($data)) {
-
+                
+                $data['plan_name'] = $plans[$key2]['plan_name'];
+                $data['plan_description'] = $plans[$key2]['plan_description'];
+                
                 $template = '<div class="package-block-outer" id="">
                     <div class="package-header"> 
                         <h6>{{plan_name}}</h6>
@@ -229,12 +232,11 @@ class RoomTariff extends Element {
                     ';
 
                 $html .= $me->render($template, $data);
-               
-            
-                
             } else {
+
                 $html .= '<div class="package-block-outer" id="">'
-                        . '<div class="package-header"><h6>{{plan_name}}</h6><div class="package-desc"> {{plan_description}} </div></div>'
+                        . '<div class="package-header"><h6>' . $plans[$key2]['plan_name'] . '</h6>'
+                        . '<div class="package-desc"> ' . $plans[$key2]['plan_description'] . '</div></div>'
                         . '<div class="block empty clearfix">'
                         . '<span class="no-data">'
                         . '<span class="glyphicon glyphicon-exclamation-sign"></span>'
@@ -255,7 +257,7 @@ class RoomTariff extends Element {
     function check_tariff($plan_id, $daterange_id) {
 
         $tariff = $this->tariff;
-        
+
 
         foreach ($tariff as $key => $value):
             if ($tariff[$key]['daterange_id'] == $daterange_id &&
