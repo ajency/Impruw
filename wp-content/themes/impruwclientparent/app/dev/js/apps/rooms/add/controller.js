@@ -21,7 +21,8 @@ define(['app', 'controllers/base-controller', 'apps/rooms/add/views', 'apps/room
         this.listenTo(layout, "show", (function(_this) {
           return function() {
             App.execute("show:facilities", {
-              region: layout.facilitiesRegion
+              region: layout.facilitiesRegion,
+              facilities: _this.roomModel.get('facilities')
             });
             App.execute("show:gallery:images", {
               region: layout.galleryRegion,
