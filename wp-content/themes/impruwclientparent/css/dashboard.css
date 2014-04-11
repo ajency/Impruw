@@ -3223,7 +3223,8 @@ form .aj-imp-submit:hover {
 .ui-datepicker td.semi-availabile a {
   background: url(../images/gray-semi.png) bottom right no-repeat;
 }
-.ui-datepicker td.semi-availabile a:hover {
+.ui-datepicker td.semi-availabile a:hover,
+.ui-datepicker td.semi-availabile a.ui-state-active {
   background: url(../images/gray-semi.png) bottom right no-repeat !important;
 }
 .daterange-legends {

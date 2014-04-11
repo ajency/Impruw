@@ -1234,7 +1234,8 @@ and open the template in the editor.
   /* IE6-9 fallback on horizontal gradient */
 
 }
-.ui-datepicker td.semi-availabile a:hover {
+.ui-datepicker td.semi-availabile a:hover,
+.ui-datepicker td.semi-availabile a.ui-state-active {
   background: -moz-linear-gradient(-45deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 1%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.28) 51%, rgba(0, 0, 0, 0.28) 100%) !important;
   /* FF3.6+ */
 
