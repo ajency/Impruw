@@ -108,7 +108,7 @@ function get_elementbox_elements() {
 			'data' => array (
 					array (
 							'element' => 'Menu',
-							'icon' => '',
+							'icon' => 'bicon icon-uniF14E',
 							'styles' => get_styles ( 'Menu' ),
 							'site_menus' => array (
 									array (
@@ -123,103 +123,103 @@ function get_elementbox_elements() {
 					),
 					array (
 							'element' => 'Row',
-							'icon' => '',
+							'icon' => 'bicon icon-uniF103',
 							'styles' => get_styles ( 'Row' ) 
 					),
 					array (
 							'element' => 'Logo',
-							'icon' => '',
+							'icon' => 'bicon icon-uniF124',
 							'styles' => array (),
 							'size' => ''  //get_logo_size()
                     ),
 					array (
 							'element' => 'Text',
-							'icon' => '',
+							'icon' => 'bicon icon-uniF111',
 							'styles' => array () 
 					),
 					array (
 							'element' => 'Title',
-							'icon' => '',
+							'icon' => 'bicon icon-uniF11C',
 							'styles' => get_styles ( 'Title' ) 
 					),
 					array (
 							'element' => 'Image',
-							'icon' => '',
+							'icon' => 'bicon icon-uniF10E',
 							'styles' => array () 
 					),
 					array (
 							'element' => 'ImageWithText',
 							'title' => 'Image With Text',
-							'icon' => '',
+							'icon' => 'bicon icon-uniF112',
 							'styles' => get_styles ( 'ImageWithText' ) 
 					),
 					array (
 							'element' => 'Address',
-							'icon' => '',
+							'icon' => 'bicon icon-uniF183',
 							'styles' => get_styles ( 'Address' ) 
 					),
 					array (
 							'element' => 'Social',
-							'icon' => '',
+							'icon' => 'bicon icon-uniF11A',
 							'styles' => get_styles ( 'Social' ) 
 					),
 					array (
 							'element' => 'Link',
-							'icon' => '',
+							'icon' => 'bicon icon-uniF149',
 							'styles' => get_styles ( 'Link' ) 
 					),
 					array (
 							'element' => 'ContactForm',
 							'title' => 'Contact Form',
-							'icon' => '',
+							'icon' => 'bicon icon-uniF11B',
 							'styles' => get_styles ( 'ContactForm' ) 
 					),
 					array (
 							'element' => 'Map',
-							'icon' => '',
+							'icon' => 'bicon icon-uniF110',
 							'styles' => get_styles ( 'Map' ) 
 					),
 					array (
 							'element' => 'Slider',
-							'icon' => '',
+							'icon' => 'bicon icon-uniF119',
 							'sliders' => get_theme_sliders () 
 					),
 					array (
 							'element' => 'Gallery',
-							'icon' => '',
+							'icon' => 'bicon icon-uniF10C',
 							'galleries' => get_theme_sliders () 
 					),
 					array (
 							'element' => 'RoomFacilities',
 							'title' => 'Room Facilities',
-							'icon' => '' 
+							'icon' => 'bicon icon-uniF17E' 
 					),
 					array (
 							'element' => 'RoomTitle',
 							'title' => 'Room Title',
-							'icon' => '' 
+							'icon' => 'bicon icon-uniF12D' 
 					),
 					array (
 							'element' => 'RoomDescription',
 							'title' => 'Room Description',
-							'icon' => '' 
+							'icon' => 'bicon icon-uniF142' 
 					),
 					array (
 							'element' => 'RoomSummary',
 							'title' => 'Room Summary',
 							'styles' => get_styles ( 'RoomSummary' ),
 							'rooms' =>  get_all_rooms(),
-							'icon' => '' 
+							'icon' => 'bicon icon-uniF15B' 
 					),
                     array (
 							'element' => 'RoomTariff',
 							'title' => 'Room Tariff',
-							'icon' => '' 
+							'icon' => 'bicon icon-uniF12B' 
 					),
                     array (
 							'element' => 'RoomBooking',
 							'title' => 'Room Booking',
-							'icon' => '' 
+							'icon' => 'bicon icon-uniF101' 
 					)
 			) 
 	) );
