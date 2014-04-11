@@ -15,6 +15,15 @@ define(['app', 'text!apps/rooms/list/templates/mainview2.html', 'text!apps/rooms
 
       RoomSingle.prototype.template = roomsingleTpl;
 
+      RoomSingle.prototype.events = {
+        'click .deleteroom_link': function(e) {
+          e.preventDefault();
+          if (confirm("Delete the room and all its data?")) {
+            return this.model.destroy();
+          }
+        }
+      };
+
       return RoomSingle;
 
     })(Marionette.ItemView);

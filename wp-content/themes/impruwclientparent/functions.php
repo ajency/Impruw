@@ -298,7 +298,7 @@ function add_element_markup($element) {
 			$html = get_room_description_markup ( $element );
 			break;
 		case 'RoomTitle' :
-            $html = get_room_title_markup ( $element );
+                        $html = get_room_title_markup ( $element );
 			break;
 		case 'RoomFacilities' :
 			$html = get_room_facilities_markup ( $element );

@@ -16,7 +16,7 @@ define [
 				'rooms' : 'list'
 				'rooms/add' : 'add'
 				'rooms/edit/:id' : 'edit'
-
+				
 		#public API
 		API = 
 			# list rooms route handler
@@ -27,7 +27,7 @@ define [
 			#add room route handler
 			add :()->
 				App.execute "show:add:room"
-
+			
 			edit:(id)->
 				App.execute 'show:edit:room', 
 								region 	: App.rightRegion

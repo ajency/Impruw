@@ -92,3 +92,22 @@ function get_all_rooms_ajax(){
     wp_send_json(array('code'=>'OK','data'=>$data));
 }
 add_action('wp_ajax_get-all-rooms','get_all_rooms_ajax');
+
+/**
+ * Function to delete room 
+*  returns deleted room ID
+ */
+function delete_room_ajax(){
+    
+    // get all form data
+    $formdata = $_POST;
+
+    // unset the action 
+    unset($formdata['action']);
+    
+    $room_id = delete_room($formdata);
+    
+
+   wp_send_json(array('code' => 'OK', 'data' => $room_id));
+}
+add_action('wp_ajax_delete-room','delete_room_ajax');

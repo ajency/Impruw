@@ -43,8 +43,7 @@ class RoomGallery extends SliderElement {
     
    
     function __construct($element, $post_id = 0) {
-
-        
+       
         //parent::__construct($element );
             
         $this->slider_id = isset($element['slider_id']) ? $element['slider_id'] : $this->get_slider_id();

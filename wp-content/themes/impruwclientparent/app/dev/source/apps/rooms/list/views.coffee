@@ -12,6 +12,12 @@ define ['app'
 					tagName: "li"
 
 					template : roomsingleTpl
+
+					events:
+						'click .deleteroom_link':(e)->
+							e.preventDefault()
+							if confirm "Delete the room and all its data?"
+								@model.destroy()
 				
 
 				class EmptyView extends Marionette.ItemView
@@ -41,4 +47,6 @@ define ['app'
 
 					events:
 						'click .add-room' : -> @trigger "add:new:room:clicked"
+
+					
 				
