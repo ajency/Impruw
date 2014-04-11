@@ -82,7 +82,7 @@ define ['app', 'moment'], (App, moment)->
 									<div class="package-desc">
 										{{plan_description}}
 									</div>
-									<a href="#" class="edit-pkg-link"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
+									<a href="#" class="edit-pkg-link"><span class="glyphicon glyphicon-pencil"></span> Edit Plan</a>
 							</div>
 
 							<div class="block clearfix not-yet-added empty">
@@ -104,7 +104,7 @@ define ['app', 'moment'], (App, moment)->
 								<div class="package-desc">
 									{{plan_description}}
 								</div>
-								<a href="#" class="edit-pkg-link"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
+								<a href="#" class="edit-pkg-link"><span class="glyphicon glyphicon-pencil"></span> Edit Plan</a>
 							</div>
 							<div class="block clearfix">
 								<div class="weekday">
