@@ -2975,7 +2975,7 @@ form .aj-imp-submit:hover {
 .booking-slider-pop .semi-available,
 .booking-slider-pop .unavailable {
   text-transform: capitalize;
-  padding: 0 5px;
+  padding: 0 4px;
 }
 .booking-slider-pop .available span,
 .booking-slider-pop .semi-available span,
@@ -2990,7 +2990,30 @@ form .aj-imp-submit:hover {
   color: #fff;
 }
 .booking-slider-pop .semi-available span {
-  background: url('../images/gray-semi.png') no-repeat bottom right #ff7e00;
+  background: #ff7e00;
+  /* Old browsers */
+
+  background: -moz-linear-gradient(-45deg, #ff7e00 0%, #ff7e00 50%, #b25900 50%, #b25900 100%);
+  /* FF3.6+ */
+
+  background: -webkit-gradient(linear, left top, right bottom, color-stop(0%, #ff7e00), color-stop(50%, #ff7e00), color-stop(50%, #b25900), color-stop(100%, #b25900));
+  /* Chrome,Safari4+ */
+
+  background: -webkit-linear-gradient(-45deg, #ff7e00 0%, #ff7e00 50%, #b25900 50%, #b25900 100%);
+  /* Chrome10+,Safari5.1+ */
+
+  background: -o-linear-gradient(-45deg, #ff7e00 0%, #ff7e00 50%, #b25900 50%, #b25900 100%);
+  /* Opera 11.10+ */
+
+  background: -ms-linear-gradient(-45deg, #ff7e00 0%, #ff7e00 50%, #b25900 50%, #b25900 100%);
+  /* IE10+ */
+
+  background: linear-gradient(135deg, #ff7e00 0%, #ff7e00 50%, #b25900 50%, #b25900 100%);
+  /* W3C */
+
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff7e00', endColorstr='#b25900', GradientType=1);
+  /* IE6-9 fallback on horizontal gradient */
+
   color: #fff;
 }
 .booking-slider-pop .unavailable span {
@@ -3221,11 +3244,57 @@ form .aj-imp-submit:hover {
   color: #000 !important;
 }
 .ui-datepicker td.semi-availabile a {
-  background: url(../images/gray-semi.png) bottom right no-repeat;
+  background: rgba(0, 0, 0, 0);
+  /* Old browsers */
+
+  background: -moz-linear-gradient(-45deg, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.2) 50%);
+  /* FF3.6+ */
+
+  background: -webkit-gradient(linear, left top, right bottom, color-stop(50%, gba(0, 0, 0, 0)), color-stop(50%, gba(0, 0, 0, 0.2)));
+  /* Chrome,Safari4+ */
+
+  background: -webkit-linear-gradient(-45deg, gba(0, 0, 0, 0) 50%, gba(0, 0, 0, 0.2) 50%);
+  /* Chrome10+,Safari5.1+ */
+
+  background: -o-linear-gradient(-45deg, gba(0, 0, 0, 0) 50%, gba(0, 0, 0, 0.2) 50%);
+  /* Opera 11.10+ */
+
+  background: -ms-linear-gradient(-45deg, gba(0, 0, 0, 0) 50%, gba(0, 0, 0, 0.2) 50%);
+  /* IE10+ */
+
+  background: linear-gradient(135deg, gba(0, 0, 0, 0) 50%, gba(0, 0, 0, 0.2) 50%);
+  /* W3C */
+
+  ilter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#47000000', GradientType=1);
+  /* IE6-9 fallback on horizontal gradient */
+
 }
 .ui-datepicker td.semi-availabile a:hover,
 .ui-datepicker td.semi-availabile a.ui-state-active {
-  background: url(../images/gray-semi.png) bottom right no-repeat !important;
+  background: rgba(0, 0, 0, 0) !important;
+  /* Old browsers */
+
+  background: -moz-linear-gradient(-45deg, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.2) 50%) !important;
+  /* FF3.6+ */
+
+  background: -webkit-gradient(linear, left top, right bottom, color-stop(50%, gba(0, 0, 0, 0)), color-stop(50%, gba(0, 0, 0, 0.2))) !important;
+  /* Chrome,Safari4+ */
+
+  background: -webkit-linear-gradient(-45deg, gba(0, 0, 0, 0) 50%, gba(0, 0, 0, 0.2) 50%) !important;
+  /* Chrome10+,Safari5.1+ */
+
+  background: -o-linear-gradient(-45deg, gba(0, 0, 0, 0) 50%, gba(0, 0, 0, 0.2) 50%) !important;
+  /* Opera 11.10+ */
+
+  background: -ms-linear-gradient(-45deg, gba(0, 0, 0, 0) 50%, gba(0, 0, 0, 0.2) 50%) !important;
+  /* IE10+ */
+
+  background: linear-gradient(135deg, gba(0, 0, 0, 0) 50%, gba(0, 0, 0, 0.2) 50%) !important;
+  /* W3C */
+
+  ilter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#47000000', GradientType=1) !important;
+  /* IE6-9 fallback on horizontal gradient */
+
 }
 .daterange-legends {
   text-transform: uppercase;
