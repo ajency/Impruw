@@ -21,7 +21,7 @@ define ['app'
 					template : '<h4>
 									<span class="glyphicon glyphicon-calendar"></span>
 									Monthly Calendar
-									<span class="excerpt">Donec vulputate nibh et odio vehicula, id porttitor quam malesuada</span>
+									<span class="excerpt">Choose the dates you want to add availability for.</span>
 								</h4>
 								<div id="room-booking-calendar"></div>
 								<br><br><br>
