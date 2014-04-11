@@ -70,6 +70,7 @@ define ['app', 'moment'], (App, moment)->
 									</div>
 									<a href="#" class="edit-pkg-link"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
 							</div>
+
 							<div class="block clearfix not-yet-added empty">
 								
 								<span class="no-data">
@@ -87,7 +88,7 @@ define ['app', 'moment'], (App, moment)->
 							<div class="package-header">
 								<h6>{{plan_name}}</h6>
 								<div class="package-desc">
-									{{plandescription}}
+									{{plan_description}}
 								</div>
 								<a href="#" class="edit-pkg-link"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
 							</div>
