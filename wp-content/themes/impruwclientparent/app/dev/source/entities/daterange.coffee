@@ -70,6 +70,23 @@ define ["app", 'backbone', 'moment'], (App, Backbone, moment) ->
 			addDateRange:(d)->
 				dateRangeCollection.add d
 
+			checkDateRangeValid: (data)->
+
+				checkDateRangeVal =(daterange)->
+						
+						from = daterange.get 'from_date'
+						fromForm = data.from_date
+						
+						to = daterange.get 'to_date'
+						toForm = data.to_date
+
+						moment(fromForm).isAfter(from) and moment(toForm).isBefore(to)  
+
+				ret = dateRangeCollection.filter checkDateRangeVal  
+
+				console.log ret
+				
+
 
 
 		App.reqres.setHandler "get:daterange:collection",->
@@ -80,6 +97,9 @@ define ["app", 'backbone', 'moment'], (App, Backbone, moment) ->
 
 		App.reqres.setHandler "get:daterange:name:for:date",(date)->
 			API.getDateRangeNameForDate date
+		
+		App.reqres.setHandler "check:daterange:valid",(date)->
+			API.checkDateRangeValid date
 
 		App.commands.setHandler "add:daterange",(daterange)->
 			API.addDateRange daterange

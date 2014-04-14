@@ -68,7 +68,7 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/daterange
           var data;
           if (this.$el.valid()) {
             data = Backbone.Syphon.serialize(this);
-            return this.trigger("add:daterange:details", data);
+            return App.request("check:daterange:valid", data);
           }
         }
       };
@@ -85,13 +85,34 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/daterange
         return this.$el.find('.dated').datepicker({
           showOtherMonths: true,
           selectOtherMonths: true,
-          dateFormat: "yy-mm-dd"
+          dateFormat: "yy-mm-dd",
+          beforeShowDay: this.disableDateRange
         }).prev('.btn').on('click', (function(_this) {
           return function(e) {
             e && e.preventDefault();
             return $(datepickerSelector).focus();
           };
         })(this));
+      };
+
+      AddDateRangeView.prototype.disableDateRange = function(date) {
+        var checkDateRange, daterangeCollection, models, time;
+        daterangeCollection = App.request("get:daterange:collection");
+        time = date.getTime();
+        checkDateRange = function(daterange) {
+          var from, to;
+          from = daterange.get('from_date');
+          to = daterange.get('to_date');
+          from = moment(from).subtract('days', 1);
+          to = moment(to).add('days', 1);
+          return moment(time).isAfter(from) && moment(time).isBefore(to);
+        };
+        models = daterangeCollection.filter(checkDateRange);
+        if (models.length > 0) {
+          return [false, ''];
+        } else {
+          return [true, ''];
+        }
       };
 
       return AddDateRangeView;

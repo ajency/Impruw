@@ -8,6 +8,7 @@ define  ['app','controllers/base-controller', 'text!apps/rooms/tariffs/daterange
 
 				@dateRangeView = dateRangeView = @_getAddDateRangeView()
 
+
 				@listenTo dateRangeView, "add:daterange:details", (data)=>
 					dateRange = App.request "create:new:daterange:model", data
 					dateRange.save null,
@@ -44,7 +45,8 @@ define  ['app','controllers/base-controller', 'text!apps/rooms/tariffs/daterange
 				'click #btn_savedaterange' : ->
 					if @$el.valid()
 						data = Backbone.Syphon.serialize @
-						@trigger "add:daterange:details", data
+						App.request "check:daterange:valid", data
+						#@trigger "add:daterange:details", data
 
 		
 			onSavedDaterange:->
@@ -61,11 +63,34 @@ define  ['app','controllers/base-controller', 'text!apps/rooms/tariffs/daterange
 										showOtherMonths: true
 										selectOtherMonths: true
 										dateFormat: "yy-mm-dd"
+										beforeShowDay: @disableDateRange
 										
 					.prev('.btn').on 'click' , (e) => 
 									e && e.preventDefault();
 									$(datepickerSelector).focus();
+			
+			disableDateRange :(date) ->
+				daterangeCollection= App.request "get:daterange:collection"
 				
+				time = date.getTime()
+				
+				checkDateRange =(daterange)->
+					from = daterange.get 'from_date'
+					to   = daterange.get 'to_date'
+
+					from = moment(from).subtract('days',1)
+					to = moment(to).add('days',1)
+
+					moment(time).isAfter(from) and moment(time).isBefore(to)  
+				
+				models = daterangeCollection.filter checkDateRange
+
+				if models.length > 0
+					return [false,'']
+				else 
+					return [true,'']
+
+
 
 		# handler
 		App.commands.setHandler "show:add:daterange", ()->
