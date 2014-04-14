@@ -81,7 +81,7 @@ define ["app", 'backbone', 'moment'], (App, Backbone, moment) ->
 			getAvailabiltyStatus :(date)->
 				# get the model
 				model = bookings.getBookingOn date
-
+				
 				if _.isObject model
 					model.get 'status'
 				else
@@ -92,7 +92,6 @@ define ["app", 'backbone', 'moment'], (App, Backbone, moment) ->
 			API.fetchRoomBookings roomId
 
 		App.reqres.setHandler "get:avaliability:status",(date)->
-
 			API.getAvailabiltyStatus date
 
 		App.commands.setHandler "set:booking:status:for:date", (date, status)->

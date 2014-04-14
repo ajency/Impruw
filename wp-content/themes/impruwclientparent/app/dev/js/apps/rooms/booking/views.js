@@ -153,6 +153,7 @@ define(['app', 'text!apps/rooms/add/templates/add-room.html'], function(App, add
         var currentStatus, html, value;
         date = new Date(date);
         currentStatus = App.request("get:avaliability:status", date);
+        console.log(currentStatus);
         if (currentStatus === 'available') {
           value = 0;
         }

@@ -22,7 +22,7 @@ require_once 'functions.php';
  * @return JSON success / or / failure
  */
 function new_user_registration() {
-	
+        
 	// check if its a POST request else return
 	if ('POST' !== $_SERVER ['REQUEST_METHOD'])
 		wp_send_json_error ( 'Invalid reuest' );

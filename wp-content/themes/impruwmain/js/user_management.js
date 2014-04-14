@@ -35,12 +35,12 @@ jQuery(document).ready(function($) {
                 $(_this).next().hide();
 
                 if (response.success) {
-                    
-                    response.msg = "Great!  Now activate your account by clicking on the link sent you by email in next  5 minutes. If you don't see it there check your spam folder.";
-                    
+
+                    response.msg = "Awesome! You have registered successfully. Now take the next step and activate your account using the activation link sent to your email address.If you don't see it there check your spam folder.";
+                    msg2 = "<a href="+siteurl+"/login"+">Click here to login</a>"; 
                     $("#register_message").html('<div class="alert alert-success">' +
                         '<button aria-hidden="true" data-dismiss="alert" class="close" type="button">x</button>' +
-                        response.msg + '</div>');
+                        response.msg + msg2 + '</div>');
                     
                     $("#frm_registration").find('input[type="reset"]').click();
                     //$("#scrolltosuccess").click();
@@ -51,21 +51,21 @@ jQuery(document).ready(function($) {
                     
                     
                     
-                    setTimeout(function () {
-                        window.location.href = siteurl+'/login'; //will redirect to your blog page (an ex: blog.html)
-                     }, 2000); //will call the function after 2 secs.
+                    //setTimeout(function () {
+                       // window.location.href = siteurl+'/login'; //will redirect to your blog page (an ex: blog.html)
+                     //}, 2000); //will call the function after 2 secs.
                     
                     
                     $('#btn_create_site').attr('disabled',false);
                     return true;
                 } else if (!response.success) {
+
                     //alert("invalid captcha")
+                    response.msg = "Could not create account";
 
                     $("#recaptcha_reload").click();
                     $("#registration_status_div").show()
-                    $("#register_message").html('<div class="alert alert-error">' +
-                        '<button aria-hidden="true" data-dismiss="alert" class="close" type="button">x</button>' +
-                        response.msg + '</div>')
+                    $("#register_message").html('<div class="alert alert-error">' +'<button aria-hidden="true" data-dismiss="alert" class="close" type="button">x</button>' +response.msg + '</div>')
 
                     $('html, body').animate({
     			        scrollTop: $('#register_message').offset().top
@@ -138,7 +138,6 @@ jQuery(document).ready(function($) {
                         elem.next().after('<span class="validation-icon input-icon fui-check-inverted"></span>');
                         break;
                     case 'INPUT':
-                        console.log(elem.attr('type'));
                         if (elem.attr('type') == 'checkbox') {
 
                         } else {

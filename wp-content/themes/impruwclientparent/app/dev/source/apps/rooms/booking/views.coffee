@@ -123,6 +123,7 @@ define ['app'
 					getAvailabilityMarkup:(date)->
 						date = new Date date
 						currentStatus = App.request "get:avaliability:status", date
+						console.log currentStatus
 						value = 0 if currentStatus is 'available'
 						value = 30 if currentStatus is 'semi-available'
 						value = 60 if currentStatus is 'unavailable'
