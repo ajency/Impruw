@@ -99,8 +99,7 @@ define(["app", 'backbone', 'moment'], function(App, Backbone, moment) {
           toForm = data.to_date;
           return moment(fromForm).isAfter(from) && moment(toForm).isBefore(to);
         };
-        ret = dateRangeCollection.filter(checkDateRangeVal);
-        return console.log(ret);
+        return ret = dateRangeCollection.filter(checkDateRangeVal);
       }
     };
     App.reqres.setHandler("get:daterange:collection", function() {

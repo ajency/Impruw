@@ -84,7 +84,7 @@ define ["app", 'backbone', 'moment'], (App, Backbone, moment) ->
 
 				ret = dateRangeCollection.filter checkDateRangeVal  
 
-				console.log ret
+				#console.log ret
 				
 
 

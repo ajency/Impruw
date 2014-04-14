@@ -47,6 +47,7 @@ define(["app", 'backbone'], function(App, Backbone) {
             return model.set('order', index + 1);
           };
         })(this));
+        console.log(newOrder);
         this.trigger("menu:order:updated");
         return this.syncToServer(newOrder, menuId);
       };
@@ -60,7 +61,19 @@ define(["app", 'backbone'], function(App, Backbone) {
         options.data = {};
         options.data.newOrder = newOrder.join();
         options.data.menuId = menuId;
-        return Backbone.send(_action, options);
+        return Backbone.ajax({
+          url: AJAXURL,
+          data: {
+            newOrder: newOrder,
+            menuId: menuId,
+            action: _action
+          },
+          success: (function(_this) {
+            return function() {
+              return _this.trigger("menu:order:updated");
+            };
+          })(this)
+        });
       };
 
       return MenuItemCollection;
