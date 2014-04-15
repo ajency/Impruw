@@ -5,29 +5,35 @@ require.config
   baseUrl : '../js/'
   
   paths:
-    jquery          : 'plugins/jquery'
-    jqueryui        : 'plugins/jquery.ui'
-    underscore      : 'plugins/underscore'
-    backbone        : 'plugins/backbone'
-    marionette      : 'plugins/backbone.marionette'
-    tpl             : 'plugins/tpl'
-    text            : 'plugins/text'
-    spin            : 'plugins/spin'
-    jqueryspin      : 'plugins/jquery.spin'
-    bootstrap       : 'plugins/bootstrap'
+    jquery            : 'plugins/jquery'
+    jqueryui          : 'plugins/jquery.ui'
+    underscore        : 'plugins/underscore'
+    backbone          : 'plugins/backbone'
+    marionette        : 'plugins/backbone.marionette'
+    tpl               : 'plugins/tpl'
+    text              : 'plugins/text'
+    spin              : 'plugins/spin'
+    jqueryspin        : 'plugins/jquery.spin'
+    bootstrap         : 'plugins/bootstrap'
     bootstrapselect   : 'plugins/bootstrapselect'
     underscorestring  : 'plugins/underscore.string'
-    mustache        : 'plugins/Mustache'
-    plupload        : 'plugins/plupload.full'
-    d3              : 'plugins/d3.v3'
-    nvd3            : 'plugins/nv.d3'
-    radio           : 'plugins/flatui-radio'
-    checkbox        : 'plugins/flatui-checkbox'
-    backboneform    : 'plugins/backbone.form'
+    mustache          : 'plugins/Mustache'
+    plupload          : 'plugins/plupload.full'
+    d3                : 'plugins/d3.v3'
+    nvd3              : 'plugins/nv.d3'
+    radio             : 'plugins/flatui-radio'
+    checkbox          : 'plugins/flatui-checkbox'
+    backboneform      : 'plugins/backbone.form'
     backbonesyphon    : 'plugins/backbone.syphon'
     backboneassociations: 'plugins/backbone.associations'
     jqueryvalidate    : 'plugins/jquery.validate'
     polyglot          : 'plugins/polyglot'
+    jpanelmenu        : 'plugins/jquery.jpanelmenu.min'
+    scrollsections    : 'plugins/ajency.scrolldots'
+    minicolors        : 'plugins/jquery.minicolors.min'
+    isotope           : 'plugins/isotope'
+    moment            : 'plugins/moment'
+    chart             : 'plugins/chart'
     app               : 'dashboard-app' 
     bootstrapswitch   : 'plugins/bootstrap-switch'
     entitiesloader    : 'entities/dashboard-entities-loader'
@@ -52,6 +58,10 @@ require.config
       deps : ['d3']
       exports : 'nv'    
     jqueryvalidate    : ['jquery']
+    scrollsections    : ['jquery']
+    jpanelmenu        : ['jquery']
+    minicolors        : ['jquery']
+    isotope           : ['jquery']
     underscorestring  : ['underscore']
     backboneform    : ['backbone']
     backbonesyphon    : ['backbone']
@@ -67,17 +77,15 @@ require.config
 
 js = ['plugins/plugin-loader'
       'configs/config-loader'
-      'app'
-      'entities/appstate']
-
-
+      'app']
 
 ## Start with application
 require js, (plugins, configs, App)->
 
   #QUnit.config.autostart = false
   specs = []
-  specs.push '../tests/spec/roomstariff.spec'
+  # specs.push '../tests/spec/roomstariff.spec'
+  specs.push '../tests/spec/notification.spec'
 
   require specs,->
     jasmine.getEnv().execute()
