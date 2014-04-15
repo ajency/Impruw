@@ -25,12 +25,20 @@ define ["app", 'backbone'], (App, Backbone) ->
                 url : ->
                 	"#{AJAXURL}?action=get-themes"
 
+                getExcept:(theme)->
+                    models = @filter (theme)-> 
+                                _.slugify(theme.get 'post_title') isnt theme
+                    models                        
 
+
+            themesCollection = new Themes.ThemeCollection
+            themesCollection.fetch()
                 
             # PUBLIC API FOR ENitity
             API =
                 getThemesCollection: (param = {})->
                     themes = new Themes.ThemeCollection
+                    themes = themesCollection.getExcept CURRENTTHEME
                     themes
 
 

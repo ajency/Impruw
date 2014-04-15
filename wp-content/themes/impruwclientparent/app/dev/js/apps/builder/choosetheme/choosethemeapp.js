@@ -30,7 +30,6 @@ define(['app', 'controllers/base-controller', 'apps/builder/choosetheme/views'],
       ChooseThemeController.prototype.initialize = function(opt) {
         var themesCollection, view;
         themesCollection = App.request("get:themes:collection");
-        themesCollection.fetch();
         view = this._getChooseThemeView(themesCollection);
         this.listenTo(view, "itemview:choose:theme:clicked", this.themeSelected);
         return this.show(view, {
