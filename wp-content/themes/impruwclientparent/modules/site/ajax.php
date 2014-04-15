@@ -27,9 +27,10 @@ function assign_theme_to_site_ajax(){
     
     $site_id = get_current_blog_id();
     
-    $new_theme_id = $_POST['new_theme_id'];
+    $new_theme_id 	= $_POST['new_theme_id'];
+    $clone_pages 	= !isset($_POST['clone_pages']) ? true : false;
     
-    assign_theme_to_site($new_theme_id);
+    assign_theme_to_site($new_theme_id, $clone_pages);
     
     wp_send_json(array('code' => 'OK'));
 }

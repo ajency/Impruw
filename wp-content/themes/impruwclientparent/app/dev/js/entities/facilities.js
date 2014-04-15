@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
 
 define(['app', 'backbone'], function(App, Backbone) {
   return App.module("Entities.Facilities", function(Facilities, App, Backbone, Marionette, $, _) {
-    var API;
+    var API, facilities;
     Facilities.Facility = (function(_super) {
       __extends(Facility, _super);
 
@@ -48,16 +48,10 @@ define(['app', 'backbone'], function(App, Backbone) {
       return FacilityCollection;
 
     })(Backbone.Collection);
+    facilities = new Facilities.FacilityCollection;
+    facilities.fetch();
     API = {
-      getFacilities: function(param) {
-        var facilities;
-        if (param == null) {
-          param = {};
-        }
-        facilities = new Facilities.FacilityCollection;
-        facilities.fetch({
-          data: param
-        });
+      getFacilities: function() {
         return facilities;
       },
       createFacilityModel: function(data) {

@@ -30,9 +30,11 @@ define ['app', 'controllers/base-controller', 'apps/builder/choosetheme/views'],
 				data =
 					new_theme_id : model.get 'ID'
 
+				if ISTHEMESELECTED is 1
+					data.clone_pages = false
 
 				responseFn = (resp)=>
-					window.location.href = BUILDERURL
+					#window.location.href = BUILDERURL
 					#@region.close()
 
 				# assign the new theme to site
