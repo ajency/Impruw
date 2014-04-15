@@ -28,6 +28,12 @@ require.config({
     backboneassociations: 'plugins/backbone.associations',
     jqueryvalidate: 'plugins/jquery.validate',
     polyglot: 'plugins/polyglot',
+    jpanelmenu: 'plugins/jquery.jpanelmenu.min',
+    scrollsections: 'plugins/ajency.scrolldots',
+    minicolors: 'plugins/jquery.minicolors.min',
+    isotope: 'plugins/isotope',
+    moment: 'plugins/moment',
+    chart: 'plugins/chart',
     app: 'dashboard-app',
     bootstrapswitch: 'plugins/bootstrap-switch',
     entitiesloader: 'entities/dashboard-entities-loader'
@@ -58,6 +64,10 @@ require.config({
       exports: 'nv'
     },
     jqueryvalidate: ['jquery'],
+    scrollsections: ['jquery'],
+    jpanelmenu: ['jquery'],
+    minicolors: ['jquery'],
+    isotope: ['jquery'],
     underscorestring: ['underscore'],
     backboneform: ['backbone'],
     backbonesyphon: ['backbone'],
@@ -72,12 +82,12 @@ require.config({
   }
 });
 
-js = ['plugins/plugin-loader', 'configs/config-loader', 'app', 'entities/appstate'];
+js = ['plugins/plugin-loader', 'configs/config-loader', 'app'];
 
 require(js, function(plugins, configs, App) {
   var specs;
   specs = [];
-  specs.push('../tests/spec/roomstariff.spec');
+  specs.push('../tests/spec/notification.spec');
   return require(specs, function() {
     return jasmine.getEnv().execute();
   });

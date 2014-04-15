@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>views.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../../doc-style.css" />
+  <script src="../../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../../", thisFile = "Applications/XAMPP/xamppfiles/htdocs/impruw/wp-content/themes/impruwclientparent/app/dev//apps/rooms/facilities/list/views.coffee", defaultSidebar = true;
+  </script>
+  <script src="../../../../doc-script.js"></script>
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container"><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+          <h1>views.coffee</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1">&#182;</a>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre><span class="nx">define</span> <span class="p">[</span><span class="s">&#39;app&#39;</span><span class="p">],</span><span class="nf">(App)-&gt;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2">&#182;</a>
+</div>
+<p>Row views</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nx">App</span><span class="p">.</span><span class="nx">module</span> <span class="s">&#39;FacilitiesApp.List.Views&#39;</span><span class="p">,</span> <span class="nf">(Views, App, Backbone, Marionette, $, _)-&gt;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+</div>
+<p>empty view</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="k">class</span> <span class="nx">FacilityItem</span> <span class="k">extends</span> <span class="nx">Marionette</span><span class="p">.</span><span class="nx">ItemView</span>
+
+      <span class="nv">className : </span><span class="s">&#39;facility&#39;</span>
+
+      <span class="nv">tagName: </span><span class="s">&#39;div&#39;</span>
+
+      <span class="nv">template : </span><span class="s">&#39;&lt;div class=&quot;display_facility&quot;&gt;</span>
+<span class="s">              &lt;label for=&quot;checkbox2&quot; class=&quot;checkbox &quot;&gt;</span>
+<span class="s">                &lt;input type=&quot;checkbox&quot; {{#selected}}checked=&quot;true&quot;{{/selected}} data-toggle=&quot;checkbox&quot; name=&quot;facility[{{term_id}}]&quot; value=&quot;{{term_id}}&quot;&gt;</span>
+<span class="s">                &lt;span class=&quot;facility-name&quot;&gt;{{name}}&lt;/span&gt;</span>
+<span class="s">              &lt;/label&gt;</span>
+<span class="s">              &lt;div class=&quot;action&quot;&gt;</span>
+<span class="s">                &lt;a href=&quot;javascript:void(0)&quot; class=&quot;edit&quot;&gt;Edit&lt;/a&gt;&amp;nbsp;</span>
+<span class="s">                &lt;a href=&quot;javascript:void(0)&quot; class=&quot;delete&quot;&gt;Delete&lt;/a&gt;</span>
+<span class="s">              &lt;/div&gt;</span>
+<span class="s">            &lt;/div&gt;</span>
+<span class="s">            &lt;div class=&quot;update_facility hidden&quot;&gt;</span>
+<span class="s">              &lt;div class=&quot;facility_update&quot;&gt;</span>
+<span class="s">                &lt;input type=&quot;text&quot; name=&quot;facility_name&quot; class=&quot;form-control input-sm&quot; value=&quot;{{name}}&quot; /&gt;</span>
+<span class="s">                &lt;div class=&quot;facility_actions&quot;&gt;</span>
+<span class="s">                  &lt;a href=&quot;javascript:void(0)&quot; class=&quot;update&quot;&gt;Update&lt;/a&gt;</span>
+<span class="s">                  &lt;a href=&quot;javascript:void(0)&quot; class=&quot;cancel&quot; &gt;Cancel&lt;/a&gt;</span>
+<span class="s">                &lt;/div&gt;</span>
+<span class="s">              &lt;/div&gt;</span>
+<span class="s">            &lt;/div&gt;&#39;</span>
+
+      <span class="nx">serializeData</span><span class="o">:</span><span class="nf">-&gt;</span>
+        <span class="nv">data = </span><span class="k">super</span><span class="p">()</span>
+        <span class="nv">data.selected = </span><span class="nx">Marionette</span><span class="p">.</span><span class="nx">getOption</span> <span class="nx">@</span><span class="p">,</span> <span class="s">&#39;selected&#39;</span>
+        <span class="nx">data</span>
+
+      <span class="nv">onShow : </span><span class="nf">-&gt;</span>
+        <span class="nx">@$el</span><span class="p">.</span><span class="nx">attr</span> <span class="s">&#39;id&#39;</span><span class="o">:</span> <span class="s">&quot;facility-</span><span class="si">#{</span><span class="nx">@model</span><span class="p">.</span><span class="nx">get</span> <span class="s">&#39;term_id&#39;</span><span class="si">}</span><span class="s">&quot;</span>
+        <span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;input[type=&quot;checkbox&quot;]&#39;</span><span class="p">).</span><span class="nx">checkbox</span><span class="p">()</span>
+
+
+      <span class="nv">events:</span>
+        <span class="s">&#39;click a.delete&#39;</span> <span class="o">:</span> <span class="nf">-&gt;</span> 
+          <span class="k">if</span> <span class="nx">confirm</span><span class="p">(</span><span class="s">&#39;Are you sure?&#39;</span><span class="p">)</span>
+            <span class="nx">@trigger</span> <span class="s">&quot;delete:facility:clicked&quot;</span><span class="p">,</span> <span class="nx">@model</span>
+
+        <span class="s">&#39;click a.edit&#39;</span>  <span class="o">:</span> <span class="nf">-&gt;</span>          
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
+</div>
+<p>set the value to test field</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+          <span class="nv">facility_name = </span><span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;.display_facility .facility-name&#39;</span><span class="p">).</span><span class="nx">html</span><span class="p">()</span>
+          <span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;input[name=&quot;facility_name&quot;]&#39;</span><span class="p">).</span><span class="nx">val</span> <span class="nx">facility_name</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
+</div>
+<p>@$el.find('input[name="facility_name"]').val @model.get 'name'                        </p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+          <span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;.display_facility&#39;</span><span class="p">).</span><span class="nx">addClass</span> <span class="s">&#39;hidden&#39;</span>
+          <span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;.update_facility&#39;</span><span class="p">).</span><span class="nx">removeClass</span> <span class="s">&#39;hidden&#39;</span>
+
+
+        <span class="s">&#39;click a.cancel&#39;</span> <span class="o">:</span><span class="nf">-&gt;</span>  
+          <span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;.update_facility&#39;</span><span class="p">).</span><span class="nx">addClass</span> <span class="s">&#39;hidden&#39;</span>
+          <span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;.display_facility&#39;</span><span class="p">).</span><span class="nx">removeClass</span> <span class="s">&#39;hidden&#39;</span>
+
+        <span class="s">&#39;click a.update&#39;</span> <span class="o">:</span> <span class="nf">-&gt;</span>
+          <span class="nx">@trigger</span> <span class="s">&quot;update:facility:clicked&quot;</span><span class="p">,</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Syphon</span><span class="p">.</span><span class="nx">serialize</span> <span class="nx">@</span>
+
+
+            
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6">&#182;</a>
+</div>
+<p>empty view</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="k">class</span> <span class="nx">EmptyView</span> <span class="k">extends</span> <span class="nx">Marionette</span><span class="p">.</span><span class="nx">ItemView</span>
+
+      <span class="nv">className : </span><span class="s">&#39;empty-info empty-roomfacilities&#39;</span>
+
+      <span class="nv">tagName: </span><span class="s">&#39;div&#39;</span> 
+
+      <span class="nv">template : </span><span class="s">&#39;No Facilities Found. Add Facilities to your Room here.&#39;</span>
+
+  
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7">&#182;</a>
+</div>
+<p>Composite view</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="k">class</span> <span class="nx">Views</span><span class="p">.</span><span class="nx">FacilitiesView</span> <span class="k">extends</span> <span class="nx">Marionette</span><span class="p">.</span><span class="nx">CompositeView</span>
+
+      <span class="nv">template : </span><span class="s">&#39;&lt;div class=&quot;facilities-list clearfix&quot;&gt;&lt;/div&gt;&#39;</span>
+
+      <span class="nv">itemView : </span><span class="nx">FacilityItem</span>
+
+      <span class="nv">emptyView : </span><span class="nx">EmptyView</span>
+
+      <span class="nv">itemViewContainer : </span><span class="s">&#39;.facilities-list&#39;</span>
+
+      <span class="nx">itemViewOptions</span><span class="o">:</span><span class="nf">(item, index)-&gt;</span>
+        <span class="nv">prefacilities = </span><span class="nx">Marionette</span><span class="p">.</span><span class="nx">getOption</span> <span class="nx">@</span><span class="p">,</span> <span class="s">&#39;prefacilities&#39;</span>
+        <span class="nv">id = </span><span class="nb">parseInt</span> <span class="nx">item</span><span class="p">.</span><span class="nx">get</span> <span class="s">&#39;term_id&#39;</span>
+        <span class="nv">selected = </span><span class="kc">false</span>
+        <span class="nv">ids = </span><span class="nx">_</span><span class="p">.</span><span class="nx">values</span> <span class="nx">_</span><span class="p">.</span><span class="nx">invert</span> <span class="nx">prefacilities</span>
+        <span class="nv">v = </span><span class="nx">_</span><span class="p">.</span><span class="nx">filter</span> <span class="nx">ids</span><span class="p">,</span> <span class="nf">(d)-&gt;</span>  <span class="nb">parseInt</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="o">is</span> <span class="nx">id</span>
+
+        <span class="nv">selected = </span><span class="kc">true</span> <span class="k">if</span> <span class="nx">v</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span>
+        <span class="nv">selected : </span><span class="nx">selected</span>
+
+
+      <span class="nx">onUpdateView</span> <span class="o">:</span><span class="nf">(model)-&gt;</span>
+        <span class="nv">term_id = </span><span class="nx">model</span><span class="p">.</span><span class="nx">get</span> <span class="s">&#39;term_id&#39;</span>
+        <span class="nv">facility_name = </span><span class="nx">model</span><span class="p">.</span><span class="nx">get</span> <span class="s">&#39;facility_name&#39;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8">&#182;</a>
+</div>
+<p>console.log(model)</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&quot;</span><span class="err">#</span><span class="s">facility-</span><span class="si">#{</span><span class="nx">term_id</span><span class="si">}</span><span class="s"> .display_facility&quot;</span><span class="p">).</span><span class="nx">removeClass</span> <span class="s">&#39;hidden&#39;</span>
+        <span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&quot;</span><span class="err">#</span><span class="s">facility-</span><span class="si">#{</span><span class="nx">term_id</span><span class="si">}</span><span class="s"> .update_facility&quot;</span><span class="p">).</span><span class="nx">addClass</span> <span class="s">&#39;hidden&#39;</span>
+        <span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&quot;</span><span class="err">#</span><span class="s">facility-</span><span class="si">#{</span><span class="nx">term_id</span><span class="si">}</span><span class="s"> .facility-name&quot;</span><span class="p">).</span><span class="nx">text</span> <span class="nx">facility_name</span>   
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>

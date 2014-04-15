@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
 
 define(["app", 'backbone'], function(App, Backbone) {
   return App.module("Entities.Themes", function(Themes, App, Backbone, Marionette, $, _) {
-    var API;
+    var API, themesCollection;
     Themes.ThemeModel = (function(_super) {
       __extends(ThemeModel, _super);
 
@@ -39,9 +39,19 @@ define(["app", 'backbone'], function(App, Backbone) {
         return "" + AJAXURL + "?action=get-themes";
       };
 
+      ThemeCollection.prototype.getExcept = function(theme) {
+        var models;
+        models = this.filter(function(theme) {
+          return _.slugify(theme.get('post_title')) !== theme;
+        });
+        return models;
+      };
+
       return ThemeCollection;
 
     })(Backbone.Collection);
+    themesCollection = new Themes.ThemeCollection;
+    themesCollection.fetch();
     API = {
       getThemesCollection: function(param) {
         var themes;
@@ -49,6 +59,7 @@ define(["app", 'backbone'], function(App, Backbone) {
           param = {};
         }
         themes = new Themes.ThemeCollection;
+        themes = themesCollection.getExcept(CURRENTTHEME);
         return themes;
       }
     };

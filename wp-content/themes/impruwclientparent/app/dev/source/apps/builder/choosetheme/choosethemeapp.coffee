@@ -17,9 +17,6 @@ define ['app', 'controllers/base-controller', 'apps/builder/choosetheme/views'],
 				# get the themes
 				themesCollection = App.request "get:themes:collection"
 
-				# fetch collection
-				themesCollection.fetch()
-
 				view = @_getChooseThemeView themesCollection
 
 				@listenTo view, "itemview:choose:theme:clicked", @themeSelected

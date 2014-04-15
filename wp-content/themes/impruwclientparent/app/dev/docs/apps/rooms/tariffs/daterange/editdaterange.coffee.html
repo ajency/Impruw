@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>editdaterange.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../../doc-style.css" />
+  <script src="../../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../../", thisFile = "Applications/XAMPP/xamppfiles/htdocs/impruw/wp-content/themes/impruwclientparent/app/dev//apps/rooms/tariffs/daterange/editdaterange.coffee", defaultSidebar = true;
+  </script>
+  <script src="../../../../doc-script.js"></script>
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container"><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+          <h1>editdaterange.coffee</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1">&#182;</a>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre><span class="nx">define</span>  <span class="p">[</span><span class="s">&#39;app&#39;</span><span class="p">,</span><span class="s">&#39;controllers/base-controller&#39;</span><span class="p">,</span> <span class="s">&#39;text!apps/rooms/tariffs/daterange/templates/editDaterange.html&#39;</span><span class="p">],</span><span class="nf">(App, AppController, editDateRangeTpl)-&gt;</span>
+
+  <span class="nx">App</span><span class="p">.</span><span class="nx">module</span> <span class="s">&quot;RoomsApp.RoomsTariff.DateRange.Edit&quot;</span><span class="p">,</span> <span class="nf">(Edit, App)-&gt;</span> 
+
+    <span class="k">class</span> <span class="nx">EditDateRangeController</span> <span class="k">extends</span> <span class="nx">AppController</span>
+
+      <span class="nx">initialize</span><span class="o">:</span><span class="nf">(opt)-&gt;</span>
+
+        <span class="p">{</span><span class="nx">model</span><span class="p">}</span> <span class="o">=</span> <span class="nx">opt</span>
+
+        <span class="vi">@dateRangeView = </span><span class="nv">dateRangeView = </span><span class="nx">@_getEditDateRangeView</span> <span class="nx">model</span>
+
+        <span class="nx">@listenTo</span> <span class="nx">dateRangeView</span><span class="p">,</span> <span class="s">&quot;update:daterange:details&quot;</span><span class="p">,</span> <span class="nf">(data)=&gt;</span>
+          <span class="nx">model</span><span class="p">.</span><span class="nx">save</span> <span class="nx">data</span>
+          <span class="nx">model</span><span class="p">.</span><span class="nx">save</span> <span class="kc">null</span><span class="p">,</span>
+              <span class="nv">wait : </span><span class="kc">true</span>
+              <span class="nv">success : </span><span class="nx">@dateRangeUpdated</span>
+        
+        <span class="nx">@listenTo</span> <span class="nx">dateRangeView</span><span class="p">,</span> <span class="s">&quot;delete:daterange&quot;</span><span class="p">,</span><span class="nf">(data) =&gt;</span>
+          <span class="nx">model</span><span class="p">.</span><span class="nx">destroy</span>
+              <span class="nv">allData: </span><span class="kc">false</span>
+              <span class="nx">wait</span><span class="o">:</span><span class="kc">true</span>
+              <span class="nv">success : </span><span class="nx">@daterangeDeleted</span>
+
+        <span class="nx">@show</span> <span class="nx">dateRangeView</span><span class="p">,</span> 
+            <span class="nv">loading : </span><span class="kc">true</span>
+
+      <span class="nx">daterangeDeleted</span> <span class="o">:=&gt;</span>
+        <span class="nx">@dateRangeView</span><span class="p">.</span><span class="nx">triggerMethod</span> <span class="s">&quot;deleted:daterange&quot;</span> 
+
+      <span class="nx">dateRangeUpdated</span><span class="o">:</span><span class="nf">(dateRange)=&gt;</span>
+        <span class="nx">@dateRangeView</span><span class="p">.</span><span class="nx">triggerMethod</span> <span class="s">&quot;updated:daterange&quot;</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2">&#182;</a>
+</div>
+<p>get the packages view</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="nx">_getEditDateRangeView</span> <span class="o">:</span><span class="nf">(dateRange)-&gt;</span>
+        <span class="k">new</span> <span class="nx">EditDateRangeView</span>
+            <span class="nv">model : </span><span class="nx">dateRange</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+</div>
+<p>Edti DateRange view</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="k">class</span> <span class="nx">EditDateRangeView</span> <span class="k">extends</span> <span class="nx">Marionette</span><span class="p">.</span><span class="nx">ItemView</span>
+
+      <span class="nv">tagName : </span><span class="s">&#39;form&#39;</span>
+
+      <span class="nv">className : </span><span class="s">&#39;form-horizontal&#39;</span>
+
+      <span class="nv">template : </span><span class="nx">editDateRangeTpl</span>
+
+      <span class="nv">dialogOptions : </span>
+        <span class="nv">modal_title : </span><span class="s">&#39;Edit DateRange&#39;</span>
+        <span class="nv">modal_size  : </span><span class="s">&#39;medium-modal&#39;</span>
+
+      <span class="nv">events:</span>
+        <span class="s">&#39;click #btn_updatedaterange&#39;</span> <span class="o">:</span> <span class="nf">-&gt;</span>
+          <span class="k">if</span> <span class="nx">@$el</span><span class="p">.</span><span class="nx">valid</span><span class="p">()</span>
+            <span class="nv">data = </span><span class="nx">Backbone</span><span class="p">.</span><span class="nx">Syphon</span><span class="p">.</span><span class="nx">serialize</span> <span class="nx">@</span>
+            <span class="nx">@trigger</span> <span class="s">&quot;update:daterange:details&quot;</span><span class="p">,</span> <span class="nx">data</span>
+
+        <span class="s">&#39;click #btn_deletedaterange&#39;</span> <span class="o">:</span><span class="nf">(e) -&gt;</span>
+          <span class="nx">e</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">()</span>
+          <span class="k">if</span> <span class="nx">confirm</span> <span class="s">&#39;All the plans associated with</span>
+<span class="s">                 the date range will also be deleted.</span>
+<span class="s">                 Are you sure you want to delete the date range?&#39;</span>
+              <span class="nx">@trigger</span> <span class="s">&quot;delete:daterange&quot;</span><span class="p">,</span> <span class="nx">@model</span>
+
+      <span class="nv">serializeData: </span><span class="nf">-&gt;</span>
+        <span class="nv">data = </span><span class="k">super</span><span class="p">()</span>
+        <span class="nv">data.from_date = </span><span class="nx">moment</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">from_date</span><span class="p">).</span><span class="nx">format</span> <span class="s">&quot;YYYY-MM-DD&quot;</span>
+        <span class="nv">data.to_date = </span><span class="nx">moment</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">to_date</span><span class="p">).</span><span class="nx">format</span> <span class="s">&quot;YYYY-MM-DD&quot;</span>
+        <span class="nx">data</span>
+    
+      <span class="nx">onUpdatedDaterange</span><span class="o">:</span><span class="nf">-&gt;</span>
+        <span class="nx">@$el</span><span class="p">.</span><span class="nx">parent</span><span class="p">().</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;.alert&#39;</span><span class="p">).</span><span class="nx">remove</span><span class="p">()</span>
+        <span class="nx">@$el</span><span class="p">.</span><span class="nx">parent</span><span class="p">().</span><span class="nx">prepend</span> <span class="s">&#39;&lt;div class=&quot;alert alert-success&quot;&gt;Updated successfully&lt;/div&gt;&#39;</span>
+
+      <span class="nv">onDeletedDaterange : </span><span class="nf">-&gt;</span>
+        <span class="nx">@trigger</span> <span class="s">&quot;dialog:close&quot;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
+</div>
+<p>show checkbox</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="nx">onShow</span><span class="o">:</span><span class="nf">-&gt;</span>
+        <span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;input[type=&quot;checkbox&quot;]&#39;</span><span class="p">).</span><span class="nx">checkbox</span><span class="p">()</span>
+        <span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;#daterange_colour&#39;</span><span class="p">).</span><span class="nx">minicolors</span><span class="p">()</span>
+
+        <span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;.dated&#39;</span><span class="p">).</span><span class="nx">datepicker</span>
+                    <span class="nv">showOtherMonths: </span><span class="kc">true</span>
+                    <span class="nv">selectOtherMonths: </span><span class="kc">true</span>
+                    <span class="nv">dateFormat: </span><span class="s">&quot;yy-mm-dd&quot;</span>
+                    
+          <span class="p">.</span><span class="nx">prev</span><span class="p">(</span><span class="s">&#39;.btn&#39;</span><span class="p">).</span><span class="nx">on</span> <span class="s">&#39;click&#39;</span> <span class="p">,</span> <span class="nf">(e) =&gt;</span> 
+                  <span class="nx">e</span> <span class="o">&amp;&amp;</span> <span class="nx">e</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+                  <span class="nx">$</span><span class="p">(</span><span class="nx">datepickerSelector</span><span class="p">).</span><span class="nx">focus</span><span class="p">();</span>
+        
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
+</div>
+<p>handler</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">App</span><span class="p">.</span><span class="nx">commands</span><span class="p">.</span><span class="nx">setHandler</span> <span class="s">&quot;show:edit:daterange&quot;</span><span class="p">,</span> <span class="nf">(opts)-&gt;</span>
+      <span class="nv">opts = </span>
+        <span class="nv">region : </span><span class="nx">App</span><span class="p">.</span><span class="nx">dialogRegion</span>
+        <span class="nv">model : </span><span class="nx">opts</span><span class="p">.</span><span class="nx">model</span>
+      
+      <span class="k">new</span> <span class="nx">EditDateRangeController</span> <span class="nx">opts</span>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>

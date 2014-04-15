@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>views.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../../doc-style.css" />
+  <script src="../../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../../", thisFile = "Applications/XAMPP/xamppfiles/htdocs/impruw/wp-content/themes/impruwclientparent/app/dev//apps/rooms/tariffs/show/views.coffee", defaultSidebar = true;
+  </script>
+  <script src="../../../../doc-script.js"></script>
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+      <div class="heading h6">
+        <a href="#%23%23%23%23%23%23%23%23%23%20tariffs%20views">######### Tariffs views</a>
+      </div>
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container"><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+          <h1>views.coffee</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1">&#182;</a>
+</div>
+<p>, 'apps/rooms/tariffs/show/templates/'</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre><span class="nx">define</span> <span class="p">[</span><span class="s">&#39;app&#39;</span><span class="p">,</span> <span class="s">&#39;moment&#39;</span><span class="p">],</span> <span class="nf">(App, moment)-&gt;</span>
+
+  <span class="nx">App</span><span class="p">.</span><span class="nx">module</span> <span class="s">&quot;RoomsApp.RoomsTariff.Show.Views&quot;</span><span class="p">,</span> <span class="nf">(Views, App)-&gt;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2">&#182;</a>
+</div>
+<p>package single view</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="k">class</span> <span class="nx">PackageSingle</span> <span class="k">extends</span> <span class="nx">Marionette</span><span class="p">.</span><span class="nx">ItemView</span>
+
+      <span class="nv">className : </span><span class="s">&#39;package-block-outer&#39;</span>
+
+      <span class="nv">template : </span><span class="s">&#39;&lt;div class=&quot;block clearfix&quot;&gt;</span>
+<span class="s">              &lt;h6&gt;{{plan_name}}&lt;/h6&gt;</span>
+<span class="s">              &lt;div class=&quot;package-desc&quot;&gt;</span>
+<span class="s">                {{plandescription}}</span>
+<span class="s">              &lt;/div&gt;</span>
+<span class="s">              &lt;a href=&quot;#&quot; class=&quot;edit-pkg-link&quot;&gt;&lt;span class=&quot;glyphicon glyphicon-pencil&quot;&gt;&lt;/span&gt; Edit&lt;/a&gt;</span>
+<span class="s">            &lt;/div&gt;&#39;</span>
+
+      <span class="nv">modelEvents: </span>
+          <span class="s">&quot;change&quot;</span><span class="o">:</span> <span class="s">&quot;render&quot;</span>
+         
+
+      <span class="nv">events: </span>            
+        <span class="s">&#39;click .edit-pkg-link&#39;</span> <span class="o">:</span><span class="nf">(e) -&gt;</span>
+              <span class="nx">e</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">()</span>
+              <span class="nx">App</span><span class="p">.</span><span class="nx">execute</span> <span class="s">&quot;show:edit:plan&quot;</span><span class="p">,</span> <span class="nv">model : </span><span class="nx">@model</span>
+
+      <span class="nx">serializeData</span><span class="o">:</span><span class="nf">-&gt;</span>
+        <span class="nv">data = </span><span class="k">super</span><span class="p">()</span>
+
+        <span class="nv">data.plandescription = </span><span class="nf">-&gt;</span>
+          <span class="nx">_</span><span class="p">(</span><span class="nx">@plan_description</span><span class="p">).</span><span class="nx">prune</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+
+        <span class="nx">data</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+</div>
+<p>packages view</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="k">class</span> <span class="nx">Views</span><span class="p">.</span><span class="nx">PackagesView</span> <span class="k">extends</span> <span class="nx">Marionette</span><span class="p">.</span><span class="nx">CompositeView</span>
+
+      <span class="nv">className : </span><span class="s">&#39;tariff package-names clearfix&#39;</span>
+
+      <span class="nv">template : </span><span class="s">&#39;&lt;div class=&quot;packages&quot;&gt;&lt;div class=&quot;package-blocks header clearfix&quot;&gt;&lt;/div&gt;&lt;button type=&quot;button&quot; class=&quot;btn-add-plan&quot;&gt;&lt;span class=&quot;glyphicon glyphicon-plus-sign&quot;&gt;&lt;/span&gt;&amp;nbsp;Add Plan&lt;/button&gt;&lt;/div&gt;&#39;</span>
+            
+      <span class="nv">itemView : </span><span class="nx">PackageSingle</span>
+
+      <span class="nv">itemViewContainer : </span><span class="s">&#39;.package-blocks&#39;</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="%23%23%23%23%23%23%23%23%23%20tariffs%20views">
+  <h6>
+    <a href="#%23%23%23%23%23%23%23%23%23%20tariffs%20views" name="%23%23%23%23%23%23%23%23%23%20tariffs%20views" class="pilcrow">&#182;</a>
+    ######### Tariffs views
+  </h6>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+    <span class="k">class</span> <span class="nx">SingleTariff</span> <span class="k">extends</span> <span class="nx">Marionette</span><span class="p">.</span><span class="nx">ItemView</span>
+
+      <span class="nv">className: </span><span class="s">&#39;package-block-outer&#39;</span>
+
+      <span class="nv">events:</span>
+        <span class="s">&#39;click .edit-trariff&#39;</span> <span class="o">:</span> <span class="nf">-&gt;</span> 
+            <span class="nx">App</span><span class="p">.</span><span class="nx">execute</span> <span class="s">&quot;show:edit:tariff&quot;</span><span class="p">,</span> <span class="nv">model : </span><span class="nx">@model</span>
+        <span class="s">&#39;click .add-trariff&#39;</span><span class="o">:</span> <span class="nf">-&gt;</span> 
+            <span class="nx">App</span><span class="p">.</span><span class="nx">execute</span> <span class="s">&quot;show:add:tariff&quot;</span><span class="p">,</span> <span class="nv">model : </span><span class="nx">@model</span>
+
+        <span class="s">&#39;click .edit-pkg-link&#39;</span> <span class="o">:</span><span class="nf">(e) -&gt;</span>
+            <span class="nx">e</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">()</span>
+            <span class="nx">App</span><span class="p">.</span><span class="nx">execute</span> <span class="s">&quot;show:edit:plan&quot;</span><span class="p">,</span> <span class="nv">model : </span><span class="nx">@plan</span>
+
+      <span class="nv">modelEvents:</span>
+        <span class="s">&#39;change&#39;</span> <span class="o">:</span> <span class="s">&#39;render&#39;</span>
+
+      <span class="nx">initialize</span><span class="o">:</span><span class="nf">-&gt;</span>
+        <span class="vi">@plan = </span><span class="nx">App</span><span class="p">.</span><span class="nx">request</span> <span class="s">&quot;get:plan:by:id&quot;</span><span class="p">,</span> <span class="nx">@model</span><span class="p">.</span><span class="nx">get</span> <span class="s">&#39;plan_id&#39;</span>
+        <span class="nx">@listenTo</span> <span class="nx">@plan</span><span class="p">,</span> <span class="s">&quot;change&quot;</span><span class="p">,</span> <span class="nx">@render</span>      
+
+      <span class="nx">serializeData</span><span class="o">:</span><span class="nf">-&gt;</span>
+        <span class="nv">data = </span><span class="k">super</span><span class="p">()</span>
+        <span class="nv">data.plan_name = </span><span class="nx">@plan</span><span class="p">.</span><span class="nx">get</span> <span class="s">&#39;plan_name&#39;</span>
+        <span class="nv">data.plan_description = </span><span class="nx">@plan</span><span class="p">.</span><span class="nx">get</span> <span class="s">&#39;plan_description&#39;</span>
+        <span class="nx">data</span>
+
+      <span class="nv">template : </span><span class="s">&#39;</span>
+<span class="s">            {{^id}} </span>
+<span class="s">              &lt;div class=&quot;package-header&quot;&gt;</span>
+<span class="s">                  &lt;h6&gt;{{plan_name}}&lt;/h6&gt;</span>
+<span class="s">                  &lt;div class=&quot;package-desc&quot;&gt;</span>
+<span class="s">                    {{plan_description}}</span>
+<span class="s">                  &lt;/div&gt;</span>
+<span class="s">                  &lt;a href=&quot;#&quot; class=&quot;edit-pkg-link&quot;&gt;&lt;span class=&quot;glyphicon glyphicon-pencil&quot;&gt;&lt;/span&gt; Edit Plan&lt;/a&gt;</span>
+<span class="s">              &lt;/div&gt;</span>
+
+<span class="s">              &lt;div class=&quot;block clearfix not-yet-added empty&quot;&gt;</span>
+<span class="s">                </span>
+<span class="s">                &lt;span class=&quot;no-data&quot;&gt;</span>
+<span class="s">                  &lt;span class=&quot;glyphicon glyphicon-exclamation-sign&quot;&gt;&lt;/span&gt;</span>
+<span class="s">                &lt;/span&gt;</span>
+<span class="s">                No Data Added</span>
+<span class="s">                &lt;div class=&quot;block-action&quot;&gt;</span>
+<span class="s">                  &lt;button type=&quot;button&quot; class=&quot;btn btn-sm add-trariff edit-tran&quot;&gt;</span>
+<span class="s">                    &lt;span class=&quot;glyphicon glyphicon-pencil&quot;&gt;&lt;/span&gt;&amp;nbsp;Add</span>
+<span class="s">                  &lt;/button&gt;</span>
+<span class="s">                &lt;/div&gt;</span>
+<span class="s">              &lt;/div&gt;</span>
+<span class="s">            {{/id}}</span>
+<span class="s">            {{#id}}</span>
+<span class="s">              &lt;div class=&quot;package-header&quot;&gt;</span>
+<span class="s">                &lt;h6&gt;{{plan_name}}&lt;/h6&gt;</span>
+<span class="s">                &lt;div class=&quot;package-desc&quot;&gt;</span>
+<span class="s">                  {{plan_description}}</span>
+<span class="s">                &lt;/div&gt;</span>
+<span class="s">                &lt;a href=&quot;#&quot; class=&quot;edit-pkg-link&quot;&gt;&lt;span class=&quot;glyphicon glyphicon-pencil&quot;&gt;&lt;/span&gt; Edit Plan&lt;/a&gt;</span>
+<span class="s">              &lt;/div&gt;</span>
+<span class="s">              &lt;div class=&quot;block clearfix&quot;&gt;</span>
+<span class="s">                &lt;div class=&quot;weekday&quot;&gt;</span>
+<span class="s">                  Weekdays</span>
+<span class="s">                  &lt;span class=&quot;price&quot;&gt;{{weekday.charge}}&lt;/span&gt;</span>
+<span class="s">                &lt;/div&gt;</span>
+<span class="s">                &lt;div class=&quot;weekend&quot;&gt;</span>
+<span class="s">                  Weekends</span>
+<span class="s">                  &lt;span class=&quot;price&quot;&gt;{{weekend.charge}}&lt;/span&gt;</span>
+<span class="s">                &lt;/div&gt;</span>
+<span class="s">                &lt;div class=&quot;tariff-label clearfix&quot;&gt;Extra Adult&lt;/div&gt;</span>
+<span class="s">                &lt;div class=&quot;weekday&quot;&gt;</span>
+<span class="s">                  &lt;span class=&quot;price&quot;&gt;{{weekday.extra_adult}}&lt;/span&gt;</span>
+<span class="s">                &lt;/div&gt;</span>
+<span class="s">                &lt;div class=&quot;weekend&quot;&gt;</span>
+<span class="s">                  &lt;span class=&quot;price&quot;&gt;{{weekend.extra_adult}}&lt;/span&gt;</span>
+<span class="s">                &lt;/div&gt;</span>
+<span class="s">                &lt;div class=&quot;tariff-label clearfix&quot;&gt;Extra Child&lt;/div&gt;</span>
+<span class="s">                &lt;div class=&quot;weekday&quot;&gt;</span>
+<span class="s">                  &lt;span class=&quot;price&quot;&gt;{{weekday.extra_child}}&lt;/span&gt;</span>
+<span class="s">                &lt;/div&gt;</span>
+<span class="s">                &lt;div class=&quot;weekend&quot;&gt;</span>
+<span class="s">                  &lt;span class=&quot;price&quot;&gt;{{weekend.extra_child}}&lt;/span&gt;</span>
+<span class="s">                &lt;/div&gt;</span>
+<span class="s">                &lt;div class=&quot;block-action&quot;&gt;</span>
+<span class="s">                  &lt;button type=&quot;button&quot; class=&quot;btn btn-sm edit-trariff edit-tran&quot;&gt;&lt;span class=&quot;glyphicon glyphicon-pencil&quot;&gt;&lt;/span&gt;&amp;nbsp;Edit&lt;/button&gt;</span>
+<span class="s">                &lt;/div&gt;</span>
+<span class="s">              &lt;/div&gt;</span>
+<span class="s">            {{/id}}&#39;</span>  
+
+
+    <span class="k">class</span> <span class="nx">DateRageView</span> <span class="k">extends</span> <span class="nx">Marionette</span><span class="p">.</span><span class="nx">CompositeView</span>
+      
+      <span class="nv">template : </span><span class="s">&#39;&lt;div class=&quot;date-range&quot;&gt;</span>
+<span class="s">              &lt;div class=&quot;range-name&quot;&gt;{{daterange_name}}&lt;/div&gt;</span>
+<span class="s">              &lt;div class=&quot;from&quot;&gt;</span>
+<span class="s">                &lt;span class=&quot;date&quot;&gt;{{fromdate}}&lt;/span&gt;</span>
+<span class="s">                to &lt;span class=&quot;date&quot;&gt;{{todate}}&lt;/span&gt;</span>
+<span class="s">              &lt;/div&gt;</span>
+<span class="s">              &lt;a href=&quot;#&quot; class=&quot;edit-range-link&quot;&gt;&lt;span class=&quot;glyphicon glyphicon-pencil&quot;&gt;&lt;/span&gt; Edit&lt;/a&gt;</span>
+<span class="s">            &lt;/div&gt;</span>
+<span class="s">            &lt;div class=&quot;packages&quot;&gt;</span>
+<span class="s">              &lt;div class=&quot;package-blocks clearfix&quot;&gt;&lt;/div&gt;</span>
+<span class="s">            &lt;/div&gt;&#39;</span> 
+      <span class="nv">events:</span>
+        <span class="s">&#39;click .edit-range-link&#39;</span> <span class="o">:</span><span class="nf">(e)-&gt;</span>
+            <span class="nx">e</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">()</span>
+            <span class="nx">App</span><span class="p">.</span><span class="nx">execute</span> <span class="s">&quot;show:edit:daterange&quot;</span><span class="p">,</span> <span class="nv">model : </span><span class="nx">@model</span>
+
+      <span class="nx">initialize</span><span class="o">:</span><span class="nf">-&gt;</span>
+        
+
+      <span class="nx">onBeforeRender</span><span class="o">:</span><span class="nf">-&gt;</span>
+        <span class="nv">dateRangeId = </span><span class="nx">@model</span><span class="p">.</span><span class="nx">get</span> <span class="s">&#39;id&#39;</span>
+        <span class="nv">tariffs = </span><span class="nx">App</span><span class="p">.</span><span class="nx">request</span> <span class="s">&quot;get:tariffs:for:daterange&quot;</span><span class="p">,</span> <span class="nx">dateRangeId</span>
+
+        <span class="nv">plans = </span><span class="nx">App</span><span class="p">.</span><span class="nx">request</span> <span class="s">&quot;get:plans:collection&quot;</span>
+
+        <span class="nv">tariffCollection = </span><span class="k">new</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Collection</span>
+
+        <span class="nx">getTariff</span> <span class="o">=</span><span class="nf">(planId)-&gt;</span>
+          <span class="nv">tariff = </span><span class="nx">_</span><span class="p">.</span><span class="nx">filter</span> <span class="nx">tariffs</span><span class="p">,</span><span class="nf">(t)-&gt;</span>
+                  <span class="nx">t</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s">&#39;plan_id&#39;</span><span class="p">)</span> <span class="o">is</span> <span class="nx">planId</span> <span class="o">and</span> <span class="nx">t</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s">&#39;daterange_id&#39;</span><span class="p">)</span> <span class="o">is</span> <span class="nx">dateRangeId</span>
+
+          <span class="k">return</span> <span class="nx">tariff</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="nx">tariff</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span>
+          <span class="k">return</span> <span class="kc">false</span>
+
+        <span class="nv">roomId = </span><span class="nx">Marionette</span><span class="p">.</span><span class="nx">getOption</span> <span class="nx">@</span><span class="p">,</span><span class="s">&#39;roomId&#39;</span>
+
+        <span class="nx">plans</span><span class="p">.</span><span class="nx">each</span> <span class="nf">(plan, index)=&gt;</span>
+          
+          <span class="nv">tariff = </span><span class="nx">getTariff</span> <span class="nx">plan</span><span class="p">.</span><span class="nx">get</span> <span class="s">&#39;id&#39;</span>
+
+          <span class="k">if</span> <span class="nx">tariff</span> <span class="o">is</span> <span class="kc">false</span>
+            <span class="nv">tariff = </span><span class="k">new</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Model</span>
+            <span class="nx">tariff</span><span class="p">.</span><span class="nx">set</span> 
+                <span class="nv">plan_id : </span><span class="nx">plan</span><span class="p">.</span><span class="nx">get</span> <span class="s">&#39;id&#39;</span>
+                <span class="nv">daterange_id : </span><span class="nx">dateRangeId</span>
+                <span class="nv">room_id : </span><span class="nx">roomId</span>
+
+            <span class="nv">tariff.name = </span><span class="s">&#39;tariff&#39;</span>
+
+          <span class="nx">tariffCollection</span><span class="p">.</span><span class="nx">add</span> <span class="nx">tariff</span>
+
+        <span class="vi">@collection = </span><span class="nx">tariffCollection</span>
+        <span class="nx">@listenTo</span> <span class="nx">@collection</span> <span class="p">,</span> <span class="s">&quot;remove&quot;</span><span class="p">,</span> <span class="nx">@render</span> 
+
+      <span class="nx">render</span><span class="o">:</span><span class="nf">-&gt;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
+</div>
+<p>console.log @collection</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="k">super</span><span class="p">()</span>
+
+      <span class="nv">modelEvents:</span>
+        <span class="s">&#39;change&#39;</span> <span class="o">:</span> <span class="s">&#39;render&#39;</span>
+      
+      <span class="nx">serializeData</span><span class="o">:</span><span class="nf">-&gt;</span>
+        <span class="nv">data = </span><span class="k">super</span><span class="p">()</span>
+
+        <span class="nv">data.fromdate = </span><span class="nf">-&gt;</span>
+          <span class="nx">moment</span><span class="p">(</span><span class="nx">@from_date</span><span class="p">).</span><span class="nx">format</span> <span class="s">&#39;Do-MMM&#39;</span>
+
+        <span class="nv">data.todate = </span><span class="nf">-&gt;</span>
+          <span class="nx">moment</span><span class="p">(</span><span class="nx">@to_date</span><span class="p">).</span><span class="nx">format</span> <span class="s">&#39;Do-MMM&#39;</span>
+
+        <span class="nx">data</span>
+
+      <span class="nv">itemView : </span><span class="nx">SingleTariff</span>
+
+      <span class="nv">itemViewContainer : </span><span class="s">&#39;.package-blocks&#39;</span>   
+
+    
+    <span class="k">class</span> <span class="nx">Views</span><span class="p">.</span><span class="nx">DateRangeCollectionView</span> <span class="k">extends</span> <span class="nx">Marionette</span><span class="p">.</span><span class="nx">CollectionView</span>
+
+      <span class="nv">className : </span><span class="s">&#39;tariff clearfix&#39;</span>
+
+      <span class="nv">itemView : </span><span class="nx">DateRageView</span>
+
+      <span class="nx">itemViewOptions</span><span class="o">:</span><span class="nf">(item, index)-&gt;</span>
+        
+        <span class="nv">roomId = </span><span class="nx">Marionette</span><span class="p">.</span><span class="nx">getOption</span> <span class="nx">@</span><span class="p">,</span><span class="s">&#39;roomId&#39;</span>
+
+        <span class="nv">roomId : </span><span class="nx">roomId</span>       
+        
+
+
+
+         
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>

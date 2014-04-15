@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>addpage.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../../doc-style.css" />
+  <script src="../../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../../", thisFile = "Applications/XAMPP/xamppfiles/htdocs/impruw/wp-content/themes/impruwclientparent/app/dev//apps/builder/site-builder/addpage/addpage.coffee", defaultSidebar = true;
+  </script>
+  <script src="../../../../doc-script.js"></script>
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container"><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+          <h1>addpage.coffee</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1">&#182;</a>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre><span class="nx">define</span> <span class="p">[</span><span class="s">&#39;app&#39;</span><span class="p">,</span> <span class="s">&#39;controllers/base-controller&#39;</span><span class="p">],</span> <span class="nf">(App, AppController)-&gt;</span>
+
+  <span class="nx">App</span><span class="p">.</span><span class="nx">module</span> <span class="s">&quot;AddPage&quot;</span><span class="p">,</span> <span class="nf">(AddPage, App)-&gt;</span>
+
+    <span class="k">class</span> <span class="nx">AddPageController</span> <span class="k">extends</span> <span class="nx">AppController</span>
+
+      <span class="nx">initialize</span> <span class="o">:</span><span class="nf">(opt = {}) -&gt;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2">&#182;</a>
+</div>
+<p>hold the selected template</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="vi">@layout = </span><span class="nv">layout = </span><span class="nx">@_getAddPageView</span><span class="p">()</span>
+
+
+        <span class="nx">@listenTo</span> <span class="nx">layout</span><span class="p">,</span> <span class="s">&quot;show&quot;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+          <span class="nx">App</span><span class="p">.</span><span class="nx">execute</span> <span class="s">&quot;show:templates:grid&quot;</span><span class="p">,</span> <span class="nv">region : </span><span class="nx">layout</span><span class="p">.</span><span class="nx">chooseTemplateRegion</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+</div>
+<p>listen to save event</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="nx">@listenTo</span> <span class="nx">layout</span><span class="p">,</span> <span class="s">&quot;add:new:page&quot;</span><span class="p">,</span> <span class="nf">(data)=&gt;</span>
+          <span class="nx">@_saveNewPage</span> <span class="nx">data</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
+</div>
+<p>listen to template selection region</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="nx">@listenTo</span> <span class="nx">layout</span><span class="p">.</span><span class="nx">chooseTemplateRegion</span><span class="p">,</span> <span class="s">&quot;template:selected&quot;</span><span class="p">,</span> <span class="nf">(model)=&gt;</span>
+          <span class="nx">@layout</span><span class="p">.</span><span class="nx">triggerMethod</span> <span class="s">&quot;update:template:page:id&quot;</span><span class="p">,</span> <span class="nx">model</span><span class="p">.</span><span class="nx">get</span> <span class="s">&#39;ID&#39;</span>
+
+        <span class="nx">@show</span> <span class="nx">layout</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
+</div>
+<p>save new page</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="nx">_saveNewPage</span><span class="o">:</span><span class="nf">(data)-&gt;</span>
+
+        <span class="nv">page = </span><span class="nx">App</span><span class="p">.</span><span class="nx">request</span> <span class="s">&quot;create:page:model&quot;</span><span class="p">,</span> <span class="nx">data</span>
+        <span class="nx">page</span><span class="p">.</span><span class="nx">save</span> <span class="kc">null</span><span class="p">,</span>
+              <span class="nv">wait: </span><span class="kc">true</span>
+              <span class="nv">success : </span><span class="nx">@showSuccessMessage</span>
+
+      <span class="nx">showSuccessMessage</span><span class="o">:=&gt;</span>
+        <span class="nx">@layout</span><span class="p">.</span><span class="nx">triggerMethod</span> <span class="s">&quot;show:success:message&quot;</span>
+
+      <span class="nx">_getAddPageView</span><span class="o">:</span><span class="nf">-&gt;</span>
+        <span class="k">new</span> <span class="nx">AddPageView</span>
+
+
+    <span class="k">class</span> <span class="nx">AddPageView</span> <span class="k">extends</span> <span class="nx">Marionette</span><span class="p">.</span><span class="nx">Layout</span>
+
+      <span class="nv">tagName : </span><span class="s">&#39;form&#39;</span>
+
+      <span class="nv">className : </span><span class="s">&#39;form-horizontal&#39;</span>
+
+      <span class="nv">dialogOptions : </span>
+          <span class="nv">modal_title : </span><span class="s">&#39;Add New Page&#39;</span>
+          <span class="nv">modal_size  : </span><span class="s">&#39;medium-modal&#39;</span>
+
+      <span class="nv">regions: </span>
+        <span class="nv">chooseTemplateRegion : </span><span class="s">&#39;#choose-template-region&#39;</span>
+
+      <span class="nv">template : </span><span class="s">&#39;&lt;div class=&quot;row&quot;&gt;</span>
+<span class="s">              &lt;div class=&quot;form-group&quot;&gt;</span>
+<span class="s">                &lt;label for=&quot;inputEmail3&quot; class=&quot;col-sm-2 control-label&quot;&gt;Page title&lt;/label&gt;</span>
+<span class="s">                &lt;div class=&quot;col-sm-10 col-sm-offset-2&quot;&gt;</span>
+<span class="s">                  &lt;input type=&quot;text&quot; required class=&quot;form-control&quot; id=&quot;post_title&quot; name=&quot;post_title&quot; /&gt;</span>
+<span class="s">                  &lt;div class=&quot;p-messages&quot;&gt;&lt;/div&gt;</span>
+<span class="s">                &lt;/div&gt;</span>
+<span class="s">              &lt;/div&gt;</span>
+<span class="s">              &lt;input type=&quot;hidden&quot; name=&quot;template_page_id&quot; value=&quot;0&quot;/&gt;</span>
+<span class="s">              &lt;div id=&quot;choose-template-region&quot;&gt;&lt;/div&gt;</span>
+<span class="s">              &lt;button type=&quot;button&quot; class=&quot;btn btn-wide aj-imp-submit add-new-page&quot;&gt;Add New Page&lt;/button&gt;</span>
+<span class="s">            &lt;/div&gt;&#39;</span>
+
+      <span class="nx">onShowSuccessMessage</span><span class="o">:</span><span class="nf">-&gt;</span>
+        <span class="nx">@$el</span><span class="p">.</span><span class="nx">prepend</span> <span class="s">&#39;&lt;div class=&quot;alert alert-success&quot;&gt;New Page added successfully&lt;/div&gt;&#39;</span>
+
+      <span class="nx">onUpdateTemplatePageId</span><span class="o">:</span><span class="nf">(id)-&gt;</span>
+        <span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;input[name=&quot;template_page_id&quot;]&#39;</span><span class="p">).</span><span class="nx">val</span> <span class="nx">id</span>
+
+      <span class="nv">events : </span>
+        <span class="s">&#39;click .add-new-page&#39;</span> <span class="o">:</span> <span class="nf">-&gt;</span>
+            <span class="k">if</span> <span class="nx">@$el</span><span class="p">.</span><span class="nx">valid</span><span class="p">()</span>
+              <span class="nx">@trigger</span> <span class="s">&quot;add:new:page&quot;</span><span class="p">,</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Syphon</span><span class="p">.</span><span class="nx">serialize</span> <span class="nx">@</span>
+
+
+    <span class="nx">App</span><span class="p">.</span><span class="nx">commands</span><span class="p">.</span><span class="nx">setHandler</span> <span class="s">&quot;show:add:new:page&quot;</span><span class="p">,</span><span class="nf">(opt)-&gt;</span>
+      <span class="k">new</span> <span class="nx">AddPageController</span> <span class="nx">opt</span>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>

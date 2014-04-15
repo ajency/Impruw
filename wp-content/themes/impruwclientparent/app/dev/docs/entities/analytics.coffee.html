@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>analytics.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../doc-style.css" />
+  <script src="../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../", thisFile = "Applications/XAMPP/xamppfiles/htdocs/impruw/wp-content/themes/impruwclientparent/app/dev//entities/analytics.coffee", defaultSidebar = true;
+  </script>
+  <script src="../doc-script.js"></script>
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container"><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+          <h1>analytics.coffee</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1">&#182;</a>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre><span class="nx">define</span> <span class="p">[</span><span class="s">&#39;app&#39;</span>
+    <span class="s">&#39;backbone&#39;</span><span class="p">],</span><span class="nf">(App, Backbone)-&gt;</span>
+
+    <span class="nx">App</span><span class="p">.</span><span class="nx">module</span> <span class="s">&quot;Entities.Analytics&quot;</span><span class="p">,</span> <span class="nf">(Analytics, App, Backbone, Marionette, $, _)-&gt;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2">&#182;</a>
+</div>
+<p>Analytics Model</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="k">class</span> <span class="nx">AnalyticsModel</span> <span class="k">extends</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Model</span>
+
+        <span class="nx">parse</span> <span class="o">:</span><span class="nf">(resp)-&gt;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+</div>
+<p>set the id for the model</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+          <span class="nx">resp</span>
+           
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
+</div>
+<p>Analytics Collection</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="k">class</span> <span class="nx">AnalyticsCollection</span> <span class="k">extends</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Collection</span>
+
+        <span class="nv">model : </span><span class="nx">AnalyticsModel</span>
+
+        <span class="nx">url</span> <span class="o">:</span><span class="nf">-&gt;</span>
+          <span class="s">&quot;</span><span class="si">#{</span><span class="nx">AJAXURL</span><span class="si">}</span><span class="s">?action=get_analytics_data&quot;</span>
+
+      
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
+</div>
+<p>last 7 days analytics data</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="nv">weeklyAnalytics = </span><span class="k">new</span> <span class="nx">AnalyticsCollection</span>
+      <span class="nv">weeklyAnalytics.comparator = </span><span class="s">&#39;date&#39;</span> 
+      
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6">&#182;</a>
+</div>
+<p>Overview chart analytics</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="nv">overViewAnalytics  = </span><span class="k">new</span> <span class="nx">AnalyticsCollection</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7">&#182;</a>
+</div>
+<p>traffic analytics</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="nv">trafficAnalytics = </span><span class="k">new</span> <span class="nx">AnalyticsCollection</span>
+
+
+      
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8">&#182;</a>
+</div>
+<p>Public API for antity</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="nv">API = </span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9">&#182;</a>
+</div>
+<p>get the analytics data</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="nx">getWeeklyAnalyticsData</span><span class="o">:</span><span class="p">()</span><span class="nf">-&gt;</span>
+          <span class="nv">date = </span><span class="k">new</span> <span class="nb">Date</span><span class="p">()</span>
+          <span class="nv">endDate = </span><span class="nb">Date</span><span class="p">.</span><span class="nx">UTC</span> <span class="nx">date</span><span class="p">.</span><span class="nx">getFullYear</span><span class="p">(),</span><span class="nx">date</span><span class="p">.</span><span class="nx">getMonth</span><span class="p">(),</span><span class="nx">date</span><span class="p">.</span><span class="nx">getDate</span><span class="p">()</span>
+          <span class="nv">startDate = </span><span class="nx">endDate</span> <span class="o">-</span> <span class="p">(</span><span class="mi">7</span> <span class="o">*</span> <span class="mi">86400000</span><span class="p">)</span>
+          <span class="nv">metrices = </span><span class="s">&#39;ga:newVisits,ga:visits,ga:visitBounceRate,ga:pageviews,ga:pageviewsPerVisit,ga:uniquePageviews,ga:visitors,ga:timeOnSite&#39;</span>
+          <span class="nx">weeklyAnalytics</span><span class="p">.</span><span class="nx">fetch</span>
+                    <span class="nv">reset : </span><span class="kc">true</span>
+                    <span class="nv">data :</span>
+                      <span class="nv">start_date  : </span><span class="nx">startDate</span>
+                      <span class="nv">end_date  : </span><span class="nx">endDate</span>
+                      <span class="nv">metrices  : </span><span class="nx">metrices</span>
+                      <span class="nv">ids         : </span><span class="mi">81856773</span>
+          <span class="nx">weeklyAnalytics</span>
+
+
+        <span class="nx">getAnalyticsData</span><span class="o">:</span><span class="nf">-&gt;</span>
+
+      <span class="nx">App</span><span class="p">.</span><span class="nx">reqres</span><span class="p">.</span><span class="nx">setHandler</span> <span class="s">&quot;get:weekly:data&quot;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+        <span class="nx">API</span><span class="p">.</span><span class="nx">getWeeklyAnalyticsData</span><span class="p">()</span>
+
+      <span class="nx">App</span><span class="p">.</span><span class="nx">reqres</span><span class="p">.</span><span class="nx">setHandler</span> <span class="s">&quot;get:site:analytics:data&quot;</span><span class="p">,</span><span class="nf">(startDate, endDate)-&gt;</span>
+        <span class="nx">API</span><span class="p">.</span><span class="nx">getAnalyticsData</span> <span class="nx">startDate</span><span class="p">,</span> <span class="nx">endDate</span>
+      
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>

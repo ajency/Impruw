@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>views.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../../../doc-style.css" />
+  <script src="../../../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../../../", thisFile = "Applications/XAMPP/xamppfiles/htdocs/impruw/wp-content/themes/impruwclientparent/app/dev//apps/builder/site-builder/elements/menu/views.coffee", defaultSidebar = true;
+  </script>
+  <script src="../../../../../doc-script.js"></script>
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container"><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+          <h1>views.coffee</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1">&#182;</a>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre><span class="nx">define</span> <span class="p">[</span><span class="s">&#39;app&#39;</span><span class="p">],</span>
+    <span class="nf">(App)-&gt;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2">&#182;</a>
+</div>
+<p>Headerapp views</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="nx">App</span><span class="p">.</span><span class="nx">module</span> <span class="s">&#39;SiteBuilderApp.Element.Menu.Views&#39;</span><span class="p">,</span> <span class="nf">(Views, App, Backbone, Marionette, $, _)-&gt;</span>
+        
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+</div>
+<p>Menu item view</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="k">class</span> <span class="nx">Views</span><span class="p">.</span><span class="nx">MenuItemView</span> <span class="k">extends</span> <span class="nx">Marionette</span><span class="p">.</span><span class="nx">ItemView</span>
+
+          <span class="nv">template: </span><span class="s">&#39;&lt;a href=&quot;{{menu_item_link}}&quot;&gt;{{post_title}}&lt;/a&gt;&#39;</span>
+
+          <span class="nx">initialize</span><span class="o">:</span><span class="nf">(opt = {})-&gt;</span>
+            <span class="nx">@listenTo</span> <span class="nx">@model</span><span class="p">,</span> <span class="s">&quot;change&quot;</span><span class="p">,</span> <span class="nx">@render</span>
+            <span class="k">super</span><span class="p">(</span><span class="nx">opt</span><span class="p">)</span>
+
+          <span class="nv">tagName : </span><span class="s">&#39;li&#39;</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
+</div>
+<p>Submenu view</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="k">class</span> <span class="nx">Views</span><span class="p">.</span><span class="nx">SubMenuView</span> <span class="k">extends</span> <span class="nx">Marionette</span><span class="p">.</span><span class="nx">CompositeView</span>
+          <span class="nv">itemView : </span><span class="nx">Views</span><span class="p">.</span><span class="nx">MenuItemView</span>
+          <span class="nv">itemViewContainer : </span><span class="s">&#39;ul.submenu&#39;</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
+</div>
+<p>Menu view</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="k">class</span> <span class="nx">Views</span><span class="p">.</span><span class="nx">MenuView</span> <span class="k">extends</span> <span class="nx">Marionette</span><span class="p">.</span><span class="nx">CompositeView</span>
+          <span class="nv">tagName : </span><span class="s">&#39;ul&#39;</span>
+          <span class="nv">className : </span><span class="s">&#39;nav&#39;</span>
+          <span class="nv">itemView : </span><span class="nx">Views</span><span class="p">.</span><span class="nx">MenuItemView</span>
+
+          <span class="nv">events : </span>
+            <span class="s">&#39;click&#39;</span>   <span class="o">:</span> <span class="nf">-&gt;</span> <span class="nx">@trigger</span> <span class="s">&quot;open:menu:manager&quot;</span>
+            <span class="s">&#39;click a&#39;</span>   <span class="o">:</span><span class="nf">(evt)-&gt;</span> <span class="nx">evt</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">()</span> 
+          
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6">&#182;</a>
+</div>
+<p>on render set the class name</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+          <span class="nx">onRender</span><span class="o">:</span><span class="nf">-&gt;</span>
+            <span class="nx">@$el</span><span class="p">.</span><span class="nx">removeClass</span><span class="p">()</span>
+            <span class="nx">@$el</span><span class="p">.</span><span class="nx">addClass</span> <span class="nx">@className</span>
+            <span class="nx">@$el</span><span class="p">.</span><span class="nx">addClass</span> <span class="nx">_</span><span class="p">.</span><span class="nx">slugify</span> <span class="nx">@options</span><span class="p">.</span><span class="nx">templateClass</span>
+            <span class="nx">@onSetJustified</span> <span class="nx">@options</span><span class="p">.</span><span class="nx">prop</span><span class="p">.</span><span class="nx">justified</span>
+            
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7">&#182;</a>
+</div>
+<p>before rendering the view sort the collection
+this helps to reorder the menu items before
+the collection is rendered with item views</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+          <span class="nx">onBeforeRender</span><span class="o">:</span><span class="nf">-&gt;</span>
+            <span class="nx">@collection</span><span class="p">.</span><span class="nx">sort</span><span class="p">()</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8">&#182;</a>
+</div>
+<p>set alignment</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+          <span class="nx">setAlignment</span><span class="o">:</span><span class="nf">(align)=&gt;</span>
+            <span class="nx">@$el</span><span class="p">.</span><span class="nx">removeClass</span> <span class="s">&#39;navbar-left navbar-center navbar-right&#39;</span>
+            <span class="nx">@$el</span><span class="p">.</span><span class="nx">addClass</span> <span class="s">&quot;navbar-</span><span class="si">#{</span><span class="nx">align</span><span class="si">}</span><span class="s">&quot;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9">&#182;</a>
+</div>
+<p>set justified</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+          <span class="nx">onSetJustified</span><span class="o">:</span><span class="nf">(val)-&gt;</span>
+            <span class="k">if</span> <span class="nx">val</span> <span class="o">is</span> <span class="kc">true</span>
+              <span class="nx">@$el</span><span class="p">.</span><span class="nx">addClass</span> <span class="s">&quot;nav-justified&quot;</span>
+            <span class="k">else</span>
+              <span class="nx">@$el</span><span class="p">.</span><span class="nx">removeClass</span> <span class="s">&quot;nav-justified&quot;</span>
+
+      <span class="nx">App</span><span class="p">.</span><span class="nx">SiteBuilderApp</span><span class="p">.</span><span class="nx">Element</span><span class="p">.</span><span class="nx">Menu</span><span class="p">.</span><span class="nx">Views</span>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>

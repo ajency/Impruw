@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>controller.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../", thisFile = "Applications/XAMPP/xamppfiles/htdocs/impruw/wp-content/themes/impruwclientparent/app/dev//apps/my-profile/edit/controller.coffee", defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container"><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+          <h1>controller.coffee</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1">&#182;</a>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre><span class="nx">define</span> <span class="p">[</span><span class="s">&#39;app&#39;</span><span class="p">,</span> <span class="s">&#39;controllers/base-controller&#39;</span>
+    <span class="s">&#39;apps/my-profile/edit/views&#39;</span><span class="p">,</span> <span class="s">&#39;entities/user&#39;</span><span class="p">],</span> <span class="nf">(App, AppController)-&gt;</span>
+
+  <span class="nx">App</span><span class="p">.</span><span class="nx">module</span> <span class="s">&#39;MyProfileApp.Edit&#39;</span><span class="p">,</span> <span class="nf">(Edit, App, Backbone, Marionette, $, _)-&gt;</span>
+
+    <span class="k">class</span> <span class="nx">Edit</span><span class="p">.</span><span class="nx">Controller</span> <span class="k">extends</span> <span class="nx">AppController</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2">&#182;</a>
+</div>
+<p>initiliaze controller</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="nx">initialize</span><span class="o">:</span><span class="p">()</span><span class="nf">-&gt;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+</div>
+<p>user = App.request "get:user:model"</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+        <span class="vi">@layout = </span><span class="nx">@getLayout</span><span class="p">()</span>
+
+        <span class="nx">@listenTo</span> <span class="nx">@layout</span><span class="p">,</span> <span class="s">&quot;show&quot;</span><span class="p">,</span> <span class="o">=&gt;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
+</div>
+<p>show general form view</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+          <span class="nx">@layout</span><span class="p">.</span><span class="nx">generalFormRegion</span><span class="p">.</span><span class="nx">show</span> <span class="nx">@getGeneralFormView</span><span class="p">()</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
+</div>
+<p>show password field view</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+          <span class="nx">@layout</span><span class="p">.</span><span class="nx">passwordFormRegion</span><span class="p">.</span><span class="nx">show</span> <span class="nx">@getPasswordFormView</span><span class="p">()</span>
+          
+
+        <span class="nx">@</span><span class="kc">on</span> <span class="s">&quot;itemview:generalform:submit:clicked&quot;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;general form submitted&quot;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6">&#182;</a>
+</div>
+<p>trigger set:active:menu event</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="nx">App</span><span class="p">.</span><span class="nx">vent</span><span class="p">.</span><span class="nx">trigger</span> <span class="s">&quot;set:active:menu&quot;</span><span class="p">,</span> <span class="s">&#39;my-profile&#39;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7">&#182;</a>
+</div>
+<p>show main layout</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="nx">@show</span> <span class="nx">@layout</span>
+
+        
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8">&#182;</a>
+</div>
+<p>get layout</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="nv">getLayout : </span><span class="nf">-&gt;</span>
+        <span class="k">new</span> <span class="nx">Edit</span><span class="p">.</span><span class="nx">View</span><span class="p">.</span><span class="nx">Layout</span>
+
+
+      <span class="nv">getGeneralFormView : </span><span class="nf">-&gt;</span>
+        <span class="k">new</span> <span class="nx">Edit</span><span class="p">.</span><span class="nx">View</span><span class="p">.</span><span class="nx">GeneralForm</span> 
+              <span class="nv">model : </span><span class="nx">@userProfile</span> 
+
+
+      <span class="nv">getPasswordFormView : </span><span class="nf">-&gt;</span>
+        <span class="k">new</span> <span class="nx">Edit</span><span class="p">.</span><span class="nx">View</span><span class="p">.</span><span class="nx">PasswordForm</span>
+
+
+
+      
+  <span class="nx">App</span><span class="p">.</span><span class="nx">MyProfileApp</span><span class="p">.</span><span class="nx">Edit</span><span class="p">.</span><span class="nx">Controller</span>    
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>
