@@ -1,27 +1,33 @@
 define ['app'
-		'text!apps/menu-manager/show/templates/menucollection.html'
-		'text!apps/menu-manager/show/templates/menumanager.html'
-		'text!apps/menu-manager/show/templates/menuitem.html'], (App, menucollectionTpl, menumanagerTpl, menuItemTpl)->
+		'text!apps/menu-manager/list/templates/menuitem.html'], (App,menuItemTpl)->
 	
 			App.module 'MenuManager.List.Views', (Views, App)->
 
-				class Views.MenuItemView extends Marionette.ItemView
+				class MenuItemView extends Marionette.ItemView
 
-					#initialize:->
-						#@listenTo @model, "change", @render
 
-					template : '<div>menuItemTpl</div>'
+					template : menuItemTpl
 
 					tagName : 'li'
 
 					className : 'list-group-item'
 
-					#events:
-						#'click .update-menu-item' : -> 
-							#App.vent.trigger "itemview:update:menu:item", @.model, Backbone.Syphon.serialize @
-
-					#onRender:->
-						#@$el.attr 'id', 'item-' + @model.get 'ID'
+					
 
 
-		
+				# main menu manager view
+				class Views.MenuCollectionView extends Marionette.CompositeView
+
+
+					template : '<div class="panel panel-default">
+										<div class="panel-heading">
+											<h3 class="panel-title">{{menu_name}}</h3>
+										</div>
+										<ol class="list-group sortable-menu-items ui-sortable"></ol>
+								</div>'
+
+					itemView : MenuItemView
+
+					itemViewContainer : 'ol.sortable-menu-items'
+
+					className : 'col-md-6 aj-imp-menu-item-list'

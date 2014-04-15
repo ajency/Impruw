@@ -10,10 +10,15 @@ define(['app', 'controllers/base-controller', 'apps/menu-manager/list/views'], f
         return Controller.__super__.constructor.apply(this, arguments);
       }
 
-      Controller.prototype.initialize = function(opts) {};
+      Controller.prototype.initialize = function(opts) {
+        var menucollection, view;
+        this.menucollection = menucollection = opts.collection;
+        this.view = view = this._getView(menucollection);
+        return this.show(this.view);
+      };
 
-      Controller.prototype.getView = function(menucollection) {
-        return new List.Views.MenuItemView({
+      Controller.prototype._getView = function(menucollection) {
+        return new List.Views.MenuCollectionView({
           collection: menucollection
         });
       };

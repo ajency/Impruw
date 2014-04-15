@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
 
 define(["app", 'backbone'], function(App, Backbone) {
   return App.module("Entities.Menus", function(Menus, App, Backbone, Marionette, $, _) {
-    var API, menuCollection;
+    var API, menuCollection, menuitemCollection;
     Menus.MenuItemModel = (function(_super) {
       __extends(MenuItemModel, _super);
 
@@ -17,7 +17,8 @@ define(["app", 'backbone'], function(App, Backbone) {
         post_title: '',
         menu_item_link: '',
         menu_item_parent: 0,
-        order: 0
+        order: 0,
+        menu_id: 2
       };
 
       MenuItemModel.prototype.name = 'menu-item';
@@ -47,7 +48,6 @@ define(["app", 'backbone'], function(App, Backbone) {
             return model.set('order', index + 1);
           };
         })(this));
-        console.log(newOrder);
         this.trigger("menu:order:updated");
         return this.syncToServer(newOrder, menuId);
       };
@@ -79,6 +79,7 @@ define(["app", 'backbone'], function(App, Backbone) {
       return MenuItemCollection;
 
     })(Backbone.Collection);
+    menuitemCollection = new Menus.MenuItemCollection;
     Menus.MenuModel = (function(_super) {
       __extends(MenuModel, _super);
 

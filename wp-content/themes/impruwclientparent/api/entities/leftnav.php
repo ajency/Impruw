@@ -366,13 +366,17 @@ add_action ( 'wp_ajax_delete-element', 'delete_element_model' );
 /**
  */
 function create_menu_item() {
-	wp_send_json ( array (
-			'code' => 'OK',
-			'data' => array (
-					'ID' => rand ( 100, 300 ),
-					'order' => 8 
-			) 
-	) );
+    
+    $formdata = array(
+                'menu-item-title' => $_POST['post_title'],
+                'menu-item-classes' => '' ,
+                'menu-item-url' => $_POST['menu_item_link'],
+                'menu-item-status' => 'publish'
+    );
+       
+    wp_update_nav_menu_item($_POST['menu_id'], 0,$formdata);
+      
+    wp_send_json ( array ('code' => 'OK','data' => $formdata ));
 }
 add_action ( 'wp_ajax_create-menu-item', 'create_menu_item' );
 

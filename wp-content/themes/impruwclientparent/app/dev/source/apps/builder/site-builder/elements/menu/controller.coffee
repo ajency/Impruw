@@ -46,8 +46,10 @@ define ['app','apps/builder/site-builder/elements/menu/views','apps/builder/site
 							view = @_getMenuView itemCollection,templateClass
 
 							@listenTo itemCollection, "menu:order:updated", view.render
-
-							@listenTo view, "open:menu:manager", ->
-								App.navigate "menu-manager", trigger : true
+							@listenTo view, "open:menu:manager", =>
+								
+								menuId = @layout.model.get 'menu_id'
+								
+								App.execute "menu-manager", menuId
 
 							@layout.elementRegion.show view
