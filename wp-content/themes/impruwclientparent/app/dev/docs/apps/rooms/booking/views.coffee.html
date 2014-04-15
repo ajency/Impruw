@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>views.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../", thisFile = "Applications/XAMPP/xamppfiles/htdocs/impruw/wp-content/themes/impruwclientparent/app/dev//apps/rooms/booking/views.coffee", defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container"><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+          <h1>views.coffee</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1">&#182;</a>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre><span class="nx">define</span> <span class="p">[</span><span class="s">&#39;app&#39;</span>
+    <span class="s">&#39;text!apps/rooms/add/templates/add-room.html&#39;</span><span class="p">],</span>
+    <span class="nf">(App, addRoomTpl)-&gt;</span>
+
+      <span class="nx">App</span><span class="p">.</span><span class="nx">module</span> <span class="s">&#39;RoomsApp.Booking.View&#39;</span><span class="p">,</span> <span class="nf">(View, App, Backbone, Marionette, $, _)-&gt;</span>
+
+        <span class="k">class</span> <span class="nx">View</span><span class="p">.</span><span class="nx">BookingRoomLayout</span> <span class="k">extends</span> <span class="nx">Marionette</span><span class="p">.</span><span class="nx">Layout</span>
+
+          <span class="nv">className : </span><span class="s">&#39;row room-booking&#39;</span>
+            
+          <span class="nv">template : </span><span class="s">&#39;&lt;div class=&quot;col-md-8 room-booking-calender&quot; id=&quot;calendar-region&quot;&gt;&lt;/div&gt;</span>
+<span class="s">                &lt;div class=&quot;col-md-0 room-booking-data&quot; id=&quot;plans-details-region&quot;&gt;&lt;/div&gt;&#39;</span>
+
+          <span class="nv">regions:</span>
+            <span class="nv">calendarRegion : </span><span class="s">&#39;#calendar-region&#39;</span>
+            <span class="nv">plansDetailsRegion : </span><span class="s">&#39;#plans-details-region&#39;</span>
+
+
+        <span class="k">class</span> <span class="nx">View</span><span class="p">.</span><span class="nx">CalendarView</span> <span class="k">extends</span> <span class="nx">Marionette</span><span class="p">.</span><span class="nx">CompositeView</span>
+
+          <span class="nv">template : </span><span class="s">&#39;&lt;h4&gt;</span>
+<span class="s">                  &lt;span class=&quot;glyphicon glyphicon-calendar&quot;&gt;&lt;/span&gt;</span>
+<span class="s">                  Monthly Calendar</span>
+<span class="s">                  &lt;span class=&quot;excerpt&quot;&gt;Choose the dates you want to add availability for.&lt;/span&gt;</span>
+<span class="s">                &lt;/h4&gt;</span>
+<span class="s">                &lt;div id=&quot;room-booking-calendar&quot;&gt;&lt;/div&gt;</span>
+<span class="s">                &lt;br&gt;&lt;br&gt;&lt;br&gt;</span>
+<span class="s">                &lt;ul class=&quot;list-inline daterange-legends&quot;&gt;</span>
+<span class="s">                  {{#dateRanges}}</span>
+<span class="s">                    &lt;li&gt;&lt;span class=&quot;{{class}}&quot;&gt;&amp;nbsp;&lt;/span&gt;{{name}}&lt;/li&gt;</span>
+<span class="s">                  {{/dateRanges}}</span>
+<span class="s">                &lt;/ul&gt;&#39;</span>
+
+          <span class="nx">onShow</span><span class="o">:</span><span class="nf">-&gt;</span>
+            <span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span> <span class="s">&#39;#room-booking-calendar&#39;</span>
+              <span class="p">.</span><span class="nx">datepicker</span>
+                <span class="nv">inline: </span><span class="kc">true</span>
+                <span class="nv">numberOfMonths : </span><span class="mi">3</span>
+                <span class="nv">dateFormat : </span><span class="s">&#39;yy-mm-dd&#39;</span>
+                <span class="nv">onSelect : </span><span class="nx">@triggerOnSelect</span>
+                <span class="nv">beforeShowDay: </span><span class="nx">@highlightDaysByDateRange</span>
+                <span class="nv">onChangeMonthYear : </span><span class="nx">@displayColorMonthChange</span>
+
+            <span class="nx">@setDateRangeColor</span><span class="p">()</span>
+            <span class="nx">@removeHightlight</span><span class="p">()</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2">&#182;</a>
+</div>
+<p>bind booking updated event</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+            <span class="nx">App</span><span class="p">.</span><span class="nx">vent</span><span class="p">.</span><span class="nx">on</span> <span class="s">&quot;booking:updated&quot;</span><span class="p">,</span> <span class="nx">@onBookingUpdated</span>
+
+          <span class="nx">onClose</span> <span class="o">:</span><span class="nf">-&gt;</span>
+              <span class="nx">@clearPrevPopover</span><span class="p">()</span> 
+
+          <span class="nx">displayColorMonthChange</span> <span class="o">:</span><span class="nf">(year, month, inst) =&gt;</span>
+            
+            <span class="nx">_</span><span class="p">.</span><span class="nx">delay</span> <span class="o">=&gt;</span>
+              <span class="nx">@setDateRangeColor</span><span class="p">()</span>
+              <span class="nx">@removeHightlight</span><span class="p">()</span>
+            <span class="p">,</span> <span class="mi">10</span>
+
+          <span class="nx">removeHightlight</span> <span class="o">:=&gt;</span>
+            <span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;#room-booking-calendar td.ui-datepicker-today a.ui-state-highlight&#39;</span><span class="p">).</span><span class="nx">removeClass</span> <span class="s">&#39;ui-state-highlight&#39;</span>
+            <span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;#room-booking-calendar td.ui-datepicker-today a.ui-state-active&#39;</span><span class="p">).</span><span class="nx">removeClass</span> <span class="s">&#39;ui-state-active&#39;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+</div>
+<p>sets a background color for daterange</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+          <span class="nx">setDateRangeColor</span><span class="o">:=&gt;</span>
+            <span class="nv">daterangeCollection = </span><span class="nx">App</span><span class="p">.</span><span class="nx">request</span> <span class="s">&quot;get:daterange:collection&quot;</span>
+            <span class="nx">_</span><span class="p">.</span><span class="nx">each</span> <span class="nx">daterangeCollection</span><span class="p">.</span><span class="nx">models</span> <span class="p">,</span> <span class="nf">(daterangeModel,index) -&gt;</span>
+              <span class="nv">dateRangeName = </span><span class="nx">daterangeModel</span><span class="p">.</span> <span class="nx">get</span> <span class="s">&#39;daterange_name&#39;</span>
+              <span class="nv">dateRangeColour = </span><span class="nx">daterangeModel</span><span class="p">.</span> <span class="nx">get</span> <span class="s">&#39;daterange_colour&#39;</span>
+              <span class="nv">className = </span><span class="nx">_</span><span class="p">.</span><span class="nx">slugify</span> <span class="nx">dateRangeName</span>
+              <span class="nx">$</span><span class="p">(</span><span class="s">&quot;.</span><span class="si">#{</span><span class="nx">className</span><span class="si">}</span><span class="s">&quot;</span><span class="p">).</span><span class="nx">css</span><span class="p">({</span><span class="s">&quot;background-color&quot;</span> <span class="o">:</span> <span class="nx">dateRangeColour</span><span class="p">})</span>
+
+
+          <span class="nx">triggerOnSelect</span><span class="o">:</span><span class="nf">(date, selected)=&gt;</span>
+            <span class="nx">@trigger</span> <span class="s">&quot;date:selected&quot;</span><span class="p">,</span> <span class="nx">date</span>
+            
+            <span class="nx">_</span><span class="p">.</span><span class="nx">delay</span> <span class="o">=&gt;</span>
+              <span class="nx">@setDateRangeColor</span><span class="p">()</span>
+              <span class="nx">@showPopover</span><span class="p">(</span><span class="nx">date</span><span class="p">)</span>
+            <span class="p">,</span> <span class="mi">10</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
+</div>
+<p>show popover</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+          <span class="nx">showPopover</span><span class="o">:</span><span class="nf">(date)=&gt;</span>
+            <span class="nv">self = </span><span class="nx">@</span>
+            <span class="nv">td = </span><span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;td.ui-datepicker-current-day&#39;</span><span class="p">)</span>
+            <span class="nx">@clearPrevPopover</span><span class="p">()</span>
+            
+            <span class="nx">td</span><span class="p">.</span><span class="nx">popover</span> 
+              <span class="nv">content : </span><span class="nx">@getAvailabilityMarkup</span><span class="p">(</span><span class="nx">date</span><span class="p">)</span>
+              <span class="nv">html : </span><span class="kc">true</span>
+              <span class="nv">placement : </span><span class="s">&#39;bottom&#39;</span>
+              <span class="nv">container : </span><span class="s">&#39;body&#39;</span>
+
+            <span class="nx">td</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;shown.bs.popover&#39;</span><span class="p">,</span><span class="nf">(t,r,p)-&gt;</span>
+              <span class="nv">value = </span><span class="nb">parseInt</span> <span class="nx">$</span><span class="p">(</span><span class="s">&#39;#booking-slider&#39;</span><span class="p">).</span><span class="nx">attr</span> <span class="s">&#39;data-value&#39;</span>
+              <span class="nx">$</span><span class="p">(</span><span class="s">&#39;#booking-slider&#39;</span><span class="p">).</span><span class="nx">slider</span>
+                          <span class="nv">value : </span><span class="nx">value</span>
+                          <span class="nv">min : </span><span class="mi">0</span>
+                          <span class="nv">max : </span><span class="mi">60</span>
+                          <span class="nv">step : </span><span class="mi">30</span>
+                          <span class="nv">stop : </span><span class="nx">self</span><span class="p">.</span><span class="nx">changeAvaliability</span>
+
+            <span class="nx">td</span><span class="p">.</span><span class="nx">popover</span> <span class="s">&#39;show&#39;</span>
+
+            <span class="nx">$</span><span class="p">(</span><span class="s">&#39;.booking-popover-close&#39;</span><span class="p">).</span><span class="nx">on</span> <span class="s">&#39;click&#39;</span><span class="p">,</span> <span class="o">=&gt;</span>
+                      <span class="nx">@clearPrevPopover</span><span class="p">()</span>
+            
+            <span class="vi">@popovertd = </span><span class="nx">td</span>
+
+          <span class="nx">changeAvaliability</span><span class="o">:</span><span class="nf">(event, ui)=&gt;</span>
+            <span class="nv">value = </span><span class="s">&#39;availabile&#39;</span> <span class="k">if</span> <span class="nx">ui</span><span class="p">.</span><span class="nx">value</span> <span class="o">is</span> <span class="mi">0</span>
+            <span class="nv">value = </span><span class="s">&#39;semi-availabile&#39;</span> <span class="k">if</span> <span class="nx">ui</span><span class="p">.</span><span class="nx">value</span> <span class="o">is</span> <span class="mi">30</span>
+            <span class="nv">value = </span><span class="s">&#39;unavailabile&#39;</span> <span class="k">if</span> <span class="nx">ui</span><span class="p">.</span><span class="nx">value</span> <span class="o">is</span> <span class="mi">60</span>
+            <span class="nv">dateTime = </span><span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;#room-booking-calendar&#39;</span><span class="p">).</span><span class="nx">datepicker</span> <span class="s">&#39;getDate&#39;</span>
+            <span class="nv">date = </span><span class="nx">$</span><span class="p">.</span><span class="nx">datepicker</span><span class="p">.</span><span class="nx">formatDate</span><span class="p">(</span> <span class="s">&quot;yy-mm-dd&quot;</span><span class="p">,</span> <span class="nx">dateTime</span> <span class="p">)</span>
+            <span class="nx">$</span><span class="p">(</span><span class="s">&#39;#booking-slider&#39;</span><span class="p">).</span><span class="nx">slider</span> <span class="s">&#39;disable&#39;</span>
+            <span class="nx">@trigger</span> <span class="s">&quot;change:availability&quot;</span><span class="p">,</span> <span class="nx">value</span><span class="p">,</span> <span class="nx">date</span>
+
+          <span class="nx">onBookingUpdated</span><span class="o">:=&gt;</span>
+            <span class="nx">$</span><span class="p">(</span><span class="s">&#39;#booking-slider&#39;</span><span class="p">).</span><span class="nx">slider</span> <span class="s">&#39;enable&#39;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
+</div>
+<p>get availability markup</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+          <span class="nx">getAvailabilityMarkup</span><span class="o">:</span><span class="nf">(date)-&gt;</span>
+            <span class="nv">date = </span><span class="k">new</span> <span class="nb">Date</span> <span class="nx">date</span>
+            <span class="nv">currentStatus = </span><span class="nx">App</span><span class="p">.</span><span class="nx">request</span> <span class="s">&quot;get:avaliability:status&quot;</span><span class="p">,</span> <span class="nx">date</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">currentStatus</span>
+            <span class="nv">value = </span><span class="mi">0</span> <span class="k">if</span> <span class="nx">currentStatus</span> <span class="o">is</span> <span class="s">&#39;available&#39;</span>
+            <span class="nv">value = </span><span class="mi">30</span> <span class="k">if</span> <span class="nx">currentStatus</span> <span class="o">is</span> <span class="s">&#39;semi-available&#39;</span>
+            <span class="nv">value = </span><span class="mi">60</span> <span class="k">if</span> <span class="nx">currentStatus</span> <span class="o">is</span> <span class="s">&#39;unavailable&#39;</span>
+
+            <span class="nv">html = </span><span class="s">&quot;&lt;button type=&#39;button&#39; class=&#39;close booking-popover-close&#39; aria-hidden=&#39;true&#39;&gt;&amp;times;&lt;/button&gt;</span>
+<span class="s">                &lt;div class=&#39;booking-slider-pop&#39;&gt;</span>
+<span class="s">                  &lt;div id=&#39;booking-slider&#39; data-value=&#39;</span><span class="si">#{</span><span class="nx">value</span><span class="si">}</span><span class="s">&#39;&gt;&lt;/div&gt;</span>
+<span class="s">                  &lt;div class=&#39;row&#39;&gt;</span>
+<span class="s">                    &lt;div class=&#39;col-md-4 available&#39;&gt;&lt;span&gt;available&lt;/span&gt;&lt;/div&gt;</span>
+<span class="s">                    &lt;div class=&#39;col-md-4 semi-available&#39;&gt;&lt;span&gt;semi-available&lt;/span&gt;&lt;/div&gt;</span>
+<span class="s">                    &lt;div class=&#39;col-md-4 unavailable&#39;&gt;&lt;span&gt;unavailable&lt;/span&gt;&lt;/div&gt;</span>
+<span class="s">                  &lt;/div&gt;</span>
+<span class="s">                &lt;/div&gt;&quot;</span>
+            <span class="nx">html</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6">&#182;</a>
+</div>
+<p>remove previous popover</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+          <span class="nx">clearPrevPopover</span><span class="o">:</span><span class="nf">-&gt;</span>
+            <span class="k">return</span> <span class="k">if</span> <span class="o">not</span> <span class="nx">@popovertd</span> 
+            <span class="nx">$</span><span class="p">(</span><span class="s">&#39;.popover&#39;</span><span class="p">).</span><span class="nx">remove</span><span class="p">()</span>
+            <span class="k">delete</span> <span class="nx">@popovertd</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7">&#182;</a>
+</div>
+<p>highlight days</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+          <span class="nx">highlightDaysByDateRange</span><span class="o">:</span><span class="nf">(date)=&gt;</span>
+            <span class="nv">dateRangeName = </span><span class="nx">App</span><span class="p">.</span><span class="nx">request</span> <span class="s">&quot;get:daterange:name:for:date&quot;</span><span class="p">,</span> <span class="nx">date</span>
+            <span class="nv">range = </span><span class="s">&#39;&#39;</span>
+            <span class="nv">range = </span><span class="k">if</span> <span class="nx">dateRangeName</span> <span class="k">then</span> <span class="kc">true</span> <span class="k">else</span> <span class="kc">false</span>
+            <span class="nv">className = </span><span class="nx">_</span><span class="p">.</span><span class="nx">slugify</span> <span class="nx">dateRangeName</span>
+            <span class="nx">className</span> <span class="o">+=</span> <span class="s">&quot; &quot;</span> <span class="o">+</span> <span class="nx">App</span><span class="p">.</span><span class="nx">request</span> <span class="s">&quot;get:avaliability:status&quot;</span><span class="p">,</span> <span class="nx">date</span>
+            <span class="k">return</span> <span class="p">[</span><span class="nx">range</span><span class="p">,</span> <span class="nx">className</span><span class="p">]</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8">&#182;</a>
+</div>
+<p>Plans list view</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="k">class</span> <span class="nx">View</span><span class="p">.</span><span class="nx">PlansView</span> <span class="k">extends</span> <span class="nx">Marionette</span><span class="p">.</span><span class="nx">CompositeView</span>
+
+          <span class="nv">className : </span><span class="s">&#39;plans-view&#39;</span>
+
+          <span class="nv">itemView : </span><span class="nx">BookingPlanSingle</span>
+
+          <span class="nv">emptyView : </span><span class="nx">BookingPlanEmpty</span>
+
+          <span class="nv">template : </span><span class="s">&#39;&lt;div class=&quot;date-range&quot;&gt;</span>
+<span class="s">                  You have selected</span>
+<span class="s">                  &lt;b&gt;18 Jan to 16 Jan &lt;/b&gt;</span>
+<span class="s">                &lt;/div&gt;</span>
+<span class="s">                &lt;div class=&quot;room-plans&quot;&gt;</span>
+<span class="s">                      </span>
+<span class="s">                &lt;/div&gt;&#39;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9">&#182;</a>
+</div>
+<p>booking plans single view</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="k">class</span> <span class="nx">BookingPlanSingle</span> <span class="k">extends</span> <span class="nx">Marionette</span><span class="p">.</span><span class="nx">ItemView</span>
+
+          <span class="nv">template : </span><span class="s">&#39;&lt;div class=&quot;room-booking-plan&quot;&gt;</span>
+<span class="s">                  &lt;h5&gt;Plan 1 &lt;/h5&gt;</span>
+<span class="s">                  &lt;p&gt;Room. Lorem Ipsum is simply dummy text of the printing and typesetting industry.&lt;/p&gt;</span>
+<span class="s">                  &lt;div class=&quot;booking-detail&quot;&gt; </span>
+<span class="s">                    Max Adults:</span>
+<span class="s">                    &lt;span&gt;02&lt;/span&gt;</span>
+<span class="s">                  &lt;/div&gt;</span>
+<span class="s">                  &lt;div class=&quot;booking-detail&quot;&gt;</span>
+<span class="s">                    Max Children:</span>
+<span class="s">                    &lt;span&gt;  02&lt;/span&gt;</span>
+<span class="s">                  &lt;/div&gt;</span>
+<span class="s">                  &lt;div class=&quot;clearfix&quot;&gt;&lt;/div&gt;</span>
+<span class="s">                  &lt;h6&gt;Additional Charge&lt;/h6&gt;</span>
+<span class="s">                  &lt;div class=&quot;booking-detail&quot;&gt;</span>
+<span class="s">                    per extra Adult : $200</span>
+<span class="s">                  &lt;/div&gt;</span>
+<span class="s">                  &lt;div class=&quot;booking-detail&quot;&gt;</span>
+<span class="s">                     per extra Child : $152</span>
+<span class="s">                  &lt;/div&gt;</span>
+<span class="s">                  &lt;div class=&quot;clearfix&quot;&gt;&lt;/div&gt;</span>
+<span class="s">                  &lt;div class=&quot;booking-price&quot;&gt;WEEKDAYS &lt;b&gt;$300&lt;/b&gt;&lt;/div&gt;</span>
+<span class="s">                &lt;/div&gt;&#39;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-10" id="section-10">&#182;</a>
+</div>
+<p>booking plans if not plans are added</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="k">class</span> <span class="nx">BookingPlanEmpty</span> <span class="k">extends</span> <span class="nx">Marionette</span><span class="p">.</span><span class="nx">ItemView</span>
+
+          <span class="nv">template : </span><span class="s">&#39;&lt;p&gt;No Plans found for the selected date&lt;/p&gt;&#39;</span>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>

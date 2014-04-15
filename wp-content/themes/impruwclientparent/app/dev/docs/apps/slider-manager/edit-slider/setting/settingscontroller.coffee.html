@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>settingscontroller.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../../doc-style.css" />
+  <script src="../../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../../", thisFile = "Applications/XAMPP/xamppfiles/htdocs/impruw/wp-content/themes/impruwclientparent/app/dev//apps/slider-manager/edit-slider/setting/settingscontroller.coffee", defaultSidebar = true;
+  </script>
+  <script src="../../../../doc-script.js"></script>
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container"><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+          <h1>settingscontroller.coffee</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1">&#182;</a>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre><span class="nx">define</span> <span class="p">[</span><span class="s">&#39;app&#39;</span>
+    <span class="s">&#39;controllers/base-controller&#39;</span><span class="p">],</span> <span class="nf">(App, AppController)-&gt;</span>
+
+      <span class="nx">App</span><span class="p">.</span><span class="nx">module</span> <span class="s">&#39;SliderManager.EditSlider.Settings&#39;</span><span class="p">,</span> <span class="nf">(Settings, App, Backbone, Marionette, $, _)-&gt;</span>
+
+        <span class="k">class</span> <span class="nx">SettingsController</span> <span class="k">extends</span> <span class="nx">AppController</span>
+
+          <span class="nx">initialize</span><span class="o">:</span><span class="nf">(opt = {})-&gt;</span>
+
+            <span class="p">{</span> <span class="nx">@model</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">opt</span>
+
+            <span class="vi">@view = </span><span class="nv">view = </span><span class="nx">@_getUpdateSettingsView</span> <span class="nx">@model</span>
+
+            <span class="nx">@listenTo</span> <span class="nx">view</span><span class="p">,</span> <span class="s">&quot;update:slider:with:data&quot;</span><span class="p">,</span><span class="nf">(sliderData)=&gt;</span>
+              <span class="nx">@model</span><span class="p">.</span><span class="nx">set</span> <span class="nx">sliderData</span>
+              <span class="nx">@model</span><span class="p">.</span><span class="nx">save</span> 
+                <span class="nv">wait: </span><span class="kc">true</span>
+                <span class="nv">success : </span><span class="nx">@sliderSettingsUpdated</span>
+
+            <span class="nx">@show</span> <span class="nx">view</span>
+
+            <span class="nx">App</span><span class="p">.</span><span class="nx">navigate</span>  <span class="s">&quot;slider-manager/edit/</span><span class="si">#{</span><span class="nx">@sliderId</span><span class="si">}</span><span class="s">/settings&quot;</span>
+
+          <span class="nx">_getUpdateSettingsView</span><span class="o">:</span><span class="nf">(slider)-&gt;</span>
+            <span class="k">new</span> <span class="nx">CreateSliderView</span> <span class="nv">model : </span><span class="nx">slider</span>
+
+
+          <span class="nx">sliderSettingsUpdated</span><span class="o">:=&gt;</span>
+            <span class="nx">@view</span><span class="p">.</span><span class="nx">triggerMethod</span> <span class="s">&quot;settings:updated&quot;</span>
+
+
+        <span class="k">class</span> <span class="nx">CreateSliderView</span> <span class="k">extends</span> <span class="nx">Marionette</span><span class="p">.</span><span class="nx">ItemView</span>
+
+          <span class="nv">tagName : </span><span class="s">&#39;form&#39;</span>
+
+          <span class="nv">className : </span><span class="s">&#39;form-horizontal&#39;</span>
+
+          <span class="nv">template : </span><span class="s">&#39;&lt;div class=&quot;form-group&quot;&gt;</span>
+<span class="s">                  &lt;label class=&quot;col-md-2 control-label&quot;&gt;Slider Name&lt;/label&gt;</span>
+<span class="s">                  &lt;div class=&quot;col-md-10&quot;&gt;</span>
+<span class="s">                    &lt;input required type=&quot;text&quot; value=&quot;{{title}}&quot; name=&quot;title&quot; class=&quot;form-control&quot; placeholder=&quot;Name Your Slider&quot; /&gt;</span>
+<span class="s">                  &lt;/div&gt;</span>
+<span class="s">                &lt;/div&gt;</span>
+<span class="s">                &lt;div class=&quot;form-group&quot;&gt;</span>
+<span class="s">                  &lt;div class=&quot;col-md-10 col-md-offset-2&quot;&gt;</span>
+<span class="s">                    &lt;button type=&quot;button&quot; class=&quot;btn btn-primary update-slider&quot;&gt;Update&lt;/button&gt;</span>
+<span class="s">                  &lt;/div&gt;</span>
+<span class="s">                &lt;/div&gt;&#39;</span>
+
+          <span class="nv">events : </span>
+            <span class="s">&#39;click button.cancel-new-slider&#39;</span><span class="o">:</span> <span class="nf">-&gt;</span> <span class="nx">@trigger</span> <span class="s">&quot;cancel:create:slider&quot;</span>
+            <span class="s">&#39;click button.update-slider&#39;</span><span class="o">:</span> <span class="nf">(e)-&gt;</span>
+                <span class="k">if</span> <span class="nx">@$el</span><span class="p">.</span><span class="nx">valid</span><span class="p">()</span>
+                  <span class="nv">data = </span><span class="nx">Backbone</span><span class="p">.</span><span class="nx">Syphon</span><span class="p">.</span><span class="nx">serialize</span> <span class="nx">@</span>
+                  <span class="nx">data</span><span class="p">[</span><span class="s">&#39;alias&#39;</span><span class="p">]</span>   <span class="o">=</span> <span class="nx">_</span><span class="p">.</span><span class="nx">slugify</span> <span class="nx">data</span><span class="p">[</span><span class="s">&#39;title&#39;</span><span class="p">]</span>
+                  <span class="nx">data</span><span class="p">[</span><span class="s">&#39;shortcode&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;[rev_slider </span><span class="si">#{</span><span class="nx">data</span><span class="p">[</span><span class="s">&#39;alias&#39;</span><span class="p">]</span><span class="si">}</span><span class="s">]&quot;</span>
+                  <span class="nx">@trigger</span> <span class="s">&quot;update:slider:with:data&quot;</span><span class="p">,</span> <span class="nx">data</span>
+
+          <span class="nx">onSettingsUpdated</span><span class="o">:</span><span class="nf">-&gt;</span>
+            <span class="nx">@$el</span><span class="p">.</span><span class="nx">prepend</span> <span class="s">&#39;&lt;div class=&quot;alert alert-success&quot;&gt;Updated successfully&lt;/div&gt;&#39;</span>
+
+
+        <span class="nx">App</span><span class="p">.</span><span class="nx">commands</span><span class="p">.</span><span class="nx">setHandler</span> <span class="s">&#39;show:slider:edit:settings&#39;</span><span class="p">,</span> <span class="nf">(opts = {})-&gt;</span>
+          <span class="k">new</span> <span class="nx">SettingsController</span> <span class="nx">opts</span>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>

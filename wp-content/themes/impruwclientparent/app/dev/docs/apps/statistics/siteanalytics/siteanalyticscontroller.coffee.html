@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>siteanalyticscontroller.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../", thisFile = "Applications/XAMPP/xamppfiles/htdocs/impruw/wp-content/themes/impruwclientparent/app/dev//apps/statistics/siteanalytics/siteanalyticscontroller.coffee", defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container"><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+          <h1>siteanalyticscontroller.coffee</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1">&#182;</a>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre><span class="nx">define</span> <span class="p">[</span><span class="s">&#39;app&#39;</span><span class="p">,</span> <span class="s">&#39;controllers/base-controller&#39;</span><span class="p">,</span><span class="s">&#39;apps/statistics/siteanalytics/views&#39;</span><span class="p">],</span> <span class="nf">(App, AppController)-&gt;</span>
+
+  <span class="nx">App</span><span class="p">.</span><span class="nx">module</span> <span class="s">&#39;DashboardApp.Statistics.SiteAnalytics&#39;</span><span class="p">,</span> <span class="nf">(SiteAnalytics, App, Backbone, Marionette, $, _)-&gt;</span>
+
+    <span class="k">class</span> <span class="nx">SiteAnalyticsController</span> <span class="k">extends</span> <span class="nx">AppController</span>
+
+      <span class="nx">initialize</span><span class="o">:</span><span class="nf">-&gt;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2">&#182;</a>
+</div>
+<p>get the weekly collection</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="nv">date = </span><span class="k">new</span> <span class="nb">Date</span><span class="p">()</span>
+        <span class="nv">endDate = </span><span class="nb">Date</span><span class="p">.</span><span class="nx">UTC</span> <span class="nx">date</span><span class="p">.</span><span class="nx">getFullYear</span><span class="p">(),</span><span class="nx">date</span><span class="p">.</span><span class="nx">getMonth</span><span class="p">(),</span><span class="nx">date</span><span class="p">.</span><span class="nx">getDate</span><span class="p">()</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+</div>
+<p>set start date one month ago</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="nv">startDate = </span><span class="nx">endDate</span> <span class="o">-</span> <span class="p">(</span><span class="mi">30</span> <span class="o">*</span> <span class="mi">86400000</span><span class="p">)</span>
+        
+        <span class="vi">@collection = </span><span class="nx">App</span><span class="p">.</span><span class="nx">request</span> <span class="s">&quot;get:site:analytics:data&quot;</span><span class="p">,</span> <span class="nx">startDate</span><span class="p">,</span> <span class="nx">endDate</span>
+
+        <span class="vi">@layout = </span><span class="nv">layout = </span><span class="nx">@_getLayout</span><span class="p">()</span>
+
+        <span class="nx">@listenTo</span> <span class="nx">layout</span><span class="p">,</span> <span class="s">&quot;show&quot;</span><span class="p">,</span> <span class="o">=&gt;</span>
+          <span class="nx">@renderCharts</span> <span class="nx">startDate</span><span class="p">,</span> <span class="nx">endDate</span>
+
+        <span class="nx">@listenTo</span> <span class="nx">layout</span><span class="p">,</span> <span class="s">&quot;date:range:changed&quot;</span><span class="p">,</span> <span class="nx">@renderCharts</span>
+
+        <span class="nx">@show</span> <span class="nx">layout</span>
+
+      <span class="nx">renderCharts</span><span class="o">:</span><span class="nf">(startDate, endDate)=&gt;</span>
+
+        <span class="vi">@collection = </span><span class="nx">App</span><span class="p">.</span><span class="nx">request</span> <span class="s">&quot;get:site:analytics:data&quot;</span><span class="p">,</span> <span class="nx">startDate</span><span class="p">,</span> <span class="nx">endDate</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
+</div>
+<p>show over view chart</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="nv">overviewChart = </span><span class="k">new</span> <span class="nx">SiteAnalytics</span><span class="p">.</span><span class="nx">Views</span><span class="p">.</span><span class="nx">OverviewChartView</span> 
+                            <span class="nv">collection : </span><span class="nx">@collection</span>
+        <span class="nx">@layout</span><span class="p">.</span><span class="nx">overviewChartRegion</span><span class="p">.</span><span class="nx">show</span> <span class="nx">overviewChart</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
+</div>
+<p>show traffic list</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="nv">trafficViewChart = </span><span class="k">new</span> <span class="nx">SiteAnalytics</span><span class="p">.</span><span class="nx">Views</span><span class="p">.</span><span class="nx">TrafficViewChart</span> 
+                            <span class="nv">collection : </span><span class="nx">@collection</span>
+        <span class="nx">@layout</span><span class="p">.</span><span class="nx">trafficChartRegion</span><span class="p">.</span><span class="nx">show</span> <span class="nx">trafficViewChart</span>
+  
+
+      <span class="nx">_getLayout</span><span class="o">:</span><span class="nf">-&gt;</span>
+        <span class="k">new</span> <span class="nx">SiteAnalyticsLayout</span>
+
+
+    <span class="k">class</span> <span class="nx">SiteAnalyticsLayout</span> <span class="k">extends</span> <span class="nx">Marionette</span><span class="p">.</span><span class="nx">Layout</span>
+
+      <span class="nv">className : </span><span class="s">&#39;row&#39;</span>
+
+      <span class="nv">template : </span><span class="s">&#39;&lt;div class=&quot;row chart-datepicker&quot;&gt; </span>
+<span class="s">              &lt;div class=&quot;col-md-3&quot;&gt;</span>
+<span class="s">                &lt;div class=&quot;left-inner-addon &quot;&gt;</span>
+<span class="s">                  &lt;span class=&quot;glyphicon glyphicon-calendar&quot;&gt;&lt;/span&gt;</span>
+<span class="s">                  &lt;input type=&quot;text&quot; class=&quot;datepicker &quot;/&gt;</span>
+<span class="s">                &lt;/div&gt;</span>
+<span class="s">              &lt;/div&gt;</span>
+<span class="s">              &lt;div class=&quot;col-md-8 &quot;&gt; </span>
+<span class="s">                &lt;ul class=&quot;list-inline select-type duration&quot;&gt;</span>
+<span class="s">                  &lt;li data-duration=&quot;7&quot;&gt;Week&lt;/li&gt;</span>
+<span class="s">                  &lt;li class=&quot;active&quot; data-duration=&quot;30&quot;&gt;Month&lt;/li&gt;</span>
+<span class="s">                  &lt;li data-duration=&quot;180&quot;&gt;6 Months&lt;/li&gt;</span>
+<span class="s">                &lt;/ul&gt;</span>
+<span class="s">              &lt;/div&gt;</span>
+<span class="s">            &lt;/div&gt;</span>
+<span class="s">            &lt;div id=&quot;overview-chart-region&quot;&gt;&lt;/div&gt;</span>
+<span class="s">            &lt;div id=&quot;traffic-chart-region&quot;&gt;&lt;/div&gt;&#39;</span>
+
+      <span class="nv">events:</span>
+        <span class="s">&#39;change .datepicker&#39;</span> <span class="o">:</span> <span class="nf">-&gt;</span>
+          <span class="nv">date = </span><span class="k">new</span> <span class="nb">Date</span><span class="p">()</span>
+          <span class="nv">endDate   = </span><span class="nb">Date</span><span class="p">.</span><span class="nx">UTC</span> <span class="nx">date</span><span class="p">.</span><span class="nx">getFullYear</span><span class="p">(),</span><span class="nx">date</span><span class="p">.</span><span class="nx">getMonth</span><span class="p">(),</span><span class="nx">date</span><span class="p">.</span><span class="nx">getDate</span><span class="p">()</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6">&#182;</a>
+</div>
+<p>duration     = parseInt $(e.target).attr 'data-duration'</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+          <span class="nv">startDate   = </span><span class="nx">endDate</span> <span class="o">-</span> <span class="p">(</span><span class="mi">30</span> <span class="o">*</span> <span class="mi">86400000</span><span class="p">)</span>
+          <span class="nx">@trigger</span> <span class="s">&quot;date:range:changed&quot;</span><span class="p">,</span> <span class="nx">start</span><span class="p">,</span> <span class="nx">end</span>
+
+        <span class="s">&#39;click .duration &gt; li&#39;</span><span class="o">:</span><span class="nf">(e)-&gt;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7">&#182;</a>
+</div>
+<p>set active class</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+          <span class="nx">$</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">).</span><span class="nx">addClass</span> <span class="s">&#39;active&#39;</span>
+                <span class="p">.</span><span class="nx">siblings</span><span class="p">().</span><span class="nx">removeClass</span> <span class="s">&#39;active&#39;</span>
+
+          <span class="nv">date = </span><span class="k">new</span> <span class="nb">Date</span><span class="p">()</span>
+          <span class="nv">endDate   = </span><span class="nb">Date</span><span class="p">.</span><span class="nx">UTC</span> <span class="nx">date</span><span class="p">.</span><span class="nx">getFullYear</span><span class="p">(),</span><span class="nx">date</span><span class="p">.</span><span class="nx">getMonth</span><span class="p">(),</span><span class="nx">date</span><span class="p">.</span><span class="nx">getDate</span><span class="p">()</span>
+          <span class="nv">duration  = </span><span class="nb">parseInt</span> <span class="nx">$</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">).</span><span class="nx">attr</span> <span class="s">&#39;data-duration&#39;</span>
+          <span class="nv">startDate   = </span><span class="nx">endDate</span> <span class="o">-</span> <span class="p">(</span><span class="nx">duration</span> <span class="o">*</span> <span class="mi">86400000</span><span class="p">)</span>
+          <span class="nx">@trigger</span> <span class="s">&quot;date:range:changed&quot;</span><span class="p">,</span> <span class="nx">startDate</span><span class="p">,</span> <span class="nx">endDate</span>
+
+      
+
+      <span class="nv">regions :</span>
+        <span class="nv">overviewChartRegion : </span><span class="s">&#39;#overview-chart-region&#39;</span>
+        <span class="nv">trafficChartRegion  : </span><span class="s">&#39;#traffic-chart-region&#39;</span>
+
+      <span class="nx">onShow</span><span class="o">:</span><span class="nf">-&gt;</span>
+        <span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;.datepicker&#39;</span><span class="p">).</span><span class="nx">datepicker</span><span class="p">()</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8">&#182;</a>
+</div>
+<p>to = new Date()
+from = new Date(to.getTime() - 1000 * 60 * 60 * 24 * 14)
+@$el.find('.datepicker').DatePicker
+        inline: true
+        date: [from, to]
+        calendars: 2
+        mode: 'range'
+        current: new Date(to.getFullYear(), to.getMonth() - 1, 1)
+        onChange:(dates,el)->
+            date =  dates[0].getDate()+' '+dates[0].getMonthName(true)+', '+
+                dates[0].getFullYear()+' - '+
+                dates[1].getDate()+' '+dates[1].getMonthName(true)+', '+
+                dates[1].getFullYear()</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9">&#182;</a>
+</div>
+
+<div class="highlight"><pre><code>        <span class="err">$</span><span class="p">(</span><span class="err">&#39;#</span><span class="n">date</span><span class="o">-</span><span class="n">range</span><span class="o">-</span><span class="n">field</span> <span class="n">span</span><span class="err">&#39;</span><span class="p">).</span><span class="n">text</span> <span class="n">date</span>
+</code></pre></div>
+
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+
+    <span class="nx">App</span><span class="p">.</span><span class="nx">commands</span><span class="p">.</span><span class="nx">setHandler</span> <span class="s">&quot;show:site:analytics:data&quot;</span><span class="p">,</span> <span class="nf">(opt)-&gt;</span>
+      <span class="k">new</span> <span class="nx">SiteAnalyticsController</span> <span class="nx">opt</span>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>

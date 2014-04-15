@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>app.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../", thisFile = "Applications/XAMPP/xamppfiles/htdocs/impruw/wp-content/themes/impruwclientparent/app/dev//apps/builder/site-builder/app.coffee", defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container"><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+          <h1>app.coffee</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1">&#182;</a>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre><span class="nx">define</span> <span class="p">[</span><span class="s">&#39;app&#39;</span>
+    <span class="s">&#39;apps/builder/site-builder/show/controller&#39;</span>
+    <span class="s">&#39;apps/builder/site-builder/element/controller&#39;</span>
+    <span class="s">&#39;apps/builder/site-builder/autosave/controller&#39;</span>
+    <span class="s">&#39;apps/builder/site-builder/elements-loader&#39;</span><span class="p">],</span> <span class="nf">(App)-&gt;</span>
+
+  <span class="nx">App</span><span class="p">.</span><span class="nx">module</span> <span class="s">&#39;SiteBuilderApp&#39;</span><span class="p">,</span> <span class="nf">(SiteBuilderApp, App, Backbone, Marionette, $, _)-&gt;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2">&#182;</a>
+</div>
+<p>PUBLIC API</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nv">API = </span>  
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+</div>
+<p>show the site builder</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="nv">show : </span><span class="p">()</span><span class="nf">-&gt;</span> 
+        <span class="vi">@showController = </span><span class="k">new</span> <span class="nx">SiteBuilderApp</span><span class="p">.</span><span class="nx">Show</span><span class="p">.</span><span class="nx">Controller</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
+</div>
+<p>add a new element to the builder region</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="nx">addNewElement</span><span class="o">:</span><span class="nf">(container, type, modelData)-&gt;</span>
+        <span class="k">new</span> <span class="nx">SiteBuilderApp</span><span class="p">.</span><span class="nx">Element</span><span class="p">[</span><span class="nx">type</span><span class="p">].</span><span class="nx">Controller</span> 
+                          <span class="nv">container   : </span><span class="nx">container</span>
+                          <span class="nv">modelData : </span><span class="nx">modelData</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
+</div>
+<p>auto save function call</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="nx">autoSave</span><span class="o">:</span><span class="nf">-&gt;</span>
+        <span class="nv">autoSave = </span><span class="k">new</span> <span class="nx">SiteBuilderApp</span><span class="p">.</span><span class="nx">AutoSave</span><span class="p">.</span><span class="nx">Controller</span>
+        <span class="nx">autoSave</span><span class="p">.</span><span class="nx">autoSave</span><span class="p">()</span>
+
+      
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6">&#182;</a>
+</div>
+<p>listen to "element:dropped" event.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">App</span><span class="p">.</span><span class="nx">reqres</span><span class="p">.</span><span class="nx">setHandler</span> <span class="s">&quot;add:new:element&quot;</span><span class="p">,</span><span class="nf">(container, type, modelData = {})-&gt;</span>
+      <span class="nx">API</span><span class="p">.</span><span class="nx">addNewElement</span> <span class="nx">container</span><span class="p">,</span> <span class="nx">type</span><span class="p">,</span> <span class="nx">modelData</span>
+
+    <span class="nx">App</span><span class="p">.</span><span class="nx">commands</span><span class="p">.</span><span class="nx">setHandler</span> <span class="s">&quot;auto:save&quot;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+      <span class="nx">API</span><span class="p">.</span><span class="nx">autoSave</span><span class="p">()</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7">&#182;</a>
+</div>
+<p>Show all region on start</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">SiteBuilderApp</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;start&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+              <span class="nx">API</span><span class="p">.</span><span class="nx">show</span><span class="p">()</span>
+    
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>

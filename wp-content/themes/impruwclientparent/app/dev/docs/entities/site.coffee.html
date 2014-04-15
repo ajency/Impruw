@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>site.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../doc-style.css" />
+  <script src="../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../", thisFile = "Applications/XAMPP/xamppfiles/htdocs/impruw/wp-content/themes/impruwclientparent/app/dev//entities/site.coffee", defaultSidebar = true;
+  </script>
+  <script src="../doc-script.js"></script>
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container"><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+          <h1>site.coffee</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1">&#182;</a>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre><span class="nx">define</span> <span class="p">[</span><span class="s">&quot;app&quot;</span><span class="p">,</span> <span class="s">&#39;backbone&#39;</span><span class="p">],</span> <span class="nf">(App, Backbone) -&gt;</span>
+
+        <span class="nx">App</span><span class="p">.</span><span class="nx">module</span> <span class="s">&quot;Entities.Site&quot;</span><span class="p">,</span> <span class="nf">(Site, App, Backbone, Marionette, $, _)-&gt;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2">&#182;</a>
+</div>
+<p>Site Model</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+            <span class="k">class</span> <span class="nx">SiteModel</span> <span class="k">extends</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Model</span>
+
+                <span class="nv">idAttribute : </span><span class="s">&#39;site_id&#39;</span>
+
+                <span class="nv">name : </span><span class="s">&#39;site&#39;</span>
+                
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+</div>
+<p>create the empty site model</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+            <span class="nv">siteModel = </span><span class="k">new</span> <span class="nx">SiteModel</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
+</div>
+<p>PUBLIC API FOR ENitity</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+            <span class="nv">API =</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
+</div>
+<p>get site model</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+                <span class="nv">getSiteModel: </span><span class="p">()</span><span class="nf">-&gt;</span>
+                    <span class="nx">siteModel</span>
+                    <span class="nx">siteModel</span><span class="p">.</span><span class="nx">fetch</span><span class="p">()</span>
+                    <span class="nx">siteModel</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6">&#182;</a>
+</div>
+<p>get site social</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+                <span class="nx">getSiteSocial</span><span class="o">:</span><span class="nf">-&gt;</span>
+                    <span class="k">new</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Collection</span> <span class="p">[</span>
+                                                <span class="p">(</span><span class="nv">sociallink : </span><span class="s">&#39;#facebook&#39;</span><span class="p">,</span> <span class="nv">socialname : </span><span class="s">&#39;facebook&#39;</span><span class="p">)</span>
+                                                <span class="p">(</span><span class="nv">sociallink : </span><span class="s">&#39;#twitter&#39;</span><span class="p">,</span> <span class="nv">socialname : </span><span class="s">&#39;twitter&#39;</span><span class="p">)</span>
+                                                <span class="p">(</span><span class="nv">sociallink : </span><span class="s">&#39;#youtube&#39;</span><span class="p">,</span> <span class="nv">socialname : </span><span class="s">&#39;youtube&#39;</span><span class="p">)</span>
+                                            <span class="p">]</span>
+                <span class="nv">getSiteProfile : </span><span class="nf">-&gt;</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7">&#182;</a>
+</div>
+<p>REQUEST HANDLERS</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+            <span class="nx">App</span><span class="p">.</span><span class="nx">reqres</span><span class="p">.</span><span class="nx">setHandler</span> <span class="s">&quot;get:site:model&quot;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+                <span class="nx">API</span><span class="p">.</span><span class="nx">getSiteModel</span><span class="p">()</span>
+
+            <span class="nx">App</span><span class="p">.</span><span class="nx">reqres</span><span class="p">.</span><span class="nx">setHandler</span> <span class="s">&quot;get:site:social&quot;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+                <span class="nx">API</span><span class="p">.</span><span class="nx">getSiteSocial</span><span class="p">()</span>
+
+            <span class="nx">App</span><span class="p">.</span><span class="nx">reqres</span><span class="p">.</span><span class="nx">setHandler</span> <span class="s">&quot;get:site:profile&quot;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+                <span class="nx">API</span><span class="p">.</span><span class="nx">getSiteProfile</span><span class="p">()</span>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>

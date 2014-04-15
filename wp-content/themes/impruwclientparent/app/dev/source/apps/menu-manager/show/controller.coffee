@@ -36,7 +36,7 @@ define ['app', 'controllers/base-controller', 'apps/menu-manager/show/views'], (
 						collection: menuCollection
 				
 
-				# Rooms tariff layout 				
+		# Rooms tariff layout 				
 		class MediaMangerLayout extends Marionette.Layout
 
 			className : 'media-manager-container'
@@ -45,7 +45,7 @@ define ['app', 'controllers/base-controller', 'apps/menu-manager/show/views'], (
 						<div id="list-menu-items"></div>'
 
 			dialogOptions : 
-						modal_title : 'Menu Manager'
+					modal_title : 'Menu Manager'
 
 			regions : 
 				addMenuRegion : '#add-menu-items'

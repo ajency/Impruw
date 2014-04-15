@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>showcontroller.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../../doc-style.css" />
+  <script src="../../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../../", thisFile = "Applications/XAMPP/xamppfiles/htdocs/impruw/wp-content/themes/impruwclientparent/app/dev//apps/rooms/tariffs/show/showcontroller.coffee", defaultSidebar = true;
+  </script>
+  <script src="../../../../doc-script.js"></script>
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container"><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+          <h1>showcontroller.coffee</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1">&#182;</a>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre><span class="nx">define</span>  <span class="p">[</span><span class="s">&#39;app&#39;</span><span class="p">,</span><span class="s">&#39;controllers/base-controller&#39;</span><span class="p">,</span> <span class="s">&#39;apps/rooms/tariffs/show/views&#39;</span><span class="p">],</span><span class="nf">(App, AppController)-&gt;</span>
+
+  <span class="nx">App</span><span class="p">.</span><span class="nx">module</span> <span class="s">&quot;RoomsApp.RoomsTariff.Show&quot;</span><span class="p">,</span> <span class="nf">(Show, App)-&gt;</span> 
+
+    <span class="k">class</span> <span class="nx">ShowController</span> <span class="k">extends</span> <span class="nx">AppController</span>
+
+      <span class="nx">initialize</span><span class="o">:</span><span class="nf">(opt)-&gt;</span>
+
+        <span class="p">{</span><span class="nx">@roomId</span><span class="p">}</span> <span class="o">=</span> <span class="nx">opt</span>
+
+        <span class="k">if</span> <span class="o">not</span> <span class="nx">@roomId</span> 
+          <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Invalid room id: </span><span class="si">#{</span><span class="nx">@roomId</span><span class="si">}</span><span class="s">&quot;</span>
+
+        <span class="nv">pcollection = </span><span class="nx">App</span><span class="p">.</span><span class="nx">request</span> <span class="s">&quot;get:plans:collection&quot;</span>
+        <span class="nv">dcollection = </span><span class="nx">App</span><span class="p">.</span><span class="nx">request</span> <span class="s">&quot;get:daterange:collection&quot;</span>
+        <span class="nv">tcollection = </span><span class="nx">App</span><span class="p">.</span><span class="nx">request</span> <span class="s">&quot;get:tariffs:collection&quot;</span><span class="p">,</span> <span class="nx">@roomId</span>
+        
+        <span class="nx">pcollection</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;add remove&#39;</span><span class="p">,</span> <span class="o">=&gt;</span> 
+          <span class="vi">@dateRangeView = </span><span class="nx">@_getDateRangeView</span> <span class="nx">dcollection</span>
+          <span class="nx">@layout</span><span class="p">.</span><span class="nx">tariffRegion</span><span class="p">.</span><span class="nx">show</span> <span class="nx">@dateRangeView</span>
+
+        <span class="vi">@layout = </span><span class="nx">@_getGridLayout</span> <span class="nx">tcollection</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2">&#182;</a>
+</div>
+<p>get the packages view</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="vi">@packagesView = </span><span class="nx">@_getPackagesView</span> <span class="nx">pcollection</span>
+
+        <span class="vi">@dateRangeView = </span><span class="nx">@_getDateRangeView</span> <span class="nx">dcollection</span>
+
+
+        <span class="nx">@listenTo</span> <span class="nx">@layout</span><span class="p">,</span> <span class="s">&quot;show&quot;</span><span class="p">,</span> <span class="o">=&gt;</span>
+          <span class="nx">@layout</span><span class="p">.</span><span class="nx">packagesRegion</span><span class="p">.</span><span class="nx">show</span> <span class="nx">@packagesView</span>
+          <span class="nx">@layout</span><span class="p">.</span><span class="nx">tariffRegion</span><span class="p">.</span><span class="nx">show</span> <span class="nx">@dateRangeView</span>
+
+        <span class="nx">@show</span> <span class="nx">@layout</span><span class="p">,</span> 
+            <span class="nv">loading : </span><span class="kc">true</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+</div>
+<p>get the packages view</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="nx">_getPackagesView</span> <span class="o">:</span><span class="nf">(pCollection)-&gt;</span>
+        <span class="k">new</span> <span class="nx">Show</span><span class="p">.</span><span class="nx">Views</span><span class="p">.</span><span class="nx">PackagesView</span>
+              <span class="nv">collection  : </span><span class="nx">pCollection</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
+</div>
+<p>get the tariffs view</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="nx">_getDateRangeView</span> <span class="o">:</span><span class="nf">(dCollection)-&gt;</span>
+        <span class="k">new</span> <span class="nx">Show</span><span class="p">.</span><span class="nx">Views</span><span class="p">.</span><span class="nx">DateRangeCollectionView</span>
+                  <span class="nv">collection : </span><span class="nx">dCollection</span>
+                  <span class="nv">roomId  : </span><span class="nx">@roomId</span>
+      
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
+</div>
+<p>grid layout</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="nx">_getGridLayout</span><span class="o">:</span><span class="nf">(tcollection)-&gt;</span>
+        <span class="k">new</span> <span class="nx">GridLayout</span>
+            <span class="nx">collection</span> <span class="o">:</span><span class="nx">tcollection</span>
+
+
+    <span class="k">class</span> <span class="nx">GridLayout</span> <span class="k">extends</span> <span class="nx">Marionette</span><span class="p">.</span><span class="nx">Layout</span>
+
+      <span class="nx">template</span> <span class="o">:</span><span class="s">&#39; &lt;div id=&quot;packages-region&quot;&gt;&lt;/div&gt;</span>
+<span class="s">            &lt;div id=&quot;tariff-region&quot;&gt;&lt;/div&gt;&#39;</span>
+
+      <span class="nv">regions : </span>
+        <span class="nv">packagesRegion : </span><span class="s">&#39;#packages-region&#39;</span>
+        <span class="nv">tariffRegion   : </span><span class="s">&#39;#tariff-region&#39;</span>
+
+
+    <span class="nx">App</span><span class="p">.</span><span class="nx">commands</span><span class="p">.</span><span class="nx">setHandler</span> <span class="s">&quot;show:tariff:grid&quot;</span><span class="p">,</span> <span class="nf">(opt)-&gt;</span>
+      <span class="k">new</span> <span class="nx">ShowController</span> <span class="nx">opt</span>
+        
+        
+      
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>

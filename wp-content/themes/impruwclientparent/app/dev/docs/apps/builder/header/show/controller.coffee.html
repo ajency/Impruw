@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>controller.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../../doc-style.css" />
+  <script src="../../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../../", thisFile = "Applications/XAMPP/xamppfiles/htdocs/impruw/wp-content/themes/impruwclientparent/app/dev//apps/builder/header/show/controller.coffee", defaultSidebar = true;
+  </script>
+  <script src="../../../../doc-script.js"></script>
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container"><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+          <h1>controller.coffee</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1">&#182;</a>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre><span class="nx">define</span> <span class="p">[</span><span class="s">&#39;app&#39;</span><span class="p">,</span> <span class="s">&#39;controllers/base-controller&#39;</span>
+    <span class="s">&#39;apps/builder/header/show/views&#39;</span><span class="p">],</span> <span class="nf">(App, AppController)-&gt;</span>
+
+      <span class="nx">App</span><span class="p">.</span><span class="nx">module</span> <span class="s">&#39;HeaderApp.Show&#39;</span><span class="p">,</span> <span class="nf">(Show, App, Backbone, Marionette, $, _)-&gt;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2">&#182;</a>
+</div>
+<p>Controller class for showing header resion</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="k">class</span> <span class="nx">Show</span><span class="p">.</span><span class="nx">Controller</span> <span class="k">extends</span> <span class="nx">AppController</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+</div>
+<p>initialize the controller. Get all required entities and show the view</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+          <span class="nx">initialize</span><span class="o">:</span><span class="nf">(opt = {})-&gt;</span>
+
+            <span class="nv">pages = </span><span class="nx">App</span><span class="p">.</span><span class="nx">request</span> <span class="s">&quot;get:editable:pages&quot;</span>
+
+            <span class="vi">@view = </span><span class="nv">view = </span><span class="k">new</span> <span class="nx">Show</span><span class="p">.</span><span class="nx">Views</span><span class="p">.</span><span class="nx">MainView</span>
+                        <span class="nv">collection : </span><span class="nx">pages</span>  
+
+            <span class="nx">@listenTo</span> <span class="nx">view</span><span class="p">,</span> <span class="s">&quot;add:new:page:clicked&quot;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+              <span class="nx">App</span><span class="p">.</span><span class="nx">execute</span> <span class="s">&quot;show:add:new:page&quot;</span><span class="p">,</span> <span class="nv">region : </span><span class="nx">App</span><span class="p">.</span><span class="nx">dialogRegion</span>
+
+            <span class="nx">@listenTo</span> <span class="nx">view</span><span class="p">,</span> <span class="s">&#39;editable:page:changed&#39;</span><span class="p">,</span><span class="nf">(pageId)-&gt;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
+</div>
+<p>set the cookie</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+                              <span class="nx">$</span><span class="p">.</span><span class="nx">cookie</span> <span class="s">&#39;current-page-id&#39;</span><span class="p">,</span> <span class="nx">pageId</span>
+                              <span class="nx">App</span><span class="p">.</span><span class="nx">execute</span> <span class="s">&quot;editable:page:changed&quot;</span><span class="p">,</span> <span class="nx">pageId</span>
+            
+            <span class="nx">@show</span>  <span class="nx">view</span><span class="p">,</span>
+                <span class="nv">loading : </span><span class="kc">true</span>
+
+          <span class="nx">getCurrentPageName</span><span class="o">:</span><span class="nf">-&gt;</span>
+            <span class="nx">@view</span><span class="p">.</span><span class="nx">getCurrentPageName</span><span class="p">()</span>
+
+          <span class="nx">setHomePage</span><span class="o">:</span><span class="nf">-&gt;</span>
+            
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>
