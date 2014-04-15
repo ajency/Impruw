@@ -45,8 +45,7 @@ define  ['app','controllers/base-controller', 'text!apps/rooms/tariffs/daterange
 				'click #btn_savedaterange' : ->
 					if @$el.valid()
 						data = Backbone.Syphon.serialize @
-						App.request "check:daterange:valid", data
-						#@trigger "add:daterange:details", data
+						@trigger "add:daterange:details", data
 
 		
 			onSavedDaterange:->
