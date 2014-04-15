@@ -1,40 +1,21 @@
 define ['app'
-		'text!apps/menu-manager/show/templates/menucollection.html'
-		'text!apps/menu-manager/show/templates/menumanager.html'
-		'text!apps/menu-manager/show/templates/menuitem.html'], (App, menucollectionTpl, menumanagerTpl, menuItemTpl)->
+		'text!apps/menu-manager/add/templates/addmenu.html'], (App, addmenuTpl)->
 	
 			App.module 'MenuManager.Add.Views', (Views, App)->
 
-				class MenuItemView extends Marionette.ItemView
+				class Views.MenuItemView extends Marionette.ItemView
 
+					template : addmenuTpl
 
-					template : menuItemTpl
+					className : 'row aj-imp-menu-edit'
 
-					tagName : 'li'
-
-					className : 'list-group-item'
-
-
-				# main menu manager view
-				class SingleManagerView extends Marionette.CompositeView
-
-
-					template : menumanagerTpl
-
-					itemView : MenuItemView
-
-					itemViewContainer : 'ol.sortable-menu-items'
-
-					className : 'tab-pane'
-
-				# main view
-				class Views.MenuManagerView extends Marionette.CompositeView
-
-
-					template : menucollectionTpl
-
-					itemView: SingleManagerView
-
-	
-
-					itemViewContainer : '.tab-content'
+					
+					events: 
+						'click .add-menu-item' :->
+							formdata = Backbone.Syphon.serialize @
+							@trigger "add:menu:item:clicked" , formdata  
+				
+					onNewMenuCreated :->
+						@$el.find('.alert').remove()
+						@$el.prepend '<div class="alert alert-success">New menu added </div>'
+						@$el.find('#btn_resetmenu').click()

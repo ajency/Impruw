@@ -8,17 +8,15 @@ define ['app', 'controllers/base-controller', 'apps/menu-manager/list/views'], (
 
 			# initialize
 			initialize:(opts)->
-				#console.log opts
 
-				#@menucollection = menucollection = opts.collection
+				@menucollection = menucollection = opts.collection
 
-				#@view = view = @getView menucollection
+				@view = view = @_getView menucollection
 
+				@show @view
 
-				#@show @view
-
-			getView:(menucollection) ->
-				new  List.Views.MenuItemView
+			_getView:(menucollection) ->
+				new  List.Views.MenuCollectionView 
 							collection : menucollection
 
 

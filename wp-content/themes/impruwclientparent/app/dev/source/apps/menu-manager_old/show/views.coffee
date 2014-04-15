@@ -1,7 +1,7 @@
 define ['app'
-		'text!apps/menu-manager/show/templates/menucollection.html'
-		'text!apps/menu-manager/show/templates/menumanager.html'
-		'text!apps/menu-manager/show/templates/menuitem.html'], (App, menucollectionTpl, menumanagerTpl, menuItemTpl)->
+		'text!apps/menu-manager/list/templates/menucollection.html'
+		'text!apps/menu-manager/list/templates/menumanager.html'
+		'text!apps/menu-manager/list/templates/menuitem.html'], (App, menucollectionTpl, menumanagerTpl, menuItemTpl)->
 	
 			App.module 'MenuManager.Show.Views', (Views, App)->
 

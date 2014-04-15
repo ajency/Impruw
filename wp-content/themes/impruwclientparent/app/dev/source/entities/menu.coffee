@@ -11,7 +11,8 @@ define ["app", 'backbone'], (App, Backbone) ->
 					post_title          : ''
 					menu_item_link      : ''
 					menu_item_parent    : 0
-					order 				: 0 	
+					order 				: 0 
+					menu_id				: 2	
 
 				name: 'menu-item'
 
@@ -27,7 +28,6 @@ define ["app", 'backbone'], (App, Backbone) ->
 					_.each newOrder, (ele,index)=>
 						model = @get ele
 						model.set 'order', index + 1
-					console.log newOrder
 					@trigger "menu:order:updated"
 					@syncToServer newOrder,menuId
 
@@ -46,6 +46,8 @@ define ["app", 'backbone'], (App, Backbone) ->
 							success: =>
 								@trigger "menu:order:updated"
 
+			menuitemCollection = new Menus.MenuItemCollection
+			
 			# menu model
 			class Menus.MenuModel extends Backbone.AssociatedModel
 				defaults : 
@@ -100,7 +102,6 @@ define ["app", 'backbone'], (App, Backbone) ->
 								reset : true
 								data  : 
 									menu_id : menuId
-
 					menuItems	
 
 				# creates a menu items collection 
@@ -145,8 +146,7 @@ define ["app", 'backbone'], (App, Backbone) ->
 						menu.fetch()
 
 					menu
-
-
+				
 			App.reqres.setHandler "get:menu:by:id",(menuId)->
 				API.getMenuById menuId
 

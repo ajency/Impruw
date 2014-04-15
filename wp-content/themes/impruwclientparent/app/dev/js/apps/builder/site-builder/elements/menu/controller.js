@@ -53,9 +53,9 @@ define(['app', 'apps/builder/site-builder/elements/menu/views', 'apps/builder/si
             view = _this._getMenuView(itemCollection, templateClass);
             _this.listenTo(itemCollection, "menu:order:updated", view.render);
             _this.listenTo(view, "open:menu:manager", function() {
-              return App.navigate("menu-manager", {
-                trigger: true
-              });
+              var menuId;
+              menuId = _this.layout.model.get('menu_id');
+              return App.execute("menu-manager", menuId);
             });
             return _this.layout.elementRegion.show(view);
           };
