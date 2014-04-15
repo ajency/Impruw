@@ -18,12 +18,12 @@
 
 function site_template_directory_uri($template_dir_uri, $template, $theme_root_uri) {
 
-    return site_url('wp-content/themes/bootstrap-blue');
+    return site_url('wp-content/themes/classic-green');
 }
 
 add_filter('template_directory_uri', 'site_template_directory_uri', 10, 3);
 
-define('CURRENTTHEMEPATH', ABSPATH . 'wp-content/themes/bootstrap-blue/');
+define('CURRENTTHEMEPATH', ABSPATH . 'wp-content/themes/classic-green/');
 
 /**
  * Logo size for the theme 
