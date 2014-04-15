@@ -1,7 +1,5 @@
 define ['app'
-		'apps/menu-manager/show/controller'
-		'apps/menu-manager/list/controller'
-		'apps/menu-manager/add/controller'], (App)->
+		'apps/menu-manager/show/controller'], (App)->
 
 			App.module 'MenuManager', (MenuManager, App, Backbone, Marionette, $, _)->
 

@@ -68,7 +68,7 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/daterange
           var data;
           if (this.$el.valid()) {
             data = Backbone.Syphon.serialize(this);
-            return App.request("check:daterange:valid", data);
+            return this.trigger("add:daterange:details", data);
           }
         }
       };

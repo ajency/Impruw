@@ -27,7 +27,7 @@ define ["app", 'backbone'], (App, Backbone) ->
 					_.each newOrder, (ele,index)=>
 						model = @get ele
 						model.set 'order', index + 1
-
+					console.log newOrder
 					@trigger "menu:order:updated"
 					@syncToServer newOrder,menuId
 
@@ -36,7 +36,15 @@ define ["app", 'backbone'], (App, Backbone) ->
 					options.data = {}
 					options.data.newOrder = newOrder.join()
 					options.data.menuId   = menuId
-					Backbone.send _action,options
+					# Backbone.send _action,options
+					Backbone.ajax 
+							url : AJAXURL
+							data: 
+								newOrder : newOrder
+								menuId : menuId
+								action : _action
+							success: =>
+								@trigger "menu:order:updated"
 
 			# menu model
 			class Menus.MenuModel extends Backbone.AssociatedModel

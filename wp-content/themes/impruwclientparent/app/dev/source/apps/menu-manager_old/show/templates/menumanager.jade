@@ -1,0 +1,26 @@
+.row.aj-imp-menu-edit
+	.col-md-6.aj-imp-add-menu-item
+		h4 {{menu_name}}
+		p.desc {{menu_description}}
+		a.aj-imp-add-link(href="#{{menu_slug}}-add-menu" data-toggle="collapse") Add New Menu Item
+		.collapse.in.add-menu-form(id="{{menu_slug}}-add-menu")
+			form.form-horizontal.well
+				.form-group
+					label.col-sm-4.control-label Menu Link Label
+					.col-sm-8
+						input.required.form-control(type="text" name="post_title" required="true")
+				.form-group
+					label.col-sm-4.control-label Menu Link
+					.col-sm-8
+						input.required.form-control(type="text" name="menu_item_link" required="true")
+				.form-group.form-actions
+					.col-sm-offset-4.col-sm-8
+						input(type="hidden" value="{{id}}" name="menu_id")
+						button.add-menu-item.btn(type="button")
+							span Add Menu Item
+
+	.col-md-6.aj-imp-menu-item-list
+		.panel.panel-default
+			.panel-heading
+				h3.panel-title {{menu_name}}
+			ol.list-group.sortable-menu-items

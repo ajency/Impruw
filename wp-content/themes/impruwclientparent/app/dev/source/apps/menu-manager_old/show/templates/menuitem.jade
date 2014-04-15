@@ -1,0 +1,26 @@
+.row.menu-item
+	.col-sm-1.menu-dragger: span.bicon.icon-uniF160
+	.col-sm-8.menu-name {{post_title}}
+	.col-sm-3.menu-edit
+		a(href="#menu-item-{{menu_id}}-{{ID}}" data-toggle="collapse") 
+			span.glyphicon.glyphicon-edit Edit
+
+.collapse.menu-item-edit(id="menu-item-{{menu_id}}-{{ID}}")
+	form.form-horizontal
+		.form-group
+			label.col-sm-4.control-label Menu Link Label
+			.col-sm-8
+				input.form-control(value="{{post_title}}" parsley-required="true" type="text" name="post_title")
+		.form-group
+			label.col-sm-4.control-label Menu Link
+			.col-sm-8
+				input.form-control(value="{{menu_item_link}}" parsley-type="url" parsley-required="true" type="text" name="menu_item_link")
+		.form-group.form-actions
+			.col-sm-offset-4.col-sm-8
+				input(type="hidden" value="{{menu_id}}" name="menu_id")
+				button.update-menu-item.btn.btn-info(type="button")
+					span Update Menu Item
+				button.btn(type="button")
+					span Cancel
+				button.btn.btn-danger(type="button")
+					span.glyphicon.glyphicon-trash

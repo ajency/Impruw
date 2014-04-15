@@ -88,19 +88,6 @@ define(["app", 'backbone', 'moment'], function(App, Backbone, moment) {
       },
       addDateRange: function(d) {
         return dateRangeCollection.add(d);
-      },
-      checkDateRangeValid: function(data) {
-        var checkDateRangeVal, ret;
-        checkDateRangeVal = function(daterange) {
-          var from, fromForm, to, toForm;
-          from = daterange.get('from_date');
-          fromForm = data.from_date;
-          to = daterange.get('to_date');
-          toForm = data.to_date;
-          return moment(fromForm).isAfter(from) && moment(toForm).isBefore(to);
-        };
-        ret = dateRangeCollection.filter(checkDateRangeVal);
-        return console.log(ret);
       }
     };
     App.reqres.setHandler("get:daterange:collection", function() {
@@ -111,9 +98,6 @@ define(["app", 'backbone', 'moment'], function(App, Backbone, moment) {
     });
     App.reqres.setHandler("get:daterange:name:for:date", function(date) {
       return API.getDateRangeNameForDate(date);
-    });
-    App.reqres.setHandler("check:daterange:valid", function(date) {
-      return API.checkDateRangeValid(date);
     });
     return App.commands.setHandler("add:daterange", function(daterange) {
       return API.addDateRange(daterange);

@@ -7,34 +7,46 @@ define ['app', 'controllers/base-controller', 'apps/menu-manager/show/views'], (
 		class Show.Controller extends AppController
 
 			# initialize
-			initialize:()->
+			initialize:(opts)->
 
-				menuCollection = App.request "get:site:menus"
-
-				view = @getView menuCollection
-
-				@listenTo view, 'itemview:menu:order:changed',(iv, order)->
-					newOrder = _.idOrder order
-					iv.model.get('menu_items').updateOrder newOrder, iv.model.get 'id'
-
-				@listenTo view, "itemview:new:menu:item:added", (iv, data)->
-												menuitem = App.request "create:new:menu:item", data, data['menu_id']
-												menu = menuCollection.get parseInt data['menu_id']
-												items = menu.get 'menu_items'
-												items.add menuitem
-
-				@listenTo App.vent, "itemview:update:menu:item", (menuItem,newData)->
-												App.execute "update:menu:item", menuItem, newData
-
-					
-				@show view, loading : true
-				App.getRegion('elementsBoxRegion').hide()
+				{@menu} = opts
 				
-			onClose: ->
-				App.navigate ''
-				App.getRegion('elementsBoxRegion').unhide()
+				#get the menu collection if not exsisting
+				if not @menu
+					@menu = menu = App.request "get:menu:menuitems",2
+				
 
-			# gets the main login view
-			getView :(menuCollection)->
-				new Show.Views.MenuManagerView
-								collection : menuCollection
+				@layout = layout = @getLayout menu
+
+				@listenTo @layout, "show", =>
+					App.execute "add:menu:items:app",
+									region: @layout.addMenuRegion
+
+									collection: @menu
+
+					#App.execute "list:menu:items:app",
+									#region: @layout.listMenuRegion
+									#collection: @menu
+
+				@show @layout
+
+
+			getLayout :(menuCollection)->
+				new MediaMangerLayout
+						collection: menuCollection
+				
+
+				# Rooms tariff layout 				
+		class MediaMangerLayout extends Marionette.Layout
+
+			className : 'media-manager-container'
+
+			template : '<div id="add-menu-items"></div>
+						<div id="list-menu-items"></div>'
+
+			dialogOptions : 
+						modal_title : 'Menu Manager'
+
+			regions : 
+				addMenuRegion : '#add-menu-items'
+				listMenuRegion : '#list-menu-items'  
