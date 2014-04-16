@@ -10,18 +10,18 @@ define ['app'
 
 					template : ''
 
-					tagName : 'option'
+					#tagName : 'option'
 
 					onRender:->
-						@$el.attr 'value',@model.get 'ID'
-						@$el.text @model.get 'post_title'
+						#@$el.attr 'value',@model.get 'ID'
+						#@$el.text @model.get 'post_title'
 
 				# Header main view
 				class Views.MainView extends Marionette.CompositeView
 
 					itemView : SinglePageView
 
-					itemViewContainer : 'select#aj-imp-page-sel'
+					# itemViewContainer : 'select#aj-imp-page-sel'
 
 					template : mainviewTpl
 

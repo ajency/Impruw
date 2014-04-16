@@ -13,12 +13,7 @@ define(['app', 'text!apps/builder/header/show/templates/mainview.html'], functio
 
       SinglePageView.prototype.template = '';
 
-      SinglePageView.prototype.tagName = 'option';
-
-      SinglePageView.prototype.onRender = function() {
-        this.$el.attr('value', this.model.get('ID'));
-        return this.$el.text(this.model.get('post_title'));
-      };
+      SinglePageView.prototype.onRender = function() {};
 
       return SinglePageView;
 
@@ -31,8 +26,6 @@ define(['app', 'text!apps/builder/header/show/templates/mainview.html'], functio
       }
 
       MainView.prototype.itemView = SinglePageView;
-
-      MainView.prototype.itemViewContainer = 'select#aj-imp-page-sel';
 
       MainView.prototype.template = mainviewTpl;
 
