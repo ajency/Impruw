@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
 
 define(["app", 'backbone'], function(App, Backbone) {
   return App.module("Entities.Menus", function(Menus, App, Backbone, Marionette, $, _) {
-    var API, menuCollection, menuitemCollection;
+    var API, menuCollection;
     Menus.MenuItemModel = (function(_super) {
       __extends(MenuItemModel, _super);
 
@@ -14,8 +14,8 @@ define(["app", 'backbone'], function(App, Backbone) {
       MenuItemModel.prototype.idAttribute = 'ID';
 
       MenuItemModel.prototype.defaults = {
-        post_title: '',
-        menu_item_link: '',
+        menu_item_title: '',
+        menu_item_url: '',
         menu_item_parent: 0,
         order: 0,
         menu_id: 2
@@ -79,7 +79,6 @@ define(["app", 'backbone'], function(App, Backbone) {
       return MenuItemCollection;
 
     })(Backbone.Collection);
-    menuitemCollection = new Menus.MenuItemCollection;
     Menus.MenuModel = (function(_super) {
       __extends(MenuModel, _super);
 
@@ -211,6 +210,10 @@ define(["app", 'backbone'], function(App, Backbone) {
           menu.fetch();
         }
         return menu;
+      },
+      deleteMenuItemModel: function(menucollection, model) {
+        menucollection.remove(model);
+        return menucollection;
       }
     };
     App.reqres.setHandler("get:menu:by:id", function(menuId) {
@@ -234,8 +237,11 @@ define(["app", 'backbone'], function(App, Backbone) {
     App.reqres.setHandler("create:new:menu:item", function(data, menuId) {
       return API.createMenuItemModel(data, menuId);
     });
-    return App.commands.setHandler("update:menu:item", function(menuitem, data) {
+    App.reqres.setHandler("update:menu:item", function(menuitem, data) {
       return API.updateMenuItemModel(menuitem, data);
+    });
+    return App.reqres.setHandler("delete:menu:item", function(menucollection, model) {
+      return API.deleteMenuItemModel(menucollectioniv, model);
     });
   });
 });
