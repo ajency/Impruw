@@ -8,27 +8,28 @@ define ['app', 'controllers/base-controller'], (App, AppController)->
 
 			# initialize
 			initialize:(opts)->
-
-				@menu_id = menu_id = opts.menu_id
-
-				if not menu_id
-					throw new Error "Menu Id not specified"
 				
-				#get the menu collection if not exsisting
+				@menuId = 0
+
+				if opts.menuId
+					@menuId = menuId = opts.menuId
+
+				@menuCollection = menuCollection = opts.menuCollection
 				
-				@menuDetails = menuDetails = App.request "get:menu:by:id", menu_id
+				if @menuId is 0
+					@menuCollection.once "add",(model)=>
+						@menuId = model.get 'menu_id'
+						App.execute "add:menu:items:app",
+										region 	 : @layout.addMenuRegion
+										menuId   : @menuId
 
-
-				@menuCollection = menuCollection = menuDetails.get 'menu_items'
-
-				
 				@layout = layout = @getLayout()
 
 				@listenTo @layout, "show", =>
 
 					App.execute "add:menu:items:app",
 									region 	 : @layout.addMenuRegion
-									model  	 : @menuDetails
+									menuId   : @menuId
 
 					App.execute "list:menu:items:app",
 									region: @layout.listMenuRegion
@@ -47,7 +48,7 @@ define ['app', 'controllers/base-controller'], (App, AppController)->
 
 			getLayout :(menuCollection)->
 				new MediaMangerLayout
-						collection: menuCollection
+						
 				
 
 		# Rooms tariff layout 				
@@ -68,9 +69,10 @@ define ['app', 'controllers/base-controller'], (App, AppController)->
 
 
 		
-		App.commands.setHandler "menu-manager",(menuId) ->
+		App.commands.setHandler "menu-manager",(menuCollection,menuId) ->
 			opts = 
 				region 	: App.dialogRegion
-				menu_id : menuId
+				menuCollection : menuCollection
+				menuId : menuId
 
 			new Show.Controller opts

@@ -367,6 +367,11 @@ add_action ( 'wp_ajax_delete-element', 'delete_element_model' );
  * 
  */
 function create_menu_item() {
+    $menu_id = $_POST['menu_id'];
+    // is menu_id === 0
+    // create new menu
+    // add this menuitem to menu
+    // add the menu_id to the return 
     
     $formdata = array(
                 'menu-item-title' => $_POST['menu_item_title'],
@@ -374,6 +379,9 @@ function create_menu_item() {
                 'menu-item-url' => $_POST['menu_item_url'],
                 'menu-item-status' => 'publish'
     );
+    $arr= $formdata;
+    $arr['menu_id'] = $_POST['menu_id']; 
+    
        
     wp_update_nav_menu_item($_POST['menu_id'], 0,$formdata);
       

@@ -17,8 +17,7 @@ define(["app", 'backbone'], function(App, Backbone) {
         menu_item_title: '',
         menu_item_url: '',
         menu_item_parent: 0,
-        order: 0,
-        menu_id: 2
+        order: 0
       };
 
       MenuItemModel.prototype.name = 'menu-item';
@@ -134,6 +133,13 @@ define(["app", 'backbone'], function(App, Backbone) {
     })(Backbone.Collection);
     menuCollection = new Menus.MenuCollection;
     API = {
+      getMenuCollection: function(params) {
+        if (params == null) {
+          params = {};
+        }
+        menuCollection = new Menus.MenuItemCollection;
+        return menuCollection;
+      },
       getMenus: function(param) {
         if (param == null) {
           param = {};
@@ -171,13 +177,9 @@ define(["app", 'backbone'], function(App, Backbone) {
         }
         return new Menus.MenuCollection(modelsArr);
       },
-      createMenuItemModel: function(data, menuId) {
+      createMenuItemModel: function() {
         var menuitem;
-        data.menu_id = menuId;
-        menuitem = new Menus.MenuItemModel(data);
-        menuitem.save(null, {
-          wait: true
-        });
+        menuitem = new Menus.MenuItemModel;
         return menuitem;
       },
       createMenuModel: function(menuData) {
@@ -210,10 +212,6 @@ define(["app", 'backbone'], function(App, Backbone) {
           menu.fetch();
         }
         return menu;
-      },
-      deleteMenuItemModel: function(menucollection, model) {
-        menucollection.remove(model);
-        return menucollection;
       }
     };
     App.reqres.setHandler("get:menu:by:id", function(menuId) {
@@ -234,14 +232,14 @@ define(["app", 'backbone'], function(App, Backbone) {
     App.reqres.setHandler("create:menu:model", function(menu) {
       return API.createMenuModel(menu);
     });
-    App.reqres.setHandler("create:new:menu:item", function(data, menuId) {
-      return API.createMenuItemModel(data, menuId);
+    App.reqres.setHandler("create:new:menu:item", function() {
+      return API.createMenuItemModel();
     });
-    App.reqres.setHandler("update:menu:item", function(menuitem, data) {
+    App.reqres.setHandler("get:menu:collection", function() {
+      return API.getMenuCollection();
+    });
+    return App.reqres.setHandler("update:menu:item", function(menuitem, data) {
       return API.updateMenuItemModel(menuitem, data);
-    });
-    return App.reqres.setHandler("delete:menu:item", function(menucollection, model) {
-      return API.deleteMenuItemModel(menucollectioniv, model);
     });
   });
 });
