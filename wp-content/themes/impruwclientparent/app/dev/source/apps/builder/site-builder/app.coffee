@@ -35,5 +35,5 @@ define ['app'
 
 		# Show all region on start
 		SiteBuilderApp.on 'start', ->
-							API.show()
+			API.show()
 		

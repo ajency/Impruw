@@ -43,12 +43,13 @@ define ['app'
 												handle 		: '.aj-imp-drag-handle'
 												helper 		: 'clone'
 												opacity		: .65
+												tolerance	: 'pointer'
 												receive		: @elementDropped
 
 					elementDropped:(evt, ui)=> 
 						# trigger drop event if ui.item is Li tag
 						if ui.item.prop("tagName") is 'LI'
 							type  = ui.item.attr 'data-element'
-							metaId = ui.item.attr('data-meta-id')
+							metaId = ui.item.attr 'data-meta-id'
 							metaId = if metaId isnt undefined then parseInt(metaId) else 0
 							@trigger "add:new:element", $(evt.target), type, metaId

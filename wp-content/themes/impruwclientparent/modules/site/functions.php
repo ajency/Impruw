@@ -202,8 +202,8 @@ function add_pages_to_site($pages, $user_id = 0 ){
         	set_home_page($post_id);
         
         // assign the template if passed
-        if(isset($page['template']))
-            update_post_meta( $post_id, '_wp_page_template', $page['template'] );
+        $template = sanitize_title($page['post_title']) . '.php';
+       	update_post_meta( $post_id, '_wp_page_template', $template );
     
     }
     

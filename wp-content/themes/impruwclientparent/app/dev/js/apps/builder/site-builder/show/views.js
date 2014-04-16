@@ -61,6 +61,7 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
           handle: '.aj-imp-drag-handle',
           helper: 'clone',
           opacity: .65,
+          tolerance: 'pointer',
           receive: this.elementDropped
         });
       };
