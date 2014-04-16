@@ -556,11 +556,12 @@ Version:        0.1.0
 						.caret {
 							border-top-color: lighten(@3-grey, 30%);
 							border-width: 6px 5px;
+							margin-top: -2px;
 						}
 						&.selected {
 							color: @3-grey;
 						}
-						&:hover {
+						&:hover, &:focus {
 							color: @orange;
 							.caret {
 								border-top-color: @orange;
@@ -611,22 +612,36 @@ Version:        0.1.0
 					background: #fff;
 					border-radius: 4px;
 					color: @dash-grey;
-					padding: 0.5em;
+					padding: 0.3em;
 					border: 1px solid darken(@preview-grey, 5%);
 					cursor: default;
 					border-radius: 3px;
 					.page-slug-edit {
 						width: 50%;
-						border: 0;
 						color: lighten(@dash-grey, 10%);
 						padding: 0.2em;
 						border: 1px solid transparent;
+						border-radius: 3px;
 						&:hover {
-							border: 1px dashed @dash-grey;
+							border: 1px dotted @dash-grey;
 						}
 						&:focus {
 							background: @preview-grey;
 							color: @3-grey;
+						}
+					}
+					.bootstrap-select {
+						margin: 0;
+						float: right;
+						.btn {
+							padding: 5px 10px;
+							.caret {
+								margin-top: -4px;
+							}
+							&:focus {
+								background: @orange;
+								outline: 0;
+							}
 						}
 					}
 				}
