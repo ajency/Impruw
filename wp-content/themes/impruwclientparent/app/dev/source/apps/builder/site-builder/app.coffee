@@ -14,7 +14,8 @@ define ['app'
 
 			# add a new element to the builder region
 			addNewElement:(container, type, modelData)->
-				new SiteBuilderApp.Element[type].Controller 
+				if SiteBuilderApp.Element[type]
+					new SiteBuilderApp.Element[type].Controller 
 													container 	: container
 													modelData	: modelData
 

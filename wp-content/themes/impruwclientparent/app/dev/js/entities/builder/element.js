@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
 
 define(["app", 'backbone'], function(App, Backbone) {
   return App.module("Entities.Elements", function(Elements, App, Backbone, Marionette, $, _) {
-    var API;
+    var API, ElementsCollection, recoveredElements;
     Elements.ElementModel = (function(_super) {
       __extends(ElementModel, _super);
 
@@ -25,6 +25,28 @@ define(["app", 'backbone'], function(App, Backbone) {
       return ElementModel;
 
     })(Backbone.Model);
+    ElementsCollection = (function(_super) {
+      __extends(ElementsCollection, _super);
+
+      function ElementsCollection() {
+        return ElementsCollection.__super__.constructor.apply(this, arguments);
+      }
+
+      ElementsCollection.prototype.model = Elements.ElementModel;
+
+      ElementsCollection.prototype.url = function() {
+        return "" + AJAXURL + "?action=fetch-elements";
+      };
+
+      return ElementsCollection;
+
+    })(Backbone.Collection);
+    recoveredElements = new ElementsCollection;
+    recoveredElements.fetch({
+      data: {
+        type: 'recovered'
+      }
+    });
     API = {
       createElement: function(data) {
         var element;
@@ -41,10 +63,24 @@ define(["app", 'backbone'], function(App, Backbone) {
           }
         }
         return element;
+      },
+      getRecoveredElement: function(metaId) {
+        var element;
+        if (metaId == null) {
+          metaId = 0;
+        }
+        if (metaId === 0) {
+          return {};
+        }
+        element = recoveredElements.get(parseInt(metaId));
+        return element || {};
       }
     };
-    return App.reqres.setHandler("create:new:element", function(data) {
+    App.reqres.setHandler("create:new:element", function(data) {
       return API.createElement(data);
+    });
+    return App.reqres.setHandler("get:recovered:element", function(metaId) {
+      return API.getRecoveredElement(metaId);
     });
   });
 });
