@@ -41,6 +41,17 @@ Version:        0.1.0
 	}
 }
 
+/****Initial Loader Styles****/
+#initial-loader {
+	position: fixed;
+	width: 30%;
+	left: 35%;
+	top: 50%;
+	text-align: center;
+	color: @dash-grey;
+	text-transform: uppercase;
+}
+
 /****Dropdown Menu Styles****/
 .dropdown-menu {
 	border-radius: 0;
@@ -531,6 +542,7 @@ Version:        0.1.0
 				text-align: center;
 				margin: 0 0 0.8em;
 				color: lighten(@3-grey, 30%);
+				font-weight: 700;
 			}
 			.aj-imp-page-publish {
 				text-align: right;
@@ -544,11 +556,12 @@ Version:        0.1.0
 						.caret {
 							border-top-color: lighten(@3-grey, 30%);
 							border-width: 6px 5px;
+							margin-top: -2px;
 						}
 						&.selected {
 							color: @3-grey;
 						}
-						&:hover {
+						&:hover, &:focus {
 							color: @orange;
 							.caret {
 								border-top-color: @orange;
@@ -597,10 +610,40 @@ Version:        0.1.0
 				padding: 1em 0 0;
 				.aj-imp-browser-address-bar {
 					background: #fff;
-					border-radius: 3px;
+					border-radius: 4px;
 					color: @dash-grey;
-					padding: 0.5em;
+					padding: 0.3em;
 					border: 1px solid darken(@preview-grey, 5%);
+					cursor: default;
+					border-radius: 3px;
+					.page-slug-edit {
+						width: 50%;
+						color: lighten(@dash-grey, 10%);
+						padding: 0.2em;
+						border: 1px solid transparent;
+						border-radius: 3px;
+						&:hover, &:focus {
+							border: 1px dotted @dash-grey;
+						}
+						&:focus {
+							background: @preview-grey;
+							color: @3-grey;
+						}
+					}
+					.bootstrap-select {
+						margin: 0;
+						float: right;
+						.btn {
+							padding: 5px 10px;
+							.caret {
+								margin-top: -4px;
+							}
+							&:focus {
+								background: @orange;
+								outline: 0;
+							}
+						}
+					}
 				}
 				.aj-imp-choose-layout {
 					text-align: right;
@@ -663,26 +706,16 @@ Version:        0.1.0
 						}
 					}
 				}
-				.aj-imp-mode-switch {
+				.aj-imp-save-action {
 					text-align: right;
 					border-left: 1px solid lighten(@dash-grey, 20%);
-					.switch-toggle {
-						background: darken(@preview-grey, 15%);
-						border-radius: 6px;
-						box-shadow: inset 0 0 2px @dash-grey;
-						.btn-warning {
-							background: @orange;
-							color: #fff;
-							box-shadow: 0 0 2px @dash-grey;
-							border-radius: 6px;
-						}
-					}
-					label {
-						cursor: pointer;
+					.auto-save {
+						background: @orange;
 						color: #fff;
-					}
-					input {
-						display: none;
+						text-transform: uppercase;
+						&:hover {
+							background: lighten(@orange, 20%);
+						}
 					}
 				}
 			}
@@ -950,6 +983,12 @@ Version:        0.1.0
 }
 
 /****Builder Settings Box Styles****/
+#settings-region {
+	position: fixed;
+	top: 50%;
+	left: 40%;
+}
+
 .settings-box {
 	width: 400px;
 	background: @dark-blue;

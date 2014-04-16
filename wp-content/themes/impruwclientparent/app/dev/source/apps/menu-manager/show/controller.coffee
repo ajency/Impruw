@@ -36,6 +36,11 @@ define ['app', 'controllers/base-controller'], (App, AppController)->
 				
 					@listenTo @layout.addMenuRegion , "menu:model:to:collection" ,(model) =>
 						@menuCollection.add model
+					
+					
+					@listenTo @layout.listMenuRegion , "delete:menu:item:model" ,(model) =>
+						model.destroy
+								wait : true
 				
 				@show @layout
 

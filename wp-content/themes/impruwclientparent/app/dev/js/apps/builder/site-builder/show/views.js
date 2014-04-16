@@ -44,7 +44,7 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
       Builder.prototype.template = builderTpl;
 
       Builder.prototype.onShow = function() {
-        return this.$el.find('.droppable-column').sortable({
+        this.$el.find('.droppable-column').sortable({
           revert: 'invalid',
           items: '> .element-wrapper',
           connectWith: '.droppable-column,.column',
@@ -63,6 +63,10 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
           opacity: .65,
           tolerance: 'pointer',
           receive: this.elementDropped
+        });
+        return this.$el.find('select#builder-page-sel').selectpicker({
+          style: 'btn-xs btn-default',
+          menuStyle: 'dropdown'
         });
       };
 

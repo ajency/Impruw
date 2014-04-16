@@ -31,6 +31,16 @@ Version:        0.1.0
   color: #ff7e00;
   outline: 0;
 }
+/****Initial Loader Styles****/
+#initial-loader {
+  position: fixed;
+  width: 30%;
+  left: 35%;
+  top: 50%;
+  text-align: center;
+  color: #aaaaaa;
+  text-transform: uppercase;
+}
 /****Dropdown Menu Styles****/
 .dropdown-menu {
   border-radius: 0;
@@ -493,6 +503,7 @@ Version:        0.1.0
   text-align: center;
   margin: 0 0 0.8em;
   color: #808080;
+  font-weight: 700;
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .aj-imp-page-publish {
   text-align: right;
@@ -507,14 +518,17 @@ Version:        0.1.0
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .aj-imp-page-publish #aj-imp-preview-sel a .caret {
   border-top-color: #808080;
   border-width: 6px 5px;
+  margin-top: -2px;
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .aj-imp-page-publish #aj-imp-preview-sel a.selected {
   color: #333333;
 }
-.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .aj-imp-page-publish #aj-imp-preview-sel a:hover {
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .aj-imp-page-publish #aj-imp-preview-sel a:hover,
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .aj-imp-page-publish #aj-imp-preview-sel a:focus {
   color: #ff7e00;
 }
-.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .aj-imp-page-publish #aj-imp-preview-sel a:hover .caret {
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .aj-imp-page-publish #aj-imp-preview-sel a:hover .caret,
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .aj-imp-page-publish #aj-imp-preview-sel a:focus .caret {
   border-top-color: #ff7e00;
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .aj-imp-page-publish #aj-imp-preview-sel .aj-imp-preview-box {
@@ -559,10 +573,41 @@ Version:        0.1.0
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .second .aj-imp-browser-address-bar {
   background: #fff;
-  border-radius: 3px;
+  border-radius: 4px;
   color: #aaaaaa;
-  padding: 0.5em;
+  padding: 0.3em;
   border: 1px solid #e6e6e6;
+  cursor: default;
+  border-radius: 3px;
+}
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .second .aj-imp-browser-address-bar .page-slug-edit {
+  width: 50%;
+  color: #c3c3c3;
+  padding: 0.2em;
+  border: 1px solid transparent;
+  border-radius: 3px;
+}
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .second .aj-imp-browser-address-bar .page-slug-edit:hover,
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .second .aj-imp-browser-address-bar .page-slug-edit:focus {
+  border: 1px dotted #aaaaaa;
+}
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .second .aj-imp-browser-address-bar .page-slug-edit:focus {
+  background: #f3f3f3;
+  color: #333333;
+}
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .second .aj-imp-browser-address-bar .bootstrap-select {
+  margin: 0;
+  float: right;
+}
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .second .aj-imp-browser-address-bar .bootstrap-select .btn {
+  padding: 5px 10px;
+}
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .second .aj-imp-browser-address-bar .bootstrap-select .btn .caret {
+  margin-top: -4px;
+}
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .second .aj-imp-browser-address-bar .bootstrap-select .btn:focus {
+  background: #ff7e00;
+  outline: 0;
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .second .aj-imp-choose-layout {
   text-align: right;
@@ -619,27 +664,17 @@ Version:        0.1.0
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .second .aj-imp-choose-layout .dropdown-menu .more .btn {
   padding: 6px;
 }
-.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .second .aj-imp-mode-switch {
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .second .aj-imp-save-action {
   text-align: right;
   border-left: 1px solid #dddddd;
 }
-.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .second .aj-imp-mode-switch .switch-toggle {
-  background: #cdcdcd;
-  border-radius: 6px;
-  box-shadow: inset 0 0 2px #aaaaaa;
-}
-.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .second .aj-imp-mode-switch .switch-toggle .btn-warning {
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .second .aj-imp-save-action .auto-save {
   background: #ff7e00;
   color: #fff;
-  box-shadow: 0 0 2px #aaaaaa;
-  border-radius: 6px;
+  text-transform: uppercase;
 }
-.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .second .aj-imp-mode-switch label {
-  cursor: pointer;
-  color: #fff;
-}
-.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .second .aj-imp-mode-switch input {
-  display: none;
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .second .aj-imp-save-action .auto-save:hover {
+  background: #ffb266;
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-body {
   background: no-repeat center -0.5em #ffffff;
@@ -894,6 +929,11 @@ Version:        0.1.0
   content: 'Site Content';
 }
 /****Builder Settings Box Styles****/
+#settings-region {
+  position: fixed;
+  top: 50%;
+  left: 40%;
+}
 .settings-box {
   width: 400px;
   background: #29333f;

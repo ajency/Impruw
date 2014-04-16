@@ -11,7 +11,7 @@ define(['app'], function(App) {
         return MenuItemView.__super__.constructor.apply(this, arguments);
       }
 
-      MenuItemView.prototype.template = '<a href="{{menu_item_link}}">{{post_title}}</a>';
+      MenuItemView.prototype.template = '<a href="{{menu_item_url}}">{{menu_item_title}}</a>';
 
       MenuItemView.prototype.initialize = function(opt) {
         if (opt == null) {

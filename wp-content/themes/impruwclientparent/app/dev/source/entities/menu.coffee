@@ -8,8 +8,8 @@ define ["app", 'backbone'], (App, Backbone) ->
 				idAttribute : 'ID'
 
 				defaults:
-					post_title          : ''
-					menu_item_link      : ''
+					menu_item_title     : ''
+					menu_item_url       : ''
 					menu_item_parent    : 0
 					order 				: 0 
 					menu_id				: 2	
@@ -45,8 +45,6 @@ define ["app", 'backbone'], (App, Backbone) ->
 								action : _action
 							success: =>
 								@trigger "menu:order:updated"
-
-			menuitemCollection = new Menus.MenuItemCollection
 			
 			# menu model
 			class Menus.MenuModel extends Backbone.AssociatedModel
@@ -146,6 +144,11 @@ define ["app", 'backbone'], (App, Backbone) ->
 						menu.fetch()
 
 					menu
+
+				deleteMenuItemModel :(menucollection,model) ->
+					menucollection.remove model
+					menucollection
+
 				
 			App.reqres.setHandler "get:menu:by:id",(menuId)->
 				API.getMenuById menuId
@@ -176,5 +179,8 @@ define ["app", 'backbone'], (App, Backbone) ->
 			App.reqres.setHandler "create:new:menu:item", (data, menuId)->
 				API.createMenuItemModel data, menuId
 
-			App.commands.setHandler "update:menu:item",(menuitem, data)->
+			App.reqres.setHandler "update:menu:item",(menuitem, data)->
 				API.updateMenuItemModel menuitem, data
+
+			App.reqres.setHandler "delete:menu:item",(menucollection,model)->
+				API.deleteMenuItemModel menucollectioniv,model
