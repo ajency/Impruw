@@ -8,36 +8,42 @@ define(['app', 'controllers/base-controller', 'apps/menu-manager/add/views'], fu
       __extends(Controller, _super);
 
       function Controller() {
+        this.menuItemAdded = __bind(this.menuItemAdded, this);
         this.saveMenu = __bind(this.saveMenu, this);
         return Controller.__super__.constructor.apply(this, arguments);
       }
 
       Controller.prototype.initialize = function(opts) {
-        var menu_id, menumodel, view;
-        this.menu_id = menu_id = opts.model.get('id');
-        this.menumodel = menumodel = opts.model;
-        this.view = view = this._getView(this.menumodel);
+        var menuId, view;
+        this.menuId = menuId = opts.menuId;
+        this.view = view = this._getView();
         this.listenTo(this.view, {
           "add:menu:item:clicked": (function(_this) {
             return function(data) {
-              return _this.saveMenu(data, _this.menu_id);
+              return _this.saveMenu(data, _this.menuId);
             };
           })(this)
         });
         return this.show(this.view);
       };
 
-      Controller.prototype.saveMenu = function(data, menuid) {
+      Controller.prototype.saveMenu = function(data, menuId) {
         var menumodel;
-        menumodel = App.request("create:new:menu:item", data, menuid);
+        menumodel = App.request("create:new:menu:item");
+        menumodel.set('menu_id', parseInt(menuId));
+        return menumodel.save(data, {
+          wait: true,
+          success: this.menuItemAdded
+        });
+      };
+
+      Controller.prototype.menuItemAdded = function(model) {
         this.view.triggerMethod("new:menu:created");
-        return this.region.trigger("menu:model:to:collection", menumodel);
+        return this.region.trigger("menu:model:to:collection", model);
       };
 
       Controller.prototype._getView = function(menumodel) {
-        return new Add.Views.MenuItemView({
-          model: menumodel
-        });
+        return new Add.Views.MenuItemView;
       };
 
       return Controller;

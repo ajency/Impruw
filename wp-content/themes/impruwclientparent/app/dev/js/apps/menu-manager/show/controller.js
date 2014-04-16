@@ -12,19 +12,29 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
       }
 
       Controller.prototype.initialize = function(opts) {
-        var layout, menuCollection, menuDetails, menu_id;
-        this.menu_id = menu_id = opts.menu_id;
-        if (!menu_id) {
-          throw new Error("Menu Id not specified");
+        var layout, menuCollection, menuId;
+        this.menuId = 0;
+        if (opts.menuId) {
+          this.menuId = menuId = opts.menuId;
         }
-        this.menuDetails = menuDetails = App.request("get:menu:by:id", menu_id);
-        this.menuCollection = menuCollection = menuDetails.get('menu_items');
+        this.menuCollection = menuCollection = opts.menuCollection;
+        if (this.menuId === 0) {
+          this.menuCollection.once("add", (function(_this) {
+            return function(model) {
+              _this.menuId = model.get('menu_id');
+              return App.execute("add:menu:items:app", {
+                region: _this.layout.addMenuRegion,
+                menuId: _this.menuId
+              });
+            };
+          })(this));
+        }
         this.layout = layout = this.getLayout();
         this.listenTo(this.layout, "show", (function(_this) {
           return function() {
             App.execute("add:menu:items:app", {
               region: _this.layout.addMenuRegion,
-              model: _this.menuDetails
+              menuId: _this.menuId
             });
             App.execute("list:menu:items:app", {
               region: _this.layout.listMenuRegion,
@@ -44,9 +54,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
       };
 
       Controller.prototype.getLayout = function(menuCollection) {
-        return new MediaMangerLayout({
-          collection: menuCollection
-        });
+        return new MediaMangerLayout;
       };
 
       return Controller;
@@ -75,11 +83,12 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
       return MediaMangerLayout;
 
     })(Marionette.Layout);
-    return App.commands.setHandler("menu-manager", function(menuId) {
+    return App.commands.setHandler("menu-manager", function(menuCollection, menuId) {
       var opts;
       opts = {
         region: App.dialogRegion,
-        menu_id: menuId
+        menuCollection: menuCollection,
+        menuId: menuId
       };
       return new Show.Controller(opts);
     });
