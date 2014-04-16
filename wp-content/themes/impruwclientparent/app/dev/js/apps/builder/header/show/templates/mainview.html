@@ -1,18 +1,29 @@
-
 <nav role="navigation" class="aj-imp-builder-top-nav row">
   <div class="aj-imp-builder-back col-sm-2">
     <p class="navbar-text"><a href="{{DASHBOARDURL}}"><span class="glyphicon glyphicon-arrow-left"></span> Back to Dashboard</a></p>
   </div>
-  <div class="aj-imp-page-layout col-sm-3 clearfix navbar-text">Page: 
-    <select id="aj-imp-page-sel" name="aj-imp-page-sel">
-      <option value="">Choose </option>
-    </select>
-    <button type="button" class="btn btn-primary add-new-page">Add Page</button>
+
+  <div class="aj-imp-builder-top-options aj-imp-page-layout col-sm-8 clearfix navbar-text"> 
+    <a href="#choose-theme" class="btn btn-xs choose-theme">Switch Theme</a>
+    
+    <div id="aj-imp-color-sel" class="dropdown"> 
+      <a class="btn btn-default" data-toggle="dropdown" href="#"><span class="pull-left">Change Color</span><span class="caret"></span></a>
+      <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu1">
+        <li role="presentation">
+          <div class="aj-imp-color-box">
+            <h6>Choose Color</h6>
+            <ul class="clearfix">
+              <li><a href="#" class="selected"><img src="images/color-blue.png"></a></li>
+              <li><a href="#"><img src="images/color-red.png"></a></li>
+              <li><a href="#"><img src="images/color-green.png"></a></li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </div>
   </div>
-  <div class="col-sm-4 clearfix navbar-text"> 
-    <a href="#choose-theme" class="btn btn-primary pull-right choose-theme">Choose Theme</a>
-  </div>
-  <div class="aj-imp-builder-top-options col-sm-2 navbar-text">
-    <a href="{{LOGOUTURL}}" class="btn btn-danger btn-logout"><span class="glyphicon glyphicon-off"></span> Logout</a>
+
+  <div class="aj-imp-builder-top-options aj-imp-page-layout col-sm-2 clearfix navbar-text"> 
+    <a href="#" class="btn btn-xs btn-info builder-help">Need Help <span class="glyphicon glyphicon-question-sign"></span></a>
   </div>
 </nav>

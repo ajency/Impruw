@@ -43,10 +43,10 @@
     
     <div id="login-region"></div>
    
-    <div id="settings-region" style="position:fixed;top:50%;left:40%"></div>
+    <div id="settings-region"></div>
     <div id="dialog-region" class="modal "></div><!-- /.modal -->
-    <div id="initial-loader" style="position:fixed;width:30%;left:35%;top:50%;text-align:center">
-        Loading Editor... Please Wait... <br />
+    <div id="initial-loader">
+        Loading... Please Wait... <br />
         <img src="<?php echo get_parent_template_directory_uri(); ?>/images/loader1.gif" />
     </div>
     
