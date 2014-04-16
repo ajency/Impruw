@@ -45,6 +45,10 @@ define ['app'
 												opacity		: .65
 												receive		: @elementDropped
 
+						@$el.find('select#builder-page-sel').selectpicker
+												style 		: 'btn-xs btn-default'
+												menuStyle	: 'dropdown'
+
 					elementDropped:(evt, ui)=> 
 						# trigger drop event if ui.item is Li tag
 						if ui.item.prop("tagName") is 'LI'
