@@ -30,8 +30,13 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
               region: _this.layout.listMenuRegion,
               collection: _this.menuCollection
             });
-            return _this.listenTo(_this.layout.addMenuRegion, "menu:model:to:collection", function(model) {
+            _this.listenTo(_this.layout.addMenuRegion, "menu:model:to:collection", function(model) {
               return _this.menuCollection.add(model);
+            });
+            return _this.listenTo(_this.layout.listMenuRegion, "delete:menu:item:model", function(model) {
+              return model.destroy({
+                wait: true
+              });
             });
           };
         })(this));

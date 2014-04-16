@@ -1360,8 +1360,8 @@ function get_menu_to_array($mn, $by = 'name') {
 		$mn = array (
 				'ID' => $menu_item->ID,
 				'order' => $menu_item->menu_order,
-				'post_title' => $menu_item->title,
-				'menu_item_link' => $menu_item->url,
+				'menu_item_title' => $menu_item->title,
+				'menu_item_url' => $menu_item->url,
 				'menu_id' => $menu->term_id 
 		);
 		
@@ -1377,8 +1377,8 @@ function get_menu_to_array($mn, $by = 'name') {
 		$mn = array (
 				'ID' => $menu_item->ID,
 				'order' => $menu_item->menu_order,
-				'post_title' => $menu_item->title,
-				'menu_item_link' => $menu_item->url,
+				'menu_item_title' => $menu_item->title,
+				'menu_item_url' => $menu_item->url,
 				'menu_id' => ( int ) $menu->term_id 
 		);
 		

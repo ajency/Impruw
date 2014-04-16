@@ -364,13 +364,14 @@ function delete_element_model() {
 add_action ( 'wp_ajax_delete-element', 'delete_element_model' );
 
 /**
+ * 
  */
 function create_menu_item() {
     
     $formdata = array(
-                'menu-item-title' => $_POST['post_title'],
+                'menu-item-title' => $_POST['menu_item_title'],
                 'menu-item-classes' => '' ,
-                'menu-item-url' => $_POST['menu_item_link'],
+                'menu-item-url' => $_POST['menu_item_url'],
                 'menu-item-status' => 'publish'
     );
        
@@ -379,6 +380,35 @@ function create_menu_item() {
     wp_send_json ( array ('code' => 'OK','data' => $formdata ));
 }
 add_action ( 'wp_ajax_create-menu-item', 'create_menu_item' );
+
+/**
+ * 
+ */
+function update_menu_item() {
+    $formdata = array(
+                'menu-item-title' => $_POST['menu_item_title'],
+                'menu-item-classes' => '' ,
+                'menu-item-url' => $_POST['menu_item_url'],
+                'menu-item-status' => 'publish'
+    );
+    wp_update_nav_menu_item($_POST['menu_id'],$_POST['ID'],$formdata);
+      
+    wp_send_json ( array ('code' => 'OK','data' => $formdata ));
+}
+add_action ( 'wp_ajax_update-menu-item', 'update_menu_item' );
+
+/**
+ * 
+ */
+function delete_menu_item() {
+    
+    $menu_item_post_id= $_POST['ID'];
+    
+    wp_delete_post($menu_item_post_id);
+    
+    wp_send_json(array('code'=>'OK','menu_item_post_id'=>$menu_item_post_id));
+}
+add_action('wp_ajax_delete-menu-item','delete_menu_item');
 
 /**
  * get all menus

@@ -17,6 +17,35 @@ define(['app', 'text!apps/menu-manager/list/templates/menuitem.html'], function(
 
       MenuItemView.prototype.className = 'list-group-item';
 
+      MenuItemView.prototype.modelEvents = {
+        'change': 'render'
+      };
+
+      MenuItemView.prototype.onRender = function() {
+        return this.$el.find('.sortable-menu-items').sortable();
+      };
+
+      MenuItemView.prototype.events = {
+        'click .update-menu-item': function() {
+          var formdata;
+          formdata = Backbone.Syphon.serialize(this);
+          return this.trigger("update:menu:item:clicked", formdata, this.model);
+        },
+        'click .delete-menu-item': function() {
+          if (confirm('Delete the menu item?')) {
+            return this.trigger("delete:menu:item:clicked", this.model);
+          }
+        },
+        'click .cancel-menu-item': function() {
+          var menu_id, menu_item_id;
+          menu_id = this.model.get('menu_id');
+          menu_item_id = this.model.get('ID');
+          this.$el.find('.menuname').val(this.model.get('menu_item_title'));
+          this.$el.find('.menutitle').val(this.model.get('menu_item_url'));
+          return this.$el.find("#menuitem-" + menu_id + "-" + menu_item_id).click();
+        }
+      };
+
       return MenuItemView;
 
     })(Marionette.ItemView);
@@ -34,6 +63,11 @@ define(['app', 'text!apps/menu-manager/list/templates/menuitem.html'], function(
       MenuCollectionView.prototype.itemViewContainer = 'ol.sortable-menu-items';
 
       MenuCollectionView.prototype.className = 'col-md-6 aj-imp-menu-item-list';
+
+      MenuCollectionView.prototype.onMenuItemUpdated = function() {
+        this.$el.find('.alert').remove();
+        return this.$el.prepend('<div class="alert alert-success">Menu item updated</div>');
+      };
 
       return MenuCollectionView;
 

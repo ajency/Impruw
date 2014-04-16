@@ -7,7 +7,7 @@ define ['app'],
 				# Menu item view
 				class Views.MenuItemView extends Marionette.ItemView
 
-					template: '<a href="{{menu_item_link}}">{{post_title}}</a>'
+					template: '<a href="{{menu_item_url}}">{{menu_item_title}}</a>'
 
 					initialize:(opt = {})->
 						@listenTo @model, "change", @render
