@@ -23,8 +23,17 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/show/vi
         this.view = new Show.View.Builder({
           model: elements
         });
-        this.listenTo(this.view, "add:new:element", function(container, type) {
-          return App.request("add:new:element", container, type);
+        this.listenTo(this.view, "add:new:element", function(container, type, metaId) {
+          var model, modelData;
+          if (metaId == null) {
+            metaId = 0;
+          }
+          modelData = {};
+          if (metaId !== 0) {
+            model = App.request("get:recovered:element", metaId);
+            modelData = model.toJSON();
+          }
+          return App.request("add:new:element", container, type, modelData);
         });
         this.listenTo(this.view, "dependencies:fetched", (function(_this) {
           return function() {
