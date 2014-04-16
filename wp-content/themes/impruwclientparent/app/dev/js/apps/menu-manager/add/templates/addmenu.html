@@ -1,29 +1,28 @@
-
-  <div class="col-md-6 aj-imp-add-menu-item">
-    <h4>{{menu_name}}</h4> 
-    <p class="desc">{{menu_description}}</p> 
-    <a href="#{{menu_slug}}-add-menu" data-toggle="collapse" class="aj-imp-add-link">Add New Menu Item</a>
-    <div id="{{menu_slug}}-add-menu" class="collapse in add-menu-form"> 
-      <form class="form-horizontal well">
-        <div class="form-group">
-          <label class="col-sm-4 control-label">Menu Link Label</label>
-          <div class="col-sm-8">
-            <input type="text" name="menu_item_title" required="true" class="required form-control"/>
-          </div>
+<div class="aj-imp-add-menu-item">
+  <h4>Add Menu Item</h4> 
+  <p class="desc">Add menu items by clicking on the link below. You can edit the order and content of your menu items from the list on the right.</p> 
+  <a href="#{{menu_slug}}-add-menu" data-toggle="collapse" class="aj-imp-add-link"><span class="glyphicon glyphicon-plus-sign"></span> Add a New Menu Item</a>
+  <div id="{{menu_slug}}-add-menu" class="collapse add-menu-form"> 
+    <form class="form-horizontal well">
+      <div class="form-group">
+        <label class="col-sm-4 control-label">Menu Link Label</label>
+        <div class="col-sm-8">
+          <input type="text" name="menu_item_title" required="true" class="required form-control"/>
         </div>
-        <div class="form-group">
-          <label class="col-sm-4 control-label">Menu Link</label>
-          <div class="col-sm-8">
-            <input type="text" name="menu_item_url" required="true" class="required form-control"/>
-          </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-4 control-label">Menu Link</label>
+        <div class="col-sm-8">
+          <input type="text" name="menu_item_url" required="true" class="required form-control"/>
         </div>
-        <div class="form-group form-actions">
-          <div class="col-sm-offset-4 col-sm-8">
-            <!--<input type="hidden" value="{{id}}" name="menu_id"/> -->
-            <button type="button" class="add-menu-item btn"><span>Add Menu Item</span></button>
-            <input type="reset" id="btn_resetmenu" style="display:none">
-          </div>
+      </div>
+      <div class="form-group form-actions">
+        <div class="col-sm-offset-4 col-sm-8">
+          <!--<input type="hidden" value="{{id}}" name="menu_id"/> -->
+          <button type="button" class="add-menu-item btn save-btn"><span>Add Menu Item</span></button>
+          <input type="reset" id="btn_resetmenu" style="display:none">
         </div>
-      </form>
-    </div>
+      </div>
+    </form>
   </div>
+</div>

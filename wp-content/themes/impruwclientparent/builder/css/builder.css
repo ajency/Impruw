@@ -1573,6 +1573,9 @@ Version:        0.1.0
 .modal .form-horizontal .form-group#social-drop .aj-imp-add-icon:hover {
   background: #ffb266;
 }
+.modal .menu-manager-container {
+  padding: 0 2em;
+}
 .modal .aj-imp-add-menu-item h4 {
   font-size: 2em;
 }
