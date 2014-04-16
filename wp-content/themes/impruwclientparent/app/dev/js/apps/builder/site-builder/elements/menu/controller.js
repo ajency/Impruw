@@ -16,7 +16,6 @@ define(['app', 'apps/builder/site-builder/elements/menu/views', 'apps/builder/si
         _.defaults(options.modelData, {
           element: 'Menu',
           justified: false,
-          menu_id: 2,
           style: ''
         });
         return Controller.__super__.initialize.call(this, options);
@@ -41,21 +40,39 @@ define(['app', 'apps/builder/site-builder/elements/menu/views', 'apps/builder/si
         });
       };
 
+      Controller.prototype._getMenuCollection = function() {
+        var menuModel;
+        if (!this.menuCollection) {
+          if (this.layout.model.get('menu_id') > 0) {
+            menuModel = App.request("get:menu:by:id", this.layout.model.get('menu_id'));
+            this.menuCollection = menuModel.get('menu_items');
+          } else {
+            this.menuCollection = App.request("get:menu:collection");
+            this.menuCollection.once("add", (function(_this) {
+              return function(model) {
+                _this.layout.model.set('menu_id', model.get('menu_id'));
+                return _this.layout.model.save();
+              };
+            })(this));
+          }
+        }
+        return this.menuCollection;
+      };
+
       Controller.prototype.renderElement = function() {
-        var menu, model;
+        var itemCollection, model;
+        this.itemCollection = itemCollection = this._getMenuCollection();
         model = this.layout.model;
-        menu = App.request("get:menu:by:id", model.get('menu_id'));
-        return App.execute("when:fetched", menu, (function(_this) {
+        return App.execute("when:fetched", itemCollection, (function(_this) {
           return function() {
-            var itemCollection, templateClass, view, _ref;
-            itemCollection = menu.get('menu_items');
+            var menu_id, templateClass, view, _ref;
             templateClass = (_ref = [model.get('style')]) != null ? _ref : '';
             view = _this._getMenuView(itemCollection, templateClass);
+            _this.menu_id = menu_id = _this.layout.model.get('menu_id');
             _this.listenTo(itemCollection, "menu:order:updated", view.render);
             _this.listenTo(view, "open:menu:manager", function() {
-              var menuId;
-              menuId = _this.layout.model.get('menu_id');
-              return App.execute("menu-manager", menuId);
+              console.log(_this.itemCollection);
+              return App.execute("menu-manager", _this.itemCollection, _this.menu_id);
             });
             return _this.layout.elementRegion.show(view);
           };
