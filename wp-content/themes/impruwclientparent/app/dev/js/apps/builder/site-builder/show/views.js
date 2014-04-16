@@ -1,5 +1,6 @@
 var __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
 define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html', 'text!apps/builder/site-builder/show/templates/builder.html'], function(App, mainviewTpl, builderTpl) {
   return App.module('SiteBuilderApp.Show.View', function(View, App, Backbone, Marionette, $, _) {
@@ -36,6 +37,7 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
       __extends(Builder, _super);
 
       function Builder() {
+        this.elementDropped = __bind(this.elementDropped, this);
         return Builder.__super__.constructor.apply(this, arguments);
       }
 
@@ -59,16 +61,18 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
           handle: '.aj-imp-drag-handle',
           helper: 'clone',
           opacity: .65,
-          receive: (function(_this) {
-            return function(evt, ui) {
-              var type;
-              if (ui.item.prop("tagName") === 'LI') {
-                type = ui.item.attr('data-element');
-                return _this.trigger("add:new:element", $(evt.target), type);
-              }
-            };
-          })(this)
+          receive: this.elementDropped
         });
+      };
+
+      Builder.prototype.elementDropped = function(evt, ui) {
+        var metaId, type;
+        if (ui.item.prop("tagName") === 'LI') {
+          type = ui.item.attr('data-element');
+          metaId = ui.item.attr('data-meta-id');
+          metaId = metaId !== void 0 ? parseInt(metaId) : 0;
+          return this.trigger("add:new:element", $(evt.target), type, metaId);
+        }
       };
 
       return Builder;

@@ -42,10 +42,11 @@ define(['app', 'controllers/base-controller', 'apps/builder/choosetheme/views'],
         data = {
           new_theme_id: model.get('ID')
         };
+        if (ISTHEMESELECTED === 1) {
+          data.clone_pages = false;
+        }
         responseFn = (function(_this) {
-          return function(resp) {
-            return window.location.href = BUILDERURL;
-          };
+          return function(resp) {};
         })(this);
         return $.post("" + AJAXURL + "?action=assign-theme-to-site", data, responseFn, 'json');
       };

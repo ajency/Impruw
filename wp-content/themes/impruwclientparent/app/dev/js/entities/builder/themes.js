@@ -1,5 +1,6 @@
 var __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
 define(["app", 'backbone'], function(App, Backbone) {
   return App.module("Entities.Themes", function(Themes, App, Backbone, Marionette, $, _) {
@@ -13,23 +14,24 @@ define(["app", 'backbone'], function(App, Backbone) {
 
       ThemeModel.prototype.idAttribute = 'ID';
 
-      return ThemeModel;
-
-    })(Backbone.Model);
-    ({
-      defaults: function() {
+      ThemeModel.prototype.defaults = function() {
         return {
           post_title: '',
           image_url: '',
           preview_link: '#'
         };
-      },
-      name: 'theme'
-    });
+      };
+
+      ThemeModel.prototype.name = 'theme';
+
+      return ThemeModel;
+
+    })(Backbone.Model);
     Themes.ThemeCollection = (function(_super) {
       __extends(ThemeCollection, _super);
 
       function ThemeCollection() {
+        this.getExcept = __bind(this.getExcept, this);
         return ThemeCollection.__super__.constructor.apply(this, arguments);
       }
 
@@ -39,10 +41,10 @@ define(["app", 'backbone'], function(App, Backbone) {
         return "" + AJAXURL + "?action=get-themes";
       };
 
-      ThemeCollection.prototype.getExcept = function(theme) {
+      ThemeCollection.prototype.getExcept = function(currentTheme) {
         var models;
         models = this.filter(function(theme) {
-          return _.slugify(theme.get('post_title')) !== theme;
+          return _.slugify(theme.get('post_title')) !== currentTheme;
         });
         return models;
       };
@@ -58,9 +60,8 @@ define(["app", 'backbone'], function(App, Backbone) {
         if (param == null) {
           param = {};
         }
-        themes = new Themes.ThemeCollection;
         themes = themesCollection.getExcept(CURRENTTHEME);
-        return themes;
+        return new Themes.ThemeCollection(themes);
       }
     };
     return App.reqres.setHandler("get:themes:collection", function() {

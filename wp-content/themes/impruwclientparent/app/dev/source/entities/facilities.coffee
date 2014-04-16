@@ -18,21 +18,19 @@ define ['app'
 
 				url :(models = []) ->
 
-                    if models.length is 0 
-                        "#{AJAXURL}?action=fetch-facilities"
-                    else
-                        ids = []
-                        ids.push facility.get('term_id') for facility in models
-                        ids = ids.join()
-                        "#{AJAXURL}?action=facilities&ids=#{ids}"
+					if models.length is 0 
+						"#{AJAXURL}?action=fetch-facilities"
+					else
+						ids = []
+						ids.push facility.get('term_id') for facility in models
+						ids = ids.join()
+						"#{AJAXURL}?action=facilities&ids=#{ids}"
 
-
+			facilities = new Facilities.FacilityCollection
+			facilities.fetch()
 			#Public API
 			API = 
-				getFacilities :(param = {})->
-					facilities = new Facilities.FacilityCollection
-					facilities.fetch
-						data : param
+				getFacilities :()->
 					facilities
 
 				createFacilityModel:(data)->
