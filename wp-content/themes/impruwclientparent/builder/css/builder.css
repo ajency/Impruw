@@ -1573,6 +1573,9 @@ Version:        0.1.0
 .modal .form-horizontal .form-group#social-drop .aj-imp-add-icon:hover {
   background: #ffb266;
 }
+.modal .menu-manager-container {
+  padding: 0 2em;
+}
 .modal .aj-imp-add-menu-item h4 {
   font-size: 2em;
 }
@@ -1650,6 +1653,58 @@ Version:        0.1.0
   margin: 0.2em 0;
   border: 1px dashed #849fb0;
   background: #f1f4f6;
+}
+/**** Revisions Select Styles ****/
+.aj-imp-revisions {
+  float: right;
+}
+.aj-imp-revisions .rev-toggle {
+  display: block;
+  margin: 0.4em 0;
+  font-size: 1.1em;
+  font-weight: 300;
+}
+.aj-imp-revisions .rev-toggle .caret {
+  border-top-color: #808080;
+  border-width: 6px 5px;
+  margin-top: -2px;
+}
+.aj-imp-revisions .rev-toggle:focus {
+  color: #ff7e00;
+}
+.aj-imp-revisions .rev-toggle:focus .caret {
+  border-top-color: #ff7e00;
+}
+.aj-imp-revisions ul {
+  width: 260px;
+}
+.aj-imp-revisions ul li {
+  padding: 0.5em;
+  border-bottom: 1px solid #f6f6f6;
+  cursor: pointer;
+}
+.aj-imp-revisions ul li .date {
+  color: #849fb0;
+}
+.aj-imp-revisions ul li .time {
+  color: #aaaaaa;
+  font-size: 0.88em;
+  font-style: italic;
+  text-align: right;
+  padding-top: 0.2em;
+}
+.aj-imp-revisions ul li:last-child {
+  border-bottom: 0;
+}
+.aj-imp-revisions ul li:hover {
+  background: #f3f3f3;
+}
+.aj-imp-revisions ul li.active {
+  background: #849fb0;
+}
+.aj-imp-revisions ul li.active .date,
+.aj-imp-revisions ul li.active .time {
+  color: #fff;
 }
 /****Block List Styles****/
 .aj-imp-block-list ul {

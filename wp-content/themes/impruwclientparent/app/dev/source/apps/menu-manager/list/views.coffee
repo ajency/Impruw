@@ -40,17 +40,17 @@ define ['app'
 
 
 					template : '<div class="panel panel-default">
-										<div class="panel-heading">
-											<h3 class="panel-title">{{menu_name}}</h3>
-										</div>
-										<ol class="list-group sortable-menu-items ui-sortable"></ol>
+									<div class="panel-heading">
+										<h3 class="panel-title">{{menu_name}}</h3>
+									</div>
+									<ol class="list-group sortable-menu-items ui-sortable"></ol>
 								</div>'
 
 					itemView : MenuItemView
 
 					itemViewContainer : 'ol.sortable-menu-items'
 
-					className : 'col-md-6 aj-imp-menu-item-list'
+					className : 'aj-imp-menu-item-list'
 
 					onMenuItemUpdated :->
 						@$el.find('.alert').remove()

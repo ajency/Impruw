@@ -62,7 +62,7 @@ define(['app', 'text!apps/menu-manager/list/templates/menuitem.html'], function(
 
       MenuCollectionView.prototype.itemViewContainer = 'ol.sortable-menu-items';
 
-      MenuCollectionView.prototype.className = 'col-md-6 aj-imp-menu-item-list';
+      MenuCollectionView.prototype.className = 'aj-imp-menu-item-list';
 
       MenuCollectionView.prototype.onMenuItemUpdated = function() {
         this.$el.find('.alert').remove();

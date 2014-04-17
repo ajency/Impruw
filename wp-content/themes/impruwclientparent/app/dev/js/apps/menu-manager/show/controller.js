@@ -67,7 +67,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         return MediaMangerLayout.__super__.constructor.apply(this, arguments);
       }
 
-      MediaMangerLayout.prototype.className = 'media-manager-container row';
+      MediaMangerLayout.prototype.className = 'menu-manager-container row';
 
       MediaMangerLayout.prototype.template = '<div id="add-menu-items" class="col-md-6"></div> <div id="list-menu-items" class="col-md-6"></div>';
 
