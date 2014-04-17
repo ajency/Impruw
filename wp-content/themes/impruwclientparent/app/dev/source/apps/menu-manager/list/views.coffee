@@ -4,7 +4,15 @@ define ['app'
 			App.module 'MenuManager.List.Views', (Views, App)->
 
 				class MenuItemView extends Marionette.ItemView
-
+					
+					#initialize:->
+					onShow:->
+						@on "menu:item:order:changed",(order,collection)=> 
+											console.log 'hi'
+											console.log order
+											console.log collection
+											console.log @model
+											#@trigger "view:menu:order:changed",order,collection
 
 					template : menuItemTpl
 
@@ -15,8 +23,8 @@ define ['app'
 					modelEvents: 
 						'change' :'render'
 
-					onRender :->
-						@$el.find('.sortable-menu-items').sortable()
+					onRender:->
+						@$el.attr 'id', 'item-' + @model.get 'ID'
 					
 					events: 
 						'click .update-menu-item' :->
@@ -38,6 +46,12 @@ define ['app'
 				# main menu manager view
 				class Views.MenuCollectionView extends Marionette.CompositeView
 
+					initialize:->
+						#@on "menu:item:order:changed",(order,collection)=> 
+											#console.log order
+											#console.log collection
+											#@trigger "view:menu:order:changed",order,collection
+					
 
 					template : '<div class="panel panel-default">
 									<div class="panel-heading">
@@ -52,9 +66,32 @@ define ['app'
 
 					className : 'aj-imp-menu-item-list'
 
+					onShow :->
+						@$el.find('.sortable-menu-items').sortable
+													handle 	: 'div.menu-dragger'
+													items 	: 'li.list-group-item'
+													tolerance: 'intersect'
+													stop : (e,ui)=>
+														order = @$el.find('.sortable-menu-items').sortable 'toArray'
+														@trigger "menu:item:order:changed", order, @collection
+
 					onMenuItemUpdated :->
 						@$el.find('.alert').remove()
 						@$el.prepend '<div class="alert alert-success">Menu item updated</div>'
 
+					itemViewOptions:(item, index)->
+									itemIndex : index
+									collection: @collection
+					
+					serializeData: ->
+							data = 
+								menus : []
 
+							@collection.each (model, index)->
+								menu = {}
+								menu.menu_slug = model.get('menu_slug')
+								menu.menu_name = model.get('menu_name')
+								data.menus.push menu
+
+							data
 

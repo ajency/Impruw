@@ -22,6 +22,11 @@ define ['app', 'controllers/base-controller', 'apps/menu-manager/list/views'], (
 				@listenTo @view ,"itemview:delete:menu:item:clicked",(iv,model) =>
 					@region.trigger "delete:menu:item:model",model
 
+				@listenTo @view ,"view:menu:order:changed",(iv,order,collection) =>
+					console.log order
+					console.log collection
+				
+
 				@show @view
 
 

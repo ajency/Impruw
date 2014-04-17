@@ -11,6 +11,17 @@ define(['app', 'text!apps/menu-manager/list/templates/menuitem.html'], function(
         return MenuItemView.__super__.constructor.apply(this, arguments);
       }
 
+      MenuItemView.prototype.onShow = function() {
+        return this.on("menu:item:order:changed", (function(_this) {
+          return function(order, collection) {
+            console.log('hi');
+            console.log(order);
+            console.log(collection);
+            return console.log(_this.model);
+          };
+        })(this));
+      };
+
       MenuItemView.prototype.template = menuItemTpl;
 
       MenuItemView.prototype.tagName = 'li';
@@ -22,7 +33,7 @@ define(['app', 'text!apps/menu-manager/list/templates/menuitem.html'], function(
       };
 
       MenuItemView.prototype.onRender = function() {
-        return this.$el.find('.sortable-menu-items').sortable();
+        return this.$el.attr('id', 'item-' + this.model.get('ID'));
       };
 
       MenuItemView.prototype.events = {
@@ -56,6 +67,8 @@ define(['app', 'text!apps/menu-manager/list/templates/menuitem.html'], function(
         return MenuCollectionView.__super__.constructor.apply(this, arguments);
       }
 
+      MenuCollectionView.prototype.initialize = function() {};
+
       MenuCollectionView.prototype.template = '<div class="panel panel-default"> <div class="panel-heading"> <h3 class="panel-title">{{menu_name}}</h3> </div> <ol class="list-group sortable-menu-items ui-sortable"></ol> </div>';
 
       MenuCollectionView.prototype.itemView = MenuItemView;
@@ -64,9 +77,46 @@ define(['app', 'text!apps/menu-manager/list/templates/menuitem.html'], function(
 
       MenuCollectionView.prototype.className = 'aj-imp-menu-item-list';
 
+      MenuCollectionView.prototype.onShow = function() {
+        return this.$el.find('.sortable-menu-items').sortable({
+          handle: 'div.menu-dragger',
+          items: 'li.list-group-item',
+          tolerance: 'intersect',
+          stop: (function(_this) {
+            return function(e, ui) {
+              var order;
+              order = _this.$el.find('.sortable-menu-items').sortable('toArray');
+              return _this.trigger("menu:item:order:changed", order, _this.collection);
+            };
+          })(this)
+        });
+      };
+
       MenuCollectionView.prototype.onMenuItemUpdated = function() {
         this.$el.find('.alert').remove();
         return this.$el.prepend('<div class="alert alert-success">Menu item updated</div>');
+      };
+
+      MenuCollectionView.prototype.itemViewOptions = function(item, index) {
+        return {
+          itemIndex: index,
+          collection: this.collection
+        };
+      };
+
+      MenuCollectionView.prototype.serializeData = function() {
+        var data;
+        data = {
+          menus: []
+        };
+        this.collection.each(function(model, index) {
+          var menu;
+          menu = {};
+          menu.menu_slug = model.get('menu_slug');
+          menu.menu_name = model.get('menu_name');
+          return data.menus.push(menu);
+        });
+        return data;
       };
 
       return MenuCollectionView;

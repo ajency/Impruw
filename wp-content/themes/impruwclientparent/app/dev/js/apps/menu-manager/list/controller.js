@@ -29,6 +29,12 @@ define(['app', 'controllers/base-controller', 'apps/menu-manager/list/views'], f
             return _this.region.trigger("delete:menu:item:model", model);
           };
         })(this));
+        this.listenTo(this.view, "view:menu:order:changed", (function(_this) {
+          return function(iv, order, collection) {
+            console.log(order);
+            return console.log(collection);
+          };
+        })(this));
         return this.show(this.view);
       };
 
