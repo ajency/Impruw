@@ -12,7 +12,7 @@ define(['app', 'text!apps/menu-manager/add/templates/addmenu.html'], function(Ap
 
       MenuItemView.prototype.template = addmenuTpl;
 
-      MenuItemView.prototype.className = 'row aj-imp-menu-edit';
+      MenuItemView.prototype.className = 'aj-imp-menu-edit';
 
       MenuItemView.prototype.events = {
         'click .add-menu-item': function() {

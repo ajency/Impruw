@@ -54,7 +54,7 @@ define ['app', 'controllers/base-controller'], (App, AppController)->
 		# Rooms tariff layout 				
 		class MediaMangerLayout extends Marionette.Layout
 
-			className : 'media-manager-container row'
+			className : 'menu-manager-container row'
 
 			template : '
 						<div id="add-menu-items" class="col-md-6"></div>
