@@ -39,7 +39,7 @@ define(['marionette'], function(Marionette) {
         shadow: false,
         hwaccel: true,
         className: 'spinner',
-        zIndex: 2e9,
+        zIndex: 1030,
         top: 'auto',
         left: 'auto'
       };

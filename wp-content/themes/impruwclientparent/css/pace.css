@@ -51,3 +51,16 @@
 .pace.pace-inactive {
   display: none;
 }
+
+
+/****Initial Loader Styles****/
+#initial-loader {
+  position: fixed;
+  width: 100%;
+  top: 0px;
+  left:0px;
+  background: #fff;
+  overflow: hidden;
+  height: 100%;
+  z-index: 1040;
+}

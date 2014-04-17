@@ -72,7 +72,9 @@
     <script src="<?php echo get_parent_template_directory_uri() ?>/app/dev/js/plugins/pace.js"></script>
     <script type="text/javascript">
     Pace.on('done', function(){
-        $('#initial-loader').remove()
+        $('#initial-loader').fadeOut('fast', function(){
+            $('#initial-loader').remove();
+        });
     });
     </script>
     

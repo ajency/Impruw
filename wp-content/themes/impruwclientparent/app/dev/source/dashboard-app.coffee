@@ -45,8 +45,6 @@ define ['marionette'], (Marionette)->
 	App.on "initialize:after", (options) ->
 
 		#create required empty stores
-		App.execute "create:analytics:store"
-		App.execute "create:slider:store"
 		appState = App.request "get:current:appstate"
 		
 		App.startHistory()
