@@ -4,7 +4,7 @@ var __hasProp = {}.hasOwnProperty,
 
 define(['app', 'text!apps/menu-manager/list/templates/menuitem.html'], function(App, menuItemTpl) {
   return App.module('MenuManager.List.Views', function(Views, App) {
-    var MenuItemView;
+    var EmptyView, MenuItemView;
     MenuItemView = (function(_super) {
       __extends(MenuItemView, _super);
 
@@ -50,6 +50,20 @@ define(['app', 'text!apps/menu-manager/list/templates/menuitem.html'], function(
       return MenuItemView;
 
     })(Marionette.ItemView);
+    EmptyView = (function(_super) {
+      __extends(EmptyView, _super);
+
+      function EmptyView() {
+        return EmptyView.__super__.constructor.apply(this, arguments);
+      }
+
+      EmptyView.prototype.template = '<li>No menu found </li>';
+
+      EmptyView.prototype.tagName = 'ul';
+
+      return EmptyView;
+
+    })(Marionette.ItemView);
     return Views.MenuCollectionView = (function(_super) {
       __extends(MenuCollectionView, _super);
 
@@ -61,6 +75,8 @@ define(['app', 'text!apps/menu-manager/list/templates/menuitem.html'], function(
       MenuCollectionView.prototype.template = '<div class="panel panel-default"> <div class="panel-heading"> <h3 class="panel-title">{{menu_name}}</h3> </div> <ol class="list-group sortable-menu-items ui-sortable"></ol> </div>';
 
       MenuCollectionView.prototype.itemView = MenuItemView;
+
+      MenuCollectionView.prototype.emptyView = EmptyView;
 
       MenuCollectionView.prototype.itemViewContainer = 'ol.sortable-menu-items';
 

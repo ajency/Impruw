@@ -34,32 +34,14 @@ define ['app'
 							@$el.find('.menutitle').val(@model.get 'menu_item_url')
 							@$el.find("#menuitem-#{menu_id}-#{menu_item_id}").click()
 
+				class EmptyView extends Marionette.ItemView
+					
+					template: '<li>No menu found </li>'
+
+					tagName: 'ul'
 
 				# main menu manager view
 				class Views.MenuCollectionView extends Marionette.CompositeView
-
-					#initialize:->
-						#@on "menu:item:order:changed",(order)=> 
-								#@test order, @collection
-								#console.log order
-								#console.log @collection
-								#@order = order
-								#@listenTo @collection ,"change" , @test
-								#@collection.on "change",@test
-
-								#newOrder = _.idOrder order
-								#console.log newOrder
-
-								#_.each @collection.models ,(model,index) ->
-									#console.log model
-									#@menu_id = menu_id = model.get 'menu_id'
-								#console.log @menu_id
-
-								#@collection.updateOrder newOrder, @menu_id
-								#console.log @collection
-								#@trigger "view:menu:order:changed",order,collection
-						
-						#@listenTo @collection ,"changed" , @trigger "view:menu:order:changed",order,collection
 
 
 					template : '<div class="panel panel-default">
@@ -70,6 +52,8 @@ define ['app'
 								</div>'
 
 					itemView : MenuItemView
+
+					emptyView : EmptyView
 
 					itemViewContainer : 'ol.sortable-menu-items'
 
