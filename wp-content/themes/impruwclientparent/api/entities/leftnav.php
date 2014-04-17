@@ -395,8 +395,8 @@ function create_menu_item() {
     $return_data= $formdata;
     $return_data['menu_id'] = $menu_id; 
      
-    wp_update_nav_menu_item($menu_id, 0,$formdata);
-      
+    $menu_item_id = wp_update_nav_menu_item($menu_id, 0,$formdata);
+     $return_data['ID'] = $menu_item_id; 
     wp_send_json ( array ('code' => 'OK','data' => $return_data ));
 }
 add_action ( 'wp_ajax_create-menu-item', 'create_menu_item' );
@@ -415,8 +415,7 @@ function update_menu_item() {
     
     $return_data= $formdata;
     
-    $return_data['menu_id'] = $_POST['menu_id']; 
-    $return_data['menu_item_id'] = $_POST['ID'];
+    $return_data['menu_id'] = $_POST['menu_id'];
       
     wp_send_json ( array ('code' => 'OK','data' => $return_data ));
 }
