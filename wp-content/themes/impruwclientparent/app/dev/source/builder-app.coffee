@@ -58,7 +58,6 @@ define ['marionette'], (Marionette)->
 		user = App.request "get:user:model"
 
 		App.execute "when:fetched", user, =>
-			jQuery('#initial-loader').remove()
 			App.startHistory()
 			@rootRoute = if ISTHEMESELECTED is 1 then '' else 'choose-theme'
 			App.navigate(@rootRoute, trigger: true)

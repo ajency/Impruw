@@ -31,6 +31,7 @@
     
     <link href="<?php echo get_template_directory_uri(); ?>/css/slimmenu.min.css" rel="stylesheet" media="screen"/>
     <link href="<?php echo get_template_directory_uri(); ?>/css/theme-style.css" rel="stylesheet" media="screen"/>
+    <link href="<?php echo get_parent_template_directory_uri(); ?>/css/pace.css" rel="stylesheet" media="screen"/>
 </head>
 <body <?php body_class(); ?>>
      <div id="choose-theme-region"></div>
@@ -45,9 +46,8 @@
    
     <div id="settings-region"></div>
     <div id="dialog-region" class="modal "></div><!-- /.modal -->
-    <div id="initial-loader">
-        Loading... Please Wait... <br />
-        <img src="<?php echo get_parent_template_directory_uri(); ?>/images/loader1.gif" />
+    <div id="initial-loader" style="widht:100%;height:100%">
+       
     </div>
     
     <script type="text/javascript">
@@ -68,8 +68,16 @@
         var ISSINGLEROOM = true;   
         <?php endif; ?>
     </script>
-    <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
-    <!-- <script src="<?php echo get_parent_template_directory_uri() ?>/app/dev/js/plugins/pace.js"></script> -->
+    <!-- <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script> -->
+    <script src="<?php echo get_parent_template_directory_uri() ?>/app/dev/js/plugins/pace.js"></script>
+    <script type="text/javascript">
+    Pace.on('done', function(){
+        $('#initial-loader').fadeOut('fast', function(){
+            $('#initial-loader').remove();
+        });
+    });
+    </script>
+    
     <?php if(ENV === 'production'): ?>
         <script src="<?php echo get_parent_template_directory_uri(); ?>/app/dev/js/plugins/ckeditor.js"></script> 
         <script src="<?php echo get_parent_template_directory_uri(); ?>/app/production/builder-main.js?ver=<?php echo JSVERSION ?>"></script> 

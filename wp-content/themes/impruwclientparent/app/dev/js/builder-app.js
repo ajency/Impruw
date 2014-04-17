@@ -47,7 +47,6 @@ define(['marionette'], function(Marionette) {
     user = App.request("get:user:model");
     return App.execute("when:fetched", user, (function(_this) {
       return function() {
-        jQuery('#initial-loader').remove();
         App.startHistory();
         _this.rootRoute = ISTHEMESELECTED === 1 ? '' : 'choose-theme';
         return App.navigate(_this.rootRoute, {
