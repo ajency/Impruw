@@ -71,7 +71,6 @@ define(['app', 'apps/builder/site-builder/elements/menu/views', 'apps/builder/si
             _this.menu_id = menu_id = _this.layout.model.get('menu_id');
             _this.listenTo(itemCollection, "menu:order:updated", view.render);
             _this.listenTo(view, "open:menu:manager", function() {
-              console.log(_this.itemCollection);
               return App.execute("menu-manager", _this.itemCollection, _this.menu_id);
             });
             return _this.layout.elementRegion.show(view);

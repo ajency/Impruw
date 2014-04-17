@@ -4,6 +4,7 @@ var __hasProp = {}.hasOwnProperty,
 
 define(['app'], function(App) {
   App.module('SiteBuilderApp.Element.Menu.Views', function(Views, App, Backbone, Marionette, $, _) {
+    var EmptyView;
     Views.MenuItemView = (function(_super) {
       __extends(MenuItemView, _super);
 
@@ -40,6 +41,20 @@ define(['app'], function(App) {
       return SubMenuView;
 
     })(Marionette.CompositeView);
+    EmptyView = (function(_super) {
+      __extends(EmptyView, _super);
+
+      function EmptyView() {
+        return EmptyView.__super__.constructor.apply(this, arguments);
+      }
+
+      EmptyView.prototype.tagsName = 'ul';
+
+      EmptyView.prototype.template = '<li>No menu found</li>';
+
+      return EmptyView;
+
+    })(Marionette.ItemView);
     return Views.MenuView = (function(_super) {
       __extends(MenuView, _super);
 
@@ -53,6 +68,8 @@ define(['app'], function(App) {
       MenuView.prototype.className = 'nav';
 
       MenuView.prototype.itemView = Views.MenuItemView;
+
+      MenuView.prototype.emptyView = EmptyView;
 
       MenuView.prototype.events = {
         'click': function() {

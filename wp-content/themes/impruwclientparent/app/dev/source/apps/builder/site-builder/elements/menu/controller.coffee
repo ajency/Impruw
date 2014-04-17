@@ -62,7 +62,6 @@ define ['app','apps/builder/site-builder/elements/menu/views','apps/builder/site
 							
 							@listenTo itemCollection, "menu:order:updated", view.render
 							@listenTo view, "open:menu:manager", =>
-								console.log @itemCollection
 								App.execute "menu-manager", @itemCollection,@menu_id
 
 							@layout.elementRegion.show view

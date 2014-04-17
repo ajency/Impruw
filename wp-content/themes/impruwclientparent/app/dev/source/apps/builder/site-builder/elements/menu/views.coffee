@@ -21,12 +21,18 @@ define ['app'],
 					itemView : Views.MenuItemView
 					itemViewContainer : 'ul.submenu'
 
+				class EmptyView extends Marionette.ItemView
+					tagsName : 'ul'
+
+					template: '<li>No menu found</li>'
+
 
 				# Menu view
 				class Views.MenuView extends Marionette.CompositeView
 					tagName : 'ul'
 					className : 'nav'
 					itemView : Views.MenuItemView
+					emptyView : EmptyView
 
 
 					events : 
