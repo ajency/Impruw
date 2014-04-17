@@ -5,14 +5,6 @@ define ['app'
 
 				class MenuItemView extends Marionette.ItemView
 					
-					#initialize:->
-					onShow:->
-						@on "menu:item:order:changed",(order,collection)=> 
-											console.log 'hi'
-											console.log order
-											console.log collection
-											console.log @model
-											#@trigger "view:menu:order:changed",order,collection
 
 					template : menuItemTpl
 
@@ -46,12 +38,29 @@ define ['app'
 				# main menu manager view
 				class Views.MenuCollectionView extends Marionette.CompositeView
 
-					initialize:->
-						#@on "menu:item:order:changed",(order,collection)=> 
-											#console.log order
-											#console.log collection
-											#@trigger "view:menu:order:changed",order,collection
-					
+					#initialize:->
+						#@on "menu:item:order:changed",(order)=> 
+								#@test order, @collection
+								#console.log order
+								#console.log @collection
+								#@order = order
+								#@listenTo @collection ,"change" , @test
+								#@collection.on "change",@test
+
+								#newOrder = _.idOrder order
+								#console.log newOrder
+
+								#_.each @collection.models ,(model,index) ->
+									#console.log model
+									#@menu_id = menu_id = model.get 'menu_id'
+								#console.log @menu_id
+
+								#@collection.updateOrder newOrder, @menu_id
+								#console.log @collection
+								#@trigger "view:menu:order:changed",order,collection
+						
+						#@listenTo @collection ,"changed" , @trigger "view:menu:order:changed",order,collection
+
 
 					template : '<div class="panel panel-default">
 									<div class="panel-heading">
@@ -72,26 +81,31 @@ define ['app'
 													items 	: 'li.list-group-item'
 													tolerance: 'intersect'
 													stop : (e,ui)=>
-														order = @$el.find('.sortable-menu-items').sortable 'toArray'
-														@trigger "menu:item:order:changed", order, @collection
+															order = @$el.find('.sortable-menu-items').sortable 'toArray'
+															@sendData order, @collection
+															#@trigger "menu:item:order:changed",order
 
+					sendData :(order,collection)->
+						@trigger "view:menu:order:changed",order,collection
+					
 					onMenuItemUpdated :->
 						@$el.find('.alert').remove()
 						@$el.prepend '<div class="alert alert-success">Menu item updated</div>'
 
-					itemViewOptions:(item, index)->
-									itemIndex : index
-									collection: @collection
+					itemViewOptions:(collection, index) =>
+									
+						itemIndex : index
+						collection: @collection
 					
 					serializeData: ->
-							data = 
-								menus : []
+						data = 
+							menus : []
 
-							@collection.each (model, index)->
-								menu = {}
-								menu.menu_slug = model.get('menu_slug')
-								menu.menu_name = model.get('menu_name')
-								data.menus.push menu
+						@collection.each (model, index)->
+							menu = {}
+							menu.menu_slug = model.get('menu_slug')
+							menu.menu_name = model.get('menu_name')
+							data.menus.push menu
 
-							data
+						data
 

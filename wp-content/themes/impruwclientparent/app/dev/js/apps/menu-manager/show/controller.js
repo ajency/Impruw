@@ -43,10 +43,15 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
             _this.listenTo(_this.layout.addMenuRegion, "menu:model:to:collection", function(model) {
               return _this.menuCollection.add(model);
             });
-            return _this.listenTo(_this.layout.listMenuRegion, "delete:menu:item:model", function(model) {
+            _this.listenTo(_this.layout.listMenuRegion, "delete:menu:item:model", function(model) {
               return model.destroy({
                 wait: true
               });
+            });
+            return _this.listenTo(_this.layout.listMenuRegion, 'menu:order:changed', function(order, collection) {
+              var newOrder;
+              newOrder = _.idOrder(order);
+              return collection.updateOrder(newOrder, _this.menuId);
             });
           };
         })(this));

@@ -1,5 +1,6 @@
 var __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
 define(['app', 'text!apps/menu-manager/list/templates/menuitem.html'], function(App, menuItemTpl) {
   return App.module('MenuManager.List.Views', function(Views, App) {
@@ -10,17 +11,6 @@ define(['app', 'text!apps/menu-manager/list/templates/menuitem.html'], function(
       function MenuItemView() {
         return MenuItemView.__super__.constructor.apply(this, arguments);
       }
-
-      MenuItemView.prototype.onShow = function() {
-        return this.on("menu:item:order:changed", (function(_this) {
-          return function(order, collection) {
-            console.log('hi');
-            console.log(order);
-            console.log(collection);
-            return console.log(_this.model);
-          };
-        })(this));
-      };
 
       MenuItemView.prototype.template = menuItemTpl;
 
@@ -64,10 +54,9 @@ define(['app', 'text!apps/menu-manager/list/templates/menuitem.html'], function(
       __extends(MenuCollectionView, _super);
 
       function MenuCollectionView() {
+        this.itemViewOptions = __bind(this.itemViewOptions, this);
         return MenuCollectionView.__super__.constructor.apply(this, arguments);
       }
-
-      MenuCollectionView.prototype.initialize = function() {};
 
       MenuCollectionView.prototype.template = '<div class="panel panel-default"> <div class="panel-heading"> <h3 class="panel-title">{{menu_name}}</h3> </div> <ol class="list-group sortable-menu-items ui-sortable"></ol> </div>';
 
@@ -86,10 +75,14 @@ define(['app', 'text!apps/menu-manager/list/templates/menuitem.html'], function(
             return function(e, ui) {
               var order;
               order = _this.$el.find('.sortable-menu-items').sortable('toArray');
-              return _this.trigger("menu:item:order:changed", order, _this.collection);
+              return _this.sendData(order, _this.collection);
             };
           })(this)
         });
+      };
+
+      MenuCollectionView.prototype.sendData = function(order, collection) {
+        return this.trigger("view:menu:order:changed", order, collection);
       };
 
       MenuCollectionView.prototype.onMenuItemUpdated = function() {
@@ -97,7 +90,7 @@ define(['app', 'text!apps/menu-manager/list/templates/menuitem.html'], function(
         return this.$el.prepend('<div class="alert alert-success">Menu item updated</div>');
       };
 
-      MenuCollectionView.prototype.itemViewOptions = function(item, index) {
+      MenuCollectionView.prototype.itemViewOptions = function(collection, index) {
         return {
           itemIndex: index,
           collection: this.collection

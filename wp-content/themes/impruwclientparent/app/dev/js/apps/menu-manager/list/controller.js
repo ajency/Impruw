@@ -30,9 +30,8 @@ define(['app', 'controllers/base-controller', 'apps/menu-manager/list/views'], f
           };
         })(this));
         this.listenTo(this.view, "view:menu:order:changed", (function(_this) {
-          return function(iv, order, collection) {
-            console.log(order);
-            return console.log(collection);
+          return function(order, collection) {
+            return _this.region.trigger("menu:order:changed", order, collection);
           };
         })(this));
         return this.show(this.view);

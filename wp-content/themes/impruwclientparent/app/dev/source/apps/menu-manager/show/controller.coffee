@@ -43,14 +43,9 @@ define ['app', 'controllers/base-controller'], (App, AppController)->
 						model.destroy
 								wait : true
 
-					#@listenTo view, 'itemview:menu:order:changed',(iv, order)->
-							#console.log order
-							#newOrder = _.idOrder order
-							#console.log newOrder
-							#console.log iv
-							#iv.model.get('menu_items').updateOrder newOrder, iv.model.get 'id'
-
-
+					@listenTo @layout.listMenuRegion, 'menu:order:changed',(order,collection)=>
+						newOrder = _.idOrder order
+						collection.updateOrder newOrder, @menuId
 				
 				@show @layout
 
