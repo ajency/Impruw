@@ -15,6 +15,13 @@ Version:        0.1.0
 /****Builder Toggle Switch****/
 /****REVSlider Stylesheet****/
 /****Colors****/
+/**** Link Styles Basic ****/
+a {
+  color: #ff7e00;
+}
+a:focus {
+  outline: none;
+}
 /****Builder Container & Container Structure****/
 .aj-imp-builder {
   font-family: 'Lato', sans-serif;
@@ -120,6 +127,7 @@ Version:        0.1.0
 .aj-imp-drag-menu .nav-tabs li {
   display: inline-block;
   float: none;
+  width: 30%;
 }
 .aj-imp-drag-menu .nav-tabs li a {
   border-radius: 0;
@@ -128,8 +136,8 @@ Version:        0.1.0
   border-bottom: 2px solid #aaaaaa;
   text-transform: uppercase;
   font-weight: 300;
-  font-size: 0.8em;
-  padding: 7px 5px;
+  font-size: 0.76em;
+  padding: 7px 2px;
 }
 .aj-imp-drag-menu .nav-tabs li.active a,
 .aj-imp-drag-menu .nav-tabs li:hover a {
@@ -606,13 +614,18 @@ Version:        0.1.0
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .second .aj-imp-browser-address-bar .bootstrap-select .btn {
   padding: 5px 10px;
+  border-radius: 2px;
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .second .aj-imp-browser-address-bar .bootstrap-select .btn .caret {
   margin-top: -4px;
+  border-top-color: #777777;
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .second .aj-imp-browser-address-bar .bootstrap-select .btn:focus {
   background: #ff7e00;
-  outline: 0;
+  outline: none !important;
+}
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .second .aj-imp-browser-address-bar .bootstrap-select .btn:focus .caret {
+  border-top-color: #fff;
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .second .aj-imp-choose-layout {
   text-align: right;
@@ -1587,9 +1600,6 @@ Version:        0.1.0
   font-size: 1.2em;
   color: #ff7e00;
 }
-.modal .aj-imp-add-menu-item .aj-imp-add-link:hover {
-  text-decoration: underline;
-}
 .modal .aj-imp-add-menu-item .add-menu-form {
   margin: 1em 0 0;
 }
@@ -1669,10 +1679,12 @@ Version:        0.1.0
   border-width: 6px 5px;
   margin-top: -2px;
 }
-.aj-imp-revisions .rev-toggle:focus {
+.aj-imp-revisions .rev-toggle:focus,
+.aj-imp-revisions .rev-toggle:hover {
   color: #ff7e00;
 }
-.aj-imp-revisions .rev-toggle:focus .caret {
+.aj-imp-revisions .rev-toggle:focus .caret,
+.aj-imp-revisions .rev-toggle:hover .caret {
   border-top-color: #ff7e00;
 }
 .aj-imp-revisions ul {

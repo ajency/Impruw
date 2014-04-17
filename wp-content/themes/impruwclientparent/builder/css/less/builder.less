@@ -26,6 +26,14 @@ Version:        0.1.0
 @preview-grey: #F3F3F3;
 @dark-blue: #29333F;
 
+/**** Link Styles Basic ****/
+a {
+	color: @orange;
+	&:focus {
+		outline: none;
+	}
+}
+
 /****Builder Container & Container Structure****/
 .aj-imp-builder {
 	font-family: 'Lato', sans-serif;
@@ -131,6 +139,7 @@ Version:        0.1.0
 		li {
 			display: inline-block;
 			float: none;
+			width: 30%;
 			a {
 				border-radius: 0;
 				color: @dash-grey;
@@ -138,8 +147,8 @@ Version:        0.1.0
 				border-bottom: 2px solid @dash-grey;
 				text-transform: uppercase;
 				font-weight: 300;
-				font-size: 0.8em;
-				padding: 7px 5px;
+				font-size: 0.76em;
+				padding: 7px 2px;
 			}
 			&.active, &:hover {
 				a {
@@ -640,12 +649,17 @@ Version:        0.1.0
 						float: right;
 						.btn {
 							padding: 5px 10px;
+							border-radius: 2px;
 							.caret {
 								margin-top: -4px;
+								border-top-color: darken(@dash-grey, 20%);
 							}
 							&:focus {
 								background: @orange;
-								outline: 0;
+								outline: none !important;
+								.caret {
+									border-top-color: #fff;
+								}
 							}
 						}
 					}
@@ -1669,9 +1683,6 @@ Version:        0.1.0
 		.aj-imp-add-link {
 			font-size: 1.2em;
 			color: @orange;
-			&:hover {
-				text-decoration: underline;
-			}
 		}
 		.add-menu-form {
 			margin: 1em 0 0;
@@ -1769,7 +1780,7 @@ Version:        0.1.0
 			border-width: 6px 5px;
 			margin-top: -2px;
 		}
-		&:focus {
+		&:focus, &:hover {
 			color: @orange;
 			.caret {
 				border-top-color: @orange;
