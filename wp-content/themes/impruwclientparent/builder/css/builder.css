@@ -38,17 +38,6 @@ a:focus {
   color: #ff7e00;
   outline: 0;
 }
-/****Initial Loader Styles****/
-#initial-loader {
-  position: fixed;
-  width: 100%;
-  top: 0px;
-  left:0px;
-  background: #fff;
-  overflow: hidden;
-  height: 100%;
-  z-index: 1040;
-}
 /****Dropdown Menu Styles****/
 .dropdown-menu {
   border-radius: 0;
