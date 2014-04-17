@@ -37,7 +37,7 @@ define ['app'
 
 					events:
 						'change select#aj-imp-page-sel' : (evt)-> 
-									@trigger 'editable:page:changed', $(evt.target).val()
+							@trigger 'editable:page:changed', $(evt.target).val()
 
 						'click .add-new-page' : ->
 							@trigger "add:new:page:clicked"
