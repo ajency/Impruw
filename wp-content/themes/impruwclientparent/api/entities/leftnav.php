@@ -364,21 +364,76 @@ function delete_element_model() {
 add_action ( 'wp_ajax_delete-element', 'delete_element_model' );
 
 /**
+ * 
+ * @return menu ID
+ */
+function create_menu(){
+    $rand = rand();
+    $menu_name = 'Menu-'.$rand;   
+    $menu_exists = wp_get_nav_menu_object( $menu_name );
+    
+    if(!$menu_exists)
+        $menu_id = wp_create_nav_menu($menu_name);
+        return $menu_id;
+}
+
+/**
+ * 
  */
 function create_menu_item() {
-    
+    $menu_id = $_POST['menu_id'];
+
+    if($menu_id ==0)
+       $menu_id = create_menu ();
+
     $formdata = array(
-                'menu-item-title' => $_POST['post_title'],
+                'menu-item-title' => $_POST['menu_item_title'],
                 'menu-item-classes' => '' ,
-                'menu-item-url' => $_POST['menu_item_link'],
+                'menu-item-url' => $_POST['menu_item_url'],
                 'menu-item-status' => 'publish'
     );
-       
-    wp_update_nav_menu_item($_POST['menu_id'], 0,$formdata);
+    $return_data= $formdata;
+    $return_data['menu_id'] = $menu_id; 
+     
+    wp_update_nav_menu_item($menu_id, 0,$formdata);
       
-    wp_send_json ( array ('code' => 'OK','data' => $formdata ));
+    wp_send_json ( array ('code' => 'OK','data' => $return_data ));
 }
 add_action ( 'wp_ajax_create-menu-item', 'create_menu_item' );
+
+/**
+ * 
+ */
+function update_menu_item() {
+    $formdata = array(
+                'menu-item-title' => $_POST['menu_item_title'],
+                'menu-item-classes' => '' ,
+                'menu-item-url' => $_POST['menu_item_url'],
+                'menu-item-status' => 'publish'
+    );
+    wp_update_nav_menu_item($_POST['menu_id'],$_POST['ID'],$formdata);
+    
+    $return_data= $formdata;
+    
+    $return_data['menu_id'] = $_POST['menu_id']; 
+    $return_data['menu_item_id'] = $_POST['ID'];
+      
+    wp_send_json ( array ('code' => 'OK','data' => $return_data ));
+}
+add_action ( 'wp_ajax_update-menu-item', 'update_menu_item' );
+
+/**
+ * 
+ */
+function delete_menu_item() {
+    
+    $menu_item_post_id= $_POST['ID'];
+    
+    wp_delete_post($menu_item_post_id);
+    
+    wp_send_json(array('code'=>'OK','menu_item_post_id'=>$menu_item_post_id));
+}
+add_action('wp_ajax_delete-menu-item','delete_menu_item');
 
 /**
  * get all menus

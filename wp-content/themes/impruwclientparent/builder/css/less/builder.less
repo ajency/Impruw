@@ -41,6 +41,17 @@ Version:        0.1.0
 	}
 }
 
+/****Initial Loader Styles****/
+#initial-loader {
+	position: fixed;
+	width: 30%;
+	left: 35%;
+	top: 50%;
+	text-align: center;
+	color: @dash-grey;
+	text-transform: uppercase;
+}
+
 /****Dropdown Menu Styles****/
 .dropdown-menu {
 	border-radius: 0;
@@ -191,7 +202,7 @@ Version:        0.1.0
 
 /****Builder Top Nav****/
 .aj-imp-builder-top-nav {
-	background: #ECF0F1;
+	background: #ECF0F1 !important;
 	border-bottom: 1px solid #B2C0C3;
 	border-radius: 0;
 	margin: 0;
@@ -261,109 +272,114 @@ Version:        0.1.0
 	.aj-imp-builder-top-options {
 		text-align: right;
 		margin: 15px 0;
-		.navbar-search {
-			max-width: none;
-			padding: 10px 5px;
-			#aj-imp-theme-sel {
-				width: 160px;
+		.btn {
+			color: #fff;
+			&:hover {
+				color: #fff;
 			}
-			.select {
-				margin: 0;
-				.dropdown-arrow {
-					display: none;
+		}
+		#aj-imp-theme-sel {
+			width: 160px;
+		}
+		.select {
+			margin: 0;
+			.dropdown-arrow {
+				display: none;
+			}
+			#aj-imp-theme-sel {
+				background: transparent;
+				color: @dash-grey;
+				.caret {
+					border-top-color: lighten(@dash-grey, 10%);
 				}
-				#aj-imp-theme-sel {
-					background: transparent;
-					color: @dash-grey;
-					.caret {
-						border-top-color: lighten(@dash-grey, 10%);
+			}
+			.dropdown-menu {
+				.selected {
+					a {
+						background: @orange;
 					}
 				}
-				.dropdown-menu {
-					.selected {
-						a {
-							background: @orange;
+				[rel="3"] {
+					a {
+						background: lighten(@dash-grey, 20%);
+						text-align: center;
+						color: #fff;
+						.pull-left {
+							float: none !important;
+						}
+						&:hover {
+							color: @orange;
 						}
 					}
-					[rel="3"] {
+				}
+			}
+		}
+		#aj-imp-color-sel {
+			display: inline-block;
+			margin: 0 5px;
+			.btn {
+				width: auto;
+				background: transparent;
+				color: @dash-grey;
+				.caret {
+					margin-left: 1.2em;
+					border-top-color: lighten(@dash-grey, 10%);
+				}
+			}
+			.aj-imp-color-box {
+				text-align: left;
+				h6 {
+					color: @blue-grey;
+					font-size: 1em;
+					margin: 0.5em;
+					border-bottom: 1px solid lighten(@dash-grey, 20%);
+				}
+				ul {
+					list-style: none;
+					padding: 0 0.5em;
+					text-align: center;
+					li {
+						float: left;
+						width: 30%;
 						a {
-							background: lighten(@dash-grey, 20%);
-							text-align: center;
-							color: #fff;
-							.pull-left {
-								float: none !important;
+							img {
+								border: 2px solid transparent;
+							}
+							&.selected {
+								img {
+									border: 2px solid @dash-grey;
+								}
 							}
 							&:hover {
-								color: @orange;
-							}
-						}
-					}
-				}
-			}
-			#aj-imp-color-sel {
-				display: inline-block;
-				margin: 0 5px;
-				.btn {
-					width: auto;
-					background: transparent;
-					color: @dash-grey;
-					.caret {
-						margin-left: 1.2em;
-						border-top-color: lighten(@dash-grey, 10%);
-					}
-				}
-				.aj-imp-color-box {
-					text-align: left;
-					h6 {
-						color: @blue-grey;
-						font-size: 1em;
-						margin: 0.5em;
-						border-bottom: 1px solid lighten(@dash-grey, 20%);
-					}
-					ul {
-						list-style: none;
-						padding: 0 0.5em;
-						text-align: center;
-						li {
-							float: left;
-							width: 30%;
-							a {
+								background: none;
 								img {
-									border: 2px solid transparent;
-								}
-								&.selected {
-									img {
-										border: 2px solid @dash-grey;
-									}
-								}
-								&:hover {
-									background: none;
-									img {
-										border: 2px solid @orange;
-									}
+									border: 2px solid @orange;
 								}
 							}
 						}
 					}
 				}
 			}
-			#aj-imp-settings-sel {
-				display: inline-block;
-				margin-right: 15px;
-				.aj-imp-settings-toggle {
-					color: @dash-grey;
-					background: transparent;
-					font-size: 1.5em;
-					.caret {
-						border-top-color: lighten(@dash-grey, 10%);
-						top: -4px;
-						position: relative;
-					}
+		}
+		#aj-imp-settings-sel {
+			display: inline-block;
+			margin-right: 15px;
+			.aj-imp-settings-toggle {
+				color: @dash-grey;
+				background: transparent;
+				font-size: 1.5em;
+				.caret {
+					border-top-color: lighten(@dash-grey, 10%);
+					top: -4px;
+					position: relative;
 				}
 			}
 		}
 		.btn-logout {
 			color: #fff;
+		}
+		.builder-help {
+			margin: 4px 0;
 		}
 	}
 }
@@ -531,6 +547,7 @@ Version:        0.1.0
 				text-align: center;
 				margin: 0 0 0.8em;
 				color: lighten(@3-grey, 30%);
+				font-weight: 700;
 			}
 			.aj-imp-page-publish {
 				text-align: right;
@@ -544,11 +561,12 @@ Version:        0.1.0
 						.caret {
 							border-top-color: lighten(@3-grey, 30%);
 							border-width: 6px 5px;
+							margin-top: -2px;
 						}
 						&.selected {
 							color: @3-grey;
 						}
-						&:hover {
+						&:hover, &:focus {
 							color: @orange;
 							.caret {
 								border-top-color: @orange;
@@ -597,10 +615,40 @@ Version:        0.1.0
 				padding: 1em 0 0;
 				.aj-imp-browser-address-bar {
 					background: #fff;
-					border-radius: 3px;
+					border-radius: 4px;
 					color: @dash-grey;
-					padding: 0.5em;
+					padding: 0.3em;
 					border: 1px solid darken(@preview-grey, 5%);
+					cursor: default;
+					border-radius: 3px;
+					.page-slug-edit {
+						width: 50%;
+						color: lighten(@dash-grey, 10%);
+						padding: 0.2em;
+						border: 1px solid transparent;
+						border-radius: 3px;
+						&:hover, &:focus {
+							border: 1px dotted @dash-grey;
+						}
+						&:focus {
+							background: @preview-grey;
+							color: @3-grey;
+						}
+					}
+					.bootstrap-select {
+						margin: 0;
+						float: right;
+						.btn {
+							padding: 5px 10px;
+							.caret {
+								margin-top: -4px;
+							}
+							&:focus {
+								background: @orange;
+								outline: 0;
+							}
+						}
+					}
 				}
 				.aj-imp-choose-layout {
 					text-align: right;
@@ -663,26 +711,16 @@ Version:        0.1.0
 						}
 					}
 				}
-				.aj-imp-mode-switch {
+				.aj-imp-save-action {
 					text-align: right;
 					border-left: 1px solid lighten(@dash-grey, 20%);
-					.switch-toggle {
-						background: darken(@preview-grey, 15%);
-						border-radius: 6px;
-						box-shadow: inset 0 0 2px @dash-grey;
-						.btn-warning {
-							background: @orange;
-							color: #fff;
-							box-shadow: 0 0 2px @dash-grey;
-							border-radius: 6px;
-						}
-					}
-					label {
-						cursor: pointer;
+					.auto-save {
+						background: @orange;
 						color: #fff;
-					}
-					input {
-						display: none;
+						text-transform: uppercase;
+						&:hover {
+							background: lighten(@orange, 20%);
+						}
 					}
 				}
 			}
@@ -929,6 +967,7 @@ Version:        0.1.0
 			width: 90px;
 			border-radius: 0 3px 3px 0;
 			font-size: 0.88em;
+			cursor: default;
 		}
 	}
 	#site-header-region {
@@ -950,6 +989,12 @@ Version:        0.1.0
 }
 
 /****Builder Settings Box Styles****/
+#settings-region {
+	position: fixed;
+	top: 50%;
+	left: 40%;
+}
+
 .settings-box {
 	width: 400px;
 	background: @dark-blue;
@@ -1184,60 +1229,6 @@ Version:        0.1.0
 		}
 	}
 }
-
-/****CKEditor Styles****
-.cke_float {
-	background: rgba(255, 255, 255, 0.9) !important;
-	border: 1px solid @dash-grey !important;
-	padding: 0 !important;
-	box-shadow: 2px 2px 0px @dash-grey !important;
-	box-sizing: padding-box;
-	.cke_inner {
-		background: none !important;
-		.cke_top {
-			border-radius: 5px;
-			background: none !important;
-		}
-	}
-}
-
-.cke_toolgroup {
-	background: lighten(@dash-grey, 25%) !important;
-	padding: 0 !important;
-	.cke_button {
-		border-radius: 0;
-		padding: 4px;
-		&:first-child {
-			border-radius: 5px 0 0 5px;
-		}
-		&:last-child {
-			border-radius: 0 5px 5px 0;
-		}
-		&.cke_button__about, &.cke_button__scayt {
-			border-radius: 5px;
-		}
-		&.cke_button_off {
-			&:hover, &:focus, &:active {
-				background: @blue-grey !important;
-			}
-		}
-		&.cke_button_on {
-			background: @orange !important;
-		}
-	}
-}
-
-.cke_combo_button {
-	background: lighten(@dash-grey, 25%) !important;
-	&:hover, &:focus, &:active {
-		background: @blue-grey !important;
-	}
-}
-
-.cke_toolbar_separator {
-	border-left: 1px solid @dash-grey !important;
-	margin: 5px 2px 0 !important;
-}*/
 
 /****Modal Styles****/
 .modal-backdrop {
@@ -1664,6 +1655,9 @@ Version:        0.1.0
 			}
 		}
 	}
+	.menu-manager-container {
+		padding: 0 2em;
+	}
 	.aj-imp-add-menu-item {
 		h4 {
 			font-size: 2em;
@@ -1760,6 +1754,58 @@ Version:        0.1.0
 	margin: 0.2em 0;
 	border: 1px dashed @blue-grey;
 	background: lighten(@blue-grey, 35%);
+}
+
+/**** Revisions Select Styles ****/
+.aj-imp-revisions {
+	float: right;
+	.rev-toggle {
+		display: block;
+		margin: 0.4em 0;
+		font-size: 1.1em;
+		font-weight: 300;
+		.caret {
+			border-top-color: lighten(@3-grey, 30%);
+			border-width: 6px 5px;
+			margin-top: -2px;
+		}
+		&:focus {
+			color: @orange;
+			.caret {
+				border-top-color: @orange;
+			}
+		}
+	}
+	ul {
+		width: 260px;
+		li {
+			padding: 0.5em;
+			border-bottom: 1px solid lighten(@dash-grey, 30%);
+			cursor: pointer;
+			.date {
+				color: @blue-grey;
+			}
+			.time {
+				color: @dash-grey;
+				font-size: 0.88em;
+				font-style: italic;
+				text-align: right;
+				padding-top: 0.2em;
+			}
+			&:last-child {
+				border-bottom: 0;
+			}
+			&:hover {
+				background: @preview-grey;
+			}
+			&.active {
+				background: @blue-grey;
+				.date, .time {
+					color: #fff;
+				}
+			}
+		}
+	}
 }
 
 /****Block List Styles****/
@@ -2126,7 +2172,7 @@ Version:        0.1.0
           transition-duration: 0s;
 }
 
-/**** button Orange Styles ****/
+/**** Button Orange Styles ****/
 .slide-image-selected {
 	background: @orange !important;
 	&:hover {

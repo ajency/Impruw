@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
 
 define(["app", 'backbone'], function(App, Backbone) {
   return App.module("Entities.Menus", function(Menus, App, Backbone, Marionette, $, _) {
-    var API, menuCollection, menuitemCollection;
+    var API, menuCollection;
     Menus.MenuItemModel = (function(_super) {
       __extends(MenuItemModel, _super);
 
@@ -14,11 +14,10 @@ define(["app", 'backbone'], function(App, Backbone) {
       MenuItemModel.prototype.idAttribute = 'ID';
 
       MenuItemModel.prototype.defaults = {
-        post_title: '',
-        menu_item_link: '',
+        menu_item_title: '',
+        menu_item_url: '',
         menu_item_parent: 0,
-        order: 0,
-        menu_id: 2
+        order: 0
       };
 
       MenuItemModel.prototype.name = 'menu-item';
@@ -79,7 +78,6 @@ define(["app", 'backbone'], function(App, Backbone) {
       return MenuItemCollection;
 
     })(Backbone.Collection);
-    menuitemCollection = new Menus.MenuItemCollection;
     Menus.MenuModel = (function(_super) {
       __extends(MenuModel, _super);
 
@@ -135,6 +133,13 @@ define(["app", 'backbone'], function(App, Backbone) {
     })(Backbone.Collection);
     menuCollection = new Menus.MenuCollection;
     API = {
+      getMenuCollection: function(params) {
+        if (params == null) {
+          params = {};
+        }
+        menuCollection = new Menus.MenuItemCollection;
+        return menuCollection;
+      },
       getMenus: function(param) {
         if (param == null) {
           param = {};
@@ -172,13 +177,9 @@ define(["app", 'backbone'], function(App, Backbone) {
         }
         return new Menus.MenuCollection(modelsArr);
       },
-      createMenuItemModel: function(data, menuId) {
+      createMenuItemModel: function() {
         var menuitem;
-        data.menu_id = menuId;
-        menuitem = new Menus.MenuItemModel(data);
-        menuitem.save(null, {
-          wait: true
-        });
+        menuitem = new Menus.MenuItemModel;
         return menuitem;
       },
       createMenuModel: function(menuData) {
@@ -231,10 +232,13 @@ define(["app", 'backbone'], function(App, Backbone) {
     App.reqres.setHandler("create:menu:model", function(menu) {
       return API.createMenuModel(menu);
     });
-    App.reqres.setHandler("create:new:menu:item", function(data, menuId) {
-      return API.createMenuItemModel(data, menuId);
+    App.reqres.setHandler("create:new:menu:item", function() {
+      return API.createMenuItemModel();
     });
-    return App.commands.setHandler("update:menu:item", function(menuitem, data) {
+    App.reqres.setHandler("get:menu:collection", function() {
+      return API.getMenuCollection();
+    });
+    return App.reqres.setHandler("update:menu:item", function(menuitem, data) {
       return API.updateMenuItemModel(menuitem, data);
     });
   });

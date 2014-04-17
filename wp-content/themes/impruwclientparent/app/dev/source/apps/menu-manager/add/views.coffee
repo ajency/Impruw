@@ -7,7 +7,7 @@ define ['app'
 
 					template : addmenuTpl
 
-					className : 'row aj-imp-menu-edit'
+					className : 'aj-imp-menu-edit'
 
 					
 					events: 

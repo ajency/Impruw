@@ -1,4 +1,3 @@
-
 <div class="aj-imp-browser-preview">
   <!-- browser header-->
   <div class="aj-imp-browser-header">
@@ -11,19 +10,133 @@
           <li class="green"><span>&nbsp;</span></li>
         </div>
       </div>
-      <div class="col-sm-4">
+      <div class="col-sm-7">
         <div class="aj-imp-browser-title">How does your site look in a browser?</div>
       </div>
-      <div class="col-sm-6">
+      <div class="col-sm-3">
         <div class="aj-imp-page-publish">
-          <div class="aj-imp-publish"><a href="#" class="auto-save">Auto Save</a></div>
+          <div class="aj-imp-publish">
+            <div id="aj-imp-preview-sel" class="dropdown"> 
+              <a data-toggle="dropdown" href="#">Preview <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                <li role="presentation">
+                  <div class="aj-imp-preview-box">
+                    <h6>Choose Device</h6>
+                    <ul class="clearfix">
+                      <li><a href="#" class="selected"><span class="bicon icon-uniF121"></span></a></li>
+                      <li><a href="#"><span class="bicon icon-uniF120"></span></a></li>
+                    </ul>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     </div>
     <!--second row-->
     <div class="row second">
-      <div class="col-sm-6">
-        <div class="aj-imp-browser-address-bar">{{SITEURL}}</div>
+      <div class="col-sm-7">
+        <div class="aj-imp-browser-address-bar clearfix">
+          <b>!-Page Name-!: </b>
+          <input type="text" value="{{SITEURL}}" class="page-slug-edit">
+          
+          <!--<select id="builder-page-sel" name="builder-page-sel">
+            <option value="">Choose </option>
+          </select>-->
+          
+
+          <div class="btn-group bootstrap-select">
+            <button data-toggle="dropdown" class="btn dropdown-toggle selectpicker btn-xs btn-default" type="button" data-id="aj-imp-page-sel" title="Home">
+              <span class="filter-option pull-left">Choose</span>&nbsp;<span class="caret"></span>
+            </button>
+            <div class="dropdown-menu open">
+              <ul role="menu" class="dropdown-menu inner selectpicker">
+                <li rel="0"><a style="" class="" tabindex="0">
+                  <span class="text">Choose </span><i class="glyphicon glyphicon-ok icon-ok check-mark"></i></a>
+                </li>
+                <li rel="1">
+                  <a style="" class="" tabindex="0"><span class="text">Coming Soon Page</span><i class="glyphicon glyphicon-ok icon-ok check-mark"></i></a>
+                </li>
+                <li rel="2" class="selected">
+                  <a style="" class="" tabindex="0"><span class="text">Home</span><i class="glyphicon glyphicon-ok icon-ok check-mark"></i></a>
+                </li>
+                <li rel="3">
+                  <a style="" class="" tabindex="0"><span class="text">About Us</span><i class="glyphicon glyphicon-ok icon-ok check-mark"></i></a>
+                </li>
+                <li rel="4">
+                  <a style="" class="" tabindex="0"><span class="text">Contact Us</span><i class="glyphicon glyphicon-ok icon-ok check-mark"></i></a>
+                </li>
+                <li rel="5">
+                  <a style="" class="" tabindex="0"><span class="text">Rooms</span><i class="glyphicon glyphicon-ok icon-ok check-mark"></i></a>
+                </li>
+                <li rel="6">
+                  <a style="" class="" tabindex="0"><span class="text">Single Room</span><i class="glyphicon glyphicon-ok icon-ok check-mark"></i></a>
+                </li>
+                <li rel="7">
+                  <a style="" class="" tabindex="0"><span class="text">Home</span><i class="glyphicon glyphicon-ok icon-ok check-mark"></i></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+
+
+        </div>
+      </div>
+      <div class="col-sm-4 clearfix">
+        
+        <div class="aj-imp-revisions">
+          <div id="aj-imp-revision-sel" class="dropdown"> 
+            <a data-toggle="dropdown" href="#" class="rev-toggle">Revisions <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <li role="presentation">
+                <div class="aj-imp-revision row">
+                    <div class="col-sm-5 date">
+                      12/04/2014
+                    </div>
+                    <div class="col-sm-7 time">
+                      5 days ago
+                    </div>
+                </div>
+              </li>
+              <li role="presentation">
+                <div class="aj-imp-revision row">
+                    <div class="col-sm-5 date">
+                      12/04/2014
+                    </div>
+                    <div class="col-sm-7 time">
+                      5 days ago
+                    </div>
+                </div>
+              </li>
+              <li role="presentation" class="active">
+                <div class="aj-imp-revision row">
+                    <div class="col-sm-5 date">
+                      12/04/2014
+                    </div>
+                    <div class="col-sm-7 time">
+                      5 days ago
+                    </div>
+                </div>
+              </li>
+              <li role="presentation">
+                <div class="aj-imp-revision row">
+                    <div class="col-sm-5 date">
+                      12/04/2014
+                    </div>
+                    <div class="col-sm-7 time">
+                      5 days ago
+                    </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+      <div class="aj-imp-save-action col-sm-1">
+        <a href="#" class="auto-save btn btn-sm btn-embossed"><span class="glyphicon glyphicon-floppy-disk"></span> Save</a>
       </div>
     </div>
   </div>

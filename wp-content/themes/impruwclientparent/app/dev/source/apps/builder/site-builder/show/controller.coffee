@@ -22,8 +22,13 @@ define ['app', 'controllers/base-controller'
 											model : elements
 
 						# listen to element dropped event for next action
-						@listenTo @view, "add:new:element", (container, type)->
-									App.request "add:new:element", container, type
+						@listenTo @view, "add:new:element", (container, type, metaId = 0)->
+									modelData  = {}
+									if metaId isnt 0
+										model = App.request "get:recovered:element", metaId
+										modelData = model.toJSON()
+
+									App.request "add:new:element", container, type, modelData
 
 						# triggered when all models are fetched for the page
 						# usign this event to start filling up the builder 

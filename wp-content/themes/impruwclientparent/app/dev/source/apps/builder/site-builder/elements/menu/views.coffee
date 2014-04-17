@@ -7,7 +7,7 @@ define ['app'],
 				# Menu item view
 				class Views.MenuItemView extends Marionette.ItemView
 
-					template: '<a href="{{menu_item_link}}">{{post_title}}</a>'
+					template: '<a href="{{menu_item_url}}">{{menu_item_title}}</a>'
 
 					initialize:(opt = {})->
 						@listenTo @model, "change", @render
@@ -21,12 +21,19 @@ define ['app'],
 					itemView : Views.MenuItemView
 					itemViewContainer : 'ul.submenu'
 
+				class EmptyView extends Marionette.ItemView
+					tagsName : 'ul'
+
+					template: '<li>No menu found</li>'
+
 
 				# Menu view
 				class Views.MenuView extends Marionette.CompositeView
 					tagName : 'ul'
 					className : 'nav'
 					itemView : Views.MenuItemView
+					emptyView : EmptyView
+
 
 					events : 
 						'click'		: -> @trigger "open:menu:manager"

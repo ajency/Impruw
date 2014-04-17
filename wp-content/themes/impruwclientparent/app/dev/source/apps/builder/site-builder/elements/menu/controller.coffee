@@ -12,7 +12,6 @@ define ['app','apps/builder/site-builder/elements/menu/views','apps/builder/site
 						_.defaults options.modelData,
 											element 	: 'Menu'
 											justified 	: false
-											menu_id		: 2
 											style 		: ''
 						super(options)
 						
@@ -30,26 +29,39 @@ define ['app','apps/builder/site-builder/elements/menu/views','apps/builder/site
 								collection 		: collection,
 								prop 			: @layout.model.toJSON()
 								templateClass	: templateClass
+					
+					_getMenuCollection:->
+						if not @menuCollection
+							#console.log @layout.model
+							if @layout.model.get('menu_id') > 0	
+								menuModel = App.request "get:menu:by:id", @layout.model.get 'menu_id'
+								@menuCollection = menuModel.get 'menu_items'
+							else
+								@menuCollection = App.request "get:menu:collection"
+								# listen to add event to set menu Id to element  model
+								@menuCollection.once "add",(model)=>
+									@layout.model.set 'menu_id', model.get 'menu_id'
+									# save the model
+									@layout.model.save()
+					
+						@menuCollection
 
 					# setup templates for the element
 					renderElement:()=>
+
+						@itemCollection = itemCollection = @_getMenuCollection()
+
 						model = @layout.model
-						# get menu 
-						menu = App.request "get:menu:by:id", model.get 'menu_id'
 						
-						App.execute "when:fetched", menu, =>
-							itemCollection = menu.get 'menu_items'
-							#elementBox 	=  App.request "get:collection:model", "elementbox", 'Menu'
-							#templates 	= elementBox.get('templates')
+						App.execute "when:fetched", itemCollection, =>
 							templateClass = [model.get 'style'] ? ''
-
+                             
 							view = @_getMenuView itemCollection,templateClass
-
+							
+							@menu_id = menu_id = @layout.model.get 'menu_id'
+							
 							@listenTo itemCollection, "menu:order:updated", view.render
 							@listenTo view, "open:menu:manager", =>
-								
-								menuId = @layout.model.get 'menu_id'
-								
-								App.execute "menu-manager", menuId
+								App.execute "menu-manager", @itemCollection,@menu_id
 
 							@layout.elementRegion.show view

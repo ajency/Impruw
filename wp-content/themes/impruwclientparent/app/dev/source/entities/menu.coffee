@@ -8,11 +8,10 @@ define ["app", 'backbone'], (App, Backbone) ->
 				idAttribute : 'ID'
 
 				defaults:
-					post_title          : ''
-					menu_item_link      : ''
+					menu_item_title     : ''
+					menu_item_url       : ''
 					menu_item_parent    : 0
 					order 				: 0 
-					menu_id				: 2	
 
 				name: 'menu-item'
 
@@ -45,8 +44,6 @@ define ["app", 'backbone'], (App, Backbone) ->
 								action : _action
 							success: =>
 								@trigger "menu:order:updated"
-
-			menuitemCollection = new Menus.MenuItemCollection
 			
 			# menu model
 			class Menus.MenuModel extends Backbone.AssociatedModel
@@ -82,6 +79,11 @@ define ["app", 'backbone'], (App, Backbone) ->
 				
 			# API 
 			API = 
+				getMenuCollection:(params={})->
+					menuCollection = new Menus.MenuItemCollection
+					menuCollection
+
+					
 				# get all site menus
 				getMenus:(param = {})->
 					menuCollection.fetch
@@ -114,12 +116,8 @@ define ["app", 'backbone'], (App, Backbone) ->
 					new Menus.MenuCollection modelsArr
 
 				# create a new menu item instance onserver
-				createMenuItemModel:(data, menuId)->
-					# set the menu id
-					data.menu_id = menuId
-					menuitem = new Menus.MenuItemModel data
-					menuitem.save null,
-									wait : true
+				createMenuItemModel:()->
+					menuitem = new Menus.MenuItemModel
 					menuitem
 				# 
 				createMenuModel :(menuData ={})->
@@ -137,6 +135,7 @@ define ["app", 'backbone'], (App, Backbone) ->
 					menuitem.save()
 					menuitem
 
+
 				getMenuById:(menuId)->
 					menu = menuCollection.get parseInt menuId
 					if _.isUndefined menu
@@ -144,8 +143,8 @@ define ["app", 'backbone'], (App, Backbone) ->
 						menu.url = "#{AJAXURL}?action=get-menu&id=#{menuId}" 
 						menuCollection.add menu
 						menu.fetch()
-
 					menu
+
 				
 			App.reqres.setHandler "get:menu:by:id",(menuId)->
 				API.getMenuById menuId
@@ -173,8 +172,11 @@ define ["app", 'backbone'], (App, Backbone) ->
 				API.createMenuModel(menu)	
 
 			# create new menu item
-			App.reqres.setHandler "create:new:menu:item", (data, menuId)->
-				API.createMenuItemModel data, menuId
+			App.reqres.setHandler "create:new:menu:item", ()->
+				API.createMenuItemModel()
 
-			App.commands.setHandler "update:menu:item",(menuitem, data)->
+			App.reqres.setHandler "get:menu:collection",->
+				API.getMenuCollection()
+
+			App.reqres.setHandler "update:menu:item",(menuitem, data)->
 				API.updateMenuItemModel menuitem, data

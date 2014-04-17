@@ -58,7 +58,7 @@ function get_site_domain($site_id){
  * @param type $site_id
  * @param type $theme_id
  */
-function assign_theme_to_site( $theme_id ,$site_id = 0){
+function assign_theme_to_site( $theme_id , $clone_pages = false, $site_id = 0){
     
     if($site_id === 0)
         $site_id = get_current_blog_id ();
@@ -81,30 +81,40 @@ function assign_theme_to_site( $theme_id ,$site_id = 0){
     
     //assign the theme to 
     $theme = wp_get_theme( $theme_name ); //Change the name here to change the theme
-    
+   
     if ( $theme->exists() && $theme->is_allowed() )
-        switch_theme( $theme->get_template(), $theme->get_stylesheet() );
+        switch_theme($theme->get_stylesheet() );
     
     update_option('site_status', 'online');
     
-    $pages =    array(  
-                    array('post_title' => 'Home'),
-                    array('post_title' => 'About Us'),
-                    array('post_title' => 'Contact Us'),
-                    array('post_title' => 'Rooms'),
-                    array('post_title' => 'Single Room')
-                );
-    
-    add_pages_to_site($pages);
-    
-    add_menus_to_site();
-    //create pages
+    if($clone_pages === true){
+	    clone_pages();
+    }
     // next is to clone the site
     clone_site($theme_site_id);
 }
 
 /**
- * 
+ * Add site pages
+ * Add menu to site
+ */
+function clone_pages(){
+	$pages =    array(
+			array('post_title' => 'Home'),
+			array('post_title' => 'About Us'),
+			array('post_title' => 'Contact Us'),
+			array('post_title' => 'Rooms'),
+			array('post_title' => 'Single Room')
+	);
+	 
+	add_pages_to_site($pages);
+	 
+	add_menus_to_site();
+}
+
+/**
+ * Adds two menu to site.
+ * Main Menu and Footer Menu
  */
 function add_menus_to_site(){
     //give your menu a name
@@ -192,14 +202,18 @@ function add_pages_to_site($pages, $user_id = 0 ){
         	set_home_page($post_id);
         
         // assign the template if passed
-        if(isset($page['template']))
-            update_post_meta( $post_id, '_wp_page_template', $page['template'] );
+        $template = sanitize_title($page['post_title']) . '.php';
+       	update_post_meta( $post_id, '_wp_page_template', $template );
     
     }
     
     return true;
 }
 
+/**
+ * Set the home page for the site
+ * @param unknown $post_id
+ */
 function set_home_page($post_id){
 	update_option ( 'page_on_front', $post_id );
 	update_option ( 'show_on_front', 'page' );
@@ -218,7 +232,6 @@ function clone_site($theme_site_id){
     foreach ($pages as $page) {
         clone_page($theme_site_id, $page->ID, $page->post_title);
     }
-    
     
 }
 

@@ -6,10 +6,12 @@ define(['app', 'apps/builder/site-builder/show/controller', 'apps/builder/site-b
         return this.showController = new SiteBuilderApp.Show.Controller;
       },
       addNewElement: function(container, type, modelData) {
-        return new SiteBuilderApp.Element[type].Controller({
-          container: container,
-          modelData: modelData
-        });
+        if (SiteBuilderApp.Element[type]) {
+          return new SiteBuilderApp.Element[type].Controller({
+            container: container,
+            modelData: modelData
+          });
+        }
       },
       autoSave: function() {
         var autoSave;
