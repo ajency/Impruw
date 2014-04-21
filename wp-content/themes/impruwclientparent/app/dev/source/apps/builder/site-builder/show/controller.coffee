@@ -98,27 +98,33 @@ define ['app', 'controllers/base-controller'
 					initialize:(opt = {})->
 						
 						@region = App.getRegion('builderWrapper')
-						
-						view = new Show.View.MainView
 
-						@listenTo view, 'show',(view)=>
+						# add pages
+						pages = App.request "get:editable:pages"
+						
+						layout = new Show.View.MainView
+											collection : pages
+
+						@listenTo layout, 'editable:page:changed',(pageId)->
+									# set the cookie
+									$.cookie 'current-page-id', pageId
+									App.execute "editable:page:changed", pageId
+
+						@listenTo layout, 'show',(layout)=>
 							# added delay so that the html is fully rendered
 							_.delay =>
 								# add new region to application
 								App.addRegions
 										builderRegion : '#aj-imp-builder-drag-drop'
 
-								siteBuilderController = new Show.BuilderController()
-							, 400
+								#siteBuilderController = new Show.BuilderController()
+							, 200
 
-						@show  view
+						@show  layout,
+								loading : true
 
 
 				App.commands.setHandler "editable:page:changed",(pageId)=>
 					App.resetElementRegistry()
-					siteBuilderController.close() if @siteBuilderController isnt null
-					siteBuilderController = new Show.BuilderController()
-
-						
-
-			App.SiteBuilderApp.Show.Controller		
+					siteBuilderController.close() if siteBuilderController isnt null
+					siteBuilderController = new Show.BuilderController()	

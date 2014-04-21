@@ -8,10 +8,8 @@ define ['app'
 					template : addmenuTpl
 
 					className : 'aj-imp-menu-edit'
-
 					
-					events: 
-						
+					events: 						
 						'click .add-menu-item' :->
 							formdata = Backbone.Syphon.serialize @
 							@trigger "add:menu:item:clicked" , formdata

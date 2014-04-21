@@ -13,13 +13,28 @@ define ['app'
 					className : 'aj-imp-builder-area'
 
 					templateHelpers:(data = {})->
-						data.SITEURL = SITEURL
+						data.SITEURL = SITEURL + '/'
+						data.pages = @collection.toJSON()
 						data
 
 					events : 
 						'click .auto-save' :(evt) -> 
 								evt.preventDefault()
-								App.commands.execute "auto:save"	
+								App.commands.execute "auto:save"
+
+						'change select#builder-page-sel' : (evt)-> 
+							@trigger 'editable:page:changed', $(evt.target).val()
+
+					# trigger the editable page changed event on show
+					onShow:->
+						@$el.find('select#builder-page-sel').selectpicker
+												style 		: 'btn-xs btn-default'
+												menuStyle	: 'dropdown'	
+
+						_.delay =>
+							value = @$el.find('select#builder-page-sel').selectpicker 'val'
+							@trigger 'editable:page:changed', value
+						, 250
 
 
 				class View.Builder extends Marionette.ItemView
@@ -46,9 +61,7 @@ define ['app'
 												tolerance	: 'pointer'
 												receive		: @elementDropped
 
-						@$el.find('select#builder-page-sel').selectpicker
-												style 		: 'btn-xs btn-default'
-												menuStyle	: 'dropdown'
+						
 
 					elementDropped:(evt, ui)=> 
 						# trigger drop event if ui.item is Li tag
