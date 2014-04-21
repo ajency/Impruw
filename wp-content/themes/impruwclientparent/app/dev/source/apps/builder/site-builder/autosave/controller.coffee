@@ -27,7 +27,7 @@ define ['app'], (App)->
 					data 	:
 						action 	: 'save-page-json'
 						json 	: JSON.stringify _json
-						page_id : _page_id
+						page_id : _page_id = 3
 					
 
 				$.ajax( options ).done (response)->

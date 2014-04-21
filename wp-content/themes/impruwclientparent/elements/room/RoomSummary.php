@@ -56,7 +56,7 @@ class RoomSummary extends Element {
 
     function generate_single_room_summary() {
         $this->room = get_room($this->room_id);
-        $template = '<div class="room-summary-container">
+        $template = '<div class="room-summary-container '.$this->margins.' ">
                         <div class="room-summary-title">
                             <h4>Room Summary</h4>
                         </div>
@@ -85,7 +85,7 @@ class RoomSummary extends Element {
                     . 'sites/81/2014/03/5-yama-zbrush-model-by-jemark-150x150.jpg';
 
 
-        $template = '<div class="roomsummary">
+        $template = '<div class="roomsummary '.$this->margins.' ">
                         <div class="room-img">
                              <a href="{{link}}"><img src="{{image_url}}" width="100%" class="img-responsive"></a>
                         </div>
@@ -103,7 +103,7 @@ class RoomSummary extends Element {
     }
 
     function generate_dummy_markup() {
-        $template = '<div class="roomsummary"><div class="room-img">
+        $template = '<div class="roomsummary '.$this->margins.' "><div class="room-img">
                          <img src="http://classicgreen2.unpruwen.com/wp-content/themes/impruwclientparent/images/dummy/2.jpg" class="img-responsive">
                     </div>
                     <div class="room-title">Room Title</div>
