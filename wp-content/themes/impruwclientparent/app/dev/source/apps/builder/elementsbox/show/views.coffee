@@ -25,7 +25,10 @@ define ['app'
 							else 
 								return @element
 
-						data 
+						data
+
+					onRender:->
+						@$el.attr 'data-element', @model.get 'element'
 								
 				
 				# Composite view wrapper for element box region

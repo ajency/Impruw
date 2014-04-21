@@ -29,6 +29,10 @@ define(['app', 'text!apps/builder/elementsbox/show/templates/main.html', 'text!a
         return data;
       };
 
+      SingleElement.prototype.onRender = function() {
+        return this.$el.attr('data-element', this.model.get('element'));
+      };
+
       return SingleElement;
 
     })(Marionette.ItemView);
