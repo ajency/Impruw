@@ -91,7 +91,7 @@ function assign_theme_to_site( $theme_id , $clone_pages = false, $site_id = 0){
 	    clone_pages();
     }
     // next is to clone the site
-    clone_site($theme_site_id);
+    clone_site($theme_site_id, !$clone_pages);
 }
 
 /**
@@ -223,8 +223,11 @@ function set_home_page($post_id){
  * 
  * @param type $theme_site_id
  */
-function clone_site($theme_site_id){
+function clone_site($theme_site_id, $backup = false){
     
+	if($backup === true)
+		backup_existing_site();
+	
     clone_header_footer($theme_site_id);
     
     $pages = get_all_menu_pages();
@@ -233,6 +236,17 @@ function clone_site($theme_site_id){
         clone_page($theme_site_id, $page->ID, $page->post_title);
     }
     
+}
+
+/**
+ * Create a backup of existing pages with current theme
+ */
+function backup_existing_site(){
+	
+	$pages = get_all_menu_pages();
+	
+	
+	
 }
 
 /**
@@ -327,6 +341,8 @@ function get_site_logo_id(){
 
 }
 
+
+
 /**
  * Returns the hotel address string
  * @return string
@@ -342,4 +358,4 @@ function get_hotel_address(){
 		return 'default address';
 	
 	return $address;
-}	
+}
