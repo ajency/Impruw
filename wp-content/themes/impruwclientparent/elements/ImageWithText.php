@@ -91,6 +91,7 @@ class ImageWithText extends Element {
     	
     	$data['alignclass'] = $this->align == 'right' ? 'pull-right' : 'pull-left';
     	$data['content'] = $this->content;
+        $data['margin-css'] = $this->margins;
     	
     	$html = $this->get_open_tag();
     	$html .= $me->render($template, $data);
