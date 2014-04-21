@@ -1,9 +1,10 @@
 var __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
 define(['app', 'text!apps/menu-manager/list/templates/menuitem.html'], function(App, menuItemTpl) {
   return App.module('MenuManager.List.Views', function(Views, App) {
-    var MenuItemView;
+    var EmptyView, MenuItemView;
     MenuItemView = (function(_super) {
       __extends(MenuItemView, _super);
 
@@ -22,7 +23,7 @@ define(['app', 'text!apps/menu-manager/list/templates/menuitem.html'], function(
       };
 
       MenuItemView.prototype.onRender = function() {
-        return this.$el.find('.sortable-menu-items').sortable();
+        return this.$el.attr('id', 'item-' + this.model.get('ID'));
       };
 
       MenuItemView.prototype.events = {
@@ -49,10 +50,25 @@ define(['app', 'text!apps/menu-manager/list/templates/menuitem.html'], function(
       return MenuItemView;
 
     })(Marionette.ItemView);
+    EmptyView = (function(_super) {
+      __extends(EmptyView, _super);
+
+      function EmptyView() {
+        return EmptyView.__super__.constructor.apply(this, arguments);
+      }
+
+      EmptyView.prototype.template = '<li>No menu found </li>';
+
+      EmptyView.prototype.tagName = 'ul';
+
+      return EmptyView;
+
+    })(Marionette.ItemView);
     return Views.MenuCollectionView = (function(_super) {
       __extends(MenuCollectionView, _super);
 
       function MenuCollectionView() {
+        this.itemViewOptions = __bind(this.itemViewOptions, this);
         return MenuCollectionView.__super__.constructor.apply(this, arguments);
       }
 
@@ -60,13 +76,56 @@ define(['app', 'text!apps/menu-manager/list/templates/menuitem.html'], function(
 
       MenuCollectionView.prototype.itemView = MenuItemView;
 
+      MenuCollectionView.prototype.emptyView = EmptyView;
+
       MenuCollectionView.prototype.itemViewContainer = 'ol.sortable-menu-items';
 
       MenuCollectionView.prototype.className = 'aj-imp-menu-item-list';
 
+      MenuCollectionView.prototype.onShow = function() {
+        return this.$el.find('.sortable-menu-items').sortable({
+          handle: 'div.menu-dragger',
+          items: 'li.list-group-item',
+          tolerance: 'intersect',
+          stop: (function(_this) {
+            return function(e, ui) {
+              var order;
+              order = _this.$el.find('.sortable-menu-items').sortable('toArray');
+              return _this.sendData(order, _this.collection);
+            };
+          })(this)
+        });
+      };
+
+      MenuCollectionView.prototype.sendData = function(order, collection) {
+        return this.trigger("view:menu:order:changed", order, collection);
+      };
+
       MenuCollectionView.prototype.onMenuItemUpdated = function() {
         this.$el.find('.alert').remove();
         return this.$el.prepend('<div class="alert alert-success">Menu item updated</div>');
+      };
+
+      MenuCollectionView.prototype.itemViewOptions = function(collection, index) {
+        return {
+          itemIndex: index,
+          collection: this.collection
+        };
+      };
+
+      MenuCollectionView.prototype.serializeData = function() {
+        var data;
+        data = {
+          menus: []
+        };
+        this.collection.each(function(model, index) {
+          var menu;
+          menu = {};
+          menu.menu_slug = model.get('menu_slug');
+          menu.menu_name = model.get('menu_name');
+          return data.menus.push(menu);
+        });
+        return data;
       };
 
       return MenuCollectionView;

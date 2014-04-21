@@ -324,6 +324,54 @@ a {
 					border-top-color: lighten(@dash-grey, 10%);
 				}
 			}
+			.dropdown-menu {
+				width: 240px;
+				padding: 0.3em;
+				.panel {
+					border-radius: 0;
+					border: 0;
+					box-shadow: none;
+					.panel-heading {
+						padding: 0;
+						border-radius: 0;
+						a {
+							padding: 0.5em;
+							display: block;
+						}
+					}
+					.panel-collapse {
+						.panel-body {
+							padding: 0.5em;
+							.color-blocks {
+								margin: 0;
+								padding: 0;
+								list-style: none;
+								text-align: center;
+								li {
+									width: 30%;
+									margin: 5px 1%;
+									display: inline-block;
+									padding: 2px;
+									border: 1px solid @preview-grey;
+									.color {
+										display: block;
+										width: 100%;
+										height: 40px;
+									}
+									&:hover {
+										border-color: @blue-grey;
+									}
+								}
+							}
+						}
+						&.in {
+							.panel-body {
+								border-top-color: @blue-grey;
+							}
+						}
+					}
+				}
+			}
 			.aj-imp-color-box {
 				text-align: left;
 				h6 {

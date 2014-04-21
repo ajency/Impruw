@@ -42,6 +42,10 @@ define ['app', 'controllers/base-controller'], (App, AppController)->
 					@listenTo @layout.listMenuRegion , "delete:menu:item:model" ,(model) =>
 						model.destroy
 								wait : true
+
+					@listenTo @layout.listMenuRegion, 'menu:order:changed',(order,collection)=>
+						newOrder = _.idOrder order
+						collection.updateOrder newOrder, @menuId
 				
 				@show @layout
 

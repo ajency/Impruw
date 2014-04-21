@@ -4,7 +4,7 @@ define ['app'
 			App.module 'MenuManager.List.Views', (Views, App)->
 
 				class MenuItemView extends Marionette.ItemView
-
+					
 
 					template : menuItemTpl
 
@@ -15,8 +15,8 @@ define ['app'
 					modelEvents: 
 						'change' :'render'
 
-					onRender :->
-						@$el.find('.sortable-menu-items').sortable()
+					onRender:->
+						@$el.attr 'id', 'item-' + @model.get 'ID'
 					
 					events: 
 						'click .update-menu-item' :->
@@ -34,6 +34,11 @@ define ['app'
 							@$el.find('.menutitle').val(@model.get 'menu_item_url')
 							@$el.find("#menuitem-#{menu_id}-#{menu_item_id}").click()
 
+				class EmptyView extends Marionette.ItemView
+					
+					template: '<li>No menu found </li>'
+
+					tagName: 'ul'
 
 				# main menu manager view
 				class Views.MenuCollectionView extends Marionette.CompositeView
@@ -48,13 +53,43 @@ define ['app'
 
 					itemView : MenuItemView
 
+					emptyView : EmptyView
+
 					itemViewContainer : 'ol.sortable-menu-items'
 
 					className : 'aj-imp-menu-item-list'
 
+					onShow :->
+						@$el.find('.sortable-menu-items').sortable
+													handle 	: 'div.menu-dragger'
+													items 	: 'li.list-group-item'
+													tolerance: 'intersect'
+													stop : (e,ui)=>
+															order = @$el.find('.sortable-menu-items').sortable 'toArray'
+															@sendData order, @collection
+															#@trigger "menu:item:order:changed",order
+
+					sendData :(order,collection)->
+						@trigger "view:menu:order:changed",order,collection
+					
 					onMenuItemUpdated :->
 						@$el.find('.alert').remove()
 						@$el.prepend '<div class="alert alert-success">Menu item updated</div>'
 
+					itemViewOptions:(collection, index) =>
+									
+						itemIndex : index
+						collection: @collection
+					
+					serializeData: ->
+						data = 
+							menus : []
 
+						@collection.each (model, index)->
+							menu = {}
+							menu.menu_slug = model.get('menu_slug')
+							menu.menu_name = model.get('menu_name')
+							data.menus.push menu
+
+						data
 

@@ -435,6 +435,38 @@ function delete_menu_item() {
 add_action('wp_ajax_delete-menu-item','delete_menu_item');
 
 /**
+ * 
+ */
+function update_menu_item_order() {
+    
+    $menu_items_order_array = $_GET['newOrder'];
+    
+    $count=1;
+    
+    $menuId = $_GET['menuId'];
+    
+    for( $i=0; $i < count($menu_items_order_array) ; $i++):
+        
+        $post_array = array(
+                        'ID'=>$menu_items_order_array[$i],
+                        'menu_order' => $count);
+        
+        wp_update_post($post_array);
+        
+        $count++;
+        
+        /*wp_update_nav_menu_item( $menuId,$menu_items_order_array[$i],
+                array('menu-item-position' => $i)
+        );*/
+    
+    endfor;
+    
+    wp_send_json( array('code'=>'OK','menuId'=>$menuId,'newOrder'=>$menu_items_order_array));
+    
+}
+add_action('wp_ajax_update-menu-order','update_menu_item_order');
+
+/**
  * get all menus
  */
 function get_site_menus_collection() {

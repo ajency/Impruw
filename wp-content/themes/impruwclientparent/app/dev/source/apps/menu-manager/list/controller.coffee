@@ -22,6 +22,13 @@ define ['app', 'controllers/base-controller', 'apps/menu-manager/list/views'], (
 				@listenTo @view ,"itemview:delete:menu:item:clicked",(iv,model) =>
 					@region.trigger "delete:menu:item:model",model
 
+				@listenTo @view ,"view:menu:order:changed",(order,collection) =>
+					@region.trigger "menu:order:changed", order, collection
+					#console.log 'finallu'
+					#console.log collection
+					#console.log order
+				
+
 				@show @view
 
 
@@ -29,6 +36,7 @@ define ['app', 'controllers/base-controller', 'apps/menu-manager/list/views'], (
 			_getView:(menucollection) ->
 				new  List.Views.MenuCollectionView 
 							collection : menucollection
+						
 			
 			updatedSuccess :=>				
 				@view.triggerMethod "menu:item:updated"			
