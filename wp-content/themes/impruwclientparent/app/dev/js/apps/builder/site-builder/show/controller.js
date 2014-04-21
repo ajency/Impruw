@@ -2,7 +2,7 @@ var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 define(['app', 'controllers/base-controller', 'apps/builder/site-builder/show/views'], function(App, AppController) {
-  App.module('SiteBuilderApp.Show', function(Show, App, Backbone, Marionette, $, _) {
+  return App.module('SiteBuilderApp.Show', function(Show, App, Backbone, Marionette, $, _) {
     var siteBuilderController;
     siteBuilderController = null;
     Show.BuilderController = (function(_super) {
@@ -129,23 +129,31 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/show/vi
       }
 
       Controller.prototype.initialize = function(opt) {
-        var view;
+        var layout, pages;
         if (opt == null) {
           opt = {};
         }
         this.region = App.getRegion('builderWrapper');
-        view = new Show.View.MainView;
-        this.listenTo(view, 'show', (function(_this) {
-          return function(view) {
+        pages = App.request("get:editable:pages");
+        layout = new Show.View.MainView({
+          collection: pages
+        });
+        this.listenTo(layout, 'editable:page:changed', function(pageId) {
+          $.cookie('current-page-id', pageId);
+          return App.execute("editable:page:changed", pageId);
+        });
+        this.listenTo(layout, 'show', (function(_this) {
+          return function(layout) {
             return _.delay(function() {
-              App.addRegions({
+              return App.addRegions({
                 builderRegion: '#aj-imp-builder-drag-drop'
               });
-              return siteBuilderController = new Show.BuilderController();
-            }, 400);
+            }, 200);
           };
         })(this));
-        return this.show(view);
+        return this.show(layout, {
+          loading: true
+        });
       };
 
       return Controller;
@@ -154,12 +162,11 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/show/vi
     return App.commands.setHandler("editable:page:changed", (function(_this) {
       return function(pageId) {
         App.resetElementRegistry();
-        if (_this.siteBuilderController !== null) {
+        if (siteBuilderController !== null) {
           siteBuilderController.close();
         }
         return siteBuilderController = new Show.BuilderController();
       };
     })(this));
   });
-  return App.SiteBuilderApp.Show.Controller;
 });

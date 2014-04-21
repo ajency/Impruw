@@ -62,6 +62,7 @@ define(['app', 'apps/builder/site-builder/elements/gallery/views', 'apps/builder
         var slidesCollection;
         this.removeSpinner();
         slidesCollection = this._getSlidesCollection();
+        console.log(this.isSingleRoomPage());
         return App.execute("when:fetched", slidesCollection, (function(_this) {
           return function() {
             var view;

@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
 
 define(["app", 'backbone'], function(App, Backbone) {
   return App.module("Entities.Pages", function(Pages, App, Backbone, Marionette, $, _) {
-    var API;
+    var API, pages;
     Pages.PageModel = (function(_super) {
       __extends(PageModel, _super);
 
@@ -39,28 +39,23 @@ define(["app", 'backbone'], function(App, Backbone) {
         if (resp.code === 'OK') {
           return resp.data;
         }
+        return resp;
       };
 
       return PageCollection;
 
     })(Backbone.Collection);
+    pages = new Pages.PageCollection;
+    pages.fetch({
+      reset: true
+    });
     API = {
       getPagesCollection: function() {
         return new Pages.PageCollection;
       },
       getPages: function(param) {
-        var pages;
         if (param == null) {
           param = {};
-        }
-        pages = App.request("get:collection", 'pagecollection');
-        if (!pages) {
-          pages = new Pages.PageCollection;
-          App.request("set:collection", 'pagecollection', pages);
-          pages.fetch({
-            reset: true,
-            data: param
-          });
         }
         return pages;
       },

@@ -23,8 +23,12 @@ define ["app", 'backbone'], (App, Backbone) ->
 
 				parse: (resp)->
 					return resp.data if resp.code is 'OK'
+					resp
 
 
+			pages = new Pages.PageCollection
+			pages.fetch
+					reset : true
 				
 			# PUBLIC API FOR ENitity
 			API =
@@ -32,15 +36,6 @@ define ["app", 'backbone'], (App, Backbone) ->
 					new Pages.PageCollection
 
 				getPages: (param = {})->
-					pages = App.request "get:collection", 'pagecollection'
-
-					if not pages
-						pages = new Pages.PageCollection
-						App.request "set:collection", 'pagecollection',pages
-						pages.fetch
-								reset : true
-								data  : param
-
 					pages
 
 				createNewPage:(data = {})->

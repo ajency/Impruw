@@ -41,46 +41,11 @@
           <b>!-Page Name-!: </b>
           <input type="text" value="{{SITEURL}}" class="page-slug-edit">
           
-          <!--<select id="builder-page-sel" name="builder-page-sel">
-            <option value="">Choose </option>
-          </select>-->
-          
-
-          <div class="btn-group bootstrap-select">
-            <button data-toggle="dropdown" class="btn dropdown-toggle selectpicker btn-xs btn-default" type="button" data-id="aj-imp-page-sel" title="Home">
-              <span class="filter-option pull-left">Choose</span>&nbsp;<span class="caret"></span>
-            </button>
-            <div class="dropdown-menu open">
-              <ul role="menu" class="dropdown-menu inner selectpicker">
-                <li rel="0"><a style="" class="" tabindex="0">
-                  <span class="text">Choose </span><i class="glyphicon glyphicon-ok icon-ok check-mark"></i></a>
-                </li>
-                <li rel="1">
-                  <a style="" class="" tabindex="0"><span class="text">Coming Soon Page</span><i class="glyphicon glyphicon-ok icon-ok check-mark"></i></a>
-                </li>
-                <li rel="2" class="selected">
-                  <a style="" class="" tabindex="0"><span class="text">Home</span><i class="glyphicon glyphicon-ok icon-ok check-mark"></i></a>
-                </li>
-                <li rel="3">
-                  <a style="" class="" tabindex="0"><span class="text">About Us</span><i class="glyphicon glyphicon-ok icon-ok check-mark"></i></a>
-                </li>
-                <li rel="4">
-                  <a style="" class="" tabindex="0"><span class="text">Contact Us</span><i class="glyphicon glyphicon-ok icon-ok check-mark"></i></a>
-                </li>
-                <li rel="5">
-                  <a style="" class="" tabindex="0"><span class="text">Rooms</span><i class="glyphicon glyphicon-ok icon-ok check-mark"></i></a>
-                </li>
-                <li rel="6">
-                  <a style="" class="" tabindex="0"><span class="text">Single Room</span><i class="glyphicon glyphicon-ok icon-ok check-mark"></i></a>
-                </li>
-                <li rel="7">
-                  <a style="" class="" tabindex="0"><span class="text">Home</span><i class="glyphicon glyphicon-ok icon-ok check-mark"></i></a>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-
+          <select id="builder-page-sel" name="builder-page-sel">
+            {{#pages}}
+            <option value="{{ID}}">{{post_title}}</option>
+            {{/pages}}
+          </select>
 
         </div>
       </div>
