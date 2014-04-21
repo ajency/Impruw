@@ -86,6 +86,7 @@ require js, (plugins, configs, App)->
   specs = []
   # specs.push '../tests/spec/roomstariff.spec'
   specs.push '../tests/spec/notification.spec'
+  specs.push '../tests/spec/app.spec'
 
   require specs,->
     jasmine.getEnv().execute()

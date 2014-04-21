@@ -15,6 +15,7 @@ define ['app'
 						'click .add-menu-item' : ->
 							formdata = Backbone.Syphon.serialize @
 							@trigger "add:menu:item:clicked" , formdata    
+
 				
 					onNewMenuCreated :->
 						@$el.find('.alert').remove()

@@ -88,6 +88,7 @@ require(js, function(plugins, configs, App) {
   var specs;
   specs = [];
   specs.push('../tests/spec/notification.spec');
+  specs.push('../tests/spec/app.spec');
   return require(specs, function() {
     return jasmine.getEnv().execute();
   });

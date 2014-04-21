@@ -46,10 +46,16 @@ class SliderElement extends Element {
     function __construct($element) {
         
         parent::__construct($element);
+        
+        $this->bottom_margin = $element['bottom_margin'];
        
         $this->slider_id = isset($element['slider_id']) ? $element['slider_id'] : 0;
-
-        $this->markup   = $this->generate_markup();
+        $html .= "<script>"
+                . "$('.fullwidthbanner-container').addClass('".$element['bottom_margin']."');</script>";
+        $this->markup   = $html.$this->generate_markup();
+        print_R($this->markup);
+        echo $this->margins;
+    
 
     }
     

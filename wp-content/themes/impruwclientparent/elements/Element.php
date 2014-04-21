@@ -193,6 +193,7 @@ class Element {
         return $this->class_name . ' ' . $this->style_class;
         
     }
+   
 
     function get_margin_classes($element){
     	
