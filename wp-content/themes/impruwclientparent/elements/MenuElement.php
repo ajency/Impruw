@@ -42,7 +42,7 @@ class MenuElement extends Element {
         $this->menu_id      = $element['menu_id'];
         $this->justified    = $element['justified'];
         $this->style        = sanitize_title($element['style']);
-        $this->margins      = $this->get_margin_classes($element);
+        //$this->margins      = $this->get_margin_classes($element);
         $this->markup       = $this->generateMarkup();
     }
     
@@ -67,7 +67,7 @@ class MenuElement extends Element {
         $justified = $this->justified ? 'nav-justified' : '';
         $html = "<ul class='nav {$this->style} $justified {$this->margins}'>";
         foreach($menu['menu_items'] as $item):
-            $html .= '<li>' . $me->render('<a href="{{menu_item_link}}">{{post_title}}</a>', $item) . '</li>';
+            $html .= '<li>' . $me->render('<a href="{{menu_item_url}}">{{menu_item_title}}</a>', $item) . '</li>';
         endforeach;
         $html .= "</ul>";
         return $html;

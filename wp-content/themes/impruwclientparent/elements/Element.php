@@ -190,9 +190,10 @@ class Element {
      */
     function get_classes(){
         
-        return $this->class_name . ' ' . $this->style_class;
+        return $this->class_name . ' ' . $this->style_class.' '.$this->margins;
         
     }
+   
 
     function get_margin_classes($element){
     	

@@ -28,7 +28,7 @@
 	<script src="<?php echo get_template_directory_uri(); ?>/js/html5.js"></script>
 	<![endif]-->
         <?php get_theme_CSS(); ?>
-    <link href="<?php echo site_url() ;?>/wp-content/themes/impruwclientparent/js/jquery.bxslider.css" rel="stylesheet" />
+        <link href="<?php echo site_url() ;?>/wp-content/themes/impruwclientparent/js/jquery.bxslider.css" rel="stylesheet" />
      
 	<?php wp_head(); ?>
 </head>

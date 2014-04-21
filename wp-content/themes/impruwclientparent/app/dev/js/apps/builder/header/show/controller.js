@@ -11,33 +11,18 @@ define(['app', 'controllers/base-controller', 'apps/builder/header/show/views'],
       }
 
       Controller.prototype.initialize = function(opt) {
-        var pages, view;
+        var view;
         if (opt == null) {
           opt = {};
         }
-        pages = App.request("get:editable:pages");
-        this.view = view = new Show.Views.MainView({
-          collection: pages
-        });
+        this.view = view = new Show.Views.MainView;
         this.listenTo(view, "add:new:page:clicked", function() {
           return App.execute("show:add:new:page", {
             region: App.dialogRegion
           });
         });
-        this.listenTo(view, 'editable:page:changed', function(pageId) {
-          $.cookie('current-page-id', pageId);
-          return App.execute("editable:page:changed", pageId);
-        });
-        return this.show(view, {
-          loading: true
-        });
+        return this.show(view);
       };
-
-      Controller.prototype.getCurrentPageName = function() {
-        return this.view.getCurrentPageName();
-      };
-
-      Controller.prototype.setHomePage = function() {};
 
       return Controller;
 

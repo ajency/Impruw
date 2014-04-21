@@ -47,7 +47,7 @@ class LogoElement extends Element {
         parent::__construct($element);
         
         $this->image_id = $element['image_id'];
-        $this->margins = $this->get_margin_classes($element);
+        //$this->margins = $this->get_margin_classes($element);
         
         $this->markup    = $this->generate_markup();
     }

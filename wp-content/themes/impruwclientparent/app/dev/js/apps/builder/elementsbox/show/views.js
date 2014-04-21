@@ -1,8 +1,8 @@
 var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-define(['app', 'text!apps/builder/elementsbox/show/templates/main.html', 'text!apps/builder/elementsbox/show/templates/singleelement.html', 'text!apps/builder/elementsbox/show/templates/error.html'], function(App, mainviewTpl, singleEleTpl, errorTpl) {
-  App.module('ElementsBoxApp.Show.Views', function(Views, App, Backbone, Marionette, $, _) {
+define(['app', 'text!apps/builder/elementsbox/show/templates/main.html', 'text!apps/builder/elementsbox/show/templates/error.html'], function(App, mainviewTpl, singleEleTpl, errorTpl) {
+  return App.module('ElementsBoxApp.Show.Views', function(Views, App, Backbone, Marionette, $, _) {
     Views.SingleElement = (function(_super) {
       __extends(SingleElement, _super);
 
@@ -10,7 +10,11 @@ define(['app', 'text!apps/builder/elementsbox/show/templates/main.html', 'text!a
         return SingleElement.__super__.constructor.apply(this, arguments);
       }
 
-      SingleElement.prototype.template = singleEleTpl;
+      SingleElement.prototype.tagName = 'li';
+
+      SingleElement.prototype.className = 'element';
+
+      SingleElement.prototype.template = '<a href="#" class="drag builder-element"> <div class="aj-imp-builder-icon {{icon}}"></div> <div class="aj-imp-builder-title">{{elementName}}</div> </a>';
 
       SingleElement.prototype.serializeData = function() {
         var data;
@@ -23,6 +27,10 @@ define(['app', 'text!apps/builder/elementsbox/show/templates/main.html', 'text!a
           }
         };
         return data;
+      };
+
+      SingleElement.prototype.onRender = function() {
+        return this.$el.attr('data-element', this.model.get('element'));
       };
 
       return SingleElement;
@@ -43,14 +51,28 @@ define(['app', 'text!apps/builder/elementsbox/show/templates/main.html', 'text!a
 
       MainView.prototype.itemView = Views.SingleElement;
 
-      MainView.prototype.itemViewContainer = 'ul.aj-imp-builder-items';
-
       MainView.prototype.onShow = function() {
         this.$el.draggable({
           handle: "p.desc",
           addClasses: false
         });
         return this._setDraggableElements();
+      };
+
+      MainView.prototype.appendHtml = function(cv, view, index) {
+        var category;
+        if (view.model.get('element') === 'Row') {
+          return;
+        }
+        category = view.model.get('category') || 'content';
+        switch (category) {
+          case 'hotel':
+            return this.$el.find('#hotel-elements ul').append(view.$el);
+          case 'room':
+            return this.$el.find('#room-elements ul').append(view.$el);
+          default:
+            return this.$el.find('#content-elements ul').append(view.$el);
+        }
       };
 
       MainView.prototype._setDraggableElements = function() {
@@ -68,5 +90,4 @@ define(['app', 'text!apps/builder/elementsbox/show/templates/main.html', 'text!a
 
     })(Marionette.CompositeView);
   });
-  return App.ElementsBoxApp.Show.Views;
 });

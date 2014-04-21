@@ -1,6 +1,6 @@
-var __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
-  __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html', 'text!apps/builder/site-builder/show/templates/builder.html'], function(App, mainviewTpl, builderTpl) {
   return App.module('SiteBuilderApp.Show.View', function(View, App, Backbone, Marionette, $, _) {
@@ -8,6 +8,8 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
       __extends(MainView, _super);
 
       function MainView() {
+        this.getCurrentPageId = __bind(this.getCurrentPageId, this);
+        this.getCurrentPageName = __bind(this.getCurrentPageName, this);
         return MainView.__super__.constructor.apply(this, arguments);
       }
 
@@ -32,6 +34,24 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
         'change select#builder-page-sel': function(evt) {
           return this.trigger('editable:page:changed', $(evt.target).val());
         }
+      };
+
+      MainView.prototype.initialize = function() {
+        App.reqres.setHandler("get:current:editable:page:name", this.getCurrentPageName);
+        return App.reqres.setHandler("get:current:editable:page", this.getCurrentPageId);
+      };
+
+      MainView.prototype.getCurrentPageName = function() {
+        var name, pageId;
+        pageId = this.getCurrentPageId();
+        name = this.$el.find('select#builder-page-sel').find("option[value='" + pageId + "']").text();
+        return name;
+      };
+
+      MainView.prototype.getCurrentPageId = function() {
+        var pageId;
+        pageId = this.$el.find('select#builder-page-sel').val();
+        return parseInt(pageId);
       };
 
       MainView.prototype.onShow = function() {

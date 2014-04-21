@@ -8,16 +8,14 @@ define ['app'
 					template : addmenuTpl
 
 					className : 'aj-imp-menu-edit'
+
 					
-					events: 						
-						'click .add-menu-item' :->
-							formdata = Backbone.Syphon.serialize @
-							@trigger "add:menu:item:clicked" , formdata
+					events: 
 						
-						'change select#aj-imp-page-sel' :-> 
-							console.log 'hi'
-							#@trigger 'editable:page:changed', $(evt.target).val()
-							console.log $(evt.target).val()    
+						'click .add-menu-item' : ->
+							formdata = Backbone.Syphon.serialize @
+							@trigger "add:menu:item:clicked" , formdata    
+
 				
 					onNewMenuCreated :->
 						@$el.find('.alert').remove()
@@ -26,19 +24,23 @@ define ['app'
 
 					onShow :->
 						pages = App.request "get:editable:pages"
-						console.log pages
 						_.each pages.models , (model,index) ->
 							page_name = model.get 'post_title'
 							page_url = model.get 'guid'
 							html = "<li rel='#{index}'>
-										<a style='' class='' >
+										<a style='' class='' href='#' link='#{page_url}' >
 											<span class='text'>#{page_name}</span>
 											<i class='glyphicon glyphicon-ok icon-ok check-mark'></i>
 										</a>
 									</li>"
 							$('#menu-item-page-url').append(html)
 
-						#@$el.find('select#aj-imp-page-sel').val()
-						@$el.find('#aj-imp-page-sel').selectpicker
-												style 		: 'btn-mini btn-default'
+
+						@$el.find('select#aj-imp-page-sel-item').selectpicker
+												style 		: 'btn-xs btn-default'
 												menuStyle	: 'dropdown'
+
+						@$el.find('#menu-item-page-url li a ').click ->
+   								menu_url = $(this).attr 'link'
+   								$('#menu_item_url').val menu_url
+						

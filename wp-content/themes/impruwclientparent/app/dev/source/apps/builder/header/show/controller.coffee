@@ -10,24 +10,9 @@ define ['app', 'controllers/base-controller'
 					# initialize the controller. Get all required entities and show the view
 					initialize:(opt = {})->
 
-						pages = App.request "get:editable:pages"
-
-						@view = view = new Show.Views.MainView
-												collection : pages	
+						@view = view = new Show.Views.MainView	
 
 						@listenTo view, "add:new:page:clicked", ->
 							App.execute "show:add:new:page", region : App.dialogRegion
-
-						@listenTo view, 'editable:page:changed',(pageId)->
-															# set the cookie
-															$.cookie 'current-page-id', pageId
-															App.execute "editable:page:changed", pageId
 						
-						@show  view,
-								loading : true
-
-					getCurrentPageName:->
-						@view.getCurrentPageName()
-
-					setHomePage:->
-						
+						@show  view

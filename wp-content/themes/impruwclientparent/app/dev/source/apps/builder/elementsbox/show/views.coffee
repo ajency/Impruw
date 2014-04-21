@@ -1,6 +1,5 @@
 define ['app'
 		'text!apps/builder/elementsbox/show/templates/main.html'
-		'text!apps/builder/elementsbox/show/templates/singleelement.html'
 		'text!apps/builder/elementsbox/show/templates/error.html'],
 		(App, mainviewTpl, singleEleTpl, errorTpl)->
 
@@ -9,7 +8,14 @@ define ['app'
 				# Single element region
 				class Views.SingleElement extends Marionette.ItemView
 
-					template 	: singleEleTpl
+					tagName : 'li'
+
+					className : 'element'
+
+					template 	: '<a href="#" class="drag builder-element">
+										<div class="aj-imp-builder-icon {{icon}}"></div>
+    									<div class="aj-imp-builder-title">{{elementName}}</div>
+    								</a>'
 
 					serializeData:->
 						data = super()
@@ -19,7 +25,10 @@ define ['app'
 							else 
 								return @element
 
-						data 
+						data
+
+					onRender:->
+						@$el.attr 'data-element', @model.get 'element'
 								
 				
 				# Composite view wrapper for element box region
@@ -33,8 +42,6 @@ define ['app'
 
 					itemView 	: Views.SingleElement
 
-					itemViewContainer : 'ul.aj-imp-builder-items'
-
 					# on show make the element draggable
 					# secondly, make all the elements draggable
 					onShow:->
@@ -43,6 +50,21 @@ define ['app'
 								addClasses: false
 
 						@_setDraggableElements()
+	
+					# append html
+					appendHtml:(cv, view, index)->
+
+						return if view.model.get('element') is 'Row'
+
+						category = view.model.get('category') || 'content'
+						switch category
+							when 'hotel'
+								@$el.find('#hotel-elements ul').append view.$el
+							when 'room'
+								@$el.find('#room-elements ul').append view.$el
+							else
+								@$el.find('#content-elements ul').append view.$el
+
 
 					# set draggable elements
 					_setDraggableElements:->
@@ -53,6 +75,3 @@ define ['app'
 														addClasses			: false
 														distance 			: 5
 														revert 				: 'invalid'
-			
-				
-			App.ElementsBoxApp.Show.Views
