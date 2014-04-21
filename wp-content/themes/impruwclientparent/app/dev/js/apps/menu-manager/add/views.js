@@ -19,9 +19,6 @@ define(['app', 'text!apps/menu-manager/add/templates/addmenu.html'], function(Ap
           var formdata;
           formdata = Backbone.Syphon.serialize(this);
           return this.trigger("add:menu:item:clicked", formdata);
-        },
-        'change select#aj-imp-page-sel': function(evt) {
-          return console.log($(evt.target).val());
         }
       };
 
@@ -34,17 +31,21 @@ define(['app', 'text!apps/menu-manager/add/templates/addmenu.html'], function(Ap
       MenuItemView.prototype.onShow = function() {
         var pages;
         pages = App.request("get:editable:pages");
-        console.log(pages);
         _.each(pages.models, function(model, index) {
           var html, page_name, page_url;
           page_name = model.get('post_title');
           page_url = model.get('guid');
-          html = "<li rel='" + index + "'> <a style='' class='' > <span class='text'>" + page_name + "</span> <i class='glyphicon glyphicon-ok icon-ok check-mark'></i> </a> </li>";
+          html = "<li rel='" + index + "'> <a style='' class='' href='#' link='" + page_url + "' > <span class='text'>" + page_name + "</span> <i class='glyphicon glyphicon-ok icon-ok check-mark'></i> </a> </li>";
           return $('#menu-item-page-url').append(html);
         });
-        return this.$el.find('select#aj-imp-page-sel').selectpicker({
-          style: 'btn-mini btn-default',
+        this.$el.find('select#aj-imp-page-sel-item').selectpicker({
+          style: 'btn-xs btn-default',
           menuStyle: 'dropdown'
+        });
+        return this.$el.find('#menu-item-page-url li a ').click(function() {
+          var menu_url;
+          menu_url = $(this).attr('link');
+          return $('#menu_item_url').val(menu_url);
         });
       };
 
