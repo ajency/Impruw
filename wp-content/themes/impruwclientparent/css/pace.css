@@ -78,3 +78,36 @@
   height: 100%;
   z-index: 1040;
 }
+
+/**** Sub Loader Styles ****/
+.pace-min-theme .pace {
+  bottom: auto;
+  right: auto;
+  border: none;
+  width: 100%;
+  height: 3px;
+  background: #ECF0F1;
+}
+
+.pace-min-theme .pace .pace-progress:after {
+  display: none;
+}
+
+.pace-min-theme .pace .pace-progress {
+  background: #FF7E00;
+  position: fixed;
+  z-index: 2000;
+  top: 0;
+  left: 0;
+  height: 3px;
+  max-width: none;
+
+  -webkit-transition: width 1s;
+  -moz-transition: width 1s;
+  -o-transition: width 1s;
+  transition: width 1s;
+}
+
+.pace-min-theme .pace-inactive {
+  display: none;
+}

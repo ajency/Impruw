@@ -74,7 +74,8 @@
         Pace.on('done', function(){
             Pace.options = {
                 ajax: false
-            }
+            };
+            $('body').addClass('pace-min-theme');
             $('#initial-loader').fadeOut('fast', function(){
                 $('#initial-loader').remove();
             });

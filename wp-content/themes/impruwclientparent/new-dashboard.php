@@ -68,8 +68,10 @@
     <script type="text/javascript">
     Pace.on('done', function(){
     	Pace.options = {
-                ajax: false
-            }
+            ajax: false
+        };
+        $('body').addClass('pace-min-theme');
+        $('.pace').css('background', '#fff');
         $('#initial-loader').fadeOut('fast', function(){
             $('#initial-loader').remove();
         });
