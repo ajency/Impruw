@@ -5,23 +5,8 @@ define ['app'
 			# Headerapp views
 			App.module 'HeaderApp.Show.Views', (Views, App, Backbone, Marionette, $, _)->
 
-				# Pages single view
-				class SinglePageView extends Marionette.ItemView
-
-					template : ''
-
-					#tagName : 'option'
-
-					onRender:->
-						#@$el.attr 'value',@model.get 'ID'
-						#@$el.text @model.get 'post_title'
-
 				# Header main view
 				class Views.MainView extends Marionette.CompositeView
-
-					itemView : SinglePageView
-
-					# itemViewContainer : 'select#aj-imp-page-sel'
 
 					template : mainviewTpl
 
@@ -36,19 +21,18 @@ define ['app'
 						data
 
 					events:
-						'change select#aj-imp-page-sel' : (evt)-> 
-							@trigger 'editable:page:changed', $(evt.target).val()
-
 						'click .add-new-page' : ->
 							@trigger "add:new:page:clicked"
 
 					onShow:->
-						@$el.find('select#aj-imp-page-sel').val App.request "get:current:editable:page"
-						@$el.find('select#aj-imp-page-sel').selectpicker
-												style 		: 'btn-mini btn-default'
-												menuStyle	: 'dropdown'
+						# Collapse accordion every time dropdown is shown
+						@$el.find('.dropdown-accordion').on 'show.bs.dropdown',(event)->
+						  	accordion = $(@).find($(@).data('accordion'))
+						  	accordion.find('.panel-collapse.in').collapse('hide')
 
-					getCurrentPageName:->
-						pageId = @$el.find('select#aj-imp-page-sel').val()
-						name = @$el.find('select#aj-imp-page-sel').find("option[value='#{pageId}']").text()
-						name
+						# Prevent dropdown to be closed when we click on an accordion link
+						@$el.find('.dropdown-accordion').on 'click', 'a[data-toggle="collapse"]',(event)->
+						  	event.preventDefault()
+						  	event.stopPropagation()
+						  	$($(@).data('parent')).find('.panel-collapse.in').collapse('hide')
+						  	$($(@).attr('href')).collapse('show')

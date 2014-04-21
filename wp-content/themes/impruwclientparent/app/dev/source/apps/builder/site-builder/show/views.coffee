@@ -25,6 +25,21 @@ define ['app'
 						'change select#builder-page-sel' : (evt)-> 
 							@trigger 'editable:page:changed', $(evt.target).val()
 
+					initialize:->
+						App.reqres.setHandler "get:current:editable:page:name", @getCurrentPageName
+						App.reqres.setHandler "get:current:editable:page", @getCurrentPageId
+
+					# return the name of the currently editable page
+					getCurrentPageName:=>
+						pageId = @getCurrentPageId()
+						name = @$el.find('select#builder-page-sel').find("option[value='#{pageId}']").text()
+						name
+
+					# returns the page id of the currently selected page
+					getCurrentPageId:=>
+						pageId = @$el.find('select#builder-page-sel').val()
+						parseInt pageId
+
 					# trigger the editable page changed event on show
 					onShow:->
 						@$el.find('select#builder-page-sel').selectpicker

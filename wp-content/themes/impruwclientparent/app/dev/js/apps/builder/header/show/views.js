@@ -3,29 +3,12 @@ var __hasProp = {}.hasOwnProperty,
 
 define(['app', 'text!apps/builder/header/show/templates/mainview.html'], function(App, mainviewTpl) {
   return App.module('HeaderApp.Show.Views', function(Views, App, Backbone, Marionette, $, _) {
-    var SinglePageView;
-    SinglePageView = (function(_super) {
-      __extends(SinglePageView, _super);
-
-      function SinglePageView() {
-        return SinglePageView.__super__.constructor.apply(this, arguments);
-      }
-
-      SinglePageView.prototype.template = '';
-
-      SinglePageView.prototype.onRender = function() {};
-
-      return SinglePageView;
-
-    })(Marionette.ItemView);
     return Views.MainView = (function(_super) {
       __extends(MainView, _super);
 
       function MainView() {
         return MainView.__super__.constructor.apply(this, arguments);
       }
-
-      MainView.prototype.itemView = SinglePageView;
 
       MainView.prototype.template = mainviewTpl;
 
@@ -40,27 +23,23 @@ define(['app', 'text!apps/builder/header/show/templates/mainview.html'], functio
       };
 
       MainView.prototype.events = {
-        'change select#aj-imp-page-sel': function(evt) {
-          return this.trigger('editable:page:changed', $(evt.target).val());
-        },
         'click .add-new-page': function() {
           return this.trigger("add:new:page:clicked");
         }
       };
 
       MainView.prototype.onShow = function() {
-        this.$el.find('select#aj-imp-page-sel').val(App.request("get:current:editable:page"));
-        return this.$el.find('select#aj-imp-page-sel').selectpicker({
-          style: 'btn-mini btn-default',
-          menuStyle: 'dropdown'
+        this.$el.find('.dropdown-accordion').on('show.bs.dropdown', function(event) {
+          var accordion;
+          accordion = $(this).find($(this).data('accordion'));
+          return accordion.find('.panel-collapse.in').collapse('hide');
         });
-      };
-
-      MainView.prototype.getCurrentPageName = function() {
-        var name, pageId;
-        pageId = this.$el.find('select#aj-imp-page-sel').val();
-        name = this.$el.find('select#aj-imp-page-sel').find("option[value='" + pageId + "']").text();
-        return name;
+        return this.$el.find('.dropdown-accordion').on('click', 'a[data-toggle="collapse"]', function(event) {
+          event.preventDefault();
+          event.stopPropagation();
+          $($(this).data('parent')).find('.panel-collapse.in').collapse('hide');
+          return $($(this).attr('href')).collapse('show');
+        });
       };
 
       return MainView;
