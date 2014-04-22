@@ -438,7 +438,7 @@ function get_all_menu_pages(){
      
     $p = array();
 
-    $skip = array('Site Builder','Dashboard');
+    $skip = array('Site Builder','Dashboard','Support','Coming Soon','Sample Page');
 
     foreach($pages as $page){
 

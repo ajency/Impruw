@@ -25,6 +25,4 @@ define ['app', 'controllers/base-controller'
 					view = new Show.Views.ErrorView	
 
 					@show  view
-
-
-		App.ElementsBoxApp.Show.Controller		
+	

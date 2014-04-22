@@ -91,7 +91,7 @@ function assign_theme_to_site( $theme_id , $clone_pages = false, $site_id = 0){
 	    clone_pages();
     }
     // next is to clone the site
-    clone_site($theme_site_id);
+    clone_site($theme_site_id, !$clone_pages);
 }
 
 /**
@@ -223,8 +223,11 @@ function set_home_page($post_id){
  * 
  * @param type $theme_site_id
  */
-function clone_site($theme_site_id){
+function clone_site($theme_site_id, $backup = false){
     
+	if($backup === true)
+		backup_existing_site();
+	
     clone_header_footer($theme_site_id);
     
     $pages = get_all_menu_pages();
@@ -233,6 +236,56 @@ function clone_site($theme_site_id){
         clone_page($theme_site_id, $page->ID, $page->post_title);
     }
     
+}
+
+/**
+ * Create a backup of existing pages with current theme
+ */
+function backup_existing_site(){
+	
+	$sections = array_map('backup_header_footer', array('header','footer'));
+	
+	$pages = get_all_menu_pages();
+	
+	$ids = array_map('backup_page', $pages);
+	
+}
+
+/**
+ * Backup header footer of the site
+ * @param unknown $section
+ */
+function backup_header_footer($section){
+	
+	$json = get_option("theme-$section");
+	update_option("backup-theme-$section", $json);
+}
+
+/**
+ * Backup the json of the current page
+ * @param unknown $page
+ * @return boolean|Ambigous <number, unknown>
+ */
+function backup_page($page){
+	
+	$page_id = 0;
+	
+	if(is_numeric($page))
+		$page_id = $page;
+	
+	if(is_object($page))
+		$page_id = $page->ID;
+	
+	if($page_id === 0)
+		return false;
+	
+	// get the current json
+	$current_json = get_post_meta($page_id,'page-json',true);
+	
+	//backup the previous json 
+	$current_json = update_post_meta($page_id,'backup-page-json', $current_json);
+	
+	return $page_id;
 }
 
 /**
@@ -327,6 +380,8 @@ function get_site_logo_id(){
 
 }
 
+
+
 /**
  * Returns the hotel address string
  * @return string
@@ -342,4 +397,4 @@ function get_hotel_address(){
 		return 'default address';
 	
 	return $address;
-}	
+}

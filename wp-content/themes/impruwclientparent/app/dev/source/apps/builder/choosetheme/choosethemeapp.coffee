@@ -34,8 +34,8 @@ define ['app', 'controllers/base-controller', 'apps/builder/choosetheme/views'],
 					data.clone_pages = false
 
 				responseFn = (resp)=>
-					#window.location.href = BUILDERURL
-					#@region.close()
+					window.location.href = BUILDERURL
+					@region.close()
 
 				# assign the new theme to site
 				$.post 	"#{AJAXURL}?action=assign-theme-to-site", data, responseFn, 'json'

@@ -46,7 +46,10 @@ define(['app', 'controllers/base-controller', 'apps/builder/choosetheme/views'],
           data.clone_pages = false;
         }
         responseFn = (function(_this) {
-          return function(resp) {};
+          return function(resp) {
+            window.location.href = BUILDERURL;
+            return _this.region.close();
+          };
         })(this);
         return $.post("" + AJAXURL + "?action=assign-theme-to-site", data, responseFn, 'json');
       };

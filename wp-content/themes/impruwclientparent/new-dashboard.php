@@ -71,7 +71,6 @@
             ajax: false
         };
         $('body').addClass('pace-min-theme');
-        $('.pace').css('background', '#fff');
         $('#initial-loader').fadeOut('fast', function(){
             $('#initial-loader').remove();
         });
