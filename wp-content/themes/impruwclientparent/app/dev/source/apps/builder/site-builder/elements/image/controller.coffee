@@ -55,9 +55,14 @@ define ['app','apps/builder/site-builder/elements/image/views','apps/builder/sit
 										@layout.model.set 'image_id', media.get 'id'
 										@stopListening App.vent,"media:manager:choosed:media"
 
+									@listenTo App.vent,  "stop:listening:to:media:manager",=>
+										@stopListening App.vent, "media:manager:choosed:media"
+
 							@listenTo view, "image:size:selected", (size)=>
 								@layout.model.set 'size', size
 								@layout.model.save()
 
 							@layout.elementRegion.show view
+
+							
 							

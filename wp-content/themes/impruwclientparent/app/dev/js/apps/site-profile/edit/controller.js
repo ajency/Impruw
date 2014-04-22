@@ -28,8 +28,11 @@ define(['app', 'controllers/base-controller', 'apps/site-profile/edit/views', 'e
             App.navigate("media-manager", {
               trigger: true
             });
-            return _this.listenTo(App.vent, "media:manager:choosed:media", function(media) {
+            _this.listenTo(App.vent, "media:manager:choosed:media", function(media) {
               _this.view.triggerMethod("set:logo", media);
+              return _this.stopListening(App.vent, "media:manager:choosed:media");
+            });
+            return _this.listenTo(App.vent, "stop:listening:to:media:manager", function() {
               return _this.stopListening(App.vent, "media:manager:choosed:media");
             });
           };
