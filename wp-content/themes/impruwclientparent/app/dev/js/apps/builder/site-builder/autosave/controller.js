@@ -30,7 +30,7 @@ define(['app'], function(App) {
           data: {
             action: 'save-page-json',
             json: JSON.stringify(_json),
-            page_id: _page_id = 3
+            page_id: _page_id
           }
         };
         return $.ajax(options).done(function(response) {

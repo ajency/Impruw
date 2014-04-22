@@ -13,7 +13,7 @@ function get_all_menu_pages(){
 
     if($pages->have_posts()){
         
-        $skip = array('Site Builder','Dashboard');
+        $skip = array('Site Builder','Dashboard','Support','Coming Soon','Sample Page');
 
         foreach($pages->posts as $page){
 
