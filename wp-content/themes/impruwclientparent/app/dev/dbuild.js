@@ -37,7 +37,7 @@
     bootstrapswitch: 'plugins/bootstrap-switch',
     entitiesloader: 'entities/dashboard-entities-loader',
     scrollsections: 'plugins/ajency.scrolldots',
-    minicolors: 'plugins/jquery.minicolors.min'
+    minicolors: 'plugins/jquery.minicolors.min',
     additionalmethod  : 'plugins/validate.additional.methods'
   },
   shim: {
