@@ -27,6 +27,9 @@ define ['app', 'controllers/base-controller'
 					@listenTo App.vent,"media:manager:choosed:media",(media)=>
 						@view.triggerMethod "set:logo" , media
 						@stopListening App.vent,"media:manager:choosed:media"	
+	
+					@listenTo App.vent,  "stop:listening:to:media:manager",=>
+						@stopListening App.vent, "media:manager:choosed:media"
 
 
 			saveSiteProfile : (data) ->

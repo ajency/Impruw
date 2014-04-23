@@ -67,10 +67,13 @@ define(['app', 'apps/builder/site-builder/elements/imagewithtext/views', 'apps/b
               App.navigate("media-manager", {
                 trigger: true
               });
-              return _this.listenTo(App.vent, "media:manager:choosed:media", function(media, size) {
+              _this.listenTo(App.vent, "media:manager:choosed:media", function(media, size) {
                 _this.layout.model.set('image_id', media.get('id'));
                 _this.layout.model.set('size', size);
                 _this.layout.model.save();
+                return _this.stopListening(App.vent, "media:manager:choosed:media");
+              });
+              return _this.listenTo(App.vent, "stop:listening:to:media:manager", function() {
                 return _this.stopListening(App.vent, "media:manager:choosed:media");
               });
             });
