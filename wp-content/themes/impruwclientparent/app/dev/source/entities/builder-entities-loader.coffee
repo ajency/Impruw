@@ -17,4 +17,5 @@ define [
 		'entities/builder/themes'
 		'entities/facilities'
 		'entities/roomtitle'
+		'entities/builder/revisions'
 		], ->

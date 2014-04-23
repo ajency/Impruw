@@ -87,7 +87,7 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/show/vi
         })(this));
         section = this.view.model.get('footer');
         container = this._getContainer('footer');
-        return _.each(section, (function(_this) {
+        _.each(section, (function(_this) {
           return function(element, i) {
             if (element.element === 'Row') {
               return _this.addNestedElements(container, element);
@@ -96,6 +96,7 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/show/vi
             }
           };
         })(this));
+        return App.execute("reset:changed:sections");
       };
 
       BuilderController.prototype.addNestedElements = function(container, element) {
@@ -135,13 +136,15 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/show/vi
         }
         this.region = App.getRegion('builderWrapper');
         pages = App.request("get:editable:pages");
-        layout = new Show.View.MainView({
+        this.layout = layout = new Show.View.MainView({
           collection: pages
         });
         this.listenTo(layout, 'editable:page:changed', function(pageId) {
           $.cookie('current-page-id', pageId);
-          return App.execute("editable:page:changed", pageId);
+          App.execute("editable:page:changed", pageId);
+          return App.execute("reset:changed:sections");
         });
+        this.listenTo(layout, "add:page:revisions", this.addPageRevisions);
         this.listenTo(layout, 'show', (function(_this) {
           return function(layout) {
             return _.delay(function() {
@@ -154,6 +157,17 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/show/vi
         return this.show(layout, {
           loading: true
         });
+      };
+
+      Controller.prototype.addPageRevisions = function() {
+        var currentPageId, pageRevisions;
+        currentPageId = App.request("get:current:editable:page");
+        pageRevisions = App.request("get:page:revisions", currentPageId);
+        return App.execute("when:fetched", [pageRevisions], (function(_this) {
+          return function() {
+            return _this.layout.triggerMethod("add:page:revision:items", pageRevisions);
+          };
+        })(this));
       };
 
       return Controller;

@@ -8,6 +8,7 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
       __extends(MainView, _super);
 
       function MainView() {
+        this.addPageRevisions = __bind(this.addPageRevisions, this);
         this.getCurrentPageId = __bind(this.getCurrentPageId, this);
         this.getCurrentPageName = __bind(this.getCurrentPageName, this);
         return MainView.__super__.constructor.apply(this, arguments);
@@ -59,13 +60,65 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
           style: 'btn-xs btn-default',
           menuStyle: 'dropdown'
         });
-        return _.delay((function(_this) {
+        _.delay((function(_this) {
           return function() {
             var value;
             value = _this.$el.find('select#builder-page-sel').selectpicker('val');
             return _this.trigger('editable:page:changed', value);
           };
         })(this), 250);
+        return this.$el.find('#aj-imp-revision-sel').on('show.bs.dropdown', this.addPageRevisions);
+      };
+
+      MainView.prototype.addPageRevisions = function() {
+        this.clearRevisionItems();
+        this.addFetchSpinner();
+        return this.trigger("add:page:revisions");
+      };
+
+      MainView.prototype.addFetchSpinner = function() {
+        this.$el.find('#aj-imp-revision-sel ul').append('<li class="spinner"></li>');
+        return this.$el.find('#aj-imp-revision-sel ul li.spinner').spin();
+      };
+
+      MainView.prototype.onAddPageRevisionItems = function(collection) {
+        var revisions;
+        this.clearRevisionItems();
+        revisions = collection.toJSON();
+        if (revisions.length === 0) {
+          return this.appendNoRevisionsView();
+        } else {
+          return this.addRevisionItems(revisions);
+        }
+      };
+
+      MainView.prototype.addRevisionItems = function(revisions) {
+        var revision, _i, _len, _results;
+        _results = [];
+        for (_i = 0, _len = revisions.length; _i < _len; _i++) {
+          revision = revisions[_i];
+          _results.push(this.addRevisionItem(revision));
+        }
+        return _results;
+      };
+
+      MainView.prototype.addRevisionItem = function(revision) {
+        var html, template;
+        template = this.getRevisionTemplate();
+        html = _.template(template, revision);
+        return this.$el.find('#aj-imp-revision-sel ul').append(html);
+      };
+
+      MainView.prototype.getRevisionTemplate = function() {
+        return '<li role="presentation"> <div class="aj-imp-revision row"> <div class="col-sm-5 date"> {{datetime}} </div> <div class="col-sm-7 time"> {{timeago}} </div> </div> </li>';
+      };
+
+      MainView.prototype.appendNoRevisionsView = function() {
+        return this.$el.find('#aj-imp-revision-sel ul').append('<li> No revision found</li>');
+      };
+
+      MainView.prototype.clearRevisionItems = function() {
+        return this.$el.find('#aj-imp-revision-sel ul').empty();
       };
 
       return MainView;

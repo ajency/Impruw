@@ -1,6 +1,7 @@
 define(['app', 'apps/builder/site-builder/show/controller', 'apps/builder/site-builder/element/controller', 'apps/builder/site-builder/autosave/controller', 'apps/builder/site-builder/elements-loader'], function(App) {
   return App.module('SiteBuilderApp', function(SiteBuilderApp, App, Backbone, Marionette, $, _) {
     var API;
+    window.S = SiteBuilderApp;
     SiteBuilderApp['header'] = false;
     SiteBuilderApp['page-content'] = false;
     SiteBuilderApp['footer'] = false;
@@ -9,12 +10,20 @@ define(['app', 'apps/builder/site-builder/show/controller', 'apps/builder/site-b
         return this.showController = new SiteBuilderApp.Show.Controller;
       },
       addNewElement: function(container, type, modelData) {
+        App.execute("mark:section:as:modified", container);
         if (SiteBuilderApp.Element[type]) {
           return new SiteBuilderApp.Element[type].Controller({
             container: container,
             modelData: modelData
           });
         }
+      },
+      markSectionAsModified: function(container) {
+        return _.each(['header', 'page-content', 'footer'], function(section, index) {
+          if ($(container) === $("#site-" + section + "-region") || $(container).closest("#site-" + section + "-region").length > 0) {
+            return SiteBuilderApp[section] = true;
+          }
+        });
       },
       autoSave: function() {
         var autoSave;
@@ -45,8 +54,11 @@ define(['app', 'apps/builder/site-builder/show/controller', 'apps/builder/site-b
     App.reqres.setHandler("is:section:modified", function(section) {
       return API.isSectionModified(section);
     });
-    App.reqres.setHandler("section:modified", function(section) {
-      return API.sectionModified(section);
+    App.commands.setHandler("mark:section:as:modified", function(container) {
+      return API.markSectionAsModified(container);
+    });
+    App.commands.setHandler("reset:changed:sections", function() {
+      return API.resetSection();
     });
     return SiteBuilderApp.on('start', function() {
       return API.show();

@@ -26,4 +26,5 @@ define [
 		'themepunch'
 		'revslider'
 		'isotope'
+		'moment'
 		],->

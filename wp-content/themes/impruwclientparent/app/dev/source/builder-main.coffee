@@ -23,6 +23,7 @@ require.config
 		bootbox				: 'plugins/bootbox.min'
 		holder 				: 'plugins/holder'
 		mustache			: 'plugins/Mustache'
+		moment				: 'plugins/moment'
 		bootstrapselect 	: 'plugins/bootstrapselect'
 		underscorestring 	: 'plugins/underscore.string'
 		radio 				: 'plugins/flatui-radio'

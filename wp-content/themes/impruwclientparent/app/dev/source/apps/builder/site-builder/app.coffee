@@ -6,6 +6,7 @@ define ['app'
 
 	App.module 'SiteBuilderApp', (SiteBuilderApp, App, Backbone, Marionette, $, _)->
 
+		window.S = SiteBuilderApp
 		SiteBuilderApp['header'] 		= false
 		SiteBuilderApp['page-content'] 	= false
 		SiteBuilderApp['footer'] 		= false
@@ -18,10 +19,20 @@ define ['app'
 
 			# add a new element to the builder region
 			addNewElement:(container, type, modelData)->
+
+				App.execute "mark:section:as:modified", container
+
 				if SiteBuilderApp.Element[type]
 					new SiteBuilderApp.Element[type].Controller 
 												container 	: container
 												modelData	: modelData
+
+			# mark the container/section as modified
+			markSectionAsModified:(container)->
+				_.each ['header','page-content','footer'], (section, index)->
+					if $(container) is $("#site-#{section}-region") or 
+							$(container).closest("#site-#{section}-region").length > 0
+						SiteBuilderApp[section] = true
 
 			# auto save function call
 			autoSave:->
@@ -52,8 +63,11 @@ define ['app'
 			API.isSectionModified section
 
 		# sets the modified flag for the section
-		App.reqres.setHandler "section:modified",(section)->
-			API.sectionModified section
+		App.commands.setHandler "mark:section:as:modified",(container)->
+			API.markSectionAsModified container
+
+		App.commands.setHandler "reset:changed:sections", ->
+			API.resetSection()
 
 		# Show all region on start
 		SiteBuilderApp.on 'start', ->
