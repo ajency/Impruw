@@ -1,6 +1,9 @@
 define [
 		'app'
-		'apps/my-profile/edit/controller'
+		'apps/my-profile/show/controller'
+		'apps/my-profile/general/controller'
+		'apps/my-profile/password/controller'
+		'apps/my-profile/language/controller'
 		], (App)->
 
 	App.module 'MyProfileApp', (MyProfileApp, App, Backbone, Marionette, $, _)->
@@ -16,7 +19,8 @@ define [
 		#public API
 		API = 
 			show : ()->
-				edit = new MyProfileApp.Edit.Controller
+				new MyProfileApp.Show.Controller
+						region : App.rightRegion
 
 		
 		MyProfileApp.on 'start': ->

@@ -9,6 +9,9 @@ define ['app'
 
 				class View.Layout extends Marionette.Layout
 
+					initialize :->
+
+
 					# Main edit profile template
 					template : mainviewTpl
 
@@ -40,11 +43,16 @@ define ['app'
 					onRender : ->
 						@$el.find('input[type="checkbox"]').checkbox()
 
+					serializeData :=>
+						data = super()
+						console.log @model.get 'ID'
+						data
+
 					events:
 						'click #btn-update-info' : (e)->
 							if @$el.valid()
 								data = Backbone.Syphon.serialize @
-								@trigger "update:user:info", data
+								@trigger "update:user:info:click", data
 
 				# Password form
 				class View.PasswordForm extends Marionette.ItemView

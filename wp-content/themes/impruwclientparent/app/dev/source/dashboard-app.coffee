@@ -44,6 +44,13 @@ define ['marionette'], (Marionette)->
 
 	App.on "initialize:after", (options) ->
 
+		Pace.on 'done', ->
+			Pace.options =
+						ajax: false
+			$('body').addClass 'pace-min-theme'
+			$('#initial-loader').fadeOut 'fast', ->
+						$('#initial-loader').remove();
+
 		#create required empty stores
 		appState = App.request "get:current:appstate"
 		

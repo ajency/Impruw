@@ -1,5 +1,6 @@
 var __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
 define(['app', 'text!apps/my-profile/edit/templates/mainview.html', 'text!apps/my-profile/edit/templates/generalform.html', 'text!apps/my-profile/edit/templates/passwordform.html'], function(App, mainviewTpl, generalformTpl, passwordformTpl) {
   return App.module('MyProfileApp.Edit.View', function(View, App, Backbone, Marionette, $, _) {
@@ -9,6 +10,8 @@ define(['app', 'text!apps/my-profile/edit/templates/mainview.html', 'text!apps/m
       function Layout() {
         return Layout.__super__.constructor.apply(this, arguments);
       }
+
+      Layout.prototype.initialize = function() {};
 
       Layout.prototype.template = mainviewTpl;
 
@@ -39,6 +42,7 @@ define(['app', 'text!apps/my-profile/edit/templates/mainview.html', 'text!apps/m
       __extends(GeneralForm, _super);
 
       function GeneralForm() {
+        this.serializeData = __bind(this.serializeData, this);
         return GeneralForm.__super__.constructor.apply(this, arguments);
       }
 
@@ -52,12 +56,19 @@ define(['app', 'text!apps/my-profile/edit/templates/mainview.html', 'text!apps/m
         return this.$el.find('input[type="checkbox"]').checkbox();
       };
 
+      GeneralForm.prototype.serializeData = function() {
+        var data;
+        data = GeneralForm.__super__.serializeData.call(this);
+        console.log(this.model.get('ID'));
+        return data;
+      };
+
       GeneralForm.prototype.events = {
         'click #btn-update-info': function(e) {
           var data;
           if (this.$el.valid()) {
             data = Backbone.Syphon.serialize(this);
-            return this.trigger("update:user:info", data);
+            return this.trigger("update:user:info:click", data);
           }
         }
       };

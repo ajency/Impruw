@@ -65,7 +65,7 @@
 		var DATERANGE = <?php echo json_encode(get_date_range()); ?>;
      </script>
     <script src="<?php echo get_parent_template_directory_uri() ?>/app/dev/js/plugins/pace.js"></script>
-    <script type="text/javascript">
+    <!--<script type="text/javascript">
     Pace.on('done', function(){
     	Pace.options = {
             ajax: false
@@ -75,7 +75,7 @@
             $('#initial-loader').remove();
         });
     });
-    </script>
+    </script> -->
     <?php if(ENV === 'production'): ?>
         <script src="<?php echo get_parent_template_directory_uri(); ?>/app/production/dashboard-main.js?ver=<?php echo JSVERSION ?>"></script> 
     <?php else: ?>

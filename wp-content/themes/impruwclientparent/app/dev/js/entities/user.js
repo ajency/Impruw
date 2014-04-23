@@ -13,6 +13,10 @@ define(["app", 'backbone'], function(App, Backbone) {
 
       UserModel.prototype.name = 'user';
 
+      UserModel.prototype.idAttribute = 'ID';
+
+      UserModel.prototype.user_lang = '';
+
       return UserModel;
 
     })(Backbone.Model);

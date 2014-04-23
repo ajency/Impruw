@@ -6,6 +6,8 @@ define ["app", 'backbone'], (App, Backbone) ->
 			class Users.UserModel extends Backbone.Model
 
 				name : 'user'
+				idAttribute : 'ID'
+				user_lang :''
 
 			
 			user =  new Users.UserModel
