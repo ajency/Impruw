@@ -13,7 +13,7 @@ function get_all_menu_pages(){
 
     if($pages->have_posts()){
         
-        $skip = array('Site Builder','Dashboard');
+        $skip = array('Site Builder','Dashboard','Support','Coming Soon','Sample Page');
 
         foreach($pages->posts as $page){
 
@@ -46,6 +46,19 @@ function get_all_template_pages(){
     
     return $p;
 
+}
+
+/**
+ * converts a json string to an array
+ * @param unknown $json_string
+ * @return mixed
+ */
+function convert_json_to_array($json_string){
+	
+	$json_array = stripslashes($json_string);
+	$json_array = json_decode ( $json_array, true );
+	
+	return $json_array;
 }
 
 /**

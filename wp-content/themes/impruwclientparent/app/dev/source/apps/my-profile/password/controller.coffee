@@ -14,8 +14,6 @@ define ['app', 'controllers/base-controller'
 
 				@listenTo @view ,"update:password:clicked", @updatePassword
 
-				@listenTo @view ,"check:password:current", @checkPassword
-
 				@show @view,
 					loading: true
 
@@ -24,22 +22,9 @@ define ['app', 'controllers/base-controller'
 				new Password.View.PasswordForm
 						model : model
 			
-			checkPassword :(data) ->
-				options = 
-					url:AJAXURL,
-					method:'POST',
-					data :
-						action : 'check-password'
-						json : data
 
-				$.ajax( options ).done (response)=>
-					@ajaxPasswordCheck response
-					 
-				.fail (resp)->
-					console.log 'error'
-
-			ajaxPasswordCheck :(response)=>
-				@view.triggerMethod "password:check:response",response
+			ajaxPassword :(response)=>
+				@view.triggerMethod "password:ajax:response",response
 
 			updatePassword :(data) ->
 				options = 
@@ -50,7 +35,7 @@ define ['app', 'controllers/base-controller'
 						json : data
 
 				$.ajax( options ).done (response)->
-					console.log response
+					@ajaxPassword response
 				.fail (resp)->
 					console.log 'error'
 		

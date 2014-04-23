@@ -18,30 +18,29 @@ define(['app', 'text!apps/my-profile/password/templates/passwordform.html'], fun
 
       PasswordForm.prototype.events = {
         'click #btn-update-password': function(e) {
-          var data;
-          if (this.$el.valid()) {
-            data = Backbone.Syphon.serialize(this);
-            return this.trigger("update:password:clicked", data);
-          }
-        },
-        'blur #currentpass': function() {
-          var enteredPassword;
-          enteredPassword = this.$el.find('#currentpass').val();
-          return this.trigger("check:password:current", enteredPassword);
+          var a;
+          a = this.$el.find('.password-form').validate({
+            rules: {
+              newpass1: "required",
+              newpass2: {
+                equalTo: "#newpass1"
+              }
+            }
+          });
+          return console.log(a);
         }
       };
 
-      PasswordForm.prototype.onPasswordCheckResponse = function(response) {
-        var data;
-        data = response.data;
-        if (data === 0) {
+      PasswordForm.prototype.onPasswordAjaxResponse = function(response) {
+        if (response === 0) {
           this.$el.find('.alert').remove();
           this.$el.prepend('<div class="alert alert-success">Password mismatch</div>');
           return this.$el.find('#btn-update-password').attr({
             'disabled': 'disabled'
           });
         } else {
-          return this.$el.find('.alert').remove();
+          this.$el.find('.alert').remove();
+          return this.$el.prepend('<div class="alert alert-success">Password Updated.Login again</div>');
         }
       };
 

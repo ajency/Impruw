@@ -96,6 +96,10 @@ define(['app', 'controllers/base-controller', 'text!apps/media-manager/templates
         }
       };
 
+      OuterLayout.prototype.onClose = function() {
+        return App.vent.trigger("stop:listening:to:media:manager");
+      };
+
       return OuterLayout;
 
     })(Marionette.Layout);

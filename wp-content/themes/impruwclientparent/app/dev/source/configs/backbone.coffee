@@ -84,10 +84,12 @@ define ["backbone","mustache"], (Backbone, Mustache) ->
 						params.data[idAttr] = model.get idAttr
 						# get all changed values and add them to param’s data attribute
 						if model.hasChanged()
+
 							params.data.changes = {}
 							
-							_.each model.changed, (property, index)->
-								params.data.changes[ property ] = this.get property
+							_.each model.changed, (changeAttributeValue, changeAttributeName)->
+								#params.data.changes[ property ] = this.get property
+								params.data.changes[ changeAttributeName ] =  changeAttributeValue
 							, @
 					else
 						# put all model data in params data attribute

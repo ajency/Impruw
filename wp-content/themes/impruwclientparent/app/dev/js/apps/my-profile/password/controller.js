@@ -8,7 +8,7 @@ define(['app', 'controllers/base-controller', 'apps/my-profile/password/views'],
       __extends(Controller, _super);
 
       function Controller() {
-        this.ajaxPasswordCheck = __bind(this.ajaxPasswordCheck, this);
+        this.ajaxPassword = __bind(this.ajaxPassword, this);
         return Controller.__super__.constructor.apply(this, arguments);
       }
 
@@ -18,7 +18,6 @@ define(['app', 'controllers/base-controller', 'apps/my-profile/password/views'],
         this.model = model;
         this.view = this.getPasswordView(this.model);
         this.listenTo(this.view, "update:password:clicked", this.updatePassword);
-        this.listenTo(this.view, "check:password:current", this.checkPassword);
         return this.show(this.view, {
           loading: true
         });
@@ -30,27 +29,8 @@ define(['app', 'controllers/base-controller', 'apps/my-profile/password/views'],
         });
       };
 
-      Controller.prototype.checkPassword = function(data) {
-        var options;
-        options = {
-          url: AJAXURL,
-          method: 'POST',
-          data: {
-            action: 'check-password',
-            json: data
-          }
-        };
-        return $.ajax(options).done((function(_this) {
-          return function(response) {
-            return _this.ajaxPasswordCheck(response);
-          };
-        })(this)).fail(function(resp) {
-          return console.log('error');
-        });
-      };
-
-      Controller.prototype.ajaxPasswordCheck = function(response) {
-        return this.view.triggerMethod("password:check:response", response);
+      Controller.prototype.ajaxPassword = function(response) {
+        return this.view.triggerMethod("password:ajax:response", response);
       };
 
       Controller.prototype.updatePassword = function(data) {
@@ -64,7 +44,7 @@ define(['app', 'controllers/base-controller', 'apps/my-profile/password/views'],
           }
         };
         return $.ajax(options).done(function(response) {
-          return console.log(response);
+          return this.ajaxPassword(response);
         }).fail(function(resp) {
           return console.log('error');
         });

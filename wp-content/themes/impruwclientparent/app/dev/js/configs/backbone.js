@@ -30,8 +30,8 @@ define(["backbone", "mustache"], function(Backbone, Mustache) {
             params.data[idAttr] = model.get(idAttr);
             if (model.hasChanged()) {
               params.data.changes = {};
-              _.each(model.changed, function(property, index) {
-                return params.data.changes[property] = this.get(property);
+              _.each(model.changed, function(changeAttributeValue, changeAttributeName) {
+                return params.data.changes[changeAttributeName] = changeAttributeValue;
               }, this);
             }
           } else {

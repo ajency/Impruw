@@ -24,6 +24,7 @@ require_once 'modules/plans/ajax.php';
 require_once 'modules/tariff/ajax.php';
 require_once 'modules/daterange/ajax.php';
 require_once 'modules/bookings/ajax.php';
+require_once 'modules/revision/ajax.php';
 
 require_once PARENTTHEMEPATH . 'api/entities/leftnav.php';
 require_once PARENTTHEMEPATH . 'api/statistics/statistics-api.php';
@@ -3363,6 +3364,21 @@ function check_page_access() {
 	}
 }
 add_action ( 'template_redirect', 'check_page_access' );
+
+/**
+ * Return success json
+ */
+function wp_send_success_json($data){
+	wp_send_json(array('code' => 'OK', 'data' => $data));
+}
+
+/**
+ * Return error json
+ */
+function wp_send_error_json($message){
+	wp_send_json(array('code' => 'ERROR', 'message' => $message));
+}
+
 
 /**
  * Common Element Templates & Classes for Child Themes

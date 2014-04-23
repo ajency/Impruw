@@ -22,9 +22,16 @@ define ['app', 'controllers/base-controller'
 				new Language.View.LanguageForm
 						model : model
 
-			
+			updateLanguage :(lang)=>
+				@model.set 'user_lang' : lang
+				@model.save null,
+						onlyChanged : true
+						wait: true
+						success: @languageUpdated
+				
 
-
+			languageUpdated :=>
+				@view.triggerMethod "user:lang:updated"
 
 		App.commands.setHandler "show:language:form",(opts) ->
 			new Language.Controller opts

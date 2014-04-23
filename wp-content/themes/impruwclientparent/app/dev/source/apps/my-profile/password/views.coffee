@@ -14,20 +14,22 @@ define ['app','text!apps/my-profile/password/templates/passwordform.html'],(App,
 
 					events:
 						'click #btn-update-password' : (e)->
-							if @$el.valid()
-								data = Backbone.Syphon.serialize @
-								@trigger "update:password:clicked", data
+							a=@$el.find('.password-form').validate
+								 rules: 
+									  newpass1: "required",
+									  newpass2: 
+												equalTo: "#newpass1"
+							console.log a
+							#if @$el.valid()
+								#data = Backbone.Syphon.serialize @
+								#@trigger "update:password:clicked", data
 
-						'blur #currentpass' : ->
-							enteredPassword= @$el.find('#currentpass').val()
-							@trigger "check:password:current", enteredPassword
-
-					onPasswordCheckResponse :(response)->
-						data = response.data
-						if data == 0
+					onPasswordAjaxResponse :(response)->
+						if response == 0
 							@$el.find('.alert').remove()
 							@$el.prepend('<div class="alert alert-success">Password mismatch</div>')
 							@$el.find('#btn-update-password').attr('disabled':'disabled')
 						else
 							@$el.find('.alert').remove()
+							@$el.prepend('<div class="alert alert-success">Password Updated.Login again</div>')
 							
