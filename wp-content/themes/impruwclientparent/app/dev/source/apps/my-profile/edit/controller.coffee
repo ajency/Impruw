@@ -8,25 +8,36 @@ define ['app', 'controllers/base-controller'
 			# initiliaze controller
 			initialize:()->
 
-				#user = App.request "get:user:model"
+				userProfile = @userProfile = App.request "get:user:model"
 
 				@layout = @getLayout()
 
 				@listenTo @layout, "show", =>
 					# show general form view
-					@layout.generalFormRegion.show @getGeneralFormView()
+					@layout.generalFormRegion.show @getGeneralFormView @userProfile
 					# show password field view
 					@layout.passwordFormRegion.show @getPasswordFormView()
+ 
+				
+					@layout.generalFormRegion.on 'show', =>
+						@listenTo @getGeneralFormView , 'update:user:info:click',@test 			
+
+					@listenTo @layout.generalFormRegion ,"itemview:update:user:info:click", (iv,data)->
+						console.log "general form"
 					
 
-				@on "itemview:generalform:submit:clicked", ->
-						console.log "general form submitted"
+					#@on "itemview:update:user:info:click", ->
+						#console.log "general form submitted"
+				
+				
 
 				# trigger set:active:menu event
 				App.vent.trigger "set:active:menu", 'my-profile'
 
 				# show main layout
-				@show @layout
+				@show @layout,
+					loading: true
+					entities : [@userProfile]
 
 				
 			# get layout
@@ -34,15 +45,16 @@ define ['app', 'controllers/base-controller'
 				new Edit.View.Layout
 
 
-			getGeneralFormView : ->
+			getGeneralFormView :(model) ->
 				new Edit.View.GeneralForm 
-							model : @userProfile 
+						model : model 
 
 
 			getPasswordFormView : ->
 				new Edit.View.PasswordForm
 
-
+			test: ->
+				console.log 'hi'  
 
 			
 	App.MyProfileApp.Edit.Controller		
