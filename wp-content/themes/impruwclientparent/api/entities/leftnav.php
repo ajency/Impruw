@@ -548,11 +548,11 @@ function get_page_json1($page_id = 0) {
 	if ($page_id == 0)
 		return false;
 	
-		$json = array ();
-	$json ['header'] = get_option ( 'theme-header' );
-	$json ['footer'] = get_option ( 'theme-footer' );
+	$json = array ();
+	$json ['header'] = get_option('theme-header', array());
+	$json ['footer'] = get_option('theme-footer', array());
 	
-        $json ['page'] = get_page_main_json($page_id);
+    $json ['page'] = get_page_revision_by_meta_id(get_last_page_json_meta_id($page_id));
 	
 	$d = array ();
 	
@@ -569,10 +569,10 @@ function get_page_json1($page_id = 0) {
 		}
 	}
 	$data = array (
-			'id' => $page_id,
-			'header' => $d ['header'],
-			'page' => $d ['page'],
-			'footer' => $d ['footer'] 
+		'id' => $page_id,
+		'header' => $d ['header'],
+		'page' => $d ['page'],
+		'footer' => $d ['footer'] 
 	);
 	return $data;
 }

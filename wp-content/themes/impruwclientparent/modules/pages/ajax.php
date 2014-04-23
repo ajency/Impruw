@@ -58,17 +58,17 @@ function save_page_json() {
 	if($page_json !== false){
 		$page_json = convert_json_to_array($page_json);
 		add_page_json($page_id, $page_json);
+		add_page_revision($page_id);
 	}
 	if($header_json !== false){
 		$header_json = convert_json_to_array($header_json);
-		add_header_footer_revision('header', $header_json);
+		update_option("theme-header", $header_json);
 	}
 	if($footer_json !== false){
 		$footer_json = convert_json_to_array($footer_json);
-		add_header_footer_revision('footer', $footer_json);
+		update_option("theme-footer", $footer_json);
 	}
 	
-	add_page_revision();
 	
 	wp_send_json ( array ('code' => 'OK') );
 }

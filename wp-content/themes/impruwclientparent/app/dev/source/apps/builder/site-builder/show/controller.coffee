@@ -76,7 +76,9 @@ define ['app', 'controllers/base-controller'
 							if element.element is 'Row'
 								@addNestedElements container,element
 							else
-								App.request "add:new:element",container,element.element, element						
+								App.request "add:new:element",container,element.element, element
+
+						App.execute "reset:changed:sections"						
 
 					addNestedElements:(container,element)->
 						controller = App.request "add:new:element",container,element.element, element
@@ -102,13 +104,16 @@ define ['app', 'controllers/base-controller'
 						# add pages
 						pages = App.request "get:editable:pages"
 						
-						layout = new Show.View.MainView
+						@layout = layout = new Show.View.MainView
 											collection : pages
 
 						@listenTo layout, 'editable:page:changed',(pageId)->
 									# set the cookie
 									$.cookie 'current-page-id', pageId
 									App.execute "editable:page:changed", pageId
+									App.execute "reset:changed:sections"
+
+						@listenTo layout, "add:page:revisions", @addPageRevisions
 
 						@listenTo layout, 'show',(layout)=>
 							# added delay so that the html is fully rendered
@@ -123,6 +128,15 @@ define ['app', 'controllers/base-controller'
 						@show  layout,
 								loading : true
 
+					# add page revisions
+					addPageRevisions:->
+
+						currentPageId = App.request "get:current:editable:page"
+
+						pageRevisions = App.request "get:page:revisions", currentPageId
+
+						App.execute "when:fetched", [pageRevisions], =>
+							@layout.triggerMethod "add:page:revision:items", pageRevisions
 
 				App.commands.setHandler "editable:page:changed",(pageId)=>
 					App.resetElementRegistry()
