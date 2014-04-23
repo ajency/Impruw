@@ -8,7 +8,7 @@ define(['app', 'controllers/base-controller', 'apps/my-profile/password/views'],
       __extends(Controller, _super);
 
       function Controller() {
-        this.ajaxPassword = __bind(this.ajaxPassword, this);
+        this.PasswordUpdated = __bind(this.PasswordUpdated, this);
         return Controller.__super__.constructor.apply(this, arguments);
       }
 
@@ -29,10 +29,6 @@ define(['app', 'controllers/base-controller', 'apps/my-profile/password/views'],
         });
       };
 
-      Controller.prototype.ajaxPassword = function(response) {
-        return this.view.triggerMethod("password:ajax:response", response);
-      };
-
       Controller.prototype.updatePassword = function(data) {
         var options;
         options = {
@@ -43,11 +39,17 @@ define(['app', 'controllers/base-controller', 'apps/my-profile/password/views'],
             json: data
           }
         };
-        return $.ajax(options).done(function(response) {
-          return this.ajaxPassword(response);
-        }).fail(function(resp) {
+        return $.ajax(options).done((function(_this) {
+          return function(response) {
+            return _this.PasswordUpdated(response);
+          };
+        })(this)).fail(function(resp) {
           return console.log('error');
         });
+      };
+
+      Controller.prototype.PasswordUpdated = function(response) {
+        return this.view.triggerMethod("password:ajax:response", response);
       };
 
       return Controller;
