@@ -28,4 +28,5 @@ define [
 		'jpanelmenu'
 		'scrollsections'
 		'minicolors'
+		'additionalmethod'
 		],->

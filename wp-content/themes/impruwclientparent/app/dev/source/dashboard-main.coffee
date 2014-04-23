@@ -38,6 +38,7 @@ require.config
 		jpanelmenu			: 'plugins/jquery.jpanelmenu.min'
 		scrollsections		: 'plugins/ajency.scrolldots'
 		minicolors			: 'plugins/jquery.minicolors.min'
+		additionalmethod	: 'plugins/validate.additional.methods'
 
 	shim:
 		underscore: 
@@ -63,6 +64,7 @@ require.config
 		scrollsections		: ['jquery']
 		jpanelmenu 			: ['jquery']
 		minicolors			: ['jquery']
+		additionalmethod	: ['jquery','jqueryvalidate']
 		underscorestring 	: ['underscore']
 		backboneform 		: ['backbone']
 		backbonesyphon 		: ['backbone']

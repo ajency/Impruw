@@ -21,10 +21,6 @@ define ['app', 'controllers/base-controller'
 			getPasswordView :(model) ->
 				new Password.View.PasswordForm
 						model : model
-			
-
-			ajaxPassword :(response)=>
-				@view.triggerMethod "password:ajax:response",response
 
 			updatePassword :(data) ->
 				options = 
@@ -34,11 +30,13 @@ define ['app', 'controllers/base-controller'
 						action : 'update-password'
 						json : data
 
-				$.ajax( options ).done (response)->
-					@ajaxPassword response
+				$.ajax( options ).done (response)=>
+					@PasswordUpdated response
 				.fail (resp)->
 					console.log 'error'
-		
+			
+			PasswordUpdated :(response)=>
+				@view.triggerMethod "password:ajax:response",response
 
 
 

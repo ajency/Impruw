@@ -18,21 +18,27 @@ define(['app', 'text!apps/my-profile/password/templates/passwordform.html'], fun
 
       PasswordForm.prototype.events = {
         'click #btn-update-password': function(e) {
-          var a;
-          a = this.$el.find('.password-form').validate({
-            rules: {
-              newpass1: "required",
-              newpass2: {
-                equalTo: "#newpass1"
-              }
-            }
-          });
-          return console.log(a);
+          var data;
+          if (this.$el.valid()) {
+            data = Backbone.Syphon.serialize(this);
+            return this.trigger("update:password:clicked", data);
+          }
         }
       };
 
+      PasswordForm.prototype.onShow = function() {
+        return this.$el.validate({
+          rules: {
+            newpass1: "required",
+            newpass2: {
+              equalTo: "#newpass1"
+            }
+          }
+        });
+      };
+
       PasswordForm.prototype.onPasswordAjaxResponse = function(response) {
-        if (response === 0) {
+        if (response === '0') {
           this.$el.find('.alert').remove();
           this.$el.prepend('<div class="alert alert-success">Password mismatch</div>');
           return this.$el.find('#btn-update-password').attr({
