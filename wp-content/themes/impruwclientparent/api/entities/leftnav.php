@@ -552,7 +552,14 @@ function get_page_json1($page_id = 0) {
 	$json ['header'] = get_option('theme-header', array());
 	$json ['footer'] = get_option('theme-footer', array());
 	
-    $json ['page'] = get_page_revision_by_meta_id(get_last_page_json_meta_id($page_id));
+	$revision_id = isset($_REQUEST['revision_id']) ? $_REQUEST['revision_id'] : 0;
+	
+	if($revision_id === 0)
+		$meta_id = get_last_page_json_meta_id($page_id);
+	else 
+		$meta_id = get_page_meta_id_for_revision($revision_id);
+	
+    $json ['page'] = get_page_revision_by_meta_id($meta_id);
 	
 	$d = array ();
 	

@@ -1,5 +1,6 @@
 var __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
 define(['app', 'controllers/base-controller', 'apps/builder/site-builder/show/views'], function(App, AppController) {
   return App.module('SiteBuilderApp.Show', function(Show, App, Backbone, Marionette, $, _) {
@@ -13,13 +14,13 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/show/vi
       }
 
       BuilderController.prototype.initialize = function(opt) {
-        var elements, pageId;
+        var elements, pageId, revisionId;
         if (opt == null) {
           opt = {};
         }
         this.region = App.getRegion('builderRegion');
-        pageId = App.request("get:current:editable:page");
-        elements = App.request("get:page:json", pageId);
+        pageId = opt.pageId, revisionId = opt.revisionId;
+        elements = App.request("get:page:json", pageId, revisionId);
         this.view = new Show.View.Builder({
           model: elements
         });
@@ -126,6 +127,7 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/show/vi
       __extends(Controller, _super);
 
       function Controller() {
+        this.loadRevision = __bind(this.loadRevision, this);
         return Controller.__super__.constructor.apply(this, arguments);
       }
 
@@ -145,6 +147,7 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/show/vi
           return App.execute("reset:changed:sections");
         });
         this.listenTo(layout, "add:page:revisions", this.addPageRevisions);
+        this.listenTo(layout, "revision:link:clicked", this.loadRevision);
         this.listenTo(layout, 'show', (function(_this) {
           return function(layout) {
             return _.delay(function() {
@@ -157,6 +160,12 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/show/vi
         return this.show(layout, {
           loading: true
         });
+      };
+
+      Controller.prototype.loadRevision = function(revisionId) {
+        var currentPageId;
+        currentPageId = App.request("get:current:editable:page");
+        return App.execute("editable:page:changed", currentPageId, revisionId);
       };
 
       Controller.prototype.addPageRevisions = function() {
@@ -174,12 +183,18 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/show/vi
 
     })(AppController);
     return App.commands.setHandler("editable:page:changed", (function(_this) {
-      return function(pageId) {
+      return function(pageId, revisionId) {
+        if (revisionId == null) {
+          revisionId = 0;
+        }
         App.resetElementRegistry();
         if (siteBuilderController !== null) {
           siteBuilderController.close();
         }
-        return siteBuilderController = new Show.BuilderController();
+        return siteBuilderController = new Show.BuilderController({
+          pageId: pageId,
+          revisionId: revisionId
+        });
       };
     })(this));
   });
