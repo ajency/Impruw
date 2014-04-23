@@ -13,8 +13,8 @@ define ["app", 'backbone', 'moment'], (App, Backbone, moment) ->
 				parse:(resp)->
 					data = if resp.code is 'OK' then resp.data else resp
 					data.id = parseInt data.id
+					data.timeago = moment(data.datetime).fromNow()
 					data.datetime = moment(data.datetime).format 'D/MM/YYYY'
-					data.timeago = moment().from data.datetime
 					data
 
 
