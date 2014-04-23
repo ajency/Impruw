@@ -17,10 +17,10 @@ define(['app'], function(App) {
       };
 
       Controller.prototype.autoSave = function() {
-        var options, siteRegion, _json, _page_id;
+        var options, siteRegion, _page_id, _sectionJson;
         siteRegion = App.builderRegion.$el;
-        _json = this._getPageJson(siteRegion);
-        if (!_.isObject(_json)) {
+        _sectionJson = this._getPageJson(siteRegion);
+        if (!_.isObject(_sectionJson)) {
           throw new Error("invalid json...");
         }
         _page_id = App.request("get:current:editable:page");
@@ -29,10 +29,10 @@ define(['app'], function(App) {
           url: AJAXURL,
           data: {
             action: 'save-page-json',
-            json: JSON.stringify(_json),
             page_id: _page_id
           }
         };
+        options.data = _.defaults(options.data, _sectionJson);
         return $.ajax(options).done(function(response) {
           return console.log(response);
         }).fail(function(resp) {
@@ -41,13 +41,16 @@ define(['app'], function(App) {
       };
 
       Controller.prototype._getPageJson = function($site) {
-        var json;
-        json = {
-          header: this._getJson($site.find('#site-header-region')),
-          page: this._getJson($site.find('#site-page-content-region')),
-          footer: this._getJson($site.find('#site-footer-region'))
-        };
-        return json;
+        var _json;
+        _json = {};
+        _.each(['header', 'page-content', 'footer'], (function(_this) {
+          return function(section, index) {
+            if (App.request("is:section:modified", section)) {
+              return _json["" + section + "-json"] = JSON.stringify(_this._getJson($site.find("#site-" + section + "-region")));
+            }
+          };
+        })(this));
+        return _json;
       };
 
       Controller.prototype._getJson = function($element, arr) {

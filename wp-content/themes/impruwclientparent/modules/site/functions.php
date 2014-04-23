@@ -311,6 +311,10 @@ function clone_page( $clone_blog, $post_id, $name ) {
     update_post_meta($post_id, 'page-json', $data);
 }
 
+/**
+ * Clone header footer
+ * @param unknown $theme_site_id
+ */
 function clone_header_footer($theme_site_id){
 
     $clone_blog = $theme_site_id; //server

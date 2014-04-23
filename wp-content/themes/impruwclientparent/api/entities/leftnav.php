@@ -543,29 +543,7 @@ function get_style_template($element){
 	return $mtemplate;
 }
 
-/**
- * [save_page_json description]
- * 
- * @return [type] [description]
- */
-function save_page_json() {
-	$json = $_POST ['json'];
-	$json = stripcslashes ( $json );
-	$json = json_decode ( $json, true );
-	$page_id = $_POST ['page_id'];
 
-	//$e = json_encode($json);
-
-    // $e = json_encode($json);
-	update_option ( 'theme-header', $json ['header'] );
-	update_post_meta ( $page_id, 'page-json', $json ['page'] );
-	update_option ( 'theme-footer', $json ['footer'] );
-	wp_send_json ( array (
-			'code' => 'OK' 
-	) );
-}
-
-add_action ( 'wp_ajax_save-page-json', 'save_page_json' );
 function get_page_json1($page_id = 0) {
 	if ($page_id == 0)
 		return false;

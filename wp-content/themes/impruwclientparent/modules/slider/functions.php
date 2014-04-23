@@ -50,7 +50,7 @@ function get_all_sliders(){
   
     global $wpdb;
     $table = GlobalsRevSlider::$table_sliders;    
-    $sql = $wpdb->prepare("SELECT id FROM $table", null);
+    $sql = $wpdb->prepare("SELECT id FROM %s", $table);
     $slider_ids = $wpdb->get_col($sql);
         
     $sliders_data = array();

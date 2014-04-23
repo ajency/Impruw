@@ -14,9 +14,9 @@ define ['app'], (App)->
 
 				siteRegion = App.builderRegion.$el
 
-				_json 	= @_getPageJson siteRegion
+				_sectionJson = @_getPageJson siteRegion
 				
-				if not _.isObject _json
+				if not _.isObject _sectionJson
 					throw new Error "invalid json..."
 
 				_page_id = App.request "get:current:editable:page"
@@ -26,10 +26,10 @@ define ['app'], (App)->
 					url  	: AJAXURL
 					data 	:
 						action 	: 'save-page-json'
-						json 	: JSON.stringify _json
 						page_id : _page_id
-					
 
+				options.data = _.defaults options.data, _sectionJson
+					
 				$.ajax( options ).done (response)->
 					console.log response
 				.fail (resp)->
@@ -37,12 +37,14 @@ define ['app'], (App)->
 
 			# get the json
 			_getPageJson:($site)->
-				json = 
-					header 	: @_getJson $site.find '#site-header-region'
-					page 	: @_getJson $site.find '#site-page-content-region'
-					footer 	: @_getJson $site.find '#site-footer-region'
 
-				json
+				_json = {}
+
+				_.each ['header', 'page-content', 'footer'], (section, index)=>
+					if App.request "is:section:modified", section
+						_json["#{section}-json"] = JSON.stringify @_getJson $site.find "#site-#{section}-region"
+
+				_json
 
 			# generate the JSON for the layout
 			# loops through rows and nested columns and elements inside it

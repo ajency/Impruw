@@ -49,6 +49,19 @@ function get_all_template_pages(){
 }
 
 /**
+ * converts a json string to an array
+ * @param unknown $json_string
+ * @return mixed
+ */
+function convert_json_to_array($json_string){
+	
+	$json_array = stripslashes($json_string);
+	$json_array = json_decode ( $json_array, true );
+	
+	return $json_array;
+}
+
+/**
  *  Create new Page function
  */ 
 function create_new_page($data){
