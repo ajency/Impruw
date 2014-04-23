@@ -8,15 +8,40 @@ define ["app", 'backbone'], (App, Backbone) ->
 
 				name : 'page-json'
 
+				url:->
+					pageId = @get 'page_id'
+					revisionId = @get 'revision_id'
+					"#{AJAXURL}?action=read-page-json&page_id=#{pageId}&revision_id=#{revisionId}"
+
+				sync : (method, model, options)->
+
+					params = 
+						url : @url()
+						type : "GET"
+						dataType: "json"
+
+					params = _.extend(params, options)
+
+					xhr = Backbone.ajax params
+
+					model._fetch = xhr
+
+					xhr
+
+
 
 			API = 
-				getPageJSON:(pageId)->
-					
+				getPageJSON:(pageId, revisionId)->
 					json = new PageJson 
-									page_id : parseInt pageId
-					json.fetch()
+								
+					json.set 
+						page_id : parseInt pageId
+						revision_id : parseInt revisionId
+
+					json.fetch()								
 					json
 
 			# handlers
-			App.reqres.setHandler "get:page:json", (pageId)->
-				API.getPageJSON pageId
+			App.reqres.setHandler "get:page:json", (pageId, revisionId)->
+				console.log revisionId
+				API.getPageJSON pageId, revisionId

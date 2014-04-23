@@ -25,6 +25,10 @@ define ['app'
 						'change select#builder-page-sel' : (evt)-> 
 							@trigger 'editable:page:changed', $(evt.target).val()
 
+						'click #aj-imp-revision-sel ul li':(e)->
+							id = parseInt $(e.currentTarget).attr 'data-revision-id'
+							@trigger "revision:link:clicked", id
+
 					initialize:->
 						App.reqres.setHandler "get:current:editable:page:name", @getCurrentPageName
 						App.reqres.setHandler "get:current:editable:page", @getCurrentPageId
@@ -94,7 +98,7 @@ define ['app'
 
 					# returns the template for the revision item
 					getRevisionTemplate : ->
-						'<li role="presentation">
+						'<li role="presentation" data-revision-id="{{id}}">
 			                <div class="aj-imp-revision row">
 			                    <div class="col-sm-5 date">
 			                      {{datetime}}
