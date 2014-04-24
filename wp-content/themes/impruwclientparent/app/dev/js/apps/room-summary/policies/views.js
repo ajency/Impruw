@@ -27,7 +27,7 @@ define(['app', 'text!apps/room-summary/policies/templates/policiesView.html'], f
 
       PoliciesForm.prototype.onPolicyUpdated = function() {
         this.$el.find('.alert').remove();
-        return this.$el.prepend('<div class="alert alert-success">Additional policies saved</div>');
+        return this.$el.prepend('<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Additional Policies Saved.</div>');
       };
 
       return PoliciesForm;

@@ -1846,7 +1846,8 @@ form .aj-imp-submit:hover {
 }
 .edit-link {
   color: #849fb0;
-  margin-right: 1em;
+  margin: 0.5em 1em 0 0;
+  display: inline-block;
 }
 .edit-link:hover {
   color: #65879c;

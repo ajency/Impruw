@@ -25,7 +25,7 @@ function get_menu_items() {
 			array (
 					'url' => '#room-summary',
 					'title' => 'Room Summary',
-					'icon' => 'open' 
+					'icon' => 'file3' 
 			),
 			array (
 					'url' => '#site-profile',
@@ -675,7 +675,7 @@ function get_site_socials() {
 	$data = array (
 			array (
 					'socialname' => 'Facebook',
-					'sociallink' => 'http://sdsadsadas.com' 
+					'sociallink' => 'http://Facebook.com' 
 			),
 			array (
 					'socialname' => 'Twitter',
