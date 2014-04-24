@@ -47,7 +47,7 @@ define ['app'
 
 					onCheckinTimeUpdated :->
 						@$el.find('.alert').remove()
-						@$el.prepend('<div class="alert alert-success">Checkin time saved</div>')
+						@$el.prepend('<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Check-in Time Saved.</div>')
 						
 
 	
