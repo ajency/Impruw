@@ -1788,30 +1788,78 @@ a:focus {
   color: #fff;
 }
 /**** Unused Elements Styles ****/
-.aj-imp-trash-elements {
-  float: right;
-  padding-right: 1em;
-  margin-right: 1em;
-  border-right: 1px dotted #dadada;
+#aj-imp-trash-elements {
+  position: absolute;
+  right: 1%;
+  top: 35%;
 }
-.aj-imp-trash-elements .trash-elem-link {
+#aj-imp-trash-elements .trash-elem-link {
   display: block;
-  margin: 0.4em 0;
+  margin: 0.4em auto;
   font-size: 1.1em;
   font-weight: 300;
   padding-left: 28px;
   position: relative;
 }
-.aj-imp-trash-elements .trash-elem-link .bicon {
+#aj-imp-trash-elements .trash-elem-link .bicon {
   font-size: 1.6em;
   left: 7px;
   position: absolute;
   top: -3px;
   color: #c0c0c0;
 }
-.aj-imp-trash-elements .trash-elem-link:hover .bicon {
+#aj-imp-trash-elements .trash-elem-link:hover {
+  color: #ff7e00;
+}
+#aj-imp-trash-elements .trash-elem-link:hover .bicon {
   color: #ff7e00;
   top: -5px;
+}
+#aj-imp-trash-elements .trash-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+#aj-imp-trash-elements .trash-list .trash-elem {
+  border-radius: 2px;
+  box-shadow: 0 0 1px #000 inset;
+  display: block;
+  margin: 0.5em 0;
+}
+#aj-imp-trash-elements .trash-list .trash-elem a {
+  background: none repeat scroll 0 0 #000;
+  color: #aaaaaa;
+  cursor: move;
+  display: block;
+  padding: 0.3em;
+}
+#aj-imp-trash-elements .trash-list .trash-elem a .trash-elem-header {
+  font-size: 1.2em;
+  border-bottom: 1px dotted #f3f3f3;
+  color: #f3f3f3;
+  margin: 0 0 0.3em;
+}
+#aj-imp-trash-elements .trash-list .trash-elem a .trash-elem-content {
+  font-size: 0.8em;
+  max-height: 4em;
+  overflow: hidden;
+}
+#aj-imp-trash-elements .trash-list .trash-elem:hover,
+#aj-imp-trash-elements .trash-list .trash-elem:focus {
+  background: #ff7e00;
+  transition-duration: 0.6s;
+}
+#aj-imp-trash-elements .trash-list .trash-elem:hover a,
+#aj-imp-trash-elements .trash-list .trash-elem:focus a {
+  color: #fff;
+  background: rgba(0, 0, 0, 0);
+}
+#aj-imp-trash-elements .trash-list .trash-elem.ui-draggable-dragging {
+  background: transparent;
+  box-shadow: none;
+}
+#aj-imp-trash-elements .trash-list .trash-elem.ui-draggable-dragging a {
+  background: rgba(0, 0, 0, 0.8);
 }
 /****Block List Styles****/
 .aj-imp-block-list ul {
