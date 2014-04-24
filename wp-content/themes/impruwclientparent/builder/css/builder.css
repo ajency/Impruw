@@ -184,6 +184,14 @@ a:focus {
 .aj-imp-drag-menu .tab-content .aj-imp-builder-items li:hover a,
 .aj-imp-drag-menu .tab-content .aj-imp-builder-items li:focus a {
   color: #fff;
+  background: rgba(0, 0, 0, 0);
+}
+.aj-imp-drag-menu .tab-content .aj-imp-builder-items li.ui-draggable-dragging {
+  background: transparent;
+  box-shadow: none;
+}
+.aj-imp-drag-menu .tab-content .aj-imp-builder-items li.ui-draggable-dragging a {
+  background: rgba(0, 0, 0, 0.8);
 }
 /****Builder Top Nav****/
 .aj-imp-builder-top-nav {
@@ -1778,6 +1786,32 @@ a:focus {
 .aj-imp-revisions ul li.active .date,
 .aj-imp-revisions ul li.active .time {
   color: #fff;
+}
+/**** Unused Elements Styles ****/
+.aj-imp-trash-elements {
+  float: right;
+  padding-right: 1em;
+  margin-right: 1em;
+  border-right: 1px dotted #dadada;
+}
+.aj-imp-trash-elements .trash-elem-link {
+  display: block;
+  margin: 0.4em 0;
+  font-size: 1.1em;
+  font-weight: 300;
+  padding-left: 28px;
+  position: relative;
+}
+.aj-imp-trash-elements .trash-elem-link .bicon {
+  font-size: 1.6em;
+  left: 7px;
+  position: absolute;
+  top: -3px;
+  color: #c0c0c0;
+}
+.aj-imp-trash-elements .trash-elem-link:hover .bicon {
+  color: #ff7e00;
+  top: -5px;
 }
 /****Block List Styles****/
 .aj-imp-block-list ul {
