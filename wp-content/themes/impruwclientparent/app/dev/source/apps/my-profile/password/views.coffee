@@ -21,17 +21,21 @@ define ['app','text!apps/my-profile/password/templates/passwordform.html'],(App,
 					onShow :->
 							@$el.validate
 								rules: 
-									newpass1: "required"
-									newpass2: 
-											equalTo: "#newpass1"
+									newpassword: "required"
+									confirmNewPassword: 
+											equalTo: "#newpassword"
 						
 
-					onPasswordAjaxResponse :(response)->
+					onPasswordAjaxResponse :(response)=>
 						if response == '0'
-							@$el.find('.alert').remove()
-							@$el.prepend('<div class="alert alert-success">Password mismatch</div>')
-							@$el.find('#btn-update-password').attr('disabled':'disabled')
+							@passwordErrorResponse()
 						else
-							@$el.find('.alert').remove()
-							@$el.prepend('<div class="alert alert-success">Password Updated.Login again</div>')
-							
+							@passwordSuccessResponse()
+					
+					passwordErrorResponse :->
+						@$el.find('.alert').remove()
+						@$el.prepend('<div class="alert alert-success">Password mismatch</div>')
+
+					passwordSuccessResponse :->
+						@$el.find('.alert').remove()
+						@$el.prepend('<div class="alert alert-success">Password Updated.Login again</div>')
