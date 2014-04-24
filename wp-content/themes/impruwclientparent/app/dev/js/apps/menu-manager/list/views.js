@@ -57,9 +57,11 @@ define(['app', 'text!apps/menu-manager/list/templates/menuitem.html'], function(
         return EmptyView.__super__.constructor.apply(this, arguments);
       }
 
-      EmptyView.prototype.template = '<li>No menu found </li>';
+      EmptyView.prototype.template = '<span class="bicon icon-uniF151"></span> No Menu Items found. Add Menu Items to your menu.';
 
-      EmptyView.prototype.tagName = 'ul';
+      EmptyView.prototype.tagName = 'div';
+
+      EmptyView.prototype.className = 'empty-view menu-empty';
 
       return EmptyView;
 
