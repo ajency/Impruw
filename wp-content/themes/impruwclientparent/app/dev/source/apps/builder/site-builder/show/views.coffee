@@ -75,6 +75,7 @@ define ['app'
 					# append page revisions
 					onAddPageRevisionItems:(collection)->
 						@clearRevisionItems()
+						collection.sort()
 						revisions = collection.toJSON()
 
 						if revisions.length is 0
@@ -136,6 +137,7 @@ define ['app'
 																return
 												stop 		:(e, ui)-> 
 																window.dragging = false
+																App.execute "auto:save"
 																return
 												handle 		: '.aj-imp-drag-handle'
 												helper 		: 'clone'

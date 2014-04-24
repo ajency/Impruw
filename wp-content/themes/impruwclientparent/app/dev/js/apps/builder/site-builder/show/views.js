@@ -89,6 +89,7 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
       MainView.prototype.onAddPageRevisionItems = function(collection) {
         var revisions;
         this.clearRevisionItems();
+        collection.sort();
         revisions = collection.toJSON();
         if (revisions.length === 0) {
           return this.appendNoRevisionsView();
@@ -153,6 +154,7 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
           },
           stop: function(e, ui) {
             window.dragging = false;
+            App.execute("auto:save");
           },
           handle: '.aj-imp-drag-handle',
           helper: 'clone',

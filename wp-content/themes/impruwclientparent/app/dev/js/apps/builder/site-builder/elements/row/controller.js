@@ -57,8 +57,8 @@ define(['app', 'bootbox', 'apps/builder/site-builder/elements/row/views', 'apps/
       };
 
       Controller.prototype.elementMoved = function(columnView, container) {
-        console.log(container);
-        return App.execute("mark:section:as:modified", container);
+        App.execute("mark:section:as:modified", container);
+        return App.execute("auto:save");
       };
 
       Controller.prototype.deleteElement = function(model) {

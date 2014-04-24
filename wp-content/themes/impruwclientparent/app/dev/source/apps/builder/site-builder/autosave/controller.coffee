@@ -3,6 +3,8 @@ define ['app'], (App)->
 
 	App.module 'SiteBuilderApp.AutoSave', (AutoSave, App, Backbone, Marionette, $, _)->
 
+		window.SAVING = false
+
 		# Controller class for showing header resion
 		class AutoSave.Controller extends Marionette.Controller
 
@@ -11,6 +13,8 @@ define ['app'], (App)->
 
 			# autoSave
 			autoSave:->
+
+				return if window.SAVING is true
 
 				siteRegion = App.builderRegion.$el
 
@@ -29,11 +33,13 @@ define ['app'], (App)->
 						page_id : _page_id
 
 				options.data = _.defaults options.data, _sectionJson
-					
+				window.SAVING = true
 				$.ajax( options ).done (response)->
 					console.log response
+					window.SAVING = false
 				.fail (resp)->
 					console.log 'error'
+					window.SAVING = false
 
 			# get the json
 			_getPageJson:($site)->
@@ -41,8 +47,8 @@ define ['app'], (App)->
 				_json = {}
 
 				_.each ['header', 'page-content', 'footer'], (section, index)=>
-					if App.request "is:section:modified", section
-						_json["#{section}-json"] = JSON.stringify @_getJson $site.find "#site-#{section}-region"
+					#if App.request "is:section:modified", section
+					_json["#{section}-json"] = JSON.stringify @_getJson $site.find "#site-#{section}-region"
 
 				_json
 
@@ -78,6 +84,3 @@ define ['app'], (App)->
 					arr.push ele
 					
 				arr
-
-
-	App.SiteBuilderApp.AutoSave.Controller		

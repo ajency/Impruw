@@ -554,7 +554,7 @@ function get_page_json1($page_id = 0) {
 	
 	$revision_id = isset($_REQUEST['revision_id']) ? $_REQUEST['revision_id'] : 0;
 	
-	if($revision_id === 0)
+	if((int)$revision_id === 0)
 		$meta_id = get_last_page_json_meta_id($page_id);
 	else 
 		$meta_id = get_page_meta_id_for_revision($revision_id);
