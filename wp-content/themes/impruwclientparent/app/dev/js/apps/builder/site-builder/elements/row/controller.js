@@ -8,6 +8,7 @@ define(['app', 'bootbox', 'apps/builder/site-builder/elements/row/views', 'apps/
       __extends(Controller, _super);
 
       function Controller() {
+        this.elementMoved = __bind(this.elementMoved, this);
         this.renderElement = __bind(this.renderElement, this);
         return Controller.__super__.constructor.apply(this, arguments);
       }
@@ -47,11 +48,17 @@ define(['app', 'bootbox', 'apps/builder/site-builder/elements/row/views', 'apps/
       };
 
       Controller.prototype.renderElement = function() {
-        var view;
+        var row;
         this.removeSpinner();
-        view = this._getRowView();
-        this.layout.elementRegion.show(view);
+        row = this._getRowView();
+        this.listenTo(row, "itemview:element:moved", this.elementMoved);
+        this.layout.elementRegion.show(row);
         return this.changeStyle(this.layout.model);
+      };
+
+      Controller.prototype.elementMoved = function(columnView, container) {
+        App.execute("mark:section:as:modified", container);
+        return App.execute("auto:save");
       };
 
       Controller.prototype.deleteElement = function(model) {

@@ -34,6 +34,11 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
         },
         'change select#builder-page-sel': function(evt) {
           return this.trigger('editable:page:changed', $(evt.target).val());
+        },
+        'click #aj-imp-revision-sel ul li': function(e) {
+          var id;
+          id = parseInt($(e.currentTarget).attr('data-revision-id'));
+          return this.trigger("revision:link:clicked", id);
         }
       };
 
@@ -84,6 +89,7 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
       MainView.prototype.onAddPageRevisionItems = function(collection) {
         var revisions;
         this.clearRevisionItems();
+        collection.sort();
         revisions = collection.toJSON();
         if (revisions.length === 0) {
           return this.appendNoRevisionsView();
@@ -110,7 +116,7 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
       };
 
       MainView.prototype.getRevisionTemplate = function() {
-        return '<li role="presentation"> <div class="aj-imp-revision row"> <div class="col-sm-5 date"> {{datetime}} </div> <div class="col-sm-7 time"> {{timeago}} </div> </div> </li>';
+        return '<li role="presentation" data-revision-id="{{id}}"> <div class="aj-imp-revision row"> <div class="col-sm-5 date"> {{datetime}} </div> <div class="col-sm-7 time"> {{timeago}} </div> </div> </li>';
       };
 
       MainView.prototype.appendNoRevisionsView = function() {
@@ -148,6 +154,7 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
           },
           stop: function(e, ui) {
             window.dragging = false;
+            App.execute("auto:save");
           },
           handle: '.aj-imp-drag-handle',
           helper: 'clone',

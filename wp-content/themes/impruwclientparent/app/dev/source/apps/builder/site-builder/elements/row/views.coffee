@@ -24,10 +24,12 @@ define ['app'],(App)->
 										return
 						helper 		: 'clone'
 						opacity		: .65
-						remove 		: (evt, ui)->
+						remove 		: (evt, ui)=>
+										@trigger "element:moved", $(evt.target)
 										if $(evt.target).children().length is 0
 											$(evt.target).addClass 'empty-column'
-						update 		: (e,ui)->
+						update 		: (e,ui)=>
+										@trigger "element:moved", $(e.target)
 										$(e.target).removeClass 'empty-column'
 
 

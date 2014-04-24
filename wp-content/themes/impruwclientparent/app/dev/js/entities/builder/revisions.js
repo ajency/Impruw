@@ -23,8 +23,9 @@ define(["app", 'backbone', 'moment'], function(App, Backbone, moment) {
         var data;
         data = resp.code === 'OK' ? resp.data : resp;
         data.id = parseInt(data.id);
-        data.datetime = moment(data.datetime).format('D/MM/YYYY');
-        data.timeago = moment().from(data.datetime);
+        data.timestamp = moment(data.datetime).toDate().getTime();
+        data.timeago = moment(data.datetime).fromNow();
+        data.datetime = moment(data.datetime).format('D/MM/YYYY h:m:s');
         return data;
       };
 
@@ -39,6 +40,8 @@ define(["app", 'backbone', 'moment'], function(App, Backbone, moment) {
       }
 
       RevisionCollection.prototype.model = RevisionModel;
+
+      RevisionCollection.prototype.comparator = 'timestamp';
 
       RevisionCollection.prototype.url = function() {
         return "" + AJAXURL + "?action=fetch-revisions";

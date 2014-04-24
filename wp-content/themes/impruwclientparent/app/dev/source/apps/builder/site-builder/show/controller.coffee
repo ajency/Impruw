@@ -11,11 +11,10 @@ define ['app', 'controllers/base-controller'
 					initialize:(opt = {})->
 						@region = App.getRegion 'builderRegion'
 
-						#get pageElements
-						pageId = App.request "get:current:editable:page"
+						{pageId, revisionId} = opt
 
 						#element json
-						elements = App.request "get:page:json", pageId
+						elements = App.request "get:page:json", pageId, revisionId
 
 						# builder view
 						@view = new Show.View.Builder
@@ -115,6 +114,8 @@ define ['app', 'controllers/base-controller'
 
 						@listenTo layout, "add:page:revisions", @addPageRevisions
 
+						@listenTo layout, "revision:link:clicked", @loadRevision
+
 						@listenTo layout, 'show',(layout)=>
 							# added delay so that the html is fully rendered
 							_.delay =>
@@ -128,6 +129,11 @@ define ['app', 'controllers/base-controller'
 						@show  layout,
 								loading : true
 
+					# show the previous revision
+					loadRevision:(revisionId)=>
+						currentPageId = App.request "get:current:editable:page"
+						App.execute "editable:page:changed", currentPageId, revisionId
+
 					# add page revisions
 					addPageRevisions:->
 
@@ -138,7 +144,9 @@ define ['app', 'controllers/base-controller'
 						App.execute "when:fetched", [pageRevisions], =>
 							@layout.triggerMethod "add:page:revision:items", pageRevisions
 
-				App.commands.setHandler "editable:page:changed",(pageId)=>
+				App.commands.setHandler "editable:page:changed",(pageId, revisionId = 0)=>
 					App.resetElementRegistry()
 					siteBuilderController.close() if siteBuilderController isnt null
-					siteBuilderController = new Show.BuilderController()	
+					siteBuilderController = new Show.BuilderController
+															pageId : pageId
+															revisionId : revisionId	

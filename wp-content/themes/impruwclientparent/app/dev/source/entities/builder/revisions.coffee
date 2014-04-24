@@ -13,8 +13,9 @@ define ["app", 'backbone', 'moment'], (App, Backbone, moment) ->
 				parse:(resp)->
 					data = if resp.code is 'OK' then resp.data else resp
 					data.id = parseInt data.id
-					data.datetime = moment(data.datetime).format 'D/MM/YYYY'
-					data.timeago = moment().from data.datetime
+					data.timestamp = moment(data.datetime).toDate().getTime()
+					data.timeago = moment(data.datetime).fromNow()
+					data.datetime = moment(data.datetime).format 'D/MM/YYYY h:m:s'
 					data
 
 
@@ -23,6 +24,8 @@ define ["app", 'backbone', 'moment'], (App, Backbone, moment) ->
 
 				# model
 				model : RevisionModel
+
+				comparator : 'timestamp'
 
 				url : ->
 					"#{AJAXURL}?action=fetch-revisions"

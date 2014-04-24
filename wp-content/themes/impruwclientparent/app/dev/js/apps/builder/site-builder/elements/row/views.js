@@ -35,14 +35,20 @@ define(['app'], function(App) {
           },
           helper: 'clone',
           opacity: .65,
-          remove: function(evt, ui) {
-            if ($(evt.target).children().length === 0) {
-              return $(evt.target).addClass('empty-column');
-            }
-          },
-          update: function(e, ui) {
-            return $(e.target).removeClass('empty-column');
-          }
+          remove: (function(_this) {
+            return function(evt, ui) {
+              _this.trigger("element:moved", $(evt.target));
+              if ($(evt.target).children().length === 0) {
+                return $(evt.target).addClass('empty-column');
+              }
+            };
+          })(this),
+          update: (function(_this) {
+            return function(e, ui) {
+              _this.trigger("element:moved", $(e.target));
+              return $(e.target).removeClass('empty-column');
+            };
+          })(this)
         });
       };
 

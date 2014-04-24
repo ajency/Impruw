@@ -40,9 +40,17 @@ define ['app','bootbox','apps/builder/site-builder/elements/row/views','apps/bui
 					renderElement:()=>
 						@removeSpinner()
 						# get menu 
-						view = @_getRowView()
-						@layout.elementRegion.show view
+						row = @_getRowView()
+
+						@listenTo row, "itemview:element:moved", @elementMoved
+
+						@layout.elementRegion.show row
 						@changeStyle @layout.model
+
+					# element moved
+					elementMoved:(columnView, container)=>
+						App.execute "mark:section:as:modified", container
+						App.execute "auto:save"
 
 					# remove the element model
 					deleteElement:(model)->

@@ -53,6 +53,22 @@ function get_revision_by_option_id($option_id){
 }
 
 /**
+ * Returns the page_meta_id for the passed revision_id
+ * @param unknown $revision_id
+ * @return unknown
+ */
+function get_page_meta_id_for_revision($revision_id){
+	
+	global $wpdb;
+	
+	$query = $wpdb->prepare("SELECT page_meta_id FROM {$wpdb->prefix}revisions WHERE id=%d", (int)$revision_id);
+	
+	$page_meta_id = $wpdb->get_var($query);
+	
+	return is_null($page_meta_id) ? 0 : $page_meta_id;
+}
+
+/**
  * Returns the serialized json data for the passed meta_id
  * @param int meta_id
  */

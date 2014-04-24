@@ -57,6 +57,9 @@ define ['app', 'controllers/builder-base-controller', 'bootbox'
 							App.execute "when:fetched", element, =>
 														@layout.triggerMethod "before:render:element"
 														@renderElement()
+														_.delay ->
+															App.execute "auto:save"
+														, 300
 							
 						# add the element to container
 						@add @layout, $(container)
@@ -101,8 +104,10 @@ define ['app', 'controllers/builder-base-controller', 'bootbox'
 
 					# remove the element model
 					deleteElement:(model)->
-						model.destroy 
-								wait : true
+						model.destroy()
+						_.delay ->
+							App.commands.execute "auto:save"
+						, 300
 
 
 			App.SiteBuilderApp.Element.Controller		

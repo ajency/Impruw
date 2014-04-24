@@ -15,21 +15,44 @@ define(["app", 'backbone'], function(App, Backbone) {
 
       PageJson.prototype.name = 'page-json';
 
+      PageJson.prototype.url = function() {
+        var pageId, revisionId;
+        pageId = this.get('page_id');
+        revisionId = this.get('revision_id');
+        return "" + AJAXURL + "?action=read-page-json&page_id=" + pageId + "&revision_id=" + revisionId;
+      };
+
+      PageJson.prototype.sync = function(method, model, options) {
+        var params, xhr;
+        params = {
+          url: this.url(),
+          type: "GET",
+          dataType: "json"
+        };
+        params = _.extend(params, options);
+        xhr = Backbone.ajax(params);
+        model._fetch = xhr;
+        return xhr;
+      };
+
       return PageJson;
 
     })(Backbone.Model);
     API = {
-      getPageJSON: function(pageId) {
+      getPageJSON: function(pageId, revisionId) {
         var json;
-        json = new PageJson({
-          page_id: parseInt(pageId)
+        json = new PageJson;
+        json.set({
+          page_id: parseInt(pageId),
+          revision_id: parseInt(revisionId)
         });
         json.fetch();
         return json;
       }
     };
-    return App.reqres.setHandler("get:page:json", function(pageId) {
-      return API.getPageJSON(pageId);
+    return App.reqres.setHandler("get:page:json", function(pageId, revisionId) {
+      console.log(revisionId);
+      return API.getPageJSON(pageId, revisionId);
     });
   });
 });

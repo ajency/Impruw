@@ -22,6 +22,34 @@ define(["app", 'backbone'], function(App, Backbone) {
 
       ElementModel.prototype.name = 'element';
 
+      ElementModel.prototype.destroy = function(options) {
+        var destroy, model, success;
+        options = (options ? _.clone(options) : {});
+        model = this;
+        success = options.success;
+        destroy = function() {
+          model.trigger("destroy", model, model.collection, options);
+        };
+        options.success = function(resp) {
+          if (options.wait || model.isNew()) {
+            destroy();
+          }
+          if (success) {
+            success(model, resp, options);
+          }
+          if (!model.isNew()) {
+            model.trigger("sync", model, resp, options);
+          }
+        };
+        if (this.isNew()) {
+          options.success();
+          return false;
+        }
+        if (!options.wait) {
+          return destroy();
+        }
+      };
+
       return ElementModel;
 
     })(Backbone.Model);
