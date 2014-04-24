@@ -28,7 +28,7 @@ define ['app', 'controllers/base-controller'
 					method:'POST',
 					data :
 						action : 'update-password'
-						json : data
+						formdata : data
 
 				$.ajax( options ).done (response)=>
 					@PasswordUpdated response

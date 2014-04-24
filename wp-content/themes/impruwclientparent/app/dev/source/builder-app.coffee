@@ -53,6 +53,13 @@ define ['marionette'], (Marionette)->
 		App.unregisterElement instance, id
 
 	App.on "initialize:after", (options) ->
+		
+		Pace.on 'done', ->
+					Pace.options =
+								ajax: false
+					$('body').addClass 'pace-min-theme'
+					$('#initial-loader').fadeOut 'fast', ->
+								$('#initial-loader').remove();
 
 		# create a global site model
 		user = App.request "get:user:model"

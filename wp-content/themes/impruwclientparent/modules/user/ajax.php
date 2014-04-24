@@ -117,8 +117,8 @@ function update_password() {
 
     unset($formdata['action']);
 
-    $current_password = $formdata['json']['currentpass'];
-    $new_password = $formdata['json']['newpass1'];
+    $current_password = $formdata['formdata']['currentpassword'];
+    $new_password = $formdata['formdata']['newpassword'];
 
     $p_match = check_password_match($current_password);
 
