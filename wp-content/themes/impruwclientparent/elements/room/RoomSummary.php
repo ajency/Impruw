@@ -100,9 +100,7 @@ class RoomSummary extends Element {
                         <div class="room-title"><a href="{{link}}">{{post_title}}</a></div>
                         <div class="room-excerpt">{{post_content}}</div>
                         <div class="room-actions">
-                                <div class="price">Total: {{no_of_rooms}}<small> rooms</small></div>
-                                <div class="price">Check-in: {{check-in}}</div>
-                                <div class="price">Additional policy: {{additional-policy}}</div>
+                                <div class="price"><small>Number of Rooms:</small> {{no_of_rooms}}</div>
                                 <a href="{{link}}" class="btn btn-room">View Details</a>
                         </div>
                     </div>';

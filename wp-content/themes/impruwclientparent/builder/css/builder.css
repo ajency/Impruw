@@ -1997,6 +1997,9 @@ a:focus {
   font-size: 4em;
   color: #dddddd;
 }
+.empty-view.menu-empty {
+  margin: 0.5em;
+}
 /****Image Placeholder Styles****/
 .image-placeholder {
   text-align: center;
