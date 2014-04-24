@@ -948,6 +948,9 @@ form .aj-imp-submit:hover {
     padding: 1em;
   }
 }
+.aj-imp-register-form .aj-imp-register-left .site-lang-sel .dropdown-menu {
+  min-height: auto !important;
+}
 .aj-imp-register-form .aj-imp-register-right {
   margin: 2em 0 0;
   padding: 0 30px 0;
