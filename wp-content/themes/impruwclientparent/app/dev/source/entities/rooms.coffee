@@ -35,6 +35,7 @@ define ["app", 'backbone'], (App, Backbone) ->
 
 			# PUBLIC API FOR ENtity
 			API =
+
 				getRooms: (param ={})->
 					rooms
 
@@ -75,6 +76,7 @@ define ["app", 'backbone'], (App, Backbone) ->
 			App.commands.setHandler "add:room:model", (model)->
 				return false if not _.isObject model
 				API.addRoomModelToCollection model
+
 
 
 

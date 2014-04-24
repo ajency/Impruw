@@ -111,3 +111,4 @@ function delete_room_ajax(){
    wp_send_json(array('code' => 'OK', 'data' => $room_id));
 }
 add_action('wp_ajax_delete-room','delete_room_ajax');
+

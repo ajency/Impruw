@@ -39,6 +39,7 @@ require.config
 		scrollsections		: 'plugins/ajency.scrolldots'
 		minicolors			: 'plugins/jquery.minicolors.min'
 		additionalmethod	: 'plugins/validate.additional.methods'
+		timepicker			: 'plugins/jquery.timepicker.min'
 
 	shim:
 		underscore: 
@@ -64,6 +65,7 @@ require.config
 		scrollsections		: ['jquery']
 		jpanelmenu 			: ['jquery']
 		minicolors			: ['jquery']
+		timepicker			: ['jquery']
 		additionalmethod	: ['jquery','jqueryvalidate']
 		underscorestring 	: ['underscore']
 		backboneform 		: ['backbone']

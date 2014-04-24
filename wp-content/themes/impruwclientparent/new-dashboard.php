@@ -16,6 +16,7 @@
 <link href="<?php echo get_parent_template_directory_uri(); ?>/css/flat-ui.css" rel="stylesheet" media="screen">
 <link href="<?php echo get_parent_template_directory_uri(); ?>/css/main.min.css" rel="stylesheet" media="screen">
 <link href="<?php echo get_parent_template_directory_uri(); ?>/css/jquery.minicolors.css" rel="stylesheet" media="screen">
+<link href="<?php echo get_parent_template_directory_uri(); ?>/css/jquery.timepicker.css" rel="stylesheet" media="screen">
 <link href="<?php echo get_parent_template_directory_uri(); ?>/dashboard/css/dashboard.css" rel="stylesheet" media="screen">
 
 

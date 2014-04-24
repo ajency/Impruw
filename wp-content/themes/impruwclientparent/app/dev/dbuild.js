@@ -38,7 +38,8 @@
     entitiesloader: 'entities/dashboard-entities-loader',
     scrollsections: 'plugins/ajency.scrolldots',
     minicolors: 'plugins/jquery.minicolors.min',
-    additionalmethod  : 'plugins/validate.additional.methods'
+    additionalmethod  : 'plugins/validate.additional.methods',
+    timepicker      : 'plugins/jquery.timepicker.min'
   },
   shim: {
     underscore: {
@@ -69,6 +70,7 @@
     jpanelmenu: ['jquery'],
     minicolors      : ['jquery'],
     additionalmethod  : ['jquery','jqueryvalidate'],
+    timepicker      : ['jquery'],
     underscorestring: ['underscore'],
     backboneform: ['backbone'],
     backbonesyphon: ['backbone'],

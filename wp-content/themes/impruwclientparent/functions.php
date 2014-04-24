@@ -2349,6 +2349,8 @@ add_action ( 'wp_ajax_nopriv_update_checkintime', 'update_checkintime' );
 /**
  * Function to update additional policies
  */
+
+/*
 function update_additional_policies() {
 	$additional_policies = $_POST ['additional_policies'];
 	
@@ -2367,6 +2369,7 @@ function update_additional_policies() {
 }
 add_action ( 'wp_ajax_update_additional_policies', 'update_additional_policies' );
 add_action ( 'wp_ajax_nopriv_update_additional_policies', 'update_additional_policies' );
+ */
 function update_taxoption() {
 	$tax_option = $_POST ['taxoption'];
 	

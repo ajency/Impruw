@@ -23,6 +23,11 @@ function get_menu_items() {
 					'icon' => 'open' 
 			),
 			array (
+					'url' => '#room-summary',
+					'title' => 'Room Summary',
+					'icon' => 'open' 
+			),
+			array (
 					'url' => '#site-profile',
 					'title' => 'Site Profile',
 					'icon' => 'globe' 

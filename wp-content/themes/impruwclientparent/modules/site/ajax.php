@@ -11,7 +11,11 @@ function read_site_ajax() {
     $site_id = get_current_blog_id();
 
     $data = get_site_details($site_id);
-
+    
+    $data ['checkin_time'] = get_option('checkin-time');
+    $data ['checkin_time_format'] = get_option('checkin-time-format');
+    $data ['additional_policy'] = get_option('additional-policy');
+  
     if (is_array($data))
         wp_send_json(array('code' => 'OK', 'data' => $data));
     else
