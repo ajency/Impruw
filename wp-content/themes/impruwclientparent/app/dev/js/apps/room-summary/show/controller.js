@@ -14,7 +14,7 @@ define(['app', 'controllers/base-controller', 'apps/room-summary/show/views'], f
         var sitemodel;
         this.layout = this.getLayout();
         this.sitemodel = sitemodel = App.request("get:site:model");
-        App.vent.trigger("set:active:menu", 'my-profile');
+        App.vent.trigger("set:active:menu", 'room-summary');
         this.listenTo(this.layout, "show", (function(_this) {
           return function() {
             App.execute("show:checkin:time:form", {

@@ -13,7 +13,7 @@ define ['app', 'controllers/base-controller'
 				@sitemodel = sitemodel = App.request "get:site:model"
 
 				# trigger set:active:menu event
-				App.vent.trigger "set:active:menu", 'my-profile'
+				App.vent.trigger "set:active:menu", 'room-summary'
 
 				@listenTo @layout,"show" ,=>
 

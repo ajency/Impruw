@@ -10,8 +10,6 @@ define ['app', 'controllers/base-controller'
 				
 				@sitemodel = sitemodel = opts.model
 
-				console.log @sitemodel 
-
 				@view = @getPoliciesFormView sitemodel
 
 				@listenTo @view,"update:additional:policy:click", @updateAdditionalPolicy
