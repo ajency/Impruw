@@ -3384,6 +3384,28 @@ function wp_send_error_json($message){
 
 
 /**
+ * Add scripts and style for the theme
+ */
+/*
+function add_theme_scripts(){
+    
+    wp_enqueue_script('jquery');
+    
+    if(is_page('contact-us'))
+        enqueue_contact_page_script ();
+    
+}
+
+add_action('wp_enqueue_script', 'add_theme_scripts');
+
+function enqueue_contact_page_script(){
+     wp_enqueue_script ('contact-us', get_template_directory_uri () . 'js/contact.js',array('jquery'));
+      wp_enqueue_script ('maps', get_template_directory_uri () . 'js/contact.js');
+      wp_enqueue_script ('maps', get_template_directory_uri () . 'js/contact.js');
+}*/
+
+
+/**
  * Common Element Templates & Classes for Child Themes
  */
 global $base_element_templates;
