@@ -25,10 +25,13 @@ define(['app', 'apps/builder/site-builder/show/controller', 'apps/builder/site-b
           }
         });
       },
-      autoSave: function() {
+      autoSave: function(revision) {
         var autoSave;
+        if (revision == null) {
+          revision = false;
+        }
         autoSave = new SiteBuilderApp.AutoSave.Controller;
-        return autoSave.autoSave();
+        return autoSave.autoSave(revision);
       },
       isSectionModified: function(section) {
         return SiteBuilderApp[section];
@@ -50,6 +53,9 @@ define(['app', 'apps/builder/site-builder/show/controller', 'apps/builder/site-b
     });
     App.commands.setHandler("auto:save", function() {
       return API.autoSave();
+    });
+    App.commands.setHandler("save:revision", function() {
+      return API.autoSave(true);
     });
     App.reqres.setHandler("is:section:modified", function(section) {
       return API.isSectionModified(section);

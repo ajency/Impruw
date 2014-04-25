@@ -77,7 +77,19 @@ define ['app', 'controllers/base-controller'
 							else
 								App.request "add:new:element",container,element.element, element
 
-						App.execute "reset:changed:sections"						
+						App.execute "reset:changed:sections"
+						@startSaveRevisions()
+
+					# start the save revision interval.
+					# uses: siteInterval(fn, interval)
+					startSaveRevisions:->
+
+						clearInterval(window.revisionInterval) if window.revisionInterval
+
+						window.revisionInterval = setInterval ->
+							App.execute "save:revision"
+						, 40 * 1000
+
 
 					addNestedElements:(container,element)->
 						controller = App.request "add:new:element",container,element.element, element

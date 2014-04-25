@@ -35,9 +35,9 @@ define ['app'
 						SiteBuilderApp[section] = true
 
 			# auto save function call
-			autoSave:->
+			autoSave:(revision = false)->
 				autoSave = new SiteBuilderApp.AutoSave.Controller
-				autoSave.autoSave()
+				autoSave.autoSave(revision)
 
 			isSectionModified:(section)->
 				SiteBuilderApp[section]
@@ -57,6 +57,9 @@ define ['app'
 
 		App.commands.setHandler "auto:save", ->
 			API.autoSave()
+		
+		App.commands.setHandler "save:revision", ->
+			API.autoSave true
 
 		# check if the section is updated
 		App.reqres.setHandler "is:section:modified",(section)->
