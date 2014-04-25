@@ -2270,7 +2270,7 @@ form .aj-imp-submit:hover {
 }
 .room-tariff-container .room-tariff-grid {
   overflow-x: auto;
-  min-height: 80px;
+  min-height: 240px;
   padding-bottom: 30px;
   -webkit-overflow-scrolling: touch;
 }
@@ -2466,6 +2466,7 @@ form .aj-imp-submit:hover {
 }
 .room-tariff-container .room-tariff-grid .tariff.package-names {
   position: static;
+  min-height: 40px;
 }
 @media (max-width: 767px) {
   .room-tariff-container .room-tariff-grid {
