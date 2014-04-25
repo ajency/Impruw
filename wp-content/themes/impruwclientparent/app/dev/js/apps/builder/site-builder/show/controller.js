@@ -97,7 +97,17 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/show/vi
             }
           };
         })(this));
-        return App.execute("reset:changed:sections");
+        App.execute("reset:changed:sections");
+        return this.startSaveRevisions();
+      };
+
+      BuilderController.prototype.startSaveRevisions = function() {
+        if (window.revisionInterval) {
+          clearInterval(window.revisionInterval);
+        }
+        return window.revisionInterval = setInterval(function() {
+          return App.execute("save:revision");
+        }, 40 * 1000);
       };
 
       BuilderController.prototype.addNestedElements = function(container, element) {

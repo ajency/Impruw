@@ -1,7 +1,8 @@
 define ['app'
 		'text!apps/builder/site-builder/show/templates/maintemplate.html'
-		'text!apps/builder/site-builder/show/templates/builder.html'],
-		(App, mainviewTpl, builderTpl)->
+		'text!apps/builder/site-builder/show/templates/builder.html'
+		'moment'],
+		(App, mainviewTpl, builderTpl, moment)->
 
 
 			App.module 'SiteBuilderApp.Show.View', (View, App, Backbone, Marionette, $, _)->
@@ -25,10 +26,7 @@ define ['app'
 						'change select#builder-page-sel' : (evt)-> 
 							@trigger 'editable:page:changed', $(evt.target).val()
 
-						'click #aj-imp-revision-sel ul li':(e)->
-							id = parseInt $(e.currentTarget).attr 'data-revision-id'
-							@trigger "revision:link:clicked", id
-
+						
 					initialize:->
 						App.reqres.setHandler "get:current:editable:page:name", @getCurrentPageName
 						App.reqres.setHandler "get:current:editable:page", @getCurrentPageId
@@ -75,48 +73,70 @@ define ['app'
 					# append page revisions
 					onAddPageRevisionItems:(collection)->
 						@clearRevisionItems()
-						collection.sort()
-						revisions = collection.toJSON()
+						revisionView = new RevisionView 
+												collection : collection
+						revisionView.render()
+						@listenTo revisionView , 'itemview:revision:link:clicked', @revisionLinkClicked
+						@$el.find('#aj-imp-revision-sel').append revisionView.$el
 
-						if revisions.length is 0
-							@appendNoRevisionsView()
-						else
-							@addRevisionItems revisions
+					revisionLinkClicked:(iv,id)=>
+						@trigger "revision:link:clicked", id
 
-					# add revision items
-					# accepts an array of revisions
-					addRevisionItems:(revisions)->
-						@addRevisionItem(revision) for revision in revisions	
-
-					# appends single revision to list
-					# accepts single revision instance
-					addRevisionItem:(revision)->
-						template = @getRevisionTemplate()
-
-						html = _.template template, revision
-
-						@$el.find('#aj-imp-revision-sel ul').append html
-
-					# returns the template for the revision item
-					getRevisionTemplate : ->
-						'<li role="presentation" data-revision-id="{{id}}">
-			                <div class="aj-imp-revision row">
-			                    <div class="col-sm-5 date">
-			                      {{datetime}}
-			                    </div>
-			                    <div class="col-sm-7 time">
-			                      {{timeago}}
-			                    </div>
-			                </div>
-			              </li>'
-
-			        # adds a no revision found view if collection is empty
-					appendNoRevisionsView:->
-						@$el.find('#aj-imp-revision-sel ul').append '<li> No revision found</li>'
-						
 					# remove any previous revision items
 					clearRevisionItems:->
 						@$el.find('#aj-imp-revision-sel ul').empty()
+
+
+				class SingleRevision extends Marionette.ItemView
+
+					tagName : 'li'
+
+					template : '<div class="aj-imp-revision row">
+									<div class="col-sm-5 date">
+									  {{datetime}}
+									</div>
+									<div class="col-sm-7 time">
+									  {{timeago}}
+									</div>
+								</div>'
+
+					events : 
+						'click':(e)->
+							@trigger "revision:link:clicked", @model.get 'id'
+
+					serializeData:()->
+						data = super()
+						data.timestamp = moment(data.datetime).toDate().getTime()
+						data.timeago = moment(data.datetime).fromNow()
+						data.datetime = moment(data.datetime).format 'D/MM/YYYY h:m:s'
+						data
+
+					onRender:->
+						@$el.attr 'role', 'presentation'
+							.attr 'data-revision-id' , @model.get 'id'
+
+				class NoRevisionView extends Marionette.ItemView
+
+					tagName : 'li'
+
+					template : 'No revision found'
+
+				class RevisionView extends Marionette.CollectionView
+
+					tagName : 'ul'
+
+					className: 'dropdown-menu pull-right revision-dropdown'
+
+					itemView : SingleRevision
+
+					emptyView : NoRevisionView
+
+					onRender:->
+						@$el.attr 'role', 'menu'
+
+					onBeforeRender : ->
+						@collection.sort()
+						@collection.sort()
 
 
 

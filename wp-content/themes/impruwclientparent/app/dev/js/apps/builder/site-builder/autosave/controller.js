@@ -17,8 +17,11 @@ define(['app'], function(App) {
         }
       };
 
-      Controller.prototype.autoSave = function() {
+      Controller.prototype.autoSave = function(revision) {
         var options, siteRegion, _page_id, _sectionJson;
+        if (revision == null) {
+          revision = false;
+        }
         if (window.SAVING === true) {
           return;
         }
@@ -33,14 +36,18 @@ define(['app'], function(App) {
           url: AJAXURL,
           data: {
             action: 'save-page-json',
-            page_id: _page_id
+            page_id: _page_id,
+            revision: revision
           }
         };
         options.data = _.defaults(options.data, _sectionJson);
         window.SAVING = true;
         return $.ajax(options).done(function(response) {
           console.log(response);
-          return window.SAVING = false;
+          window.SAVING = false;
+          if (revision === true) {
+            return App.execute("revision:added", _page_id, response);
+          }
         }).fail(function(resp) {
           console.log('error');
           return window.SAVING = false;

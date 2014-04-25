@@ -12,7 +12,7 @@ define ['app'], (App)->
 			initialize:(opt = {})->
 
 			# autoSave
-			autoSave:->
+			autoSave:(revision = false)->
 
 				return if window.SAVING is true
 
@@ -31,12 +31,15 @@ define ['app'], (App)->
 					data 	:
 						action 	: 'save-page-json'
 						page_id : _page_id
+						revision : revision
 
 				options.data = _.defaults options.data, _sectionJson
 				window.SAVING = true
 				$.ajax( options ).done (response)->
 					console.log response
 					window.SAVING = false
+					if revision is true
+						App.execute "revision:added", _page_id, response
 				.fail (resp)->
 					console.log 'error'
 					window.SAVING = false
