@@ -1,4 +1,5 @@
-var __hasProp = {}.hasOwnProperty,
+var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+  __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 define(['app', 'text!apps/my-profile/password/templates/passwordform.html'], function(App, passwordformTpl) {
@@ -7,6 +8,7 @@ define(['app', 'text!apps/my-profile/password/templates/passwordform.html'], fun
       __extends(PasswordForm, _super);
 
       function PasswordForm() {
+        this.onPasswordAjaxResponse = __bind(this.onPasswordAjaxResponse, this);
         return PasswordForm.__super__.constructor.apply(this, arguments);
       }
 
@@ -29,9 +31,9 @@ define(['app', 'text!apps/my-profile/password/templates/passwordform.html'], fun
       PasswordForm.prototype.onShow = function() {
         return this.$el.validate({
           rules: {
-            newpass1: "required",
-            newpass2: {
-              equalTo: "#newpass1"
+            newpassword: "required",
+            confirmNewPassword: {
+              equalTo: "#newpassword"
             }
           }
         });
@@ -39,15 +41,20 @@ define(['app', 'text!apps/my-profile/password/templates/passwordform.html'], fun
 
       PasswordForm.prototype.onPasswordAjaxResponse = function(response) {
         if (response === '0') {
-          this.$el.find('.alert').remove();
-          this.$el.prepend('<div class="alert alert-success">Password mismatch</div>');
-          return this.$el.find('#btn-update-password').attr({
-            'disabled': 'disabled'
-          });
+          return this.passwordErrorResponse();
         } else {
-          this.$el.find('.alert').remove();
-          return this.$el.prepend('<div class="alert alert-success">Password Updated.Login again</div>');
+          return this.passwordSuccessResponse();
         }
+      };
+
+      PasswordForm.prototype.passwordErrorResponse = function() {
+        this.$el.find('.alert').remove();
+        return this.$el.prepend('<div class="alert alert-success">Password mismatch</div>');
+      };
+
+      PasswordForm.prototype.passwordSuccessResponse = function() {
+        this.$el.find('.alert').remove();
+        return this.$el.prepend('<div class="alert alert-success">Password Updated.Login again</div>');
       };
 
       return PasswordForm;

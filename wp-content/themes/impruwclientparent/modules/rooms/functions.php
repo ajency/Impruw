@@ -119,12 +119,18 @@ function get_room($roomid) {
     $attachment_id = get_post_thumbnail_id($room_id);
 
     $image = (int) $attachment_id > 0 ? wp_get_attachment_image_src($attachment_id, 'medium') : array();
+    
+    $check_in = get_option('checkin-time','none');
+    
+    $additional_policy = get_option('additional-policy','none');
 
     // prepare the post meta strings to array
     $room_post_meta = array('slider_id' => $room_slider_id,
         'no_of_rooms' => $no_of_rooms,
         'thumbnail_id' => (int) $attachment_id,
         'post_excerpt' => '',
+        'check-in' => $check_in,
+        'additional-policy' => $additional_policy,
         'image_url' => is_array($image) && count($image) > 0 ? $image[0] : '');
 
 

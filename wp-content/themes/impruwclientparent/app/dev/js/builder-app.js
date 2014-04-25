@@ -44,6 +44,15 @@ define(['marionette'], function(Marionette) {
   });
   App.on("initialize:after", function(options) {
     var user;
+    Pace.on('done', function() {
+      Pace.options = {
+        ajax: false
+      };
+      $('body').addClass('pace-min-theme');
+      return $('#initial-loader').fadeOut('fast', function() {
+        return $('#initial-loader').remove();
+      });
+    });
     user = App.request("get:user:model");
     return App.execute("when:fetched", user, (function(_this) {
       return function() {

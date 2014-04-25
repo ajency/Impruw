@@ -16,7 +16,6 @@ define(['app', 'controllers/base-controller', 'apps/room-summary/policies/views'
       Controller.prototype.initialize = function(opts) {
         var sitemodel;
         this.sitemodel = sitemodel = opts.model;
-        console.log(this.sitemodel);
         this.view = this.getPoliciesFormView(sitemodel);
         this.listenTo(this.view, "update:additional:policy:click", this.updateAdditionalPolicy);
         return this.show(this.view, {

@@ -184,6 +184,14 @@ a:focus {
 .aj-imp-drag-menu .tab-content .aj-imp-builder-items li:hover a,
 .aj-imp-drag-menu .tab-content .aj-imp-builder-items li:focus a {
   color: #fff;
+  background: rgba(0, 0, 0, 0);
+}
+.aj-imp-drag-menu .tab-content .aj-imp-builder-items li.ui-draggable-dragging {
+  background: transparent;
+  box-shadow: none;
+}
+.aj-imp-drag-menu .tab-content .aj-imp-builder-items li.ui-draggable-dragging a {
+  background: rgba(0, 0, 0, 0.8);
 }
 /****Builder Top Nav****/
 .aj-imp-builder-top-nav {
@@ -271,7 +279,7 @@ a:focus {
   font-size: 1.6em;
   position: absolute;
   left: 9px;
-  top: 7px;
+  top: 6px;
 }
 .aj-imp-builder-top-nav .aj-imp-builder-top-options .choose-theme:hover {
   background: #849fb0;
@@ -1779,6 +1787,80 @@ a:focus {
 .aj-imp-revisions ul li.active .time {
   color: #fff;
 }
+/**** Unused Elements Styles ****/
+#aj-imp-trash-elements {
+  position: absolute;
+  right: 1%;
+  top: 35%;
+}
+#aj-imp-trash-elements .trash-elem-link {
+  display: block;
+  margin: 0.4em auto;
+  font-size: 1.1em;
+  font-weight: 300;
+  padding-left: 28px;
+  position: relative;
+}
+#aj-imp-trash-elements .trash-elem-link .bicon {
+  font-size: 1.6em;
+  left: 7px;
+  position: absolute;
+  top: -3px;
+  color: #c0c0c0;
+}
+#aj-imp-trash-elements .trash-elem-link:hover {
+  color: #ff7e00;
+}
+#aj-imp-trash-elements .trash-elem-link:hover .bicon {
+  color: #ff7e00;
+  top: -5px;
+}
+#aj-imp-trash-elements .trash-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+#aj-imp-trash-elements .trash-list .trash-elem {
+  border-radius: 2px;
+  box-shadow: 0 0 1px #000 inset;
+  display: block;
+  margin: 0.5em 0;
+}
+#aj-imp-trash-elements .trash-list .trash-elem a {
+  background: none repeat scroll 0 0 #000;
+  color: #aaaaaa;
+  cursor: move;
+  display: block;
+  padding: 0.3em;
+}
+#aj-imp-trash-elements .trash-list .trash-elem a .trash-elem-header {
+  font-size: 1.2em;
+  border-bottom: 1px dotted #f3f3f3;
+  color: #f3f3f3;
+  margin: 0 0 0.3em;
+}
+#aj-imp-trash-elements .trash-list .trash-elem a .trash-elem-content {
+  font-size: 0.8em;
+  max-height: 4em;
+  overflow: hidden;
+}
+#aj-imp-trash-elements .trash-list .trash-elem:hover,
+#aj-imp-trash-elements .trash-list .trash-elem:focus {
+  background: #ff7e00;
+  transition-duration: 0.6s;
+}
+#aj-imp-trash-elements .trash-list .trash-elem:hover a,
+#aj-imp-trash-elements .trash-list .trash-elem:focus a {
+  color: #fff;
+  background: rgba(0, 0, 0, 0);
+}
+#aj-imp-trash-elements .trash-list .trash-elem.ui-draggable-dragging {
+  background: transparent;
+  box-shadow: none;
+}
+#aj-imp-trash-elements .trash-list .trash-elem.ui-draggable-dragging a {
+  background: rgba(0, 0, 0, 0.8);
+}
 /****Block List Styles****/
 .aj-imp-block-list ul {
   margin: 1em 0;
@@ -1996,6 +2078,9 @@ a:focus {
   margin: 0.2em 0;
   font-size: 4em;
   color: #dddddd;
+}
+.empty-view.menu-empty {
+  margin: 0.5em;
 }
 /****Image Placeholder Styles****/
 .image-placeholder {

@@ -57,7 +57,7 @@ get_header();
                 <div class="form-group">
                     <label for="inputLmail" class="col-sm-3 control-label"><?php echo __('Choose your preferred language', 'impruwmain'); ?></label>
 
-                    <div class="col-sm-7 col-sm-offset-3">
+                    <div class="col-sm-7 col-sm-offset-3 site-lang-sel">
 
                         <select name="user_language" id="inputLanguage"  required  parsley-required-message="<?php echo __('Please select any one of the languages available.', 'impruwmain'); ?>"   > 
 
