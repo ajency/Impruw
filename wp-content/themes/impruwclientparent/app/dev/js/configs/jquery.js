@@ -1,5 +1,5 @@
 define(['jquery', 'underscore', 'jqueryvalidate'], function($, _) {
-  var $closed_menu_opacity, $fl_menu, $fl_menu_label, $fl_menu_menu, $float_easing, $float_speed, $menu_fade_speed, FloatMenu, adjustPageDim;
+  var $closed_menu_opacity, $fl_menu, $fl_menu_label, $fl_menu_menu, $float_easing, $float_speed, $menu_fade_speed, FloatMenu, adjustPageDim, menuPosition;
   $.fn.isEmptyColumn = function(params) {
     if (params == null) {
       params = {};
@@ -61,19 +61,6 @@ define(['jquery', 'underscore', 'jqueryvalidate'], function($, _) {
     return adjustPageDim();
   });
   $(window).resize(adjustPageDim);
-  FloatMenu = function() {
-    var menuPosition, newPosition, scrollAmount;
-    menuPosition = $("#fl_menu").position().top;
-    scrollAmount = $(document).scrollTop();
-    newPosition = menuPosition + scrollAmount;
-    if ($(window).height() < $fl_menu.height() + $fl_menu_menu.height()) {
-      return $fl_menu.css("top", menuPosition);
-    } else {
-      return $fl_menu.stop().animate({
-        top: newPosition
-      }, $float_speed, $float_easing);
-    }
-  };
   $float_speed = 1500;
   $float_easing = "easeOutQuint";
   $menu_fade_speed = 500;
@@ -81,8 +68,8 @@ define(['jquery', 'underscore', 'jqueryvalidate'], function($, _) {
   $fl_menu = $("#fl_menu");
   $fl_menu_menu = $("#fl_menu .menu");
   $fl_menu_label = $("#fl_menu .label");
+  menuPosition = $("#fl_menu").position().top;
   $(window).load(function() {
-    var menuPosition;
     menuPosition = $("#fl_menu").position().top;
     FloatMenu();
     return $fl_menu.hover(function() {
@@ -93,7 +80,19 @@ define(['jquery', 'underscore', 'jqueryvalidate'], function($, _) {
       return $fl_menu_menu.fadeOut($menu_fade_speed);
     });
   });
-  return $(window).scroll(function() {
+  $(window).scroll(function() {
     return FloatMenu();
   });
+  return FloatMenu = function() {
+    var newPosition, scrollAmount;
+    scrollAmount = $(document).scrollTop();
+    newPosition = menuPosition + scrollAmount;
+    if ($(window).height() < $fl_menu.height() + $fl_menu_menu.height()) {
+      return $fl_menu.css("top", menuPosition);
+    } else {
+      return $fl_menu.stop().animate({
+        top: newPosition
+      }, $float_speed, $float_easing);
+    }
+  };
 });

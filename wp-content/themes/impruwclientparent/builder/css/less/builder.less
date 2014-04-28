@@ -1895,13 +1895,14 @@ a {
 .aj-imp-trash-elements {
 	position: absolute;
 	right: 1%;
-	top: 35%;
+	top: 25%;
 	width: 220px;
 	height: 50px;
 	.trash-label {
 		display: block;
 		border-radius: 0;
 		padding: 1px 0 0;
+		cursor: move;
 		span {
 			background: @dark-blue;
 			font-size: 1.5em;
@@ -1919,6 +1920,7 @@ a {
 			font-weight: 300;
 			padding-left: 28px;
 			position: relative;
+			color: @dash-grey;
 			.bicon {
 				font-size: 1.6em;
 			    left: 7px;
@@ -1954,6 +1956,17 @@ a {
 				    	border-bottom: 1px dotted @preview-grey;
 				    	color: @preview-grey;
 				    	margin: 0 0 0.3em;
+				    	padding: 0 0 0.2em;
+				    	.bicon {
+				    		background: #fff;
+				    		color: @dash-grey;
+				    		min-width: 18px;
+				    		min-height: 18px;
+				    		padding: 1px;
+				    		text-align: center;
+				    		display: inline-block;
+				    		border-radius: 1px;
+				    	}
 				    }
 				    .trash-elem-content {
 				    	font-size: 0.8em;
@@ -1967,6 +1980,11 @@ a {
 					a {
 						color: #fff;
 						background: rgba(0, 0, 0, 0);
+						.trash-elem-header {
+							.bicon {
+								color: @orange;
+							}
+						}
 					}
 				}
 				&.ui-draggable-dragging {

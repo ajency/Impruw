@@ -1791,7 +1791,7 @@ a:focus {
 .aj-imp-trash-elements {
   position: absolute;
   right: 1%;
-  top: 35%;
+  top: 25%;
   width: 220px;
   height: 50px;
 }
@@ -1799,6 +1799,7 @@ a:focus {
   display: block;
   border-radius: 0;
   padding: 1px 0 0;
+  cursor: move;
 }
 .aj-imp-trash-elements .trash-label span {
   background: #29333f;
@@ -1817,6 +1818,7 @@ a:focus {
   font-weight: 300;
   padding-left: 28px;
   position: relative;
+  color: #aaaaaa;
 }
 .aj-imp-trash-elements .aj-imp-drag-menu .trash-elem-link .bicon {
   font-size: 1.6em;
@@ -1855,6 +1857,17 @@ a:focus {
   border-bottom: 1px dotted #f3f3f3;
   color: #f3f3f3;
   margin: 0 0 0.3em;
+  padding: 0 0 0.2em;
+}
+.aj-imp-trash-elements .aj-imp-drag-menu .trash-list .trash-elem a .trash-elem-header .bicon {
+  background: #fff;
+  color: #aaaaaa;
+  min-width: 18px;
+  min-height: 18px;
+  padding: 1px;
+  text-align: center;
+  display: inline-block;
+  border-radius: 1px;
 }
 .aj-imp-trash-elements .aj-imp-drag-menu .trash-list .trash-elem a .trash-elem-content {
   font-size: 0.8em;
@@ -1870,6 +1883,10 @@ a:focus {
 .aj-imp-trash-elements .aj-imp-drag-menu .trash-list .trash-elem:focus a {
   color: #fff;
   background: rgba(0, 0, 0, 0);
+}
+.aj-imp-trash-elements .aj-imp-drag-menu .trash-list .trash-elem:hover a .trash-elem-header .bicon,
+.aj-imp-trash-elements .aj-imp-drag-menu .trash-list .trash-elem:focus a .trash-elem-header .bicon {
+  color: #ff7e00;
 }
 .aj-imp-trash-elements .aj-imp-drag-menu .trash-list .trash-elem.ui-draggable-dragging {
   background: transparent;

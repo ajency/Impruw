@@ -71,16 +71,8 @@ define ['jquery', 'underscore','jqueryvalidate'], ($, _)->
 	#adjust the page size and dimensions on resize
 	$(window).resize adjustPageDim
 
-	FloatMenu = ()->
-		menuPosition = $("#fl_menu").position().top
-		scrollAmount = $(document).scrollTop()
-		newPosition = menuPosition + scrollAmount
-		if $(window).height() < $fl_menu.height() + $fl_menu_menu.height()
-			$fl_menu.css "top", menuPosition
-		else
-			$fl_menu.stop().animate top: newPosition , $float_speed, $float_easing
 
-
+	#Float Menu
 	$float_speed = 1500
 
 	$float_easing = "easeOutQuint"
@@ -95,6 +87,8 @@ define ['jquery', 'underscore','jqueryvalidate'], ($, _)->
 
 	$fl_menu_label = $ "#fl_menu .label"
 
+	menuPosition = $("#fl_menu").position().top
+
 	$(window).load ->
 		menuPosition = $("#fl_menu").position().top
 		FloatMenu()
@@ -107,3 +101,11 @@ define ['jquery', 'underscore','jqueryvalidate'], ($, _)->
 
 	$(window).scroll ->
 		FloatMenu()
+
+	FloatMenu = ()->
+		scrollAmount = $(document).scrollTop()
+		newPosition = menuPosition + scrollAmount
+		if $(window).height() < $fl_menu.height() + $fl_menu_menu.height()
+			$fl_menu.css "top", menuPosition
+		else
+			$fl_menu.stop().animate top: newPosition , $float_speed, $float_easing

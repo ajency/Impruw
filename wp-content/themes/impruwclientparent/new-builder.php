@@ -86,7 +86,7 @@
     <div id="fl_menu" class="aj-imp-trash-elements">
         <div class="label trash-label clearfix"><span>Unused Elements</span></div>
         <div class="menu aj-imp-drag-menu">
-            <p class="desc move-cursor">
+            <p class="desc">
               These are your unused or deleted elements, you can drag them back into your site, or clear them all.
             </p>
             <a href="#" class="trash-elem-link"><span class="bicon icon-uniF16F"></span> Clear Elements</a>
