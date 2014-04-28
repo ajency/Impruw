@@ -147,7 +147,7 @@ get_header();
                         <div class="form-group">
                             <label for="checkbox2" class="checkbox">
                                 <input type="checkbox" data-toggle="checkbox"  id="checkbox2" name="checkbox2"  value="1"   required  class="parsley-validated parsley-error"   parsley-trigger="blur" parsley-validation-minlength="0">
-                                <?php echo __('By signing up you agree to our terms of use.', 'impruwmain'); ?>
+                                <?php echo __('By signing up you agree to our terms of service.', 'impruwmain'); ?>
                                 <div class="p-messages"></div> 
                             </label>
                         </div>

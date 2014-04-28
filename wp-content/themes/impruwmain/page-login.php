@@ -34,26 +34,31 @@ get_header();
                 <div class="form-group">
                     <label for="inputPass" class="col-sm-3 control-label"><?php echo __('Password', 'impruwmain'); ?></label>
                     <div class="col-sm-7 col-sm-offset-3">
-
                         <input type="password" class="form-control  parsley-validated parsley-error" id="inputPass"  name="inputPass" placeholder="Password"    parsley-required="true"     parsley-trigger="blur" parsley-validation-minlength="0"    parsley-required-message="<?php echo __('Please Enter Password', 'impruwmain'); ?>" />
                         <div class="p-messages"></div>
-
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-sm-offset-3 col-sm-7">
-                        <div class="form-group">
-                            <button type="button" id="btn_login" name="btn_login" class="btn btn-wide aj-imp-submit"><?php echo __('Sign in', 'impruwmain'); ?></button>
-                            <img id="login_loader" src="<?php echo site_url() . "/wp-content/themes/impruwmain/images/loader.gif"; ?>" width="38" height="30"  style="display:none;"/>
+                <div class="form-group">
+                    <div class="col-sm-7 col-sm-offset-3">
+                        <div style="text-align: right;">
                             <a href="#" class="aj-imp-log-forgot"><?php echo __('Forgot your password?', 'impruwmain'); ?></a>
                         </div>
+                        
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-offset-3 col-sm-7">
-                        <div class="form-group">
-                            <?php echo __('Dont have an account?', 'impruwmain'); ?> <a href="<?php echo site_url('register/'); ?>"><?php echo __('Sign Up', 'impruwmain'); ?></a>
-                        </div>
+                        <button type="button" id="btn_login" name="btn_login" class="btn btn-wide aj-imp-submit"><?php echo __('Sign in', 'impruwmain'); ?></button>
+                        <img id="login_loader" src="<?php echo site_url() . "/wp-content/themes/impruwmain/images/loader.gif"; ?>" width="38" height="30"  style="display:none;"/>
+                        <label for="checkbox3" class="checkbox keep-log">
+                            <input type="checkbox" data-toggle="checkbox"  id="checkbox3" name="checkbox3"  value="1">
+                            <?php echo __('Keep me logged in.', 'impruwmain'); ?>
+                        </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-offset-3 col-sm-7" style="margin-top: 1em;">
+                        <?php echo __('Dont have an account?', 'impruwmain'); ?> <a href="<?php echo site_url('register/'); ?>"><?php echo __('Sign Up!', 'impruwmain'); ?></a>
                     </div>
                 </div>
             </form>
