@@ -20,7 +20,7 @@ define ['jquery', 'underscore','jqueryvalidate'], ($, _)->
 		ignore: []
 		errorElement : 'div'
 		errorClass : 'field-error'
-		validClass : 'field-valid'
+		validClass : 'field-valid' 
 
 	$.fn.center = (parent) ->
 		if parent

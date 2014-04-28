@@ -14,3 +14,70 @@
 @primary2: (@primary1 + #222);
 @secondary2: (@secondary1 + #333);
 @tertiary1: #e1e1e1;
+
+@white: #FFFFFF;
+@black: #000;
+
+//== Padding, Margins, etc
+//
+
+@regular: 0.5em;
+@medium: 1em;
+@large: 1.5em;
+
+//## For use across Sites.
+.padding-top (@string: @regular 0 0) {
+	padding: @string;
+}
+
+.padding-bottom (@string: 0 0 @regular) {
+	padding: @string;
+}
+
+.padding-left (@string: @regular) {
+	padding-left: @string;
+}
+
+.padding-right (@string: @regular) {
+	padding-right: @string;
+}
+
+.padding-full (@string: @regular) {
+	padding: @string;
+}
+
+.padding-sides (@string: 0 @regular) {
+	padding: @string;
+}
+
+.padding-top-bot (@string: @regular 0) {
+	padding: @string;
+}
+
+.margin-top (@string: @regular 0 0) {
+	margin: @string;
+}
+
+.margin-bottom (@string: 0 0 @regular) {
+	margin: @string;
+}
+
+.margin-left (@string: @regular) {
+	margin-left: @string;
+}
+
+.margin-right (@string: @regular) {
+	margin-right: @string;
+}
+
+.margin-full (@string: @regular) {
+	margin: @string;
+}
+
+.margin-sides (@string: 0 @regular) {
+	margin: @string;
+}
+
+.margin-top-bot (@string: @regular 0) {
+	margin: @string;
+}
