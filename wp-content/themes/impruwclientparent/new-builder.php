@@ -84,7 +84,7 @@
     
     <!-- Unused Elements Box -->
     <div id="fl_menu" class="aj-imp-trash-elements">
-        <div class="label trash-label clearfix"><span>Unused Elements</span></div>
+        <div class="label trash-label clearfix"><span><span class="glyphicon glyphicon-trash"></span> Unused Elements</span></div>
         <div class="menu aj-imp-drag-menu">
             <p class="desc">
               These are your unused or deleted elements, you can drag them back into your site, or clear them all.

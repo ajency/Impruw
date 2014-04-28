@@ -1903,7 +1903,7 @@ a {
 		border-radius: 0;
 		padding: 1px 0 0;
 		cursor: move;
-		span {
+		> span {
 			background: @dark-blue;
 			font-size: 1.5em;
 			color: #fff;
@@ -1994,6 +1994,13 @@ a {
 						background: rgba(0, 0, 0, 0.8);
 					}
 				}
+			}
+		}
+	}
+	&:hover {
+		.trash-label {
+			> span {
+				color: @dash-grey;
 			}
 		}
 	}
