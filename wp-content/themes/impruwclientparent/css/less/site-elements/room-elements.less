@@ -5,7 +5,7 @@
 
 /****Room Tariff Styles****/
 .room-tariff-container {
-	background: #fff;
+	background: @white;
 	padding: 0.5em;
 	position: relative;
 	.room-tariff-title {
@@ -46,7 +46,7 @@
 				font-weight: 300;
 				position: absolute;
 				width: 80px;
-				background: #fff;
+				background: @white;
 				max-width: 80px;
 				padding-right: 10px;
 				min-height: 150px;
@@ -80,7 +80,7 @@
 							padding: 0.5em;
 							display: none;
 							h6 {
-								color: #fff;
+								color: @white;
 								font-size: 1.1em;
 							}
 							.package-desc {
@@ -276,7 +276,7 @@
 		}
 	}
 	.room-summary {
-		background: #fff;
+		background: @white;
 		padding: 1em 0.5em 0.5em;
 		.room-summary-item {
 			display: inline-block;
@@ -315,7 +315,7 @@
 
 /****Room Title Styles****/
 .room-title-container {
-	background: #fff;
+	background: @white;
 	padding: 0.5em;
 	position: relative;
 	margin: 0 0 1em;
@@ -337,7 +337,7 @@
 		margin: 0.5em 0;
 		.btn-book {
 			background: @primary1;
-			color: #fff;
+			color: @white;
 			&:hover {
 				background: lighten(@primary1, 10%);
 			}
@@ -356,7 +356,7 @@
 		font-weight: 300;
 	}
 	.room-description-desc {
-		background: #fff;
+		background: @white;
 		padding: 1em 0.5em 0.5em;
 		color: lighten(@secondary1, 20%);
 	}
@@ -395,7 +395,7 @@
 		}
 		.btn-room {
 			background: @primary1;
-			color: #fff;
+			color: @white;
 			&:hover {
 				background: lighten(@primary1, 20%);
 			}
@@ -412,7 +412,7 @@
 .daterange-legends{
 	text-transform:uppercase;
 	font-size:0.9em;
-	color:#fff;
+	color:@white;
 	li{
 			span{
 			width: 13px;
@@ -454,7 +454,7 @@
 			min-height: 590px;
 			.date-range{
 				font-size:1.3em;
-				color:#fff;
+				color:@white;
 				margin-bottom: 10%;
 				b {
 					font-size: 1.5em;
@@ -468,7 +468,7 @@
 				}
 			}
 			.room-booking-plan {
-				color: #fff;
+				color: @white;
 				border-bottom: 1px dashed #280E0E;
 				padding-bottom: 5%;
 				margin-bottom: 5%;
@@ -498,7 +498,7 @@
 					font-weight:600;
 					font-size:1.0em;
 					text-transform:uppercase;
-					color:#fff;
+					color:@white;
 					
 				}
 				.booking-price{
@@ -520,13 +520,13 @@
 			h4{
 				font-weight: 600;
 				font-size: 1.5em;
-				color: #fff;
+				color: @white;
 				text-transform: uppercase;
 				margin-bottom: 30px;
 				margin-top: 30px;
 				.glyphicon {
 					font-size: 1.5em;
-					color: #fff;
+					color: @white;
 					float: left;
 					margin-right: 1%;
 				}
@@ -546,12 +546,12 @@
 									width: 48%;
 									margin-right: 12px;
 										.ui-datepicker-calendar{
-											background:#fff;
+											background:@white;
 											width:100%;
 											th{
 												background:lighten(@primary1, 40%);
 												text-transform:uppercase;
-												color:#fff;
+												color:@white;
 												font-weight: 300;
 												font-size: 12px;
 											}
@@ -620,7 +620,7 @@
 								.booking-red{
 						background:#f97d61;
 						a{
-							color:#fff;
+							color:@white;
 							&:hover{
 								background:#f97d61;
 							}
@@ -630,7 +630,7 @@
 					.booking-orange{
 					background:#ffd200;
 						a{
-							color:#fff;
+							color:@white;
 							&:hover{
 								background:#ffd200;
 							}
@@ -640,7 +640,7 @@
 						.booking-blue{
 					background:#5fd7fe;
 						a{
-							color:#fff;
+							color:@white;
 							&:hover{
 							background:#5fd7fe;
 							}
@@ -650,7 +650,7 @@
 						.booking-green{
 					background:#84e72f;
 						a{
-							color:#fff;
+							color:@white;
 							&:hover{
 							background:#84e72f;
 						}
@@ -660,7 +660,7 @@
 						.booking-pink{
 					background:#fea5a5;
 						a{
-							color:#fff;
+							color:@white;
 							&:hover{
 								background:#fea5a5;
 							}
@@ -671,7 +671,7 @@
 					.ui-datepicker td.unavailabile {
 										a{
 											text-decoration:line-through;
-											color:#000 !important;
+											color:@black !important;
 										}
 									}
 									.ui-datepicker td.semi-availabile {
@@ -703,7 +703,7 @@
 .ui-datepicker td.unavailabile {
 	a {
 		text-decoration:line-through;
-		color:#000 !important;
+		color:@black !important;
 	}
 }
 .ui-datepicker td.semi-availabile {
@@ -731,7 +731,7 @@
 
 /*Room tariff*/
 .room-tariff-container {
-	background: #fff;
+	background: @white;
 	padding: 0.5em;
 	position: relative;
 	.room-tariff-title {
@@ -750,9 +750,9 @@
 		right: 0.5em;
 		display: none;
 		.btn-add-plan {
-			background: @dark-grey;
+			background: @secondary1;
 			&:hover {
-				background: lighten(@dark-grey, 10%);
+				background: lighten(@secondary1, 10%);
 			}
 		}
 		@media(max-width:767px){
@@ -896,7 +896,7 @@
 		-webkit-transform: rotate(90deg);
 		transform: rotate(90deg);
 		line-height: 29px;
-		color: #fff;
+		color: @white;
 		&.right {
 			-ms-transform: rotate(90deg);
 			-webkit-transform: rotate(90deg);
