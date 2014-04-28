@@ -23,14 +23,14 @@ define ['jquery', 'underscore','jqueryvalidate'], ($, _)->
 		validClass : 'field-valid'
 
 	$.fn.center = (parent) ->
-	  	if parent
-	    	parent = @parent()
-	  	else
-	    	parent = window
-	  	@css
-	    	position: "fixed"
-	    	top: ((($(parent).height() - @outerHeight()) / 2) + $(parent).scrollTop() + "px")
-	    	left: ((($(parent).width() - @outerWidth()) / 2) + $(parent).scrollLeft() + "px")
+		if parent
+			parent = @parent()
+		else
+			parent = window
+		@css
+			position: "fixed"
+			top: ((($(parent).height() - @outerHeight()) / 2) + $(parent).scrollTop() + "px")
+			left: ((($(parent).width() - @outerWidth()) / 2) + $(parent).scrollLeft() + "px")
 		this
 
 
@@ -71,10 +71,39 @@ define ['jquery', 'underscore','jqueryvalidate'], ($, _)->
 	#adjust the page size and dimensions on resize
 	$(window).resize adjustPageDim
 
-	# # Setup Polyglot
-	# window.pt = new Polyglot
-	# 					phrases : {}
+	FloatMenu = ()->
+		menuPosition = $("#fl_menu").position().top
+		scrollAmount = $(document).scrollTop()
+		newPosition = menuPosition + scrollAmount
+		if $(window).height() < $fl_menu.height() + $fl_menu_menu.height()
+			$fl_menu.css "top", menuPosition
+		else
+			$fl_menu.stop().animate top: newPosition , $float_speed, $float_easing
 
-	# window.__ = (key, opt = {})->
 
-	# 	pt.t(key, opt)
+	$float_speed = 1500
+
+	$float_easing = "easeOutQuint"
+
+	$menu_fade_speed = 500
+
+	$closed_menu_opacity = 0.75
+
+	$fl_menu = $ "#fl_menu"
+
+	$fl_menu_menu = $ "#fl_menu .menu"
+
+	$fl_menu_label = $ "#fl_menu .label"
+
+	$(window).load ->
+		menuPosition = $("#fl_menu").position().top
+		FloatMenu()
+		$fl_menu.hover ->
+			$fl_menu_label.fadeTo $menu_fade_speed, 1
+			$fl_menu_menu.fadeIn $menu_fade_speed
+		,->
+			$fl_menu_label.fadeTo $menu_fade_speed, $closed_menu_opacity
+			$fl_menu_menu.fadeOut $menu_fade_speed
+
+	$(window).scroll ->
+		FloatMenu()

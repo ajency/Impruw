@@ -32,6 +32,13 @@
     <link href="<?php echo get_template_directory_uri(); ?>/css/slimmenu.min.css" rel="stylesheet" media="screen"/>
     <link href="<?php echo get_template_directory_uri(); ?>/css/theme-style.css" rel="stylesheet" media="screen"/>
     <link href="<?php echo get_parent_template_directory_uri(); ?>/css/pace.css" rel="stylesheet" media="screen"/>
+    <style type="text/css">
+    #fl_menu{position:absolute; top:50px; left:0px; z-index:9999; width:150px; height:50px;}
+#fl_menu .label{padding-left:20px; line-height:50px; font-family:"Arial Black", Arial, Helvetica, sans-serif; font-size:14px; font-weight:bold; background:#000; color:#fff; letter-spacing:7px;}
+#fl_menu .menu{display:none;}
+#fl_menu .menu .menu_item{display:block; background:#000; color:#bbb; border-top:1px solid #333; padding:10px 20px; font-family:Arial, Helvetica, sans-serif; font-size:12px; text-decoration:none;}
+#fl_menu .menu a.menu_item:hover{background:#333; color:#fff;}
+</style>
 </head>
 <body <?php body_class(); ?>>
      <div id="choose-theme-region"></div>
@@ -81,6 +88,19 @@
             });
         });
     </script> -->
+    <div id="fl_menu">
+    <div class="label">MENU</div>
+    <div class="menu">
+        <a href="#" class="menu_item">An menu item</a>
+        <a href="#" class="menu_item">A long menu item</a>
+        <a href="#" class="menu_item">Item 3</a>
+        <a href="#" class="menu_item">Another one</a>
+        <a href="#" class="menu_item">A really, really long menu item</a>
+        <a href="#" class="menu_item">Menu item 6</a>
+        <a href="#" class="menu_item">And one more</a>
+        <a href="#" class="menu_item">A tiny</a>
+    </div>
+</div>
 
     <!-- Unused Elements Box -->
     <div id="aj-imp-trash-elements">

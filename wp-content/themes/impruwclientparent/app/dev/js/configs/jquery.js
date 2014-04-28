@@ -1,5 +1,5 @@
 define(['jquery', 'underscore', 'jqueryvalidate'], function($, _) {
-  var adjustPageDim;
+  var $closed_menu_opacity, $fl_menu, $fl_menu_label, $fl_menu_menu, $float_easing, $float_speed, $menu_fade_speed, FloatMenu, adjustPageDim;
   $.fn.isEmptyColumn = function(params) {
     if (params == null) {
       params = {};
@@ -31,13 +31,13 @@ define(['jquery', 'underscore', 'jqueryvalidate'], function($, _) {
     } else {
       parent = window;
     }
-    return this.css({
+    this.css({
       position: "fixed",
       top: (($(parent).height() - this.outerHeight()) / 2) + $(parent).scrollTop() + "px",
       left: (($(parent).width() - this.outerWidth()) / 2) + $(parent).scrollLeft() + "px"
     });
+    return this;
   };
-  this;
   $.scrollTop = function() {
     return $('html, body').animate({
       scrollTop: 0
@@ -60,46 +60,40 @@ define(['jquery', 'underscore', 'jqueryvalidate'], function($, _) {
   $(document).ready(function() {
     return adjustPageDim();
   });
-  return $(window).resize(adjustPageDim);
-
-  /**** Float Menu Script ****/
-  //config
-  $float_speed=1500; //milliseconds
-  $float_easing="easeOutQuint";
-  $menu_fade_speed=500; //milliseconds
-  $closed_menu_opacity=0.75;
-   
-  //cache vars
-  $fl_menu = $("#aj-imp-trash-elements");
-  $fl_menu_menu = $("#aj-imp-trash-elements .aj-imp-drag-menu");
-  $fl_menu_label = $("#aj-imp-trash-elements .trash-label");
-   
+  $(window).resize(adjustPageDim);
+  FloatMenu = function() {
+    var menuPosition, newPosition, scrollAmount;
+    menuPosition = $("#fl_menu").position().top;
+    scrollAmount = $(document).scrollTop();
+    newPosition = menuPosition + scrollAmount;
+    if ($(window).height() < $fl_menu.height() + $fl_menu_menu.height()) {
+      return $fl_menu.css("top", menuPosition);
+    } else {
+      return $fl_menu.stop().animate({
+        top: newPosition
+      }, $float_speed, $float_easing);
+    }
+  };
+  $float_speed = 1500;
+  $float_easing = "easeOutQuint";
+  $menu_fade_speed = 500;
+  $closed_menu_opacity = 0.75;
+  $fl_menu = $("#fl_menu");
+  $fl_menu_menu = $("#fl_menu .menu");
+  $fl_menu_label = $("#fl_menu .label");
   $(window).load(function() {
-      menuPosition=$('#fl_menu').position().top;
-      FloatMenu();
-      $fl_menu.hover(
-          function(){ //mouse over
-              $fl_menu_label.fadeTo($menu_fade_speed, 1);
-              $fl_menu_menu.fadeIn($menu_fade_speed);
-          },
-          function(){ //mouse out
-              $fl_menu_label.fadeTo($menu_fade_speed, $closed_menu_opacity);
-              $fl_menu_menu.fadeOut($menu_fade_speed);
-          }
-      );
+    var menuPosition;
+    menuPosition = $("#fl_menu").position().top;
+    FloatMenu();
+    return $fl_menu.hover(function() {
+      $fl_menu_label.fadeTo($menu_fade_speed, 1);
+      return $fl_menu_menu.fadeIn($menu_fade_speed);
+    }, function() {
+      $fl_menu_label.fadeTo($menu_fade_speed, $closed_menu_opacity);
+      return $fl_menu_menu.fadeOut($menu_fade_speed);
+    });
   });
-   
-  $(window).scroll(function () {
-      FloatMenu();
+  return $(window).scroll(function() {
+    return FloatMenu();
   });
-   
-  function FloatMenu(){
-      var scrollAmount=$(document).scrollTop();
-      var newPosition=menuPosition+scrollAmount;
-      if($(window).height()<$fl_menu.height()+$fl_menu_menu.height()){
-          $fl_menu.css("top",menuPosition);
-      } else {
-          $fl_menu.stop().animate({top: newPosition}, $float_speed, $float_easing);
-      }
-  }
 });
