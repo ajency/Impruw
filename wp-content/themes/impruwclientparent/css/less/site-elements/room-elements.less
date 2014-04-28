@@ -6,7 +6,7 @@
 /****Room Tariff Styles****/
 .room-tariff-container {
 	background: @white;
-	padding: 0.5em;
+	padding: @regular;
 	position: relative;
 	.room-tariff-title {
 		h4 {
@@ -74,10 +74,10 @@
 						min-width: 200px;
 						max-width: 200px;
 						white-space: normal;
-						margin-right: 0.5em;
+						margin-right: @regular;
 						.package-header {
 							background: @primary1;
-							padding: 0.5em;
+							padding: @regular;
 							display: none;
 							h6 {
 								color: @white;
@@ -91,7 +91,7 @@
 						.block {
 							background: darken(@tertiary1, 10%);
 							border-left: 5px solid  darken(@tertiary1, 20%);
-							padding: 0.5em;
+							padding: @regular;
 							h6 {
 								margin: 0 0 0.2em;
 								font-weight: 400;
@@ -168,8 +168,8 @@
 			overflow-x: visible;
 			.tariff {
 				border-left: 2px solid lighten(@secondary1, 40%);
-				padding-left: 0.5em;
-				margin: 0 0 1em;
+				padding-left: @regular;
+				margin: 0 0 @medium;
 				.date-range {
 					position: static;
 					width: 100%;
@@ -217,7 +217,7 @@
 /****Room Facilities Styles****/
 .room-facilities-container {
 	background: darken(@tertiary1, 10%);
-	padding: 0.5em;
+	padding: @regular;
 	.room-facilities-title {
 		h5 {
 			font-size: 1.5em;
@@ -230,14 +230,14 @@
 		}
 	}
 	.facilities {
-		margin: 1em 0 0.5em;
+		margin: @medium 0 @regular;
 		padding: 0;
 		list-style: none;
 		li {
 			font-size: 1.1em;
 			color: lighten(@secondary1, 20%);
 			font-weight: 300;
-			margin: 0 0 0.5em;
+			margin: 0 0 @regular;
 			display: block;
 			width: 30%;
 			float: left;
@@ -277,11 +277,11 @@
 	}
 	.room-summary {
 		background: @white;
-		padding: 1em 0.5em 0.5em;
+		padding: @medium @regular @regular;
 		.room-summary-item {
 			display: inline-block;
 			border-bottom: 1px solid lighten(@secondary1, 40%);
-			margin: 0 1em 1em 0;
+			margin: 0 @medium @medium 0;
 			span {
 				display: inline-block;
 				font-size: 1.1em;
@@ -300,10 +300,10 @@
 		}
 		.room-summary-desc {
 			color: lighten(@secondary1, 20%);
-			margin: 1em 0 0;
+			margin: @medium 0 0;
 			.btn-book {
 				display: block;
-				margin: 0.5em 0;
+				margin: @regular 0;
 				background: @primary1;
 				&:hover {
 					background: lighten(@primary1, 10%);
@@ -316,9 +316,9 @@
 /****Room Title Styles****/
 .room-title-container {
 	background: @white;
-	padding: 0.5em;
+	padding: @regular;
 	position: relative;
-	margin: 0 0 1em;
+	margin: 0 0 @medium;
 	.room-title {
 		h1 {
 			font-size: 2.5em;
@@ -334,7 +334,7 @@
 		position: absolute;
 		top: 0.5em;
 		right: 0.5em;
-		margin: 0.5em 0;
+		margin: @regular 0;
 		.btn-book {
 			background: @primary1;
 			color: @white;
@@ -350,14 +350,14 @@
 
 /****Room description Styles****/
 .room-description-container {
-	margin: 0 0 1em;
+	margin: 0 0 @medium;
 	h1 {
 		font-size: 1.5em;
 		font-weight: 300;
 	}
 	.room-description-desc {
 		background: @white;
-		padding: 1em 0.5em 0.5em;
+		padding: @medium @regular @regular;
 		color: lighten(@secondary1, 20%);
 	}
 }
@@ -365,7 +365,7 @@
 /****Room List Summary Styles****/
 .roomsummary {
 	.clearfix;
-	margin: 0 0 1em;
+	margin: 0 0 @medium;
 	.room-img {
 		max-height: 240px;
 		overflow: hidden;
@@ -374,12 +374,12 @@
 		font-size: 1.6em;
 		color: @primary1;
 		font-weight: 400;
-		margin: 0.5em 0;
+		margin: @regular 0;
 	}
 	.room-excerpt {
 		color: darken(@secondary1, 20%);
-		padding-bottom: 0.5em;
-		margin-bottom: 0.5em;
+		padding-bottom: @regular;
+		margin-bottom: @regular;
 		border-bottom: 1px dotted @secondary1;
 	}
 	.room-actions {
@@ -414,7 +414,7 @@
 	font-size:0.9em;
 	color:@white;
 	li{
-			span{
+		span{
 			width: 13px;
 			height: 13px;
 			display: inline-block;
@@ -450,7 +450,7 @@
 		background: lighten(@primary1, 20%);
 		.room-booking-data{
 			background: @primary1;
-			padding-top:1em;
+			padding-top:@medium;
 			min-height: 590px;
 			.date-range{
 				font-size:1.3em;
@@ -732,7 +732,7 @@
 /*Room tariff*/
 .room-tariff-container {
 	background: @white;
-	padding: 0.5em;
+	padding: @regular;
 	position: relative;
 	.room-tariff-title {
 		h4 {
@@ -778,12 +778,12 @@
 /****Room Gallery Styles****/
 .isotope {
 	padding: 0;
-	margin: 0 0 1em;
+	margin: 0 0 @medium;
 	list-style: none;
 }
 
 .gallery {
-	margin: 0 0 1em;
+	margin: 0 0 @medium;
 	padding: 0;
 	list-style: none;
 }

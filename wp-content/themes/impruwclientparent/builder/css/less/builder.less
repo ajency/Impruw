@@ -1892,15 +1892,23 @@ a {
 }
 
 /**** Unused Elements Styles ****/
-#aj-imp-trash-elements {
+.aj-imp-trash-elements {
 	position: absolute;
 	right: 1%;
 	top: 35%;
-	width: 100px;
+	width: 220px;
 	height: 50px;
 	.trash-label {
-		background: @dark-blue;
-		color: #fff;
+		display: block;
+		border-radius: 0;
+		padding: 1px 0 0;
+		span {
+			background: @dark-blue;
+			font-size: 1.5em;
+			color: #fff;
+			padding: 0.5em;
+			float: right;
+		}
 	}
 	.aj-imp-drag-menu {
 		display: none;

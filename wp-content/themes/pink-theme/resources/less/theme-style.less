@@ -24,11 +24,11 @@
 	/****Selection Color****/
 	::selection {
 		background: @primary1; 
-		color: #fff;
+		color: @white;
 	}
 	::-moz-selection {
 		background: @primary1; 
-		color: #fff;
+		color: @white;
 	}
 
 	/****Link Styles****/
@@ -51,15 +51,15 @@
 		color: @primary1;
 		&.sub-title {
 			text-transform: uppercase;
-			color: darken(@grey, 50%);
+			color: darken(@secondary1, 50%);
 			font-weight: 300;
-			margin: 0.5em 0;
+			margin: @regular 0;
 		}
 	}
 
 	/****Logo Styles****/
 	.logo {
-		padding: 1em;
+		padding: @medium;
 		img {
 			margin: auto;
 		}
@@ -68,20 +68,20 @@
 	/****Responsive Logo Styles****/
 	#left-bar-open {
 		display: none;
-		background: @red;
-		margin-top: 0.5em;
+		background: @primary1;
+		margin-top: @regular;
 		border-radius: 5px;
 		padding: 1em;
 		max-height: 80px;
 		.clearfix;
 		.left-menu-trigger {
 			float: left;
-			padding: 0.5em;
+			padding: @regular;
 			font-size: 1.5em;
-			border: 1px solid darken(@red, 20%);
-			color: #fff;
-			background: darken(@red, 5%);
-			margin-right: 1em;
+			border: 1px solid darken(@primary1, 20%);
+			color: @white;
+			background: darken(@primary1, 5%);
+			margin-right: @medium;
 			border-radius: 4px;
 		}
 		.logo {

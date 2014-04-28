@@ -295,7 +295,7 @@ and open the template in the editor.
   color: #07669e;
 }
 .text {
-  color: #bfbfbf;
+  color: #989898;
 }
 .imagewithtext {
   *zoom: 1;
@@ -326,12 +326,12 @@ and open the template in the editor.
   margin-left: 0.5em;
 }
 .imagewithtext p {
-  color: #bfbfbf;
+  color: #989898;
 }
 /****Image With Text Styles****/
 .image {
   padding: 0.5em 0;
-  color: #bfbfbf;
+  color: #989898;
 }
 .image .info {
   color: #555555;
@@ -2024,7 +2024,7 @@ and open the template in the editor.
 .room-summary-container .room-summary .room-summary-item {
   display: inline-block;
   border-bottom: 1px solid #bbbbbb;
-  margin: 0 1em 1em 0;
+  margin: 0 1.5em 1.5em 0;
 }
 .room-summary-container .room-summary .room-summary-item span {
   display: inline-block;
@@ -2043,7 +2043,7 @@ and open the template in the editor.
 }
 .room-summary-container .room-summary .room-summary-desc {
   color: #888888;
-  margin: 1em 0 0;
+  margin: 1.5em 0 0;
 }
 .room-summary-container .room-summary .room-summary-desc .btn-book {
   display: block;
@@ -2211,7 +2211,7 @@ and open the template in the editor.
   font-weight: 300;
 }
 .room-booking .room-booking-container .room-booking-data .date-range .status {
-  font-size: 1.0em;
+  font-size: 1em;
   text-transform: uppercase;
   padding-top: 13px;
 }
