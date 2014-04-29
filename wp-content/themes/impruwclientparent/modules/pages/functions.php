@@ -67,18 +67,70 @@ function update_page_autosave($page_id, $page_json){
 
 function update_autosave_page_json($autosave_post_id, $page_json){
     
+    $meta_id = check_json_is_present($autosave_post_id);
+    if($meta_id !== 0){
+        update_autosave_page_json_db($meta_id, $page_json);
+    }
+    else{
+        insert_autosave_page_json($autosave_post_id, $page_json);
+    }
+    
+}
+/**
+ * 
+ * @param type $autosave_post_id
+ */
+function insert_autosave_page_json($autosave_post_id, $page_json){
     // serialize the json
     $json = maybe_serialize($page_json);
     
     global $wpdb;
     
-    $wpdb->insert($wpdb->postmeta, 
-                  array(
-                      ''
-                  )
-                );
+    $wpdb->insert($wpdb->postmeta,
+                array(
+                    'meta_key'  => 'page-json',
+                    'meta_value'=> $json,
+                    'post_id'   => $autosave_post_id
+                ));
+    
+    $wpdb->insert_id;
 }
 
+/**
+ * 
+ * @param type $autosave_post_id
+ */
+function update_autosave_page_json_db($meta_id,  $page_json){
+    // serialize the json
+    $json = maybe_serialize($page_json);
+    
+    global $wpdb;
+    
+    $wpdb->update($wpdb->postmeta,
+                array(
+                    'meta_key'  => 'page-json',
+                    'meta_value'=> $json
+                ),
+                array(
+                    'meta_id' => $meta_id
+                ));
+}
+
+/**
+ * 
+ * @global type $wpdb
+ * @return type
+ */
+function check_json_is_present($autosave_post_id){
+    
+    global $wpdb;
+    
+    $query = $wpdb->prepare("SELECT meta_id from {$wpdb->postmeta} WHERE post_id=%d AND meta_key=%s", $autosave_post_id, 'page-json');
+    
+    $meta_id = $wpdb->get_var($query);
+    
+    return is_null($meta_id) ? 0 : $meta_id;
+}
 /**
  * 
  * @param type $page_id

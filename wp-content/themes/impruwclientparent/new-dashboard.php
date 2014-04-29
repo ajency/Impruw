@@ -59,12 +59,11 @@
         var UPLOADURL 	= '<?php echo admin_url('async-upload.php'); ?>';
         var _WPNONCE 	= '<?php echo wp_create_nonce('media-form');?>'; 
         var APPSTATE 	= <?php echo impruw_app_model() ?>;
-        var STATISTICS  =   <?php echo get_option('statistics_enabled');?> 
+        var STATISTICS  =   '<?php echo get_option('statistics_enabled', 'no');?>'; 
 
-		/************************* Bootstrap Data *************************/
-		
-		var PLANS = <?php echo json_encode(get_plans()); ?>;
-		var DATERANGE = <?php echo json_encode(get_date_range()); ?>;
+        /************************* Bootstrap Data *************************/
+        var PLANS = <?php echo json_encode(get_plans()); ?>;
+        var DATERANGE = <?php echo json_encode(get_date_range()); ?>;
      </script>
     <script src="<?php echo get_parent_template_directory_uri() ?>/app/dev/js/plugins/pace.js"></script>
     <!--<script type="text/javascript">
