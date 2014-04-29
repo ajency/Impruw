@@ -88,6 +88,7 @@ function get_page_revision_by_meta_id($meta_id){
  * @param unknown $args
  * @return number
  */
+/*
 function add_page_revision($page_id){
 
 	global $wpdb;
@@ -107,7 +108,7 @@ function add_page_revision($page_id){
 	
 	return $data;
 }
-
+*/
 
 /**
  * cannot use add_post_meta() as it does not return the id of the added record
