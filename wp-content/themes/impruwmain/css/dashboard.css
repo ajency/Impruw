@@ -622,6 +622,36 @@ form .aj-imp-submit {
 form .aj-imp-submit:hover {
   background: #ff9833;
 }
+.select {
+  margin-bottom: 0;
+}
+.select .dropdown-toggle {
+  background: #fff;
+  color: #aaaaaa;
+  border-radius: 0 !important;
+  border: 0;
+  border-bottom: 1px solid #c3c3c3;
+}
+.select .dropdown-toggle .caret {
+  border-top-color: #aaaaaa;
+}
+.select .dropdown-menu {
+  min-height: inherit !important;
+}
+.select .dropdown-menu .selected a {
+  background: #ff7e00;
+}
+.select .dropdown-menu .selected a:hover {
+  background: #ffb266;
+}
+.select.open .dropdown-toggle {
+  background: #fff !important;
+  color: #ff7e00 !important;
+  border-color: #ff7e00;
+}
+.select.open .dropdown-toggle .caret {
+  border-top-color: #ff7e00;
+}
 /****Dropdown Menu Styles****/
 .dropdown-menu {
   border-radius: 0;
@@ -821,6 +851,17 @@ form .aj-imp-submit:hover {
 .keep-log {
   display: inline-block;
   margin-left: 1em;
+}
+@media (max-width: 979px) {
+  .keep-log {
+    margin: 1em 0 !important;
+  }
+}
+@media (max-width: 767px) {
+  .keep-log {
+    padding-left: 32px !important;
+    padding-bottom: 0 !important;
+  }
 }
 /****Register Page Styles****/
 .aj-imp-register-form {
@@ -1071,7 +1112,14 @@ form .aj-imp-submit:hover {
   padding: 0;
 }
 .aj-imp-login-form .aj-imp-login form .aj-imp-log-forgot {
-  margin-left: 1em;
+  font-size: 0.8em;
+  margin-top: 2em;
+  display: inline-block;
+}
+@media (max-width: 767px) {
+  .aj-imp-login-form .aj-imp-login form .aj-imp-log-forgot {
+    margin-top: 1em;
+  }
 }
 .aj-imp-login-form .aj-imp-login form .row {
   position: relative;
