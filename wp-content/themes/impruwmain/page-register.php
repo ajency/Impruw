@@ -144,34 +144,31 @@ get_header();
                 <!-- HneyPt -->
                 <div class="form-group margin-1">
                     <div class="col-sm-offset-3 col-sm-7">
-                        <div class="form-group">
-                            <label for="checkbox2" class="checkbox">
-                                <input type="checkbox" data-toggle="checkbox"  id="checkbox2" name="checkbox2"  value="1"   required  class="parsley-validated parsley-error"   parsley-trigger="blur" parsley-validation-minlength="0">
-                                <?php echo __('By signing up you agree to our terms of service.', 'impruwmain'); ?>
-                                <div class="p-messages"></div> 
-                            </label>
-                        </div>
+                        <label for="checkbox2" class="checkbox">
+                            <input type="checkbox" data-toggle="checkbox"  id="checkbox2" name="checkbox2"  value="1"   required  class="parsley-validated parsley-error"   parsley-trigger="blur" parsley-validation-minlength="0">
+                            <?php echo __('By signing up you agree to our terms of service.', 'impruwmain'); ?>
+                            <div class="p-messages"></div> 
+                        </label><br>
+                        <a href="<?php echo get_bloginfo('url'); ?>/terms-of-service/">Read our Terms of Service</a>
                     </div>
                 </div>
 
-                <div class="row" id="registration_status_div">
+                <!--    <div class="row" id="registration_status_div">
                     <div class="col-sm-offset-3 col-sm-7">
                         <div class="form-group">
-                        <!--	<span id="registration_status"></span>	-->	
+                        <span id="registration_status"></span>
                         </div>
                     </div>
-                </div>
+                </div>  --> 
 
 
 
                 <div class="row">
                     <div class="col-sm-offset-3 col-sm-7">
-                        <div class="form-group">
-                            <!--  <button type="submit" class="btn btn-wide aj-imp-submit">Start Creating!</button> --> 
-                            <button type="button" class="btn btn-wide aj-imp-submit" id="btn_create_site" name="btn_create"  ><?php echo __('Get started!', 'impruwmain'); ?></button> 
-                            <img id="registration_loader" src="<?php echo site_url() . "/wp-content/themes/impruwmain/images/loader.gif"; ?>" width="38" height="30"  style="display:none;"/>
-                            <input type="reset" style="display: none"/>
-                        </div>
+                        <!--  <button type="submit" class="btn btn-wide aj-imp-submit">Start Creating!</button> --> 
+                        <button type="button" class="btn btn-wide aj-imp-submit" id="btn_create_site" name="btn_create"  ><?php echo __('Get started!', 'impruwmain'); ?></button> 
+                        <img id="registration_loader" src="<?php echo site_url() . "/wp-content/themes/impruwmain/images/loader.gif"; ?>" width="38" height="30"  style="display:none;"/>
+                        <input type="reset" style="display: none"/>
                     </div>
                 </div>
             </form>

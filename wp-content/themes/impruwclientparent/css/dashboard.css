@@ -822,6 +822,17 @@ form .aj-imp-submit:hover {
   display: inline-block;
   margin-left: 1em;
 }
+@media (max-width: 979px) {
+  .keep-log {
+    margin: 1em 0 !important;
+  }
+}
+@media (max-width: 767px) {
+  .keep-log {
+    padding-left: 32px !important;
+    padding-bottom: 0 !important;
+  }
+}
 /****Register Page Styles****/
 .aj-imp-register-form {
   width: 80%;
@@ -1071,7 +1082,14 @@ form .aj-imp-submit:hover {
   padding: 0;
 }
 .aj-imp-login-form .aj-imp-login form .aj-imp-log-forgot {
-  margin-left: 1em;
+  font-size: 0.8em;
+  margin-top: 2em;
+  display: inline-block;
+}
+@media (max-width: 767px) {
+  .aj-imp-login-form .aj-imp-login form .aj-imp-log-forgot {
+    margin-top: 1em;
+  }
 }
 .aj-imp-login-form .aj-imp-login form .row {
   position: relative;

@@ -568,6 +568,9 @@ form .aj-imp-submit:hover {
 .select .dropdown-toggle .caret {
   border-top-color: #aaaaaa;
 }
+.select .dropdown-menu {
+  min-height: inherit !important;
+}
 .select .dropdown-menu .selected a {
   background: #ff7e00;
 }
