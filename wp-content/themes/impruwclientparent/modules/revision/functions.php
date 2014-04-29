@@ -88,25 +88,25 @@ function get_page_revision_by_meta_id($meta_id){
  * @param unknown $args
  * @return number
  */
-function add_page_revision($page_id){
-
-	global $wpdb;
-	
-	//convert to int format
-	$page_id = (int)$page_id;
-	
-	$data = array(	'page_id' 			=> $page_id, 
-					'datetime' 			=> current_time('mysql'), 
-					'page_meta_id' 		=> get_last_page_json_meta_id($page_id));
-	
-	$table_name = $wpdb->prefix . 'revisions';
-	
-	$wpdb->insert($table_name, $data);
-	
-	$data['id'] = $wpdb->insert_id;
-	
-	return $data;
-}
+//function add_page_revision($page_id){
+//
+//	global $wpdb;
+//	
+//	//convert to int format
+//	$page_id = (int)$page_id;
+//	
+//	$data = array(	'page_id' 			=> $page_id, 
+//					'datetime' 			=> current_time('mysql'), 
+//					'page_meta_id' 		=> get_last_page_json_meta_id($page_id));
+//	
+//	$table_name = $wpdb->prefix . 'revisions';
+//	
+//	$wpdb->insert($table_name, $data);
+//	
+//	$data['id'] = $wpdb->insert_id;
+//	
+//	return $data;
+//}
 
 
 /**

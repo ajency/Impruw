@@ -203,7 +203,6 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
           },
           stop: function(e, ui) {
             window.dragging = false;
-            App.execute("auto:save");
           },
           handle: '.aj-imp-drag-handle',
           helper: 'clone',

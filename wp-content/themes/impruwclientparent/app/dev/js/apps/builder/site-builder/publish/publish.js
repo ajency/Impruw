@@ -39,8 +39,7 @@ define(['app'], function(App) {
         options.data = _.defaults(options.data, _sectionJson);
         window.SAVING = true;
         return $.ajax(options).done(function(response) {
-          window.SAVING = false;
-          return App.execute("revision:added", response);
+          return window.SAVING = false;
         }).fail(function(resp) {
           return window.SAVING = false;
         });

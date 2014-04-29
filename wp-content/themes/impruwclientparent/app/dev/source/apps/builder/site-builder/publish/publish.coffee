@@ -36,7 +36,6 @@ define ['app'], (App)->
 				window.SAVING = true
 				$.ajax( options ).done (response)->
 					window.SAVING = false
-					App.execute "revision:added", response
 				.fail (resp)->
 					window.SAVING = false
 

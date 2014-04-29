@@ -97,11 +97,10 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/show/vi
             }
           };
         })(this));
-        App.execute("reset:changed:sections");
-        return this.startAutoSaveRevisions();
+        return this.startAutoSave();
       };
 
-      BuilderController.prototype.startAutoSaveRevisions = function() {
+      BuilderController.prototype.startAutoSave = function() {
         if (window.autoSaveInterval) {
           clearInterval(window.autoSaveInterval);
         }
@@ -153,8 +152,7 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/show/vi
         });
         this.listenTo(layout, 'editable:page:changed', function(pageId) {
           $.cookie('current-page-id', pageId);
-          App.execute("editable:page:changed", pageId);
-          return App.execute("reset:changed:sections");
+          return App.execute("editable:page:changed", pageId);
         });
         this.listenTo(layout, "add:page:revisions", this.addPageRevisions);
         this.listenTo(layout, "revision:link:clicked", this.loadRevision);
