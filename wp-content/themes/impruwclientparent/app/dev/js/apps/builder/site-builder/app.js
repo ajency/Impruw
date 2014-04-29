@@ -1,4 +1,4 @@
-define(['app', 'apps/builder/site-builder/show/controller', 'apps/builder/site-builder/element/controller', 'apps/builder/site-builder/autosave/controller', 'apps/builder/site-builder/elements-loader'], function(App) {
+define(['app', 'apps/builder/site-builder/show/controller', 'apps/builder/site-builder/element/controller', 'apps/builder/site-builder/autosave/controller', 'apps/builder/site-builder/publish/publish', 'apps/builder/site-builder/elements-loader'], function(App) {
   return App.module('SiteBuilderApp', function(SiteBuilderApp, App, Backbone, Marionette, $, _) {
     var API;
     window.S = SiteBuilderApp;
@@ -25,13 +25,15 @@ define(['app', 'apps/builder/site-builder/show/controller', 'apps/builder/site-b
           }
         });
       },
-      autoSave: function(revision) {
+      autoSave: function() {
         var autoSave;
-        if (revision == null) {
-          revision = false;
-        }
         autoSave = new SiteBuilderApp.AutoSave.Controller;
-        return autoSave.autoSave(revision);
+        return autoSave.autoSave();
+      },
+      publish: function() {
+        var publishPage;
+        publishPage = new SiteBuilderApp.Publish.Controller;
+        return publishPage.publish();
       },
       isSectionModified: function(section) {
         return SiteBuilderApp[section];
@@ -55,7 +57,10 @@ define(['app', 'apps/builder/site-builder/show/controller', 'apps/builder/site-b
       return API.autoSave();
     });
     App.commands.setHandler("save:revision", function() {
-      return API.autoSave(true);
+      return API.autoSave();
+    });
+    App.commands.setHandler("publish:page", function() {
+      return API.publish();
     });
     App.reqres.setHandler("is:section:modified", function(section) {
       return API.isSectionModified(section);

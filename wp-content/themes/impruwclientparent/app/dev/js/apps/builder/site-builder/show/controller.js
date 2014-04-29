@@ -98,16 +98,16 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/show/vi
           };
         })(this));
         App.execute("reset:changed:sections");
-        return this.startSaveRevisions();
+        return this.startAutoSaveRevisions();
       };
 
-      BuilderController.prototype.startSaveRevisions = function() {
-        if (window.revisionInterval) {
-          clearInterval(window.revisionInterval);
+      BuilderController.prototype.startAutoSaveRevisions = function() {
+        if (window.autoSaveInterval) {
+          clearInterval(window.autoSaveInterval);
         }
-        return window.revisionInterval = setInterval(function() {
-          return App.execute("save:revision");
-        }, 40 * 1000);
+        return window.autoSaveInterval = setInterval(function() {
+          return App.execute("auto:save");
+        }, AUTOSAVEINTERVAL);
       };
 
       BuilderController.prototype.addNestedElements = function(container, element) {

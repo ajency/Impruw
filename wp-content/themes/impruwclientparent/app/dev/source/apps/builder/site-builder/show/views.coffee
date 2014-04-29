@@ -19,9 +19,9 @@ define ['app'
 						data
 
 					events : 
-						'click .auto-save' :(evt) -> 
+						'click .publish-page' :(evt) -> 
 								evt.preventDefault()
-								App.commands.execute "auto:save"
+								App.execute "publish:page"
 
 						'change select#builder-page-sel' : (evt)-> 
 							@trigger 'editable:page:changed', $(evt.target).val()
