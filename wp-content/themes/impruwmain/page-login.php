@@ -10,7 +10,7 @@ get_header();
         <div class="col-sm-12 aj-imp-login-header">
             <h1><?php echo __('Sign in', 'impruwmain'); ?>  <span><?php echo __('Impruw', 'impruwmain'); ?></span></h1>
             <p class="desc">
-                <?php echo __('Creating professional websites is really simple', 'impruwmain'); ?>
+                <?php echo __('To access your website first Sign in to Impruw', 'impruwmain'); ?>
             </p>
         </div>
     </div>
@@ -26,7 +26,7 @@ get_header();
                     <label for="inputEmail" class="col-sm-3 control-label"><?php echo __('Email', 'impruwmain'); ?></label>
                     <div class="col-sm-6 col-sm-offset-3">
 
-                        <input type="email" class="form-control  parsley-validated parsley-error" id="inputEmail"  name="inputEmail" placeholder="Email"    parsley-required="true"    parsley-trigger="blur"    parsley-validation-minlength="0"   parsley-type="email"   parsley-required-message="<?php echo __('Please Enter Email', 'impruwmain'); ?>" />
+                        <input type="email" class="form-control  parsley-validated parsley-error" id="inputEmail"  name="inputEmail" placeholder="Email ID you signed up with"    parsley-required="true"    parsley-trigger="blur"    parsley-validation-minlength="0"   parsley-type="email"   parsley-required-message="<?php echo __('A valid email address is required to sign in', 'impruwmain'); ?>" />
                         <div class="p-messages"></div>
 
                     </div>
@@ -34,7 +34,7 @@ get_header();
                 <div class="form-group">
                     <label for="inputPass" class="col-sm-3 control-label"><?php echo __('Password', 'impruwmain'); ?></label>
                     <div class="col-sm-6 col-sm-offset-3">
-                        <input type="password" class="form-control  parsley-validated parsley-error" id="inputPass"  name="inputPass" placeholder="Password"    parsley-required="true"     parsley-trigger="blur" parsley-validation-minlength="0"    parsley-required-message="<?php echo __('Please Enter Password', 'impruwmain'); ?>" />
+                        <input type="password" class="form-control  parsley-validated parsley-error" id="inputPass"  name="inputPass" placeholder="Password"    parsley-required="true"     parsley-trigger="blur" parsley-validation-minlength="0"    parsley-required-message="<?php echo __('You need to enter a password', 'impruwmain'); ?>" />
                         <div class="p-messages"></div>
                     </div>
                     <div class="col-sm-3">

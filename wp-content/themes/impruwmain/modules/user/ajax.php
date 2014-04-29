@@ -122,7 +122,7 @@ function user_login() {
 
 		$blog = get_active_blog_for_user( get_current_user_id() );
 		$blogUrl = $blog->siteurl; /* or $blog->path, together with $blog->siteurl */
-		$response = array( "code" => "OK", 'blog_url' => $blogUrl, 'msg'=>'User already logged in' );
+		$response = array( "code" => "OK", 'blog_url' => $blogUrl, 'msg'=>'Someone is already signed in. Try signing out from current account and signing in again.' );
 		wp_send_json( $response );
 	}
 
@@ -145,7 +145,7 @@ function user_login() {
 		$user = wp_authenticate( $user_->user_login, $pd_pass );
 
 		if ( is_wp_error( $user ) ) {
-			$msg = "Invalid email/password ";
+			$msg = "The email/password doesn't seem right. Check if your caps is on and try again.";
 			$response = array( 'code' => "FAILED", 'user' => $user_->user_login . $pd_pass, 'msg' => $msg );
 			wp_send_json( $response );
 		} else {
@@ -170,7 +170,7 @@ function user_login() {
 		}
 	}
 	else {
-		$msg = "Invalid email/password ";
+		$msg = "The email/password doesn't seem right. Check if your caps is on and try again.";
 		$response = array( 'code' => "FAILED",  'msg' => $msg );
 		wp_send_json( $response );
 	}

@@ -10,7 +10,7 @@ get_header();
         <div class="col-sm-12 aj-imp-register-header">
             <h1><?php echo __('Sign Up', 'impruwmain'); ?> <span><?php echo __('Impruw', 'impruwmain'); ?></span></h1>
             <p class="desc">
-                <?php echo __('Simplest way to create a website in minutes.', 'impruwmain');
+                <?php echo __('Sign up in 30 seconds. No credit card required. If you already have an Impruw account log in.', 'impruwmain');
                 ?>  
             </p>
         </div>
@@ -174,7 +174,7 @@ get_header();
             </form>
         </div>
         <div class="col-md-5 aj-imp-register-right">
-            <div class="aj-imp-reg-step">
+            <!--<div class="aj-imp-reg-step">
                 <p>
                     <?php echo __('Once you sign up along with your new Impruw account your website will also be created. Take the next step and activate your account using the activation link sent to your email address.', 'impruwmain'); ?>
                 </p>
@@ -186,11 +186,17 @@ get_header();
                     <br>
                     <a href="#"><?php echo __('Click here to resend activation mail', 'impruwmain'); ?></a>
                 </p>
-            </div>
+            </div>-->
             <div class="aj-imp-reg-step">
                 <h5><?php echo __('What happens next?', 'impruwmain'); ?></h5>
                 <p>
-                    <?php echo __('Once your account is activated you can use our site builder  to create a professional website in under 30 minutes. Choose template that suit your need, customize your site and even add additional functionality like social media, bookings, contact forms and more. ', 'impruwmain'); ?>
+                    <?php echo __('Once your account is activated you can use our site builder to create a professional website in under 30 minutes. Choose template that suit your need, customize your site and even add additional functionality like social media, bookings, contact forms and more.', 'impruwmain'); ?>
+                </p>
+                <p>
+                    <?php echo __('This is the place to be if you want to create your own free website, Impruw offers all the tools you need to make a web site today.', 'impruwmain'); ?>
+                </p>
+                <p>
+                    <?php echo __('Our website builder is easy to use and backed by comprehensive service (by real human beings, in some fancy place to boot) and a tutorial framework that will help you learn how to make a website.', 'impruwmain'); ?>
                 </p>
                 <h5><?php echo __('Still facing problems?', 'impruwmain'); ?></h5>
                 <p>
