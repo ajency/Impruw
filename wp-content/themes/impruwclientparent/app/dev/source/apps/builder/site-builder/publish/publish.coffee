@@ -1,18 +1,18 @@
 
 define ['app'], (App)->
 
-	App.module 'SiteBuilderApp.AutoSave', (AutoSave, App, Backbone, Marionette, $, _)->
+	App.module 'SiteBuilderApp.Publish', (Publish, App, Backbone, Marionette, $, _)->
 
 		window.SAVING = false
 
 		# Controller class for showing header resion
-		class AutoSave.Controller extends Marionette.Controller
+		class Publish.Controller extends Marionette.Controller
 
 			# initialize the controller. Get all required entities and show the view
 			initialize:(opt = {})->
 
 			# autoSave
-			autoSave:()->
+			publish:()->
 
 				return if window.SAVING is true
 
@@ -29,13 +29,14 @@ define ['app'], (App)->
 					type 	: 'POST'
 					url  	: AJAXURL
 					data 	:
-						action 	: 'auto-save'
+						action 	: 'publish-page'
 						page_id : _page_id
 						
 				options.data = _.defaults options.data, _sectionJson
 				window.SAVING = true
 				$.ajax( options ).done (response)->
 					window.SAVING = false
+					App.execute "revision:added", response
 				.fail (resp)->
 					window.SAVING = false
 

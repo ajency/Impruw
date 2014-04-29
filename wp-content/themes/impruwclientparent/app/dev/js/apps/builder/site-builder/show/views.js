@@ -30,9 +30,9 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
       };
 
       MainView.prototype.events = {
-        'click .auto-save': function(evt) {
+        'click .publish-page': function(evt) {
           evt.preventDefault();
-          return App.commands.execute("auto:save");
+          return App.execute("publish:page");
         },
         'change select#builder-page-sel': function(evt) {
           return this.trigger('editable:page:changed', $(evt.target).val());

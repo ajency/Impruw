@@ -2,6 +2,7 @@ define ['app'
 		'apps/builder/site-builder/show/controller'
 		'apps/builder/site-builder/element/controller'
 		'apps/builder/site-builder/autosave/controller'
+		'apps/builder/site-builder/publish/publish'
 		'apps/builder/site-builder/elements-loader'], (App)->
 
 	App.module 'SiteBuilderApp', (SiteBuilderApp, App, Backbone, Marionette, $, _)->
@@ -35,9 +36,14 @@ define ['app'
 						SiteBuilderApp[section] = true
 
 			# auto save function call
-			autoSave:(revision = false)->
+			autoSave:()->
 				autoSave = new SiteBuilderApp.AutoSave.Controller
-				autoSave.autoSave(revision)
+				autoSave.autoSave()			
+
+			# publish function call
+			publish:()->
+				publishPage = new SiteBuilderApp.Publish.Controller
+				publishPage.publish()
 
 			isSectionModified:(section)->
 				SiteBuilderApp[section]
@@ -59,7 +65,10 @@ define ['app'
 			API.autoSave()
 		
 		App.commands.setHandler "save:revision", ->
-			API.autoSave true
+			API.autoSave()
+
+		App.commands.setHandler "publish:page", ->
+			API.publish()
 
 		# check if the section is updated
 		App.reqres.setHandler "is:section:modified",(section)->

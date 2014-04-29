@@ -115,19 +115,19 @@ function add_page_revision($page_id){
  * @param unknown $page_id
  * @param unknown $json
  */
-function add_page_json($page_id, $json){
-
-	global $wpdb;
-
-	$wpdb->insert($wpdb->postmeta, 
-				  array(
-				        'post_id' 		=> $page_id,
-				        'meta_value' 	=> maybe_serialize($json),
-				        'meta_key' 		=> 'page-json'
-				  ));
-
-	return $wpdb->insert_id;
-}
+//function add_page_json($page_id, $json){
+//
+//	global $wpdb;
+//
+//	$wpdb->insert($wpdb->postmeta, 
+//				  array(
+//				        'post_id' 		=> $page_id,
+//				        'meta_value' 	=> maybe_serialize($json),
+//				        'meta_key' 		=> 'page-json'
+//				  ));
+//
+//	return $wpdb->insert_id;
+//}
 
 /**
  * Retuns the last added option id for the theme header json

@@ -1,6 +1,59 @@
 <?php
 
 /**
+ * Update page meta
+ */
+function add_page_json($page_id , $page_json){
+    
+    if(!is_array($page_json)){
+        $page_json = json_decode ($page_json, true);
+    }
+    
+    update_post_meta($page_id, 'page-json', $page_json);
+}
+
+/**
+ * Publish the passed page_id
+ * @param type $page_id
+ */
+function publish_page($page_id){
+    
+    wp_update_post(array(
+            'ID'            => $page_id,
+            'post_status'   => 'publish',
+            'post_type'     => 'page'
+    ));
+    
+}
+
+/**
+ * add  a page revision
+ * @param type $page_id
+ * @param type $page_json
+ */
+function add_page_revision($page_id, $page_json){
+    
+    $id = wp_save_post_revision($page_id);
+    
+    update_post_meta($id,'page-json', $page_json);
+}
+
+/**
+ * Update the page autosave so we have the latest revision copy
+ * @param type $page_id
+ * @param type $page_json
+ */
+function update_page_autosave($page_id, $page_json){
+    
+    $autosave_post = wp_get_post_autosave($page_id);
+    
+    if(! $autosave_post)
+        return;
+    
+    update_post_meta($autosave_post->ID,'page-json', $page_json);
+    
+}
+/**
  * Get all menu pages for the site
  * @return [type] [description]
  */

@@ -2,9 +2,9 @@ var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 define(['app'], function(App) {
-  return App.module('SiteBuilderApp.AutoSave', function(AutoSave, App, Backbone, Marionette, $, _) {
+  return App.module('SiteBuilderApp.Publish', function(Publish, App, Backbone, Marionette, $, _) {
     window.SAVING = false;
-    return AutoSave.Controller = (function(_super) {
+    return Publish.Controller = (function(_super) {
       __extends(Controller, _super);
 
       function Controller() {
@@ -17,7 +17,7 @@ define(['app'], function(App) {
         }
       };
 
-      Controller.prototype.autoSave = function() {
+      Controller.prototype.publish = function() {
         var options, siteRegion, _page_id, _sectionJson;
         if (window.SAVING === true) {
           return;
@@ -32,14 +32,15 @@ define(['app'], function(App) {
           type: 'POST',
           url: AJAXURL,
           data: {
-            action: 'auto-save',
+            action: 'publish-page',
             page_id: _page_id
           }
         };
         options.data = _.defaults(options.data, _sectionJson);
         window.SAVING = true;
         return $.ajax(options).done(function(response) {
-          return window.SAVING = false;
+          window.SAVING = false;
+          return App.execute("revision:added", response);
         }).fail(function(resp) {
           return window.SAVING = false;
         });

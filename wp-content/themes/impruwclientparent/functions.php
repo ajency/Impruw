@@ -895,22 +895,7 @@ function save_json_structure() {
 add_action ( 'wp_ajax_save_json_structure', 'save_json_structure' );
 add_action ( 'wp_ajax_nopriv_save_json_structure', 'save_json_structure' );
 
-/**
- * Reads the json layout and save it
- */
-function publish_page() {
-	$json = $_POST ['json'];
-	$page_id = $_POST ['pageId'];
-	
-	update_post_meta ( $page_id, 'page_markup_json', $json );
-	
-	wp_send_json ( array (
-			'code' => 'OK',
-			'json' => $json 
-	) );
-}
-add_action ( 'wp_ajax_publish_page', 'publish_page' );
-add_action ( 'wp_ajax_nopriv_publish_page', 'publish_page' );
+
 
 /**
  * Retuns the jSON layout for the given ID
