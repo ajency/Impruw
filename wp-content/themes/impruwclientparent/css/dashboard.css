@@ -665,7 +665,6 @@ form .aj-imp-submit:hover {
   border-radius: 0 !important;
   border: 0;
   border-bottom: 1px solid #c3c3c3;
-  margin: 0 0 0.5em;
 }
 .bootstrap-select .dropdown-toggle .filter-option {
   margin-right: 1em;
@@ -749,12 +748,32 @@ form .aj-imp-submit:hover {
   float: right;
   margin: 0.3em 0.5em;
   text-align: left;
+  padding-right: 0.5em;
+  border-right: 1px solid #f3f3f3;
 }
 .aj-imp-lo-header > .row .lang-actions .lang-sel #lang_sel {
   height: auto;
 }
 .aj-imp-lo-header > .row .lang-actions .lang-sel #lang_sel ul li a {
   border: 0;
+  *zoom: 1;
+}
+.aj-imp-lo-header > .row .lang-actions .lang-sel #lang_sel ul li a:after,
+.aj-imp-lo-header > .row .lang-actions .lang-sel #lang_sel ul li a:before {
+  clear: both;
+  content: "";
+  display: table;
+}
+.aj-imp-lo-header > .row .lang-actions .lang-sel #lang_sel ul li a .iclflag {
+  position: relative;
+  top: 7px;
+  display: block;
+  float: left;
+  margin-right: 5px;
+}
+.aj-imp-lo-header > .row .lang-actions .lang-sel #lang_sel ul li a .icl_lang_sel_current {
+  display: block;
+  float: left;
 }
 .aj-imp-lo-header > .row .lang-actions .lang-sel #lang_sel ul li ul {
   clear: both;
@@ -762,15 +781,17 @@ form .aj-imp-submit:hover {
 }
 .aj-imp-lo-header > .row .lang-actions .lang-sel #lang_sel ul li ul li a {
   border: 1px solid #aaaaaa;
+  padding-bottom: 15px;
+}
+.aj-imp-lo-header > .row .lang-actions .lang-sel #lang_sel ul li ul li a .iclflag {
+  top: 10px;
 }
 .aj-imp-lo-header > .row .lang-actions .login-btn {
   border-radius: 3px;
-  background: #ff7e00;
   text-transform: uppercase;
   float: right;
-}
-.aj-imp-lo-header > .row .lang-actions .login-btn:hover {
-  background: #ff9833;
+  display: inline-block;
+  margin-top: 0.5em;
 }
 @media (max-width: 979px) {
   .aj-imp-lo-header > .row .lang-actions {
@@ -796,6 +817,21 @@ form .aj-imp-submit:hover {
 .aj-imp-comingsoon {
   width: 70%;
   margin: 2em auto;
+}
+.keep-log {
+  display: inline-block;
+  margin-left: 1em;
+}
+@media (max-width: 979px) {
+  .keep-log {
+    margin: 1em 0 !important;
+  }
+}
+@media (max-width: 767px) {
+  .keep-log {
+    padding-left: 32px !important;
+    padding-bottom: 0 !important;
+  }
 }
 /****Register Page Styles****/
 .aj-imp-register-form {
@@ -948,6 +984,9 @@ form .aj-imp-submit:hover {
     padding: 1em;
   }
 }
+.aj-imp-register-form .aj-imp-register-left .site-lang-sel .dropdown-menu {
+  min-height: auto !important;
+}
 .aj-imp-register-form .aj-imp-register-right {
   margin: 2em 0 0;
   padding: 0 30px 0;
@@ -1043,7 +1082,14 @@ form .aj-imp-submit:hover {
   padding: 0;
 }
 .aj-imp-login-form .aj-imp-login form .aj-imp-log-forgot {
-  margin-left: 1em;
+  font-size: 0.8em;
+  margin-top: 2em;
+  display: inline-block;
+}
+@media (max-width: 767px) {
+  .aj-imp-login-form .aj-imp-login form .aj-imp-log-forgot {
+    margin-top: 1em;
+  }
 }
 .aj-imp-login-form .aj-imp-login form .row {
   position: relative;
@@ -1846,7 +1892,8 @@ form .aj-imp-submit:hover {
 }
 .edit-link {
   color: #849fb0;
-  margin-right: 1em;
+  margin: 0.5em 1em 0 0;
+  display: inline-block;
 }
 .edit-link:hover {
   color: #65879c;
@@ -2266,7 +2313,7 @@ form .aj-imp-submit:hover {
 }
 .room-tariff-container .room-tariff-grid {
   overflow-x: auto;
-  min-height: 80px;
+  min-height: 240px;
   padding-bottom: 30px;
   -webkit-overflow-scrolling: touch;
 }
@@ -2462,6 +2509,7 @@ form .aj-imp-submit:hover {
 }
 .room-tariff-container .room-tariff-grid .tariff.package-names {
   position: static;
+  min-height: 40px;
 }
 @media (max-width: 767px) {
   .room-tariff-container .room-tariff-grid {

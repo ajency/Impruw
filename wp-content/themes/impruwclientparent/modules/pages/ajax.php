@@ -33,43 +33,64 @@ function create_page_ajax(){
 	unset($data['action']);
 
 	// pass remaining data to create a new page
-	$id = create_new_page($data);
+	$id_or_error = create_new_page($data);
 
-	if(is_wp_error($id))
-		wp_send_json(array('code' => 'ERROR', 'message' => $id->get_error_message()));
+	if(is_wp_error($id_or_error))
+            wp_send_json(array('code' => 'ERROR', 'message' => $id_or_error->get_error_message()));
 	else	
-		wp_send_json(array('code' => 'OK', 'data' => array('ID' => $id)));
+            wp_send_json(array('code' => 'OK', 'data' => array('ID' => $id_or_error)));
 }
 add_action('wp_ajax_create-page','create_page_ajax');
 
+/**
+ * Publish page 
+ */
+function publish_page_ajax(){
+    
+    $page_id = $_REQUEST['page_id'];
+    
+    $header_json = $_REQUEST['header-json'];
+    update_header_json($header_json);
+    
+    $footer_json = $_REQUEST['footer-json'];
+    update_footer_json($footer_json);
+    
+    //set page json
+    publish_page($page_id);
+    
+    $page_json_string = $_REQUEST['page-content-json'];
+    $page_json = convert_json_to_array($page_json_string);
+    add_page_json($page_id,$page_json);
+    
+    add_page_revision($page_id, $page_json);
+    
+    update_page_autosave($page_id, $page_json);
+    
+    wp_send_json_success();
+    
+}
+add_action('wp_ajax_publish-page','publish_page_ajax');
 
 /**
  * [save_page_json description]
  *
  * @return [type] [description]
  */
-function save_page_json() {
-	$page_json 		= isset($_POST['page-content-json']) ? $_POST['page-content-json'] : false;
-	$header_json 	= isset($_POST['header-json']) ? $_POST['header-json'] : false;
-	$footer_json 	= isset($_POST['footer-json']) ? $_POST['footer-json'] : false;
-	
-	$page_id = $_POST ['page_id'];
-	
-	if($page_json !== false){
-		$page_json = convert_json_to_array($page_json);
-		add_page_json($page_id, $page_json);
-		add_page_revision($page_id);
-	}
-	if($header_json !== false){
-		$header_json = convert_json_to_array($header_json);
-		update_option("theme-header", $header_json);
-	}
-	if($footer_json !== false){
-		$footer_json = convert_json_to_array($footer_json);
-		update_option("theme-footer", $footer_json);
-	}
-	
-	
-	wp_send_json ( array ('code' => 'OK') );
+function auto_save() {
+    
+    $page_id = $_REQUEST['page_id'];
+    
+    $header_json = $_REQUEST['header-json'];
+    update_header_json($header_json);
+    
+    $footer_json = $_REQUEST['footer-json'];
+    update_footer_json($footer_json);
+    
+    $page_json_string = $_REQUEST['page-content-json'];
+    $page_json = convert_json_to_array($page_json_string);
+    $autosave_id = update_page_autosave($page_id, $page_json);
+
+    wp_send_json_success($autosave_id);
+    
 }
-add_action ( 'wp_ajax_save-page-json', 'save_page_json' );
+add_action ( 'wp_ajax_auto-save', 'auto_save' );

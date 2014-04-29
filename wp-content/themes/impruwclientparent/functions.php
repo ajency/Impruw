@@ -895,22 +895,7 @@ function save_json_structure() {
 add_action ( 'wp_ajax_save_json_structure', 'save_json_structure' );
 add_action ( 'wp_ajax_nopriv_save_json_structure', 'save_json_structure' );
 
-/**
- * Reads the json layout and save it
- */
-function publish_page() {
-	$json = $_POST ['json'];
-	$page_id = $_POST ['pageId'];
-	
-	update_post_meta ( $page_id, 'page_markup_json', $json );
-	
-	wp_send_json ( array (
-			'code' => 'OK',
-			'json' => $json 
-	) );
-}
-add_action ( 'wp_ajax_publish_page', 'publish_page' );
-add_action ( 'wp_ajax_nopriv_publish_page', 'publish_page' );
+
 
 /**
  * Retuns the jSON layout for the given ID
@@ -2349,6 +2334,8 @@ add_action ( 'wp_ajax_nopriv_update_checkintime', 'update_checkintime' );
 /**
  * Function to update additional policies
  */
+
+/*
 function update_additional_policies() {
 	$additional_policies = $_POST ['additional_policies'];
 	
@@ -2367,6 +2354,7 @@ function update_additional_policies() {
 }
 add_action ( 'wp_ajax_update_additional_policies', 'update_additional_policies' );
 add_action ( 'wp_ajax_nopriv_update_additional_policies', 'update_additional_policies' );
+ */
 function update_taxoption() {
 	$tax_option = $_POST ['taxoption'];
 	
@@ -3378,6 +3366,28 @@ function wp_send_success_json($data){
 function wp_send_error_json($message){
 	wp_send_json(array('code' => 'ERROR', 'message' => $message));
 }
+
+
+/**
+ * Add scripts and style for the theme
+ */
+/*
+function add_theme_scripts(){
+    
+    wp_enqueue_script('jquery');
+    
+    if(is_page('contact-us'))
+        enqueue_contact_page_script ();
+    
+}
+
+add_action('wp_enqueue_script', 'add_theme_scripts');
+
+function enqueue_contact_page_script(){
+     wp_enqueue_script ('contact-us', get_template_directory_uri () . 'js/contact.js',array('jquery'));
+      wp_enqueue_script ('maps', get_template_directory_uri () . 'js/contact.js');
+      wp_enqueue_script ('maps', get_template_directory_uri () . 'js/contact.js');
+}*/
 
 
 /**

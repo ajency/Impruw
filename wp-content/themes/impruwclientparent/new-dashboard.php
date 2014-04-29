@@ -16,6 +16,7 @@
 <link href="<?php echo get_parent_template_directory_uri(); ?>/css/flat-ui.css" rel="stylesheet" media="screen">
 <link href="<?php echo get_parent_template_directory_uri(); ?>/css/main.min.css" rel="stylesheet" media="screen">
 <link href="<?php echo get_parent_template_directory_uri(); ?>/css/jquery.minicolors.css" rel="stylesheet" media="screen">
+<link href="<?php echo get_parent_template_directory_uri(); ?>/css/jquery.timepicker.css" rel="stylesheet" media="screen">
 <link href="<?php echo get_parent_template_directory_uri(); ?>/dashboard/css/dashboard.css" rel="stylesheet" media="screen">
 
 
@@ -58,6 +59,7 @@
         var UPLOADURL 	= '<?php echo admin_url('async-upload.php'); ?>';
         var _WPNONCE 	= '<?php echo wp_create_nonce('media-form');?>'; 
         var APPSTATE 	= <?php echo impruw_app_model() ?>;
+        var STATISTICS  =   <?php echo get_option('statistics_enabled');?> 
 
 		/************************* Bootstrap Data *************************/
 		

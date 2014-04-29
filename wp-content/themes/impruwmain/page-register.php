@@ -10,7 +10,7 @@ get_header();
         <div class="col-sm-12 aj-imp-register-header">
             <h1><?php echo __('Sign Up', 'impruwmain'); ?> <span><?php echo __('Impruw', 'impruwmain'); ?></span></h1>
             <p class="desc">
-                <?php echo __('Simplest way to create a website in minutes.', 'impruwmain');
+                <?php echo __('Sign up in 30 seconds. No credit card required. If you already have an Impruw account log in.', 'impruwmain');
                 ?>  
             </p>
         </div>
@@ -57,7 +57,7 @@ get_header();
                 <div class="form-group">
                     <label for="inputLmail" class="col-sm-3 control-label"><?php echo __('Choose your preferred language', 'impruwmain'); ?></label>
 
-                    <div class="col-sm-7 col-sm-offset-3">
+                    <div class="col-sm-7 col-sm-offset-3 site-lang-sel">
 
                         <select name="user_language" id="inputLanguage"  required  parsley-required-message="<?php echo __('Please select any one of the languages available.', 'impruwmain'); ?>"   > 
 
@@ -144,40 +144,37 @@ get_header();
                 <!-- HneyPt -->
                 <div class="form-group margin-1">
                     <div class="col-sm-offset-3 col-sm-7">
-                        <div class="form-group">
-                            <label for="checkbox2" class="checkbox">
-                                <input type="checkbox" data-toggle="checkbox"  id="checkbox2" name="checkbox2"  value="1"   required  class="parsley-validated parsley-error"   parsley-trigger="blur" parsley-validation-minlength="0">
-                                <?php echo __('By signing up you agree to our terms of use.', 'impruwmain'); ?>
-                                <div class="p-messages"></div> 
-                            </label>
-                        </div>
+                        <label for="checkbox2" class="checkbox">
+                            <input type="checkbox" data-toggle="checkbox"  id="checkbox2" name="checkbox2"  value="1"   required  class="parsley-validated parsley-error"   parsley-trigger="blur" parsley-validation-minlength="0">
+                            <?php echo __('By signing up you agree to our terms of service.', 'impruwmain'); ?>
+                            <div class="p-messages"></div> 
+                        </label><br>
+                        <a href="<?php echo get_bloginfo('url'); ?>/terms-of-service/">Read our Terms of Service</a>
                     </div>
                 </div>
 
-                <div class="row" id="registration_status_div">
+                <!--    <div class="row" id="registration_status_div">
                     <div class="col-sm-offset-3 col-sm-7">
                         <div class="form-group">
-                        <!--	<span id="registration_status"></span>	-->	
+                        <span id="registration_status"></span>
                         </div>
                     </div>
-                </div>
+                </div>  --> 
 
 
 
                 <div class="row">
                     <div class="col-sm-offset-3 col-sm-7">
-                        <div class="form-group">
-                            <!--  <button type="submit" class="btn btn-wide aj-imp-submit">Start Creating!</button> --> 
-                            <button type="button" class="btn btn-wide aj-imp-submit" id="btn_create_site" name="btn_create"  ><?php echo __('Get started!', 'impruwmain'); ?></button> 
-                            <img id="registration_loader" src="<?php echo site_url() . "/wp-content/themes/impruwmain/images/loader.gif"; ?>" width="38" height="30"  style="display:none;"/>
-                            <input type="reset" style="display: none"/>
-                        </div>
+                        <!--  <button type="submit" class="btn btn-wide aj-imp-submit">Start Creating!</button> --> 
+                        <button type="button" class="btn btn-wide aj-imp-submit" id="btn_create_site" name="btn_create"  ><?php echo __('Get started!', 'impruwmain'); ?></button> 
+                        <img id="registration_loader" src="<?php echo site_url() . "/wp-content/themes/impruwmain/images/loader.gif"; ?>" width="38" height="30"  style="display:none;"/>
+                        <input type="reset" style="display: none"/>
                     </div>
                 </div>
             </form>
         </div>
         <div class="col-md-5 aj-imp-register-right">
-            <div class="aj-imp-reg-step">
+            <!--<div class="aj-imp-reg-step">
                 <p>
                     <?php echo __('Once you sign up along with your new Impruw account your website will also be created. Take the next step and activate your account using the activation link sent to your email address.', 'impruwmain'); ?>
                 </p>
@@ -189,11 +186,17 @@ get_header();
                     <br>
                     <a href="#"><?php echo __('Click here to resend activation mail', 'impruwmain'); ?></a>
                 </p>
-            </div>
+            </div>-->
             <div class="aj-imp-reg-step">
                 <h5><?php echo __('What happens next?', 'impruwmain'); ?></h5>
                 <p>
-                    <?php echo __('Once your account is activated you can use our site builder  to create a professional website in under 30 minutes. Choose template that suit your need, customize your site and even add additional functionality like social media, bookings, contact forms and more. ', 'impruwmain'); ?>
+                    <?php echo __('Once your account is activated you can use our site builder to create a professional website in under 30 minutes. Choose template that suit your need, customize your site and even add additional functionality like social media, bookings, contact forms and more.', 'impruwmain'); ?>
+                </p>
+                <p>
+                    <?php echo __('This is the place to be if you want to create your own free website, Impruw offers all the tools you need to make a web site today.', 'impruwmain'); ?>
+                </p>
+                <p>
+                    <?php echo __('Our website builder is easy to use and backed by comprehensive service (by real human beings, in some fancy place to boot) and a tutorial framework that will help you learn how to make a website.', 'impruwmain'); ?>
                 </p>
                 <h5><?php echo __('Still facing problems?', 'impruwmain'); ?></h5>
                 <p>

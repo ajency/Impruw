@@ -1,5 +1,5 @@
 .text{
-	color: darken(@tertiary1, 20%);
+	color: @text-color;
 }
 
 .imagewithtext {
@@ -17,13 +17,13 @@
 		position: relative;
 		z-index: 1;
 		&.pull-left {
-			margin-right: 0.5em;
+			.margin-right;
 		}
 		&.pull-right {
-			margin-left: 0.5em;
+			.margin-left;
 		}
 	}
 	p {
-		color: darken(@tertiary1, 20%);
+		color: @text-color;
 	}
 }

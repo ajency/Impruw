@@ -36,9 +36,11 @@ define ['app'
 
 				class EmptyView extends Marionette.ItemView
 					
-					template: '<li>No menu found </li>'
+					template: '<span class="bicon icon-uniF151"></span> No Menu Items found. Add Menu Items to your menu.'
 
-					tagName: 'ul'
+					tagName: 'div'
+
+					className: 'empty-view menu-empty'
 
 				# main menu manager view
 				class Views.MenuCollectionView extends Marionette.CompositeView

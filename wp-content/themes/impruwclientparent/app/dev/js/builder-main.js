@@ -86,5 +86,42 @@ require.config({
 });
 
 require(['pluginloader', 'configloader', 'app', 'entitiesloader', 'controllers/base-controller', 'controllers/builder-base-controller', 'componentloader', 'appsloader'], function(plugins, configs, App) {
-  return App.start();
+  App.start();
+  return $(window).load(function() {
+    var $closed_menu_opacity, $fl_menu, $fl_menu_label, $fl_menu_menu, $float_easing, $float_speed, $menu_fade_speed, FloatMenu, menuPosition;
+    $float_speed = 1500;
+    $float_easing = "easeOutQuint";
+    $menu_fade_speed = 500;
+    $closed_menu_opacity = 0.75;
+    $fl_menu = $("#fl_menu");
+    $fl_menu_menu = $("#fl_menu .menu");
+    $fl_menu_label = $("#fl_menu .label");
+    menuPosition = $("#fl_menu").position().top;
+    $(window).load(function() {
+      menuPosition = $("#fl_menu").position().top;
+      FloatMenu();
+      return $fl_menu.hover(function() {
+        $fl_menu_label.fadeTo($menu_fade_speed, 1);
+        return $fl_menu_menu.fadeIn($menu_fade_speed);
+      }, function() {
+        $fl_menu_label.fadeTo($menu_fade_speed, $closed_menu_opacity);
+        return $fl_menu_menu.fadeOut($menu_fade_speed);
+      });
+    });
+    $(window).scroll(function() {
+      return FloatMenu();
+    });
+    return FloatMenu = function() {
+      var newPosition, scrollAmount;
+      scrollAmount = $(document).scrollTop();
+      newPosition = menuPosition + scrollAmount;
+      if ($(window).height() < $fl_menu.height() + $fl_menu_menu.height()) {
+        return $fl_menu.css("top", menuPosition);
+      } else {
+        return $fl_menu.stop().animate({
+          top: newPosition
+        }, $float_speed, $float_easing);
+      }
+    };
+  });
 });

@@ -97,7 +97,16 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/show/vi
             }
           };
         })(this));
-        return App.execute("reset:changed:sections");
+        return this.startAutoSave();
+      };
+
+      BuilderController.prototype.startAutoSave = function() {
+        if (window.autoSaveInterval) {
+          clearInterval(window.autoSaveInterval);
+        }
+        return window.autoSaveInterval = setInterval(function() {
+          return App.execute("auto:save");
+        }, AUTOSAVEINTERVAL);
       };
 
       BuilderController.prototype.addNestedElements = function(container, element) {
@@ -143,8 +152,7 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/show/vi
         });
         this.listenTo(layout, 'editable:page:changed', function(pageId) {
           $.cookie('current-page-id', pageId);
-          App.execute("editable:page:changed", pageId);
-          return App.execute("reset:changed:sections");
+          return App.execute("editable:page:changed", pageId);
         });
         this.listenTo(layout, "add:page:revisions", this.addPageRevisions);
         this.listenTo(layout, "revision:link:clicked", this.loadRevision);

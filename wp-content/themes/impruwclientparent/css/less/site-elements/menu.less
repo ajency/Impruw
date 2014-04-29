@@ -3,9 +3,8 @@
 	&.slimmenu {
 		padding: 0;
 		border: 1px solid darken(@tertiary1, 10%);
-		padding: 0;
-		margin: 0 auto 1em;
-		background: #fff;
+		margin: 0 auto @medium;
+		background: @white;
 		> li {
 			background: transparent !important;
 			padding: 0.3em 0;
@@ -15,7 +14,7 @@
 				font-size: 1em;
 				font-weight: bold;
 				color: @primary1;
-				padding: 0.5em 1.5em;
+				padding: @regular @large;
 				span {
 					display: block;
 					font-size: 0.75em;
@@ -43,13 +42,13 @@
 				width: auto;
 				li {
 					width: 100%;
-					background: #fff;
+					background: @white;
 					border-bottom: 1px solid darken(@tertiary1, 10%);
 					a {
 						border: 0;
 						font-size: 1em;
 						font-weight: normal;
-						padding: 0.5em 1.5em;
+						padding: @regular @large;
 						color: @secondary1;
 						&:hover {
 							background: darken(@tertiary1, 10%);
@@ -71,7 +70,7 @@
 		}
 	}
 	.menu-collapser {
-		background: #fff;
+		background: @white;
 		color: @primary1;
 		font-weight: 700;
 		text-shadow: none;
@@ -116,9 +115,9 @@
 /**** Slimmenu Responsive Styles ****/
 .menu-collapser {
 	background: @primary1;
-	color: #fff;
+	color: @white;
 	.collapse-button {
-		background: #fff;
+		background: @white;
 		.icon-bar {
 			background: @primary1;
 		}

@@ -1,6 +1,112 @@
 <?php
 
 /**
+ * Update page meta
+ */
+function add_page_json($page_id , $page_json){
+    
+   update_post_meta($page_id, 'page-json', $page_json);
+}
+
+/**
+ * Publish the passed page_id
+ * @param type $page_id
+ */
+function publish_page($page_id){
+    
+    wp_update_post(array(
+            'ID'            => $page_id,
+            'post_status'   => 'publish',
+            'post_type'     => 'page'
+    ));
+    
+}
+
+/**
+ * add  a page revision
+ * @param type $page_id
+ * @param type $page_json
+ */
+function add_page_revision($page_id, $page_json){
+    
+    $revision_post_id = wp_save_post_revision($page_id);
+    
+    update_post_meta($revision_post_id,'page-json', $page_json);
+    
+    return $revision_post_id;
+}
+
+/**
+ * Returns the auto save json for the page
+ * @param type $page_id
+ */
+function get_page_auto_save_json($page_id){
+    
+    $autosave_post_id = get_autosave_post_id($page_id);
+    
+    $json = get_post_meta($autosave_post_id, 'page-json',true);
+    
+    return is_array($json) ? $json : array();
+}
+
+/**
+ * Update the page autosave so we have the latest revision copy
+ * @param type $page_id
+ * @param type $page_json
+ */
+function update_page_autosave($page_id, $page_json){
+    
+    $autosave_post_id = get_autosave_post_id($page_id);
+    
+    // cannot use update_post_meta as it replaces the autosave_post_id with original post_id
+    update_autosave_page_json($autosave_post_id, $page_json);
+    
+            
+    return $autosave_post_id;
+}
+
+function update_autosave_page_json($autosave_post_id, $page_json){
+    
+    // serialize the json
+    $json = maybe_serialize($page_json);
+    
+    global $wpdb;
+    
+    $wpdb->insert($wpdb->postmeta, 
+                  array(
+                      ''
+                  )
+                );
+}
+
+/**
+ * 
+ * @param type $page_id
+ * @return type
+ */
+function get_autosave_post_id($page_id){
+    $autosave_post = wp_get_post_autosave($page_id);
+    
+    if(! $autosave_post){
+        $autosave_post_id = _wp_put_post_revision($page_id, true);
+    }
+    else{
+        $autosave_post_id = $autosave_post->ID;
+    }
+    
+    return $autosave_post_id;
+}
+
+function update_header_json($header_json){
+    $header_json = convert_json_to_array($header_json);
+    update_option("theme-header", $header_json);
+}
+
+function update_footer_json($footer_json){
+    $footer_json = convert_json_to_array($footer_json);
+    update_option("theme-footer", $footer_json);
+}
+/**
  * Get all menu pages for the site
  * @return [type] [description]
  */

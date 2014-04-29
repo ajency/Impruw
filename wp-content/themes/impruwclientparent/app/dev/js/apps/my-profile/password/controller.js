@@ -36,7 +36,7 @@ define(['app', 'controllers/base-controller', 'apps/my-profile/password/views'],
           method: 'POST',
           data: {
             action: 'update-password',
-            json: data
+            formdata: data
           }
         };
         return $.ajax(options).done((function(_this) {

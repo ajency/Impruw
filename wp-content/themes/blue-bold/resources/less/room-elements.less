@@ -10,7 +10,7 @@
 	position: relative;
 	.room-tariff-title {
 		border-bottom: 1px dotted @primary1;
-		margin: 0 0 0.5em;
+		margin: 0 0 @regular;
 		h4 {
 			font-size: 1.5em;
 			text-transform: uppercase;
@@ -69,18 +69,18 @@
 				width: 100%;
 				padding-left: 90px;
 				.package-blocks {
-					margin: 0 0 1em;	
+					margin: 0 0 @medium;	
 					white-space: nowrap;				
 					.package-block-outer {
 						display: inline-block;
 						min-width: 200px;
 						max-width: 200px;
 						white-space: normal;
-						margin-right: 0.5em;
+						margin-right: @regular;
 						.block {
 							background: darken(@tertiary1, 10%);
 							border-left: 5px solid  darken(@tertiary1, 20%);
-							padding: 0.5em;
+							padding: @regular;
 							h6 {
 								margin: 0 0 0.2em;
 								font-weight: 400;
@@ -157,8 +157,8 @@
 			overflow-x: visible;
 			.tariff {
 				border-left: 2px solid lighten(@secondary1, 40%);
-				padding-left: 0.5em;
-				margin: 0 0 1em;
+				padding-left: @regular;
+				margin: 0 0 @medium;
 				.date-range {
 					position: static;
 					width: 100%;
@@ -203,7 +203,7 @@
 /****Room Facilities Styles****/
 .room-facilities-container {
 	background: darken(@tertiary1, 10%);
-	padding: 0.5em;
+	padding: @regular;
 	.room-facilities-title {
 		h5 {
 			font-size: 1.5em;
@@ -216,14 +216,14 @@
 		}
 	}
 	.facilities {
-		margin: 1em 0 0.5em;
+		margin: @medium 0 @regular;
 		padding: 0;
 		list-style: none;
 		li {
 			font-size: 1.1em;
 			color: lighten(@secondary1, 20%);
 			font-weight: 300;
-			margin: 0 0 0.5em;
+			margin: 0 0 @regular;
 			display: block;
 			width: 30%;
 			float: left;
@@ -254,10 +254,10 @@
 
 /****Room Summary Styles****/
 .room-summary-container {
-	margin: 0 0 1.5em;
+	margin: 0 0 @large;
 	.room-summary-title {
 		border-bottom: 1px dotted @primary1;
-		margin: 0 0 0.5em;
+		margin: 0 0 @regular;
 		h4 {
 			font-size: 1.5em;
 			font-weight: 300;
@@ -269,7 +269,7 @@
 		.room-summary-item {
 			display: inline-block;
 			border-bottom: 1px solid lighten(@secondary1, 40%);
-			margin: 0 1em 1em 0;
+			margin: 0 @large @large 0;
 			span {
 				display: inline-block;
 				font-size: 1.1em;
@@ -288,10 +288,10 @@
 		}
 		.room-summary-desc {
 			color: lighten(@secondary1, 20%);
-			margin: 1em 0 0;
+			margin: @large 0 0;
 			.btn-book {
 				display: block;
-				margin: 0.5em 0;
+				margin: @regular 0;
 				background: @primary1;
 				&:hover {
 					background: lighten(@primary1, 10%);
@@ -306,7 +306,7 @@
 	background: transparent !important;
 	padding: 0 !important;
 	position: relative;
-	margin: 0 0 1.5em;
+	margin: 0 0 @large;
 	.room-title {
 		h1 {
 			font-size: 4em !important;
@@ -315,7 +315,7 @@
 			font-style: italic;
 		}
 		.room-title-desc {
-			font-size: 1em;
+			font-size: @medium;
 			color: lighten(@secondary1, 20%);
 		}
 	}
@@ -339,12 +339,12 @@
 
 /****Room description Styles****/
 .room-description-container {
-	margin: 0 0 1.5em;
+	margin: 0 0 @large;
 	h1 {
 		font-size: 1.5em;
 		font-weight: 300;
 		border-bottom: 1px dotted @primary1;
-		margin: 0 0 0.5em;
+		margin: 0 0 @regular;
 	}
 	.room-description-desc {
 		background: transparent !important;
@@ -356,17 +356,17 @@
 /****Room List Summary Styles****/
 .roomsummary {
 	.clearfix;
-	margin: 0 0 1em;
+	margin: 0 0 @medium;
 	.room-title {
 		font-size: 1.6em;
 		color: @primary1;
 		font-weight: 400;
-		margin: 0.5em 0;
+		margin: @regular 0;
 	}
 	.room-excerpt {
 		color: darken(@secondary1, 20%);
-		padding-bottom: 0.5em;
-		margin-bottom: 0.5em;
+		padding-bottom: @regular;
+		margin-bottom: @regular;
 		border-bottom: 1px dotted @secondary1;
 	}
 	.room-actions {
@@ -401,7 +401,7 @@
 	font-size:0.9em;
 	color:#fff;
 	li{
-			span{
+		span{
 			width: 13px;
 			height: 13px;
 			display: inline-block;
@@ -437,7 +437,7 @@
 		background: lighten(@primary1, 20%);
 		.room-booking-data{
 			background: @primary1;
-			padding-top:1em;
+			padding-top:@medium;
 			min-height: 590px;
 			.date-range{
 				font-size:1.3em;
@@ -449,7 +449,7 @@
 					font-weight: 300;
 				}
 				.status{
-					font-size: 1.0em;
+					font-size: 1em;
 					text-transform: uppercase;
 					padding-top: 13px;
 				}
@@ -706,12 +706,12 @@
 /****Room Gallery Styles****/
 .isotope {
 	padding: 0;
-	margin: 0 0 1em;
+	margin: 0 0 @medium;
 	list-style: none;
 }
 
 .gallery {
-	margin: 0 0 1em;
+	margin: 0 0 @medium;
 	padding: 0;
 	list-style: none;
 }
@@ -720,7 +720,7 @@
 	font-size: 1.5em;
 	font-weight: 300 !important;
 	border-bottom: 1px dotted @primary1;
-	margin: 0 0 0.5em;
+	margin: 0 0 @regular;
 }
 
 /**** Isotope Filtering ****/

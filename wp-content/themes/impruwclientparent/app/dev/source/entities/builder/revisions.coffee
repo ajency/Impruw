@@ -13,8 +13,6 @@ define ["app", 'backbone', 'moment'], (App, Backbone, moment) ->
 				parse:(resp)->
 					data = if resp.code is 'OK' then resp.data else resp
 					data.id = parseInt data.id
-					data.datetime = moment(data.datetime).format 'D/MM/YYYY'
-					data.timeago = moment().from data.datetime
 					data
 
 
@@ -23,6 +21,8 @@ define ["app", 'backbone', 'moment'], (App, Backbone, moment) ->
 
 				# model
 				model : RevisionModel
+
+				comparator : 'id'
 
 				url : ->
 					"#{AJAXURL}?action=fetch-revisions"
@@ -50,6 +50,17 @@ define ["app", 'backbone', 'moment'], (App, Backbone, moment) ->
 
 					revisionsCollection
 
+				addNewRevision:(pageId, revisionData)->
+					revision = new RevisionModel revisionData
+
+					# add to revision collection
+					revisionsCollection = revisionsArray[pageId] || false
+					if not revisionsCollection
+						revisionsCollection = new RevisionCollection
+						revisionsArray[pageId] = revisionsCollection
+
+					revisionsCollection.add revision
+
 				
 				getPages: (param = {})->
 					pages
@@ -61,5 +72,8 @@ define ["app", 'backbone', 'moment'], (App, Backbone, moment) ->
 			# REQUEST HANDLERS
 			App.reqres.setHandler "get:page:revisions",(pageId)->
 				API.getPageRevisions pageId
+
+			App.commands.setHandler "revision:added",(pageId, revisionData)->
+				API.addNewRevision pageId, revisionData
 
 		

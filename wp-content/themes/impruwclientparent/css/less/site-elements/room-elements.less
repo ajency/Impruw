@@ -5,8 +5,8 @@
 
 /****Room Tariff Styles****/
 .room-tariff-container {
-	background: #fff;
-	padding: 0.5em;
+	background: @white;
+	padding: @regular;
 	position: relative;
 	.room-tariff-title {
 		h4 {
@@ -46,7 +46,7 @@
 				font-weight: 300;
 				position: absolute;
 				width: 80px;
-				background: #fff;
+				background: @white;
 				max-width: 80px;
 				padding-right: 10px;
 				min-height: 150px;
@@ -74,13 +74,13 @@
 						min-width: 200px;
 						max-width: 200px;
 						white-space: normal;
-						margin-right: 0.5em;
+						margin-right: @regular;
 						.package-header {
 							background: @primary1;
-							padding: 0.5em;
+							padding: @regular;
 							display: none;
 							h6 {
-								color: #fff;
+								color: @white;
 								font-size: 1.1em;
 							}
 							.package-desc {
@@ -91,7 +91,7 @@
 						.block {
 							background: darken(@tertiary1, 10%);
 							border-left: 5px solid  darken(@tertiary1, 20%);
-							padding: 0.5em;
+							padding: @regular;
 							h6 {
 								margin: 0 0 0.2em;
 								font-weight: 400;
@@ -168,8 +168,8 @@
 			overflow-x: visible;
 			.tariff {
 				border-left: 2px solid lighten(@secondary1, 40%);
-				padding-left: 0.5em;
-				margin: 0 0 1em;
+				padding-left: @regular;
+				margin: 0 0 @medium;
 				.date-range {
 					position: static;
 					width: 100%;
@@ -217,7 +217,7 @@
 /****Room Facilities Styles****/
 .room-facilities-container {
 	background: darken(@tertiary1, 10%);
-	padding: 0.5em;
+	padding: @regular;
 	.room-facilities-title {
 		h5 {
 			font-size: 1.5em;
@@ -230,14 +230,14 @@
 		}
 	}
 	.facilities {
-		margin: 1em 0 0.5em;
+		margin: @medium 0 @regular;
 		padding: 0;
 		list-style: none;
 		li {
 			font-size: 1.1em;
 			color: lighten(@secondary1, 20%);
 			font-weight: 300;
-			margin: 0 0 0.5em;
+			margin: 0 0 @regular;
 			display: block;
 			width: 30%;
 			float: left;
@@ -276,12 +276,12 @@
 		}
 	}
 	.room-summary {
-		background: #fff;
-		padding: 1em 0.5em 0.5em;
+		background: @white;
+		padding: @medium @regular @regular;
 		.room-summary-item {
 			display: inline-block;
 			border-bottom: 1px solid lighten(@secondary1, 40%);
-			margin: 0 1em 1em 0;
+			margin: 0 @medium @medium 0;
 			span {
 				display: inline-block;
 				font-size: 1.1em;
@@ -300,10 +300,10 @@
 		}
 		.room-summary-desc {
 			color: lighten(@secondary1, 20%);
-			margin: 1em 0 0;
+			margin: @medium 0 0;
 			.btn-book {
 				display: block;
-				margin: 0.5em 0;
+				margin: @regular 0;
 				background: @primary1;
 				&:hover {
 					background: lighten(@primary1, 10%);
@@ -315,10 +315,10 @@
 
 /****Room Title Styles****/
 .room-title-container {
-	background: #fff;
-	padding: 0.5em;
+	background: @white;
+	padding: @regular;
 	position: relative;
-	margin: 0 0 1em;
+	margin: 0 0 @medium;
 	.room-title {
 		h1 {
 			font-size: 2.5em;
@@ -334,10 +334,10 @@
 		position: absolute;
 		top: 0.5em;
 		right: 0.5em;
-		margin: 0.5em 0;
+		margin: @regular 0;
 		.btn-book {
 			background: @primary1;
-			color: #fff;
+			color: @white;
 			&:hover {
 				background: lighten(@primary1, 10%);
 			}
@@ -350,14 +350,14 @@
 
 /****Room description Styles****/
 .room-description-container {
-	margin: 0 0 1em;
+	margin: 0 0 @medium;
 	h1 {
 		font-size: 1.5em;
 		font-weight: 300;
 	}
 	.room-description-desc {
-		background: #fff;
-		padding: 1em 0.5em 0.5em;
+		background: @white;
+		padding: @medium @regular @regular;
 		color: lighten(@secondary1, 20%);
 	}
 }
@@ -365,7 +365,7 @@
 /****Room List Summary Styles****/
 .roomsummary {
 	.clearfix;
-	margin: 0 0 1em;
+	margin: 0 0 @medium;
 	.room-img {
 		max-height: 240px;
 		overflow: hidden;
@@ -374,12 +374,12 @@
 		font-size: 1.6em;
 		color: @primary1;
 		font-weight: 400;
-		margin: 0.5em 0;
+		margin: @regular 0;
 	}
 	.room-excerpt {
 		color: darken(@secondary1, 20%);
-		padding-bottom: 0.5em;
-		margin-bottom: 0.5em;
+		padding-bottom: @regular;
+		margin-bottom: @regular;
 		border-bottom: 1px dotted @secondary1;
 	}
 	.room-actions {
@@ -390,12 +390,12 @@
 			font-size: 2em;
 			color: darken(@secondary1, 10%);
 			small {
-				font-size: 0.88em;
+				font-size: 0.8em;
 			}
 		}
 		.btn-room {
 			background: @primary1;
-			color: #fff;
+			color: @white;
 			&:hover {
 				background: lighten(@primary1, 20%);
 			}
@@ -412,9 +412,9 @@
 .daterange-legends{
 	text-transform:uppercase;
 	font-size:0.9em;
-	color:#fff;
+	color:@white;
 	li{
-			span{
+		span{
 			width: 13px;
 			height: 13px;
 			display: inline-block;
@@ -450,11 +450,11 @@
 		background: lighten(@primary1, 20%);
 		.room-booking-data{
 			background: @primary1;
-			padding-top:1em;
+			padding-top:@medium;
 			min-height: 590px;
 			.date-range{
 				font-size:1.3em;
-				color:#fff;
+				color:@white;
 				margin-bottom: 10%;
 				b {
 					font-size: 1.5em;
@@ -468,7 +468,7 @@
 				}
 			}
 			.room-booking-plan {
-				color: #fff;
+				color: @white;
 				border-bottom: 1px dashed #280E0E;
 				padding-bottom: 5%;
 				margin-bottom: 5%;
@@ -498,7 +498,7 @@
 					font-weight:600;
 					font-size:1.0em;
 					text-transform:uppercase;
-					color:#fff;
+					color:@white;
 					
 				}
 				.booking-price{
@@ -520,13 +520,13 @@
 			h4{
 				font-weight: 600;
 				font-size: 1.5em;
-				color: #fff;
+				color: @white;
 				text-transform: uppercase;
 				margin-bottom: 30px;
 				margin-top: 30px;
 				.glyphicon {
 					font-size: 1.5em;
-					color: #fff;
+					color: @white;
 					float: left;
 					margin-right: 1%;
 				}
@@ -546,12 +546,12 @@
 									width: 48%;
 									margin-right: 12px;
 										.ui-datepicker-calendar{
-											background:#fff;
+											background:@white;
 											width:100%;
 											th{
 												background:lighten(@primary1, 40%);
 												text-transform:uppercase;
-												color:#fff;
+												color:@white;
 												font-weight: 300;
 												font-size: 12px;
 											}
@@ -620,7 +620,7 @@
 								.booking-red{
 						background:#f97d61;
 						a{
-							color:#fff;
+							color:@white;
 							&:hover{
 								background:#f97d61;
 							}
@@ -630,7 +630,7 @@
 					.booking-orange{
 					background:#ffd200;
 						a{
-							color:#fff;
+							color:@white;
 							&:hover{
 								background:#ffd200;
 							}
@@ -640,7 +640,7 @@
 						.booking-blue{
 					background:#5fd7fe;
 						a{
-							color:#fff;
+							color:@white;
 							&:hover{
 							background:#5fd7fe;
 							}
@@ -650,7 +650,7 @@
 						.booking-green{
 					background:#84e72f;
 						a{
-							color:#fff;
+							color:@white;
 							&:hover{
 							background:#84e72f;
 						}
@@ -660,7 +660,7 @@
 						.booking-pink{
 					background:#fea5a5;
 						a{
-							color:#fff;
+							color:@white;
 							&:hover{
 								background:#fea5a5;
 							}
@@ -671,7 +671,7 @@
 					.ui-datepicker td.unavailabile {
 										a{
 											text-decoration:line-through;
-											color:#000 !important;
+											color:@black !important;
 										}
 									}
 									.ui-datepicker td.semi-availabile {
@@ -703,7 +703,7 @@
 .ui-datepicker td.unavailabile {
 	a {
 		text-decoration:line-through;
-		color:#000 !important;
+		color:@black !important;
 	}
 }
 .ui-datepicker td.semi-availabile {
@@ -731,8 +731,8 @@
 
 /*Room tariff*/
 .room-tariff-container {
-	background: #fff;
-	padding: 0.5em;
+	background: @white;
+	padding: @regular;
 	position: relative;
 	.room-tariff-title {
 		h4 {
@@ -750,9 +750,9 @@
 		right: 0.5em;
 		display: none;
 		.btn-add-plan {
-			background: @dark-grey;
+			background: @secondary1;
 			&:hover {
-				background: lighten(@dark-grey, 10%);
+				background: lighten(@secondary1, 10%);
 			}
 		}
 		@media(max-width:767px){
@@ -778,12 +778,12 @@
 /****Room Gallery Styles****/
 .isotope {
 	padding: 0;
-	margin: 0 0 1em;
+	margin: 0 0 @medium;
 	list-style: none;
 }
 
 .gallery {
-	margin: 0 0 1em;
+	margin: 0 0 @medium;
 	padding: 0;
 	list-style: none;
 }
@@ -896,7 +896,7 @@
 		-webkit-transform: rotate(90deg);
 		transform: rotate(90deg);
 		line-height: 29px;
-		color: #fff;
+		color: @white;
 		&.right {
 			-ms-transform: rotate(90deg);
 			-webkit-transform: rotate(90deg);

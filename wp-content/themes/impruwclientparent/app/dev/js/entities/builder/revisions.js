@@ -23,8 +23,6 @@ define(["app", 'backbone', 'moment'], function(App, Backbone, moment) {
         var data;
         data = resp.code === 'OK' ? resp.data : resp;
         data.id = parseInt(data.id);
-        data.datetime = moment(data.datetime).format('D/MM/YYYY');
-        data.timeago = moment().from(data.datetime);
         return data;
       };
 
@@ -39,6 +37,8 @@ define(["app", 'backbone', 'moment'], function(App, Backbone, moment) {
       }
 
       RevisionCollection.prototype.model = RevisionModel;
+
+      RevisionCollection.prototype.comparator = 'id';
 
       RevisionCollection.prototype.url = function() {
         return "" + AJAXURL + "?action=fetch-revisions";
@@ -63,6 +63,16 @@ define(["app", 'backbone', 'moment'], function(App, Backbone, moment) {
         }
         return revisionsCollection;
       },
+      addNewRevision: function(pageId, revisionData) {
+        var revision, revisionsCollection;
+        revision = new RevisionModel(revisionData);
+        revisionsCollection = revisionsArray[pageId] || false;
+        if (!revisionsCollection) {
+          revisionsCollection = new RevisionCollection;
+          revisionsArray[pageId] = revisionsCollection;
+        }
+        return revisionsCollection.add(revision);
+      },
       getPages: function(param) {
         if (param == null) {
           param = {};
@@ -78,8 +88,11 @@ define(["app", 'backbone', 'moment'], function(App, Backbone, moment) {
         return page;
       }
     };
-    return App.reqres.setHandler("get:page:revisions", function(pageId) {
+    App.reqres.setHandler("get:page:revisions", function(pageId) {
       return API.getPageRevisions(pageId);
+    });
+    return App.commands.setHandler("revision:added", function(pageId, revisionData) {
+      return API.addNewRevision(pageId, revisionData);
     });
   });
 });

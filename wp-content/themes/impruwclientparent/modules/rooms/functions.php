@@ -7,25 +7,25 @@
  */
 include_once PARENTTHEMEPATH . 'modules/slider/functions.php';
 
-function updateroom($formdata) {
+function updateroom($room_data) {
 
-    if ($formdata['post_status'] === 'auto-draft') {
+    if ($room_data['post_status'] === 'auto-draft') {
         $post_id = create_draft_room();
         return $post_id;
     }
 
 
     // set the params
-    $post_title = $formdata['post_title'];
-    $post_content = $formdata['post_content'];
+    $post_title = $room_data['post_title'];
+    $post_content = $room_data['post_content'];
     $post_type = 'impruw_room';
     $post_status = 'publish';
-    $slider_id = $formdata['slider_id'];
-    $no_of_rooms = $formdata['no_of_rooms'];
+    $slider_id = $room_data['slider_id'];
+    $no_of_rooms = $room_data['no_of_rooms'];
 
 
     // prepare facility array
-    $facility = $formdata['facility'];
+    $facility = $room_data['facility'];
 
     $facility_ids = array();
 
@@ -39,7 +39,7 @@ function updateroom($formdata) {
 
     // prepare the data array
     $data = array(
-        'ID' => $formdata['ID'],
+        'ID' => $room_data['ID'],
         'post_title' => $post_title,
         'post_content' => $post_content,
         'post_type' => $post_type,
@@ -119,12 +119,18 @@ function get_room($roomid) {
     $attachment_id = get_post_thumbnail_id($room_id);
 
     $image = (int) $attachment_id > 0 ? wp_get_attachment_image_src($attachment_id, 'medium') : array();
+    
+    $check_in = get_option('checkin-time','none');
+    
+    $additional_policy = get_option('additional-policy','none');
 
     // prepare the post meta strings to array
     $room_post_meta = array('slider_id' => $room_slider_id,
         'no_of_rooms' => $no_of_rooms,
         'thumbnail_id' => (int) $attachment_id,
         'post_excerpt' => '',
+        'check-in' => $check_in,
+        'additional-policy' => $additional_policy,
         'image_url' => is_array($image) && count($image) > 0 ? $image[0] : '');
 
 

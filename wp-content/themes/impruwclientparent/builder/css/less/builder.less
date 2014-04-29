@@ -191,6 +191,14 @@ a {
 					transition-duration: 0.6s;
 					a {
 						color: #fff;
+						background: rgba(0, 0, 0, 0);
+					}
+				}
+				&.ui-draggable-dragging {
+					background: transparent;
+					box-shadow: none;
+					a {
+						background: rgba(0, 0, 0, 0.8);
 					}
 				}
 			}
@@ -287,7 +295,7 @@ a {
 				font-size: 1.6em;
 				position: absolute;
 				left: 9px;
-				top: 7px;
+				top: 6px;
 			}
 			&:hover {
 				background: @blue-grey;
@@ -1883,6 +1891,121 @@ a {
 	}
 }
 
+/**** Unused Elements Styles ****/
+.aj-imp-trash-elements {
+	position: absolute;
+	right: 1%;
+	top: 25%;
+	width: 220px;
+	height: 50px;
+	.trash-label {
+		display: block;
+		border-radius: 0;
+		padding: 1px 0 0;
+		cursor: move;
+		> span {
+			background: @dark-blue;
+			font-size: 1.5em;
+			color: #fff;
+			padding: 0.5em;
+			float: right;
+		}
+	}
+	.aj-imp-drag-menu {
+		display: none;
+		.trash-elem-link {
+			display: block;
+			margin: 0.4em auto;
+			font-size: 1.1em;
+			font-weight: 300;
+			padding-left: 28px;
+			position: relative;
+			color: @dash-grey;
+			.bicon {
+				font-size: 1.6em;
+			    left: 7px;
+			    position: absolute;
+			    top: -3px;
+			    color: darken(@preview-grey, 20%);
+			}
+			&:hover {
+				color: @orange;
+				.bicon {
+					color: @orange;
+					top: -5px;
+				}
+			}
+		}
+		.trash-list {
+			list-style: none;
+			margin: 0;
+			padding: 0;
+			.trash-elem {
+				border-radius: 2px;
+			    box-shadow: 0 0 1px #000 inset;
+			    display: block;
+			    margin: 0.5em 0;
+			    a {
+			    	background: none repeat scroll 0 0 #000;
+				    color: @dash-grey;
+				    cursor: move;
+				    display: block;
+				    padding: 0.3em;
+				    .trash-elem-header {
+				    	font-size: 1.2em;
+				    	border-bottom: 1px dotted @preview-grey;
+				    	color: @preview-grey;
+				    	margin: 0 0 0.3em;
+				    	padding: 0 0 0.2em;
+				    	.bicon {
+				    		background: #fff;
+				    		color: @dash-grey;
+				    		min-width: 18px;
+				    		min-height: 18px;
+				    		padding: 1px;
+				    		text-align: center;
+				    		display: inline-block;
+				    		border-radius: 1px;
+				    	}
+				    }
+				    .trash-elem-content {
+				    	font-size: 0.8em;
+				    	max-height: 41px;
+				    	overflow: hidden;
+				    }
+			    }
+			    &:hover, &:focus {
+					background: @orange;
+					transition-duration: 0.6s;
+					a {
+						color: #fff;
+						background: rgba(0, 0, 0, 0);
+						.trash-elem-header {
+							.bicon {
+								color: @orange;
+							}
+						}
+					}
+				}
+				&.ui-draggable-dragging {
+					background: transparent;
+					box-shadow: none;
+					a {
+						background: rgba(0, 0, 0, 0.8);
+					}
+				}
+			}
+		}
+	}
+	&:hover {
+		.trash-label {
+			> span {
+				color: @dash-grey;
+			}
+		}
+	}
+}
+
 /****Block List Styles****/
 .aj-imp-block-list {
 	ul {
@@ -2145,6 +2268,9 @@ a {
 		margin: 0.2em 0;
 		font-size: 4em;
 		color: lighten(@dash-grey, 20%);
+	}
+	&.menu-empty {
+		margin: 0.5em;
 	}
 }
 

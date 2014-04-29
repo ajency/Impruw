@@ -665,7 +665,6 @@ form .aj-imp-submit:hover {
   border-radius: 0 !important;
   border: 0;
   border-bottom: 1px solid #c3c3c3;
-  margin: 0 0 0.5em;
 }
 .bootstrap-select .dropdown-toggle .filter-option {
   margin-right: 1em;
@@ -749,12 +748,31 @@ form .aj-imp-submit:hover {
   float: right;
   margin: 0.3em 0.5em;
   text-align: left;
+  padding-right: 0.5em;
+  border-right: 1px solid #f3f3f3;
 }
 .aj-imp-lo-header > .row .lang-actions .lang-sel #lang_sel {
   height: auto;
 }
 .aj-imp-lo-header > .row .lang-actions .lang-sel #lang_sel ul li a {
   border: 0;
+  *zoom: 1;
+}
+.aj-imp-lo-header > .row .lang-actions .lang-sel #lang_sel ul li a:after,
+.aj-imp-lo-header > .row .lang-actions .lang-sel #lang_sel ul li a:before {
+  clear: both;
+  content: "";
+  display: table;
+}
+.aj-imp-lo-header > .row .lang-actions .lang-sel #lang_sel ul li a .iclflag {
+  position: relative;
+  top: 7px;
+  display: block;
+  float: left;
+}
+.aj-imp-lo-header > .row .lang-actions .lang-sel #lang_sel ul li a .icl_lang_sel_current {
+  display: block;
+  float: left;
 }
 .aj-imp-lo-header > .row .lang-actions .lang-sel #lang_sel ul li ul {
   clear: both;
@@ -765,12 +783,10 @@ form .aj-imp-submit:hover {
 }
 .aj-imp-lo-header > .row .lang-actions .login-btn {
   border-radius: 3px;
-  background: #ff7e00;
   text-transform: uppercase;
   float: right;
-}
-.aj-imp-lo-header > .row .lang-actions .login-btn:hover {
-  background: #ff9833;
+  display: inline-block;
+  margin-top: 0.5em;
 }
 @media (max-width: 979px) {
   .aj-imp-lo-header > .row .lang-actions {
@@ -947,6 +963,9 @@ form .aj-imp-submit:hover {
   .aj-imp-register-form .aj-imp-register-left form .aj-imp-site-name {
     padding: 1em;
   }
+}
+.aj-imp-register-form .aj-imp-register-left .site-lang-sel .dropdown-menu {
+  min-height: auto !important;
 }
 .aj-imp-register-form .aj-imp-register-right {
   margin: 2em 0 0;
@@ -1846,7 +1865,8 @@ form .aj-imp-submit:hover {
 }
 .edit-link {
   color: #849fb0;
-  margin-right: 1em;
+  margin: 0.5em 1em 0 0;
+  display: inline-block;
 }
 .edit-link:hover {
   color: #65879c;
@@ -2266,7 +2286,7 @@ form .aj-imp-submit:hover {
 }
 .room-tariff-container .room-tariff-grid {
   overflow-x: auto;
-  min-height: 80px;
+  min-height: 240px;
   padding-bottom: 30px;
   -webkit-overflow-scrolling: touch;
 }
@@ -2462,6 +2482,7 @@ form .aj-imp-submit:hover {
 }
 .room-tariff-container .room-tariff-grid .tariff.package-names {
   position: static;
+  min-height: 40px;
 }
 @media (max-width: 767px) {
   .room-tariff-container .room-tariff-grid {

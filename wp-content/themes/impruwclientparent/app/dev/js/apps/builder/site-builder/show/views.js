@@ -2,12 +2,14 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html', 'text!apps/builder/site-builder/show/templates/builder.html'], function(App, mainviewTpl, builderTpl) {
+define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html', 'text!apps/builder/site-builder/show/templates/builder.html', 'moment'], function(App, mainviewTpl, builderTpl, moment) {
   return App.module('SiteBuilderApp.Show.View', function(View, App, Backbone, Marionette, $, _) {
+    var NoRevisionView, RevisionView, SingleRevision;
     View.MainView = (function(_super) {
       __extends(MainView, _super);
 
       function MainView() {
+        this.revisionLinkClicked = __bind(this.revisionLinkClicked, this);
         this.addPageRevisions = __bind(this.addPageRevisions, this);
         this.getCurrentPageId = __bind(this.getCurrentPageId, this);
         this.getCurrentPageName = __bind(this.getCurrentPageName, this);
@@ -28,17 +30,12 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
       };
 
       MainView.prototype.events = {
-        'click .auto-save': function(evt) {
+        'click .publish-page': function(evt) {
           evt.preventDefault();
-          return App.commands.execute("auto:save");
+          return App.execute("publish:page");
         },
         'change select#builder-page-sel': function(evt) {
           return this.trigger('editable:page:changed', $(evt.target).val());
-        },
-        'click #aj-imp-revision-sel ul li': function(e) {
-          var id;
-          id = parseInt($(e.currentTarget).attr('data-revision-id'));
-          return this.trigger("revision:link:clicked", id);
         }
       };
 
@@ -87,39 +84,18 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
       };
 
       MainView.prototype.onAddPageRevisionItems = function(collection) {
-        var revisions;
+        var revisionView;
         this.clearRevisionItems();
-        revisions = collection.toJSON();
-        if (revisions.length === 0) {
-          return this.appendNoRevisionsView();
-        } else {
-          return this.addRevisionItems(revisions);
-        }
+        revisionView = new RevisionView({
+          collection: collection
+        });
+        revisionView.render();
+        this.listenTo(revisionView, 'itemview:revision:link:clicked', this.revisionLinkClicked);
+        return this.$el.find('#aj-imp-revision-sel').append(revisionView.$el);
       };
 
-      MainView.prototype.addRevisionItems = function(revisions) {
-        var revision, _i, _len, _results;
-        _results = [];
-        for (_i = 0, _len = revisions.length; _i < _len; _i++) {
-          revision = revisions[_i];
-          _results.push(this.addRevisionItem(revision));
-        }
-        return _results;
-      };
-
-      MainView.prototype.addRevisionItem = function(revision) {
-        var html, template;
-        template = this.getRevisionTemplate();
-        html = _.template(template, revision);
-        return this.$el.find('#aj-imp-revision-sel ul').append(html);
-      };
-
-      MainView.prototype.getRevisionTemplate = function() {
-        return '<li role="presentation" data-revision-id="{{id}}"> <div class="aj-imp-revision row"> <div class="col-sm-5 date"> {{datetime}} </div> <div class="col-sm-7 time"> {{timeago}} </div> </div> </li>';
-      };
-
-      MainView.prototype.appendNoRevisionsView = function() {
-        return this.$el.find('#aj-imp-revision-sel ul').append('<li> No revision found</li>');
+      MainView.prototype.revisionLinkClicked = function(iv, id) {
+        return this.trigger("revision:link:clicked", id);
       };
 
       MainView.prototype.clearRevisionItems = function() {
@@ -129,6 +105,80 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
       return MainView;
 
     })(Marionette.Layout);
+    SingleRevision = (function(_super) {
+      __extends(SingleRevision, _super);
+
+      function SingleRevision() {
+        return SingleRevision.__super__.constructor.apply(this, arguments);
+      }
+
+      SingleRevision.prototype.tagName = 'li';
+
+      SingleRevision.prototype.template = '<div class="aj-imp-revision row"> <div class="col-sm-5 date"> {{datetime}} </div> <div class="col-sm-7 time"> {{timeago}} </div> </div>';
+
+      SingleRevision.prototype.events = {
+        'click': function(e) {
+          return this.trigger("revision:link:clicked", this.model.get('id'));
+        }
+      };
+
+      SingleRevision.prototype.serializeData = function() {
+        var data;
+        data = SingleRevision.__super__.serializeData.call(this);
+        data.timestamp = moment(data.datetime).toDate().getTime();
+        data.timeago = moment(data.datetime).fromNow();
+        data.datetime = moment(data.datetime).format('D/MM/YYYY h:m:s');
+        return data;
+      };
+
+      SingleRevision.prototype.onRender = function() {
+        return this.$el.attr('role', 'presentation').attr('data-revision-id', this.model.get('id'));
+      };
+
+      return SingleRevision;
+
+    })(Marionette.ItemView);
+    NoRevisionView = (function(_super) {
+      __extends(NoRevisionView, _super);
+
+      function NoRevisionView() {
+        return NoRevisionView.__super__.constructor.apply(this, arguments);
+      }
+
+      NoRevisionView.prototype.tagName = 'li';
+
+      NoRevisionView.prototype.template = 'No revision found';
+
+      return NoRevisionView;
+
+    })(Marionette.ItemView);
+    RevisionView = (function(_super) {
+      __extends(RevisionView, _super);
+
+      function RevisionView() {
+        return RevisionView.__super__.constructor.apply(this, arguments);
+      }
+
+      RevisionView.prototype.tagName = 'ul';
+
+      RevisionView.prototype.className = 'dropdown-menu pull-right revision-dropdown';
+
+      RevisionView.prototype.itemView = SingleRevision;
+
+      RevisionView.prototype.emptyView = NoRevisionView;
+
+      RevisionView.prototype.onRender = function() {
+        return this.$el.attr('role', 'menu');
+      };
+
+      RevisionView.prototype.onBeforeRender = function() {
+        this.collection.sort();
+        return this.collection.sort();
+      };
+
+      return RevisionView;
+
+    })(Marionette.CollectionView);
     return View.Builder = (function(_super) {
       __extends(Builder, _super);
 

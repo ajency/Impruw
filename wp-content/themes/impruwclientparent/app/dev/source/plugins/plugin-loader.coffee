@@ -29,4 +29,5 @@ define [
 		'scrollsections'
 		'minicolors'
 		'additionalmethod'
+		'timepicker'
 		],->

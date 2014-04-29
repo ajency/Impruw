@@ -45,14 +45,11 @@
 }
 
 //generic margins
-@small: 0.5em;
-@medium: 1em;
-@large: 1.5em;
 
-.top-margin-small{margin-top:@small;}
-.left-margin-small{margin-left:@small;}
-.right-margin-small{margin-right:@small;}
-.bottom-margin-small{margin-bottom:@small;}
+.top-margin-small{margin-top:@regular;}
+.left-margin-small{margin-left:@regular;}
+.right-margin-small{margin-right:@regular;}
+.bottom-margin-small{margin-bottom:@regular;}
 
 .top-margin-medium{margin-top:@medium;}
 .left-margin-medium{margin-left:@medium;}
@@ -63,3 +60,60 @@
 .left-margin-large{margin-left:@large;}
 .right-margin-large{margin-right:@large;}
 .bottom-margin-large{margin-bottom:@large;}
+
+//## For use across Sites.
+.padding-top (@string: @regular 0 0) {
+	padding: @string;
+}
+
+.padding-bottom (@string: 0 0 @regular) {
+	padding: @string;
+}
+
+.padding-left (@string: @regular) {
+	padding-left: @string;
+}
+
+.padding-right (@string: @regular) {
+	padding-right: @string;
+}
+
+.padding-full (@string: @regular) {
+	padding: @string;
+}
+
+.padding-sides (@string: 0 @regular) {
+	padding: @string;
+}
+
+.padding-top-bot (@string: @regular 0) {
+	padding: @string;
+}
+
+.margin-top (@string: @regular 0 0) {
+	margin: @string;
+}
+
+.margin-bottom (@string: 0 0 @regular) {
+	margin: @string;
+}
+
+.margin-left (@string: @regular) {
+	margin-left: @string;
+}
+
+.margin-right (@string: @regular) {
+	margin-right: @string;
+}
+
+.margin-full (@string: @regular) {
+	margin: @string;
+}
+
+.margin-sides (@string: 0 @regular) {
+	margin: @string;
+}
+
+.margin-top-bot (@string: @regular 0) {
+	margin: @string;
+}

@@ -2,7 +2,8 @@ var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 define(['app'], function(App) {
-  App.module('SiteBuilderApp.AutoSave', function(AutoSave, App, Backbone, Marionette, $, _) {
+  return App.module('SiteBuilderApp.AutoSave', function(AutoSave, App, Backbone, Marionette, $, _) {
+    window.SAVING = false;
     return AutoSave.Controller = (function(_super) {
       __extends(Controller, _super);
 
@@ -18,6 +19,9 @@ define(['app'], function(App) {
 
       Controller.prototype.autoSave = function() {
         var options, siteRegion, _page_id, _sectionJson;
+        if (window.SAVING === true) {
+          return;
+        }
         siteRegion = App.builderRegion.$el;
         _sectionJson = this._getPageJson(siteRegion);
         if (!_.isObject(_sectionJson)) {
@@ -28,15 +32,16 @@ define(['app'], function(App) {
           type: 'POST',
           url: AJAXURL,
           data: {
-            action: 'save-page-json',
+            action: 'auto-save',
             page_id: _page_id
           }
         };
         options.data = _.defaults(options.data, _sectionJson);
+        window.SAVING = true;
         return $.ajax(options).done(function(response) {
-          return console.log(response);
+          return window.SAVING = false;
         }).fail(function(resp) {
-          return console.log('error');
+          return window.SAVING = false;
         });
       };
 
@@ -45,9 +50,7 @@ define(['app'], function(App) {
         _json = {};
         _.each(['header', 'page-content', 'footer'], (function(_this) {
           return function(section, index) {
-            if (App.request("is:section:modified", section)) {
-              return _json["" + section + "-json"] = JSON.stringify(_this._getJson($site.find("#site-" + section + "-region")));
-            }
+            return _json["" + section + "-json"] = JSON.stringify(_this._getJson($site.find("#site-" + section + "-region")));
           };
         })(this));
         return _json;
@@ -93,5 +96,4 @@ define(['app'], function(App) {
 
     })(Marionette.Controller);
   });
-  return App.SiteBuilderApp.AutoSave.Controller;
 });

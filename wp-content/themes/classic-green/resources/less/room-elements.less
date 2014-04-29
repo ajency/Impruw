@@ -10,7 +10,7 @@
 	position: relative;
 	.room-tariff-title {
 		border-bottom: 1px dotted @primary1;
-		margin: 0 0 0.5em;
+		margin: 0 0 @regular;
 		h4 {
 			font-size: 1.5em;
 			text-transform: uppercase;
@@ -48,7 +48,7 @@
 				font-weight: 300;
 				position: absolute;
 				width: 80px;
-				background: #fff;
+				background: @white;
 				max-width: 80px;
 				padding-right: 10px;
 				min-height: 139px;
@@ -157,8 +157,8 @@
 			overflow-x: visible;
 			.tariff {
 				border-left: 2px solid lighten(@secondary1, 40%);
-				padding-left: 0.5em;
-				margin: 0 0 1em;
+				padding-left: @regular;
+				margin: 0 0 @medium;
 				.date-range {
 					position: static;
 					width: 100%;
@@ -203,7 +203,7 @@
 /****Room Facilities Styles****/
 .room-facilities-container {
 	background: darken(@tertiary1, 10%);
-	padding: 0.5em;
+	padding: @regular;
 	.room-facilities-title {
 		h5 {
 			font-size: 1.5em;
@@ -216,14 +216,14 @@
 		}
 	}
 	.facilities {
-		margin: 1em 0 0.5em;
+		margin: @medium 0 @regular;
 		padding: 0;
 		list-style: none;
 		li {
 			font-size: 1.1em;
 			color: lighten(@secondary1, 20%);
 			font-weight: 300;
-			margin: 0 0 0.5em;
+			margin: 0 0 @regular;
 			display: block;
 			width: 30%;
 			float: left;
@@ -254,10 +254,10 @@
 
 /****Room Summary Styles****/
 .room-summary-container {
-	margin: 0 0 1.5em;
+	margin: 0 0 @large;
 	.room-summary-title {
 		border-bottom: 1px dotted @primary1;
-		margin: 0 0 0.5em;
+		margin: 0 0 @regular;
 		h4 {
 			font-size: 1.5em;
 			font-weight: 300;
@@ -269,7 +269,7 @@
 		.room-summary-item {
 			display: inline-block;
 			border-bottom: 1px solid lighten(@secondary1, 40%);
-			margin: 0 1em 1em 0;
+			margin: 0 @medium @medium 0;
 			span {
 				display: inline-block;
 				font-size: 1.1em;
@@ -288,10 +288,10 @@
 		}
 		.room-summary-desc {
 			color: lighten(@secondary1, 20%);
-			margin: 1em 0 0;
+			margin: @medium 0 0;
 			.btn-book {
 				display: block;
-				margin: 0.5em 0;
+				margin: @regular 0;
 				background: @primary1;
 				&:hover {
 					background: lighten(@primary1, 10%);
@@ -306,7 +306,7 @@
 	background: transparent !important;
 	padding: 0 !important;
 	position: relative;
-	margin: 0 0 1.5em;
+	margin: 0 0 @large;
 	.room-title {
 		h1 {
 			font-size: 3em;
@@ -326,7 +326,7 @@
 		margin: 0;
 		.btn-book {
 			background: @primary1;
-			color: #fff;
+			color: @white;
 			&:hover {
 				background: lighten(@primary1, 10%);
 			}
@@ -339,12 +339,12 @@
 
 /****Room description Styles****/
 .room-description-container {
-	margin: 0 0 1.5em;
+	margin: 0 0 @large;
 	h1 {
 		font-size: 1.5em;
 		font-weight: 300;
 		border-bottom: 1px dotted @primary1;
-		margin: 0 0 0.5em;
+		margin: 0 0 @regular;
 	}
 	.room-description-desc {
 		background: transparent !important;
@@ -356,17 +356,17 @@
 /****Room List Summary Styles****/
 .roomsummary {
 	.clearfix;
-	margin: 0 0 1em;
+	margin: 0 0 @medium;
 	.room-title {
 		font-size: 1.6em;
 		color: @primary1;
 		font-weight: 400;
-		margin: 0.5em 0;
+		margin: @regular 0;
 	}
 	.room-excerpt {
 		color: darken(@secondary1, 20%);
-		padding-bottom: 0.5em;
-		margin-bottom: 0.5em;
+		padding-bottom: @regular;
+		margin-bottom: @regular;
 		border-bottom: 1px dotted @secondary1;
 	}
 	.room-actions {
@@ -382,7 +382,7 @@
 		}
 		.btn-room {
 			background: @primary1;
-			color: #fff;
+			color: @white;
 			&:hover {
 				background: lighten(@primary1, 20%);
 			}
@@ -399,7 +399,7 @@
 .daterange-legends{
 	text-transform:uppercase;
 	font-size:0.9em;
-	color:#fff;
+	color:@white;
 	li{
 			span{
 			width: 13px;
@@ -437,7 +437,7 @@
 		background: lighten(@primary1, 20%);
 		.room-booking-data{
 			background: @primary1;
-			padding-top:1em;
+			padding-top:@medium;
 			min-height: 590px;
 			.date-range{
 				font-size:1.3em;
@@ -455,7 +455,7 @@
 				}
 			}
 			.room-booking-plan {
-				color: #fff;
+				color: @white;
 				border-bottom: 1px dashed #280E0E;
 				padding-bottom: 5%;
 				margin-bottom: 5%;
@@ -507,13 +507,13 @@
 			h4{
 				font-weight: 600;
 				font-size: 1.5em;
-				color: #fff;
+				color: @white;
 				text-transform: uppercase;
 				margin-bottom: 30px;
 				margin-top: 30px;
 				.glyphicon {
 					font-size: 1.5em;
-					color: #fff;
+					color: @white;
 					float: left;
 					margin-right: 1%;
 				}
@@ -533,12 +533,12 @@
 									width: 48%;
 									margin-right: 12px;
 										.ui-datepicker-calendar{
-											background:#fff;
+											background:@white;
 											width:100%;
 											th{
 												background:darken(@primary1, 10%);
 												text-transform:uppercase;
-												color:#fff;
+												color:@white;
 												font-weight: 300;
 												font-size: 12px;
 											}
@@ -597,7 +597,7 @@
 								.booking-red{
 						background:#f97d61;
 						a{
-							color:#fff;
+							color:@white;
 							&:hover{
 								background:#f97d61;
 							}
@@ -607,7 +607,7 @@
 					.booking-orange{
 					background:#ffd200;
 						a{
-							color:#fff;
+							color:@white;
 							&:hover{
 								background:#ffd200;
 							}
@@ -617,7 +617,7 @@
 						.booking-blue{
 					background:#5fd7fe;
 						a{
-							color:#fff;
+							color:@white;
 							&:hover{
 							background:#5fd7fe;
 							}
@@ -627,7 +627,7 @@
 						.booking-green{
 					background:#84e72f;
 						a{
-							color:#fff;
+							color:@white;
 							&:hover{
 							background:#84e72f;
 						}
@@ -637,7 +637,7 @@
 						.booking-pink{
 					background:#fea5a5;
 						a{
-							color:#fff;
+							color:@white;
 							&:hover{
 								background:#fea5a5;
 							}
@@ -648,7 +648,7 @@
 					.ui-datepicker td.unavailabile {
 										a{
 											text-decoration:line-through;
-											color:#000 !important;
+											color:@black !important;
 										}
 									}
 									.ui-datepicker td.semi-availabile {
@@ -674,7 +674,7 @@
 .ui-datepicker td.unavailabile {
 	a {
 		text-decoration:line-through;
-		color:#000 !important;
+		color:@black !important;
 	}
 }
 .ui-datepicker td.semi-availabile {
@@ -706,12 +706,12 @@
 /****Room Gallery Styles****/
 .isotope {
 	padding: 0;
-	margin: 0 0 1em;
+	margin: 0 0 @medium;
 	list-style: none;
 }
 
 .gallery {
-	margin: 0 0 1em;
+	margin: 0 0 @medium;
 	padding: 0;
 	list-style: none;
 }
@@ -720,7 +720,7 @@
 	font-size: 1.5em;
 	font-weight: 300 !important;
 	border-bottom: 1px dotted @primary1;
-	margin: 0 0 0.5em;
+	margin: 0 0 @regular;
 }
 
 /**** Isotope Filtering ****/

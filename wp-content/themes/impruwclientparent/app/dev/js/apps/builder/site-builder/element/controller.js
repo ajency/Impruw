@@ -116,9 +116,7 @@ define(['app', 'controllers/builder-base-controller', 'bootbox', 'apps/builder/s
       };
 
       Controller.prototype.deleteElement = function(model) {
-        return model.destroy({
-          wait: true
-        });
+        return model.destroy();
       };
 
       return Controller;

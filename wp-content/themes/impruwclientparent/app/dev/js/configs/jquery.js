@@ -31,13 +31,13 @@ define(['jquery', 'underscore', 'jqueryvalidate'], function($, _) {
     } else {
       parent = window;
     }
-    return this.css({
+    this.css({
       position: "fixed",
       top: (($(parent).height() - this.outerHeight()) / 2) + $(parent).scrollTop() + "px",
       left: (($(parent).width() - this.outerWidth()) / 2) + $(parent).scrollLeft() + "px"
     });
+    return this;
   };
-  this;
   $.scrollTop = function() {
     return $('html, body').animate({
       scrollTop: 0

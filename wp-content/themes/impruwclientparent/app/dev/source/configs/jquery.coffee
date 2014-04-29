@@ -20,17 +20,17 @@ define ['jquery', 'underscore','jqueryvalidate'], ($, _)->
 		ignore: []
 		errorElement : 'div'
 		errorClass : 'field-error'
-		validClass : 'field-valid'
+		validClass : 'field-valid' 
 
 	$.fn.center = (parent) ->
-	  	if parent
-	    	parent = @parent()
-	  	else
-	    	parent = window
-	  	@css
-	    	position: "fixed"
-	    	top: ((($(parent).height() - @outerHeight()) / 2) + $(parent).scrollTop() + "px")
-	    	left: ((($(parent).width() - @outerWidth()) / 2) + $(parent).scrollLeft() + "px")
+		if parent
+			parent = @parent()
+		else
+			parent = window
+		@css
+			position: "fixed"
+			top: ((($(parent).height() - @outerHeight()) / 2) + $(parent).scrollTop() + "px")
+			left: ((($(parent).width() - @outerWidth()) / 2) + $(parent).scrollLeft() + "px")
 		this
 
 
@@ -70,11 +70,3 @@ define ['jquery', 'underscore','jqueryvalidate'], ($, _)->
 		
 	#adjust the page size and dimensions on resize
 	$(window).resize adjustPageDim
-
-	# # Setup Polyglot
-	# window.pt = new Polyglot
-	# 					phrases : {}
-
-	# window.__ = (key, opt = {})->
-
-	# 	pt.t(key, opt)

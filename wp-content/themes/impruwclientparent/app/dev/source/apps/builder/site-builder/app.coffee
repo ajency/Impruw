@@ -2,14 +2,10 @@ define ['app'
 		'apps/builder/site-builder/show/controller'
 		'apps/builder/site-builder/element/controller'
 		'apps/builder/site-builder/autosave/controller'
+		'apps/builder/site-builder/publish/publish'
 		'apps/builder/site-builder/elements-loader'], (App)->
 
 	App.module 'SiteBuilderApp', (SiteBuilderApp, App, Backbone, Marionette, $, _)->
-
-		window.S = SiteBuilderApp
-		SiteBuilderApp['header'] 		= false
-		SiteBuilderApp['page-content'] 	= false
-		SiteBuilderApp['footer'] 		= false
 
 		#PUBLIC API
 		API = 	
@@ -20,35 +16,20 @@ define ['app'
 			# add a new element to the builder region
 			addNewElement:(container, type, modelData)->
 
-				App.execute "mark:section:as:modified", container
-
 				if SiteBuilderApp.Element[type]
 					new SiteBuilderApp.Element[type].Controller 
 												container 	: container
 												modelData	: modelData
 
-			# mark the container/section as modified
-			markSectionAsModified:(container)->
-				_.each ['header','page-content','footer'], (section, index)->
-					if $(container) is $("#site-#{section}-region") or 
-							$(container).closest("#site-#{section}-region").length > 0
-						SiteBuilderApp[section] = true
-
 			# auto save function call
-			autoSave:->
-				autoSave = new SiteBuilderApp.AutoSave.Controller
-				autoSave.autoSave()
+			autoSave:()->
+				autoSaveController = new SiteBuilderApp.AutoSave.Controller
+				autoSaveController.autoSave()			
 
-			isSectionModified:(section)->
-				SiteBuilderApp[section]
-
-			sectionModified :(section)->
-				SiteBuilderApp[section] = true
-
-			resetSection : ->
-				SiteBuilderApp['header'] 		= false
-				SiteBuilderApp['page-content'] 	= false
-				SiteBuilderApp['footer'] 		= false
+			# publish function call
+			publish:()->
+				publishPage = new SiteBuilderApp.Publish.Controller
+				publishPage.publish()
 			
 
 		# listen to "element:dropped" event.
@@ -57,17 +38,9 @@ define ['app'
 
 		App.commands.setHandler "auto:save", ->
 			API.autoSave()
-
-		# check if the section is updated
-		App.reqres.setHandler "is:section:modified",(section)->
-			API.isSectionModified section
-
-		# sets the modified flag for the section
-		App.commands.setHandler "mark:section:as:modified",(container)->
-			API.markSectionAsModified container
-
-		App.commands.setHandler "reset:changed:sections", ->
-			API.resetSection()
+		
+		App.commands.setHandler "publish:page", ->
+			API.publish()
 
 		# Show all region on start
 		SiteBuilderApp.on 'start', ->
