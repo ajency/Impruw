@@ -77,12 +77,11 @@ define ['app', 'controllers/base-controller'
 							else
 								App.request "add:new:element",container,element.element, element
 
-						App.execute "reset:changed:sections"
-						@startAutoSaveRevisions()
+						@startAutoSave()
 
 					# start the save revision interval.
 					# uses: siteInterval(fn, interval)
-					startAutoSaveRevisions:->
+					startAutoSave:->
 
 						clearInterval(window.autoSaveInterval) if window.autoSaveInterval
 
@@ -122,7 +121,6 @@ define ['app', 'controllers/base-controller'
 									# set the cookie
 									$.cookie 'current-page-id', pageId
 									App.execute "editable:page:changed", pageId
-									App.execute "reset:changed:sections"
 
 						@listenTo layout, "add:page:revisions", @addPageRevisions
 

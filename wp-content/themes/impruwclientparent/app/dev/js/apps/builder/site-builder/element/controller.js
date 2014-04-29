@@ -67,10 +67,7 @@ define(['app', 'controllers/builder-base-controller', 'bootbox', 'apps/builder/s
           App.execute("when:fetched", element, (function(_this) {
             return function() {
               _this.layout.triggerMethod("before:render:element");
-              _this.renderElement();
-              return _.delay(function() {
-                return App.execute("auto:save");
-              }, 300);
+              return _this.renderElement();
             };
           })(this));
         }
@@ -119,10 +116,7 @@ define(['app', 'controllers/builder-base-controller', 'bootbox', 'apps/builder/s
       };
 
       Controller.prototype.deleteElement = function(model) {
-        model.destroy();
-        return _.delay(function() {
-          return App.commands.execute("auto:save");
-        }, 300);
+        return model.destroy();
       };
 
       return Controller;

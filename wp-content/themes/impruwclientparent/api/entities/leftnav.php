@@ -559,12 +559,12 @@ function get_page_json1($page_id = 0) {
 	
 	$revision_id = isset($_REQUEST['revision_id']) ? $_REQUEST['revision_id'] : 0;
 	
-	if((int)$revision_id === 0)
-		$meta_id = get_last_page_json_meta_id($page_id);
-	else 
-		$meta_id = get_page_meta_id_for_revision($revision_id);
-	
-    $json ['page'] = get_page_revision_by_meta_id($meta_id);
+	if((int)$revision_id === 0){
+            $json['page'] = get_page_auto_save_json($page_id); 
+        }
+	else{ 
+            $json ['page'] = get_post_meta($page_id, "page-json", true);
+        }
 	
 	$d = array ();
 	

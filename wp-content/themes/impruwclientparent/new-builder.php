@@ -63,7 +63,7 @@
         var DASHBOARDURL = '<?php echo site_url('dashboard'); ?>';
         var BUILDERURL = '<?php echo site_url('site-builder'); ?>';
         var CURRENTTHEME = '<?php echo wp_get_theme()->get_stylesheet() ?>';
-        var AUTOSAVEINTERVAL = 40 * 1000;
+        var AUTOSAVEINTERVAL = 15 * 1000;
     </script>
     <!-- <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script> -->
     <script src="<?php echo get_parent_template_directory_uri() ?>/app/dev/js/plugins/pace.js"></script>

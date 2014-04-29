@@ -56,10 +56,7 @@ define(['app', 'bootbox', 'apps/builder/site-builder/elements/row/views', 'apps/
         return this.changeStyle(this.layout.model);
       };
 
-      Controller.prototype.elementMoved = function(columnView, container) {
-        App.execute("mark:section:as:modified", container);
-        return App.execute("auto:save");
-      };
+      Controller.prototype.elementMoved = function(columnView, container) {};
 
       Controller.prototype.deleteElement = function(model) {
         if (!this.layout.elementRegion.currentView.$el.canBeDeleted()) {
