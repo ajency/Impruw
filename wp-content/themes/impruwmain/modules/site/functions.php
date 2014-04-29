@@ -23,13 +23,16 @@ function create_new_site($site_name, $user_id) {
 		'public' => 1 
 	);
 	
-	$site_id = wpmu_create_blog ( $domain, $path, 'New Site', $user_id, $meta );
+	$site_id = wpmu_create_blog ( $domain, $path, $site_name, $user_id, $meta );
 	
 	if (is_wp_error ( $site_id ))
 		return false;
 		
 		// when a new site is created, it must be marked as comming soon. lets add a meta
 	set_site_status ( $site_id, 'coming_soon' );
+        
+        // set the tracking status of the site created to false 
+        set_statistics_status($site_id);
 	
 	assign_theme_to_site ( $site_id, 'impruwclientparent' );
 	
@@ -242,6 +245,14 @@ function set_site_status($site_id, $status) {
 	update_option ( 'site_status', $status );
 	
 	restore_current_blog ();
+}
+function set_statistics_status(){
+  	
+        switch_to_blog ( $site_id );
+	
+	update_option ( 'statistics_enabled', 'false' );
+	
+	restore_current_blog ();  
 }
 
 /**

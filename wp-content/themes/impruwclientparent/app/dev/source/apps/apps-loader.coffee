@@ -1,6 +1,6 @@
 
 define ['apps/leftnav/app'
-		'apps/statistics/statisticsapp'
+		'apps/statistics/app'
 		'apps/dashboard/home/dashboardshowapp'
 		'apps/rooms/app'
 		'apps/rooms/tariffs/tariffsapp'

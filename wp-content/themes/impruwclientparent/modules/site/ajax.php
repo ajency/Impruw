@@ -56,3 +56,35 @@ function update_site_ajax(){
     wp_send_json(array('code' => 'OK','data'=>$form_data));
 }
 add_action('wp_ajax_update-site','update_site_ajax');
+
+
+function update_tracking(){
+    
+    $site_id = get_current_blog_id();
+    
+    $tracking_code = create_piwik_site($site_id);
+    
+    update_option('statistics_enabled','true');
+    
+    wp_send_json(array('code'=>'OK','tracking_code'=>$tracking_code)); 
+}
+add_action('wp_ajax_update-tracking','update_tracking');
+
+/**
+ * Function to create a piwik site for the site created
+ * 
+ * 
+ * @param type $site_id
+ * @return type
+ */
+function create_piwik_site($site_id){
+    
+   $wp_piwik_object = $GLOBALS['wp_piwik'];
+   
+   $_GET['wpmu_show_stats'] = $site_id;
+   
+   $tracking_code = $wp_piwik_object->addPiwikSite();
+   
+   return $tracking_code;
+
+}
