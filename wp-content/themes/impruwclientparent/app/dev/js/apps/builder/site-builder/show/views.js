@@ -118,16 +118,16 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
 
       SingleRevision.prototype.events = {
         'click': function(e) {
-          return this.trigger("revision:link:clicked", this.model.get('id'));
+          return this.trigger("revision:link:clicked", this.model.get('ID'));
         }
       };
 
       SingleRevision.prototype.serializeData = function() {
         var data;
         data = SingleRevision.__super__.serializeData.call(this);
-        data.timestamp = moment(data.datetime).toDate().getTime();
-        data.timeago = moment(data.datetime).fromNow();
-        data.datetime = moment(data.datetime).format('D/MM/YYYY h:m:s');
+        data.timestamp = moment(data.post_modified).toDate().getTime();
+        data.timeago = moment(data.post_modified).fromNow();
+        data.datetime = moment(data.post_modified).format('D/MM/YYYY h:m:s');
         return data;
       };
 
@@ -172,7 +172,6 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
       };
 
       RevisionView.prototype.onBeforeRender = function() {
-        this.collection.sort();
         return this.collection.sort();
       };
 

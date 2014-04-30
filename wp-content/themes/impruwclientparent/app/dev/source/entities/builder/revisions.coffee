@@ -4,6 +4,9 @@ define ["app", 'backbone', 'moment'], (App, Backbone, moment) ->
 
 			# Page Model
 			class RevisionModel extends Backbone.Model
+				
+				idAttribute : 'ID'
+
 				# defaults for 
 				defaults :->
 					post_title 	: ''
@@ -12,7 +15,6 @@ define ["app", 'backbone', 'moment'], (App, Backbone, moment) ->
 
 				parse:(resp)->
 					data = if resp.code is 'OK' then resp.data else resp
-					data.id = parseInt data.id
 					data
 
 
@@ -22,10 +24,15 @@ define ["app", 'backbone', 'moment'], (App, Backbone, moment) ->
 				# model
 				model : RevisionModel
 
-				comparator : 'id'
+				comparator : (model)->
+					- model.get 'ID'
 
 				url : ->
 					"#{AJAXURL}?action=fetch-revisions"
+
+				parse:(resp)->
+					data = if resp.code is 'OK' then resp.data else resp
+					data
 
 
 			# object to hold all revisions for different pages

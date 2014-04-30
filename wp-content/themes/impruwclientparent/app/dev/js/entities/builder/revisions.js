@@ -11,6 +11,8 @@ define(["app", 'backbone', 'moment'], function(App, Backbone, moment) {
         return RevisionModel.__super__.constructor.apply(this, arguments);
       }
 
+      RevisionModel.prototype.idAttribute = 'ID';
+
       RevisionModel.prototype.defaults = function() {
         return {
           post_title: ''
@@ -22,7 +24,6 @@ define(["app", 'backbone', 'moment'], function(App, Backbone, moment) {
       RevisionModel.prototype.parse = function(resp) {
         var data;
         data = resp.code === 'OK' ? resp.data : resp;
-        data.id = parseInt(data.id);
         return data;
       };
 
@@ -38,10 +39,18 @@ define(["app", 'backbone', 'moment'], function(App, Backbone, moment) {
 
       RevisionCollection.prototype.model = RevisionModel;
 
-      RevisionCollection.prototype.comparator = 'id';
+      RevisionCollection.prototype.comparator = function(model) {
+        return -model.get('ID');
+      };
 
       RevisionCollection.prototype.url = function() {
         return "" + AJAXURL + "?action=fetch-revisions";
+      };
+
+      RevisionCollection.prototype.parse = function(resp) {
+        var data;
+        data = resp.code === 'OK' ? resp.data : resp;
+        return data;
       };
 
       return RevisionCollection;
