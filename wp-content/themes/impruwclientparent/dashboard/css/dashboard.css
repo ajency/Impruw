@@ -769,6 +769,7 @@ form .aj-imp-submit:hover {
   top: 7px;
   display: block;
   float: left;
+  margin-right: 5px;
 }
 .aj-imp-lo-header > .row .lang-actions .lang-sel #lang_sel ul li a .icl_lang_sel_current {
   display: block;
@@ -780,6 +781,10 @@ form .aj-imp-submit:hover {
 }
 .aj-imp-lo-header > .row .lang-actions .lang-sel #lang_sel ul li ul li a {
   border: 1px solid #aaaaaa;
+  padding-bottom: 15px;
+}
+.aj-imp-lo-header > .row .lang-actions .lang-sel #lang_sel ul li ul li a .iclflag {
+  top: 10px;
 }
 .aj-imp-lo-header > .row .lang-actions .login-btn {
   border-radius: 3px;
@@ -812,6 +817,21 @@ form .aj-imp-submit:hover {
 .aj-imp-comingsoon {
   width: 70%;
   margin: 2em auto;
+}
+.keep-log {
+  display: inline-block;
+  margin-left: 1em;
+}
+@media (max-width: 979px) {
+  .keep-log {
+    margin: 1em 0 !important;
+  }
+}
+@media (max-width: 767px) {
+  .keep-log {
+    padding-left: 32px !important;
+    padding-bottom: 0 !important;
+  }
 }
 /****Register Page Styles****/
 .aj-imp-register-form {
@@ -1062,7 +1082,14 @@ form .aj-imp-submit:hover {
   padding: 0;
 }
 .aj-imp-login-form .aj-imp-login form .aj-imp-log-forgot {
-  margin-left: 1em;
+  font-size: 0.8em;
+  margin-top: 2em;
+  display: inline-block;
+}
+@media (max-width: 767px) {
+  .aj-imp-login-form .aj-imp-login form .aj-imp-log-forgot {
+    margin-top: 1em;
+  }
 }
 .aj-imp-login-form .aj-imp-login form .row {
   position: relative;
@@ -2150,6 +2177,13 @@ form .aj-imp-submit:hover {
 }
 .loading-container {
   margin-top: 100px;
+}
+.aj-imp-orange-btn {
+  background: #ff7e00;
+  color: #fff;
+}
+.aj-imp-orange-btn:hover {
+  background: #ffb266;
 }
 /****Chart Styles****/
 #overview-region {

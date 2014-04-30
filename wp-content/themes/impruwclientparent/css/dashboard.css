@@ -2178,6 +2178,13 @@ form .aj-imp-submit:hover {
 .loading-container {
   margin-top: 100px;
 }
+.aj-imp-orange-btn {
+  background: #ff7e00;
+  color: #fff;
+}
+.aj-imp-orange-btn:hover {
+  background: #ffb266;
+}
 /****Chart Styles****/
 #overview-region {
   position: relative;
