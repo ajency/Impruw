@@ -341,6 +341,10 @@ a:focus {
   padding: 0.5em;
   display: block;
 }
+.aj-imp-builder-top-nav .aj-imp-builder-top-options #aj-imp-color-sel .dropdown-menu .panel .panel-heading a .chosen-color {
+  float: left;
+  width: 40px;
+}
 .aj-imp-builder-top-nav .aj-imp-builder-top-options #aj-imp-color-sel .dropdown-menu .panel .panel-heading a:hover {
   background: none;
   color: #ff7e00;
@@ -371,6 +375,18 @@ a:focus {
 }
 .aj-imp-builder-top-nav .aj-imp-builder-top-options #aj-imp-color-sel .dropdown-menu .panel .panel-collapse.in .panel-body {
   border-top-color: #849fb0;
+}
+.aj-imp-builder-top-nav .aj-imp-builder-top-options #aj-imp-color-sel .dropdown-menu .color-sel-action {
+  margin: 0.5em 0;
+}
+.aj-imp-builder-top-nav .aj-imp-builder-top-options #aj-imp-color-sel .dropdown-menu .color-sel-action a {
+  color: #ff7e00;
+  display: inline-block;
+  margin-right: 0.5em;
+}
+.aj-imp-builder-top-nav .aj-imp-builder-top-options #aj-imp-color-sel .dropdown-menu .color-sel-action a:hover {
+  color: #ff9833;
+  background: none;
 }
 .aj-imp-builder-top-nav .aj-imp-builder-top-options #aj-imp-color-sel .aj-imp-color-box {
   text-align: left;
@@ -755,12 +771,12 @@ a:focus {
   text-align: right;
   border-left: 1px solid #dddddd;
 }
-.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .second .aj-imp-save-action .auto-save {
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .second .aj-imp-save-action .publish-page {
   background: #ff7e00;
   color: #fff;
   text-transform: uppercase;
 }
-.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .second .aj-imp-save-action .auto-save:hover {
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .second .aj-imp-save-action .publish-page:hover {
   background: #ffb266;
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-body {

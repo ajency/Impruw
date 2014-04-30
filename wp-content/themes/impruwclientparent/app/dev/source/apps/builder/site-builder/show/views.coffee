@@ -102,13 +102,13 @@ define ['app'
 
 					events : 
 						'click':(e)->
-							@trigger "revision:link:clicked", @model.get 'id'
+							@trigger "revision:link:clicked", @model.get 'ID'
 
 					serializeData:()->
 						data = super()
-						data.timestamp = moment(data.datetime).toDate().getTime()
-						data.timeago = moment(data.datetime).fromNow()
-						data.datetime = moment(data.datetime).format 'D/MM/YYYY h:m:s'
+						data.timestamp = moment(data.post_modified).toDate().getTime()
+						data.timeago = moment(data.post_modified).fromNow()
+						data.datetime = moment(data.post_modified).format 'D/MM/YYYY h:m:s'
 						data
 
 					onRender:->
@@ -136,7 +136,7 @@ define ['app'
 
 					onBeforeRender : ->
 						@collection.sort()
-						@collection.sort()
+						
 
 
 
@@ -157,7 +157,6 @@ define ['app'
 																return
 												stop 		:(e, ui)-> 
 																window.dragging = false
-																# App.execute "auto:save"
 																return
 												handle 		: '.aj-imp-drag-handle'
 												helper 		: 'clone'

@@ -359,6 +359,10 @@ a {
 						a {
 							padding: 0.5em;
 							display: block;
+							.chosen-color {
+								float: left;
+								width: 40px;
+							}
 							&:hover {
 								background: none;
 								color: @orange;
@@ -394,6 +398,18 @@ a {
 							.panel-body {
 								border-top-color: @blue-grey;
 							}
+						}
+					}
+				}
+				.color-sel-action {
+					margin: 0.5em 0;
+					a {
+						color: @orange;
+						display: inline-block;
+						margin-right: 0.5em;
+						&:hover {
+							color: lighten(@orange, 10%);
+							background: none;
 						}
 					}
 				}
@@ -800,7 +816,7 @@ a {
 				.aj-imp-save-action {
 					text-align: right;
 					border-left: 1px solid lighten(@dash-grey, 20%);
-					.auto-save {
+					.publish-page {
 						background: @orange;
 						color: #fff;
 						text-transform: uppercase;

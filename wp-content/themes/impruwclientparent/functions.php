@@ -729,37 +729,36 @@ function get_container_markup($element) {
 function get_page_markup_JSON($page_id = 0) {
 	// get page slug
 	$page_id = get_the_ID ();
-	
-	return get_page_json1 ( $page_id );
-	
+        
 	$json = array ();
+	$json ['header']    = get_option('theme-header', array());
+	$json ['footer']    = get_option('theme-footer', array()); 
+        
+        $page_json = get_post_meta($page_id, "page-json", true);
+        $json ['page']      = is_array($page_json) ? $page_json : array();
+        
 	
-	$header = get_option ( 'theme-header' );
+	$d = array ();
 	
-	if (is_array ( $header ))
-		$json ['header'] = $header;
-	
-	if (is_singular ( 'impruw_room' )) {
-		
-		$page = get_post_meta ( $page_id, 'page-json', true );
-		
-		if ($page === '') {
-			$p = get_page_by_title ( 'Single Room' );
-			$page = get_post_meta ( $p->ID, 'page-json', true );
+	foreach ( $json as $section => $elements ) {
+		$d [$section] = array ();
+		if (! is_array ( $elements ))
+			continue;
+		foreach ( $elements as $element ) {
+			if ($element ['element'] === "Row") {
+				$element ['columncount'] = count ( $element ['elements'] );
+				$d [$section] [] = get_row_elements ( $element );
+			} else
+				$d [$section] [] = get_meta_values ( $element );
 		}
-		
-		$json ['page'] = $page;
-	} else {
-		$page = get_post_meta ( $page_id, 'page-json', true );
-		if (is_array ( $page ))
-			$json ['page'] = $page;
 	}
-	
-	$footer = get_option ( 'theme-footer' );
-	if (is_array ( $footer ))
-		$json ['footer'] = $footer;
-	
-	return ! empty ( $json ) ? $json : array ();
+	$data = array (
+		'id' => $page_id,
+		'header' => $d ['header'],
+		'page' => $d ['page'],
+		'footer' => $d ['footer'] 
+	);
+	return $data;
 }
 
 /**

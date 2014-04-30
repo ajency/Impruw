@@ -1734,7 +1734,7 @@ and open the template in the editor.
   margin: 0 0.5em 0.5em 0;
 }
 .link.button a {
-  background: #fff;
+  background: #ffffff;
   color: #07669e;
   display: inline-block;
   padding: 0.3em 0.5em 0.2em;
@@ -1746,7 +1746,7 @@ and open the template in the editor.
 .link.button a:hover {
   text-decoration: none;
   background: #07669e;
-  color: #fff;
+  color: #ffffff;
   -webkit-transition: all 0.25s ease;
   -moz-transition: all 0.25s ease;
   -o-transition: all 0.25s ease;

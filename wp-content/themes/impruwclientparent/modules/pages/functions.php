@@ -29,9 +29,12 @@ function publish_page($page_id){
  */
 function add_page_revision($page_id, $page_json){
     
+    // !imp
+    wp_update_post(array('ID' => $page_id, 'post_content' => 'content' . rand(10000, 99999)));
+    
     $revision_post_id = wp_save_post_revision($page_id);
     
-    update_post_meta($revision_post_id,'page-json', $page_json);
+    update_autosave_page_json($revision_post_id, $page_json);
     
     return $revision_post_id;
 }
