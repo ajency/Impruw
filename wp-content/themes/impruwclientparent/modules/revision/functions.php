@@ -6,17 +6,15 @@
  */
 function get_revisions($page_id = 0){
 	
-	global $wpdb;
-	
-	if($page_id === 0){
-		$page_id = get_the_ID();
-	}
-	
-	$query = $wpdb->prepare("SELECT * FROM {$wpdb->prefix}revisions WHERE page_id = %d ORDER BY 'datetime' DESC LIMIT 5", $page_id);
-	
-	$revisions = $wpdb->get_results($query);
-	
-	return $revisions;
+    $revisions_as_object = wp_get_post_revisions($page_id);
+    
+    $revisions = array();
+    
+    foreach($revisions_as_object as $revision_id => $revision_post){
+        $revisions[] = $revision_post;
+    }
+    
+    return $revisions;
 }
 
 /**
