@@ -34,7 +34,7 @@ function add_page_revision($page_id, $page_json){
     
     $revision_post_id = wp_save_post_revision($page_id);
     
-    update_post_meta($revision_post_id,'page-json', $page_json);
+    update_autosave_page_json($revision_post_id, $page_json);
     
     return $revision_post_id;
 }

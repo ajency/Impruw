@@ -157,7 +157,6 @@ define ['app'
 																return
 												stop 		:(e, ui)-> 
 																window.dragging = false
-																# App.execute "auto:save"
 																return
 												handle 		: '.aj-imp-drag-handle'
 												helper 		: 'clone'
