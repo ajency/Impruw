@@ -42,7 +42,7 @@ get_header();
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-offset-3 col-sm-6">
+                    <div class="col-sm-offset-3 col-sm-7">
                         <button type="button" id="btn_login" name="btn_login" class="btn btn-wide aj-imp-submit"><?php echo __('Sign in', 'impruwmain'); ?></button>
                         <img id="login_loader" src="<?php echo site_url() . "/wp-content/themes/impruwmain/images/loader.gif"; ?>" width="38" height="30"  style="display:none;"/>
                         <label for="checkbox3" class="checkbox keep-log">
