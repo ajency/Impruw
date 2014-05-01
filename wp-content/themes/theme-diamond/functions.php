@@ -77,7 +77,13 @@ $element_templates = array(
                     'name'      => 'Pattern BG'
                 ),
                 array(
-                    'name'      => 'White Shaded Background'
+                    'name'      => 'Highlight Box'
+                ),
+                array(
+                    'name'      => 'White Box'
+                ),
+                array(
+                    'name'      => 'Menu Bar'
                 )
              ),
     'Social' => array(
