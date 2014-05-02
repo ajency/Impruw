@@ -10,11 +10,11 @@ function read_site_ajax() {
 
     $site_id = get_current_blog_id();
 
-    $data = get_site_details($site_id);
-    
+    $data = get_site_details($site_id);    
     $data ['checkin_time'] = get_option('checkin-time');
     $data ['checkin_time_format'] = get_option('checkin-time-format');
     $data ['additional_policy'] = get_option('additional-policy');
+    $data ['statistics_enabled'] = get_option('statistics_enabled');
   
     if (is_array($data))
         wp_send_json(array('code' => 'OK', 'data' => $data));
@@ -64,7 +64,9 @@ function update_tracking(){
     
     $tracking_code = create_piwik_site($site_id);
     
-    update_option('statistics_enabled','true');
+    $piwik_site_id = $tracking_code['id'];
+    
+    update_option('statistics_enabled',$piwik_site_id);
     
     wp_send_json(array('code'=>'OK','tracking_code'=>$tracking_code)); 
 }

@@ -19,6 +19,28 @@ define ['app'
 
 						data
 
+					onShow :->
+						submenu = @model.get 'submenu'
+
+						if not _.isUndefined(submenu)
+
+							submenuTpl = @getSubmenuTpl submenu							
+
+							@$el.find('.aj-imp-nav-create').append('<ul>'+submenuTpl+'</ul>')
+
+					getSubmenuTpl :(submenu) ->
+						@submenuTpl =" "
+						
+						_.each submenu,(submenuData,index) =>
+								submenuLink  = submenuData.url
+								submenuTitle = submenuData.title
+								submenuIcon  = submenuData.icon
+								@submenuTpl += "<li>
+											    <span class='icon icon-#{submenuIcon}'></span>
+												<span class='arrow'></span>
+												<a href='#{submenuLink}' data-route='##{submenuLink}'>#{submenuTitle}</a>
+											</li>"
+						@submenuTpl
 
 				class View.LeftNav extends Marionette.CompositeView
 
@@ -42,8 +64,8 @@ define ['app'
 						@onSetActiveMenu hash
 
 						jPM = $.jPanelMenu({
-						    menu: '.aj-imp-dash-nav',
-						    trigger: '#nav-trigger'
+							menu: '.aj-imp-dash-nav',
+							trigger: '#nav-trigger'
 						})
 
 						jPM.on()

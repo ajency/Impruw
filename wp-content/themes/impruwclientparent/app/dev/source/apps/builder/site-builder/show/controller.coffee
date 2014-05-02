@@ -24,7 +24,7 @@ define ['app', 'controllers/base-controller'
 						@listenTo @view, "add:new:element", (container, type, metaId = 0)->
 									modelData  = {}
 									if metaId isnt 0
-										model = App.request "get:recovered:element", metaId
+										model = App.request "get:unused:element:by:metaid", metaId
 										modelData = model.toJSON()
 
 									App.request "add:new:element", container, type, modelData
@@ -160,3 +160,7 @@ define ['app', 'controllers/base-controller'
 					siteBuilderController = new Show.BuilderController
 															pageId : pageId
 															revisionId : revisionId	
+					App.execute "show:unused:elements",
+										region : App.unusedElementsRegion
+										revisionId : revisionId
+										pageId : pageId

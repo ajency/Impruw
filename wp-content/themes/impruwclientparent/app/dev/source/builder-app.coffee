@@ -12,6 +12,7 @@ define ['marionette'], (Marionette)->
 		loginRegion 		: Marionette.Region.Dialog.extend el : '#login-region'
 		dialogRegion 		: Marionette.Region.Dialog.extend el : '#dialog-region'
 		chooseThemeRegion	: '#choose-theme-region'
+		unusedElementsRegion: '#fl_menu'
 
 
 	# The default route for app
