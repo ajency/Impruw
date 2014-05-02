@@ -1,8 +1,6 @@
 
 define [
 		'entities/base-entities'
-		'entities/appstate'
-		'entities/offlinestore'
 		'entities/media'
 		'entities/slider'
 		'entities/rooms'

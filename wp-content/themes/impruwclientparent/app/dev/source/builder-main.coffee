@@ -49,22 +49,15 @@ require.config
 	shim:
 		underscore:
 			exports : '_'
-		jquery 		: ['underscore']
-		jqueryui 	: ['jquery']
-		backbone:
-			deps 	: ['jquery','underscore']
-			exports : 'Backbone'
-		marionette :
-			deps 	: ['backbone']
+		jquery 				: ['underscore']
+		jqueryui 			: ['jquery']
+		backbone 			: ['jquery','underscore']
+		marionette 			: 
+			deps : ['backbone']
 			exports : 'Marionette'
-		googlemap :
-			exports : 'google'
-		holder 		: 'Holder'
 		jqueryvalidate 		: ['jquery']
 		underscorestring 	: ['underscore']
-		backboneform 		: ['backbone']
 		backbonesyphon 		: ['backbone']
-		backbonerelational 	: ['backbone']
 		backboneassociations: ['backbone']
 		jqueryspin 			: ['spin']
 		bootstrap 			: ['jquery']

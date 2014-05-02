@@ -84,9 +84,9 @@ class AddressElement extends Element {
         $defaults = array( "street"     => "Street no", 
                            "phone"    => "432432423", 
                            "email"      => "",
-                           "postalcode" => '',
-                           "country"    => 'Norway',
-                           "city"       => 'Oslo');
+                           "postalcode" => "",
+                           "country"    => "Norway",
+                           "city"       => "Oslo");
 
         $contact_at  = wp_parse_args($contact_at , $defaults);
         

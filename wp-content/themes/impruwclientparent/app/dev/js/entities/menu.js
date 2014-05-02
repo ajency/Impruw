@@ -92,20 +92,11 @@ define(["app", 'backbone'], function(App, Backbone) {
         menu_items: []
       };
 
-      MenuModel.prototype.relations = [
-        {
-          type: Backbone.Many,
-          key: 'menu_items',
-          relatedModel: Menus.MenuItemModel,
-          collectionType: Menus.MenuItemCollection
-        }
-      ];
-
       MenuModel.prototype.name = 'menu';
 
       return MenuModel;
 
-    })(Backbone.AssociatedModel);
+    })(Backbone.Model);
     Menus.MenuCollection = (function(_super) {
       __extends(MenuCollection, _super);
 

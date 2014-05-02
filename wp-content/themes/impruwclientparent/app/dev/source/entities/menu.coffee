@@ -46,19 +46,14 @@ define ["app", 'backbone'], (App, Backbone) ->
 								@trigger "menu:order:updated"
 			
 			# menu model
-			class Menus.MenuModel extends Backbone.AssociatedModel
+			class Menus.MenuModel extends Backbone.Model
 				defaults : 
 					menu_name           : ''
 					menu_description    : ''
 					menu_slug 			: ''
 					menu_items          : []
 
-				relations : [(
-								type : Backbone.Many
-								key  : 'menu_items'
-								relatedModel : Menus.MenuItemModel
-								collectionType : Menus.MenuItemCollection
-							)]
+
 
 				name: 'menu'
 

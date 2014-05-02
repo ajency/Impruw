@@ -33,7 +33,6 @@ define(['marionette'], function(Marionette) {
     return App.unregister(instance, id);
   });
   App.on("initialize:after", function(options) {
-    var appState;
     Pace.on('done', function() {
       Pace.options = {
         ajax: false
@@ -43,16 +42,9 @@ define(['marionette'], function(Marionette) {
         return $('#initial-loader').remove();
       });
     });
-    appState = App.request("get:current:appstate");
     App.startHistory();
-    if (appState.isLoggedIn()) {
-      if (!this.getCurrentRoute()) {
-        return App.navigate(this.rootRoute, {
-          trigger: true
-        });
-      }
-    } else {
-      return App.navigate(this.loginRoute, {
+    if (!this.getCurrentRoute()) {
+      return App.navigate(this.rootRoute, {
         trigger: true
       });
     }
