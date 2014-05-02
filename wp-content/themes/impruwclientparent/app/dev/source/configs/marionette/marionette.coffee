@@ -2,7 +2,7 @@
 ## Set backbone overrites or mixins
 ##
 define ['marionette','mustache'], (Marionette, Mustache)->
-
+	
 	# Extends the Marionette.Application to add some additional functions 
 	_.extend Marionette.Application::,
 		

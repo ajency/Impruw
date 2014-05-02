@@ -30,7 +30,7 @@ define(["app", 'backbone'], function(App, Backbone) {
 
       return RoomModel;
 
-    })(Backbone.AssociatedModel);
+    })(Backbone.Model);
     Rooms.RoomCollection = (function(_super) {
       __extends(RoomCollection, _super);
 
