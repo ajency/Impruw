@@ -771,12 +771,12 @@ a:focus {
   text-align: right;
   border-left: 1px solid #dddddd;
 }
-.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .second .aj-imp-save-action .auto-save {
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .second .aj-imp-save-action .publish-page {
   background: #ff7e00;
   color: #fff;
   text-transform: uppercase;
 }
-.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .second .aj-imp-save-action .auto-save:hover {
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .second .aj-imp-save-action .publish-page:hover {
   background: #ffb266;
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-body {

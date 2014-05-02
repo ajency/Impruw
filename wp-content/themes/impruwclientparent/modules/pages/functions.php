@@ -30,15 +30,28 @@ function publish_page($page_id){
 function add_page_revision($page_id, $page_json){
     
     // !imp
-    wp_update_post(array('ID' => $page_id, 'post_content' => 'content' . rand(10000, 99999)));
+    update_random_content($page_id);
     
     $revision_post_id = wp_save_post_revision($page_id);
     
-    update_post_meta($revision_post_id,'page-json', $page_json);
+    update_autosave_page_json($revision_post_id, $page_json);
     
     return $revision_post_id;
 }
 
+
+function update_random_content($page_id){
+    
+    global $wpdb;
+    
+    $wpdb->update($wpdb->posts,
+                  array(
+                      'post_content' => "content-" . rand(1000, 9999)
+                  ),
+                  array(
+                      'ID' => $page_id
+                  ));
+}
 /**
  * Returns the auto save json for the page
  * @param type $page_id
@@ -68,13 +81,20 @@ function update_page_autosave($page_id, $page_json){
     return $autosave_post_id;
 }
 
+/**
+ * 
+ * @param type $autosave_post_id
+ * @param type $page_json
+ */
 function update_autosave_page_json($autosave_post_id, $page_json){
     
     $meta_id = check_json_is_present($autosave_post_id);
     if($meta_id !== 0){
+        
         update_autosave_page_json_db($meta_id, $page_json);
     }
     else{
+       
         insert_autosave_page_json($autosave_post_id, $page_json);
     }
     
@@ -86,6 +106,8 @@ function update_autosave_page_json($autosave_post_id, $page_json){
 function insert_autosave_page_json($autosave_post_id, $page_json){
     // serialize the json
     $json = maybe_serialize($page_json);
+    
+    
     
     global $wpdb;
     

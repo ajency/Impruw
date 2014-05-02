@@ -67,7 +67,10 @@ define(['app', 'controllers/builder-base-controller', 'bootbox', 'apps/builder/s
           App.execute("when:fetched", element, (function(_this) {
             return function() {
               _this.layout.triggerMethod("before:render:element");
-              return _this.renderElement();
+              _this.renderElement();
+              return _.delay(function() {
+                return App.execute("auto:save");
+              }, 300);
             };
           })(this));
         }
