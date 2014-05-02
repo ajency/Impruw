@@ -46,6 +46,7 @@ require.config
 		entitiesloader		: 'entities/builder-entities-loader'
 		componentloader 	: 'components/builder-component-loader'
 		app 				: 'builder-app'
+		drilldown			: 'plugins/jquery.drilldown.min'
 	shim:
 		underscore:
 			exports : '_'

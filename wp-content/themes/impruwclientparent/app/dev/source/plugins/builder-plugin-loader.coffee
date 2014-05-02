@@ -27,4 +27,5 @@ define [
 		'revslider'
 		'isotope'
 		'moment'
+		'drilldown'
 		],->

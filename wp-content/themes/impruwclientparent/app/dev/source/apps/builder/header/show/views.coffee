@@ -36,3 +36,10 @@ define ['app'
 						  	event.stopPropagation()
 						  	$($(@).data('parent')).find('.panel-collapse.in').collapse('hide')
 						  	$($(@).attr('href')).collapse('show')
+
+						$('.drilldown').drilldown()
+
+						# Prevent dropdown to be closed when we click on a drilldown link
+						@$el.find('.dropdown-accordion').on 'click', '.drilldown a',(event)->
+						  	event.preventDefault()
+						  	event.stopPropagation()

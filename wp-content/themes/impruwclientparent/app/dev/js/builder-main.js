@@ -37,7 +37,8 @@ require.config({
     configloader: 'configs/builder-config-loader',
     entitiesloader: 'entities/builder-entities-loader',
     componentloader: 'components/builder-component-loader',
-    app: 'builder-app'
+    app: 'builder-app',
+    drilldown: 'plugins/jquery.drilldown.min'
   },
   shim: {
     underscore: {
