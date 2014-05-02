@@ -3499,7 +3499,7 @@ function switch_theme_colour(){
    
 }
 
-add_action('init', 'switch_theme_colour');
+//add_action('init', 'switch_theme_colour');
 /*
 function enqueue_contact_page_script(){
      wp_enqueue_script ('contact-us', get_template_directory_uri () . 'js/contact.js',array('jquery'));
