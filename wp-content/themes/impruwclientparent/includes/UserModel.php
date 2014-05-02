@@ -83,8 +83,8 @@ class ImpruwUser extends WP_User{
 	function get_site_language(){
 			
 			$wpml_options = get_option( 'icl_sitepress_settings' );
-			$default_lang = $wpml_options['default_language'];
-			return $default_lang;
+			//$default_lang = $wpml_options['default_language'];
+			//return $default_lang;
 			
 	}
 	

@@ -5,18 +5,20 @@ define ['app', 'controllers/base-controller'], (App, AppController)->
 		class Show.Controller extends AppController
 
 			# initiliaze controller
-			initialize:()->
+			initialize:(opts)->
 
 				trackingStatus = STATISTICS
 
-				if trackingStatus == false
+				@siteProfile = opts.model
+				
+				if trackingStatus == 'false'
 					@view = view = @getDisabledTrackingView()
 
 					@listenTo @view,"enable:tracking:for:site" , @updateTracking
 				
 				else
 
-					@view = view = @getStatisticsView()
+					@view = view = @getStatisticsView @siteProfile
 				
 
 				# trigger set:active:menu event
@@ -29,8 +31,9 @@ define ['app', 'controllers/base-controller'], (App, AppController)->
 			getDisabledTrackingView : ->
 				new TrackingDisabledView
 
-			getStatisticsView :->
+			getStatisticsView :(model)->
 				new StatisticsView
+						model : model
 			
 			updateTracking :->
 				options = 
@@ -74,9 +77,18 @@ define ['app', 'controllers/base-controller'], (App, AppController)->
 
 		class StatisticsView extends Marionette.ItemView
 
-			template :'<div>
-							<p>DISPLAY STATISTICS</p>
-					   </div>'
+			template :'<div style="height:700px">
+						<iframe src="http://localhost/impruw/piwik/index.php?module=Widgetize&action=iframe&moduleToWidgetize=Dashboard&actionToWidgetize=index&idSite={{statistics_enabled}}&period=week&date=yesterday&token_auth=4d1ff0386c1933bcb68ad517a6573d1e" frameborder="0" marginheight="0" marginwidth="0" width="100%" height="100%"></iframe>
+						</div>'
+			
+			serializeData :->
+
+				data = super()
+				data.statistics_enabled = parseInt @model.get 'statistics_enabled'
+				data
+				
+						
+
 
 
 

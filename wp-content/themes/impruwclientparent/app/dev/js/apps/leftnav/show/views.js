@@ -23,6 +23,29 @@ define(['app', 'text!apps/leftnav/show/templates/leftNav.html', 'text!apps/leftn
         return data;
       };
 
+      MenuItem.prototype.onShow = function() {
+        var submenu, submenuTpl;
+        submenu = this.model.get('submenu');
+        if (!_.isUndefined(submenu)) {
+          submenuTpl = this.getSubmenuTpl(submenu);
+          return this.$el.find('.aj-imp-nav-create').append('<ul>' + submenuTpl + '</ul>');
+        }
+      };
+
+      MenuItem.prototype.getSubmenuTpl = function(submenu) {
+        this.submenuTpl = " ";
+        _.each(submenu, (function(_this) {
+          return function(submenuData, index) {
+            var submenuIcon, submenuLink, submenuTitle;
+            submenuLink = submenuData.url;
+            submenuTitle = submenuData.title;
+            submenuIcon = submenuData.icon;
+            return _this.submenuTpl += "<li> <span class='icon icon-" + submenuIcon + "'></span> <span class='arrow'></span> <a href='" + submenuLink + "' data-route='#" + submenuLink + "'>" + submenuTitle + "</a> </li>";
+          };
+        })(this));
+        return this.submenuTpl;
+      };
+
       return MenuItem;
 
     })(Marionette.ItemView);

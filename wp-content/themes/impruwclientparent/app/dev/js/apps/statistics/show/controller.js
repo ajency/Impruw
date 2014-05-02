@@ -13,14 +13,15 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         return Controller.__super__.constructor.apply(this, arguments);
       }
 
-      Controller.prototype.initialize = function() {
+      Controller.prototype.initialize = function(opts) {
         var trackingStatus, view;
         trackingStatus = STATISTICS;
-        if (trackingStatus === false) {
+        this.siteProfile = opts.model;
+        if (trackingStatus === 'false') {
           this.view = view = this.getDisabledTrackingView();
           this.listenTo(this.view, "enable:tracking:for:site", this.updateTracking);
         } else {
-          this.view = view = this.getStatisticsView();
+          this.view = view = this.getStatisticsView(this.siteProfile);
         }
         App.vent.trigger("set:active:menu", 'statistics');
         return this.show(this.view, {
@@ -32,8 +33,10 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         return new TrackingDisabledView;
       };
 
-      Controller.prototype.getStatisticsView = function() {
-        return new StatisticsView;
+      Controller.prototype.getStatisticsView = function(model) {
+        return new StatisticsView({
+          model: model
+        });
       };
 
       Controller.prototype.updateTracking = function() {
@@ -93,7 +96,14 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         return StatisticsView.__super__.constructor.apply(this, arguments);
       }
 
-      StatisticsView.prototype.template = '<div> <p>DISPLAY STATISTICS</p> </div>';
+      StatisticsView.prototype.template = '<div style="height:700px"> <iframe src="http://localhost/impruw/piwik/index.php?module=Widgetize&action=iframe&moduleToWidgetize=Dashboard&actionToWidgetize=index&idSite={{statistics_enabled}}&period=week&date=yesterday&token_auth=4d1ff0386c1933bcb68ad517a6573d1e" frameborder="0" marginheight="0" marginwidth="0" width="100%" height="100%"></iframe> </div>';
+
+      StatisticsView.prototype.serializeData = function() {
+        var data;
+        data = StatisticsView.__super__.serializeData.call(this);
+        data.statistics_enabled = parseInt(this.model.get('statistics_enabled'));
+        return data;
+      };
 
       return StatisticsView;
 

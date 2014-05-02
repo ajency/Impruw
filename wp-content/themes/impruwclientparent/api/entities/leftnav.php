@@ -40,7 +40,18 @@ function get_menu_items() {
 			array (
 					'url' => '#statistics',
 					'title' => 'Statistics',
-					'icon' => 'stats' 
+					'icon' => 'stats' ,
+                                        'submenu' =>array(
+                                                      array(  'url' => '#statistics/realtime',
+                                                        'title' => 'Real time visitors',
+                                                        'icon' => 'stats1'),
+                                                      array(  'url' => '#statistics/visits',
+                                                        'title' => 'Visit Summary',
+                                                        'icon' => 'stats2'),
+                                                      array(  'url' => '#statistics/traffic',
+                                                        'title' => 'Traffic Summary',
+                                                        'icon' => 'stats3')
+                                                   )
 			),
 			array (
 					'url' => wp_logout_url(site_url()),
