@@ -48,10 +48,12 @@
     jquery: ['underscore'],
     jqueryui: ['jquery'],
     backbone: {
-      deps: ['jquery', 'underscore']
+      deps: ['jquery', 'underscore'],
+      exports : 'Backbone'
     },
     marionette: {
-      deps: ['backbone']
+      deps: ['backbone'],
+      exports : 'Marionette'
     },
     polyglot: {
       exports: 'Polyglot'
