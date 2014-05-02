@@ -151,9 +151,8 @@ function get_recovered_elements($revision_id_to_compare) {
     $revision_post = get_post($revision_id_to_compare);
 
     $revision_json = get_post_meta($revision_id_to_compare, 'page-json', true);
-    //$revision_json = is_array($revision_json) ? $revision_json : array();
-    var_dump($revision_json);
-    die;
+    $revision_json = is_array($revision_json) ? $revision_json : array();
+    
     $current_json = get_post_meta($revision_post->parent_id, 'page-json', true);
     $current_json = is_array($current_json) ? $current_json : array();
     

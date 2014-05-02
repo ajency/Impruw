@@ -55,6 +55,9 @@ function publish_page_ajax(){
     $footer_json = $_REQUEST['footer-json'];
     update_footer_json($footer_json);
     
+    remove_all_actions('post_updated');
+    
+    
     //set page json
     publish_page($page_id);
     
