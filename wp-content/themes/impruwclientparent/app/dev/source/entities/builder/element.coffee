@@ -50,9 +50,6 @@ define ["app", 'backbone'], (App, Backbone) ->
 
 
 			recoveredElements = new ElementsCollection
-			recoveredElements.fetch
-								data :
-									type : 'recovered'
 
 
 			# PUBLIC API FOR ENitity
@@ -70,18 +67,25 @@ define ["app", 'backbone'], (App, Backbone) ->
 					element
 
 				# returns the model of the recovered element
-				getRecoveredElement:(metaId = 0)->
+				getUnusedElements:(pageId,revisionId = 0)->
+					
+					recoveredElements.url = "#{AJAXURL}?action=get-unused-elements"
+					recoveredElements.fetch
+									data :
+										revision_id : revisionId
+										page_id : pageId
+					recoveredElements
 
-					return {} if metaId is 0
-
+				getUnusedElementByMetaId:(metaId)->
 					element = recoveredElements.get parseInt metaId
-
-					element || {}
-
+					element
 
 			# REQUEST HANDLERS
 			App.reqres.setHandler "create:new:element",(data) ->
 				API.createElement data
 
-			App.reqres.setHandler "get:recovered:element",(metaId)->
-				API.getRecoveredElement metaId
+			App.reqres.setHandler "get:unused:elements",(pageId, revisionId)->
+				API.getUnusedElements pageId,revisionId
+
+			App.reqres.setHandler "get:unused:element:by:metaid",(metaId)->
+				API.getUnusedElementByMetaId metaId

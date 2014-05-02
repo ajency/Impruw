@@ -3,12 +3,18 @@
  * File Name: functions.php Description: This file has a list of the following functions used in this theme
  */
 define ( 'PARENTTHEMEPATH', ABSPATH . 'wp-content/themes/impruwclientparent/' );
+
 // nclude mustache
 require PARENTTHEMEPATH . '/lib/Mustache/Autoloader.php';
 Mustache_Autoloader::register ();
 
 global $me;
 $me = new Mustache_Engine ();
+
+/**
+ * Include the less php compiler
+ */
+require_once 'modules/lessc.inc.php';
 
 /**
  * Module Loader
@@ -25,6 +31,7 @@ require_once 'modules/tariff/ajax.php';
 require_once 'modules/daterange/ajax.php';
 require_once 'modules/bookings/ajax.php';
 require_once 'modules/revision/ajax.php';
+require_once 'modules/elements/ajax.php';
 
 require_once PARENTTHEMEPATH . 'api/entities/leftnav.php';
 require_once PARENTTHEMEPATH . 'api/statistics/statistics-api.php';
@@ -3368,20 +3375,132 @@ function wp_send_error_json($message){
 
 
 /**
- * Add scripts and style for the theme
+ * Function to read the contents of a file and return array of contents
+ * 
+ * @param type $file_name
+ * @return array
  */
-/*
-function add_theme_scripts(){
+function read_file_content($file_name){
+   
+   $file_content_array = array();
+   
+   //check if the file path exsists
+   if(file_exists($file_name))
+       $file_content_array = file($file_name);
+       $file_content_array = array_unique($file_content_array);
+   
+   
+   return $file_content_array;
+   
+}
+/**
+ * Function to replace the colour value in the css variable
+ * 
+ * @param type $style
+ * @param type $color_val
+ * @return type
+ */
+function switch_variable_color($style,$color_val){
     
-    wp_enqueue_script('jquery');
+    $color = explode(':', $style);
     
-    if(is_page('contact-us'))
-        enqueue_contact_page_script ();
+    $color[1] = $color_val.';';
     
+    $replaced_color = implode(':', $color); 
+    
+    return $replaced_color;
+}
+/**
+ * Function to replace the passed colors in the file content array
+ * 
+ * 
+ * @param type $file_contents
+ * @param type $primary_color
+ * @param type $secondary_color
+ * @param type $tertiary_color
+ * @return type
+ */
+function replace_color_in_array($file_contents,$colours){
+    
+    foreach ($file_contents as $key => $style) {
+        
+        if(preg_match('/^@primary1/', $style)){
+            
+            $file_contents[$key] = switch_variable_color($style,$colours['primary_color']);
+            
+        }
+        if(preg_match('/^@secondary1/', $style)){
+            
+           $file_contents[$key] = switch_variable_color($style,$colours['secondary_color']);
+            
+        }
+        if(preg_match('/^@tertiary1/', $style)){
+            
+            $file_contents[$key] = switch_variable_color($style,$colours['tertiary_color']);
+        }     
+        
+    }
+    
+    return $file_contents;
 }
 
-add_action('wp_enqueue_script', 'add_theme_scripts');
 
+/**
+ * 
+ * Function to replace the css file with the argumenyts passed
+ * 
+ * @param type $file_contents
+ * @param type $primary_color
+ * @param type $secondary_color
+ * @param type $tertiary_color
+ * @param type $file_name
+ */
+function replace_colour_in_file($file_params,$colours){
+    
+    $new_file_content = " ";
+    
+    $file_contents = replace_color_in_array($file_params['file_contents'],$colours);
+    
+    foreach ($file_contents as $value) {
+        $new_file_content .= $value.PHP_EOL;   
+    }
+    
+    file_put_contents($file_params['filename'], $new_file_content);
+    
+}
+/**
+ * Function to change the theme colour
+ */
+function switch_theme_colour(){
+    
+  $file_name = PARENTTHEMEPATH.'css/less/site-elements/variables.less';
+  
+  $style_filename = PARENTTHEMEPATH.'css/less/site-elements/style.less';
+  
+  $colours = array(
+                'primary_color'=>'#FF7E00',
+                'secondary_color'=>'#29333F',
+                'tertiary_color' => '#F2F2F2'
+            );
+  
+  $file_contents = read_file_content($file_name);
+  
+  if(!empty($file_contents))
+      
+      $file_params = array('filename'=>$file_name,'file_contents'=>$file_contents);
+  
+      replace_colour_in_file($file_params,$colours);
+      
+      $less = new lessc;
+      
+     // echo $less->compileFile($style_filename);
+      
+      
+   
+}
+
+add_action('init', 'switch_theme_colour');
+/*
 function enqueue_contact_page_script(){
      wp_enqueue_script ('contact-us', get_template_directory_uri () . 'js/contact.js',array('jquery'));
       wp_enqueue_script ('maps', get_template_directory_uri () . 'js/contact.js');
