@@ -20,8 +20,6 @@ require.config
 		underscorestring 	: 'plugins/underscore.string'
 		mustache			: 'plugins/Mustache'
 		plupload			: 'plugins/plupload.full'
-		d3					: 'plugins/d3.v3'
-		nvd3 				: 'plugins/nv.d3'
 		datepicker 			: 'plugins/datepicker'
 		isotope 			: 'plugins/isotope'
 		radio 				: 'plugins/flatui-radio'
@@ -34,7 +32,6 @@ require.config
 		chart 				: 'plugins/chart'
 		app 				: 'dashboard-app' 
 		bootstrapswitch 	: 'plugins/bootstrap-switch'
-		entitiesloader		: 'entities/dashboard-entities-loader'
 		jpanelmenu			: 'plugins/jquery.jpanelmenu.min'
 		scrollsections		: 'plugins/ajency.scrolldots'
 		minicolors			: 'plugins/jquery.minicolors.min'
@@ -46,20 +43,15 @@ require.config
 			exports : '_'
 		jquery 		: ['underscore']
 		jqueryui 	: ['jquery']
-		backbone: 
-			deps 	: ['jquery','underscore']
-			exports : 'Backbone'
-		marionette : 
-			deps 	: ['backbone']
+		backbone 	: ['jquery','underscore']
+		marionette 	: 
+			deps : ['backbone']
 			exports : 'Marionette'
 		polyglot : 
 			exports : 'Polyglot'
-		plupload			: 
+		plupload : 
 			deps : ['jquery']
 			exports : 'plupload'
-		nvd3:	
-			deps : ['d3']
-			exports : 'nv'
 		jqueryvalidate 		: ['jquery']
 		datepicker 			: ['jquery']
 		scrollsections		: ['jquery']
@@ -78,17 +70,16 @@ require.config
 		checkbox 			: ['bootstrap']
 		bootstrapselect		: ['bootstrap']
 		bootstrapswitch		: ['bootstrap']
-		app 				: ['plugins/plugin-loader','configs/config-loader']
+		app 				: ['plugins/dashboard-plugin-loader','configs/dashboard-config-loader']
 
 
 ## Start with application
-require [	'plugins/plugin-loader'
-			'configs/config-loader'
+require [	'plugins/dashboard-plugin-loader'
+			'configs/dashboard-config-loader'
 			'app'
-			'entitiesloader'
-			'entities/appstate'
+			'entities/dashboard-entities-loader'
 			'controllers/base-controller'
-			'components/component-loader'
-			'apps/apps-loader'], (plugins, configs, App)->
+			'components/dashboard-component-loader'
+			'apps/dashboard-apps-loader'], (plugins, configs, App)->
 
 	App.start()

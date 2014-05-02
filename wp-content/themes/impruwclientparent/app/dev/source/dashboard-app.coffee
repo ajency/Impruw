@@ -51,14 +51,8 @@ define ['marionette'], (Marionette)->
 			$('#initial-loader').fadeOut 'fast', ->
 						$('#initial-loader').remove();
 
-		#create required empty stores
-		appState = App.request "get:current:appstate"
-		
 		App.startHistory()
 
-		if appState.isLoggedIn()
-			App.navigate(@rootRoute, trigger: true) unless @getCurrentRoute()
-		else
-			App.navigate(@loginRoute, trigger : true)
+		App.navigate(@rootRoute, trigger: true) unless @getCurrentRoute()
 			
 	App

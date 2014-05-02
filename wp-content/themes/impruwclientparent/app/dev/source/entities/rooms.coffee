@@ -3,7 +3,7 @@ define ["app", 'backbone'], (App, Backbone) ->
 		App.module "Entities.Rooms", (Rooms, App, Backbone, Marionette, $, _)->
 
 			# Room Model
-			class Rooms.RoomModel extends Backbone.AssociatedModel
+			class Rooms.RoomModel extends Backbone.Model
 
 				idAttribute : 'ID'
 

@@ -9,5 +9,12 @@
 class SwitchThemeTest extends PHPUnit_Framework_TestCase{
     
     
+    public function testThemeSwitch(){
+        $this->assertTrue(true);
+    }
+    
+    public function testElementsDiff(){
+        $this->assertEquals(1,3);
+    }
     
 }

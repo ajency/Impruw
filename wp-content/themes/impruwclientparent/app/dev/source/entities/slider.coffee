@@ -3,7 +3,7 @@ define ["app", 'backbone'], (App, Backbone) ->
 		App.module "Entities.Slider", (Slider, App, Backbone, Marionette, $, _)->
 
 			#Media Model
-			class Slider.SliderModel extends Backbone.AssociatedModel
+			class Slider.SliderModel extends Backbone.Model
 				idAttribute : 'id'
 
 				name : 'slider'

@@ -48,12 +48,10 @@
     jquery: ['underscore'],
     jqueryui: ['jquery'],
     backbone: {
-      deps: ['jquery', 'underscore'],
-      exports: 'Backbone'
+      deps: ['jquery', 'underscore']
     },
     marionette: {
-      deps: ['backbone'],
-      exports: 'Marionette'
+      deps: ['backbone']
     },
     polyglot: {
       exports: 'Polyglot'
@@ -82,6 +80,6 @@
     checkbox: ['bootstrap'],
     bootstrapselect: ['bootstrap'],
     bootstrapswitch: ['bootstrap'],
-    app: ['plugins/plugin-loader', 'configs/config-loader']
+    app: ['plugins/dashboard-plugin-loader', 'configs/dashboard-config-loader']
   },
 })

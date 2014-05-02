@@ -17,7 +17,7 @@ define(["app", 'backbone'], function(App, Backbone) {
 
       return SliderModel;
 
-    })(Backbone.AssociatedModel);
+    })(Backbone.Model);
     SlideModel = (function(_super) {
       __extends(SlideModel, _super);
 
