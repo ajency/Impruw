@@ -31,7 +31,7 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/show/vi
           }
           modelData = {};
           if (metaId !== 0) {
-            model = App.request("get:recovered:element", metaId);
+            model = App.request("get:unused:element:by:metaid", metaId);
             modelData = model.toJSON();
           }
           return App.request("add:new:element", container, type, modelData);
@@ -199,9 +199,14 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/show/vi
         if (siteBuilderController !== null) {
           siteBuilderController.close();
         }
-        return siteBuilderController = new Show.BuilderController({
+        siteBuilderController = new Show.BuilderController({
           pageId: pageId,
           revisionId: revisionId
+        });
+        return App.execute("show:unused:elements", {
+          region: App.unusedElementsRegion,
+          revisionId: revisionId,
+          pageId: pageId
         });
       };
     })(this));

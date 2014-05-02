@@ -70,11 +70,6 @@ define(["app", 'backbone'], function(App, Backbone) {
 
     })(Backbone.Collection);
     recoveredElements = new ElementsCollection;
-    recoveredElements.fetch({
-      data: {
-        type: 'recovered'
-      }
-    });
     API = {
       createElement: function(data) {
         var element;
@@ -92,23 +87,33 @@ define(["app", 'backbone'], function(App, Backbone) {
         }
         return element;
       },
-      getRecoveredElement: function(metaId) {
+      getUnusedElements: function(pageId, revisionId) {
+        if (revisionId == null) {
+          revisionId = 0;
+        }
+        recoveredElements.url = "" + AJAXURL + "?action=get-unused-elements";
+        recoveredElements.fetch({
+          data: {
+            revision_id: revisionId,
+            page_id: pageId
+          }
+        });
+        return recoveredElements;
+      },
+      getUnusedElementByMetaId: function(metaId) {
         var element;
-        if (metaId == null) {
-          metaId = 0;
-        }
-        if (metaId === 0) {
-          return {};
-        }
         element = recoveredElements.get(parseInt(metaId));
-        return element || {};
+        return element;
       }
     };
     App.reqres.setHandler("create:new:element", function(data) {
       return API.createElement(data);
     });
-    return App.reqres.setHandler("get:recovered:element", function(metaId) {
-      return API.getRecoveredElement(metaId);
+    App.reqres.setHandler("get:unused:elements", function(pageId, revisionId) {
+      return API.getUnusedElements(pageId, revisionId);
+    });
+    return App.reqres.setHandler("get:unused:element:by:metaid", function(metaId) {
+      return API.getUnusedElementByMetaId(metaId);
     });
   });
 });
