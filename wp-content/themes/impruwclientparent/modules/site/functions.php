@@ -347,17 +347,15 @@ function update_site($formdata) {
     $roomsummary_update_check = check_roomsummary_update($formdata);
 
     if ($roomsummary_update_check == 0) {
-        
+
         $update_return = update_site_profile($formdata);
         return $update_return;
-        
     } else if ($roomsummary_update_check == 1) {
-        
+
         $update_return = update_checkin_time($formdata);
         return $update_return;
-        
     } else {
-        
+
         $update_return = update_additional_policies($formdata);
         return $update_return;
     }
@@ -416,13 +414,14 @@ function update_checkin_time($formdata) {
     $return_array = array('checkin-time' => $time, 'checkin-time-format' => $format);
     return $return_array;
 }
+
 /**
  * Function to update additional polices
  * @param type $formdata
  * @return type
  */
 function update_additional_policies($formdata) {
-    
+
     $policy = $formdata['changes']['additional_policy'];
 
     update_option('additional-policy', $policy);

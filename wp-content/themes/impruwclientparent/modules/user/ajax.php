@@ -31,20 +31,17 @@ add_action('wp_ajax_read-user', 'read_user_ajax');
  */
 function update_user_ajax() {
     $user_id = $_POST['ID'];
-    
-    $user_lang_set= check_user_lang_set($_POST);
-    
-    if ($user_lang_set == 1) 
-        
+
+    $user_lang_set = check_user_lang_set($_POST);
+
+    if ($user_lang_set == 1)
         update_user_lang($user_id, $_POST['changes']['user_lang']);
-    
-    else 
+    else
         $display_name = $_POST['display_name'];
-    
-        $feature_alert = $_POST['new_feature_alert'];
-        
-        update_user_general($user_id, $display_name, $feature_alert);
-    
+
+    $feature_alert = $_POST['new_feature_alert'];
+
+    update_user_general($user_id, $display_name, $feature_alert);
 }
 
 add_action('wp_ajax_update-user', 'update_user_ajax');
@@ -54,10 +51,10 @@ add_action('wp_ajax_update-user', 'update_user_ajax');
  * @param type $formdata
  * @return int
  */
-function check_user_lang_set($formdata){
-    if(isset($formdata['changes']['user_lang']))
+function check_user_lang_set($formdata) {
+    if (isset($formdata['changes']['user_lang']))
         return 1;
-    else 
+    else
         return 0;
 }
 
@@ -84,7 +81,7 @@ function update_user_lang($user_id, $user_lang) {
  * @param type $feature_alert
  */
 function update_user_general($user_id, $display_name, $feature_alert) {
-    
+
 // update user general info
     $user_id_return = wp_update_user(array(
         'ID' => $user_id,

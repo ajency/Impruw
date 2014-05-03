@@ -46,12 +46,15 @@ require.config
 		entitiesloader		: 'entities/builder-entities-loader'
 		componentloader 	: 'components/builder-component-loader'
 		app 				: 'builder-app'
+		drilldown			: 'plugins/jquery.drilldown.min'
 	shim:
 		underscore:
 			exports : '_'
 		jquery 				: ['underscore']
 		jqueryui 			: ['jquery']
-		backbone 			: ['jquery','underscore']
+		backbone 			: 
+			deps : ['jquery','underscore']
+			exports : 'Backbone'
 		marionette 			: 
 			deps : ['backbone']
 			exports : 'Marionette'

@@ -2,7 +2,6 @@
 /**
  * Template Name: Site Builder
  */
-
 get_header('builder');
 ?>
 <div class="aj-imp-builder-area">

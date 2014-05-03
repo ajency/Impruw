@@ -349,6 +349,57 @@ a {
 			.dropdown-menu {
 				width: 240px;
 				padding: 0.3em;
+				.color-set {
+					border: 1px solid @preview-grey;
+					padding: 0.3em;
+					margin-bottom: 0.4em;
+					.colors {
+						width: 70%;
+						float: left;
+						text-align: left;
+						span {
+							display: inline-block;
+							width: 20px;
+							height: 20px;
+							border-radius: 20px;
+							border: 1px solid @preview-grey;
+							margin-right: 2px;
+						}
+					}
+					> a {
+						display: inline-block;
+						color: lighten(@blue-grey, 10%);
+						&.chosen {
+							display: none;
+						}
+						&:hover {
+							background: transparent;
+							color: @blue-grey;
+						}
+					}
+					&:hover {
+						border-color: @blue-grey;
+					}
+					&.active {
+						border-color: @orange;
+						background: @preview-grey;
+						> a {
+							color: @orange;
+							&.chosen {
+								display: inline-block;
+							}
+							&.pick {
+								display: none;
+							}
+							&:hover {
+								color: darken(@orange, 10%);
+							}
+						}
+					}
+					&:last-child {
+						margin-bottom: 0;
+					}
+				}
 				.panel {
 					border-radius: 0;
 					border: 0;
@@ -2394,5 +2445,13 @@ a {
 	background: @orange !important;
 	&:hover {
 		background: lighten(@orange, 20%) !important;
+	}
+}
+
+/**** Drilldown Menu Plugin Basic Styles ****/
+.drilldown {
+	overflow: hidden;
+	.drilldown-sub {
+		display: none;
 	}
 }

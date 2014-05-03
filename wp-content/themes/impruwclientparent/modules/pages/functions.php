@@ -3,23 +3,22 @@
 /**
  * Update page meta
  */
-function add_page_json($page_id , $page_json){
-    
-   update_post_meta($page_id, 'page-json', $page_json);
+function add_page_json($page_id, $page_json) {
+
+    update_post_meta($page_id, 'page-json', $page_json);
 }
 
 /**
  * Publish the passed page_id
  * @param type $page_id
  */
-function publish_page($page_id){
-    
+function publish_page($page_id) {
+
     wp_update_post(array(
-            'ID'            => $page_id,
-            'post_status'   => 'publish',
-            'post_type'     => 'page'
+        'ID' => $page_id,
+        'post_status' => 'publish',
+        'post_type' => 'page'
     ));
-    
 }
 
 /**
@@ -27,41 +26,39 @@ function publish_page($page_id){
  * @param type $page_id
  * @param type $page_json
  */
-function add_page_revision($page_id, $page_json){
-    
+function add_page_revision($page_id, $page_json) {
+
     // !imp
     update_random_content($page_id);
-    
+
     $revision_post_id = wp_save_post_revision($page_id);
-    
+
     update_autosave_page_json($revision_post_id, $page_json);
-    
+
     return $revision_post_id;
 }
 
+function update_random_content($page_id) {
 
-function update_random_content($page_id){
-    
     global $wpdb;
-    
-    $wpdb->update($wpdb->posts,
-                  array(
-                      'post_content' => "content-" . rand(1000, 9999)
-                  ),
-                  array(
-                      'ID' => $page_id
-                  ));
+
+    $wpdb->update($wpdb->posts, array(
+        'post_content' => "content-" . rand(1000, 9999)
+            ), array(
+        'ID' => $page_id
+    ));
 }
+
 /**
  * Returns the auto save json for the page
  * @param type $page_id
  */
-function get_page_auto_save_json($page_id){
-    
+function get_page_auto_save_json($page_id) {
+
     $autosave_post_id = get_autosave_post_id($page_id);
-    
-    $json = get_post_meta($autosave_post_id, 'page-json',true);
-    
+
+    $json = get_post_meta($autosave_post_id, 'page-json', true);
+
     return is_array($json) ? $json : array();
 }
 
@@ -70,14 +67,14 @@ function get_page_auto_save_json($page_id){
  * @param type $page_id
  * @param type $page_json
  */
-function update_page_autosave($page_id, $page_json){
-    
+function update_page_autosave($page_id, $page_json) {
+
     $autosave_post_id = get_autosave_post_id($page_id);
-    
+
     // cannot use update_post_meta as it replaces the autosave_post_id with original post_id
     update_autosave_page_json($autosave_post_id, $page_json);
-    
-            
+
+
     return $autosave_post_id;
 }
 
@@ -86,38 +83,36 @@ function update_page_autosave($page_id, $page_json){
  * @param type $autosave_post_id
  * @param type $page_json
  */
-function update_autosave_page_json($autosave_post_id, $page_json){
-    
+function update_autosave_page_json($autosave_post_id, $page_json) {
+
     $meta_id = check_json_is_present($autosave_post_id);
-    if($meta_id !== 0){
-        
+    if ($meta_id !== 0) {
+
         update_autosave_page_json_db($meta_id, $page_json);
-    }
-    else{
-       
+    } else {
+
         insert_autosave_page_json($autosave_post_id, $page_json);
     }
-    
 }
+
 /**
  * 
  * @param type $autosave_post_id
  */
-function insert_autosave_page_json($autosave_post_id, $page_json){
+function insert_autosave_page_json($autosave_post_id, $page_json) {
     // serialize the json
     $json = maybe_serialize($page_json);
-    
-    
-    
+
+
+
     global $wpdb;
-    
-    $wpdb->insert($wpdb->postmeta,
-                array(
-                    'meta_key'  => 'page-json',
-                    'meta_value'=> $json,
-                    'post_id'   => $autosave_post_id
-                ));
-    
+
+    $wpdb->insert($wpdb->postmeta, array(
+        'meta_key' => 'page-json',
+        'meta_value' => $json,
+        'post_id' => $autosave_post_id
+    ));
+
     $wpdb->insert_id;
 }
 
@@ -125,20 +120,18 @@ function insert_autosave_page_json($autosave_post_id, $page_json){
  * 
  * @param type $autosave_post_id
  */
-function update_autosave_page_json_db($meta_id,  $page_json){
+function update_autosave_page_json_db($meta_id, $page_json) {
     // serialize the json
     $json = maybe_serialize($page_json);
-    
+
     global $wpdb;
-    
-    $wpdb->update($wpdb->postmeta,
-                array(
-                    'meta_key'  => 'page-json',
-                    'meta_value'=> $json
-                ),
-                array(
-                    'meta_id' => $meta_id
-                ));
+
+    $wpdb->update($wpdb->postmeta, array(
+        'meta_key' => 'page-json',
+        'meta_value' => $json
+            ), array(
+        'meta_id' => $meta_id
+    ));
 }
 
 /**
@@ -146,89 +139,88 @@ function update_autosave_page_json_db($meta_id,  $page_json){
  * @global type $wpdb
  * @return type
  */
-function check_json_is_present($autosave_post_id){
-    
+function check_json_is_present($autosave_post_id) {
+
     global $wpdb;
-    
+
     $query = $wpdb->prepare("SELECT meta_id from {$wpdb->postmeta} WHERE post_id=%d AND meta_key=%s", $autosave_post_id, 'page-json');
-    
+
     $meta_id = $wpdb->get_var($query);
-    
+
     return is_null($meta_id) ? 0 : $meta_id;
 }
+
 /**
  * 
  * @param type $page_id
  * @return type
  */
-function get_autosave_post_id($page_id){
+function get_autosave_post_id($page_id) {
     $autosave_post = wp_get_post_autosave($page_id);
-    
-    if(! $autosave_post){
+
+    if (!$autosave_post) {
         $autosave_post_id = _wp_put_post_revision($page_id, true);
-    }
-    else{
+    } else {
         $autosave_post_id = $autosave_post->ID;
     }
-    
+
     return $autosave_post_id;
 }
 
-function update_header_json($header_json){
+function update_header_json($header_json) {
     $header_json = convert_json_to_array($header_json);
     update_option("theme-header", $header_json);
 }
 
-function update_footer_json($footer_json){
+function update_footer_json($footer_json) {
     $footer_json = convert_json_to_array($footer_json);
     update_option("theme-footer", $footer_json);
 }
+
 /**
  * Get all menu pages for the site
  * @return [type] [description]
  */
-function get_all_menu_pages(){
-        
-    $args = array('post_type' => 'page','posts_per_page' => -1);
-    $pages  = new WP_query($args);
-     
+function get_all_menu_pages() {
+
+    $args = array('post_type' => 'page', 'posts_per_page' => -1);
+    $pages = new WP_query($args);
+
     $p = array();
 
-    if($pages->have_posts()){
-        
-        $skip = array('Site Builder','Dashboard','Support','Coming Soon','Sample Page');
+    if ($pages->have_posts()) {
 
-        foreach($pages->posts as $page){
+        $skip = array('Site Builder', 'Dashboard', 'Support', 'Coming Soon', 'Sample Page');
 
-            if(!in_array($page->post_title, $skip))
+        foreach ($pages->posts as $page) {
+
+            if (!in_array($page->post_title, $skip))
                 $p[] = $page;
         }
     }
 
     return $p;
-
 }
 
 /**
  * Get all menu pages for the site
  * @return [type] [description]
  */
-function get_all_template_pages(){
-        
-    $args = array(  'post_type' => 'page',
-                    'posts_per_page' => -1,
-                    'meta_key'  => 'page_template',
-                    'meta_value' => 'yes');
+function get_all_template_pages() {
 
-    $pages  = new WP_query($args);
-     
+    $args = array('post_type' => 'page',
+        'posts_per_page' => -1,
+        'meta_key' => 'page_template',
+        'meta_value' => 'yes');
+
+    $pages = new WP_query($args);
+
     $p = array();
 
-    if($pages->have_posts())
+    if ($pages->have_posts())
         return $pages->posts;
-    
-    return $p;
 
+    return $p;
 }
 
 /**
@@ -236,18 +228,18 @@ function get_all_template_pages(){
  * @param unknown $json_string
  * @return mixed
  */
-function convert_json_to_array($json_string){
-	
-	$json_array = stripslashes($json_string);
-	$json_array = json_decode ( $json_array, true );
-	
-	return $json_array;
+function convert_json_to_array($json_string) {
+
+    $json_array = stripslashes($json_string);
+    $json_array = json_decode($json_array, true);
+
+    return $json_array;
 }
 
 /**
  *  Create new Page function
- */ 
-function create_new_page($data){
+ */
+function create_new_page($data) {
 
     $page_data = array();
 
@@ -261,15 +253,15 @@ function create_new_page($data){
     //let create a new page 
     $page_id = wp_insert_post($page_data, true);
 
-    if(is_wp_error($page_id))
+    if (is_wp_error($page_id))
         return $page_id;
 
     // check what is the template id need to create the page
     // if 0 no template is choosed. ignore pulling json from page
-    $template_page_id = (int)$data['template_page_id'];
+    $template_page_id = (int) $data['template_page_id'];
 
     // return post id if template id is 0
-    if($template_page_id === 0)
+    if ($template_page_id === 0)
         return $page_id;
 
     // get the template json 
@@ -279,9 +271,7 @@ function create_new_page($data){
     update_post_meta($page_id, 'page-json', $template_json);
 
     return $page_id;
-
 }
-
 
 /**
  * 
@@ -289,75 +279,71 @@ function create_new_page($data){
  * @param type $page_id
  * @return type
  */
-function get_json_to_clone($section, $page_id = 0){
-    
+function get_json_to_clone($section, $page_id = 0) {
+
     $elements = array();
-    if($page_id == 0)   
+    if ($page_id == 0)
         $elements = get_option($section);
     else
-        $elements  = get_post_meta($page_id,'page-json', true);
-    
+        $elements = get_post_meta($page_id, 'page-json', true);
+
     $d = array();
-        
-    if(is_array($elements)){
-        foreach($elements as $element){
-            if($element['element'] === 'Row' ){
+
+    if (is_array($elements)) {
+        foreach ($elements as $element) {
+            if ($element['element'] === 'Row') {
                 $element['columncount'] = count($element['elements']);
                 $d[] = get_row_elements($element);
-            }
-            else{
-                $meta = get_meta_values ($element);
-                if($meta !== false)
-	                $d[] = $meta;
+            } else {
+                $meta = get_meta_values($element);
+                if ($meta !== false)
+                    $d[] = $meta;
             }
         }
     }
-     
-   return $d;
+
+    return $d;
 }
 
-function get_row_elements($element){
-    foreach($element['elements'] as &$column){
-        foreach($column['elements'] as &$ele){
-            if($ele['element'] === 'Row' ){
+function get_row_elements($element) {
+    foreach ($element['elements'] as &$column) {
+        foreach ($column['elements'] as &$ele) {
+            if ($ele['element'] === 'Row') {
                 $ele['columncount'] = count($ele['elements']);
                 $ele = get_row_elements($ele);
-            }
-            else{
-                $meta = get_meta_values ($ele);
-                if($meta !== false)
-                	$ele = wp_parse_args($meta,$ele);
+            } else {
+                $meta = get_meta_values($ele);
+                if ($meta !== false)
+                    $ele = wp_parse_args($meta, $ele);
             }
         }
-        
     }
     return $element;
 }
 
+function get_meta_values($element, $create = false) {
+    $meta = get_metadata_by_mid('post', $element['meta_id']);
 
-function get_meta_values($element, $create = false){
-	$meta = get_metadata_by_mid('post', $element['meta_id']);
-	
-	if(!$meta)
-		return false;
-	
+    if (!$meta)
+        return false;
+
     $ele = maybe_unserialize($meta->meta_value);
     $ele['meta_id'] = $create ? create_new_record($ele) : $element['meta_id'];
     validate_element($ele);
     return $ele;
 }
 
-function validate_element(&$element){
-    $numkeys = array('id', 'meta_id', 'menu_id','ID', 'image_id');
+function validate_element(&$element) {
+    $numkeys = array('id', 'meta_id', 'menu_id', 'ID', 'image_id');
     $boolkey = array('draggable', 'justified');
-     
-    if(!is_array($element) && !is_object($element))
+
+    if (!is_array($element) && !is_object($element))
         return $element;
-    
-    foreach ($element as $key => $val){
-        if(in_array($key, $numkeys))
+
+    foreach ($element as $key => $val) {
+        if (in_array($key, $numkeys))
             $element[$key] = (int) $val;
-        if(in_array($key, $boolkey))
+        if (in_array($key, $boolkey))
             $element[$key] = $val === "true";
     }
     return $element;
@@ -366,39 +352,36 @@ function validate_element(&$element){
 /**
  * this function will set the fetched json data from on site to another
  */
-function set_json_to_site($elements){
+function set_json_to_site($elements) {
 
-    foreach($elements as &$element){
-        if($element['element'] === 'Row' ){
+    foreach ($elements as &$element) {
+        if ($element['element'] === 'Row') {
             $element['columncount'] = count($element['elements']);
             set_row_elements($element);
-        }
-        else
+        } else
             $element = create_new_element($element);
     }
 
     return $elements;
 }
 
-function set_row_elements(&$element){
-    foreach($element['elements'] as &$column){
-        foreach($column['elements'] as &$ele){
-            if($ele['element'] === 'Row' ){
+function set_row_elements(&$element) {
+    foreach ($element['elements'] as &$column) {
+        foreach ($column['elements'] as &$ele) {
+            if ($ele['element'] === 'Row') {
                 $ele['columncount'] = count($ele['elements']);
                 set_row_elements($ele);
-            }
-            else{
+            } else {
                 $ele = create_new_element($ele);
             }
         }
-        
     }
 }
 
 /**
  * 
  */
-function create_new_element(&$ele){
+function create_new_element(&$ele) {
 
     global $wpdb;
 
@@ -406,7 +389,6 @@ function create_new_element(&$ele){
     unset($ele['meta_id']);
 
     //handle_unavailable_fields($ele);
-
     //insert the element in postmeta and retunr the meta_id
     $serialized_element = maybe_serialize($ele);
     $wpdb->insert($wpdb->postmeta, array(
@@ -416,7 +398,7 @@ function create_new_element(&$ele){
     ));
 
     return array(
-            'meta_id' => $wpdb->insert_id,
-            'element' => $ele['element']
-        );
+        'meta_id' => $wpdb->insert_id,
+        'element' => $ele['element']
+    );
 }

@@ -34,11 +34,16 @@ define(['app', 'text!apps/builder/header/show/templates/mainview.html'], functio
           accordion = $(this).find($(this).data('accordion'));
           return accordion.find('.panel-collapse.in').collapse('hide');
         });
-        return this.$el.find('.dropdown-accordion').on('click', 'a[data-toggle="collapse"]', function(event) {
+        this.$el.find('.dropdown-accordion').on('click', 'a[data-toggle="collapse"]', function(event) {
           event.preventDefault();
           event.stopPropagation();
           $($(this).data('parent')).find('.panel-collapse.in').collapse('hide');
           return $($(this).attr('href')).collapse('show');
+        });
+        $('.drilldown').drilldown();
+        return this.$el.find('.dropdown-accordion').on('click', '.drilldown a', function(event) {
+          event.preventDefault();
+          return event.stopPropagation();
         });
       };
 

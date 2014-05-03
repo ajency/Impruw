@@ -22,15 +22,15 @@ function get_revisions($page_id = 0) {
  * @param int $page_id
  */
 function get_last_revision_id($page_id = 0) {
-    
+
     $revisions = wp_get_post_revisions($page_id);
-        
+
     $revisions = array_keys($revisions);
-    
-     $revision_id = $page_id;
-    if(count($revisions) > 0)
+
+    $revision_id = $page_id;
+    if (count($revisions) > 0)
         $revision_id = $revisions[0];
-    
+
     return $revision_id;
 }
 
@@ -148,20 +148,19 @@ function get_recovered_elements($revision_id_to_compare) {
     $elements = array();
 
     $revision_post = get_post($revision_id_to_compare);
-    
+
     $revision_json = get_post_meta($revision_id_to_compare, 'page-json', true);
     $revision_json = is_array($revision_json) ? $revision_json : array();
-    
+
     $current_json = get_post_meta($revision_post->post_parent, 'page-json', true);
     $current_json = is_array($current_json) ? $current_json : array();
-    
+
     $element_ids = compare_page_json($current_json, $revision_json);
-    
+
     $elements = get_elements_by_ids($element_ids);
-    
+
     return $elements;
 }
-
 
 /**
  * 
@@ -169,11 +168,11 @@ function get_recovered_elements($revision_id_to_compare) {
  * @param type $revision_json
  */
 function compare_page_json($current_json, $revision_json) {
-   
+
     $current_meta_ids = pluck_meta_ids_from_json($current_json);
-    
+
     $revision_meta_ids = pluck_meta_ids_from_json($revision_json);
-    
+
     return array_diff($current_meta_ids, $revision_meta_ids);
 }
 
@@ -198,19 +197,18 @@ function pluck_meta_ids_from_json($json) {
  * @param type $meta_ids
  */
 function pluck_meta_ids($element, &$meta_ids) {
-    
-    
+
+
     if ($element['element'] === "Row") {
         foreach ($element['elements'] as $column) {
             pluck_meta_ids($column, $meta_ids);
         }
-    } 
-    else if ($element ['element'] === "Column") {
+    } else if ($element ['element'] === "Column") {
         foreach ($element['elements'] as $ele) {
             pluck_meta_ids($ele, $meta_ids);
         }
     } else {
-        pluck_meta_id($element,  $meta_ids);
+        pluck_meta_id($element, $meta_ids);
     }
 }
 
