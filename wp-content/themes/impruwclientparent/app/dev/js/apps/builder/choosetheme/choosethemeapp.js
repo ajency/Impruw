@@ -27,15 +27,22 @@ define(['app', 'controllers/base-controller', 'apps/builder/choosetheme/views'],
         return ChooseThemeController.__super__.constructor.apply(this, arguments);
       }
 
-      ChooseThemeController.prototype.initialize = function(opt) {
+      ChooseThemeController.prototype.initialize = function() {
         var themesCollection, view;
         themesCollection = App.request("get:themes:collection");
         view = this._getChooseThemeView(themesCollection);
-        this.listenTo(view, "itemview:choose:theme:clicked", this.themeSelected);
+        this.listenViewEvents(view);
         return this.show(view, {
           loading: true
         });
       };
+
+      ChooseThemeController.prototype.listenViewEvents = function(view) {
+        this.listenTo(view, "itemview:choose:theme:clicked", this.themeSelected);
+        return this.listenTo(view, "cancel:theme:switch", this.cancelThemeSwitch);
+      };
+
+      ChooseThemeController.prototype.cancelThemeSwitch = function() {};
 
       ChooseThemeController.prototype.themeSelected = function(iv, model) {
         var data, responseFn;
@@ -46,7 +53,7 @@ define(['app', 'controllers/base-controller', 'apps/builder/choosetheme/views'],
           data.clone_pages = false;
         }
         responseFn = (function(_this) {
-          return function(resp) {
+          return function() {
             window.location.href = BUILDERURL;
             return _this.region.close();
           };

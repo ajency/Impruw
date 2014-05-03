@@ -96,7 +96,7 @@ define ['app'
 									  {{datetime}}
 									</div>
 									<div class="col-sm-7 time">
-									  {{timeago}}
+									  {{post_name}} {{timeago}}
 									</div>
 								</div>'
 
@@ -137,8 +137,6 @@ define ['app'
 					onBeforeRender : ->
 						@collection.sort()
 						
-
-
 
 				class View.Builder extends Marionette.ItemView
 

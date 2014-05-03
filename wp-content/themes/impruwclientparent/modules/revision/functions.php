@@ -11,7 +11,8 @@ function get_revisions($page_id = 0) {
     $revisions = array();
 
     foreach ($revisions_as_object as $revision_id => $revision_post) {
-        $revisions[] = $revision_post;
+        if(strpos($revision_post->post_name,'autosave') === false)
+            $revisions[] = $revision_post;
     }
 
     return $revisions;

@@ -22,6 +22,9 @@ define(['app'], function(App) {
           e.stopPropagation();
           e.preventDefault();
           return this.trigger("choose:theme:clicked", this.model);
+        },
+        'click .cancel-theme-switch': function() {
+          return this.trigger("cancel:theme:switch");
         }
       };
 
