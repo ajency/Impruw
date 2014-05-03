@@ -119,10 +119,10 @@ function get_room($roomid) {
     $attachment_id = get_post_thumbnail_id($room_id);
 
     $image = (int) $attachment_id > 0 ? wp_get_attachment_image_src($attachment_id, 'medium') : array();
-    
-    $check_in = get_option('checkin-time','none');
-    
-    $additional_policy = get_option('additional-policy','none');
+
+    $check_in = get_option('checkin-time', 'none');
+
+    $additional_policy = get_option('additional-policy', 'none');
 
     // prepare the post meta strings to array
     $room_post_meta = array('slider_id' => $room_slider_id,
@@ -211,7 +211,7 @@ function delete_room($formdata) {
     delete_room_tariffs($room_id);
 
     delete_room_postdata($room_id);
-    
+
     return $room_id;
 }
 
@@ -252,14 +252,15 @@ function delete_room_tariffs($room_id) {
     if ($count != 0)
         $wpdb->delete($table_name, array('room_id' => $room_id));
 }
+
 /**
  * 
  * @param type $room_id
  */
 function delete_room_postdata($room_id) {
-    
+
     if (get_post_status($room_id)) {
-       
-        wp_delete_post( $room_id );
+
+        wp_delete_post($room_id);
     }
 }

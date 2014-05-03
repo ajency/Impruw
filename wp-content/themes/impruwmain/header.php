@@ -28,7 +28,7 @@
         <?php wp_head(); ?>
     </head>
 
-    <body <?php //body_class();  ?>>
+    <body <?php //body_class();   ?>>
 
         <?php
         //var_dump($_REQUEST);

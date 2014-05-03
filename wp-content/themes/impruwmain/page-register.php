@@ -176,13 +176,13 @@ get_header();
         <div class="col-md-5 aj-imp-register-right">
             <!--<div class="aj-imp-reg-step">
                 <p>
-                    <?php echo __('Once you sign up along with your new Impruw account your website will also be created. Take the next step and activate your account using the activation link sent to your email address.', 'impruwmain'); ?>
+            <?php echo __('Once you sign up along with your new Impruw account your website will also be created. Take the next step and activate your account using the activation link sent to your email address.', 'impruwmain'); ?>
                 </p>
                 <p>
-                    <?php echo __('If you don\'t see it in your inbox check your spam folder. ', 'impruwmain'); ?>
+            <?php echo __('If you don\'t see it in your inbox check your spam folder. ', 'impruwmain'); ?>
                 </p>
                 <p>
-                    <?php echo __('Still don\'t see it?', 'impruwmain'); ?>
+            <?php echo __('Still don\'t see it?', 'impruwmain'); ?>
                     <br>
                     <a href="#"><?php echo __('Click here to resend activation mail', 'impruwmain'); ?></a>
                 </p>
@@ -207,4 +207,5 @@ get_header();
     </div>
 </div>
 
-<?php get_footer();
+<?php
+get_footer();

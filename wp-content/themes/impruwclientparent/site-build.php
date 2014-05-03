@@ -52,7 +52,7 @@ get_header('build');
             <div class="row second">
                 <div class="col-sm-6">
                     <div class="aj-imp-browser-address-bar">
-                       <?php echo site_url(); ?>
+                        <?php echo site_url(); ?>
                     </div>
                 </div>
                 <div class="col-sm-3">

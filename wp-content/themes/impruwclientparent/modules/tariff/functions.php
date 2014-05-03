@@ -74,6 +74,7 @@ function get_tariff($room_id = 0) {
 
     return $tariff;
 }
+
 /**
  * 
  * @global type $wpdb
@@ -85,8 +86,8 @@ function delete_tariff($formdata) {
     global $wpdb;
 
     $table_name = $wpdb->prefix . 'tariffs';
-   
-    $wpdb->delete($table_name,array('id' => $formdata['id']));
-    
+
+    $wpdb->delete($table_name, array('id' => $formdata['id']));
+
     return $formdata['id'];
 }

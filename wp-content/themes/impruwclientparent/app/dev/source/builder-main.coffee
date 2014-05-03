@@ -52,7 +52,9 @@ require.config
 			exports : '_'
 		jquery 				: ['underscore']
 		jqueryui 			: ['jquery']
-		backbone 			: ['jquery','underscore']
+		backbone 			: 
+			deps : ['jquery','underscore']
+			exports : 'Backbone'
 		marionette 			: 
 			deps : ['backbone']
 			exports : 'Marionette'
