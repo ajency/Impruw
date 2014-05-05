@@ -1,37 +1,33 @@
 define ['app', 'controllers/base-controller'
-		'apps/room-summary/show/views'], (App, AppController)->
+        'apps/room-summary/show/views'], (App, AppController)->
+    App.module 'RoomSummaryApp.Show', (Show, App, Backbone, Marionette, $, _)->
+        class Show.Controller extends AppController
 
-	App.module 'RoomSummaryApp.Show', (Show, App, Backbone, Marionette, $, _)->
+            # initiliaze controller
+            initialize: ()->
+                @layout = @getLayout()
 
-		class Show.Controller extends AppController
+                @sitemodel = sitemodel = App.request "get:site:model"
 
-			# initiliaze controller
-			initialize:()->
+                # trigger set:active:menu event
+                App.vent.trigger "set:active:menu", 'room-summary'
 
-				@layout = @getLayout()
+                @listenTo @layout, "show", =>
+                    App.execute "show:checkin:time:form",
+                        region: @layout.checkinRegion
+                        model: @sitemodel
 
-				@sitemodel = sitemodel = App.request "get:site:model"
+                    App.execute "show:policies:form",
+                        region: @layout.policiesRegion
+                        model: @sitemodel
 
-				# trigger set:active:menu event
-				App.vent.trigger "set:active:menu", 'room-summary'
+                # show main layout
+                @show @layout
 
-				@listenTo @layout,"show" ,=>
 
-					App.execute "show:checkin:time:form",
-							region: @layout.checkinRegion
-							model : @sitemodel
-					
-					App.execute "show:policies:form",
-							region: @layout.policiesRegion
-							model : @sitemodel
+            # get layout
+            getLayout: ->
+                new Show.View.Layout
 
-				# show main layout
-				@show @layout
 
-				
-			# get layout
-			getLayout : ->
-				new Show.View.Layout
-
-			
-	App.RoomSummaryApp.Show.Controller		
+    App.RoomSummaryApp.Show.Controller

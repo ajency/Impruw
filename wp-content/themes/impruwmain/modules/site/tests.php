@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 
-require_once '../../../../../testbootstrap.php';
+require_once '../../../../../bootstrap.php';
 
 class SiteFunctionsTest extends WP_UnitTestCase {
 

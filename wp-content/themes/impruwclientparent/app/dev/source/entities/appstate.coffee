@@ -8,15 +8,15 @@ define ["app", 'backbone'], (App, Backbone) ->
 
             #Appstate defaults
             defaults:
-                userId      : 0
-                accessToken : _.unique 'access-token'
-                loginStatus : true
+                userId: 0
+                accessToken: _.unique 'access-token'
+                loginStatus: true
 
             #check if app is in logged in state or not
-            isLoggedIn : ()->
+            isLoggedIn: ()->
                 @get 'loginStatus'
-                
-                
+
+
         APPSTATE = {} ? APPSTATE
 
         appState = new AppState APPSTATE

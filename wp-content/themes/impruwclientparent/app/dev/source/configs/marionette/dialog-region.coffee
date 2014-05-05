@@ -1,50 +1,45 @@
+define ['marionette', 'mustache', 'text!configs/marionette/templates/modal.html'], (Marionette, Mustache, modalTpl) ->
+    class Marionette.Region.Dialog extends Marionette.Region
 
-define ['marionette','mustache', 'text!configs/marionette/templates/modal.html'], (Marionette, Mustache ,modalTpl) ->
+        template: modalTpl
 
-	class Marionette.Region.Dialog extends Marionette.Region
+        # override open method
+        open: (view)->
+            options = if view.dialogOptions then view.dialogOptions else {}
+            options = @_getOptions options
+            wrapper = Mustache.to_html modalTpl, options
+            @$el.html(wrapper)
+            @$el.find('.modal-body').append(view.el);
+            @$el.addClass options.modal_size
 
-		template : modalTpl
+        #initiate modal on show
+        onShow: (view)->
+            @setupBindings view
 
-		# override open method
-		open:(view)->
-			options = if view.dialogOptions then view.dialogOptions else {}
-			options = @_getOptions options
-			wrapper = Mustache.to_html modalTpl, options
-			@$el.html(wrapper)
-			@$el.find('.modal-body').append(view.el);
-			@$el.addClass options.modal_size
+            @$el.modal()
 
-		#initiate modal on show
-		onShow :(view)->
+            @$el.modal 'show'
 
-			@setupBindings view
+            @$el.on 'hidden.bs.modal', ()=>
+                @clearDialog()
 
-			@$el.modal()
+        closeDialog: ->
+            @$el.modal 'hide'
 
-			@$el.modal 'show'
-
-			@$el.on 'hidden.bs.modal', ()=>
-				@clearDialog()
-
-		closeDialog:->
-			@$el.modal 'hide'
-
-		# get options
-		_getOptions:(options)->
-
-			_.defaults options,
-						modal_title : ''
-						modal_size  : 'wide-modal'
+        # get options
+        _getOptions: (options)->
+            _.defaults options,
+                modal_title: ''
+                modal_size: 'wide-modal'
 
 
-		setupBindings :(view)->
+        setupBindings: (view)->
+            @listenTo view, 'dialog:close', @closeDialog
+            @listenTo view, 'dialog:resize', @resizeDialog
 
-			@listenTo view, 'dialog:close', @closeDialog
-			@listenTo view, 'dialog:resize', @resizeDialog
 
-
-		clearDialog:()->
-			@close()
-			@$el.empty()
+        clearDialog: ()->
+            @close()
+            @$el.empty()
 
 			

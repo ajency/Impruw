@@ -1,62 +1,58 @@
 define ['app', 'controllers/base-controller'], (App, AppController)->
+    App.module 'StatisticsApp.Traffic', (Traffic, App, Backbone, Marionette, $, _)->
+        class Traffic.Controller extends AppController
 
-	App.module 'StatisticsApp.Traffic', (Traffic, App, Backbone, Marionette, $, _)->
+            # initiliaze controller
+            initialize: (opts)->
+                sitemodel = opts.model
 
-		class Traffic.Controller extends AppController
+                @view = view = @getTrafficView sitemodel
 
-			# initiliaze controller
-			initialize:(opts)->
+                # trigger set:active:menu event
+                App.vent.trigger "set:active:menu", 'statistics'
 
-				sitemodel = opts.model
-
-				@view = view = @getTrafficView sitemodel				
-
-				# trigger set:active:menu event
-				App.vent.trigger "set:active:menu", 'statistics'
-
-				@show @view,
-					loading: true
+                @show @view,
+                    loading: true
 
 
-			getTrafficView :(model) ->
-				new TrafficView
-						model :model
-						
-
-		class TrafficView extends Marionette.ItemView
-
-			template :'<div>
-						<h3> Traffic Summary</h3>
-						<p>View the keywords, networks and devices being used to access your site.</p>
-						
-						<h5>All Referrers</h5>
-						<div id="widgetIframe">
-							<iframe width="100%" height="350" src="http://localhost/impruw/piwik/index.php?module=Widgetize&action=iframe&widget=1&moduleToWidgetize=Referrers&actionToWidgetize=getAll&idSite={{statistics_enabled}}&period=week&date=yesterday&disableLink=1&widget=1&token_auth=4d1ff0386c1933bcb68ad517a6573d1e" scrolling="no" frameborder="0" marginheight="0" marginwidth="0">
-							</iframe>
-						</div>
-					  	
-					  	<h5>Device type</h5>
-						<div id="widgetIframe">
-							<iframe width="100%" height="350" src="http://localhost/impruw/piwik/index.php?module=Widgetize&action=iframe&widget=1&moduleToWidgetize=UserSettings&actionToWidgetize=getMobileVsDesktop&idSite={{statistics_enabled}}&period=week&date=yesterday&disableLink=1&widget=1&token_auth=4d1ff0386c1933bcb68ad517a6573d1e" scrolling="no" frameborder="0" marginheight="0" marginwidth="0">
-							</iframe>
-						</div>
-					  	
-					  	<h5>Insights Overview</h5>
-						<div id="widgetIframe">
-							<iframe width="100%" height="350" src="http://localhost/impruw/piwik/index.php?module=Widgetize&action=iframe&widget=1&moduleToWidgetize=Insights&actionToWidgetize=getInsightsOverview&idSite={{statistics_enabled}}&period=week&date=yesterday&disableLink=1&widget=1&token_auth=4d1ff0386c1933bcb68ad517a6573d1e" scrolling="no" frameborder="0" marginheight="0" marginwidth="0">
-							</iframe>
-						</div>
-					  </div>'
-
-			serializeData :->
-				data = super()
-				data.statistics_enabled = parseInt @model.get 'statistics_enabled'
-				data
+            getTrafficView: (model) ->
+                new TrafficView
+                    model: model
 
 
-				
-		App.commands.setHandler "show:traffic:view",(opts) ->
-			new Traffic.Controller opts				
+        class TrafficView extends Marionette.ItemView
+
+            template: '<div>
+            						<h3> Traffic Summary</h3>
+            						<p>View the keywords, networks and devices being used to access your site.</p>
+
+            						<h5>All Referrers</h5>
+            						<div id="widgetIframe">
+            							<iframe width="100%" height="350" src="http://localhost/impruw/piwik/index.php?module=Widgetize&action=iframe&widget=1&moduleToWidgetize=Referrers&actionToWidgetize=getAll&idSite={{statistics_enabled}}&period=week&date=yesterday&disableLink=1&widget=1&token_auth=4d1ff0386c1933bcb68ad517a6573d1e" scrolling="no" frameborder="0" marginheight="0" marginwidth="0">
+            							</iframe>
+            						</div>
+
+            					  	<h5>Device type</h5>
+            						<div id="widgetIframe">
+            							<iframe width="100%" height="350" src="http://localhost/impruw/piwik/index.php?module=Widgetize&action=iframe&widget=1&moduleToWidgetize=UserSettings&actionToWidgetize=getMobileVsDesktop&idSite={{statistics_enabled}}&period=week&date=yesterday&disableLink=1&widget=1&token_auth=4d1ff0386c1933bcb68ad517a6573d1e" scrolling="no" frameborder="0" marginheight="0" marginwidth="0">
+            							</iframe>
+            						</div>
+
+            					  	<h5>Insights Overview</h5>
+            						<div id="widgetIframe">
+            							<iframe width="100%" height="350" src="http://localhost/impruw/piwik/index.php?module=Widgetize&action=iframe&widget=1&moduleToWidgetize=Insights&actionToWidgetize=getInsightsOverview&idSite={{statistics_enabled}}&period=week&date=yesterday&disableLink=1&widget=1&token_auth=4d1ff0386c1933bcb68ad517a6573d1e" scrolling="no" frameborder="0" marginheight="0" marginwidth="0">
+            							</iframe>
+            						</div>
+            					  </div>'
+
+            serializeData: ->
+                data = super()
+                data.statistics_enabled = parseInt @model.get 'statistics_enabled'
+                data
+
+
+        App.commands.setHandler "show:traffic:view", (opts) ->
+            new Traffic.Controller opts
 
 
 

@@ -1,6 +1,6 @@
 <?php
 
-require_once '../../../../../testbootstrap.php';
+require_once '../../../../../bootstrap.php';
 require_once '../../functions.php';
 
 class RoomsFunctionsTest extends WP_UnitTestCase {

@@ -1,68 +1,65 @@
-define  ['app','controllers/base-controller', 'text!apps/rooms/tariffs/addtariff/templates/addtariff.html'],(App, AppController, addTariffTpl)->
+define ['app', 'controllers/base-controller',
+        'text!apps/rooms/tariffs/addtariff/templates/addtariff.html'], (App, AppController, addTariffTpl)->
+    App.module "RoomsApp.RoomsTariff.Add", (Add, App)->
+        class AddTariffController extends AppController
 
-	App.module "RoomsApp.RoomsTariff.Add", (Add, App)->	
+            initialize: (opt)->
+                if not opt.model
+                    tariff = App.request "get:tariff", opt.tariffId
+                else
+                    tariff = opt.model
 
-		class AddTariffController extends AppController
+                @tariffView = tariffView = @_getAddTariffView tariff
 
-			initialize:(opt)->
+                @listenTo tariffView, "add:tariff", (data)=>
+                    tariff.set data
+                    tariff.save null,
+                        wait: true
+                        success: @tariffSaved
 
-				if not opt.model
-					tariff = App.request "get:tariff", opt.tariffId
-				else 
-					tariff = opt.model
+                @show tariffView,
+                    loading: true
 
-				@tariffView = tariffView = @_getAddTariffView tariff
+            tariffSaved: =>
+                @tariffView.triggerMethod "saved:tariff"
 
-				@listenTo tariffView, "add:tariff", (data)=>
-					tariff.set data
-					tariff.save null,
-							wait : true
-							success : @tariffSaved
+            # get the packages view
+            _getAddTariffView: (tariff)->
+                new AddTariffView
 
-				@show tariffView, 
-						loading : true
+        # Edti tariff view
+        class AddTariffView extends Marionette.ItemView
 
-			tariffSaved:=>
-				@tariffView.triggerMethod "saved:tariff"
+            tagName: 'form'
 
-			# get the packages view
-			_getAddTariffView :(tariff)->
-				new AddTariffView
+            className: 'form-horizontal'
 
-		# Edti tariff view
-		class AddTariffView extends Marionette.ItemView
+            template: addTariffTpl
 
-			tagName : 'form'
+            dialogOptions:
+                modal_title: 'Add Tariff'
+                modal_size: 'medium-modal'
 
-			className : 'form-horizontal'
+            events:
+                'click .update-tariff': ->
+                    if @$el.valid()
+                        data = Backbone.Syphon.serialize @
+                        @trigger "add:tariff", data
 
-			template : addTariffTpl
+            onSavedTariff: ->
+                @$el.parent().find('.alert').remove()
+                @$el.parent().prepend '<div class="alert alert-success">
+                								Tariff added succesfully for the plan</div>'
 
-			dialogOptions : 
-				modal_title : 'Add Tariff'
-				modal_size  : 'medium-modal'
-
-			events:
-				'click .update-tariff' : ->
-					if @$el.valid()
-						data = Backbone.Syphon.serialize @
-						@trigger "add:tariff", data
-
-			onSavedTariff:->
-				@$el.parent().find('.alert').remove()
-				@$el.parent().prepend '<div class="alert alert-success">
-								Tariff added succesfully for the plan</div>'
-
-			# show checkbox
-			onShow:->
-				@$el.find('input[type="checkbox"]').checkbox()
+            # show checkbox
+            onShow: ->
+                @$el.find('input[type="checkbox"]').checkbox()
 
 
-		# handler
-		App.commands.setHandler "show:add:tariff", (opt)->
+        # handler
+        App.commands.setHandler "show:add:tariff", (opt)->
+            opts =
+                region: App.dialogRegion
+                model: opt.model
 
-			opts = 
-				region : App.dialogRegion
-				model : opt.model
-
-			new AddTariffController opts
+            new AddTariffController opts

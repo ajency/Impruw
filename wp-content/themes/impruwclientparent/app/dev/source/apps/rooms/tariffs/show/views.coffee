@@ -1,231 +1,228 @@
 # , 'apps/rooms/tariffs/show/templates/'
 
 define ['app', 'moment'], (App, moment)->
+    App.module "RoomsApp.RoomsTariff.Show.Views", (Views, App)->
 
-	App.module "RoomsApp.RoomsTariff.Show.Views", (Views, App)->
+        # package single view
+        class PackageSingle extends Marionette.ItemView
 
-		# package single view
-		class PackageSingle extends Marionette.ItemView
+            className: 'package-block-outer'
 
-			className : 'package-block-outer'
+            template: '<div class="block clearfix">
+            							<h6>{{plan_name}}</h6>
+            							<div class="package-desc">
+            								{{plandescription}}
+            							</div>
+            							<a href="#" class="edit-pkg-link"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
+            						</div>'
 
-			template : '<div class="block clearfix">
-							<h6>{{plan_name}}</h6>
-							<div class="package-desc">
-								{{plandescription}}
-							</div>
-							<a href="#" class="edit-pkg-link"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
-						</div>'
-
-			modelEvents: 
-					"change": "render"
-				 
-
-			events: 						
-				'click .edit-pkg-link' :(e) ->
-							e.preventDefault()
-							App.execute "show:edit:plan", model : @model
-
-			serializeData:->
-				data = super()
-
-				data.plandescription = ->
-					_(@plan_description).prune(50)
-
-				data
-
-		# packages view
-		class Views.PackagesView extends Marionette.CompositeView
-
-			className : 'tariff package-names clearfix'
-
-			template : '<div class="packages"><div class="package-blocks header clearfix"></div><button type="button" class="btn-add-plan"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;Add Plan</button></div>'
-						
-			itemView : PackageSingle
-
-			itemViewContainer : '.package-blocks'
+            modelEvents:
+                "change": "render"
 
 
-		################ Tariffs views ###################
+            events:
+                'click .edit-pkg-link': (e) ->
+                    e.preventDefault()
+                    App.execute "show:edit:plan", model: @model
 
-		class SingleTariff extends Marionette.ItemView
+            serializeData: ->
+                data = super()
 
-			className: 'package-block-outer'
+                data.plandescription = ->
+                    _(@plan_description).prune(50)
 
-			events:
-				'click .edit-trariff' : -> 
-						App.execute "show:edit:tariff", model : @model
-				'click .add-trariff': -> 
-						App.execute "show:add:tariff", model : @model
+                data
 
-				'click .edit-pkg-link' :(e) ->
-						e.preventDefault()
-						App.execute "show:edit:plan", model : @plan
+        # packages view
+        class Views.PackagesView extends Marionette.CompositeView
 
-			modelEvents:
-				'change' : 'render'
+            className: 'tariff package-names clearfix'
 
-			initialize:->
-				@plan = App.request "get:plan:by:id", @model.get 'plan_id'
-				@listenTo @plan, "change", @render			
+            template: '<div class="packages"><div class="package-blocks header clearfix"></div><button type="button" class="btn-add-plan"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;Add Plan</button></div>'
 
-			serializeData:->
-				data = super()
-				data.plan_name = @plan.get 'plan_name'
-				data.plan_description = @plan.get 'plan_description'
-				data
+            itemView: PackageSingle
 
-			template : '
-						{{^id}}	
-							<div class="package-header">
-									<h6>{{plan_name}}</h6>
-									<div class="package-desc">
-										{{plan_description}}
-									</div>
-									<a href="#" class="edit-pkg-link"><span class="glyphicon glyphicon-pencil"></span> Edit Plan</a>
-							</div>
-
-							<div class="block clearfix not-yet-added empty">
-								
-								<span class="no-data">
-									<span class="glyphicon glyphicon-exclamation-sign"></span>
-								</span>
-								No Data Added
-								<div class="block-action">
-									<button type="button" class="btn btn-sm add-trariff edit-tran">
-										<span class="glyphicon glyphicon-pencil"></span>&nbsp;Add
-									</button>
-								</div>
-							</div>
-						{{/id}}
-						{{#id}}
-							<div class="package-header">
-								<h6>{{plan_name}}</h6>
-								<div class="package-desc">
-									{{plan_description}}
-								</div>
-								<a href="#" class="edit-pkg-link"><span class="glyphicon glyphicon-pencil"></span> Edit Plan</a>
-							</div>
-							<div class="block clearfix">
-								<div class="weekday">
-									Weekdays
-									<span class="price">{{weekday.charge}}</span>
-								</div>
-								<div class="weekend">
-									Weekends
-									<span class="price">{{weekend.charge}}</span>
-								</div>
-								<div class="tariff-label clearfix">Extra Adult</div>
-								<div class="weekday">
-									<span class="price">{{weekday.extra_adult}}</span>
-								</div>
-								<div class="weekend">
-									<span class="price">{{weekend.extra_adult}}</span>
-								</div>
-								<div class="tariff-label clearfix">Extra Child</div>
-								<div class="weekday">
-									<span class="price">{{weekday.extra_child}}</span>
-								</div>
-								<div class="weekend">
-									<span class="price">{{weekend.extra_child}}</span>
-								</div>
-								<div class="block-action">
-									<button type="button" class="btn btn-sm edit-trariff edit-tran"><span class="glyphicon glyphicon-pencil"></span>&nbsp;Edit</button>
-								</div>
-							</div>
-						{{/id}}'	
+            itemViewContainer: '.package-blocks'
 
 
-		class DateRageView extends Marionette.CompositeView
-			
-			template : '<div class="date-range">
-							<div class="range-name">{{daterange_name}}</div>
-							<div class="from">
-								<span class="date">{{fromdate}}</span>
-								to <span class="date">{{todate}}</span>
-							</div>
-							<a href="#" class="edit-range-link"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
-						</div>
-						<div class="packages">
-							<div class="package-blocks clearfix"></div>
-						</div>'	
-			events:
-				'click .edit-range-link' :(e)->
-						e.preventDefault()
-						App.execute "show:edit:daterange", model : @model
+        ################ Tariffs views ###################
 
-			initialize:->
-				
+        class SingleTariff extends Marionette.ItemView
 
-			onBeforeRender:->
-				dateRangeId = @model.get 'id'
-				tariffs = App.request "get:tariffs:for:daterange", dateRangeId
+            className: 'package-block-outer'
 
-				plans = App.request "get:plans:collection"
+            events:
+                'click .edit-trariff': ->
+                    App.execute "show:edit:tariff", model: @model
+                'click .add-trariff': ->
+                    App.execute "show:add:tariff", model: @model
 
-				tariffCollection = new Backbone.Collection
+                'click .edit-pkg-link': (e) ->
+                    e.preventDefault()
+                    App.execute "show:edit:plan", model: @plan
 
-				getTariff =(planId)->
-					tariff = _.filter tariffs,(t)->
-									t.get('plan_id') is planId and t.get('daterange_id') is dateRangeId
+            modelEvents:
+                'change': 'render'
 
-					return tariff[0] if tariff.length > 0
-					return false
+            initialize: ->
+                @plan = App.request "get:plan:by:id", @model.get 'plan_id'
+                @listenTo @plan, "change", @render
 
-				roomId = Marionette.getOption @,'roomId'
+            serializeData: ->
+                data = super()
+                data.plan_name = @plan.get 'plan_name'
+                data.plan_description = @plan.get 'plan_description'
+                data
 
-				plans.each (plan, index)=>
-					
-					tariff = getTariff plan.get 'id'
+            template: '
+            						{{^id}}
+            							<div class="package-header">
+            									<h6>{{plan_name}}</h6>
+            									<div class="package-desc">
+            										{{plan_description}}
+            									</div>
+            									<a href="#" class="edit-pkg-link"><span class="glyphicon glyphicon-pencil"></span> Edit Plan</a>
+            							</div>
 
-					if tariff is false
-						tariff = new Backbone.Model
-						tariff.set 
-								plan_id : plan.get 'id'
-								daterange_id : dateRangeId
-								room_id : roomId
+            							<div class="block clearfix not-yet-added empty">
 
-						tariff.name = 'tariff'
+            								<span class="no-data">
+            									<span class="glyphicon glyphicon-exclamation-sign"></span>
+            								</span>
+            								No Data Added
+            								<div class="block-action">
+            									<button type="button" class="btn btn-sm add-trariff edit-tran">
+            										<span class="glyphicon glyphicon-pencil"></span>&nbsp;Add
+            									</button>
+            								</div>
+            							</div>
+            						{{/id}}
+            						{{#id}}
+            							<div class="package-header">
+            								<h6>{{plan_name}}</h6>
+            								<div class="package-desc">
+            									{{plan_description}}
+            								</div>
+            								<a href="#" class="edit-pkg-link"><span class="glyphicon glyphicon-pencil"></span> Edit Plan</a>
+            							</div>
+            							<div class="block clearfix">
+            								<div class="weekday">
+            									Weekdays
+            									<span class="price">{{weekday.charge}}</span>
+            								</div>
+            								<div class="weekend">
+            									Weekends
+            									<span class="price">{{weekend.charge}}</span>
+            								</div>
+            								<div class="tariff-label clearfix">Extra Adult</div>
+            								<div class="weekday">
+            									<span class="price">{{weekday.extra_adult}}</span>
+            								</div>
+            								<div class="weekend">
+            									<span class="price">{{weekend.extra_adult}}</span>
+            								</div>
+            								<div class="tariff-label clearfix">Extra Child</div>
+            								<div class="weekday">
+            									<span class="price">{{weekday.extra_child}}</span>
+            								</div>
+            								<div class="weekend">
+            									<span class="price">{{weekend.extra_child}}</span>
+            								</div>
+            								<div class="block-action">
+            									<button type="button" class="btn btn-sm edit-trariff edit-tran"><span class="glyphicon glyphicon-pencil"></span>&nbsp;Edit</button>
+            								</div>
+            							</div>
+            						{{/id}}'
 
-					tariffCollection.add tariff
 
-				@collection = tariffCollection
-				@listenTo @collection , "remove", @render 
+        class DateRageView extends Marionette.CompositeView
 
-			render:->
-				#console.log @collection
-				super()
+            template: '<div class="date-range">
+            							<div class="range-name">{{daterange_name}}</div>
+            							<div class="from">
+            								<span class="date">{{fromdate}}</span>
+            								to <span class="date">{{todate}}</span>
+            							</div>
+            							<a href="#" class="edit-range-link"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
+            						</div>
+            						<div class="packages">
+            							<div class="package-blocks clearfix"></div>
+            						</div>'
+            events:
+                'click .edit-range-link': (e)->
+                    e.preventDefault()
+                    App.execute "show:edit:daterange", model: @model
 
-			modelEvents:
-				'change' : 'render'
-			
-			serializeData:->
-				data = super()
+            initialize: ->
 
-				data.fromdate = ->
-					moment(@from_date).format 'Do-MMM'
 
-				data.todate = ->
-					moment(@to_date).format 'Do-MMM'
+            onBeforeRender: ->
+                dateRangeId = @model.get 'id'
+                tariffs = App.request "get:tariffs:for:daterange", dateRangeId
 
-				data
+                plans = App.request "get:plans:collection"
 
-			itemView : SingleTariff
+                tariffCollection = new Backbone.Collection
 
-			itemViewContainer : '.package-blocks'		
+                getTariff = (planId)->
+                    tariff = _.filter tariffs, (t)->
+                        t.get('plan_id') is planId and t.get('daterange_id') is dateRangeId
 
-		
-		class Views.DateRangeCollectionView extends Marionette.CollectionView
+                    return tariff[0] if tariff.length > 0
+                    return false
 
-			className : 'tariff clearfix'
+                roomId = Marionette.getOption @, 'roomId'
 
-			itemView : DateRageView
+                plans.each (plan, index)=>
+                    tariff = getTariff plan.get 'id'
 
-			itemViewOptions:(item, index)->
-				
-				roomId = Marionette.getOption @,'roomId'
+                    if tariff is false
+                        tariff = new Backbone.Model
+                        tariff.set
+                            plan_id: plan.get 'id'
+                            daterange_id: dateRangeId
+                            room_id: roomId
 
-				roomId : roomId				
+                        tariff.name = 'tariff'
+
+                    tariffCollection.add tariff
+
+                @collection = tariffCollection
+                @listenTo @collection, "remove", @render
+
+            render: ->
+                #console.log @collection
+                super()
+
+            modelEvents:
+                'change': 'render'
+
+            serializeData: ->
+                data = super()
+
+                data.fromdate = ->
+                    moment(@from_date).format 'Do-MMM'
+
+                data.todate = ->
+                    moment(@to_date).format 'Do-MMM'
+
+                data
+
+            itemView: SingleTariff
+
+            itemViewContainer: '.package-blocks'
+
+
+        class Views.DateRangeCollectionView extends Marionette.CollectionView
+
+            className: 'tariff clearfix'
+
+            itemView: DateRageView
+
+            itemViewOptions: (item, index)->
+                roomId = Marionette.getOption @, 'roomId'
+
+                roomId: roomId
 				
 
 

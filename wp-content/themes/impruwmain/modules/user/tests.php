@@ -5,7 +5,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-require_once '../../../../../testbootstrap.php';
+require_once '../../../../../bootstrap.php';
 
 class UserFunctionsTest extends WP_UnitTestCase {
 
