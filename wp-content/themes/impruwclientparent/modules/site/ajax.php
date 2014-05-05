@@ -31,8 +31,6 @@
     function assign_theme_to_site_ajax()
     {
 
-        $site_id = get_current_blog_id();
-
         $new_theme_id = $_POST['new_theme_id'];
         $clone_pages  = !isset($_POST['clone_pages']) ? TRUE : FALSE;
 

@@ -180,11 +180,14 @@ a.red-link.pull-right {
   text-decoration: none;
   font-weight: 700;
 }
-.aj-imp-container .aj-imp-left .aj-imp-dash-nav #aj-imp-dash-menu li:hover .icon {
+.aj-imp-container .aj-imp-left .aj-imp-dash-nav #aj-imp-dash-menu li:hover > .icon {
   opacity: 0;
 }
-.aj-imp-container .aj-imp-left .aj-imp-dash-nav #aj-imp-dash-menu li:hover .arrow {
+.aj-imp-container .aj-imp-left .aj-imp-dash-nav #aj-imp-dash-menu li:hover > .arrow {
   opacity: 1;
+}
+.aj-imp-container .aj-imp-left .aj-imp-dash-nav #aj-imp-dash-menu li:hover .sub-menu {
+  display: block;
 }
 .aj-imp-container .aj-imp-left .aj-imp-dash-nav #aj-imp-dash-menu li:hover > a {
   text-decoration: none;

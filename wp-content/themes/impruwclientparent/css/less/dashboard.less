@@ -137,41 +137,6 @@ a {
 							outline: 0;
 						}
 					}
-					/*&.aj-imp-nav-dashboard {
-						.icon {
-							background-position: 0 0;
-						}
-					}
-					&.aj-imp-nav-site-builder {
-						.icon {
-							background-position: 0 -65px;
-						}
-					}
-					&.aj-imp-nav-reports {
-						.icon {
-							background-position: 0 -130px;
-						}
-					}
-					&.aj-imp-nav-marketing {
-						.icon {
-							background-position: 0 -197px;
-						}
-					}
-					&.aj-imp-nav-inventory {
-						.icon {
-							background-position: 0 -263px;
-						}
-					}
-					&.aj-imp-nav-profile {
-						.icon {
-							background-position: 0 -328px;
-						}
-					}
-					&.aj-imp-nav-support {
-						.icon {
-							background-position: 0 -394px;
-						}
-					}*/
 					&.active {
 						background: #fff;
 						.sub-menu {
@@ -183,11 +148,14 @@ a {
 						}
 					}
 					&:hover {
-						.icon {
+						> .icon {
 							opacity: 0;
 						}
-						.arrow {
+						> .arrow {
 							opacity: 1;
+						}
+						.sub-menu {
+							display: block;
 						}
 						> a {
 							text-decoration: none;

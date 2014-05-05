@@ -100,7 +100,7 @@ define(["app", 'backbone', 'moment'], function(App, Backbone, moment) {
     App.reqres.setHandler("get:page:revisions", function(pageId) {
       return API.getPageRevisions(pageId);
     });
-    return App.commands.setHandler("revision:added", function(pageId, revisionData) {
+    return App.commands.setHandler("add:new:revision", function(pageId, revisionData) {
       return API.addNewRevision(pageId, revisionData);
     });
   });
