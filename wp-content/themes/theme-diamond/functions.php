@@ -48,6 +48,9 @@ $element_templates = array(
                     'name'      => 'Page Title',
                 ),
                 array(
+                    'name'      => 'Box Title',
+                ),
+                array(
                     'name'      => 'Footer Title'
                 )
               ),

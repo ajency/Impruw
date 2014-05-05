@@ -21,6 +21,7 @@ class ImpruwSiteTest extends WP_UnitTestCase{
 
     public function test_add_columns(){
         $this->assertEquals(4, 4);
+
     }
 
 }

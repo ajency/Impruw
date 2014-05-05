@@ -36,6 +36,7 @@ define( 'WP_DEFAULT_THEME', 'impruwclientparent' );
 
 define( 'WP_TESTS_DOMAIN', 'impruw.com' );
 define( 'WP_TESTS_EMAIL', 'impruwadmin@mailinator.com' );
+
 define( 'WP_TESTS_TITLE', 'Impruw' );
 
 define( 'WP_PHP_BINARY', 'php' );
