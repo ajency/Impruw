@@ -39,7 +39,6 @@ define(['app'], function(App) {
 
       ChooseThemeView.prototype.events = {
         'click button.cancel-theme-switch': function() {
-          console.log("dsdsds");
           return this.trigger("cancel:theme:switch");
         }
       };

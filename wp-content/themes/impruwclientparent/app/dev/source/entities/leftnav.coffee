@@ -1,28 +1,26 @@
 define ["app", 'backbone'], (App, Backbone) ->
-
-    App.module "Entities.LeftNavItems", ( LeftNavItems, App, Backbone, Marionette, $, _ )->
+    App.module "Entities.LeftNavItems", (LeftNavItems, App, Backbone, Marionette, $, _)->
 
         # Menu model
         class LeftNavItems.MenuItem extends Backbone.Model
 
-        # Left Nav Items
+            # Left Nav Items
         class LeftNavItems.MenuItems extends Backbone.Collection
 
-            model : LeftNavItems.MenuItem
+            model: LeftNavItems.MenuItem
 
 
         # PUBLIC API FOR ENitity
         API =
-            getLeftNavEntities: (action, param ={})->
-
+            getLeftNavEntities: (action, param = {})->
                 menuItems = new LeftNavItems.MenuItems
-                
+
                 menuItems.url = AJAXURL + '?action=get-menu-items'
-                
+
                 menuItems.fetch
-                            reset : true
-                            data  : param
-                            
+                    reset: true
+                    data: param
+
                 menuItems
 
 

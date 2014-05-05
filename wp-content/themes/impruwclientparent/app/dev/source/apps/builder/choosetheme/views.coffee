@@ -37,7 +37,6 @@ define ['app'], (App)->
 
             events:
                 'click button.cancel-theme-switch' : ->
-                    console.log "dsdsds"
                     @trigger "cancel:theme:switch"
 
             className: 'aj-imp-theme-area'

@@ -1,63 +1,59 @@
 define [
-		'app'
-		'controllers/base-controller'
-		'components/loading/view'
-	], (App, AppController, LoadingView)->
+    'app'
+    'controllers/base-controller'
+    'components/loading/view'
+], (App, AppController, LoadingView)->
+    class LoadingController extends AppController
 
-		class LoadingController extends AppController
+        initialize: (options) ->
+            { view, config } = options
 
-			initialize: (options) ->
-				{ view, config } = options
-		
-				config = if _.isBoolean(config) then {} else config
-				
-				_.defaults config,
-					loadingType: "spinner"
-					entities: @getEntities(view)
-					debug: false
+            config = if _.isBoolean(config) then {} else config
 
-				switch config.loadingType
-					when "opacity"
-						@region.currentView.$el.css "opacity", 0.5
-					when "spinner"
-						loadingView = @getLoadingView()
-						@show loadingView
-					else
-						throw new Error("Invalid loadingType")
-				
-				@showRealView view, loadingView, config
+            _.defaults config,
+                loadingType: "spinner"
+                entities: @getEntities(view)
+                debug: false
 
-		
-			showRealView: (realView, loadingView, config) ->
+            switch config.loadingType
+                when "opacity"
+                    @region.currentView.$el.css "opacity", 0.5
+                when "spinner"
+                    loadingView = @getLoadingView()
+                    @show loadingView
+                else
+                    throw new Error("Invalid loadingType")
 
-				callbackFn = _.debounce ()=>
-					
-					switch config.loadingType
-						when "opacity"
-							@region.currentView.$el.removeAttr "style"
-						when "spinner"
-							return realView.close() if @region.currentView isnt loadingView
+            @showRealView view, loadingView, config
 
 
-					if not config.debug
-						@show realView
-						realView.triggerMethod "dependencies:fetched" 
-				, 10
-
-				App.commands.execute "when:fetched", config.entities, callbackFn
-					
-			
-			getEntities: (view) ->
-				_.chain(view).pick("model", "collection").toArray().compact().value()
-		
-			
-			getLoadingView: ->
-				new LoadingView
+        showRealView: (realView, loadingView, config) ->
+            callbackFn = _.debounce ()=>
+                switch config.loadingType
+                    when "opacity"
+                        @region.currentView.$el.removeAttr "style"
+                    when "spinner"
+                        return realView.close() if @region.currentView isnt loadingView
 
 
-		App.commands.setHandler "show:loading", (view, options) ->
-			
-			new LoadingController
-				view: view
-				region: options.region
-				config: options.loading
+                if not config.debug
+                    @show realView
+                    realView.triggerMethod "dependencies:fetched"
+            , 10
+
+            App.commands.execute "when:fetched", config.entities, callbackFn
+
+
+        getEntities: (view) ->
+            _.chain(view).pick("model", "collection").toArray().compact().value()
+
+
+        getLoadingView: ->
+            new LoadingView
+
+
+    App.commands.setHandler "show:loading", (view, options) ->
+        new LoadingController
+            view: view
+            region: options.region
+            config: options.loading
