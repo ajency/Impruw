@@ -1506,16 +1506,22 @@ and open the template in the editor.
   border-left: 1px solid #bebebe;
 }
 .row.white-box {
-  padding: 1em 15px;
+  margin-top: 1em;
+  margin-bottom: 1em;
   background: #f9f8f4;
-  box-shadow: 0 0 2px #c8b4b4;
+  border: 1px solid #bebebe !important;
+  text-align: center;
+  padding: 1em 15px;
 }
 .row.menu-bar {
   background: #ffffff;
   padding: 0.5em 15px;
-  margin-bottom: -0.5em;
+  margin-bottom: -1.01em;
   border: 1px solid #bebebe !important;
-  box-shadow: inset 0 -5px 9px -7px #727272;
+  box-shadow: inset 0 -3px 6px -3px #bebebe;
+}
+.row.column-dividers .column {
+  border-color: rgba(0, 0, 0, 0.2) !important;
 }
 /****Top Slim-menu Styles****/
 .nav.slimmenu {
@@ -1662,6 +1668,27 @@ and open the template in the editor.
   text-transform: uppercase;
   padding: 0.5em 0 0 15px;
 }
+.title.page-title {
+  color: #483535;
+  font-size: 4em;
+  font-family: 'Satisfy', cursive;
+  text-align: center;
+}
+.title.box-title {
+  color: #483535;
+  font-size: 2em;
+  text-transform: uppercase;
+  text-align: center;
+  display: table;
+  white-space: nowrap;
+}
+.title.box-title:before,
+.title.box-title:after {
+  content: '';
+  display: table-cell;
+  width: 50%;
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQIW2NkYGAwBgAAPQA1zJXiFgAAAABJRU5ErkJggg==) repeat-x center 0.72em;
+}
 .title.footer-title {
   color: #483535;
   text-transform: uppercase;
@@ -1688,7 +1715,8 @@ and open the template in the editor.
   text-align: right;
   color: #bebebe;
   border-left: 1px solid #bebebe;
-  font-size: 1.2em;
+  font-size: 1em;
+  line-height: 2em;
   padding: 0;
   *zoom: 1;
 }
@@ -1700,6 +1728,7 @@ and open the template in the editor.
 }
 .address.menu-number .glyphicon {
   font-size: 1.2em;
+  top: 3px;
 }
 .text {
   color: #989898;
