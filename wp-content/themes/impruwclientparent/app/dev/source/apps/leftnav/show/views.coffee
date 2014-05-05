@@ -26,7 +26,7 @@ define ['app'
 
 							submenuTpl = @getSubmenuTpl submenu							
 
-							@$el.find('.aj-imp-nav-create').append('<ul>'+submenuTpl+'</ul>')
+							@$el.find('.aj-imp-nav-create').append('<ul class="sub-menu">'+submenuTpl+'</ul>')
 
 					getSubmenuTpl :(submenu) ->
 						@submenuTpl =" "
@@ -36,8 +36,6 @@ define ['app'
 								submenuTitle = submenuData.title
 								submenuIcon  = submenuData.icon
 								@submenuTpl += "<li>
-											    <span class='icon icon-#{submenuIcon}'></span>
-												<span class='arrow'></span>
 												<a href='#{submenuLink}' data-route='##{submenuLink}'>#{submenuTitle}</a>
 											</li>"
 						@submenuTpl
