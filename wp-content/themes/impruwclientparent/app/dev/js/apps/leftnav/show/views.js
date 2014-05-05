@@ -28,7 +28,7 @@ define(['app', 'text!apps/leftnav/show/templates/leftNav.html', 'text!apps/leftn
         submenu = this.model.get('submenu');
         if (!_.isUndefined(submenu)) {
           submenuTpl = this.getSubmenuTpl(submenu);
-          return this.$el.find('.aj-imp-nav-create').append('<ul>' + submenuTpl + '</ul>');
+          return this.$el.find('.aj-imp-nav-create').append('<ul class="sub-menu">' + submenuTpl + '</ul>');
         }
       };
 
@@ -40,7 +40,7 @@ define(['app', 'text!apps/leftnav/show/templates/leftNav.html', 'text!apps/leftn
             submenuLink = submenuData.url;
             submenuTitle = submenuData.title;
             submenuIcon = submenuData.icon;
-            return _this.submenuTpl += "<li> <span class='icon icon-" + submenuIcon + "'></span> <span class='arrow'></span> <a href='" + submenuLink + "' data-route='#" + submenuLink + "'>" + submenuTitle + "</a> </li>";
+            return _this.submenuTpl += "<li> <a href='" + submenuLink + "' data-route='#" + submenuLink + "'>" + submenuTitle + "</a> </li>";
           };
         })(this));
         return this.submenuTpl;
