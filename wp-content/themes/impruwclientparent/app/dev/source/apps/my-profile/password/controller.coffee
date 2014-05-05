@@ -1,47 +1,44 @@
 define ['app', 'controllers/base-controller'
-		'apps/my-profile/password/views'], (App, AppController)->
+        'apps/my-profile/password/views'], (App, AppController)->
+    App.module 'MyProfileApp.Password', (Password, App, Backbone, Marionette, $, _)->
+        class Password.Controller extends AppController
 
-	App.module 'MyProfileApp.Password', (Password, App, Backbone, Marionette, $, _)->
+            initialize: (opts)->
+                {model} = opts
 
-		class Password.Controller extends AppController
+                @model = model
 
-			initialize :(opts)->
-				{model} = opts
-			
-				@model = model
+                @view = @getPasswordView @model
 
-				@view =  @getPasswordView @model
+                @listenTo @view, "update:password:clicked", @updatePassword
 
-				@listenTo @view ,"update:password:clicked", @updatePassword
-
-				@show @view,
-					loading: true
+                @show @view,
+                    loading: true
 
 
-			getPasswordView :(model) ->
-				new Password.View.PasswordForm
-						model : model
+            getPasswordView: (model) ->
+                new Password.View.PasswordForm
+                    model: model
 
-			updatePassword :(data) ->
-				options = 
-					url:AJAXURL,
-					method:'POST',
-					data :
-						action : 'update-password'
-						formdata : data
+            updatePassword: (data) ->
+                options =
+                    url: AJAXURL,
+                    method: 'POST',
+                    data:
+                        action: 'update-password'
+                        formdata: data
 
-				$.ajax( options ).done (response)=>
-					@PasswordUpdated response
-				.fail (resp)->
-					console.log 'error'
-			
-			PasswordUpdated :(response)=>
-				@view.triggerMethod "password:ajax:response",response
+                $.ajax(options).done (response)=>
+                    @PasswordUpdated response
+                .fail (resp)->
+                        console.log 'error'
+
+            PasswordUpdated: (response)=>
+                @view.triggerMethod "password:ajax:response", response
 
 
-
-		App.commands.setHandler "show:password:form",(opts) ->
-			new Password.Controller opts
+        App.commands.setHandler "show:password:form", (opts) ->
+            new Password.Controller opts
 
 
 		

@@ -20,8 +20,7 @@ define ['app'], (App)->
                     e.stopPropagation()
                     e.preventDefault()
                     @trigger "choose:theme:clicked", @model
-                'click .cancel-theme-switch' : ->
-                    @trigger "cancel:theme:switch"
+
 
 
         # choose theme view
@@ -31,9 +30,15 @@ define ['app'], (App)->
             						<p class="desc">You can choose a theme to be applied across the pages of your site,
             							you will be able to customise your theme logo, colours, layout, and components
             							to suit your Site and preferences.</p>
-            						<div class="aj-imp-block-list">
+                           <button class="btn btn-danger cancel-theme-switch" type="button">Cancel</button>
+               						<div class="aj-imp-block-list">
             							<ul></ul>
             						</div>'
+
+            events:
+                'click button.cancel-theme-switch' : ->
+                    console.log "dsdsds"
+                    @trigger "cancel:theme:switch"
 
             className: 'aj-imp-theme-area'
 

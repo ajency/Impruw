@@ -1,53 +1,49 @@
 define ['app', 'controllers/base-controller'
-		'apps/my-profile/show/views', 'entities/user'], (App, AppController)->
+        'apps/my-profile/show/views', 'entities/user'], (App, AppController)->
+    App.module 'MyProfileApp.Show', (Show, App, Backbone, Marionette, $, _)->
+        class Show.Controller extends AppController
 
-	App.module 'MyProfileApp.Show', (Show, App, Backbone, Marionette, $, _)->
+            # initiliaze controller
+            initialize: ()->
+                userProfile = @userProfile = App.request "get:user:model"
 
-		class Show.Controller extends AppController
+                @layout = @getLayout()
 
-			# initiliaze controller
-			initialize:()->
+                @listenTo @layout, "show", =>
+                    App.execute "show:general:form",
+                        region: @layout.generalFormRegion
+                        model: @userProfile
 
-				userProfile = @userProfile = App.request "get:user:model"
+                    App.execute "show:password:form",
+                        region: @layout.passwordFormRegion
+                        model: @userProfile
 
-				@layout = @getLayout()
+                    App.execute "show:language:form",
+                        region: @layout.languageFormRegion
+                        model: @userProfile
 
-				@listenTo @layout, "show", =>
-					
-					App.execute "show:general:form",
-								region : @layout.generalFormRegion
-								model  : @userProfile
+                # trigger set:active:menu event
+                App.vent.trigger "set:active:menu", 'my-profile'
 
-					App.execute "show:password:form",
-								region : @layout.passwordFormRegion
-								model  : @userProfile
-					
-					App.execute "show:language:form",
-								region : @layout.languageFormRegion
-								model  : @userProfile
-
-				# trigger set:active:menu event
-				App.vent.trigger "set:active:menu", 'my-profile'
-
-				# show main layout
-				@show @layout
-
-				
-			# get layout
-			getLayout : ->
-				new Show.View.Layout
+                # show main layout
+                @show @layout
 
 
-			getGeneralFormView :(model) ->
-				new Show.View.GeneralForm 
-						model : model 
+            # get layout
+            getLayout: ->
+                new Show.View.Layout
 
 
-			getPasswordFormView : ->
-				new Show.View.PasswordForm
+            getGeneralFormView: (model) ->
+                new Show.View.GeneralForm
+                    model: model
 
-			test: ->
-				console.log 'hi'  
 
-			
-	App.MyProfileApp.Show.Controller		
+            getPasswordFormView: ->
+                new Show.View.PasswordForm
+
+            test: ->
+                console.log 'hi'
+
+
+    App.MyProfileApp.Show.Controller

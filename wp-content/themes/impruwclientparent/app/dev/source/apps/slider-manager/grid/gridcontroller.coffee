@@ -1,68 +1,66 @@
 define ['app'
-		'controllers/base-controller'
-		'text!apps/slider-manager/grid/templates/sliderview.html'], (App, AppController, sliderTpl)->
+        'controllers/base-controller'
+        'text!apps/slider-manager/grid/templates/sliderview.html'], (App, AppController, sliderTpl)->
+    App.module 'SliderManager.GridView', (GridView, App, Backbone, Marionette, $, _)->
+        class GridViewController extends AppController
 
-			App.module 'SliderManager.GridView', (GridView, App, Backbone, Marionette, $, _)->
+            initialize: (opt)->
+                {collection} = opt
 
-				class GridViewController extends AppController
+                # pass the collection to composite view
+                view = @_getSliderGridView collection
 
-					initialize:(opt)->
+                # listen to create slider event from the view
+                @listenTo view, "create:new:slider", () ->
+                    Marionette.triggerMethod.call @region, "create:new:slider"
 
-						{collection} = opt
+                # listen to create slider event from the view
+                @listenTo view, "itemview:edit:slider", (iv, id) ->
+                    Marionette.triggerMethod.call @region, "edit:slider", id
 
-						# pass the collection to composite view
-						view = @_getSliderGridView collection
+                # listen to delete slider event from the view
+                @listenTo view, "itemview:delete:slider", (iv, id) ->
+                    Marionette.triggerMethod.call @region, "delete:slider", id
 
-						# listen to create slider event from the view
-						@listenTo view, "create:new:slider",() ->
-							Marionette.triggerMethod.call @region, "create:new:slider"
+                # show the view with loading indicator
+                @show view, loading: true
 
-						# listen to create slider event from the view
-						@listenTo view, "itemview:edit:slider",(iv, id) ->
-							Marionette.triggerMethod.call @region, "edit:slider", id
-
-						# listen to delete slider event from the view
-						@listenTo view, "itemview:delete:slider",(iv, id) ->
-							Marionette.triggerMethod.call @region, "delete:slider", id
-
-						# show the view with loading indicator 
-						@show view, loading : true
-
-					_getSliderGridView:(collection)->
-						new SliderGridView
-									collection : collection
+            _getSliderGridView: (collection)->
+                new SliderGridView
+                    collection: collection
 
 
-				class SliderView extends Marionette.ItemView
+        class SliderView extends Marionette.ItemView
 
-					template : sliderTpl
+            template: sliderTpl
 
-					className : 'col-sm-2'
+            className: 'col-sm-2'
 
-					events : 
-						'click .edit-slider' 	: -> @trigger "edit:slider", @model.get 'id'
-						'click .delete-slider' 	: -> 
-							if confirm("Are you sure?")
-								@trigger "delete:slider", @model.get 'id'
+            events:
+                'click .edit-slider': ->
+                    @trigger "edit:slider", @model.get 'id'
+                'click .delete-slider': ->
+                    if confirm("Are you sure?")
+                        @trigger "delete:slider", @model.get 'id'
 
 
 
-				class SliderGridView extends Marionette.CompositeView
+        class SliderGridView extends Marionette.CompositeView
 
-					template : '<div class="col-sm-2">
-									<a href="#" class="thumbnail create-slider"><span class="glyphicon glyphicon-plus-sign"></span><br>Add New Slider</a>
-								</div>'
+            template: '<div class="col-sm-2">
+            									<a href="#" class="thumbnail create-slider"><span class="glyphicon glyphicon-plus-sign"></span><br>Add New Slider</a>
+            								</div>'
 
-					className : 'row sliders'
+            className: 'row sliders'
 
-					itemView : SliderView
+            itemView: SliderView
 
-					events:
-						'click a.create-slider' :(e) -> 
-								e.preventDefault()
-								@trigger "create:new:slider"
+            events:
+                'click a.create-slider': (e) ->
+                    e.preventDefault()
+                    @trigger "create:new:slider"
 
 
-				App.commands.setHandler 'show:sliders:grid', (opts = {})->
-					App.navigate 'slider-manager'
-					new GridViewController opts
+        App.commands.setHandler 'show:sliders:grid', (opts = {})->
+            App.navigate 'slider-manager'
+            new GridViewController opts

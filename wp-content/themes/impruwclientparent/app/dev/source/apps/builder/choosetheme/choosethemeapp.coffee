@@ -16,7 +16,7 @@ define ['app', 'controllers/base-controller', 'apps/builder/choosetheme/views'],
                 # get the themes
                 themesCollection = App.request "get:themes:collection"
 
-                view = @_getChooseThemeView themesCollection
+                @view = view = @_getChooseThemeView themesCollection
 
                 @listenViewEvents view
 
@@ -26,11 +26,14 @@ define ['app', 'controllers/base-controller', 'apps/builder/choosetheme/views'],
             listenViewEvents :(view) ->
                 @listenTo view, "itemview:choose:theme:clicked", @themeSelected
                 @listenTo view, "cancel:theme:switch", @cancelThemeSwitch
+                @listenTo view, "close", @resetRouter
 
-            cancelThemeSwitch : ->
-                # cancel theme switch logic goes here
+            cancelThemeSwitch :() =>
+                @view.close()
 
-            # theme selected
+            resetRouter:=>
+                App.navigate ''
+
             themeSelected: (iv, model)=>
                 data =
                     new_theme_id: model.get 'ID'

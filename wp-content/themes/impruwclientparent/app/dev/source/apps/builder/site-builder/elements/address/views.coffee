@@ -1,20 +1,20 @@
-define ['app'],(App)->
+define ['app'], (App)->
 
-	# Row views
-	App.module 'SiteBuilderApp.Element.Address.Views', (Views, App, Backbone, Marionette, $, _)->
+    # Row views
+    App.module 'SiteBuilderApp.Element.Address.Views', (Views, App, Backbone, Marionette, $, _)->
 
-		# Menu item view
-		#class Views.AddressView extends Marionette.ItemView
+        # Menu item view
+        #class Views.AddressView extends Marionette.ItemView
 
-			#className : 'address'
+        #className : 'address'
 
-		# layouts
-		class Views.AddressView extends Marionette.ItemView
-			# basic template
-			template : 'test'
+        # layouts
+        class Views.AddressView extends Marionette.ItemView
+            # basic template
+            template: 'test'
 
-			className : 'address'
+            className: 'address'
 
-			onRender:->
-				className = _.slugify @model.get 'style'
-				@$el.addClass className
+            onRender: ->
+                className = _.slugify @model.get 'style'
+                @$el.addClass className

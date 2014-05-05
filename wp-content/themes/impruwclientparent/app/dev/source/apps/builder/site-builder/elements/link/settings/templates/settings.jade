@@ -1,34 +1,34 @@
 header.settings-header
-	.row
-		.col-sm-10
-			h5.title {{element}} Settings
-		.col-sm-2.close-btn
-			a(class='close-settings', href='#') &times;
+    .row
+        .col-sm-10
+            h5.title {{element}} Settings
+        .col-sm-2.close-btn
+            a(class='close-settings', href='#') &times;
 .row
-	.col-sm-12
-		form.form-horizontal(action='', method='POST', role='form')
-			.form-group
-				label.col-sm-4.control-label(for='') Draggable
-				.col-sm-8
-					span.checkbox
-						input(type='checkbox' name="draggable")
-			.form-group
-				label.col-sm-4.control-label(for='') Choose Style
-				.col-sm-8
-					select(name="style")
-						{{#styles}}
-						option(value="{{name}}") {{name}}
-						{{/styles}}
-			.form-group
-				label.col-sm-4.control-label(for='') Link
-				.col-sm-8
-					input.linktext.form-control(type="text",name="link")
-			.form-group
-				label.col-sm-4.control-label(for='') Text
-				.col-sm-8
-					input.linktext.form-control(type="text",name="text")
-			.form-group
-				label.col-sm-4.control-label(for='') Open in new window
-				.col-sm-8
-					span.checkbox
-						input(type='checkbox' name="target")
+    .col-sm-12
+        form.form-horizontal(action='', method='POST', role='form')
+            .form-group
+                label.col-sm-4.control-label(for='') Draggable
+                .col-sm-8
+                    span.checkbox
+                        input(type='checkbox' name="draggable")
+            .form-group
+                label.col-sm-4.control-label(for='') Choose Style
+                .col-sm-8
+                    select(name="style")
+                        {{#styles}}
+                        option(value="{{name}}") {{name}}
+                        {{/styles}}
+            .form-group
+                label.col-sm-4.control-label(for='') Link
+                .col-sm-8
+                    input.linktext.form-control(type="text",name="link")
+            .form-group
+                label.col-sm-4.control-label(for='') Text
+                .col-sm-8
+                    input.linktext.form-control(type="text",name="text")
+            .form-group
+                label.col-sm-4.control-label(for='') Open in new window
+                .col-sm-8
+                    span.checkbox
+                        input(type='checkbox' name="target")

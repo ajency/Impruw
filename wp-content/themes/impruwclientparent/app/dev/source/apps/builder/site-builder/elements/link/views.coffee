@@ -1,23 +1,24 @@
-define ['app'],(App)->
+define ['app'], (App)->
 
-	# Row views
-	App.module 'SiteBuilderApp.Element.Link.Views', (Views, App, Backbone, Marionette, $, _)->
+    # Row views
+    App.module 'SiteBuilderApp.Element.Link.Views', (Views, App, Backbone, Marionette, $, _)->
 
-		# Menu item view
-		class Views.LinkView extends Marionette.ItemView
+        # Menu item view
+        class Views.LinkView extends Marionette.ItemView
 
-			tagName : 'span'
+            tagName: 'span'
 
-			template : '<a href="{{link}}" target="{{target}}">{{text}}</a>'
+            template: '<a href="{{link}}" target="{{target}}">{{text}}</a>'
 
-			className: 'link'
+            className: 'link'
 
-			onRender:()->
-				className = _.slugify @model.get 'style'
-				@$el.addClass className
+            onRender: ()->
+                className = _.slugify @model.get 'style'
+                @$el.addClass className
 
-			# avoid and anchor tag click events
-			events:
-				'click a'	: (e)-> e.preventDefault()
+            # avoid and anchor tag click events
+            events:
+                'click a': (e)->
+                    e.preventDefault()
 						
 

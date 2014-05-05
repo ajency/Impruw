@@ -1,37 +1,35 @@
 define ['app'
-		'apps/builder/site-builder/elements/contactform/views'
-		'apps/builder/site-builder/elements/contactform/settings/controller'],
-		(App)->
+        'apps/builder/site-builder/elements/contactform/views'
+        'apps/builder/site-builder/elements/contactform/settings/controller'],
+(App)->
+    App.module 'SiteBuilderApp.Element.ContactForm', (ContactForm, App, Backbone, Marionette, $, _)->
 
-			App.module 'SiteBuilderApp.Element.ContactForm', (ContactForm, App, Backbone, Marionette, $, _)->
+        # menu controller
+        class ContactForm.Controller extends App.SiteBuilderApp.Element.Controller
 
-				# menu controller
-				class ContactForm.Controller extends App.SiteBuilderApp.Element.Controller
+            # intializer
+            initialize: (options)->
+                _.defaults options.modelData,
+                    element: 'ContactForm'
 
-					# intializer
-					initialize:(options)->
+                super(options)
 
-						_.defaults options.modelData,
-											element  	: 'ContactForm'
+            bindEvents: ->
+                # start listening to model events
+                @listenTo @layout.model, "change:style", @renderElement
+                super()
 
-						super(options)
-						
-					bindEvents:->
-						# start listening to model events
-						@listenTo @layout.model, "change:style", @renderElement
-						super()
+            _getContactFormView: (template, className)->
+                data = {}
+                data.clsName = className
+                data.template = template if not _(template).isBlank()
+                new ContactForm.Views.ContactFormView data
 
-					_getContactFormView:(template, className)->
-						data = {}
-						data.clsName = className
-						data.template = template if not _(template).isBlank()
-						new ContactForm.Views.ContactFormView data
-													
-					# setup templates for the element
-					renderElement:()=>
-						# get the address element template
-						template = if not _(@layout.model.get('style')).isBlank() then @_getElementTemplate(@layout.model) else ''
-						className = _.slugify @layout.model.get 'style'
+            # setup templates for the element
+            renderElement: ()=>
+                # get the address element template
+                template = if not _(@layout.model.get('style')).isBlank() then @_getElementTemplate(@layout.model) else ''
+                className = _.slugify @layout.model.get 'style'
 
-						view = @_getContactFormView template, className
-						@layout.elementRegion.show view
+                view = @_getContactFormView template, className
+                @layout.elementRegion.show view

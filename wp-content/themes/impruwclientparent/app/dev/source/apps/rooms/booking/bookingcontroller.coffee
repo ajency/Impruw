@@ -1,54 +1,49 @@
 define ['app', 'controllers/base-controller'
-		'apps/rooms/booking/views'], (App, AppController)->
+        'apps/rooms/booking/views'], (App, AppController)->
+    App.module 'RoomsApp.Booking', (Booking, App, Backbone, Marionette, $, _)->
+        class Booking.Controller extends AppController
 
-	App.module 'RoomsApp.Booking', (Booking, App, Backbone, Marionette, $, _)->
+            initialize: (options)->
+                {roomId} = options
 
-		class Booking.Controller extends AppController
+                @bookings = App.request "fetch:room:bookings", roomId
 
-			initialize:(options)->
+                @layout = layout = @getRoomBookingLayout(@bookings)
 
-				{roomId} = options
+                @listenTo layout, "show", @showBookingCalendarView
 
-				@bookings = App.request "fetch:room:bookings", roomId
+                @show layout,
+                    loading: true
 
-				@layout = layout = @getRoomBookingLayout(@bookings)	
+            showBookingCalendarView: =>
+                dateRangeCollection = App.request "get:daterange:collection"
 
-				@listenTo layout, "show", @showBookingCalendarView
-						
-				@show layout, 
-						loading : true
+                templateHelpers =
+                    dateRanges: dateRangeCollection.getDateRanges()
 
-			showBookingCalendarView:=>
+                @cview = cview = new Booking.View.CalendarView
+                    templateHelpers: templateHelpers
 
-				dateRangeCollection = App.request "get:daterange:collection"
+                # listen to date selected event
+                # @listenTo cview, "date:selected", @showBookingPlansView
+                @listenTo cview, "change:availability", (status, date)->
+                    App.execute "set:booking:status:for:date", date, status
 
-				templateHelpers = 
-						dateRanges : dateRangeCollection.getDateRanges()
+                @layout.calendarRegion.show cview
 
-				@cview = cview = new Booking.View.CalendarView
-											templateHelpers : templateHelpers
+            showBookingPlansView: (date)=>
+                plansCollection = App.request "get:plans:collection", date
 
-				# listen to date selected event
-				# @listenTo cview, "date:selected", @showBookingPlansView
-				@listenTo cview, "change:availability", (status, date)->
-					App.execute  "set:booking:status:for:date", date, status
+                pview = new Booking.View.PlansView
+                    collection: plansCollection
 
-				@layout.calendarRegion.show cview
+                @layout.plansDetailsRegion.show pview
 
-			showBookingPlansView:(date)=>
+            getRoomBookingLayout: (collection)->
+                new Booking.View.BookingRoomLayout
+                    collection: collection
 
-				plansCollection = App.request "get:plans:collection", date
 
-				pview = new Booking.View.PlansView 
-										collection : plansCollection
-										
-				@layout.plansDetailsRegion.show pview
-
-			getRoomBookingLayout : (collection)->
-				new Booking.View.BookingRoomLayout
-										collection : collection
-
-			
-		App.commands.setHandler "show:booking:app", (opts)->
-				new Booking.Controller opts
+        App.commands.setHandler "show:booking:app", (opts)->
+            new Booking.Controller opts
 								

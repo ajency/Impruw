@@ -1,66 +1,64 @@
-define ['app','controllers/base-controller'], (App, AppController)->
-	
-	App.module "RoomsApp.Gallery", (Gallery, App)->
+define ['app', 'controllers/base-controller'], (App, AppController)->
+    App.module "RoomsApp.Gallery", (Gallery, App)->
 
-		# class gallery controller
-		class GalleryController extends AppController
+        # class gallery controller
+        class GalleryController extends AppController
 
-			# initialize the controller
-			initialize:(opt)->
+            # initialize the controller
+            initialize: (opt)->
+                {collection} = opt
 
-				{collection} = opt 
+                if not collection
+                    throw new Error "Slides collection not found"
 
-				if not collection 
-					throw new Error "Slides collection not found"
+                @galleryView = @_getGalleryView collection
 
-				@galleryView = @_getGalleryView collection
-					
-				@show @galleryView, loading: true
+                @show @galleryView, loading: true
 
-			_getGalleryView : (collection)->
-				new GalleryView 
-						collection : collection
+            _getGalleryView: (collection)->
+                new GalleryView
+                    collection: collection
 
 
-		class SingleGalleryItem extends Marionette.ItemView
-			tagName : 'li'
-			className : 'isotope-element'
-			template : '<img src="{{thumb_url}}" class="img-responsive"/>'
+        class SingleGalleryItem extends Marionette.ItemView
+            tagName: 'li'
+            className: 'isotope-element'
+            template: '<img src="{{thumb_url}}" class="img-responsive"/>'
 
-			onRender:->
-				randomW = if Math.random() * 50  > 25 then 1 else 2
-				randomH = if Math.random() * 50  > 25 then 1 else 2
-				@$el.addClass "width-#{randomW} height-#{randomH}"
-
-
-		class NoGalleryItem extends Marionette.ItemView
-
-			template : '<div class="empty-info">No images found. Please add images.</div>'
+            onRender: ->
+                randomW = if Math.random() * 50 > 25 then 1 else 2
+                randomH = if Math.random() * 50 > 25 then 1 else 2
+                @$el.addClass "width-#{randomW} height-#{randomH}"
 
 
-		class GalleryView extends Marionette.CompositeView
+        class NoGalleryItem extends Marionette.ItemView
 
-			tagName : 'ul'
+            template: '<div class="empty-info">No images found. Please add images.</div>'
 
-			template : ''
 
-			className : 'isotope'
+        class GalleryView extends Marionette.CompositeView
 
-			itemView : SingleGalleryItem
+            tagName: 'ul'
 
-			emptyView : NoGalleryItem
+            template: ''
 
-			onShow:=>
-				# run masonry if needed
-				return if @collection.length is 0
+            className: 'isotope'
 
-				@$el.imagesLoaded =>
-					@$el.isotope
-						itemSelector: '.isotope-element'
-						layoutMode : 'masonry'
+            itemView: SingleGalleryItem
 
-				ww = $('#gallery-region').width()
-				@$el.width(ww)
+            emptyView: NoGalleryItem
 
-		App.commands.setHandler "show:gallery:images",(opt)->
-			new GalleryController opt
+            onShow: =>
+                # run masonry if needed
+                return if @collection.length is 0
+
+                @$el.imagesLoaded =>
+                    @$el.isotope
+                        itemSelector: '.isotope-element'
+                        layoutMode: 'masonry'
+
+                ww = $('#gallery-region').width()
+                @$el.width(ww)
+
+        App.commands.setHandler "show:gallery:images", (opt)->
+            new GalleryController opt

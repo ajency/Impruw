@@ -1,52 +1,50 @@
 define ['app'
-		'text!apps/rooms/list/templates/mainview2.html'
-		'text!apps/rooms/list/templates/singleroom2.html'
-		'text!apps/rooms/list/templates/emptyview.html'],
-		(App, mainviewTpl, roomsingleTpl, emptyTpl)->
+        'text!apps/rooms/list/templates/mainview2.html'
+        'text!apps/rooms/list/templates/singleroom2.html'
+        'text!apps/rooms/list/templates/emptyview.html'],
+(App, mainviewTpl, roomsingleTpl, emptyTpl)->
+    App.module 'RoomsApp.List.Views', (Views, App, Backbone, Marionette, $, _)->
+        class RoomSingle extends Marionette.ItemView
+
+            tagName: "li"
+
+            template: roomsingleTpl
+
+            events:
+                'click .deleteroom_link': (e)->
+                    e.preventDefault()
+                    if confirm "Delete the room and all its data?"
+                        @model.destroy()
 
 
-			App.module 'RoomsApp.List.Views', (Views, App, Backbone, Marionette, $, _)->
+        class EmptyView extends Marionette.ItemView
 
-				class RoomSingle extends Marionette.ItemView
-
-					tagName: "li"
-
-					template : roomsingleTpl
-
-					events:
-						'click .deleteroom_link':(e)->
-							e.preventDefault()
-							if confirm "Delete the room and all its data?"
-								@model.destroy()
-				
-
-				class EmptyView extends Marionette.ItemView
-
-					template : emptyTpl
+            template: emptyTpl
 
 
-				class Views.RoomsListView extends Marionette.CompositeView
+        class Views.RoomsListView extends Marionette.CompositeView
 
-					template : mainviewTpl
-					
-					itemViewContainer: '.new-room-list'
+            template: mainviewTpl
 
-					itemView : RoomSingle
+            itemViewContainer: '.new-room-list'
 
-					emptyView : EmptyView
+            itemView: RoomSingle
+
+            emptyView: EmptyView
 
 
-				class Views.RoomListLayout extends Marionette.Layout
+        class Views.RoomListLayout extends Marionette.Layout
 
-					template : '<div id="room-list"></div>'
+            template: '<div id="room-list"></div>'
 
-					className: 'rooms-layout'
+            className: 'rooms-layout'
 
-					regions : 
-						roomRegion : '#room-list'
+            regions:
+                roomRegion: '#room-list'
 
-					events:
-						'click .add-room' : -> @trigger "add:new:room:clicked"
+            events:
+                'click .add-room': ->
+                    @trigger "add:new:room:clicked"
 
 					
 				
