@@ -65,6 +65,9 @@ define ["app", 'backbone', 'moment'], (App, Backbone, moment) ->
                     revisionsCollection = new RevisionCollection
                     revisionsArray[pageId] = revisionsCollection
 
+                # removes the last model if lenght is already 5
+                # revisionsCollection.pop() if revisionsCollection.length is 5
+
                 revisionsCollection.add revision
 
 
@@ -79,7 +82,7 @@ define ["app", 'backbone', 'moment'], (App, Backbone, moment) ->
         App.reqres.setHandler "get:page:revisions", (pageId)->
             API.getPageRevisions pageId
 
-        App.commands.setHandler "revision:added", (pageId, revisionData)->
+        App.commands.setHandler "add:new:revision", (pageId, revisionData)->
             API.addNewRevision pageId, revisionData
 
 		

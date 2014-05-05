@@ -30,10 +30,11 @@ define ['app'], (App)->
 
                 options.data = _.defaults options.data, _sectionJson
                 window.SAVING = true
-                $.ajax(options).done (response)->
+                $.ajax(options).done (revisionData)->
+                    App.execute "add:new:revision", _page_id, revisionData
                     window.SAVING = false
                 .fail (resp)->
-                        window.SAVING = false
+                    window.SAVING = false
 
             # get the json
             _getPageJson: ($site)->
