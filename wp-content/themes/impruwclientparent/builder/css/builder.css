@@ -2059,6 +2059,10 @@ a:focus {
   color: #aaaaaa;
   text-align: center;
 }
+.aj-imp-theme-area .cancel-theme-switch {
+  margin: auto;
+  display: block;
+}
 .aj-imp-theme-area .aj-imp-block-list .desc {
   color: #849fb0;
   text-transform: uppercase;
