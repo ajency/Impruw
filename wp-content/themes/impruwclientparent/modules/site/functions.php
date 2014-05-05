@@ -117,7 +117,7 @@
 
         add_pages_to_site($pages);
 
-        add_menus_to_site();
+        //add_menus_to_site();
     }
 
     /**
@@ -239,8 +239,8 @@
     function clone_site($theme_site_id, $backup = FALSE)
     {
 
-        if ($backup === TRUE)
-            backup_existing_site();
+//        if ($backup === TRUE)
+//            backup_existing_site();
 
         clone_header_footer($theme_site_id);
 
@@ -297,11 +297,6 @@
         if ($page_id === 0)
             return FALSE;
 
-        // get the current json
-        $current_json = get_post_meta($page_id, 'page-json', TRUE);
-
-        //backup the previous json
-        $current_json = update_post_meta($page_id, 'backup-page-json', $current_json);
 
         return $page_id;
     }
@@ -327,7 +322,7 @@
         restore_current_blog();
 
         $data = set_json_to_site($data);
-        update_post_meta($post_id, 'page-json', $data);
+        add_page_revision($post_id, $data);
     }
 
     /**

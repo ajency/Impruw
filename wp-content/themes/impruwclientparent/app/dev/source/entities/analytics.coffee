@@ -23,12 +23,6 @@ define ['app'
         weeklyAnalytics = new AnalyticsCollection
         weeklyAnalytics.comparator = 'date'
 
-        # Overview chart analytics
-        overViewAnalytics = new AnalyticsCollection
-
-        # traffic analytics
-        trafficAnalytics = new AnalyticsCollection
-
 
         #Public API for antity
         API =
