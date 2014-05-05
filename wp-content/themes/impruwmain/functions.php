@@ -29,10 +29,6 @@ require_once 'modules/site/ajax.php';
 
 
 
-
-
-
-
 /* --------------------------------------------------------------------------------------
  *
  * impruw_register_email_init
