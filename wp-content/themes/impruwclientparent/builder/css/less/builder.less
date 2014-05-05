@@ -354,7 +354,7 @@ a {
 					padding: 0.3em;
 					margin-bottom: 0.4em;
 					.colors {
-						width: 70%;
+						width: 60%;
 						float: left;
 						text-align: left;
 						span {
@@ -362,13 +362,19 @@ a {
 							width: 20px;
 							height: 20px;
 							border-radius: 20px;
-							border: 1px solid @preview-grey;
+							border: 1px dotted @preview-grey;
 							margin-right: 2px;
 						}
 					}
 					> a {
 						display: inline-block;
 						color: lighten(@blue-grey, 10%);
+						.bicon {
+							font-size: 1.5em;
+							line-height: 0.5;
+							position: relative;
+							top: 4px;
+						}
 						&.chosen {
 							display: none;
 						}
@@ -381,10 +387,10 @@ a {
 						border-color: @blue-grey;
 					}
 					&.active {
-						border-color: @orange;
-						background: @preview-grey;
+						border-color: @dash-grey;
+						background: @dash-grey;
 						> a {
-							color: @orange;
+							color: #fff;
 							&.chosen {
 								display: inline-block;
 							}
@@ -392,12 +398,42 @@ a {
 								display: none;
 							}
 							&:hover {
-								color: darken(@orange, 10%);
+								color: @preview-grey;
 							}
 						}
 					}
 					&:last-child {
 						margin-bottom: 0;
+					}
+				}
+				.drilldown-back {
+					float: left;
+					width: 40%;
+					text-align: left;
+					margin-bottom: 0.5em;
+					a {
+						.bicon {
+							font-size: 1.5em;
+							line-height: 0.5;
+							position: relative;
+							top: 4px;
+						}
+						&:hover {
+							background: transparent;
+							color: @orange;
+						}
+					}
+				}
+				.pick-set {
+					float: right;
+					width: 60%;
+					margin-bottom: 0.5em;
+					a {
+						color: @orange;
+						&:hover {
+							background: transparent;
+							color: lighten(@orange, 10%);
+						}
 					}
 				}
 				.panel {
