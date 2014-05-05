@@ -1,104 +1,101 @@
 define ['app'], (App)->
+    App.module 'UnusedElement.Views', (Views, App, Backbone, Marionette, $, _)->
+        class SingleUnusedElement extends Marionette.ItemView
 
-	App.module 'UnusedElement.Views', (Views, App, Backbone, Marionette, $, _)->
+            tagName: 'li'
 
+            className: 'trash-elem'
 
-		class SingleUnusedElement extends Marionette.ItemView
+            template: '<a href="#">
+            							<div class="trash-elem-header">
+            								<span class="bicon icon-uniF111"></span> {{element}}
+            							</div>
+            							<div class="trash-elem-content">
+            								{{content}}
+            							</div>
+            						</a>'
 
-			tagName : 'li'
+            serializeData: ->
+                data = super()
+                data.element = _.str.capitalize data.element
+                data
 
-			className : 'trash-elem'
+            onRender: ->
+                @$el.attr 'data-element', @model.get 'element'
+                .attr 'data-meta-id', @model.get 'meta_id'
 
-			template : '<a href="#">
-							<div class="trash-elem-header">
-								<span class="bicon icon-uniF111"></span> {{element}}
-							</div>
-							<div class="trash-elem-content">
-								{{content}}
-							</div>
-						</a>'
+        class EmptyUnsedElementView extends Marionette.ItemView
 
-			serializeData:->
-				data = super()
-				data.element = _.str.capitalize data.element
-				data
+            tagName: 'li'
 
-			onRender:->
-				@$el.attr 'data-element', @model.get 'element'
-					.attr 'data-meta-id', @model.get 'meta_id'
+            className: 'trash-elem'
 
-		class EmptyUnsedElementView extends Marionette.ItemView
-
-			tagName : 'li' 
-
-			className : 'trash-elem'
-
-			template : 'No unsed elements'
+            template: 'No unsed elements'
 
 
-		class Views.UnsedElementsViews extends Marionette.CompositeView
+        class Views.UnsedElementsViews extends Marionette.CompositeView
 
-			itemView : SingleUnusedElement
+            itemView: SingleUnusedElement
 
-			emtpyView : EmptyUnsedElementView
+            emtpyView: EmptyUnsedElementView
 
-			template : '<div class="label trash-label clearfix"><span><span class="glyphicon glyphicon-trash"></span> Unused Elements</span></div>
-					        <div class="menu aj-imp-drag-menu">
-					            <p class="desc">
-					              These are your unused or deleted elements, you can drag them back into your site, or clear them all.
-					            </p>
-					            <a href="#" class="trash-elem-link"><span class="bicon icon-uniF16F"></span> Clear Elements</a>
-					            <ul class="trash-list">
-					            </ul>
-					        </div>
-					    </div>'
+            template: '<div class="label trash-label clearfix"><span><span class="glyphicon glyphicon-trash"></span> Unused Elements</span></div>
+            					        <div class="menu aj-imp-drag-menu">
+            					            <p class="desc">
+            					              These are your unused or deleted elements, you can drag them back into your site, or clear them all.
+            					            </p>
+            					            <a href="#" class="trash-elem-link"><span class="bicon icon-uniF16F"></span> Clear Elements</a>
+            					            <ul class="trash-list">
+            					            </ul>
+            					        </div>
+            					    </div>'
 
-			itemViewContainer : 'ul.trash-list'
+            itemViewContainer: 'ul.trash-list'
 
-			onShow:->
-				#Float Menu
-				floatSpeed = 1500
+            onShow: ->
+                #Float Menu
+                floatSpeed = 1500
 
-				floatEasing = "easeOutQuint"
+                floatEasing = "easeOutQuint"
 
-				menuFadeSpeed = 500
+                menuFadeSpeed = 500
 
-				closedMenuOpacity = 0.75
+                closedMenuOpacity = 0.75
 
-				flMenu = $ "#fl_menu"
+                flMenu = $ "#fl_menu"
 
-				flMenuMenu = $ "#fl_menu .menu"
+                flMenuMenu = $ "#fl_menu .menu"
 
-				flMenuLabel = $ "#fl_menu .label"
+                flMenuLabel = $ "#fl_menu .label"
 
-				FloatMenu = ()->
-					scrollAmount = $(document).scrollTop()
-					newPosition = menuPosition + scrollAmount
-					if $(window).height() < flMenu.height() + flMenuMenu.height()
-						flMenu.css "top", menuPosition
-					else
-						flMenu.stop().animate top: newPosition , floatSpeed, floatEasing
+                FloatMenu = ()->
+                    scrollAmount = $(document).scrollTop()
+                    newPosition = menuPosition + scrollAmount
+                    if $(window).height() < flMenu.height() + flMenuMenu.height()
+                        flMenu.css "top", menuPosition
+                    else
+                        flMenu.stop().animate top: newPosition, floatSpeed, floatEasing
 
-				menuPosition = $("#fl_menu").position().top
+                menuPosition = $("#fl_menu").position().top
 
-				menuPosition = $("#fl_menu").position().top
-				FloatMenu()
-				flMenu.hover ->
-					$("#fl_menu .menu").fadeIn menuFadeSpeed
-				,->
-					$("#fl_menu .menu").fadeOut menuFadeSpeed
+                menuPosition = $("#fl_menu").position().top
+                FloatMenu()
+                flMenu.hover ->
+                    $("#fl_menu .menu").fadeIn menuFadeSpeed
+                , ->
+                    $("#fl_menu .menu").fadeOut menuFadeSpeed
 
-				$(window).scroll ->
-					FloatMenu()
+                $(window).scroll ->
+                    FloatMenu()
 
-				@makeElementsDraggable()
+                @makeElementsDraggable()
 
 
-			makeElementsDraggable:->
-				@$el.find('*[data-element]').draggable
-										connectToSortable	: '.droppable-column'
-										#helper 				: 'clone'
-										delay 				: 5
-										addClasses			: false
-										distance 			: 5
-										revert 				: 'invalid'
+            makeElementsDraggable: ->
+                @$el.find('*[data-element]').draggable
+                    connectToSortable: '.droppable-column'
+                #helper 				: 'clone'
+                    delay: 5
+                    addClasses: false
+                    distance: 5
+                    revert: 'invalid'

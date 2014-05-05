@@ -1,89 +1,86 @@
-define  ['app','controllers/base-controller', 'text!apps/rooms/tariffs/edittariff/templates/edittariff.html'],(App, AppController, editTariffTpl)->
+define ['app', 'controllers/base-controller',
+        'text!apps/rooms/tariffs/edittariff/templates/edittariff.html'], (App, AppController, editTariffTpl)->
+    App.module "RoomsApp.RoomsTariff.Edit", (Edit, App)->
+        class EditTariffController extends AppController
 
-	App.module "RoomsApp.RoomsTariff.Edit", (Edit, App)->	
+            initialize: (opt)->
+                if not opt.model
+                    tariff = App.request "get:tariff", opt.tariffId
+                else
+                    tariff = opt.model
 
-		class EditTariffController extends AppController
+                @tariffView = tariffView = @_getEditTariffView tariff
 
-			initialize:(opt)->
+                @listenTo tariffView, "update:tariff:details", (data)=>
+                    tariff.set data
+                    tariff.save null,
+                        wait: true
+                        success: @tariffSaved
 
-				if not opt.model
-					tariff = App.request "get:tariff", opt.tariffId
-				else 
-					tariff = opt.model
-
-				@tariffView = tariffView = @_getEditTariffView tariff
-
-				@listenTo tariffView, "update:tariff:details", (data)=>
-					tariff.set data
-					tariff.save null,
-							wait : true
-							success : @tariffSaved
-				
-				@listenTo tariffView, "delete:tariff", (model) =>
-					model.destroy
-							allData : false
-							wait : true	
-							success : @tariffDeleted
-				
-
-				@show tariffView, 
-						loading : true
-
-			tariffSaved:=>
-				@tariffView.triggerMethod "saved:tariff"
-			
-			tariffDeleted:=>
-				@tariffView.triggerMethod "deleted:tariff"
-
-			# get the packages view
-			_getEditTariffView :(tariff)->
-				new EditTariffView
-						model : tariff
-
-		# Edti tariff view
-		class EditTariffView extends Marionette.ItemView
-
-			tagName : 'form'
-
-			className : 'form-horizontal'
-
-			template : editTariffTpl
-
-			dialogOptions : 
-				modal_title : 'Edit Tariff'
-				modal_size  : 'medium-modal'
-
-			events:
-				'click .update-tariff' : ->
-					if @$el.valid()
-						data = Backbone.Syphon.serialize @
-						@trigger "update:tariff:details", data
-
-				'click .delete-tariff-btn' :(e) ->
-					e.preventDefault()					
-					if confirm 'The tariff will be deleted for the plan and date range.
-								 Are you sure you want to continue?'
-						
-						@trigger "delete:tariff", @model
-
-			onSavedTariff:->
-				@$el.parent().prepend '<div class="alert alert-success">
-										Tariff updated successfully </div>'
-
-			onDeletedTariff:->
-				console.log 'hi'
-				@trigger "dialog:close"
-
-			# show checkbox
-			onShow:->
-				@$el.find('input[type="checkbox"]').checkbox()
+                @listenTo tariffView, "delete:tariff", (model) =>
+                    model.destroy
+                        allData: false
+                        wait: true
+                        success: @tariffDeleted
 
 
-		# handler
-		App.commands.setHandler "show:edit:tariff", (opt)->
+                @show tariffView,
+                    loading: true
 
-			opts = 
-				region : App.dialogRegion
-				model : opt.model
-			
-			new EditTariffController opts
+            tariffSaved: =>
+                @tariffView.triggerMethod "saved:tariff"
+
+            tariffDeleted: =>
+                @tariffView.triggerMethod "deleted:tariff"
+
+            # get the packages view
+            _getEditTariffView: (tariff)->
+                new EditTariffView
+                    model: tariff
+
+        # Edti tariff view
+        class EditTariffView extends Marionette.ItemView
+
+            tagName: 'form'
+
+            className: 'form-horizontal'
+
+            template: editTariffTpl
+
+            dialogOptions:
+                modal_title: 'Edit Tariff'
+                modal_size: 'medium-modal'
+
+            events:
+                'click .update-tariff': ->
+                    if @$el.valid()
+                        data = Backbone.Syphon.serialize @
+                        @trigger "update:tariff:details", data
+
+                'click .delete-tariff-btn': (e) ->
+                    e.preventDefault()
+                    if confirm 'The tariff will be deleted for the plan and date range.
+                    								 Are you sure you want to continue?'
+
+                        @trigger "delete:tariff", @model
+
+            onSavedTariff: ->
+                @$el.parent().prepend '<div class="alert alert-success">
+                										Tariff updated successfully </div>'
+
+            onDeletedTariff: ->
+                console.log 'hi'
+                @trigger "dialog:close"
+
+            # show checkbox
+            onShow: ->
+                @$el.find('input[type="checkbox"]').checkbox()
+
+
+        # handler
+        App.commands.setHandler "show:edit:tariff", (opt)->
+            opts =
+                region: App.dialogRegion
+                model: opt.model
+
+            new EditTariffController opts

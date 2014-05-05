@@ -1,166 +1,160 @@
-
 define ['app', 'controllers/base-controller'
-		'apps/builder/site-builder/show/views'], (App, AppController)->
+        'apps/builder/site-builder/show/views'], (App, AppController)->
+    App.module 'SiteBuilderApp.Show', (Show, App, Backbone, Marionette, $, _)->
+        siteBuilderController = null
 
-			App.module 'SiteBuilderApp.Show', (Show, App, Backbone, Marionette, $, _)->
+        class Show.BuilderController extends AppController
 
-				siteBuilderController = null
+            initialize: (opt = {})->
+                @region = App.getRegion 'builderRegion'
 
-				class Show.BuilderController extends AppController
+                {pageId, revisionId} = opt
 
-					initialize:(opt = {})->
-						@region = App.getRegion 'builderRegion'
+                #element json
+                elements = App.request "get:page:json", pageId, revisionId
 
-						{pageId, revisionId} = opt
+                # builder view
+                @view = new Show.View.Builder
+                    model: elements
 
-						#element json
-						elements = App.request "get:page:json", pageId, revisionId
+                # listen to element dropped event for next action
+                @listenTo @view, "add:new:element", (container, type, metaId = 0)->
+                    modelData = {}
+                    if metaId isnt 0
+                        model = App.request "get:unused:element:by:metaid", metaId
+                        modelData = model.toJSON()
 
-						# builder view
-						@view = new Show.View.Builder
-											model : elements
+                    App.request "add:new:element", container, type, modelData
 
-						# listen to element dropped event for next action
-						@listenTo @view, "add:new:element", (container, type, metaId = 0)->
-									modelData  = {}
-									if metaId isnt 0
-										model = App.request "get:unused:element:by:metaid", metaId
-										modelData = model.toJSON()
+                # triggered when all models are fetched for the page
+                # usign this event to start filling up the builder
+                # with elements
+                @listenTo @view, "dependencies:fetched", =>
+                    _.delay =>
+                        @startFillingElements()
+                    , 400
 
-									App.request "add:new:element", container, type, modelData
+                @show @view,
+                    loading: true
 
-						# triggered when all models are fetched for the page
-						# usign this event to start filling up the builder 
-						# with elements
-						@listenTo @view, "dependencies:fetched", =>
-								_.delay =>
-									@startFillingElements()
-								, 400
-
-						@show  @view,
-								loading : true
-
-					_getContainer :(section)->
-						switch section
-							when 'header' 
-								$('#site-header-region')
-							when 'page' 
-								$('#site-page-content-region')
-							when 'footer' 
-								$('#site-footer-region')
+            _getContainer: (section)->
+                switch section
+                    when 'header'
+                        $('#site-header-region')
+                    when 'page'
+                        $('#site-page-content-region')
+                    when 'footer'
+                        $('#site-footer-region')
 
 
-					# start filling elements
-					startFillingElements: ()->
-						section = @view.model.get('header')
-						container = @_getContainer 'header'
-						_.each section, (element, i)=>
-							if element.element is 'Row'
-								@addNestedElements container,element
-							else
-								App.request "add:new:element",container,element.element, element
+            # start filling elements
+            startFillingElements: ()->
+                section = @view.model.get('header')
+                container = @_getContainer 'header'
+                _.each section, (element, i)=>
+                    if element.element is 'Row'
+                        @addNestedElements container, element
+                    else
+                        App.request "add:new:element", container, element.element, element
 
-						section = @view.model.get('page')
-						container = @_getContainer 'page'
-						_.each section, (element, i)=>
-							return if not _.isObject element
-							if element.element is 'Row'
-								@addNestedElements container,element
-							else
-								App.request "add:new:element",container,element.element, element
+                section = @view.model.get('page')
+                container = @_getContainer 'page'
+                _.each section, (element, i)=>
+                    return if not _.isObject element
+                    if element.element is 'Row'
+                        @addNestedElements container, element
+                    else
+                        App.request "add:new:element", container, element.element, element
 
-						section = @view.model.get('footer')
-						container = @_getContainer 'footer'
-						_.each section, (element, i)=>
-							if element.element is 'Row'
-								@addNestedElements container,element
-							else
-								App.request "add:new:element",container,element.element, element
+                section = @view.model.get('footer')
+                container = @_getContainer 'footer'
+                _.each section, (element, i)=>
+                    if element.element is 'Row'
+                        @addNestedElements container, element
+                    else
+                        App.request "add:new:element", container, element.element, element
 
-						@startAutoSave()
+                @startAutoSave()
 
-					# start the save revision interval.
-					# uses: siteInterval(fn, interval)
-					startAutoSave:->
+            # start the save revision interval.
+            # uses: siteInterval(fn, interval)
+            startAutoSave: ->
+                clearInterval(window.autoSaveInterval) if window.autoSaveInterval
 
-						clearInterval(window.autoSaveInterval) if window.autoSaveInterval
-
-						window.autoSaveInterval = setInterval ->
-							App.execute "auto:save"
-						, AUTOSAVEINTERVAL
-
-
-					addNestedElements:(container,element)->
-						controller = App.request "add:new:element",container,element.element, element
-						_.each element.elements, (column, index)=>
-							return if column.elements.length is 0
-							container = controller.layout.elementRegion.currentView.$el.children().eq(index)
-							_.each column.elements,(ele, i)=>
-								if element.element is 'Row'
-									@addNestedElements $(container),ele
-								else
-									App.request "add:new:element",container,ele.element, ele
+                window.autoSaveInterval = setInterval ->
+                    App.execute "auto:save"
+                , AUTOSAVEINTERVAL
 
 
+            addNestedElements: (container, element)->
+                controller = App.request "add:new:element", container, element.element, element
+                _.each element.elements, (column, index)=>
+                    return if column.elements.length is 0
+                    container = controller.layout.elementRegion.currentView.$el.children().eq(index)
+                    _.each column.elements, (ele, i)=>
+                        if element.element is 'Row'
+                            @addNestedElements $(container), ele
+                        else
+                            App.request "add:new:element", container, ele.element, ele
 
-				# Controller class for showing header resion
-				class Show.Controller extends AppController
 
-					# initialize the controller. Get all required entities and show the view
-					initialize:(opt = {})->
-						
-						@region = App.getRegion('builderWrapper')
+        # Controller class for showing header resion
+        class Show.Controller extends AppController
 
-						# add pages
-						pages = App.request "get:editable:pages"
-						
-						@layout = layout = new Show.View.MainView
-											collection : pages
+            # initialize the controller. Get all required entities and show the view
+            initialize: (opt = {})->
+                @region = App.getRegion('builderWrapper')
 
-						@listenTo layout, 'editable:page:changed',(pageId)->
-									# set the cookie
-									$.cookie 'current-page-id', pageId
-									App.execute "editable:page:changed", pageId
+                # add pages
+                pages = App.request "get:editable:pages"
 
-						@listenTo layout, "add:page:revisions", @addPageRevisions
+                @layout = layout = new Show.View.MainView
+                    collection: pages
 
-						@listenTo layout, "revision:link:clicked", @loadRevision
+                @listenTo layout, 'editable:page:changed', (pageId)->
+                    # set the cookie
+                    $.cookie 'current-page-id', pageId
+                    App.execute "editable:page:changed", pageId
 
-						@listenTo layout, 'show',(layout)=>
-							# added delay so that the html is fully rendered
-							_.delay =>
-								# add new region to application
-								App.addRegions
-										builderRegion : '#aj-imp-builder-drag-drop'
+                @listenTo layout, "add:page:revisions", @addPageRevisions
 
-								#siteBuilderController = new Show.BuilderController()
-							, 200
+                @listenTo layout, "revision:link:clicked", @loadRevision
 
-						@show  layout,
-								loading : true
+                @listenTo layout, 'show', (layout)=>
+                    # added delay so that the html is fully rendered
+                    _.delay =>
+                        # add new region to application
+                        App.addRegions
+                            builderRegion: '#aj-imp-builder-drag-drop'
 
-					# show the previous revision
-					loadRevision:(revisionId)=>
-						currentPageId = App.request "get:current:editable:page"
-						App.execute "editable:page:changed", currentPageId, revisionId
+                      #siteBuilderController = new Show.BuilderController()
+                    , 200
 
-					# add page revisions
-					addPageRevisions:->
+                @show layout,
+                    loading: true
 
-						currentPageId = App.request "get:current:editable:page"
+            # show the previous revision
+            loadRevision: (revisionId)=>
+                currentPageId = App.request "get:current:editable:page"
+                App.execute "editable:page:changed", currentPageId, revisionId
 
-						pageRevisions = App.request "get:page:revisions", currentPageId
+            # add page revisions
+            addPageRevisions: ->
+                currentPageId = App.request "get:current:editable:page"
 
-						App.execute "when:fetched", [pageRevisions], =>
-							@layout.triggerMethod "add:page:revision:items", pageRevisions
+                pageRevisions = App.request "get:page:revisions", currentPageId
 
-				App.commands.setHandler "editable:page:changed",(pageId, revisionId = 0)=>
-					App.resetElementRegistry()
-					siteBuilderController.close() if siteBuilderController isnt null
-					siteBuilderController = new Show.BuilderController
-															pageId : pageId
-															revisionId : revisionId	
-					App.execute "show:unused:elements",
-										region : App.unusedElementsRegion
-										revisionId : revisionId
-										pageId : pageId
+                App.execute "when:fetched", [pageRevisions], =>
+                    @layout.triggerMethod "add:page:revision:items", pageRevisions
+
+        App.commands.setHandler "editable:page:changed", (pageId, revisionId = 0)=>
+            App.resetElementRegistry()
+            siteBuilderController.close() if siteBuilderController isnt null
+            siteBuilderController = new Show.BuilderController
+                                                    pageId: pageId
+                                                    revisionId: revisionId
+
+            App.execute "show:unused:elements",
+                                    region: App.unusedElementsRegion
+                                    revisionId: revisionId
+                                    pageId: pageId

@@ -1,12 +1,14 @@
 <?php
 
-require_once '../../../../../testbootstrap.php';
+    require_once '../../../../../bootstrap.php';
 
-class SiteFunctionsTest extends WP_UnitTestCase {
+    class SiteFunctionsTest extends WP_UnitTestCase
+    {
 
-    public function testGetSiteDomain() {
+        public function testGetSiteDomain()
+        {
 
-        $this->assertEquals('localhost', get_site_domain(13));
+            $this->assertEquals('localhost', get_site_domain(13));
+        }
+
     }
-
-}

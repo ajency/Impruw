@@ -1,42 +1,42 @@
-define ['app'],(App)->
+define ['app'], (App)->
 
-	# Row views
-	App.module 'SiteBuilderApp.Element.RoomFacilities.Views', (Views, App, Backbone, Marionette, $, _)->
+    # Row views
+    App.module 'SiteBuilderApp.Element.RoomFacilities.Views', (Views, App, Backbone, Marionette, $, _)->
 
-		# Menu item view
-		class RoomFacilitiesItemView extends Marionette.ItemView
+        # Menu item view
+        class RoomFacilitiesItemView extends Marionette.ItemView
 
-			className : 'roomfacilities'
+            className: 'roomfacilities'
 
-			tagName: 'li' 
+            tagName: 'li'
 
-			template : '{{name}}'
-   	
-   			# Menu item view
-		class EmptyView extends Marionette.ItemView
+            template: '{{name}}'
 
-			className : 'empty-roomfacilities'
+        # Menu item view
+        class EmptyView extends Marionette.ItemView
 
-			tagName: 'li' 
+            className: 'empty-roomfacilities'
 
-			template : 'No Facilities Found'
+            tagName: 'li'
 
-		# Menu item view
-		class Views.RoomFacilitiesView extends Marionette.CompositeView
+            template: 'No Facilities Found'
 
-			className : 'room-facilities-container'
+        # Menu item view
+        class Views.RoomFacilitiesView extends Marionette.CompositeView
 
-			template : "<div class='room-facilities-title'>
-							<h5>Room Features</h5>
-							<h4>Standard Book</h5>
-						</div>
-						<ul class='facilities clearfix'>
-						</ul>"
+            className: 'room-facilities-container'
 
-			itemView : RoomFacilitiesItemView
+            template: "<div class='room-facilities-title'>
+            							<h5>Room Features</h5>
+            							<h4>Standard Book</h5>
+            						</div>
+            						<ul class='facilities clearfix'>
+            						</ul>"
 
-			itemViewContainer: '.facilities'
+            itemView: RoomFacilitiesItemView
 
-			emptyView :	EmptyView 
+            itemViewContainer: '.facilities'
+
+            emptyView: EmptyView
 
 		

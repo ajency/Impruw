@@ -334,7 +334,7 @@ a:focus {
   margin-bottom: 0.4em;
 }
 .aj-imp-builder-top-nav .aj-imp-builder-top-options #aj-imp-color-sel .dropdown-menu .color-set .colors {
-  width: 70%;
+  width: 60%;
   float: left;
   text-align: left;
 }
@@ -343,12 +343,18 @@ a:focus {
   width: 20px;
   height: 20px;
   border-radius: 20px;
-  border: 1px solid #f3f3f3;
+  border: 1px dotted #f3f3f3;
   margin-right: 2px;
 }
 .aj-imp-builder-top-nav .aj-imp-builder-top-options #aj-imp-color-sel .dropdown-menu .color-set > a {
   display: inline-block;
   color: #a3b7c4;
+}
+.aj-imp-builder-top-nav .aj-imp-builder-top-options #aj-imp-color-sel .dropdown-menu .color-set > a .bicon {
+  font-size: 1.5em;
+  line-height: 0.5;
+  position: relative;
+  top: 4px;
 }
 .aj-imp-builder-top-nav .aj-imp-builder-top-options #aj-imp-color-sel .dropdown-menu .color-set > a.chosen {
   display: none;
@@ -361,11 +367,11 @@ a:focus {
   border-color: #849fb0;
 }
 .aj-imp-builder-top-nav .aj-imp-builder-top-options #aj-imp-color-sel .dropdown-menu .color-set.active {
-  border-color: #ff7e00;
-  background: #f3f3f3;
+  border-color: #aaaaaa;
+  background: #aaaaaa;
 }
 .aj-imp-builder-top-nav .aj-imp-builder-top-options #aj-imp-color-sel .dropdown-menu .color-set.active > a {
-  color: #ff7e00;
+  color: #fff;
 }
 .aj-imp-builder-top-nav .aj-imp-builder-top-options #aj-imp-color-sel .dropdown-menu .color-set.active > a.chosen {
   display: inline-block;
@@ -374,10 +380,38 @@ a:focus {
   display: none;
 }
 .aj-imp-builder-top-nav .aj-imp-builder-top-options #aj-imp-color-sel .dropdown-menu .color-set.active > a:hover {
-  color: #cc6500;
+  color: #f3f3f3;
 }
 .aj-imp-builder-top-nav .aj-imp-builder-top-options #aj-imp-color-sel .dropdown-menu .color-set:last-child {
   margin-bottom: 0;
+}
+.aj-imp-builder-top-nav .aj-imp-builder-top-options #aj-imp-color-sel .dropdown-menu .drilldown-back {
+  float: left;
+  width: 40%;
+  text-align: left;
+  margin-bottom: 0.5em;
+}
+.aj-imp-builder-top-nav .aj-imp-builder-top-options #aj-imp-color-sel .dropdown-menu .drilldown-back a .bicon {
+  font-size: 1.5em;
+  line-height: 0.5;
+  position: relative;
+  top: 4px;
+}
+.aj-imp-builder-top-nav .aj-imp-builder-top-options #aj-imp-color-sel .dropdown-menu .drilldown-back a:hover {
+  background: transparent;
+  color: #ff7e00;
+}
+.aj-imp-builder-top-nav .aj-imp-builder-top-options #aj-imp-color-sel .dropdown-menu .pick-set {
+  float: right;
+  width: 60%;
+  margin-bottom: 0.5em;
+}
+.aj-imp-builder-top-nav .aj-imp-builder-top-options #aj-imp-color-sel .dropdown-menu .pick-set a {
+  color: #ff7e00;
+}
+.aj-imp-builder-top-nav .aj-imp-builder-top-options #aj-imp-color-sel .dropdown-menu .pick-set a:hover {
+  background: transparent;
+  color: #ff9833;
 }
 .aj-imp-builder-top-nav .aj-imp-builder-top-options #aj-imp-color-sel .dropdown-menu .panel {
   border-radius: 0;

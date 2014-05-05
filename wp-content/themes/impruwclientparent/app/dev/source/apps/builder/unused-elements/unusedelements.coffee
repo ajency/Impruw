@@ -1,26 +1,21 @@
-define ['app','controllers/base-controller', 'apps/builder/unused-elements/views'], (App, AppController)->
+define ['app', 'controllers/base-controller', 'apps/builder/unused-elements/views'], (App, AppController)->
+    App.module 'UnusedElement', (UnusedElement, App, Backbone, Marionette, $, _)->
+        class UnusedElementController extends AppController
 
-	App.module 'UnusedElement', (UnusedElement, App, Backbone, Marionette, $, _)->
+            initialize: (opts)->
+                {pageId, revisionId} = opts
 
+                unusedElementCollection = App.request "get:unused:elements", pageId, revisionId
 
-		class UnusedElementController extends AppController	
+                view = @getUnsedElementView unusedElementCollection
 
-			initialize:(opts)->
+                @show view,
+                    loading: true
 
-				{pageId, revisionId} = opts
-
-				unusedElementCollection = App.request "get:unused:elements", pageId, revisionId
-
-				view = @getUnsedElementView unusedElementCollection
-
-				@show view,
-						loading : true
-
-			getUnsedElementView :(unusedElementCollection)->
-				new UnusedElement.Views.UnsedElementsViews
-								collection : unusedElementCollection
+            getUnsedElementView: (unusedElementCollection)->
+                new UnusedElement.Views.UnsedElementsViews
+                    collection: unusedElementCollection
 
 
-		App.commands.setHandler "show:unused:elements",(opt)->
-
-			new UnusedElementController opt
+        App.commands.setHandler "show:unused:elements", (opt)->
+            new UnusedElementController opt

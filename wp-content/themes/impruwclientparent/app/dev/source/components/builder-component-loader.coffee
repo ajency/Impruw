@@ -1,3 +1,3 @@
 define [
-	'components/loading/controller'
-	],->
+    'components/loading/controller'
+], ->

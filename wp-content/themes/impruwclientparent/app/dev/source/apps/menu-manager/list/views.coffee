@@ -1,97 +1,94 @@
 define ['app'
-		'text!apps/menu-manager/list/templates/menuitem.html'], (App,menuItemTpl)->
-	
-			App.module 'MenuManager.List.Views', (Views, App)->
-
-				class MenuItemView extends Marionette.ItemView
-					
-
-					template : menuItemTpl
-
-					tagName : 'li'
-
-					className : 'list-group-item'
-
-					modelEvents: 
-						'change' :'render'
-
-					onRender:->
-						@$el.attr 'id', 'item-' + @model.get 'ID'
-					
-					events: 
-						'click .update-menu-item' :->
-							formdata = Backbone.Syphon.serialize @
-							@trigger "update:menu:item:clicked", formdata,@model
-						
-						'click .delete-menu-item' :->
-							if confirm 'Delete the menu item?'
-									@trigger "delete:menu:item:clicked",@model
-						
-						'click .cancel-menu-item' :->
-							menu_id = @model.get 'menu_id'
-							menu_item_id = @model.get 'ID'
-							@$el.find('.menuname').val(@model.get 'menu_item_title')
-							@$el.find('.menutitle').val(@model.get 'menu_item_url')
-							@$el.find("#menuitem-#{menu_id}-#{menu_item_id}").click()
-
-				class EmptyView extends Marionette.ItemView
-					
-					template: '<span class="bicon icon-uniF151"></span> No Menu Items found. Add Menu Items to your menu.'
-
-					tagName: 'div'
-
-					className: 'empty-view menu-empty'
-
-				# main menu manager view
-				class Views.MenuCollectionView extends Marionette.CompositeView
+        'text!apps/menu-manager/list/templates/menuitem.html'], (App, menuItemTpl)->
+    App.module 'MenuManager.List.Views', (Views, App)->
+        class MenuItemView extends Marionette.ItemView
 
 
-					template : '<div class="panel panel-default">
-									<div class="panel-heading">
-										<h3 class="panel-title">{{menu_name}}</h3>
-									</div>
-									<ol class="list-group sortable-menu-items ui-sortable"></ol>
-								</div>'
+            template: menuItemTpl
 
-					itemView : MenuItemView
+            tagName: 'li'
 
-					emptyView : EmptyView
+            className: 'list-group-item'
 
-					itemViewContainer : 'ol.sortable-menu-items'
+            modelEvents:
+                'change': 'render'
 
-					className : 'aj-imp-menu-item-list'
+            onRender: ->
+                @$el.attr 'id', 'item-' + @model.get 'ID'
 
-					onShow :->
-						@$el.find('.sortable-menu-items').sortable
-													handle 	: 'div.menu-dragger'
-													items 	: 'li.list-group-item'
-													tolerance: 'intersect'
-													stop : (e,ui)=>
-															order = @$el.find('.sortable-menu-items').sortable 'toArray'
-															@sendData order, @collection
-															#@trigger "menu:item:order:changed",order
+            events:
+                'click .update-menu-item': ->
+                    formdata = Backbone.Syphon.serialize @
+                    @trigger "update:menu:item:clicked", formdata, @model
 
-					sendData :(order,collection)->
-						@trigger "view:menu:order:changed",order,collection
-					
-					onMenuItemUpdated :->
-						@$el.find('.alert').remove()
-						@$el.prepend '<div class="alert alert-success">Menu item updated</div>'
+                'click .delete-menu-item': ->
+                    if confirm 'Delete the menu item?'
+                        @trigger "delete:menu:item:clicked", @model
 
-					itemViewOptions:(collection, index) =>
-									
-						itemIndex : index
-						collection: @collection
-					
-					serializeData: ->
-						data = 
-							menus : []
+                'click .cancel-menu-item': ->
+                    menu_id = @model.get 'menu_id'
+                    menu_item_id = @model.get 'ID'
+                    @$el.find('.menuname').val(@model.get 'menu_item_title')
+                    @$el.find('.menutitle').val(@model.get 'menu_item_url')
+                    @$el.find("#menuitem-#{menu_id}-#{menu_item_id}").click()
 
-						@collection.each (model, index)->
-							menu = {}
-							menu.menu_slug = model.get('menu_slug')
-							menu.menu_name = model.get('menu_name')
-							data.menus.push menu
+        class EmptyView extends Marionette.ItemView
 
-						data
+            template: '<span class="bicon icon-uniF151"></span> No Menu Items found. Add Menu Items to your menu.'
+
+            tagName: 'div'
+
+            className: 'empty-view menu-empty'
+
+        # main menu manager view
+        class Views.MenuCollectionView extends Marionette.CompositeView
+
+
+            template: '<div class="panel panel-default">
+            									<div class="panel-heading">
+            										<h3 class="panel-title">{{menu_name}}</h3>
+            									</div>
+            									<ol class="list-group sortable-menu-items ui-sortable"></ol>
+            								</div>'
+
+            itemView: MenuItemView
+
+            emptyView: EmptyView
+
+            itemViewContainer: 'ol.sortable-menu-items'
+
+            className: 'aj-imp-menu-item-list'
+
+            onShow: ->
+                @$el.find('.sortable-menu-items').sortable
+                    handle: 'div.menu-dragger'
+                    items: 'li.list-group-item'
+                    tolerance: 'intersect'
+                    stop: (e, ui)=>
+                        order = @$el.find('.sortable-menu-items').sortable 'toArray'
+                        @sendData order, @collection
+            #@trigger "menu:item:order:changed",order
+
+            sendData: (order, collection)->
+                @trigger "view:menu:order:changed", order, collection
+
+            onMenuItemUpdated: ->
+                @$el.find('.alert').remove()
+                @$el.prepend '<div class="alert alert-success">Menu item updated</div>'
+
+            itemViewOptions: (collection, index) =>
+                itemIndex: index
+                collection: @collection
+
+            serializeData: ->
+                data =
+                    menus: []
+
+                @collection.each (model, index)->
+                    menu = {}
+                    menu.menu_slug = model.get('menu_slug')
+                    menu.menu_name = model.get('menu_name')
+                    data.menus.push menu
+
+                data
 

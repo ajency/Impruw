@@ -1,58 +1,57 @@
 define ['app', 'controllers/base-controller'], (App, AppController)->
+    App.module "PageTemplates", (PageTemplates, App)->
+        class PageTemplatesController extends AppController
 
-	App.module "PageTemplates", (PageTemplates, App)->
+            initialize: (opt = {}) ->
 
-		class PageTemplatesController extends AppController
+                # get the page templates collection
+                collection = App.request "get:pages:collection"
 
-			initialize :(opt = {}) ->
+                # fetch the data
+                collection.fetch
+                    data:
+                        'meta_key': 'page_templates'
 
-				# get the page templates collection
-				collection = App.request "get:pages:collection"
+                view = @_getPageTemplatesGrid collection
 
-				# fetch the data
-				collection.fetch 
-							data : 
-								'meta_key' : 'page_templates'
+                @listenTo view, "itemview:template:clicked", (iv, model)=>
+                    # pass on this model with region trigger event
+                    Marionette.triggerMethod.call @region, "template:selected", model
 
-				view = @_getPageTemplatesGrid collection
-
-				@listenTo view, "itemview:template:clicked",(iv,model)=>
-					# pass on this model with region trigger event
-					Marionette.triggerMethod.call @region,"template:selected", model
-
-				@show view, loading : true
+                @show view, loading: true
 
 
-			_getPageTemplatesGrid:(collection)->
-				new PageTemplatesGrid
-							collection : collection
+            _getPageTemplatesGrid: (collection)->
+                new PageTemplatesGrid
+                    collection: collection
 
-		# template view for single template
-		class TemplateView extends Marionette.ItemView
+        # template view for single template
+        class TemplateView extends Marionette.ItemView
 
-				tagName : 'li'
+            tagName: 'li'
 
-				template : '{{post_title}}'
+            template: '{{post_title}}'
 
-				events : 
-					'click' : -> @trigger "template:clicked" , @model
-
-
-		class EmptyView extends Marionette.ItemView
-
-				template : 'No Templates found'
+            events:
+                'click': ->
+                    @trigger "template:clicked", @model
 
 
-		class PageTemplatesGrid extends Marionette.CompositeView
+        class EmptyView extends Marionette.ItemView
 
-				template : '<h4>Choose you page Template</h4>
-							<ul class="templates"></ul>'
-
-				itemView : TemplateView
-
-				emptyView : EmptyView
+            template: 'No Templates found'
 
 
-		App.commands.setHandler "show:templates:grid",(opt)->
-			new PageTemplatesController opt
+        class PageTemplatesGrid extends Marionette.CompositeView
+
+            template: '<h4>Choose you page Template</h4>
+            							<ul class="templates"></ul>'
+
+            itemView: TemplateView
+
+            emptyView: EmptyView
+
+
+        App.commands.setHandler "show:templates:grid", (opt)->
+            new PageTemplatesController opt
 

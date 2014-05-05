@@ -1,91 +1,88 @@
 define ["app", 'backbone'], (App, Backbone) ->
+    App.module "Entities.Elements", (Elements, App, Backbone, Marionette, $, _)->
 
-		App.module "Entities.Elements", (Elements, App, Backbone, Marionette, $, _)->
+        # Generic element model
+        class Elements.ElementModel extends Backbone.Model
 
-			# Generic element model
-			class Elements.ElementModel extends Backbone.Model
+            # custom id attribute as we will be using post_meta table for saving this
+            # element details
+            idAttribute: 'meta_id'
 
-				# custom id attribute as we will be using post_meta table for saving this 
-				# element details
-				idAttribute : 'meta_id'
+            defaults: ->
+                style: ''
+                draggable: true
 
-				defaults:->
-					style       : ''
-					draggable   : true
-				
-				name : 'element'
+            name: 'element'
 
-				# override destroy implementation
-				# when an element is removed from builder it must be removed from DB
-				# as previous revision of the same page will need it.
-				# so, skip the delete ajax call. only remove the model
-				destroy : (options) ->
-					options = (if options then _.clone(options) else {})
-					model = this
-					success = options.success
-					destroy = ->
-						model.trigger "destroy", model, model.collection, options
-						return
+            # override destroy implementation
+            # when an element is removed from builder it must be removed from DB
+            # as previous revision of the same page will need it.
+            # so, skip the delete ajax call. only remove the model
+            destroy: (options) ->
+                options = (if options then _.clone(options) else {})
+                model = this
+                success = options.success
+                destroy = ->
+                    model.trigger "destroy", model, model.collection, options
+                    return
 
-					options.success = (resp) ->
-						destroy()  if options.wait or model.isNew()
-						success model, resp, options  if success
-						model.trigger "sync", model, resp, options  unless model.isNew()
-						return
+                options.success = (resp) ->
+                    destroy()  if options.wait or model.isNew()
+                    success model, resp, options  if success
+                    model.trigger "sync", model, resp, options  unless model.isNew()
+                    return
 
-					if @isNew()
-						options.success()
-						return false
-					
-					destroy() unless options.wait
-				
+                if @isNew()
+                    options.success()
+                    return false
 
-			# element collection class
-			class ElementsCollection extends Backbone.Collection
-
-				model : Elements.ElementModel
-
-				url:->
-					"#{AJAXURL}?action=fetch-elements"
+                destroy() unless options.wait
 
 
-			recoveredElements = new ElementsCollection
+        # element collection class
+        class ElementsCollection extends Backbone.Collection
+
+            model: Elements.ElementModel
+
+            url: ->
+                "#{AJAXURL}?action=fetch-elements"
 
 
-			# PUBLIC API FOR ENitity
-			API =
-				# create a new element and save it to server
-				createElement: (data = {})->
-					
-					element = new Elements.ElementModel                        
-					element.set data    
-					if element.get('element') isnt 'Row' and element.get('element') isnt 'Column' 
-						if element.isNew()
-							element.save null,
-									 wait : true
-								
-					element
+        recoveredElements = new ElementsCollection
 
-				# returns the model of the recovered element
-				getUnusedElements:(pageId,revisionId = 0)->
-					
-					recoveredElements.url = "#{AJAXURL}?action=get-unused-elements"
-					recoveredElements.fetch
-									data :
-										revision_id : revisionId
-										page_id : pageId
-					recoveredElements
 
-				getUnusedElementByMetaId:(metaId)->
-					element = recoveredElements.get parseInt metaId
-					element
+        # PUBLIC API FOR ENitity
+        API =
+        # create a new element and save it to server
+            createElement: (data = {})->
+                element = new Elements.ElementModel
+                element.set data
+                if element.get('element') isnt 'Row' and element.get('element') isnt 'Column'
+                    if element.isNew()
+                        element.save null,
+                            wait: true
 
-			# REQUEST HANDLERS
-			App.reqres.setHandler "create:new:element",(data) ->
-				API.createElement data
+                element
 
-			App.reqres.setHandler "get:unused:elements",(pageId, revisionId)->
-				API.getUnusedElements pageId,revisionId
+        # returns the model of the recovered element
+            getUnusedElements: (pageId, revisionId = 0)->
+                recoveredElements.url = "#{AJAXURL}?action=get-unused-elements"
+                recoveredElements.fetch
+                    data:
+                        revision_id: revisionId
+                        page_id: pageId
+                recoveredElements
 
-			App.reqres.setHandler "get:unused:element:by:metaid",(metaId)->
-				API.getUnusedElementByMetaId metaId
+            getUnusedElementByMetaId: (metaId)->
+                element = recoveredElements.get parseInt metaId
+                element
+
+        # REQUEST HANDLERS
+        App.reqres.setHandler "create:new:element", (data) ->
+            API.createElement data
+
+        App.reqres.setHandler "get:unused:elements", (pageId, revisionId)->
+            API.getUnusedElements pageId, revisionId
+
+        App.reqres.setHandler "get:unused:element:by:metaid", (metaId)->
+            API.getUnusedElementByMetaId metaId
