@@ -1,56 +1,59 @@
 <?php
-/**
- *
- * @return Ambigous <mixed, NULL, multitype:, multitype:multitype: , multitype:Ambigous <multitype:, NULL> >
- */
-function get_bookings($room_id = 0) {
-	
-	if($room_id === 0)
-		$room_id = get_the_ID();
-	
-	global $wpdb;
+    /**
+     *
+     * @return Ambigous <mixed, NULL, multitype:, multitype:multitype: , multitype:Ambigous <multitype:, NULL> >
+     */
+    function get_bookings($room_id = 0)
+    {
 
-	$table_name = $wpdb->prefix . 'bookings';
+        if ($room_id === 0)
+            $room_id = get_the_ID();
 
-	$query = $wpdb->prepare("SELECT * FROM $table_name WHERE room_id=%d", $room_id);
+        global $wpdb;
 
-	$bookings = $wpdb->get_results($query, ARRAY_A);
+        $table_name = $wpdb->prefix . 'bookings';
 
-	return $bookings;
-}
+        $query = $wpdb->prepare("SELECT * FROM $table_name WHERE room_id=%d", $room_id);
 
-/**
- * 
- * @param unknown $data
- */
-function create_new_booking($data){
-	
-	$data['bdate'] = date('Y-m-d', strtotime($data['bdate']));
-	
-	global $wpdb;
-	
-	$table_name = $wpdb->prefix . 'bookings';
-	
-	$wpdb->insert($table_name,$data);
-	
-	return $wpdb->insert_id;
-	
-}
+        $bookings = $wpdb->get_results($query, ARRAY_A);
 
-/**
- *
- * @param unknown $data
- */
-function update_booking($data, $id){
+        return $bookings;
+    }
 
-	$data['bdate'] = date('Y-m-d', strtotime($data['bdate']));
+    /**
+     *
+     * @param unknown $data
+     */
+    function create_new_booking($data)
+    {
 
-	global $wpdb;
+        $data['bdate'] = date('Y-m-d', strtotime($data['bdate']));
 
-	$table_name = $wpdb->prefix . 'bookings';
+        global $wpdb;
 
-	$wpdb->update($table_name,$data, array('id' => $id));
+        $table_name = $wpdb->prefix . 'bookings';
 
-	return true;
+        $wpdb->insert($table_name, $data);
 
-}
+        return $wpdb->insert_id;
+
+    }
+
+    /**
+     *
+     * @param unknown $data
+     */
+    function update_booking($data, $id)
+    {
+
+        $data['bdate'] = date('Y-m-d', strtotime($data['bdate']));
+
+        global $wpdb;
+
+        $table_name = $wpdb->prefix . 'bookings';
+
+        $wpdb->update($table_name, $data, array('id' => $id));
+
+        return TRUE;
+
+    }

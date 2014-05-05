@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
 
 define(['app', 'backbone'], function(App, Backbone) {
   return App.module("Entities.Analytics", function(Analytics, App, Backbone, Marionette, $, _) {
-    var API, AnalyticsCollection, AnalyticsModel, overViewAnalytics, trafficAnalytics, weeklyAnalytics;
+    var API, AnalyticsCollection, AnalyticsModel, weeklyAnalytics;
     AnalyticsModel = (function(_super) {
       __extends(AnalyticsModel, _super);
 
@@ -36,8 +36,6 @@ define(['app', 'backbone'], function(App, Backbone) {
     })(Backbone.Collection);
     weeklyAnalytics = new AnalyticsCollection;
     weeklyAnalytics.comparator = 'date';
-    overViewAnalytics = new AnalyticsCollection;
-    trafficAnalytics = new AnalyticsCollection;
     API = {
       getWeeklyAnalyticsData: function() {
         var date, endDate, metrices, startDate;
