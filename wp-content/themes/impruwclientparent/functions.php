@@ -3458,7 +3458,7 @@ function switch_theme_colour() {
     $file_name = get_template_directory_uri() . '/resources/less/variables.less';
     
     $colours = array(
-        'primary1' => 'red',
+        'primary1' => 'orange',
         'secondary1' => '#29333E',
         'tertiary1' => '#F2F2F2'
     );
@@ -3479,7 +3479,7 @@ function switch_theme_colour() {
       
 }
 
-add_action('init', 'switch_theme_colour');
+//add_action('init', 'switch_theme_colour');
 
 /**
  * Function to read the contents of a file and return array of contents
@@ -3582,6 +3582,21 @@ function get_compiled_stylesheet_directory_uri(){
     
     return $file_uri;
     
+}
+function get_default_theme_color_set(){
+    
+    $set_color = array(
+        'set1' => array(
+            '@primary1' => 'yellow',
+            '@secondary1' => 'green'
+        ),
+        'set2' => array(
+            '@primary1' => 'pink',
+            '@secondary1' => 'grey'
+        )
+    );
+    
+    return $set_color;
 }
 /*
   function enqueue_contact_page_script(){

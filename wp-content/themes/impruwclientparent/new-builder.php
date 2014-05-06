@@ -29,7 +29,7 @@
         <link href="<?php echo get_parent_template_directory_uri(); ?>/builder/css/custom.css"  rel="stylesheet" media="screen"/>
 
         <link href="<?php echo get_template_directory_uri(); ?>/css/slimmenu.min.css" rel="stylesheet" media="screen"/>
-        <link href="<?php echo get_template_directory_uri(); ?>/css/theme-style.css" rel="stylesheet" media="screen"/>
+        <link href="<?php echo get_theme_style_sheet_file_path(); ?> " rel="stylesheet" media="screen"/>
         <link href="<?php echo get_parent_template_directory_uri(); ?>/css/pace.css" rel="stylesheet" media="screen"/>
     </head>
     <body <?php body_class(); ?>>
