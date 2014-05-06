@@ -35,17 +35,15 @@ function get_logo_size(){
 global $element_templates;
 
 $element_templates = array(
-    'Menu' => array(
-                array(
-                    'name'      => 'Footer Menu 2'
-                )
-              ),
     'Title' => array(
                 array(
                     'name'      => 'Site Title'
                 ),
                 array(
                     'name'      => 'Page Title',
+                ),
+                array(
+                    'name'      => 'Box Title',
                 ),
                 array(
                     'name'      => 'Box Title',
@@ -67,6 +65,10 @@ $element_templates = array(
                 array(
                     'name'      => 'Menu Bar'
                 )
+                ,
+                array(
+                    'name'      => 'Footer Text'
+                )
              ),
     'Social' => array(
                 array(
@@ -79,6 +81,9 @@ $element_templates = array(
     'Link' => array(
                 array(
                     'name' => 'Default Style'
+                ),
+                array(
+                    'name' => 'Capitalized Link'
                 ),
                 array(
                     'name' => 'Button'

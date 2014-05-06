@@ -1,3 +1,30 @@
 .text{
 	color: @text-color;
 }
+
+.imagewithtext {
+	text-align: left;
+	.clearfix;
+	.image-placeholder {
+		float: left;
+		margin: 0 0.4em 0.4em 0;
+		width: 40%;
+		position: relative;
+		z-index: 1;
+	}
+	img {
+		margin-bottom: 0.4em;
+		margin-top: 0.6em;
+		position: relative;
+		z-index: 1;
+		&.pull-left {
+			.margin-right;
+		}
+		&.pull-right {
+			.margin-left;
+		}
+	}
+	p {
+		color: @text-color;
+	}
+}
