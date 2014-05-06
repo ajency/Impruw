@@ -31,19 +31,19 @@ define ['app', 'controllers/base-controller'], (App, AppController)->
 						
 						<h5>Visits Overview (with graph)</h5>
 						<div id="widgetIframe">
-							<iframe width="100%" height="350" src="http://localhost/impruw/piwik/index.php?module=Widgetize&action=iframe&widget=1&moduleToWidgetize=VisitsSummary&actionToWidgetize=index&idSite={{statistics_enabled}}&period=week&date=yesterday&disableLink=1&widget=1&token_auth=4d1ff0386c1933bcb68ad517a6573d1e" scrolling="no" frameborder="0" marginheight="0" marginwidth="0">
+							<iframe width="100%" height="350" src="{{piwik_path}}?module=Widgetize&action=iframe&widget=1&moduleToWidgetize=VisitsSummary&actionToWidgetize=index&idSite={{statistics_enabled}}&period=week&date=yesterday&disableLink=1&widget=1&token_auth={{piwik_token}}" scrolling="no" frameborder="0" marginheight="0" marginwidth="0">
 							</iframe>
 						</div>
 					  	
 					  	<h5>Visits by Day of Week</h5>
 						<div id="widgetIframe">
-							<iframe width="100%" height="350" src="http://localhost/impruw/piwik/index.php?module=Widgetize&action=iframe&widget=1&moduleToWidgetize=VisitTime&actionToWidgetize=getByDayOfWeek&idSite={{statistics_enabled}}&period=week&date=yesterday&disableLink=1&widget=1&token_auth=4d1ff0386c1933bcb68ad517a6573d1e" scrolling="no" frameborder="0" marginheight="0" marginwidth="0">
+							<iframe width="100%" height="350" src="{{piwik_path}}?module=Widgetize&action=iframe&widget=1&moduleToWidgetize=VisitTime&actionToWidgetize=getByDayOfWeek&idSite={{statistics_enabled}}&period=week&date=yesterday&disableLink=1&widget=1&token_auth={{piwik_token}}" scrolling="no" frameborder="0" marginheight="0" marginwidth="0">
 							</iframe>
 						</div>
 					  	
 					  	<h5>Visitor map</h5>
 						<div id="widgetIframe">
-							<iframe width="100%" height="350" src="http://localhost/impruw/piwik/index.php?module=Widgetize&action=iframe&widget=1&moduleToWidgetize=UserCountryMap&actionToWidgetize=visitorMap&idSite={{statistics_enabled}}&period=week&date=yesterday&disableLink=1&widget=1&token_auth=4d1ff0386c1933bcb68ad517a6573d1e" scrolling="no" frameborder="0" marginheight="0" marginwidth="0">
+							<iframe width="100%" height="350" src="{{piwik_path}}?module=Widgetize&action=iframe&widget=1&moduleToWidgetize=UserCountryMap&actionToWidgetize=visitorMap&idSite={{statistics_enabled}}&period=week&date=yesterday&disableLink=1&widget=1&token_auth={{piwik_token}}" scrolling="no" frameborder="0" marginheight="0" marginwidth="0">
 							</iframe>
 						</div>
 					  </div>'

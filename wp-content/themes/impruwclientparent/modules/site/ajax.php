@@ -15,6 +15,8 @@ function read_site_ajax() {
     $data ['checkin_time_format'] = get_option('checkin-time-format');
     $data ['additional_policy'] = get_option('additional-policy');
     $data ['statistics_enabled'] = get_option('statistics_enabled');
+    $data ['piwik_path'] = PIWIK_PATH;
+    $data ['piwik_token'] = PIWIK_AUTH_TOKEN;
   
     if (is_array($data))
         wp_send_json(array('code' => 'OK', 'data' => $data));

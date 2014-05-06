@@ -78,7 +78,7 @@ define ['app', 'controllers/base-controller'], (App, AppController)->
 		class StatisticsView extends Marionette.ItemView
 
 			template :'<div style="height:700px">
-						<iframe src="http://localhost/impruw/piwik/index.php?module=Widgetize&action=iframe&moduleToWidgetize=Dashboard&actionToWidgetize=index&idSite={{statistics_enabled}}&period=week&date=yesterday&token_auth=4d1ff0386c1933bcb68ad517a6573d1e" frameborder="0" marginheight="0" marginwidth="0" width="100%" height="100%"></iframe>
+						<iframe src="{{piwik_path}}?module=Widgetize&action=iframe&moduleToWidgetize=Dashboard&actionToWidgetize=index&idSite={{statistics_enabled}}&period=week&date=yesterday&token_auth={{piwik_token}}" frameborder="0" marginheight="0" marginwidth="0" width="100%" height="100%"></iframe>
 						</div>'
 			
 			serializeData :->
