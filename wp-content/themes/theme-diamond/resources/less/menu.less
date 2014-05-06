@@ -105,10 +105,11 @@
 			margin: 0 0 0.2em;
 			display: block;
 			background: transparent;
+			font-size: 0.78em;
 			a {
-				color: #fff;
-				font-weight: 100;
-				text-transform: uppercase;
+				color: @text-color;
+				font-weight: 300;
+				text-transform: capitalize;
 				display: inline-block;
 				padding: 0.33em;
 				&:hover {
@@ -117,18 +118,25 @@
 				}
 			}
 			&:before {
-				content: '›';
+				content: '';
 				display: inline-block;
-				color: #fff;
-				font-size: 1.3em;
+				background: @primary1;
+				height: 4px;
+				width: 4px;
 				margin-right: 5px;
+				position: relative;
+				top: -2px;
 			}
 			&:hover {
-				left: 0.25em;
+				left: 0em;
 				.backTrans;
 				background: transparent;
 				a {
-					color: #fff;
+					color: darken(@text-color, 20%);
+				}
+				&:before {
+					height: 6px;
+					width: 6px;
 				}
 			}
 		}
