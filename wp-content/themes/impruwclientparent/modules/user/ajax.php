@@ -138,6 +138,7 @@
         $user_password = $data['data']->user_pass;
 
         if (wp_check_password($current_password, $user_password, $user_ID))
-            return 1; else
+            return 1;
+        else
             return 0;
     }

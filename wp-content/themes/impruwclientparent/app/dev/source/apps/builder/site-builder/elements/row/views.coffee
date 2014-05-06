@@ -292,5 +292,5 @@ define ['app'], (App)->
                         $(column).removeClass("col-md-#{currentClass}").addClass("col-md-#{colClass}").attr 'data-class', colClass
 
                 @setColumnResizer()
-	
+
 
