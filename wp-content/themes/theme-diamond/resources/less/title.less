@@ -12,6 +12,7 @@
 		font-size: 4em;
 		font-family: 'Satisfy', cursive;
 		text-align: center;
+		margin: 0.5em 0 0.2em;
 	}
 	&.box-title {
 		color: @secondary1;
@@ -20,12 +21,26 @@
 		text-align: center;
 		display: table;
 	    white-space: nowrap;
+	    margin-bottom: @medium;
 	    &:before, &:after {
 	      content: '';
 	      display: table-cell;
 	      width: 50%;
 	      background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQIW2NkYGAwBgAAPQA1zJXiFgAAAABJRU5ErkJggg==) repeat-x center 0.72em;	      
 	    }
+	}
+	&.small-title {
+		font-weight: 700;
+		color: @secondary1;
+		font-size: 1.15em;
+		margin-bottom: @regular;
+	}
+	&.action-title {
+		color: @secondary1;
+		font-size: 2.5em;
+		font-family: 'Satisfy', cursive;
+		text-align: right;
+		margin: 0.5em 0;
 	}
 	&.footer-title {
 		color: @secondary1;

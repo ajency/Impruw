@@ -2,6 +2,15 @@
 .link {
 	display: inline-block;
 	margin: 0 @regular @regular 0;
+	&.capitalized-link {
+		a {
+			text-transform: uppercase;
+			font-weight: 400;
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+	}
 	&.button {
 		a {
 			background: @white;
@@ -15,6 +24,24 @@
 			&:hover {
 				text-decoration: none;
 				background: @button-color;
+				color: @white;
+				.backTrans;
+			}
+		}
+	}
+	&.action-button {
+		a {
+			background: @primary1;
+			color: @white;
+			display: inline-block;
+			padding: 0.4em 0.7em;
+			margin: 0.666em 0;
+			font-size: 1.5em;
+			font-weight: 700;
+			border-radius: 0;
+			&:hover {
+				text-decoration: none;
+				background: lighten(@primary1, 10%);
 				color: @white;
 				.backTrans;
 			}

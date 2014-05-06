@@ -107,4 +107,41 @@
 	@media(max-width:767px){
 		text-align: center;
 	}
+	&.small-social {
+		text-align: left;
+		margin-left: @medium;
+		li {
+			margin: 0 @regular;
+			width: 20px;
+			height: 32px;
+			-webkit-transform: none;
+			-moz-transform: none;
+			-ms-transform: none;
+			-o-transform: none;
+			transform: none;
+			box-shadow: none;
+			a {
+				-webkit-transform: none;
+				-moz-transform: none;
+				-ms-transform: none;
+				-o-transform: none;
+				transform: none;
+				color: @quarternary1;
+				text-indent: 0;
+				&:after, &:before {
+					color: @quarternary1;
+				}
+			}
+			&:hover {
+				background: transparent;
+				box-shadow: none;
+				top: 0;
+				a {
+					&:after, &:before {
+						color: @primary1;
+					}
+				}
+			}
+		}
+	}
 }
