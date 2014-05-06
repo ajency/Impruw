@@ -46,7 +46,10 @@ $element_templates = array(
                     'name'      => 'Box Title',
                 ),
                 array(
-                    'name'      => 'Box Title',
+                    'name'      => 'Small Title',
+                ),
+                array(
+                    'name'      => 'Action Title'
                 ),
                 array(
                     'name'      => 'Footer Title'
@@ -87,6 +90,9 @@ $element_templates = array(
                 ),
                 array(
                     'name' => 'Button'
+                ),
+                array(
+                    'name' => 'Action Button'
                 )
             ),
     'ContactForm' => array(
