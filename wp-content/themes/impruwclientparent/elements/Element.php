@@ -123,6 +123,10 @@ class Element {
         return $this->markup;
         
     }
+
+    function get_markup_for_h1(){
+        return '<h1>My Markup</h1>';
+    }
     
     /**
      * Checks if elements has child elements based on 

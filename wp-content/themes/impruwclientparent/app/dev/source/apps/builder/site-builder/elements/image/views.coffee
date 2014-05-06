@@ -28,10 +28,10 @@ define ['app'], (App)->
 
                     data.alignclass = ->
                         switch @alignment
-                        when 'left'
-                            return 'pull-left'
-                        when 'right'
-                            return 'pull-right'
+                            when 'left'
+                                return 'pull-left'
+                            when 'right'
+                                return 'pull-right'
 
                 data
 

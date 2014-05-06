@@ -31,8 +31,12 @@ define( 'DB_COLLATE', '' );
 
 $table_prefix  = 'wptests_';   // Only numbers, letters, and underscores please!
 
+//define( 'WP_DEFAULT_THEME', 'impruwmain' ); // setup default theme
+define( 'WP_DEFAULT_THEME', 'impruwclientparent' );
+
 define( 'WP_TESTS_DOMAIN', 'impruw.com' );
-define( 'WP_TESTS_EMAIL', 'admin@mailinator.com' );
+define( 'WP_TESTS_EMAIL', 'impruwadmin@mailinator.com' );
+
 define( 'WP_TESTS_TITLE', 'Impruw' );
 
 define( 'WP_PHP_BINARY', 'php' );
