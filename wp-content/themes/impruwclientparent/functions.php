@@ -34,9 +34,9 @@ require_once 'modules/tariff/ajax.php';
 require_once 'modules/daterange/ajax.php';
 require_once 'modules/bookings/ajax.php';
 require_once 'modules/revision/ajax.php';
-require_once 'modules/elements/ajax.php';
 
 require_once PARENTTHEMEPATH . 'api/entities/leftnav.php';
+//require_once PARENTTHEMEPATH . 'api/statistics/statistics-api.php';
 
 global $page_id;
 $page_id = 0;
@@ -3443,74 +3443,6 @@ function wp_send_error_json($message) {
 }
 
 /**
- * Function to read the contents of a file and return array of contents
- * 
- * @param type $file_name
- * @return array
- */
-function read_file_content($file_name) {
-
-    $file_content_array = array();
-
-    //check if the file path exsists
-    if (file_exists($file_name))
-        $file_content_array = file($file_name);
-    $file_content_array = array_unique($file_content_array);
-
-
-    return $file_content_array;
-}
-
-/**
- * Function to replace the colour value in the css variable
- * 
- * @param type $style
- * @param type $color_val
- * @return type
- */
-function switch_variable_color($style, $color_val) {
-
-    $color = explode(':', $style);
-
-    $color[1] = $color_val . ';';
-
-    $replaced_color = implode(':', $color);
-
-    return $replaced_color;
-}
-
-/**
- * Function to replace the passed colors in the file content array
- * 
- * 
- * @param type $file_contents
- * @param type $primary_color
- * @param type $secondary_color
- * @param type $tertiary_color
- * @return type
- */
-function replace_color_in_array($file_contents, $colours) {
-
-    foreach ($file_contents as $key => $style) {
-
-        if (preg_match('/^@primary1/', $style)) {
-
-            $file_contents[$key] = switch_variable_color($style, $colours['primary_color']);
-        }
-        if (preg_match('/^@secondary1/', $style)) {
-
-            $file_contents[$key] = switch_variable_color($style, $colours['secondary_color']);
-        }
-        if (preg_match('/^@tertiary1/', $style)) {
-
-            $file_contents[$key] = switch_variable_color($style, $colours['tertiary_color']);
-        }
-    }
-
-    return $file_contents;
-}
-
-/**
  * 
  * Function to replace the css file with the argumenyts passed
  * 
@@ -3538,29 +3470,172 @@ function replace_colour_in_file($file_params, $colours) {
  */
 function switch_theme_colour() {
 
-    $file_name = PARENTTHEMEPATH . 'css/less/site-elements/variables.less';
-
-    $style_filename = PARENTTHEMEPATH . 'css/less/site-elements/style.less';
-
+    $file_name = get_template_directory_uri() . '/resources/less/variables.less';
+    
+    $new_file_content = '';
+    $file_content_string= '';
+    
     $colours = array(
         'primary_color' => '#FF7E00',
         'secondary_color' => '#29333F',
         'tertiary_color' => '#F2F2F2'
     );
 
-    $file_contents = read_file_content($file_name);
+    $variable_file_content = get_variable_file_content($file_name);
+    file_content_to_key_value($variable_file_content);
+/*
+    if (!empty($variable_file_content)):
+        $new_file_content = replace_variable_color_in_file($variable_file_content,$colours);
+        check_create_less_resource_folder();
+        foreach ($variable_file_content as $value) {
+            $file_content_string .= $value;
+        }
+        
+        $less = new lessc;
+        /*$less->setVariables(array(
+        'primary_color' => '#FF7E00',
+        'secondary_color' => '#29333F',
+        'tertiary_color' => '#F2F2F2'
+          ));*/
+    //   try {
+     // echo $less->compileFile('C:\xampp\htdocs\impruw/wp-content/themes/blue-bold/resources/less/theme-style.less');
+     
+/*} catch (Exception $ex) {
+     echo ABSPATH;
+    echo "lessphp fatal error: ".$ex->getMessage();
+}
+     
+        //compile_new_css_to_folder();
 
-    if (!empty($file_contents))
-        $file_params = array('filename' => $file_name, 'file_contents' => $file_contents);
+        echo '<pre>';
+       print_r($new_file_content);
+    endif;*/
 
-    replace_colour_in_file($file_params, $colours);
+    /* $style_filename = PARENTTHEMEPATH.'css/less/site-elements/style.less';
 
-    $less = new lessc;
 
-    // echo $less->compileFile($style_filename);
+
+      $file_contents = read_file_content($file_name);
+
+      if(!empty($file_contents))
+
+      $file_params = array('filename'=>$file_name,'file_contents'=>$file_contents);
+
+      replace_colour_in_file($file_params,$colours);
+
+     
+
+      // echo $less->compileFile($style_filename);
+
+     */
 }
 
 //add_action('init', 'switch_theme_colour');
+
+/**
+ * Function to read the contents of a file and return array of contents
+ * 
+ * @param type $file_name
+ * @return type
+ */
+function get_variable_file_content($file_name) {
+
+    $file_content_array = array();
+
+    $file_exsists = get_headers($file_name);
+
+    if ($file_exsists[0] == 'HTTP/1.1 200 OK')
+        $file_content_array = file($file_name);
+
+    return $file_content_array;
+}
+function file_content_to_key_value($variable_file_content){
+    echo '<pre>';
+    print_r($variable_file_content);
+    
+    foreach ($variable_file_content as $css) {
+        if(preg_match('/:/', $css)):
+        echo $css; 
+    
+        $less_variables = $explode(':', $css);
+        echo $less_variables[0]; 
+        endif;
+    }
+    
+}
+/**
+ * 
+ * Function to get the array of file contents with the new css colours 
+ * 
+ * @param type $variable_file_content
+ * @param type $colours
+ */
+function replace_variable_color_in_file($variable_file_content,$colours) {
+    
+    $new_file_contents = switch_color_in_file($variable_file_content, $colours);
+    
+    return $new_file_contents;
+   
+}
+/**
+ * Function to replace the passed colors in the file content array
+ * 
+ * 
+ * @param type $variable_file_content
+ * @param type $colours
+ * @return type
+ */
+function switch_color_in_file($variable_file_content, $colours){
+    
+    foreach ($variable_file_content as $key => $style) {
+
+        if (preg_match('/^@primary1/', $style)) {
+
+            $variable_file_content[$key] = switch_variable_color($style, $colours['primary_color']);
+        }
+        if (preg_match('/^@secondary1/', $style)) {
+
+            $variable_file_content[$key] = switch_variable_color($style, $colours['secondary_color']);
+        }
+        if (preg_match('/^@tertiary1/', $style)) {
+
+            $variable_file_content[$key] = switch_variable_color($style, $colours['tertiary_color']);
+        }
+    }
+
+    return $variable_file_content; 
+}
+/**
+ * Function to replace the colour value for the css variable
+ * 
+ * @param type $style
+ * @param type $color_val
+ * @return type
+ */
+function switch_variable_color($style, $color_val) {
+
+    $color = explode(':', $style);
+
+    $color[1] = $color_val . ';';
+
+    $replaced_color = implode(':', $color);
+
+    return $replaced_color;
+}
+/**
+ * Function to check of the site resource folder exsists
+ * 
+ * if folder doesnt exsist create it
+ */
+function check_create_less_resource_folder(){
+    
+    $filename=  ABSPATH.'wp-content/site-resources/'.get_current_blog_id().'/css';
+    
+    if(!is_dir($filename))
+        mkdir($filename,077,true);
+    
+}
+
 /*
   function enqueue_contact_page_script(){
   wp_enqueue_script ('contact-us', get_template_directory_uri () . 'js/contact.js',array('jquery'));
