@@ -11,6 +11,9 @@ Mustache_Autoloader::register();
 global $me;
 $me = new Mustache_Engine ();
 
+//load framework
+require 'framework/AutoLoad.php';
+
 /**
  * Include the less php compiler
  */

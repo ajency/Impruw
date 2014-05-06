@@ -36,14 +36,14 @@ define ["app", 'backbone'], (App, Backbone) ->
                     return slide.get 'id'
 
                 $.post AJAXURL,
-                  {
+                    {
                       action: 'update-slides-order'
                       newOrder: slideIds
-                  },
-                (response)=>
-                    options.success() if options.success
-                    @trigger "slides:order:updated"
-                , 'json'
+                    },
+                    (response)=>
+                        options.success() if options.success
+                        @trigger "slides:order:updated"
+                    , 'json'
 
 
         sliderCollection = new Slider.SliderCollection
