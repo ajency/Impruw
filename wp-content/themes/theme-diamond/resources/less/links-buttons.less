@@ -2,6 +2,15 @@
 .link {
 	display: inline-block;
 	margin: 0 @regular @regular 0;
+	&.capitalized-link {
+		a {
+			text-transform: uppercase;
+			font-weight: 400;
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+	}
 	&.button {
 		a {
 			background: @white;

@@ -87,7 +87,7 @@
 /****body styles****/
 .site-style-container {
   font-family: 'Lato', sans-serif;
-  font-weight: 400;
+  font-weight: 300;
   /****Selection Color****/
 
   /****Link Styles****/
@@ -1475,8 +1475,11 @@ and open the template in the editor.
   background: #f9f8f4;
   position: relative;
   border: 1px solid #bebebe !important;
-  padding-top: 1em;
+  padding-top: 1.5em;
   padding-bottom: 1em;
+  margin-top: 1em;
+  z-index: 1;
+  text-align: center;
 }
 .row.highlight-box:before,
 .row.highlight-box:after {
@@ -1519,9 +1522,23 @@ and open the template in the editor.
   margin-bottom: -1.01em;
   border: 1px solid #bebebe !important;
   box-shadow: inset 0 -3px 6px -3px #bebebe;
+  position: relative;
+  z-index: 2;
+}
+.row.footer-bar {
+  margin-top: 1em;
+  margin-bottom: 1.5em;
+  padding: 1em 0;
+  font-size: 0.88em;
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 3px 6px -6px #f9f8f4;
+}
+.row.footer-bar .column:last-child {
+  text-align: right;
 }
 .row.column-dividers .column {
   border-color: rgba(0, 0, 0, 0.2) !important;
+  padding: 0.5em 0;
 }
 /****Top Slim-menu Styles****/
 .nav.slimmenu {
@@ -1629,11 +1646,12 @@ and open the template in the editor.
   margin: 0 0 0.2em;
   display: block;
   background: transparent;
+  font-size: 0.78em;
 }
 .nav.footer-menu li a {
-  color: #fff;
-  font-weight: 100;
-  text-transform: uppercase;
+  color: #989898;
+  font-weight: 300;
+  text-transform: capitalize;
   display: inline-block;
   padding: 0.33em;
 }
@@ -1642,14 +1660,17 @@ and open the template in the editor.
   background: transparent;
 }
 .nav.footer-menu li:before {
-  content: '›';
+  content: '';
   display: inline-block;
-  color: #fff;
-  font-size: 1.3em;
+  background: #dc6868;
+  height: 4px;
+  width: 4px;
   margin-right: 5px;
+  position: relative;
+  top: -2px;
 }
 .nav.footer-menu li:hover {
-  left: 0.25em;
+  left: 0em;
   -webkit-transition: all 0.25s ease;
   -moz-transition: all 0.25s ease;
   -o-transition: all 0.25s ease;
@@ -1658,7 +1679,11 @@ and open the template in the editor.
   background: transparent;
 }
 .nav.footer-menu li:hover a {
-  color: #fff;
+  color: #656565;
+}
+.nav.footer-menu li:hover:before {
+  height: 6px;
+  width: 6px;
 }
 /**** Title Styles****/
 .title.site-title {
@@ -1673,6 +1698,7 @@ and open the template in the editor.
   font-size: 4em;
   font-family: 'Satisfy', cursive;
   text-align: center;
+  margin: 0.5em 0 0.2em;
 }
 .title.box-title {
   color: #483535;
@@ -1681,6 +1707,7 @@ and open the template in the editor.
   text-align: center;
   display: table;
   white-space: nowrap;
+  margin-bottom: 1em;
 }
 .title.box-title:before,
 .title.box-title:after {
@@ -1688,6 +1715,12 @@ and open the template in the editor.
   display: table-cell;
   width: 50%;
   background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQIW2NkYGAwBgAAPQA1zJXiFgAAAABJRU5ErkJggg==) repeat-x center 0.72em;
+}
+.title.small-title {
+  font-weight: 700;
+  color: #483535;
+  font-size: 1.15em;
+  margin-bottom: 0.5em;
 }
 .title.footer-title {
   color: #483535;
@@ -1733,10 +1766,49 @@ and open the template in the editor.
 .text {
   color: #989898;
 }
+.imagewithtext {
+  text-align: left;
+  *zoom: 1;
+}
+.imagewithtext:after,
+.imagewithtext:before {
+  clear: both;
+  content: "";
+  display: table;
+}
+.imagewithtext .image-placeholder {
+  float: left;
+  margin: 0 0.4em 0.4em 0;
+  width: 40%;
+  position: relative;
+  z-index: 1;
+}
+.imagewithtext img {
+  margin-bottom: 0.4em;
+  margin-top: 0.6em;
+  position: relative;
+  z-index: 1;
+}
+.imagewithtext img.pull-left {
+  margin-right: 0.5em;
+}
+.imagewithtext img.pull-right {
+  margin-left: 0.5em;
+}
+.imagewithtext p {
+  color: #989898;
+}
 /****Link Element Styles****/
 .link {
   display: inline-block;
   margin: 0 0.5em 0.5em 0;
+}
+.link.capitalized-link a {
+  text-transform: uppercase;
+  font-weight: 400;
+}
+.link.capitalized-link a:hover {
+  text-decoration: underline;
 }
 .link.button a {
   background: #f9f8f4;
@@ -2705,4 +2777,22 @@ and open the template in the editor.
   .social {
     text-align: center;
   }
+}
+.social.small-social {
+  text-align: left;
+}
+.social.small-social li {
+  -webkit-transform: none;
+  -moz-transform: none;
+  -ms-transform: none;
+  -o-transform: none;
+  transform: none;
+}
+.social.small-social li a {
+  -webkit-transform: none;
+  -moz-transform: none;
+  -ms-transform: none;
+  -o-transform: none;
+  transform: none;
+  color: #bebebe;
 }
