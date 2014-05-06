@@ -111,3 +111,14 @@
 
         return 0;
     }
+    
+    function get_theme_style_sheet_file_path()
+    {
+        $compiled_css_file = get_compiled_stylesheet_directory_path().'/theme-style.css';
+        
+        if(file_exists($compiled_css_file))
+            
+            return get_compiled_stylesheet_directory_uri().'/theme-style.css' ; 
+        
+        return get_template_directory_uri() . '/css/theme-style.css'; ;
+    }
