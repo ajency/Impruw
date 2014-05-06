@@ -42,34 +42,16 @@ $element_templates = array(
               ),
     'Title' => array(
                 array(
-                    'name'      => 'Title Super Text'
+                    'name'      => 'Site Title'
                 ),
                 array(
                     'name'      => 'Page Title',
                 ),
                 array(
+                    'name'      => 'Box Title',
+                ),
+                array(
                     'name'      => 'Footer Title'
-                ),
-                array(
-                    'name'      => 'Footer Sub Title'
-                ),
-                array(
-                    'name'      => 'Small Title'
-                ),
-                array(
-                    'name'      => 'Grey Title Text'
-                ),
-                array(
-                    'name'      => 'Emphasis Text'
-                ),
-                array(
-                    'name'      => 'Inner Title'
-                ),
-                array(
-                    'name'      => 'Thumb Title'
-                ),
-                array(
-                    'name'      => 'Thumb Main Title'
                 )
               ),
     'Row' => array(
@@ -119,7 +101,9 @@ $element_templates = array(
             )
         ),
     'Address' => array(
-                    
-				
+            array(
+                'name' => 'Menu Number',
+                'template' => '<div><span class="glyphicon glyphicon-phone"></span> Phone: {{phone_no}}</div>' 
+            )			
         )
 );

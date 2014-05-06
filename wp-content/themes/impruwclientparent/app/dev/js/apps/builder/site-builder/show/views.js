@@ -114,7 +114,7 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
 
       SingleRevision.prototype.tagName = 'li';
 
-      SingleRevision.prototype.template = '<div class="aj-imp-revision row"> <div class="col-sm-5 date"> {{datetime}} </div> <div class="col-sm-7 time"> {{timeago}} </div> </div>';
+      SingleRevision.prototype.template = '<div class="aj-imp-revision row"> <div class="col-sm-5 date"> {{datetime}} </div> <div class="col-sm-7 time"> {{post_name}} {{timeago}} </div> </div>';
 
       SingleRevision.prototype.events = {
         'click': function(e) {

@@ -1,39 +1,36 @@
 define ['app', 'controllers/base-controller'
-		'apps/room-summary/checkin/views'], (App, AppController)->
+        'apps/room-summary/checkin/views'], (App, AppController)->
+    App.module 'RoomSummaryApp.Checkin', (Checkin, App, Backbone, Marionette, $, _)->
+        class Checkin.Controller extends AppController
 
-	App.module 'RoomSummaryApp.Checkin', (Checkin, App, Backbone, Marionette, $, _)->
+            # initiliaze controller
+            initialize: (opts)->
+                @sitemodel = sitemodel = opts.model
 
-		class Checkin.Controller extends AppController
+                @view = @getCheckinFormView sitemodel
 
-			# initiliaze controller
-			initialize:(opts)->
-				
-				@sitemodel = sitemodel = opts.model
-				
-				@view = @getCheckinFormView sitemodel
+                @listenTo @view, "update:checkin:time:click", @updateCheckinTime
 
-				@listenTo @view,"update:checkin:time:click", @updateCheckinTime
-			
-				@show @view,
-					loading: true
-		
+                @show @view,
+                    loading: true
 
-			getCheckinFormView :(model) ->
-				new Checkin.View.CheckinForm
-						model : model 
 
-			updateCheckinTime :(data)=>
-				@sitemodel.set data
-				@sitemodel.save null,
-								wait: true
-								onlyChanged : true
-								success: @checkinTimeUpdated
+            getCheckinFormView: (model) ->
+                new Checkin.View.CheckinForm
+                    model: model
 
-			checkinTimeUpdated :=>
-				@view.triggerMethod "checkin:time:updated"
-						
-			
-		App.commands.setHandler "show:checkin:time:form",(opts) ->
-			new Checkin.Controller opts
+            updateCheckinTime: (data)=>
+                @sitemodel.set data
+                @sitemodel.save null,
+                    wait: true
+                    onlyChanged: true
+                    success: @checkinTimeUpdated
+
+            checkinTimeUpdated: =>
+                @view.triggerMethod "checkin:time:updated"
+
+
+        App.commands.setHandler "show:checkin:time:form", (opts) ->
+            new Checkin.Controller opts
 
 			

@@ -328,6 +328,91 @@ a:focus {
   width: 240px;
   padding: 0.3em;
 }
+.aj-imp-builder-top-nav .aj-imp-builder-top-options #aj-imp-color-sel .dropdown-menu .color-set {
+  border: 1px solid #f3f3f3;
+  padding: 0.3em;
+  margin-bottom: 0.4em;
+}
+.aj-imp-builder-top-nav .aj-imp-builder-top-options #aj-imp-color-sel .dropdown-menu .color-set .colors {
+  width: 60%;
+  float: left;
+  text-align: left;
+}
+.aj-imp-builder-top-nav .aj-imp-builder-top-options #aj-imp-color-sel .dropdown-menu .color-set .colors span {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 20px;
+  border: 1px dotted #f3f3f3;
+  margin-right: 2px;
+}
+.aj-imp-builder-top-nav .aj-imp-builder-top-options #aj-imp-color-sel .dropdown-menu .color-set > a {
+  display: inline-block;
+  color: #a3b7c4;
+}
+.aj-imp-builder-top-nav .aj-imp-builder-top-options #aj-imp-color-sel .dropdown-menu .color-set > a .bicon {
+  font-size: 1.5em;
+  line-height: 0.5;
+  position: relative;
+  top: 4px;
+}
+.aj-imp-builder-top-nav .aj-imp-builder-top-options #aj-imp-color-sel .dropdown-menu .color-set > a.chosen {
+  display: none;
+}
+.aj-imp-builder-top-nav .aj-imp-builder-top-options #aj-imp-color-sel .dropdown-menu .color-set > a:hover {
+  background: transparent;
+  color: #849fb0;
+}
+.aj-imp-builder-top-nav .aj-imp-builder-top-options #aj-imp-color-sel .dropdown-menu .color-set:hover {
+  border-color: #849fb0;
+}
+.aj-imp-builder-top-nav .aj-imp-builder-top-options #aj-imp-color-sel .dropdown-menu .color-set.active {
+  border-color: #aaaaaa;
+  background: #aaaaaa;
+}
+.aj-imp-builder-top-nav .aj-imp-builder-top-options #aj-imp-color-sel .dropdown-menu .color-set.active > a {
+  color: #fff;
+}
+.aj-imp-builder-top-nav .aj-imp-builder-top-options #aj-imp-color-sel .dropdown-menu .color-set.active > a.chosen {
+  display: inline-block;
+}
+.aj-imp-builder-top-nav .aj-imp-builder-top-options #aj-imp-color-sel .dropdown-menu .color-set.active > a.pick {
+  display: none;
+}
+.aj-imp-builder-top-nav .aj-imp-builder-top-options #aj-imp-color-sel .dropdown-menu .color-set.active > a:hover {
+  color: #f3f3f3;
+}
+.aj-imp-builder-top-nav .aj-imp-builder-top-options #aj-imp-color-sel .dropdown-menu .color-set:last-child {
+  margin-bottom: 0;
+}
+.aj-imp-builder-top-nav .aj-imp-builder-top-options #aj-imp-color-sel .dropdown-menu .drilldown-back {
+  float: left;
+  width: 40%;
+  text-align: left;
+  margin-bottom: 0.5em;
+}
+.aj-imp-builder-top-nav .aj-imp-builder-top-options #aj-imp-color-sel .dropdown-menu .drilldown-back a .bicon {
+  font-size: 1.5em;
+  line-height: 0.5;
+  position: relative;
+  top: 4px;
+}
+.aj-imp-builder-top-nav .aj-imp-builder-top-options #aj-imp-color-sel .dropdown-menu .drilldown-back a:hover {
+  background: transparent;
+  color: #ff7e00;
+}
+.aj-imp-builder-top-nav .aj-imp-builder-top-options #aj-imp-color-sel .dropdown-menu .pick-set {
+  float: right;
+  width: 60%;
+  margin-bottom: 0.5em;
+}
+.aj-imp-builder-top-nav .aj-imp-builder-top-options #aj-imp-color-sel .dropdown-menu .pick-set a {
+  color: #ff7e00;
+}
+.aj-imp-builder-top-nav .aj-imp-builder-top-options #aj-imp-color-sel .dropdown-menu .pick-set a:hover {
+  background: transparent;
+  color: #ff9833;
+}
 .aj-imp-builder-top-nav .aj-imp-builder-top-options #aj-imp-color-sel .dropdown-menu .panel {
   border-radius: 0;
   border: 0;
@@ -1974,6 +2059,10 @@ a:focus {
   color: #aaaaaa;
   text-align: center;
 }
+.aj-imp-theme-area .cancel-theme-switch {
+  margin: auto;
+  display: block;
+}
 .aj-imp-theme-area .aj-imp-block-list .desc {
   color: #849fb0;
   text-transform: uppercase;
@@ -2230,4 +2319,11 @@ a:focus {
 }
 .slide-image-selected:hover {
   background: #ffb266 !important;
+}
+/**** Drilldown Menu Plugin Basic Styles ****/
+.drilldown {
+  overflow: hidden;
+}
+.drilldown .drilldown-sub {
+  display: none;
 }

@@ -1,41 +1,39 @@
 define ["marionette"
-		"app"], (Marionette, App) ->
+        "app"], (Marionette, App) ->
+    class AppController extends Marionette.Controller
 
-	class AppController extends Marionette.Controller
-		
-		constructor: (options = {}) ->
-			@region = options.region or App.request "default:region"
-			#App.execute "register:instance", @, @_instance_id
-			@_instance_id = _.uniqueId("controller")
-			App.commands.execute "register:instance", @, @_instance_id
-			super options
+        constructor: (options = {}) ->
+            @region = options.region or App.request "default:region"
+            #App.execute "register:instance", @, @_instance_id
+            @_instance_id = _.uniqueId("controller")
+            App.commands.execute "register:instance", @, @_instance_id
+            super options
 
 
-		close: (args...) ->
-			delete @region
-			delete @options
-			App.commands.execute "unregister:instance", @, @_instance_id
-			super args
+        close: (args...) ->
+            delete @region
+            delete @options
+            App.commands.execute "unregister:instance", @, @_instance_id
+            super args
 
-		
-		show: (view, options = {}) ->
-			_.defaults options,
-				loading: false
-				region: @region
 
-			@_setMainView view
-			@_manageView view, options
+        show: (view, options = {}) ->
+            _.defaults options,
+                loading: false
+                region: @region
 
-		
-		_setMainView: (view) ->
+            @_setMainView view
+            @_manageView view, options
 
-			return if @_mainView
-			@_mainView = view
-			@listenTo view, "close", @close
 
-		
-		_manageView: (view, options) ->
-			if options.loading
-				App.commands.execute "show:loading", view, options
-			else
-				options.region.show view
+        _setMainView: (view) ->
+            return if @_mainView
+            @_mainView = view
+            @listenTo view, "close", @close
+
+
+        _manageView: (view, options) ->
+            if options.loading
+                App.commands.execute "show:loading", view, options
+            else
+                options.region.show view

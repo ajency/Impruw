@@ -1,92 +1,103 @@
 <?php
 
-/*
- * Function to update the tariff plans 
- * returns the tariff Id
- *
- */
+    /*
+     * Function to update the tariff plans
+     * returns the tariff Id
+     *
+     */
 
-function update_tariff($formdata) {
+    function update_tariff($formdata)
+    {
 
-    global $wpdb;
+        global $wpdb;
 
-    $table_name = $wpdb->prefix . 'tariffs';
+        $table_name = $wpdb->prefix . 'tariffs';
 
-    // serializing the weekend and weekday array
-    foreach ($formdata as $key => $value) {
+        // serializing the weekend and weekday array
+        foreach ($formdata as $key => $value) {
 
-        if ($key == "weekend" || $key == "weekday") {
-            $formdata[$key] = maybe_serialize($value);
+            if ($key == "weekend" || $key == "weekday") {
+                $formdata[$key] = maybe_serialize($value);
+            }
         }
+
+        $wpdb->update($table_name, $formdata, array('id' => $formdata['id']));
+
+        return $formdata['id'];
     }
 
-    $wpdb->update($table_name, $formdata, array('id' => $formdata['id']));
-    return $formdata['id'];
-}
+    /**
+     *
+     * @param unknown $formdata
+     *
+     * @return number
+     */
+    function add_tariff($formdata)
+    {
 
-/**
- * 
- * @param unknown $formdata
- * @return number
- */
-function add_tariff($formdata) {
+        global $wpdb;
 
-    global $wpdb;
+        $table_name = $wpdb->prefix . 'tariffs';
 
-    $table_name = $wpdb->prefix . 'tariffs';
+        // serializing the weekend and weekday array
+        foreach ($formdata as $key => $value) {
 
-    // serializing the weekend and weekday array
-    foreach ($formdata as $key => $value) {
-
-        if ($key == "weekend" || $key == "weekday") {
-            $formdata[$key] = maybe_serialize($value);
+            if ($key == "weekend" || $key == "weekday") {
+                $formdata[$key] = maybe_serialize($value);
+            }
         }
+
+        $wpdb->insert($table_name, $formdata);
+
+        return $wpdb->insert_id;
     }
 
-    $wpdb->insert($table_name, $formdata);
-    return $wpdb->insert_id;
-}
+    /**
+     *
+     * @param unknown $room_id
+     *
+     * @return Ambigous <mixed, NULL, multitype:, multitype:multitype: , multitype:Ambigous <multitype:, NULL> >
+     */
+    function get_tariff($room_id = 0)
+    {
 
-/**
- * 
- * @param unknown $room_id
- * @return Ambigous <mixed, NULL, multitype:, multitype:multitype: , multitype:Ambigous <multitype:, NULL> >
- */
-function get_tariff($room_id = 0) {
+        global $wpdb;
 
-    global $wpdb;
+        if ($room_id === 0)
+            $room_id = get_the_ID();
 
-    if ($room_id === 0)
-        $room_id = get_the_ID();
+        $table_name = $wpdb->prefix . 'tariffs';
 
-    $table_name = $wpdb->prefix . 'tariffs';
+        $query = "SELECT * FROM $table_name WHERE room_id = $room_id ";
 
-    $query = "SELECT * FROM $table_name WHERE room_id = $room_id ";
+        $tariff = $wpdb->get_results($query, ARRAY_A);
 
-    $tariff = $wpdb->get_results($query, ARRAY_A);
+        foreach ($tariff as $key => $value) {
 
-    foreach ($tariff as $key => $value) {
+            $tariff[$key]['weekday'] = maybe_unserialize($tariff[$key]['weekday']);
 
-        $tariff[$key]['weekday'] = maybe_unserialize($tariff[$key]['weekday']);
+            $tariff[$key]['weekend'] = maybe_unserialize($tariff[$key]['weekend']);
+        }
 
-        $tariff[$key]['weekend'] = maybe_unserialize($tariff[$key]['weekend']);
+        return $tariff;
     }
 
-    return $tariff;
-}
-/**
- * 
- * @global type $wpdb
- * @param type $formdata
- * @return type
- */
-function delete_tariff($formdata) {
+    /**
+     *
+     * @global type $wpdb
+     *
+     * @param type  $formdata
+     *
+     * @return type
+     */
+    function delete_tariff($formdata)
+    {
 
-    global $wpdb;
+        global $wpdb;
 
-    $table_name = $wpdb->prefix . 'tariffs';
-   
-    $wpdb->delete($table_name,array('id' => $formdata['id']));
-    
-    return $formdata['id'];
-}
+        $table_name = $wpdb->prefix . 'tariffs';
+
+        $wpdb->delete($table_name, array('id' => $formdata['id']));
+
+        return $formdata['id'];
+    }

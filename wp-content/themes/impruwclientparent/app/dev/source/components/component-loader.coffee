@@ -1,3 +1,0 @@
-define [
-	'components/loading/controller'
-	],->

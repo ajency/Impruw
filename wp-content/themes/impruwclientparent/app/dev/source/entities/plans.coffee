@@ -1,54 +1,54 @@
 define ["app", 'backbone'], (App, Backbone) ->
 
-	# App state entity
-	App.module "Entities.Plans", (Plans, App, Backbone, Marionette, $, _)->
+    # App state entity
+    App.module "Entities.Plans", (Plans, App, Backbone, Marionette, $, _)->
 
-		# plan model
-		class Plan extends Backbone.Model
+        # plan model
+        class Plan extends Backbone.Model
 
-			name : 'plan'
+            name: 'plan'
 
-			defaults : ->
-				plan_name : ''
-				plan_description : ''
-
-
-		# package collection
-		class PlanCollection extends Backbone.Collection
-
-			model : Plan
-
-			url : ->
-				"#{AJAXURL}?action=fetch-plans"
+            defaults: ->
+                plan_name: ''
+                plan_description: ''
 
 
-		# create  a package collection
-		planCollection = new PlanCollection
+        # package collection
+        class PlanCollection extends Backbone.Collection
 
-		# format pla data
-		_.each PLANS, (ele,index)->
-			ele['id'] = parseInt ele['id']
+            model: Plan
 
-		# set plans collection
-		planCollection.set PLANS
+            url: ->
+                "#{AJAXURL}?action=fetch-plans"
 
-		API = 
-			getPlansCollection:->
-				planCollection
-				
-			createPlanModel:(data = {})->
-				plan = new Plan data
-				plan
 
-			getPlanById:(id)->
-				plan = planCollection.get parseInt id
-				plan
-				
-		App.reqres.setHandler "get:plans:collection", ->
-			API.getPlansCollection()
+        # create  a package collection
+        planCollection = new PlanCollection
 
-		App.reqres.setHandler "create:plan:model", (data)->
-			API.createPlanModel data
+        # format pla data
+        _.each PLANS, (ele, index)->
+            ele['id'] = parseInt ele['id']
 
-		App.reqres.setHandler "get:plan:by:id",(id)->
-			API.getPlanById id
+        # set plans collection
+        planCollection.set PLANS
+
+        API =
+            getPlansCollection: ->
+                planCollection
+
+            createPlanModel: (data = {})->
+                plan = new Plan data
+                plan
+
+            getPlanById: (id)->
+                plan = planCollection.get parseInt id
+                plan
+
+        App.reqres.setHandler "get:plans:collection", ->
+            API.getPlansCollection()
+
+        App.reqres.setHandler "create:plan:model", (data)->
+            API.createPlanModel data
+
+        App.reqres.setHandler "get:plan:by:id", (id)->
+            API.getPlanById id

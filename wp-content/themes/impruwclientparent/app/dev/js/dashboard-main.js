@@ -17,8 +17,6 @@ require.config({
     underscorestring: 'plugins/underscore.string',
     mustache: 'plugins/Mustache',
     plupload: 'plugins/plupload.full',
-    d3: 'plugins/d3.v3',
-    nvd3: 'plugins/nv.d3',
     datepicker: 'plugins/datepicker',
     isotope: 'plugins/isotope',
     radio: 'plugins/flatui-radio',
@@ -31,7 +29,6 @@ require.config({
     chart: 'plugins/chart',
     app: 'dashboard-app',
     bootstrapswitch: 'plugins/bootstrap-switch',
-    entitiesloader: 'entities/dashboard-entities-loader',
     jpanelmenu: 'plugins/jquery.jpanelmenu.min',
     scrollsections: 'plugins/ajency.scrolldots',
     minicolors: 'plugins/jquery.minicolors.min',
@@ -59,10 +56,6 @@ require.config({
       deps: ['jquery'],
       exports: 'plupload'
     },
-    nvd3: {
-      deps: ['d3'],
-      exports: 'nv'
-    },
     jqueryvalidate: ['jquery'],
     datepicker: ['jquery'],
     scrollsections: ['jquery'],
@@ -81,10 +74,10 @@ require.config({
     checkbox: ['bootstrap'],
     bootstrapselect: ['bootstrap'],
     bootstrapswitch: ['bootstrap'],
-    app: ['plugins/plugin-loader', 'configs/config-loader']
+    app: ['plugins/dashboard-plugin-loader', 'configs/dashboard-config-loader']
   }
 });
 
-require(['plugins/plugin-loader', 'configs/config-loader', 'app', 'entitiesloader', 'entities/appstate', 'controllers/base-controller', 'components/component-loader', 'apps/apps-loader'], function(plugins, configs, App) {
+require(['plugins/dashboard-plugin-loader', 'configs/dashboard-config-loader', 'app', 'entities/dashboard-entities-loader', 'controllers/base-controller', 'components/dashboard-component-loader', 'apps/dashboard-apps-loader'], function(plugins, configs, App) {
   return App.start();
 });

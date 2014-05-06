@@ -1,67 +1,69 @@
 define ['app'],
-		(App)->
+(App)->
 
-			# Headerapp views
-			App.module 'SiteBuilderApp.Element.Menu.Views', (Views, App, Backbone, Marionette, $, _)->
-				
-				# Menu item view
-				class Views.MenuItemView extends Marionette.ItemView
+    # Headerapp views
+    App.module 'SiteBuilderApp.Element.Menu.Views', (Views, App, Backbone, Marionette, $, _)->
 
-					template: '<a href="{{menu_item_url}}">{{menu_item_title}}</a>'
+        # Menu item view
+        class Views.MenuItemView extends Marionette.ItemView
 
-					initialize:(opt = {})->
-						@listenTo @model, "change", @render
-						super(opt)
+            template: '<a href="{{menu_item_url}}">{{menu_item_title}}</a>'
 
-					tagName : 'li'
+            initialize: (opt = {})->
+                @listenTo @model, "change", @render
+                super(opt)
 
-
-				# Submenu view
-				class Views.SubMenuView extends Marionette.CompositeView
-					itemView : Views.MenuItemView
-					itemViewContainer : 'ul.submenu'
-
-				class EmptyView extends Marionette.ItemView
-					tagsName : 'ul'
-
-					template: '<li>No menu found</li>'
+            tagName: 'li'
 
 
-				# Menu view
-				class Views.MenuView extends Marionette.CompositeView
-					tagName : 'ul'
-					className : 'nav'
-					itemView : Views.MenuItemView
-					emptyView : EmptyView
+        # Submenu view
+        class Views.SubMenuView extends Marionette.CompositeView
+            itemView: Views.MenuItemView
+            itemViewContainer: 'ul.submenu'
+
+        class EmptyView extends Marionette.ItemView
+            tagsName: 'ul'
+
+            template: '<li>No menu found</li>'
 
 
-					events : 
-						'click'		: -> @trigger "open:menu:manager"
-						'click a' 	:(evt)-> evt.preventDefault() 
-					
-					# on render set the class name
-					onRender:->
-						@$el.removeClass()
-						@$el.addClass @className
-						@$el.addClass _.slugify @options.templateClass
-						@onSetJustified @options.prop.justified
-						
-					# before rendering the view sort the collection
-					# this helps to reorder the menu items before
-					# the collection is rendered with item views
-					onBeforeRender:->
-						@collection.sort()
+        # Menu view
+        class Views.MenuView extends Marionette.CompositeView
+            tagName: 'ul'
+            className: 'nav'
+            itemView: Views.MenuItemView
+            emptyView: EmptyView
 
-					# set alignment
-					setAlignment:(align)=>
-						@$el.removeClass 'navbar-left navbar-center navbar-right'
-						@$el.addClass "navbar-#{align}"
 
-					# set justified
-					onSetJustified:(val)->
-						if val is true
-							@$el.addClass "nav-justified"
-						else
-							@$el.removeClass "nav-justified"
+            events:
+                'click': ->
+                    @trigger "open:menu:manager"
+                'click a': (evt)->
+                    evt.preventDefault()
 
-			App.SiteBuilderApp.Element.Menu.Views
+            # on render set the class name
+            onRender: ->
+                @$el.removeClass()
+                @$el.addClass @className
+                @$el.addClass _.slugify @options.templateClass
+                @onSetJustified @options.prop.justified
+
+            # before rendering the view sort the collection
+            # this helps to reorder the menu items before
+            # the collection is rendered with item views
+            onBeforeRender: ->
+                @collection.sort()
+
+            # set alignment
+            setAlignment: (align)=>
+                @$el.removeClass 'navbar-left navbar-center navbar-right'
+                @$el.addClass "navbar-#{align}"
+
+            # set justified
+            onSetJustified: (val)->
+                if val is true
+                    @$el.addClass "nav-justified"
+                else
+                    @$el.removeClass "nav-justified"
+
+    App.SiteBuilderApp.Element.Menu.Views

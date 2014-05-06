@@ -1,26 +1,24 @@
 define ['app'
-		'text!apps/room-summary/policies/templates/policiesView.html'],(App,policiesformTpl)->
+        'text!apps/room-summary/policies/templates/policiesView.html'], (App, policiesformTpl)->
+    App.module 'RoomSummaryApp.Policies.View', (View, App, Backbone, Marionette, $, _)->
 
+        # Genral form
+        class View.PoliciesForm extends Marionette.ItemView
 
-			App.module 'RoomSummaryApp.Policies.View', (View, App, Backbone, Marionette, $, _)->
+            tagName: 'form'
 
-				# Genral form
-				class View.PoliciesForm extends Marionette.ItemView
+            template: policiesformTpl
 
-					tagName : 'form'
+            className: 'form-horizontal clearfix'
 
-					template : policiesformTpl
+            events:
+                'click #update_policies': (e)->
+                    e.preventDefault()
+                    formdata = Backbone.Syphon.serialize @
+                    @trigger "update:additional:policy:click", formdata
 
-					className : 'form-horizontal clearfix'
-
-					events: 
-						'click #update_policies' :(e)->
-							e.preventDefault()
-							formdata = Backbone.Syphon.serialize @
-							@trigger "update:additional:policy:click" , formdata
-
-					onPolicyUpdated :->
-						@$el.find('.alert').remove()
-						@$el.prepend('<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Additional Policies Saved.</div>')
+            onPolicyUpdated: ->
+                @$el.find('.alert').remove()
+                @$el.prepend('<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Additional Policies Saved.</div>')
 
 	

@@ -1,58 +1,58 @@
-define ['app'],(App)->
+define ['app'], (App)->
 
-	# Row views
-	App.module 'SiteBuilderApp.Element.Image.Views', (Views, App, Backbone, Marionette, $, _)->
+    # Row views
+    App.module 'SiteBuilderApp.Element.Image.Views', (Views, App, Backbone, Marionette, $, _)->
 
-		# Menu item view
-		class Views.ImageView extends Marionette.ItemView
+        # Menu item view
+        class Views.ImageView extends Marionette.ItemView
 
-			className : 'image'
+            className: 'image'
 
-			template : '{{#image}}
-							<img src="{{imageurl}}" alt="{{title}}" width="100%" class="{{alignclass}} img-responsive"/>
-							<div class="clearfix"></div>
-						{{/image}}
-						{{#placeholder}}
-							<div class="image-placeholder"><span class="bicon icon-uniF10E"></span>Upload Image</div>
-						{{/placeholder}}'
+            template: '{{#image}}
+            							<img src="{{imageurl}}" alt="{{title}}" width="100%" class="{{alignclass}} img-responsive"/>
+            							<div class="clearfix"></div>
+            						{{/image}}
+            						{{#placeholder}}
+            							<div class="image-placeholder"><span class="bicon icon-uniF10E"></span>Upload Image</div>
+            						{{/placeholder}}'
 
-			# override serializeData to set holder property for the view
-			mixinTemplateHelpers:(data)->
-				data = super data
+            # override serializeData to set holder property for the view
+            mixinTemplateHelpers: (data)->
+                data = super data
 
-				if @model.isNew()
-					data.placeholder = true
-				else
-					data.image = true
-					data.imageurl = ''
+                if @model.isNew()
+                    data.placeholder = true
+                else
+                    data.image = true
+                    data.imageurl = ''
 
-					data.alignclass = ->
-						switch @alignment
-							when 'left' 
-								return 'pull-left'
-							when 'right'
-								return 'pull-right'
+                    data.alignclass = ->
+                        switch @alignment
+                            when 'left'
+                                return 'pull-left'
+                            when 'right'
+                                return 'pull-right'
 
-				data
+                data
 
-			events:
-				'click'	: (e)->
-						e.stopPropagation()
-						@trigger "show:media:manager"
+            events:
+                'click': (e)->
+                    e.stopPropagation()
+                    @trigger "show:media:manager"
 
-			# check if a valid image_id is set for the element
-			# if present ignore else run the Holder.js to show a placeholder
-			# after run remove the data-src attribute of the image to avoid
-			# reloading placeholder image again
-			onShow:->
-				return if @model.isNew()
+            # check if a valid image_id is set for the element
+            # if present ignore else run the Holder.js to show a placeholder
+            # after run remove the data-src attribute of the image to avoid
+            # reloading placeholder image again
+            onShow: ->
+                return if @model.isNew()
 
-				# set the URL of the image depending on the available size
-				width 	= @$el.width()
-				#height 	= @$el.height()
-				image = @model.getBestFit width
-				@$el.find('img').attr 'src',image.url
+                # set the URL of the image depending on the available size
+                width = @$el.width()
+                #height 	= @$el.height()
+                image = @model.getBestFit width
+                @$el.find('img').attr 'src', image.url
 
-				@trigger "image:size:selected", image.size
+                @trigger "image:size:selected", image.size
 
 

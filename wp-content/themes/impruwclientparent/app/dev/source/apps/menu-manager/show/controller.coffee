@@ -1,82 +1,78 @@
 define ['app', 'controllers/base-controller'], (App, AppController)->
 
-	#Login App module
-	App.module "MenuManager.Show", (Show, App)->
+    #Login App module
+    App.module "MenuManager.Show", (Show, App)->
 
-		#Show Controller 
-		class Show.Controller extends AppController
+        #Show Controller
+        class Show.Controller extends AppController
 
-			# initialize
-			initialize:(opts)->
-				
-				@menuId = 0
+            # initialize
+            initialize: (opts)->
+                @menuId = 0
 
-				if opts.menuId
-					@menuId = menuId = opts.menuId
+                if opts.menuId
+                    @menuId = menuId = opts.menuId
 
-				@menuCollection = menuCollection = opts.menuCollection
-				
-				if @menuId is 0
-					@menuCollection.once "add",(model)=>
-						@menuId = model.get 'menu_id'
-						App.execute "add:menu:items:app",
-										region 	 : @layout.addMenuRegion
-										menuId   : @menuId
+                @menuCollection = menuCollection = opts.menuCollection
 
-				@layout = layout = @getLayout()
+                if @menuId is 0
+                    @menuCollection.once "add", (model)=>
+                        @menuId = model.get 'menu_id'
+                        App.execute "add:menu:items:app",
+                            region: @layout.addMenuRegion
+                            menuId: @menuId
 
-				@listenTo @layout, "show", =>
+                @layout = layout = @getLayout()
 
-					App.execute "add:menu:items:app",
-									region 	 : @layout.addMenuRegion
-									menuId   : @menuId
+                @listenTo @layout, "show", =>
+                    App.execute "add:menu:items:app",
+                        region: @layout.addMenuRegion
+                        menuId: @menuId
 
-					App.execute "list:menu:items:app",
-									region: @layout.listMenuRegion
-									collection: @menuCollection
-				
-					@listenTo @layout.addMenuRegion , "menu:model:to:collection" ,(model) =>
-						@menuCollection.add model
-					
-					
-					@listenTo @layout.listMenuRegion , "delete:menu:item:model" ,(model) =>
-						model.destroy
-								wait : true
+                    App.execute "list:menu:items:app",
+                        region: @layout.listMenuRegion
+                        collection: @menuCollection
 
-					@listenTo @layout.listMenuRegion, 'menu:order:changed',(order,collection)=>
-						newOrder = _.idOrder order
-						collection.updateOrder newOrder, @menuId
-				
-				@show @layout
+                    @listenTo @layout.addMenuRegion, "menu:model:to:collection", (model) =>
+                        @menuCollection.add model
 
 
-			getLayout :(menuCollection)->
-				new MediaMangerLayout
-						
-				
+                    @listenTo @layout.listMenuRegion, "delete:menu:item:model", (model) =>
+                        model.destroy
+                            wait: true
 
-		# Rooms tariff layout 				
-		class MediaMangerLayout extends Marionette.Layout
+                    @listenTo @layout.listMenuRegion, 'menu:order:changed', (order, collection)=>
+                        newOrder = _.idOrder order
+                        collection.updateOrder newOrder, @menuId
 
-			className : 'menu-manager-container row'
-
-			template : '
-						<div id="add-menu-items" class="col-md-6"></div>
-						<div id="list-menu-items" class="col-md-6"></div>'
-
-			dialogOptions : 
-					modal_title : 'Menu Manager'
-
-			regions : 
-				addMenuRegion : '#add-menu-items'
-				listMenuRegion : '#list-menu-items'
+                @show @layout
 
 
-		
-		App.commands.setHandler "menu-manager",(menuCollection,menuId) ->
-			opts = 
-				region 	: App.dialogRegion
-				menuCollection : menuCollection
-				menuId : menuId
+            getLayout: (menuCollection)->
+                new MediaMangerLayout
 
-			new Show.Controller opts
+
+        # Rooms tariff layout
+        class MediaMangerLayout extends Marionette.Layout
+
+            className: 'menu-manager-container row'
+
+            template: '
+            						<div id="add-menu-items" class="col-md-6"></div>
+            						<div id="list-menu-items" class="col-md-6"></div>'
+
+            dialogOptions:
+                modal_title: 'Menu Manager'
+
+            regions:
+                addMenuRegion: '#add-menu-items'
+                listMenuRegion: '#list-menu-items'
+
+
+        App.commands.setHandler "menu-manager", (menuCollection, menuId) ->
+            opts =
+                region: App.dialogRegion
+                menuCollection: menuCollection
+                menuId: menuId
+
+            new Show.Controller opts

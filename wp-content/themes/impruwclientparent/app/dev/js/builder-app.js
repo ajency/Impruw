@@ -13,7 +13,8 @@ define(['marionette'], function(Marionette) {
     dialogRegion: Marionette.Region.Dialog.extend({
       el: '#dialog-region'
     }),
-    chooseThemeRegion: '#choose-theme-region'
+    chooseThemeRegion: '#choose-theme-region',
+    unusedElementsRegion: '#fl_menu'
   });
   App.rootRoute = "";
   App.loginRoute = "login";

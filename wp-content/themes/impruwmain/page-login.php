@@ -3,7 +3,6 @@
  * Template Name: Login
  */
 get_header();
-
 ?>
 <div class="aj-imp-login-form">
     <div class="row">
@@ -60,4 +59,5 @@ get_header();
         </div>
     </div>
 </div>
-<?php get_footer();
+<?php
+get_footer();

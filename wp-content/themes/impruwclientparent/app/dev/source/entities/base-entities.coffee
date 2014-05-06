@@ -1,8 +1,8 @@
 define ['app'
-		'backbone'], (App)->
+        'backbone'], (App)->
 
-			# Entities module
-			App.module 'Entities', (Entities, App, Backbone, Marionette, $, _)->
+    # Entities module
+    App.module 'Entities', (Entities, App, Backbone, Marionette, $, _)->
 
 
-			App.Entities			
+    App.Entities

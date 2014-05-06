@@ -42,6 +42,7 @@
     configloader: 'configs/builder-config-loader',
     entitiesloader: 'entities/builder-entities-loader',
     componentloader: 'components/builder-component-loader',
+    drilldown: 'plugins/jquery.drilldown.min',
     app: 'builder-app'
   },
   shim: {

@@ -39,7 +39,7 @@ function new_user_registration() {
 
     // pass the data to create_new_user function capture return data
     $user_id = create_new_user($user_data);
-    
+
     // if int = $user_id return success else return error
     if (is_wp_error($user_id))
         wp_send_json_error('User not created');
@@ -49,23 +49,22 @@ function new_user_registration() {
 
     if (is_wp_error($site_id))
         wp_send_json_error('Failed to create site');
-    
-    //create_piwik_site($site_id);
-    
-    wp_send_json_success();
 
+    //create_piwik_site($site_id);
+
+    wp_send_json_success();
 }
 
 add_action('wp_ajax_nopriv_new_user_registration', 'new_user_registration');
 
-/*function create_piwik_site($site_id){
-   $wp_piwik_object = $GLOBALS['wp_piwik'];
-   $_GET['wpmu_show_stats'] = $site_id;
-   $a = $wp_piwik_object->addPiwikSite();
-    //$wp_piwik_object->callPiwikAPI('UsersManager.addUser');
-    echo '<pre>';
-    print_r($a);  
-}
+/* function create_piwik_site($site_id){
+  $wp_piwik_object = $GLOBALS['wp_piwik'];
+  $_GET['wpmu_show_stats'] = $site_id;
+  $a = $wp_piwik_object->addPiwikSite();
+  //$wp_piwik_object->callPiwikAPI('UsersManager.addUser');
+  echo '<pre>';
+  print_r($a);
+  }
  */
 
 /**
