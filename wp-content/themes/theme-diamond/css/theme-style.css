@@ -1871,16 +1871,19 @@ and open the template in the editor.
   position: relative;
 }
 .room-tariff-container .room-tariff-title {
-  border-bottom: 1px dotted #dc6868;
+  border-bottom: 1px solid #bebebe;
   margin: 0 0 0.5em;
+  text-align: left;
 }
 .room-tariff-container .room-tariff-title h4 {
   font-size: 1.5em;
-  text-transform: uppercase;
+  text-transform: capitalize;
+  font-weight: 300;
 }
 .room-tariff-container .room-tariff-title h5 {
   font-size: 1em;
-  font-weight: 400;
+  font-weight: 300;
+  color: #989898;
 }
 .room-tariff-container .room-tariff-actions {
   position: absolute;
@@ -2145,7 +2148,7 @@ and open the template in the editor.
   color: #836060;
 }
 .room-summary-container .room-summary .room-summary-item span.value {
-  color: #483535;
+  color: #836060;
   font-weight: 700;
 }
 .room-summary-container .room-summary .room-summary-item:hover {
@@ -2213,7 +2216,7 @@ and open the template in the editor.
 .room-description-container .room-description-desc {
   background: transparent !important;
   padding: 0;
-  color: #836060;
+  color: #989898;
 }
 /****Room List Summary Styles****/
 .roomsummary {
@@ -2268,10 +2271,11 @@ and open the template in the editor.
 }
 /* Calender Booking */
 .booking-title {
-  font-size: 2em;
+  font-size: 2.5em;
   font-weight: 300 !important;
-  color: #dc6868;
+  color: #483535 !important;
   font-family: 'Satisfy', cursive;
+  margin-bottom: 0.5em;
 }
 .daterange-legends {
   text-transform: uppercase;
