@@ -176,12 +176,12 @@ define ['app'], (App)->
 
 
                 switch direction
-                when "right"
-                    newClassZero = currentClassZero + 1
-                    newClassOne = currentClassOne - 1
-                when "left"
-                    newClassZero = currentClassZero - 1
-                    newClassOne = currentClassOne + 1
+                    when "right"
+                        newClassZero = currentClassZero + 1
+                        newClassOne = currentClassOne - 1
+                    when "left"
+                        newClassZero = currentClassZero - 1
+                        newClassOne = currentClassOne + 1
 
                 return  if newClassZero is 0 or newClassOne is 0
 
@@ -292,5 +292,5 @@ define ['app'], (App)->
                         $(column).removeClass("col-md-#{currentClass}").addClass("col-md-#{colClass}").attr 'data-class', colClass
 
                 @setColumnResizer()
-	
+
 
