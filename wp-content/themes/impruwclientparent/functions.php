@@ -847,7 +847,8 @@ function get_theme_CSS() {
 
             if (!in_array($value, array(
                         ".",
-                        ".."
+                        "..",
+                        "theme-style.css"
                     ))) {
 
                 $files [] = $value;
@@ -859,7 +860,12 @@ function get_theme_CSS() {
             echo "<link rel='stylesheet' href='" . get_template_directory_uri() . "/css/$file' type='text/css'/>";
         }
     }
-}
+    ?>
+    <link
+        href="<?php echo get_theme_style_sheet_file_path(); ?>"
+        type="text/css" rel="stylesheet" />
+    <?php
+    }
 
 /**
  * Fecthed the json for a page from DB
@@ -3442,95 +3448,38 @@ function wp_send_error_json($message) {
     wp_send_json(array('code' => 'ERROR', 'message' => $message));
 }
 
-/**
- * 
- * Function to replace the css file with the argumenyts passed
- * 
- * @param type $file_contents
- * @param type $primary_color
- * @param type $secondary_color
- * @param type $tertiary_color
- * @param type $file_name
- */
-function replace_colour_in_file($file_params, $colours) {
 
-    $new_file_content = " ";
-
-    $file_contents = replace_color_in_array($file_params['file_contents'], $colours);
-
-    foreach ($file_contents as $value) {
-        $new_file_content .= $value . PHP_EOL;
-    }
-
-    file_put_contents($file_params['filename'], $new_file_content);
-}
 
 /**
  * Function to change the theme colour
  */
 function switch_theme_colour() {
-
+    
     $file_name = get_template_directory_uri() . '/resources/less/variables.less';
     
-    $new_file_content = '';
-    $file_content_string= '';
-    
     $colours = array(
-        'primary_color' => '#FF7E00',
-        'secondary_color' => '#29333F',
-        'tertiary_color' => '#F2F2F2'
+        'primary1' => 'red',
+        'secondary1' => '#29333E',
+        'tertiary1' => '#F2F2F2'
     );
 
     $variable_file_content = get_variable_file_content($file_name);
-    file_content_to_key_value($variable_file_content);
-/*
+
     if (!empty($variable_file_content)):
-        $new_file_content = replace_variable_color_in_file($variable_file_content,$colours);
-        check_create_less_resource_folder();
-        foreach ($variable_file_content as $value) {
-            $file_content_string .= $value;
-        }
         
-        $less = new lessc;
-        /*$less->setVariables(array(
-        'primary_color' => '#FF7E00',
-        'secondary_color' => '#29333F',
-        'tertiary_color' => '#F2F2F2'
-          ));*/
-    //   try {
-     // echo $less->compileFile('C:\xampp\htdocs\impruw/wp-content/themes/blue-bold/resources/less/theme-style.less');
-     
-/*} catch (Exception $ex) {
-     echo ABSPATH;
-    echo "lessphp fatal error: ".$ex->getMessage();
-}
-     
-        //compile_new_css_to_folder();
+        $variable_key_value= file_content_to_key_value($variable_file_content);
+        
+        $new_varible_less_content = wp_parse_args( $colours,$variable_key_value );
+        
+        $css_filepath = check_create_less_resource_folder();
+        
+        compile_new_css_to_folder($new_varible_less_content,$css_filepath);
 
-        echo '<pre>';
-       print_r($new_file_content);
-    endif;*/
-
-    /* $style_filename = PARENTTHEMEPATH.'css/less/site-elements/style.less';
-
-
-
-      $file_contents = read_file_content($file_name);
-
-      if(!empty($file_contents))
-
-      $file_params = array('filename'=>$file_name,'file_contents'=>$file_contents);
-
-      replace_colour_in_file($file_params,$colours);
-
-     
-
-      // echo $less->compileFile($style_filename);
-
-     */
+    endif;
+      
 }
 
-//add_action('init', 'switch_theme_colour');
+add_action('init', 'switch_theme_colour');
 
 /**
  * Function to read the contents of a file and return array of contents
@@ -3549,78 +3498,31 @@ function get_variable_file_content($file_name) {
 
     return $file_content_array;
 }
+/**
+ * Function to convert file content array into key value pair array
+ * 
+ * @param type $variable_file_content
+ * @return type
+ */
 function file_content_to_key_value($variable_file_content){
-    echo '<pre>';
-    print_r($variable_file_content);
     
     foreach ($variable_file_content as $css) {
+        
         if(preg_match('/:/', $css)):
-        echo $css; 
-    
-        $less_variables = $explode(':', $css);
-        echo $less_variables[0]; 
+            
+            $less_variables = explode(':',$css);
+        
+            $variable_key = str_replace("@","",$less_variables[0]);
+            
+            $variable_value = str_replace(";","",$less_variables[1]);
+            
+            $variables_array[$variable_key] = trim($variable_value);
+            
         endif;
     }
     
-}
-/**
- * 
- * Function to get the array of file contents with the new css colours 
- * 
- * @param type $variable_file_content
- * @param type $colours
- */
-function replace_variable_color_in_file($variable_file_content,$colours) {
+    return $variables_array;
     
-    $new_file_contents = switch_color_in_file($variable_file_content, $colours);
-    
-    return $new_file_contents;
-   
-}
-/**
- * Function to replace the passed colors in the file content array
- * 
- * 
- * @param type $variable_file_content
- * @param type $colours
- * @return type
- */
-function switch_color_in_file($variable_file_content, $colours){
-    
-    foreach ($variable_file_content as $key => $style) {
-
-        if (preg_match('/^@primary1/', $style)) {
-
-            $variable_file_content[$key] = switch_variable_color($style, $colours['primary_color']);
-        }
-        if (preg_match('/^@secondary1/', $style)) {
-
-            $variable_file_content[$key] = switch_variable_color($style, $colours['secondary_color']);
-        }
-        if (preg_match('/^@tertiary1/', $style)) {
-
-            $variable_file_content[$key] = switch_variable_color($style, $colours['tertiary_color']);
-        }
-    }
-
-    return $variable_file_content; 
-}
-/**
- * Function to replace the colour value for the css variable
- * 
- * @param type $style
- * @param type $color_val
- * @return type
- */
-function switch_variable_color($style, $color_val) {
-
-    $color = explode(':', $style);
-
-    $color[1] = $color_val . ';';
-
-    $replaced_color = implode(':', $color);
-
-    return $replaced_color;
 }
 /**
  * Function to check of the site resource folder exsists
@@ -3629,13 +3531,58 @@ function switch_variable_color($style, $color_val) {
  */
 function check_create_less_resource_folder(){
     
-    $filename=  ABSPATH.'wp-content/site-resources/'.get_current_blog_id().'/css';
+    $filename= get_compiled_stylesheet_directory_path();
     
     if(!is_dir($filename))
         mkdir($filename,077,true);
     
+    return $filename;
+    
 }
-
+/**
+ * 
+ * Functio to compile the modified less file to css
+ * 
+ * @param type $new_varible_less_content
+ * @param type $css_filename
+ */
+function compile_new_css_to_folder($new_varible_less_content,$css_filepath){
+    
+    $compile_file = get_stylesheet_directory().'/resources/less/compile.less';
+    
+    $less = new lessc;
+    
+    $less->setVariables($new_varible_less_content);
+    
+    try {
+        $less->compileFile($compile_file,$css_filepath.'/theme-style.css');
+    }
+    catch(Exception $ex){
+       echo "lessphp fatal error: ".$ex->getMessage(); 
+    }
+}
+/**
+ * 
+ * @return compiled css file path
+ */
+function get_compiled_stylesheet_directory_path(){
+    
+    $file_path = ABSPATH.'wp-content/site-resources/'.get_current_blog_id().'/css';
+    
+    return $file_path;
+    
+}
+/**
+ * 
+ * @return compiled css site uri
+ */
+function get_compiled_stylesheet_directory_uri(){
+    
+    $file_uri = site_url().'/wp-content/site-resources/'.get_current_blog_id().'/css';
+    
+    return $file_uri;
+    
+}
 /*
   function enqueue_contact_page_script(){
   wp_enqueue_script ('contact-us', get_template_directory_uri () . 'js/contact.js',array('jquery'));
