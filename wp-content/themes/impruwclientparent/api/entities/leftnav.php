@@ -605,6 +605,11 @@
 
         $revision_id = isset($_REQUEST['revision_id']) ? $_REQUEST['revision_id'] : 0;
 
+        if (is_singular('impruw_room')) {
+            $single_room_page = get_page_by_title('Single Room');
+            $revision_id = $single_room_page->ID;
+        }
+
         if ((int)$revision_id === 0) {
             $json['page'] = get_page_auto_save_json($page_id);
         } else {
