@@ -559,7 +559,7 @@
 
         $menu_items = get_menu_to_array($menu_id, 'term_id');
 
-        wp_send_success_json($menu_items['menu_items']);
+        wp_send_success_json(isset($menu_items['menu_items']) ? $menu_items['menu_items'] : array());
 
     }
     add_action('wp_ajax_get-site-menu-items', 'get_menu_items_ajax');
