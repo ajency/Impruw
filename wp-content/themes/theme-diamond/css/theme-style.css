@@ -2283,6 +2283,10 @@ and open the template in the editor.
   content: "";
   display: table;
 }
+.roomsummary .room-img {
+  border: 2px solid #ffffff;
+  box-shadow: 0 0 1px 1px #bebebe;
+}
 .roomsummary .room-title {
   font-size: 2em;
   color: #dc6868;
