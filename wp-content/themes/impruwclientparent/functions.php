@@ -1380,36 +1380,39 @@ function get_menu_to_array($mn, $by = 'name') {
 
     $sorted_menu_items = array();
 
-    // create all top level menu
-    foreach ((array) $m as $menu_item) {
+    if($m !== false){
 
-        $mn = array(
-            'ID' => $menu_item->ID,
-            'order' => $menu_item->menu_order,
-            'menu_item_title' => $menu_item->title,
-            'menu_item_url' => $menu_item->url,
-            'menu_id' => $menu->term_id
-        );
+        // create all top level menu
+        foreach ((array) $m as $menu_item) {
 
-        if ((int) $menu_item->menu_item_parent === 0) {
+            $mn = array(
+                'ID' => $menu_item->ID,
+                'order' => $menu_item->menu_order,
+                'menu_item_title' => $menu_item->title,
+                'menu_item_url' => $menu_item->url,
+                'menu_id' => $menu->term_id
+            );
 
-            $sorted_menu_items [] = $mn;
+            if ((int) $menu_item->menu_item_parent === 0) {
+
+                $sorted_menu_items [] = $mn;
+            }
         }
-    }
 
-    // add submenus
-    foreach ((array) $m as $menu_item) {
+        // add submenus
+        foreach ((array) $m as $menu_item) {
 
-        $mn = array(
-            'ID' => $menu_item->ID,
-            'order' => $menu_item->menu_order,
-            'menu_item_title' => $menu_item->title,
-            'menu_item_url' => $menu_item->url,
-            'menu_id' => (int) $menu->term_id
-        );
+            $mn = array(
+                'ID' => $menu_item->ID,
+                'order' => $menu_item->menu_order,
+                'menu_item_title' => $menu_item->title,
+                'menu_item_url' => $menu_item->url,
+                'menu_id' => (int) $menu->term_id
+            );
 
-        if ((int) $menu_item->menu_item_parent !== 0) {
-            $sorted_menu_items [] ['subMenu'] [] = $mn;
+            if ((int) $menu_item->menu_item_parent !== 0) {
+                $sorted_menu_items [] ['subMenu'] [] = $mn;
+            }
         }
     }
 
