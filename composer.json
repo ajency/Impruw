@@ -1,0 +1,12 @@
+{
+    "name": "ajency/impruw",
+    "description": "description_text",
+    "minimum-stability": "stable",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Suraj Air",
+            "email": "suraj@ajency.in"
+        }
+    ]
+}
