@@ -8,6 +8,7 @@ define ['app', 'apps/builder/site-builder/elements/menu/views',
 
             # intializer
             initialize: (options)->
+                console.log options.modelData
                 _.defaults options.modelData,
                     element: 'Menu'
                     justified: false
@@ -30,13 +31,13 @@ define ['app', 'apps/builder/site-builder/elements/menu/views',
                     templateClass: templateClass
 
             _getMenuCollection: ->
-                if not @menuCollection
-                    #console.log @layout.model
+
+                if _.isUndefined @menuCollection
+                    console.log @layout.model.get('menu_id')
                     if @layout.model.get('menu_id') > 0
-                        menuModel = App.request "get:menu:by:id", @layout.model.get 'menu_id'
-                        @menuCollection = menuModel.get 'menu_items'
+                        @menuCollection = App.request "get:menu:items:by:menuid", @layout.model.get 'menu_id'
                     else
-                        @menuCollection = App.request "get:menu:collection"
+                        @menuCollection = App.request "get:menu:item:collection"
                         # listen to add event to set menu Id to element  model
                         @menuCollection.once "add", (model)=>
                             @layout.model.set 'menu_id', model.get 'menu_id'
