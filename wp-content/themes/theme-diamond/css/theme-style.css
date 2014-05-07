@@ -1537,10 +1537,10 @@ and open the template in the editor.
 }
 .row.column-dividers .column {
   border-color: rgba(0, 0, 0, 0.2) !important;
-  padding: 0.5em;
+  padding: 0.5em 15px;
 }
 .site-page {
-  margin-top: -2.01em;
+  margin-top: -2.04em;
 }
 /****Top Slim-menu Styles****/
 .nav.slimmenu {
@@ -1748,7 +1748,7 @@ and open the template in the editor.
   font-size: 1em;
 }
 .address.small-address .info {
-  color: #483535;
+  color: #989898;
   font-size: 1em;
   font-weight: 300;
   margin-bottom: 10px;
@@ -2860,4 +2860,44 @@ and open the template in the editor.
 .social.small-social li:hover a:after,
 .social.small-social li:hover a:before {
   color: #dc6868;
+}
+.map {
+  padding: 0.33em;
+  border: 1px solid #bebebe;
+  margin: 1em;
+  background: #ffffff;
+}
+.map:hover {
+  border: 1px solid #dc6868;
+}
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 3 Mar, 2014, 16:08:41 PM
+    Author     : jarr-head
+*/
+.contactform {
+  text-align: left;
+}
+.contactform .infoPoint {
+  display: none;
+}
+.contactform label {
+  display: none;
+}
+.contactform .flat {
+  border-radius: 0;
+  margin-bottom: 0.8em;
+  border-width: 1px;
+}
+.contactform .btn {
+  border-radius: 0;
+  margin-top: 0.3em;
+  background: #dc6868;
+}
+.contactform .btn:hover {
+  background: #e69191;
 }

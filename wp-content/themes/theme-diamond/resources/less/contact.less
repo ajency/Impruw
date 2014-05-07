@@ -9,6 +9,7 @@ and open the template in the editor.
 */
 
 .contactform {
+	text-align: left;
 	.infoPoint {
 		display: none;
 	}
@@ -18,12 +19,14 @@ and open the template in the editor.
 	.flat {
 		border-radius: 0;
 		margin-bottom: 0.8em;
+		border-width: 1px;
 	}
 	.btn {
 		border-radius: 0;
 		margin-top: 0.3em;
+		background: @primary1;
 		&:hover {
-			background: @primary1;
+			background: lighten(@primary1, 10%);
 		}
 	}
 }
