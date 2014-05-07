@@ -3,6 +3,17 @@ var __hasProp = {}.hasOwnProperty,
 
 define(['app', 'text!apps/builder/header/show/templates/mainview.html'], function(App, mainviewTpl) {
   return App.module('HeaderApp.Show.Views', function(Views, App, Backbone, Marionette, $, _) {
+    var emptyitemview;
+    emptyitemview = (function(_super) {
+      __extends(emptyitemview, _super);
+
+      function emptyitemview() {
+        return emptyitemview.__super__.constructor.apply(this, arguments);
+      }
+
+      return emptyitemview;
+
+    })(Marionette.ItemView);
     return Views.MainView = (function(_super) {
       __extends(MainView, _super);
 
@@ -14,9 +25,12 @@ define(['app', 'text!apps/builder/header/show/templates/mainview.html'], functio
 
       MainView.prototype.className = 'navbar navbar-default';
 
+      MainView.prototype.itemView = emptyitemview;
+
       MainView.prototype.serializeData = function() {
         var data;
         data = MainView.__super__.serializeData.call(this);
+        console.log(this.collection);
         data.LOGOUTURL = LOGOUTURL;
         data.DASHBOARDURL = DASHBOARDURL;
         return data;
@@ -25,6 +39,9 @@ define(['app', 'text!apps/builder/header/show/templates/mainview.html'], functio
       MainView.prototype.events = {
         'click .add-new-page': function() {
           return this.trigger("add:new:page:clicked");
+        },
+        'click .color-set': function() {
+          return console.log('hi');
         }
       };
 
@@ -34,16 +51,11 @@ define(['app', 'text!apps/builder/header/show/templates/mainview.html'], functio
           accordion = $(this).find($(this).data('accordion'));
           return accordion.find('.panel-collapse.in').collapse('hide');
         });
-        this.$el.find('.dropdown-accordion').on('click', 'a[data-toggle="collapse"]', function(event) {
+        return this.$el.find('.dropdown-accordion').on('click', 'a[data-toggle="collapse"]', function(event) {
           event.preventDefault();
           event.stopPropagation();
           $($(this).data('parent')).find('.panel-collapse.in').collapse('hide');
           return $($(this).attr('href')).collapse('show');
-        });
-        $('.drilldown').drilldown();
-        return this.$el.find('.dropdown-accordion').on('click', '.drilldown a', function(event) {
-          event.preventDefault();
-          return event.stopPropagation();
         });
       };
 

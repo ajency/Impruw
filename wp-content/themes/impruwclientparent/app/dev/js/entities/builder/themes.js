@@ -4,7 +4,7 @@ var __hasProp = {}.hasOwnProperty,
 
 define(["app", 'backbone'], function(App, Backbone) {
   return App.module("Entities.Themes", function(Themes, App, Backbone, Marionette, $, _) {
-    var API, themesCollection;
+    var API, themesCollection, themesColorCollection;
     Themes.ThemeModel = (function(_super) {
       __extends(ThemeModel, _super);
 
@@ -27,6 +27,34 @@ define(["app", 'backbone'], function(App, Backbone) {
       return ThemeModel;
 
     })(Backbone.Model);
+    Themes.ThemeColorModel = (function(_super) {
+      __extends(ThemeColorModel, _super);
+
+      function ThemeColorModel() {
+        return ThemeColorModel.__super__.constructor.apply(this, arguments);
+      }
+
+      return ThemeColorModel;
+
+    })(Backbone.Model);
+    Themes.ThemeColorCollection = (function(_super) {
+      __extends(ThemeColorCollection, _super);
+
+      function ThemeColorCollection() {
+        return ThemeColorCollection.__super__.constructor.apply(this, arguments);
+      }
+
+      ThemeColorCollection.prototype.model = Themes.ThemeColorModel;
+
+      ThemeColorCollection.prototype.url = function() {
+        return "" + AJAXURL + "?action=get-default-theme-color-set";
+      };
+
+      return ThemeColorCollection;
+
+    })(Backbone.Collection);
+    themesColorCollection = new Themes.ThemeColorCollection;
+    themesColorCollection.fetch();
     Themes.ThemeCollection = (function(_super) {
       __extends(ThemeCollection, _super);
 
@@ -62,10 +90,19 @@ define(["app", 'backbone'], function(App, Backbone) {
         }
         themes = themesCollection.getExcept(CURRENTTHEME);
         return new Themes.ThemeCollection(themes);
+      },
+      getThemeColorCollection: function(param) {
+        if (param == null) {
+          param = {};
+        }
+        return themesColorCollection;
       }
     };
-    return App.reqres.setHandler("get:themes:collection", function() {
+    App.reqres.setHandler("get:themes:collection", function() {
       return API.getThemesCollection();
+    });
+    return App.reqres.setHandler("get:themes:color:collection", function() {
+      return API.getThemeColorCollection();
     });
   });
 });

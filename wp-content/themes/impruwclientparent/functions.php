@@ -3583,21 +3583,7 @@ function get_compiled_stylesheet_directory_uri(){
     return $file_uri;
     
 }
-function get_default_theme_color_set(){
-    
-    $set_color = array(
-        'set1' => array(
-            '@primary1' => 'yellow',
-            '@secondary1' => 'green'
-        ),
-        'set2' => array(
-            '@primary1' => 'pink',
-            '@secondary1' => 'grey'
-        )
-    );
-    
-    return $set_color;
-}
+
 /*
   function enqueue_contact_page_script(){
   wp_enqueue_script ('contact-us', get_template_directory_uri () . 'js/contact.js',array('jquery'));

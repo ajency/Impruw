@@ -11,17 +11,26 @@ define(['app', 'controllers/base-controller', 'apps/builder/header/show/views'],
       }
 
       Controller.prototype.initialize = function(opt) {
-        var view;
+        var themeColorCollection, view;
         if (opt == null) {
           opt = {};
         }
-        this.view = view = new Show.Views.MainView;
+        themeColorCollection = App.request("get:themes:color:collection");
+        view = this.getView(themeColorCollection);
         this.listenTo(view, "add:new:page:clicked", function() {
           return App.execute("show:add:new:page", {
             region: App.dialogRegion
           });
         });
-        return this.show(view);
+        return this.show(view, {
+          loading: true
+        });
+      };
+
+      Controller.prototype.getView = function(themeColorCollection) {
+        return new Show.Views.MainView({
+          collection: themeColorCollection
+        });
       };
 
       return Controller;
