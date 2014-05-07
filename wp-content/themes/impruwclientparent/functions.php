@@ -1370,7 +1370,7 @@ add_action('wp_ajax_get_site_menu', 'get_site_menu');
 function get_menu_to_array($mn, $by = 'name') {
     $menu = get_term_by($by, $mn, 'nav_menu');
 
-    if ($menu === false)
+    if (!is_object($menu))
         return array(
             'code' => 'ERROR',
             'message' => 'Invalid menu id'
@@ -1380,39 +1380,36 @@ function get_menu_to_array($mn, $by = 'name') {
 
     $sorted_menu_items = array();
 
-    if($m !== false){
+    // create all top level menu
+    foreach ((array) $m as $menu_item) {
 
-        // create all top level menu
-        foreach ((array) $m as $menu_item) {
+        $mn = array(
+            'ID' => $menu_item->ID,
+            'order' => $menu_item->menu_order,
+            'menu_item_title' => $menu_item->title,
+            'menu_item_url' => $menu_item->url,
+            'menu_id' => $menu->term_id
+        );
 
-            $mn = array(
-                'ID' => $menu_item->ID,
-                'order' => $menu_item->menu_order,
-                'menu_item_title' => $menu_item->title,
-                'menu_item_url' => $menu_item->url,
-                'menu_id' => $menu->term_id
-            );
+        if ((int) $menu_item->menu_item_parent === 0) {
 
-            if ((int) $menu_item->menu_item_parent === 0) {
-
-                $sorted_menu_items [] = $mn;
-            }
+            $sorted_menu_items [] = $mn;
         }
+    }
 
-        // add submenus
-        foreach ((array) $m as $menu_item) {
+    // add submenus
+    foreach ((array) $m as $menu_item) {
 
-            $mn = array(
-                'ID' => $menu_item->ID,
-                'order' => $menu_item->menu_order,
-                'menu_item_title' => $menu_item->title,
-                'menu_item_url' => $menu_item->url,
-                'menu_id' => (int) $menu->term_id
-            );
+        $mn = array(
+            'ID' => $menu_item->ID,
+            'order' => $menu_item->menu_order,
+            'menu_item_title' => $menu_item->title,
+            'menu_item_url' => $menu_item->url,
+            'menu_id' => (int) $menu->term_id
+        );
 
-            if ((int) $menu_item->menu_item_parent !== 0) {
-                $sorted_menu_items [] ['subMenu'] [] = $mn;
-            }
+        if ((int) $menu_item->menu_item_parent !== 0) {
+            $sorted_menu_items [] ['subMenu'] [] = $mn;
         }
     }
 
