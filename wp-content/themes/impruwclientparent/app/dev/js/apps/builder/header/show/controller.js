@@ -11,17 +11,50 @@ define(['app', 'controllers/base-controller', 'apps/builder/header/show/views'],
       }
 
       Controller.prototype.initialize = function(opt) {
-        var view;
         if (opt == null) {
           opt = {};
         }
-        this.view = view = new Show.Views.MainView;
-        this.listenTo(view, "add:new:page:clicked", function() {
+        this.layout = this.getLayout();
+        this.listenTo(this.layout, "add:new:page:clicked", function() {
           return App.execute("show:add:new:page", {
             region: App.dialogRegion
           });
         });
-        return this.show(view);
+        this.listenTo(this.layout, "get:theme:set:colors", function() {
+          var themeColorCollection;
+          themeColorCollection = App.request("get:themes:color:collection");
+          return App.execute("when:fetched", [themeColorCollection], (function(_this) {
+            return function() {
+              return _this.layout.triggerMethod("add:theme:color:sets", themeColorCollection);
+            };
+          })(this));
+        });
+        this.listenTo(this.layout, "change:theme:color", this.changeThemeColor);
+        return this.show(this.layout, {
+          loading: true
+        });
+      };
+
+      Controller.prototype.getLayout = function() {
+        return new Show.Views.MainView;
+      };
+
+      Controller.prototype.changeThemeColor = function(model) {
+        var formdata, options;
+        formdata = model.toJSON();
+        options = {
+          url: AJAXURL,
+          method: 'POST',
+          data: {
+            action: 'change-theme-color',
+            formdata: formdata
+          }
+        };
+        return $.ajax(options).done(function(response) {
+          return window.location.reload(true);
+        }).fail(function(resp) {
+          return console.log('error');
+        });
       };
 
       return Controller;

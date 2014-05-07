@@ -10,9 +10,42 @@ define ['app', 'controllers/base-controller'
 					# initialize the controller. Get all required entities and show the view
 					initialize:(opt = {})->
 
-						@view = view = new Show.Views.MainView	
+						@layout = @getLayout()
 
-						@listenTo view, "add:new:page:clicked", ->
+						@listenTo @layout, "add:new:page:clicked", ->
 							App.execute "show:add:new:page", region : App.dialogRegion
 						
-						@show  view
+						@listenTo @layout, "get:theme:set:colors", ->
+							
+							themeColorCollection = App.request "get:themes:color:collection"
+
+							App.execute "when:fetched", [themeColorCollection], =>
+									@layout.triggerMethod "add:theme:color:sets", themeColorCollection
+
+						@listenTo  @layout,"change:theme:color", @changeThemeColor
+						
+						@show  @layout,
+								loading:true
+
+					getLayout :->
+						new Show.Views.MainView
+					
+					changeThemeColor :(model)->
+						
+						formdata = model.toJSON()
+						
+						options =
+							url: AJAXURL,
+							method: 'POST',
+							data:
+								action: 'change-theme-color'
+								formdata: formdata
+						
+						$.ajax(options).done (response)->
+							window.location.reload(true)
+						.fail (resp)->
+							console.log 'error' 
+
+
+
+								
