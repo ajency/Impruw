@@ -1535,12 +1535,37 @@ and open the template in the editor.
 .row.footer-text .column:last-child {
   text-align: right;
 }
+@media (max-width: 991px) {
+  .row.footer-text .column:last-child {
+    text-align: center;
+  }
+}
 .row.column-dividers .column {
   border-color: rgba(0, 0, 0, 0.2) !important;
   padding: 0.5em 15px;
 }
+@media (max-width: 991px) {
+  .row.column-dividers {
+    margin: 0 !important;
+  }
+  .row.column-dividers .column {
+    border-right: 0 !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  .row.column-dividers .column:last-child {
+    border-bottom: 0;
+  }
+}
 .site-page {
   margin-top: -2.04em;
+}
+@media (max-width: 991px) {
+  .site-footer {
+    text-align: center;
+  }
+  .site-footer .column {
+    margin-bottom: 1.5em;
+  }
 }
 /****Top Slim-menu Styles****/
 .nav.slimmenu {
@@ -1687,6 +1712,11 @@ and open the template in the editor.
   height: 6px;
   width: 6px;
 }
+@media (max-width: 991px) {
+  .nav.footer-menu li {
+    text-align: center;
+  }
+}
 /**** Title Styles****/
 .title.site-title {
   color: #dc6868;
@@ -1731,6 +1761,11 @@ and open the template in the editor.
   text-align: right;
   margin: 0.5em 0;
 }
+@media (max-width: 991px) {
+  .title.action-title {
+    text-align: center;
+  }
+}
 .title.footer-title {
   color: #483535;
   text-transform: uppercase;
@@ -1772,6 +1807,17 @@ and open the template in the editor.
 .address.menu-number .glyphicon {
   font-size: 1.2em;
   top: 3px;
+}
+@media (max-width: 991px) {
+  .address.menu-number {
+    text-align: center;
+    border-left: none;
+  }
+}
+@media (max-width: 991px) {
+  .address {
+    text-align: center;
+  }
 }
 .text {
   color: #989898;
@@ -1859,6 +1905,12 @@ and open the template in the editor.
   -o-transition: all 0.25s ease;
   -ms-transition: all 0.25s ease;
   transition: all 0.25s ease;
+}
+@media (max-width: 991px) {
+  .link.action-button {
+    display: block;
+    text-align: center;
+  }
 }
 /* 
     Created on : 10 March, 2014, 1:25:41 PM
@@ -2819,11 +2871,6 @@ and open the template in the editor.
 .social li:hover a {
   top: 0px;
 }
-@media (max-width: 767px) {
-  .social {
-    text-align: center;
-  }
-}
 .social.small-social {
   text-align: left;
   margin-left: 1em;
@@ -2860,6 +2907,16 @@ and open the template in the editor.
 .social.small-social li:hover a:after,
 .social.small-social li:hover a:before {
   color: #dc6868;
+}
+@media (max-width: 991px) {
+  .social.small-social {
+    text-align: center;
+  }
+}
+@media (max-width: 991px) {
+  .social {
+    text-align: center;
+  }
 }
 .map {
   padding: 0.33em;

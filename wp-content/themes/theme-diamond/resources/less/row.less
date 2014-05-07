@@ -75,17 +75,40 @@ and open the template in the editor.
 		.column {
 			&:last-child {
 				text-align: right;
+				@media(max-width:991px) {
+					text-align: center;
+				}
 			}
 		}
+
 	}
 	&.column-dividers {
 		.column {
 			border-color: rgba(0, 0, 0, 0.2) !important;
 			padding: @regular 15px;
 		}
+		@media(max-width:991px) {
+			margin: 0 !important;
+			.column {
+				border-right: 0 !important;
+				border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+				&:last-child {
+					border-bottom: 0;
+				}
+			}
+		}
 	}
 }
 
 .site-page {
 	margin-top: -2.04em;
+}
+
+.site-footer {
+	@media(max-width:991px) {
+		text-align: center;
+		.column {
+			margin-bottom: @large;
+		}
+	}
 }
