@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
 
 define(["app", 'backbone'], function(App, Backbone) {
   return App.module("Entities.Menus", function(Menus, App, Backbone, Marionette, $, _) {
-    var API, menuCollection;
+    var API, menus;
     Menus.MenuItemModel = (function(_super) {
       __extends(MenuItemModel, _super);
 
@@ -122,14 +122,15 @@ define(["app", 'backbone'], function(App, Backbone) {
       return MenuCollection;
 
     })(Backbone.Collection);
-    menuCollection = new Menus.MenuCollection;
+    menus = [];
     API = {
-      getMenuCollection: function(params) {
+      getMenuItemCollection: function(params) {
+        var menuItemCollection;
         if (params == null) {
           params = {};
         }
-        menuCollection = new Menus.MenuItemCollection;
-        return menuCollection;
+        menuItemCollection = new Menus.MenuItemCollection;
+        return menuItemCollection;
       },
       getMenus: function(param) {
         if (param == null) {
@@ -191,22 +192,21 @@ define(["app", 'backbone'], function(App, Backbone) {
         menuitem.save();
         return menuitem;
       },
-      getMenuById: function(menuId) {
-        var menu;
-        menu = menuCollection.get(parseInt(menuId));
-        if (_.isUndefined(menu)) {
-          menu = new Menus.MenuModel({
-            id: menuId
-          });
-          menu.url = "" + AJAXURL + "?action=get-menu&id=" + menuId;
-          menuCollection.add(menu);
-          menu.fetch();
+      getMenuItemsByMenuId: function(menuId) {
+        var menuItems;
+        menuItems = menus[parseInt(menuId)] || false;
+        if (!menuItems) {
+          menuItems = new Menus.MenuItemCollection;
+          menuItems.url = "" + AJAXURL + "?action=get-site-menu-items&menu_id=" + menuId;
+          menus[menuId] = menuItems;
+          menuItems.fetch();
         }
-        return menu;
+        console.log(menuItems);
+        return menuItems;
       }
     };
-    App.reqres.setHandler("get:menu:by:id", function(menuId) {
-      return API.getMenuById(menuId);
+    App.reqres.setHandler("get:menu:items:by:menuid", function(menuId) {
+      return API.getMenuItemsByMenuId(menuId);
     });
     App.reqres.setHandler("get:site:menus", function() {
       return API.getMenus();
@@ -226,8 +226,8 @@ define(["app", 'backbone'], function(App, Backbone) {
     App.reqres.setHandler("create:new:menu:item", function() {
       return API.createMenuItemModel();
     });
-    App.reqres.setHandler("get:menu:collection", function() {
-      return API.getMenuCollection();
+    App.reqres.setHandler("get:menu:item:collection", function() {
+      return API.getMenuItemCollection();
     });
     return App.reqres.setHandler("update:menu:item", function(menuitem, data) {
       return API.updateMenuItemModel(menuitem, data);
