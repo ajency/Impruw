@@ -1370,7 +1370,7 @@ add_action('wp_ajax_get_site_menu', 'get_site_menu');
 function get_menu_to_array($mn, $by = 'name') {
     $menu = get_term_by($by, $mn, 'nav_menu');
 
-    if ($menu === false)
+    if (!is_object($menu))
         return array(
             'code' => 'ERROR',
             'message' => 'Invalid menu id'
