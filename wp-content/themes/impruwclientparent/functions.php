@@ -3453,15 +3453,9 @@ function wp_send_error_json($message) {
 /**
  * Function to change the theme colour
  */
-function switch_theme_colour() {
+function switch_theme_colour($colours) {
     
     $file_name = get_template_directory_uri() . '/resources/less/variables.less';
-    
-    $colours = array(
-        'primary1' => 'orange',
-        'secondary1' => '#29333E',
-        'tertiary1' => '#F2F2F2'
-    );
 
     $variable_file_content = get_variable_file_content($file_name);
 
