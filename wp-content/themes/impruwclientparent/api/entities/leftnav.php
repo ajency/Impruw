@@ -551,6 +551,19 @@
 
     add_action('wp_ajax_get-menus', 'get_site_menus_collection');
 
+
+
+    function get_menu_items_ajax()
+    {
+        $menu_id = $_REQUEST['menu_id'];
+
+        $menu_items = get_menu_to_array($menu_id, 'term_id');
+
+        wp_send_success_json($menu_items['menu_items']);
+
+    }
+    add_action('wp_ajax_get-site-menu-items', 'get_menu_items_ajax');
+
     function get_styles($element, $style = '')
     {
         $templates = array();

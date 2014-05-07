@@ -13,6 +13,7 @@ define(['app', 'apps/builder/site-builder/elements/menu/views', 'apps/builder/si
       }
 
       Controller.prototype.initialize = function(options) {
+        console.log(options.modelData);
         _.defaults(options.modelData, {
           element: 'Menu',
           justified: false,
@@ -41,13 +42,12 @@ define(['app', 'apps/builder/site-builder/elements/menu/views', 'apps/builder/si
       };
 
       Controller.prototype._getMenuCollection = function() {
-        var menuModel;
-        if (!this.menuCollection) {
+        if (_.isUndefined(this.menuCollection)) {
+          console.log(this.layout.model.get('menu_id'));
           if (this.layout.model.get('menu_id') > 0) {
-            menuModel = App.request("get:menu:by:id", this.layout.model.get('menu_id'));
-            this.menuCollection = menuModel.get('menu_items');
+            this.menuCollection = App.request("get:menu:items:by:menuid", this.layout.model.get('menu_id'));
           } else {
-            this.menuCollection = App.request("get:menu:collection");
+            this.menuCollection = App.request("get:menu:item:collection");
             this.menuCollection.once("add", (function(_this) {
               return function(model) {
                 _this.layout.model.set('menu_id', model.get('menu_id'));
