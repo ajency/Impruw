@@ -234,7 +234,7 @@
         restore_current_blog();
     }
 
-    function set_statistics_status()
+    function set_statistics_status($site_id)
     {
 
         switch_to_blog($site_id);
