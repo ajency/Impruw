@@ -60,7 +60,6 @@ and open the template in the editor.
 	&.menu-bar {
 		background: lighten(@white, 20%);
 		padding: @regular 15px;
-		margin-bottom: -1.01em;
 		border: 1px solid @quarternary1 !important;
 		box-shadow: inset 0 -3px 6px -3px @quarternary1;
 		position: relative;
@@ -82,7 +81,11 @@ and open the template in the editor.
 	&.column-dividers {
 		.column {
 			border-color: rgba(0, 0, 0, 0.2) !important;
-			padding: @regular 0;
+			padding: @regular;
 		}
 	}
+}
+
+.site-page {
+	margin-top: -2.01em;
 }

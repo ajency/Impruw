@@ -9,15 +9,18 @@
 	padding: 0 !important;
 	position: relative;
 	.room-tariff-title {
-		border-bottom: 1px dotted @primary1;
+		border-bottom: 1px solid @quarternary1;
 		margin: 0 0 @regular;
+		text-align: left;
 		h4 {
 			font-size: 1.5em;
-			text-transform: uppercase;
+			text-transform: capitalize;
+			font-weight: 300;
 		}
 		h5 {
 			font-size: 1em;
-			font-weight: 400;
+			font-weight: 300;
+			color: @text-color;
 		}
 	}
 	.room-tariff-actions {
@@ -202,8 +205,8 @@
 
 /****Room Facilities Styles****/
 .room-facilities-container {
-	background: darken(@tertiary1, 10%);
 	padding: @regular;
+	text-align: left;
 	.room-facilities-title {
 		h5 {
 			font-size: 1.5em;
@@ -212,7 +215,9 @@
 		h4 {
 			font-weight: 300;
 			font-size: 2em;
-			text-transform: uppercase;
+			text-transform: capitalize;
+			font-family: 'Satisfy', cursive;
+			color: @white;
 		}
 	}
 	.facilities {
@@ -255,8 +260,9 @@
 /****Room Summary Styles****/
 .room-summary-container {
 	margin: 0 0 @large;
+	text-align: left;
 	.room-summary-title {
-		border-bottom: 1px dotted @primary1;
+		border-bottom: 1px solid @quarternary1;
 		margin: 0 0 @regular;
 		h4 {
 			font-size: 1.5em;
@@ -278,7 +284,7 @@
 					color: lighten(@secondary1, 20%);
 				}
 				&.value {
-					color: @secondary1;
+					color: lighten(@secondary1, 20%);
 					font-weight: 700;
 				}
 			}
@@ -312,11 +318,12 @@
 			font-size: 4em !important;
 			text-transform: none !important;
 			color: @secondary1;
-			font-style: italic;
+			font-style: normal;
+			font-family: 'Satisfy', cursive;
 		}
 		.room-title-desc {
 			font-size: @medium;
-			color: lighten(@secondary1, 20%);
+			color: @text-color;
 		}
 	}
 	.room-title-actions {
@@ -340,16 +347,17 @@
 /****Room description Styles****/
 .room-description-container {
 	margin: 0 0 @large;
+	text-align: left;
 	h1 {
 		font-size: 1.5em;
 		font-weight: 300;
-		border-bottom: 1px dotted @primary1;
+		border-bottom: 1px solid @quarternary1;
 		margin: 0 0 @regular;
 	}
 	.room-description-desc {
 		background: transparent !important;
 		padding: 0;
-		color: lighten(@secondary1, 20%);
+		color: @text-color;
 	}
 }
 
@@ -358,16 +366,17 @@
 	.clearfix;
 	margin: 0 0 @medium;
 	.room-title {
-		font-size: 1.6em;
+		font-size: 2em;
 		color: @primary1;
-		font-weight: 400;
+		font-weight: normal;
 		margin: @regular 0;
+		font-family: 'Satisfy', cursive;
 	}
 	.room-excerpt {
-		color: darken(@secondary1, 20%);
+		color: @text-color;
 		padding-bottom: @regular;
 		margin-bottom: @regular;
-		border-bottom: 1px dotted @secondary1;
+		border-bottom: 1px solid @quarternary1;
 	}
 	.room-actions {
 		.clearfix;
@@ -375,16 +384,18 @@
 		.price {
 			float: left;
 			font-size: 2em;
-			color: darken(@secondary1, 10%);
+			color: @text-color;
 			small {
 				font-size: 0.88em;
 			}
 		}
 		.btn-room {
 			background: @primary1;
-			color: #fff;
+			color: @white;
+			border-radius: 0;
 			&:hover {
 				background: lighten(@primary1, 20%);
+				text-decoration: none;
 			}
 		}
 	}
@@ -392,9 +403,11 @@
 
 /* Calender Booking */
 .booking-title {
-	font-size: 2em;
+	font-size: 2.5em;
 	font-weight: 300 !important;
-	color: @primary1;
+	color: @secondary1 !important;
+	font-family: 'Satisfy', cursive;
+	margin-bottom: @regular;
 }
 .daterange-legends{
 	text-transform:uppercase;
@@ -430,6 +443,7 @@
 }
 
 .room-booking{
+	text-align: left;
 	&.front {
 		margin: 0 15px;
 	}
