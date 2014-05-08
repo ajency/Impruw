@@ -11,6 +11,7 @@ define ['app'
             initialize: (options)->
                 _.defaults options.modelData,
                     element: 'Gallery'
+                    slider_id : 0
 
                 super(options)
 

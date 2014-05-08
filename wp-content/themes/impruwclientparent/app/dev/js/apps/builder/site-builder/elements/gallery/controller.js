@@ -14,7 +14,8 @@ define(['app', 'apps/builder/site-builder/elements/gallery/views', 'apps/builder
 
       Controller.prototype.initialize = function(options) {
         _.defaults(options.modelData, {
-          element: 'Gallery'
+          element: 'Gallery',
+          slider_id: 0
         });
         return Controller.__super__.initialize.call(this, options);
       };
