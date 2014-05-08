@@ -22,6 +22,14 @@ define(['app', 'text!apps/menu-manager/add/templates/addmenu.html'], function(Ap
         }
       };
 
+      MenuItemView.prototype.serializeData = function() {
+        var data, pages;
+        data = MenuItemView.__super__.serializeData.call(this);
+        pages = App.request("get:editable:pages");
+        data.pages = pages.toJSON();
+        return data;
+      };
+
       MenuItemView.prototype.onNewMenuCreated = function() {
         this.$el.find('.alert').remove();
         this.$el.find('.add-menu-form').prepend('<div class="alert alert-success">New menu added </div>');
@@ -29,24 +37,7 @@ define(['app', 'text!apps/menu-manager/add/templates/addmenu.html'], function(Ap
       };
 
       MenuItemView.prototype.onShow = function() {
-        var pages;
-        pages = App.request("get:editable:pages");
-        _.each(pages.models, function(model, index) {
-          var html, page_name, page_url;
-          page_name = model.get('post_title');
-          page_url = model.get('guid');
-          html = "<li rel='" + index + "'> <a style='' class='' href='#' link='" + page_url + "' > <span class='text'>" + page_name + "</span> <i class='glyphicon glyphicon-ok icon-ok check-mark'></i> </a> </li>";
-          return $('#menu-item-page-url').append(html);
-        });
-        this.$el.find('select#aj-imp-page-sel-item').selectpicker({
-          style: 'btn-xs btn-default',
-          menuStyle: 'dropdown'
-        });
-        return this.$el.find('#menu-item-page-url li a ').click(function() {
-          var menu_url;
-          menu_url = $(this).attr('link');
-          return $('#menu_item_url').val(menu_url);
-        });
+        return this.$el.find('select[name="menu_item_url"]').selectpicker();
       };
 
       return MenuItemView;

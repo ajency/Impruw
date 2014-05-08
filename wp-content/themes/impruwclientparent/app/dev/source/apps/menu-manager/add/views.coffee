@@ -13,6 +13,12 @@ define ['app'
                     formdata = Backbone.Syphon.serialize @
                     @trigger "add:menu:item:clicked", formdata
 
+            serializeData :->
+                data = super()
+                pages = App.request "get:editable:pages"
+                data.pages = pages.toJSON()
+                data
+
 
             onNewMenuCreated: ->
                 @$el.find('.alert').remove()
@@ -20,24 +26,5 @@ define ['app'
                 @$el.find('#btn_resetmenu').click()
 
             onShow: ->
-                pages = App.request "get:editable:pages"
-                _.each pages.models, (model, index) ->
-                    page_name = model.get 'post_title'
-                    page_url = model.get 'guid'
-                    html = "<li rel='#{index}'>
-                    										<a style='' class='' href='#' link='#{page_url}' >
-                    											<span class='text'>#{page_name}</span>
-                    											<i class='glyphicon glyphicon-ok icon-ok check-mark'></i>
-                    										</a>
-                    									</li>"
-                    $('#menu-item-page-url').append(html)
-
-
-                @$el.find('select#aj-imp-page-sel-item').selectpicker
-                    style: 'btn-xs btn-default'
-                    menuStyle: 'dropdown'
-
-                @$el.find('#menu-item-page-url li a ').click ->
-                    menu_url = $(this).attr 'link'
-                    $('#menu_item_url').val menu_url
+               @$el.find('select[name="menu_item_url"]').selectpicker()
 						
