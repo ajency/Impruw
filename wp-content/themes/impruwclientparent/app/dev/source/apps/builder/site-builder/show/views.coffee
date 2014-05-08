@@ -18,6 +18,7 @@ define ['app'
             events:
                 'click .publish-page': (evt) ->
                     evt.preventDefault()
+                    @$el.find('.publish-page ').text 'Publishing...'
                     App.execute "publish:page"
 
                 'change select#builder-page-sel': (evt)->
@@ -38,6 +39,12 @@ define ['app'
             getCurrentPageId: =>
                 pageId = @$el.find('select#builder-page-sel').val()
                 parseInt pageId
+
+            onPagePublished:=>
+                @$el.find('.publish-page ').text 'Publish'
+                _.delay =>
+                    @$el.find('.publish-page ').text 'Publish'
+                , 500
 
             # trigger the editable page changed event on show
             onShow: ->

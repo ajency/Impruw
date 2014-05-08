@@ -11,6 +11,7 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
       function MainView() {
         this.revisionLinkClicked = __bind(this.revisionLinkClicked, this);
         this.addPageRevisions = __bind(this.addPageRevisions, this);
+        this.onPagePublished = __bind(this.onPagePublished, this);
         this.getCurrentPageId = __bind(this.getCurrentPageId, this);
         this.getCurrentPageName = __bind(this.getCurrentPageName, this);
         return MainView.__super__.constructor.apply(this, arguments);
@@ -32,6 +33,7 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
       MainView.prototype.events = {
         'click .publish-page': function(evt) {
           evt.preventDefault();
+          this.$el.find('.publish-page ').text('Publishing...');
           return App.execute("publish:page");
         },
         'change select#builder-page-sel': function(evt) {
@@ -55,6 +57,15 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
         var pageId;
         pageId = this.$el.find('select#builder-page-sel').val();
         return parseInt(pageId);
+      };
+
+      MainView.prototype.onPagePublished = function() {
+        this.$el.find('.publish-page ').text('Publish');
+        return _.delay((function(_this) {
+          return function() {
+            return _this.$el.find('.publish-page ').text('Publish');
+          };
+        })(this), 500);
       };
 
       MainView.prototype.onShow = function() {

@@ -137,6 +137,7 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/show/vi
 
       function Controller() {
         this.loadRevision = __bind(this.loadRevision, this);
+        this.triggerPagePublishOnView = __bind(this.triggerPagePublishOnView, this);
         return Controller.__super__.constructor.apply(this, arguments);
       }
 
@@ -155,7 +156,7 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/show/vi
           return App.execute("editable:page:changed", pageId);
         });
         this.listenTo(layout, "add:page:revisions", this.addPageRevisions);
-        this.listenTo(layout, "revision:link:clicked", this.loadRevision);
+        App.commands.setHandler("page:published", this.triggerPagePublishOnView);
         this.listenTo(layout, 'show', (function(_this) {
           return function(layout) {
             return _.delay(function() {
@@ -168,6 +169,11 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/show/vi
         return this.show(layout, {
           loading: true
         });
+      };
+
+      Controller.prototype.triggerPagePublishOnView = function() {
+        console.log("dsdsd");
+        return this.layout.triggerMethod("page:published");
       };
 
       Controller.prototype.loadRevision = function(revisionId) {

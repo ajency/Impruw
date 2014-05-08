@@ -109,7 +109,7 @@ define ['app', 'controllers/base-controller'
                 pages = App.request "get:editable:pages"
 
                 @layout = layout = new Show.View.MainView
-                    collection: pages
+                                                collection: pages
 
                 @listenTo layout, 'editable:page:changed', (pageId)->
                     # set the cookie
@@ -118,7 +118,7 @@ define ['app', 'controllers/base-controller'
 
                 @listenTo layout, "add:page:revisions", @addPageRevisions
 
-                @listenTo layout, "revision:link:clicked", @loadRevision
+                App.commands.setHandler "page:published", @triggerPagePublishOnView
 
                 @listenTo layout, 'show', (layout)=>
                     # added delay so that the html is fully rendered
@@ -132,6 +132,12 @@ define ['app', 'controllers/base-controller'
 
                 @show layout,
                     loading: true
+
+
+            triggerPagePublishOnView : =>
+                console.log "dsdsd"
+                @layout.triggerMethod "page:published"
+
 
             # show the previous revision
             loadRevision: (revisionId)=>
