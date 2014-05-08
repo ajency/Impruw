@@ -2652,8 +2652,9 @@ and open the template in the editor.
 .gallery-title {
   font-size: 1.5em;
   font-weight: 300 !important;
-  border-bottom: 1px dotted #dc6868;
+  border-bottom: 1px solid #989898;
   margin: 0 0 0.5em;
+  text-align: left;
 }
 /**** Isotope Filtering ****/
 .isotope-item {
