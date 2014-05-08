@@ -18,7 +18,7 @@
 
         // user_name is not captured, so lets slugify display_name to user_name
         if (!isset($user_data['user_login']))
-            $user_data['user_login'] = sanitize_username($user_data['display_name']);
+            $user_data['user_login'] =  $user_data['user_email'];
 
         // any new registered user must be the adim of the site. so, add role as admin
         if (!isset($user_data['role']))
