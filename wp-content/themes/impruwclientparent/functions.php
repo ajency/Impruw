@@ -3528,7 +3528,7 @@ function check_create_less_resource_folder(){
     $filename= get_compiled_stylesheet_directory_path();
     
     if(!is_dir($filename))
-        mkdir($filename,077,true);
+        mkdir($filename,0777,true);
     
     return $filename;
     
