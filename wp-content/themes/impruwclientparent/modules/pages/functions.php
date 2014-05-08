@@ -431,15 +431,15 @@
             $serialized_element['logo_id'] = get_option('logo_id',0);
         }
 
-        if($ele['element'] === 'Menu'){
+        if($ele['element'] === 'Menu' && isset($serialized_element['menu_id'])){
             unset($serialized_element['menu_id']);
         }
 
-        if($ele['element'] === 'Image' || $ele['element'] === 'ImageWithText'){
+        if(($ele['element'] === 'Image' || $ele['element'] === 'ImageWithText') && isset($serialized_element['image_id'])){
             unset($serialized_element['image_id']);
         }
 
-        if($ele['element'] === 'Slider'){
+        if($ele['element'] === 'Slider' && isset($serialized_element['slider_id'])){
             unset($serialized_element['slider_id']);
         }
 
