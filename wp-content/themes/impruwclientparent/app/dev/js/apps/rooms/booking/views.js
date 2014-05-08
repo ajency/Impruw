@@ -131,13 +131,13 @@ define(['app', 'text!apps/rooms/add/templates/add-room.html'], function(App, add
       CalendarView.prototype.changeAvaliability = function(event, ui) {
         var date, dateTime, value;
         if (ui.value === 0) {
-          value = 'availabile';
+          value = 'available';
         }
         if (ui.value === 30) {
-          value = 'semi-availabile';
+          value = 'semi-available';
         }
         if (ui.value === 60) {
-          value = 'unavailabile';
+          value = 'unavailable';
         }
         dateTime = this.$el.find('#room-booking-calendar').datepicker('getDate');
         date = $.datepicker.formatDate("yy-mm-dd", dateTime);
@@ -151,9 +151,7 @@ define(['app', 'text!apps/rooms/add/templates/add-room.html'], function(App, add
 
       CalendarView.prototype.getAvailabilityMarkup = function(date) {
         var currentStatus, html, value;
-        date = new Date(date);
         currentStatus = App.request("get:avaliability:status", date);
-        console.log(currentStatus);
         if (currentStatus === 'available') {
           value = 0;
         }
@@ -163,6 +161,8 @@ define(['app', 'text!apps/rooms/add/templates/add-room.html'], function(App, add
         if (currentStatus === 'unavailable') {
           value = 60;
         }
+        console.log(currentStatus);
+        console.log(value);
         html = "<button type='button' class='close booking-popover-close' aria-hidden='true'>&times;</button> <div class='booking-slider-pop'> <div id='booking-slider' data-value='" + value + "'></div> <div class='row'> <div class='col-md-4 available'><span>available</span></div> <div class='col-md-4 semi-available'><span>semi-available</span></div> <div class='col-md-4 unavailable'><span>unavailable</span></div> </div> </div>";
         return html;
       };

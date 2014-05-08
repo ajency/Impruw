@@ -105,9 +105,9 @@ define ['app'
                 @popovertd = td
 
             changeAvaliability: (event, ui)=>
-                value = 'availabile' if ui.value is 0
-                value = 'semi-availabile' if ui.value is 30
-                value = 'unavailabile' if ui.value is 60
+                value = 'available' if ui.value is 0
+                value = 'semi-available' if ui.value is 30
+                value = 'unavailable' if ui.value is 60
                 dateTime = @$el.find('#room-booking-calendar').datepicker 'getDate'
                 date = $.datepicker.formatDate("yy-mm-dd", dateTime)
                 $('#booking-slider').slider 'disable'
@@ -118,12 +118,13 @@ define ['app'
 
             # get availability markup
             getAvailabilityMarkup: (date)->
-                date = new Date date
+                #date = new Date date
                 currentStatus = App.request "get:avaliability:status", date
-                console.log currentStatus
                 value = 0 if currentStatus is 'available'
                 value = 30 if currentStatus is 'semi-available'
                 value = 60 if currentStatus is 'unavailable'
+                console.log currentStatus
+                console.log value
 
                 html = "<button type='button' class='close booking-popover-close' aria-hidden='true'>&times;</button>
                 								<div class='booking-slider-pop'>
