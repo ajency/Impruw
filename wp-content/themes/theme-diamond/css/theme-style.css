@@ -1658,14 +1658,15 @@ and open the template in the editor.
   border-right: 0;
 }
 .nav .menu-collapser {
-  background: #ffffff;
+  background: transparent;
   color: #dc6868;
-  font-weight: 700;
+  font-family: 'Satisfy', cursive;
+  font-weight: 400;
   text-shadow: none;
 }
 .nav .menu-collapser .collapse-button {
   background: #dc6868;
-  border-radius: 3px;
+  border-radius: 0px;
 }
 .nav.footer-menu {
   padding: 0;
