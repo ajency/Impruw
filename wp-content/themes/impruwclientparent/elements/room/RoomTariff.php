@@ -200,31 +200,31 @@ class RoomTariff extends Element {
                     <div class="block clearfix">
 
                     <div class="weekday">Weekdays
-                    <span class="price">{{wd_charge}}</span>
+                    <span class="price">&#8364;&nbsp;{{wd_charge}}</span>
                     </div>
 
                     <div class="weekend">Weekends
-                    <span class="price">{{we_charge}}</span>
+                    <span class="price">&#8364;&nbsp;{{we_charge}}</span>
                     </div>
 
                     <div class="tariff-label clearfix">Extra Adult</div>
 
                     <div class="weekday">
-                    <span class="price">{{wd_extra_adult}}</span>
+                    <span class="price">&#8364;&nbsp;{{wd_extra_adult}}</span>
                     </div>
 
                     <div class="weekend">
-                    <span class="price">{{we_extra_adult}}</span>
+                    <span class="price">&#8364;&nbsp;{{we_extra_adult}}</span>
                     </div>
 
                     <div class="tariff-label clearfix">Extra Child</div>
 
                     <div class="weekday">
-                    <span class="price">{{wd_extra_child}}</span>
+                    <span class="price">&#8364;&nbsp;{{wd_extra_child}}</span>
                     </div>
 
                     <div class="weekend">
-                    <span class="price">{{we_extra_child}}</span>
+                    <span class="price">&#8364;&nbsp;{{we_extra_child}}</span>
                     </div>
 
                     </div>
