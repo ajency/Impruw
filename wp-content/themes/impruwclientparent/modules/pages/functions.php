@@ -432,15 +432,15 @@
         }
 
         if($ele['element'] === 'Menu' && isset($serialized_element['menu_id'])){
-            unset($serialized_element['menu_id']);
+            $serialized_element['menu_id'] = 0;
         }
 
         if(($ele['element'] === 'Image' || $ele['element'] === 'ImageWithText') && isset($serialized_element['image_id'])){
-            unset($serialized_element['image_id']);
+            $serialized_element['image_id'] = 0;
         }
 
         if($ele['element'] === 'Slider' && isset($serialized_element['slider_id'])){
-            unset($serialized_element['slider_id']);
+            $serialized_element['slider_id'] = 0;
         }
 
         $wpdb->insert($wpdb->postmeta, array(

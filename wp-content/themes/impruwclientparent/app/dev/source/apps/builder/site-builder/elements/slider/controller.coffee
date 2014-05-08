@@ -12,6 +12,7 @@ define ['app'
                 _.defaults options.modelData,
                     element: 'Slider'
                     height: 350
+                    slider_id : 0
 
                 super(options)
 
