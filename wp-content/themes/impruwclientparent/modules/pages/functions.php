@@ -425,6 +425,24 @@
         //handle_unavailable_fields($ele);
         //insert the element in postmeta and retunr the meta_id
         $serialized_element = maybe_serialize($ele);
+
+        // remove / update if menu or logo
+        if($ele['element'] === 'Logo'){
+            $serialized_element['logo_id'] = get_option('logo_id',0);
+        }
+
+        if($ele['element'] === 'Menu'){
+            unset($serialized_element['menu_id']);
+        }
+
+        if($ele['element'] === 'Image' || $ele['element'] === 'ImageWithText'){
+            unset($serialized_element['image_id']);
+        }
+
+        if($ele['element'] === 'Slider'){
+            unset($serialized_element['slider_id']);
+        }
+
         $wpdb->insert($wpdb->postmeta, array(
             'post_id'    => 0,
             'meta_value' => $serialized_element,
