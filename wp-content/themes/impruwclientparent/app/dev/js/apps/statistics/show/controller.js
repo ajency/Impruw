@@ -71,7 +71,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         return TrackingDisabledView.__super__.constructor.apply(this, arguments);
       }
 
-      TrackingDisabledView.prototype.template = '<div id="tracking-container"> <div id="disabled_tracking" class="alert alert-info"> <p> Eeep! This does not look good. Enable javascript to spruce up this place How do I do that? </p> <button id="btn_enable_tracking" class="btn btn-sm btn-embossed aj-imp-orange-btn">Enable Tracking</button> </div> </div>';
+      TrackingDisabledView.prototype.template = '<div id="tracking-container"> <div id="disabled_tracking" class="alert alert-info"> <p> Eeep! This does not look good. Enable javascript to spruce up this place.<br> How do I do that? </p> <button id="btn_enable_tracking" class="btn btn-sm btn-embossed aj-imp-orange-btn">Enable Tracking</button> </div> </div>';
 
       TrackingDisabledView.prototype.events = {
         'click #btn_enable_tracking': function() {
