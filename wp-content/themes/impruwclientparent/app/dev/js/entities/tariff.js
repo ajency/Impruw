@@ -52,8 +52,11 @@ define(["app", 'backbone'], function(App, Backbone) {
     tariffCollection = new TariffCollection;
     API = {
       getTariffCollection: function(roomId) {
+        tariffCollection = new TariffCollection;
         tariffCollection.fetch({
           reset: true,
+          add: false,
+          remove: true,
           data: {
             room_id: roomId
           }

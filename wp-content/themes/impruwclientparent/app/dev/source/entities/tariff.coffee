@@ -36,8 +36,11 @@ define ["app", 'backbone'], (App, Backbone) ->
         API =
         # get tariff collection
             getTariffCollection: (roomId)->
+                tariffCollection = new TariffCollection    
                 tariffCollection.fetch
                     reset: true
+                    add: false
+                    remove : true
                     data:
                         room_id: roomId
 
