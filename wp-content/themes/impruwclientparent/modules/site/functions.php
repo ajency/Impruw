@@ -315,15 +315,17 @@
         switch_to_blog($clone_blog);
         $page = get_page_by_title($name);
 
-        if (is_null($page))
+        if (!isset($page->ID))
             return;
 
         $data = get_json_to_clone('page-json', $page->ID);
+
         restore_current_blog();
 
         $data = set_json_to_site($data);
         add_page_json($post_id, $data);
         add_page_revision($post_id, $data);
+        update_page_autosave($post_id, $data);
         publish_page($post_id);
     }
 
