@@ -325,6 +325,7 @@
         $data = set_json_to_site($data);
         add_page_json($post_id, $data);
         add_page_revision($post_id, $data);
+        update_page_autosave($post_id, $data);
         publish_page($post_id);
     }
 
