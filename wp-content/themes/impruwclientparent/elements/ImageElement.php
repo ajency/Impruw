@@ -47,7 +47,7 @@ class ImageElement extends Element {
         
         parent::__construct($element);
         
-        $this->image_id = $element['image_id'];
+        $this->image_id = isset($element['image_id']) ? $element['image_id'] : 0;
         $this->size = $element['size'];
         // $this->margins = 
         $this->markup    = $this->generate_markup();

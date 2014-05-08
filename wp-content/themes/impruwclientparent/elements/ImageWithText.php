@@ -47,9 +47,9 @@ class ImageWithText extends Element {
         
         parent::__construct($element);
         
-        $this->image_id = $element['image_id'];
+        $this->image_id = isset($element['image_id']) ? $element['image_id'] : 0;
         //$this->size 	= $element['size'];
-        $this->align    = $element['align'];
+        $this->align    = isset($element['align']) ? $element['align'] : 'left';
         $this->content 	= stripslashes($element['content']);
         $this->style 	= sanitize_title($element['style']);
         $this->markup   = $this->generate_markup();
