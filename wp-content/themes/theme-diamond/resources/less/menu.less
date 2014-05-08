@@ -31,15 +31,18 @@
 					bottom: -10px;
 					display: none;
 				}
-				&:hover {
+				&:hover, &:focus {
 					background: transparent;
 					color: @primary1;
+					outline: none;
 					&:after {
 						display: block;
 					}
 				}
-				@media(max-width:767px){
-					border: 0;
+				@media(max-width:991px) {
+					&:after {
+						display: none;
+					}
 				}
 			}
 			.sub-collapser {
@@ -88,7 +91,7 @@
 		}
 	}
 	.menu-collapser {
-		background: #fff;
+		background: lighten(@white, 20%);
 		color: @primary1;
 		font-weight: 700;
 		text-shadow: none;
@@ -112,9 +115,10 @@
 				text-transform: capitalize;
 				display: inline-block;
 				padding: 0.33em;
-				&:hover {
+				&:hover, &:focus {
 					text-decoration: none;
 					background: transparent;
+					outline: none;
 				}
 			}
 			&:before {

@@ -1194,11 +1194,11 @@ and open the template in the editor.
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .booking-pink a:hover {
   background: #fea5a5;
 }
-.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .ui-datepicker td.unavailabile a {
+.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .ui-datepicker td.unavailable a {
   text-decoration: line-through;
   color: #000000 !important;
 }
-.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .ui-datepicker td.semi-availabile a {
+.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .ui-datepicker td.semi-available a {
   background: rgba(0, 0, 0, 0);
   /* Old browsers */
 
@@ -1232,11 +1232,11 @@ and open the template in the editor.
   border-color: #efbbbb;
 }
 /*status*/
-.ui-datepicker td.unavailabile a {
+.ui-datepicker td.unavailable a {
   text-decoration: line-through;
   color: #000000 !important;
 }
-.ui-datepicker td.semi-availabile a {
+.ui-datepicker td.semi-available a {
   background: rgba(0, 0, 0, 0);
   /* Old browsers */
 
@@ -1262,8 +1262,8 @@ and open the template in the editor.
   /* IE6-9 fallback on horizontal gradient */
 
 }
-.ui-datepicker td.semi-availabile a:hover,
-.ui-datepicker td.semi-availabile a.ui-state-active {
+.ui-datepicker td.semi-available a:hover,
+.ui-datepicker td.semi-available a.ui-state-active {
   background: rgba(0, 0, 0, 0) !important;
   /* Old browsers */
 
@@ -1601,16 +1601,19 @@ and open the template in the editor.
   bottom: -10px;
   display: none;
 }
-.nav.slimmenu > li a:hover {
+.nav.slimmenu > li a:hover,
+.nav.slimmenu > li a:focus {
   background: transparent;
   color: #dc6868;
+  outline: none;
 }
-.nav.slimmenu > li a:hover:after {
+.nav.slimmenu > li a:hover:after,
+.nav.slimmenu > li a:focus:after {
   display: block;
 }
-@media (max-width: 767px) {
-  .nav.slimmenu > li a {
-    border: 0;
+@media (max-width: 991px) {
+  .nav.slimmenu > li a:after {
+    display: none;
   }
 }
 .nav.slimmenu > li .sub-collapser {
@@ -1655,7 +1658,7 @@ and open the template in the editor.
   border-right: 0;
 }
 .nav .menu-collapser {
-  background: #fff;
+  background: #ffffff;
   color: #dc6868;
   font-weight: 700;
   text-shadow: none;
@@ -1682,9 +1685,11 @@ and open the template in the editor.
   display: inline-block;
   padding: 0.33em;
 }
-.nav.footer-menu li a:hover {
+.nav.footer-menu li a:hover,
+.nav.footer-menu li a:focus {
   text-decoration: none;
   background: transparent;
+  outline: none;
 }
 .nav.footer-menu li:before {
   content: '';
@@ -2583,11 +2588,11 @@ and open the template in the editor.
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .booking-pink a:hover {
   background: #fea5a5;
 }
-.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .ui-datepicker td.unavailabile a {
+.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .ui-datepicker td.unavailable a {
   text-decoration: line-through;
   color: #000 !important;
 }
-.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .ui-datepicker td.semi-availabile a {
+.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .ui-datepicker td.semi-available a {
   background: url(../images/gray-semi.png) right no-repeat;
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .ui-state-active {
@@ -2598,11 +2603,11 @@ and open the template in the editor.
   border-color: #efbbbb;
 }
 /*status*/
-.ui-datepicker td.unavailabile a {
+.ui-datepicker td.unavailable a {
   text-decoration: line-through;
   color: #000 !important;
 }
-.ui-datepicker td.semi-availabile a {
+.ui-datepicker td.semi-available a {
   background: -moz-linear-gradient(-45deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 1%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.28) 51%, rgba(0, 0, 0, 0.28) 100%);
   /* FF3.6+ */
 

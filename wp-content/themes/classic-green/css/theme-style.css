@@ -1192,11 +1192,11 @@ and open the template in the editor.
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .booking-pink a:hover {
   background: #fea5a5;
 }
-.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .ui-datepicker td.unavailabile a {
+.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .ui-datepicker td.unavailable a {
   text-decoration: line-through;
   color: #000000 !important;
 }
-.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .ui-datepicker td.semi-availabile a {
+.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .ui-datepicker td.semi-available a {
   background: rgba(0, 0, 0, 0);
   /* Old browsers */
 
@@ -1230,11 +1230,11 @@ and open the template in the editor.
   border-color: #9fccc8;
 }
 /*status*/
-.ui-datepicker td.unavailabile a {
+.ui-datepicker td.unavailable a {
   text-decoration: line-through;
   color: #000000 !important;
 }
-.ui-datepicker td.semi-availabile a {
+.ui-datepicker td.semi-available a {
   background: rgba(0, 0, 0, 0);
   /* Old browsers */
 
@@ -1260,8 +1260,8 @@ and open the template in the editor.
   /* IE6-9 fallback on horizontal gradient */
 
 }
-.ui-datepicker td.semi-availabile a:hover,
-.ui-datepicker td.semi-availabile a.ui-state-active {
+.ui-datepicker td.semi-available a:hover,
+.ui-datepicker td.semi-available a.ui-state-active {
   background: rgba(0, 0, 0, 0) !important;
   /* Old browsers */
 
@@ -2403,11 +2403,11 @@ ul.social li:hover a {
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .booking-pink a:hover {
   background: #fea5a5;
 }
-.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .ui-datepicker td.unavailabile a {
+.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .ui-datepicker td.unavailable a {
   text-decoration: line-through;
   color: #000000 !important;
 }
-.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .ui-datepicker td.semi-availabile a {
+.room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .ui-datepicker td.semi-available a {
   background: url(../images/gray-semi.png) right no-repeat;
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .ui-state-active {
@@ -2418,11 +2418,11 @@ ul.social li:hover a {
   border-color: #9fccc8;
 }
 /*status*/
-.ui-datepicker td.unavailabile a {
+.ui-datepicker td.unavailable a {
   text-decoration: line-through;
   color: #000000 !important;
 }
-.ui-datepicker td.semi-availabile a {
+.ui-datepicker td.semi-available a {
   background: -moz-linear-gradient(-45deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 1%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.28) 51%, rgba(0, 0, 0, 0.28) 100%);
   /* FF3.6+ */
 

@@ -185,7 +185,7 @@ a.red-link.pull-right {
   box-shadow: none;
 }
 .aj-imp-container .aj-imp-left .aj-imp-dash-nav #aj-imp-dash-menu li.active .sub-menu li a {
-  padding: 10px 5px 10px 80px;
+  padding: 10px 5px 10px 60px;
 }
 .aj-imp-container .aj-imp-left .aj-imp-dash-nav #aj-imp-dash-menu li.active > a {
   text-decoration: none;
@@ -3297,11 +3297,11 @@ form .aj-imp-submit:hover {
   border-bottom: 1px solid #f21515;
 }
 /*status*/
-.ui-datepicker td.unavailabile a {
+.ui-datepicker td.unavailable a {
   text-decoration: line-through;
   color: #000 !important;
 }
-.ui-datepicker td.semi-availabile a {
+.ui-datepicker td.semi-available a {
   background: rgba(0, 0, 0, 0);
   /* Old browsers */
 
@@ -3327,8 +3327,8 @@ form .aj-imp-submit:hover {
   /* IE6-9 fallback on horizontal gradient */
 
 }
-.ui-datepicker td.semi-availabile a:hover,
-.ui-datepicker td.semi-availabile a.ui-state-active {
+.ui-datepicker td.semi-available a:hover,
+.ui-datepicker td.semi-available a.ui-state-active {
   background: rgba(0, 0, 0, 0) !important;
   /* Old browsers */
 
