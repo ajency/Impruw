@@ -1841,9 +1841,11 @@ and open the template in the editor.
 }
 .imagewithtext img {
   margin-bottom: 0.4em;
-  margin-top: 0.6em;
+  margin-top: 0.3em;
   position: relative;
   z-index: 1;
+  border: 2px solid #ffffff;
+  box-shadow: 0 0 1px 1px #bebebe;
 }
 .imagewithtext img.pull-left {
   margin-right: 0.5em;
@@ -2280,6 +2282,10 @@ and open the template in the editor.
   clear: both;
   content: "";
   display: table;
+}
+.roomsummary .room-img {
+  border: 2px solid #ffffff;
+  box-shadow: 0 0 1px 1px #bebebe;
 }
 .roomsummary .room-title {
   font-size: 2em;
@@ -2957,4 +2963,35 @@ and open the template in the editor.
 }
 .contactform .btn:hover {
   background: #e69191;
+}
+.rev_slider_wrapper {
+  padding: 0 1em !important;
+  background: transparent !important;
+  margin-bottom: 40px !important;
+  margin-top: 20px !important;
+}
+.rev_slider_wrapper .rev_slider {
+  border: 2px solid #ffffff;
+  box-shadow: 0 0 1px 1px #bebebe;
+}
+.rev_slider_wrapper .tp-bullets .bullet {
+  background: none !important;
+  border: 2px solid #d5ceb2;
+  height: 10px !important;
+  width: 10px !important;
+  margin: 0 0.5em !important;
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  -webkit-transform-origin: 0 100%;
+  -moz-transform-origin: 0 100%;
+  -ms-transform-origin: 0 100%;
+  -o-transform-origin: 0 100%;
+  transform-origin: 0 100%;
+}
+.rev_slider_wrapper .tp-bullets .bullet.selected {
+  border-color: #dc6868;
+  background: #dc6868 !important;
 }
