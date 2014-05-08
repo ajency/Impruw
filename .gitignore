@@ -6,3 +6,4 @@ robots.txt
 wp-content/uploads
 .externalToolBuilders/
 piwik/
+wp-content/site-resources
