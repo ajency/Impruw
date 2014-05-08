@@ -2495,3 +2495,62 @@ a {
 		display: none;
 	}
 }
+
+/**** Color Picker Pop-up Styles ****/
+.color-set-list {
+	list-style: none;
+	margin: 1em 0;
+	padding: 0;
+	text-align: center;
+	li {
+		max-width: 22%;
+		margin: 0.5em 1%;
+		display: inline-block;
+		.thumbnail {
+			.colors {
+				text-align: center;
+				margin: 0.5em 0;
+				span {
+					width: 30px;
+					height: 30px;
+					display: inline-block;
+					margin: 0.1em;
+					border: 2px solid #fff;
+					&:hover {
+						box-shadow: 1px 1px 1px 0px @dash-grey;
+					}
+				}
+			}
+			.caption {
+				h3 {
+					color: @dash-grey;
+					font-size: 1.4em;
+					font-weight: 400;
+					margin-bottom: 1em;
+				}
+				.btn-primary {
+					background: @orange;
+					&:hover {
+						background: lighten(@orange, 20%);
+					}
+				}
+			}
+			&:hover {
+				border-color: @blue-grey;
+				box-shadow: 1px 1px 3px 0px @dash-grey;
+			}
+			&.selected {
+				border-color: @orange;
+				background: @preview-grey;
+				.caption {
+					h3 {
+						color: @orange;
+					}
+					.btn-primary {
+						display: none;
+					}
+				}
+			}
+		}
+	}
+}

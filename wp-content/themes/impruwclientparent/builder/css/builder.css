@@ -2327,3 +2327,55 @@ a:focus {
 .drilldown .drilldown-sub {
   display: none;
 }
+/**** Color Picker Pop-up Styles ****/
+.color-set-list {
+  list-style: none;
+  margin: 1em 0;
+  padding: 0;
+  text-align: center;
+}
+.color-set-list li {
+  max-width: 22%;
+  margin: 0.5em 1%;
+  display: inline-block;
+}
+.color-set-list li .thumbnail .colors {
+  text-align: center;
+  margin: 0.5em 0;
+}
+.color-set-list li .thumbnail .colors span {
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+  margin: 0.1em;
+  border: 2px solid #fff;
+}
+.color-set-list li .thumbnail .colors span:hover {
+  box-shadow: 1px 1px 1px 0px #aaaaaa;
+}
+.color-set-list li .thumbnail .caption h3 {
+  color: #aaaaaa;
+  font-size: 1.4em;
+  font-weight: 400;
+  margin-bottom: 1em;
+}
+.color-set-list li .thumbnail .caption .btn-primary {
+  background: #ff7e00;
+}
+.color-set-list li .thumbnail .caption .btn-primary:hover {
+  background: #ffb266;
+}
+.color-set-list li .thumbnail:hover {
+  border-color: #849fb0;
+  box-shadow: 1px 1px 3px 0px #aaaaaa;
+}
+.color-set-list li .thumbnail.selected {
+  border-color: #ff7e00;
+  background: #f3f3f3;
+}
+.color-set-list li .thumbnail.selected .caption h3 {
+  color: #ff7e00;
+}
+.color-set-list li .thumbnail.selected .caption .btn-primary {
+  display: none;
+}
