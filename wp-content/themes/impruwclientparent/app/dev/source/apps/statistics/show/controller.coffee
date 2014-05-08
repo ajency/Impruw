@@ -57,8 +57,7 @@ define ['app', 'controllers/base-controller'], (App, AppController)->
 			template :'<div id="tracking-container">
 							<div id="disabled_tracking" class="alert alert-info">
 								<p>
-								Eeep! This does not look good.
-								Enable javascript to spruce up this place
+								Eeep! This does not look good. Enable javascript to spruce up this place.<br>
 								How do I do that?
 								</p>
 								<button id="btn_enable_tracking" class="btn btn-sm btn-embossed aj-imp-orange-btn">Enable Tracking</button>

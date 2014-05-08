@@ -36,7 +36,7 @@ jQuery(document).ready(function($) {
 
                 if (response.success) {
 
-                    response.msg = "Awesome! You have registered successfully. Now take the next step and activate your account using the activation link sent to your email address.If you don't see it there check your spam folder.";
+                    response.msg = "Awesome! You have registered successfully.";
                     msg2 = "<a href="+siteurl+"/login"+">Click here to login</a>"; 
                     $("#register_message").html('<div class="alert alert-success">' +
                         '<button aria-hidden="true" data-dismiss="alert" class="close" type="button">x</button>' +
