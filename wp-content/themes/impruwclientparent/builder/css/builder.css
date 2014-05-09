@@ -2078,7 +2078,9 @@ a:focus {
   display: block;
 }
 .choose-theme-page #builder-region,
-.choose-theme-page #elements-box-region {
+.choose-theme-page #elements-box-region,
+.choose-theme-page #header-region,
+.choose-theme-page #fl_menu {
   display: none;
 }
 /****Builder Settings Popover Styles****/
