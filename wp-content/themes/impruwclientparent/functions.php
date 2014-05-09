@@ -41,7 +41,7 @@ require_once PARENTTHEMEPATH . 'api/entities/leftnav.php';
 global $page_id;
 $page_id = 0;
 
-require_once PARENTTHEMEPATH . 'includes/Underscore.php';
+
 require_once PARENTTHEMEPATH . 'elements/Element.php';
 require_once PARENTTHEMEPATH . 'includes/SiteModel.php';
 require_once PARENTTHEMEPATH . 'includes/UserModel.php';
@@ -230,7 +230,7 @@ function generate_markup($section) {
 
     $id = !is_null($post) ? $post->ID : 0;
 
-    $markup_JSON = get_page_markup_JSON();
+    $markup_JSON = get_page_json1($id);
 
     if (!isset($markup_JSON [$section]))
         return;
