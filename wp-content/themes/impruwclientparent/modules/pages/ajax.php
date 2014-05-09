@@ -59,7 +59,6 @@
 
         remove_all_actions('post_updated');
 
-
         //set page json
         publish_page($page_id);
 
