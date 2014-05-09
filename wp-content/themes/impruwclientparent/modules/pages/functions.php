@@ -459,11 +459,10 @@ function get_primary_menu_id()
 {
     $menu_id =0;
 
-    $locations = get_nav_menu_locations();
+    $menu_object = wp_get_nav_menu_object('Main Menu');
 
-    if (isset($locations[$args->theme_location])) {
-        $menu_id = $locations[$args->theme_location];
-    }
+    if(!empty($menu_object))
+            $menu_id = $menu_object->term_id;
 
     return $menu_id;
 }
