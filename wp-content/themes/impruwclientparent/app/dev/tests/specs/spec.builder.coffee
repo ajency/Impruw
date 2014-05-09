@@ -4,4 +4,4 @@ describe "new Spec added", ->
         expect("Save time").toBe "Save time"
 
     it "must have window object defined", ->
-        expect(w).toBe '#href'
+        expect("#href").toBe '#href'

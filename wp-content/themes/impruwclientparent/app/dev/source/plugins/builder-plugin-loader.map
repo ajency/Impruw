@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "builder-plugin-loader.js",
+  "sourceRoot": "",
+  "sources": [
+    "builder-plugin-loader.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAGA;AAAA,EAAA,MAAA,CAAO,CACH,YADG,EAEH,QAFG,EAGH,UAHG,EAIH,UAJG,EAKH,YALG,EAMH,gBANG,EAOH,UAPG,EAQH,kBARG,EASH,gBATG,EAUH,WAVG,EAWH,SAXG,EAYH,OAZG,EAaH,UAbG,EAcH,QAdG,EAeH,UAfG,EAgBH,MAhBG,EAiBH,YAjBG,EAkBH,iBAlBG,EAmBH,gBAnBG,EAoBH,YApBG,EAqBH,WArBG,EAsBH,SAtBG,EAuBH,QAvBG,EAwBH,WAxBG,CAAP,EA0BG,SAAA,GAAA,CA1BH,CAAA,CAAA;AAAA"
+}

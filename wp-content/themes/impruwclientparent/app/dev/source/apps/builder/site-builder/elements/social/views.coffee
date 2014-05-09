@@ -11,9 +11,13 @@ define ['app'], (App)->
 
         # Social element view
         class Views.SocialView extends Marionette.CollectionView
+            
             tagName: 'ul'
+            
             className: 'social'
+            
             itemView: SocialItem
+            
             onRender: ()->
                 # get the className from options
                 style = Marionette.getOption @, 'style'

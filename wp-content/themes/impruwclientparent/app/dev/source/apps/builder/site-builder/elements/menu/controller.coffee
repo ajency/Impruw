@@ -33,7 +33,7 @@ define ['app', 'apps/builder/site-builder/elements/menu/views',
             _getMenuCollection: ->
 
                 if _.isUndefined @menuCollection
-                    console.log @layout.model.get('menu_id')
+                    
                     if @layout.model.get('menu_id') > 0
                         @menuCollection = App.request "get:menu:items:by:menuid", @layout.model.get 'menu_id'
                     else

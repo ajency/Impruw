@@ -19,7 +19,7 @@ define ['app', 'apps/builder/site-builder/elements/social/views'
                 @listenTo @layout.model, "change:style", @renderElement
                 super()
 
-            _getAddressView: (collection, style)->
+            _getSocialView: (collection, style)->
                 new Social.Views.SocialView
                     collection: collection
                     style: style
@@ -31,5 +31,6 @@ define ['app', 'apps/builder/site-builder/elements/social/views'
                 # get the social element collection
                 style = @layout.model.get 'style'
                 collection = App.request "get:site:social"
-                view = @_getAddressView collection, style
+                console.log collection
+                view = @_getSocialView collection, style
                 @layout.elementRegion.show view
