@@ -94,6 +94,7 @@
 
         update_option('site_status', 'online');
 
+        // check if cloned for the first time
         if ($clone_pages === TRUE) {
             clone_pages();
         }
@@ -112,12 +113,13 @@
             array('post_title' => 'About Us'),
             array('post_title' => 'Contact Us'),
             array('post_title' => 'Rooms'),
-            array('post_title' => 'Single Room')
+            array('post_title' => 'Single Room'),
+            array('post_title' => 'Gallery')
         );
 
         add_pages_to_site($pages);
 
-        //add_menus_to_site();
+        add_menus_to_site();
     }
 
     /**
@@ -153,6 +155,7 @@
         set_theme_mod('nav_menu_locations', $locations);
 
 
+        /*
         //give your menu a name
         $name_footer = 'Footet Menu';
         //create the menu
@@ -176,6 +179,7 @@
         $locations_footer                = get_theme_mod('nav_menu_locations');
         $locations_footer['footer_menu'] = $menu_id_footer;
         set_theme_mod('nav_menu_locations', $locations_footer);
+        */
     }
 
     /**
