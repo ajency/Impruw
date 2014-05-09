@@ -41,7 +41,7 @@ require_once PARENTTHEMEPATH . 'api/entities/leftnav.php';
 global $page_id;
 $page_id = 0;
 
-require_once PARENTTHEMEPATH . 'includes/Underscore.php';
+
 require_once PARENTTHEMEPATH . 'elements/Element.php';
 require_once PARENTTHEMEPATH . 'includes/SiteModel.php';
 require_once PARENTTHEMEPATH . 'includes/UserModel.php';

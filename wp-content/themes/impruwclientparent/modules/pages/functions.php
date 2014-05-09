@@ -17,11 +17,7 @@
     function publish_page($page_id)
     {
 
-        wp_update_post(array(
-            'ID'          => $page_id,
-            'post_status' => 'publish',
-            'post_type'   => 'page'
-        ));
+        wp_update_post(array('ID' => $page_id, 'post_status' => 'publish', 'post_type' => 'page'));
     }
 
     /**
@@ -48,11 +44,7 @@
 
         global $wpdb;
 
-        $wpdb->update($wpdb->posts, array(
-            'post_content' => "content-" . rand(1000, 9999)
-        ), array(
-            'ID' => $page_id
-        ));
+        $wpdb->update($wpdb->posts, array('post_content' => "content-" . rand(1000, 9999)), array('ID' => $page_id));
     }
 
     /**
@@ -118,11 +110,7 @@
 
         global $wpdb;
 
-        $wpdb->insert($wpdb->postmeta, array(
-            'meta_key'   => 'page-json',
-            'meta_value' => $json,
-            'post_id'    => $autosave_post_id
-        ));
+        $wpdb->insert($wpdb->postmeta, array('meta_key' => 'page-json', 'meta_value' => $json, 'post_id' => $autosave_post_id));
 
         $wpdb->insert_id;
     }
@@ -138,12 +126,7 @@
 
         global $wpdb;
 
-        $wpdb->update($wpdb->postmeta, array(
-            'meta_key'   => 'page-json',
-            'meta_value' => $json
-        ), array(
-            'meta_id' => $meta_id
-        ));
+        $wpdb->update($wpdb->postmeta, array('meta_key' => 'page-json', 'meta_value' => $json), array('meta_id' => $meta_id));
     }
 
     /**
@@ -227,10 +210,7 @@
     function get_all_template_pages()
     {
 
-        $args = array('post_type'      => 'page',
-                      'posts_per_page' => -1,
-                      'meta_key'       => 'page_template',
-                      'meta_value'     => 'yes');
+        $args = array('post_type' => 'page', 'posts_per_page' => -1, 'meta_key' => 'page_template', 'meta_value' => 'yes');
 
         $pages = new WP_query($args);
 
@@ -308,8 +288,7 @@
 
         $elements = array();
         if ($page_id == 0)
-            $elements = get_option($section);
-        else
+            $elements = get_option($section); else
             $elements = get_post_meta($page_id, 'page-json', TRUE);
 
         $d = array();
@@ -427,32 +406,25 @@
         $serialized_element = maybe_serialize($ele);
 
         // remove / update if menu or logo
-        if($ele['element'] === 'Logo'){
-            $serialized_element['logo_id'] = get_option('logo_id',0);
+        if ($ele['element'] === 'Logo') {
+            $serialized_element['logo_id'] = get_option('logo_id', 0);
         }
 
-        if($ele['element'] === 'Menu' && isset($serialized_element['menu_id'])){
+        if ($ele['element'] === 'Menu' && isset($serialized_element['menu_id'])) {
             $serialized_element['menu_id'] = 0;
         }
 
-        if(($ele['element'] === 'Image' || $ele['element'] === 'ImageWithText') && isset($serialized_element['image_id'])){
+        if (($ele['element'] === 'Image' || $ele['element'] === 'ImageWithText') && isset($serialized_element['image_id'])) {
             $serialized_element['image_id'] = 0;
         }
 
-        if($ele['element'] === 'Slider' && isset($serialized_element['slider_id'])){
+        if ($ele['element'] === 'Slider' && isset($serialized_element['slider_id'])) {
             $serialized_element['slider_id'] = 0;
         }
 
-        $wpdb->insert($wpdb->postmeta, array(
-            'post_id'    => 0,
-            'meta_value' => $serialized_element,
-            'meta_key'   => $ele['element']
-        ));
+        $wpdb->insert($wpdb->postmeta, array('post_id' => 0, 'meta_value' => $serialized_element, 'meta_key' => $ele['element']));
 
-        return array(
-            'meta_id' => $wpdb->insert_id,
-            'element' => $ele['element']
-        );
+        return array('meta_id' => $wpdb->insert_id, 'element' => $ele['element']);
     }
 
 

@@ -16,9 +16,9 @@
 
         public function test_theme_switch()
         {
-            Theme::assign_new_theme('blue-bold');
-            $this->assertEquals('blue-bold', get_option('current_theme'));
+            $this->factory->post->create_many(25);
 
+            $this->assertEquals(25, count(get_posts('posts_per_page=-1')));
         }
 
         public function test_theme_css_locator()
