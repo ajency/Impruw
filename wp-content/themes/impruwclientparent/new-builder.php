@@ -76,7 +76,7 @@
               <div class="modal-body">
                 <ul class="color-set-list">
                     <li>
-                        <div class="thumbnail">
+                        <div class="thumbnail" id="flipthis">
                           <div class="colors">
                             <span style="background: #FF5F5F;" data-toggle="tooltip" title="Primary Color for Theme">&nbsp;</span>
                             <span style="background: #2A3B66;">&nbsp;</span>
@@ -88,7 +88,7 @@
                             <h3>Color Set 1</h3>
                             <p>
                                 <a href="#" class="btn btn-xs btn-primary" role="button"><span class="glyphicon glyphicon-check"></span> Apply</a> 
-                                <a href="#" class="btn btn-xs btn-default" role="button"><span class="glyphicon glyphicon-edit"></span> Edit</a>
+                                <a href="#" class="btn btn-xs btn-default" id="flipCard" role="button"><span class="glyphicon glyphicon-edit"></span> Edit</a>
                             </p>
                           </div>
                         </div>
@@ -156,6 +156,7 @@
           </div>
         </div>
         <!-- Color Picker Modal -->
+        <script src="<?php echo get_parent_template_directory_uri(); ?>/app/dev/js/plugins/flippant.min.js"></script> 
 
         <?php if (ENV === 'production'): ?>
             <script src="<?php echo get_parent_template_directory_uri(); ?>/app/dev/js/plugins/ckeditor.js"></script> 
@@ -166,5 +167,6 @@
             <script data-main="http://localhost/impruw/wp-content/themes/impruwclientparent/app/dev/js/builder-main" 
             src="<?php echo get_parent_template_directory_uri(); ?>/js/require.js"></script>
         <?php endif; ?>
+
     </body>
 </html>

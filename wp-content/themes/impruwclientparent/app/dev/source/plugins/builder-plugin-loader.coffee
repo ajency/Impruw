@@ -26,4 +26,5 @@ define [
     'isotope'
     'moment'
     'drilldown'
+    #'flippant'
 ], ->

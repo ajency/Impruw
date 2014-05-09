@@ -47,6 +47,7 @@ require.config
         componentloader: 'components/builder-component-loader'
         app: 'builder-app'
         drilldown: 'plugins/jquery.drilldown.min'
+        #flippant: 'plugins/flippant.min'
     shim:
         underscore:
             exports: '_'

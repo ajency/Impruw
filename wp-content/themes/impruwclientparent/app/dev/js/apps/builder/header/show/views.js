@@ -30,6 +30,7 @@ define(['app', 'text!apps/builder/header/show/templates/mainview.html'], functio
       };
 
       MainView.prototype.onShow = function() {
+        var back, back_content, front;
         this.$el.find('.dropdown-accordion').on('show.bs.dropdown', (function(_this) {
           return function(event) {
             var accordion;
@@ -38,11 +39,20 @@ define(['app', 'text!apps/builder/header/show/templates/mainview.html'], functio
             return _this.trigger("get:theme:set:colors");
           };
         })(this));
-        return this.$el.find('.dropdown-accordion').on('click', 'a[data-toggle="collapse"]', function(event) {
+        this.$el.find('.dropdown-accordion').on('click', 'a[data-toggle="collapse"]', function(event) {
           event.preventDefault();
           event.stopPropagation();
           $($(this).data('parent')).find('.panel-collapse.in').collapse('hide');
           return $($(this).attr('href')).collapse('show');
+        });
+        front = document.getElementById("flipthis");
+        back_content = "<div class='edit-colors'> <h5>Color Set 1</h5> <div class='color-sets'> <div class='color row'> <div class='col-sm-2'> <span class='color-picker-box' style='background: #FF5F5F;'>Click to Edit</span> </div> <div class='col-sm-10'> <h6>Primary Color</h6> <p>Used in Headings, Links, Menu, Buttons and Accents</p> </div> </div> <div class='color row'> <div class='col-sm-2'> <span class='color-picker-box' style='background: #2A3B66;'>Click to Edit</span> </div> <div class='col-sm-10'> <h6>Secondary Color</h6> <p>Used in Headings, Links, Menu, Buttons and Accents</p> </div> </div> <div class='color row'> <div class='col-sm-2'> <span class='color-picker-box' style='background: #16A2F5;'>Click to Edit</span> </div> <div class='col-sm-10'> <h6>Tertiary Color</h6> <p>Used in Headings, Links, Menu, Buttons and Accents</p> </div> </div> <div class='color row'> <div class='col-sm-2'> <span class='color-picker-box' style='background:#CCCCCC;'>Click to Edit</span> </div> <div class='col-sm-10'> <h6>Background Color</h6> <p>Used in Headings, Links, Menu, Buttons and Accents</p> </div> </div> <div class='color row'> <div class='col-sm-2'> <span class='color-picker-box' style='background: #333333;'>Click to Edit</span> </div> <div class='col-sm-10'> <h6>Text Color</h6> <p>Used in Headings, Links, Menu, Buttons and Accents</p> </div> </div> </div> <div class='actions'> <button id='closeCard' class='btn btn-xs'>Cancel</button> <button id='applyCard' class='btn btn-xs btn-primary'>Apply</button> </div> </div>";
+        back = void 0;
+        return document.getElementById("flipCard").addEventListener("click", function(e) {
+          back = flippant.flip(front, back_content, "modal");
+          document.getElementById("closeCard").addEventListener("click", function(e) {
+            back = back.close();
+          });
         });
       };
 
