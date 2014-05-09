@@ -404,22 +404,21 @@
         //handle_unavailable_fields($ele);
         //insert the element in postmeta and retunr the meta_id
 
-
         // remove / update if menu or logo
         if ($ele['element'] === 'Logo') {
-            $serialized_element['logo_id'] = get_option('logo_id', 0);
+            $ele['logo_id'] = get_option('logo_id', 0);
         }
 
-        if ($ele['element'] === 'Menu' && isset($serialized_element['menu_id'])) {
-            $serialized_element['menu_id'] = get_primary_menu_id();
+        if ($ele['element'] === 'Menu') {
+            $ele['menu_id'] = get_primary_menu_id();
         }
 
-        if (($ele['element'] === 'Image' || $ele['element'] === 'ImageWithText') && isset($serialized_element['image_id'])) {
-            $serialized_element['image_id'] = 0;
+        if (($ele['element'] === 'Image' || $ele['element'] === 'ImageWithText') && isset($ele['image_id'])) {
+            $ele['image_id'] = 0;
         }
 
-        if ($ele['element'] === 'Slider' && isset($serialized_element['slider_id'])) {
-            $serialized_element['slider_id'] = 0;
+        if ($ele['element'] === 'Slider' && isset($ele['slider_id'])) {
+            $ele['slider_id'] = 0;
         }
 
         $serialized_element = maybe_serialize($ele);
