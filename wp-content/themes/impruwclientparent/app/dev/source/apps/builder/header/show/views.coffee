@@ -25,9 +25,7 @@ define ['app'
 							@trigger "add:new:page:clicked"
 						
 						'click #aj-imp-color-sel' :->
-							@trigger "show:theme:color:clicked"
-							#@$el.find('#theme-color-pop').modal()
-							
+							@trigger "show:theme:color:clicked"							
 
 
 					onShow:->
@@ -130,80 +128,11 @@ define ['app'
 
 							@listenTo themeColorView,"itemview:change:theme:color:clicked", @changeThemeColorClick
 
-					onShowThemeColorSet :(themeColorCollection)->
-
-							themeColorView = new ThemeColorSetView
-													collection: themeColorCollection
-													region	: App.dialogRegion
-													
-							themeColorView.render()
-
-							@$el.find('#aj-imp-color-sel').append themeColorView.$el
-
-							@$el.find('#theme-color-pop').modal()
-
-							
-							
-
 
 					changeThemeColorClick :(iv,model)->
 						@trigger "change:theme:color", model
 
 
-				class SingleSetView extends Marionette.ItemView
-
-					tagName: 'li'
-
-					template : '<div class="thumbnail" id="flipthis">
-		                          <div class="colors">
-		                            <span style="background: #FF5F5F;" data-toggle="tooltip" title="Primary Color for Theme">&nbsp;</span>
-		                            <span style="background: #2A3B66;">&nbsp;</span>
-		                            <span style="background: #16A2F5;">&nbsp;</span>
-		                            <span style="background: #CCCCCC;">&nbsp;</span>
-		                            <span style="background: #333333;">&nbsp;</span>
-		                          </div> 
-		                          <div class="caption">
-		                            <h3>Color Set 1</h3>
-		                            <p>
-		                                <a href="#" class="btn btn-xs btn-primary" role="button"><span class="glyphicon glyphicon-check"></span> Apply</a> 
-		                                <a href="#" class="btn btn-xs btn-default" id="flipCard" role="button"><span class="glyphicon glyphicon-edit"></span> Edit</a>
-		                            </p>
-		                          </div>
-		                        </div>'
 				
-				class EmptyView extends Marionette.ItemView
-
-					tagName: 'li'
-
-					template: 'Nothing found'
-				
-				class ThemeColorSetView extends Marionette.CompositeView
-
-						template : ' <div class="modal medium-modal fade" id="theme-color-pop" tabindex="-1" role="dialog">
-							          <div class="modal-dialog">
-							            <div class="modal-content">
-							              <div class="modal-header">
-							                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-							                <h4 class="modal-title">Choose Colors for Your Theme</h4>
-							              </div>
-							              <div class="modal-body">
-							                <ul class="color-set-list">
-							                    
-							                </ul>
-							              </div>
-							              <div class="modal-footer">
-							                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-							              </div>
-							            </div>
-							          </div>
-							        </div>'
-
-						itemView: SingleSetView
-
-						emptyView : EmptyView
-
-						itemViewContainer: '.color-set-list'
-				
-
 
 

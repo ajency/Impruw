@@ -15,7 +15,6 @@
         }
 
         Controller.prototype.initialize = function(options) {
-          console.log(options.modelData);
           _.defaults(options.modelData, {
             element: 'Menu',
             justified: false,

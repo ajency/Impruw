@@ -264,6 +264,8 @@
 
         restore_current_blog();
         $data = set_json_to_site($data);
+
+        store_unused_elements($post_id);
         add_page_json($post_id, $data);
         update_page_autosave($post_id, $data);
     }

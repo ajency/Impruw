@@ -23,6 +23,8 @@ define ['app', 'controllers/base-controller'
                     if metaId isnt 0
                         model = App.request "get:unused:element:by:metaid", metaId
                         modelData = model.toJSON()
+                        currentPageId = App.request "get:current:editable:page"
+                        App.execute "unused:element:added", metaId, currentPageId
 
                     App.request "add:new:element", container, type, modelData
 
