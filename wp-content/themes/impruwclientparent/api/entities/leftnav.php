@@ -57,7 +57,7 @@
             array(
                 'url'   =>  '#language',
                 'title' => 'Language',
-                'icon'  => 'switch2'
+                'icon'  => 'chat2'
             ),
             array(
                 'url'   => wp_logout_url(site_url()),

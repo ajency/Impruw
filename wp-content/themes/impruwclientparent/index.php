@@ -13,6 +13,7 @@
  * @subpackage Impruw Site
  * @since Impruw Site 1.0
  */
+ define('SITE_VIEW', true);
 get_header();
 ?>
 

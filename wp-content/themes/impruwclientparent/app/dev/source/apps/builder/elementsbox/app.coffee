@@ -1,15 +1,14 @@
-define ['app','apps/builder/elementsbox/show/controller'], (App)->
+define ['app', 'apps/builder/elementsbox/show/controller'], (App)->
+    App.module 'ElementsBoxApp', (ElementsBoxApp, App, Backbone, Marionette, $, _)->
 
-	App.module 'ElementsBoxApp', (ElementsBoxApp, App, Backbone, Marionette, $, _)->
+        #@startWithParent = false
 
-		#@startWithParent = false
-
-		#PUBLIC API
-		API = 
-			show : ()->
-				new ElementsBoxApp.Show.Controller
-								region : App.elementsBoxRegion
+        #PUBLIC API
+        API =
+            show: ()->
+                new ElementsBoxApp.Show.Controller
+                    region: App.elementsBoxRegion
 
 
-		ElementsBoxApp.on 'start', ->
-			API.show()
+        ElementsBoxApp.on 'start', ->
+            API.show()
