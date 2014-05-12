@@ -47,6 +47,9 @@ function ajax_change_theme_color() {
     $colors= array();
     
     unset($_POST['action']);
+
+    update_option('current_color_set',$_POST['formdata']['name']);
+
     unset($_POST['formdata']['name']);
    
     foreach($_POST['formdata'] as $key=>$value){

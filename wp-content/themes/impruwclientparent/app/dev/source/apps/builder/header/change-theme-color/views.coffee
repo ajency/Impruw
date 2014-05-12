@@ -15,9 +15,21 @@ define ['app'], (App)->
             								  </div>
             								</div>'
             onShow: ->
-                @model.unset 'name'
+                #display the colors in the set
+                @displayColorSet()
+
+                #highlight current set
+                @highlightCurrentColorSet()
+
+            highlightCurrentColorSet :->
+                setName = @model.get 'name'
+                if setName == THEMECOLORSET
+                   @$el.find('.thumbnail').addClass 'selected'
+
+            displayColorSet:->
                 _.each @model.attributes, (colorValue, index) =>
-                    @$el.find('.colors').append("<span style='background: #{colorValue};'>&nbsp;</span>")
+                    if index != 'name'
+                        @$el.find('.colors').append("<span style='background: #{colorValue};'>&nbsp;</span>")
 
             serializeData: ->
                 data = super()
