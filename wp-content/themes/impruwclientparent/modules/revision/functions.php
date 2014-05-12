@@ -84,6 +84,8 @@
      * Returns the serialized json data for the passed meta_id
      *
      * @param int meta_id
+     *
+     * @return array|mixed
      */
     function get_page_revision_by_meta_id($meta_id)
     {
@@ -98,7 +100,8 @@
     }
 
     /**
-     * Retuns the last added option id for the theme header json
+     * Returns last option id
+     *
      * @return int option_id
      */
     function get_last_header_json_option_id()

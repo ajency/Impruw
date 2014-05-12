@@ -21,10 +21,10 @@
     }
 
     /**
-     * add  a page revision
+     * @param $page_id
+     * @param $page_json
      *
-     * @param type $page_id
-     * @param type $page_json
+     * @return mixed
      */
     function add_page_revision($page_id, $page_json)
     {
@@ -50,7 +50,9 @@
     /**
      * Returns the auto save json for the page
      *
-     * @param type $page_id
+     * @param type $page_id gg
+     *
+     * @return array
      */
     function get_page_auto_save_json($page_id)
     {
