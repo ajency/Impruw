@@ -37,7 +37,7 @@ require_once 'modules/revision/ajax.php';
 require_once 'modules/elements/ajax.php';
 
 require_once PARENTTHEMEPATH . 'api/entities/leftnav.php';
-//require_once PARENTTHEMEPATH . 'api/statistics/statistics-api.php';
+
 
 global $page_id;
 $page_id = 0;
