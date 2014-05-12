@@ -3400,22 +3400,19 @@ form .aj-imp-submit:hover {
   width: 30px !important;
 }
 /**** Language Page Styles ****/
-.language .aj-imp-widget-head {
-  padding: 0 !important;
-}
-.language .aj-imp-widget-head .nav-pills li a {
+.language .aj-imp-dash-widget .nav-pills li a {
   background: transparent;
   border-radius: 0;
   border: none;
   border-bottom: 2px solid transparent;
   color: #849fb0;
 }
-.language .aj-imp-widget-head .nav-pills li:hover a,
-.language .aj-imp-widget-head .nav-pills li :focus a {
+.language .aj-imp-dash-widget .nav-pills li:hover a,
+.language .aj-imp-dash-widget .nav-pills li :focus a {
   border-color: #849fb0;
   text-shadow: none;
 }
-.language .aj-imp-widget-head .nav-pills li.active a {
+.language .aj-imp-dash-widget .nav-pills li.active a {
   color: #ff7e00;
   border-color: #ff7e00;
 }
