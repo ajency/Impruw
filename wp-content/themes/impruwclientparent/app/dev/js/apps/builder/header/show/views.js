@@ -3,8 +3,7 @@ var __hasProp = {}.hasOwnProperty,
 
 define(['app', 'text!apps/builder/header/show/templates/mainview.html'], function(App, mainviewTpl) {
   return App.module('HeaderApp.Show.Views', function(Views, App, Backbone, Marionette, $, _) {
-    var EmptyView, SingleSetView, ThemeColorSetView;
-    Views.MainView = (function(_super) {
+    return Views.MainView = (function(_super) {
       __extends(MainView, _super);
 
       function MainView() {
@@ -55,17 +54,6 @@ define(['app', 'text!apps/builder/header/show/templates/mainview.html'], functio
         return this.listenTo(themeColorView, "itemview:change:theme:color:clicked", this.changeThemeColorClick);
       };
 
-      MainView.prototype.onShowThemeColorSet = function(themeColorCollection) {
-        var themeColorView;
-        themeColorView = new ThemeColorSetView({
-          collection: themeColorCollection,
-          region: App.dialogRegion
-        });
-        themeColorView.render();
-        this.$el.find('#aj-imp-color-sel').append(themeColorView.$el);
-        return this.$el.find('#theme-color-pop').modal();
-      };
-
       MainView.prototype.changeThemeColorClick = function(iv, model) {
         return this.trigger("change:theme:color", model);
       };
@@ -73,51 +61,5 @@ define(['app', 'text!apps/builder/header/show/templates/mainview.html'], functio
       return MainView;
 
     })(Marionette.Layout);
-    SingleSetView = (function(_super) {
-      __extends(SingleSetView, _super);
-
-      function SingleSetView() {
-        return SingleSetView.__super__.constructor.apply(this, arguments);
-      }
-
-      SingleSetView.prototype.tagName = 'li';
-
-      SingleSetView.prototype.template = '<div class="thumbnail" id="flipthis"> <div class="colors"> <span style="background: #FF5F5F;" data-toggle="tooltip" title="Primary Color for Theme">&nbsp;</span> <span style="background: #2A3B66;">&nbsp;</span> <span style="background: #16A2F5;">&nbsp;</span> <span style="background: #CCCCCC;">&nbsp;</span> <span style="background: #333333;">&nbsp;</span> </div> <div class="caption"> <h3>Color Set 1</h3> <p> <a href="#" class="btn btn-xs btn-primary" role="button"><span class="glyphicon glyphicon-check"></span> Apply</a> <a href="#" class="btn btn-xs btn-default" id="flipCard" role="button"><span class="glyphicon glyphicon-edit"></span> Edit</a> </p> </div> </div>';
-
-      return SingleSetView;
-
-    })(Marionette.ItemView);
-    EmptyView = (function(_super) {
-      __extends(EmptyView, _super);
-
-      function EmptyView() {
-        return EmptyView.__super__.constructor.apply(this, arguments);
-      }
-
-      EmptyView.prototype.tagName = 'li';
-
-      EmptyView.prototype.template = 'Nothing found';
-
-      return EmptyView;
-
-    })(Marionette.ItemView);
-    return ThemeColorSetView = (function(_super) {
-      __extends(ThemeColorSetView, _super);
-
-      function ThemeColorSetView() {
-        return ThemeColorSetView.__super__.constructor.apply(this, arguments);
-      }
-
-      ThemeColorSetView.prototype.template = ' <div class="modal medium-modal fade" id="theme-color-pop" tabindex="-1" role="dialog"> <div class="modal-dialog"> <div class="modal-content"> <div class="modal-header"> <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> <h4 class="modal-title">Choose Colors for Your Theme</h4> </div> <div class="modal-body"> <ul class="color-set-list"> </ul> </div> <div class="modal-footer"> <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button> </div> </div> </div> </div>';
-
-      ThemeColorSetView.prototype.itemView = SingleSetView;
-
-      ThemeColorSetView.prototype.emptyView = EmptyView;
-
-      ThemeColorSetView.prototype.itemViewContainer = '.color-set-list';
-
-      return ThemeColorSetView;
-
-    })(Marionette.CompositeView);
   });
 });

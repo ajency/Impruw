@@ -23,12 +23,12 @@ function ajax_get_default_theme_color_set() {
 
     $set_color = array(
             array(
-                  'name' =>'set1',
+                  'name' =>'Set1',
                   'primary1' => 'orange',
                   'secondary1' => 'green'
               ),
            array(
-                  'name' =>'set2',
+                  'name' =>'Set2',
                   'primary1' => 'red',
                   'secondary1' => 'black'
               )
