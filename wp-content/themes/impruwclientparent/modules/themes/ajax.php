@@ -23,12 +23,12 @@ function ajax_get_default_theme_color_set() {
 
     $set_color = array(
             array(
-                  'name' =>'Set1',
+                  'name' =>'set1',
                   'primary1' => 'orange',
                   'secondary1' => 'green'
               ),
            array(
-                  'name' =>'Set2',
+                  'name' =>'set2',
                   'primary1' => 'red',
                   'secondary1' => 'black'
               )
@@ -47,6 +47,9 @@ function ajax_change_theme_color() {
     $colors= array();
     
     unset($_POST['action']);
+
+    update_option('current_color_set',$_POST['formdata']['name']);
+
     unset($_POST['formdata']['name']);
    
     foreach($_POST['formdata'] as $key=>$value){

@@ -98,7 +98,7 @@ define ['app'
             													<div class="aj-imp-img-form col-sm-8">
             														<div class="row">
             															<div class="col-sm-6">
-            																<input type="text" required name="title" value="{{title}}" class="form-control" placeholder="Title">
+            																<input type="text" name="title" value="{{title}}" class="form-control" placeholder="Title">
             															</div>
             															<div class="col-sm-6">
             																<input type="url" type="link" name="link" value="{{link}}" class="form-control" placeholder="Link">

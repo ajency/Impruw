@@ -36,21 +36,7 @@ define ['app', 'controllers/base-controller'
 					getLayout :->
 						new Show.Views.MainView
 					
-					changeThemeColor :(model)->
-						
-						formdata = model.toJSON()
-						
-						options =
-							url: AJAXURL,
-							method: 'POST',
-							data:
-								action: 'change-theme-color'
-								formdata: formdata
-						
-						$.ajax(options).done (response)->
-							window.location.reload(true)
-						.fail (resp)->
-							console.log 'error' 
+
 
 
 
