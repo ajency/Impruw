@@ -13,13 +13,27 @@ define(['app'], function(App) {
 
       SingleSetView.prototype.tagName = 'li';
 
-      SingleSetView.prototype.template = '<div class="thumbnail" id="flipthis"> <div class="colors"></div> <div class="caption"> <h3>{{name}}</h3> <p> <a href="#" class="btn btn-xs btn-primary apply-theme-color" role="button"><span class="glyphicon glyphicon-check"></span> Apply</a> <a href="#" class="btn btn-xs btn-default" id="flipCard" role="button"><span class="glyphicon glyphicon-edit"></span> Edit</a> </p> </div> </div>';
+      SingleSetView.prototype.template = '<div class="thumbnail" id="flipthis"> <div class="colors"></div> <div class="caption"> <h3>{{name}}</h3> <p> <a href="#" class="btn btn-xs btn-primary apply-theme-color" role="button"><span class="glyphicon glyphicon-check"></span> Apply</a> <a href="#" class="btn btn-xs btn-default edit-theme-color" id="flipCard" role="button"><span class="glyphicon glyphicon-edit"></span> Edit</a> </p> </div> </div>';
 
       SingleSetView.prototype.onShow = function() {
-        this.model.unset('name');
+        this.displayColorSet();
+        return this.highlightCurrentColorSet();
+      };
+
+      SingleSetView.prototype.highlightCurrentColorSet = function() {
+        var setName;
+        setName = this.model.get('name');
+        if (setName === THEMECOLORSET) {
+          return this.$el.find('.thumbnail').addClass('selected');
+        }
+      };
+
+      SingleSetView.prototype.displayColorSet = function() {
         return _.each(this.model.attributes, (function(_this) {
           return function(colorValue, index) {
-            return _this.$el.find('.colors').append("<span style='background: " + colorValue + ";'>&nbsp;</span>");
+            if (index !== 'name') {
+              return _this.$el.find('.colors').append("<span style='background: " + colorValue + ";'>&nbsp;</span>");
+            }
           };
         })(this));
       };
@@ -27,13 +41,24 @@ define(['app'], function(App) {
       SingleSetView.prototype.serializeData = function() {
         var data;
         data = SingleSetView.__super__.serializeData.call(this);
+        data.THEMECOLORSET = THEMECOLORSET;
         return data;
       };
 
       SingleSetView.prototype.events = {
         'click .apply-theme-color': function() {
+          this.$el.find('.apply-theme-color').text('Applying..');
           return this.trigger("change:theme:color", this.model);
+        },
+        'click .edit-theme-color': function() {
+          return this.getEditView();
         }
+      };
+
+      SingleSetView.prototype.getEditView = function() {
+        var front;
+        front = document.getElementById("flipthis");
+        return console.log(front);
       };
 
       return SingleSetView;

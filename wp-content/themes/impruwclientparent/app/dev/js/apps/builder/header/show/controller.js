@@ -44,24 +44,6 @@ define(['app', 'controllers/base-controller', 'apps/builder/header/show/views'],
         return new Show.Views.MainView;
       };
 
-      Controller.prototype.changeThemeColor = function(model) {
-        var formdata, options;
-        formdata = model.toJSON();
-        options = {
-          url: AJAXURL,
-          method: 'POST',
-          data: {
-            action: 'change-theme-color',
-            formdata: formdata
-          }
-        };
-        return $.ajax(options).done(function(response) {
-          return window.location.reload(true);
-        }).fail(function(resp) {
-          return console.log('error');
-        });
-      };
-
       return Controller;
 
     })(AppController);
