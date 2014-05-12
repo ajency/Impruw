@@ -21,13 +21,9 @@ define(['app', 'controllers/base-controller', 'apps/builder/header/show/views'],
           });
         });
         this.listenTo(this.layout, "show:theme:color:clicked", function() {
-          var themeColorCollection;
-          themeColorCollection = App.request("get:themes:color:collection");
-          return App.execute("when:fetched", [themeColorCollection], (function(_this) {
-            return function() {
-              return _this.layout.triggerMethod("show:theme:color:set", themeColorCollection);
-            };
-          })(this));
+          return App.execute("show:theme:color:set", {
+            region: App.dialogRegion
+          });
         });
         this.listenTo(this.layout, "get:theme:set:colors", function() {
           var themeColorCollection;
