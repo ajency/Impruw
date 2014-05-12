@@ -19,6 +19,7 @@ define ['app'], (App)->
                 'click a.choose-theme': (e)->
                     e.stopPropagation()
                     e.preventDefault()
+                    @$el.find('.choose-theme').text 'Applying...'
                     @trigger "choose:theme:clicked", @model
 
 

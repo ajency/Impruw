@@ -21,6 +21,7 @@ define(['app'], function(App) {
         'click a.choose-theme': function(e) {
           e.stopPropagation();
           e.preventDefault();
+          this.$el.find('.choose-theme').text('Applying...');
           return this.trigger("choose:theme:clicked", this.model);
         }
       };
