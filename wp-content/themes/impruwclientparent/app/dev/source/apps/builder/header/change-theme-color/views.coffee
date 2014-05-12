@@ -7,6 +7,7 @@ define ['app'],(App)->
 					tagName: 'li'
 
 					template : '<div class="thumbnail" id="flipthis">
+								  <div class="indicator"><span class="glyphicon glyphicon-ok"></span></div>
 								  <div class="colors"></div>
 								  <div class="caption">
 									<h3>{{name}}</h3>

@@ -13,7 +13,7 @@ define(['app'], function(App) {
 
       SingleSetView.prototype.tagName = 'li';
 
-      SingleSetView.prototype.template = '<div class="thumbnail" id="flipthis"> <div class="colors"></div> <div class="caption"> <h3>{{name}}</h3> <p> <a href="#" class="btn btn-xs btn-primary apply-theme-color" role="button"><span class="glyphicon glyphicon-check"></span> Apply</a> <a href="#" class="btn btn-xs btn-default" id="flipCard" role="button"><span class="glyphicon glyphicon-edit"></span> Edit</a> </p> </div> </div>';
+      SingleSetView.prototype.template = '<div class="thumbnail" id="flipthis"> <div class="indicator"><span class="glyphicon glyphicon-ok"></span></div> <div class="colors"></div> <div class="caption"> <h3>{{name}}</h3> <p> <a href="#" class="btn btn-xs btn-primary apply-theme-color" role="button"><span class="glyphicon glyphicon-check"></span> Apply</a> <a href="#" class="btn btn-xs btn-default" id="flipCard" role="button"><span class="glyphicon glyphicon-edit"></span> Edit</a> </p> </div> </div>';
 
       SingleSetView.prototype.onShow = function() {
         this.model.unset('name');
