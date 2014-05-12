@@ -17,22 +17,7 @@
         $logo_id    = get_option('logo_id', 0);
         $image_path = get_post_field('guid', $logo_id);
 
-        return array(
-            'site_id'        => $site_id,
-            'site_domain'    => get_site_domain($site_id),
-            'site_name'      => get_option('blogname'),
-            'admin_email'    => get_option('admin_email'),
-            'street'         => get_option('street', ''),
-            'postal_code'    => get_option('postal_code', ''),
-            'city'           => get_option('city', ''),
-            'logo_id'        => $logo_id,
-            'logo_url'       => $image_path,
-            'country'        => get_option('country', ''),
-            'other_emails'   => get_option('other_emails', array()),
-            'other_phone_no' => get_option('other_phone_no', array()),
-            'facebook'       => get_option('facebook', ''),
-            'twitter'        => get_option('twitter', '')
-        );
+        return array('site_id' => $site_id, 'site_domain' => get_site_domain($site_id), 'site_name' => get_option('blogname'), 'admin_email' => get_option('admin_email'), 'street' => get_option('street', ''), 'postal_code' => get_option('postal_code', ''), 'city' => get_option('city', ''), 'logo_id' => $logo_id, 'logo_url' => $image_path, 'country' => get_option('country', ''), 'other_emails' => get_option('other_emails', array()), 'other_phone_no' => get_option('other_phone_no', array()), 'facebook' => get_option('facebook', ''), 'twitter' => get_option('twitter', ''));
     }
 
     /**
@@ -51,8 +36,7 @@
         $domain = '';
 
         if (is_subdomain_install())
-            $domain = $domain . '.' . preg_replace('|^www\.|', '', $site->domain);
-        else
+            $domain = $domain . '.' . preg_replace('|^www\.|', '', $site->domain); else
             $domain = $site->domain;
 
         return $domain;
@@ -108,14 +92,7 @@
      */
     function clone_pages()
     {
-        $pages = array(
-            array('post_title' => 'Home'),
-            array('post_title' => 'About Us'),
-            array('post_title' => 'Contact Us'),
-            array('post_title' => 'Rooms'),
-            array('post_title' => 'Single Room'),
-            array('post_title' => 'Gallery')
-        );
+        $pages = array(array('post_title' => 'Home'), array('post_title' => 'About Us'), array('post_title' => 'Contact Us'), array('post_title' => 'Rooms'), array('post_title' => 'Single Room'), array('post_title' => 'Gallery'));
 
         add_pages_to_site($pages);
 
@@ -141,11 +118,7 @@
                 continue;
 
             //then add the actuall link/ menu item and you do this for each item you want to add
-            wp_update_nav_menu_item($menu_id, 0, array(
-                'menu-item-title'   => $page->post_title,
-                'menu-item-classes' => $page->post_name,
-                'menu-item-url'     => get_permalink($page->ID),
-                'menu-item-status'  => 'publish'));
+            wp_update_nav_menu_item($menu_id, 0, array('menu-item-title' => $page->post_title, 'menu-item-classes' => $page->post_name, 'menu-item-url' => get_permalink($page->ID), 'menu-item-status' => 'publish'));
 
         endforeach;
 
@@ -154,32 +127,6 @@
         $locations['header_menu'] = $menu_id;
         set_theme_mod('nav_menu_locations', $locations);
 
-
-        /*
-        //give your menu a name
-        $name_footer = 'Footet Menu';
-        //create the menu
-        $menu_id_footer = wp_create_nav_menu($name_footer);
-
-        foreach (get_all_menu_pages() as $page):
-
-            if (in_array($page->post_title, $skip_pages))
-                continue;
-
-            //then add the actuall link/ menu item and you do this for each item you want to add
-            wp_update_nav_menu_item($menu_id_footer, 0, array(
-                'menu-item-title'   => $page->post_title,
-                'menu-item-classes' => $page->post_name,
-                'menu-item-url'     => get_permalink($page->ID),
-                'menu-item-status'  => 'publish'));
-
-        endforeach;
-
-        //then you set the wanted theme  location
-        $locations_footer                = get_theme_mod('nav_menu_locations');
-        $locations_footer['footer_menu'] = $menu_id_footer;
-        set_theme_mod('nav_menu_locations', $locations_footer);
-        */
     }
 
     /**
@@ -203,13 +150,7 @@
         foreach ($pages as $page) {
 
             // page array
-            $page_arr = array(
-                'post_title'   => $page['post_title'],
-                'post_content' => '',
-                'post_status'  => 'publish',
-                'post_author'  => $user_id,
-                'post_type'    => 'page'
-            );
+            $page_arr = array('post_title' => $page['post_title'], 'post_content' => '', 'post_status' => 'publish', 'post_author' => $user_id, 'post_type' => 'page');
 
             // Insert the post into the database
             $post_id = wp_insert_post($page_arr);
@@ -242,9 +183,6 @@
      */
     function clone_site($theme_site_id, $backup = FALSE)
     {
-
-//        if ($backup === TRUE)
-//            backup_existing_site();
 
         clone_header_footer($theme_site_id);
 

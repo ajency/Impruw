@@ -1,13 +1,9 @@
 <?php
 
-    /**
-     * Contains all ajax handlers for revision
-     */
-    include 'functions.php';
 
-    /**
-     *
-     */
+    require 'functions.php';
+
+
     function fetch_revisions()
     {
 

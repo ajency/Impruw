@@ -26,7 +26,7 @@
      *
      * @return int
      */
-    function get_last_revision_id($page_id = 0)
+    function  get_last_revision_id($page_id = 0)
     {
 
         $revisions = wp_get_post_revisions($page_id);
@@ -84,6 +84,8 @@
      * Returns the serialized json data for the passed meta_id
      *
      * @param int meta_id
+     *
+     * @return array|mixed
      */
     function get_page_revision_by_meta_id($meta_id)
     {
@@ -98,7 +100,8 @@
     }
 
     /**
-     * Retuns the last added option id for the theme header json
+     * Returns last option id
+     *
      * @return int option_id
      */
     function get_last_header_json_option_id()
@@ -132,7 +135,7 @@
         global $wpdb;
 
         // cannot use get_option here as it returns only one record.
-        // we will get the record which will have the highedt option_id value
+        // we will get the record which will have the highest option_id value
         $query = $wpdb->prepare("SELECT option_id FROM {$wpdb->options}
                             WHERE option_name=%s 
                             ORDER BY option_id DESC LIMIT 1", "theme-$section");
@@ -227,7 +230,6 @@
      */
     function pluck_meta_ids($element, &$meta_ids)
     {
-
 
         if ($element['element'] === "Row") {
             foreach ($element['elements'] as $column) {

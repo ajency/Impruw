@@ -20,7 +20,8 @@
         $data ['piwik_token']         = PIWIK_AUTH_TOKEN;
 
         if (is_array($data))
-            wp_send_json(array('code' => 'OK', 'data' => $data)); else
+            wp_send_json(array('code' => 'OK', 'data' => $data));
+        else
             wp_send_json(array('code' => 'ERROR', 'message' => 'Failed to fetch data'));
     }
 

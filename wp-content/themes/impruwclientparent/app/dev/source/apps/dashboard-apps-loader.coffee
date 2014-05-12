@@ -8,4 +8,5 @@ define ['apps/leftnav/app'
 		'apps/site-profile/app'
 		'apps/media/app'
 		'apps/room-summary/app'
-		'apps/my-profile/app'],->
+		'apps/my-profile/app'
+    'apps/language/languageapp'],->

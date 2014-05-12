@@ -55,6 +55,11 @@
                 )
             ),
             array(
+                'url'   =>  '#language',
+                'title' => 'Language',
+                'icon'  => 'switch2'
+            ),
+            array(
                 'url'   => wp_logout_url(site_url()),
                 'title' => 'Logout',
                 'icon'  => 'switch2'
