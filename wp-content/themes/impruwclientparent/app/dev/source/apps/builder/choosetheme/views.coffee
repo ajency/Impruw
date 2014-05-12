@@ -7,13 +7,20 @@ define ['app'], (App)->
             template: '<img src="{{image_url}}">
                         <h6 class="desc">{{post_title}}</h6>
                         <div class="aj-imp-choose-btn">
-                            <a href="#" class="btn choose-theme"><span class="glyphicon glyphicon-ok"></span>&nbsp;Choose</a>
+                            {{^currentTheme}}<a href="#" class="btn choose-theme"><span class="glyphicon glyphicon-ok"></span>&nbsp;Choose</a>{{/currentTheme}}
                             <a href="{{preview_link}}" target="_BLANK" class="btn"><span class="glyphicon glyphicon-eye-open"></span>&nbsp;Preview</a>
-                        </div>'
+                        </div>
+                        {{#currentTheme}}<p>Currently selected{{/currentTheme}}'
 
             className: 'block'
 
             tagName: 'li'
+
+            serializeData:->
+                data = super()
+                console.log data
+                data.currentTheme = CURRENTTHEME is _.str.slugify data.post_title
+                data
 
             events:
                 'click a.choose-theme': (e)->
