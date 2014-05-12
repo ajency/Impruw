@@ -25,7 +25,7 @@ define(['app', 'apps/builder/site-builder/elements/social/views', 'apps/builder/
         return Controller.__super__.bindEvents.call(this);
       };
 
-      Controller.prototype._getAddressView = function(collection, style) {
+      Controller.prototype._getSocialView = function(collection, style) {
         return new Social.Views.SocialView({
           collection: collection,
           style: style
@@ -37,7 +37,7 @@ define(['app', 'apps/builder/site-builder/elements/social/views', 'apps/builder/
         this.removeSpinner();
         style = this.layout.model.get('style');
         collection = App.request("get:site:social");
-        view = this._getAddressView(collection, style);
+        view = this._getSocialView(collection, style);
         return this.layout.elementRegion.show(view);
       };
 

@@ -43,7 +43,6 @@ define(['app', 'apps/builder/site-builder/elements/menu/views', 'apps/builder/si
 
       Controller.prototype._getMenuCollection = function() {
         if (_.isUndefined(this.menuCollection)) {
-          console.log(this.layout.model.get('menu_id'));
           if (this.layout.model.get('menu_id') > 0) {
             this.menuCollection = App.request("get:menu:items:by:menuid", this.layout.model.get('menu_id'));
           } else {
