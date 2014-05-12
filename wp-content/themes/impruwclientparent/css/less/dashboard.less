@@ -111,7 +111,7 @@ a {
 						padding: 0 0 0.5em 1em;
 						background: #fff;
 						box-shadow: 3px 3px 2px 0px rgba(0,0,0,0.4);
-						z-index: 1;
+						z-index: 100;
 						li {
 							a {
 								font-size: 1.2em;
@@ -285,6 +285,11 @@ a {
 							font-weight: 400;
 							color: lighten(@3-grey, 30%);
 							text-transform: uppercase;
+							small {
+								font-size: 0.8em;
+								text-transform: capitalize;
+								font-weight: 300;
+							}
 						}
 						p {
 							font-size: 1em;
@@ -3413,5 +3418,61 @@ form {
 	.minicolors-swatch {
 		height: 30px !important;
 		width: 30px !important;
+	}
+}
+
+/**** Language Page Styles ****/
+.language {
+	.aj-imp-widget-head {
+		padding: 0 !important;
+		.nav-pills {
+			li {
+				a {
+					background: transparent;
+					border-radius: 0;
+					border: none;
+					border-bottom: 2px solid transparent;
+					color: @blue-grey;
+				}
+				&:hover, :focus {
+					a {
+						border-color: @blue-grey;
+						text-shadow: none;
+					}
+				}
+				&.active {
+					a {
+						color: @orange;
+						border-color: @orange;
+					}
+				}
+			}
+		}
+	}
+	.aj-imp-widget-content {
+		.tab-content {
+			border-radius: 0;
+			border: 0;
+			padding: 1em 0 0.5em;
+			.legend-group {
+				margin-bottom: 0.5em;
+				.form-group {
+					margin-bottom: 0;
+					.aj-imp-widget-title {
+						border-bottom: 1px dotted @dash-grey;
+					}
+				}
+			}
+			.original {
+				margin-bottom: 0;
+				border-bottom: 1px solid @dash-grey;
+				padding: 8px 12px;
+			}
+			.form-actions {
+				text-align: right;
+				border-top: 1px dotted @dash-grey;
+				padding: 0.5em 0;
+			}
+		}
 	}
 }

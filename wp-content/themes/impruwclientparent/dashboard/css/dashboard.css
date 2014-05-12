@@ -108,7 +108,7 @@ a.red-link.pull-right {
   padding: 0 0 0.5em 1em;
   background: #fff;
   box-shadow: 3px 3px 2px 0px rgba(0, 0, 0, 0.4);
-  z-index: 1;
+  z-index: 100;
 }
 .aj-imp-container .aj-imp-left .aj-imp-dash-nav #aj-imp-dash-menu li .sub-menu li a {
   font-size: 1.2em;
@@ -293,6 +293,11 @@ a.red-link.pull-right {
   font-weight: 400;
   color: #808080;
   text-transform: uppercase;
+}
+.aj-imp-container .aj-imp-right .aj-imp-dash-content .aj-imp-dash-widget .aj-imp-widget-container .aj-imp-widget-content .aj-imp-widget-title small {
+  font-size: 0.8em;
+  text-transform: capitalize;
+  font-weight: 300;
 }
 .aj-imp-container .aj-imp-right .aj-imp-dash-content .aj-imp-dash-widget .aj-imp-widget-container .aj-imp-widget-content p {
   font-size: 1em;
@@ -3393,4 +3398,48 @@ form .aj-imp-submit:hover {
 .minicolors-theme-default .minicolors-swatch {
   height: 30px !important;
   width: 30px !important;
+}
+/**** Language Page Styles ****/
+.language .aj-imp-widget-head {
+  padding: 0 !important;
+}
+.language .aj-imp-widget-head .nav-pills li a {
+  background: transparent;
+  border-radius: 0;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: #849fb0;
+}
+.language .aj-imp-widget-head .nav-pills li:hover a,
+.language .aj-imp-widget-head .nav-pills li :focus a {
+  border-color: #849fb0;
+  text-shadow: none;
+}
+.language .aj-imp-widget-head .nav-pills li.active a {
+  color: #ff7e00;
+  border-color: #ff7e00;
+}
+.language .aj-imp-widget-content .tab-content {
+  border-radius: 0;
+  border: 0;
+  padding: 1em 0 0.5em;
+}
+.language .aj-imp-widget-content .tab-content .legend-group {
+  margin-bottom: 0.5em;
+}
+.language .aj-imp-widget-content .tab-content .legend-group .form-group {
+  margin-bottom: 0;
+}
+.language .aj-imp-widget-content .tab-content .legend-group .form-group .aj-imp-widget-title {
+  border-bottom: 1px dotted #aaaaaa;
+}
+.language .aj-imp-widget-content .tab-content .original {
+  margin-bottom: 0;
+  border-bottom: 1px solid #aaaaaa;
+  padding: 8px 12px;
+}
+.language .aj-imp-widget-content .tab-content .form-actions {
+  text-align: right;
+  border-top: 1px dotted #aaaaaa;
+  padding: 0.5em 0;
 }
