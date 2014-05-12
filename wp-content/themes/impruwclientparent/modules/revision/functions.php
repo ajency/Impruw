@@ -1,8 +1,8 @@
 <?php
 
     /**
-     * Get the lastest revisions for the selected page
-     * @return multitype:
+     * Get the latest revisions for the selected page
+     * @return multi type:
      */
     function get_revisions($page_id = 0)
     {
@@ -23,6 +23,8 @@
      * get the meta id of the latest revision for a page
      *
      * @param int $page_id
+     *
+     * @return int
      */
     function get_last_revision_id($page_id = 0)
     {
@@ -43,6 +45,8 @@
      * Returns the serialized json data for the passed option_id
      *
      * @param int $option_id
+     *
+     * @return array|mixed
      */
     function get_revision_by_option_id($option_id)
     {
@@ -187,11 +191,7 @@
         return $elements;
     }
 
-    /**
-     *
-     * @param type $current_json
-     * @param type $revision_json
-     */
+
     function compare_page_json($current_json, $revision_json)
     {
 
@@ -205,6 +205,8 @@
     /**
      *
      * @param type $json
+     *
+     * @return array
      */
     function pluck_meta_ids_from_json($json)
     {

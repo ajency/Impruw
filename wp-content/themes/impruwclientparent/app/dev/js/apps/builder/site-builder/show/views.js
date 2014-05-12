@@ -95,17 +95,20 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
       };
 
       MainView.prototype.onAddPageRevisionItems = function(collection) {
-        var revisionView;
         this.clearRevisionItems();
-        revisionView = new RevisionView({
+        if (!_.isUndefined(this.revisionView)) {
+          this.revisionView.close();
+        }
+        this.revisionView = new RevisionView({
           collection: collection
         });
-        revisionView.render();
-        this.listenTo(revisionView, 'itemview:revision:link:clicked', this.revisionLinkClicked);
-        return this.$el.find('#aj-imp-revision-sel').append(revisionView.$el);
+        this.revisionView.render();
+        this.listenTo(this.revisionView, 'revision:link:clicked', this.revisionLinkClicked);
+        return this.$el.find('#aj-imp-revision-sel').append(this.revisionView.$el);
       };
 
       MainView.prototype.revisionLinkClicked = function(iv, id) {
+        console.log(id);
         return this.trigger("revision:link:clicked", id);
       };
 
@@ -129,7 +132,7 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
 
       SingleRevision.prototype.events = {
         'click': function(e) {
-          return this.trigger("revision:link:clicked", this.model.get('ID'));
+          return App.vent.trigger("revision:link:clicked", this.model.get('ID'));
         }
       };
 

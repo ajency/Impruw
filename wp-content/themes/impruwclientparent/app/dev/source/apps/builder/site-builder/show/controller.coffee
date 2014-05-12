@@ -120,6 +120,10 @@ define ['app', 'controllers/base-controller'
 
                 App.commands.setHandler "page:published", @triggerPagePublishOnView
 
+                @listenTo App.vent, "revision:link:clicked", (revisionId)->
+                    currentPageId = App.request "get:current:editable:page"
+                    App.execute "editable:page:changed", currentPageId, revisionId
+
                 @listenTo layout, 'show', (layout)=>
                     # added delay so that the html is fully rendered
                     _.delay =>

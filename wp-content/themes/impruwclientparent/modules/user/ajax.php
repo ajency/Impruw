@@ -3,7 +3,7 @@
     /**
      *
      */
-    function read_user_ajax()
+    function ajax_read_user()
     {
 
         if (is_user_logged_in()) {
@@ -23,14 +23,14 @@
         }
     }
 
-    add_action('wp_ajax_read-user', 'read_user_ajax');
+    add_action('wp_ajax_read-user', 'ajax_read_user');
 
     /**
      * Function to update the user general info
      *
      * @return User ID , new feature selection
      */
-    function update_user_ajax()
+    function ajax_update_user()
     {
         $user_id = $_POST['ID'];
 
@@ -45,7 +45,7 @@
         update_user_general($user_id, $display_name, $feature_alert);
     }
 
-    add_action('wp_ajax_update-user', 'update_user_ajax');
+    add_action('wp_ajax_update-user', 'ajax_update_user');
 
     /**
      *
@@ -102,7 +102,7 @@
      *
      * @returns USer ID
      */
-    function update_password()
+    function ajax_update_password()
     {
         $formdata = $_POST;
 
@@ -120,7 +120,7 @@
         wp_send_json(array('code' => 'OK', 'data' => get_current_user_id()));
     }
 
-    add_action('wp_ajax_update-password', 'update_password');
+    add_action('wp_ajax_update-password', 'ajax_update_password');
 
     /**
      *

@@ -31,6 +31,6 @@ define ['app', 'apps/builder/site-builder/elements/social/views'
                 # get the social element collection
                 style = @layout.model.get 'style'
                 collection = App.request "get:site:social"
-                console.log collection
+                #console.log collection
                 view = @_getSocialView collection, style
                 @layout.elementRegion.show view

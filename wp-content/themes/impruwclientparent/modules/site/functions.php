@@ -497,10 +497,10 @@
 
         extract($site_details);
 
-        $address = $street . ',' . $city . ',' . $postal_code . ',' . $country;
+        $address = $street . "," . $city . "," . $postal_code . "," . $country;
 
-        if (trim($address) === '')
-            return 'default address';
+        if (trim($address) === "")
+            return "";
 
         return $address;
     }

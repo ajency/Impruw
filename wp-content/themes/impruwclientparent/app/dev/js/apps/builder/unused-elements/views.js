@@ -18,10 +18,10 @@ define(['app'], function(App) {
       SingleUnusedElement.prototype.template = '<a href="#"> <div class="trash-elem-header"> <span class="bicon icon-uniF111"></span> {{element}} </div> <div class="trash-elem-content"> {{content}} </div> </a>';
 
       SingleUnusedElement.prototype.serializeData = function() {
-        var data;
-        data = SingleUnusedElement.__super__.serializeData.call(this);
-        data.element = _.str.capitalize(data.element);
-        return data;
+        var serializedData;
+        serializedData = SingleUnusedElement.__super__.serializeData.call(this);
+        serializedData.element = _.str.capitalize(serializedData.element);
+        return serializedData;
       };
 
       SingleUnusedElement.prototype.onRender = function() {

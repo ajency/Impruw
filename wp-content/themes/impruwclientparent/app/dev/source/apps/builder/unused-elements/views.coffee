@@ -1,5 +1,6 @@
 define ['app'], (App)->
     App.module 'UnusedElement.Views', (Views, App, Backbone, Marionette, $, _)->
+        
         class SingleUnusedElement extends Marionette.ItemView
 
             tagName: 'li'
@@ -16,9 +17,9 @@ define ['app'], (App)->
             						</a>'
 
             serializeData: ->
-                data = super()
-                data.element = _.str.capitalize data.element
-                data
+                serializedData = super()
+                serializedData.element = _.str.capitalize serializedData.element
+                serializedData
 
             onRender: ->
                 @$el.attr 'data-element', @model.get 'element'
@@ -52,6 +53,8 @@ define ['app'], (App)->
 
             itemViewContainer: 'ul.trash-list'
 
+
+            # TODO: Move this code to plugins/ jquery config
             onShow: ->
                 #Float Menu
                 floatSpeed = 1500
@@ -93,9 +96,8 @@ define ['app'], (App)->
 
             makeElementsDraggable: ->
                 @$el.find('*[data-element]').draggable
-                    connectToSortable: '.droppable-column'
-                #helper 				: 'clone'
-                    delay: 5
-                    addClasses: false
-                    distance: 5
-                    revert: 'invalid'
+                                            connectToSortable: '.droppable-column'
+                                            delay: 5
+                                            addClasses: false
+                                            distance: 5
+                                            revert: 'invalid'
