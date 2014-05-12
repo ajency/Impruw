@@ -25,7 +25,7 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/show/vi
           model: elements
         });
         this.listenTo(this.view, "add:new:element", function(container, type, metaId) {
-          var model, modelData;
+          var currentPageId, model, modelData;
           if (metaId == null) {
             metaId = 0;
           }
@@ -33,6 +33,8 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/show/vi
           if (metaId !== 0) {
             model = App.request("get:unused:element:by:metaid", metaId);
             modelData = model.toJSON();
+            currentPageId = App.request("get:current:editable:page");
+            App.execute("unused:element:added", metaId, currentPageId);
           }
           return App.request("add:new:element", container, type, modelData);
         });

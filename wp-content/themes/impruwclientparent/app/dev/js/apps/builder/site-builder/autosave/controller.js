@@ -4,7 +4,7 @@ var __hasProp = {}.hasOwnProperty,
 define(['app'], function(App) {
   return App.module('SiteBuilderApp.AutoSave', function(AutoSave, App, Backbone, Marionette, $, _) {
     window.SAVING = false;
-    return AutoSave.Controller = (function(_super) {
+    AutoSave.Controller = (function(_super) {
       __extends(Controller, _super);
 
       function Controller() {
@@ -95,5 +95,19 @@ define(['app'], function(App) {
       return Controller;
 
     })(Marionette.Controller);
+    return App.commands.setHandler("unused:element:added", function(metaId, _page_id) {
+      return $.ajax({
+        type: 'POST',
+        url: AJAXURL,
+        data: {
+          action: 'remove-unused-element',
+          page_id: _page_id,
+          element_meta_id: metaId
+        },
+        success: function() {
+          return console.log("element removed from unused list");
+        }
+      });
+    });
   });
 });
