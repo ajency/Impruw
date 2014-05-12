@@ -13,7 +13,6 @@ define(['app', 'apps/builder/site-builder/elements/menu/views', 'apps/builder/si
       }
 
       Controller.prototype.initialize = function(options) {
-        console.log(options.modelData);
         _.defaults(options.modelData, {
           element: 'Menu',
           justified: false,

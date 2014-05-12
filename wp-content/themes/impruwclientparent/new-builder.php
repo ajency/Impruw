@@ -66,6 +66,7 @@
         <!-- Unused Elements Box -->
 
         <!-- Color Picker Modal -->
+        <!--
         <div class="modal medium-modal fade" id="theme-color-pop" tabindex="-1" role="dialog">
           <div class="modal-dialog">
             <div class="modal-content">
@@ -154,7 +155,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
         <!-- Color Picker Modal -->
         <script src="<?php echo get_parent_template_directory_uri(); ?>/app/dev/js/plugins/flippant.min.js"></script> 
 

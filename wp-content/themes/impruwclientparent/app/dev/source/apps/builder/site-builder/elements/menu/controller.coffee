@@ -8,7 +8,7 @@ define ['app', 'apps/builder/site-builder/elements/menu/views',
 
             # intializer
             initialize: (options)->
-                console.log options.modelData
+                #console.log options.modelData
                 _.defaults options.modelData,
                     element: 'Menu'
                     justified: false

@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "spec.builder.js",
+  "sourceRoot": "",
+  "sources": [
+    "spec.builder.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;AAAA,EAAA,QAAA,CAAS,gBAAT,EAA2B,SAAA,GAAA;AAEvB,IAAA,EAAA,CAAG,gBAAH,EAAqB,SAAA,GAAA;aACjB,MAAA,CAAO,WAAP,CAAmB,CAAC,IAApB,CAAyB,WAAzB,EADiB;IAAA,CAArB,CAAA,CAAA;WAGA,EAAA,CAAG,iCAAH,EAAsC,SAAA,GAAA;aAClC,MAAA,CAAO,OAAP,CAAe,CAAC,IAAhB,CAAqB,OAArB,EADkC;IAAA,CAAtC,EALuB;EAAA,CAA3B,CAAA,CAAA;AAAA"
+}
