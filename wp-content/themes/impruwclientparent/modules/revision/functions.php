@@ -174,20 +174,20 @@
      *
      * @return type
      */
-    function get_recovered_elements($revision_id_to_compare)
+    function get_recovered_elements($page_id)
     {
 
-        $elements = array();
+//        $elements = array();
+//
+//        $revision_post = get_post($revision_id_to_compare);
+//
+//        $revision_json = get_post_meta($revision_id_to_compare, 'page-json', TRUE);
+//        $revision_json = is_array($revision_json) ? $revision_json : array();
+//
+//        $current_json = get_post_meta($revision_post->post_parent, 'page-json', TRUE);
+//        $current_json = is_array($current_json) ? $current_json : array();
 
-        $revision_post = get_post($revision_id_to_compare);
-
-        $revision_json = get_post_meta($revision_id_to_compare, 'page-json', TRUE);
-        $revision_json = is_array($revision_json) ? $revision_json : array();
-
-        $current_json = get_post_meta($revision_post->post_parent, 'page-json', TRUE);
-        $current_json = is_array($current_json) ? $current_json : array();
-
-        $element_ids = compare_page_json($current_json, $revision_json);
+        $element_ids = get_post_meta($page_id,"unused-elements", TRUE);
 
         $elements = get_elements_by_ids($element_ids);
 
