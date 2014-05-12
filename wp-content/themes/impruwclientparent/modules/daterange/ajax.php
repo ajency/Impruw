@@ -4,7 +4,7 @@
 
 # function to fetch packages
 
-    function fetch_daterange()
+    function ajax_fetch_daterange()
     {
 
         $data = array(array('id'         => 1,
@@ -53,13 +53,13 @@
         wp_send_json(array('code' => 'OK', 'data' => $data));
     }
 
-    add_action('wp_ajax_fetch-daterange', 'fetch_daterange');
+    add_action('wp_ajax_fetch-daterange', 'ajax_fetch_daterange');
 
     /**
      *
      * Function to create a new date range
      */
-    function create_daterange_ajax()
+    function ajax_create_daterange()
     {
 
         $formdata = array(
@@ -76,12 +76,12 @@
         wp_send_json(array('code' => 'OK', 'data' => array('id' => $daterange_id)));
     }
 
-    add_action('wp_ajax_create-daterange', 'create_daterange_ajax');
+    add_action('wp_ajax_create-daterange', 'ajax_create_daterange');
 
     /**
      * function to update daterange
      */
-    function update_daterange_ajax()
+    function ajax_update_daterange()
     {
 
         $formdata = array(
@@ -98,13 +98,13 @@
         wp_send_json(array('code' => 'OK', 'data' => array('id' => $daterange_id)));
     }
 
-    add_action('wp_ajax_update-daterange', 'update_daterange_ajax');
+    add_action('wp_ajax_update-daterange', 'ajax_update_daterange');
 
     /**
      * Function to delete a daterange
      *
      */
-    function delete_daterange_ajax()
+    function ajax_delete_daterange()
     {
 
         $formdata = array(
@@ -116,4 +116,4 @@
         wp_send_json(array('code' => 'OK', 'data' => array('id' => $daterange_id)));
     }
 
-    add_action('wp_ajax_delete-daterange', 'delete_daterange_ajax');
+    add_action('wp_ajax_delete-daterange', 'ajax_delete_daterange');

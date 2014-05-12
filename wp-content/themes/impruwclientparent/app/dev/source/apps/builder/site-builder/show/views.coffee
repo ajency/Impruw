@@ -77,13 +77,17 @@ define ['app'
             # append page revisions
             onAddPageRevisionItems: (collection)->
                 @clearRevisionItems()
-                revisionView = new RevisionView
-                    collection: collection
-                revisionView.render()
-                @listenTo revisionView, 'itemview:revision:link:clicked', @revisionLinkClicked
-                @$el.find('#aj-imp-revision-sel').append revisionView.$el
+
+                @revisionView.close() if not _.isUndefined @revisionView
+
+                @revisionView = new RevisionView
+                                        collection: collection
+                @revisionView.render()
+                @listenTo @revisionView, 'revision:link:clicked', @revisionLinkClicked
+                @$el.find('#aj-imp-revision-sel').append @revisionView.$el
 
             revisionLinkClicked: (iv, id)=>
+                console.log id
                 @trigger "revision:link:clicked", id
 
             # remove any previous revision items
@@ -106,7 +110,7 @@ define ['app'
 
             events:
                 'click': (e)->
-                    @trigger "revision:link:clicked", @model.get 'ID'
+                    App.vent.trigger "revision:link:clicked", @model.get 'ID'
 
             serializeData: ()->
                 data = super()
