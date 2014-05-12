@@ -44,7 +44,7 @@
                 'icon'    => 'stats',
                 'submenu' => array(
                     array('url'   => '#statistics/realtime',
-                          'title' => 'Real time visitors',
+                          'title' => 'Real-time Visitors',
                           'icon'  => 'stats1'),
                     array('url'   => '#statistics/visits',
                           'title' => 'Visit Summary',
@@ -57,7 +57,18 @@
             array(
                 'url'   =>  '#language',
                 'title' => 'Language',
-                'icon'  => 'chat2'
+                'icon'  => 'chat2',
+                'submenu' => array(
+                    array('url'   => '#',
+                          'title' => 'Norwegian',
+                          'icon'  => 'stats1'),
+                    array('url'   => '#',
+                          'title' => 'Swedish',
+                          'icon'  => 'stats2'),
+                    array('url'   => '#s',
+                          'title' => 'German',
+                          'icon'  => 'stats3')
+                )
             ),
             array(
                 'url'   => wp_logout_url(site_url()),

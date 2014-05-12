@@ -3400,6 +3400,13 @@ form .aj-imp-submit:hover {
   width: 30px !important;
 }
 /**** Language Page Styles ****/
+.language .aj-imp-sub-head-thin .bootstrap-select .dropdown-toggle {
+  padding: 0;
+  border-bottom: 0;
+  font-size: 0.8em;
+  text-transform: uppercase;
+  font-weight: 300;
+}
 .language .aj-imp-dash-widget .nav-pills li a {
   background: transparent;
   border-radius: 0;
