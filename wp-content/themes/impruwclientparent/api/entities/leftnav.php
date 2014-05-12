@@ -55,8 +55,8 @@
                 )
             ),
             array(
-                'url'   =>  '#language',
-                'title' => 'Language',
+                'url'   =>  wp_logout_url(site_url()),
+                'title' => 'Logout',
                 'icon'  => 'switch2'
             ),
             array(
@@ -632,6 +632,50 @@
             $json['page'] = get_page_auto_save_json($page_id);
         } else {
             $json ['page'] = get_post_meta($revision_id, "page-json", TRUE);
+        }
+
+        $d = array();
+
+        foreach ($json as $section => $elements) {
+            $d [$section] = array();
+            if (!is_array($elements))
+                continue;
+            foreach ($elements as $element) {
+                if ($element ['element'] === "Row") {
+                    $element ['columncount'] = count($element ['elements']);
+                    $d [$section] []         = get_row_elements($element);
+                } else
+                    $d [$section] [] = get_meta_values($element);
+            }
+        }
+        $data = array(
+            'id'     => $page_id,
+            'header' => $d ['header'],
+            'page'   => $d ['page'],
+            'footer' => $d ['footer']
+        );
+
+        return $data;
+    }
+
+    function get_page_json_for_site($page_id, $preview = false)
+    {
+        if ($page_id == 0)
+            return FALSE;
+
+        $json            = array();
+        $json ['header'] = get_option('theme-header', array());
+        $json ['footer'] = get_option('theme-footer', array());
+
+        if (is_singular('impruw_room')) {
+            $single_room_page = get_page_by_title('Single Room');
+            $page_id = $single_room_page->ID;
+        }
+
+        if ($preview === true) {
+            $json['page'] = get_page_auto_save_json($page_id);
+        } else {
+            $json ['page'] = get_post_meta($page_id, "page-json", TRUE);
         }
 
         $d = array();

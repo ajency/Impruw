@@ -4,6 +4,7 @@ define ['app'
         'moment'],
 (App, mainviewTpl, builderTpl, moment)->
     App.module 'SiteBuilderApp.Show.View', (View, App, Backbone, Marionette, $, _)->
+
         class View.MainView extends Marionette.Layout
 
             template: mainviewTpl
@@ -23,6 +24,7 @@ define ['app'
 
                 'change select#builder-page-sel': (evt)->
                     @trigger 'editable:page:changed', $(evt.target).val()
+                    @changePreviewLinkUrl()
 
 
             initialize: ->
@@ -46,6 +48,11 @@ define ['app'
                     @$el.find('.publish-page ').text 'Publish'
                 , 500
 
+            changePreviewLinkUrl:->
+                currentPageId = App.request "get:current:editable:page"
+                previewUrl = "#{SITEURL}?preview=#{currentPageId}"
+                @$el.find('a.preview-current-page').attr 'href', previewUrl
+
             # trigger the editable page changed event on show
             onShow: ->
                 # set the selectpicker
@@ -57,6 +64,7 @@ define ['app'
                 _.delay =>
                     value = @$el.find('select#builder-page-sel').selectpicker 'val'
                     @trigger 'editable:page:changed', value
+                    @changePreviewLinkUrl()
                 , 250
 
                 # handle revision dropdown

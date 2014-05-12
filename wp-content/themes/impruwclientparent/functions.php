@@ -231,7 +231,14 @@ function generate_markup($section) {
 
     $id = !is_null($post) ? $post->ID : 0;
 
-    $markup_JSON = get_page_json1($id);
+    $preview = false;
+
+    if(isset($_GET['preview'])){
+        $preview = true;
+        $id = $_GET['preview'];
+    }
+
+    $markup_JSON = get_page_json_for_site($id, $preview);
 
     if (!isset($markup_JSON [$section]))
         return;

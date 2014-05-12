@@ -37,7 +37,8 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
           return App.execute("publish:page");
         },
         'change select#builder-page-sel': function(evt) {
-          return this.trigger('editable:page:changed', $(evt.target).val());
+          this.trigger('editable:page:changed', $(evt.target).val());
+          return this.changePreviewLinkUrl();
         }
       };
 
@@ -68,6 +69,13 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
         })(this), 500);
       };
 
+      MainView.prototype.changePreviewLinkUrl = function() {
+        var currentPageId, previewUrl;
+        currentPageId = App.request("get:current:editable:page");
+        previewUrl = "" + SITEURL + "?preview=" + currentPageId;
+        return this.$el.find('a.preview-current-page').attr('href', previewUrl);
+      };
+
       MainView.prototype.onShow = function() {
         this.$el.find('select#builder-page-sel').selectpicker({
           style: 'btn-xs btn-default',
@@ -77,7 +85,8 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
           return function() {
             var value;
             value = _this.$el.find('select#builder-page-sel').selectpicker('val');
-            return _this.trigger('editable:page:changed', value);
+            _this.trigger('editable:page:changed', value);
+            return _this.changePreviewLinkUrl();
           };
         })(this), 250);
         return this.$el.find('#aj-imp-revision-sel').on('show.bs.dropdown', this.addPageRevisions);
