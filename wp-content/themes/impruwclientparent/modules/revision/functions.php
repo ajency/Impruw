@@ -191,12 +191,7 @@
         return $elements;
     }
 
-    /**
-     * @param $current_json
-     * @param $revision_json
-     *
-     * @return array
-     */
+
     function compare_page_json($current_json, $revision_json)
     {
 
