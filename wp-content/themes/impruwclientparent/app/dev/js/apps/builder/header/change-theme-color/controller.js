@@ -81,7 +81,9 @@ define(['app', 'controllers/base-controller', 'apps/builder/header/change-theme-
         return ChangeThemeColorLayout.__super__.constructor.apply(this, arguments);
       }
 
-      ChangeThemeColorLayout.prototype.template = '<div id="theme-color-set" class="col-sm-6"></div> <div id ="theme-color-edit" class="col-sm-6"></div>';
+      ChangeThemeColorLayout.prototype.template = '<div id="theme-color-set"></div> <div id ="theme-color-edit"></div>';
+
+      ChangeThemeColorLayout.prototype.className = 'color-picker-container';
 
       ChangeThemeColorLayout.prototype.dialogOptions = {
         modal_title: 'Choose Colors for Your Theme',

@@ -61,8 +61,10 @@ define ['app', 'controllers/base-controller'
 
         class ChangeThemeColorLayout extends Marionette.Layout
 
-            template: '<div id="theme-color-set" class="col-sm-6"></div>
-            			<div id ="theme-color-edit" class="col-sm-6"></div>'
+            template: '<div id="theme-color-set"></div>
+            		   <div id ="theme-color-edit"></div>'
+
+            className: 'color-picker-container'
 
             dialogOptions:
                 modal_title: 'Choose Colors for Your Theme'

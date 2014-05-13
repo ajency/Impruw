@@ -22,11 +22,15 @@ define ['app', 'controllers/base-controller'], (App, AppController)->
 
 
             getView:(model)->
+                $("#theme-color-set").slideUp()
+
                 new EditThemeColorView
                         model : model
 
             closeEditThemeClick:->
                 @region.close()
+
+                $("#theme-color-set").slideDown()
 
             createCustomSetColor:(formdata)->
                 options =
@@ -77,7 +81,6 @@ define ['app', 'controllers/base-controller'], (App, AppController)->
                     if attributeName != 'name'
                         colorSetHtml += "<div class='color row'>
                                             <div class='col-sm-2'>
-                                                <span class='color-picker-box' style='background: #{colorValue};'>Click to Edit</span>
                                                 <input type='hidden' name='#{attributeName}' class='theme_colour' readonly value='#{colorValue}'>
                                             </div>
                                             <div class='col-sm-10'>
@@ -89,8 +92,4 @@ define ['app', 'controllers/base-controller'], (App, AppController)->
 
         App.commands.setHandler "edit:theme:color:set", (opts)->
             new EditThemeColorController opts
-					
-
-
-
-								
+		

@@ -27,6 +27,29 @@
     define('CURRENTTHEMEPATH', ABSPATH . 'wp-content/themes/classic-green/');
 
     /**
+     * Function to return the theme set colors
+     *
+     * @return colors array
+     */
+    function theme_color_sets(){
+
+        $set_color = array(
+            array(
+                'name' => 'Dark Colors',
+                'primary1' => '#8A0651',
+                'secondary1' => '#424242'
+            ),
+            array(
+                'name' => 'Light Colors',
+                'primary1' => '#99D2D0',
+                'secondary1' => '#EB593C'
+            )
+        );
+
+        return $set_color;
+    }
+
+    /**
      * Logo size for the theme
      **/
     function get_logo_size()

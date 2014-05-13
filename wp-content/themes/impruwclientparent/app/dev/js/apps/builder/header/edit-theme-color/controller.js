@@ -23,13 +23,15 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
       };
 
       EditThemeColorController.prototype.getView = function(model) {
+        $("#theme-color-set").slideUp();
         return new EditThemeColorView({
           model: model
         });
       };
 
       EditThemeColorController.prototype.closeEditThemeClick = function() {
-        return this.region.close();
+        this.region.close();
+        return $("#theme-color-set").slideDown();
       };
 
       EditThemeColorController.prototype.createCustomSetColor = function(formdata) {
@@ -90,7 +92,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         _.each(this.model.attributes, (function(_this) {
           return function(colorValue, attributeName) {
             if (attributeName !== 'name') {
-              return colorSetHtml += "<div class='color row'> <div class='col-sm-2'> <span class='color-picker-box' style='background: " + colorValue + ";'>Click to Edit</span> <input type='hidden' name='" + attributeName + "' class='theme_colour' readonly value='" + colorValue + "'> </div> <div class='col-sm-10'> <h6>" + attributeName + "</h6> <p>Used in Headings, Links, Menu, Buttons and Accents</p> </div> </div>";
+              return colorSetHtml += "<div class='color row'> <div class='col-sm-2'> <input type='hidden' name='" + attributeName + "' class='theme_colour' readonly value='" + colorValue + "'> </div> <div class='col-sm-10'> <h6>" + attributeName + "</h6> <p>Used in Headings, Links, Menu, Buttons and Accents</p> </div> </div>";
             }
           };
         })(this));
