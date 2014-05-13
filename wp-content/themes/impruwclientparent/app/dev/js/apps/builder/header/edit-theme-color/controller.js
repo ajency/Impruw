@@ -71,7 +71,8 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
       };
 
       EditThemeColorView.prototype.events = {
-        'click .closeCard': function() {
+        'click .closeCard': function(e) {
+          e.preventDefault();
           return this.trigger("close:edit:theme:clicked");
         },
         'click .applyCard': function(e) {
@@ -89,7 +90,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         _.each(this.model.attributes, (function(_this) {
           return function(colorValue, attributeName) {
             if (attributeName !== 'name') {
-              return colorSetHtml += "<div class='color row'> <div class='col-sm-2'> <span class='color-picker-box' style='background: " + colorValue + ";'>Click to Edit</span> <input type='hidden' name='" + attributeName + "' class='theme_colour' readonly value=''> </div> <div class='col-sm-10'> <h6>" + attributeName + "</h6> <p>Used in Headings, Links, Menu, Buttons and Accents</p> </div> </div>";
+              return colorSetHtml += "<div class='color row'> <div class='col-sm-2'> <span class='color-picker-box' style='background: " + colorValue + ";'>Click to Edit</span> <input type='hidden' name='" + attributeName + "' class='theme_colour' readonly value='" + colorValue + "'> </div> <div class='col-sm-10'> <h6>" + attributeName + "</h6> <p>Used in Headings, Links, Menu, Buttons and Accents</p> </div> </div>";
             }
           };
         })(this));

@@ -36,13 +36,13 @@
         $set_color = array(
             array(
                 'name' => 'set1',
-                'primary1' => 'orange',
-                'secondary1' => 'green'
+                'primary1' => '#07669E',
+                'secondary1' => '#555555'
             ),
             array(
                 'name' => 'set2',
-                'primary1' => 'red',
-                'secondary1' => 'black'
+                'primary1' => '#5ca9a1',
+                'secondary1' => '#656565'
             )
         );
 

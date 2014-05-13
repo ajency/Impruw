@@ -55,40 +55,6 @@ define(['app'], function(App) {
         }
       };
 
-      SingleSetView.prototype.getEditView = function() {
-        var back, back_content, setColorHtml, setColorHtmlObject, setName;
-        setColorHtmlObject = this.$el.find('.flipthis');
-        setColorHtml = setColorHtmlObject.get('0');
-        back = void 0;
-        setName = this.model.get('name');
-        back_content = ("<div class='edit-colors'> <h5> " + setName + "</h5> <div class='color-sets'>") + this.displayEditColorSet() + "</div> <div class='actions'> <button id='closeCard' class='btn btn-xs'>Cancel</button> <button id='applyCard' class='btn btn-xs btn-primary'>Apply</button> </div> </div>";
-        back = flippant.flip(setColorHtml, back_content, "modal");
-        return $('#closeCard').on('click', this.closeEditView(back));
-      };
-
-      SingleSetView.prototype.closeEditView = function(back) {
-        return back.close();
-      };
-
-      SingleSetView.prototype.showColorPicker = function() {
-        return $('.color-picker-box').on('click', function() {
-          return $(this).minicolors();
-        });
-      };
-
-      SingleSetView.prototype.displayEditColorSet = function() {
-        var colorSetHtml;
-        colorSetHtml = " ";
-        _.each(this.model.attributes, (function(_this) {
-          return function(colorValue, attributeName) {
-            if (attributeName !== 'name') {
-              return colorSetHtml += "<div class='color row'> <div class='col-sm-2'> <span class='color-picker-box' style='background: " + colorValue + ";'>Click to Edit</span> </div> <div class='col-sm-10'> <h6>" + attributeName + "</h6> <p>Used in Headings, Links, Menu, Buttons and Accents</p> </div> </div>";
-            }
-          };
-        })(this));
-        return colorSetHtml;
-      };
-
       return SingleSetView;
 
     })(Marionette.ItemView);

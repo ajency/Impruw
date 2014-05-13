@@ -44,51 +44,6 @@ define ['app'], (App)->
 
                 'click .edit-theme-color': ->
                     @trigger "edit:theme:color:clicked",@model
-                    #@getEditView()
-                    #@showColorPicker()
-
-            getEditView: ->
-                setColorHtmlObject = @$el.find('.flipthis')
-                setColorHtml = setColorHtmlObject.get '0'
-                back = undefined
-                setName =  @model.get 'name'
-                back_content = "<div class='edit-colors'>
-                                    <h5> #{setName}</h5>
-                                    <div class='color-sets'>"+
-                                    @displayEditColorSet()+
-                                    "</div>
-                                    <div class='actions'>
-                                        <button id='closeCard' class='btn btn-xs'>Cancel</button>
-                                        <button id='applyCard' class='btn btn-xs btn-primary'>Apply</button>
-                                    </div>
-                                </div>"
-                back = flippant.flip(setColorHtml, back_content, "modal")
-                $('#closeCard').on 'click',@closeEditView back
-
-            closeEditView:(back)->
-                back.close()
-
-            showColorPicker:->
-                $('.color-picker-box').on 'click',->
-                     $(@).minicolors()
-
-
-            displayEditColorSet :->
-                colorSetHtml = " "
-                _.each @model.attributes, (colorValue, attributeName) =>
-                    if attributeName != 'name'
-                        colorSetHtml += "<div class='color row'>
-                                            <div class='col-sm-2'>
-                                                <span class='color-picker-box' style='background: #{colorValue};'>Click to Edit</span>
-                                            </div>
-                                            <div class='col-sm-10'>
-                                                <h6>#{attributeName}</h6>
-                                                <p>Used in Headings, Links, Menu, Buttons and Accents</p>
-                                            </div>
-                                        </div>"
-                colorSetHtml
-
-
 
         class EmptyView extends Marionette.ItemView
 

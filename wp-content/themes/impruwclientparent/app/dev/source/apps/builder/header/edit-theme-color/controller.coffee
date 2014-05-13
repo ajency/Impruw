@@ -61,7 +61,8 @@ define ['app', 'controllers/base-controller'], (App, AppController)->
                 @$el.find('.theme_colour').minicolors()
 
             events:
-                'click .closeCard' :->
+                'click .closeCard' :(e)->
+                    e.preventDefault()
                     @trigger "close:edit:theme:clicked"
 
                 'click .applyCard' :(e)->
@@ -77,7 +78,7 @@ define ['app', 'controllers/base-controller'], (App, AppController)->
                         colorSetHtml += "<div class='color row'>
                                             <div class='col-sm-2'>
                                                 <span class='color-picker-box' style='background: #{colorValue};'>Click to Edit</span>
-                                                <input type='hidden' name='#{attributeName}' class='theme_colour' readonly value=''>
+                                                <input type='hidden' name='#{attributeName}' class='theme_colour' readonly value='#{colorValue}'>
                                             </div>
                                             <div class='col-sm-10'>
                                                 <h6>#{attributeName}</h6>
