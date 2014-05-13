@@ -88,6 +88,7 @@ define(["app", 'backbone'], function(App, Backbone) {
         if (param == null) {
           param = {};
         }
+        return themesCollection;
         themes = themesCollection.getExcept(CURRENTTHEME);
         return new Themes.ThemeCollection(themes);
       },

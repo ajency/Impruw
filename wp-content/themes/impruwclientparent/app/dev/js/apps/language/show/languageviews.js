@@ -12,6 +12,18 @@ define(['app', 'text!apps/language/show/templates/languageview.html'], function(
 
       LanguageView.prototype.template = languageviewTpl;
 
+      LanguageView.prototype.onRender = function() {};
+
+      LanguageView.prototype.onShow = function() {
+        var m, w;
+        this.$el.find('select').selectpicker();
+        this.$el.find('*[data-spy="affix"]').affix();
+        w = $('.aj-imp-right').width();
+        this.$el.find('*[data-spy="affix"]').width(w);
+        m = $('.aj-imp-left').width();
+        return this.$el.find('*[data-spy="affix"]').css('margin-left', m);
+      };
+
       return LanguageView;
 
     })(Marionette.ItemView);

@@ -44,7 +44,7 @@
                 'icon'    => 'stats',
                 'submenu' => array(
                     array('url'   => '#statistics/realtime',
-                          'title' => 'Real time visitors',
+                          'title' => 'Real-time Visitors',
                           'icon'  => 'stats1'),
                     array('url'   => '#statistics/visits',
                           'title' => 'Visit Summary',
@@ -57,7 +57,18 @@
             array(
                 'url'   =>  '#language',
                 'title' => 'Language',
-                'icon'  => 'chat2'
+                'icon'  => 'chat2',
+                'submenu' => array(
+                    array('url'   => '#',
+                          'title' => 'Norwegian',
+                          'icon'  => 'stats1'),
+                    array('url'   => '#',
+                          'title' => 'Swedish',
+                          'icon'  => 'stats2'),
+                    array('url'   => '#s',
+                          'title' => 'German',
+                          'icon'  => 'stats3')
+                )
             ),
             array(
                 'url'   => wp_logout_url(site_url()),
@@ -612,7 +623,7 @@
         return $mtemplate;
     }
 
-    function get_page_json1($page_id = 0)
+    function get_page_json_for_site($page_id, $preview = false)
     {
         if ($page_id == 0)
             return FALSE;
@@ -628,7 +639,7 @@
             $revision_id = $single_room_page->ID;
         }
 
-        if ((int)$revision_id === 0) {
+        if ((int)$revision_id === 0 || $preview === true) {
             $json['page'] = get_page_auto_save_json($page_id);
         } else {
             $json ['page'] = get_post_meta($revision_id, "page-json", TRUE);
@@ -677,7 +688,7 @@
     function read_page_json()
     {
         $page_id = $_REQUEST ['page_id'];
-        $data    = get_page_json1($page_id);
+        $data    = get_page_json_for_site($page_id, false);
         wp_send_json(array(
             'code' => 'OK',
             'data' => $data
