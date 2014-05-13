@@ -8,20 +8,18 @@ define ['app'
 
                     template : languageviewTpl
 
-            onRender: ->
+                    onRender: ->
 
-            onShow: ->
-                @$el.scrollSections()
+                    onShow: ->
+                        #console.log model
+                        @$el.find('select').selectpicker()
 
-                #console.log model
-                @$el.find('select').selectpicker()
+                        # set affix
+                        @$el.find('*[data-spy="affix"]').affix()
 
-                # set affix
-                @$el.find('*[data-spy="affix"]').affix()
+                        # affix width
+                        w = $('.aj-imp-right').width()
+                        @$el.find('*[data-spy="affix"]').width(w)
 
-                # affix width
-                w = $('.aj-imp-right').width()
-                @$el.find('*[data-spy="affix"]').width(w)
-
-                m = $('.aj-imp-left').width()
-                @$el.find('*[data-spy="affix"]').css('margin-left', m)
+                        m = $('.aj-imp-left').width()
+                        @$el.find('*[data-spy="affix"]').css('margin-left', m)

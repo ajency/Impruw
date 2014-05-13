@@ -337,7 +337,7 @@ a {
 					padding: 0 0 0 15px;
 					.action {
 						margin: 0;
-						margin-right: 0.4em;
+						margin-right: 1em;
 						border: 1px solid rgba(0, 0, 0, 0.8);
 						border-top: 0;
 						border-radius: 0 0 5px 5px;
@@ -3478,10 +3478,17 @@ form {
 				border-bottom: 1px solid @dash-grey;
 				padding: 8px 12px;
 			}
-			.form-actions {
-				text-align: right;
-				border-top: 1px dotted @dash-grey;
-				padding: 0.5em 0;
+		}
+	}
+	.form-horizontal {
+		margin: 0 0 1em;
+		padding: 0;
+		border: 0;
+	}
+	.aj-imp-long-form-actions {
+		&.affix {
+			.action {
+				margin-right: 0 !important;
 			}
 		}
 	}

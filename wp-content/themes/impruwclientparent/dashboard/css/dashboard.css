@@ -344,7 +344,7 @@ a.red-link.pull-right {
 }
 .aj-imp-container .aj-imp-right .aj-imp-dash-content .aj-imp-long-form-actions.affix .action {
   margin: 0;
-  margin-right: 0.4em;
+  margin-right: 1em;
   border: 1px solid rgba(0, 0, 0, 0.8);
   border-top: 0;
   border-radius: 0 0 5px 5px;
@@ -3442,8 +3442,11 @@ form .aj-imp-submit:hover {
   border-bottom: 1px solid #aaaaaa;
   padding: 8px 12px;
 }
-.language .aj-imp-widget-content .tab-content .form-actions {
-  text-align: right;
-  border-top: 1px dotted #aaaaaa;
-  padding: 0.5em 0;
+.language .form-horizontal {
+  margin: 0 0 1em;
+  padding: 0;
+  border: 0;
+}
+.language .aj-imp-long-form-actions.affix .action {
+  margin-right: 0 !important;
 }
