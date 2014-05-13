@@ -19,17 +19,7 @@ define ['app', 'controllers/base-controller'
 						@listenTo @layout ,"show:theme:color:clicked",->
 
 							App.execute "show:theme:color:set", region : App.dialogRegion
-							
-						
-						@listenTo @layout, "get:theme:set:colors", ->
-							
-							themeColorCollection = App.request "get:themes:color:collection"
 
-							App.execute "when:fetched", [themeColorCollection], =>
-									@layout.triggerMethod "add:theme:color:sets", themeColorCollection
-
-						@listenTo  @layout,"change:theme:color", @changeThemeColor
-						
 						@show  @layout,
 								loading:true
 

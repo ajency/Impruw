@@ -17,6 +17,7 @@ define(['app', 'controllers/base-controller', 'apps/builder/header/change-theme-
         }
         this.layout = this.getLayout();
         this.listenTo(this.layout, "show", this.showColorSet);
+        this.listenTo(this.layout, "edit:theme:color", this.editThemeColor);
         return this.show(this.layout, {
           loading: true
         });
@@ -31,7 +32,15 @@ define(['app', 'controllers/base-controller', 'apps/builder/header/change-theme-
         themeColorCollection = App.request("get:themes:color:collection");
         this.themeColorSetView = this.getView(themeColorCollection);
         this.listenTo(this.themeColorSetView, "itemview:change:theme:color", this.changeThemeColorClick);
+        this.listenTo(this.themeColorSetView, "itemview:edit:theme:color:clicked", this.editThemeColorClick);
         return this.layout.themecolorsetRegion.show(this.themeColorSetView);
+      };
+
+      ChangeThemeColorController.prototype.editThemeColor = function(model) {
+        return App.execute("edit:theme:color:set", {
+          region: this.layout.themecolorEditRegion,
+          model: model
+        });
       };
 
       ChangeThemeColorController.prototype.getView = function(themeColorCollection) {
@@ -58,6 +67,10 @@ define(['app', 'controllers/base-controller', 'apps/builder/header/change-theme-
         });
       };
 
+      ChangeThemeColorController.prototype.editThemeColorClick = function(iv, model) {
+        return this.layout.trigger("edit:theme:color", model);
+      };
+
       return ChangeThemeColorController;
 
     })(AppController);
@@ -68,7 +81,7 @@ define(['app', 'controllers/base-controller', 'apps/builder/header/change-theme-
         return ChangeThemeColorLayout.__super__.constructor.apply(this, arguments);
       }
 
-      ChangeThemeColorLayout.prototype.template = '<div id="theme-color-set"></div>';
+      ChangeThemeColorLayout.prototype.template = '<div id="theme-color-set" class="col-sm-6"></div> <div id ="theme-color-edit" class="col-sm-6"></div>';
 
       ChangeThemeColorLayout.prototype.dialogOptions = {
         modal_title: 'Choose Colors for Your Theme',
@@ -76,7 +89,8 @@ define(['app', 'controllers/base-controller', 'apps/builder/header/change-theme-
       };
 
       ChangeThemeColorLayout.prototype.regions = {
-        themecolorsetRegion: '#theme-color-set'
+        themecolorsetRegion: '#theme-color-set',
+        themecolorEditRegion: '#theme-color-edit'
       };
 
       return ChangeThemeColorLayout;

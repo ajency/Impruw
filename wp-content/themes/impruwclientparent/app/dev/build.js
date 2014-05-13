@@ -42,6 +42,7 @@
     configloader: 'configs/builder-config-loader',
     entitiesloader: 'entities/builder-entities-loader',
     componentloader: 'components/builder-component-loader',
+    minicolors: 'plugins/jquery.minicolors.min',
     drilldown: 'plugins/jquery.drilldown.min',
     app: 'builder-app'
   },
@@ -73,6 +74,7 @@
     bootstrap: ['jquery'],
     themepunch: ['jquery'],
     isotope: ['jquery'],
+    minicolors: ['jquery'],
     revslider: ['themepunch'],
     plupload: {
       deps: ['jquery'],

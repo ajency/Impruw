@@ -3460,6 +3460,15 @@ function wp_send_error_json($message) {
 
 /**
  * Function to change the theme colour
+ *
+ * color format:
+ *
+ * Array
+(
+[name] => custom
+[primary1] => #1d5bad
+[secondary1] => #baa345
+)
  */
 function switch_theme_colour($colours) {
     

@@ -122,3 +122,23 @@
         
         return get_template_directory_uri() . '/css/theme-style.css'; ;
     }
+
+    function create_custom_theme_color($formdata){
+
+        $custom_theme_color = array('name'=>'custom');
+
+        $edited_theme_values= $formdata['formdata'];
+
+        foreach($edited_theme_values as $key=>$value){
+
+            $custom_theme_color[ $key ] = $value;
+        }
+
+        $custom_theme_json =  maybe_serialize($custom_theme_color);
+
+        update_option('custom_theme_color_set',$custom_theme_json);
+
+        switch_theme_colour($custom_theme_color);
+
+        update_option('current_color_set','custom');
+    }

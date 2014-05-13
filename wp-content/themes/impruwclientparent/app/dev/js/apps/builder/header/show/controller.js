@@ -25,16 +25,6 @@ define(['app', 'controllers/base-controller', 'apps/builder/header/show/views'],
             region: App.dialogRegion
           });
         });
-        this.listenTo(this.layout, "get:theme:set:colors", function() {
-          var themeColorCollection;
-          themeColorCollection = App.request("get:themes:color:collection");
-          return App.execute("when:fetched", [themeColorCollection], (function(_this) {
-            return function() {
-              return _this.layout.triggerMethod("add:theme:color:sets", themeColorCollection);
-            };
-          })(this));
-        });
-        this.listenTo(this.layout, "change:theme:color", this.changeThemeColor);
         return this.show(this.layout, {
           loading: true
         });

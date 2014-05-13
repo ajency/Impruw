@@ -46,6 +46,7 @@ require.config
         entitiesloader: 'entities/builder-entities-loader'
         componentloader: 'components/builder-component-loader'
         app: 'builder-app'
+        minicolors: 'plugins/jquery.minicolors.min'
         drilldown: 'plugins/jquery.drilldown.min'
         #flippant: 'plugins/flippant.min'
     shim:
@@ -67,6 +68,7 @@ require.config
         bootstrap: ['jquery']
         themepunch: ['jquery']
         isotope: ['jquery']
+        minicolors: ['jquery']
         revslider: ['themepunch']
         plupload:
             deps: ['jquery']

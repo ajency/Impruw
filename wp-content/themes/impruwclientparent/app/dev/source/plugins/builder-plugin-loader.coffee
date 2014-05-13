@@ -25,6 +25,7 @@ define [
     'revslider'
     'isotope'
     'moment'
+    'minicolors'
     'drilldown'
     #'flippant'
 ], ->

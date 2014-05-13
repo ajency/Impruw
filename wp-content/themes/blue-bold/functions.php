@@ -27,6 +27,28 @@
     define('CURRENTTHEMEPATH', ABSPATH . 'wp-content/themes/blue-bold/');
 
     /**
+     * Function to return the theme set colors
+     *
+     * @return colors array
+     */
+    function theme_color_sets(){
+
+        $set_color = array(
+            array(
+                'name' => 'set1',
+                'primary1' => 'orange',
+                'secondary1' => 'green'
+            ),
+            array(
+                'name' => 'set2',
+                'primary1' => 'red',
+                'secondary1' => 'black'
+            )
+        );
+
+        return $set_color;
+    }
+    /**
      * Logo size for the theme
      **/
     function get_logo_size()
