@@ -11,7 +11,7 @@ define(['app'], function(App) {
         return ThemeView.__super__.constructor.apply(this, arguments);
       }
 
-      ThemeView.prototype.template = '<img src="{{image_url}}"> <h6 class="desc">{{post_title}}</h6> <div class="aj-imp-choose-btn"> {{^currentTheme}}<a href="#" class="btn choose-theme"><span class="glyphicon glyphicon-ok"></span>&nbsp;Choose</a>{{/currentTheme}} <a href="{{preview_link}}" target="_BLANK" class="btn"><span class="glyphicon glyphicon-eye-open"></span>&nbsp;Preview</a> </div> {{#currentTheme}}<p>Currently selected{{/currentTheme}}';
+      ThemeView.prototype.template = '<img src="{{image_url}}"> <h6 class="desc">{{post_title}}</h6> <div class="aj-imp-choose-btn"> {{^currentTheme}}<a href="#" class="btn choose-theme"><span class="glyphicon glyphicon-ok"></span>&nbsp;Choose</a>{{/currentTheme}} <a href="{{preview_link}}" target="_BLANK" class="btn"><span class="glyphicon glyphicon-eye-open"></span>&nbsp;Preview</a> </div> {{#currentTheme}}<div class="current-wrapper"><div class="current">Current Theme</div></div>{{/currentTheme}}';
 
       ThemeView.prototype.className = 'block';
 

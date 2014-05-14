@@ -10,7 +10,7 @@ define ['app'], (App)->
                             {{^currentTheme}}<a href="#" class="btn choose-theme"><span class="glyphicon glyphicon-ok"></span>&nbsp;Choose</a>{{/currentTheme}}
                             <a href="{{preview_link}}" target="_BLANK" class="btn"><span class="glyphicon glyphicon-eye-open"></span>&nbsp;Preview</a>
                         </div>
-                        {{#currentTheme}}<p>Currently selected{{/currentTheme}}'
+                        {{#currentTheme}}<div class="current-wrapper"><div class="current">Current Theme</div></div>{{/currentTheme}}'
 
             className: 'block'
 
