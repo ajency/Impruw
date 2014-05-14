@@ -4,9 +4,11 @@
  * @return {[type]}   [description]
  */
 
-jQuery(document).ready(function($) {
+jQuery(document).ready(function ($) {
 
-    $('#contact-form-save').click(function() {
+    //Function to send mail from the Contact Form
+
+    $('#contact-form-save').click(function () {
 
         if (!$(this).closest('form').valid())
             return;
@@ -16,42 +18,43 @@ jQuery(document).ready(function($) {
         data['action'] = 'send-contact-form-message';
 
         $.post(AJAXURL,
-                data,
-                function(response) {
+            data,
+            function (response) {
 
-                    $('#contact-form-save').closest('form').parent().find('.alert').remove();
+                $('#contact-form-save').closest('form').parent().find('.alert').remove();
 
-                    if (response.code === 'OK') {
+                if (response.code === 'OK') {
 
-                        $('#contact-form-reset').click();
-                        var html = '<div class="alert alert-success alert-dismissable">\
+                    $('#contact-form-reset').click();
+                    var html = '<div class="alert alert-success alert-dismissable">\
 									  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>\
 									  <strong>Success!</strong> Message sent successfully\
 									</div>';
 
-                        $('#contact-form-save').closest('form').before(html);
-                        $('#contact-form-save').closest('form').find('input[type="reset"]').click()
-                    }
-                    else if (response.code === 'ERROR') {
+                    $('#contact-form-save').closest('form').before(html);
+                    $('#contact-form-save').closest('form').find('input[type="reset"]').click()
+                }
+                else if (response.code === 'ERROR') {
 
-                        $('#contact-form-reset').click();
-                        var html = '<div class="alert alert-danger alert-dismissable">\
+                    $('#contact-form-reset').click();
+                    var html = '<div class="alert alert-danger alert-dismissable">\
 									  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>\
 									  <strong>Error!</strong>' + response.message + '\
 									</div>';
-                        $('#contact-form-save').closest('form').before(html);
-                    }
+                    $('#contact-form-save').closest('form').before(html);
+                }
 
-                }, 'json');
+            }, 'json');
     });
 
-    var getFormData = function(form) {
+    // Function tp get all formdata from the contact form
+    var getFormData = function (form) {
 
         var serializedData = $(form).serializeArray();
 
         var data = {};
 
-        $.each(serializedData, function(key, ele) {
+        $.each(serializedData, function (key, ele) {
             data[ele.name] = ele.value;
         });
 
@@ -60,17 +63,17 @@ jQuery(document).ready(function($) {
     }
 
     // generate the datepicker  for the room booking
-    if($('#room-booking-calendar').length ===  0)
-    	return;
-    
+    if ($('#room-booking-calendar').length === 0)
+        return;
+
     $('#room-booking-calendar').datepicker({
-        inline: true,
-        numberOfMonths: 2,
-        dateFormat: 'yy-mm-dd',
-        minDate: new Date(),
-        beforeShowDay: showDateRangeClass,
+        inline           : true,
+        numberOfMonths   : 2,
+        dateFormat       : 'yy-mm-dd',
+        minDate          : new Date(),
+        beforeShowDay    : showDateRangeClass,
         onChangeMonthYear: displayColorMonthChange,
-        onSelect: showData
+        onSelect         : showData
 
     });
 
@@ -81,7 +84,7 @@ jQuery(document).ready(function($) {
     /**
      * @param {type} date
      * @returns {Array}
-     * 
+     *
      * Get the class names for each daterange dates
      */
     function showDateRangeClass(date) {
@@ -100,8 +103,9 @@ jQuery(document).ready(function($) {
 
         return class_name;
     }
+
     /**
-     * 
+     *
      * @param {type} date
      * @returns {String}
      *
@@ -125,10 +129,10 @@ jQuery(document).ready(function($) {
     }
 
     /**
-     * 
+     *
      * @param {type} date
      * @returns {Number}
-     * 
+     *
      * Check if date is in range of the dateranges
      */
     function DateInRange(date) {
@@ -155,7 +159,7 @@ jQuery(document).ready(function($) {
     }
 
     /**
-     * 
+     *
      * @param {type} str
      * @returns slug of daterange name
      */
@@ -163,17 +167,17 @@ jQuery(document).ready(function($) {
         var $slug = '';
         var trimmed = $.trim(str);
         $slug = trimmed.replace(/[^a-z0-9-]/gi, '-').
-                replace(/-+/g, '-').
-                replace(/^-|-$/g, '');
+            replace(/-+/g, '-').
+            replace(/^-|-$/g, '');
         return $slug.toLowerCase();
     }
 
 
     /**
-     * 
+     *
      * @param {type} date
      * @returns {String}
-     * 
+     *
      * Returns the availability status of the date
      */
     function getAvailabilityClassName(date) {
@@ -196,7 +200,7 @@ jQuery(document).ready(function($) {
 
     /**
      * Displays the colour of the daterange
-     * 
+     *
      */
     function getDateRangeColour() {
 
@@ -209,8 +213,9 @@ jQuery(document).ready(function($) {
             $("." + slug_name).css({'background-color': DATERANGE[i].daterange_colour});
         }
     }
+
     /**
-     * 
+     *
      * @param {type} year
      * @param {type} month
      * @param {type} inst
@@ -218,15 +223,15 @@ jQuery(document).ready(function($) {
      */
     function displayColorMonthChange(year, month, inst) {
 
-        setTimeout(function() {
+        setTimeout(function () {
             getDateRangeColour();
         }, 10);
     }
 
     /**
-     * 
+     *
      * @param {type} date
-     * 
+     *
      * Display the selected date and corresponding plans for the date
      */
     function showData(date) {
@@ -241,7 +246,7 @@ jQuery(document).ready(function($) {
 
         displayCarouselNav();
 
-        setTimeout(function() {
+        setTimeout(function () {
             getDateRangeColour();
             showCarousel();
         }, 10);
@@ -249,19 +254,19 @@ jQuery(document).ready(function($) {
     }
 
     /**
-     * 
+     *
      * @param {type} date
-     * 
+     *
      * Display the date selected along with availabilty status
      */
     function displaySelectedDate(date) {
 
         var selected_date = moment(date).format('D MMM');
-        
+
         $('.display-label').empty();
-        
+
         $('.display-label').prepend("You have selected");
-        
+
         $('.date-range').find('b').text(selected_date);
 
         $('.status').text(getAvailabilityClassName(date));
@@ -269,7 +274,7 @@ jQuery(document).ready(function($) {
     }
 
     /**
-     * 
+     *
      * @param {type} date
      * @returns {String}
      * Display all the plans for the selected date
@@ -293,9 +298,9 @@ jQuery(document).ready(function($) {
 
         return html;
     }
-    
+
     /**
-     * 
+     *
      * @param {type} daterange_id
      * @returns {String}
      */
@@ -331,21 +336,21 @@ jQuery(document).ready(function($) {
                     html += '<div class="room-booking-plan">' + plans;
 
                     html += '<div class="booking-detail">Max Adults Weekdays:<span>' +
-                            weekday.max_adults + '</span></div>';
+                        weekday.max_adults + '</span></div>';
 
                     html += '<div class="booking-detail">Max Children Weekdays:<span>' +
-                            weekday.max_children + '</span></div>';
+                        weekday.max_children + '</span></div>';
 
                     html += '<div class="clearfix"></div>';
 
                     html += '<div class="plan-bg">'
 
                     html += '<h6>Additional Charge Weekdays</h6>' +
-                            '<div class="booking-detail">per extra Adult:$'
-                            + weekday.extra_adult + '</div>';
+                        '<div class="booking-detail">per extra Adult:$'
+                        + weekday.extra_adult + '</div>';
 
                     html += '<div class="booking-detail">per extra Child:$'
-                            + weekday.extra_child + '</div>';
+                        + weekday.extra_child + '</div>';
 
                     html += '<div class="clearfix"></div>';
 
@@ -354,21 +359,21 @@ jQuery(document).ready(function($) {
                     html += '</div>';
 
                     html += '<div class="booking-detail">Max Adults Weekend:<span>' +
-                            weekend.max_adults + '</span></div>';
+                        weekend.max_adults + '</span></div>';
 
                     html += '<div class="booking-detail">Max Children Weekend:<span>' +
-                            weekend.max_children + '</span></div>';
+                        weekend.max_children + '</span></div>';
 
                     html += '<div class="clearfix"></div>';
 
                     html += '<div class="plan-bg">';
 
                     html += '<h6>Additional Charge Weekend</h6>' +
-                            '<div class="booking-detail">per extra Adult:$'
-                            + weekend.extra_adult + '</div>';
+                        '<div class="booking-detail">per extra Adult:$'
+                        + weekend.extra_adult + '</div>';
 
                     html += '<div class="booking-detail">per extra Child:$'
-                            + weekend.extra_child + '</div>';
+                        + weekend.extra_child + '</div>';
 
                     html += '<div class="clearfix"></div>';
 
@@ -380,15 +385,15 @@ jQuery(document).ready(function($) {
 
             }
             else {
-               /* var plans_name = getPlans(TARIFF[i].plan_id);
-                html += '<div class="item">\n\
-                                <div class="room-booking-plan">' + plans_name +
-                        '</div>\n\
-                                <div class="booking-detail">\n\
-                                    No tariff data available for selected date\n\
-                                </div>\n\
-                                </div>';*/
-                
+                /* var plans_name = getPlans(TARIFF[i].plan_id);
+                 html += '<div class="item">\n\
+                 <div class="room-booking-plan">' + plans_name +
+                 '</div>\n\
+                 <div class="booking-detail">\n\
+                 No tariff data available for selected date\n\
+                 </div>\n\
+                 </div>';*/
+
 
             }
         }
@@ -408,19 +413,11 @@ jQuery(document).ready(function($) {
         $('.carousel-control').hide()
 
         var nav_display = $('.carousel-inner')
-                .find('.room-booking-plan .booking-detail').length
+            .find('.room-booking-plan .booking-detail').length
 
         if (nav_display != 0)
             $('.carousel-control').show()
     }
-
-
-
-
-
-
-
-
 
 
     function getPlans(plan_id) {
@@ -435,7 +432,7 @@ jQuery(document).ready(function($) {
                 var plan_description = PLANS[i].plan_description;
 
                 html = ' <h5>' + plan_name +
-                        '</h5><p>' + plan_description + '</p>';
+                    '</h5><p>' + plan_description + '</p>';
             }
         }
 
@@ -445,10 +442,10 @@ jQuery(document).ready(function($) {
 
     /* Slimmenu */
     $('.slimmenu').slimmenu({
-        resizeWidth: '767',
-        collapserTitle: 'Menu',
-        animSpeed: 'medium',
-        indentChildren: false,
+        resizeWidth     : '767',
+        collapserTitle  : 'Menu',
+        animSpeed       : 'medium',
+        indentChildren  : false,
         childrenIndenter: '&nbsp;'
     });
 });
