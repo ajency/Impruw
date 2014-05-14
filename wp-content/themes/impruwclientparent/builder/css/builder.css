@@ -2422,8 +2422,11 @@ a:focus {
   text-align: center;
   cursor: pointer;
 }
-.edit-colors .color-sets .color .minicolors .minicolors-swatch-color {
-  content: 'Click to Edit';
+.edit-colors .color-sets .color .minicolors .minicolors-swatch-color:before {
+  content: "Click to Edit";
+}
+.edit-colors .color-sets .color .minicolors .minicolors-swatch-color:focus {
+  color: transparent;
 }
 .edit-colors .color-sets .color h6 {
   color: #849fb0;
