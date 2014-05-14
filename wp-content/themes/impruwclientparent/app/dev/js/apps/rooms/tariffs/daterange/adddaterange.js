@@ -13,7 +13,7 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/daterange
         return AddDateRangeController.__super__.constructor.apply(this, arguments);
       }
 
-      AddDateRangeController.prototype.initialize = function(opt) {
+      AddDateRangeController.prototype.initialize = function() {
         var dateRangeView;
         this.dateRangeView = dateRangeView = this._getAddDateRangeView();
         this.listenTo(dateRangeView, "add:daterange:details", (function(_this) {
@@ -33,13 +33,12 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/daterange
 
       AddDateRangeController.prototype.dateRangeSaved = function(dateRange) {
         App.execute("add:daterange", dateRange);
-        return this.dateRangeView.triggerMethod("saved:daterange");
+        this.dateRangeView.triggerMethod("saved:daterange");
+        return App.execute("show:add:room");
       };
 
-      AddDateRangeController.prototype._getAddDateRangeView = function(dateRange) {
-        return new AddDateRangeView({
-          model: dateRange
-        });
+      AddDateRangeController.prototype._getAddDateRangeView = function() {
+        return new AddDateRangeView;
       };
 
       return AddDateRangeController;

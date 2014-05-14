@@ -3,9 +3,8 @@ define ['app', 'controllers/base-controller',
     App.module "RoomsApp.RoomsTariff.DateRange.Add", (Add, App)->
         class AddDateRangeController extends AppController
 
-            initialize: (opt)->
+            initialize: ()->
                 @dateRangeView = dateRangeView = @_getAddDateRangeView()
-
 
                 @listenTo dateRangeView, "add:daterange:details", (data)=>
                     dateRange = App.request "create:new:daterange:model", data
@@ -19,12 +18,11 @@ define ['app', 'controllers/base-controller',
             dateRangeSaved: (dateRange)=>
                 App.execute "add:daterange", dateRange
                 @dateRangeView.triggerMethod "saved:daterange"
-
+                App.execute "show:add:room"
 
             # get the packages view
-            _getAddDateRangeView: (dateRange)->
+            _getAddDateRangeView:->
                 new AddDateRangeView
-                    model: dateRange
 
         # Edti DateRange view
         class AddDateRangeView extends Marionette.ItemView
