@@ -27,6 +27,43 @@
     define('CURRENTTHEMEPATH', ABSPATH . 'wp-content/themes/pink-theme/');
 
     /**
+     * Function to return the theme set colors
+     *
+     * @return colors array
+     */
+    function theme_color_sets(){
+
+        $set_color = array(
+            array(
+                'name' => 'Default',
+                'primary1' => '#FF5F5F',
+                'secondary1' => '#E9E9E9',
+                'tertiary1' => '#2A3B66',
+                'text-color' => '#989898',
+                'button-color' => '#FF5F5F'
+            ),
+            array(
+                'name' => 'Sail Away',
+                'primary1' => '#3F5765',
+                'secondary1' => '#C3DAE3',
+                'tertiary1' => '#fd8a33',
+                'text-color' => '#989898',
+                'button-color' => '#3F5765'
+            ),
+            array(
+                'name' => 'Planet Earth',
+                'primary1' => '#5F9C9F',
+                'secondary1' => '#E2DA99',
+                'tertiary1' => '#342800',
+                'text-color' => '#989898',
+                'button-color' => '#5F9C9F'
+            )
+        );
+
+        return $set_color;
+    }
+
+    /**
      * Logo size for the theme
      **/
     function get_logo_size()
