@@ -263,7 +263,7 @@
                 ),
                 array(
                     'element'  => 'RoomSummary',
-                    'title'    => 'Room Summary',
+                    'title'    => 'Display Rooms',
                     'styles'   => get_styles('RoomSummary'),
                     'rooms'    => get_all_rooms(),
                     'icon'     => 'bicon icon-uniF15B',

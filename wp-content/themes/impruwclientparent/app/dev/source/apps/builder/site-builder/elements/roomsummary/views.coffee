@@ -11,9 +11,8 @@ define ['app'], (App)->
             roomNotSetTemplate: '<div class="room-img">
             									<div class="image-placeholder"><span class="bicon icon-uniF10E"></span>Room Image</div>
             								</div>
-            								<div class="room-title">Room Title</div>
-            								<div class="room-excerpt">Lorem Ipsum is simply dummy text of the
-            									printing and typesetting industry</div>
+            								<div class="room-title">Your Room Title</div>
+            								<div class="room-excerpt">Choose a room to display from settings. Your room description, image, number of rooms and link to the single room page will be displayed here. To make any changes to the room go to Room from your dashboard.</div>
             								<div class="room-actions">
             									<div class="price">Total: {{no_of_rooms}}<small> rooms</small></div>
             									<button class="btn btn-room">View Details</button>
