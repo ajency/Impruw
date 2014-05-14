@@ -35,19 +35,34 @@
 
         $set_color = array(
             array(
-                'name' => 'set1',
+                'name' => 'Default',
                 'primary1' => '#07669E',
-                'secondary1' => '#555555'
+                'secondary1' => '#555555',
+                'tertiary1' => '#F2F2F2',
+                'text-color' => '#989898',
+                'button-color' => '#07669E'
             ),
             array(
-                'name' => 'set2',
-                'primary1' => '#5ca9a1',
-                'secondary1' => '#656565'
+                'name' => 'Summer Heat',
+                'primary1' => '#DC3D24',
+                'secondary1' => '#232B2B',
+                'tertiary1' => '#E3AE57',
+                'text-color' => '#989898',
+                'button-color' => '#DC3D24'
+            ),
+            array(
+                'name' => 'Mint Fresh',
+                'primary1' => '#99CD4E',
+                'secondary1' => '#343434',
+                'tertiary1' => '#E1E1E1',
+                'text-color' => '#989898',
+                'button-color' => '#DC3D24'
             )
         );
 
         return $set_color;
     }
+    
     /**
      * Logo size for the theme
      **/

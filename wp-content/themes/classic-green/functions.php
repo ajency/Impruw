@@ -35,14 +35,28 @@
 
         $set_color = array(
             array(
-                'name' => 'Dark Colors',
-                'primary1' => '#8A0651',
-                'secondary1' => '#424242'
+                'name' => 'Default',
+                'primary1' => '#5ca9a1',
+                'secondary1' => '#656565',
+                'tertiary1' => '#E1E1E1',
+                'text-color' => '#7F7F7F',
+                'button-color' => '#5ca9a1'
             ),
             array(
-                'name' => 'Light Colors',
+                'name' => 'Dark Royalty',
+                'primary1' => '#8A0651',
+                'secondary1' => '#424242',
+                'tertiary1' => '#E1E1E1',
+                'text-color' => '#7F7F7F',
+                'button-color' => '#8A0651'
+            ),
+            array(
+                'name' => 'Light & Breezy',
                 'primary1' => '#99D2D0',
-                'secondary1' => '#EB593C'
+                'secondary1' => '#EB593C',
+                'tertiary1' => '#E1E1E1',
+                'text-color' => '#7F7F7F',
+                'button-color' => '#99D2D0'
             )
         );
 

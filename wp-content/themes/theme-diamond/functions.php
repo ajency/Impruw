@@ -26,6 +26,49 @@ add_filter('template_directory_uri', 'site_template_directory_uri', 10, 3);
 define('CURRENTTHEMEPATH', ABSPATH . 'wp-content/themes/theme-diamond/');
 
 /**
+ * Function to return the theme set colors
+ *
+ * @return colors array
+ */
+function theme_color_sets(){
+
+    $set_color = array(
+        array(
+            'name' => 'Default',
+            'primary1' => '#DC6868',
+            'secondary1' => '#483535',
+            'tertiary1' => '#D7D3CA',
+            'quarternary1' => '#BEBEBE',
+            'quinary1' => '#F9F8F4',
+            'text-color' => '#989898',
+            'button-color' => '#DC6868'
+        ),
+        array(
+            'name' => 'Cerulean Surprise',
+            'primary1' => '#93B2C7',
+            'secondary1' => '#ED583A',
+            'tertiary1' => '#C7D0D5',
+            'quarternary1' => '#BEBEBE',
+            'quinary1' => '#F5F5F5',
+            'text-color' => '#666666',
+            'button-color' => '#FF7247'
+        ),
+        array(
+            'name' => 'Aqua Dream',
+            'primary1' => '#665BC4',
+            'secondary1' => '#51B4AF',
+            'tertiary1' => '#B6DEDD',
+            'quarternary1' => '#BEBEBE',
+            'quinary1' => '#FAF9F4',
+            'text-color' => '#666666',
+            'button-color' => '#665BC4'
+        )
+    );
+
+    return $set_color;
+}
+
+/**
  * Logo size for the theme 
  **/
 function get_logo_size(){

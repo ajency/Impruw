@@ -2240,6 +2240,7 @@ a:focus {
   margin: 0.025em 0;
   font-size: 4.5em;
   color: #dddddd;
+  text-shadow: 1px 1px 2px #333333;
 }
 /****Builder Delete Modal Styles****/
 .delete-message {
@@ -2418,6 +2419,7 @@ a:focus {
   width: 100%;
   border: 1px solid #aaaaaa;
   color: #fff;
+  text-shadow: 1px 1px 2px #333333;
   line-height: 4em;
   text-align: center;
   cursor: pointer;
