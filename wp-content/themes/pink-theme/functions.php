@@ -36,27 +36,102 @@
         $set_color = array(
             array(
                 'name' => 'Default',
-                'primary1' => '#FF5F5F',
-                'secondary1' => '#E9E9E9',
-                'tertiary1' => '#2A3B66',
-                'text-color' => '#989898',
-                'button-color' => '#FF5F5F'
+                'primary1' => array(
+                    'color' => '#FF5F5F',
+                    'title' => 'First Colour',
+                    'tooltip' => 'Links, Headings, Side Menu, Room Elements, Social Links, Selection Background',
+                    'description' => 'Used in Links, Headings, Side Menu, Room Elements, Social Links, Selection Background'
+                ),
+                'secondary1' => array(
+                    'color' => '#E9E9E9',
+                    'title' => 'Second Colour',
+                    'tooltip' => 'Address Element, Menu, Room Elements, Row Elements, Headings',
+                    'description' => 'Used in Address Element, Menu, Room Elements, Row Elements, Headings'
+                ),
+                'tertiary1' => array(
+                    'color' => '#2A3B66',
+                    'title' => 'Third Colour',
+                    'tooltip' => 'Menu, Room Elements, Headings',
+                    'description' => 'Used in Menu, Room Elements, Headings'
+                ),
+                'text-color' => array(
+                    'color' => '#989898',
+                    'title' => 'Text Colour',
+                    'tooltip' => 'Text Elements',
+                    'description' => 'Used for the text colour across the site'
+                ),
+                'button-color' => array(
+                    'color' => '#FF5F5F',
+                    'title' => 'Button Colour',
+                    'tooltip' => 'Button Elements',
+                    'description' => 'Used in Buttons'
+                )
             ),
             array(
                 'name' => 'Sail Away',
-                'primary1' => '#3F5765',
-                'secondary1' => '#C3DAE3',
-                'tertiary1' => '#fd8a33',
-                'text-color' => '#989898',
-                'button-color' => '#3F5765'
+                'primary1' => array(
+                    'color' => '#3F5765',
+                    'title' => 'First Colour',
+                    'tooltip' => 'Links, Headings, Side Menu, Room Elements, Social Links, Selection Background',
+                    'description' => 'Used in Links, Headings, Side Menu, Room Elements, Social Links, Selection Background'
+                ),
+                'secondary1' => array(
+                    'color' => '#C3DAE3',
+                    'title' => 'Second Colour',
+                    'tooltip' => 'Address Element, Menu, Room Elements, Row Elements, Headings',
+                    'description' => 'Used in Address Element, Menu, Room Elements, Row Elements, Headings'
+                ),
+                'tertiary1' => array(
+                    'color' => '#fd8a33',
+                    'title' => 'Third Colour',
+                    'tooltip' => 'Menu, Room Elements, Headings',
+                    'description' => 'Used in Menu, Room Elements, Headings'
+                ),
+                'text-color' => array(
+                    'color' => '#989898',
+                    'title' => 'Text Colour',
+                    'tooltip' => 'Text Elements',
+                    'description' => 'Used for the text colour across the site'
+                ),
+                'button-color' => array(
+                    'color' => '#3F5765',
+                    'title' => 'Button Colour',
+                    'tooltip' => 'Button Elements',
+                    'description' => 'Used in Buttons'
+                )
             ),
             array(
                 'name' => 'Planet Earth',
-                'primary1' => '#5F9C9F',
-                'secondary1' => '#E2DA99',
-                'tertiary1' => '#342800',
-                'text-color' => '#989898',
-                'button-color' => '#5F9C9F'
+                'primary1' => array(
+                    'color' => '#5F9C9F',
+                    'title' => 'First Colour',
+                    'tooltip' => 'Links, Headings, Side Menu, Room Elements, Social Links, Selection Background',
+                    'description' => 'Used in Links, Headings, Side Menu, Room Elements, Social Links, Selection Background'
+                ),
+                'secondary1' => array(
+                    'color' => '#E2DA99',
+                    'title' => 'Second Colour',
+                    'tooltip' => 'Address Element, Menu, Room Elements, Row Elements, Headings',
+                    'description' => 'Used in Address Element, Menu, Room Elements, Row Elements, Headings'
+                ),
+                'tertiary1' => array(
+                    'color' => '#342800',
+                    'title' => 'Third Colour',
+                    'tooltip' => 'Menu, Room Elements, Headings',
+                    'description' => 'Used in Menu, Room Elements, Headings'
+                ),
+                'text-color' => array(
+                    'color' => '#989898',
+                    'title' => 'Text Colour',
+                    'tooltip' => 'Text Elements',
+                    'description' => 'Used for the text colour across the site'
+                ),
+                'button-color' => array(
+                    'color' => '#5F9C9F',
+                    'title' => 'Button Colour',
+                    'tooltip' => 'Button Elements',
+                    'description' => 'Used in Buttons'
+                )
             )
         );
 

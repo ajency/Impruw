@@ -36,27 +36,102 @@
         $set_color = array(
             array(
                 'name' => 'Default',
-                'primary1' => '#5ca9a1',
-                'secondary1' => '#656565',
-                'tertiary1' => '#E1E1E1',
-                'text-color' => '#7F7F7F',
-                'button-color' => '#5ca9a1'
+                'primary1' => array(
+                    'color' => '#5ca9a1',
+                    'title' => 'First Colour',
+                    'tooltip' => 'Buttons, Room Elements, Footer Background, Social Links, Titles',
+                    'description' => 'Used in Buttons, Room Elements, Footer Background, Social Links, Titles'
+                ),
+                'secondary1' => array(
+                    'color' => '#656565',
+                    'title' => 'Second Colour',
+                    'tooltip' => 'Buttons, Room Elements, Footer Background, Social Links, Titles, Selection Background',
+                    'description' => 'Used in Buttons, Room Elements, Footer Background, Social Links, Titles, Selection Background'
+                ),
+                'tertiary1' => array(
+                    'color' => '#E1E1E1',
+                    'title' => 'Third Colour',
+                    'tooltip' => 'Room Elements, Headings',
+                    'description' => 'Used in Room Elements, Headings'
+                ),
+                'text-color' => array(
+                    'color' => '#7F7F7F',
+                    'title' => 'Text Colour',
+                    'tooltip' => 'Text Elements',
+                    'description' => 'Used for the text colour across the site'
+                ),
+                'button-color' => array(
+                    'color' => '#5ca9a1',
+                    'title' => 'Button Colour',
+                    'tooltip' => 'Button Elements',
+                    'description' => 'Used in Buttons'
+                )
             ),
             array(
                 'name' => 'Dark Royalty',
-                'primary1' => '#8A0651',
-                'secondary1' => '#424242',
-                'tertiary1' => '#E1E1E1',
-                'text-color' => '#7F7F7F',
-                'button-color' => '#8A0651'
+                'primary1' => array(
+                    'color' => '#8A0651',
+                    'title' => 'First Colour',
+                    'tooltip' => 'Buttons, Room Elements, Footer Background, Social Links, Titles',
+                    'description' => 'Used in Buttons, Room Elements, Footer Background, Social Links, Titles'
+                ),
+                'secondary1' => array(
+                    'color' => '#424242',
+                    'title' => 'Second Colour',
+                    'tooltip' => 'Buttons, Room Elements, Footer Background, Social Links, Titles, Selection Background',
+                    'description' => 'Used in Buttons, Room Elements, Footer Background, Social Links, Titles, Selection Background'
+                ),
+                'tertiary1' => array(
+                    'color' => '#E1E1E1',
+                    'title' => 'Third Colour',
+                    'tooltip' => 'Room Elements, Headings',
+                    'description' => 'Used in Room Elements, Headings'
+                ),
+                'text-color' => array(
+                    'color' => '#7F7F7F',
+                    'title' => 'Text Colour',
+                    'tooltip' => 'Text Elements',
+                    'description' => 'Used for the text colour across the site'
+                ),
+                'button-color' => array(
+                    'color' => '#8A0651',
+                    'title' => 'Button Colour',
+                    'tooltip' => 'Button Elements',
+                    'description' => 'Used in Buttons'
+                )
             ),
             array(
                 'name' => 'Light & Breezy',
-                'primary1' => '#99D2D0',
-                'secondary1' => '#EB593C',
-                'tertiary1' => '#E1E1E1',
-                'text-color' => '#7F7F7F',
-                'button-color' => '#99D2D0'
+                'primary1' => array(
+                    'color' => '#99D2D0',
+                    'title' => 'First Colour',
+                    'tooltip' => 'Buttons, Room Elements, Footer Background, Social Links, Titles',
+                    'description' => 'Used in Buttons, Room Elements, Footer Background, Social Links, Titles'
+                ),
+                'secondary1' => array(
+                    'color' => '#EB593C',
+                    'title' => 'Second Colour',
+                    'tooltip' => 'Buttons, Room Elements, Footer Background, Social Links, Titles, Selection Background',
+                    'description' => 'Used in Buttons, Room Elements, Footer Background, Social Links, Titles, Selection Background'
+                ),
+                'tertiary1' => array(
+                    'color' => '#E1E1E1',
+                    'title' => 'Third Colour',
+                    'tooltip' => 'Room Elements, Headings',
+                    'description' => 'Used in Room Elements, Headings'
+                ),
+                'text-color' => array(
+                    'color' => '#7F7F7F',
+                    'title' => 'Text Colour',
+                    'tooltip' => 'Text Elements',
+                    'description' => 'Used for the text colour across the site'
+                ),
+                'button-color' => array(
+                    'color' => '#99D2D0',
+                    'title' => 'Button Colour',
+                    'tooltip' => 'Button Elements',
+                    'description' => 'Used in Buttons'
+                )
             )
         );
 
