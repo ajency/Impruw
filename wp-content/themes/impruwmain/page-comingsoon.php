@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Login
+ * Template Name: Coming Soon
  */
 get_header();
 ?>

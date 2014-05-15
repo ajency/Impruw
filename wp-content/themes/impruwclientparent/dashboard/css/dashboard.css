@@ -3448,5 +3448,5 @@ form .aj-imp-submit:hover {
   border: 0;
 }
 .language .aj-imp-long-form-actions.affix .action {
-  margin-right: 0 !important;
+  margin-right: -1em !important;
 }
