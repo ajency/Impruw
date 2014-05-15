@@ -32,7 +32,7 @@
      * @return colors array
      */
     function theme_color_sets(){
-
+        /*
         $set_color = array(
             array(
                 'name' => 'Default',
@@ -57,6 +57,107 @@
                 'tertiary1' => '#E1E1E1',
                 'text-color' => '#989898',
                 'button-color' => '#DC3D24'
+            )
+        );
+        */
+        $set_color = array(
+            array(
+                'name' => 'Default',
+                'primary1' => array(
+                    'color' => '#07669E',
+                    'title' => 'dsdsds',
+                    'tooltip' => 'sdasdas',
+                    'description' => 'sdasdas'
+                ),
+                'secondary1' => array(
+                    'color' => '#555555',
+                    'title' => 'dsdsds',
+                    'tooltip' => 'sdasdas',
+                    'description' => 'sdasdas'
+                ),
+                'tertiary1' => array(
+                    'color' => '#F2F2F2',
+                    'title' => 'dsdsds',
+                    'tooltip' => 'sdasdas',
+                    'description' => 'sdasdas'
+                ),
+                'text-color' => array(
+                    'color' => '#989898',
+                    'title' => 'dsdsds',
+                    'tooltip' => 'sdasdas',
+                    'description' => 'sdasdas'
+                ),
+                'button-color' => array(
+                    'color' => '#07669E',
+                    'title' => 'dsdsds',
+                    'tooltip' => 'sdasdas',
+                    'description' => 'sdasdas'
+                )
+            ),
+            array(
+                'name' => 'Summer Heat',
+                'primary1' => array(
+                    'color' => '#DC3D24',
+                    'title' => 'dsdsds',
+                    'tooltip' => 'sdasdas',
+                    'description' => 'sdasdas'
+                ),
+                'secondary1' => array(
+                    'color' => '#232B2B',
+                    'title' => 'dsdsds',
+                    'tooltip' => 'sdasdas',
+                    'description' => 'sdasdas'
+                ),
+                'tertiary1' => array(
+                    'color' => '#E3AE57',
+                    'title' => 'dsdsds',
+                    'tooltip' => 'sdasdas',
+                    'description' => 'sdasdas'
+                ),
+                'text-color' => array(
+                    'color' => '#989898',
+                    'title' => 'dsdsds',
+                    'tooltip' => 'sdasdas',
+                    'description' => 'sdasdas'
+                ),
+                'button-color' => array(
+                    'color' => '#DC3D24',
+                    'title' => 'dsdsds',
+                    'tooltip' => 'sdasdas',
+                    'description' => 'sdasdas'
+                )
+            ),
+            array(
+                'name' => 'Mint Fresh',
+                'primary1' => array(
+                    'color' => '#99CD4E',
+                    'title' => 'dsdsds',
+                    'tooltip' => 'sdasdas'
+                ),
+                'secondary1' => array(
+                    'color' => '#343434',
+                    'title' => 'dsdsds',
+                    'tooltip' => 'sdasdas',
+                    'description' => 'sdasdas'
+                ),
+                'tertiary1' => array(
+                    'color' => '#E1E1E1',
+                    'title' => 'dsdsds',
+                    'tooltip' => 'sdasdas',
+                    'description' => 'sdasdas'
+                ),
+                'text-color' => array(
+                    'color' => '#989898',
+                    'title' => 'dsdsds',
+                    'tooltip' => 'sdasdas',
+                    'description' => 'sdasdas'
+                ),
+                'button-color' => array(
+                    'color' => '#DC3D24',
+                    'title' => 'dsdsds',
+                    'tooltip' => 'sdasdas',
+                    'description' => 'sdasdas'
+                )
             )
         );
 

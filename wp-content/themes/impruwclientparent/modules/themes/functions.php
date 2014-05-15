@@ -142,12 +142,46 @@
 
         update_option('current_color_set','custom');
     }
-    function convert_themecolor_set_to_array($colorset){
 
-        return array(
-            'primary1' => '#07669E',
-            'secondary1' => '#555555',
-            'tertiary1' => '#F2F2F2',
-            'text-color' => '#989898',
-            'button-color' => '#07669E');
+    /**
+     * Function to return the color array from the nested theme set color array\
+     *
+     * @param $themecolorset
+     * @return color array
+     */
+    function convert_themecolor_set_to_array($themecolorset){
+
+        $color_set = array();
+
+        foreach($themecolorset as $key=>$singleset){
+
+            $color_set[$key] = set_color_to_array($singleset);
+        }
+
+        return $color_set;
+    }
+
+    /**
+     * Function to get single set colors and return in proper key-value format
+     * @param $singleset
+     * @return array
+     */
+
+    function set_color_to_array($singleset){
+
+        $color_set = array();
+
+        foreach($singleset as $key =>$value){
+
+            // check if nested array
+            $has_child =    count($value,COUNT_RECURSIVE);
+
+          if($has_child != 1)
+              $color_set[$key] = $value['color'];
+
+          else
+              // get the name of the set
+              $color_set[$key] = $value;
+        }
+        return $color_set;
     }

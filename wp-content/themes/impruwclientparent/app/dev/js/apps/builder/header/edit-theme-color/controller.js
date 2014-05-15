@@ -90,9 +90,9 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         var colorSetHtml;
         colorSetHtml = " ";
         _.each(this.model.attributes, (function(_this) {
-          return function(colorValue, attributeName) {
+          return function(attributeValue, attributeName) {
             if (attributeName !== 'name') {
-              return colorSetHtml += "<div class='color row'> <div class='col-sm-2'> <input type='hidden' name='" + attributeName + "' class='theme_colour' readonly value='" + colorValue + "'> </div> <div class='col-sm-10'> <h6>" + attributeName + "</h6> <p>Used in Headings, Links, Menu, Buttons and Accents</p> </div> </div>";
+              return colorSetHtml += "<div class='color row'> <div class='col-sm-2'> <input type='hidden' name='" + attributeName + "' class='theme_colour' readonly value='" + attributeValue.color + "'> </div> <div class='col-sm-10'> <h6>" + attributeValue.title + "</h6> <p>" + attributeValue.description + "</p> </div> </div>";
             }
           };
         })(this));

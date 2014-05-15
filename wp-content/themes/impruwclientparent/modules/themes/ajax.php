@@ -45,17 +45,16 @@
      */
     function ajax_change_theme_color()
     {
-        $colors = array();
-
         unset($_POST['action']);
+
+        $set_colors= $_POST['formdata'];
 
         update_option('current_color_set', $_POST['formdata']['name']);
 
-        unset($_POST['formdata']['name']);
+        // return single theme color set in key-value format
+        $colors = set_color_to_array($set_colors);
 
-        foreach ($_POST['formdata'] as $key => $value) {
-            $colors[$key] = $value;
-        }
+        unset($colors['name']);
 
         switch_theme_colour($colors);
 

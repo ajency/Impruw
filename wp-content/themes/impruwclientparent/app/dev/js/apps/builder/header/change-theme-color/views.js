@@ -29,10 +29,11 @@ define(['app'], function(App) {
       };
 
       SingleSetView.prototype.displayColorSet = function() {
+        console.log(this.model);
         return _.each(this.model.attributes, (function(_this) {
-          return function(colorValue, attributeName) {
+          return function(attributeValue, attributeName) {
             if (attributeName !== 'name') {
-              return _this.$el.find('.colors').append("<span style='background: " + colorValue + ";'>&nbsp;</span>");
+              return _this.$el.find('.colors').append("<span style='background: " + attributeValue.color + ";'>&nbsp;</span>");
             }
           };
         })(this));

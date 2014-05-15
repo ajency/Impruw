@@ -3591,7 +3591,6 @@
      *
      * Array
      * (
-     * [name] => custom
      * [primary1] => #1d5bad
      * [secondary1] => #baa345
      * )
@@ -3616,8 +3615,6 @@
         endif;
 
     }
-
-//add_action('init', 'switch_theme_colour');
 
     /**
      * Function to read the contents of a file and return array of contents
