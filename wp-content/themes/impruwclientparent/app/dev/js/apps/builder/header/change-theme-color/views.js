@@ -29,7 +29,6 @@ define(['app'], function(App) {
       };
 
       SingleSetView.prototype.displayColorSet = function() {
-        console.log(this.model);
         return _.each(this.model.attributes, (function(_this) {
           return function(attributeValue, attributeName) {
             if (attributeName !== 'name') {

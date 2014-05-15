@@ -28,7 +28,6 @@ define ['app'], (App)->
                    @$el.find('.thumbnail').addClass 'selected'
 
             displayColorSet:->
-                console.log @model
                 _.each @model.attributes, (attributeValue, attributeName) =>
                     if attributeName != 'name'
                         @$el.find('.colors').append("<span style='background: #{attributeValue.color};'>&nbsp;</span>")

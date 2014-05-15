@@ -41,7 +41,8 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
           method: 'POST',
           data: {
             action: 'create-custom-theme-color',
-            formdata: formdata
+            formdata: formdata,
+            modeldata: this.model.toJSON()
           }
         };
         return $.ajax(options).done(function(response) {

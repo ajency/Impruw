@@ -39,6 +39,7 @@ define ['app', 'controllers/base-controller'], (App, AppController)->
                     data:
                         action: 'create-custom-theme-color'
                         formdata: formdata
+                        modeldata   : @model.toJSON()
 
                 $.ajax(options).done (response)->
                     window.location.reload(true)
@@ -72,6 +73,7 @@ define ['app', 'controllers/base-controller'], (App, AppController)->
                 'click .applyCard' :(e)->
                     e.preventDefault()
                     formdata = Backbone.Syphon.serialize @
+                    #setValues = @mergeModelFormdata(formdata)
                     @$el.find('.applyCard').text('Applying..')
                     @trigger "create:custom:set:color" , formdata
 

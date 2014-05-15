@@ -125,22 +125,41 @@
 
     function create_custom_theme_color($formdata){
 
-        $custom_theme_color = array('name'=>'custom');
-
         $edited_theme_values= $formdata['formdata'];
 
-        foreach($edited_theme_values as $key=>$value){
+        $model_set_values= $formdata['modeldata'];
 
-            $custom_theme_color[ $key ] = $value;
-        }
+        $custom_theme_color = replace_modeldata_with_edited_set_color($edited_theme_values,$model_set_values);
 
         $custom_theme_json =  maybe_serialize($custom_theme_color);
 
         update_option('custom_theme_color_set',$custom_theme_json);
 
-        switch_theme_colour($custom_theme_color);
+        switch_theme_colour($edited_theme_values);
 
         update_option('current_color_set','custom');
+    }
+
+    /**
+     *
+     * Function to replace the model data with the edited color set values
+     * @param $edited_theme_values
+     * @param $model_set_values
+     * @return mixed
+     */
+    function replace_modeldata_with_edited_set_color($edited_theme_values,$model_set_values){
+
+        $model_set_values['name'] = "custom";
+
+        foreach($model_set_values as $key => $value){
+
+            if(array_key_exists($key,$edited_theme_values)){
+
+                $model_set_values[$key]['color'] =  $edited_theme_values[$key];
+            }
+        }
+
+        return $model_set_values;
     }
 
     /**
