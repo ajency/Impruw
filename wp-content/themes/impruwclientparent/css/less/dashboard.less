@@ -3073,6 +3073,9 @@ form {
 		background: #E3E3E3 !important;
 		.ui-slider-handle {
 			background: @dash-grey;
+			&:hover, &:focus {
+				background: @3-grey;
+			}
 		}
 	}
 	.row{
@@ -3084,17 +3087,31 @@ form {
 	.available, .semi-available, .unavailable {
 		text-transform: capitalize;
 		padding: 0 4px;
+		position: relative;
 		span {
 			display: block;
 			margin: 0.5em 0;
 			border: 1px solid @dash-grey;
 			padding: 1em 0.2em;
 		}
+		&:before {
+			display: block;
+			position: absolute;
+			top: 0.5em;
+			left: 0.75em;
+			font-family: 'Glyphicons Halflings';
+			font-size: 1em;
+			color: rgba(0, 0, 0, 0.3);
+			text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.2);
+		}
 	}
 	.available {
 		span {
 			background: @success-green;
 			color: #fff;
+		}
+		&:before {
+			content: "\e013";
 		}
 	}
 	.semi-available {
@@ -3115,6 +3132,9 @@ form {
 			background: @red;
 			color: #fff;
 			text-decoration: line-through;
+		}
+		&:before {
+			content: "\e014";
 		}
 	}
 }
@@ -3346,14 +3366,41 @@ form {
 }
 
 /*status*/
-.ui-datepicker td.unavailable {
-	a{
-		text-decoration:line-through;
-		color:#000 !important;
+.ui-datepicker td.available, .ui-datepicker td.unavailable, .ui-datepicker td.semi-available {
+	a {
+		position: relative;
+		&:before {
+			display: block;
+			position: absolute;
+			top: -1.25em;
+			left: 0.25em;
+			font-family: 'Glyphicons Halflings';
+			font-size: 0.666em;
+			color: rgba(0, 0, 0, 0.2);
+			text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.1);
+		}
 	}
 }
+
+.ui-datepicker td.available {
+	a {
+		&:before {
+			content: "\e013";
+		}
+	}
+}
+
+.ui-datepicker td.unavailable {
+	a {
+		text-decoration:line-through;
+		&:before {
+			content: "\e014";
+		}
+	}
+}
+
 .ui-datepicker td.semi-available {
-	a{
+	a {
 		background: rgba(0,0,0,0); /* Old browsers */
 		background: -moz-linear-gradient(-45deg, rgba(0,0,0,0) 50%, rgba(0,0,0,0.2) 50%); /* FF3.6+ */
 		background: -webkit-gradient(linear, left top, right bottom, color-stop(50%,gba(0,0,0,0)), color-stop(50%,gba(0,0,0,0.2))); /* Chrome,Safari4+ */

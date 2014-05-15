@@ -3030,6 +3030,10 @@ form .aj-imp-submit:hover {
 .booking-slider-pop .ui-slider .ui-slider-handle {
   background: #aaaaaa;
 }
+.booking-slider-pop .ui-slider .ui-slider-handle:hover,
+.booking-slider-pop .ui-slider .ui-slider-handle:focus {
+  background: #333333;
+}
 .booking-slider-pop .row .col-md-4 {
   font-size: 0.8em;
   text-align: center;
@@ -3039,6 +3043,7 @@ form .aj-imp-submit:hover {
 .booking-slider-pop .unavailable {
   text-transform: capitalize;
   padding: 0 4px;
+  position: relative;
 }
 .booking-slider-pop .available span,
 .booking-slider-pop .semi-available span,
@@ -3048,9 +3053,24 @@ form .aj-imp-submit:hover {
   border: 1px solid #aaaaaa;
   padding: 1em 0.2em;
 }
+.booking-slider-pop .available:before,
+.booking-slider-pop .semi-available:before,
+.booking-slider-pop .unavailable:before {
+  display: block;
+  position: absolute;
+  top: 0.5em;
+  left: 0.75em;
+  font-family: 'Glyphicons Halflings';
+  font-size: 1em;
+  color: rgba(0, 0, 0, 0.3);
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.2);
+}
 .booking-slider-pop .available span {
   background: #2ecc71;
   color: #fff;
+}
+.booking-slider-pop .available:before {
+  content: "\e013";
 }
 .booking-slider-pop .semi-available span {
   background: #ff7e00;
@@ -3083,6 +3103,9 @@ form .aj-imp-submit:hover {
   background: #f21515;
   color: #fff;
   text-decoration: line-through;
+}
+.booking-slider-pop .unavailable:before {
+  content: "\e014";
 }
 /* room chart*/
 .left-inner-addon {
@@ -3302,9 +3325,31 @@ form .aj-imp-submit:hover {
   border-bottom: 1px solid #f21515;
 }
 /*status*/
+.ui-datepicker td.available a,
+.ui-datepicker td.unavailable a,
+.ui-datepicker td.semi-available a {
+  position: relative;
+}
+.ui-datepicker td.available a:before,
+.ui-datepicker td.unavailable a:before,
+.ui-datepicker td.semi-available a:before {
+  display: block;
+  position: absolute;
+  top: -1.25em;
+  left: 0.25em;
+  font-family: 'Glyphicons Halflings';
+  font-size: 0.666em;
+  color: rgba(0, 0, 0, 0.2);
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.1);
+}
+.ui-datepicker td.available a:before {
+  content: "\e013";
+}
 .ui-datepicker td.unavailable a {
   text-decoration: line-through;
-  color: #000 !important;
+}
+.ui-datepicker td.unavailable a:before {
+  content: "\e014";
 }
 .ui-datepicker td.semi-available a {
   background: rgba(0, 0, 0, 0);
