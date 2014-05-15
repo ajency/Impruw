@@ -142,3 +142,12 @@
 
         update_option('current_color_set','custom');
     }
+    function convert_themecolor_set_to_array($colorset){
+
+        return array(
+            'primary1' => '#07669E',
+            'secondary1' => '#555555',
+            'tertiary1' => '#F2F2F2',
+            'text-color' => '#989898',
+            'button-color' => '#07669E');
+    }
