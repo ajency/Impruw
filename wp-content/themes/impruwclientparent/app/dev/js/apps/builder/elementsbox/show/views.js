@@ -59,8 +59,6 @@ define(['app', 'text!apps/builder/elementsbox/show/templates/main.html', 'text!a
         return this._setDraggableElements();
       };
 
-      MainView.prototype.onRender = function() {};
-
       MainView.prototype.appendHtml = function(cv, view, index) {
         var category;
         if (view.model.get('element') === 'Row') {
@@ -77,7 +75,8 @@ define(['app', 'text!apps/builder/elementsbox/show/templates/main.html', 'text!a
           default:
             this.$el.find('#content-elements ul').append(view.$el);
         }
-        return this._ifSingleRoom();
+        this._ifSingleRoom();
+        return this._setDraggableElements();
       };
 
       MainView.prototype._ifSingleRoom = function() {
