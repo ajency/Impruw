@@ -74,7 +74,7 @@ define ['app'
 
             _ifSingleRoom :->
                 isSingleRoom = Marionette.getOption @, 'singleroom'
-                if isSingleRoom
+                if not isSingleRoom
                     @$el.find('#room-elements ul').remove()
                     roomSummaryhtml = '<ul class="aj-imp-builder-items clearfix">
                                          <li class="element" data-element="RoomSummary">
