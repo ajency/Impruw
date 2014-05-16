@@ -38,6 +38,7 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
         },
         'change select#builder-page-sel': function(evt) {
           this.trigger('editable:page:changed', $(evt.target).val());
+          App.vent.trigger("change:page:check:single:room");
           return this.changePreviewLinkUrl();
         }
       };

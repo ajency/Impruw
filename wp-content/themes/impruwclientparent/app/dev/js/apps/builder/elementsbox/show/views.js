@@ -59,6 +59,8 @@ define(['app', 'text!apps/builder/elementsbox/show/templates/main.html', 'text!a
         return this._setDraggableElements();
       };
 
+      MainView.prototype.onRender = function() {};
+
       MainView.prototype.appendHtml = function(cv, view, index) {
         var category;
         if (view.model.get('element') === 'Row') {
@@ -67,11 +69,24 @@ define(['app', 'text!apps/builder/elementsbox/show/templates/main.html', 'text!a
         category = view.model.get('category') || 'content';
         switch (category) {
           case 'hotel':
-            return this.$el.find('#hotel-elements ul').append(view.$el);
+            this.$el.find('#hotel-elements ul').append(view.$el);
+            break;
           case 'room':
-            return this.$el.find('#room-elements ul').append(view.$el);
+            this.$el.find('#room-elements ul').append(view.$el);
+            break;
           default:
-            return this.$el.find('#content-elements ul').append(view.$el);
+            this.$el.find('#content-elements ul').append(view.$el);
+        }
+        return this._ifSingleRoom();
+      };
+
+      MainView.prototype._ifSingleRoom = function() {
+        var isSingleRoom, roomSummaryhtml;
+        isSingleRoom = Marionette.getOption(this, 'singleroom');
+        if (isSingleRoom) {
+          this.$el.find('#room-elements ul').remove();
+          roomSummaryhtml = '<ul class="aj-imp-builder-items clearfix"> <li class="element" data-element="RoomSummary"> <a href="#" class="drag builder-element"> <div class="aj-imp-builder-icon bicon icon-uniF15B"></div> <div class="aj-imp-builder-title">Display Rooms</div> </a> </li> </ul>';
+          return this.$el.find('#room-elements').append(roomSummaryhtml);
         }
       };
 

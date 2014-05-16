@@ -50,6 +50,13 @@ define ['app'
 
                 @_setDraggableElements()
 
+
+            onRender :->
+                #isSingleRoom = Marionette.getOption @, 'singleroom'
+                #if isSingleRoom
+                    #@$el.find('#room-elements').append('<ul class="aj-imp-builder-items clearfix">hiii</ul>')
+                    #@$el.find('#room-elements').append('<ul class="aj-imp-builder-items clearfix"><li class="element" data-element="RoomSummary"><a href="#" class="drag builder-element"> <div class="aj-imp-builder-icon bicon icon-uniF15B"></div> <div class="aj-imp-builder-title">Display Rooms</div> </a></li></ul>')
+
             # append html
             appendHtml: (cv, view, index)->
                 return if view.model.get('element') is 'Row'
@@ -62,6 +69,23 @@ define ['app'
                         @$el.find('#room-elements ul').append view.$el
                     else
                         @$el.find('#content-elements ul').append view.$el
+
+                @_ifSingleRoom()
+
+            _ifSingleRoom :->
+                isSingleRoom = Marionette.getOption @, 'singleroom'
+                if isSingleRoom
+                    @$el.find('#room-elements ul').remove()
+                    roomSummaryhtml = '<ul class="aj-imp-builder-items clearfix">
+                                         <li class="element" data-element="RoomSummary">
+                                            <a href="#" class="drag builder-element">
+                                                <div class="aj-imp-builder-icon bicon icon-uniF15B"></div>
+                                                <div class="aj-imp-builder-title">Display Rooms</div>
+                                            </a>
+                                         </li>
+                                       </ul>'
+                    @$el.find('#room-elements').append(roomSummaryhtml)
+
 
 
             # set draggable elements

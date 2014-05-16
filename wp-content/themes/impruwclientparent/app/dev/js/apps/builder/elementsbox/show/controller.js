@@ -11,16 +11,33 @@ define(['app', 'controllers/base-controller', 'apps/builder/elementsbox/show/vie
       }
 
       Controller.prototype.initialize = function(opt) {
-        var elements, view;
+        var view;
         if (opt == null) {
           opt = {};
         }
-        elements = App.request("get:elementbox:elements");
-        view = new Show.Views.MainView({
-          collection: elements
+        this.elements = App.request("get:elementbox:elements");
+        view = this.getView(this.elements);
+        this.listenTo(App.vent, "change:page:check:single:room", function() {
+          return new Show.Controller({
+            region: App.elementsBoxRegion
+          });
         });
         return this.show(view, {
           loading: true
+        });
+      };
+
+      Controller.prototype.isSingleRoomPage = function() {
+        var pageName;
+        pageName = App.request("get:current:editable:page:name");
+        return pageName === 'Single Room';
+      };
+
+      Controller.prototype.getView = function(elements) {
+        this.singleroom = this.isSingleRoomPage();
+        return new Show.Views.MainView({
+          collection: elements,
+          singleroom: this.singleroom
         });
       };
 

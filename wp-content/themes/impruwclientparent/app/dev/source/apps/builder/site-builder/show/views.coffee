@@ -24,6 +24,7 @@ define ['app'
 
                 'change select#builder-page-sel': (evt)->
                     @trigger 'editable:page:changed', $(evt.target).val()
+                    App.vent.trigger "change:page:check:single:room"
                     @changePreviewLinkUrl()
 
 

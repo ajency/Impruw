@@ -54,7 +54,6 @@ define ['app'
                 @removeSpinner()
 
                 slidesCollection = @_getSlidesCollection()
-                console.log @isSingleRoomPage()
                 App.execute "when:fetched", slidesCollection, =>
                     view = @_getGalleryView slidesCollection
 
