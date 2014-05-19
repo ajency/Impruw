@@ -20,7 +20,6 @@ define(['app'], function(App) {
       ThemeView.prototype.serializeData = function() {
         var data;
         data = ThemeView.__super__.serializeData.call(this);
-        console.log(data);
         data.currentTheme = CURRENTTHEME === _.str.slugify(data.post_title);
         return data;
       };
@@ -44,7 +43,7 @@ define(['app'], function(App) {
         return ChooseThemeView.__super__.constructor.apply(this, arguments);
       }
 
-      ChooseThemeView.prototype.template = '<h2 class="page-title">Choose a Theme for your Site</h2> <p class="desc">You can choose a theme to be applied across the pages of your site, you will be able to customise your theme logo, colours, layout, and components to suit your Site and preferences.</p> <button class="btn btn-danger cancel-theme-switch" type="button">Cancel</button> <div class="aj-imp-block-list"> <ul></ul> </div>';
+      ChooseThemeView.prototype.template = '<h2 class="page-title">Choose a Theme for your Site</h2>\n<p class="desc">You can choose a theme to be applied across the pages of your site,\n    you will be able to customise your theme logo, colours, layout, and components\n    to suit your Site and preferences.</p>\n{{#ISTHEMESELECTED}}\n<button class="btn btn-danger cancel-theme-switch" type="button">Cancel</button>\n{{/ISTHEMESELECTED}}\n<div class="aj-imp-block-list">\n    <ul></ul>\n</div>';
 
       ChooseThemeView.prototype.events = {
         'click button.cancel-theme-switch': function() {
@@ -57,6 +56,13 @@ define(['app'], function(App) {
       ChooseThemeView.prototype.itemView = ThemeView;
 
       ChooseThemeView.prototype.itemViewContainer = '.aj-imp-block-list ul';
+
+      ChooseThemeView.prototype.serializeData = function() {
+        var data;
+        data = ChooseThemeView.__super__.serializeData.call(this);
+        data.ISTHEMESELECTED = ISTHEMESELECTED === 1;
+        return data;
+      };
 
       ChooseThemeView.prototype.onShow = function() {
         return $('body').addClass('choose-theme-page');

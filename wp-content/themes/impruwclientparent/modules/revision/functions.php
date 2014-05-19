@@ -231,11 +231,11 @@
     function pluck_meta_ids($element, &$meta_ids)
     {
 
-        if ($element['element'] === "Row") {
+        if (isset($element['element']) && $element['element'] === "Row") {
             foreach ($element['elements'] as $column) {
                 pluck_meta_ids($column, $meta_ids);
             }
-        } else if ($element ['element'] === "Column") {
+        } else if (isset($element['element']) && $element ['element'] === "Column") {
             foreach ($element['elements'] as $ele) {
                 pluck_meta_ids($ele, $meta_ids);
             }
