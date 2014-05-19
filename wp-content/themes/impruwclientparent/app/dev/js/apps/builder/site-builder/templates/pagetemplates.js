@@ -85,6 +85,8 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
 
       PageTemplatesGrid.prototype.itemView = TemplateView;
 
+      PageTemplatesGrid.prototype.itemViewContainer = '.templates';
+
       PageTemplatesGrid.prototype.emptyView = EmptyView;
 
       return PageTemplatesGrid;
