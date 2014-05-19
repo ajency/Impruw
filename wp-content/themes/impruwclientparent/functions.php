@@ -3565,7 +3565,7 @@
         }
     }
 
-    add_action('tesmplate_redirect', 'check_page_access');
+    add_action('template_redirect', 'check_page_access');
 
     /**
      * Return success json
