@@ -11,7 +11,7 @@ define(['app', 'controllers/base-controller', 'apps/leftnav/show/views', 'entiti
       }
 
       Controller.prototype.initialize = function() {
-        this.links = App.request('leftnav:entities');
+        this.links = App.request("leftnav:entities");
         this.view = new Show.View.LeftNav({
           collection: this.links
         });

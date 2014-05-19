@@ -7,7 +7,7 @@ define ['app', 'controllers/base-controller'
 		class Show.Controller extends AppController
 
 			initialize:()->
-				@links = App.request 'leftnav:entities'
+				@links = App.request "leftnav:entities"
 
 				@view = new Show.View.LeftNav	
 								collection : @links

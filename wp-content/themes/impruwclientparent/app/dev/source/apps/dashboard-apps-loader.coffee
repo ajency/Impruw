@@ -9,4 +9,4 @@ define ['apps/leftnav/app'
 		'apps/media/app'
 		'apps/room-summary/app'
 		'apps/my-profile/app'
-    'apps/language/languageapp'],->
+        'apps/language/languageapp'],->
