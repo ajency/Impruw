@@ -7,3 +7,4 @@ wp-content/uploads
 .externalToolBuilders/
 piwik/
 wp-content/site-resources
+tests/wp-tests-config.php
