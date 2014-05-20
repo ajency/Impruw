@@ -179,7 +179,6 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/show/vi
       };
 
       Controller.prototype.triggerPagePublishOnView = function() {
-        console.log("dsdsd");
         return this.layout.triggerMethod("page:published");
       };
 

@@ -640,8 +640,10 @@
         }
 
         if ((int)$revision_id === 0 || $preview === true) {
+
             $json['page'] = get_page_auto_save_json($page_id);
         } else {
+
             $json ['page'] = get_post_meta($revision_id, "page-json", TRUE);
         }
 

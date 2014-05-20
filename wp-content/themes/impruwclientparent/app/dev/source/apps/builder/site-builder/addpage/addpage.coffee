@@ -28,12 +28,17 @@ define ['app', 'controllers/base-controller'], (App, AppController)->
                     wait: true
                     success: @showSuccessMessage
 
-            showSuccessMessage: =>
+                @addToPageMenu page
+
+            showSuccessMessage:() =>
                 @layout.triggerMethod "show:success:message"
+
+            addToPageMenu:(pageModel)->
+                pageCollection = App.request "get:editable:pages"
+                pageCollection.add pageModel
 
             _getAddPageView: ->
                 new AddPageView
-
 
         class AddPageView extends Marionette.Layout
 

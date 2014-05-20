@@ -40,14 +40,21 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
       AddPageController.prototype._saveNewPage = function(data) {
         var page;
         page = App.request("create:page:model", data);
-        return page.save(null, {
+        page.save(null, {
           wait: true,
           success: this.showSuccessMessage
         });
+        return this.addToPageMenu(page);
       };
 
       AddPageController.prototype.showSuccessMessage = function() {
         return this.layout.triggerMethod("show:success:message");
+      };
+
+      AddPageController.prototype.addToPageMenu = function(pageModel) {
+        var pageCollection;
+        pageCollection = App.request("get:editable:pages");
+        return pageCollection.add(pageModel);
       };
 
       AddPageController.prototype._getAddPageView = function() {
