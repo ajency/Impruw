@@ -35,7 +35,7 @@ jQuery(document).ready(function($) {
                 $(_this).next().hide();
 
                 if (response.success) {
-
+                    //siteurl = impruw
                     response.msg = "Awesome! You have registered successfully.";
                     msg2 = "<a href="+siteurl+"/wp-login.php"+">Click here to login</a>";
                     $("#register_message").html('<div class="alert alert-success">' +

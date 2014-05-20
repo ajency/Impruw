@@ -15,11 +15,6 @@ define(['app', 'controllers/base-controller', 'apps/builder/header/show/views'],
           opt = {};
         }
         this.layout = this.getLayout();
-        this.listenTo(this.layout, "add:new:page:clicked", function() {
-          return App.execute("show:add:new:page", {
-            region: App.dialogRegion
-          });
-        });
         this.listenTo(this.layout, "show:theme:color:clicked", function() {
           return App.execute("show:theme:color:set", {
             region: App.dialogRegion

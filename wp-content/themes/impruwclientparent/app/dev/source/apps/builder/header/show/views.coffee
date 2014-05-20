@@ -21,9 +21,7 @@ define ['app'
 						data
 
 					events:
-						'click .add-new-page' : ->
-							@trigger "add:new:page:clicked"
-						
+
 						'click #aj-imp-color-sel' :->
 							@trigger "show:theme:color:clicked"							
 

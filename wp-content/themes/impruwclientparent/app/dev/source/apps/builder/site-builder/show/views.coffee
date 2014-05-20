@@ -11,6 +11,9 @@ define ['app'
 
             className: 'aj-imp-builder-area'
 
+            collectionEvents:
+                    "add" : "addPageDropDown"
+
             templateHelpers: (data = {})->
                 data.SITEURL = SITEURL + '/'
                 data.pages = @collection.toJSON()
@@ -27,6 +30,12 @@ define ['app'
                     App.vent.trigger "change:page:check:single:room"
                     @changePreviewLinkUrl()
 
+                'click .add-new-page' : ->
+                    @trigger "add:new:page:clicked"
+
+            addPageDropDown :->
+                console.log @collection
+                console.log @model
 
             initialize: ->
                 App.reqres.setHandler "get:current:editable:page:name", @getCurrentPageName
@@ -57,9 +66,7 @@ define ['app'
             # trigger the editable page changed event on show
             onShow: ->
                 # set the selectpicker
-                @$el.find('select#builder-page-sel').selectpicker
-                    style: 'btn-xs btn-default'
-                    menuStyle: 'dropdown'
+                @enableSelectPicker()
 
                 # trigger page change event to load the initial page
                 _.delay =>
@@ -70,6 +77,12 @@ define ['app'
 
                 # handle revision dropdown
                 @$el.find('#aj-imp-revision-sel').on 'show.bs.dropdown', @addPageRevisions
+
+            #set the selectpicker for the drop down
+            enableSelectPicker :=>
+                @$el.find('select#builder-page-sel').selectpicker
+                    style: 'btn-xs btn-default'
+                    menuStyle: 'dropdown'
 
             # add page revisions to dropdown
             addPageRevisions: =>

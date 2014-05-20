@@ -158,6 +158,11 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/show/vi
           return App.execute("editable:page:changed", pageId);
         });
         this.listenTo(layout, "add:page:revisions", this.addPageRevisions);
+        this.listenTo(this.layout, "add:new:page:clicked", function() {
+          return App.execute("show:add:new:page", {
+            region: App.dialogRegion
+          });
+        });
         App.commands.setHandler("page:published", this.triggerPagePublishOnView);
         this.listenTo(App.vent, "revision:link:clicked", function(revisionId) {
           var currentPageId;
