@@ -141,7 +141,6 @@ define ['app', 'controllers/base-controller'
 
 
             triggerPagePublishOnView : =>
-                console.log "dsdsd"
                 @layout.triggerMethod "page:published"
 
 

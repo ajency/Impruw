@@ -5,21 +5,20 @@ define ['app', 'controllers/base-controller'], (App, AppController)->
             initialize: (opt = {}) ->
 
                 # get the page templates collection
-                collection = App.request "get:pages:collection"
+                @collection = collection = App.request "get:pages:collection"
 
                 # fetch the data
-                collection.fetch
+                @collection.fetch
                     data:
                         'meta_key': 'page_templates'
 
-                view = @_getPageTemplatesGrid collection
+                view = @_getPageTemplatesGrid @collection
 
                 @listenTo view, "itemview:template:clicked", (iv, model)=>
                     # pass on this model with region trigger event
                     Marionette.triggerMethod.call @region, "template:selected", model
 
                 @show view, loading: true
-
 
             _getPageTemplatesGrid: (collection)->
                 new PageTemplatesGrid
@@ -35,7 +34,6 @@ define ['app', 'controllers/base-controller'], (App, AppController)->
             events:
                 'click': ->
                     @trigger "template:clicked", @model
-
 
         class EmptyView extends Marionette.ItemView
 

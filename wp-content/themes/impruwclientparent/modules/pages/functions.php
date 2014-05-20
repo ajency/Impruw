@@ -56,7 +56,6 @@
      */
     function get_page_auto_save_json($page_id)
     {
-
         $autosave_post_id = get_autosave_post_id($page_id);
 
         $json = get_post_meta($autosave_post_id, 'page-json', TRUE);
@@ -273,7 +272,9 @@
         $template_json = get_post_meta($template_page_id, 'page-json', TRUE);
 
         //and set it to page
-        update_post_meta($page_id, 'page-json', $template_json);
+        //update_post_meta($page_id, 'page-json', $template_json);
+        add_page_json($page_id, $template_json);
+        update_page_autosave($page_id, $template_json);
 
         return $page_id;
     }

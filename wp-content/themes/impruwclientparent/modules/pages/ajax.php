@@ -38,7 +38,8 @@
         if (is_wp_error($id_or_error))
             wp_send_json(array('code' => 'ERROR', 'message' => $id_or_error->get_error_message()));
         else
-            wp_send_json(array('code' => 'OK', 'data' => array('ID' => $id_or_error)));
+            $page_data = get_post($id_or_error,ARRAY_A);
+            wp_send_json(array('code' => 'OK', 'data' =>  $page_data));
     }
 
     add_action('wp_ajax_create-page', 'create_page_ajax');

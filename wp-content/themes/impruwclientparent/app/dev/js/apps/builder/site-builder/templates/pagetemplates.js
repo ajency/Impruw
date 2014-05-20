@@ -16,13 +16,13 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         if (opt == null) {
           opt = {};
         }
-        collection = App.request("get:pages:collection");
-        collection.fetch({
+        this.collection = collection = App.request("get:pages:collection");
+        this.collection.fetch({
           data: {
             'meta_key': 'page_templates'
           }
         });
-        view = this._getPageTemplatesGrid(collection);
+        view = this._getPageTemplatesGrid(this.collection);
         this.listenTo(view, "itemview:template:clicked", (function(_this) {
           return function(iv, model) {
             return Marionette.triggerMethod.call(_this.region, "template:selected", model);

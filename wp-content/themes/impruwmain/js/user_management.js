@@ -37,7 +37,7 @@ jQuery(document).ready(function($) {
                 if (response.success) {
 
                     response.msg = "Awesome! You have registered successfully.";
-                    msg2 = "<a href="+siteurl+"/login"+">Click here to login</a>"; 
+                    msg2 = "<a href="+siteurl+"/wp-login.php"+">Click here to login</a>";
                     $("#register_message").html('<div class="alert alert-success">' +
                         '<button aria-hidden="true" data-dismiss="alert" class="close" type="button">x</button>' +
                         response.msg + msg2 + '</div>');
