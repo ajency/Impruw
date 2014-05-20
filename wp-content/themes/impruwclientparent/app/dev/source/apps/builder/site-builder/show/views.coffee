@@ -34,8 +34,15 @@ define ['app'
                     @trigger "add:new:page:clicked"
 
             addPageDropDown :->
-                console.log @collection
-                console.log @model
+                modelAddedToCollection = @collection.last()
+                console.log modelAddedToCollection
+                page_id = modelAddedToCollection.get 'ID'
+                page_name = modelAddedToCollection.get 'post_title'
+                console.log page_id
+                #html = "<option value='100'>#{page_name}</option>"
+                html ="<li rel='100'><a tabindex='0' class='' style=''><span class='text'>#{page_name}</span><i class='glyphicon glyphicon-ok icon-ok check-mark'></i></a></li>"
+                @$el.find('div .dropdown-menu ul').append(html)
+                @enableSelectPicker()
 
             initialize: ->
                 App.reqres.setHandler "get:current:editable:page:name", @getCurrentPageName

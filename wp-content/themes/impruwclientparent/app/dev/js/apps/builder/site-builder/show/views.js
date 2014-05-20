@@ -52,8 +52,15 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
       };
 
       MainView.prototype.addPageDropDown = function() {
-        console.log(this.collection);
-        return console.log(this.model);
+        var html, modelAddedToCollection, page_id, page_name;
+        modelAddedToCollection = this.collection.last();
+        console.log(modelAddedToCollection);
+        page_id = modelAddedToCollection.get('ID');
+        page_name = modelAddedToCollection.get('post_title');
+        console.log(page_id);
+        html = "<li rel='100'><a tabindex='0' class='' style=''><span class='text'>" + page_name + "</span><i class='glyphicon glyphicon-ok icon-ok check-mark'></i></a></li>";
+        this.$el.find('div .dropdown-menu ul').append(html);
+        return this.enableSelectPicker();
       };
 
       MainView.prototype.initialize = function() {
