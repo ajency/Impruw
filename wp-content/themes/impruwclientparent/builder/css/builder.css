@@ -1178,6 +1178,9 @@ a:focus {
   background: #ff7e00;
   color: #fff;
 }
+.settings-box .text {
+  color: #aaaaaa;
+}
 /****Builder Element Layout Mode Styles****/
 .aj-imp-builder-layout-mode [class^="aj-imp-elem-"] {
   background: #fff;

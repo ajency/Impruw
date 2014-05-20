@@ -18,12 +18,12 @@
 
     function site_template_directory_uri($template_dir_uri, $template, $theme_root_uri) {
 
-        return site_url('wp-content/themes/theme-diamond');
+        return site_url('wp-content/themes/neon-theme');
     }
 
     add_filter('template_directory_uri', 'site_template_directory_uri', 10, 3);
 
-    define('CURRENTTHEMEPATH', ABSPATH . 'wp-content/themes/theme-diamond/');
+    define('CURRENTTHEMEPATH', ABSPATH . 'wp-content/themes/neon-theme/');
 
     /**
      * Function to return the theme set colors
@@ -205,20 +205,22 @@
                   ),
         'Row' => array(
                     array(
-                        'name'      => 'Pattern BG'
+                        'name'      => 'Top Bar'
                     ),
                     array(
-                        'name'      => 'Highlight Box'
-                    ),
-                    array(
-                        'name'      => 'White Box'
+                        'name'      => 'Footer Columns'
                     ),
                     array(
                         'name'      => 'Menu Bar'
-                    )
-                    ,
+                    ),
                     array(
-                        'name'      => 'Footer Text'
+                        'name'      => 'Footer Bar'
+                    ),
+                    array(
+                        'name'      => 'Padded Container'
+                    ),
+                    array(
+                        'name'      => 'Shadow Box'
                     )
                  ),
         'Social' => array(
@@ -261,8 +263,8 @@
             ),
         'Address' => array(
                 array(
-                    'name' => 'Menu Number',
-                    'template' => '<div><span class="glyphicon glyphicon-phone"></span> Phone: {{phone_no}}</div>' 
+                    'name' => 'Top Bar Contact',
+                    'template' => '<div class="info"><span class="glyphicon glyphicon-envelope"></span> {{email}}</div><div class="info"><span class="glyphicon glyphicon-phone-alt"></span> {{phone_no}}</div>' 
                 )			
             )
     );
