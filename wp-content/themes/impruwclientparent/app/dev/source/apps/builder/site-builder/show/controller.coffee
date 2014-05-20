@@ -120,6 +120,9 @@ define ['app', 'controllers/base-controller'
 
                 @listenTo layout, "add:page:revisions", @addPageRevisions
 
+                @listenTo @layout, "add:new:page:clicked", ->
+                    App.execute "show:add:new:page", region : App.dialogRegion
+
                 App.commands.setHandler "page:published", @triggerPagePublishOnView
 
                 @listenTo App.vent, "revision:link:clicked", (revisionId)->

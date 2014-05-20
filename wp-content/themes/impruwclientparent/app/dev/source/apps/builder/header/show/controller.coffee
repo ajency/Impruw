@@ -11,9 +11,6 @@ define ['app', 'controllers/base-controller'
 					initialize:(opt = {})->
 
 						@layout = @getLayout()
-
-						@listenTo @layout, "add:new:page:clicked", ->
-							App.execute "show:add:new:page", region : App.dialogRegion
 						
 						#change theme color click
 						@listenTo @layout ,"show:theme:color:clicked",->

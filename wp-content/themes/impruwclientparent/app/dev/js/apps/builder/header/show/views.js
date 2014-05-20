@@ -23,9 +23,6 @@ define(['app', 'text!apps/builder/header/show/templates/mainview.html'], functio
       };
 
       MainView.prototype.events = {
-        'click .add-new-page': function() {
-          return this.trigger("add:new:page:clicked");
-        },
         'click #aj-imp-color-sel': function() {
           return this.trigger("show:theme:color:clicked");
         }

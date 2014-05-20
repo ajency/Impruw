@@ -11,6 +11,7 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
       function MainView() {
         this.revisionLinkClicked = __bind(this.revisionLinkClicked, this);
         this.addPageRevisions = __bind(this.addPageRevisions, this);
+        this.enableSelectPicker = __bind(this.enableSelectPicker, this);
         this.onPagePublished = __bind(this.onPagePublished, this);
         this.getCurrentPageId = __bind(this.getCurrentPageId, this);
         this.getCurrentPageName = __bind(this.getCurrentPageName, this);
@@ -20,6 +21,10 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
       MainView.prototype.template = mainviewTpl;
 
       MainView.prototype.className = 'aj-imp-builder-area';
+
+      MainView.prototype.collectionEvents = {
+        "add": "addPageDropDown"
+      };
 
       MainView.prototype.templateHelpers = function(data) {
         if (data == null) {
@@ -40,7 +45,15 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
           this.trigger('editable:page:changed', $(evt.target).val());
           App.vent.trigger("change:page:check:single:room");
           return this.changePreviewLinkUrl();
+        },
+        'click .add-new-page': function() {
+          return this.trigger("add:new:page:clicked");
         }
+      };
+
+      MainView.prototype.addPageDropDown = function() {
+        console.log(this.collection);
+        return console.log(this.model);
       };
 
       MainView.prototype.initialize = function() {
@@ -78,10 +91,7 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
       };
 
       MainView.prototype.onShow = function() {
-        this.$el.find('select#builder-page-sel').selectpicker({
-          style: 'btn-xs btn-default',
-          menuStyle: 'dropdown'
-        });
+        this.enableSelectPicker();
         _.delay((function(_this) {
           return function() {
             var value;
@@ -91,6 +101,13 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
           };
         })(this), 250);
         return this.$el.find('#aj-imp-revision-sel').on('show.bs.dropdown', this.addPageRevisions);
+      };
+
+      MainView.prototype.enableSelectPicker = function() {
+        return this.$el.find('select#builder-page-sel').selectpicker({
+          style: 'btn-xs btn-default',
+          menuStyle: 'dropdown'
+        });
       };
 
       MainView.prototype.addPageRevisions = function() {
