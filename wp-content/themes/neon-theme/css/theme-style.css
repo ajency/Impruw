@@ -1514,6 +1514,9 @@ and open the template in the editor.
     text-align: center;
   }
 }
+.row.padded-container {
+  margin-bottom: 3em;
+}
 .row.padded-container > .column {
   padding-right: 1.5em;
 }
@@ -2248,15 +2251,14 @@ and open the template in the editor.
   display: table;
 }
 .roomsummary .room-img {
-  border: 2px solid #ffffff;
-  box-shadow: 0 0 1px 1px #545d73;
+  width: 100%;
 }
 .roomsummary .room-title {
-  font-size: 2em;
-  color: #24d07c;
-  font-weight: normal;
+  font-size: 1.6em;
+  color: #ffffff;
+  font-weight: 700;
   margin: 0.5em 0;
-  font-family: 'Satisfy', cursive;
+  text-transform: uppercase;
 }
 .roomsummary .room-excerpt {
   color: #ffffff;
@@ -2276,19 +2278,19 @@ and open the template in the editor.
 }
 .roomsummary .room-actions .price {
   float: left;
-  font-size: 2em;
+  font-size: 1.6em;
   color: #ffffff;
 }
 .roomsummary .room-actions .price small {
   font-size: 0.88em;
 }
 .roomsummary .room-actions .btn-room {
-  background: #24d07c;
+  background: #e223a1;
   color: #e1e1e1;
   border-radius: 0;
 }
 .roomsummary .room-actions .btn-room:hover {
-  background: #73e7ae;
+  background: #ee7dc8;
   text-decoration: none;
 }
 /* Calender Booking */
