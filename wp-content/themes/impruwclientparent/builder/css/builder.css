@@ -688,6 +688,14 @@ a:focus {
   color: #808080;
   font-weight: 700;
 }
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .add-new-page {
+  background: #fff;
+  border: 1px solid #aaaaaa;
+  color: #849fb0;
+}
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .add-new-page:hover {
+  background: #f3f3f3;
+}
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .aj-imp-page-publish {
   text-align: right;
 }

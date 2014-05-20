@@ -366,15 +366,14 @@
 	.clearfix;
 	margin: 0 0 @medium;
 	.room-img {
-		border: 2px solid lighten(@white, 20%);
-		box-shadow: 0 0 1px 1px @quarternary1;
+		width: 100%;
 	}
 	.room-title {
-		font-size: 2em;
-		color: @primary1;
-		font-weight: normal;
+		font-size: 1.6em;
+		color: @text-color;
+		font-weight: 700;
 		margin: @regular 0;
-		font-family: 'Satisfy', cursive;
+		text-transform: uppercase;
 	}
 	.room-excerpt {
 		color: @text-color;
@@ -387,18 +386,18 @@
 		text-align: right;
 		.price {
 			float: left;
-			font-size: 2em;
+			font-size: 1.6em;
 			color: @text-color;
 			small {
 				font-size: 0.88em;
 			}
 		}
 		.btn-room {
-			background: @primary1;
+			background: @button-color;
 			color: @white;
 			border-radius: 0;
 			&:hover {
-				background: lighten(@primary1, 20%);
+				background: lighten(@button-color, 20%);
 				text-decoration: none;
 			}
 		}
