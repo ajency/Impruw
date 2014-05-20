@@ -53,18 +53,22 @@ define ['app', 'controllers/base-controller'], (App, AppController)->
             regions:
                 chooseTemplateRegion: '#choose-template-region'
 
-            template: '<div class="row">
-            							<div class="form-group">
-            								<label for="inputEmail3" class="col-sm-2 control-label">Page title</label>
-            								<div class="col-sm-10 col-sm-offset-2">
-            									<input type="text" required class="form-control" id="post_title" name="post_title" />
-            									<div class="p-messages"></div>
-            								</div>
-            							</div>
-            							<input type="hidden" name="template_page_id" value="0"/>
-            							<div id="choose-template-region"></div>
-            							<button type="button" class="btn btn-wide aj-imp-submit add-new-page">Add New Page</button>
-            						</div>'
+            template:  '<div class="row">
+        					<div class="form-group">
+        						<label for="inputEmail3" class="col-sm-2 control-label">Page Title</label>
+        						<div class="col-sm-10">
+        							<input type="text" required class="form-control" id="post_title" name="post_title" />
+        							<div class="p-messages"></div>
+        						</div>
+        					</div>
+        					<input type="hidden" name="template_page_id" value="0"/>
+                            <div class="form-group">
+                                <div class="col-sm-10 col-sm-offset-2">
+                					<div id="choose-template-region"></div>
+                					<button type="button" class="btn btn-sm btn-wide aj-imp-orange-btn add-new-page">Add New Page</button>
+                                </div>
+                            </div>
+        				</div>'
 
             onShowSuccessMessage: ->
                 @$el.prepend '<div class="alert alert-success">New Page added successfully</div>'
