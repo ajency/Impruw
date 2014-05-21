@@ -1100,11 +1100,11 @@ form .aj-imp-submit:hover {
   font-size: 1.1em;
   color: #c3c3c3;
 }
-.aj-imp-login-form .aj-imp-login {
+.aj-imp-login-form .aj-imp-login, .aj-imp-login-form .aj-imp-forgot {
   margin: 2em 0 0;
   padding: 0 1em;
 }
-.aj-imp-login-form .aj-imp-login form {
+.aj-imp-login-form .aj-imp-login form, .aj-imp-login-form .aj-imp-forgot form {
   border: 0;
   padding: 0;
 }

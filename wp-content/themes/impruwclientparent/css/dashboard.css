@@ -1076,34 +1076,41 @@ form .aj-imp-submit:hover {
   font-size: 1.1em;
   color: #c3c3c3;
 }
-.aj-imp-login-form .aj-imp-login {
+.aj-imp-login-form .aj-imp-login,
+.aj-imp-login-form .aj-imp-forgot {
   margin: 2em 0 0;
   padding: 0 1em;
 }
-.aj-imp-login-form .aj-imp-login form {
+.aj-imp-login-form .aj-imp-login form,
+.aj-imp-login-form .aj-imp-forgot form {
   border: 0;
   padding: 0;
 }
-.aj-imp-login-form .aj-imp-login form .aj-imp-log-forgot {
+.aj-imp-login-form .aj-imp-login form .aj-imp-log-forgot,
+.aj-imp-login-form .aj-imp-forgot form .aj-imp-log-forgot {
   font-size: 0.8em;
   margin-top: 2em;
   display: inline-block;
 }
 @media (max-width: 767px) {
-  .aj-imp-login-form .aj-imp-login form .aj-imp-log-forgot {
+  .aj-imp-login-form .aj-imp-login form .aj-imp-log-forgot,
+  .aj-imp-login-form .aj-imp-forgot form .aj-imp-log-forgot {
     margin-top: 1em;
   }
 }
-.aj-imp-login-form .aj-imp-login form .row {
+.aj-imp-login-form .aj-imp-login form .row,
+.aj-imp-login-form .aj-imp-forgot form .row {
   position: relative;
 }
-.aj-imp-login-form .aj-imp-login form .row .control-label {
+.aj-imp-login-form .aj-imp-login form .row .control-label,
+.aj-imp-login-form .aj-imp-forgot form .row .control-label {
   position: absolute;
   left: 0;
   top: 1em;
 }
 @media (max-width: 767px) {
-  .aj-imp-login-form .aj-imp-login form .row .control-label {
+  .aj-imp-login-form .aj-imp-login form .row .control-label,
+  .aj-imp-login-form .aj-imp-forgot form .row .control-label {
     position: static;
   }
 }
