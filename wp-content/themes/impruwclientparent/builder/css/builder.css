@@ -2379,6 +2379,13 @@ a:focus {
 .slide-image-selected:hover {
   background: #ffb266 !important;
 }
+.aj-imp-orange-btn {
+  background: #ff7e00;
+  color: #fff;
+}
+.aj-imp-orange-btn:hover {
+  background: #ffb266;
+}
 /**** Drilldown Menu Plugin Basic Styles ****/
 .drilldown {
   overflow: hidden;
@@ -2503,4 +2510,37 @@ a:focus {
 }
 .edit-colors .actions .btn-primary:hover {
   background: #ffb266;
+}
+/**** Add Page Modal Styles ****/
+#choose-template-region h4 {
+  color: #849fb0;
+  font-size: 1.2em;
+}
+#choose-template-region .templates {
+  margin: 1em 0;
+  padding: 0;
+}
+#choose-template-region .templates li {
+  color: #aaaaaa;
+  margin: 0 0 0.5em;
+  padding: 0.5em;
+  display: inline-block;
+}
+#choose-template-region .templates li:before {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  font-family: 'Glyphicons Halflings';
+  content: "\e157";
+  font-size: 0.78em;
+  margin-right: 0.5em;
+}
+#choose-template-region .templates li:hover {
+  cursor: pointer;
+}
+#choose-template-region .templates li.selected {
+  color: #ff7e00;
+}
+#choose-template-region .templates li.selected:before {
+  content: "\e067";
 }
