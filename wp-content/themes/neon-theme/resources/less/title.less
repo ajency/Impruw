@@ -8,11 +8,10 @@
     	padding: 0.5em 0 0 15px;
 	}
 	&.page-title {
-		color: @secondary1;
-		font-size: 4em;
-		font-family: 'Satisfy', cursive;
-		text-align: center;
-		margin: 0.5em 0 0.2em;
+		color: @text-color;
+		font-size: 2em;
+		margin: 0.5em 0;
+		text-transform: uppercase;
 	}
 	&.box-title {
 		color: @text-color;
@@ -20,21 +19,13 @@
 		text-transform: uppercase;
 	    margin-bottom: @regular;
 	}
-	&.small-title {
+	&.line-title {
 		font-weight: 700;
-		color: @secondary1;
+		color: @text-color;
 		font-size: 1.15em;
-		margin-bottom: @regular;
-	}
-	&.action-title {
-		color: @secondary1;
-		font-size: 2.5em;
-		font-family: 'Satisfy', cursive;
-		text-align: right;
-		margin: 0.5em 0;
-		@media(max-width:991px) {
-			text-align: center;
-		}
+		margin-bottom: @large;
+		text-transform: uppercase;
+		border-bottom: 10px solid @primary1;
 	}
 	&.footer-title {
 		color: @text-color;

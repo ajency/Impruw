@@ -83,36 +83,29 @@
 	}
 	&.small-social {
 		text-align: left;
-		margin-left: @medium;
+		margin-left: 0;
 		li {
-			margin: 0 @regular;
-			width: 20px;
+			margin: 0 @regular 0 0;
+			width: 32px;
 			height: 32px;
-			-webkit-transform: none;
-			-moz-transform: none;
-			-ms-transform: none;
-			-o-transform: none;
-			transform: none;
 			box-shadow: none;
+			border-radius: 4px;
+			line-height: 2em;
 			a {
-				-webkit-transform: none;
-				-moz-transform: none;
-				-ms-transform: none;
-				-o-transform: none;
-				transform: none;
-				color: @quarternary1;
+				color: @text-color;
 				text-indent: 0;
 				&:after, &:before {
-					color: @quarternary1;
+					color: @text-color;
 				}
 			}
 			&:hover {
-				background: transparent;
+				background: @secondary1;
 				box-shadow: none;
 				top: 0;
 				a {
+					top: 0;
 					&:after, &:before {
-						color: @primary1;
+						color: @text-color;
 					}
 				}
 			}
