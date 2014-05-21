@@ -194,10 +194,7 @@
                         'name'      => 'Box Title',
                     ),
                     array(
-                        'name'      => 'Small Title',
-                    ),
-                    array(
-                        'name'      => 'Action Title'
+                        'name'      => 'Line Title',
                     ),
                     array(
                         'name'      => 'Footer Title'

@@ -1694,11 +1694,10 @@ and open the template in the editor.
   padding: 0.5em 0 0 15px;
 }
 .title.page-title {
-  color: #e223a1;
-  font-size: 4em;
-  font-family: 'Satisfy', cursive;
-  text-align: center;
-  margin: 0.5em 0 0.2em;
+  color: #ffffff;
+  font-size: 2em;
+  margin: 0.5em 0;
+  text-transform: uppercase;
 }
 .title.box-title {
   color: #ffffff;
@@ -1706,23 +1705,13 @@ and open the template in the editor.
   text-transform: uppercase;
   margin-bottom: 0.5em;
 }
-.title.small-title {
+.title.line-title {
   font-weight: 700;
-  color: #e223a1;
+  color: #ffffff;
   font-size: 1.15em;
-  margin-bottom: 0.5em;
-}
-.title.action-title {
-  color: #e223a1;
-  font-size: 2.5em;
-  font-family: 'Satisfy', cursive;
-  text-align: right;
-  margin: 0.5em 0;
-}
-@media (max-width: 991px) {
-  .title.action-title {
-    text-align: center;
-  }
+  margin-bottom: 1.5em;
+  text-transform: uppercase;
+  border-bottom: 10px solid #24d07c;
 }
 .title.footer-title {
   color: #ffffff;
@@ -1735,11 +1724,14 @@ and open the template in the editor.
 .address {
   padding: 0.5em 0;
   text-align: left;
-  color: #e223a1;
+  color: #ffffff;
 }
-.address .info {
+.address li {
+  margin-bottom: 0.5em;
+}
+.address li span {
   color: #e223a1;
-  font-size: 1em;
+  margin-right: 0.5em;
 }
 .address.small-address .info {
   color: #ffffff;
@@ -2823,40 +2815,35 @@ and open the template in the editor.
 }
 .social.small-social {
   text-align: left;
-  margin-left: 1em;
+  margin-left: 0;
 }
 .social.small-social li {
-  margin: 0 0.5em;
-  width: 20px;
+  margin: 0 0.5em 0 0;
+  width: 32px;
   height: 32px;
-  -webkit-transform: none;
-  -moz-transform: none;
-  -ms-transform: none;
-  -o-transform: none;
-  transform: none;
   box-shadow: none;
+  border-radius: 4px;
+  line-height: 2em;
 }
 .social.small-social li a {
-  -webkit-transform: none;
-  -moz-transform: none;
-  -ms-transform: none;
-  -o-transform: none;
-  transform: none;
-  color: #545d73;
+  color: #ffffff;
   text-indent: 0;
 }
 .social.small-social li a:after,
 .social.small-social li a:before {
-  color: #545d73;
+  color: #ffffff;
 }
 .social.small-social li:hover {
-  background: transparent;
+  background: #e223a1;
   box-shadow: none;
+  top: 0;
+}
+.social.small-social li:hover a {
   top: 0;
 }
 .social.small-social li:hover a:after,
 .social.small-social li:hover a:before {
-  color: #24d07c;
+  color: #ffffff;
 }
 @media (max-width: 991px) {
   .social.small-social {
