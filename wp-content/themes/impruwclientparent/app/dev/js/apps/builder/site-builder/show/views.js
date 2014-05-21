@@ -15,6 +15,7 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
         this.onPagePublished = __bind(this.onPagePublished, this);
         this.getCurrentPageId = __bind(this.getCurrentPageId, this);
         this.getCurrentPageName = __bind(this.getCurrentPageName, this);
+        this.addPageDropDown = __bind(this.addPageDropDown, this);
         return MainView.__super__.constructor.apply(this, arguments);
       }
 
@@ -43,6 +44,7 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
         },
         'change select#builder-page-sel': function(evt) {
           this.trigger('editable:page:changed', $(evt.target).val());
+          console.log($(evt.target).val());
           App.vent.trigger("change:page:check:single:room");
           return this.changePreviewLinkUrl();
         },
@@ -52,8 +54,22 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
       };
 
       MainView.prototype.addPageDropDown = function() {
-        console.log(this.collection);
-        return console.log(this.model);
+        this.modelAddedToCollection = this.collection.last();
+        this.new_page_id = this.modelAddedToCollection.get('ID');
+        _.each(this.collection.models, (function(_this) {
+          return function(model, index) {
+            var modelId, page_name, select_html, selectpicker_html;
+            modelId = model.get('ID');
+            if (modelId === _this.new_page_id) {
+              page_name = model.get('post_title');
+              select_html = "<option value='" + index + "'>" + page_name + "</option>";
+              selectpicker_html = "<li rel='" + index + "'> <a tabindex='0' class='' style=''> <span class='text'>" + page_name + "</span> <i class='glyphicon glyphicon-ok icon-ok check-mark'></i> </a> </li>";
+              _this.$el.find('div .dropdown-menu ul').append(selectpicker_html);
+              return _this.$el.find('select#builder-page-sel').append(select_html);
+            }
+          };
+        })(this));
+        return this.enableSelectPicker();
       };
 
       MainView.prototype.initialize = function() {

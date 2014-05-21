@@ -27,15 +27,30 @@ define ['app'
 
                 'change select#builder-page-sel': (evt)->
                     @trigger 'editable:page:changed', $(evt.target).val()
+                    console.log $(evt.target).val()
                     App.vent.trigger "change:page:check:single:room"
                     @changePreviewLinkUrl()
 
                 'click .add-new-page' : ->
                     @trigger "add:new:page:clicked"
 
-            addPageDropDown :->
-                console.log @collection
-                console.log @model
+            addPageDropDown :=>
+                @modelAddedToCollection = @collection.last()
+                @new_page_id = @modelAddedToCollection.get 'ID'
+                _.each @collection.models,(model,index) =>
+                    modelId = model.get 'ID'
+                    if modelId == @new_page_id
+                        page_name = model.get 'post_title'
+                        select_html = "<option value='#{index}'>#{page_name}</option>"
+                        selectpicker_html ="<li rel='#{index}'>
+                                                <a tabindex='0' class='' style=''>
+                                                    <span class='text'>#{page_name}</span>
+                                                    <i class='glyphicon glyphicon-ok icon-ok check-mark'></i>
+                                                </a>
+                                            </li>"
+                        @$el.find('div .dropdown-menu ul').append(selectpicker_html)
+                        @$el.find('select#builder-page-sel').append(select_html)
+                @enableSelectPicker()
 
             initialize: ->
                 App.reqres.setHandler "get:current:editable:page:name", @getCurrentPageName
