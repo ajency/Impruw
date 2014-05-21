@@ -1636,7 +1636,6 @@ and open the template in the editor.
 .nav .menu-collapser {
   background: transparent;
   color: #24d07c;
-  font-family: 'Satisfy', cursive;
   font-weight: 400;
   text-shadow: none;
 }
@@ -2085,16 +2084,18 @@ and open the template in the editor.
 .room-facilities-container {
   padding: 0.5em;
   text-align: left;
+  background: #293143;
+  box-shadow: 7px 7px 0 0 #333c53;
 }
 .room-facilities-container .room-facilities-title h5 {
   font-size: 1.5em;
   text-transform: uppercase;
+  color: #e223a1;
 }
 .room-facilities-container .room-facilities-title h4 {
   font-weight: 300;
   font-size: 2em;
   text-transform: capitalize;
-  font-family: 'Satisfy', cursive;
   color: #e1e1e1;
 }
 .room-facilities-container .facilities {
@@ -2104,7 +2105,7 @@ and open the template in the editor.
 }
 .room-facilities-container .facilities li {
   font-size: 1.1em;
-  color: #ee7dc8;
+  color: #ffffff;
   font-weight: 300;
   margin: 0 0 0.5em;
   display: block;
@@ -2120,7 +2121,7 @@ and open the template in the editor.
   height: 13px;
   float: left;
   margin-right: 10px;
-  border: 1px solid #ee7dc8;
+  border: 1px solid #ffffff;
   position: relative;
   font-size: 1.2em;
   line-height: 0.33em;
@@ -2187,11 +2188,10 @@ and open the template in the editor.
   margin: 0 0 1.5em;
 }
 .room-title-container .room-title h1 {
-  font-size: 4em !important;
+  font-size: 3em !important;
   text-transform: none !important;
-  color: #e223a1;
+  color: #ffffff;
   font-style: normal;
-  font-family: 'Satisfy', cursive;
 }
 .room-title-container .room-title .room-title-desc {
   font-size: 1em;
@@ -2204,11 +2204,12 @@ and open the template in the editor.
   margin: 0;
 }
 .room-title-container .room-title-actions .btn-book {
-  background: #24d07c;
+  background: #e223a1;
   color: #fff;
+  border-radius: 0;
 }
 .room-title-container .room-title-actions .btn-book:hover {
-  background: #48df95;
+  background: #e850b4;
 }
 @media (max-width: 767px) {
   .room-title-container .room-title-actions {
@@ -2287,10 +2288,9 @@ and open the template in the editor.
 }
 /* Calender Booking */
 .booking-title {
-  font-size: 2.5em;
+  font-size: 2em;
   font-weight: 300 !important;
-  color: #e223a1 !important;
-  font-family: 'Satisfy', cursive;
+  color: #24d07c !important;
   margin-bottom: 0.5em;
 }
 .daterange-legends {

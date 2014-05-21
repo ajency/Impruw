@@ -59,9 +59,15 @@ a {
 		border-bottom: 1px solid lighten(@dash-grey, 30%);
 		a {
 			border-radius: 0 !important;
+			.text {
+				color: @dash-grey;
+			}
 			&:hover {
 				background: @blue-grey;
 				color: #fff;
+				.text {
+					color: #fff;
+				}
 			}
 		}
 		&.selected {
@@ -1248,9 +1254,6 @@ a {
 				}
 			}
 		}
-	}
-	.text {
-		color: @dash-grey;
 	}
 }
 
