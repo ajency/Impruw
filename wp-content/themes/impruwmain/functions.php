@@ -586,3 +586,27 @@
         }
     }
     
+
+    function my_login_logo() { ?>
+      <style type="text/css">
+        body.login div#login h1 a {
+          background-image: url('<?php echo get_stylesheet_directory_uri(); ?>/images/impruw-logo-blue.png');
+          padding-bottom: 0px;
+          width: auto;
+          background-size: 231px 57px;
+          margin: 0 auto;
+        }
+        body.login div#login form#loginform p.submit input#wp-submit {
+          background: #FF7E00;
+          border-color: #FF7E00;
+          box-shadow: none;
+        }
+        body.login div#login form#loginform p.submit input#wp-submit:hover {
+          background: #EE4423;
+        }
+        body.login div#login p#backtoblog {
+          display: none;
+        }
+      </style>
+    <?php }
+    add_action( 'login_enqueue_scripts', 'my_login_logo' );
