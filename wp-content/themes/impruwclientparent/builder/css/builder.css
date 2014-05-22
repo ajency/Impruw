@@ -51,8 +51,14 @@ a:focus {
 .dropdown-menu li a {
   border-radius: 0 !important;
 }
+.dropdown-menu li a .text {
+  color: #aaaaaa;
+}
 .dropdown-menu li a:hover {
   background: #849fb0;
+  color: #fff;
+}
+.dropdown-menu li a:hover .text {
   color: #fff;
 }
 .dropdown-menu li.selected a {
@@ -1185,9 +1191,6 @@ a:focus {
 .settings-box .form-horizontal .form-group .set-column-count a:hover {
   background: #ff7e00;
   color: #fff;
-}
-.settings-box .text {
-  color: #aaaaaa;
 }
 /****Builder Element Layout Mode Styles****/
 .aj-imp-builder-layout-mode [class^="aj-imp-elem-"] {

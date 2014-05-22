@@ -207,16 +207,18 @@
 .room-facilities-container {
 	padding: @regular;
 	text-align: left;
+	background: darken(@tertiary1, 8%);
+	box-shadow: 7px 7px 0 0 darken(@tertiary1, 3%);
 	.room-facilities-title {
 		h5 {
 			font-size: 1.5em;
 			text-transform: uppercase;
+			color: @secondary1;
 		}
 		h4 {
 			font-weight: 300;
 			font-size: 2em;
 			text-transform: capitalize;
-			font-family: 'Satisfy', cursive;
 			color: @white;
 		}
 	}
@@ -226,7 +228,7 @@
 		list-style: none;
 		li {
 			font-size: 1.1em;
-			color: lighten(@secondary1, 20%);
+			color: @text-color;
 			font-weight: 300;
 			margin: 0 0 @regular;
 			display: block;
@@ -241,7 +243,7 @@
 				height: 13px;
 				float: left;
 				margin-right: 10px;
-				border: 1px solid lighten(@secondary1, 20%);
+				border: 1px solid @text-color;
 				position: relative;
 				font-size: 1.2em;
 				line-height: 0.33em;
@@ -315,11 +317,10 @@
 	margin: 0 0 @large;
 	.room-title {
 		h1 {
-			font-size: 4em !important;
+			font-size: 3em !important;
 			text-transform: none !important;
-			color: @secondary1;
+			color: @text-color;
 			font-style: normal;
-			font-family: 'Satisfy', cursive;
 		}
 		.room-title-desc {
 			font-size: @medium;
@@ -332,10 +333,11 @@
 		right: 0;
 		margin: 0;
 		.btn-book {
-			background: @primary1;
+			background: @secondary1;
 			color: #fff;
+			border-radius: 0;
 			&:hover {
-				background: lighten(@primary1, 10%);
+				background: lighten(@secondary1, 10%);
 			}
 		}
 		@media(max-width:767px) {
@@ -406,10 +408,9 @@
 
 /* Calender Booking */
 .booking-title {
-	font-size: 2.5em;
+	font-size: 2em;
 	font-weight: 300 !important;
-	color: @secondary1 !important;
-	font-family: 'Satisfy', cursive;
+	color: @primary1 !important;
 	margin-bottom: @regular;
 }
 .daterange-legends{
