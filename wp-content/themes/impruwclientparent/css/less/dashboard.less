@@ -3540,3 +3540,190 @@ form {
 		}
 	}
 }
+
+/**** Homepage Styles ****/
+.aj-imp-homepage {
+	background: #fff;
+	margin: 0 -15px;
+	.home-1 {
+		background: url('../images/slider-bg.jpg');
+		background-size: cover;
+		text-align: center;
+		position: relative;
+		h1 {
+			color: #fff;
+			font-weight: 300;
+			font-size: 3em;
+			padding: 1em 0;
+			span {
+				font-weight: 700;
+			}
+		}
+		.big-sign {
+			background: @logo-orange;
+			padding: 1em 1.5em;
+			border-radius: 3px;
+			margin-bottom: 1em;
+			box-shadow: 1px 1px 2px 1px @3-grey;
+			&:hover {
+				background: lighten(@logo-orange, 10%);
+			}
+		}
+		.img-responsive {
+			margin: 0 auto;
+			padding-bottom: 2em;
+		}
+		&:after {
+			top: 100%;
+			left: 50%;
+			border: solid transparent;
+			content: " ";
+			height: 0;
+			width: 0;
+			position: absolute;
+			pointer-events: none;
+			border-color: rgba(136, 183, 213, 0);
+			border-top-color: #8E8E8E;
+			border-width: 25px;
+			margin-left: -25px;
+		}
+	}
+	.home-2 {
+		background: url('../images/bg_polka.png');
+		padding: 4em 15% 2em;
+		h2 {
+			font-weight: 300;
+			color: #000;
+			margin-bottom: 1em;
+		}
+		p {
+			color: #666;
+			font-size: 1.1em;
+			font-weight: 300;
+		}
+		.info-blocks {
+			border-top: 1px solid #ccc;
+			padding: 2em 0;
+			text-align: center;
+			margin-top: 1em;
+			.block {
+				display: inline-block;
+				width: 18%;
+				margin-right: 1%;
+				color: @3-grey;
+				vertical-align: top;
+				font-size: 1.2em;
+				font-weight: 300;
+				text-align: left;
+				line-height: 1.5em;
+				&:last-child {
+					margin-right: 0;
+				}
+			}
+		}
+	}
+	.home-3 {
+		padding: 3em 15% 2em;
+		text-align: center;
+		border-top: 2px solid @preview-grey;
+		h2 {
+			color: #000;
+			font-weight: 400;
+		}
+		p {
+			color: @3-grey;
+			font-weight: 300;
+			margin-bottom: 2em;
+		}
+	}
+	.home-4 {
+		background: url('../images/bg_polka.png');
+		padding: 4em 15% 2em;
+		h2 {
+			color: #000;
+			font-weight: 400;
+			text-align: center;
+		}
+		p {
+			color: @3-grey;
+			font-weight: 300;
+			margin-bottom: 2em;
+			text-align: center;
+		}
+		.info-blocks {
+			padding: 1em 0;
+			text-align: center;
+			.block {
+				display: inline-block;
+				width: 48%;
+				margin-right: 1%;
+				color: @3-grey;
+				vertical-align: top;
+				font-size: 1.2em;
+				font-weight: 300;
+				text-align: left;
+				line-height: 1.5em;
+				.icon-holder {
+					text-align: center;
+					.icon {
+						color: @logo-orange;
+						font-size: 3em;
+					}
+				}
+				h4 {
+					font-weight: 400;
+					color: #000;
+					font-size: 1.3em;
+				}
+				p {
+					font-size: 0.88em;
+					text-align: left;
+				}
+				&:last-child {
+					margin-right: 0;
+				}
+			}
+		}
+	}
+	.home-5 {
+		background: darken(@blue-grey, 40%);
+		padding: 4em 15% 2em;
+		text-align: center;
+		h2 {
+			color: #fff;
+			font-weight: 400;
+			text-align: center;
+		}
+		p {
+			color: #fff;
+			font-weight: 300;
+			margin-bottom: 2em;
+			text-align: center;
+		}
+		.img-responsive {
+			margin: 0 auto;
+			padding-bottom: 2em;
+		}
+	}
+	.home-6 {
+		background: url('../images/bg_polka.png');
+		padding: 6em 15%;
+		border-bottom: 2px solid @preview-grey;
+		h4 {
+			font-weight: 300;
+			text-align: right;
+			color: #000;
+			font-size: 3em;
+		}
+		.big-sign {
+			background: @logo-orange;
+			padding: 1em 1.5em;
+			border-radius: 3px;
+			margin-bottom: 1em;
+			box-shadow: 1px 1px 2px 1px @3-grey;
+			&:hover {
+				background: lighten(@logo-orange, 10%);
+			}
+		}
+	}
+}
