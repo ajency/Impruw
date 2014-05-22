@@ -82,7 +82,7 @@
         <!-- Forgot Password Form -->
         <div class="row">
             <div class="col-sm-12 aj-imp-forgot hidden">
-                <form class="form-horizontal clearfix" id="" name="">
+                <form class="form-horizontal clearfix" id="forgot_password_form" name="forgot_password_form">
                     
                     <div class="form-group">
                         <label for="inputEmail"
@@ -90,9 +90,13 @@
 
                         <div class="col-sm-6 col-sm-offset-3">
 
-                            <input type="email" class="form-control  parsley-validated parsley-error" id="inputEmail"
-                                   name="inputEmail" placeholder="Email ID you signed up with" parsley-required="true"
-                                   parsley-trigger="blur" parsley-validation-minlength="0" parsley-type="email"
+                            <input type="email" class="form-control  parsley-validated parsley-error"
+                                   id="forgotPasswordEmail"
+                                   name="forgotPasswordEmail" placeholder="Email ID you signed up with"
+                                   parsley-required="true"
+                                   parsley-validation-minlength="0"
+                                   parsley-type="email"
+                                   parsley-remote="http://localhost/testt.php"
                                    parsley-required-message="<?php echo __('A valid email address is required to sign in', 'impruwmain'); ?>"/>
 
                             <div class="p-messages"></div>
@@ -102,7 +106,7 @@
                     
                     <div class="row">
                         <div class="col-sm-offset-3 col-sm-7">
-                            <button type="button" id="" name=""
+                            <button type="button" id="forgot_password_btn" name="forgot_password_btn"
                                     class="btn btn-wide aj-imp-submit"><?php echo __('Reset Password', 'impruwmain'); ?></button>
                             <img id="login_loader"
                                  src="<?php echo site_url() . "/wp-content/themes/impruwmain/images/loader.gif"; ?>"
