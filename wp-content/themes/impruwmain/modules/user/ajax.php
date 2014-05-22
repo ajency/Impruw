@@ -38,17 +38,18 @@
         // store in $user_data
         $user_data = pick_user_fields($form_data);
 
-        /*$validated_user= validate_user_credentials($user_data);
+        $validated_user= validate_user_credentials($user_data);
 
         if($validated_user != 0){
-
+            echo 'hi';
         }
         else{
-            wp_send_json(array('code'=>'EMAIL','msg'=>''));
-        }*/
+            echo 'no';
+            wp_send_json(array('code'=>'EMAIL','msg'=>'Email already exists'));
+        }
 
         // pass the data to create_new_user function capture return data
-        $user_id = create_new_user($user_data);
+        /*$user_id = create_new_user($user_data);
 
         // if int = $user_id return success else return error
         if (is_wp_error($user_id))
@@ -62,7 +63,7 @@
 
         //create_piwik_site($site_id);
 
-        wp_send_json_success();
+        wp_send_json_success();*/
     }
 
     add_action('wp_ajax_nopriv_new_user_registration', 'new_user_registration');

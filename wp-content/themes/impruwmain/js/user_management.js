@@ -214,8 +214,7 @@ jQuery(document).ready(function($) {
 
             // since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
             $.post(ajaxurl, data, function(response) {
-                console.log(response);
-                /*
+
                 if (response.code == 'OK') {
 
                     $("#login_loader").hide();
@@ -226,7 +225,7 @@ jQuery(document).ready(function($) {
 
                     window.location.href = response.blog_url + '/dashboard';
                     return true;
-                } else if ((response.code == 'ERROR') || (response.code == 'FAILED')) {
+                } else if ((response.code == 'ERROR') || (response.code == 'FAILED') ) {
 
                     $("#login_loader").hide();
                     $("#login_status_div").show()
@@ -235,7 +234,7 @@ jQuery(document).ready(function($) {
                         response.msg + '</div>')
 
                     return false;
-                }*/
+                }
             });
         }
     });
