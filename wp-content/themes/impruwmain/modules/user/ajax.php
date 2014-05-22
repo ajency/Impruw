@@ -185,3 +185,77 @@
     add_action('wp_ajax_user_login', 'user_login');
     add_action('wp_ajax_nopriv_user_login', 'user_login');
 
+
+    function ajax_reset_password_user_request(){
+
+        global $wpdb;
+
+        $user_email = trim($_POST['user_email']);
+        $user_data = get_user_by('email', $user_email);
+
+        //check if the user-email exists
+        if ( !$user_data ){
+            $msg = "Email does not exsists";
+            wp_send_json(array('code'=>'ERROR','data'=>$msg));
+        }
+
+        //take the user creds fron the user object
+        $user_login = $user_data->user_login;
+        $user_email = $user_data->user_email;
+
+        //check if password reset allowed for user
+        $allow = apply_filters( 'allow_password_reset', true, $user_data->ID );
+
+        if ( ! $allow ){
+            $msg= "Password reset is not allowed for this user";
+            wp_send_json(array('code'=>'ERROR','data'=>$msg));
+        }
+        else if ( is_wp_error($allow) )
+            wp_send_json(array('code'=>'ERROR','data'=>$allow));
+
+        //generate the random key to be used for new password
+        $key = wp_generate_password( 20, false );
+
+        // generate the hash key and new hash password
+        if ( empty( $wp_hasher ) ) {
+            require_once ABSPATH . 'wp-includes/class-phpass.php';
+            $wp_hasher = new PasswordHash( 8, true );
+        }
+        $hashed_password = $wp_hasher->HashPassword( $key );
+
+        //insert the new user password in the db
+        $wpdb->update( $wpdb->users, array(
+                        'user_activation_key' => $hashed_password ),
+                        array( 'user_login' => $user_login ) );
+
+        //get the site name
+        if ( is_multisite() )
+            $blogname = $GLOBALS['current_site']->site_name;
+        else
+            // The blogname option is escaped with esc_html on the way into the database in sanitize_option
+            // we want to reverse this for the plain text arena of emails.
+            $blogname = wp_specialchars_decode(get_option('blogname'), ENT_QUOTES);
+
+        $title = sprintf( __('[%s] Password Reset'), $blogname );
+
+        $message = __('Someone requested that the password be reset for the following account:') . "\r\n\r\n";
+        $message .= network_home_url( '/' ) . "\r\n\r\n";
+        $message .= sprintf(__('Username: %s'), $user_login) . "\r\n\r\n";
+        $message .= __('If this was a mistake, just ignore this email and nothing will happen.') . "\r\n\r\n";
+        $message .= __('To reset your password, visit the following address:') . "\r\n\r\n";
+        $message .= '<' . network_site_url("wp-login.php?action=rp&key=$key&login=" . rawurlencode($user_login), 'login') . ">\r\n";
+
+        if ( $message && !wp_mail( $user_email, wp_specialchars_decode( $title ), $message ) )
+            wp_die( __('The e-mail could not be sent.') . "<br />\n" . __('Possible reason: your host may have disabled the mail() function.') );
+
+
+        wp_send_json(array('code'=>'OK'));
+
+
+
+
+
+    }
+    add_action('wp_ajax_reset_password_user_request', 'ajax_reset_password_user_request');
+    add_action('wp_ajax_nopriv_reset_password_user_request', 'ajax_reset_password_user_request');
+

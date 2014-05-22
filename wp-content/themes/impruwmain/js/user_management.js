@@ -240,4 +240,26 @@ jQuery(document).ready(function($) {
     });
     /************************ /login.js ***********************************/
 
+    $('#forgot_password_btn').click(function(){
+        /*var parsleyForm = $('#forgot_password_form').parsley();
+        $("#forgot_password_btn").click(function () {
+            parsleyForm.asyncValidate()
+                .done(function () { console.log('sucess'); })
+                .fail(function () { console.log('there is an error'); })
+                .always(function () { console.log('done everytime whatever happens'); });
+
+
+        });*/
+
+        var data = {
+            action: 'reset_password_user_request',
+            user_email: $("#forgotPasswordEmail").val()
+        };
+        $.post(ajaxurl, data, function(response) {
+            console.log(response);
+        });
+
+
+    });
+
 });
