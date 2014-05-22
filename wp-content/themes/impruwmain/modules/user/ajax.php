@@ -26,7 +26,7 @@
 
         // check if its a POST request else return
         if ('POST' !== $_SERVER ['REQUEST_METHOD'])
-            wp_send_json_error('Invalid reuest');
+            wp_send_json_error('Invalid request');
 
         // verify the nonce else return error code
         if (!check_ajax_referer('new_user_registration', '_nonce'))
@@ -38,8 +38,18 @@
         // store in $user_data
         $user_data = pick_user_fields($form_data);
 
+        $validated_user= validate_user_credentials($user_data);
+
+        if($validated_user != 0){
+            echo 'hi';
+        }
+        else{
+            echo 'no';
+            wp_send_json(array('code'=>'EMAIL','msg'=>'Email already exists'));
+        }
+
         // pass the data to create_new_user function capture return data
-        $user_id = create_new_user($user_data);
+        /*$user_id = create_new_user($user_data);
 
         // if int = $user_id return success else return error
         if (is_wp_error($user_id))
@@ -53,10 +63,25 @@
 
         //create_piwik_site($site_id);
 
-        wp_send_json_success();
+        wp_send_json_success();*/
     }
 
     add_action('wp_ajax_nopriv_new_user_registration', 'new_user_registration');
+
+    function validate_user_credentials($userdata){
+        $check_email_exists= email_exists($userdata['user_email']);
+
+        if($check_email_exists == false){
+
+            return 0;
+        }
+        else{
+            return 1;
+        }
+
+
+
+    }
 
     /* function create_piwik_site($site_id){
       $wp_piwik_object = $GLOBALS['wp_piwik'];
@@ -139,6 +164,12 @@
         $pd_email = trim($_POST['pdemail']);
         $pd_pass  = trim($_POST['pdpass']);
 
+        $credentials = array();
+
+        $credentials['user_login'] = $pd_email;
+        $credentials['user_password'] = $pd_pass;
+
+
         if (!check_ajax_referer('frm_login', 'ajax_nonce')) {
             header('Content-Type: application/json');
             echo json_encode(array('code' => 'ERROR', 'msg' => _("Invalid Form Data")));
@@ -149,29 +180,15 @@
         global $wpdb;
         $user_ = get_user_by('email', $pd_email);
         if ($user_) {
-            $user = wp_authenticate($user_->user_login, $pd_pass);
+            $user = wp_signon($credentials);
 
             if (is_wp_error($user)) {
                 $msg      = "The email / password doesn't seem right. Check if your caps is on and try again.";
                 $response = array('code' => "FAILED", 'user' => $user_->user_login . $pd_pass, 'msg' => $msg);
                 wp_send_json($response);
             } else {
-                wp_set_auth_cookie($user->ID);
-
-                /*  $user_data = array(
-                  "user_id" => $user->ID,
-                  "user_login" => $user->user_login,
-                  "user_email" => $user->user_email,
-                  "user_role" => $user->roles,
-                  "logged_in" => true
-                  ); */
-
-
                 $blog     = get_active_blog_for_user($user->ID);
-                $blog_url = $blog->siteurl; /* or $blog->path, together with $blog->siteurl */
-                //var_dump($blog_url);
-                //wp_redirect( $blog_url );
-                //exit;
+                $blog_url = $blog->siteurl;
                 $response = array("code" => "OK", 'blog_url' => $blog_url, 'msg' => 'Successful Login');
                 wp_send_json($response);
             }

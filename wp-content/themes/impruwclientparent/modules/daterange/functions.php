@@ -1,93 +1,90 @@
 <?php
 
-    /**
-     *
-     * @global type $wpdb
-     *
-     * @param type  $formdata
-     *
-     * @return Daterange ID
-     */
-    function wp_insert_daterange($formdata)
-    {
+/**
+ *
+ * @global type $wpdb
+ *
+ * @param type  $formdata
+ *
+ * @return Daterange ID
+ */
+function wp_insert_daterange( $formdata ) {
 
-        global $wpdb;
+    global $wpdb;
 
-        $table_name = $wpdb->prefix . 'daterange';
+    $table_name = $wpdb->prefix . 'daterange';
 
-        $data = array();
+    $data = array();
 
-        $data['from_date']        = date('Y-m-d', strtotime($formdata['from_date']));
-        $data['to_date']          = date('Y-m-d', strtotime($formdata['to_date']));
-        $data['daterange_name']   = $formdata['daterange_name'];
-        $data['daterange_colour'] = $formdata['daterange_colour'];
+    $data[ 'from_date' ]        = date( 'Y-m-d', strtotime( $formdata[ 'from_date' ] ) );
+    $data[ 'to_date' ]          = date( 'Y-m-d', strtotime( $formdata[ 'to_date' ] ) );
+    $data[ 'daterange_name' ]   = $formdata[ 'daterange_name' ];
+    $data[ 'daterange_colour' ] = $formdata[ 'daterange_colour' ];
 
-        $wpdb->insert($table_name, $data);
+    $wpdb->insert( $table_name, $data );
 
-        return $wpdb->insert_id;
-    }
+    return $wpdb->insert_id;
+}
 
-    /**
-     *
-     * @return Ambigous <mixed, NULL, multitype:, multitype:multitype: , multitype:Ambigous <multitype:, NULL> >
-     */
-    function get_date_range()
-    {
-        global $wpdb;
+/**
+ *
+ * @return Ambigous <mixed, NULL, multitype:, multitype:multitype: , multitype:Ambigous <multitype:, NULL> >
+ */
+function get_date_range() {
 
-        $table_name = $wpdb->prefix . 'daterange';
+    global $wpdb;
 
-        $query = "SELECT * FROM $table_name ORDER BY from_date ASC";
+    $table_name = $wpdb->prefix . 'daterange';
 
-        $date_range = $wpdb->get_results($query, ARRAY_A);
+    $query = "SELECT * FROM $table_name ORDER BY from_date ASC";
 
-        return $date_range;
-    }
+    $date_range = $wpdb->get_results( $query, ARRAY_A );
 
-    /**
-     *
-     * @global type $wpdb
-     *
-     * @param type  $formdata
-     *
-     * @return daterange ID of updated record
-     */
-    function wp_update_daterange($formdata)
-    {
+    return $date_range;
+}
 
-        global $wpdb;
+/**
+ *
+ * @global type $wpdb
+ *
+ * @param type  $formdata
+ *
+ * @return daterange ID of updated record
+ */
+function wp_update_daterange( $formdata ) {
 
-        $table_name = $wpdb->prefix . 'daterange';
+    global $wpdb;
 
-        $data = array();
+    $table_name = $wpdb->prefix . 'daterange';
 
-        $data['from_date']        = date('Y-m-d', strtotime($formdata['from_date']));
-        $data['to_date']          = date('Y-m-d', strtotime($formdata['to_date']));
-        $data['daterange_name']   = $formdata['daterange_name'];
-        $data['daterange_colour'] = $formdata['daterange_colour'];
-        $data['id']               = $formdata['id'];
+    $data = array();
 
-        $wpdb->update($table_name, $data, array('id' => $data['id']));
+    $data[ 'from_date' ]        = date( 'Y-m-d', strtotime( $formdata[ 'from_date' ] ) );
+    $data[ 'to_date' ]          = date( 'Y-m-d', strtotime( $formdata[ 'to_date' ] ) );
+    $data[ 'daterange_name' ]   = $formdata[ 'daterange_name' ];
+    $data[ 'daterange_colour' ] = $formdata[ 'daterange_colour' ];
+    $data[ 'id' ]               = $formdata[ 'id' ];
 
-        return $data['id'];
-    }
+    $wpdb->update( $table_name, $data, array( 'id' => $data[ 'id' ] ) );
 
-    /**
-     *
-     * @global type $wpdb
-     *
-     * @param type  $formdata
-     *
-     * @return daterange ID of deleted daterange
-     */
-    function wp_delete_daterange($formdata)
-    {
+    return $data[ 'id' ];
+}
 
-        global $wpdb;
+/**
+ *
+ * @global type $wpdb
+ *
+ * @param type  $formdata
+ *
+ * @return daterange ID of deleted daterange
+ */
+function wp_delete_daterange( $formdata ) {
 
-        $table_name = $wpdb->prefix . 'daterange';
+    global $wpdb;
 
-        $wpdb->delete($table_name, array('id' => $formdata['id']));
+    $table_name = $wpdb->prefix . 'daterange';
 
-        return $formdata['id'];
-    }
+    $wpdb->delete( $table_name, array( 'id' => $formdata[ 'id' ] ) );
+
+    return $formdata[ 'id' ];
+}

@@ -225,7 +225,7 @@ jQuery(document).ready(function($) {
 
                     window.location.href = response.blog_url + '/dashboard';
                     return true;
-                } else if ((response.code == 'ERROR') || (response.code == 'FAILED')) {
+                } else if ((response.code == 'ERROR') || (response.code == 'FAILED') ) {
 
                     $("#login_loader").hide();
                     $("#login_status_div").show()
