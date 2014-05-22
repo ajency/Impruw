@@ -214,7 +214,8 @@ jQuery(document).ready(function($) {
 
             // since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
             $.post(ajaxurl, data, function(response) {
-
+                console.log(response);
+                /*
                 if (response.code == 'OK') {
 
                     $("#login_loader").hide();
@@ -234,7 +235,7 @@ jQuery(document).ready(function($) {
                         response.msg + '</div>')
 
                     return false;
-                }
+                }*/
             });
         }
     });

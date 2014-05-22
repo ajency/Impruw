@@ -26,7 +26,7 @@
 
         // check if its a POST request else return
         if ('POST' !== $_SERVER ['REQUEST_METHOD'])
-            wp_send_json_error('Invalid reuest');
+            wp_send_json_error('Invalid request');
 
         // verify the nonce else return error code
         if (!check_ajax_referer('new_user_registration', '_nonce'))
@@ -38,6 +38,15 @@
         // store in $user_data
         $user_data = pick_user_fields($form_data);
 
+        $validated_user= validate_user_credentials($user_data);
+
+        if($validated_user != 0){
+
+        }
+        else{
+            wp_send_json(array('code'=>'EMAIL','msg'=>''));
+        }
+        /*
         // pass the data to create_new_user function capture return data
         $user_id = create_new_user($user_data);
 
@@ -53,10 +62,25 @@
 
         //create_piwik_site($site_id);
 
-        wp_send_json_success();
+        wp_send_json_success();*/
     }
 
     add_action('wp_ajax_nopriv_new_user_registration', 'new_user_registration');
+
+    function validate_user_credentials($userdata){
+        $check_email_exists= email_exists($userdata['user_email']);
+
+        if($check_email_exists == false){
+
+            return 0;
+        }
+        else{
+            return 1;
+        }
+
+
+
+    }
 
     /* function create_piwik_site($site_id){
       $wp_piwik_object = $GLOBALS['wp_piwik'];
