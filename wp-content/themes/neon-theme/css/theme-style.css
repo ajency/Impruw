@@ -2857,12 +2857,12 @@ and open the template in the editor.
 }
 .map {
   padding: 0.33em;
-  border: 1px solid #545d73;
+  border: 3px solid transparent;
   margin: 1em;
   background: #ffffff;
 }
 .map:hover {
-  border: 1px solid #24d07c;
+  border: 3px solid #e223a1;
 }
 /*
 To change this license header, choose License Headers in Project Properties.
@@ -2885,15 +2885,20 @@ and open the template in the editor.
 .contactform .flat {
   border-radius: 0;
   margin-bottom: 0.8em;
-  border-width: 1px;
+  border-width: 3px;
+}
+.contactform .flat:focus,
+.contactform .flat:active {
+  border-color: #e223a1;
+  border-width: 3px;
 }
 .contactform .btn {
   border-radius: 0;
   margin-top: 0.3em;
-  background: #24d07c;
+  background: #e223a1;
 }
 .contactform .btn:hover {
-  background: #48df95;
+  background: #e850b4;
 }
 .rev_slider_wrapper {
   padding: 0 !important;
