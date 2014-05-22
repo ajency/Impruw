@@ -19,14 +19,18 @@ and open the template in the editor.
 	.flat {
 		border-radius: 0;
 		margin-bottom: 0.8em;
-		border-width: 1px;
+		border-width: 3px;
+		&:focus, &:active {
+			border-color: @secondary1;
+			border-width: 3px;
+		}
 	}
 	.btn {
 		border-radius: 0;
 		margin-top: 0.3em;
-		background: @primary1;
+		background: @button-color;
 		&:hover {
-			background: lighten(@primary1, 10%);
+			background: lighten(@button-color, 10%);
 		}
 	}
 }
