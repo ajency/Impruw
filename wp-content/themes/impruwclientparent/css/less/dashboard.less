@@ -3760,3 +3760,67 @@ form {
 		}
 	}
 }
+
+/**** Contact Page Styles ****/
+.aj-imp-contactpage {
+	margin: 0 -15px;
+	background: url('../images/bg_polka.png');
+	padding: 2em 0;
+	border-bottom: 2px solid @preview-grey;
+	border-top: 2px solid @preview-grey;
+	.main-title {
+		text-align: center;
+		color: #000;
+		font-weight: 300;
+	}
+	.contact {
+		float: left;
+		width: 42%;
+		position: relative;
+		margin: 2%;
+		vertical-align: top;
+		h2 {
+			display: inline-block;
+			background: @logo-orange;
+			color: #fff;
+			padding: 0.2em 1em;
+			font-weight: 400;
+		}
+		.c-address {
+			display: inline-block;
+			padding: 0.5em 1em;
+			margin-left: 0.5em;
+			color: @dash-grey;
+			background: rgba(255, 255, 255, 0.7);
+		}
+		.c-map {
+			border-top: 3px solid transparent;
+			.embed-container { 
+				position: relative; 
+				padding-bottom: 56.25%; 
+				padding-top: 30px; 
+				height: 0; 
+				overflow: hidden; 
+				max-width: 100%; 
+				height: auto; 
+			} 
+			.embed-container iframe, .embed-container object, .embed-container embed { 
+				position: absolute; 
+				top: 0; 
+				left: 0; 
+				width: 100%; 
+				height: 100%; 
+			}
+			&:hover {
+				border-color: @logo-orange;
+			}
+		}
+		&.norway {
+			float: right;
+		}
+		@media (max-width: 767px) {
+			width: 96%;
+			float: none;
+		}
+	}
+}

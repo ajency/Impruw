@@ -3657,3 +3657,70 @@ form .aj-imp-submit:hover {
     text-align: center;
   }
 }
+/**** Contact Page Styles ****/
+.aj-imp-contactpage {
+  margin: 0 -15px;
+  background: url('../images/bg_polka.png');
+  padding: 2em 0;
+  border-bottom: 2px solid #f3f3f3;
+  border-top: 2px solid #f3f3f3;
+}
+.aj-imp-contactpage .main-title {
+  text-align: center;
+  color: #000;
+  font-weight: 300;
+}
+.aj-imp-contactpage .contact {
+  float: left;
+  width: 42%;
+  position: relative;
+  margin: 2%;
+  vertical-align: top;
+}
+.aj-imp-contactpage .contact h2 {
+  display: inline-block;
+  background: #ee4423;
+  color: #fff;
+  padding: 0.2em 1em;
+  font-weight: 400;
+}
+.aj-imp-contactpage .contact .c-address {
+  display: inline-block;
+  padding: 0.5em 1em;
+  margin-left: 0.5em;
+  color: #aaaaaa;
+  background: rgba(255, 255, 255, 0.7);
+}
+.aj-imp-contactpage .contact .c-map {
+  border-top: 3px solid transparent;
+}
+.aj-imp-contactpage .contact .c-map .embed-container {
+  position: relative;
+  padding-bottom: 56.25%;
+  padding-top: 30px;
+  height: 0;
+  overflow: hidden;
+  max-width: 100%;
+  height: auto;
+}
+.aj-imp-contactpage .contact .c-map .embed-container iframe,
+.aj-imp-contactpage .contact .c-map .embed-container object,
+.aj-imp-contactpage .contact .c-map .embed-container embed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.aj-imp-contactpage .contact .c-map:hover {
+  border-color: #ee4423;
+}
+.aj-imp-contactpage .contact.norway {
+  float: right;
+}
+@media (max-width: 767px) {
+  .aj-imp-contactpage .contact {
+    width: 96%;
+    float: none;
+  }
+}
