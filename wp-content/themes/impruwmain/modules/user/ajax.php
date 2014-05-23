@@ -38,18 +38,17 @@
         // store in $user_data
         $user_data = pick_user_fields($form_data);
 
-        $validated_user= validate_user_credentials($user_data);
+        $validated_user_email= validate_user_email($user_data);
+        if(!$validated_user_email)
+            wp_send_json(array('success'=>false,'ERROR' =>'email','msg'=>'Email ID already exists'));
 
-        if($validated_user != 0){
-            echo 'hi';
-        }
-        else{
-            echo 'no';
-            wp_send_json(array('code'=>'EMAIL','msg'=>'Email already exists'));
-        }
+        $validated_sitename= validate_site_name( $form_data ['site_name'] );
+        if(!$validated_sitename)
+            wp_send_json(array('success'=>false,'ERROR' =>'sitename','msg'=>'Sitename already exists'));
+
 
         // pass the data to create_new_user function capture return data
-        /*$user_id = create_new_user($user_data);
+        $user_id = create_new_user($user_data);
 
         // if int = $user_id return success else return error
         if (is_wp_error($user_id))
@@ -63,24 +62,39 @@
 
         //create_piwik_site($site_id);
 
-        wp_send_json_success();*/
+        wp_send_json_success();
     }
 
     add_action('wp_ajax_nopriv_new_user_registration', 'new_user_registration');
 
-    function validate_user_credentials($userdata){
+    // Check if the email id is available
+    function validate_user_email($userdata){
         $check_email_exists= email_exists($userdata['user_email']);
 
         if($check_email_exists == false){
-
-            return 0;
+            // email does not exists
+            return true;
         }
         else{
-            return 1;
+            // email  exists
+            return false;
         }
 
+    }
 
+    function validate_site_name($sitename){
 
+        $path   = get_site_path($sitename);
+        $domain = get_site_domain($sitename);
+
+        $check_site = domain_exists($domain, $path);
+
+        if(is_null($check_site))
+            // site does not exists
+            return true;
+        else
+            // site exists
+            return false;
     }
 
     /* function create_piwik_site($site_id){
