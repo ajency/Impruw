@@ -20,6 +20,7 @@
     //require_once 'User/user_management.php';//file containing all shortcodes to fetch site information
     //add theme support
     add_theme_support('post-thumbnails');
+    add_theme_support('menus');
     show_admin_bar(FALSE);
 
     /* * ****************** Theme Modules ******************************** */
