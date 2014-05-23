@@ -3897,3 +3897,67 @@ form .aj-imp-submit:hover {
 .aj-imp-teampage .member:hover p {
   color: #333333;
 }
+/**** FAQ Page Styles ****/
+.aj-imp-faqpage {
+  margin: 0 -15px;
+  background: url('../images/bg_polka.png');
+  padding: 2em 0;
+  border-bottom: 2px solid #f3f3f3;
+  border-top: 2px solid #f3f3f3;
+}
+.aj-imp-faqpage .main-title {
+  text-align: center;
+  color: #000;
+  font-weight: 300;
+}
+.aj-imp-faqpage .desc {
+  text-align: center;
+  font-weight: 300;
+  color: #333333;
+  font-size: 1.3em;
+}
+.aj-imp-faqpage .search-support {
+  margin: 2em 4em;
+}
+.aj-imp-faqpage .search-support .form-control:active,
+.aj-imp-faqpage .search-support .form-control:focus {
+  border-color: #BDC3C7;
+  background: #f3f3f3;
+}
+.aj-imp-faqpage .faqs {
+  margin: 1em 4em;
+}
+.aj-imp-faqpage .faqs .question {
+  font-weight: 700;
+  color: #000;
+  margin: 0 0 0.5em;
+  font-size: 1.2em;
+}
+.aj-imp-faqpage .faqs .question:before {
+  display: inline-block;
+  content: "Q: ";
+  font-size: 1.5em;
+  color: #ee4423;
+  margin-right: 0.2em;
+  font-weight: 300;
+}
+.aj-imp-faqpage .faqs .answer {
+  font-weight: 400;
+  color: #333333;
+  margin: 0 0 2em;
+}
+.aj-imp-faqpage .faqs .answer:before {
+  display: inline-block;
+  content: "A: ";
+  font-size: 1.8em;
+  color: #71b8ec;
+  margin-right: 0.4em;
+  font-weight: 300;
+}
+.aj-imp-faqpage .faqs .category-head {
+  color: #333333;
+  margin: 2em 0 0.5em;
+  border-bottom: 1px solid #aaaaaa;
+  font-weight: 400;
+  font-size: 2.5em;
+}

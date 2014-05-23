@@ -3922,3 +3922,69 @@ form {
 		}
 	}
 }
+
+/**** FAQ Page Styles ****/
+.aj-imp-faqpage {
+	margin: 0 -15px;
+	background: url('../images/bg_polka.png');
+	padding: 2em 0;
+	border-bottom: 2px solid @preview-grey;
+	border-top: 2px solid @preview-grey;
+	.main-title {
+		text-align: center;
+		color: #000;
+		font-weight: 300;
+	}
+	.desc {
+		text-align: center;
+		font-weight: 300;
+		color: @3-grey;
+		font-size: 1.3em;
+	}
+	.search-support {
+		margin: 2em 4em;
+		.form-control {
+			&:active, &:focus {
+				border-color: #BDC3C7;
+				background: @preview-grey;
+			}
+		}
+	}
+	.faqs {
+		margin: 1em 4em;
+		.question {
+			font-weight: 700;
+			color: #000;
+			margin: 0 0 0.5em;
+			font-size: 1.2em;
+			&:before {
+				display: inline-block;
+				content: "Q: ";
+				font-size: 1.5em;
+				color: @logo-orange;
+				margin-right: 0.2em; 
+				font-weight: 300;
+			}
+		}
+		.answer {
+			font-weight: 400;
+			color: @3-grey;
+			margin: 0 0 2em;
+			&:before {
+				display: inline-block;
+				content: "A: ";
+				font-size: 1.8em;
+				color: @sky-blue;
+				margin-right: 0.4em; 
+				font-weight: 300;
+			}
+		}
+		.category-head {
+			color: @3-grey;
+			margin: 2em 0 0.5em;
+			border-bottom: 1px solid @dash-grey;
+			font-weight: 400;
+			font-size: 2.5em;
+		}
+	}
+}
