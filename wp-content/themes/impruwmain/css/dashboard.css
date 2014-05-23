@@ -3448,7 +3448,7 @@ form .aj-imp-submit:hover {
   box-shadow: 1px 1px 2px 1px #333333;
 }
 .aj-imp-homepage .home-1 .big-sign:hover {
-  background: #f26c52;
+  background: #25406a;
 }
 .aj-imp-homepage .home-1 .img-responsive {
   margin: 0 auto;
@@ -3523,6 +3523,9 @@ form .aj-imp-submit:hover {
   .aj-imp-homepage .home-2 {
     text-align: center;
   }
+  .aj-imp-homepage .home-2 .img-responsive {
+    margin: 1em auto;
+  }
 }
 .aj-imp-homepage .home-3 {
   padding: 3em 15% 2em;
@@ -3584,6 +3587,11 @@ form .aj-imp-submit:hover {
   font-size: 0.88em;
   text-align: left;
 }
+@media (max-width: 767px) {
+  .aj-imp-homepage .home-4 .info-blocks .block p {
+    text-align: center;
+  }
+}
 .aj-imp-homepage .home-4 .info-blocks .block:last-child {
   margin-right: 0;
 }
@@ -3637,7 +3645,7 @@ form .aj-imp-submit:hover {
   box-shadow: 1px 1px 2px 1px #333333;
 }
 .aj-imp-homepage .home-6 .big-sign:hover {
-  background: #f26c52;
+  background: #25406a;
 }
 @media (max-width: 767px) {
   .aj-imp-homepage .home-6 .big-sign {
