@@ -70,7 +70,7 @@
                     'walker'          => ''
                 );
 
-                //wp_nav_menu( $defaults );
+                wp_nav_menu( $defaults );
 
             ?>
 

@@ -764,6 +764,32 @@ form {
 					}
 				}
 			}
+			.main-menu {
+				display: inline-block;
+				.menu {
+					list-style: none;
+					margin: 0.3em 0.5em 0 0;
+    				padding: 0.3em 0.5em;
+					border-right: 1px solid lighten(@dash-grey, 10%);
+					li {
+						display: inline-block;
+						margin-left: 1em;
+						a {
+							padding: 0 0.5em;
+							color: @3-grey;
+							font-weight: 300;
+							&:hover {
+								color: @logo-orange;
+							}
+						}
+						&.current-menu-item {
+							a {
+								color: @logo-orange;
+							}
+						}
+					}
+				}
+			}
 			.lang-sel {
 				float: right;
 				margin: 0.3em 0.5em;
@@ -3821,6 +3847,78 @@ form {
 		@media (max-width: 767px) {
 			width: 96%;
 			float: none;
+		}
+	}
+}
+
+/**** Team Page Styles ****/
+.aj-imp-teampage {
+	margin: 0 -15px;
+	background: url('../images/bg_polka.png');
+	padding: 2em 0;
+	border-bottom: 2px solid @preview-grey;
+	border-top: 2px solid @preview-grey;
+	.main-title {
+		text-align: center;
+		color: #000;
+		font-weight: 300;
+	}
+	.desc {
+		text-align: center;
+		font-weight: 300;
+		color: @3-grey;
+		font-size: 1.3em;
+	}
+	.member {
+		margin: 2em 4em;
+		padding: 1em 0 0;
+		border-bottom: 1px solid darken(@preview-grey, 10%);
+		.member-pic {
+			text-align: center;
+			height: 260px;
+			position: relative;
+			overflow: hidden;
+			.img-circle {
+				border: 5px solid #fff;
+				height: 250px;
+				width: 250px;
+				box-shadow: 0 0 3px 3px @dash-grey;
+				position: absolute;
+				bottom: -25%;
+				left: 25%;
+				transition: all 0.5s ease;
+			}
+		}
+		h4 {
+			font-weight: 300;
+			margin: 1.2em 0 1em;
+			color: @logo-blue;
+		}
+		p {
+			color: @dash-grey;
+			font-weight: 300;
+		}
+		&.alt {
+			div[class*='col-sm-'] {
+				float: right; 
+				@media (max-width: 767px) {
+					width: 100%;
+					float: none;
+				}
+			}
+		}
+		&:hover {
+			.member-pic {
+				.img-circle {
+					bottom: 5px;
+				}
+			}
+			h4 {
+				color: @logo-orange;
+			}
+			p {
+				color: @3-grey;
+			}
 		}
 	}
 }
