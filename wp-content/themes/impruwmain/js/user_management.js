@@ -60,8 +60,11 @@ jQuery(document).ready(function($) {
                     return true;
                 } else if (!response.success) {
 
-                    //alert("invalid captcha")
-                    response.msg = "Could not create account";
+                    if(response.ERROR =="email" || response.ERROR =="sitename")
+                        response.msg = response.msg;
+                    else
+                        response.msg ="Could not create account";
+
 
                     $("#recaptcha_reload").click();
                     $("#registration_status_div").show()
@@ -73,8 +76,7 @@ jQuery(document).ready(function($) {
                     $('#btn_create_site').attr('disabled',false);
                     return false;
                 }
-            }); //end  $.post(ajaxurl, data, function(response) 
-
+            }); //end  $.post(ajaxurl, data, function(response)
 
         }
 
