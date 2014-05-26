@@ -12,7 +12,9 @@ function get_bookings( $room_id = 0 ) {
 
     $table_name = $wpdb->prefix . 'bookings';
 
-    $query = $wpdb->prepare( "SELECT * FROM $table_name WHERE room_id=%d", $room_id );
+    $sql = "SELECT * FROM $table_name WHERE room_id=%d";
+
+    $query = $wpdb->prepare( $sql, $room_id );
 
     $bookings = $wpdb->get_results( $query, ARRAY_A );
 

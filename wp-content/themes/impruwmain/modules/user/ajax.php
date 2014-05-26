@@ -274,7 +274,7 @@
         $message .= sprintf(__('Username: %s'), $user_login) . "\r\n\r\n";
         $message .= __('If this was a mistake, just ignore this email and nothing will happen.') . "\r\n\r\n";
         $message .= __('To reset your password, visit the following address:') . "\r\n\r\n";
-        $message .= '<' . network_site_url("wp-login.php?action=rp&key=$key&login=" . rawurlencode($user_login), 'login') . ">\r\n";
+        $message .= '<' . network_site_url("reset-password?action=rp&key=$key&login=" . rawurlencode($user_login), 'login') . ">\r\n";
 
         if ( $message && !wp_mail( $user_email, wp_specialchars_decode( $title ), $message ) )
             wp_die( __('The e-mail could not be sent.') . "<br />\n" . __('Possible reason: your host may have disabled the mail() function.') );
@@ -289,4 +289,7 @@
     }
     add_action('wp_ajax_reset_password_user_request', 'ajax_reset_password_user_request');
     add_action('wp_ajax_nopriv_reset_password_user_request', 'ajax_reset_password_user_request');
+
+
+
 
