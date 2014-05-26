@@ -11,10 +11,14 @@
 
         if ( is_wp_error($user) ) {
             if ( $user->get_error_code() === 'expired_key' )
-                echo 'The key has expired';
+                echo 'The link key has been expired
+                        This link is really old. Lets get you a new one.
+                        If you are trying to reset your password click here (link to reset password)';
                 //wp_redirect( site_url( 'wp-login.php?action=lostpassword&error=expiredkey' ) );
             else
-                echo 'The key has does not match user records';
+                echo "The link key does not match the database
+                        Something broke, this doesn't look like a valid link.
+                        If you are trying to reset your password click here (link to reset password)";
                 //wp_redirect( site_url( 'wp-login.php?action=lostpassword&error=invalidkey' ) );
             exit;
         }

@@ -4,6 +4,8 @@
      */
     get_header();
 
+
+    // check if the url parameters are set
     if(isset($_GET['action']) && $_GET['action'] == "reset_password"):
 
         // Check if the password reset key matches with the user activation key in db
@@ -47,18 +49,20 @@
                  */
                 do_action( 'resetpass_form', $user );
                 ?>
-                <p class="submit"><input type="submit" name="wp-submit" id="wp-submit" class="button button-primary button-large" value="<?php esc_attr_e('Reset Password'); ?>" /></p>
+                <p class="submit">
+                    <input type="submit" name="wp-submit" id="wp-submit" class="button button-primary button-large" value="<?php esc_attr_e('Reset Password'); ?>" />
+                </p>
             </form>
-
-            <p id="nav">
-                <a href="<?php echo esc_url( wp_login_url() ); ?>"><?php _e( 'Log in' ); ?></a>
-            </p>
-
-
-
 
 <?php
         }
     endif;
+
+
+    if(isset($_POST['wp-submit'])):
+        echo "<p> We have sent you an email with a link to reset your password.
+                 If you haven't received it in the next 5 minutes, check your spam folder or email us at support@impruw.com
+             </p>";
+        endif;
 
     get_footer();
