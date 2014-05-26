@@ -28,12 +28,27 @@ and open the template in the editor.
 			&:last-child {
 				padding-right: 0;
 			}
+			@media(max-width:991px) {
+				margin-bottom: @large !important;
+				border-bottom: 1px solid darken(@tertiary1, 5%);
+			}
 		}
 	}
 	&.menu-bar {
 		padding-bottom: @large;
 		border-bottom: 10px solid @primary1;
 		margin-bottom: @large;
+		@media(max-width:991px) {
+			.logo {
+				text-align: center;
+				margin-bottom: @large;
+				a, img {
+					display: block;
+					text-align: center;
+					margin: auto;
+				}
+			}
+		}
 	}
 	&.footer-bar {
 		margin-top: @medium;
@@ -59,6 +74,12 @@ and open the template in the editor.
 				padding-right: 0;
 			}
 		}
+		@media(max-width:991px) {
+			margin: 0 0 @large !important;
+			> .column {
+				padding-right: 0;
+			}
+		}
 	}
 	&.shadow-box {
 		background: darken(@tertiary1, 8%);
@@ -71,6 +92,9 @@ and open the template in the editor.
 					
 				}
 			}
+		}
+		@media(max-width:991px) {
+			margin-bottom: @large !important;
 		}
 	}
 	&.column-dividers {
