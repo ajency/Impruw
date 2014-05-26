@@ -764,6 +764,32 @@ form {
 					}
 				}
 			}
+			.main-menu {
+				display: inline-block;
+				.menu {
+					list-style: none;
+					margin: 0.3em 0.5em 0 0;
+    				padding: 0.3em 0.5em;
+					border-right: 1px solid lighten(@dash-grey, 10%);
+					li {
+						display: inline-block;
+						margin-left: 1em;
+						a {
+							padding: 0 0.5em;
+							color: @3-grey;
+							font-weight: 300;
+							&:hover {
+								color: @logo-orange;
+							}
+						}
+						&.current-menu-item {
+							a {
+								color: @logo-orange;
+							}
+						}
+					}
+				}
+			}
 			.lang-sel {
 				float: right;
 				margin: 0.3em 0.5em;
@@ -3757,6 +3783,208 @@ form {
 		}
 		@media (max-width: 767px) {
 			text-align: center;
+		}
+	}
+}
+
+/**** Contact Page Styles ****/
+.aj-imp-contactpage {
+	margin: 0 -15px;
+	background: url('../images/bg_polka.png');
+	padding: 2em 0;
+	border-bottom: 2px solid @preview-grey;
+	border-top: 2px solid @preview-grey;
+	.main-title {
+		text-align: center;
+		color: #000;
+		font-weight: 300;
+	}
+	.contact {
+		float: left;
+		width: 42%;
+		position: relative;
+		margin: 2%;
+		vertical-align: top;
+		h2 {
+			display: inline-block;
+			background: @logo-orange;
+			color: #fff;
+			padding: 0.2em 1em;
+			font-weight: 400;
+		}
+		.c-address {
+			display: inline-block;
+			padding: 0.5em 1em;
+			margin-left: 0.5em;
+			color: @dash-grey;
+			background: rgba(255, 255, 255, 0.7);
+		}
+		.c-map {
+			border-top: 3px solid transparent;
+			.embed-container { 
+				position: relative; 
+				padding-bottom: 56.25%; 
+				padding-top: 30px; 
+				height: 0; 
+				overflow: hidden; 
+				max-width: 100%; 
+				height: auto; 
+			} 
+			.embed-container iframe, .embed-container object, .embed-container embed { 
+				position: absolute; 
+				top: 0; 
+				left: 0; 
+				width: 100%; 
+				height: 100%; 
+			}
+			&:hover {
+				border-color: @logo-orange;
+			}
+		}
+		&.norway {
+			float: right;
+		}
+		@media (max-width: 767px) {
+			width: 96%;
+			float: none;
+		}
+	}
+}
+
+/**** Team Page Styles ****/
+.aj-imp-teampage {
+	margin: 0 -15px;
+	background: url('../images/bg_polka.png');
+	padding: 2em 0;
+	border-bottom: 2px solid @preview-grey;
+	border-top: 2px solid @preview-grey;
+	.main-title {
+		text-align: center;
+		color: #000;
+		font-weight: 300;
+	}
+	.desc {
+		text-align: center;
+		font-weight: 300;
+		color: @3-grey;
+		font-size: 1.3em;
+	}
+	.member {
+		margin: 2em 4em;
+		padding: 1em 0 0;
+		border-bottom: 1px solid darken(@preview-grey, 10%);
+		.member-pic {
+			text-align: center;
+			height: 260px;
+			position: relative;
+			overflow: hidden;
+			.img-circle {
+				border: 5px solid #fff;
+				height: 250px;
+				width: 250px;
+				box-shadow: 0 0 3px 3px @dash-grey;
+				position: absolute;
+				bottom: -25%;
+				left: 25%;
+				transition: all 0.5s ease;
+			}
+		}
+		h4 {
+			font-weight: 300;
+			margin: 1.2em 0 1em;
+			color: @logo-blue;
+		}
+		p {
+			color: @dash-grey;
+			font-weight: 300;
+		}
+		&.alt {
+			div[class*='col-sm-'] {
+				float: right; 
+				@media (max-width: 767px) {
+					width: 100%;
+					float: none;
+				}
+			}
+		}
+		&:hover {
+			.member-pic {
+				.img-circle {
+					bottom: 5px;
+				}
+			}
+			h4 {
+				color: @logo-orange;
+			}
+			p {
+				color: @3-grey;
+			}
+		}
+	}
+}
+
+/**** FAQ Page Styles ****/
+.aj-imp-faqpage {
+	margin: 0 -15px;
+	background: url('../images/bg_polka.png');
+	padding: 2em 0;
+	border-bottom: 2px solid @preview-grey;
+	border-top: 2px solid @preview-grey;
+	.main-title {
+		text-align: center;
+		color: #000;
+		font-weight: 300;
+	}
+	.desc {
+		text-align: center;
+		font-weight: 300;
+		color: @3-grey;
+		font-size: 1.3em;
+	}
+	.search-support {
+		margin: 2em 4em;
+		.form-control {
+			&:active, &:focus {
+				border-color: #BDC3C7;
+				background: @preview-grey;
+			}
+		}
+	}
+	.faqs {
+		margin: 1em 4em;
+		.question {
+			font-weight: 700;
+			color: #000;
+			margin: 0 0 0.5em;
+			font-size: 1.2em;
+			&:before {
+				display: inline-block;
+				content: "Q: ";
+				font-size: 1.5em;
+				color: @logo-orange;
+				margin-right: 0.2em; 
+				font-weight: 300;
+			}
+		}
+		.answer {
+			font-weight: 400;
+			color: @3-grey;
+			margin: 0 0 2em;
+			&:before {
+				display: inline-block;
+				content: "A: ";
+				font-size: 1.8em;
+				color: @sky-blue;
+				margin-right: 0.4em; 
+				font-weight: 300;
+			}
+		}
+		.category-head {
+			color: @3-grey;
+			margin: 2em 0 0.5em;
+			border-bottom: 1px solid @dash-grey;
+			font-weight: 400;
+			font-size: 2.5em;
 		}
 	}
 }

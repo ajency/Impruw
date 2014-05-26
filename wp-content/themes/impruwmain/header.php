@@ -42,12 +42,38 @@
 ?>
 <header class="aj-imp-lo-header">
     <div class="row">
-        <div class="col-md-6 logo">
+        <div class="col-md-3 logo">
             <a href="<?php echo site_url(); ?>"><img
                     src="<?php echo get_template_directory_uri(); ?>/images/impruw-logo-blue.png" title="Impruw"
                     alt="Impruw"/></a>
         </div>
-        <div class="col-md-6 lang-actions">
+        <div class="col-md-9 lang-actions">
+
+            <?php
+
+                $defaults = array(
+                    'theme_location'  => '',
+                    'menu'            => 'home',
+                    'container'       => 'div',
+                    'container_class' => 'main-menu',
+                    'container_id'    => '',
+                    'menu_class'      => 'menu',
+                    'menu_id'         => '',
+                    'echo'            => true,
+                    'fallback_cb'     => 'wp_page_menu',
+                    'before'          => '',
+                    'after'           => '',
+                    'link_before'     => '',
+                    'link_after'      => '',
+                    'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+                    'depth'           => 0,
+                    'walker'          => ''
+                );
+
+                wp_nav_menu( $defaults );
+
+            ?>
+
             <a href="<?php echo site_url('login'); ?>" class="login-btn"><span
                     class="glyphicon glyphicon-lock"></span> <?php _e('Sign In') ?></a>
 

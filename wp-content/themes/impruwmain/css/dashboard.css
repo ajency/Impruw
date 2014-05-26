@@ -774,6 +774,30 @@ form .aj-imp-submit:hover {
   color: #848484;
   font-weight: bold;
 }
+.aj-imp-lo-header > .row .lang-actions .main-menu {
+  display: inline-block;
+}
+.aj-imp-lo-header > .row .lang-actions .main-menu .menu {
+  list-style: none;
+  margin: 0.3em 0.5em 0 0;
+  padding: 0.3em 0.5em;
+  border-right: 1px solid #c3c3c3;
+}
+.aj-imp-lo-header > .row .lang-actions .main-menu .menu li {
+  display: inline-block;
+  margin-left: 1em;
+}
+.aj-imp-lo-header > .row .lang-actions .main-menu .menu li a {
+  padding: 0 0.5em;
+  color: #333333;
+  font-weight: 300;
+}
+.aj-imp-lo-header > .row .lang-actions .main-menu .menu li a:hover {
+  color: #ee4423;
+}
+.aj-imp-lo-header > .row .lang-actions .main-menu .menu li.current-menu-item a {
+  color: #ee4423;
+}
 .aj-imp-lo-header > .row .lang-actions .lang-sel {
   float: right;
   margin: 0.3em 0.5em;
@@ -3656,4 +3680,202 @@ form .aj-imp-submit:hover {
   .aj-imp-homepage .home-6 {
     text-align: center;
   }
+}
+/**** Contact Page Styles ****/
+.aj-imp-contactpage {
+  margin: 0 -15px;
+  background: url('../images/bg_polka.png');
+  padding: 2em 0;
+  border-bottom: 2px solid #f3f3f3;
+  border-top: 2px solid #f3f3f3;
+}
+.aj-imp-contactpage .main-title {
+  text-align: center;
+  color: #000;
+  font-weight: 300;
+}
+.aj-imp-contactpage .contact {
+  float: left;
+  width: 42%;
+  position: relative;
+  margin: 2%;
+  vertical-align: top;
+}
+.aj-imp-contactpage .contact h2 {
+  display: inline-block;
+  background: #ee4423;
+  color: #fff;
+  padding: 0.2em 1em;
+  font-weight: 400;
+}
+.aj-imp-contactpage .contact .c-address {
+  display: inline-block;
+  padding: 0.5em 1em;
+  margin-left: 0.5em;
+  color: #aaaaaa;
+  background: rgba(255, 255, 255, 0.7);
+}
+.aj-imp-contactpage .contact .c-map {
+  border-top: 3px solid transparent;
+}
+.aj-imp-contactpage .contact .c-map .embed-container {
+  position: relative;
+  padding-bottom: 56.25%;
+  padding-top: 30px;
+  height: 0;
+  overflow: hidden;
+  max-width: 100%;
+  height: auto;
+}
+.aj-imp-contactpage .contact .c-map .embed-container iframe,
+.aj-imp-contactpage .contact .c-map .embed-container object,
+.aj-imp-contactpage .contact .c-map .embed-container embed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.aj-imp-contactpage .contact .c-map:hover {
+  border-color: #ee4423;
+}
+.aj-imp-contactpage .contact.norway {
+  float: right;
+}
+@media (max-width: 767px) {
+  .aj-imp-contactpage .contact {
+    width: 96%;
+    float: none;
+  }
+}
+/**** Team Page Styles ****/
+.aj-imp-teampage {
+  margin: 0 -15px;
+  background: url('../images/bg_polka.png');
+  padding: 2em 0;
+  border-bottom: 2px solid #f3f3f3;
+  border-top: 2px solid #f3f3f3;
+}
+.aj-imp-teampage .main-title {
+  text-align: center;
+  color: #000;
+  font-weight: 300;
+}
+.aj-imp-teampage .desc {
+  text-align: center;
+  font-weight: 300;
+  color: #333333;
+  font-size: 1.3em;
+}
+.aj-imp-teampage .member {
+  margin: 2em 4em;
+  padding: 1em 0 0;
+  border-bottom: 1px solid #dadada;
+}
+.aj-imp-teampage .member .member-pic {
+  text-align: center;
+  height: 260px;
+  position: relative;
+  overflow: hidden;
+}
+.aj-imp-teampage .member .member-pic .img-circle {
+  border: 5px solid #fff;
+  height: 250px;
+  width: 250px;
+  box-shadow: 0 0 3px 3px #aaaaaa;
+  position: absolute;
+  bottom: -25%;
+  left: 25%;
+  transition: all 0.5s ease;
+}
+.aj-imp-teampage .member h4 {
+  font-weight: 300;
+  margin: 1.2em 0 1em;
+  color: #182944;
+}
+.aj-imp-teampage .member p {
+  color: #aaaaaa;
+  font-weight: 300;
+}
+.aj-imp-teampage .member.alt div[class*='col-sm-'] {
+  float: right;
+}
+@media (max-width: 767px) {
+  .aj-imp-teampage .member.alt div[class*='col-sm-'] {
+    width: 100%;
+    float: none;
+  }
+}
+.aj-imp-teampage .member:hover .member-pic .img-circle {
+  bottom: 5px;
+}
+.aj-imp-teampage .member:hover h4 {
+  color: #ee4423;
+}
+.aj-imp-teampage .member:hover p {
+  color: #333333;
+}
+/**** FAQ Page Styles ****/
+.aj-imp-faqpage {
+  margin: 0 -15px;
+  background: url('../images/bg_polka.png');
+  padding: 2em 0;
+  border-bottom: 2px solid #f3f3f3;
+  border-top: 2px solid #f3f3f3;
+}
+.aj-imp-faqpage .main-title {
+  text-align: center;
+  color: #000;
+  font-weight: 300;
+}
+.aj-imp-faqpage .desc {
+  text-align: center;
+  font-weight: 300;
+  color: #333333;
+  font-size: 1.3em;
+}
+.aj-imp-faqpage .search-support {
+  margin: 2em 4em;
+}
+.aj-imp-faqpage .search-support .form-control:active,
+.aj-imp-faqpage .search-support .form-control:focus {
+  border-color: #BDC3C7;
+  background: #f3f3f3;
+}
+.aj-imp-faqpage .faqs {
+  margin: 1em 4em;
+}
+.aj-imp-faqpage .faqs .question {
+  font-weight: 700;
+  color: #000;
+  margin: 0 0 0.5em;
+  font-size: 1.2em;
+}
+.aj-imp-faqpage .faqs .question:before {
+  display: inline-block;
+  content: "Q: ";
+  font-size: 1.5em;
+  color: #ee4423;
+  margin-right: 0.2em;
+  font-weight: 300;
+}
+.aj-imp-faqpage .faqs .answer {
+  font-weight: 400;
+  color: #333333;
+  margin: 0 0 2em;
+}
+.aj-imp-faqpage .faqs .answer:before {
+  display: inline-block;
+  content: "A: ";
+  font-size: 1.8em;
+  color: #71b8ec;
+  margin-right: 0.4em;
+  font-weight: 300;
+}
+.aj-imp-faqpage .faqs .category-head {
+  color: #333333;
+  margin: 2em 0 0.5em;
+  border-bottom: 1px solid #aaaaaa;
+  font-weight: 400;
+  font-size: 2em;
 }
