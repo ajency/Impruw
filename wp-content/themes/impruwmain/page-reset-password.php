@@ -82,9 +82,9 @@
 
 
     if(isset($_POST['wp-submit'])):
-        echo "<p> We have sent you an email with a link to reset your password.
+        echo "<div class='alert alert-info'> We have sent you an email with a link to reset your password.
                  If you haven't received it in the next 5 minutes, check your spam folder or email us at support@impruw.com
-             </p>";
+             </div>";
         endif;
 
     get_footer();
