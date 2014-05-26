@@ -124,11 +124,13 @@
     </div>
     <script type="text/javascript">
         jQuery(document).ready(function(){
-            jQuery('.aj-imp-log-forgot').click(function(){
+            jQuery('.aj-imp-log-forgot').click(function(e){
+                e.preventDefault();
                 jQuery('.aj-imp-login').addClass('hidden');
                 jQuery('.aj-imp-forgot').removeClass('hidden');
             });
-            jQuery('.aj-imp-sign-back').click(function(){
+            jQuery('.aj-imp-sign-back').click(function(e){
+                e.preventDefault();
                 jQuery('.aj-imp-login').removeClass('hidden');
                 jQuery('.aj-imp-forgot').addClass('hidden');
             });
