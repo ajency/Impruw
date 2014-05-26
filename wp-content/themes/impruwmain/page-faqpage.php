@@ -30,7 +30,7 @@ get_header();
                     Impruw is the best site builder in the world. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt. 
                 </div>
 
-                <h4 class="category-head"><a name="faq-1"><span class="icon icon-link"></span></a> Another Topic of Discussion</h4>
+                <h4 class="category-head"><a name="faq-1"><span class="glyphicon glyphicon-bookmark"></span></a> Another Topic of Discussion</h4>
                 
                 <div class="question">
                     A Question about Impruw?
@@ -54,7 +54,7 @@ get_header();
                     Impruw is the best site builder in the world. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt. 
                 </div>
 
-                <h4 class="category-head"><a name="faq-2"><span class="icon icon-link"></span></a> Yet Another Topic of Discussion</h4>
+                <h4 class="category-head"><a name="faq-2"><span class="glyphicon glyphicon-bookmark"></span></a> Yet Another Topic of Discussion</h4>
                 
                 <div class="question">
                     A Question about Impruw?
