@@ -3852,12 +3852,11 @@ form .aj-imp-submit:hover {
   padding: 0;
 }
 .aj-imp-faqpage .faq-container .side-nav .nav-links li {
-  margin: 0.5em 0;
-  padding-left: 0.5em;
+  margin: 1em 0;
 }
 .aj-imp-faqpage .faq-container .side-nav .nav-links li:before {
   display: inline-block;
-  content: "-";
+  content: "\2014";
 }
 .aj-imp-faqpage .faq-container .side-nav .affix {
   top: 20px;
