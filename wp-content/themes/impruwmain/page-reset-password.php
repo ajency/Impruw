@@ -76,17 +76,24 @@
             exit;
         }
 
+        $errors = new WP_Error();
         //check if both passwords match
         if ( isset($_POST['pass1']) && $_POST['pass1'] != $_POST['pass2'] )
-            echo 'The passwords do not match';
-            //$errors->add( 'password_reset_mismatch', __( 'The passwords do not match.' ) );
+            $errors->add( 'password_reset_mismatch', __( 'The passwords do not match.' ) );
 
-        if ( isset( $_POST['pass1'] ) && !empty( $_POST['pass1'] ) ) {
+        do_action( 'validate_password_reset', $errors, $user );
+
+        if ( ( ! $errors->get_error_code() ) && isset( $_POST['pass1'] ) && !empty( $_POST['pass1'] ) ) {
             reset_password($user, $_POST['pass1']);
             login_header( __( 'Password Reset' ), '<p class="message reset-pass">' . __( 'Your password has been reset.' ) . ' <a href="' . esc_url( wp_login_url() ) . '">' . __( 'Log in' ) . '</a></p>' );
             login_footer();
             exit;
         }
+
+        wp_enqueue_script('utils');
+        wp_enqueue_script('user-profile');
+
+        login_header(__('Reset Password'), '<p class="message reset-pass">' . __('Enter your new password below.') . '</p>', $errors );
 
     endif;
 
