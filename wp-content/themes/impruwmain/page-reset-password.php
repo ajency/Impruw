@@ -62,7 +62,7 @@
     endif;
 
     if(isset($_GET['action']) &&  $_GET['action'] == "resetpass"):
-
+        echo $_GET['key'];
         //check user authentication
         $user = check_password_reset_key($_GET['key'], $_GET['login']);
 
