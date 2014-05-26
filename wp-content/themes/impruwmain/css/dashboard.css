@@ -3834,16 +3834,36 @@ form .aj-imp-submit:hover {
   color: #333333;
   font-size: 1.3em;
 }
-.aj-imp-faqpage .search-support {
-  margin: 2em 4em;
+.aj-imp-faqpage .faq-container {
+  margin: 0 4em;
 }
-.aj-imp-faqpage .search-support .form-control:active,
-.aj-imp-faqpage .search-support .form-control:focus {
-  border-color: #BDC3C7;
-  background: #f3f3f3;
+.aj-imp-faqpage .faq-container .side-nav {
+  margin-top: 2em;
+}
+.aj-imp-faqpage .faq-container .side-nav h5 {
+  font-size: 1.5em;
+  font-weight: 300;
+  text-transform: uppercase;
+  text-decoration: underline;
+}
+.aj-imp-faqpage .faq-container .side-nav .nav-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.aj-imp-faqpage .faq-container .side-nav .nav-links li {
+  margin: 0.5em 0;
+  padding-left: 0.5em;
+}
+.aj-imp-faqpage .faq-container .side-nav .nav-links li:before {
+  display: inline-block;
+  content: "-";
+}
+.aj-imp-faqpage .faq-container .side-nav .affix {
+  top: 20px;
 }
 .aj-imp-faqpage .faqs {
-  margin: 1em 4em;
+  margin: 1em 0;
 }
 .aj-imp-faqpage .faqs .question {
   font-weight: 700;
@@ -3877,5 +3897,9 @@ form .aj-imp-submit:hover {
   margin: 2em 0 0.5em;
   border-bottom: 1px solid #aaaaaa;
   font-weight: 400;
-  font-size: 2em;
+  font-size: 2.5em;
+}
+.aj-imp-faqpage .faqs .category-head a {
+  font-size: 0.8em;
+  color: #849fb0;
 }
