@@ -3748,6 +3748,19 @@ form .aj-imp-submit:hover {
     float: none;
   }
 }
+.aj-imp-contactpage .contact-form-container {
+  margin: 2em;
+  background: #fff;
+  box-shadow: 0 0 5px 4px #c3c3c3;
+}
+.aj-imp-contactpage .contact-form-container h3 {
+  font-weight: 300;
+  color: #333333;
+  font-size: 2em;
+  text-align: center;
+  text-transform: uppercase;
+  padding: 1em 0;
+}
 /**** Team Page Styles ****/
 .aj-imp-teampage {
   margin: 0 -15px;
@@ -3766,6 +3779,7 @@ form .aj-imp-submit:hover {
   font-weight: 300;
   color: #333333;
   font-size: 1.3em;
+  padding: 0 2em;
 }
 .aj-imp-teampage .member {
   margin: 2em 4em;
@@ -3899,6 +3913,6 @@ form .aj-imp-submit:hover {
   font-size: 2.5em;
 }
 .aj-imp-faqpage .faqs .category-head a {
-  font-size: 0.8em;
-  color: #849fb0;
+  font-size: 0.5em;
+  color: #c3c3c3;
 }

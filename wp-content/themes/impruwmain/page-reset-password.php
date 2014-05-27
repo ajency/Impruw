@@ -21,38 +21,60 @@
             exit;
         }
         else{ ?>
+            <div class="aj-imp-login-form">
+                <div class="row">
+                    <div class="col-sm-12 aj-imp-login-header">
+                        <h1>Reset Password  <span>Impruw</span>
+                        </h1>
+                        <p class="desc">
+                            Reset your Password to Sign in to Impruw                
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 aj-imp-forgot">
+                        <form name="resetpassform" id="resetpassform" action="<?php echo esc_url( site_url( 'new-password?action=resetpass&key=' . urlencode( $_GET['key'] ) . '&login=' . urlencode( $_GET['login'] ), 'login_post' ) ); ?>" method="post" autocomplete="off" class="form-horizontal clearfix">
+                            <input type="hidden" id="user_login" value="<?php echo esc_attr( $_GET['login'] ); ?>" autocomplete="off" />
 
-            <form name="resetpassform" id="resetpassform" action="<?php echo esc_url( site_url( 'new-password?action=resetpass&key=' . urlencode( $_GET['key'] ) . '&login=' . urlencode( $_GET['login'] ), 'login_post' ) ); ?>" method="post" autocomplete="off">
-                <input type="hidden" id="user_login" value="<?php echo esc_attr( $_GET['login'] ); ?>" autocomplete="off" />
+                            <div class="form-group">
+                                <label for="pass1" class="col-sm-3 control-label"><?php _e('New password') ?></label>
+                                <div class="col-sm-6 col-sm-offset-3">
+                                    <input type="password" name="pass1" id="pass1" class="form-control" value="" autocomplete="off" />
+                                </div>
+                            </div>
 
-                <p>
-                    <label for="pass1"><?php _e('New password') ?><br />
-                        <input type="password" name="pass1" id="pass1" class="input" size="20" value="" autocomplete="off" /></label>
-                </p>
-                <p>
-                    <label for="pass2"><?php _e('Confirm new password') ?><br />
-                        <input type="password" name="pass2" id="pass2" class="input" size="20" value="" autocomplete="off" /></label>
-                </p>
+                            <div class="form-group">
+                                <label for="pass2" class="col-sm-3 control-label"><?php _e('Confirm new password') ?></label>
+                                <div class="col-sm-6 col-sm-offset-3">
+                                    <input type="password" name="pass2" id="pass2" class="form-control" value="" autocomplete="off" />
+                                </div>
+                            </div>
 
-                <div id="pass-strength-result" class="hide-if-no-js"><?php _e('Strength indicator'); ?></div>
-                <p class="description indicator-hint"><?php _e('Hint: The password should be at least seven characters long. To make it stronger, use upper and lower case letters, numbers, and symbols like ! " ? $ % ^ &amp; ).'); ?></p>
+                            <?php
+                            /**
+                             * Fires following the 'Strength indicator' meter in the user password reset form.
+                             *
+                             * @since 3.9.0
+                             *
+                             * @param WP_User $user User object of the user whose password is being reset.
+                             */
+                            do_action( 'resetpass_form', $user );
+                            ?>
+                            <div class="row">
+                                <div class="col-sm-offset-3 col-sm-7 submit">
+                                    <input type="submit" name="wp-submit" id="wp-submit" class="btn btn-wide aj-imp-submit" value="<?php esc_attr_e('Reset Password'); ?>" />
+                                </div>
+                            </div>
 
-                <br class="clear" />
-
-                <?php
-                /**
-                 * Fires following the 'Strength indicator' meter in the user password reset form.
-                 *
-                 * @since 3.9.0
-                 *
-                 * @param WP_User $user User object of the user whose password is being reset.
-                 */
-                do_action( 'resetpass_form', $user );
-                ?>
-                <p class="submit">
-                    <input type="submit" name="wp-submit" id="wp-submit" class="button button-primary button-large" value="<?php esc_attr_e('Reset Password'); ?>" />
-                </p>
-            </form>
+                            <div class="row">
+                                <div class="col-sm-offset-3 col-sm-7">
+                                    <span class="help-block"><?php _e('Hint: The password should be at least seven characters long. To make it stronger, use upper and lower case letters, numbers, and symbols like ! " ? $ % ^ &amp; ).'); ?></span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
 
 <?php
         }
@@ -60,9 +82,9 @@
 
 
     if(isset($_POST['wp-submit'])):
-        echo "<p> We have sent you an email with a link to reset your password.
+        echo "<div class='alert alert-info'> We have sent you an email with a link to reset your password.
                  If you haven't received it in the next 5 minutes, check your spam folder or email us at support@impruw.com
-             </p>";
+             </div>";
         endif;
 
     get_footer();
