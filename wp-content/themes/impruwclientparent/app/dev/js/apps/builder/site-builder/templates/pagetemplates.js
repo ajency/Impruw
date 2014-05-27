@@ -55,7 +55,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
 
       TemplateView.prototype.events = {
         'click': function() {
-          this.$el.addClass('selected');
+          this.$el.addClass('selected').siblings().removeClass("selected");
           return this.trigger("template:clicked", this.model);
         }
       };
