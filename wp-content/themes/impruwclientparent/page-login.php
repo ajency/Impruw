@@ -17,7 +17,7 @@
         </div>
         <div class="row">
             <div class="col-sm-12 aj-imp-login">
-                <form class="form-horizontal clearfix" id="frm_login" name="frm_login">
+                <form class="form-horizontal clearfix" id="frm_login" name="login">
                     <?php
                         $ajax_nonce = wp_create_nonce("frm_login");
                         echo "<script> var ajax_nonce ='" . $ajax_nonce . "' </script>";
@@ -32,6 +32,7 @@
 
                             <input type="email" class="form-control  parsley-validated parsley-error" id="inputEmail"
                                    name="inputEmail" placeholder="Email ID you signed up with" parsley-required="true"
+                                   value ="<?php echo $_GET['email'];?>"
                                    parsley-trigger="blur" parsley-validation-minlength="0" parsley-type="email"
                                    parsley-required-message="<?php echo __('A valid email address is required to sign in', 'impruwmain'); ?>"/>
 
@@ -40,7 +41,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <!--<label for="inputPass"
+                        <label for="inputPass"
                                class="col-sm-3 control-label"><?php echo __('Password', 'impruwmain'); ?></label>
 
                         <div class="col-sm-6 col-sm-offset-3">
@@ -50,7 +51,7 @@
                                    parsley-required-message="<?php echo __('You need to enter a password', 'impruwmain'); ?>"/>
 
                             <div class="p-messages"></div>
-                        </div> -->
+                        </div>
                         <div class="col-sm-3">
                             <a href="#"
                                class="aj-imp-log-forgot"><?php echo __('Forgot your password?', 'impruwmain'); ?></a>
@@ -58,15 +59,15 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-offset-3 col-sm-7">
-                            <button type="button" id="btn_login" name="btn_login"
+                            <button type="button" id="login_btn" name="btn_login"
                                     class="btn btn-wide aj-imp-submit"><?php echo __('Sign in', 'impruwmain'); ?></button>
                             <img id="login_loader"
                                  src="<?php echo site_url() . "/wp-content/themes/impruwmain/images/loader.gif"; ?>"
                                  width="38" height="30" style="display:none;"/>
-                            <!--<label for="checkbox3" class="checkbox keep-log">
+                            <label for="checkbox3" class="checkbox keep-log">
                                 <input type="checkbox" data-toggle="checkbox" id="checkbox3" name="checkbox3" value="1">
                                 <?php echo __('Keep me logged in.', 'impruwmain'); ?>
-                            </label> -->
+                            </label>
                         </div>
                     </div>
                     <div class="row">

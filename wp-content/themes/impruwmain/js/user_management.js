@@ -177,7 +177,7 @@ jQuery(document).ready(function($) {
                     $container = $("<div class='p-messages'></div>").insertAfter(element);
                 }
                 return $container;
-            },
+            }
             /* classHandler: function ( elem  ) {
               elem.parent().addClass("has-error").removeClass("has-success");
                 elem.parent().find('.fui-check-inverted').remove()
@@ -193,13 +193,56 @@ jQuery(document).ready(function($) {
 
             onFieldError: function(elem, constraints, ParsleyField) {
                 elem.parent().parent().removeClass("has-success").addClass("has-error");
-                console.log(elem)
                 elem.parent().find('.fui-check-inverted,.fui-cross-inverted').remove();
                 elem.after('<span class="validation-icon input-icon fui-cross-inverted"></span>')
             }
         }
     });
 
+
+    $("#btn_login").click(function() {
+
+        if ($('#frm_login').parsley('validate')) {
+
+            $("#login_loader").show();
+
+            var data = {
+                action: 'user_interim_login',
+                pdemail: $("#inputEmail").val(),
+                ajax_nonce: ajax_nonce
+            };
+
+            $.post(ajaxurl, data, function(response) {
+                if (response.code == 'OK') {
+
+                    $("#login_loader").hide();
+                    $("#login_success").show();
+                    $("#login_status").html('<div class="alert alert-success">' +
+                        '<button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>' +
+                        response.msg + '</div>')
+
+                    window.location.href = response.blog_url + '/sign-in?email='+response.email;
+                    return true;
+                } else if ((response.code == 'ERROR')) {
+
+                    $("#login_loader").hide();
+                    $("#login_status_div").show()
+                    $("#login_status").html('<div class="alert alert-error">' +
+                        '<button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>' +
+                        response.msg + '</div>')
+
+                    return false;
+                }
+            });
+
+        }
+
+
+    });
+
+
+
+    /*
     $("#btn_login").click(function() {
 
         if ($('#frm_login').parsley('validate')) {
@@ -239,7 +282,7 @@ jQuery(document).ready(function($) {
                 }
             });
         }
-    });
+    }); */
     /************************ /login.js ***********************************/
 
     $('#forgot_password_btn').click(function(){

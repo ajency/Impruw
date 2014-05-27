@@ -38,7 +38,12 @@
         assign_theme_to_site($site_id, 'impruwclientparent');
 
         // add pages to site
-        $pages = array(array('post_title' => 'Dashboard', 'template' => 'new-dashboard.php'), array('post_title' => 'Site Builder', 'template' => 'new-builder.php'), array('post_title' => 'Coming Soon', 'template' => 'coming-soon.php'), array('post_title' => 'Support'));
+        $pages = array(
+                        array('post_title' => 'Dashboard', 'template' => 'new-dashboard.php'),
+                        array('post_title' => 'Site Builder', 'template' => 'new-builder.php'),
+                        array('post_title' => 'Coming Soon', 'template' => 'coming-soon.php'),
+                        array('post_title' => 'Sign In', 'template' => 'page-login.php'),
+                        array('post_title' => 'Support'));
 
         add_pages_to_site($site_id, $user_id, $pages);
 

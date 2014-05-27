@@ -161,6 +161,62 @@
     add_action('wp_ajax_check_sitename_exists', 'check_sitename_exists');
     add_action('wp_ajax_nopriv_check_sitename_exists', 'check_sitename_exists');
 
+//function for interim login byu the user
+function ajax_user_interim_login()
+{
+
+    if (is_user_logged_in()) {
+        global $user;
+
+        $blog     = get_active_blog_for_user(get_current_user_id());
+        $blogUrl  = $blog->siteurl; /* or $blog->path, together with $blog->siteurl */
+        $response = array("code" => "OK", 'blog_url' => $blogUrl, 'msg' => 'User already logged in');
+        wp_send_json($response);
+    }
+
+    $user_email = trim($_POST['pdemail']);
+
+
+    if (!check_ajax_referer('frm_login', 'ajax_nonce')) {
+        header('Content-Type: application/json');
+        echo json_encode(array('code' => 'ERROR', 'msg' => _("Invalid Form Data")));
+        die();
+    }
+
+
+    global $wpdb;
+    $user_data = get_user_by('email', $user_email);
+    if ($user_data) {
+
+        $primary_blog_id = get_user_meta($user_data->ID,'primary_blog',true);
+
+        if(!empty($primary_blog_id)){
+
+            $site_url = get_site_url($primary_blog_id);
+            $response = array("code" => "OK",
+                              'blog_url' => $site_url,
+                              'msg'=>'Redirecting to website login page',
+                              'email' =>rawurlencode($user_data->data->user_email) );
+            wp_send_json($response);
+        }
+
+        else{
+            $msg      = "No website found for the email id.";
+            $response = array('code' => "ERROR",'msg' => $msg);
+            wp_send_json($response);
+        }
+
+    } else {
+        $msg      = "The email doesn't seem right. Check if your caps is on and try again.";
+        $response = array('code' => "FAILED", 'msg' => $msg);
+        wp_send_json($response);
+    }
+}
+
+add_action('wp_ajax_user_interim_login', 'ajax_user_interim_login');
+add_action('wp_ajax_nopriv_user_interim_login', 'ajax_user_interim_login');
+
+
     //function to log in user
     function user_login()
     {
