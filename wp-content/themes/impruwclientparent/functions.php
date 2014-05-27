@@ -847,6 +847,7 @@
         <script src="<?php echo get_parent_template_directory_uri(); ?>/js/bootstrap.min.js"></script>
         <script src="<?php echo get_parent_template_directory_uri(); ?>/js/jquery.slimmenu.min.js"></script>
         <script src="<?php echo get_parent_template_directory_uri(); ?>/js/contact.js"></script>
+        <script src="<?php echo get_parent_template_directory_uri(); ?>/js/user_management.js"></script>
         <?php
         $theme_path = get_stylesheet_directory() . "/js";
         if (file_exists($theme_path) && is_dir($theme_path)) {
@@ -3810,3 +3811,63 @@
             )
         )
     );
+
+
+/***
+ *
+ * Function to log in user into the childsite
+ * */
+function user_login()
+{
+
+
+    if (is_user_logged_in()) {
+        global $user;
+
+        $blog     = get_active_blog_for_user(get_current_user_id());
+        $blogUrl  = $blog->siteurl; /* or $blog->path, together with $blog->siteurl */
+        $response = array("code" => "OK", 'blog_url' => $blogUrl, 'msg' => 'User already logged in');
+        wp_send_json($response);
+    }
+
+
+    $pd_email = trim($_POST['pdemail']);
+    $pd_pass  = trim($_POST['pdpass']);
+
+    $credentials = array();
+
+    $credentials['user_login'] = $pd_email;
+    $credentials['user_password'] = $pd_pass;
+
+
+    if (!check_ajax_referer('frm_login', 'ajax_nonce')) {
+        header('Content-Type: application/json');
+        echo json_encode(array('code' => 'ERROR', 'msg' => _("Invalid Form Data")));
+        die();
+    }
+
+    $user_ = get_user_by('email', $pd_email);
+
+    if ($user_) {
+        $user = wp_signon($credentials);
+
+        if (is_wp_error($user)) {
+            $msg      = "The email / password doesn't seem right. Check if your caps is on and try again.";
+            $response = array('code' => "FAILED", 'user' => $user_->user_login . $pd_pass, 'msg' => $msg);
+            wp_send_json($response);
+        } else {
+            $blog     = get_active_blog_for_user($user->ID);
+            $blog_url = $blog->siteurl;
+            $response = array("code" => "OK", 'blog_url' => $blog_url, 'msg' => 'Successful Login');
+            wp_send_json($response);
+        }
+    } else {
+        $msg      = "The email / password doesn't seem right. Check if your caps is on and try again.";
+        $response = array('code' => "FAILED", 'msg' => $msg);
+        wp_send_json($response);
+    }
+
+}
+
+add_action('wp_ajax_user_login', 'user_login');
+add_action('wp_ajax_nopriv_user_login', 'user_login');

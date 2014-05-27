@@ -33,6 +33,7 @@ define ['app', 'controllers/base-controller'], (App, AppController)->
 
             events:
                 'click': ->
+                    @$el.addClass('selected')
                     @trigger "template:clicked", @model
 
         class EmptyView extends Marionette.ItemView
