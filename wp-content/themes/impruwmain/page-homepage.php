@@ -9,7 +9,7 @@ get_header();
     
     <div class="home-1">
     	<h1><?php _e('Grow Your Online Hotel Business<br> With <span>Impruw</span>','impruwmain')?></h1>
-    	<a class="btn btn-hg big-sign"><span class="icon icon-pen"></span> <?php _e('Sign up for a free trial','impruwmain')?></a>
+    	<a href="<?php echo site_url(); ?>/register/" class="btn btn-hg big-sign"><span class="icon icon-pen"></span> <?php _e('Sign up for a free trial','impruwmain')?></a>
     	<img src="<?php echo get_template_directory_uri(); ?>/images/HOME_banner.png" title="Impruw Themes" alt="Impruw Themes" class="img-responsive" />
     </div>
 
@@ -108,7 +108,7 @@ get_header();
     			<h4><?php _e('Ready to get Started?','impruwmain')?></h4>
     		</div>
     		<div class="col-sm-6">
-    			<a class="btn btn-hg big-sign"><span class="icon icon-pen"></span> <?php _e('Sign up for a free trial','impruwmain')?></a>
+    			<a href="<?php echo site_url(); ?>/register/" class="btn btn-hg big-sign"><span class="icon icon-pen"></span> <?php _e('Sign up for a free trial','impruwmain')?></a>
     		</div>
     	</div>
     </div>
