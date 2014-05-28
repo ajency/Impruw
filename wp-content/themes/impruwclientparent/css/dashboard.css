@@ -860,6 +860,26 @@ form .aj-imp-submit:hover {
     padding-bottom: 0 !important;
   }
 }
+.login-pop {
+  margin-right: 5px;
+}
+.login-pop .popover-content {
+  background: #fff;
+  border-radius: 0;
+  box-shadow: 0 0 2px #aaaaaa;
+  padding: 0.5em 0.5em 1px;
+}
+.login-pop .popover-content form {
+  padding: 0;
+  border: 0;
+}
+.login-pop .popover-content form .form-control {
+  border: 1px solid #dddddd;
+}
+.login-pop .popover-content form .form-control:focus,
+.login-pop .popover-content form .form-control:active {
+  border-color: #ff7e00;
+}
 /****Register Page Styles****/
 .aj-imp-register-form {
   width: 80%;
