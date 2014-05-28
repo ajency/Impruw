@@ -878,6 +878,26 @@ form {
 	}
 }
 
+.login-pop {
+	margin-right: 5px;
+	.popover-content {
+		background: #fff;
+		border-radius: 0;
+		box-shadow: 0 0 2px @dash-grey;
+		padding: 0.5em 0.5em 1px;
+		form {
+			padding: 0;
+			border: 0;
+			.form-control {
+				border: 1px solid lighten(@dash-grey, 20%);
+				&:focus, &:active {
+					border-color: @orange;
+				}
+			}
+		}
+	}
+}
+
 /****Register Page Styles****/
 .aj-imp-register-form {
 	width: 80%;

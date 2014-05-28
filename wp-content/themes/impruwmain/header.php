@@ -74,8 +74,9 @@
 
             ?>
 
-            <a href="<?php echo site_url('login'); ?>" class="login-btn"><span
-                    class="glyphicon glyphicon-lock"></span> <?php _e('Sign In') ?></a>
+            <a href="#" class="login-btn" data-toggle="popover">
+                <span class="glyphicon glyphicon-lock"></span> <?php _e('Sign In') ?>
+            </a>
 
             <div class="lang-sel">
                 <?php do_action('icl_language_selector'); ?>

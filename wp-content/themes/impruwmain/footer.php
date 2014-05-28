@@ -6,6 +6,20 @@
             </div>
         </footer>
     <?php wp_footer(); ?>
+    
+    <script type="text/javascript">
+    	jQuery(document).ready(function(){
+    		jQuery('.login-btn').popover({
+    			'placement': 'auto bottom',
+    			'html': true,
+    			'content': '<form><div class="form-group"><input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email"></div><div class="form-group"><button type="submit" class="btn btn-xs btn-block aj-imp-submit">Sign In</button></div></form>',
+    			'container': 'body'
+    		});
+    		jQuery('.login-btn').on('shown.bs.popover', function () {
+				jQuery('.popover').addClass('login-pop');
+			})
+    	});
+    </script>
 
 </body>
 

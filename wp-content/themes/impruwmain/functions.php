@@ -219,7 +219,7 @@
     }
 
     /**
-     * Functino to add required stylecheet file
+     * Function to add required stylesheet files
      *
      */
     function add_csstopage()
@@ -590,7 +590,7 @@
     }
     
 
-    function my_login_logo() { ?>
+    function impruw_login_logo() { ?>
       <style type="text/css">
         body.login div#login h1 a {
           background-image: url('<?php echo get_stylesheet_directory_uri(); ?>/images/impruw-logo-blue.png');
@@ -612,4 +612,4 @@
         }
       </style>
     <?php }
-    add_action( 'login_enqueue_scripts', 'my_login_logo' );
+    add_action( 'login_enqueue_scripts', 'impruw_login_logo' );
