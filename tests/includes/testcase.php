@@ -1,7 +1,7 @@
 <?php
 
-require_once dirname(__FILE__) . '/factory.php';
-require_once dirname(__FILE__) . '/trac.php';
+require_once dirname( __FILE__ ) . '/factory.php';
+require_once dirname( __FILE__ ) . '/trac.php';
 
 class WP_UnitTestCase extends PHPUnit_Framework_TestCase {
 
@@ -24,6 +24,7 @@ class WP_UnitTestCase extends PHPUnit_Framework_TestCase {
 		$this->clean_up_global_scope();
 		$this->start_transaction();
 		add_filter( 'wp_die_handler', array( $this, 'get_wp_die_handler' ) );
+
 	}
 
 	function tearDown() {

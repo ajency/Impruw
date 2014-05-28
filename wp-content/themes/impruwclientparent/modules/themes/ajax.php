@@ -1,82 +1,80 @@
 <?php
 
-    require_once 'functions.php';
+require_once 'functions.php';
 
-    /**
-     * Ajax handler to get all themes
-     */
-    function ajax_get_theme()
-    {
+/**
+ * Ajax handler to get all themes
+ */
+function ajax_get_theme() {
 
-        $themes = get_impruw_themes();
+    $themes = get_impruw_themes();
 
-        wp_send_json(array('code' => 'OK', 'data' => $themes));
+    wp_send_json( array( 'code' => 'OK', 'data' => $themes ) );
+}
+
+add_action( 'wp_ajax_get-themes', 'ajax_get_theme' );
+
+/**
+ * Function to return the default color sets for changing theme colors
+ *
+ * @return color array
+ */
+function ajax_get_default_theme_color_set() {
+
+    $theme_set_color = theme_color_sets();
+
+    $custom_set = get_option( 'custom_theme_color_set' );
+
+    if ( !empty( $custom_set ) ) {
+
+        $custom_set_array = array( maybe_unserialize( $custom_set ) );
+
+        $theme_set_color = wp_parse_args( $custom_set_array, $theme_set_color );
     }
 
-    add_action('wp_ajax_get-themes', 'ajax_get_theme');
+    wp_send_json( array( 'code' => 'OK', 'data' => $theme_set_color ) );
+}
 
-    /**
-     * Function to return the default color sets for changing theme colors
-     *
-     * @return color array
-     */
-    function ajax_get_default_theme_color_set()
-    {
-        $theme_set_color= theme_color_sets();
+add_action( 'wp_ajax_get-default-theme-color-set', 'ajax_get_default_theme_color_set' );
 
-        $custom_set = get_option('custom_theme_color_set');
+/**
+ *
+ * Function to change the theme color based on sets selected
+ *
+ */
+function ajax_change_theme_color() {
 
-        if(!empty($custom_set)){
+    unset( $_POST[ 'action' ] );
 
-            $custom_set_array= array(maybe_unserialize($custom_set));
+    $set_colors = $_POST[ 'formdata' ];
 
-            $theme_set_color = wp_parse_args($custom_set_array,$theme_set_color);
-        }
+    update_option( 'current_color_set', $_POST[ 'formdata' ][ 'name' ] );
 
-        wp_send_json(array('code' => 'OK', 'data' => $theme_set_color));
-    }
+    // return single theme color set in key-value format
+    $colors = set_color_to_array( $set_colors );
 
-    add_action('wp_ajax_get-default-theme-color-set', 'ajax_get_default_theme_color_set');
+    unset( $colors[ 'name' ] );
 
-    /**
-     *
-     * Function to change the theme color based on sets selected
-     *
-     */
-    function ajax_change_theme_color()
-    {
-        unset($_POST['action']);
+    switch_theme_colour( $colors );
 
-        $set_colors= $_POST['formdata'];
+    wp_send_json( array( 'code' => 'OK' ) );
+}
 
-        update_option('current_color_set', $_POST['formdata']['name']);
+add_action( 'wp_ajax_change-theme-color', 'ajax_change_theme_color' );
 
-        // return single theme color set in key-value format
-        $colors = set_color_to_array($set_colors);
+/**
+ * Function to create custom theme color sets
+ */
+function ajax_create_custom_theme_color() {
 
-        unset($colors['name']);
+    unset( $_POST[ 'action' ] );
 
-        switch_theme_colour($colors);
+    $formdata = $_POST;
 
-        wp_send_json(array('code' => 'OK'));
-    }
+    create_custom_theme_color( $formdata );
 
-    add_action('wp_ajax_change-theme-color', 'ajax_change_theme_color');
+    wp_send_json( array( 'code' => 'OK' ) );
 
-    /**
-     * Function to create custom theme color sets
-     */
-    function ajax_create_custom_theme_color()
-    {
+}
 
-        unset($_POST['action']);
-
-        $formdata = $_POST;
-
-        create_custom_theme_color($formdata);
-
-        wp_send_json(array('code' => 'OK'));
-
-    }
-
-    add_action('wp_ajax_create-custom-theme-color', 'ajax_create_custom_theme_color');
+add_action( 'wp_ajax_create-custom-theme-color', 'ajax_create_custom_theme_color' );

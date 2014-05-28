@@ -20,7 +20,7 @@ global $table_prefix, $wp_embed, $wp_locale, $_wp_deprecated_widgets_callbacks, 
 global $wpdb, $current_site, $current_blog, $wp_rewrite, $shortcode_tags, $wp, $phpmailer;
 
 if ( !is_readable( $config_file_path ) ) {
-	die( "ERROR: wp-tests-config.php is missing! Please use wp-tests-config.php to create a config file.\n" );
+	die( "ERROR: wp-tests-config.php is missing! Please use wp-tests-config-sample.php to create a config file.\n" );
 }
 require_once $config_file_path;
 
@@ -47,7 +47,7 @@ if ( "1" == getenv( 'WP_MULTISITE' ) ||
 }
 
 // Override the PHPMailer
-require_once(dirname(__FILE__) . '/mock-mailer.php');
+require_once( dirname( __FILE__ ) . '/mock-mailer.php' );
 $phpmailer = new MockPHPMailer(); 
 
 system( WP_PHP_BINARY . ' ' . escapeshellarg( dirname( __FILE__ ) . '/install.php' ) . ' ' . escapeshellarg( $config_file_path ) . ' ' . $multisite );
@@ -66,7 +66,7 @@ if ( $multisite ) {
 }
 unset( $multisite );
 
-require_once dirname(__FILE__) . '/functions.php';
+require_once dirname( __FILE__ ) . '/functions.php';
 
 // Preset WordPress options defined in bootstrap file.
 // Used to activate themes, plugins, as well as  other settings.
@@ -87,11 +87,11 @@ require_once ABSPATH . '/wp-settings.php';
 // Delete any default posts & related data
 _delete_all_posts();
 
-require dirname(__FILE__) . '/testcase.php';
-require dirname(__FILE__) . '/testcase-xmlrpc.php';
+require dirname( __FILE__ ) . '/testcase.php';
+require dirname( __FILE__ ) . '/testcase-xmlrpc.php';
 require dirname( __FILE__ ) . '/testcase-ajax.php';
-require dirname(__FILE__) . '/exceptions.php';
-require dirname(__FILE__) . '/utils.php';
+require dirname( __FILE__ ) . '/exceptions.php';
+require dirname( __FILE__ ) . '/utils.php';
 
 /**
  * A child class of the PHP test runner.

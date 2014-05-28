@@ -34,7 +34,7 @@ ini_set('display_errors', true);
 require_once(DIR_TESTROOT.'/wp-testlib/utils.php');
 
 // configure wp
-require_once(DIR_TESTROOT . '/wp-config.php');
+require_once(DIR_TESTROOT.'/wp-config.php');
 define('ABSPATH', realpath(DIR_WP).'/');
 
 // install wp

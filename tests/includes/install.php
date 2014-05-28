@@ -11,7 +11,7 @@ $multisite = ! empty( $argv[2] );
 
 define( 'WP_INSTALLING', true );
 require_once $config_file_path;
-require_once dirname(__FILE__) . '/functions.php';
+require_once dirname( __FILE__ ) . '/functions.php';
 
 $_SERVER['SERVER_PROTOCOL'] = 'HTTP/1.1';
 $_SERVER['HTTP_HOST'] = WP_TESTS_DOMAIN;

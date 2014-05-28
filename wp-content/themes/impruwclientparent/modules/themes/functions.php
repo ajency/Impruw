@@ -1,206 +1,207 @@
 <?php
 
-    /**
-     * gets all themes for the main site
-     * uses all args same as WP_Query
-     *
-     * @param type $args
-     *
-     * @return type
-     */
-    function get_impruw_themes($args = array())
-    {
+/**
+ * gets all themes for the main site
+ * uses all args same as WP_Query
+ *
+ * @param type $args
+ *
+ * @return type
+ */
+function get_impruw_themes( $args = array() ) {
 
-        // all themes are located on main site. so switch to blog
-        switch_to_blog(1);
+    // all themes are located on main site. so switch to blog
+    switch_to_blog( 1 );
 
-        $args = wp_parse_args($args, array('post_type' => 'theme'));
+    $args = wp_parse_args( $args, array( 'post_type' => 'theme' ) );
 
-        $themes = get_posts($args);
+    $themes = get_posts( $args );
 
-        $themes_data = array();
+    $themes_data = array();
 
-        //let convert it to required format
-        if (count($themes) > 0) {
+    //let convert it to required format
+    if ( count( $themes ) > 0 ) {
 
-            foreach ($themes as $theme) {
-                $themes_data[] = convert_to_theme_format($theme);
-            }
+        foreach ( $themes as $theme ) {
+            $themes_data[ ] = convert_to_theme_format( $theme );
         }
+    }
 
+    restore_current_blog();
+
+    return $themes_data;
+}
+
+/**
+ * COnverts the passed theme id object in required format
+ */
+function convert_to_theme_format( $theme ) {
+
+    $data = array();
+
+    $data[ 'ID' ] = $theme->ID;
+
+    $data[ 'post_title' ] = $theme->post_title;
+
+    // get theme image url
+    $data[ 'image_url' ] = get_theme_image_url( $theme->ID );
+
+    // get preview link
+    $data[ 'preview_link' ] = get_theme_preview_link( $theme->ID );
+
+    return $data;
+}
+
+/**
+ * Get the theme image URL
+ *
+ * @param type $ID
+ *
+ * @return type
+ */
+function get_theme_image_url( $ID, $size = 'medium' ) {
+
+    if ( !is_numeric( $ID ) )
+        return FALSE;
+
+    $image_id = get_post_thumbnail_id( $ID );
+
+    $image_url = wp_get_attachment_image_src( $image_id, $size );
+
+    return is_array( $image_url ) ? $image_url[ 0 ] : site_url();
+}
+
+/**
+ * Get theme preview link
+ *
+ * @param type $ID
+ *
+ * @return string
+ */
+function get_theme_preview_link( $ID ) {
+
+    $site_id = get_post_meta( $ID, 'linked_theme', TRUE );
+
+    $link = '#';
+
+    if ( is_numeric( $site_id ) ) {
+        switch_to_blog( $site_id );
+        $link = site_url();
         restore_current_blog();
-
-        return $themes_data;
     }
 
-    /**
-     * COnverts the passed theme id object in required format
-     */
-    function convert_to_theme_format($theme)
-    {
+    return $link;
+}
 
-        $data = array();
+/**
+ * Is theme selected
+ * @return boolean
+ */
+function is_theme_choosed() {
 
-        $data['ID'] = $theme->ID;
+    $status = get_option( 'site_status', 'online' );
 
-        $data['post_title'] = $theme->post_title;
+    if ( $status != 'coming_soon' )
+        return 1;
 
-        // get theme image url
-        $data['image_url'] = get_theme_image_url($theme->ID);
+    return 0;
+}
 
-        // get preview link
-        $data['preview_link'] = get_theme_preview_link($theme->ID);
+function get_theme_style_sheet_file_path() {
 
-        return $data;
-    }
+    $compiled_css_file = get_compiled_stylesheet_directory_path() . '/theme-style.css';
 
-    /**
-     * Get the theme image URL
-     *
-     * @param type $ID
-     *
-     * @return type
-     */
-    function get_theme_image_url($ID, $size = 'medium')
-    {
+    if ( file_exists( $compiled_css_file ) )
 
-        if (!is_numeric($ID))
-            return FALSE;
+        return get_compiled_stylesheet_directory_uri() . '/theme-style.css';
 
-        $image_id = get_post_thumbnail_id($ID);
+    return get_template_directory_uri() . '/css/theme-style.css';;
+}
 
-        $image_url = wp_get_attachment_image_src($image_id, $size);
+function create_custom_theme_color( $formdata ) {
 
-        return is_array($image_url) ? $image_url[0] : site_url();
-    }
+    $edited_theme_values = $formdata[ 'formdata' ];
 
-    /**
-     * Get theme preview link
-     *
-     * @param type $ID
-     *
-     * @return string
-     */
-    function get_theme_preview_link($ID)
-    {
+    $model_set_values = $formdata[ 'modeldata' ];
 
-        $site_id = get_post_meta($ID, 'linked_theme', TRUE);
+    $custom_theme_color = replace_modeldata_with_edited_set_color( $edited_theme_values, $model_set_values );
 
-        $link = '#';
+    $custom_theme_json = maybe_serialize( $custom_theme_color );
 
-        if (is_numeric($site_id)) {
-            switch_to_blog($site_id);
-            $link = site_url();
-            restore_current_blog();
+    update_option( 'custom_theme_color_set', $custom_theme_json );
+
+    switch_theme_colour( $edited_theme_values );
+
+    update_option( 'current_color_set', 'custom' );
+}
+
+/**
+ *
+ * Function to replace the model data with the edited color set values
+ *
+ * @param $edited_theme_values
+ * @param $model_set_values
+ *
+ * @return mixed
+ */
+function replace_modeldata_with_edited_set_color( $edited_theme_values, $model_set_values ) {
+
+    $model_set_values[ 'name' ] = "custom";
+
+    foreach ( $model_set_values as $key => $value ) {
+
+        if ( array_key_exists( $key, $edited_theme_values ) ) {
+
+            $model_set_values[ $key ][ 'color' ] = $edited_theme_values[ $key ];
         }
-
-        return $link;
     }
 
-    /**
-     * Is theme selected
-     * @return boolean
-     */
-    function is_theme_choosed()
-    {
+    return $model_set_values;
+}
 
-        $status = get_option('site_status', 'online');
+/**
+ * Function to return the color array from the nested theme set color array\
+ *
+ * @param $themecolorset
+ *
+ * @return color array
+ */
+function convert_themecolor_set_to_array( $themecolorset ) {
 
-        if ($status != 'coming_soon')
-            return 1;
+    $color_set = array();
 
-        return 0;
-    }
-    
-    function get_theme_style_sheet_file_path()
-    {
-        $compiled_css_file = get_compiled_stylesheet_directory_path().'/theme-style.css';
-        
-        if(file_exists($compiled_css_file))
-            
-            return get_compiled_stylesheet_directory_uri().'/theme-style.css' ; 
-        
-        return get_template_directory_uri() . '/css/theme-style.css'; ;
+    foreach ( $themecolorset as $key => $singleset ) {
+
+        $color_set[ $key ] = set_color_to_array( $singleset );
     }
 
-    function create_custom_theme_color($formdata){
+    return $color_set;
+}
 
-        $edited_theme_values= $formdata['formdata'];
+/**
+ * Function to get single set colors and return in proper key-value format
+ *
+ * @param $singleset
+ *
+ * @return array
+ */
 
-        $model_set_values= $formdata['modeldata'];
+function set_color_to_array( $singleset ) {
 
-        $custom_theme_color = replace_modeldata_with_edited_set_color($edited_theme_values,$model_set_values);
+    $color_set = array();
 
-        $custom_theme_json =  maybe_serialize($custom_theme_color);
+    foreach ( $singleset as $key => $value ) {
 
-        update_option('custom_theme_color_set',$custom_theme_json);
+        // check if nested array
+        $has_child = count( $value, COUNT_RECURSIVE );
 
-        switch_theme_colour($edited_theme_values);
+        if ( $has_child != 1 )
+            $color_set[ $key ] = $value[ 'color' ];
 
-        update_option('current_color_set','custom');
+        else
+            // get the name of the set
+            $color_set[ $key ] = $value;
     }
 
-    /**
-     *
-     * Function to replace the model data with the edited color set values
-     * @param $edited_theme_values
-     * @param $model_set_values
-     * @return mixed
-     */
-    function replace_modeldata_with_edited_set_color($edited_theme_values,$model_set_values){
-
-        $model_set_values['name'] = "custom";
-
-        foreach($model_set_values as $key => $value){
-
-            if(array_key_exists($key,$edited_theme_values)){
-
-                $model_set_values[$key]['color'] =  $edited_theme_values[$key];
-            }
-        }
-
-        return $model_set_values;
-    }
-
-    /**
-     * Function to return the color array from the nested theme set color array\
-     *
-     * @param $themecolorset
-     * @return color array
-     */
-    function convert_themecolor_set_to_array($themecolorset){
-
-        $color_set = array();
-
-        foreach($themecolorset as $key=>$singleset){
-
-            $color_set[$key] = set_color_to_array($singleset);
-        }
-
-        return $color_set;
-    }
-
-    /**
-     * Function to get single set colors and return in proper key-value format
-     * @param $singleset
-     * @return array
-     */
-
-    function set_color_to_array($singleset){
-
-        $color_set = array();
-
-        foreach($singleset as $key =>$value){
-
-            // check if nested array
-            $has_child =    count($value,COUNT_RECURSIVE);
-
-          if($has_child != 1)
-              $color_set[$key] = $value['color'];
-
-          else
-              // get the name of the set
-              $color_set[$key] = $value;
-        }
-        return $color_set;
-    }
+    return $color_set;
+}
