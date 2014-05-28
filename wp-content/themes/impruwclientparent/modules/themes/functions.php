@@ -205,3 +205,14 @@ function set_color_to_array( $singleset ) {
 
     return $color_set;
 }
+
+function clear_compile_stylesheet(){
+    $file_path = get_compiled_stylesheet_directory_path() . "/theme-style.css";
+
+    if(file_exists($file_path))
+        unlink($file_path);
+}
+
+function reset_colorset_option_to_default(){
+    update_option("current_color_set", "default");
+}

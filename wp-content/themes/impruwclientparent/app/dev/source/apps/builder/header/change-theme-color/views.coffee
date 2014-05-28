@@ -15,6 +15,7 @@ define ['app'], (App)->
 							</p>
 						  </div>
 						</div>'
+
             onShow: ->
                 #display the colors in the set
                 @displayColorSet()
@@ -24,7 +25,8 @@ define ['app'], (App)->
 
             highlightCurrentColorSet :->
                 setName = @model.get 'name'
-                if setName == THEMECOLORSET
+
+                if _.slugify(setName) is _.slugify THEMECOLORSET
                    @$el.find('.thumbnail').addClass 'selected'
 
             displayColorSet:->
@@ -54,7 +56,7 @@ define ['app'], (App)->
 
         class Views.ThemeColorSetView extends Marionette.CompositeView
 
-            template: ' <ul class="color-set-list"></ul>'
+            template: '<ul class="color-set-list"></ul>'
 
             itemView: SingleSetView
 

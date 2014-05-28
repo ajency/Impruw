@@ -58,7 +58,7 @@
             var DASHBOARDURL = '<?php echo site_url('dashboard'); ?>';
             var BUILDERURL = '<?php echo site_url('site-builder'); ?>';
             var CURRENTTHEME = '<?php echo wp_get_theme()->get_stylesheet() ?>';
-            var THEMECOLORSET = '<?php echo get_option('current_color_set','set1'); ?>';
+            var THEMECOLORSET = '<?php echo get_option('current_color_set','default'); ?>';
             var AUTOSAVEINTERVAL = 55 * 1000;
         </script>
         <!-- <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script> -->

@@ -23,7 +23,7 @@ define(['app'], function(App) {
       SingleSetView.prototype.highlightCurrentColorSet = function() {
         var setName;
         setName = this.model.get('name');
-        if (setName === THEMECOLORSET) {
+        if (_.slugify(setName) === _.slugify(THEMECOLORSET)) {
           return this.$el.find('.thumbnail').addClass('selected');
         }
       };
@@ -79,7 +79,7 @@ define(['app'], function(App) {
         return ThemeColorSetView.__super__.constructor.apply(this, arguments);
       }
 
-      ThemeColorSetView.prototype.template = ' <ul class="color-set-list"></ul>';
+      ThemeColorSetView.prototype.template = '<ul class="color-set-list"></ul>';
 
       ThemeColorSetView.prototype.itemView = SingleSetView;
 
