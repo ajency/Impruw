@@ -70,7 +70,7 @@ function send_contact_form_message() {
 
     add_filter( 'wp_mail_content_type', 'change_email_content_type' );
 
-    $headers = 'From:mahi.manu277@gmail.com ';
+    $headers = 'From:contact@impruw.com ';
 
     $email       = get_option( 'other_emails' );
     $admin_email = $email[ 0 ];

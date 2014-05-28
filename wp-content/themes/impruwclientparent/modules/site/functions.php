@@ -34,7 +34,8 @@ function get_site_domain( $site_id ) {
     $domain = '';
 
     if ( is_subdomain_install() )
-        $domain = $domain . '.' . preg_replace( '|^www\.|', '', $site->domain ); else
+        $domain = $domain . '.' . preg_replace( '|^www\.|', '', $site->domain );
+    else
         $domain = $site->domain;
 
     return $domain;
@@ -71,6 +72,7 @@ function assign_theme_to_site( $theme_id, $clone_pages = FALSE ) {
         switch_theme( $theme->get_stylesheet() );
 
     clear_compile_stylesheet();
+    reset_colorset_option_to_default();
 
     update_option( 'site_status', 'online' );
 
@@ -79,7 +81,7 @@ function assign_theme_to_site( $theme_id, $clone_pages = FALSE ) {
         clone_pages();
     }
     // next is to clone the site
-    clone_site( $theme_site_id, !$clone_pages );
+    clone_site( $theme_site_id );
 }
 
 /**
@@ -176,7 +178,7 @@ function set_home_page( $post_id ) {
  *
  * @param type $theme_site_id
  */
-function clone_site( $theme_site_id, $backup = FALSE ) {
+function clone_site( $theme_site_id ) {
 
     clone_header_footer( $theme_site_id );
 

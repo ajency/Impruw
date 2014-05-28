@@ -8,3 +8,5 @@ wp-content/uploads
 piwik/
 wp-content/site-resources
 tests/wp-tests-config.php
+node_modules
+bower_components
