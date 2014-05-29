@@ -101,6 +101,7 @@ define ['app'
 
             # add page revisions to dropdown
             addPageRevisions: =>
+                return
                 @clearRevisionItems()
                 @addFetchSpinner()
                 @trigger "add:page:revisions"

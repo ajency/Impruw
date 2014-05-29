@@ -15,8 +15,10 @@ define ['app'
                     @trigger "show:media:manager"
 
             # show the image
-            onRender: ->
-
+            serializeData: ->
+                data = super()
+                data.logo_url = "http://placehold.it/100&text=Logo" if data.logo_url is ""
+                data
 
             onShow: ->
                 @$el.scrollSections()

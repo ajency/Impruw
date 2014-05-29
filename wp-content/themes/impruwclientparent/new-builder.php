@@ -61,7 +61,7 @@
             var THEMECOLORSET = '<?php echo get_option('current_color_set','default'); ?>';
             var AUTOSAVEINTERVAL = 55 * 1000;
         </script>
-        <!-- <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script> -->
+        <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
         <script src="<?php echo get_parent_template_directory_uri() ?>/app/dev/js/plugins/pace.js"></script>
         <!-- Unused Elements Box -->
         <div id="fl_menu" class="aj-imp-trash-elements"></div>

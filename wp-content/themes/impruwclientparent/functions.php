@@ -72,8 +72,8 @@ function send_contact_form_message() {
 
     $headers = 'From:contact@impruw.com ';
 
-    $email       = get_option( 'other_emails' );
-    $admin_email = $email[ 0 ];
+    $admin_email  = get_option( 'admin_email' );
+
 
     $message = $_POST [ 'c-message' ];
     $fname   = $_POST [ 'c-first-name' ];
@@ -82,7 +82,7 @@ function send_contact_form_message() {
     $subject = $_POST [ 'c-subject' ];
 
     $subject     = ( !empty( $subject ) ? $subject : '-' );
-    $mailsubject = "Impruw Notification: Someone has tried to contact you";
+    $mailsubject = "Impruw Notification: You have received a $subject email";
 
     $mailbody = " You have been contacted by<br /><br />
                     Name    : $fname $lname<br />

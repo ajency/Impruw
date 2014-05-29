@@ -127,6 +127,7 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
       };
 
       MainView.prototype.addPageRevisions = function() {
+        return;
         this.clearRevisionItems();
         this.addFetchSpinner();
         return this.trigger("add:page:revisions");

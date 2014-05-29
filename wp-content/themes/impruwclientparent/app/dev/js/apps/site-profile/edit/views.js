@@ -21,7 +21,14 @@ define(['app', 'text!apps/site-profile/edit/templates/mainview.html', 'text!apps
         }
       };
 
-      MainView.prototype.onRender = function() {};
+      MainView.prototype.serializeData = function() {
+        var data;
+        data = MainView.__super__.serializeData.call(this);
+        if (data.logo_url === "") {
+          data.logo_url = "http://placehold.it/100&text=Logo";
+        }
+        return data;
+      };
 
       MainView.prototype.onShow = function() {
         var m, w;
