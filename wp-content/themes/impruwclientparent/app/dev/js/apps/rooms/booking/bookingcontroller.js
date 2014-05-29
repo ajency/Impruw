@@ -16,12 +16,22 @@ define(['app', 'controllers/base-controller', 'apps/rooms/booking/views'], funct
       Controller.prototype.initialize = function(options) {
         var layout, roomId;
         roomId = options.roomId;
+        this.options = options;
         this.bookings = App.request("fetch:room:bookings", roomId);
         this.layout = layout = this.getRoomBookingLayout(this.bookings);
         this.listenTo(layout, "show", this.showBookingCalendarView);
+        this.bindAddDateRangeEventListener();
         return this.show(layout, {
           loading: true
         });
+      };
+
+      Controller.prototype.bindAddDateRangeEventListener = function() {
+        return App.vent.on("daterange:added daterange:removed daterange:updated", (function(_this) {
+          return function() {
+            return App.execute("show:booking:app", _this.options);
+          };
+        })(this));
       };
 
       Controller.prototype.showBookingCalendarView = function() {

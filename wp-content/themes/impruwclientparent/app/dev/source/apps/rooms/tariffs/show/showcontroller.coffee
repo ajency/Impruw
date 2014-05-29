@@ -12,16 +12,16 @@ define ['app', 'controllers/base-controller', 'apps/rooms/tariffs/show/views'], 
                 dcollection = App.request "get:daterange:collection"
                 tcollection = App.request "get:tariffs:collection", @roomId
 
-                pcollection.on 'add remove', =>
-                    @dateRangeView = @_getDateRangeView dcollection
-                    @layout.tariffRegion.show @dateRangeView
-
                 @layout = @_getGridLayout tcollection
 
                 # get the packages view
                 @packagesView = @_getPackagesView pcollection
 
                 @dateRangeView = @_getDateRangeView dcollection
+
+                pcollection.on 'add remove', =>
+                    @dateRangeView = @_getDateRangeView dcollection
+                    @layout.tariffRegion.show @dateRangeView
 
 
                 @listenTo @layout, "show", =>

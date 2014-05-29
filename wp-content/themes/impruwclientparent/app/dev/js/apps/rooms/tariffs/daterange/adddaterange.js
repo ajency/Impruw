@@ -32,9 +32,8 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/daterange
       };
 
       AddDateRangeController.prototype.dateRangeSaved = function(dateRange) {
-        App.execute("add:daterange", dateRange);
         this.dateRangeView.triggerMethod("saved:daterange");
-        return App.execute("show:add:room");
+        return App.vent.trigger("daterange:added");
       };
 
       AddDateRangeController.prototype._getAddDateRangeView = function() {

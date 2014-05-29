@@ -43,12 +43,12 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/daterange
 
       EditDateRangeController.prototype.daterangeDeleted = function() {
         this.dateRangeView.triggerMethod("deleted:daterange");
-        return App.execute("show:add:room");
+        return App.vent.trigger("daterange:removed");
       };
 
       EditDateRangeController.prototype.dateRangeUpdated = function(dateRange) {
         this.dateRangeView.triggerMethod("updated:daterange");
-        return App.execute("show:add:room");
+        return App.vent.trigger("daterange:updated");
       };
 
       EditDateRangeController.prototype._getEditDateRangeView = function(dateRange) {

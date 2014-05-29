@@ -4,7 +4,10 @@ define ['app', 'controllers/base-controller'
         class Booking.Controller extends AppController
 
             initialize: (options)->
+
                 {roomId} = options
+
+                @options = options
 
                 @bookings = App.request "fetch:room:bookings", roomId
 
@@ -12,8 +15,14 @@ define ['app', 'controllers/base-controller'
 
                 @listenTo layout, "show", @showBookingCalendarView
 
+                @bindAddDateRangeEventListener()
+
                 @show layout,
                     loading: true
+
+            bindAddDateRangeEventListener : ->
+                App.vent.on "daterange:added daterange:removed daterange:updated", =>
+                    App.execute "show:booking:app", @options
 
             showBookingCalendarView: =>
                 dateRangeCollection = App.request "get:daterange:collection"

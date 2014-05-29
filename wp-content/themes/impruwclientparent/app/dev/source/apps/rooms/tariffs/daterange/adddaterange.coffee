@@ -16,9 +16,9 @@ define ['app', 'controllers/base-controller',
                     loading: true
 
             dateRangeSaved: (dateRange)=>
-                App.execute "add:daterange", dateRange
+                #App.execute "add:daterange", dateRange
                 @dateRangeView.triggerMethod "saved:daterange"
-                App.execute "show:add:room"
+                App.vent.trigger "daterange:added"
 
             # get the packages view
             _getAddDateRangeView:->
@@ -89,4 +89,4 @@ define ['app', 'controllers/base-controller',
         # handler
         App.commands.setHandler "show:add:daterange", ()->
             new AddDateRangeController
-                region: App.dialogRegion
+                    region: App.dialogRegion

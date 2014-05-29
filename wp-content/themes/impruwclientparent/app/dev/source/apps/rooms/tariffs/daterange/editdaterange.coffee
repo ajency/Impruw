@@ -26,12 +26,12 @@ define ['app', 'controllers/base-controller',
             daterangeDeleted: =>
                 @dateRangeView.triggerMethod "deleted:daterange"
                 #refresh and show the changes on add room page
-                App.execute "show:add:room"
+                App.vent.trigger "daterange:removed"
 
             dateRangeUpdated: (dateRange)=>
                 @dateRangeView.triggerMethod "updated:daterange"
                 #refresh and show the changes on add room page
-                App.execute "show:add:room"
+                App.vent.trigger "daterange:updated"
 
 
             # get the packages view
