@@ -42,6 +42,8 @@ function convert_to_theme_format( $theme ) {
     $data[ 'ID' ] = $theme->ID;
 
     $data[ 'post_title' ] = $theme->post_title;
+    $data[ 'post_name' ] = $theme->post_name;
+
 
     // get theme image url
     $data[ 'image_url' ] = get_theme_image_url( $theme->ID );
