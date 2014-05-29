@@ -177,14 +177,14 @@ function ajax_user_interim_login()
     $user_email = trim($_POST['pdemail']);
 
 
-    if (!check_ajax_referer('frm_login', 'ajax_nonce')) {
+    /*if (!check_ajax_referer('frm_login', 'ajax_nonce')) {
         header('Content-Type: application/json');
         echo json_encode(array('code' => 'ERROR', 'msg' => _("Invalid Form Data")));
         die();
-    }
+    }*/
 
 
-    global $wpdb;
+    /*global $wpdb;*/
     $user_data = get_user_by('email', $user_email);
     if ($user_data) {
 
