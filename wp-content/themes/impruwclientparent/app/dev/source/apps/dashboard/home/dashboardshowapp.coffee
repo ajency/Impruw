@@ -1,50 +1,53 @@
-define ['app', 'controllers/base-controller','text!apps/dashboard/home/templates/dashboard.html'], (App, AppController, dashboardTpl)->
+define ['app', 'controllers/base-controller',
+        'text!apps/dashboard/home/templates/dashboard.html'], (App, AppController, dashboardTpl)->
+    App.module 'Dashboard.Home', (Home, App, Backbone, Marionette, $, _)->
 
-	App.module 'Dashboard.Home', (Home, App, Backbone, Marionette, $, _)->
+        # define router
+        class DashboardRouter extends Marionette.AppRouter
 
-		# define router
-		class DashboardRouter extends Marionette.AppRouter
+            appRoutes:
+                'dashboard': 'show'
 
-			appRoutes: 
-				'dashboard' : 'show'
+            controller:
+                show: ->
+                    new DashboardHomeController
 
-			controller : 
-				show : ->
-					new DashboardHomeController
+        # define controller
+        class DashboardHomeController extends AppController
 
-		# define controller
-		class DashboardHomeController extends AppController
+            initialize: (opt)->
 
-			initialize:(opt)->
+                # get the layout
+                @layout = layout = @_getDashboardLayout()
 
-				# get the layout
-				@layout = layout = @_getDashboardLayout()
+                # listen to show event
+                @listenTo layout, 'show', @showDashboardSections
 
-				# listen to show event
-				@listenTo layout, 'show', @showDashboardSections
+                # trigger set:active:menu event
+                App.vent.trigger "set:active:menu", 'dashboard'
 
-				# trigger set:active:menu event
-				App.vent.trigger "set:active:menu", 'dashboard'
+                @show layout
 
-				@show layout
+            _getDashboardLayout: ->
+                new DashboardLayout
 
-			_getDashboardLayout:->
-				new DashboardLayout
-
-			showDashboardSections:->
-				#App.execute "show:"
+            showDashboardSections: ->
+                #App.execute "show:"
 
 
-		# define the layout 
-		class DashboardLayout  extends Marionette.Layout 
+                # define the layout
+        class DashboardLayout extends Marionette.Layout
 
-			template : dashboardTpl
+            template: dashboardTpl
 
-			serializeData:->
-				data = 
-					SITEURL : window.SITEURL
+            serializeData: ->
+                data =
+                    SITEURL: window.SITEURL
+                    polyglot:->
+                        (argument, renderer) ->
+                            renderer _.polyglot.t argument
 
-				data
+                data
 
-		Home.on 'start',->
-			new DashboardRouter
+        Home.on 'start', ->
+            new DashboardRouter

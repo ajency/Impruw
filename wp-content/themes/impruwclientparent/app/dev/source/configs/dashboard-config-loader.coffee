@@ -4,4 +4,5 @@ define [
 		'configs/backbone'
 		'configs/marionette/marionette'
 		'configs/marionette/dialog-region'
+        'configs/polyglot'
 	],->

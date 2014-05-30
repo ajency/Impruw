@@ -22,6 +22,7 @@ define [
     'jpanelmenu'
     'scrollsections'
     'minicolors'
+    'polyglot'
     'additionalmethod'
     'timepicker'
 ], ->
