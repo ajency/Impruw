@@ -1848,6 +1848,25 @@ a:focus {
   border: 1px dashed #849fb0;
   background: #f1f4f6;
 }
+/**** Element Popover Styles ****/
+.element-markup .popover {
+  border-radius: 0;
+  background: #29333f;
+  box-shadow: 0 0 2px 1px #aaaaaa;
+}
+.element-markup .popover .arrow {
+  border-top-color: #29333f;
+}
+.element-markup .popover .popover-content {
+  padding: 0.75em;
+  color: #f3f3f3;
+}
+.element-markup .popover .popover-content a {
+  color: #ff7e00;
+}
+.element-markup .popover .popover-content a:hover {
+  color: #ff9833;
+}
 /**** Revisions Select Styles ****/
 .aj-imp-revisions {
   float: right;
