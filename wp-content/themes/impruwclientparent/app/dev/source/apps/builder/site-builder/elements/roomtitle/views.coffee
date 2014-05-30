@@ -19,3 +19,9 @@ define ['app'], (App)->
             								<button class="btn btn-sm btn-book">Booking &amp; Availability</button>
             							</div>
             						</div>'
+
+            onShow: ->
+                @$el.attr "data-content", "Please visit <a href='#url'>to update room title</a> "
+                @$el.popover
+                    html : true
+                    placement : 'top'

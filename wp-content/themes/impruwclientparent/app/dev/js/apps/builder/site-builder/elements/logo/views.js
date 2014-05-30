@@ -36,6 +36,14 @@ define(['app'], function(App) {
         }
       };
 
+      LogoView.prototype.onShow = function() {
+        this.$el.attr("data-content", "Please visit <a href='#url'>update logo</a> ");
+        return this.$el.popover({
+          html: true,
+          placement: 'top'
+        });
+      };
+
       return LogoView;
 
     })(Marionette.ItemView);

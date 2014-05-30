@@ -15,10 +15,15 @@ define(['app', 'text!apps/builder/site-builder/elements/roombooking/template/mai
       RoomBookingView.prototype.template = mainTpl;
 
       RoomBookingView.prototype.onShow = function() {
-        return this.$el.find('#room-booking-calendar').datepicker({
+        this.$el.find('#room-booking-calendar').datepicker({
           inline: true,
           numberOfMonths: 2,
           dateFormat: 'yy-mm-dd'
+        });
+        this.$el.attr("data-content", "Please visit <a href='#url'>to update room bookings</a> ");
+        return this.$el.popover({
+          html: true,
+          placement: 'top'
         });
       };
 

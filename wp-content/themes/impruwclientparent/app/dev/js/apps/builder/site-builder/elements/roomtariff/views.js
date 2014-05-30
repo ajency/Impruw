@@ -12,6 +12,14 @@ define(['app', 'text!apps/builder/site-builder/elements/roomtariff/template/main
 
       RoomTariffView.prototype.template = mainTpl;
 
+      RoomTariffView.prototype.onShow = function() {
+        this.$el.attr("data-content", "Please visit <a href='#url'>to update room tariff</a> ");
+        return this.$el.popover({
+          html: true,
+          placement: 'top'
+        });
+      };
+
       return RoomTariffView;
 
     })(Marionette.ItemView);

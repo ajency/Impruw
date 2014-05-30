@@ -65,6 +65,15 @@ define(['app'], function(App) {
       };
 
       GalleryView.prototype.onShow = function() {
+        var isSingleRoom;
+        isSingleRoom = Marionette.getOption(this, 'inSingleRoom');
+        if (isSingleRoom) {
+          this.$el.attr("data-content", "Please visit <a href='#url'>to update room gallery</a> ");
+          this.$el.popover({
+            html: true,
+            placement: 'top'
+          });
+        }
         if (this.collection.length === 0) {
           return;
         }

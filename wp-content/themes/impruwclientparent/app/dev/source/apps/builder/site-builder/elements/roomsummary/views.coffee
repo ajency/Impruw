@@ -56,3 +56,4 @@ define ['app'], (App)->
 
                 if not _.isUndefined roomNotSet
                     @template = @roomNotSetTemplate
+

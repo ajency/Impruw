@@ -7,3 +7,9 @@ define ['app'
 
             template: mainTpl
 
+            onShow: ->
+                @$el.attr "data-content", "Please visit <a href='#url'>to update room tariff</a> "
+                @$el.popover
+                    html : true
+                    placement : 'top'
+

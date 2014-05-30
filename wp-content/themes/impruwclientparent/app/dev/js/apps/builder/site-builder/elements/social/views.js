@@ -42,6 +42,14 @@ define(['app'], function(App) {
         return this.$el.addClass(className);
       };
 
+      SocialView.prototype.onShow = function() {
+        this.$el.attr("data-content", "Please visit <a href='#url'>to update social links</a> ");
+        return this.$el.popover({
+          html: true,
+          placement: 'top'
+        });
+      };
+
       return SocialView;
 
     })(Marionette.CollectionView);

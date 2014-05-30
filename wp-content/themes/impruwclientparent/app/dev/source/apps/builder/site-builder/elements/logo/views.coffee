@@ -35,4 +35,11 @@ define ['app'], (App)->
                 'click a': (e)->
                     e.preventDefault()
 
+            onShow:->
+                @$el.attr "data-content", "Please visit <a href='#url'>update logo</a> "
+                @$el.popover
+                        html : true
+                        placement : 'top'
+
+
 

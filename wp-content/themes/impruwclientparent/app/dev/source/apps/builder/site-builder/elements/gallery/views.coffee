@@ -47,12 +47,22 @@ define ['app'], (App)->
                     @itemViewContainer = '.if-required'
 
             onShow: ->
+
+                isSingleRoom = Marionette.getOption @, 'inSingleRoom'
+                if isSingleRoom
+                    @$el.attr "data-content", "Please visit <a href='#url'>to update room gallery</a> "
+                    @$el.popover
+                        html : true
+                        placement : 'top'
+
                 return if @collection.length is 0
 
                 @$el.imagesLoaded =>
                     @$el.find('.if-required').isotope
                         itemSelector: '.isotope-element'
                         layoutMode: 'masonry'
+
+
 
 
             events:

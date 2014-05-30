@@ -17,6 +17,12 @@ define ['app'], (App)->
             								took a galley of type and scrambled it to make a type specimen book.</div>
             							</div>
             						</div>'
+
+            onShow:->
+                @$el.attr "data-content", "Please visit <a href='#url'>to update room description</a> "
+                @$el.popover
+                    html : true
+                    placement : 'top'
    	
 
 

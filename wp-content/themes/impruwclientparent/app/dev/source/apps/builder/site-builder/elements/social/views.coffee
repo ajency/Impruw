@@ -23,3 +23,10 @@ define ['app'], (App)->
                 style = Marionette.getOption @, 'style'
                 className = _.slugify style
                 @$el.addClass className
+
+
+            onShow: ->
+                @$el.attr "data-content", "Please visit <a href='#url'>to update social links</a> "
+                @$el.popover
+                    html : true
+                    placement : 'top'
