@@ -861,7 +861,12 @@ form .aj-imp-submit:hover {
   }
 }
 .login-pop {
-  margin-right: 5px;
+  right: 5px;
+  left: auto !important;
+  width: 300px;
+}
+.login-pop .arrow {
+  left: 75.5% !important;
 }
 .login-pop .popover-content {
   background: #fff;
@@ -879,6 +884,15 @@ form .aj-imp-submit:hover {
 .login-pop .popover-content form .form-control:focus,
 .login-pop .popover-content form .form-control:active {
   border-color: #ff7e00;
+}
+.login-pop .popover-content #login_status_div {
+  display: none;
+  color: #f21515;
+  font-size: 1.2em;
+}
+.login-pop .popover-content #login_status_div #login_status {
+  font-size: 0.75em;
+  font-weight: 300;
 }
 /****Register Page Styles****/
 .aj-imp-register-form {
