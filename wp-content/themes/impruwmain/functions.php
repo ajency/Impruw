@@ -264,7 +264,7 @@
                 wp_enqueue_script('parsley-lang', get_template_directory_uri() . '/js/parsley/i18n/messages.no.js', array(), FALSE, TRUE);
 
             wp_enqueue_script('parsley', get_template_directory_uri() . '/js/parsley/parsley.js', array('jquery'), '1.2.0', TRUE);
-            wp_enqueue_script('parsley.remote', get_template_directory_uri() . '/js/parsley.remote.js',array('parsley'), '', TRUE);
+//            wp_enqueue_script('parsley.remote', get_template_directory_uri() . '/js/parsley.remote.js',array('parsley'), '', TRUE);
 
             wp_enqueue_script("user_management", get_template_directory_uri() . '/js/user_management.js', array(), FALSE, TRUE);
             //wp_enqueue_script( 'garlic', get_template_directory_uri().'/js/garlic.js', array('jquery'), '1.2.2',true);
