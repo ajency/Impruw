@@ -63,14 +63,14 @@ define(['app'], function(App) {
       UnsedElementsViews.prototype.itemViewContainer = 'ul.trash-list';
 
       UnsedElementsViews.prototype.onShow = function() {
-        var FloatMenu, closedMenuOpacity, flMenu, flMenuLabel, flMenuMenu, floatEasing, floatSpeed, menuFadeSpeed, menuPosition;
+        var FloatMenu, closedMenuOpacity, flMenu, flMenuMenu, flMenuTriggers, floatEasing, floatSpeed, menuFadeSpeed, menuPosition;
         floatSpeed = 1500;
         floatEasing = "easeOutQuint";
         menuFadeSpeed = 500;
         closedMenuOpacity = 0.75;
         flMenu = $("#fl_menu");
         flMenuMenu = $("#fl_menu .menu");
-        flMenuLabel = $("#fl_menu .label");
+        flMenuTriggers = $("#fl_menu .label span, #fl_menu .menu");
         FloatMenu = function() {
           var newPosition, scrollAmount;
           scrollAmount = $(document).scrollTop();
@@ -86,10 +86,10 @@ define(['app'], function(App) {
         menuPosition = $("#fl_menu").position().top;
         menuPosition = $("#fl_menu").position().top;
         FloatMenu();
-        flMenu.hover(function() {
-          return $("#fl_menu .menu").fadeIn(menuFadeSpeed);
+        flMenuTriggers.hover(function() {
+          return $("#fl_menu .menu").show();
         }, function() {
-          return $("#fl_menu .menu").fadeOut(menuFadeSpeed);
+          return $("#fl_menu .menu").hide();
         });
         $(window).scroll(function() {
           return FloatMenu();

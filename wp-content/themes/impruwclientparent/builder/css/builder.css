@@ -1933,7 +1933,6 @@ a:focus {
   display: block;
   border-radius: 0;
   padding: 1px 0 0;
-  cursor: move;
 }
 .aj-imp-trash-elements .trash-label > span {
   background: #29333f;
@@ -1941,6 +1940,8 @@ a:focus {
   color: #fff;
   padding: 0.5em;
   float: right;
+  cursor: pointer;
+  display: inline-block;
 }
 .aj-imp-trash-elements .aj-imp-drag-menu {
   display: none;
@@ -2028,9 +2029,6 @@ a:focus {
 }
 .aj-imp-trash-elements .aj-imp-drag-menu .trash-list .trash-elem.ui-draggable-dragging a {
   background: rgba(0, 0, 0, 0.8);
-}
-.aj-imp-trash-elements:hover .trash-label > span {
-  color: #aaaaaa;
 }
 /****Block List Styles****/
 .aj-imp-block-list ul {
