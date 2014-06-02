@@ -3881,3 +3881,20 @@ function user_login() {
 
 add_action( 'wp_ajax_user_login', 'user_login' );
 add_action( 'wp_ajax_nopriv_user_login', 'user_login' );
+
+
+/***
+ * Remove the tracking code from preview page
+ *
+ *
+ */
+add_action('wp_loaded','remove_tracking_code_from_preview');
+function remove_tracking_code_from_preview(){
+
+    if(isset($_GET['preview'])){
+
+       remove_action('wp_footer','wp_footer');
+    }
+
+}
+

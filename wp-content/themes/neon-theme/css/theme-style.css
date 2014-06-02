@@ -1538,7 +1538,6 @@ and open the template in the editor.
 }
 .aj-imp-login-form .aj-imp-login form .checkbox,
 .aj-imp-login-form .aj-imp-forgot form .checkbox {
-  margin-top: 1em;
   padding-top: 0;
 }
 .aj-imp-login-form .aj-imp-login form .checkbox .icons,
@@ -1558,6 +1557,11 @@ and open the template in the editor.
 .aj-imp-login-form .aj-imp-login form .checkbox.checked .second-icon,
 .aj-imp-login-form .aj-imp-forgot form .checkbox.checked .second-icon {
   color: #24d07c;
+}
+.aj-imp-login-form .aj-imp-login form .checkbox.keep-log,
+.aj-imp-login-form .aj-imp-forgot form .checkbox.keep-log {
+  display: inline-block;
+  margin-left: 1em;
 }
 .aj-imp-login-form .aj-imp-login form .aj-imp-submit,
 .aj-imp-login-form .aj-imp-forgot form .aj-imp-submit {

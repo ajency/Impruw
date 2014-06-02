@@ -60,7 +60,12 @@ define(['app', 'controllers/base-controller', 'text!apps/dashboard/home/template
       DashboardLayout.prototype.serializeData = function() {
         var data;
         data = {
-          SITEURL: window.SITEURL
+          SITEURL: window.SITEURL,
+          polyglot: function() {
+            return function(argument, renderer) {
+              return renderer(_.polyglot.t(argument));
+            };
+          }
         };
         return data;
       };

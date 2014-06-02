@@ -879,7 +879,12 @@ form {
 }
 
 .login-pop {
-	margin-right: 5px;
+	right: 5px;
+	left: auto !important;
+	width: 300px;
+	.arrow {
+		left: 75.5% !important;
+	}
 	.popover-content {
 		background: #fff;
 		border-radius: 0;
@@ -893,6 +898,15 @@ form {
 				&:focus, &:active {
 					border-color: @orange;
 				}
+			}
+		}
+		#login_status_div {
+			display: none;
+			color: @red;
+			font-size: 1.2em;
+			#login_status {
+				font-size: 0.75em;
+				font-weight: 300;
 			}
 		}
 	}

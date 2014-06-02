@@ -73,7 +73,7 @@
                     <div class="row">
                         <div class="col-sm-offset-3 col-sm-6" style="margin-top: 1em;">
                             <?php echo __('Dont have an account?', 'impruwmain'); ?> <a
-                                href="<?php echo site_url('register'); ?>"><?php echo __('Sign Up!', 'impruwmain'); ?></a>
+                                href="<?php echo network_site_url('register'); ?>"><?php echo __('Sign Up!', 'impruwmain'); ?></a>
                         </div>
                     </div>
                 </form>
