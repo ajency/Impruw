@@ -51,10 +51,8 @@ define ['app'], (App)->
 
                 if not _.isUndefined isSingle
                     @template = @singleRoomTemplate
-                    return
 
                 roomNotSet = Marionette.getOption @, 'roomNotSet'
 
                 if not _.isUndefined roomNotSet
                     @template = @roomNotSetTemplate
-                    return

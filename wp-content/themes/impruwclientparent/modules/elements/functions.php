@@ -14,7 +14,9 @@ function get_elements_by_ids( $ids ) {
     $elements = array();
 
     foreach ( $ids as $id ) {
-        $elements[ ] = get_element_by_id( $id );
+        $element = get_element_by_id( $id );
+        if( $element !== false)
+            $elements[ ] = $element;
     }
 
     return $elements;
@@ -38,6 +40,10 @@ function get_element_by_id( $meta_id ) {
     $meta_value = $wpdb->get_var( $query );
 
     $meta_value = maybe_unserialize( $meta_value );
+
+    if ( $meta_value['element'] !== 'Title' && $meta_value['element'] !== 'Text' && $meta_value['element'] !==
+        'ImageWithText')
+        return false;
 
     $meta_value = is_array( $meta_value ) ? $meta_value : array();
 

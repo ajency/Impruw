@@ -34,7 +34,7 @@ define(['app', 'apps/builder/site-builder/elements/roomsummary/views', 'apps/bui
         };
         if (this.isSingleRoomPage()) {
           opt.isSingleRoom = true;
-        } else if (model.has('ID') === 0) {
+        } else if (model.get('ID') === 0) {
           opt.roomNotSet = true;
         } else {
           opt.template = template;
