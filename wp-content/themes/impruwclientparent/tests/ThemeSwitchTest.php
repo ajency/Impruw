@@ -27,7 +27,6 @@ class ThemeSwitchTests extends \WP_UnitTestCase {
     public function tearDown(){
         parent::tearDown();
         fclose($this->file);
-        // FIXME: Remove folder after test. Not working
         $this->del_tree(ABSPATH . 'wp-content/site-resources/' . get_current_blog_id());
     }
 

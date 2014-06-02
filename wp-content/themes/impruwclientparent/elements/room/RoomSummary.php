@@ -116,12 +116,14 @@ class RoomSummary extends Element {
     function generate_dummy_markup() {
 
         $template = '<div class="roomsummary ' . $this->margins . ' "><div class="room-img">
-                         <img src="http://classicgreen2.unpruwen.com/wp-content/themes/impruwclientparent/images/dummy/2.jpg" class="img-responsive">
+                         <div class="image-placeholder"><span class="glyphicon glyphicon-picture"></span></div>
                     </div>
-                    <div class="room-title">Room Title</div>
-                    <div class="room-excerpt">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s</div>
+                    <div class="room-title">Your Room Title</div>
+                    <div class="room-excerpt">Choose a room to display from settings. Your room description, image, number of
+                                            rooms and link to the single room page will be displayed here. To make any
+                                            changes to the room go to Room from your dashboard.</div>
                     <div class="room-actions">
-                            <div class="price">$99<small>/night</small></div>
+                            <div class="price"><small>Total:</small> 0 rooms</div>
                             <a href="#" class="btn btn-room">View Details</a>
                     </div></div>';
         global $me;
