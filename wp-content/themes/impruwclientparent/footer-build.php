@@ -3,17 +3,19 @@
  * The template for displaying the footer.
  *
  * Contains footer content and the closing of the
- * 
- * @package Impruw Site
+ *
+ * @package    Impruw Site
  * @subpackage Impruw Site
- * @since Impruw Site 1.0
+ * @since      Impruw Site 1.0
  */
-?>      
+?>
 <div id="setting-popover" style="display:none"></div>
-<div class="aj-imp-drag-menu" id="controls-drag" style="position:absolute;top:69px;left:-1px;">	
+<div class="aj-imp-drag-menu" id="controls-drag" style="position:absolute;top:69px;left:-1px;">
     <p class="desc" style="cursor:move">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
+        magna aliqua.
     </p>
+
     <div class="aj-imp-add-row builder-element" data-element="builderrow" data-placeholder-height="120">
         <a href="#">
             <span class="glyphicon glyphicon-align-justify"></span>
@@ -23,7 +25,7 @@
     </div>
     <ul class="nav nav-tabs" id="builder-box-tabs">
         <li class="active"><a href="#content" data-toggle="tab">Content</a></li>
-        <?php if (is_single_room_edit()): ?>
+        <?php if ( is_single_room_edit() ): ?>
             <li><a href="#room-elements" data-toggle="tab">Room Elements</a></li>
         <?php endif; ?>
     </ul>
@@ -37,7 +39,7 @@
                     </a>
                 </li>
                 <li data-element="titleelement">
-                    <a href="#" class="drag builder-element"  data-placeholder-height="60">
+                    <a href="#" class="drag builder-element" data-placeholder-height="60">
                         <div class="aj-imp-builder-icon"><span class="bicon icon-uniF11C"></span></div>
                         <div class="aj-imp-builder-title">Title</div>
                     </a>
@@ -116,7 +118,7 @@
                 </li>
             </ul>
         </div>
-        <?php if (is_single_room_edit()): ?>
+        <?php if ( is_single_room_edit() ): ?>
             <div class="tab-pane" id="room-elements">
                 <ul class="aj-imp-builder-items clearfix">
                     <li data-element="roomtitle">
@@ -171,15 +173,16 @@
     var JSVERSION = '<?php echo JSVERSION; ?>';
     var CURRENTLANG = '<?php echo get_locale(); ?>';
     var ROOMS = <?php echo json_encode(get_rooms()); ?>;
-<?php if (is_single_room_edit()): ?>
-        var ISSINGLEROOM = true;
-<?php endif; ?>
-</script> 
-<?php if (ENV === 'dist'): ?>
+    <?php if (is_single_room_edit()): ?>
+    var ISSINGLEROOM = true;
+    <?php endif; ?>
+</script>
+<?php if ( ENV === 'dist' ): ?>
     <script src="<?php echo get_parent_template_directory_uri(); ?>/js/require.js"></script>
-    <script src="<?php echo get_parent_template_directory_uri(); ?>/builder/dist/js/production.js" ></script>
+    <script src="<?php echo get_parent_template_directory_uri(); ?>/builder/dist/js/production.js"></script>
 <?php else: ?>
-    <script data-main="<?php echo get_parent_template_directory_uri(); ?>/builder/js/init" src="<?php echo get_parent_template_directory_uri(); ?>/js/require.js"></script>
+    <script data-main="<?php echo get_parent_template_directory_uri(); ?>/builder/js/init"
+            src="<?php echo get_parent_template_directory_uri(); ?>/js/require.js"></script>
 <?php endif; ?>
 </body>
 </html>

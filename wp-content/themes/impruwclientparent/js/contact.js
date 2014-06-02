@@ -67,13 +67,13 @@ jQuery(document).ready(function ($) {
         return;
 
     $('#room-booking-calendar').datepicker({
-        inline           : true,
-        numberOfMonths   : 2,
-        dateFormat       : 'yy-mm-dd',
-        minDate          : new Date(),
-        beforeShowDay    : showDateRangeClass,
+        inline: true,
+        numberOfMonths: 2,
+        dateFormat: 'yy-mm-dd',
+        minDate: new Date(),
+        beforeShowDay: showDateRangeClass,
         onChangeMonthYear: displayColorMonthChange,
-        onSelect         : showData
+        onSelect: showData
 
     });
 
@@ -171,7 +171,6 @@ jQuery(document).ready(function ($) {
             replace(/^-|-$/g, '');
         return $slug.toLowerCase();
     }
-
 
     /**
      *
@@ -394,7 +393,6 @@ jQuery(document).ready(function ($) {
                  </div>\n\
                  </div>';*/
 
-
             }
         }
 
@@ -419,7 +417,6 @@ jQuery(document).ready(function ($) {
             $('.carousel-control').show()
     }
 
-
     function getPlans(plan_id) {
         var html = '';
 
@@ -439,13 +436,12 @@ jQuery(document).ready(function ($) {
         return html;
     }
 
-
     /* Slimmenu */
     $('.slimmenu').slimmenu({
-        resizeWidth     : '767',
-        collapserTitle  : 'Menu',
-        animSpeed       : 'medium',
-        indentChildren  : false,
+        resizeWidth: '767',
+        collapserTitle: 'Menu',
+        animSpeed: 'medium',
+        indentChildren: false,
         childrenIndenter: '&nbsp;'
     });
 });

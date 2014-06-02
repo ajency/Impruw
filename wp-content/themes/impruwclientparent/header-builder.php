@@ -4,9 +4,9 @@
  *
  * Displays all of the <head> section and everything up till <div class="mainContainer1">
  *
- * @package WordPress
+ * @package    WordPress
  * @subpackage Twenty_Thirteen
- * @since Twenty Thirteen 1.0
+ * @since      Twenty Thirteen 1.0
  */
 ?><!DOCTYPE html>
 <!--[if IE 7]>
@@ -17,48 +17,53 @@
 <![endif]-->
 <!--[if !(IE 7) | !(IE 8)  ]><!-->
 <html <?php language_attributes(); ?>>
-    <!--<![endif]-->
-    <head>
-        <meta charset="<?php bloginfo('charset'); ?>">
-        <meta name="viewport" content="width=device-width">
-        <title><?php wp_title('|', true, 'right'); ?></title>
-        <link rel="profile" href="http://gmpg.org/xfn/11">
-        <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>">
-        <!--[if lt IE 9]>
-        <script src="<?php echo get_template_directory_uri(); ?>/js/html5.js"></script>
-        <![endif]-->
-        <link href="<?php echo get_parent_template_directory_uri(); ?>/css/bootstrap.min.css"           rel="stylesheet" media="screen"/>
-        <link href="<?php echo get_parent_template_directory_uri(); ?>/css/flat-ui.css"                 rel="stylesheet" media="screen"/>
-        <link href="<?php echo get_parent_template_directory_uri(); ?>/builder/css/main.css"            rel="stylesheet" media="screen"/>
-        <link href="<?php echo get_parent_template_directory_uri(); ?>/builder/css/builder.css"         rel="stylesheet" media="screen"/>
-        <link href="<?php echo get_parent_template_directory_uri(); ?>/builder/css/custom.css"          rel="stylesheet" media="screen"/>
-        <link href="<?php echo get_template_directory_uri(); ?>/css/style.css"                      rel="stylesheet" media="screen"/>
-        <?php wp_head(); ?>
-    </head>
-    <body <?php body_class(); ?>>
-        <div class="aj-imp-builder container">
-            <div class="navbar navbar-default">
-                <nav class="aj-imp-builder-top-nav row" role="navigation">
-                    <div class="aj-imp-builder-back col-sm-2">
-                        <p class="navbar-text">
-                            <a href="#"><span class="glyphicon glyphicon-arrow-left"></span> Back to Dashboard</a>
-                        </p>
-                    </div>
-                    <div class="aj-imp-page-layout col-sm-4 clearfix navbar-text">
-                        <select id="aj-imp-page-sel" name="current_page_id">
-                            <?php foreach (get_all_menu_pages() as $page): ?>
-                                <?php $selected = (isset($_COOKIE["current_page_id"]) && $_COOKIE["current_page_id"] == $page->ID) ? 'selected' : ''; ?>
-                                <option value="<?php echo $page->ID; ?>" <?php echo $selected; ?>><?php echo $page->post_title; ?></option>
-                            <?php endforeach; ?>
-                        </select>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <!-- <div class="aj-imp-sub-bar-head">For Businesses that need to build their online presence</div> -->
-                    </div>
-                    <!-- <div class="aj-imp-builder-top-title col-sm-2">
-                        <p class="navbar-text">
-                            Editing the Home Page...
-                        </p>
-                    </div> -->
-                    <!-- <div class="aj-imp-builder-top-options col-sm-4">
+<!--<![endif]-->
+<head>
+    <meta charset="<?php bloginfo( 'charset' ); ?>">
+    <meta name="viewport" content="width=device-width">
+    <title><?php wp_title( '|', TRUE, 'right' ); ?></title>
+    <link rel="profile" href="http://gmpg.org/xfn/11">
+    <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
+    <!--[if lt IE 9]>
+    <script src="<?php echo get_template_directory_uri(); ?>/js/html5.js"></script>
+    <![endif]-->
+    <link href="<?php echo get_parent_template_directory_uri(); ?>/css/bootstrap.min.css" rel="stylesheet"
+          media="screen"/>
+    <link href="<?php echo get_parent_template_directory_uri(); ?>/css/flat-ui.css" rel="stylesheet" media="screen"/>
+    <link href="<?php echo get_parent_template_directory_uri(); ?>/builder/css/main.css" rel="stylesheet"
+          media="screen"/>
+    <link href="<?php echo get_parent_template_directory_uri(); ?>/builder/css/builder.css" rel="stylesheet"
+          media="screen"/>
+    <link href="<?php echo get_parent_template_directory_uri(); ?>/builder/css/custom.css" rel="stylesheet"
+          media="screen"/>
+    <link href="<?php echo get_template_directory_uri(); ?>/css/style.css" rel="stylesheet" media="screen"/>
+    <?php wp_head(); ?>
+</head>
+<body <?php body_class(); ?>>
+<div class="aj-imp-builder container">
+    <div class="navbar navbar-default">
+        <nav class="aj-imp-builder-top-nav row" role="navigation">
+            <div class="aj-imp-builder-back col-sm-2">
+                <p class="navbar-text">
+                    <a href="#"><span class="glyphicon glyphicon-arrow-left"></span> Back to Dashboard</a>
+                </p>
+            </div>
+            <div class="aj-imp-page-layout col-sm-4 clearfix navbar-text">
+                <select id="aj-imp-page-sel" name="current_page_id">
+                    <?php foreach ( get_all_menu_pages() as $page ): ?>
+                        <?php $selected = ( isset( $_COOKIE[ "current_page_id" ] ) && $_COOKIE[ "current_page_id" ] == $page->ID ) ? 'selected' : ''; ?>
+                        <option
+                            value="<?php echo $page->ID; ?>" <?php echo $selected; ?>><?php echo $page->post_title; ?></option>
+                    <?php endforeach; ?>
+                </select>&nbsp;&nbsp;&nbsp;&nbsp;
+                <!-- <div class="aj-imp-sub-bar-head">For Businesses that need to build their online presence</div> -->
+            </div>
+            <!-- <div class="aj-imp-builder-top-title col-sm-2">
+                <p class="navbar-text">
+                    Editing the Home Page...
+                </p>
+            </div> -->
+            <!-- <div class="aj-imp-builder-top-options col-sm-4">
                         <form class="navbar-search">
                             <select id="aj-imp-theme-sel">
                                 <option value="0">Business Theme</option>
@@ -90,5 +95,5 @@
                             </div>
                         </form>
                     </div> -->
-                </nav>
-            </div>
+        </nav>
+    </div>

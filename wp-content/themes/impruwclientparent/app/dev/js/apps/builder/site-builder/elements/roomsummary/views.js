@@ -21,11 +21,10 @@ define(['app'], function(App) {
         isSingle = Marionette.getOption(this, 'isSingleRoom');
         if (!_.isUndefined(isSingle)) {
           this.template = this.singleRoomTemplate;
-          return;
         }
         roomNotSet = Marionette.getOption(this, 'roomNotSet');
         if (!_.isUndefined(roomNotSet)) {
-          this.template = this.roomNotSetTemplate;
+          return this.template = this.roomNotSetTemplate;
         }
       };
 
