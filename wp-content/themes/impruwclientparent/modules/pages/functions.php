@@ -409,6 +409,10 @@ function create_new_element( &$ele ) {
         $ele[ 'slider_id' ] = 0;
     }
 
+    if ( $ele[ 'element' ] === 'RoomSummary' && isset( $ele[ 'room_id' ] ) ) {
+        $ele[ 'room_id' ] = 0;
+    }
+
     $serialized_element = maybe_serialize( $ele );
 
     $wpdb->insert( $wpdb->postmeta, array( 'post_id' => 0, 'meta_value' => $serialized_element, 'meta_key' => $ele[ 'element' ] ) );

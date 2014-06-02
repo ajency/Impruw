@@ -1,50 +1,49 @@
 <?php
 
-    // function to insert a new plan
-    // returns plan id
-    function wp_insert_plan($formdata)
-    {
+// function to insert a new plan
+// returns plan id
+function wp_insert_plan( $formdata ) {
 
-        global $wpdb;
+    global $wpdb;
 
-        $table_name = $wpdb->prefix . 'plans';
+    $table_name = $wpdb->prefix . 'plans';
 
-        $wpdb->insert($table_name, $formdata);
+    $wpdb->insert( $table_name, $formdata );
 
-        return $wpdb->insert_id;
-    }
+    return $wpdb->insert_id;
+}
 
-    function get_plans()
-    {
-        global $wpdb;
+function get_plans() {
 
-        $table_name = $wpdb->prefix . 'plans';
+    global $wpdb;
 
-        $query = "SELECT * FROM $table_name ORDER BY id ASC";
+    $table_name = $wpdb->prefix . 'plans';
 
-        $plans = $wpdb->get_results($query, ARRAY_A);
+    $query = "SELECT * FROM $table_name ORDER BY id ASC";
 
-        return $plans;
-    }
+    $plans = $wpdb->get_results( $query, ARRAY_A );
 
-    function wp_update_plan($formdata)
-    {
-        global $wpdb;
+    return $plans;
+}
 
-        $table_name = $wpdb->prefix . 'plans';
+function wp_update_plan( $formdata ) {
 
-        $wpdb->update($table_name, $formdata, array('id' => $formdata['id']));
+    global $wpdb;
 
-        return $formdata['id'];
-    }
+    $table_name = $wpdb->prefix . 'plans';
 
-    function wp_delete_plan($formdata)
-    {
-        global $wpdb;
+    $wpdb->update( $table_name, $formdata, array( 'id' => $formdata[ 'id' ] ) );
 
-        $table_name = $wpdb->prefix . 'plans';
+    return $formdata[ 'id' ];
+}
 
-        $wpdb->delete($table_name, array('id' => $formdata['id']));
+function wp_delete_plan( $formdata ) {
 
-        return $formdata['id'];
-    }
+    global $wpdb;
+
+    $table_name = $wpdb->prefix . 'plans';
+
+    $wpdb->delete( $table_name, array( 'id' => $formdata[ 'id' ] ) );
+
+    return $formdata[ 'id' ];
+}

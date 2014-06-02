@@ -3,7 +3,7 @@
 global $element_templates;
 
 $element_templates = array(
-    'Menu' => array(
+    'Menu'          => array(
         array(
             'name' => 'Slimmenu'
         ),
@@ -11,12 +11,12 @@ $element_templates = array(
             'name' => 'Footer Menu'
         )
     ),
-    'Title' => array(
+    'Title'         => array(
         array(
             'name' => 'Box Title'
         )
     ),
-    'Row' => array(
+    'Row'           => array(
         array(
             'name' => 'Green Background'
         ),
@@ -33,17 +33,17 @@ $element_templates = array(
             'name' => 'Column Dividers'
         )
     ),
-    'Address' => array(
+    'Address'       => array(
         array(
-            'name' => 'Default Style',
+            'name'     => 'Default Style',
             'template' => '<ul><li><span class="fui-home"></span> {{address}}</li><li><span class="glyphicon glyphicon-earphone"></span> {{phoneno}}</li><li><span class="fui-mail"></span> {{email}}</li></ul>'
         ),
         array(
-            'name' => 'Small Address',
+            'name'     => 'Small Address',
             'template' => '<div><div class="info"><span class="fui-home"></span> {{address}}</div><div class="info"><span class="glyphicon glyphicon-earphone"></span> {{phoneno}}</div><div class="info"><span class="fui-mail"></span> {{email}}</div></div>'
         )
     ),
-    'Social' => array(
+    'Social'        => array(
         array(
             'name' => 'Default Style'
         ),
@@ -51,7 +51,7 @@ $element_templates = array(
             'name' => 'Small Social'
         )
     ),
-    'Link' => array(
+    'Link'          => array(
         array(
             'name' => 'Default Style'
         ),
@@ -59,7 +59,7 @@ $element_templates = array(
             'name' => 'Button'
         )
     ),
-    'ContactForm' => array(
+    'ContactForm'   => array(
         array(
             'name' => 'Style One'
         ),
