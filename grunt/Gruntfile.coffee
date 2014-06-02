@@ -10,7 +10,7 @@ module.exports = (grunt) ->
             optimizeBuilderJS :
                 command : 'r.js -o ../wp-content/themes/impruwclientparent/app/dev/build.js'
             optimizeDashboardJS :
-                command : 'r.js -o ../wp-content/themes/impruwclientparent/app/dev/build.js'
+                command : 'r.js -o ../wp-content/themes/impruwclientparent/app/dev/dbuild.js'
             gitAdd :
                 command: 'git add .'
             gitCommit:
