@@ -21,20 +21,20 @@ class GetPageJsonTest extends \WP_UnitTestCase {
                                                                    array("element" => 'Gallery', "meta_id" => 233)
         ));
 
-        // create a autosave page
-        $this->autosave_page_id = wp_create_post_autosave(array('post_ID' => $this->published_page->ID));
-        update_post_meta($this->autosave_page_id, "page-json", array(
-                                                                array("element" => 'Menu', "meta_id" => 23),
-                                                                array("element" => 'Gallery', "meta_id" => 233),
-                                                                array("element" => 'Gallery', "meta_id" => 533)
-        ));
+//        // create a autosave page
+//        $this->autosave_page_id = wp_create_post_autosave(array('post_ID' => $this->published_page->ID));
+//        update_post_meta($this->autosave_page_id, "page-json", array(
+//                                                                array("element" => 'Menu', "meta_id" => 23),
+//                                                                array("element" => 'Gallery', "meta_id" => 233),
+//                                                                array("element" => 'Gallery', "meta_id" => 533)
+//        ));
 
     }
 
     public function test_get_page_json_for_published_page() {
 
-        $elements = get_page_json($this->autosave_page_id, "page-json", true);
-        $this->assertEquals(count($elements), 3);
+//        $elements = get_page_json($this->autosave_page_id, "page-json", true);
+//        $this->assertEquals(count($elements), 3);
         $elements = get_post_meta($this->published_page->ID, "page-json", true);
         $this->assertEquals(count($elements), 2);
     }

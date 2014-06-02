@@ -28,7 +28,15 @@ class ThemeSwitchTests extends \WP_UnitTestCase {
         parent::tearDown();
         fclose($this->file);
         // FIXME: Remove folder after test. Not working
-        //unlink(ABSPATH . 'wp-content/site-resources/' . get_current_blog_id(). '/');
+        $this->del_tree(ABSPATH . 'wp-content/site-resources/' . get_current_blog_id());
+    }
+
+    public function del_tree($dir) {
+        $files = array_diff(scandir($dir), array('.','..'));
+        foreach ($files as $file) {
+            (is_dir("$dir/$file")) ? $this->del_tree("$dir/$file") : unlink("$dir/$file");
+        }
+        return rmdir($dir);
     }
 
     public function test_clear_compile_stylesheet() {
