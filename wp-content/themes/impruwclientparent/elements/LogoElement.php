@@ -98,7 +98,7 @@ class LogoElement extends Element {
         $size = $this->get_image_size();
         
        	if($a_id === 0){
-            return  '<div class="image-placeholder"><span class="bicon icon-uniF10E"></span></div>';
+            return  '<div class="image-placeholder"><span class="glyphicon glyphicon-picture"></span></div>';
         }
 
         $image = wp_get_attachment_image_src($a_id, 'full');
@@ -106,7 +106,7 @@ class LogoElement extends Element {
             return sprintf("<a href='%s'><img src='%s' class='img-responsive' /></a>", site_url(), $image[0]);
         }
         else{
-            return  '<div class="image-placeholder"><span class="bicon icon-uniF10E"></span></div>';
+            return  '<div class="image-placeholder"><span class="glyphicon glyphicon-picture"></span></div>';
         } 
     }
     
