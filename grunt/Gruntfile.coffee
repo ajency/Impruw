@@ -12,7 +12,7 @@ module.exports = (grunt) ->
             optimizeDashboardJS :
                 command : 'r.js -o ../wp-content/themes/impruwclientparent/app/dev/dbuild.js'
             gitAdd :
-                command: 'git add .'
+                command: 'git add -u'
             gitCommit:
                 command: 'git commit -m "Production build"'
             gitPush:
@@ -24,5 +24,7 @@ module.exports = (grunt) ->
     # Load NPM's via matchdep
     require("matchdep").filterDev("grunt-*").forEach grunt.loadNpmTasks
 
-    grunt.registerTask "deploy", ['exec']
+    grunt.registerTask "optimize", ['exec:optimizeBuilderJS','exec:optimizeDashboardJS']
+    grunt.registerTask "subversion", ['exec:gitAdd','exec:gitCommit']
+    grunt.registerTask "deploy", ['optimize','subversion','exec:gitPush']
 
