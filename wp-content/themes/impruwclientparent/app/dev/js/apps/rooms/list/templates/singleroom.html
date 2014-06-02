@@ -4,13 +4,13 @@
 		<p class="desc">{{post_content}}</p>
 		<div class="row info-strip">
 			<div class="col-md-4 strip">
-				<span>{{no_of_rooms}}</span> Rooms
+				<span>{{no_of_rooms}}</span> {{#polyglot}}Rooms{{/polyglot}}
 			</div>
 			<div class="col-md-4 strip">
-				<span>12Hr</span> Hour Format
+				<span>{{#polyglot}}12Hr{{/polyglot}}</span> {{#polyglot}}Hour Format{{/polyglot}}
 			</div>
 			<div class="col-md-4 strip">
-				<span>9:00AM</span>
+				<span>{{#polyglot}}9:00AM{{/polyglot}}</span>
 			</div>
 		</div>
 	</div>
@@ -19,23 +19,23 @@
 	<div class="tariff">
 		<div class="row tariff-plan">
 			<div class="col-sm-6 plan">
-				<h6>Plan Name</h6>
-				1st Jan to 31st Mar
+				<h6>{{#polyglot}}Plan Name{{/polyglot}}</h6>
+                {{#polyglot}}1st Jan to 31st Mar{{/polyglot}}
 			</div>
 			<div class="col-sm-3 weekday">
-				Weekday
-				<div class="price">$200</div>
+                {{#polyglot}}Weekday{{/polyglot}}
+				<div class="price">{{#polyglot}}$200{{/polyglot}}</div>
 			</div>
 			<div class="col-sm-3 weekend">
-				Weekend
-				<div class="price">$300</div>
+                {{#polyglot}}Weekend{{/polyglot}}
+				<div class="price">{{#polyglot}}$300{{/polyglot}}</div>
 			</div>
 		</div>
 	</div>
 </td>
 <td class="actions">
 	<a href="#rooms/edit/20" class="btn btn-xs editroom_link">
-	<span class="glyphicon glyphicon-pencil"></span> Edit</a> 
+	<span class="glyphicon glyphicon-pencil"></span> {{#polyglot}}Edit{{/polyglot}}</a>
 	<a href="#rooms/delete/20" class="btn btn-danger btn-xs deleteroom_link">
-	<span class="glyphicon glyphicon-trash"></span> Delete</a>
+	<span class="glyphicon glyphicon-trash"></span> {{#polyglot}}Delete{{/polyglot}}</a>
 </td>

@@ -1,5 +1,5 @@
 <div class="form-group">
-    <label for="inputSocial2" class="col-sm-2 control-label">Daterange Label</label>
+    <label for="inputSocial2" class="col-sm-2 control-label">{{#polyglot}}Daterange Label{{/polyglot}}</label>
     <div class="col-sm-9 col-sm-offset-2">
         <input type="text" class="form-control" name="daterange_name" required>
         <div class="p-messages"></div>
@@ -8,7 +8,7 @@
 <div class="form-group dual dates">
     <div class="col-sm-6">
         <div class="form-group">
-            <label for="inputAddress2" class="col-sm-4 control-label">Start Date</label>
+            <label for="inputAddress2" class="col-sm-4 control-label">{{#polyglot}}Start Date{{/polyglot}}</label>
             <div class="col-sm-8 col-sm-offset-4">
                 <div class="input-group">
                     <input type="text" class="form-control dated" value="" id="fromdaterange" required parsley-trigger="blur" parsley-validation-minlength="0" name="from_date" />
@@ -19,7 +19,7 @@
     </div>
     <div class="col-sm-6">
         <div class="form-group">
-            <label for="inputAddress2" class="col-sm-4 control-label">End Date</label>
+            <label for="inputAddress2" class="col-sm-4 control-label">{{#polyglot}}End Date{{/polyglot}}</label>
             <div class="col-sm-8 col-sm-offset-4">
                 <div class="input-group">
                     <input type="text" class="form-control dated" value="" id="todaterange" required parsley-trigger="blur" parsley-validation-minlength="0" name="to_date" />
@@ -30,7 +30,7 @@
     </div>
 </div>
 <div class="form-group">
-    <label for="inputSocial2" class="col-sm-2 control-label">Color</label>
+    <label for="inputSocial2" class="col-sm-2 control-label">{{#polyglot}}Color{{/polyglot}}</label>
     <div class="col-sm-9 col-sm-offset-2">
         <input type="hidden" class="form-control" name="daterange_colour" id="daterange_colour" required readonly value="">
         <div class="p-messages"></div>
@@ -38,6 +38,6 @@
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-default aj-imp-modal-save" id="btn_savedaterange">
-        <span class="glyphicon glyphicon-ok"></span> Add Date Range
+        <span class="glyphicon glyphicon-ok"></span>{{#polyglot}}Add Date Range{{/polyglot}}
     </button>
 </div>

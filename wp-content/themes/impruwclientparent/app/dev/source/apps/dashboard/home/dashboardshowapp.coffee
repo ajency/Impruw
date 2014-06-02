@@ -43,11 +43,8 @@ define ['app', 'controllers/base-controller',
             serializeData: ->
                 data =
                     SITEURL: window.SITEURL
-                    polyglot:->
-                        (argument, renderer) ->
-                            renderer _.polyglot.t argument
-
                 data
+
 
         Home.on 'start', ->
             new DashboardRouter

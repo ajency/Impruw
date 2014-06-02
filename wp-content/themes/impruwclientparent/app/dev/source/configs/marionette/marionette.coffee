@@ -1,7 +1,7 @@
 ##
 ## Set backbone overrites or mixins
 ##
-define ['marionette', 'mustache'], (Marionette, Mustache)->
+define ['marionette', 'mustache', 'underscore'], (Marionette, Mustache, _ )->
 
     # Extends the Marionette.Application to add some additional functions
     _.extend Marionette.Application::,
@@ -74,8 +74,16 @@ define ['marionette', 'mustache'], (Marionette, Mustache)->
 
         Mustache.to_html template, data
 
-    # override the serialize data function
-    # Marionette.View serializeData:
+
+    Marionette.View::mixinTemplateHelpers = (target) ->
+        target = target or {}
+        target.polyglot = ->
+            (argument, renderer) ->
+                renderer _.polyglot.t argument
+
+        templateHelpers = Marionette.getOption(this, "templateHelpers")
+        templateHelpers = templateHelpers.call(this)  if _.isFunction(templateHelpers)
+        _.extend target, templateHelpers
 
     # Override the loadTemplate function as we are using requirejs
     # Marionette expects "templateId" to be the ID of a DOM element.
