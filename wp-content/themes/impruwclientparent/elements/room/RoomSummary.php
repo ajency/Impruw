@@ -91,22 +91,34 @@ class RoomSummary extends Element {
 
         $data           = $this->room;
         $data[ 'link' ] = get_permalink( $this->room_id );
-        if ( empty( $data[ 'thumbnail_url' ] ) )
-            $data[ 'thumbnail_url' ] = 'http://localhost/impruw/childsite/wp-content/uploads/'
-                . 'sites/81/2014/03/5-yama-zbrush-model-by-jemark-150x150.jpg';
+        if ( empty( $data[ 'image_url' ] ) ) {
+            $template = '<div class="roomsummary ' . $this->margins . ' ">
+                            <div class="room-img">
+                                 <div class="image-placeholder">
+                                    <span class="glyphicon glyphicon-picture"></span>
+                                 </div>
+                            </div>
+                            <div class="room-title"><a href="{{link}}">{{post_title}}</a></div>
+                            <div class="room-excerpt">{{post_content}}</div>
+                            <div class="room-actions">
+                                    <div class="price"><small>Number of Rooms:</small> {{no_of_rooms}}</div>
+                                    <a href="{{link}}" class="btn btn-room">View Details</a>
+                            </div>
+                        </div>';
 
-
-        $template = '<div class="roomsummary ' . $this->margins . ' ">
-                        <div class="room-img">
-                             <a href="{{link}}"><img src="{{image_url}}" width="100%" class="img-responsive"></a>
-                        </div>
-                        <div class="room-title"><a href="{{link}}">{{post_title}}</a></div>
-                        <div class="room-excerpt">{{post_content}}</div>
-                        <div class="room-actions">
-                                <div class="price"><small>Number of Rooms:</small> {{no_of_rooms}}</div>
-                                <a href="{{link}}" class="btn btn-room">View Details</a>
-                        </div>
-                    </div>';
+        } else {
+            $template = '<div class="roomsummary ' . $this->margins . ' ">
+                            <div class="room-img">
+                                 <a href="{{link}}"><img src="{{image_url}}" width="100%" class="img-responsive"></a>
+                            </div>
+                            <div class="room-title"><a href="{{link}}">{{post_title}}</a></div>
+                            <div class="room-excerpt">{{post_content}}</div>
+                            <div class="room-actions">
+                                    <div class="price"><small>Number of Rooms:</small> {{no_of_rooms}}</div>
+                                    <a href="{{link}}" class="btn btn-room">View Details</a>
+                            </div>
+                        </div>';
+        }
 
         global $me;
 
@@ -116,7 +128,9 @@ class RoomSummary extends Element {
     function generate_dummy_markup() {
 
         $template = '<div class="roomsummary ' . $this->margins . ' "><div class="room-img">
-                         <img src="http://classicgreen2.unpruwen.com/wp-content/themes/impruwclientparent/images/dummy/2.jpg" class="img-responsive">
+                         <div class="image-placeholder">
+                            <span class="glyphicon glyphicon-picture"></span>
+                         </div>
                     </div>
                     <div class="room-title">Room Title</div>
                     <div class="room-excerpt">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s</div>
