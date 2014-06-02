@@ -106,7 +106,7 @@ class LogoElement extends Element {
             return sprintf("<a href='%s'><img src='%s' class='img-responsive' /></a>", site_url(), $image[0]);
         }
         else{
-            return  '<div class="image-placeholder"><span class="glyphicon glyphicon-picture"></span></div>';
+            return  '<div class="image-placeholder"><span class="bicon icon-uniF10E"></span></div>';
         } 
     }
     
