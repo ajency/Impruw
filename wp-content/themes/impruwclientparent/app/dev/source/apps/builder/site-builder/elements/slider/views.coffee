@@ -16,7 +16,7 @@ define ['app'], (App)->
 
         class EmptySlider extends Marionette.ItemView
 
-            template: '<div class="empty-view"><span class="bicon icon-uniF119"></span>There are no slides.<br> Click to add slides.</div>'
+            template: '<div class="empty-view"><span class="bicon icon-uniF119"></span>There are no images in the slider<br> Click to add images to the slider</div>'
 
 
         # Menu item view

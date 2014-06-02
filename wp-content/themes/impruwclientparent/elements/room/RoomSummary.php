@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This class is responsible for all actions/functions related to 
+ * This class is responsible for all actions/functions related to
  * Room Summary Element
  *
  */
@@ -11,34 +11,35 @@ class RoomSummary extends Element {
 
     /**
      * The default type property for element
-     * @var String 
+     * @var String
      */
     var $type = 'roomsummary';
 
     /**
      * The config to create a row element
+     *
      * @param array $element
      */
-    function __construct($element) {
+    function __construct( $element ) {
 
-        parent::__construct($element);
+        parent::__construct( $element );
 
-        $this->room_id = isset($element['room_id']) ? $element['room_id'] : 0;
+        $this->room_id = isset( $element[ 'room_id' ] ) ? $element[ 'room_id' ] : 0;
 
-        if (is_singular('impruw_room')) {
+        if ( is_singular( 'impruw_room' ) ) {
             $this->room_id = get_the_ID();
-            $this->markup = $this->generate_single_room_summary();
+            $this->markup  = $this->generate_single_room_summary();
             return;
         }
 
-        if ($this->room_id === 0 || get_post($this->room_id) == null) {
+        if ( (int)$this->room_id === 0 || get_post( $this->room_id ) == null ) {
             $this->markup = $this->generate_dummy_markup();
             return;
         }
 
 
-        $this->room = get_room($this->room_id);
-        $this->style = $element['style'];
+        $this->room   = get_room( $this->room_id );
+        $this->style  = $element[ 'style' ];
         $this->markup = $this->generate_markup();
     }
 
@@ -55,8 +56,9 @@ class RoomSummary extends Element {
     }
 
     function generate_single_room_summary() {
-        $this->room = get_room($this->room_id);
-        $template = '<div class="room-summary-container '.$this->margins.' ">
+
+        $this->room = get_room( $this->room_id );
+        $template   = '<div class="room-summary-container ' . $this->margins . ' ">
                         <div class="room-summary-title">
                             <h4>Room Summary</h4>
                         </div>
@@ -78,7 +80,7 @@ class RoomSummary extends Element {
 
         global $me;
 
-        return $me->render($template, $this->room);
+        return $me->render( $template, $this->room );
     }
 
     /**
@@ -86,14 +88,15 @@ class RoomSummary extends Element {
      * @return [type] [description]
      */
     function get_room_summary() {
-        $data = $this->room;
-        $data['link'] = get_permalink($this->room_id);
-        if (empty($data['thumbnail_url']))
-            $data['thumbnail_url'] = 'http://localhost/impruw/childsite/wp-content/uploads/'
-                    . 'sites/81/2014/03/5-yama-zbrush-model-by-jemark-150x150.jpg';
+
+        $data           = $this->room;
+        $data[ 'link' ] = get_permalink( $this->room_id );
+        if ( empty( $data[ 'thumbnail_url' ] ) )
+            $data[ 'thumbnail_url' ] = 'http://localhost/impruw/childsite/wp-content/uploads/'
+                . 'sites/81/2014/03/5-yama-zbrush-model-by-jemark-150x150.jpg';
 
 
-        $template = '<div class="roomsummary '.$this->margins.' ">
+        $template = '<div class="roomsummary ' . $this->margins . ' ">
                         <div class="room-img">
                              <a href="{{link}}"><img src="{{image_url}}" width="100%" class="img-responsive"></a>
                         </div>
@@ -107,11 +110,12 @@ class RoomSummary extends Element {
 
         global $me;
 
-        return $me->render($template, $data);
+        return $me->render( $template, $data );
     }
 
     function generate_dummy_markup() {
-        $template = '<div class="roomsummary '.$this->margins.' "><div class="room-img">
+
+        $template = '<div class="roomsummary ' . $this->margins . ' "><div class="room-img">
                          <img src="http://classicgreen2.unpruwen.com/wp-content/themes/impruwclientparent/images/dummy/2.jpg" class="img-responsive">
                     </div>
                     <div class="room-title">Room Title</div>
@@ -122,7 +126,7 @@ class RoomSummary extends Element {
                     </div></div>';
         global $me;
 
-        return $me->render($template, array());
+        return $me->render( $template, array() );
     }
 
 }

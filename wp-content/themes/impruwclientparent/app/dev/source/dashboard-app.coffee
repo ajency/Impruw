@@ -44,10 +44,11 @@ define ['marionette'], (Marionette)->
     App.on "initialize:after", (options) ->
         Pace.on 'done', ->
             Pace.options =
-                ajax: false
+                    ajax: false
+
             $('body').addClass 'pace-min-theme'
             $('#initial-loader').fadeOut 'fast', ->
-                $('#initial-loader').remove();
+                $('#initial-loader').remove()
 
         App.startHistory()
 

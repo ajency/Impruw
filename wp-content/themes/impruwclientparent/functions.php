@@ -296,6 +296,7 @@ function my_image_sizes( $sizes ) {
  * @param type $element
  *
  * @return type
+ * TODO: Handle markup generation in more modular way
  */
 function add_element_markup( $element ) {
 

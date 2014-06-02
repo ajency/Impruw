@@ -72,7 +72,6 @@ function update_page_autosave( $page_id, $page_json ) {
     // cannot use update_post_meta as it replaces the autosave_post_id with original post_id
     update_autosave_page_json( $autosave_post_id, $page_json );
 
-
     return $autosave_post_id;
 }
 

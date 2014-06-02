@@ -100,8 +100,6 @@ class ImageElement extends Element {
         $a_id = $this->image_id;
 
         $size = $this->size;
-        
-        $path = '';
 
         if($a_id === 0){
             return  '<div class="image-placeholder"><span class="bicon icon-uniF10E"></span></div>';
