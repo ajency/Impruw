@@ -98,7 +98,7 @@ class LogoElement extends Element {
         $size = $this->get_image_size();
         
        	if($a_id === 0){
-            return  '<div class="image-placeholder"><span class="bicon icon-uniF10E"></span></div>';
+            return  '<div class="image-placeholder"><span class="glyphicon glyphicon-picture"></span></div>';
         }
 
         $image = wp_get_attachment_image_src($a_id, 'full');

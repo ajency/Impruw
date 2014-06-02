@@ -351,6 +351,17 @@ and open the template in the editor.
   color: #e223a1;
   font-size: 1em;
 }
+.image-placeholder {
+  margin: 0.5em 0;
+  padding: 0.5em 0.5em 1em;
+  border: 1px dashed #39435c;
+  text-align: center;
+}
+.image-placeholder .glyphicon {
+  color: #39435c;
+  font-size: 3em;
+  text-shadow: 1px 1px 2px #000000;
+}
 /****Link Element Styles****/
 .link {
   display: inline-block;
@@ -1872,6 +1883,33 @@ and open the template in the editor.
   font-size: 1.1em;
   font-weight: 700;
   margin-bottom: 1em;
+}
+/****Image With Text Styles****/
+.image {
+  padding: 0.5em 0;
+}
+.image .info {
+  color: #e223a1;
+  font-size: 1em;
+}
+.image.style-two {
+  color: #ffffff;
+  font-size: 1em;
+  font-weight: 300;
+}
+.image.style-two p {
+  font-size: inherit;
+}
+.image-placeholder {
+  margin: 0.5em 0;
+  padding: 0.5em 0.5em 1em;
+  border: 1px dashed #ffffff;
+  text-align: center;
+}
+.image-placeholder .glyphicon {
+  color: #ffffff;
+  font-size: 3em;
+  text-shadow: 1px 1px 2px #000000;
 }
 /****Address Element Styles****/
 .address {
