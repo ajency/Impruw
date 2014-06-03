@@ -33,8 +33,8 @@ define ['app'
         class FacilitiesViewLayout extends Marionette.Layout
 
             template: '<h4 class="aj-imp-sub-head scroll-ref">
-            									Facilities
-            								 	<small>List the facilities available in this room.</small>
+            									{{#polyglot}}Facilities{{/polyglot}}
+            								 	<small>{{#polyglot}}List the facilities available in this room.{{/polyglot}}</small>
             								 </h4>
             								 <div class="form-group">
             									<div class="col-sm-12">

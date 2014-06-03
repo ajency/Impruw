@@ -40,7 +40,7 @@ define ['app'
 
             onShowSuccessMessage: ->
                 @$el.find('.alert').remove()
-                @$el.prepend '<div class="alert alert-success">New room added successfully</div>'
+                @$el.prepend "<div class=\"alert alert-success\">" + _.polyglot.t("New room added successfully") + "</div>"
                 @$el.find('#btn_resetroom').click()
                 $('html, body').animate
                     scrollTop: 0

@@ -55,7 +55,7 @@ define ['app'
             										<div class="aj-imp-crop-link col-sm-4">
             											<div class="add-image-to-slide">
             												<span class="bicon icon-uniF10C"></span>
-            												Click to Add an Image to Your Slide
+            												{{#polyglot}}Click to Add an Image to Your Slide{{/polyglot}}
             											</div>
             											<img src="{{thumb_url}}" class="img-responsive slide-image" style="display:none;">
             											<input type="hidden" name="background_type" value="image"/>
@@ -65,22 +65,22 @@ define ['app'
             										<div class="aj-imp-img-form col-sm-8">
             											<div class="row">
             												<div class="col-sm-6">
-            													<input type="text" name="title" value="{{title}}" class="form-control" placeholder="Title">
+            													<input type="text" name="title" value="{{title}}" class="form-control" placeholder="{{#polyglot}}Title{{/polyglot}}">
             												</div>
             												<div class="col-sm-6">
-            													<input type="url" type="link" name="link" value="{{link}}" class="form-control" placeholder="Link">
+            													<input type="url" type="link" name="link" value="{{link}}" class="form-control" placeholder="{{#polyglot}}Link{{/polyglot}}">
             												</div>
             											</div>
             											<div class="row">
             												<div class="col-sm-12">
-            													<textarea name="description" class="form-control" placeholder="Description"></textarea>
+            													<textarea name="description" class="form-control" placeholder="{{#polyglot}}Description{{/polyglot}}"></textarea>
             												</div>
             											</div>
             										</div>
             									</div>
             									<div class="aj-imp-img-save">
-            										<button type="button" class="btn create-slide">Add</button>
-            										<button type="button" class="btn cancel-create-slide">Cancel</button>
+            										<button type="button" class="btn create-slide">{{#polyglot}}Add{{/polyglot}}</button>
+            										<button type="button" class="btn cancel-create-slide">{{#polyglot}}Cancel{{/polyglot}}</button>
             									</div>
             							  	</div>'
 
@@ -115,13 +115,13 @@ define ['app'
             template: '<div id="add-slide-form-region"></div>
             								<div id="media-region" style="display:none">
             									<ul class="nav nav-tabs">
-            										<li><a href="#upload-media-region" data-toggle="tab">Upload</a></li>
-            										<li class="active"><a href="#grid-media-region" data-toggle="tab">Gallery</a></li>
+            										<li><a href="#upload-media-region" data-toggle="tab">{{#polyglot}}Upload{{/polyglot}}</a></li>
+            										<li class="active"><a href="#grid-media-region" data-toggle="tab">{{#polyglot}}Gallery{{/polyglot}}</a></li>
             									</ul>
             									<div class="tab-content">
             										<div class="tab-pane" id="upload-media-region"></div>
             										<div class="tab-pane active" id="grid-media-region"></div>
-            										<button class="btn btn-primary slide-image-selected">Done</button>
+            										<button class="btn btn-primary slide-image-selected">{{#polyglot}}Done{{/polyglot}}</button>
             									</div>
             								</div>'
 

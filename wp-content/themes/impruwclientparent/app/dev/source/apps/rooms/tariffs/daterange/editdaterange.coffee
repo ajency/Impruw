@@ -49,7 +49,7 @@ define ['app', 'controllers/base-controller',
             template: editDateRangeTpl
 
             dialogOptions:
-                modal_title: 'Edit DateRange'
+                modal_title: _.polyglot.t 'Edit DateRange'
                 modal_size: 'medium-modal'
 
             events:
@@ -60,9 +60,7 @@ define ['app', 'controllers/base-controller',
 
                 'click #btn_deletedaterange': (e) ->
                     e.preventDefault()
-                    if confirm 'All the plans associated with
-                    								 the date range will also be deleted.
-                    								 Are you sure you want to delete the date range?'
+                    if confirm _.polyglot.t 'All plans with date range deleted confirm'
                         @trigger "delete:daterange", @model
 
             serializeData: ->
@@ -73,7 +71,7 @@ define ['app', 'controllers/base-controller',
 
             onUpdatedDaterange: ->
                 @$el.parent().find('.alert').remove()
-                @$el.parent().prepend '<div class="alert alert-success">Updated successfully</div>'
+                @$el.parent().prepend "<div class=\"alert alert-success\">" + _.polyglot.t("Updated successfully") + "</div>"
 
             onDeletedDaterange: ->
                 @trigger "dialog:close"

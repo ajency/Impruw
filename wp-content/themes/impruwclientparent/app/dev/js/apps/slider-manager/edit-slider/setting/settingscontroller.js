@@ -57,7 +57,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
 
       CreateSliderView.prototype.className = 'form-horizontal';
 
-      CreateSliderView.prototype.template = '<div class="form-group"> <label class="col-md-2 control-label">Slider Name</label> <div class="col-md-10"> <input required type="text" value="{{title}}" name="title" class="form-control" placeholder="Name Your Slider" /> </div> </div> <div class="form-group"> <div class="col-md-10 col-md-offset-2"> <button type="button" class="btn btn-primary update-slider">Update</button> </div> </div>';
+      CreateSliderView.prototype.template = '<div class="form-group"> <label class="col-md-2 control-label">{{#polyglot}}Slider Name{{/polyglot}}</label> <div class="col-md-10"> <input required type="text" value="{{title}}" name="title" class="form-control" placeholder="{{#polyglot}}Name Your Slider{{/polyglot}}" /> </div> </div> <div class="form-group"> <div class="col-md-10 col-md-offset-2"> <button type="button" class="btn btn-primary update-slider">{{#polyglot}}Update{{/polyglot}}</button> </div> </div>';
 
       CreateSliderView.prototype.events = {
         'click button.cancel-new-slider': function() {
@@ -75,7 +75,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
       };
 
       CreateSliderView.prototype.onSettingsUpdated = function() {
-        return this.$el.prepend('<div class="alert alert-success">Updated successfully</div>');
+        return this.$el.prepend("<div class=\"alert alert-success\">" + _.polyglot.t("Updated successfully") + "</div>");
       };
 
       return CreateSliderView;

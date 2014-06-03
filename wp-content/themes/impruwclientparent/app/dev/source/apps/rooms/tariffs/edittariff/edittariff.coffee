@@ -48,7 +48,7 @@ define ['app', 'controllers/base-controller',
             template: editTariffTpl
 
             dialogOptions:
-                modal_title: 'Edit Tariff'
+                modal_title: _.polyglot.t 'Edit Tariff'
                 modal_size: 'medium-modal'
 
             events:
@@ -59,14 +59,12 @@ define ['app', 'controllers/base-controller',
 
                 'click .delete-tariff-btn': (e) ->
                     e.preventDefault()
-                    if confirm 'The tariff will be deleted for the plan and date range.
-                    								 Are you sure you want to continue?'
+                    if confirm _.polyglot.t 'The tariff will be deleted for the plan and date range. Are you sure you want to continue?'
 
                         @trigger "delete:tariff", @model
 
             onSavedTariff: ->
-                @$el.parent().prepend '<div class="alert alert-success">
-                										Tariff updated successfully </div>'
+                @$el.parent().prepend "<div class=\"alert alert-success\">" + _.polyglot.t("Tariff updated successfully") + "</div>"
 
             onDeletedTariff: ->
                 console.log 'hi'

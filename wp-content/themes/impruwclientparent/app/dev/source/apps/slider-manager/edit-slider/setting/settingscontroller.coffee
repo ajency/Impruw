@@ -33,14 +33,14 @@ define ['app'
             className: 'form-horizontal'
 
             template: '<div class="form-group">
-            									<label class="col-md-2 control-label">Slider Name</label>
+            									<label class="col-md-2 control-label">{{#polyglot}}Slider Name{{/polyglot}}</label>
             									<div class="col-md-10">
-            										<input required type="text" value="{{title}}" name="title" class="form-control" placeholder="Name Your Slider" />
+            										<input required type="text" value="{{title}}" name="title" class="form-control" placeholder="{{#polyglot}}Name Your Slider{{/polyglot}}" />
             									</div>
             								</div>
             								<div class="form-group">
             									<div class="col-md-10 col-md-offset-2">
-            										<button type="button" class="btn btn-primary update-slider">Update</button>
+            										<button type="button" class="btn btn-primary update-slider">{{#polyglot}}Update{{/polyglot}}</button>
             									</div>
             								</div>'
 
@@ -55,7 +55,7 @@ define ['app'
                         @trigger "update:slider:with:data", data
 
             onSettingsUpdated: ->
-                @$el.prepend '<div class="alert alert-success">Updated successfully</div>'
+                @$el.prepend "<div class=\"alert alert-success\">" + _.polyglot.t("Updated successfully") + "</div>"
 
 
         App.commands.setHandler 'show:slider:edit:settings', (opts = {})->

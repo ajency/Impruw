@@ -1,5 +1,5 @@
 define ['app', 'controllers/base-controller',
-        'text!apps/rooms/tariffs/plan/templates/editPlan.html'], (App, AppController, editPlanTpl)->
+        'text!apps/rooms/tariffs/plan/templates/editPlan.html','polyglot'], (App, AppController, editPlanTpl, Polyglot)->
     App.module "RoomsApp.RoomsTariff.Plan.Edit", (Edit, App)->
         class EditPlanController extends AppController
 
@@ -43,7 +43,7 @@ define ['app', 'controllers/base-controller',
             template: editPlanTpl
 
             dialogOptions:
-                modal_title: 'Edit Plan'
+                modal_title: _.polyglot.t 'Edit Plan'
                 modal_size: 'medium-modal'
 
             events:
@@ -54,13 +54,12 @@ define ['app', 'controllers/base-controller',
 
                 'click #btn_deleteplan': (e) ->
                     e.preventDefault()
-                    if confirm 'The plan will not exist for all the date ranges.
-                    								 Are you sure you want to continue?'
+                    if confirm _.polyglot.t "plan will not exist"
                         @trigger "delete:plan", @model
 
             onSavedPlan: ->
                 @$el.parent().find('.alert').remove()
-                @$el.parent().prepend '<div class="alert alert-success">Updated successfully</div>'
+                @$el.parent().prepend "<div class=\"alert alert-success\">" + _.polyglot.t("Updated successfully") + "</div>"
 
             onDeletedPlan: ->
                 @trigger "dialog:close"

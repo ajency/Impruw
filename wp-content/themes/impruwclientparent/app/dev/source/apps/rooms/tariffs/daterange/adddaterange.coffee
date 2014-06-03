@@ -34,7 +34,7 @@ define ['app', 'controllers/base-controller',
             template: addDateRangeTpl
 
             dialogOptions:
-                modal_title: 'Add DateRange'
+                modal_title: _.polyglot.t 'Add DateRange'
                 modal_size: 'medium-modal'
 
             events:
@@ -46,8 +46,7 @@ define ['app', 'controllers/base-controller',
 
             onSavedDaterange: ->
                 @$el.parent().find('.alert').remove()
-                @$el.parent().prepend '<div class="alert alert-success">You have added a new date range.
-                										Add plans and tariff to the date range</div>'
+                @$el.parent().prepend "<div class=\"alert alert-success\">" + _.polyglot.t("You have added a new date range. Add plans and tariff to the date range") + "</div>"
                 @$el.find('input').val ''
 
             # show checkbox

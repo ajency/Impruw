@@ -54,7 +54,7 @@ define(['app', 'controllers/base-controller', 'text!apps/slider-manager/grid/tem
           return this.trigger("edit:slider", this.model.get('id'));
         },
         'click .delete-slider': function() {
-          if (confirm("Are you sure?")) {
+          if (confirm(_.polyglot.t("Are you sure?"))) {
             return this.trigger("delete:slider", this.model.get('id'));
           }
         }
@@ -70,7 +70,7 @@ define(['app', 'controllers/base-controller', 'text!apps/slider-manager/grid/tem
         return SliderGridView.__super__.constructor.apply(this, arguments);
       }
 
-      SliderGridView.prototype.template = '<div class="col-sm-2"> <a href="#" class="thumbnail create-slider"><span class="glyphicon glyphicon-plus-sign"></span><br>Add New Slider</a> </div>';
+      SliderGridView.prototype.template = '<div class="col-sm-2"> <a href="#" class="thumbnail create-slider"><span class="glyphicon glyphicon-plus-sign"></span><br>{{#polyglot}}Add New Slider{{/polyglot}}</a> </div>';
 
       SliderGridView.prototype.className = 'row sliders';
 

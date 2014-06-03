@@ -40,7 +40,7 @@ define ['app'
                 'click .edit-slider': ->
                     @trigger "edit:slider", @model.get 'id'
                 'click .delete-slider': ->
-                    if confirm("Are you sure?")
+                    if confirm(_.polyglot.t "Are you sure?")
                         @trigger "delete:slider", @model.get 'id'
 
 
@@ -48,7 +48,7 @@ define ['app'
         class SliderGridView extends Marionette.CompositeView
 
             template: '<div class="col-sm-2">
-            									<a href="#" class="thumbnail create-slider"><span class="glyphicon glyphicon-plus-sign"></span><br>Add New Slider</a>
+            									<a href="#" class="thumbnail create-slider"><span class="glyphicon glyphicon-plus-sign"></span><br>{{#polyglot}}Add New Slider{{/polyglot}}</a>
             								</div>'
 
             className: 'row sliders'

@@ -30,17 +30,17 @@ define ['app'
             template: '<div class="row edit-slider">
             									<div class="col-sm-2 slider-left-nav">
             										<div class="cancel-slider">
-            											<button class="btn btn-sm btn-cancel-slider"><span class="glyphicon glyphicon-remove-circle"></span> Cancel</button>
+            											<button class="btn btn-sm btn-cancel-slider"><span class="glyphicon glyphicon-remove-circle"></span>{{#polyglot}}Cancel{{/polyglot}}</button>
             										</div>
             										<ul class="nav nav-list">
             											<li class="active">
-            												<a href="#slider-settings-region" data-toggle="tab">Slider Settings</a>
+            												<a href="#slider-settings-region" data-toggle="tab">{{#polyglot}}Slider Settings{{/polyglot}}</a>
             											</li>
             											<li>
-            												<a href="#sliders-list-region" data-toggle="tab">Slides</a>
+            												<a href="#sliders-list-region" data-toggle="tab">{{#polyglot}}Slides{{/polyglot}}</a>
             											</li>
             											<li>
-            												<a href="#add-edit-slide-region" data-toggle="tab">Add/Edit Slides</a>
+            												<a href="#add-edit-slide-region" data-toggle="tab">{{#polyglot}}Add/Edit Slides{{/polyglot}}</a>
             											</li>
             										</ul>
             									</div>

@@ -36,8 +36,8 @@ define ['app'
             className: 'facility add'
 
             template: '<div class="input-group">
-            									<input type="text" name="name" class="form-control" placeholder="Add a Facility">
-            									<span class="input-group-btn add-facility input-group-addon"><span class="icon icon-plus"></span> Add</span>
+            									<input type="text" name="name" class="form-control" placeholder="{{#polyglot}}Add a Facility{{/polyglot}}">
+            									<span class="input-group-btn add-facility input-group-addon"><span class="icon icon-plus"></span>{{#polyglot}}Add{{/polyglot}}</span>
             								</div>'
 
             events:

@@ -33,7 +33,7 @@ define ['app', 'controllers/base-controller'], (App, AppController)->
 
         class NoGalleryItem extends Marionette.ItemView
 
-            template: '<div class="empty-info">No images found. Please add images.</div>'
+            template: '<div class="empty-info">{{#polyglot}}No images found. Please add images.{{/polyglot}}</div>'
 
 
         class GalleryView extends Marionette.CompositeView
