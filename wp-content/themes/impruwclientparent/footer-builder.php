@@ -3,16 +3,19 @@
  * The template for displaying the footer.
  *
  * Contains footer content and the closing of the
- * 
- * @package Impruw Site
+ *
+ * @package    Impruw Site
  * @subpackage Impruw Site
- * @since Impruw Site 1.0
+ * @since      Impruw Site 1.0
  */
-?>      <div id="setting-popover" style="display:none"></div>
-<div class="aj-imp-drag-menu" id="controls-drag" style="position:absolute;top:69px;left:-1px;">	
+?>
+<div id="setting-popover" style="display:none"></div>
+<div class="aj-imp-drag-menu" id="controls-drag" style="position:absolute;top:69px;left:-1px;">
     <p class="desc" style="cursor:move">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
+        magna aliqua.
     </p>
+
     <div class="aj-imp-add-row builder-element" data-element="BuilderRow" data-placeholder-height="120">
         <a href="#">
             <span class="glyphicon glyphicon-align-justify"></span>
@@ -29,7 +32,7 @@
         <div class="tab-pane active" id="content">
 
             <ul class="aj-imp-builder-items clearfix">
-                <li >
+                <li>
                     <a href="#" class="drag builder-element" data-element="TitleElement" data-placeholder-height="60">
                         <div class="aj-imp-builder-icon" data-icon="&#xf13c;"></div>
                         <div class="aj-imp-builder-title">Title</div>
@@ -61,14 +64,16 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="drag builder-element" data-element="AddressElement" data-placeholder-height="100">
-                        <div class="aj-imp-builder-icon"  data-icon="&#xf110;"></div>
+                    <a href="#" class="drag builder-element" data-element="AddressElement"
+                       data-placeholder-height="100">
+                        <div class="aj-imp-builder-icon" data-icon="&#xf110;"></div>
                         <div class="aj-imp-builder-title">Address</div>
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="drag builder-element" data-element="ImageWithTextElement" data-placeholder-height="100">
-                        <div class="aj-imp-builder-icon"  data-icon="&#xf110;"></div>
+                    <a href="#" class="drag builder-element" data-element="ImageWithTextElement"
+                       data-placeholder-height="100">
+                        <div class="aj-imp-builder-icon" data-icon="&#xf110;"></div>
                         <div class="aj-imp-builder-title">Image With Text</div>
                     </a>
                 </li>
@@ -91,7 +96,8 @@
     var UPLOADURL = '<?php echo admin_url('async-upload.php'); ?>';
     var _WPNONCE = '<?php echo wp_create_nonce('media-form'); ?>';
     var JSVERSION = '<?php echo JSVERSION; ?>';
-</script> 
-<script data-main="<?php echo get_parent_template_directory_uri(); ?>/builder/js/init" src="<?php echo get_parent_template_directory_uri(); ?>/js/require.js"></script>
+</script>
+<script data-main="<?php echo get_parent_template_directory_uri(); ?>/builder/js/init"
+        src="<?php echo get_parent_template_directory_uri(); ?>/js/require.js"></script>
 </body>
 </html>

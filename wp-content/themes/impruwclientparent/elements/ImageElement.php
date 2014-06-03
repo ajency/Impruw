@@ -100,11 +100,9 @@ class ImageElement extends Element {
         $a_id = $this->image_id;
 
         $size = $this->size;
-        
-        $path = '';
 
         if($a_id === 0){
-            return  '<div class="image-placeholder"><span class="bicon icon-uniF10E"></span></div>';
+            return  '<div class="image-placeholder"><span class="glyphicon glyphicon-picture"></span></div>';
         }
 
         $path = wp_get_attachment_image_src($a_id, $size);

@@ -72,7 +72,6 @@ function update_page_autosave( $page_id, $page_json ) {
     // cannot use update_post_meta as it replaces the autosave_post_id with original post_id
     update_autosave_page_json( $autosave_post_id, $page_json );
 
-
     return $autosave_post_id;
 }
 
@@ -102,10 +101,10 @@ function insert_autosave_page_json( $autosave_post_id, $page_json ) {
     // serialize the json
     $json = maybe_serialize( $page_json );
 
-
     global $wpdb;
 
-    $wpdb->insert( $wpdb->postmeta, array( 'meta_key' => 'page-json', 'meta_value' => $json, 'post_id' => $autosave_post_id ) );
+    $wpdb->insert( $wpdb->postmeta, array( 'meta_key' => 'page-json', 'meta_value' => $json,
+                                           'post_id' => $autosave_post_id ) );
 
     $wpdb->insert_id;
 }
@@ -121,7 +120,8 @@ function update_autosave_page_json_db( $meta_id, $page_json ) {
 
     global $wpdb;
 
-    $wpdb->update( $wpdb->postmeta, array( 'meta_key' => 'page-json', 'meta_value' => $json ), array( 'meta_id' => $meta_id ) );
+    $wpdb->update( $wpdb->postmeta, array( 'meta_key' => 'page-json', 'meta_value' => $json ),
+                                    array( 'meta_id' => $meta_id ) );
 }
 
 /**
@@ -133,7 +133,8 @@ function check_json_is_present( $autosave_post_id ) {
 
     global $wpdb;
 
-    $query = $wpdb->prepare( "SELECT meta_id from {$wpdb->postmeta} WHERE post_id=%d AND meta_key=%s", $autosave_post_id, 'page-json' );
+    $query = $wpdb->prepare( "SELECT meta_id from {$wpdb->postmeta} WHERE post_id=%d AND meta_key=%s",
+                              $autosave_post_id, 'page-json' );
 
     $meta_id = $wpdb->get_var( $query );
 
@@ -410,9 +411,14 @@ function create_new_element( &$ele ) {
         $ele[ 'slider_id' ] = 0;
     }
 
+    if ( $ele[ 'element' ] === 'RoomSummary' && isset( $ele[ 'room_id' ] ) ) {
+        $ele[ 'room_id' ] = 0;
+    }
+
     $serialized_element = maybe_serialize( $ele );
 
-    $wpdb->insert( $wpdb->postmeta, array( 'post_id' => 0, 'meta_value' => $serialized_element, 'meta_key' => $ele[ 'element' ] ) );
+    $wpdb->insert( $wpdb->postmeta, array( 'post_id' => 0, 'meta_value' => $serialized_element,
+                                           'meta_key' => $ele[ 'element' ] ) );
 
     return array( 'meta_id' => $wpdb->insert_id, 'element' => $ele[ 'element' ] );
 }
@@ -429,5 +435,36 @@ function get_primary_menu_id() {
     return $menu_id;
 }
 
+function get_page_content_json( $page_id, $autosave = FALSE ) {
+
+    $json = array();
+
+    if ( $autosave === TRUE )
+        $json = get_autosave_post_json( $page_id );
+    else
+        $json = get_post_meta( $page_id, "page-json", TRUE );
+
+    return $json;
+}
+
+function get_autosave_post_json( $page_id ) {
+
+    $autosave_post_id = get_autosave_post_id( $page_id );
+
+    $json = get_post_meta( $autosave_post_id, "page-json", TRUE );
+
+    return !is_array( $json ) ? array() : $json;
+}
+
+
+function get_single_room_page_content_json( $autosave = FALSE ) {
+
+    $single_room_page = get_page_by_title( "Single Room" );
+
+    $json = get_page_content_json( $single_room_page->ID, "page-json", $autosave );
+
+    return $json;
+
+}
 
 

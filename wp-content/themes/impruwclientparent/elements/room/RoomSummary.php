@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This class is responsible for all actions/functions related to 
+ * This class is responsible for all actions/functions related to
  * Room Summary Element
  *
  */
@@ -11,34 +11,35 @@ class RoomSummary extends Element {
 
     /**
      * The default type property for element
-     * @var String 
+     * @var String
      */
     var $type = 'roomsummary';
 
     /**
      * The config to create a row element
+     *
      * @param array $element
      */
-    function __construct($element) {
+    function __construct( $element ) {
 
-        parent::__construct($element);
+        parent::__construct( $element );
 
-        $this->room_id = isset($element['room_id']) ? $element['room_id'] : 0;
+        $this->room_id = isset( $element[ 'room_id' ] ) ? $element[ 'room_id' ] : 0;
 
-        if (is_singular('impruw_room')) {
+        if ( is_singular( 'impruw_room' ) ) {
             $this->room_id = get_the_ID();
-            $this->markup = $this->generate_single_room_summary();
+            $this->markup  = $this->generate_single_room_summary();
             return;
         }
 
-        if ($this->room_id === 0 || get_post($this->room_id) == null) {
+        if ( (int)$this->room_id === 0 || get_post( $this->room_id ) == null ) {
             $this->markup = $this->generate_dummy_markup();
             return;
         }
 
 
-        $this->room = get_room($this->room_id);
-        $this->style = $element['style'];
+        $this->room   = get_room( $this->room_id );
+        $this->style  = $element[ 'style' ];
         $this->markup = $this->generate_markup();
     }
 
@@ -55,8 +56,9 @@ class RoomSummary extends Element {
     }
 
     function generate_single_room_summary() {
-        $this->room = get_room($this->room_id);
-        $template = '<div class="room-summary-container '.$this->margins.' ">
+
+        $this->room = get_room( $this->room_id );
+        $template   = '<div class="room-summary-container ' . $this->margins . ' ">
                         <div class="room-summary-title">
                             <h4>Room Summary</h4>
                         </div>
@@ -78,7 +80,7 @@ class RoomSummary extends Element {
 
         global $me;
 
-        return $me->render($template, $this->room);
+        return $me->render( $template, $this->room );
     }
 
     /**
@@ -86,43 +88,59 @@ class RoomSummary extends Element {
      * @return [type] [description]
      */
     function get_room_summary() {
-        $data = $this->room;
-        $data['link'] = get_permalink($this->room_id);
-        if (empty($data['thumbnail_url']))
-            $data['thumbnail_url'] = 'http://localhost/impruw/childsite/wp-content/uploads/'
-                    . 'sites/81/2014/03/5-yama-zbrush-model-by-jemark-150x150.jpg';
 
+        $data           = $this->room;
+        $data[ 'link' ] = get_permalink( $this->room_id );
+        if ( empty( $data[ 'image_url' ] ) ) {
+            $template = '<div class="roomsummary ' . $this->margins . ' ">
+                            <div class="room-img">
+                                 <div class="image-placeholder">
+                                    <span class="glyphicon glyphicon-picture"></span>
+                                 </div>
+                            </div>
+                            <div class="room-title"><a href="{{link}}">{{post_title}}</a></div>
+                            <div class="room-excerpt">{{post_content}}</div>
+                            <div class="room-actions">
+                                    <div class="price"><small>Number of Rooms:</small> {{no_of_rooms}}</div>
+                                    <a href="{{link}}" class="btn btn-room">View Details</a>
+                            </div>
+                        </div>';
 
-        $template = '<div class="roomsummary '.$this->margins.' ">
-                        <div class="room-img">
-                             <a href="{{link}}"><img src="{{image_url}}" width="100%" class="img-responsive"></a>
-                        </div>
-                        <div class="room-title"><a href="{{link}}">{{post_title}}</a></div>
-                        <div class="room-excerpt">{{post_content}}</div>
-                        <div class="room-actions">
-                                <div class="price"><small>Number of Rooms:</small> {{no_of_rooms}}</div>
-                                <a href="{{link}}" class="btn btn-room">View Details</a>
-                        </div>
-                    </div>';
+        } else {
+            $template = '<div class="roomsummary ' . $this->margins . ' ">
+                            <div class="room-img">
+                                 <a href="{{link}}"><img src="{{image_url}}" width="100%" class="img-responsive"></a>
+                            </div>
+                            <div class="room-title"><a href="{{link}}">{{post_title}}</a></div>
+                            <div class="room-excerpt">{{post_content}}</div>
+                            <div class="room-actions">
+                                    <div class="price"><small>Number of Rooms:</small> {{no_of_rooms}}</div>
+                                    <a href="{{link}}" class="btn btn-room">View Details</a>
+                            </div>
+                        </div>';
+        }
 
         global $me;
 
-        return $me->render($template, $data);
+        return $me->render( $template, $data );
     }
 
     function generate_dummy_markup() {
-        $template = '<div class="roomsummary '.$this->margins.' "><div class="room-img">
-                         <img src="http://classicgreen2.unpruwen.com/wp-content/themes/impruwclientparent/images/dummy/2.jpg" class="img-responsive">
+
+        $template = '<div class="roomsummary ' . $this->margins . ' "><div class="room-img">
+                         <div class="image-placeholder"><span class="glyphicon glyphicon-picture"></span></div>
                     </div>
-                    <div class="room-title">Room Title</div>
-                    <div class="room-excerpt">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s</div>
+                    <div class="room-title">Your Room Title</div>
+                    <div class="room-excerpt">Choose a room to display from settings. Your room description, image, number of
+                                            rooms and link to the single room page will be displayed here. To make any
+                                            changes to the room go to Room from your dashboard.</div>
                     <div class="room-actions">
-                            <div class="price">$99<small>/night</small></div>
+                            <div class="price"><small>Total:</small> 0 rooms</div>
                             <a href="#" class="btn btn-room">View Details</a>
                     </div></div>';
         global $me;
 
-        return $me->render($template, array());
+        return $me->render( $template, array() );
     }
 
 }

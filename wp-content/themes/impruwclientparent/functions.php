@@ -17,7 +17,6 @@ $me = new Mustache_Engine ();
 require 'framework/AutoLoad.php';
 
 
-
 /**
  * Include the less php compiler
  */
@@ -72,7 +71,7 @@ function send_contact_form_message() {
 
     $headers = 'From:contact@impruw.com ';
 
-    $admin_email  = get_option( 'admin_email' );
+    $admin_email = get_option( 'admin_email' );
 
 
     $message = $_POST [ 'c-message' ];
@@ -296,6 +295,7 @@ function my_image_sizes( $sizes ) {
  * @param type $element
  *
  * @return type
+ * TODO: Handle markup generation in more modular way
  */
 function add_element_markup( $element ) {
 
@@ -3817,7 +3817,7 @@ $base_element_templates = array(
         ),
         array(
             'name'     => 'Room Summary New',
-            'template' => 'Suraj<div class="room-img"><img src="{{image_url}}" width="100%"  class="img-responsive"></div><div class="room-title">{{post_title}}</div><div class="room-excerpt">{{post_content}}</div><div class="room-actions"><div class="price">Total: {{no_of_rooms}}<small> rooms</small></div><button class="btn btn-room">View Details</button></div>'
+            'template' => '<div class="room-img"><img src="{{image_url}}" width="100%"  class="img-responsive"></div><div class="room-title">{{post_title}}</div><div class="room-excerpt">{{post_content}}</div><div class="room-actions"><div class="price">Total: {{no_of_rooms}}<small> rooms</small></div><button class="btn btn-room">View Details</button></div>'
         )
     )
 );
@@ -3887,12 +3887,12 @@ add_action( 'wp_ajax_nopriv_user_login', 'user_login' );
  *
  *
  */
-add_action('wp_loaded','remove_tracking_code_from_preview');
-function remove_tracking_code_from_preview(){
+add_action( 'wp_loaded', 'remove_tracking_code_from_preview' );
+function remove_tracking_code_from_preview() {
 
-    if(isset($_GET['preview'])){
+    if ( isset( $_GET[ 'preview' ] ) ) {
 
-       remove_action('wp_footer','wp_footer');
+        remove_action( 'wp_footer', 'wp_footer' );
     }
 
 }

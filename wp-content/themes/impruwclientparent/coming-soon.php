@@ -1,11 +1,11 @@
 <?php
-    /**
-     * Template Name: Coming Soon
-     */
+/**
+ * Template Name: Coming Soon
+ */
 ?>
 <html>
 <head>
-    <title><?php echo get_bloginfo('name'); ?> is Coming Soon!</title>
+    <title><?php echo get_bloginfo( 'name' ); ?> is Coming Soon!</title>
     <style type="text/css">
         html, body {
             margin: 0;
@@ -48,7 +48,7 @@
 </head>
 <body>
 <div class="coming-soon">
-    <h1><span><?php echo get_bloginfo('name'); ?></span> is Coming Soon!</h1>
+    <h1><span><?php echo get_bloginfo( 'name' ); ?></span> is Coming Soon!</h1>
     <footer class="fixed">
         &copy;Impruw 2014 | All Rights Reserved.
     </footer>

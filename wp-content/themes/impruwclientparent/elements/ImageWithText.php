@@ -71,7 +71,7 @@ class ImageWithText extends Element {
 						<img src="{{imageurl}}" alt="{{title}}" class="{{alignclass}} img-responsive"/>
 					{{/image}}
 					{{#placeholder}}
-						<div class="image-placeholder {{alignclass}}"><span class="bicon icon-uniF10E"></span>Image</div>
+						<div class="image-placeholder {{alignclass}}"><span class="glyphicon glyphicon-picture"></span>Image</div>
 					{{/placeholder}}
 					<p class="editor">{{content}}</p>
 					<div class="clearfix"></div>';

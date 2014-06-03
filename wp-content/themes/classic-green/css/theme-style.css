@@ -337,6 +337,17 @@ and open the template in the editor.
   color: #656565;
   font-size: 1em;
 }
+.image-placeholder {
+  margin: 0.5em 0;
+  padding: 0.5em 0.5em 1em;
+  border: 1px dashed #e1e1e1;
+  text-align: center;
+}
+.image-placeholder .glyphicon {
+  color: #e1e1e1;
+  font-size: 3em;
+  text-shadow: 1px 1px 2px #000000;
+}
 /****Link Element Styles****/
 .link {
   display: inline-block;
