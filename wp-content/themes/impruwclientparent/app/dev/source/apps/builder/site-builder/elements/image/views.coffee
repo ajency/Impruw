@@ -56,7 +56,7 @@ define ['app'], (App)->
                 @assignImagePath 0
 
 
-            assignImagePath :(height = 0) ->
+            assignImagePath :(height) ->
                 # set the URL of the image depending on the available size
                 width = @$el.width()
                 image = @model.getBestFit width
