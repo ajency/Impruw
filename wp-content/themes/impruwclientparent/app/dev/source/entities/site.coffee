@@ -25,7 +25,6 @@ define ["app", 'backbone'], (App, Backbone) ->
                 new Backbone.Collection [
                     (sociallink: '#facebook', socialname: 'facebook')
                     (sociallink: '#twitter', socialname: 'twitter')
-                    (sociallink: '#youtube', socialname: 'youtube')
                 ]
             getSiteProfile: ->
 

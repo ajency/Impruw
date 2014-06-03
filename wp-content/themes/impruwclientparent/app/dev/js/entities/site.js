@@ -33,9 +33,6 @@ define(["app", 'backbone'], function(App, Backbone) {
           }, {
             sociallink: '#twitter',
             socialname: 'twitter'
-          }, {
-            sociallink: '#youtube',
-            socialname: 'youtube'
           }
         ]);
       },
