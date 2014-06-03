@@ -69,7 +69,7 @@ define ['app'], (App)->
 
                 flMenuMenu = $ "#fl_menu .menu"
 
-                flMenuLabel = $ "#fl_menu .label"
+                flMenuTriggers = $ "#fl_menu .label span, #fl_menu .menu"
 
                 FloatMenu = ()->
                     scrollAmount = $(document).scrollTop()
@@ -83,10 +83,10 @@ define ['app'], (App)->
 
                 menuPosition = $("#fl_menu").position().top
                 FloatMenu()
-                flMenu.hover ->
-                    $("#fl_menu .menu").fadeIn menuFadeSpeed
+                flMenuTriggers.hover ->
+                    $("#fl_menu .menu").show()
                 , ->
-                    $("#fl_menu .menu").fadeOut menuFadeSpeed
+                    $("#fl_menu .menu").hide()
 
                 $(window).scroll ->
                     FloatMenu()
