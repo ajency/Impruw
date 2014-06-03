@@ -9,12 +9,12 @@ define ['app'], (App)->
             className : 'image imgLiquidFill'
 
             template : '{{#image}}
-                                    							<img src="{{imageurl}}" alt="{{title}}" width="100%" class="{{alignclass}} img-responsive"/>
-                                    							<div class="clearfix"></div>
-                                    						{{/image}}
-                                    						{{#placeholder}}
-                                    							<div class="image-placeholder"><span class="bicon icon-uniF10E"></span>Upload Image</div>
-                                    						{{/placeholder}}'
+                          <img src="{{imageurl}}" alt="{{title}}" width="100%" class="{{alignclass}} img-responsive"/>
+                          <div class="clearfix"></div>
+                        {{/image}}
+                        {{#placeholder}}
+                          <div class="image-placeholder"><span class="bicon icon-uniF10E"></span>Upload Image</div>
+                        {{/placeholder}}'
 
             # override serializeData to set holder property for the view
             mixinTemplateHelpers : (data)->
@@ -48,22 +48,21 @@ define ['app'], (App)->
                 return if @model.isNew()
 
                 @$el.resizable
-                    maxWidth : @$el.closest '.column'
+                    maxWidth : @$el.closest('.column').width()
                     helper : "ui-image-resizable-helper"
                     stop : (evt, ui)=>
-                        #@assignImagePath()
+                        @assignImagePath @$el.height()
 
-                @assignImagePath()
+                @assignImagePath 0
 
 
-
-            assignImagePath : ->
+            assignImagePath :(height = 0) ->
                 # set the URL of the image depending on the available size
                 width = @$el.width()
                 image = @model.getBestFit width
                 @$el.find('img').attr 'src', image.url
-                @$el.css 'height', @$el.height()
+                @$el.css 'height', if height is 0 then @$el.height() else height
                 @$el.imgLiquid()
-#@trigger "image:size:selected", image.size
+                #@trigger "image:size:selected", image.size
 
 

@@ -45,21 +45,26 @@ define(['app'], function(App) {
           return;
         }
         this.$el.resizable({
-          maxWidth: this.$el.closest('.column'),
+          maxWidth: this.$el.closest('.column').width(),
           helper: "ui-image-resizable-helper",
           stop: (function(_this) {
-            return function(evt, ui) {};
+            return function(evt, ui) {
+              return _this.assignImagePath(_this.$el.height());
+            };
           })(this)
         });
-        return this.assignImagePath();
+        return this.assignImagePath(0);
       };
 
-      ImageView.prototype.assignImagePath = function() {
+      ImageView.prototype.assignImagePath = function(height) {
         var image, width;
+        if (height == null) {
+          height = 0;
+        }
         width = this.$el.width();
         image = this.model.getBestFit(width);
         this.$el.find('img').attr('src', image.url);
-        this.$el.css('height', this.$el.height());
+        this.$el.css('height', height === 0 ? this.$el.height() : height);
         return this.$el.imgLiquid();
       };
 
