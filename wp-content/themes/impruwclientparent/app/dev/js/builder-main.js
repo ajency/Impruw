@@ -30,6 +30,7 @@ require.config({
     isotope: 'plugins/isotope',
     plupload: 'plugins/plupload.full',
     themepunch: 'plugins/themepunch.plugins.min',
+    imgLiquid: 'plugins/bower_components/imgLiquid/js/imgLiquid',
     revslider: 'plugins/revolution.min',
     googlemap: 'https://maps.googleapis.com/maps/api/js?sensor=false',
     pluginloader: 'plugins/builder-plugin-loader',
@@ -65,6 +66,7 @@ require.config({
     isotope: ['jquery'],
     minicolors: ['jquery'],
     revslider: ['themepunch'],
+    imgLiquid: ['jquery'],
     plupload: {
       deps: ['jquery'],
       exports: 'plupload'

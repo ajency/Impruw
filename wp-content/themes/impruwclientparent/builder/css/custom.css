@@ -119,7 +119,9 @@ div.element-drop-loader > p{
 .right-margin-large{margin-right:15px;}
 .bottom-margin-large{margin-bottom:15px;}
 
-
+.ui-image-resizable-helper{
+    border : 1px solid #ccc;
+}
 
 /*.element-wrapper:hover{
     border : 1px solid orange;

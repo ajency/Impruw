@@ -10,7 +10,7 @@ define(['app'], function(App) {
         return ImageView.__super__.constructor.apply(this, arguments);
       }
 
-      ImageView.prototype.className = 'image';
+      ImageView.prototype.className = 'image imgLiquidFill';
 
       ImageView.prototype.template = '{{#image}} <img src="{{imageurl}}" alt="{{title}}" width="100%" class="{{alignclass}} img-responsive"/> <div class="clearfix"></div> {{/image}} {{#placeholder}} <div class="image-placeholder"><span class="bicon icon-uniF10E"></span>Upload Image</div> {{/placeholder}}';
 
@@ -41,14 +41,26 @@ define(['app'], function(App) {
       };
 
       ImageView.prototype.onShow = function() {
-        var image, width;
         if (this.model.isNew()) {
           return;
         }
+        this.$el.resizable({
+          maxWidth: this.$el.closest('.column'),
+          helper: "ui-image-resizable-helper",
+          stop: (function(_this) {
+            return function(evt, ui) {};
+          })(this)
+        });
+        return this.assignImagePath();
+      };
+
+      ImageView.prototype.assignImagePath = function() {
+        var image, width;
         width = this.$el.width();
         image = this.model.getBestFit(width);
         this.$el.find('img').attr('src', image.url);
-        return this.trigger("image:size:selected", image.size);
+        this.$el.css('height', this.$el.height());
+        return this.$el.imgLiquid();
       };
 
       return ImageView;

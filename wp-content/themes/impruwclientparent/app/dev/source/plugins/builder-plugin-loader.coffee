@@ -20,6 +20,7 @@ define [
     'text'
     'jqueryspin'
     'bootstrapselect'
+    'imgLiquid'
     'nestedsortable'
     'themepunch'
     'revslider'
