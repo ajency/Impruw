@@ -1460,8 +1460,9 @@ and open the template in the editor.
 /**** Isotope Filtering ****/
 .isotope-item {
   z-index: 2;
-  margin: 0.2em;
+  margin: 1%;
   width: 200px;
+  max-width: 48%;
   height: auto;
 }
 .isotope-item .img-responsive {
