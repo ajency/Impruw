@@ -63,6 +63,6 @@ define ['app'], (App)->
                 @$el.find('img').attr 'src', image.url
                 @$el.css 'height', if height is 0 then @$el.height() else height
                 @$el.imgLiquid()
-                #@trigger "image:size:selected", image.size
+                @trigger "image:size:selected", image.size
 
 

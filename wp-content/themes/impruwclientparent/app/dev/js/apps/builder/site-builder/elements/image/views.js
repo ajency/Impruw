@@ -62,7 +62,8 @@ define(['app'], function(App) {
         image = this.model.getBestFit(width);
         this.$el.find('img').attr('src', image.url);
         this.$el.css('height', height === 0 ? this.$el.height() : height);
-        return this.$el.imgLiquid();
+        this.$el.imgLiquid();
+        return this.trigger("image:size:selected", image.size);
       };
 
       return ImageView;
