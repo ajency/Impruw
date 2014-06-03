@@ -9,7 +9,7 @@ class GetSingleRoomJSONTest extends \WP_UnitTestCase {
         parent::setUp();
 
         $element_json = array( array( "element" => 'Menu', "meta_id" => 23 ),
-            array( "element" => 'Gallery', "meta_id" => 233 ) );
+                                array( "element" => 'Gallery', "meta_id" => 233 ) );
 
         // create a published page
         $this->singleroom_page = $this->factory->post->create_and_get( array( 'post_type'  => 'page',

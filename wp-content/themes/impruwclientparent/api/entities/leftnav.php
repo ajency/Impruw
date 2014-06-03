@@ -673,7 +673,7 @@ function get_page_main_json( $page_id = 0 ) {
 function read_page_json() {
 
     $page_id = $_REQUEST [ 'page_id' ];
-    $data    = get_page_json_for_site( $page_id, FALSE );
+    $data    = get_page_json_for_site( $page_id, TRUE );
     wp_send_json( array(
         'code' => 'OK',
         'data' => $data

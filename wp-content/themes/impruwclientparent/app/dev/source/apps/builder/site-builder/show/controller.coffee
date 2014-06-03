@@ -15,7 +15,7 @@ define ['app', 'controllers/base-controller'
 
                 # builder view
                 @view = new Show.View.Builder
-                    model: elements
+                                    model : elements
 
                 # listen to element dropped event for next action
                 @listenTo @view, "add:new:element", (container, type, metaId = 0)->
