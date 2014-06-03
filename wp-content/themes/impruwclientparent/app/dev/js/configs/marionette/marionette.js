@@ -1,7 +1,7 @@
 var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-define(['marionette', 'mustache'], function(Marionette, Mustache) {
+define(['marionette', 'mustache', 'underscore'], function(Marionette, Mustache, _) {
   _.extend(Marionette.Application.prototype, {
     navigate: function(route, options) {
       if (options == null) {
@@ -94,6 +94,20 @@ define(['marionette', 'mustache'], function(Marionette, Mustache) {
       template = template();
     }
     return Mustache.to_html(template, data);
+  };
+  Marionette.View.prototype.mixinTemplateHelpers = function(target) {
+    var templateHelpers;
+    target = target || {};
+    target.polyglot = function() {
+      return function(argument, renderer) {
+        return renderer(_.polyglot.t(argument));
+      };
+    };
+    templateHelpers = Marionette.getOption(this, "templateHelpers");
+    if (_.isFunction(templateHelpers)) {
+      templateHelpers = templateHelpers.call(this);
+    }
+    return _.extend(target, templateHelpers);
   };
   Marionette.TemplateCache.prototype.loadTemplate = function(templateId) {
     var err, msg, template;
