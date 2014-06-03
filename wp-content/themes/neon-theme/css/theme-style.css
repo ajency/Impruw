@@ -1431,7 +1431,7 @@ and open the template in the editor.
 .isotope-item {
   z-index: 2;
   margin: 0.2em;
-  width: 300px;
+  width: 200px;
   height: auto;
 }
 .isotope-item .img-responsive {
@@ -1439,7 +1439,7 @@ and open the template in the editor.
 }
 @media (max-width: 767px) {
   .isotope-item {
-    width: 200px;
+    width: 150px;
   }
 }
 .isotope-hidden.isotope-item {
