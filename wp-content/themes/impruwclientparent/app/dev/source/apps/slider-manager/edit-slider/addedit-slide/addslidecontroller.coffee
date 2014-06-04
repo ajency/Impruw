@@ -115,24 +115,14 @@ define ['app'
             template: '<div id="add-slide-form-region"></div>
             								<div id="media-region" style="display:none">
             									<ul class="nav nav-tabs">
-<<<<<<< HEAD
-            										<li><a href="#upload-media-region" data-toggle="tab">{{#polyglot}}Upload{{/polyglot}}</a></li>
-            										<li class="active"><a href="#grid-media-region" data-toggle="tab">{{#polyglot}}Gallery{{/polyglot}}</a></li>
-            									</ul>
-            									<div class="tab-content">
-            										<div class="tab-pane" id="upload-media-region"></div>
-            										<div class="tab-pane active" id="grid-media-region"></div>
-            										<button class="btn btn-primary slide-image-selected">{{#polyglot}}Done{{/polyglot}}</button>
-=======
-                                                    <li class="active all-media-tab"><a href="#grid-media-region" data-toggle="tab">Gallery</a></li>
-            										<li class="upload-tab"><a href="#upload-media-region" data-toggle="tab">Upload</a></li>
+                                                    <li class="active all-media-tab"><a href="#grid-media-region" data-toggle="tab">{{#polyglot}}Gallery{{/polyglot}}</a></li>
+            										<li class="upload-tab"><a href="#upload-media-region" data-toggle="tab">{{#polyglot}}Upload{{/polyglot}}</a></li>
             									</ul>
             									<div class="tab-content">
                                                     <div class="tab-pane active" id="grid-media-region"></div>
             										<div class="tab-pane" id="upload-media-region"></div>            										
-            										<button class="btn btn-primary slide-image-selected">Done</button>
->>>>>>> b0c0506cf237c7852a42a01936e83623c9cac711
-            									</div>
+            										<button class="btn btn-primary slide-image-selected">{{#polyglot}}Done{{/polyglot}}</button>
+                                                </div>
             								</div>'
 
             events:
