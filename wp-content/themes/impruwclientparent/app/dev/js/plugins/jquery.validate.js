@@ -279,22 +279,22 @@ $.extend($.validator, {
 	},
 
 	messages: {
-		required: _.polyglot.t("This field is required."),
-		remote: _.polyglot.t("Please fix this field."),
-		email: _.polyglot.t("Please enter a valid email address."),
-		url: _.polyglot.t("Please enter a valid URL."),
-		date: _.polyglot.t("Please enter a valid date."),
-		dateISO: _.polyglot.t("Please enter a valid date (ISO)."),
-		number: _.polyglot.t("Please enter a valid number."),
-		digits: _.polyglot.t("Please enter only digits."),
-		creditcard: _.polyglot.t("Please enter a valid credit card number."),
-		equalTo: _.polyglot.t("Please enter the same value again."),
-		maxlength: $.validator.format(_.polyglot.t("Please enter no more than {0} characters.")),
-		minlength: $.validator.format(_.polyglot.t("Please enter at least {0} characters.")),
-		rangelength: $.validator.format(_.polyglot.t("Please enter a value between {0} and {1} characters long.")),
-		range: $.validator.format(_.polyglot.t("Please enter a value between {0} and {1}.")),
-		max: $.validator.format(_.polyglot.t("Please enter a value less than or equal to {0}.")),
-		min: $.validator.format(_.polyglot.t("Please enter a value greater than or equal to {0}."))
+		required: "This field is required.",
+		remote: "Please fix this field.",
+		email: "Please enter a valid email address.",
+		url: "Please enter a valid URL.",
+		date: "Please enter a valid date.",
+		dateISO: "Please enter a valid date (ISO).",
+		number: "Please enter a valid number.",
+		digits: "Please enter only digits.",
+		creditcard: "Please enter a valid credit card number.",
+		equalTo: "Please enter the same value again.",
+		maxlength: $.validator.format("Please enter no more than {0} characters."),
+		minlength: $.validator.format("Please enter at least {0} characters."),
+		rangelength: $.validator.format("Please enter a value between {0} and {1} characters long."),
+		range: $.validator.format("Please enter a value between {0} and {1}."),
+		max: $.validator.format("Please enter a value less than or equal to {0}."),
+		min: $.validator.format("Please enter a value greater than or equal to {0}.")
 	},
 
 	autoCreateRanges: false,
@@ -1175,25 +1175,6 @@ $.extend($.validator, {
 	}
 
 });
-
-//$.extend($.validator.messages, {
-//    required: "This field is required._N",
-//    remote: "Please fix this field._N",
-//    email: "Please enter a valid email address._N",
-//    url: "Please enter a valid URL._N",
-//    date: "Please enter a valid date._N",
-//    dateISO: "Please enter a valid date (ISO)._N",
-//    number: "Please enter a valid number._N",
-//    digits: "Please enter only digits._N",
-//    creditcard: "Please enter a valid credit card number._N",
-//    equalTo: "Please enter the same value again._N",
-//    maxlength: $.validator.format("Please enter no more than {0} characters._N"),
-//    minlength: $.validator.format("Please enter at least {0} characters._N"),
-//    rangelength: $.validator.format("Please enter a value between {0} and {1} characters long._N"),
-//    range: $.validator.format("Please enter a value between {0} and {1}._N"),
-//    max: $.validator.format("Please enter a value less than or equal to {0}._N"),
-//    min: $.validator.format("Please enter a value greater than or equal to {0}._N")
-//});
 
 // deprecated, use $.validator.format instead
 $.format = $.validator.format;

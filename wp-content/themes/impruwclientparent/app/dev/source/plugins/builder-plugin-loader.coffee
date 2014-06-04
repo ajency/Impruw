@@ -19,6 +19,7 @@ define [
     'plupload'
     'text'
     'jqueryspin'
+    'polyglot'
     'bootstrapselect'
     'imgLiquid'
     'nestedsortable'

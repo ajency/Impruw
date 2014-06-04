@@ -6,4 +6,5 @@ define [
 		'configs/marionette/settings-region'
 		'configs/marionette/formview'
 		'configs/marionette/marionette'
+        'configs/polyglot'
 		],->
