@@ -16,6 +16,7 @@ define(['app', 'controllers/base-controller', 'apps/leftnav/show/views', 'entiti
           collection: this.links
         });
         this.listenTo(App.vent, "set:active:menu", this.setActiveMenu);
+        this.listenTo(this.view, "itemview:logout:clicked", this.siteLogoutAjax);
         return this.show(this.view, {
           loading: true
         });
@@ -23,6 +24,22 @@ define(['app', 'controllers/base-controller', 'apps/leftnav/show/views', 'entiti
 
       Controller.prototype.setActiveMenu = function(link) {
         return this.view.triggerMethod("set:active:menu", link);
+      };
+
+      Controller.prototype.siteLogoutAjax = function() {
+        var options;
+        options = {
+          url: AJAXURL,
+          method: 'POST',
+          data: {
+            action: 'site-logout'
+          }
+        };
+        return $.ajax(options).done(function(response) {
+          return window.location.href = response.redirect_url;
+        }).fail(function(resp) {
+          return console.log('error');
+        });
       };
 
       return Controller;

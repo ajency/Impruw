@@ -11,11 +11,25 @@ define ['app', 'controllers/base-controller'
 
                 @listenTo App.vent, "set:active:menu", @setActiveMenu
 
-                @show @view, (loading : true)
+                @listenTo @view ,"itemview:logout:clicked", @siteLogoutAjax
 
+                @show @view,
+                    loading : true
 
             setActiveMenu : (link)->
                 @view.triggerMethod "set:active:menu", link
+
+            siteLogoutAjax :->
+                options =
+                    url: AJAXURL,
+                    method: 'POST',
+                    data:
+                        action: 'site-logout'
+
+                $.ajax(options).done (response)->
+                    window.location.href = response.redirect_url
+                .fail (resp)->
+                        console.log 'error'
 
 				
 	

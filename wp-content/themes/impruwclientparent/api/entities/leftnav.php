@@ -71,7 +71,7 @@ function get_menu_items() {
             )
         ),
         array(
-            'url'   => wp_logout_url( site_url() ),
+            'url'   => '#logout',
             'title' => 'Logout',
             'icon'  => 'switch2'
         )
