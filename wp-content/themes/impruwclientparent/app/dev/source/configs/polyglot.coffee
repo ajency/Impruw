@@ -214,8 +214,4 @@ define ['polyglot', 'underscore'], (Polyglot, _ ) ->
                             "Please enter a value between {0} and {1} characters long." : "Please enter a value between {0} and {1} characters long._NNNN" ,
                             "Please enter a value between {0} and {1}." : "Please enter a value between {0} and {1}._NNNN" ,
                             "Please enter a value less than or equal to {0}." : "Please enter a value less than or equal to {0}._NNNN" ,
-                            "Please enter a value greater than or equal to {0}." : "Please enter a value greater than or equal to {0}._NNNN" ,
-
-
-
-
+                            "Please enter a value greater than or equal to {0}." : "Please enter a value greater than or equal to {0}._NNNN"

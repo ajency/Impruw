@@ -68,7 +68,7 @@ define(['app'], function(App) {
         var isSingleRoom;
         isSingleRoom = Marionette.getOption(this, 'inSingleRoom');
         if (isSingleRoom) {
-          this.$el.attr("data-content", "Please visit <a href='#url'>to update room gallery</a> ");
+          this.$el.attr("data-content", "Manage room gallery <a href='" + SITEURL + "/dashboard/#rooms'>here</a> ");
           this.$el.popover({
             html: true,
             placement: 'top'

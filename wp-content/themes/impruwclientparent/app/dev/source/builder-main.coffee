@@ -37,6 +37,7 @@ require.config
         jqueryvalidate: 'plugins/jquery.validate'
         isotope: 'plugins/isotope'
         plupload: 'plugins/plupload.full'
+        polyglot: 'plugins/polyglot'
         themepunch: 'plugins/themepunch.plugins.min'
         imgLiquid: 'plugins/bower_components/imgLiquid/js/imgLiquid'
         revslider: 'plugins/revolution.min'
@@ -61,6 +62,8 @@ require.config
         marionette:
             deps: ['backbone']
             exports: 'Marionette'
+        polyglot:
+            exports: 'Polyglot'
         jqueryvalidate: ['jquery']
         underscorestring: ['underscore']
         backbonesyphon: ['backbone']

@@ -3,6 +3,7 @@ define ['app', 'text!apps/builder/site-builder/elements/roomsummary/settings/tem
 
     # Headerapp views
     App.module 'SiteBuilderApp.Element.RoomSummary.Settings.Views', (Views, App, Backbone, Marionette, $, _)->
+
         class Views.SettingsView extends Marionette.ItemView
 
             template: settingsTpl
@@ -17,6 +18,11 @@ define ['app', 'text!apps/builder/site-builder/elements/roomsummary/settings/tem
                 @$el.find('input[type="checkbox"]').checkbox()
                 @$el.find('select').selectpicker()
                 @setFields()
+
+            onShow: ->
+                if not ISTHEMEEDITOR
+                    @$el.find('form .form-group').hide()
+                    @$el.find('form .form-group.edit-by-user').show()
 
             # set fields for the form
             setFields: ->

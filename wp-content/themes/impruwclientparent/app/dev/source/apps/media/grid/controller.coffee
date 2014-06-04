@@ -16,12 +16,12 @@ define ['app', 'controllers/base-controller', 'apps/media/grid/views'], (App, Ap
                     # listen to this event and get the clicked model and pass it on to edit media app
                     Marionette.triggerMethod.call(@region,
                       "media:element:selected",
-                      Marionette.getOption(iv, 'model'));
+                      Marionette.getOption(iv, 'model'))
 
                 @listenTo view, "itemview:media:element:unselected", (iv) =>
                     Marionette.triggerMethod.call(@region,
                       "media:element:unselected",
-                      Marionette.getOption(iv, 'model'));
+                      Marionette.getOption(iv, 'model'))
 
                 @show view, loading: true
 
