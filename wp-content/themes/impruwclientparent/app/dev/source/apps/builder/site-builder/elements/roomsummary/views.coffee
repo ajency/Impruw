@@ -8,15 +8,15 @@ define ['app'], (App)->
 
             className: 'roomsummary'
 
-            roomNotSetTemplate: '<div class="room-img">
-                                      <div class="image-placeholder"><span class="bicon icon-uniF10E"></span>Room Image</div>
+            roomNotSetTemplate: '   <div class="room-img">
+                                        <div class="image-placeholder"><span class="bicon icon-uniF10E"></span>Room Image</div>
                                     </div>
                                     <div class="room-title">Your Room Title</div>
                                     <div class="room-excerpt">Choose a room to display from settings. Your room description, image, number of rooms and link to the single room page will be displayed here. To make any changes to the room go to Room from your dashboard.</div>
                                     <div class="room-actions">
-                                      <div class="price">Total: {{no_of_rooms}}<small> rooms</small></div>
-                                      <button class="btn btn-room">View Details</button>
-            								    </div>'
+                                        <div class="price">Total: {{no_of_rooms}}<small> rooms</small></div>
+                                        <button class="btn btn-room">View Details</button>
+            					    </div>'
 
             singleRoomTemplate: '<div class="room-summary-container">
                                       <div class="room-summary-title">
@@ -45,6 +45,13 @@ define ['app'], (App)->
                                           </div>
                                       </div>
                                   </div>'
+
+            events :
+                'click' : 'showRoomSummaryEditPopup'
+
+            showRoomSummaryEditPopup :(evt)->
+                evt.preventDefault()
+                @$el.closest('.element-wrapper').find('.aj-imp-settings-btn').click()
 
             onBeforeRender: ->
                 isSingle = Marionette.getOption @, 'isSingleRoom'

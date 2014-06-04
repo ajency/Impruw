@@ -54,7 +54,7 @@ define(['app'], function(App) {
       RoomFacilitiesView.prototype.emptyView = EmptyView;
 
       RoomFacilitiesView.prototype.onShow = function() {
-        this.$el.attr("data-content", "Please visit <a href='#url'>to update room facilities</a> ");
+        this.$el.attr("data-content", "Update room facilities <a href='" + SITEURL + "/dashboard/#rooms'>here</a> ");
         return this.$el.popover({
           html: true,
           placement: 'top'

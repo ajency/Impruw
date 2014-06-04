@@ -28,6 +28,13 @@ define(['app', 'text!apps/builder/site-builder/elements/roomsummary/settings/tem
         return this.setFields();
       };
 
+      SettingsView.prototype.onShow = function() {
+        if (!ISTHEMEEDITOR) {
+          this.$el.find('form .form-group').hide();
+          return this.$el.find('form .form-group.edit-by-user').show();
+        }
+      };
+
       SettingsView.prototype.setFields = function() {
         if (this.eleModel.get('draggable') === true) {
           this.$el.find('input[name="draggable"]').checkbox('check');
