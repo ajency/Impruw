@@ -249,14 +249,14 @@ function generate_markup( $section ) {
 
     $id = !is_null( $post ) ? $post->ID : 0;
 
-    $preview = FALSE;
+    $autosave = FALSE;
 
-    if ( isset( $_GET[ 'preview' ] ) ) {
-        $preview = TRUE;
-        $id      = $_GET[ 'preview' ];
+    if ( isset( $_GET[ 'preview' ] ) && $_GET[ 'preview' ] == 'true' ) {
+        $autosave = TRUE;
+        //$id = $_GET[ 'preview' ];
     }
 
-    $markup_JSON = get_page_json_for_site( $id, $preview );
+    $markup_JSON = get_page_json_for_site( $id, $autosave );
 
     if ( !isset( $markup_JSON [ $section ] ) )
         return;

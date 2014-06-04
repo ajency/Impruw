@@ -33,21 +33,22 @@
 <?php if ( is_page( 'contact-us' ) ): ?>
     <script src="<?php echo get_parent_template_directory_uri(); ?>/app/dev/js/plugins/jquery.validate.js"></script>
 <?php endif; ?>
-<?php if ( is_singular( 'impruw_room' ) ): ?>
-    <script src="<?php echo get_parent_template_directory_uri(); ?>/app/dev/js/plugins/isotope.js"></script>
-    <script>
-        jQuery(document).ready(function () {
-            if (jQuery('.gallery').length === 0)
-                return;
-            var $container = jQuery('.gallery').imagesLoaded(function () {
-                $container.isotope({
-                    // options
-                    itemSelector: '.isotope-element'
-                });
+
+<!-- Isotope -->
+<script src="<?php echo get_parent_template_directory_uri(); ?>/app/dev/js/plugins/isotope.js"></script>
+<script>
+    jQuery(document).ready(function () {
+        if (jQuery('.gallery').length === 0)
+            return;
+        var $container = jQuery('.gallery').imagesLoaded(function () {
+            $container.isotope({
+                // options
+                itemSelector: '.isotope-element'
             });
         });
-    </script>
-<?php endif; ?>
+    });
+</script>
+
 <?php get_theme_JS(); ?>
 <?php if ( is_page( 'contact-us' ) ): ?>
     <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>

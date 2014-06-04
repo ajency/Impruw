@@ -58,6 +58,7 @@ class RoomSummary extends Element {
     function generate_single_room_summary() {
 
         $this->room = get_room( $this->room_id );
+
         $template   = '<div class="room-summary-container ' . $this->margins . ' ">
                         <div class="room-summary-title">
                             <h4>Room Summary</h4>

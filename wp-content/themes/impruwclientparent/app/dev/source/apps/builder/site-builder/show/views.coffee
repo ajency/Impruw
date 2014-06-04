@@ -75,7 +75,7 @@ define ['app'
 
             changePreviewLinkUrl:->
                 currentPageId = App.request "get:current:editable:page"
-                previewUrl = "#{SITEURL}?preview=#{currentPageId}"
+                previewUrl = "#{SITEURL}?preview=true&p=#{currentPageId}"
                 @$el.find('a.preview-current-page').attr 'href', previewUrl
 
             # trigger the editable page changed event on show
@@ -125,7 +125,6 @@ define ['app'
                 @$el.find('#aj-imp-revision-sel').append @revisionView.$el
 
             revisionLinkClicked: (iv, id)=>
-                console.log id
                 @trigger "revision:link:clicked", id
 
             # remove any previous revision items
@@ -138,13 +137,13 @@ define ['app'
             tagName: 'li'
 
             template: '<div class="aj-imp-revision row">
-            									<div class="col-sm-5 date">
-            									  {{datetime}}
-            									</div>
-            									<div class="col-sm-7 time">
-            									  {{post_name}} {{timeago}}
-            									</div>
-            								</div>'
+							<div class="col-sm-5 date">
+							  {{datetime}}
+							</div>
+							<div class="col-sm-7 time">
+							  {{post_name}} {{timeago}}
+							</div>
+						</div>'
 
             events:
                 'click': (e)->

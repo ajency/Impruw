@@ -102,7 +102,7 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
       MainView.prototype.changePreviewLinkUrl = function() {
         var currentPageId, previewUrl;
         currentPageId = App.request("get:current:editable:page");
-        previewUrl = "" + SITEURL + "?preview=" + currentPageId;
+        previewUrl = "" + SITEURL + "?preview=true&p=" + currentPageId;
         return this.$el.find('a.preview-current-page').attr('href', previewUrl);
       };
 
@@ -152,7 +152,6 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
       };
 
       MainView.prototype.revisionLinkClicked = function(iv, id) {
-        console.log(id);
         return this.trigger("revision:link:clicked", id);
       };
 

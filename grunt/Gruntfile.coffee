@@ -18,6 +18,15 @@ module.exports = (grunt) ->
             gitPush:
                 command: 'git push origin app'
 
+        coffee : 
+            options : 
+                expand : true 
+                flattern : true
+            themeCompile :
+                cwd : '<%= pkg.themePath %>/app/dev/source'
+                src : ['*.coffee']
+                dest : '<%= pkg.themePath %>/app/dev/js'
+                ext : '.js'
 
 
 
