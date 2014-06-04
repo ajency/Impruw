@@ -63,7 +63,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         return NoGalleryItem.__super__.constructor.apply(this, arguments);
       }
 
-      NoGalleryItem.prototype.template = '<div class="empty-info">No images found. Please add images.</div>';
+      NoGalleryItem.prototype.template = '<div class="empty-info">{{#polyglot}}No images found. Please add images.{{/polyglot}}</div>';
 
       return NoGalleryItem;
 

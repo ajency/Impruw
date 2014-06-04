@@ -38,6 +38,10 @@ define(['jquery', 'underscore', 'jqueryvalidate'], function($, _) {
     });
     return this;
   };
+  $.fn.selectSelectableElements = function(elementsToSelect) {
+    $(".ui-selected", this).not(elementsToSelect).removeClass("ui-selected");
+    return $(elementsToSelect).not(".ui-selected").addClass("ui-selected");
+  };
   $.scrollTop = function() {
     return $('html, body').animate({
       scrollTop: 0

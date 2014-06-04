@@ -1946,6 +1946,9 @@ a:focus {
 .aj-imp-trash-elements .aj-imp-drag-menu {
   display: none;
 }
+.aj-imp-trash-elements .aj-imp-drag-menu .desc {
+  cursor: default;
+}
 .aj-imp-trash-elements .aj-imp-drag-menu .trash-elem-link {
   display: block;
   margin: 0.4em auto;

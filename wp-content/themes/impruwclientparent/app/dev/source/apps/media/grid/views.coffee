@@ -10,12 +10,15 @@ define ['app'
             events:
                 'click a': (e)->
                     e.preventDefault()
-                'click': (e)->
+                'click':  '_whenImageClicked'
+
+
+            _whenImageClicked: (e)->
                     media = if $(e.target).hasClass('single-img') then $(e.target) else $(e.target).closest('.single-img')
-                    if $(media).hasClass('ui-selected')
-                        @trigger "media:element:selected"
-                    else
-                        @trigger "media:element:unselected"
+                    # if $(media).hasClass('ui-selected')
+                    @trigger "media:element:selected"
+                    # else
+                    #     @trigger "media:element:unselected"
 
         # collection view
         class Views.GridView extends Marionette.CompositeView
@@ -30,3 +33,14 @@ define ['app'
                     .selectable()
                 else
                     @$el.find('#selectable-images').selectable()
+
+
+            onShow : ->
+                 @on 'after:item:added', (imageView)=>
+                    
+                    #show the grid view on image added
+                    @$el.closest('.tab-content').siblings('.nav-tabs')
+                    .find('.all-media-tab').find('a').trigger 'click'
+                    #trigger the selectable to point to the newly added image
+                    imageView.$el.find('img').trigger 'click'
+                    @$el.find('#selectable-images').selectSelectableElements imageView.$el

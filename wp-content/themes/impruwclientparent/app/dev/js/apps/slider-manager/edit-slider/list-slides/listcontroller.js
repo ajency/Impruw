@@ -108,7 +108,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
 
       SlideView.prototype.className = 'panel panel-default';
 
-      SlideView.prototype.template = '<div class="panel-heading"> <a class="accordion-toggle" data-toggle="collapse" data-parent="#slides-accordion" href="#slide-{{id}}"> <div class="aj-imp-image-item row"> <div class="imgthumb col-sm-3"> <img src="{{thumb_url}}" class="img-responsive"> </div> <div class="imgname col-sm-5">{{file_name}}</div> <div class="imgactions col-sm-4"> <button class="btn btn-sm" title="Edit Image"><span class="glyphicon glyphicon-edit"></span> Edit Image</button> <button class="btn btn-danger btn-sm remove-slide" title="Delete Image"><span class="glyphicon glyphicon-remove-sign"></span> Delete Image</button> </div> </div> </a> </div> <div id="slide-{{id}}" class="panel-collapse collapse"> <div class="panel-body"> <div class="aj-imp-edit-image well"> <form> <div class="row"> <div class="aj-imp-crop-link col-sm-4"> <img src="{{thumb_url}}" class="img-responsive"> </div> <div class="aj-imp-img-form col-sm-8"> <div class="row"> <div class="col-sm-6"> <input type="text" name="title" value="{{title}}" class="form-control" placeholder="Title"> </div> <div class="col-sm-6"> <input type="url" type="link" name="link" value="{{link}}" class="form-control" placeholder="Link"> </div> </div> <div class="row"> <div class="col-sm-12"> <textarea name="description" class="form-control" placeholder="Description">{{description}}</textarea> </div> </div> </div> </div> <div class="aj-imp-img-save"> <button type="button" class="btn update-slide">Update</button> </div> </form> </div> </div> </div>';
+      SlideView.prototype.template = '<div class="panel-heading"> <a class="accordion-toggle" data-toggle="collapse" data-parent="#slides-accordion" href="#slide-{{id}}"> <div class="aj-imp-image-item row"> <div class="imgthumb col-sm-3"> <img src="{{thumb_url}}" class="img-responsive"> </div> <div class="imgname col-sm-5">{{file_name}}</div> <div class="imgactions col-sm-4"> <button class="btn btn-sm" title="Edit Image"><span class="glyphicon glyphicon-edit"></span> Edit Image</button> <button class="btn btn-danger btn-sm remove-slide" title="Delete Image"><span class="glyphicon glyphicon-remove-sign"></span> Delete Image</button> </div> </div> </a> </div> <div id="slide-{{id}}" class="panel-collapse collapse"> <div class="panel-body"> <div class="aj-imp-edit-image well"> <form> <div class="row"> <div class="aj-imp-crop-link col-sm-4"> <img src="{{thumb_url}}" class="img-responsive"> </div> <div class="aj-imp-img-form col-sm-8"> <div class="row"> <div class="col-sm-6"> <input type="text" name="title" value="{{title}}" class="form-control" placeholder="{{#polyglot}}Title{{#polyglot}}"> </div> <div class="col-sm-6"> <input type="url" type="link" name="link" value="{{link}}" class="form-control" placeholder="{{#polyglot}}Link{{#polyglot}}"> </div> </div> <div class="row"> <div class="col-sm-12"> <textarea name="description" class="form-control" placeholder="{{#polyglot}}Description{{/polyglot}}">{{description}}</textarea> </div> </div> </div> </div> <div class="aj-imp-img-save"> <button type="button" class="btn update-slide">{{#polyglot}}Update{{/polyglot}}</button> </div> </form> </div> </div> </div>';
 
       SlideView.prototype.events = {
         'click .update-slide': function() {
@@ -119,7 +119,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         'click .remove-slide': function(e) {
           e.preventDefault();
           e.stopPropagation();
-          if (confirm('Are you sure?')) {
+          if (confirm(_.polyglot.t('Are you sure?'))) {
             return this.trigger("remove:slide", this.model);
           }
         }
@@ -139,7 +139,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         return NoSlidesView.__super__.constructor.apply(this, arguments);
       }
 
-      NoSlidesView.prototype.template = '<div class="alert">No images found. Please add images.</div>';
+      NoSlidesView.prototype.template = '<div class="alert">{{#polyglot}}No images found. Please add images.{{/polyglot}}</div>';
 
       return NoSlidesView;
 
@@ -152,7 +152,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         return SlidesListView.__super__.constructor.apply(this, arguments);
       }
 
-      SlidesListView.prototype.template = '<div class="aj-imp-image-header row"> <div class="col-sm-3"> &nbsp; </div> <div class="col-sm-5"> File Name </div> <div class="col-sm-4"> Actions </div> </div> <div class="panel-group" id="slides-accordion"></div>';
+      SlidesListView.prototype.template = '<div class="aj-imp-image-header row"> <div class="col-sm-3"> &nbsp; </div> <div class="col-sm-5"> {{#polyglot}}File Name{{/polyglot}} </div> <div class="col-sm-4"> {{#polyglot}}Actions{{/polyglot}} </div> </div> <div class="panel-group" id="slides-accordion"></div>';
 
       SlidesListView.prototype.itemView = SlideView;
 
@@ -198,7 +198,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         return SlidesListLayout.__super__.constructor.apply(this, arguments);
       }
 
-      SlidesListLayout.prototype.template = '<div id="slides-list-region"></div> <div class="aj-imp-block-button add-new-slide"> <button class="btn btn-default btn-hg btn-block"><span class="bicon icon-uniF10C"></span>&nbsp;&nbsp;Add Image</button> </div> <div id="add-slide-region"></div>';
+      SlidesListLayout.prototype.template = '<div id="slides-list-region"></div> <div class="aj-imp-block-button add-new-slide"> <button class="btn btn-default btn-hg btn-block"><span class="bicon icon-uniF10C"></span>&nbsp;&nbsp;{{#polyglot}}Add Image{{/polyglot}}</button> </div> <div id="add-slide-region"></div>';
 
       SlidesListLayout.prototype.events = {
         'click .add-new-slide': function() {
@@ -208,7 +208,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
       };
 
       SlidesListLayout.prototype.dialogOptions = {
-        modal_title: 'Image Gallery',
+        modal_title: _.polyglot.t('Image Gallery'),
         modal_size: 'wide-modal'
       };
 
@@ -223,7 +223,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
 
       SlidesListLayout.prototype.onShowOrderUpdatedMsg = function() {
         this.$el.find('.alert').remove();
-        return this.$el.prepend('<div class="alert alert-success">Order updated successfully</div>');
+        return this.$el.prepend("<div class=\"alert alert-success\">" + _.polyglot.t("Updated successfully") + "</div>");
       };
 
       return SlidesListLayout;

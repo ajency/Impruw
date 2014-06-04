@@ -37,7 +37,7 @@ define ['app', 'controllers/base-controller',
             template: addTariffTpl
 
             dialogOptions:
-                modal_title: 'Add Tariff'
+                modal_title: _.polyglot.t 'Add Tariff'
                 modal_size: 'medium-modal'
 
             events:
@@ -48,9 +48,7 @@ define ['app', 'controllers/base-controller',
 
             onSavedTariff: ->
                 @$el.parent().find('.alert').remove()
-                @$el.parent().prepend '<div class="alert alert-success">
-                								Tariff added succesfully for the plan</div>'
-
+                @$el.parent().prepend "<div class=\"alert alert-success\">" + _.polyglot.t("Tariff added succesfully for the plan") + "</div>"
             # show checkbox
             onShow: ->
                 @$el.find('input[type="checkbox"]').checkbox()

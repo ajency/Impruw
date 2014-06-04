@@ -48,7 +48,7 @@ define(['app', 'controllers/base-controller', 'apps/rooms/facilities/add/addfaci
         return FacilitiesViewLayout.__super__.constructor.apply(this, arguments);
       }
 
-      FacilitiesViewLayout.prototype.template = '<h4 class="aj-imp-sub-head scroll-ref"> Facilities <small>List the facilities available in this room.</small> </h4> <div class="form-group"> <div class="col-sm-12"> <div id="facilities-list-region"></div> <div id="add-facility-region"></div> </div> </div>';
+      FacilitiesViewLayout.prototype.template = '<h4 class="aj-imp-sub-head scroll-ref"> {{#polyglot}}Facilities{{/polyglot}} <small>{{#polyglot}}List the facilities available in this room.{{/polyglot}}</small> </h4> <div class="form-group"> <div class="col-sm-12"> <div id="facilities-list-region"></div> <div id="add-facility-region"></div> </div> </div>';
 
       FacilitiesViewLayout.prototype.regions = {
         facilitiesRegion: '#facilities-list-region',

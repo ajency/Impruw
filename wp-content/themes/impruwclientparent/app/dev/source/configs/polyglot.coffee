@@ -45,7 +45,7 @@ define ['polyglot', 'underscore'], (Polyglot, _ ) ->
                             "Add Room Category" : "Add Room Category_N",
                             "No. of Rooms" : "No. of Rooms_N",
                             "Room Description" : "Room Description_N",
-                            "Description of your room category." : "Give a brief description of your room category._N",
+                            "Description of your room category" : "Give a brief description of your room category._N",
                             "Images" : "Images_N",
                             "Add attachment images to your room." : "Add attachment images to your room._N",
                             "Add Images" : "Add Images_N",
@@ -58,9 +58,18 @@ define ['polyglot', 'underscore'], (Polyglot, _ ) ->
                             "Room Booking" : "Room Booking_N",
                             "Set up booking" : "Set up booking_N",
                             "Save Room" : "Save Room_N",
+                            "eg. Executive Room" : "eg. Executive Room_N",
+                            "eg. 10" : "eg. 10_N",
+                            "Room Description" : "Room Description_N",
+
+                            #rooms.add.views
+                            "New room added successfully" : "New room added successfully_N",
 
                             #rooms.edit-room
                             "Edit Room" : "Edit Room_N",
+
+                            #rooms.edit.views
+                            "Room updated successfully" : "Room updated successfully_N",
 
                             #rooms.list
                             "No Rooms found. Add Rooms to your Site." : "No Rooms found. Add Rooms to your Site._N" ,
@@ -80,7 +89,11 @@ define ['polyglot', 'underscore'], (Polyglot, _ ) ->
                             "$300" : "$300_N" ,
                             "Edit" : "Edit_N" ,
                             "Delete" : "Delete_N" ,
-                        
+
+                            #rooms.facilities.list.view
+                            "Are you sure?" : "Are you sure?_N" ,
+                            "Delete the room and all its data?" : "Delete the room and all its data?_N" ,
+
 
                             #rooms.tarrifs.addtarrif
                             "Monday to Friday" : "Monday to Friday_N",
@@ -93,6 +106,7 @@ define ['polyglot', 'underscore'], (Polyglot, _ ) ->
                             "Additional Charge per extra Child" : "Additional Charge per extra Child_N",
                             "The tariff is exclusive of additional charges." : "The tariff is exclusive of additional charges._N",
                             "Add Tariff" : "Add Tariff_N",
+                            "Tariff added succesfully for the plan" : "Tariff added succesfully for the plan_N",
 
                             #rooms.tarrifs.daterange
                             "Daterange Label" : "Daterange Label_N",
@@ -105,6 +119,9 @@ define ['polyglot', 'underscore'], (Polyglot, _ ) ->
                             #rooms.tarrifs.edittarrif
                             "Update Tariff" : "Update Tariff_N",
                             "Delete Tariff" : "Delete Tariff_N",
+                            "Tariff updated successfully" : "Tariff updated successfully_N",
+                            "Edit Tariff" : "Edit Tariff_N",
+                            "The tariff will be deleted for the plan and date range. Are you sure you want to continue?" : "The tariff will be deleted for the plan and date range. Are you sure you want to continue?_N",
 
                             #rooms.tarrifs.plan
                             "Plan Type" : "Plan Type_N",
@@ -112,4 +129,93 @@ define ['polyglot', 'underscore'], (Polyglot, _ ) ->
                             "Add Plan" : "Add Plan_N",
                             "Delete Plan" : "Delete Plan_N",
                             "Update Plan" : "Update Plan_N",
+
+                            #rooms.tarrifs.plan.addplan
+                            "You have created a new plan. Update your tariff by clicking on the plan" : "You have created a new plan. Update your tariff by clicking on the plan_N",
+
+                            #rooms.tarrifs.daterange.editdaterange alerts
+                            "All plans with date range deleted confirm" : "All the plans associated with the date range will also be deleted. Are you sure you want to delete the date range?_N",
+
+                            #rooms.tarrifs.daterange.adddaterange
+                            "Add DateRange" : "Add DateRange_N",
+                            "You have added a new date range. Add plans and tariff to the date range" : "You have added a new date range. Add plans and tariff to the date range_N",
+
+                            #rooms.tarrifs.daterange.editdaterange
+                            "Edit DateRange" : "Edit DateRange_N",
+
+
+                            #rooms.tarrifs.plan.editplan alerts
+                            "plan will not exist" : "The plan will not exist for all the date ranges. Are you sure you want to continue?_N",
+                            "Updated successfully" : "Updated successfully_N",
+                            "Edit Plan" : "Edit Plan_N",
+
+                            #rooms.facilities
+                            "Facilities" : "Facilities_N",
+                            "List the facilities available in this room." : "List the facilities available in this room._N",
+
+                            #rooms.facilities.add
+                            "Add a Facility" : "Add a Facility_N",
+                            "Add" : "Add_N",
+
+                            #rooms.facilities.list
+                            "Update" : "Update_N",
+                            "Cancel" : "Cancel_N",
+
+                            #rooms.gallery
+                            "No images found. Please add images." : "No images found. Please add images._N",
+
+                            #slider-manager.edit
+                            "Slider Settings" : "Slider Settings_N",
+                            "Slides" : "Slides_N",
+                            "Add/Edit Slides" : "Add/Edit Slides_N",
+
+                            #slider-manager.edit-slider.addedit-slide
+                            "Click to Add an Image to Your Slide" : "Click to Add an Image to Your Slide_N",
+                            "Title" : "Title_N",
+                            "Link" : "Link_N",
+                            "Description" : "Description_N",
+                            "Upload" : "Upload_N",
+                            "Gallery" : "Gallery_N",
+                            "Done" : "Done_N",
+
+                            #slider-manager.edit-slider.list-slides
+                            "No images found. Please add images." : "No images found. Please add images._N",
+                            "File Name" : "File Name_N",
+                            "Actions" : "Actions_N",
+                            "Add Image" : "Add Image_N",
+                            "Order updated successfully" : "Order updated successfully_N",
+                            "Image Gallery" : "Image Gallery_N",
+
+                            #slider-manager.edit-slider.setting
+                            "Slider Name" : "Slider Name_N",
+                            "Name Your Slider" : "Name Your Slider_N",
+                            "Updated successfully" : "Updated successfully_N",
+
+                            #slider-manager.grid
+                            "Add New Slider" : "Add New Slider_N",
+
+                            #slider-manager.new
+                            "Name Your Slider" : "Name Your Slider_N" ,
+                            "Create Slider" : "Create Slider_N" ,
+
+                            #Error messages in jquery.validate plugin
+                            "This field is required." : "This field is required._NNNN" ,
+                            "Please fix this field." : "Please fix this field._NNNN" ,
+                            "Please enter a valid email address." : "Please enter a valid email address._NNNN" ,
+                            "Please enter a valid URL." : "Please enter a valid email address._NNNN" ,
+                            "Please enter a valid date." : "Please enter a valid date._NNNN" ,
+                            "Please enter a valid date (ISO)." : "Please enter a valid date (ISO)._NNNN" ,
+                            "Please enter a valid number." : "Please enter a valid number._NNNN" ,
+                            "Please enter only digits." : "Please enter only digits._NNNN" ,
+                            "Please enter a valid credit card number." : "Please enter a valid credit card number._NNNN" ,
+                            "Please enter the same value again." : "Please enter the same value again._NNNN" ,
+                            "Please enter no more than {0} characters." : "Please enter no more than {0} characters._NNNN" ,
+                            "Please enter at least {0} characters." : "Please enter at least {0} characters._NNNN" ,
+                            "Please enter a value between {0} and {1} characters long." : "Please enter a value between {0} and {1} characters long._NNNN" ,
+                            "Please enter a value between {0} and {1}." : "Please enter a value between {0} and {1}._NNNN" ,
+                            "Please enter a value less than or equal to {0}." : "Please enter a value less than or equal to {0}._NNNN" ,
+                            "Please enter a value greater than or equal to {0}." : "Please enter a value greater than or equal to {0}._NNNN" ,
+
+
+
 

@@ -44,7 +44,7 @@ define(['app', 'text!apps/rooms/edit/templates/edit-room.html'], function(App, a
 
       EditRoomLayout.prototype.onShowSuccessMessage = function() {
         this.$el.find('.alert').remove();
-        this.$el.prepend('<div class="alert alert-success">Room updated successfully</div>');
+        this.$el.prepend("<div class=\"alert alert-success\">" + _.polyglot.t("Room updated successfully") + "</div>");
         return $('html, body').animate({
           scrollTop: 0
         }, 1000);

@@ -13,7 +13,7 @@ define ['app'
             events:
                 'click .deleteroom_link': (e)->
                     e.preventDefault()
-                    if confirm "Delete the room and all its data?"
+                    if confirm _.polyglot.t "Delete the room and all its data?"
                         @model.destroy()
 
 

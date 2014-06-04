@@ -74,7 +74,7 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/daterange
       EditDateRangeView.prototype.template = editDateRangeTpl;
 
       EditDateRangeView.prototype.dialogOptions = {
-        modal_title: 'Edit DateRange',
+        modal_title: _.polyglot.t('Edit DateRange'),
         modal_size: 'medium-modal'
       };
 
@@ -88,7 +88,7 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/daterange
         },
         'click #btn_deletedaterange': function(e) {
           e.preventDefault();
-          if (confirm('All the plans associated with the date range will also be deleted. Are you sure you want to delete the date range?')) {
+          if (confirm(_.polyglot.t('All plans with date range deleted confirm'))) {
             return this.trigger("delete:daterange", this.model);
           }
         }
@@ -104,7 +104,7 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/daterange
 
       EditDateRangeView.prototype.onUpdatedDaterange = function() {
         this.$el.parent().find('.alert').remove();
-        return this.$el.parent().prepend('<div class="alert alert-success">Updated successfully</div>');
+        return this.$el.parent().prepend("<div class=\"alert alert-success\">" + _.polyglot.t("Updated successfully") + "</div>");
       };
 
       EditDateRangeView.prototype.onDeletedDaterange = function() {

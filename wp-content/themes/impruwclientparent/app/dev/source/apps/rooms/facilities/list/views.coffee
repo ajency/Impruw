@@ -16,16 +16,16 @@ define ['app'], (App)->
             								<span class="facility-name">{{name}}</span>
             							</label>
             							<div class="action">
-            								<a href="javascript:void(0)" class="edit">Edit</a>&nbsp;
-            								<a href="javascript:void(0)" class="delete">Delete</a>
+            								<a href="javascript:void(0)" class="edit">{{#polyglot}}Edit{{/polyglot}}</a>&nbsp;
+            								<a href="javascript:void(0)" class="delete">{{#polyglot}}Delete{{/polyglot}}</a>
             							</div>
             						</div>
             						<div class="update_facility hidden">
             							<div class="facility_update">
             								<input type="text" name="facility_name" class="form-control input-sm" value="{{name}}" />
             								<div class="facility_actions">
-            									<a href="javascript:void(0)" class="update">Update</a>
-            									<a href="javascript:void(0)" class="cancel" >Cancel</a>
+            									<a href="javascript:void(0)" class="update">{{#polyglot}}Update{{/polyglot}}</a>
+            									<a href="javascript:void(0)" class="cancel" >{{#polyglot}}Cancel{{/polyglot}}</a>
             								</div>
             							</div>
             						</div>'
@@ -42,7 +42,7 @@ define ['app'], (App)->
 
             events:
                 'click a.delete': ->
-                    if confirm('Are you sure?')
+                    if confirm(_.polyglot.t 'Are you sure?')
                         @trigger "delete:facility:clicked", @model
 
                 'click a.edit': ->
