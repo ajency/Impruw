@@ -36,11 +36,11 @@ jQuery(document).ready(function($) {
 
                 if (response.success) {
                     //siteurl = impruw
-                    response.msg = "Awesome! You have registered successfully.";
-                    msg2 = "<a href="+siteurl+"/wp-login.php"+">Click here to login</a>";
+                    response.msg = "Awesome! You have registered successfully.Please sign-in to your account";
+                    //msg2 = "<a href="+siteurl+"/wp-login.php"+">Click here to login</a>";
                     $("#register_message").html('<div class="alert alert-success">' +
                         '<button aria-hidden="true" data-dismiss="alert" class="close" type="button">x</button>' +
-                        response.msg + msg2 + '</div>');
+                        response.msg + '</div>');
                     
                     $("#frm_registration").find('input[type="reset"]').click();
                     //$("#scrolltosuccess").click();
