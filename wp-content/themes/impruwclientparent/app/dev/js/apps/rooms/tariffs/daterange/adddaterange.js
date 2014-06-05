@@ -73,7 +73,7 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/daterange
 
       AddDateRangeView.prototype.onSavedDaterange = function() {
         this.$el.parent().find('.alert').remove();
-        this.$el.parent().prepend("<div class=\"alert alert-success\">" + _.polyglot.t("You have added a new date range. Add plans and tariff to the date range") + "</div>");
+        this.$el.parent().prepend("<div class=\"alert alert-success\">" + _.polyglot.t("New Date range added") + "</div>");
         return this.$el.find('input').val('');
       };
 

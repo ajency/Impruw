@@ -39,7 +39,7 @@ define(['app', 'text!apps/rooms/add/templates/add-room.html'], function(App, add
         return CalendarView.__super__.constructor.apply(this, arguments);
       }
 
-      CalendarView.prototype.template = '<h4> <span class="glyphicon glyphicon-calendar"></span> Monthly Calendar <span class="excerpt">Choose the dates you want to add availability for.</span> </h4> <div id="room-booking-calendar"></div> <br><br><br> <ul class="list-inline daterange-legends"> {{#dateRanges}} <li><span class="{{class}}">&nbsp;</span>{{name}}</li> {{/dateRanges}} </ul>';
+      CalendarView.prototype.template = '<h4> <span class="glyphicon glyphicon-calendar"></span> {{#polyglot}}Monthly Calendar{{/polyglot}} <span class="excerpt">{{#polyglot}}Choose availability dates{{/polyglot}}</span> </h4> <div id="room-booking-calendar"></div> <br><br><br> <ul class="list-inline daterange-legends"> {{#dateRanges}} <li><span class="{{class}}">&nbsp;</span>{{name}}</li> {{/dateRanges}} </ul>';
 
       CalendarView.prototype.onShow = function() {
         this.$el.find('#room-booking-calendar').datepicker({
@@ -163,7 +163,7 @@ define(['app', 'text!apps/rooms/add/templates/add-room.html'], function(App, add
         }
         console.log(currentStatus);
         console.log(value);
-        html = "<button type='button' class='close booking-popover-close' aria-hidden='true'>&times;</button> <div class='booking-slider-pop'> <div id='booking-slider' data-value='" + value + "'></div> <div class='row'> <div class='col-md-4 available'><span>available</span></div> <div class='col-md-4 semi-available'><span>semi-available</span></div> <div class='col-md-4 unavailable'><span>unavailable</span></div> </div> </div>";
+        html = "<button type='button' class='close booking-popover-close' aria-hidden='true'>&times;</button> <div class='booking-slider-pop'> <div id='booking-slider' data-value='" + value + "'></div> <div class='row'> <div class='col-md-4 available'><span>{{#polyglot}}available{{/polyglot}}</span></div> <div class='col-md-4 semi-available'><span>{{#polyglot}}semi-available{{/polyglot}}</span></div> <div class='col-md-4 unavailable'><span>{{#polyglot}}unavailable{{/polyglot}}</span></div> </div> </div>";
         return html;
       };
 

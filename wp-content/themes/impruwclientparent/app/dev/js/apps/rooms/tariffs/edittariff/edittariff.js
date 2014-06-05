@@ -90,7 +90,7 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/edittarif
         },
         'click .delete-tariff-btn': function(e) {
           e.preventDefault();
-          if (confirm(_.polyglot.t('The tariff will be deleted for the plan and date range. Are you sure you want to continue?'))) {
+          if (confirm(_.polyglot.t('Confirm tarrif delete'))) {
             return this.trigger("delete:tariff", this.model);
           }
         }

@@ -46,7 +46,7 @@ define ['app', 'controllers/base-controller',
 
             onSavedPlan: ->
                 @$el.parent().find('.alert').remove()
-                @$el.parent().prepend "<div class=\"alert alert-success\">" + _.polyglot.t("You have created a new plan. Update your tariff by clicking on the plan") + "</div>"
+                @$el.parent().prepend "<div class=\"alert alert-success\">" + _.polyglot.t("New tarriff created") + "</div>"
                 @$el.find('input').val ''
                 @$el.find('textarea').val ''
 
