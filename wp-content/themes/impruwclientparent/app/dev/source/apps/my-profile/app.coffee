@@ -18,9 +18,12 @@ define [
         API =
             show: ()->
                 new MyProfileApp.Show.Controller
-                    region: App.rightRegion
+                                region: App.rightRegion
 
 
         MyProfileApp.on 'start': ->
             new MyProfileApp.Router
-                controller: API
+                        controller: API
+
+        App.commands.setHandler "show:myprofile:app", ->
+            API.show()

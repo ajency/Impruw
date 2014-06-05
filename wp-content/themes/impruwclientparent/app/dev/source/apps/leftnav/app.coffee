@@ -9,10 +9,11 @@ define ['app','apps/leftnav/show/controller'], (App)->
 											region : App.leftRegion
 				
 
-		LeftNav.on 'start', ->
-			
+		LeftNav.on 'start', ->			
 			_.logAppMsg "LeftNav Module started..."
+			API.show()
 
+		App.commands.setHandler "show:leftnav:app", ->
 			API.show()
 			
 

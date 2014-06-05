@@ -22,14 +22,18 @@ define ['app', 'controllers/base-controller'
 
             updateLanguage: (lang)=>
                 @model.set 'user_lang': lang
-                @model.save null,
-                    onlyChanged: true
-                    wait: true
-                    success: @languageUpdated
+                $.post AJAXURL + '?action=update-user-language',
+                    (
+                        user_lang : lang
+                    ),@languageUpdated, 'json'
 
 
-            languageUpdated: =>
+            languageUpdated:(response) =>
                 @view.triggerMethod "user:lang:updated"
+                _.polyglot = new Polyglot
+                                    phrases : response.PHRASES
+                App.execute "show:leftnav:app"
+                App.execute "show:myprofile:app"
 
         App.commands.setHandler "show:language:form", (opts) ->
             new Language.Controller opts
