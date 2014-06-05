@@ -59,7 +59,7 @@ define ['app', 'controllers/base-controller',
 
                 'click .delete-tariff-btn': (e) ->
                     e.preventDefault()
-                    if confirm _.polyglot.t 'The tariff will be deleted for the plan and date range. Are you sure you want to continue?'
+                    if confirm _.polyglot.t 'Confirm tarrif delete'
 
                         @trigger "delete:tariff", @model
 

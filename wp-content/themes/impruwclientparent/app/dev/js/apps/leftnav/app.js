@@ -9,8 +9,11 @@ define(['app', 'apps/leftnav/show/controller'], function(App) {
         });
       }
     };
-    return LeftNav.on('start', function() {
+    LeftNav.on('start', function() {
       _.logAppMsg("LeftNav Module started...");
+      return API.show();
+    });
+    return App.commands.setHandler("show:leftnav:app", function() {
       return API.show();
     });
   });

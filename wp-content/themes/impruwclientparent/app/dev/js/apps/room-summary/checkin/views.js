@@ -61,7 +61,7 @@ define(['app', 'text!apps/room-summary/checkin/templates/checkinView.html'], fun
 
       CheckinForm.prototype.onCheckinTimeUpdated = function() {
         this.$el.find('.alert').remove();
-        return this.$el.prepend('<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Check-in Time Saved.</div>');
+        return this.$el.prepend('<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + _.polyglot.t('Check-in Time Saved') + '</div>');
       };
 
       return CheckinForm;
