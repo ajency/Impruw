@@ -98,21 +98,21 @@ define ['app'
             													<div class="aj-imp-img-form col-sm-8">
             														<div class="row">
             															<div class="col-sm-6">
-            																<input type="text" name="title" value="{{title}}" class="form-control" placeholder="Title">
+            																<input type="text" name="title" value="{{title}}" class="form-control" placeholder="{{#polyglot}}Title{{/polyglot}}">
             															</div>
             															<div class="col-sm-6">
-            																<input type="url" type="link" name="link" value="{{link}}" class="form-control" placeholder="Link">
+            																<input type="url" type="link" name="link" value="{{link}}" class="form-control" placeholder="{{#polyglot}}Link{{/polyglot}}">
             															</div>
             														</div>
             														<div class="row">
             															<div class="col-sm-12">
-            																<textarea name="description" class="form-control" placeholder="Description">{{description}}</textarea>
+            																<textarea name="description" class="form-control" placeholder="{{#polyglot}}Description{{/polyglot}}">{{description}}</textarea>
             															</div>
             														</div>
             													</div>
             												</div>
             												<div class="aj-imp-img-save">
-            													<button type="button" class="btn update-slide">Update</button>
+            													<button type="button" class="btn update-slide">{{#polyglot}}Update{{/polyglot}}</button>
             												</div>
             											</form>
             										</div>
@@ -127,7 +127,7 @@ define ['app'
                 'click .remove-slide': (e)->
                     e.preventDefault()
                     e.stopPropagation()
-                    if confirm('Are you sure?')
+                    if confirm(_.polyglot.t 'Are you sure?')
                         @trigger "remove:slide", @model
 
             onRender: ->
@@ -135,7 +135,7 @@ define ['app'
 
         class NoSlidesView extends Marionette.ItemView
 
-            template: '<div class="alert">No images found. Please add images.</div>'
+            template: '<div class="alert">{{#polyglot}}No images found. Please add images.{{/polyglot}}</div>'
 
         # colllection view
         class SlidesListView extends Marionette.CompositeView
@@ -145,10 +145,10 @@ define ['app'
             										&nbsp;
             									</div>
             									<div class="col-sm-5">
-            										File Name
+            										{{#polyglot}}File Name{{/polyglot}}
             									</div>
             									<div class="col-sm-4">
-            										Actions
+            										{{#polyglot}}Actions{{/polyglot}}
             									</div>
             								</div>
             								<div class="panel-group" id="slides-accordion"></div>'
@@ -185,7 +185,7 @@ define ['app'
 
             template: '<div id="slides-list-region"></div>
             								<div class="aj-imp-block-button add-new-slide">
-            									<button class="btn btn-default btn-hg btn-block"><span class="bicon icon-uniF10C"></span>&nbsp;&nbsp;Add Image</button>
+            									<button class="btn btn-default btn-hg btn-block"><span class="bicon icon-uniF10C"></span>&nbsp;&nbsp;{{#polyglot}}Add Image{{/polyglot}}</button>
             								</div>
             								<div id="add-slide-region"></div>'
 
@@ -195,7 +195,7 @@ define ['app'
                     @trigger "show:add:new:slide"
 
             dialogOptions:
-                modal_title: 'Image Gallery'
+                modal_title: _.polyglot.t 'Image Gallery'
                 modal_size: 'wide-modal'
 
             onShowAddSlide: ->
@@ -211,7 +211,7 @@ define ['app'
                 # remove previous alert message
                 @$el.find('.alert').remove()
 
-                @$el.prepend '<div class="alert alert-success">Order updated successfully</div>'
+                @$el.prepend "<div class=\"alert alert-success\">" + _.polyglot.t("Updated successfully") + "</div>"
 
 
         App.commands.setHandler 'show:slides:list', (opts = {})->

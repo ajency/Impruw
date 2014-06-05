@@ -60,7 +60,7 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/addtariff
       AddTariffView.prototype.template = addTariffTpl;
 
       AddTariffView.prototype.dialogOptions = {
-        modal_title: 'Add Tariff',
+        modal_title: _.polyglot.t('Add Tariff'),
         modal_size: 'medium-modal'
       };
 
@@ -76,7 +76,7 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/addtariff
 
       AddTariffView.prototype.onSavedTariff = function() {
         this.$el.parent().find('.alert').remove();
-        return this.$el.parent().prepend('<div class="alert alert-success"> Tariff added succesfully for the plan</div>');
+        return this.$el.parent().prepend("<div class=\"alert alert-success\">" + _.polyglot.t("Tariff added succesfully for the plan") + "</div>");
       };
 
       AddTariffView.prototype.onShow = function() {

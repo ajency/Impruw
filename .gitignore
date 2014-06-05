@@ -1,41 +1,7 @@
-# As Yeoman assumes the usage of Bower and Grunt, ignore the below:
-node_modules
-
-# Ignore automatically generated cruft
-*.log
-.sass-cache
-.htaccess
-.idea
+html/nbproject
 nbproject
-
-# Ignore config
+.htaccess
 wp-config.php
-
-# ignore wordpress unit tests
-tests/
-
-# Operating system files
-.Spotlight-V100
-.Trashes
-.DS_Store
-.DS_Store?
-ehthumbs.db
-Thumbs.db
-
-# Vagrant
-.vagrant
-
-# WordPress + popular plugin generated — adapted from:
-# https://github.com/github/gitignore/blob/master/WordPress.gitignore
-sitemap.xml
-sitemap.xml.gz
-wp-content/advanced-cache.php
-wp-content/backup-db
-wp-content/backups
-wp-content/blogs.dir
-wp-content/cache/
+robots.txt
 wp-content/uploads
-wp-content/upgrade
-wp-content/site-resources
-wp-content/wp-cache-config.php
-wp-content/plugins/wp-mail-smtp
+.externalToolBuilders/

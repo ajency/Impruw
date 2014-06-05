@@ -50,7 +50,7 @@ define ['app'], (App)->
 
                 isSingleRoom = Marionette.getOption @, 'inSingleRoom'
                 if isSingleRoom
-                    @$el.attr "data-content", "Please visit <a href='#url'>to update room gallery</a> "
+                    @$el.attr "data-content", "Manage room gallery <a href='#{SITEURL}/dashboard/#rooms'>here</a> "
                     @$el.popover
                         html : true
                         placement : 'top'

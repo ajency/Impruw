@@ -59,7 +59,7 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/plan/temp
       AddPlanView.prototype.template = addPlanTpl;
 
       AddPlanView.prototype.dialogOptions = {
-        modal_title: 'Add Plan',
+        modal_title: _.polyglot.t('Add Plan'),
         modal_size: 'medium-modal'
       };
 
@@ -75,7 +75,7 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/plan/temp
 
       AddPlanView.prototype.onSavedPlan = function() {
         this.$el.parent().find('.alert').remove();
-        this.$el.parent().prepend('<div class="alert alert-success">You have created a new plan. Update your tariff by clicking on the plan</div>');
+        this.$el.parent().prepend("<div class=\"alert alert-success\">" + _.polyglot.t("You have created a new plan. Update your tariff by clicking on the plan") + "</div>");
         this.$el.find('input').val('');
         return this.$el.find('textarea').val('');
       };

@@ -70,7 +70,7 @@ define(['app', 'controllers/base-controller', 'apps/rooms/facilities/list/views'
 
       AddFacilityView.prototype.className = 'facility add';
 
-      AddFacilityView.prototype.template = '<input type="text" name="name" class="form-control input-sm "> <span class="input-group-btn add-facility">Add</span>';
+      AddFacilityView.prototype.template = '<input type="text" name="name" class="form-control input-sm "> <span class="input-group-btn add-facility">{{#polyglot}}Add{{/polyglot}}</span>';
 
       AddFacilityView.prototype.events = {
         'click .add-facility': function() {

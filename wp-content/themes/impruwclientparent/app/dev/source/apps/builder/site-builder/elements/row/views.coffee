@@ -29,6 +29,9 @@ define ['app'], (App)->
                             $(evt.target).addClass 'empty-column'
                     update: (e, ui)=>
                         @trigger "element:moved", $(e.target)
+                        if ui.item.find('form').find('input[name="element"]').val() is 'Row'
+                            ui.item.children('.element-markup').children().trigger 'row:is:moved',
+                                ui.item.children('.element-markup').children().prop 'id'
                         $(e.target).removeClass 'empty-column'
 
 
@@ -65,6 +68,21 @@ define ['app'], (App)->
                 _.delay =>
                     @setColumnResizer()
                 , 400
+
+                @$el.on 'row:is:moved',(evt,id)=>
+
+                    if @$el.attr('id') is id
+                        console.log "#{id} is moved"
+                        @setColumnResizer()
+                  
+                @$el.find('.column').on "class:changed",(e)=>
+                    e.stopPropagation()
+                    @$el.find('.row').trigger "adjust:resizer"
+
+                @$el.on "adjust:resizer",(e)=>
+                    e.stopPropagation()
+                    console.log 'column resizer set'
+                    @setColumnResizer()
 
             # set new classes on style change
             onStyleChanged: (newStyle, old)->
@@ -192,6 +210,9 @@ define ['app'], (App)->
 
                 $(columns[0]).attr('data-class', newClassZero).addClass "col-md-#{newClassZero}"
                 $(columns[1]).attr('data-class', newClassOne).addClass "col-md-#{newClassOne}"
+
+                $(columns[0]).trigger "class:changed"
+                $(columns[1]).trigger "class:changed"
 
 
             # setting the containment for resizer

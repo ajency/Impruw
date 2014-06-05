@@ -33,15 +33,12 @@ define ['jquery', 'underscore', 'jqueryvalidate'], ($, _)->
             left: ((($(parent).width() - @outerWidth()) / 2) + $(parent).scrollLeft() + "px")
         this
 
-     #programatically select elements
+    #programatically select elements
     $.fn.selectSelectableElements = (elementsToSelect)->
         # remove the class ui-selected for the ones not selected
-        $(".ui-selected", @).not(elementsToSelect).
-        removeClass("ui-selected")
+        $(".ui-selected", @).not(elementsToSelect).removeClass("ui-selected")
         # add ui-selected class to the elements to select
         $(elementsToSelect).not(".ui-selected").addClass("ui-selected")
-
-
 
     # scroll to top
     $.scrollTop = ->

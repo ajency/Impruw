@@ -69,7 +69,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
 
       CreateSliderView.prototype.className = 'form-horizontal';
 
-      CreateSliderView.prototype.template = '<div class="form-group"> <label class="col-md-2 control-label">Slider Name</label> <div class="col-md-10"> <input required type="text" name="title" class="form-control" placeholder="Name Your Slider" /> </div> </div> <div class="form-group"> <div class="col-md-10 col-md-offset-2"> <button type="button" class="btn btn-primary create-new-slider">Create Slider</button> <button type="btutton" class="btn cancel-new-slider">Cancel</button> </div> </div>';
+      CreateSliderView.prototype.template = '<div class="form-group"> <label class="col-md-2 control-label">{{#polyglot}}Slider Name{{/polyglot}}</label> <div class="col-md-10"> <input required type="text" name="title" class="form-control" placeholder="{{#polyglot}}Name Your Slider{{/polyglot}}" /> </div> </div> <div class="form-group"> <div class="col-md-10 col-md-offset-2"> <button type="button" class="btn btn-primary create-new-slider">{{#polyglot}}Create Slider{{/polyglot}}</button> <button type="btutton" class="btn cancel-new-slider">{{#polyglot}}Cancel{{/polyglot}}</button> </div> </div>';
 
       CreateSliderView.prototype.events = {
         'click button.cancel-new-slider': function() {

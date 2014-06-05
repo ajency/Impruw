@@ -13,7 +13,7 @@ define(['app', 'text!apps/builder/site-builder/elements/roomtariff/template/main
       RoomTariffView.prototype.template = mainTpl;
 
       RoomTariffView.prototype.onShow = function() {
-        this.$el.attr("data-content", "Please visit <a href='#url'>to update room tariff</a> ");
+        this.$el.attr("data-content", "Add/Edit room tariff <a href='" + SITEURL + "/dashboard/#rooms'>here</a> ");
         return this.$el.popover({
           html: true,
           placement: 'top'

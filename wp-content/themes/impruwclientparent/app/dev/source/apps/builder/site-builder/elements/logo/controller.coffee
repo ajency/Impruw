@@ -22,7 +22,7 @@ define ['app', 'apps/builder/site-builder/elements/logo/views',
 
             _getLogoView: (imageModel)->
                 new Logo.Views.LogoView
-                    model: imageModel
+                            model: imageModel
 
             # setup templates for the element
             renderElement: ()=>

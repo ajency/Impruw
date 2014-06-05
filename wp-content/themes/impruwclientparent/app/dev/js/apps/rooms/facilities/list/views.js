@@ -15,7 +15,7 @@ define(['app'], function(App) {
 
       FacilityItem.prototype.tagName = 'div';
 
-      FacilityItem.prototype.template = '<div class="display_facility"> <label for="checkbox2" class="checkbox "> <input type="checkbox" {{#selected}}checked="true"{{/selected}} data-toggle="checkbox" name="facility[{{term_id}}]" value="{{term_id}}"> <span class="facility-name">{{name}}</span> </label> <div class="action"> <a href="javascript:void(0)" class="edit">Edit</a>&nbsp; <a href="javascript:void(0)" class="delete">Delete</a> </div> </div> <div class="update_facility hidden"> <div class="facility_update"> <input type="text" name="facility_name" class="form-control input-sm" value="{{name}}" /> <div class="facility_actions"> <a href="javascript:void(0)" class="update">Update</a> <a href="javascript:void(0)" class="cancel" >Cancel</a> </div> </div> </div>';
+      FacilityItem.prototype.template = '<div class="display_facility"> <label for="checkbox2" class="checkbox "> <input type="checkbox" {{#selected}}checked="true"{{/selected}} data-toggle="checkbox" name="facility[{{term_id}}]" value="{{term_id}}"> <span class="facility-name">{{name}}</span> </label> <div class="action"> <a href="javascript:void(0)" class="edit">{{#polyglot}}Edit{{/polyglot}}</a>&nbsp; <a href="javascript:void(0)" class="delete">{{#polyglot}}Delete{{/polyglot}}</a> </div> </div> <div class="update_facility hidden"> <div class="facility_update"> <input type="text" name="facility_name" class="form-control input-sm" value="{{name}}" /> <div class="facility_actions"> <a href="javascript:void(0)" class="update">{{#polyglot}}Update{{/polyglot}}</a> <a href="javascript:void(0)" class="cancel" >{{#polyglot}}Cancel{{/polyglot}}</a> </div> </div> </div>';
 
       FacilityItem.prototype.serializeData = function() {
         var data;
@@ -33,7 +33,7 @@ define(['app'], function(App) {
 
       FacilityItem.prototype.events = {
         'click a.delete': function() {
-          if (confirm('Are you sure?')) {
+          if (confirm(_.polyglot.t('Are you sure?'))) {
             return this.trigger("delete:facility:clicked", this.model);
           }
         },

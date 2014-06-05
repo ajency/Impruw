@@ -76,7 +76,7 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/edittarif
       EditTariffView.prototype.template = editTariffTpl;
 
       EditTariffView.prototype.dialogOptions = {
-        modal_title: 'Edit Tariff',
+        modal_title: _.polyglot.t('Edit Tariff'),
         modal_size: 'medium-modal'
       };
 
@@ -90,14 +90,14 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/edittarif
         },
         'click .delete-tariff-btn': function(e) {
           e.preventDefault();
-          if (confirm('The tariff will be deleted for the plan and date range. Are you sure you want to continue?')) {
+          if (confirm(_.polyglot.t('The tariff will be deleted for the plan and date range. Are you sure you want to continue?'))) {
             return this.trigger("delete:tariff", this.model);
           }
         }
       };
 
       EditTariffView.prototype.onSavedTariff = function() {
-        return this.$el.parent().prepend('<div class="alert alert-success"> Tariff updated successfully </div>');
+        return this.$el.parent().prepend("<div class=\"alert alert-success\">" + _.polyglot.t("Tariff updated successfully") + "</div>");
       };
 
       EditTariffView.prototype.onDeletedTariff = function() {

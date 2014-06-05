@@ -10,13 +10,13 @@ function read_site_ajax() {
 
     $site_id = get_current_blog_id();
 
-    $data                           = get_site_details( $site_id );
-    $data [ 'checkin_time' ]        = get_option( 'checkin-time' );
+    $data = get_site_details( $site_id );
+    $data [ 'checkin_time' ] = get_option( 'checkin-time' );
     $data [ 'checkin_time_format' ] = get_option( 'checkin-time-format' );
-    $data [ 'additional_policy' ]   = get_option( 'additional-policy' );
-    $data [ 'statistics_enabled' ]  = get_option( 'statistics_enabled' );
-    $data [ 'piwik_path' ]          = PIWIK_PATH;
-    $data [ 'piwik_token' ]         = PIWIK_AUTH_TOKEN;
+    $data [ 'additional_policy' ] = get_option( 'additional-policy' );
+    $data [ 'statistics_enabled' ] = get_option( 'statistics_enabled' );
+    $data [ 'piwik_path' ] = PIWIK_PATH;
+    $data [ 'piwik_token' ] = PIWIK_AUTH_TOKEN;
 
     if ( is_array( $data ) )
         wp_send_json( array( 'code' => 'OK', 'data' => $data ) );
@@ -34,7 +34,7 @@ function assign_theme_to_site_ajax() {
     $site_id = get_current_blog_id();
 
     $new_theme_id = $_POST[ 'new_theme_id' ];
-    $clone_pages  = !isset( $_POST[ 'clone_pages' ] ) ? TRUE : FALSE;
+    $clone_pages = !isset( $_POST[ 'clone_pages' ] ) ? TRUE : FALSE;
 
     assign_theme_to_site( $new_theme_id, $clone_pages );
 
@@ -96,3 +96,12 @@ function create_piwik_site( $site_id ) {
     return $tracking_code;
 
 }
+
+function ajax_site_logout() {
+
+    wp_logout();
+
+    wp_send_json( array( 'code' => 'OK', 'redirect_url' => network_home_url() ) );
+}
+
+add_action( 'wp_ajax_site-logout', 'ajax_site_logout' );

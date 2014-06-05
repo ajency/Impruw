@@ -62,7 +62,7 @@ define ['app'
             className: 'facility add'
 
             template: '<input type="text" name="name" class="form-control input-sm ">
-            								<span class="input-group-btn add-facility">Add</span>'
+            								<span class="input-group-btn add-facility">{{#polyglot}}Add{{/polyglot}}</span>'
 
             events:
                 'click .add-facility': ->

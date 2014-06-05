@@ -35,6 +35,7 @@
         jqueryvalidate: 'plugins/jquery.validate',
         isotope: 'plugins/isotope',
         plupload: 'plugins/plupload.full',
+        polyglot: 'plugins/polyglot',
         themepunch: 'plugins/themepunch.plugins.min',
         revslider: 'plugins/revolution.min',
         googlemap: 'https://maps.googleapis.com/maps/api/js?sensor=false',
@@ -63,6 +64,9 @@
         },
         googlemap: {
             exports: 'google'
+        },
+        polyglot: {
+            exports: 'Polyglot'
         },
         holder: 'Holder',
         jqueryvalidate: ['jquery'],

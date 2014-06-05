@@ -45,15 +45,15 @@ define ['app'
             className: 'form-horizontal'
 
             template: '<div class="form-group">
-            									<label class="col-md-2 control-label">Slider Name</label>
+            									<label class="col-md-2 control-label">{{#polyglot}}Slider Name{{/polyglot}}</label>
             									<div class="col-md-10">
-            										<input required type="text" name="title" class="form-control" placeholder="Name Your Slider" />
+            										<input required type="text" name="title" class="form-control" placeholder="{{#polyglot}}Name Your Slider{{/polyglot}}" />
             									</div>
             								</div>
             								<div class="form-group">
             									<div class="col-md-10 col-md-offset-2">
-            										<button type="button" class="btn btn-primary create-new-slider">Create Slider</button>
-            										<button type="btutton" class="btn cancel-new-slider">Cancel</button>
+            										<button type="button" class="btn btn-primary create-new-slider">{{#polyglot}}Create Slider{{/polyglot}}</button>
+            										<button type="btutton" class="btn cancel-new-slider">{{#polyglot}}Cancel{{/polyglot}}</button>
             									</div>
             								</div>'
 

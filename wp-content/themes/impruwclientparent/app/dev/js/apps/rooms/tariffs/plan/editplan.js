@@ -2,7 +2,7 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/plan/templates/editPlan.html'], function(App, AppController, editPlanTpl) {
+define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/plan/templates/editPlan.html', 'polyglot'], function(App, AppController, editPlanTpl, Polyglot) {
   return App.module("RoomsApp.RoomsTariff.Plan.Edit", function(Edit, App) {
     var EditPlanController, EditPlanView;
     EditPlanController = (function(_super) {
@@ -70,7 +70,7 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/plan/temp
       EditPlanView.prototype.template = editPlanTpl;
 
       EditPlanView.prototype.dialogOptions = {
-        modal_title: 'Edit Plan',
+        modal_title: _.polyglot.t('Edit Plan'),
         modal_size: 'medium-modal'
       };
 
@@ -84,7 +84,7 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/plan/temp
         },
         'click #btn_deleteplan': function(e) {
           e.preventDefault();
-          if (confirm('The plan will not exist for all the date ranges. Are you sure you want to continue?')) {
+          if (confirm(_.polyglot.t("plan will not exist"))) {
             return this.trigger("delete:plan", this.model);
           }
         }
@@ -92,7 +92,7 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/plan/temp
 
       EditPlanView.prototype.onSavedPlan = function() {
         this.$el.parent().find('.alert').remove();
-        return this.$el.parent().prepend('<div class="alert alert-success">Updated successfully</div>');
+        return this.$el.parent().prepend("<div class=\"alert alert-success\">" + _.polyglot.t("Updated successfully") + "</div>");
       };
 
       EditPlanView.prototype.onDeletedPlan = function() {

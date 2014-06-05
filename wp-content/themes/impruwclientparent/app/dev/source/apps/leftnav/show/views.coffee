@@ -24,6 +24,12 @@ define ['app'
 
                     @$el.find('.aj-imp-nav-create').append('<ul class="sub-menu">' + submenuTpl + '</ul>')
 
+            events:
+                'click' :->
+                    linkName = @$el.find('a').attr 'href'
+                    if linkName == '#logout'
+                        @trigger "logout:clicked"
+
             getSubmenuTpl : (submenu) ->
                 @submenuTpl = " "
 
@@ -78,3 +84,4 @@ define ['app'
                 jPM = $.jPanelMenu()
 
                 jPM.close()
+
