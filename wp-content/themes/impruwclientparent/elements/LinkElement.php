@@ -1,6 +1,7 @@
 <?php
+
 /**
- * This class is responsible for all actions/functions related to 
+ * This class is responsible for all actions/functions related to
  * Title Element
  *
  * @category   layout
@@ -14,55 +15,55 @@
  * @since      Class available since Release 0.1
  * @deprecated NA
  */
-
 class LinkElement extends Element {
-    
+
     /**
      * The default type property for element
-     * @var String 
+     * @var String
      */
-    var $type       = 'link';
-    
+    var $type = 'link';
+
     /**
      * Default content for element
-     * @var String 
+     * @var String
      */
-    var $content    = '';
+    var $content = '';
 
 
     /**
      * Class name
      */
-    var $class_name  = 'link';
-    
-    
+    var $class_name = 'link';
+
+
     /**
      * The config to create a row element
+     *
      * @param array $config
      */
-    function __construct($element) {
-        
-        parent::__construct($element);
-        
-    	$this->link = $element['link'];
-    	$this->text = $element['text'];
-    	$this->target = $element['target'];
-        $this->style = sanitize_title($element['style']);
-        $this->markup  = $this->generate_markup();
-        
+    function __construct( $element ) {
+
+        parent::__construct( $element );
+
+        $this->link   = $element[ 'link' ];
+        $this->text   = $element[ 'text' ];
+        $this->target = $element[ 'target' ];
+        $this->style  = sanitize_title( $element[ 'style' ] );
+        $this->markup = $this->generate_markup();
+
     }
-    
+
     /**
      * Create the basic markup for an element
      * @uses className and tagName properties of element
      * @return String basic markup
      */
-    function generate_markup(){
-        
-        $template = '<span class="link {{style}}"><a href="{{link}}" target="{{target}}">{{text}}</a></span>';
+    function generate_markup() {
+
+        $template = '<span class="link {{style}}"><a href="http://{{link}}" target="{{target}}">{{text}}</a></span>';
         global $me;
-        return $me->render($template, $this);
+
+        return $me->render( $template, $this );
     }
-    
-   
+
 }
