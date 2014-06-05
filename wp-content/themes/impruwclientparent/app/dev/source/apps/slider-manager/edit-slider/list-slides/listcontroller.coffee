@@ -98,10 +98,10 @@ define ['app'
             													<div class="aj-imp-img-form col-sm-8">
             														<div class="row">
             															<div class="col-sm-6">
-            																<input type="text" name="title" value="{{title}}" class="form-control" placeholder="{{#polyglot}}Title{{#polyglot}}">
+            																<input type="text" name="title" value="{{title}}" class="form-control" placeholder="{{#polyglot}}Title{{/polyglot}}">
             															</div>
             															<div class="col-sm-6">
-            																<input type="url" type="link" name="link" value="{{link}}" class="form-control" placeholder="{{#polyglot}}Link{{#polyglot}}">
+            																<input type="url" type="link" name="link" value="{{link}}" class="form-control" placeholder="{{#polyglot}}Link{{/polyglot}}">
             															</div>
             														</div>
             														<div class="row">
