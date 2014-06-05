@@ -504,6 +504,15 @@ and open the template in the editor.
 .social li:hover a {
   top: -50px;
 }
+.social.social-left {
+  text-align: left;
+}
+.social.social-right {
+  text-align: right;
+}
+.social.social-center {
+  text-align: center;
+}
 @media (max-width: 767px) {
   .social {
     text-align: center;
