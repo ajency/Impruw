@@ -852,6 +852,18 @@ function get_theme_JS() {
     <script src="<?php echo get_parent_template_directory_uri(); ?>/js/jquery.slimmenu.min.js"></script>
     <script src="<?php echo get_parent_template_directory_uri(); ?>/js/contact.js"></script>
     <script src="<?php echo get_parent_template_directory_uri(); ?>/js/user_management.js"></script>
+    <script>
+        // Slimmenu Init
+        jQuery(document).ready(function () {
+            jQuery('.slimmenu').slimmenu({
+                resizeWidth: '767',
+                collapserTitle: 'Menu',
+                animSpeed: 'medium',
+                indentChildren: false,
+                childrenIndenter: '&nbsp;'
+            });
+        });
+    </script>
     <?php
     $theme_path = get_stylesheet_directory() . "/js";
     if ( file_exists( $theme_path ) && is_dir( $theme_path ) ) {
