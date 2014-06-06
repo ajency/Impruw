@@ -41,8 +41,9 @@ define(['app', 'controllers/base-controller', 'apps/my-profile/language/views'],
 
       Controller.prototype.languageUpdated = function(response) {
         this.view.triggerMethod("user:lang:updated");
+        window.PHRASES = response.PHRASES;
         _.polyglot = new Polyglot({
-          phrases: response.PHRASES
+          phrases: window.PHRASES
         });
         App.execute("show:leftnav:app");
         return App.execute("show:myprofile:app");
