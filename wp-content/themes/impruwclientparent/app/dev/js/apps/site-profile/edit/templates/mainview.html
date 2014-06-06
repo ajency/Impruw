@@ -1,25 +1,25 @@
 <header class="aj-imp-dash-header row">
     <div class="aj-imp-dash-title col-xs-12">
-        <h2 class="aj-imp-page-head">My Site Profile</h2>
+        <h2 class="aj-imp-page-head">{{#polyglot}}My Site Profile{{/polyglot}}</h2>
     </div>
 </header>
 <div class="row">
     <div class="aj-imp-dash-content col-md-12">
         <form class="form-horizontal clearfix" name="form-siteprofile" id="form-siteprofile">
-            <div class="scroll-indicator-container scrollsection" id="general-settings" data-text="General Settings">
-                <h4 class="aj-imp-sub-head scroll-ref">General Settings</h4>
+            <div class="scroll-indicator-container scrollsection" id="general-settings" data-text="{{#polyglot}}General Settings{{/polyglot}}">
+                <h4 class="aj-imp-sub-head scroll-ref">{{#polyglot}}General Settings{{/polyglot}}</h4>
                 <div class="form-group">
-                    <label for="inputEmail3" class="col-sm-2 control-label">Site Name</label>
+                    <label for="inputEmail3" class="col-sm-2 control-label">{{#polyglot}}Site Name{{/polyglot}}</label>
                     <div class="col-sm-10 col-sm-offset-2">
                         <div class="input-group">
                             <input type="text" class="form-control" id="sitename" disabled="disabled" name="site_name" 
                             value="{{site_domain}}" >
-                            <span class="input-group-addon">.impruw.com</span>
+                            <span class="input-group-addon">{{#polyglot}}impruw.com{{/polyglot}}</span>
                         </div>
                     </div>
                 </div>
                 <div class="form-group pic-upload">
-                    <label for="inputFile3" class="col-sm-2 control-label">Upload Your Logo</label>
+                    <label for="inputFile3" class="col-sm-2 control-label">{{#polyglot}}Upload Your Logo{{/polyglot}}</label>
                     <div class="col-sm-10 col-sm-offset-2">
                         <div class="fileinput fileinput-new" data-provides="fileinput">
                           <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 300px; height: 100px;">
@@ -28,11 +28,11 @@
                           <div>
                             <span class="btn btn-default btn-file">
                                 <!--<span class="fileinput-new">Select image</span> -->
-                                <span class="fileinput-exists">Change</span>
+                                <span class="fileinput-exists">{{#polyglot}}Change{{/polyglot}}</span>
                                 <input type="file" >
                                 <input type="text" name="logo_id" id="logo_id" value="{{logo_id}}">
                             </span>
-                            <a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput">Remove</a>
+                            <a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput">{{#polyglot}}Remove{{/polyglot}}</a>
                           </div>
                         </div>
                     </div>
@@ -61,31 +61,31 @@
                 </div> -->
             </div>
 
-            <div class="scroll-indicator-container scrollsection" id="business-details" data-text="Business Details">
-                <h4 class="aj-imp-sub-head scroll-ref">Business Details <small>These details will be used in your contact us page.</small></h4>
+            <div class="scroll-indicator-container scrollsection" id="business-details" data-text="{{#polyglot}}Business Details{{/polyglot}}">
+                <h4 class="aj-imp-sub-head scroll-ref">{{#polyglot}}Business Details{{/polyglot}}<small>{{#polyglot}}Details for contactus{{/polyglot}}</small></h4>
                     
                 <div class="form-group">
-                    <label for="inputAddress1" class="col-sm-2 control-label">Street</label>
+                    <label for="inputAddress1" class="col-sm-2 control-label">{{#polyglot}}Street{{/polyglot}}</label>
                     <div class="col-sm-10 col-sm-offset-2">
-                        <input type="text" value="{{street}}" class="form-control" id="inputAddress1" placeholder="21 Jump Street" name="street">
+                        <input type="text" value="{{street}}" class="form-control" id="inputAddress1" placeholder="{{#polyglot}}21 Jump Street{{/polyglot}}" name="street">
                     </div>
                 </div>
                 
                 <div class="form-group dual">
                     <div class="col-sm-5">
                         <div class="form-group">
-                            <label for="inputAddress2" class="col-sm-5 control-label">Postal Code</label>
+                            <label for="inputAddress2" class="col-sm-5 control-label">{{#polyglot}}Postal Code{{/polyglot}}</label>
                             <div class="col-sm-7 col-sm-offset-5">
-                                <input type="text" class="form-control" name="postal_code" id="inputAddress2" data-mask="999-999" placeholder="420-001" value="{{postal_code}}">
+                                <input type="text" class="form-control" name="postal_code" id="inputAddress2" data-mask="999-999" placeholder="{{#polyglot}}420-001{{/polyglot}}" value="{{postal_code}}">
                             </div>
                         </div>
                     </div>
 
                     <div class="col-sm-5">
                         <div class="form-group">
-                            <label for="inputAddress3" class="col-sm-5 control-label">City / Town</label>
+                            <label for="inputAddress3" class="col-sm-5 control-label">{{#polyglot}}City Town{{/polyglot}}</label>
                             <div class="col-sm-7 col-sm-offset-5">
-                                <input type="text" class="form-control" id="inputAddress2" placeholder="Gotham City" name="city" value="{{city}}">
+                                <input type="text" class="form-control" id="inputAddress2" placeholder="{{#polyglot}}Gotham City{{/polyglot}}" name="city" value="{{city}}">
                             </div>
                         </div>
                     </div>
@@ -93,27 +93,27 @@
                 
                 
                 <div class="form-group">
-                    <label for="inputAddress4" class="col-sm-2 control-label dd-label">Country</label>
+                    <label for="inputAddress4" class="col-sm-2 control-label dd-label">{{#polyglot}}Country{{/polyglot}}</label>
                     <div class="col-sm-10 col-sm-offset-2">
                         <select name="country">
-                            <option value="Norway">Norway</option>
-                            <option value="Sweden">Sweden</option>
-                            <option value="Denmark">Denmark</option>
+                            <option value="Norway">{{#polyglot}}Norway{{/polyglot}}</option>
+                            <option value="Sweden">{{#polyglot}}Sweden{{/polyglot}}</option>
+                            <option value="Denmark">{{#polyglot}}Denmark{{/polyglot}}</option>
                         </select>
                     </div>
                 </div>
                 
                 
                 <div class="form-group add-another">
-                    <label for="inputEmail1" class="col-sm-2 control-label">Email</label>
+                    <label for="inputEmail1" class="col-sm-2 control-label">{{#polyglot}}Email{{/polyglot}}</label>
                     <div class="col-sm-4 col-sm-offset-2">
-                        <input type="email" class="form-control" id="inputEmail1" placeholder="youremail@site.com" name="other_emails[]" value="{{other_emails}}">
+                        <input type="email" class="form-control" id="inputEmail1" placeholder="{{#polyglot}}youremail@site.com{{/polyglot}}" name="other_emails[]" value="{{other_emails}}">
                         <!--<span class="help-block add-another-link"><a href="#"><span class="glyphicon glyphicon-plus-sign"></span> Add Another</a></span>-->
                     </div>                              
                 
-                    <label for="inputPhone1" class="col-sm-2 control-label label-2">Phone</label>
+                    <label for="inputPhone1" class="col-sm-2 control-label label-2">{{#polyglot}}Phone{{/polyglot}}</label>
                     <div class="col-sm-4 col-sm-offset-2">
-                        <input type="text" class="form-control" id="inputEmail1" data-mask="99-999-999" placeholder="99-888-777" name="other_phone_no[]" value="{{other_phone_no}}">
+                        <input type="text" class="form-control" id="inputEmail1" data-mask="99-999-999" placeholder="{{#polyglot}}99-888-777{{/polyglot}}" name="other_phone_no[]" value="{{other_phone_no}}">
                         <!--<span class="help-block add-another-link"><a href="#"><span class="glyphicon glyphicon-plus-sign"></span> Add Another</a></span>-->
                     </div>
                 </div>
@@ -142,24 +142,24 @@
                 </div> -->
             </div>
 
-            <div class="scroll-indicator-container scrollsection" id="social-settings" data-text="Social Settings">
-                <h4 class="aj-imp-sub-head scroll-ref">Social Settings <small>Update the social tags on your website.</small></h4>
+            <div class="scroll-indicator-container scrollsection" id="social-settings" data-text="{{#polyglot}}Social Settings{{/polyglot}}">
+                <h4 class="aj-imp-sub-head scroll-ref">{{#polyglot}}Social Settings{{/polyglot}}<small>{{#polyglot}}Update social tags{{/polyglot}}</small></h4>
                 <div class="form-group">
-                    <label for="inputSocial1" class="col-sm-2 control-label">Facebook</label>
+                    <label for="inputSocial1" class="col-sm-2 control-label">{{#polyglot}}Facebook{{/polyglot}}</label>
                     <div class="col-sm-10 col-sm-offset-2">
                         <div class="input-group">
-                            <span class="input-group-addon">www.facebook.com/</span>
-                            <input type="text" class="form-control" id="inputSocial1" placeholder="yourpageurl" name="facebook" value="{{facebook}}">
+                            <span class="input-group-addon">{{#polyglot}}Facebook url{{/polyglot}}</span>
+                            <input type="text" class="form-control" id="inputSocial1" placeholder="{{#polyglot}}yourpageurl{{/polyglot}}" name="facebook" value="{{facebook}}">
                         </div>
                     </div>
                 </div>
                 
                 <div class="form-group">
-                    <label for="inputSocial2" class="col-sm-2 control-label">Twitter</label>
+                    <label for="inputSocial2" class="col-sm-2 control-label">{{#polyglot}}Twitter{{/polyglot}}</label>
                     <div class="col-sm-10 col-sm-offset-2">
                         <div class="input-group">
-                            <span class="input-group-addon">www.twitter.com/</span>
-                            <input type="text" class="form-control" id="inputSocial2" placeholder="Twitter" name="twitter" value ="{{twitter}}">
+                            <span class="input-group-addon">{{#polyglot}}Twitter url{{/polyglot}}</span>
+                            <input type="text" class="form-control" id="inputSocial2" placeholder="{{#polyglot}}Twitter{{/polyglot}}" name="twitter" value ="{{twitter}}">
                         </div>
                     </div>
                 </div>
@@ -167,12 +167,12 @@
                 <div class="form-group">
                     <div class="col-sm-10 col-sm-offset-2">
                         <div class="help-block">
-                            It's always a good idea to have social links on your website. The reasons are
-                            <h6>It’s the future</h6>
-                            No business wants to get left behind right? Every single day that passes the more your competition promote across social media. This wave of social media marketing is here to stay, and if you don’t jump on board now you are severely hampering your chances of longevity online – which is where more business is going.
+                            {{#polyglot}}Good social links{{/polyglot}}
+                            <h6>{{#polyglot}}The future{{/polyglot}}</h6>
+                            {{#polyglot}}social media marketing{{/polyglot}}
                             <br><br>
-                            <h6>It's the best way to come up in search results</h6>
-                            Every time you create content on a social media site that links back to your website, the search engines see that link. Every time the search engines “see” a link to your site, it makes them think, “Wow, that site must be pretty important, seeing as there are so many other places linking to it.” When the search engines think your site is important, they will make your listing appear higher in the results.
+                            <h6>{{#polyglot}}search results{{/polyglot}}</h6>
+                            {{#polyglot}}search engine{{/polyglot}}
                         </div>
                     </div>
                 </div>
@@ -323,7 +323,7 @@
             <div class="aj-imp-long-form-actions" data-spy="affix">
                 <div class="action">
                     <!--<div class="affix-show">You have unsaved changes!</div>-->
-                    <button type="button" id="btn_savesitedetails"  name="btn_savesitedetails" class="btn btn-wide aj-imp-submit">Save</button>
+                    <button type="button" id="btn_savesitedetails"  name="btn_savesitedetails" class="btn btn-wide aj-imp-submit">{{#polyglot}}Save{{/polyglot}}</button>
                     <img src ='{{THEMEURL}}/images/loader.gif' width="38" height="30"  id="siteprofilesubmitm_loader" style="display:none"/>
                 </div>
             </div>

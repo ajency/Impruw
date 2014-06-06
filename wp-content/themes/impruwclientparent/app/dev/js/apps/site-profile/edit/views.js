@@ -25,7 +25,7 @@ define(['app', 'text!apps/site-profile/edit/templates/mainview.html', 'text!apps
         var data;
         data = MainView.__super__.serializeData.call(this);
         if (data.logo_url === "") {
-          data.logo_url = "http://placehold.it/100&text=Logo";
+          data.logo_url = "http://placehold.it/100&text=" + _.polyglot.t('Logo');
         }
         return data;
       };
@@ -43,7 +43,7 @@ define(['app', 'text!apps/site-profile/edit/templates/mainview.html', 'text!apps
 
       MainView.prototype.onSiteProfileAdded = function() {
         this.$el.find('.alert').remove();
-        this.$el.find('#form-siteprofile').prepend('<div class="alert alert-success alert-dismissable"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> Save successfully</div>');
+        this.$el.find('#form-siteprofile').prepend('<div class="alert alert-success alert-dismissable"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + _.polyglot.t("Save successfully") + '</div>');
         return $('html, body').animate({
           scrollTop: 0
         }, 1000);

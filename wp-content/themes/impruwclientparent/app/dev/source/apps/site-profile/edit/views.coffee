@@ -17,7 +17,7 @@ define ['app'
             # show the image
             serializeData: ->
                 data = super()
-                data.logo_url = "http://placehold.it/100&text=Logo" if data.logo_url is ""
+                data.logo_url = "http://placehold.it/100&text="+_.polyglot.t('Logo') if data.logo_url is ""
                 data
 
             onShow: ->
@@ -40,8 +40,8 @@ define ['app'
             onSiteProfileAdded: ->
                 @$el.find('.alert').remove()
                 @$el.find('#form-siteprofile').prepend '<div class="alert alert-success alert-dismissable">
-                							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                							Save successfully</div>'
+                							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'+
+                							_.polyglot.t("Save successfully")+'</div>'
                 $('html, body').animate
                     scrollTop: 0
                 , 1000
