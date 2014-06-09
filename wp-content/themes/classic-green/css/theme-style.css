@@ -1619,6 +1619,12 @@ and open the template in the editor.
   background: #5ca9a1;
   padding-top: 2em;
 }
+@media (max-width: 767px) {
+  .row.green-background .title,
+  .row.green-background .link.header-button {
+    text-align: center;
+  }
+}
 .row.grey-background {
   background: #656565 !important;
   color: #fff;
