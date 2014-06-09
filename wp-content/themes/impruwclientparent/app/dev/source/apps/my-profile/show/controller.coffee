@@ -42,8 +42,5 @@ define ['app', 'controllers/base-controller'
             getPasswordFormView: ->
                 new Show.View.PasswordForm
 
-            test: ->
-                console.log 'hi'
-
 
     App.MyProfileApp.Show.Controller
