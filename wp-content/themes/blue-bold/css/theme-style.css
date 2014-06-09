@@ -340,13 +340,17 @@ and open the template in the editor.
 .image-placeholder {
   margin: 0.5em 0;
   padding: 0.5em 0.5em 1em;
-  border: 1px dashed #f2f2f2;
+  border: 1px dashed #989898;
   text-align: center;
+  color: #989898;
+  font-size: 1.2em;
 }
 .image-placeholder .glyphicon {
-  color: #f2f2f2;
-  font-size: 3em;
+  color: #989898;
+  font-size: 2.7em;
   text-shadow: 1px 1px 2px #000000;
+  display: block;
+  margin: 0 0 0.5em;
 }
 /****Link Element Styles****/
 .link {
