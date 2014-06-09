@@ -172,6 +172,10 @@
 .site-style-container #left-bar-open .logo {
   float: left;
   padding: 0;
+  max-width: 80%;
+}
+.site-style-container #left-bar-open .logo .img-responsive {
+  max-height: 50px;
 }
 @media (max-width: 993px) {
   .site-style-container #left-bar-open {
@@ -384,13 +388,17 @@ and open the template in the editor.
 .image-placeholder {
   margin: 0.5em 0;
   padding: 0.5em 0.5em 1em;
-  border: 1px dashed #2a3b66;
+  border: 1px dashed #989898;
   text-align: center;
+  color: #989898;
+  font-size: 1.2em;
 }
 .image-placeholder .glyphicon {
-  color: #2a3b66;
-  font-size: 3em;
+  color: #989898;
+  font-size: 2.7em;
   text-shadow: 1px 1px 2px #000000;
+  display: block;
+  margin: 0 0 0.5em;
 }
 /****Link Element Styles****/
 .link {
@@ -542,6 +550,15 @@ and open the template in the editor.
 }
 .social li:hover a {
   top: -50px;
+}
+.social.social-left {
+  text-align: left;
+}
+.social.social-right {
+  text-align: right;
+}
+.social.social-center {
+  text-align: center;
 }
 @media (max-width: 767px) {
   .social {

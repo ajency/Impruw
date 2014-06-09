@@ -5,3 +5,4 @@ wp-config.php
 robots.txt
 wp-content/uploads
 .externalToolBuilders/
+wp-content/site-resources

@@ -32,8 +32,8 @@ define ['app', 'text!apps/my-profile/password/templates/passwordform.html'], (Ap
 
             passwordErrorResponse: ->
                 @$el.find('.alert').remove()
-                @$el.prepend('<div class="alert alert-success">Password mismatch</div>')
+                @$el.prepend('<div class="alert alert-success">'+_.polyglot.t("Password mismatch")+'</div>')
 
             passwordSuccessResponse: ->
                 @$el.find('.alert').remove()
-                @$el.prepend('<div class="alert alert-success">Password Updated.Login again</div>')
+                @$el.prepend('<div class="alert alert-success">'+_.polyyglot.t("Password Updated")+'</div>')

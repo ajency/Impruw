@@ -18,8 +18,8 @@ define ['app'
 
             template: '<h4>
             									<span class="glyphicon glyphicon-calendar"></span>
-            									Monthly Calendar
-            									<span class="excerpt">Choose the dates you want to add availability for.</span>
+            									{{#polyglot}}Monthly Calendar{{/polyglot}}
+            									<span class="excerpt">{{#polyglot}}Choose availability dates{{/polyglot}}</span>
             								</h4>
             								<div id="room-booking-calendar"></div>
             								<br><br><br>
@@ -130,9 +130,9 @@ define ['app'
                 								<div class='booking-slider-pop'>
                 									<div id='booking-slider' data-value='#{value}'></div>
                 									<div class='row'>
-                										<div class='col-md-4 available'><span>available</span></div>
-                										<div class='col-md-4 semi-available'><span>semi-available</span></div>
-                										<div class='col-md-4 unavailable'><span>unavailable</span></div>
+                										<div class='col-md-4 available'><span>{{#polyglot}}available{{/polyglot}}</span></div>
+                										<div class='col-md-4 semi-available'><span>{{#polyglot}}semi-available{{/polyglot}}</span></div>
+                										<div class='col-md-4 unavailable'><span>{{#polyglot}}unavailable{{/polyglot}}</span></div>
                 									</div>
                 								</div>"
                 html

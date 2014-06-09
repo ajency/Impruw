@@ -435,13 +435,4 @@ jQuery(document).ready(function ($) {
 
         return html;
     }
-
-    /* Slimmenu */
-    $('.slimmenu').slimmenu({
-        resizeWidth: '767',
-        collapserTitle: 'Menu',
-        animSpeed: 'medium',
-        indentChildren: false,
-        childrenIndenter: '&nbsp;'
-    });
 });

@@ -1,5 +1,5 @@
 <?php
-function detectUserLanguage(){
+function detect_user_language(){
 	$currentUser = wp_get_current_user();
     $currentUserId = $currentUser->ID;
     //echo "<br/>Current userId --> ".$currentUserId;
@@ -12,17 +12,14 @@ function detectUserLanguage(){
     return $currentUserLang;
 }
 
-function loadLanguagePhrases(){
+function load_language_phrases(){
 
-    $currentUserLang = detectUserLanguage();
+    $currentUserLang = detect_user_language();
 
     if($currentUserLang==="English"){
         $file = "en-US.json"; 
     }
-    else if($currentUserLang==="Norsk"){
-        $file = "nb-NO.json"; 
-    }
-    else if($currentUserLang==="Swedish"){
+    else if($currentUserLang==="Norwegian"){
         $file = "nb-NO.json"; 
     }    
     else{

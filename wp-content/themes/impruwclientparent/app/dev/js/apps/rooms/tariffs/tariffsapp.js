@@ -57,7 +57,7 @@ define(['app', 'controllers/base-controller', 'apps/rooms/tariffs/show/showcontr
 
       RoomsTariffAppLayout.prototype.className = 'room-tariff-container';
 
-      RoomsTariffAppLayout.prototype.template = '</div> <div class="room-tariff-grid" id="room-tariff-grid"></div> <button type="button" class="btn-add-range"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;Add Date Range</button>';
+      RoomsTariffAppLayout.prototype.template = '</div> <div class="room-tariff-grid" id="room-tariff-grid"></div> <button type="button" class="btn-add-range"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;{{#polyglot}}Add Date Range{{/polyglot}}</button>';
 
       RoomsTariffAppLayout.prototype.events = {
         'click .btn-add-range': function() {

@@ -354,13 +354,17 @@ and open the template in the editor.
 .image-placeholder {
   margin: 0.5em 0;
   padding: 0.5em 0.5em 1em;
-  border: 1px dashed #39435c;
+  border: 1px dashed #ffffff;
   text-align: center;
+  color: #ffffff;
+  font-size: 1.2em;
 }
 .image-placeholder .glyphicon {
-  color: #39435c;
-  font-size: 3em;
+  color: #ffffff;
+  font-size: 2.7em;
   text-shadow: 1px 1px 2px #000000;
+  display: block;
+  margin: 0 0 0.5em;
 }
 /****Link Element Styles****/
 .link {
@@ -512,6 +516,15 @@ and open the template in the editor.
 }
 .social li:hover a {
   top: -50px;
+}
+.social.social-left {
+  text-align: left;
+}
+.social.social-right {
+  text-align: right;
+}
+.social.social-center {
+  text-align: center;
 }
 @media (max-width: 767px) {
   .social {
@@ -1630,7 +1643,7 @@ and open the template in the editor.
   margin-top: 1em;
   margin-bottom: 1em;
   padding-top: 1.5em;
-  border-top: 10px solid #24d07c;
+  border-top: 10px solid #24d07c !important;
 }
 .row.footer-columns > .column {
   padding-right: 1.5em;
@@ -1646,7 +1659,7 @@ and open the template in the editor.
 }
 .row.menu-bar {
   padding-bottom: 1.5em;
-  border-bottom: 10px solid #24d07c;
+  border-bottom: 10px solid #24d07c !important;
   margin-bottom: 1.5em;
 }
 @media (max-width: 991px) {
@@ -1808,16 +1821,6 @@ and open the template in the editor.
 .nav.slimmenu > li:last-child a {
   border-right: 0;
 }
-.nav .menu-collapser {
-  background: transparent;
-  color: #24d07c;
-  font-weight: 400;
-  text-shadow: none;
-}
-.nav .menu-collapser .collapse-button {
-  background: #24d07c;
-  border-radius: 0px;
-}
 .nav.footer-menu {
   padding: 0;
   text-align: left;
@@ -1858,6 +1861,16 @@ and open the template in the editor.
   .nav.footer-menu {
     text-align: center;
   }
+}
+.menu-collapser {
+  background: #545d73;
+  color: #24d07c;
+  font-weight: 400;
+  text-shadow: none;
+}
+.menu-collapser .collapse-button {
+  background: #39435c;
+  border-radius: 0px;
 }
 /**** Title Styles****/
 .title.site-title {
@@ -1915,11 +1928,15 @@ and open the template in the editor.
   padding: 0.5em 0.5em 1em;
   border: 1px dashed #ffffff;
   text-align: center;
+  color: #ffffff;
+  font-size: 1.2em;
 }
 .image-placeholder .glyphicon {
   color: #ffffff;
-  font-size: 3em;
+  font-size: 2.7em;
   text-shadow: 1px 1px 2px #000000;
+  display: block;
+  margin: 0 0 0.5em;
 }
 /****Address Element Styles****/
 .address {

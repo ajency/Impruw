@@ -48,10 +48,6 @@ define(['app', 'controllers/base-controller', 'apps/my-profile/show/views', 'ent
         return new Show.View.PasswordForm;
       };
 
-      Controller.prototype.test = function() {
-        return console.log('hi');
-      };
-
       return Controller;
 
     })(AppController);

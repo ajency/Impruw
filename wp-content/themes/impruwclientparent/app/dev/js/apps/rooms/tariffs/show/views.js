@@ -13,7 +13,7 @@ define(['app', 'moment'], function(App, moment) {
 
       PackageSingle.prototype.className = 'package-block-outer';
 
-      PackageSingle.prototype.template = '<div class="block clearfix"> <h6>{{plan_name}}</h6> <div class="package-desc"> {{plandescription}} </div> <a href="#" class="edit-pkg-link"><span class="glyphicon glyphicon-pencil"></span> Edit</a> </div>';
+      PackageSingle.prototype.template = '<div class="block clearfix"> <h6>{{plan_name}}</h6> <div class="package-desc"> {{plandescription}} </div> <a href="#" class="edit-pkg-link"><span class="glyphicon glyphicon-pencil"></span>{{#polyglot}}Edit{{/polyglot}}</a> </div>';
 
       PackageSingle.prototype.modelEvents = {
         "change": "render"
@@ -49,7 +49,7 @@ define(['app', 'moment'], function(App, moment) {
 
       PackagesView.prototype.className = 'tariff package-names clearfix';
 
-      PackagesView.prototype.template = '<div class="packages"><div class="package-blocks header clearfix"></div><button type="button" class="btn-add-plan"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;Add Plan</button></div>';
+      PackagesView.prototype.template = '<div class="packages"><div class="package-blocks header clearfix"></div><button type="button" class="btn-add-plan"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;{{#polyglot}}Add Plan{{/polyglot}}</button></div>';
 
       PackagesView.prototype.itemView = PackageSingle;
 
@@ -103,7 +103,7 @@ define(['app', 'moment'], function(App, moment) {
         return data;
       };
 
-      SingleTariff.prototype.template = '{{^id}} <div class="package-header"> <h6>{{plan_name}}</h6> <div class="package-desc"> {{plan_description}} </div> <a href="#" class="edit-pkg-link"><span class="glyphicon glyphicon-pencil"></span> Edit Plan</a> </div> <div class="block clearfix not-yet-added empty"> <span class="no-data"> <span class="glyphicon glyphicon-exclamation-sign"></span> </span> No Data Added <div class="block-action"> <button type="button" class="btn btn-sm add-trariff edit-tran"> <span class="glyphicon glyphicon-pencil"></span>&nbsp;Add </button> </div> </div> {{/id}} {{#id}} <div class="package-header"> <h6>{{plan_name}}</h6> <div class="package-desc"> {{plan_description}} </div> <a href="#" class="edit-pkg-link"><span class="glyphicon glyphicon-pencil"></span> Edit Plan</a> </div> <div class="block clearfix"> <div class="weekday"> Weekdays <span class="price">&#8364;&nbsp;{{weekday.charge}}</span> </div> <div class="weekend"> Weekends <span class="price">&#8364;&nbsp;{{weekend.charge}}</span> </div> <div class="tariff-label clearfix">Extra Adult</div> <div class="weekday"> <span class="price">&#8364;&nbsp;{{weekday.extra_adult}}</span> </div> <div class="weekend"> <span class="price">&#8364;&nbsp;{{weekend.extra_adult}}</span> </div> <div class="tariff-label clearfix">Extra Child</div> <div class="weekday"> <span class="price">&#8364;&nbsp;{{weekday.extra_child}}</span> </div> <div class="weekend"> <span class="price">&#8364;&nbsp;{{weekend.extra_child}}</span> </div> <div class="block-action"> <button type="button" class="btn btn-sm edit-trariff edit-tran"><span class="glyphicon glyphicon-pencil"></span>&nbsp;Edit</button> </div> </div> {{/id}}';
+      SingleTariff.prototype.template = '{{^id}} <div class="package-header"> <h6>{{plan_name}}</h6> <div class="package-desc"> {{plan_description}} </div> <a href="#" class="edit-pkg-link"><span class="glyphicon glyphicon-pencil"></span>{{#polyglot}}Edit Plan{{/polyglot}}</a> </div> <div class="block clearfix not-yet-added empty"> <span class="no-data"> <span class="glyphicon glyphicon-exclamation-sign"></span> </span>{{#polyglot}}No Data Added{{/polyglot}} <div class="block-action"> <button type="button" class="btn btn-sm add-trariff edit-tran"> <span class="glyphicon glyphicon-pencil"></span>&nbsp;{{#polyglot}}Add{{/polyglot}} </button> </div> </div> {{/id}} {{#id}} <div class="package-header"> <h6>{{plan_name}}</h6> <div class="package-desc"> {{plan_description}} </div> <a href="#" class="edit-pkg-link"><span class="glyphicon glyphicon-pencil"></span>{{#polyglot}}Edit Plan{{/polyglot}}</a> </div> <div class="block clearfix"> <div class="weekday"> {{#polyglot}}Weekdays{{/polyglot}} <span class="price">&#8364;&nbsp;{{weekday.charge}}</span> </div> <div class="weekend"> {{#polyglot}}Weekends{{/polyglot}} <span class="price">&#8364;&nbsp;{{weekend.charge}}</span> </div> <div class="tariff-label clearfix">{{#polyglot}}Extra Adult{{/polyglot}}</div> <div class="weekday"> <span class="price">&#8364;&nbsp;{{weekday.extra_adult}}</span> </div> <div class="weekend"> <span class="price">&#8364;&nbsp;{{weekend.extra_adult}}</span> </div> <div class="tariff-label clearfix">{{#polyglot}}Extra Child{{/polyglot}}</div> <div class="weekday"> <span class="price">&#8364;&nbsp;{{weekday.extra_child}}</span> </div> <div class="weekend"> <span class="price">&#8364;&nbsp;{{weekend.extra_child}}</span> </div> <div class="block-action"> <button type="button" class="btn btn-sm edit-trariff edit-tran"><span class="glyphicon glyphicon-pencil"></span>&nbsp;{{#polyglot}}Edit{{/polyglot}}</button> </div> </div> {{/id}}';
 
       return SingleTariff;
 
@@ -115,7 +115,7 @@ define(['app', 'moment'], function(App, moment) {
         return DateRageView.__super__.constructor.apply(this, arguments);
       }
 
-      DateRageView.prototype.template = '<div class="date-range"> <div class="range-name">{{daterange_name}}</div> <div class="from"> <span class="date">{{fromdate}}</span> to <span class="date">{{todate}}</span> </div> <a href="#" class="edit-range-link"><span class="glyphicon glyphicon-pencil"></span> Edit</a> </div> <div class="packages"> <div class="package-blocks clearfix"></div> </div>';
+      DateRageView.prototype.template = '<div class="date-range"> <div class="range-name">{{daterange_name}}</div> <div class="from"> <span class="date">{{fromdate}}</span> to <span class="date">{{todate}}</span> </div> <a href="#" class="edit-range-link"><span class="glyphicon glyphicon-pencil"></span> {{#polyglot}}Edit{{/polyglot}}</a> </div> <div class="packages"> <div class="package-blocks clearfix"></div> </div>';
 
       DateRageView.prototype.events = {
         'click .edit-range-link': function(e) {

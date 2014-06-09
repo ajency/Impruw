@@ -69,7 +69,7 @@ define ['app'], (App)->
 
             tagName: 'div'
 
-            template: 'No Facilities Found. Add Facilities to your Room here.'
+            template: '{{#polyglot}}No Facilities Found{{/polyglot}}'
 
 
         # Composite view

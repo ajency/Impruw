@@ -79,16 +79,6 @@
 			}
 		}
 	}
-	.menu-collapser {
-		background: transparent;
-		color: @primary1;
-		font-weight: 400;
-		text-shadow: none;
-		.collapse-button {
-			background: @primary1;
-			border-radius: 0px;
-		}
-	}
 	&.footer-menu {
 		padding: 0;
 		text-align: left;
@@ -122,5 +112,16 @@
 		@media(max-width:991px) {
 			text-align: center;
 		}
+	}
+}
+
+.menu-collapser {
+	background: @quarternary1;
+	color: @primary1;
+	font-weight: 400;
+	text-shadow: none;
+	.collapse-button {
+		background: @tertiary1;
+		border-radius: 0px;
 	}
 }

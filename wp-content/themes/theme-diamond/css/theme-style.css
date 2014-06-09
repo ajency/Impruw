@@ -342,13 +342,17 @@ and open the template in the editor.
 .image-placeholder {
   margin: 0.5em 0;
   padding: 0.5em 0.5em 1em;
-  border: 1px dashed #d7d3ca;
+  border: 1px dashed #989898;
   text-align: center;
+  color: #989898;
+  font-size: 1.2em;
 }
 .image-placeholder .glyphicon {
-  color: #d7d3ca;
-  font-size: 3em;
+  color: #989898;
+  font-size: 2.7em;
   text-shadow: 1px 1px 2px #000000;
+  display: block;
+  margin: 0 0 0.5em;
 }
 /****Link Element Styles****/
 .link {
@@ -500,6 +504,15 @@ and open the template in the editor.
 }
 .social li:hover a {
   top: -50px;
+}
+.social.social-left {
+  text-align: left;
+}
+.social.social-right {
+  text-align: right;
+}
+.social.social-center {
+  text-align: center;
 }
 @media (max-width: 767px) {
   .social {
@@ -1752,7 +1765,7 @@ and open the template in the editor.
 }
 @media (max-width: 991px) {
   .nav.slimmenu > li a:after {
-    display: none;
+    display: none !important;
   }
 }
 .nav.slimmenu > li .sub-collapser {
@@ -1795,17 +1808,6 @@ and open the template in the editor.
 }
 .nav.slimmenu > li:last-child a {
   border-right: 0;
-}
-.nav .menu-collapser {
-  background: transparent;
-  color: #dc6868;
-  font-family: 'Satisfy', cursive;
-  font-weight: 400;
-  text-shadow: none;
-}
-.nav .menu-collapser .collapse-button {
-  background: #dc6868;
-  border-radius: 0px;
 }
 .nav.footer-menu {
   padding: 0;
@@ -1862,6 +1864,19 @@ and open the template in the editor.
     text-align: center;
   }
 }
+.menu-collapser {
+  background: transparent;
+  color: #dc6868;
+  font-family: 'Satisfy', cursive;
+  font-weight: 400;
+  font-size: 2em;
+  text-shadow: none;
+  border-bottom: 1px solid #d7d3ca;
+}
+.menu-collapser .collapse-button {
+  background: #483535;
+  border-radius: 0px;
+}
 /**** Title Styles****/
 .title.site-title {
   color: #dc6868;
@@ -1892,6 +1907,13 @@ and open the template in the editor.
   display: table-cell;
   width: 50%;
   background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQIW2NkYGAwBgAAPQA1zJXiFgAAAABJRU5ErkJggg==) repeat-x center 0.72em;
+}
+@media (max-width: 991px) {
+  .title.box-title {
+    white-space: normal;
+    display: block;
+    border-bottom: 1px solid #bebebe;
+  }
 }
 .title.small-title {
   font-weight: 700;

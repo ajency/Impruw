@@ -49,7 +49,7 @@ define(['app', 'text!apps/my-profile/general/templates/generalform.html'], funct
 
       GeneralForm.prototype.onUserInfoUpdated = function() {
         this.$el.find('.alert').remove();
-        return this.$el.prepend('<div class="alert alert-success">User info updated successfully</div>');
+        return this.$el.prepend('<div class="alert alert-success">' + _.polyglot.t("User info updated") + '</div>');
       };
 
       return GeneralForm;

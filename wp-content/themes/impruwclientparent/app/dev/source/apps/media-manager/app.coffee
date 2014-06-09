@@ -74,7 +74,7 @@ define ['app'
                 editMediaRegion: '#edit-media-region'
 
             dialogOptions:
-                modal_title: 'Media Manager'
+                modal_title: _.polyglot.t 'Media Manager'
                 modal_size: 'wide-modal'
 
             events:
