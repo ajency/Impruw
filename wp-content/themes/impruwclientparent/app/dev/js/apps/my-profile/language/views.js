@@ -36,7 +36,7 @@ define(['app', 'text!apps/my-profile/language/templates/languageView.html'], fun
 
       LanguageForm.prototype.onUserLangUpdated = function() {
         this.$el.find('.alert').remove();
-        return this.$el.prepend('<div class="alert alert-success">User language updated successfully</div>');
+        return this.$el.prepend('<div class="alert alert-success">' + _.polyglot.t("User language updated") + '</div>');
       };
 
       return LanguageForm;

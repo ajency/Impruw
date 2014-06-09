@@ -24,6 +24,6 @@ define ['app', 'text!apps/my-profile/language/templates/languageView.html'], (Ap
 
             onUserLangUpdated: ->
                 @$el.find('.alert').remove()
-                @$el.prepend('<div class="alert alert-success">User language updated successfully</div>')
+                @$el.prepend('<div class="alert alert-success">'+_.polyglot.t("User language updated")+'</div>')
 
 							

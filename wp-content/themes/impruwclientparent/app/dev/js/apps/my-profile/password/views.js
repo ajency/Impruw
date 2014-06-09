@@ -49,12 +49,12 @@ define(['app', 'text!apps/my-profile/password/templates/passwordform.html'], fun
 
       PasswordForm.prototype.passwordErrorResponse = function() {
         this.$el.find('.alert').remove();
-        return this.$el.prepend('<div class="alert alert-success">Password mismatch</div>');
+        return this.$el.prepend('<div class="alert alert-success">' + _.polyglot.t("Password mismatch") + '</div>');
       };
 
       PasswordForm.prototype.passwordSuccessResponse = function() {
         this.$el.find('.alert').remove();
-        return this.$el.prepend('<div class="alert alert-success">Password Updated.Login again</div>');
+        return this.$el.prepend('<div class="alert alert-success">' + _.polyyglot.t("Password Updated") + '</div>');
       };
 
       return PasswordForm;

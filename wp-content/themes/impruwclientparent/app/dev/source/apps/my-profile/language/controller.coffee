@@ -30,8 +30,9 @@ define ['app', 'controllers/base-controller'
 
             languageUpdated:(response) =>
                 @view.triggerMethod "user:lang:updated"
+                window.PHRASES = response.PHRASES
                 _.polyglot = new Polyglot
-                                    phrases : response.PHRASES
+                                    phrases : window.PHRASES
                 App.execute "show:leftnav:app"
                 App.execute "show:myprofile:app"
 
