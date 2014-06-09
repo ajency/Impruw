@@ -22,6 +22,12 @@ define(['app', 'controllers/base-controller', 'apps/media/edit-media/views'], fu
             return Marionette.triggerMethod.call(_this.region, "size:select:changed", newSize);
           };
         })(this));
+        this.listenTo(view, 'update:image:data', function(data) {
+          model.set(data);
+          return model.save(null, {
+            wait: true
+          });
+        });
         return this.show(view);
       };
 

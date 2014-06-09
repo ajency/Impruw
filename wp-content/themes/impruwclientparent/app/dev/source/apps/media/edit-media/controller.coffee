@@ -14,6 +14,11 @@ define ['app', 'controllers/base-controller', 'apps/media/edit-media/views'], (A
                 @listenTo view, "size:select:changed", (newSize)=>
                     Marionette.triggerMethod.call(@region, "size:select:changed", newSize);
 
+                @listenTo view, 'update:image:data', (data)->
+                    model.set data
+                    model.save null,
+                        wait : true
+
                 @show view
 
             # gets the main login view

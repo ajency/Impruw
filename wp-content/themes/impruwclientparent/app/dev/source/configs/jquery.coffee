@@ -1,6 +1,6 @@
 ## You can add your own jquery plugins here
 ## Or even mixin some extra functions
-define ['jquery', 'underscore', 'jqueryvalidate'], ($, _)->
+define ['jquery', 'underscore', 'jqueryvalidate', 'configs/polyglot'], ($, _)->
 
     # define helper functions
     $.fn.isEmptyColumn = (params = {})->
@@ -24,22 +24,22 @@ define ['jquery', 'underscore', 'jqueryvalidate'], ($, _)->
 
     
     $.extend $.validator.messages,
-      required: _.polyglot.t("This field is required.")
-      remote: _.polyglot.t("Please fix this field.")
-      email: _.polyglot.t("Please enter a valid email address.")
-      url: _.polyglot.t("Please enter a valid URL.")
-      date: _.polyglot.t("Please enter a valid date.")
-      dateISO: _.polyglot.t("Please enter a valid date (ISO).")
-      number: _.polyglot.t("Please enter a valid number.")
-      digits: _.polyglot.t("Please enter only digits.")
-      creditcard: _.polyglot.t("Please enter a valid credit card number.")
-      equalTo: _.polyglot.t("Please enter the same value again.")
-      maxlength: $.validator.format(_.polyglot.t("Please enter no more than {0} characters."))
-      minlength: $.validator.format(_.polyglot.t("Please enter at least {0} characters."))
-      rangelength: $.validator.format(_.polyglot.t("Please enter a value between {0} and {1} characters long."))
-      range: $.validator.format(_.polyglot.t("Please enter a value between {0} and {1}."))
-      max: $.validator.format(_.polyglot.t("Please enter a value less than or equal to {0}."))
-      min: $.validator.format(_.polyglot.t("Please enter a value greater than or equal to {0}."))
+          required: _.polyglot.t("This field is required.")
+          remote: _.polyglot.t("Please fix this field.")
+          email: _.polyglot.t("Please enter a valid email address.")
+          url: _.polyglot.t("Please enter a valid URL.")
+          date: _.polyglot.t("Please enter a valid date.")
+          dateISO: _.polyglot.t("Please enter a valid date (ISO).")
+          number: _.polyglot.t("Please enter a valid number.")
+          digits: _.polyglot.t("Please enter only digits.")
+          creditcard: _.polyglot.t("Please enter a valid credit card number.")
+          equalTo: _.polyglot.t("Please enter the same value again.")
+          maxlength: $.validator.format(_.polyglot.t("Please enter no more than {0} characters."))
+          minlength: $.validator.format(_.polyglot.t("Please enter at least {0} characters."))
+          rangelength: $.validator.format(_.polyglot.t("Please enter a value between {0} and {1} characters long."))
+          range: $.validator.format(_.polyglot.t("Please enter a value between {0} and {1}."))
+          max: $.validator.format(_.polyglot.t("Please enter a value less than or equal to {0}."))
+          min: $.validator.format(_.polyglot.t("Please enter a value greater than or equal to {0}."))
 
 
     $.fn.center = (parent) ->
