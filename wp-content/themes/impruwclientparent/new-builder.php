@@ -67,7 +67,7 @@
     var THEMECOLORSET = '<?php echo get_option('current_color_set','default'); ?>';
     var AUTOSAVEINTERVAL = 55 * 1000;
     var ISTHEMEEDITOR = <?php echo is_network_admin() ? 'true' : 'false' ?>;
-    var PHRASES = {};
+    var PHRASES = <?php echo json_encode(load_language_phrases());?>;
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
 <script src="<?php echo get_parent_template_directory_uri() ?>/app/dev/js/plugins/pace.js"></script>
