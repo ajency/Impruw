@@ -340,13 +340,17 @@ and open the template in the editor.
 .image-placeholder {
   margin: 0.5em 0;
   padding: 0.5em 0.5em 1em;
-  border: 1px dashed #e1e1e1;
+  border: 1px dashed #7f7f7f;
   text-align: center;
+  color: #7f7f7f;
+  font-size: 1.2em;
 }
 .image-placeholder .glyphicon {
-  color: #e1e1e1;
-  font-size: 3em;
+  color: #7f7f7f;
+  font-size: 2.7em;
   text-shadow: 1px 1px 2px #000000;
+  display: block;
+  margin: 0 0 0.5em;
 }
 /****Link Element Styles****/
 .link {
@@ -1614,6 +1618,12 @@ and open the template in the editor.
 .row.green-background {
   background: #5ca9a1;
   padding-top: 2em;
+}
+@media (max-width: 767px) {
+  .row.green-background .title,
+  .row.green-background .link.header-button {
+    text-align: center;
+  }
 }
 .row.grey-background {
   background: #656565 !important;

@@ -1,4 +1,4 @@
-define(['jquery', 'underscore', 'jqueryvalidate'], function($, _) {
+define(['jquery', 'underscore', 'jqueryvalidate', 'configs/polyglot'], function($, _) {
   var adjustPageDim;
   $.fn.isEmptyColumn = function(params) {
     if (params == null) {
