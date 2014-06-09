@@ -653,6 +653,9 @@ form .aj-imp-submit:hover {
 .dropdown-menu li.selected a .text {
   color: #fff;
 }
+.dropdown-menu li.selected a:focus {
+  background: #ff7e00;
+}
 .dropdown-menu li.selected a:hover {
   background: #849fb0;
 }
@@ -747,6 +750,30 @@ form .aj-imp-submit:hover {
   color: #848484;
   font-weight: bold;
 }
+.aj-imp-lo-header > .row .lang-actions .main-menu {
+  display: inline-block;
+}
+.aj-imp-lo-header > .row .lang-actions .main-menu .menu {
+  list-style: none;
+  margin: 0.3em 0.5em 0 0;
+  padding: 0.3em 0.5em;
+  border-right: 1px solid #c3c3c3;
+}
+.aj-imp-lo-header > .row .lang-actions .main-menu .menu li {
+  display: inline-block;
+  margin-left: 1em;
+}
+.aj-imp-lo-header > .row .lang-actions .main-menu .menu li a {
+  padding: 0 0.5em;
+  color: #333333;
+  font-weight: 300;
+}
+.aj-imp-lo-header > .row .lang-actions .main-menu .menu li a:hover {
+  color: #ee4423;
+}
+.aj-imp-lo-header > .row .lang-actions .main-menu .menu li.current-menu-item a {
+  color: #ee4423;
+}
 .aj-imp-lo-header > .row .lang-actions .lang-sel {
   float: right;
   margin: 0.3em 0.5em;
@@ -835,6 +862,40 @@ form .aj-imp-submit:hover {
     padding-left: 32px !important;
     padding-bottom: 0 !important;
   }
+}
+.login-pop {
+  right: 5px;
+  left: auto !important;
+  width: 300px;
+}
+.login-pop .arrow {
+  left: 75.5% !important;
+}
+.login-pop .popover-content {
+  background: #fff;
+  border-radius: 0;
+  box-shadow: 0 0 2px #aaaaaa;
+  padding: 0.5em 0.5em 1px;
+}
+.login-pop .popover-content form {
+  padding: 0;
+  border: 0;
+}
+.login-pop .popover-content form .form-control {
+  border: 1px solid #dddddd;
+}
+.login-pop .popover-content form .form-control:focus,
+.login-pop .popover-content form .form-control:active {
+  border-color: #ff7e00;
+}
+.login-pop .popover-content #login_status_div {
+  display: none;
+  color: #f21515;
+  font-size: 1.2em;
+}
+.login-pop .popover-content #login_status_div #login_status {
+  font-size: 0.75em;
+  font-weight: 300;
 }
 /****Register Page Styles****/
 .aj-imp-register-form {
@@ -1076,34 +1137,41 @@ form .aj-imp-submit:hover {
   font-size: 1.1em;
   color: #c3c3c3;
 }
-.aj-imp-login-form .aj-imp-login {
+.aj-imp-login-form .aj-imp-login,
+.aj-imp-login-form .aj-imp-forgot {
   margin: 2em 0 0;
   padding: 0 1em;
 }
-.aj-imp-login-form .aj-imp-login form {
+.aj-imp-login-form .aj-imp-login form,
+.aj-imp-login-form .aj-imp-forgot form {
   border: 0;
   padding: 0;
 }
-.aj-imp-login-form .aj-imp-login form .aj-imp-log-forgot {
+.aj-imp-login-form .aj-imp-login form .aj-imp-log-forgot,
+.aj-imp-login-form .aj-imp-forgot form .aj-imp-log-forgot {
   font-size: 0.8em;
   margin-top: 2em;
   display: inline-block;
 }
 @media (max-width: 767px) {
-  .aj-imp-login-form .aj-imp-login form .aj-imp-log-forgot {
+  .aj-imp-login-form .aj-imp-login form .aj-imp-log-forgot,
+  .aj-imp-login-form .aj-imp-forgot form .aj-imp-log-forgot {
     margin-top: 1em;
   }
 }
-.aj-imp-login-form .aj-imp-login form .row {
+.aj-imp-login-form .aj-imp-login form .row,
+.aj-imp-login-form .aj-imp-forgot form .row {
   position: relative;
 }
-.aj-imp-login-form .aj-imp-login form .row .control-label {
+.aj-imp-login-form .aj-imp-login form .row .control-label,
+.aj-imp-login-form .aj-imp-forgot form .row .control-label {
   position: absolute;
   left: 0;
   top: 1em;
 }
 @media (max-width: 767px) {
-  .aj-imp-login-form .aj-imp-login form .row .control-label {
+  .aj-imp-login-form .aj-imp-login form .row .control-label,
+  .aj-imp-login-form .aj-imp-forgot form .row .control-label {
     position: static;
   }
 }
@@ -3444,15 +3512,17 @@ form .aj-imp-submit:hover {
   height: 30px !important;
   width: 30px !important;
 }
-/**** Language Page Styles ****/
-.language .aj-imp-sub-head-thin .bootstrap-select .dropdown-toggle {
+/**** Language and Billing Page Styles ****/
+.language .aj-imp-sub-head-thin .bootstrap-select .dropdown-toggle,
+.billing-container .aj-imp-sub-head-thin .bootstrap-select .dropdown-toggle {
   padding: 0;
   border-bottom: 0;
   font-size: 0.8em;
   text-transform: uppercase;
   font-weight: 300;
 }
-.language .aj-imp-dash-widget .nav-pills li a {
+.language .aj-imp-dash-widget .nav-pills li a,
+.billing-container .aj-imp-dash-widget .nav-pills li a {
   background: transparent;
   border-radius: 0;
   border: none;
@@ -3460,38 +3530,540 @@ form .aj-imp-submit:hover {
   color: #849fb0;
 }
 .language .aj-imp-dash-widget .nav-pills li:hover a,
-.language .aj-imp-dash-widget .nav-pills li :focus a {
+.billing-container .aj-imp-dash-widget .nav-pills li:hover a,
+.language .aj-imp-dash-widget .nav-pills li :focus a,
+.billing-container .aj-imp-dash-widget .nav-pills li :focus a {
   border-color: #849fb0;
   text-shadow: none;
 }
-.language .aj-imp-dash-widget .nav-pills li.active a {
+.language .aj-imp-dash-widget .nav-pills li.active a,
+.billing-container .aj-imp-dash-widget .nav-pills li.active a {
   color: #ff7e00;
   border-color: #ff7e00;
 }
-.language .aj-imp-widget-content .tab-content {
+.language .aj-imp-widget-content .tab-content,
+.billing-container .aj-imp-widget-content .tab-content {
   border-radius: 0;
   border: 0;
   padding: 1em 0 0.5em;
 }
-.language .aj-imp-widget-content .tab-content .legend-group {
+.language .aj-imp-widget-content .tab-content .legend-group,
+.billing-container .aj-imp-widget-content .tab-content .legend-group {
   margin-bottom: 0.5em;
 }
-.language .aj-imp-widget-content .tab-content .legend-group .form-group {
+.language .aj-imp-widget-content .tab-content .legend-group .form-group,
+.billing-container .aj-imp-widget-content .tab-content .legend-group .form-group {
   margin-bottom: 0;
 }
-.language .aj-imp-widget-content .tab-content .legend-group .form-group .aj-imp-widget-title {
+.language .aj-imp-widget-content .tab-content .legend-group .form-group .aj-imp-widget-title,
+.billing-container .aj-imp-widget-content .tab-content .legend-group .form-group .aj-imp-widget-title {
   border-bottom: 1px dotted #aaaaaa;
 }
-.language .aj-imp-widget-content .tab-content .original {
+.language .aj-imp-widget-content .tab-content .original,
+.billing-container .aj-imp-widget-content .tab-content .original {
   margin-bottom: 0;
   border-bottom: 1px solid #aaaaaa;
   padding: 8px 12px;
 }
-.language .form-horizontal {
+.language .form-horizontal,
+.billing-container .form-horizontal {
   margin: 0 0 1em;
   padding: 0;
   border: 0;
 }
-.language .aj-imp-long-form-actions.affix .action {
+.language .aj-imp-long-form-actions.affix .action,
+.billing-container .aj-imp-long-form-actions.affix .action {
   margin-right: -1em !important;
+}
+.billing-container .aj-imp-widget-head {
+  margin-bottom: 1em;
+}
+.billing-container .aj-imp-widget-head .bootstrap-select .dropdown-toggle {
+  background: transparent;
+  border-bottom: 0;
+}
+.billing-container .aj-imp-widget-head .bootstrap-select.open > .dropdown-menu {
+  min-height: initial !important;
+  text-align: left;
+}
+.billing-container .table thead th {
+  border-bottom: 2px solid #849fb0;
+  color: #849fb0;
+}
+/**** Pagination Styles ****/
+.pagination ul li a:hover,
+.pagination ul li a:focus {
+  background: #ff7e00;
+}
+/**** Homepage Styles ****/
+.aj-imp-homepage {
+  background: #fff;
+  margin: 0 -15px;
+}
+.aj-imp-homepage .home-1 {
+  background: url('../images/slider-bg.jpg');
+  background-size: cover;
+  text-align: center;
+  position: relative;
+}
+.aj-imp-homepage .home-1 h1 {
+  color: #fff;
+  font-weight: 300;
+  font-size: 3em;
+  padding: 1em 0;
+}
+.aj-imp-homepage .home-1 h1 span {
+  font-weight: 700;
+}
+.aj-imp-homepage .home-1 .big-sign {
+  background: #ee4423;
+  padding: 1em 1.5em;
+  border-radius: 3px;
+  margin-bottom: 1em;
+  box-shadow: 1px 1px 2px 1px #333333;
+}
+.aj-imp-homepage .home-1 .big-sign:hover {
+  background: #25406a;
+}
+.aj-imp-homepage .home-1 .img-responsive {
+  margin: 0 auto;
+  padding-bottom: 2em;
+}
+.aj-imp-homepage .home-1:after {
+  top: 100%;
+  left: 50%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+  border-color: rgba(136, 183, 213, 0);
+  border-top-color: #8E8E8E;
+  border-width: 25px;
+  margin-left: -25px;
+}
+.aj-imp-homepage .home-2 {
+  background: url('../images/bg_polka.png');
+  padding: 4em 15% 2em;
+}
+.aj-imp-homepage .home-2 h2 {
+  font-weight: 300;
+  color: #000;
+  margin-bottom: 1em;
+}
+@media (max-width: 767px) {
+  .aj-imp-homepage .home-2 h2 {
+    text-align: center;
+  }
+}
+.aj-imp-homepage .home-2 p {
+  color: #666;
+  font-size: 1.1em;
+  font-weight: 300;
+}
+@media (max-width: 767px) {
+  .aj-imp-homepage .home-2 p {
+    text-align: center;
+  }
+}
+.aj-imp-homepage .home-2 .info-blocks {
+  border-top: 1px solid #ccc;
+  padding: 2em 0;
+  text-align: center;
+  margin-top: 1em;
+}
+.aj-imp-homepage .home-2 .info-blocks .block {
+  display: inline-block;
+  width: 18%;
+  margin-right: 1%;
+  color: #333333;
+  vertical-align: top;
+  font-size: 1.2em;
+  font-weight: 300;
+  text-align: left;
+  line-height: 1.5em;
+}
+.aj-imp-homepage .home-2 .info-blocks .block:last-child {
+  margin-right: 0;
+}
+@media (max-width: 767px) {
+  .aj-imp-homepage .home-2 .info-blocks .block {
+    text-align: center;
+    width: 100%;
+    margin: 1em 0;
+  }
+}
+@media (max-width: 767px) {
+  .aj-imp-homepage .home-2 {
+    text-align: center;
+  }
+  .aj-imp-homepage .home-2 .img-responsive {
+    margin: 1em auto;
+  }
+}
+.aj-imp-homepage .home-3 {
+  padding: 3em 15% 2em;
+  text-align: center;
+  border-top: 2px solid #f3f3f3;
+}
+.aj-imp-homepage .home-3 h2 {
+  color: #000;
+  font-weight: 400;
+}
+.aj-imp-homepage .home-3 p {
+  color: #333333;
+  font-weight: 300;
+  margin-bottom: 2em;
+}
+.aj-imp-homepage .home-4 {
+  background: url('../images/bg_polka.png');
+  padding: 4em 15% 2em;
+}
+.aj-imp-homepage .home-4 h2 {
+  color: #000;
+  font-weight: 400;
+  text-align: center;
+}
+.aj-imp-homepage .home-4 p {
+  color: #333333;
+  font-weight: 300;
+  margin-bottom: 2em;
+  text-align: center;
+}
+.aj-imp-homepage .home-4 .info-blocks {
+  padding: 1em 0;
+  text-align: center;
+}
+.aj-imp-homepage .home-4 .info-blocks .block {
+  display: inline-block;
+  width: 48%;
+  margin-right: 1%;
+  color: #333333;
+  vertical-align: top;
+  font-size: 1.2em;
+  font-weight: 300;
+  text-align: left;
+  line-height: 1.5em;
+}
+.aj-imp-homepage .home-4 .info-blocks .block .icon-holder {
+  text-align: center;
+}
+.aj-imp-homepage .home-4 .info-blocks .block .icon-holder .icon {
+  color: #ee4423;
+  font-size: 3em;
+}
+.aj-imp-homepage .home-4 .info-blocks .block h4 {
+  font-weight: 400;
+  color: #000;
+  font-size: 1.3em;
+}
+.aj-imp-homepage .home-4 .info-blocks .block p {
+  font-size: 0.88em;
+  text-align: left;
+}
+@media (max-width: 767px) {
+  .aj-imp-homepage .home-4 .info-blocks .block p {
+    text-align: center;
+  }
+}
+.aj-imp-homepage .home-4 .info-blocks .block:last-child {
+  margin-right: 0;
+}
+@media (max-width: 767px) {
+  .aj-imp-homepage .home-4 .info-blocks .block {
+    text-align: center;
+    width: 100%;
+  }
+}
+.aj-imp-homepage .home-5 {
+  background: #29373f;
+  padding: 4em 15% 2em;
+  text-align: center;
+}
+.aj-imp-homepage .home-5 h2 {
+  color: #fff;
+  font-weight: 400;
+  text-align: center;
+}
+.aj-imp-homepage .home-5 p {
+  color: #fff;
+  font-weight: 300;
+  margin-bottom: 2em;
+  text-align: center;
+}
+.aj-imp-homepage .home-5 .img-responsive {
+  margin: 0 auto;
+  padding-bottom: 2em;
+}
+.aj-imp-homepage .home-6 {
+  background: url('../images/bg_polka.png');
+  padding: 6em 15%;
+  border-bottom: 2px solid #f3f3f3;
+}
+.aj-imp-homepage .home-6 h4 {
+  font-weight: 300;
+  text-align: right;
+  color: #000;
+  font-size: 3em;
+}
+@media (max-width: 767px) {
+  .aj-imp-homepage .home-6 h4 {
+    text-align: center;
+  }
+}
+.aj-imp-homepage .home-6 .big-sign {
+  background: #ee4423;
+  padding: 1em 1.5em;
+  border-radius: 3px;
+  margin-bottom: 1em;
+  box-shadow: 1px 1px 2px 1px #333333;
+}
+.aj-imp-homepage .home-6 .big-sign:hover {
+  background: #25406a;
+}
+@media (max-width: 767px) {
+  .aj-imp-homepage .home-6 .big-sign {
+    margin: 1em auto;
+  }
+}
+@media (max-width: 767px) {
+  .aj-imp-homepage .home-6 {
+    text-align: center;
+  }
+}
+/**** Contact Page Styles ****/
+.aj-imp-contactpage {
+  margin: 0 -15px;
+  background: url('../images/bg_polka.png');
+  padding: 2em 0;
+  border-bottom: 2px solid #f3f3f3;
+  border-top: 2px solid #f3f3f3;
+}
+.aj-imp-contactpage .main-title {
+  text-align: center;
+  color: #000;
+  font-weight: 300;
+}
+.aj-imp-contactpage .contact {
+  float: left;
+  width: 42%;
+  position: relative;
+  margin: 2%;
+  vertical-align: top;
+}
+.aj-imp-contactpage .contact h2 {
+  display: inline-block;
+  background: #ee4423;
+  color: #fff;
+  padding: 0.2em 1em;
+  font-weight: 400;
+}
+.aj-imp-contactpage .contact .c-address {
+  display: inline-block;
+  padding: 0.5em 1em;
+  margin-left: 0.5em;
+  color: #aaaaaa;
+  background: rgba(255, 255, 255, 0.7);
+}
+.aj-imp-contactpage .contact .c-map {
+  border-top: 3px solid transparent;
+}
+.aj-imp-contactpage .contact .c-map .embed-container {
+  position: relative;
+  padding-bottom: 56.25%;
+  padding-top: 30px;
+  height: 0;
+  overflow: hidden;
+  max-width: 100%;
+  height: auto;
+}
+.aj-imp-contactpage .contact .c-map .embed-container iframe,
+.aj-imp-contactpage .contact .c-map .embed-container object,
+.aj-imp-contactpage .contact .c-map .embed-container embed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.aj-imp-contactpage .contact .c-map:hover {
+  border-color: #ee4423;
+}
+.aj-imp-contactpage .contact.norway {
+  float: right;
+}
+@media (max-width: 767px) {
+  .aj-imp-contactpage .contact {
+    width: 96%;
+    float: none;
+  }
+}
+.aj-imp-contactpage .contact-form-container {
+  margin: 2em;
+  background: #fff;
+  box-shadow: 0 0 5px 4px #c3c3c3;
+}
+.aj-imp-contactpage .contact-form-container h3 {
+  font-weight: 300;
+  color: #333333;
+  font-size: 2em;
+  text-align: center;
+  text-transform: uppercase;
+  padding: 1em 0;
+}
+/**** Team Page Styles ****/
+.aj-imp-teampage {
+  margin: 0 -15px;
+  background: url('../images/bg_polka.png');
+  padding: 2em 0;
+  border-bottom: 2px solid #f3f3f3;
+  border-top: 2px solid #f3f3f3;
+}
+.aj-imp-teampage .main-title {
+  text-align: center;
+  color: #000;
+  font-weight: 300;
+}
+.aj-imp-teampage .desc {
+  text-align: center;
+  font-weight: 300;
+  color: #333333;
+  font-size: 1.3em;
+  padding: 0 2em;
+}
+.aj-imp-teampage .member {
+  margin: 2em 4em;
+  padding: 1em 0 0;
+  border-bottom: 1px solid #dadada;
+}
+.aj-imp-teampage .member .member-pic {
+  text-align: center;
+  height: 260px;
+  position: relative;
+  overflow: hidden;
+}
+.aj-imp-teampage .member .member-pic .img-circle {
+  border: 5px solid #fff;
+  height: 250px;
+  width: 250px;
+  box-shadow: 0 0 3px 3px #aaaaaa;
+  position: absolute;
+  bottom: -25%;
+  left: 25%;
+  transition: all 0.5s ease;
+}
+.aj-imp-teampage .member h4 {
+  font-weight: 300;
+  margin: 1.2em 0 1em;
+  color: #182944;
+}
+.aj-imp-teampage .member p {
+  color: #aaaaaa;
+  font-weight: 300;
+}
+.aj-imp-teampage .member.alt div[class*='col-sm-'] {
+  float: right;
+}
+@media (max-width: 767px) {
+  .aj-imp-teampage .member.alt div[class*='col-sm-'] {
+    width: 100%;
+    float: none;
+  }
+}
+.aj-imp-teampage .member:hover .member-pic .img-circle {
+  bottom: 5px;
+}
+.aj-imp-teampage .member:hover h4 {
+  color: #ee4423;
+}
+.aj-imp-teampage .member:hover p {
+  color: #333333;
+}
+/**** FAQ Page Styles ****/
+.aj-imp-faqpage {
+  margin: 0 -15px;
+  background: url('../images/bg_polka.png');
+  padding: 2em 0;
+  border-bottom: 2px solid #f3f3f3;
+  border-top: 2px solid #f3f3f3;
+}
+.aj-imp-faqpage .main-title {
+  text-align: center;
+  color: #000;
+  font-weight: 300;
+}
+.aj-imp-faqpage .desc {
+  text-align: center;
+  font-weight: 300;
+  color: #333333;
+  font-size: 1.3em;
+}
+.aj-imp-faqpage .faq-container {
+  margin: 0 4em;
+}
+.aj-imp-faqpage .faq-container .side-nav {
+  margin-top: 2em;
+}
+.aj-imp-faqpage .faq-container .side-nav h5 {
+  font-size: 1.5em;
+  font-weight: 300;
+  text-transform: uppercase;
+  text-decoration: underline;
+}
+.aj-imp-faqpage .faq-container .side-nav .nav-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.aj-imp-faqpage .faq-container .side-nav .nav-links li {
+  margin: 1em 0;
+}
+.aj-imp-faqpage .faq-container .side-nav .nav-links li:before {
+  display: inline-block;
+  content: "\2014";
+}
+.aj-imp-faqpage .faq-container .side-nav .affix {
+  top: 20px;
+}
+.aj-imp-faqpage .faqs {
+  margin: 1em 0;
+}
+.aj-imp-faqpage .faqs .question {
+  font-weight: 700;
+  color: #000;
+  margin: 0 0 0.5em;
+  font-size: 1.2em;
+}
+.aj-imp-faqpage .faqs .question:before {
+  display: inline-block;
+  content: "Q: ";
+  font-size: 1.5em;
+  color: #ee4423;
+  margin-right: 0.2em;
+  font-weight: 300;
+}
+.aj-imp-faqpage .faqs .answer {
+  font-weight: 400;
+  color: #333333;
+  margin: 0 0 2em;
+}
+.aj-imp-faqpage .faqs .answer:before {
+  display: inline-block;
+  content: "A: ";
+  font-size: 1.8em;
+  color: #71b8ec;
+  margin-right: 0.4em;
+  font-weight: 300;
+}
+.aj-imp-faqpage .faqs .category-head {
+  color: #333333;
+  margin: 2em 0 0.5em;
+  border-bottom: 1px solid #aaaaaa;
+  font-weight: 400;
+  font-size: 2.5em;
+}
+.aj-imp-faqpage .faqs .category-head a {
+  font-size: 0.5em;
+  color: #c3c3c3;
 }
