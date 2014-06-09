@@ -244,18 +244,12 @@
                 ),
         'ContactForm' => array(
                 array(
-                    'name' => 'Style One'
-                ),
-                array(
-                    'name' => 'Style Two'
+                    'name' => 'Default Style'
                 )
             ),
         'ImageWithText' => array(
                 array(
-                    'name' => 'Style One'
-                ),
-                array(
-                    'name' => 'Style Two'
+                    'name' => 'Default Style'
                 )
             ),
         'Address' => array(
