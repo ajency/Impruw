@@ -13,7 +13,7 @@ define ['app', 'moment'], (App, moment)->
             							<div class="package-desc">
             								{{plandescription}}
             							</div>
-            							<a href="#" class="edit-pkg-link"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
+            							<a href="#" class="edit-pkg-link"><span class="glyphicon glyphicon-pencil"></span>{{#polyglot}}Edit{{/polyglot}}</a>
             						</div>'
 
             modelEvents:
@@ -38,7 +38,7 @@ define ['app', 'moment'], (App, moment)->
 
             className: 'tariff package-names clearfix'
 
-            template: '<div class="packages"><div class="package-blocks header clearfix"></div><button type="button" class="btn-add-plan"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;Add Plan</button></div>'
+            template: '<div class="packages"><div class="package-blocks header clearfix"></div><button type="button" class="btn-add-plan"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;{{#polyglot}}Add Plan{{/polyglot}}</button></div>'
 
             itemView: PackageSingle
 
@@ -81,18 +81,17 @@ define ['app', 'moment'], (App, moment)->
             									<div class="package-desc">
             										{{plan_description}}
             									</div>
-            									<a href="#" class="edit-pkg-link"><span class="glyphicon glyphicon-pencil"></span> Edit Plan</a>
+            									<a href="#" class="edit-pkg-link"><span class="glyphicon glyphicon-pencil"></span>{{#polyglot}}Edit Plan{{/polyglot}}</a>
             							</div>
 
             							<div class="block clearfix not-yet-added empty">
 
             								<span class="no-data">
             									<span class="glyphicon glyphicon-exclamation-sign"></span>
-            								</span>
-            								No Data Added
+            								</span>{{#polyglot}}No Data Added{{/polyglot}}
             								<div class="block-action">
             									<button type="button" class="btn btn-sm add-trariff edit-tran">
-            										<span class="glyphicon glyphicon-pencil"></span>&nbsp;Add
+            										<span class="glyphicon glyphicon-pencil"></span>&nbsp;{{#polyglot}}Add{{/polyglot}}
             									</button>
             								</div>
             							</div>
@@ -103,25 +102,25 @@ define ['app', 'moment'], (App, moment)->
             								<div class="package-desc">
             									{{plan_description}}
             								</div>
-            								<a href="#" class="edit-pkg-link"><span class="glyphicon glyphicon-pencil"></span> Edit Plan</a>
+            								<a href="#" class="edit-pkg-link"><span class="glyphicon glyphicon-pencil"></span>{{#polyglot}}Edit Plan{{/polyglot}}</a>
             							</div>
             							<div class="block clearfix">
             								<div class="weekday">
-            									Weekdays
+            									{{#polyglot}}Weekdays{{/polyglot}}
             									<span class="price">&#8364;&nbsp;{{weekday.charge}}</span>
             								</div>
             								<div class="weekend">
-            									Weekends
+            									{{#polyglot}}Weekends{{/polyglot}}
             									<span class="price">&#8364;&nbsp;{{weekend.charge}}</span>
             								</div>
-            								<div class="tariff-label clearfix">Extra Adult</div>
+            								<div class="tariff-label clearfix">{{#polyglot}}Extra Adult{{/polyglot}}</div>
             								<div class="weekday">
             									<span class="price">&#8364;&nbsp;{{weekday.extra_adult}}</span>
             								</div>
             								<div class="weekend">
             									<span class="price">&#8364;&nbsp;{{weekend.extra_adult}}</span>
             								</div>
-            								<div class="tariff-label clearfix">Extra Child</div>
+            								<div class="tariff-label clearfix">{{#polyglot}}Extra Child{{/polyglot}}</div>
             								<div class="weekday">
             									<span class="price">&#8364;&nbsp;{{weekday.extra_child}}</span>
             								</div>
@@ -129,7 +128,7 @@ define ['app', 'moment'], (App, moment)->
             									<span class="price">&#8364;&nbsp;{{weekend.extra_child}}</span>
             								</div>
             								<div class="block-action">
-            									<button type="button" class="btn btn-sm edit-trariff edit-tran"><span class="glyphicon glyphicon-pencil"></span>&nbsp;Edit</button>
+            									<button type="button" class="btn btn-sm edit-trariff edit-tran"><span class="glyphicon glyphicon-pencil"></span>&nbsp;{{#polyglot}}Edit{{/polyglot}}</button>
             								</div>
             							</div>
             						{{/id}}'
@@ -143,7 +142,7 @@ define ['app', 'moment'], (App, moment)->
             								<span class="date">{{fromdate}}</span>
             								to <span class="date">{{todate}}</span>
             							</div>
-            							<a href="#" class="edit-range-link"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
+            							<a href="#" class="edit-range-link"><span class="glyphicon glyphicon-pencil"></span> {{#polyglot}}Edit{{/polyglot}}</a>
             						</div>
             						<div class="packages">
             							<div class="package-blocks clearfix"></div>

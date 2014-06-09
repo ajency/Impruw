@@ -67,7 +67,7 @@ define(['app'], function(App) {
 
       EmptyView.prototype.tagName = 'div';
 
-      EmptyView.prototype.template = 'No Facilities Found. Add Facilities to your Room here.';
+      EmptyView.prototype.template = '{{#polyglot}}No Facilities Found{{/polyglot}}';
 
       return EmptyView;
 

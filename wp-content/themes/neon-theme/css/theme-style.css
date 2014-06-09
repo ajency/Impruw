@@ -513,6 +513,15 @@ and open the template in the editor.
 .social li:hover a {
   top: -50px;
 }
+.social.social-left {
+  text-align: left;
+}
+.social.social-right {
+  text-align: right;
+}
+.social.social-center {
+  text-align: center;
+}
 @media (max-width: 767px) {
   .social {
     text-align: center;
@@ -1808,16 +1817,6 @@ and open the template in the editor.
 .nav.slimmenu > li:last-child a {
   border-right: 0;
 }
-.nav .menu-collapser {
-  background: transparent;
-  color: #24d07c;
-  font-weight: 400;
-  text-shadow: none;
-}
-.nav .menu-collapser .collapse-button {
-  background: #24d07c;
-  border-radius: 0px;
-}
 .nav.footer-menu {
   padding: 0;
   text-align: left;
@@ -1858,6 +1857,16 @@ and open the template in the editor.
   .nav.footer-menu {
     text-align: center;
   }
+}
+.menu-collapser {
+  background: #545d73;
+  color: #24d07c;
+  font-weight: 400;
+  text-shadow: none;
+}
+.menu-collapser .collapse-button {
+  background: #39435c;
+  border-radius: 0px;
 }
 /**** Title Styles****/
 .title.site-title {

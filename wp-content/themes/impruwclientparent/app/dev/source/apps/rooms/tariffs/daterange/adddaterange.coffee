@@ -46,7 +46,7 @@ define ['app', 'controllers/base-controller',
 
             onSavedDaterange: ->
                 @$el.parent().find('.alert').remove()
-                @$el.parent().prepend "<div class=\"alert alert-success\">" + _.polyglot.t("You have added a new date range. Add plans and tariff to the date range") + "</div>"
+                @$el.parent().prepend "<div class=\"alert alert-success\">" + _.polyglot.t("New Date range added") + "</div>"
                 @$el.find('input').val ''
 
             # show checkbox

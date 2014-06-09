@@ -25,12 +25,15 @@ define(['app', 'apps/my-profile/show/controller', 'apps/my-profile/general/contr
         });
       }
     };
-    return MyProfileApp.on({
+    MyProfileApp.on({
       'start': function() {
         return new MyProfileApp.Router({
           controller: API
         });
       }
+    });
+    return App.commands.setHandler("show:myprofile:app", function() {
+      return API.show();
     });
   });
 });

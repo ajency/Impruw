@@ -34,15 +34,19 @@ define(['app', 'controllers/base-controller', 'apps/my-profile/language/views'],
         this.model.set({
           'user_lang': lang
         });
-        return this.model.save(null, {
-          onlyChanged: true,
-          wait: true,
-          success: this.languageUpdated
-        });
+        return $.post(AJAXURL + '?action=update-user-language', {
+          user_lang: lang
+        }, this.languageUpdated, 'json');
       };
 
-      Controller.prototype.languageUpdated = function() {
-        return this.view.triggerMethod("user:lang:updated");
+      Controller.prototype.languageUpdated = function(response) {
+        this.view.triggerMethod("user:lang:updated");
+        window.PHRASES = response.PHRASES;
+        _.polyglot = new Polyglot({
+          phrases: window.PHRASES
+        });
+        App.execute("show:leftnav:app");
+        return App.execute("show:myprofile:app");
       };
 
       return Controller;

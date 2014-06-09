@@ -37,6 +37,6 @@ define ['app'
 
             onUserInfoUpdated: ->
                 @$el.find('.alert').remove()
-                @$el.prepend('<div class="alert alert-success">User info updated successfully</div>')
+                @$el.prepend('<div class="alert alert-success">'+_.polyglot.t("User info updated")+'</div>')
 
 	
