@@ -41,7 +41,7 @@
 				}
 				@media(max-width:991px) {
 					&:after {
-						display: none;
+						display: none !important;
 					}
 				}
 			}
@@ -88,17 +88,6 @@
 					border-right: 0;
 				}
 			}
-		}
-	}
-	.menu-collapser {
-		background: transparent;
-		color: @primary1;
-		font-family: 'Satisfy', cursive;
-		font-weight: 400;
-		text-shadow: none;
-		.collapse-button {
-			background: @primary1;
-			border-radius: 0px;
 		}
 	}
 	&.footer-menu {
@@ -148,5 +137,19 @@
 				text-align: center;
 			}
 		}
+	}
+}
+
+.menu-collapser {
+	background: transparent;
+	color: @primary1;
+	font-family: 'Satisfy', cursive;
+	font-weight: 400;
+	font-size: 2em;
+	text-shadow: none;
+	border-bottom: 1px solid @tertiary1;
+	.collapse-button {
+		background: @secondary1;
+		border-radius: 0px;
 	}
 }
