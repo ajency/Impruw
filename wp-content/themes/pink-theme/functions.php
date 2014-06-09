@@ -167,7 +167,7 @@
         }
 
 
-        return $html . '<div id="left-bar-open">
+        return $html . '<div id="left-bar-open" class="clearfix">
                         <a href="#fakelink" class="left-menu-trigger"><span class="glyphicon glyphicon-chevron-right"></span></a>
                         <a href="' . site_url() . '" class="logo"><img class="img-responsive" src="' . $logo . '"></a>
                     </div>';

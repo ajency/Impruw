@@ -172,6 +172,10 @@
 .site-style-container #left-bar-open .logo {
   float: left;
   padding: 0;
+  max-width: 80%;
+}
+.site-style-container #left-bar-open .logo .img-responsive {
+  max-height: 50px;
 }
 @media (max-width: 993px) {
   .site-style-container #left-bar-open {
