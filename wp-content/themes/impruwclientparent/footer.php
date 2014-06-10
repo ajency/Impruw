@@ -19,6 +19,7 @@
     var THEMEURL = '<?php echo get_parent_template_directory_uri(); ?>';
     var SITEURL = '<?php echo site_url(); ?>';
     var AJAXURL = '<?php echo admin_url('admin-ajax.php'); ?>';
+    var HOTELADDRESS = '<?php echo get_hotel_address() ?>';
 </script>
 <?php if ( is_singular() ): ?>
     <script type="text/javascript">
@@ -46,17 +47,18 @@
                 zoom: 8,
                 center: new google.maps.LatLng(-34.397, 150.644)
             };
-            map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
 
             geocoder.geocode({'address': HOTELADDRESS}, function (results, status) {
                 if (status == google.maps.GeocoderStatus.OK) {
+                    map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
                     map.setCenter(results[0].geometry.location);
                     var marker = new google.maps.Marker({
                         map: map,
                         position: results[0].geometry.location
                     });
-                } else {
-                    alert('Geocode was not successful for the following reason: ' + status);
+                }
+                else{
+                    jQuery('#map_canvas').parent().remove();
                 }
             });
         }
