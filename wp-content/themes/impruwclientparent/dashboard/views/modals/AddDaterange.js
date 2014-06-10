@@ -29,6 +29,8 @@ define(['modal', 'tpl!templates/modal/AddDateRange.tpl','parsley'],
                 
                 //add markup
                 var h = this.template({});
+
+                this.$el.addClass('wide-modal');
                 
                 this.$el.find('.modal-content').append(h);
                 
@@ -87,6 +89,7 @@ define(['modal', 'tpl!templates/modal/AddDateRange.tpl','parsley'],
             	
     			var fromDaterange 	=  $(evt.target).closest('.modal-content').find('#fromdaterange').val() 
     			var toDaterange		=  $(evt.target).closest('.modal-content').find('#todaterange').val() 
+    			var daterangeLabel		=  $(evt.target).closest('.modal-content').find('#daterange_label').val()
     			$(evt.target).next().show();
     			 
     			
@@ -95,7 +98,8 @@ define(['modal', 'tpl!templates/modal/AddDateRange.tpl','parsley'],
     			
     			var data = {	action			: 'add_date_range',						 
     							fromdaterange 	: fromDaterange,
-    							todaterange		: toDaterange
+    							todaterange		: toDaterange,
+    							daterangeLabel 	: daterangeLabel
     						};
     			
     			
@@ -108,6 +112,12 @@ define(['modal', 'tpl!templates/modal/AddDateRange.tpl','parsley'],
     				 	 	ImpruwDashboard.vent.trigger('new-date-range-added',response,evt_);
     				 	 	ImpruwDashboard.vent.trigger('modal-closed');
 						 	$(evt_.target).parent().parent().find('.close').click();
+						 	
+						 	self_.$el.find('#form_daterange')[0].reset();
+						 	self_.$el.find('.validation-icon').remove()
+							self_.$el.find('.has-error').removeClass('has-error')
+							self_.$el.find('.has-success').removeClass('has-success')
+							
     					 
     				}
     				else{

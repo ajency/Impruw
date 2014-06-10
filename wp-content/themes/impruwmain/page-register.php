@@ -3,6 +3,7 @@
  * Template Name: Register
  */
 get_header();
+check_login_redirect_user_dashboard();
 ?>
 
 <div class="aj-imp-register-form">
