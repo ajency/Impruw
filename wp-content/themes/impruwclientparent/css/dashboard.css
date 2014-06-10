@@ -3601,6 +3601,48 @@ form .aj-imp-submit:hover {
 .billing-container .table tbody td {
   font-weight: 300;
 }
+.billing-container .price-plans .price {
+  font-size: 4em;
+}
+.billing-container .price-plans .price .price-cents {
+  vertical-align: super;
+  font-size: 50%;
+}
+.billing-container .price-plans .price .price-month {
+  font-size: 35%;
+  font-style: italic;
+}
+.billing-container .price-plans .panel {
+  -webkit-transition-property: scale;
+  -webkit-transition-duration: 0.2s;
+  -webkit-transition-timing-function: ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+}
+.billing-container .price-plans .panel .panel-heading h3 {
+  color: #aaaaaa;
+}
+.billing-container .price-plans .panel:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  -webkit-transform: scale(1.05);
+  -moz-transform: scale(1.05);
+}
+.billing-container .price-plans .panel:hover .panel-heading {
+  background: #cbe5f8;
+}
+.billing-container .price-plans .panel:hover .panel-heading h3 {
+  color: #849fb0;
+}
+.billing-container .price-plans .panel:hover .price {
+  color: #182944;
+}
+.billing-container .price-plans .panel:hover .btn {
+  background: #ff7e00;
+}
+.billing-container .price-plans .panel:hover .btn:hover {
+  background: #ff9833;
+}
 /**** Pagination Styles ****/
 .pagination ul li a:hover,
 .pagination ul li a:focus {
