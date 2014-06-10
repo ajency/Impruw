@@ -3665,12 +3665,30 @@ form {
 					color: @dash-grey;
 				}
 			}
+			&.active {
+				border-color: @success-green;
+				.panel-heading {
+					h3 {
+						color: @success-green;
+					}
+				}
+				.ribbon {
+					background: @success-green;
+					display: block;
+					color: #fff;
+					padding: 13px 12px 14px;
+					margin: -10px -15px;
+					border-radius: 0 0 4px 4px;
+					font-size: 2em;
+				}
+			}
 			&:hover {
 				box-shadow: 0 0 10px rgba(0,0,0,.5);
 				-moz-box-shadow: 0 0 10px rgba(0,0,0,.5);
 				-webkit-box-shadow: 0 0 10px rgba(0,0,0,.5);
 				-webkit-transform: scale(1.05);
 				-moz-transform: scale(1.05);
+				border-color: lighten(@sky-blue, 20%);
 				.panel-heading {
 					background: lighten(@sky-blue, 20%);
 					h3 {
