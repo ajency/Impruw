@@ -1,0 +1,31 @@
+/****Image With Text Styles****/
+.image {
+	.padding-top-bot;
+	.info {
+		color: secondary1;
+		font-size: 1em;
+	}
+	&.style-one {
+		
+	}
+	&.style-two {
+		color: @text-color;
+		font-size: 1em;
+		font-weight: 300;
+		p {
+			font-size: inherit;
+		}
+	}
+}
+
+.image-placeholder {
+	margin: 0.5em 0;
+	padding: 0.5em 0.5em 1em;
+	border: 1px dashed @text-color;
+	text-align: center;
+	.glyphicon {
+		color: @text-color;
+		font-size: 3em;
+		text-shadow: 1px 1px 2px @black;
+	}
+}

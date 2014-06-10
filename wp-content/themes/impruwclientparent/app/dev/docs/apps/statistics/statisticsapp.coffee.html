@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>statisticsapp.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../doc-style.css" />
+  <script src="../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../", thisFile = "Applications/XAMPP/xamppfiles/htdocs/impruw/wp-content/themes/impruwclientparent/app/dev//apps/statistics/statisticsapp.coffee", defaultSidebar = true;
+  </script>
+  <script src="../../doc-script.js"></script>
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container"><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+          <h1>statisticsapp.coffee</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1">&#182;</a>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre><span class="nx">define</span> <span class="p">[</span><span class="s">&#39;app&#39;</span><span class="p">,</span> <span class="s">&#39;controllers/base-controller&#39;</span><span class="p">,</span> 
+    <span class="s">&#39;apps/statistics/weeklydata/weeklydata&#39;</span>
+    <span class="s">&#39;apps/statistics/siteanalytics/siteanalyticscontroller&#39;</span><span class="p">],</span> <span class="nf">(App, AppController, layoutTpl)-&gt;</span>
+
+  <span class="nx">App</span><span class="p">.</span><span class="nx">module</span> <span class="s">&#39;DashboardApp.Statistics&#39;</span><span class="p">,</span> <span class="nf">(Statistics, App, Backbone, Marionette, $, _)-&gt;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2">&#182;</a>
+</div>
+<p>define the router</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="k">class</span> <span class="nx">StatisticsRouter</span> <span class="k">extends</span> <span class="nx">Marionette</span><span class="p">.</span><span class="nx">AppRouter</span>
+      <span class="nv">appRoutes :</span>
+        <span class="s">&#39;statistics&#39;</span> <span class="o">:</span> <span class="s">&#39;showStatistics&#39;</span>
+
+
+    <span class="nv">API = </span>
+      <span class="nv">showStatistics : </span><span class="nf">-&gt;</span>
+        <span class="k">new</span> <span class="nx">StatisticsController</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+</div>
+<p>main statistics controller</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="k">class</span> <span class="nx">StatisticsController</span> <span class="k">extends</span> <span class="nx">AppController</span>
+
+      <span class="nx">initialize</span><span class="o">:</span><span class="nf">(opt)-&gt;</span>
+
+        <span class="nv">layout = </span><span class="k">new</span> <span class="nx">StatisticsLayout</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
+</div>
+<p>listen to show event of layout and trigger apps</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="nx">@listenTo</span> <span class="nx">layout</span><span class="p">,</span> <span class="s">&quot;show&quot;</span><span class="p">,</span> <span class="o">=&gt;</span>
+          <span class="nx">App</span><span class="p">.</span><span class="nx">execute</span> <span class="s">&quot;show:weekly:data&quot;</span><span class="p">,</span> <span class="nv">region : </span><span class="nx">layout</span><span class="p">.</span><span class="nx">weeklyDataRegion</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
+</div>
+<p>App.execute "show:site:analytics:data", region : layout.analyticsDataRegion</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+        <span class="nx">@show</span> <span class="nx">layout</span>
+
+        <span class="nx">App</span><span class="p">.</span><span class="nx">vent</span><span class="p">.</span><span class="nx">trigger</span> <span class="s">&quot;set:active:menu&quot;</span><span class="p">,</span> <span class="s">&#39;statistics&#39;</span>
+
+
+
+    <span class="k">class</span> <span class="nx">StatisticsLayout</span> <span class="k">extends</span> <span class="nx">Marionette</span><span class="p">.</span><span class="nx">Layout</span>
+
+      <span class="nv">template : </span><span class="s">&#39;&lt;div id=&quot;weekly-data-region&quot;&gt;&lt;/div&gt;</span>
+<span class="s">            &lt;div id=&quot;analytics-data-region&quot;&gt;&lt;/div&gt;&#39;</span>
+
+      <span class="nv">regions : </span>
+        <span class="nv">weeklyDataRegion : </span><span class="s">&#39;#weekly-data-region&#39;</span>
+        <span class="nv">analyticsDataRegion : </span><span class="s">&#39;#analytics-data-region&#39;</span>
+
+
+    <span class="nx">Statistics</span><span class="p">.</span><span class="nx">on</span> <span class="s">&quot;start&quot;</span><span class="p">,</span><span class="nf">-&gt;</span>
+      <span class="k">new</span> <span class="nx">StatisticsRouter</span>
+            <span class="nv">controller : </span><span class="nx">API</span>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>

@@ -1,0 +1,155 @@
+/****Top Slim-menu Styles****/
+.nav {
+	&.slimmenu {
+		padding: 0;
+		border: none;
+		border-bottom: 0;
+		border-left: 0;
+		padding: 0;
+		margin: 0 auto;
+		border-bottom: none !important;
+		background: transparent;
+		> li {
+			background: transparent !important;
+			padding: 0;
+			border: 0;
+			margin-right: -3px;
+			a {
+				font-size: 1em;
+				font-weight: bold;
+				text-transform: uppercase;
+				color: darken(@quarternary1, 20%);
+				padding: @regular 0;
+				border-right: none;
+				margin-right: @large;
+				&:after {
+					height: 2px;
+					width: 100%;
+					background: @primary1;
+					content: " ";
+					position: absolute;
+					bottom: -10px;
+					display: none;
+				}
+				&:hover, &:focus {
+					background: transparent;
+					color: @primary1;
+					outline: none;
+					&:after {
+						display: block;
+					}
+				}
+				@media(max-width:991px) {
+					&:after {
+						display: none !important;
+					}
+				}
+			}
+			.sub-collapser {
+				background: transparent;
+				width: 40px;
+				> i {
+					font-size: 0.6em;
+					color: darken(@tertiary1, 20%);
+				}
+			}
+			> ul.dropDrown {
+				padding: 0;
+				width: auto;
+				li {
+					width: 100%;
+					background: #fff;
+					border-bottom: 1px solid darken(@tertiary1, 10%);
+					a {
+						border: 0;
+						font-size: 1em;
+						font-weight: normal;
+						padding: @regular @large;
+						color: @secondary1;
+						&:hover {
+							background: darken(@tertiary1, 10%);
+							color: @primary1;
+						}
+					}
+				}
+			}
+			&.active {
+				background: @primary1;
+				a {
+					color: lighten(@primary1, 65%);
+					border-color: @primary1;
+					span {
+						color: lighten(@primary1, 50%);
+					}
+				}
+			}
+			&:last-child {
+				a {
+					border-right: 0;
+				}
+			}
+		}
+	}
+	&.footer-menu {
+		padding: 0;
+		text-align: left;
+		li {
+			position: relative;
+			margin: 0 0 0.2em;
+			display: block;
+			background: transparent;
+			font-size: 0.78em;
+			a {
+				color: @text-color;
+				font-weight: 300;
+				text-transform: capitalize;
+				display: inline-block;
+				padding: 0.33em;
+				&:hover, &:focus {
+					text-decoration: none;
+					background: transparent;
+					outline: none;
+				}
+			}
+			&:before {
+				content: '';
+				display: inline-block;
+				background: @primary1;
+				height: 4px;
+				width: 4px;
+				margin-right: 5px;
+				position: relative;
+				top: -2px;
+			}
+			&:hover {
+				left: 0em;
+				.backTrans;
+				background: transparent;
+				a {
+					color: darken(@text-color, 20%);
+				}
+				&:before {
+					height: 6px;
+					width: 6px;
+				}
+			}
+			@media(max-width:991px) {
+				text-align: center;
+			}
+		}
+	}
+}
+
+.menu-collapser {
+	background: transparent;
+	color: @primary1;
+	font-family: 'Satisfy', cursive;
+	font-weight: 400;
+	font-size: 2em;
+	text-shadow: none;
+	border-bottom: 1px solid @tertiary1;
+	.collapse-button {
+		background: @secondary1;
+		border-radius: 0px;
+	}
+}

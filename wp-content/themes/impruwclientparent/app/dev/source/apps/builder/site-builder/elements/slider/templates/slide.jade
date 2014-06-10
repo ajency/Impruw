@@ -1,0 +1,11 @@
+.carousel.slide
+    ol.carousel-indicators
+        {{#slides}}
+        li.active(data-target='#{{slider_id}}', data-slide-to='{{order}}')
+        {{/slides}}
+    .carousel-inner
+
+    a.left.carousel-control(href='#{{slider_id}}', data-slide='prev')
+        span.icon-prev
+    a.right.carousel-control(href='#{{slider_id}}', data-slide='next')
+        span.icon-next

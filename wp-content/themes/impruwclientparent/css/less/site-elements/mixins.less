@@ -1,0 +1,119 @@
+/****Mixins****/
+.clearfix {
+    *zoom: 1;
+	&:after, &:before {
+		clear: both;
+		content: "";
+		display: table;
+	}
+}
+
+.t-a-r {
+	text-align:right;
+}
+
+.t-a-l{
+	text-align:left;
+}
+
+.t-a-c{
+	text-align:center;
+}
+
+.f-r { 
+	float:right;
+}
+
+.f-l { 
+	float:left;
+}
+
+.backTrans{
+	-webkit-transition:  all 0.25s ease;
+	-moz-transition:  all 0.25s ease;
+	-o-transition: all 0.25s ease;
+	-ms-transition: all 0.25s ease;
+	transition:  all 0.25s ease;
+}
+
+.spinTrans{
+	-webkit-transform:rotate(360deg);
+	-moz-transform:rotate(360deg);
+	-o-transform:rotate(360deg);
+	-ms-transform:rotate(360deg);
+	transform:rotate(360deg);
+}
+
+//generic margins
+
+.top-margin-small{margin-top:@regular;}
+.left-margin-small{margin-left:@regular;}
+.right-margin-small{margin-right:@regular;}
+.bottom-margin-small{margin-bottom:@regular;}
+
+.top-margin-medium{margin-top:@medium;}
+.left-margin-medium{margin-left:@medium;}
+.right-margin-medium{margin-right:@medium;}
+.bottom-margin-medium{margin-bottom:@medium;}
+
+.top-margin-large{margin-top:@large;}
+.left-margin-large{margin-left:@large;}
+.right-margin-large{margin-right:@large;}
+.bottom-margin-large{margin-bottom:@large;}
+
+//## For use across Sites.
+.padding-top (@string: @regular 0 0) {
+	padding: @string;
+}
+
+.padding-bottom (@string: 0 0 @regular) {
+	padding: @string;
+}
+
+.padding-left (@string: @regular) {
+	padding-left: @string;
+}
+
+.padding-right (@string: @regular) {
+	padding-right: @string;
+}
+
+.padding-full (@string: @regular) {
+	padding: @string;
+}
+
+.padding-sides (@string: 0 @regular) {
+	padding: @string;
+}
+
+.padding-top-bot (@string: @regular 0) {
+	padding: @string;
+}
+
+.margin-top (@string: @regular 0 0) {
+	margin: @string;
+}
+
+.margin-bottom (@string: 0 0 @regular) {
+	margin: @string;
+}
+
+.margin-left (@string: @regular) {
+	margin-left: @string;
+}
+
+.margin-right (@string: @regular) {
+	margin-right: @string;
+}
+
+.margin-full (@string: @regular) {
+	margin: @string;
+}
+
+.margin-sides (@string: 0 @regular) {
+	margin: @string;
+}
+
+.margin-top-bot (@string: @regular 0) {
+	margin: @string;
+}

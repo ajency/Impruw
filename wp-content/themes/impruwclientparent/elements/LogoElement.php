@@ -42,13 +42,11 @@ class LogoElement extends Element {
      * The config to create a row element
      * @param array $config
      */
-    function __construct($config) {
+    function __construct($element) {
         
-        parent::__construct($config);
-        
-        if(isset($config['dataSource'])){
-            $this->data  = $config['dataSource'];
-        }
+        parent::__construct($element);
+
+        //$this->margins = $this->get_margin_classes($element);
         
         $this->markup    = $this->generate_markup();
     }
@@ -60,11 +58,11 @@ class LogoElement extends Element {
      */
     function generate_markup(){
         
-        //$html       = $this->get_open_tag();
+        $html       = "<div class='logo {$this->margins}'>";
         
-        $html       = $this->get_image();
+        $html       .= $this->get_image();
         
-        //$html       .= $this->get_close_tag();
+        $html       .= "</div>";
         
         return $html;
     }
@@ -75,9 +73,9 @@ class LogoElement extends Element {
      */
     function get_image_id(){
          
-        $id = get_option('businessLogoId');
-
-        return (int)$id;
+       $logo_id = get_option('logo_id', 0);
+       
+       return $logo_id;
     }
     
     /**
@@ -86,11 +84,7 @@ class LogoElement extends Element {
      */
     function get_image_size(){
             
-        if(isset($this->data['size'])){
-            return $this->data['size'];
-        }
-        
-        return array('700','200');
+        return 'full';
     }
     
     /**
@@ -103,10 +97,8 @@ class LogoElement extends Element {
 
         $size = $this->get_image_size();
         
-        $path = get_parent_template_directory_uri() . '/js/holder.js/100%x220/text:Logo';
-
-        if($a_id === 0){
-            return  sprintf("<a href='%s'><img data-src='%s' class='img-responsive' /></a>", site_url(), $path);
+       	if($a_id === 0){
+            return  '<div class="image-placeholder"><span class="glyphicon glyphicon-picture"></span></div>';
         }
 
         $image = wp_get_attachment_image_src($a_id, 'full');
@@ -114,9 +106,8 @@ class LogoElement extends Element {
             return sprintf("<a href='%s'><img src='%s' class='img-responsive' /></a>", site_url(), $image[0]);
         }
         else{
-            return sprintf("<a href='%s'><img data-src='%s' class='img-responsive' /></a>", site_url(), $path);
-        }
-            
+            return  '<div class="image-placeholder"><span class="bicon icon-uniF10E"></span></div>';
+        } 
     }
     
 }

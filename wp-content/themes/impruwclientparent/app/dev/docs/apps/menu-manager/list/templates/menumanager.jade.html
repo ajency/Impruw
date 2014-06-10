@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>menumanager.jade</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../../doc-style.css" />
+  <script src="../../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../../", thisFile = "Applications/XAMPP/xamppfiles/htdocs/impruw/wp-content/themes/impruwclientparent/app/dev//apps/menu-manager/list/templates/menumanager.jade", defaultSidebar = true;
+  </script>
+  <script src="../../../../doc-script.js"></script>
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container"><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+          <h1>menumanager.jade</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1">&#182;</a>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre><span class="nc">.row.aj-imp-menu-edit</span>
+  <span class="nc">.col-md-6.aj-imp-add-menu-item</span>
+    <span class="nt">h4</span> {{menu_name}}
+    <span class="nt">p</span><span class="nc">.desc</span> {{menu_description}}
+    <span class="nt">a</span><span class="nc">.aj-imp-add-link</span>(<span class="na">href=</span><span class="s">&quot;#{{menu_slug}}-add-menu&quot;</span> <span class="na">data-toggle=</span><span class="s">&quot;collapse&quot;</span>) Add New Menu Item
+    <span class="nc">.collapse.in.add-menu-form</span>(<span class="na">id=</span><span class="s">&quot;{{menu_slug}}-add-menu&quot;</span>)
+      <span class="nt">form</span><span class="nc">.form-horizontal.well</span>
+        <span class="nc">.form-group</span>
+          <span class="nt">label</span><span class="nc">.col-sm-4.control-label</span> Menu Link Label
+          <span class="nc">.col-sm-8</span>
+            <span class="nt">input</span><span class="nc">.required.form-control</span>(<span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">name=</span><span class="s">&quot;post_title&quot;</span> <span class="na">required=</span><span class="s">&quot;true&quot;</span>)
+        <span class="nc">.form-group</span>
+          <span class="nt">label</span><span class="nc">.col-sm-4.control-label</span> Menu Link
+          <span class="nc">.col-sm-8</span>
+            <span class="nt">input</span><span class="nc">.required.form-control</span>(<span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">name=</span><span class="s">&quot;menu_item_link&quot;</span> <span class="na">required=</span><span class="s">&quot;true&quot;</span>)
+        <span class="nc">.form-group.form-actions</span>
+          <span class="nc">.col-sm-offset-4.col-sm-8</span>
+            <span class="nt">input</span>(<span class="na">type=</span><span class="s">&quot;hidden&quot;</span> <span class="na">value=</span><span class="s">&quot;{{id}}&quot;</span> <span class="na">name=</span><span class="s">&quot;menu_id&quot;</span>)
+            <span class="nt">button</span><span class="nc">.add-menu-item.btn</span>(<span class="na">type=</span><span class="s">&quot;button&quot;</span>)
+              <span class="nt">span</span> Add Menu Item
+
+  <span class="nc">.col-md-6.aj-imp-menu-item-list</span>
+    <span class="nc">.panel.panel-default</span>
+      <span class="nc">.panel-heading</span>
+        <span class="nt">h3</span><span class="nc">.panel-title</span> {{menu_name}}
+      <span class="nt">ol</span><span class="nc">.list-group.sortable-menu-items</span>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>

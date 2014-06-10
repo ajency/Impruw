@@ -40,15 +40,14 @@ class TitleElement extends Element {
      * The config to create a row element
      * @param array $config
      */
-    function __construct($config) {
+    function __construct($element) {
         
-        parent::__construct($config);
+        parent::__construct($element);
         
-        if(isset($config['content'])){
-            $this->content          = stripcslashes(trim($config['content']));
-        }
+        $this->content = stripslashes($element['content']);
+        $this->style = sanitize_title($element['style']);
         
-        $this->markup               = $this->generate_markup();
+        $this->markup  = $this->generate_markup();
         
     }
     
@@ -65,7 +64,7 @@ class TitleElement extends Element {
         // if(empty($this->content))
         //     $html       .= $this->get_open_tag($attr);
 
-        $html           .=  ($this->content === '') ? 'Enter your title here' : $this->content;
+        $html  .= "<h2 class='title {$this->style}'>{$this->content}</h2>";
         
         // if(empty($this->content))
         //     $html       .= $this->get_close_tag();

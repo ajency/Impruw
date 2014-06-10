@@ -1,0 +1,125 @@
+/****Top Slim-menu Styles****/
+.nav {
+	&.slimmenu {
+		padding: 0;
+		border: 1px solid darken(@tertiary1, 10%);
+		margin: 0 auto @medium;
+		background: @white;
+		> li {
+			background: transparent !important;
+			padding: 0.3em 0;
+			border: 0;
+			margin-right: -3px;
+			a {
+				font-size: 1em;
+				font-weight: bold;
+				color: @primary1;
+				padding: @regular @large;
+				span {
+					display: block;
+					font-size: 0.75em;
+					font-weight: normal;
+					color: lighten(@secondary1, 20%);
+				}
+				&:hover {
+					background: transparent;
+					color: @secondary1;
+					span {
+						color: lighten(@primary1, 20%);
+					}
+				}
+			}
+			.sub-collapser {
+				background: transparent;
+				width: 40px;
+				> i {
+					font-size: 0.6em;
+					color: darken(@tertiary1, 20%);
+				}
+			}
+			> ul.dropDrown {
+				padding: 0;
+				width: auto;
+				li {
+					width: 100%;
+					background: @white;
+					border-bottom: 1px solid darken(@tertiary1, 10%);
+					a {
+						border: 0;
+						font-size: 1em;
+						font-weight: normal;
+						padding: @regular @large;
+						color: @secondary1;
+						&:hover {
+							background: darken(@tertiary1, 10%);
+							color: @primary1;
+						}
+					}
+				}
+			}
+			&.active {
+				background: @primary1;
+				a {
+					color: lighten(@primary1, 65%);
+					border-color: @primary1;
+					span {
+						color: lighten(@primary1, 50%);
+					}
+				}
+			}
+		}
+	}
+	.menu-collapser {
+		background: @white;
+		color: @primary1;
+		font-weight: 700;
+		text-shadow: none;
+		.collapse-button {
+			background: @primary1;
+			border-radius: 3px;
+		}
+	}
+	&.footer-menu{
+		padding-left:0;
+		text-align: center;
+		li{
+			list-style:none;
+			display:inline-block;
+			margin-left:10px;
+			margin-bottom:10px;
+			background:@primary1;
+			cursor:pointer;
+			a{
+				font-size:1.333em;
+				color:#fff;
+				font-weight:200;
+				padding:10px 45px;
+				display: block;
+			}
+			&:hover{
+				background:#fff;
+				text-shadow: none;
+				  -webkit-transition: background-color .25s, color .25s, border-bottom-color .25s;
+				  -moz-transition: background-color .25s, color .25s, border-bottom-color .25s;
+				  -o-transition: background-color .25s, color .25s, border-bottom-color .25s;
+				  transition: background-color .25s, color .25s, border-bottom-color .25s;
+				  -webkit-backface-visibility: hidden;
+				a{
+					color:@primary1;
+				}
+			}
+		}
+	}
+}
+
+/**** Slimmenu Responsive Styles ****/
+.menu-collapser {
+	background: @primary1;
+	color: @white;
+	.collapse-button {
+		background: @white;
+		.icon-bar {
+			background: @primary1;
+		}
+	}
+}

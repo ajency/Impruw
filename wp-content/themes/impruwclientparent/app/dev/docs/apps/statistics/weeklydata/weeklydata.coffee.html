@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>weeklydata.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../", thisFile = "Applications/XAMPP/xamppfiles/htdocs/impruw/wp-content/themes/impruwclientparent/app/dev//apps/statistics/weeklydata/weeklydata.coffee", defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container"><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+          <h1>weeklydata.coffee</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1">&#182;</a>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre><span class="nx">define</span> <span class="p">[</span><span class="s">&#39;app&#39;</span><span class="p">,</span> <span class="s">&#39;controllers/base-controller&#39;</span><span class="p">,</span><span class="s">&#39;moment&#39;</span><span class="p">],</span> <span class="nf">(App, AppController, moment)-&gt;</span>
+
+  <span class="nx">App</span><span class="p">.</span><span class="nx">module</span> <span class="s">&#39;DashboardApp.Statistics.WeeklyData&#39;</span><span class="p">,</span> <span class="nf">(WeeklyData, App, Backbone, Marionette, $, _)-&gt;</span>
+
+    <span class="k">class</span> <span class="nx">WeeklyDataController</span> <span class="k">extends</span> <span class="nx">AppController</span>
+
+      <span class="nx">initialize</span><span class="o">:</span><span class="nf">-&gt;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2">&#182;</a>
+</div>
+<p>get the weekly collection</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="nv">collection = </span><span class="nx">App</span><span class="p">.</span><span class="nx">request</span> <span class="s">&quot;get:weekly:data&quot;</span>
+
+        <span class="nv">view = </span><span class="nx">@_getWeeklyDataView</span> <span class="nx">collection</span>
+
+        <span class="nx">@show</span> <span class="nx">view</span><span class="p">,</span>
+            <span class="nv">loading : </span><span class="kc">true</span>
+
+
+      <span class="nx">_getWeeklyDataView</span><span class="o">:</span><span class="nf">(collection)-&gt;</span>
+        <span class="k">new</span> <span class="nx">WeeklyDataView</span> 
+              <span class="nv">collection : </span><span class="nx">collection</span>
+
+
+    <span class="k">class</span> <span class="nx">SingleDayData</span> <span class="k">extends</span> <span class="nx">Marionette</span><span class="p">.</span><span class="nx">ItemView</span>
+
+      <span class="nv">template : </span><span class="s">&#39;&lt;li&gt;</span>
+<span class="s">              &lt;em&gt;{{weekday}}&lt;/em&gt; &lt;span class=&quot;glyphicon glyphicon-user&quot;&gt;&lt;/span&gt;</span>
+<span class="s">              &lt;span class=&quot;glyphicon glyphicon-arrow-up&quot;&gt;&lt;/span&gt; </span>
+<span class="s">              &lt;b&gt;{{ga:newVisits}},{{ga:pageviewsPerVisit}},{{ga:pageviews}}...&lt;/b&gt;</span>
+<span class="s">            &lt;/li&gt;&#39;</span>
+
+      <span class="nx">serializeData</span><span class="o">:</span><span class="nf">-&gt;</span>
+        <span class="nv">data = </span><span class="k">super</span><span class="p">()</span>
+
+        <span class="nv">data.formattedDate = </span><span class="nf">-&gt;</span>
+          <span class="k">new</span> <span class="nb">Date</span> <span class="nx">@date</span>
+
+        <span class="nv">data.weekday = </span><span class="nf">-&gt;</span>
+          <span class="nv">d = </span><span class="k">new</span> <span class="nb">Date</span> <span class="nx">@date</span>
+          <span class="nx">moment</span><span class="p">(</span><span class="nx">d</span><span class="p">).</span><span class="nx">format</span> <span class="s">&#39;ddd&#39;</span>
+
+        <span class="nx">data</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+</div>
+<p>create the composite view</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="k">class</span> <span class="nx">WeeklyDataView</span> <span class="k">extends</span> <span class="nx">Marionette</span><span class="p">.</span><span class="nx">CompositeView</span>
+
+      <span class="nv">template : </span><span class="s">&#39;&lt;h4 class=&quot;chart-title&quot;&gt; At a glance&lt;/h4&gt;</span>
+<span class="s">            &lt;div class=&quot;row statistics-visitor&quot;&gt;</span>
+<span class="s">              &lt;div class=&quot;col-md-7 statistics-tod-visitor&quot;&gt;</span>
+<span class="s">                &lt;h3&gt;Today Visits&lt;/h3&gt;</span>
+<span class="s">                &lt;div class=&quot;today-visits&quot;&gt;</span>
+<span class="s">                {{weekday}} </span>
+<span class="s">                &lt;h1&gt;{{ga:visits}}&lt;/h1&gt;</span>
+<span class="s">                &lt;span&gt;Visits&lt;/span&gt;</span>
+<span class="s">                &lt;/div&gt;</span>
+<span class="s">                &lt;div class=&quot;row today-visitor-details&quot;&gt;</span>
+<span class="s">                  &lt;div class=&quot;col-md-3 col-xs-3&quot;&gt;&lt;span class=&quot;sm-txt per-data&quot;&gt;&lt;span class=&quot;glyphicon glyphicon-arrow-up&quot;&gt;&lt;/span&gt;{{ga:visitBounceRate}}&lt;/span&gt;&lt;/div&gt;</span>
+<span class="s">                  &lt;div class=&quot;col-md-4 col-xs-4&quot;&gt;{{ga:pageviews}} &lt;span class=&quot;glyphicon glyphicon-file&quot;&gt;&lt;/span&gt; &lt;span class=&quot;sm-txt&quot;&gt;pageviews&lt;/span&gt;&lt;/div&gt;</span>
+<span class="s">                  &lt;div class=&quot;col-md-5 col-xs-5&quot;&gt;{{ga:timeOnSite}}&lt;span class=&quot;glyphicon glyphicon-time&quot;&gt;&lt;/span&gt;&lt;i class=&quot;fa fa-clock-o&quot;&gt;&lt;/i&gt; &lt;span class=&quot;sm-txt&quot;&gt;Time on Site&lt;/span&gt;&lt;/div&gt;</span>
+<span class="s">                &lt;/div&gt;</span>
+<span class="s">                &lt;hr&gt;</span>
+<span class="s">                &lt;div class=&quot;row total-visits&quot;&gt;</span>
+<span class="s">                  &lt;div class=&quot;col-md-3 col-xs-3&quot;&gt;Unique &lt;br&gt;pageviews &lt;b&gt;{{ga:uniquePageviews}}&lt;/b&gt;&lt;/div&gt;</span>
+<span class="s">                  &lt;div class=&quot;col-md-3 col-xs-3&quot;&gt;New &lt;br&gt;visits &lt;b&gt;{{ga:newVisits}}&lt;/b&gt;&lt;/div&gt;</span>
+<span class="s">                  &lt;div class=&quot;col-md-3 col-xs-3&quot;&gt;Page views&lt;br&gt; per visit &lt;b&gt;{{ga:pageviewsPerVisit}}&lt;/b&gt;&lt;/div&gt;</span>
+<span class="s">                  &lt;div class=&quot;col-md-3 col-xs-3&quot;&gt;Visit Bounce &lt;br&gt;rate &lt;b&gt;{{ga:visitBounceRate}}&lt;/b&gt;&lt;/div&gt;</span>
+<span class="s">                &lt;/div&gt;</span>
+<span class="s">              &lt;/div&gt;</span>
+<span class="s">              &lt;div class=&quot;col-md-5 weekly-list&quot;&gt;</span>
+<span class="s">                &lt;ul class=&quot;list-unstyled&quot;&gt;</span>
+<span class="s">                &lt;/ul&gt;</span>
+<span class="s">              &lt;/div&gt;</span>
+<span class="s">            &lt;/div&gt;&#39;</span>
+            
+      <span class="nv">itemViewContainer : </span><span class="s">&#39;.weekly-list&#39;</span>
+
+      <span class="nv">itemView : </span><span class="nx">SingleDayData</span>
+
+      <span class="nx">serializeData</span><span class="o">:</span><span class="nf">-&gt;</span>
+        <span class="nv">data = </span><span class="k">super</span><span class="p">()</span>
+
+        <span class="nv">data.formattedDate = </span><span class="nf">-&gt;</span> 
+          <span class="k">new</span> <span class="nb">Date</span> <span class="nx">@date</span>
+
+        <span class="nv">data.weekday = </span><span class="nf">-&gt;</span>
+          <span class="nv">d = </span><span class="k">new</span> <span class="nb">Date</span> <span class="nx">@date</span>
+          <span class="nx">moment</span><span class="p">(</span><span class="nx">d</span><span class="p">).</span><span class="nx">format</span><span class="p">(</span><span class="s">&#39;dddd&#39;</span><span class="p">)</span>
+
+        <span class="nx">data</span>
+
+      <span class="nx">onBeforeRender</span><span class="o">:</span><span class="nf">-&gt;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
+</div>
+<p>pick out the model from collection</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="k">return</span> <span class="k">if</span> <span class="o">not</span> <span class="nx">@collection</span>
+        
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
+</div>
+<p>pop out the last model from collection</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="vi">@model = </span><span class="nx">@collection</span><span class="p">.</span><span class="nx">shift</span><span class="p">()</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6">&#182;</a>
+</div>
+<p>sort the models</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="nx">@collection</span><span class="p">.</span><span class="nx">sort</span><span class="p">()</span>
+
+
+    <span class="nx">App</span><span class="p">.</span><span class="nx">commands</span><span class="p">.</span><span class="nx">setHandler</span> <span class="s">&quot;show:weekly:data&quot;</span><span class="p">,</span> <span class="nf">(opt)-&gt;</span>
+      <span class="k">new</span> <span class="nx">WeeklyDataController</span> <span class="nx">opt</span>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>

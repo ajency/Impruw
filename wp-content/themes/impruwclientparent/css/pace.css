@@ -1,0 +1,119 @@
+.pace {
+  -webkit-pointer-events: none;
+  pointer-events: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+
+  z-index: 2000;
+  position: fixed;
+  margin: auto;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 5px;
+  width: 200px;
+  background: #fff;
+  border: 1px solid #FF7E00;
+}
+
+.pace .pace-progress {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  box-sizing: border-box;
+
+  -webkit-transition: width 1s ease-in-out 1s linear;
+  -moz-transition: width 1s ease-in-out 1s linear;
+  -ms-transition: width 1s ease-in-out 1s linear;
+  -o-transition: width 1s ease-in-out 1s linear;
+  transition: width 1s ease-in-out 1s linear;
+
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+
+  max-width: 200px;
+  position: fixed;
+  z-index: 2000;
+  display: block;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  height: 100%;
+  background: #FF7E00;
+}
+
+.pace .pace-progress:after {
+  display: block;
+  position: absolute;
+  top: 0;
+  right: .5rem;
+  content: attr(data-progress-text);
+  font-family: "Helvetica Neue", sans-serif;
+  font-weight: 100;
+  font-size: 5rem;
+  line-height: 1;
+  text-align: right;
+  color: rgba(0, 0, 0, 0.19999999999999996);
+}
+
+.pace.pace-inactive {
+  display: none;
+}
+
+
+/****Initial Loader Styles****/
+#initial-loader {
+  position: fixed;
+  width: 100%;
+  top: 0px;
+  left:0px;
+  background: #fff;
+  overflow: hidden;
+  height: 100%;
+  z-index: 1040;
+}
+
+/**** Sub Loader Styles ****/
+.pace-min-theme .pace {
+  bottom: auto;
+  right: auto;
+  border: none;
+  width: 100%;
+  height: 3px;
+  background: transparent;
+}
+
+.pace-min-theme .pace .pace-progress:after {
+  content: '';
+  box-shadow: 5px 0 5px 1px #FF7E00;
+  background: #FF7E00;
+  width: 20px;
+  height: 3px;
+  border-radius: 150%;
+  right: -5px;
+}
+
+.pace-min-theme .pace .pace-progress {
+  background: #FF7E00;
+  position: fixed;
+  z-index: 2000;
+  top: 0;
+  left: 0;
+  height: 3px;
+  max-width: none;
+
+  -webkit-transition: width 1s;
+  -moz-transition: width 1s;
+  -o-transition: width 1s;
+  transition: width 1s;
+}
+
+.pace-min-theme .pace-inactive {
+  display: none;
+}

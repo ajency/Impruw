@@ -46,14 +46,12 @@ class BuilderRowColumn extends Element {
      * The config to create a row element
      * @param array $config
      */
-    function __construct($config) {
+    function __construct($element) {
 
-        parent::__construct($config);    
+        parent::__construct($element);    
         
-        if(isset($config['colClass'])){
-            $this->col_class     = $config['colClass'];
-        }
-
+        $this->elements = $element['elements'];
+        $this->className = 'col-md-'.  $element['className'];
 
     }
     
@@ -65,7 +63,7 @@ class BuilderRowColumn extends Element {
      */
     function get_classes(){
         
-        $class = 'col-sm-' . $this->col_class;
+        $class = $this->className;
         
         return $class . ' ' . $this->class_name . ' ' . $this->extra_classes;
         

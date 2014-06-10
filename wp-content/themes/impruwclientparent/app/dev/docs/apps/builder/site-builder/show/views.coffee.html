@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>views.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../../doc-style.css" />
+  <script src="../../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../../", thisFile = "Applications/XAMPP/xamppfiles/htdocs/impruw/wp-content/themes/impruwclientparent/app/dev//apps/builder/site-builder/show/views.coffee", defaultSidebar = true;
+  </script>
+  <script src="../../../../doc-script.js"></script>
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container"><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+          <h1>views.coffee</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1">&#182;</a>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre><span class="nx">define</span> <span class="p">[</span><span class="s">&#39;app&#39;</span>
+    <span class="s">&#39;text!apps/builder/site-builder/show/templates/maintemplate.html&#39;</span>
+    <span class="s">&#39;text!apps/builder/site-builder/show/templates/builder.html&#39;</span><span class="p">],</span>
+    <span class="nf">(App, mainviewTpl, builderTpl)-&gt;</span>
+
+
+      <span class="nx">App</span><span class="p">.</span><span class="nx">module</span> <span class="s">&#39;SiteBuilderApp.Show.View&#39;</span><span class="p">,</span> <span class="nf">(View, App, Backbone, Marionette, $, _)-&gt;</span>
+
+        <span class="k">class</span> <span class="nx">View</span><span class="p">.</span><span class="nx">MainView</span> <span class="k">extends</span> <span class="nx">Marionette</span><span class="p">.</span><span class="nx">Layout</span>
+
+          <span class="nv">template : </span><span class="nx">mainviewTpl</span>
+
+          <span class="nv">className : </span><span class="s">&#39;aj-imp-builder-area&#39;</span>
+
+          <span class="nx">templateHelpers</span><span class="o">:</span><span class="nf">(data = {})-&gt;</span>
+            <span class="nv">data.SITEURL = </span><span class="nx">SITEURL</span>
+            <span class="nx">data</span>
+
+          <span class="nv">events : </span>
+            <span class="s">&#39;click .auto-save&#39;</span> <span class="o">:</span><span class="nf">(evt) -&gt;</span> 
+                <span class="nx">evt</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">()</span>
+                <span class="nx">App</span><span class="p">.</span><span class="nx">commands</span><span class="p">.</span><span class="nx">execute</span> <span class="s">&quot;auto:save&quot;</span>  
+
+
+        <span class="k">class</span> <span class="nx">View</span><span class="p">.</span><span class="nx">Builder</span> <span class="k">extends</span> <span class="nx">Marionette</span><span class="p">.</span><span class="nx">ItemView</span>
+
+          <span class="nv">template: </span><span class="nx">builderTpl</span>
+
+          <span class="nx">onShow</span><span class="o">:</span><span class="nf">-&gt;</span>
+            <span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;.droppable-column&#39;</span><span class="p">).</span><span class="nx">sortable</span>
+                        <span class="nv">revert    : </span><span class="s">&#39;invalid&#39;</span>
+                        <span class="nv">items     : </span><span class="s">&#39;&gt; .element-wrapper&#39;</span>
+                        <span class="nv">connectWith : </span><span class="s">&#39;.droppable-column,.column&#39;</span>
+                        <span class="nv">start     : </span><span class="nf">(e, ui)-&gt;</span>
+                                <span class="nv">w = </span><span class="nx">ui</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">width</span><span class="p">()</span>
+                                <span class="nv">h = </span><span class="k">if</span> <span class="nx">ui</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">height</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">200</span> <span class="k">then</span> <span class="mi">200</span> <span class="k">else</span> <span class="nx">ui</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">height</span><span class="p">()</span>
+                                <span class="nx">ui</span><span class="p">.</span><span class="nx">placeholder</span><span class="p">.</span><span class="nx">height</span> <span class="nx">h</span>
+                                <span class="nb">window</span><span class="p">.</span><span class="nv">dragging = </span><span class="kc">true</span>
+                                <span class="k">return</span>
+                        <span class="nx">stop</span>    <span class="o">:</span><span class="nf">(e, ui)-&gt;</span> 
+                                <span class="nb">window</span><span class="p">.</span><span class="nv">dragging = </span><span class="kc">false</span>
+                                <span class="k">return</span>
+                        <span class="nv">handle    : </span><span class="s">&#39;.aj-imp-drag-handle&#39;</span>
+                        <span class="nv">helper    : </span><span class="s">&#39;clone&#39;</span>
+                        <span class="nv">opacity   : </span><span class="p">.</span><span class="mi">65</span>
+                        <span class="nv">receive   : </span><span class="nf">(evt, ui)=&gt;</span> 
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2">&#182;</a>
+</div>
+<p>trigger drop event if ui.item is Li tag</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+                          <span class="k">if</span> <span class="nx">ui</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">prop</span><span class="p">(</span><span class="s">&quot;tagName&quot;</span><span class="p">)</span> <span class="o">is</span> <span class="s">&#39;LI&#39;</span>
+                            <span class="nv">type  = </span><span class="nx">ui</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">attr</span> <span class="s">&#39;data-element&#39;</span>
+                            <span class="nx">@trigger</span> <span class="s">&quot;add:new:element&quot;</span><span class="p">,</span> <span class="nx">$</span><span class="p">(</span><span class="nx">evt</span><span class="p">.</span><span class="nx">target</span><span class="p">),</span> <span class="nx">type</span>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>

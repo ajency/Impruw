@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>addslidecontroller.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../../doc-style.css" />
+  <script src="../../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../../", thisFile = "Applications/XAMPP/xamppfiles/htdocs/impruw/wp-content/themes/impruwclientparent/app/dev//apps/slider-manager/edit-slider/addedit-slide/addslidecontroller.coffee", defaultSidebar = true;
+  </script>
+  <script src="../../../../doc-script.js"></script>
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container"><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+          <h1>addslidecontroller.coffee</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1">&#182;</a>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre><span class="nx">define</span> <span class="p">[</span><span class="s">&#39;app&#39;</span>
+    <span class="s">&#39;controllers/base-controller&#39;</span><span class="p">],</span> <span class="nf">(App, AppController)-&gt;</span>
+
+      <span class="nx">App</span><span class="p">.</span><span class="nx">module</span> <span class="s">&#39;SliderManager.EditSlider.AddSlide&#39;</span><span class="p">,</span> <span class="nf">(AddSlide, App, Backbone, Marionette, $, _)-&gt;</span>
+
+        <span class="k">class</span> <span class="nx">AddSlideController</span> <span class="k">extends</span> <span class="nx">AppController</span>
+
+          <span class="nx">initialize</span><span class="o">:</span><span class="nf">(opt = {})-&gt;</span>
+
+            <span class="p">{</span><span class="nx">@sliderId</span><span class="p">}</span> <span class="o">=</span> <span class="nx">opt</span>
+
+            <span class="vi">@layout = </span><span class="nv">layout = </span><span class="nx">@_getAddSlideLayout</span><span class="p">()</span>
+
+            <span class="nv">addSlideView = </span><span class="nx">@_getAddSlideView</span><span class="p">()</span>
+
+            <span class="nx">@listenTo</span> <span class="nx">layout</span><span class="p">,</span> <span class="s">&quot;show&quot;</span><span class="p">,</span> <span class="o">=&gt;</span>
+              <span class="nx">layout</span><span class="p">.</span><span class="nx">addSlideFormRegion</span><span class="p">.</span><span class="nx">show</span> <span class="nx">addSlideView</span>
+              <span class="nx">App</span><span class="p">.</span><span class="nx">execute</span> <span class="s">&quot;start:media:upload:app&quot;</span><span class="p">,</span> <span class="nv">region : </span><span class="nx">layout</span><span class="p">.</span><span class="nx">uploadMediaRegion</span>
+              <span class="nx">App</span><span class="p">.</span><span class="nx">execute</span> <span class="s">&quot;start:media:grid:app&quot;</span><span class="p">,</span> <span class="nv">region : </span><span class="nx">layout</span><span class="p">.</span><span class="nx">gridMediaRegion</span>
+
+            <span class="nx">@listenTo</span> <span class="nx">addSlideView</span><span class="p">,</span> <span class="s">&quot;create:new:slide&quot;</span><span class="p">,</span><span class="nf">(data)=&gt;</span>
+              <span class="nv">data.slider_id = </span><span class="nx">@sliderId</span>
+              <span class="nv">slide = </span><span class="nx">App</span><span class="p">.</span><span class="nx">request</span> <span class="s">&quot;create:new:slide:model&quot;</span><span class="p">,</span> <span class="nx">data</span>
+              <span class="nx">slide</span><span class="p">.</span><span class="nx">set</span> <span class="nx">data</span>
+              <span class="nx">slide</span><span class="p">.</span><span class="nx">save</span> <span class="kc">null</span><span class="p">,</span>
+                  <span class="nv">wait : </span><span class="kc">true</span>
+                  <span class="nv">success : </span><span class="nx">@newSlideCreated</span>
+
+            <span class="nx">@listenTo</span> <span class="nx">layout</span><span class="p">,</span> <span class="s">&quot;media:element:selected&quot;</span><span class="p">,</span> <span class="nf">(media)-&gt;</span>
+              <span class="nx">addSlideView</span><span class="p">.</span><span class="nx">triggerMethod</span> <span class="s">&quot;slide:image:selected&quot;</span><span class="p">,</span> <span class="nx">media</span>
+
+            <span class="nx">@listenTo</span> <span class="nx">layout</span><span class="p">,</span> <span class="s">&quot;image:selection:done&quot;</span><span class="p">,</span><span class="o">=&gt;</span>
+              <span class="nx">addSlideView</span><span class="p">.</span><span class="nx">triggerMethod</span> <span class="s">&quot;show:action:button&quot;</span>
+
+            <span class="nx">@listenTo</span> <span class="nx">addSlideView</span><span class="p">,</span> <span class="s">&quot;cancel:create:new:slide&quot;</span><span class="p">,</span><span class="nf">(data)=&gt;</span>
+              <span class="nx">Marionette</span><span class="p">.</span><span class="nx">triggerMethod</span><span class="p">.</span><span class="nx">call</span> <span class="nx">@region</span><span class="p">,</span> <span class="s">&quot;region:closed&quot;</span>
+              <span class="nx">layout</span><span class="p">.</span><span class="nx">close</span><span class="p">()</span>
+
+            <span class="nx">@show</span> <span class="nx">layout</span>
+
+          <span class="nx">newSlideCreated</span><span class="o">:</span><span class="nf">(model, response, options)=&gt;</span>
+            <span class="nx">Marionette</span><span class="p">.</span><span class="nx">triggerMethod</span><span class="p">.</span><span class="nx">call</span> <span class="nx">@region</span><span class="p">,</span> <span class="s">&quot;new:slide:created&quot;</span><span class="p">,</span> <span class="nx">model</span>
+            <span class="nx">@layout</span><span class="p">.</span><span class="nx">close</span><span class="p">()</span>
+
+          <span class="nx">_getAddSlideLayout</span><span class="o">:</span><span class="nf">-&gt;</span>
+            <span class="k">new</span> <span class="nx">AddSlideLayout</span>
+
+          <span class="nx">_getAddSlideView</span><span class="o">:</span><span class="nf">-&gt;</span>
+            <span class="k">new</span> <span class="nx">AddSlideView</span>
+
+
+        <span class="k">class</span> <span class="nx">AddSlideView</span> <span class="k">extends</span> <span class="nx">Marionette</span><span class="p">.</span><span class="nx">ItemView</span>
+
+          <span class="nv">tagName : </span><span class="s">&#39;form&#39;</span>
+
+          <span class="nv">template : </span><span class="s">&#39;&lt;div class=&quot;aj-imp-edit-image well&quot;&gt;</span>
+<span class="s">                  &lt;div class=&quot;row&quot;&gt;</span>
+<span class="s">                    &lt;div class=&quot;aj-imp-crop-link col-sm-4&quot;&gt;</span>
+<span class="s">                      &lt;div class=&quot;add-image-to-slide&quot;&gt;</span>
+<span class="s">                        &lt;span class=&quot;bicon icon-uniF10C&quot;&gt;&lt;/span&gt;</span>
+<span class="s">                        Click to Add an Image to Your Slide</span>
+<span class="s">                      &lt;/div&gt;</span>
+<span class="s">                      &lt;img src=&quot;{{thumb_url}}&quot; class=&quot;img-responsive slide-image&quot; style=&quot;display:none;&quot;&gt;</span>
+<span class="s">                      &lt;input type=&quot;hidden&quot; name=&quot;background_type&quot; value=&quot;image&quot;/&gt;</span>
+<span class="s">                      &lt;input type=&quot;hidden&quot; name=&quot;image&quot; value=&quot;&quot; required/&gt;</span>
+<span class="s">                      &lt;input type=&quot;hidden&quot; name=&quot;image_id&quot; value=&quot;&quot; require/&gt;</span>
+<span class="s">                    &lt;/div&gt;</span>
+<span class="s">                    &lt;div class=&quot;aj-imp-img-form col-sm-8&quot;&gt;</span>
+<span class="s">                      &lt;div class=&quot;row&quot;&gt;</span>
+<span class="s">                        &lt;div class=&quot;col-sm-6&quot;&gt;</span>
+<span class="s">                          &lt;input type=&quot;text&quot; required name=&quot;title&quot; value=&quot;{{title}}&quot; class=&quot;form-control&quot; placeholder=&quot;Title&quot;&gt;</span>
+<span class="s">                        &lt;/div&gt;</span>
+<span class="s">                        &lt;div class=&quot;col-sm-6&quot;&gt;</span>
+<span class="s">                          &lt;input type=&quot;url&quot; type=&quot;link&quot; name=&quot;link&quot; value=&quot;{{link}}&quot; class=&quot;form-control&quot; placeholder=&quot;Link&quot;&gt;</span>
+<span class="s">                        &lt;/div&gt;  </span>
+<span class="s">                      &lt;/div&gt;</span>
+<span class="s">                      &lt;div class=&quot;row&quot;&gt;</span>
+<span class="s">                        &lt;div class=&quot;col-sm-12&quot;&gt;</span>
+<span class="s">                          &lt;textarea name=&quot;description&quot; class=&quot;form-control&quot; placeholder=&quot;Description&quot;&gt;&lt;/textarea&gt;</span>
+<span class="s">                        &lt;/div&gt;</span>
+<span class="s">                      &lt;/div&gt;</span>
+<span class="s">                    &lt;/div&gt;</span>
+<span class="s">                  &lt;/div&gt;</span>
+<span class="s">                  &lt;div class=&quot;aj-imp-img-save&quot;&gt;</span>
+<span class="s">                    &lt;button type=&quot;button&quot; class=&quot;btn create-slide&quot;&gt;Add&lt;/button&gt;</span>
+<span class="s">                    &lt;button type=&quot;button&quot; class=&quot;btn cancel-create-slide&quot;&gt;Cancel&lt;/button&gt;</span>
+<span class="s">                  &lt;/div&gt;</span>
+<span class="s">                  &lt;/div&gt;&#39;</span>
+
+          <span class="nx">onSlideImageSelected</span><span class="o">:</span><span class="nf">(media)-&gt;</span>
+            <span class="nv">url = </span><span class="k">if</span> <span class="nx">media</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s">&#39;sizes&#39;</span><span class="p">).</span><span class="nx">thumbnail</span> <span class="k">then</span> <span class="nx">media</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s">&#39;sizes&#39;</span><span class="p">).</span><span class="nx">thumbnail</span><span class="p">.</span><span class="nx">url</span> <span class="k">else</span> <span class="nx">media</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s">&#39;sizes&#39;</span><span class="p">).</span><span class="nx">full</span><span class="p">.</span><span class="nx">url</span>
+            <span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;.add-image-to-slide&#39;</span><span class="p">).</span><span class="nx">hide</span><span class="p">()</span>
+            <span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;.slide-image&#39;</span><span class="p">).</span><span class="nx">attr</span> <span class="s">&#39;src&#39;</span><span class="p">,</span> <span class="nx">url</span>
+            <span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;.slide-image&#39;</span><span class="p">).</span><span class="nx">show</span><span class="p">()</span>
+            <span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;input[name=&quot;image&quot;]&#39;</span><span class="p">).</span><span class="nx">val</span> <span class="nx">media</span><span class="p">.</span><span class="nx">get</span> <span class="s">&#39;url&#39;</span>
+            <span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;input[name=&quot;image_id&quot;]&#39;</span><span class="p">).</span><span class="nx">val</span> <span class="nx">media</span><span class="p">.</span><span class="nx">get</span> <span class="s">&#39;id&#39;</span>
+
+          <span class="nx">onShowActionButton</span><span class="o">:</span><span class="nf">-&gt;</span>
+            <span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;.aj-imp-img-save&#39;</span><span class="p">).</span><span class="nx">show</span><span class="p">()</span>
+
+          <span class="nv">events : </span>
+            <span class="s">&#39;click .create-slide&#39;</span> <span class="o">:</span><span class="nf">(e)-&gt;</span>
+              <span class="k">if</span> <span class="nx">@$el</span><span class="p">.</span><span class="nx">valid</span><span class="p">()</span>
+                <span class="nv">data = </span><span class="nx">Backbone</span><span class="p">.</span><span class="nx">Syphon</span><span class="p">.</span><span class="nx">serialize</span> <span class="nx">@</span>
+                <span class="nx">$</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">).</span><span class="nx">attr</span> <span class="s">&#39;disabled&#39;</span><span class="p">,</span><span class="kc">true</span>
+                <span class="nx">@trigger</span> <span class="s">&quot;create:new:slide&quot;</span><span class="p">,</span> <span class="nx">data</span>
+
+            <span class="s">&#39;click .add-image-to-slide,.slide-image&#39;</span><span class="o">:</span> <span class="nf">-&gt;</span>
+                <span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;.aj-imp-img-save&#39;</span><span class="p">).</span><span class="nx">hide</span><span class="p">()</span>
+                <span class="nx">@$el</span><span class="p">.</span><span class="nx">closest</span><span class="p">(</span><span class="s">&#39;#add-slide-form-region&#39;</span><span class="p">).</span><span class="nx">next</span><span class="p">().</span><span class="nx">show</span><span class="p">()</span>
+
+            <span class="s">&#39;click .cancel-create-slide&#39;</span> <span class="o">:</span> <span class="nf">-&gt;</span> <span class="nx">@trigger</span> <span class="s">&quot;cancel:create:new:slide&quot;</span>
+
+
+        <span class="k">class</span> <span class="nx">AddSlideLayout</span> <span class="k">extends</span> <span class="nx">Marionette</span><span class="p">.</span><span class="nx">Layout</span>
+
+          <span class="nv">template : </span><span class="s">&#39;&lt;div id=&quot;add-slide-form-region&quot;&gt;&lt;/div&gt;</span>
+<span class="s">                &lt;div id=&quot;media-region&quot; style=&quot;display:none&quot;&gt;</span>
+<span class="s">                  &lt;ul class=&quot;nav nav-tabs&quot;&gt;</span>
+<span class="s">                    &lt;li&gt;&lt;a href=&quot;#upload-media-region&quot; data-toggle=&quot;tab&quot;&gt;Upload&lt;/a&gt;&lt;/li&gt;</span>
+<span class="s">                    &lt;li class=&quot;active&quot;&gt;&lt;a href=&quot;#grid-media-region&quot; data-toggle=&quot;tab&quot;&gt;Gallery&lt;/a&gt;&lt;/li&gt;</span>
+<span class="s">                  &lt;/ul&gt; </span>
+<span class="s">                  &lt;div class=&quot;tab-content&quot;&gt;</span>
+<span class="s">                    &lt;div class=&quot;tab-pane&quot; id=&quot;upload-media-region&quot;&gt;&lt;/div&gt;</span>
+<span class="s">                    &lt;div class=&quot;tab-pane active&quot; id=&quot;grid-media-region&quot;&gt;&lt;/div&gt;</span>
+<span class="s">                    &lt;button class=&quot;btn btn-primary slide-image-selected&quot;&gt;Done&lt;/button&gt;</span>
+<span class="s">                  &lt;/div&gt;</span>
+<span class="s">                &lt;/div&gt;&#39;</span>
+
+          <span class="nv">events:</span>
+            <span class="s">&#39;click .slide-image-selected&#39;</span> <span class="o">:</span><span class="nf">(e)-&gt;</span>  
+                <span class="nx">@trigger</span> <span class="s">&quot;image:selection:done&quot;</span>
+                <span class="nx">$</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">).</span><span class="nx">closest</span><span class="p">(</span><span class="s">&#39;#media-region&#39;</span><span class="p">).</span><span class="nx">hide</span><span class="p">()</span>
+
+          <span class="nx">initialize</span><span class="o">:</span><span class="nf">-&gt;</span>
+            <span class="nx">@listenTo</span> <span class="nx">@gridMediaRegion</span><span class="p">,</span> <span class="s">&quot;media:element:selected&quot;</span><span class="p">,</span><span class="nf">(media)-&gt;</span>
+              <span class="nx">@trigger</span> <span class="s">&quot;media:element:selected&quot;</span><span class="p">,</span> <span class="nx">media</span>
+
+          <span class="nv">regions: </span>
+            <span class="nv">addSlideFormRegion : </span><span class="s">&#39;#add-slide-form-region&#39;</span>
+            <span class="nv">uploadMediaRegion  : </span><span class="s">&#39;#upload-media-region&#39;</span>
+            <span class="nv">gridMediaRegion    : </span><span class="s">&#39;#grid-media-region&#39;</span>
+
+
+        <span class="nx">App</span><span class="p">.</span><span class="nx">commands</span><span class="p">.</span><span class="nx">setHandler</span> <span class="s">&quot;show:add:new:slide&quot;</span><span class="p">,</span><span class="nf">(options = {})-&gt;</span>
+            <span class="k">new</span> <span class="nx">AddSlideController</span> <span class="nx">options</span>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>

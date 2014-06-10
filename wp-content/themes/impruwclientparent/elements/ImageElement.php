@@ -43,14 +43,13 @@ class ImageElement extends Element {
      * The config to create a row element
      * @param array $config
      */
-    function __construct($config) {
+    function __construct($element) {
         
-        parent::__construct($config);
+        parent::__construct($element);
         
-        if(isset($config['dataSource'])){
-            $this->data  = $config['dataSource'];
-        }
-        
+        $this->image_id = isset($element['image_id']) ? $element['image_id'] : 0;
+        $this->size = $element['size'];
+        // $this->margins = 
         $this->markup    = $this->generate_markup();
     }
     
@@ -76,11 +75,7 @@ class ImageElement extends Element {
      */
     function get_image_id(){
          
-        if(isset($this->data['attachmentID'])){
-            return (int)$this->data['attachmentID'];
-        }
-        
-        return 0;
+        $this->image_id;
     }
     
     /**
@@ -101,15 +96,13 @@ class ImageElement extends Element {
      * @return string
      */
     function get_image(){
-        
-        $a_id = $this->get_image_id();
 
-        $size = $this->get_image_size();
-        
-        $path = get_parent_template_directory_uri() . '/js/holder.js/100%x220';
+        $a_id = $this->image_id;
+
+        $size = $this->size;
 
         if($a_id === 0){
-            return  "<img data-src='$path' class='img-responsive' />";
+            return  '<div class="image-placeholder"><span class="glyphicon glyphicon-picture"></span></div>';
         }
 
         $path = wp_get_attachment_image_src($a_id, $size);
@@ -117,10 +110,10 @@ class ImageElement extends Element {
 
         
         if($path !== false) {
-            return "<img src='{$path[0]}' class='img-responsive' />";
+            return "<img src='{$path[0]}' class='img-responsive {$this->margins}' width='100%'/>";
         }
         else{
-            return '<img data-src="'. get_parent_template_directory_uri(). '/js/holder.js/100%x220" class="img-responsive"/>';
+            return "<img data-src='". get_parent_template_directory_uri(). "'/js/holder.js/100%x220' class='img-responsive {$this->margins}'/>";
         }
             
     }

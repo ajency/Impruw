@@ -1,6 +1,7 @@
 <?php
+
 /**
- * This class is responsible for all actions/functions related to 
+ * This class is responsible for all actions/functions related to
  * Cpntact form Element
  *
  * @category   layout
@@ -14,78 +15,90 @@
  * @since      Class available since Release 0.1
  * @deprecated NA
  */
-
 class ContactFormElement extends Element {
-    
+
     /**
      * The default type property for element
-     * @var String 
+     * @var String
      */
-    var $type       = 'contactform';
-    
+    var $type = 'contactform';
+
     /**
      * Set draggable property of element.
      * All elements are draggable by defaults
-     * @var boolean 
+     * @var boolean
      */
-    var $tag_name   = 'div';
-    
+    var $tag_name = 'div';
+
     /**
      * The default classname property for element.
      * Empty string by default
-     * @var String 
+     * @var String
      */
-    var $class_name  = '';
-    
-    
-    
+    var $class_name = 'contactform';
+
+
     /**
      * The config to create a row element
+     *
      * @param array $config
      */
-    function __construct($config) {
-        
-        parent::__construct($config);
-        
-        $this->markup           = $this->generate_markup();
+    function __construct( $element ) {
+
+        parent::__construct( $element );
+
+        $this->style_class = sanitize_title( $element[ 'style' ] );
+
+        $this->markup = $this->generate_markup();
     }
-    
+
     /**
      * Create the basic markup for an element
      * @uses className and tagName properties of element
      * @return String basic markup
      */
-    function generate_markup(){
-        
-        $html       = $this->get_open_tag();
-        
+    function generate_markup() {
+
+        $html = $this->get_open_tag();
+
         ob_start(); ?>
 
-        <div class="infoPoint text-center">Send us a Message</div>
-        <form id="contactForm" method="" action="">
-            <fieldset>
-                <div class="row">
-                    <div class="col-md-6">
-                        <input type="text" required class="form-control flat" name="c-name" id="name" title="Enter your name" placeholder="Name"><br>
-                        <input type="email" required class="form-control flat" name="c-email" id="email" title="Enter your email" placeholder="Email Address"><br>
-                        <input type="text" class="form-control flat" name="c-phoneno" id="phonenumber" title="Enter your phone number" placeholder="Phone Number" value=""><br>
-                    </div>
-                    <div class="col-md-6">
-                        <textarea required name="c-message" class="form-control flat" id="message" title="Enter your message" placeholder="Your Message"></textarea><br>
-                        <button class="submit btn btn-default" name="submit" type="button" id="contact-form-save">Send Message</button>
-                        <input type="reset" id="contact-form-reset" class="hidden"/>
-                    </div>
+        <form>
+            <div class="row">
+                <div class="col-md-6">
+                    <label>First Name</label>
+                    <input type="text" placeholder="Your First Name" name="c-first-name" required
+                           class="form-control flat"/>
+                    <label>Last Name</label>
+                    <input type="text" placeholder="Your Last Name" name="c-last-name" class="form-control flat"/>
+                    <label>Email Address</label>
+                    <input type="email" placeholder="Your Email Address" name="c-email" required
+                           class="email form-control flat"/>
+                    <label>Subject</label>
+                    <select id="subject" required="true" name="c-subject" placeholder="Choose One:"
+                            class="form-control flat">
+                        <option value="" selected="">Select subject:</option>
+                        <option value="general customer service">General Customer Service</option>
+                        <option value="suggestions">Suggestions</option>
+                        <option value="product support">Product Support</option>
+                    </select>
                 </div>
-            </fieldset>
+                <div class="col-md-6">
+                    <label>Message</label>
+                    <textarea id="message" rows="5" name="c-message" required placeholder="Your Message"
+                              class="form-control flat"></textarea>
+                    <button type="button" id="contact-form-save" class="btn btn-default">Send Message</button>
+                    <input type="reset" class="hidden"/>
+                </div>
+            </div>
         </form>
         <?php
 
         $html .= ob_get_clean();
-        
+
         $html .= $this->get_close_tag();
-        
+
         return $html;
     }
 
-    
 }

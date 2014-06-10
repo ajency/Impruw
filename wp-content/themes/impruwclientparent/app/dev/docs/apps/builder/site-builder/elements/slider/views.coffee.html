@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>views.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../../../doc-style.css" />
+  <script src="../../../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../../../", thisFile = "Applications/XAMPP/xamppfiles/htdocs/impruw/wp-content/themes/impruwclientparent/app/dev//apps/builder/site-builder/elements/slider/views.coffee", defaultSidebar = true;
+  </script>
+  <script src="../../../../../doc-script.js"></script>
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container"><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+          <h1>views.coffee</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1">&#182;</a>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre><span class="nx">define</span> <span class="p">[</span><span class="s">&#39;app&#39;</span><span class="p">],</span><span class="nf">(App)-&gt;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2">&#182;</a>
+</div>
+<p>Row views</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nx">App</span><span class="p">.</span><span class="nx">module</span> <span class="s">&#39;SiteBuilderApp.Element.Slider.Views&#39;</span><span class="p">,</span> <span class="nf">(Views, App, Backbone, Marionette, $, _)-&gt;</span>
+
+
+    <span class="k">class</span> <span class="nx">SliderItem</span> <span class="k">extends</span> <span class="nx">Marionette</span><span class="p">.</span><span class="nx">ItemView</span>
+
+      <span class="nv">template : </span><span class="s">&#39;&lt;img src=&quot;{{full_url}}&quot; alt=&quot;Slide&quot; data-bgfit=&quot;cover&quot; data-bgposition=&quot;left top&quot; data-bgrepeat=&quot;no-repeat&quot;/&gt;&#39;</span>
+
+      <span class="nv">tagName : </span><span class="s">&#39;li&#39;</span>
+
+      <span class="nx">onRender</span><span class="o">:</span><span class="nf">-&gt;</span>
+        <span class="nx">@$el</span><span class="p">.</span><span class="nx">attr</span> <span class="s">&#39;data-transition&#39;</span><span class="p">,</span><span class="s">&#39;fade&#39;</span>
+          <span class="p">.</span><span class="nx">attr</span> <span class="s">&#39;data-slotamount&#39;</span><span class="p">,</span><span class="s">&#39;7&#39;</span>
+          <span class="p">.</span><span class="nx">attr</span> <span class="s">&#39;data-masterspeed&#39;</span><span class="p">,</span><span class="s">&#39;1500&#39;</span>
+
+
+    <span class="k">class</span> <span class="nx">EmptySlider</span> <span class="k">extends</span> <span class="nx">Marionette</span><span class="p">.</span><span class="nx">ItemView</span>
+
+      <span class="nv">template : </span><span class="s">&#39;&lt;div class=&quot;empty-view&quot;&gt;&lt;span class=&quot;bicon icon-uniF119&quot;&gt;&lt;/span&gt;There are no slides.&lt;br&gt; Click to add slides.&lt;/div&gt;&#39;</span>
+ 
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+</div>
+<p>Menu item view</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="k">class</span> <span class="nx">Views</span><span class="p">.</span><span class="nx">SliderView</span> <span class="k">extends</span> <span class="nx">Marionette</span><span class="p">.</span><span class="nx">CompositeView</span>
+
+      <span class="nv">className : </span><span class="s">&#39;fullwidthbanner-container roundedcorners&#39;</span>
+
+      <span class="nv">template : </span><span class="s">&#39;&lt;div class=&quot;fullwidthbanner&quot;&gt;&lt;ul&gt;&lt;/ul&gt;&lt;/div&gt;&#39;</span>
+
+      <span class="nv">id : </span><span class="nx">_</span><span class="p">.</span><span class="nx">uniqueId</span><span class="p">(</span><span class="s">&#39;carousel-&#39;</span><span class="p">)</span>
+
+      <span class="nv">itemView : </span><span class="nx">SliderItem</span>
+
+      <span class="nv">emptyView : </span><span class="nx">EmptySlider</span>
+
+      <span class="nv">itemViewContainer: </span><span class="s">&#39;.fullwidthbanner &gt; ul&#39;</span>
+
+      <span class="nv">events:</span>
+        <span class="s">&#39;click&#39;</span> <span class="o">:</span><span class="nf">(e)-&gt;</span> 
+          <span class="nx">@trigger</span> <span class="s">&quot;show:slides:manager&quot;</span>
+        <span class="s">&#39;click .tp-rightarrow,.tp-leftarrow,.bullet&#39;</span> <span class="o">:</span><span class="nf">(e)-&gt;</span> <span class="nx">e</span><span class="p">.</span><span class="nx">stopPropagation</span><span class="p">()</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
+</div>
+<p>close revolution slider on close</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="nx">onClose</span><span class="o">:</span><span class="nf">-&gt;</span>
+        <span class="k">delete</span> <span class="nx">@revapi</span>
+
+      <span class="nx">onShow</span><span class="o">:</span><span class="nf">-&gt;</span>
+        
+        <span class="k">return</span> <span class="k">if</span> <span class="nx">@collection</span><span class="p">.</span><span class="nx">length</span> <span class="o">is</span> <span class="mi">0</span> 
+
+        <span class="nv">defaults = </span><span class="nx">@_getDefaults</span><span class="p">()</span>
+        
+        <span class="nv">options = </span>
+          <span class="nv">startHeight : </span><span class="nx">@getTallestColumnHeight</span><span class="p">()</span>
+
+        <span class="nv">options = </span><span class="nx">_</span><span class="p">.</span><span class="nx">defaults</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">defaults</span>
+
+        <span class="vi">@revapi = </span><span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&quot;.fullwidthbanner&quot;</span><span class="p">).</span><span class="nx">revolution</span> <span class="nx">options</span>
+
+        <span class="nx">@trigger</span> <span class="s">&quot;set:slider:height&quot;</span><span class="p">,</span> <span class="nx">options</span><span class="p">.</span><span class="nx">startHeight</span>
+
+      <span class="nx">getTallestColumnHeight</span><span class="o">:</span><span class="nf">-&gt;</span>
+
+        <span class="nv">column = </span><span class="nx">@$el</span><span class="p">.</span><span class="nx">closest</span><span class="p">(</span><span class="s">&#39;.column&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nx">column</span><span class="p">.</span><span class="nx">length</span> <span class="o">is</span> <span class="mi">0</span>
+          <span class="k">return</span> <span class="mi">350</span>
+
+        <span class="nv">row = </span><span class="nx">column</span><span class="p">.</span><span class="nx">closest</span> <span class="s">&#39;.row&#39;</span>
+
+        <span class="nv">height = </span><span class="mi">350</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
+</div>
+<p>loop through all columns and get tallest column</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="nx">$</span><span class="p">(</span><span class="nx">row</span><span class="p">).</span><span class="nx">children</span><span class="p">(</span><span class="s">&#39;.column&#39;</span><span class="p">).</span><span class="nx">each</span> <span class="nf">(index, col)-&gt;</span>
+          <span class="k">if</span> <span class="nx">$</span><span class="p">(</span><span class="nx">col</span><span class="p">).</span><span class="nx">height</span><span class="p">()</span> <span class="o">&gt;=</span> <span class="nx">height</span>
+            <span class="nv">height = </span><span class="nx">$</span><span class="p">(</span><span class="nx">col</span><span class="p">).</span><span class="nx">height</span><span class="p">()</span>
+
+        <span class="nx">height</span>
+
+      <span class="nx">_getDefaults</span><span class="o">:</span><span class="nf">-&gt;</span>
+        <span class="nv">delay: </span><span class="mi">9000</span>
+        <span class="nv">startwidth: </span><span class="s">&#39;100%&#39;</span>
+        <span class="nv">hideThumbs: </span><span class="mi">10</span>
+        <span class="nv">thumbWidth: </span><span class="mi">100</span>
+        <span class="nv">thumbHeight: </span><span class="mi">50</span>
+        <span class="nv">thumbAmount: </span><span class="mi">5</span>
+        <span class="nv">navigationType: </span><span class="s">&quot;both&quot;</span>
+        <span class="nv">navigationArrows: </span><span class="s">&quot;solo&quot;</span>
+        <span class="nv">navigationStyle: </span><span class="s">&quot;round&quot;</span>
+        <span class="nv">touchenabled: </span><span class="s">&quot;on&quot;</span>
+        <span class="nv">onHoverStop: </span><span class="s">&quot;on&quot;</span>
+        <span class="nv">navigationHAlign: </span><span class="s">&quot;center&quot;</span>
+        <span class="nv">navigationVAlign: </span><span class="s">&quot;bottom&quot;</span>
+        <span class="nv">navigationHOffset: </span><span class="mi">0</span>
+        <span class="nv">navigationVOffset: </span><span class="mi">0</span>
+        <span class="nv">soloArrowLeftHalign: </span><span class="s">&quot;left&quot;</span>
+        <span class="nv">soloArrowLeftValign: </span><span class="s">&quot;center&quot;</span>
+        <span class="nv">soloArrowLeftHOffset: </span><span class="mi">20</span>
+        <span class="nv">soloArrowLeftVOffset: </span><span class="mi">0</span>
+        <span class="nv">soloArrowRightHalign: </span><span class="s">&quot;right&quot;</span>
+        <span class="nv">soloArrowRightValign: </span><span class="s">&quot;center&quot;</span>
+        <span class="nv">soloArrowRightHOffset: </span><span class="mi">20</span>
+        <span class="nv">soloArrowRightVOffset: </span><span class="mi">0</span>
+        <span class="nv">shadow: </span><span class="mi">0</span>
+        <span class="nv">fullWidth: </span><span class="s">&quot;on&quot;</span>
+        <span class="nv">fullScreen: </span><span class="s">&quot;off&quot;</span>
+        <span class="nv">stopLoop: </span><span class="s">&quot;off&quot;</span>
+        <span class="nv">stopAfterLoops: </span><span class="o">-</span><span class="mi">1</span>
+        <span class="nv">stopAtSlide: </span><span class="o">-</span><span class="mi">1</span>
+        <span class="nv">shuffle: </span><span class="s">&quot;off&quot;</span>
+        <span class="nv">autoHeight: </span><span class="s">&quot;off&quot;</span>
+        <span class="nv">forceFullWidth: </span><span class="s">&quot;off&quot;</span>
+        <span class="nv">hideThumbsOnMobile: </span><span class="s">&quot;off&quot;</span>
+        <span class="nv">hideBulletsOnMobile: </span><span class="s">&quot;on&quot;</span>
+        <span class="nv">hideArrowsOnMobile: </span><span class="s">&quot;on&quot;</span>
+        <span class="nv">hideThumbsUnderResolution: </span><span class="mi">0</span>
+        <span class="nv">hideSliderAtLimit: </span><span class="mi">0</span>
+        <span class="nv">hideCaptionAtLimit: </span><span class="mi">768</span>
+        <span class="nv">hideAllCaptionAtLilmit: </span><span class="mi">0</span>
+        <span class="nv">startWithSlide: </span><span class="mi">0</span>
+        <span class="nv">fullScreenOffsetContainer: </span><span class="s">&quot;&quot;</span>                           
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>

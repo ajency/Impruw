@@ -306,18 +306,29 @@ a:focus {
 }
 @media only screen and (min-width: 1440px) {
   /* Styles */
-  .aj-imp-container .aj-imp-left {
+  .aj-imp-container .aj-imp-left,
+  .aj-imp-container .aj-imp-foot-left {
     width: 16.6667%;
   }
-  .aj-imp-container .aj-imp-left .aj-imp-dash-nav #aj-imp-dash-menu li .icon {
+  .aj-imp-container .aj-imp-left .aj-imp-dash-nav #aj-imp-dash-menu li .icon,
+  .aj-imp-container .aj-imp-foot-left .aj-imp-dash-nav #aj-imp-dash-menu li .icon {
     left: 20px;
   }
-  .aj-imp-container .aj-imp-left .aj-imp-dash-nav #aj-imp-dash-menu li a {
+  .aj-imp-container .aj-imp-left .aj-imp-dash-nav #aj-imp-dash-menu li a,
+  .aj-imp-container .aj-imp-foot-left .aj-imp-dash-nav #aj-imp-dash-menu li a {
     padding: 20px 5px 20px 70px;
   }
-  .aj-imp-container .aj-imp-right {
+  .aj-imp-container .aj-imp-right,
+  .aj-imp-container .aj-imp-foot-right {
     width: 83.3333%;
   }
+}
+.aj-imp-dash-footer {
+  padding: 1em 15px;
+  background: #fff;
+  text-align: right;
+  font-size: 0.88em;
+  border-top: 1px solid #dddddd;
 }
 #jPanelMenu-menu {
   background: #f6f6f6;
@@ -483,6 +494,13 @@ form .form-group .help-block a:hover {
   text-shadow: none;
   color: #65879c;
 }
+form .form-group .help-block h6 {
+  font-size: 1.1em;
+  color: #aaaaaa;
+}
+form .form-group .help-block p {
+  font-size: 0.92em;
+}
 form .form-group .help-block.add-another-link {
   margin: 0.5em 0;
 }
@@ -536,6 +554,9 @@ form .aj-imp-submit {
 }
 form .aj-imp-submit:hover {
   background: #ff9833;
+}
+.select {
+  margin-bottom: 0;
 }
 .select .dropdown-toggle {
   background: #fff;
@@ -612,10 +633,29 @@ form .aj-imp-submit:hover {
   color: #848484;
   font-weight: bold;
 }
+.aj-imp-lo-header > .row .lang-actions .lang-sel {
+  float: right;
+  margin: 0.3em 0.5em;
+  text-align: left;
+}
+.aj-imp-lo-header > .row .lang-actions .lang-sel #lang_sel {
+  height: auto;
+}
+.aj-imp-lo-header > .row .lang-actions .lang-sel #lang_sel ul li a {
+  border: 0;
+}
+.aj-imp-lo-header > .row .lang-actions .lang-sel #lang_sel ul li ul {
+  clear: both;
+  border: 0;
+}
+.aj-imp-lo-header > .row .lang-actions .lang-sel #lang_sel ul li ul li a {
+  border: 1px solid #aaaaaa;
+}
 .aj-imp-lo-header > .row .lang-actions .login-btn {
   border-radius: 3px;
   background: #ff7e00;
   text-transform: uppercase;
+  float: right;
 }
 .aj-imp-lo-header > .row .lang-actions .login-btn:hover {
   background: #ff9833;
@@ -752,6 +792,50 @@ form .aj-imp-submit:hover {
   margin: 1em -15px 0.5em;
   text-align: center;
 }
+.aj-imp-register-form .aj-imp-register-left form .aj-imp-site-name {
+  background: #ffcb99;
+  border-radius: 5px;
+  border: 1px solid #f59482;
+  padding: 1em 0;
+  margin-bottom: 1em;
+}
+.aj-imp-register-form .aj-imp-register-left form .aj-imp-site-name .control-label {
+  top: 0.3em;
+}
+.aj-imp-register-form .aj-imp-register-left form .aj-imp-site-name .form-group {
+  margin-bottom: 0;
+}
+.aj-imp-register-form .aj-imp-register-left form .aj-imp-site-name .form-group .form-control {
+  border-color: #f59482;
+  background: #ffcb99;
+}
+.aj-imp-register-form .aj-imp-register-left form .aj-imp-site-name .form-group .form-control::-webkit-input-placeholder {
+  color: #ee4423 !important;
+}
+.aj-imp-register-form .aj-imp-register-left form .aj-imp-site-name .form-group .form-control:-moz-placeholder {
+  color: #ee4423 !important;
+}
+.aj-imp-register-form .aj-imp-register-left form .aj-imp-site-name .form-group .form-control::-moz-placeholder {
+  color: #ee4423 !important;
+}
+.aj-imp-register-form .aj-imp-register-left form .aj-imp-site-name .form-group .form-control:-ms-input-placeholder {
+  color: #ee4423 !important;
+}
+.aj-imp-register-form .aj-imp-register-left form .aj-imp-site-name .form-group .form-control:focus {
+  background: #ffb266;
+}
+.aj-imp-register-form .aj-imp-register-left form .aj-imp-site-name .form-group .help-block {
+  color: #777777;
+}
+.aj-imp-register-form .aj-imp-register-left form .aj-imp-site-name .aj-imp-domain {
+  padding: 12px 7px 0;
+  font-size: 1.025em;
+}
+@media (max-width: 767px) {
+  .aj-imp-register-form .aj-imp-register-left form .aj-imp-site-name {
+    padding: 1em;
+  }
+}
 .aj-imp-register-form .aj-imp-register-right {
   margin: 2em 0 0;
   padding: 0 30px 0;
@@ -772,21 +856,24 @@ form .aj-imp-submit:hover {
   margin: 0 0 1em;
 }
 .aj-imp-register-form .aj-imp-register-right .aj-imp-register-steps .number {
-  display: block;
-  float: left;
+  display: inline-block;
   text-align: center;
   margin-right: 0.2em;
   background: #ff7e00;
   color: #fff;
-  font-size: 1.6em;
-  font-weight: 700;
+  font-size: 1em;
   padding: 0.2em;
   width: 1.6em;
   height: 1.6em;
   border-radius: 1.6em;
 }
+@media (max-width: 969px) {
+  .aj-imp-register-form .aj-imp-register-right .aj-imp-register-steps {
+    text-align: center;
+  }
+}
 .aj-imp-register-form .aj-imp-register-right .aj-imp-reg-step {
-  margin: 2em 0 1em;
+  margin: 1em 0 2em;
 }
 .aj-imp-register-form .aj-imp-register-right .aj-imp-reg-step h4 {
   color: #ff7e00;
@@ -799,6 +886,18 @@ form .aj-imp-submit:hover {
 .aj-imp-register-form .aj-imp-register-right .aj-imp-reg-step p {
   color: #aaaaaa;
   font-size: 1.1em;
+}
+@media (max-width: 969px) {
+  .aj-imp-register-form .aj-imp-register-right .aj-imp-reg-step {
+    text-align: center;
+  }
+}
+@media (max-width: 969px) {
+  .aj-imp-register-form .aj-imp-register-right.contact-details {
+    border-top: 1px solid #aaaaaa;
+    padding-top: 1.5em;
+    display: block;
+  }
 }
 /****Login Page Styles****/
 .aj-imp-login-form {
@@ -947,6 +1046,162 @@ form .aj-imp-submit:hover {
 }
 .modal.wide-modal .modal-dialog .modal-content .modal-body {
   padding: 0.5em 0;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .nav-tabs {
+  border-width: 1px;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .nav-tabs li a {
+  font-weight: normal;
+  border: 0;
+  background: transparent;
+  font-size: 1.1em;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .nav-tabs li a:hover {
+  color: #333333;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .nav-tabs li.active > a {
+  color: #ff7e00;
+  font-weight: 700;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content {
+  border-radius: 0;
+  border: 0;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .aj-imp-upload-media {
+  text-align: center;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .aj-imp-upload-media > span {
+  display: block;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .aj-imp-upload-media > span[class^="icon-"] {
+  font-size: 10em;
+  color: #e6e6e6;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .aj-imp-upload-media .aj-imp-upload-message {
+  margin: 1em 0;
+  background: #919191;
+  color: #fff;
+  border-radius: 4px;
+  font-size: 1.1em;
+  display: inline-block;
+  padding: 0.5em 1em 0.6em;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .aj-imp-upload-media .small-text {
+  font-size: 0.9em;
+  color: #aaaaaa;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .aj-imp-image-header {
+  padding: 10px 15px;
+  margin: 0 0 1em;
+  background: #f3f3f3;
+  color: #333333;
+  font-size: 1.1em;
+  font-weight: 700;
+  border-bottom: 1px solid #aaaaaa;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel {
+  border-radius: 0;
+  border: 0;
+  border-bottom: 1px solid #c3c3c3;
+  background: none;
+  box-shadow: none;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-heading {
+  background: none;
+  border: 0;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-heading > a {
+  display: block;
+  outline: 0;
+  color: #ff7e00;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-heading > a .imgthumb img {
+  height: 100%;
+  width: auto;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-heading > a .imgname,
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-heading > a .imgdate {
+  font-weight: bold;
+  padding: 0.5em 15px;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-heading > a .imgactions {
+  text-align: center;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-heading > a .imgactions .btn {
+  padding: 5px 8px 6px;
+  margin-right: 1em;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-heading > a .imgactions .btn:hover {
+  background: #ff7e00;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-heading > a.collapsed {
+  color: #aaaaaa;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-heading:hover {
+  background: #f3f3f3;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-body {
+  border: 0;
+  padding: 1em 0;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-body .aj-imp-edit-image {
+  border-radius: 0;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-body .aj-imp-edit-image .aj-imp-crop-link {
+  position: relative;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-body .aj-imp-edit-image .aj-imp-crop-link img {
+  padding: 1px;
+  border: 1px solid #aaaaaa;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-body .aj-imp-edit-image .aj-imp-crop-link .aj-imp-crop-link-overlay {
+  position: absolute;
+  top: 1px;
+  bottom: 1px;
+  left: 15px;
+  right: 15px;
+  background: rgba(0, 0, 0, 0.4);
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-body .aj-imp-edit-image .aj-imp-crop-link .aj-imp-crop-link-overlay a {
+  position: relative;
+  top: 50%;
+  color: #fff;
+  display: block;
+  text-align: center;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-body .aj-imp-edit-image .aj-imp-img-form .row {
+  margin: 0 0 1em;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-body .aj-imp-edit-image .aj-imp-img-form .row textarea {
+  min-height: 115px;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-body .aj-imp-edit-image .aj-imp-img-form .row input:focus,
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-body .aj-imp-edit-image .aj-imp-img-form .row textarea:focus {
+  border-color: #ff7e00;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-body .aj-imp-edit-image .aj-imp-img-save {
+  margin: 1em 0 0;
+  text-align: right;
+  padding: 0.5em 0 0;
+  border-top: 1px solid #dadada;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group#settings-accordion .panel .panel-heading > a .imgthumb span[class^="icon"],
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group#map-settings-accordion .panel .panel-heading > a .imgthumb span[class^="icon"] {
+  font-size: 2em;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group#settings-accordion .panel .panel-heading > a .imgactions,
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group#map-settings-accordion .panel .panel-heading > a .imgactions {
+  text-align: right;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .aj-imp-block-button {
+  margin: 1em 0;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .aj-imp-block-button a {
+  text-transform: uppercase;
+}
+.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .aj-imp-map-view {
+  padding: 0.5em;
+  border: 2px dashed #aaaaaa;
 }
 /****File Upload Plugin Styles****/
 .btn-file {
@@ -1196,7 +1451,7 @@ form .aj-imp-submit:hover {
   background: #ff7e00;
   border-radius: 0;
   color: #fff;
-  line-height: 10px;
+  line-height: 15px;
 }
 .facilities-list .facility.add:hover {
   border-color: transparent;
@@ -1217,6 +1472,9 @@ form .aj-imp-submit:hover {
 }
 .modal-open .jPanelMenu-panel {
   position: static !important;
+}
+.jPanelMenu body {
+  overflow: hidden;
 }
 .plan-modal .form-horizontal .form-group {
   margin: 0 0 20px;
@@ -1267,6 +1525,18 @@ form .aj-imp-submit:hover {
 .delete-link:hover {
   color: #ce2f10;
   text-shadow: 0 0 2px #ee4423;
+}
+.taxoption_edit,
+.checkinformat_edit {
+  margin-bottom: 0.5em;
+}
+.daterange_frominput,
+.daterange_toinput {
+  display: inline-block;
+  max-width: 75%;
+}
+.daterange_tolabel {
+  margin-right: 15px;
 }
 /****Date Picker Styles****/
 .ui-datepicker {
@@ -1415,4 +1685,46 @@ form .aj-imp-submit:hover {
   .room-list tbody td.actions .btn {
     display: block;
   }
+}
+/****Dashboard Panel Styles****/
+.panel .panel-body h5 {
+  color: #aaaaaa;
+  font-size: 1.3em;
+}
+.panel .panel-body p {
+  color: #aaaaaa;
+}
+/****Page Styles****/
+.aj-imp-default-page {
+  width: 80%;
+  min-height: 500px;
+  background: #fff;
+  box-shadow: 0 0 5px 4px #c3c3c3;
+  margin: 3em auto;
+  padding: 1em;
+}
+.aj-imp-default-page .aj-imp-register-header {
+  border-bottom: 1px solid #eaeaea;
+  text-align: center;
+}
+.aj-imp-default-page .aj-imp-register-header h1 {
+  font-size: 2.5em;
+  font-weight: 700;
+}
+.aj-imp-default-page .aj-imp-register-header h1 span {
+  color: #ff7e00;
+}
+.aj-imp-default-page .aj-imp-register-header .desc {
+  font-size: 1.1em;
+  color: #c3c3c3;
+}
+.aj-imp-default-page .aj-imp-page-content {
+  margin: 1em 0;
+}
+.aj-imp-default-page .aj-imp-page-content p {
+  font-size: 1.1em;
+  color: #aaaaaa;
+}
+.loading-container {
+  margin-top: 100px;
 }

@@ -1,0 +1,50 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 20 Feb, 2014, 7:45:35 PM
+    Author     : jarr-head
+*/
+.row{
+	background: transparent;
+	&.long-bar {
+	    position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 25%;
+		width: 100%;
+		padding: 0 15px;
+		z-index: 900;
+		> .column, > div {
+			background: @primary1 !important;
+			color: @white;
+			width: 100%;
+			max-width: 220px;
+			min-height: 500px;
+			padding: 0;
+		}
+		@media(min-width:993px) and (max-width:1200px) {
+			left: 5%;
+		}
+		@media(max-width:992px) {
+			display: none;
+		}
+	}
+
+	&.grey-background {
+		background: @secondary1 !important;
+	}
+
+	&.slideshow-container {
+		margin: 0 0 @medium;
+	}
+
+	&.footer-container {
+		background: @white !important;
+		@media(max-width:767px) {
+			text-align: center;
+		}
+	}
+}

@@ -1,0 +1,15 @@
+<div class="roomsummary">
+	<div class="room-img">
+         <img class="img-responsive" src="{{image_url}}" width="100%">
+    </div>
+    <div class="room-title">{{post_title}}</div>
+    <div class="room-excerpt">
+    	{{post_content}}
+	</div>
+    <div class="room-actions">
+            <a href="#rooms/edit/{{ID}}" class="btn btn-xs editroom_link">
+			<span class="glyphicon glyphicon-pencil"></span>{{#polyglot}}Edit{{/polyglot}}</a>
+			<a href="#rooms/delete/{{ID}}" class="btn btn-danger btn-xs deleteroom_link">
+			<span class="glyphicon glyphicon-trash"></span> {{#polyglot}}Delete{{/polyglot}}</a>
+    </div>
+</div>

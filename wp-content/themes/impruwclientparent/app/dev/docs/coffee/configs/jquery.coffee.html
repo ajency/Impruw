@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>jquery.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../doc-style.css" />
+  <script src="../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../", thisFile = "coffee/configs/jquery.coffee", defaultSidebar = true;
+  </script>
+  <script src="../../doc-script.js"></script>
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+      <div class="heading h1">
+        <a href="#you%20can%20add%20your%20own%20jquery%20plugins%20here">You can add your own jquery plugins here</a>
+      </div>
+      <div class="heading h1">
+        <a href="#or%20even%20mixin%20some%20extra%20functions">Or even mixin some extra functions</a>
+      </div>
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container"><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+<div class="pilwrap" id="you%20can%20add%20your%20own%20jquery%20plugins%20here">
+  <h1>
+    <a href="#you%20can%20add%20your%20own%20jquery%20plugins%20here" name="you%20can%20add%20your%20own%20jquery%20plugins%20here" class="pilcrow">&#182;</a>
+    You can add your own jquery plugins here
+  </h1>
+</div>
+
+
+
+<div class="pilwrap" id="or%20even%20mixin%20some%20extra%20functions">
+  <h1>
+    <a href="#or%20even%20mixin%20some%20extra%20functions" name="or%20even%20mixin%20some%20extra%20functions" class="pilcrow">&#182;</a>
+    Or even mixin some extra functions
+  </h1>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre><span class="nx">define</span> <span class="p">[</span><span class="s">&#39;jquery&#39;</span><span class="p">,</span> <span class="s">&#39;underscore&#39;</span><span class="p">,</span> <span class="s">&#39;polyglot&#39;</span><span class="p">],</span> <span class="nf">($, _, Polyglot)-&gt;</span>
+
+  
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2">&#182;</a>
+</div>
+<p>adjust the dimesion of upper content and also the left section and right section
+Uses jquery to get window dimensions and sets min-height css property so that if height 
+is greater it will not hide the content
+@uses underscore's _.debounce to avoid repeated function calls on window resize </p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nv">adjustPageDim = </span><span class="nx">_</span><span class="p">.</span><span class="nx">debounce</span> <span class="p">()</span><span class="nf">-&gt;</span>
+
+    <span class="nv">height = </span><span class="nx">$</span><span class="p">(</span><span class="nb">window</span><span class="p">).</span><span class="nx">height</span><span class="p">()</span>
+
+    <span class="nv">minHeight = </span><span class="nx">height</span> <span class="o">-</span> <span class="mi">40</span>
+
+    <span class="nx">$</span><span class="p">(</span><span class="s">&#39;.aj-upper-content&#39;</span><span class="p">).</span><span class="nx">css</span> <span class="s">&#39;min-height&#39;</span><span class="p">,</span><span class="nx">minHeight</span>
+
+    <span class="nx">$</span><span class="p">(</span><span class="s">&#39;.aj-upper-content&#39;</span><span class="p">).</span><span class="nx">children</span><span class="p">().</span><span class="nx">css</span> <span class="s">&#39;min-height&#39;</span><span class="p">,</span><span class="nx">minHeight</span>
+
+  <span class="p">,</span> <span class="mi">30</span>  
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+</div>
+<p>setup page initial dimesions</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span> <span class="p">()</span><span class="nf">-&gt;</span>
+
+    <span class="nx">adjustPageDim</span><span class="p">()</span>
+    
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
+</div>
+<p>adjust the page size and dimensions on resize</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nx">$</span><span class="p">(</span><span class="nb">window</span><span class="p">).</span><span class="nx">resize</span> <span class="nx">adjustPageDim</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
+</div>
+<p>Setup Polyglot</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+  <span class="nb">window</span><span class="p">.</span><span class="nv">pt = </span><span class="k">new</span> <span class="nx">Polyglot</span>
+            <span class="nv">phrases : </span><span class="p">{}</span>
+
+  <span class="nb">window</span><span class="p">.</span><span class="nv">__ = </span><span class="nf">(key, opt = {})-&gt;</span>
+
+    <span class="nx">pt</span><span class="p">.</span><span class="nx">t</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span> <span class="nx">opt</span><span class="p">)</span>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>

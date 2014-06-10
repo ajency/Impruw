@@ -1,0 +1,22 @@
+/****Link Element Styles****/
+.link {
+	display: inline-block;
+	margin: 0 @regular @regular 0;
+	&.button {
+		a {
+			background: @button-color;
+			color: @white;
+			border-radius: 3px;
+			display: inline-block;
+			padding: 0.5em 0.7em 0.4em;
+			margin: @medium 0;
+			font-size: 1em;
+			font-weight: 400;
+			&:hover {
+				text-decoration: none;
+				background: lighten(@button-color, 20%);
+				.backTrans;
+			}
+		}
+	}
+}

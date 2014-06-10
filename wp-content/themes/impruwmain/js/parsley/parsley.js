@@ -25,7 +25,7 @@
     this.messages = {
         defaultMessage: "This value seems to be invalid."
       , type: {
-            email:      "This value should be a valid email."
+            email:      "Please enter a valid email address."
           , url:        "This value should be a valid url."
           , urlstrict:  "This value should be a valid url."
           , number:     "This value should be a valid number."

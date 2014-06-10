@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>app.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../", thisFile = "Applications/XAMPP/xamppfiles/htdocs/impruw/wp-content/themes/impruwclientparent/app/dev//apps/builder/header/app.coffee", defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container"><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+          <h1>app.coffee</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1">&#182;</a>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre><span class="nx">define</span> <span class="p">[</span><span class="s">&#39;app&#39;</span><span class="p">,</span><span class="s">&#39;apps/builder/header/show/controller&#39;</span><span class="p">],</span> <span class="nf">(App)-&gt;</span>
+
+  <span class="nx">App</span><span class="p">.</span><span class="nx">module</span> <span class="s">&#39;HeaderApp&#39;</span><span class="p">,</span> <span class="nf">(HeaderApp, App, Backbone, Marionette, $, _)-&gt;</span>
+
+    <span class="nv">headerController = </span><span class="kc">null</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2">&#182;</a>
+</div>
+<p>PUBLIC API</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nv">API = </span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+</div>
+<p>show the header region</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="nv">show : </span><span class="p">()</span><span class="nf">-&gt;</span>
+        <span class="nv">headerController = </span><span class="k">new</span> <span class="nx">HeaderApp</span><span class="p">.</span><span class="nx">Show</span><span class="p">.</span><span class="nx">Controller</span>
+                      <span class="nv">region : </span><span class="nx">App</span><span class="p">.</span><span class="nx">headerRegion</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
+</div>
+<p>get the currently editable page ID</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+      <span class="nv">getCurrentPageId : </span><span class="nf">-&gt;</span>
+        <span class="nv">page_id = </span><span class="k">if</span> <span class="nb">isNaN</span><span class="p">(</span><span class="nx">$</span><span class="p">.</span><span class="nx">cookie</span><span class="p">(</span><span class="s">&#39;current-page-id&#39;</span><span class="p">))</span> <span class="k">then</span> <span class="nx">headerController</span><span class="p">.</span><span class="nx">setHomePage</span><span class="p">()</span> <span class="k">else</span> <span class="nx">$</span><span class="p">.</span><span class="nx">cookie</span><span class="p">(</span><span class="s">&#39;current-page-id&#39;</span><span class="p">)</span> 
+        <span class="nx">page_id</span>
+
+        <span class="nx">$</span><span class="p">.</span><span class="nx">cookie</span><span class="p">(</span><span class="s">&#39;current-page-id&#39;</span><span class="p">)</span>
+
+      <span class="nx">getCurrentPageName</span><span class="o">:</span><span class="nf">-&gt;</span>
+        <span class="nx">headerController</span><span class="p">.</span><span class="nx">getCurrentPageName</span><span class="p">()</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
+</div>
+<p>return the current ediatble page ID</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">App</span><span class="p">.</span><span class="nx">reqres</span><span class="p">.</span><span class="nx">setHandler</span> <span class="s">&quot;get:current:editable:page&quot;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+      <span class="nx">API</span><span class="p">.</span><span class="nx">getCurrentPageId</span><span class="p">()</span>
+
+    <span class="nx">App</span><span class="p">.</span><span class="nx">reqres</span><span class="p">.</span><span class="nx">setHandler</span> <span class="s">&quot;get:current:editable:page:name&quot;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+      <span class="nx">API</span><span class="p">.</span><span class="nx">getCurrentPageName</span><span class="p">()</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6">&#182;</a>
+</div>
+<p>show the region on start</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">HeaderApp</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;start&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+      <span class="nx">API</span><span class="p">.</span><span class="nx">show</span><span class="p">()</span>
+
+    
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>

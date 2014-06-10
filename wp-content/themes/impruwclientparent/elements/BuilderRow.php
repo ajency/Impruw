@@ -40,15 +40,16 @@ class BuilderRow extends Element {
      * The config to create a row element
      * @param array $config
      */
-    function __construct($config) {
+    function __construct($element) {
         
-        if(isset($config['elements'])){
-            $this->elements     = $config['elements'];
-        }
+        $this->elements     = $element['elements'];
+        $this->style        = sanitize_title($element['style']);
         
-        if(isset($config['extraClasses'])){
-            $this->extra_classes = $config['extraClasses'];
-        }
+    }
+    
+    function get_classes(){
+        
+        return $this->class_name . ' ' . $this->style ;
         
     }
     

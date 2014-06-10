@@ -26,17 +26,19 @@ class RoomFacilities extends Element {
     
     /**
      * The config to create a row element
-     * @param array $config
+     * @param array $element
      */
-    function __construct($config, $post_id = 0) {
+    function __construct($element, $post_id = 0) {
         
-        parent::__construct($config);
+        parent::__construct($element);
 
         $this->post_id = $post_id;
 
         if($this->post_id === 0 && get_the_ID() > 0)
             $this->post_id = get_the_ID();
-
+        
+        $this->room= get_room($this->post_id);
+        
         $this->markup  = $this->generate_markup();
     }
     
@@ -58,7 +60,7 @@ class RoomFacilities extends Element {
      */
     function get_room_facilities(){
 
-        if($this->post_id === 0)
+       /* if($this->post_id === 0)
             return '';
 
         $facilities = wp_get_post_terms($this->post_id, 'impruw_room_facility');
@@ -76,7 +78,41 @@ class RoomFacilities extends Element {
         $html .= '</ul>';
 
         return $html;
+            */
+        $template = "<div class='room-facilities-container'>
+                        <div class='room-facilities-title'>
+                                <h5>Room Features</h5>
+                                <h4>Standard Book</h5>
+                        </div>
+                        <ul class='facilities clearfix'>
+                                <li class='roomfacilities'>{{facilities}}</li>";
+        
+        $data = $this->room['facilities'] ;
+        
+        global $me;
+        
+        $temp = 0;
+        
+        $html = ""; 
+        
+        foreach ($data as $key => $value) {
+           if($temp != 0){
+              $template_inner = "<li class='roomfacilities'>{{facilities}}</li>";
+              $data_new = array('facilities' => $value);
+              $html .= $me->render($template_inner,$data_new);
+           }
+             else{
+                  $data_new = array('facilities' => $value);
+                  $temp = 1;
+                  $html .= $me->render($template,$data_new);              
+                
+             }
+        }
+        $html .= '</ul></div>';
+        
+        return $html;
 
+        
     }
 
 }

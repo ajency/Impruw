@@ -1,0 +1,59 @@
+/**** Title Styles****/
+.title {
+	&.site-title{
+		color: @primary1;
+    	font-weight: 300;
+    	font-size: 2em;
+    	text-transform: uppercase;
+    	padding: 0.5em 0 0 15px;
+	}
+	&.page-title {
+		color: @secondary1;
+		font-size: 4em;
+		font-family: 'Satisfy', cursive;
+		text-align: center;
+		margin: 0.5em 0 0.2em;
+	}
+	&.box-title {
+		color: @secondary1;
+		font-size: 2em;
+		text-transform: uppercase;
+		text-align: center;
+		display: table;
+	    white-space: nowrap;
+	    margin-bottom: @medium;
+	    &:before, &:after {
+	      content: '';
+	      display: table-cell;
+	      width: 50%;
+	      background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQIW2NkYGAwBgAAPQA1zJXiFgAAAABJRU5ErkJggg==) repeat-x center 0.72em;	      
+	    }
+	    @media(max-width:991px) {
+	    	white-space: normal;
+	    	display: block;
+	    	border-bottom: 1px solid @quarternary1;
+	    }
+	}
+	&.small-title {
+		font-weight: 700;
+		color: @secondary1;
+		font-size: 1.15em;
+		margin-bottom: @regular;
+	}
+	&.action-title {
+		color: @secondary1;
+		font-size: 2.5em;
+		font-family: 'Satisfy', cursive;
+		text-align: right;
+		margin: 0.5em 0;
+		@media(max-width:991px) {
+			text-align: center;
+		}
+	}
+	&.footer-title {
+		color: @secondary1;
+		text-transform: uppercase;
+		font-size: 1.6em;
+		font-weight: 400;
+	}
+}

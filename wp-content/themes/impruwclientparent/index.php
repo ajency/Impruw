@@ -7,17 +7,19 @@
  * It is used to display a page when nothing more specific matches a query.
  * For example, it puts together the home page when no home.php file exists.
  *
- * @link http://codex.wordpress.org/Template_Hierarchy
+ * @link       http://codex.wordpress.org/Template_Hierarchy
  *
- * @package Impruw
+ * @package    Impruw
  * @subpackage Impruw Site
- * @since Impruw Site 1.0
+ * @since      Impruw Site 1.0
  */
+define( 'SITE_VIEW', TRUE );
+get_header();
+?>
 
-get_header(); ?>
+    <div class="site-page">
+        <?php echo generate_markup( 'page' ); ?>
+    </div><!-- .site-page -->
 
-	<div class="site-page">
-		<?php echo generate_markup('page'); ?>
-	</div><!-- .site-page -->
-
-<?php get_footer();
+<?php
+get_footer();

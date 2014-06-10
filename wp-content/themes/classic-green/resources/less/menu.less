@@ -1,0 +1,65 @@
+/****Top Slim-menu Styles****/
+.nav {
+	border-radius:0;
+	margin-bottom:0;
+	&.slimmenu{
+		border-radius:0;
+		margin-bottom:0;			
+		border:0;
+		border-left: 1px solid @primary2;
+		border-top:1px solid @primary2;
+		background: transparent;
+		li{
+			border-left:1px solid @primary2;
+			border-right:1px solid @primary2;
+			border-radius:0;
+			border-bottom:0;
+			background-color:@primary1;
+			padding: 0;
+			margin-right: -1px;
+			&.active{
+				background-color:@white;
+				border-left:1px solid @white;
+				border-right:1px solid @white;
+				border-bottom:0;
+				a{
+					color:@primary1;
+				}
+			}
+			&.open{
+				background-color:@white;
+				border-left:1px solid @white;
+				border-right:1px solid @white;
+				border-bottom:0;
+			}
+			&:hover{
+				border-left:1px solid @white;
+				border-right:1px solid @white;
+				border-bottom:0;
+			}
+			&:focus{
+				color:@white;
+			}
+			
+			a{
+				text-transform:uppercase;
+				font-size:0.722em;
+				color:@white;
+				padding:12px 30px;				
+			
+				&:hover{
+					background-color:@white;
+					color:@primary1;
+				}
+			}
+			
+			.dropDrown{
+				padding-left:0;
+				li{
+					width:100%;
+					background:@primary2;
+				}
+			}
+		}
+	}
+}

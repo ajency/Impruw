@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>views.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../doc-style.css" />
+  <script src="../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../", thisFile = "Applications/XAMPP/xamppfiles/htdocs/impruw/wp-content/themes/impruwclientparent/app/dev//apps/rooms/edit/views.coffee", defaultSidebar = true;
+  </script>
+  <script src="../../../doc-script.js"></script>
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container"><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+          <h1>views.coffee</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1">&#182;</a>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre><span class="nx">define</span> <span class="p">[</span><span class="s">&#39;app&#39;</span>
+    <span class="s">&#39;text!apps/rooms/edit/templates/edit-room.html&#39;</span><span class="p">],</span>
+    <span class="nf">(App, addRoomTpl)-&gt;</span>
+
+      <span class="nx">App</span><span class="p">.</span><span class="nx">module</span> <span class="s">&#39;RoomsApp.Edit.View&#39;</span><span class="p">,</span> <span class="nf">(View, App, Backbone, Marionette, $, _)-&gt;</span>
+
+        <span class="k">class</span> <span class="nx">View</span><span class="p">.</span><span class="nx">EditRoomLayout</span> <span class="k">extends</span> <span class="nx">Marionette</span><span class="p">.</span><span class="nx">Layout</span>
+            
+          <span class="nv">tagName: </span><span class="s">&#39;div&#39;</span>
+
+          <span class="nv">className : </span><span class="s">&#39;edit-room-container&#39;</span>
+
+          <span class="nv">template : </span><span class="nx">addRoomTpl</span>
+
+          <span class="nv">events:</span>
+            <span class="s">&#39;click #btn_saveroom&#39;</span> <span class="o">:</span> <span class="nf">-&gt;</span>
+              <span class="k">if</span> <span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;form&#39;</span><span class="p">).</span><span class="nx">valid</span><span class="p">()</span>
+                <span class="nv">data = </span><span class="nx">Backbone</span><span class="p">.</span><span class="nx">Syphon</span><span class="p">.</span><span class="nx">serialize</span> <span class="nx">@</span>
+                <span class="nx">@trigger</span> <span class="s">&quot;save:edit:room&quot;</span><span class="p">,</span> <span class="nx">data</span>
+              <span class="k">else</span>
+                <span class="nv">ele = </span><span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;.field-error&#39;</span><span class="p">).</span><span class="nx">get</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+                <span class="nx">$</span><span class="p">.</span><span class="nx">scrollTo</span> <span class="nx">ele</span>
+
+            <span class="s">&#39;click .add-gallery-images&#39;</span><span class="o">:</span><span class="nf">-&gt;</span> <span class="nx">@trigger</span> <span class="s">&quot;show:edit:slider&quot;</span>
+
+          <span class="nx">onShow</span><span class="o">:</span><span class="nf">-&gt;</span>
+            <span class="nx">@$el</span><span class="p">.</span><span class="nx">scrollSections</span><span class="p">()</span>
+            
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2">&#182;</a>
+</div>
+<p>set affix</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+            <span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;*[data-spy=&quot;affix&quot;]&#39;</span><span class="p">).</span><span class="nx">affix</span><span class="p">()</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+</div>
+<p>affix width</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+            <span class="nv">w = </span><span class="nx">$</span><span class="p">(</span><span class="s">&#39;.aj-imp-right&#39;</span><span class="p">).</span><span class="nx">width</span><span class="p">()</span>
+            <span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;*[data-spy=&quot;affix&quot;]&#39;</span><span class="p">).</span><span class="nx">width</span><span class="p">(</span><span class="nx">w</span><span class="p">)</span>
+
+            <span class="nv">m = </span><span class="nx">$</span><span class="p">(</span><span class="s">&#39;.aj-imp-left&#39;</span><span class="p">).</span><span class="nx">width</span><span class="p">()</span>
+            <span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;*[data-spy=&quot;affix&quot;]&#39;</span><span class="p">).</span><span class="nx">css</span><span class="p">(</span><span class="s">&#39;margin-left&#39;</span><span class="p">,</span> <span class="nx">m</span><span class="p">)</span>
+
+
+          <span class="nx">onShowSuccessMessage</span><span class="o">:</span><span class="nf">-&gt;</span>
+            <span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;.alert&#39;</span><span class="p">).</span><span class="nx">remove</span><span class="p">()</span>
+            <span class="nx">@$el</span><span class="p">.</span><span class="nx">prepend</span> <span class="s">&#39;&lt;div class=&quot;alert alert-success&quot;&gt;Room updated successfully&lt;/div&gt;&#39;</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
+</div>
+<p>@$el.find('#btn_resetroom').click()</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+            <span class="nx">$</span><span class="p">(</span><span class="s">&#39;html, body&#39;</span><span class="p">).</span><span class="nx">animate</span>
+              <span class="nv">scrollTop: </span><span class="mi">0</span>
+            <span class="p">,</span><span class="mi">1000</span>
+
+          <span class="nx">onSetSliderId</span> <span class="o">:</span><span class="nf">(slider_id)-&gt;</span>
+            <span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;input[name=&quot;slider_id&quot;]&#39;</span><span class="p">).</span><span class="nx">val</span> <span class="nx">slider_id</span>
+
+          <span class="nv">regions : </span>
+            <span class="nv">facilitiesRegion  : </span><span class="s">&#39;#facilities-region&#39;</span>
+            <span class="nv">galleryRegion     : </span><span class="s">&#39;#gallery-region&#39;</span>
+            <span class="nv">roomTariffRegion  : </span><span class="s">&#39;#room-tariff-region&#39;</span>
+            <span class="nv">roomBookingRegion   : </span><span class="s">&#39;#room-booking-region&#39;</span>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>

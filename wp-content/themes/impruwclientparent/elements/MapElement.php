@@ -35,7 +35,7 @@ class MapElement extends Element {
      * Empty string by default
      * @var String 
      */
-    var $class_name  = '';
+    var $class_name  = 'map';
     
     
     
@@ -71,11 +71,13 @@ class MapElement extends Element {
      * @return [type] [description]
      */
     function get_map(){
-
-        ob_start();
+		ob_start();
         ?> 
         <!-- Google maps API -->
-        <div id="map_canvas" data-address="<?php echo $this->get_address() ?>"></div>
+        <div id="map_canvas" style="height: 300px;"></div>
+        <script type="text/javascript">
+		var HOTELADDRESS = '<?php echo get_hotel_address(); ?>';
+        </script>
         <?php
         $html = ob_get_clean();
 
@@ -84,31 +86,5 @@ class MapElement extends Element {
 
     }
 
-    /**
-     * [get_address description]
-     * @return [type] [description]
-     */
-    function get_address(){
-
-        $site = new SiteModel(get_current_blog_id());
-
-        $contact_at = $site->get_site_business();
-
-        
-        $defaults = array( "street"     => "", 
-                           "phone"    => "", 
-                           "email"      => "",
-                           "postalcode" => '',
-                           "country"    => '',
-                           "city"       => '');
-
-        $contact_at  = wp_parse_args($contact_at , $defaults);
-        
-        unset($contact_at['email']);
-        unset($contact_at['phone']);
-        
-        return implode(',', $contact_at);
-
-    }
     
 }

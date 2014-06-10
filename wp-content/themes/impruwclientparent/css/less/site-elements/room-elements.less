@@ -1,0 +1,839 @@
+/* 
+    Created on : 10 March, 2014, 1:25:41 PM
+    Author     : jarr-head
+*/
+
+/****Room Tariff Styles****/
+.room-tariff-container {
+	background: @white;
+	padding: @regular;
+	position: relative;
+	.room-tariff-title {
+		h4 {
+			font-size: 1.5em;
+			text-transform: uppercase;
+		}
+		h5 {
+			font-size: 1em;
+			font-weight: 400;
+		}
+	}
+	.room-tariff-actions {
+		position: absolute;
+		top: 0.5em;
+		right: 0.5em;
+		display: none;
+		.btn-add-plan {
+			background: @primary1;
+			&:hover {
+				background: lighten(@primary1, 10%);
+			}
+		}
+		@media(max-width:767px){
+			display: block;
+			position: static;
+		}
+	}
+	.room-tariff-grid {
+		overflow-x: auto; 
+		#tariff-region {
+			position: static;
+		}
+		.tariff {
+			.date-range {
+				color: lighten(@secondary1, 20%);
+				text-align: right;
+				font-weight: 300;
+				position: absolute;
+				width: 80px;
+				background: @white;
+				max-width: 80px;
+				padding-right: 10px;
+				min-height: 150px;
+				z-index: 1;
+				font-size: 0.88em;
+				.range-name {
+					color: lighten(@secondary1, 10%);
+					font-weight: 700;
+				}
+				.date {
+					display: block;
+				}
+				.from, .to {
+					margin: 0.2em 0 0.4em;	
+				}
+			}
+			.packages {
+				width: 100%;
+				padding-left: 90px;
+				.package-blocks {
+					margin: 0 0 1em;	
+					white-space: nowrap;				
+					.package-block-outer {
+						display: inline-block;
+						min-width: 200px;
+						max-width: 200px;
+						white-space: normal;
+						margin-right: @regular;
+						.package-header {
+							background: @primary1;
+							padding: @regular;
+							display: none;
+							h6 {
+								color: @white;
+								font-size: 1.1em;
+							}
+							.package-desc {
+								color: lighten(@secondary1, 30%);
+								font-size: 0.8em;
+							}
+						}
+						.block {
+							background: darken(@tertiary1, 10%);
+							border-left: 5px solid  darken(@tertiary1, 20%);
+							padding: @regular;
+							h6 {
+								margin: 0 0 0.2em;
+								font-weight: 400;
+								font-size: 1.2em;
+								display: none;
+							}
+							.package-desc {
+								font-size: 0.88em;
+								color: lighten(@secondary1, 30%);
+								display: none;
+							}
+							.tariff-label {
+								color: lighten(@secondary1, 30%);
+								margin: 0.5em 0 0.2em;
+								font-size: 0.88em;
+							}
+							.weekday, .weekend {
+								width: 49%;
+								min-width: 80px;
+								margin-right: 1%;
+								float: left;
+								text-transform: uppercase;
+								color: lighten(@secondary1, 20%);
+								font-weight: 300;
+								.price {
+									font-weight: 700;
+									font-size: 1.4em;
+									display: block;
+								}
+							}
+							&.empty {
+								height: 139px;
+								.no-data {
+									min-height: 77px;
+									display: block;
+									text-align: center;
+									color: lighten(@secondary1, 40%);
+									.glyphicon {
+										font-size: 2.5em;
+										margin-top: 25px;
+									}
+								}
+								.tariff-label {
+									text-align: center;
+								}
+							}
+							&:hover {
+								border-color: @primary1;
+							}
+						}
+					}
+					&.header {
+						margin: 0 0 0.3em;
+						.package-block-outer {
+							margin-right: 0.7em;
+							.block {
+								background: transparent;
+								border: 0;
+								padding: 0;
+								h6, .package-desc {
+									display: block;
+								}
+								.package-desc {
+									height: 30px;
+									overflow: hidden;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		@media(max-width:767px){
+			overflow-x: visible;
+			.tariff {
+				border-left: 2px solid lighten(@secondary1, 40%);
+				padding-left: @regular;
+				margin: 0 0 @medium;
+				.date-range {
+					position: static;
+					width: 100%;
+					max-width: 100%;
+					min-height: 10px;
+					height: auto;
+					text-align: left;
+					font-size: 1.2em;
+					.date, .from, .to {
+						display: inline-block;
+					}
+				}
+				.packages {
+					padding: 0;
+					.package-blocks {
+						white-space: normal;
+						.package-block-outer {
+							width: 100%;
+							max-width: 100%;
+							margin: 0 0 0.2em;
+							.package-header {
+								display: block;
+							}
+							.block {
+								h6, .package-desc {
+									display: block;
+								}
+							}
+						}
+						&.header {
+							display: none;
+						}
+					}
+				}
+			}
+		}
+	}
+	&:hover {
+		.room-tariff-actions {
+			display: block;
+		}
+	}
+}
+
+/****Room Facilities Styles****/
+.room-facilities-container {
+	background: darken(@tertiary1, 10%);
+	padding: @regular;
+	.room-facilities-title {
+		h5 {
+			font-size: 1.5em;
+			text-transform: uppercase;
+		}
+		h4 {
+			font-weight: 300;
+			font-size: 2em;
+			text-transform: uppercase;
+		}
+	}
+	.facilities {
+		margin: @medium 0 @regular;
+		padding: 0;
+		list-style: none;
+		li {
+			font-size: 1.1em;
+			color: lighten(@secondary1, 20%);
+			font-weight: 300;
+			margin: 0 0 @regular;
+			display: block;
+			width: 30%;
+			float: left;
+			margin-right: 1%;
+			min-width: 300px;
+			&:before {
+				display: block;
+				content: '✓';
+				width: 13px;
+				height: 13px;
+				float: left;
+				margin-right: 10px;
+				border: 1px solid lighten(@secondary1, 20%);
+				position: relative;
+				font-size: 1.2em;
+				line-height: 0.33em;
+				top: 3px;
+				color: @primary1;
+			}
+			&:hover {
+				&:before {
+					color: @secondary1;
+				}
+			}
+		}
+	}
+}
+
+/****Room Summary Styles****/
+.room-summary-container {
+	.room-summary-title {
+		h4 {
+			font-size: 1.5em;
+			font-weight: 300;
+			margin: 0;
+		}
+	}
+	.room-summary {
+		background: @white;
+		padding: @medium @regular @regular;
+		.room-summary-item {
+			display: inline-block;
+			border-bottom: 1px solid lighten(@secondary1, 40%);
+			margin: 0 @medium @medium 0;
+			span {
+				display: inline-block;
+				font-size: 1.1em;
+				&.key {
+					min-width: 100px;
+					color: lighten(@secondary1, 20%);
+				}
+				&.value {
+					color: @secondary1;
+					font-weight: 700;
+				}
+			}
+			&:hover {
+				border-color: @primary1;
+			}
+		}
+		.room-summary-desc {
+			color: lighten(@secondary1, 20%);
+			margin: @medium 0 0;
+			.btn-book {
+				display: block;
+				margin: @regular 0;
+				background: @primary1;
+				&:hover {
+					background: lighten(@primary1, 10%);
+				}
+			}
+		}
+	}
+}
+
+/****Room Title Styles****/
+.room-title-container {
+	background: @white;
+	padding: @regular;
+	position: relative;
+	margin: 0 0 @medium;
+	.room-title {
+		h1 {
+			font-size: 2.5em;
+			text-transform: uppercase;
+			color: @primary1;
+		}
+		.room-title-desc {
+			font-size: 1em;
+			color: lighten(@secondary1, 20%);
+		}
+	}
+	.room-title-actions {
+		position: absolute;
+		top: 0.5em;
+		right: 0.5em;
+		margin: @regular 0;
+		.btn-book {
+			background: @primary1;
+			color: @white;
+			&:hover {
+				background: lighten(@primary1, 10%);
+			}
+		}
+		@media(max-width:767px) {
+			position: static;
+		}
+	}
+}
+
+/****Room description Styles****/
+.room-description-container {
+	margin: 0 0 @medium;
+	h1 {
+		font-size: 1.5em;
+		font-weight: 300;
+	}
+	.room-description-desc {
+		background: @white;
+		padding: @medium @regular @regular;
+		color: lighten(@secondary1, 20%);
+	}
+}
+
+/****Room List Summary Styles****/
+.roomsummary {
+	.clearfix;
+	margin: 0 0 @medium;
+	.room-img {
+		max-height: 240px;
+		overflow: hidden;
+	}
+	.room-title {
+		font-size: 1.6em;
+		color: @primary1;
+		font-weight: 400;
+		margin: @regular 0;
+	}
+	.room-excerpt {
+		color: darken(@secondary1, 20%);
+		padding-bottom: @regular;
+		margin-bottom: @regular;
+		border-bottom: 1px dotted @secondary1;
+	}
+	.room-actions {
+		.clearfix;
+		text-align: right;
+		.price {
+			float: left;
+			font-size: 2em;
+			color: darken(@secondary1, 10%);
+			small {
+				font-size: 0.8em;
+			}
+		}
+		.btn-room {
+			background: @primary1;
+			color: @white;
+			&:hover {
+				background: lighten(@primary1, 20%);
+			}
+		}
+	}
+}
+
+/* Calender Booking */
+.booking-title {
+	font-size: 2em;
+	font-weight: 300 !important;
+	color: @primary1;
+}
+.daterange-legends{
+	text-transform:uppercase;
+	font-size:0.9em;
+	color:@white;
+	li{
+		span{
+			width: 13px;
+			height: 13px;
+			display: inline-block;
+			background: #ccc;
+			margin-right: 5px;
+		}
+		@media(max-width:767px){
+			padding:5px;
+		}
+	}
+	.booking-red{
+		background:#f97d61;
+	}
+	.booking-blue{
+		background:#5fd7fe;
+	}
+	.booking-orange{
+		background:#ffd200;
+	}
+	.booking-pink{
+		background:#fea5a5;
+	}
+	.booking-green{
+		background:#84e72f;
+	}
+}
+
+.room-booking{
+	&.front {
+		margin: 0 15px;
+	}
+	.room-booking-container{
+		background: lighten(@primary1, 20%);
+		.room-booking-data{
+			background: @primary1;
+			padding-top:@medium;
+			min-height: 590px;
+			.date-range{
+				font-size:1.3em;
+				color:@white;
+				margin-bottom: 10%;
+				b {
+					font-size: 1.5em;
+					display: block;
+					font-weight: 300;
+				}
+				.status{
+					font-size: 1.0em;
+					text-transform: uppercase;
+					padding-top: 13px;
+				}
+			}
+			.room-booking-plan {
+				color: @white;
+				border-bottom: 1px dashed #280E0E;
+				padding-bottom: 5%;
+				margin-bottom: 5%;
+				h5{
+					font-weight: 600;
+					font-size: 1.5em;
+					color:lighten(@primary1, 40%);
+				}
+				.plan-bg{
+					background:lighten(@primary1, 10%);
+					padding:1px 4px;
+					margin-top: 2%;
+				}
+				.booking-detail{
+					width:50%;
+					float:left;
+					font-size:0.9em;
+					font-weight:300;
+					color:#e5e5e5;
+					span{
+						font-weight:800;
+						font-size:1.8em;
+						display: block;
+					}
+				}
+				h6{
+					font-weight:600;
+					font-size:1.0em;
+					text-transform:uppercase;
+					color:@white;
+					
+				}
+				.booking-price{
+					font-size:0.8em;
+					font-weight:100;
+					margin-top:3%;
+					b{
+						font-size:2.0em;
+					}
+				}
+			}
+			
+			@media(max-width:767px){
+				display: block;
+			}
+		}
+		.room-booking-calender{
+				padding: 10px;
+			h4{
+				font-weight: 600;
+				font-size: 1.5em;
+				color: @white;
+				text-transform: uppercase;
+				margin-bottom: 30px;
+				margin-top: 30px;
+				.glyphicon {
+					font-size: 1.5em;
+					color: @white;
+					float: left;
+					margin-right: 1%;
+				}
+				.excerpt{
+					display: block;
+					font-size: 0.6em;
+					font-weight: 300;
+					text-transform: none;
+				}
+			}
+			#room-booking-calendar {
+			.ui-datepicker-inline{
+								width:auto !important;
+								border: 0;
+								background:none;
+								.ui-datepicker-group {
+									width: 48%;
+									margin-right: 12px;
+										.ui-datepicker-calendar{
+											background:@white;
+											width:100%;
+											th{
+												background:lighten(@primary1, 40%);
+												text-transform:uppercase;
+												color:@white;
+												font-weight: 300;
+												font-size: 12px;
+											}
+										}
+										@media(max-width:767px){
+											width: 100%;
+										}
+									}
+							}
+				.ui-datepicker {
+					width: 100% !important;
+					border: none;
+					box-shadow: none;
+					
+					&:before {
+						border-bottom-color: lighten(@primary1, 20%);
+						top: -7px;
+						display: none;
+					}
+					.ui-datepicker-header {
+						background: lighten(@primary1, 10%);
+						border: none;
+						height: 67px;
+						line-height: 86px;
+						margin:0px;
+						.ui-datepicker-prev, .ui-datepicker-next {
+							border: 0px;
+							height: 67px;
+							&:hover {
+								background: lighten(@primary1, 10%);
+							}
+						}
+					}
+					.ui-datepicker-title{
+						line-height: 74px;
+					}
+					
+						td {
+								border: 1px solid #EAEAEA!important;
+								height:42px!important;
+								a, span {
+										display: block;
+										border-radius:0px;
+										height: 51px;
+										line-height: 49px;
+										text-align: center;
+										border:0px;
+										&:hover {
+											background: none;
+										}
+								}
+								> span {
+									background: rgba(255, 255, 255, 0.6);
+									color: #ccc;
+									cursor: not-allowed;
+								}
+								&.ui-state-disabled {
+									a, span {
+										&:hover {
+											background: rgba(255, 255, 255, 0.6);
+										}
+									}
+								}
+								
+							}
+								.booking-red{
+						background:#f97d61;
+						a{
+							color:@white;
+							&:hover{
+								background:#f97d61;
+							}
+						}
+						
+					}
+					.booking-orange{
+					background:#ffd200;
+						a{
+							color:@white;
+							&:hover{
+								background:#ffd200;
+							}
+						}
+						
+					}
+						.booking-blue{
+					background:#5fd7fe;
+						a{
+							color:@white;
+							&:hover{
+							background:#5fd7fe;
+							}
+						}
+						
+					}
+						.booking-green{
+					background:#84e72f;
+						a{
+							color:@white;
+							&:hover{
+							background:#84e72f;
+						}
+						}
+						
+					}
+						.booking-pink{
+					background:#fea5a5;
+						a{
+							color:@white;
+							&:hover{
+								background:#fea5a5;
+							}
+						}
+					
+					}
+					
+					.ui-datepicker td.unavailable {
+										a{
+											text-decoration:line-through;
+											color:@black !important;
+										}
+									}
+									.ui-datepicker td.semi-available {
+										a{
+											background: rgba(0,0,0,0); /* Old browsers */
+											background: -moz-linear-gradient(-45deg, rgba(0,0,0,0) 50%, rgba(0,0,0,0.2) 50%); /* FF3.6+ */
+											background: -webkit-gradient(linear, left top, right bottom, color-stop(50%,gba(0,0,0,0)), color-stop(50%,gba(0,0,0,0.2))); /* Chrome,Safari4+ */
+											background: -webkit-linear-gradient(-45deg, gba(0,0,0,0) 50%,gba(0,0,0,0.2) 50%); /* Chrome10+,Safari5.1+ */
+											background: -o-linear-gradient(-45deg, gba(0,0,0,0) 50%,gba(0,0,0,0.2) 50%); /* Opera 11.10+ */
+											background: -ms-linear-gradient(-45deg, gba(0,0,0,0) 50%,gba(0,0,0,0.2) 50%); /* IE10+ */
+											background: linear-gradient(135deg, gba(0,0,0,0) 50%,gba(0,0,0,0.2) 50%); /* W3C */
+											filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#47000000',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+										}
+									}
+					.ui-state-active {
+						background: transparent;
+						color: #34495E;
+					}
+					.ui-state-highlight {
+						border-color: lighten(@primary1, 20%);
+					}
+				}
+			}
+		}
+	}
+}
+
+/*status*/
+.ui-datepicker td.unavailable {
+	a {
+		text-decoration:line-through;
+		color:@black !important;
+	}
+}
+.ui-datepicker td.semi-available {
+	a {
+		background: rgba(0,0,0,0); /* Old browsers */
+		background: -moz-linear-gradient(-45deg, rgba(0,0,0,0) 50%, rgba(0,0,0,0.2) 50%); /* FF3.6+ */
+		background: -webkit-gradient(linear, left top, right bottom, color-stop(50%,gba(0,0,0,0)), color-stop(50%,gba(0,0,0,0.2))); /* Chrome,Safari4+ */
+		background: -webkit-linear-gradient(-45deg, gba(0,0,0,0) 50%,gba(0,0,0,0.2) 50%); /* Chrome10+,Safari5.1+ */
+		background: -o-linear-gradient(-45deg, gba(0,0,0,0) 50%,gba(0,0,0,0.2) 50%); /* Opera 11.10+ */
+		background: -ms-linear-gradient(-45deg, gba(0,0,0,0) 50%,gba(0,0,0,0.2) 50%); /* IE10+ */
+		background: linear-gradient(135deg, gba(0,0,0,0) 50%,gba(0,0,0,0.2) 50%); /* W3C */
+		ilter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#47000000',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+		&:hover, &.ui-state-active {
+			background: rgba(0,0,0,0) !important; /* Old browsers */
+			background: -moz-linear-gradient(-45deg, rgba(0,0,0,0) 50%, rgba(0,0,0,0.2) 50%) !important; /* FF3.6+ */
+			background: -webkit-gradient(linear, left top, right bottom, color-stop(50%,gba(0,0,0,0)), color-stop(50%,gba(0,0,0,0.2))) !important; /* Chrome,Safari4+ */
+			background: -webkit-linear-gradient(-45deg, gba(0,0,0,0) 50%,gba(0,0,0,0.2) 50%) !important; /* Chrome10+,Safari5.1+ */
+			background: -o-linear-gradient(-45deg, gba(0,0,0,0) 50%,gba(0,0,0,0.2) 50%) !important; /* Opera 11.10+ */
+			background: -ms-linear-gradient(-45deg, gba(0,0,0,0) 50%,gba(0,0,0,0.2) 50%) !important; /* IE10+ */
+			background: linear-gradient(135deg, gba(0,0,0,0) 50%,gba(0,0,0,0.2) 50%) !important; /* W3C */
+			ilter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#47000000',GradientType=1 ) !important; /* IE6-9 fallback on horizontal gradient */
+		}
+	}
+}
+
+/*Room tariff*/
+.room-tariff-container {
+	background: @white;
+	padding: @regular;
+	position: relative;
+	.room-tariff-title {
+		h4 {
+			font-size: 1.5em;
+			text-transform: uppercase;
+		}
+		h5 {
+			font-size: 1em;
+			font-weight: 400;
+		}
+	}
+	.room-tariff-actions {
+		position: absolute;
+		top: 0.5em;
+		right: 0.5em;
+		display: none;
+		.btn-add-plan {
+			background: @secondary1;
+			&:hover {
+				background: lighten(@secondary1, 10%);
+			}
+		}
+		@media(max-width:767px){
+			display: block;
+			position: static;
+		}
+	}
+}
+.aj-imp-sub-head {
+	font-weight: 700;
+	color: #aaa !important;
+	text-transform: uppercase;
+	margin: 2px 5px 10px;
+	letter-spacing: .04em;
+	small {
+		font-weight: 300;
+		font-size: .6em;
+		color: #919191;
+		text-transform: none;
+	}
+}
+
+/**** Vertical Bootstrap Slider Styles ****/
+.vertical .carousel-inner {
+  	height: 100%;
+}
+
+.carousel.vertical .item {
+  -webkit-transition: 0.6s ease-in-out top;
+     -moz-transition: 0.6s ease-in-out top;
+      -ms-transition: 0.6s ease-in-out top;
+       -o-transition: 0.6s ease-in-out top;
+          transition: 0.6s ease-in-out top;
+}
+
+.carousel.vertical .active {
+  	top: 0;
+}
+
+.carousel.vertical .next {
+  	top: 560px;
+}
+
+.carousel.vertical .prev {
+  	top: -560px;
+}
+
+.carousel.vertical .next.left,
+.carousel.vertical .prev.right {
+  	top: 0;
+}
+
+.carousel.vertical .active.left {
+  	top: -560px;
+}
+
+.carousel.vertical .active.right {
+  	top: 560px;
+}
+
+.carousel.vertical .item {
+	left: 0;
+}
+
+.carousel.vertical {
+	.carousel-control {
+		top: -15px;
+		left: 35%;
+		-ms-transform: rotate(90deg);
+		-webkit-transform: rotate(90deg);
+		transform: rotate(90deg);
+		line-height: 29px;
+		color: @white;
+		&.right {
+			-ms-transform: rotate(90deg);
+			-webkit-transform: rotate(90deg);
+			transform: rotate(90deg);
+			left: 55%;
+		}
+		&:hover, &:focus {
+			text-decoration: none !important;
+		}
+	}
+}

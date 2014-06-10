@@ -1,0 +1,127 @@
+/****Top Slim-menu Styles****/
+.nav {
+	&.slimmenu {
+		padding: 0;
+		border: none;
+		border-bottom: 0;
+		border-left: 0;
+		padding: 0;
+		margin: 0 auto;
+		border-bottom: none !important;
+		background: transparent;
+		text-align: right;
+		> li {
+			background: transparent !important;
+			padding: 0;
+			border: 0;
+			margin-right: -3px;
+			a {
+				font-size: 1em;
+				font-weight: bold;
+				text-transform: uppercase;
+				color: @text-color;
+				padding: @regular @medium;
+				border-right: none;
+				margin-left: @large;
+				&:hover, &:focus {
+					background: darken(@tertiary1, 20%);
+					color: @primary1;
+					outline: none;
+				}
+				@media(max-width:991px) {
+					&:after {
+						display: none;
+					}
+				}
+			}
+			.sub-collapser {
+				background: transparent;
+				width: 40px;
+				> i {
+					font-size: 0.6em;
+					color: darken(@tertiary1, 20%);
+				}
+			}
+			> ul.dropDrown {
+				padding: 0;
+				width: auto;
+				li {
+					width: 100%;
+					background: #fff;
+					border-bottom: 1px solid darken(@tertiary1, 10%);
+					a {
+						border: 0;
+						font-size: 1em;
+						font-weight: normal;
+						padding: @regular @large;
+						color: @secondary1;
+						&:hover {
+							background: darken(@tertiary1, 10%);
+							color: @primary1;
+						}
+					}
+				}
+			}
+			&.active {
+				background: @primary1;
+				a {
+					color: lighten(@primary1, 65%);
+					border-color: @primary1;
+					span {
+						color: lighten(@primary1, 50%);
+					}
+				}
+			}
+			&:last-child {
+				a {
+					border-right: 0;
+				}
+			}
+		}
+	}
+	&.footer-menu {
+		padding: 0;
+		text-align: left;
+		li {
+			position: relative;
+			margin: 0 0 0.2em 0;
+			display: inline-block;
+			background: transparent;
+			font-size: 0.666em;
+			a {
+				color: @text-color;
+				font-weight: 300;
+				text-transform: uppercase;
+				display: inline-block;
+				padding: 0 0.5em;
+				&:hover, &:focus {
+					text-decoration: none;
+					background: transparent;
+					outline: none;
+				}
+			}
+			&:hover {
+				left: 0em;
+				.backTrans;
+				background: transparent;
+				a {
+					color: @secondary1;
+				}
+			}
+		}
+		@media(max-width:991px) {
+			text-align: center;
+		}
+	}
+}
+
+.menu-collapser {
+	background: @quarternary1;
+	color: @primary1;
+	font-weight: 400;
+	text-shadow: none;
+	.collapse-button {
+		background: @tertiary1;
+		border-radius: 0px;
+	}
+}

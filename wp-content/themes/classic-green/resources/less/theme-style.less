@@ -1,0 +1,86 @@
+// Theme variables
+@import "variables.less";
+
+// Core mixins
+@import "../../../impruwclientparent/css/less/site-elements/mixins.less";
+
+// Font Files
+@font-face {
+	font-family: 'icomoon';
+	src: url("../resources/fonts/icomoon.eot");
+	src: url("../resources/fonts/icomoon.eot?#iefix") format("embedded-opentype"), url("../resources/fonts/icomoon.woff") format("woff"), url("../resources/fonts/icomoon.ttf") format("truetype"), url("../resources/fonts/icomoon.svg#icomoon") format("svg");
+	font-weight: normal;
+	font-style: normal; 
+}
+
+/****Google Fonts****/
+@import url(http://fonts.googleapis.com/css?family=Lato:100,400,700);
+
+/****body styles****/
+.site-style-container {
+	font-family: 'Lato', sans-serif;
+	font-weight: 400;
+
+	/****Selection Color****/
+	::selection {
+		background: @primary1; 
+		color: @white;
+	}
+	::-moz-selection {
+		background: @primary1; 
+		color: @white;
+	}
+
+	/****Link Styles****/
+	a {
+		color: @primary1;
+		text-decoration: none;
+		&:hover, &:focus, &:active {
+			color: lighten(@primary1, 10%);
+			text-decoration: underline;
+		}
+	}
+
+	p {
+		font-size: 1em;
+	}
+
+	/****Heading Styles****/
+	h1, h2, h3, h4, h5, h6{
+		font-weight: 700;
+		color: @primary1;
+		&.sub-title {
+			text-transform: uppercase;
+			color: darken(@tertiary1, 50%);
+			font-weight: 300;
+			margin: @regular 0;
+		}
+	}
+}
+
+// Base CSS
+@import "../../../impruwclientparent/css/less/site-elements/row.less";
+@import "../../../impruwclientparent/css/less/site-elements/logo.less";
+@import "../../../impruwclientparent/css/less/site-elements/menu.less";
+@import "../../../impruwclientparent/css/less/site-elements/title.less";
+@import "../../../impruwclientparent/css/less/site-elements/text.less";
+@import "../../../impruwclientparent/css/less/site-elements/image-with-text.less";
+@import "../../../impruwclientparent/css/less/site-elements/links-buttons.less";
+@import "../../../impruwclientparent/css/less/site-elements/address.less";
+@import "../../../impruwclientparent/css/less/site-elements/social.less";
+@import "../../../impruwclientparent/css/less/site-elements/contact.less";
+@import "../../../impruwclientparent/css/less/site-elements/room-elements.less";
+@import "../../../impruwclientparent/css/less/site-elements/gallery.less";
+@import "../../../impruwclientparent/css/less/site-elements/map.less";
+@import "../../../impruwclientparent/css/less/site-elements/login.less";
+
+// Theme Specific CSS Overrides
+@import "row.less";
+@import "header.less";
+@import "menu.less";
+@import "title.less";
+@import "address.less";
+@import "social.less";
+@import "links-buttons.less";
+@import "map.less";
+@import "room-elements.less";

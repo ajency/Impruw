@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>addfacilitiesapp.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../../doc-style.css" />
+  <script src="../../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../../", thisFile = "Applications/XAMPP/xamppfiles/htdocs/impruw/wp-content/themes/impruwclientparent/app/dev//apps/rooms/facilities/add/addfacilitiesapp.coffee", defaultSidebar = true;
+  </script>
+  <script src="../../../../doc-script.js"></script>
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container"><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+          <h1>addfacilitiesapp.coffee</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1">&#182;</a>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre><span class="nx">define</span> <span class="p">[</span><span class="s">&#39;app&#39;</span> 
+     <span class="s">&#39;controllers/base-controller&#39;</span><span class="p">],</span> <span class="nf">(App , AppController)-&gt;</span>
+
+      <span class="nx">App</span><span class="p">.</span><span class="nx">module</span> <span class="s">&#39;FacilitiesApp.Add&#39;</span><span class="p">,</span> <span class="nf">(Add, App, Backbone, Marionette, $, _)-&gt;</span>
+
+        <span class="k">class</span> <span class="nx">AddFacilityController</span> <span class="k">extends</span> <span class="nx">AppController</span>
+
+          <span class="nx">initialize</span><span class="o">:</span><span class="nf">(opt)-&gt;</span>
+            
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2">&#182;</a>
+</div>
+<p>get the composite view </p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+            <span class="vi">@view = </span><span class="nx">@_getAddFacilityView</span><span class="p">()</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+</div>
+<p>delete:facility:clicked</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+            <span class="nx">@listenTo</span> <span class="nx">@view</span><span class="p">,</span> <span class="s">&quot;add:new:facility&quot;</span> <span class="p">,</span> <span class="nx">@addFacility</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
+</div>
+<p>display the view on the region </p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+            <span class="nx">@show</span> <span class="nx">@view</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
+</div>
+<p>delete:facility:clicked</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+          <span class="nx">addFacility</span> <span class="o">:</span><span class="nf">(data)-&gt;</span>
+            <span class="nv">facility = </span><span class="nx">App</span><span class="p">.</span><span class="nx">request</span> <span class="s">&quot;create:new:facility:model&quot;</span><span class="p">,</span> <span class="nx">data</span>
+            <span class="nx">facility</span><span class="p">.</span><span class="nx">save</span> <span class="kc">null</span><span class="p">,</span>
+                  <span class="nv">wait : </span><span class="kc">true</span>
+                  <span class="nv">success : </span><span class="nx">@facilityAdded</span>
+
+          <span class="nx">facilityAdded</span> <span class="o">:</span><span class="nf">(model)=&gt;</span>
+            <span class="nx">Marionette</span><span class="p">.</span><span class="nx">triggerMethod</span><span class="p">.</span><span class="nx">call</span> <span class="nx">@region</span><span class="p">,</span> <span class="s">&quot;new:facility:added&quot;</span><span class="p">,</span> <span class="nx">model</span>
+            <span class="nx">@view</span><span class="p">.</span><span class="nx">triggerMethod</span> <span class="s">&quot;facility:added&quot;</span>
+
+          <span class="nx">_getAddFacilityView</span><span class="o">:</span><span class="p">()</span><span class="nf">-&gt;</span>
+            <span class="k">new</span> <span class="nx">AddFacilityView</span>
+
+
+        <span class="k">class</span> <span class="nx">AddFacilityView</span> <span class="k">extends</span> <span class="nx">Marionette</span><span class="p">.</span><span class="nx">ItemView</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6">&#182;</a>
+</div>
+<p>tagName : 'form'</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+          <span class="nv">className : </span><span class="s">&#39;facility add&#39;</span>
+
+          <span class="nv">template : </span><span class="s">&#39;&lt;div class=&quot;input-group&quot;&gt;</span>
+<span class="s">                  &lt;input type=&quot;text&quot; name=&quot;name&quot; class=&quot;form-control&quot; placeholder=&quot;Add a Facility&quot;&gt;</span>
+<span class="s">                  &lt;span class=&quot;input-group-btn add-facility input-group-addon&quot;&gt;&lt;span class=&quot;icon icon-plus&quot;&gt;&lt;/span&gt; Add&lt;/span&gt;</span>
+<span class="s">                &lt;/div&gt;&#39;</span>
+
+          <span class="nv">events : </span>
+            <span class="s">&#39;click .add-facility&#39;</span> <span class="o">:</span> <span class="nf">-&gt;</span>
+              <span class="nx">@trigger</span> <span class="s">&quot;add:new:facility&quot;</span><span class="p">,</span> <span class="nv">name : </span><span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;input[name=&quot;name&quot;]&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">()</span>
+
+          <span class="nx">onFacilityAdded</span><span class="o">:</span><span class="nf">-&gt;</span>
+            <span class="nx">@$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;input&#39;</span><span class="p">).</span><span class="nx">val</span> <span class="s">&#39;&#39;</span>
+
+
+        <span class="nx">App</span><span class="p">.</span><span class="nx">commands</span><span class="p">.</span><span class="nx">setHandler</span> <span class="s">&quot;show:add:facility&quot;</span><span class="p">,</span> <span class="nf">(opts) -&gt;</span>
+
+          <span class="k">new</span> <span class="nx">AddFacilityController</span>
+                  <span class="nv">region : </span><span class="nx">opts</span><span class="p">.</span><span class="nx">region</span>
+          
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>

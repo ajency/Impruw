@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>controller.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../../../../doc-style.css" />
+  <script src="../../../../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../../../../", thisFile = "Applications/XAMPP/xamppfiles/htdocs/impruw/wp-content/themes/impruwclientparent/app/dev//apps/dashboard/statistics/charts/overview-chart/controller.coffee", defaultSidebar = true;
+  </script>
+  <script src="../../../../../doc-script.js"></script>
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container"><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+          <h1>controller.coffee</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1">&#182;</a>
+</div>
+
+        </td>
+        <td class="code highlight"><div class="highlight"><pre><span class="nx">define</span> <span class="p">[</span><span class="s">&#39;app&#39;</span>
+    <span class="s">&#39;controllers/base-controller&#39;</span>
+    <span class="s">&#39;apps/dashboard/statistics/charts/overview-chart/views&#39;</span><span class="p">],</span><span class="nf">(App,AppController)-&gt;</span>
+
+
+      <span class="nx">App</span><span class="p">.</span><span class="nx">module</span> <span class="s">&quot;DashboardApp.Statistics.OverViewChart&quot;</span> <span class="p">,</span> <span class="nf">(OverViewChart, App)-&gt;</span>
+
+        <span class="vi">@startWithParent = </span><span class="kc">false</span>
+
+        <span class="k">class</span> <span class="nx">OverViewChartController</span> <span class="k">extends</span> <span class="nx">AppController</span>
+
+          <span class="nx">initialize</span> <span class="o">:</span><span class="nf">(options) -&gt;</span>
+
+            <span class="vi">@analyticsCollection = </span><span class="nx">options</span><span class="p">.</span><span class="nx">collection</span>
+            <span class="vi">@startDate = </span><span class="nx">options</span><span class="p">.</span><span class="nx">startDate</span>
+            <span class="vi">@endDate = </span><span class="nx">options</span><span class="p">.</span><span class="nx">endDate</span>
+
+            <span class="vi">@layout = </span><span class="nx">@_getLayout</span><span class="p">(</span><span class="nx">@analyticsCollection</span><span class="p">)</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2">&#182;</a>
+</div>
+<p>listen to the button clicked trigger</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+            <span class="nx">@listenTo</span> <span class="nx">@layout</span><span class="p">,</span> <span class="s">&#39;button:clicked&#39;</span><span class="p">,</span><span class="nf">(criterion) =&gt;</span>
+              <span class="nx">@_renderRegion</span><span class="p">(</span><span class="nx">criterion</span><span class="p">)</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+</div>
+<p>show chart</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+            <span class="nx">@listenTo</span> <span class="nx">@layout</span><span class="p">,</span> <span class="s">&#39;show&#39;</span><span class="p">,</span><span class="nf">-&gt;</span>
+              <span class="nx">@_renderRegion</span><span class="p">(</span><span class="nx">App</span><span class="p">.</span><span class="nx">DashboardApp</span><span class="p">.</span><span class="nx">Statistics</span><span class="p">.</span><span class="nx">graphNames</span><span class="p">)</span>
+
+            <span class="nx">@show</span> <span class="nx">@layout</span><span class="p">,</span>
+              <span class="nv">loading : </span><span class="kc">true</span>
+
+          <span class="nx">_getLayout</span><span class="o">:</span><span class="nf">(analyticsCollection)-&gt;</span>
+            <span class="k">new</span> <span class="nx">OverViewChart</span><span class="p">.</span><span class="nx">Views</span><span class="p">.</span><span class="nx">Layout</span>
+              <span class="nv">collection : </span><span class="nx">analyticsCollection</span>
+
+
+          <span class="nx">_renderRegion</span><span class="o">:</span><span class="nf">(requiredGraphs)-&gt;</span>
+
+            <span class="nv">start= </span><span class="nx">@startDate</span>
+            <span class="nv">end = </span><span class="nx">@endDate</span>
+            
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
+</div>
+<p>extract the required models from the collection</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+            <span class="nv">analyticsArray = </span><span class="nx">@analyticsCollection</span><span class="p">.</span><span class="nx">filter</span> <span class="nf">(analytics)-&gt;</span>
+              <span class="nx">analytics</span><span class="p">.</span><span class="nx">id</span> <span class="o">&gt;=</span> <span class="nx">start</span>  <span class="o">&amp;&amp;</span> <span class="nx">analytics</span><span class="p">.</span><span class="nx">id</span> <span class="o">&lt;=</span> <span class="nx">end</span>
+            
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
+</div>
+<p>convert the array of models to a JSON array</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+            <span class="nv">analyticsJSON = </span><span class="nx">_</span><span class="p">.</span><span class="nx">map</span> <span class="nx">analyticsArray</span><span class="p">,</span> <span class="nf">(analyticsModel)-&gt;</span>              
+              <span class="nx">analyticsModel</span><span class="p">.</span><span class="nx">toJSON</span><span class="p">()</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6">&#182;</a>
+</div>
+<p>convert to proper format for th overview chart</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+            <span class="nv">graphData = </span><span class="k">new</span> <span class="nb">Array</span><span class="p">()</span>
+
+            <span class="nx">_</span><span class="p">.</span><span class="nx">each</span> <span class="nx">requiredGraphs</span><span class="p">,</span> <span class="nf">(graph)-&gt;</span>
+
+              <span class="k">if</span> <span class="nx">graph</span> <span class="o">==</span> <span class="s">&quot;ga:visits&quot;</span>
+                  <span class="nv">graphArray = </span><span class="k">new</span> <span class="nb">Array</span><span class="p">()</span>
+                  <span class="nx">_</span><span class="p">.</span><span class="nx">each</span> <span class="nx">analyticsJSON</span><span class="p">,</span> <span class="nf">(day)-&gt;</span>
+                    <span class="nv">dailydata = </span><span class="p">{}</span>
+                    <span class="nv">dailydata.x = </span><span class="nx">_</span><span class="p">.</span><span class="nx">first</span> <span class="nx">_</span><span class="p">.</span><span class="nx">values</span> <span class="nx">_</span><span class="p">.</span><span class="nx">pick</span> <span class="nx">day</span><span class="p">,</span> <span class="s">&#39;date&#39;</span> <span class="c1">#day.get &#39;date&#39;</span>
+                    <span class="nv">dailydata.y = </span><span class="nx">_</span><span class="p">.</span><span class="nx">first</span> <span class="nx">_</span><span class="p">.</span><span class="nx">values</span> <span class="nx">_</span><span class="p">.</span><span class="nx">pick</span> <span class="nx">day</span><span class="p">,</span> <span class="s">&#39;ga:visits&#39;</span><span class="c1">#day.get &#39;ga:visits&#39;</span>
+                    <span class="nx">graphArray</span><span class="p">.</span><span class="nx">push</span> <span class="nx">dailydata</span>
+                  <span class="nv">graphObject = </span>
+                    <span class="nv">area : </span><span class="kc">true</span> 
+                    <span class="nv">key : </span><span class="s">&#39;Visits&#39;</span>
+                    <span class="nv">values : </span><span class="nx">graphArray</span>
+                    <span class="nv">color : </span><span class="s">&quot;red&quot;</span>
+                  <span class="nx">graphData</span><span class="p">.</span><span class="nx">push</span> <span class="nx">graphObject</span>
+
+                <span class="k">if</span> <span class="nx">graph</span> <span class="o">==</span> <span class="s">&quot;ga:visitors&quot;</span>
+                  <span class="nv">graphArray = </span><span class="k">new</span> <span class="nb">Array</span><span class="p">()</span>
+                  <span class="nx">_</span><span class="p">.</span><span class="nx">each</span> <span class="nx">analyticsJSON</span><span class="p">,</span> <span class="nf">(day)-&gt;</span>
+                    <span class="nv">dailydata = </span><span class="p">{}</span>
+                    <span class="nv">dailydata.x = </span><span class="nx">_</span><span class="p">.</span><span class="nx">first</span> <span class="nx">_</span><span class="p">.</span><span class="nx">values</span> <span class="nx">_</span><span class="p">.</span><span class="nx">pick</span> <span class="nx">day</span><span class="p">,</span> <span class="s">&#39;date&#39;</span> <span class="c1">#day.get &#39;date&#39;</span>
+                    <span class="nv">dailydata.y = </span><span class="nx">_</span><span class="p">.</span><span class="nx">first</span> <span class="nx">_</span><span class="p">.</span><span class="nx">values</span> <span class="nx">_</span><span class="p">.</span><span class="nx">pick</span> <span class="nx">day</span><span class="p">,</span> <span class="s">&#39;ga:visitors&#39;</span><span class="c1">#day.get &#39;ga:visits&#39;</span>
+                    <span class="nx">graphArray</span><span class="p">.</span><span class="nx">push</span> <span class="nx">dailydata</span>
+                  <span class="nv">graphObject = </span>
+                    <span class="nv">key : </span><span class="s">&#39;Unique Visits&#39;</span>
+                    <span class="nv">values : </span><span class="nx">graphArray</span>
+                    <span class="nv">color : </span><span class="s">&quot;green&quot;</span>
+                  <span class="nx">graphData</span><span class="p">.</span><span class="nx">push</span> <span class="nx">graphObject</span>
+
+                <span class="k">if</span> <span class="nx">graph</span> <span class="o">==</span> <span class="s">&quot;ga:newVisits&quot;</span>
+                  <span class="nv">graphArray = </span><span class="k">new</span> <span class="nb">Array</span><span class="p">()</span>
+                  <span class="nx">_</span><span class="p">.</span><span class="nx">each</span> <span class="nx">analyticsJSON</span><span class="p">,</span> <span class="nf">(day)-&gt;</span>
+                    <span class="nv">dailydata = </span><span class="p">{}</span>
+                    <span class="nv">dailydata.x = </span><span class="nx">_</span><span class="p">.</span><span class="nx">first</span> <span class="nx">_</span><span class="p">.</span><span class="nx">values</span> <span class="nx">_</span><span class="p">.</span><span class="nx">pick</span> <span class="nx">day</span><span class="p">,</span> <span class="s">&#39;date&#39;</span> <span class="c1">#day.get &#39;date&#39;</span>
+                    <span class="nv">dailydata.y = </span><span class="nx">_</span><span class="p">.</span><span class="nx">first</span> <span class="nx">_</span><span class="p">.</span><span class="nx">values</span> <span class="nx">_</span><span class="p">.</span><span class="nx">pick</span> <span class="nx">day</span><span class="p">,</span> <span class="s">&#39;ga:newVisits&#39;</span><span class="c1">#day.get &#39;ga:visits&#39;</span>
+                    <span class="nx">graphArray</span><span class="p">.</span><span class="nx">push</span> <span class="nx">dailydata</span>
+                  <span class="nv">graphObject = </span>
+                    <span class="nv">key : </span><span class="s">&#39;New Visitors&#39;</span>
+                    <span class="nv">values : </span><span class="nx">graphArray</span>
+                    <span class="nv">color : </span><span class="s">&quot;blue&quot;</span>
+                  <span class="nx">graphData</span><span class="p">.</span><span class="nx">push</span> <span class="nx">graphObject</span>
+
+                <span class="k">if</span> <span class="nx">graph</span> <span class="o">==</span> <span class="s">&quot;ga:pageviews&quot;</span>
+                  <span class="nv">graphArray = </span><span class="k">new</span> <span class="nb">Array</span><span class="p">()</span>
+                  <span class="nx">_</span><span class="p">.</span><span class="nx">each</span> <span class="nx">analyticsJSON</span><span class="p">,</span> <span class="nf">(day)-&gt;</span>
+                    <span class="nv">dailydata = </span><span class="p">{}</span>
+                    <span class="nv">dailydata.x = </span><span class="nx">_</span><span class="p">.</span><span class="nx">first</span> <span class="nx">_</span><span class="p">.</span><span class="nx">values</span> <span class="nx">_</span><span class="p">.</span><span class="nx">pick</span> <span class="nx">day</span><span class="p">,</span> <span class="s">&#39;date&#39;</span> <span class="c1">#day.get &#39;date&#39;</span>
+                    <span class="nv">dailydata.y = </span><span class="nx">_</span><span class="p">.</span><span class="nx">first</span> <span class="nx">_</span><span class="p">.</span><span class="nx">values</span> <span class="nx">_</span><span class="p">.</span><span class="nx">pick</span> <span class="nx">day</span><span class="p">,</span> <span class="s">&#39;ga:pageviews&#39;</span><span class="c1">#day.get &#39;ga:visits&#39;</span>
+                    <span class="nx">graphArray</span><span class="p">.</span><span class="nx">push</span> <span class="nx">dailydata</span>
+                  <span class="nv">graphObject = </span>
+                    <span class="nv">key : </span><span class="s">&#39;Page Views&#39;</span>
+                    <span class="nv">values : </span><span class="nx">graphArray</span>
+                    <span class="nv">color : </span><span class="s">&quot;yellow&quot;</span>
+                  <span class="nx">graphData</span><span class="p">.</span><span class="nx">push</span> <span class="nx">graphObject</span>
+ 
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7">&#182;</a>
+</div>
+<p>render the overview chart</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+            <span class="nx">@layout</span><span class="p">.</span><span class="nx">chartRegion</span><span class="p">.</span><span class="nx">show</span> <span class="nx">@_getChartView</span><span class="p">(</span><span class="nx">graphData</span><span class="p">)</span>
+
+          <span class="nx">_getChartView</span><span class="o">:</span><span class="nf">(chartData)-&gt;</span>
+            <span class="k">new</span> <span class="nx">OverViewChart</span><span class="p">.</span><span class="nx">Views</span><span class="p">.</span><span class="nx">Chart</span>
+              <span class="nv">data : </span><span class="nx">chartData</span>
+
+
+        <span class="nx">App</span><span class="p">.</span><span class="nx">commands</span><span class="p">.</span><span class="nx">setHandler</span> <span class="s">&quot;show:overview:chart&quot;</span><span class="p">,</span><span class="nf">(options)-&gt;</span>
+          <span class="k">new</span> <span class="nx">OverViewChartController</span>
+            <span class="nv">region : </span><span class="nx">options</span><span class="p">.</span><span class="nx">region</span>   
+            <span class="nv">collection : </span><span class="nx">options</span><span class="p">.</span><span class="nx">collection</span>
+            <span class="nv">startDate : </span><span class="nx">options</span><span class="p">.</span><span class="nx">startDate</span>
+            <span class="nx">endDate</span> <span class="o">:</span><span class="nx">options</span><span class="p">.</span><span class="nx">endDate</span>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>

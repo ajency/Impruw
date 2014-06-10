@@ -1,0 +1,81 @@
+<div class="aj-imp-dash-content scroll-indicator-container">
+	<header class="aj-imp-dash-header row">
+		<div class="aj-imp-dash-title col-xs-12">
+			<h2 class="aj-imp-page-head">{{#polyglot}}Add Room{{/polyglot}}</h2>
+		</div>
+	</header>
+	<form class="form-horizontal clearfix">
+		<div id="add-room-form">
+			<div class="form-group">
+				<label for="inputEmail3" class="col-sm-2 control-label">{{#polyglot}}Add Room Category{{/polyglot}}</label>
+				<div class="col-sm-10 col-sm-offset-2">
+					<input type="text" class="form-control" id="post_title" name="post_title" 
+					placeholder="{{#polyglot}}eg. Executive Room{{/polyglot}}" required />
+					<div class="p-messages"></div>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="inputEmail3" class="col-sm-2 control-label">{{#polyglot}}No. of Rooms{{/polyglot}}</label>
+				<div class="col-sm-10 col-sm-offset-2">
+					<input type="text" required class="form-control" name="no_of_rooms" id="no_of_rooms" placeholder="{{#polyglot}}eg. 10{{/polyglot}}" />
+					<div class="p-messages"></div>
+				</div>
+			</div>
+			<div class="" id="scr1">
+				<h4 class="aj-imp-sub-head scroll-ref">{{#polyglot}}Room Description{{/polyglot}}<small>{{#polyglot}}Description of your room category{{/polyglot}}</small></h4>
+			</div>
+			<div class="form-group">
+				<label for="inputSEO1" class="col-sm-2 control-label">{{#polyglot}}Room Description{{/polyglot}}</label>
+				<div class="col-sm-10 col-sm-offset-2">
+					  <textarea class="form-control" rows="2" name="post_content" id="roomdescription"
+					 placeholder="{{#polyglot}}Room Description{{/polyglot}}" required  ></textarea>
+					<div class="p-messages"></div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12" id="facilities-region"></div>
+		</div>
+		<div class="row scrollsection" id="room-gallery" data-text="{{#polyglot}}Room Gallery{{/polyglot}}" >
+			<div class="col-md-12">
+				<h4 class="aj-imp-sub-head scroll-ref">{{#polyglot}}Images{{/polyglot}}<small>{{#polyglot}}Add attachment images to your room.{{/polyglot}}</small></h4>
+				<div>
+					<button type="button" class="btn add-gallery-images"><span class="icon icon-plus"></span>&nbsp;{{#polyglot}}Add Images{{/polyglot}}</button>
+					<input type="hidden" name="slider_id" value="0" />		
+				</div>
+				<div id="gallery-region">
+				</div>
+				<div class="gallery-info">
+					<span class="icon icon-pictures"></span>
+                    {{#polyglot}}Add Images to Room{{/polyglot}}
+				</div>
+			</div>
+		</div>
+		<div class="row scrollsection" id="room-tariffs" data-text="{{#polyglot}}Room Tariff{{/polyglot}}">
+			<div class="col-md-12">
+				<h4 class="aj-imp-sub-head scroll-ref">
+                    {{#polyglot}}Room Tariff{{/polyglot}}
+					<small>{{#polyglot}}Add tariffs and date ranges for your rooms.{{/polyglot}}<br><span class="label label-default">{{#polyglot}}All Prices are in{{/polyglot}}<b>{{#polyglot}}€{{/polyglot}}</b>{{#polyglot}}(Euros){{/polyglot}}</span></small>
+				</h4>
+				<div id="room-tariff-region"></div>
+			</div>
+		</div>
+		<div class="row scrollsection" id="room-bookings" data-text="{{#polyglot}}Room Bookings{{/polyglot}}">
+			<div class="col-md-12">
+				<h4 class="aj-imp-sub-head scroll-ref">{{#polyglot}}Room Booking{{/polyglot}}<small>{{#polyglot}}Set up booking{{/polyglot}}</small></h4>
+				<div id="room-booking-region"></div>
+			</div>
+		</div>
+		
+		<input type="reset" class="hidden" id="btn_resetroom" name="btn_resetroom">
+		
+		<div class="aj-imp-long-form-actions" data-spy="affix" >
+	        <div class="action">
+	            <!--<div class="affix-show">You have unsaved changes!</div> -->
+	            <button type="button" class="btn btn-wide aj-imp-submit" id="btn_saveroom" name="btn_saveroom">{{#polyglot}}Save Room{{/polyglot}}</button>
+	            <img src ='{{THEMEURL}}/images/loader.gif' width="38" height="30"  id="addroomsubmitm_loader" style="display:none"/>  
+			</div>
+	    </div> 
+	</form>
+</div>

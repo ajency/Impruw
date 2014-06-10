@@ -1,0 +1,141 @@
+<div class="form-group dual">
+	<div class="col-sm-2"></div>
+	<div class="col-sm-5">
+		<div class="form-group">
+			<label for="inputAddress2" class="col-sm-5 control-label">{{#polyglot}}Tariff{{/polyglot}}</label>
+			<div class="col-sm-7 col-sm-offset-5">
+				<label for="checkbox2" class="checkbox"> <input 
+					type="checkbox" data-toggle="checkbox" class="chk_tariffdays"
+					tariff-type='weekday' checked="checked">{{#polyglot}} Weekday {{/polyglot}}</label> <span class="help-block">{{#polyglot}}Monday to Friday{{/polyglot}}</span> <input type="text"
+					class="form-control formel_weedaytariff" id="weekday_tariff"
+					name="weekday[charge]" placeholder="420" value="">
+			</div>
+		</div>
+	</div>
+
+	<div class="col-sm-5">
+		<div class="form-group">
+			<div class="col-sm-7">
+				<label for="checkbox2" class="checkbox"> <input 
+					type="checkbox" data-toggle="checkbox" class="chk_tariffdays"
+					tariff-type='weekend' checked="checked">{{#polyglot}} Weekend {{/polyglot}}</label> <span class="help-block">{{#polyglot}}Saturday to Sunday{{/polyglot}}</span> <input type="text"
+					class="form-control formel_weekendtariff" required id="weekend_tariff"
+					name="weekend[charge]" placeholder="999" value="">
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="form-group">
+	<div class="col-sm-9 col-sm-offset-3">
+		<span class="help-block">{{#polyglot}}Enter your tariff plan for the chosen category.{{/polyglot}}<br>{{#polyglot}}Rate same as currency{{/polyglot}}</span>
+	</div>
+</div>
+
+<div class="form-group dual">
+	<div class="col-sm-2"></div>
+	<div class="col-sm-5">
+		<div class="form-group">
+			<label for="inputAddress2" class="col-sm-5 control-label">{{#polyglot}}Maximum Adults{{/polyglot}}</label>
+			<div class="col-sm-7 col-sm-offset-5">
+				<input type="text" class="form-control formel_weedaytariff"
+					id="weekday_maxadults" name="weekday[max_adults]" placeholder="10" 
+					value='' >
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-5">
+		<div class="form-group">
+			<div class="col-sm-7">
+				<input type="text" class="form-control formel_weekendtariff"
+					id="weekend_maxadults" name="weekend[max_adults]" placeholder="10" 
+					value="">
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="form-group dual">
+	<div class="col-sm-2"></div>
+	<div class="col-sm-5">
+		<div class="form-group">
+			<label for="inputAddress2" class="col-sm-5 control-label">{{#polyglot}}Maximum Children{{/polyglot}}</label>
+			<div class="col-sm-7 col-sm-offset-5">
+				<input type="text" class="form-control formel_weedaytariff"
+					id="weekday_maxchildren" name="weekday[max_children]"	placeholder="10"
+					 value='' >
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-5">
+		<div class="form-group">
+			<div class="col-sm-7">
+				<input type="text" class="form-control formel_weekendtariff"
+					id="weekend_maxchildren" name="weekend[max_children]"  placeholder="10"
+					value=''>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="form-group dual">
+	<div class="col-sm-2"></div>
+	<div class="col-sm-5">
+		<div class="form-group">
+			<label for="inputAddress2" class="col-sm-5 control-label">{{#polyglot}}Additional Charge per extra Adult{{/polyglot}}</label>
+			<div class="col-sm-7 col-sm-offset-5">
+				<input type="text" class="form-control formel_weedaytariff"
+					id="weekday_charges_extra_adult" name="weekday[extra_adult]" placeholder="28"
+					value='' >
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-5">
+		<div class="form-group">
+			<div class="col-sm-7">
+				<input type="text" class="form-control formel_weekendtariff"
+					id="weekend_charges_extra_adult" name="weekend[extra_adult]" placeholder="32"
+					value='' >
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="form-group dual">
+	<div class="col-sm-2"></div>
+	<div class="col-sm-5">
+		<div class="form-group">
+			<label for="inputAddress2" class="col-sm-5 control-label">{{#polyglot}}Additional Charge per extra Child{{/polyglot}}</label>
+			<div class="col-sm-7 col-sm-offset-5">
+				<input type="text" class="form-control formel_weedaytariff"
+					id="weekday_charges_extra_child" name="weekday[extra_child]" placeholder="17"
+					value='' />
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-5">
+		<div class="form-group">
+			<div class="col-sm-7">
+				<input type="text" class="form-control formel_weekendtariff"
+					id="weekend_charges_extra_child" name="weekend[extra_child]" placeholder="19"
+					value=''>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="form-group">
+	<div class="col-sm-9 col-sm-offset-3">
+		<span class="help-block">{{#polyglot}}The tariff is exclusive of additional charges.{{/polyglot}}</span>
+	</div>
+</div>
+<div class="form-group dual">
+	<div class="col-sm-2"></div>
+	<div class="col-sm-5">
+		<div class="form-group">
+			<div class="col-sm-7 col-sm-offset-4">
+				<button type="button" class="update-tariff btn btn-large">{{#polyglot}}Add Tariff{{/polyglot}}</button>
+			</div>
+		</div>
+	</div>
+</div>

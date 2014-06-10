@@ -1,0 +1,76 @@
+/****Social Element Styles****/
+.icon-dribbble:before, .icon-twitter:before, .icon-facebook:before, .icon-pinterest:before,
+.icon-flickr:before, .icon-google-plus:before, .icon-tumblr:before, .icon-youtube:before,
+.icon-dribbble:after, .icon-twitter:after, .icon-facebook:after, .icon-pinterest:after,
+.icon-flickr:after, .icon-google-plus:after, .icon-tumblr:after, .icon-youtube:after {
+  font-family: 'icomoon';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased; 
+}
+
+.icon-twitter:before, .icon-twitter:after {
+  content: "\e602"; }
+  
+.icon-facebook:before, .icon-facebook:after {
+  content: "\e600"; }
+
+.icon-pinterest:before, .icon-pinterest:after {
+  content: "\e603"; }
+
+.icon-flickr:before, .icon-flickr:after {
+  content: "\e607"; }
+
+.icon-google-plus:before, .icon-google-plus:after {
+  content: "\e601"; }
+
+.icon-youtube:before, .icon-youtube:after {
+  content: "\e606"; }
+
+
+.social {
+	text-align: right;
+	margin: @regular 0;
+	li {
+		a {
+			padding: 0.35em;
+			border-radius: 2.5em;
+			width: 2.5em;
+			height: 2.5em;
+			font-size: 1em;
+			line-height: 1.2em;
+			margin: 0.2em 0.1em;
+			text-shadow: 0 0 1px rgba(255, 255, 255,0.4);
+			transform: rotate(-0.0000000001deg);
+			transform: translateX(-0.3em);
+			&:last-child {
+				margin-right: 0;
+			}
+			&:hover {
+				font-size: 1.2em;
+				line-height: 1.4em;
+				margin: 0;
+				&:before {
+					color: @primary1;
+				}
+			}
+		}
+		&:hover {
+			transform: scale(1.2);
+	  		box-shadow: none;
+	  		a {
+	  			top: 0px; 
+	  		}
+		}
+	}
+	&.small-social {
+		margin: @regular auto;
+		max-width: 220px;
+	}
+	@media(max-width:767px){
+		text-align: center;
+		margin: @medium 0;
+	}
+}
