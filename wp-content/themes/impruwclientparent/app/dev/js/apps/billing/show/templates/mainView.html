@@ -102,7 +102,7 @@
                                         <li><a href="#">3</a></li>
                                         <li><a href="#">4</a></li>
                                         <li><a href="#">5</a></li>
-                                        
+
                                         <li class="next">
                                             <a href="#" class="fui-arrow-right"></a>
                                         </li>
@@ -111,7 +111,130 @@
                             </div>
                             <div class="tab-pane" id="billing-info">
                                 
-                                <h6 class="aj-imp-sub-head">{{#polyglot}}Billing Info{{/polyglot}}</h6>
+                                <h6 class="aj-imp-sub-head">{{#polyglot}}Update Billing Information{{/polyglot}}</h6>
+
+                                <form class="form-horizontal">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Name on the Card</label>
+                                        <div class="col-sm-8 col-sm-offset-2">
+                                            <input type="text" class="form-control" placeholder="Name on the Card">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Card Number</label>
+                                        <div class="col-sm-8 col-sm-offset-2">
+                                            <input type="text" class="form-control" placeholder="Name on the Card">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-8 col-sm-offset-2">
+                                            <span class="help-block">Enter the Card Number without any spaces.</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Expires On</label>
+                                        <div class="col-sm-2 col-sm-offset-2">
+                                            <select>
+                                                <option>Month</option>
+                                                <option>01</option>
+                                                <option>02</option>
+                                                <option>03</option>
+                                                <option>04</option>
+                                                <option>05</option>
+                                                <option>06</option>
+                                                <option>07</option>
+                                                <option>08</option>
+                                                <option>09</option>
+                                                <option>10</option>
+                                                <option>11</option>
+                                                <option>12</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <select>
+                                                <option>Year</option>
+                                                <option>2015</option>
+                                                <option>2016</option>
+                                                <option>2017</option>
+                                                <option>2018</option>
+                                                <option>2019</option>
+                                                <option>2020</option>
+                                                <option>2021</option>
+                                                <option>2022</option>
+                                                <option>2023</option>
+                                                <option>2024</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group margin-top">
+                                        <div class="col-sm-8 col-sm-offset-2">
+                                            <button type="submit" class="btn btn-sm aj-imp-orange-btn">Update</button>&nbsp;
+                                            <button type="button" class="btn btn-sm">Cancel</button>
+                                        </div>
+                                    </div>
+                                </form>
+
+                                <h6 class="aj-imp-widget-title">Billing Address</h6>
+                                <p>Your Billing Address is used to prevent fraudulent use of your card. Enter the address exactly as it appears on your card statement.</p>
+
+                                <form class="form-horizontal">
+                                    <div class="form-group">
+                                        <label for="inputAddress1" class="col-sm-2 control-label">{{#polyglot}}Address{{/polyglot}}</label>
+                                        <div class="col-sm-10 col-sm-offset-2">
+                                            <input type="text" value="{{street}}" class="form-control" id="inputAddress1" placeholder="{{#polyglot}}21 Jump Street{{/polyglot}}" name="street">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group dual">
+                                        <div class="col-sm-5">
+                                            <div class="form-group">
+                                                <label for="inputAddress2" class="col-sm-5 control-label">{{#polyglot}}Postal Code{{/polyglot}}</label>
+                                                <div class="col-sm-7 col-sm-offset-5">
+                                                    <input type="text" class="form-control" name="postal_code" id="inputAddress2" data-mask="999-999" placeholder="{{#polyglot}}420-001{{/polyglot}}" value="{{postal_code}}">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-5">
+                                            <div class="form-group">
+                                                <label for="inputAddress3" class="col-sm-5 control-label">{{#polyglot}}City Town{{/polyglot}}</label>
+                                                <div class="col-sm-7 col-sm-offset-5">
+                                                    <input type="text" class="form-control" id="inputAddress2" placeholder="{{#polyglot}}Gotham City{{/polyglot}}" name="city" value="{{city}}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    
+                                    <div class="form-group">
+                                        <label for="inputAddress4" class="col-sm-2 control-label dd-label">{{#polyglot}}Country{{/polyglot}}</label>
+                                        <div class="col-sm-10 col-sm-offset-2">
+                                            <select name="country">
+                                                <option value="Norway">{{#polyglot}}Norway{{/polyglot}}</option>
+                                                <option value="Sweden">{{#polyglot}}Sweden{{/polyglot}}</option>
+                                                <option value="Denmark">{{#polyglot}}Denmark{{/polyglot}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Email</label>
+                                        <div class="col-sm-8 col-sm-offset-2">
+                                            <input type="email" class="form-control" placeholder="Email">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-8 col-sm-offset-2">
+                                            <span class="help-block">Enter the email to which an invoice is sent each time you are billed.</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-8 col-sm-offset-2">
+                                            <button type="submit" class="btn btn-sm aj-imp-orange-btn">Update</button>&nbsp;
+                                            <button type="button" class="btn btn-sm">Cancel</button>
+                                        </div>
+                                    </div>
+                                </form>
+
                             </div>
                         </div>
                     </div>

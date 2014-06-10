@@ -3571,6 +3571,14 @@ form .aj-imp-submit:hover {
   padding: 0;
   border: 0;
 }
+.language .form-horizontal .bootstrap-select.open > .dropdown-menu,
+.billing-container .form-horizontal .bootstrap-select.open > .dropdown-menu {
+  min-height: initial !important;
+}
+.language .form-horizontal .margin-top,
+.billing-container .form-horizontal .margin-top {
+  margin-top: 2em;
+}
 .language .aj-imp-long-form-actions.affix .action,
 .billing-container .aj-imp-long-form-actions.affix .action {
   margin-right: -1em !important;
@@ -3589,6 +3597,9 @@ form .aj-imp-submit:hover {
 .billing-container .table thead th {
   border-bottom: 2px solid #849fb0;
   color: #849fb0;
+}
+.billing-container .table tbody td {
+  font-weight: 300;
 }
 /**** Pagination Styles ****/
 .pagination ul li a:hover,

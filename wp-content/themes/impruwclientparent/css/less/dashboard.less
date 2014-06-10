@@ -3594,6 +3594,16 @@ form {
 		margin: 0 0 1em;
 		padding: 0;
 		border: 0;
+		.bootstrap-select {
+			&.open {
+				> .dropdown-menu {
+					min-height: initial !important;
+				}
+			}
+		}
+		.margin-top {
+			margin-top: 2em;
+		}
 	}
 	.aj-imp-long-form-actions {
 		&.affix {
@@ -3625,6 +3635,11 @@ form {
 			th {
 				border-bottom: 2px solid @blue-grey;
 				color: @blue-grey;
+			}
+		}
+		tbody {
+			td {
+				font-weight: 300;
 			}
 		}
 	}
