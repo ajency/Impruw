@@ -17,22 +17,61 @@ define(['app'], function(App) {
       MapView.prototype.template = '';
 
       MapView.prototype.onShow = function() {
-        var address, lat, lng, map, mapOptions, marker, zoom;
         this.className += " " + Marionette.getOption(this, 'className');
-        lat = parseFloat(this.model.get('lat'));
-        lng = parseFloat(this.model.get('lng'));
-        zoom = parseInt(this.model.get('zoom'));
-        address = this.model.get('address');
-        mapOptions = {
-          zoom: zoom,
-          center: new google.maps.LatLng(lat, lng)
-        };
-        map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-        return marker = new google.maps.Marker({
-          position: map.getCenter(),
-          map: map,
-          title: address
+        if (window.ADDRESS.trim() === '') {
+          return this.$el.html("<h5>Address not specified. Please click <a href='" + SITEURL + "/dashboard/#site-profile'> here </a></h5>");
+        } else {
+          return this.geoCodeAddress();
+        }
+      };
+
+      MapView.prototype.geoCodeAddress = function() {
+        var address, geocoder;
+        address = window.ADDRESS;
+        geocoder = new google.maps.Geocoder();
+        return geocoder.geocode({
+          address: address
+        }, (function(_this) {
+          return function(results, status) {
+            if (status === google.maps.GeocoderStatus.OK) {
+              return _this.displayMap(results[0].geometry.location, address);
+            } else {
+              return _this.displayGeoCodeErrorMessage();
+            }
+          };
+        })(this));
+      };
+
+      MapView.prototype.displayMap = function(location, address) {
+        var map;
+        map = new google.maps.Map(document.getElementById("map-canvas"), {
+          center: location,
+          zoom: 14
         });
+        return this.createMarker(map, address);
+      };
+
+      MapView.prototype.createMarker = function(map, address) {
+        var marker;
+        marker = new google.maps.Marker({
+          map: map,
+          position: map.getCenter()
+        });
+        return this.createInfoWindow(map, marker, address);
+      };
+
+      MapView.prototype.createInfoWindow = function(map, marker, address) {
+        var infowindow;
+        infowindow = new google.maps.InfoWindow({
+          content: address
+        });
+        return google.maps.event.addListener(marker, 'click', function() {
+          return infowindow.open(map, marker);
+        });
+      };
+
+      MapView.prototype.displayGeoCodeErrorMessage = function() {
+        return this.$el.html("<h4>Failed to geocode your address. Please click <a href='" + SITEURL + "/dashboard/#site-profile'> here to update</a></h4>");
       };
 
       return MapView;

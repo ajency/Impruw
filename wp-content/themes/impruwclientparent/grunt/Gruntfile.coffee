@@ -46,7 +46,6 @@ module.exports = (grunt) ->
         # It can also help prevent some common semantic errors made by developers.
         phpcs :
             options :
-                bin : "<%= phpcsPath %>"
                 standard : "Wordpress"
             theme :
                 dir : ["../*.php", "../**/*.php"]
@@ -59,7 +58,6 @@ module.exports = (grunt) ->
         # It is an instance of the xUnit architecture for unit testing frameworks.
         phpunit :
             options :
-                bin : "<%= phpUnitPath %>"
                 bootstrap : "../../../../tests/includes/bootstrap.php"
                 colors : true
             theme :
@@ -74,8 +72,7 @@ module.exports = (grunt) ->
         # Automatically builds and maintains your spec runner and runs your tests headlessly through PhantomJS.
         karma :
             options :
-                runnerPort : 9999
-                browsers : ['Chrome']
+                browsers : ['PhantomJS']
                 singleRun : true
             themeJS :
                 configFile : "../js/tests/karma.conf.js"
@@ -223,6 +220,8 @@ module.exports = (grunt) ->
             subTasks[fileName]["options"] = config
 
         subTasks
+
+    grunt.registerTask "coffeecompile", ->
 
     # helper commands to run series of tasks
     grunt.registerTask "validate", ["lesslint", "coffeelint" ,"jshint", "phpcs"]

@@ -81,12 +81,12 @@ class AddressElement extends Element {
         $contact_at = $site->get_site_business();
 
         
-        $defaults = array( "street"     => "Street no", 
-                           "phone"    => "432432423", 
+        $defaults = array( "street"     => "",
+                           "phone"      => "",
                            "email"      => "",
                            "postalcode" => "",
-                           "country"    => "Norway",
-                           "city"       => "Oslo");
+                           "country"    => "",
+                           "city"       => "");
 
         $contact_at  = wp_parse_args($contact_at , $defaults);
         
