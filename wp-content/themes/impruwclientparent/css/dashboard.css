@@ -3621,12 +3621,28 @@ form .aj-imp-submit:hover {
 .billing-container .price-plans .panel .panel-heading h3 {
   color: #aaaaaa;
 }
+.billing-container .price-plans .panel.active {
+  border-color: #2ecc71;
+}
+.billing-container .price-plans .panel.active .panel-heading h3 {
+  color: #2ecc71;
+}
+.billing-container .price-plans .panel.active .ribbon {
+  background: #2ecc71;
+  display: block;
+  color: #fff;
+  padding: 13px 12px 14px;
+  margin: -10px -15px;
+  border-radius: 0 0 4px 4px;
+  font-size: 2em;
+}
 .billing-container .price-plans .panel:hover {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   -webkit-transform: scale(1.05);
   -moz-transform: scale(1.05);
+  border-color: #cbe5f8;
 }
 .billing-container .price-plans .panel:hover .panel-heading {
   background: #cbe5f8;
