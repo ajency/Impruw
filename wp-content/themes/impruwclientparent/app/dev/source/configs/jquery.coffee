@@ -80,17 +80,26 @@ define ['jquery', 'underscore', 'jqueryvalidate', 'configs/polyglot'], ($, _)->
     adjustPageDim = _.debounce ()->
         height = $(window).height()
 
+        navHeight = $('.aj-imp-left').height()
+
         minHeight = height - 40
 
         $('.aj-upper-content').css 'min-height', minHeight
 
         $('.aj-upper-content').children().css 'min-height', minHeight
 
+        $('.aj-imp-right').css 'min-height', navHeight
+
+        setTimeout (->
+          $(window).trigger('resize')
+          return
+        ), 1000
+
     , 30
 
     #setup page initial dimesions
     $(document).ready ()->
         adjustPageDim()
-
+        
     #adjust the page size and dimensions on resize
     $(window).resize adjustPageDim

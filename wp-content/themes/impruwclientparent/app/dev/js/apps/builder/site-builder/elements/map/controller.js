@@ -14,11 +14,7 @@ define(['app', 'apps/builder/site-builder/elements/map/views', 'apps/builder/sit
 
       Controller.prototype.initialize = function(options) {
         _.defaults(options.modelData, {
-          element: 'Map',
-          lat: 59.913041,
-          lng: 10.756874,
-          zoom: 14,
-          address: 'Oslo, Norway'
+          element: 'Map'
         });
         return Controller.__super__.initialize.call(this, options);
       };

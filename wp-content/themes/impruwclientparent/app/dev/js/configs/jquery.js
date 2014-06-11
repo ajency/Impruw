@@ -73,11 +73,16 @@ define(['jquery', 'underscore', 'jqueryvalidate', 'configs/polyglot'], function(
     }, 1000);
   };
   adjustPageDim = _.debounce(function() {
-    var height, minHeight;
+    var height, minHeight, navHeight;
     height = $(window).height();
+    navHeight = $('.aj-imp-left').height();
     minHeight = height - 40;
     $('.aj-upper-content').css('min-height', minHeight);
-    return $('.aj-upper-content').children().css('min-height', minHeight);
+    $('.aj-upper-content').children().css('min-height', minHeight);
+    $('.aj-imp-right').css('min-height', navHeight);
+    return setTimeout((function() {
+      $(window).trigger('resize');
+    }), 1000);
   }, 30);
   $(document).ready(function() {
     return adjustPageDim();

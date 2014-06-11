@@ -10,12 +10,7 @@ define ['app'
             # intializer
             initialize: (options)->
                 _.defaults options.modelData,
-                    element: 'Map'
-                    lat: 59.913041
-                    lng: 10.756874
-                    zoom: 14
-                    address: 'Oslo, Norway'
-
+                                        element: 'Map'
                 super(options)
 
             bindEvents: ->
@@ -32,6 +27,7 @@ define ['app'
 
             # setup templates for the element
             renderElement: ()=>
+
                 # get the address element template
                 template = if not _(@layout.model.get('style')).isBlank() then @_getElementTemplate(@layout.model) else ''
                 className = _.slugify @layout.model.get 'style'

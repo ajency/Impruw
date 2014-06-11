@@ -653,6 +653,9 @@ form .aj-imp-submit:hover {
 .dropdown-menu li.selected a .text {
   color: #fff;
 }
+.dropdown-menu li.selected a:focus {
+  background: #ff7e00;
+}
 .dropdown-menu li.selected a:hover {
   background: #849fb0;
 }
@@ -3509,15 +3512,17 @@ form .aj-imp-submit:hover {
   height: 30px !important;
   width: 30px !important;
 }
-/**** Language Page Styles ****/
-.language .aj-imp-sub-head-thin .bootstrap-select .dropdown-toggle {
+/**** Language and Billing Page Styles ****/
+.language .aj-imp-sub-head-thin .bootstrap-select .dropdown-toggle,
+.billing-container .aj-imp-sub-head-thin .bootstrap-select .dropdown-toggle {
   padding: 0;
   border-bottom: 0;
   font-size: 0.8em;
   text-transform: uppercase;
   font-weight: 300;
 }
-.language .aj-imp-dash-widget .nav-pills li a {
+.language .aj-imp-dash-widget .nav-pills li a,
+.billing-container .aj-imp-dash-widget .nav-pills li a {
   background: transparent;
   border-radius: 0;
   border: none;
@@ -3525,40 +3530,139 @@ form .aj-imp-submit:hover {
   color: #849fb0;
 }
 .language .aj-imp-dash-widget .nav-pills li:hover a,
-.language .aj-imp-dash-widget .nav-pills li :focus a {
+.billing-container .aj-imp-dash-widget .nav-pills li:hover a,
+.language .aj-imp-dash-widget .nav-pills li :focus a,
+.billing-container .aj-imp-dash-widget .nav-pills li :focus a {
   border-color: #849fb0;
   text-shadow: none;
 }
-.language .aj-imp-dash-widget .nav-pills li.active a {
+.language .aj-imp-dash-widget .nav-pills li.active a,
+.billing-container .aj-imp-dash-widget .nav-pills li.active a {
   color: #ff7e00;
   border-color: #ff7e00;
 }
-.language .aj-imp-widget-content .tab-content {
+.language .aj-imp-widget-content .tab-content,
+.billing-container .aj-imp-widget-content .tab-content {
   border-radius: 0;
   border: 0;
   padding: 1em 0 0.5em;
 }
-.language .aj-imp-widget-content .tab-content .legend-group {
+.language .aj-imp-widget-content .tab-content .legend-group,
+.billing-container .aj-imp-widget-content .tab-content .legend-group {
   margin-bottom: 0.5em;
 }
-.language .aj-imp-widget-content .tab-content .legend-group .form-group {
+.language .aj-imp-widget-content .tab-content .legend-group .form-group,
+.billing-container .aj-imp-widget-content .tab-content .legend-group .form-group {
   margin-bottom: 0;
 }
-.language .aj-imp-widget-content .tab-content .legend-group .form-group .aj-imp-widget-title {
+.language .aj-imp-widget-content .tab-content .legend-group .form-group .aj-imp-widget-title,
+.billing-container .aj-imp-widget-content .tab-content .legend-group .form-group .aj-imp-widget-title {
   border-bottom: 1px dotted #aaaaaa;
 }
-.language .aj-imp-widget-content .tab-content .original {
+.language .aj-imp-widget-content .tab-content .original,
+.billing-container .aj-imp-widget-content .tab-content .original {
   margin-bottom: 0;
   border-bottom: 1px solid #aaaaaa;
   padding: 8px 12px;
 }
-.language .form-horizontal {
+.language .form-horizontal,
+.billing-container .form-horizontal {
   margin: 0 0 1em;
   padding: 0;
   border: 0;
 }
-.language .aj-imp-long-form-actions.affix .action {
+.language .form-horizontal .bootstrap-select.open > .dropdown-menu,
+.billing-container .form-horizontal .bootstrap-select.open > .dropdown-menu {
+  min-height: initial !important;
+}
+.language .form-horizontal .margin-top,
+.billing-container .form-horizontal .margin-top {
+  margin-top: 2em;
+}
+.language .aj-imp-long-form-actions.affix .action,
+.billing-container .aj-imp-long-form-actions.affix .action {
   margin-right: -1em !important;
+}
+.billing-container .aj-imp-widget-head {
+  margin-bottom: 1em;
+}
+.billing-container .aj-imp-widget-head .bootstrap-select .dropdown-toggle {
+  background: transparent;
+  border-bottom: 0;
+}
+.billing-container .aj-imp-widget-head .bootstrap-select.open > .dropdown-menu {
+  min-height: initial !important;
+  text-align: left;
+}
+.billing-container .table thead th {
+  border-bottom: 2px solid #849fb0;
+  color: #849fb0;
+}
+.billing-container .table tbody td {
+  font-weight: 300;
+}
+.billing-container .price-plans .price {
+  font-size: 4em;
+}
+.billing-container .price-plans .price .price-cents {
+  vertical-align: super;
+  font-size: 50%;
+}
+.billing-container .price-plans .price .price-month {
+  font-size: 35%;
+  font-style: italic;
+}
+.billing-container .price-plans .panel {
+  -webkit-transition-property: scale;
+  -webkit-transition-duration: 0.2s;
+  -webkit-transition-timing-function: ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+}
+.billing-container .price-plans .panel .panel-heading h3 {
+  color: #aaaaaa;
+}
+.billing-container .price-plans .panel.active {
+  border-color: #2ecc71;
+}
+.billing-container .price-plans .panel.active .panel-heading h3 {
+  color: #2ecc71;
+}
+.billing-container .price-plans .panel.active .ribbon {
+  background: #2ecc71;
+  display: block;
+  color: #fff;
+  padding: 13px 12px 14px;
+  margin: -10px -15px;
+  border-radius: 0 0 3px 3px;
+  font-size: 2em;
+}
+.billing-container .price-plans .panel:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  -webkit-transform: scale(1.05);
+  -moz-transform: scale(1.05);
+  border-color: #cbe5f8;
+}
+.billing-container .price-plans .panel:hover .panel-heading {
+  background: #cbe5f8;
+}
+.billing-container .price-plans .panel:hover .panel-heading h3 {
+  color: #849fb0;
+}
+.billing-container .price-plans .panel:hover .price {
+  color: #182944;
+}
+.billing-container .price-plans .panel:hover .btn {
+  background: #ff7e00;
+}
+.billing-container .price-plans .panel:hover .btn:hover {
+  background: #ff9833;
+}
+/**** Pagination Styles ****/
+.pagination ul li a:hover,
+.pagination ul li a:focus {
+  background: #ff7e00;
 }
 /**** Homepage Styles ****/
 .aj-imp-homepage {

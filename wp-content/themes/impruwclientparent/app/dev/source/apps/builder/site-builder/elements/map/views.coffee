@@ -16,18 +16,44 @@ define ['app'], (App)->
             onShow: ->
                 @className += " " + Marionette.getOption this, 'className'
 
-                lat = parseFloat @model.get 'lat'
-                lng = parseFloat @model.get 'lng'
-                zoom = parseInt @model.get 'zoom'
-                address = @model.get 'address'
+                if window.ADDRESS.trim() is ''
+                    @$el.html "<div class='empty-view no-click'><span class='bicon icon-uniF132'></span>Address not specified. Please<a href='#{SITEURL}/dashboard/#site-profile'> click here to add.</a></div>"
+                else
+                    @geoCodeAddress()
 
-                mapOptions =
-                    zoom: zoom
-                    center: new google.maps.LatLng lat, lng
+            geoCodeAddress:->
+                address = window.ADDRESS
+                geocoder = new google.maps.Geocoder()
+                geocoder.geocode
+                            address: address
+                        , (results, status)=>
+                            if status is google.maps.GeocoderStatus.OK
+                                @displayMap results[0].geometry.location, address
+                            else
+                                @displayGeoCodeErrorMessage()
 
-                map = new google.maps.Map document.getElementById('map-canvas'), mapOptions
+            displayMap:(location, address)->
+                map = new google.maps.Map document.getElementById("map-canvas"),
+                                                                center : location
+                                                                zoom : 14
 
+                @createMarker map, address
+
+            createMarker :(map, address)->
                 marker = new google.maps.Marker
-                    position: map.getCenter()
-                    map: map
-                    title: address
+                                    map: map
+                                    position: map.getCenter()
+
+                @createInfoWindow map, marker, address
+
+            createInfoWindow:(map, marker, address)->
+                # TODO: add formatted content in info window
+                infowindow = new google.maps.InfoWindow
+                                                content: address
+
+                google.maps.event.addListener marker, 'click',->
+                    infowindow.open map,marker
+
+            displayGeoCodeErrorMessage:->
+                @$el.html "<div class='empty-view no-click'><span class='bicon icon-uniF132'></span>Failed to geocode your address. Please click
+                                     <a href='#{SITEURL}/dashboard/#site-profile'> here to update.</a></div>"

@@ -38,6 +38,7 @@ require_once 'modules/daterange/ajax.php';
 require_once 'modules/bookings/ajax.php';
 require_once 'modules/revision/ajax.php';
 require_once 'modules/elements/ajax.php';
+require_once 'modules/media/ajax.php';
 require_once 'modules/language/languagefunctions.php';
 require_once PARENTTHEMEPATH . 'api/entities/leftnav.php';
 
@@ -3605,9 +3606,35 @@ function check_page_access() {
         wp_safe_redirect( wp_login_url( site_url( $page_slug ) ) );
         die();
     }
+
+    if(in_array( $page_slug, $pages ) && not_on_own_site() && is_user_logged_in()){
+        wp_safe_redirect( get_user_dashboard_url() );
+        die();
+    }
 }
 
 add_action( 'template_redirect', 'check_page_access' );
+
+function not_on_own_site(){
+
+    $user_id      = get_current_user_id();
+    $primary_blog = get_user_meta( $user_id, "primary_blog", TRUE );
+
+    return (int) $primary_blog !== (int) get_current_blog_id();
+}
+
+function get_user_dashboard_url() {
+
+    $user_id      = get_current_user_id();
+    $primary_blog = get_user_meta( $user_id, "primary_blog", TRUE );
+
+    $site_url = get_site_url( $primary_blog );
+
+    $dashboard_url = $site_url . "/dashboard";
+
+    return $dashboard_url;
+}
+
 
 /**
  * Return success json

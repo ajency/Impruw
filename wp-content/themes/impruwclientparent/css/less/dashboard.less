@@ -653,6 +653,9 @@ form {
 				.text {
 					color: #fff;
 				}
+				&:focus {
+					background: @orange;
+				}
 				&:hover {
 					background: @blue-grey;
 				}
@@ -3528,8 +3531,8 @@ form {
 	}
 }
 
-/**** Language Page Styles ****/
-.language {
+/**** Language and Billing Page Styles ****/
+.language, .billing-container {
 	.aj-imp-sub-head-thin {
 		.bootstrap-select {
 			.dropdown-toggle {
@@ -3591,11 +3594,129 @@ form {
 		margin: 0 0 1em;
 		padding: 0;
 		border: 0;
+		.bootstrap-select {
+			&.open {
+				> .dropdown-menu {
+					min-height: initial !important;
+				}
+			}
+		}
+		.margin-top {
+			margin-top: 2em;
+		}
 	}
 	.aj-imp-long-form-actions {
 		&.affix {
 			.action {
 				margin-right: -1em !important;
+			}
+		}
+	}
+}
+
+.billing-container {
+	.aj-imp-widget-head {
+		margin-bottom: 1em;
+		.bootstrap-select {
+			.dropdown-toggle {
+				background: transparent;
+				border-bottom: 0;
+			}
+			&.open {
+				> .dropdown-menu {
+					min-height: initial !important;
+					text-align: left;
+				}
+			}
+		}
+	}
+	.table {
+		thead {
+			th {
+				border-bottom: 2px solid @blue-grey;
+				color: @blue-grey;
+			}
+		}
+		tbody {
+			td {
+				font-weight: 300;
+			}
+		}
+	}
+	.price-plans {
+		.price {
+		  font-size: 4em;
+		  .price-cents {
+			  vertical-align: super;
+			  font-size: 50%;
+			}
+			.price-month {
+			  font-size: 35%;
+			  font-style: italic;
+			}
+		}
+		.panel {
+			-webkit-transition-property : scale; 
+			-webkit-transition-duration : 0.2s; 
+			-webkit-transition-timing-function : ease-in-out; 
+			-moz-transition : all 0.2s ease-in-out;  
+			.panel-heading {
+				h3 {
+					color: @dash-grey;
+				}
+			}
+			&.active {
+				border-color: @success-green;
+				.panel-heading {
+					h3 {
+						color: @success-green;
+					}
+				}
+				.ribbon {
+					background: @success-green;
+					display: block;
+					color: #fff;
+					padding: 13px 12px 14px;
+					margin: -10px -15px;
+					border-radius: 0 0 3px 3px;
+					font-size: 2em;
+				}
+			}
+			&:hover {
+				box-shadow: 0 0 10px rgba(0,0,0,.5);
+				-moz-box-shadow: 0 0 10px rgba(0,0,0,.5);
+				-webkit-box-shadow: 0 0 10px rgba(0,0,0,.5);
+				-webkit-transform: scale(1.05);
+				-moz-transform: scale(1.05);
+				border-color: lighten(@sky-blue, 20%);
+				.panel-heading {
+					background: lighten(@sky-blue, 20%);
+					h3 {
+						color: @blue-grey;
+					}
+				}
+				.price {
+					color: @logo-blue;
+				}
+				.btn {
+					background: @orange;
+					&:hover {
+						background: lighten(@orange, 10%);
+					}
+				}
+			}
+		}
+	}
+}
+
+/**** Pagination Styles ****/
+.pagination {
+	ul {
+		li {
+			a {
+				&:hover, &:focus {
+					background: @orange;
+				}
 			}
 		}
 	}

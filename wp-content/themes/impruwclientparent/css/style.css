@@ -335,8 +335,9 @@ and open the template in the editor.
 }
 /****Image With Text Styles****/
 .image {
-  padding: 0.5em 0;
+  margin: 0.5em 0;
   color: #bfbfbf;
+  overflow: hidden;
 }
 .image .info {
   color: #29333f;

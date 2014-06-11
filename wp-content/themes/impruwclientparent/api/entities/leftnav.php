@@ -80,6 +80,12 @@ function get_menu_items() {
                        'icon'  => 'stats1' ),
                 array( 'url'   => '#billing/billing-info',
                        'title' => 'Billing Info',
+                       'icon'  => 'stats2' ),
+                array( 'url'   => '#billing/pricing-plans',
+                       'title' => 'Pricing Plans',
+                       'icon'  => 'stats2' ),
+                array( 'url'   => '#billing/payment-page',
+                       'title' => 'Payment Page',
                        'icon'  => 'stats2' )
             )
         ),

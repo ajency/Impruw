@@ -2305,6 +2305,9 @@ a:focus {
 .empty-view.menu-empty {
   margin: 0.5em;
 }
+.empty-view.no-click {
+  cursor: default;
+}
 /****Image Placeholder Styles****/
 .image-placeholder {
   text-align: center;
