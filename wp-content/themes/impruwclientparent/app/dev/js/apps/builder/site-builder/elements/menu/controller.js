@@ -9,6 +9,8 @@ define(['app', 'apps/builder/site-builder/elements/menu/views', 'apps/builder/si
 
       function Controller() {
         this.renderElement = __bind(this.renderElement, this);
+        this.newMenuItemAdded = __bind(this.newMenuItemAdded, this);
+        this.addNewMenuItem = __bind(this.addNewMenuItem, this);
         return Controller.__super__.constructor.apply(this, arguments);
       }
 
@@ -29,7 +31,28 @@ define(['app', 'apps/builder/site-builder/elements/menu/views', 'apps/builder/si
             return _this.layout.elementRegion.currentView.triggerMethod("set:justified", model.get('justified'));
           };
         })(this));
+        this.listenTo(App.vent, "new:page:added", this.addNewMenuItem);
         return Controller.__super__.bindEvents.call(this);
+      };
+
+      Controller.prototype.addNewMenuItem = function(menu) {
+        var data, menumodel;
+        menumodel = App.request("create:new:menu:item");
+        menumodel.set('menu_id', parseInt(this.layout.model.get('menu_id')));
+        data = {
+          menu_item_title: menu.get('post_title'),
+          menu_item_url: menu.get('guid'),
+          menu_item_parent: 0,
+          order: 0
+        };
+        return menumodel.save(data, {
+          wait: true,
+          success: this.newMenuItemAdded
+        });
+      };
+
+      Controller.prototype.newMenuItemAdded = function(model) {
+        return this.menuCollection.add(model);
       };
 
       Controller.prototype._getMenuView = function(collection, templateClass) {

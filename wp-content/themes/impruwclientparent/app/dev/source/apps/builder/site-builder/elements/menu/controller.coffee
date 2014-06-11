@@ -21,7 +21,27 @@ define ['app', 'apps/builder/site-builder/elements/menu/views',
                 @listenTo @layout.model, "change:style", @renderElement
                 @listenTo @layout.model, "change:justified", (model)=>
                     @layout.elementRegion.currentView.triggerMethod "set:justified", model.get 'justified'
+                @listenTo App.vent, "new:page:added", @addNewMenuItem
                 super()
+
+            addNewMenuItem : ( menu ) =>
+
+                menumodel = App.request "create:new:menu:item"
+
+                menumodel.set 'menu_id', parseInt @layout.model.get 'menu_id'
+
+                data =
+                    menu_item_title: menu.get 'post_title'
+                    menu_item_url: menu.get 'guid'
+                    menu_item_parent: 0
+                    order: 0
+
+                menumodel.save data,
+                    wait: true
+                    success: @newMenuItemAdded
+
+            newMenuItemAdded:(model)=>
+                @menuCollection.add model
 
             # create a new menu view
             _getMenuView: (collection, templateClass)->

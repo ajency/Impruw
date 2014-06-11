@@ -1,4 +1,5 @@
 # jquery scroll dots for sections
+# FIXME: not working proper
 $.fn.scrollSections = ->
     self = @
     @indicators = []

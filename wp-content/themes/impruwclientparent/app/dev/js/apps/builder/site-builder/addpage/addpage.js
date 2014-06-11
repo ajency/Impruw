@@ -40,15 +40,16 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
       AddPageController.prototype._saveNewPage = function(data) {
         var page;
         page = App.request("create:page:model", data);
-        page.save(null, {
+        return page.save(null, {
           wait: true,
           success: this.showSuccessMessage
         });
-        return this.addToPageMenu(page);
       };
 
-      AddPageController.prototype.showSuccessMessage = function() {
-        return this.layout.triggerMethod("show:success:message");
+      AddPageController.prototype.showSuccessMessage = function(page) {
+        this.addToPageMenu(page);
+        this.layout.triggerMethod("show:success:message");
+        return App.vent.trigger("new:page:added", page);
       };
 
       AddPageController.prototype.addToPageMenu = function(pageModel) {
