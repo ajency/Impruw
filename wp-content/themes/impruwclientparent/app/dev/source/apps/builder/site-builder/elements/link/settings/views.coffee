@@ -32,14 +32,16 @@ define ['app', 'text!apps/builder/site-builder/elements/link/settings/templates/
             events:
                 'click .close-settings': (evt)->
                     evt.preventDefault()
-                    App.settingsRegion.close()
+                    if @$el.find('form').valid()
+                        App.settingsRegion.close()
                 'change input[name="draggable"]': (evt)->
                     @trigger "element:draggable:changed", $(evt.target).is(':checked')
                 'change select[name="style"]': (evt)->
                     @trigger "element:style:changed", $(evt.target).val()
                 'blur input.linktext': (evt)->
-                    name = $(evt.target).attr 'name'
-                    @trigger "element:#{name}:changed", $(evt.target).val()
+                    if $(evt.target).valid()
+                        name = $(evt.target).attr 'name'
+                        @trigger "element:#{name}:changed", $(evt.target).val()
                 'change input[name="target"]': (evt)->
                     @trigger "element:target:changed", if $(evt.target).is(':checked') then '_BLANK' else 'self'
 
