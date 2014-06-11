@@ -13,13 +13,15 @@ define ['app', 'apps/builder/site-builder/elements/image/views',
                     image_id: 0
                     size: 'thumbnail'
                     align: 'left'
+                    heightRatio : 'auto'
+                    topRatio : 0
 
                 super(options)
 
             bindEvents: ->
                 # start listening to model events
                 @listenTo @layout.model, "change:image_id", @renderElement
-                @listenTo @layout.model, "change:size", @renderElement
+                # @listenTo @layout.model, "change:size", @renderElement
                 @listenTo @layout.model, "change:align", @renderElement
                 super()
 
@@ -34,6 +36,8 @@ define ['app', 'apps/builder/site-builder/elements/image/views',
             _getImageView: (imageModel)->
                 new Image.Views.ImageView
                     model: imageModel
+                    imageHeightRatio : @layout.model.get 'heightRatio'
+                    positionTopRatio : @layout.model.get 'topRatio'
                     templateHelpers: @_getTemplateHelpers()
 
 
@@ -58,7 +62,25 @@ define ['app', 'apps/builder/site-builder/elements/image/views',
 
                     @listenTo view, "image:size:selected", (size)=>
                         @layout.model.set 'size', size
+                        if @layout.model.hasChanged()
+                            console.log 'save     '+size
+                            @layout.model.save()
+
+                    @listenTo view, 'set:image:height',(height,width)=>
+                        @layout.model.set 'height', height
+                        if height is 'auto'
+                            @layout.model.set 'heightRatio','auto'
+                        else
+                            @layout.model.set 'heightRatio',height/width
+                        # console.log JSON.stringify @layout.model.toJSON()
+
                         @layout.model.save()
+
+                    @listenTo view, 'set:image:top:position',(width,top)=>
+                        @layout.model.set 'top',top
+                        @layout.model.set 'topRatio',top/width
+                        @layout.model.save()
+                        # console.log JSON.stringify @layout.model.toJSON()
 
                     @layout.elementRegion.show view
 

@@ -19,7 +19,7 @@ define(['app'], function(App) {
       MapView.prototype.onShow = function() {
         this.className += " " + Marionette.getOption(this, 'className');
         if (window.ADDRESS.trim() === '') {
-          return this.$el.html("<h5>Address not specified. Please click <a href='" + SITEURL + "/dashboard/#site-profile'> here </a></h5>");
+          return this.$el.html("<div class='empty-view no-click'><span class='bicon icon-uniF132'></span>Address not specified. Please<a href='" + SITEURL + "/dashboard/#site-profile'> click here to add.</a></div>");
         } else {
           return this.geoCodeAddress();
         }
@@ -71,7 +71,7 @@ define(['app'], function(App) {
       };
 
       MapView.prototype.displayGeoCodeErrorMessage = function() {
-        return this.$el.html("<h4>Failed to geocode your address. Please click <a href='" + SITEURL + "/dashboard/#site-profile'> here to update</a></h4>");
+        return this.$el.html("<div class='empty-view no-click'><span class='bicon icon-uniF132'></span>Failed to geocode your address. Please click <a href='" + SITEURL + "/dashboard/#site-profile'> here to update.</a></div>");
       };
 
       return MapView;
