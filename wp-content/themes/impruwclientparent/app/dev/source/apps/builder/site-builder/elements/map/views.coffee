@@ -17,8 +17,7 @@ define ['app'], (App)->
                 @className += " " + Marionette.getOption this, 'className'
 
                 if window.ADDRESS.trim() is ''
-                    @$el.html "<h5>Address not specified. Please click
-                                    <a href='#{SITEURL}/dashboard/#site-profile'> here </a></h5>"
+                    @$el.html "<div class='empty-view no-click'><span class='bicon icon-uniF132'></span>Address not specified. Please<a href='#{SITEURL}/dashboard/#site-profile'> click here to add.</a></div>"
                 else
                     @geoCodeAddress()
 
@@ -56,5 +55,5 @@ define ['app'], (App)->
                     infowindow.open map,marker
 
             displayGeoCodeErrorMessage:->
-                @$el.html "<h4>Failed to geocode your address. Please click
-                                     <a href='#{SITEURL}/dashboard/#site-profile'> here to update</a></h4>"
+                @$el.html "<div class='empty-view no-click'><span class='bicon icon-uniF132'></span>Failed to geocode your address. Please click
+                                     <a href='#{SITEURL}/dashboard/#site-profile'> here to update.</a></div>"
