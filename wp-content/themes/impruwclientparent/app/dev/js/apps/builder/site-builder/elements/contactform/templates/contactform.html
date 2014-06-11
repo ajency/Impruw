@@ -2,24 +2,24 @@
 <form>
   <div class="row">
     <div class="col-md-6">
-      <label>First Name</label>
-      <input type="text" placeholder="Your First Name" required class="form-control flat"/>
-      <label>Last Name</label>
-      <input type="text" placeholder="Your Last Name" class="form-control flat"/>
-      <label>Email Address</label>
-      <input type="email" placeholder="Your Email Address" required class="email form-control flat"/>
-      <label>Subject</label>
-      <select id="subject" name="c-subject" placeholder="Choose One:" class="form-control flat">
-        <option value="" selected="">Select subject:</option>
-        <option value="service">General Customer Service</option>
-        <option value="suggestions">Suggestions</option>
-        <option value="product">Product Support</option>
+      <label>{{#polyglot}}First Name{{/polyglot}}</label>
+      <input type="text" placeholder="{{#polyglot}}Your First Name{{/polyglot}}" required class="form-control flat"/>
+      <label>{{#polyglot}}Last Name{{/polyglot}}</label>
+      <input type="text" placeholder="{{#polyglot}}Your Last Name{{/polyglot}}" class="form-control flat"/>
+      <label>{{#polyglot}}Email Address{{/polyglot}}</label>
+      <input type="email" placeholder="{{#polyglot}}Your Email Address{{/polyglot}}" required class="email form-control flat"/>
+      <label>{{#polyglot}}Subject{{/polyglot}}</label>
+      <select id="subject" name="c-subject" placeholder="{{#polyglot}}Choose One{{/polyglot}}" class="form-control flat">
+        <option value="" selected="">{{#polyglot}}Select subject{{/polyglot}}</option>
+        <option value="service">{{#polyglot}}General Customer Service{{/polyglot}}</option>
+        <option value="suggestions">{{#polyglot}}Suggestions{{/polyglot}}</option>
+        <option value="product">{{#polyglot}}Product Support{{/polyglot}}</option>
       </select>
     </div>
     <div class="col-md-6">
-      <label>Message</label>
-      <textarea id="message" rows="5" name="message" placeholder="Your Message" required class="form-control flat"></textarea>
-      <button type="button" id="contact-form-save" class="btn btn-default">Send Message</button>
+      <label>{{#polyglot}}Message{{/polyglot}}</label>
+      <textarea id="message" rows="5" name="message" placeholder="{{#polyglot}}Your Message{{/polyglot}}" required class="form-control flat"></textarea>
+      <button type="button" id="contact-form-save" class="btn btn-default">{{#polyglot}}Send Message{{/polyglot}}</button>
     </div>
   </div>
 </form>

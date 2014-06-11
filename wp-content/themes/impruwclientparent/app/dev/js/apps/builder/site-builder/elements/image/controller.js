@@ -17,14 +17,15 @@ define(['app', 'apps/builder/site-builder/elements/image/views', 'apps/builder/s
           element: 'Image',
           image_id: 0,
           size: 'thumbnail',
-          align: 'left'
+          align: 'left',
+          heightRatio: 'auto',
+          topRatio: 0
         });
         return Controller.__super__.initialize.call(this, options);
       };
 
       Controller.prototype.bindEvents = function() {
         this.listenTo(this.layout.model, "change:image_id", this.renderElement);
-        this.listenTo(this.layout.model, "change:size", this.renderElement);
         this.listenTo(this.layout.model, "change:align", this.renderElement);
         return Controller.__super__.bindEvents.call(this);
       };
@@ -39,6 +40,8 @@ define(['app', 'apps/builder/site-builder/elements/image/views', 'apps/builder/s
       Controller.prototype._getImageView = function(imageModel) {
         return new Image.Views.ImageView({
           model: imageModel,
+          imageHeightRatio: this.layout.model.get('heightRatio'),
+          positionTopRatio: this.layout.model.get('topRatio'),
           templateHelpers: this._getTemplateHelpers()
         });
       };
@@ -65,6 +68,23 @@ define(['app', 'apps/builder/site-builder/elements/image/views', 'apps/builder/s
             });
             _this.listenTo(view, "image:size:selected", function(size) {
               _this.layout.model.set('size', size);
+              if (_this.layout.model.hasChanged()) {
+                console.log('save     ' + size);
+                return _this.layout.model.save();
+              }
+            });
+            _this.listenTo(view, 'set:image:height', function(height, width) {
+              _this.layout.model.set('height', height);
+              if (height === 'auto') {
+                _this.layout.model.set('heightRatio', 'auto');
+              } else {
+                _this.layout.model.set('heightRatio', height / width);
+              }
+              return _this.layout.model.save();
+            });
+            _this.listenTo(view, 'set:image:top:position', function(width, top) {
+              _this.layout.model.set('top', top);
+              _this.layout.model.set('topRatio', top / width);
               return _this.layout.model.save();
             });
             return _this.layout.elementRegion.show(view);
