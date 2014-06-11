@@ -378,8 +378,9 @@ and open the template in the editor.
 }
 /****Image With Text Styles****/
 .image {
-  padding: 0.5em 0;
+  margin: 0.5em 0;
   color: #989898;
+  overflow: hidden;
 }
 .image .info {
   color: #e9e9e9;
@@ -1915,9 +1916,6 @@ and open the template in the editor.
   font-size: 2em !important;
 }
 /****Image With Text Styles****/
-.image {
-  padding: 0.5em 0;
-}
 .image .info {
   color: secondary1;
   font-size: 1em;
