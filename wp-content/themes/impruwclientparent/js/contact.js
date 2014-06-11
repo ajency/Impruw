@@ -435,4 +435,34 @@ jQuery(document).ready(function ($) {
 
         return html;
     }
+
+
+
+    
+
 });
+
+    jQuery(document).ready(function(){
+        jQuery('img[data-height]').hide()
+        jQuery('img[data-height]').on('load',function(){
+             $ = jQuery
+                
+            if($(this).attr('data-height') != 'auto'){       
+                $(this).parent().height($(this).parent().width()*parseFloat($(this).attr('data-height')));
+            }
+            $(this).css('top',$(this).parent().width()*parseFloat($(this).attr('data-top'))+'px');
+            $(this).fadeIn()
+        });
+    });
+
+ // jQuery(window).load( function (){
+ //        $ = jQuery
+
+ //        $('img[data-height]').each(function(index,image){
+ //            if($(image).attr('data-height') != 'auto'){       
+ //                $(image).parent().height($(image).parent().width()*parseFloat($(image).attr('data-height')));
+ //            }
+ //            $(image).css('top',$(image).parent().width()*parseFloat($(image).attr('data-top'))+'px');
+ //        });
+
+ //    });

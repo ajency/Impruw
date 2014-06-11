@@ -49,6 +49,8 @@ class ImageElement extends Element {
         
         $this->image_id = isset($element['image_id']) ? $element['image_id'] : 0;
         $this->size = $element['size'];
+        $this->height = isset($element['heightRatio']) ? $element['heightRatio'] : 'auto';
+        $this->position_top = isset($element['topRatio']) ? $element['topRatio'] : 0;
         // $this->margins = 
         $this->markup    = $this->generate_markup();
     }
@@ -100,6 +102,10 @@ class ImageElement extends Element {
         $a_id = $this->image_id;
 
         $size = $this->size;
+        $height = $this->height;
+        $position_top = $this->position_top;
+
+        
 
         if($a_id === 0){
             return  '<div class="image-placeholder"><span class="glyphicon glyphicon-picture"></span></div>';
@@ -110,7 +116,13 @@ class ImageElement extends Element {
 
         
         if($path !== false) {
-            return "<img src='{$path[0]}' class='img-responsive {$this->margins}' width='100%'/>";
+            return "<div style='overflow:hidden;'><img src='{$path[0]}' data-height='{$height}' data-top='{$position_top}' class='img-responsive {$this->margins}' width='100%' style=' position: relative;'/></div>
+            <script>
+            // if({$height} != 'auto'){       
+            //     jQuery('img').last().parent().height(parseInt(jQuery('img').last().parent().width())*{$height});
+            // }
+            // jQuery('img').last().css('top',parseInt(jQuery('img').last().parent().width())*{$position_top}+'px');
+            </script>";
         }
         else{
             return "<img data-src='". get_parent_template_directory_uri(). "'/js/holder.js/100%x220' class='img-responsive {$this->margins}'/>";
