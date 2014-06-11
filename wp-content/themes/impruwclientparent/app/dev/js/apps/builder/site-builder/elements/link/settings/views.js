@@ -43,7 +43,9 @@ define(['app', 'text!apps/builder/site-builder/elements/link/settings/templates/
       SettingsView.prototype.events = {
         'click .close-settings': function(evt) {
           evt.preventDefault();
-          return App.settingsRegion.close();
+          if (this.$el.find('form').valid()) {
+            return App.settingsRegion.close();
+          }
         },
         'change input[name="draggable"]': function(evt) {
           return this.trigger("element:draggable:changed", $(evt.target).is(':checked'));
@@ -53,8 +55,10 @@ define(['app', 'text!apps/builder/site-builder/elements/link/settings/templates/
         },
         'blur input.linktext': function(evt) {
           var name;
-          name = $(evt.target).attr('name');
-          return this.trigger("element:" + name + ":changed", $(evt.target).val());
+          if ($(evt.target).valid()) {
+            name = $(evt.target).attr('name');
+            return this.trigger("element:" + name + ":changed", $(evt.target).val());
+          }
         },
         'change input[name="target"]': function(evt) {
           return this.trigger("element:target:changed", $(evt.target).is(':checked') ? '_BLANK' : 'self');

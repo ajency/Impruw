@@ -15,8 +15,8 @@ define(['app', 'apps/builder/site-builder/elements/link/views', 'apps/builder/si
       Controller.prototype.initialize = function(options) {
         _.defaults(options.modelData, {
           element: 'Link',
-          link: '#',
-          text: 'Link',
+          link: '',
+          text: '',
           target: 'self'
         });
         return Controller.__super__.initialize.call(this, options);

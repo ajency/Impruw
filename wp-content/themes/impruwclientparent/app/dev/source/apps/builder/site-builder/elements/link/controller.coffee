@@ -10,8 +10,8 @@ define ['app', 'apps/builder/site-builder/elements/link/views',
             initialize: (options)->
                 _.defaults options.modelData,
                     element: 'Link'
-                    link: '#'
-                    text: 'Link'
+                    link: ''
+                    text: ''
                     target: 'self'
 
                 super(options)
