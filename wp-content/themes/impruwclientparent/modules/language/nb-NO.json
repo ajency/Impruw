@@ -442,6 +442,13 @@
       "Language": "Language_N",
       "Billing": "Billing_N",
       "Logout": "Logout_N",
+      "Real-time Visitors": "Real-time Visitors_N",
+      "Visit Summary": "Visit Summary_N" ,
+      "Traffic Summary": "Traffic Summary_N" ,
+      "Purchase History": "Purchase History_N" ,
+      "Billing Info": "Billing Info_N" ,
+      "Pricing Plans": "Pricing Plans_N" ,
+      "Payment Page": "Payment Page_N",
 
       "This field is required.": "This field is required._NNNN",
       "Please fix this field.": "Please fix this field._NNNN",

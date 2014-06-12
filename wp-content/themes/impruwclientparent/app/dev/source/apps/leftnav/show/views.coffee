@@ -37,7 +37,7 @@ define ['app'
 
                 _.each submenu, (submenuData, index) =>
                     submenuLink = submenuData.url
-                    submenuTitle = submenuData.title
+                    submenuTitle = _.polyglot.t submenuData.title
                     submenuIcon = submenuData.icon
                     @submenuTpl += "<li>
                     												<a href='#{submenuLink}' data-route='##{submenuLink}'>#{submenuTitle}</a>

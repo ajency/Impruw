@@ -442,7 +442,13 @@
       "Language": "Language",
       "Billing": "Billing",
       "Logout": "Logout",
-
+      "Real-time Visitors": "Real-time Visitors",
+      "Visit Summary": "Visit Summary" ,
+      "Traffic Summary": "Traffic Summary" ,
+      "Purchase History": "Purchase History" ,
+      "Billing Info": "Billing Info" ,
+      "Pricing Plans": "Pricing Plans" ,
+      "Payment Page": "Payment Page",
 
       "This field is required.": "This field is required.",
       "Please fix this field.": "Please fix this field.",
