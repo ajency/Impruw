@@ -63,7 +63,7 @@ class SliderElement extends Element {
     function generate_markup(){
     	
     	if(!slider_exists($this->slider_id))
-    		return '';
+    		return '<div class="image-placeholder"><span class="glyphicon glyphicon-picture"></span>No Images found in your Slider. Add Images to your Slider.</div>';
         
         $slider = new RevSlider();
         $slider->initByID($this->slider_id);
