@@ -55,25 +55,17 @@ define(['app'], function(App) {
       GalleryView.prototype.emptyView = EmptyGallery;
 
       GalleryView.prototype.onBeforeRender = function() {
-        var isSingleRoom;
         this.collection.sort();
-        isSingleRoom = Marionette.getOption(this, 'inSingleRoom');
-        if (isSingleRoom) {
-          this.template = '<h3 class="gallery-title">Gallery</h3> <div class="if-required"></div>';
-          return this.itemViewContainer = '.if-required';
-        }
+        this.template = '<h3 class="gallery-title">Gallery</h3> <div class="if-required"></div>';
+        return this.itemViewContainer = '.if-required';
       };
 
       GalleryView.prototype.onShow = function() {
-        var isSingleRoom;
-        isSingleRoom = Marionette.getOption(this, 'inSingleRoom');
-        if (isSingleRoom) {
-          this.$el.attr("data-content", "Manage room gallery <a href='" + SITEURL + "/dashboard/#rooms'>here</a> ");
-          this.$el.popover({
-            html: true,
-            placement: 'top'
-          });
-        }
+        this.$el.attr("data-content", "Manage room gallery <a href='" + SITEURL + "/dashboard/#rooms'>here</a> ");
+        this.$el.popover({
+          html: true,
+          placement: 'top'
+        });
         if (this.collection.length === 0) {
           return;
         }

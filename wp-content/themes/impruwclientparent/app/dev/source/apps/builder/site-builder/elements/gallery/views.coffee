@@ -38,22 +38,17 @@ define ['app'], (App)->
 
             onBeforeRender: ->
                 @collection.sort()
-
-                # set the template if single room
-                isSingleRoom = Marionette.getOption @, 'inSingleRoom'
-                if isSingleRoom
-                    @template = '<h3 class="gallery-title">Gallery</h3>
-                    								<div class="if-required"></div>'
-                    @itemViewContainer = '.if-required'
+                
+                @template = '<h3 class="gallery-title">Gallery</h3>
+                								<div class="if-required"></div>'
+                @itemViewContainer = '.if-required'
 
             onShow: ->
 
-                isSingleRoom = Marionette.getOption @, 'inSingleRoom'
-                if isSingleRoom
-                    @$el.attr "data-content", "Manage room gallery <a href='#{SITEURL}/dashboard/#rooms'>here</a> "
-                    @$el.popover
-                        html : true
-                        placement : 'top'
+                @$el.attr "data-content", "Manage room gallery <a href='#{SITEURL}/dashboard/#rooms'>here</a> "
+                @$el.popover
+                    html : true
+                    placement : 'top'
 
                 return if @collection.length is 0
 
