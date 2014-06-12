@@ -1,5 +1,5 @@
 define ['app'
-        'text!apps/my-profile/show/templates/mainview.html'], (App, mainviewTpl)->
+        'text!apps/billing/show/templates/mainview.html'], (App, mainviewTpl)->
     App.module 'BillingApp.Show.View', (View, App, Backbone, Marionette, $, _)->
         class View.Layout extends Marionette.Layout
 
