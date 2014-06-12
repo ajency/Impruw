@@ -12,7 +12,7 @@ define ['app', 'text!apps/my-profile/language/templates/languageView.html'], (Ap
 
             onShow: ->
                 @$el.find('select').selectpicker()
-
+                #TODO: Language should get selected at one go -> Check http://silviomoreto.github.io/bootstrap-select/
                 languageName = @model.get 'user_lang'
                 @$el.find('.dropdown-toggle').attr 'title': languageName
                 @$el.find('.dropdown-toggle .filter-option').text languageName

@@ -47,7 +47,7 @@ define ['app', 'controllers/base-controller'], (App, AppController)->
             className: 'form-horizontal'
 
             dialogOptions:
-                modal_title: 'Add New Page'
+                modal_title: _.polyglot.t 'Add New Page'
                 modal_size: 'medium-modal'
 
             regions:
@@ -55,7 +55,7 @@ define ['app', 'controllers/base-controller'], (App, AppController)->
 
             template:  '<div class="row">
         					<div class="form-group">
-        						<label for="inputEmail3" class="col-sm-2 control-label">Page Title</label>
+        						<label for="inputEmail3" class="col-sm-2 control-label">{{#polyglot}}Page Title{{/polyglot}}</label>
         						<div class="col-sm-10">
         							<input type="text" required class="form-control" id="post_title" name="post_title" />
         							<div class="p-messages"></div>
@@ -65,13 +65,13 @@ define ['app', 'controllers/base-controller'], (App, AppController)->
                             <div class="form-group">
                                 <div class="col-sm-10 col-sm-offset-2">
                 					<div id="choose-template-region"></div>
-                					<button type="button" class="btn btn-sm btn-wide aj-imp-orange-btn add-new-page">Add New Page</button>
+                					<button type="button" class="btn btn-sm btn-wide aj-imp-orange-btn add-new-page">{{#polyglot}}Add New Page{{/polyglot}}</button>
                                 </div>
                             </div>
         				</div>'
 
             onShowSuccessMessage: ->
-                @$el.prepend '<div class="alert alert-success">New Page added successfully</div>'
+                @$el.prepend '<div class="alert alert-success">'+ _.polyglot.t("New Page added")+'</div>'
 
             onUpdateTemplatePageId: (id)->
                 @$el.find('input[name="template_page_id"]').val id

@@ -10,18 +10,18 @@ define ['app'], (App)->
 
             template: '<div class="room-title-container clearfix">
             							<div class="room-title">
-            								<h1>Your Room Title</h1>
-            								<div class="room-title-desc">This will work only on a single room page. Change your page to the single room page and add this element. The room title of the room will display on your website. <br>
-                                                Also to make the "Booking and Availability" button work, use the Room Booking element. When the button is pressed on your site, it will take you to the booking area.
+            								<h1>{{#polyglot}}Your Room Title{{/polyglot}}</h1>
+            								<div class="room-title-desc">{{#polyglot}}Room Title Desc1{{/polyglot}}<br>
+                                                {{#polyglot}}Room Title Desc2{{/polyglot}}
                                             </div>
             							</div>
             							<div class="room-title-actions">
-            								<button class="btn btn-sm btn-book">Booking &amp; Availability</button>
+            								<button class="btn btn-sm btn-book">{{#polyglot}}Booking{{/polyglot}} &amp; {{#polyglot}}Availability{{/polyglot}}</button>
             							</div>
             						</div>'
 
             onShow: ->
-                @$el.attr "data-content", "Update room title <a href='#{SITEURL}/dashboard/#rooms'>here</a> "
+                @$el.attr "data-content", _.polyglot.t('Update room title')+ " <a href='#{SITEURL}/dashboard/#rooms'>"+_.polyglot.t('here')+"</a> "
                 @$el.popover
                     html : true
                     placement : 'top'

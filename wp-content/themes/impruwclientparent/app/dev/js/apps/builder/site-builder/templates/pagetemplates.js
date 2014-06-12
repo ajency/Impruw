@@ -70,7 +70,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         return EmptyView.__super__.constructor.apply(this, arguments);
       }
 
-      EmptyView.prototype.template = '<div class="empty-view">No Templates Found.</div>';
+      EmptyView.prototype.template = '<div class="empty-view">{{#polyglot}}No Templates Found{{/polyglot}}</div>';
 
       return EmptyView;
 
@@ -82,7 +82,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         return PageTemplatesGrid.__super__.constructor.apply(this, arguments);
       }
 
-      PageTemplatesGrid.prototype.template = '<h4>Choose a page Template</h4> <ul class="templates"></ul>';
+      PageTemplatesGrid.prototype.template = '<h4>{{#polyglot}}Choose page Template{{/polyglot}}</h4> <ul class="templates"></ul>';
 
       PageTemplatesGrid.prototype.itemView = TemplateView;
 

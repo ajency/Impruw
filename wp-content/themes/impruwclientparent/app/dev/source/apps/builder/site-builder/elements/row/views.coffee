@@ -128,7 +128,7 @@ define ['app'], (App)->
                     return
 
                 template = '<div class="aj-imp-col-divider">
-                								<p title="Move">
+                								<p title="'+_.polyglot.t('Move')+'">
                 									<span class="bicon icon-uniF140"></span>
                 								</p>
                 							</div>'

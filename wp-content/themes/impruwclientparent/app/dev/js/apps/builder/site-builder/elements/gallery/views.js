@@ -32,7 +32,7 @@ define(['app'], function(App) {
         return EmptyGallery.__super__.constructor.apply(this, arguments);
       }
 
-      EmptyGallery.prototype.template = '<div class="empty-view"><span class="bicon icon-uniF10C"></span>No images in the Gallery.<br> Click to add images.</div>';
+      EmptyGallery.prototype.template = '<div class="empty-view"><span class="bicon icon-uniF10C"></span>{{#polyglot}}No images in Gallery{{/polyglot}}<br> {{#polyglot}}Click to add images{{/polyglot}}</div>';
 
       EmptyGallery.prototype.className = 'gallery-container';
 

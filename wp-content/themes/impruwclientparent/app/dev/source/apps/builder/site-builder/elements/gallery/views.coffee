@@ -17,7 +17,7 @@ define ['app'], (App)->
         # if not gallery items are displayed
         class EmptyGallery extends Marionette.ItemView
 
-            template: '<div class="empty-view"><span class="bicon icon-uniF10C"></span>No images in the Gallery.<br> Click to add images.</div>'
+            template: '<div class="empty-view"><span class="bicon icon-uniF10C"></span>{{#polyglot}}No images in Gallery{{/polyglot}}<br> {{#polyglot}}Click to add images{{/polyglot}}</div>'
 
             className: 'gallery-container'
 

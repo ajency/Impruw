@@ -40,12 +40,12 @@ define ['app'], (App)->
 
             emtpyView: EmptyUnsedElementView
 
-            template: '<div class="label trash-label clearfix"><span><span class="glyphicon glyphicon-trash"></span> Unused Elements</span></div>
+            template: '<div class="label trash-label clearfix"><span><span class="glyphicon glyphicon-trash"></span> {{#polyglot}}Unused Elements{{/polyglot}}</span></div>
             					        <div class="menu aj-imp-drag-menu">
             					            <p class="desc">
-            					              These are your unused or deleted elements, you can drag them back into your site, or clear them all.
+            					              {{#polyglot}}Unused deleted elements{{/polyglot}}
             					            </p>
-            					            <a href="#" class="trash-elem-link"><span class="bicon icon-uniF16F"></span> Clear Elements</a>
+            					            <a href="#" class="trash-elem-link"><span class="bicon icon-uniF16F"></span> {{#polyglot}}Clear Elements{{/polyglot}}</a>
             					            <ul class="trash-list">
             					            </ul>
             					        </div>

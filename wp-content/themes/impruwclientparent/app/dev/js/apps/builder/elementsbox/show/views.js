@@ -21,9 +21,9 @@ define(['app', 'text!apps/builder/elementsbox/show/templates/main.html', 'text!a
         data = SingleElement.__super__.serializeData.call(this);
         data.elementName = function() {
           if (this.title) {
-            return this.title;
+            return _.polyglot.t(this.title);
           } else {
-            return this.element;
+            return _.polyglot.t(this.element);
           }
         };
         return data;
@@ -84,7 +84,7 @@ define(['app', 'text!apps/builder/elementsbox/show/templates/main.html', 'text!a
         isSingleRoom = Marionette.getOption(this, 'singleroom');
         if (!isSingleRoom) {
           this.$el.find('#room-elements ul').remove();
-          roomSummaryhtml = '<ul class="aj-imp-builder-items clearfix"> <li class="element" data-element="RoomSummary"> <a href="#" class="drag builder-element"> <div class="aj-imp-builder-icon bicon icon-uniF15B"></div> <div class="aj-imp-builder-title">Display Rooms</div> </a> </li> </ul>';
+          roomSummaryhtml = '<ul class="aj-imp-builder-items clearfix"> <li class="element" data-element="RoomSummary"> <a href="#" class="drag builder-element"> <div class="aj-imp-builder-icon bicon icon-uniF15B"></div> <div class="aj-imp-builder-title">'+_.polyglot.t('Display Rooms')+'</div> </a> </li> </ul>';
           return this.$el.find('#room-elements').append(roomSummaryhtml);
         }
       };

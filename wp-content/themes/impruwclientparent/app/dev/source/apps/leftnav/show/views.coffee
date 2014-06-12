@@ -13,6 +13,8 @@ define ['app'
                 data.slug = ->
                     _.slugify @title
 
+                data.title = _.polyglot.t @model.get 'title'
+
                 data
 
             onShow : ->

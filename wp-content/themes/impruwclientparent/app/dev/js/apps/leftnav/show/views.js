@@ -20,6 +20,7 @@ define(['app', 'text!apps/leftnav/show/templates/leftNav.html', 'text!apps/leftn
         data.slug = function() {
           return _.slugify(this.title);
         };
+        data.title = _.polyglot.t(this.model.get('title'));
         return data;
       };
 

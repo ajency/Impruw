@@ -10,8 +10,8 @@ define ['app'], (App)->
 						  <div class="caption">
 							<h3>{{name}}</h3>
 							<p>
-								<a href="#" class="btn btn-xs btn-primary apply-theme-color" role="button"><span class="glyphicon glyphicon-check"></span> Apply</a>
-								<a href="#" class="btn btn-xs btn-default edit-theme-color" id="flipCard" role="button"><span class="glyphicon glyphicon-edit"></span> Edit</a>
+								<a href="#" class="btn btn-xs btn-primary apply-theme-color" role="button"><span class="glyphicon glyphicon-check"></span> {{#polyglot}}Apply{{/polyglot}}</a>
+								<a href="#" class="btn btn-xs btn-default edit-theme-color" id="flipCard" role="button"><span class="glyphicon glyphicon-edit"></span> {{#polyglot}}Edit{{/polyglot}}</a>
 							</p>
 						  </div>
 						</div>'
@@ -37,6 +37,7 @@ define ['app'], (App)->
             serializeData: ->
                 data = super()
                 data.THEMECOLORSET = THEMECOLORSET
+                data.name = _.polyglot.t @model.get 'name'
                 data
 
             events:
