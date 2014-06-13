@@ -56,12 +56,12 @@ define(['app'], function(App) {
 
       GalleryView.prototype.onBeforeRender = function() {
         this.collection.sort();
-        this.template = '<h3 class="gallery-title">Gallery</h3> <div class="if-required"></div>';
+        this.template = '<h3 class="gallery-title">' + _.polyglot.t('Gallery') + '</h3> <div class="if-required"></div>';
         return this.itemViewContainer = '.if-required';
       };
 
       GalleryView.prototype.onShow = function() {
-        this.$el.attr("data-content", "Manage room gallery <a href='" + SITEURL + "/dashboard/#rooms'>here</a> ");
+        this.$el.attr("data-content", _.polyglot.t("Manage room gallery") + (" <a href='" + SITEURL + "/dashboard/#rooms'>") + _.polyglot.t("here") + "</a> ");
         this.$el.popover({
           html: true,
           placement: 'top'

@@ -39,13 +39,13 @@ define ['app'], (App)->
             onBeforeRender: ->
                 @collection.sort()
                 
-                @template = '<h3 class="gallery-title">Gallery</h3>
+                @template = '<h3 class="gallery-title">'+_.polyglot.t('Gallery')+'</h3>
                 								<div class="if-required"></div>'
                 @itemViewContainer = '.if-required'
 
             onShow: ->
 
-                @$el.attr "data-content", "Manage room gallery <a href='#{SITEURL}/dashboard/#rooms'>here</a> "
+                @$el.attr "data-content", _.polyglot.t("Manage room gallery")+" <a href='#{SITEURL}/dashboard/#rooms'>"+_.polyglot.t("here")+"</a> "
                 @$el.popover
                     html : true
                     placement : 'top'

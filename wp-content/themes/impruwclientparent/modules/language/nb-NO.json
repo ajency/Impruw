@@ -449,6 +449,10 @@
       "Billing Info": "Billing Info_N" ,
       "Pricing Plans": "Pricing Plans_N" ,
       "Payment Page": "Payment Page_N",
+      "Update room facilities": "Update room facilities_N",
+      "Add/Edit room tariff": "Add/Edit room tariff_N",
+      "Manage room gallery": "Manage room gallery_N",
+      "OK": "OK_N",
 
       "This field is required.": "This field is required._NNNN",
       "Please fix this field.": "Please fix this field._NNNN",

@@ -6,3 +6,5 @@ robots.txt
 wp-content/uploads
 .externalToolBuilders/
 wp-content/site-resources
+.idea/
+wp-content/upgrade/wordpress-39.tmp
