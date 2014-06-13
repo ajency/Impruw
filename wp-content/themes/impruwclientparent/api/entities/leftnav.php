@@ -370,6 +370,9 @@ function set_element_data( $data ) {
     if ( isset( $data [ 'meta_id' ] ) ) {
         $meta_id            = $data [ 'meta_id' ];
         $serialized_element = maybe_serialize( $data );
+
+        // TODO: 
+
         $wpdb->update( $wpdb->postmeta, array(
             'meta_value' => $serialized_element,
             'meta_key'   => $data [ 'element' ]
