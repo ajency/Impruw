@@ -86,7 +86,7 @@ define(['app', 'controllers/base-controller', 'apps/builder/header/change-theme-
       ChangeThemeColorLayout.prototype.className = 'color-picker-container';
 
       ChangeThemeColorLayout.prototype.dialogOptions = {
-        modal_title: 'Choose Colors for Your Theme',
+        modal_title: _.polyglot.t('Choose Theme Colors'),
         modal_size: 'medium-modal'
       };
 

@@ -20,9 +20,9 @@ define ['app'
                 data = super()
                 data.elementName = ->
                     if @title
-                        return @title
+                        return _.polyglot.t @title
                     else
-                        return @element
+                        return _.polyglot.t @element
 
                 data
 

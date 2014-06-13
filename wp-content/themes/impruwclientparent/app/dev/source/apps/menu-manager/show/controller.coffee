@@ -62,7 +62,7 @@ define ['app', 'controllers/base-controller'], (App, AppController)->
             						<div id="list-menu-items" class="col-md-6"></div>'
 
             dialogOptions:
-                modal_title: 'Menu Manager'
+                modal_title: _.polyglot.t 'Menu Manager'
 
             regions:
                 addMenuRegion: '#add-menu-items'

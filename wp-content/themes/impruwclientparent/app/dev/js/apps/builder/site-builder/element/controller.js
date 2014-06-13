@@ -34,7 +34,7 @@ define(['app', 'controllers/builder-base-controller', 'bootbox', 'apps/builder/s
         });
         this.listenTo(this.layout, "delete:element", (function(_this) {
           return function(model) {
-            return bootbox.confirm("<h4 class='delete-message'>Are you sure?</h4>", function(result) {
+            return bootbox.confirm("<h4 class='delete-message'>" + _.polyglot.t('Are you sure?') + "</h4>", function(result) {
               if (result === true) {
                 return _this.deleteElement(model);
               }

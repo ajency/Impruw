@@ -32,7 +32,7 @@ define(['app'], function(App) {
         return EmptyGallery.__super__.constructor.apply(this, arguments);
       }
 
-      EmptyGallery.prototype.template = '<div class="empty-view"><span class="bicon icon-uniF10C"></span>No images in the Gallery.<br> Click to add images.</div>';
+      EmptyGallery.prototype.template = '<div class="empty-view"><span class="bicon icon-uniF10C"></span>{{#polyglot}}No images in Gallery{{/polyglot}}<br> {{#polyglot}}Click to add images{{/polyglot}}</div>';
 
       EmptyGallery.prototype.className = 'gallery-container';
 
@@ -55,25 +55,17 @@ define(['app'], function(App) {
       GalleryView.prototype.emptyView = EmptyGallery;
 
       GalleryView.prototype.onBeforeRender = function() {
-        var isSingleRoom;
         this.collection.sort();
-        isSingleRoom = Marionette.getOption(this, 'inSingleRoom');
-        if (isSingleRoom) {
-          this.template = '<h3 class="gallery-title">Gallery</h3> <div class="if-required"></div>';
-          return this.itemViewContainer = '.if-required';
-        }
+        this.template = '<h3 class="gallery-title">Gallery</h3> <div class="if-required"></div>';
+        return this.itemViewContainer = '.if-required';
       };
 
       GalleryView.prototype.onShow = function() {
-        var isSingleRoom;
-        isSingleRoom = Marionette.getOption(this, 'inSingleRoom');
-        if (isSingleRoom) {
-          this.$el.attr("data-content", "Manage room gallery <a href='" + SITEURL + "/dashboard/#rooms'>here</a> ");
-          this.$el.popover({
-            html: true,
-            placement: 'top'
-          });
-        }
+        this.$el.attr("data-content", "Manage room gallery <a href='" + SITEURL + "/dashboard/#rooms'>here</a> ");
+        this.$el.popover({
+          html: true,
+          placement: 'top'
+        });
         if (this.collection.length === 0) {
           return;
         }

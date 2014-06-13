@@ -77,7 +77,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
       MediaMangerLayout.prototype.template = '<div id="add-menu-items" class="col-md-6"></div> <div id="list-menu-items" class="col-md-6"></div>';
 
       MediaMangerLayout.prototype.dialogOptions = {
-        modal_title: 'Menu Manager'
+        modal_title: _.polyglot.t('Menu Manager')
       };
 
       MediaMangerLayout.prototype.regions = {

@@ -33,7 +33,7 @@ define(['app', 'text!apps/menu-manager/list/templates/menuitem.html'], function(
           return this.trigger("update:menu:item:clicked", formdata, this.model);
         },
         'click .delete-menu-item': function() {
-          if (confirm('Delete the menu item?')) {
+          if (confirm(_.polyglot.t('Delete menu item'))) {
             return this.trigger("delete:menu:item:clicked", this.model);
           }
         },
@@ -57,7 +57,7 @@ define(['app', 'text!apps/menu-manager/list/templates/menuitem.html'], function(
         return EmptyView.__super__.constructor.apply(this, arguments);
       }
 
-      EmptyView.prototype.template = '<span class="bicon icon-uniF151"></span> No Menu Items found. Add Menu Items to your menu.';
+      EmptyView.prototype.template = '<span class="bicon icon-uniF151"></span> {{#polyglot}}No Menu Items found{{/polyglot}}';
 
       EmptyView.prototype.tagName = 'div';
 
@@ -105,7 +105,7 @@ define(['app', 'text!apps/menu-manager/list/templates/menuitem.html'], function(
 
       MenuCollectionView.prototype.onMenuItemUpdated = function() {
         this.$el.find('.alert').remove();
-        return this.$el.prepend('<div class="alert alert-success">Menu item updated</div>');
+        return this.$el.prepend('<div class="alert alert-success">' + _.polyglot.t("Menu item updated") + '</div>');
       };
 
       MenuCollectionView.prototype.itemViewOptions = function(collection, index) {

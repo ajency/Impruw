@@ -22,7 +22,7 @@ define ['app'
                     @trigger "update:menu:item:clicked", formdata, @model
 
                 'click .delete-menu-item': ->
-                    if confirm 'Delete the menu item?'
+                    if confirm _.polyglot.t 'Delete menu item'
                         @trigger "delete:menu:item:clicked", @model
 
                 'click .cancel-menu-item': ->
@@ -34,7 +34,7 @@ define ['app'
 
         class EmptyView extends Marionette.ItemView
 
-            template: '<span class="bicon icon-uniF151"></span> No Menu Items found. Add Menu Items to your menu.'
+            template: '<span class="bicon icon-uniF151"></span> {{#polyglot}}No Menu Items found{{/polyglot}}'
 
             tagName: 'div'
 
@@ -74,7 +74,7 @@ define ['app'
 
             onMenuItemUpdated: ->
                 @$el.find('.alert').remove()
-                @$el.prepend '<div class="alert alert-success">Menu item updated</div>'
+                @$el.prepend '<div class="alert alert-success">'+_.polyglot.t("Menu item updated")+'</div>'
 
             itemViewOptions: (collection, index) =>
                 itemIndex: index

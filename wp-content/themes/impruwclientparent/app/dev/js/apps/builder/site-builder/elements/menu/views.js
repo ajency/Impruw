@@ -50,7 +50,7 @@ define(['app'], function(App) {
 
       EmptyView.prototype.tagsName = 'ul';
 
-      EmptyView.prototype.template = '<li>No menu found</li>';
+      EmptyView.prototype.template = '<li>{{#polyglot}}No menu found{{/polyglot}}</li>';
 
       return EmptyView;
 
