@@ -454,6 +454,8 @@
       "Manage room gallery": "Manage room gallery_N",
       "OK": "OK_N",
 
+      "Cancel" : "Cancel_n",
+
       "This field is required.": "This field is required._NNNN",
       "Please fix this field.": "Please fix this field._NNNN",
       "Please enter a valid email address.": "Please enter a valid email address._NNNN",
