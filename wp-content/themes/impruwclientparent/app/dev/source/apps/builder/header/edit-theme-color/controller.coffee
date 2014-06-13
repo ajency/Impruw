@@ -55,8 +55,8 @@ define ['app', 'controllers/base-controller'], (App, AppController)->
                             <div class='color-sets'>
                             </div>
                             <div class='actions'>
-                                <button class='btn btn-xs closeCard'>Cancel</button>
-                                <button class='btn btn-xs btn-primary applyCard'>Apply</button>
+                                <button class='btn btn-xs closeCard'>{{#polyglot}}Cancel{{/polyglot}}</button>
+                                <button class='btn btn-xs btn-primary applyCard'>{{#polyglot}}Apply{{/polyglot}}</button>
                             </div>
                         </div>"
 
@@ -64,6 +64,11 @@ define ['app', 'controllers/base-controller'], (App, AppController)->
                 colorSetTpl = @displayEditColorSet()
                 @$el.find('.color-sets').append(colorSetTpl)
                 @$el.find('.theme_colour').minicolors()
+
+            serializeData:->
+                data = super()
+                data.name = _.polyglot.t @model.get 'name'
+                data
 
             events:
                 'click .closeCard' :(e)->
@@ -81,13 +86,15 @@ define ['app', 'controllers/base-controller'], (App, AppController)->
                 colorSetHtml = " "
                 _.each @model.attributes, (attributeValue, attributeName) =>
                     if attributeName != 'name'
+                        themeTitle = _.polyglot.t attributeValue.title
+                        themeDescription = _.polyglot.t attributeValue.description
                         colorSetHtml += "<div class='color row'>
                                             <div class='col-sm-2'>
                                                 <input type='hidden' name='#{attributeName}' class='theme_colour' readonly value='#{attributeValue.color}'>
                                             </div>
                                             <div class='col-sm-10'>
-                                                <h6>#{attributeValue.title}</h6>
-                                                <p>#{attributeValue.description}</p>
+                                                <h6>#{themeTitle}</h6>
+                                                <p>#{themeDescription}</p>
                                             </div>
                                         </div>"
                 colorSetHtml

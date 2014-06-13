@@ -64,13 +64,20 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
 
       EditThemeColorView.prototype.tagName = 'form';
 
-      EditThemeColorView.prototype.template = "<div class='edit-colors'> <h5>{{name}}</h5> <div class='color-sets'> </div> <div class='actions'> <button class='btn btn-xs closeCard'>Cancel</button> <button class='btn btn-xs btn-primary applyCard'>Apply</button> </div> </div>";
+      EditThemeColorView.prototype.template = "<div class='edit-colors'> <h5>{{name}}</h5> <div class='color-sets'> </div> <div class='actions'> <button class='btn btn-xs closeCard'>{{#polyglot}}Cancel{{/polyglot}}</button> <button class='btn btn-xs btn-primary applyCard'>{{#polyglot}}Apply{{/polyglot}}</button> </div> </div>";
 
       EditThemeColorView.prototype.onShow = function() {
         var colorSetTpl;
         colorSetTpl = this.displayEditColorSet();
         this.$el.find('.color-sets').append(colorSetTpl);
         return this.$el.find('.theme_colour').minicolors();
+      };
+
+      EditThemeColorView.prototype.serializeData = function() {
+        var data;
+        data = EditThemeColorView.__super__.serializeData.call(this);
+        data.name = _.polyglot.t(this.model.get('name'));
+        return data;
       };
 
       EditThemeColorView.prototype.events = {
@@ -92,8 +99,11 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         colorSetHtml = " ";
         _.each(this.model.attributes, (function(_this) {
           return function(attributeValue, attributeName) {
+            var themeDescription, themeTitle;
             if (attributeName !== 'name') {
-              return colorSetHtml += "<div class='color row'> <div class='col-sm-2'> <input type='hidden' name='" + attributeName + "' class='theme_colour' readonly value='" + attributeValue.color + "'> </div> <div class='col-sm-10'> <h6>" + attributeValue.title + "</h6> <p>" + attributeValue.description + "</p> </div> </div>";
+              themeTitle = _.polyglot.t(attributeValue.title);
+              themeDescription = _.polyglot.t(attributeValue.description);
+              return colorSetHtml += "<div class='color row'> <div class='col-sm-2'> <input type='hidden' name='" + attributeName + "' class='theme_colour' readonly value='" + attributeValue.color + "'> </div> <div class='col-sm-10'> <h6>" + themeTitle + "</h6> <p>" + themeDescription + "</p> </div> </div>";
             }
           };
         })(this));

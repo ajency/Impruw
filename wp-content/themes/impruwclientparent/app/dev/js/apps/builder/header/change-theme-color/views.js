@@ -13,7 +13,7 @@ define(['app'], function(App) {
 
       SingleSetView.prototype.tagName = 'li';
 
-      SingleSetView.prototype.template = '	<div class="thumbnail flipthis" > <div class="indicator"><span class="glyphicon glyphicon-ok"></span></div> <div class="colors"></div> <div class="caption"> <h3>{{name}}</h3> <p> <a href="#" class="btn btn-xs btn-primary apply-theme-color" role="button"><span class="glyphicon glyphicon-check"></span> Apply</a> <a href="#" class="btn btn-xs btn-default edit-theme-color" id="flipCard" role="button"><span class="glyphicon glyphicon-edit"></span> Edit</a> </p> </div> </div>';
+      SingleSetView.prototype.template = '	<div class="thumbnail flipthis" > <div class="indicator"><span class="glyphicon glyphicon-ok"></span></div> <div class="colors"></div> <div class="caption"> <h3>{{name}}</h3> <p> <a href="#" class="btn btn-xs btn-primary apply-theme-color" role="button"><span class="glyphicon glyphicon-check"></span> {{#polyglot}}Apply{{/polyglot}}</a> <a href="#" class="btn btn-xs btn-default edit-theme-color" id="flipCard" role="button"><span class="glyphicon glyphicon-edit"></span> {{#polyglot}}Edit{{/polyglot}}</a> </p> </div> </div>';
 
       SingleSetView.prototype.onShow = function() {
         this.displayColorSet();
@@ -42,6 +42,7 @@ define(['app'], function(App) {
         var data;
         data = SingleSetView.__super__.serializeData.call(this);
         data.THEMECOLORSET = THEMECOLORSET;
+        data.name = _.polyglot.t(this.model.get('name'));
         return data;
       };
 

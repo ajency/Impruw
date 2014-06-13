@@ -24,7 +24,7 @@ define ['app'],
         class EmptyView extends Marionette.ItemView
             tagsName: 'ul'
 
-            template: '<li>No menu found</li>'
+            template: '<li>{{#polyglot}}No menu found{{/polyglot}}</li>'
 
 
         # Menu view

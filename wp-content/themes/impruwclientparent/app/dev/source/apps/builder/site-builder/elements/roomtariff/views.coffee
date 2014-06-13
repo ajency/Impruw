@@ -8,7 +8,7 @@ define ['app'
             template: mainTpl
 
             onShow: ->
-                @$el.attr "data-content", "Add/Edit room tariff <a href='#{SITEURL}/dashboard/#rooms'>here</a> "
+                @$el.attr "data-content", _.polyglot.t("Add/Edit room tariff")+" <a href='#{SITEURL}/dashboard/#rooms'>"+_.polyglot.t('here')+"</a> "
                 @$el.popover
                     html : true
                     placement : 'top'

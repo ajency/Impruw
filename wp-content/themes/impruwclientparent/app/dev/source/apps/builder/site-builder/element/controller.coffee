@@ -31,7 +31,7 @@ define ['app', 'controllers/builder-base-controller', 'bootbox'
 
                 # listen to delete element event
                 @listenTo @layout, "delete:element", (model)=>
-                    bootbox.confirm "<h4 class='delete-message'>Are you sure?</h4>", (result)=>
+                    bootbox.confirm "<h4 class='delete-message'>"+_.polyglot.t('Are you sure?')+"</h4>", (result)=>
                         if result is true
                             @deleteElement model
 

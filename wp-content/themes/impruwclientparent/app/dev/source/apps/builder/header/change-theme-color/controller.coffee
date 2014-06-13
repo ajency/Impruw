@@ -67,7 +67,7 @@ define ['app', 'controllers/base-controller'
             className: 'color-picker-container'
 
             dialogOptions:
-                modal_title: 'Choose Colors for Your Theme'
+                modal_title: _.polyglot.t 'Choose Theme Colors'
                 modal_size: 'medium-modal'
 
             regions:

@@ -13,7 +13,7 @@ define ['app'], (App)->
                           <div class="clearfix"></div>
                         {{/image}}
                         {{#placeholder}}
-                          <div class="image-placeholder"><span class="bicon icon-uniF10E"></span>Upload Image</div>
+                          <div class="image-placeholder"><span class="bicon icon-uniF10E"></span>{{#polyglot}}Upload Image{{/polyglot}}</div>
                         {{/placeholder}}'
 
             # override serializeData to set holder property for the view

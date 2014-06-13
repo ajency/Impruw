@@ -38,12 +38,12 @@ define ['app', 'controllers/base-controller'], (App, AppController)->
 
         class EmptyView extends Marionette.ItemView
 
-            template: '<div class="empty-view">No Templates Found.</div>'
+            template: '<div class="empty-view">{{#polyglot}}No Templates Found{{/polyglot}}</div>'
 
 
         class PageTemplatesGrid extends Marionette.CompositeView
 
-            template: '<h4>Choose a page Template</h4>
+            template: '<h4>{{#polyglot}}Choose page Template{{/polyglot}}</h4>
             		   <ul class="templates"></ul>'
 
             itemView: TemplateView

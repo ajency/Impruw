@@ -20,6 +20,7 @@ define(['app', 'text!apps/leftnav/show/templates/leftNav.html', 'text!apps/leftn
         data.slug = function() {
           return _.slugify(this.title);
         };
+        data.title = _.polyglot.t(this.model.get('title'));
         return data;
       };
 
@@ -48,7 +49,7 @@ define(['app', 'text!apps/leftnav/show/templates/leftNav.html', 'text!apps/leftn
           return function(submenuData, index) {
             var submenuIcon, submenuLink, submenuTitle;
             submenuLink = submenuData.url;
-            submenuTitle = submenuData.title;
+            submenuTitle = _.polyglot.t(submenuData.title);
             submenuIcon = submenuData.icon;
             return _this.submenuTpl += "<li> <a href='" + submenuLink + "' data-route='#" + submenuLink + "'>" + submenuTitle + "</a> </li>";
           };
