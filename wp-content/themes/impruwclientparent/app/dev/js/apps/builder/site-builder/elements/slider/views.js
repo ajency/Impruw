@@ -68,16 +68,30 @@ define(['app'], function(App) {
 
       SliderView.prototype.onShow = function() {
         var defaults, options;
+        console.log("slider");
         if (this.collection.length === 0) {
           return;
         }
         defaults = this._getDefaults();
         options = {
-          startHeight: this.getTallestColumnHeight()
+          startheight: 300
         };
         options = _.defaults(options, defaults);
         this.revapi = this.$el.find(".fullwidthbanner").revolution(options);
-        return this.trigger("set:slider:height", options.startHeight);
+        this.$el.resizable({
+          helper: "ui-image-resizable-helper",
+          handles: "s",
+          stop: (function(_this) {
+            return function(evt, ui) {
+              console.log(_this.$el.height());
+              options.startheight = _this.$el.height();
+              _this.$el.width('auto');
+              _this.revapi = _this.$el.find(".fullwidthbanner").revolution(options);
+              return _this.trigger("set:slider:height", options.startheight);
+            };
+          })(this)
+        });
+        return this.trigger("set:slider:height", options.startheight);
       };
 
       SliderView.prototype.getTallestColumnHeight = function() {
