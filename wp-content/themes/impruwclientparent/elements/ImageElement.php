@@ -116,13 +116,13 @@ class ImageElement extends Element {
 
         
         if($path !== false) {
-            return "<div style='overflow:hidden;'><img src='{$path[0]}' data-height='{$height}' data-top='{$position_top}' class='img-responsive {$this->margins}' width='100%' style=' position: relative;'/></div>
-            <script>
+            return "<div style='overflow:hidden;'><img src='{$path[0]}' data-height='{$height}' data-top='{$position_top}' class='img-responsive {$this->margins}' width='100%' style=' position: relative;'/></div>";
+            // <script>
             // if({$height} != 'auto'){       
             //     jQuery('img').last().parent().height(parseInt(jQuery('img').last().parent().width())*{$height});
             // }
             // jQuery('img').last().css('top',parseInt(jQuery('img').last().parent().width())*{$position_top}+'px');
-            </script>";
+            // </script>";
         }
         else{
             return "<img data-src='". get_parent_template_directory_uri(). "'/js/holder.js/100%x220' class='img-responsive {$this->margins}'/>";

@@ -2,6 +2,7 @@ define ['app'], (App)->
 
     # Row views
     App.module 'SiteBuilderApp.Element.Slider.Views', (Views, App, Backbone, Marionette, $, _)->
+
         class SliderItem extends Marionette.ItemView
 
             template: '<img src="{{full_url}}" alt="Slide" data-bgfit="cover" data-bgposition="left top" data-bgrepeat="no-repeat"/>'
@@ -45,18 +46,34 @@ define ['app'], (App)->
                 delete @revapi
 
             onShow: ->
+                console.log "slider"
                 return if @collection.length is 0
 
                 defaults = @_getDefaults()
 
                 options =
-                    startHeight: @getTallestColumnHeight()
+                    startheight:  300#@getTallestColumnHeight()
 
                 options = _.defaults options, defaults
 
                 @revapi = @$el.find(".fullwidthbanner").revolution options
 
-                @trigger "set:slider:height", options.startHeight
+                @$el.resizable
+                    helper : "ui-image-resizable-helper"
+                    handles: "s"
+
+                    stop : (evt, ui)=>
+                        # @assignImagePath @$el.height()
+                        console.log @$el.height() 
+                        options.startheight = @$el.height() 
+                        @$el.width('auto') 
+                        @revapi = @$el.find(".fullwidthbanner").revolution options
+                        @trigger "set:slider:height", options.startheight
+
+                    
+                    
+
+                @trigger "set:slider:height", options.startheight
 
             getTallestColumnHeight: ->
                 column = @$el.closest('.column')
@@ -64,6 +81,7 @@ define ['app'], (App)->
                     return 350
 
                 row = column.closest '.row'
+
 
                 height = 350
                 # loop through all columns and get tallest column
