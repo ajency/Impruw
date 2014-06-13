@@ -369,9 +369,17 @@ function set_element_data( $data ) {
     global $wpdb;
     if ( isset( $data [ 'meta_id' ] ) ) {
         $meta_id            = $data [ 'meta_id' ];
-        $serialized_element = maybe_serialize( $data );
+        
 
         // TODO: 
+        if($data['element'] == 'Slider'){
+            $slider_data = get_slider_by_id($data['slider_id']);
+            $slider_data['height'] = $data['height'];
+            update_slider( $slider_data, $data['slider_id'] );
+
+        }
+
+        $serialized_element = maybe_serialize( $data );
 
         $wpdb->update( $wpdb->postmeta, array(
             'meta_value' => $serialized_element,

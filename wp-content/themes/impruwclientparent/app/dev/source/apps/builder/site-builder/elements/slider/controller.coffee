@@ -24,6 +24,7 @@ define ['app'
             _getSliderView: (collection)->
                 new Slider.Views.SliderView
                     collection: collection
+                    sliderHeight : parseInt @layout.model.get 'height'
 
             _getSlidesCollection: ->
                 if not @slidesCollection

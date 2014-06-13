@@ -66,6 +66,10 @@ define(['app'], function(App) {
         return delete this.revapi;
       };
 
+      SliderView.prototype.initialize = function() {
+        return this.sliderHeight = Marionette.getOption(this, 'sliderHeight');
+      };
+
       SliderView.prototype.onShow = function() {
         var defaults, options;
         console.log("slider");
@@ -73,8 +77,9 @@ define(['app'], function(App) {
           return;
         }
         defaults = this._getDefaults();
+        console.log(this.sliderHeight);
         options = {
-          startheight: 300
+          startheight: this.sliderHeight
         };
         options = _.defaults(options, defaults);
         this.revapi = this.$el.find(".fullwidthbanner").revolution(options);

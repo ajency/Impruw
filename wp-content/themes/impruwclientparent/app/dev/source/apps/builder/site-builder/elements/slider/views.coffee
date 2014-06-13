@@ -45,14 +45,19 @@ define ['app'], (App)->
             onClose: ->
                 delete @revapi
 
+            initialize:->
+                @sliderHeight = Marionette.getOption @,'sliderHeight'
+
             onShow: ->
                 console.log "slider"
                 return if @collection.length is 0
 
                 defaults = @_getDefaults()
 
+                console.log @sliderHeight
+
                 options =
-                    startheight:  300#@getTallestColumnHeight()
+                    startheight: @sliderHeight
 
                 options = _.defaults options, defaults
 

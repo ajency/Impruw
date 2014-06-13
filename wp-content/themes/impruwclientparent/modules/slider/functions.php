@@ -40,6 +40,16 @@ function slider_exists( $slider_id ) {
     return $id != null;
 }
 
+function get_slider_by_id($slider_id){
+    global $wpdb;
+
+    $table = GlobalsRevSlider::$table_sliders;
+
+    $data = $wpdb->get_row( $wpdb->prepare( "SELECT title , alias FROM $table WHERE id=%d", $slider_id ) , ARRAY_A);
+
+    return $data;
+}
+
 /**
  *
  * @global type $wpdb
@@ -109,7 +119,9 @@ function update_slider( $data, $slider_id = 0 ) {
     $arrData            = array();
     $arrData[ "title" ] = $data[ 'title' ];
     $arrData[ "alias" ] = $data[ 'alias' ];
+    $arrData[ "height"] = $data[ 'height' ];
     $params             = wp_parse_args( $data, slider_defaults() );
+    unset( $arrData[ "height"] );
 
     //change params to json
     $arrData[ "params" ] = json_encode( $params );
@@ -148,7 +160,7 @@ function slider_defaults() {
         'fullscreen_offset_container'  => '',
         'fullscreen_min_height'        => '',
         'full_screen_align_force'      => 'off',
-        'auto_height'                  => 'off',
+        'auto_height'                  => 'on',
         'force_full_width'             => 'off',
         'width'                        => '960',
         'height'                       => '350',
