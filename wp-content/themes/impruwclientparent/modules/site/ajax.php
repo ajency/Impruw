@@ -43,6 +43,24 @@ function assign_theme_to_site_ajax() {
 
 add_action( 'wp_ajax_assign-theme-to-site', 'assign_theme_to_site_ajax' );
 
+
+/**
+ * Function to change default language at the time of theme selection in site builder
+ */
+function choose_site_language_ajax() {
+    global $sitepress;
+
+    $chosen_site_language = $_REQUEST['site_language'];
+
+    $default_language = get_language_code($chosen_site_language);
+
+    $sitepress->set_default_language($default_language);
+
+    wp_send_json( array( 'code' => 'OK' , 'language' => $chosen_site_language));
+}
+
+add_action('wp_ajax_choose-site-language', 'choose_site_language_ajax');
+
 /**
  * Function to add site profile details
  * returns all the form data passed
