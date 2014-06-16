@@ -1,7 +1,7 @@
 <div class="aj-imp-dash-content">
 	<header class="aj-imp-dash-header row">
 		<div class="aj-imp-dash-title col-sm-12">
-			<h2 class="aj-imp-page-head">{{#polyglot}}Languages{{/polyglot}} &amp; {{#polyglot}}Translation{{/polyglot}}</h2> 
+			<h2 class="aj-imp-page-head">{{#polyglot}}Languages{{/polyglot}} &amp; {{#polyglot}}Translations{{/polyglot}}</h2> 
 		</div>
 	</header>
 	<div class="language">
@@ -401,6 +401,15 @@
 								<div class="tab-pane" id="rooms">
 									<h6 class="aj-imp-sub-head">{{#polyglot}}Room Translations{{/polyglot}}</h6>
 									
+									<div class="pick-room">
+										Pick a Room: 
+										<select>
+											<option>Standard Room</option>
+											<option>Executive Room</option>
+											<option>Deluxe Room</option>
+										</select>
+									</div>
+
 									<div class="form-group dual legend-group">
 					                    <div class="col-sm-7">
 					                        <div class="form-group">
@@ -423,7 +432,7 @@
 					                <div class="form-group dual">
 					                    <div class="col-sm-7">
 					                        <div class="form-group">
-					                            <label class="col-sm-3 control-label" for="">{{#polyglot}}Room #1 Name{{/polyglot}}</label>
+					                            <label class="col-sm-3 control-label" for="">{{#polyglot}}Room Name{{/polyglot}}</label>
 					                            <div class="col-sm-9 col-sm-offset-3">
 					                                <p class="original">
 					                                	{{#polyglot}}Standard Room{{/polyglot}}
@@ -444,7 +453,7 @@
 					                <div class="form-group dual">
 					                    <div class="col-sm-7">
 					                        <div class="form-group">
-					                            <label class="col-sm-3 control-label" for="">{{#polyglot}}Room #1 Description{{/polyglot}}</label>
+					                            <label class="col-sm-3 control-label" for="">{{#polyglot}}Room Description{{/polyglot}}</label>
 					                            <div class="col-sm-9 col-sm-offset-3">
 					                                <p class="original">
 					                                	{{#polyglot}}Lorem Ipsum{{/polyglot}} 
@@ -462,49 +471,7 @@
 					                    </div>
 					                </div>
 
-					                <div class="form-group dual">
-					                    <div class="col-sm-7">
-					                        <div class="form-group">
-					                            <label class="col-sm-3 control-label" for="">{{#polyglot}}Room #2 Name{{/polyglot}}</label>
-					                            <div class="col-sm-9 col-sm-offset-3">
-					                                <p class="original">
-					                                	{{#polyglot}}Executive Room{{/polyglot}}
-					                                </p>
-					                            </div>
-					                        </div>
-					                    </div>
-
-					                    <div class="col-sm-5">
-					                        <div class="form-group">
-					                            <div class="col-sm-12">
-					                                <input type="text" placeholder="{{#polyglot}}Add Translation{{/polyglot}}" id="" class="form-control">
-					                            </div>
-					                        </div>
-					                    </div>
-					                </div>
-
-					                <div class="form-group dual">
-					                    <div class="col-sm-7">
-					                        <div class="form-group">
-					                            <label class="col-sm-3 control-label" for="">{{#polyglot}}Room #2 Description{{/polyglot}}</label>
-					                            <div class="col-sm-9 col-sm-offset-3">
-					                                <p class="original">
-					                                	{{#polyglot}}Lorem Ipsum{{/polyglot}} 
-					                                </p>
-					                            </div>
-					                        </div>
-					                    </div>
-
-					                    <div class="col-sm-5">
-					                        <div class="form-group">
-					                            <div class="col-sm-12">
-					                                <textarea type="text" placeholder="{{#polyglot}}Add Translation{{/polyglot}}" id="" class="form-control"></textarea>
-					                            </div>
-					                        </div>
-					                    </div>
-					                </div>
-
-									<h6 class="aj-imp-sub-head">{{#polyglot}}Room Elements{{/polyglot}}</h6>
+									<h6 class="aj-imp-sub-head">{{#polyglot}}Common Room Elements{{/polyglot}}</h6>
 									
 					                <div class="form-group dual">
 					                    <div class="col-sm-7">
