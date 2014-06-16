@@ -3583,6 +3583,37 @@ form .aj-imp-submit:hover {
 .billing-container .aj-imp-long-form-actions.affix .action {
   margin-right: -1em !important;
 }
+.language .pick-language-container {
+  margin: 0 0 2em;
+  color: #aaaaaa;
+  border-bottom: 1px dotted #aaaaaa;
+}
+.language .pick-language-container .default-lang {
+  font-size: 1.5em;
+  font-weight: 300;
+}
+.language .pick-language-container .default-lang span {
+  color: #333333;
+}
+.language .pick-language-container .pick-languages {
+  margin: 1em 0;
+}
+.language .pick-language-container .pick-languages h6 {
+  font-size: 1.1em;
+  font-weight: 300;
+}
+.language .pick-language-container .pick-languages .languages {
+  list-style: none;
+  padding: 0;
+}
+.language .pick-language-container .pick-languages .languages li {
+  padding: 0.5em;
+  width: 28%;
+  float: left;
+}
+.language .pick-language-container .pick-languages .languages li .form-group {
+  margin: 0;
+}
 .billing-container .aj-imp-widget-head {
   margin-bottom: 1em;
 }
