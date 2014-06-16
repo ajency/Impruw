@@ -53,10 +53,9 @@ define(['app', 'controllers/base-controller', 'apps/builder/choosetheme/views'],
       };
 
       ChooseThemeController.prototype.chooseSiteLanguage = function(language) {
-        $.post("" + AJAXURL + "?action=choose-site-language", {
+        return $.post("" + AJAXURL + "?action=choose-site-language", {
           site_language: language
         }, this.languageUpdated, 'json');
-        return console.log("Language selected: " + language);
       };
 
       ChooseThemeController.prototype.languageUpdated = function(response) {

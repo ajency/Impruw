@@ -20,8 +20,6 @@ define(['app'], function(App) {
       ThemeView.prototype.serializeData = function() {
         var data;
         data = ThemeView.__super__.serializeData.call(this);
-        console.log("model data");
-        console.log(data);
         data.currentTheme = CURRENTTHEME === data.post_name;
         return data;
       };
@@ -45,7 +43,7 @@ define(['app'], function(App) {
         return ChooseThemeView.__super__.constructor.apply(this, arguments);
       }
 
-      ChooseThemeView.prototype.template = '<h2 class="page-title">{{#polyglot}}Choose Site Theme{{/polyglot}}</h2>\n <p class="desc">{{#polyglot}}Theme applied for pages{{/polyglot}}\n    {{#polyglot}}Customise logo colors{{/polyglot}}\n    {{#polyglot}}Suit site preferences{{/polyglot}}</p>\n {{^ISTHEMESELECTED}} <div class="default-language-selection" style="text-align: center;"> <h3 class="page-title">{{#polyglot}}Choose your default Language{{/polyglot}}</h3>\n <select class="select-site-language" style="margin-left: 632px;"> <option value="English">English</option> <option value="Norwegian">Norwegian</option> </select> <br/><br/> <button class="btn choose-site-language">&nbsp;Choose Language</button>\n </div> {{/ISTHEMESELECTED}}\n {{#ISTHEMESELECTED}}\n <button class="btn btn-danger cancel-theme-switch">{{#polyglot}}Cancel{{/polyglot}}</button>\n {{/ISTHEMESELECTED}}\n <div class="aj-imp-block-list hidden">\n    <ul></ul>\n</div>';
+      ChooseThemeView.prototype.template = '<h2 class="page-title">{{#polyglot}}Choose Site Theme{{/polyglot}}</h2>\n <p class="desc">{{#polyglot}}Theme applied for pages{{/polyglot}}\n    {{#polyglot}}Customise logo colors{{/polyglot}}\n    {{#polyglot}}Suit site preferences{{/polyglot}}</p>\n {{^ISTHEMESELECTED}} <div class="default-language-selection" style="text-align: center;"> <h3 class="page-title">{{#polyglot}}Choose default Language{{/polyglot}}</h3>\n <select class="select-site-language" style="margin-left: 632px;"> <option value="English">{{#polyglot}}English{{/polyglot}}</option> <option value="Norwegian">{{#polyglot}}Norwegian{{/polyglot}}</option> </select> <br/><br/> <button class="btn choose-site-language">&nbsp;{{#polyglot}}Choose Language{{/polyglot}}</button>\n </div> {{/ISTHEMESELECTED}}\n {{#ISTHEMESELECTED}}\n <button class="btn btn-danger cancel-theme-switch">{{#polyglot}}Cancel{{/polyglot}}</button>\n {{/ISTHEMESELECTED}}\n <div class="aj-imp-block-list hidden">\n    <ul></ul>\n</div>';
 
       ChooseThemeView.prototype.events = {
         'click button.cancel-theme-switch': function() {
@@ -80,7 +78,6 @@ define(['app'], function(App) {
       };
 
       ChooseThemeView.prototype.onSiteLanguageUpdated = function() {
-        console.log("Language updated!!");
         this.$el.find('.default-language-selection').hide();
         return this.$el.find('.aj-imp-block-list').removeClass('hidden');
       };

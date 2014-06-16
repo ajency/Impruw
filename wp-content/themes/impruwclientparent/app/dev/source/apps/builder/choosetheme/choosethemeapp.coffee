@@ -38,8 +38,6 @@ define ['app', 'controllers/base-controller', 'apps/builder/choosetheme/views'],
                     (
                         site_language : language
                     ), @languageUpdated, 'json'
-                   
-                console.log "Language selected: "+language
 
             languageUpdated:(response) =>
                 @view.triggerMethod "site:language:updated"

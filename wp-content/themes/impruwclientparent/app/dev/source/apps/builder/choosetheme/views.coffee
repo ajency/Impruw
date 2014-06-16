@@ -18,8 +18,6 @@ define ['app'], (App)->
 
 			serializeData:->
 				data = super()
-				console.log "model data"
-				console.log data
 				data.currentTheme = CURRENTTHEME is data.post_name
 				data
 
@@ -39,13 +37,13 @@ define ['app'], (App)->
 						<p class="desc">{{#polyglot}}Theme applied for pages{{/polyglot}}\n    {{#polyglot}}Customise logo colors{{/polyglot}}\n    {{#polyglot}}Suit site preferences{{/polyglot}}</p>\n
 							{{^ISTHEMESELECTED}}
 								<div class="default-language-selection" style="text-align: center;">
-									<h3 class="page-title">{{#polyglot}}Choose your default Language{{/polyglot}}</h3>\n
+									<h3 class="page-title">{{#polyglot}}Choose default Language{{/polyglot}}</h3>\n
 									<select class="select-site-language" style="margin-left: 632px;">
-										<option value="English">English</option>
-										<option value="Norwegian">Norwegian</option>
+										<option value="English">{{#polyglot}}English{{/polyglot}}</option>
+										<option value="Norwegian">{{#polyglot}}Norwegian{{/polyglot}}</option>
 									</select>
 									<br/><br/>
-									<button class="btn choose-site-language">&nbsp;Choose Language</button>\n
+									<button class="btn choose-site-language">&nbsp;{{#polyglot}}Choose Language{{/polyglot}}</button>\n
 								</div>
 							{{/ISTHEMESELECTED}}\n
 							{{#ISTHEMESELECTED}}\n
@@ -82,7 +80,6 @@ define ['app'], (App)->
 				$('body').removeClass 'choose-theme-page'
 
 			onSiteLanguageUpdated :->
-				console.log "Language updated!!"
 				# hide langauge
 				@$el.find('.default-language-selection').hide()
 				# show themes
