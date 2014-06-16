@@ -26,10 +26,23 @@ define ['app', 'controllers/base-controller', 'apps/builder/choosetheme/views'],
             listenViewEvents :(view) ->
                 @listenTo view, "itemview:choose:theme:clicked", @themeSelected
                 @listenTo view, "cancel:theme:switch", @cancelThemeSwitch
+                @listenTo view, "choose:site:language", @chooseSiteLanguage
                 @listenTo view, "close", @resetRouter
 
             cancelThemeSwitch :() =>
                 @view.close()
+
+            chooseSiteLanguage :(language) =>
+                # AJAX 
+                $.post "#{AJAXURL}?action=choose-site-language",
+                    (
+                        site_language : language
+                    ), @languageUpdated, 'json'
+                   
+                console.log "Language selected: "+language
+
+            languageUpdated:(response) =>
+                @view.triggerMethod "site:language:updated"
 
             resetRouter:=>
                 App.navigate ''

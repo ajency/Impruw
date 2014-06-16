@@ -97,6 +97,27 @@ function assign_theme_to_site( $theme_id, $clone_pages = FALSE ) {
 }
 
 /**
+ * get language code for a given language name
+ * returns language code
+ */
+function get_language_code($language_name){
+
+    switch($language_name){
+        case "English" :
+            $language_code = "en";
+            break;
+        case "Norwegian" :
+            $language_code = "nb";
+            break;
+        default :
+            $language_code = "en";
+    }
+
+    return $language_code;
+}
+
+
+/**
  * Add site pages
  * Add menu to site
  */

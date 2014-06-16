@@ -25,6 +25,8 @@ define(['app', 'controllers/base-controller', 'apps/builder/choosetheme/views'],
       function ChooseThemeController() {
         this.themeSelected = __bind(this.themeSelected, this);
         this.resetRouter = __bind(this.resetRouter, this);
+        this.languageUpdated = __bind(this.languageUpdated, this);
+        this.chooseSiteLanguage = __bind(this.chooseSiteLanguage, this);
         this.cancelThemeSwitch = __bind(this.cancelThemeSwitch, this);
         return ChooseThemeController.__super__.constructor.apply(this, arguments);
       }
@@ -42,11 +44,23 @@ define(['app', 'controllers/base-controller', 'apps/builder/choosetheme/views'],
       ChooseThemeController.prototype.listenViewEvents = function(view) {
         this.listenTo(view, "itemview:choose:theme:clicked", this.themeSelected);
         this.listenTo(view, "cancel:theme:switch", this.cancelThemeSwitch);
+        this.listenTo(view, "choose:site:language", this.chooseSiteLanguage);
         return this.listenTo(view, "close", this.resetRouter);
       };
 
       ChooseThemeController.prototype.cancelThemeSwitch = function() {
         return this.view.close();
+      };
+
+      ChooseThemeController.prototype.chooseSiteLanguage = function(language) {
+        $.post("" + AJAXURL + "?action=choose-site-language", {
+          site_language: language
+        }, this.languageUpdated, 'json');
+        return console.log("Language selected: " + language);
+      };
+
+      ChooseThemeController.prototype.languageUpdated = function(response) {
+        return this.view.triggerMethod("site:language:updated");
       };
 
       ChooseThemeController.prototype.resetRouter = function() {

@@ -20,6 +20,8 @@ define(['app'], function(App) {
       ThemeView.prototype.serializeData = function() {
         var data;
         data = ThemeView.__super__.serializeData.call(this);
+        console.log("model data");
+        console.log(data);
         data.currentTheme = CURRENTTHEME === data.post_name;
         return data;
       };
@@ -43,11 +45,14 @@ define(['app'], function(App) {
         return ChooseThemeView.__super__.constructor.apply(this, arguments);
       }
 
-      ChooseThemeView.prototype.template = '<h2 class="page-title">{{#polyglot}}Choose Site Theme{{/polyglot}}</h2>\n<p class="desc">{{#polyglot}}Theme applied for pages{{/polyglot}}\n    {{#polyglot}}Customise logo colors{{/polyglot}}\n    {{#polyglot}}Suit site preferences{{/polyglot}}</p>\n{{#ISTHEMESELECTED}}\n<button class="btn btn-danger cancel-theme-switch" type="button">{{#polyglot}}Cancel{{/polyglot}}</button>\n{{/ISTHEMESELECTED}}\n<div class="aj-imp-block-list">\n    <ul></ul>\n</div>';
+      ChooseThemeView.prototype.template = '<h2 class="page-title">{{#polyglot}}Choose Site Theme{{/polyglot}}</h2>\n <p class="desc">{{#polyglot}}Theme applied for pages{{/polyglot}}\n    {{#polyglot}}Customise logo colors{{/polyglot}}\n    {{#polyglot}}Suit site preferences{{/polyglot}}</p>\n {{^ISTHEMESELECTED}} <div class="default-language-selection" style="text-align: center;"> <h3 class="page-title">{{#polyglot}}Choose your default Language{{/polyglot}}</h3>\n <select class="select-site-language" style="margin-left: 632px;"> <option value="English">English</option> <option value="Norwegian">Norwegian</option> </select> <br/><br/> <button class="btn choose-site-language">&nbsp;Choose Language</button>\n </div> {{/ISTHEMESELECTED}}\n {{#ISTHEMESELECTED}}\n <button class="btn btn-danger cancel-theme-switch">{{#polyglot}}Cancel{{/polyglot}}</button>\n {{/ISTHEMESELECTED}}\n <div class="aj-imp-block-list hidden">\n    <ul></ul>\n</div>';
 
       ChooseThemeView.prototype.events = {
         'click button.cancel-theme-switch': function() {
           return this.trigger("cancel:theme:switch");
+        },
+        'click button.choose-site-language': function() {
+          return this.trigger("choose:site:language", this.$el.find('.select-site-language').val());
         }
       };
 
@@ -65,11 +70,19 @@ define(['app'], function(App) {
       };
 
       ChooseThemeView.prototype.onShow = function() {
-        return $('body').addClass('choose-theme-page');
+        $('body').addClass('choose-theme-page');
+        this.$el.find('select').selectpicker();
+        return this.$el.find('select.choose-site-language').val();
       };
 
       ChooseThemeView.prototype.onClose = function() {
         return $('body').removeClass('choose-theme-page');
+      };
+
+      ChooseThemeView.prototype.onSiteLanguageUpdated = function() {
+        console.log("Language updated!!");
+        this.$el.find('.default-language-selection').hide();
+        return this.$el.find('.aj-imp-block-list').removeClass('hidden');
       };
 
       return ChooseThemeView;
