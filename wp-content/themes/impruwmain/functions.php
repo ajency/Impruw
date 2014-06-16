@@ -2,7 +2,7 @@
     /*
       File Name: functions.php
       Description: This file has a list of the following functions used in the theme
-
+       //Test
       1)  impruw_register_email_init - function to create a new post type called emails
       2)  create_email_taxonomies_and_add_terms - function to create taxonomies under post type emails and also creates immediate, batch and marketing terms under email_type
       3)  change_administrator_role_name - Function to rename the Administrator role to Site Owner.

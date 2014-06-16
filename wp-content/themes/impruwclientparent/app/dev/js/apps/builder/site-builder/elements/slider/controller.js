@@ -28,7 +28,8 @@ define(['app', 'apps/builder/site-builder/elements/slider/views', 'apps/builder/
 
       Controller.prototype._getSliderView = function(collection) {
         return new Slider.Views.SliderView({
-          collection: collection
+          collection: collection,
+          sliderHeight: parseInt(this.layout.model.get('height'))
         });
       };
 

@@ -444,7 +444,7 @@ jQuery(document).ready(function ($) {
 
     jQuery(document).ready(function(){
         jQuery('img[data-height]').hide()
-        jQuery('img[data-height]').on('load',function(){
+        jQuery('img[data-height]').each(function(){
              $ = jQuery
                 
             if($(this).attr('data-height') != 'auto'){       
