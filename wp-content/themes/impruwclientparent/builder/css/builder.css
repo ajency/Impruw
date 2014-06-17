@@ -2150,6 +2150,40 @@ a:focus {
 .aj-imp-theme-area .aj-imp-block-list .current-wrapper .current:after {
   right: 0;
 }
+.aj-imp-theme-area .default-language-selection {
+  margin: 3em auto 1em;
+  width: 80%;
+  padding: 1em;
+  border: 1px dotted #aaaaaa;
+  text-align: center;
+}
+.aj-imp-theme-area .default-language-selection .lang-title {
+  font-size: 1.5em;
+  text-transform: uppercase;
+  font-weight: 300;
+  color: #849fb0;
+  margin-bottom: 1em;
+}
+.aj-imp-theme-area .default-language-selection .select-site-language {
+  margin-right: 1em;
+  text-align: left;
+}
+.aj-imp-theme-area .default-language-selection .select-site-language a:focus {
+  background: #ff7e00;
+}
+.aj-imp-theme-area .default-language-selection .choose-site-language {
+  background: #ff7e00;
+  color: #fff;
+  margin-bottom: 10px;
+}
+.aj-imp-theme-area .default-language-selection .choose-site-language:hover {
+  background: #ffb266;
+}
+.aj-imp-theme-area .default-language-selection .choose-site-language .bicon {
+  font-size: 1.2em;
+  position: relative;
+  top: 2px;
+}
 .choose-theme-page {
   position: relative;
 }

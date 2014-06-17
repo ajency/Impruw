@@ -36,14 +36,13 @@ define ['app'], (App)->
 			template: '<h2 class="page-title">{{#polyglot}}Choose Site Theme{{/polyglot}}</h2>\n
 						<p class="desc">{{#polyglot}}Theme applied for pages{{/polyglot}}\n    {{#polyglot}}Customise logo colors{{/polyglot}}\n    {{#polyglot}}Suit site preferences{{/polyglot}}</p>\n
 							{{^ISTHEMESELECTED}}
-								<div class="default-language-selection" style="text-align: center;">
-									<h3 class="page-title">{{#polyglot}}Choose default Language{{/polyglot}}</h3>\n
-									<select class="select-site-language" style="margin-left: 632px;">
+								<div class="default-language-selection">
+									<h3 class="lang-title">{{#polyglot}}Choose default Language{{/polyglot}}</h3>\n
+									<select class="select-site-language">
 										<option value="English">{{#polyglot}}English{{/polyglot}}</option>
 										<option value="Norwegian">{{#polyglot}}Norwegian{{/polyglot}}</option>
 									</select>
-									<br/><br/>
-									<button class="btn choose-site-language">&nbsp;{{#polyglot}}Choose Language{{/polyglot}}</button>\n
+									<button class="btn choose-site-language"><span class="bicon icon-uniF19A"></span>&nbsp;{{#polyglot}}Choose Language{{/polyglot}}</button>\n
 								</div>
 							{{/ISTHEMESELECTED}}\n
 							{{#ISTHEMESELECTED}}\n
