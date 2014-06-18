@@ -3640,6 +3640,30 @@ form {
 				font-size: 1.1em;
 				font-weight: 300;
 			}
+			.selected-languages {
+				margin: 1em 0;
+				.single-language {
+					margin: 0 0.5% 0.5em 0;
+					padding: 0.5%;
+					width: 24%;
+					float: left;
+					font-size: 1.2em;
+					.icon {
+						font-size: 1.1em;
+						position: relative;
+						top: 0.11em;
+						&.icon-checkmark {
+							color: @success-green;
+						}
+						&.icon-notice {
+							color: lighten(@orange, 20%);
+						}
+						&.icon-cancel {
+							color: @red;
+						}
+					}
+				}
+			}
 			.languages {
 				list-style: none;
 				padding: 0;
