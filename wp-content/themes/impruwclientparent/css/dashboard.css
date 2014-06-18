@@ -485,6 +485,10 @@ form .form-group .control-label.label-75 {
 form .form-group .control-label.dd-label {
   bottom: 10px;
 }
+form .form-group .control-label.label-head {
+  color: #777777;
+  text-transform: uppercase;
+}
 @media (max-width: 767px) {
   form .form-group .control-label {
     position: static;
@@ -3578,6 +3582,11 @@ form .aj-imp-submit:hover {
 .language .form-horizontal .margin-top,
 .billing-container .form-horizontal .margin-top {
   margin-top: 2em;
+}
+.language .form-horizontal .dark,
+.billing-container .form-horizontal .dark {
+  border-color: #aaaaaa;
+  border-style: dotted;
 }
 .language .aj-imp-long-form-actions.affix .action,
 .billing-container .aj-imp-long-form-actions.affix .action {
