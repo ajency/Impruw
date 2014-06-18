@@ -3635,6 +3635,11 @@ form .aj-imp-submit:hover {
 .language .pick-language-container .pick-languages .selected-languages .single-language .icon.icon-cancel {
   color: #f21515;
 }
+.language .pick-language-container .pick-languages #all-languages {
+  padding: 0.5em;
+  margin: 0.5em 0;
+  border: 1px solid #f3f3f3;
+}
 .language .pick-language-container .pick-languages .languages {
   list-style: none;
   padding: 0;
