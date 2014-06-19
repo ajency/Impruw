@@ -50,6 +50,9 @@ function is_page_with_login_required() {
 
 function get_user_dashboard_url() {
 
+    if (is_network_admin())
+        return admin_url();
+
     $user_id      = get_current_user_id();
     $primary_blog = get_user_meta( $user_id, "primary_blog", TRUE );
 
