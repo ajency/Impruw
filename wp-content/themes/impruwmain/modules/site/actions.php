@@ -50,7 +50,7 @@ function is_page_with_login_required() {
 
 function get_user_dashboard_url() {
 
-    if (is_network_admin())
+    if ( is_current_user_impruw_manager() )
         return admin_url();
 
     $user_id      = get_current_user_id();
@@ -61,4 +61,14 @@ function get_user_dashboard_url() {
     $dashboard_url = $site_url . "/dashboard";
 
     return $dashboard_url;
+}
+
+function is_current_user_impruw_manager() {
+
+    $user = get_userdata( get_current_user_id() );
+
+    if(!is_array($user->roles))
+        $user->roles = array();
+
+    return in_array( 'impruw_manager', $user->roles );
 }
