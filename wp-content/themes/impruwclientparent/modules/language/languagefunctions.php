@@ -37,4 +37,50 @@ function load_language_phrases(){
     return $jsonlangObject;
 }
 
+function get_all_languages(){
+
+    global $sitepress;
+
+    $languagesArray = array();
+    $languages= $sitepress->get_languages($sitepress->get_admin_language());
+
+    $wpml_options = get_option( 'icl_sitepress_settings' );
+    $default_language_code = $wpml_options['default_language'];
+
+    foreach((array)$languages as $lang){
+
+            if($lang['active']){
+                $active = true;
+            }
+            else{
+                $active = false;
+            }
+
+            if($lang['code'] == $default_language_code){
+                $is_default_language = true;
+            }
+            else{
+                $is_default_language = false;
+            }
+
+            $languagesArray[ ] = array(
+                'code' => $lang['code'],
+                'languageName' => $lang['display_name'],
+                'selectStatus' => $active,
+                'isDefaultLanguage' => $is_default_language
+            );
+
+    }
+
+    return $languagesArray;
+
+}
+
+function set_enabled_languages($arr){
+
+    global $wpdb, $sitepress;
+    
+    $sitepress->set_active_languages($arr);
+}
+
 ?>

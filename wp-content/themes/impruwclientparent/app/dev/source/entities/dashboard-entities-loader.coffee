@@ -8,6 +8,7 @@ define [
     'entities/plans'
     'entities/tariff'
     'entities/user'
+    'entities/languages'
     'entities/daterange'
     'entities/booking'
 ], ->

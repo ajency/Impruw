@@ -464,3 +464,23 @@ function get_hotel_address() {
 
     return $address;
 }
+
+/*
+* Function to get language name based on language code
+*/
+function get_language_names($language_code){
+
+    switch($language_code){
+        case "en" :
+            $language_name = "English";
+            break;
+        case "nb" :
+            $language_name = "Norwegian";
+            break;
+        default :
+            $language_name = "en";
+    }
+
+    return $language_name;
+
+}

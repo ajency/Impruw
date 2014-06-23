@@ -18,6 +18,12 @@ function read_site_ajax() {
     $data [ 'piwik_path' ] = PIWIK_PATH;
     $data [ 'piwik_token' ] = PIWIK_AUTH_TOKEN;
 
+    //Get site default language
+    $wpml_options = get_option( 'icl_sitepress_settings' );
+    $default_language_code = $wpml_options['default_language'];
+
+    $data[ 'default_language' ] = get_language_names($default_language_code);
+
     if ( is_array( $data ) )
         wp_send_json( array( 'code' => 'OK', 'data' => $data ) );
     else
