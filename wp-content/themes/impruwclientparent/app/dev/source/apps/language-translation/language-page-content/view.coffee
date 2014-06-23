@@ -1,12 +1,12 @@
 define ['app'
-        'text!apps/language-translation/language-translate/templates/languagetranslationview.html'], (App, languagetranslationviewTpl)->
+        'text!apps/language-translation/language-page-content/templates/languagepagecontentview.html'], (App, languagepagecontentviewTpl)->
 
-            App.module 'LanguageApp.LanguageTranslate.Views', (Views, App, Backbone, Marionette, $, _)->
+            App.module 'LanguageApp.LanguagePageContent.Views', (Views, App, Backbone, Marionette, $, _)->
 
 
-                class Views.LanguageTranslateView extends Marionette.ItemView
+                class Views.LanguagePageContentView extends Marionette.ItemView
 
-                    template : languagetranslationviewTpl
+                    template : languagepagecontentviewTpl
                     
                     onShow: ->
                         # set affix

@@ -3,11 +3,11 @@
 			</div>
 			
 			<div class="pick-languages">
-				<h6>Languages on my site:</h6>
+				<h6>{{#polyglot}}Languages on my site:{{/polyglot}}</h6>
 				<div class="selected-languages clearfix">
 				</div>
 
-				<button class="btn btn-xs add-more-langs aj-imp-orange-btn" data-toggle="collapse" data-target="#all-languages"><span class="glyphicon glyphicon-plus"></span>&nbsp;Add / Remove Languages</button>
+				<button class="btn btn-xs add-more-langs aj-imp-orange-btn" data-toggle="collapse" data-target="#all-languages"><span class="glyphicon glyphicon-plus"></span>&nbsp;{{#polyglot}}Add / Remove Languages{{/polyglot}}</button>
 
 				<form id="all-languages" class="form-horizontal collapse">
 					<ul class="languages clearfix">
@@ -17,7 +17,7 @@
 						<button class="btn btn-xs aj-imp-submit" name="btn_update-enabled-languages"
 						id="btn_update-enabled-languages" data-target="#all-languages" data-toggle="collapse"> {{#polyglot}}Update{{/polyglot}} </button>
 
-						<button class="btn btn-xs cancel-more-langs aj-imp-orange-btn" data-toggle="collapse" data-target="#all-languages">Cancel</button>
+						<button class="btn btn-xs cancel-more-langs aj-imp-orange-btn" data-toggle="collapse" data-target="#all-languages">{{#polyglot}}Cancel{{/polyglot}}</button>
 					</div>
 				</form>
 

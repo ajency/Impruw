@@ -12,16 +12,22 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/show/la
 
       Controller.prototype.initialize = function(options) {
         this.languageLayout = this._getLanguageLayout();
-        this.listenTo(this.languageLayout, 'show', function() {
+        this.show(this.languageLayout, {
+          loading: true
+        });
+        return this.listenTo(this.languageLayout, 'show', function() {
           App.execute('show:language:selection:app', {
             region: this.languageLayout.languageSelectionRegion
           });
-          return App.execute('show:language:translation:app', {
-            region: this.languageLayout.languageTranslateRegion
+          App.execute('show:language:page:nav:app', {
+            region: this.languageLayout.languagePageNav
           });
-        });
-        return this.show(this.languageLayout, {
-          loading: true
+          App.execute('show:language:page:content:app', {
+            region: this.languageLayout.languagePageContent
+          });
+          return App.execute('show:language:page:rooms:app', {
+            region: this.languageLayout.languagePageRooms
+          });
         });
       };
 

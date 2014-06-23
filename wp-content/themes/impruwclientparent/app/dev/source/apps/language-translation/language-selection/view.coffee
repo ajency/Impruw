@@ -16,6 +16,11 @@ define ['app'
                     events:
                         "change input[type='checkbox']" : "saveLanguage"
 
+                    serializeData: ->
+                      data = super()
+                      data.languageName = _.polyglot.t data.languageName
+                      data
+
                     onShow: ->
                         @$el.find('input[type="checkbox"]').checkbox()
 
@@ -58,9 +63,10 @@ define ['app'
                             htmlString = ""
 
                             $('select.js-enabled-languages').empty()
+                            $("select.js-enabled-languages").append( "<option value = ''>"+_.polyglot.t('Select a Languages')+"</option>")
                             collection.each (m) ->
                               languageCode =  m.get("code")
-                              languageName =  m.get("languageName")
+                              languageName =  _.polyglot.t(m.get("languageName"))
                               $("select.js-enabled-languages").append( "<option value = "+languageCode+">"+languageName+"</option>")
                               htmlString += '<div class="single-language"> <span class="icon icon-checkmark"></span> '+languageName+' </div>'
                               return
@@ -76,14 +82,15 @@ define ['app'
                         htmlString = ""
                         @selectedLang.each (m) ->
                               languageCode =  m.get("code")
-                              languageName =  m.get("languageName")
+                              languageName =  _.polyglot.t(m.get("languageName"))
                               htmlString += '<div class="single-language"> <span class="icon icon-checkmark"></span> '+languageName+' </div>'
                          @$el.find(".selected-languages").html(htmlString)
 
                     loadLanguageDropdown: ->
+                          $("select.js-enabled-languages").append( "<option value = ''>Select a Language</option>")
                           @selectedLang.each (m) ->
                                 languageCode =  m.get("code")
-                                languageName =  m.get("languageName")
+                                languageName =  _.polyglot.t(m.get("languageName"))
                                 $("select.js-enabled-languages").append( "<option value = "+languageCode+">"+languageName+"</option>")
                                 return
 
