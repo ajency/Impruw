@@ -12,6 +12,8 @@ define(['app', 'text!apps/language-translation/language-page-content/templates/l
 
       LanguagePageContentView.prototype.template = languagepagecontentviewTpl;
 
+      LanguagePageContentView.prototype.className = 'tab-content';
+
       LanguagePageContentView.prototype.onShow = function() {
         var m, w;
         this.$el.find('*[data-spy="affix"]').affix();

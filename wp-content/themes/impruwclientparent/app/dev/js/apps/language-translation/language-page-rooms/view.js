@@ -12,6 +12,8 @@ define(['app', 'text!apps/language-translation/language-page-rooms/templates/lan
 
       LanguagePageRoomsView.prototype.template = languagepageroomsviewTpl;
 
+      LanguagePageRoomsView.prototype.className = 'tab-content';
+
       LanguagePageRoomsView.prototype.onShow = function() {
         var m, w;
         this.$el.find('*[data-spy="affix"]').affix();

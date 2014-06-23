@@ -7,6 +7,8 @@ define ['app'
                 class Views.LanguagePageRoomsView extends Marionette.ItemView
 
                     template : languagepageroomsviewTpl
+
+                    className : 'tab-content'
                     
                     onShow: ->
                         # set affix

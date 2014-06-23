@@ -3525,6 +3525,16 @@ form .aj-imp-submit:hover {
   text-transform: uppercase;
   font-weight: 300;
 }
+.language .aj-imp-sub-head-thin .bootstrap-select .dropdown-toggle:hover,
+.billing-container .aj-imp-sub-head-thin .bootstrap-select .dropdown-toggle:hover,
+.language .aj-imp-sub-head-thin .bootstrap-select .dropdown-toggle:focus,
+.billing-container .aj-imp-sub-head-thin .bootstrap-select .dropdown-toggle:focus {
+  background: transparent;
+}
+.language .aj-imp-sub-head-thin .bootstrap-select .dropdown-menu,
+.billing-container .aj-imp-sub-head-thin .bootstrap-select .dropdown-menu {
+  min-height: initial !important;
+}
 .language .aj-imp-dash-widget .nav-pills li a,
 .billing-container .aj-imp-dash-widget .nav-pills li a {
   background: transparent;
