@@ -14,8 +14,7 @@ global $me;
 $me = new Mustache_Engine ();
 
 //load framework
-require 'framework/AutoLoad.php';
-
+require 'framework/autoload.php';
 
 /**
  * Include the less php compiler
