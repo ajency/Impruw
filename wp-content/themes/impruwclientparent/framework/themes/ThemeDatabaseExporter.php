@@ -9,39 +9,62 @@ namespace framework\themes;
 
 class ThemeDatabaseExporter implements ThemeExporterInterface {
 
-    public function export( $theme_id, $page_id, $page_json ) {
+    /**
+     * Setup the table name property on construction
+     */
+    function __construct() {
 
         global $wpdb;
+        $this->table = $wpdb->base_prefix . 'theme_export';
+    }
 
-        $table = $wpdb->base_prefix . 'theme_export';
+    /**
+     * @param array $args
+     *
+     * @return bool|ErrorException|\WP_Error
+     */
+    public function export( array $args ) {
+
+        $defaults = array(
+            'site_id'     => 0,
+            'object_type' => '',
+            'object_id'   => 0,
+            'elements'    => array(),
+            'language'    => '',
+            'date_time'   => current_time( 'mysql' )
+        );
+
+        $args = wp_parse_args( $args, $defaults );
+
+        if ( $args[ 'site_id' ] === 0 || empty( $args[ 'object_type' ] ) )
+            return new \WP_Error( 'Invalid arguments passed' );
 
         $id = 0;
-
-        if ( 0 !== $id = $this->exists( $theme_id, $page_id ) ) {
-            return $this->update( $id, $page_json, $table );
+        if ( 0 !== $id = $this->exists( $args[ 'site_id' ], $args[ 'object_type' ], $args[ 'object_id' ] ) ) {
+            return $this->update( $id, $args[ 'elements' ] );
         } else {
-            return $this->insert( $theme_id, $page_id, $page_json, $table );
+            return $this->insert( $args );
         }
 
     }
 
     /**
-     * @param $page_id
-     * @param $page_json
-     * @param $table
+     * @param $args
      *
      * @return bool|ErrorException
      */
-    private function insert( $theme_id, $page_id, $page_json, $table ) {
+    private function insert( $args ) {
 
         global $wpdb;
 
-        $wpdb->insert( $table,
+        $wpdb->insert( $this->table,
             array(
-                'page_id'   => $page_id,
-                'theme_id'  => $theme_id,
-                'page_json' => maybe_serialize( $page_json ),
-                'date_time' => current_time( 'mysql' )
+                'site_id'     => $args[ 'site_id' ],
+                'object_type' => $args[ 'object_type' ],
+                'object_id'   => $args[ 'object_id' ],
+                'elements'    => maybe_serialize( $args[ 'elements' ] ),
+                'language'    => $args[ 'language' ],
+                'date_time'   => $args[ 'date_time' ]
             ) );
 
         return $wpdb->insert_id > 0 ? TRUE : new ErrorException( 'Failed to insert in db' );
@@ -54,13 +77,13 @@ class ThemeDatabaseExporter implements ThemeExporterInterface {
      *
      * @return bool|ErrorException
      */
-    private function update( $id, $page_json, $table ) {
+    private function update( $id, $elements ) {
 
         global $wpdb;
 
-        $result = $wpdb->update( $table,
+        $result = $wpdb->update( $this->table,
             array(
-                'page_json' => maybe_serialize( $page_json ),
+                'elements'  => maybe_serialize( $elements ),
                 'date_time' => current_time( 'mysql' )
             ),
             array(
@@ -70,12 +93,20 @@ class ThemeDatabaseExporter implements ThemeExporterInterface {
         return $result;
     }
 
-    private function exists( $theme_id, $page_id ) {
+    /**
+     * @param $theme_id
+     * @param $object_type
+     * @param $object_id
+     *
+     * @return int
+     */
+    private function exists( $site_id, $object_type, $object_id ) {
 
         global $wpdb;
 
-        $query = $wpdb->prepare( "SELECT id FROM {$wpdb->base_prefix}theme_export
-                                 WHERE page_id=%d AND theme_id=%d", $page_id, $theme_id );
+        $query = $wpdb->prepare( "SELECT id FROM {$this->table}
+                                 WHERE object_type=%s
+                                 AND object_id=%d AND site_id=%d", $object_type, $object_id, $site_id );
 
         $record_id = $wpdb->get_var( $query );
 

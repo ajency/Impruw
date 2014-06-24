@@ -9,7 +9,10 @@
 namespace framework\themes;
 
 
+use framework\elements\PageElementsCollection;
+
 interface ThemeExporterInterface {
 
-    public function export( $theme_id, $page_id, $page_json );
+    public function export( array $args );
+
 } 

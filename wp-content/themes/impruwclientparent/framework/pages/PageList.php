@@ -10,17 +10,20 @@ namespace framework\pages;
 
 class PageList implements \Countable {
 
-    public  $pages;
+    public $pages;
 
-    public function __construct( $theme_id = 0 ) {
+    /**
+     * @param int   $site_id the site_id to get pages from
+     * @param array $args    Same arguments for get_page()
+     */
+    public function __construct( $args = array() ) {
 
-        if ( $theme_id === 0 ) {
-            $this->pages = get_pages();
-        } else {
-            switch_to_blog( $theme_id );
-            $this->pages = get_pages();
-            restore_current_blog();
-        }
+        $args[ 'post_type' ]      = 'page';
+        $args[ 'posts_per_page' ] = -1;
+        $args[ 'post_status' ]    = 'publish';
+
+        $this->pages = get_pages( $args );
+
     }
 
     public function get_page( $page_to_get ) {

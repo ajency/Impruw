@@ -34,6 +34,7 @@ class PageListIterator implements \Iterator {
     public function current() {
 
         return $this->page_list->get_page( $this->current_page );
+
     }
 
     /**
@@ -45,6 +46,12 @@ class PageListIterator implements \Iterator {
     public function next() {
 
         $this->current_page++;
+
+
+    }
+
+    public function get_ID(){
+
     }
 
     /**

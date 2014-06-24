@@ -4,6 +4,8 @@
  */
 
 
+use framework\elements\PageElementsCollection;
+
 define( 'PARENTTHEMEPATH', ABSPATH . 'wp-content/themes/impruwclientparent/' );
 
 // include mustache
@@ -15,6 +17,8 @@ $me = new Mustache_Engine ();
 
 //load framework
 require 'framework/autoload.php';
+
+new \framework\cron\ThemeExportCron();
 
 /**
  * Include the less php compiler
@@ -855,28 +859,28 @@ function get_theme_JS() {
     <!-- Isotope -->
     <script src="<?php echo get_parent_template_directory_uri(); ?>/app/dev/js/plugins/isotope.js"></script>
     <script>
-        jQuery(document).ready(function () {
-            if (jQuery('.gallery').length === 0)
+        jQuery( document ).ready( function () {
+            if (jQuery( '.gallery' ).length === 0)
                 return;
-            var $container = jQuery('.gallery').imagesLoaded(function () {
-                $container.isotope({
+            var $container = jQuery( '.gallery' ).imagesLoaded( function () {
+                $container.isotope( {
                     // options
-                    itemSelector: '.isotope-element'
-                });
-            });
-        });
+                    itemSelector : '.isotope-element'
+                } );
+            } );
+        } );
     </script>
     <script>
         // Slimmenu Init
-        jQuery(document).ready(function () {
-            jQuery('.slimmenu').slimmenu({
-                resizeWidth: '767',
-                collapserTitle: 'Menu',
-                animSpeed: 'medium',
-                indentChildren: false,
-                childrenIndenter: '&nbsp;'
-            });
-        });
+        jQuery( document ).ready( function () {
+            jQuery( '.slimmenu' ).slimmenu( {
+                resizeWidth : '767',
+                collapserTitle : 'Menu',
+                animSpeed : 'medium',
+                indentChildren : false,
+                childrenIndenter : '&nbsp;'
+            } );
+        } );
     </script>
     <?php
     $theme_path = get_stylesheet_directory() . "/js";
@@ -3606,7 +3610,7 @@ function check_page_access() {
         die();
     }
 
-    if(in_array( $page_slug, $pages ) && not_on_own_site() && is_user_logged_in()){
+    if ( in_array( $page_slug, $pages ) && not_on_own_site() && is_user_logged_in() ) {
         wp_safe_redirect( get_user_dashboard_url() );
         die();
     }
@@ -3614,7 +3618,7 @@ function check_page_access() {
 
 add_action( 'template_redirect', 'check_page_access' );
 
-function not_on_own_site(){
+function not_on_own_site() {
 
     $user_id      = get_current_user_id();
     $primary_blog = get_user_meta( $user_id, "primary_blog", TRUE );

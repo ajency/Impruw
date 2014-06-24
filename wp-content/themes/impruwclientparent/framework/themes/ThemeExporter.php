@@ -9,29 +9,29 @@
 
 namespace framework\themes;
 
+use framework\elements\HeaderFooterElementsCollection;
+use framework\elements\PageElementsCollection;
 use framework\pages\PageListIterator;
 use framework\pages\PageList;
 
-class ThemeExporter {
+class ThemeExporter extends AbstractThemeExporter {
 
-    private $exporter = FALSE;
+    protected  $exporter = FALSE;
 
     private $page_list = array();
 
-    private $theme_id;
+    private $site_id;
 
     /**
-     * @param int                    $theme_id
+     *
      * @param ThemeExporterInterface $exporter
      */
-    function __construct( $theme_id = 0, ThemeExporterInterface $exporter = null ) {
+    function __construct( ThemeExporterInterface $exporter = null ) {
 
-        $this->theme_id = $theme_id === 0 ? get_current_blog_id() : (int) $theme_id;
+        $this->site_id = get_current_blog_id();
 
-        if ( $exporter !== null)
-            $this->exporter = $exporter;
-
-        $this->page_list = new PageList( $this->theme_id );
+        if ( $exporter !== null )
+            $this->set_exporter( $exporter );
 
     }
 
@@ -45,24 +45,67 @@ class ThemeExporter {
             throw new \LogicException( "Exporter is not set" );
         }
 
-        $iterator = new PageListIterator( $this->page_list );
-
-        while ( $iterator->valid() ) {
-            $page      = $iterator->current();
-            $page_json = get_post_meta( $page->ID, 'page-json', TRUE );
-            if ( $page_json !== '' ) {
-                $this->exporter->export($this->theme_id, $page->ID, $page_json );
-            }
-            $iterator->next();
-        }
+        $this->export_pages();
+        $this->export_header();
+        $this->export_footer();
 
     }
 
     /**
-     * @param ThemeExporterInterface $exporter
+     * @return mixed
      */
-    function setExporter( ThemeExporterInterface $exporter ) {
+    public function export_pages() {
 
-        $this->exporter = $exporter;
+        $iterator = new PageListIterator( new PageList() );
+
+        while ( $iterator->valid() ) {
+            $export_data = $this->get_page_export_data( $iterator->current() );
+            $this->exporter->export( $export_data );
+            $iterator->next();
+        }
     }
-} 
+
+    /**
+     * @return mixed
+     */
+    private function export_header() {
+
+        $export_data = $this->get_header_footer_export_data( 'theme-header' );
+        $this->exporter->export( $export_data );
+    }
+
+    /**
+     * @return mixed
+     */
+    private function export_footer() {
+        $export_data = $this->get_header_footer_export_data( 'theme-footer' );
+        $this->exporter->export( $export_data );
+    }
+
+    private function get_page_export_data( $page ) {
+
+        $export_data = array();
+
+        $export_data[ 'site_id' ]     = $this->site_id;
+        $export_data[ 'object_type' ] = 'page';
+        $export_data[ 'object_id' ]   = $page->ID;
+
+        $page_elements             = new PageElementsCollection( $page->ID );
+        $export_data[ 'elements' ] = $page_elements->get_elements_collection();
+
+        return $export_data;
+    }
+
+    private function get_header_footer_export_data( $section ) {
+
+        $export_data = array();
+
+        $export_data[ 'site_id' ]     = $this->site_id;
+        $export_data[ 'object_type' ] = $section;
+
+        $elements = new HeaderFooterElementsCollection( $section );
+        $export_data[ 'elements' ] = $elements->get_elements_collection();
+
+        return $export_data;
+    }
+}
