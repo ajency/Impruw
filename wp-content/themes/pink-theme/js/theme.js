@@ -4,12 +4,13 @@
 jQuery(window).resize(function() { 
 	var f = jQuery('.site-footer').height();
 	var h = jQuery('.site-style-container').height() - (f);
-	var lbh = jQuery('.long-bar > .column').css('min-height');
+	var lbh = jQuery('.long-bar > .column').height();
 
-	jQuery('.long-bar > .column').height(h);
-	jQuery('#jPanelMenu-menu').height(h);
-
-	if (h < 500) {
+	if (h >= lbh) {
+		jQuery('.long-bar > .column').height(h);
+		jQuery('#jPanelMenu-menu').height(h);
+	}
+	else if (lbh >= h) {
 		jQuery('.site-page').height(lbh);
 	}
 });

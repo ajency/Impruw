@@ -3548,26 +3548,27 @@ form {
 			}
 		}
 	}
-	.aj-imp-dash-widget {
-		.nav-pills {
-			li {
+	.nav-pills {
+		li {
+			a {
+				background: transparent;
+				border-radius: 0;
+				border: none;
+				border-bottom: 2px solid transparent;
+				color: @blue-grey;
+			}
+			&:hover, &:focus {
 				a {
-					background: transparent;
-					border-radius: 0;
-					border: none;
-					border-bottom: 2px solid transparent;
-					color: @blue-grey;
+					border-color: @blue-grey;
+					text-shadow: none;
 				}
-				&:hover, :focus {
-					a {
-						border-color: @blue-grey;
-						text-shadow: none;
-					}
-				}
-				&.active {
-					a {
-						color: @orange;
-						border-color: @orange;
+			}
+			&.active {
+				a {
+					color: @orange;
+					border-color: @orange;
+					&:hover, &:focus {
+						background: transparent;
 					}
 				}
 			}

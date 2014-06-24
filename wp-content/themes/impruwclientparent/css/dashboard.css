@@ -3525,25 +3525,31 @@ form .aj-imp-submit:hover {
   text-transform: uppercase;
   font-weight: 300;
 }
-.language .aj-imp-dash-widget .nav-pills li a,
-.billing-container .aj-imp-dash-widget .nav-pills li a {
+.language .nav-pills li a,
+.billing-container .nav-pills li a {
   background: transparent;
   border-radius: 0;
   border: none;
   border-bottom: 2px solid transparent;
   color: #849fb0;
 }
-.language .aj-imp-dash-widget .nav-pills li:hover a,
-.billing-container .aj-imp-dash-widget .nav-pills li:hover a,
-.language .aj-imp-dash-widget .nav-pills li :focus a,
-.billing-container .aj-imp-dash-widget .nav-pills li :focus a {
+.language .nav-pills li:hover a,
+.billing-container .nav-pills li:hover a,
+.language .nav-pills li:focus a,
+.billing-container .nav-pills li:focus a {
   border-color: #849fb0;
   text-shadow: none;
 }
-.language .aj-imp-dash-widget .nav-pills li.active a,
-.billing-container .aj-imp-dash-widget .nav-pills li.active a {
+.language .nav-pills li.active a,
+.billing-container .nav-pills li.active a {
   color: #ff7e00;
   border-color: #ff7e00;
+}
+.language .nav-pills li.active a:hover,
+.billing-container .nav-pills li.active a:hover,
+.language .nav-pills li.active a:focus,
+.billing-container .nav-pills li.active a:focus {
+  background: transparent;
 }
 .language .aj-imp-widget-content .tab-content,
 .billing-container .aj-imp-widget-content .tab-content {
