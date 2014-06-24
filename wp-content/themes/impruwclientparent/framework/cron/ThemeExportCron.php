@@ -22,17 +22,9 @@ class ThemeExportCron {
 
     public function export_themes_to_db() {
 
-        if ( !defined( 'THEMESITEIDS' ) )
-            return FALSE;
+        $theme_exporter = new ThemeExporter( new ThemeDatabaseExporter() );
+        $theme_exporter->export();
 
-        $site_ids = explode( ',', THEMESITEIDS );
-
-        foreach ( $site_ids as $site_id ) {
-            switch_to_blog( $site_id );
-            $theme_exporter = new ThemeExporter( new ThemeDatabaseExporter() );
-            $theme_exporter->export();
-            restore_current_blog();
-        }
         $this->notify();
     }
 
