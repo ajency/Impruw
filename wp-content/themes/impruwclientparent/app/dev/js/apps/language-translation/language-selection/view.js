@@ -51,7 +51,8 @@ define(['app', 'text!apps/language-translation/language-selection/templates/lang
       LanguageSelectionView.prototype.itemViewContainer = '.languages.clearfix';
 
       LanguageSelectionView.prototype.events = {
-        'click #btn_update-enabled-languages': 'setEnabledLanguages'
+        'click #btn_update-enabled-languages': 'setEnabledLanguages',
+        "click div.js-enabled-languages ul.selectpicker li": "loadLanguagePageNav"
       };
 
       LanguageSelectionView.prototype.onShow = function() {
@@ -75,11 +76,20 @@ define(['app', 'text!apps/language-translation/language-selection/templates/lang
         return this.trigger('update:enabled:languages', selectedlanguage);
       };
 
+      LanguageSelectionView.prototype.loadLanguagePageNav = function(e) {
+        var selectedIndex, selectedLangVal;
+        selectedIndex = $(e.currentTarget).attr('rel');
+        selectedLangVal = $('select#select_editing_language option:eq(' + selectedIndex + ')').attr('value');
+        if (selectedLangVal !== "") {
+          return this.trigger('load:language:page:nav', selectedLangVal);
+        }
+      };
+
       LanguageSelectionView.prototype.onSelectedLanguagesEnabled = function(collection) {
         var htmlString;
         htmlString = "";
         $('select.js-enabled-languages').empty();
-        $("select.js-enabled-languages").append("<option value = ''>" + _.polyglot.t('Select a Languages') + "</option>");
+        $("select.js-enabled-languages").append("<option value = ''>" + _.polyglot.t('Select a Language') + "</option>");
         collection.each(function(m) {
           var languageCode, languageName;
           languageCode = m.get("code");
@@ -106,7 +116,7 @@ define(['app', 'text!apps/language-translation/language-selection/templates/lang
       };
 
       LanguageSelectionView.prototype.loadLanguageDropdown = function() {
-        $("select.js-enabled-languages").append("<option value = ''>Select a Language</option>");
+        $("select.js-enabled-languages").append("<option value = ''>" + _.polyglot.t('Select a Language') + "</option>");
         this.selectedLang.each(function(m) {
           var languageCode, languageName;
           languageCode = m.get("code");

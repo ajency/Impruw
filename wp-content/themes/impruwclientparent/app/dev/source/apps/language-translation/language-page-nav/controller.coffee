@@ -5,16 +5,24 @@ define ['app', 'controllers/base-controller'
 
             # initiliaze controller
             initialize: (opts)->
-                @languagePageNavView = @_getPageNavView()
+
+                {language} = opts
+
+                #get page collection
+                @collection = collection = App.request "get:all:pages", language
+
+                @languagePageNavView = @_getPageNavView @collection
 
 
                 #function to load view
                 @show @languagePageNavView,
                     loading: true
 
-            _getPageNavView : ()->
+            _getPageNavView : (collection)->
                 new LanguagePageNav.Views.LanguagePageNavView
+                    collection: collection 
 
 
         App.commands.setHandler "show:language:page:nav:app", (opts) ->
             new LanguagePageNav.Controller opts
+

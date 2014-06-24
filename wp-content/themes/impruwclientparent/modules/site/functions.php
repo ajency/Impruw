@@ -116,6 +116,46 @@ function get_language_code($language_name){
     return $language_code;
 }
 
+function get_all_childsite_pages(){
+
+    $all_pages_array = array();
+
+    $pages = get_pages(); 
+
+    foreach ( $pages as $page ) {
+        global $sitepress;
+        $page_id = $page->ID;
+        $page_title = $page->post_title;
+        $is_child_site_page = true;
+        $editing_language = $_REQUEST['language'];
+
+        // Get the post ID based on language so that only pages of default language could be listed
+        $page_id_based_on_lang = icl_object_id( $page_id, 'page', false, $editing_language);
+
+        // Get post title based on post title
+        $page_title_based_on_lang = get_the_title($page_id_based_on_lang);
+
+
+
+        if($page_title_based_on_lang=='Sample Page' || $page_title_based_on_lang=='Dashboard' || $page_title_based_on_lang=='Site Builder' || $page_title_based_on_lang=='Coming Soon' || $page_title_based_on_lang=='Sign In' || $page_title_based_on_lang=='Support'){
+           $is_child_site_page = false;
+       }
+        else{
+            $is_child_site_page = true;
+        }
+
+
+        $all_pages_array[] = array(
+            'pageId' => $page_id_based_on_lang,
+            'pageTitle' => $page_title_based_on_lang,
+            'isChildSitePage' => $is_child_site_page,
+            'editingLang' => $editing_language
+            );
+    }
+
+return $all_pages_array;
+}
+
 
 /**
  * Add site pages

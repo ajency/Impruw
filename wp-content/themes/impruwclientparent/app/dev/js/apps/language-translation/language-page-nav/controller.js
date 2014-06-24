@@ -11,14 +11,19 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
       }
 
       Controller.prototype.initialize = function(opts) {
-        this.languagePageNavView = this._getPageNavView();
+        var collection, language;
+        language = opts.language;
+        this.collection = collection = App.request("get:all:pages", language);
+        this.languagePageNavView = this._getPageNavView(this.collection);
         return this.show(this.languagePageNavView, {
           loading: true
         });
       };
 
-      Controller.prototype._getPageNavView = function() {
-        return new LanguagePageNav.Views.LanguagePageNavView;
+      Controller.prototype._getPageNavView = function(collection) {
+        return new LanguagePageNav.Views.LanguagePageNavView({
+          collection: collection
+        });
       };
 
       return Controller;

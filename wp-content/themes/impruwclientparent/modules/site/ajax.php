@@ -68,6 +68,16 @@ function choose_site_language_ajax() {
 add_action('wp_ajax_choose-site-language', 'choose_site_language_ajax');
 
 /**
+ * Function to get all pages of the child site 
+ */
+function get_childsite_pages() {
+   $data = get_all_childsite_pages();
+
+   wp_send_json( array( 'code' => 'OK' , 'data' => $data));
+}
+add_action('wp_ajax_get-childsite-pages', 'get_childsite_pages');
+
+/**
  * Function to add site profile details
  * returns all the form data passed
  *

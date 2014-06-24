@@ -11,4 +11,5 @@ define [
     'entities/languages'
     'entities/daterange'
     'entities/booking'
+    'entities/pages'
 ], ->

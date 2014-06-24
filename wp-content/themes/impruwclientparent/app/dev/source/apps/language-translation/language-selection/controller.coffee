@@ -15,6 +15,7 @@ define ['app', 'controllers/base-controller'
 
                 @listenTo @languageSelectionView, "itemview:language:updated", @updateLanguageModel
                 @listenTo @languageSelectionView, "update:enabled:languages", @updateEnabledLanguages
+                @listenTo @languageSelectionView, "load:language:page:nav", @loadLanguagePageNav
 
 
                 #function to load view
@@ -38,7 +39,7 @@ define ['app', 'controllers/base-controller'
                 model.set data
                 
 
-            updateEnabledLanguages: (enabledLanguageCodes)=>
+            updateEnabledLanguages: (enabledLanguageCodes)->
                 data = {enabledlanguages: enabledLanguageCodes}
 
                 responseFn = (response)=>
@@ -52,6 +53,11 @@ define ['app', 'controllers/base-controller'
 
                 # update enabled languages
                 $.post "#{AJAXURL}?action=update-enabled-languages", data, responseFn, 'json'
+
+            loadLanguagePageNav: (selectedEditingLanguage)->
+                console.log @region
+                # @region.triggerMethod 'load:page:nav:bar', selectedEditingLanguage
+                Marionette.triggerMethod.call @region, "load:page:nav:bar", selectedEditingLanguage
 
         App.commands.setHandler "show:language:selection:app", (opts) ->
             new LanguageSelection.Controller opts

@@ -29,3 +29,4 @@ define ['app'
 
                         m = $('.aj-imp-left').width()
                         @$el.find('*[data-spy="affix"]').css('margin-left', m)
+

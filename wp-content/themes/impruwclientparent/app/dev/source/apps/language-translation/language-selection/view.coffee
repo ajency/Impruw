@@ -38,6 +38,8 @@ define ['app'
 
                     events:
                         'click #btn_update-enabled-languages': 'setEnabledLanguages'
+                        "click div.js-enabled-languages ul.selectpicker li" : "loadLanguagePageNav"
+
 
                     onShow: ->
                         @selectedLang = selectedLang = App.request "get:selected:languages"
@@ -47,6 +49,7 @@ define ['app'
                         @viewEnabledLanguages()
 
                     setEnabledLanguages: (e)->
+
                         e.preventDefault()
 
                         arr = @$el.find("ul.languages input[type='checkbox']")
@@ -59,11 +62,21 @@ define ['app'
 
                         @trigger 'update:enabled:languages', selectedlanguage
 
+                    loadLanguagePageNav: (e)->
+                          #get the selectedIndex from the li element
+                          selectedIndex = $(e.currentTarget).attr('rel')
+
+                          #The the option's value based on the selectedIndex
+                          selectedLangVal = $('select#select_editing_language option:eq(' + selectedIndex + ')').attr('value')
+
+                          @trigger 'load:language:page:nav', selectedLangVal  unless selectedLangVal is ""
+                          
+
                     onSelectedLanguagesEnabled: (collection)->
                             htmlString = ""
 
                             $('select.js-enabled-languages').empty()
-                            $("select.js-enabled-languages").append( "<option value = ''>"+_.polyglot.t('Select a Languages')+"</option>")
+                            $("select.js-enabled-languages").append( "<option value = ''>"+_.polyglot.t('Select a Language')+"</option>")
                             collection.each (m) ->
                               languageCode =  m.get("code")
                               languageName =  _.polyglot.t(m.get("languageName"))
@@ -87,7 +100,7 @@ define ['app'
                          @$el.find(".selected-languages").html(htmlString)
 
                     loadLanguageDropdown: ->
-                          $("select.js-enabled-languages").append( "<option value = ''>Select a Language</option>")
+                          $("select.js-enabled-languages").append( "<option value = ''>"+_.polyglot.t('Select a Language')+"</option>")
                           @selectedLang.each (m) ->
                                 languageCode =  m.get("code")
                                 languageName =  _.polyglot.t(m.get("languageName"))
