@@ -3563,7 +3563,7 @@ form .aj-imp-submit:hover {
 }
 .language .aj-imp-widget-content .tab-content .legend-group,
 .billing-container .aj-imp-widget-content .tab-content .legend-group {
-  margin-bottom: 0.5em;
+  margin-bottom: 1em;
 }
 .language .aj-imp-widget-content .tab-content .legend-group .form-group,
 .billing-container .aj-imp-widget-content .tab-content .legend-group .form-group {
