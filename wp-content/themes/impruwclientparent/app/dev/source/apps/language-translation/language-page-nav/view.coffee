@@ -7,11 +7,13 @@ define ['app'], (App)->
 
                     tagName: "li"
 
-                    template : '{{#isChildSitePage}}<a href="#rooms" data-toggle="tab">{{pageTitle}}</a>{{/isChildSitePage}}'
+                    template : '{{#isChildSitePage}}<a {{#isRoomPage}}href="#rooms"{{/isRoomPage}} {{^isRoomPage}}href=""{{/isRoomPage}} {{#isRoomPage}}id="rooms"{{/isRoomPage}} data-toggle="tab">{{pageTitle}}</a>{{/isChildSitePage}}'
 
-                    onRender : ->
-                    
-                    onShow: ->
+                    events:
+                    	'click a#rooms' : 'loadPageContent'
+
+                    loadPageContent: (e) ->
+                        @trigger "page:room:content"
 
                 class Views.LanguagePageNavView extends Marionette.CollectionView  
                     
@@ -19,6 +21,5 @@ define ['app'], (App)->
 
                     className : 'nav nav-pills'
 
-                    itemView :  LanguagePageNavItemView     
+                    itemView :  LanguagePageNavItemView  
 
-                    onShow: ->

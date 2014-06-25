@@ -18,13 +18,13 @@ define ['app', 'controllers/base-controller'
 						App.execute 'show:language:selection:app',
 							region: @languageLayout.languageSelectionRegion
 
+						# App.execute 'show:language:page:rooms:app',
+						# 	region: @languageLayout.languagePageRooms 							
+
 
 					@listenTo @languageLayout.languageSelectionRegion, "load:page:nav:bar", @_loadPageNavBar
 
-						# @listenTo @languageLayout.languageSelectionRegion, 'load:page:nav:bar',(selectedEditingLanguage) ->
-						# 	App.execute 'show:language:page:nav:app',
-						# 		region: @languageLayout.languagePageNav
-						# 		language : selectedEditingLanguage
+					@listenTo @languageLayout.languagePageNav, "load:page:room:content", @_loadPageRoomContent
 
 						# App.execute 'show:language:page:content:app',
 						#     region: @languageLayout.languagePageContent
@@ -40,5 +40,10 @@ define ['app', 'controllers/base-controller'
 						region: @languageLayout.languagePageNav
 						language : selectedEditingLanguage
 					return
+
+				_loadPageRoomContent: =>
+					App.execute "show:language:page:rooms:app",
+						region: @languageLayout.languagePageRooms
+					return				
 		           
 

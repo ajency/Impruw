@@ -126,30 +126,40 @@ function get_all_childsite_pages(){
         global $sitepress;
         $page_id = $page->ID;
         $page_title = $page->post_title;
+        $page_slug = $page->post_name;
         $is_child_site_page = true;
+        $is_room_page = false;
         $editing_language = $_REQUEST['language'];
+        $default_language = $sitepress ->get_default_language();
 
         // Get the post ID based on language so that only pages of default language could be listed
-        $page_id_based_on_lang = icl_object_id( $page_id, 'page', false, $editing_language);
+        $page_id_based_on_lang = icl_object_id( $page_id, 'page', true, $default_language);
 
-        // Get post title based on post title
+        // Get post title based on language
         $page_title_based_on_lang = get_the_title($page_id_based_on_lang);
 
 
 
-        if($page_title_based_on_lang=='Sample Page' || $page_title_based_on_lang=='Dashboard' || $page_title_based_on_lang=='Site Builder' || $page_title_based_on_lang=='Coming Soon' || $page_title_based_on_lang=='Sign In' || $page_title_based_on_lang=='Support'){
+        if($page_title_based_on_lang=='Sample Page' || $page_title_based_on_lang=='Dashboard' || $page_title_based_on_lang=='Site Builder' || $page_title_based_on_lang=='Coming Soon' || $page_title_based_on_lang=='Sign In' || $page_title_based_on_lang=='Support'|| $page_title_based_on_lang==''){
            $is_child_site_page = false;
        }
         else{
             $is_child_site_page = true;
         }
 
+        #TODO could be titled differently in other languages. check that
+        if($page_title_based_on_lang == "Rooms" || $page_title_based_on_lang == "Rooms -en"){
+            $is_room_page = true;
+        }
 
         $all_pages_array[] = array(
             'pageId' => $page_id_based_on_lang,
+            'pageHref' => $page_slug,
             'pageTitle' => $page_title_based_on_lang,
             'isChildSitePage' => $is_child_site_page,
-            'editingLang' => $editing_language
+            'editingLang' => $editing_language,
+            'defaultLanguage' => $default_language,
+            'isRoomPage' => $is_room_page
             );
     }
 

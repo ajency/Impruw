@@ -8,6 +8,7 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/show/la
       __extends(Controller, _super);
 
       function Controller() {
+        this._loadPageRoomContent = __bind(this._loadPageRoomContent, this);
         this._loadPageNavBar = __bind(this._loadPageNavBar, this);
         return Controller.__super__.constructor.apply(this, arguments);
       }
@@ -24,7 +25,8 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/show/la
             });
           };
         })(this));
-        return this.listenTo(this.languageLayout.languageSelectionRegion, "load:page:nav:bar", this._loadPageNavBar);
+        this.listenTo(this.languageLayout.languageSelectionRegion, "load:page:nav:bar", this._loadPageNavBar);
+        return this.listenTo(this.languageLayout.languagePageNav, "load:page:room:content", this._loadPageRoomContent);
       };
 
       Controller.prototype._getLanguageLayout = function() {
@@ -35,6 +37,12 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/show/la
         App.execute("show:language:page:nav:app", {
           region: this.languageLayout.languagePageNav,
           language: selectedEditingLanguage
+        });
+      };
+
+      Controller.prototype._loadPageRoomContent = function() {
+        App.execute("show:language:page:rooms:app", {
+          region: this.languageLayout.languagePageRooms
         });
       };
 

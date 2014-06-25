@@ -13,11 +13,15 @@ define(['app'], function(App) {
 
       LanguagePageNavItemView.prototype.tagName = "li";
 
-      LanguagePageNavItemView.prototype.template = '{{#isChildSitePage}}<a href="#rooms" data-toggle="tab">{{pageTitle}}</a>{{/isChildSitePage}}';
+      LanguagePageNavItemView.prototype.template = '{{#isChildSitePage}}<a {{#isRoomPage}}href="#rooms"{{/isRoomPage}} {{^isRoomPage}}href=""{{/isRoomPage}} {{#isRoomPage}}id="rooms"{{/isRoomPage}} data-toggle="tab">{{pageTitle}}</a>{{/isChildSitePage}}';
 
-      LanguagePageNavItemView.prototype.onRender = function() {};
+      LanguagePageNavItemView.prototype.events = {
+        'click a#rooms': 'loadPageContent'
+      };
 
-      LanguagePageNavItemView.prototype.onShow = function() {};
+      LanguagePageNavItemView.prototype.loadPageContent = function(e) {
+        return this.trigger("page:room:content");
+      };
 
       return LanguagePageNavItemView;
 
@@ -34,8 +38,6 @@ define(['app'], function(App) {
       LanguagePageNavView.prototype.className = 'nav nav-pills';
 
       LanguagePageNavView.prototype.itemView = LanguagePageNavItemView;
-
-      LanguagePageNavView.prototype.onShow = function() {};
 
       return LanguagePageNavView;
 

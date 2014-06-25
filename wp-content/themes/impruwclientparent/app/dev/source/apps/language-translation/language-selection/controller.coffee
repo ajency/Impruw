@@ -55,7 +55,6 @@ define ['app', 'controllers/base-controller'
                 $.post "#{AJAXURL}?action=update-enabled-languages", data, responseFn, 'json'
 
             loadLanguagePageNav: (selectedEditingLanguage)->
-                console.log @region
                 # @region.triggerMethod 'load:page:nav:bar', selectedEditingLanguage
                 Marionette.triggerMethod.call @region, "load:page:nav:bar", selectedEditingLanguage
 

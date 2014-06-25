@@ -12,6 +12,8 @@ define(['app', 'text!apps/language-translation/language-page-rooms/templates/lan
 
       PageRooomsLayout.prototype.template = languagepageroomsviewTpl;
 
+      PageRooomsLayout.prototype.className = 'tab-content';
+
       PageRooomsLayout.prototype.regions = {
         originalRoomContent: ".original-content",
         translatedRoomContent: ".translated-content"
@@ -22,7 +24,8 @@ define(['app', 'text!apps/language-translation/language-page-rooms/templates/lan
     })(Marionette.Layout);
     return {
       onShow: function() {
-        return this.$el.find('select').selectpicker();
+        this.$el.find('select').selectpicker();
+        return $('.tab-content').attr('style', 'z-index:1');
       }
     };
   });

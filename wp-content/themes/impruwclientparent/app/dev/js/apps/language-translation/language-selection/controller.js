@@ -64,7 +64,6 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
       };
 
       Controller.prototype.loadLanguagePageNav = function(selectedEditingLanguage) {
-        console.log(this.region);
         return Marionette.triggerMethod.call(this.region, "load:page:nav:bar", selectedEditingLanguage);
       };
 

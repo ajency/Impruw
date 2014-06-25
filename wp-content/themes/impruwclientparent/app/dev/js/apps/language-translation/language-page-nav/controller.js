@@ -15,6 +15,7 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
         language = opts.language;
         this.collection = collection = App.request("get:all:pages", language);
         this.languagePageNavView = this._getPageNavView(this.collection);
+        this.listenTo(this.languagePageNavView, "itemview:page:room:content", this.loadLanguagePageRoomContent);
         return this.show(this.languagePageNavView, {
           loading: true
         });
@@ -24,6 +25,10 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
         return new LanguagePageNav.Views.LanguagePageNavView({
           collection: collection
         });
+      };
+
+      Controller.prototype.loadLanguagePageRoomContent = function() {
+        return Marionette.triggerMethod.call(this.region, "load:page:room:content");
       };
 
       return Controller;

@@ -13,6 +13,7 @@ define ['app', 'controllers/base-controller'
 
                 @languagePageNavView = @_getPageNavView @collection
 
+                @listenTo @languagePageNavView, "itemview:page:room:content", @loadLanguagePageRoomContent
 
                 #function to load view
                 @show @languagePageNavView,
@@ -20,7 +21,10 @@ define ['app', 'controllers/base-controller'
 
             _getPageNavView : (collection)->
                 new LanguagePageNav.Views.LanguagePageNavView
-                    collection: collection 
+                    collection: collection
+
+            loadLanguagePageRoomContent : ->
+                Marionette.triggerMethod.call @region, "load:page:room:content"
 
 
         App.commands.setHandler "show:language:page:nav:app", (opts) ->
