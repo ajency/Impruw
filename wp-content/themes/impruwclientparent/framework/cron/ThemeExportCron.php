@@ -17,10 +17,10 @@ class ThemeExportCron {
 
     function __construct() {
 
-        add_action( 'export_themes_to_db', array( &$this, 'export_themes_to_db' ) );
+        add_action( 'export_theme_to_db', array( &$this, 'export_theme_to_db' ) );
     }
 
-    public function export_themes_to_db() {
+    public function export_theme_to_db() {
 
         $theme_exporter = new ThemeExporter( new ThemeDatabaseExporter() );
         $theme_exporter->export();
