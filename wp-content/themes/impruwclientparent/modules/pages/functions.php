@@ -160,16 +160,26 @@ function get_autosave_post_id( $page_id ) {
     return $autosave_post_id;
 }
 
-function update_header_json( $header_json ) {
+function update_header_json( $header_json, $autosave = false ) {
 
     $header_json = convert_json_to_array( $header_json );
-    update_option( "theme-header", $header_json );
+
+    $key = "theme-header";
+    if($autosave === true)
+        $key .= "-autosave";
+
+    update_option( $key, $header_json );
 }
 
-function update_footer_json( $footer_json ) {
+function update_footer_json( $footer_json, $autosave = false  ) {
 
     $footer_json = convert_json_to_array( $footer_json );
-    update_option( "theme-footer", $footer_json );
+
+    $key = "theme-footer";
+    if($autosave === true)
+        $key .= "-autosave";
+
+    update_option( $key, $footer_json );
 }
 
 /**

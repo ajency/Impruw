@@ -656,8 +656,12 @@ function get_page_json_for_site( $page_id, $autosave = FALSE ) {
         return FALSE;
 
     $json              = array();
-    $json [ 'header' ] = get_option( 'theme-header', array() );
-    $json [ 'footer' ] = get_option( 'theme-footer', array() );
+    $key = '';
+    if($autosave === true)
+        $key = '-autosave';
+
+    $json [ 'header' ] = get_option( 'theme-header' . $key, array() );
+    $json [ 'footer' ] = get_option( 'theme-footer' . $key, array() );
 
     $json['page'] = get_page_content_json($page_id, $autosave);
 
