@@ -3,7 +3,7 @@ define ["app", 'backbone'], (App, Backbone) ->
 
     	#Page model
         class Pages.PageModel extends Backbone.Model
-            name: 'page'
+            name: 'languagpage'
             idAttribute: 'ID' 
 
 		#Page Collection class
@@ -14,11 +14,21 @@ define ["app", 'backbone'], (App, Backbone) ->
             url: ->
                 AJAXURL + '?action=get-childsite-pages'   
 
+        pageModel = new Pages.PageModel 
         pages = new Pages.PageCollection 
         # pages.fetch()      
 
         #Public API
         API =
+        # get site model
+            getPageModel: (roomId)->
+                console.log "PageModel"
+                pageModel
+                pageModel.fetch
+                    data:
+                        roomId : roomId
+                pageModel
+
             getPages: (language)->
                 pages.fetch
                     data:
@@ -26,5 +36,8 @@ define ["app", 'backbone'], (App, Backbone) ->
                 pages
 
         #App request handlers
-        App.reqres.setHandler "get:all:pages", (language) ->
+        App.reqres.setHandler "get:language:page:model", (roomId) ->
+            API.getPageModel()
+
+        App.reqres.setHandler "get:language:pages", (language) ->
             API.getPages(language)             	

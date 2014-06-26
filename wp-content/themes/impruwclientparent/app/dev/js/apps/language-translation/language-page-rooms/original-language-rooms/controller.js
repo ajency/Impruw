@@ -11,14 +11,20 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
       }
 
       Controller.prototype.initialize = function(opts) {
-        this.originalContentView = this._getLanguageView;
+        var pageModel, roomId;
+        roomId = opts.roomId;
+        this.language = "en";
+        this.pageModel = pageModel = App.request("get:language:page:model", roomId);
+        this.originalContentView = this._getLanguageView(pageModel);
         return this.show(this.originalContentView, {
           loading: true
         });
       };
 
-      Controller.prototype._getLanguageView = function() {
-        return new OriginalRooms.Views.OriginalItemView;
+      Controller.prototype._getLanguageView = function(model) {
+        return new OriginalRooms.Views.OriginalItemView({
+          model: model
+        });
       };
 
       return Controller;

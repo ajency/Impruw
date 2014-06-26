@@ -9,7 +9,7 @@ define ['app', 'controllers/base-controller'
                 {language} = opts
 
                 #get page collection
-                @collection = collection = App.request "get:all:pages", language
+                @collection = collection = App.request "get:language:pages", language
 
                 @languagePageNavView = @_getPageNavView @collection
 

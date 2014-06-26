@@ -10,10 +10,9 @@ define ['app'
                     className : 'tab-content'
 
                     regions: 
+                        chooseRooms: ".pick-room",
                         originalRoomContent: ".original-content",
                         translatedRoomContent: ".translated-content",
 
-                onShow: ->
-                        @$el.find('select').selectpicker()
-                        $('.tab-content').attr('style', 'z-index:1')
+
                   

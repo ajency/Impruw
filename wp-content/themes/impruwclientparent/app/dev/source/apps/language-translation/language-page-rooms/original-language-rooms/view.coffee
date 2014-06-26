@@ -1,9 +1,8 @@
-define ['app'], (App)->
+define ['app'
+		'text!apps/language-translation/language-page-rooms/original-language-rooms/templates/originalroomsview.html'], (App, originalroomsviewTpl)->
 
             App.module 'LanguageApp.LanguagePageRooms.OriginalRooms.Views', (Views, App, Backbone, Marionette, $, _)->
 
-                class OriginalItemView extends Marionette.ItemView
+                class Views.OriginalItemView extends Marionette.ItemView
 
-                    tagName: "div"
-
-                    template : '<h1>Original Content</h1>'
+                    template : originalroomsviewTpl

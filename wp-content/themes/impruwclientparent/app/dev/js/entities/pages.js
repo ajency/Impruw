@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
 
 define(["app", 'backbone'], function(App, Backbone) {
   return App.module("Entities.Pages", function(Pages, App, Backbone, Marionette, $, _) {
-    var API, pages;
+    var API, pageModel, pages;
     Pages.PageModel = (function(_super) {
       __extends(PageModel, _super);
 
@@ -11,7 +11,7 @@ define(["app", 'backbone'], function(App, Backbone) {
         return PageModel.__super__.constructor.apply(this, arguments);
       }
 
-      PageModel.prototype.name = 'page';
+      PageModel.prototype.name = 'languagpage';
 
       PageModel.prototype.idAttribute = 'ID';
 
@@ -34,8 +34,19 @@ define(["app", 'backbone'], function(App, Backbone) {
       return PageCollection;
 
     })(Backbone.Collection);
+    pageModel = new Pages.PageModel;
     pages = new Pages.PageCollection;
     API = {
+      getPageModel: function(roomId) {
+        console.log("PageModel");
+        pageModel;
+        pageModel.fetch({
+          data: {
+            roomId: roomId
+          }
+        });
+        return pageModel;
+      },
       getPages: function(language) {
         pages.fetch({
           data: {
@@ -45,7 +56,10 @@ define(["app", 'backbone'], function(App, Backbone) {
         return pages;
       }
     };
-    return App.reqres.setHandler("get:all:pages", function(language) {
+    App.reqres.setHandler("get:language:page:model", function(roomId) {
+      return API.getPageModel();
+    });
+    return App.reqres.setHandler("get:language:pages", function(language) {
       return API.getPages(language);
     });
   });

@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
 
 define(['app', 'text!apps/language-translation/language-page-rooms/templates/languagepageroomsview.html'], function(App, languagepageroomsviewTpl) {
   return App.module('LanguageApp.LanguagePageRooms.Views', function(Views, App, Backbone, Marionette, $, _) {
-    Views.PageRooomsLayout = (function(_super) {
+    return Views.PageRooomsLayout = (function(_super) {
       __extends(PageRooomsLayout, _super);
 
       function PageRooomsLayout() {
@@ -15,6 +15,7 @@ define(['app', 'text!apps/language-translation/language-page-rooms/templates/lan
       PageRooomsLayout.prototype.className = 'tab-content';
 
       PageRooomsLayout.prototype.regions = {
+        chooseRooms: ".pick-room",
         originalRoomContent: ".original-content",
         translatedRoomContent: ".translated-content"
       };
@@ -22,11 +23,5 @@ define(['app', 'text!apps/language-translation/language-page-rooms/templates/lan
       return PageRooomsLayout;
 
     })(Marionette.Layout);
-    return {
-      onShow: function() {
-        this.$el.find('select').selectpicker();
-        return $('.tab-content').attr('style', 'z-index:1');
-      }
-    };
   });
 });
