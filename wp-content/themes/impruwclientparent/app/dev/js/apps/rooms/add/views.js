@@ -34,7 +34,6 @@ define(['app', 'text!apps/rooms/add/templates/add-room.html'], function(App, add
 
       AddRoomLayout.prototype.onShow = function() {
         var m, w;
-        this.$el.scrollSections();
         this.$el.find('*[data-spy="affix"]').affix();
         w = $('.aj-imp-right').width();
         this.$el.find('*[data-spy="affix"]').width(w);

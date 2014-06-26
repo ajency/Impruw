@@ -21,7 +21,7 @@ define ['app'
                 data
 
             onShow: ->
-                @$el.scrollSections()
+                #@$el.scrollSections()
 
                 #console.log model
                 @$el.find('select').selectpicker()
