@@ -147,8 +147,8 @@ function get_all_childsite_pages(){
             $is_child_site_page = true;
         }
 
-        #TODO could be titled differently in other languages. check that
-        if($page_title_based_on_lang == "Rooms" || $page_title_based_on_lang == "Rooms -en"){
+        #TODO could be titled differently in other languages. check that. Will depend on what names are given at the time of first creating the 6 default posts
+        if($page_title_based_on_lang == "Rooms -nb" || $page_title_based_on_lang == "Rooms -en"){
             $is_room_page = true;
         }
 

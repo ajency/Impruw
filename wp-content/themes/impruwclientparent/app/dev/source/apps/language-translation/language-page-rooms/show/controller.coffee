@@ -8,6 +8,10 @@ define ['app', 'controllers/base-controller'
 
             # initiliaze controller
             initialize: (opts)->
+                {editLang} = opts
+
+                @editingLang = editLang
+
                 @pageLanguageLayout = @_getLanguageLayout()
 
                 #function to load view
@@ -18,12 +22,6 @@ define ['app', 'controllers/base-controller'
                 @listenTo @pageLanguageLayout, 'show',=>  
                     App.execute 'choose:rooms:app',
                         region: @pageLanguageLayout.chooseRooms
-
-                    # App.execute 'show:original:rooms:app',
-                    #     region: @pageLanguageLayout.originalRoomContent  
-
-                   # App.execute 'show:translated:rooms:app',
-                   #      region: @pageLanguageLayout.translatedRoomContent 
 
                 @listenTo @pageLanguageLayout.chooseRooms, "original:room", @_loadOriginalRooms 
 
@@ -42,6 +40,7 @@ define ['app', 'controllers/base-controller'
                     App.execute 'show:translated:rooms:app',
                         region: @pageLanguageLayout.translatedRoomContent 
                         roomId: selectedRoomIndex
+                        editingLang: @editingLang
                     return
 
 

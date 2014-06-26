@@ -7,9 +7,12 @@ define ['app', 'controllers/base-controller'
             # initiliaze controller
             initialize: (opts)->
 
-                {roomId} = opts
+                @roomId = roomId= opts.roomId
+                @editingLang = opts.editingLang
 
-                #get page collection
+                console.log "Room id = "+@roomId+" EditingLang = "+@editingLang
+
+                #get room model
                 @pageModel = pageModel = App.request "get:default:room:model", roomId
 
                 @translatedContentView = @_getLanguageView pageModel
@@ -22,5 +25,5 @@ define ['app', 'controllers/base-controller'
                 new TranslatedRooms.Views.TranslatedItemView
                     model:model
 
-        App.commands.setHandler "show:translated:rooms:app", (opts) ->
+        App.commands.setHandler "show:translated:rooms:app", (opts = {}) ->
             new TranslatedRooms.Controller opts

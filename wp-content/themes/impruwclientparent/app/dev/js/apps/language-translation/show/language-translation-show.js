@@ -40,9 +40,10 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/show/la
         });
       };
 
-      Controller.prototype._loadPageRoomContent = function() {
+      Controller.prototype._loadPageRoomContent = function(editingLanguage) {
         App.execute("show:language:page:rooms:app", {
-          region: this.languageLayout.languagePageRooms
+          region: this.languageLayout.languagePageRooms,
+          editLang: editingLanguage
         });
       };
 

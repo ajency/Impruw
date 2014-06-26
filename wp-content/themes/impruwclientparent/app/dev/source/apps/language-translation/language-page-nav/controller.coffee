@@ -8,6 +8,8 @@ define ['app', 'controllers/base-controller'
 
                 {language} = opts
 
+                @editingLanguage = language
+
                 #get page collection
                 @collection = collection = App.request "get:language:pages", language
 
@@ -24,7 +26,7 @@ define ['app', 'controllers/base-controller'
                     collection: collection
 
             loadLanguagePageRoomContent : ->
-                Marionette.triggerMethod.call @region, "load:page:room:content"
+                Marionette.triggerMethod.call @region, "load:page:room:content", @editingLanguage
 
 
         App.commands.setHandler "show:language:page:nav:app", (opts) ->

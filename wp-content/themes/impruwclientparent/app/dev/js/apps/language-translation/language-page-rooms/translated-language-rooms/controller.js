@@ -12,7 +12,9 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
 
       Controller.prototype.initialize = function(opts) {
         var pageModel, roomId;
-        roomId = opts.roomId;
+        this.roomId = roomId = opts.roomId;
+        this.editingLang = opts.editingLang;
+        console.log("Room id = " + this.roomId + " EditingLang = " + this.editingLang);
         this.pageModel = pageModel = App.request("get:default:room:model", roomId);
         this.translatedContentView = this._getLanguageView(pageModel);
         return this.show(this.translatedContentView, {
@@ -30,6 +32,9 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
 
     })(AppController);
     return App.commands.setHandler("show:translated:rooms:app", function(opts) {
+      if (opts == null) {
+        opts = {};
+      }
       return new TranslatedRooms.Controller(opts);
     });
   });

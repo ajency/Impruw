@@ -14,6 +14,9 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
       }
 
       Controller.prototype.initialize = function(opts) {
+        var editLang;
+        editLang = opts.editLang;
+        this.editingLang = editLang;
         this.pageLanguageLayout = this._getLanguageLayout();
         this.show(this.pageLanguageLayout, {
           loading: true
@@ -43,7 +46,8 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
       Controller.prototype._loadTranslatedRooms = function(selectedRoomIndex) {
         App.execute('show:translated:rooms:app', {
           region: this.pageLanguageLayout.translatedRoomContent,
-          roomId: selectedRoomIndex
+          roomId: selectedRoomIndex,
+          editingLang: this.editingLang
         });
       };
 

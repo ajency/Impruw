@@ -13,6 +13,7 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
       Controller.prototype.initialize = function(opts) {
         var collection, language;
         language = opts.language;
+        this.editingLanguage = language;
         this.collection = collection = App.request("get:language:pages", language);
         this.languagePageNavView = this._getPageNavView(this.collection);
         this.listenTo(this.languagePageNavView, "itemview:page:room:content", this.loadLanguagePageRoomContent);
@@ -28,7 +29,7 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
       };
 
       Controller.prototype.loadLanguagePageRoomContent = function() {
-        return Marionette.triggerMethod.call(this.region, "load:page:room:content");
+        return Marionette.triggerMethod.call(this.region, "load:page:room:content", this.editingLanguage);
       };
 
       return Controller;
