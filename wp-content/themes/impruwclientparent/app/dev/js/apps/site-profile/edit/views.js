@@ -24,6 +24,7 @@ define(['app', 'text!apps/site-profile/edit/templates/mainview.html', 'text!apps
       MainView.prototype.serializeData = function() {
         var data;
         data = MainView.__super__.serializeData.call(this);
+        data.site_domain = data.site_domain.split('.').shift();
         if (data.logo_url === "") {
           data.logo_url = "http://placehold.it/100&text=" + _.polyglot.t('Logo');
         }

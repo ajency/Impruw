@@ -46,7 +46,7 @@ function get_site_domain( $site_id ) {
     $domain = '';
 
     if ( is_subdomain_install() )
-        $domain = $domain . '.' . preg_replace( '|^www\.|', '', $site->domain );
+        $domain = preg_replace( '|^www\.|', '', $site->domain );
     else
         $domain = $site->domain;
 
