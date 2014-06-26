@@ -6,14 +6,21 @@ define ['app', 'controllers/base-controller'
 
             # initiliaze controller
             initialize: (opts)->
-                @translatedContentView = @_getLanguageView 
+
+                {roomId} = opts
+
+                #get page collection
+                @pageModel = pageModel = App.request "get:default:room:model", roomId
+
+                @translatedContentView = @_getLanguageView pageModel
 
                 #function to load view
-                @show @originalContentView,
+                @show @translatedContentView,
                     loading: true
 
-            _getLanguageView : ->
+            _getLanguageView : (model)->
                 new TranslatedRooms.Views.TranslatedItemView
+                    model:model
 
         App.commands.setHandler "show:translated:rooms:app", (opts) ->
             new TranslatedRooms.Controller opts

@@ -42,7 +42,10 @@ define(['app'], function(App) {
         selectedIndex = $(e.currentTarget).attr('rel');
         selectedRoomId = $('select#js-room-select option:eq(' + selectedIndex + ')').attr('value');
         if (selectedRoomId !== "") {
-          return this.trigger('load:original:rooms', selectedRoomId);
+          this.trigger('load:original:rooms', selectedRoomId);
+        }
+        if (selectedRoomId !== "") {
+          return this.trigger('load:translated:rooms', selectedRoomId);
         }
       };
 

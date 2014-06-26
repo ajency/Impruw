@@ -8,6 +8,7 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
       __extends(Controller, _super);
 
       function Controller() {
+        this._loadTranslatedRooms = __bind(this._loadTranslatedRooms, this);
         this._loadOriginalRooms = __bind(this._loadOriginalRooms, this);
         return Controller.__super__.constructor.apply(this, arguments);
       }
@@ -24,7 +25,8 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
             });
           };
         })(this));
-        return this.listenTo(this.pageLanguageLayout.chooseRooms, "original:room", this._loadOriginalRooms);
+        this.listenTo(this.pageLanguageLayout.chooseRooms, "original:room", this._loadOriginalRooms);
+        return this.listenTo(this.pageLanguageLayout.chooseRooms, "translated:room", this._loadTranslatedRooms);
       };
 
       Controller.prototype._getLanguageLayout = function() {
@@ -34,6 +36,13 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
       Controller.prototype._loadOriginalRooms = function(selectedRoomIndex) {
         App.execute('show:original:rooms:app', {
           region: this.pageLanguageLayout.originalRoomContent,
+          roomId: selectedRoomIndex
+        });
+      };
+
+      Controller.prototype._loadTranslatedRooms = function(selectedRoomIndex) {
+        App.execute('show:translated:rooms:app', {
+          region: this.pageLanguageLayout.translatedRoomContent,
           roomId: selectedRoomIndex
         });
       };

@@ -16,6 +16,7 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
         console.log("Collection of rooms", this.collection);
         this.ChooseRoomsView = this._getLanguageView(collection);
         this.listenTo(this.ChooseRoomsView, "load:original:rooms", this.loadOriginalRooms);
+        this.listenTo(this.ChooseRoomsView, "load:translated:rooms", this.loadTranslatedRooms);
         return this.show(this.ChooseRoomsView, {
           loading: true
         });
@@ -29,6 +30,10 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
 
       Controller.prototype.loadOriginalRooms = function(selectedRoomId) {
         return Marionette.triggerMethod.call(this.region, "original:room", selectedRoomId);
+      };
+
+      Controller.prototype.loadTranslatedRooms = function(selectedRoomId) {
+        return Marionette.triggerMethod.call(this.region, "translated:room", selectedRoomId);
       };
 
       return Controller;

@@ -13,6 +13,7 @@ define ['app', 'controllers/base-controller'
                 @ChooseRoomsView = @_getLanguageView collection
 
                 @listenTo @ChooseRoomsView, "load:original:rooms", @loadOriginalRooms
+                @listenTo @ChooseRoomsView, "load:translated:rooms", @loadTranslatedRooms
 
                 #function to load view
                 @show @ChooseRoomsView,
@@ -24,6 +25,9 @@ define ['app', 'controllers/base-controller'
 
             loadOriginalRooms: (selectedRoomId) ->
                 Marionette.triggerMethod.call @region, "original:room", selectedRoomId
+            
+            loadTranslatedRooms: (selectedRoomId) ->
+                Marionette.triggerMethod.call @region, "translated:room", selectedRoomId
 
 
         App.commands.setHandler "choose:rooms:app", (opts) ->

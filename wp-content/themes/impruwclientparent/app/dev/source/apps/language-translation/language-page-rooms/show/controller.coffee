@@ -25,7 +25,9 @@ define ['app', 'controllers/base-controller'
                    # App.execute 'show:translated:rooms:app',
                    #      region: @pageLanguageLayout.translatedRoomContent 
 
-                @listenTo @pageLanguageLayout.chooseRooms, "original:room", @_loadOriginalRooms   
+                @listenTo @pageLanguageLayout.chooseRooms, "original:room", @_loadOriginalRooms 
+
+                @listenTo @pageLanguageLayout.chooseRooms, "translated:room", @_loadTranslatedRooms   
             
             _getLanguageLayout : ->
                     new LanguagePageRooms.Views.PageRooomsLayout
@@ -33,6 +35,12 @@ define ['app', 'controllers/base-controller'
             _loadOriginalRooms : (selectedRoomIndex) =>
                     App.execute 'show:original:rooms:app',
                         region: @pageLanguageLayout.originalRoomContent 
+                        roomId: selectedRoomIndex
+                    return            
+
+            _loadTranslatedRooms : (selectedRoomIndex) =>
+                    App.execute 'show:translated:rooms:app',
+                        region: @pageLanguageLayout.translatedRoomContent 
                         roomId: selectedRoomIndex
                     return
 

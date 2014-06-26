@@ -1,9 +1,8 @@
-define ['app'], (App)->
+define ['app'
+		'text!apps/language-translation/language-page-rooms/translated-language-rooms/templates/translatedroomsview.html'], (App, translatedroomsviewTpl)->
 
             App.module 'LanguageApp.LanguagePageRooms.TranslatedRooms.Views', (Views, App, Backbone, Marionette, $, _)->
 
-                class TranslatedItemView extends Marionette.ItemView
+                class Views.TranslatedItemView extends Marionette.ItemView
 
-                    tagName: "div"
-
-                    template : '<h1>Translated Content</h1>'
+                    template : translatedroomsviewTpl

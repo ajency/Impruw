@@ -31,4 +31,6 @@ define ['app'], (App)->
                         #The the option's value based on the selectedIndex
                         selectedRoomId = $('select#js-room-select option:eq(' + selectedIndex + ')').attr('value')
 
-                        @trigger 'load:original:rooms', selectedRoomId  unless selectedRoomId is ""                    	
+                        @trigger 'load:original:rooms', selectedRoomId  unless selectedRoomId is "" 
+                        @trigger 'load:translated:rooms', selectedRoomId  unless selectedRoomId is "" 
+
