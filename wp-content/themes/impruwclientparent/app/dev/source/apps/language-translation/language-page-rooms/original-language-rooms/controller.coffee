@@ -12,7 +12,7 @@ define ['app', 'controllers/base-controller'
                 @language = "en"
 
                 #get page collection
-                @pageModel = pageModel = App.request "get:language:page:model", roomId
+                @pageModel = pageModel = App.request "get:default:room:model", roomId
 
                 @originalContentView = @_getLanguageView pageModel
 

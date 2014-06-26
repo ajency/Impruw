@@ -20,14 +20,6 @@ define ["app", 'backbone'], (App, Backbone) ->
 
         #Public API
         API =
-        # get site model
-            getPageModel: (roomId)->
-                console.log "PageModel"
-                pageModel
-                pageModel.fetch
-                    data:
-                        roomId : roomId
-                pageModel
 
             getPages: (language)->
                 pages.fetch
@@ -35,9 +27,6 @@ define ["app", 'backbone'], (App, Backbone) ->
                         language : language
                 pages
 
-        #App request handlers
-        App.reqres.setHandler "get:language:page:model", (roomId) ->
-            API.getPageModel()
 
         App.reqres.setHandler "get:language:pages", (language) ->
             API.getPages(language)             	

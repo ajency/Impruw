@@ -37,16 +37,6 @@ define(["app", 'backbone'], function(App, Backbone) {
     pageModel = new Pages.PageModel;
     pages = new Pages.PageCollection;
     API = {
-      getPageModel: function(roomId) {
-        console.log("PageModel");
-        pageModel;
-        pageModel.fetch({
-          data: {
-            roomId: roomId
-          }
-        });
-        return pageModel;
-      },
       getPages: function(language) {
         pages.fetch({
           data: {
@@ -56,9 +46,6 @@ define(["app", 'backbone'], function(App, Backbone) {
         return pages;
       }
     };
-    App.reqres.setHandler("get:language:page:model", function(roomId) {
-      return API.getPageModel();
-    });
     return App.reqres.setHandler("get:language:pages", function(language) {
       return API.getPages(language);
     });

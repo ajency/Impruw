@@ -14,7 +14,7 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
         var pageModel, roomId;
         roomId = opts.roomId;
         this.language = "en";
-        this.pageModel = pageModel = App.request("get:language:page:model", roomId);
+        this.pageModel = pageModel = App.request("get:default:room:model", roomId);
         this.originalContentView = this._getLanguageView(pageModel);
         return this.show(this.originalContentView, {
           loading: true

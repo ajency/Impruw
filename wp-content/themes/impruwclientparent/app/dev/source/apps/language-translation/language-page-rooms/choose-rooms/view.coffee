@@ -9,10 +9,12 @@ define ['app'], (App)->
 
                 class Views.ChooseRoomsView extends Marionette.CompositeView 
 
-                    template: "Pick a Room: 
+                    template: "<form>
+                                Pick a Room: 
                     			<select class='js-room-select' id='js-room-select'>
 									<option>Choose a room</option>
-								</select>"
+								</select>
+                                </form>"
                     itemView : ChooseRoomsItemView 
 
                     itemViewContainer : ".js-room-select"  

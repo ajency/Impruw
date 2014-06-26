@@ -269,3 +269,26 @@ function delete_room_postdata( $room_id ) {
         wp_delete_post( $room_id );
     }
 }
+
+
+function get_language_default_room($room_id)
+{    
+    global $sitepress;
+
+    $default_language_code = $sitepress->get_default_language();
+    $langdetails = $sitepress->get_language_details($default_language_code);
+    $language_name = $langdetails['english_name'];
+
+    $lang_post_id = icl_object_id($room_id,'post',true,$default_language_code);
+
+    //TODO Check for fetching posts for changing default language
+    $room_post = get_post($room_id);
+    $data = array();
+    $data['roomTitle'] = $room_post->post_title;
+    $data['roomDesc'] = $room_post->post_content;
+    $data['defaultLangCode'] = $default_language_code;
+    $data['defaultLanguage'] = $language_name;
+    $data['lang_post_id'] = $lang_post_id;
+    return $data;
+
+}

@@ -117,3 +117,16 @@ function delete_room_ajax() {
 
 add_action( 'wp_ajax_delete-room', 'delete_room_ajax' );
 
+
+function read_language_room(){
+    global $sitepress;
+
+    $room_id = $_REQUEST['roomId'];
+
+    $data = get_language_default_room($room_id);
+
+    wp_send_json( array( 'code' => 'OK', 'data' => $data ) );
+    
+}
+add_action( 'wp_ajax_read-language-room', 'read_language_room' );
+
