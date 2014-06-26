@@ -279,10 +279,11 @@ function get_language_default_room($room_id)
     $langdetails = $sitepress->get_language_details($default_language_code);
     $language_name = $langdetails['english_name'];
 
-    $lang_post_id = icl_object_id($room_id,'post',true,$default_language_code);
+    //$lang_post_id = icl_object_id($room_id,'post',true,$default_language_code);
+    $lang_post_id = get_language_post($room_id, $default_language_code);
 
     //TODO Check for fetching posts for changing default language
-    $room_post = get_post($room_id);
+    $room_post = get_post($lang_post_id);
     $data = array();
     $data['roomTitle'] = $room_post->post_title;
     $data['roomDesc'] = $room_post->post_content;
@@ -292,3 +293,70 @@ function get_language_default_room($room_id)
     return $data;
 
 }
+
+function get_language_translated_room($room_id, $editing_language)
+{
+    global $sitepress;
+    $data = array();
+
+    $default_language_code = $sitepress->get_default_language();
+    $editing_language_code = $editing_language;
+    $langdetails = $sitepress->get_language_details($editing_language_code);
+    $language_name = $langdetails['english_name'];
+
+    //$lang_post_id = icl_object_id($room_id,'post',true,$default_language_code);
+    $lang_post_id = get_language_post($room_id, $editing_language_code);
+
+    if($lang_post_id!=null){
+        $room_post = get_post($lang_post_id);
+        $data['translatedRoomTitle'] = $room_post->post_title;
+        $data['translatedRoomDesc'] = $room_post->post_content;
+        $data['defaultLangCode'] = $default_language_code;
+        $data['editingLanguage'] = $language_name;
+        $data['lang_post_id'] = $lang_post_id;
+        $data['isTranslated'] = true;
+
+    }
+    else{
+        $room_post = get_post($lang_post_id);
+        $data['translatedRoomTitle'] = "" ;
+        $data['translatedRoomDesc'] = "";
+        $data['defaultLangCode'] = $default_language_code;
+        $data['editingLanguage'] = $language_name;
+        $data['lang_post_id'] = $lang_post_id;
+        $data['isTranslated'] = false;        
+
+    }
+
+    return $data;
+
+}
+
+/**
+ *Get the translated id of a post based on post id of source and the destination language
+ * 
+ */
+function get_language_post($src_post, $destination_language_code){
+
+            $post_id = $src_post;
+            $language_code = $destination_language_code;
+            
+            global $wpdb;
+            $tbl_icl_translations  = $wpdb->prefix ."icl_translations";
+
+            $select_trid = $wpdb->get_row( "SELECT trid FROM $tbl_icl_translations WHERE element_id =".$post_id);
+            $trid = $select_trid->trid;
+
+            $select_translate_id = $wpdb->get_row("SELECT * FROM $tbl_icl_translations WHERE trid =".$trid." AND language_code = '".$language_code."'");
+
+            if ( $select_translate_id != null ){
+                $destination_post_id = $select_translate_id->element_id;
+            }
+            else{
+                $destination_post_id = null;
+            }
+
+            return $destination_post_id;
+
+}
+

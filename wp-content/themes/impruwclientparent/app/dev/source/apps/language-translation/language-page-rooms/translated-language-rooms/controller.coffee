@@ -8,12 +8,12 @@ define ['app', 'controllers/base-controller'
             initialize: (opts)->
 
                 @roomId = roomId= opts.roomId
-                @editingLang = opts.editingLang
+                @editingLang = editingLang =  opts.editingLang
 
                 console.log "Room id = "+@roomId+" EditingLang = "+@editingLang
 
                 #get room model
-                @pageModel = pageModel = App.request "get:default:room:model", roomId
+                @pageModel = pageModel = App.request "get:translated:room:model", roomId , editingLang
 
                 @translatedContentView = @_getLanguageView pageModel
 

@@ -119,7 +119,6 @@ add_action( 'wp_ajax_delete-room', 'delete_room_ajax' );
 
 
 function read_language_room(){
-    global $sitepress;
 
     $room_id = $_REQUEST['roomId'];
 
@@ -129,4 +128,15 @@ function read_language_room(){
     
 }
 add_action( 'wp_ajax_read-language-room', 'read_language_room' );
+
+
+function read_translated_room(){
+    $room_id = $_REQUEST['roomId'];
+    $editing_language = $_REQUEST['editingLang'];
+
+    $data = get_language_translated_room($room_id, $editing_language);
+    wp_send_json( array( 'code' => 'OK', 'data' => $data ) );
+
+}
+add_action( 'wp_ajax_read-translated-room', 'read_translated_room' );
 

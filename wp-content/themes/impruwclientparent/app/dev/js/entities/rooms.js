@@ -88,6 +88,18 @@ define(["app", 'backbone'], function(App, Backbone) {
         });
         return roomModel;
       },
+      getTranslatedRoomModel: function(room_id, editing_lang) {
+        var roomModel;
+        roomModel = new Rooms.RoomModel;
+        roomModel.fetch({
+          data: {
+            action: "read-translated-room",
+            roomId: room_id,
+            editingLang: editing_lang
+          }
+        });
+        return roomModel;
+      },
       addRoomModelToCollection: function(model) {
         return rooms.add(model);
       }
@@ -104,6 +116,9 @@ define(["app", 'backbone'], function(App, Backbone) {
     });
     App.reqres.setHandler("get:default:room:model", function(room_id) {
       return API.getDefaultRoomModel(room_id);
+    });
+    App.reqres.setHandler("get:translated:room:model", function(room_id, editing_lang) {
+      return API.getTranslatedRoomModel(room_id, editing_lang);
     });
     return App.commands.setHandler("add:room:model", function(model) {
       if (!_.isObject(model)) {
