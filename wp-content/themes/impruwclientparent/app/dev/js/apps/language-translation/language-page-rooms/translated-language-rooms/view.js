@@ -12,6 +12,25 @@ define(['app', 'text!apps/language-translation/language-page-rooms/translated-la
 
       TranslatedItemView.prototype.template = translatedroomsviewTpl;
 
+      TranslatedItemView.prototype.events = {
+        "click #btn_update-translated-rooms": "updateRoomPost"
+      };
+
+      TranslatedItemView.prototype.updateRoomPost = function(e) {
+        var newRoomDesc, newRoomTitle, roomId;
+        e.preventDefault();
+        newRoomTitle = this.$el.find('#translated-room-title').val();
+        newRoomDesc = this.$el.find('#translated-room-desc').val();
+        roomId = this.$el.find('#translated-room-id').val();
+        return this.trigger("translated:room:updated", newRoomTitle, newRoomDesc, roomId);
+      };
+
+      TranslatedItemView.prototype.onRoomDataUpdated = function() {
+        this.$el.find('.alert').remove();
+        this.$el.append('<div class="alert alert-success">' + _.polyglot.t("Room Details updated") + '</div>');
+        return this.$el.find('.alert').fadeOut(5000);
+      };
+
       return TranslatedItemView;
 
     })(Marionette.ItemView);

@@ -10,12 +10,12 @@ define ['app', 'controllers/base-controller'
                 @roomId = roomId= opts.roomId
                 @editingLang = editingLang =  opts.editingLang
 
-                console.log "Room id = "+@roomId+" EditingLang = "+@editingLang
-
                 #get room model
-                @pageModel = pageModel = App.request "get:translated:room:model", roomId , editingLang
+                @roomModel = roomModel = App.request "get:translated:room:model", roomId , editingLang
 
-                @translatedContentView = @_getLanguageView pageModel
+                @translatedContentView = @_getLanguageView roomModel
+
+                @listenTo @translatedContentView, "translated:room:updated", @updateTranslatedRoom
 
                 #function to load view
                 @show @translatedContentView,
@@ -24,6 +24,24 @@ define ['app', 'controllers/base-controller'
             _getLanguageView : (model)->
                 new TranslatedRooms.Views.TranslatedItemView
                     model:model
+
+            updateTranslatedRoom : (newRoomTitle, newRoomDesc, roomId)->
+                data= []
+                data['translatedRoomTitle'] = newRoomTitle
+                data['translatedRoomDesc'] = newRoomDesc
+                data['translatedPostID'] = roomId
+                @roomModel.set data
+                # AJAX 
+                $.post "#{AJAXURL}?action=update-translated-room",
+                    (
+                        room_title : newRoomTitle
+                        room_desc : newRoomDesc
+                        room_id : roomId
+                    ), @roomUpdated, 'json'
+
+            roomUpdated:(response) =>
+                @translatedContentView.triggerMethod "room:data:updated"    
+
 
         App.commands.setHandler "show:translated:rooms:app", (opts = {}) ->
             new TranslatedRooms.Controller opts

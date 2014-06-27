@@ -301,10 +301,11 @@ function get_language_translated_room($room_id, $editing_language)
 
     $default_language_code = $sitepress->get_default_language();
     $editing_language_code = $editing_language;
+
+    //English display name of the editing language code
     $langdetails = $sitepress->get_language_details($editing_language_code);
     $language_name = $langdetails['english_name'];
 
-    //$lang_post_id = icl_object_id($room_id,'post',true,$default_language_code);
     $lang_post_id = get_language_post($room_id, $editing_language_code);
 
     if($lang_post_id!=null){
@@ -313,18 +314,19 @@ function get_language_translated_room($room_id, $editing_language)
         $data['translatedRoomDesc'] = $room_post->post_content;
         $data['defaultLangCode'] = $default_language_code;
         $data['editingLanguage'] = $language_name;
-        $data['lang_post_id'] = $lang_post_id;
+        $data['translatedPostID'] = $lang_post_id;
         $data['isTranslated'] = true;
 
     }
     else{
-        $room_post = get_post($lang_post_id);
-        $data['translatedRoomTitle'] = "" ;
-        $data['translatedRoomDesc'] = "";
+        $translated_room_id = duplicate_language_post($room_id, "impruw_room", $editing_language_code);
+        $room_post = get_post($translated_room_id);
+        $data['translatedRoomTitle'] = $room_post->post_title;
+        $data['translatedRoomDesc'] = $room_post->post_content;
         $data['defaultLangCode'] = $default_language_code;
         $data['editingLanguage'] = $language_name;
-        $data['lang_post_id'] = $lang_post_id;
-        $data['isTranslated'] = false;        
+        $data['translatedPostID'] = $lang_post_id;
+        $data['isTranslated'] = false;       
 
     }
 
@@ -357,6 +359,46 @@ function get_language_post($src_post, $destination_language_code){
             }
 
             return $destination_post_id;
+
+}
+
+/**
+ *Duplicate a post and create its translated version
+ * 
+ */
+function duplicate_language_post($post_id, $post_type, $lang){
+
+    global $wpdb, $sitepress;
+
+    $tbl_icl_translations = $wpdb->prefix ."icl_translations";
+
+    // Define title of translated post
+    $post_translated_title = get_post( $post_id )->post_title . ' (' . $lang . ')';
+
+    // Insert translated post
+    $post_translated_id = wp_insert_post( array( 'post_title' =>$post_translated_title , 'post_type' =>$post_type, 'post_status'=> 'publish' ) );
+
+    // Get trid of original post
+    $select_trid = $wpdb->get_row( "SELECT trid FROM $tbl_icl_translations WHERE element_id =".$post_id);
+    $trid = $select_trid->trid;
+
+    // Get language code of original
+    $lang_code_original = $sitepress->get_default_language();
+
+    //element type
+    $element_type = 'post_'.$post_type;
+
+    // Associate original post and translated post
+    //update icl_translation table
+    $updateQuery = $wpdb->update(
+        $tbl_icl_translations, array(
+            'trid' => $trid,
+            'language_code' => $lang,
+            'source_language_code' => $lang_code_original,
+            'element_type' => $element_type
+            ), array( 'element_id' => $post_translated_id ) ); 
+
+    return  $post_translated_id;
 
 }
 
