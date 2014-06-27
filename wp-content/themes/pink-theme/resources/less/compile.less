@@ -21,11 +21,11 @@
 	/****Selection Color****/
 	::selection {
 		background: @primary1; 
-		color: #fff;
+		color: @white;
 	}
 	::-moz-selection {
 		background: @primary1; 
-		color: #fff;
+		color: @white;
 	}
 
 	/****Link Styles****/
@@ -48,11 +48,52 @@
 		color: @primary1;
 		&.sub-title {
 			text-transform: uppercase;
-			color: darken(@tertiary1, 50%);
+			color: darken(@secondary1, 50%);
 			font-weight: 300;
-			margin: 0.5em 0;
+			margin: @regular 0;
 		}
 	}
+
+	/****Logo Styles****/
+	.logo {
+		padding: @medium;
+		img {
+			margin: auto;
+		}
+	}
+
+	/****Responsive Logo Styles****/
+	#left-bar-open {
+		display: none;
+		background: @primary1;
+		margin-top: @regular;
+		border-radius: 5px;
+		padding: 1em;
+		max-height: 80px;
+		.clearfix;
+		.left-menu-trigger {
+			float: left;
+			padding: @regular;
+			font-size: 1.5em;
+			border: 1px solid darken(@primary1, 20%);
+			color: @white;
+			background: darken(@primary1, 5%);
+			margin-right: @medium;
+			border-radius: 4px;
+		}
+		.logo {
+			float: left;
+			padding: 0;
+			max-width: 80%;
+			.img-responsive {
+				max-height: 50px;
+			}
+		}
+		@media (max-width: 993px) { 
+			display: block;
+		}
+	}
+
 }
 
 // Base CSS
@@ -67,13 +108,15 @@
 @import "../../../impruwclientparent/css/less/site-elements/social.less";
 @import "../../../impruwclientparent/css/less/site-elements/contact.less";
 @import "../../../impruwclientparent/css/less/site-elements/room-elements.less";
+@import "../../../impruwclientparent/css/less/site-elements/gallery.less";
 @import "../../../impruwclientparent/css/less/site-elements/map.less";
+@import "../../../impruwclientparent/css/less/site-elements/login.less";
 
 // Theme Specific CSS Overrides
 @import "row.less";
 @import "menu.less";
 @import "title.less";
+@import "image-with-text.less";
 @import "address.less";
-@import "text.less";
-@import "links-buttons.less";
+@import "social.less";
 @import "room-elements.less";

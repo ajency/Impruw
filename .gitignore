@@ -38,6 +38,7 @@ wp-content/blogs.dir
 wp-content/cache/
 wp-content/uploads
 wp-content/upgrade
+wp-content/site-resources
 wp-content/wp-cache-config.php
 wp-content/plugins/wp-mail-smtp
 wp-content/plugins/paid-memberships-pro

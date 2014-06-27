@@ -21,11 +21,11 @@
 	/****Selection Color****/
 	::selection {
 		background: @primary1; 
-		color: #fff;
+		color: @white;
 	}
 	::-moz-selection {
 		background: @primary1; 
-		color: #fff;
+		color: @white;
 	}
 
 	/****Link Styles****/
@@ -50,7 +50,7 @@
 			text-transform: uppercase;
 			color: darken(@tertiary1, 50%);
 			font-weight: 300;
-			margin: 0.5em 0;
+			margin: @regular 0;
 		}
 	}
 }
@@ -67,13 +67,17 @@
 @import "../../../impruwclientparent/css/less/site-elements/social.less";
 @import "../../../impruwclientparent/css/less/site-elements/contact.less";
 @import "../../../impruwclientparent/css/less/site-elements/room-elements.less";
+@import "../../../impruwclientparent/css/less/site-elements/gallery.less";
 @import "../../../impruwclientparent/css/less/site-elements/map.less";
+@import "../../../impruwclientparent/css/less/site-elements/login.less";
 
 // Theme Specific CSS Overrides
 @import "row.less";
+@import "header.less";
 @import "menu.less";
 @import "title.less";
 @import "address.less";
-@import "text.less";
+@import "social.less";
 @import "links-buttons.less";
+@import "map.less";
 @import "room-elements.less";
