@@ -63,6 +63,10 @@ define ['app'
                         @trigger 'update:enabled:languages', selectedlanguage
 
                     loadLanguagePageNav: (e)->
+
+                          #hide the page content div when the editing lanhuage is changed
+                          $('.aj-imp-widget-content').hide()
+                          
                           #get the selectedIndex from the li element
                           selectedIndex = $(e.currentTarget).attr('rel')
 

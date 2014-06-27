@@ -14,6 +14,9 @@ define ['app', 'controllers/base-controller'
 
                 @pageLanguageLayout = @_getLanguageLayout()
 
+                #Make page content div visible after the room content app is executed
+                $('.aj-imp-widget-content').show()
+
                 #function to load view
                 @show @pageLanguageLayout,
                     loading: true

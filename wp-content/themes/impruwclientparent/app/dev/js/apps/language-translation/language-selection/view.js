@@ -78,6 +78,7 @@ define(['app', 'text!apps/language-translation/language-selection/templates/lang
 
       LanguageSelectionView.prototype.loadLanguagePageNav = function(e) {
         var selectedIndex, selectedLangVal;
+        $('.aj-imp-widget-content').hide();
         selectedIndex = $(e.currentTarget).attr('rel');
         selectedLangVal = $('select#select_editing_language option:eq(' + selectedIndex + ')').attr('value');
         if (selectedLangVal !== "") {

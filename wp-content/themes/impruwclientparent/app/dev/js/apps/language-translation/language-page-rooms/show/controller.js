@@ -18,6 +18,7 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
         editLang = opts.editLang;
         this.editingLang = editLang;
         this.pageLanguageLayout = this._getLanguageLayout();
+        $('.aj-imp-widget-content').show();
         this.show(this.pageLanguageLayout, {
           loading: true
         });
