@@ -461,8 +461,17 @@ function get_autosave_post_json( $page_id ) {
 
     $autosave_post_id = get_autosave_post_id( $page_id );
 
-    $json = get_post_meta( $autosave_post_id, "page-json", TRUE );
+    global $wpdb;
 
+    $query = $wpdb->prepare("SELECT meta_value FROM {$wpdb->postmeta} WHERE post_id=%d
+                            AND meta_key=%s", $autosave_post_id, 'page-json');
+
+    $json = $wpdb->get_var($query);
+
+    $json = !is_null($json) ? maybe_unserialize($json) : array();
+
+    //$json = get_post_meta( $autosave_post_id, "page-json", TRUE );
+    // echo json_encode($query);die;
     return !is_array( $json ) ? array() : $json;
 }
 
