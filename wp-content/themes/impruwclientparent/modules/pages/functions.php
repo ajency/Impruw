@@ -449,6 +449,11 @@ function get_page_content_json( $page_id, $autosave = FALSE ) {
 
     $json = array();
 
+    if(is_singular('impruw_room')){
+        $page = get_page_by_title('Single Room');
+        $page_id = $page->ID;
+    }
+
     if ( $autosave === TRUE )
         $json = get_autosave_post_json( $page_id );
     else
