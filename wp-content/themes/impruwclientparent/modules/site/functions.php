@@ -288,6 +288,7 @@ function clone_page( $clone_blog, $post_id, $name ) {
     $data = get_json_to_clone( 'page-json', $page->ID );
 
     restore_current_blog();
+
     $data = set_json_to_site( $data );
 
     store_unused_elements( $post_id );
@@ -309,8 +310,10 @@ function clone_header_footer( $theme_site_id ) {
     restore_current_blog();
 
     $data = set_json_to_site( $header );
+    update_option( 'theme-header-autosave', $data );
     update_option( 'theme-header', $data );
     $data = set_json_to_site( $footer );
+    update_option( 'theme-footer-autosave', $data );
     update_option( 'theme-footer', $data );
 }
 
