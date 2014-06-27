@@ -293,7 +293,18 @@ function clone_page( $clone_blog, $post_id, $name ) {
 
     store_unused_elements( $post_id );
     add_page_json( $post_id, $data );
+
+    delete_all_revisions($post_id);
     update_page_autosave( $post_id, $data );
+}
+
+function delete_all_revisions($post_id){
+    // all revisions and autosaves
+    $revisions = wp_get_post_revisions( $post_id, array( 'order' => 'ASC' ) );
+
+    for ( $i = 0; isset( $revisions[$i] ); $i++ ) {
+        wp_delete_post_revision( $revisions[ $i ]->ID );
+    }
 }
 
 /**
