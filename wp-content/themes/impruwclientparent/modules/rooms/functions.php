@@ -271,7 +271,7 @@ function delete_room_postdata( $room_id ) {
 }
 
 
-function get_language_default_room($room_id)
+function get_default_language_room($room_id)
 {    
     global $sitepress;
 

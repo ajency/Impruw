@@ -17,7 +17,8 @@ define(['app', 'text!apps/language-translation/language-page-rooms/templates/lan
       PageRooomsLayout.prototype.regions = {
         chooseRooms: ".pick-room",
         originalRoomContent: ".original-content",
-        translatedRoomContent: ".translated-content"
+        translatedRoomContent: ".translated-content",
+        languageRoomFacilities: "#js-rooms-facilities"
       };
 
       return PageRooomsLayout;

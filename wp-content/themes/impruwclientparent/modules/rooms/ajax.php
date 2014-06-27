@@ -122,7 +122,7 @@ function read_language_room(){
 
     $room_id = $_REQUEST['roomId'];
 
-    $data = get_language_default_room($room_id);
+    $data = get_default_language_room($room_id);
 
     wp_send_json( array( 'code' => 'OK', 'data' => $data ) );
     
