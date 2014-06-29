@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
 
 define(["app", 'backbone'], function(App, Backbone) {
   return App.module("Entities.LanguageFacilities", function(LanguageFacilities, App, Backbone, Marionette, $, _) {
-    var API, facilityCollection, facilityModel;
+    var API, facilityCollection;
     LanguageFacilities.FacilityModel = (function(_super) {
       __extends(FacilityModel, _super);
 
@@ -11,9 +11,9 @@ define(["app", 'backbone'], function(App, Backbone) {
         return FacilityModel.__super__.constructor.apply(this, arguments);
       }
 
-      FacilityModel.prototype.name = 'languagfacility';
+      FacilityModel.prototype.name = 'languagefacility';
 
-      FacilityModel.prototype.idAttribute = 'term_id';
+      FacilityModel.prototype.idAttribute = 'facilityId';
 
       return FacilityModel;
 
@@ -28,26 +28,34 @@ define(["app", 'backbone'], function(App, Backbone) {
       FacilityCollection.prototype.model = LanguageFacilities.FacilityModel;
 
       FacilityCollection.prototype.url = function() {
-        return AJAXURL + '?fetch-language-facility';
+        return AJAXURL + '?action=fetch-default-facilities';
       };
 
       return FacilityCollection;
 
     })(Backbone.Collection);
-    facilityModel = new LanguageFacilities.FacilityModel;
     facilityCollection = new LanguageFacilities.FacilityCollection;
     API = {
-      getFacilities: function(editlanguage) {
-        facilityCollection.fetch({
+      getDefaultFacilities: function() {
+        facilityCollection.fetch();
+        return facilityCollection;
+      },
+      getEditedLanguageFacilities: function(editLang) {
+        var languageFacilities;
+        languageFacilities = new LanguageFacilities.FacilityCollection;
+        languageFacilities.fetch({
           data: {
-            editlanguage: editlanguage
+            editLang: editLang
           }
         });
-        return facilityCollection;
+        return languageFacilities;
       }
     };
-    return App.reqres.setHandler("get:lang:facilities", function(editlanguage) {
-      return API.getFacilities(editlanguage);
+    App.reqres.setHandler("get:default:facilities", function() {
+      return API.getDefaultFacilities();
+    });
+    return App.reqres.setHandler("get:edited:language:facilities", function(editLang) {
+      return API.getEditedLanguageFacilities(editLang);
     });
   });
 });

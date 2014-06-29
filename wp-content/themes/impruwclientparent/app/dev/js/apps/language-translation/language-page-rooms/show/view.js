@@ -18,7 +18,8 @@ define(['app', 'text!apps/language-translation/language-page-rooms/templates/lan
         chooseRooms: ".pick-room",
         originalRoomContent: ".original-content",
         translatedRoomContent: ".translated-content",
-        languageRoomFacilities: "#js-rooms-facilities"
+        originalRoomFacilities: "#original-rooms-facilities",
+        translatedRoomFacilities: "#translated-rooms-facilities"
       };
 
       return PageRooomsLayout;

@@ -1,31 +1,40 @@
 define ["app", 'backbone'], (App, Backbone) ->
     App.module "Entities.LanguageFacilities", (LanguageFacilities, App, Backbone, Marionette, $, _)->
 
-    	#Page model
+    	#Facility model
         class LanguageFacilities.FacilityModel extends Backbone.Model
-            name: 'languagfacility'
-            idAttribute: 'term_id' 
+            name: 'languagefacility'
+            idAttribute: 'facilityId' 
 
-		#Page Collection class
+		#Collection class
         class LanguageFacilities.FacilityCollection extends Backbone.Collection
 
             model: LanguageFacilities.FacilityModel
 
             url: ->
-                AJAXURL + '?fetch-language-facility'   
+                AJAXURL + '?action=fetch-default-facilities'   
 
-        facilityModel = new LanguageFacilities.FacilityModel 
         facilityCollection = new LanguageFacilities.FacilityCollection
+        
         
         #Public API
         API =
 
-            getFacilities: (editlanguage)->
-                facilityCollection.fetch
-                    data:
-                        editlanguage : editlanguage
+            getDefaultFacilities:()->
+                facilityCollection.fetch()
                 facilityCollection
 
+            getEditedLanguageFacilities:(editLang)->
+                languageFacilities = new LanguageFacilities.FacilityCollection
+                languageFacilities.fetch
+                    data:
+                        editLang : editLang
+                languageFacilities
 
-        App.reqres.setHandler "get:lang:facilities", (editlanguage) ->
-            API.getFacilities(editlanguage)             	
+
+        #App request handlers
+        App.reqres.setHandler "get:default:facilities",->
+            API.getDefaultFacilities() 
+
+        App.reqres.setHandler "get:edited:language:facilities",(editLang)->
+            API.getEditedLanguageFacilities(editLang)             	

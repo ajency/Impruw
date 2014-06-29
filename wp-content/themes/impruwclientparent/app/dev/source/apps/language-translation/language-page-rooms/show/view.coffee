@@ -13,7 +13,8 @@ define ['app'
                         chooseRooms: ".pick-room",
                         originalRoomContent: ".original-content",
                         translatedRoomContent: ".translated-content",
-                        languageRoomFacilities: "#js-rooms-facilities",
+                        originalRoomFacilities: "#original-rooms-facilities",
+                        translatedRoomFacilities: "#translated-rooms-facilities",
 
 
                   

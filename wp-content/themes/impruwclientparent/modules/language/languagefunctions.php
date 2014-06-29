@@ -100,5 +100,3 @@ function get_language_facilities($editingLang,$defaultLang){
 
 }
 
-
-?>

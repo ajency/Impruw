@@ -3,7 +3,8 @@ define ['app', 'controllers/base-controller'
         'apps/language-translation/language-page-rooms/original-language-rooms/controller'
         'apps/language-translation/language-page-rooms/translated-language-rooms/controller'
         'apps/language-translation/language-page-rooms/choose-rooms/controller'
-        'apps/language-translation/language-page-rooms/room-facilities/controller'], (App, AppController)->
+        'apps/language-translation/language-page-rooms/original-room-facilities/controller'
+        'apps/language-translation/language-page-rooms/translated-room-facilities/controller'], (App, AppController)->
     App.module 'LanguageApp.LanguagePageRooms', (LanguagePageRooms, App, Backbone, Marionette, $, _)->
         class LanguagePageRooms.Controller extends AppController
 
@@ -28,9 +29,13 @@ define ['app', 'controllers/base-controller'
                         region: @pageLanguageLayout.chooseRooms
 
 
-                    App.execute "language:room:facilities:app",
-                        region: @pageLanguageLayout.languageRoomFacilities,
-                        editLang : @editingLang                        
+                    App.execute "original:room:facilities:app",
+                        region: @pageLanguageLayout.originalRoomFacilities,
+                        editLang : @editingLang 
+
+                    App.execute "translated:room:facilities:app",
+                        region: @pageLanguageLayout.translatedRoomFacilities,
+                        editLang : @editingLang                                                
 
                 @listenTo @pageLanguageLayout.chooseRooms, "original:room", @_loadOriginalRooms 
 

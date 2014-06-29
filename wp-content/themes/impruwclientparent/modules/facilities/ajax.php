@@ -61,3 +61,19 @@ function update_facility_ajax() {
 }
 
 add_action( 'wp_ajax_update-facility', 'update_facility_ajax' );
+
+
+function fetch_default_facilities(){
+
+    if(isset($_REQUEST['editLang'])){
+         $language = $_REQUEST['editLang'];
+    }
+    else{
+         $language = wpml_get_default_language();
+    }
+   
+    $data = get_language_based_facilities($language);
+    wp_send_json( array( 'code' => 'OK', 'data' => $data ) );
+
+}
+add_action( 'wp_ajax_fetch-default-facilities', 'fetch_default_facilities' );
