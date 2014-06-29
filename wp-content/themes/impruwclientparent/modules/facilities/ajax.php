@@ -4,7 +4,7 @@
  * All Facilities ajax goes here
  */
 // Include all files
-// include_once 'functions.php';
+include_once 'functions.php';
 /**
  * Define all ajax handlers here
  */
@@ -61,17 +61,3 @@ function update_facility_ajax() {
 }
 
 add_action( 'wp_ajax_update-facility', 'update_facility_ajax' );
-
-
-function fetch_language_facility_ajax(){
-
-    $editingLang = $_REQUEST['editlanguage'];
-    $defaultLang = wpml_get_default_language();
-
-    $data = get_language_facilities($editingLang,$defaultLang); 
-
-    wp_send_json( array( 'code' => 'OK', 'data' => $data ) );
-
-}
-
-add_action( 'wp_ajax_fetch-language-facility', 'fetch_language_facility_ajax' );

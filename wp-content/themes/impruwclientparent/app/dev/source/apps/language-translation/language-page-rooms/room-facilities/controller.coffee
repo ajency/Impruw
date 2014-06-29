@@ -10,19 +10,19 @@ define ['app', 'controllers/base-controller'
                 {editLang} = (opts) 
 
                 #get page collection
-                @facilityModel = facilityModel = App.request "get:lang:facilities", editLang
+                @facilityCollection = facilityCollection = App.request "get:all:facilities", editLang
 
-                console.log "INSIDE room facilities facilityModel => ",facilityModel
+                console.log "INSIDE room facilities facilityModel => ",facilityCollection,"editLang "+editLang
 
-                @roomFacilitiesView = @_getroomFacilitiesView facilityModel
+                @roomFacilitiesView = @_getroomFacilitiesView facilityCollection
 
                 #function to load view
                 @show @roomFacilitiesView,
                     loading: true
 
-            _getroomFacilitiesView : (model)->
+            _getroomFacilitiesView : (collection)->
                 new RoomFacilities.Views.RoomFacilitiesView
-                    model: model
+                    collection: collection
 
         App.commands.setHandler "language:room:facilities:app", (opts) ->
             new RoomFacilities.Controller opts

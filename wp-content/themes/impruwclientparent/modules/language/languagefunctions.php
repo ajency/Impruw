@@ -83,4 +83,22 @@ function set_enabled_languages($arr){
     $sitepress->set_active_languages($arr);
 }
 
+function get_language_facilities($editingLang,$defaultLang){
+
+    $all_facilities = array();
+
+
+    $all_facilities[] = array(
+            'term_id' => 1,
+            'facilityNameDefault' => "AC",
+            'facilityNameLang' => "AC_lang",
+            'editingLang' => $editingLang,
+            'defaultLanguage' => $defaultLang
+            );
+
+    return $all_facilities;
+
+}
+
+
 ?>

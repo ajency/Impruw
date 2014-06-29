@@ -3,10 +3,15 @@ define ['app'
 
             App.module 'LanguageApp.LanguagePageRooms.RoomFacilities.Views', (Views, App, Backbone, Marionette, $, _)->
 
-                class Views.RoomFacilitiesView extends Marionette.ItemView
+                class RoomFacilitiesItemView extends Marionette.ItemView
+
+                    template : roomfacilitiesviewTpl
+
+
+                class Views.RoomFacilitiesView extends Marionette.CollectionView
 
                     tagName : 'div'
 
                     className : 'form-group dual'
 
-                    template : roomfacilitiesviewTpl
+                    itemView : RoomFacilitiesItemView

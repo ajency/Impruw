@@ -276,11 +276,15 @@ function get_default_language_room($room_id)
     global $sitepress;
 
     $default_language_code = $sitepress->get_default_language();
+
+    $post_type = "impruw_room";
+    $element_type = "post_".$post_type;
+
     $langdetails = $sitepress->get_language_details($default_language_code);
     $language_name = $langdetails['english_name'];
 
     //$lang_post_id = icl_object_id($room_id,'post',true,$default_language_code);
-    $lang_post_id = get_language_post($room_id, $default_language_code);
+    $lang_post_id = get_translated_id($room_id, $default_language_code,$element_type);
 
     //TODO Check for fetching posts for changing default language
     $room_post = get_post($lang_post_id);
@@ -301,12 +305,14 @@ function get_language_translated_room($room_id, $editing_language)
 
     $default_language_code = $sitepress->get_default_language();
     $editing_language_code = $editing_language;
+    $post_type = "impruw_room";
+    $element_type = "post_".$post_type;
 
     //English display name of the editing language code
     $langdetails = $sitepress->get_language_details($editing_language_code);
     $language_name = $langdetails['english_name'];
 
-    $lang_post_id = get_language_post($room_id, $editing_language_code);
+    $lang_post_id = get_translated_id($room_id, $editing_language_code,$element_type);
 
     if($lang_post_id!=null){
         $room_post = get_post($lang_post_id);
@@ -325,7 +331,7 @@ function get_language_translated_room($room_id, $editing_language)
         $data['translatedRoomDesc'] = $room_post->post_content;
         $data['defaultLangCode'] = $default_language_code;
         $data['editingLanguage'] = $language_name;
-        $data['translatedPostID'] = $lang_post_id;
+        $data['translatedPostID'] = $translated_room_id;
         $data['isTranslated'] = false;       
 
     }
@@ -335,30 +341,29 @@ function get_language_translated_room($room_id, $editing_language)
 }
 
 /**
- *Get the translated id of a post based on post id of source and the destination language
+ *Get the translated id of a post or term based on post id/term id of original post/term and the destination language
  * 
  */
-function get_language_post($src_post, $destination_language_code){
+function get_translated_id($original_id, $destination_language_code,$element_type){
 
-            $post_id = $src_post;
             $language_code = $destination_language_code;
             
             global $wpdb;
             $tbl_icl_translations  = $wpdb->prefix ."icl_translations";
 
-            $select_trid = $wpdb->get_row( "SELECT trid FROM $tbl_icl_translations WHERE element_id =".$post_id);
+            $select_trid = $wpdb->get_row( "SELECT trid FROM $tbl_icl_translations WHERE element_id =".$original_id." AND element_type='".$element_type."'");
             $trid = $select_trid->trid;
 
             $select_translate_id = $wpdb->get_row("SELECT * FROM $tbl_icl_translations WHERE trid =".$trid." AND language_code = '".$language_code."'");
 
             if ( $select_translate_id != null ){
-                $destination_post_id = $select_translate_id->element_id;
+                $translated_id = $select_translate_id->element_id;
             }
             else{
-                $destination_post_id = null;
+                $translated_id = null;
             }
 
-            return $destination_post_id;
+            return $translated_id;
 
 }
 
@@ -375,18 +380,18 @@ function duplicate_language_post($post_id, $post_type, $lang){
     // Define title of translated post
     $post_translated_title = get_post( $post_id )->post_title . ' (' . $lang . ')';
 
+    //element type
+    $element_type = 'post_'.$post_type;
+
     // Insert translated post
     $post_translated_id = wp_insert_post( array( 'post_title' =>$post_translated_title , 'post_type' =>$post_type, 'post_status'=> 'publish' ) );
 
     // Get trid of original post
-    $select_trid = $wpdb->get_row( "SELECT trid FROM $tbl_icl_translations WHERE element_id =".$post_id);
+    $select_trid = $wpdb->get_row( "SELECT trid FROM $tbl_icl_translations WHERE element_id =".$post_id." AND element_type='".$element_type."'");
     $trid = $select_trid->trid;
 
     // Get language code of original
     $lang_code_original = $sitepress->get_default_language();
-
-    //element type
-    $element_type = 'post_'.$post_type;
 
     // Associate original post and translated post
     //update icl_translation table

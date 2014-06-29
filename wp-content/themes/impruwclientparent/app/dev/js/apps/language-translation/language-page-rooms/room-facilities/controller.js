@@ -11,19 +11,19 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
       }
 
       Controller.prototype.initialize = function(opts) {
-        var editLang, facilityModel;
+        var editLang, facilityCollection;
         editLang = opts.editLang;
-        this.facilityModel = facilityModel = App.request("get:lang:facilities", editLang);
-        console.log("INSIDE room facilities facilityModel => ", facilityModel);
-        this.roomFacilitiesView = this._getroomFacilitiesView(facilityModel);
+        this.facilityCollection = facilityCollection = App.request("get:all:facilities", editLang);
+        console.log("INSIDE room facilities facilityModel => ", facilityCollection, "editLang " + editLang);
+        this.roomFacilitiesView = this._getroomFacilitiesView(facilityCollection);
         return this.show(this.roomFacilitiesView, {
           loading: true
         });
       };
 
-      Controller.prototype._getroomFacilitiesView = function(model) {
+      Controller.prototype._getroomFacilitiesView = function(collection) {
         return new RoomFacilities.Views.RoomFacilitiesView({
-          model: model
+          collection: collection
         });
       };
 

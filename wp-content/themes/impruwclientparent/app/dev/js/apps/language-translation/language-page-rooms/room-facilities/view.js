@@ -3,6 +3,19 @@ var __hasProp = {}.hasOwnProperty,
 
 define(['app', 'text!apps/language-translation/language-page-rooms/room-facilities/templates/roomfacilitiesview.html'], function(App, roomfacilitiesviewTpl) {
   return App.module('LanguageApp.LanguagePageRooms.RoomFacilities.Views', function(Views, App, Backbone, Marionette, $, _) {
+    var RoomFacilitiesItemView;
+    RoomFacilitiesItemView = (function(_super) {
+      __extends(RoomFacilitiesItemView, _super);
+
+      function RoomFacilitiesItemView() {
+        return RoomFacilitiesItemView.__super__.constructor.apply(this, arguments);
+      }
+
+      RoomFacilitiesItemView.prototype.template = roomfacilitiesviewTpl;
+
+      return RoomFacilitiesItemView;
+
+    })(Marionette.ItemView);
     return Views.RoomFacilitiesView = (function(_super) {
       __extends(RoomFacilitiesView, _super);
 
@@ -14,10 +27,10 @@ define(['app', 'text!apps/language-translation/language-page-rooms/room-faciliti
 
       RoomFacilitiesView.prototype.className = 'form-group dual';
 
-      RoomFacilitiesView.prototype.template = roomfacilitiesviewTpl;
+      RoomFacilitiesView.prototype.itemView = RoomFacilitiesItemView;
 
       return RoomFacilitiesView;
 
-    })(Marionette.ItemView);
+    })(Marionette.CollectionView);
   });
 });
