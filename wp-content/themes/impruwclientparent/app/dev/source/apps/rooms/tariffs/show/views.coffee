@@ -75,78 +75,78 @@ define ['app', 'moment'], (App, moment)->
                 data
 
             template: '
-            						{{^id}}
-            							<div class="package-header">
-            									<h6>{{plan_name}}</h6>
-            									<div class="package-desc">
-            										{{plan_description}}
-            									</div>
-            									<a href="#" class="edit-pkg-link"><span class="glyphicon glyphicon-pencil"></span>{{#polyglot}}Edit Plan{{/polyglot}}</a>
-            							</div>
+                        {{^id}}
+                           <div class="package-header">
+                                 <h6>{{plan_name}}</h6>
+                                 <div class="package-desc">
+                                    {{plan_description}}
+                                 </div>
+                                 <a href="#" class="edit-pkg-link"><span class="glyphicon glyphicon-pencil"></span>{{#polyglot}}Edit Plan{{/polyglot}}</a>
+                           </div>
 
-            							<div class="block clearfix not-yet-added empty">
+                           <div class="block clearfix not-yet-added empty">
 
-            								<span class="no-data">
-            									<span class="glyphicon glyphicon-exclamation-sign"></span>
-            								</span>{{#polyglot}}No Data Added{{/polyglot}}
-            								<div class="block-action">
-            									<button type="button" class="btn btn-sm add-trariff edit-tran">
-            										<span class="glyphicon glyphicon-pencil"></span>&nbsp;{{#polyglot}}Add{{/polyglot}}
-            									</button>
-            								</div>
-            							</div>
-            						{{/id}}
-            						{{#id}}
-            							<div class="package-header">
-            								<h6>{{plan_name}}</h6>
-            								<div class="package-desc">
-            									{{plan_description}}
-            								</div>
-            								<a href="#" class="edit-pkg-link"><span class="glyphicon glyphicon-pencil"></span>{{#polyglot}}Edit Plan{{/polyglot}}</a>
-            							</div>
-            							<div class="block clearfix">
-            								<div class="weekday">
-            									{{#polyglot}}Weekdays{{/polyglot}}
-            									<span class="price">&#8364;&nbsp;{{weekday.charge}}</span>
-            								</div>
-            								<div class="weekend">
-            									{{#polyglot}}Weekends{{/polyglot}}
-            									<span class="price">&#8364;&nbsp;{{weekend.charge}}</span>
-            								</div>
-            								<div class="tariff-label clearfix">{{#polyglot}}Extra Adult{{/polyglot}}</div>
-            								<div class="weekday">
-            									<span class="price">&#8364;&nbsp;{{weekday.extra_adult}}</span>
-            								</div>
-            								<div class="weekend">
-            									<span class="price">&#8364;&nbsp;{{weekend.extra_adult}}</span>
-            								</div>
-            								<div class="tariff-label clearfix">{{#polyglot}}Extra Child{{/polyglot}}</div>
-            								<div class="weekday">
-            									<span class="price">&#8364;&nbsp;{{weekday.extra_child}}</span>
-            								</div>
-            								<div class="weekend">
-            									<span class="price">&#8364;&nbsp;{{weekend.extra_child}}</span>
-            								</div>
-            								<div class="block-action">
-            									<button type="button" class="btn btn-sm edit-trariff edit-tran"><span class="glyphicon glyphicon-pencil"></span>&nbsp;{{#polyglot}}Edit{{/polyglot}}</button>
-            								</div>
-            							</div>
-            						{{/id}}'
+                              <span class="no-data">
+                                 <span class="glyphicon glyphicon-exclamation-sign"></span>
+                              </span>{{#polyglot}}No Data Added{{/polyglot}}
+                              <div class="block-action">
+                                 <button type="button" class="btn btn-sm add-trariff edit-tran">
+                                    <span class="glyphicon glyphicon-pencil"></span>&nbsp;{{#polyglot}}Add{{/polyglot}}
+                                 </button>
+                              </div>
+                           </div>
+                        {{/id}}
+                        {{#id}}
+                           <div class="package-header">
+                              <h6>{{plan_name}}</h6>
+                              <div class="package-desc">
+                                 {{plan_description}}
+                              </div>
+                              <a href="#" class="edit-pkg-link"><span class="glyphicon glyphicon-pencil"></span>{{#polyglot}}Edit Plan{{/polyglot}}</a>
+                           </div>
+                           <div class="block clearfix">
+                              <div class="weekday">
+                                 {{#polyglot}}Weekdays{{/polyglot}}
+                                 <span class="price">&#8364;&nbsp;{{weekday.charge}}</span>
+                              </div>
+                              <div class="weekend">
+                                 {{#polyglot}}Weekends{{/polyglot}}
+                                 <span class="price">&#8364;&nbsp;{{weekend.charge}}</span>
+                              </div>
+                              <div class="tariff-label clearfix">{{#polyglot}}Extra Adult{{/polyglot}}</div>
+                              <div class="weekday">
+                                 <span class="price">&#8364;&nbsp;{{weekday.extra_adult}}</span>
+                              </div>
+                              <div class="weekend">
+                                 <span class="price">&#8364;&nbsp;{{weekend.extra_adult}}</span>
+                              </div>
+                              <div class="tariff-label clearfix">{{#polyglot}}Extra Child{{/polyglot}}</div>
+                              <div class="weekday">
+                                 <span class="price">&#8364;&nbsp;{{weekday.extra_child}}</span>
+                              </div>
+                              <div class="weekend">
+                                 <span class="price">&#8364;&nbsp;{{weekend.extra_child}}</span>
+                              </div>
+                              <div class="block-action">
+                                 <button type="button" class="btn btn-sm edit-trariff edit-tran"><span class="glyphicon glyphicon-pencil"></span>&nbsp;{{#polyglot}}Edit{{/polyglot}}</button>
+                              </div>
+                           </div>
+                        {{/id}}'
 
 
         class DateRageView extends Marionette.CompositeView
 
             template: '<div class="date-range">
-            							<div class="range-name">{{daterange_name}}</div>
-            							<div class="from">
-            								<span class="date">{{fromdate}}</span>
-            								to <span class="date">{{todate}}</span>
-            							</div>
-            							<a href="#" class="edit-range-link"><span class="glyphicon glyphicon-pencil"></span> {{#polyglot}}Edit{{/polyglot}}</a>
-            						</div>
-            						<div class="packages">
-            							<div class="package-blocks clearfix"></div>
-            						</div>'
+                           <div class="range-name">{{daterange_name}}</div>
+                           <div class="from">
+                              <span class="date">{{fromdate}}</span>
+                              to <span class="date">{{todate}}</span>
+                           </div>
+                           <a href="#" class="edit-range-link"><span class="glyphicon glyphicon-pencil"></span> {{#polyglot}}Edit{{/polyglot}}</a>
+                        </div>
+                        <div class="packages">
+                           <div class="package-blocks clearfix"></div>
+                        </div>'
             events:
                 'click .edit-range-link': (e)->
                     e.preventDefault()
@@ -187,7 +187,7 @@ define ['app', 'moment'], (App, moment)->
                     tariffCollection.add tariff
 
                 @collection = tariffCollection
-                @listenTo @collection, "remove", @render
+                @listenTo @collection, "remove add", @render
 
             render: ->
                 #console.log @collection
@@ -220,10 +220,4 @@ define ['app', 'moment'], (App, moment)->
 
             itemViewOptions: (item, index)->
                 roomId = Marionette.getOption @, 'roomId'
-
                 roomId: roomId
-				
-
-
-
-				 

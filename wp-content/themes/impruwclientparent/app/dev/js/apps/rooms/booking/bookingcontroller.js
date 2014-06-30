@@ -10,6 +10,7 @@ define(['app', 'controllers/base-controller', 'apps/rooms/booking/views'], funct
       function Controller() {
         this.showBookingPlansView = __bind(this.showBookingPlansView, this);
         this.showBookingCalendarView = __bind(this.showBookingCalendarView, this);
+        this.bindAddDateRangeEventListener = __bind(this.bindAddDateRangeEventListener, this);
         return Controller.__super__.constructor.apply(this, arguments);
       }
 
@@ -26,13 +27,7 @@ define(['app', 'controllers/base-controller', 'apps/rooms/booking/views'], funct
         });
       };
 
-      Controller.prototype.bindAddDateRangeEventListener = function() {
-        return App.vent.on("daterange:added daterange:removed daterange:updated", (function(_this) {
-          return function() {
-            return App.execute("show:booking:app", _this.options);
-          };
-        })(this));
-      };
+      Controller.prototype.bindAddDateRangeEventListener = function() {};
 
       Controller.prototype.showBookingCalendarView = function() {
         var cview, dateRangeCollection, templateHelpers;
