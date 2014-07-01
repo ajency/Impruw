@@ -23,11 +23,10 @@ define ['app'
                     @trigger "show:edit:slider"
 
             onShow: ->
-                @$el.scrollSections()
+                #@$el.scrollSections()
 
                 # set affix
                 @$el.find('*[data-spy="affix"]').affix()
-
 
                 # affix width
                 w = $('.aj-imp-right').width()
