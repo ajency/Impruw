@@ -25,6 +25,7 @@ class PageElementsCollection extends AbstractElementsCollection {
     protected function get_elements() {
 
         $skeleton_json = get_post_meta( $this->page_id, 'page-json', TRUE );
+
         $this->generate_elements_tree( $skeleton_json );
     }
 

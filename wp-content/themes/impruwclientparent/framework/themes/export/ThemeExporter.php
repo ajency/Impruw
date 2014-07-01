@@ -88,7 +88,7 @@ class ThemeExporter extends AbstractThemeExporter {
 
         $export_data[ 'site_id' ]     = $this->site_id;
         $export_data[ 'object_type' ] = 'page';
-        $export_data[ 'object_id' ]   = $page->ID;
+        $export_data[ 'object_name' ] = $page->post_title;
 
         $page_elements             = new PageElementsCollection( $page->ID );
         $export_data[ 'elements' ] = $page_elements->get_elements_collection();

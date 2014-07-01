@@ -51,9 +51,11 @@ function publish_page_ajax() {
 
     $header_json = $_REQUEST[ 'header-json' ];
     update_header_json( $header_json );
+    update_option( "theme-header-autosave", $header_json );
 
     $footer_json = $_REQUEST[ 'footer-json' ];
     update_footer_json( $footer_json );
+    update_option( "theme-footer-autosave", $footer_json );
 
     remove_all_actions( 'post_updated' );
 
