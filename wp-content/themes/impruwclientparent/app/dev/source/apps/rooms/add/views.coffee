@@ -1,56 +1,65 @@
-define ['app'
-        'text!apps/rooms/add/templates/add-room.html'],
-(App, addRoomTpl)->
-    App.module 'RoomsApp.Add.View', (View, App, Backbone, Marionette, $, _)->
-        class View.AddRoomLayout extends Marionette.Layout
+define [ 'app'
+         'text!apps/rooms/add/templates/add-room.html' ],
+( App, addRoomTpl )->
+   App.module 'RoomsApp.Add.View', ( View, App, Backbone, Marionette, $, _ )->
+      class View.AddRoomLayout extends Marionette.Layout
 
-            tagName: 'div'
+         added : false
 
-            className: 'add-room-container'
+         tagName : 'div'
 
-            template: addRoomTpl
+         className : 'add-room-container'
 
-            events:
-                'click #btn_saveroom': ->
-                    if @$el.find('form').valid()
-                        data = Backbone.Syphon.serialize @
-                        @trigger "save:new:room", data
-                    else
-                        ele = @$el.find('.field-error').get(0)
-                        $.scrollTo ele
+         template : addRoomTpl
 
-                'click .add-gallery-images': ->
-                    @trigger "show:edit:slider"
+         events :
+            'click #btn_saveroom' : ->
+               if @$el.find( 'form' ).valid()
+                  data = Backbone.Syphon.serialize @
+                  @trigger "save:new:room", data
+               else
+                  ele = @$el.find( '.field-error' ).get( 0 )
+                  $.scrollTo ele
 
-            onShow: ->
-                #@$el.scrollSections()
+            'click .add-gallery-images' : ->
+               @trigger "show:edit:slider"
 
-                # set affix
-                @$el.find('*[data-spy="affix"]').affix()
+         onShow : ->
+            #@$el.scrollSections()
 
-                # affix width
-                w = $('.aj-imp-right').width()
+            # set affix
+            @$el.find( '*[data-spy="affix"]' ).affix()
 
-                @$el.find('*[data-spy="affix"]').width(w)
+            # affix width
+            w = $( '.aj-imp-right' ).width()
 
-                m = $('.aj-imp-left').width()
+            @$el.find( '*[data-spy="affix"]' ).width( w )
 
-                @$el.find('*[data-spy="affix"]').css('margin-left', m)
+            m = $( '.aj-imp-left' ).width()
+
+            @$el.find( '*[data-spy="affix"]' ).css( 'margin-left', m )
 
 
-            onShowSuccessMessage: ->
-                @$el.find('.alert').remove()
-                @$el.prepend "<div class=\"alert alert-success\">" + _.polyglot.t("New room added successfully") + "</div>"
-                #@$el.find('#btn_resetroom').click()
-                $('html, body').animate
-                    scrollTop: 0
-                , 1000
+         onShowSuccessMessage : ->
+            @$el.find( '.alert' ).remove()
+            message = _.polyglot.t( "New room added successfully" )
 
-            onSetSliderId: (slider_id)->
-                @$el.find('input[name="slider_id"]').val slider_id
+            if @added is true
+               message = _.polyglot.t "Room updated successfully"
 
-            regions:
-                facilitiesRegion: '#facilities-region'
-                galleryRegion: '#gallery-region'
-                roomTariffRegion: '#room-tariff-region'
-                roomBookingRegion: '#room-booking-region'
+            @$el.prepend "<div class=\"alert alert-success\">#{message}</div>"
+            #@$el.find('#btn_resetroom').click()
+            $( 'html, body' ).animate
+               scrollTop : 0
+            , 1000
+
+            @added = true
+
+         onSetSliderId : ( slider_id )->
+            @$el.find( 'input[name="slider_id"]' ).val slider_id
+
+         regions :
+            facilitiesRegion : '#facilities-region'
+            galleryRegion : '#gallery-region'
+            roomTariffRegion : '#room-tariff-region'
+            roomBookingRegion : '#room-booking-region'
