@@ -27,7 +27,7 @@ function updateroom( $room_data ) {
 
 
     // prepare facility array
-    $facility = $room_data[ 'facility' ];
+    $facility = isset( $room_data[ 'facility' ] ) ? $room_data[ 'facility' ] : array();
 
     $facility_ids = array();
 
