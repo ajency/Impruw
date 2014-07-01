@@ -43,6 +43,7 @@ require_once 'modules/bookings/ajax.php';
 require_once 'modules/revision/ajax.php';
 require_once 'modules/elements/ajax.php';
 require_once 'modules/media/ajax.php';
+require_once 'modules/language/ajax.php';
 require_once 'modules/language/languagefunctions.php';
 require_once PARENTTHEMEPATH . 'api/entities/leftnav.php';
 
