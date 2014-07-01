@@ -19,7 +19,7 @@ $me = new Mustache_Engine ();
 require 'framework/autoload.php';
 
 new \framework\cron\ThemeExportCron();
-new \framework\cron\ThemeImportCron();
+//new \framework\cron\ThemeImportCron();
 
 /**
  * Include the less php compiler
