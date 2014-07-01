@@ -138,22 +138,27 @@ function get_all_childsite_pages(){
         // Get post title based on language
         $page_title_based_on_lang = get_the_title($page_id_based_on_lang);
 
+        //Get the page slug and filter displayed page list based on page slug
+        $page_based_on_lang = get_post($page_id_based_on_lang);
+        $page_slug_based_on_lang = $page_based_on_lang->post_name;
 
 
-        if($page_title_based_on_lang=='Sample Page' || $page_title_based_on_lang=='Dashboard' || $page_title_based_on_lang=='Site Builder' || $page_title_based_on_lang=='Coming Soon' || $page_title_based_on_lang=='Sign In' || $page_title_based_on_lang=='Support'|| $page_title_based_on_lang==''){
+        //TODO check language based slugs, right now check is made for english pages only
+        if($page_slug_based_on_lang=='support'|| $page_slug_based_on_lang=='coming-soon'||  $page_slug_based_on_lang=='dashboard' ||  $page_slug_based_on_lang=='dashboard'||  $page_slug_based_on_lang=='site-builder'|| $page_slug_based_on_lang=='sign-in' || $page_slug_based_on_lang=='sample-page' || $page_slug_based_on_lang==null){
            $is_child_site_page = false;
        }
         else{
             $is_child_site_page = true;
         }
 
-        #TODO could be titled differently in other languages. check that. Will depend on what names are given at the time of first creating the 6 default posts
+        //TODO could be titled differently in other languages. check that. Will depend on what names are given at the time of first creating the 6 default posts
         if($page_title_based_on_lang == "Rooms -nb" || $page_title_based_on_lang == "Rooms -en"){
             $is_room_page = true;
         }
 
         $all_pages_array[] = array(
             'pageId' => $page_id_based_on_lang,
+            'pageOriginalId' => $page_id,
             'pageHref' => $page_slug,
             'pageTitle' => $page_title_based_on_lang,
             'isChildSitePage' => $is_child_site_page,

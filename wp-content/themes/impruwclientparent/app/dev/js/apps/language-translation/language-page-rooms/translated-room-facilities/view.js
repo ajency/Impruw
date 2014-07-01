@@ -11,7 +11,7 @@ define(['app'], function(App) {
         return TranslatedRoomFacilitiesItemView.__super__.constructor.apply(this, arguments);
       }
 
-      TranslatedRoomFacilitiesItemView.prototype.template = '<div class="form-group"> <div class="col-sm-12"> <input type="text" placeholder="{{#polyglot}}Add Translation{{/polyglot}}" id="" class="form-control" value="{{facilityName}}"> </div> </div> ';
+      TranslatedRoomFacilitiesItemView.prototype.template = '<div class="form-group"> <div class="col-sm-12"> <input type="text" placeholder="{{#polyglot}}Add Translation{{/polyglot}}" id="translated_facility_names" class="form-control" value="{{facilityName}}" data-facility="{{facilityId}}"> </div> </div> ';
 
       return TranslatedRoomFacilitiesItemView;
 
@@ -23,14 +23,36 @@ define(['app'], function(App) {
         return TranslatedRoomFacilitiesView.__super__.constructor.apply(this, arguments);
       }
 
+      TranslatedRoomFacilitiesView.prototype.template = '<form class="edit_term_translation"> </form> <div> <button class="btn btn-xs aj-imp-orange-btn" name="btn_update-term-translation" id="btn_update-term-translation"> Update </button> </div>';
+
       TranslatedRoomFacilitiesView.prototype.tagName = 'div';
 
       TranslatedRoomFacilitiesView.prototype.className = 'col-sm-5';
 
       TranslatedRoomFacilitiesView.prototype.itemView = TranslatedRoomFacilitiesItemView;
 
+      TranslatedRoomFacilitiesView.prototype.itemViewContainer = '.edit_term_translation';
+
+      TranslatedRoomFacilitiesView.prototype.events = {
+        "click #btn_update-term-translation": "updateFacilityTerms"
+      };
+
+      TranslatedRoomFacilitiesView.prototype.updateFacilityTerms = function(e) {
+        var facilities;
+        e.preventDefault();
+        facilities = [];
+        this.$el.find("input").each(function() {
+          facilities.push({
+            name: $(this).val(),
+            id: $(this).attr("data-facility")
+          });
+        });
+        console.log(JSON.stringify(facilities));
+        return this.trigger('update:translated:facilities', facilities);
+      };
+
       return TranslatedRoomFacilitiesView;
 
-    })(Marionette.CollectionView);
+    })(Marionette.CompositeView);
   });
 });

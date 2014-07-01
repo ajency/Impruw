@@ -76,12 +76,14 @@ function get_language_based_facilities($language){
     $taxonomy_name = "impruw_room_facility";
     $element_type = 'tax_'.$taxonomy_name;
 
-    remove_all_filters( 'get_terms' ); 
+    remove_all_filters( 'get_term' ); 
     $terms = get_terms($taxonomy_name,array(
-        'hide_empty' => 0
+        'hide_empty' => false
     ) );
      
-    if ( !empty( $terms ) && !is_wp_error( $terms ) ){
+    if (!is_wp_error( $terms ) ){
+
+        //$facilities_term_array = json_encode($terms);
          
          foreach ( $terms as $term ) {
             $original_term_id = (int)$term->term_id;
@@ -111,6 +113,10 @@ function get_language_based_facilities($language){
             }
            
          }
+    }
+
+    else{
+        $facilities_term_array =  "get terms fails";
     }
 
      return $facilities_term_array;

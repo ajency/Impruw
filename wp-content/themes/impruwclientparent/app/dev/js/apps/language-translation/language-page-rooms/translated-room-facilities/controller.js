@@ -15,6 +15,7 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
         editLang = opts.editLang;
         this.translatedFacilityCollection = translatedFacilityCollection = App.request("get:edited:language:facilities", editLang);
         this.translatedFacilitiesView = this._getTranslatedFacilitiesView(translatedFacilityCollection);
+        this.listenTo(this.translatedFacilitiesView, "update:translated:facilities", this.updateTranslatedFacilities);
         return this.show(this.translatedFacilitiesView, {
           loading: true
         });
@@ -24,6 +25,19 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
         return new TranslatedRoomFacilities.Views.TranslatedRoomFacilitiesView({
           collection: collection
         });
+      };
+
+      Controller.prototype.updateTranslatedFacilities = function(translatedFacilityTerms) {
+        var data, responseFn;
+        data = {
+          translatedFacilityTerms: translatedFacilityTerms
+        };
+        responseFn = (function(_this) {
+          return function(response) {
+            return console.log("Success");
+          };
+        })(this);
+        return $.post("" + AJAXURL + "?action=update-translated-facilities", data, responseFn, 'json');
       };
 
       return Controller;

@@ -14,6 +14,8 @@ define ['app', 'controllers/base-controller'
 
                 @translatedFacilitiesView = @_getTranslatedFacilitiesView translatedFacilityCollection
 
+                @listenTo @translatedFacilitiesView, "update:translated:facilities", @updateTranslatedFacilities
+
                 #function to load view
                 @show @translatedFacilitiesView,
                     loading: true
@@ -21,6 +23,15 @@ define ['app', 'controllers/base-controller'
             _getTranslatedFacilitiesView : (collection)->
                 new TranslatedRoomFacilities.Views.TranslatedRoomFacilitiesView
                     collection: collection
+
+            updateTranslatedFacilities: (translatedFacilityTerms)->
+                data = {translatedFacilityTerms: translatedFacilityTerms}
+
+                responseFn = (response)=>
+                    console.log "Success"
+
+                # update enabled languages
+                $.post "#{AJAXURL}?action=update-translated-facilities", data, responseFn, 'json'            
 
         App.commands.setHandler "translated:room:facilities:app", (opts) ->
             new TranslatedRoomFacilities.Controller opts

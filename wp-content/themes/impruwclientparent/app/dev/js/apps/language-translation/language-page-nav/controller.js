@@ -15,6 +15,7 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
         language = opts.language;
         this.editingLanguage = language;
         this.collection = collection = App.request("get:language:pages", language);
+        console.log("Collection of all pages ", collection);
         this.languagePageNavView = this._getPageNavView(this.collection);
         this.listenTo(this.languagePageNavView, "itemview:page:room:content", this.loadLanguagePageRoomContent);
         return this.show(this.languagePageNavView, {

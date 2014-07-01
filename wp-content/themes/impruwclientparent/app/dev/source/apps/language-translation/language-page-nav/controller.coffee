@@ -12,6 +12,7 @@ define ['app', 'controllers/base-controller'
 
                 #get page collection
                 @collection = collection = App.request "get:language:pages", language
+                console.log "Collection of all pages ",collection
 
                 @languagePageNavView = @_getPageNavView @collection
 
