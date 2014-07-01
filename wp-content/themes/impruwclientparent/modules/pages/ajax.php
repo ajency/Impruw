@@ -85,10 +85,10 @@ function auto_save() {
     $page_id = $_REQUEST[ 'page_id' ];
 
     $header_json = $_REQUEST[ 'header-json' ];
-    update_header_json( $header_json );
+    update_header_json( $header_json , true );
 
     $footer_json = $_REQUEST[ 'footer-json' ];
-    update_footer_json( $footer_json );
+    update_footer_json( $footer_json, true );
 
     $page_json_string = $_REQUEST[ 'page-content-json' ];
     $page_json        = convert_json_to_array( $page_json_string );

@@ -162,7 +162,7 @@ define(['app', 'moment'], function(App, moment) {
           };
         })(this));
         this.collection = tariffCollection;
-        return this.listenTo(this.collection, "remove", this.render);
+        return this.listenTo(this.collection, "remove add", this.render);
       };
 
       DateRageView.prototype.render = function() {

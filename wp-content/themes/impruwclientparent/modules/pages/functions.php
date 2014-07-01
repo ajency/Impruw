@@ -160,16 +160,26 @@ function get_autosave_post_id( $page_id ) {
     return $autosave_post_id;
 }
 
-function update_header_json( $header_json ) {
+function update_header_json( $header_json, $autosave = false ) {
 
     $header_json = convert_json_to_array( $header_json );
-    update_option( "theme-header", $header_json );
+
+    $key = "theme-header";
+    if($autosave === true)
+        $key .= "-autosave";
+
+    update_option( $key, $header_json );
 }
 
-function update_footer_json( $footer_json ) {
+function update_footer_json( $footer_json, $autosave = false  ) {
 
     $footer_json = convert_json_to_array( $footer_json );
-    update_option( "theme-footer", $footer_json );
+
+    $key = "theme-footer";
+    if($autosave === true)
+        $key .= "-autosave";
+
+    update_option( $key, $footer_json );
 }
 
 /**
@@ -439,6 +449,11 @@ function get_page_content_json( $page_id, $autosave = FALSE ) {
 
     $json = array();
 
+    if(is_singular('impruw_room')){
+        $page = get_page_by_title('Single Room');
+        $page_id = $page->ID;
+    }
+
     if ( $autosave === TRUE )
         $json = get_autosave_post_json( $page_id );
     else
@@ -451,8 +466,17 @@ function get_autosave_post_json( $page_id ) {
 
     $autosave_post_id = get_autosave_post_id( $page_id );
 
-    $json = get_post_meta( $autosave_post_id, "page-json", TRUE );
+    global $wpdb;
 
+    $query = $wpdb->prepare("SELECT meta_value FROM {$wpdb->postmeta} WHERE post_id=%d
+                            AND meta_key=%s", $autosave_post_id, 'page-json');
+
+    $json = $wpdb->get_var($query);
+
+    $json = !is_null($json) ? maybe_unserialize($json) : array();
+
+    //$json = get_post_meta( $autosave_post_id, "page-json", TRUE );
+    // echo json_encode($query);die;
     return !is_array( $json ) ? array() : $json;
 }
 

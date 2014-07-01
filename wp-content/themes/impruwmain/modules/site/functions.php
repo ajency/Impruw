@@ -210,14 +210,14 @@ function create_additional_tables( $site_id ) {
 
     $wpdb->query( $query );
 
-    // date range table
-    $query = "CREATE TABLE IF NOT EXISTS {$wpdb->prefix}revisions(
-				id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-				page_id INT,
-				datetime DATETIME,
-				page_meta_id INT)";
-
-    $wpdb->query( $query );
+//    // date range table
+//    $query = "CREATE TABLE IF NOT EXISTS {$wpdb->prefix}revisions(
+//				id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+//				page_id INT,
+//				datetime DATETIME,
+//				page_meta_id INT)";
+//
+//    $wpdb->query( $query );
 
     restore_current_blog();
 }

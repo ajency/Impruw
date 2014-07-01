@@ -24,6 +24,7 @@ define(['app', 'text!apps/site-profile/edit/templates/mainview.html', 'text!apps
       MainView.prototype.serializeData = function() {
         var data;
         data = MainView.__super__.serializeData.call(this);
+        data.site_domain = data.site_domain.split('.').shift();
         if (data.logo_url === "") {
           data.logo_url = "http://placehold.it/100&text=" + _.polyglot.t('Logo');
         }
@@ -32,7 +33,6 @@ define(['app', 'text!apps/site-profile/edit/templates/mainview.html', 'text!apps
 
       MainView.prototype.onShow = function() {
         var m, w;
-        this.$el.scrollSections();
         this.$el.find('select').selectpicker();
         this.$el.find('*[data-spy="affix"]').affix();
         w = $('.aj-imp-right').width();

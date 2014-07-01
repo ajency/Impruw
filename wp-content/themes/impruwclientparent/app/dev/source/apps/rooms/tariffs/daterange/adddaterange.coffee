@@ -16,7 +16,7 @@ define ['app', 'controllers/base-controller',
                     loading: true
 
             dateRangeSaved: (dateRange)=>
-                #App.execute "add:daterange", dateRange
+                App.execute "add:daterange", dateRange
                 @dateRangeView.triggerMethod "saved:daterange"
                 App.vent.trigger "daterange:added"
 

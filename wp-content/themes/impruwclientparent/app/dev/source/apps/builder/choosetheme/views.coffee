@@ -48,7 +48,7 @@ define ['app'], (App)->
 							{{#ISTHEMESELECTED}}\n
 								<button class="btn btn-danger cancel-theme-switch">{{#polyglot}}Cancel{{/polyglot}}</button>\n
 							{{/ISTHEMESELECTED}}\n
-					<div class="aj-imp-block-list hidden">\n    <ul></ul>\n</div>'
+					<div class="aj-imp-block-list {{^ISTHEMESELECTED}}hidden{{/ISTHEMESELECTED}}">\n    <ul></ul>\n</div>'
 
 			events:
 				'click button.cancel-theme-switch' : ->

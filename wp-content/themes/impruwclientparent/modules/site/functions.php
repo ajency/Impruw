@@ -46,7 +46,7 @@ function get_site_domain( $site_id ) {
     $domain = '';
 
     if ( is_subdomain_install() )
-        $domain = $domain . '.' . preg_replace( '|^www\.|', '', $site->domain );
+        $domain = preg_replace( '|^www\.|', '', $site->domain );
     else
         $domain = $site->domain;
 
@@ -343,11 +343,23 @@ function clone_page( $clone_blog, $post_id, $name ) {
     $data = get_json_to_clone( 'page-json', $page->ID );
 
     restore_current_blog();
+
     $data = set_json_to_site( $data );
 
     store_unused_elements( $post_id );
     add_page_json( $post_id, $data );
+
+    delete_all_revisions($post_id);
     update_page_autosave( $post_id, $data );
+}
+
+function delete_all_revisions($post_id){
+    // all revisions and autosaves
+    $revisions = wp_get_post_revisions( $post_id, array( 'order' => 'ASC' ) );
+
+    for ( $i = 0; isset( $revisions[$i] ); $i++ ) {
+        wp_delete_post_revision( $revisions[ $i ]->ID );
+    }
 }
 
 /**
@@ -364,8 +376,10 @@ function clone_header_footer( $theme_site_id ) {
     restore_current_blog();
 
     $data = set_json_to_site( $header );
+    update_option( 'theme-header-autosave', $data );
     update_option( 'theme-header', $data );
     $data = set_json_to_site( $footer );
+    update_option( 'theme-footer-autosave', $data );
     update_option( 'theme-footer', $data );
 }
 
