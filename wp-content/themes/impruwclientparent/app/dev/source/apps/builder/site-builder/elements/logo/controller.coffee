@@ -28,8 +28,8 @@ define ['app', 'apps/builder/site-builder/elements/logo/views',
             renderElement: ()=>
                 @removeSpinner()
                 # get logo attachment
-                if @layout.model.get('image_id') isnt 0
-                    imageModel = App.request "get:media:by:id", @layout.model.get 'image_id'
+                if window.LOGOID isnt 0
+                    imageModel = App.request "get:media:by:id", window.LOGOID
                 else
                     imageModel = new Backbone.Model
 
