@@ -54,11 +54,10 @@ define(['app', 'plupload', 'text!apps/media/upload/templates/upload.html'], func
         })(this));
         return this.uploader.bind("FileUploaded", (function(_this) {
           return function(up, file, response) {
-            _this.$el.find(".progress-bar").css("width", "0%");
-            _this.$el.find("#progress").hide();
             response = JSON.parse(response.response);
-            if (response.success) {
-              return App.execute("new:media:added", response.data);
+            if (up.total.queued === 0) {
+              App.execute("new:media:added", response.data);
+              return _this.$el.find("#progress").hide();
             }
           };
         })(this));
