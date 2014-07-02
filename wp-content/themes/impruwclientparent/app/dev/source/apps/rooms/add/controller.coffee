@@ -13,6 +13,7 @@ define [ 'app', 'controllers/base-controller'
 
             @slidesCollection = App.request "get:slides:collection"
 
+
             @listenTo layout, "show", =>
                App.execute "show:facilities",
                   region : layout.facilitiesRegion
@@ -29,11 +30,6 @@ define [ 'app', 'controllers/base-controller'
                App.execute "show:booking:app",
                   region : layout.roomBookingRegion
                   roomId : @roomModel.get 'ID'
-
-               App.vent.on "daterange:added daterange:removed daterange:updated", =>
-                  App.execute "show:booking:app",
-                        region : layout.roomBookingRegion
-                        roomId : @roomModel.get 'ID'
 
             @listenTo @layout, "show:edit:slider", =>
                App.execute "show:slides:list",
