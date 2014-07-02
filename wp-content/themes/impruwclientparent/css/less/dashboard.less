@@ -484,6 +484,10 @@ form {
 			&.dd-label {
 				bottom: 10px;
 			}
+			&.label-head {
+				color: darken(@dash-grey, 20%);
+				text-transform: uppercase;
+			}
 			@media (max-width: 767px) { 
 				position: static;
 			}
@@ -3544,26 +3548,27 @@ form {
 			}
 		}
 	}
-	.aj-imp-dash-widget {
-		.nav-pills {
-			li {
+	.nav-pills {
+		li {
+			a {
+				background: transparent;
+				border-radius: 0;
+				border: none;
+				border-bottom: 2px solid transparent;
+				color: @blue-grey;
+			}
+			&:hover, &:focus {
 				a {
-					background: transparent;
-					border-radius: 0;
-					border: none;
-					border-bottom: 2px solid transparent;
-					color: @blue-grey;
+					border-color: @blue-grey;
+					text-shadow: none;
 				}
-				&:hover, :focus {
-					a {
-						border-color: @blue-grey;
-						text-shadow: none;
-					}
-				}
-				&.active {
-					a {
-						color: @orange;
-						border-color: @orange;
+			}
+			&.active {
+				a {
+					color: @orange;
+					border-color: @orange;
+					&:hover, &:focus {
+						background: transparent;
 					}
 				}
 			}
@@ -3604,11 +3609,92 @@ form {
 		.margin-top {
 			margin-top: 2em;
 		}
+		.dark {
+			border-color: @dash-grey;
+			border-style: dotted;
+		}
 	}
 	.aj-imp-long-form-actions {
 		&.affix {
 			.action {
 				margin-right: -1em !important;
+			}
+		}
+	}
+}
+
+.language {
+	.pick-language-container {
+		margin: 0 0 2em;
+		color: @dash-grey;
+		border-bottom: 1px dotted @dash-grey;
+		.default-lang {
+			font-size: 1.5em;
+			font-weight: 300;
+			span {
+				color: @3-grey;
+			}
+		}
+		.pick-languages {
+			margin: 1em 0;
+			h6 {
+				font-size: 1.1em;
+				font-weight: 300;
+			}
+			.selected-languages {
+				margin: 1em 0;
+				.single-language {
+					margin: 0 0.5% 0.5em 0;
+					padding: 0.5%;
+					width: 24%;
+					float: left;
+					font-size: 1.2em;
+					.icon {
+						font-size: 1.1em;
+						position: relative;
+						top: 0.11em;
+						&.icon-checkmark {
+							color: @success-green;
+						}
+						&.icon-notice {
+							color: lighten(@orange, 20%);
+						}
+						&.icon-cancel {
+							color: @red;
+						}
+					}
+				}
+			}
+			#all-languages {
+				padding: 0.5em;
+				margin: 0.5em 0;
+				border: 1px solid @preview-grey;
+			}
+			.languages {
+				list-style: none;
+				padding: 0;
+				li {
+					padding: 0.5em;
+					width: 28%;
+					float: left;
+					.form-group {
+						margin: 0;
+					}
+				}
+			}
+		}
+	}
+	.pick-room {
+		font-size: 1.2em;
+		margin: 0 0 1em;
+		padding: 0.5em;
+		border: 1px dotted @dash-grey;
+		.bootstrap-select {
+			font-size: 0.5em;
+			.btn {
+				&:hover, &:focus {
+					background: transparent;
+				}
 			}
 		}
 	}

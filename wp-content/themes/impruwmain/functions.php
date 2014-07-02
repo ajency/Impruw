@@ -2,7 +2,7 @@
     /*
       File Name: functions.php
       Description: This file has a list of the following functions used in the theme
-
+       //Test
       1)  impruw_register_email_init - function to create a new post type called emails
       2)  create_email_taxonomies_and_add_terms - function to create taxonomies under post type emails and also creates immediate, batch and marketing terms under email_type
       3)  change_administrator_role_name - Function to rename the Administrator role to Site Owner.
@@ -347,7 +347,9 @@
 
     function impruw_contact_form_sc($atts)
     {
-
+        $result = '';
+        $info = '';
+        $form_data = array();
         extract(shortcode_atts(array(// if you don't provide an e-mail address, the shortcode will pick the e-mail address of the admin:
             "email"         => get_bloginfo('admin_email'), "subject" => "", "label_name" => "Your Name", "label_email" => "Your E-mail Address", "label_subject" => "Subject", "label_message" => "Your Message", "label_submit" => "Submit", // the error message when at least one of the required fields are empty:
             "error_empty"   => "<div class='alert alert-error'>Please fill in all the required fields.</div>", // the error message when the e-mail address is not valid:

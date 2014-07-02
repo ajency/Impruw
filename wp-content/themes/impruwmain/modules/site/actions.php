@@ -24,6 +24,31 @@ function handle_site_deletion( $site_id, $drop ) {
     $wpdb->query( "DROP TABLE {$wpdb->prefix}tariffs" );
     $wpdb->query( "DROP TABLE {$wpdb->prefix}bookings" );
 
+    $wpml_table_names = array(
+        'icl_content_status',
+        'icl_core_status',
+        'icl_flags',
+        'icl_languages',
+        'icl_languages_translations',
+        'icl_locale_map',
+        'icl_message_status',
+        'icl_node',
+        'icl_reminders',
+        'icl_strings',
+        'icl_string_positions',
+        'icl_string_status',
+        'icl_string_translations',
+        'icl_translate',
+        'icl_translate_job',
+        'icl_translations',
+        'icl_translation_status'
+    );
+
+    foreach ( $wpml_table_names as $wpml_table_name ) {
+        $table_name = $wpdb->prefix . $wpml_table_name;
+        $wpdb->query( "DROP TABLE IF EXISTS $table_name" );
+    }
+
     restore_current_blog();
 
     return TRUE;
@@ -50,6 +75,9 @@ function is_page_with_login_required() {
 
 function get_user_dashboard_url() {
 
+    if ( is_current_user_impruw_manager() )
+        return admin_url();
+
     $user_id      = get_current_user_id();
     $primary_blog = get_user_meta( $user_id, "primary_blog", TRUE );
 
@@ -58,4 +86,14 @@ function get_user_dashboard_url() {
     $dashboard_url = $site_url . "/dashboard";
 
     return $dashboard_url;
+}
+
+function is_current_user_impruw_manager() {
+
+    $user = get_userdata( get_current_user_id() );
+
+    if ( !is_array( $user->roles ) )
+        $user->roles = array();
+
+    return in_array( 'impruw_manager', $user->roles );
 }

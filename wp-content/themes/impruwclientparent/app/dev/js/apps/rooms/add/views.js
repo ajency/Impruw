@@ -10,6 +10,8 @@ define(['app', 'text!apps/rooms/add/templates/add-room.html'], function(App, add
         return AddRoomLayout.__super__.constructor.apply(this, arguments);
       }
 
+      AddRoomLayout.prototype.added = false;
+
       AddRoomLayout.prototype.tagName = 'div';
 
       AddRoomLayout.prototype.className = 'add-room-container';
@@ -34,7 +36,6 @@ define(['app', 'text!apps/rooms/add/templates/add-room.html'], function(App, add
 
       AddRoomLayout.prototype.onShow = function() {
         var m, w;
-        this.$el.scrollSections();
         this.$el.find('*[data-spy="affix"]').affix();
         w = $('.aj-imp-right').width();
         this.$el.find('*[data-spy="affix"]').width(w);
@@ -43,12 +44,17 @@ define(['app', 'text!apps/rooms/add/templates/add-room.html'], function(App, add
       };
 
       AddRoomLayout.prototype.onShowSuccessMessage = function() {
+        var message;
         this.$el.find('.alert').remove();
-        this.$el.prepend("<div class=\"alert alert-success\">" + _.polyglot.t("New room added successfully") + "</div>");
-        this.$el.find('#btn_resetroom').click();
-        return $('html, body').animate({
+        message = _.polyglot.t("New room added successfully");
+        if (this.added === true) {
+          message = _.polyglot.t("Room updated successfully");
+        }
+        this.$el.prepend("<div class=\"alert alert-success\">" + message + "</div>");
+        $('html, body').animate({
           scrollTop: 0
         }, 1000);
+        return this.added = true;
       };
 
       AddRoomLayout.prototype.onSetSliderId = function(slider_id) {

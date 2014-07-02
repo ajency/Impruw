@@ -12,7 +12,7 @@ define ['app'], (App)->
             							<img src="{{imageurl}}" alt="{{title}}" class="{{alignclass}} img-responsive"/>
             						{{/image}}
             						{{#placeholder}}
-            							<div class="image-placeholder"><span class="bicon icon-uniF10E"></span>{{#polyglot}}Upload Image{{/polyglot}}</div>
+            							<div class="image-placeholder {{alignclass}}"><span class="bicon icon-uniF10E"></span>{{#polyglot}}Upload Image{{/polyglot}}</div>
             						{{/placeholder}}
             						<p class="editor"></p>
             						<div class="clearfix"></div>'

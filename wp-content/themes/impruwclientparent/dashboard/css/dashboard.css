@@ -485,6 +485,10 @@ form .form-group .control-label.label-75 {
 form .form-group .control-label.dd-label {
   bottom: 10px;
 }
+form .form-group .control-label.label-head {
+  color: #777777;
+  text-transform: uppercase;
+}
 @media (max-width: 767px) {
   form .form-group .control-label {
     position: static;
@@ -3521,25 +3525,31 @@ form .aj-imp-submit:hover {
   text-transform: uppercase;
   font-weight: 300;
 }
-.language .aj-imp-dash-widget .nav-pills li a,
-.billing-container .aj-imp-dash-widget .nav-pills li a {
+.language .nav-pills li a,
+.billing-container .nav-pills li a {
   background: transparent;
   border-radius: 0;
   border: none;
   border-bottom: 2px solid transparent;
   color: #849fb0;
 }
-.language .aj-imp-dash-widget .nav-pills li:hover a,
-.billing-container .aj-imp-dash-widget .nav-pills li:hover a,
-.language .aj-imp-dash-widget .nav-pills li :focus a,
-.billing-container .aj-imp-dash-widget .nav-pills li :focus a {
+.language .nav-pills li:hover a,
+.billing-container .nav-pills li:hover a,
+.language .nav-pills li:focus a,
+.billing-container .nav-pills li:focus a {
   border-color: #849fb0;
   text-shadow: none;
 }
-.language .aj-imp-dash-widget .nav-pills li.active a,
-.billing-container .aj-imp-dash-widget .nav-pills li.active a {
+.language .nav-pills li.active a,
+.billing-container .nav-pills li.active a {
   color: #ff7e00;
   border-color: #ff7e00;
+}
+.language .nav-pills li.active a:hover,
+.billing-container .nav-pills li.active a:hover,
+.language .nav-pills li.active a:focus,
+.billing-container .nav-pills li.active a:focus {
+  background: transparent;
 }
 .language .aj-imp-widget-content .tab-content,
 .billing-container .aj-imp-widget-content .tab-content {
@@ -3579,9 +3589,87 @@ form .aj-imp-submit:hover {
 .billing-container .form-horizontal .margin-top {
   margin-top: 2em;
 }
+.language .form-horizontal .dark,
+.billing-container .form-horizontal .dark {
+  border-color: #aaaaaa;
+  border-style: dotted;
+}
 .language .aj-imp-long-form-actions.affix .action,
 .billing-container .aj-imp-long-form-actions.affix .action {
   margin-right: -1em !important;
+}
+.language .pick-language-container {
+  margin: 0 0 2em;
+  color: #aaaaaa;
+  border-bottom: 1px dotted #aaaaaa;
+}
+.language .pick-language-container .default-lang {
+  font-size: 1.5em;
+  font-weight: 300;
+}
+.language .pick-language-container .default-lang span {
+  color: #333333;
+}
+.language .pick-language-container .pick-languages {
+  margin: 1em 0;
+}
+.language .pick-language-container .pick-languages h6 {
+  font-size: 1.1em;
+  font-weight: 300;
+}
+.language .pick-language-container .pick-languages .selected-languages {
+  margin: 1em 0;
+}
+.language .pick-language-container .pick-languages .selected-languages .single-language {
+  margin: 0 0.5% 0.5em 0;
+  padding: 0.5%;
+  width: 24%;
+  float: left;
+  font-size: 1.2em;
+}
+.language .pick-language-container .pick-languages .selected-languages .single-language .icon {
+  font-size: 1.1em;
+  position: relative;
+  top: 0.11em;
+}
+.language .pick-language-container .pick-languages .selected-languages .single-language .icon.icon-checkmark {
+  color: #2ecc71;
+}
+.language .pick-language-container .pick-languages .selected-languages .single-language .icon.icon-notice {
+  color: #ffb266;
+}
+.language .pick-language-container .pick-languages .selected-languages .single-language .icon.icon-cancel {
+  color: #f21515;
+}
+.language .pick-language-container .pick-languages #all-languages {
+  padding: 0.5em;
+  margin: 0.5em 0;
+  border: 1px solid #f3f3f3;
+}
+.language .pick-language-container .pick-languages .languages {
+  list-style: none;
+  padding: 0;
+}
+.language .pick-language-container .pick-languages .languages li {
+  padding: 0.5em;
+  width: 28%;
+  float: left;
+}
+.language .pick-language-container .pick-languages .languages li .form-group {
+  margin: 0;
+}
+.language .pick-room {
+  font-size: 1.2em;
+  margin: 0 0 1em;
+  padding: 0.5em;
+  border: 1px dotted #aaaaaa;
+}
+.language .pick-room .bootstrap-select {
+  font-size: 0.5em;
+}
+.language .pick-room .bootstrap-select .btn:hover,
+.language .pick-room .bootstrap-select .btn:focus {
+  background: transparent;
 }
 .billing-container .aj-imp-widget-head {
   margin-bottom: 1em;

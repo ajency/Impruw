@@ -1,10 +1,79 @@
 <div class="aj-imp-dash-content">
 	<header class="aj-imp-dash-header row">
 		<div class="aj-imp-dash-title col-sm-12">
-			<h2 class="aj-imp-page-head">{{#polyglot}}Languages{{/polyglot}} &amp; {{#polyglot}}Translation{{/polyglot}}</h2> 
+			<h2 class="aj-imp-page-head">{{#polyglot}}Languages{{/polyglot}} &amp; {{#polyglot}}Translations{{/polyglot}}</h2> 
 		</div>
 	</header>
 	<div class="language">
+		<div class="pick-language-container">
+			<div class="default-lang">
+				{{#polyglot}}Your default language is:{{/polyglot}} <span>English</span>
+			</div>
+			<div class="pick-languages">
+				<h6>Languages on my site:</h6>
+				<div class="selected-languages clearfix">
+					<div class="single-language" title="Translation Complete">
+						<span class="icon icon-checkmark"></span> Norwegian
+					</div>
+					<div class="single-language" title="Translation Complete">
+						<span class="icon icon-checkmark"></span> Danish
+					</div>
+					<div class="single-language" title="Translation Incomplete">
+						<span class="icon icon-notice"></span> German
+					</div>
+					<div class="single-language" title="No Translation">
+						<span class="icon icon-cancel"></span> Swedish
+					</div>
+				</div>
+				<button class="btn btn-xs add-more-langs aj-imp-orange-btn" data-toggle="collapse" data-target="#all-languages"><span class="glyphicon glyphicon-plus"></span>&nbsp;Add More Languages</button>
+				<form id="all-languages" class="form-horizontal collapse">
+					<ul class="languages clearfix">
+						<li>
+							<div class="form-group">
+								<label for="checkbox2" class="checkbox ">
+						            <input type="checkbox" data-toggle="checkbox"  name="new_feature_alert" value="" id="new_feature_alert">
+						            {{#polyglot}}Norwegian{{/polyglot}}
+						        </label>
+						    </div>
+						</li>
+						<li>
+							<div class="form-group">
+								<label for="checkbox2" class="checkbox ">
+						            <input type="checkbox" data-toggle="checkbox"  name="new_feature_alert" value="" id="new_feature_alert">
+						            {{#polyglot}}Norwegian{{/polyglot}}
+						        </label>
+						    </div>
+						</li>
+						<li>
+							<div class="form-group">
+								<label for="checkbox2" class="checkbox ">
+						            <input type="checkbox" data-toggle="checkbox"  name="new_feature_alert" value="" id="new_feature_alert">
+						            {{#polyglot}}Norwegian{{/polyglot}}
+						        </label>
+						    </div>
+						</li>
+						<li>
+							<div class="form-group">
+								<label for="checkbox2" class="checkbox ">
+						            <input type="checkbox" data-toggle="checkbox"  name="new_feature_alert" value="" id="new_feature_alert">
+						            {{#polyglot}}Norwegian{{/polyglot}}
+						        </label>
+						    </div>
+						</li>
+						<li>
+							<div class="form-group">
+								<label for="checkbox2" class="checkbox ">
+						            <input type="checkbox" data-toggle="checkbox"  name="new_feature_alert" value="" id="new_feature_alert">
+						            {{#polyglot}}Norwegian{{/polyglot}}
+						        </label>
+						    </div>
+						</li>
+					</ul>
+					<hr>
+					<button class="btn btn-xs cancel-more-langs" data-toggle="collapse" data-target="#all-languages">Cancel</button>
+				</form>
+			</div>
+		</div>
 		<div class="aj-imp-dash-widget">
 			<h5 class="aj-imp-sub-head-thin">
 				{{#polyglot}}Editing Language{{/polyglot}} &nbsp;
@@ -349,6 +418,15 @@
 								<div class="tab-pane" id="rooms">
 									<h6 class="aj-imp-sub-head">{{#polyglot}}Room Translations{{/polyglot}}</h6>
 									
+									<div class="pick-room">
+										Pick a Room: 
+										<select>
+											<option>Standard Room</option>
+											<option>Executive Room</option>
+											<option>Deluxe Room</option>
+										</select>
+									</div>
+
 									<div class="form-group dual legend-group">
 					                    <div class="col-sm-7">
 					                        <div class="form-group">
@@ -371,7 +449,7 @@
 					                <div class="form-group dual">
 					                    <div class="col-sm-7">
 					                        <div class="form-group">
-					                            <label class="col-sm-3 control-label" for="">{{#polyglot}}Room #1 Name{{/polyglot}}</label>
+					                            <label class="col-sm-3 control-label" for="">{{#polyglot}}Room Name{{/polyglot}}</label>
 					                            <div class="col-sm-9 col-sm-offset-3">
 					                                <p class="original">
 					                                	{{#polyglot}}Standard Room{{/polyglot}}
@@ -392,7 +470,7 @@
 					                <div class="form-group dual">
 					                    <div class="col-sm-7">
 					                        <div class="form-group">
-					                            <label class="col-sm-3 control-label" for="">{{#polyglot}}Room #1 Description{{/polyglot}}</label>
+					                            <label class="col-sm-3 control-label" for="">{{#polyglot}}Room Description{{/polyglot}}</label>
 					                            <div class="col-sm-9 col-sm-offset-3">
 					                                <p class="original">
 					                                	{{#polyglot}}Lorem Ipsum{{/polyglot}} 
@@ -410,54 +488,12 @@
 					                    </div>
 					                </div>
 
-					                <div class="form-group dual">
-					                    <div class="col-sm-7">
-					                        <div class="form-group">
-					                            <label class="col-sm-3 control-label" for="">{{#polyglot}}Room #2 Name{{/polyglot}}</label>
-					                            <div class="col-sm-9 col-sm-offset-3">
-					                                <p class="original">
-					                                	{{#polyglot}}Executive Room{{/polyglot}}
-					                                </p>
-					                            </div>
-					                        </div>
-					                    </div>
-
-					                    <div class="col-sm-5">
-					                        <div class="form-group">
-					                            <div class="col-sm-12">
-					                                <input type="text" placeholder="{{#polyglot}}Add Translation{{/polyglot}}" id="" class="form-control">
-					                            </div>
-					                        </div>
-					                    </div>
-					                </div>
-
-					                <div class="form-group dual">
-					                    <div class="col-sm-7">
-					                        <div class="form-group">
-					                            <label class="col-sm-3 control-label" for="">{{#polyglot}}Room #2 Description{{/polyglot}}</label>
-					                            <div class="col-sm-9 col-sm-offset-3">
-					                                <p class="original">
-					                                	{{#polyglot}}Lorem Ipsum{{/polyglot}} 
-					                                </p>
-					                            </div>
-					                        </div>
-					                    </div>
-
-					                    <div class="col-sm-5">
-					                        <div class="form-group">
-					                            <div class="col-sm-12">
-					                                <textarea type="text" placeholder="{{#polyglot}}Add Translation{{/polyglot}}" id="" class="form-control"></textarea>
-					                            </div>
-					                        </div>
-					                    </div>
-					                </div>
-
-									<h6 class="aj-imp-sub-head">{{#polyglot}}Room Elements{{/polyglot}}</h6>
+									<h6 class="aj-imp-sub-head">{{#polyglot}}Common Room Elements{{/polyglot}}</h6>
 									
 					                <div class="form-group dual">
 					                    <div class="col-sm-7">
 					                        <div class="form-group">
-					                            <label class="col-sm-3 control-label" for="">{{#polyglot}}Facility #1{{/polyglot}}</label>
+					                            <label class="col-sm-3 control-label label-head" for="">{{#polyglot}}Facilities{{/polyglot}}</label>
 					                            <div class="col-sm-9 col-sm-offset-3">
 					                                <p class="original">
 					                                	{{#polyglot}}Television{{/polyglot}}
@@ -478,7 +514,7 @@
 					                <div class="form-group dual">
 					                    <div class="col-sm-7">
 					                        <div class="form-group">
-					                            <label class="col-sm-3 control-label" for="">{{#polyglot}}Facility #2{{/polyglot}}</label>
+					                            <label class="col-sm-3 control-label" for=""></label>
 					                            <div class="col-sm-9 col-sm-offset-3">
 					                                <p class="original">
 					                                	{{#polyglot}}Room Service{{/polyglot}}
@@ -496,10 +532,12 @@
 					                    </div>
 					                </div>
 
+					                <hr class="dark">
+
 					                <div class="form-group dual">
 					                    <div class="col-sm-7">
 					                        <div class="form-group">
-					                            <label class="col-sm-3 control-label" for="">{{#polyglot}}Date Range #1{{/polyglot}}</label>
+					                            <label class="col-sm-3 control-label label-head" for="">{{#polyglot}}Date Ranges{{/polyglot}}</label>
 					                            <div class="col-sm-9 col-sm-offset-3">
 					                                <p class="original">
 					                                	{{#polyglot}}Summer Season{{/polyglot}}
@@ -520,7 +558,7 @@
 					                <div class="form-group dual">
 					                    <div class="col-sm-7">
 					                        <div class="form-group">
-					                            <label class="col-sm-3 control-label" for="">{{#polyglot}}Date Range #2{{/polyglot}}</label>
+					                            <label class="col-sm-3 control-label label-head" for=""></label>
 					                            <div class="col-sm-9 col-sm-offset-3">
 					                                <p class="original">
 					                                	{{#polyglot}}Winter Season{{/polyglot}}
@@ -538,13 +576,36 @@
 					                    </div>
 					                </div>
 
+					                <hr class="dark">
+
 					                <div class="form-group dual">
 					                    <div class="col-sm-7">
 					                        <div class="form-group">
-					                            <label class="col-sm-3 control-label" for="">{{#polyglot}}Plan #1{{/polyglot}}</label>
+					                            <label class="col-sm-3 control-label label-head" for="">{{#polyglot}}Plans{{/polyglot}}</label>
 					                            <div class="col-sm-9 col-sm-offset-3">
 					                                <p class="original">
 					                                	{{#polyglot}}Backpackers Plan{{/polyglot}}
+					                                </p>
+					                            </div>
+					                        </div>
+					                    </div>
+
+					                    <div class="col-sm-5">
+					                        <div class="form-group">
+					                            <div class="col-sm-12">
+					                                <input type="text" placeholder="{{#polyglot}}Add Translation{{/polyglot}}" id="" class="form-control">
+					                            </div>
+					                        </div>
+					                    </div>
+					                </div>
+
+					                <div class="form-group dual">
+					                    <div class="col-sm-7">
+					                        <div class="form-group">
+					                            <label class="col-sm-3 control-label" for=""></label>
+					                            <div class="col-sm-9 col-sm-offset-3">
+					                                <p class="original">
+					                                	{{#polyglot}}Seniors Plan{{/polyglot}}
 					                                </p>
 					                            </div>
 					                        </div>

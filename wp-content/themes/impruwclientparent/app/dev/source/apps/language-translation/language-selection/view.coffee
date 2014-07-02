@@ -1,0 +1,100 @@
+define ['app'
+        'text!apps/language-translation/language-selection/templates/languageselectionview.html'], (App, languageselectionviewTpl)->
+
+            App.module 'LanguageApp.LanguageSelection.Views', (Views, App, Backbone, Marionette, $, _)->
+
+                class LanguageItemView extends Marionette.ItemView
+
+                    tagName: "li"
+
+                    template : '<div class="form-group">
+                                    <label for="checkbox2" class="checkbox {{#isDefaultLanguage}}disabled checked{{/isDefaultLanguage}} ">
+                                        <input type="checkbox" data-toggle="checkbox" {{#selectStatus}}checked{{/selectStatus}} value="{{code}}" {{#isDefaultLanguage}}disabled{{/isDefaultLanguage}}>{{languageName}}
+                                    </label>
+                                </div> '
+
+                    events:
+                        "change input[type='checkbox']" : "saveLanguage"
+
+                    onShow: ->
+                        @$el.find('input[type="checkbox"]').checkbox()
+
+
+                    saveLanguage: (evt)->
+                        @trigger "language:updated", $(evt.target)
+                
+                class Views.LanguageSelectionView extends Marionette.CompositeView
+
+                    template : languageselectionviewTpl
+
+                    itemView: LanguageItemView
+
+                    itemViewContainer: '.languages.clearfix'
+
+                    events:
+                        'click #btn_update-enabled-languages': 'setEnabledLanguages'
+
+                    onShow: ->
+                        @selectedLang = selectedLang = App.request "get:selected:languages"
+
+                        @loadLanguageDropdown()
+
+                        @viewEnabledLanguages()
+
+                    setEnabledLanguages: (e)->
+                        e.preventDefault()
+
+                        arr = @$el.find("ul.languages input[type='checkbox']")
+                        selectedlanguage = new Array()
+                        jQuery.each arr, ->
+                          selectedlanguage.push @value  if @checked
+                          return
+
+                        selectedlanguage = selectedlanguage.join(",")
+
+                        @trigger 'update:enabled:languages', selectedlanguage
+
+                    onSelectedLanguagesEnabled: (collection)->
+                            htmlString = ""
+
+                            $('select.js-enabled-languages').empty()
+                            collection.each (m) ->
+                              languageCode =  m.get("code")
+                              languageName =  m.get("languageName")
+                              $("select.js-enabled-languages").append( "<option value = "+languageCode+">"+languageName+"</option>")
+                              htmlString += '<div class="single-language"> <span class="icon icon-checkmark"></span> '+languageName+' </div>'
+                              return
+                            @$el.find(".selected-languages").html(htmlString)
+                            @$el.find('select').selectpicker('refresh')
+
+
+                            @$el.find('.alert').remove()
+                            @$el.prepend('<div class="alert alert-success">'+_.polyglot.t("Available languages updated")+'</div>')
+                            # @$el.find('.alert').fadeOut 5000
+
+                    viewEnabledLanguages: ->
+                        htmlString = ""
+                        @selectedLang.each (m) ->
+                              languageCode =  m.get("code")
+                              languageName =  m.get("languageName")
+                              htmlString += '<div class="single-language"> <span class="icon icon-checkmark"></span> '+languageName+' </div>'
+                         @$el.find(".selected-languages").html(htmlString)
+
+                    loadLanguageDropdown: ->
+                          @selectedLang.each (m) ->
+                                languageCode =  m.get("code")
+                                languageName =  m.get("languageName")
+                                $("select.js-enabled-languages").append( "<option value = "+languageCode+">"+languageName+"</option>")
+                                return
+
+                          @$el.find('select').selectpicker()
+                            
+                              
+
+
+
+                            
+                                
+                                
+                  
+                    

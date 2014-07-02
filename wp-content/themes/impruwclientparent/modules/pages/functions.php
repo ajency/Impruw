@@ -98,13 +98,13 @@ function update_autosave_page_json( $autosave_post_id, $page_json ) {
  */
 function insert_autosave_page_json( $autosave_post_id, $page_json ) {
 
-    // serialize the json
-    $json = maybe_serialize( $page_json );
+    if ( is_array( $page_json ) )
+        $page_json = maybe_serialize( $page_json );
 
     global $wpdb;
 
-    $wpdb->insert( $wpdb->postmeta, array( 'meta_key' => 'page-json', 'meta_value' => $json,
-                                           'post_id' => $autosave_post_id ) );
+    $wpdb->insert( $wpdb->postmeta, array( 'meta_key' => 'page-json', 'meta_value' => $page_json,
+                                           'post_id'  => $autosave_post_id ) );
 
     $wpdb->insert_id;
 }
@@ -116,12 +116,15 @@ function insert_autosave_page_json( $autosave_post_id, $page_json ) {
 function update_autosave_page_json_db( $meta_id, $page_json ) {
 
     // serialize the json
-    $json = maybe_serialize( $page_json );
+    if ( is_array( $page_json ) )
+        $page_json = maybe_serialize( $page_json );
 
     global $wpdb;
 
-    $wpdb->update( $wpdb->postmeta, array( 'meta_key' => 'page-json', 'meta_value' => $json ),
-                                    array( 'meta_id' => $meta_id ) );
+    $wpdb->update( $wpdb->postmeta, array( 'meta_key' => 'page-json',
+                                           'meta_value' => $page_json ),
+                                    array( 'meta_id' => $meta_id )
+                );
 }
 
 /**
@@ -134,7 +137,7 @@ function check_json_is_present( $autosave_post_id ) {
     global $wpdb;
 
     $query = $wpdb->prepare( "SELECT meta_id from {$wpdb->postmeta} WHERE post_id=%d AND meta_key=%s",
-                              $autosave_post_id, 'page-json' );
+        $autosave_post_id, 'page-json' );
 
     $meta_id = $wpdb->get_var( $query );
 
@@ -160,16 +163,27 @@ function get_autosave_post_id( $page_id ) {
     return $autosave_post_id;
 }
 
-function update_header_json( $header_json ) {
+function update_header_json( $header_json, $autosave = FALSE ) {
 
     $header_json = convert_json_to_array( $header_json );
-    update_option( "theme-header", $header_json );
+
+    $key = "theme-header";
+    if ( $autosave === TRUE )
+        $key .= "-autosave";
+
+    update_option( $key, $header_json );
+
 }
 
-function update_footer_json( $footer_json ) {
+function update_footer_json( $footer_json, $autosave = FALSE ) {
 
     $footer_json = convert_json_to_array( $footer_json );
-    update_option( "theme-footer", $footer_json );
+
+    $key = "theme-footer";
+    if ( $autosave === TRUE )
+        $key .= "-autosave";
+
+    update_option( $key, $footer_json );
 }
 
 /**
@@ -417,7 +431,7 @@ function create_new_element( &$ele ) {
 
     $serialized_element = maybe_serialize( $ele );
 
-    $wpdb->insert( $wpdb->postmeta, array( 'post_id' => 0, 'meta_value' => $serialized_element,
+    $wpdb->insert( $wpdb->postmeta, array( 'post_id'  => 0, 'meta_value' => $serialized_element,
                                            'meta_key' => $ele[ 'element' ] ) );
 
     return array( 'meta_id' => $wpdb->insert_id, 'element' => $ele[ 'element' ] );
@@ -439,6 +453,11 @@ function get_page_content_json( $page_id, $autosave = FALSE ) {
 
     $json = array();
 
+    if ( is_singular( 'impruw_room' ) ) {
+        $page    = get_page_by_title( 'Single Room' );
+        $page_id = $page->ID;
+    }
+
     if ( $autosave === TRUE )
         $json = get_autosave_post_json( $page_id );
     else
@@ -451,8 +470,17 @@ function get_autosave_post_json( $page_id ) {
 
     $autosave_post_id = get_autosave_post_id( $page_id );
 
-    $json = get_post_meta( $autosave_post_id, "page-json", TRUE );
+    global $wpdb;
 
+    $query = $wpdb->prepare( "SELECT meta_value FROM {$wpdb->postmeta} WHERE post_id=%d
+                            AND meta_key=%s", $autosave_post_id, 'page-json' );
+
+    $json = $wpdb->get_var( $query );
+
+    $json = !is_null( $json ) ? maybe_unserialize( $json ) : array();
+
+    //$json = get_post_meta( $autosave_post_id, "page-json", TRUE );
+    // echo json_encode($query);die;
     return !is_array( $json ) ? array() : $json;
 }
 

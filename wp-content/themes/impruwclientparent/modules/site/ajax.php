@@ -11,9 +11,9 @@ function read_site_ajax() {
     $site_id = get_current_blog_id();
 
     $data = get_site_details( $site_id );
-    $data [ 'checkin_time' ] = get_option( 'checkin-time' );
-    $data [ 'checkin_time_format' ] = get_option( 'checkin-time-format' );
-    $data [ 'additional_policy' ] = get_option( 'additional-policy' );
+    $data [ 'checkin_time' ] = get_option( 'checkin-time', '' );
+    $data [ 'checkin_time_format' ] = get_option( 'checkin-time-format', '' );
+    $data [ 'additional_policy' ] = get_option( 'additional-policy', '' );
     $data [ 'statistics_enabled' ] = get_option( 'statistics_enabled' );
     $data [ 'piwik_path' ] = PIWIK_PATH;
     $data [ 'piwik_token' ] = PIWIK_AUTH_TOKEN;
@@ -42,6 +42,24 @@ function assign_theme_to_site_ajax() {
 }
 
 add_action( 'wp_ajax_assign-theme-to-site', 'assign_theme_to_site_ajax' );
+
+
+/**
+ * Function to change default language at the time of theme selection in site builder
+ */
+function choose_site_language_ajax() {
+    global $sitepress;
+
+    $chosen_site_language = $_REQUEST['site_language'];
+
+    $default_language = get_language_code($chosen_site_language);
+
+    $sitepress->set_default_language($default_language);
+
+    wp_send_json( array( 'code' => 'OK' , 'language' => $chosen_site_language));
+}
+
+add_action('wp_ajax_choose-site-language', 'choose_site_language_ajax');
 
 /**
  * Function to add site profile details

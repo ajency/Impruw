@@ -224,6 +224,11 @@ a {
 			color: lighten(@3-grey, 20%);
 			font-weight: 700;
 			font-size: 0.8em;
+			.bicon {
+				font-size: 1.3em;
+				position: relative;
+				top: 0.26em;
+			}
 			&:hover {
 				color: @orange;
 			}
@@ -2261,6 +2266,38 @@ a {
 				&:after {
 					right: 0;
 				}
+			}
+		}
+	}
+	.default-language-selection {
+		margin: 3em auto 1em;
+		width: 80%;
+		padding: 1em;
+		border: 1px dotted @dash-grey;
+		text-align: center;
+		.lang-title {
+			font-size: 1.5em;
+			text-transform: uppercase;
+			font-weight: 300;
+			color: @blue-grey;
+			margin-bottom: 1em;
+		}
+		.select-site-language {
+			margin-right: 1em;
+			text-align: left;
+			a {
+				&:focus {
+					background: @orange;
+				}
+			}
+		}
+		.choose-site-language {
+			.aj-imp-orange-btn;
+			margin-bottom: 10px;
+			.bicon {
+				font-size: 1.2em;
+				position: relative;
+				top: 2px;
 			}
 		}
 	}
