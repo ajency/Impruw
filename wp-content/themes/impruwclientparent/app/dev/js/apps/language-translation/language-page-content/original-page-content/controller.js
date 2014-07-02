@@ -15,15 +15,17 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
         this.pageId = opts.pageId;
         this.editLang = opts.editLang;
         this.pageModel = pageModel = App.request("get:default:page", this.pageId);
-        this.originalContentView = this._getLanguageView(this.pageModel);
+        this.pageElementsCollection = App.request("get:page:elements", this.pageId);
+        this.originalContentView = this._getLanguageView(this.pageModel, this.pageElementsCollection);
         return this.show(this.originalContentView, {
           loading: true
         });
       };
 
-      Controller.prototype._getLanguageView = function(model) {
-        return new OriginalPage.Views.OriginalPageItemView({
-          model: model
+      Controller.prototype._getLanguageView = function(model, collection) {
+        return new OriginalPage.Views.OriginalPageView({
+          model: model,
+          collection: collection
         });
       };
 

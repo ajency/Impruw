@@ -165,3 +165,10 @@ function get_page_by_lang($page_id,$language){
     return $data;
 }
 
+
+function get_page_elements($page_id){
+
+    $data = get_page_content_json($page_id, true);
+    return $data;
+
+}

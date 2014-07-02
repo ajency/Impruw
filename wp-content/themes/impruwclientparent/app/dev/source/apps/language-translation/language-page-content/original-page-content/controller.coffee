@@ -12,15 +12,19 @@ define ['app', 'controllers/base-controller'
                 #get page collection
                 @pageModel = pageModel = App.request "get:default:page" , @pageId
 
-                @originalContentView = @_getLanguageView @pageModel
+                #get page element collection
+                @pageElementsCollection = App.request "get:page:elements" , @pageId
+
+                @originalContentView = @_getLanguageView @pageModel , @pageElementsCollection
 
                 #function to load view
                 @show @originalContentView,
                     loading: true
 
-            _getLanguageView :(model)->
-                new OriginalPage.Views.OriginalPageItemView
+            _getLanguageView :(model, collection)->
+                new OriginalPage.Views.OriginalPageView
                     model:model
+                    collection: collection
 
         App.commands.setHandler "original:page:content:app", (opts = {}) ->
             new OriginalPage.Controller opts

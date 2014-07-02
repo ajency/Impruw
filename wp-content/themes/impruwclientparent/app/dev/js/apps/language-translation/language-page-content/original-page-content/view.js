@@ -3,17 +3,38 @@ var __hasProp = {}.hasOwnProperty,
 
 define(['app', 'text!apps//language-translation/language-page-content/original-page-content/templates/originalpageview.html'], function(App, originalpageviewTpl) {
   return App.module('LanguageApp.LanguagePageContent.OriginalPage.Views', function(Views, App, Backbone, Marionette, $, _) {
-    return Views.OriginalPageItemView = (function(_super) {
+    var OriginalPageItemView;
+    OriginalPageItemView = (function(_super) {
       __extends(OriginalPageItemView, _super);
 
       function OriginalPageItemView() {
         return OriginalPageItemView.__super__.constructor.apply(this, arguments);
       }
 
-      OriginalPageItemView.prototype.template = originalpageviewTpl;
+      OriginalPageItemView.prototype.tagName = 'div';
+
+      OriginalPageItemView.prototype.className = '.form-group.legend-group';
+
+      OriginalPageItemView.prototype.template = '<div class="col-sm-12"> <div class="form-group"> <label class="col-sm-3 control-label" for="">{{elementName}}</label> <div class="col-sm-9 col-sm-offset-3"> <p class="original"> {{elementContent}} </p> </div> </div> </div>';
 
       return OriginalPageItemView;
 
     })(Marionette.ItemView);
+    return Views.OriginalPageView = (function(_super) {
+      __extends(OriginalPageView, _super);
+
+      function OriginalPageView() {
+        return OriginalPageView.__super__.constructor.apply(this, arguments);
+      }
+
+      OriginalPageView.prototype.template = originalpageviewTpl;
+
+      OriginalPageView.prototype.itemView = OriginalPageItemView;
+
+      OriginalPageView.prototype.itemViewContainer = '#translatable-page-elements';
+
+      return OriginalPageView;
+
+    })(Marionette.CompositeView);
   });
 });

@@ -13,4 +13,5 @@ define [
     'entities/booking'
     'entities/pages'
     'entities/language-facilities'
+    'entities/page-elements'
 ], ->
