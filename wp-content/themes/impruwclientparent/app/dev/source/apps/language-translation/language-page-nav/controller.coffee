@@ -30,8 +30,16 @@ define ['app', 'controllers/base-controller'
             loadLanguagePageRoomContent : ->
                 Marionette.triggerMethod.call @region, "load:page:room:content", @editingLanguage
 
-            loadLanguagePageContent : (collection, pageId) ->
-                Marionette.triggerMethod.call @region, "load:other:page:content", @editingLanguage, pageId
+            loadLanguagePageContent : (collection, originalPageId) ->
+                data =
+                    pageId: originalPageId
+                    language: @editingLanguage
+
+                responseFn = (response)=>
+                    pageId = response.data
+                    Marionette.triggerMethod.call @region, "load:other:page:content", @editingLanguage, pageId
+
+                $.post "#{AJAXURL}?action=get-language-page", data, responseFn, 'json'
 
 
         App.commands.setHandler "show:language:page:nav:app", (opts) ->

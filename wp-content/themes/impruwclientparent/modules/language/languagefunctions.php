@@ -100,3 +100,45 @@ function get_language_facilities($editingLang,$defaultLang){
 
 }
 
+function get_language_page($page_id, $language){
+    // Get the post ID based on language so that only pages of default language could be listed
+    $page_id_based_on_lang = icl_object_id( $page_id, 'page', false, $language);
+
+    if(is_null($page_id_based_on_lang)){
+        //duplicate page and return new id
+        $page_id_based_on_lang = duplicate_language_page($page_id,$language,"page");
+    }
+
+    return $page_id_based_on_lang;
+}
+
+function duplicate_language_page($page_id,$language,$post_type){
+
+    global $wpdb, $sitepress;
+    $tbl_icl_translations = $wpdb->prefix ."icl_translations";
+
+    $element_type = "post_".$post_type;
+
+    // Insert translated post
+    $page_translated_id = wp_insert_post(
+        array('post_title' => " ",
+            'post_type' => $post_type,
+            'post_status' => 'publish'));
+
+    // Get trid of original post
+    $trid = wpml_get_content_trid( 'post_' . $post_type, $page_id );
+
+    $lang_code_original = $sitepress->get_default_language();
+
+    // Associate original post and translated post
+    $updateQuery = $wpdb->update($tbl_icl_translations,
+        array(
+            'trid' => $trid,
+            'language_code' => $language,
+            'source_language_code' => $lang_code_original,
+            'element_type' => $element_type
+         ), array( 'element_id' => $page_translated_id ) );
+
+    return $page_translated_id;
+}
+

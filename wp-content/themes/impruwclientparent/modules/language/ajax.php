@@ -90,3 +90,15 @@ function fetch_language_facility_ajax(){
 }
 
 add_action( 'wp_ajax_fetch-language-facility', 'fetch_language_facility_ajax' );
+
+function get_language_page_ajax(){
+
+    $page_id = $_REQUEST['pageId'];
+    $language = $_REQUEST['language'];
+
+    $data = get_language_page($page_id,$language);
+
+    wp_send_json( array( 'code' => 'OK', 'data' => $data ) );
+
+}
+add_action( 'wp_ajax_get-language-page', 'get_language_page_ajax' );
