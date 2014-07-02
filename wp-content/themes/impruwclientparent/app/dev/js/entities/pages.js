@@ -44,10 +44,35 @@ define(["app", 'backbone'], function(App, Backbone) {
           }
         });
         return pages;
+      },
+      getPageByLanguage: function(pageId, pageLang) {
+        pageModel.fetch({
+          data: {
+            action: "get-page-by-language",
+            pageId: pageId,
+            pageLang: pageLang
+          }
+        });
+        return pageModel;
+      },
+      getDefaultPage: function(pageId) {
+        pageModel.fetch({
+          data: {
+            action: "get-page-by-language",
+            pageId: pageId
+          }
+        });
+        return pageModel;
       }
     };
-    return App.reqres.setHandler("get:language:pages", function(language) {
+    App.reqres.setHandler("get:language:pages", function(language) {
       return API.getPages(language);
+    });
+    App.reqres.setHandler("get:page:by:language", function(pageid, pageLang) {
+      return API.getPageByLanguage(pageid, pageLang);
+    });
+    return App.reqres.setHandler("get:default:page", function(pageid) {
+      return API.getDefaultPage(pageid);
     });
   });
 });

@@ -12,7 +12,6 @@ define ['app', 'controllers/base-controller'
 
                 #get page collection
                 @collection = collection = App.request "get:language:pages", language
-                console.log "Collection of all pages ",collection
 
                 @languagePageNavView = @_getPageNavView @collection
 
@@ -36,8 +35,9 @@ define ['app', 'controllers/base-controller'
                     language: @editingLanguage
 
                 responseFn = (response)=>
-                    pageId = response.data
-                    Marionette.triggerMethod.call @region, "load:other:page:content", @editingLanguage, pageId
+                    originalId = response.data.original_id
+                    pageId = response.data.translated_id
+                    Marionette.triggerMethod.call @region, "load:other:page:content", @editingLanguage, pageId, originalId
 
                 $.post "#{AJAXURL}?action=get-language-page", data, responseFn, 'json'
 

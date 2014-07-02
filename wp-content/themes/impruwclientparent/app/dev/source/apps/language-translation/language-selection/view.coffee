@@ -20,7 +20,6 @@ define ['app'
                 data
 
             onShow: ->
-                console.log "Show of selection view"
                 @$el.find('input[type="checkbox"]').checkbox()
 
 

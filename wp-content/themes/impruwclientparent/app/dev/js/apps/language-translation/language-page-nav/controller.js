@@ -15,7 +15,6 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
         language = opts.language;
         this.editingLanguage = language;
         this.collection = collection = App.request("get:language:pages", language);
-        console.log("Collection of all pages ", collection);
         this.languagePageNavView = this._getPageNavView(this.collection);
         this.listenTo(this.languagePageNavView, "itemview:page:room:content", this.loadLanguagePageRoomContent);
         this.listenTo(this.languagePageNavView, "itemview:page:content", this.loadLanguagePageContent);
@@ -42,9 +41,10 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
         };
         responseFn = (function(_this) {
           return function(response) {
-            var pageId;
-            pageId = response.data;
-            return Marionette.triggerMethod.call(_this.region, "load:other:page:content", _this.editingLanguage, pageId);
+            var originalId, pageId;
+            originalId = response.data.original_id;
+            pageId = response.data.translated_id;
+            return Marionette.triggerMethod.call(_this.region, "load:other:page:content", _this.editingLanguage, pageId, originalId);
           };
         })(this);
         return $.post("" + AJAXURL + "?action=get-language-page", data, responseFn, 'json');

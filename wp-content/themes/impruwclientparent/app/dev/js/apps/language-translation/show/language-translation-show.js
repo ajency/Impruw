@@ -49,11 +49,12 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/show/la
         });
       };
 
-      Controller.prototype._loadPageContent = function(editingLanguage, pageId) {
+      Controller.prototype._loadPageContent = function(editingLanguage, pageId, originalId) {
         return App.execute("show:language:page:content:app", {
           region: this.languageLayout.languagePageRooms,
           editLang: editingLanguage,
-          pageId: pageId
+          pageId: pageId,
+          originalId: originalId
         });
       };
 

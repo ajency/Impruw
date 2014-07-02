@@ -8,7 +8,6 @@ define ['app', 'controllers/base-controller'
             initialize: (opts)->
                 #rooom collection
                 @collection = collection = App.request "get:room:entities"
-                console.log "Collection of rooms",@collection
 
                 @ChooseRoomsView = @_getLanguageView collection
 

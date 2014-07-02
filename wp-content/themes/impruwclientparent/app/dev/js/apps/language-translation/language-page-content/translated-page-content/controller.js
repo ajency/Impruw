@@ -11,11 +11,10 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
       }
 
       Controller.prototype.initialize = function(opts) {
-        var editLang, pageModel;
-        editLang = opts.editLang;
-        this.editingLang = editLang;
-        this.pageModel = pageModel = App.request("get:room:entities");
-        console.log(this.pageModel);
+        var pageModel;
+        this.pageId = opts.pageId;
+        this.editLang = opts.editLang;
+        this.pageModel = pageModel = App.request("get:page:by:language", this.pageId, this.editLang);
         this.translatedContentView = this._getLanguageView(this.pageModel);
         return this.show(this.translatedContentView, {
           loading: true
@@ -32,6 +31,9 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
 
     })(AppController);
     return App.commands.setHandler("translated:page:content:app", function(opts) {
+      if (opts == null) {
+        opts = {};
+      }
       return new TranslatedPage.Controller(opts);
     });
   });

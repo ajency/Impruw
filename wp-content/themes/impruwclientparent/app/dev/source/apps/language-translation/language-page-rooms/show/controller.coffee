@@ -10,7 +10,6 @@ define ['app', 'controllers/base-controller'
 
             # initiliaze controller
             initialize: (opts)->
-                console.log "in rooms app"
                 {editLang} = opts
 
                 @editingLang = editLang

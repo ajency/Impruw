@@ -9,6 +9,7 @@ define ['app', 'controllers/base-controller'
             initialize: (opts)->
                 @pageId = opts.pageId
                 @editLang = opts.editLang
+                @originalId = opts.originalId
 
                 @languagePageContentLayout = @_getPageContentLayout()
 
@@ -24,7 +25,7 @@ define ['app', 'controllers/base-controller'
                     App.execute "original:page:content:app",
                         region: @languagePageContentLayout.originalPageContent,
                         editLang : @editLang
-                        pageId : @pageId
+                        pageId : @originalId
 
                     App.execute "translated:page:content:app",
                         region: @languagePageContentLayout.translatedPageContent,

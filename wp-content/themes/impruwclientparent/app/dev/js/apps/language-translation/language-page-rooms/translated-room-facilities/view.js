@@ -47,7 +47,6 @@ define(['app'], function(App) {
             id: $(this).attr("data-facility")
           });
         });
-        console.log(JSON.stringify(facilities));
         return this.trigger('update:translated:facilities', facilities);
       };
 

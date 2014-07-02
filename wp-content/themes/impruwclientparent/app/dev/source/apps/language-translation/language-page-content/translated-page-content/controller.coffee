@@ -6,12 +6,11 @@ define ['app', 'controllers/base-controller'
 
             # initiliaze controller
             initialize: (opts)->
-                {editLang} = opts
-                @editingLang = editLang
+                @pageId = opts.pageId
+                @editLang = opts.editLang
 
                 #get page collection
-                @pageModel = pageModel = App.request "get:room:entities"
-                console.log @pageModel
+                @pageModel = pageModel = App.request "get:page:by:language" , @pageId , @editLang
 
                 @translatedContentView = @_getLanguageView @pageModel
 
@@ -23,5 +22,5 @@ define ['app', 'controllers/base-controller'
                 new TranslatedPage.Views.TranslatedPageItemView
                     model:model
 
-        App.commands.setHandler "translated:page:content:app", (opts) ->
+        App.commands.setHandler "translated:page:content:app", (opts = {}) ->
             new TranslatedPage.Controller opts

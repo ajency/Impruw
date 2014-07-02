@@ -27,7 +27,6 @@ define(['app', 'text!apps/language-translation/language-selection/templates/lang
       };
 
       LanguageItemView.prototype.onShow = function() {
-        console.log("Show of selection view");
         return this.$el.find('input[type="checkbox"]').checkbox();
       };
 

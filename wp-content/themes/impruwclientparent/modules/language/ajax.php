@@ -102,3 +102,20 @@ function get_language_page_ajax(){
 
 }
 add_action( 'wp_ajax_get-language-page', 'get_language_page_ajax' );
+
+
+function get_page_by_language_ajax(){
+    $page_id = $_REQUEST['pageId'];
+
+    if(ISSET($_REQUEST['pageLang'])){
+        $language = $_REQUEST['pageLang'];
+    }
+    else{
+        $language = wpml_get_default_language();
+    }
+
+    $data = get_page_by_lang($page_id,$language);
+
+    wp_send_json( array( 'code' => 'OK', 'data' => $data ) );
+}
+add_action( 'wp_ajax_get-page-by-language', 'get_page_by_language_ajax' );

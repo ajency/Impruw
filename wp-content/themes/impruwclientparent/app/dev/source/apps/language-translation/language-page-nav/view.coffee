@@ -14,7 +14,6 @@ define ['app'], (App)->
                     	'click a#page' : 'loadPageContent'
 
                     loadRoomContent: (e) ->
-                        console.log "Clicked room"
                         @trigger "page:room:content"
 
                     loadPageContent: (e) ->

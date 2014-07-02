@@ -27,6 +27,27 @@ define ["app", 'backbone'], (App, Backbone) ->
                         language : language
                 pages
 
+            getPageByLanguage : (pageId, pageLang) ->
+                pageModel.fetch
+                    data:
+                        action: "get-page-by-language"
+                        pageId : pageId
+                        pageLang : pageLang
+                pageModel
+
+            getDefaultPage:(pageId) ->
+                pageModel.fetch
+                    data:
+                        action: "get-page-by-language"
+                        pageId : pageId
+                pageModel
+
 
         App.reqres.setHandler "get:language:pages", (language) ->
-            API.getPages(language)             	
+            API.getPages(language)
+
+        App.reqres.setHandler "get:page:by:language", (pageid, pageLang) ->
+            API.getPageByLanguage(pageid, pageLang)
+
+        App.reqres.setHandler "get:default:page", (pageid) ->
+            API.getDefaultPage(pageid)

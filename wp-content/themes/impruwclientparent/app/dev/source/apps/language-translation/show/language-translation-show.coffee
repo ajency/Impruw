@@ -34,11 +34,12 @@ define ['app', 'controllers/base-controller'
                     region: @languageLayout.languagePageRooms
                     editLang: editingLanguage
 
-            _loadPageContent: (editingLanguage, pageId)=>
+            _loadPageContent: (editingLanguage, pageId, originalId)=>
                 App.execute "show:language:page:content:app",
                     region: @languageLayout.languagePageRooms
                     editLang : editingLanguage
                     pageId : pageId
+                    originalId : originalId
 
 
 

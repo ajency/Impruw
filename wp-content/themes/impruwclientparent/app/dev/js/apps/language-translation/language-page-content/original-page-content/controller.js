@@ -14,9 +14,7 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
         var pageModel;
         this.pageId = opts.pageId;
         this.editLang = opts.editLang;
-        console.log("In page content app, editing page id = " + this.pageId);
-        this.pageModel = pageModel = App.request("get:room:entities");
-        console.log(this.pageModel);
+        this.pageModel = pageModel = App.request("get:default:page", this.pageId);
         this.originalContentView = this._getLanguageView(this.pageModel);
         return this.show(this.originalContentView, {
           loading: true

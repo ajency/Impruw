@@ -21,7 +21,6 @@ define(['app'], function(App) {
       };
 
       LanguagePageNavItemView.prototype.loadRoomContent = function(e) {
-        console.log("Clicked room");
         return this.trigger("page:room:content");
       };
 

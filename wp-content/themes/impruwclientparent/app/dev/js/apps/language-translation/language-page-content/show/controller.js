@@ -13,6 +13,7 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
       Controller.prototype.initialize = function(opts) {
         this.pageId = opts.pageId;
         this.editLang = opts.editLang;
+        this.originalId = opts.originalId;
         this.languagePageContentLayout = this._getPageContentLayout();
         $('.aj-imp-widget-content').show();
         this.show(this.languagePageContentLayout, {
@@ -23,7 +24,7 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
             App.execute("original:page:content:app", {
               region: _this.languagePageContentLayout.originalPageContent,
               editLang: _this.editLang,
-              pageId: _this.pageId
+              pageId: _this.originalId
             });
             return App.execute("translated:page:content:app", {
               region: _this.languagePageContentLayout.translatedPageContent,

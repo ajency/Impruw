@@ -38,6 +38,5 @@ define ['app'], (App)->
                               name: $(this).val()
                               id: $(this).attr("data-facility")
                             return
-                        console.log JSON.stringify(facilities)
 
                         @trigger 'update:translated:facilities', facilities

@@ -13,7 +13,6 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
       Controller.prototype.initialize = function(opts) {
         var collection;
         this.collection = collection = App.request("get:room:entities");
-        console.log("Collection of rooms", this.collection);
         this.ChooseRoomsView = this._getLanguageView(collection);
         this.listenTo(this.ChooseRoomsView, "load:original:rooms", this.loadOriginalRooms);
         this.listenTo(this.ChooseRoomsView, "load:translated:rooms", this.loadTranslatedRooms);

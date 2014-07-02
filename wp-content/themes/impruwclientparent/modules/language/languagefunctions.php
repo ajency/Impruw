@@ -101,15 +101,20 @@ function get_language_facilities($editingLang,$defaultLang){
 }
 
 function get_language_page($page_id, $language){
+    $original_id = $page_id;
+    $data = array();
     // Get the post ID based on language so that only pages of default language could be listed
     $page_id_based_on_lang = icl_object_id( $page_id, 'page', false, $language);
+
 
     if(is_null($page_id_based_on_lang)){
         //duplicate page and return new id
         $page_id_based_on_lang = duplicate_language_page($page_id,$language,"page");
     }
+    $data['original_id'] = $original_id;
+    $data['translated_id'] = $page_id_based_on_lang;
 
-    return $page_id_based_on_lang;
+    return $data;
 }
 
 function duplicate_language_page($page_id,$language,$post_type){
@@ -140,5 +145,23 @@ function duplicate_language_page($page_id,$language,$post_type){
          ), array( 'element_id' => $page_translated_id ) );
 
     return $page_translated_id;
+}
+
+
+function get_page_by_lang($page_id,$language){
+    $data = array();
+    global $sitepress;
+
+    //English display name of the editing language code
+    $langdetails = $sitepress->get_language_details($language);
+    $language_name = $langdetails['english_name'];
+
+    $args = array( 'post_type' => 'page' );
+    $page=get_post( $page_id, $args);
+    $data['pageTitle'] = $page->post_title;
+    $data['pageId'] = $page_id;
+    $data['language'] = $language_name;
+
+    return $data;
 }
 
