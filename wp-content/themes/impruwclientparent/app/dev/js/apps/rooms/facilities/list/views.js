@@ -49,7 +49,9 @@ define(['app'], function(App) {
           return this.$el.find('.display_facility').removeClass('hidden');
         },
         'click a.update': function() {
-          return this.trigger("update:facility:clicked", Backbone.Syphon.serialize(this));
+          return this.trigger("update:facility:clicked", {
+            facility_name: this.$el.find('input[name="facility_name"]').val()
+          });
         }
       };
 
