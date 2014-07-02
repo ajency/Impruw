@@ -6,7 +6,7 @@ define ['marionette'], (Marionette) ->
 		#initiate modal on show
 		onShow :(view)->
 			@$el.draggable
-					handle: "p.desc",
+					handle: ".settings-header",
 					addClasses: false
 
 			@$el.center(false)
