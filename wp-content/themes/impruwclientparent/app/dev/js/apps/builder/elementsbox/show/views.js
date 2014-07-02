@@ -54,7 +54,9 @@ define(['app', 'text!apps/builder/elementsbox/show/templates/main.html', 'text!a
       MainView.prototype.onShow = function() {
         this.$el.draggable({
           handle: "p.desc",
-          addClasses: false
+          addClasses: false,
+          containment: 'document',
+          scroll: true
         });
         return this._setDraggableElements();
       };
