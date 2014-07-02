@@ -8,7 +8,7 @@ define ['app', 'controllers/base-controller'
             initialize: (opts)->
                 @pageId = opts.pageId
                 @editLang = opts.editLang
-
+                console.log "In page content app, editing page id = "+@pageId
                 #get page collection
                 @pageModel = pageModel = App.request "get:room:entities"
                 console.log @pageModel

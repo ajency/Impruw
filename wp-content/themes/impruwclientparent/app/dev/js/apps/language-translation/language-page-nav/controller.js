@@ -34,8 +34,20 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
         return Marionette.triggerMethod.call(this.region, "load:page:room:content", this.editingLanguage);
       };
 
-      Controller.prototype.loadLanguagePageContent = function(collection, pageId) {
-        return Marionette.triggerMethod.call(this.region, "load:other:page:content", this.editingLanguage, pageId);
+      Controller.prototype.loadLanguagePageContent = function(collection, originalPageId) {
+        var data, responseFn;
+        data = {
+          pageId: originalPageId,
+          language: this.editingLanguage
+        };
+        responseFn = (function(_this) {
+          return function(response) {
+            var pageId;
+            pageId = response.data;
+            return Marionette.triggerMethod.call(_this.region, "load:other:page:content", _this.editingLanguage, pageId);
+          };
+        })(this);
+        return $.post("" + AJAXURL + "?action=get-language-page", data, responseFn, 'json');
       };
 
       return Controller;
