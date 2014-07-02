@@ -32,15 +32,9 @@ define(['app', 'controllers/base-controller', 'apps/rooms/add/views', 'apps/room
               region: layout.roomTariffRegion,
               roomId: _this.roomModel.get('ID')
             });
-            App.execute("show:booking:app", {
+            return App.execute("show:booking:app", {
               region: layout.roomBookingRegion,
               roomId: _this.roomModel.get('ID')
-            });
-            return App.vent.on("daterange:added daterange:removed daterange:updated", function() {
-              return App.execute("show:booking:app", {
-                region: layout.roomBookingRegion,
-                roomId: _this.roomModel.get('ID')
-              });
             });
           };
         })(this));
