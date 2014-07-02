@@ -22,7 +22,7 @@ define [ 'app', 'controllers/base-controller', 'apps/builder/site-builder/elemen
                @model.set spacing, value
 
             @listenTo view, "element:selection:changed", ( room_id )=>
-               if not room_id is ''
+               if room_id isnt ''
                   @model.set "room_id", room_id
 
             @show view
