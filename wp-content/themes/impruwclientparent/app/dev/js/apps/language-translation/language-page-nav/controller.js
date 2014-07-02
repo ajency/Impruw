@@ -18,6 +18,7 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
         console.log("Collection of all pages ", collection);
         this.languagePageNavView = this._getPageNavView(this.collection);
         this.listenTo(this.languagePageNavView, "itemview:page:room:content", this.loadLanguagePageRoomContent);
+        this.listenTo(this.languagePageNavView, "itemview:page:content", this.loadLanguagePageContent);
         return this.show(this.languagePageNavView, {
           loading: true
         });
@@ -31,6 +32,10 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
 
       Controller.prototype.loadLanguagePageRoomContent = function() {
         return Marionette.triggerMethod.call(this.region, "load:page:room:content", this.editingLanguage);
+      };
+
+      Controller.prototype.loadLanguagePageContent = function(collection, pageId) {
+        return Marionette.triggerMethod.call(this.region, "load:other:page:content", this.editingLanguage, pageId);
       };
 
       return Controller;

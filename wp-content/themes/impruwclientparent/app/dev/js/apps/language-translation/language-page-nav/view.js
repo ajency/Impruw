@@ -13,14 +13,22 @@ define(['app'], function(App) {
 
       LanguagePageNavItemView.prototype.tagName = "li";
 
-      LanguagePageNavItemView.prototype.template = '{{#isChildSitePage}}<a {{#isRoomPage}}href="#rooms"{{/isRoomPage}} {{^isRoomPage}}href=""{{/isRoomPage}} {{#isRoomPage}}id="rooms"{{/isRoomPage}} data-toggle="tab">{{pageTitle}}</a>{{/isChildSitePage}}';
+      LanguagePageNavItemView.prototype.template = '{{#isChildSitePage}}<a {{#isRoomPage}}href="#rooms"{{/isRoomPage}} {{^isRoomPage}}href="#page"{{/isRoomPage}} {{#isRoomPage}}id="rooms"{{/isRoomPage}} {{^isRoomPage}}id="page"{{/isRoomPage}} data-toggle="tab" data-pageid = {{pageId}}>{{pageTitle}}</a>{{/isChildSitePage}}';
 
       LanguagePageNavItemView.prototype.events = {
-        'click a#rooms': 'loadPageContent'
+        'click a#rooms': 'loadRoomContent',
+        'click a#page': 'loadPageContent'
+      };
+
+      LanguagePageNavItemView.prototype.loadRoomContent = function(e) {
+        console.log("Clicked room");
+        return this.trigger("page:room:content");
       };
 
       LanguagePageNavItemView.prototype.loadPageContent = function(e) {
-        return this.trigger("page:room:content");
+        var pageId;
+        pageId = $(e.currentTarget).attr('data-pageid');
+        return this.trigger("page:content", pageId);
       };
 
       return LanguagePageNavItemView;

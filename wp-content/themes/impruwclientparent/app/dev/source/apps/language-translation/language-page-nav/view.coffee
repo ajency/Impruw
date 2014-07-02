@@ -7,13 +7,20 @@ define ['app'], (App)->
 
                     tagName: "li"
 
-                    template : '{{#isChildSitePage}}<a {{#isRoomPage}}href="#rooms"{{/isRoomPage}} {{^isRoomPage}}href=""{{/isRoomPage}} {{#isRoomPage}}id="rooms"{{/isRoomPage}} data-toggle="tab">{{pageTitle}}</a>{{/isChildSitePage}}'
+                    template : '{{#isChildSitePage}}<a {{#isRoomPage}}href="#rooms"{{/isRoomPage}} {{^isRoomPage}}href="#page"{{/isRoomPage}} {{#isRoomPage}}id="rooms"{{/isRoomPage}} {{^isRoomPage}}id="page"{{/isRoomPage}} data-toggle="tab" data-pageid = {{pageId}}>{{pageTitle}}</a>{{/isChildSitePage}}'
 
                     events:
-                    	'click a#rooms' : 'loadPageContent'
+                    	'click a#rooms' : 'loadRoomContent'
+                    	'click a#page' : 'loadPageContent'
+
+                    loadRoomContent: (e) ->
+                        console.log "Clicked room"
+                        @trigger "page:room:content"
 
                     loadPageContent: (e) ->
-                        @trigger "page:room:content"
+                        pageId = $(e.currentTarget).attr('data-pageid')
+                        @trigger "page:content", pageId
+
 
                 class Views.LanguagePageNavView extends Marionette.CollectionView  
                     

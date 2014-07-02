@@ -2,7 +2,7 @@ define ['app'
         'apps/language-translation/show/language-translation-show'
         'apps/language-translation/language-selection/controller'
         'apps/language-translation/language-page-nav/controller'
-        'apps/language-translation/language-page-content/controller'
+        'apps/language-translation/language-page-content/show/controller'
         'apps/language-translation/language-page-rooms/show/controller'], (App)->
 
     App.module 'LanguageApp', (LanguageApp, App, Backbone, Marionette, $, _)->

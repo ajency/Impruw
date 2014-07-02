@@ -15,6 +15,7 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
 
       Controller.prototype.initialize = function(opts) {
         var editLang;
+        console.log("in rooms app");
         editLang = opts.editLang;
         this.editingLang = editLang;
         this.pageLanguageLayout = this._getLanguageLayout();

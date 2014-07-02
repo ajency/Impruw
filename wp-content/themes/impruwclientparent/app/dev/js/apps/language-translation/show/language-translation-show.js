@@ -8,6 +8,7 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/show/la
       __extends(Controller, _super);
 
       function Controller() {
+        this._loadPageContent = __bind(this._loadPageContent, this);
         this._loadPageRoomContent = __bind(this._loadPageRoomContent, this);
         this._loadPageNavBar = __bind(this._loadPageNavBar, this);
         return Controller.__super__.constructor.apply(this, arguments);
@@ -26,7 +27,8 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/show/la
           };
         })(this));
         this.listenTo(this.languageLayout.languageSelectionRegion, "load:page:nav:bar", this._loadPageNavBar);
-        return this.listenTo(this.languageLayout.languagePageNav, "load:page:room:content", this._loadPageRoomContent);
+        this.listenTo(this.languageLayout.languagePageNav, "load:page:room:content", this._loadPageRoomContent);
+        return this.listenTo(this.languageLayout.languagePageNav, "load:other:page:content", this._loadPageContent);
       };
 
       Controller.prototype._getLanguageLayout = function() {
@@ -34,16 +36,24 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/show/la
       };
 
       Controller.prototype._loadPageNavBar = function(selectedEditingLanguage) {
-        App.execute("show:language:page:nav:app", {
+        return App.execute("show:language:page:nav:app", {
           region: this.languageLayout.languagePageNav,
           language: selectedEditingLanguage
         });
       };
 
       Controller.prototype._loadPageRoomContent = function(editingLanguage) {
-        App.execute("show:language:page:rooms:app", {
+        return App.execute("show:language:page:rooms:app", {
           region: this.languageLayout.languagePageRooms,
           editLang: editingLanguage
+        });
+      };
+
+      Controller.prototype._loadPageContent = function(editingLanguage, pageId) {
+        return App.execute("show:language:page:content:app", {
+          region: this.languageLayout.languagePageRooms,
+          editLang: editingLanguage,
+          pageId: pageId
         });
       };
 
