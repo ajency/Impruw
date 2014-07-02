@@ -37,7 +37,7 @@ define(['app', 'text!apps/leftnav/show/templates/leftNav.html', 'text!apps/leftn
         'click': function() {
           var linkName;
           linkName = this.$el.find('a').attr('href');
-          if (linkName === '#logout') {
+          if (linkName === '#/logout') {
             return this.trigger("logout:clicked");
           }
         }

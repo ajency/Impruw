@@ -48,9 +48,12 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
                 wait: true
               });
             });
-            return _this.listenTo(_this.layout.listMenuRegion, 'menu:order:changed', function(order, collection) {
+            _this.listenTo(_this.layout.listMenuRegion, 'menu:order:changed', function(order, collection) {
               var newOrder;
               newOrder = _.idOrder(order);
+              return collection.updateOrder(newOrder, _this.menuId);
+            });
+            return _this.listenTo(_this.layout.listMenuRegion, 'menu:order:changed:collection', function(newOrder, collection) {
               return collection.updateOrder(newOrder, _this.menuId);
             });
           };

@@ -24,6 +24,11 @@ define(['app', 'controllers/base-controller', 'apps/menu-manager/list/views'], f
             });
           };
         })(this));
+        this.listenTo(this.menucollection, 'add remove', (function(_this) {
+          return function() {
+            return _this.view.triggerMethod('triggerOrderChange');
+          };
+        })(this));
         this.listenTo(this.view, "itemview:delete:menu:item:clicked", (function(_this) {
           return function(iv, model) {
             return _this.region.trigger("delete:menu:item:model", model);

@@ -36,28 +36,24 @@ jQuery(document).ready(function($) {
 
                 if (response.success) {
                     //siteurl = impruw
-                    response.msg = "Awesome! You have registered successfully.Please sign-in to your account";
-                    //msg2 = "<a href="+siteurl+"/wp-login.php"+">Click here to login</a>";
-                    msg2 = '<a href="#" class="login-btn" data-toggle="popover" data-original-title="" title="">' +
-                            '<span class="glyphicon glyphicon-lock"></span> Sign In</a>';
+                    var msg = "Awesome! You have registered successfully. Please wait... You will be redirected to your site";
+
                     $("#register_message").html('<div class="alert alert-success">' +
                         '<button aria-hidden="true" data-dismiss="alert" class="close" type="button">x</button>' +
-                        response.msg + msg2 + '</div>');
+                        msg + '</div>');
                     
                     $("#frm_registration").find('input[type="reset"]').click();
-                    //$("#scrolltosuccess").click();
+                    $("#frm_registration").find('.form-group ').removeClass('has-success');
+                    $("#frm_registration").find('.validation-icon ').remove();
+
                     $('html, body').animate({
-    			        scrollTop: $('#register_message').offset().top 
-                    	
-    			    }, 1000);
-                    
-                    
-                    
-                    //setTimeout(function () {
-                       // window.location.href = siteurl+'/login'; //will redirect to your blog page (an ex: blog.html)
-                     //}, 2000); //will call the function after 2 secs.
-                    
-                    
+    			        scrollTop: $('#register_message').offset().top
+    			    }, 500, function (){
+                        setTimeout(function(){
+                            window.location.href = response.data;
+                        }, 1000);
+                    });
+
                     $('#btn_create_site').attr('disabled',false);
                     return true;
                 } else if (!response.success) {
@@ -74,7 +70,7 @@ jQuery(document).ready(function($) {
 
                     $('html, body').animate({
     			        scrollTop: $('#register_message').offset().top
-    			    }, 1000);
+    			    }, 500);
                     $('#btn_create_site').attr('disabled',false);
                     return false;
                 }
