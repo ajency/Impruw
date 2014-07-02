@@ -11,7 +11,7 @@ define(['marionette'], function(Marionette) {
 
     Settings.prototype.onShow = function(view) {
       this.$el.draggable({
-        handle: "p.desc",
+        handle: ".settings-header",
         addClasses: false
       });
       return this.$el.center(false);
