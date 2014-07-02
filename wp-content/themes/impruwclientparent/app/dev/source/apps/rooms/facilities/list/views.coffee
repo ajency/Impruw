@@ -59,7 +59,7 @@ define ['app'], (App)->
                     @$el.find('.display_facility').removeClass 'hidden'
 
                 'click a.update': ->
-                    @trigger "update:facility:clicked", Backbone.Syphon.serialize @
+                    @trigger "update:facility:clicked", facility_name : @$el.find('input[name="facility_name"]').val()
 
 
         #empty view
