@@ -20,7 +20,7 @@ define(["app", 'backbone'], function(App, Backbone) {
           post_status: 'auto-draft',
           facilities: [],
           slider_id: 0,
-          thumbnail_url: 'http://localhost/impruw/childsite/wp-content/uploads/sites/81/2014/03/5-yama-zbrush-model-by-jemark-150x150.jpg',
+          image_url: 'http://placehold.it/100x150',
           no_of_rooms: 0,
           tariffs: []
         };

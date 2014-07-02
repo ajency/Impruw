@@ -132,7 +132,8 @@ function get_room( $roomid ) {
                              'post_excerpt'      => '',
                              'check-in'          => $check_in,
                              'additional-policy' => $additional_policy,
-                             'image_url'         => is_array( $image ) && count( $image ) > 0 ? $image[ 0 ] : '' );
+                             'image_url'         => is_array( $image ) && count( $image ) > 0 ? $image[ 0 ] :
+                                     'http://placehold.it/300&text=Upload some image' );
 
 
     // returns an array of the post terms(facilities) of the room
