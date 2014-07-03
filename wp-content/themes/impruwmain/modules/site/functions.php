@@ -47,7 +47,7 @@ function create_new_site( $site_name, $user_id ) {
     add_pages_to_site( $site_id, $user_id, $pages );
 
     // hack to create revslider plugin tables
-    //create_revslider_tables( $site_id );
+    create_revslider_tables( $site_id );
 
     // create custom tables
     create_additional_tables( $site_id );
