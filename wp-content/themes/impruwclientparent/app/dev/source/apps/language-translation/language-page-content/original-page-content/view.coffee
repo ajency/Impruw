@@ -11,10 +11,10 @@ define ['app'
 
             template : '<div class="col-sm-12">
                             <div class="form-group">
-                                <label class="col-sm-3 control-label" for="">{{elementName}}</label>
+                                <label class="col-sm-3 control-label" for="">{{element}}</label>
                                 <div class="col-sm-9 col-sm-offset-3">
                                     <p class="original">
-                                        {{elementContent}}
+                                        {{content}}
                                     </p>
                                 </div>
                             </div>

@@ -125,7 +125,7 @@ add_action( 'wp_ajax_get-page-by-language', 'get_page_by_language_ajax' );
 function get_page_elements_ajax(){
     $page_id = $_REQUEST['pageId'];
 
-    $data =  get_page_elements($page_id);
+    $data =  get_page_translation_elements($page_id);
 
     wp_send_json( array( 'code' => 'OK', 'data' => $data ) );
 }

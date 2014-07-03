@@ -166,9 +166,59 @@ function get_page_by_lang($page_id,$language){
 }
 
 
-function get_page_elements($page_id){
+$page_content_array= array();
+function get_page_content($item, $key){
+    global $page_content_array;
+    if (($key == "content")) {
 
-    $data = get_page_content_json($page_id, true);
-    return $data;
+        $page_content_array[] = array(
+            'elementContent' => $item
+        );
+
+    }
 
 }
+
+function get_page_translation_elements($page_id){
+
+    $data = get_page_json_for_site($page_id, true);
+
+    $elements = array();
+
+    foreach ( $data['page'] as $element ) {
+        if ( $element[ 'element' ] === 'Row' ) {
+            get_row_translation_elements( $element,$elements );
+        } else {
+            if(in_array($element[ 'element'] , array('Title','Text','ImageWithText')))
+                $elements[] = $element;
+        }
+    }
+
+   return $elements;
+}
+
+function get_row_translation_elements( $row_element, &$elements ){
+
+    foreach ( $row_element[ 'elements' ] as $column ) {
+        foreach ( $column[ 'elements' ] as $element ) {
+            if ( $element[ 'element' ] === 'Row' ) {
+                get_row_translation_elements( $element,$elements );
+            } else {
+                if(in_array($element[ 'element'] , array('Title','Text','ImageWithText')))
+                    $elements[] = $element;
+            }
+        }
+    }
+}
+//add_action('init',function(){
+//
+//    get_page_translation_elements(17);
+//    die();
+//});
+
+
+
+
+
+
+
