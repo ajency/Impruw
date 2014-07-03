@@ -15,13 +15,13 @@ define ["app", 'backbone'], (App, Backbone) ->
                 AJAXURL + '?action=get-page-elements'
 
         elementModel = new PageElements.ElementModel
-        elementCollection = new PageElements.ElementCollection
+
 
         #Public API
         API =
 
             getPageElements:(pageId)->
-                console.log "Get page element collection"
+                elementCollection = new PageElements.ElementCollection
                 elementCollection.fetch
                     data:
                         pageId : pageId

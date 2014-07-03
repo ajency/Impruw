@@ -29,7 +29,7 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
             return App.execute("translated:page:content:app", {
               region: _this.languagePageContentLayout.translatedPageContent,
               editLang: _this.editLang,
-              pageId: _this.pageId
+              pageId: _this.originalId
             });
           };
         })(this));

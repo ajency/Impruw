@@ -10,17 +10,23 @@ define ['app', 'controllers/base-controller'
                 @editLang = opts.editLang
 
                 #get page collection
-                @pageModel = pageModel = App.request "get:page:by:language" , @pageId , @editLang
+                @pageModel =  App.request "get:page:by:language" , @pageId , @editLang
 
-                @translatedContentView = @_getLanguageView @pageModel
+                #get page element collection
+
+                @pageElementsCollection = App.request "get:page:elements" , @pageId
+                console.log @pageElementsCollection
+
+                @translatedContentView = @_getLanguageView @pageModel , @pageElementsCollection
 
                 #function to load view
                 @show @translatedContentView,
                     loading: true
 
-            _getLanguageView :(model)->
-                new TranslatedPage.Views.TranslatedPageItemView
+            _getLanguageView :(model, collection)->
+                new TranslatedPage.Views.TranslatedPageView
                     model:model
+                    collection: collection
 
-        App.commands.setHandler "translated:page:content:app", (opts = {}) ->
+        App.commands.setHandler "translated:page:content:app", (opts) ->
             new TranslatedPage.Controller opts

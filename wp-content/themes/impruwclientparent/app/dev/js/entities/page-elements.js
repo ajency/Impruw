@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
 
 define(["app", 'backbone'], function(App, Backbone) {
   return App.module("Entities.PageElements", function(PageElements, App, Backbone, Marionette, $, _) {
-    var API, elementCollection, elementModel;
+    var API, elementModel;
     PageElements.ElementModel = (function(_super) {
       __extends(ElementModel, _super);
 
@@ -35,10 +35,10 @@ define(["app", 'backbone'], function(App, Backbone) {
 
     })(Backbone.Collection);
     elementModel = new PageElements.ElementModel;
-    elementCollection = new PageElements.ElementCollection;
     API = {
       getPageElements: function(pageId) {
-        console.log("Get page element collection");
+        var elementCollection;
+        elementCollection = new PageElements.ElementCollection;
         elementCollection.fetch({
           data: {
             pageId: pageId

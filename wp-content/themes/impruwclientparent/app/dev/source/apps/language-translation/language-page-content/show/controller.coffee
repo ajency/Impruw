@@ -27,10 +27,12 @@ define ['app', 'controllers/base-controller'
                         editLang : @editLang
                         pageId : @originalId
 
+
+                    #always pass same id as original id so that original and translated app are in sync
                     App.execute "translated:page:content:app",
                         region: @languagePageContentLayout.translatedPageContent,
                         editLang : @editLang
-                        pageId : @pageId
+                        pageId : @originalId
 
             _getPageContentLayout : ->
                 new LanguagePageContent.Views.LanguagePageContentLayout

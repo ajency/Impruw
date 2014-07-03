@@ -3,38 +3,28 @@
     <div class="col-sm-12">
         <div class="form-group">
             <div class="col-sm-12">
-                <h6 class="aj-imp-widget-title">{{#polyglot}}Translation{{/polyglot}} (<small>{{language}}</small>)</h6>
+                <h6 class="aj-imp-widget-title">
+                    {{#polyglot}}Translation{{/polyglot}} (<small>{{language}}</small>)
+                </h6>
             </div>
         </div>
     </div>
 </div>
 
 <div class="form-group legend-group">
-
-
     <div class="col-sm-12">
         <div class="form-group">
             <div class="col-sm-12">
-                <input type="text" {{^isTranslated}}placeholder="{{#polyglot}}Add Translation{{/polyglot}}"{{/isTranslated}} class="form-control" value ="{{pageTitle}}"/>
+                <input type="text" class="form-control" value ="{{pageTitle}}"/>
+                <button class="btn btn-xs aj-imp-orange-btn"  id="btn-save-translated-page-title">
+                    Save
+                </button>
             </div>
         </div>
     </div>
 </div>
 
-<div class="form-group legend-group">
-
-
-    <div class="col-sm-12">
-        <div class="form-group">
-            <div class="col-sm-12">
-                <textarea type="text" {{^isTranslated}}placeholder="{{#polyglot}}Add Translation{{/polyglot}}"{{/isTranslated}} id="translated-room-desc" class="form-control">
-                {{translatedRoomDesc}}
-                </textarea>
-            </div>
-        </div>
-    </div>
+<div id="translated-page-elements">
 </div>
 
-<div><input type="hidden" value="{{translatedPostID}}"></div>
 
-<button class="btn btn-xs aj-imp-orange-btn"  id="btn_update-translated-page"> Update</button>

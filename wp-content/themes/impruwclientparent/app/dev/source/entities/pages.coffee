@@ -14,7 +14,7 @@ define ["app", 'backbone'], (App, Backbone) ->
             url: ->
                 AJAXURL + '?action=get-childsite-pages'   
 
-        pageModel = new Pages.PageModel 
+
         pages = new Pages.PageCollection 
         # pages.fetch()      
 
@@ -28,6 +28,7 @@ define ["app", 'backbone'], (App, Backbone) ->
                 pages
 
             getPageByLanguage : (pageId, pageLang) ->
+                pageModel = new Pages.PageModel
                 pageModel.fetch
                     data:
                         action: "get-page-by-language"
@@ -36,6 +37,7 @@ define ["app", 'backbone'], (App, Backbone) ->
                 pageModel
 
             getDefaultPage:(pageId) ->
+                pageModel = new Pages.PageModel
                 pageModel.fetch
                     data:
                         action: "get-page-by-language"

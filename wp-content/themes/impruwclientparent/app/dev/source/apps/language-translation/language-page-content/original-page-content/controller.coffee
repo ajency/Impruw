@@ -10,10 +10,11 @@ define ['app', 'controllers/base-controller'
                 @editLang = opts.editLang
 
                 #get page collection
-                @pageModel = pageModel = App.request "get:default:page" , @pageId
+                @pageModel =  App.request "get:default:page" , @pageId
 
                 #get page element collection
                 @pageElementsCollection = App.request "get:page:elements" , @pageId
+                console.log @pageElementsCollection
 
                 @originalContentView = @_getLanguageView @pageModel , @pageElementsCollection
 
@@ -26,5 +27,5 @@ define ['app', 'controllers/base-controller'
                     model:model
                     collection: collection
 
-        App.commands.setHandler "original:page:content:app", (opts = {}) ->
+        App.commands.setHandler "original:page:content:app", (opts) ->
             new OriginalPage.Controller opts

@@ -3,17 +3,38 @@ var __hasProp = {}.hasOwnProperty,
 
 define(['app', 'text!apps//language-translation/language-page-content/translated-page-content/templates/translatedpageview.html'], function(App, translatedpageviewTpl) {
   return App.module('LanguageApp.LanguagePageContent.TranslatedPage.Views', function(Views, App, Backbone, Marionette, $, _) {
-    return Views.TranslatedPageItemView = (function(_super) {
+    var TranslatedPageItemView;
+    TranslatedPageItemView = (function(_super) {
       __extends(TranslatedPageItemView, _super);
 
       function TranslatedPageItemView() {
         return TranslatedPageItemView.__super__.constructor.apply(this, arguments);
       }
 
-      TranslatedPageItemView.prototype.template = translatedpageviewTpl;
+      TranslatedPageItemView.prototype.tagName = 'div';
+
+      TranslatedPageItemView.prototype.className = '.form-group.legend-group';
+
+      TranslatedPageItemView.prototype.template = '<div class="col-sm-12"> <div class="form-group"> <div class="col-sm-10"> <textarea type="text" class="form-control">{{content}}</textarea> <button class="btn btn-xs aj-imp-orange-btn"  id="btn-save-translated-element"> Save </button> </div> </div> </div>';
 
       return TranslatedPageItemView;
 
     })(Marionette.ItemView);
+    return Views.TranslatedPageView = (function(_super) {
+      __extends(TranslatedPageView, _super);
+
+      function TranslatedPageView() {
+        return TranslatedPageView.__super__.constructor.apply(this, arguments);
+      }
+
+      TranslatedPageView.prototype.template = translatedpageviewTpl;
+
+      TranslatedPageView.prototype.itemView = TranslatedPageItemView;
+
+      TranslatedPageView.prototype.itemViewContainer = '#translated-page-elements';
+
+      return TranslatedPageView;
+
+    })(Marionette.CompositeView);
   });
 });

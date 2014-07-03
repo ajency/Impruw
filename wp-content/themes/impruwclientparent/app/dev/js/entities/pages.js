@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
 
 define(["app", 'backbone'], function(App, Backbone) {
   return App.module("Entities.Pages", function(Pages, App, Backbone, Marionette, $, _) {
-    var API, pageModel, pages;
+    var API, pages;
     Pages.PageModel = (function(_super) {
       __extends(PageModel, _super);
 
@@ -34,7 +34,6 @@ define(["app", 'backbone'], function(App, Backbone) {
       return PageCollection;
 
     })(Backbone.Collection);
-    pageModel = new Pages.PageModel;
     pages = new Pages.PageCollection;
     API = {
       getPages: function(language) {
@@ -46,6 +45,8 @@ define(["app", 'backbone'], function(App, Backbone) {
         return pages;
       },
       getPageByLanguage: function(pageId, pageLang) {
+        var pageModel;
+        pageModel = new Pages.PageModel;
         pageModel.fetch({
           data: {
             action: "get-page-by-language",
@@ -56,6 +57,8 @@ define(["app", 'backbone'], function(App, Backbone) {
         return pageModel;
       },
       getDefaultPage: function(pageId) {
+        var pageModel;
+        pageModel = new Pages.PageModel;
         pageModel.fetch({
           data: {
             action: "get-page-by-language",
