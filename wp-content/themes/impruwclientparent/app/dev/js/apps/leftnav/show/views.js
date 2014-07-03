@@ -96,7 +96,7 @@ define(['app', 'text!apps/leftnav/show/templates/leftNav.html', 'text!apps/leftn
       LeftNav.prototype.onSetActiveMenu = function(link) {
         var jPM;
         this.$el.find("li").removeClass('active');
-        link = '#' + link;
+        link = '#/' + link;
         this.$el.find("a[data-route='" + link + "']").parent().addClass('active');
         jPM = $.jPanelMenu();
         return jPM.close();

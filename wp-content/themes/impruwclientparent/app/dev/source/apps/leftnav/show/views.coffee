@@ -77,7 +77,7 @@ define ['app'
                 @$el.find "li"
                 .removeClass 'active'
 
-                link = '#' + link
+                link = '#/' + link
 
                 @$el.find "a[data-route='#{link}']"
                 .parent()
