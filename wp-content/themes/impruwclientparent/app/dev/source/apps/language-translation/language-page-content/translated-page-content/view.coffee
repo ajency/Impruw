@@ -13,8 +13,10 @@ define ['app'
                             <div class="form-group">
                                 <div class="col-sm-10">
                                     <textarea type="text" class="form-control">{{content}}</textarea>
+                                </div>
+                                <div>
                                     <button class="btn btn-xs aj-imp-orange-btn"  id="btn-save-translated-element">
-                                        Save
+                                    Save
                                     </button>
                                 </div>
                             </div>
