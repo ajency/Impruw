@@ -73,10 +73,11 @@
                 wp_nav_menu( $defaults );
 
             ?>
-
+            <?php if( ! is_user_logged_in() ): ?>
             <a href="#" class="login-btn" data-toggle="popover">
                 <span class="glyphicon glyphicon-lock"></span> <?php _e('Sign In') ?>
             </a>
+            <?php endif; ?>
 
             <div class="lang-sel">
                 <?php do_action('icl_language_selector'); ?>
