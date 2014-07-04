@@ -49,7 +49,10 @@ define [ 'app'
                response = JSON.parse( response.response )
                if up.total.queued is 0
                   App.execute "new:media:added", response.data
-                  @$el.find( "#progress" ).hide()
+
+            @uploader.bind "UploadComplete", ( up, file )=>
+                @$el.find( "#progress" ).hide()
+                @trigger "upload:complete"
 
 
          # destroyt the plupload instance on close to release memory

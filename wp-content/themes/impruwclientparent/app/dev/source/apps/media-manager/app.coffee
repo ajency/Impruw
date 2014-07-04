@@ -40,6 +40,8 @@ define ['app'
                       media,
                       @layout.editMediaRegion
 
+                @listenTo @layout.uploadRegion, "media:upload:complete", =>
+                    App.execute "start:media:grid:app", region: @layout.gridRegion
 
                 @listenTo @layout, "media:selected", =>
                     if not _.isNull @choosedMedia

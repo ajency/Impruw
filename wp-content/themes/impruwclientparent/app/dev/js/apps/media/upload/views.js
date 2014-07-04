@@ -52,13 +52,18 @@ define(['app', 'plupload', 'text!apps/media/upload/templates/upload.html'], func
             return up.refresh();
           };
         })(this));
-        return this.uploader.bind("FileUploaded", (function(_this) {
+        this.uploader.bind("FileUploaded", (function(_this) {
           return function(up, file, response) {
             response = JSON.parse(response.response);
             if (up.total.queued === 0) {
-              App.execute("new:media:added", response.data);
-              return _this.$el.find("#progress").hide();
+              return App.execute("new:media:added", response.data);
             }
+          };
+        })(this));
+        return this.uploader.bind("UploadComplete", (function(_this) {
+          return function(up, file) {
+            _this.$el.find("#progress").hide();
+            return _this.trigger("upload:complete");
           };
         })(this));
       };
