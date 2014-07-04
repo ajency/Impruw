@@ -1,5 +1,4 @@
 @import url(icon-fonts.css);
-
 @import url(../../builder/css/builder-icon-fonts.css);
 /*
 Theme Name:     Impruw Dashboard
@@ -80,10 +79,8 @@ a.red-link.pull-right {
   transform: scale(0.8, 0.8);
   -ms-transform: scale(0.8, 0.8);
   /* IE 9 */
-
   -webkit-transform: scale(0.8, 0.8);
   /* Safari and Chrome */
-
   transition-duration: 1s;
 }
 .aj-imp-container .aj-imp-left .aj-imp-dash-nav #aj-imp-dash-menu {
@@ -132,7 +129,6 @@ a.red-link.pull-right {
   display: block;
   position: absolute;
   /*background: url('../images/dash-nav-sprite.png') no-repeat;*/
-
   top: 20px;
   left: 30px;
   font-size: 2em;
@@ -232,28 +228,20 @@ a.red-link.pull-right {
   padding: 0.5em 1em;
   background: #ffffff;
   /* Old browsers */
-
   background: -moz-linear-gradient(top, #ffffff 0%, #f6f6f6 47%, #f4f4f4 100%);
   /* FF3.6+ */
-
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(47%, #f6f6f6), color-stop(100%, #f4f4f4));
   /* Chrome,Safari4+ */
-
   background: -webkit-linear-gradient(top, #ffffff 0%, #f6f6f6 47%, #f4f4f4 100%);
   /* Chrome10+,Safari5.1+ */
-
   background: -o-linear-gradient(top, #ffffff 0%, #f6f6f6 47%, #f4f4f4 100%);
   /* Opera 11.10+ */
-
   background: -ms-linear-gradient(top, #ffffff 0%, #f6f6f6 47%, #f4f4f4 100%);
   /* IE10+ */
-
   background: linear-gradient(to bottom, #ffffff 0%, #f6f6f6 47%, #f4f4f4 100%);
   /* W3C */
-
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#f4f4f4', GradientType=0);
   /* IE6-9 */
-
 }
 .aj-imp-container .aj-imp-right .aj-imp-dash-content .aj-imp-dash-widget .aj-imp-widget-container .aj-imp-widget-head {
   background: #dddddd;
@@ -1535,12 +1523,23 @@ form .aj-imp-submit:hover {
 .modal #selectable-images .single-img .ticker:hover .glyphicon-minus {
   display: inline-block;
 }
+.modal .thumbnails .single-img .delete-media-img,
+.modal #selectable-images .single-img .delete-media-img {
+  display: none;
+  position: absolute;
+  bottom: 0;
+  color: #ff3333;
+  cursor: pointer;
+  font-size: 0.8em;
+}
 .modal .thumbnails .single-img.ui-selected .thumbnail,
 .modal #selectable-images .single-img.ui-selected .thumbnail {
   border-color: #849fb0;
 }
 .modal .thumbnails .single-img.ui-selected .ticker,
-.modal #selectable-images .single-img.ui-selected .ticker {
+.modal #selectable-images .single-img.ui-selected .ticker,
+.modal .thumbnails .single-img.ui-selected .delete-media-img,
+.modal #selectable-images .single-img.ui-selected .delete-media-img {
   display: block;
 }
 .modal #edit-media-region,
@@ -1834,25 +1833,18 @@ form .aj-imp-submit:hover {
   right: 1em;
   background: -moz-linear-gradient(left, rgba(255, 255, 255, 0) 0%, #ffffff 25%, #ffffff 100%);
   /* FF3.6+ */
-
   background: -webkit-gradient(linear, left top, right top, color-stop(0%, rgba(255, 255, 255, 0)), color-stop(25%, #ffffff), color-stop(100%, #ffffff));
   /* Chrome,Safari4+ */
-
   background: -webkit-linear-gradient(left, rgba(255, 255, 255, 0) 0%, #ffffff 25%, #ffffff 100%);
   /* Chrome10+,Safari5.1+ */
-
   background: -o-linear-gradient(left, rgba(255, 255, 255, 0) 0%, #ffffff 25%, #ffffff 100%);
   /* Opera 11.10+ */
-
   background: -ms-linear-gradient(left, rgba(255, 255, 255, 0) 0%, #ffffff 25%, #ffffff 100%);
   /* IE10+ */
-
   background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, #ffffff 25%, #ffffff 100%);
   /* W3C */
-
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00ffffff', endColorstr='#ffffff', GradientType=1);
   /* IE6-9 */
-
   font-size: 0.8em;
   display: none;
 }
@@ -2652,6 +2644,9 @@ form .aj-imp-submit:hover {
 .slide-image-selected:hover {
   background: #ffb266 !important;
 }
+.slide-image-selected {
+  margin-top: 0.5em;
+}
 /****Gallery Styling****/
 #gallery-region {
   width: 70%;
@@ -3147,28 +3142,20 @@ form .aj-imp-submit:hover {
 .booking-slider-pop .semi-available span {
   background: #ff7e00;
   /* Old browsers */
-
   background: -moz-linear-gradient(-45deg, #ff7e00 0%, #ff7e00 50%, #b25900 50%, #b25900 100%);
   /* FF3.6+ */
-
   background: -webkit-gradient(linear, left top, right bottom, color-stop(0%, #ff7e00), color-stop(50%, #ff7e00), color-stop(50%, #b25900), color-stop(100%, #b25900));
   /* Chrome,Safari4+ */
-
   background: -webkit-linear-gradient(-45deg, #ff7e00 0%, #ff7e00 50%, #b25900 50%, #b25900 100%);
   /* Chrome10+,Safari5.1+ */
-
   background: -o-linear-gradient(-45deg, #ff7e00 0%, #ff7e00 50%, #b25900 50%, #b25900 100%);
   /* Opera 11.10+ */
-
   background: -ms-linear-gradient(-45deg, #ff7e00 0%, #ff7e00 50%, #b25900 50%, #b25900 100%);
   /* IE10+ */
-
   background: linear-gradient(135deg, #ff7e00 0%, #ff7e00 50%, #b25900 50%, #b25900 100%);
   /* W3C */
-
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff7e00', endColorstr='#b25900', GradientType=1);
   /* IE6-9 fallback on horizontal gradient */
-
   color: #fff;
 }
 .booking-slider-pop .unavailable span {
@@ -3221,7 +3208,6 @@ form .aj-imp-submit:hover {
 .room-chart {
   background: #f6f6f6;
   /* padding: 40px; */
-
   margin-left: 0px;
   width: 100%;
 }
@@ -3349,7 +3335,6 @@ form .aj-imp-submit:hover {
   }
   #traffic-chart-region .row .traffic-list td {
     /* Behave  like a "row" */
-  
     border: none;
     border-bottom: 1px solid #eee;
     position: relative;
@@ -3364,10 +3349,8 @@ form .aj-imp-submit:hover {
   }
   #traffic-chart-region .row .traffic-list td:before {
     /* Now like a table header */
-  
     position: absolute;
     /* Top/left values mimic padding */
-  
     top: 6px;
     left: 6px;
     width: 45%;
@@ -3426,55 +3409,39 @@ form .aj-imp-submit:hover {
 .ui-datepicker td.semi-available a {
   background: rgba(0, 0, 0, 0);
   /* Old browsers */
-
   background: -moz-linear-gradient(-45deg, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.2) 50%);
   /* FF3.6+ */
-
   background: -webkit-gradient(linear, left top, right bottom, color-stop(50%, gba(0, 0, 0, 0)), color-stop(50%, gba(0, 0, 0, 0.2)));
   /* Chrome,Safari4+ */
-
   background: -webkit-linear-gradient(-45deg, gba(0, 0, 0, 0) 50%, gba(0, 0, 0, 0.2) 50%);
   /* Chrome10+,Safari5.1+ */
-
   background: -o-linear-gradient(-45deg, gba(0, 0, 0, 0) 50%, gba(0, 0, 0, 0.2) 50%);
   /* Opera 11.10+ */
-
   background: -ms-linear-gradient(-45deg, gba(0, 0, 0, 0) 50%, gba(0, 0, 0, 0.2) 50%);
   /* IE10+ */
-
   background: linear-gradient(135deg, gba(0, 0, 0, 0) 50%, gba(0, 0, 0, 0.2) 50%);
   /* W3C */
-
   ilter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#47000000', GradientType=1);
   /* IE6-9 fallback on horizontal gradient */
-
 }
 .ui-datepicker td.semi-available a:hover,
 .ui-datepicker td.semi-available a.ui-state-active {
   background: rgba(0, 0, 0, 0) !important;
   /* Old browsers */
-
   background: -moz-linear-gradient(-45deg, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.2) 50%) !important;
   /* FF3.6+ */
-
   background: -webkit-gradient(linear, left top, right bottom, color-stop(50%, gba(0, 0, 0, 0)), color-stop(50%, gba(0, 0, 0, 0.2))) !important;
   /* Chrome,Safari4+ */
-
   background: -webkit-linear-gradient(-45deg, gba(0, 0, 0, 0) 50%, gba(0, 0, 0, 0.2) 50%) !important;
   /* Chrome10+,Safari5.1+ */
-
   background: -o-linear-gradient(-45deg, gba(0, 0, 0, 0) 50%, gba(0, 0, 0, 0.2) 50%) !important;
   /* Opera 11.10+ */
-
   background: -ms-linear-gradient(-45deg, gba(0, 0, 0, 0) 50%, gba(0, 0, 0, 0.2) 50%) !important;
   /* IE10+ */
-
   background: linear-gradient(135deg, gba(0, 0, 0, 0) 50%, gba(0, 0, 0, 0.2) 50%) !important;
   /* W3C */
-
   ilter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#47000000', GradientType=1) !important;
   /* IE6-9 fallback on horizontal gradient */
-
 }
 .daterange-legends {
   text-transform: uppercase;

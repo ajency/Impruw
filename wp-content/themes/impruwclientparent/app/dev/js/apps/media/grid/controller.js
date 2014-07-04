@@ -11,9 +11,9 @@ define(['app', 'controllers/base-controller', 'apps/media/grid/views'], function
       }
 
       Controller.prototype.initialize = function() {
-        var mediaCollection, view;
-        mediaCollection = App.request("fetch:media", true);
-        view = this._getView(mediaCollection);
+        var view;
+        this.mediaCollection = App.request("fetch:media", true);
+        view = this._getView(this.mediaCollection);
         this.listenTo(view, "itemview:media:element:selected", (function(_this) {
           return function(iv) {
             return Marionette.triggerMethod.call(_this.region, "media:element:selected", Marionette.getOption(iv, 'model'));
@@ -24,6 +24,11 @@ define(['app', 'controllers/base-controller', 'apps/media/grid/views'], function
             return Marionette.triggerMethod.call(_this.region, "media:element:unselected", Marionette.getOption(iv, 'model'));
           };
         })(this));
+        this.listenTo(view, "itemview:delete:media:image", (function(_this) {
+          return function(iv, model) {
+            return _this.deleteImage(model);
+          };
+        })(this));
         return this.show(view, {
           loading: true
         });
@@ -32,6 +37,13 @@ define(['app', 'controllers/base-controller', 'apps/media/grid/views'], function
       Controller.prototype._getView = function(mediaCollection) {
         return new Grid.Views.GridView({
           collection: mediaCollection
+        });
+      };
+
+      Controller.prototype.deleteImage = function(imageModel) {
+        return imageModel.destroy({
+          allData: false,
+          wait: true
         });
       };
 
