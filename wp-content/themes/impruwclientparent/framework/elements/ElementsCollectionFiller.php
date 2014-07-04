@@ -33,13 +33,14 @@ class ElementsCollectionFiller {
         foreach ( $this->skeleton_json as &$element ) {
             if ( $element[ 'element' ] === 'Row' ) {
                 $element[ 'columncount' ] = count( $element[ 'elements' ] );
-                $this->elements[ ] = $this->get_row_elements( $element );
+                $this->elements[ ]        = $this->get_row_elements( $element );
             } else {
                 $meta = $this->get_meta_values( $element );
                 if ( $meta !== FALSE )
                     $this->elements[ ] = $meta;
             }
         }
+
     }
 
     private function get_row_elements( &$element ) {
@@ -60,23 +61,25 @@ class ElementsCollectionFiller {
         return $element;
     }
 
-    private function get_meta_values( $element, $create = FALSE ) {
+    private function get_meta_values( &$element, $create = FALSE ) {
 
-        $meta = get_metadata_by_mid( 'post', $element[ 'meta_id' ] );
+        $meta_id = $element[ 'meta_id' ];
+        $meta    = get_metadata_by_mid( 'post', $meta_id );
 
         if ( !$meta )
             return FALSE;
 
-        $ele              = maybe_unserialize( $meta->meta_value );
-        $this->validate_element( $ele );
+        $element = maybe_unserialize( $meta->meta_value );
+        $element['meta_id'] = $meta_id;
+        $this->validate_element( $element );
 
-        return $ele;
+        return $element;
     }
 
     private function validate_element( &$element ) {
 
         $numeric_keys = array( 'id', 'meta_id', 'menu_id', 'ID', 'image_id' );
-        $bool_keys = array( 'draggable', 'justified' );
+        $bool_keys    = array( 'draggable', 'justified' );
 
         if ( !is_array( $element ) && !is_object( $element ) )
             return $element;
@@ -92,6 +95,7 @@ class ElementsCollectionFiller {
     }
 
     public function get_elements() {
+
         return $this->elements;
     }
 
@@ -133,7 +137,7 @@ class ElementsCollectionFiller {
         //unset the existing meta_id
         unset( $ele[ 'meta_id' ] );
 
-       // remove / update if menu or logo
+        // remove / update if menu or logo
         if ( $ele[ 'element' ] === 'Logo' ) {
             $ele[ 'logo_id' ] = get_option( 'logo_id', 0 );
         }

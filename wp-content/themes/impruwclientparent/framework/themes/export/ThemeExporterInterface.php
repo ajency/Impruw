@@ -9,8 +9,6 @@
 namespace framework\themes;
 
 
-use framework\elements\PageElementsCollection;
-
 interface ThemeExporterInterface {
 
     public function export( array $args );

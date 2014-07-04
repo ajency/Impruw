@@ -8,7 +8,7 @@ function get_menu_items() {
 
     $menuItems = array(
         array(
-            'url'   => '#dashboard',
+            'url'   => '#/dashboard',
             'title' => 'Dashboard',
             'icon'  => 'monitor'
         ),
@@ -19,43 +19,43 @@ function get_menu_items() {
             'icon'   => 'tools'
         ),
         array(
-            'url'   => '#rooms',
+            'url'   => '#/rooms',
             'title' => 'Rooms',
             'icon'  => 'open'
         ),
         array(
-            'url'   => '#room-summary',
+            'url'   => '#/room-summary',
             'title' => 'Room Summary',
             'icon'  => 'file3'
         ),
         array(
-            'url'   => '#site-profile',
+            'url'   => '#/site-profile',
             'title' => 'Site Profile',
             'icon'  => 'globe'
         ),
         array(
-            'url'   => '#my-profile',
+            'url'   => '#/my-profile',
             'title' => 'My Profile',
             'icon'  => 'profile2'
         ),
         array(
-            'url'     => '#statistics',
+            'url'     => '#/statistics',
             'title'   => 'Statistics',
             'icon'    => 'stats',
             'submenu' => array(
-                array( 'url'   => '#statistics/realtime',
+                array( 'url'   => '#/statistics/realtime',
                        'title' => 'Real-time Visitors',
                        'icon'  => 'stats1' ),
-                array( 'url'   => '#statistics/visits',
+                array( 'url'   => '#/statistics/visits',
                        'title' => 'Visit Summary',
                        'icon'  => 'stats2' ),
-                array( 'url'   => '#statistics/traffic',
+                array( 'url'   => '#/statistics/traffic',
                        'title' => 'Traffic Summary',
                        'icon'  => 'stats3' )
             )
         ),
         array(
-            'url'     => '#language',
+            'url'     => '#/language',
             'title'   => 'Language',
             'icon'    => 'chat2',
             'submenu' => array(
@@ -71,26 +71,26 @@ function get_menu_items() {
             )
         ),
         array(
-            'url'     => '#billing',
+            'url'     => '#/billing',
             'title'   => 'Billing',
             'icon'    => 'wallet',
             'submenu' => array(
-                array( 'url'   => '#billing/purchase-history',
+                array( 'url'   => '#/billing/purchase-history',
                        'title' => 'Purchase History',
                        'icon'  => 'stats1' ),
-                array( 'url'   => '#billing/billing-info',
+                array( 'url'   => '#/billing/billing-info',
                        'title' => 'Billing Info',
                        'icon'  => 'stats2' ),
-                array( 'url'   => '#billing/pricing-plans',
+                array( 'url'   => '#/billing/pricing-plans',
                        'title' => 'Pricing Plans',
                        'icon'  => 'stats2' ),
-                array( 'url'   => '#billing/payment-page',
+                array( 'url'   => '#/billing/payment-page',
                        'title' => 'Payment Page',
                        'icon'  => 'stats2' )
             )
         ),
         array(
-            'url'   => '#logout',
+            'url'   => '#/logout',
             'title' => 'Logout',
             'icon'  => 'switch2'
         )

@@ -1,28 +1,30 @@
 define [ 'app', 'controllers/base-controller'
          'apps/rooms/booking/views' ], ( App, AppController )->
    App.module 'RoomsApp.Booking', ( Booking, App, Backbone, Marionette, $, _ )->
+
+      bookingRegion = null
+      roomId = 0
+
       class Booking.Controller extends AppController
 
          initialize : ( options )->
-            {roomId} = options
+            {@roomId} = options
 
             @options = options
 
-            @bookings = App.request "fetch:room:bookings", roomId
+            @showApp()
+
+         showApp : =>
+
+            @bookings = App.request "fetch:room:bookings", @roomId
 
             @layout = layout = @getRoomBookingLayout( @bookings )
 
             @listenTo layout, "show", @showBookingCalendarView
 
-            @bindAddDateRangeEventListener()
-
             @show layout,
                loading : true
 
-         bindAddDateRangeEventListener : =>
-#            App.vent.on "daterange:added daterange:removed daterange:updated", =>
-#               console.log @options
-#               App.execute "show:booking:app", @options
 
          showBookingCalendarView : =>
             dateRangeCollection = App.request "get:daterange:collection"
@@ -54,5 +56,16 @@ define [ 'app', 'controllers/base-controller'
 
 
       App.commands.setHandler "show:booking:app", ( opts )->
+         bookingRegion = opts.region
+         roomId = opts.roomID
          new Booking.Controller opts
+
+
+      App.vent.on "daterange:added daterange:removed daterange:updated", =>
+         opts =
+            region : bookingRegion
+            roomID : roomId
+
+         new Booking.Controller opts
+
 								

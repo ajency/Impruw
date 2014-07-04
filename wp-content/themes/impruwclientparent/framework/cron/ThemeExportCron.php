@@ -30,6 +30,6 @@ class ThemeExportCron {
 
     private function notify() {
 
-        wp_mail( 'suraj@ajency.in', 'Theme Export Compelted Successfully', 'Theme Export Compelted Successfully' );
+        wp_mail( 'suraj@ajency.in', 'Theme Export Completed Successfully', 'Theme Export Completed Successfully' );
     }
 }

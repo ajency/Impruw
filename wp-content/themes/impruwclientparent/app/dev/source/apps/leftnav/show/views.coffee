@@ -29,7 +29,7 @@ define ['app'
             events:
                 'click' :->
                     linkName = @$el.find('a').attr 'href'
-                    if linkName == '#logout'
+                    if linkName == '#/logout'
                         @trigger "logout:clicked"
 
             getSubmenuTpl : (submenu) ->
@@ -40,8 +40,8 @@ define ['app'
                     submenuTitle = _.polyglot.t submenuData.title
                     submenuIcon = submenuData.icon
                     @submenuTpl += "<li>
-                    												<a href='#{submenuLink}' data-route='##{submenuLink}'>#{submenuTitle}</a>
-                    											</li>"
+                                       <a href='#{submenuLink}' data-route='##{submenuLink}'>#{submenuTitle}</a>
+                                    </li>"
                 @submenuTpl
 
         class View.LeftNav extends Marionette.CompositeView
@@ -77,7 +77,7 @@ define ['app'
                 @$el.find "li"
                 .removeClass 'active'
 
-                link = '#' + link
+                link = '#/' + link
 
                 @$el.find "a[data-route='#{link}']"
                 .parent()

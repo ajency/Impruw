@@ -28,7 +28,7 @@ class ThemeDatabaseExporter implements ThemeExporterInterface {
         $defaults = array(
             'site_id'     => 0,
             'object_type' => '',
-            'object_id'   => 0,
+            'object_name' => '',
             'elements'    => array(),
             'language'    => '',
             'date_time'   => current_time( 'mysql' )
@@ -40,7 +40,7 @@ class ThemeDatabaseExporter implements ThemeExporterInterface {
             return new \WP_Error( 'Invalid arguments passed' );
 
         $id = 0;
-        if ( 0 !== $id = $this->exists( $args[ 'site_id' ], $args[ 'object_type' ], $args[ 'object_id' ] ) ) {
+        if ( 0 !== $id = $this->exists( $args[ 'site_id' ], $args[ 'object_type' ], $args[ 'object_name' ] ) ) {
             return $this->update( $id, $args[ 'elements' ] );
         } else {
             return $this->insert( $args );
@@ -61,7 +61,7 @@ class ThemeDatabaseExporter implements ThemeExporterInterface {
             array(
                 'site_id'     => $args[ 'site_id' ],
                 'object_type' => $args[ 'object_type' ],
-                'object_id'   => $args[ 'object_id' ],
+                'object_name' => $args[ 'object_name' ],
                 'elements'    => maybe_serialize( $args[ 'elements' ] ),
                 'language'    => $args[ 'language' ],
                 'date_time'   => $args[ 'date_time' ]
@@ -100,13 +100,13 @@ class ThemeDatabaseExporter implements ThemeExporterInterface {
      *
      * @return int
      */
-    private function exists( $site_id, $object_type, $object_id ) {
+    private function exists( $site_id, $object_type, $object_name ) {
 
         global $wpdb;
 
         $query = $wpdb->prepare( "SELECT id FROM {$this->table}
                                  WHERE object_type=%s
-                                 AND object_id=%d AND site_id=%d", $object_type, $object_id, $site_id );
+                                 AND object_name=%s AND site_id=%d", $object_type, $object_name, $site_id );
 
         $record_id = $wpdb->get_var( $query );
 

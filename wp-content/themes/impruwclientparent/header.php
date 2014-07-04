@@ -30,6 +30,7 @@
     <?php get_theme_CSS(); ?>
     <link href="<?php echo site_url(); ?>/wp-content/themes/impruwclientparent/js/jquery.bxslider.css"
           rel="stylesheet"/>
+    <link rel="shortcut icon" href="wp-content/themes/impruwclientparent/images/favicon.png" type="image/x-icon" />
 
     <?php wp_head(); ?>
 </head>
