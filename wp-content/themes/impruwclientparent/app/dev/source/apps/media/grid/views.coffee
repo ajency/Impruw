@@ -15,7 +15,7 @@ define ['app'
 
             _whenImageClicked: (e)->
                     media = if $(e.target).hasClass('single-img') then $(e.target) else $(e.target).closest('.single-img')
-                    # if $(media).hasClass('ui-selected')
+#                    if $(media).hasClass('ui-selected')
                     @trigger "media:element:selected"
                     # else
                     #     @trigger "media:element:unselected"
@@ -44,3 +44,4 @@ define ['app'
                     #trigger the selectable to point to the newly added image
                     imageView.$el.find('img').trigger 'click'
                     @$el.find('#selectable-images').selectSelectableElements imageView.$el
+
