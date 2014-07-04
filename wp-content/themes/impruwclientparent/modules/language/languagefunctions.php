@@ -212,7 +212,9 @@ function get_row_translation_elements( $row_element, &$elements ){
 }
 //add_action('init',function(){
 //
-//    get_page_translation_elements(17);
+//    $a = get_page_translation_elements(17);
+//    echo "<pre>";
+//    print_r($a);
 //    die();
 //});
 

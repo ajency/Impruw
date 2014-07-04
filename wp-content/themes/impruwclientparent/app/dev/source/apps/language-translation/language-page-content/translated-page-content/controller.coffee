@@ -8,16 +8,19 @@ define ['app', 'controllers/base-controller'
             initialize: (opts)->
                 @pageId = opts.pageId
                 @editLang = opts.editLang
+                @originalId = opts.originalId
 
                 #get page collection
                 @pageModel =  App.request "get:page:by:language" , @pageId , @editLang
 
                 #get page element collection
 
-                @pageElementsCollection = App.request "get:page:elements" , @pageId
+                @pageElementsCollection = App.request "get:page:elements" , @originalId
                 console.log @pageElementsCollection
 
                 @translatedContentView = @_getLanguageView @pageModel , @pageElementsCollection
+
+                @listenTo @translatedContentView, "translated:page:title:updated", @updateTranslatedPageTitle
 
                 #function to load view
                 @show @translatedContentView,
@@ -27,6 +30,21 @@ define ['app', 'controllers/base-controller'
                 new TranslatedPage.Views.TranslatedPageView
                     model:model
                     collection: collection
+
+            updateTranslatedPageTitle:(newPageTitle, pageId)->
+                data= []
+                data['translatedPageTitle'] = newPageTitle
+                data['translatedPageID'] = pageId
+                @pageModel.set data
+                # AJAX
+                $.post "#{AJAXURL}?action=update-translated-page-title",
+                    (
+                        page_title : newPageTitle
+                        page_id : pageId
+                    ), @pageTitleUpdated, 'json'
+
+            @pageTitleUpdated:(response) =>
+                @translatedContentView.triggerMethod "page:title:updated"
 
         App.commands.setHandler "translated:page:content:app", (opts) ->
             new TranslatedPage.Controller opts

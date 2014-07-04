@@ -29,3 +29,12 @@ define ['app'
             itemView : TranslatedPageItemView
 
             itemViewContainer : '#translated-page-elements'
+
+            events:
+                "click #btn-save-translated-page-title" : "updatePageTitle"
+
+            updatePageTitle:(e)->
+                e.preventDefault()
+                newPageTitle = @$el.find('#translated-page-title').val()
+                pageId = @$el.find('#translated-page-id').val()
+                @trigger "translated:page:title:updated", newPageTitle, pageId

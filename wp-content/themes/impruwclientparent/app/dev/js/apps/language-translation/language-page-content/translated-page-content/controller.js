@@ -13,10 +13,12 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
       Controller.prototype.initialize = function(opts) {
         this.pageId = opts.pageId;
         this.editLang = opts.editLang;
+        this.originalId = opts.originalId;
         this.pageModel = App.request("get:page:by:language", this.pageId, this.editLang);
-        this.pageElementsCollection = App.request("get:page:elements", this.pageId);
+        this.pageElementsCollection = App.request("get:page:elements", this.originalId);
         console.log(this.pageElementsCollection);
         this.translatedContentView = this._getLanguageView(this.pageModel, this.pageElementsCollection);
+        this.listenTo(this.translatedContentView, "translated:page:title:updated", this.updateTranslatedPageTitle);
         return this.show(this.translatedContentView, {
           loading: true
         });
@@ -27,6 +29,22 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
           model: model,
           collection: collection
         });
+      };
+
+      Controller.prototype.updateTranslatedPageTitle = function(newPageTitle, pageId) {
+        var data;
+        data = [];
+        data['translatedPageTitle'] = newPageTitle;
+        data['translatedPageID'] = pageId;
+        this.pageModel.set(data);
+        return $.post("" + AJAXURL + "?action=update-translated-page-title", {
+          page_title: newPageTitle,
+          page_id: pageId
+        }, this.pageTitleUpdated, 'json');
+      };
+
+      Controller.pageTitleUpdated = function(response) {
+        return Controller.translatedContentView.triggerMethod("page:title:updated");
       };
 
       return Controller;

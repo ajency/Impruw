@@ -32,7 +32,8 @@ define ['app', 'controllers/base-controller'
                     App.execute "translated:page:content:app",
                         region: @languagePageContentLayout.translatedPageContent,
                         editLang : @editLang
-                        pageId : @originalId
+                        pageId :  @pageId
+                        originalId : @originalId
 
             _getPageContentLayout : ->
                 new LanguagePageContent.Views.LanguagePageContentLayout

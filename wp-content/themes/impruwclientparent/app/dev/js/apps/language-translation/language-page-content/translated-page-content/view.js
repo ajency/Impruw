@@ -33,6 +33,18 @@ define(['app', 'text!apps//language-translation/language-page-content/translated
 
       TranslatedPageView.prototype.itemViewContainer = '#translated-page-elements';
 
+      TranslatedPageView.prototype.events = {
+        "click #btn-save-translated-page-title": "updatePageTitle"
+      };
+
+      TranslatedPageView.prototype.updatePageTitle = function(e) {
+        var newPageTitle, pageId;
+        e.preventDefault();
+        newPageTitle = this.$el.find('#translated-page-title').val();
+        pageId = this.$el.find('#translated-page-id').val();
+        return this.trigger("translated:page:title:updated", newPageTitle, pageId);
+      };
+
       return TranslatedPageView;
 
     })(Marionette.CompositeView);

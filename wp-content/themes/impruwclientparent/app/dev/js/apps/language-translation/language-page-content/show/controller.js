@@ -29,7 +29,8 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
             return App.execute("translated:page:content:app", {
               region: _this.languagePageContentLayout.translatedPageContent,
               editLang: _this.editLang,
-              pageId: _this.originalId
+              pageId: _this.pageId,
+              originalId: _this.originalId
             });
           };
         })(this));
