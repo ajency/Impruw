@@ -108,7 +108,8 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/daterange
         };
         models = daterangeCollection.filter(checkDateRange);
         if (models.length > 0) {
-          return [false, ''];
+          console.log(models.get('daterange_colour'));
+          return [false, 'dateRangeColor'];
         } else {
           return [true, ''];
         }

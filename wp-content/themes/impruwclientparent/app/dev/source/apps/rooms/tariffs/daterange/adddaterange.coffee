@@ -65,7 +65,6 @@ define [ 'app', 'controllers/base-controller',
 
          disableDateRange : ( date ) ->
             daterangeCollection = App.request "get:daterange:collection"
-
             time = date.getTime()
 
             checkDateRange = ( daterange )->
@@ -80,7 +79,8 @@ define [ 'app', 'controllers/base-controller',
             models = daterangeCollection.filter checkDateRange
 
             if models.length > 0
-               return [ false, '' ]
+               console.log models.get 'daterange_colour'
+               return [ false, 'dateRangeColor' ]
             else
                return [ true, '' ]
 
