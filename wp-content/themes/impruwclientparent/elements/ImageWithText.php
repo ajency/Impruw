@@ -50,7 +50,10 @@ class ImageWithText extends Element {
         $this->image_id = isset($element['image_id']) ? $element['image_id'] : 0;
         //$this->size 	= $element['size'];
         $this->align    = isset($element['align']) ? $element['align'] : 'left';
-        $this->content 	= stripslashes($element['content']);
+
+        $current_language = ICL_LANGUAGE_CODE;
+        $this->content = stripcslashes(trim($element['content'][$current_language]));
+
         $this->style 	= sanitize_title($element['style']);
         $this->markup   = $this->generate_markup();
         

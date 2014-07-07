@@ -21,6 +21,7 @@ define ['app', 'controllers/base-controller'
                 @translatedContentView = @_getLanguageView @pageModel , @pageElementsCollection
 
                 @listenTo @translatedContentView, "translated:page:title:updated", @updateTranslatedPageTitle
+                @listenTo @translatedContentView, "itemview:page:element:updated", @updatePageElementContent
 
                 #function to load view
                 @show @translatedContentView,
@@ -30,6 +31,7 @@ define ['app', 'controllers/base-controller'
                 new TranslatedPage.Views.TranslatedPageView
                     model:model
                     collection: collection
+                    language: @editLang
 
             updateTranslatedPageTitle:(newPageTitle, pageId)->
                 data= []
@@ -45,6 +47,20 @@ define ['app', 'controllers/base-controller'
 
             @pageTitleUpdated:(response) =>
                 @translatedContentView.triggerMethod "page:title:updated"
+
+            updatePageElementContent :(view, newElemContent)->
+
+                model = view.model
+                content = model.get 'content'
+                editLang = @editLang
+                content[editLang] = newElemContent
+                model.set 'content', content
+                model.save null,
+                    wait: true
+                    success: @contentUpdated
+
+            @contentUpdated :->
+                console.log "Successfully updated content"
 
         App.commands.setHandler "translated:page:content:app", (opts) ->
             new TranslatedPage.Controller opts

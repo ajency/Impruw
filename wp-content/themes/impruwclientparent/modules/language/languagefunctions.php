@@ -37,12 +37,32 @@ function load_language_phrases(){
     return $jsonlangObject;
 }
 
+//Get default available languages
+function impruw_get_languages($lang=false){
+    global $wpdb, $sitepress;
+    if(!$lang){
+        $lang = $sitepress->get_default_language();
+    }
+    $res = $wpdb->get_results("
+            SELECT
+                code, english_name, major, active, default_locale, lt.name AS display_name
+            FROM {$wpdb->prefix}icl_languages l
+                JOIN {$wpdb->prefix}icl_languages_translations lt ON l.code=lt.language_code
+            WHERE lt.display_language_code = '{$lang}' AND l.code IN ('en','de','fr','nb' , 'es' )
+            ORDER BY major DESC, english_name ASC", ARRAY_A);
+    $languages = array();
+    foreach((array)$res as $r){
+        $languages[] = $r;
+    }
+    return $languages;
+}
+
 function get_all_languages(){
 
     global $sitepress;
 
     $languagesArray = array();
-    $languages= $sitepress->get_languages($sitepress->get_admin_language());
+    $languages= impruw_get_languages();
 
     $wpml_options = get_option( 'icl_sitepress_settings' );
     $default_language_code = $wpml_options['default_language'];

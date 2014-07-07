@@ -14,11 +14,12 @@ define ['app'
                                 <label class="col-sm-3 control-label" for="">{{element}}</label>
                                 <div class="col-sm-9 col-sm-offset-3">
                                     <p class="original">
-                                        {{content}}
+                                        {{content.en}}
                                     </p>
                                 </div>
                             </div>
                         </div>'
+
 
         class Views.OriginalPageView extends Marionette.CompositeView
 

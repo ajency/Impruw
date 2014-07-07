@@ -43,8 +43,10 @@ class TitleElement extends Element {
     function __construct($element) {
         
         parent::__construct($element);
-        
-        $this->content = stripslashes($element['content']);
+
+        $current_language = ICL_LANGUAGE_CODE;
+        $this->content  = stripcslashes(trim($element['content'][$current_language]));
+
         $this->style = sanitize_title($element['style']);
         
         $this->markup  = $this->generate_markup();

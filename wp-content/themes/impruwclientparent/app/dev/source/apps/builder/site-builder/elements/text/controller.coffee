@@ -10,7 +10,8 @@ define ['app', 'apps/builder/site-builder/elements/text/views',
             initialize: (options)->
                 _.defaults options.modelData,
                     element: 'Text'
-                    content: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                    content:
+                        'en' : 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.
                     														   Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s'
 
                 super(options)
@@ -35,7 +36,7 @@ define ['app', 'apps/builder/site-builder/elements/text/views',
                 # change the model changed property to true
                 # save the new markup if the model is changed
                 @listenTo view, "text:element:blur", (html) =>
-                    @layout.model.set 'content', "#{html}"
+                    @layout.model.set 'content', 'en':"#{html}"
                     @layout.model.save() if @layout.model.hasChanged()
 
                 @layout.elementRegion.show view

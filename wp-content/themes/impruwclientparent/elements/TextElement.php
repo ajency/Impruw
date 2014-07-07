@@ -36,9 +36,9 @@ class TextElement extends Element {
     function __construct($element) {
         
         parent::__construct($element);
-        
-        
-        $this->content          = stripcslashes(trim($element['content']));
+
+        echo $current_language = ICL_LANGUAGE_CODE;
+        $this->content = stripcslashes(trim($element['content'][$current_language]));
         
         $this->markup           = $this->generate_markup();
 
@@ -53,6 +53,7 @@ class TextElement extends Element {
      */
     function generate_markup(){
         
+        echo "Generate markup";
         $attr = array();
         
         if(defined('FOR_BUILDER'))
@@ -68,6 +69,6 @@ class TextElement extends Element {
         
         return $html;
     }
-    
+
    
 }

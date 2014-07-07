@@ -19,6 +19,7 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
         console.log(this.pageElementsCollection);
         this.translatedContentView = this._getLanguageView(this.pageModel, this.pageElementsCollection);
         this.listenTo(this.translatedContentView, "translated:page:title:updated", this.updateTranslatedPageTitle);
+        this.listenTo(this.translatedContentView, "itemview:page:element:updated", this.updatePageElementContent);
         return this.show(this.translatedContentView, {
           loading: true
         });
@@ -27,7 +28,8 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
       Controller.prototype._getLanguageView = function(model, collection) {
         return new TranslatedPage.Views.TranslatedPageView({
           model: model,
-          collection: collection
+          collection: collection,
+          language: this.editLang
         });
       };
 
@@ -45,6 +47,23 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
 
       Controller.pageTitleUpdated = function(response) {
         return Controller.translatedContentView.triggerMethod("page:title:updated");
+      };
+
+      Controller.prototype.updatePageElementContent = function(view, newElemContent) {
+        var content, editLang, model;
+        model = view.model;
+        content = model.get('content');
+        editLang = this.editLang;
+        content[editLang] = newElemContent;
+        model.set('content', content);
+        return model.save(null, {
+          wait: true,
+          success: this.contentUpdated
+        });
+      };
+
+      Controller.contentUpdated = function() {
+        return console.log("Successfully updated content");
       };
 
       return Controller;

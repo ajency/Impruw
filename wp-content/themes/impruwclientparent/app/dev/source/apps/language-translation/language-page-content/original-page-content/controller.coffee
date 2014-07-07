@@ -13,7 +13,7 @@ define ['app', 'controllers/base-controller'
                 @pageModel =  App.request "get:default:page" , @pageId
 
                 #get page element collection
-                @pageElementsCollection = App.request "get:page:elements" , @pageId
+                @pageElementsCollection = App.request "get:page:elements" , @pageId , @editLang
                 console.log @pageElementsCollection
 
                 @originalContentView = @_getLanguageView @pageModel , @pageElementsCollection

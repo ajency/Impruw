@@ -10,7 +10,8 @@ define ['app'
             initialize: (options)->
                 _.defaults options.modelData,
                     element: 'Title'
-                    content: 'Click here to enter title'
+                    content:
+                        'en': 'Click here to enter title'
 
                 super(options)
 
@@ -37,7 +38,7 @@ define ['app'
                 # change the model changed property to true
                 # save the new markup if the model is changed
                 @listenTo view, "title:element:blur", (html) =>
-                    @layout.model.set 'content', "#{html}"
+                    @layout.model.set 'content', 'en':"#{html}"
                     @layout.model.save() if @layout.model.hasChanged()
 
                 @layout.elementRegion.show view

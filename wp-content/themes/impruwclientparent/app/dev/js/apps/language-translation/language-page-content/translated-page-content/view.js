@@ -15,7 +15,30 @@ define(['app', 'text!apps//language-translation/language-page-content/translated
 
       TranslatedPageItemView.prototype.className = '.form-group.legend-group';
 
-      TranslatedPageItemView.prototype.template = '<div class="col-sm-12"> <div class="form-group"> <div class="col-sm-10"> <textarea type="text" class="form-control">{{content}}</textarea> </div> <div> <button class="btn btn-xs aj-imp-orange-btn"  id="btn-save-translated-element"> Save </button> </div> </div> </div>';
+      TranslatedPageItemView.prototype.template = '<div class="col-sm-12"> <div class="form-group"> <div class="col-sm-10"> <textarea type="text" class="form-control" id="translated-element-content">{{contentText}}</textarea> </div> <div> <button class="btn btn-xs aj-imp-orange-btn"  id="btn-save-translated-element"> Save </button> </div> </div> </div>';
+
+      TranslatedPageItemView.prototype.mixinTemplateHelpers = function(data) {
+        var editingLanguage;
+        data = TranslatedPageItemView.__super__.mixinTemplateHelpers.call(this, data);
+        editingLanguage = Marionette.getOption(this, 'editingLanguage');
+        data.contentText = function() {
+          var translated_text;
+          translated_text = data.content;
+          return translated_text[editingLanguage];
+        };
+        return data;
+      };
+
+      TranslatedPageItemView.prototype.events = {
+        "click #btn-save-translated-element": "updatePageElement"
+      };
+
+      TranslatedPageItemView.prototype.updatePageElement = function(e) {
+        var newElementContent;
+        e.preventDefault();
+        newElementContent = this.$el.find('#translated-element-content').val();
+        return this.trigger("page:element:updated", newElementContent);
+      };
 
       return TranslatedPageItemView;
 
@@ -35,6 +58,14 @@ define(['app', 'text!apps//language-translation/language-page-content/translated
 
       TranslatedPageView.prototype.events = {
         "click #btn-save-translated-page-title": "updatePageTitle"
+      };
+
+      TranslatedPageView.prototype.itemViewOptions = function() {
+        var language;
+        language = Marionette.getOption(this, 'language');
+        return {
+          editingLanguage: language
+        };
       };
 
       TranslatedPageView.prototype.updatePageTitle = function(e) {

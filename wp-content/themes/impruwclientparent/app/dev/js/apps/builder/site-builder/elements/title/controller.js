@@ -15,7 +15,9 @@ define(['app', 'apps/builder/site-builder/elements/title/views', 'apps/builder/s
       Controller.prototype.initialize = function(options) {
         _.defaults(options.modelData, {
           element: 'Title',
-          content: 'Click here to enter title'
+          content: {
+            'en': 'Click here to enter title'
+          }
         });
         return Controller.__super__.initialize.call(this, options);
       };
@@ -42,7 +44,9 @@ define(['app', 'apps/builder/site-builder/elements/title/views', 'apps/builder/s
         view = this._getTitleView(this.layout.model);
         this.listenTo(view, "title:element:blur", (function(_this) {
           return function(html) {
-            _this.layout.model.set('content', "" + html);
+            _this.layout.model.set('content', {
+              'en': "" + html
+            });
             if (_this.layout.model.hasChanged()) {
               return _this.layout.model.save();
             }

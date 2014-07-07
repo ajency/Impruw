@@ -12,7 +12,7 @@ define ['app'
             template : '<div class="col-sm-12">
                             <div class="form-group">
                                 <div class="col-sm-10">
-                                    <textarea type="text" class="form-control">{{content}}</textarea>
+                                    <textarea type="text" class="form-control" id="translated-element-content">{{contentText}}</textarea>
                                 </div>
                                 <div>
                                     <button class="btn btn-xs aj-imp-orange-btn"  id="btn-save-translated-element">
@@ -21,6 +21,23 @@ define ['app'
                                 </div>
                             </div>
                          </div>'
+
+            mixinTemplateHelpers: (data)->
+                data = super data
+                editingLanguage = Marionette.getOption @, 'editingLanguage'
+                data.contentText = ->
+                    translated_text = data.content
+                    return translated_text[editingLanguage]
+                data
+
+            events:
+                "click #btn-save-translated-element" : "updatePageElement"
+
+            updatePageElement:(e) ->
+                e.preventDefault()
+                newElementContent = @$el.find('#translated-element-content').val()
+                @trigger "page:element:updated", newElementContent
+
 
         class Views.TranslatedPageView extends Marionette.CompositeView
 
@@ -32,6 +49,11 @@ define ['app'
 
             events:
                 "click #btn-save-translated-page-title" : "updatePageTitle"
+
+            itemViewOptions : ->
+                language = Marionette.getOption @, 'language'
+                editingLanguage : language
+
 
             updatePageTitle:(e)->
                 e.preventDefault()

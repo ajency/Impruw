@@ -14,7 +14,7 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
         this.pageId = opts.pageId;
         this.editLang = opts.editLang;
         this.pageModel = App.request("get:default:page", this.pageId);
-        this.pageElementsCollection = App.request("get:page:elements", this.pageId);
+        this.pageElementsCollection = App.request("get:page:elements", this.pageId, this.editLang);
         console.log(this.pageElementsCollection);
         this.originalContentView = this._getLanguageView(this.pageModel, this.pageElementsCollection);
         return this.show(this.originalContentView, {

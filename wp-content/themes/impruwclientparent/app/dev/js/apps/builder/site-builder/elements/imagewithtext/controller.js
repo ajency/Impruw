@@ -19,7 +19,9 @@ define(['app', 'apps/builder/site-builder/elements/imagewithtext/views', 'apps/b
           size: 'thumbnail',
           align: 'left',
           style: '',
-          content: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.'
+          content: {
+            'en': 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.'
+          }
         });
         return Controller.__super__.initialize.call(this, options);
       };
@@ -78,7 +80,9 @@ define(['app', 'apps/builder/site-builder/elements/imagewithtext/views', 'apps/b
               });
             });
             _this.listenTo(view, "text:element:blur", function(html) {
-              _this.layout.model.set('content', "" + html);
+              _this.layout.model.set('content', {
+                'en': "" + html
+              });
               if (_this.layout.model.hasChanged()) {
                 return _this.layout.model.save();
               }
