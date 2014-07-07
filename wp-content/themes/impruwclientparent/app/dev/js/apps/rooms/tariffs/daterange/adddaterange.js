@@ -48,6 +48,9 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/daterange
       __extends(AddDateRangeView, _super);
 
       function AddDateRangeView() {
+        this.displayColorMonthChange = __bind(this.displayColorMonthChange, this);
+        this.setDateRangeColor = __bind(this.setDateRangeColor, this);
+        this.disableDateRange = __bind(this.disableDateRange, this);
         return AddDateRangeView.__super__.constructor.apply(this, arguments);
       }
 
@@ -79,24 +82,26 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/daterange
       };
 
       AddDateRangeView.prototype.onShow = function() {
+        this.daterangeCollection = App.request("get:daterange:collection");
         this.$el.find('input[type="checkbox"]').checkbox();
         this.$el.find('#daterange_colour').minicolors();
-        return this.$el.find('.dated').datepicker({
+        this.$el.find('.dated').datepicker({
           showOtherMonths: true,
           selectOtherMonths: true,
           dateFormat: "yy-mm-dd",
-          beforeShowDay: this.disableDateRange
+          beforeShowDay: this.disableDateRange,
+          onChangeMonthYear: this.displayColorMonthChange
         }).prev('.btn').on('click', (function(_this) {
           return function(e) {
             e && e.preventDefault();
             return $(datepickerSelector).focus();
           };
         })(this));
+        return this.setDateRangeColor();
       };
 
       AddDateRangeView.prototype.disableDateRange = function(date) {
-        var checkDateRange, daterangeCollection, models, time;
-        daterangeCollection = App.request("get:daterange:collection");
+        var checkDateRange, model, time;
         time = date.getTime();
         checkDateRange = function(daterange) {
           var from, to;
@@ -106,13 +111,32 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/daterange
           to = moment(to).add('days', 1);
           return moment(time).isAfter(from) && moment(time).isBefore(to);
         };
-        models = daterangeCollection.filter(checkDateRange);
-        if (models.length > 0) {
-          console.log(models.get('daterange_colour'));
-          return [false, 'dateRangeColor'];
+        model = this.daterangeCollection.filter(checkDateRange);
+        if (model.length > 0) {
+          return [false, ''];
         } else {
           return [true, ''];
         }
+      };
+
+      AddDateRangeView.prototype.setDateRangeColor = function() {
+        return _.each(this.daterangeCollection.models, function(daterangeModel, index) {
+          var className, dateRangeColour, dateRangeName;
+          dateRangeName = daterangeModel.get('daterange_name');
+          dateRangeColour = daterangeModel.get('daterange_colour');
+          className = _.slugify(dateRangeName);
+          return $("." + className).css({
+            "background-color": dateRangeColour
+          });
+        });
+      };
+
+      AddDateRangeView.prototype.displayColorMonthChange = function(year, month, inst) {
+        return _.delay((function(_this) {
+          return function() {
+            return _this.setDateRangeColor();
+          };
+        })(this), 10);
       };
 
       return AddDateRangeView;
