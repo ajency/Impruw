@@ -57,38 +57,38 @@ function get_menu_items() {
         array(
             'url'     => '#/language',
             'title'   => 'Language',
-            'icon'    => 'chat2',
-            'submenu' => array(
-                array( 'url'   => '#',
-                       'title' => 'Norwegian',
-                       'icon'  => 'stats1' ),
-                array( 'url'   => '#',
-                       'title' => 'Swedish',
-                       'icon'  => 'stats2' ),
-                array( 'url'   => '#s',
-                       'title' => 'German',
-                       'icon'  => 'stats3' )
-            )
+            'icon'    => 'chat2'
+//            'submenu' => array(
+//                array( 'url'   => '#',
+//                       'title' => 'Norwegian',
+//                       'icon'  => 'stats1' ),
+//                array( 'url'   => '#',
+//                       'title' => 'Swedish',
+//                       'icon'  => 'stats2' ),
+//                array( 'url'   => '#s',
+//                       'title' => 'German',
+//                       'icon'  => 'stats3' )
+//            )
         ),
-        array(
-            'url'     => '#/billing',
-            'title'   => 'Billing',
-            'icon'    => 'wallet',
-            'submenu' => array(
-                array( 'url'   => '#/billing/purchase-history',
-                       'title' => 'Purchase History',
-                       'icon'  => 'stats1' ),
-                array( 'url'   => '#/billing/billing-info',
-                       'title' => 'Billing Info',
-                       'icon'  => 'stats2' ),
-                array( 'url'   => '#/billing/pricing-plans',
-                       'title' => 'Pricing Plans',
-                       'icon'  => 'stats2' ),
-                array( 'url'   => '#/billing/payment-page',
-                       'title' => 'Payment Page',
-                       'icon'  => 'stats2' )
-            )
-        ),
+//        array(
+//            'url'     => '#/billing',
+//            'title'   => 'Billing',
+//            'icon'    => 'wallet',
+//            'submenu' => array(
+//                array( 'url'   => '#/billing/purchase-history',
+//                       'title' => 'Purchase History',
+//                       'icon'  => 'stats1' ),
+//                array( 'url'   => '#/billing/billing-info',
+//                       'title' => 'Billing Info',
+//                       'icon'  => 'stats2' ),
+//                array( 'url'   => '#/billing/pricing-plans',
+//                       'title' => 'Pricing Plans',
+//                       'icon'  => 'stats2' ),
+//                array( 'url'   => '#/billing/payment-page',
+//                       'title' => 'Payment Page',
+//                       'icon'  => 'stats2' )
+//            )
+//        ),
         array(
             'url'   => '#/logout',
             'title' => 'Logout',

@@ -13,11 +13,12 @@ define(['app', 'apps/builder/site-builder/elements/text/views', 'apps/builder/si
       }
 
       Controller.prototype.initialize = function(options) {
+        var data;
+        data = {};
+        data[WPML_DEFAULT_LANG] = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s';
         _.defaults(options.modelData, {
           element: 'Text',
-          content: {
-            'en': 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s'
-          }
+          content: data
         });
         return Controller.__super__.initialize.call(this, options);
       };
@@ -38,9 +39,10 @@ define(['app', 'apps/builder/site-builder/elements/text/views', 'apps/builder/si
         view = this._getTextView(this.layout.model);
         this.listenTo(view, "text:element:blur", (function(_this) {
           return function(html) {
-            _this.layout.model.set('content', {
-              'en': "" + html
-            });
+            var data;
+            data = {};
+            data[WPML_DEFAULT_LANG] = html;
+            _this.layout.model.set('content', data);
             if (_this.layout.model.hasChanged()) {
               return _this.layout.model.save();
             }

@@ -31,7 +31,7 @@ define ['app'], (App)->
             onShow: ->
                 @$el.attr('contenteditable', 'true').attr 'id', _.uniqueId 'text-'
                 @editor = CKEDITOR.inline document.getElementById @$el.attr 'id'
-                @editor.setData _.stripslashes @model.get 'content'
+                @editor.setData _.stripslashes @model.get('content')[WPML_DEFAULT_LANG]
 
             # destroy the Ckeditor instance to avoiid memory leaks on close of element
             # this.editor will hold the reference to the editor instance
