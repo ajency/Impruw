@@ -52,7 +52,9 @@ class ImageWithText extends Element {
         $this->align    = isset($element['align']) ? $element['align'] : 'left';
 
         $current_language = ICL_LANGUAGE_CODE;
-        $this->content = stripcslashes(trim($element['content'][$current_language]));
+        $content        = isset( $element[ 'content' ][ $current_language ] ) ? $element[ 'content' ][
+        $current_language ] : $element[ 'content' ][ wpml_get_default_language() ];
+        $this->content  = stripcslashes(trim( $content ));
 
         $this->style 	= sanitize_title($element['style']);
         $this->markup   = $this->generate_markup();
