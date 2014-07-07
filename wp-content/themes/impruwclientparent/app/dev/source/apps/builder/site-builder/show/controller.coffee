@@ -1,11 +1,11 @@
-define ['app', 'controllers/base-controller'
-        'apps/builder/site-builder/show/views'], (App, AppController)->
-    App.module 'SiteBuilderApp.Show', (Show, App, Backbone, Marionette, $, _)->
+define [ 'app', 'controllers/base-controller'
+         'apps/builder/site-builder/show/views' ], ( App, AppController )->
+    App.module 'SiteBuilderApp.Show', ( Show, App, Backbone, Marionette, $, _ )->
         siteBuilderController = null
 
         class Show.BuilderController extends AppController
 
-            initialize: (opt = {})->
+            initialize : ( opt = {} )->
                 @region = App.getRegion 'builderRegion'
 
                 {pageId, revisionId} = opt
@@ -15,10 +15,10 @@ define ['app', 'controllers/base-controller'
 
                 # builder view
                 @view = new Show.View.Builder
-                                    model : elements
+                    model : elements
 
                 # listen to element dropped event for next action
-                @listenTo @view, "add:new:element", (container, type, metaId = 0)->
+                @listenTo @view, "add:new:element", ( container, type, metaId = 0 )->
                     modelData = {}
                     if metaId isnt 0
                         model = App.request "get:unused:element:by:metaid", metaId
@@ -37,40 +37,40 @@ define ['app', 'controllers/base-controller'
                     , 400
 
                 @show @view,
-                    loading: true
+                    loading : true
 
-            _getContainer: (section)->
+            _getContainer : ( section )->
                 switch section
                     when 'header'
-                        $('#site-header-region')
+                        $( '#site-header-region' )
                     when 'page'
-                        $('#site-page-content-region')
+                        $( '#site-page-content-region' )
                     when 'footer'
-                        $('#site-footer-region')
+                        $( '#site-footer-region' )
 
 
             # start filling elements
-            startFillingElements: ()->
-                section = @view.model.get('header')
+            startFillingElements : ()->
+                section = @view.model.get( 'header' )
                 container = @_getContainer 'header'
-                _.each section, (element, i)=>
+                _.each section, ( element, i )=>
                     if element.element is 'Row'
                         @addNestedElements container, element
                     else
                         App.request "add:new:element", container, element.element, element
 
-                section = @view.model.get('page')
+                section = @view.model.get( 'page' )
                 container = @_getContainer 'page'
-                _.each section, (element, i)=>
+                _.each section, ( element, i )=>
                     return if not _.isObject element
                     if element.element is 'Row'
                         @addNestedElements container, element
                     else
                         App.request "add:new:element", container, element.element, element
 
-                section = @view.model.get('footer')
+                section = @view.model.get( 'footer' )
                 container = @_getContainer 'footer'
-                _.each section, (element, i)=>
+                _.each section, ( element, i )=>
                     if element.element is 'Row'
                         @addNestedElements container, element
                     else
@@ -80,22 +80,22 @@ define ['app', 'controllers/base-controller'
 
             # start the save revision interval.
             # uses: siteInterval(fn, interval)
-            startAutoSave: ->
-                clearInterval(window.autoSaveInterval) if window.autoSaveInterval
+            startAutoSave : ->
+                clearInterval( window.autoSaveInterval ) if window.autoSaveInterval
 
                 window.autoSaveInterval = setInterval ->
                     App.execute "auto:save"
                 , AUTOSAVEINTERVAL
 
 
-            addNestedElements: (container, element)->
+            addNestedElements : ( container, element )->
                 controller = App.request "add:new:element", container, element.element, element
-                _.each element.elements, (column, index)=>
+                _.each element.elements, ( column, index )=>
                     return if column.elements.length is 0
-                    container = controller.layout.elementRegion.currentView.$el.children().eq(index)
-                    _.each column.elements, (ele, i)=>
+                    container = controller.layout.elementRegion.currentView.$el.children().eq( index )
+                    _.each column.elements, ( ele, i )=>
                         if element.element is 'Row'
-                            @addNestedElements $(container), ele
+                            @addNestedElements $( container ), ele
                         else
                             App.request "add:new:element", container, ele.element, ele
 
@@ -104,16 +104,16 @@ define ['app', 'controllers/base-controller'
         class Show.Controller extends AppController
 
             # initialize the controller. Get all required entities and show the view
-            initialize: (opt = {})->
-                @region = App.getRegion('builderWrapper')
+            initialize : ( opt = {} )->
+                @region = App.getRegion( 'builderWrapper' )
 
                 # add pages
-                pages = App.request "get:editable:pages"
+                @pages = App.request "get:editable:pages"
 
                 @layout = layout = new Show.View.MainView
-                                                collection: pages
+                    collection : @pages
 
-                @listenTo layout, 'editable:page:changed', (pageId)->
+                @listenTo layout, 'editable:page:changed', ( pageId )->
                     # set the cookie
                     $.cookie 'current-page-id', pageId
                     App.execute "editable:page:changed", pageId
@@ -125,22 +125,24 @@ define ['app', 'controllers/base-controller'
 
                 App.commands.setHandler "page:published", @triggerPagePublishOnView
 
-                @listenTo App.vent, "revision:link:clicked", (revisionId)->
+                @listenTo App.vent, "revision:link:clicked", ( revisionId )->
                     currentPageId = App.request "get:current:editable:page"
                     App.execute "editable:page:changed", currentPageId, revisionId
 
-                @listenTo layout, 'show', (layout)=>
+                @listenTo layout, 'show', ( layout )=>
                     # added delay so that the html is fully rendered
                     _.delay =>
                         # add new region to application
                         App.addRegions
-                            builderRegion: '#aj-imp-builder-drag-drop'
+                            builderRegion : '#aj-imp-builder-drag-drop'
 
-                      #siteBuilderController = new Show.BuilderController()
+                        #siteBuilderController = new Show.BuilderController()
                     , 200
 
+                @listenTo layout, "update:page:name", @updatePageName
+
                 @show layout,
-                    loading: true
+                    loading : true
 
 
             triggerPagePublishOnView : =>
@@ -148,27 +150,38 @@ define ['app', 'controllers/base-controller'
 
 
             # show the previous revision
-            loadRevision: (revisionId)=>
+            loadRevision : ( revisionId )=>
                 currentPageId = App.request "get:current:editable:page"
                 App.execute "editable:page:changed", currentPageId, revisionId
 
             # add page revisions
-            addPageRevisions: ->
+            addPageRevisions : ->
                 currentPageId = App.request "get:current:editable:page"
 
                 pageRevisions = App.request "get:page:revisions", currentPageId
 
-                App.execute "when:fetched", [pageRevisions], =>
+                App.execute "when:fetched", [ pageRevisions ], =>
                     @layout.triggerMethod "add:page:revision:items", pageRevisions
 
-        App.commands.setHandler "editable:page:changed", (pageId, revisionId = 0)=>
+            #update the name of the page
+            updatePageName : ( pageData )->
+                updatedPageModel = App.request "get:page:model:by:id", pageData.ID
+                updatedPageModel.set pageData
+                updatedPageModel.save null,
+                    wait : true
+                    success : @pageNameUpdated
+
+            pageNameUpdated : ( updatedPageModel )=>
+                @layout.triggerMethod "page:name:updated", updatedPageModel
+
+        App.commands.setHandler "editable:page:changed", ( pageId, revisionId = 0 )=>
             App.resetElementRegistry()
             siteBuilderController.close() if siteBuilderController isnt null
             siteBuilderController = new Show.BuilderController
-                                                    pageId: pageId
-                                                    revisionId: revisionId
+                pageId : pageId
+                revisionId : revisionId
 
             App.execute "show:unused:elements",
-                                    region: App.unusedElementsRegion
-                                    revisionId: revisionId
-                                    pageId: pageId
+                region : App.unusedElementsRegion
+                revisionId : revisionId
+                pageId : pageId
