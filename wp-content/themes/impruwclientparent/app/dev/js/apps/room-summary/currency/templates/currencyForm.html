@@ -1,0 +1,29 @@
+<div class="form-group">
+    <label for="currency" class="col-sm-2 control-label">
+        {{#polyglot}}Select Currency{{/polyglot}}
+    </label>
+    <div class="col-sm-10 col-sm-offset-2">
+        <select name="user_currency" id="user_currency">
+            <option value="&#163;">
+                {{#polyglot}}Pound (&#163;) {{/polyglot}}
+            </option>
+            <option value="&#128;">
+            {{#polyglot}}Euro (&#128;) {{/polyglot}}
+            </option>
+            <option value="NOK">
+                {{#polyglot}}Norwegian (NOK) {{/polyglot}}
+            </option>
+            <option value="&#36;">
+                {{#polyglot}}Dollar (&#36;) {{/polyglot}}
+            </option>
+        </select>
+    </div>
+</div>
+<div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+        <button type="button" id="btn_update_currency" name="btn_update_currency"
+                class="btn btn-wide aj-imp-submit">
+            {{#polyglot}}Update{{/polyglot}}
+        </button>
+    </div>
+</div>

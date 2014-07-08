@@ -17,7 +17,7 @@ if ( !defined( 'ABSPATH' ) )
 function create_new_site( $site_name, $user_id ) {
 
     // get the path and domain
-    $path   = get_site_path( $site_name );
+    $path = get_site_path( $site_name );
     $domain = get_site_domain( $site_name );
 
     // set meta
@@ -33,6 +33,9 @@ function create_new_site( $site_name, $user_id ) {
 
     // set the tracking status of the site created to false
     set_statistics_status( $site_id );
+
+    // set default currency for the site
+    set_currency( $site_id );
 
     assign_theme_to_site( $site_id, 'impruwclientparent' );
 
@@ -93,7 +96,7 @@ function activate_site_plugins( $site_id, $plugins ) {
 
     switch_to_blog( $site_id );
 
-    $_REQUEST [ 'action' ]   = 'activate';
+    $_REQUEST [ 'action' ] = 'activate';
     $_REQUEST [ '_wpnonce' ] = wp_create_nonce();
 
     activate_plugins( $plugins );
@@ -247,6 +250,15 @@ function set_statistics_status( $site_id ) {
     restore_current_blog();
 }
 
+function set_currency( $site_id ) {
+
+    switch_to_blog( $site_id );
+
+    update_option( 'currency', 'NOK' );
+
+    restore_current_blog();
+}
+
 /**
  * Assigns the passed theme to site
  *
@@ -318,7 +330,7 @@ function get_site_domain( $domain ) {
  * Function to check if the sitename already exists
  *
  * @param string $blog_name
- * @param int    $mainblog_id
+ * @param int $mainblog_id
  *
  * @return array containing status, message
  */
@@ -326,7 +338,7 @@ function sitename_exists( $blog_name, $mainblog_id ) {
 
     global $user_id;
     // var_dump("test");
-    $blog   = $blog_name;
+    $blog = $blog_name;
     $domain = '';
     if ( preg_match( '|^([a-zA-Z0-9-])+$|', $blog_name ) )
         $domain = strtolower( $blog_name );
@@ -347,10 +359,10 @@ function sitename_exists( $blog_name, $mainblog_id ) {
     }
 
     $current_site = get_blog_details( $mainblog_id );
-    $site_id      = $current_site->blog_id;
+    $site_id = $current_site->blog_id;
 
     if ( empty( $domain ) ) {
-        $site_exists [ 'CODE' ]    = 'ERROR';
+        $site_exists [ 'CODE' ] = 'ERROR';
         $site_exists [ 'message' ] = __( 'Missing or invalid site address.' );
 
         return $site_exists;
@@ -358,10 +370,10 @@ function sitename_exists( $blog_name, $mainblog_id ) {
 
     if ( is_subdomain_install() ) {
         $newdomain = $domain . '.' . preg_replace( '|^www\.|', '', $current_site->domain );
-        $path      = $current_site->path;
+        $path = $current_site->path;
     } else {
         $newdomain = $current_site->domain;
-        $path      = $current_site->path . $domain . '/';
+        $path = $current_site->path . $domain . '/';
     }
 
     $domain = preg_replace( '/\s+/', '', sanitize_user( $newdomain, TRUE ) );
@@ -369,19 +381,19 @@ function sitename_exists( $blog_name, $mainblog_id ) {
     if ( is_subdomain_install() )
         $domain = str_replace( '@', '', $domain );
 
-    $user_id = (int) $user_id;
+    $user_id = (int)$user_id;
 
     if ( empty( $path ) )
         $path = '/';
 
     // Check if the domain has been used already.
     if ( domain_exists( $domain, $path, $site_id ) ) {
-        $site_exists [ 'CODE' ]    = 'OK';
+        $site_exists [ 'CODE' ] = 'OK';
         $site_exists [ 'message' ] = __( 'Oops you cannot use this name. It\'s already taken.' );
 
         return $site_exists;
     } else {
-        $site_exists [ 'CODE' ]    = 'FAILED';
+        $site_exists [ 'CODE' ] = 'FAILED';
         $site_exists [ 'message' ] = __( 'Site Name is available.' );
 
         return $site_exists;

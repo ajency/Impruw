@@ -12,7 +12,7 @@ define(['app', 'controllers/base-controller', 'apps/rooms/tariffs/show/views'], 
       }
 
       ShowController.prototype.initialize = function(opt) {
-        var dcollection, pcollection, tcollection;
+        var currentCurrency, dcollection, pcollection, sitemodel, tcollection;
         this.roomId = opt.roomId;
         if (!this.roomId) {
           throw new Error("Invalid room id: " + this.roomId);
@@ -20,12 +20,14 @@ define(['app', 'controllers/base-controller', 'apps/rooms/tariffs/show/views'], 
         pcollection = App.request("get:plans:collection");
         dcollection = App.request("get:daterange:collection");
         tcollection = App.request("get:tariffs:collection", this.roomId);
+        sitemodel = App.request("get:site:model");
+        currentCurrency = sitemodel.get('currency');
         this.layout = this._getGridLayout(tcollection);
         this.packagesView = this._getPackagesView(pcollection);
-        this.dateRangeView = this._getDateRangeView(dcollection);
+        this.dateRangeView = this._getDateRangeView(dcollection, currentCurrency);
         pcollection.on('add remove', (function(_this) {
           return function() {
-            _this.dateRangeView = _this._getDateRangeView(dcollection);
+            _this.dateRangeView = _this._getDateRangeView(dcollection, currentCurrency);
             return _this.layout.tariffRegion.show(_this.dateRangeView);
           };
         })(this));
@@ -46,10 +48,11 @@ define(['app', 'controllers/base-controller', 'apps/rooms/tariffs/show/views'], 
         });
       };
 
-      ShowController.prototype._getDateRangeView = function(dCollection) {
+      ShowController.prototype._getDateRangeView = function(dCollection, currentCurrency) {
         return new Show.Views.DateRangeCollectionView({
           collection: dCollection,
-          roomId: this.roomId
+          roomId: this.roomId,
+          currency: currentCurrency
         });
       };
 

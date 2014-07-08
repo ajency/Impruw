@@ -14,56 +14,55 @@ define(['app', 'controllers/base-controller', 'apps/rooms/add/views', 'apps/room
       }
 
       Controller.prototype.initialize = function(options) {
-        var layout;
+        var sitemodel;
         this.roomModel = App.request("create:new:room:model", {});
-        this.layout = layout = this.getAddRoomLayout(this.roomModel);
-        this.slidesCollection = App.request("get:slides:collection");
-        this.listenTo(layout, "show", (function(_this) {
+        sitemodel = App.request("get:site:model");
+        return App.execute("when:fetched", sitemodel, (function(_this) {
           return function() {
-            App.execute("show:facilities", {
-              region: layout.facilitiesRegion,
-              facilities: _this.roomModel.get('facilities')
+            var layout;
+            _this.currentCurrency = sitemodel.get('currency');
+            _this.layout = layout = _this.getAddRoomLayout(_this.roomModel, _this.currentCurrency);
+            _this.slidesCollection = App.request("get:slides:collection");
+            _this.listenTo(layout, "show", function() {
+              App.execute("show:facilities", {
+                region: layout.facilitiesRegion,
+                facilities: _this.roomModel.get('facilities')
+              });
+              App.execute("show:gallery:images", {
+                region: layout.galleryRegion,
+                collection: _this.slidesCollection
+              });
+              App.execute("show:rooms:tariffs:app", {
+                region: layout.roomTariffRegion,
+                roomId: _this.roomModel.get('ID')
+              });
+              return App.execute("show:booking:app", {
+                region: layout.roomBookingRegion,
+                roomId: _this.roomModel.get('ID')
+              });
             });
-            App.execute("show:gallery:images", {
-              region: layout.galleryRegion,
-              collection: _this.slidesCollection
+            _this.listenTo(_this.layout, "show:edit:slider", function() {
+              return App.execute("show:slides:list", {
+                region: App.dialogRegion,
+                collection: _this.slidesCollection
+              });
             });
-            App.execute("show:rooms:tariffs:app", {
-              region: layout.roomTariffRegion,
-              roomId: _this.roomModel.get('ID')
+            _this.slidesCollection.on("add remove", function(model) {
+              _this.layout.triggerMethod("set:slider:id", model.get('slider_id'));
+              return App.execute("show:gallery:images", {
+                region: layout.galleryRegion,
+                collection: _this.slidesCollection
+              });
             });
-            return App.execute("show:booking:app", {
-              region: layout.roomBookingRegion,
-              roomId: _this.roomModel.get('ID')
+            _this.listenTo(_this.layout, "save:new:room", function(data) {
+              return _this._saveNewRoom(data);
             });
+            _this.show(layout, {
+              loading: true
+            });
+            return App.navigate("rooms/add");
           };
         })(this));
-        this.listenTo(this.layout, "show:edit:slider", (function(_this) {
-          return function() {
-            return App.execute("show:slides:list", {
-              region: App.dialogRegion,
-              collection: _this.slidesCollection
-            });
-          };
-        })(this));
-        this.slidesCollection.on("add remove", (function(_this) {
-          return function(model) {
-            _this.layout.triggerMethod("set:slider:id", model.get('slider_id'));
-            return App.execute("show:gallery:images", {
-              region: layout.galleryRegion,
-              collection: _this.slidesCollection
-            });
-          };
-        })(this));
-        this.listenTo(this.layout, "save:new:room", (function(_this) {
-          return function(data) {
-            return _this._saveNewRoom(data);
-          };
-        })(this));
-        this.show(layout, {
-          loading: true
-        });
-        return App.navigate("rooms/add");
       };
 
       Controller.prototype._saveNewRoom = function(data) {
@@ -80,9 +79,10 @@ define(['app', 'controllers/base-controller', 'apps/rooms/add/views', 'apps/room
         return this.layout.triggerMethod("show:success:message");
       };
 
-      Controller.prototype.getAddRoomLayout = function(model) {
+      Controller.prototype.getAddRoomLayout = function(model, currentCurrency) {
         return new Add.View.AddRoomLayout({
-          model: model
+          model: model,
+          currency: currentCurrency
         });
       };
 

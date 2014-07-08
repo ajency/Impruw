@@ -9,7 +9,11 @@ define ['app', 'controllers/base-controller',
                 else
                     tariff = opt.model
 
-                @tariffView = tariffView = @_getAddTariffView tariff
+                #get the currency
+                sitemodel = App.request "get:site:model"
+                currentCurrency = sitemodel.get 'currency'
+
+                @tariffView = tariffView = @_getAddTariffView tariff ,currentCurrency
 
                 @listenTo tariffView, "add:tariff", (data)=>
                     tariff.set data
@@ -24,8 +28,9 @@ define ['app', 'controllers/base-controller',
                 @tariffView.triggerMethod "saved:tariff"
 
             # get the packages view
-            _getAddTariffView: (tariff)->
+            _getAddTariffView: (tariff , currentCurrency)->
                 new AddTariffView
+                    currency : currentCurrency
 
         # Edti tariff view
         class AddTariffView extends Marionette.ItemView
@@ -52,6 +57,7 @@ define ['app', 'controllers/base-controller',
             # show checkbox
             onShow: ->
                 @$el.find('input[type="checkbox"]').checkbox()
+                @$el.find('.currency').text Marionette.getOption @, "currency"
 
 
         # handler
