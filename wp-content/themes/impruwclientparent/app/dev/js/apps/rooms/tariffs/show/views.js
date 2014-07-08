@@ -146,6 +146,7 @@ define(['app', 'moment'], function(App, moment) {
           return false;
         };
         roomId = Marionette.getOption(this, 'roomId');
+        console.log(roomId);
         plans.each((function(_this) {
           return function(plan, index) {
             var tariff;
@@ -215,11 +216,9 @@ define(['app', 'moment'], function(App, moment) {
       DateRangeCollectionView.prototype.itemViewOptions = function(item, index) {
         var currency, roomId;
         roomId = Marionette.getOption(this, 'roomId');
-        ({
-          roomId: roomId
-        });
         currency = Marionette.getOption(this, 'currency');
         return {
+          roomId: roomId,
           currency: currency
         };
       };

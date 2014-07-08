@@ -177,6 +177,7 @@ define ['app', 'moment'], (App, moment)->
                     return false
 
                 roomId = Marionette.getOption @, 'roomId'
+                console.log roomId
 
                 plans.each (plan, index)=>
                     tariff = getTariff plan.get 'id'
@@ -230,7 +231,6 @@ define ['app', 'moment'], (App, moment)->
 
             itemViewOptions: (item, index)->
                 roomId = Marionette.getOption @, 'roomId'
-                roomId: roomId
-
                 currency = Marionette.getOption @, 'currency'
+                roomId: roomId
                 currency: currency

@@ -42,7 +42,6 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/addtariff
       };
 
       AddTariffController.prototype._getAddTariffView = function(tariff, currentCurrency) {
-        console.log(currentCurrency);
         return new AddTariffView({
           currency: currentCurrency
         });

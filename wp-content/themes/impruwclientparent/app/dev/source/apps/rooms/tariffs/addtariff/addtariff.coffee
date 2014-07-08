@@ -29,7 +29,6 @@ define ['app', 'controllers/base-controller',
 
             # get the packages view
             _getAddTariffView: (tariff , currentCurrency)->
-                console.log currentCurrency
                 new AddTariffView
                     currency : currentCurrency
 
