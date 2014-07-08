@@ -39,7 +39,7 @@
         </div>
         <!--second row-->
         <div class="row second">
-            <div class="col-sm-7">
+            <div class="col-sm-8">
                 <div class="aj-imp-browser-address-bar clearfix">
                     <b>{{#polyglot}}Page Name{{/polyglot}} </b>
                     <input type="text" value="{{SITEURL}}" class="page-slug-edit">
@@ -52,7 +52,7 @@
 
                 </div>
             </div>
-            <div class="col-sm-1">
+            <div class="col-sm-2">
                 <a href="#" class="btn btn-xs add-new-page"><span class="glyphicon glyphicon-plus-sign"></span>
                     {{#polyglot}}Add Page{{/polyglot}}</a>
             </div>
@@ -73,10 +73,11 @@
         </div>
 
         <!-- Change page name section -->
-        <div>
-            <input type="text" name="page_name" id="page_name">
-            <button type="button" class="btn-update-pg-name">Update</button>
-
+        <div class="page-name">
+            <div class="page-name-content">
+                <input type="text" name="page_name" id="page_name" class="page-name-input">
+                <button type="button" class="btn btn-update-pg-name">Update</button>
+            </div>
         </div>
     </div>
     <!-- browser body-->

@@ -108,7 +108,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
 
       SlideView.prototype.className = 'panel panel-default moveable';
 
-      SlideView.prototype.template = '<div class="panel-heading"> <a class="accordion-toggle"> <div class="aj-imp-image-item row"> <div class="imgthumb col-sm-3"> <img src="{{thumb_url}}" class="img-responsive"> </div> <div class="imgname col-sm-5">{{file_name}}</div> <div class="imgactions col-sm-4"> <button class="btn btn-danger btn-sm remove-slide" title="Delete Image"><span class="glyphicon glyphicon-remove-sign"></span> Delete Image</button> </div> </div> </a> </div>';
+      SlideView.prototype.template = '<div class="panel-heading"> <a class="accordion-toggle"> <div class="aj-imp-image-item row"> <div class="imgthumb col-sm-4"> <img src="{{thumb_url}}" class="img-responsive"> </div> <div class="imgname col-sm-5">{{file_name}}</div> <div class="imgactions col-sm-3"> <a class="remove-slide" title="Delete Image"><span class="glyphicon glyphicon-trash"></span>&nbsp;{{#polyglot}}Delete Image{{/polyglot}}</a> </div> </div> </a> </div>';
 
       SlideView.prototype.events = {
         'click .update-slide': function() {
@@ -152,7 +152,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         return SlidesListView.__super__.constructor.apply(this, arguments);
       }
 
-      SlidesListView.prototype.template = '<div class="aj-imp-image-header row"> <div class="col-sm-3"> &nbsp; </div> <div class="col-sm-5"> {{#polyglot}}File Name{{/polyglot}} </div> <div class="col-sm-4"> {{#polyglot}}Actions{{/polyglot}} </div> </div> <div class="panel-group" id="slides-accordion"></div>';
+      SlidesListView.prototype.template = '<div class="aj-imp-image-header row"> <div class="col-sm-4"> &nbsp; </div> <div class="col-sm-5"> {{#polyglot}}File Name{{/polyglot}} </div> <div class="col-sm-3"> {{#polyglot}}Actions{{/polyglot}} </div> </div> <div class="panel-group" id="slides-accordion"></div>';
 
       SlidesListView.prototype.itemView = SlideView;
 
@@ -198,7 +198,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         return SlidesListLayout.__super__.constructor.apply(this, arguments);
       }
 
-      SlidesListLayout.prototype.template = '<div id="slides-list-region"></div> <div class="aj-imp-block-button add-new-slide"> <button class="btn btn-default btn-hg btn-block"><span class="bicon icon-uniF10C"></span>&nbsp;&nbsp;{{#polyglot}}Add Image{{/polyglot}}</button> </div> <div id="add-slide-region"></div>';
+      SlidesListLayout.prototype.template = '<div class="row"> <div class="col-sm-7"> <div id="slides-list-region"></div> </div> <div class="col-sm-5"> <div id="slides-info"> {{#polyglot}}Add Images to your slider from here. You can change the order of the images by dragging them around.{{/polyglot}} </div> </div> </div> <div class="aj-imp-block-button add-new-slide"> <button class="btn btn-default btn-hg btn-block"><span class="bicon icon-uniF10C"></span>&nbsp;&nbsp;{{#polyglot}}Add Image{{/polyglot}}</button> </div> <div id="add-slide-region"></div>';
 
       SlidesListLayout.prototype.events = {
         'click .add-new-slide': function() {
