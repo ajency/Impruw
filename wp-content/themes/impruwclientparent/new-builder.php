@@ -68,7 +68,6 @@
     var CURRENTTHEME = '<?php echo wp_get_theme()->get_stylesheet() ?>';
     var THEMECOLORSET = '<?php echo get_option('current_color_set','default'); ?>';
     var AUTOSAVEINTERVAL = 55 * 1000;
-    var ISTHEMEEDITOR = <?php echo is_network_admin() ? 'true' : 'false' ?>;
     var PHRASES = <?php echo json_encode(load_language_phrases());?>;
     var ADDRESS = '<?php echo get_hotel_address() ?>';
     var ISTHEMEEDITOR = '<?php echo current_user_can( 'edit_impruw_theme' ) ? 'yes' : 'no' ?>';

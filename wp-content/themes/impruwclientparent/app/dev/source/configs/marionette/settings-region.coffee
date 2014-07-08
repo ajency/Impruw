@@ -1,15 +1,17 @@
+define [ 'marionette' ], ( Marionette ) ->
+   class Marionette.Region.Settings extends Marionette.Region
 
-define ['marionette'], (Marionette) ->
+      #initiate modal on show
+      onShow : ( view )->
+         @$el.draggable
+            handle : ".settings-header",
+            addClasses : false
 
-	class Marionette.Region.Settings extends Marionette.Region
+         @$el.center( false )
 
-		#initiate modal on show
-		onShow :(view)->
-			@$el.draggable
-					handle: ".settings-header",
-					addClasses: false
+         if  ISTHEMEEDITOR is 'no'
+            view.$el.find( 'form .form-group' ).hide()
+            view.$el.find( 'form .form-group.edit-by-user' ).show()
 
-			@$el.center(false)
-
-		onClose:->
-			@$el.draggable 'destroy'
+      onClose : ->
+         @$el.draggable 'destroy'
