@@ -51,8 +51,6 @@ define [ 'app', 'controllers/base-controller',
 
             # show checkbox
             onShow : ->
-                @daterangeCollection = App.request "get:daterange:collection"
-
                 @$el.find( 'input[type="checkbox"]' ).checkbox()
                 @$el.find( '#daterange_colour' ).minicolors()
                 @$el.find( '.dated' ).datepicker
@@ -69,31 +67,22 @@ define [ 'app', 'controllers/base-controller',
                 @setDateRangeColor()
 
             disableDateRange : ( date ) =>
-#            daterangeCollection = App.request "get:daterange:collection"
-                time = date.getTime()
-
-                checkDateRange = ( daterange )->
-                    from = daterange.get 'from_date'
-                    to = daterange.get 'to_date'
-
-                    from = moment( from ).subtract( 'days', 1 )
-                    to = moment( to ).add( 'days', 1 )
-
-                    moment( time ).isAfter( from ) and moment( time ).isBefore( to )
-
-                model = @daterangeCollection.filter checkDateRange
-
-                if model.length > 0
-                    return [ false, '' ]
+                dateRangeName = App.request "get:daterange:name:for:date", date
+                className = _.slugify dateRangeName
+                if dateRangeName is ''
+                    return [ true, className ]
                 else
-                    return [ true, '' ]
+                    return [ false, className ]
 
             # sets a background color for daterange
             setDateRangeColor : =>
-                _.each @daterangeCollection.models, ( daterangeModel, index ) ->
+                daterangeCollection = App.request "get:daterange:collection"
+                _.each daterangeCollection.models, ( daterangeModel, index ) ->
                     dateRangeName = daterangeModel.get 'daterange_name'
                     dateRangeColour = daterangeModel.get 'daterange_colour'
                     className = _.slugify dateRangeName
+                    console.log className
+                    console.log dateRangeColour
                     $( ".#{className}" ).css( { "background-color" : dateRangeColour } )
 
             displayColorMonthChange : ( year, month, inst ) =>

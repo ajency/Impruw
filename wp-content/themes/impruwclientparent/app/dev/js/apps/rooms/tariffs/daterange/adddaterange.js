@@ -82,7 +82,6 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/daterange
       };
 
       AddDateRangeView.prototype.onShow = function() {
-        this.daterangeCollection = App.request("get:daterange:collection");
         this.$el.find('input[type="checkbox"]').checkbox();
         this.$el.find('#daterange_colour').minicolors();
         this.$el.find('.dated').datepicker({
@@ -101,30 +100,26 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/daterange
       };
 
       AddDateRangeView.prototype.disableDateRange = function(date) {
-        var checkDateRange, model, time;
-        time = date.getTime();
-        checkDateRange = function(daterange) {
-          var from, to;
-          from = daterange.get('from_date');
-          to = daterange.get('to_date');
-          from = moment(from).subtract('days', 1);
-          to = moment(to).add('days', 1);
-          return moment(time).isAfter(from) && moment(time).isBefore(to);
-        };
-        model = this.daterangeCollection.filter(checkDateRange);
-        if (model.length > 0) {
-          return [false, ''];
+        var className, dateRangeName;
+        dateRangeName = App.request("get:daterange:name:for:date", date);
+        className = _.slugify(dateRangeName);
+        if (dateRangeName === '') {
+          return [true, className];
         } else {
-          return [true, ''];
+          return [false, className];
         }
       };
 
       AddDateRangeView.prototype.setDateRangeColor = function() {
-        return _.each(this.daterangeCollection.models, function(daterangeModel, index) {
+        var daterangeCollection;
+        daterangeCollection = App.request("get:daterange:collection");
+        return _.each(daterangeCollection.models, function(daterangeModel, index) {
           var className, dateRangeColour, dateRangeName;
           dateRangeName = daterangeModel.get('daterange_name');
           dateRangeColour = daterangeModel.get('daterange_colour');
           className = _.slugify(dateRangeName);
+          console.log(className);
+          console.log(dateRangeColour);
           return $("." + className).css({
             "background-color": dateRangeColour
           });
