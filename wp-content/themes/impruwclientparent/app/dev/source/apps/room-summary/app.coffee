@@ -3,6 +3,7 @@ define [
     'apps/room-summary/show/controller'
     'apps/room-summary/checkin/controller'
     'apps/room-summary/policies/controller'
+    'apps/room-summary/currency/controller'
 ], (App)->
     App.module 'RoomSummaryApp', (RoomSummaryApp, App, Backbone, Marionette, $, _)->
         class RoomSummaryApp.Router extends Marionette.AppRouter

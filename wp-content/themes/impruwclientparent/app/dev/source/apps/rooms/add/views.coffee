@@ -39,6 +39,8 @@ define [ 'app'
 
             @$el.find( '*[data-spy="affix"]' ).css( 'margin-left', m )
 
+            @$el.find('.currency' ).text Marionette.getOption @, 'currency'
+
 
          onShowSuccessMessage : ->
             @$el.find( '.alert' ).remove()

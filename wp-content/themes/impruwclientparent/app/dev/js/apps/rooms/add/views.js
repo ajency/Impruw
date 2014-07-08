@@ -40,7 +40,8 @@ define(['app', 'text!apps/rooms/add/templates/add-room.html'], function(App, add
         w = $('.aj-imp-right').width();
         this.$el.find('*[data-spy="affix"]').width(w);
         m = $('.aj-imp-left').width();
-        return this.$el.find('*[data-spy="affix"]').css('margin-left', m);
+        this.$el.find('*[data-spy="affix"]').css('margin-left', m);
+        return this.$el.find('.currency').text(Marionette.getOption(this, 'currency'));
       };
 
       AddRoomLayout.prototype.onShowSuccessMessage = function() {

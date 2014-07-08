@@ -49,7 +49,7 @@ define(['app', 'moment'], function(App, moment) {
 
       PackagesView.prototype.className = 'tariff package-names clearfix';
 
-      PackagesView.prototype.template = '<div class="packages"><div class="package-blocks header clearfix"></div><button type="button" class="btn-add-plan"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;{{#polyglot}}Add Plan{{/polyglot}}</button></div>';
+      PackagesView.prototype.template = '<div class="packages"> <div class="package-blocks header clearfix"></div> <button type="button" class="btn-add-plan"> <span class="glyphicon glyphicon-plus-sign"></span> &nbsp;{{#polyglot}}Add Plan{{/polyglot}}</button> </div>';
 
       PackagesView.prototype.itemView = PackageSingle;
 
@@ -98,12 +98,13 @@ define(['app', 'moment'], function(App, moment) {
       SingleTariff.prototype.serializeData = function() {
         var data;
         data = SingleTariff.__super__.serializeData.call(this);
+        data.currency = Marionette.getOption(this, 'currency');
         data.plan_name = this.plan.get('plan_name');
         data.plan_description = this.plan.get('plan_description');
         return data;
       };
 
-      SingleTariff.prototype.template = '{{^id}} <div class="package-header"> <h6>{{plan_name}}</h6> <div class="package-desc"> {{plan_description}} </div> <a href="#" class="edit-pkg-link"><span class="glyphicon glyphicon-pencil"></span>{{#polyglot}}Edit Plan{{/polyglot}}</a> </div> <div class="block clearfix not-yet-added empty"> <span class="no-data"> <span class="glyphicon glyphicon-exclamation-sign"></span> </span>{{#polyglot}}No Data Added{{/polyglot}} <div class="block-action"> <button type="button" class="btn btn-sm add-trariff edit-tran"> <span class="glyphicon glyphicon-pencil"></span>&nbsp;{{#polyglot}}Add{{/polyglot}} </button> </div> </div> {{/id}} {{#id}} <div class="package-header"> <h6>{{plan_name}}</h6> <div class="package-desc"> {{plan_description}} </div> <a href="#" class="edit-pkg-link"><span class="glyphicon glyphicon-pencil"></span>{{#polyglot}}Edit Plan{{/polyglot}}</a> </div> <div class="block clearfix"> <div class="weekday"> {{#polyglot}}Weekdays{{/polyglot}} <span class="price">NOK&nbsp;{{weekday.charge}}</span> </div> <div class="weekend"> {{#polyglot}}Weekends{{/polyglot}} <span class="price">NOK&nbsp;{{weekend.charge}}</span> </div> <div class="tariff-label clearfix">{{#polyglot}}Extra Adult{{/polyglot}}</div> <div class="weekday"> <span class="price">NOK&nbsp;{{weekday.extra_adult}}</span> </div> <div class="weekend"> <span class="price">NOK&nbsp;{{weekend.extra_adult}}</span> </div> <div class="tariff-label clearfix">{{#polyglot}}Extra Child{{/polyglot}}</div> <div class="weekday"> <span class="price">NOK&nbsp;{{weekday.extra_child}}</span> </div> <div class="weekend"> <span class="price">NOK&nbsp;{{weekend.extra_child}}</span> </div> <div class="block-action"> <button type="button" class="btn btn-sm edit-trariff edit-tran"><span class="glyphicon glyphicon-pencil"></span>&nbsp;{{#polyglot}}Edit{{/polyglot}}</button> </div> </div> {{/id}}';
+      SingleTariff.prototype.template = '{{^id}} <div class="package-header"> <h6>{{plan_name}}</h6> <div class="package-desc"> {{plan_description}} </div> <a href="#" class="edit-pkg-link"><span class="glyphicon glyphicon-pencil"></span>{{#polyglot}}Edit Plan{{/polyglot}}</a> </div> <div class="block clearfix not-yet-added empty"> <span class="no-data"> <span class="glyphicon glyphicon-exclamation-sign"></span> </span>{{#polyglot}}No Data Added{{/polyglot}} <div class="block-action"> <button type="button" class="btn btn-sm add-trariff edit-tran"> <span class="glyphicon glyphicon-pencil"></span>&nbsp;{{#polyglot}}Add{{/polyglot}} </button> </div> </div> {{/id}} {{#id}} <div class="package-header"> <h6>{{plan_name}}</h6> <div class="package-desc"> {{plan_description}} </div> <a href="#" class="edit-pkg-link"><span class="glyphicon glyphicon-pencil"></span>{{#polyglot}}Edit Plan{{/polyglot}}</a> </div> <div class="block clearfix"> <div class="weekday"> {{#polyglot}}Weekdays{{/polyglot}} <span class="price">{{currency}}&nbsp;{{weekday.charge}}</span> </div> <div class="weekend"> {{#polyglot}}Weekends{{/polyglot}} <span class="price">{{currency}}&nbsp;{{weekend.charge}}</span> </div> <div class="tariff-label clearfix">{{#polyglot}}Extra Adult{{/polyglot}}</div> <div class="weekday"> <span class="price">{{currency}}&nbsp;{{weekday.extra_adult}}</span> </div> <div class="weekend"> <span class="price">{{currency}}&nbsp;{{weekend.extra_adult}}</span> </div> <div class="tariff-label clearfix">{{#polyglot}}Extra Child{{/polyglot}}</div> <div class="weekday"> <span class="price">{{currency}}&nbsp;{{weekday.extra_child}}</span> </div> <div class="weekend"> <span class="price">{{currency}}&nbsp;{{weekend.extra_child}}</span> </div> <div class="block-action"> <button type="button" class="btn btn-sm edit-trariff edit-tran"><span class="glyphicon glyphicon-pencil"></span>&nbsp;{{#polyglot}}Edit{{/polyglot}}</button> </div> </div> {{/id}}';
 
       return SingleTariff;
 
@@ -185,6 +186,14 @@ define(['app', 'moment'], function(App, moment) {
         return data;
       };
 
+      DateRageView.prototype.itemViewOptions = function(item, index) {
+        var currency;
+        currency = Marionette.getOption(this, 'currency');
+        return {
+          currency: currency
+        };
+      };
+
       DateRageView.prototype.itemView = SingleTariff;
 
       DateRageView.prototype.itemViewContainer = '.package-blocks';
@@ -204,10 +213,14 @@ define(['app', 'moment'], function(App, moment) {
       DateRangeCollectionView.prototype.itemView = DateRageView;
 
       DateRangeCollectionView.prototype.itemViewOptions = function(item, index) {
-        var roomId;
+        var currency, roomId;
         roomId = Marionette.getOption(this, 'roomId');
-        return {
+        ({
           roomId: roomId
+        });
+        currency = Marionette.getOption(this, 'currency');
+        return {
+          currency: currency
         };
       };
 

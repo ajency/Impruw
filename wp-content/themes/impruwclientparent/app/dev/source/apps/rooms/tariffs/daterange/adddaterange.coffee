@@ -58,13 +58,12 @@ define [ 'app', 'controllers/base-controller',
                     selectOtherMonths : true
                     dateFormat : "yy-mm-dd"
                     beforeShowDay : @disableDateRange
+#                    beforeShow : @setDateRangeColor
                     onChangeMonthYear : @displayColorMonthChange
 
                 .prev( '.btn' ).on 'click', ( e ) =>
                     e && e.preventDefault();
                     $( datepickerSelector ).focus()
-
-                @setDateRangeColor()
 
             disableDateRange : ( date ) =>
                 dateRangeName = App.request "get:daterange:name:for:date", date
@@ -75,15 +74,15 @@ define [ 'app', 'controllers/base-controller',
                     return [ false, className ]
 
             # sets a background color for daterange
-            setDateRangeColor : =>
+            setDateRangeColor :(a,b) =>
                 daterangeCollection = App.request "get:daterange:collection"
-                _.each daterangeCollection.models, ( daterangeModel, index ) ->
+                _.each daterangeCollection.models, ( daterangeModel, index ) =>
                     dateRangeName = daterangeModel.get 'daterange_name'
                     dateRangeColour = daterangeModel.get 'daterange_colour'
                     className = _.slugify dateRangeName
                     console.log className
                     console.log dateRangeColour
-                    $( ".#{className}" ).css( { "background-color" : dateRangeColour } )
+                    console.log @$el.find( ".#{className}" ).html()
 
             displayColorMonthChange : ( year, month, inst ) =>
                 _.delay =>

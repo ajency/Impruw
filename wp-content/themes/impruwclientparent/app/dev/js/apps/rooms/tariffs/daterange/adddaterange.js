@@ -84,7 +84,7 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/daterange
       AddDateRangeView.prototype.onShow = function() {
         this.$el.find('input[type="checkbox"]').checkbox();
         this.$el.find('#daterange_colour').minicolors();
-        this.$el.find('.dated').datepicker({
+        return this.$el.find('.dated').datepicker({
           showOtherMonths: true,
           selectOtherMonths: true,
           dateFormat: "yy-mm-dd",
@@ -96,7 +96,6 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/daterange
             return $(datepickerSelector).focus();
           };
         })(this));
-        return this.setDateRangeColor();
       };
 
       AddDateRangeView.prototype.disableDateRange = function(date) {
@@ -110,20 +109,20 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/daterange
         }
       };
 
-      AddDateRangeView.prototype.setDateRangeColor = function() {
+      AddDateRangeView.prototype.setDateRangeColor = function(a, b) {
         var daterangeCollection;
         daterangeCollection = App.request("get:daterange:collection");
-        return _.each(daterangeCollection.models, function(daterangeModel, index) {
-          var className, dateRangeColour, dateRangeName;
-          dateRangeName = daterangeModel.get('daterange_name');
-          dateRangeColour = daterangeModel.get('daterange_colour');
-          className = _.slugify(dateRangeName);
-          console.log(className);
-          console.log(dateRangeColour);
-          return $("." + className).css({
-            "background-color": dateRangeColour
-          });
-        });
+        return _.each(daterangeCollection.models, (function(_this) {
+          return function(daterangeModel, index) {
+            var className, dateRangeColour, dateRangeName;
+            dateRangeName = daterangeModel.get('daterange_name');
+            dateRangeColour = daterangeModel.get('daterange_colour');
+            className = _.slugify(dateRangeName);
+            console.log(className);
+            console.log(dateRangeColour);
+            return console.log(_this.$el.find("." + className).html());
+          };
+        })(this));
       };
 
       AddDateRangeView.prototype.displayColorMonthChange = function(year, month, inst) {

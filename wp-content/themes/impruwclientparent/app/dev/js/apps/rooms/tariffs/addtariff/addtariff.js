@@ -14,13 +14,15 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/addtariff
       }
 
       AddTariffController.prototype.initialize = function(opt) {
-        var tariff, tariffView;
+        var currentCurrency, sitemodel, tariff, tariffView;
         if (!opt.model) {
           tariff = App.request("get:tariff", opt.tariffId);
         } else {
           tariff = opt.model;
         }
-        this.tariffView = tariffView = this._getAddTariffView(tariff);
+        sitemodel = App.request("get:site:model");
+        currentCurrency = sitemodel.get('currency');
+        this.tariffView = tariffView = this._getAddTariffView(tariff, currentCurrency);
         this.listenTo(tariffView, "add:tariff", (function(_this) {
           return function(data) {
             tariff.set(data);
@@ -39,8 +41,11 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/addtariff
         return this.tariffView.triggerMethod("saved:tariff");
       };
 
-      AddTariffController.prototype._getAddTariffView = function(tariff) {
-        return new AddTariffView;
+      AddTariffController.prototype._getAddTariffView = function(tariff, currentCurrency) {
+        console.log(currentCurrency);
+        return new AddTariffView({
+          currency: currentCurrency
+        });
       };
 
       return AddTariffController;
@@ -80,7 +85,8 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/addtariff
       };
 
       AddTariffView.prototype.onShow = function() {
-        return this.$el.find('input[type="checkbox"]').checkbox();
+        this.$el.find('input[type="checkbox"]').checkbox();
+        return this.$el.find('.currency').text(Marionette.getOption(this, "currency"));
       };
 
       return AddTariffView;

@@ -12,15 +12,19 @@ define [ 'app', 'controllers/base-controller', 'apps/rooms/tariffs/show/views' ]
             dcollection = App.request "get:daterange:collection"
             tcollection = App.request "get:tariffs:collection", @roomId
 
+            #get the currency
+            sitemodel = App.request "get:site:model"
+            currentCurrency = sitemodel.get 'currency'
+
             @layout = @_getGridLayout tcollection
 
             # get the packages view
             @packagesView = @_getPackagesView pcollection
 
-            @dateRangeView = @_getDateRangeView dcollection
+            @dateRangeView = @_getDateRangeView dcollection , currentCurrency
 
             pcollection.on 'add remove', =>
-               @dateRangeView = @_getDateRangeView dcollection
+               @dateRangeView = @_getDateRangeView dcollection , currentCurrency
                @layout.tariffRegion.show @dateRangeView
 
             @listenTo @layout, "show", =>
@@ -38,10 +42,11 @@ define [ 'app', 'controllers/base-controller', 'apps/rooms/tariffs/show/views' ]
                collection : pCollection
 
          # get the tariffs view
-         _getDateRangeView : ( dCollection )->
+         _getDateRangeView : ( dCollection , currentCurrency )->
             new Show.Views.DateRangeCollectionView
                collection : dCollection
                roomId : @roomId
+               currency : currentCurrency
 
          # grid layout
          _getGridLayout : ( tcollection )->
