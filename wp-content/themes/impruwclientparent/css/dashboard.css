@@ -1447,14 +1447,13 @@ form .aj-imp-submit:hover {
 .modal .aj-imp-edit-image .aj-imp-img-save {
   margin: 1em 0 0;
   text-align: right;
-  padding: 0.5em 0 0;
+  padding: 0.5em 0.5em 0;
   border-top: 1px solid #dadada;
 }
 .modal #add-slide-region {
   margin: 0.5em 0;
 }
 .modal #add-slide-region #add-slide-form-region {
-  border-top: 1px dashed #dadada;
   padding-top: 0.5em;
 }
 .modal #add-slide-region #add-slide-form-region .add-image-to-slide {
@@ -1480,7 +1479,7 @@ form .aj-imp-submit:hover {
 }
 .modal .thumbnails .single-img .thumbnail,
 .modal #selectable-images .single-img .thumbnail {
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   border: 2px solid #aaaaaa;
 }
 .modal .thumbnails .single-img .thumbnail .imgthumb,
@@ -1539,7 +1538,7 @@ form .aj-imp-submit:hover {
 .modal #selectable-images .single-img .delete-media-img {
   display: none;
   position: absolute;
-  bottom: 0;
+  bottom: 10px;
   color: #ff3333;
   cursor: pointer;
   font-size: 0.8em;
