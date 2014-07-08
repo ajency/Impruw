@@ -21,7 +21,13 @@ define(['app'], function(App) {
         } else {
           data.image = true;
           data.imageurl = function() {
-            return this.sizes['full'].url;
+            var url;
+            if (_.isUndefined(this.sizes['medium'])) {
+              url = this.sizes['full'].url;
+            } else {
+              url = this.sizes['medium'].url;
+            }
+            return url;
           };
         }
         return data;
