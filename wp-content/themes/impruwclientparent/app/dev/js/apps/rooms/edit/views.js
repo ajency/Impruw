@@ -38,7 +38,8 @@ define(['app', 'text!apps/rooms/edit/templates/edit-room.html'], function(App, a
         w = $('.aj-imp-right').width();
         this.$el.find('*[data-spy="affix"]').width(w);
         m = $('.aj-imp-left').width();
-        return this.$el.find('*[data-spy="affix"]').css('margin-left', m);
+        this.$el.find('*[data-spy="affix"]').css('margin-left', m);
+        return this.$el.find('.currency').text(Marionette.getOption(this, 'currency'));
       };
 
       EditRoomLayout.prototype.onShowSuccessMessage = function() {

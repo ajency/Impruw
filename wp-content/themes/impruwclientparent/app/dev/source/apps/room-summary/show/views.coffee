@@ -10,6 +10,7 @@ define ['app'
             regions:
                 checkinRegion: '#check-in-region'
                 policiesRegion: '#policies-region'
-			
+                currencyRegion: '#currency-region'
+
 
 	

@@ -360,9 +360,14 @@ function update_site( $formdata ) {
         $update_return = update_checkin_time( $formdata );
 
         return $update_return;
-    } else {
+    } else if ( $roomsummary_update_check == 2 ) {
 
         $update_return = update_additional_policies( $formdata );
+
+        return $update_return;
+    }
+    else{
+        $update_return = update_currency( $formdata );
 
         return $update_return;
     }
@@ -381,6 +386,8 @@ function check_roomsummary_update( $formdata ) {
         return 1;
     else if ( isset( $formdata[ 'changes' ][ 'additional_policy' ] ) )
         return 2;
+    else if ( isset( $formdata[ 'changes' ][ 'currency' ] ) )
+        return 3;
     else
         return 0;
 }
@@ -445,6 +452,23 @@ function update_additional_policies( $formdata ) {
     update_option( 'additional-policy', $policy );
 
     $return_array = array( 'additional_policy' => $policy );
+
+    return $return_array;
+}
+/**
+ * Function to update the currency
+ *
+ * @param type $formdata
+ *
+ * @return type
+ */
+function update_currency( $formdata ) {
+
+    $currency = $formdata[ 'changes' ][ 'currency' ];
+
+    update_option( 'currency', $currency );
+
+    $return_array = array( 'currency' => $currency );
 
     return $return_array;
 }

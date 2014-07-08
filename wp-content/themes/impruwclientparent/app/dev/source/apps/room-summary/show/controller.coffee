@@ -7,7 +7,7 @@ define ['app', 'controllers/base-controller'
             initialize: ()->
                 @layout = @getLayout()
 
-                @sitemodel = sitemodel = App.request "get:site:model"
+                @sitemodel = App.request "get:site:model"
 
                 # trigger set:active:menu event
                 App.vent.trigger "set:active:menu", 'room-summary'
@@ -19,6 +19,10 @@ define ['app', 'controllers/base-controller'
 
                     App.execute "show:policies:form",
                         region: @layout.policiesRegion
+                        model: @sitemodel
+
+                    App.execute "show:currency:dropdown",
+                        region: @layout.currencyRegion
                         model: @sitemodel
 
                 # show main layout

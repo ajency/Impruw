@@ -46,6 +46,8 @@ class MapElement extends Element {
     function __construct($config) {
         
         parent::__construct($config);
+
+        $this->heightRatio  = isset($config['heightRatio'])?(float)$config['heightRatio']:0.4;
         
         $this->markup           = $this->generate_markup();
     }
@@ -72,13 +74,15 @@ class MapElement extends Element {
      */
     function get_map(){
 		ob_start();
+        $heightRatio = $this->heightRatio;
         ?> 
         <!-- Google maps API -->
-        <div id="map_canvas" style="height: 300px;"></div>
+        <div id="map_canvas" ></div>
         <script type="text/javascript">
 		var HOTELADDRESS = '<?php echo get_hotel_address(); ?>';
         </script>
         <?php
+        echo "<script>jQuery('#map_canvas').height(parseInt(jQuery('#map_canvas').width())*".$heightRatio.");</script>";
         $html = ob_get_clean();
 
         return $html;

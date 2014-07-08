@@ -9,12 +9,12 @@ define ['app', 'moment'], (App, moment)->
             className: 'package-block-outer'
 
             template: '<div class="block clearfix">
-            							<h6>{{plan_name}}</h6>
-            							<div class="package-desc">
-            								{{plandescription}}
-            							</div>
-            							<a href="#" class="edit-pkg-link"><span class="glyphicon glyphicon-pencil"></span>{{#polyglot}}Edit{{/polyglot}}</a>
-            						</div>'
+                            <h6>{{plan_name}}</h6>
+                            <div class="package-desc">
+                                {{plandescription}}
+                            </div>
+                            <a href="#" class="edit-pkg-link"><span class="glyphicon glyphicon-pencil"></span>{{#polyglot}}Edit{{/polyglot}}</a>
+                        </div>'
 
             modelEvents:
                 "change": "render"
@@ -38,7 +38,12 @@ define ['app', 'moment'], (App, moment)->
 
             className: 'tariff package-names clearfix'
 
-            template: '<div class="packages"><div class="package-blocks header clearfix"></div><button type="button" class="btn-add-plan"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;{{#polyglot}}Add Plan{{/polyglot}}</button></div>'
+            template: '<div class="packages">
+                            <div class="package-blocks header clearfix"></div>
+                            <button type="button" class="btn-add-plan">
+                            <span class="glyphicon glyphicon-plus-sign"></span>
+                            &nbsp;{{#polyglot}}Add Plan{{/polyglot}}</button>
+                        </div>'
 
             itemView: PackageSingle
 
@@ -70,6 +75,7 @@ define ['app', 'moment'], (App, moment)->
 
             serializeData: ->
                 data = super()
+                data.currency = Marionette.getOption @, 'currency'
                 data.plan_name = @plan.get 'plan_name'
                 data.plan_description = @plan.get 'plan_description'
                 data
@@ -107,25 +113,25 @@ define ['app', 'moment'], (App, moment)->
                            <div class="block clearfix">
                               <div class="weekday">
                                  {{#polyglot}}Weekdays{{/polyglot}}
-                                 <span class="price">NOK&nbsp;{{weekday.charge}}</span>
+                                 <span class="price">{{currency}}&nbsp;{{weekday.charge}}</span>
                               </div>
                               <div class="weekend">
                                  {{#polyglot}}Weekends{{/polyglot}}
-                                 <span class="price">NOK&nbsp;{{weekend.charge}}</span>
+                                 <span class="price">{{currency}}&nbsp;{{weekend.charge}}</span>
                               </div>
                               <div class="tariff-label clearfix">{{#polyglot}}Extra Adult{{/polyglot}}</div>
                               <div class="weekday">
-                                 <span class="price">NOK&nbsp;{{weekday.extra_adult}}</span>
+                                 <span class="price">{{currency}}&nbsp;{{weekday.extra_adult}}</span>
                               </div>
                               <div class="weekend">
-                                 <span class="price">NOK&nbsp;{{weekend.extra_adult}}</span>
+                                 <span class="price">{{currency}}&nbsp;{{weekend.extra_adult}}</span>
                               </div>
                               <div class="tariff-label clearfix">{{#polyglot}}Extra Child{{/polyglot}}</div>
                               <div class="weekday">
-                                 <span class="price">NOK&nbsp;{{weekday.extra_child}}</span>
+                                 <span class="price">{{currency}}&nbsp;{{weekday.extra_child}}</span>
                               </div>
                               <div class="weekend">
-                                 <span class="price">NOK&nbsp;{{weekend.extra_child}}</span>
+                                 <span class="price">{{currency}}&nbsp;{{weekend.extra_child}}</span>
                               </div>
                               <div class="block-action">
                                  <button type="button" class="btn btn-sm edit-trariff edit-tran"><span class="glyphicon glyphicon-pencil"></span>&nbsp;{{#polyglot}}Edit{{/polyglot}}</button>
@@ -171,6 +177,7 @@ define ['app', 'moment'], (App, moment)->
                     return false
 
                 roomId = Marionette.getOption @, 'roomId'
+                console.log roomId
 
                 plans.each (plan, index)=>
                     tariff = getTariff plan.get 'id'
@@ -207,6 +214,10 @@ define ['app', 'moment'], (App, moment)->
 
                 data
 
+            itemViewOptions: (item, index)->
+                currency = Marionette.getOption @, 'currency'
+                currency: currency
+
             itemView: SingleTariff
 
             itemViewContainer: '.package-blocks'
@@ -220,4 +231,6 @@ define ['app', 'moment'], (App, moment)->
 
             itemViewOptions: (item, index)->
                 roomId = Marionette.getOption @, 'roomId'
+                currency = Marionette.getOption @, 'currency'
                 roomId: roomId
+                currency: currency
