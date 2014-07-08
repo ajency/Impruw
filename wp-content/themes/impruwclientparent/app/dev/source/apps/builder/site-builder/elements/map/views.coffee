@@ -16,10 +16,33 @@ define ['app'], (App)->
             onShow: ->
                 @className += " " + Marionette.getOption this, 'className'
 
+                # set height 
+                @$el.parent().height @model.get 'height'
+                @$el.height '100%'
+                @trigger 'set:image:height',
+                            height : @$el.parent().height()
+                            width : @$el.parent().width()
+
+                @$el.parent().resizable
+                    # helper : "ui-image-resizable-helper"
+                    handles: "s"
+
+                    stop : (evt, ui)=>
+                        @$el.parent().css 'width','auto'
+                        @model.set 'height',@$el.parent().height()
+                        @trigger 'set:image:height' ,
+                            height : @$el.parent().height()
+                            width : @$el.parent().width()
+
+
                 if window.ADDRESS.trim() is ''
                     @$el.html "<div class='empty-view no-click'><span class='bicon icon-uniF132'></span>Address not specified. Please<a href='#{SITEURL}/dashboard/#site-profile'> click here to add.</a></div>"
                 else
                     @geoCodeAddress()
+
+
+
+                
 
             geoCodeAddress:->
                 address = window.ADDRESS
