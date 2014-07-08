@@ -39,17 +39,28 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
       MainView.prototype.events = {
         'click .publish-page': function(evt) {
           evt.preventDefault();
+          $(evt.currentTarget).attr('disabled', true);
           this.$el.find('.publish-page ').text('Publishing...');
           return App.execute("publish:page");
         },
         'change select#builder-page-sel': function(evt) {
           this.trigger('editable:page:changed', $(evt.target).val());
-          console.log($(evt.target).val());
           App.vent.trigger("change:page:check:single:room");
-          return this.changePreviewLinkUrl();
+          this.changePreviewLinkUrl();
+          return this.displayPageNameForUpdate();
         },
         'click .add-new-page': function() {
           return this.trigger("add:new:page:clicked");
+        },
+        'click .btn-update-pg-name': function() {
+          var currentPageId, data, updatedPageName;
+          currentPageId = this.getCurrentPageId();
+          updatedPageName = this.$el.find('#page_name').val();
+          data = {
+            'post_title': updatedPageName,
+            'ID': currentPageId
+          };
+          return this.trigger("update:page:name", data);
         }
       };
 
@@ -94,6 +105,7 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
         this.$el.find('.publish-page ').text('Publish');
         return _.delay((function(_this) {
           return function() {
+            _this.$el.find('.publish-page ').removeAttr('disabled');
             return _this.$el.find('.publish-page ').text('Publish');
           };
         })(this), 500);
@@ -116,7 +128,8 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
             return _this.changePreviewLinkUrl();
           };
         })(this), 250);
-        return this.$el.find('#aj-imp-revision-sel').on('show.bs.dropdown', this.addPageRevisions);
+        this.$el.find('#aj-imp-revision-sel').on('show.bs.dropdown', this.addPageRevisions);
+        return this.displayPageNameForUpdate();
       };
 
       MainView.prototype.enableSelectPicker = function() {
@@ -157,6 +170,22 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
 
       MainView.prototype.clearRevisionItems = function() {
         return this.$el.find('#aj-imp-revision-sel ul').empty();
+      };
+
+      MainView.prototype.displayPageNameForUpdate = function() {
+        var currentPageName;
+        currentPageName = this.getCurrentPageName();
+        return this.$el.find('#page_name').val(currentPageName);
+      };
+
+      MainView.prototype.onPageNameUpdated = function(pageModel) {
+        var page_id, page_name;
+        page_name = pageModel.get('post_title');
+        page_id = pageModel.get('ID');
+        this.$el.find('div .dropdown-menu ul .selected .text').text(page_name);
+        this.$el.find('div .btn-group .filter-option').text(page_name);
+        this.$el.find("select#builder-page-sel option[value='" + page_id + "']").text(page_name);
+        return this.enableSelectPicker();
       };
 
       return MainView;

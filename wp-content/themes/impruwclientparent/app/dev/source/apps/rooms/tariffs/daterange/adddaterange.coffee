@@ -1,91 +1,107 @@
-define ['app', 'controllers/base-controller',
-        'text!apps/rooms/tariffs/daterange/templates/addDaterange.html'], (App, AppController, addDateRangeTpl)->
-    App.module "RoomsApp.RoomsTariff.DateRange.Add", (Add, App)->
+define [ 'app', 'controllers/base-controller',
+         'text!apps/rooms/tariffs/daterange/templates/addDaterange.html' ], ( App, AppController, addDateRangeTpl )->
+    App.module "RoomsApp.RoomsTariff.DateRange.Add", ( Add, App )->
         class AddDateRangeController extends AppController
 
-            initialize: ()->
+            initialize : ()->
                 @dateRangeView = dateRangeView = @_getAddDateRangeView()
 
-                @listenTo dateRangeView, "add:daterange:details", (data)=>
+                @listenTo dateRangeView, "add:daterange:details", ( data )=>
                     dateRange = App.request "create:new:daterange:model", data
                     dateRange.save null,
-                        wait: true
-                        success: @dateRangeSaved
+                        wait : true
+                        success : @dateRangeSaved
 
                 @show dateRangeView,
-                    loading: true
+                    loading : true
 
-            dateRangeSaved: (dateRange)=>
+            dateRangeSaved : ( dateRange )=>
                 App.execute "add:daterange", dateRange
                 @dateRangeView.triggerMethod "saved:daterange"
                 App.vent.trigger "daterange:added"
 
             # get the packages view
-            _getAddDateRangeView:->
+            _getAddDateRangeView : ->
                 new AddDateRangeView
 
         # Edti DateRange view
         class AddDateRangeView extends Marionette.ItemView
 
-            tagName: 'form'
+            tagName : 'form'
 
-            className: 'form-horizontal'
+            className : 'form-horizontal'
 
-            template: addDateRangeTpl
+            template : addDateRangeTpl
 
-            dialogOptions:
-                modal_title: _.polyglot.t 'Add DateRange'
-                modal_size: 'medium-modal'
+            dialogOptions :
+                modal_title : _.polyglot.t 'Add DateRange'
+                modal_size : 'medium-modal'
 
-            events:
-                'click #btn_savedaterange': ->
+            events :
+                'click #btn_savedaterange' : ->
                     if @$el.valid()
                         data = Backbone.Syphon.serialize @
                         @trigger "add:daterange:details", data
 
 
-            onSavedDaterange: ->
-                @$el.parent().find('.alert').remove()
-                @$el.parent().prepend "<div class=\"alert alert-success\">" + _.polyglot.t("New Date range added") + "</div>"
-                @$el.find('input').val ''
+            onSavedDaterange : ->
+                @$el.parent().find( '.alert' ).remove()
+                @$el.parent().prepend "<div class=\"alert alert-success\">" + _.polyglot.t( "New Date range added" ) + "</div>"
+                @$el.find( 'input' ).val ''
 
             # show checkbox
-            onShow: ->
-                @$el.find('input[type="checkbox"]').checkbox()
-                @$el.find('#daterange_colour').minicolors()
-                @$el.find('.dated').datepicker
-                    showOtherMonths: true
-                    selectOtherMonths: true
-                    dateFormat: "yy-mm-dd"
-                    beforeShowDay: @disableDateRange
+            onShow : ->
+                @daterangeCollection = App.request "get:daterange:collection"
 
-                .prev('.btn').on 'click', (e) =>
+                @$el.find( 'input[type="checkbox"]' ).checkbox()
+                @$el.find( '#daterange_colour' ).minicolors()
+                @$el.find( '.dated' ).datepicker
+                    showOtherMonths : true
+                    selectOtherMonths : true
+                    dateFormat : "yy-mm-dd"
+                    beforeShowDay : @disableDateRange
+                    onChangeMonthYear : @displayColorMonthChange
+
+                .prev( '.btn' ).on 'click', ( e ) =>
                     e && e.preventDefault();
-                    $(datepickerSelector).focus();
+                    $( datepickerSelector ).focus()
 
-            disableDateRange: (date) ->
-                daterangeCollection = App.request "get:daterange:collection"
+                @setDateRangeColor()
 
+            disableDateRange : ( date ) =>
+#            daterangeCollection = App.request "get:daterange:collection"
                 time = date.getTime()
 
-                checkDateRange = (daterange)->
+                checkDateRange = ( daterange )->
                     from = daterange.get 'from_date'
                     to = daterange.get 'to_date'
 
-                    from = moment(from).subtract('days', 1)
-                    to = moment(to).add('days', 1)
+                    from = moment( from ).subtract( 'days', 1 )
+                    to = moment( to ).add( 'days', 1 )
 
-                    moment(time).isAfter(from) and moment(time).isBefore(to)
+                    moment( time ).isAfter( from ) and moment( time ).isBefore( to )
 
-                models = daterangeCollection.filter checkDateRange
+                model = @daterangeCollection.filter checkDateRange
 
-                if models.length > 0
-                    return [false, '']
+                if model.length > 0
+                    return [ false, '' ]
                 else
-                    return [true, '']
+                    return [ true, '' ]
 
+            # sets a background color for daterange
+            setDateRangeColor : =>
+                _.each @daterangeCollection.models, ( daterangeModel, index ) ->
+                    dateRangeName = daterangeModel.get 'daterange_name'
+                    dateRangeColour = daterangeModel.get 'daterange_colour'
+                    className = _.slugify dateRangeName
+                    $( ".#{className}" ).css( { "background-color" : dateRangeColour } )
+
+            displayColorMonthChange : ( year, month, inst ) =>
+                _.delay =>
+                    @setDateRangeColor()
+                , 10
 
         # handler
         App.commands.setHandler "show:add:daterange", ()->
             new AddDateRangeController
-                    region: App.dialogRegion
+                region : App.dialogRegion

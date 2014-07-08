@@ -31,6 +31,7 @@
           media="screen"/>
     <link href="<?php echo get_parent_template_directory_uri(); ?>/builder/css/custom.css" rel="stylesheet"
           media="screen"/>
+    <link rel="shortcut icon" href="wp-content/themes/impruwclientparent/images/favicon.png" type="image/x-icon" />
 
     <link href="<?php echo get_template_directory_uri(); ?>/css/slimmenu.min.css" rel="stylesheet" media="screen"/>
     <link href="<?php echo get_theme_style_sheet_file_path(); ?> " rel="stylesheet" media="screen"/>
@@ -60,6 +61,7 @@
     var JSVERSION = '<?php echo JSVERSION; ?>';
     var ROOMS = <?php echo json_encode(get_rooms()); ?>;
     var ISTHEMESELECTED = <?php echo is_theme_choosed() ?>;
+    var LOGOID = <?php echo get_option('logo_id', 0) ?>;
     var LOGOUTURL = '<?php echo wp_logout_url(site_url()); ?>';
     var DASHBOARDURL = '<?php echo site_url('dashboard'); ?>';
     var BUILDERURL = '<?php echo site_url('site-builder'); ?>';

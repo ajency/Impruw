@@ -4,30 +4,34 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
 
 define(['app', 'controllers/base-controller', 'apps/rooms/booking/views'], function(App, AppController) {
   return App.module('RoomsApp.Booking', function(Booking, App, Backbone, Marionette, $, _) {
+    var bookingRegion, roomId;
+    bookingRegion = null;
+    roomId = 0;
     Booking.Controller = (function(_super) {
       __extends(Controller, _super);
 
       function Controller() {
         this.showBookingPlansView = __bind(this.showBookingPlansView, this);
         this.showBookingCalendarView = __bind(this.showBookingCalendarView, this);
-        this.bindAddDateRangeEventListener = __bind(this.bindAddDateRangeEventListener, this);
+        this.showApp = __bind(this.showApp, this);
         return Controller.__super__.constructor.apply(this, arguments);
       }
 
       Controller.prototype.initialize = function(options) {
-        var layout, roomId;
-        roomId = options.roomId;
+        this.roomId = options.roomId;
         this.options = options;
-        this.bookings = App.request("fetch:room:bookings", roomId);
+        return this.showApp();
+      };
+
+      Controller.prototype.showApp = function() {
+        var layout;
+        this.bookings = App.request("fetch:room:bookings", this.roomId);
         this.layout = layout = this.getRoomBookingLayout(this.bookings);
         this.listenTo(layout, "show", this.showBookingCalendarView);
-        this.bindAddDateRangeEventListener();
         return this.show(layout, {
           loading: true
         });
       };
-
-      Controller.prototype.bindAddDateRangeEventListener = function() {};
 
       Controller.prototype.showBookingCalendarView = function() {
         var cview, dateRangeCollection, templateHelpers;
@@ -62,8 +66,20 @@ define(['app', 'controllers/base-controller', 'apps/rooms/booking/views'], funct
       return Controller;
 
     })(AppController);
-    return App.commands.setHandler("show:booking:app", function(opts) {
+    App.commands.setHandler("show:booking:app", function(opts) {
+      bookingRegion = opts.region;
+      roomId = opts.roomID;
       return new Booking.Controller(opts);
     });
+    return App.vent.on("daterange:added daterange:removed daterange:updated", (function(_this) {
+      return function() {
+        var opts;
+        opts = {
+          region: bookingRegion,
+          roomID: roomId
+        };
+        return new Booking.Controller(opts);
+      };
+    })(this));
   });
 });

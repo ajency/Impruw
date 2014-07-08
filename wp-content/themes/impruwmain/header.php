@@ -18,7 +18,7 @@
     <!--[if lt IE 9]>
     <script src="<?php echo get_template_directory_uri(); ?>/js/html5.js"></script>
     <![endif]-->
-
+    <link rel="shortcut icon" href="wp-content/themes/impruwclientparent/images/favicon.png" type="image/x-icon" />
     <?php //getThemeCSS(); ?>
     <script>
         var ajaxurl = '<?php echo admin_url('admin-ajax.php'); ?>';
@@ -73,10 +73,11 @@
                 wp_nav_menu( $defaults );
 
             ?>
-
+            <?php if( ! is_user_logged_in() ): ?>
             <a href="#" class="login-btn" data-toggle="popover">
                 <span class="glyphicon glyphicon-lock"></span> <?php _e('Sign In') ?>
             </a>
+            <?php endif; ?>
 
             <div class="lang-sel">
                 <?php do_action('icl_language_selector'); ?>

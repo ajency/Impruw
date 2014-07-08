@@ -31,7 +31,7 @@ get_header();
                     <div class="col-sm-7 col-sm-offset-3">
 
                         <input type="text" class="form-control" id="inputName"  name="display_name" placeholder="<?php echo __('First Name Last Name', 'impruwmain'); ?>" required   
-                               parsley-validation-minlength="0"  parsley-minlength="3" parsley-trigger="blur" parsley-regexp="^[a-zA-Z ]+$" 
+                               parsley-validation-minlength="0"  parsley-minlength="3" parsley-trigger="blur" parsley-regexp="^[a-zA-Zæøå ]+$"
                                value="" 
                                parsley-required-message="<?php echo __('Enter your first name and last name.', 'impruwmain'); ?>"  
                                parsley-minlength-message="<?php echo __('Name should be atleast 3 characters long', 'impruwmain') ?>"  >
@@ -41,9 +41,7 @@ get_header();
                 </div>
                 <div class="form-group">
                     <label for="inputEmail" class="col-sm-3 control-label"><?php echo __('Your Email', 'impruwmain'); ?></label>
-
                     <div class="col-sm-7 col-sm-offset-3">
-
                         <input type="email" class="form-control parsley-validated parsley-error" 
                                id="inputEmail"  name="user_email" placeholder="<?php echo __('someone@mail.com', 'impruwmain'); ?>"     
                                parsley-required="true"  parsley-trigger="blur"  
@@ -52,7 +50,6 @@ get_header();
                                parsley-required-message="<?php echo __('Enter a valid email address as it will be your User ID as well.', 'impruwmain'); ?>"   
                                pasrsley-remote="<?php echo admin_url('admin-ajax.php?action=check_email_exists'); ?>"   >
                         <div class="p-messages"></div>
-
                     </div>
                 </div>
                 <div class="form-group">

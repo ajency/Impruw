@@ -107,25 +107,25 @@ define ['app', 'moment'], (App, moment)->
                            <div class="block clearfix">
                               <div class="weekday">
                                  {{#polyglot}}Weekdays{{/polyglot}}
-                                 <span class="price">&#8364;&nbsp;{{weekday.charge}}</span>
+                                 <span class="price">NOK&nbsp;{{weekday.charge}}</span>
                               </div>
                               <div class="weekend">
                                  {{#polyglot}}Weekends{{/polyglot}}
-                                 <span class="price">&#8364;&nbsp;{{weekend.charge}}</span>
+                                 <span class="price">NOK&nbsp;{{weekend.charge}}</span>
                               </div>
                               <div class="tariff-label clearfix">{{#polyglot}}Extra Adult{{/polyglot}}</div>
                               <div class="weekday">
-                                 <span class="price">&#8364;&nbsp;{{weekday.extra_adult}}</span>
+                                 <span class="price">NOK&nbsp;{{weekday.extra_adult}}</span>
                               </div>
                               <div class="weekend">
-                                 <span class="price">&#8364;&nbsp;{{weekend.extra_adult}}</span>
+                                 <span class="price">NOK&nbsp;{{weekend.extra_adult}}</span>
                               </div>
                               <div class="tariff-label clearfix">{{#polyglot}}Extra Child{{/polyglot}}</div>
                               <div class="weekday">
-                                 <span class="price">&#8364;&nbsp;{{weekday.extra_child}}</span>
+                                 <span class="price">NOK&nbsp;{{weekday.extra_child}}</span>
                               </div>
                               <div class="weekend">
-                                 <span class="price">&#8364;&nbsp;{{weekend.extra_child}}</span>
+                                 <span class="price">NOK&nbsp;{{weekend.extra_child}}</span>
                               </div>
                               <div class="block-action">
                                  <button type="button" class="btn btn-sm edit-trariff edit-tran"><span class="glyphicon glyphicon-pencil"></span>&nbsp;{{#polyglot}}Edit{{/polyglot}}</button>

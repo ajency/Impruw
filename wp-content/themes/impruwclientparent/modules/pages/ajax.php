@@ -51,10 +51,12 @@ function publish_page_ajax() {
 
     $header_json = $_REQUEST[ 'header-json' ];
     update_header_json( $header_json );
+    $header_json = convert_json_to_array( $header_json );
     update_option( "theme-header-autosave", $header_json );
 
     $footer_json = $_REQUEST[ 'footer-json' ];
     update_footer_json( $footer_json );
+    $footer_json = convert_json_to_array( $footer_json );
     update_option( "theme-footer-autosave", $footer_json );
 
     remove_all_actions( 'post_updated' );
@@ -63,7 +65,7 @@ function publish_page_ajax() {
     publish_page( $page_id );
 
     $page_json_string = $_REQUEST[ 'page-content-json' ];
-    $page_json        = convert_json_to_array( $page_json_string );
+    $page_json = convert_json_to_array( $page_json_string );
     add_page_json( $page_id, $page_json );
 
     $revision_post_id = add_page_revision( $page_id, $page_json );
@@ -87,16 +89,48 @@ function auto_save() {
     $page_id = $_REQUEST[ 'page_id' ];
 
     $header_json = $_REQUEST[ 'header-json' ];
-    update_header_json( $header_json , true );
+    update_header_json( $header_json, true );
 
     $footer_json = $_REQUEST[ 'footer-json' ];
     update_footer_json( $footer_json, true );
 
     $page_json_string = $_REQUEST[ 'page-content-json' ];
-    $page_json        = convert_json_to_array( $page_json_string );
-    $autosave_id      = update_page_autosave( $page_id, $page_json );
+    $page_json = convert_json_to_array( $page_json_string );
+    $autosave_id = update_page_autosave( $page_id, $page_json );
 
     wp_send_json_success( $autosave_id );
 }
 
 add_action( 'wp_ajax_auto-save', 'auto_save' );
+
+/**
+ * Function to read a single page data
+ */
+function ajax_read_page() {
+    $page_id = $_GET[ 'ID' ];
+
+    $page_data = get_post( $page_id, ARRAY_A );
+
+    wp_send_json( array( 'code' => 'OK', 'data' => $page_data ) );
+
+}
+
+add_action( 'wp_ajax_read-page', 'ajax_read_page' );
+
+/**
+ * Function to update the name of a page
+ */
+function ajax_update_page() {
+    $page_id = $_POST[ 'ID' ];
+    $page_name = $_POST[ 'post_title' ];
+
+    wp_update_post( array( 'ID' => $page_id, 'post_title' => $page_name ) );
+
+    $page_data = get_post( $page_id, ARRAY_A );
+
+    wp_send_json( array( 'code' => 'OK', 'data' => $page_data ) );
+
+}
+
+add_action( 'wp_ajax_update-page', 'ajax_update_page' );
+

@@ -1,218 +1,243 @@
-define ['app'
-        'text!apps/builder/site-builder/show/templates/maintemplate.html'
-        'text!apps/builder/site-builder/show/templates/builder.html'
-        'moment'],
-(App, mainviewTpl, builderTpl, moment)->
-    App.module 'SiteBuilderApp.Show.View', (View, App, Backbone, Marionette, $, _)->
-
+define [ 'app'
+         'text!apps/builder/site-builder/show/templates/maintemplate.html'
+         'text!apps/builder/site-builder/show/templates/builder.html'
+         'moment' ],
+( App, mainviewTpl, builderTpl, moment )->
+    App.module 'SiteBuilderApp.Show.View', ( View, App, Backbone, Marionette, $, _ )->
         class View.MainView extends Marionette.Layout
 
-            template: mainviewTpl
+            template : mainviewTpl
 
-            className: 'aj-imp-builder-area'
+            className : 'aj-imp-builder-area'
 
-            collectionEvents:
-                    "add" : "addPageDropDown"
+            collectionEvents :
+                "add" : "addPageDropDown"
 
-            templateHelpers: (data = {})->
+            templateHelpers : ( data = {} )->
                 data.SITEURL = SITEURL + '/'
                 data.pages = @collection.toJSON()
                 data
 
-            events:
-                'click .publish-page': (evt) ->
+            events :
+                'click .publish-page' : ( evt ) ->
                     evt.preventDefault()
-                    @$el.find('.publish-page ').text 'Publishing...'
+                    $( evt.currentTarget ).attr 'disabled', true
+                    @$el.find( '.publish-page ' ).text 'Publishing...'
                     App.execute "publish:page"
 
-                'change select#builder-page-sel': (evt)->
-                    @trigger 'editable:page:changed', $(evt.target).val()
-                    console.log $(evt.target).val()
+                'change select#builder-page-sel' : ( evt )->
+                    @trigger 'editable:page:changed', $( evt.target ).val()
                     App.vent.trigger "change:page:check:single:room"
                     @changePreviewLinkUrl()
+                    @displayPageNameForUpdate()
 
                 'click .add-new-page' : ->
                     @trigger "add:new:page:clicked"
 
-            addPageDropDown :=>
+                'click .btn-update-pg-name' : ->
+                    currentPageId = @getCurrentPageId()
+                    updatedPageName = @$el.find( '#page_name' ).val()
+                    data =
+                        'post_title' : updatedPageName
+                        'ID' : currentPageId
+                    @trigger "update:page:name", data
+
+            addPageDropDown : =>
                 @modelAddedToCollection = @collection.last()
                 @new_page_id = @modelAddedToCollection.get 'ID'
-                _.each @collection.models,(model,index) =>
+                _.each @collection.models, ( model, index ) =>
                     modelId = model.get 'ID'
                     if modelId == @new_page_id
                         page_name = model.get 'post_title'
                         select_html = "<option value='#{index}'>#{page_name}</option>"
-                        selectpicker_html ="<li rel='#{index}'>
-                                                <a tabindex='0' class='' style=''>
-                                                    <span class='text'>#{page_name}</span>
-                                                    <i class='glyphicon glyphicon-ok icon-ok check-mark'></i>
-                                                </a>
-                                            </li>"
-                        @$el.find('div .dropdown-menu ul').append(selectpicker_html)
-                        @$el.find('select#builder-page-sel').append(select_html)
+                        selectpicker_html = "<li rel='#{index}'>
+                                                                        <a tabindex='0' class='' style=''>
+                                                                            <span class='text'>#{page_name}</span>
+                                                                            <i class='glyphicon glyphicon-ok icon-ok check-mark'></i>
+                                                                        </a>
+                                                                    </li>"
+                        @$el.find( 'div .dropdown-menu ul' ).append( selectpicker_html )
+                        @$el.find( 'select#builder-page-sel' ).append( select_html )
                 @enableSelectPicker()
 
-            initialize: ->
+            initialize : ->
                 App.reqres.setHandler "get:current:editable:page:name", @getCurrentPageName
                 App.reqres.setHandler "get:current:editable:page", @getCurrentPageId
 
             # return the name of the currently editable page
-            getCurrentPageName: =>
+            getCurrentPageName : =>
                 pageId = @getCurrentPageId()
-                name = @$el.find('select#builder-page-sel').find("option[value='#{pageId}']").text()
+                name = @$el.find( 'select#builder-page-sel' ).find( "option[value='#{pageId}']" ).text()
                 name
 
             # returns the page id of the currently selected page
-            getCurrentPageId: =>
-                pageId = @$el.find('select#builder-page-sel').val()
+            getCurrentPageId : =>
+                pageId = @$el.find( 'select#builder-page-sel' ).val()
                 parseInt pageId
 
-            onPagePublished:=>
-                @$el.find('.publish-page ').text 'Publish'
+            onPagePublished : =>
+                @$el.find( '.publish-page ' ).text 'Publish'
                 _.delay =>
-                    @$el.find('.publish-page ').text 'Publish'
+                    @$el.find( '.publish-page ' ).removeAttr 'disabled'
+                    @$el.find( '.publish-page ' ).text 'Publish'
                 , 500
 
-            changePreviewLinkUrl:->
+            changePreviewLinkUrl : ->
                 currentPageId = App.request "get:current:editable:page"
                 previewUrl = "#{SITEURL}?preview=true&p=#{currentPageId}"
-                @$el.find('a.preview-current-page').attr 'href', previewUrl
+                @$el.find( 'a.preview-current-page' ).attr 'href', previewUrl
 
             # trigger the editable page changed event on show
-            onShow: ->
+            onShow : ->
                 # set the selectpicker
                 @enableSelectPicker()
 
                 # trigger page change event to load the initial page
                 _.delay =>
-                    value = @$el.find('select#builder-page-sel').selectpicker 'val'
+                    value = @$el.find( 'select#builder-page-sel' ).selectpicker 'val'
                     @trigger 'editable:page:changed', value
                     @changePreviewLinkUrl()
                 , 250
 
                 # handle revision dropdown
-                @$el.find('#aj-imp-revision-sel').on 'show.bs.dropdown', @addPageRevisions
+                @$el.find( '#aj-imp-revision-sel' ).on 'show.bs.dropdown', @addPageRevisions
+
+                #update the page name links
+                @displayPageNameForUpdate()
 
             #set the selectpicker for the drop down
-            enableSelectPicker :=>
-                @$el.find('select#builder-page-sel').selectpicker
-                    style: 'btn-xs btn-default'
-                    menuStyle: 'dropdown'
+            enableSelectPicker : =>
+                @$el.find( 'select#builder-page-sel' ).selectpicker
+                    style : 'btn-xs btn-default'
+                    menuStyle : 'dropdown'
 
             # add page revisions to dropdown
-            addPageRevisions: =>
+            addPageRevisions : =>
                 return
                 @clearRevisionItems()
                 @addFetchSpinner()
                 @trigger "add:page:revisions"
 
             # add a spinner to dropdown
-            addFetchSpinner: ->
-                @$el.find('#aj-imp-revision-sel ul').append '<li class="spinner"></li>'
-                @$el.find('#aj-imp-revision-sel ul li.spinner').spin()
+            addFetchSpinner : ->
+                @$el.find( '#aj-imp-revision-sel ul' ).append '<li class="spinner"></li>'
+                @$el.find( '#aj-imp-revision-sel ul li.spinner' ).spin()
 
 
             # append page revisions
-            onAddPageRevisionItems: (collection)->
+            onAddPageRevisionItems : ( collection )->
                 @clearRevisionItems()
 
                 @revisionView.close() if not _.isUndefined @revisionView
 
                 @revisionView = new RevisionView
-                                        collection: collection
+                    collection : collection
                 @revisionView.render()
                 @listenTo @revisionView, 'revision:link:clicked', @revisionLinkClicked
-                @$el.find('#aj-imp-revision-sel').append @revisionView.$el
+                @$el.find( '#aj-imp-revision-sel' ).append @revisionView.$el
 
-            revisionLinkClicked: (iv, id)=>
+            revisionLinkClicked : ( iv, id )=>
                 @trigger "revision:link:clicked", id
 
             # remove any previous revision items
-            clearRevisionItems: ->
-                @$el.find('#aj-imp-revision-sel ul').empty()
+            clearRevisionItems : ->
+                @$el.find( '#aj-imp-revision-sel ul' ).empty()
+
+            #display the page name in the textbox
+            displayPageNameForUpdate : ->
+                currentPageName = @getCurrentPageName()
+                @$el.find( '#page_name' ).val currentPageName
+
+            onPageNameUpdated : ( pageModel )->
+                page_name = pageModel.get 'post_title'
+                page_id = pageModel.get 'ID'
+                @$el.find( 'div .dropdown-menu ul .selected .text' ).text( page_name )
+                @$el.find( 'div .btn-group .filter-option' ).text( page_name )
+                @$el.find( "select#builder-page-sel option[value='#{page_id}']" ).text( page_name )
+                @enableSelectPicker()
 
 
         class SingleRevision extends Marionette.ItemView
 
-            tagName: 'li'
+            tagName : 'li'
 
-            template: '<div class="aj-imp-revision row">
-							<div class="col-sm-5 date">
-							  {{datetime}}
-							</div>
-							<div class="col-sm-7 time">
-							  {{post_name}} {{timeago}}
-							</div>
-						</div>'
+            template : '<div class="aj-imp-revision row">
+                                        <div class="col-sm-5 date">
+                                          {{datetime}}
+                                        </div>
+                                        <div class="col-sm-7 time">
+                                          {{post_name}} {{timeago}}
+                                        </div>
+                                    </div>'
 
-            events:
-                'click': (e)->
+            events :
+                'click' : ( e )->
                     App.vent.trigger "revision:link:clicked", @model.get 'ID'
 
-            serializeData: ()->
+            serializeData : ()->
                 data = super()
-                data.timestamp = moment(data.post_modified).toDate().getTime()
-                data.timeago = moment(data.post_modified).fromNow()
-                data.datetime = moment(data.post_modified).format 'D/MM/YYYY h:m:s'
+                data.timestamp = moment( data.post_modified ).toDate().getTime()
+                data.timeago = moment( data.post_modified ).fromNow()
+                data.datetime = moment( data.post_modified ).format 'D/MM/YYYY h:m:s'
                 data
 
-            onRender: ->
+            onRender : ->
                 @$el.attr 'role', 'presentation'
                 .attr 'data-revision-id', @model.get 'id'
 
         class NoRevisionView extends Marionette.ItemView
 
-            tagName: 'li'
+            tagName : 'li'
 
-            template: 'No revision found'
+            template : 'No revision found'
 
         class RevisionView extends Marionette.CollectionView
 
-            tagName: 'ul'
+            tagName : 'ul'
 
-            className: 'dropdown-menu pull-right revision-dropdown'
+            className : 'dropdown-menu pull-right revision-dropdown'
 
-            itemView: SingleRevision
+            itemView : SingleRevision
 
-            emptyView: NoRevisionView
+            emptyView : NoRevisionView
 
-            onRender: ->
+            onRender : ->
                 @$el.attr 'role', 'menu'
 
-            onBeforeRender: ->
+            onBeforeRender : ->
                 @collection.sort()
 
 
         class View.Builder extends Marionette.ItemView
 
-            template: builderTpl
+            template : builderTpl
 
-            onShow: ->
-                @$el.find('.droppable-column').sortable
-                    revert: 'invalid'
-                    items: '> .element-wrapper'
-                    connectWith: '.droppable-column,.column'
-                    start: (e, ui)->
+            onShow : ->
+                @$el.find( '.droppable-column' ).sortable
+                    revert : 'invalid'
+                    items : '> .element-wrapper'
+                    connectWith : '.droppable-column,.column'
+                    start : ( e, ui )->
                         w = ui.item.width()
                         h = if ui.item.height() > 200 then 200 else ui.item.height()
                         ui.placeholder.height h
                         window.dragging = true
                         return
-                    stop: (e, ui)->
+                    stop : ( e, ui )->
                         window.dragging = false
                         return
-                    handle: '.aj-imp-drag-handle'
-                    helper: 'clone'
-                    opacity: .65
-                    tolerance: 'pointer'
-                    receive: @elementDropped
+                    handle : '.aj-imp-drag-handle'
+                    helper : 'clone'
+                    opacity : .65
+                    tolerance : 'pointer'
+                    receive : @elementDropped
 
 
 
-            elementDropped: (evt, ui)=>
+            elementDropped : ( evt, ui )=>
                 # trigger drop event if ui.item is Li tag
-                if ui.item.prop("tagName") is 'LI'
+                if ui.item.prop( "tagName" ) is 'LI'
                     type = ui.item.attr 'data-element'
                     metaId = ui.item.attr 'data-meta-id'
-                    metaId = if metaId isnt undefined then parseInt(metaId) else 0
-                    @trigger "add:new:element", $(evt.target), type, metaId
+                    metaId = if metaId isnt undefined then parseInt( metaId ) else 0
+                    @trigger "add:new:element", $( evt.target ), type, metaId

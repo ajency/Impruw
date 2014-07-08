@@ -3611,10 +3611,10 @@ function check_page_access() {
         die();
     }
 
-    if ( in_array( $page_slug, $pages ) && not_on_own_site() && is_user_logged_in() ) {
-        wp_safe_redirect( get_user_dashboard_url() );
-        die();
-    }
+//    if ( in_array( $page_slug, $pages ) && not_on_own_site() && is_user_logged_in() ) {
+//        wp_safe_redirect( get_user_dashboard_url() );
+//        die();
+//    }
 }
 
 add_action( 'template_redirect', 'check_page_access' );

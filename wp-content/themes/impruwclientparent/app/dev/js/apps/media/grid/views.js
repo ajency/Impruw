@@ -1,7 +1,7 @@
 var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-define(['app', 'text!apps/media/grid/templates/media.html'], function(App, mediaTpl, layoutTpl) {
+define(['app', 'text!apps/media/grid/templates/media.html'], function(App, mediaTpl) {
   return App.module('Media.Grid.Views', function(Views, App) {
     var MediaView;
     MediaView = (function(_super) {
@@ -17,9 +17,14 @@ define(['app', 'text!apps/media/grid/templates/media.html'], function(App, media
 
       MediaView.prototype.events = {
         'click a': function(e) {
-          return e.preventDefault();
+          e.preventDefault();
+          return this._whenImageClicked(e);
         },
-        'click': '_whenImageClicked'
+        'click .delete-media-img': function() {
+          if (confirm("Delete image?")) {
+            return this.trigger("delete:media:image", this.model);
+          }
+        }
       };
 
       MediaView.prototype._whenImageClicked = function(e) {
@@ -50,9 +55,13 @@ define(['app', 'text!apps/media/grid/templates/media.html'], function(App, media
         if (this.multiSelect) {
           return this.$el.find('#selectable-images').bind("mousedown", function(e) {
             return e.metaKey = true;
-          }).selectable();
+          }).selectable({
+            cancel: '.delete-media-img'
+          });
         } else {
-          return this.$el.find('#selectable-images').selectable();
+          return this.$el.find('#selectable-images').selectable({
+            cancel: '.delete-media-img'
+          });
         }
       };
 

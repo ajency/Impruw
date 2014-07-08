@@ -71,6 +71,7 @@ define(['app', 'text!apps/menu-manager/list/templates/menuitem.html'], function(
 
       function MenuCollectionView() {
         this.itemViewOptions = __bind(this.itemViewOptions, this);
+        this.onTriggerOrderChange = __bind(this.onTriggerOrderChange, this);
         return MenuCollectionView.__super__.constructor.apply(this, arguments);
       }
 
@@ -106,6 +107,16 @@ define(['app', 'text!apps/menu-manager/list/templates/menuitem.html'], function(
       MenuCollectionView.prototype.onMenuItemUpdated = function() {
         this.$el.find('.alert').remove();
         return this.$el.prepend('<div class="alert alert-success">' + _.polyglot.t("Menu item updated") + '</div>');
+      };
+
+      MenuCollectionView.prototype.onTriggerOrderChange = function() {
+        return _.delay((function(_this) {
+          return function() {
+            var order;
+            order = _this.$el.find('.sortable-menu-items').sortable('toArray');
+            return _this.sendData(order, _this.collection);
+          };
+        })(this), 600);
       };
 
       MenuCollectionView.prototype.itemViewOptions = function(collection, index) {

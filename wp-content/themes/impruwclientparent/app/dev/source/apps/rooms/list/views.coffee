@@ -4,6 +4,7 @@ define ['app'
         'text!apps/rooms/list/templates/emptyview.html'],
 (App, mainviewTpl, roomsingleTpl, emptyTpl)->
     App.module 'RoomsApp.List.Views', (Views, App, Backbone, Marionette, $, _)->
+
         class RoomSingle extends Marionette.ItemView
 
             tagName: "li"
@@ -15,6 +16,7 @@ define ['app'
                     e.preventDefault()
                     if confirm _.polyglot.t "Delete the room and all its data?"
                         @model.destroy()
+
 
 
         class EmptyView extends Marionette.ItemView

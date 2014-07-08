@@ -36,7 +36,7 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/element
         })(this));
         this.listenTo(view, "element:selection:changed", (function(_this) {
           return function(room_id) {
-            if (!room_id === '') {
+            if (room_id !== '') {
               return _this.model.set("room_id", room_id);
             }
           };

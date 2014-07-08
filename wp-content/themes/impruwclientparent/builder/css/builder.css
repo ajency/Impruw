@@ -1,7 +1,5 @@
 @import url(builder-icon-fonts.css);
-
 @import url(toggle-switch.css);
-
 @import url(../../../../plugins/revslider/rs-plugin/css/settings.css);
 /*
 Theme Name:     Impruw Builder Styles
@@ -11,7 +9,8 @@ Author:         Jarryd for Ajency.in
 Author URI:     http://ajency.in/
 Template:       impruw
 Version:        0.1.0
-*//****Builder Icon Font****/
+*/
+/****Builder Icon Font****/
 /****Builder Toggle Switch****/
 /****REVSlider Stylesheet****/
 /****Colors****/
@@ -1271,7 +1270,6 @@ a:focus {
 .aj-imp-builder-content-mode .aj-element-setting-tooltip .tooltip-inner {
   width: auto;
   /*min-width: 250px;*/
-
   max-width: 300px;
   background: #29333F;
 }
@@ -1650,12 +1648,23 @@ a:focus {
 .modal #selectable-images .single-img .ticker:hover .glyphicon-minus {
   display: inline-block;
 }
+.modal .thumbnails .single-img .delete-media-img,
+.modal #selectable-images .single-img .delete-media-img {
+  display: none;
+  position: absolute;
+  bottom: 0;
+  color: #ff3333;
+  cursor: pointer;
+  font-size: 0.8em;
+}
 .modal .thumbnails .single-img.ui-selected .thumbnail,
 .modal #selectable-images .single-img.ui-selected .thumbnail {
   border-color: #849fb0;
 }
 .modal .thumbnails .single-img.ui-selected .ticker,
-.modal #selectable-images .single-img.ui-selected .ticker {
+.modal #selectable-images .single-img.ui-selected .ticker,
+.modal .thumbnails .single-img.ui-selected .delete-media-img,
+.modal #selectable-images .single-img.ui-selected .delete-media-img {
   display: block;
 }
 .modal #edit-media-region,

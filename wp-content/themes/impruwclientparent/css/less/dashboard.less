@@ -1559,11 +1559,19 @@ form {
 					}
 				}
 			}
+            .delete-media-img {
+              display: none;
+              position: absolute;
+              bottom: 0;
+              color: #ff3333;
+              cursor: pointer;
+              font-size: 0.8em;
+            }
 			&.ui-selected {
 				.thumbnail {
 					border-color: @blue-grey;
 				}
-				.ticker {
+              .ticker, .delete-media-img {
 					display: block;
 				}
 			}
@@ -2681,6 +2689,10 @@ form {
 	&:hover {
 		background: lighten(@orange, 20%) !important;
 	}
+}
+
+.slide-image-selected {
+  margin-top: 0.5em;
 }
 
 /****Gallery Styling****/

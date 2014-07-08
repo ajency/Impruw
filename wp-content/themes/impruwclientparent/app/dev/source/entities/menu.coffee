@@ -135,7 +135,6 @@ define ["app", 'backbone'], (App, Backbone) ->
                     menuItems.url = "#{AJAXURL}?action=get-site-menu-items&menu_id=#{menuId}"
                     menus[menuId] = menuItems
                     menuItems.fetch()
-                console.log menuItems
                 menuItems
 
 
