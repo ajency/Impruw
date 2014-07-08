@@ -50,8 +50,8 @@ define ['app'
 
             tagName: 'form'
 
-            template: '<div class="aj-imp-edit-image well">
-            									<div class="row">
+            template: '<div class="aj-imp-edit-image">
+            									<div class="row hide">
             										<div class="aj-imp-crop-link col-sm-4">
             											<div class="add-image-to-slide">
             												<span class="bicon icon-uniF10C"></span>
@@ -62,24 +62,9 @@ define ['app'
             											<input type="hidden" name="image" value="" required/>
             											<input type="hidden" name="image_id" value="" require/>
             										</div>
-            										<div class="aj-imp-img-form col-sm-8">
-            											<div class="row">
-            												<div class="col-sm-6">
-            													<input type="text" name="title" value="{{title}}" class="form-control" placeholder="{{#polyglot}}Title{{/polyglot}}">
-            												</div>
-            												<div class="col-sm-6">
-            													<input type="url" type="link" name="link" value="{{link}}" class="form-control" placeholder="{{#polyglot}}Link{{/polyglot}}">
-            												</div>
-            											</div>
-            											<div class="row">
-            												<div class="col-sm-12">
-            													<textarea name="description" class="form-control" placeholder="{{#polyglot}}Description{{/polyglot}}"></textarea>
-            												</div>
-            											</div>
-            										</div>
             									</div>
             									<div class="aj-imp-img-save">
-            										<button type="button" class="btn create-slide">{{#polyglot}}Add{{/polyglot}}</button>
+            										<button type="button" class="btn aj-imp-orange-btn create-slide">{{#polyglot}}Add{{/polyglot}}</button>
             										<button type="button" class="btn cancel-create-slide">{{#polyglot}}Cancel{{/polyglot}}</button>
             									</div>
             							  	</div>'
@@ -112,8 +97,8 @@ define ['app'
 
         class AddSlideLayout extends Marionette.Layout
 
-            template: '<div id="add-slide-form-region"></div>
-            								<div id="media-region" style="display:none">
+            template: '
+            								<div id="media-region">
             									<ul class="nav nav-tabs">
                                                     <li class="active all-media-tab"><a href="#grid-media-region" data-toggle="tab">{{#polyglot}}Gallery{{/polyglot}}</a></li>
             										<li class="upload-tab"><a href="#upload-media-region" data-toggle="tab">{{#polyglot}}Upload{{/polyglot}}</a></li>
@@ -121,14 +106,14 @@ define ['app'
             									<div class="tab-content">
                                                     <div class="tab-pane active" id="grid-media-region"></div>
             										<div class="tab-pane" id="upload-media-region"></div>            										
-            										<button class="btn btn-primary slide-image-selected">{{#polyglot}}Done{{/polyglot}}</button>
+            										
                                                 </div>
-            								</div>'
+            								</div><div id="add-slide-form-region"></div>'
 
             events:
                 'click .slide-image-selected': (e)->
                     @trigger "image:selection:done"
-                    $(e.target).closest('#media-region').hide()
+                    #$(e.target).closest('#media-region').hide()
 
             initialize: ->
                 @listenTo @gridMediaRegion, "media:element:selected", (media)->

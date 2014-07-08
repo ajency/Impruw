@@ -1,5 +1,7 @@
 @import url(builder-icon-fonts.css);
+
 @import url(toggle-switch.css);
+
 @import url(../../../../plugins/revslider/rs-plugin/css/settings.css);
 /*
 Theme Name:     Impruw Builder Styles
@@ -9,8 +11,7 @@ Author:         Jarryd for Ajency.in
 Author URI:     http://ajency.in/
 Template:       impruw
 Version:        0.1.0
-*/
-/****Builder Icon Font****/
+*//****Builder Icon Font****/
 /****Builder Toggle Switch****/
 /****REVSlider Stylesheet****/
 /****Colors****/
@@ -1270,6 +1271,7 @@ a:focus {
 .aj-imp-builder-content-mode .aj-element-setting-tooltip .tooltip-inner {
   width: auto;
   /*min-width: 250px;*/
+
   max-width: 300px;
   background: #29333F;
 }
@@ -1560,14 +1562,13 @@ a:focus {
 .modal .aj-imp-img-save {
   margin: 1em 0 0;
   text-align: right;
-  padding: 0.5em 0 0;
+  padding: 0.5em 0.5em 0;
   border-top: 1px solid #dadada;
 }
 .modal #add-slide-region {
   margin: 0.5em 0;
 }
 .modal #add-slide-region #add-slide-form-region {
-  border-top: 1px dashed #dadada;
   padding-top: 0.5em;
 }
 .modal #add-slide-region #add-slide-form-region .add-image-to-slide {
@@ -1587,13 +1588,16 @@ a:focus {
   border: 1px solid #aaaaaa;
   padding: 1px;
 }
+.modal #add-slide-region .tab-content {
+  margin-bottom: 0;
+}
 .modal .thumbnails .single-img,
 .modal #selectable-images .single-img {
   position: relative;
 }
 .modal .thumbnails .single-img .thumbnail,
 .modal #selectable-images .single-img .thumbnail {
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   border: 2px solid #aaaaaa;
 }
 .modal .thumbnails .single-img .thumbnail .imgthumb,
@@ -1652,7 +1656,7 @@ a:focus {
 .modal #selectable-images .single-img .delete-media-img {
   display: none;
   position: absolute;
-  bottom: 0;
+  bottom: 10px;
   color: #ff3333;
   cursor: pointer;
   font-size: 0.8em;
@@ -2331,6 +2335,9 @@ a:focus {
   width: 100%;
   max-width: 100%;
   height: auto;
+}
+.moveable {
+  cursor: move;
 }
 /****Empty View Styles****/
 .fullwidthbanner ul {
