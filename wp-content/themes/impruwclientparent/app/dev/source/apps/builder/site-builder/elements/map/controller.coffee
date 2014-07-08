@@ -11,6 +11,7 @@ define ['app'
             initialize: (options)->
                 _.defaults options.modelData,
                                         element: 'Map'
+                                        height : 250
                 super(options)
 
             bindEvents: ->
@@ -33,4 +34,10 @@ define ['app'
                 className = _.slugify @layout.model.get 'style'
 
                 view = @_getMapView template, className
+
+                @listenTo view , 'set:image:height',(options)->
+                    @layout.model.set 'heightRatio',options.height/options.width
+                    @layout.model.save()
+
+
                 @layout.elementRegion.show view

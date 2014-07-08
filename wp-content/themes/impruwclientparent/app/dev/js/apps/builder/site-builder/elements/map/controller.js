@@ -14,7 +14,8 @@ define(['app', 'apps/builder/site-builder/elements/map/views', 'apps/builder/sit
 
       Controller.prototype.initialize = function(options) {
         _.defaults(options.modelData, {
-          element: 'Map'
+          element: 'Map',
+          height: 250
         });
         return Controller.__super__.initialize.call(this, options);
       };
@@ -40,6 +41,10 @@ define(['app', 'apps/builder/site-builder/elements/map/views', 'apps/builder/sit
         template = !_(this.layout.model.get('style')).isBlank() ? this._getElementTemplate(this.layout.model) : '';
         className = _.slugify(this.layout.model.get('style'));
         view = this._getMapView(template, className);
+        this.listenTo(view, 'set:image:height', function(options) {
+          this.layout.model.set('heightRatio', options.height / options.width);
+          return this.layout.model.save();
+        });
         return this.layout.elementRegion.show(view);
       };
 
