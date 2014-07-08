@@ -104,7 +104,7 @@ function insert_autosave_page_json( $autosave_post_id, $page_json ) {
     global $wpdb;
 
     $wpdb->insert( $wpdb->postmeta, array( 'meta_key' => 'page-json', 'meta_value' => $page_json,
-                                           'post_id'  => $autosave_post_id ) );
+        'post_id' => $autosave_post_id ) );
 
     $wpdb->insert_id;
 }
@@ -122,9 +122,9 @@ function update_autosave_page_json_db( $meta_id, $page_json ) {
     global $wpdb;
 
     $wpdb->update( $wpdb->postmeta, array( 'meta_key' => 'page-json',
-                                           'meta_value' => $page_json ),
-                                    array( 'meta_id' => $meta_id )
-                );
+            'meta_value' => $page_json ),
+        array( 'meta_id' => $meta_id )
+    );
 }
 
 /**
@@ -192,7 +192,7 @@ function update_footer_json( $footer_json, $autosave = FALSE ) {
  */
 function get_all_menu_pages() {
 
-    $args  = array( 'post_type' => 'page', 'posts_per_page' => -1 );
+    $args = array( 'post_type' => 'page', 'posts_per_page' => -1 );
     $pages = new WP_query( $args );
 
     $p = array();
@@ -255,7 +255,7 @@ function create_new_page( $data ) {
     $page_data[ 'post_title' ] = isset( $data[ 'post_title' ] ) ? $data[ 'post_title' ] : '';
 
     // set the post type to 'page'
-    $page_data[ 'post_type' ]   = 'page';
+    $page_data[ 'post_type' ] = 'page';
     $page_data[ 'post_status' ] = 'publish';
 
     //let create a new page
@@ -264,9 +264,14 @@ function create_new_page( $data ) {
     if ( is_wp_error( $page_id ) )
         return $page_id;
 
+    //check if add_to_menu set
+    if ( $data[ 'add_to_menu' ] == "true" ){
+        add_page_to_menu( $page_id );
+    }
+
     // check what is the template id need to create the page
     // if 0 no template is choosed. ignore pulling json from page
-    $template_page_id = (int) $data[ 'template_page_id' ];
+    $template_page_id = (int)$data[ 'template_page_id' ];
 
     // return post id if template id is 0
     if ( $template_page_id === 0 )
@@ -303,7 +308,7 @@ function get_json_to_clone( $section, $page_id = 0 ) {
         foreach ( $elements as $element ) {
             if ( $element[ 'element' ] === 'Row' ) {
                 $element[ 'columncount' ] = count( $element[ 'elements' ] );
-                $d[ ]                     = get_row_elements( $element );
+                $d[ ] = get_row_elements( $element );
             } else {
                 $meta = get_meta_values( $element );
                 if ( $meta !== FALSE )
@@ -321,7 +326,7 @@ function get_row_elements( $element ) {
         foreach ( $column[ 'elements' ] as &$ele ) {
             if ( $ele[ 'element' ] === 'Row' ) {
                 $ele[ 'columncount' ] = count( $ele[ 'elements' ] );
-                $ele                  = get_row_elements( $ele );
+                $ele = get_row_elements( $ele );
             } else {
                 $meta = get_meta_values( $ele );
                 if ( $meta !== FALSE )
@@ -340,7 +345,7 @@ function get_meta_values( $element, $create = FALSE ) {
     if ( !$meta )
         return FALSE;
 
-    $ele              = maybe_unserialize( $meta->meta_value );
+    $ele = maybe_unserialize( $meta->meta_value );
     $ele[ 'meta_id' ] = $create ? create_new_record( $ele ) : $element[ 'meta_id' ];
     validate_element( $ele );
 
@@ -357,7 +362,7 @@ function validate_element( &$element ) {
 
     foreach ( $element as $key => $val ) {
         if ( in_array( $key, $numkeys ) )
-            $element[ $key ] = (int) $val;
+            $element[ $key ] = (int)$val;
         if ( in_array( $key, $boolkey ) )
             $element[ $key ] = $val === "true";
     }
@@ -431,8 +436,8 @@ function create_new_element( &$ele ) {
 
     $serialized_element = maybe_serialize( $ele );
 
-    $wpdb->insert( $wpdb->postmeta, array( 'post_id'  => 0, 'meta_value' => $serialized_element,
-                                           'meta_key' => $ele[ 'element' ] ) );
+    $wpdb->insert( $wpdb->postmeta, array( 'post_id' => 0, 'meta_value' => $serialized_element,
+        'meta_key' => $ele[ 'element' ] ) );
 
     return array( 'meta_id' => $wpdb->insert_id, 'element' => $ele[ 'element' ] );
 }
@@ -454,7 +459,7 @@ function get_page_content_json( $page_id, $autosave = FALSE ) {
     $json = array();
 
     if ( is_singular( 'impruw_room' ) ) {
-        $page    = get_page_by_title( 'Single Room' );
+        $page = get_page_by_title( 'Single Room' );
         $page_id = $page->ID;
     }
 
@@ -493,6 +498,26 @@ function get_single_room_page_content_json( $autosave = FALSE ) {
 
     return $json;
 
+}
+
+/**Function to add a page to the Main Menu
+ * @param $page_id
+ */
+function add_page_to_menu( $page_id ) {
+    // get the Main Menu Id
+    $term = get_term_by( 'name', 'Main Menu', 'nav_menu' );
+    $menu_id = $term->term_id;
+
+    $page_data = get_post($page_id , ARRAY_A);
+
+    $formdata = array(
+        'menu-item-title' => $page_data[ 'post_title' ],
+        'menu-item-classes' => '',
+        'menu-item-url' => $page_data[ 'guid' ],
+        'menu-item-status' => 'publish'
+    );
+
+    wp_update_nav_menu_item( $menu_id, 0, $formdata );
 }
 
 

@@ -26,15 +26,16 @@ define [ "app", 'backbone' ], ( App, Backbone ) ->
                 return resp.data if resp.code is 'OK'
                 resp
 
+        pages = new Pages.PageCollection
+        pages.fetch
+            reset : true
+
         # PUBLIC API FOR ENitity
         API =
             getPagesCollection : ->
                 new Pages.PageCollection
 
             getPages : ->
-                pages = new Pages.PageCollection
-                pages.fetch
-                    reset : true
                 pages
 
             createNewPage : ( data = {} )->

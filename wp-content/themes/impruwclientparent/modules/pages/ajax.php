@@ -30,13 +30,14 @@ function create_page_ajax() {
     //unset action param
     unset( $data[ 'action' ] );
 
-    // pass remaining data to create a new page
+    //pass remaining data to create a new page
     $id_or_error = create_new_page( $data );
 
     if ( is_wp_error( $id_or_error ) )
         wp_send_json( array( 'code' => 'ERROR', 'message' => $id_or_error->get_error_message() ) );
     else
         $page_data = get_post( $id_or_error, ARRAY_A );
+
     wp_send_json( array( 'code' => 'OK', 'data' => $page_data ) );
 }
 
