@@ -39,6 +39,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
 
       AddPageController.prototype._saveNewPage = function(data) {
         var page;
+        this.setAsMenuItem = data.add_to_menu;
         page = App.request("create:page:model", data);
         return page.save(null, {
           wait: true,
@@ -49,7 +50,9 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
       AddPageController.prototype.showSuccessMessage = function(page) {
         this.addToPageMenu(page);
         this.layout.triggerMethod("show:success:message");
-        return App.vent.trigger("new:page:added", page);
+        if (this.setAsMenuItem === true) {
+          return App.vent.trigger("new:page:added", page);
+        }
       };
 
       AddPageController.prototype.addToPageMenu = function(pageModel) {
@@ -85,7 +88,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         chooseTemplateRegion: '#choose-template-region'
       };
 
-      AddPageView.prototype.template = '<div class="row"> <div class="form-group"> <label for="inputEmail3" class="col-sm-2 control-label">{{#polyglot}}Page Title{{/polyglot}}</label> <div class="col-sm-10"> <input type="text" required class="form-control" id="post_title" name="post_title" /> <div class="p-messages"></div> </div> </div> <input type="hidden" name="template_page_id" value="0"/> <div class="form-group"> <div class="col-sm-10 col-sm-offset-2"> <div id="choose-template-region"></div> <button type="button" class="btn btn-sm btn-wide aj-imp-orange-btn add-new-page">{{#polyglot}}Add New Page{{/polyglot}}</button> </div> </div> </div>';
+      AddPageView.prototype.template = '<div class="row"> <div class="form-group"> <label for="inputEmail3" class="col-sm-2 control-label">{{#polyglot}}Page Title{{/polyglot}}</label> <div class="col-sm-10"> <input type="text" required class="form-control" id="post_title" name="post_title" /> <div class="p-messages"></div> </div> </div> <input type="hidden" name="template_page_id" value="0"/> <div class="form-group"> <div class="col-sm-10 col-sm-offset-2"> <input type="checkbox" value="1" checked="checked" name="add_to_menu"/> <span>Add page to menu</span> <div id="choose-template-region"></div> <button type="button" class="btn btn-sm btn-wide aj-imp-orange-btn add-new-page"> {{#polyglot}}Add New Page{{/polyglot}}</button> </div> </div> </div>';
 
       AddPageView.prototype.onShowSuccessMessage = function() {
         return this.$el.prepend('<div class="alert alert-success">' + _.polyglot.t("New Page added") + '</div>');

@@ -58,7 +58,7 @@ define [ 'app', 'controllers/base-controller',
                     selectOtherMonths : true
                     dateFormat : "yy-mm-dd"
                     beforeShowDay : @disableDateRange
-#                    beforeShow : @setDateRangeColor
+                    beforeShow : @setDateRangeColorDelayed
                     onChangeMonthYear : @displayColorMonthChange
 
                 .prev( '.btn' ).on 'click', ( e ) =>
@@ -73,16 +73,19 @@ define [ 'app', 'controllers/base-controller',
                 else
                     return [ false, className ]
 
+            setDateRangeColorDelayed :(input , instance)=>
+                _.delay =>
+                    @setDateRangeColor()
+                , 10
+
             # sets a background color for daterange
-            setDateRangeColor :(a,b) =>
+            setDateRangeColor : =>
                 daterangeCollection = App.request "get:daterange:collection"
                 _.each daterangeCollection.models, ( daterangeModel, index ) =>
                     dateRangeName = daterangeModel.get 'daterange_name'
                     dateRangeColour = daterangeModel.get 'daterange_colour'
                     className = _.slugify dateRangeName
-                    console.log className
-                    console.log dateRangeColour
-                    console.log @$el.find( ".#{className}" ).html()
+                    $(".#{className}").css({"background-color": dateRangeColour})
 
             displayColorMonthChange : ( year, month, inst ) =>
                 _.delay =>

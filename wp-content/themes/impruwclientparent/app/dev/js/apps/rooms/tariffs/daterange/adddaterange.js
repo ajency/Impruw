@@ -50,6 +50,7 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/daterange
       function AddDateRangeView() {
         this.displayColorMonthChange = __bind(this.displayColorMonthChange, this);
         this.setDateRangeColor = __bind(this.setDateRangeColor, this);
+        this.setDateRangeColorDelayed = __bind(this.setDateRangeColorDelayed, this);
         this.disableDateRange = __bind(this.disableDateRange, this);
         return AddDateRangeView.__super__.constructor.apply(this, arguments);
       }
@@ -89,6 +90,7 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/daterange
           selectOtherMonths: true,
           dateFormat: "yy-mm-dd",
           beforeShowDay: this.disableDateRange,
+          beforeShow: this.setDateRangeColorDelayed,
           onChangeMonthYear: this.displayColorMonthChange
         }).prev('.btn').on('click', (function(_this) {
           return function(e) {
@@ -109,7 +111,15 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/daterange
         }
       };
 
-      AddDateRangeView.prototype.setDateRangeColor = function(a, b) {
+      AddDateRangeView.prototype.setDateRangeColorDelayed = function(input, instance) {
+        return _.delay((function(_this) {
+          return function() {
+            return _this.setDateRangeColor();
+          };
+        })(this), 10);
+      };
+
+      AddDateRangeView.prototype.setDateRangeColor = function() {
         var daterangeCollection;
         daterangeCollection = App.request("get:daterange:collection");
         return _.each(daterangeCollection.models, (function(_this) {
@@ -118,9 +128,9 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/daterange
             dateRangeName = daterangeModel.get('daterange_name');
             dateRangeColour = daterangeModel.get('daterange_colour');
             className = _.slugify(dateRangeName);
-            console.log(className);
-            console.log(dateRangeColour);
-            return console.log(_this.$el.find("." + className).html());
+            return $("." + className).css({
+              "background-color": dateRangeColour
+            });
           };
         })(this));
       };

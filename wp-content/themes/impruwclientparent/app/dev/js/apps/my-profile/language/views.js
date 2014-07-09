@@ -17,20 +17,22 @@ define(['app', 'text!apps/my-profile/language/templates/languageView.html'], fun
       LanguageForm.prototype.className = 'form-horizontal clearfix ';
 
       LanguageForm.prototype.onShow = function() {
-        var languageName;
-        this.$el.find('select').selectpicker();
-        languageName = this.model.get('user_lang');
-        this.$el.find('.dropdown-toggle').attr({
-          'title': languageName
+        var defaultLanguage;
+        defaultLanguage = this.model.get('user_lang');
+        this.$el.find("#user_language option[value='" + defaultLanguage + "']").attr({
+          'selected': 'selected'
         });
-        return this.$el.find('.dropdown-toggle .filter-option').text(languageName);
+        return this.$el.find('#user_language').selectpicker();
       };
 
       LanguageForm.prototype.events = {
         'click #btn_update_language': function() {
-          var langName;
-          langName = this.$el.find('.dropdown-toggle').attr('title');
-          return this.trigger("update:user:lang:click", langName);
+          var data, langName;
+          langName = this.$el.find('#user_language').val();
+          data = {
+            'user_lang': langName
+          };
+          return this.trigger("update:user:lang:click", data);
         }
       };
 

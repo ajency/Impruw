@@ -64,6 +64,9 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/daterange
       __extends(EditDateRangeView, _super);
 
       function EditDateRangeView() {
+        this.setDateRangeColor = __bind(this.setDateRangeColor, this);
+        this.setDateRangeColorDelayed = __bind(this.setDateRangeColorDelayed, this);
+        this.disableDateRange = __bind(this.disableDateRange, this);
         return EditDateRangeView.__super__.constructor.apply(this, arguments);
       }
 
@@ -117,11 +120,52 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/daterange
         return this.$el.find('.dated').datepicker({
           showOtherMonths: true,
           selectOtherMonths: true,
-          dateFormat: "yy-mm-dd"
+          dateFormat: "yy-mm-dd",
+          beforeShowDay: this.disableDateRange,
+          beforeShow: this.setDateRangeColorDelayed
         }).prev('.btn').on('click', (function(_this) {
           return function(e) {
             e && e.preventDefault();
             return $(datepickerSelector).focus();
+          };
+        })(this));
+      };
+
+      EditDateRangeView.prototype.disableDateRange = function(date) {
+        var className, currentDateRange, currentDateRangeName, dateRangeName;
+        currentDateRange = this.model.get('daterange_name');
+        dateRangeName = App.request("get:daterange:name:for:date", date);
+        className = _.slugify(dateRangeName);
+        currentDateRangeName = _.slugify(currentDateRange);
+        if (dateRangeName === '') {
+          return [true, className];
+        } else if (currentDateRangeName === className) {
+          return [true, className];
+        } else {
+          return [false, className];
+        }
+      };
+
+      EditDateRangeView.prototype.setDateRangeColorDelayed = function(input, instance) {
+        return _.delay((function(_this) {
+          return function() {
+            return _this.setDateRangeColor();
+          };
+        })(this), 10);
+      };
+
+      EditDateRangeView.prototype.setDateRangeColor = function() {
+        var daterangeCollection;
+        daterangeCollection = App.request("get:daterange:collection");
+        return _.each(daterangeCollection.models, (function(_this) {
+          return function(daterangeModel, index) {
+            var className, dateRangeColour, dateRangeName;
+            dateRangeName = daterangeModel.get('daterange_name');
+            dateRangeColour = daterangeModel.get('daterange_colour');
+            className = _.slugify(dateRangeName);
+            return $("." + className).css({
+              "background-color": dateRangeColour
+            });
           };
         })(this));
       };

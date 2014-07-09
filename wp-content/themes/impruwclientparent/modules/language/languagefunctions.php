@@ -16,10 +16,10 @@ function load_language_phrases(){
 
     $currentUserLang = detect_user_language();
 
-    if($currentUserLang==="English"){
+    if($currentUserLang==="en"){
         $file = "en-US.json"; 
     }
-    else if($currentUserLang==="Norwegian"){
+    else if($currentUserLang==="nb"){
         $file = "nb-NO.json"; 
     }    
     else{
