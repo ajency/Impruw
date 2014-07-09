@@ -12,7 +12,7 @@
     function create_new_user($user_data)
     {
 
-        $defaults = array('user_language' => 'en_EN');
+        $defaults = array('user_language' => 'en');
 
         $user_data = wp_parse_args($user_data, $defaults);
 
