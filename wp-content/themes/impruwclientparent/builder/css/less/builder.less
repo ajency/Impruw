@@ -703,10 +703,17 @@ a {
 		border: 1px solid darken(@preview-grey, 10%);
 		.aj-imp-browser-header {
 			padding: 1em 1em 0;
-			background: #fff;
 			border-radius: 6px 6px 0 0;
 			margin: 0;
 			box-shadow: 0 4px 4px -4px @dash-grey;
+			background: lighten(@preview-grey, 1%); /* Old browsers */
+			background: -moz-linear-gradient(top,  #ededed 0%, #f6f6f6 35%, #ffffff 68%, #fcfcfc 100%); /* FF3.6+ */
+			background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ededed), color-stop(35%,#f6f6f6), color-stop(68%,#ffffff), color-stop(100%,#fcfcfc)); /* Chrome,Safari4+ */
+			background: -webkit-linear-gradient(top,  #ededed 0%,#f6f6f6 35%,#ffffff 68%,#fcfcfc 100%); /* Chrome10+,Safari5.1+ */
+			background: -o-linear-gradient(top,  #ededed 0%,#f6f6f6 35%,#ffffff 68%,#fcfcfc 100%); /* Opera 11.10+ */
+			background: -ms-linear-gradient(top,  #ededed 0%,#f6f6f6 35%,#ffffff 68%,#fcfcfc 100%); /* IE10+ */
+			background: linear-gradient(to bottom,  #ededed 0%,#f6f6f6 35%,#ffffff 68%,#fcfcfc 100%); /* W3C */
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ededed', endColorstr='#fcfcfc',GradientType=0 ); /* IE6-9 */
 			.aj-imp-browser-dots {
 				list-style: none;
 				margin: 0;
@@ -753,7 +760,7 @@ a {
 						font-size: 1.2em;
 						padding: 0 0 0.25em;
 						border-radius: 0;
-						border-bottom: 1px solid @preview-grey;
+						border-bottom: 1px solid lighten(@dash-grey, 20%);
 						text-transform: uppercase;
 						.caret {
 							border-top-color: lighten(@dash-grey, 10%);
@@ -850,14 +857,7 @@ a {
 				border: 1px solid darken(@preview-grey, 10%);
 				border-bottom: 0;
 				padding: 1em 0;
-				background: lighten(@preview-grey, 1%); /* Old browsers */
-				background: -moz-linear-gradient(top,  #ededed 0%, #f6f6f6 35%, #ffffff 68%, #fcfcfc 100%); /* FF3.6+ */
-				background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ededed), color-stop(35%,#f6f6f6), color-stop(68%,#ffffff), color-stop(100%,#fcfcfc)); /* Chrome,Safari4+ */
-				background: -webkit-linear-gradient(top,  #ededed 0%,#f6f6f6 35%,#ffffff 68%,#fcfcfc 100%); /* Chrome10+,Safari5.1+ */
-				background: -o-linear-gradient(top,  #ededed 0%,#f6f6f6 35%,#ffffff 68%,#fcfcfc 100%); /* Opera 11.10+ */
-				background: -ms-linear-gradient(top,  #ededed 0%,#f6f6f6 35%,#ffffff 68%,#fcfcfc 100%); /* IE10+ */
-				background: linear-gradient(to bottom,  #ededed 0%,#f6f6f6 35%,#ffffff 68%,#fcfcfc 100%); /* W3C */
-				filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ededed', endColorstr='#fcfcfc',GradientType=0 ); /* IE6-9 */
+				background: #fff;
 				.aj-imp-browser-address-bar {
 					background: #fff;
 					border-radius: 4px;
@@ -880,6 +880,7 @@ a {
 						}
 						&:focus {
 							color: @3-grey;
+							background: @preview-grey;
 						}
 					}
 					.bootstrap-select {
@@ -982,20 +983,21 @@ a {
 				width: 40%;
 				padding: 0.3em;
 				border-right: 1px solid darken(@preview-grey, 10%);
-				color: darken(@dash-grey, 10%);
+				color: @3-grey;
 				margin-right: 1%;
+				font-size: 1.1em;
 				.page-name-content {
 					.page-name-input {
 						border: 1px solid transparent;
 						border-radius: 3px;
-						color: darken(@dash-grey, 10%);
+						color: darken(@dash-grey, 20%);
 						padding: 0.2em;
 						background: transparent;
 						&:hover, &:focus {
 							border: 1px dotted @dash-grey;
 						}
 						&:focus {
-							background: #fff;
+							background: @preview-grey;
 							color: @3-grey;
 						}
 					}

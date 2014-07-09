@@ -662,10 +662,33 @@ a:focus {
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header {
   padding: 1em 1em 0;
-  background: #fff;
   border-radius: 6px 6px 0 0;
   margin: 0;
   box-shadow: 0 4px 4px -4px #aaaaaa;
+  background: #f6f6f6;
+  /* Old browsers */
+
+  background: -moz-linear-gradient(top, #ededed 0%, #f6f6f6 35%, #ffffff 68%, #fcfcfc 100%);
+  /* FF3.6+ */
+
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ededed), color-stop(35%, #f6f6f6), color-stop(68%, #ffffff), color-stop(100%, #fcfcfc));
+  /* Chrome,Safari4+ */
+
+  background: -webkit-linear-gradient(top, #ededed 0%, #f6f6f6 35%, #ffffff 68%, #fcfcfc 100%);
+  /* Chrome10+,Safari5.1+ */
+
+  background: -o-linear-gradient(top, #ededed 0%, #f6f6f6 35%, #ffffff 68%, #fcfcfc 100%);
+  /* Opera 11.10+ */
+
+  background: -ms-linear-gradient(top, #ededed 0%, #f6f6f6 35%, #ffffff 68%, #fcfcfc 100%);
+  /* IE10+ */
+
+  background: linear-gradient(to bottom, #ededed 0%, #f6f6f6 35%, #ffffff 68%, #fcfcfc 100%);
+  /* W3C */
+
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#fcfcfc', GradientType=0);
+  /* IE6-9 */
+
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .aj-imp-browser-dots {
   list-style: none;
@@ -709,7 +732,7 @@ a:focus {
   font-size: 1.2em;
   padding: 0 0 0.25em;
   border-radius: 0;
-  border-bottom: 1px solid #f3f3f3;
+  border-bottom: 1px solid #dddddd;
   text-transform: uppercase;
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .aj-imp-browser-title .bootstrap-select .dropdown-toggle .caret {
@@ -803,30 +826,7 @@ a:focus {
   border: 1px solid #dadada;
   border-bottom: 0;
   padding: 1em 0;
-  background: #f6f6f6;
-  /* Old browsers */
-
-  background: -moz-linear-gradient(top, #ededed 0%, #f6f6f6 35%, #ffffff 68%, #fcfcfc 100%);
-  /* FF3.6+ */
-
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ededed), color-stop(35%, #f6f6f6), color-stop(68%, #ffffff), color-stop(100%, #fcfcfc));
-  /* Chrome,Safari4+ */
-
-  background: -webkit-linear-gradient(top, #ededed 0%, #f6f6f6 35%, #ffffff 68%, #fcfcfc 100%);
-  /* Chrome10+,Safari5.1+ */
-
-  background: -o-linear-gradient(top, #ededed 0%, #f6f6f6 35%, #ffffff 68%, #fcfcfc 100%);
-  /* Opera 11.10+ */
-
-  background: -ms-linear-gradient(top, #ededed 0%, #f6f6f6 35%, #ffffff 68%, #fcfcfc 100%);
-  /* IE10+ */
-
-  background: linear-gradient(to bottom, #ededed 0%, #f6f6f6 35%, #ffffff 68%, #fcfcfc 100%);
-  /* W3C */
-
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#fcfcfc', GradientType=0);
-  /* IE6-9 */
-
+  background: #fff;
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .second .aj-imp-browser-address-bar {
   background: #fff;
@@ -853,6 +853,7 @@ a:focus {
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .second .aj-imp-browser-address-bar .page-slug-edit:focus {
   color: #333333;
+  background: #f3f3f3;
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .second .aj-imp-browser-address-bar .bootstrap-select {
   margin: 0;
@@ -946,13 +947,14 @@ a:focus {
   width: 40%;
   padding: 0.3em;
   border-right: 1px solid #dadada;
-  color: #919191;
+  color: #333333;
   margin-right: 1%;
+  font-size: 1.1em;
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .page-name .page-name-content .page-name-input {
   border: 1px solid transparent;
   border-radius: 3px;
-  color: #919191;
+  color: #777777;
   padding: 0.2em;
   background: transparent;
 }
@@ -961,7 +963,7 @@ a:focus {
   border: 1px dotted #aaaaaa;
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .page-name .page-name-content .page-name-input:focus {
-  background: #fff;
+  background: #f3f3f3;
   color: #333333;
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .page-name .page-name-content .btn-update-pg-name {
