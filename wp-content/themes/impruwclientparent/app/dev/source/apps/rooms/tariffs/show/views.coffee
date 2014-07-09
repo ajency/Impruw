@@ -177,7 +177,6 @@ define ['app', 'moment'], (App, moment)->
                     return false
 
                 roomId = Marionette.getOption @, 'roomId'
-                console.log roomId
 
                 plans.each (plan, index)=>
                     tariff = getTariff plan.get 'id'
