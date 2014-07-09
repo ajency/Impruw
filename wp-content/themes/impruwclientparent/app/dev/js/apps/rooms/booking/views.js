@@ -161,9 +161,7 @@ define(['app', 'text!apps/rooms/add/templates/add-room.html'], function(App, add
         if (currentStatus === 'unavailable') {
           value = 60;
         }
-        console.log(currentStatus);
-        console.log(value);
-        html = "<button type='button' class='close booking-popover-close' aria-hidden='true'>&times;</button> <div class='booking-slider-pop'> <div id='booking-slider' data-value='" + value + "'></div> <div class='row'> <div class='col-md-4 available'><span>{{#polyglot}}available{{/polyglot}}</span></div> <div class='col-md-4 semi-available'><span>{{#polyglot}}semi-available{{/polyglot}}</span></div> <div class='col-md-4 unavailable'><span>{{#polyglot}}unavailable{{/polyglot}}</span></div> </div> </div>";
+        html = "<button type='button' class='close booking-popover-close' aria-hidden='true'>&times;</button> <div class='booking-slider-pop'> <div id='booking-slider' data-value='" + value + "'></div> <div class='row'> <div class='col-md-4 available'><span>" + (_.polyglot.t('available')) + "</span></div> <div class='col-md-4 semi-available'><span>" + (_.polyglot.t('semi-available')) + "</span></div> <div class='col-md-4 unavailable'><span>" + (_.polyglot.t('unavailable')) + "</span></div> </div> </div>";
         return html;
       };
 
