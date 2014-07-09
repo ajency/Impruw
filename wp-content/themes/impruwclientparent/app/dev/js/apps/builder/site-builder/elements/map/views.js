@@ -18,6 +18,25 @@ define(['app'], function(App) {
 
       MapView.prototype.onShow = function() {
         this.className += " " + Marionette.getOption(this, 'className');
+        this.$el.parent().height(this.model.get('height'));
+        this.$el.height('100%');
+        this.trigger('set:image:height', {
+          height: this.$el.parent().height(),
+          width: this.$el.parent().width()
+        });
+        this.$el.parent().resizable({
+          handles: "s",
+          stop: (function(_this) {
+            return function(evt, ui) {
+              _this.$el.parent().css('width', 'auto');
+              _this.model.set('height', _this.$el.parent().height());
+              return _this.trigger('set:image:height', {
+                height: _this.$el.parent().height(),
+                width: _this.$el.parent().width()
+              });
+            };
+          })(this)
+        });
         if (window.ADDRESS.trim() === '') {
           return this.$el.html("<div class='empty-view no-click'><span class='bicon icon-uniF132'></span>Address not specified. Please<a href='" + SITEURL + "/dashboard/#site-profile'> click here to add.</a></div>");
         } else {

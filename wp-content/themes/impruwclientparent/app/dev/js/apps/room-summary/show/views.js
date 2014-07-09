@@ -16,7 +16,8 @@ define(['app', 'text!apps/room-summary/show/templates/mainview.html'], function(
 
       Layout.prototype.regions = {
         checkinRegion: '#check-in-region',
-        policiesRegion: '#policies-region'
+        policiesRegion: '#policies-region',
+        currencyRegion: '#currency-region'
       };
 
       return Layout;

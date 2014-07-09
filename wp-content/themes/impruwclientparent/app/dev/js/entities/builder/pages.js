@@ -19,6 +19,8 @@ define(["app", 'backbone'], function(App, Backbone) {
 
       PageModel.prototype.name = 'page';
 
+      PageModel.prototype.idAttribute = 'ID';
+
       return PageModel;
 
     })(Backbone.Model);
@@ -53,10 +55,7 @@ define(["app", 'backbone'], function(App, Backbone) {
       getPagesCollection: function() {
         return new Pages.PageCollection;
       },
-      getPages: function(param) {
-        if (param == null) {
-          param = {};
-        }
+      getPages: function() {
         return pages;
       },
       createNewPage: function(data) {
@@ -66,6 +65,19 @@ define(["app", 'backbone'], function(App, Backbone) {
         }
         page = new Pages.PageModel(data);
         return page;
+      },
+      getPageModelById: function(pageId) {
+        var pageModel;
+        pageModel = new Pages.PageModel({
+          'ID': parseInt(pageId)
+        });
+        pageModel.fetch({
+          data: {
+            'ID': pageId,
+            'action': 'read-page'
+          }
+        });
+        return pageModel;
       }
     };
     App.reqres.setHandler("get:editable:pages", function() {
@@ -73,6 +85,9 @@ define(["app", 'backbone'], function(App, Backbone) {
     });
     App.reqres.setHandler("create:page:model", function(data) {
       return API.createNewPage(data);
+    });
+    App.reqres.setHandler("get:page:model:by:id", function(pageId) {
+      return API.getPageModelById(pageId);
     });
     return App.reqres.setHandler("get:pages:collection", function() {
       return API.getPagesCollection();

@@ -165,146 +165,159 @@ add_action( 'wp_ajax_read-menu', 'get_menu' );
 
 function get_elementbox_elements() {
 
+    $elements = array(
+        array(
+            'element'    => 'Menu',
+            'icon'       => 'bicon icon-uniF14E',
+            'styles'     => get_styles( 'Menu' ),
+            'site_menus' => array(
+                array(
+                    'menu_id'   => 2,
+                    'menu_name' => 'Main Menu'
+                ),
+                array(
+                    'menu_id'   => 3,
+                    'menu_name' => 'Footer menu'
+                )
+            )
+        ),
+        array(
+            'element' => 'Row',
+            'icon'    => 'bicon icon-uniF103',
+            'styles'  => get_styles( 'Row' )
+        ),
+        array(
+            'element'  => 'Logo',
+            'icon'     => 'bicon icon-uniF124',
+            'styles'   => array(),
+            'size'     => '', //get_logo_size(),
+            'category' => 'hotel'
+        ),
+        array(
+            'element' => 'Text',
+            'icon'    => 'bicon icon-uniF111',
+            'styles'  => array()
+        ),
+        array(
+            'element' => 'Title',
+            'icon'    => 'bicon icon-uniF11C',
+            'styles'  => get_styles( 'Title' )
+        ),
+        array(
+            'element' => 'Image',
+            'icon'    => 'bicon icon-uniF10E',
+            'styles'  => array()
+        ),
+        array(
+            'element' => 'ImageWithText',
+            'title'   => 'Image With Text',
+            'icon'    => 'bicon icon-uniF112',
+            'styles'  => get_styles( 'ImageWithText' )
+        ),
+        array(
+            'element'  => 'Address',
+            'icon'     => 'bicon icon-uniF183',
+            'styles'   => get_styles( 'Address' ),
+            'category' => 'hotel'
+        ),
+        array(
+            'element'  => 'Social',
+            'icon'     => 'bicon icon-uniF11A',
+            'styles'   => get_styles( 'Social' ),
+            'category' => 'hotel'
+        ),
+        array(
+            'element' => 'Link',
+            'icon'    => 'bicon icon-uniF149',
+            'styles'  => get_styles( 'Link' )
+        ),
+        array(
+            'element'  => 'ContactForm',
+            'title'    => 'Contact Form',
+            'icon'     => 'bicon icon-uniF11B',
+            'styles'   => get_styles( 'ContactForm' ),
+            'category' => 'hotel'
+        ),
+        array(
+            'element'  => 'Map',
+            'icon'     => 'bicon icon-uniF110',
+            'styles'   => get_styles( 'Map' ),
+            'category' => 'hotel'
+        ),
+        array(
+            'element' => 'Slider',
+            'icon'    => 'bicon icon-uniF119',
+            'sliders' => get_theme_sliders()
+        ),
+        array(
+            'element'   => 'Gallery',
+            'icon'      => 'bicon icon-uniF10C',
+            'galleries' => get_theme_sliders()
+        ),
+        array(
+            'element'  => 'Gallery',
+            'title'    => 'Room Gallery',
+            'icon'     => 'bicon icon-uniF10C',
+            'category' => 'room'
+        ),
+        array(
+            'element'  => 'RoomFacilities',
+            'title'    => 'Room Facilities',
+            'icon'     => 'bicon icon-uniF17E',
+            'category' => 'room'
+        ),
+        array(
+            'element'  => 'RoomTitle',
+            'title'    => 'Room Title',
+            'icon'     => 'bicon icon-uniF12D',
+            'category' => 'room'
+        ),
+        array(
+            'element'  => 'RoomDescription',
+            'title'    => 'Room Description',
+            'icon'     => 'bicon icon-uniF142',
+            'category' => 'room'
+        ),
+        array(
+            'element'  => 'RoomSummary',
+            'title'    => 'Display Rooms',
+            'styles'   => get_styles( 'RoomSummary' ),
+            'rooms'    => get_all_rooms(),
+            'icon'     => 'bicon icon-uniF15B',
+            'category' => 'room'
+        ),
+        array(
+            'element'  => 'RoomTariff',
+            'title'    => 'Room Tariff',
+            'icon'     => 'bicon icon-uniF12B',
+            'category' => 'room'
+        ),
+        array(
+            'element'  => 'RoomBooking',
+            'title'    => 'Room Booking',
+            'icon'     => 'bicon icon-uniF101',
+            'category' => 'room'
+        )
+    );
+
+    if ( !current_user_can( 'edit_impruw_theme' ) ) {
+        $filtered = array();
+        $unset_elements = array( 'Menu' );
+        foreach ( $elements as $element ) {
+            if ( !in_array( $element[ 'element' ], $unset_elements ) )
+                $filtered[] = $element;
+        }
+
+        $elements = $filtered;
+    }
+
     wp_send_json( array(
         'code' => 'OK',
-        'data' => array(
-            array(
-                'element'    => 'Menu',
-                'icon'       => 'bicon icon-uniF14E',
-                'styles'     => get_styles( 'Menu' ),
-                'site_menus' => array(
-                    array(
-                        'menu_id'   => 2,
-                        'menu_name' => 'Main Menu'
-                    ),
-                    array(
-                        'menu_id'   => 3,
-                        'menu_name' => 'Footer menu'
-                    )
-                )
-            ),
-            array(
-                'element' => 'Row',
-                'icon'    => 'bicon icon-uniF103',
-                'styles'  => get_styles( 'Row' )
-            ),
-            array(
-                'element'  => 'Logo',
-                'icon'     => 'bicon icon-uniF124',
-                'styles'   => array(),
-                'size'     => '', //get_logo_size(),
-                'category' => 'hotel'
-            ),
-            array(
-                'element' => 'Text',
-                'icon'    => 'bicon icon-uniF111',
-                'styles'  => array()
-            ),
-            array(
-                'element' => 'Title',
-                'icon'    => 'bicon icon-uniF11C',
-                'styles'  => get_styles( 'Title' )
-            ),
-            array(
-                'element' => 'Image',
-                'icon'    => 'bicon icon-uniF10E',
-                'styles'  => array()
-            ),
-            array(
-                'element' => 'ImageWithText',
-                'title'   => 'Image With Text',
-                'icon'    => 'bicon icon-uniF112',
-                'styles'  => get_styles( 'ImageWithText' )
-            ),
-            array(
-                'element'  => 'Address',
-                'icon'     => 'bicon icon-uniF183',
-                'styles'   => get_styles( 'Address' ),
-                'category' => 'hotel'
-            ),
-            array(
-                'element'  => 'Social',
-                'icon'     => 'bicon icon-uniF11A',
-                'styles'   => get_styles( 'Social' ),
-                'category' => 'hotel'
-            ),
-            array(
-                'element' => 'Link',
-                'icon'    => 'bicon icon-uniF149',
-                'styles'  => get_styles( 'Link' )
-            ),
-            array(
-                'element'  => 'ContactForm',
-                'title'    => 'Contact Form',
-                'icon'     => 'bicon icon-uniF11B',
-                'styles'   => get_styles( 'ContactForm' ),
-                'category' => 'hotel'
-            ),
-            array(
-                'element'  => 'Map',
-                'icon'     => 'bicon icon-uniF110',
-                'styles'   => get_styles( 'Map' ),
-                'category' => 'hotel'
-            ),
-            array(
-                'element' => 'Slider',
-                'icon'    => 'bicon icon-uniF119',
-                'sliders' => get_theme_sliders()
-            ),
-            array(
-                'element'   => 'Gallery',
-                'icon'      => 'bicon icon-uniF10C',
-                'galleries' => get_theme_sliders()
-            ),
-            array(
-                'element'  => 'Gallery',
-                'title'    => 'Room Gallery',
-                'icon'     => 'bicon icon-uniF10C',
-                'category' => 'room'
-            ),
-            array(
-                'element'  => 'RoomFacilities',
-                'title'    => 'Room Facilities',
-                'icon'     => 'bicon icon-uniF17E',
-                'category' => 'room'
-            ),
-            array(
-                'element'  => 'RoomTitle',
-                'title'    => 'Room Title',
-                'icon'     => 'bicon icon-uniF12D',
-                'category' => 'room'
-            ),
-            array(
-                'element'  => 'RoomDescription',
-                'title'    => 'Room Description',
-                'icon'     => 'bicon icon-uniF142',
-                'category' => 'room'
-            ),
-            array(
-                'element'  => 'RoomSummary',
-                'title'    => 'Display Rooms',
-                'styles'   => get_styles( 'RoomSummary' ),
-                'rooms'    => get_all_rooms(),
-                'icon'     => 'bicon icon-uniF15B',
-                'category' => 'room'
-            ),
-            array(
-                'element'  => 'RoomTariff',
-                'title'    => 'Room Tariff',
-                'icon'     => 'bicon icon-uniF12B',
-                'category' => 'room'
-            ),
-            array(
-                'element'  => 'RoomBooking',
-                'title'    => 'Room Booking',
-                'icon'     => 'bicon icon-uniF101',
-                'category' => 'room'
-            )
-        )
-    ) );
+        'data' => $elements ) );
 }
 
 add_action( 'wp_ajax_get-elementbox-elements', 'get_elementbox_elements' );
+add_action( 'wp_ajax_nopriv_get-elementbox-elements', 'get_elementbox_elements' );
 
 function fetch_facilities() {
 
@@ -368,14 +381,14 @@ function set_element_data( $data ) {
 
     global $wpdb;
     if ( isset( $data [ 'meta_id' ] ) ) {
-        $meta_id            = $data [ 'meta_id' ];
-        
+        $meta_id = $data [ 'meta_id' ];
+
 
         // TODO: 
-        if($data['element'] == 'Slider'){
-            $slider_data = get_slider_by_id($data['slider_id']);
-            $slider_data['height'] = $data['height'];
-            update_slider( $slider_data, $data['slider_id'] );
+        if ( $data[ 'element' ] == 'Slider' ) {
+            $slider_data             = get_slider_by_id( $data[ 'slider_id' ] );
+            $slider_data[ 'height' ] = $data[ 'height' ];
+            update_slider( $slider_data, $data[ 'slider_id' ] );
 
         }
 
@@ -655,23 +668,23 @@ function get_page_json_for_site( $page_id, $autosave = FALSE ) {
     if ( $page_id == 0 )
         return FALSE;
 
-    $json              = array();
-    $key = '';
-    if($autosave === true)
+    $json = array();
+    $key  = '';
+    if ( $autosave === TRUE )
         $key = '-autosave';
 
     $json [ 'header' ] = get_option( 'theme-header' . $key, array() );
 
-    if($key === '-autosave' && empty($json [ 'header' ]))
+    if ( $key === '-autosave' && empty( $json [ 'header' ] ) )
         $json [ 'header' ] = get_option( 'theme-header', array() );
 
     $json [ 'footer' ] = get_option( 'theme-footer' . $key, array() );
 
-    if($key === '-autosave' && empty($json [ 'footer' ]))
+    if ( $key === '-autosave' && empty( $json [ 'footer' ] ) )
         $json [ 'footer' ] = get_option( 'theme-footer', array() );
 
 
-    $json['page'] = get_page_content_json($page_id, $autosave);
+    $json[ 'page' ] = get_page_content_json( $page_id, $autosave );
 
     $d = array();
 

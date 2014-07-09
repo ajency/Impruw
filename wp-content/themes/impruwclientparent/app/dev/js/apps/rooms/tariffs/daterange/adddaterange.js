@@ -48,6 +48,10 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/daterange
       __extends(AddDateRangeView, _super);
 
       function AddDateRangeView() {
+        this.displayColorMonthChange = __bind(this.displayColorMonthChange, this);
+        this.setDateRangeColor = __bind(this.setDateRangeColor, this);
+        this.setDateRangeColorDelayed = __bind(this.setDateRangeColorDelayed, this);
+        this.disableDateRange = __bind(this.disableDateRange, this);
         return AddDateRangeView.__super__.constructor.apply(this, arguments);
       }
 
@@ -85,7 +89,9 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/daterange
           showOtherMonths: true,
           selectOtherMonths: true,
           dateFormat: "yy-mm-dd",
-          beforeShowDay: this.disableDateRange
+          beforeShowDay: this.disableDateRange,
+          beforeShow: this.setDateRangeColorDelayed,
+          onChangeMonthYear: this.displayColorMonthChange
         }).prev('.btn').on('click', (function(_this) {
           return function(e) {
             e && e.preventDefault();
@@ -95,23 +101,46 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/daterange
       };
 
       AddDateRangeView.prototype.disableDateRange = function(date) {
-        var checkDateRange, daterangeCollection, models, time;
-        daterangeCollection = App.request("get:daterange:collection");
-        time = date.getTime();
-        checkDateRange = function(daterange) {
-          var from, to;
-          from = daterange.get('from_date');
-          to = daterange.get('to_date');
-          from = moment(from).subtract('days', 1);
-          to = moment(to).add('days', 1);
-          return moment(time).isAfter(from) && moment(time).isBefore(to);
-        };
-        models = daterangeCollection.filter(checkDateRange);
-        if (models.length > 0) {
-          return [false, ''];
+        var className, dateRangeName;
+        dateRangeName = App.request("get:daterange:name:for:date", date);
+        className = _.slugify(dateRangeName);
+        if (dateRangeName === '') {
+          return [true, className];
         } else {
-          return [true, ''];
+          return [false, className];
         }
+      };
+
+      AddDateRangeView.prototype.setDateRangeColorDelayed = function(input, instance) {
+        return _.delay((function(_this) {
+          return function() {
+            return _this.setDateRangeColor();
+          };
+        })(this), 10);
+      };
+
+      AddDateRangeView.prototype.setDateRangeColor = function() {
+        var daterangeCollection;
+        daterangeCollection = App.request("get:daterange:collection");
+        return _.each(daterangeCollection.models, (function(_this) {
+          return function(daterangeModel, index) {
+            var className, dateRangeColour, dateRangeName;
+            dateRangeName = daterangeModel.get('daterange_name');
+            dateRangeColour = daterangeModel.get('daterange_colour');
+            className = _.slugify(dateRangeName);
+            return $("." + className).css({
+              "background-color": dateRangeColour
+            });
+          };
+        })(this));
+      };
+
+      AddDateRangeView.prototype.displayColorMonthChange = function(year, month, inst) {
+        return _.delay((function(_this) {
+          return function() {
+            return _this.setDateRangeColor();
+          };
+        })(this), 10);
       };
 
       return AddDateRangeView;

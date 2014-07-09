@@ -201,7 +201,6 @@ define(["app", 'backbone'], function(App, Backbone) {
           menus[menuId] = menuItems;
           menuItems.fetch();
         }
-        console.log(menuItems);
         return menuItems;
       }
     };

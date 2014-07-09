@@ -47,7 +47,7 @@ define(['app', 'text!apps/builder/site-builder/element/templates/element.html'],
       };
 
       ElementView.prototype.onShow = function() {
-        return this.$el.mouseover((function(_this) {
+        this.$el.mouseover((function(_this) {
           return function(evt) {
             evt.stopPropagation();
             if (window.dragging) {
@@ -60,6 +60,17 @@ define(['app', 'text!apps/builder/site-builder/element/templates/element.html'],
             return _this.$el.removeClass('hover-class');
           };
         })(this));
+        return this._disableOptions();
+      };
+
+      ElementView.prototype._disableOptions = function() {
+        var elements;
+        elements = ['RoomSummary', 'Row'];
+        if (ISTHEMEEDITOR !== 'yes') {
+          if (elements.indexOf(this.model.get('element')) === -1) {
+            return this.$el.children('.element-controls').children('.aj-imp-settings-btn').remove();
+          }
+        }
       };
 
       ElementView.prototype.onBeforeRenderElement = function() {

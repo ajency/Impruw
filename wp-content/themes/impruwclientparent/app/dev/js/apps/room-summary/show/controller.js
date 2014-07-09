@@ -11,9 +11,8 @@ define(['app', 'controllers/base-controller', 'apps/room-summary/show/views'], f
       }
 
       Controller.prototype.initialize = function() {
-        var sitemodel;
         this.layout = this.getLayout();
-        this.sitemodel = sitemodel = App.request("get:site:model");
+        this.sitemodel = App.request("get:site:model");
         App.vent.trigger("set:active:menu", 'room-summary');
         this.listenTo(this.layout, "show", (function(_this) {
           return function() {
@@ -21,8 +20,12 @@ define(['app', 'controllers/base-controller', 'apps/room-summary/show/views'], f
               region: _this.layout.checkinRegion,
               model: _this.sitemodel
             });
-            return App.execute("show:policies:form", {
+            App.execute("show:policies:form", {
               region: _this.layout.policiesRegion,
+              model: _this.sitemodel
+            });
+            return App.execute("show:currency:dropdown", {
+              region: _this.layout.currencyRegion,
               model: _this.sitemodel
             });
           };

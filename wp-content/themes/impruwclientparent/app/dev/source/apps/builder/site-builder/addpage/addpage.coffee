@@ -23,6 +23,7 @@ define [ 'app', 'controllers/base-controller' ], ( App, AppController )->
 
             # save new page
             _saveNewPage : ( data )->
+                @setAsMenuItem = data.add_to_menu
                 page = App.request "create:page:model", data
                 page.save null,
                     wait : true
@@ -32,7 +33,9 @@ define [ 'app', 'controllers/base-controller' ], ( App, AppController )->
             showSuccessMessage : ( page ) =>
                 @addToPageMenu page
                 @layout.triggerMethod "show:success:message"
-                App.vent.trigger "new:page:added", page
+                #if page is selected to be added as a menu item
+                if @setAsMenuItem is true
+                    App.vent.trigger "new:page:added", page
 
             addToPageMenu : ( pageModel )->
                 pageCollection = App.request "get:editable:pages"
@@ -65,8 +68,11 @@ define [ 'app', 'controllers/base-controller' ], ( App, AppController )->
         					<input type="hidden" name="template_page_id" value="0"/>
                             <div class="form-group">
                                 <div class="col-sm-10 col-sm-offset-2">
-                					<div id="choose-template-region"></div>
-                					<button type="button" class="btn btn-sm btn-wide aj-imp-orange-btn add-new-page">{{#polyglot}}Add New Page{{/polyglot}}</button>
+                                    <input type="checkbox" value="1" checked="checked" name="add_to_menu"/>
+                                    <span>Add page to menu</span>
+                                	<div id="choose-template-region"></div>
+                					<button type="button" class="btn btn-sm btn-wide aj-imp-orange-btn add-new-page">
+                                    {{#polyglot}}Add New Page{{/polyglot}}</button>
                                 </div>
                             </div>
         				</div>'

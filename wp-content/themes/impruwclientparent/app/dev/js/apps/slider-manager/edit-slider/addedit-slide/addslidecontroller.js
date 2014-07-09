@@ -86,7 +86,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
 
       AddSlideView.prototype.tagName = 'form';
 
-      AddSlideView.prototype.template = '<div class="aj-imp-edit-image well"> <div class="row"> <div class="aj-imp-crop-link col-sm-4"> <div class="add-image-to-slide"> <span class="bicon icon-uniF10C"></span> {{#polyglot}}Click to Add an Image to Your Slide{{/polyglot}} </div> <img src="{{thumb_url}}" class="img-responsive slide-image" style="display:none;"> <input type="hidden" name="background_type" value="image"/> <input type="hidden" name="image" value="" required/> <input type="hidden" name="image_id" value="" require/> </div> <div class="aj-imp-img-form col-sm-8"> <div class="row"> <div class="col-sm-6"> <input type="text" name="title" value="{{title}}" class="form-control" placeholder="{{#polyglot}}Title{{/polyglot}}"> </div> <div class="col-sm-6"> <input type="url" type="link" name="link" value="{{link}}" class="form-control" placeholder="{{#polyglot}}Link{{/polyglot}}"> </div> </div> <div class="row"> <div class="col-sm-12"> <textarea name="description" class="form-control" placeholder="{{#polyglot}}Description{{/polyglot}}"></textarea> </div> </div> </div> </div> <div class="aj-imp-img-save"> <button type="button" class="btn create-slide">{{#polyglot}}Add{{/polyglot}}</button> <button type="button" class="btn cancel-create-slide">{{#polyglot}}Cancel{{/polyglot}}</button> </div> </div>';
+      AddSlideView.prototype.template = '<div class="aj-imp-edit-image"> <div class="row hide"> <div class="aj-imp-crop-link col-sm-4"> <div class="add-image-to-slide"> <span class="bicon icon-uniF10C"></span> {{#polyglot}}Click to Add an Image to Your Slide{{/polyglot}} </div> <img src="{{thumb_url}}" class="img-responsive slide-image" style="display:none;"> <input type="hidden" name="background_type" value="image"/> <input type="hidden" name="image" value="" required/> <input type="hidden" name="image_id" value="" require/> </div> </div> <div class="aj-imp-img-save"> <button type="button" class="btn aj-imp-orange-btn create-slide">{{#polyglot}}Add{{/polyglot}}</button> <button type="button" class="btn cancel-create-slide">{{#polyglot}}Cancel{{/polyglot}}</button> </div> </div>';
 
       AddSlideView.prototype.onSlideImageSelected = function(media) {
         var url;
@@ -130,12 +130,11 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         return AddSlideLayout.__super__.constructor.apply(this, arguments);
       }
 
-      AddSlideLayout.prototype.template = '<div id="add-slide-form-region"></div> <div id="media-region" style="display:none"> <ul class="nav nav-tabs"> <li class="active all-media-tab"><a href="#grid-media-region" data-toggle="tab">{{#polyglot}}Gallery{{/polyglot}}</a></li> <li class="upload-tab"><a href="#upload-media-region" data-toggle="tab">{{#polyglot}}Upload{{/polyglot}}</a></li> </ul> <div class="tab-content"> <div class="tab-pane active" id="grid-media-region"></div> <div class="tab-pane" id="upload-media-region"></div> <button class="btn btn-primary slide-image-selected">{{#polyglot}}Done{{/polyglot}}</button> </div> </div>';
+      AddSlideLayout.prototype.template = '<div id="media-region"> <ul class="nav nav-tabs"> <li class="active all-media-tab"><a href="#grid-media-region" data-toggle="tab">{{#polyglot}}Gallery{{/polyglot}}</a></li> <li class="upload-tab"><a href="#upload-media-region" data-toggle="tab">{{#polyglot}}Upload{{/polyglot}}</a></li> </ul> <div class="tab-content"> <div class="tab-pane active" id="grid-media-region"></div> <div class="tab-pane" id="upload-media-region"></div> </div> </div><div id="add-slide-form-region"></div>';
 
       AddSlideLayout.prototype.events = {
         'click .slide-image-selected': function(e) {
-          this.trigger("image:selection:done");
-          return $(e.target).closest('#media-region').hide();
+          return this.trigger("image:selection:done");
         }
       };
 

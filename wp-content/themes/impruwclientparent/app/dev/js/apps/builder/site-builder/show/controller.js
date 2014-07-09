@@ -138,20 +138,21 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/show/vi
       __extends(Controller, _super);
 
       function Controller() {
+        this.pageNameUpdated = __bind(this.pageNameUpdated, this);
         this.loadRevision = __bind(this.loadRevision, this);
         this.triggerPagePublishOnView = __bind(this.triggerPagePublishOnView, this);
         return Controller.__super__.constructor.apply(this, arguments);
       }
 
       Controller.prototype.initialize = function(opt) {
-        var layout, pages;
+        var layout;
         if (opt == null) {
           opt = {};
         }
         this.region = App.getRegion('builderWrapper');
-        pages = App.request("get:editable:pages");
+        this.pages = App.request("get:editable:pages");
         this.layout = layout = new Show.View.MainView({
-          collection: pages
+          collection: this.pages
         });
         this.listenTo(layout, 'editable:page:changed', function(pageId) {
           $.cookie('current-page-id', pageId);
@@ -178,6 +179,7 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/show/vi
             }, 200);
           };
         })(this));
+        this.listenTo(layout, "update:page:name", this.updatePageName);
         return this.show(layout, {
           loading: true
         });
@@ -202,6 +204,20 @@ define(['app', 'controllers/base-controller', 'apps/builder/site-builder/show/vi
             return _this.layout.triggerMethod("add:page:revision:items", pageRevisions);
           };
         })(this));
+      };
+
+      Controller.prototype.updatePageName = function(pageData) {
+        var updatedPageModel;
+        updatedPageModel = App.request("get:page:model:by:id", pageData.ID);
+        updatedPageModel.set(pageData);
+        return updatedPageModel.save(null, {
+          wait: true,
+          success: this.pageNameUpdated
+        });
+      };
+
+      Controller.prototype.pageNameUpdated = function(updatedPageModel) {
+        return this.layout.triggerMethod("page:name:updated", updatedPageModel);
       };
 
       return Controller;

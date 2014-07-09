@@ -181,6 +181,8 @@ class RoomTariff extends Element {
 
         $plans = $this->plans;
 
+        $currency = get_option( 'currency' );
+
         $html = '<div class="package-blocks clearfix">';
 
         foreach ($plans as $key2 => $value2) :
@@ -200,31 +202,31 @@ class RoomTariff extends Element {
                     <div class="block clearfix">
 
                     <div class="weekday">Weekdays
-                    <span class="price">NOK&nbsp;{{wd_charge}}</span>
+                    <span class="price">'.$currency.'&nbsp;{{wd_charge}}</span>
                     </div>
 
                     <div class="weekend">Weekends
-                    <span class="price">NOK&nbsp;{{we_charge}}</span>
+                    <span class="price">'.$currency.'&nbsp;{{we_charge}}</span>
                     </div>
 
                     <div class="tariff-label clearfix">Extra Adult</div>
 
                     <div class="weekday">
-                    <span class="price">NOK&nbsp;{{wd_extra_adult}}</span>
+                    <span class="price">'.$currency.'&nbsp;{{wd_extra_adult}}</span>
                     </div>
 
                     <div class="weekend">
-                    <span class="price">NOK&nbsp;{{we_extra_adult}}</span>
+                    <span class="price">'.$currency.'&nbsp;{{we_extra_adult}}</span>
                     </div>
 
                     <div class="tariff-label clearfix">Extra Child</div>
 
                     <div class="weekday">
-                    <span class="price">NOK&nbsp;{{wd_extra_child}}</span>
+                    <span class="price">'.$currency.'&nbsp;{{wd_extra_child}}</span>
                     </div>
 
                     <div class="weekend">
-                    <span class="price">NOK&nbsp;{{we_extra_child}}</span>
+                    <span class="price">'.$currency.'&nbsp;{{we_extra_child}}</span>
                     </div>
 
                     </div>
