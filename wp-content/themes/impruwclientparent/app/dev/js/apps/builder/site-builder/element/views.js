@@ -65,7 +65,7 @@ define(['app', 'text!apps/builder/site-builder/element/templates/element.html'],
 
       ElementView.prototype._disableOptions = function() {
         var elements;
-        elements = ['RoomSummary', 'Row'];
+        elements = ['RoomSummary', 'Row', 'Link'];
         if (ISTHEMEEDITOR !== 'yes') {
           if (elements.indexOf(this.model.get('element')) === -1) {
             return this.$el.children('.element-controls').children('.aj-imp-settings-btn').remove();
