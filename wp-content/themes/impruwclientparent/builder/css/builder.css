@@ -1565,6 +1565,7 @@ a:focus {
   font-size: 1.1em;
   font-weight: 700;
   border-bottom: 1px solid #aaaaaa;
+  border-radius: 4px 4px 0 0;
 }
 .modal .panel-group .panel {
   border-radius: 0;
@@ -1660,7 +1661,7 @@ a:focus {
   border-top: 1px solid #dadada;
 }
 .modal #add-slide-region {
-  margin: 0.5em 0;
+  margin: 0.5em;
 }
 .modal #add-slide-region #add-slide-form-region {
   padding-top: 0.5em;
@@ -2400,6 +2401,10 @@ a:focus {
 .slider-mgr .edit-slider .slider-left-nav .nav-list li.active a {
   color: #ff7e00;
 }
+#slides-list-region {
+  border: 1px solid #c3c3c3;
+  border-radius: 4px;
+}
 #slides-list-region .move {
   position: relative;
   height: 100px;
@@ -2508,6 +2513,9 @@ a:focus {
 .aj-imp-block-button.add-new-slide {
   margin-left: 0.5em;
   margin-right: 0.5em;
+}
+.aj-imp-block-button.add-new-slide {
+  margin-left: 0;
 }
 .gallery-title {
   font-size: 1.5em;

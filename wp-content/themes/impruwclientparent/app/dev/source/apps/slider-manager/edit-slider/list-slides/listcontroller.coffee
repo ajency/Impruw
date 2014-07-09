@@ -157,13 +157,14 @@ define ['app'
                         </div>
                         <div class="col-sm-5">
                             <div id="slides-info">
-                                {{#polyglot}}Add Images to your slider from here. You can change the order of the images by dragging them around.{{/polyglot}}
+                                {{#polyglot}}Click the button to select images to add to your slider. You can change the order of the images by dragging them up or down in the list to the left.{{/polyglot}}
+                            </div>
+                            <div class="aj-imp-block-button add-new-slide">
+                                <button class="btn btn-default btn-hg"><span class="bicon icon-uniF10C"></span>&nbsp;&nbsp;{{#polyglot}}Add Image{{/polyglot}}</button>
                             </div>
                         </div>
                         </div>
-    					<div class="aj-imp-block-button add-new-slide">
-    						<button class="btn btn-default btn-hg btn-block"><span class="bicon icon-uniF10C"></span>&nbsp;&nbsp;{{#polyglot}}Add Image{{/polyglot}}</button>
-    					</div>
+    					
     					<div id="add-slide-region"></div>'
 
             events:

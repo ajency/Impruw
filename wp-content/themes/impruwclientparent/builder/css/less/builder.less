@@ -1633,6 +1633,7 @@ a {
 		font-size: 1.1em;
 		font-weight: 700;
 		border-bottom: 1px solid @dash-grey;
+		border-radius: 4px 4px 0 0;
 	}
 	.panel-group {
 		.panel {
@@ -1742,7 +1743,7 @@ a {
 		border-top: 1px solid darken(@preview-grey, 10%);
 	}
 	#add-slide-region {
-		margin: 0.5em 0;
+		margin: 0.5em;
 		#add-slide-form-region {
 			padding-top: 0.5em;
 			.add-image-to-slide {
@@ -2529,6 +2530,8 @@ a {
 }
 
 #slides-list-region {
+	border: 1px solid lighten(@dash-grey, 10%);
+	border-radius: 4px;
 	.move {
 		position: relative;
 		height: 100px;
@@ -2648,6 +2651,9 @@ a {
 #slides-list-region, #add-slide-region, .aj-imp-block-button.add-new-slide {
 	margin-left: 0.5em;
 	margin-right: 0.5em;
+}
+.aj-imp-block-button.add-new-slide {
+	margin-left: 0;
 }
 
 .gallery-title {
