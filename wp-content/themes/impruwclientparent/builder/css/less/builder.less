@@ -90,7 +90,7 @@ a {
 
 /****Builder Drag and Drop Menu****/
 .aj-imp-drag-menu {
-	width: 200px;
+	width: 180px;
 	padding: 0.5em;
 	background: @dark-blue;
 	z-index: 10;
@@ -104,6 +104,7 @@ a {
 	.aj-imp-add-row {
 		padding: 5px 3.5%;
 		list-style: none;
+		font-size: 0.88em;
 		a {
 			display: block;
 			color: #fff;
@@ -114,7 +115,7 @@ a {
 			border-radius: 2px;
 			cursor: move;
 			.glyphicon-align-justify {
-				margin-right: 5px;
+				margin-right: 10px;
 			}
 			.glyphicon-fullscreen {
 				color: @dash-grey;
@@ -161,7 +162,7 @@ a {
 		border-radius: 0;
 		color: #fff;
 		font-weight: 400;
-		font-size: 0.8em;
+		font-size: 0.7em;
 		padding: 0.5em 0.5em 0;
 		.aj-imp-builder-items {
 			margin: 0;
@@ -183,7 +184,7 @@ a {
 					min-height: 50px;
                     background: rgba(0, 0, 0, 1);
 					.aj-imp-builder-icon {
-						font-size: 2em;
+						font-size: 2.2em;
 						padding: 0.5em 0 0;
 						color: #fff;
 					}
@@ -704,7 +705,7 @@ a {
 			padding: 1em 1em 0;
 			background: #fff;
 			border-radius: 6px 6px 0 0;
-			margin: 0 0 1.5em;
+			margin: 0;
 			box-shadow: 0 4px 4px -4px @dash-grey;
 			.aj-imp-browser-dots {
 				list-style: none;
@@ -744,13 +745,44 @@ a {
 				margin: 0 0 0.8em;
 				color: lighten(@3-grey, 30%);
 				font-weight: 700;
+				.bootstrap-select {
+					margin-bottom: 0.25em;
+					.dropdown-toggle {
+						background: transparent;
+						color: lighten(@3-grey, 20%);
+						font-size: 1.2em;
+						padding: 0 0 0.25em;
+						border-radius: 0;
+						border-bottom: 1px solid @preview-grey;
+						text-transform: uppercase;
+						.caret {
+							border-top-color: lighten(@dash-grey, 10%);
+						}
+						&:hover {
+							border-bottom-color: @dash-grey;
+							.caret {
+								border-top-color: @dash-grey;
+							}
+						}
+					}
+					.dropdown-menu {
+						text-align: left;
+						.selected {
+							a:focus {
+								background: @orange;
+							}
+						}
+					}
+				}
 			}
 			.add-new-page {
-				background: #fff;
-				border: 1px solid @dash-grey;
+				background: transparent;
 				color: @blue-grey;
+				font-size: 0.8em;
+				margin: 0 1em;
 				&:hover {
-					background: @preview-grey;
+					background: transparent;
+					color: @orange;
 				}
 			}
 			.aj-imp-page-publish {
@@ -815,8 +847,17 @@ a {
 				}
 			}
 			.second {
-				border-top: 1px solid darken(@preview-grey, 10%);
-				padding: 1em 0 0;
+				border: 1px solid darken(@preview-grey, 10%);
+				border-bottom: 0;
+				padding: 1em 0;
+				background: lighten(@preview-grey, 1%); /* Old browsers */
+				background: -moz-linear-gradient(top,  #ededed 0%, #f6f6f6 35%, #ffffff 68%, #fcfcfc 100%); /* FF3.6+ */
+				background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ededed), color-stop(35%,#f6f6f6), color-stop(68%,#ffffff), color-stop(100%,#fcfcfc)); /* Chrome,Safari4+ */
+				background: -webkit-linear-gradient(top,  #ededed 0%,#f6f6f6 35%,#ffffff 68%,#fcfcfc 100%); /* Chrome10+,Safari5.1+ */
+				background: -o-linear-gradient(top,  #ededed 0%,#f6f6f6 35%,#ffffff 68%,#fcfcfc 100%); /* Opera 11.10+ */
+				background: -ms-linear-gradient(top,  #ededed 0%,#f6f6f6 35%,#ffffff 68%,#fcfcfc 100%); /* IE10+ */
+				background: linear-gradient(to bottom,  #ededed 0%,#f6f6f6 35%,#ffffff 68%,#fcfcfc 100%); /* W3C */
+				filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ededed', endColorstr='#fcfcfc',GradientType=0 ); /* IE6-9 */
 				.aj-imp-browser-address-bar {
 					background: #fff;
 					border-radius: 4px;
@@ -825,8 +866,11 @@ a {
 					border: 1px solid darken(@preview-grey, 5%);
 					cursor: default;
 					border-radius: 3px;
+					display: inline-block;
+					width: 58%;
 					.page-slug-edit {
-						width: 50%;
+						width: 80%;
+						display: inline-block;
 						color: lighten(@dash-grey, 10%);
 						padding: 0.2em;
 						border: 1px solid transparent;
@@ -835,7 +879,6 @@ a {
 							border: 1px dotted @dash-grey;
 						}
 						&:focus {
-							background: @preview-grey;
 							color: @3-grey;
 						}
 					}
@@ -927,6 +970,7 @@ a {
 						background: @orange;
 						color: #fff;
 						text-transform: uppercase;
+						margin-left: 1em;
 						&:hover {
 							background: lighten(@orange, 20%);
 						}
@@ -934,51 +978,39 @@ a {
 				}
 			}
 			.page-name {
-				margin-top: 1em;
 				display: inline-block;
-				border: 1px solid lighten(@dash-grey, 10%);
-				border-bottom: 0;
-				border-left: 0;
-				padding: 0.5em 1.5em 0 0.5em;
-				position: relative;
-				left: 25px;
-				box-shadow: 0 4px 4px -4px #fff;
-				background: #fff;
-				cursor: default;
-				z-index: 1;
-				-webkit-transform: skewX(25deg);
-				moz-transform: skewX(25deg);
-				-o-transform: skewX(25deg);
-				transform: skewX(25deg);
-				height: 36px;
-				border-radius: 5px 5px 0 0;
-				box-shadow: inset -1px 1px 0 rgba(255,255,255,.5);
-				&:before {
-					content: '';
-					position: absolute;
-					left: -18px;
-					top: -1px;
-					-webkit-transform: skewX(140deg);
-					moz-transform: skewX(140deg);
-					-o-transform: skewX(140deg);
-					transform: skewX(140deg);
-					border: 1px solid lighten(@dash-grey, 10%);
-					border-right: 0;
-					border-bottom: 0;
-					margin: 0;
-					padding: 0;
-					width: 30px;
-					border-radius: 5px 0 0 0;
-					box-shadow: inset 1px 1px 0 rgba(255,255,255,.5);
-					z-index: 2;
-					background: #fff;
-					bottom: 0;
-				}
+				width: 40%;
+				padding: 0.3em;
+				border-right: 1px solid darken(@preview-grey, 10%);
+				color: darken(@dash-grey, 10%);
+				margin-right: 1%;
 				.page-name-content {
-					-webkit-transform: skewX(-25deg);
-					moz-transform: skewX(-25deg);
-					-o-transform: skewX(-25deg);
-					transform: skewX(-25deg);
+					.page-name-input {
+						border: 1px solid transparent;
+						border-radius: 3px;
+						color: darken(@dash-grey, 10%);
+						padding: 0.2em;
+						background: transparent;
+						&:hover, &:focus {
+							border: 1px dotted @dash-grey;
+						}
+						&:focus {
+							background: #fff;
+							color: @3-grey;
+						}
+					}
+					.btn-update-pg-name {
+						color: @blue-grey;
+						border: 1px solid lighten(@dash-grey, 20%);
+						background: @preview-grey;
+						padding: 0.33em 0.5em;
+						border-radius: 3px;
+						margin-left: 0.2em;
+						font-size: 0.88em;
+						&:hover, &:focus {
+							background: #fff;
+						}
+					}
 				}
 			}
 		}
@@ -997,7 +1029,7 @@ a {
 
 /****Builder Drag & Drop Containers & Columns****/
 .aj-imp-builder-layout-mode {
-	padding: 1em 0;
+	padding: 0;
 	min-height: 500px;
 	position:relative; 
 	.aj-imp-add-row, .ui-sortable-placeholder {
@@ -2099,7 +2131,7 @@ a {
 	position: absolute;
 	right: 1%;
 	top: 25%;
-	width: 220px;
+	width: 180px;
 	height: 50px;
 	.trash-label {
 		display: block;
