@@ -49,10 +49,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
 
       AddPageController.prototype.showSuccessMessage = function(page) {
         this.addToPageMenu(page);
-        this.layout.triggerMethod("show:success:message");
-        if (this.setAsMenuItem === true) {
-          return App.vent.trigger("new:page:added", page);
-        }
+        return this.layout.triggerMethod("show:success:message");
       };
 
       AddPageController.prototype.addToPageMenu = function(pageModel) {
