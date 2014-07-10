@@ -17,17 +17,17 @@ define ['app'
         class View.CalendarView extends Marionette.CompositeView
 
             template: '<h4>
-            									<span class="glyphicon glyphicon-calendar"></span>
-            									{{#polyglot}}Monthly Calendar{{/polyglot}}
-            									<span class="excerpt">{{#polyglot}}Choose availability dates{{/polyglot}}</span>
-            								</h4>
-            								<div id="room-booking-calendar"></div>
-            								<br><br><br>
-            								<ul class="list-inline daterange-legends">
-            									{{#dateRanges}}
-            										<li><span class="{{class}}">&nbsp;</span>{{name}}</li>
-            									{{/dateRanges}}
-            								</ul>'
+                            <span class="glyphicon glyphicon-calendar"></span>
+                            {{#polyglot}}Monthly Calendar{{/polyglot}}
+                            <span class="excerpt">{{#polyglot}}Choose availability dates{{/polyglot}}</span>
+                        </h4>
+                        <div id="room-booking-calendar"></div>
+                        <br><br><br>
+                        <ul class="list-inline daterange-legends">
+                            {{#dateRanges}}
+                                <li><span class="{{class}}">&nbsp;</span>{{name}}</li>
+                            {{/dateRanges}}
+                        </ul>'
 
             onShow: ->
                 @$el.find '#room-booking-calendar'
@@ -123,18 +123,16 @@ define ['app'
                 value = 0 if currentStatus is 'available'
                 value = 30 if currentStatus is 'semi-available'
                 value = 60 if currentStatus is 'unavailable'
-                console.log currentStatus
-                console.log value
 
                 html = "<button type='button' class='close booking-popover-close' aria-hidden='true'>&times;</button>
-                								<div class='booking-slider-pop'>
-                									<div id='booking-slider' data-value='#{value}'></div>
-                									<div class='row'>
-                										<div class='col-md-4 available'><span>{{#polyglot}}available{{/polyglot}}</span></div>
-                										<div class='col-md-4 semi-available'><span>{{#polyglot}}semi-available{{/polyglot}}</span></div>
-                										<div class='col-md-4 unavailable'><span>{{#polyglot}}unavailable{{/polyglot}}</span></div>
-                									</div>
-                								</div>"
+                        <div class='booking-slider-pop'>
+                            <div id='booking-slider' data-value='#{value}'></div>
+                            <div class='row'>
+                                <div class='col-md-4 available'><span>#{_.polyglot.t('available')}</span></div>
+                                <div class='col-md-4 semi-available'><span>#{_.polyglot.t('semi-available')}</span></div>
+                                <div class='col-md-4 unavailable'><span>#{_.polyglot.t('unavailable')}</span></div>
+                            </div>
+                        </div>"
                 html
 
 

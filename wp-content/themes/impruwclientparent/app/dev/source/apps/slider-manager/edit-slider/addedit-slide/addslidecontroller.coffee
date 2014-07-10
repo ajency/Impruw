@@ -15,6 +15,10 @@ define ['app'
                     App.execute "start:media:upload:app", region: layout.uploadMediaRegion
                     App.execute "start:media:grid:app", region: layout.gridMediaRegion
 
+                    #display all multiple file upload images
+                    @listenTo layout.uploadMediaRegion, "media:upload:complete", =>
+                        App.execute "start:media:grid:app", region: @layout.gridMediaRegion
+
                 @listenTo addSlideView, "create:new:slide", (data)=>
                     data.slider_id = @sliderId
                     slide = App.request "create:new:slide:model", data
