@@ -18,3 +18,9 @@ define ['app'], (App)->
             onRender: ->
                 className = _.slugify @model.get 'style'
                 @$el.addClass className
+
+            onShow : ->
+               @$el.attr "data-content", _.polyglot.t("Update address ")+" <a href='#{SITEURL}/dashboard/#/site-profile'>"+_.polyglot.t("here")+"</a> "
+               @$el.popover
+                  html : true
+                  placement : 'top'
