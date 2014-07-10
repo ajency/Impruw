@@ -186,19 +186,7 @@ function get_page_by_lang($page_id,$language){
 }
 
 
-$page_content_array= array();
-function get_page_content($item, $key){
-    global $page_content_array;
-    if (($key == "content")) {
-
-        $page_content_array[] = array(
-            'elementContent' => $item
-        );
-
-    }
-
-}
-
+//Function to get all page elements of a site
 function get_page_translation_elements($page_id){
 
     $data = get_page_json_for_site($page_id, true);
@@ -230,14 +218,42 @@ function get_row_translation_elements( $row_element, &$elements ){
         }
     }
 }
-//add_action('init',function(){
-//
-//    $a = get_page_translation_elements(17);
-//    echo "<pre>";
-//    print_r($a);
-//    die();
-//});
 
+
+add_filter( 'wp_nav_menu_objects', 'impruw_filter_menu_class', 10, 2 );
+
+/*
+ * Function to filter the output of each navigation menu item at he time of display so that it loads the menu items in
+ * the right language based on the current language of the page
+ *
+ */
+function impruw_filter_menu_class( $objects, $args ) {
+
+    $current_language = wpml_get_current_language();
+
+    foreach ( $objects as $i => $object ) {
+        $item_page_id = $objects[$i]->object_id;
+
+        $translated_item_page_id = icl_object_id($item_page_id, 'page', true, $current_language);
+
+        $translated_item_page = get_post($translated_item_page_id);
+
+        $translated_menu_item_page_title = $translated_item_page->post_title;
+        $translated_menu_item_page_url =  get_permalink( $translated_item_page_id);
+
+        $objects[$i]->object_id = $translated_item_page_id;
+        $objects[$i]->url = $translated_menu_item_page_url;
+        $objects[$i]->title = $translated_menu_item_page_title;
+
+    }
+
+//    echo "<pre>";
+//    print_r($objects);
+//    echo "<pre>";
+
+    return $objects;
+
+}
 
 
 
