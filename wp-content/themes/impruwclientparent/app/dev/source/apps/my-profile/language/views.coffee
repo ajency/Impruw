@@ -11,16 +11,16 @@ define ['app', 'text!apps/my-profile/language/templates/languageView.html'], (Ap
             className: 'form-horizontal clearfix '
 
             onShow: ->
-                @$el.find('select').selectpicker()
-                #TODO: Language should get selected at one go -> Check http://silviomoreto.github.io/bootstrap-select/
-                languageName = @model.get 'user_lang'
-                @$el.find('.dropdown-toggle').attr 'title': languageName
-                @$el.find('.dropdown-toggle .filter-option').text languageName
+                defaultLanguage = @model.get 'user_lang'
+                @$el.find( "#user_language option[value='#{defaultLanguage}']" ).attr 'selected' : 'selected'
+                @$el.find( '#user_language' ).selectpicker()
 
             events:
-                'click #btn_update_language': ->
-                    langName = @$el.find('.dropdown-toggle').attr 'title'
-                    @trigger "update:user:lang:click", langName
+                'click #btn_update_language' : ->
+                    langName = @$el.find( '#user_language' ).val()
+                    data =
+                        'user_lang' : langName
+                    @trigger "update:user:lang:click", data
 
             onUserLangUpdated: ->
                 @$el.find('.alert').remove()

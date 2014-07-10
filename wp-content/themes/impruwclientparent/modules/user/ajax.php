@@ -3,6 +3,7 @@
 /**
  *
  */
+require "functions.php";
 function ajax_read_user() {
 
     if ( is_user_logged_in() ) {
@@ -35,14 +36,17 @@ function ajax_update_user() {
 
     $user_lang_set = check_user_lang_set( $_POST );
 
-    if ( $user_lang_set == 1 )
-        update_user_lang( $user_id, $_POST[ 'changes' ][ 'user_lang' ] ); 
-    else
+    if ( $user_lang_set == 1 ){
+        update_user_lang( $user_id, $_POST[ 'changes' ][ 'user_lang' ] );
+    }
+    else{
         $display_name = $_POST[ 'display_name' ];
 
-    $feature_alert = $_POST[ 'new_feature_alert' ];
+        $feature_alert = $_POST[ 'new_feature_alert' ];
 
-    update_user_general( $user_id, $display_name, $feature_alert );
+        update_user_general( $user_id, $display_name, $feature_alert );
+    }
+
 }
 
 add_action( 'wp_ajax_update-user', 'ajax_update_user' );
@@ -60,21 +64,6 @@ function check_user_lang_set( $formdata ) {
         return 0;
 }
 
-/**
- *
- * @param type $user_id
- * @param type $user_lang
- */
-function ajax_update_user_lang(  ) {
-
-    $user_id = get_current_user_id();
-    $user_lang = $_REQUEST[ 'user_lang' ];
-
-    update_user_meta( $user_id, 'user_lang', $user_lang );
-    //wp_send_json( array( 'code' => 'OK', 'ID' => $user_id, 'user_lang' => $user_lang ) );
-    wp_send_json( array( 'code' => 'OK', 'ID' => $user_id, 'user_lang' => $user_lang , 'PHRASES' => load_language_phrases()));
-}
-add_action('wp_ajax_update-user-language', 'ajax_update_user_lang');
 /**
  *
  * @param type $user_id

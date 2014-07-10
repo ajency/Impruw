@@ -27,8 +27,13 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
             App.execute("start:media:upload:app", {
               region: layout.uploadMediaRegion
             });
-            return App.execute("start:media:grid:app", {
+            App.execute("start:media:grid:app", {
               region: layout.gridMediaRegion
+            });
+            return _this.listenTo(layout.uploadMediaRegion, "media:upload:complete", function() {
+              return App.execute("start:media:grid:app", {
+                region: _this.layout.gridMediaRegion
+              });
             });
           };
         })(this));

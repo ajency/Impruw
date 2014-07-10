@@ -19,7 +19,7 @@ define ['app'], (App)->
             						</div>'
 
             onShow:->
-                @$el.attr "data-content", "Update room information <a href='#{SITEURL}/dashboard/#rooms'>here</a> "
+                @$el.attr "data-content", "Update room information <a href='#{SITEURL}/dashboard/#/rooms'>here</a> "
                 @$el.popover
                     html : true
                     placement : 'top'
