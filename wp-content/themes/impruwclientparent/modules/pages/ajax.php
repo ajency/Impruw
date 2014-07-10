@@ -13,7 +13,8 @@ function get_pages1() {
     $templates = isset( $_GET[ 'meta_key' ] ) ? TRUE : FALSE;
 
     if ( !$templates )
-        $pages = get_all_menu_pages(); else
+        $pages = get_all_menu_pages();
+    else
         $pages = get_all_menu_pages();
 
     wp_send_json( array( 'code' => 'OK', 'data' => $pages ) );
