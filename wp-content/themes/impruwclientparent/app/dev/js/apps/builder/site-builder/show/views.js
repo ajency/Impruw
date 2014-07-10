@@ -173,9 +173,26 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
       };
 
       MainView.prototype.displayPageNameForUpdate = function() {
-        var currentPageName;
+        var currentPageName, singleRoom;
+        this.$el.find('#page_name').removeAttr('readonly');
+        this.$el.find('.btn-update-pg-name').removeAttr('disabled');
         currentPageName = this.getCurrentPageName();
+        singleRoom = this.isSingleRoomPage();
+        if (singleRoom === true) {
+          this.$el.find('#page_name').attr('readonly', 'readonly');
+          this.$el.find('.btn-update-pg-name').attr('disabled', 'disabled');
+        }
         return this.$el.find('#page_name').val(currentPageName);
+      };
+
+      MainView.prototype.isSingleRoomPage = function() {
+        var page, pageName;
+        pageName = App.request("get:current:editable:page:name");
+        page = false;
+        if (pageName === 'Single Room') {
+          page = true;
+        }
+        return page;
       };
 
       MainView.prototype.onPageNameUpdated = function(pageModel) {

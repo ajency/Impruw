@@ -134,8 +134,8 @@ define(['app', 'text!apps/menu-manager/list/templates/menuitem.html'], function(
         this.collection.each(function(model, index) {
           var menu;
           menu = {};
-          menu.menu_slug = model.get('menu_slug');
-          menu.menu_name = model.get('menu_name');
+          menu.menu_item_url = model.get('menu_item_url');
+          menu.menu_name = model.get('menu_item_title');
           return data.menus.push(menu);
         });
         return data;

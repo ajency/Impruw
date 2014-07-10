@@ -34,12 +34,13 @@ define(['app', 'controllers/base-controller', 'apps/my-profile/general/views'], 
         this.model.set(data);
         return this.model.save(null, {
           wait: true,
+          onlyChanged: true,
           success: this.userInfoUpdated
         });
       };
 
       Controller.prototype.userInfoUpdated = function() {
-        return this.view.triggerMethod("user:info:updated");
+        return this.view.triggerMethod("user:info:updated", response);
       };
 
       return Controller;

@@ -31,9 +31,9 @@ define(['app', 'text!apps/my-profile/password/templates/passwordform.html'], fun
       PasswordForm.prototype.onShow = function() {
         return this.$el.validate({
           rules: {
-            newpassword: "required",
+            newPassword: "required",
             confirmNewPassword: {
-              equalTo: "#newpassword"
+              equalTo: "#newPassword"
             }
           }
         });
@@ -47,14 +47,25 @@ define(['app', 'text!apps/my-profile/password/templates/passwordform.html'], fun
         }
       };
 
-      PasswordForm.prototype.passwordErrorResponse = function() {
+      PasswordForm.prototype.onPasswordErrorResponse = function(errorMsg) {
         this.$el.find('.alert').remove();
-        return this.$el.prepend('<div class="alert alert-success">' + _.polyglot.t("Password mismatch") + '</div>');
+        return this.$el.prepend("<div class='alert alert-success'>" + errorMsg + "</div>");
       };
 
-      PasswordForm.prototype.passwordSuccessResponse = function() {
+      PasswordForm.prototype.onPasswordSuccessResponse = function(redirectUrl) {
+        var successMsg;
+        successMsg = "Your password has been changed. You will be redirected to login page to sign in with your new password";
         this.$el.find('.alert').remove();
-        return this.$el.prepend('<div class="alert alert-success">' + _.polyyglot.t("Password Updated") + '</div>');
+        this.$el.prepend("<div class='alert alert-success'>" + successMsg + "</div>");
+        return _.delay((function(_this) {
+          return function() {
+            return _this.redirectPage(redirectUrl);
+          };
+        })(this), 40);
+      };
+
+      PasswordForm.prototype.redirectPage = function(redirectUrl) {
+        return window.location.href = redirectUrl;
       };
 
       return PasswordForm;

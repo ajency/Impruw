@@ -8,91 +8,91 @@ function get_menu_items() {
 
     $menuItems = array(
         array(
-            'url'   => '#/dashboard',
+            'url' => '#/dashboard',
             'title' => 'Dashboard',
-            'icon'  => 'monitor'
+            'icon' => 'monitor'
         ),
         array(
-            'url'    => site_url( 'site-builder' ),
-            'title'  => 'Site Builder',
+            'url' => site_url( 'site-builder' ),
+            'title' => 'Site Builder',
             'target' => '_BLANK',
-            'icon'   => 'tools'
+            'icon' => 'tools'
         ),
         array(
-            'url'   => '#/rooms',
+            'url' => '#/rooms',
             'title' => 'Rooms',
-            'icon'  => 'open'
+            'icon' => 'open'
         ),
         array(
-            'url'   => '#/room-summary',
+            'url' => '#/room-summary',
             'title' => 'Room Summary',
-            'icon'  => 'file3'
+            'icon' => 'file3'
         ),
         array(
-            'url'   => '#/site-profile',
+            'url' => '#/site-profile',
             'title' => 'Site Profile',
-            'icon'  => 'globe'
+            'icon' => 'globe'
         ),
         array(
-            'url'   => '#/my-profile',
+            'url' => '#/my-profile',
             'title' => 'My Profile',
-            'icon'  => 'profile2'
+            'icon' => 'profile2'
         ),
         array(
-            'url'     => '#/statistics',
-            'title'   => 'Statistics',
-            'icon'    => 'stats',
+            'url' => '#/statistics',
+            'title' => 'Statistics',
+            'icon' => 'stats',
             'submenu' => array(
-                array( 'url'   => '#/statistics/realtime',
-                       'title' => 'Real-time Visitors',
-                       'icon'  => 'stats1' ),
-                array( 'url'   => '#/statistics/visits',
-                       'title' => 'Visit Summary',
-                       'icon'  => 'stats2' ),
-                array( 'url'   => '#/statistics/traffic',
-                       'title' => 'Traffic Summary',
-                       'icon'  => 'stats3' )
+                array( 'url' => '#/statistics/realtime',
+                    'title' => 'Real-time Visitors',
+                    'icon' => 'stats1' ),
+                array( 'url' => '#/statistics/visits',
+                    'title' => 'Visit Summary',
+                    'icon' => 'stats2' ),
+                array( 'url' => '#/statistics/traffic',
+                    'title' => 'Traffic Summary',
+                    'icon' => 'stats3' )
             )
         ),
         array(
-            'url'     => '#/language',
-            'title'   => 'Language',
-            'icon'    => 'chat2'
-//            'submenu' => array(
-//                array( 'url'   => '#',
-//                       'title' => 'Norwegian',
-//                       'icon'  => 'stats1' ),
-//                array( 'url'   => '#',
-//                       'title' => 'Swedish',
-//                       'icon'  => 'stats2' ),
-//                array( 'url'   => '#s',
-//                       'title' => 'German',
-//                       'icon'  => 'stats3' )
-//            )
+            'url' => '#/language',
+            'title' => 'Language',
+            'icon' => 'chat2',
+            'submenu' => array(
+                array( 'url' => '#',
+                    'title' => 'Norwegian',
+                    'icon' => 'stats1' ),
+                array( 'url' => '#',
+                    'title' => 'Swedish',
+                    'icon' => 'stats2' ),
+                array( 'url' => '#s',
+                    'title' => 'German',
+                    'icon' => 'stats3' )
+            )
         ),
-//        array(
-//            'url'     => '#/billing',
-//            'title'   => 'Billing',
-//            'icon'    => 'wallet',
-//            'submenu' => array(
-//                array( 'url'   => '#/billing/purchase-history',
-//                       'title' => 'Purchase History',
-//                       'icon'  => 'stats1' ),
-//                array( 'url'   => '#/billing/billing-info',
-//                       'title' => 'Billing Info',
-//                       'icon'  => 'stats2' ),
-//                array( 'url'   => '#/billing/pricing-plans',
-//                       'title' => 'Pricing Plans',
-//                       'icon'  => 'stats2' ),
-//                array( 'url'   => '#/billing/payment-page',
-//                       'title' => 'Payment Page',
-//                       'icon'  => 'stats2' )
-//            )
-//        ),
         array(
-            'url'   => '#/logout',
+            'url' => '#/billing',
+            'title' => 'Billing',
+            'icon' => 'wallet',
+            'submenu' => array(
+                array( 'url' => '#/billing/purchase-history',
+                    'title' => 'Purchase History',
+                    'icon' => 'stats1' ),
+                array( 'url' => '#/billing/billing-info',
+                    'title' => 'Billing Info',
+                    'icon' => 'stats2' ),
+                array( 'url' => '#/billing/pricing-plans',
+                    'title' => 'Pricing Plans',
+                    'icon' => 'stats2' ),
+                array( 'url' => '#/billing/payment-page',
+                    'title' => 'Payment Page',
+                    'icon' => 'stats2' )
+            )
+        ),
+        array(
+            'url' => '#/logout',
             'title' => 'Logout',
-            'icon'  => 'switch2'
+            'icon' => 'switch2'
         )
     );
 
@@ -110,7 +110,7 @@ function get_rooms_list() {
 
     wp_send_json( array(
         array(
-            'name'        => 'Room one1',
+            'name' => 'Room one1',
             'attachments' => array(
                 array(
                     'id' => 23
@@ -141,7 +141,7 @@ add_action( 'wp_ajax_get-site-profile', 'get_site_profile' );
 
 function get_media() {
 
-    $id    = $_GET [ 'id' ];
+    $id = $_GET [ 'id' ];
     $media = wp_prepare_attachment_for_js( $id );
     wp_send_json( array(
         'code' => 'OK',
@@ -153,7 +153,7 @@ add_action( 'wp_ajax_read-media', 'get_media' );
 
 function get_menu() {
 
-    $id   = $_GET [ 'id' ];
+    $id = $_GET [ 'id' ];
     $menu = get_menu_to_array( $id, 'id' );
     wp_send_json( array(
         'code' => 'OK',
@@ -167,135 +167,135 @@ function get_elementbox_elements() {
 
     $elements = array(
         array(
-            'element'    => 'Menu',
-            'icon'       => 'bicon icon-uniF14E',
-            'styles'     => get_styles( 'Menu' ),
+            'element' => 'Menu',
+            'icon' => 'bicon icon-uniF14E',
+            'styles' => get_styles( 'Menu' ),
             'site_menus' => array(
                 array(
-                    'menu_id'   => 2,
+                    'menu_id' => 2,
                     'menu_name' => 'Main Menu'
                 ),
                 array(
-                    'menu_id'   => 3,
+                    'menu_id' => 3,
                     'menu_name' => 'Footer menu'
                 )
             )
         ),
         array(
             'element' => 'Row',
-            'icon'    => 'bicon icon-uniF103',
-            'styles'  => get_styles( 'Row' )
+            'icon' => 'bicon icon-uniF103',
+            'styles' => get_styles( 'Row' )
         ),
         array(
-            'element'  => 'Logo',
-            'icon'     => 'bicon icon-uniF124',
-            'styles'   => array(),
-            'size'     => '', //get_logo_size(),
+            'element' => 'Logo',
+            'icon' => 'bicon icon-uniF124',
+            'styles' => array(),
+            'size' => '', //get_logo_size(),
             'category' => 'hotel'
         ),
         array(
             'element' => 'Text',
-            'icon'    => 'bicon icon-uniF111',
-            'styles'  => array()
+            'icon' => 'bicon icon-uniF111',
+            'styles' => array()
         ),
         array(
             'element' => 'Title',
-            'icon'    => 'bicon icon-uniF11C',
-            'styles'  => get_styles( 'Title' )
+            'icon' => 'bicon icon-uniF11C',
+            'styles' => get_styles( 'Title' )
         ),
         array(
             'element' => 'Image',
-            'icon'    => 'bicon icon-uniF10E',
-            'styles'  => array()
+            'icon' => 'bicon icon-uniF10E',
+            'styles' => array()
         ),
         array(
             'element' => 'ImageWithText',
-            'title'   => 'Image With Text',
-            'icon'    => 'bicon icon-uniF112',
-            'styles'  => get_styles( 'ImageWithText' )
+            'title' => 'Image With Text',
+            'icon' => 'bicon icon-uniF112',
+            'styles' => get_styles( 'ImageWithText' )
         ),
         array(
-            'element'  => 'Address',
-            'icon'     => 'bicon icon-uniF183',
-            'styles'   => get_styles( 'Address' ),
+            'element' => 'Address',
+            'icon' => 'bicon icon-uniF183',
+            'styles' => get_styles( 'Address' ),
             'category' => 'hotel'
         ),
         array(
-            'element'  => 'Social',
-            'icon'     => 'bicon icon-uniF11A',
-            'styles'   => get_styles( 'Social' ),
+            'element' => 'Social',
+            'icon' => 'bicon icon-uniF11A',
+            'styles' => get_styles( 'Social' ),
             'category' => 'hotel'
         ),
         array(
             'element' => 'Link',
-            'icon'    => 'bicon icon-uniF149',
-            'styles'  => get_styles( 'Link' )
+            'icon' => 'bicon icon-uniF149',
+            'styles' => get_styles( 'Link' )
         ),
         array(
-            'element'  => 'ContactForm',
-            'title'    => 'Contact Form',
-            'icon'     => 'bicon icon-uniF11B',
-            'styles'   => get_styles( 'ContactForm' ),
+            'element' => 'ContactForm',
+            'title' => 'Contact Form',
+            'icon' => 'bicon icon-uniF11B',
+            'styles' => get_styles( 'ContactForm' ),
             'category' => 'hotel'
         ),
         array(
-            'element'  => 'Map',
-            'icon'     => 'bicon icon-uniF110',
-            'styles'   => get_styles( 'Map' ),
+            'element' => 'Map',
+            'icon' => 'bicon icon-uniF110',
+            'styles' => get_styles( 'Map' ),
             'category' => 'hotel'
         ),
         array(
             'element' => 'Slider',
-            'icon'    => 'bicon icon-uniF119',
+            'icon' => 'bicon icon-uniF119',
             'sliders' => get_theme_sliders()
         ),
         array(
-            'element'   => 'Gallery',
-            'icon'      => 'bicon icon-uniF10C',
+            'element' => 'Gallery',
+            'icon' => 'bicon icon-uniF10C',
             'galleries' => get_theme_sliders()
         ),
         array(
-            'element'  => 'Gallery',
-            'title'    => 'Room Gallery',
-            'icon'     => 'bicon icon-uniF10C',
+            'element' => 'Gallery',
+            'title' => 'Room Gallery',
+            'icon' => 'bicon icon-uniF10C',
             'category' => 'room'
         ),
         array(
-            'element'  => 'RoomFacilities',
-            'title'    => 'Room Facilities',
-            'icon'     => 'bicon icon-uniF17E',
+            'element' => 'RoomFacilities',
+            'title' => 'Room Facilities',
+            'icon' => 'bicon icon-uniF17E',
             'category' => 'room'
         ),
         array(
-            'element'  => 'RoomTitle',
-            'title'    => 'Room Title',
-            'icon'     => 'bicon icon-uniF12D',
+            'element' => 'RoomTitle',
+            'title' => 'Room Title',
+            'icon' => 'bicon icon-uniF12D',
             'category' => 'room'
         ),
         array(
-            'element'  => 'RoomDescription',
-            'title'    => 'Room Description',
-            'icon'     => 'bicon icon-uniF142',
+            'element' => 'RoomDescription',
+            'title' => 'Room Description',
+            'icon' => 'bicon icon-uniF142',
             'category' => 'room'
         ),
         array(
-            'element'  => 'RoomSummary',
-            'title'    => 'Display Rooms',
-            'styles'   => get_styles( 'RoomSummary' ),
-            'rooms'    => get_all_rooms(),
-            'icon'     => 'bicon icon-uniF15B',
+            'element' => 'RoomSummary',
+            'title' => 'Display Rooms',
+            'styles' => get_styles( 'RoomSummary' ),
+            'rooms' => get_all_rooms(),
+            'icon' => 'bicon icon-uniF15B',
             'category' => 'room'
         ),
         array(
-            'element'  => 'RoomTariff',
-            'title'    => 'Room Tariff',
-            'icon'     => 'bicon icon-uniF12B',
+            'element' => 'RoomTariff',
+            'title' => 'Room Tariff',
+            'icon' => 'bicon icon-uniF12B',
             'category' => 'room'
         ),
         array(
-            'element'  => 'RoomBooking',
-            'title'    => 'Room Booking',
-            'icon'     => 'bicon icon-uniF101',
+            'element' => 'RoomBooking',
+            'title' => 'Room Booking',
+            'icon' => 'bicon icon-uniF101',
             'category' => 'room'
         )
     );
@@ -305,7 +305,7 @@ function get_elementbox_elements() {
         $unset_elements = array( 'Menu' );
         foreach ( $elements as $element ) {
             if ( !in_array( $element[ 'element' ], $unset_elements ) )
-                $filtered[] = $element;
+                $filtered[ ] = $element;
         }
 
         $elements = $filtered;
@@ -321,7 +321,7 @@ add_action( 'wp_ajax_nopriv_get-elementbox-elements', 'get_elementbox_elements' 
 
 function fetch_facilities() {
 
-    $taxonomies      = array(
+    $taxonomies = array(
         'impruw_room_facility'
     );
     $room_facilities = get_terms( $taxonomies, array(
@@ -345,7 +345,7 @@ function get_theme_sliders() {
 
     foreach ( $sliders as $key => $slider ) {
         $sliders_arr [ ] = array(
-            'id'    => $slider [ 'id' ],
+            'id' => $slider [ 'id' ],
             'title' => $slider [ 'title' ]
         );
     }
@@ -386,7 +386,7 @@ function set_element_data( $data ) {
 
         // TODO: 
         if ( $data[ 'element' ] == 'Slider' ) {
-            $slider_data             = get_slider_by_id( $data[ 'slider_id' ] );
+            $slider_data = get_slider_by_id( $data[ 'slider_id' ] );
             $slider_data[ 'height' ] = $data[ 'height' ];
             update_slider( $slider_data, $data[ 'slider_id' ] );
 
@@ -396,16 +396,16 @@ function set_element_data( $data ) {
 
         $wpdb->update( $wpdb->postmeta, array(
             'meta_value' => $serialized_element,
-            'meta_key'   => $data [ 'element' ]
+            'meta_key' => $data [ 'element' ]
         ), array(
-            'meta_id' => (int) $meta_id
+            'meta_id' => (int)$meta_id
         ) );
     } else {
         $serialized_element = maybe_serialize( $data );
         $wpdb->insert( $wpdb->postmeta, array(
-            'post_id'    => 0,
+            'post_id' => 0,
             'meta_value' => $serialized_element,
-            'meta_key'   => $data [ 'element' ]
+            'meta_key' => $data [ 'element' ]
         ) );
 
         return $wpdb->insert_id;
@@ -420,14 +420,14 @@ function get_element_model( $element ) {
 
         case 'Menu' :
             $model = array(
-                'style'   => 'Slimmenu',
+                'style' => 'Slimmenu',
                 'menu_id' => 2
             );
         case 'Logo' :
             $model = array(
-                'style'    => 'header',
+                'style' => 'header',
                 'image_id' => get_site_logo_id(), //hardcoded,
-                'size'     => 'full'
+                'size' => 'full'
             );
             break;
     }
@@ -483,8 +483,8 @@ add_action( 'wp_ajax_delete-element', 'delete_element_model' );
  */
 function create_menu() {
 
-    $rand        = rand();
-    $menu_name   = 'Menu-' . $rand;
+    $rand = rand();
+    $menu_name = 'Menu-' . $rand;
     $menu_exists = wp_get_nav_menu_object( $menu_name );
 
     if ( !$menu_exists )
@@ -503,16 +503,22 @@ function create_menu_item() {
     if ( $menu_id == 0 )
         $menu_id = create_menu();
 
-    $formdata                 = array(
-        'menu-item-title'   => $_POST[ 'menu_item_title' ],
+    $formdata = array(
+        'menu-item-title' => $_POST[ 'menu_item_title' ],
         'menu-item-classes' => '',
-        'menu-item-url'     => $_POST[ 'menu_item_url' ],
-        'menu-item-status'  => 'publish'
+        'menu-item-url' => '',
+        'menu-item-object' => 'page',
+        'menu-item-type' => 'post_type',
+        'menu-item-object-id' => $_POST[ 'page_id' ],
+        'menu-item-status' => 'publish'
     );
-    $return_data              = $formdata;
+    $return_data = $formdata;
     $return_data[ 'menu_id' ] = $menu_id;
 
-    $menu_item_id        = wp_update_nav_menu_item( $menu_id, 0, $formdata );
+    $menu_item_id = wp_update_nav_menu_item( $menu_id, 0, $formdata );
+    $menu_post_in_db = get_post( $menu_item_id );
+    $return_data[ 'menu_item_url' ] = $menu_post_in_db->guid;
+
     $return_data[ 'ID' ] = $menu_item_id;
     wp_send_json( array( 'code' => 'OK', 'data' => $return_data ) );
 }
@@ -525,10 +531,10 @@ add_action( 'wp_ajax_create-menu-item', 'create_menu_item' );
 function update_menu_item() {
 
     $formdata = array(
-        'menu-item-title'   => $_POST[ 'menu_item_title' ],
+        'menu-item-title' => $_POST[ 'menu_item_title' ],
         'menu-item-classes' => '',
-        'menu-item-url'     => $_POST[ 'menu_item_url' ],
-        'menu-item-status'  => 'publish'
+        'menu-item-url' => $_POST[ 'menu_item_url' ],
+        'menu-item-status' => 'publish'
     );
     wp_update_nav_menu_item( $_POST[ 'menu_id' ], $_POST[ 'ID' ], $formdata );
 
@@ -569,7 +575,7 @@ function update_menu_item_order() {
     for ( $i = 0; $i < count( $menu_items_order_array ); $i++ ):
 
         $post_array = array(
-            'ID'         => $menu_items_order_array[ $i ],
+            'ID' => $menu_items_order_array[ $i ],
             'menu_order' => $count );
 
         wp_update_post( $post_array );
@@ -669,7 +675,7 @@ function get_page_json_for_site( $page_id, $autosave = FALSE ) {
         return FALSE;
 
     $json = array();
-    $key  = '';
+    $key = '';
     if ( $autosave === TRUE )
         $key = '-autosave';
 
@@ -695,15 +701,15 @@ function get_page_json_for_site( $page_id, $autosave = FALSE ) {
         foreach ( $elements as $element ) {
             if ( $element [ 'element' ] === "Row" ) {
                 $element [ 'columncount' ] = count( $element [ 'elements' ] );
-                $d [ $section ] [ ]        = get_row_elements( $element );
+                $d [ $section ] [ ] = get_row_elements( $element );
             } else
                 $d [ $section ] [ ] = get_meta_values( $element );
         }
     }
     $data = array(
-        'id'     => $page_id,
+        'id' => $page_id,
         'header' => $d [ 'header' ],
-        'page'   => $d [ 'page' ],
+        'page' => $d [ 'page' ],
         'footer' => $d [ 'footer' ]
     );
 
@@ -728,7 +734,7 @@ function get_page_main_json( $page_id = 0 ) {
 function read_page_json() {
 
     $page_id = $_REQUEST [ 'page_id' ];
-    $data    = get_page_json_for_site( $page_id, TRUE );
+    $data = get_page_json_for_site( $page_id, TRUE );
     wp_send_json( array(
         'code' => 'OK',
         'data' => $data

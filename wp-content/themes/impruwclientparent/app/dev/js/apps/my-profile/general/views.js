@@ -33,7 +33,8 @@ define(['app', 'text!apps/my-profile/general/templates/generalform.html'], funct
       GeneralForm.prototype.serializeData = function() {
         var data;
         data = GeneralForm.__super__.serializeData.call(this);
-        data = this.model.get('data');
+        data.display_name = (this.model.get('data')).display_name;
+        data.user_email = (this.model.get('data')).user_email;
         return data;
       };
 
