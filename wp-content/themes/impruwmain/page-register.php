@@ -42,10 +42,11 @@ get_header();
                 <div class="form-group">
                     <label for="inputEmail" class="col-sm-3 control-label"><?php echo __('Your Email', 'impruwmain'); ?></label>
                     <div class="col-sm-7 col-sm-offset-3">
-                        <input type="email" class="form-control parsley-validated parsley-error" 
+                        <input type="email" class="form-control parsley-validated parsley-error"
+                               parsley-regexp='^(([^<>()æøå[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$'
                                id="inputEmail"  name="user_email" placeholder="<?php echo __('someone@mail.com', 'impruwmain'); ?>"     
                                parsley-required="true"  parsley-trigger="blur"  
-                               parsley-validation-minlength="0"  parsley-type="email"         
+                               parsley-validation-minlength="0"
                                value=""  
                                parsley-required-message="<?php echo __('Enter a valid email address as it will be your User ID as well.', 'impruwmain'); ?>"   
                                pasrsley-remote="<?php echo admin_url('admin-ajax.php?action=check_email_exists'); ?>"   >

@@ -39,7 +39,7 @@ define [ 'app' ], ( App )->
                e.preventDefault()
 
          onShow : ->
-            @$el.attr "data-content", "Update logo in your <a href='#{SITEURL}/dashboard/#site-profile' target='_BLANK'>site profile</a>"
+            @$el.attr "data-content", "Update logo in your <a href='#{SITEURL}/dashboard/#/site-profile' target='_BLANK'>site profile</a>"
             @$el.popover
                html : true
                placement : 'top'
