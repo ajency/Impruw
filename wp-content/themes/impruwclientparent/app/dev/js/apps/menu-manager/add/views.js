@@ -16,9 +16,14 @@ define(['app', 'text!apps/menu-manager/add/templates/addmenu.html'], function(Ap
 
       MenuItemView.prototype.events = {
         'click .add-menu-item': function() {
-          var formdata;
-          formdata = Backbone.Syphon.serialize(this);
-          return this.trigger("add:menu:item:clicked", formdata);
+          var data, pageId, pageName;
+          pageId = this.$el.find('#page_id').val();
+          pageName = this.$el.find('#page_id option:selected').text();
+          data = {
+            'page_id': pageId,
+            'menu_item_title': pageName
+          };
+          return this.trigger("add:menu:item:clicked", data);
         }
       };
 
@@ -37,7 +42,7 @@ define(['app', 'text!apps/menu-manager/add/templates/addmenu.html'], function(Ap
       };
 
       MenuItemView.prototype.onShow = function() {
-        return this.$el.find('select[name="menu_item_url"]').selectpicker();
+        return this.$el.find('select[name="page_id"]').selectpicker();
       };
 
       return MenuItemView;

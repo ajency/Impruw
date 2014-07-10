@@ -1,38 +1,38 @@
-define ['app', 'controllers/base-controller', 'apps/menu-manager/add/views'], (App, AppController)->
+define [ 'app', 'controllers/base-controller', 'apps/menu-manager/add/views' ], ( App, AppController )->
 
     #Login App module
-    App.module "MenuManager.Add", (Add, App)->
+    App.module "MenuManager.Add", ( Add, App )->
 
         #Show Controller
         class Add.Controller extends AppController
 
             # initialize
-            initialize: (opts)->
-                @menuId = menuId = opts.menuId
+            initialize : ( opts )->
+                @menuId = opts.menuId
 
-                @view = view = @_getView()
+                @view = @_getView()
 
-                @listenTo @view, "add:menu:item:clicked": (data)=>
+                @listenTo @view, "add:menu:item:clicked" : ( data )=>
                     @saveMenu data, @menuId
 
                 @show @view
 
-            saveMenu: (data, menuId) =>
+            saveMenu : ( data ) =>
                 menumodel = App.request "create:new:menu:item"
-                menumodel.set 'menu_id', parseInt menuId
+                menumodel.set 'menu_id', parseInt @menuId
                 menumodel.save data,
-                    wait: true
-                    success: @menuItemAdded
+                    wait : true
+                    success : @menuItemAdded
 
-            menuItemAdded: (model)=>
+            menuItemAdded : ( model )=>
                 @view.triggerMethod "new:menu:created"
                 @region.trigger "menu:model:to:collection", model
 
-            _getView: (menumodel) ->
+            _getView : ->
                 new Add.Views.MenuItemView
 
 
-        App.commands.setHandler "add:menu:items:app", (opts)->
+        App.commands.setHandler "add:menu:items:app", ( opts )->
             new Add.Controller opts
 
 			
