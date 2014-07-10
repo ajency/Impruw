@@ -8,7 +8,8 @@ define(['app', 'controllers/base-controller', 'apps/my-profile/password/views'],
       __extends(Controller, _super);
 
       function Controller() {
-        this.PasswordUpdated = __bind(this.PasswordUpdated, this);
+        this.passwordUpdated = __bind(this.passwordUpdated, this);
+        this.updatePassword = __bind(this.updatePassword, this);
         return Controller.__super__.constructor.apply(this, arguments);
       }
 
@@ -16,40 +17,32 @@ define(['app', 'controllers/base-controller', 'apps/my-profile/password/views'],
         var model;
         model = opts.model;
         this.model = model;
-        this.view = this.getPasswordView(this.model);
+        this.view = this.getPasswordView();
         this.listenTo(this.view, "update:password:clicked", this.updatePassword);
         return this.show(this.view, {
           loading: true
         });
       };
 
-      Controller.prototype.getPasswordView = function(model) {
-        return new Password.View.PasswordForm({
-          model: model
-        });
+      Controller.prototype.getPasswordView = function() {
+        return new Password.View.PasswordForm;
       };
 
       Controller.prototype.updatePassword = function(data) {
-        var options;
-        options = {
-          url: AJAXURL,
-          method: 'POST',
-          data: {
-            action: 'update-password',
-            formdata: data
-          }
-        };
-        return $.ajax(options).done((function(_this) {
-          return function(response) {
-            return _this.PasswordUpdated(response);
-          };
-        })(this)).fail(function(resp) {
-          return console.log('error');
+        this.model.set(data);
+        return this.model.save(null, {
+          onlyChanged: true,
+          wait: true,
+          success: this.passwordUpdated
         });
       };
 
-      Controller.prototype.PasswordUpdated = function(response) {
-        return this.view.triggerMethod("password:ajax:response", response);
+      Controller.prototype.passwordUpdated = function(model, response) {
+        if (response.code === "ERROR") {
+          return this.view.triggerMethod("password:error:response", response.msg);
+        } else if (response.code === "OK") {
+          return this.view.triggerMethod("password:success:response", response.redirect_url);
+        }
       };
 
       return Controller;

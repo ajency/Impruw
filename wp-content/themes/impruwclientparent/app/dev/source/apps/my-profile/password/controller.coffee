@@ -8,7 +8,7 @@ define ['app', 'controllers/base-controller'
 
                 @model = model
 
-                @view = @getPasswordView @model
+                @view = @getPasswordView()
 
                 @listenTo @view, "update:password:clicked", @updatePassword
 
@@ -16,25 +16,21 @@ define ['app', 'controllers/base-controller'
                     loading: true
 
 
-            getPasswordView: (model) ->
+            getPasswordView: ->
                 new Password.View.PasswordForm
-                    model: model
 
-            updatePassword: (data) ->
-                options =
-                    url: AJAXURL,
-                    method: 'POST',
-                    data:
-                        action: 'update-password'
-                        formdata: data
+            updatePassword: (data) =>
+                @model.set data
+                @model.save null,
+                    onlyChanged : true
+                    wait: true
+                    success : @passwordUpdated
 
-                $.ajax(options).done (response)=>
-                    @PasswordUpdated response
-                .fail (resp)->
-                        console.log 'error'
-
-            PasswordUpdated: (response)=>
-                @view.triggerMethod "password:ajax:response", response
+            passwordUpdated: (model , response)=>
+                if response.code == "ERROR"
+                    @view.triggerMethod "password:error:response", response.msg
+                else if response.code == "OK"
+                    @view.triggerMethod "password:success:response",response.redirect_url
 
 
         App.commands.setHandler "show:password:form", (opts) ->
