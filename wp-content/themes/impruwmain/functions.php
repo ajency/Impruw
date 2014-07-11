@@ -259,15 +259,17 @@
 
 
         if (is_page_template('page-register.php') || is_page_template('page-login.php')) {
-            //wp_deregister_script( 'jquery' );
-            if (isset($_GET['lang']) && $_GET['lang'] == 'nb')
+
+            //Check for the current language and load the right parsley messages file
+            $current_language = ICL_LANGUAGE_CODE;
+            if ($current_language == 'nb'){
                 wp_enqueue_script('parsley-lang', get_template_directory_uri() . '/js/parsley/i18n/messages.no.js', array(), FALSE, TRUE);
+            }
 
             wp_enqueue_script('parsley', get_template_directory_uri() . '/js/parsley/parsley.js', array('jquery'), '1.2.0', TRUE);
-//            wp_enqueue_script('parsley.remote', get_template_directory_uri() . '/js/parsley.remote.js',array('parsley'), '', TRUE);
 
             wp_enqueue_script("user_management", get_template_directory_uri() . '/js/user_management.js', array(), FALSE, TRUE);
-            //wp_enqueue_script( 'garlic', get_template_directory_uri().'/js/garlic.js', array('jquery'), '1.2.2',true);
+
         }
 
         wp_localize_script('jquery', 'ajaxurl', admin_url('admin-ajax.php'));
