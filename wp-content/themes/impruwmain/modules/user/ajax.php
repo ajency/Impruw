@@ -186,13 +186,13 @@ function ajax_user_interim_login() {
                                'email'    => rawurlencode( $user_data->data->user_email ) );
             wp_send_json( $response );
         } else {
-            $msg      = "No website found for the email id.";
+            $msg      = __("No website found for the email id.", "impruwmain");
             $response = array( 'code' => "ERROR", 'msg' => $msg );
             wp_send_json( $response );
         }
 
     } else {
-        $msg      = _e("The email doesn't seem right. Check if your caps is on and try again.","impruwmain");
+        $msg      = __("The email doesn't seem right. Check if your caps is on and try again.","impruwmain");
         $response = array( 'code' => "FAILED", 'msg' => $msg );
         wp_send_json( $response );
     }
@@ -237,7 +237,7 @@ function user_login() {
         $user = wp_signon( $credentials );
 
         if ( is_wp_error( $user ) ) {
-            $msg      = "The email / password doesn't seem right. Check if your caps is on and try again.";
+            $msg      = __("The email / password doesn't seem right. Check if your caps is on and try again.","impruwmain");
             $response = array( 'code' => "FAILED", 'user' => $user_->user_login . $pd_pass, 'msg' => $msg );
             wp_send_json( $response );
         } else {
@@ -247,7 +247,7 @@ function user_login() {
             wp_send_json( $response );
         }
     } else {
-        $msg      = "The email / password doesn't seem right. Check if your caps is on and try again.";
+        $msg      = __("The email / password doesn't seem right. Check if your caps is on and try again.","impruwmain");
         $response = array( 'code' => "FAILED", 'msg' => $msg );
         wp_send_json( $response );
     }
@@ -266,7 +266,7 @@ function ajax_reset_password_user_request() {
 
     //check if the user-email exists
     if ( !$user_data ) {
-        $msg = "Email does not exsists";
+        $msg = __("Email does not exist","impruwmain");
         wp_send_json( array( 'code' => 'ERROR', 'data' => $msg ) );
     }
 
@@ -278,7 +278,7 @@ function ajax_reset_password_user_request() {
     $allow = apply_filters( 'allow_password_reset', TRUE, $user_data->ID );
 
     if ( !$allow ) {
-        $msg = "Password reset is not allowed for this user";
+        $msg = __("Password reset is not allowed for this user","impruwmain");
         wp_send_json( array( 'code' => 'ERROR', 'data' => $msg ) );
     } else if ( is_wp_error( $allow ) )
         wp_send_json( array( 'code' => 'ERROR', 'data' => $allow ) );
