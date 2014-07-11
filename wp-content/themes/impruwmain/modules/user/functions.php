@@ -33,7 +33,7 @@
             return $user_id;
 
         // add user meta
-        $user_meta = array('language' => $user_data['user_language']);
+        $user_meta = array('user_lang' => $user_data['user_language']);
         set_user_meta($user_id, $user_meta);
 
         return $user_id;
