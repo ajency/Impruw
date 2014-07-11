@@ -101,7 +101,7 @@ class LogoElement extends Element {
             return  '<div class="image-placeholder"><span class="glyphicon glyphicon-picture"></span></div>';
         }
 
-        $image = wp_get_attachment_image_src($a_id, 'full');
+        $image = wp_get_attachment_image_src($a_id, 'medium');
         if($image !== false) {
             return sprintf("<a href='%s'><img src='%s' class='img-responsive' /></a>", site_url(), $image[0]);
         }

@@ -76,12 +76,12 @@ define ['app'
             template: '<div class="panel-heading">
             								  <a class="accordion-toggle">
             									<div class="aj-imp-image-item row">
-            										<div class="imgthumb col-sm-3">
+            										<div class="imgthumb col-sm-4">
             											<img src="{{thumb_url}}" class="img-responsive">
             										</div>
             										<div class="imgname col-sm-5">{{file_name}}</div>
-            										<div class="imgactions col-sm-4">
-            											<button class="btn btn-danger btn-sm remove-slide" title="Delete Image"><span class="glyphicon glyphicon-remove-sign"></span> Delete Image</button>
+            										<div class="imgactions col-sm-3">
+            											<a class="remove-slide" title="Delete Image"><span class="glyphicon glyphicon-trash"></span>&nbsp;{{#polyglot}}Delete Image{{/polyglot}}</a>
             										</div>
             									</div>
             								  </a>
@@ -109,13 +109,13 @@ define ['app'
         class SlidesListView extends Marionette.CompositeView
 
             template: '<div class="aj-imp-image-header row">
-            									<div class="col-sm-3">
+            									<div class="col-sm-4">
             										&nbsp;
             									</div>
             									<div class="col-sm-5">
             										{{#polyglot}}File Name{{/polyglot}}
             									</div>
-            									<div class="col-sm-4">
+            									<div class="col-sm-3">
             										{{#polyglot}}Actions{{/polyglot}}
             									</div>
             								</div>
@@ -151,11 +151,21 @@ define ['app'
 
         class SlidesListLayout extends Marionette.Layout
 
-            template: '<div id="slides-list-region"></div>
-            								<div class="aj-imp-block-button add-new-slide">
-            									<button class="btn btn-default btn-hg btn-block"><span class="bicon icon-uniF10C"></span>&nbsp;&nbsp;{{#polyglot}}Add Image{{/polyglot}}</button>
-            								</div>
-            								<div id="add-slide-region"></div>'
+            template: '<div class="row">
+                        <div class="col-sm-7">
+                            <div id="slides-list-region"></div>
+                        </div>
+                        <div class="col-sm-5">
+                            <div id="slides-info">
+                                {{#polyglot}}Click the button to select images to add to your slider. You can change the order of the images by dragging them up or down in the list to the left.{{/polyglot}}
+                            </div>
+                            <div class="aj-imp-block-button add-new-slide">
+                                <button class="btn btn-default btn-hg"><span class="bicon icon-uniF10C"></span>&nbsp;&nbsp;{{#polyglot}}Add Image{{/polyglot}}</button>
+                            </div>
+                        </div>
+                        </div>
+    					
+    					<div id="add-slide-region"></div>'
 
             events:
                 'click .add-new-slide': ->
