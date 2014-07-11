@@ -966,6 +966,9 @@ a:focus {
   background: #f3f3f3;
   color: #333333;
 }
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .page-name .page-name-content .page-name-input:focus + .btn-update-pg-name {
+  visibility: visible;
+}
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .page-name .page-name-content .btn-update-pg-name {
   color: #849fb0;
   border: 1px solid #dddddd;
@@ -974,6 +977,7 @@ a:focus {
   border-radius: 3px;
   margin-left: 0.2em;
   font-size: 0.88em;
+  visibility: hidden;
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .page-name .page-name-content .btn-update-pg-name:hover,
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .page-name .page-name-content .btn-update-pg-name:focus {
