@@ -98,7 +98,6 @@ get_header();
                                    parsley-required="true"
                                    parsley-validation-minlength="0"
                                    parsley-type="email"
-                                   parsley-remote="http://localhost/testt.php"
                                    parsley-required-message="<?php echo __( 'A valid email address is required to sign in', 'impruwmain' ); ?>"/>
 
                             <div class="p-messages"></div>
@@ -136,6 +135,18 @@ get_header();
                 e.preventDefault();
                 jQuery('.aj-imp-login').removeClass('hidden');
                 jQuery('.aj-imp-forgot').addClass('hidden');
+            });
+
+            jQuery('#forgot_password_btn' ).click(function(){
+                // TODO: validate email first. Check if email exists.
+                $.post(AJAXURL, {
+                    action : 'reset-password',
+                    email : $('#forgotPasswordEmail' ).val()
+                },
+                function(response){
+
+                },'json')
+
             });
         });
     </script>
