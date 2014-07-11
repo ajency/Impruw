@@ -45,6 +45,19 @@ function update_user_password( $formdata ) {
     wp_send_json( array( 'code' => 'OK', 'redirect_url' => $redirect_url ) );
 }
 
+function change_user_password( $user_email, $password ) {
+
+    $user = get_user_by( 'email', $user_email );
+
+    reset_password( $user, $password );
+
+    $blog = get_active_blog_for_user( $user->ID);
+    $site_url = $blog->siteurl;
+
+    wp_send_json( array( 'code' => 'OK',
+                         'msg'=>'Password updated','url' => $site_url,
+                         'email' =>rawurlencode($user_email) ));
+}
 
 /**
  *
@@ -167,6 +180,8 @@ function send_password_reset_mail( $user_login, $user_id, $key ) {
     $blog = get_active_blog_for_user( $user_id );
     $blog_url = $blog->siteurl;
 
+    $link =$blog_url."/reset-password?action=rp&key=".$key."&login=".rawurlencode( $user_login );
+
     $title = sprintf( __( 'Password Reset' ) );
 
     $message = __( 'Someone requested that the password be reset for the following account:' ) . "\r\n\r\n";
@@ -174,7 +189,7 @@ function send_password_reset_mail( $user_login, $user_id, $key ) {
     $message .= sprintf( __( 'Username: %s' ), $user_login ) . "\r\n\r\n";
     $message .= __( 'If this was a mistake, just ignore this email and nothing will happen.' ) . "\r\n\r\n";
     $message .= __( 'To reset your password, visit the following address:' ) . "\r\n\r\n";
-    $message .= '<' . network_site_url( "wp-login.php?action=rp&key=$key&login=" . rawurlencode( $user_login ), 'login' ) . ">\r\n";
+    $message .= '<' .$link . ">\r\n";
 
     if ( $message && !wp_mail( $user_login, wp_specialchars_decode( $title ), $message ) )
         wp_die( __( 'The e-mail could not be sent.' ) . "<br />\n" . __( 'Possible reason: your host may have disabled the mail() function.' ) );
