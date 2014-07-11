@@ -75,7 +75,7 @@
             ?>
             <?php if( ! is_user_logged_in() ): ?>
             <a href="#" class="login-btn" data-toggle="popover">
-                <span class="glyphicon glyphicon-lock"></span> <?php _e('Sign In') ?>
+                <span class="glyphicon glyphicon-lock"></span> <?php _e('Sign In', 'impruwmain'); ?>
             </a>
             <?php endif; ?>
 

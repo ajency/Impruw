@@ -192,7 +192,7 @@ function ajax_user_interim_login() {
         }
 
     } else {
-        $msg      = "The email doesn't seem right. Check if your caps is on and try again.";
+        $msg      = _e("The email doesn't seem right. Check if your caps is on and try again.","impruwmain");
         $response = array( 'code' => "FAILED", 'msg' => $msg );
         wp_send_json( $response );
     }
