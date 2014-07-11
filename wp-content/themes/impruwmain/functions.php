@@ -257,17 +257,29 @@
         wp_enqueue_script("bootstrap-select", get_template_directory_uri() . '/js/bootstrap-select.js', array('jquery'), FALSE, TRUE);
         wp_enqueue_script("flatui-radio", get_template_directory_uri() . '/js/flatui-radio.js', array('jquery'), FALSE, TRUE);
 
+        wp_enqueue_script("user-login", get_template_directory_uri() . '/js/user-login.js', array('jquery'), FALSE, TRUE);
+
+        //Localize user-login to enable translation in wpml
+        $user_login_translation = array(
+            'btn_sign_in' => __( 'Sign In' ),
+            'placeholder_email' => __('Email')
+        );
+        wp_localize_script( 'user-login', 'user_login_texts', $user_login_translation );
+
+
 
         if (is_page_template('page-register.php') || is_page_template('page-login.php')) {
-            //wp_deregister_script( 'jquery' );
-            if (isset($_GET['lang']) && $_GET['lang'] == 'nb')
+
+            //Check for the current language and load the right parsley messages file
+            $current_language = ICL_LANGUAGE_CODE;
+            if ($current_language == 'nb'){
                 wp_enqueue_script('parsley-lang', get_template_directory_uri() . '/js/parsley/i18n/messages.no.js', array(), FALSE, TRUE);
+            }
 
             wp_enqueue_script('parsley', get_template_directory_uri() . '/js/parsley/parsley.js', array('jquery'), '1.2.0', TRUE);
-//            wp_enqueue_script('parsley.remote', get_template_directory_uri() . '/js/parsley.remote.js',array('parsley'), '', TRUE);
 
             wp_enqueue_script("user_management", get_template_directory_uri() . '/js/user_management.js', array(), FALSE, TRUE);
-            //wp_enqueue_script( 'garlic', get_template_directory_uri().'/js/garlic.js', array('jquery'), '1.2.2',true);
+
         }
 
         wp_localize_script('jquery', 'ajaxurl', admin_url('admin-ajax.php'));
