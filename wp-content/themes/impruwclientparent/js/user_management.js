@@ -2,7 +2,7 @@ jQuery(document).ready(function ($) {
 
     $("#login_btn").click(function () {
 
-        $("#login_loader").show();
+        $(".login_loader").show();
 
         var data = {
             action: 'user_login',
@@ -17,7 +17,7 @@ jQuery(document).ready(function ($) {
 
             if (response.code == 'OK') {
 
-                $("#login_loader").hide();
+                $(".login_loader").hide();
                 $("#login_success").show();
                 $("#login_status").html('<div class="alert alert-success">' +
                     '<button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>' +
@@ -27,7 +27,7 @@ jQuery(document).ready(function ($) {
                 return true;
             } else if ((response.code == 'ERROR') || (response.code == 'FAILED')) {
 
-                $("#login_loader").hide();
+                $(".login_loader").hide();
                 $("#login_status_div").show()
                 $("#login_status").html('<div class="alert alert-error">' +
                     '<button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>' +
@@ -44,6 +44,8 @@ jQuery(document).ready(function ($) {
      */
     $('#forgot_password_btn').click(function () {
         $('#display-msg').empty();
+
+        $(".login_loader").show();
 
         $.post(AJAXURL, {
                 action: 'reset-password',
@@ -65,12 +67,14 @@ jQuery(document).ready(function ($) {
     });
 
     function displayMsg( msg ) {
+        $(".login_loader").hide();
 
         var html = '<div class="alert alert-error">' +
             '<button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>' +
             msg + '</div>';
 
         $('#display-msg').append(html);
+
     }
 
 });
