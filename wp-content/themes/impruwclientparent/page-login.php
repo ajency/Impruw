@@ -83,6 +83,7 @@ get_header();
 
         <!-- Forgot Password Form -->
         <div class="row">
+            <div id="display-msg"></div>
             <div class="col-sm-12 aj-imp-forgot hidden">
                 <form class="form-horizontal clearfix" id="forgot_password_form" name="forgot_password_form">
 
@@ -135,18 +136,6 @@ get_header();
                 e.preventDefault();
                 jQuery('.aj-imp-login').removeClass('hidden');
                 jQuery('.aj-imp-forgot').addClass('hidden');
-            });
-
-            jQuery('#forgot_password_btn' ).click(function(){
-                // TODO: validate email first. Check if email exists.
-                $.post(AJAXURL, {
-                    action : 'reset-password',
-                    email : $('#forgotPasswordEmail' ).val()
-                },
-                function(response){
-
-                },'json')
-
             });
         });
     </script>
