@@ -257,6 +257,16 @@
         wp_enqueue_script("bootstrap-select", get_template_directory_uri() . '/js/bootstrap-select.js', array('jquery'), FALSE, TRUE);
         wp_enqueue_script("flatui-radio", get_template_directory_uri() . '/js/flatui-radio.js', array('jquery'), FALSE, TRUE);
 
+        wp_enqueue_script("user-login", get_template_directory_uri() . '/js/user-login.js', array('jquery'), FALSE, TRUE);
+
+        //Localize user-login to enable translation in wpml
+        $user_login_translation = array(
+            'btn_sign_in' => __( 'Sign In' ),
+            'placeholder_email' => __('Email')
+        );
+        wp_localize_script( 'user-login', 'user_login_texts', $user_login_translation );
+
+
 
         if (is_page_template('page-register.php') || is_page_template('page-login.php')) {
 
