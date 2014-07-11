@@ -1628,6 +1628,18 @@ and open the template in the editor.
   background: #fff;
   box-shadow: 0 0 2px #d4d4d4;
 }
+/**** Logo Styles ****/
+.logo {
+  max-width: 300px;
+}
+@media (max-width: 767px) {
+  .logo {
+    text-align: center;
+  }
+  .logo a {
+    display: inline-block;
+  }
+}
 /****Top Slim-menu Styles****/
 .nav.slimmenu {
   border: 1px solid #d9d9d9;
