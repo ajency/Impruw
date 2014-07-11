@@ -13,9 +13,9 @@ define(['app', 'text!apps//language-translation/language-page-content/translated
 
       TranslatedPageItemView.prototype.tagName = 'div';
 
-      TranslatedPageItemView.prototype.className = '.form-group.legend-group';
+      TranslatedPageItemView.prototype.className = 'form-group legend-group';
 
-      TranslatedPageItemView.prototype.template = '<div class="col-sm-12"> <div class="form-group"> <div class="col-sm-10"> <textarea type="text" class="form-control" id="translated-element-content">{{contentText}}</textarea> </div> <div> <button class="btn btn-xs aj-imp-orange-btn"  id="btn-save-translated-element"> Save </button> </div> </div> </div>';
+      TranslatedPageItemView.prototype.template = '<div class="col-sm-12"> <div class="form-group trans-field"> <div class="col-sm-10"> <textarea type="text" class="form-control" id="translated-element-content">{{contentText}}</textarea> <button class="btn btn-xs trans-action aj-imp-orange-btn"  id="btn-save-translated-element"> Save </button> </div> </div> </div>';
 
       TranslatedPageItemView.prototype.mixinTemplateHelpers = function(data) {
         var editingLanguage;

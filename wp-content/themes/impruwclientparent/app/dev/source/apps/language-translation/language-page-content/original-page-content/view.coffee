@@ -7,7 +7,7 @@ define ['app'
 
             tagName : 'div'
 
-            className : '.form-group.legend-group'
+            className : 'form-group legend-group'
 
             template : '<div class="col-sm-12">
                             <div class="form-group">

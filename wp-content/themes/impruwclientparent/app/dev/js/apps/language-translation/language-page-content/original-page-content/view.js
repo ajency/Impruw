@@ -13,7 +13,7 @@ define(['app', 'text!apps//language-translation/language-page-content/original-p
 
       OriginalPageItemView.prototype.tagName = 'div';
 
-      OriginalPageItemView.prototype.className = '.form-group.legend-group';
+      OriginalPageItemView.prototype.className = 'form-group legend-group';
 
       OriginalPageItemView.prototype.template = '<div class="col-sm-12"> <div class="form-group"> <label class="col-sm-3 control-label" for="">{{element}}</label> <div class="col-sm-9 col-sm-offset-3"> <p class="original"> {{content.en}} </p> </div> </div> </div>';
 

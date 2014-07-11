@@ -7,16 +7,14 @@ define ['app'
 
             tagName : 'div'
 
-            className : '.form-group.legend-group'
+            className : 'form-group legend-group'
 
             template : '<div class="col-sm-12">
-                            <div class="form-group">
+                            <div class="form-group trans-field">
                                 <div class="col-sm-10">
                                     <textarea type="text" class="form-control" id="translated-element-content">{{contentText}}</textarea>
-                                </div>
-                                <div>
-                                    <button class="btn btn-xs aj-imp-orange-btn"  id="btn-save-translated-element">
-                                    Save
+                                    <button class="btn btn-xs trans-action aj-imp-orange-btn"  id="btn-save-translated-element">
+                                        Save
                                     </button>
                                 </div>
                             </div>

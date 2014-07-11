@@ -3774,6 +3774,22 @@ form {
 			}
 		}
 	}
+	.trans-field {
+		position: relative;
+		.trans-action {
+			position: absolute;
+			top: 0;
+			right: -4em;
+			opacity: 0;
+		}
+		.form-control {
+			&:focus {
+				& ~ .trans-action {
+					opacity: 1;
+				}
+			}
+		}
+	}
 }
 
 .billing-container {

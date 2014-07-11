@@ -3742,6 +3742,18 @@ form .aj-imp-submit:hover {
 .language .pick-room .bootstrap-select .btn:focus {
   background: transparent;
 }
+.language .trans-field {
+  position: relative;
+}
+.language .trans-field .trans-action {
+  position: absolute;
+  top: 0;
+  right: -4em;
+  opacity: 0;
+}
+.language .trans-field .form-control:focus ~ .trans-action {
+  opacity: 1;
+}
 .billing-container .aj-imp-widget-head {
   margin-bottom: 1em;
 }
