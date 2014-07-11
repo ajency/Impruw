@@ -34,8 +34,8 @@ define [ 'app', 'controllers/base-controller' ], ( App, AppController )->
                 @addToPageMenu page
                 @layout.triggerMethod "show:success:message"
                 #if page is selected to be added as a menu item
-                if @setAsMenuItem is true
-                    App.vent.trigger "new:page:added", page
+#                if @setAsMenuItem is true
+#                    App.vent.trigger "new:page:added", page
 
             addToPageMenu : ( pageModel )->
                 pageCollection = App.request "get:editable:pages"
