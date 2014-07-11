@@ -999,6 +999,9 @@ a {
 						&:focus {
 							background: @preview-grey;
 							color: @3-grey;
+							& + .btn-update-pg-name {
+								visibility: visible;
+							}
 						}
 					}
 					.btn-update-pg-name {
@@ -1009,6 +1012,7 @@ a {
 						border-radius: 3px;
 						margin-left: 0.2em;
 						font-size: 0.88em;
+						visibility: hidden;
 						&:hover, &:focus {
 							background: #fff;
 						}
