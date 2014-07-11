@@ -40,7 +40,7 @@ define ['app'], (App)->
             emptyView: EmptyView
 
             onShow: ->
-                @$el.attr "data-content", _.polyglot.t("Update room facilities")+" <a href='#{SITEURL}/dashboard/#rooms'>"+_.polyglot.t("here")+"</a> "
+                @$el.attr "data-content", _.polyglot.t("Update room facilities")+" <a href='#{SITEURL}/dashboard/#/rooms'>"+_.polyglot.t("here")+"</a> "
                 @$el.popover
                     html : true
                     placement : 'top'

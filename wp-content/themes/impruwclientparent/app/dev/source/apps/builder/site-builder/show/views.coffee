@@ -145,8 +145,25 @@ define [ 'app'
 
             #display the page name in the textbox
             displayPageNameForUpdate : ->
+                @$el.find( '#page_name' ).removeAttr 'readonly'
+                @$el.find( '.btn-update-pg-name' ).removeAttr 'disabled'
+
                 currentPageName = @getCurrentPageName()
+                singleRoom = @isSingleRoomPage()
+
+                if singleRoom is true
+                    @$el.find( '#page_name' ).attr 'readonly','readonly'
+                    @$el.find( '.btn-update-pg-name' ).attr 'disabled','disabled'
+
                 @$el.find( '#page_name' ).val currentPageName
+
+            isSingleRoomPage: ->
+                pageName = App.request "get:current:editable:page:name"
+                page = false
+                if pageName is 'Single Room'
+                    page = true
+                page
+
 
             onPageNameUpdated : ( pageModel )->
                 page_name = pageModel.get 'post_title'

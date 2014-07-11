@@ -79,4 +79,4 @@ define ['app'], (App)->
 
             displayGeoCodeErrorMessage:->
                 @$el.html "<div class='empty-view no-click'><span class='bicon icon-uniF132'></span>Failed to geocode your address. Please click
-                                     <a href='#{SITEURL}/dashboard/#site-profile'> here to update.</a></div>"
+                                     <a href='#{SITEURL}/dashboard/#/site-profile'> here to update.</a></div>"

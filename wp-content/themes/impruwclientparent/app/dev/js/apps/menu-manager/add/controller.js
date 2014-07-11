@@ -14,9 +14,8 @@ define(['app', 'controllers/base-controller', 'apps/menu-manager/add/views'], fu
       }
 
       Controller.prototype.initialize = function(opts) {
-        var menuId, view;
-        this.menuId = menuId = opts.menuId;
-        this.view = view = this._getView();
+        this.menuId = opts.menuId;
+        this.view = this._getView();
         this.listenTo(this.view, {
           "add:menu:item:clicked": (function(_this) {
             return function(data) {
@@ -27,10 +26,10 @@ define(['app', 'controllers/base-controller', 'apps/menu-manager/add/views'], fu
         return this.show(this.view);
       };
 
-      Controller.prototype.saveMenu = function(data, menuId) {
+      Controller.prototype.saveMenu = function(data) {
         var menumodel;
         menumodel = App.request("create:new:menu:item");
-        menumodel.set('menu_id', parseInt(menuId));
+        menumodel.set('menu_id', parseInt(this.menuId));
         return menumodel.save(data, {
           wait: true,
           success: this.menuItemAdded
@@ -42,7 +41,7 @@ define(['app', 'controllers/base-controller', 'apps/menu-manager/add/views'], fu
         return this.region.trigger("menu:model:to:collection", model);
       };
 
-      Controller.prototype._getView = function(menumodel) {
+      Controller.prototype._getView = function() {
         return new Add.Views.MenuItemView;
       };
 

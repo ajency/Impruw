@@ -60,7 +60,7 @@ class LinkElement extends Element {
      */
     function generate_markup() {
 
-        $template = '<span class="link {{style}}"><a href="http://{{link}}" target="{{target}}">{{text}}</a></span>';
+        $template = '<span class="link {{style}}"><a href="{{link}}" target="{{target}}">{{text}}</a></span>';
         global $me;
 
         return $me->render( $template, $this );
