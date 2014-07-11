@@ -1720,6 +1720,19 @@ and open the template in the editor.
     margin-bottom: 1.5em;
   }
 }
+/**** Logo Styles ****/
+.logo {
+  max-width: 300px;
+  margin: 0 0 0.5em;
+}
+@media (max-width: 767px) {
+  .logo {
+    text-align: center;
+  }
+  .logo a {
+    display: inline-block;
+  }
+}
 /****Top Slim-menu Styles****/
 .nav.slimmenu {
   border: none;
