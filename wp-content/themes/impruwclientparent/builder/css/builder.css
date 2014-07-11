@@ -1293,6 +1293,10 @@ a:focus {
   background: #ff7e00;
   color: #fff;
 }
+.settings-box .form-horizontal .form-group .field-error {
+  color: #ff3333;
+  padding: 0.5em 0;
+}
 /****Builder Element Layout Mode Styles****/
 .aj-imp-builder-layout-mode [class^="aj-imp-elem-"] {
   background: #fff;
