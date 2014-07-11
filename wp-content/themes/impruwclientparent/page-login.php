@@ -62,7 +62,7 @@ get_header();
                         <div class="col-sm-offset-3 col-sm-7">
                             <button type="button" id="login_btn" name="btn_login"
                                     class="btn btn-wide aj-imp-submit"><?php echo __( 'Sign in', 'impruwmain' ); ?></button>
-                            <img id="login_loader"
+                            <img class="login_loader"
                                  src="<?php echo site_url() . "/wp-content/themes/impruwmain/images/loader.gif"; ?>"
                                  width="38" height="30" style="display:none;"/>
                             <label for="checkbox3" class="checkbox keep-log">
@@ -83,6 +83,7 @@ get_header();
 
         <!-- Forgot Password Form -->
         <div class="row">
+            <div id="display-msg"></div>
             <div class="col-sm-12 aj-imp-forgot hidden">
                 <form class="form-horizontal clearfix" id="forgot_password_form" name="forgot_password_form">
 
@@ -98,7 +99,6 @@ get_header();
                                    parsley-required="true"
                                    parsley-validation-minlength="0"
                                    parsley-type="email"
-                                   parsley-remote="http://localhost/testt.php"
                                    parsley-required-message="<?php echo __( 'A valid email address is required to sign in', 'impruwmain' ); ?>"/>
 
                             <div class="p-messages"></div>
@@ -110,7 +110,7 @@ get_header();
                         <div class="col-sm-offset-3 col-sm-7">
                             <button type="button" id="forgot_password_btn" name="forgot_password_btn"
                                     class="btn btn-wide aj-imp-submit"><?php echo __( 'Reset Password', 'impruwmain' ); ?></button>
-                            <img id="login_loader"
+                            <img class="login_loader"
                                  src="<?php echo site_url() . "/wp-content/themes/impruwmain/images/loader.gif"; ?>"
                                  width="38" height="30" style="display:none;"/>
                         </div>
