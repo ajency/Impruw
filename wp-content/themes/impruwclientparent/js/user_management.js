@@ -77,4 +77,42 @@ jQuery(document).ready(function ($) {
 
     }
 
+    /**
+     *   Forgot password action
+     */
+    $('#reset-pass').click(function () {
+        $('#display-msg').empty();
+
+        $(".login_loader").show();
+
+        $.post(AJAXURL, {
+                action: 'change-password',
+                newPassword: $('#newPassword').val(),
+                confirmPassword: $('#confirmPassword').val(),
+                userEmail: $('#email').val()
+            },
+            function (response) {
+
+                if (response.code == "ERROR") {
+                    displayMsg( response.msg );
+                    return false;
+                }
+                else if (response.code == "OK") {
+                    $(".login_loader").hide();
+                    var link = response.url + '/sign-in?email='+response.email
+                    var html = '<div class="alert alert-error">' +
+                        '<button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>' +
+                        response.msg + '<a href=" '+link+' ">Login</a></div>';
+
+                    $('#display-msg').append(html);
+
+                    $('#reset-form').click();
+
+                    return true;
+                }
+
+            }, 'json')
+
+    });
 });
+
