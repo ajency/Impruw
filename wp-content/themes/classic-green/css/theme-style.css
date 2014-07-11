@@ -1638,6 +1638,19 @@ and open the template in the editor.
   margin-bottom: 1em;
   margin-top: 1em;
 }
+/**** Logo Styles ****/
+.logo {
+  max-width: 300px;
+  margin: 0 0 0.5em;
+}
+@media (max-width: 767px) {
+  .logo {
+    text-align: center;
+  }
+  .logo a {
+    display: inline-block;
+  }
+}
 /*
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
