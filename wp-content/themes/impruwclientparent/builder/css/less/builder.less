@@ -25,6 +25,7 @@ Version:        0.1.0
 @3-grey: #333333;
 @preview-grey: #F3F3F3;
 @dark-blue: #29333F;
+@error-red: #ff3333;
 
 /**** Link Styles Basic ****/
 a {
@@ -89,7 +90,7 @@ a {
 
 /****Builder Drag and Drop Menu****/
 .aj-imp-drag-menu {
-	width: 220px;
+	width: 180px;
 	padding: 0.5em;
 	background: @dark-blue;
 	z-index: 10;
@@ -103,11 +104,12 @@ a {
 	.aj-imp-add-row {
 		padding: 5px 3.5%;
 		list-style: none;
+		font-size: 0.88em;
 		a {
 			display: block;
 			color: #fff;
 			text-transform: uppercase;
-			padding: 1em;
+			padding: 0.75em;
 			box-shadow: inset 0 0 1px #000;
 			background: rgba(0, 0, 0, 0.5);
 			border-radius: 2px;
@@ -142,7 +144,7 @@ a {
 				border-bottom: 2px solid @dash-grey;
 				text-transform: uppercase;
 				font-weight: 300;
-				font-size: 0.76em;
+				font-size: 0.66em;
 				padding: 7px 2px;
 			}
 			&.active, &:hover {
@@ -160,7 +162,7 @@ a {
 		border-radius: 0;
 		color: #fff;
 		font-weight: 400;
-		font-size: 0.8em;
+		font-size: 0.7em;
 		padding: 0.5em 0.5em 0;
 		.aj-imp-builder-items {
 			margin: 0;
@@ -182,7 +184,7 @@ a {
 					min-height: 50px;
                     background: rgba(0, 0, 0, 1);
 					.aj-imp-builder-icon {
-						font-size: 2em;
+						font-size: 2.2em;
 						padding: 0.5em 0 0;
 						color: #fff;
 					}
@@ -700,11 +702,18 @@ a {
 		border-radius: 6px;
 		border: 1px solid darken(@preview-grey, 10%);
 		.aj-imp-browser-header {
-			padding: 1em;
-			background: #fff;
+			padding: 1em 1em 0;
 			border-radius: 6px 6px 0 0;
-			margin: 0 0 1.5em;
+			margin: 0;
 			box-shadow: 0 4px 4px -4px @dash-grey;
+			background: lighten(@preview-grey, 1%); /* Old browsers */
+			background: -moz-linear-gradient(top,  #ededed 0%, #f6f6f6 35%, #ffffff 68%, #fcfcfc 100%); /* FF3.6+ */
+			background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ededed), color-stop(35%,#f6f6f6), color-stop(68%,#ffffff), color-stop(100%,#fcfcfc)); /* Chrome,Safari4+ */
+			background: -webkit-linear-gradient(top,  #ededed 0%,#f6f6f6 35%,#ffffff 68%,#fcfcfc 100%); /* Chrome10+,Safari5.1+ */
+			background: -o-linear-gradient(top,  #ededed 0%,#f6f6f6 35%,#ffffff 68%,#fcfcfc 100%); /* Opera 11.10+ */
+			background: -ms-linear-gradient(top,  #ededed 0%,#f6f6f6 35%,#ffffff 68%,#fcfcfc 100%); /* IE10+ */
+			background: linear-gradient(to bottom,  #ededed 0%,#f6f6f6 35%,#ffffff 68%,#fcfcfc 100%); /* W3C */
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ededed', endColorstr='#fcfcfc',GradientType=0 ); /* IE6-9 */
 			.aj-imp-browser-dots {
 				list-style: none;
 				margin: 0;
@@ -743,13 +752,44 @@ a {
 				margin: 0 0 0.8em;
 				color: lighten(@3-grey, 30%);
 				font-weight: 700;
+				.bootstrap-select {
+					margin-bottom: 0.25em;
+					.dropdown-toggle {
+						background: transparent;
+						color: lighten(@3-grey, 20%);
+						font-size: 1.2em;
+						padding: 0 0 0.25em;
+						border-radius: 0;
+						border-bottom: 1px solid lighten(@dash-grey, 20%);
+						text-transform: uppercase;
+						.caret {
+							border-top-color: lighten(@dash-grey, 10%);
+						}
+						&:hover {
+							border-bottom-color: @dash-grey;
+							.caret {
+								border-top-color: @dash-grey;
+							}
+						}
+					}
+					.dropdown-menu {
+						text-align: left;
+						.selected {
+							a:focus {
+								background: @orange;
+							}
+						}
+					}
+				}
 			}
 			.add-new-page {
-				background: #fff;
-				border: 1px solid @dash-grey;
+				background: transparent;
 				color: @blue-grey;
+				font-size: 0.8em;
+				margin: 0 1em;
 				&:hover {
-					background: @preview-grey;
+					background: transparent;
+					color: @orange;
 				}
 			}
 			.aj-imp-page-publish {
@@ -814,8 +854,10 @@ a {
 				}
 			}
 			.second {
-				border-top: 1px solid darken(@preview-grey, 10%);
-				padding: 1em 0 0;
+				border: 1px solid darken(@preview-grey, 10%);
+				border-bottom: 0;
+				padding: 1em 0;
+				background: #fff;
 				.aj-imp-browser-address-bar {
 					background: #fff;
 					border-radius: 4px;
@@ -824,8 +866,11 @@ a {
 					border: 1px solid darken(@preview-grey, 5%);
 					cursor: default;
 					border-radius: 3px;
+					display: inline-block;
+					width: 58%;
 					.page-slug-edit {
-						width: 50%;
+						width: 80%;
+						display: inline-block;
 						color: lighten(@dash-grey, 10%);
 						padding: 0.2em;
 						border: 1px solid transparent;
@@ -834,8 +879,8 @@ a {
 							border: 1px dotted @dash-grey;
 						}
 						&:focus {
-							background: @preview-grey;
 							color: @3-grey;
+							background: @preview-grey;
 						}
 					}
 					.bootstrap-select {
@@ -926,8 +971,50 @@ a {
 						background: @orange;
 						color: #fff;
 						text-transform: uppercase;
+						margin-left: 1em;
 						&:hover {
 							background: lighten(@orange, 20%);
+						}
+					}
+				}
+			}
+			.page-name {
+				display: inline-block;
+				width: 40%;
+				padding: 0.3em;
+				border-right: 1px solid darken(@preview-grey, 10%);
+				color: @3-grey;
+				margin-right: 1%;
+				font-size: 1.1em;
+				.page-name-content {
+					.page-name-input {
+						border: 1px solid transparent;
+						border-radius: 3px;
+						color: darken(@dash-grey, 20%);
+						padding: 0.2em;
+						background: transparent;
+						&:hover, &:focus {
+							border: 1px dotted @dash-grey;
+						}
+						&:focus {
+							background: @preview-grey;
+							color: @3-grey;
+							& + .btn-update-pg-name {
+								visibility: visible;
+							}
+						}
+					}
+					.btn-update-pg-name {
+						color: @blue-grey;
+						border: 1px solid lighten(@dash-grey, 20%);
+						background: @preview-grey;
+						padding: 0.33em 0.5em;
+						border-radius: 3px;
+						margin-left: 0.2em;
+						font-size: 0.88em;
+						visibility: hidden;
+						&:hover, &:focus {
+							background: #fff;
 						}
 					}
 				}
@@ -948,7 +1035,7 @@ a {
 
 /****Builder Drag & Drop Containers & Columns****/
 .aj-imp-builder-layout-mode {
-	padding: 1em 0;
+	padding: 0;
 	min-height: 500px;
 	position:relative; 
 	.aj-imp-add-row, .ui-sortable-placeholder {
@@ -1258,6 +1345,10 @@ a {
 					}
 				}
 			}
+			.field-error {
+				color: @error-red;
+				padding: 0.5em 0;
+			}
 		}
 	}
 }
@@ -1552,6 +1643,7 @@ a {
 		font-size: 1.1em;
 		font-weight: 700;
 		border-bottom: 1px solid @dash-grey;
+		border-radius: 4px 4px 0 0;
 	}
 	.panel-group {
 		.panel {
@@ -1661,7 +1753,7 @@ a {
 		border-top: 1px solid darken(@preview-grey, 10%);
 	}
 	#add-slide-region {
-		margin: 0.5em 0;
+		margin: 0.5em;
 		#add-slide-form-region {
 			padding-top: 0.5em;
 			.add-image-to-slide {
@@ -1741,7 +1833,7 @@ a {
               display: none;
               position: absolute;
               bottom: 10px;
-              color: #ff3333;
+              color: @error-red;
               cursor: pointer;
               font-size: 0.8em;
             }
@@ -2050,7 +2142,7 @@ a {
 	position: absolute;
 	right: 1%;
 	top: 25%;
-	width: 220px;
+	width: 180px;
 	height: 50px;
 	.trash-label {
 		display: block;
@@ -2441,43 +2533,60 @@ a {
 		}
 		.slider-right-region {
 			.tab-content {
-				#slides-list-region {
-					ul {
-						list-style: none;
-						padding: 0;
-						.slide {
-							margin: 0.5em;
-							padding: 0.4em 0.2em;
-							border: 1px solid darken(@preview-grey, 10%);
-							.move {
-								position: relative;
-								height: 100px;
-								.move-icon {
-									background: darken(@preview-grey, 10%);
-									position: absolute;
-									top: 0;
-									bottom: 0;
-									right: 0;
-									left: 15px;
-									text-align: center;
-									.glyphicon {
-										color: @dash-grey;
-									}
-								}
-							}
-							.thumb {
-								img {
-									width: 100%;
-									max-width: 100%;
-									height: auto;
-								}
-							}
-						}
-					}
-				}
+				
 			}
 		}
 	}
+}
+
+#slides-list-region {
+	border: 1px solid lighten(@dash-grey, 10%);
+	border-radius: 4px;
+	.move {
+		position: relative;
+		height: 100px;
+		.move-icon {
+			background: darken(@preview-grey, 10%);
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			right: 0;
+			left: 15px;
+			text-align: center;
+			.glyphicon {
+				color: @dash-grey;
+			}
+		}
+	}
+	.thumb {
+		img {
+			width: 100%;
+			max-width: 100%;
+			height: auto;
+		}
+	}
+	.imgname {
+		color: @3-grey;
+		&:hover {
+			color: @3-grey;
+		}
+	}
+	.remove-slide {
+		color: @error-red;
+		cursor: pointer;
+		&:hover {
+			color: darken(@error-red, 10%);
+		}
+	}
+}
+#slides-info {
+	background: @preview-grey;
+	padding: 1em;
+	margin-right: 0.5em;
+	font-size: 1.3em;
+	color: darken(@dash-grey, 10%);
+	border: 2px solid lighten(@dash-grey, 20%);
+	border-radius: 4px;
 }
 
 .moveable {
@@ -2552,6 +2661,9 @@ a {
 #slides-list-region, #add-slide-region, .aj-imp-block-button.add-new-slide {
 	margin-left: 0.5em;
 	margin-right: 0.5em;
+}
+.aj-imp-block-button.add-new-slide {
+	margin-left: 0;
 }
 
 .gallery-title {

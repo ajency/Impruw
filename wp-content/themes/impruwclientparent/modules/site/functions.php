@@ -16,19 +16,19 @@ function get_site_details( $site_id = 0 ) {
     $logo_id    = get_option( 'logo_id', 0 );
     $image_path = get_post_field( 'guid', $logo_id );
 
-    return array( 'site_id' => $site_id,
-                  'site_domain' => get_site_domain( $site_id ),
-                  'site_name' => get_option( 'blogname' ),
-                  'admin_email' => get_option( 'admin_email' ),
-                  'street' => get_option( 'street', '' ),
-                  'postal_code' => get_option( 'postal_code', '' ),
-                  'city' => get_option( 'city', '' ),
-                  'logo_id' => $logo_id,
-                  'logo_url' => $image_path, 'country' => get_option( 'country', '' ),
-                  'other_emails' => get_option( 'other_emails', array() ),
+    return array( 'site_id'        => $site_id,
+                  'site_domain'    => get_site_domain( $site_id ),
+                  'site_name'      => get_option( 'blogname' ),
+                  'admin_email'    => get_option( 'admin_email' ),
+                  'street'         => get_option( 'street', '' ),
+                  'postal_code'    => get_option( 'postal_code', '' ),
+                  'city'           => get_option( 'city', '' ),
+                  'logo_id'        => $logo_id,
+                  'logo_url'       => $image_path, 'country' => get_option( 'country', '' ),
+                  'other_emails'   => get_option( 'other_emails', array() ),
                   'other_phone_no' => get_option( 'other_phone_no', array() ),
-                  'facebook' => get_option( 'facebook', '' ),
-                  'twitter' => get_option( 'twitter', '' ) );
+                  'facebook'       => get_option( 'facebook', '' ),
+                  'twitter'        => get_option( 'twitter', '' ) );
 }
 
 /**
@@ -59,19 +59,21 @@ function get_site_domain( $site_id ) {
  * @param type $site_id
  * @param type $theme_id
  */
-function assign_theme_to_site( $theme_id, $clone_pages = FALSE ) {
+function assign_theme_to_site( $theme_post_id, $clone_pages = FALSE ) {
 
     // all themes are stored on main site
     switch_to_blog( 1 );
 
     // check if passed theme_id exists
-    $theme = get_post( $theme_id );
+    $theme = get_post( $theme_post_id );
 
     // if theme does not exists
-    if ( null === $theme )
+    if ( null === $theme ){
+        restore_current_blog();
         return FALSE;
+    }
 
-    $theme_site_id = get_post_meta( $theme_id, 'linked_theme', TRUE );
+    $theme_site_id = get_post_meta( $theme_post_id, 'linked_theme', TRUE );
 
     $theme_name = get_theme_name( $theme_site_id );
 
@@ -96,13 +98,14 @@ function assign_theme_to_site( $theme_id, $clone_pages = FALSE ) {
     clone_site( $theme_site_id );
 }
 
+
 /**
  * get language code for a given language name
  * returns language code
  */
-function get_language_code($language_name){
+function get_language_code( $language_name ) {
 
-    switch($language_name){
+    switch ( $language_name ) {
         case "English" :
             $language_code = "en";
             break;
@@ -178,7 +181,13 @@ return $all_pages_array;
  */
 function clone_pages() {
 
-    $pages = array( array( 'post_title' => 'Home' ), array( 'post_title' => 'About Us' ), array( 'post_title' => 'Contact Us' ), array( 'post_title' => 'Rooms' ), array( 'post_title' => 'Single Room' ), array( 'post_title' => 'Gallery' ) );
+    $pages = array( array( 'post_title' => 'Home' ),
+                    array( 'post_title' => 'About Us' ),
+                    array( 'post_title' => 'Rooms' ),
+                    array( 'post_title' => 'Single Room' ),
+                    array( 'post_title' => 'Gallery' ),
+                    array( 'post_title' => 'Contact Us' ) );
+
 
     add_pages_to_site( $pages );
 
@@ -196,15 +205,25 @@ function add_menus_to_site() {
     //create the menu
     $menu_id = wp_create_nav_menu( $name );
 
-    $skip_pages = array( 'Coming Soon', 'Single Room', 'Support' );
+    if( is_wp_error( $menu_id ) )
+        return;
 
-    foreach ( get_all_menu_pages() as $page ):
+    $skip_pages = array( 'Coming Soon', 'Single Room', 'Support', 'Sign In' );
+
+    foreach ( array_reverse( get_all_menu_pages() ) as $page ):
 
         if ( in_array( $page->post_title, $skip_pages ) )
             continue;
 
         //then add the actuall link/ menu item and you do this for each item you want to add
-        wp_update_nav_menu_item( $menu_id, 0, array( 'menu-item-title' => $page->post_title, 'menu-item-classes' => $page->post_name, 'menu-item-url' => get_permalink( $page->ID ), 'menu-item-status' => 'publish' ) );
+        wp_update_nav_menu_item( $menu_id, 0, array( 'menu-item-title' => $page->post_title,
+                                                     'menu-item-classes' => $page->post_name,
+                                                     'menu-item-url' => '',
+                                                     'menu-item-object' => 'page',
+                                                     'menu-item-type' => 'post_type',
+                                                     'menu-item-object-id' => $page->ID,
+                                                     'menu-item-status' => 'publish' ) );
+
 
     endforeach;
 
@@ -235,7 +254,11 @@ function add_pages_to_site( $pages, $user_id = 0 ) {
     foreach ( $pages as $page ) {
 
         // page array
-        $page_arr = array( 'post_title' => $page[ 'post_title' ], 'post_content' => '', 'post_status' => 'publish', 'post_author' => $user_id, 'post_type' => 'page' );
+        $page_arr = array( 'post_title'   => $page[ 'post_title' ],
+                           'post_content' => '',
+                           'post_status'  => 'publish',
+                           'post_author'  => $user_id,
+                           'post_type'    => 'page' );
 
         // Insert the post into the database
         $post_id = wp_insert_post( $page_arr );
@@ -244,8 +267,8 @@ function add_pages_to_site( $pages, $user_id = 0 ) {
             set_home_page( $post_id );
 
         // assign the template if passed
-        $template = sanitize_title( $page[ 'post_title' ] ) . '.php';
-        update_post_meta( $post_id, '_wp_page_template', $template );
+        $template = sanitize_title( $page[ 'post_title' ] );
+        update_post_meta( $post_id, 'impruw_page_template', $template );
     }
 
     return TRUE;
@@ -268,13 +291,25 @@ function set_home_page( $post_id ) {
  */
 function clone_site( $theme_site_id ) {
 
+
     clone_header_footer( $theme_site_id );
 
-    $pages = get_all_menu_pages();
+    $pages = new WP_query( array( 'post_type' => 'page',
+                                  'posts_per_page' => -1,
+                                  'meta_query' => array(
+                                      array(
+                                        'key' => 'impruw_page_template',
+                                        'value' => array('home','about-us','single-room','contact-us','rooms',
+                                            'gallery'),
+                                        'compare' => 'IN'
+                                      )
+                                  )
+                                ));
 
-    foreach ( $pages as $page ) {
-        clone_page( $theme_site_id, $page->ID, $page->post_title );
-    }
+    while($pages->have_posts()):
+        $pages->the_post();
+        clone_page( $theme_site_id, get_the_ID() );
+    endwhile;
 }
 
 /**
@@ -332,16 +367,23 @@ function backup_page( $page ) {
  * @param type $post_id
  * @param type $file_name
  */
-function clone_page( $clone_blog, $post_id, $name ) {
+function clone_page( $clone_blog, $post_id ) {
 
-    switch_to_blog( $clone_blog );
-    $page = get_page_by_title( $name );
+    $impruw_page_template_name = get_post_meta($post_id, 'impruw_page_template', true);
 
-    if ( !isset( $page->ID ) )
+    if($impruw_page_template_name === '')
         return;
 
-    $data = get_json_to_clone( 'page-json', $page->ID );
+    switch_to_blog( $clone_blog );
 
+    $page = get_page_by_impruw_page_template( $impruw_page_template_name );
+
+    if ( $page === false ){
+        restore_current_blog();
+        return;
+    }
+
+    $data = get_json_to_clone( 'page-json', $page->ID );
     restore_current_blog();
 
     $data = set_json_to_site( $data );
@@ -349,15 +391,32 @@ function clone_page( $clone_blog, $post_id, $name ) {
     store_unused_elements( $post_id );
     add_page_json( $post_id, $data );
 
-    delete_all_revisions($post_id);
+    delete_all_revisions( $post_id );
     update_page_autosave( $post_id, $data );
 }
 
-function delete_all_revisions($post_id){
+function get_page_by_impruw_page_template( $impruw_page_template_name ){
+
+    global $wpdb;
+
+    $query = $wpdb->prepare( "SELECT post_id FROM {$wpdb->postmeta}
+                              WHERE meta_key=%s AND meta_value=%s", 'impruw_page_template',
+        $impruw_page_template_name );
+
+    $page_id = $wpdb->get_var( $query );
+
+    if(!is_null($page_id) && (int)$page_id > 0)
+        return get_post($page_id);
+
+    return false;
+}
+
+function delete_all_revisions( $post_id ) {
+
     // all revisions and autosaves
     $revisions = wp_get_post_revisions( $post_id, array( 'order' => 'ASC' ) );
 
-    for ( $i = 0; isset( $revisions[$i] ); $i++ ) {
+    for ( $i = 0; isset( $revisions[ $i ] ); $i++ ) {
         wp_delete_post_revision( $revisions[ $i ]->ID );
     }
 }
@@ -378,6 +437,7 @@ function clone_header_footer( $theme_site_id ) {
     $data = set_json_to_site( $header );
     update_option( 'theme-header-autosave', $data );
     update_option( 'theme-header', $data );
+
     $data = set_json_to_site( $footer );
     update_option( 'theme-footer-autosave', $data );
     update_option( 'theme-footer', $data );
@@ -420,8 +480,7 @@ function update_site( $formdata ) {
         $update_return = update_additional_policies( $formdata );
 
         return $update_return;
-    }
-    else{
+    } else {
         $update_return = update_currency( $formdata );
 
         return $update_return;
@@ -510,6 +569,7 @@ function update_additional_policies( $formdata ) {
 
     return $return_array;
 }
+
 /**
  * Function to update the currency
  *

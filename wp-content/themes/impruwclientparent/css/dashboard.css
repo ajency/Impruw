@@ -1325,68 +1325,6 @@ form .aj-imp-submit:hover {
   font-size: 0.9em;
   color: #aaaaaa;
 }
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .aj-imp-image-header {
-  padding: 10px 15px;
-  margin: 0 0 1em;
-  background: #f3f3f3;
-  color: #333333;
-  font-size: 1.1em;
-  font-weight: 700;
-  border-bottom: 1px solid #aaaaaa;
-}
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel {
-  border-radius: 0;
-  border: 0;
-  border-bottom: 1px solid #c3c3c3;
-  background: none;
-  box-shadow: none;
-}
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-heading {
-  background: none;
-  border: 0;
-}
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-heading > a {
-  display: block;
-  outline: 0;
-  color: #ff7e00;
-}
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-heading > a .imgthumb img {
-  height: 100%;
-  width: auto;
-}
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-heading > a .imgname,
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-heading > a .imgdate {
-  font-weight: bold;
-  padding: 0.5em 15px;
-}
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-heading > a .imgactions {
-  text-align: center;
-}
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-heading > a .imgactions .btn {
-  padding: 5px 8px 6px;
-  margin-right: 1em;
-}
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-heading > a .imgactions .btn:hover {
-  background: #ff7e00;
-}
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-heading > a.collapsed {
-  color: #aaaaaa;
-}
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-heading:hover {
-  background: #f3f3f3;
-}
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group .panel .panel-body {
-  border: 0;
-  padding: 1em 0;
-}
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group#settings-accordion .panel .panel-heading > a .imgthumb span[class^="icon"],
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group#map-settings-accordion .panel .panel-heading > a .imgthumb span[class^="icon"] {
-  font-size: 2em;
-}
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group#settings-accordion .panel .panel-heading > a .imgactions,
-.modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .panel-group#map-settings-accordion .panel .panel-heading > a .imgactions {
-  text-align: right;
-}
 .modal.wide-modal .modal-dialog .modal-content .modal-body .tab-content .aj-imp-block-button {
   margin: 1em 0;
 }
@@ -1451,7 +1389,7 @@ form .aj-imp-submit:hover {
   border-top: 1px solid #dadada;
 }
 .modal #add-slide-region {
-  margin: 0.5em 0;
+  margin: 0.5em;
 }
 .modal #add-slide-region #add-slide-form-region {
   padding-top: 0.5em;
@@ -1632,6 +1570,69 @@ form .aj-imp-submit:hover {
 }
 .modal .media-select .media-manager-select:hover {
   background: #ff9833;
+}
+.modal .panel-group .panel {
+  border-radius: 0;
+  border: 0;
+  border-bottom: 1px solid #c3c3c3;
+  background: none;
+  box-shadow: none;
+}
+.modal .panel-group .panel .panel-heading {
+  background: none;
+  border: 0;
+}
+.modal .panel-group .panel .panel-heading > a {
+  display: block;
+  outline: 0;
+  color: #ff7e00;
+}
+.modal .panel-group .panel .panel-heading > a .imgthumb img {
+  height: 100%;
+  width: auto;
+}
+.modal .panel-group .panel .panel-heading > a .imgname,
+.modal .panel-group .panel .panel-heading > a .imgdate {
+  font-weight: bold;
+  padding: 0.5em 15px;
+}
+.modal .panel-group .panel .panel-heading > a .imgactions {
+  text-align: center;
+}
+.modal .panel-group .panel .panel-heading > a .imgactions .btn {
+  padding: 5px 8px 6px;
+  margin-right: 1em;
+}
+.modal .panel-group .panel .panel-heading > a .imgactions .btn:hover {
+  background: #ff7e00;
+}
+.modal .panel-group .panel .panel-heading > a.collapsed {
+  color: #aaaaaa;
+}
+.modal .panel-group .panel .panel-heading:hover {
+  background: #f3f3f3;
+}
+.modal .panel-group .panel .panel-body {
+  border: 0;
+  padding: 1em 0;
+}
+.modal .panel-group#settings-accordion .panel .panel-heading > a .imgthumb span[class^="icon"],
+.modal .panel-group#map-settings-accordion .panel .panel-heading > a .imgthumb span[class^="icon"] {
+  font-size: 2em;
+}
+.modal .panel-group#settings-accordion .panel .panel-heading > a .imgactions,
+.modal .panel-group#map-settings-accordion .panel .panel-heading > a .imgactions {
+  text-align: right;
+}
+.modal .aj-imp-image-header {
+  padding: 10px 15px;
+  margin: 0 0 1em;
+  background: #f3f3f3;
+  color: #333333;
+  font-size: 1.1em;
+  font-weight: 700;
+  border-bottom: 1px solid #aaaaaa;
+  border-radius: 4px 4px 0 0;
 }
 /****File Upload Plugin Styles****/
 .btn-file {
@@ -2718,6 +2719,9 @@ form .aj-imp-submit:hover {
   margin-left: 0.5em;
   margin-right: 0.5em;
 }
+.aj-imp-block-button.add-new-slide {
+  margin-left: 0;
+}
 .add-gallery-images {
   background: #849fb0;
   border-radius: 0;
@@ -2729,6 +2733,56 @@ form .aj-imp-submit:hover {
   padding: 0;
   margin: 1em 0;
   list-style: none;
+}
+#slides-list-region {
+  border: 1px solid #c3c3c3;
+  border-radius: 4px;
+}
+#slides-list-region .move {
+  position: relative;
+  height: 100px;
+}
+#slides-list-region .move .move-icon {
+  background: #dadada;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 15px;
+  text-align: center;
+}
+#slides-list-region .move .move-icon .glyphicon {
+  color: #aaaaaa;
+}
+#slides-list-region .thumb img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}
+#slides-list-region .imgname {
+  color: #333333;
+}
+#slides-list-region .imgname:hover {
+  color: #333333;
+}
+#slides-list-region .remove-slide {
+  color: #f21515;
+  cursor: pointer;
+}
+#slides-list-region .remove-slide:hover {
+  color: #c90b0b;
+}
+#slides-info {
+  background: #f3f3f3;
+  padding: 1em;
+  margin-right: 0.5em;
+  font-size: 1.3em;
+  color: #919191;
+  border: 2px solid #dddddd;
+  border-radius: 4px;
+}
+.moveable {
+  cursor: move;
 }
 /**** Isotope Filtering ****/
 .isotope-item {

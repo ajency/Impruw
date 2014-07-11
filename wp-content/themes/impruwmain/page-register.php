@@ -148,7 +148,7 @@ get_header();
                             <?php echo __('By signing up you agree to our terms of service.', 'impruwmain'); ?>
                             <div class="p-messages"></div> 
                         </label><br>
-                        <a href="<?php echo get_bloginfo('url'); ?>/terms-of-service/">Read our Terms of Service</a>
+                        <a href="<?php echo get_bloginfo('url'); ?>/terms-of-service/"><?php _e('Read our Terms of Service','impruwmain')?></a>
                     </div>
                 </div>
 

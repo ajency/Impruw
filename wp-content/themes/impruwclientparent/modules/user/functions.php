@@ -45,6 +45,19 @@ function update_user_password( $formdata ) {
     wp_send_json( array( 'code' => 'OK', 'redirect_url' => $redirect_url ) );
 }
 
+function change_user_password( $user_email, $password ) {
+
+    $user = get_user_by( 'email', $user_email );
+
+    reset_password( $user, $password );
+
+    $blog = get_active_blog_for_user( $user->ID);
+    $site_url = $blog->siteurl;
+
+    wp_send_json( array( 'code' => 'OK',
+                         'msg'=>'Password updated','url' => $site_url,
+                         'email' =>rawurlencode($user_email) ));
+}
 
 /**
  *
@@ -91,8 +104,95 @@ function update_user_general( $user_id, $formdata ) {
     }
 
     wp_send_json( array( 'code' => 'OK',
-                         'ID' => $user_id,
-                         'display_name' =>$display_name,
-                         'new_feature_alert' => $feature_alert ) );
+        'ID' => $user_id,
+        'display_name' => $display_name,
+        'new_feature_alert' => $feature_alert ) );
+
+}
+
+/**
+ * Function to reset user password
+ *
+ * @param $user_email
+ */
+function reset_user_password( $user_email ) {
+
+    $user_data = get_user_by( 'email', $user_email );
+
+    //take the user credentials  from the user object
+    $user_login = $user_data->user_login;
+    $user_id = $user_data->ID;
+
+    //get the hashed user activation key
+    $key = generate_hashed_user_activation_key( $user_login );
+
+    $msg = 'Kindly check your email for resetting your password';
+
+    send_password_reset_mail( $user_login, $user_id, $key );
+
+    wp_send_json( array( 'code' => 'OK', 'msg' => $msg ) );
+}
+
+/*
+* Function to generate a new hashed user activation key
+*
+ * @return string $hashed_user_activation_key
+*/
+function generate_hashed_user_activation_key( $user_login ) {
+
+    //generate the random key to be used for new user activation key
+    $key = wp_generate_password( 20, false );
+
+    if ( empty( $wp_hasher ) ) {
+        require_once ABSPATH . 'wp-includes/class-phpass.php';
+        $wp_hasher = new PasswordHash( 8, true );
+    }
+    $hashed_key = $wp_hasher->HashPassword( $key );
+
+    //insert the hashed user activation key in db for the user
+    update_new_user_activation_key_db( $hashed_key, $user_login );
+
+    return $key;
+}
+
+
+/**
+ * Function to update user activation key in db for the user with the
+ *
+ * new hashed user activation key
+ *
+ * @param $hashed_user_activation_key
+ * @param $user_login
+ */
+function update_new_user_activation_key_db( $hashed_user_activation_key, $user_login ) {
+    global $wpdb;
+
+    //update user activation key
+    $wpdb->update( $wpdb->users,
+        array( 'user_activation_key' => $hashed_user_activation_key ),
+        array( 'user_login' => $user_login ) );
+}
+
+/**
+ * Send mail to user for password reset
+ */
+function send_password_reset_mail( $user_login, $user_id, $key ) {
+    $blog = get_active_blog_for_user( $user_id );
+    $blog_url = $blog->siteurl;
+
+    $link =$blog_url."/reset-password?action=rp&key=".$key."&login=".rawurlencode( $user_login );
+
+    $title = sprintf( __( 'Password Reset' ) );
+
+    $message = __( 'Someone requested that the password be reset for the following account:' ) . "\r\n\r\n";
+    $message .= $blog_url . "\r\n\r\n";
+    $message .= sprintf( __( 'Username: %s' ), $user_login ) . "\r\n\r\n";
+    $message .= __( 'If this was a mistake, just ignore this email and nothing will happen.' ) . "\r\n\r\n";
+    $message .= __( 'To reset your password, visit the following address:' ) . "\r\n\r\n";
+    $message .= '<' .$link . ">\r\n";
+
+    if ( $message && !wp_mail( $user_login, wp_specialchars_decode( $title ), $message ) )
+        wp_die( __( 'The e-mail could not be sent.' ) . "<br />\n" . __( 'Possible reason: your host may have disabled the mail() function.' ) );
+
 
 }

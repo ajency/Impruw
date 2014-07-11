@@ -64,28 +64,43 @@ function check_update( $formdata ) {
 }
 
 /**
- * Function to change the user password
+ * Function to reset user password
  *
- * @returns USer ID
  */
-//function ajax_update_password() {
-//
-//    $formdata = $_POST;
-//
-//    unset( $formdata[ 'action' ] );
-//
-//    $current_password = $formdata[ 'formdata' ][ 'currentpassword' ];
-//    $new_password = $formdata[ 'formdata' ][ 'newpassword' ];
-//
-//    $p_match = check_password_match( $current_password );
-//
-//    if ( $p_match == 0 )
-//        return 0;
-//
-//    wp_set_password( $new_password, get_current_user_id() );
-//    wp_send_json( array( 'code' => 'OK', 'data' => get_current_user_id() ) );
-//}
-//
-//add_action( 'wp_ajax_update-password', 'ajax_update_password' );
+function ajax_reset_password() {
+
+    unset( $_POST[ 'action' ] );
+
+    $user_email = trim( $_POST[ 'email' ] );
+
+    $email_exists = email_exists( $user_email );
+
+    if ( $email_exists ) {
+
+        reset_user_password( $user_email );
+    } else {
+        wp_send_json( array( 'code' => 'ERROR', 'msg' => 'Email Id does not exists' ) );
+    }
+}
+
+add_action( 'wp_ajax_nopriv_reset-password', 'ajax_reset_password' );
+
+/**
+ * Function to change user password after forgot password reset
+ *
+ */
+function ajax_change_password() {
+
+    unset( $_POST[ 'action' ] );
+
+    if ( isset( $_POST[ 'newPassword' ] ) && $_POST[ 'newPassword' ] != $_POST[ 'confirmPassword' ] )
+        wp_send_json( array( 'code' => 'ERROR', 'msg' => 'Passwords do not match' ) );
+
+    $user_email = trim( $_POST[ 'userEmail' ] );
+
+    change_user_password( $user_email , $_POST[ 'newPassword' ] );
+}
+
+add_action( 'wp_ajax_nopriv_change-password', 'ajax_change_password' );
 
 
