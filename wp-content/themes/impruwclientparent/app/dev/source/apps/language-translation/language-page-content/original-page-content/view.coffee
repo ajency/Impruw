@@ -13,7 +13,7 @@ define ['app'
                             <div class="form-group">
                                 <label class="col-sm-3 control-label" for="">{{element}}</label>
                                 <div class="col-sm-9 col-sm-offset-3">
-                                    <p class="original">
+                                    <p class="original" tabindex="1">
                                         {{content.en}}
                                     </p>
                                 </div>

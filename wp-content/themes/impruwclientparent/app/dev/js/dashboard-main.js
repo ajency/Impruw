@@ -33,7 +33,8 @@ require.config({
     scrollsections: 'plugins/ajency.scrolldots',
     minicolors: 'plugins/jquery.minicolors.min',
     additionalmethod: 'plugins/validate.additional.methods',
-    timepicker: 'plugins/jquery.timepicker.min'
+    timepicker: 'plugins/jquery.timepicker.min',
+    ckeditor: 'plugins/ckeditor'
   },
   shim: {
     underscore: {

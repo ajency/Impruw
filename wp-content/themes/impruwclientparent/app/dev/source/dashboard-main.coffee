@@ -37,6 +37,7 @@ require.config
         minicolors: 'plugins/jquery.minicolors.min'
         additionalmethod: 'plugins/validate.additional.methods'
         timepicker: 'plugins/jquery.timepicker.min'
+        ckeditor: 'plugins/ckeditor'
 
     shim:
         underscore:

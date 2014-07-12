@@ -40,6 +40,15 @@ define(['app', 'text!apps//language-translation/language-page-content/translated
         return this.trigger("page:element:updated", newElementContent);
       };
 
+      TranslatedPageItemView.prototype.onShow = function() {
+        this.editor = CKEDITOR.inline(document.getElementById('translated-element-content'));
+        return this.editor.setData(_.stripslashes(this.model.get('content')[WPML_DEFAULT_LANG]));
+      };
+
+      TranslatedPageItemView.prototype.onClose = function() {
+        return this.editor.destroy();
+      };
+
       return TranslatedPageItemView;
 
     })(Marionette.ItemView);

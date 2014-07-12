@@ -3645,6 +3645,24 @@ form .aj-imp-submit:hover {
   margin-bottom: 0;
   border-bottom: 1px solid #aaaaaa;
   padding: 8px 12px;
+  height: 100px;
+  max-height: 100px;
+  overflow: hidden;
+  -moz-transition: 0.3s;
+  -ms-transition: 0.3s;
+  -o-transition: 0.3s;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+.language .aj-imp-widget-content .tab-content .original:focus,
+.billing-container .aj-imp-widget-content .tab-content .original:focus {
+  height: auto;
+  min-height: 100px;
+  max-height: 300px;
+}
+.language .aj-imp-widget-content .tab-content .original.title,
+.billing-container .aj-imp-widget-content .tab-content .original.title {
+  height: auto;
 }
 .language .form-horizontal,
 .billing-container .form-horizontal {
@@ -3747,9 +3765,23 @@ form .aj-imp-submit:hover {
 }
 .language .trans-field .trans-action {
   position: absolute;
-  top: 0;
+  bottom: 0;
   right: -4em;
   opacity: 0;
+}
+.language .trans-field .cke_textarea_inline {
+  height: 100px;
+  background: #fff;
+  border-bottom: 1px solid #aaaaaa;
+  padding: 8px 12px;
+}
+.language .trans-field .cke_textarea_inline:focus {
+  border-bottom-color: #ff7e00;
+  box-shadow: inset 0 0 3px #aaaaaa;
+  outline: none;
+}
+.language .trans-field .cke_textarea_inline:focus ~ .trans-action {
+  opacity: 1;
 }
 .language .trans-field .form-control:focus ~ .trans-action {
   opacity: 1;

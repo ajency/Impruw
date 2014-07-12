@@ -25,4 +25,5 @@ define [
     'polyglot'
     'additionalmethod'
     'timepicker'
+    'ckeditor'
 ], ->

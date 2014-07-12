@@ -36,6 +36,21 @@ define ['app'
                 newElementContent = @$el.find('#translated-element-content').val()
                 @trigger "page:element:updated", newElementContent
 
+            # initialize the CKEditor for the text element on show
+            # used setData instead of showing in template. this works well
+            # using template to load content add the html tags in content
+            # hold the editor instance as the element property so that
+            # we can destroy it on close of element
+            onShow: ->
+                @editor = CKEDITOR.inline document.getElementById 'translated-element-content'
+                @editor.setData _.stripslashes @model.get('content')[WPML_DEFAULT_LANG]
+
+            # destroy the Ckeditor instance to avoiid memory leaks on close of element
+            # this.editor will hold the reference to the editor instance
+            # Ckeditor has a destroy method to remove a editor instance
+            onClose: ->
+                @editor.destroy()
+
 
         class Views.TranslatedPageView extends Marionette.CompositeView
 
