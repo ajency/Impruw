@@ -17,10 +17,10 @@ class HeaderFooterJsonGetter {
 
     private $site_id;
 
-    function __construct( $section ) {
+    function __construct( $section, $site_id ) {
 
         $this->section = $section;
-        $this->site_id   = get_current_blog_id();
+        $this->site_id   = $site_id;
         $this->json = $this->get_section_json_from_db();
     }
 

@@ -17,10 +17,10 @@ class ThemePageGetter {
 
     private $site_id;
 
-    function __construct( $page_name ) {
+    function __construct( $template_name, $site_id ) {
 
-        $this->page_name = $page_name;
-        $this->site_id   = get_current_blog_id();
+        $this->template_name = $template_name;
+        $this->site_id   = $site_id;
         $this->page_json = $this->get_page_json_from_db();
     }
 
@@ -38,7 +38,7 @@ class ThemePageGetter {
 
         $query = $wpdb->prepare( "SELECT elements FROM {$wpdb->base_prefix}theme_export
                                  WHERE object_type=%s
-                                 AND object_name=%s AND site_id=%d", 'page', $this->page_name, $this->site_id );
+                                 AND object_name=%s AND site_id=%d", 'page', $this->template_name, $this->site_id );
 
         $elements = $wpdb->get_var( $query );
 
