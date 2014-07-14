@@ -147,7 +147,7 @@ function get_all_childsite_pages(){
 
 
         //TODO check language based slugs, right now check is made for english pages only
-        if($page_slug_based_on_lang=='support'|| $page_slug_based_on_lang=='coming-soon'||  $page_slug_based_on_lang=='dashboard' ||  $page_slug_based_on_lang=='dashboard'||  $page_slug_based_on_lang=='site-builder'|| $page_slug_based_on_lang=='sign-in' || $page_slug_based_on_lang=='sample-page' || $page_slug_based_on_lang==null){
+        if($page_slug_based_on_lang=='support'|| $page_slug_based_on_lang=='coming-soon'||  $page_slug_based_on_lang=='dashboard' ||  $page_slug_based_on_lang=='dashboard'||  $page_slug_based_on_lang=='site-builder'|| $page_slug_based_on_lang=='sign-in' || $page_slug_based_on_lang=='sample-page' || $page_slug_based_on_lang=='single-room' || $page_slug_based_on_lang==null){
            $is_child_site_page = false;
        }
         else{
@@ -155,7 +155,7 @@ function get_all_childsite_pages(){
         }
 
         //TODO could be titled differently in other languages. check that. Will depend on what names are given at the time of first creating the 6 default posts
-        if($page_title_based_on_lang == "Rooms -nb" || $page_title_based_on_lang == "Rooms -en"){
+        if($page_slug_based_on_lang == "rooms" || $page_slug_based_on_lang == "rooms-nb"){
             $is_room_page = true;
         }
 
