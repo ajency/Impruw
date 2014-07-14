@@ -48,11 +48,11 @@ define [ 'app', 'controllers/base-controller',
                 @$el.parent().find( '.alert' ).remove()
                 @$el.parent().prepend "<div class=\"alert alert-success\">" + _.polyglot.t( "New Date range added" ) + "</div>"
                 @$el.find( 'input' ).val ''
+                @$el.find( '.dated' ).datepicker 'destroy'
+                @displayDatePicker()
 
-            # show checkbox
-            onShow : ->
-                @$el.find( 'input[type="checkbox"]' ).checkbox()
-                @$el.find( '#daterange_colour' ).minicolors()
+            displayDatePicker :->
+
                 @$el.find( '.dated' ).datepicker
                     showOtherMonths : true
                     selectOtherMonths : true
@@ -60,10 +60,18 @@ define [ 'app', 'controllers/base-controller',
                     beforeShowDay : @disableDateRange
                     beforeShow : @setDateRangeColorDelayed
                     onChangeMonthYear : @displayColorMonthChange
-
                 .prev( '.btn' ).on 'click', ( e ) =>
                     e && e.preventDefault();
                     $( datepickerSelector ).focus()
+
+
+
+            # show checkbox
+            onShow : ->
+                @$el.find( 'input[type="checkbox"]' ).checkbox()
+                @$el.find( '#daterange_colour' ).minicolors()
+                @displayDatePicker()
+
 
             disableDateRange : ( date ) =>
                 dateRangeName = App.request "get:daterange:name:for:date", date
