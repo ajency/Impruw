@@ -455,6 +455,15 @@
       "OK": "OK",
       "Choose default Language": "Velg ditt foretrukkende språk",
       "Choose Language": "Velg språk",
+      "Current password mismatch" : "Current password mismatch_N",
+      "Your password has been changed. You will be redirected to login page to sign in with your new password" : "Your password has been changed. You will be redirected to login page to sign in with your new password_N",
+      "Your default language is:": "Your default language is:_N",
+      "Room Name": "Room Name_N",
+      "Common Room Elements": "Common Room Elements_N",
+      "Date Ranges": "Date Ranges_N",
+      "Plans": "Plans_N" ,
+      "Seniors Plan": "Seniors Plan_N",
+
 
       "This field is required.": "Dette feltet er påkrevet.",
       "Please fix this field.": "Få orden på dette feltet.",
