@@ -56,10 +56,7 @@ define ['app', 'controllers/base-controller'], (App, AppController)->
 
 			template :'<div id="tracking-container">
 							<div id="disabled_tracking" class="alert alert-info">
-								<p>
-								Eeep! This does not look good. Enable javascript to spruce up this place.<br>
-								How do I do that?
-								</p>
+								<p>'+_.polyglot.t("Eeep")+'<br>'+_.polyglot.t("How do I do that?")+'</p>
 								<button id="btn_enable_tracking" class="btn btn-sm btn-embossed aj-imp-orange-btn">Enable Tracking</button>
 							</div>
 					   </div>'
@@ -70,8 +67,7 @@ define ['app', 'controllers/base-controller'], (App, AppController)->
 
 			onTrackingUpdated :->
 				@$el.find('#disabled_tracking').remove()
-				newHtml = '<div class="alert alert-success">Great! Looks like you are right on track. Your tracking code has been successfully activated. We need a day to compile your data so come again tomorrow.
-						  </div>'
+				newHtml = '<div class="alert alert-success">'+_.polyglot.t("You are right on track")+'</div>'
 				@$el.find('#tracking-container').append(newHtml)
 
 		class StatisticsView extends Marionette.ItemView
