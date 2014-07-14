@@ -8,7 +8,7 @@ define ['app', 'controllers/base-controller'
 
 
             showSiteProfile: ()->
-                @view = @getMainView(@siteProfile)
+                @view = @getMainView @siteProfile
 
                 # trigger set:active:menu event
                 App.vent.trigger "set:active:menu", 'site-profile'
@@ -31,9 +31,10 @@ define ['app', 'controllers/base-controller'
 
             saveSiteProfile: (data) ->
                 #console.log data
-                @siteProfile.set(data)
+                @siteProfile.set data
                 @siteProfile.save null,
                     wait: true
+                    onlyChanged : true
                     success: @siteProfileSuccess
 
             getMainView: (model)->

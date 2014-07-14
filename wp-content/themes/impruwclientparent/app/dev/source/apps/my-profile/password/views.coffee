@@ -32,11 +32,11 @@ define [ 'app', 'text!apps/my-profile/password/templates/passwordform.html' ], (
 
             onPasswordErrorResponse : ( errorMsg )->
                 @$el.find( '.alert' ).remove()
+                errorMsg = _.polyglot.t errorMsg
                 @$el.prepend( "<div class='alert alert-success'>#{errorMsg}</div>" )
 
             onPasswordSuccessResponse : ( redirectUrl ) ->
-                successMsg = "Your password has been changed. You will be redirected to
-                             login page to sign in with your new password"
+                successMsg = _.polyglot.t("Password change success")
                 @$el.find( '.alert' ).remove()
                 @$el.prepend( "<div class='alert alert-success'>#{successMsg}</div>" )
                 _.delay =>

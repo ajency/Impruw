@@ -49,12 +49,13 @@ define(['app', 'text!apps/my-profile/password/templates/passwordform.html'], fun
 
       PasswordForm.prototype.onPasswordErrorResponse = function(errorMsg) {
         this.$el.find('.alert').remove();
+        errorMsg = _.polyglot.t(errorMsg);
         return this.$el.prepend("<div class='alert alert-success'>" + errorMsg + "</div>");
       };
 
       PasswordForm.prototype.onPasswordSuccessResponse = function(redirectUrl) {
         var successMsg;
-        successMsg = "Your password has been changed. You will be redirected to login page to sign in with your new password";
+        successMsg = _.polyglot.t("Password change success");
         this.$el.find('.alert').remove();
         this.$el.prepend("<div class='alert alert-success'>" + successMsg + "</div>");
         return _.delay((function(_this) {
