@@ -684,6 +684,7 @@ form .aj-imp-submit:hover {
 }
 .bootstrap-select .dropdown-menu {
   display: none;
+  min-height: initial !important;
 }
 .bootstrap-select .dropdown-menu .selected a {
   background: #ff7e00;
@@ -2457,6 +2458,7 @@ form .aj-imp-submit:hover {
 .room-tariff-container .room-tariff-grid .tariff .packages {
   width: 100%;
   padding-left: 90px;
+  min-height: 150px;
 }
 .room-tariff-container .room-tariff-grid .tariff .packages .btn-add-plan {
   position: absolute;
@@ -2608,6 +2610,9 @@ form .aj-imp-submit:hover {
 .room-tariff-container .room-tariff-grid .tariff.package-names {
   position: static;
   min-height: 40px;
+}
+.room-tariff-container .room-tariff-grid .tariff.package-names .packages {
+  min-height: initial;
 }
 @media (max-width: 767px) {
   .room-tariff-container .room-tariff-grid {

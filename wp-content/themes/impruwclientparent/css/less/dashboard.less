@@ -688,6 +688,7 @@ form {
 	}
 	.dropdown-menu {
 		display: none;
+		min-height: initial !important;
 		.selected {
 			a {
 				background: @orange;
@@ -2484,6 +2485,7 @@ form {
 			.packages {
 				width: 100%;
 				padding-left: 90px;
+				min-height: 150px;
 				.btn-add-plan {
 					position: absolute;
 					left: 0;
@@ -2634,6 +2636,9 @@ form {
 			&.package-names {
 				position: static;
 				min-height: 40px;
+				.packages {
+					min-height: initial;
+				}
 			}
 		}
 		@media(max-width:767px){
