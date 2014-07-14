@@ -23,7 +23,7 @@ define(['app'], function(App) {
         return ChooseRoomsView.__super__.constructor.apply(this, arguments);
       }
 
-      ChooseRoomsView.prototype.template = "<form> Pick a Room: <select class='js-room-select' id='js-room-select'> <option>Choose a room</option> </select> </form>";
+      ChooseRoomsView.prototype.template = "<form class='form-horizontal'> Pick a Room: <select class='js-room-select' id='js-room-select'> <option>Choose a room</option> </select> </form>";
 
       ChooseRoomsView.prototype.itemView = ChooseRoomsItemView;
 

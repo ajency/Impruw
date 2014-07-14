@@ -7,7 +7,7 @@ define ['app'], (App)->
                 	template : ' <div class="form-group">
                 					<label class="col-sm-3 control-label" for="">{{#polyglot}}Facility{{/polyglot}}</label>
                 					<div class="col-sm-9 col-sm-offset-3">
-                						<p class="original">{{facilityName}}
+                						<p class="original title">{{facilityName}}
                 						</p>
                 					</div>
                 				</div>'

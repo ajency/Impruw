@@ -13,7 +13,7 @@ define ['app'], (App)->
 
                 class Views.TranslatedRoomFacilitiesView extends Marionette.CompositeView
 
-                    template: '<form class="edit_term_translation">
+                    template: '<form class="form-horizontal edit_term_translation">
                                 </form>
                                 <div>
                                 <button class="btn btn-xs aj-imp-orange-btn" name="btn_update-term-translation" id="btn_update-term-translation"> Update </button>
