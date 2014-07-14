@@ -1589,6 +1589,16 @@ and open the template in the editor.
   display: inline-block;
   margin-left: 1em;
 }
+.aj-imp-login-form .aj-imp-login form .parsley-error-list,
+.aj-imp-login-form .aj-imp-forgot form .parsley-error-list {
+  padding: 0;
+  margin: 0.5em 0;
+  list-style: none;
+}
+.aj-imp-login-form .aj-imp-login form .parsley-error-list li,
+.aj-imp-login-form .aj-imp-forgot form .parsley-error-list li {
+  color: #ff3333;
+}
 .aj-imp-login-form .aj-imp-login form .aj-imp-submit,
 .aj-imp-login-form .aj-imp-forgot form .aj-imp-submit {
   background: #ff7e00;
