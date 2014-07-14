@@ -4,7 +4,10 @@
             <img class="img-responsive" src="{{image_url}}" width="100%">
         {{/image_url}}
         {{^image_url}}
-            <p>Custom image markup here</p>
+            <div class="empty-info image-info">
+                <h5 class="aj-imp-sub-head-thin">{{#polyglot}}No Room Image{{/polyglot}}</h5>
+                {{#polyglot}}Please Add Images to Your Room{{/polyglot}}
+            </div>
         {{/image_url}}
     </div>
     <div class="room-title">{{post_title}}</div>

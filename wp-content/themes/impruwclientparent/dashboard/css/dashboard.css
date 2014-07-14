@@ -1922,6 +1922,11 @@ form .aj-imp-submit:hover {
   font-size: 1.1em;
   border-radius: 4px;
 }
+.empty-info.image-info {
+  text-align: center;
+  background: #f3f3f3;
+  min-height: 150px;
+}
 /*.dates, .plan {
 	margin: 1em 0 !important;
 	border: 1px solid @dash-grey;
