@@ -321,12 +321,19 @@ function clone_page( $clone_blog, $post_id ) {
 
     switch_to_blog( $clone_blog );
 
-    $page = get_page_by_impruw_page_template( $impruw_page_template_name );
+    $pages = get_pages(array( 'post_type' => 'page',
+                              'posts_per_page' => -1,
+                              'post_status' => 'publish',
+                              'meta_key' => 'impruw_page_template',
+                              'meta_value' => $impruw_page_template_name
+                             ));
 
-    if ( $page === false ) {
+    if ( count($pages) === 0 ) {
         restore_current_blog();
         return;
     }
+
+    $page = $pages[0];
 
     $data = get_json_to_clone( 'page-json', $page->ID );
     restore_current_blog();
@@ -340,21 +347,6 @@ function clone_page( $clone_blog, $post_id ) {
     update_page_autosave( $post_id, $data );
 }
 
-function get_page_by_impruw_page_template( $impruw_page_template_name ) {
-
-    global $wpdb;
-
-    $query = $wpdb->prepare( "SELECT post_id FROM {$wpdb->postmeta}
-                              WHERE meta_key=%s AND meta_value=%s", 'impruw_page_template',
-        $impruw_page_template_name );
-
-    $page_id = $wpdb->get_var( $query );
-
-    if ( !is_null( $page_id ) && (int)$page_id > 0 )
-        return get_post( $page_id );
-
-    return false;
-}
 
 function delete_all_revisions( $post_id ) {
 

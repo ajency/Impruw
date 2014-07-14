@@ -18,37 +18,13 @@ class ThemeDatabaseImporter implements ThemeImporterInterface {
      * @return mixed
      */
     public function import( $ID, array $page_json ) {
+
         if ( is_numeric( $ID ) )
             $this->import_page( $ID, $page_json );
         else
             $this->import_section( $ID, $page_json );
     }
 
-    /**
-     * @param $ID
-     * @param $page_json
-     */
-    private function update_page_meta( $ID, $page_json ) {
-
-        update_post_meta( $ID, 'page-json', $page_json );
-    }
-
-    /**
-     * @param $ID
-     * @param $page_json
-     *
-     * @return bool
-     */
-    private function update_page_autosave_meta( $ID, $page_json ) {
-
-        $autosave_page = wp_get_post_autosave( $ID );
-
-        if ( !$autosave_page )
-            return FALSE;
-
-        update_autosave_page_json( $autosave_page->ID, $page_json );
-
-    }
 
     /**
      * @param       $ID
@@ -61,8 +37,11 @@ class ThemeDatabaseImporter implements ThemeImporterInterface {
         if ( get_post( $ID ) === null )
             return new \InvalidArgumentException( 'No such page found' );
 
-        $this->update_page_meta( $ID, $page_json );
-        $this->update_page_autosave_meta( $ID, $page_json );
+        $data = set_json_to_site( $page_json );
+        add_page_json( $ID, $data );
+
+        delete_all_revisions( $ID );
+        update_page_autosave( $ID, $data );
     }
 
     private function import_section( $ID, array $page_json ) {
@@ -75,15 +54,15 @@ class ThemeDatabaseImporter implements ThemeImporterInterface {
     }
 
     private function import_theme_header( $page_json ) {
-
-        update_option( 'theme-header', $page_json );
-        update_option( 'theme-header-autosave', $page_json );
+        $data = set_json_to_site( $page_json );
+        update_option( 'theme-header', $data );
+        update_option( 'theme-header-autosave', $data );
     }
 
     private function import_theme_footer( $page_json ) {
-
-        update_option( 'theme-footer', $page_json );
-        update_option( 'theme-footer-autosave', $page_json );
+        $data = set_json_to_site( $page_json );
+        update_option( 'theme-footer', $data );
+        update_option( 'theme-footer-autosave', $data );
     }
 
 }

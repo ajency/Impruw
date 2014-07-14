@@ -2215,11 +2215,11 @@ and open the template in the editor.
 }
 .room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block .package-desc {
   font-size: 0.88em;
-  color: #f4aadb;
+  color: #e850b4;
   display: none;
 }
 .room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block .tariff-label {
-  color: #f4aadb;
+  color: #e850b4;
   margin: 0.5em 0 0.2em;
   font-size: 0.88em;
 }
@@ -2230,7 +2230,7 @@ and open the template in the editor.
   margin-right: 1%;
   float: left;
   text-transform: uppercase;
-  color: #ee7dc8;
+  color: #e223a1;
   font-weight: 300;
 }
 .room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block .weekday .price,
@@ -2538,7 +2538,7 @@ and open the template in the editor.
 .daterange-legends {
   text-transform: uppercase;
   font-size: 0.9em;
-  color: #fff;
+  color: #39435c;
 }
 .daterange-legends li span {
   width: 13px;
@@ -2583,7 +2583,7 @@ and open the template in the editor.
 }
 .room-booking .room-booking-container .room-booking-data .date-range {
   font-size: 1.3em;
-  color: #fff;
+  color: #e223a1;
   margin-bottom: 10%;
 }
 .room-booking .room-booking-container .room-booking-data .date-range b {
@@ -2597,15 +2597,15 @@ and open the template in the editor.
   padding-top: 13px;
 }
 .room-booking .room-booking-container .room-booking-data .room-booking-plan {
-  color: #fff;
-  border-bottom: 1px dashed #280E0E;
+  color: #e223a1;
+  border-bottom: 1px dashed #39435c;
   padding-bottom: 5%;
   margin-bottom: 5%;
 }
 .room-booking .room-booking-container .room-booking-data .room-booking-plan h5 {
   font-weight: 600;
   font-size: 1.5em;
-  color: #caf6e1;
+  color: #60719b;
 }
 .room-booking .room-booking-container .room-booking-data .room-booking-plan .plan-bg {
   background: #48df95;
@@ -2617,7 +2617,7 @@ and open the template in the editor.
   float: left;
   font-size: 0.9em;
   font-weight: 300;
-  color: #e5e5e5;
+  color: #ee7dc8;
 }
 .room-booking .room-booking-container .room-booking-data .room-booking-plan .booking-detail span {
   font-weight: 800;
@@ -2628,7 +2628,7 @@ and open the template in the editor.
   font-weight: 600;
   font-size: 1.0em;
   text-transform: uppercase;
-  color: #fff;
+  color: #ee7dc8;
 }
 .room-booking .room-booking-container .room-booking-data .room-booking-plan .booking-price {
   font-size: 0.8em;
@@ -2649,14 +2649,14 @@ and open the template in the editor.
 .room-booking .room-booking-container .room-booking-calender h4 {
   font-weight: 600;
   font-size: 1.5em;
-  color: #fff;
+  color: #39435c;
   text-transform: uppercase;
   margin-bottom: 30px;
   margin-top: 30px;
 }
 .room-booking .room-booking-container .room-booking-calender h4 .glyphicon {
   font-size: 1.5em;
-  color: #fff;
+  color: #39435c;
   float: left;
   margin-right: 1%;
 }
@@ -2676,13 +2676,13 @@ and open the template in the editor.
   margin-right: 12px;
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker-inline .ui-datepicker-group .ui-datepicker-calendar {
-  background: #fff;
+  background: #e1e1e1;
   width: 100%;
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker-inline .ui-datepicker-group .ui-datepicker-calendar th {
-  background: #caf6e1;
+  background: #9ea9c3;
   text-transform: uppercase;
-  color: #fff;
+  color: #ffffff;
   font-weight: 300;
   font-size: 12px;
 }
@@ -2697,12 +2697,12 @@ and open the template in the editor.
   box-shadow: none;
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker:before {
-  border-bottom-color: #73e7ae;
+  border-bottom-color: #60719b;
   top: -7px;
   display: none;
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .ui-datepicker-header {
-  background: #48df95;
+  background: #4d5a7b;
   border: none;
   height: 67px;
   line-height: 86px;
@@ -2715,7 +2715,7 @@ and open the template in the editor.
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .ui-datepicker-header .ui-datepicker-prev:hover,
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .ui-datepicker-header .ui-datepicker-next:hover {
-  background: #48df95;
+  background: #e850b4;
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .ui-datepicker-title {
   line-height: 74px;
