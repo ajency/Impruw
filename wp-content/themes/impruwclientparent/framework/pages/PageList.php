@@ -18,11 +18,18 @@ class PageList implements \Countable {
      */
     public function __construct( $args = array() ) {
 
-        $args[ 'post_type' ]      = 'page';
-        $args[ 'posts_per_page' ] = -1;
-        $args[ 'post_status' ]    = 'publish';
-
-        $this->pages = get_pages( $args );
+        $this->pages = get_posts( array( 'post_type' => 'page',
+                                      'posts_per_page' => -1,
+                                      'post_status' => 'publish',
+                                      'meta_query' => array(
+                                          array(
+                                              'key' => 'impruw_page_template',
+                                              'value' => array( 'home', 'about-us', 'single-room', 'contact-us', 'rooms',
+                                                  'gallery' ),
+                                              'compare' => 'IN'
+                                          )
+                                      )
+        ) );
 
     }
 

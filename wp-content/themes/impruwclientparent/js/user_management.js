@@ -1,6 +1,15 @@
 jQuery(document).ready(function ($) {
 
+    $("#inputPass,#inputEmail" ).keypress(function(e){
+        if(e.which == 13){
+            $("#login_btn").click();
+        }
+    });
+
     $("#login_btn").click(function () {
+
+        if (!$('#frm_login').parsley('validate'))
+            return;
 
         $(".login_loader").show();
 

@@ -87,7 +87,6 @@
   font-family: 'Lato', sans-serif;
   font-weight: 300;
   border: 10px solid #24d07c;
-  margin-top: 10px;
   background: #39435c;
   *zoom: 1;
   /****Selection Color****/
@@ -96,6 +95,9 @@
 
   /****Heading Styles****/
 
+}
+.site-style-container.aj-imp-builder-layout-mode {
+  margin-top: 10px;
 }
 .site-style-container:after,
 .site-style-container:before {
@@ -1598,6 +1600,16 @@ and open the template in the editor.
 .aj-imp-login-form .aj-imp-forgot form .checkbox.keep-log {
   display: inline-block;
   margin-left: 1em;
+}
+.aj-imp-login-form .aj-imp-login form .parsley-error-list,
+.aj-imp-login-form .aj-imp-forgot form .parsley-error-list {
+  padding: 0;
+  margin: 0.5em 0;
+  list-style: none;
+}
+.aj-imp-login-form .aj-imp-login form .parsley-error-list li,
+.aj-imp-login-form .aj-imp-forgot form .parsley-error-list li {
+  color: #ff3333;
 }
 .aj-imp-login-form .aj-imp-login form .aj-imp-submit,
 .aj-imp-login-form .aj-imp-forgot form .aj-imp-submit {

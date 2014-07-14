@@ -23,8 +23,6 @@ define [ 'app'
 
          onShow : ->
             #@$el.scrollSections()
-
-            #console.log model
             @$el.find( 'select' ).selectpicker()
 
             # set affix
