@@ -25,9 +25,9 @@ define ['app'
                 originalLanguage = Marionette.getOption @, 'originalLanguage'
                 data.TypeOfElementClass = ->
                     if data.element is "Title"
-                        return "title-class"
+                        return "title"
                     else
-                        return "text-class"
+                        return "text"
                 data
 
 

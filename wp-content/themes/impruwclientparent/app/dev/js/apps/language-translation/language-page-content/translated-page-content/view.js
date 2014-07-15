@@ -15,7 +15,7 @@ define(['app', 'text!apps//language-translation/language-page-content/translated
 
       TranslatedPageItemView.prototype.className = 'form-group legend-group';
 
-      TranslatedPageItemView.prototype.template = '<div class="col-sm-12"> <div class="form-group trans-field"> <div class="col-sm-10"> <p class="form-control translated-element-content">{{contentText}}</p> <button class="btn btn-xs trans-action aj-imp-orange-btn"  id="btn-save-translated-element"> Save </button> </div> </div> </div>';
+      TranslatedPageItemView.prototype.template = '<div class="col-sm-12"> <div class="form-group trans-field"> <div class="col-sm-10"> <p class="form-control translated-element-content {{TypeOfElementClass}}">{{contentText}}</p> <button class="btn btn-xs trans-action aj-imp-orange-btn"  id="btn-save-translated-element"> Save </button> </div> </div> </div>';
 
       TranslatedPageItemView.prototype.mixinTemplateHelpers = function(data) {
         var editingLanguage;
@@ -25,6 +25,13 @@ define(['app', 'text!apps//language-translation/language-page-content/translated
           var translated_text;
           translated_text = data.content;
           return translated_text[editingLanguage];
+        };
+        data.TypeOfElementClass = function() {
+          if (data.element === "Title") {
+            return "title";
+          } else {
+            return "text";
+          }
         };
         return data;
       };

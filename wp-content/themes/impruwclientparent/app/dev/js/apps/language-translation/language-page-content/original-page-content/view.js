@@ -23,9 +23,9 @@ define(['app', 'text!apps//language-translation/language-page-content/original-p
         originalLanguage = Marionette.getOption(this, 'originalLanguage');
         data.TypeOfElementClass = function() {
           if (data.element === "Title") {
-            return "title-class";
+            return "title";
           } else {
-            return "text-class";
+            return "text";
           }
         };
         return data;

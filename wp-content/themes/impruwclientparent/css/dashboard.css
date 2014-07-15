@@ -3780,18 +3780,22 @@ form .aj-imp-submit:hover {
   right: -4em;
   opacity: 0;
 }
-.language .trans-field .cke_textarea_inline {
+.language .trans-field .translated-element-content {
   height: 100px;
   background: #fff;
   border-bottom: 1px solid #aaaaaa;
   padding: 8px 12px;
+  margin-bottom: 0;
 }
-.language .trans-field .cke_textarea_inline:focus {
+.language .trans-field .translated-element-content.title {
+  height: 41px;
+}
+.language .trans-field .translated-element-content:focus {
   border-bottom-color: #ff7e00;
   box-shadow: inset 0 0 3px #aaaaaa;
   outline: none;
 }
-.language .trans-field .cke_textarea_inline:focus ~ .trans-action {
+.language .trans-field .translated-element-content:focus ~ .trans-action {
   opacity: 1;
 }
 .language .trans-field .form-control:focus ~ .trans-action {

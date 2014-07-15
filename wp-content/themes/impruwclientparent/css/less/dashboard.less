@@ -3809,11 +3809,15 @@ form {
 			right: -4em;
 			opacity: 0;
 		}
-		.cke_textarea_inline {
+		.translated-element-content {
 			height: 100px;
 			background: #fff;
 			border-bottom: 1px solid @dash-grey;
 			padding: 8px 12px;
+			margin-bottom: 0;
+			&.title {
+				height: 41px;
+			}
 			&:focus {
 				border-bottom-color: @orange;
 				box-shadow: inset 0 0 3px @dash-grey;
