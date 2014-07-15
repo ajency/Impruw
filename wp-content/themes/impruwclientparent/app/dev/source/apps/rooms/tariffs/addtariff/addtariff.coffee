@@ -61,6 +61,8 @@ define ['app', 'controllers/base-controller',
          onShow : ->
             @$el.find( 'input[type="checkbox"]' ).checkbox()
             @$el.find( '.currency' ).text Marionette.getOption @, "currency"
+            #validate the form with rules
+            @$el.validate()
 
 
       # handler

@@ -88,7 +88,8 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/addtariff
 
       AddTariffView.prototype.onShow = function() {
         this.$el.find('input[type="checkbox"]').checkbox();
-        return this.$el.find('.currency').text(Marionette.getOption(this, "currency"));
+        this.$el.find('.currency').text(Marionette.getOption(this, "currency"));
+        return this.$el.validate();
       };
 
       return AddTariffView;
