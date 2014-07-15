@@ -199,7 +199,13 @@ function get_all_menu_pages() {
 
     if ( $pages->have_posts() ) {
 
-        $skip = array( 'Site Builder','Sign In', 'Dashboard', 'Support', 'Coming Soon', 'Sample Page' );
+        $skip = array( 'Site Builder',
+                       'Sign In',
+                       'Dashboard',
+                       'Support',
+                       'Coming Soon',
+                       'Reset Password',
+                       'Sample Page' );
 
         foreach ( $pages->posts as $page ) {
 
