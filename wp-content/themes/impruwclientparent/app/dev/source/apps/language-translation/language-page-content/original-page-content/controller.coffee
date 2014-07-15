@@ -23,9 +23,11 @@ define ['app', 'controllers/base-controller'
                     loading: true
 
             _getLanguageView :(model, collection)->
+                #TODO pass default language
                 new OriginalPage.Views.OriginalPageView
                     model:model
                     collection: collection
+                    language: 'en'
 
         App.commands.setHandler "original:page:content:app", (opts) ->
             new OriginalPage.Controller opts

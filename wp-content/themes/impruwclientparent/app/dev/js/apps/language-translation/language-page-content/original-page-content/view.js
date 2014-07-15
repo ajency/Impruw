@@ -15,7 +15,21 @@ define(['app', 'text!apps//language-translation/language-page-content/original-p
 
       OriginalPageItemView.prototype.className = 'form-group legend-group';
 
-      OriginalPageItemView.prototype.template = '<div class="col-sm-12"> <div class="form-group"> <label class="col-sm-3 control-label" for="">{{element}}</label> <div class="col-sm-9 col-sm-offset-3"> <p class="original" tabindex="1"> {{{content.en}}} </p> </div> </div> </div>';
+      OriginalPageItemView.prototype.template = '<div class="col-sm-12"> <div class="form-group"> <label class="col-sm-3 control-label" for="">{{element}}</label> <div class="col-sm-9 col-sm-offset-3"> <p class="original {{TypeOfElementClass}}" tabindex="1"> {{{content.en}}} </p> </div> </div> </div>';
+
+      OriginalPageItemView.prototype.mixinTemplateHelpers = function(data) {
+        var originalLanguage;
+        data = OriginalPageItemView.__super__.mixinTemplateHelpers.call(this, data);
+        originalLanguage = Marionette.getOption(this, 'originalLanguage');
+        data.TypeOfElementClass = function() {
+          if (data.element === "Title") {
+            return "title-class";
+          } else {
+            return "text-class";
+          }
+        };
+        return data;
+      };
 
       return OriginalPageItemView;
 
@@ -32,6 +46,14 @@ define(['app', 'text!apps//language-translation/language-page-content/original-p
       OriginalPageView.prototype.itemView = OriginalPageItemView;
 
       OriginalPageView.prototype.itemViewContainer = '#translatable-page-elements';
+
+      OriginalPageView.prototype.itemViewOptions = function() {
+        var language;
+        language = Marionette.getOption(this, 'language');
+        return {
+          originalLanguage: language
+        };
+      };
 
       return OriginalPageView;
 

@@ -13,12 +13,22 @@ define ['app'
                             <div class="form-group">
                                 <label class="col-sm-3 control-label" for="">{{element}}</label>
                                 <div class="col-sm-9 col-sm-offset-3">
-                                    <p class="original" tabindex="1">
+                                    <p class="original {{TypeOfElementClass}}" tabindex="1">
                                         {{{content.en}}}
                                     </p>
                                 </div>
                             </div>
                         </div>'
+
+            mixinTemplateHelpers: (data)->
+                data = super data
+                originalLanguage = Marionette.getOption @, 'originalLanguage'
+                data.TypeOfElementClass = ->
+                    if data.element is "Title"
+                        return "title-class"
+                    else
+                        return "text-class"
+                data
 
 
         class Views.OriginalPageView extends Marionette.CompositeView
@@ -28,3 +38,7 @@ define ['app'
             itemView : OriginalPageItemView
 
             itemViewContainer : '#translatable-page-elements'
+
+            itemViewOptions : ->
+                language = Marionette.getOption @, 'language'
+                originalLanguage : language
