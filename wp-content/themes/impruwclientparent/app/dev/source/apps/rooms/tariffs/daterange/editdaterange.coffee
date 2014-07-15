@@ -72,6 +72,7 @@ define ['app', 'controllers/base-controller',
             onUpdatedDaterange: ->
                 @$el.parent().find('.alert').remove()
                 @$el.parent().prepend "<div class=\"alert alert-success\">" + _.polyglot.t("Updated successfully") + "</div>"
+                @displayDatePicker()
 
             onDeletedDaterange: ->
                 @trigger "dialog:close"
@@ -80,17 +81,21 @@ define ['app', 'controllers/base-controller',
             onShow: ->
                 @$el.find('input[type="checkbox"]').checkbox()
                 @$el.find('#daterange_colour').minicolors()
+                @displayDatePicker()
 
-                @$el.find('.dated').datepicker
-                    showOtherMonths: true
-                    selectOtherMonths: true
-                    dateFormat: "yy-mm-dd"
+
+            displayDatePicker :->
+
+                @$el.find( '.dated' ).datepicker
+                    showOtherMonths : true
+                    selectOtherMonths : true
+                    dateFormat : "yy-mm-dd"
                     beforeShowDay : @disableDateRange
                     beforeShow : @setDateRangeColorDelayed
-
-                .prev('.btn').on 'click', (e) =>
+                    onChangeMonthYear : @displayColorMonthChange
+                .prev( '.btn' ).on 'click', ( e ) =>
                     e && e.preventDefault();
-                    $(datepickerSelector).focus();
+                    $( datepickerSelector ).focus()
 
             disableDateRange : ( date ) =>
                 currentDateRange =  @model.get 'daterange_name'

@@ -33,7 +33,7 @@ get_header();
 
                             <input type="email" class="form-control  parsley-validated parsley-error" id="inputEmail"
                                    name="inputEmail" placeholder="Email ID you signed up with" parsley-required="true"
-                                   value="<?php echo $_GET[ 'email' ]; ?>"
+                                   value="<?php echo isset($_GET[ 'email' ]) ? $_GET[ 'email' ] : ''; ?>"
                                    parsley-trigger="blur" parsley-validation-minlength="0" parsley-type="email"
                                    parsley-required-message="<?php echo __( 'A valid email address is required to sign in', 'impruwmain' ); ?>"/>
 
@@ -139,5 +139,6 @@ get_header();
             });
         });
     </script>
+    <script src="<?php echo get_parent_template_directory_uri() ?>/js/parsley.js"></script>
 <?php
 get_footer();

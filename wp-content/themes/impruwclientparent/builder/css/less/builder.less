@@ -1292,16 +1292,12 @@ a {
 
 .settings-box {
 	width: 400px;
-	background: @dark-blue;
-	box-shadow: 0 0 3px 1px @dash-grey;
-	padding: 0 0.5em 0.5em;
-	border-radius: 3px;
-	border: 2px solid darken(@dark-blue, 10%);
+	box-shadow: 10px 10px 0 0 rgba(0, 0, 0, 0.25);
 	.settings-header {
-		border-bottom: 1px solid darken(@dash-grey, 40%);
-		margin: 0 -0.5em 0.3em;
+		border-bottom: 1px solid #ebedef;
+		margin: 0 0 0.5em;
 		padding: 0 0.5em;
-		background: darken(@dark-blue, 10%);
+		background: @preview-grey;
 		cursor: move;
 		h5 {
 			color: @dash-grey;
@@ -1314,7 +1310,7 @@ a {
 				font-size: 1.3em;
 				font-weight: bold;
 				&:hover {
-					color: #fff;
+					color: darken(@dash-grey, 10%);
 				}
 			}
 		}

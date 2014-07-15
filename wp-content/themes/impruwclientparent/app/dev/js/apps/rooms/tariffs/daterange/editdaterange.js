@@ -107,7 +107,8 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/daterange
 
       EditDateRangeView.prototype.onUpdatedDaterange = function() {
         this.$el.parent().find('.alert').remove();
-        return this.$el.parent().prepend("<div class=\"alert alert-success\">" + _.polyglot.t("Updated successfully") + "</div>");
+        this.$el.parent().prepend("<div class=\"alert alert-success\">" + _.polyglot.t("Updated successfully") + "</div>");
+        return this.displayDatePicker();
       };
 
       EditDateRangeView.prototype.onDeletedDaterange = function() {
@@ -117,12 +118,17 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/daterange
       EditDateRangeView.prototype.onShow = function() {
         this.$el.find('input[type="checkbox"]').checkbox();
         this.$el.find('#daterange_colour').minicolors();
+        return this.displayDatePicker();
+      };
+
+      EditDateRangeView.prototype.displayDatePicker = function() {
         return this.$el.find('.dated').datepicker({
           showOtherMonths: true,
           selectOtherMonths: true,
           dateFormat: "yy-mm-dd",
           beforeShowDay: this.disableDateRange,
-          beforeShow: this.setDateRangeColorDelayed
+          beforeShow: this.setDateRangeColorDelayed,
+          onChangeMonthYear: this.displayColorMonthChange
         }).prev('.btn').on('click', (function(_this) {
           return function(e) {
             e && e.preventDefault();

@@ -39,7 +39,7 @@ define(['app', 'controllers/base-controller', 'apps/my-profile/general/views'], 
         });
       };
 
-      Controller.prototype.userInfoUpdated = function() {
+      Controller.prototype.userInfoUpdated = function(model, response) {
         return this.view.triggerMethod("user:info:updated", response);
       };
 

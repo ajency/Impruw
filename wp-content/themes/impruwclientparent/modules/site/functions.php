@@ -13,22 +13,22 @@ function get_site_details( $site_id = 0 ) {
         $site_id = get_current_blog_id();
 
     // fetching the image path for the logo
-    $logo_id    = get_option( 'logo_id', 0 );
+    $logo_id = get_option( 'logo_id', 0 );
     $image_path = get_post_field( 'guid', $logo_id );
 
-    return array( 'site_id'        => $site_id,
-                  'site_domain'    => get_site_domain( $site_id ),
-                  'site_name'      => get_option( 'blogname' ),
-                  'admin_email'    => get_option( 'admin_email' ),
-                  'street'         => get_option( 'street', '' ),
-                  'postal_code'    => get_option( 'postal_code', '' ),
-                  'city'           => get_option( 'city', '' ),
-                  'logo_id'        => $logo_id,
-                  'logo_url'       => $image_path, 'country' => get_option( 'country', '' ),
-                  'other_emails'   => get_option( 'other_emails', array() ),
-                  'other_phone_no' => get_option( 'other_phone_no', array() ),
-                  'facebook'       => get_option( 'facebook', '' ),
-                  'twitter'        => get_option( 'twitter', '' ) );
+    return array( 'site_id' => $site_id,
+        'site_domain' => get_site_domain( $site_id ),
+        'site_name' => get_option( 'blogname' ),
+        'admin_email' => get_option( 'admin_email' ),
+        'street' => get_option( 'street', '' ),
+        'postal_code' => get_option( 'postal_code', '' ),
+        'city' => get_option( 'city', '' ),
+        'logo_id' => $logo_id,
+        'logo_url' => $image_path, 'country' => get_option( 'country', '' ),
+        'other_emails' => get_option( 'other_emails', array() ),
+        'other_phone_no' => get_option( 'other_phone_no', array() ),
+        'facebook' => get_option( 'facebook', '' ),
+        'twitter' => get_option( 'twitter', '' ) );
 }
 
 /**
@@ -68,7 +68,7 @@ function assign_theme_to_site( $theme_post_id, $clone_pages = FALSE ) {
     $theme = get_post( $theme_post_id );
 
     // if theme does not exists
-    if ( null === $theme ){
+    if ( null === $theme ) {
         restore_current_blog();
         return FALSE;
     }
@@ -182,11 +182,11 @@ return $all_pages_array;
 function clone_pages() {
 
     $pages = array( array( 'post_title' => 'Home' ),
-                    array( 'post_title' => 'About Us' ),
-                    array( 'post_title' => 'Rooms' ),
-                    array( 'post_title' => 'Single Room' ),
-                    array( 'post_title' => 'Gallery' ),
-                    array( 'post_title' => 'Contact Us' ) );
+        array( 'post_title' => 'About Us' ),
+        array( 'post_title' => 'Rooms' ),
+        array( 'post_title' => 'Single Room' ),
+        array( 'post_title' => 'Gallery' ),
+        array( 'post_title' => 'Contact Us' ) );
 
 
     add_pages_to_site( $pages );
@@ -205,7 +205,7 @@ function add_menus_to_site() {
     //create the menu
     $menu_id = wp_create_nav_menu( $name );
 
-    if( is_wp_error( $menu_id ) )
+    if ( is_wp_error( $menu_id ) )
         return;
 
     $skip_pages = array( 'Coming Soon', 'Single Room', 'Support', 'Sign In' );
@@ -217,18 +217,18 @@ function add_menus_to_site() {
 
         //then add the actuall link/ menu item and you do this for each item you want to add
         wp_update_nav_menu_item( $menu_id, 0, array( 'menu-item-title' => $page->post_title,
-                                                     'menu-item-classes' => $page->post_name,
-                                                     'menu-item-url' => '',
-                                                     'menu-item-object' => 'page',
-                                                     'menu-item-type' => 'post_type',
-                                                     'menu-item-object-id' => $page->ID,
-                                                     'menu-item-status' => 'publish' ) );
+            'menu-item-classes' => $page->post_name,
+            'menu-item-url' => '',
+            'menu-item-object' => 'page',
+            'menu-item-type' => 'post_type',
+            'menu-item-object-id' => $page->ID,
+            'menu-item-status' => 'publish' ) );
 
 
     endforeach;
 
     //then you set the wanted theme  location
-    $locations                  = get_theme_mod( 'nav_menu_locations' );
+    $locations = get_theme_mod( 'nav_menu_locations' );
     $locations[ 'header_menu' ] = $menu_id;
     set_theme_mod( 'nav_menu_locations', $locations );
 
@@ -239,7 +239,7 @@ function add_menus_to_site() {
  *
  * @param type $site_id The site to create pages
  * @param type $user_id The user_id to mark as creator
- * @param type $pages   array of pages to create
+ * @param type $pages array of pages to create
  *
  * @return boolean
  */
@@ -254,11 +254,11 @@ function add_pages_to_site( $pages, $user_id = 0 ) {
     foreach ( $pages as $page ) {
 
         // page array
-        $page_arr = array( 'post_title'   => $page[ 'post_title' ],
-                           'post_content' => '',
-                           'post_status'  => 'publish',
-                           'post_author'  => $user_id,
-                           'post_type'    => 'page' );
+        $page_arr = array( 'post_title' => $page[ 'post_title' ],
+            'post_content' => '',
+            'post_status' => 'publish',
+            'post_author' => $user_id,
+            'post_type' => 'page' );
 
         // Insert the post into the database
         $post_id = wp_insert_post( $page_arr );
@@ -295,18 +295,18 @@ function clone_site( $theme_site_id ) {
     clone_header_footer( $theme_site_id );
 
     $pages = new WP_query( array( 'post_type' => 'page',
-                                  'posts_per_page' => -1,
-                                  'meta_query' => array(
-                                      array(
-                                        'key' => 'impruw_page_template',
-                                        'value' => array('home','about-us','single-room','contact-us','rooms',
-                                            'gallery'),
-                                        'compare' => 'IN'
-                                      )
-                                  )
-                                ));
+        'posts_per_page' => -1,
+        'meta_query' => array(
+            array(
+                'key' => 'impruw_page_template',
+                'value' => array( 'home', 'about-us', 'single-room', 'contact-us', 'rooms',
+                    'gallery' ),
+                'compare' => 'IN'
+            )
+        )
+    ) );
 
-    while($pages->have_posts()):
+    while ( $pages->have_posts() ):
         $pages->the_post();
         clone_page( $theme_site_id, get_the_ID() );
     endwhile;
@@ -369,19 +369,26 @@ function backup_page( $page ) {
  */
 function clone_page( $clone_blog, $post_id ) {
 
-    $impruw_page_template_name = get_post_meta($post_id, 'impruw_page_template', true);
+    $impruw_page_template_name = get_post_meta( $post_id, 'impruw_page_template', true );
 
-    if($impruw_page_template_name === '')
+    if ( $impruw_page_template_name === '' )
         return;
 
     switch_to_blog( $clone_blog );
 
-    $page = get_page_by_impruw_page_template( $impruw_page_template_name );
+    $pages = get_pages(array( 'post_type' => 'page',
+                              'posts_per_page' => -1,
+                              'post_status' => 'publish',
+                              'meta_key' => 'impruw_page_template',
+                              'meta_value' => $impruw_page_template_name
+                             ));
 
-    if ( $page === false ){
+    if ( count($pages) === 0 ) {
         restore_current_blog();
         return;
     }
+
+    $page = $pages[0];
 
     $data = get_json_to_clone( 'page-json', $page->ID );
     restore_current_blog();
@@ -395,21 +402,6 @@ function clone_page( $clone_blog, $post_id ) {
     update_page_autosave( $post_id, $data );
 }
 
-function get_page_by_impruw_page_template( $impruw_page_template_name ){
-
-    global $wpdb;
-
-    $query = $wpdb->prepare( "SELECT post_id FROM {$wpdb->postmeta}
-                              WHERE meta_key=%s AND meta_value=%s", 'impruw_page_template',
-        $impruw_page_template_name );
-
-    $page_id = $wpdb->get_var( $query );
-
-    if(!is_null($page_id) && (int)$page_id > 0)
-        return get_post($page_id);
-
-    return false;
-}
 
 function delete_all_revisions( $post_id ) {
 
@@ -515,12 +507,14 @@ function check_roomsummary_update( $formdata ) {
  */
 function update_site_profile( $formdata ) {
 
+    $changed_values = $formdata[ 'changes' ];
+
     // loop through the array containing the form values
-    foreach ( $formdata as $key => $value ) {
+    foreach ( $changed_values as $key => $value ) {
 
         // if the options are email or phone, store them as serailized array
         if ( $key == "other_emails" || $key == "other_phone_no" ) {
-            $value_array = $formdata[ $key ];
+            $value_array = $changed_values[ $key ];
             update_option( $key, $value_array );
         } else {
             update_option( $key, $value );
@@ -535,7 +529,7 @@ function update_site_profile( $formdata ) {
 
 function update_checkin_time( $formdata ) {
 
-    $time   = $formdata[ 'changes' ][ 'checkin_time' ];
+    $time = $formdata[ 'changes' ][ 'checkin_time' ];
     $format = ' ';
 
     if ( isset( $formdata[ 'changes' ][ 'checkin_time_format' ] ) )

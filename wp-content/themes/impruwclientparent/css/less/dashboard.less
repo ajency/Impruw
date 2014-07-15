@@ -688,6 +688,7 @@ form {
 	}
 	.dropdown-menu {
 		display: none;
+		min-height: initial !important;
 		.selected {
 			a {
 				background: @orange;
@@ -1934,6 +1935,11 @@ form {
 	color: @dash-grey;
 	font-size: 1.1em;
 	border-radius: 4px;
+	&.image-info {
+		text-align: center;
+		background: @preview-grey;
+		min-height: 150px;
+	}
 }
 
 /*.dates, .plan {
@@ -2479,6 +2485,7 @@ form {
 			.packages {
 				width: 100%;
 				padding-left: 90px;
+				min-height: 150px;
 				.btn-add-plan {
 					position: absolute;
 					left: 0;
@@ -2629,6 +2636,9 @@ form {
 			&.package-names {
 				position: static;
 				min-height: 40px;
+				.packages {
+					min-height: initial;
+				}
 			}
 		}
 		@media(max-width:767px){

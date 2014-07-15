@@ -79,12 +79,12 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/daterange
       AddDateRangeView.prototype.onSavedDaterange = function() {
         this.$el.parent().find('.alert').remove();
         this.$el.parent().prepend("<div class=\"alert alert-success\">" + _.polyglot.t("New Date range added") + "</div>");
-        return this.$el.find('input').val('');
+        this.$el.find('input').val('');
+        this.$el.find('.dated').datepicker('destroy');
+        return this.displayDatePicker();
       };
 
-      AddDateRangeView.prototype.onShow = function() {
-        this.$el.find('input[type="checkbox"]').checkbox();
-        this.$el.find('#daterange_colour').minicolors();
+      AddDateRangeView.prototype.displayDatePicker = function() {
         return this.$el.find('.dated').datepicker({
           showOtherMonths: true,
           selectOtherMonths: true,
@@ -98,6 +98,12 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/daterange
             return $(datepickerSelector).focus();
           };
         })(this));
+      };
+
+      AddDateRangeView.prototype.onShow = function() {
+        this.$el.find('input[type="checkbox"]').checkbox();
+        this.$el.find('#daterange_colour').minicolors();
+        return this.displayDatePicker();
       };
 
       AddDateRangeView.prototype.disableDateRange = function(date) {

@@ -3959,3 +3959,20 @@ function remove_tracking_code_from_preview() {
 
 }
 
+/**
+ * Function to get the site title for displaying on the browser
+ * @param $title
+ * @return string
+ */
+function get_site_title( $title ) {
+
+    $site_page = $title;
+    $hotel_name = get_option('hotel_name','');
+    $site_title = $site_page.' | '.$hotel_name;
+    return $site_title;
+}
+add_filter( 'wp_title', 'get_site_title' );
+
+
+
+
