@@ -27,7 +27,7 @@ define [ 'app', 'controllers/base-controller'
                     onlyChanged : true
                     success : @userInfoUpdated
 
-            userInfoUpdated : =>
+            userInfoUpdated :(model, response) =>
                 @view.triggerMethod "user:info:updated", response
 
         App.commands.setHandler "show:general:form", ( opts ) ->

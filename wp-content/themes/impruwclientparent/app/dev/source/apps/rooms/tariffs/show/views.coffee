@@ -140,7 +140,7 @@ define ['app', 'moment'], (App, moment)->
                         {{/id}}'
 
 
-        class DateRageView extends Marionette.CompositeView
+        class DateRangeView extends Marionette.CompositeView
 
             template: '<div class="date-range">
                            <div class="range-name">{{daterange_name}}</div>
@@ -226,7 +226,7 @@ define ['app', 'moment'], (App, moment)->
 
             className: 'tariff clearfix'
 
-            itemView: DateRageView
+            itemView: DateRangeView
 
             itemViewOptions: (item, index)->
                 roomId = Marionette.getOption @, 'roomId'

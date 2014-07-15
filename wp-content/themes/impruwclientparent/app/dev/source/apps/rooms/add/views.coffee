@@ -25,6 +25,7 @@ define [ 'app'
                @trigger "show:edit:slider"
 
          onShow : ->
+
             #@$el.scrollSections()
 
             # set affix
