@@ -1,6 +1,7 @@
 define ['app'
-        'text!apps/rooms/edit/templates/edit-room.html'],
-(App, addRoomTpl)->
+        'text!apps/rooms/edit/templates/edit-room.html'
+        'jqueryvalidate'],
+(App, addRoomTpl ,  jqueryvalidate)->
     App.module 'RoomsApp.Edit.View', (View, App, Backbone, Marionette, $, _)->
         class View.EditRoomLayout extends Marionette.Layout
 
@@ -24,6 +25,7 @@ define ['app'
 
             onShow: ->
                 #@$el.scrollSections()
+                @$el.find( 'form' ).validationOptions()
 
                 # set affix
                 @$el.find('*[data-spy="affix"]').affix()
@@ -37,6 +39,13 @@ define ['app'
 
                 @$el.find('.currency' ).text Marionette.getOption @, 'currency'
 
+            validationOptions : ->
+                rules :
+                    no_of_rooms :
+                        number : true
+
+                messages :
+                    no_of_rooms : 'Enter valid url'
 
             onShowSuccessMessage: ->
                 @$el.find('.alert').remove()
