@@ -15,7 +15,7 @@ define(['app', 'text!apps//language-translation/language-page-content/translated
 
       TranslatedPageItemView.prototype.className = 'form-group legend-group';
 
-      TranslatedPageItemView.prototype.template = '<div class="col-sm-12"> <div class="form-group trans-field"> <div class="col-sm-10"> <textarea type="text" class="form-control" id="translated-element-content">{{contentText}}</textarea> <button class="btn btn-xs trans-action aj-imp-orange-btn"  id="btn-save-translated-element"> Save </button> </div> </div> </div>';
+      TranslatedPageItemView.prototype.template = '<div class="col-sm-12"> <div class="form-group trans-field"> <div class="col-sm-10"> <p class="form-control translated-element-content">{{contentText}}</p> <button class="btn btn-xs trans-action aj-imp-orange-btn"  id="btn-save-translated-element"> Save </button> </div> </div> </div>';
 
       TranslatedPageItemView.prototype.mixinTemplateHelpers = function(data) {
         var editingLanguage;
@@ -36,17 +36,29 @@ define(['app', 'text!apps//language-translation/language-page-content/translated
       TranslatedPageItemView.prototype.updatePageElement = function(e) {
         var newElementContent;
         e.preventDefault();
-        newElementContent = this.$el.find('#translated-element-content').val();
+        newElementContent = this.$el.find('.translated-element-content').html();
+        console.log(newElementContent);
         return this.trigger("page:element:updated", newElementContent);
       };
 
       TranslatedPageItemView.prototype.onShow = function() {
-        this.editor = CKEDITOR.inline(document.getElementById('translated-element-content'));
-        return this.editor.setData(_.stripslashes(this.model.get('content')[WPML_DEFAULT_LANG]));
+        var editingLanguage;
+        editingLanguage = Marionette.getOption(this, 'editingLanguage');
+        if (this.model.get('element') === "Title") {
+          this.$el.find('.translated-element-content').attr('contenteditable', 'true').attr('id', _.uniqueId('title-'));
+        } else {
+          this.$el.find('.translated-element-content').attr('contenteditable', 'true').attr('id', _.uniqueId('text-'));
+        }
+        this.editor = CKEDITOR.inline(document.getElementById(this.$el.find('.translated-element-content').attr('id')));
+        if (this.model.get('content')[editingLanguage] === void 0) {
+          return this.editor.setData(_.stripslashes(this.model.get('content')['en']));
+        } else {
+          return this.editor.setData(_.stripslashes(this.model.get('content')[editingLanguage]));
+        }
       };
 
       TranslatedPageItemView.prototype.onClose = function() {
-        return this.editor.destroy();
+        return this.editor.destroy(true);
       };
 
       return TranslatedPageItemView;

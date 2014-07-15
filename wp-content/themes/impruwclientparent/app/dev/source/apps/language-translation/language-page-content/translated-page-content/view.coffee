@@ -12,7 +12,7 @@ define ['app'
             template : '<div class="col-sm-12">
                             <div class="form-group trans-field">
                                 <div class="col-sm-10">
-                                    <textarea type="text" class="form-control" id="translated-element-content">{{contentText}}</textarea>
+                                    <p class="form-control translated-element-content">{{contentText}}</p>
                                     <button class="btn btn-xs trans-action aj-imp-orange-btn"  id="btn-save-translated-element">
                                         Save
                                     </button>
@@ -33,7 +33,8 @@ define ['app'
 
             updatePageElement:(e) ->
                 e.preventDefault()
-                newElementContent = @$el.find('#translated-element-content').val()
+                newElementContent = @$el.find('.translated-element-content').html()
+                console.log newElementContent
                 @trigger "page:element:updated", newElementContent
 
             # initialize the CKEditor for the text element on show
@@ -42,14 +43,25 @@ define ['app'
             # hold the editor instance as the element property so that
             # we can destroy it on close of element
             onShow: ->
-                @editor = CKEDITOR.inline document.getElementById 'translated-element-content'
-                @editor.setData _.stripslashes @model.get('content')[WPML_DEFAULT_LANG]
+                editingLanguage = Marionette.getOption @, 'editingLanguage'
+
+                if  @model.get('element') is "Title"
+                  @$el.find('.translated-element-content').attr('contenteditable', 'true').attr 'id', _.uniqueId 'title-'
+                else
+                  @$el.find('.translated-element-content').attr('contenteditable', 'true').attr 'id', _.uniqueId 'text-'
+
+                @editor = CKEDITOR.inline document.getElementById @$el.find('.translated-element-content').attr 'id'
+
+                if @model.get('content')[editingLanguage] is undefined
+                  @editor.setData _.stripslashes @model.get('content')['en']
+                else
+                  @editor.setData _.stripslashes @model.get('content')[editingLanguage]
 
             # destroy the Ckeditor instance to avoiid memory leaks on close of element
             # this.editor will hold the reference to the editor instance
             # Ckeditor has a destroy method to remove a editor instance
             onClose: ->
-                @editor.destroy()
+                @editor.destroy(true)
 
 
         class Views.TranslatedPageView extends Marionette.CompositeView
