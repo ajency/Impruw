@@ -51,7 +51,7 @@ define(['app', 'text!apps//language-translation/language-page-content/translated
         }
         this.editor = CKEDITOR.inline(document.getElementById(this.$el.find('.translated-element-content').attr('id')));
         if (this.model.get('content')[editingLanguage] === void 0) {
-          return this.editor.setData(_.stripslashes(this.model.get('content')['en']));
+          return this.editor.setData("");
         } else {
           return this.editor.setData(_.stripslashes(this.model.get('content')[editingLanguage]));
         }

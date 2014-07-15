@@ -53,7 +53,7 @@ define ['app'
                 @editor = CKEDITOR.inline document.getElementById @$el.find('.translated-element-content').attr 'id'
 
                 if @model.get('content')[editingLanguage] is undefined
-                  @editor.setData _.stripslashes @model.get('content')['en']
+                  @editor.setData ""
                 else
                   @editor.setData _.stripslashes @model.get('content')[editingLanguage]
 
