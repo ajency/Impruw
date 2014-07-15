@@ -64,7 +64,7 @@ function check_update( $formdata ) {
 }
 
 /**
- * Function to reset user password
+ * Function to reset user password on clicking forgot password link
  *
  */
 function ajax_reset_password() {
