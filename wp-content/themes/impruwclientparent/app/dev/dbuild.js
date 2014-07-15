@@ -2,6 +2,7 @@
   baseUrl: './js',
   name: 'plugins/almond',
   include : 'dashboard-main',
+  exclude: ['plugins/ckeditor'],
   //optimize: 'none',
   wrap: false,
   out: '../production/dashboard-main.js',
@@ -39,7 +40,8 @@
     scrollsections: 'plugins/ajency.scrolldots',
     minicolors: 'plugins/jquery.minicolors.min',
     additionalmethod  : 'plugins/validate.additional.methods',
-    timepicker      : 'plugins/jquery.timepicker.min'
+    timepicker      : 'plugins/jquery.timepicker.min',
+    ckeditor: 'plugins/ckeditor'
   },
   shim: {
     underscore: {

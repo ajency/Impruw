@@ -74,8 +74,9 @@ echo json_encode($impruwUserModel->get_user_basic_info());
 </script>
 <script src="<?php echo get_parent_template_directory_uri() ?>/app/dev/js/plugins/pace.js"></script>
 <?php if ( ENV === 'production' ): ?>
-    <script
-        src="<?php echo get_parent_template_directory_uri(); ?>/app/production/dashboard-main.js?ver=<?php echo JSVERSION ?>"></script>
+    <script src="<?php echo get_parent_template_directory_uri(); ?>/app/dev/js/plugins/ckeditor.js"></script>
+    <script src="<?php echo get_parent_template_directory_uri(); ?>/app/production/dashboard-main.js?ver=<?php echo
+    JSVERSION ?>"></script>
 <?php else: ?>
     <!--<script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script> -->
     <script data-main="<?php echo get_parent_template_directory_uri(); ?>/app/dev/js/dashboard-main"
