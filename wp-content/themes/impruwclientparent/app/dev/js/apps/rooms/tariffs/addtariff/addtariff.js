@@ -37,7 +37,10 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/addtariff
         });
       };
 
-      AddTariffController.prototype.tariffSaved = function() {
+      AddTariffController.prototype.tariffSaved = function(tariffModel) {
+        var tariffs;
+        tariffs = App.request("get:current:tariffs:collection");
+        tariffs.add(tariffModel);
         return this.tariffView.triggerMethod("saved:tariff");
       };
 

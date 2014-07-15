@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
 
 define(['app', 'moment'], function(App, moment) {
   return App.module("RoomsApp.RoomsTariff.Show.Views", function(Views, App) {
-    var DateRageView, PackageSingle, SingleTariff;
+    var DateRangeView, PackageSingle, SingleTariff;
     PackageSingle = (function(_super) {
       __extends(PackageSingle, _super);
 
@@ -109,16 +109,16 @@ define(['app', 'moment'], function(App, moment) {
       return SingleTariff;
 
     })(Marionette.ItemView);
-    DateRageView = (function(_super) {
-      __extends(DateRageView, _super);
+    DateRangeView = (function(_super) {
+      __extends(DateRangeView, _super);
 
-      function DateRageView() {
-        return DateRageView.__super__.constructor.apply(this, arguments);
+      function DateRangeView() {
+        return DateRangeView.__super__.constructor.apply(this, arguments);
       }
 
-      DateRageView.prototype.template = '<div class="date-range"> <div class="range-name">{{daterange_name}}</div> <div class="from"> <span class="date">{{fromdate}}</span> to <span class="date">{{todate}}</span> </div> <a href="#" class="edit-range-link"><span class="glyphicon glyphicon-pencil"></span> {{#polyglot}}Edit{{/polyglot}}</a> </div> <div class="packages"> <div class="package-blocks clearfix"></div> </div>';
+      DateRangeView.prototype.template = '<div class="date-range"> <div class="range-name">{{daterange_name}}</div> <div class="from"> <span class="date">{{fromdate}}</span> to <span class="date">{{todate}}</span> </div> <a href="#" class="edit-range-link"><span class="glyphicon glyphicon-pencil"></span> {{#polyglot}}Edit{{/polyglot}}</a> </div> <div class="packages"> <div class="package-blocks clearfix"></div> </div>';
 
-      DateRageView.prototype.events = {
+      DateRangeView.prototype.events = {
         'click .edit-range-link': function(e) {
           e.preventDefault();
           return App.execute("show:edit:daterange", {
@@ -127,9 +127,9 @@ define(['app', 'moment'], function(App, moment) {
         }
       };
 
-      DateRageView.prototype.initialize = function() {};
+      DateRangeView.prototype.initialize = function() {};
 
-      DateRageView.prototype.onBeforeRender = function() {
+      DateRangeView.prototype.onBeforeRender = function() {
         var dateRangeId, getTariff, plans, roomId, tariffCollection, tariffs;
         dateRangeId = this.model.get('id');
         tariffs = App.request("get:tariffs:for:daterange", dateRangeId);
@@ -166,17 +166,17 @@ define(['app', 'moment'], function(App, moment) {
         return this.listenTo(this.collection, "remove add", this.render);
       };
 
-      DateRageView.prototype.render = function() {
-        return DateRageView.__super__.render.call(this);
+      DateRangeView.prototype.render = function() {
+        return DateRangeView.__super__.render.call(this);
       };
 
-      DateRageView.prototype.modelEvents = {
+      DateRangeView.prototype.modelEvents = {
         'change': 'render'
       };
 
-      DateRageView.prototype.serializeData = function() {
+      DateRangeView.prototype.serializeData = function() {
         var data;
-        data = DateRageView.__super__.serializeData.call(this);
+        data = DateRangeView.__super__.serializeData.call(this);
         data.fromdate = function() {
           return moment(this.from_date).format('Do-MMM');
         };
@@ -186,7 +186,7 @@ define(['app', 'moment'], function(App, moment) {
         return data;
       };
 
-      DateRageView.prototype.itemViewOptions = function(item, index) {
+      DateRangeView.prototype.itemViewOptions = function(item, index) {
         var currency;
         currency = Marionette.getOption(this, 'currency');
         return {
@@ -194,11 +194,11 @@ define(['app', 'moment'], function(App, moment) {
         };
       };
 
-      DateRageView.prototype.itemView = SingleTariff;
+      DateRangeView.prototype.itemView = SingleTariff;
 
-      DateRageView.prototype.itemViewContainer = '.package-blocks';
+      DateRangeView.prototype.itemViewContainer = '.package-blocks';
 
-      return DateRageView;
+      return DateRangeView;
 
     })(Marionette.CompositeView);
     return Views.DateRangeCollectionView = (function(_super) {
@@ -210,7 +210,7 @@ define(['app', 'moment'], function(App, moment) {
 
       DateRangeCollectionView.prototype.className = 'tariff clearfix';
 
-      DateRangeCollectionView.prototype.itemView = DateRageView;
+      DateRangeCollectionView.prototype.itemView = DateRangeView;
 
       DateRangeCollectionView.prototype.itemViewOptions = function(item, index) {
         var currency, roomId;
