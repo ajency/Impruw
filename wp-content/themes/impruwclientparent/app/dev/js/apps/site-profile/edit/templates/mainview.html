@@ -21,10 +21,16 @@
                 <div class="form-group">
                     <label for="hotel-name" class="col-sm-2 control-label">{{#polyglot}}Hotel Name{{/polyglot}}</label>
                     <div class="col-sm-10 col-sm-offset-2">
-                        <div class="input-group">
-                            <input type="text" class="form-control" id="hotel-name" name="hotel_name"
-                            value="{{hotel_name}}" >
-                        </div>
+                        <input type="text" class="form-control" id="hotel-name" name="hotel_name"
+                        value="{{hotel_name}}" >
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label"></label>
+                    <div class="col-sm-10 col-sm-offset-2">
+                        <span class="help-block">
+                            {{#polyglot}}This will be your page title. A Page Title is one of the most important on-page ranking factors and should be treated with care. For best results keep your page title less than 70 characters.{{/polyglot}}
+                        </span>
                     </div>
                 </div>
                 <div class="form-group pic-upload">
@@ -80,31 +86,24 @@
                     </div>
                 </div>
                 
-                <div class="form-group dual">
-                    <div class="col-sm-5">
-                        <div class="form-group">
-                            <label for="inputAddress2" class="col-sm-5 control-label">{{#polyglot}}Postal Code{{/polyglot}}</label>
-                            <div class="col-sm-7 col-sm-offset-5">
-                                <input type="text" class="form-control" name="postal_code" id="inputAddress2" data-mask="999-999" placeholder="{{#polyglot}}420-001{{/polyglot}}" value="{{postal_code}}">
-                            </div>
-                        </div>
+                <div class="form-group add-another">
+                    <label for="inputAddress2" class="col-sm-2 control-label">{{#polyglot}}Postal Code{{/polyglot}}</label>
+                    <div class="col-sm-4 col-sm-offset-2">
+                        <input type="text" class="form-control" name="postal_code" id="inputAddress2" data-mask="999-999" placeholder="{{#polyglot}}420-001{{/polyglot}}" value="{{postal_code}}">
                     </div>
 
-                    <div class="col-sm-5">
-                        <div class="form-group">
-                            <label for="inputAddress3" class="col-sm-5 control-label">{{#polyglot}}City Town{{/polyglot}}</label>
-                            <div class="col-sm-7 col-sm-offset-5">
-                                <input type="text" class="form-control" id="inputAddress2" placeholder="{{#polyglot}}Gotham City{{/polyglot}}" name="city" value="{{city}}">
-                            </div>
-                        </div>
+                    
+                    <label for="inputAddress3" class="col-sm-2 control-label label-2">{{#polyglot}}City Town{{/polyglot}}</label>
+                    <div class="col-sm-4 col-sm-offset-2">
+                        <input type="text" class="form-control" id="inputAddress2" placeholder="{{#polyglot}}Gotham City{{/polyglot}}" name="city" value="{{city}}">
                     </div>
                 </div>
                 
                 
                 <div class="form-group">
                     <label for="inputAddress4" class="col-sm-2 control-label dd-label">{{#polyglot}}Country{{/polyglot}}</label>
-                    <div class="col-sm-10 col-sm-offset-2">
-                        <select name="country">
+                    <div class="col-sm-4 col-sm-offset-2">
+                        <select name="country" class="country">
                             <option value="Norway">{{#polyglot}}Norway{{/polyglot}}</option>
                             <option value="Sweden">{{#polyglot}}Sweden{{/polyglot}}</option>
                             <option value="Denmark">{{#polyglot}}Denmark{{/polyglot}}</option>
