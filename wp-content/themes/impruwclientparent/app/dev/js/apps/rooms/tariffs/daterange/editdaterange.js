@@ -109,29 +109,30 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/daterange
       };
 
       EditDateRangeView.prototype.checkDaterangeValid = function(selectedDate) {
-        var daterangeCollection, temp;
-        temp = 0;
+        var dateRangeId, dateRangeModelId, daterangeCollection, daterangeModel, fromDate, fromDateCheck, temp, toDate, toDateCheck, _i, _len, _ref;
+        temp = 1;
         daterangeCollection = App.request("get:daterange:collection");
-        _.each(daterangeCollection.models, (function(_this) {
-          return function(daterangeModel, index) {
-            var dateRangeId, dateRangeModelId, fromDate, fromDateCheck, toDate, toDateCheck;
-            dateRangeModelId = _this.model.get('id');
-            dateRangeId = daterangeModel.get('id');
-            if (dateRangeModelId !== dateRangeId) {
-              fromDate = daterangeModel.get('from_date');
-              toDate = daterangeModel.get('to_date');
-              fromDate = moment(fromDate).subtract('days', 1);
-              toDate = moment(toDate).add('days', 1);
-              fromDateCheck = moment(selectedDate.from_date).isAfter(fromDate);
-              toDateCheck = moment(selectedDate.to_date).isBefore(toDate);
-              if (fromDateCheck === true && toDateCheck === false) {
-                return temp = temp + 1;
-              } else {
-                return temp = 0;
-              }
+        _ref = daterangeCollection.models;
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          daterangeModel = _ref[_i];
+          dateRangeModelId = this.model.get('id');
+          dateRangeId = daterangeModel.get('id');
+          if (dateRangeModelId !== dateRangeId) {
+            fromDate = daterangeModel.get('from_date');
+            toDate = daterangeModel.get('to_date');
+            fromDate = moment(fromDate).subtract('days', 1);
+            toDate = moment(toDate).add('days', 1);
+            fromDateCheck = moment(selectedDate.from_date).isAfter(fromDate);
+            toDateCheck = moment(selectedDate.to_date).isBefore(toDate);
+            if (fromDateCheck === true && toDateCheck === false) {
+              temp = temp + 1;
+            } else {
+              temp = 0;
             }
-          };
-        })(this));
+          } else {
+            break;
+          }
+        }
         return temp;
       };
 

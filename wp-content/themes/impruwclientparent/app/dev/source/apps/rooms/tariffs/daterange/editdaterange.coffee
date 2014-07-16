@@ -58,6 +58,7 @@ define ['app', 'controllers/base-controller',
                         data = Backbone.Syphon.serialize @
                         if moment( data.to_date ).isAfter( data.from_date ) is true
                             check = @checkDaterangeValid data
+#                            console.log check
                             if check is 0
                                 @$el.parent().find( '.alert' ).remove()
                                 @$el.parent().prepend "<div class=\"alert alert-success\">" + _.polyglot.t( "Date range overlaps existing date range" ) + "</div>"
@@ -73,13 +74,42 @@ define ['app', 'controllers/base-controller',
                         @trigger "delete:daterange", @model
 
             checkDaterangeValid : ( selectedDate )->
-                temp = 0;
+                temp = 1;
 
                 daterangeCollection = App.request "get:daterange:collection"
 
-                _.each daterangeCollection.models, ( daterangeModel, index ) =>
+#                _.each daterangeCollection.models, ( daterangeModel, index ) =>
+#                    dateRangeModelId =  @model.get 'id'
+#                    dateRangeId=daterangeModel.get 'id'
+#                    console.log dateRangeModelId
+#                    console.log dateRangeId
+#
+#                    if dateRangeModelId != dateRangeId
+#
+#                        fromDate = daterangeModel.get 'from_date'
+#                        toDate = daterangeModel.get 'to_date'
+#
+#                        fromDate = moment( fromDate ).subtract( 'days', 1 )
+#                        toDate = moment( toDate ).add( 'days', 1 )
+#
+#                        fromDateCheck = moment( selectedDate.from_date ).isAfter( fromDate )
+#                        toDateCheck = moment( selectedDate.to_date ).isBefore( toDate )
+#
+#                        if fromDateCheck is true and toDateCheck is false
+#                            temp = temp + 1
+#                        else
+#                            temp = 0
+#                    else
+#                        console.log 'hii'
+#                        console.log temp
+#                        false
+
+                for daterangeModel in daterangeCollection.models
+
                     dateRangeModelId =  @model.get 'id'
                     dateRangeId=daterangeModel.get 'id'
+#                    console.log dateRangeModelId
+#                    console.log dateRangeId
 
                     if dateRangeModelId != dateRangeId
 
@@ -96,6 +126,9 @@ define ['app', 'controllers/base-controller',
                             temp = temp + 1
                         else
                             temp = 0
+                    else
+                        break
+
                 temp
 
             serializeData: ->
