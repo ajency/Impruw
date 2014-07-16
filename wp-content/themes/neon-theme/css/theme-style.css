@@ -1503,6 +1503,19 @@ and open the template in the editor.
   border: 1px dashed #e223a1;
   margin: 1em 0;
 }
+.map .empty-view {
+  text-align: center;
+  font-size: 1.2em;
+  color: #ffffff;
+  padding: 3em 0.3em;
+  height: 100%;
+}
+.map .empty-view .glyphicon {
+  display: block;
+  margin: 0.2em 0 0.5em;
+  font-size: 3em;
+  color: #ffffff;
+}
 .map:hover {
   border: 1px solid #24d07c;
 }
@@ -1760,6 +1773,9 @@ and open the template in the editor.
 /**** Logo Styles ****/
 .logo {
   max-width: 300px;
+}
+.logo img {
+  max-height: 50px;
 }
 @media (max-width: 767px) {
   .logo {
