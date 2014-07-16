@@ -25,7 +25,7 @@ function get_site_details( $site_id = 0 ) {
         'city' => get_option( 'city', '' ),
         'logo_id' => $logo_id,
         'logo_url' => $image_path, 'country' => get_option( 'country', '' ),
-        'other_emails' => get_option( 'other_emails', array() ),
+        'site_email' => get_option( 'site_email', get_bloginfo('admin_email')),
         'other_phone_no' => get_option( 'other_phone_no', array() ),
         'facebook' => get_option( 'facebook', '' ),
         'twitter' => get_option( 'twitter', '' ) );
@@ -458,7 +458,7 @@ function update_site_profile( $formdata ) {
     foreach ( $changed_values as $key => $value ) {
 
         // if the options are email or phone, store them as serailized array
-        if ( $key == "other_emails" || $key == "other_phone_no" ) {
+        if ( $key == "other_phone_no" ) {
             $value_array = $changed_values[ $key ];
             update_option( $key, $value_array );
         } else {
