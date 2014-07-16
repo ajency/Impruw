@@ -91,22 +91,26 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/daterange
         var daterangeCollection, temp;
         temp = 0;
         daterangeCollection = App.request("get:daterange:collection");
-        _.each(daterangeCollection.models, (function(_this) {
-          return function(daterangeModel, index) {
-            var fromDate, fromDateCheck, toDate, toDateCheck;
-            fromDate = daterangeModel.get('from_date');
-            toDate = daterangeModel.get('to_date');
-            fromDate = moment(fromDate).subtract('days', 1);
-            toDate = moment(toDate).add('days', 1);
-            fromDateCheck = moment(selectedDate.from_date).isAfter(fromDate);
-            toDateCheck = moment(selectedDate.to_date).isBefore(toDate);
-            if (fromDateCheck === true && toDateCheck === false) {
-              return temp = temp + 1;
-            } else {
-              return temp = 0;
-            }
-          };
-        })(this));
+        if (daterangeCollection.models.length === 0) {
+          temp = 1;
+        } else {
+          _.each(daterangeCollection.models, (function(_this) {
+            return function(daterangeModel, index) {
+              var fromDate, fromDateCheck, toDate, toDateCheck;
+              fromDate = daterangeModel.get('from_date');
+              toDate = daterangeModel.get('to_date');
+              fromDate = moment(fromDate).subtract('days', 1);
+              toDate = moment(toDate).add('days', 1);
+              fromDateCheck = moment(selectedDate.from_date).isAfter(fromDate);
+              toDateCheck = moment(selectedDate.to_date).isBefore(toDate);
+              if (fromDateCheck === true && toDateCheck === false) {
+                return temp = temp + 1;
+              } else {
+                return temp = 0;
+              }
+            };
+          })(this));
+        }
         return temp;
       };
 

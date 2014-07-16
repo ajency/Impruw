@@ -57,20 +57,23 @@ define [ 'app', 'controllers/base-controller',
 
                 daterangeCollection = App.request "get:daterange:collection"
 
-                _.each daterangeCollection.models, ( daterangeModel, index ) =>
-                    fromDate = daterangeModel.get 'from_date'
-                    toDate = daterangeModel.get 'to_date'
+                if daterangeCollection.models.length is 0
+                    temp =1
+                else
+                    _.each daterangeCollection.models, ( daterangeModel, index ) =>
+                            fromDate = daterangeModel.get 'from_date'
+                            toDate = daterangeModel.get 'to_date'
 
-                    fromDate = moment( fromDate ).subtract( 'days', 1 )
-                    toDate = moment( toDate ).add( 'days', 1 )
+                            fromDate = moment( fromDate ).subtract( 'days', 1 )
+                            toDate = moment( toDate ).add( 'days', 1 )
 
-                    fromDateCheck = moment( selectedDate.from_date ).isAfter( fromDate )
-                    toDateCheck = moment( selectedDate.to_date ).isBefore( toDate )
+                            fromDateCheck = moment( selectedDate.from_date ).isAfter( fromDate )
+                            toDateCheck = moment( selectedDate.to_date ).isBefore( toDate )
 
-                    if fromDateCheck is true and toDateCheck is false
-                        temp = temp + 1
-                    else
-                        temp = 0
+                            if fromDateCheck is true and toDateCheck is false
+                                temp = temp + 1
+                            else
+                                temp = 0
                 temp
 
 
