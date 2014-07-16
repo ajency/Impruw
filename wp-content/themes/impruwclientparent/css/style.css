@@ -1491,6 +1491,13 @@ and open the template in the editor.
   border: 1px dashed #29333f;
   margin: 1em 0;
 }
+.map .empty-view {
+  color: #ff7e00;
+  text-align: center;
+  padding: 2em;
+  font-size: 1.2em;
+  font-weight: 700;
+}
 .map:hover {
   border: 1px solid #ff7e00;
 }

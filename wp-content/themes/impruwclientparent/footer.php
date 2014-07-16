@@ -58,7 +58,7 @@
                     });
                 }
                 else{
-                    jQuery('#map_canvas').html('Please add site address');
+                    jQuery('#map_canvas').html('<div class="empty-view">Please add an address for your site.</div>');
                 }
             });
         }

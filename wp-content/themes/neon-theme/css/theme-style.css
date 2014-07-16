@@ -1503,6 +1503,13 @@ and open the template in the editor.
   border: 1px dashed #e223a1;
   margin: 1em 0;
 }
+.map .empty-view {
+  color: #24d07c;
+  text-align: center;
+  padding: 2em;
+  font-size: 1.2em;
+  font-weight: 700;
+}
 .map:hover {
   border: 1px solid #24d07c;
 }
