@@ -1535,11 +1535,17 @@ and open the template in the editor.
   margin: 1em 0;
 }
 .map .empty-view {
-  color: #ff5f5f;
   text-align: center;
-  padding: 2em;
   font-size: 1.2em;
-  font-weight: 700;
+  color: #989898;
+  border: 1px dashed #cbcbcb;
+  padding: 0.3em;
+}
+.map .empty-view .glyphicon {
+  display: block;
+  margin: 0.2em 0;
+  font-size: 3em;
+  color: #989898;
 }
 .map:hover {
   border: 1px solid #ff5f5f;

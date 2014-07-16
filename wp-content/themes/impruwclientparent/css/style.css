@@ -1492,11 +1492,17 @@ and open the template in the editor.
   margin: 1em 0;
 }
 .map .empty-view {
-  color: #ff7e00;
   text-align: center;
-  padding: 2em;
   font-size: 1.2em;
-  font-weight: 700;
+  color: #bfbfbf;
+  border: 1px dashed #f2f2f2;
+  padding: 0.3em;
+}
+.map .empty-view .glyphicon {
+  display: block;
+  margin: 0.2em 0;
+  font-size: 3em;
+  color: #bfbfbf;
 }
 .map:hover {
   border: 1px solid #ff7e00;
