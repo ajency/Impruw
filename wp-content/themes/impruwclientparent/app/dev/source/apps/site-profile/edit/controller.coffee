@@ -8,7 +8,6 @@ define ['app', 'controllers/base-controller'
 
 
             showSiteProfile: ()->
-                console.log @siteProfile
                 @view = @getMainView @siteProfile
 
                 # trigger set:active:menu event
