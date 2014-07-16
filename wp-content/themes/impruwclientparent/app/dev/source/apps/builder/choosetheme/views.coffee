@@ -34,10 +34,8 @@ define ['app'], (App)->
 		# choose theme view
 		class Views.ChooseThemeView extends Marionette.CompositeView
 
-			template: '{{^ISTHEMESELECTED}}\n
-						<h2 class="page-title list-title {{^ISTHEMESELECTED}}hidden{{/ISTHEMESELECTED}}">{{#polyglot}}Choose Site Theme{{/polyglot}}</h2>\n
+			template: '<h2 class="page-title list-title {{^ISTHEMESELECTED}}hidden{{/ISTHEMESELECTED}}">{{#polyglot}}Choose Site Theme{{/polyglot}}</h2>\n
 						<p class="desc list-desc {{^ISTHEMESELECTED}}hidden{{/ISTHEMESELECTED}}">{{#polyglot}}Theme applied for pages{{/polyglot}}\n    {{#polyglot}}Customise logo colors{{/polyglot}}\n    {{#polyglot}}Suit site preferences{{/polyglot}}</p>\n
-						{{/ISTHEMESELECTED}}\n
 							{{^ISTHEMESELECTED}}
 								<h2 class="page-title language-title">{{#polyglot}}Choose a default language for the website{{/polyglot}}</h2>\n
 								<p class="desc language-desc">{{#polyglot}}The language you select here will be the one your website viewers will see by default when they access your site. Impruw is built to support multiple languages, you can add more languages to your website from your <a href="../dashboard/#/language" target="_blank">dashboard</a>{{/polyglot}}</p>\n
