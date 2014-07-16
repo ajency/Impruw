@@ -1,5 +1,5 @@
 define [ 'app', 'controllers/base-controller',
-         'text!apps/rooms/tariffs/edittariff/templates/edittariff.html' ], ( App, AppController, editTariffTpl )->
+         'text!apps/rooms/tariffs/edittariff/templates/edittariff.html'], ( App, AppController, editTariffTpl )->
     App.module "RoomsApp.RoomsTariff.Edit", ( Edit, App )->
         class EditTariffController extends AppController
 
@@ -69,17 +69,18 @@ define [ 'app', 'controllers/base-controller',
                         @trigger "delete:tariff", @model
 
             onSavedTariff : ->
+                @$el.find('.alert').remove()
                 @$el.parent().prepend "<div class=\"alert alert-success\">" + _.polyglot.t( "Tariff updated successfully" ) + "</div>"
 
             onDeletedTariff : ->
-                console.log 'hi'
                 @trigger "dialog:close"
 
             # show checkbox
             onShow : ->
                 @$el.find( 'input[type="checkbox"]' ).checkbox()
                 @$el.find('.currency' ).text Marionette.getOption @, 'currency'
-
+                #validate the form with rules
+                @$el.validate()
 
         # handler
         App.commands.setHandler "show:edit:tariff", ( opt )->

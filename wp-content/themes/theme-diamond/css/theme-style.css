@@ -1719,9 +1719,9 @@ and open the template in the editor.
     border-bottom: 0;
   }
 }
-.site-page {
-  margin-top: -2.04em;
-}
+/*.site-page {
+	margin-top: -2.04em;
+}*/
 @media (max-width: 991px) {
   .site-footer {
     text-align: center;
