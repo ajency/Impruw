@@ -48,7 +48,7 @@ define [ 'app'
          onSetLogo : ( media ) ->
             image_id = media.get 'id'
             media_size = media.get 'sizes'
-            image_path = media_size.full.url
+            image_path = media_size.thumbnail.url
             #@$el.find('.fileinput-preview ').append '<img src ="" class="site_profile_images"/>'
             @$el.find( '.site_profile_images' ).attr 'src', image_path
             @$el.find( '#logo_id' ).attr 'value', image_id

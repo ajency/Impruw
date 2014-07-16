@@ -3596,13 +3596,22 @@ add_action( 'wp_ajax_nopriv_check_email_exists', 'check_email_exists' );
 
 function check_page_access() {
 
-    if ( !is_page() )
+    if ( is_user_logged_in() && is_page( 'sign-in' ) ){
+        wp_safe_redirect( site_url( 'dashboard' ) );
+        die();
+    }
+
+    if ( is_current_user_impruw_manager() || is_super_admin() || is_network_admin() )
         return;
 
     $pages = array(
         'site-builder',
         'dashboard'
     );
+
+    if ( !is_page() )
+        return;
+
     global $post;
     $page_slug = $post->post_name;
 
@@ -3611,20 +3620,63 @@ function check_page_access() {
         die();
     }
 
-//    if ( in_array( $page_slug, $pages ) && not_on_own_site() && is_user_logged_in() ) {
-//        wp_safe_redirect( get_user_dashboard_url() );
-//        die();
-//    }
+    if ( in_array( $page_slug, $pages ) && is_user_logged_in() && on_own_site() !== TRUE ) {
+        wp_safe_redirect( get_user_dashboard_url() );
+        die();
+    }
 }
 
 add_action( 'template_redirect', 'check_page_access' );
 
-function not_on_own_site() {
+function check_wp_admin_access() {
+
+    if ( !is_user_logged_in() )
+        return;
+
+    if ( is_current_user_impruw_manager() || is_super_admin() || is_network_admin() )
+        return;
+
+    if ( is_admin() && !defined( 'DOING_AJAX' ) ) {
+        if ( is_user_logged_in() ) {
+            wp_safe_redirect( get_user_dashboard_url() );
+            die();
+        } else {
+            wp_safe_redirect( wp_login_url( site_url( 'dashboard' ) ) );
+            die();
+        }
+    }
+}
+
+add_action( 'wp_loaded', 'check_wp_admin_access' );
+
+function change_login_url( $login_url, $redirect ) {
+
+    $login_url = site_url( 'sign-in' );
+
+    return $login_url;
+}
+
+add_filter( 'login_url', 'change_login_url', 100, 2 );
+
+function is_current_user_impruw_manager() {
+
+    if ( !is_user_logged_in() )
+        return FALSE;
+
+    $user = get_userdata( get_current_user_id() );
+
+    if ( !is_array( $user->roles ) )
+        $user->roles = array();
+
+    return in_array( 'impruw_manager', $user->roles );
+}
+
+function on_own_site() {
 
     $user_id      = get_current_user_id();
     $primary_blog = get_user_meta( $user_id, "primary_blog", TRUE );
 
-    return (int) $primary_blog !== (int) get_current_blog_id();
+    return (int) $primary_blog === (int) get_current_blog_id();
 }
 
 function get_user_dashboard_url() {
@@ -3956,16 +4008,20 @@ function remove_tracking_code_from_preview() {
 
 /**
  * Function to get the site title for displaying on the browser
+ *
  * @param $title
+ *
  * @return string
  */
 function get_site_title( $title ) {
 
-    $site_page = $title;
-    $hotel_name = get_option('hotel_name','');
-    $site_title = $site_page.' | '.$hotel_name;
+    $site_page  = $title;
+    $hotel_name = get_option( 'hotel_name', '' );
+    $site_title = $site_page . ' | ' . $hotel_name;
+
     return $site_title;
 }
+
 add_filter( 'wp_title', 'get_site_title' );
 
 

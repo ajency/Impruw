@@ -14,7 +14,8 @@ function get_site_details( $site_id = 0 ) {
 
     // fetching the image path for the logo
     $logo_id = get_option( 'logo_id', 0 );
-    $image_path = get_post_field( 'guid', $logo_id );
+    $image_path = wp_get_attachment_image_src($logo_id);;
+    $image_path = $image_path === false ? '' : $image_path[0];
 
     return array( 'site_id' => $site_id,
         'site_domain' => get_site_domain( $site_id ),
