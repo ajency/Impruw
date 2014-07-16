@@ -19,8 +19,10 @@ Version:        0.1.0
 a {
   color: #ff7e00;
 }
+a:hover,
 a:focus {
   outline: none;
+  color: #ff9833;
 }
 /****Builder Container & Container Structure****/
 .aj-imp-builder {

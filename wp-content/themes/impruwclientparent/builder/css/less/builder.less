@@ -30,8 +30,9 @@ Version:        0.1.0
 /**** Link Styles Basic ****/
 a {
 	color: @orange;
-	&:focus {
+	&:hover, &:focus {
 		outline: none;
+		color: lighten(@orange, 10%);
 	}
 }
 

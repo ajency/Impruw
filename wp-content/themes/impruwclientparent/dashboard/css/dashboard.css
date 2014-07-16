@@ -704,6 +704,17 @@ form .aj-imp-submit:hover {
 .bootstrap-select.open .dropdown-toggle .caret {
   border-top-color: #ff7e00;
 }
+.bootstrap-select.country {
+  width: 100%;
+}
+.bootstrap-select.country .selectpicker {
+  width: 100%;
+}
+.bootstrap-select.country .selectpicker .caret {
+  position: absolute;
+  right: 1em;
+  top: 1.25em;
+}
 /****Logged Out Header, Footer & Coming Soon Styles****/
 .aj-imp-lo-header {
   background: #fff;
