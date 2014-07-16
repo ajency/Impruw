@@ -56,12 +56,47 @@ define ['app', 'controllers/base-controller',
                 'click #btn_updatedaterange': ->
                     if @$el.valid()
                         data = Backbone.Syphon.serialize @
-                        @trigger "update:daterange:details", data
+                        if moment( data.to_date ).isAfter( data.from_date ) is true
+                            check = @checkDaterangeValid data
+                            if check is 0
+                                @$el.parent().find( '.alert' ).remove()
+                                @$el.parent().prepend "<div class=\"alert alert-success\">" + _.polyglot.t( "Date range overlaps existing date range" ) + "</div>"
+                            else
+                                @trigger "update:daterange:details", data
+                        else
+                            @$el.parent().find( '.alert' ).remove()
+                            @$el.parent().prepend "<div class=\"alert alert-success\">" + _.polyglot.t( "Select valid daterange" ) + "</div>"
 
                 'click #btn_deletedaterange': (e) ->
                     e.preventDefault()
                     if confirm _.polyglot.t 'All plans with date range deleted confirm'
                         @trigger "delete:daterange", @model
+
+            checkDaterangeValid : ( selectedDate )->
+                temp = 0;
+
+                daterangeCollection = App.request "get:daterange:collection"
+
+                _.each daterangeCollection.models, ( daterangeModel, index ) =>
+                    dateRangeModelId =  @model.get 'id'
+                    dateRangeId=daterangeModel.get 'id'
+
+                    if dateRangeModelId != dateRangeId
+
+                        fromDate = daterangeModel.get 'from_date'
+                        toDate = daterangeModel.get 'to_date'
+
+                        fromDate = moment( fromDate ).subtract( 'days', 1 )
+                        toDate = moment( toDate ).add( 'days', 1 )
+
+                        fromDateCheck = moment( selectedDate.from_date ).isAfter( fromDate )
+                        toDateCheck = moment( selectedDate.to_date ).isBefore( toDate )
+
+                        if fromDateCheck is true and toDateCheck is false
+                            temp = temp + 1
+                        else
+                            temp = 0
+                temp
 
             serializeData: ->
                 data = super()

@@ -25,8 +25,6 @@ define ['app'
 
             onShow: ->
                 #@$el.scrollSections()
-                @$el.find( 'form' ).validationOptions()
-
                 # set affix
                 @$el.find('*[data-spy="affix"]').affix()
 
@@ -38,14 +36,6 @@ define ['app'
                 @$el.find('*[data-spy="affix"]').css('margin-left', m)
 
                 @$el.find('.currency' ).text Marionette.getOption @, 'currency'
-
-            validationOptions : ->
-                rules :
-                    no_of_rooms :
-                        number : true
-
-                messages :
-                    no_of_rooms : 'Enter valid url'
 
             onShowSuccessMessage: ->
                 @$el.find('.alert').remove()

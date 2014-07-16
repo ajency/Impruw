@@ -76,16 +76,16 @@ function send_contact_form_message() {
 
     $headers = 'From:contact@impruw.com ';
 
-    $admin_email = get_option( 'admin_email' );
+    $site_email = get_option( 'admin_email', get_bloginfo('admin_email') );
 
 
     $message = $_POST [ 'c-message' ];
-    $fname   = $_POST [ 'c-first-name' ];
-    $lname   = $_POST [ 'c-last-name' ];
-    $email   = $_POST [ 'c-email' ];
+    $fname = $_POST [ 'c-first-name' ];
+    $lname = $_POST [ 'c-last-name' ];
+    $email = $_POST [ 'c-email' ];
     $subject = $_POST [ 'c-subject' ];
 
-    $subject     = ( !empty( $subject ) ? $subject : '-' );
+    $subject = ( !empty( $subject ) ? $subject : '-' );
     $mailsubject = "Impruw Notification: You have received a $subject email";
 
     $mailbody = " You have been contacted by<br /><br />
@@ -95,17 +95,17 @@ function send_contact_form_message() {
                     The details of the message are as follows:<br />
                     <p>$message</p>";
 
-    if ( wp_mail( $admin_email, $mailsubject, $mailbody, $headers ) ) {
+    if ( wp_mail( $site_email, $mailsubject, $mailbody, $headers ) ) {
 
         remove_filter( 'wp_mail_content_type', 'change_email_content_type' );
 
         wp_send_json( array(
-            'code'  => 'OK',
-            'email' => $admin_email
+            'code' => 'OK',
+            'email' => $site_email
         ) );
     } else {
         wp_send_json( array(
-            'code'    => 'ERROR',
+            'code' => 'ERROR',
             'message' => 'Failed to send you message. Please try again.',
         ) );
     }
@@ -148,40 +148,40 @@ function check_site_status() {
 
 function impruw_register_room_init() {
 
-    $url    = get_template_directory_uri();
+    $url = get_template_directory_uri();
     $labels = array(
-        'name'               => 'Rooms',
-        'singular_name'      => 'Room',
-        'add_new'            => 'Add New',
-        'add_new_item'       => 'Add New Room',
-        'edit_item'          => 'Edit Room',
-        'new_item'           => 'New Romm',
-        'all_items'          => 'All Rooms',
-        'view_item'          => 'View Romms',
-        'search_items'       => 'Search Rooms',
-        'not_found'          => 'No Rooms found',
+        'name' => 'Rooms',
+        'singular_name' => 'Room',
+        'add_new' => 'Add New',
+        'add_new_item' => 'Add New Room',
+        'edit_item' => 'Edit Room',
+        'new_item' => 'New Romm',
+        'all_items' => 'All Rooms',
+        'view_item' => 'View Romms',
+        'search_items' => 'Search Rooms',
+        'not_found' => 'No Rooms found',
         'not_found_in_trash' => 'No Rooms found in Trash',
-        'parent_item_colon'  => '',
-        'menu_name'          => 'Rooms'
+        'parent_item_colon' => '',
+        'menu_name' => 'Rooms'
     );
 
     $args = array(
-        'labels'             => $labels,
-        'label'              => __( 'room', "impruwclientparent" ),
-        'public'             => TRUE,
+        'labels' => $labels,
+        'label' => __( 'room', "impruwclientparent" ),
+        'public' => TRUE,
         'publicly_queryable' => TRUE,
-        'show_ui'            => TRUE,
-        'show_in_menu'       => TRUE,
-        'query_var'          => TRUE,
-        'rewrite'            => array(
+        'show_ui' => TRUE,
+        'show_in_menu' => TRUE,
+        'query_var' => TRUE,
+        'rewrite' => array(
             'slug' => 'room'
         ),
-        'capability_type'    => 'post',
-        'has_archive'        => TRUE,
-        'hierarchical'       => FALSE,
-        'menu_position'      => null,
+        'capability_type' => 'post',
+        'has_archive' => TRUE,
+        'hierarchical' => FALSE,
+        'menu_position' => null,
         // 'menu_icon' => '' . $url . '/images/room.png',
-        'supports'           => array(
+        'supports' => array(
             'title',
             'editor',
             'author',
@@ -208,32 +208,32 @@ function create_room_taxonomies_and_add_terms() {
      */
 
     $labels = array(
-        'name'                       => _x( 'Facilities', 'taxonomy general name' ),
-        'singular_name'              => _x( 'Facility', 'taxonomy singular name' ),
-        'search_items'               => __( 'Search Facilities', 'impruwclientparent' ),
-        'popular_items'              => __( 'Popular Faclilities', 'impruwclientparent' ),
-        'all_items'                  => __( 'All Facilities', 'impruwclientparent' ),
-        'parent_item'                => null,
-        'parent_item_colon'          => null,
-        'edit_item'                  => __( 'Edit Facility', 'impruwclientparent' ),
-        'update_item'                => __( 'Update Facility', 'impruwclientparent' ),
-        'add_new_item'               => __( 'Add New Facility', 'impruwclientparent' ),
-        'new_item_name'              => __( 'New Facility Name', 'impruwclientparent' ),
+        'name' => _x( 'Facilities', 'taxonomy general name' ),
+        'singular_name' => _x( 'Facility', 'taxonomy singular name' ),
+        'search_items' => __( 'Search Facilities', 'impruwclientparent' ),
+        'popular_items' => __( 'Popular Faclilities', 'impruwclientparent' ),
+        'all_items' => __( 'All Facilities', 'impruwclientparent' ),
+        'parent_item' => null,
+        'parent_item_colon' => null,
+        'edit_item' => __( 'Edit Facility', 'impruwclientparent' ),
+        'update_item' => __( 'Update Facility', 'impruwclientparent' ),
+        'add_new_item' => __( 'Add New Facility', 'impruwclientparent' ),
+        'new_item_name' => __( 'New Facility Name', 'impruwclientparent' ),
         'separate_items_with_commas' => __( 'Separate facilities with commas' ),
-        'add_or_remove_items'        => __( 'Add or remove facilities', 'impruwclientparent' ),
-        'choose_from_most_used'      => __( 'Choose from the most used facilities', 'impruwclientparent' ),
-        'not_found'                  => __( 'No facilities found.', 'impruwclientparent' ),
-        'menu_name'                  => __( 'Facilities', 'impruwclientparent' )
+        'add_or_remove_items' => __( 'Add or remove facilities', 'impruwclientparent' ),
+        'choose_from_most_used' => __( 'Choose from the most used facilities', 'impruwclientparent' ),
+        'not_found' => __( 'No facilities found.', 'impruwclientparent' ),
+        'menu_name' => __( 'Facilities', 'impruwclientparent' )
     );
 
     $args = array(
-        'hierarchical'          => FALSE,
-        'labels'                => $labels,
-        'show_ui'               => TRUE,
-        'show_admin_column'     => TRUE,
+        'hierarchical' => FALSE,
+        'labels' => $labels,
+        'show_ui' => TRUE,
+        'show_admin_column' => TRUE,
         'update_count_callback' => '_update_post_term_count',
-        'query_var'             => TRUE,
-        'rewrite'               => array(
+        'query_var' => TRUE,
+        'rewrite' => array(
             'slug' => 'facility'
         )
     );
@@ -304,7 +304,7 @@ function my_image_sizes( $sizes ) {
  */
 function add_element_markup( $element ) {
 
-    $html         = '';
+    $html = '';
     $element_name = sanitize_title( $element[ 'element' ] );
     do_action( "before_{$element_name}_markup_start", $element );
 
@@ -802,11 +802,11 @@ function get_page_markup_JSON( $page_id = 0 ) {
     // get page slug
     $page_id = get_the_ID();
 
-    $json              = array();
+    $json = array();
     $json [ 'header' ] = get_option( 'theme-header', array() );
     $json [ 'footer' ] = get_option( 'theme-footer', array() );
 
-    $page_json       = get_post_meta( $page_id, "page-json", TRUE );
+    $page_json = get_post_meta( $page_id, "page-json", TRUE );
     $json [ 'page' ] = is_array( $page_json ) ? $page_json : array();
 
 
@@ -819,15 +819,15 @@ function get_page_markup_JSON( $page_id = 0 ) {
         foreach ( $elements as $element ) {
             if ( $element [ 'element' ] === "Row" ) {
                 $element [ 'columncount' ] = count( $element [ 'elements' ] );
-                $d [ $section ] [ ]        = get_row_elements( $element );
+                $d [ $section ] [ ] = get_row_elements( $element );
             } else
                 $d [ $section ] [ ] = get_meta_values( $element );
         }
     }
     $data = array(
-        'id'     => $page_id,
+        'id' => $page_id,
         'header' => $d [ 'header' ],
-        'page'   => $d [ 'page' ],
+        'page' => $d [ 'page' ],
         'footer' => $d [ 'footer' ]
     );
 
@@ -860,28 +860,28 @@ function get_theme_JS() {
     <!-- Isotope -->
     <script src="<?php echo get_parent_template_directory_uri(); ?>/app/dev/js/plugins/isotope.js"></script>
     <script>
-        jQuery( document ).ready( function () {
-            if (jQuery( '.gallery' ).length === 0)
+        jQuery(document).ready(function () {
+            if (jQuery('.gallery').length === 0)
                 return;
-            var $container = jQuery( '.gallery' ).imagesLoaded( function () {
-                $container.isotope( {
+            var $container = jQuery('.gallery').imagesLoaded(function () {
+                $container.isotope({
                     // options
-                    itemSelector : '.isotope-element'
-                } );
-            } );
-        } );
+                    itemSelector: '.isotope-element'
+                });
+            });
+        });
     </script>
     <script>
         // Slimmenu Init
-        jQuery( document ).ready( function () {
-            jQuery( '.slimmenu' ).slimmenu( {
-                resizeWidth : '767',
-                collapserTitle : 'Menu',
-                animSpeed : 'medium',
-                indentChildren : false,
-                childrenIndenter : '&nbsp;'
-            } );
-        } );
+        jQuery(document).ready(function () {
+            jQuery('.slimmenu').slimmenu({
+                resizeWidth: '767',
+                collapserTitle: 'Menu',
+                animSpeed: 'medium',
+                indentChildren: false,
+                childrenIndenter: '&nbsp;'
+            });
+        });
     </script>
     <?php
     $theme_path = get_stylesheet_directory() . "/js";
@@ -929,8 +929,8 @@ function get_theme_CSS() {
         type="text/css" rel="stylesheet"/>
     <?php
     $theme_path = get_stylesheet_directory() . "/css";
-    $css_files  = scandir( $theme_path, 1 );
-    $files      = array();
+    $css_files = scandir( $theme_path, 1 );
+    $files = array();
     if ( file_exists( $theme_path ) && is_dir( $theme_path ) ) {
 
         foreach ( $css_files as $key => $value ) {
@@ -963,7 +963,7 @@ function get_theme_CSS() {
  *
  * @global type $wpdb
  *
- * @param type  $id
+ * @param type $id
  */
 function get_page_json( $id ) {
 
@@ -993,7 +993,7 @@ function save_json_structure() {
 
     $wpdb->update( $wpdb->base_prefix . 'page_layouts', array(
         'title' => 'home-2',
-        'json'  => maybe_serialize( $json )
+        'json' => maybe_serialize( $json )
     ), array(
         'id' => 4
     ) );
@@ -1029,37 +1029,37 @@ add_action( 'wp_ajax_nopriv_get_saved_layout', 'get_saved_layout' );
 // insert_room();
 function insert_room() {
 
-    $terms           = array(
+    $terms = array(
         10
     );
-    $array           = array(
-        'post_title'   => 'Deluxe',
+    $array = array(
+        'post_title' => 'Deluxe',
         'post_content' => 'Thisis a deluxe room.',
-        'user_id'      => 3,
-        'inventory'    => 10,
-        'terms'        => $terms
+        'user_id' => 3,
+        'inventory' => 10,
+        'terms' => $terms
     );
     $attribute_array = array(
-        'weekday_price'        => '10',
-        'weekend_price'        => '20',
-        'num_of_adults'        => '2',
-        'num_of_children'      => '2',
-        'extra_adult'          => '10',
-        'extra_child'          => '10',
-        'include_tax'          => 'yes',
-        'tax_percent'          => '12',
+        'weekday_price' => '10',
+        'weekend_price' => '20',
+        'num_of_adults' => '2',
+        'num_of_children' => '2',
+        'extra_adult' => '10',
+        'extra_child' => '10',
+        'include_tax' => 'yes',
+        'tax_percent' => '12',
         'terms_and_conditions' => 'agree'
     );
-    $addons_array    = array(
+    $addons_array = array(
         'breakfast at bed' => '10',
-        'lunch_buffet'     => '10'
+        'lunch_buffet' => '10'
     );
-    $tariff_array    = array(
+    $tariff_array = array(
         array(
             'start_date' => date( "Y/m/d" ),
-            'end_date'   => date( "Y/m/d" ),
+            'end_date' => date( "Y/m/d" ),
             'attributes' => $attribute_array,
-            'add_ons'    => $addons_array
+            'add_ons' => $addons_array
         )
     );
     add_new_room( 1, $array, $tariff_array );
@@ -1071,11 +1071,11 @@ function add_new_room( $blog_id, $array, $tariff_array ) {
 
     switch_to_blog( $blog_id );
     $my_post = array(
-        'post_title'   => $array [ 'post_title' ],
+        'post_title' => $array [ 'post_title' ],
         'post_content' => $array [ 'post_content' ],
-        'post_status'  => 'publish',
-        'post_author'  => $array [ 'user_id' ],
-        'post_type'    => 'impruw_room'
+        'post_status' => 'publish',
+        'post_author' => $array [ 'user_id' ],
+        'post_type' => 'impruw_room'
     );
     // print_r($array['terms']);exit;
     // Insert the post into the database
@@ -1089,7 +1089,7 @@ function add_new_room( $blog_id, $array, $tariff_array ) {
      * if(count($array['room_attachments'])>0){ update_post_meta($post_id,'thumbnail-id',$array['room_attachments'][0] ); }
      */
 
-    $plan_tariff_array      = explode( ',', $array [ 'plantariff' ] );
+    $plan_tariff_array = explode( ',', $array [ 'plantariff' ] );
     $plan_tariff_serialized = maybe_serialize( $plan_tariff_array );
 
     update_post_meta( $post_id, 'room-plantariff', $plan_tariff_serialized );
@@ -1107,15 +1107,15 @@ function add_room_tariff( $post_id, $tariff_array ) {
     foreach ( $tariff_array as $tariff ) {
         if ( is_array( $tariff ) )
             $start_date = $tariff [ 'start_date' ];
-        $end_date   = $tariff [ 'end_date' ];
+        $end_date = $tariff [ 'end_date' ];
         $attributes = maybe_serialize( $tariff [ 'attributes' ] );
-        $add_ons    = maybe_serialize( $tariff [ 'add_ons' ] );
+        $add_ons = maybe_serialize( $tariff [ 'add_ons' ] );
         $wpdb->insert( $wpdb->prefix . 'room_tariffs', array(
             'start_date' => $start_date,
-            'end_date'   => $end_date,
-            'post_id'    => $post_id,
+            'end_date' => $end_date,
+            'post_id' => $post_id,
             'attributes' => $attributes,
-            'add_ons'    => $add_ons
+            'add_ons' => $add_ons
         ) );
     }
 }
@@ -1139,7 +1139,7 @@ function get_content_markup() {
 
     global $page_id;
 
-    $page_id = (int) $_POST [ 'pageId' ];
+    $page_id = (int)$_POST [ 'pageId' ];
 
     define( 'FOR_BUILDER', TRUE );
 
@@ -1150,7 +1150,7 @@ function get_content_markup() {
 
     foreach ( $json as $section ) {
 
-        $d    = elements_markup( $section [ 'elements' ] );
+        $d = elements_markup( $section [ 'elements' ] );
         $data = array_merge( $data, $d );
     }
 
@@ -1161,7 +1161,7 @@ function get_content_markup() {
         ) );
     else
         echo json_encode( array(
-            'code'    => 'ERROR',
+            'code' => 'ERROR',
             'message' => 'Nothing to return'
         ) );
     die();
@@ -1192,7 +1192,7 @@ function elements_markup( $elements ) {
 
             if ( isset( $element [ 'elements' ] ) && count( $element [ 'elements' ] ) > 0 ) {
                 $eles = elements_markup( $element [ 'elements' ] );
-                $e    = array_merge( $e, $eles );
+                $e = array_merge( $e, $eles );
             }
         } else {
             $e [ $element [ 'id' ] ] = add_element_markup( $element );
@@ -1239,7 +1239,7 @@ add_action( 'wp_ajax_nopriv_get_site_data_ajx', 'get_site_data_ajx' );
  */
 function get_site_data( $site_id ) {
 
-    $site              = new SiteModel( $site_id );
+    $site = new SiteModel( $site_id );
     $site_profile_data = $site->get_site_profile();
 
     return $site_profile_data;
@@ -1255,12 +1255,12 @@ function remove_business_logo() {
     if ( !result ) {
         wp_send_json( array(
             'code' => 'ERROR',
-            'msg'  => _( 'Error removing business logo' )
+            'msg' => _( 'Error removing business logo' )
         ) );
     } else {
         wp_send_json( array(
             'code' => 'OK',
-            'msg'  => _( 'Business logo removed successfully' )
+            'msg' => _( 'Business logo removed successfully' )
         ) );
     }
 }
@@ -1291,7 +1291,7 @@ function update_site_data() {
         header( 'Content-Type: application/json' );
         echo json_encode( array(
             'code' => 'FAILED',
-            'msg'  => _( 'Could not save site profile' )
+            'msg' => _( 'Could not save site profile' )
         ) );
         die();
     }
@@ -1356,7 +1356,7 @@ function get_user_profile_ajx() {
 
     header( 'Content-Type: application/json' );
     echo json_encode( array(
-        'code'      => 'OK',
+        'code' => 'OK',
         'user_data' => 'userdata'
     ) );
     die();
@@ -1391,7 +1391,7 @@ function save_user_profile_ajx() {
         header( 'Content-Type: application/json' );
         echo json_encode( array(
             'code' => 'OK',
-            'msg'  => _( 'User profile updated successfully' )
+            'msg' => _( 'User profile updated successfully' )
         ) );
         die();
     } else {
@@ -1399,7 +1399,7 @@ function save_user_profile_ajx() {
         header( 'Content-Type: application/json' );
         echo json_encode( array(
             'code' => 'FAILED',
-            'msg'  => _( $profile_save_status )
+            'msg' => _( $profile_save_status )
         ) );
         die();
     }
@@ -1412,7 +1412,7 @@ function save_user_profile( $user_data, $user_id ) {
 
     $user_data [ 'ID' ] = $user_id;
 
-    $user                = new ImpruwUser( get_current_user_id() );
+    $user = new ImpruwUser( get_current_user_id() );
     $profile_save_status = $user->save_user_profile( $user_data );
 
     return $profile_save_status;
@@ -1425,14 +1425,14 @@ function update_user_passwrd_ajx() {
     $user_form_data = array(
         'passdata' => $userform_password
     );
-    $update_status  = update_user_passwrd( $user_form_data, get_current_user_id() );
+    $update_status = update_user_passwrd( $user_form_data, get_current_user_id() );
 
     if ( is_string( $update_status ) ) {
 
         header( 'Content-Type: application/json' );
         echo json_encode( array(
             'code' => 'FAILED',
-            'msg'  => $update_status
+            'msg' => $update_status
         ) );
         die();
     } else {

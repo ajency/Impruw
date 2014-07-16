@@ -34,26 +34,12 @@ define(['app', 'text!apps/rooms/edit/templates/edit-room.html', 'jqueryvalidate'
 
       EditRoomLayout.prototype.onShow = function() {
         var m, w;
-        this.$el.find('form').validationOptions();
         this.$el.find('*[data-spy="affix"]').affix();
         w = $('.aj-imp-right').width();
         this.$el.find('*[data-spy="affix"]').width(w);
         m = $('.aj-imp-left').width();
         this.$el.find('*[data-spy="affix"]').css('margin-left', m);
         return this.$el.find('.currency').text(Marionette.getOption(this, 'currency'));
-      };
-
-      EditRoomLayout.prototype.validationOptions = function() {
-        return {
-          rules: {
-            no_of_rooms: {
-              number: true
-            }
-          },
-          messages: {
-            no_of_rooms: 'Enter valid url'
-          }
-        };
       };
 
       EditRoomLayout.prototype.onShowSuccessMessage = function() {
