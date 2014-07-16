@@ -146,6 +146,18 @@
         return array(312, 40);
     }
 
+    /**
+     * Image sizes for the theme 
+     **/
+        // Thumbnails
+        add_image_size( 'small_img', 200, 150 );
+
+        // Medium
+        add_image_size( 'medium_img', 400, 300 );
+
+        // Large
+        add_image_size( 'large_img', 800, 600 );
+
     global $element_templates;
 
     $element_templates = array('Menu' => array(array('name' => 'Left Menu')), 'Title' => array(array('name' => 'Page Title',), array('name' => 'Blue Capital Title',)), 'Row' => array(array('name' => 'Slideshow Container'), array('name' => 'Long Bar')), 'Social' => array(array('name' => 'Default Style'), array('name' => 'Small Social')), 'Link' => array(array('name' => 'Default Style'), array('name' => 'Button')), 'ContactForm' => array(array('name' => 'Style One'), array('name' => 'Style Two')), 'ImageWithText' => array(array('name' => 'Style One'), array('name' => 'Style Two')));
