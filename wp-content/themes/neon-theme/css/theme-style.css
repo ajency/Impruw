@@ -1761,6 +1761,9 @@ and open the template in the editor.
 .logo {
   max-width: 300px;
 }
+.logo img {
+  max-height: 50px;
+}
 @media (max-width: 767px) {
   .logo {
     text-align: center;
