@@ -58,7 +58,7 @@
                     });
                 }
                 else{
-                    jQuery('#map_canvas').parent().remove();
+                    jQuery('#map_canvas').html('<div class="empty-view"><span class="glyphicon glyphicon-map-marker"></span>Please add an address for your site.</div>');
                 }
             });
         }

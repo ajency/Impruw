@@ -2,6 +2,19 @@
 	padding: 0.4em;
 	border: 1px dashed @secondary1;
 	margin: @medium 0;
+	.empty-view {
+		text-align: center;
+		font-size: 1.2em;
+		color: @text-color;
+		border: 1px dashed lighten(@text-color, 20%);
+		padding: 0.3em;
+		.glyphicon {
+			display: block;
+			margin: 0.2em 0;
+			font-size: 3em;
+			color: @text-color;
+		}
+	}
 	&:hover {
 		border: 1px solid @primary1;
 	}
