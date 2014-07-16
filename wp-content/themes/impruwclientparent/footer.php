@@ -58,7 +58,7 @@
                     });
                 }
                 else{
-                    jQuery('#map_canvas').parent().remove();
+                    jQuery('#map_canvas').html('Please add site address');
                 }
             });
         }
