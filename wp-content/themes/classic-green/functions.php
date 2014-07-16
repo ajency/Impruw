@@ -146,6 +146,19 @@
         return array(312, 40);
     }
 
+    /**
+     * Image sizes for the theme 
+     **/
+        // Thumbnails
+        add_image_size( 'small_img', 200, 150 );
+
+        // Medium
+        add_image_size( 'medium_img', 400, 300 );
+
+        // Large
+        add_image_size( 'large_img', 800, 600 );
+    
+
     global $element_templates;
 
     $element_templates = array('Title' => array(array('name' => 'Box Title'), array('name' => 'White Title'), array('name' => 'Center Title'), array('name' => 'Small Grey Title')), 'Row' => array(array('name' => 'Green Background'), array('name' => 'Shaded Background')), 'Link' => array(array('name' => 'Default Style'), array('name' => 'Button'), array('name' => 'Header Button')), 'ContactForm' => array(array('name' => 'Style One'), array('name' => 'Style Two')), 'ImageWithText' => array(array('name' => 'Style One'), array('name' => 'Style Two')));

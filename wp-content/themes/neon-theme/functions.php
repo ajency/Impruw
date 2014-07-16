@@ -180,6 +180,19 @@
         return array(312,40);
     }
 
+
+    /**
+     * Image sizes for the theme 
+     **/
+        // Thumbnails
+        add_image_size( 'small_img', 200, 150 );
+
+        // Medium
+        add_image_size( 'medium_img', 400, 300 );
+
+        // Large
+        add_image_size( 'large_img', 800, 600 );
+
     global $element_templates;
 
     $element_templates = array(
