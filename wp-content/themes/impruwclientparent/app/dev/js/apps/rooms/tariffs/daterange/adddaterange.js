@@ -68,12 +68,46 @@ define(['app', 'controllers/base-controller', 'text!apps/rooms/tariffs/daterange
 
       AddDateRangeView.prototype.events = {
         'click #btn_savedaterange': function() {
-          var data;
+          var check, data;
           if (this.$el.valid()) {
             data = Backbone.Syphon.serialize(this);
-            return this.trigger("add:daterange:details", data);
+            if (moment(data.to_date).isAfter(data.from_date) === true) {
+              check = this.checkDaterangeValid(data);
+              if (check === 0) {
+                this.$el.parent().find('.alert').remove();
+                return this.$el.parent().prepend("<div class=\"alert alert-success\">" + _.polyglot.t("Date range overlaps existing date range") + "</div>");
+              } else {
+                return this.trigger("add:daterange:details", data);
+              }
+            } else {
+              this.$el.parent().find('.alert').remove();
+              return this.$el.parent().prepend("<div class=\"alert alert-success\">" + _.polyglot.t("Select valid daterange") + "</div>");
+            }
           }
         }
+      };
+
+      AddDateRangeView.prototype.checkDaterangeValid = function(selectedDate) {
+        var daterangeCollection, temp;
+        temp = 0;
+        daterangeCollection = App.request("get:daterange:collection");
+        _.each(daterangeCollection.models, (function(_this) {
+          return function(daterangeModel, index) {
+            var fromDate, fromDateCheck, toDate, toDateCheck;
+            fromDate = daterangeModel.get('from_date');
+            toDate = daterangeModel.get('to_date');
+            fromDate = moment(fromDate).subtract('days', 1);
+            toDate = moment(toDate).add('days', 1);
+            fromDateCheck = moment(selectedDate.from_date).isAfter(fromDate);
+            toDateCheck = moment(selectedDate.to_date).isBefore(toDate);
+            if (fromDateCheck === true && toDateCheck === false) {
+              return temp = temp + 1;
+            } else {
+              return temp = 0;
+            }
+          };
+        })(this));
+        return temp;
       };
 
       AddDateRangeView.prototype.onSavedDaterange = function() {
