@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
 
 define(['app', 'controllers/base-controller'], function(App, AppController) {
   return App.module('StatisticsApp.Visits', function(Visits, App, Backbone, Marionette, $, _) {
-    var VisitsView;
+    var TrackingDisabledView, VisitsView;
     Visits.Controller = (function(_super) {
       __extends(Controller, _super);
 
@@ -12,13 +12,22 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
       }
 
       Controller.prototype.initialize = function(opts) {
-        var sitemodel, view;
-        sitemodel = opts.model;
-        this.view = view = this.getVisitsView(sitemodel);
+        var siteModel, trackingStatus;
+        siteModel = opts.model;
+        trackingStatus = siteModel.get('statistics_enabled');
+        if (trackingStatus === 'false') {
+          this.view = this.getDisabledTrackingView();
+        } else {
+          this.view = this.getVisitsView(siteModel);
+        }
         App.vent.trigger("set:active:menu", 'statistics');
         return this.show(this.view, {
           loading: true
         });
+      };
+
+      Controller.prototype.getDisabledTrackingView = function() {
+        return new TrackingDisabledView;
       };
 
       Controller.prototype.getVisitsView = function(model) {
@@ -47,6 +56,18 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
       };
 
       return VisitsView;
+
+    })(Marionette.ItemView);
+    TrackingDisabledView = (function(_super) {
+      __extends(TrackingDisabledView, _super);
+
+      function TrackingDisabledView() {
+        return TrackingDisabledView.__super__.constructor.apply(this, arguments);
+      }
+
+      TrackingDisabledView.prototype.template = '<div class="aj-imp-dash-content"> <header class="aj-imp-dash-header row"> <div class="aj-imp-dash-title col-xs-12"> <h2 class="aj-imp-page-head">Visit Summary</h2> </div> </header> <h4 class="aj-imp-sub-head"><small>Use this section to understand your audience visits by day, month and year.</small></h5> <h5 class="aj-imp-sub-head-thin">Visits Overview (with graph)</h5> <div id="widgetIframe"> The requested website is not found. Please ensure you have enabled the analyics. </div> <h5 class="aj-imp-sub-head-thin">Visits by Day of Week</h5> <div id="widgetIframe"> The requested website is not found. Please ensure you have enabled the analyics. </div> <h5 class="aj-imp-sub-head-thin">Visitor map</h5> <div id="widgetIframe"> The requested website is not found. Please ensure you have enabled the analyics. </div> </div>';
+
+      return TrackingDisabledView;
 
     })(Marionette.ItemView);
     return App.commands.setHandler("show:visits:view", function(opts) {

@@ -556,3 +556,24 @@ function get_hotel_address() {
 
     return $address;
 }
+
+
+/**
+ * Function to create a piwik site for the site created
+ *
+ *
+ * @param type $site_id
+ *
+ * @return type
+ */
+function create_piwik_site( $site_id ) {
+
+    $wp_piwik_object = $GLOBALS[ 'wp_piwik' ];
+
+    $_GET[ 'wpmu_show_stats' ] = $site_id;
+
+    $tracking_code = $wp_piwik_object->addPiwikSite();
+
+    return $tracking_code;
+
+}
