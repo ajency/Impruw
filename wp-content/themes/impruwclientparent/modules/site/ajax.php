@@ -97,25 +97,7 @@ function update_tracking() {
 
 add_action( 'wp_ajax_update-tracking', 'update_tracking' );
 
-/**
- * Function to create a piwik site for the site created
- *
- *
- * @param type $site_id
- *
- * @return type
- */
-function create_piwik_site( $site_id ) {
 
-    $wp_piwik_object = $GLOBALS[ 'wp_piwik' ];
-
-    $_GET[ 'wpmu_show_stats' ] = $site_id;
-
-    $tracking_code = $wp_piwik_object->addPiwikSite();
-
-    return $tracking_code;
-
-}
 
 function ajax_site_logout() {
 

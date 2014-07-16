@@ -3,7 +3,7 @@ var __hasProp = {}.hasOwnProperty,
 
 define(['app', 'controllers/base-controller'], function(App, AppController) {
   return App.module('StatisticsApp.RealTime', function(RealTime, App, Backbone, Marionette, $, _) {
-    var RealTimeView;
+    var RealTimeView, TrackingDisabledView;
     RealTime.Controller = (function(_super) {
       __extends(Controller, _super);
 
@@ -12,13 +12,22 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
       }
 
       Controller.prototype.initialize = function(opts) {
-        var sitemodel, view;
-        sitemodel = opts.model;
-        this.view = view = this.getRealTimeView(sitemodel);
+        var siteModel, trackingStatus;
+        siteModel = opts.model;
+        trackingStatus = siteModel.get('statistics_enabled');
+        if (trackingStatus === 'false') {
+          this.view = this.getDisabledTrackingView();
+        } else {
+          this.view = this.getRealTimeView(sitemodel);
+        }
         App.vent.trigger("set:active:menu", 'statistics');
         return this.show(this.view, {
           loading: true
         });
+      };
+
+      Controller.prototype.getDisabledTrackingView = function() {
+        return new TrackingDisabledView;
       };
 
       Controller.prototype.getRealTimeView = function(model) {
@@ -47,6 +56,18 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
       };
 
       return RealTimeView;
+
+    })(Marionette.ItemView);
+    TrackingDisabledView = (function(_super) {
+      __extends(TrackingDisabledView, _super);
+
+      function TrackingDisabledView() {
+        return TrackingDisabledView.__super__.constructor.apply(this, arguments);
+      }
+
+      TrackingDisabledView.prototype.template = '<div class="aj-imp-dash-content"> <header class="aj-imp-dash-header row"> <div class="aj-imp-dash-title col-xs-12"> <h2 class="aj-imp-page-head">Real time visitors</h2> </div> </header> <h4 class="aj-imp-sub-head"><small>This is where you monitor user activity as it happens on your site.</small></h4> <h5 class="aj-imp-sub-head-thin">Real Time Visitor Count</h5> <div> The requested website is not found. Please ensure you have enabled the analyics. </div> <h5 class="aj-imp-sub-head-thin">Real time map</h5> <div> The requested website is not found. Please ensure you have enabled the analyics </div> </div>';
+
+      return TrackingDisabledView;
 
     })(Marionette.ItemView);
     return App.commands.setHandler("show:realtime:view", function(opts) {

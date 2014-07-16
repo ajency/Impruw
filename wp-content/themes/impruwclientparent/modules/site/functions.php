@@ -14,7 +14,8 @@ function get_site_details( $site_id = 0 ) {
 
     // fetching the image path for the logo
     $logo_id = get_option( 'logo_id', 0 );
-    $image_path = get_post_field( 'guid', $logo_id );
+    $image_path = wp_get_attachment_image_src($logo_id);;
+    $image_path = $image_path === false ? '' : $image_path[0];
 
     return array( 'site_id' => $site_id,
         'site_domain' => get_site_domain( $site_id ),
@@ -25,7 +26,7 @@ function get_site_details( $site_id = 0 ) {
         'city' => get_option( 'city', '' ),
         'logo_id' => $logo_id,
         'logo_url' => $image_path, 'country' => get_option( 'country', '' ),
-        'other_emails' => get_option( 'other_emails', array() ),
+        'site_email' => get_option( 'site_email', get_bloginfo('admin_email')),
         'other_phone_no' => get_option( 'other_phone_no', array() ),
         'facebook' => get_option( 'facebook', '' ),
         'twitter' => get_option( 'twitter', '' ) );
@@ -458,7 +459,7 @@ function update_site_profile( $formdata ) {
     foreach ( $changed_values as $key => $value ) {
 
         // if the options are email or phone, store them as serailized array
-        if ( $key == "other_emails" || $key == "other_phone_no" ) {
+        if ( $key == "other_phone_no" ) {
             $value_array = $changed_values[ $key ];
             update_option( $key, $value_array );
         } else {
@@ -555,4 +556,25 @@ function get_hotel_address() {
         return "";
 
     return $address;
+}
+
+
+/**
+ * Function to create a piwik site for the site created
+ *
+ *
+ * @param type $site_id
+ *
+ * @return type
+ */
+function create_piwik_site( $site_id ) {
+
+    $wp_piwik_object = $GLOBALS[ 'wp_piwik' ];
+
+    $_GET[ 'wpmu_show_stats' ] = $site_id;
+
+    $tracking_code = $wp_piwik_object->addPiwikSite();
+
+    return $tracking_code;
+
 }

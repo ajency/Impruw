@@ -18,30 +18,35 @@ define [
         #public API
         API =
             getSiteModel: ->
-                siteProfile = App.request "get:site:model"
-                siteProfile
+                siteProfileModel = App.request "get:site:model"
+                siteProfileModel
 
             show: ()->
-                @sitemodel = @getSiteModel()
-                new StatisticsApp.Show.Controller
-                    region: App.rightRegion
-                    model: @sitemodel
+                sitemodel = @getSiteModel()
+                #wait till site model fetched
+                App.execute "when:fetched",sitemodel,=>
+                    new StatisticsApp.Show.Controller
+                        region: App.rightRegion
+                        model: sitemodel
 
             realtime: () ->
-                @sitemodel = @getSiteModel()
-                App.execute "show:realtime:view",
-                    region: App.rightRegion
-                    model: @sitemodel
+                sitemodel = @getSiteModel()
+                App.execute "when:fetched",sitemodel,=>
+                    App.execute "show:realtime:view",
+                        region: App.rightRegion
+                        model: sitemodel
             visits: () ->
-                @sitemodel = @getSiteModel()
-                App.execute "show:visits:view",
-                    region: App.rightRegion
-                    model: @sitemodel
+                sitemodel = @getSiteModel()
+                App.execute "when:fetched",sitemodel,=>
+                    App.execute "show:visits:view",
+                        region: App.rightRegion
+                        model: sitemodel
             traffic: () ->
-                @sitemodel = @getSiteModel()
-                App.execute "show:traffic:view",
-                    region: App.rightRegion
-                    model: @sitemodel
+                sitemodel = @getSiteModel()
+                App.execute "when:fetched",sitemodel,=>
+                    App.execute "show:traffic:view",
+                        region: App.rightRegion
+                        model: sitemodel
 
 
         StatisticsApp.on 'start': ->
