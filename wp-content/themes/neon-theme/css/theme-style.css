@@ -1507,12 +1507,12 @@ and open the template in the editor.
   text-align: center;
   font-size: 1.2em;
   color: #ffffff;
-  border: 1px dashed #ffffff;
-  padding: 0.3em;
+  padding: 3em 0.3em;
+  height: 100%;
 }
 .map .empty-view .glyphicon {
   display: block;
-  margin: 0.2em 0;
+  margin: 0.2em 0 0.5em;
   font-size: 3em;
   color: #ffffff;
 }
