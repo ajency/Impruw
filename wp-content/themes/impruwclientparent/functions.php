@@ -45,6 +45,7 @@ require_once 'modules/bookings/ajax.php';
 require_once 'modules/revision/ajax.php';
 require_once 'modules/elements/ajax.php';
 require_once 'modules/media/ajax.php';
+require_once 'modules/language/ajax.php';
 require_once 'modules/language/languagefunctions.php';
 require_once PARENTTHEMEPATH . 'api/entities/leftnav.php';
 
@@ -255,6 +256,11 @@ function generate_markup( $section ) {
     global $post, $markup_JSON;
 
     $id = !is_null( $post ) ? $post->ID : 0;
+
+    //Generate page markup based on language
+    if ( wpml_get_current_language() != wpml_get_default_language() ) {
+        $id = icl_object_id( $id, 'page', TRUE, wpml_get_default_language() );
+    }
 
     $autosave = FALSE;
 
