@@ -36,11 +36,11 @@ define ['app'
             template: '<div class="input-group">
                         <input type="text" name="name" class="form-control"
                          placeholder="{{#polyglot}}Add a Facility{{/polyglot}}">
-                         <span id="error-msg"></span>
+                         
                          <span class="input-group-btn add-facility input-group-addon">
                             <span class="icon icon-plus"></span>{{#polyglot}}Add{{/polyglot}}
                         </span>
-                            </div>'
+                            </div><span id="error-msg"></span>'
 
             events:
                 'click .add-facility': ->
