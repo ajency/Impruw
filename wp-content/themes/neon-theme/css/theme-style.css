@@ -1579,10 +1579,6 @@ and open the template in the editor.
     position: static;
   }
 }
-.aj-imp-login-form .aj-imp-login form .form-group .col-sm-offset-3,
-.aj-imp-login-form .aj-imp-forgot form .form-group .col-sm-offset-3 {
-  margin-left: 0;
-}
 .aj-imp-login-form .aj-imp-login form .form-control:focus,
 .aj-imp-login-form .aj-imp-forgot form .form-control:focus {
   border-color: #24d07c;
@@ -1611,7 +1607,7 @@ and open the template in the editor.
 }
 .aj-imp-login-form .aj-imp-login form .checkbox.keep-log,
 .aj-imp-login-form .aj-imp-forgot form .checkbox.keep-log {
-  display: inline-block;
+  display: none;
   margin-left: 1em;
 }
 .aj-imp-login-form .aj-imp-login form .parsley-error-list,
@@ -3122,4 +3118,132 @@ and open the template in the editor.
   .rev_slider_wrapper {
     margin-bottom: 1.5em !important;
   }
+}
+/**** Login Form Styles ****/
+.aj-imp-login-form {
+  width: 50%;
+  margin: 3em auto;
+  padding: 1em;
+  color: #ffffff;
+}
+.aj-imp-login-form .aj-imp-login-header {
+  border-bottom: 1px solid #ffffff;
+  text-align: center;
+}
+.aj-imp-login-form .aj-imp-login-header h1 {
+  font-size: 2.5em;
+  font-weight: 700;
+}
+.aj-imp-login-form .aj-imp-login-header h1 span {
+  color: #e223a1;
+}
+.aj-imp-login-form .aj-imp-login-header .desc {
+  font-size: 1.1em;
+  color: #ffffff;
+}
+.aj-imp-login-form .aj-imp-login,
+.aj-imp-login-form .aj-imp-forgot {
+  margin: 2em 0 0;
+  padding: 0 1em;
+}
+.aj-imp-login-form .aj-imp-login form,
+.aj-imp-login-form .aj-imp-forgot form {
+  border: 0;
+  padding: 0;
+}
+.aj-imp-login-form .aj-imp-login form .aj-imp-log-forgot,
+.aj-imp-login-form .aj-imp-forgot form .aj-imp-log-forgot {
+  font-size: 0.8em;
+  margin-top: 2em;
+  display: inline-block;
+}
+@media (max-width: 767px) {
+  .aj-imp-login-form .aj-imp-login form .aj-imp-log-forgot,
+  .aj-imp-login-form .aj-imp-forgot form .aj-imp-log-forgot {
+    margin-top: 1em;
+  }
+}
+.aj-imp-login-form .aj-imp-login form .row,
+.aj-imp-login-form .aj-imp-forgot form .row {
+  position: relative;
+}
+.aj-imp-login-form .aj-imp-login form .row .control-label,
+.aj-imp-login-form .aj-imp-forgot form .row .control-label {
+  position: absolute;
+  left: 0;
+  top: 1em;
+}
+@media (max-width: 767px) {
+  .aj-imp-login-form .aj-imp-login form .row .control-label,
+  .aj-imp-login-form .aj-imp-forgot form .row .control-label {
+    position: static;
+  }
+}
+.aj-imp-login-form .aj-imp-login form .form-group .col-sm-offset-3,
+.aj-imp-login-form .aj-imp-forgot form .form-group .col-sm-offset-3 {
+  margin-left: 0;
+}
+.aj-imp-login-form .aj-imp-login form .form-control:focus,
+.aj-imp-login-form .aj-imp-forgot form .form-control:focus {
+  border-color: #24d07c;
+}
+.aj-imp-login-form .aj-imp-login form .checkbox,
+.aj-imp-login-form .aj-imp-forgot form .checkbox {
+  padding-top: 0;
+}
+.aj-imp-login-form .aj-imp-login form .checkbox .icons,
+.aj-imp-login-form .aj-imp-forgot form .checkbox .icons {
+  color: #ffffff;
+}
+.aj-imp-login-form .aj-imp-login form .checkbox .icons .first-icon,
+.aj-imp-login-form .aj-imp-forgot form .checkbox .icons .first-icon,
+.aj-imp-login-form .aj-imp-login form .checkbox .icons .second-icon,
+.aj-imp-login-form .aj-imp-forgot form .checkbox .icons .second-icon {
+  background: transparent;
+}
+.aj-imp-login-form .aj-imp-login form .checkbox.checked,
+.aj-imp-login-form .aj-imp-forgot form .checkbox.checked {
+  color: #24d07c;
+}
+.aj-imp-login-form .aj-imp-login form .checkbox.checked .second-icon,
+.aj-imp-login-form .aj-imp-forgot form .checkbox.checked .second-icon {
+  color: #24d07c;
+}
+.aj-imp-login-form .aj-imp-login form .checkbox.keep-log,
+.aj-imp-login-form .aj-imp-forgot form .checkbox.keep-log {
+  display: inline-block;
+  margin-left: 1em;
+}
+.aj-imp-login-form .aj-imp-login form .parsley-error-list,
+.aj-imp-login-form .aj-imp-forgot form .parsley-error-list {
+  padding: 0;
+  margin: 0.5em 0;
+  list-style: none;
+}
+.aj-imp-login-form .aj-imp-login form .parsley-error-list li,
+.aj-imp-login-form .aj-imp-forgot form .parsley-error-list li {
+  color: #ff3333;
+}
+.aj-imp-login-form .aj-imp-login form .aj-imp-submit,
+.aj-imp-login-form .aj-imp-forgot form .aj-imp-submit {
+  background: #e223a1;
+  color: #e1e1e1;
+}
+.aj-imp-login-form .aj-imp-login form .aj-imp-submit:hover,
+.aj-imp-login-form .aj-imp-forgot form .aj-imp-submit:hover {
+  background: #e850b4;
+}
+@media (max-width: 767px) {
+  /*Responive*/
+  .aj-imp-login-form {
+    width: 80%;
+    padding: 1em;
+  }
+  .aj-imp-login-form .aj-imp-login form {
+    padding: 0 1em;
+  }
+  .aj-imp-login-form .aj-imp-login form label {
+    padding: 0 0 1em;
+  }
+  /*Responive*/
 }
