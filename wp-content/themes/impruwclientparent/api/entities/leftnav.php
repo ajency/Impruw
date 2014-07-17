@@ -388,6 +388,7 @@ function set_element_data( $data ) {
         if ( $data[ 'element' ] == 'Slider' ) {
             $slider_data = get_slider_by_id( $data[ 'slider_id' ] );
             $slider_data[ 'height' ] = $data[ 'height' ];
+            $slider_data[ 'width' ] = $data[ 'width' ];
             update_slider( $slider_data, $data[ 'slider_id' ] );
 
         }

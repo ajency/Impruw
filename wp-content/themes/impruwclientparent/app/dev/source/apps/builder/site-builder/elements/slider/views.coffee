@@ -73,12 +73,19 @@ define ['app'], (App)->
                         options.startheight = @$el.height() 
                         @$el.width('auto') 
                         @revapi = @$el.find(".fullwidthbanner").revolution options
-                        @trigger "set:slider:height", options.startheight
+                        # @trigger "set:slider:height", options.startheight
 
                     
                     
 
-                @trigger "set:slider:height", options.startheight
+                # @trigger "set:slider:height", options.startheight
+
+                $('.aj-imp-publish').on 'click',@_saveSliderHeightWidth
+
+
+            _saveSliderHeightWidth : =>
+                @trigger "set:slider:height:width", @$el.height(), @$el.width()
+
 
             getTallestColumnHeight: ->
                 column = @$el.closest('.column')
@@ -138,3 +145,7 @@ define ['app'], (App)->
                 hideAllCaptionAtLilmit: 0
                 startWithSlide: 0
                 fullScreenOffsetContainer: ""
+
+
+            onBeforeClose :->
+                $('.aj-imp-publish').off 'click',@_saveSliderHeightWidth

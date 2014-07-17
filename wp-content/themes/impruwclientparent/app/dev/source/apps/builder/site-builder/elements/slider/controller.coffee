@@ -52,7 +52,8 @@ define ['app'
                     @listenTo view, "show:slides:manager", =>
                         App.execute "show:slides:manager", slidesCollection
 
-                    @listenTo view, "set:slider:height", (height)=>
+                    @listenTo view, "set:slider:height:width", (height,width)=>
+                        @layout.model.set 'width', width
                         @layout.model.set 'height', height
                         @layout.model.save()
 
