@@ -72,6 +72,10 @@ class RoomSummary extends Element {
                                 <span class="key">Check-in</span>
                                 <span class="value">{{check-in}}</span>
                             </div>
+                            <div class="room-summary-item">
+                                <span class="key">Check-out</span>
+                                <span class="value">{{check-out}}</span>
+                            </div>
                            <div class="room-summary-item">
                                 <span class="key">Additional policy</span>
                                 <span class="value"> {{additional-policy}}</span>

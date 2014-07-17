@@ -122,6 +122,7 @@ function get_room( $roomid ) {
     $image = (int) $attachment_id > 0 ? wp_get_attachment_image_src( $attachment_id, 'medium' ) : array();
 
     $check_in = get_option( 'checkin-time', 'none' );
+    $check_out = get_option( 'checkout-time', 'none' );
 
     $additional_policy = get_option( 'additional-policy', 'none' );
 
@@ -131,6 +132,7 @@ function get_room( $roomid ) {
                              'thumbnail_id'      => (int) $attachment_id,
                              'post_excerpt'      => '',
                              'check-in'          => $check_in,
+                             'check-out'          => $check_out,
                              'additional-policy' => $additional_policy,
                              'image_url'         => is_array( $image ) && count( $image ) > 0 ? $image[ 0 ] :
                                      false );
