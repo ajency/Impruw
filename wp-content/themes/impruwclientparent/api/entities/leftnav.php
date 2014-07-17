@@ -15,7 +15,7 @@ function get_menu_items() {
         array(
             'url' => site_url( 'site-builder' ),
             'title' => 'Site Builder',
-            'target' => '_BLANK',
+            'target' => '_newtab' . rand(1,99),
             'icon' => 'tools'
         ),
         array(

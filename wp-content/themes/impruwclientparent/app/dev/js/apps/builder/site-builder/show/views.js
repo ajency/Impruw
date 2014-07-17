@@ -115,7 +115,7 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
         var currentPageId, previewUrl;
         currentPageId = App.request("get:current:editable:page");
         previewUrl = "" + SITEURL + "?preview=true&p=" + currentPageId;
-        return this.$el.find('a.preview-current-page').attr('href', previewUrl);
+        return this.$el.find('a.preview-current-page').attr('href', previewUrl).attr('target', '_newtab' + Math.floor(Math.random() * 999999));
       };
 
       MainView.prototype.onShow = function() {

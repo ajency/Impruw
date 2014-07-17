@@ -51,11 +51,11 @@ define [ 'app'
                   page_name = model.get 'post_title'
                   select_html = "<option value='#{index}'>#{page_name}</option>"
                   selectpicker_html = "<li rel='#{index}'>
-                                                                  <a tabindex='0' class='' style=''>
-                                                                      <span class='text'>#{page_name}</span>
-                                                                      <i class='glyphicon glyphicon-ok icon-ok check-mark'></i>
-                                                                  </a>
-                                                              </li>"
+                                                                                    <a tabindex='0' class='' style=''>
+                                                                                        <span class='text'>#{page_name}</span>
+                                                                                        <i class='glyphicon glyphicon-ok icon-ok check-mark'></i>
+                                                                                    </a>
+                                                                                </li>"
                   @$el.find( 'div .dropdown-menu ul' ).append( selectpicker_html )
                   @$el.find( 'select#builder-page-sel' ).append( select_html )
             @enableSelectPicker()
@@ -85,7 +85,9 @@ define [ 'app'
          changePreviewLinkUrl : ->
             currentPageId = App.request "get:current:editable:page"
             previewUrl = "#{SITEURL}?preview=true&p=#{currentPageId}"
-            @$el.find( 'a.preview-current-page' ).attr 'href', previewUrl
+            @$el.find( 'a.preview-current-page' )
+               .attr 'href', previewUrl
+               .attr 'target', '_newtab' + Math.floor(Math.random()*999999)
 
          # trigger the editable page changed event on show
          onShow : ->
@@ -184,13 +186,13 @@ define [ 'app'
          tagName : 'li'
 
          template : '<div class="aj-imp-revision row">
-                                                 <div class="col-sm-5 date">
-                                                   {{datetime}}
-                                                 </div>
-                                                 <div class="col-sm-7 time">
-                                                   {{post_name}} {{timeago}}
-                                                 </div>
-                                             </div>'
+                                                          <div class="col-sm-5 date">
+                                                            {{datetime}}
+                                                          </div>
+                                                          <div class="col-sm-7 time">
+                                                            {{post_name}} {{timeago}}
+                                                          </div>
+                                                      </div>'
 
          events :
             'click' : ( e )->
