@@ -13,7 +13,8 @@ function get_pages1() {
     $templates = isset( $_GET[ 'meta_key' ] ) ? TRUE : FALSE;
 
     if ( !$templates )
-        $pages = get_all_menu_pages(); else
+        $pages = get_all_menu_pages();
+    else
         $pages = get_all_menu_pages();
 
     wp_send_json( array( 'code' => 'OK', 'data' => $pages ) );
@@ -125,7 +126,7 @@ function ajax_update_page() {
     $page_id = $_POST[ 'ID' ];
     $page_name = $_POST[ 'post_title' ];
 
-    wp_update_post( array( 'ID' => $page_id, 'post_title' => $page_name ) );
+    wp_update_post( array( 'ID' => $page_id, 'post_title' => $page_name,'post_name' => '' ) );
 
     $page_data = get_post( $page_id, ARRAY_A );
 

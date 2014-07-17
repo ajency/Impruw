@@ -199,7 +199,13 @@ function get_all_menu_pages() {
 
     if ( $pages->have_posts() ) {
 
-        $skip = array( 'Site Builder', 'Dashboard', 'Support', 'Coming Soon', 'Sample Page' );
+        $skip = array( 'Site Builder',
+                       'Sign In',
+                       'Dashboard',
+                       'Support',
+                       'Coming Soon',
+                       'Reset Password',
+                       'Sample Page' );
 
         foreach ( $pages->posts as $page ) {
 
@@ -208,7 +214,7 @@ function get_all_menu_pages() {
         }
     }
 
-    return $p;
+    return array_reverse($p);
 }
 
 /**
@@ -265,7 +271,7 @@ function create_new_page( $data ) {
         return $page_id;
 
     //check if add_to_menu set
-    if ( $data[ 'add_to_menu' ] == "true" ){
+    if ( $data[ 'add_to_menu' ] == "true" ) {
         add_page_to_menu( $page_id );
     }
 
@@ -508,12 +514,15 @@ function add_page_to_menu( $page_id ) {
     $term = get_term_by( 'name', 'Main Menu', 'nav_menu' );
     $menu_id = $term->term_id;
 
-    $page_data = get_post($page_id , ARRAY_A);
+    $page_data = get_post( $page_id, ARRAY_A );
 
     $formdata = array(
         'menu-item-title' => $page_data[ 'post_title' ],
         'menu-item-classes' => '',
-        'menu-item-url' => $page_data[ 'guid' ],
+        'menu-item-url' => '',
+        'menu-item-object' => 'page',
+        'menu-item-type' => 'post_type',
+        'menu-item-object-id' => $page_id,
         'menu-item-status' => 'publish'
     );
 

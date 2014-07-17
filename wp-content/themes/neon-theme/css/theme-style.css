@@ -96,6 +96,9 @@
   /****Heading Styles****/
 
 }
+.site-style-container.aj-imp-builder-layout-mode {
+  margin-top: 10px;
+}
 .site-style-container:after,
 .site-style-container:before {
   clear: both;
@@ -1500,6 +1503,19 @@ and open the template in the editor.
   border: 1px dashed #e223a1;
   margin: 1em 0;
 }
+.map .empty-view {
+  text-align: center;
+  font-size: 1.2em;
+  color: #ffffff;
+  padding: 3em 0.3em;
+  height: 100%;
+}
+.map .empty-view .glyphicon {
+  display: block;
+  margin: 0.2em 0 0.5em;
+  font-size: 3em;
+  color: #ffffff;
+}
 .map:hover {
   border: 1px solid #24d07c;
 }
@@ -1563,10 +1579,6 @@ and open the template in the editor.
     position: static;
   }
 }
-.aj-imp-login-form .aj-imp-login form .form-group .col-sm-offset-3,
-.aj-imp-login-form .aj-imp-forgot form .form-group .col-sm-offset-3 {
-  margin-left: 0;
-}
 .aj-imp-login-form .aj-imp-login form .form-control:focus,
 .aj-imp-login-form .aj-imp-forgot form .form-control:focus {
   border-color: #24d07c;
@@ -1595,8 +1607,18 @@ and open the template in the editor.
 }
 .aj-imp-login-form .aj-imp-login form .checkbox.keep-log,
 .aj-imp-login-form .aj-imp-forgot form .checkbox.keep-log {
-  display: inline-block;
+  display: none;
   margin-left: 1em;
+}
+.aj-imp-login-form .aj-imp-login form .parsley-error-list,
+.aj-imp-login-form .aj-imp-forgot form .parsley-error-list {
+  padding: 0;
+  margin: 0.5em 0;
+  list-style: none;
+}
+.aj-imp-login-form .aj-imp-login form .parsley-error-list li,
+.aj-imp-login-form .aj-imp-forgot form .parsley-error-list li {
+  color: #ff3333;
 }
 .aj-imp-login-form .aj-imp-login form .aj-imp-submit,
 .aj-imp-login-form .aj-imp-forgot form .aj-imp-submit {
@@ -1742,6 +1764,21 @@ and open the template in the editor.
   }
   .site-footer .column {
     margin-bottom: 1.5em;
+  }
+}
+/**** Logo Styles ****/
+.logo {
+  max-width: 300px;
+}
+.logo img {
+  max-height: 50px;
+}
+@media (max-width: 767px) {
+  .logo {
+    text-align: center;
+  }
+  .logo a {
+    display: inline-block;
   }
 }
 /****Top Slim-menu Styles****/
@@ -2065,7 +2102,7 @@ and open the template in the editor.
 }
 .link.action-button a {
   background: #24d07c;
-  color: #e1e1e1;
+  color: #e223a1;
   display: inline-block;
   padding: 0.4em 0.7em;
   margin: 0.666em 0;
@@ -2076,7 +2113,6 @@ and open the template in the editor.
 .link.action-button a:hover {
   text-decoration: none;
   background: #48df95;
-  color: #e1e1e1;
   -webkit-transition: all 0.25s ease;
   -moz-transition: all 0.25s ease;
   -o-transition: all 0.25s ease;
@@ -2190,11 +2226,11 @@ and open the template in the editor.
 }
 .room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block .package-desc {
   font-size: 0.88em;
-  color: #f4aadb;
+  color: #e850b4;
   display: none;
 }
 .room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block .tariff-label {
-  color: #f4aadb;
+  color: #e850b4;
   margin: 0.5em 0 0.2em;
   font-size: 0.88em;
 }
@@ -2205,7 +2241,7 @@ and open the template in the editor.
   margin-right: 1%;
   float: left;
   text-transform: uppercase;
-  color: #ee7dc8;
+  color: #e223a1;
   font-weight: 300;
 }
 .room-tariff-container .room-tariff-grid .tariff .packages .package-blocks .package-block-outer .block .weekday .price,
@@ -2513,7 +2549,7 @@ and open the template in the editor.
 .daterange-legends {
   text-transform: uppercase;
   font-size: 0.9em;
-  color: #fff;
+  color: #39435c;
 }
 .daterange-legends li span {
   width: 13px;
@@ -2558,7 +2594,7 @@ and open the template in the editor.
 }
 .room-booking .room-booking-container .room-booking-data .date-range {
   font-size: 1.3em;
-  color: #fff;
+  color: #e223a1;
   margin-bottom: 10%;
 }
 .room-booking .room-booking-container .room-booking-data .date-range b {
@@ -2572,15 +2608,15 @@ and open the template in the editor.
   padding-top: 13px;
 }
 .room-booking .room-booking-container .room-booking-data .room-booking-plan {
-  color: #fff;
-  border-bottom: 1px dashed #280E0E;
+  color: #e223a1;
+  border-bottom: 1px dashed #39435c;
   padding-bottom: 5%;
   margin-bottom: 5%;
 }
 .room-booking .room-booking-container .room-booking-data .room-booking-plan h5 {
   font-weight: 600;
   font-size: 1.5em;
-  color: #caf6e1;
+  color: #60719b;
 }
 .room-booking .room-booking-container .room-booking-data .room-booking-plan .plan-bg {
   background: #48df95;
@@ -2592,7 +2628,7 @@ and open the template in the editor.
   float: left;
   font-size: 0.9em;
   font-weight: 300;
-  color: #e5e5e5;
+  color: #ee7dc8;
 }
 .room-booking .room-booking-container .room-booking-data .room-booking-plan .booking-detail span {
   font-weight: 800;
@@ -2603,7 +2639,7 @@ and open the template in the editor.
   font-weight: 600;
   font-size: 1.0em;
   text-transform: uppercase;
-  color: #fff;
+  color: #ee7dc8;
 }
 .room-booking .room-booking-container .room-booking-data .room-booking-plan .booking-price {
   font-size: 0.8em;
@@ -2624,14 +2660,14 @@ and open the template in the editor.
 .room-booking .room-booking-container .room-booking-calender h4 {
   font-weight: 600;
   font-size: 1.5em;
-  color: #fff;
+  color: #39435c;
   text-transform: uppercase;
   margin-bottom: 30px;
   margin-top: 30px;
 }
 .room-booking .room-booking-container .room-booking-calender h4 .glyphicon {
   font-size: 1.5em;
-  color: #fff;
+  color: #39435c;
   float: left;
   margin-right: 1%;
 }
@@ -2651,13 +2687,13 @@ and open the template in the editor.
   margin-right: 12px;
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker-inline .ui-datepicker-group .ui-datepicker-calendar {
-  background: #fff;
+  background: #e1e1e1;
   width: 100%;
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker-inline .ui-datepicker-group .ui-datepicker-calendar th {
-  background: #caf6e1;
+  background: #9ea9c3;
   text-transform: uppercase;
-  color: #fff;
+  color: #ffffff;
   font-weight: 300;
   font-size: 12px;
 }
@@ -2672,12 +2708,12 @@ and open the template in the editor.
   box-shadow: none;
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker:before {
-  border-bottom-color: #73e7ae;
+  border-bottom-color: #60719b;
   top: -7px;
   display: none;
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .ui-datepicker-header {
-  background: #48df95;
+  background: #4d5a7b;
   border: none;
   height: 67px;
   line-height: 86px;
@@ -2690,7 +2726,7 @@ and open the template in the editor.
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .ui-datepicker-header .ui-datepicker-prev:hover,
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .ui-datepicker-header .ui-datepicker-next:hover {
-  background: #48df95;
+  background: #e850b4;
 }
 .room-booking .room-booking-container .room-booking-calender #room-booking-calendar .ui-datepicker .ui-datepicker-title {
   line-height: 74px;
@@ -3082,4 +3118,132 @@ and open the template in the editor.
   .rev_slider_wrapper {
     margin-bottom: 1.5em !important;
   }
+}
+/**** Login Form Styles ****/
+.aj-imp-login-form {
+  width: 50%;
+  margin: 3em auto;
+  padding: 1em;
+  color: #ffffff;
+}
+.aj-imp-login-form .aj-imp-login-header {
+  border-bottom: 1px solid #ffffff;
+  text-align: center;
+}
+.aj-imp-login-form .aj-imp-login-header h1 {
+  font-size: 2.5em;
+  font-weight: 700;
+}
+.aj-imp-login-form .aj-imp-login-header h1 span {
+  color: #e223a1;
+}
+.aj-imp-login-form .aj-imp-login-header .desc {
+  font-size: 1.1em;
+  color: #ffffff;
+}
+.aj-imp-login-form .aj-imp-login,
+.aj-imp-login-form .aj-imp-forgot {
+  margin: 2em 0 0;
+  padding: 0 1em;
+}
+.aj-imp-login-form .aj-imp-login form,
+.aj-imp-login-form .aj-imp-forgot form {
+  border: 0;
+  padding: 0;
+}
+.aj-imp-login-form .aj-imp-login form .aj-imp-log-forgot,
+.aj-imp-login-form .aj-imp-forgot form .aj-imp-log-forgot {
+  font-size: 0.8em;
+  margin-top: 2em;
+  display: inline-block;
+}
+@media (max-width: 767px) {
+  .aj-imp-login-form .aj-imp-login form .aj-imp-log-forgot,
+  .aj-imp-login-form .aj-imp-forgot form .aj-imp-log-forgot {
+    margin-top: 1em;
+  }
+}
+.aj-imp-login-form .aj-imp-login form .row,
+.aj-imp-login-form .aj-imp-forgot form .row {
+  position: relative;
+}
+.aj-imp-login-form .aj-imp-login form .row .control-label,
+.aj-imp-login-form .aj-imp-forgot form .row .control-label {
+  position: absolute;
+  left: 0;
+  top: 1em;
+}
+@media (max-width: 767px) {
+  .aj-imp-login-form .aj-imp-login form .row .control-label,
+  .aj-imp-login-form .aj-imp-forgot form .row .control-label {
+    position: static;
+  }
+}
+.aj-imp-login-form .aj-imp-login form .form-group .col-sm-offset-3,
+.aj-imp-login-form .aj-imp-forgot form .form-group .col-sm-offset-3 {
+  margin-left: 0;
+}
+.aj-imp-login-form .aj-imp-login form .form-control:focus,
+.aj-imp-login-form .aj-imp-forgot form .form-control:focus {
+  border-color: #24d07c;
+}
+.aj-imp-login-form .aj-imp-login form .checkbox,
+.aj-imp-login-form .aj-imp-forgot form .checkbox {
+  padding-top: 0;
+}
+.aj-imp-login-form .aj-imp-login form .checkbox .icons,
+.aj-imp-login-form .aj-imp-forgot form .checkbox .icons {
+  color: #ffffff;
+}
+.aj-imp-login-form .aj-imp-login form .checkbox .icons .first-icon,
+.aj-imp-login-form .aj-imp-forgot form .checkbox .icons .first-icon,
+.aj-imp-login-form .aj-imp-login form .checkbox .icons .second-icon,
+.aj-imp-login-form .aj-imp-forgot form .checkbox .icons .second-icon {
+  background: transparent;
+}
+.aj-imp-login-form .aj-imp-login form .checkbox.checked,
+.aj-imp-login-form .aj-imp-forgot form .checkbox.checked {
+  color: #24d07c;
+}
+.aj-imp-login-form .aj-imp-login form .checkbox.checked .second-icon,
+.aj-imp-login-form .aj-imp-forgot form .checkbox.checked .second-icon {
+  color: #24d07c;
+}
+.aj-imp-login-form .aj-imp-login form .checkbox.keep-log,
+.aj-imp-login-form .aj-imp-forgot form .checkbox.keep-log {
+  display: inline-block;
+  margin-left: 1em;
+}
+.aj-imp-login-form .aj-imp-login form .parsley-error-list,
+.aj-imp-login-form .aj-imp-forgot form .parsley-error-list {
+  padding: 0;
+  margin: 0.5em 0;
+  list-style: none;
+}
+.aj-imp-login-form .aj-imp-login form .parsley-error-list li,
+.aj-imp-login-form .aj-imp-forgot form .parsley-error-list li {
+  color: #ff3333;
+}
+.aj-imp-login-form .aj-imp-login form .aj-imp-submit,
+.aj-imp-login-form .aj-imp-forgot form .aj-imp-submit {
+  background: #e223a1;
+  color: #e1e1e1;
+}
+.aj-imp-login-form .aj-imp-login form .aj-imp-submit:hover,
+.aj-imp-login-form .aj-imp-forgot form .aj-imp-submit:hover {
+  background: #e850b4;
+}
+@media (max-width: 767px) {
+  /*Responive*/
+  .aj-imp-login-form {
+    width: 80%;
+    padding: 1em;
+  }
+  .aj-imp-login-form .aj-imp-login form {
+    padding: 0 1em;
+  }
+  .aj-imp-login-form .aj-imp-login form label {
+    padding: 0 0 1em;
+  }
+  /*Responive*/
 }

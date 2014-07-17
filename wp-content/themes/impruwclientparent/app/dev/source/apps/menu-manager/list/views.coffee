@@ -45,11 +45,11 @@ define [ 'app'
 
 
          template : '<div class="panel panel-default">
-                     									<div class="panel-heading">
-                     										<h3 class="panel-title">{{menu_name}}</h3>
-                     									</div>
-                     									<ol class="list-group sortable-menu-items ui-sortable"></ol>
-                     								</div>'
+                        <div class="panel-heading">
+                            <h3 class="panel-title">{{menu_name}}</h3>
+                        </div>
+                        <ol class="list-group sortable-menu-items ui-sortable"></ol>
+                    </div>'
 
          itemView : MenuItemView
 
@@ -92,9 +92,8 @@ define [ 'app'
 
             @collection.each ( model, index )->
                menu = {}
-               menu.menu_slug = model.get( 'menu_slug' )
-               menu.menu_name = model.get( 'menu_name' )
+               menu.menu_item_url = model.get 'menu_item_url'
+               menu.menu_name = model.get 'menu_item_title'
                data.menus.push menu
-
             data
 

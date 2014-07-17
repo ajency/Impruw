@@ -10,8 +10,14 @@ define ['app'
 
             events:
                 'click .add-menu-item': ->
-                    formdata = Backbone.Syphon.serialize @
-                    @trigger "add:menu:item:clicked", formdata
+                    pageId = @$el.find('#page_id').val()
+                    pageName = @$el.find('#page_id option:selected').text()
+
+                    data =
+                        'page_id' : pageId
+                        'menu_item_title' : pageName
+
+                    @trigger "add:menu:item:clicked", data
 
             serializeData :->
                 data = super()
@@ -26,5 +32,5 @@ define ['app'
                 @$el.find('#btn_resetmenu').click()
 
             onShow: ->
-               @$el.find('select[name="menu_item_url"]').selectpicker()
+               @$el.find('select[name="page_id"]').selectpicker()
 						

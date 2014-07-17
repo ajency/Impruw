@@ -43,3 +43,5 @@ wp-content/wp-cache-config.php
 wp-content/plugins/wp-mail-smtp
 wp-content/plugins/paid-memberships-pro
 wp-content/plugins/capability-manager-enhanced/
+wp-content/plugins/wp-smtp/
+wp-content/plugins/wpmandrill/

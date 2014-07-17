@@ -10,7 +10,7 @@ function ajax_read_user() {
 
         $user_ID = get_current_user_id();
 
-        $data = (array) get_userdata( $user_ID );
+        $data = (array)get_userdata( $user_ID );
 
         $data[ 'new_feature_alert' ] = get_user_meta( $user_ID, 'new_feature_alert', TRUE );
 
@@ -31,20 +31,16 @@ add_action( 'wp_ajax_read-user', 'ajax_read_user' );
  * @return User ID , new feature selection
  */
 function ajax_update_user() {
-
     $user_id = $_POST[ 'ID' ];
 
-    $user_lang_set = check_user_lang_set( $_POST );
+    $user_lang_set = check_update( $_POST );
 
-    if ( $user_lang_set == 1 ){
+    if ( $user_lang_set == 1 ) {
         update_user_lang( $user_id, $_POST[ 'changes' ][ 'user_lang' ] );
-    }
-    else{
-        $display_name = $_POST[ 'display_name' ];
-
-        $feature_alert = $_POST[ 'new_feature_alert' ];
-
-        update_user_general( $user_id, $display_name, $feature_alert );
+    } else if ( $user_lang_set == 2 ) {
+        update_user_general( $user_id, $_POST );
+    } else {
+        update_user_password( $_POST );
     }
 
 }
@@ -57,77 +53,54 @@ add_action( 'wp_ajax_update-user', 'ajax_update_user' );
  *
  * @return int
  */
-function check_user_lang_set( $formdata ) {
+function check_update( $formdata ) {
 
     if ( isset( $formdata[ 'changes' ][ 'user_lang' ] ) )
-        return 1; else
-        return 0;
-}
-
-/**
- *
- * @param type $user_id
- * @param type $display_name
- * @param type $feature_alert
- */
-function update_user_general( $user_id, $display_name, $feature_alert ) {
-
-    // update user general info
-    $user_id_return = wp_update_user( array( 'ID' => $user_id, 'display_name' => $display_name ) );
-
-    //update new feautres checkbox selection
-    update_user_meta( $user_id, 'new_feature_alert', $feature_alert );
-
-    // check if update successfull
-    if ( is_wp_error( $user_id_return ) ){
-        wp_send_json( array( 'code' => 'not updated' ) );
-    }
-    else {
-        wp_send_json( array( 'code' => 'OK', 'ID' => $user_id_return, 'new_feature_alert' => $feature_alert ) );
-    }
-}
-
-/**
- * Function to change the user password
- *
- * @returns USer ID
- */
-function ajax_update_password() {
-
-    $formdata = $_POST;
-
-    unset( $formdata[ 'action' ] );
-
-    $current_password = $formdata[ 'formdata' ][ 'currentpassword' ];
-    $new_password     = $formdata[ 'formdata' ][ 'newpassword' ];
-
-    $p_match = check_password_match( $current_password );
-
-    if ( $p_match == 0 )
-        return 0;
-
-    wp_set_password( $new_password, get_current_user_id() );
-    wp_send_json( array( 'code' => 'OK', 'data' => get_current_user_id() ) );
-}
-
-add_action( 'wp_ajax_update-password', 'ajax_update_password' );
-
-/**
- *
- * @param type $current_password
- *
- * @return int
- */
-function check_password_match( $current_password ) {
-
-    $user_ID = get_current_user_id();
-
-    $data = (array) get_userdata( $user_ID );
-
-    $user_password = $data[ 'data' ]->user_pass;
-
-    if ( wp_check_password( $current_password, $user_password, $user_ID ) )
         return 1;
+    else if ( isset( $formdata[ 'changes' ][ 'display_name' ] ) || isset( $formdata[ 'changes' ][ 'new_feature_alert' ] ) )
+        return 2;
     else
         return 0;
 }
+
+/**
+ * Function to reset user password on clicking forgot password link
+ *
+ */
+function ajax_reset_password() {
+
+    unset( $_POST[ 'action' ] );
+
+    $user_email = trim( $_POST[ 'email' ] );
+
+    $email_exists = email_exists( $user_email );
+
+    if ( $email_exists ) {
+
+        reset_user_password( $user_email );
+    } else {
+        wp_send_json( array( 'code' => 'ERROR', 'msg' => 'Email Id does not exists' ) );
+    }
+}
+
+add_action( 'wp_ajax_nopriv_reset-password', 'ajax_reset_password' );
+
+/**
+ * Function to change user password after forgot password reset
+ *
+ */
+function ajax_change_password() {
+
+    unset( $_POST[ 'action' ] );
+
+    if ( isset( $_POST[ 'newPassword' ] ) && $_POST[ 'newPassword' ] != $_POST[ 'confirmPassword' ] )
+        wp_send_json( array( 'code' => 'ERROR', 'msg' => 'Passwords do not match' ) );
+
+    $user_email = trim( $_POST[ 'userEmail' ] );
+
+    change_user_password( $user_email , $_POST[ 'newPassword' ] );
+}
+
+add_action( 'wp_ajax_nopriv_change-password', 'ajax_change_password' );
+
+

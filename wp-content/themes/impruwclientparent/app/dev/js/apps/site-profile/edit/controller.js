@@ -43,6 +43,7 @@ define(['app', 'controllers/base-controller', 'apps/site-profile/edit/views', 'e
         this.siteProfile.set(data);
         return this.siteProfile.save(null, {
           wait: true,
+          onlyChanged: true,
           success: this.siteProfileSuccess
         });
       };

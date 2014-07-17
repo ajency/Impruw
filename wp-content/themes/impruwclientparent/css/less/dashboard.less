@@ -53,6 +53,17 @@ a {
 	}
 }
 
+/****Text Alignment Classes****/
+.t-a-r {
+  text-align: right;
+}
+.t-a-l {
+  text-align: left;
+}
+.t-a-c {
+  text-align: center;
+}
+
 /****Container and Menu Styles****/
 .aj-imp-container {
 	font-family: 'Lato', sans-serif;
@@ -688,6 +699,7 @@ form {
 	}
 	.dropdown-menu {
 		display: none;
+		min-height: initial !important;
 		.selected {
 			a {
 				background: @orange;
@@ -708,6 +720,17 @@ form {
 			border-color: @orange;
 			.caret {
 				border-top-color: @orange;
+			}
+		}
+	}
+	&.country {
+		width: 100%;
+		.selectpicker {
+			width: 100%;
+			.caret {
+				position: absolute;
+				right: 1em;
+				top: 1.25em;
 			}
 		}
 	}
@@ -1342,79 +1365,6 @@ form {
 								color: @dash-grey;
 							}
 						}
-						.aj-imp-image-header {
-							padding: 10px 15px;
-							margin: 0 0 1em;
-							background: @preview-grey;
-							color: @3-grey;
-							font-size: 1.1em;
-							font-weight: 700;
-							border-bottom: 1px solid @dash-grey;
-						}
-						.panel-group {
-							.panel {
-								border-radius: 0;
-								border: 0;
-								border-bottom: 1px solid lighten(@dash-grey, 10%);
-								background: none;
-								box-shadow: none;
-								.panel-heading {
-									background: none;
-									border: 0;
-									> a {
-										display: block;
-										outline: 0;
-										color: @orange;
-										.imgthumb {
-											img {
-												height: 100%;
-												width: auto;
-											}
-										}
-										.imgname, .imgdate {
-											font-weight: bold;
-											padding: 0.5em 15px;
-										}
-										.imgactions {
-											text-align: center;
-											.btn {
-												padding: 5px 8px 6px;
-												margin-right: 1em;
-												&:hover {
-													background: @orange;
-												}
-											}
-										}
-										&.collapsed {
-											color: @dash-grey;
-										}
-									}
-									&:hover {
-										background: @preview-grey;
-									}
-								}
-								.panel-body {
-									border: 0;
-									padding: 1em 0;
-								}
-							}
-							&#settings-accordion, &#map-settings-accordion {
-								.panel {
-									.panel-heading {
-										> a {
-											.imgthumb {
-												span[class^="icon"] {
-													font-size: 2em;
-												}
-											}
-											.imgactions {
-												text-align: right;
-											}
-										}
-									}
-								}
-							}
-						}
 						.aj-imp-block-button {
 							margin: 1em 0;
 							a {
@@ -1485,7 +1435,7 @@ form {
 		}
 	}
 	#add-slide-region {
-		margin: 0.5em 0;
+		margin: 0.5em;
 		#add-slide-form-region {
 			padding-top: 0.5em;
 			.add-image-to-slide {
@@ -1644,6 +1594,80 @@ form {
 				background: lighten(@orange, 10%);
 			}
 		}
+	}
+	.panel-group {
+		.panel {
+			border-radius: 0;
+			border: 0;
+			border-bottom: 1px solid lighten(@dash-grey, 10%);
+			background: none;
+			box-shadow: none;
+			.panel-heading {
+				background: none;
+				border: 0;
+				> a {
+					display: block;
+					outline: 0;
+					color: @orange;
+					.imgthumb {
+						img {
+							height: 100%;
+							width: auto;
+						}
+					}
+					.imgname, .imgdate {
+						font-weight: bold;
+						padding: 0.5em 15px;
+					}
+					.imgactions {
+						text-align: center;
+						.btn {
+							padding: 5px 8px 6px;
+							margin-right: 1em;
+							&:hover {
+								background: @orange;
+							}
+						}
+					}
+					&.collapsed {
+						color: @dash-grey;
+					}
+				}
+				&:hover {
+					background: @preview-grey;
+				}
+			}
+			.panel-body {
+				border: 0;
+				padding: 1em 0;
+			}
+		}
+		&#settings-accordion, &#map-settings-accordion {
+			.panel {
+				.panel-heading {
+					> a {
+						.imgthumb {
+							span[class^="icon"] {
+								font-size: 2em;
+							}
+						}
+						.imgactions {
+							text-align: right;
+						}
+					}
+				}
+			}
+		}
+	}
+	.aj-imp-image-header {
+		padding: 10px 15px;
+		margin: 0 0 1em;
+		background: @preview-grey;
+		color: @3-grey;
+		font-size: 1.1em;
+		font-weight: 700;
+		border-bottom: 1px solid @dash-grey;
+		border-radius: 4px 4px 0 0;
 	}
 }
 
@@ -1884,24 +1908,29 @@ form {
 }
 
 #add-facility-region {
-	.input-group {
-		.form-control {
-			&:focus {
-				+ .input-group-btn {
-					background: @orange;
+	#facilites-form {
+		border: 0;
+		padding: 0;
+		margin: 0;
+		.input-group {
+			.form-control {
+				&:focus {
+					+ .input-group-btn {
+						background: @orange;
+					}
 				}
 			}
-		}
-		.input-group-btn {
-			border: 0;
-			background: @blue-grey;
-			border-radius: 0;
-			color: #fff;
-			line-height: 15px;
-			cursor: pointer;
-		}
-		&:hover {
-			border-color: transparent;
+			.input-group-btn {
+				border: 0;
+				background: @blue-grey;
+				border-radius: 0;
+				color: #fff;
+				line-height: 15px;
+				cursor: pointer;
+			}
+			&:hover {
+				border-color: transparent;
+			}
 		}
 	}
 }
@@ -1933,6 +1962,11 @@ form {
 	color: @dash-grey;
 	font-size: 1.1em;
 	border-radius: 4px;
+	&.image-info {
+		text-align: center;
+		background: @preview-grey;
+		min-height: 150px;
+	}
 }
 
 /*.dates, .plan {
@@ -2478,6 +2512,7 @@ form {
 			.packages {
 				width: 100%;
 				padding-left: 90px;
+				min-height: 150px;
 				.btn-add-plan {
 					position: absolute;
 					left: 0;
@@ -2628,6 +2663,9 @@ form {
 			&.package-names {
 				position: static;
 				min-height: 40px;
+				.packages {
+					min-height: initial;
+				}
 			}
 		}
 		@media(max-width:767px){
@@ -2744,6 +2782,10 @@ form {
 	margin-right: 0.5em;
 }
 
+.aj-imp-block-button.add-new-slide {
+	margin-left: 0;
+}
+
 .add-gallery-images {
 	background: @blue-grey;
 	border-radius: 0;
@@ -2756,6 +2798,61 @@ form {
 	padding: 0;
 	margin: 1em 0;
 	list-style: none;
+}
+
+#slides-list-region {
+	border: 1px solid lighten(@dash-grey, 10%);
+	border-radius: 4px;
+	.move {
+		position: relative;
+		height: 100px;
+		.move-icon {
+			background: darken(@preview-grey, 10%);
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			right: 0;
+			left: 15px;
+			text-align: center;
+			.glyphicon {
+				color: @dash-grey;
+			}
+		}
+	}
+	.thumb {
+		img {
+			width: 100%;
+			max-width: 100%;
+			height: auto;
+		}
+	}
+	.imgname {
+		color: @3-grey;
+		&:hover {
+			color: @3-grey;
+		}
+	}
+	.remove-slide {
+		color: @red;
+		cursor: pointer;
+		&:hover {
+			color: darken(@red, 10%);
+		}
+	}
+}
+
+#slides-info {
+	background: @preview-grey;
+	padding: 1em;
+	margin-right: 0.5em;
+	font-size: 1.3em;
+	color: darken(@dash-grey, 10%);
+	border: 2px solid lighten(@dash-grey, 20%);
+	border-radius: 4px;
+}
+
+.moveable {
+	cursor: move;
 }
 
 /**** Isotope Filtering ****/

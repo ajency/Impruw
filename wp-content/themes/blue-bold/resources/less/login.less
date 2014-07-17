@@ -5,13 +5,13 @@
 	padding: 1em;
 	color: @text-color;
 	.aj-imp-login-header {
-		border-bottom: 1px solid @white;
+		border-bottom: 1px solid @text-color;
 		text-align: center;
 		h1 {
 			font-size: 2.5em;
 			font-weight: 700;
 			span {
-				color: @primary1;
+				color: @secondary1;
 			}
 		}
 		.desc {
@@ -47,6 +47,38 @@
 			.form-group {
 				.col-sm-offset-3 {
 					margin-left: 0;
+				}
+			}
+			.form-control {
+				&:focus {
+					border-color: @primary1;
+				}
+			}
+			.checkbox {
+				padding-top: 0;
+				.icons {
+					color: @text-color;
+					.first-icon, .second-icon {
+						background: transparent;
+					}
+				}
+				&.checked {
+					color: @primary1;
+					.second-icon {
+						color: @primary1;
+					}
+				}
+				&.keep-log {
+					display: inline-block;
+					margin-left: 1em;
+				}
+			}
+			.parsley-error-list {
+				padding: 0;
+				margin: 0.5em 0;
+				list-style: none;
+				li {
+					color: #ff3333;
 				}
 			}
 			.aj-imp-submit {

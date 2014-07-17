@@ -115,16 +115,21 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
         var currentPageId, previewUrl;
         currentPageId = App.request("get:current:editable:page");
         previewUrl = "" + SITEURL + "?preview=true&p=" + currentPageId;
-        return this.$el.find('a.preview-current-page').attr('href', previewUrl);
+        return this.$el.find('a.preview-current-page').attr('href', previewUrl).attr('target', '_newtab' + Math.floor(Math.random() * 999999));
       };
 
       MainView.prototype.onShow = function() {
         this.enableSelectPicker();
         _.delay((function(_this) {
           return function() {
-            var value;
-            value = _this.$el.find('select#builder-page-sel').selectpicker('val');
-            _this.trigger('editable:page:changed', value);
+            var pageId;
+            pageId = $.cookie('current-page-id');
+            if (isNaN(parseInt(pageId))) {
+              pageId = _this.$el.find('select#builder-page-sel').selectpicker('val');
+            } else {
+              _this.$el.find('select#builder-page-sel').selectpicker('val', pageId);
+            }
+            _this.trigger('editable:page:changed', pageId);
             return _this.changePreviewLinkUrl();
           };
         })(this), 250);
@@ -173,9 +178,26 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
       };
 
       MainView.prototype.displayPageNameForUpdate = function() {
-        var currentPageName;
+        var currentPageName, singleRoom;
+        this.$el.find('#page_name').removeAttr('readonly');
+        this.$el.find('.btn-update-pg-name').removeAttr('disabled');
         currentPageName = this.getCurrentPageName();
+        singleRoom = this.isSingleRoomPage();
+        if (singleRoom === true) {
+          this.$el.find('#page_name').attr('readonly', 'readonly');
+          this.$el.find('.btn-update-pg-name').attr('disabled', 'disabled');
+        }
         return this.$el.find('#page_name').val(currentPageName);
+      };
+
+      MainView.prototype.isSingleRoomPage = function() {
+        var page, pageName;
+        pageName = App.request("get:current:editable:page:name");
+        page = false;
+        if (pageName === 'Single Room') {
+          page = true;
+        }
+        return page;
       };
 
       MainView.prototype.onPageNameUpdated = function(pageModel) {

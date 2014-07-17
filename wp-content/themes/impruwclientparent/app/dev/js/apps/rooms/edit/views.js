@@ -1,7 +1,7 @@
 var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-define(['app', 'text!apps/rooms/edit/templates/edit-room.html'], function(App, addRoomTpl) {
+define(['app', 'text!apps/rooms/edit/templates/edit-room.html', 'jqueryvalidate'], function(App, addRoomTpl, jqueryvalidate) {
   return App.module('RoomsApp.Edit.View', function(View, App, Backbone, Marionette, $, _) {
     return View.EditRoomLayout = (function(_super) {
       __extends(EditRoomLayout, _super);

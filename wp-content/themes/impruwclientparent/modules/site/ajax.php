@@ -12,10 +12,12 @@ function read_site_ajax() {
 
     $data = get_site_details( $site_id );
     $data [ 'checkin_time' ] = get_option( 'checkin-time', '' );
+    $data [ 'checkout_time' ] = get_option( 'checkout-time', '' );
     $data [ 'checkin_time_format' ] = get_option( 'checkin-time-format', '' );
     $data [ 'additional_policy' ] = get_option( 'additional-policy', '' );
     $data [ 'statistics_enabled' ] = get_option( 'statistics_enabled' );
-    $data [ 'currency' ] = get_option( 'currency' );
+    $data [ 'currency' ] = get_option( 'currency','NOK' );
+    $data [ 'hotel_name' ] = get_option( 'hotel_name','' );
     $data [ 'piwik_path' ] = PIWIK_PATH;
     $data [ 'piwik_token' ] = PIWIK_AUTH_TOKEN;
 
@@ -96,25 +98,7 @@ function update_tracking() {
 
 add_action( 'wp_ajax_update-tracking', 'update_tracking' );
 
-/**
- * Function to create a piwik site for the site created
- *
- *
- * @param type $site_id
- *
- * @return type
- */
-function create_piwik_site( $site_id ) {
 
-    $wp_piwik_object = $GLOBALS[ 'wp_piwik' ];
-
-    $_GET[ 'wpmu_show_stats' ] = $site_id;
-
-    $tracking_code = $wp_piwik_object->addPiwikSite();
-
-    return $tracking_code;
-
-}
 
 function ajax_site_logout() {
 

@@ -30,7 +30,7 @@ get_header();
 
                     <div class="col-sm-7 col-sm-offset-3">
 
-                        <input type="text" class="form-control" id="inputName"  name="display_name" placeholder="<?php echo __('First Name Last Name', 'impruwmain'); ?>" required   
+                        <input type="text" class="form-control" id="inputName"  name="display_name" placeholder="<?php echo __('Firstname Lastname', 'impruwmain'); ?>" required   
                                parsley-validation-minlength="0"  parsley-minlength="3" parsley-trigger="blur" parsley-regexp="^[a-zA-Zæøå ]+$"
                                value="" 
                                parsley-required-message="<?php echo __('Enter your first name and last name.', 'impruwmain'); ?>"  
@@ -42,10 +42,11 @@ get_header();
                 <div class="form-group">
                     <label for="inputEmail" class="col-sm-3 control-label"><?php echo __('Your Email', 'impruwmain'); ?></label>
                     <div class="col-sm-7 col-sm-offset-3">
-                        <input type="email" class="form-control parsley-validated parsley-error" 
+                        <input type="email" class="form-control parsley-validated parsley-error"
+                               parsley-regexp='^(([^<>()æøå[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$'
                                id="inputEmail"  name="user_email" placeholder="<?php echo __('someone@mail.com', 'impruwmain'); ?>"     
                                parsley-required="true"  parsley-trigger="blur"  
-                               parsley-validation-minlength="0"  parsley-type="email"         
+                               parsley-validation-minlength="0"
                                value=""  
                                parsley-required-message="<?php echo __('Enter a valid email address as it will be your User ID as well.', 'impruwmain'); ?>"   
                                pasrsley-remote="<?php echo admin_url('admin-ajax.php?action=check_email_exists'); ?>"   >
@@ -144,10 +145,9 @@ get_header();
                     <div class="col-sm-offset-3 col-sm-7">
                         <label for="checkbox2" class="checkbox">
                             <input type="checkbox" data-toggle="checkbox"  id="checkbox2" name="checkbox2"  value="1"   required  class="parsley-validated parsley-error"   parsley-trigger="blur" parsley-validation-minlength="0">
-                            <?php echo __('By signing up you agree to our terms of service.', 'impruwmain'); ?>
+                            <?php echo __('By signing up you agree to our ', 'impruwmain'); ?><a href="<?php echo get_bloginfo('url'); ?>/terms-of-service/"><?php _e('Terms of Service','impruwmain')?></a>
                             <div class="p-messages"></div> 
-                        </label><br>
-                        <a href="<?php echo get_bloginfo('url'); ?>/terms-of-service/">Read our Terms of Service</a>
+                        </label>
                     </div>
                 </div>
 
@@ -198,7 +198,7 @@ get_header();
                 </p>
                 <h5><?php echo __('Still facing problems?', 'impruwmain'); ?></h5>
                 <p>
-                    <?php echo __('Send us a mail on support@impruw.com', 'impruwmain'); ?>
+                    <?php echo __('Send us a mail on ', 'impruwmain'); ?><a href="mailto:support@impruw.com"><?php _e('support@impruw.com','impruwmain')?></a>
                 </p>
             </div>
         </div>

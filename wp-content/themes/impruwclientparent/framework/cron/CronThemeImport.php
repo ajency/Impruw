@@ -20,9 +20,9 @@ class ThemeImportCron {
         add_action( 'import_theme_to_db', array( &$this, 'import_theme_to_db' ) );
     }
 
-    public function import_theme_to_db() {
+    public function import_theme_to_db($site_id) {
 
-        $theme_importer = new ThemeImporter( new ThemeDatabaseImporter() );
+        $theme_importer = new ThemeImporter( new ThemeDatabaseImporter(), $site_id );
         $theme_importer->import();
         $this->notify();
     }

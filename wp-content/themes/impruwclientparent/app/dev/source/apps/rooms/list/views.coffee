@@ -1,52 +1,50 @@
-define ['app'
-        'text!apps/rooms/list/templates/mainview2.html'
-        'text!apps/rooms/list/templates/singleroom2.html'
-        'text!apps/rooms/list/templates/emptyview.html'],
-(App, mainviewTpl, roomsingleTpl, emptyTpl)->
-    App.module 'RoomsApp.List.Views', (Views, App, Backbone, Marionette, $, _)->
+define [ 'app'
+         'text!apps/rooms/list/templates/mainview2.html'
+         'text!apps/rooms/list/templates/singleroom2.html'
+         'text!apps/rooms/list/templates/emptyview.html' ],
+( App, mainviewTpl, roomsingleTpl, emptyTpl )->
+   App.module 'RoomsApp.List.Views', ( Views, App, Backbone, Marionette, $, _ )->
+      class RoomSingle extends Marionette.ItemView
 
-        class RoomSingle extends Marionette.ItemView
+         tagName : "li"
 
-            tagName: "li"
+         template : roomsingleTpl
 
-            template: roomsingleTpl
-
-            events:
-                'click .deleteroom_link': (e)->
-                    e.preventDefault()
-                    if confirm _.polyglot.t "Delete the room and all its data?"
-                        @model.destroy()
-
+         events :
+            'click .deleteroom_link' : ( e )->
+               e.preventDefault()
+               if confirm _.polyglot.t "Delete the room and all its data?"
+                  @model.destroy()
 
 
-        class EmptyView extends Marionette.ItemView
+      class EmptyView extends Marionette.ItemView
 
-            template: emptyTpl
-
-
-        class Views.RoomsListView extends Marionette.CompositeView
-
-            template: mainviewTpl
-
-            itemViewContainer: '.new-room-list'
-
-            itemView: RoomSingle
-
-            emptyView: EmptyView
+         template : emptyTpl
 
 
-        class Views.RoomListLayout extends Marionette.Layout
+      class Views.RoomsListView extends Marionette.CompositeView
 
-            template: '<div id="room-list"></div>'
+         template : mainviewTpl
 
-            className: 'rooms-layout'
+         itemViewContainer : '.new-room-list'
 
-            regions:
-                roomRegion: '#room-list'
+         itemView : RoomSingle
 
-            events:
-                'click .add-room': ->
-                    @trigger "add:new:room:clicked"
+         emptyView : EmptyView
+
+
+      class Views.RoomListLayout extends Marionette.Layout
+
+         template : '<div id="room-list"></div>'
+
+         className : 'rooms-layout'
+
+         regions :
+            roomRegion : '#room-list'
+
+         events :
+            'click .add-room' : ->
+               @trigger "add:new:room:clicked"
 
 					
 				

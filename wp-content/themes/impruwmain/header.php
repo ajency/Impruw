@@ -12,6 +12,7 @@
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width">
     <title><?php wp_title('|', true, 'right'); ?></title>
+    <meta name="description" content="<?php bloginfo('description'); ?>" />
     <link rel="profile" href="http://gmpg.org/xfn/11">
     <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>">
 
@@ -75,7 +76,7 @@
             ?>
             <?php if( ! is_user_logged_in() ): ?>
             <a href="#" class="login-btn" data-toggle="popover">
-                <span class="glyphicon glyphicon-lock"></span> <?php _e('Sign In') ?>
+                <span class="glyphicon glyphicon-lock"></span> <?php _e('Sign In', 'impruwmain'); ?>
             </a>
             <?php endif; ?>
 

@@ -1,10 +1,10 @@
-define ['app', 'controllers/base-controller'
-        'apps/my-profile/general/views'], (App, AppController)->
-    App.module 'MyProfileApp.General', (General, App, Backbone, Marionette, $, _)->
+define [ 'app', 'controllers/base-controller'
+         'apps/my-profile/general/views' ], ( App, AppController )->
+    App.module 'MyProfileApp.General', ( General, App, Backbone, Marionette, $, _ )->
         class General.Controller extends AppController
 
             # initiliaze controller
-            initialize: (opts)->
+            initialize : ( opts )->
                 {model} = opts
 
                 @model = model
@@ -14,24 +14,23 @@ define ['app', 'controllers/base-controller'
                 @listenTo @view, "update:user:info:click", @updateUserInfo
 
                 @show @view,
-                    loading: true
+                    loading : true
 
-
-
-            getGeneralFormView: (model) ->
+            getGeneralFormView : ( model ) ->
                 new General.View.GeneralForm
-                    model: model
+                    model : model
 
-            updateUserInfo: (data) =>
+            updateUserInfo : ( data ) =>
                 @model.set data
                 @model.save null,
-                    wait: true
-                    success: @userInfoUpdated
+                    wait : true
+                    onlyChanged : true
+                    success : @userInfoUpdated
 
-            userInfoUpdated: =>
-                @view.triggerMethod "user:info:updated"
+            userInfoUpdated :(model, response) =>
+                @view.triggerMethod "user:info:updated", response
 
-        App.commands.setHandler "show:general:form", (opts) ->
+        App.commands.setHandler "show:general:form", ( opts ) ->
             new General.Controller opts
 
 			

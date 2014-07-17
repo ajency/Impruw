@@ -83,6 +83,9 @@ define(["app", 'backbone'], function(App, Backbone) {
     App.reqres.setHandler("get:tariffs:for:daterange", function(daterangeId) {
       return API.getTariffsForDateRange(daterangeId);
     });
+    App.reqres.setHandler("get:current:tariffs:collection", function() {
+      return tariffCollection;
+    });
     return App.reqres.setHandler("get:tariff", function(id) {
       return API.getTariff(id);
     });

@@ -11,75 +11,66 @@
                 </div>
             </div>
             <div class="col-sm-8">
-                <div class="aj-imp-browser-title">{{#polyglot}}Site in browser{{/polyglot}}</div>
-            </div>
-            <div class="col-sm-2">
-                <div class="aj-imp-page-publish">
-                    <div class="aj-imp-publish">
-                        <div id="aj-imp-preview-sel" class="dropdown">
-                            <a data-toggle="dropdown" href="#">{{#polyglot}}Preview{{/polyglot}} <span
-                                    class="caret"></span></a>
-                            <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu1">
-                                <li role="presentation">
-                                    <div class="aj-imp-preview-box">
-                                        <h6>{{#polyglot}}Choose Device{{/polyglot}}</h6>
-                                        <ul class="clearfix">
-                                            <li><a href="#"
-                                                   class="selected preview-current-page"
-                                                   target="_BLANK"><span class="bicon icon-uniF121"></span></a></li>
-                                            <li><a href="#"><span class="bicon icon-uniF120"></span></a></li>
-                                        </ul>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--second row-->
-        <div class="row second">
-            <div class="col-sm-7">
-                <div class="aj-imp-browser-address-bar clearfix">
-                    <b>{{#polyglot}}Page Name{{/polyglot}} </b>
-                    <input type="text" value="{{SITEURL}}" class="page-slug-edit">
-
-                    <span>Choose page to edit</span>
-
+                <div class="aj-imp-browser-title">
+                    {{#polyglot}}Current Page: {{/polyglot}}
                     <select id="builder-page-sel" name="builder-page-sel">
                         {{#pages}}
                         <option value="{{ID}}">{{post_title}}</option>
                         {{/pages}}
                     </select>
-
+                    <a href="#" class="add-new-page">
+                        <span class="glyphicon glyphicon-plus-sign"></span>
+                        {{#polyglot}}Add Page{{/polyglot}}
+                    </a>
                 </div>
             </div>
-            <div class="col-sm-1">
-                <a href="#" class="btn btn-xs add-new-page"><span class="glyphicon glyphicon-plus-sign"></span>
-                    {{#polyglot}}Add Page{{/polyglot}}</a>
+            <div class="col-sm-2">
+                
             </div>
-            <div class="col-sm-2 clearfix">
-
-                <div class="aj-imp-revisions pull-right">
-                    <div id="aj-imp-revision-sel" class="dropdown">
-                        <!--<a data-toggle="dropdown" href="#" class="rev-toggle">Revisions <span class="caret"></span></a>-->
-
+        </div>
+        <!--second row-->
+        <div class="row second">
+            <div class="col-sm-9">
+                <!-- Change page name section -->
+                <div class="page-name">
+                    <div class="page-name-content">
+                        <b>{{#polyglot}}Page Title{{/polyglot}}: </b>
+                        <input type="text" name="page_name" id="page_name" class="page-name-input">
+                        <button type="button" class="btn-update-pg-name">{{#polyglot}}Update{{/polyglot}}</button>
                     </div>
                 </div>
-
+                <div class="aj-imp-browser-address-bar clearfix">
+                    <b>{{#polyglot}}Page URL{{/polyglot}}: </b>
+                    <input type="text" value="{{SITEURL}}" class="page-slug-edit">
+                </div>
             </div>
-            <div class="aj-imp-save-action col-sm-2">
-                <a href="#" class="publish-page btn btn-primary btn-sm btn-embossed"><span
+            <div class="aj-imp-save-action col-sm-3">
+                <div class="aj-imp-page-publish">
+                    <div id="aj-imp-preview-sel" class="dropdown">
+                        <a data-toggle="dropdown" href="#">{{#polyglot}}Preview{{/polyglot}} <span
+                                class="caret"></span></a>
+                        <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu1">
+                            <li role="presentation">
+                                <div class="aj-imp-preview-box">
+                                    <h6>{{#polyglot}}Choose Device{{/polyglot}}</h6>
+                                    <ul class="clearfix">
+                                        <li><a href="#"
+                                               class="selected preview-current-page"
+                                               target="_newtab"><span class="bicon icon-uniF121"></span></a></li>
+                                        <li><a href="#"><span class="bicon icon-uniF120"></span></a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="aj-imp-publish">
+                        <a href="#" class="publish-page btn btn-primary btn-sm btn-embossed"><span
                         class="glyphicon glyphicon-floppy-disk"></span> {{#polyglot}}Publish{{/polyglot}} </a>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <!-- Change page name section -->
-        <div>
-            <input type="text" name="page_name" id="page_name">
-            <button type="button" class="btn-update-pg-name">Update</button>
-
-        </div>
     </div>
     <!-- browser body-->
     <div id="aj-imp-browser-body">

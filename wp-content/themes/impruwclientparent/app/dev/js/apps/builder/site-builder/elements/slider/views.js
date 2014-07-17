@@ -1,5 +1,6 @@
 var __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
 define(['app'], function(App) {
   return App.module('SiteBuilderApp.Element.Slider.Views', function(Views, App, Backbone, Marionette, $, _) {
@@ -38,6 +39,7 @@ define(['app'], function(App) {
       __extends(SliderView, _super);
 
       function SliderView() {
+        this._saveSliderHeightWidth = __bind(this._saveSliderHeightWidth, this);
         return SliderView.__super__.constructor.apply(this, arguments);
       }
 
@@ -91,12 +93,15 @@ define(['app'], function(App) {
               console.log(_this.$el.height());
               options.startheight = _this.$el.height();
               _this.$el.width('auto');
-              _this.revapi = _this.$el.find(".fullwidthbanner").revolution(options);
-              return _this.trigger("set:slider:height", options.startheight);
+              return _this.revapi = _this.$el.find(".fullwidthbanner").revolution(options);
             };
           })(this)
         });
-        return this.trigger("set:slider:height", options.startheight);
+        return $('.aj-imp-publish').on('click', this._saveSliderHeightWidth);
+      };
+
+      SliderView.prototype._saveSliderHeightWidth = function() {
+        return this.trigger("set:slider:height:width", this.$el.height(), this.$el.width());
       };
 
       SliderView.prototype.getTallestColumnHeight = function() {
@@ -159,6 +164,10 @@ define(['app'], function(App) {
           startWithSlide: 0,
           fullScreenOffsetContainer: ""
         };
+      };
+
+      SliderView.prototype.onBeforeClose = function() {
+        return $('.aj-imp-publish').off('click', this._saveSliderHeightWidth);
       };
 
       return SliderView;

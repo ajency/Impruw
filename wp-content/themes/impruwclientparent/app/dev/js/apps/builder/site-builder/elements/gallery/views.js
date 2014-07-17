@@ -68,7 +68,7 @@ define(['app'], function(App) {
       };
 
       GalleryView.prototype.onShow = function() {
-        this.$el.attr("data-content", _.polyglot.t("Manage room gallery") + (" <a href='" + SITEURL + "/dashboard/#rooms'>") + _.polyglot.t("here") + "</a> ");
+        this.$el.attr("data-content", _.polyglot.t("Manage room gallery") + (" <a href='" + SITEURL + "/dashboard/#/rooms'>") + _.polyglot.t("here") + "</a> ");
         this.$el.popover({
           html: true,
           placement: 'top'

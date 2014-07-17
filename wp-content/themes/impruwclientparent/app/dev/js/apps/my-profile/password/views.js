@@ -31,9 +31,12 @@ define(['app', 'text!apps/my-profile/password/templates/passwordform.html'], fun
       PasswordForm.prototype.onShow = function() {
         return this.$el.validate({
           rules: {
-            newpassword: "required",
+            newPassword: {
+              required: true,
+              minlength: 6
+            },
             confirmNewPassword: {
-              equalTo: "#newpassword"
+              equalTo: "#newPassword"
             }
           }
         });
@@ -47,14 +50,26 @@ define(['app', 'text!apps/my-profile/password/templates/passwordform.html'], fun
         }
       };
 
-      PasswordForm.prototype.passwordErrorResponse = function() {
+      PasswordForm.prototype.onPasswordErrorResponse = function(errorMsg) {
         this.$el.find('.alert').remove();
-        return this.$el.prepend('<div class="alert alert-success">' + _.polyglot.t("Password mismatch") + '</div>');
+        errorMsg = _.polyglot.t(errorMsg);
+        return this.$el.prepend("<div class='alert alert-success'>" + errorMsg + "</div>");
       };
 
-      PasswordForm.prototype.passwordSuccessResponse = function() {
+      PasswordForm.prototype.onPasswordSuccessResponse = function(redirectUrl) {
+        var successMsg;
+        successMsg = _.polyglot.t("Password change success");
         this.$el.find('.alert').remove();
-        return this.$el.prepend('<div class="alert alert-success">' + _.polyyglot.t("Password Updated") + '</div>');
+        this.$el.prepend("<div class='alert alert-success'>" + successMsg + "</div>");
+        return _.delay((function(_this) {
+          return function() {
+            return _this.redirectPage(redirectUrl);
+          };
+        })(this), 40);
+      };
+
+      PasswordForm.prototype.redirectPage = function(redirectUrl) {
+        return window.location.href = redirectUrl;
       };
 
       return PasswordForm;
