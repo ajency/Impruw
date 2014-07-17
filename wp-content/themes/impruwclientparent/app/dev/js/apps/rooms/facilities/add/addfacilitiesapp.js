@@ -49,7 +49,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
 
       AddFacilityView.prototype.className = 'facility add';
 
-      AddFacilityView.prototype.template = '<div class="input-group"> <form id="facilites-form"> <input type="text" name="name" data-rule-required="true" class="form-control" placeholder="{{#polyglot}}Add a Facility{{/polyglot}}" data-msg-required="Facility name required"> <span class="input-group-btn add-facility input-group-addon"> <span class="icon icon-plus"></span>{{#polyglot}}Add{{/polyglot}} </span> </form> </div>';
+      AddFacilityView.prototype.template = '<form id="facilites-form"> <div class="input-group"> <input type="text" name="name" data-rule-required="true" class="form-control" placeholder="{{#polyglot}}Add a Facility{{/polyglot}}" data-msg-required="Facility name required"> <span class="input-group-btn add-facility input-group-addon"> <span class="icon icon-plus"></span>{{#polyglot}}Add{{/polyglot}} </span> </div> </form>';
 
       AddFacilityView.prototype.events = {
         'click .add-facility': function() {
