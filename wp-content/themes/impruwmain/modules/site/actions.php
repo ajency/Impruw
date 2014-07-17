@@ -63,6 +63,27 @@ function redirect_if_logged_in() {
 
 add_action( 'template_redirect', 'redirect_if_logged_in' );
 
+function check_wp_admin_access() {
+
+    if ( !is_user_logged_in() )
+        return;
+
+    if ( is_current_user_impruw_manager() || is_super_admin() || is_network_admin() )
+        return;
+
+    if ( is_admin() && !defined( 'DOING_AJAX' ) ) {
+        if ( is_user_logged_in() ) {
+            wp_safe_redirect( get_user_dashboard_url() );
+            die();
+        } else {
+            wp_safe_redirect( wp_login_url( site_url( 'dashboard' ) ) );
+            die();
+        }
+    }
+}
+
+add_action( 'wp_loaded', 'check_wp_admin_access' );
+
 function is_page_with_login_required() {
 
     $pages = array( 'login', 'register', 'home', 'new-password', 'reset-password', 'user-activation' );

@@ -14,14 +14,14 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
       }
 
       Controller.prototype.initialize = function(opts) {
-        var trackingStatus, view;
-        trackingStatus = STATISTICS;
-        this.siteProfile = opts.model;
+        var siteModel, trackingStatus;
+        siteModel = opts.model;
+        trackingStatus = siteModel.get('statistics_enabled');
         if (trackingStatus === 'false') {
-          this.view = view = this.getDisabledTrackingView();
+          this.view = this.getDisabledTrackingView();
           this.listenTo(this.view, "enable:tracking:for:site", this.updateTracking);
         } else {
-          this.view = view = this.getStatisticsView(this.siteProfile);
+          this.view = this.getStatisticsView(siteModel);
         }
         App.vent.trigger("set:active:menu", 'statistics');
         return this.show(this.view, {

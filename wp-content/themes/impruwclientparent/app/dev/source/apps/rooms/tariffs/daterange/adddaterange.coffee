@@ -41,7 +41,41 @@ define [ 'app', 'controllers/base-controller',
                 'click #btn_savedaterange' : ->
                     if @$el.valid()
                         data = Backbone.Syphon.serialize @
-                        @trigger "add:daterange:details", data
+                        if moment( data.to_date ).isAfter( data.from_date ) is true
+                            check = @checkDaterangeValid data
+                            if check is 0
+                                @$el.parent().find( '.alert' ).remove()
+                                @$el.parent().prepend "<div class=\"alert alert-success\">" + _.polyglot.t( "Date range overlaps existing date range" ) + "</div>"
+                            else
+                                @trigger "add:daterange:details", data
+                        else
+                            @$el.parent().find( '.alert' ).remove()
+                            @$el.parent().prepend "<div class=\"alert alert-success\">" + _.polyglot.t( "Select valid daterange" ) + "</div>"
+
+            checkDaterangeValid : ( selectedDate )->
+                temp = 0;
+
+                daterangeCollection = App.request "get:daterange:collection"
+
+                if daterangeCollection.models.length is 0
+                    temp =1
+                else
+                    _.each daterangeCollection.models, ( daterangeModel, index ) =>
+                            fromDate = daterangeModel.get 'from_date'
+                            toDate = daterangeModel.get 'to_date'
+
+                            fromDate = moment( fromDate ).subtract( 'days', 1 )
+                            toDate = moment( toDate ).add( 'days', 1 )
+
+                            fromDateCheck = moment( selectedDate.from_date ).isAfter( fromDate )
+                            toDateCheck = moment( selectedDate.to_date ).isBefore( toDate )
+
+                            if fromDateCheck is true and toDateCheck is false
+                                temp = temp + 1
+                            else
+                                temp = 0
+                temp
+
 
 
             onSavedDaterange : ->
@@ -51,8 +85,7 @@ define [ 'app', 'controllers/base-controller',
                 @$el.find( '.dated' ).datepicker 'destroy'
                 @displayDatePicker()
 
-            displayDatePicker :->
-
+            displayDatePicker : ->
                 @$el.find( '.dated' ).datepicker
                     showOtherMonths : true
                     selectOtherMonths : true
@@ -81,7 +114,7 @@ define [ 'app', 'controllers/base-controller',
                 else
                     return [ false, className ]
 
-            setDateRangeColorDelayed :(input , instance)=>
+            setDateRangeColorDelayed : ( input, instance )=>
                 _.delay =>
                     @setDateRangeColor()
                 , 10
@@ -93,7 +126,7 @@ define [ 'app', 'controllers/base-controller',
                     dateRangeName = daterangeModel.get 'daterange_name'
                     dateRangeColour = daterangeModel.get 'daterange_colour'
                     className = _.slugify dateRangeName
-                    $(".#{className}").css({"background-color": dateRangeColour})
+                    $( ".#{className}" ).css( { "background-color" : dateRangeColour } )
 
             displayColorMonthChange : ( year, month, inst ) =>
                 _.delay =>

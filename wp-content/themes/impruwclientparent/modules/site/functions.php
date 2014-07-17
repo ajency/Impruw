@@ -14,7 +14,8 @@ function get_site_details( $site_id = 0 ) {
 
     // fetching the image path for the logo
     $logo_id = get_option( 'logo_id', 0 );
-    $image_path = get_post_field( 'guid', $logo_id );
+    $image_path = wp_get_attachment_image_src($logo_id);;
+    $image_path = $image_path === false ? '' : $image_path[0];
 
     return array( 'site_id' => $site_id,
         'site_domain' => get_site_domain( $site_id ),
@@ -25,7 +26,7 @@ function get_site_details( $site_id = 0 ) {
         'city' => get_option( 'city', '' ),
         'logo_id' => $logo_id,
         'logo_url' => $image_path, 'country' => get_option( 'country', '' ),
-        'other_emails' => get_option( 'other_emails', array() ),
+        'site_email' => get_option( 'site_email', get_bloginfo('admin_email')),
         'other_phone_no' => get_option( 'other_phone_no', array() ),
         'facebook' => get_option( 'facebook', '' ),
         'twitter' => get_option( 'twitter', '' ) );
@@ -117,61 +118,6 @@ function get_language_code( $language_name ) {
     }
 
     return $language_code;
-}
-
-function get_all_childsite_pages(){
-
-    $all_pages_array = array();
-
-    $pages = get_pages(); 
-
-    foreach ( $pages as $page ) {
-        global $sitepress;
-        $page_id = $page->ID;
-        $page_title = $page->post_title;
-        $page_slug = $page->post_name;
-        $is_child_site_page = true;
-        $is_room_page = false;
-        $editing_language = $_REQUEST['language'];
-        $default_language = $sitepress ->get_default_language();
-
-        // Get the post ID based on language so that only pages of default language could be listed
-        $page_id_based_on_lang = icl_object_id( $page_id, 'page', true, $default_language);
-
-        // Get post title based on language
-        $page_title_based_on_lang = get_the_title($page_id_based_on_lang);
-
-        //Get the page slug and filter displayed page list based on page slug
-        $page_based_on_lang = get_post($page_id_based_on_lang);
-        $page_slug_based_on_lang = $page_based_on_lang->post_name;
-
-
-        //TODO check language based slugs, right now check is made for english pages only
-        if($page_slug_based_on_lang=='support'|| $page_slug_based_on_lang=='coming-soon'||  $page_slug_based_on_lang=='dashboard' ||  $page_slug_based_on_lang=='dashboard'||  $page_slug_based_on_lang=='site-builder'|| $page_slug_based_on_lang=='sign-in' || $page_slug_based_on_lang=='sample-page' || $page_slug_based_on_lang=='single-room' || $page_slug_based_on_lang==null){
-           $is_child_site_page = false;
-       }
-        else{
-            $is_child_site_page = true;
-        }
-
-        //TODO could be titled differently in other languages. check that. Will depend on what names are given at the time of first creating the 6 default posts
-        if($page_slug_based_on_lang == "rooms" || $page_slug_based_on_lang == "rooms-nb"){
-            $is_room_page = true;
-        }
-
-        $all_pages_array[] = array(
-            'pageId' => $page_id_based_on_lang,
-            'pageOriginalId' => $page_id,
-            'pageHref' => $page_slug,
-            'pageTitle' => $page_title_based_on_lang,
-            'isChildSitePage' => $is_child_site_page,
-            'editingLang' => $editing_language,
-            'defaultLanguage' => $default_language,
-            'isRoomPage' => $is_room_page
-            );
-    }
-
-return $all_pages_array;
 }
 
 
@@ -513,7 +459,7 @@ function update_site_profile( $formdata ) {
     foreach ( $changed_values as $key => $value ) {
 
         // if the options are email or phone, store them as serailized array
-        if ( $key == "other_emails" || $key == "other_phone_no" ) {
+        if ( $key == "other_phone_no" ) {
             $value_array = $changed_values[ $key ];
             update_option( $key, $value_array );
         } else {
@@ -612,22 +558,23 @@ function get_hotel_address() {
     return $address;
 }
 
-/*
-* Function to get language name based on language code
-*/
-function get_language_names($language_code){
 
-    switch($language_code){
-        case "en" :
-            $language_name = "English";
-            break;
-        case "nb" :
-            $language_name = "Norwegian";
-            break;
-        default :
-            $language_name = "en";
-    }
+/**
+ * Function to create a piwik site for the site created
+ *
+ *
+ * @param type $site_id
+ *
+ * @return type
+ */
+function create_piwik_site( $site_id ) {
 
-    return $language_name;
+    $wp_piwik_object = $GLOBALS[ 'wp_piwik' ];
+
+    $_GET[ 'wpmu_show_stats' ] = $site_id;
+
+    $tracking_code = $wp_piwik_object->addPiwikSite();
+
+    return $tracking_code;
 
 }

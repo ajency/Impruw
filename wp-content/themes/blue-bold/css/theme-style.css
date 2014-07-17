@@ -1486,6 +1486,19 @@ and open the template in the editor.
   border: 1px dashed #555555;
   margin: 1em 0;
 }
+.map .empty-view {
+  text-align: center;
+  font-size: 1.2em;
+  color: #989898;
+  padding: 3em 0.3em;
+  height: 100%;
+}
+.map .empty-view .glyphicon {
+  display: block;
+  margin: 0.2em 0 0.5em;
+  font-size: 3em;
+  color: #b2b2b2;
+}
 .map:hover {
   border: 1px solid #07669e;
 }
@@ -1641,6 +1654,9 @@ and open the template in the editor.
 /**** Logo Styles ****/
 .logo {
   max-width: 300px;
+}
+.logo img {
+  max-height: 120px;
 }
 @media (max-width: 767px) {
   .logo {

@@ -1491,6 +1491,19 @@ and open the template in the editor.
   border: 1px dashed #29333f;
   margin: 1em 0;
 }
+.map .empty-view {
+  text-align: center;
+  font-size: 1.2em;
+  color: #bfbfbf;
+  padding: 3em 0.3em;
+  height: 100%;
+}
+.map .empty-view .glyphicon {
+  display: block;
+  margin: 0.2em 0 0.5em;
+  font-size: 3em;
+  color: #d9d9d9;
+}
 .map:hover {
   border: 1px solid #ff7e00;
 }
