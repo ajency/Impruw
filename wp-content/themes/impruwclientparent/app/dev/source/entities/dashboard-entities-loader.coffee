@@ -10,4 +10,5 @@ define [
     'entities/user'
     'entities/daterange'
     'entities/booking'
+    'entities/braintree-plans'
 ], ->

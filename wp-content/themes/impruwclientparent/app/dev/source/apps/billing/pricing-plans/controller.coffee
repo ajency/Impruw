@@ -5,16 +5,19 @@ define [ 'app', 'controllers/base-controller'
 
             # initiliaze controller
             initialize : ( opts )->
-                @layout = @getLayout()
+                @view = @getView()
+
+                @brainTreePlans = App.request "get:braintree:plans"
+                console.log @brainTreePlans
 
                 # trigger set:active:menu event
                 App.vent.trigger "set:active:menu", 'billing'
 
                 # show main layout
-                @show @layout
+                @show @view
 
             # get layout
-            getLayout : ->
+            getView : ->
                 new PaymentPlans.View.Layout
 
         App.commands.setHandler "show:plans:app", ( opts ) ->

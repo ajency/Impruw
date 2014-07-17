@@ -11,12 +11,14 @@ define(['app', 'controllers/base-controller', 'apps/billing/pricing-plans/views'
       }
 
       Controller.prototype.initialize = function(opts) {
-        this.layout = this.getLayout();
+        this.view = this.getView();
+        this.brainTreePlans = App.request("get:braintree:plans");
+        console.log(this.brainTreePlans);
         App.vent.trigger("set:active:menu", 'billing');
-        return this.show(this.layout);
+        return this.show(this.view);
       };
 
-      Controller.prototype.getLayout = function() {
+      Controller.prototype.getView = function() {
         return new PaymentPlans.View.Layout;
       };
 
