@@ -87,7 +87,7 @@ class MenuElement extends Element {
         $justified = $this->justified ? 'nav-justified' : '';
         $menu_class = 'nav '.$this->style.' '.$justified.' '.$this->margins;
 
-        $html = wp_nav_menu( array('menu' => $menu_name, 'container' => false ,'menu_class'=>$menu_class ));
+        $html = wp_nav_menu( array('menu' => $menu_name, 'container' => false ,'menu_class'=>$menu_class, 'echo'=> false));
 
 
         return $html;
