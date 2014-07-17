@@ -39,6 +39,15 @@ function create_new_site( $site_name, $user_id ) {
 
     assign_theme_to_site( $site_id, 'impruwclientparent' );
 
+    // hack to create revslider plugin tables
+    create_revslider_tables( $site_id );
+
+    // create custom tables
+    create_additional_tables( $site_id );
+
+    //set up wpml for the site
+    wpml_setup($site_id,$user_id);
+
     // add pages to site
     $pages = array(
         array( 'post_title' => 'Dashboard', 'template' => 'new-dashboard.php' ),
@@ -49,12 +58,6 @@ function create_new_site( $site_name, $user_id ) {
         array( 'post_title' => 'Support' ) );
 
     add_pages_to_site( $site_id, $user_id, $pages );
-
-    // hack to create revslider plugin tables
-    create_revslider_tables( $site_id );
-
-    // create custom tables
-    create_additional_tables( $site_id );
 
     // set comming soon as default page for the site
     set_front_page_of_site( 'Coming Soon', $site_id );
@@ -224,6 +227,120 @@ function create_additional_tables( $site_id ) {
 //    $wpdb->query( $query );
 
     restore_current_blog();
+}
+
+/**
+ * Set up wpml for a given site
+ *
+ * @param int $site_id
+ * @param int $user_id
+ */
+function wpml_setup($site_id, $user_id){
+    //Get user preferred language
+    $user_language = get_user_meta($user_id,'user_lang',true);
+
+    switch_to_blog( $site_id );
+
+    wpml_setup_step_one($user_language);
+
+    $enabled_languages = array('en','nb');
+    wpml_setup_step_two($enabled_languages);
+
+    wpml_setup_step_three();
+
+    restore_current_blog();
+
+
+}
+
+/**
+ * WPML setup - Step 1: Set the initial language
+ *
+ * @param string $initial_language_code
+ */
+function wpml_setup_step_one($initial_language_code){
+
+    global $sitepress, $wpdb;
+    $iclsettings = array();
+
+    //echo "<br/>Step 1: Initial language setup";
+
+    $sitepress->prepopulate_translations($initial_language_code);
+    $wpdb->update($wpdb->prefix . 'icl_languages', array('active'=>'1'), array('code'=>$initial_language_code));
+    $blog_default_cat = get_option('default_category');
+    $blog_default_cat_tax_id = $wpdb->get_var("SELECT term_taxonomy_id FROM {$wpdb->term_taxonomy} WHERE term_id='{$blog_default_cat}' AND taxonomy='category'");
+
+    $iclsettings['setup_wizard_step'] = 2;
+
+
+    $iclsettings['default_categories'] = array($initial_language_code => $blog_default_cat_tax_id);
+    $iclsettings['existing_content_language_verified'] = 1;
+    $iclsettings['default_language'] = $initial_language_code;
+    $iclsettings['admin_default_language'] = $initial_language_code;
+
+    // set the locale in the icl_locale_map (if it's not set)
+    if(!$wpdb->get_var("SELECT code FROM {$wpdb->prefix}icl_locale_map WHERE code='{$initial_language_code}'")){
+        $default_locale = $wpdb->get_var("SELECT default_locale FROM {$wpdb->prefix}icl_languages WHERE code='{$initial_language_code}'");
+        if($default_locale){
+            $wpdb->insert($wpdb->prefix.'icl_locale_map', array('code'=>$initial_language_code, 'locale'=>$default_locale));
+
+        }
+    }
+
+    $sitepress->save_settings($iclsettings);
+    global $sitepress_settings;
+    $sitepress_settings = $iclsettings;
+    $sitepress->get_active_languages(true); //refresh active languages list
+
+}
+
+/**
+ * WPML setup - Step 2: Enable languages
+ *
+ * @param string $language_codes
+ */
+function wpml_setup_step_two($language_codes){
+    global $sitepress;
+    $iclsettings = array();
+
+    //echo "<br/>Step 2: Enable Languages";
+
+    if($sitepress->set_active_languages($language_codes)){
+        $active_langs = $sitepress->get_active_languages();
+
+        if(count($active_langs) > 1){
+            $iclsettings['dont_show_help_admin_notice'] = true;
+            $sitepress->save_settings($iclsettings);
+        }
+
+    }
+    else{
+        echo "Active languages could not be updated during wpml setup";
+    }
+
+    if(empty($iclsettings['setup_complete'])){
+        $iclsettings['setup_wizard_step'] = 3;
+        $sitepress->save_settings($iclsettings);
+    }
+
+}
+
+/**
+ * WPML setup - Step 3: Default wpml settings
+ *
+ */
+
+function wpml_setup_step_three(){
+
+    global $sitepress;
+    $iclsettings = array();
+
+    //echo "<br/>Step 3: Language Switcher";
+
+    $iclsettings['setup_wizard_step'] = 3;
+    $iclsettings['setup_complete'] = 1;
+
+    $sitepress->save_settings($iclsettings);
 }
 
 /**
