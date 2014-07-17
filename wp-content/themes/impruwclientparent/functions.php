@@ -3,6 +3,8 @@
  * File Name: functions.php Description: This file has a list of the following functions used in this theme
  */
 
+// Include WPML API
+include_once( WP_PLUGIN_DIR . '/sitepress-multilingual-cms/inc/wpml-api.php' );
 
 use framework\elements\PageElementsCollection;
 
