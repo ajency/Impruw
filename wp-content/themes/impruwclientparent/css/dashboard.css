@@ -1902,15 +1902,10 @@ form .aj-imp-submit:hover {
 .facilities-list .facility:hover .action {
   display: block;
 }
-#add-facility-region #facilites-form {
-  border: 0;
-  padding: 0;
-  margin: 0;
-}
-#add-facility-region #facilites-form .input-group .form-control:focus + .input-group-btn {
+#add-facility-region .input-group .form-control:focus + .input-group-btn {
   background: #ff7e00;
 }
-#add-facility-region #facilites-form .input-group .input-group-btn {
+#add-facility-region .input-group .input-group-btn {
   border: 0;
   background: #849fb0;
   border-radius: 0;
@@ -1918,8 +1913,13 @@ form .aj-imp-submit:hover {
   line-height: 15px;
   cursor: pointer;
 }
-#add-facility-region #facilites-form .input-group:hover {
+#add-facility-region .input-group:hover {
   border-color: transparent;
+}
+#add-facility-region #error-msg {
+  display: block;
+  margin: 0.5em 0;
+  color: #f21515;
 }
 .facility,
 .facility_update {
