@@ -54,7 +54,6 @@ class TextElement extends Element {
      */
     function generate_markup() {
 
-        echo "Generate markup";
         $attr = array();
 
         if ( defined( 'FOR_BUILDER' ) )
