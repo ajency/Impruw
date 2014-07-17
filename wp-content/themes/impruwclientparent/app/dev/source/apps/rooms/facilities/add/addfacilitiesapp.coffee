@@ -33,16 +33,16 @@ define ['app'
 
             className: 'facility add'
 
-            template: '<div class="input-group">
-                            <form id="facilites-form">
-                            <input type="text" name="name" data-rule-required="true" class="form-control"
-                             placeholder="{{#polyglot}}Add a Facility{{/polyglot}}"
-                             data-msg-required="Facility name required">
-                            <span class="input-group-btn add-facility input-group-addon">
-                                <span class="icon icon-plus"></span>{{#polyglot}}Add{{/polyglot}}
-                            </span>
-                            </form>
-                       </div>'
+            template: '<form id="facilites-form">
+                            <div class="input-group">
+                                <input type="text" name="name" data-rule-required="true" class="form-control"
+                                 placeholder="{{#polyglot}}Add a Facility{{/polyglot}}"
+                                 data-msg-required="Facility name required">
+                                <span class="input-group-btn add-facility input-group-addon">
+                                    <span class="icon icon-plus"></span>{{#polyglot}}Add{{/polyglot}}
+                                </span>
+                            </div>
+                       </form>'
 
             events:
                 'click .add-facility': ->
