@@ -34,11 +34,15 @@ define(['app', 'controllers/builder-base-controller', 'bootbox', 'apps/builder/s
         });
         this.listenTo(this.layout, "delete:element", (function(_this) {
           return function(model) {
-            return bootbox.confirm("<h4 class='delete-message'>" + _.polyglot.t('Are you sure?') + "</h4>", function(result) {
-              if (result === true) {
-                return _this.deleteElement(model);
-              }
-            });
+            if (model.get('element') === 'Row') {
+              return _this.deleteElement(model);
+            } else {
+              return bootbox.confirm("<h4 class='delete-message'>" + _.polyglot.t('Are you sure?') + "</h4>", function(result) {
+                if (result === true) {
+                  return _this.deleteElement(model);
+                }
+              });
+            }
           };
         })(this));
         this.listenTo(this.layout, "bind:element:events", this.bindEvents);
@@ -119,7 +123,10 @@ define(['app', 'controllers/builder-base-controller', 'bootbox', 'apps/builder/s
       };
 
       Controller.prototype.deleteElement = function(model) {
-        return model.destroy();
+        model.destroy();
+        return _.delay(function() {
+          return App.commands.execute("auto:save");
+        }, 700);
       };
 
       return Controller;
