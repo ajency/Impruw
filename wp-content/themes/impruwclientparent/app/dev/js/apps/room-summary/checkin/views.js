@@ -19,7 +19,12 @@ define(['app', 'text!apps/room-summary/checkin/templates/checkinView.html'], fun
       CheckinForm.prototype.className = 'form-horizontal clearfix';
 
       CheckinForm.prototype.onShow = function() {
-        this.$el.find('#checkin-time').timepicker({
+        var radioHtml, timeFormat;
+        timeFormat = this.model.get('checkin_time_format');
+        radioHtml = this.$el.find('input:radio[name="checkin_time_format"]').filter("[value='" + timeFormat + "']");
+        radioHtml.attr('checked', 'checked');
+        radioHtml.parent().parent().find('.radio').addClass('checked');
+        this.$el.find('.check-time').timepicker({
           'forceRoundTime': true,
           'step': 5
         });
@@ -34,15 +39,15 @@ define(['app', 'text!apps/room-summary/checkin/templates/checkinView.html'], fun
 
       CheckinForm.prototype.checkTimeFormatSelection = function() {
         if (this.$el.find('#tweleve-hour').hasClass('checked')) {
-          this.$el.find('#checkin-time').timepicker('remove');
-          return this.$el.find('#checkin-time').timepicker({
+          this.$el.find('.check-time').timepicker('remove');
+          return this.$el.find('.check-time').timepicker({
             'timeFormat': 'g:ia',
             'forceRoundTime': true,
             'step': 5
           });
         } else {
-          this.$el.find('#checkin-time').timepicker('remove');
-          return this.$el.find('#checkin-time').timepicker({
+          this.$el.find('.check-time').timepicker('remove');
+          return this.$el.find('.check-time').timepicker({
             'timeFormat': 'H:i',
             'forceRoundTime': true,
             'step': 5
@@ -55,13 +60,15 @@ define(['app', 'text!apps/room-summary/checkin/templates/checkinView.html'], fun
           var formdata;
           e.preventDefault();
           formdata = Backbone.Syphon.serialize(this);
-          return this.trigger("update:checkin:time:click", formdata);
+          if (this.$el.valid()) {
+            return this.trigger("update:checkin:time:click", formdata);
+          }
         }
       };
 
       CheckinForm.prototype.onCheckinTimeUpdated = function() {
         this.$el.find('.alert').remove();
-        return this.$el.prepend('<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + _.polyglot.t('Check-in Time Saved') + '</div>');
+        return this.$el.prepend('<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + _.polyglot.t('Check-in and Check-out time saved') + '</div>');
       };
 
       return CheckinForm;

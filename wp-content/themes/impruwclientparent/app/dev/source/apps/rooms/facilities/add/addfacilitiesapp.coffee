@@ -31,8 +31,6 @@ define ['app'
 
         class AddFacilityView extends Marionette.ItemView
 
-            #tagName : 'form'
-
             className: 'facility add'
 
             template: '<div class="input-group">

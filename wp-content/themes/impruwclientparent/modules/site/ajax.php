@@ -12,6 +12,7 @@ function read_site_ajax() {
 
     $data = get_site_details( $site_id );
     $data [ 'checkin_time' ] = get_option( 'checkin-time', '' );
+    $data [ 'checkout_time' ] = get_option( 'checkout-time', '' );
     $data [ 'checkin_time_format' ] = get_option( 'checkin-time-format', '' );
     $data [ 'additional_policy' ] = get_option( 'additional-policy', '' );
     $data [ 'statistics_enabled' ] = get_option( 'statistics_enabled' );

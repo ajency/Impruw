@@ -14,8 +14,8 @@ function get_site_details( $site_id = 0 ) {
 
     // fetching the image path for the logo
     $logo_id = get_option( 'logo_id', 0 );
-    $image_path = wp_get_attachment_image_src($logo_id);;
-    $image_path = $image_path === false ? '' : $image_path[0];
+    $image_path = wp_get_attachment_image_src( $logo_id );;
+    $image_path = $image_path === false ? '' : $image_path[ 0 ];
 
     return array( 'site_id' => $site_id,
         'site_domain' => get_site_domain( $site_id ),
@@ -26,7 +26,7 @@ function get_site_details( $site_id = 0 ) {
         'city' => get_option( 'city', '' ),
         'logo_id' => $logo_id,
         'logo_url' => $image_path, 'country' => get_option( 'country', '' ),
-        'site_email' => get_option( 'site_email', get_bloginfo('admin_email')),
+        'site_email' => get_option( 'site_email', get_bloginfo( 'admin_email' ) ),
         'other_phone_no' => get_option( 'other_phone_no', array() ),
         'facebook' => get_option( 'facebook', '' ),
         'twitter' => get_option( 'twitter', '' ) );
@@ -322,19 +322,19 @@ function clone_page( $clone_blog, $post_id ) {
 
     switch_to_blog( $clone_blog );
 
-    $pages = get_pages(array( 'post_type' => 'page',
-                              'posts_per_page' => -1,
-                              'post_status' => 'publish',
-                              'meta_key' => 'impruw_page_template',
-                              'meta_value' => $impruw_page_template_name
-                             ));
+    $pages = get_pages( array( 'post_type' => 'page',
+        'posts_per_page' => -1,
+        'post_status' => 'publish',
+        'meta_key' => 'impruw_page_template',
+        'meta_value' => $impruw_page_template_name
+    ) );
 
-    if ( count($pages) === 0 ) {
+    if ( count( $pages ) === 0 ) {
         restore_current_blog();
         return;
     }
 
-    $page = $pages[0];
+    $page = $pages[ 0 ];
 
     $data = get_json_to_clone( 'page-json', $page->ID );
     restore_current_blog();
@@ -475,19 +475,27 @@ function update_site_profile( $formdata ) {
 
 function update_checkin_time( $formdata ) {
 
-    $time = $formdata[ 'changes' ][ 'checkin_time' ];
-    $format = ' ';
+    $checkout_time ="";
+    $checkin_time = "";
+    $format = "";
 
-    if ( isset( $formdata[ 'changes' ][ 'checkin_time_format' ] ) )
+    if (isset($formdata[ 'changes' ][ 'checkin_time' ])){
+        $checkin_time = $formdata[ 'changes' ][ 'checkin_time' ];
+        update_option( 'checkin-time', $checkin_time );
+    }
+
+    if (isset($formdata[ 'changes' ][ 'checkout_time' ])){
+        $checkout_time = $formdata[ 'changes' ][ 'checkout_time' ];
+        update_option( 'checkout-time', $checkout_time );
+    }
+    if (isset($formdata[ 'changes' ][ 'checkin_time_format' ])){
         $format = $formdata[ 'changes' ][ 'checkin_time_format' ];
-
-    if ( !empty( $time ) )
-        update_option( 'checkin-time', $time );
-
-    if ( !empty( $format ) )
         update_option( 'checkin-time-format', $format );
+    }
 
-    $return_array = array( 'checkin-time' => $time, 'checkin-time-format' => $format );
+    $return_array = array( 'checkin-time' => $checkin_time,
+        'checkout-time' => $checkout_time,
+        'checkin-time-format' => $format );
 
     return $return_array;
 }
