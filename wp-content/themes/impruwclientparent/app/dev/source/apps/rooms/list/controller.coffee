@@ -1,44 +1,48 @@
-define ['app', 'controllers/base-controller', 'apps/rooms/list/views'], (App, AppController)->
-    App.module 'RoomsApp.List', (List, App, Backbone, Marionette, $, _)->
-        class List.ListController extends AppController
+define ['app', 'controllers/base-controller', 'apps/rooms/list/views'], ( App, AppController )->
+   App.module 'RoomsApp.List', ( List, App, Backbone, Marionette, $, _ )->
+      class List.ListController extends AppController
 
-            initialize: ()->
+         initialize : ()->
 
-                # get the collection
-                @collection = collection = App.request "get:room:entities"
+            # get the collection
+            @collection = collection = App.request "get:room:entities"
 
-                @layout = @_getLayout collection
+            @layout = @_getLayout collection
 
-                # add the room list to roomRegion
-                @listenTo @layout, "show", @showRoomsList
+            # add the room list to roomRegion
+            @listenTo @layout, "show", @showRoomsList
 
-                #listen to the button clicked trigger
-                @listenTo @layout, 'add:new:room:clicked', () ->
-                    App.execute "show:add:room"
-
-
-                # trigger set:active:menu event
-                App.vent.trigger "set:active:menu", 'rooms'
-
-                @show @layout,
-                    loading: true
+            #listen to the button clicked trigger
+            @listenTo @layout, 'add:new:room:clicked', () ->
+               App.execute "show:add:room"
 
 
-            showRoomsList: ->
-                #console.log collection
-                @listView = @_getRoomsListView @collection
+            # trigger set:active:menu event
+            App.vent.trigger "set:active:menu", 'rooms'
 
-                @layout.roomRegion.show @listView
-
-            _getLayout: (collection)->
-                new List.Views.RoomListLayout
-                    collection: collection
-
-            _getRoomsListView: (collection)->
-                new List.Views.RoomsListView
-                    collection: collection
+            @show @layout,
+               loading : true
 
 
-        App.commands.setHandler "show:rooms:list", (opts)->
-            new List.ListController
-                region: opts.region
+         showRoomsList : ->
+            #console.log collection
+            @listView = @_getRoomsListView @collection
+
+            @layout.roomRegion.show @listView
+
+            imageEdit = App.request "get:image:crop:view",28
+            @layout.editorRegion.show imageEdit
+
+
+         _getLayout : ( collection )->
+            new List.Views.RoomListLayout
+               collection : collection
+
+         _getRoomsListView : ( collection )->
+            new List.Views.RoomsListView
+               collection : collection
+
+
+      App.commands.setHandler "show:rooms:list", ( opts )->
+         new List.ListController
+            region : opts.region

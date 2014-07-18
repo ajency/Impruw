@@ -55,7 +55,7 @@
 <script type="text/javascript">
     var THEMEURL = '<?php echo get_parent_template_directory_uri(); ?>';
     var SITEURL = '<?php echo site_url(); ?>';
-    var AJAXURL = '<?php echo admin_url('admin-ajax.php'); ?>';
+    var AJAXURL = ajaxurl = '<?php echo admin_url('admin-ajax.php'); ?>';
     var UPLOADURL = '<?php echo admin_url('async-upload.php'); ?>';
     var _WPNONCE = '<?php echo wp_create_nonce('media-form'); ?>';
     var JSVERSION = '<?php echo JSVERSION; ?>';

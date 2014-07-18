@@ -25,8 +25,11 @@ define(['app', 'controllers/base-controller', 'apps/rooms/list/views'], function
       };
 
       ListController.prototype.showRoomsList = function() {
+        var imageEdit;
         this.listView = this._getRoomsListView(this.collection);
-        return this.layout.roomRegion.show(this.listView);
+        this.layout.roomRegion.show(this.listView);
+        imageEdit = App.request("get:image:crop:view", 28);
+        return this.layout.editorRegion.show(imageEdit);
       };
 
       ListController.prototype._getLayout = function(collection) {
