@@ -58,17 +58,6 @@ function get_menu_items() {
             'url' => '#/language',
             'title' => 'Language',
             'icon' => 'chat2',
-            'submenu' => array(
-                array( 'url' => '#',
-                    'title' => 'Norwegian',
-                    'icon' => 'stats1' ),
-                array( 'url' => '#',
-                    'title' => 'Swedish',
-                    'icon' => 'stats2' ),
-                array( 'url' => '#s',
-                    'title' => 'German',
-                    'icon' => 'stats3' )
-            )
         ),
         array(
             'url' => '#/billing',
