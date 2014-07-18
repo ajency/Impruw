@@ -56,12 +56,32 @@
 			<div class="col-md-12">
 				<h4 class="aj-imp-sub-head scroll-ref">
                     {{#polyglot}}Room Tariff{{/polyglot}}
-					<small>{{#polyglot}}Add tariffs and date ranges for your rooms.{{/polyglot}}<br>
-                        <span class="label label-default">{{#polyglot}}All Prices are in:{{/polyglot}}
-                        <b class="currency">{{#polyglot}}{{/polyglot}}</b></span>
-                        <a href="#/room-summary">Click here to change currency</a>
-                    </small>
+					<small>{{#polyglot}}Add tariffs and date ranges for your rooms.{{/polyglot}}</small>
 				</h4>
+				<h6 class="aj-imp-sub-head">
+					<span class="label label-default">{{#polyglot}}All Prices are in:{{/polyglot}}
+                    <b class="currency">{{#polyglot}}{{/polyglot}}</b></span>
+                    <small>
+                    	<a href="#/room-summary">Click here to change currency</a>
+						<a href="#" data-target="#plan-help-image" data-toggle="modal" class="pull-right plan-help-link">{{#polyglot}}What are plans and date ranges?{{/polyglot}}</a>
+                    </small>
+				</h6>
+				<!-- Help Image Modal -->
+				<div class="modal fade medium-modal" id="plan-help-image" tabindex="-1" aria-hidden="true">
+				  <div class="modal-dialog">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				        <h4 class="modal-title">{{#polyglot}}What are plans and date ranges?{{/polyglot}}</h4>
+				      </div>
+				      <div class="modal-body">
+				        <img src="{{THEMEURL}}/dashboard/images/impruw-help.jpg" class="img-responsive">
+				      </div>
+				      <div class="modal-footer">
+				      </div>
+				    </div>
+				  </div>
+				</div>
 				<div id="room-tariff-region"></div>
 			</div>
 		</div>

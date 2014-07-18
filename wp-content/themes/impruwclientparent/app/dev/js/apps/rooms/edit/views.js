@@ -32,6 +32,13 @@ define(['app', 'text!apps/rooms/edit/templates/edit-room.html', 'jqueryvalidate'
         }
       };
 
+      EditRoomLayout.prototype.serializeData = function() {
+        var data;
+        data = EditRoomLayout.__super__.serializeData.call(this);
+        data.THEMEURL = THEMEURL;
+        return data;
+      };
+
       EditRoomLayout.prototype.onShow = function() {
         var m, w;
         this.$el.find('*[data-spy="affix"]').affix();

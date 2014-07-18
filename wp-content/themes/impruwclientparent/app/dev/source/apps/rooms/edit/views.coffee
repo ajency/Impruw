@@ -23,6 +23,14 @@ define ['app'
                 'click .add-gallery-images': ->
                     @trigger "show:edit:slider"
 
+            serializeData: ->
+                data = super()
+
+                data.THEMEURL = THEMEURL
+                
+                data
+
+
             onShow: ->
                 #@$el.scrollSections()
                 # set affix
