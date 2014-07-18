@@ -2,14 +2,14 @@
     <div class="col-sm-2">
         <label class="radio" id="tweleve-hour">
             <span class="icons"><span class="first-icon fui-radio-unchecked"></span><span class="second-icon fui-radio-checked"></span></span>
-            <input type="radio" name="checkin_time_format" value="12" data-toggle="radio">{{#polyglot}}12 hour Format{{/polyglot}}
+            <input type="radio" name="time_format" value="12" data-toggle="radio">{{#polyglot}}12 hour Format{{/polyglot}}
         </label>
         <span class="help-block">{{#polyglot}}eg 12AM{{/polyglot}}</span>
     </div>
     <div class="col-sm-2">
         <label class="radio " id="twenty-four-hour">
             <span class="icons"><span class="first-icon fui-radio-unchecked"></span><span class="second-icon fui-radio-checked"></span></span>
-            <input type="radio" name="checkin_time_format" value="24" data-toggle="radio">{{#polyglot}}24 hour Format{{/polyglot}}
+            <input type="radio" name="time_format" value="24" data-toggle="radio">{{#polyglot}}24 hour Format{{/polyglot}}
         </label>
         <span class="help-block">{{#polyglot}}eg 001{{/polyglot}}</span>
     </div>
@@ -17,11 +17,11 @@
 
 <div class="form-group">
     <div class="col-sm-2">
-        <input type="text" class="form-control check-time" required value="{{checkin_time}}" id="checkin-time" name="checkin_time" data-time-format="g:ia">
+        <input type="text" class="form-control check-time" required value="{{checkin_time}}" id="checkin-time" name="checkin_time" data-time_format="g:ia">
         <p>Check in </p>
     </div>
     <div class="col-sm-2">
-        <input type="text" class="form-control check-time" required value="{{checkout_time}}" id="checkout-time" name="checkout_time" data-time-format="g:ia">
+        <input type="text" class="form-control check-time" required value="{{checkout_time}}" id="checkout-time" name="checkout_time" data-time_format="g:ia">
         <p>Check out </p>
     </div>
 </div>      

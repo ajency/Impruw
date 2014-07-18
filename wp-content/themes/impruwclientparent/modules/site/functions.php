@@ -489,14 +489,14 @@ function update_checkin_time( $formdata ) {
         $checkout_time = $formdata[ 'changes' ][ 'checkout_time' ];
         update_option( 'checkout-time', $checkout_time );
     }
-    if (isset($formdata[ 'changes' ][ 'checkin_time_format' ])){
-        $format = $formdata[ 'changes' ][ 'checkin_time_format' ];
-        update_option( 'checkin-time-format', $format );
+    if (isset($formdata[ 'changes' ][ 'time_format' ])){
+        $format = $formdata[ 'changes' ][ 'time_format' ];
+        update_option( 'time-format', $format );
     }
 
-    $return_array = array( 'checkin-time' => $checkin_time,
-        'checkout-time' => $checkout_time,
-        'checkin-time-format' => $format );
+    $return_array = array( 'checkin_time' => $checkin_time,
+        'checkout_time' => $checkout_time,
+        'time_format' => $format );
 
     return $return_array;
 }
