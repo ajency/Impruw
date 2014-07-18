@@ -26,18 +26,32 @@ define(['app', 'marionette'], function(App, Marionette) {
 
     ImageEditorView.prototype.className = 'wp_attachment_holder';
 
+    ImageEditorView.prototype.modelEvents = {
+      'change': 'showImageEditor'
+    };
+
     ImageEditorView.prototype.template = '<p style="text-align: center;margin: 10px">loading... Please wait</p>';
 
     ImageEditorView.prototype.initialize = function(options) {
       ImageEditorView.__super__.initialize.call(this, options);
-      return App.execute("when:fetched", [this.model], this.showImageEditor);
+      if (this.model._fetch) {
+        return App.execute("when:fetched", [this.model], this.showImageEditor);
+      } else {
+        return this.listenTo(this, 'show', this.showImageEditor);
+      }
     };
 
-    ImageEditorView.prototype.back = function() {};
+    ImageEditorView.prototype.back = function() {
+      return this.trigger("image:editing:cancelled");
+    };
 
-    ImageEditorView.prototype.save = function() {};
+    ImageEditorView.prototype.save = function() {
+      return this.model.fetch();
+    };
 
-    ImageEditorView.prototype.refresh = function() {};
+    ImageEditorView.prototype.refresh = function() {
+      return this.model.fetch();
+    };
 
     ImageEditorView.prototype.showImageEditor = function() {
       this.$el.attr('id', "image-editor-" + (this.model.get('id')));
@@ -55,15 +69,15 @@ define(['app', 'marionette'], function(App, Marionette) {
     if (mediaId === 0) {
       return new InvalidMediaView;
     }
-    if (_.isNumber(parseInt(mediaId))) {
-      media = App.request("get:media:by:id", mediaId);
-    } else if (_.isObject(mediaId)) {
+    if (_.isObject(mediaId)) {
       media = mediaId;
+    } else if (_.isNumber(parseInt(mediaId))) {
+      media = App.request("get:media:by:id", mediaId);
     }
     imageEditorView = new ImageEditorView({
       model: media
     });
     return imageEditorView;
   };
-  return App.reqres.setHandler("get:image:crop:view", imageCropView);
+  return App.reqres.setHandler("get:image:editor:view", imageCropView);
 });

@@ -45,8 +45,7 @@ define(['app', 'controllers/base-controller', 'text!apps/media-manager/templates
         this.show(this.layout);
         this.listenTo(this.layout.gridRegion, "media:element:selected", (function(_this) {
           return function(media) {
-            _this.choosedMedia = media;
-            return App.execute("show:edit:media", media, _this.layout.editMediaRegion);
+            return _this.choosedMedia = media;
           };
         })(this));
         this.listenTo(this.layout.uploadRegion, "media:upload:complete", (function(_this) {

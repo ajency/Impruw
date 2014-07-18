@@ -3,18 +3,30 @@ define ['app', 'marionette'], ( App, Marionette )->
       template : 'Invalid media argument passed'
 
    class ImageEditorView extends Marionette.ItemView
+
       className : 'wp_attachment_holder'
+
+      modelEvents :
+         'change' : 'showImageEditor'
 
       template : '<p style="text-align: center;margin: 10px">loading... Please wait</p>'
 
       initialize : ( options )->
          super options
-         App.execute "when:fetched", [@model], @showImageEditor
+         if @model._fetch
+            App.execute "when:fetched", [@model], @showImageEditor
+         else
+            @listenTo @, 'show', @showImageEditor
 
       # empty implementation to avoid wordpress error
       back : ->
+         @trigger "image:editing:cancelled"
+
       save : ->
+         @model.fetch()
+
       refresh : ->
+         @model.fetch()
 
       showImageEditor : =>
          @$el.attr 'id', "image-editor-#{@model.get( 'id' )}"
@@ -25,12 +37,13 @@ define ['app', 'marionette'], ( App, Marionette )->
       if mediaId is 0
          return new InvalidMediaView
 
-      if _.isNumber parseInt mediaId
-         media = App.request "get:media:by:id", mediaId
-      else if _.isObject mediaId
+      if _.isObject mediaId
          media = mediaId
+      else if _.isNumber parseInt mediaId
+         media = App.request "get:media:by:id", mediaId
+
       imageEditorView = new ImageEditorView model : media
       imageEditorView
 
 
-   App.reqres.setHandler "get:image:crop:view", imageCropView
+   App.reqres.setHandler "get:image:editor:view", imageCropView
