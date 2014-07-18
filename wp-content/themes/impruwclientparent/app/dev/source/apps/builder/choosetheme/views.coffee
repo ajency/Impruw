@@ -34,24 +34,16 @@ define ['app'], (App)->
 		# choose theme view
 		class Views.ChooseThemeView extends Marionette.CompositeView
 
-			template: '<h2 class="page-title list-title {{^ISTHEMESELECTED}}hidden{{/ISTHEMESELECTED}}">{{#polyglot}}Choose Site Theme{{/polyglot}}</h2>\n
-						<p class="desc list-desc {{^ISTHEMESELECTED}}hidden{{/ISTHEMESELECTED}}">{{#polyglot}}Theme applied for pages{{/polyglot}}\n    {{#polyglot}}Customise logo colors{{/polyglot}}\n    {{#polyglot}}Suit site preferences{{/polyglot}}</p>\n
-							{{^ISTHEMESELECTED}}
-								<h2 class="page-title language-title">{{#polyglot}}Choose a default language for the website{{/polyglot}}</h2>\n
-								<p class="desc language-desc">{{#polyglot}}The language you select here will be the one your website viewers will see by default when they access your site. Impruw is built to support multiple languages, you can add more languages to your website from your <a href="../dashboard/#/language" target="_blank">dashboard</a>{{/polyglot}}</p>\n
-								<div class="default-language-selection">
-									<h3 class="lang-title">{{#polyglot}}Select language for the website{{/polyglot}}</h3>\n
-									<select class="select-site-language">
-										<option value="English">{{#polyglot}}English{{/polyglot}}</option>
-										<option value="Norwegian">{{#polyglot}}Norwegian{{/polyglot}}</option>
-									</select>
-									<button class="btn choose-site-language"><span class="bicon icon-uniF19A"></span>&nbsp;{{#polyglot}}Choose Language{{/polyglot}}</button>\n
-								</div>
-							{{/ISTHEMESELECTED}}\n
-							{{#ISTHEMESELECTED}}\n
+			template: '<h2 class="page-title list-title">{{#polyglot}}Choose Site Theme{{/polyglot}}</h2>\n
+						<p class="desc list-desc">{{#polyglot}}Theme applied for pages{{/polyglot}}\n
+                            {{#polyglot}}Customise logo colors{{/polyglot}}\n    {{#polyglot}}Suit site preferences{{/polyglot}}</p>\n
+
+   							{{#ISTHEMESELECTED}}\n
 								<button class="btn btn-danger cancel-theme-switch">{{#polyglot}}Cancel{{/polyglot}}</button>\n
 							{{/ISTHEMESELECTED}}\n
-					<div class="aj-imp-block-list {{^ISTHEMESELECTED}}hidden{{/ISTHEMESELECTED}}">\n    <ul></ul>\n</div>'
+					<div class="aj-imp-block-list">\n
+                        <ul></ul>\n
+                    </div>'
 
 			events:
 				'click button.cancel-theme-switch' : ->
@@ -81,8 +73,4 @@ define ['app'], (App)->
 				# remove body class
 				$('body').removeClass 'choose-theme-page'
 
-			onSiteLanguageUpdated :->
-				# hide langauge
-				@$el.find('.default-language-selection, .language-title, .language-desc').hide()
-				# show themes
-				@$el.find('.aj-imp-block-list, .list-title, .list-desc').removeClass 'hidden'
+
