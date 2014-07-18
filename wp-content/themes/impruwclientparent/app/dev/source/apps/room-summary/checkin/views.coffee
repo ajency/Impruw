@@ -13,8 +13,8 @@ define ['app'
 
             onShow: ->
 
-                timeFormat = @model.get 'checkin_time_format'
-                radioHtml = @$el.find('input:radio[name="checkin_time_format"]').filter("[value='#{timeFormat}']")
+                timeFormat = @model.get 'time_format'
+                radioHtml = @$el.find('input:radio[name="time_format"]').filter("[value='#{timeFormat}']")
                 radioHtml.attr('checked', 'checked')
                 radioHtml.parent().parent().find('.radio').addClass('checked')
 

@@ -2702,6 +2702,11 @@ form .aj-imp-submit:hover {
 .slide-image-selected {
   margin-top: 0.5em;
 }
+.plan-help-link {
+  font-size: 0.8em;
+  display: inline-block;
+  margin-top: 1.2em;
+}
 /****Gallery Styling****/
 #gallery-region {
   width: 70%;

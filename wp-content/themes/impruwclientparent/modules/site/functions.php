@@ -127,18 +127,18 @@ function get_language_code( $language_name ) {
  */
 function clone_pages() {
 
-    $pages = array( array( 'post_title' => 'Home' ),
-        array( 'post_title' => 'About Us' ),
-        array( 'post_title' => 'Rooms' ),
-        array( 'post_title' => 'Single Room' ),
-        array( 'post_title' => 'Gallery' ),
-        array( 'post_title' => 'Contact Us' ) );
-
+    $pages = array( array( 'post_title' => 'Home','menu_order' =>'1' ),
+        array( 'post_title' => 'About Us','menu_order' =>'2' ),
+        array( 'post_title' => 'Rooms','menu_order' =>'3' ),
+        array( 'post_title' => 'Single Room' ,'menu_order' =>'4'),
+        array( 'post_title' => 'Gallery', 'menu_order' =>'5'),
+        array( 'post_title' => 'Contact Us','menu_order' =>'6' ) );
 
     add_pages_to_site( $pages );
 
     add_menus_to_site();
 }
+//add_action('admin_init','clone_pages');
 
 /**
  * Adds two menu to site.
@@ -204,6 +204,7 @@ function add_pages_to_site( $pages, $user_id = 0 ) {
             'post_content' => '',
             'post_status' => 'publish',
             'post_author' => $user_id,
+            'menu_order' =>$page[ 'menu_order' ],
             'post_type' => 'page' );
 
         // Insert the post into the database
@@ -488,14 +489,14 @@ function update_checkin_time( $formdata ) {
         $checkout_time = $formdata[ 'changes' ][ 'checkout_time' ];
         update_option( 'checkout-time', $checkout_time );
     }
-    if (isset($formdata[ 'changes' ][ 'checkin_time_format' ])){
-        $format = $formdata[ 'changes' ][ 'checkin_time_format' ];
-        update_option( 'checkin-time-format', $format );
+    if (isset($formdata[ 'changes' ][ 'time_format' ])){
+        $format = $formdata[ 'changes' ][ 'time_format' ];
+        update_option( 'time-format', $format );
     }
 
-    $return_array = array( 'checkin-time' => $checkin_time,
-        'checkout-time' => $checkout_time,
-        'checkin-time-format' => $format );
+    $return_array = array( 'checkin_time' => $checkin_time,
+        'checkout_time' => $checkout_time,
+        'time_format' => $format );
 
     return $return_array;
 }
