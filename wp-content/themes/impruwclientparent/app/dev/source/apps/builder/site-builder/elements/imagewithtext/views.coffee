@@ -63,5 +63,5 @@ define ['app'], (App)->
                 #run ckeditor
                 @$el.children('p.editor').attr('contenteditable', 'true').attr 'id', _.uniqueId 'text-'
                 @editor = CKEDITOR.inline document.getElementById @$el.children('p.editor').attr 'id'
-                content = Marionette.getOption(this, 'templateHelpers').content.en
+                content = Marionette.getOption(this, 'templateHelpers').content[WPML_DEFAULT_LANG]
                 @editor.setData _.stripslashes content
