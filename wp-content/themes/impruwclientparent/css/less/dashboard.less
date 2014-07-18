@@ -1461,7 +1461,7 @@ form {
 		.single-img {
 			position: relative;
 			.thumbnail {
-				margin-bottom: 30px;
+				margin-bottom: 40px;
 				border: 2px solid @dash-grey;
 				.imgthumb {
 					height: 145px;
@@ -1508,20 +1508,30 @@ form {
 					}
 				}
 			}
-            .delete-media-img {
-              display: none;
-              position: absolute;
-              bottom: 10px;
-              color: #ff3333;
-              cursor: pointer;
-              font-size: 0.8em;
-            }
+			.delete-media-img, .edit-image {
+				position: absolute;
+				bottom: 13px;
+				cursor: pointer;
+				font-size: 0.8em;
+				margin-right: 10px;
+				&.delete-media-img {
+					color: #ff3333;
+					left: 60px;
+					visibility: hidden;
+	            }
+	            &.edit-image {
+	            	color: @blue-grey;
+	            }
+			}
 			&.ui-selected {
 				.thumbnail {
 					border-color: @blue-grey;
 				}
-              .ticker, .delete-media-img {
+              	.ticker {
 					display: block;
+				}
+				.delete-media-img {
+					visibility: visible;
 				}
 			}
 		}
@@ -4375,6 +4385,101 @@ form {
 			a {
 				font-size: 0.5em;
 				color: lighten(@dash-grey, 10%);
+			}
+		}
+	}
+}
+
+/**** Cropping Tool Styles ****/
+#edit-image-view {
+	.imgedit-wrap {
+		border: 1px solid lighten(@dash-grey, 20%);
+		.imgedit-settings {
+			width: 25%;
+			background: @preview-grey;
+			padding-left: 10px;
+			.imgedit-group {
+				padding: 0 0 0.5em;
+				margin: 0 0.5em 0.5em;
+				border-bottom: 1px solid lighten(@dash-grey, 20%);
+				.imgedit-group-top {
+					margin: 0.5em 0;
+					h3 {
+						font-size: 1.3em;
+						color: darken(@dash-grey, 10%);
+						margin: 0 0 0.3em;
+					}
+				}
+				&.imgedit-applyto {
+					img {
+						padding: 0.2em;
+						border: 1px solid lighten(@dash-grey, 10%);
+						margin-right: 0;
+					}
+				}
+				&:last-child {
+					border-bottom: 0;
+				}
+			}
+			p {
+				font-size: 1em;
+				color: @dash-grey;
+			}
+			input {
+				height: 36px;
+				padding: 8px;
+				border: 1px solid @dash-grey;
+				&:focus {
+					border-color: @orange;
+				}
+				&.button {
+					padding: 8px 13px 9px;
+					border: 0;
+					border-radius: 6px;
+					color: #fff;
+					background: @blue-grey;
+					&:hover, &:focus {
+						background: lighten(@blue-grey, 10%);
+					}
+				}
+				&[type="radio"] {
+					height: auto;
+				}
+			}
+		}
+		.imgedit-panel-content {
+			margin: 1em 0;
+			.imgedit-menu {
+				.clearfix;
+				border-bottom: 1px solid @dash-grey;
+				padding-bottom: 0.5em;
+			}
+			.imgedit-crop-wrap {
+				margin: 1em 0;
+			}
+			.imgedit-submit {
+				border-top: 1px solid @dash-grey;
+				padding-top: 0.5em;
+				input {
+					height: 36px;
+					&.button {
+						padding: 8px 13px 9px;
+						border: 0;
+						border-radius: 6px;
+						color: #fff;
+						background: darken(@preview-grey, 10%);
+						&.button-primary {
+							background: @orange;
+							margin: 0 0.5em;
+							&:hover, &:focus {
+								background: lighten(@orange, 10%);
+							}
+						}
+						&:hover, &:focus {
+							background: darken(@preview-grey, 20%);
+						}
+					}
+				}
 			}
 		}
 	}

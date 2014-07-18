@@ -1700,7 +1700,7 @@ a:focus {
 }
 .modal .thumbnails .single-img .thumbnail,
 .modal #selectable-images .single-img .thumbnail {
-  margin-bottom: 30px;
+  margin-bottom: 40px;
   border: 2px solid #aaaaaa;
 }
 .modal .thumbnails .single-img .thumbnail .imgthumb,
@@ -1755,14 +1755,26 @@ a:focus {
 .modal #selectable-images .single-img .ticker:hover .glyphicon-minus {
   display: inline-block;
 }
-.modal .thumbnails .single-img .delete-media-img,
-.modal #selectable-images .single-img .delete-media-img {
+.modal .thumbnails .single-img .media-options,
+.modal #selectable-images .single-img .media-options {
   display: none;
   position: absolute;
-  bottom: 10px;
-  color: #ff3333;
+  bottom: 13px;
+}
+.modal .thumbnails .single-img .media-options div,
+.modal #selectable-images .single-img .media-options div {
   cursor: pointer;
   font-size: 0.8em;
+  display: inline-block;
+  margin-right: 10px;
+}
+.modal .thumbnails .single-img .media-options div.delete-media-img,
+.modal #selectable-images .single-img .media-options div.delete-media-img {
+  color: #ff3333;
+}
+.modal .thumbnails .single-img .media-options div.edit-image,
+.modal #selectable-images .single-img .media-options div.edit-image {
+  color: #849fb0;
 }
 .modal .thumbnails .single-img.ui-selected .thumbnail,
 .modal #selectable-images .single-img.ui-selected .thumbnail {
@@ -1770,8 +1782,8 @@ a:focus {
 }
 .modal .thumbnails .single-img.ui-selected .ticker,
 .modal #selectable-images .single-img.ui-selected .ticker,
-.modal .thumbnails .single-img.ui-selected .delete-media-img,
-.modal #selectable-images .single-img.ui-selected .delete-media-img {
+.modal .thumbnails .single-img.ui-selected .media-options,
+.modal #selectable-images .single-img.ui-selected .media-options {
   display: block;
 }
 .modal #edit-media-region,

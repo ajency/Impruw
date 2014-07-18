@@ -1779,7 +1779,7 @@ a {
 		.single-img {
 			position: relative;
 			.thumbnail {
-				margin-bottom: 30px;
+				margin-bottom: 40px;
 				border: 2px solid @dash-grey;
 				.imgthumb {
 					height: 145px;
@@ -1826,19 +1826,28 @@ a {
 					}
 				}
 			}
-            .delete-media-img {
-              display: none;
-              position: absolute;
-              bottom: 10px;
-              color: @error-red;
-              cursor: pointer;
-              font-size: 0.8em;
-            }
+            .media-options {
+				display: none;
+				position: absolute;
+				bottom: 13px;
+				div {
+					cursor: pointer;
+					font-size: 0.8em;
+					display: inline-block;
+					margin-right: 10px;
+					&.delete-media-img {
+						color: #ff3333;
+		            }
+		            &.edit-image {
+		            	color: @blue-grey;
+		            }
+				}
+			}
 			&.ui-selected {
 				.thumbnail {
 					border-color: @blue-grey;
 				}
-				.ticker, .delete-media-img {
+              .ticker, .media-options {
 					display: block;
 				}
 			}
