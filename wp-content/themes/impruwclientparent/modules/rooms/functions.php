@@ -194,9 +194,17 @@ function get_all_rooms() {
 
     $room_data = array();
 
+    $default_language = wpml_get_default_language();
+
     while ( $rooms->have_posts() ): $rooms->the_post();
 
-        $room_data [ ] = array( 'ID' => get_the_ID(), 'post_title' => get_the_title() );
+        /*Code to diaplay rooms based on the default language*/
+        $post_id = get_the_ID();
+        // Get the post ID based on language so that only pages of default language could be listed
+        $post_id_based_on_lang = icl_object_id( $post_id, 'impruw_room', false, $default_language);
+        $post_title_based_on_lang =  get_the_title($post_id_based_on_lang);
+
+        $room_data [ ] = array( 'ID' => $post_id_based_on_lang, 'post_title' => $post_title_based_on_lang );
 
     endwhile;
 
