@@ -60,7 +60,14 @@ define(['app', 'bootbox', 'apps/builder/site-builder/elements/row/views', 'apps/
 
       Controller.prototype.deleteElement = function(model) {
         if (!this.layout.elementRegion.currentView.$el.canBeDeleted()) {
-          return bootbox.alert("Please remove elements inside row and then delete.", function() {});
+          return bootbox.confirm("All elements inside the row will also be deleted. Do you want to continue?", function(answer) {
+            if (answer === true) {
+              model.destroy();
+              return _.delay(function() {
+                return App.commands.execute("auto:save");
+              }, 700);
+            }
+          });
         } else {
           return model.destroy();
         }

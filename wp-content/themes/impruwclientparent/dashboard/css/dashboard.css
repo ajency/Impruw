@@ -43,6 +43,16 @@ a.red-link.pull-right {
   content: "";
   display: table;
 }
+/****Text Alignment Classes****/
+.t-a-r {
+  text-align: right;
+}
+.t-a-l {
+  text-align: left;
+}
+.t-a-c {
+  text-align: center;
+}
 /****Container and Menu Styles****/
 .aj-imp-container {
   font-family: 'Lato', sans-serif;
@@ -1905,6 +1915,11 @@ form .aj-imp-submit:hover {
 }
 #add-facility-region .input-group:hover {
   border-color: transparent;
+}
+#add-facility-region #error-msg {
+  display: block;
+  margin: 0.5em 0;
+  color: #f21515;
 }
 .facility,
 .facility_update {
