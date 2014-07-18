@@ -2313,9 +2313,11 @@ a:focus {
 }
 .choose-theme-page #builder-region,
 .choose-theme-page #elements-box-region,
-.choose-theme-page #header-region,
 .choose-theme-page #fl_menu {
   display: none;
+}
+.choose-theme-page #header-region .aj-imp-page-layout {
+  visibility: hidden;
 }
 /****Builder Settings Popover Styles****/
 #aj-imp-builder-drag-drop .popover .popover-title {
