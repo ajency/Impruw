@@ -64,7 +64,7 @@ define(['app'], function(App) {
         var content;
         this.$el.children('p.editor').attr('contenteditable', 'true').attr('id', _.uniqueId('text-'));
         this.editor = CKEDITOR.inline(document.getElementById(this.$el.children('p.editor').attr('id')));
-        content = Marionette.getOption(this, 'templateHelpers').content.en;
+        content = Marionette.getOption(this, 'templateHelpers').content[WPML_DEFAULT_LANG];
         return this.editor.setData(_.stripslashes(content));
       };
 
