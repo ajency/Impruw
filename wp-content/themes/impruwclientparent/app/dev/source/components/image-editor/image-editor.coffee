@@ -5,11 +5,16 @@ define ['app', 'marionette'], ( App, Marionette )->
    class ImageEditorView extends Marionette.ItemView
       className : 'wp_attachment_holder'
 
-      template : 'loading... Please wait'
+      template : '<p style="text-align: center;margin: 10px">loading... Please wait</p>'
 
       initialize : ( options )->
          super options
          App.execute "when:fetched", [@model], @showImageEditor
+
+      # empty implementation to avoid wordpress error
+      back : ->
+      save : ->
+      refresh : ->
 
       showImageEditor : =>
          @$el.attr 'id', "image-editor-#{@model.get( 'id' )}"
@@ -20,7 +25,7 @@ define ['app', 'marionette'], ( App, Marionette )->
       if mediaId is 0
          return new InvalidMediaView
 
-      if _.isNumber parseInt mediaInt
+      if _.isNumber parseInt mediaId
          media = App.request "get:media:by:id", mediaId
       else if _.isObject mediaId
          media = mediaId

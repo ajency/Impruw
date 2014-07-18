@@ -28,7 +28,7 @@ define(['app', 'controllers/base-controller', 'apps/rooms/list/views'], function
         var imageEdit;
         this.listView = this._getRoomsListView(this.collection);
         this.layout.roomRegion.show(this.listView);
-        imageEdit = App.request("get:image:crop:view", 28);
+        imageEdit = App.request("get:image:crop:view", 34);
         return this.layout.editorRegion.show(imageEdit);
       };
 

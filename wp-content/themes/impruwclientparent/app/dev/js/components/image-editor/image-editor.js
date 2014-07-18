@@ -26,12 +26,18 @@ define(['app', 'marionette'], function(App, Marionette) {
 
     ImageEditorView.prototype.className = 'wp_attachment_holder';
 
-    ImageEditorView.prototype.template = 'loading... Please wait';
+    ImageEditorView.prototype.template = '<p style="text-align: center;margin: 10px">loading... Please wait</p>';
 
     ImageEditorView.prototype.initialize = function(options) {
       ImageEditorView.__super__.initialize.call(this, options);
       return App.execute("when:fetched", [this.model], this.showImageEditor);
     };
+
+    ImageEditorView.prototype.back = function() {};
+
+    ImageEditorView.prototype.save = function() {};
+
+    ImageEditorView.prototype.refresh = function() {};
 
     ImageEditorView.prototype.showImageEditor = function() {
       this.$el.attr('id', "image-editor-" + (this.model.get('id')));
@@ -49,7 +55,7 @@ define(['app', 'marionette'], function(App, Marionette) {
     if (mediaId === 0) {
       return new InvalidMediaView;
     }
-    if (_.isNumber(parseInt(mediaInt))) {
+    if (_.isNumber(parseInt(mediaId))) {
       media = App.request("get:media:by:id", mediaId);
     } else if (_.isObject(mediaId)) {
       media = mediaId;
