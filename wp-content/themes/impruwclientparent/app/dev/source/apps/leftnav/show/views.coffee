@@ -67,7 +67,8 @@ define ['app'
 
                 jPM = $.jPanelMenu({
                     menu : '.aj-imp-dash-nav',
-                    trigger : '#nav-trigger'
+                    trigger : '#nav-trigger',
+                    keyboardShortcuts : false
                 })
 
                 jPM.on()
