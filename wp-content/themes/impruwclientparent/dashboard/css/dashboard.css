@@ -1,6 +1,8 @@
 @import url(icon-fonts.css);
 
 @import url(../../builder/css/builder-icon-fonts.css);
+
+@import url(lightbox.css);
 /*
 Theme Name:     Impruw Dashboard
 Theme URI:      http://ajency.in/
@@ -11,6 +13,7 @@ Template:       impruw
 Version:        0.1.0
 */
 /****Icon Font****/
+/****Lightbox CSS****/
 /****Colors****/
 /****Link Styles****/
 a {

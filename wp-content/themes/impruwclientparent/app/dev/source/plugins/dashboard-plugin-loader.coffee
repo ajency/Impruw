@@ -19,6 +19,7 @@ define [
     'mustache'
     'bootstrapselect'
     'isotope'
+    'lightbox'
     'jpanelmenu'
     #'scrollsections'
     'minicolors'
