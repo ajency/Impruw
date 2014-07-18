@@ -25,8 +25,7 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
       Controller.prototype._getLanguageView = function(model, collection) {
         return new OriginalPage.Views.OriginalPageView({
           model: model,
-          collection: collection,
-          language: 'en'
+          collection: collection
         });
       };
 
