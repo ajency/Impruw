@@ -82,13 +82,19 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
         return PageTemplatesGrid.__super__.constructor.apply(this, arguments);
       }
 
-      PageTemplatesGrid.prototype.template = '<h4>{{#polyglot}}Choose page Template{{/polyglot}}</h4> <ul class="templates"></ul>';
+      PageTemplatesGrid.prototype.template = '<h4>{{#polyglot}}Choose page Template{{/polyglot}}</h4> <ul class="templates"></ul> <input type="text" style="display: none" name="menu_order" id="menu-order">';
 
       PageTemplatesGrid.prototype.itemView = TemplateView;
 
       PageTemplatesGrid.prototype.itemViewContainer = '.templates';
 
       PageTemplatesGrid.prototype.emptyView = EmptyView;
+
+      PageTemplatesGrid.prototype.onShow = function() {
+        var lastPageModel;
+        lastPageModel = this.collection.last();
+        return this.$el.find('#menu-order').val(lastPageModel.get('menu_order'));
+      };
 
       return PageTemplatesGrid;
 
