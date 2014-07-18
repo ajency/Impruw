@@ -145,7 +145,7 @@ get_header();
                     <div class="col-sm-offset-3 col-sm-7">
                         <label for="checkbox2" class="checkbox">
                             <input type="checkbox" data-toggle="checkbox"  id="checkbox2" name="checkbox2"  value="1"   required  class="parsley-validated parsley-error"   parsley-trigger="blur" parsley-validation-minlength="0">
-                            <?php echo __('By signing up you agree to our ', 'impruwmain'); ?><a href="<?php echo get_bloginfo('url'); ?>/terms-of-service/"><?php _e('Terms of Service','impruwmain')?></a>
+                            <?php echo __('By signing up you agree to our ', 'impruwmain'); ?><a href="<?php echo get_bloginfo('url'); ?>/terms-of-service/" target="_blank"><?php _e('Terms of Service','impruwmain')?></a>
                             <div class="p-messages"></div> 
                         </label>
                     </div>
