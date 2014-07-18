@@ -1908,30 +1908,30 @@ form {
 }
 
 #add-facility-region {
-	#facilites-form {
-		border: 0;
-		padding: 0;
-		margin: 0;
-		.input-group {
-			.form-control {
-				&:focus {
-					+ .input-group-btn {
-						background: @orange;
-					}
+	.input-group {
+		.form-control {
+			&:focus {
+				+ .input-group-btn {
+					background: @orange;
 				}
 			}
-			.input-group-btn {
-				border: 0;
-				background: @blue-grey;
-				border-radius: 0;
-				color: #fff;
-				line-height: 15px;
-				cursor: pointer;
-			}
-			&:hover {
-				border-color: transparent;
-			}
 		}
+		.input-group-btn {
+			border: 0;
+			background: @blue-grey;
+			border-radius: 0;
+			color: #fff;
+			line-height: 15px;
+			cursor: pointer;
+		}
+		&:hover {
+			border-color: transparent;
+		}
+	}
+	#error-msg {
+		display: block;
+		margin: 0.5em 0;
+		color: @red;
 	}
 }
 

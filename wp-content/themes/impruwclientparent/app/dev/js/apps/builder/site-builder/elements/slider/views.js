@@ -93,11 +93,13 @@ define(['app'], function(App) {
               console.log(_this.$el.height());
               options.startheight = _this.$el.height();
               _this.$el.width('auto');
-              return _this.revapi = _this.$el.find(".fullwidthbanner").revolution(options);
+              _this.revapi = _this.$el.find(".fullwidthbanner").revolution(options);
+              return _this._saveSliderHeightWidth();
             };
           })(this)
         });
-        return $('.aj-imp-publish').on('click', this._saveSliderHeightWidth);
+        $('.aj-imp-publish').on('click', this._saveSliderHeightWidth);
+        return this._saveSliderHeightWidth();
       };
 
       SliderView.prototype._saveSliderHeightWidth = function() {

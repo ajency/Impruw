@@ -73,7 +73,7 @@ define ['app'], (App)->
                         options.startheight = @$el.height() 
                         @$el.width('auto') 
                         @revapi = @$el.find(".fullwidthbanner").revolution options
-                        # @trigger "set:slider:height", options.startheight
+                        @_saveSliderHeightWidth()
 
                     
                     
@@ -81,6 +81,9 @@ define ['app'], (App)->
                 # @trigger "set:slider:height", options.startheight
 
                 $('.aj-imp-publish').on 'click',@_saveSliderHeightWidth
+
+                @_saveSliderHeightWidth()
+
 
 
             _saveSliderHeightWidth : =>
