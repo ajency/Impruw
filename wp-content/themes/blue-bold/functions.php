@@ -150,15 +150,26 @@
      * Image sizes for the theme 
      **/
         // Thumbnails
+        update_option('thumbnail_size_w', 180);
+        update_option('thumbnail_size_h', 180);
+        update_option('thumbnail_crop', array('center', 'center'));
+
         add_image_size( 'small_img', 140, 43 );
 
         // Medium
+        update_option('medium_size_w', 400);
+        update_option('medium_size_h', 400);
+        update_option('thumbnail_crop', 0);
+
         add_image_size( 'medium_img', 400, 168 );
+
+        // Large
+        update_option('large_size_w', 800);
+        update_option('large_size_h', 800);
+        update_option('large_crop', 0);
 
         // Long
         add_image_size( 'long_img', 360, 670 );
-
-        // Long Small
         add_image_size( 'longsmall_img', 200, 372 );
 
     global $element_templates;

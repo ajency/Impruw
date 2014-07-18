@@ -73,10 +73,10 @@ function check_wp_admin_access() {
 
     if ( is_admin() && !defined( 'DOING_AJAX' ) ) {
         if ( is_user_logged_in() ) {
-            wp_safe_redirect( get_user_dashboard_url() );
+            wp_redirect( get_user_dashboard_url() );
             die();
         } else {
-            wp_safe_redirect( wp_login_url( site_url( 'dashboard' ) ) );
+            wp_redirect( wp_login_url( site_url( 'dashboard' ) ) );
             die();
         }
     }
@@ -110,6 +110,9 @@ function get_user_dashboard_url() {
 }
 
 function is_current_user_impruw_manager() {
+
+    if ( !is_user_logged_in() )
+        return FALSE;
 
     $user = get_userdata( get_current_user_id() );
 

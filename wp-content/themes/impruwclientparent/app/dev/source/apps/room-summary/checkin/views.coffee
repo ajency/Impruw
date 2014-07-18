@@ -12,8 +12,14 @@ define ['app'
             className: 'form-horizontal clearfix'
 
             onShow: ->
+
+                timeFormat = @model.get 'checkin_time_format'
+                radioHtml = @$el.find('input:radio[name="checkin_time_format"]').filter("[value='#{timeFormat}']")
+                radioHtml.attr('checked', 'checked')
+                radioHtml.parent().parent().find('.radio').addClass('checked')
+
                 # set the timepicker
-                @$el.find('#checkin-time').timepicker
+                @$el.find('.check-time').timepicker
                     'forceRoundTime': true
                     'step': 5
 
@@ -25,15 +31,15 @@ define ['app'
 
             checkTimeFormatSelection: =>
                 if @$el.find('#tweleve-hour').hasClass 'checked'
-                    @$el.find('#checkin-time').timepicker 'remove'
-                    @$el.find('#checkin-time').timepicker
+                    @$el.find('.check-time').timepicker 'remove'
+                    @$el.find('.check-time').timepicker
                         'timeFormat': 'g:ia'
                         'forceRoundTime': true
                         'step': 5
 
                 else
-                    @$el.find('#checkin-time').timepicker 'remove'
-                    @$el.find('#checkin-time').timepicker
+                    @$el.find('.check-time').timepicker 'remove'
+                    @$el.find('.check-time').timepicker
                         'timeFormat': 'H:i'
                         'forceRoundTime': true
                         'step': 5
@@ -41,11 +47,12 @@ define ['app'
                 'click #save-checkin': (e)->
                     e.preventDefault()
                     formdata = Backbone.Syphon.serialize @
-                    @trigger "update:checkin:time:click", formdata
+                    if @$el.valid()
+                        @trigger "update:checkin:time:click", formdata
 
             onCheckinTimeUpdated: ->
                 @$el.find('.alert').remove()
-                @$el.prepend('<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'+_.polyglot.t('Check-in Time Saved')+'</div>')
+                @$el.prepend('<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'+_.polyglot.t('Check-in and Check-out time saved')+'</div>')
 						
 
 	

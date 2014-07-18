@@ -61,7 +61,8 @@ define(['app', 'apps/builder/site-builder/elements/slider/views', 'apps/builder/
             _this.listenTo(view, "show:slides:manager", function() {
               return App.execute("show:slides:manager", slidesCollection);
             });
-            _this.listenTo(view, "set:slider:height", function(height) {
+            _this.listenTo(view, "set:slider:height:width", function(height, width) {
+              _this.layout.model.set('width', width);
               _this.layout.model.set('height', height);
               return _this.layout.model.save();
             });

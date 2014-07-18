@@ -14,7 +14,7 @@ define ['app'
                                 <label class="col-sm-3 control-label" for="">{{element}}</label>
                                 <div class="col-sm-9 col-sm-offset-3">
                                     <p class="original {{TypeOfElementClass}}" tabindex="1">
-                                        {{{content.en}}}
+                                        {{{originalContent}}}
                                     </p>
                                 </div>
                             </div>
@@ -22,12 +22,14 @@ define ['app'
 
             mixinTemplateHelpers: (data)->
                 data = super data
-                originalLanguage = Marionette.getOption @, 'originalLanguage'
                 data.TypeOfElementClass = ->
                     if data.element is "Title"
                         return "title"
                     else
                         return "text"
+                data.originalContent = ->
+                    originalContent = data.content[WPML_DEFAULT_LANG]
+                    return originalContent
                 data
 
 
@@ -38,7 +40,3 @@ define ['app'
             itemView : OriginalPageItemView
 
             itemViewContainer : '#translatable-page-elements'
-
-            itemViewOptions : ->
-                language = Marionette.getOption @, 'language'
-                originalLanguage : language

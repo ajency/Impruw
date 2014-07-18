@@ -27,7 +27,6 @@ define ['app', 'controllers/base-controller'
                 new OriginalPage.Views.OriginalPageView
                     model:model
                     collection: collection
-                    language: 'en'
 
         App.commands.setHandler "original:page:content:app", (opts) ->
             new OriginalPage.Controller opts

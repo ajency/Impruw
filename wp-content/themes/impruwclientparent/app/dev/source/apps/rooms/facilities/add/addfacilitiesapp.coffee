@@ -31,18 +31,25 @@ define ['app'
 
         class AddFacilityView extends Marionette.ItemView
 
-            #tagName : 'form'
-
             className: 'facility add'
 
             template: '<div class="input-group">
-            									<input type="text" name="name" class="form-control" placeholder="{{#polyglot}}Add a Facility{{/polyglot}}">
-            									<span class="input-group-btn add-facility input-group-addon"><span class="icon icon-plus"></span>{{#polyglot}}Add{{/polyglot}}</span>
-            								</div>'
+                        <input type="text" name="name" class="form-control"
+                         placeholder="{{#polyglot}}Add a Facility{{/polyglot}}">
+                         
+                         <span class="input-group-btn add-facility input-group-addon">
+                            <span class="icon icon-plus"></span>{{#polyglot}}Add{{/polyglot}}
+                        </span>
+                            </div><span id="error-msg"></span>'
 
             events:
                 'click .add-facility': ->
-                    @trigger "add:new:facility", name: @$el.find('input[name="name"]').val()
+                    @$el.find('#error-msg').empty()
+                    facilityName = @$el.find('input[name="name"]').val()
+                    if _.isEmpty facilityName
+                        @$el.find('#error-msg').text 'Facility name required'
+                    else
+                        @trigger "add:new:facility", name: @$el.find('input[name="name"]').val()
 
             onFacilityAdded: ->
                 @$el.find('input').val ''
