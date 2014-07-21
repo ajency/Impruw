@@ -183,6 +183,13 @@ function get_elementbox_elements() {
             'category' => 'hotel'
         ),
         array(
+            'element' => 'LanguageSwitcher',
+            'title' => 'Language Switcher',
+            'icon' => 'bicon icon-uniF124',
+            'styles' => array(),
+            'size' => ''
+        ),
+        array(
             'element' => 'Text',
             'icon' => 'bicon icon-uniF111',
             'styles' => array()
@@ -291,7 +298,7 @@ function get_elementbox_elements() {
 
     if ( !current_user_can( 'edit_impruw_theme' ) ) {
         $filtered = array();
-        $unset_elements = array( 'Menu' );
+        $unset_elements = array( 'Menu', 'LanguageSwitcher' );
         foreach ( $elements as $element ) {
             if ( !in_array( $element[ 'element' ], $unset_elements ) )
                 $filtered[ ] = $element;
