@@ -13,6 +13,8 @@ define(['app', 'apps/builder/site-builder/elements/languageswitcher/views'], fun
       }
 
       Controller.prototype.initialize = function(options) {
+        var collection;
+        this.collection = collection = App.request("get:selected:languages");
         _.defaults(options.modelData, {
           element: 'LanguageSwitcher',
           image_id: 0,
@@ -23,7 +25,8 @@ define(['app', 'apps/builder/site-builder/elements/languageswitcher/views'], fun
 
       Controller.prototype._getLanguageSwitcherView = function(languageSwitcherModel) {
         return new LanguageSwitcher.Views.LanguageSwitcherView({
-          model: languageSwitcherModel
+          model: languageSwitcherModel,
+          collection: this.collection
         });
       };
 

@@ -7,6 +7,8 @@ define ['app', 'apps/builder/site-builder/elements/languageswitcher/views'],
 
             # intializer
             initialize: (options)->
+                @collection = collection = App.request "get:selected:languages"
+
                 _.defaults options.modelData,
                     element: 'LanguageSwitcher'
                     image_id: 0
@@ -17,6 +19,7 @@ define ['app', 'apps/builder/site-builder/elements/languageswitcher/views'],
             _getLanguageSwitcherView: (languageSwitcherModel)->
                 new LanguageSwitcher.Views.LanguageSwitcherView
                             model: languageSwitcherModel
+                            collection: @collection
 
             # setup templates for the element
             renderElement: ()=>

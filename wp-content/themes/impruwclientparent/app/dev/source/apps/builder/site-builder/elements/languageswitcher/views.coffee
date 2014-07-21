@@ -1,44 +1,59 @@
-define [ 'app' ], ( App )->
+define [ 'app' ], (App)->
 
-   # Row views
-   App.module 'SiteBuilderApp.Element.LanguageSwitcher.Views', ( Views, App, Backbone, Marionette, $, _ )->
+    # Row views
+    App.module 'SiteBuilderApp.Element.LanguageSwitcher.Views', (Views, App, Backbone, Marionette, $, _)->
+        class LanguageSwitcherItemView extends Marionette.ItemView
 
-      # Menu item view
-      class Views.LanguageSwitcherView extends Marionette.ItemView
+            template: '{{^isDefaultLanguage}}
+                        <li class="icl-{{code}}">
+                            <a href="#">
+                                <img class="iclflag" src="{{pluginUri}}/sitepress-multilingual-cms/res/flags/{{code}}.png" alt="{{code}}" title="{{languageName}}">
+                                &nbsp;{{languageName}}
+                            </a>
+                        </li>
+                        {{/isDefaultLanguage}}'
 
-         className : 'logo'
+            mixinTemplateHelpers: (data)->
+                data.pluginUri = ->
+                    pluginUri = PLUGIN_URI
+                    return pluginUri
+                data
 
-         template : '{{#placeholder}}
-                     <div id="lang_sel">
-                         <ul>
-                             <li>
-                                 <a href="#" class="lang_sel_sel icl-nb">
-                                     <img class="iclflag" src="http://localhost/impruw/wpmlsetup1/wp-content/plugins/sitepress-multilingual-cms/res/flags/nb.png" alt="nb" title="Norwegian Bokmål">&nbsp;Norwegian Bokmål</a>
-                                 <ul>
-                                     <li class="icl-en">
-                                         <a href="http://localhost/impruw/wpmlsetup1/en/about-us-en/">
-                                             <img class="iclflag" src="http://localhost/impruw/wpmlsetup1/wp-content/plugins/sitepress-multilingual-cms/res/flags/en.png" alt="en" title="English">&nbsp;English
-                                         </a>
-                                     </li>
-                                      <li class="icl-es">
-                                          <a href="http://localhost/impruw/wpmlsetup1/en/about-us-en/">
-                                            <img class="iclflag" src="http://localhost/impruw/wpmlsetup1/wp-content/plugins/sitepress-multilingual-cms/res/flags/es.png" alt="es" title="Spanish">&nbsp;Spanish
-                                          </a>
-                                      </li>
-                                 </ul>
 
-                             </li>
-                         </ul>
-                     </div>
-                     {{/placeholder}}'
+        class Views.LanguageSwitcherView extends Marionette.CompositeView
 
-         mixinTemplateHelpers : ( data )->
-            data = super data
-            data.placeholder = true
-            data
+            className : 'lang_sel'
 
-         onShow : ->
-            @$el.attr "data-content", "Helps you switch between various languages in your site </a>"
-            @$el.popover
-               html : true
-               placement : 'top'
+            template: '{{#placeholder}}
+                        <div id="lang_sel">
+                            <ul>
+                                <li>
+                                    <a href="#" class="lang_sel_sel icl-{{defaultLanguageCode}}">
+                                        <img class="iclflag" src="{{pluginUri}}/sitepress-multilingual-cms/res/flags/{{defaultLanguageCode}}.png" alt="{{defaultLanguageCode}}" title="{{defaultLanguageName}}">&nbsp;{{defaultLanguageName}}
+                                    </a>
+                                    <ul id="language-selector-lang">
+
+                                    </ul>
+
+                                </li>
+                            </ul>
+                        </div>
+                       {{/placeholder}}'
+
+            itemView: LanguageSwitcherItemView
+
+            itemViewContainer: '#language-selector-lang'
+
+            mixinTemplateHelpers: (data)->
+                data = super data
+                data.placeholder = true
+                data.defaultLanguageCode = ->
+                    defaultLanguageCode = WPML_DEFAULT_LANG
+                    return defaultLanguageCode
+                data.defaultLanguageName = ->
+                    defaultLanguageName = WPML_DEFAULT_LANGUAGE_NAME
+                    return defaultLanguageName
+                data.pluginUri = ->
+                    pluginUri = PLUGIN_URI
+                    return pluginUri
+                data

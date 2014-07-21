@@ -72,6 +72,7 @@ echo json_encode($impruwUserModel->get_user_basic_info());
     /*************************Language Phrases************************/
     var PHRASES = <?php echo json_encode(load_language_phrases());?>;
     var WPML_DEFAULT_LANG  = '<?php echo wpml_get_default_language(); ?>';
+    var WPML_DEFAULT_LANGUAGE_NAME  = '<?php echo get_native_language_name(wpml_get_default_language());?>';
 </script>
 <script src="<?php echo get_parent_template_directory_uri() ?>/app/dev/js/plugins/pace.js"></script>
 <?php if ( ENV === 'production' ): ?>
