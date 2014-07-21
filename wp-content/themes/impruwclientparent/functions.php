@@ -363,6 +363,9 @@ function add_element_markup( $element ) {
         case 'Logo' :
             $html = get_logo_element_markup( $element );
             break;
+        case 'LanguageSwitcher' :
+            $html = get_language_switcher_element_markup( $element );
+            break;
         case 'RoomDescription' :
             $html = get_room_description_markup( $element );
             break;
@@ -661,6 +664,23 @@ function get_logo_element_markup( $element ) {
 
     return $html;
 }
+
+/**
+ * Generates the language switcher markup
+ *
+ * @param type $element
+ */
+function get_language_switcher_element_markup( $element ){
+    require_once PARENTTHEMEPATH . 'elements/LanguageSwitcher.php';
+
+    $languageSwitcher = new LanguageSwitcher( $element );
+
+    $html = $languageSwitcher->get_markup();
+
+    return $html;
+
+}
+
 
 /**
  * Generates the address markup
