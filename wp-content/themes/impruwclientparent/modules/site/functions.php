@@ -25,6 +25,7 @@ function get_site_details( $site_id = 0 ) {
         'postal_code' => get_option( 'postal_code', '' ),
         'city' => get_option( 'city', '' ),
         'logo_id' => $logo_id,
+        'subscription_start_date' => get_option('subscription-start-date',get_site_reg_date($site_id)),
         'logo_url' => $image_path, 'country' => get_option( 'country', '' ),
         'site_email' => get_option( 'site_email', get_bloginfo( 'admin_email' ) ),
         'other_phone_no' => get_option( 'other_phone_no', array() ),
@@ -52,6 +53,19 @@ function get_site_domain( $site_id ) {
         $domain = $site->domain;
 
     return $domain;
+}
+
+/**
+ * Function to get the registrarion date of the site
+ * @param $site_id
+ */
+function get_site_reg_date( $site_id ) {
+
+    $site = get_blog_details( $site_id );
+
+    $registered_date = date('M d, Y',strtotime($site->registered));
+
+   return $registered_date;
 }
 
 /**

@@ -5,17 +5,35 @@ define [ 'app', 'controllers/base-controller'
 
             # initiliaze controller
             initialize : ( opts )->
-                @layout = @getLayout()
+                @siteModel = opts.model
+
+                @selectedPlanId = opts.planId
+
+                @layout = @getLayout @siteModel
+
+                console.log @siteModel
 
                 # trigger set:active:menu event
                 App.vent.trigger "set:active:menu", 'billing'
 
+                @listenTo @layout, "show", =>
+                    @selectedPlanModel = App.request "get:plan:by:id", @selectedPlanId
+                    App.execute "when:fetched",@selectedPlanModel,=>
+                        @layout.selectedPlanRegion.show @selectedPlan @selectedPlanModel
+
                 # show main layout
-                @show @layout
+                @show @layout,
+                    loading : true
 
             # get layout
-            getLayout : ->
+            getLayout : ( model ) ->
                 new Payment.View.Layout
+                    model : model
+
+            selectedPlan : ( selectedPlanModel ) ->
+                new Payment.View.SelectedPlanView
+                    model : selectedPlanModel
+
 
         App.commands.setHandler "show:payment:app", ( opts ) ->
             new Payment.Controller opts

@@ -32,12 +32,12 @@
     <div class="aj-imp-widget-head row">
         <div class="col-sm-6 left">
             <h6 class="aj-imp-sub-head"><small>{{#polyglot}}Active Plan: {{/polyglot}}</small>
-                Basic
+                {{braintree_plan_name}}
             </h6>
         </div>
         <div class="col-sm-6 right">
             <h6 class="aj-imp-sub-head"><small>{{#polyglot}}Active Since: {{/polyglot}}</small>
-                Feb 25th, 2013
+                {{subscription_start_date}}
             </h6>
         </div>
     </div>
@@ -132,22 +132,25 @@
             <div class="alert text-center">
                 <p>Any Change of Plans in the middle of a cycle will be applicable from the start of the new cycle.</p>
             </div>
-            <div class="panel panel-default text-center active">
-                <div class="panel-heading">
-                    <h3>Ultimate</h3>
-                </div>
-                <div class="panel-body">
-                    <h3 class="panel-title price">$49<span class="price-cents">99</span><span class="price-month">mo.</span></h3>
-                </div>
-                <ul class="list-group">
-                    <li class="list-group-item">Unlimited</li>
-                    <li class="list-group-item">150 GB of Storage</li>
-                    <li class="list-group-item">Unlimited</li>
-                    <li class="list-group-item">500 GB Bandwidth</li>
-                    <li class="list-group-item">Security Suite</li>
-                    <li class="list-group-item"><span class="ribbon">Chosen Plan</span></li>
-                </ul>
-            </div>
+
+            <div id="selected-plan"></div>
+
+            <!--<div class="panel panel-default text-center active">-->
+                <!--<div class="panel-heading">-->
+                    <!--<h3>Ultimate</h3>-->
+                <!--</div>-->
+                <!--<div class="panel-body">-->
+                    <!--<h3 class="panel-title price">$49<span class="price-cents">99</span><span class="price-month">mo.</span></h3>-->
+                <!--</div>-->
+                <!--<ul class="list-group">-->
+                    <!--<li class="list-group-item">Unlimited</li>-->
+                    <!--<li class="list-group-item">150 GB of Storage</li>-->
+                    <!--<li class="list-group-item">Unlimited</li>-->
+                    <!--<li class="list-group-item">500 GB Bandwidth</li>-->
+                    <!--<li class="list-group-item">Security Suite</li>-->
+                    <!--<li class="list-group-item"><span class="ribbon">Chosen Plan</span></li>-->
+                <!--</ul>-->
+            <!--</div>-->
         </div>
 
     </div>

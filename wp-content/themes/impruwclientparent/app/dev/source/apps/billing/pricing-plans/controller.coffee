@@ -5,20 +5,25 @@ define [ 'app', 'controllers/base-controller'
 
             # initiliaze controller
             initialize : ( opts )->
-                @view = @getView()
 
-                @brainTreePlans = App.request "get:braintree:plans"
-                console.log @brainTreePlans
+                @siteModel =  opts.model
+
+                brainTreePlans = App.request "get:braintree:plans"
+
+                @view = @getView brainTreePlans
 
                 # trigger set:active:menu event
                 App.vent.trigger "set:active:menu", 'billing'
 
                 # show main layout
-                @show @view
+                @show @view,
+                    loading :true
 
             # get layout
-            getView : ->
-                new PaymentPlans.View.Layout
+            getView :( brainTreePlanCollection ) =>
+                new PaymentPlans.View.PlansView
+                    collection : brainTreePlanCollection
+                    model : @siteModel
 
         App.commands.setHandler "show:plans:app", ( opts ) ->
             new PaymentPlans.Controller opts

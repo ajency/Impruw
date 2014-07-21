@@ -11,13 +11,34 @@ define(['app', 'controllers/base-controller', 'apps/billing/payment-page/views']
       }
 
       Controller.prototype.initialize = function(opts) {
-        this.layout = this.getLayout();
+        this.siteModel = opts.model;
+        this.selectedPlanId = opts.planId;
+        this.layout = this.getLayout(this.siteModel);
+        console.log(this.siteModel);
         App.vent.trigger("set:active:menu", 'billing');
-        return this.show(this.layout);
+        this.listenTo(this.layout, "show", (function(_this) {
+          return function() {
+            _this.selectedPlanModel = App.request("get:plan:by:id", _this.selectedPlanId);
+            return App.execute("when:fetched", _this.selectedPlanModel, function() {
+              return _this.layout.selectedPlanRegion.show(_this.selectedPlan(_this.selectedPlanModel));
+            });
+          };
+        })(this));
+        return this.show(this.layout, {
+          loading: true
+        });
       };
 
-      Controller.prototype.getLayout = function() {
-        return new Payment.View.Layout;
+      Controller.prototype.getLayout = function(model) {
+        return new Payment.View.Layout({
+          model: model
+        });
+      };
+
+      Controller.prototype.selectedPlan = function(selectedPlanModel) {
+        return new Payment.View.SelectedPlanView({
+          model: selectedPlanModel
+        });
       };
 
       return Controller;

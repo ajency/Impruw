@@ -8,6 +8,8 @@ define ["app", 'backbone'], (App, Backbone) ->
 
             name: 'braintreeplan'
 
+            idAttribute : 'plan_id'
+
 
         # plan collection
         class BraintreePlanCollection extends Backbone.Collection
@@ -24,5 +26,13 @@ define ["app", 'backbone'], (App, Backbone) ->
                 planCollection.fetch()
                 planCollection
 
+            getPlanByPlanId : ( planId ) ->
+                planModel = new BraintreePlan 'plan_id' : planId
+                planModel.fetch()
+                planModel
+
         App.reqres.setHandler "get:braintree:plans", ->
             API.getBraintreePlansCollection()
+
+        App.reqres.setHandler "get:plan:by:id",( planId ) ->
+            API.getPlanByPlanId planId

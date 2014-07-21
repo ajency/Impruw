@@ -13,6 +13,8 @@ define(["app", 'backbone'], function(App, Backbone) {
 
       BraintreePlan.prototype.name = 'braintreeplan';
 
+      BraintreePlan.prototype.idAttribute = 'plan_id';
+
       return BraintreePlan;
 
     })(Backbone.Model);
@@ -38,10 +40,21 @@ define(["app", 'backbone'], function(App, Backbone) {
         planCollection = new BraintreePlanCollection;
         planCollection.fetch();
         return planCollection;
+      },
+      getPlanByPlanId: function(planId) {
+        var planModel;
+        planModel = new BraintreePlan({
+          'plan_id': planId
+        });
+        planModel.fetch();
+        return planModel;
       }
     };
-    return App.reqres.setHandler("get:braintree:plans", function() {
+    App.reqres.setHandler("get:braintree:plans", function() {
       return API.getBraintreePlansCollection();
+    });
+    return App.reqres.setHandler("get:plan:by:id", function(planId) {
+      return API.getPlanByPlanId(planId);
     });
   });
 });

@@ -16,13 +16,19 @@ define(['app', 'apps/billing/purchase-history/controller', 'apps/billing/billing
         'billing/purchase-history': 'purchase',
         'billing/billing-info': 'billingInfo',
         'billing/pricing-plans': 'plans',
-        'billing/payment-page': 'payment'
+        'billing/payment-page': 'payment',
+        'billing/payment-page/:id': 'payment'
       };
 
       return Router;
 
     })(Marionette.AppRouter);
     API = {
+      getSiteModel: function() {
+        var siteProfileModel;
+        siteProfileModel = App.request("get:site:model");
+        return siteProfileModel;
+      },
       purchase: function() {
         return App.execute("show:purchase:app", {
           region: App.rightRegion
@@ -34,14 +40,29 @@ define(['app', 'apps/billing/purchase-history/controller', 'apps/billing/billing
         });
       },
       plans: function() {
-        return App.execute("show:plans:app", {
-          region: App.rightRegion
-        });
+        var sitemodel;
+        sitemodel = this.getSiteModel();
+        return App.execute("when:fetched", sitemodel, (function(_this) {
+          return function() {
+            return App.execute("show:plans:app", {
+              region: App.rightRegion,
+              model: sitemodel
+            });
+          };
+        })(this));
       },
-      payment: function() {
-        return App.execute("show:payment:app", {
-          region: App.rightRegion
-        });
+      payment: function(planId) {
+        var sitemodel;
+        sitemodel = this.getSiteModel();
+        return App.execute("when:fetched", sitemodel, (function(_this) {
+          return function() {
+            return App.execute("show:payment:app", {
+              region: App.rightRegion,
+              model: sitemodel,
+              planId: planId
+            });
+          };
+        })(this));
       }
     };
     return BillingApp.on({
