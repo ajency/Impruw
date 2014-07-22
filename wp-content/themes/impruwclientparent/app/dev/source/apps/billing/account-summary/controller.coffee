@@ -18,23 +18,25 @@ define [ 'app', 'controllers/base-controller'
 
                 @listenTo @layout ,"show",=>
 
-                    @subscriptionId = @siteModel.get 'braintree_subscription'
+                    App.execute "when:fetched",@siteModel,=>
 
-                    App.execute "show:account:info",
-                        region : @layout.accountInfoRegion
-                        subscriptionId : @subscriptionId
+                        @subscriptionId = @siteModel.get 'braintree_subscription'
 
-                    App.execute "show:billing:info",
-                        region : @layout.billingInfoRegion
-                        model : @siteModel
-                    App.execute "show:purchase:history",
-                        region : @layout.purchaseHistoryRegion
-                        model : @siteModel
+                        App.execute "show:account:info",
+                            region : @layout.accountInfoRegion
+                            subscriptionId : @subscriptionId
+
+                        App.execute "show:billing:info",
+                            region : @layout.billingInfoRegion
+                            model : @siteModel
+                        App.execute "show:purchase:history",
+                            region : @layout.purchaseHistoryRegion
+                            model : @siteModel
 
 
                 # show main layout
-                @show @layout,
-                    loading :true
+                @show @layout
+
 
 
             # get layout

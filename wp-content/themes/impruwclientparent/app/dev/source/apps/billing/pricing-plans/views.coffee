@@ -33,6 +33,9 @@ define [ 'app'
                 siteModelPlanId = @model.get 'plan_id'
                 collectionModelPlanId = Marionette.getOption @, 'activeBraintreePlanID'
 
+                console.log siteModelPlanId
+                console.log collectionModelPlanId
+
                 #append  the plan id to the plan activation link
                 activateLink = @$el.find( '.activate-link' ).attr 'href'
                 newactivateLink = "#{activateLink}/#{siteModelPlanId}"

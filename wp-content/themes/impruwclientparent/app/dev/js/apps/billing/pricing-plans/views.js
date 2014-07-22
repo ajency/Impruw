@@ -26,6 +26,8 @@ define(['app', 'text!apps/billing/pricing-plans/templates/view.html'], function(
         var activateLink, collectionModelPlanId, newactivateLink, siteModelPlanId;
         siteModelPlanId = this.model.get('plan_id');
         collectionModelPlanId = Marionette.getOption(this, 'activeBraintreePlanID');
+        console.log(siteModelPlanId);
+        console.log(collectionModelPlanId);
         activateLink = this.$el.find('.activate-link').attr('href');
         newactivateLink = "" + activateLink + "/" + siteModelPlanId;
         this.$el.find('.activate-link').attr('href', newactivateLink);

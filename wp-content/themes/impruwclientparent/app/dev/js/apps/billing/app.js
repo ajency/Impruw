@@ -39,16 +39,9 @@ define(['app', 'apps/billing/account-summary/controller', 'apps/billing/update-b
         });
       },
       plans: function() {
-        var sitemodel;
-        sitemodel = this.getSiteModel();
-        return App.execute("when:fetched", sitemodel, (function(_this) {
-          return function() {
-            return App.execute("show:plans:app", {
-              region: App.rightRegion,
-              model: sitemodel
-            });
-          };
-        })(this));
+        return App.execute("show:plans:app", {
+          region: App.rightRegion
+        });
       },
       payment: function(planId) {
         var sitemodel;

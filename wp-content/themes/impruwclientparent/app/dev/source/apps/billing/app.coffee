@@ -32,11 +32,8 @@ define [
                     region : App.rightRegion
 
             plans : ->
-                sitemodel = @getSiteModel()
-                App.execute "when:fetched", sitemodel, =>
-                    App.execute "show:plans:app",
-                        region : App.rightRegion
-                        model : sitemodel
+                App.execute "show:plans:app",
+                    region : App.rightRegion
 
             payment : ( planId )->
                 sitemodel = @getSiteModel()

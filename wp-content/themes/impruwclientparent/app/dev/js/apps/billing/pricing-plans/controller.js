@@ -14,7 +14,7 @@ define(['app', 'controllers/base-controller', 'apps/billing/pricing-plans/views'
 
       Controller.prototype.initialize = function(opts) {
         var brainTreePlans;
-        this.siteModel = opts.model;
+        this.siteModel = App.request("get:site:model");
         brainTreePlans = App.request("get:braintree:plans");
         this.view = this.getView(brainTreePlans);
         App.vent.trigger("set:active:menu", 'billing');

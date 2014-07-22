@@ -6,7 +6,7 @@ define [ 'app', 'controllers/base-controller'
             # initiliaze controller
             initialize : ( opts )->
 
-                @siteModel =  opts.model
+                @siteModel =  App.request "get:site:model"
 
                 brainTreePlans = App.request "get:braintree:plans"
 
