@@ -24,6 +24,8 @@ wp-config.php
 ehthumbs.db
 Thumbs.db
 
+wp-content/themes/impruwclientparent/app/dev/source/**/*.js
+
 # Vagrant
 .vagrant
 
