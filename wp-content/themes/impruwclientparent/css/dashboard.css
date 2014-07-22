@@ -3837,9 +3837,11 @@ form .aj-imp-submit:hover {
   border-bottom: 1px solid #aaaaaa;
   padding: 8px 12px;
   margin-bottom: 0;
+  overflow-y: scroll;
 }
 .language .trans-field .translated-element-content.title {
   height: 41px;
+  overflow: hidden;
 }
 .language .trans-field .translated-element-content:focus {
   border-bottom-color: #ff7e00;

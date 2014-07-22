@@ -325,11 +325,18 @@ function get_language_names($language_code){
             $language_name = "Norwegian";
             break;
         default :
-            $language_name = "en";
+            $language_name = "English";
     }
 
     return $language_name;
 
+}
+
+function get_native_language_name($language_code){
+    global $sitepress;
+    $language_details =  $sitepress->get_language_details($language_code);
+    $native_language_name = $language_details['display_name'];
+    return $native_language_name;
 }
 
 

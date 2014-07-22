@@ -22,6 +22,7 @@ require.config
       plupload : 'plugins/plupload.full'
       datepicker : 'plugins/datepicker'
       isotope : 'plugins/isotope'
+      lightbox: 'plugins/lightbox'
       radio : 'plugins/flatui-radio'
       checkbox : 'plugins/flatui-checkbox'
       backboneform : 'plugins/backbone.form'
@@ -75,6 +76,7 @@ require.config
       backbonesyphon : ['backbone']
       backboneassociations : ['backbone']
       isotope : ['jquery']
+      lightbox: ['jquery']
       jqueryspin : ['spin']
       bootstrap : ['jquery']
       radio : ['bootstrap']
