@@ -88,8 +88,10 @@ class RoomGallery extends SliderElement {
         foreach ($slides as $key => $value) {
            
            $image_path = $slides[$key]["thumb_url"];
+
+           $image_full = $slides[$key]["full_url"];
            
-           $html .= '<li class="isotope-element"><img src="'.$image_path.'" class="img-responsive"></li>' ; 
+           $html .= '<li class="isotope-element"><a href="'.$image_full.'" data-lightbox="gallery"><img src="'.$image_path.'" class="img-responsive"></a></li>' ; 
         }
         
         $html .= '</ul>';

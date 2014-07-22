@@ -24,7 +24,6 @@ define [
    'bootstrapselect'
    'isotope'
    'jpanelmenu'
-   #'scrollsections'
    'minicolors'
    'polyglot'
    'additionalmethod'

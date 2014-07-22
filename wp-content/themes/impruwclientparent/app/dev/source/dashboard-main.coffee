@@ -85,6 +85,7 @@ require.config
       app : ['plugins/dashboard-plugin-loader', 'configs/dashboard-config-loader']
 
 
+
 ## Start with application
 require [  'plugins/dashboard-plugin-loader'
            'configs/dashboard-config-loader'
