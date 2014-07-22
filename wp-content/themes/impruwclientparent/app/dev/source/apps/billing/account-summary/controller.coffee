@@ -17,19 +17,20 @@ define [ 'app', 'controllers/base-controller'
                 App.vent.trigger "set:active:menu", 'billing'
 
                 @listenTo @layout ,"show",=>
+                    App.execute "when:fetched",@siteModel,=>
 
-                    @subscriptionId = @siteModel.get 'braintree_subscription'
+                        @subscriptionId = @siteModel.get 'braintree_subscription'
 
-                    App.execute "show:account:info",
-                        region : @layout.accountInfoRegion
-                        subscriptionId : @subscriptionId
+                        App.execute "show:account:info",
+                            region : @layout.accountInfoRegion
+                            subscriptionId : @subscriptionId
 
-                    App.execute "show:billing:info",
-                        region : @layout.billingInfoRegion
-                        model : @siteModel
-                    App.execute "show:purchase:history",
-                        region : @layout.purchaseHistoryRegion
-                        model : @siteModel
+                        App.execute "show:billing:info",
+                            region : @layout.billingInfoRegion
+                            model : @siteModel
+                        App.execute "show:purchase:history",
+                            region : @layout.purchaseHistoryRegion
+                            model : @siteModel
 
 
                 # show main layout

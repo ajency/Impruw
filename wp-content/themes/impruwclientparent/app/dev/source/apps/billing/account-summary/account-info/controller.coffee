@@ -3,8 +3,9 @@ define [ 'app', 'controllers/base-controller'
     App.module 'BillingApp.AccountInfo', ( AccountInfo, App, Backbone, Marionette, $, _ )->
         class AccountInfo.Controller extends AppController
 
-            # initiliaze controller
+            # initialize controller
             initialize : ( opts )->
+
                 subscriptionId = opts.subscriptionId
 
                 subscriptionModel = App.request "get:subscription:by:id", subscriptionId

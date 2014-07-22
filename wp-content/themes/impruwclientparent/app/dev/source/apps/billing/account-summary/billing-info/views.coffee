@@ -14,8 +14,12 @@ define ['app'
 
         class View.EmptyBillingInfoView extends Marionette.ItemView
 
-            template: '<div class="aj-imp-widget-head row">
-                        No Billing info available
+            template: '<div class="row">
+                            <div class="col-sm-12">
+                                <div class="alert alert-info">
+                                    No Billing info available
+                                </div>
+                            </div>
                         </div>'
 
 

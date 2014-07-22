@@ -3799,14 +3799,14 @@ form .aj-imp-submit:hover {
 .language .pick-room .bootstrap-select .btn:focus {
   background: transparent;
 }
-.billing-container .aj-imp-widget-head {
+.billing-container .aj-imp-table-head {
   margin-bottom: 1em;
 }
-.billing-container .aj-imp-widget-head .bootstrap-select .dropdown-toggle {
+.billing-container .aj-imp-table-head .bootstrap-select .dropdown-toggle {
   background: transparent;
   border-bottom: 0;
 }
-.billing-container .aj-imp-widget-head .bootstrap-select.open > .dropdown-menu {
+.billing-container .aj-imp-table-head .bootstrap-select.open > .dropdown-menu {
   min-height: initial !important;
   text-align: left;
 }
