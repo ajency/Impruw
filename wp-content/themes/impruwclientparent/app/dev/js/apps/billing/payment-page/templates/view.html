@@ -7,12 +7,7 @@
 </header>
 <div class="row">
     <div class="aj-imp-dash-content col-md-12">
-        <div class="alert alert-success" id="billingsave_status" style="display:none;">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-                &times;
-            </button>
-            {{#polyglot}}Details saved{{/polyglot}}
-        </div>
+        <div class="alert alert-success" id="billingsave_status"></div>
         <div class="billing-container">
             <div class="aj-imp-dash-widget">
                 <ul class="nav nav-pills">
@@ -76,7 +71,7 @@
                                                     <label class="col-sm-3 control-label">Card Number</label>
 
                                                     <div class="col-sm-8 col-sm-offset-3">
-                                                        <input type="text" class="form-control"
+                                                        <input type="text" class="form-control" id="card_number"
                                                         placeholder="Name on the Card" data-braintree-name="number">
                                                     </div>
                                                 </div>
@@ -101,7 +96,7 @@
                                                     <label class="col-sm-3 control-label">Expires On</label>
 
                                                     <div class="col-sm-2 col-sm-offset-3">
-                                                        <select data-braintree-name="expiration_month">
+                                                        <select data-braintree-name="expiration_month" id="exp_month">
                                                             <option>Month</option>
                                                             <option>01</option>
                                                             <option>02</option>
@@ -118,7 +113,7 @@
                                                         </select>
                                                     </div>
                                                     <div class="col-sm-2">
-                                                        <select data-braintree-name="expiration_year">
+                                                        <select data-braintree-name="expiration_year" id="exp_year">
                                                             <option>Year</option>
                                                             <option>2015</option>
                                                             <option>2016</option>
@@ -142,6 +137,8 @@
                                                     </div>
                                                 </div>
                                             </form>
+                                            <img src="{{THEMEURL}}/images/loader.gif" width="38" height="30"
+                                            id="pay_loader" style="display:none ">
                                         </div>
 
                                         <div class="col-sm-4 price-plans chosen-plan">

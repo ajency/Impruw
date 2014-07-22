@@ -55,19 +55,6 @@ function get_site_domain( $site_id ) {
 }
 
 /**
- * Function to get the registrarion date of the site
- * @param $site_id
- */
-function get_site_reg_date( $site_id ) {
-
-    $site = get_blog_details( $site_id );
-
-    $registered_date = date('M d, Y',strtotime($site->registered));
-
-   return $registered_date;
-}
-
-/**
  * Assign the new theme to site
  *
  * @param type $site_id

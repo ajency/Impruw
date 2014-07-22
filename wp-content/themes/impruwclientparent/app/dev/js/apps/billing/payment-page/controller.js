@@ -1,4 +1,5 @@
-var __hasProp = {}.hasOwnProperty,
+var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+  __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 define(['app', 'controllers/base-controller', 'apps/billing/payment-page/views'], function(App, AppController) {
@@ -7,6 +8,7 @@ define(['app', 'controllers/base-controller', 'apps/billing/payment-page/views']
       __extends(Controller, _super);
 
       function Controller() {
+        this.userPayment = __bind(this.userPayment, this);
         return Controller.__super__.constructor.apply(this, arguments);
       }
 
@@ -23,9 +25,32 @@ define(['app', 'controllers/base-controller', 'apps/billing/payment-page/views']
             });
           };
         })(this));
-        return this.show(this.layout, {
-          loading: true
-        });
+        this.listenTo(this.layout, "credit:card:payment", this.userPayment);
+        return this.show(this.layout);
+      };
+
+      Controller.prototype.userPayment = function(paymentMethodNonce) {
+        var options, selectedPlanName;
+        selectedPlanName = this.selectedPlanModel.get('plan_name');
+        options = {
+          method: 'POST',
+          url: AJAXURL,
+          data: {
+            'paymentMethodNonce': paymentMethodNonce,
+            'selectedPlanId': this.selectedPlanId,
+            'selectedPlanName': selectedPlanName,
+            'action': 'make-payment'
+          }
+        };
+        return $.ajax(options).done((function(_this) {
+          return function(response) {
+            if (response.code === "OK") {
+              return _this.layout.triggerMethod("payment:success");
+            } else {
+              return _this.layout.triggerMethod("payment:error", response.msg);
+            }
+          };
+        })(this));
       };
 
       Controller.prototype.getLayout = function(model) {

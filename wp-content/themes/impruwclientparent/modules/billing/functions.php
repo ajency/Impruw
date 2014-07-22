@@ -15,6 +15,7 @@ function getFreeSubscriptionData() {
     $subscription_data[ 'subscription_id' ] = "ImpruwFree";
     $subscription_data[ 'subscription_type' ] = "N/A";
     $subscription_data[ 'plan_name' ] = 'Free';
+    $subscription_start_date['start_date'] = get_option('subscription-start-date');
     $subscription_data[ 'plan_id' ] = 'hn62';
     $subscription_data[ 'price' ] = '0';
     $subscription_data[ 'bill_start' ] = 'N/A';

@@ -12,13 +12,14 @@ define(['app', 'controllers/base-controller', 'apps/billing/account-summary/acco
 
       Controller.prototype.initialize = function(opts) {
         this.layout = this.getLayout();
-        this.siteModel = opts.model;
+        this.siteModel = App.request("get:site:model");
         App.vent.trigger("set:active:menu", 'billing');
         this.listenTo(this.layout, "show", (function(_this) {
           return function() {
+            _this.subscriptionId = _this.siteModel.get('braintree_subscription');
             App.execute("show:account:info", {
               region: _this.layout.accountInfoRegion,
-              model: _this.siteModel
+              subscriptionId: _this.subscriptionId
             });
             App.execute("show:billing:info", {
               region: _this.layout.billingInfoRegion,

@@ -29,16 +29,9 @@ define(['app', 'apps/billing/account-summary/controller', 'apps/billing/update-b
         return siteProfileModel;
       },
       summary: function() {
-        var sitemodel;
-        sitemodel = this.getSiteModel();
-        return App.execute("when:fetched", sitemodel, (function(_this) {
-          return function() {
-            return App.execute("show:account:summary:app", {
-              region: App.rightRegion,
-              model: sitemodel
-            });
-          };
-        })(this));
+        return App.execute("show:account:summary:app", {
+          region: App.rightRegion
+        });
       },
       updateBilling: function() {
         return App.execute("show:billing:info:app", {

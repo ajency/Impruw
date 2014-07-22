@@ -25,15 +25,23 @@ define [ 'app', 'controllers/base-controller'
                 # show main layout
                 @show @layout
 
-            userPayment : ( paymentMethodNonce )->
-                $.ajax
+            userPayment : ( paymentMethodNonce )=>
+                selectedPlanName = @selectedPlanModel.get 'plan_name'
+                options =
                     method : 'POST'
                     url : AJAXURL
                     data :
                         'paymentMethodNonce' : paymentMethodNonce
+                        'selectedPlanId' : @selectedPlanId
+                        'selectedPlanName' : selectedPlanName
                         'action' : 'make-payment'
-                    success : (data)->
-                        console.log data
+
+                $.ajax( options ).done ( response )=>
+                    if response.code == "OK"
+                        @layout.triggerMethod "payment:success"
+                    else
+                        @layout.triggerMethod "payment:error",response.msg
+
 
 
 

@@ -24,11 +24,8 @@ define [
                 siteProfileModel
 
             summary : ->
-                sitemodel = @getSiteModel()
-                App.execute "when:fetched", sitemodel, =>
-                    App.execute "show:account:summary:app",
-                        region : App.rightRegion
-                        model : sitemodel
+                App.execute "show:account:summary:app",
+                    region : App.rightRegion
 
             updateBilling : ->
                 App.execute "show:billing:info:app",

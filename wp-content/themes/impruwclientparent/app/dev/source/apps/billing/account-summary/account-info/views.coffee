@@ -7,9 +7,4 @@ define ['app'
 
             template: viewTpl
 
-            serializeData :->
-                data= super()
-                data.active_since = Marionette.getOption @ ,'activationDate'
-                data
-
 

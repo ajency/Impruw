@@ -8,17 +8,22 @@ define [ 'app', 'controllers/base-controller'
 
             # initiliaze controller
             initialize : ( opts )->
+
                 @layout = @getLayout()
 
-                @siteModel = opts.model
+                @siteModel =  App.request "get:site:model"
 
                 # trigger set:active:menu event
                 App.vent.trigger "set:active:menu", 'billing'
 
                 @listenTo @layout ,"show",=>
+
+                    @subscriptionId = @siteModel.get 'braintree_subscription'
+
                     App.execute "show:account:info",
                         region : @layout.accountInfoRegion
-                        model : @siteModel
+                        subscriptionId : @subscriptionId
+
                     App.execute "show:billing:info",
                         region : @layout.billingInfoRegion
                         model : @siteModel
@@ -29,7 +34,8 @@ define [ 'app', 'controllers/base-controller'
 
                 # show main layout
                 @show @layout,
-                    loading: true
+                    loading :true
+
 
             # get layout
             getLayout : ->

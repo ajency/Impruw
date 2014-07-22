@@ -12,13 +12,6 @@ define(['app', 'text!apps/billing/account-summary/templates/accountInfo.html'], 
 
       AccountInfoView.prototype.template = viewTpl;
 
-      AccountInfoView.prototype.serializeData = function() {
-        var data;
-        data = AccountInfoView.__super__.serializeData.call(this);
-        data.active_since = Marionette.getOption(this, 'activationDate');
-        return data;
-      };
-
       return AccountInfoView;
 
     })(Marionette.ItemView);

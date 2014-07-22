@@ -11,26 +11,20 @@ define(['app', 'controllers/base-controller', 'apps/billing/account-summary/acco
       }
 
       Controller.prototype.initialize = function(opts) {
-        var siteModel, subscriptionId, subscriptionModel;
-        siteModel = opts.model;
-        subscriptionId = siteModel.get('braintree_subscription');
-        this.activationDate = siteModel.get('subscription_start_date');
+        var subscriptionId, subscriptionModel;
+        subscriptionId = opts.subscriptionId;
         subscriptionModel = App.request("get:subscription:by:id", subscriptionId);
-        return App.execute("when:fetched", subscriptionModel, (function(_this) {
-          return function() {
-            _this.view = _this.getView(subscriptionModel);
-            App.vent.trigger("set:active:menu", 'billing');
-            return _this.show(_this.view, {
-              loading: true
-            });
-          };
-        })(this));
+        this.view = this.getView(subscriptionModel);
+        App.vent.trigger("set:active:menu", 'billing');
+        return this.show(this.view, {
+          loading: true
+        });
       };
 
       Controller.prototype.getView = function(subscriptionModel) {
+        console.log(subscriptionModel);
         return new AccountInfo.View.AccountInfoView({
-          model: subscriptionModel,
-          activationDate: this.activationDate
+          model: subscriptionModel
         });
       };
 

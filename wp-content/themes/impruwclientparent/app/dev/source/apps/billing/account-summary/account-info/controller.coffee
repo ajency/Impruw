@@ -5,29 +5,22 @@ define [ 'app', 'controllers/base-controller'
 
             # initiliaze controller
             initialize : ( opts )->
-                siteModel = opts.model
+                subscriptionId = opts.subscriptionId
 
-                subscriptionId = siteModel.get 'braintree_subscription'
-                @activationDate = siteModel.get 'subscription_start_date'
+                subscriptionModel = App.request "get:subscription:by:id", subscriptionId
 
-                subscriptionModel =  App.request "get:subscription:by:id",subscriptionId
+                @view = @getView subscriptionModel
 
-                App.execute "when:fetched",subscriptionModel,=>
+                # trigger set:active:menu event
+                App.vent.trigger "set:active:menu", 'billing'
 
-                    @view = @getView subscriptionModel
+                @show @view,
+                    loading : true
 
-                    # trigger set:active:menu event
-                    App.vent.trigger "set:active:menu", 'billing'
-
-                    # show main layout
-                    @show @view,
-                        loading: true
-
-            # get layout
             getView : ( subscriptionModel ) ->
+                console.log subscriptionModel
                 new AccountInfo.View.AccountInfoView
                     model : subscriptionModel
-                    activationDate : @activationDate
 
         App.commands.setHandler "show:account:info", ( opts ) ->
             new AccountInfo.Controller opts

@@ -20,6 +20,7 @@ Braintree_Configuration::privateKey(BT_PRIVATE_KEY);
  */
 require_once 'plans.php';
 require_once 'subscription.php';
+require_once 'customer.php';
 
 
 function generate_client_token(){

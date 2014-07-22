@@ -21,22 +21,50 @@ define(['app', 'text!apps/billing/payment-page/templates/view.html'], function(A
         return this.$el.find('select').selectpicker();
       };
 
+      Layout.prototype.serializeData = function() {
+        var data;
+        data = Layout.__super__.serializeData.call(this);
+        data.THEMEURL = THEMEURL;
+        return data;
+      };
+
       Layout.prototype.events = {
         'click #btn-pay': function() {
-          var client, clientToken;
+          var cardNumber, client, clientToken, expMonth, expYear;
+          this.$el.find('#pay_loader').show();
+          cardNumber = this.$el.find('#card_number').val();
+          expMonth = this.$el.find('#exp_month').val();
+          expYear = this.$el.find('#exp_year').val();
           clientToken = this.model.get('braintree_client_token');
           client = new braintree.api.Client({
             clientToken: clientToken
           });
           return client.tokenizeCard({
-            number: "4111111111111111",
-            expirationDate: "10/20"
+            number: cardNumber,
+            expiration_month: expMonth,
+            expiration_year: expYear
           }, (function(_this) {
             return function(err, nonce) {
-              return console.log(nonce);
+              return _this.trigger("credit:card:payment", nonce);
             };
           })(this));
         }
+      };
+
+      Layout.prototype.onPaymentSuccess = function() {
+        var html;
+        this.$el.find('#billingsave_status').empty();
+        this.$el.find('#pay_loader').hide();
+        html = '<button type="button" class="close" data-dismiss="alert" aria-hidden="true"> &times; </button> {{#polyglot}}Payment Processed{{/polyglot}}';
+        return this.$el.find('#billingsave_status').append(html);
+      };
+
+      Layout.prototype.onPaymentError = function(errorMsg) {
+        var html;
+        this.$el.find('#billingsave_status').empty();
+        this.$el.find('#pay_loader').hide();
+        html = "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button> " + errorMsg;
+        return this.$el.find('#billingsave_status').append(html);
       };
 
       return Layout;
