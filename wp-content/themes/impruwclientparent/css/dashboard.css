@@ -3852,6 +3852,15 @@ form .aj-imp-submit:hover {
   border-radius: 0 0 3px 3px;
   font-size: 2em;
 }
+.billing-container .price-plans .panel.active .ribbon .activate-link {
+  background: transparent;
+  color: #fff;
+}
+.billing-container .price-plans .panel.active .ribbon .activate-link:hover,
+.billing-container .price-plans .panel.active .ribbon .activate-link:focus {
+  background: transparent;
+  color: #fff;
+}
 .billing-container .price-plans .panel:hover {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
@@ -3874,6 +3883,22 @@ form .aj-imp-submit:hover {
 }
 .billing-container .price-plans .panel:hover .btn:hover {
   background: #ff9833;
+}
+.billing-container .info {
+  background: #f3f3f3;
+  padding: 1em;
+  margin-bottom: 1em;
+}
+.billing-container .info ul {
+  list-style: circle;
+}
+.billing-container .info ul li {
+  color: #aaaaaa;
+  margin-bottom: 0.5em;
+  font-size: 1.3em;
+}
+.billing-container .info ul li:hover {
+  color: #849fb0;
 }
 /**** Pagination Styles ****/
 .pagination ul li a:hover,

@@ -12,7 +12,7 @@ define ['app'
             template: '<div class="row">
                             <div class="col-sm-12">
                                 <div class="alert alert-info">
-                                    No Billing info available
+                                    No Billing Info Available
                                 </div>
                             </div>
                         </div>'

@@ -18,11 +18,11 @@ define [ 'app'
                                             <li class="list-group-item">24/7 security monitoring</li>
                                             <li class="list-group-item">24/7 technical support</li>
                                             <li class="list-group-item"><span class="ribbon">
-                                                <a href="#/billing/payment-page" class="activate-link">Choose Plan</a></span></li>
+                                                <a href="#/billing/payment-page" class="btn btn-block activate-link">Choose Plan</a></span></li>
                                         </ul>
                                     </div>'
 
-            className : 'col-sm-3'
+            className : 'col-sm-4'
 
             serializeData : ->
                 data = super()
