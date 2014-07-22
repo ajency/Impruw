@@ -29,7 +29,7 @@ define(['app', 'text!apps/billing/account-summary/templates/billingInfo.html'], 
         return EmptyBillingInfoView.__super__.constructor.apply(this, arguments);
       }
 
-      EmptyBillingInfoView.prototype.template = '<div class="row"> <div class="col-sm-12"> <div class="alert alert-info"> No Billing info available </div> </div> </div>';
+      EmptyBillingInfoView.prototype.template = '<div class="row"> <div class="col-sm-12"> <div class="alert alert-info"> No Billing Info Available </div> </div> </div>';
 
       return EmptyBillingInfoView;
 
