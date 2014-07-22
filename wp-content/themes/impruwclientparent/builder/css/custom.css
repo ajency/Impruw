@@ -1,9 +1,22 @@
 /*custom.css*/
+.builder-sortable-helper{
+    width: 100px;
+    top:100px;
+    height: 50px;
+    border: 2px;
+    background-color: #5E5555;
+}
+
+.builder-sortable-placeholder{
+    height: 80px;
+}
+
 .ui-sortable-placeholder {
     outline: 1px dashed #5E5555;
     visibility: visible!Important;
     border-radius: 4px;
     background: transparent!Important;
+
 }
 
 #aj-imp-builder-drag-drop > div.row{
@@ -447,3 +460,4 @@ div.element-drop-loader > p{
 .bootstrap-select-searchbox input {
     margin-bottom: 0;
 }
+
