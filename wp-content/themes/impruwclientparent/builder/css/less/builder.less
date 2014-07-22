@@ -36,6 +36,16 @@ a {
 	}
 }
 
+/****Clearfix****/
+.clearfix {
+    *zoom: 1;
+	&:after, &:before {
+		clear: both;
+		content: "";
+		display: table;
+	}
+}
+
 /****Builder Container & Container Structure****/
 .aj-imp-builder {
 	font-family: 'Lato', sans-serif;
@@ -1826,29 +1836,30 @@ a {
 					}
 				}
 			}
-            .media-options {
-				display: none;
+            .delete-media-img, .edit-image {
 				position: absolute;
 				bottom: 13px;
-				div {
-					cursor: pointer;
-					font-size: 0.8em;
-					display: inline-block;
-					margin-right: 10px;
-					&.delete-media-img {
-						color: #ff3333;
-		            }
-		            &.edit-image {
-		            	color: @blue-grey;
-		            }
-				}
+				cursor: pointer;
+				font-size: 0.8em;
+				margin-right: 10px;
+				&.delete-media-img {
+					color: #ff3333;
+					left: 60px;
+					visibility: hidden;
+	            }
+	            &.edit-image {
+	            	color: @blue-grey;
+	            }
 			}
 			&.ui-selected {
 				.thumbnail {
 					border-color: @blue-grey;
 				}
-              .ticker, .media-options {
+              	.ticker {
 					display: block;
+				}
+				.delete-media-img {
+					visibility: visible;
 				}
 			}
 		}
@@ -2927,6 +2938,9 @@ a {
 
 /**** Cropping Tool Styles ****/
 #edit-image-view {
+	.loading {
+		color: @dash-grey;
+	}
     .imgedit-wrap {
         border: 1px solid lighten(@dash-grey, 20%);
         .imgedit-settings {
@@ -3002,7 +3016,8 @@ a {
                         border: 0;
                         border-radius: 6px;
                         color: #fff;
-                        background: darken(@preview-grey, 10%);
+                        background: darken(@preview-grey, 20%);
+                        cursor: pointer;
                         &.button-primary {
                             background: @orange;
                             margin: 0 0.5em;
@@ -3011,7 +3026,7 @@ a {
                             }
                         }
                         &:hover, &:focus {
-                            background: darken(@preview-grey, 20%);
+                            background: darken(@preview-grey, 30%);
                         }
                     }
                 }

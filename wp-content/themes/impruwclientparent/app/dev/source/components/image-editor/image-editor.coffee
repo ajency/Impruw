@@ -9,7 +9,7 @@ define ['app', 'marionette'], ( App, Marionette )->
       modelEvents :
          'change' : 'showImageEditor'
 
-      template : '<p style="text-align: center;margin: 10px">loading... Please wait</p>'
+      template : '<p class="loading t-a-c">{{#polyglot}}Loading... Please wait...{{/polyglot}}</p>'
 
       initialize : ( options )->
          super options

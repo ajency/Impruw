@@ -4350,6 +4350,9 @@ form .aj-imp-submit:hover {
   color: #c3c3c3;
 }
 /**** Cropping Tool Styles ****/
+#edit-image-view .loading {
+  color: #aaaaaa;
+}
 #edit-image-view .imgedit-wrap {
   border: 1px solid #dddddd;
 }
@@ -4434,7 +4437,8 @@ form .aj-imp-submit:hover {
   border: 0;
   border-radius: 6px;
   color: #fff;
-  background: #dadada;
+  background: #c0c0c0;
+  cursor: pointer;
 }
 #edit-image-view .imgedit-wrap .imgedit-panel-content .imgedit-submit input.button.button-primary {
   background: #ff7e00;
@@ -4446,5 +4450,5 @@ form .aj-imp-submit:hover {
 }
 #edit-image-view .imgedit-wrap .imgedit-panel-content .imgedit-submit input.button:hover,
 #edit-image-view .imgedit-wrap .imgedit-panel-content .imgedit-submit input.button:focus {
-  background: #c0c0c0;
+  background: #a6a6a6;
 }

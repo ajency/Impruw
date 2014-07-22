@@ -30,7 +30,7 @@ define(['app', 'marionette'], function(App, Marionette) {
       'change': 'showImageEditor'
     };
 
-    ImageEditorView.prototype.template = '<p style="text-align: center;margin: 10px">loading... Please wait</p>';
+    ImageEditorView.prototype.template = '<p class="loading t-a-c">{{#polyglot}}Loading... Please wait...{{/polyglot}}</p>';
 
     ImageEditorView.prototype.initialize = function(options) {
       ImageEditorView.__super__.initialize.call(this, options);
