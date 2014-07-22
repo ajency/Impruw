@@ -41,6 +41,7 @@ define(["app", 'backbone'], function(App, Backbone) {
       return MediaModel;
 
     })(Backbone.Model);
+    window.Media = Media.MediaModel;
     Media.MediaCollection = (function(_super) {
       __extends(MediaCollection, _super);
 

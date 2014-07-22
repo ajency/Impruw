@@ -35,16 +35,14 @@ define [ 'app'
 
       class Views.RoomListLayout extends Marionette.Layout
 
-         template : '<div id="room-list"></div>'
+         template : '<div id="room-list"></div><div id="editor-region"></div>'
 
-         className : 'rooms-layout'
+         className : 'rooms-layout '
 
          regions :
             roomRegion : '#room-list'
+            editorRegion : '#editor-region'
 
          events :
             'click .add-room' : ->
                @trigger "add:new:room:clicked"
-
-					
-				

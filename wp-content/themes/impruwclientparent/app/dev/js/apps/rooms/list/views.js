@@ -64,12 +64,13 @@ define(['app', 'text!apps/rooms/list/templates/mainview2.html', 'text!apps/rooms
         return RoomListLayout.__super__.constructor.apply(this, arguments);
       }
 
-      RoomListLayout.prototype.template = '<div id="room-list"></div>';
+      RoomListLayout.prototype.template = '<div id="room-list"></div><div id="editor-region"></div>';
 
-      RoomListLayout.prototype.className = 'rooms-layout';
+      RoomListLayout.prototype.className = 'rooms-layout ';
 
       RoomListLayout.prototype.regions = {
-        roomRegion: '#room-list'
+        roomRegion: '#room-list',
+        editorRegion: '#editor-region'
       };
 
       RoomListLayout.prototype.events = {
