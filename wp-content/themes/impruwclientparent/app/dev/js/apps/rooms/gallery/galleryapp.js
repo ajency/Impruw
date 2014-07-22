@@ -44,7 +44,7 @@ define(['app', 'controllers/base-controller'], function(App, AppController) {
 
       SingleGalleryItem.prototype.className = 'isotope-element';
 
-      SingleGalleryItem.prototype.template = '<img src="{{thumb_url}}" class="img-responsive"/>';
+      SingleGalleryItem.prototype.template = '<a href="{{full_url}}" data-lightbox="gallery"><img src="{{thumb_url}}" class="img-responsive"/></a>';
 
       SingleGalleryItem.prototype.onRender = function() {
         var randomH, randomW;
