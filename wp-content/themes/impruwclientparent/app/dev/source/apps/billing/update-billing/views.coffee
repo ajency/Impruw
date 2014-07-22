@@ -1,7 +1,7 @@
 define ['app'
-        'text!apps/billing/billing-info/templates/view.html'], (App, viewTpl)->
+        'text!apps/billing/update-billing/templates/view.html'], (App, viewTpl)->
 
-    App.module 'BillingApp.BillingInfo.View', (View, App, Backbone, Marionette, $, _)->
+    App.module 'BillingApp.UpdateBilling.View', (View, App, Backbone, Marionette, $, _)->
 
         class View.Layout extends Marionette.Layout
 

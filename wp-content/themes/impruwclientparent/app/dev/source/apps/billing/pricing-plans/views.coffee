@@ -8,12 +8,17 @@ define [ 'app'
                                             <h3>{{plan_name}}</h3>
                                         </div>
                                         <div class="panel-body">
-                                            <h3 class="panel-title price">{{currency}} {{price}}</h3>
+                                            <h3 class="panel-title price">&#163; {{price}}</h3>
                                         </div>
                                         <ul class="list-group">
-                                            <li class="list-group-item">{{description}}</li>
+                                            <li class="list-group-item">Mobile & Tablet Ready Site</li>
+                                            <li class="list-group-item">Unlimited Pages</li>
+                                            <li class="list-group-item">5 Languages</li>
+                                            <li class="list-group-item">Flexible, easy-to-use Site builder</li>
+                                            <li class="list-group-item">24/7 security monitoring</li>
+                                            <li class="list-group-item">24/7 technical support</li>
                                             <li class="list-group-item"><span class="ribbon">
-                                                <a href="#/billing/payment-page" class="activate-link">Activate Plan</a></span></li>
+                                                <a href="#/billing/payment-page" class="activate-link">Choose Plan</a></span></li>
                                         </ul>
                                     </div>'
 
@@ -26,7 +31,7 @@ define [ 'app'
 
             onShow : ->
                 siteModelPlanId = @model.get 'plan_id'
-                collectionModelPlanId = Marionette.getOption @, 'activeBraintreePlan'
+                collectionModelPlanId = Marionette.getOption @, 'activeBraintreePlanID'
 
                 #append  the plan id to the plan activation link
                 activateLink = @$el.find( '.activate-link' ).attr 'href'
@@ -50,7 +55,7 @@ define [ 'app'
 
             itemViewOptions : ->
                 currency : @model.get 'currency'
-                activeBraintreePlan : @model.get 'braintree_plan'
+                activeBraintreePlanID : @model.get 'braintree_plan_id'
 
 
 

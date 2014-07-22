@@ -11,7 +11,7 @@ define(['app', 'text!apps/billing/pricing-plans/templates/view.html'], function(
         return SinglePlanView.__super__.constructor.apply(this, arguments);
       }
 
-      SinglePlanView.prototype.template = '<div class="panel panel-default text-center"> <div class="panel-heading"> <h3>{{plan_name}}</h3> </div> <div class="panel-body"> <h3 class="panel-title price">{{currency}} {{price}}</h3> </div> <ul class="list-group"> <li class="list-group-item">{{description}}</li> <li class="list-group-item"><span class="ribbon"> <a href="#/billing/payment-page" class="activate-link">Activate Plan</a></span></li> </ul> </div>';
+      SinglePlanView.prototype.template = '<div class="panel panel-default text-center"> <div class="panel-heading"> <h3>{{plan_name}}</h3> </div> <div class="panel-body"> <h3 class="panel-title price">&#163; {{price}}</h3> </div> <ul class="list-group"> <li class="list-group-item">Mobile & Tablet Ready Site</li> <li class="list-group-item">Unlimited Pages</li> <li class="list-group-item">5 Languages</li> <li class="list-group-item">Flexible, easy-to-use Site builder</li> <li class="list-group-item">24/7 security monitoring</li> <li class="list-group-item">24/7 technical support</li> <li class="list-group-item"><span class="ribbon"> <a href="#/billing/payment-page" class="activate-link">Choose Plan</a></span></li> </ul> </div>';
 
       SinglePlanView.prototype.className = 'col-sm-3';
 
@@ -25,7 +25,7 @@ define(['app', 'text!apps/billing/pricing-plans/templates/view.html'], function(
       SinglePlanView.prototype.onShow = function() {
         var activateLink, collectionModelPlanId, newactivateLink, siteModelPlanId;
         siteModelPlanId = this.model.get('plan_id');
-        collectionModelPlanId = Marionette.getOption(this, 'activeBraintreePlan');
+        collectionModelPlanId = Marionette.getOption(this, 'activeBraintreePlanID');
         activateLink = this.$el.find('.activate-link').attr('href');
         newactivateLink = "" + activateLink + "/" + siteModelPlanId;
         this.$el.find('.activate-link').attr('href', newactivateLink);
@@ -55,7 +55,7 @@ define(['app', 'text!apps/billing/pricing-plans/templates/view.html'], function(
       PlansView.prototype.itemViewOptions = function() {
         return {
           currency: this.model.get('currency'),
-          activeBraintreePlan: this.model.get('braintree_plan')
+          activeBraintreePlanID: this.model.get('braintree_plan_id')
         };
       };
 

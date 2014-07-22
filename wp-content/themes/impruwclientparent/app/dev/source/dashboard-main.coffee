@@ -38,6 +38,7 @@ require.config
         minicolors: 'plugins/jquery.minicolors.min'
         additionalmethod: 'plugins/validate.additional.methods'
         timepicker: 'plugins/jquery.timepicker.min'
+        braintree: 'plugins/braintree'
 
     shim:
         underscore:
@@ -61,6 +62,7 @@ require.config
         jpanelmenu: ['jquery']
         minicolors: ['jquery']
         timepicker: ['jquery']
+        braintree: ['jquery']
         additionalmethod: ['jquery', 'jqueryvalidate']
         underscorestring: ['underscore']
         backboneform: ['backbone']

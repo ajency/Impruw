@@ -1,7 +1,7 @@
 define [
     'app'
-    'apps/billing/purchase-history/controller'
-    'apps/billing/billing-info/controller'
+    'apps/billing/account-summary/controller'
+    'apps/billing/update-billing/controller'
     'apps/billing/pricing-plans/controller'
     'apps/billing/payment-page/controller' ], ( App )->
     App.module 'BillingApp', ( BillingApp, App, Backbone, Marionette, $, _ )->
@@ -10,11 +10,10 @@ define [
         class BillingApp.Router extends Marionette.AppRouter
 
             appRoutes :
-                'billing' : 'purchase'
-                'billing/purchase-history' : 'purchase'
-                'billing/billing-info' : 'billingInfo'
+                'billing' : 'summary'
+                'billing/account-summary' : 'summary'
+                'billing/update-billing' : 'updateBilling'
                 'billing/pricing-plans' : 'plans'
-                'billing/payment-page' : 'payment'
                 'billing/payment-page/:id' : 'payment'
 
 
@@ -24,10 +23,14 @@ define [
                 siteProfileModel = App.request "get:site:model"
                 siteProfileModel
 
-            purchase : ->
-                App.execute "show:purchase:app",
-                    region : App.rightRegion
-            billingInfo : ->
+            summary : ->
+                sitemodel = @getSiteModel()
+                App.execute "when:fetched", sitemodel, =>
+                    App.execute "show:account:summary:app",
+                        region : App.rightRegion
+                        model : sitemodel
+
+            updateBilling : ->
                 App.execute "show:billing:info:app",
                     region : App.rightRegion
 

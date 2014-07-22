@@ -21,10 +21,28 @@ define(['app', 'text!apps/billing/payment-page/templates/view.html'], function(A
         return this.$el.find('select').selectpicker();
       };
 
+      Layout.prototype.events = {
+        'click #btn-pay': function() {
+          var client, clientToken;
+          clientToken = this.model.get('braintree_client_token');
+          client = new braintree.api.Client({
+            clientToken: clientToken
+          });
+          return client.tokenizeCard({
+            number: "4111111111111111",
+            expirationDate: "10/20"
+          }, (function(_this) {
+            return function(err, nonce) {
+              return console.log(nonce);
+            };
+          })(this));
+        }
+      };
+
       return Layout;
 
     })(Marionette.Layout);
-    View.SelectedPlanView = (function(_super) {
+    return View.SelectedPlanView = (function(_super) {
       __extends(SelectedPlanView, _super);
 
       function SelectedPlanView() {
@@ -36,20 +54,6 @@ define(['app', 'text!apps/billing/payment-page/templates/view.html'], function(A
       SelectedPlanView.prototype.className = 'panel panel-default text-center active';
 
       return SelectedPlanView;
-
-    })(Marionette.ItemView);
-    return View.NoPlanSelectedView = (function(_super) {
-      __extends(NoPlanSelectedView, _super);
-
-      function NoPlanSelectedView() {
-        return NoPlanSelectedView.__super__.constructor.apply(this, arguments);
-      }
-
-      NoPlanSelectedView.prototype.template = '<div class="panel-heading"> <h3>No plan selected</h3> </div> <div class="panel-body"> </div> <ul class="list-group"> </ul>';
-
-      NoPlanSelectedView.prototype.className = 'panel panel-default text-center active';
-
-      return NoPlanSelectedView;
 
     })(Marionette.ItemView);
   });

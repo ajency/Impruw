@@ -11,21 +11,33 @@ define [ 'app', 'controllers/base-controller'
 
                 @layout = @getLayout @siteModel
 
-                console.log @siteModel
-
                 # trigger set:active:menu event
                 App.vent.trigger "set:active:menu", 'billing'
 
                 @listenTo @layout, "show", =>
                     @selectedPlanModel = App.request "get:plan:by:id", @selectedPlanId
-                    App.execute "when:fetched",@selectedPlanModel,=>
+                    App.execute "when:fetched", @selectedPlanModel, =>
                         @layout.selectedPlanRegion.show @selectedPlan @selectedPlanModel
 
-                # show main layout
-                @show @layout,
-                    loading : true
+                @listenTo @layout, "credit:card:payment", @userPayment
 
-            # get layout
+
+                # show main layout
+                @show @layout
+
+            userPayment : ( paymentMethodNonce )->
+                $.ajax
+                    method : 'POST'
+                    url : AJAXURL
+                    data :
+                        'paymentMethodNonce' : paymentMethodNonce
+                        'action' : 'make-payment'
+                    success : (data)->
+                        console.log data
+
+
+
+
             getLayout : ( model ) ->
                 new Payment.View.Layout
                     model : model

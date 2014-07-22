@@ -1,7 +1,7 @@
 var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-define(['app', 'apps/billing/purchase-history/controller', 'apps/billing/billing-info/controller', 'apps/billing/pricing-plans/controller', 'apps/billing/payment-page/controller'], function(App) {
+define(['app', 'apps/billing/account-summary/controller', 'apps/billing/update-billing/controller', 'apps/billing/pricing-plans/controller', 'apps/billing/payment-page/controller'], function(App) {
   return App.module('BillingApp', function(BillingApp, App, Backbone, Marionette, $, _) {
     var API;
     BillingApp.Router = (function(_super) {
@@ -12,11 +12,10 @@ define(['app', 'apps/billing/purchase-history/controller', 'apps/billing/billing
       }
 
       Router.prototype.appRoutes = {
-        'billing': 'purchase',
-        'billing/purchase-history': 'purchase',
-        'billing/billing-info': 'billingInfo',
+        'billing': 'summary',
+        'billing/account-summary': 'summary',
+        'billing/update-billing': 'updateBilling',
         'billing/pricing-plans': 'plans',
-        'billing/payment-page': 'payment',
         'billing/payment-page/:id': 'payment'
       };
 
@@ -29,12 +28,19 @@ define(['app', 'apps/billing/purchase-history/controller', 'apps/billing/billing
         siteProfileModel = App.request("get:site:model");
         return siteProfileModel;
       },
-      purchase: function() {
-        return App.execute("show:purchase:app", {
-          region: App.rightRegion
-        });
+      summary: function() {
+        var sitemodel;
+        sitemodel = this.getSiteModel();
+        return App.execute("when:fetched", sitemodel, (function(_this) {
+          return function() {
+            return App.execute("show:account:summary:app", {
+              region: App.rightRegion,
+              model: sitemodel
+            });
+          };
+        })(this));
       },
-      billingInfo: function() {
+      updateBilling: function() {
         return App.execute("show:billing:info:app", {
           region: App.rightRegion
         });

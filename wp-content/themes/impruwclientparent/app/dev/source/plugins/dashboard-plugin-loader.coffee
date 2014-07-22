@@ -25,5 +25,6 @@ define [
     'minicolors'
     'polyglot'
     'additionalmethod'
+    'braintree'
     'timepicker'
 ], ->

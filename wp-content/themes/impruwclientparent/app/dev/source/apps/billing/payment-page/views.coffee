@@ -16,6 +16,16 @@ define ['app'
                 @$el.find('select').selectpicker()
 
 
+            events :
+                'click #btn-pay':->
+                    clientToken = @model.get 'braintree_client_token'
+                    client = new braintree.api.Client clientToken: clientToken
+                    client.tokenizeCard number: "4111111111111111", expirationDate: "10/20" , (err, nonce)=>
+                        @trigger "credit:card:payment", nonce
+
+
+
+
         class View.SelectedPlanView extends Marionette.ItemView
 
             template : '<div class="panel-heading">
@@ -30,19 +40,6 @@ define ['app'
                                 <li class="list-group-item"><span class="ribbon">Chosen Plan</span></li>
                             </ul>'
 
-            className : 'panel panel-default text-center active'
-
-        class View.NoPlanSelectedView extends Marionette.ItemView
-
-            template : '<div class="panel-heading">
-                                <h3>No plan selected</h3>
-                            </div>
-                            <div class="panel-body">
-
-                            </div>
-                            <ul class="list-group">
-
-                            </ul>'
             className : 'panel panel-default text-center active'
 
 

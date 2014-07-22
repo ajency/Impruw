@@ -18,9 +18,11 @@ function read_site_ajax() {
     $data [ 'statistics_enabled' ] = get_option( 'statistics_enabled' );
     $data [ 'currency' ] = get_option( 'currency','NOK' );
     $data [ 'braintree_plan_id' ] = get_option( 'braintree-plan','hn62' );
-    $data [ 'braintree_id' ] = get_option( 'braintree-id','');
+//    $data [ 'braintree_customer_id' ] = get_option( 'braintree-customer-id','');
     $data [ 'braintree_plan_name' ] = get_option( 'braintree-plan-name','Free' );
     $data [ 'braintree_subscription' ] = get_option( 'braintree-subscription','ImpruwFree' );
+    $data [ 'braintree_client_token' ] = generate_client_token();
+    $data ['subscription_start_date'] = get_option('subscription-start-date',get_site_reg_date($site_id));
     $data [ 'hotel_name' ] = get_option( 'hotel_name','' );
     $data [ 'piwik_path' ] = PIWIK_PATH;
     $data [ 'piwik_token' ] = PIWIK_AUTH_TOKEN;

@@ -1,7 +1,7 @@
 define [ 'app', 'controllers/base-controller'
-         'apps/billing/billing-info/views' ], ( App, AppController )->
-    App.module 'BillingApp.BillingInfo', ( BillingInfo, App, Backbone, Marionette, $, _ )->
-        class BillingInfo.Controller extends AppController
+         'apps/billing/update-billing/views' ], ( App, AppController )->
+    App.module 'BillingApp.UpdateBilling', ( UpdateBilling, App, Backbone, Marionette, $, _ )->
+        class UpdateBilling.Controller extends AppController
 
             # initiliaze controller
             initialize : ( opts )->
@@ -15,7 +15,7 @@ define [ 'app', 'controllers/base-controller'
 
             # get layout
             getLayout : ->
-                new BillingInfo.View.Layout
+                new UpdateBilling.View.Layout
 
         App.commands.setHandler "show:billing:info:app", ( opts ) ->
-            new BillingInfo.Controller opts
+            new UpdateBilling.Controller opts

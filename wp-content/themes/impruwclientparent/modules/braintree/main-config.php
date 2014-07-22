@@ -19,3 +19,10 @@ Braintree_Configuration::privateKey(BT_PRIVATE_KEY);
  * Include all the custom files required for braintree transaction and API calls
  */
 require_once 'plans.php';
+require_once 'subscription.php';
+
+
+function generate_client_token(){
+    $clientToken = Braintree_ClientToken::generate();
+    return $clientToken;
+}

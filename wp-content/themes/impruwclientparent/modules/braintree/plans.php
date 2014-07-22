@@ -22,8 +22,7 @@ function get_all_plans() {
 
         $braintree_plan[ $key ][ 'plan_id' ] = $plan->id;
         $braintree_plan[ $key ][ 'plan_name' ] = $plan->name;
-        $braintree_plan[ $key ][ 'description' ] = $plan->description;
-        $braintree_plan[ $key ][ 'price' ] = $plan->price;
+        $braintree_plan[ $key ][ 'price' ] = round($plan->price);
 
     }
 

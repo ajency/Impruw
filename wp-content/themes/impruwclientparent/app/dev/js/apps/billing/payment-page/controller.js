@@ -14,7 +14,6 @@ define(['app', 'controllers/base-controller', 'apps/billing/payment-page/views']
         this.siteModel = opts.model;
         this.selectedPlanId = opts.planId;
         this.layout = this.getLayout(this.siteModel);
-        console.log(this.siteModel);
         App.vent.trigger("set:active:menu", 'billing');
         this.listenTo(this.layout, "show", (function(_this) {
           return function() {
