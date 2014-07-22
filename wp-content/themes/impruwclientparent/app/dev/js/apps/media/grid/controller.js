@@ -29,6 +29,16 @@ define(['app', 'controllers/base-controller', 'apps/media/grid/views'], function
             return _this.deleteImage(model);
           };
         })(this));
+        this.listenTo(view, "itemview:show:image:editor", (function(_this) {
+          return function(iv, model) {
+            var editView;
+            editView = App.request("get:image:editor:view", model);
+            view.triggerMethod("show:edit:image", editView);
+            return view.listenTo(editView, "image:editing:cancelled", function() {
+              return view.triggerMethod("image:editing:cancelled");
+            });
+          };
+        })(this));
         return this.show(view, {
           loading: true
         });
