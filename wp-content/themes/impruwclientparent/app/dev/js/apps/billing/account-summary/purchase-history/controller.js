@@ -11,16 +11,21 @@ define(['app', 'controllers/base-controller', 'apps/billing/account-summary/purc
       }
 
       Controller.prototype.initialize = function(opts) {
-        this.layout = this.getLayout();
-        this.siteModel = opts.model;
-        App.vent.trigger("set:active:menu", 'billing');
-        return this.show(this.layout, {
-          loading: true
-        });
+        var transaction;
+        transaction = App.request("get:transactions");
+        return App.execute("when:fetched", transaction, (function(_this) {
+          return function() {
+            _this.view = _this.getView(transaction);
+            App.vent.trigger("set:active:menu", 'billing');
+            return _this.show(_this.view);
+          };
+        })(this));
       };
 
-      Controller.prototype.getLayout = function() {
-        return new PurchaseHistory.View.Layout;
+      Controller.prototype.getView = function(transaction) {
+        return new PurchaseHistory.View.Transaction({
+          collection: transaction
+        });
       };
 
       return Controller;

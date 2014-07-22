@@ -1,42 +1,41 @@
 <div class="aj-imp-widget-head row">
     <div class="col-sm-6 left">
-        <h6 class="aj-imp-sub-head">
+        <h6 class="aj-imp-sub-head-thin">
             <small>Active Plan: </small>
             {{plan_name}}
         </h6>
     </div>
     <div class="col-sm-6 right">
-        <h6 class="aj-imp-sub-head">
+        <h6 class="aj-imp-sub-head-thin">
             <small>Active Since: </small>
             {{start_date}}
         </h6>
     </div>
     <div class="col-sm-6 left">
-        <h6 class="aj-imp-sub-head">
+        <h6 class="aj-imp-sub-head-thin">
             <small>Subscription Type: </small>
             {{subscription_type}}
         </h6>
     </div>
     <div class="col-sm-6 right">
-        <h6 class="aj-imp-sub-head">
+        <h6 class="aj-imp-sub-head-thin">
             <small>Payment: </small>
             &#163; {{price}}
         </h6>
     </div>
     <div class="col-sm-12 ">
-        <span class="aj-imp-sub-head">
+        <h6 class="aj-imp-sub-head-thin">
             <small>Current billing cycle: </small>
-        </span>
-        <span>
-            <small>From: </small>
-             {{bill_start}}
-        </span>
-        <span>
-            <small>To: </small>
-            {{bill_end}}
-        </span>
+            <span>
+                <small>From: </small>
+                 {{bill_start}}
+            </span>
+            <span>
+                <small>To: </small>
+                {{bill_end}}
+            </span>
+        </h6>
     </div>
-
 </div>
-<a href="#">Change Plan</a>
-<a href="#">Deactivate Plan</a>
+<a href="#" class="btn btn-xs aj-imp-orange-btn">Change Plan</a>
+<a href="#" class="red-link"><span class="glyphicon glyphicon-ban-circle"></span> Deactivate Plan</a>

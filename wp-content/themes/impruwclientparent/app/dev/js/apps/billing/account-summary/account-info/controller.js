@@ -22,7 +22,6 @@ define(['app', 'controllers/base-controller', 'apps/billing/account-summary/acco
       };
 
       Controller.prototype.getView = function(subscriptionModel) {
-        console.log(subscriptionModel);
         return new AccountInfo.View.AccountInfoView({
           model: subscriptionModel
         });

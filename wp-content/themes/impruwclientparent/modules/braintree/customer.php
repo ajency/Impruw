@@ -42,3 +42,53 @@ function create_customer_with_card( $customer_data ) {
 
 
 }
+
+
+/**
+ * Function to get credit card details of a customer stored in the vault
+ *
+ * @param braintree (int) $customer_id
+ *
+ * @return empty array with key card_exists set to false, if no credit card found.
+ *         if credit card found for user, returns the card details along with key
+ *         card_exists set to true
+ */
+function get_customer_credit_card_details( $customer_id ) {
+
+    //$customer_id = '81538496';
+
+    $customer = Braintree_Customer::find( $customer_id );
+
+    $customer_credit_card_data = customer_credit_card_details( $customer->creditCards );
+
+    $customer_credit_card_data[ 'customer_id' ] = $customer_id;
+
+    return $customer_credit_card_data;
+
+}
+
+/**
+ * Function to check if credit card exists for customer and returns card details
+ *
+ * @param array $credit_cards from braintree
+ *
+ * @return empty array with key card_exists set to false, if no credit card found.
+ *         if credit card found for user, returns the card details along with key
+ *         card_exists set to true
+ */
+function customer_credit_card_details( $credit_cards ) {
+
+    if ( empty( $credit_cards ) )
+        return array( 'card_exists' => false );
+
+    $credit_card_details[ 'customer_name' ] = $credit_cards[ 0 ]->cardholderName;
+    $credit_card_details[ 'card_number' ] = $credit_cards[ 0 ]->maskedNumber;
+    $credit_card_details[ 'expiration_date' ] = $credit_cards[ 0 ]->expirationDate;
+    $credit_card_details[ 'token' ] = $credit_cards[ 0 ]->token;
+    $credit_card_details[ 'card_type' ] = $credit_cards[ 0 ]->cardType;
+    $credit_card_details[ 'card_exists' ] = true;
+
+    return $credit_card_details;
+
+
+}

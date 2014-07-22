@@ -54,6 +54,28 @@ function ajax_read_braintreesubscription() {
 
 add_action( 'wp_ajax_read-braintreesubscription', 'ajax_read_braintreesubscription' );
 
+
+/**
+ * Function to get get trasaction data
+ */
+
+function ajax_read_braintreetransaction() {
+
+    $transaction_id_array = get_transaction_id_for_customer();
+
+    if ( empty( $transaction_id_array ) )
+        wp_send_json( array( 'code' => 'OK', 'data' => array() ) );
+
+    $transaction_details = get_transaction_details( $transaction_id_array );
+
+    $transaction_data = get_plan_details_for_transaction( $transaction_details );
+
+    wp_send_json( array( 'code' => 'OK', 'data' => $transaction_data ) );
+
+}
+
+add_action( 'wp_ajax_fetch-braintreetransaction', 'ajax_read_braintreetransaction' );
+
 /**
  * Function to get credit card details of user
  */
@@ -64,7 +86,7 @@ function ajax_read_creditcard() {
     if ( empty( $customer_id ) ) {
         $credit_card_data = array( 'card_exists' => false );
     } else {
-        $subscription_data = 'helloo';
+        $credit_card_data = get_customer_credit_card_details( $customer_id );
     }
 
     wp_send_json( array( 'code' => 'OK', 'data' => $credit_card_data ) );
@@ -72,7 +94,9 @@ function ajax_read_creditcard() {
 
 add_action( 'wp_ajax_read-creditcard', 'ajax_read_creditcard' );
 
-
+/**
+ * Function to make payment
+ */
 function ajax_make_payment() {
     $selected_plan_id = $_POST[ 'selectedPlanId' ];
     $selected_plan_name = $_POST[ 'selectedPlanName' ];
@@ -90,19 +114,18 @@ function ajax_make_payment() {
         wp_send_json( array( 'code' => 'ERROR', 'msg' => $customer[ 'msg' ] ) );
 
     //update braintree customer id
-    update_option('braintree-customer-id',$customer['customer_id']);
+    update_option( 'braintree-customer-id', $customer[ 'customer_id' ] );
 
     //create subscription in braintree
-
-    $subscription = create_subscription_in_braintree( $customer['credit_card_token'], $selected_plan_id );
+    $subscription = create_subscription_in_braintree( $customer[ 'credit_card_token' ], $selected_plan_id );
     if ( $subscription[ 'code' ] == 'ERROR' )
         wp_send_json( array( 'code' => 'ERROR', 'msg' => $subscription[ 'msg' ] ) );
 
-    update_option('subscription-start-date',$subscription['subscription_start_date']);
-    update_option('braintree-plan',$selected_plan_id);
-    update_option('braintree-plan-name',$selected_plan_name);
-    update_option('braintree-subscription',$subscription['subscription_id']);
-//
+    update_option( 'subscription-start-date', $subscription[ 'subscription_start_date' ] );
+    update_option( 'braintree-plan', $selected_plan_id );
+    update_option( 'braintree-plan-name', $selected_plan_name );
+    update_option( 'braintree-subscription', $subscription[ 'subscription_id' ] );
+
     wp_send_json( array( 'code' => 'OK' ) );
 }
 

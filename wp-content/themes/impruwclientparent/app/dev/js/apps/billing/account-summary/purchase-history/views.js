@@ -3,22 +3,41 @@ var __hasProp = {}.hasOwnProperty,
 
 define(['app', 'text!apps/billing/account-summary/templates/purchaseHistory.html'], function(App, viewTpl) {
   return App.module('BillingApp.PurchaseHistory.View', function(View, App, Backbone, Marionette, $, _) {
-    return View.Layout = (function(_super) {
-      __extends(Layout, _super);
+    var SingleTranscation;
+    SingleTranscation = (function(_super) {
+      __extends(SingleTranscation, _super);
 
-      function Layout() {
-        return Layout.__super__.constructor.apply(this, arguments);
+      function SingleTranscation() {
+        return SingleTranscation.__super__.constructor.apply(this, arguments);
       }
 
-      Layout.prototype.template = viewTpl;
+      SingleTranscation.prototype.template = '<td>{{date}}</td> <td>Neon</td> <td>{{plan_name}}</td> <td>{{description}}</td> <td>&pound; {{amount}}</td>';
 
-      Layout.prototype.onShow = function() {
+      SingleTranscation.prototype.tagName = 'tr';
+
+      return SingleTranscation;
+
+    })(Marionette.ItemView);
+    return View.Transaction = (function(_super) {
+      __extends(Transaction, _super);
+
+      function Transaction() {
+        return Transaction.__super__.constructor.apply(this, arguments);
+      }
+
+      Transaction.prototype.template = viewTpl;
+
+      Transaction.prototype.itemViewContainer = 'tbody';
+
+      Transaction.prototype.itemView = SingleTranscation;
+
+      Transaction.prototype.onShow = function() {
         this.$el.find('input[type="checkbox"]').checkbox();
         return this.$el.find('select').selectpicker();
       };
 
-      return Layout;
+      return Transaction;
 
-    })(Marionette.Layout);
+    })(Marionette.CompositeView);
   });
 });

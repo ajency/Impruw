@@ -208,7 +208,6 @@ function create_additional_tables( $site_id ) {
     $wpdb->query( $query );
 
     // booking table
-    // date range table
     $query = "CREATE TABLE IF NOT EXISTS {$wpdb->prefix}bookings(
 				id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 				room_id INT,
@@ -217,14 +216,12 @@ function create_additional_tables( $site_id ) {
 
     $wpdb->query( $query );
 
-//    // date range table
-//    $query = "CREATE TABLE IF NOT EXISTS {$wpdb->prefix}revisions(
-//				id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-//				page_id INT,
-//				datetime DATETIME,
-//				page_meta_id INT)";
-//
-//    $wpdb->query( $query );
+    // braintree subscription table
+    $query = "CREATE TABLE IF NOT EXISTS {$wpdb->prefix}braintree_transaction(
+				id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+				transaction_id VARCHAR(30)";
+
+    $wpdb->query( $query );
 
     restore_current_blog();
 }

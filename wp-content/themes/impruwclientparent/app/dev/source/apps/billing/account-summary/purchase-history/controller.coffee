@@ -5,20 +5,22 @@ define [ 'app', 'controllers/base-controller'
 
             # initiliaze controller
             initialize : ( opts )->
-                @layout = @getLayout()
+                transaction = App.request "get:transactions"
 
-                @siteModel = opts.model
+                App.execute "when:fetched", transaction, =>
+                    @view = @getView transaction
 
-                # trigger set:active:menu event
-                App.vent.trigger "set:active:menu", 'billing'
+                    # trigger set:active:menu event
+                    App.vent.trigger "set:active:menu", 'billing'
 
-                # show main layout
-                @show @layout,
-                    loading: true
+                    # show main layout
+                    @show @view
+
 
             # get layout
-            getLayout : ->
-                new PurchaseHistory.View.Layout
+            getView : ( transaction ) ->
+                new PurchaseHistory.View.Transaction
+                    collection : transaction
 
         App.commands.setHandler "show:purchase:history", ( opts ) ->
             new PurchaseHistory.Controller opts

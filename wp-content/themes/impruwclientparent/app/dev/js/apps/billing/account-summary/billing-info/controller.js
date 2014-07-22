@@ -11,30 +11,31 @@ define(['app', 'controllers/base-controller', 'apps/billing/account-summary/bill
       }
 
       Controller.prototype.initialize = function(opts) {
-        var brainTreeCustomerId, cardExists, creditCardModel, siteModel;
-        siteModel = opts.model;
-        brainTreeCustomerId = siteModel.get('braintree_customer_id');
+        var brainTreeCustomerId, creditCardModel;
+        brainTreeCustomerId = opts.braintreeCustomerId;
         creditCardModel = App.request("get:card:info", brainTreeCustomerId);
-        cardExists = creditCardModel.get('card_exists');
-        if (cardExists === true) {
-          this.view = this.getView(creditCardModel);
-        } else {
-          this.view = this.getEmptyCardView();
-        }
-        App.vent.trigger("set:active:menu", 'billing');
-        return this.show(this.view, {
-          loading: true
-        });
+        return App.execute("when:fetched", creditCardModel, (function(_this) {
+          return function() {
+            var cardExists;
+            cardExists = creditCardModel.get('card_exists');
+            if (cardExists === true) {
+              _this.view = _this.getView(creditCardModel);
+            } else {
+              _this.view = _this.getEmptyCardView();
+            }
+            App.vent.trigger("set:active:menu", 'billing');
+            return _this.show(_this.view);
+          };
+        })(this));
       };
 
       Controller.prototype.getEmptyCardView = function() {
         return new BillingInfo.View.EmptyBillingInfoView;
       };
 
-      Controller.prototype.getView = function(subscriptionModel) {
+      Controller.prototype.getView = function(creditCardModel) {
         return new BillingInfo.View.BillingInfoView({
-          model: subscriptionModel,
-          activationDate: this.activationDate
+          model: creditCardModel
         });
       };
 

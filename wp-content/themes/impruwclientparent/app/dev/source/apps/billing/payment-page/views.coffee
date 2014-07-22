@@ -22,6 +22,7 @@ define [ 'app'
                 'click #btn-pay' : ->
                     @$el.find( '#pay_loader' ).show()
                     cardNumber = @$el.find( '#card_number' ).val()
+                    nameOnCard = @$el.find( '#card_name' ).val()
                     expMonth = @$el.find( '#exp_month' ).val()
                     expYear = @$el.find( '#exp_year' ).val()
 
@@ -36,7 +37,7 @@ define [ 'app'
                 html = '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">
                         &times;
                         </button>
-                        {{#polyglot}}Payment Processed{{/polyglot}}'
+                        Payment Processed'
                 @$el.find( '#billingsave_status' ).append(html)
 
             onPaymentError : ( errorMsg )->

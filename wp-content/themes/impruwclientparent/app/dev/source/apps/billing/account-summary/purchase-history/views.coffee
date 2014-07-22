@@ -3,9 +3,24 @@ define ['app'
 
     App.module 'BillingApp.PurchaseHistory.View', (View, App, Backbone, Marionette, $, _)->
 
-        class View.Layout extends Marionette.Layout
+        class SingleTranscation extends Marionette.ItemView
+            template : '
+                            <td>{{date}}</td>
+                            <td>Neon</td>
+                            <td>{{plan_name}}</td>
+                            <td>{{description}}</td>
+                            <td>&pound; {{amount}}</td>'
+            tagName : 'tr'
+
+
+
+        class View.Transaction extends Marionette.CompositeView
 
             template: viewTpl
+
+            itemViewContainer : 'tbody'
+
+            itemView : SingleTranscation
 
             onShow: ->
                 @$el.find('input[type="checkbox"]').checkbox()

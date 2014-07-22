@@ -12,13 +12,6 @@ define(['app', 'text!apps/billing/account-summary/templates/billingInfo.html'], 
 
       BillingInfoView.prototype.template = viewTpl;
 
-      BillingInfoView.prototype.serializeData = function() {
-        var data;
-        data = BillingInfoView.__super__.serializeData.call(this);
-        data.active_since = Marionette.getOption(this, 'activationDate');
-        return data;
-      };
-
       return BillingInfoView;
 
     })(Marionette.ItemView);
@@ -29,7 +22,7 @@ define(['app', 'text!apps/billing/account-summary/templates/billingInfo.html'], 
         return EmptyBillingInfoView.__super__.constructor.apply(this, arguments);
       }
 
-      EmptyBillingInfoView.prototype.template = '<div class="aj-imp-widget-head row"> No Billing info available </div>';
+      EmptyBillingInfoView.prototype.template = '<div class="row"> <div class="col-sm-12"> <div class="alert alert-info"> No Billing info available </div> </div> </div>';
 
       return EmptyBillingInfoView;
 

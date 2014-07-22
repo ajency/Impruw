@@ -15,7 +15,7 @@ function getFreeSubscriptionData() {
     $subscription_data[ 'subscription_id' ] = "ImpruwFree";
     $subscription_data[ 'subscription_type' ] = "N/A";
     $subscription_data[ 'plan_name' ] = 'Free';
-    $subscription_start_date['start_date'] = get_option('subscription-start-date');
+    $subscription_start_date[ 'start_date' ] = get_option( 'subscription-start-date' );
     $subscription_data[ 'plan_id' ] = 'hn62';
     $subscription_data[ 'price' ] = '0';
     $subscription_data[ 'bill_start' ] = 'N/A';
@@ -23,4 +23,31 @@ function getFreeSubscriptionData() {
 
     return $subscription_data;
 
+}
+
+function get_transaction_id_for_customer() {
+
+    global $wpdb;
+
+    $table_name = $wpdb->prefix . 'braintree_transaction';
+
+    $sql = "SELECT transaction_id FROM $table_name";
+
+    $bookings = $wpdb->get_results( $sql, ARRAY_A );
+
+    return $bookings;
+}
+
+function get_plan_details_for_transaction( $transaction_details ) {
+
+    foreach ( $transaction_details as $key => $value ) {
+
+        $plan_details = get_plan_by_id( $value[ 'plan_id' ] );
+
+        $transaction[$key] = $value;
+        $transaction[$key]['plan_name'] = $plan_details['plan_name'];
+        $transaction[$key]['description'] = $plan_details['description'];
+
+    }
+    return $transaction;
 }

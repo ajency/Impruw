@@ -30,9 +30,10 @@ define(['app', 'text!apps/billing/payment-page/templates/view.html'], function(A
 
       Layout.prototype.events = {
         'click #btn-pay': function() {
-          var cardNumber, client, clientToken, expMonth, expYear;
+          var cardNumber, client, clientToken, expMonth, expYear, nameOnCard;
           this.$el.find('#pay_loader').show();
           cardNumber = this.$el.find('#card_number').val();
+          nameOnCard = this.$el.find('#card_name').val();
           expMonth = this.$el.find('#exp_month').val();
           expYear = this.$el.find('#exp_year').val();
           clientToken = this.model.get('braintree_client_token');
@@ -55,7 +56,7 @@ define(['app', 'text!apps/billing/payment-page/templates/view.html'], function(A
         var html;
         this.$el.find('#billingsave_status').empty();
         this.$el.find('#pay_loader').hide();
-        html = '<button type="button" class="close" data-dismiss="alert" aria-hidden="true"> &times; </button> {{#polyglot}}Payment Processed{{/polyglot}}';
+        html = '<button type="button" class="close" data-dismiss="alert" aria-hidden="true"> &times; </button> Payment Processed';
         return this.$el.find('#billingsave_status').append(html);
       };
 

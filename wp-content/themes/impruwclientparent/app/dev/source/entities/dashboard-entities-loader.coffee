@@ -13,4 +13,5 @@ define [
     'entities/braintree-plans'
     'entities/braintree-subscription'
     'entities/braintree-credit-card'
+    'entities/braintree-transaction'
 ], ->
