@@ -16,7 +16,6 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
         this.originalId = opts.originalId;
         this.pageModel = App.request("get:page:by:language", this.pageId, this.editLang);
         this.pageElementsCollection = App.request("get:page:elements", this.originalId);
-        console.log(this.pageElementsCollection);
         this.translatedContentView = this._getLanguageView(this.pageModel, this.pageElementsCollection);
         this.listenTo(this.translatedContentView, "translated:page:title:updated", this.updateTranslatedPageTitle);
         this.listenTo(this.translatedContentView, "itemview:page:element:updated", this.updatePageElementContent);

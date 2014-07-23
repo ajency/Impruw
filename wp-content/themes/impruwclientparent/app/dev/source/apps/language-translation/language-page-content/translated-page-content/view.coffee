@@ -14,7 +14,7 @@ define ['app'
                                 <div class="col-sm-10">
                                     <p class="form-control translated-element-content {{TypeOfElementClass}}">{{contentText}}</p>
                                     <button class="btn btn-xs trans-action aj-imp-orange-btn"  id="btn-save-translated-element">
-                                        Save
+                                        {{#polyglot}}Save{{/polyglot}}
                                     </button>
                                 </div>
                             </div>
@@ -79,6 +79,11 @@ define ['app'
 
             events:
                 "click #btn-save-translated-page-title" : "updatePageTitle"
+
+            serializeData: ()->
+                data = super()
+                data.language = _.polyglot.t(data.language)
+                data
 
             itemViewOptions : ->
                 language = Marionette.getOption @, 'language'

@@ -16,7 +16,6 @@ define ['app', 'controllers/base-controller'
                 #get page element collection
 
                 @pageElementsCollection = App.request "get:page:elements" , @originalId
-                console.log @pageElementsCollection
 
                 @translatedContentView = @_getLanguageView @pageModel , @pageElementsCollection
 

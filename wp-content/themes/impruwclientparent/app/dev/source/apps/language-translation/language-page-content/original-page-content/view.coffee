@@ -11,7 +11,7 @@ define ['app'
 
             template : '<div class="col-sm-12">
                             <div class="form-group">
-                                <label class="col-sm-3 control-label" for="">{{element}}</label>
+                                <label class="col-sm-3 control-label" for="">{{element_in_language}}</label>
                                 <div class="col-sm-9 col-sm-offset-3">
                                     <p class="original {{TypeOfElementClass}}" tabindex="1">
                                         {{{originalContent}}}
@@ -30,6 +30,9 @@ define ['app'
                 data.originalContent = ->
                     originalContent = data.content[WPML_DEFAULT_LANG]
                     return originalContent
+                data.element_in_language = ->
+                    element_in_language = _.polyglot.t(data.element)
+                    return element_in_language
                 data
 
 
@@ -40,3 +43,8 @@ define ['app'
             itemView : OriginalPageItemView
 
             itemViewContainer : '#translatable-page-elements'
+
+            serializeData: ()->
+                data = super()
+                data.language = _.polyglot.t(data.language)
+                data
