@@ -42,15 +42,32 @@ define ['jquery', 'underscore', 'jqueryvalidate', 'configs/polyglot'], ($, _)->
           min: $.validator.format(_.polyglot.t("Please enter a value greater than or equal to {0}."))
 
 
+#    $.fn.center = (parent) ->
+#        if parent
+#            parent = @parent()
+#        else
+#            parent = window
+#        @css
+#            position: "fixed"
+#            top: ((($(parent).height() - @outerHeight()) / 2) + $(parent).scrollTop() + "px")
+#            left: ((($(parent).width() - @outerWidth()) / 2) + $(parent).scrollLeft() + "px")
+#        this
+
     $.fn.center = (parent) ->
         if parent
             parent = @parent()
         else
             parent = window
+
         @css
             position: "fixed"
             top: ((($(parent).height() - @outerHeight()) / 2) + $(parent).scrollTop() + "px")
             left: ((($(parent).width() - @outerWidth()) / 2) + $(parent).scrollLeft() + "px")
+
+        $(window).on 'scroll', =>
+            @css
+                top: ((($(parent).height() - @outerHeight()) / 2) + $(parent).scrollTop() + "px")
+
         this
 
     #programatically select elements
