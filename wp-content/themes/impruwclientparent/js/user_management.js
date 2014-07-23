@@ -28,7 +28,7 @@ jQuery(document).ready(function ($) {
 
                 $(".login_loader").hide();
                 $("#login_success").show();
-                $("#login_status").html('<div class="alert alert-success">' +
+                $("#login_status").html('<div class="alert alert-success t-a-c">' +
                     '<button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>' +
                     response.msg + '</div>')
 
@@ -38,7 +38,7 @@ jQuery(document).ready(function ($) {
 
                 $(".login_loader").hide();
                 $("#login_status_div").show()
-                $("#login_status").html('<div class="alert alert-error">' +
+                $("#login_status").html('<div class="alert alert-error t-a-c">' +
                     '<button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>' +
                     response.msg + '</div>')
 

@@ -4008,7 +4008,7 @@ function user_login() {
         } else {
             $blog     = get_active_blog_for_user( $user->ID );
             $blog_url = $blog->siteurl;
-            $response = array( "code" => "OK", 'blog_url' => $blog_url, 'msg' => 'Successful Login' );
+            $response = array( "code" => "OK", 'blog_url' => $blog_url, 'msg' => 'You will be redirected to your dashboard shortly.' );
             wp_send_json( $response );
         }
     } else {
