@@ -494,7 +494,8 @@ and open the template in the editor.
   line-height: 60px;
   color: #555555;
 }
-.social li a:hover {
+.social li a:hover,
+.social li a:focus {
   text-decoration: none !important;
 }
 .social li:hover {
