@@ -11,7 +11,7 @@ define(['app'], function(App) {
         return TranslatedRoomFacilitiesItemView.__super__.constructor.apply(this, arguments);
       }
 
-      TranslatedRoomFacilitiesItemView.prototype.template = '<div class="form-group"> <div class="col-sm-12"> <input type="text" placeholder="{{#polyglot}}Add Translation{{/polyglot}}" id="translated_facility_names" class="form-control" value="{{facilityName}}" data-facility="{{facilityId}}"> </div> </div> ';
+      TranslatedRoomFacilitiesItemView.prototype.template = '<div class="form-group"> <div class="col-sm-12"> <input type="text" placeholder="{{#polyglot}}Add Translation{{/polyglot}}" id="translated_facility_names" class="form-control" value="{{name}}" data-facility="{{term_id}}" data-originalfacility="{{original_term_id}}"> </div> </div> ';
 
       return TranslatedRoomFacilitiesItemView;
 
@@ -44,10 +44,17 @@ define(['app'], function(App) {
         this.$el.find("input").each(function() {
           facilities.push({
             name: $(this).val(),
-            id: $(this).attr("data-facility")
+            id: $(this).attr("data-facility"),
+            translation_of: $(this).attr("data-originalfacility")
           });
         });
         return this.trigger('update:translated:facilities', facilities);
+      };
+
+      TranslatedRoomFacilitiesView.prototype.onFacilityTermsUpdated = function(errorMsg, termId) {
+        this.$el.find('.alert').remove();
+        this.$el.append('<div class="alert alert-success">' + _.polyglot.t(errorMsg) + '</div>');
+        return this.$el.find('.alert').fadeOut(5000);
       };
 
       return TranslatedRoomFacilitiesView;

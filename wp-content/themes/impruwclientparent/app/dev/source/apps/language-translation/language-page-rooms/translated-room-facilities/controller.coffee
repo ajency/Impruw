@@ -7,7 +7,9 @@ define ['app', 'controllers/base-controller'
             # initiliaze controller
             initialize: (opts)->
 
-                {editLang} = (opts) 
+                {editLang} = (opts)
+
+                @editLang = editLang
 
                 #get page collection
                 @translatedFacilityCollection = translatedFacilityCollection = App.request "get:edited:language:facilities", editLang
@@ -25,10 +27,12 @@ define ['app', 'controllers/base-controller'
                     collection: collection
 
             updateTranslatedFacilities: (translatedFacilityTerms)->
-                data = {translatedFacilityTerms: translatedFacilityTerms}
+                data =
+                  translatedFacilityTerms: translatedFacilityTerms
+                  editingLanguage: @editLang
 
                 responseFn = (response)=>
-                    console.log "Success"
+                  @translatedFacilitiesView.triggerMethod "facility:terms:updated" , response.msg, response.data
 
                 # update enabled languages
                 $.post "#{AJAXURL}?action=update-translated-facilities", data, responseFn, 'json'            

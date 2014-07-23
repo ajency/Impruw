@@ -13,6 +13,7 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
       Controller.prototype.initialize = function(opts) {
         var editLang, translatedFacilityCollection;
         editLang = opts.editLang;
+        this.editLang = editLang;
         this.translatedFacilityCollection = translatedFacilityCollection = App.request("get:edited:language:facilities", editLang);
         this.translatedFacilitiesView = this._getTranslatedFacilitiesView(translatedFacilityCollection);
         this.listenTo(this.translatedFacilitiesView, "update:translated:facilities", this.updateTranslatedFacilities);
@@ -30,11 +31,12 @@ define(['app', 'controllers/base-controller', 'apps/language-translation/languag
       Controller.prototype.updateTranslatedFacilities = function(translatedFacilityTerms) {
         var data, responseFn;
         data = {
-          translatedFacilityTerms: translatedFacilityTerms
+          translatedFacilityTerms: translatedFacilityTerms,
+          editingLanguage: this.editLang
         };
         responseFn = (function(_this) {
           return function(response) {
-            return console.log("Success");
+            return _this.translatedFacilitiesView.triggerMethod("facility:terms:updated", response.msg, response.data);
           };
         })(this);
         return $.post("" + AJAXURL + "?action=update-translated-facilities", data, responseFn, 'json');

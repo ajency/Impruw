@@ -6,8 +6,8 @@ define ['app'], (App)->
 
                     template : '<div class="form-group">
 									<div class="col-sm-12">
-										<input type="text" placeholder="{{#polyglot}}Add Translation{{/polyglot}}" id="translated_facility_names" class="form-control" value="{{facilityName}}" data-facility="{{facilityId}}">
-									</div>
+										<input type="text" placeholder="{{#polyglot}}Add Translation{{/polyglot}}" id="translated_facility_names" class="form-control" value="{{name}}" data-facility="{{term_id}}" data-originalfacility="{{original_term_id}}">
+            			</div>
 								</div> '
 
 
@@ -37,6 +37,12 @@ define ['app'], (App)->
                             facilities.push
                               name: $(this).val()
                               id: $(this).attr("data-facility")
+                              translation_of: $(this).attr("data-originalfacility")
                             return
 
                         @trigger 'update:translated:facilities', facilities
+
+                    onFacilityTermsUpdated :(errorMsg,termId) ->
+                      @$el.find('.alert').remove()
+                      @$el.append('<div class="alert alert-success">'+_.polyglot.t(errorMsg)+'</div>')
+                      @$el.find('.alert').fadeOut 5000

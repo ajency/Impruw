@@ -76,51 +76,129 @@ function get_language_based_facilities($language){
     $taxonomy_name = "impruw_room_facility";
     $element_type = 'tax_'.$taxonomy_name;
 
-    remove_all_filters( 'get_term' ); 
-    $terms = get_terms($taxonomy_name,array(
-        'hide_empty' => false
+    $taxonomies = array(
+        $taxonomy_name
+    );
+    $room_facilities = get_terms( $taxonomies, array(
+        'hide_empty' => 0
     ) );
-     
-    if (!is_wp_error( $terms ) ){
 
-        //$facilities_term_array = json_encode($terms);
-         
-         foreach ( $terms as $term ) {
-            $original_term_id = (int)$term->term_id;
+    $room_facilities = json_decode(json_encode($room_facilities),true);
 
-            
-            $translated_id = get_translated_id($original_term_id, $language,$element_type);
-            if($translated_id!=null){
-                $translated_id = get_translated_id($original_term_id, $language,$element_type); 
+    foreach ($room_facilities as $room_facility) {
+        $original_term_id =$room_facility['term_id'];
+        $translated_term_id = icl_object_id($original_term_id, $taxonomy_name, false,$language);
 
-                $translated_term_name = get_translated_term_name($translated_id, $taxonomy_name);
+        if($translated_term_id==null){
+            $new_term_name = $room_facility['name']."-".$language;
+            $translated_term = save_term_translation_wpml($language, $original_term_id, $new_term_name,$taxonomy_name);
 
-                $facilities_term_array[] = array(
-                    'facilityName' => $translated_term_name,
-                    'facilityId' => $translated_id
+            $facilities_term_array[] = array(
+                'original_term_id'=>$original_term_id,
+                'name'=> $translated_term['name'],
+                'term_id' => $translated_term['term_id'],
+                'term_error' => isset($translated_term['term_error']) ? urldecode($translated_term['term_error']) : 'No
+                errors'
+            );
 
-                );
-            }
-            else{
-                $new_translated_id = duplicate_language_term($original_term_id,$taxonomy_name, $language);
+        }
+        else{
+            remove_all_filters( 'get_term' );
+            $translated_term = get_term($translated_term_id, $taxonomy_name);
 
-                $new_translated_term_name = get_translated_term_name($new_translated_id, $taxonomy_name);
-
-                $facilities_term_array[] = array(
-                    'facilityName' => $new_translated_term_name,
-                    'facilityId' => $new_translated_id
-                );
-            }
-           
-         }
+            $facilities_term_array[] = array(
+                'original_term_id'=>$original_term_id,
+                'name'=> $translated_term->name,
+                'term_id' => $translated_term->term_id,
+                'term_error' => isset($translated_term->term_error) ? urldecode($translated_term->term_error) : 'No errors'
+            );
+        }
     }
 
+    return $facilities_term_array;
+
+}
+
+function save_term_translation_wpml($language, $original_term_id, $new_term_name,$taxonomy_name)
+{
+    global $sitepress, $wpdb;
+
+    $original_element   = $original_term_id;
+    $taxonomy           = $taxonomy_name;
+    $language           = $language;
+    $new_name           = $new_term_name;
+
+    $trid = $sitepress->get_element_trid($original_element, 'tax_' . $taxonomy);
+    $translations = $sitepress->get_element_translations($trid, 'tax_' . $taxonomy);
+
+    $_POST['icl_tax_' . $taxonomy . '_language'] = $language;
+    $_POST['icl_trid'] = $trid;
+    $_POST['icl_translation_of'] = $original_element;
+
+    $errors = '';
+
+    $term_args = array(
+        'name'        => $new_name
+    );
+
+    $original_tax = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->term_taxonomy} WHERE taxonomy=%s AND term_taxonomy_id = %d",$taxonomy, $original_element));
+
+    // hierarchy - parents
+    if(is_taxonomy_hierarchical($taxonomy)){
+        // fix hierarchy
+        if($original_tax->parent){
+            $original_parent_translated = icl_object_id($original_tax->parent,$taxonomy, false, $language);
+            if($original_parent_translated){
+                $term_args['parent'] = $original_parent_translated;
+            }
+        }
+
+    }
+
+    if(isset($translations[$language])){
+        $result = wp_update_term($translations[$language]->term_id, $taxonomy, $term_args);
+
+    }
     else{
-        $facilities_term_array =  "get terms fails";
+        $result = wp_insert_term($new_name , $taxonomy, $term_args);
+
     }
 
-     return $facilities_term_array;
+    if(is_wp_error($result)){
+        foreach($result->errors as $ers){
+            $errors .= join('<br />', $ers);
+        }
+        $errors .= '<br />'   ;
+    }
+    else{
 
+        // hiearchy - children
+        if(is_taxonomy_hierarchical($taxonomy)){
+
+            // get children of original
+            $children = $wpdb->get_col($wpdb->prepare("SELECT term_id FROM {$wpdb->term_taxonomy} WHERE taxonomy=%s AND parent=%d",$taxonomy, $original_element));
+
+            if($children) foreach($children as $child){
+                $child_translated = icl_object_id($child, $taxonomy, false, $language);
+                if($child_translated){
+                    $wpdb->update($wpdb->term_taxonomy, array('parent' => $result['term_id']), array('taxonomy' => $taxonomy, 'term_id' => $child_translated));
+                }
+            }
+
+            delete_option($taxonomy . '_children');
+
+        }
+
+        $term = get_term($result['term_id'], $taxonomy);
+    }
+
+    $translated_term = array(
+        "term_id"=> isset($term) ? urldecode($term->term_id) : '',
+        "name" => isset($term) ? urldecode($term->name) : '',
+        "term_error" =>$errors
+    );
+
+    return $translated_term;
 }
 
 
@@ -167,7 +245,7 @@ function duplicate_language_term($original_id, $taxonomy_name, $language){
         $select_trid = $wpdb->get_row( "SELECT trid FROM $tbl_icl_translations WHERE element_id =".$original_id." AND element_type='".$element_type."'");
         $trid = $select_trid->trid;
 
-                        //Now update the term in icl_translation table to associate it to the original term
+        //Now update the term in icl_translation table to associate it to the original term
         $updateQuery = $wpdb->update(
             $tbl_icl_translations, array(
                 'trid' => $trid,

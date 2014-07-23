@@ -82,46 +82,33 @@ add_action( 'wp_ajax_fetch-default-facilities', 'fetch_default_facilities' );
 function update_translated_facilities(){
     //translatedFacilityTerms[0][name], translatedFacilityTerms[0][id]
     $translatedFacilityTerms = $_REQUEST['translatedFacilityTerms'];
+    $editing_language = $_REQUEST['editingLanguage'];
     $updated_term_ids = array();
+    $term_update_errors = array();
     $i = 0;
 
     while($i<sizeof($translatedFacilityTerms)) {
         $facility_name = $translatedFacilityTerms[$i]['name'];
         $facility_id = $translatedFacilityTerms[$i]['id'];
+        $original_facility_id = $translatedFacilityTerms[$i]['translation_of'];
         $taxonomy_name = "impruw_room_facility";
         $element_type = "tax_".$taxonomy_name;
 
+        $translated_term = save_term_translation_wpml($editing_language, $original_facility_id, $facility_name,$taxonomy_name);
 
-        global $wpdb;
-        $tbl_icl_translations  = $wpdb->prefix ."icl_translations";
+        array_push($updated_term_ids,$translated_term['term_id']);
+        array_push($term_update_errors,$translated_term['term_error']);
 
-        $select_trid = $wpdb->get_row( "SELECT * FROM $tbl_icl_translations WHERE element_id =".
-            $facility_id." AND element_type='".$element_type."'");
-        $trid = $select_trid->trid;
-        $language_code = $select_trid->language_code; 
-        $source_language_code =$select_trid->source_language_code;
-
-
-        //Update term
-        $term_id = wp_update_term($facility_id, $taxonomy_name, array(
-                'name' => $facility_name
-            ));
-
-
-        //Now update the term in icl_translation table to associate it to the original term
-        $updateQuery = $wpdb->update(
-            $tbl_icl_translations, array(
-                'trid' => $trid,
-                'language_code' => $language_code ,
-                'source_language_code' => $source_language_code,
-                'element_type' => $element_type
-                ), array( 'element_id' => $facility_id ) );
-
-
-        array_push($updated_term_ids,$term_id); 
         $i++;
-    } 
+    }
 
-    wp_send_json( array( 'code' => 'OK', 'data' => $updated_term_ids ) );
+    if (strlen(implode($term_update_errors)) == 0){
+        $errormsg = "Translation of facilities successfully updated";
+    }
+    else{
+        $errormsg = "Translation of facilities Failed";
+    }
+
+    wp_send_json( array( 'code' => 'OK', 'data' => $updated_term_ids, 'msg' => $errormsg) );
 }
 add_action( 'wp_ajax_update-translated-facilities', 'update_translated_facilities' );
