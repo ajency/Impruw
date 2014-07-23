@@ -103,10 +103,10 @@ function update_translated_facilities(){
     }
 
     if (strlen(implode($term_update_errors)) == 0){
-        $errormsg = "Translation of facilities successfully updated";
+        $errormsg = "Translation successfully updated";
     }
     else{
-        $errormsg = "Translation of facilities Failed";
+        $errormsg = "Translation Failed";
     }
 
     wp_send_json( array( 'code' => 'OK', 'data' => $updated_term_ids, 'msg' => $errormsg) );
