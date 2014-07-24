@@ -15,8 +15,12 @@ define(['app', 'text!apps/media/grid/templates/media.html'], function(App, media
 
       MediaView.prototype.className = 'col-sm-2 single-img';
 
+      MediaView.prototype.modelEvents = {
+        'change': 'render'
+      };
+
       MediaView.prototype.events = {
-        'click a': function(e) {
+        'click a.thumbnail': function(e) {
           e.preventDefault();
           return this._whenImageClicked(e);
         },
@@ -24,6 +28,9 @@ define(['app', 'text!apps/media/grid/templates/media.html'], function(App, media
           if (confirm("Delete image?")) {
             return this.trigger("delete:media:image", this.model);
           }
+        },
+        'click .edit-image': function() {
+          return this.trigger('show:image:editor', this.model);
         }
       };
 
@@ -45,7 +52,7 @@ define(['app', 'text!apps/media/grid/templates/media.html'], function(App, media
 
       GridView.prototype.className = 'row';
 
-      GridView.prototype.template = '<div id="selectable-images"></div>';
+      GridView.prototype.template = '<div id="selectable-images"></div> <div id="edit-image-view"></div>';
 
       GridView.prototype.itemView = MediaView;
 
@@ -73,6 +80,21 @@ define(['app', 'text!apps/media/grid/templates/media.html'], function(App, media
             return _this.$el.find('#selectable-images').selectSelectableElements(imageView.$el);
           };
         })(this));
+      };
+
+      GridView.prototype.onShowEditImage = function(editView) {
+        this.$el.find('#selectable-images').hide();
+        this.$el.find('#edit-image-view').html(editView.render().$el).show();
+        return editView.triggerMethod('show');
+      };
+
+      GridView.prototype.onImageEditingCancelled = function() {
+        var self;
+        self = this;
+        return this.$el.find('#edit-image-view').fadeOut('fast', function() {
+          $(this).empty();
+          return self.$el.find('#selectable-images').show();
+        });
       };
 
       return GridView;

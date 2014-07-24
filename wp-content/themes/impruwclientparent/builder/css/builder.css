@@ -24,6 +24,16 @@ a:focus {
   outline: none;
   color: #ff9833;
 }
+/****Clearfix****/
+.clearfix {
+  *zoom: 1;
+}
+.clearfix:after,
+.clearfix:before {
+  clear: both;
+  content: "";
+  display: table;
+}
 /****Builder Container & Container Structure****/
 .aj-imp-builder {
   font-family: 'Lato', sans-serif;
@@ -1700,7 +1710,7 @@ a:focus {
 }
 .modal .thumbnails .single-img .thumbnail,
 .modal #selectable-images .single-img .thumbnail {
-  margin-bottom: 30px;
+  margin-bottom: 40px;
   border: 2px solid #aaaaaa;
 }
 .modal .thumbnails .single-img .thumbnail .imgthumb,
@@ -1756,23 +1766,40 @@ a:focus {
   display: inline-block;
 }
 .modal .thumbnails .single-img .delete-media-img,
-.modal #selectable-images .single-img .delete-media-img {
-  display: none;
+.modal #selectable-images .single-img .delete-media-img,
+.modal .thumbnails .single-img .edit-image,
+.modal #selectable-images .single-img .edit-image {
   position: absolute;
-  bottom: 10px;
-  color: #ff3333;
+  bottom: 13px;
   cursor: pointer;
   font-size: 0.8em;
+  margin-right: 10px;
+}
+.modal .thumbnails .single-img .delete-media-img.delete-media-img,
+.modal #selectable-images .single-img .delete-media-img.delete-media-img,
+.modal .thumbnails .single-img .edit-image.delete-media-img,
+.modal #selectable-images .single-img .edit-image.delete-media-img {
+  color: #ff3333;
+  left: 60px;
+  visibility: hidden;
+}
+.modal .thumbnails .single-img .delete-media-img.edit-image,
+.modal #selectable-images .single-img .delete-media-img.edit-image,
+.modal .thumbnails .single-img .edit-image.edit-image,
+.modal #selectable-images .single-img .edit-image.edit-image {
+  color: #849fb0;
 }
 .modal .thumbnails .single-img.ui-selected .thumbnail,
 .modal #selectable-images .single-img.ui-selected .thumbnail {
   border-color: #849fb0;
 }
 .modal .thumbnails .single-img.ui-selected .ticker,
-.modal #selectable-images .single-img.ui-selected .ticker,
+.modal #selectable-images .single-img.ui-selected .ticker {
+  display: block;
+}
 .modal .thumbnails .single-img.ui-selected .delete-media-img,
 .modal #selectable-images .single-img.ui-selected .delete-media-img {
-  display: block;
+  visibility: visible;
 }
 .modal #edit-media-region,
 .modal #selected-media-region {
@@ -2749,4 +2776,107 @@ a:focus {
 }
 #choose-template-region .templates li.selected:before {
   content: "\e067";
+}
+/**** Cropping Tool Styles ****/
+#edit-image-view .loading {
+  color: #aaaaaa;
+}
+#edit-image-view .imgedit-wrap {
+  border: 1px solid #dddddd;
+}
+#edit-image-view .imgedit-wrap .imgedit-settings {
+  width: 25%;
+  background: #f3f3f3;
+  padding-left: 10px;
+}
+#edit-image-view .imgedit-wrap .imgedit-settings .imgedit-group {
+  padding: 0 0 0.5em;
+  margin: 0 0.5em 0.5em;
+  border-bottom: 1px solid #dddddd;
+}
+#edit-image-view .imgedit-wrap .imgedit-settings .imgedit-group .imgedit-group-top {
+  margin: 0.5em 0;
+}
+#edit-image-view .imgedit-wrap .imgedit-settings .imgedit-group .imgedit-group-top h3 {
+  font-size: 1.3em;
+  color: #919191;
+  margin: 0 0 0.3em;
+}
+#edit-image-view .imgedit-wrap .imgedit-settings .imgedit-group.imgedit-applyto img {
+  padding: 0.2em;
+  border: 1px solid #c3c3c3;
+  margin-right: 0;
+}
+#edit-image-view .imgedit-wrap .imgedit-settings .imgedit-group:last-child {
+  border-bottom: 0;
+}
+#edit-image-view .imgedit-wrap .imgedit-settings p {
+  font-size: 1em;
+  color: #aaaaaa;
+}
+#edit-image-view .imgedit-wrap .imgedit-settings input {
+  height: 36px;
+  padding: 8px;
+  border: 1px solid #aaaaaa;
+}
+#edit-image-view .imgedit-wrap .imgedit-settings input:focus {
+  border-color: #ff7e00;
+}
+#edit-image-view .imgedit-wrap .imgedit-settings input.button {
+  padding: 8px 13px 9px;
+  border: 0;
+  border-radius: 6px;
+  color: #fff;
+  background: #849fb0;
+}
+#edit-image-view .imgedit-wrap .imgedit-settings input.button:hover,
+#edit-image-view .imgedit-wrap .imgedit-settings input.button:focus {
+  background: #a3b7c4;
+}
+#edit-image-view .imgedit-wrap .imgedit-settings input[type="radio"] {
+  height: auto;
+}
+#edit-image-view .imgedit-wrap .imgedit-panel-content {
+  margin: 1em 0;
+}
+#edit-image-view .imgedit-wrap .imgedit-panel-content .imgedit-menu {
+  *zoom: 1;
+  border-bottom: 1px solid #aaaaaa;
+  padding-bottom: 0.5em;
+}
+#edit-image-view .imgedit-wrap .imgedit-panel-content .imgedit-menu:after,
+#edit-image-view .imgedit-wrap .imgedit-panel-content .imgedit-menu:before {
+  clear: both;
+  content: "";
+  display: table;
+}
+#edit-image-view .imgedit-wrap .imgedit-panel-content .imgedit-crop-wrap {
+  margin: 1em 0;
+}
+#edit-image-view .imgedit-wrap .imgedit-panel-content .imgedit-submit {
+  border-top: 1px solid #aaaaaa;
+  padding-top: 0.5em;
+}
+#edit-image-view .imgedit-wrap .imgedit-panel-content .imgedit-submit input {
+  height: 36px;
+}
+#edit-image-view .imgedit-wrap .imgedit-panel-content .imgedit-submit input.button {
+  padding: 8px 13px 9px;
+  border: 0;
+  border-radius: 6px;
+  color: #fff;
+  background: #c0c0c0;
+  cursor: pointer;
+}
+#edit-image-view .imgedit-wrap .imgedit-panel-content .imgedit-submit input.button.button-primary {
+  background: #ff7e00;
+  margin: 0 0.5em;
+}
+#edit-image-view .imgedit-wrap .imgedit-panel-content .imgedit-submit input.button.button-primary:hover,
+#edit-image-view .imgedit-wrap .imgedit-panel-content .imgedit-submit input.button.button-primary:focus {
+  background: #ff9833;
+}
+#edit-image-view .imgedit-wrap .imgedit-panel-content .imgedit-submit input.button:hover,
+#edit-image-view .imgedit-wrap .imgedit-panel-content .imgedit-submit input.button:focus {
+  background: #a6a6a6;
 }

@@ -192,7 +192,10 @@ function update_footer_json( $footer_json, $autosave = FALSE ) {
  */
 function get_all_menu_pages() {
 
-    $args = array( 'post_type' => 'page', 'posts_per_page' => -1 );
+    $args = array( 'post_type' => 'page',
+                    'posts_per_page' => -1,
+                    'orderby' => 'menu_order',
+                    'order' => 'ASC' );
     $pages = new WP_query( $args );
 
     $p = array();
@@ -214,7 +217,7 @@ function get_all_menu_pages() {
         }
     }
 
-    return array_reverse($p);
+    return $p;
 }
 
 /**
@@ -259,10 +262,12 @@ function create_new_page( $data ) {
 
     //check if post_title is set
     $page_data[ 'post_title' ] = isset( $data[ 'post_title' ] ) ? $data[ 'post_title' ] : '';
+    $page_order =  $data[ 'menu_order' ]+1;
 
     // set the post type to 'page'
     $page_data[ 'post_type' ] = 'page';
     $page_data[ 'post_status' ] = 'publish';
+    $page_data[ 'menu_order' ] =  $page_order;
 
     //let create a new page
     $page_id = wp_insert_post( $page_data, TRUE );

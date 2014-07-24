@@ -291,6 +291,7 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
 
       function Builder() {
         this.elementDropped = __bind(this.elementDropped, this);
+        this._getHelper = __bind(this._getHelper, this);
         return Builder.__super__.constructor.apply(this, arguments);
       }
 
@@ -302,21 +303,34 @@ define(['app', 'text!apps/builder/site-builder/show/templates/maintemplate.html'
           items: '> .element-wrapper',
           connectWith: '.droppable-column,.column',
           start: function(e, ui) {
-            var h, w;
-            w = ui.item.width();
-            h = ui.item.height() > 200 ? 200 : ui.item.height();
-            ui.placeholder.height(h);
             window.dragging = true;
           },
           stop: function(e, ui) {
             window.dragging = false;
           },
+          out: function() {
+            window.dragging = false;
+          },
+          over: function() {
+            window.dragging = true;
+          },
           handle: '.aj-imp-drag-handle',
-          helper: 'clone',
+          helper: this._getHelper,
           opacity: .65,
           tolerance: 'pointer',
-          receive: this.elementDropped
+          receive: this.elementDropped,
+          placeholder: "ui-sortable-placeholder builder-sortable-placeholder"
         });
+      };
+
+      Builder.prototype._getHelper = function(evt, original) {
+        var left;
+        left = $(original).width() / 2;
+        this.$el.find('.droppable-column').sortable("option", "cursorAt", {
+          left: 50,
+          top: 25
+        });
+        return "<div style='width: 100px; top:100px; height: 50px; border: 2px; background-color: pink;'></div>";
       };
 
       Builder.prototype.elementDropped = function(evt, ui) {
