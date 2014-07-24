@@ -1,0 +1,49 @@
+/****Address Element Styles****/
+.address {
+	.padding-top-bot;
+	text-align: left;
+	color: @text-color;
+	li {
+		margin-bottom: 0.5em;
+		span {
+			color: @secondary1;
+			margin-right: 0.5em;
+		}
+	}
+	&.small-address {
+		.info {
+			color: @text-color;
+			font-size: 1em;
+			font-weight: 300;
+		    margin-bottom: 10px;
+		    padding-left: 5px;
+		}
+	}
+	&.top-bar-contact {
+		text-align: right;
+		color: @quarternary1;
+		font-size: 1em;
+		line-height: 2em;
+		padding: 0;
+		margin-top: 2.5em;
+		.clearfix;
+		.info {
+			display: inline-block;
+			margin-left: @large;
+			color: @text-color;
+			.glyphicon {
+				font-size: 1.2em;
+				top: 3px;
+				color: @quarternary1;
+				margin-right: @regular;
+			}
+		}
+		@media(max-width:991px) {
+			text-align: center;
+			border-left: none;
+		}
+	}
+	@media(max-width:991px) {
+		text-align: left;
+	}
+}

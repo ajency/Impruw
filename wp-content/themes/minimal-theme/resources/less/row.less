@@ -1,0 +1,125 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 20 Feb, 2014, 7:45:35 PM
+    Author     : jarr-head
+*/
+.row{
+	background: transparent;
+	> .column {
+		padding: 0;
+	}
+
+	&.top-bar {
+	    border-bottom: 1px solid @quarternary1;
+	    margin-bottom: @large;
+	}
+
+	&.footer-columns {
+		margin-top: @medium;
+		margin-bottom: @medium;
+		padding-top: @large;
+		border-top: 10px solid @primary1 !important;
+		> .column {
+			padding-right: @large;
+			&:last-child {
+				padding-right: 0;
+			}
+			@media(max-width:991px) {
+				margin-bottom: @large !important;
+				border-bottom: 1px solid darken(@tertiary1, 5%);
+			}
+		}
+	}
+	&.menu-bar {
+		padding-bottom: @large;
+		border-bottom: 10px solid @primary1 !important;
+		margin-bottom: @large;
+		@media(max-width:991px) {
+			.logo {
+				text-align: center;
+				margin-bottom: @large;
+				a, img {
+					display: block;
+					text-align: center;
+					margin: auto;
+				}
+			}
+		}
+	}
+	&.footer-bar {
+		margin-top: @medium;
+		margin-bottom: @large;
+		padding: @medium 0;
+		font-size: 0.88em;
+		border-top: 1px solid @quarternary1;
+		> .column {
+			&:last-child {
+				text-align: right;
+				@media(max-width:991px) {
+					text-align: center;
+				}
+			}
+		}
+
+	}
+	&.padded-container {
+		margin-bottom: 3em;
+		> .column {
+			padding-right: @large;
+			&:last-child {
+				padding-right: 0;
+			}
+		}
+		@media(max-width:991px) {
+			margin: 0 0 @large !important;
+			> .column {
+				padding-right: 0;
+			}
+		}
+	}
+	&.shadow-box {
+		background: darken(@tertiary1, 8%);
+		box-shadow: 7px 7px 0 0 darken(@tertiary1, 3%);
+		margin: 0;
+		> .column {
+			padding: @large;
+			img {
+				&:first-child {
+					
+				}
+			}
+		}
+		@media(max-width:991px) {
+			margin-bottom: @large !important;
+		}
+	}
+	&.column-dividers {
+		.column {
+			border-color: rgba(0, 0, 0, 0.2) !important;
+			padding: @regular 15px;
+		}
+		@media(max-width:991px) {
+			margin: 0 !important;
+			.column {
+				border-right: 0 !important;
+				border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+				&:last-child {
+					border-bottom: 0;
+				}
+			}
+		}
+	}
+}
+
+.site-footer {
+	@media(max-width:991px) {
+		text-align: center;
+		.column {
+			margin-bottom: @large;
+		}
+	}
+}
