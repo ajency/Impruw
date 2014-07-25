@@ -730,7 +730,7 @@ a:focus {
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .aj-imp-browser-title {
   font-size: 1.1em;
-  text-align: center;
+  text-align: right;
   margin: 0 0 0.8em;
   color: #808080;
   font-weight: 700;
@@ -761,6 +761,14 @@ a:focus {
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .aj-imp-browser-title .bootstrap-select .dropdown-menu .selected a:focus {
   background: #ff7e00;
+}
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .pages-help {
+  font-size: 0.88em;
+  color: #aaaaaa;
+}
+.aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .pages-help .glyphicon {
+  font-size: 1.4em;
+  top: 3px;
 }
 .aj-imp-builder-area .aj-imp-browser-preview .aj-imp-browser-header .add-new-page {
   background: transparent;
