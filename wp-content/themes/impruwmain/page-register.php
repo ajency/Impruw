@@ -54,7 +54,7 @@ get_header();
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="inputLmail" class="col-sm-3 control-label"><?php echo __('Choose your preferred language', 'impruwmain'); ?></label>
+                    <label for="inputLmail" class="col-sm-3 control-label"><?php echo __('Select your language', 'impruwmain'); ?></label>
 
                     <div class="col-sm-7 col-sm-offset-3 site-lang-sel">
 
