@@ -23,6 +23,7 @@ define [
    'mustache'
    'bootstrapselect'
    'isotope'
+   'lightbox'
    'jpanelmenu'
    'minicolors'
    'polyglot'
